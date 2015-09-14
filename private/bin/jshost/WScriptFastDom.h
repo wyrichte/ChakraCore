@@ -6,7 +6,6 @@
 #pragma once
 
 #include "edgescriptdirect.h"
-#include "wscript.h"
 
 class WScriptFastDom
 {
@@ -127,5 +126,7 @@ private:
     static bool s_enableEditTest;
     static bool s_stdInAtEOF;
     static const int StdInMaxLineLength = 1024 * 1024;
+
+    static HRESULT GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScript, VARIANT* varResult);
 };
 

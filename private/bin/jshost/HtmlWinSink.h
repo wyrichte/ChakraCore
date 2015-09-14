@@ -77,7 +77,6 @@ public:
 
 private:
     IHTMLWindow2* m_pWin;
-    WScriptDispatch* m_pWScriptDispatch;
     DWORD m_dwRef;
 
     LPCONNECTIONPOINT m_pCP;

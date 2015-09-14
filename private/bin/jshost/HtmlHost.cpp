@@ -159,51 +159,12 @@ void DynamictAttachDetachDebugger(UINT cmdId, IDispatch *function)
     }
 }
 
-HRESULT DefineWScriptObject(IActiveScriptDirect* scriptDirectRef, WScriptDispatch** engineSpecificWScriptObject)
-{
-    HRESULT hr = S_OK;
-
-    CComPtr<IActiveScript> scriptRef;
-    IfFailRet(scriptDirectRef->QueryInterface(IID_IActiveScript, (LPVOID*)&scriptRef));
-
-    CComPtr<IDispatch> hostDispatch;
-    IfFailRet(scriptRef->GetScriptDispatch(NULL, &hostDispatch));
-    CComPtr<IDispatchEx> hostDispatchEx;
-    IfFailRet(hostDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&hostDispatchEx));
-
-    DISPID wscriptId = 0;
-    IfFailRet(hostDispatchEx->GetDispID(L"WScript", fdexNameCaseSensitive | fdexNameEnsure, &wscriptId));
-    if (*engineSpecificWScriptObject == NULL)
-    {
-        *engineSpecificWScriptObject = new WScriptDispatch(scriptRef, false, &SetKeepAliveWrapper, &QuitHtmlHost, &DynamictAttachDetachDebugger);
-    }
-
-    DISPPARAMS dp = {0};
-    dp.cArgs = 1;
-    dp.cNamedArgs = 1;
-    DISPID dispIdNamed = DISPID_PROPERTYPUT;
-    dp.rgdispidNamedArgs = &dispIdNamed;
-    dp.rgvarg = (VARIANT*)_alloca(sizeof(VARIANT)*dp.cArgs);
-    dp.rgvarg->vt = VT_DISPATCH;
-    dp.rgvarg->pdispVal = *engineSpecificWScriptObject;
-    IfFailRet(hostDispatchEx->Invoke(wscriptId, IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_PROPERTYPUT, &dp, NULL, NULL, NULL));
-
-    return S_OK;
-}
-
 BOOL __stdcall OnScriptStateChangedCallBack(IActiveScriptDirect* scriptDirectRef, SCRIPTSTATE ss, void** engineSpecificStorage)
 {
+    HRESULT hr = NOERROR;
     if (ss == SCRIPTSTATE_STARTED)
     {
-        DefineWScriptObject(scriptDirectRef, (WScriptDispatch**)engineSpecificStorage);
-    }
-    else if (ss == SCRIPTSTATE_CLOSED)
-    {
-        if (*engineSpecificStorage != nullptr)
-        {
-            (*((WScriptDispatch**)engineSpecificStorage))->Release();
-            *engineSpecificStorage = NULL;
-        }
+        hr = WScriptFastDom::Initialize((IActiveScript*)scriptDirectRef);
     }
     return true;
 }

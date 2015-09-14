@@ -8,7 +8,6 @@
 #include <cor.h>
 #include "DelayLoadLibrary.h"
 #include "JsHostScriptSite.h"
-#include "Wscript.h"
 #include "docobj.h"
 #include <string>
 
@@ -54,7 +53,7 @@ public:
     }
 };
 
-class JsHostActiveScriptSite : IActiveScriptSite, IActiveScriptSiteDebug, IActiveScriptSiteDebugHelper, IJsHostScriptSite, ISCAHost, IHeapEnumHost, IOleCommandTarget, DiagnosticsHelperSite,
+class JsHostActiveScriptSite : IActiveScriptSite, IActiveScriptSiteDebug, IActiveScriptSiteDebugHelper, IJsHostScriptSite, ISCAHost, IHeapEnumHost, IOleCommandTarget, 
     IActiveScriptDirectSite
 {
     PREVENT_COPY(JsHostActiveScriptSite)
@@ -74,7 +73,6 @@ private:
     DWORD byteCodeGenCookie;
     DWORD globalObjectIDispatchExCookie;
     DWORD javascriptDispatchCookie;
-    WScriptDispatch * wscriptDispatch;
     DelayLoadWinRt * m_WinRTLibrary;
     static const DWORD freeOnShutdownCount = 128;
     static DWORD nextFreeOnShutdownSlot;
@@ -171,12 +169,6 @@ public:
     // IOleCommandTarget interfaces
     STDMETHODIMP QueryStatus(const GUID *pguidCmdGroup, ULONG cCmds, OLECMD prgCmds[], OLECMDTEXT *pCmdText);
     STDMETHODIMP Exec(const GUID *pguidCmdGroup, DWORD nCmdID, DWORD nCmdexecopt, VARIANT *pvaIn, VARIANT *pvaOut);
-
-    // DiagnosticsHelperSite
-    virtual HRESULT SetDebugAttachFunc(IDispatch* dispatch) override;
-    virtual HRESULT SetDebugDetachFunc(IDispatch* dispatch) override;
-    virtual HRESULT SetProfilerStartFunc(IDispatch* dispatch) override;
-    virtual HRESULT SetProfilerStopFunc(IDispatch* dispatch) override;
 
     HRESULT GetActiveScript(IActiveScript ** activeScript);
     HRESULT GetActiveScriptDirect(IActiveScriptDirect ** activeScriptDirect);

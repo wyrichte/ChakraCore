@@ -4,7 +4,6 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-#include "Wscript.h"
 #include "WscriptFastDom.h"
 #include "SCA.h"
 #include "mshtmhst.h"
@@ -49,7 +48,6 @@ JsHostActiveScriptSite::JsHostActiveScriptSite()
       byteCodeGenCookie(0),
       globalObjectIDispatchExCookie(0),
       javascriptDispatchCookie(0),
-      wscriptDispatch(NULL),
       m_WinRTLibrary(NULL),
       m_WinRTStringLibrary(NULL),
       m_WinRTTypeResolutionLibrary(NULL),
@@ -94,11 +92,6 @@ JsHostActiveScriptSite::~JsHostActiveScriptSite()
     if (globalObjectIDispatchExCookie)
     {
         git->RevokeInterfaceFromGlobal(globalObjectIDispatchExCookie);
-    }
-
-    if (wscriptDispatch)
-    {
-        wscriptDispatch->Release();
     }
 
     if (m_WinRTLibrary)
@@ -635,34 +628,6 @@ HRESULT JsHostActiveScriptSite::InitializeDebugDocument(LPCWSTR scriptCode, BSTR
 
 LReturn:
     return hr;
-}
-
-HRESULT JsHostActiveScriptSite::SetDebugAttachFunc(IDispatch* dispatch)
-{
-    Assert(FALSE);
-    DispatchDebugAttach(dispatch);
-    return S_OK;
-}
-
-HRESULT JsHostActiveScriptSite::SetDebugDetachFunc(IDispatch* dispatch)
-{
-    Assert(FALSE);
-    DispatchDebugDetach(dispatch);
-    return S_OK;
-}
-
-HRESULT JsHostActiveScriptSite::SetProfilerStartFunc(IDispatch* dispatch)
-{
-    Assert(FALSE);
-    DispatchStartProfiler(dispatch);
-    return S_OK;
-}
-
-HRESULT JsHostActiveScriptSite::SetProfilerStopFunc(IDispatch* dispatch)
-{
-    Assert(FALSE);
-    DispatchStopProfiler(dispatch);
-    return S_OK;
 }
 
 HRESULT JsHostActiveScriptSite::RegisterCrossThreadInterface()
@@ -1609,33 +1574,8 @@ static HRESULT GetActiveScript(IServiceProvider* pspCaller, IActiveScript** acti
 
 STDMETHODIMP JsHostActiveScriptSite::GetItemInfo(LPCOLESTR pstrName, DWORD dwReturnMask, IUnknown **ppiunkItem, ITypeInfo **ppti)
 {
-    HRESULT hr = S_OK;
-
-    if (ppti)
-    {
-        *ppti = NULL;
-    }
-
-    if (wcscmp(pstrName, L"WScript") == 0)
-    {
-        if (!wscriptDispatch)
-        {
-            IActiveScript* activeScript;
-            hr = GetActiveScript(&activeScript);
-            IfFailedReturn(hr);
-            wscriptDispatch = new WScriptDispatch(activeScript, ::GetActiveScript);
-            wscriptDispatch->SetDiagnosticsHelperSite(this);
-            // WScriptDispatch takes its own ref count. Release this one.
-            activeScript->Release();
-        }
-        hr = wscriptDispatch->QueryInterface(IID_IUnknown, (void**)ppiunkItem);
-    }
-    else
-    {
-        hr = TYPE_E_ELEMENTNOTFOUND;
-    }
-
-    return hr;
+    Assert(FALSE);
+    return E_NOTIMPL;
 }
 
 STDMETHODIMP JsHostActiveScriptSite::OnEnterScript()

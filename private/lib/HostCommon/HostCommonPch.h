@@ -56,6 +56,5 @@
 #include "TestHooks.h"
 
 #include "JScript9Interface.h"
-#include "WScript.h"
 
 

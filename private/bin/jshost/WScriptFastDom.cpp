@@ -245,6 +245,71 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
 
     return undefined;
 }
+// LPCWSTR WorkingSetProc = L"var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;";  template <typename T>  
+HRESULT WScriptFastDom::GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScriptDirect, VARIANT* varResult)
+{
+    HRESULT hr = NOERROR;
+    HANDLE hProcess = GetCurrentProcess();
+    PROCESS_MEMORY_COUNTERS_EX memoryCounter;
+    memoryCounter.cb = sizeof(memoryCounter);
+
+    if (!GetProcessMemoryInfo(hProcess, (PROCESS_MEMORY_COUNTERS*)&memoryCounter, sizeof(memoryCounter)))
+    {
+        hr = HRESULT_FROM_WIN32(GetLastError());
+        return hr;
+    }
+
+    IActiveScriptGarbageCollector* gc;
+    if (SUCCEEDED(activeScriptDirect->QueryInterface(IID_IActiveScriptGarbageCollector, (void**)&gc)))
+    {
+        gc->CollectGarbage(SCRIPTGCTYPE_NORMAL);
+        gc->Release();
+    }
+
+    CComPtr<IDispatch> procDispatch;
+    CComPtr<IActiveScriptParseProcedure> procedureParse;
+
+#if _WIN64 || USE_32_OR_64_BIT  
+    hr = activeScriptDirect->QueryInterface(IID_IActiveScriptParseProcedure2_64, (void**)&procedureParse);
+#endif  
+#if !_WIN64 || USE_32_OR_64_BIT  
+    hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptParseProcedure2_32), (void**)&procedureParse);
+#endif  
+    if (SUCCEEDED(hr))
+    {
+        hr = procedureParse->ParseProcedureText(
+            L"var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;",
+            NULL, NULL, NULL, NULL, NULL, (DWORD)(-1), 0, 0, &procDispatch);
+    }
+
+    IfFailedReturn(hr);
+
+    VariantInit(varResult);
+    CComPtr<IDispatchEx> dispEx;
+    EXCEPINFO ei;
+    VARIANT args[5]; // this & other properties       
+    IfFailedReturn(procDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&dispEx));  
+    memset(&ei, 0, sizeof(ei));
+    DISPID dispIdNamed;
+    DISPPARAMS dispParams;
+    dispParams.cNamedArgs = 1;
+    dispIdNamed = DISPID_THIS;
+    dispParams.rgdispidNamedArgs = &dispIdNamed;
+    dispParams.cArgs = 5;
+    dispParams.rgvarg = args;
+    args[0].vt = VT_DISPATCH;
+    args[0].pdispVal = dispEx;
+    args[1].vt = VT_R8;
+    args[1].dblVal = (double)memoryCounter.PrivateUsage;
+    args[2].vt = VT_R8;
+    args[2].dblVal = (double)memoryCounter.PageFaultCount;
+    args[3].vt = VT_R8;
+    args[3].dblVal = (double)memoryCounter.PeakWorkingSetSize;
+    args[4].vt = VT_R8;
+    args[4].dblVal = (double)memoryCounter.WorkingSetSize;
+    hr = dispEx->InvokeEx(0, 0x1, DISPATCH_METHOD | DISPATCH_PROPERTYGET, &dispParams, varResult, &ei, NULL);
+    return hr;
+}
 
 Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var* args)
 {
@@ -258,7 +323,7 @@ Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var* args)
     {
         VARIANT varResult;
         VariantInit(&varResult);
-        if (SUCCEEDED(GetWorkingSetFromActiveScript<IActiveScriptDirect>(activeScriptDirect, &varResult)))
+        if (SUCCEEDED(GetWorkingSetFromActiveScript(activeScriptDirect, &varResult)))
         {
             if (varResult.vt == VT_DISPATCH)
             {

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props"/>
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" /> 
+  <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F2E998AA-FB27-4F65-A6F7-4142BE64294F}</ProjectGuid>
     <RootNamespace>JS</RootNamespace>
@@ -21,7 +21,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>        
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -54,7 +54,6 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TestLargeAddress.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)WScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debuggercontroller.h" />
@@ -64,7 +63,6 @@
     <ClInclude Include="JScript9Interface.h" />
     <ClInclude Include="HostCommonPch.h" />
     <ClInclude Include="TestLargeAddress.h" />
-    <ClInclude Include="Wscript.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dbgcontroller.js">
@@ -83,6 +81,6 @@
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />  
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -141,6 +141,7 @@ public:
 private:
     JsRuntimeHandle m_runtime;
     JsContextRef m_context;
+    static JsValueRef __stdcall EchoCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
 };
 
 class JsrtValueConverter

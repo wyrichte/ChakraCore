@@ -20,6 +20,33 @@ LPCWSTR DebuggerController::s_largeString = L"\"<large string>\"";
 // 200MB, expergen generates huge file sometimes.
 #define MAX_BASELINE_SIZE       (1024*1024*200)
 
+JsValueRef __stdcall ScriptEngineWrapper::EchoCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+{
+    for (unsigned int i = 1; i < argumentCount; i++)
+    {
+        if (i > 1)
+        {
+            wprintf(L" ");
+        }
+        JsValueRef strValue;
+        if (JScript9Interface::JsrtConvertValueToString(arguments[i], &strValue) == JsNoError)
+        {
+            LPCWSTR str = NULL;
+            size_t length;
+            if (JScript9Interface::JsrtStringToPointer(strValue, &str, &length) == JsNoError)
+            {
+                wprintf(L"%s", str);
+            }
+        }
+    }
+
+    wprintf(L"\n");
+
+    JsValueRef undefinedValue;
+    JScript9Interface::JsrtGetUndefinedValue(&undefinedValue);
+    return undefinedValue;
+}
+
 ScriptEngineWrapper::ScriptEngineWrapper()
     : m_runtime(JS_INVALID_RUNTIME_HANDLE), m_context(nullptr)
 {
@@ -36,7 +63,6 @@ ScriptEngineWrapper::ScriptEngineWrapper()
         }
     }
 
-
     if (JScript9Interface::JsrtCreateRuntime(JsRuntimeAttributeDisableBackgroundWork, NULL, &m_runtime) != JsNoError)
     {
         DebuggerController::LogError(L"debugger controller script initialization");
@@ -52,6 +78,7 @@ ScriptEngineWrapper::ScriptEngineWrapper()
         DebuggerController::LogError(L"debugger controller SetCurrentContext");
     }
 
+    // TODO: dependency on jsrt from common? 
     // Install WScript.Echo
     if (FAILED(InstallHostCallback(L"Echo", &EchoCallback, nullptr)))
     {
@@ -888,3 +915,4 @@ void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& str
     _itow_s(debugPropertyAttributes, buf, _countof(buf), 10);
     stringRep += buf;
 }
+
