@@ -894,6 +894,20 @@ var tests = [
             x[10086] = 1;
             assert.areEqual(x[10086], undefined);
         }
+    },
+    {
+        name: '[OS: Bug 4533235] JSON.stringify should ignore symbols (kangax)',
+        body: function() {
+            var object = {foo: Symbol()};
+            var sym = Symbol("a");
+            object[Symbol()] = 1;
+            var array = [Symbol()];
+
+            assert.areEqual('{}', JSON.stringify(object));
+            assert.areEqual('[null]', JSON.stringify(array));
+            assert.areEqual(undefined, JSON.stringify(Symbol()));
+            assert.areEqual(undefined, JSON.stringify(sym));
+        }
     }
 ];
 
