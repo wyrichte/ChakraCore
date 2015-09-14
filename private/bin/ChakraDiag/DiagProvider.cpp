@@ -12,7 +12,7 @@ namespace JsDiag
     RemoteStackFrameEnumerator* DiagProvider::CreateFrameChainBasedEnumerator(DWORD threadId, void* advanceToFrameAddr, IVirtualReader* reader)
     {
         void *frameAddr, *stackAddr, *ip;
-        if (advanceToFrameAddr == NULL)
+        if (advanceToFrameAddr == nullptr)
         {
             // Get info about current frame so that we have EBP to start from and don't miss top frame in case it's the JS code.
             CONTEXT context;
@@ -23,8 +23,8 @@ namespace JsDiag
         {
             // Initialize the enumerator as started from specified frame.
             frameAddr = advanceToFrameAddr;
-            stackAddr = NULL;   // stackAddr is only used for 1st jitted frame, and when we skip frames 1st frame would be something in jscript9/non-jit frame.
-            ip = NULL;
+            stackAddr = nullptr;   // stackAddr is only used for 1st jitted frame, and when we skip frames 1st frame would be something in jscript9/non-jit frame.
+            ip = nullptr;
         }
 
         return new(oomthrow) FrameChainBasedStackFrameEnumerator(frameAddr, stackAddr, ip, reader);

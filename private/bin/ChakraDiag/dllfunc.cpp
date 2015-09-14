@@ -58,7 +58,7 @@ HRESULT Module::GetFileVersion(DWORD* majorVersion, DWORD* minorVersion)
     if(Module::majorVersion == 0 && Module::minorVersion == 0)
     {
         // uninitialized state  - call the system API to get the version info.
-        hr = GetFileVersion(/*processHandle*/ NULL, Module::g_ModuleInstance, majorVersion, minorVersion);
+        hr = GetFileVersion(/*processHandle*/ nullptr, Module::g_ModuleInstance, majorVersion, minorVersion);
 
         Module::majorVersion = *majorVersion;
         Module::minorVersion = *minorVersion;
@@ -80,7 +80,7 @@ HRESULT Module::GetFileVersion(HANDLE process, HINSTANCE module, DWORD* majorVer
     HRESULT hr;
     WCHAR filename[MAX_PATH];
     Assert(module != 0);
-    if(process == NULL)
+    if (process == nullptr)
     {
         if(GetModuleFileNameW(module, filename, _countof(filename)) == 0)
         {

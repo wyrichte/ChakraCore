@@ -6,11 +6,11 @@ namespace JsDiag
         m_reader(reader),
         m_threadContext(threadContext),
         FrameId(0),
-        InstructionPointer(NULL),
-        ReturnAddress(NULL),
-        EffectiveFrameBase(NULL),
-        FrameBase(NULL),
-        StackPointer(NULL)
+        InstructionPointer(nullptr),
+        ReturnAddress(nullptr),
+        EffectiveFrameBase(nullptr),
+        FrameBase(nullptr),
+        StackPointer(nullptr)
     {
     }
 

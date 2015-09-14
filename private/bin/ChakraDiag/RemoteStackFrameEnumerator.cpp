@@ -7,7 +7,7 @@ namespace JsDiag
 // RemoteStackFrameEnumerator.
     bool RemoteStackFrameEnumerator::AdvanceToFrame(const void* advanceToAddr)
     {
-        InternalStackFrame tempFrame(NULL, NULL);
+        InternalStackFrame tempFrame(nullptr, nullptr);
         while (this->Next())
         {
             this->Current(&tempFrame);
@@ -211,14 +211,14 @@ namespace JsDiag
 
     bool FrameChainBasedStackFrameEnumerator::Next()
     {
-        if (m_currentFrame == NULL)
+        if (m_currentFrame == nullptr)
         {
             return false;
         }
-        else if (m_currentFrame->EffectiveFrameBase == NULL)
+        else if (m_currentFrame->EffectiveFrameBase == nullptr)
         {
             // No more frames.
-            m_currentFrame = NULL;
+            m_currentFrame = nullptr;
             return false;
         }
 
@@ -226,9 +226,9 @@ namespace JsDiag
         if (m_currentFrame->FrameId != (ULONG)-1)
         {
             void* newFrameBase = VirtualReader::ReadVirtual<void*>(m_reader, m_currentFrame->EffectiveFrameBase);
-            if (newFrameBase == NULL || newFrameBase <= m_currentFrame->EffectiveFrameBase)
+            if (newFrameBase == nullptr || newFrameBase <= m_currentFrame->EffectiveFrameBase)
             {
-                m_currentFrame = NULL;
+                m_currentFrame = nullptr;
                 return false;
             }
 
@@ -246,7 +246,7 @@ namespace JsDiag
     {
         Assert(frame);
 
-        if (m_currentFrame == NULL)
+        if (m_currentFrame == nullptr)
         {
             DiagException::Throw(E_INVALIDARG, DiagErrorCode::STACKFRAMEENUMERATOR_NO_MORE_FRAME);
         }

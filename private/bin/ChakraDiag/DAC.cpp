@@ -65,7 +65,7 @@ namespace JsDiag
             }
         }
 
-        return NULL;
+        return nullptr;
     }
 
     template <class T>
@@ -577,13 +577,13 @@ namespace JsDiag
         Assert(physicalFrame);
         Assert(parent);
 
-        InlinedFrameLayout* first = NULL;
+        InlinedFrameLayout* first = nullptr;
         if (!physicalFrame->IsInStackCheckCode(entry))
         {
             void *frameBase = physicalFrame->FrameBase;
             first = (InlinedFrameLayout*)(((uint8*)frameBase) - RemoteScriptFunction(reader, parent).GetFrameHeight(entryPoint));
             Assert(first);
-            first = RemoteInlinedFrameLayout(reader, first)->callInfo.Count ? first : NULL;
+            first = RemoteInlinedFrameLayout(reader, first)->callInfo.Count ? first : nullptr;
         }
 
         return first;
@@ -595,13 +595,13 @@ namespace JsDiag
             reinterpret_cast<BYTE*>(const_cast<InlinedFrameLayout*>(this->m_remoteAddr)) +  // start
             sizeof(InlinedFrameLayout) +                                                    // now we point to the start of argv
             this->ToTargetPtr()->callInfo.Count * sizeof(Js::Var));
-        return RemoteInlinedFrameLayout(m_reader, nextAddr)->callInfo.Count ? nextAddr : NULL;
+        return RemoteInlinedFrameLayout(m_reader, nextAddr)->callInfo.Count ? nextAddr : nullptr;
     }
 
     uint32 RemoteScriptFunction::GetFrameHeight(FunctionEntryPointInfo* entryPointInfoAddr)
     {
         FunctionBody* functionBodyAddr = this->GetFunction();
-        Assert(functionBodyAddr != NULL);
+        Assert(functionBodyAddr != nullptr);
 
         RemoteFunctionBody functionBody(m_reader, functionBodyAddr);
         return functionBody.GetFrameHeight(entryPointInfoAddr);
@@ -891,7 +891,7 @@ namespace JsDiag
         //         this->foregroundAllocators && this->foregroundAllocators->emitBufferManager.IsInRange(address);
         // 2) ThreadContext -- scan all scriptContexts in the list and ask them IsNativeCodeAddress.
 
-        // Get nativeCodeGen of ScriptContext (that being NULL is a valid case).
+        // Get nativeCodeGen of ScriptContext (that being nullptr is a valid case).
         if (this->IsNativeAddressCheckMeOnly(address))
         {
             return true;
@@ -983,7 +983,7 @@ namespace JsDiag
 
     FunctionEntryPointInfo* RemoteFunctionBody::GetEntryPointFromNativeAddress(DWORD_PTR codeAddress)
     {
-        FunctionEntryPointInfo* entryPoint = NULL;
+        FunctionEntryPointInfo* entryPoint = nullptr;
 
         this->MapEntryPoints([&entryPoint, &codeAddress, this](int index, FunctionEntryPointInfo* currentEntryPointAddr)
         {
@@ -1004,7 +1004,7 @@ namespace JsDiag
         LoopHeader* loopHeaderAddr = this->GetLoopHeader(loopNum);
         Assert(loopHeaderAddr);
 
-        LoopEntryPointInfo* entryPoint = NULL;
+        LoopEntryPointInfo* entryPoint = nullptr;
         RemoteLoopHeader loopHeader(m_reader, loopHeaderAddr);
         loopHeader.MapEntryPoints([&](int index, LoopEntryPointInfo* currentEntryPointAddr) 
         {

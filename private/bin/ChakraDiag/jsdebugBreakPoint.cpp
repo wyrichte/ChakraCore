@@ -81,11 +81,11 @@ namespace JsDiag
             charcount_t functionEnd = startInDocument + remoteFunctionBody->m_cchLength;
             bool funcContains = startInDocument <= characterOffset && characterOffset < functionEnd;
         
-            if (candidateMatch1.function == NULL
+            if (candidateMatch1.function == nullptr
                 || ((candidateMatch1.statement.begin <= static_cast<int>(startInDocument) || candidateMatch1.statement.end <= static_cast<int>(functionEnd))
                     && characterOffset > startInDocument
                     )
-                || candidateMatch2.function == NULL
+                || candidateMatch2.function == nullptr
                 || (candidateMatch2.statement.begin > static_cast<int>(startInDocument)
                     && characterOffset <= startInDocument
                     )
@@ -97,14 +97,14 @@ namespace JsDiag
             return false;
         });
 
-        if (candidateMatch1.function == NULL && candidateMatch2.function == NULL)
+        if (candidateMatch1.function == nullptr && candidateMatch2.function == nullptr)
         {
             DiagException::Throw(E_JsDEBUG_SOURCE_LOCATION_NOT_FOUND);
         }
 
-        if (candidateMatch1.function == NULL || candidateMatch2.function == NULL)
+        if (candidateMatch1.function == nullptr || candidateMatch2.function == nullptr)
         {
-            breakPointLocation = (candidateMatch1.function == NULL) ? candidateMatch2 : candidateMatch1;
+            breakPointLocation = (candidateMatch1.function == nullptr) ? candidateMatch2 : candidateMatch1;
         }
         else
         {
@@ -164,7 +164,7 @@ namespace JsDiag
                 }
             }
         }
-        Assert(breakPointLocation.function != NULL);
+        Assert(breakPointLocation.function != nullptr);
         this->m_functionBody = breakPointLocation.function;
         this->m_characterOffset = srcInfo.ConvertInternalOffsetToHost(breakPointLocation.statement.begin) + srcInfo->ulCharOffset;
         this->m_characterCount = breakPointLocation.statement.end - breakPointLocation.statement.begin;
@@ -191,7 +191,7 @@ namespace JsDiag
                 this->Disable();
             }
             // indicates deletion
-            m_functionBody = NULL;
+            m_functionBody = nullptr;
             return S_OK;
         });
     }

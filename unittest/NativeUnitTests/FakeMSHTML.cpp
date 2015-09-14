@@ -178,11 +178,11 @@ void FakeMSHTML::SetFailSaveWriteDataStream(BOOL fail)
 {
     mFailSaveWriteDataStream = fail;
 }
-void FakeMSHTML::SetNullGetWriteDataStream(BOOL null)
+void FakeMSHTML::SetNullGetWriteDataStream(BOOL nullstream)
 {
-    mNullGetWriteDataStream = null;
+    mNullGetWriteDataStream = nullstream;
 }
-void FakeMSHTML::SetNullGetReadDataStream(BOOL null)
+void FakeMSHTML::SetNullGetReadDataStream(BOOL nullstream)
 {
-    mNullGetReadDataStream = null;
+    mNullGetReadDataStream = nullstream;
 }

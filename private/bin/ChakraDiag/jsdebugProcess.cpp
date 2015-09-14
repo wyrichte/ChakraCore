@@ -38,7 +38,7 @@ namespace JsDiag
     {
         m_validateDebugMode = validateDebugMode;
         m_debugDataTarget = debugDataTarget;
-        if (testDataTarget != NULL)
+        if (testDataTarget != nullptr)
         {
             m_diagProvider = new(oomthrow) DbgEngDiagProvider(testDataTarget);
         }
@@ -64,7 +64,7 @@ namespace JsDiag
         return JsDebugApiWrapper([=] 
         {
             ThreadContextTLSEntry* threadContextTlsEntry = m_debugClient->GetThreadContextTlsEntry(threadId);
-            if(threadContextTlsEntry == NULL)
+            if (threadContextTlsEntry == nullptr)
             {
                 DiagException::Throw(E_JsDEBUG_UNKNOWN_THREAD);
             }
@@ -73,8 +73,8 @@ namespace JsDiag
             RemoteThreadContext remoteThreadContext(reader, tlsEntry.GetThreadContext());
             RemoteDebugManager debugManager(reader, remoteThreadContext.GetDebugManager());
             ScriptContext* scriptContext = remoteThreadContext.GetScriptContextList();
-            HaltCallback* callback = NULL;
-            while(scriptContext != NULL)
+            HaltCallback* callback = nullptr;
+            while (scriptContext != nullptr)
             {
                 RemoteScriptContext remoteScriptContext(reader, scriptContext);
                 if(remoteScriptContext->isClosed)
@@ -84,11 +84,11 @@ namespace JsDiag
                 }
                 RemoteProbeContainer probeContainer(reader, remoteScriptContext.GetProbeContainer());
                 callback = remoteScriptContext->scriptEngineHaltCallback;
-                Assert(callback != NULL);
+                Assert(callback != nullptr);
                 probeContainer.WriteField(offsetof(ProbeContainer, pAsyncHaltCallback), callback);
                 scriptContext = remoteScriptContext->next;
             }
-            Assert(callback != NULL);
+            Assert(callback != nullptr);
             
             AsyncBreakController* controller = debugManager.GetAsyncBreakController();
             RemoteAsyncBreakController remoteAsyncBreakContoller(reader, controller);

@@ -14,12 +14,12 @@ HRESULT WINAPI GetDumpStreams(
         return E_INVALIDARG;
     }
 
-    if (ppUserStream == NULL)
+    if (ppUserStream == nullptr)
     {
         return E_POINTER;
     }
 
-    *ppUserStream = NULL;
+    *ppUserStream = nullptr;
 
     return JsDiag::JsDebugApiWrapper([=]
     {
@@ -31,7 +31,7 @@ HRESULT WINAPI GetDumpStreams(
 HRESULT WINAPI FreeDumpStreams(
     _In_ PMINIDUMP_USER_STREAM_INFORMATION pUserStream)
 {
-    if (pUserStream == NULL || !JsDiag::ScriptDumpInfo::Is(pUserStream))
+    if (pUserStream == nullptr || !JsDiag::ScriptDumpInfo::Is(pUserStream))
     {
         return E_INVALIDARG;
     }
@@ -67,7 +67,7 @@ namespace JsDiag
     {
         return pUserStream->Type == JavaScriptDataStream
             && pUserStream->BufferSize != 0
-            && pUserStream->Buffer != NULL;
+            && pUserStream->Buffer != nullptr;
     }
 
     //
@@ -110,7 +110,7 @@ namespace JsDiag
 
     MemoryWriteStream::MemoryWriteStream()
     {
-        m_stream.Attach(::SHCreateMemStream(NULL, 0));
+        m_stream.Attach(::SHCreateMemStream(nullptr, 0));
         if (!m_stream)
         {
             DiagException::ThrowOOM();
@@ -134,7 +134,7 @@ namespace JsDiag
             streamLen = uli.LowPart;
 
             // Rewind stream to the beginning
-            CheckHR(m_stream->Seek(li, SEEK_SET, /*plibNewPosition*/NULL));
+            CheckHR(m_stream->Seek(li, SEEK_SET, /*plibNewPosition*/nullptr));
         }
 
         AutoArrayPtr<BYTE> pb = new(oomthrow) BYTE[streamLen];
@@ -179,7 +179,7 @@ namespace JsDiag
         DebugClient debugClient(&diagProvider);
 
         ThreadContext* pThreadContext = debugClient.GetGlobalValue<ThreadContext*>(Globals_ThreadContextList);
-        while (pThreadContext != NULL)
+        while (pThreadContext != nullptr)
         {
             RemoteThreadContext threadContext(debugClient.GetReader(), pThreadContext);
             ULONG threadId = threadContext->GetCurrentThreadId();

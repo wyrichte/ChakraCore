@@ -38,7 +38,7 @@ namespace JsDiag
             }
 
             HANDLE processHandle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, /*inheritHandle*/ false, processId);
-            if(processHandle == NULL)
+            if(processHandle == nullptr)
             {
                 return HRESULT_FROM_WIN32(GetLastError());
             }
@@ -53,7 +53,7 @@ namespace JsDiag
             }
 #endif
             CComPtr<IStackProviderDataTarget> spTestDataTarget;
-            if (pTestDataTarget != NULL)
+            if (pTestDataTarget != nullptr)
             {
                 IfFailRet(pTestDataTarget->QueryInterface(&spTestDataTarget));
             }
@@ -75,6 +75,6 @@ namespace JsDiag
             return E_INVALIDARG;
         }
         // This public API always create a debug mode inspection support
-        return JsDebug::OpenVirtualProcess(NULL, /*validateDebugMode*/ true, processId, runtimeJsBaseAddress, pDataTarget, ppProcess);
+        return JsDebug::OpenVirtualProcess(nullptr, /*validateDebugMode*/ true, processId, runtimeJsBaseAddress, pDataTarget, ppProcess);
     }
 }

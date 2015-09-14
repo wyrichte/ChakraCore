@@ -84,7 +84,7 @@ namespace JsDiag
         // - value
         int ExtensibleBinarySerializer::SerializeNestedLengthAndValueHelper(ISerializable* value, ISerializationStream* stream, SerializationParameters* params)
         {
-            int nestedLength = value->Serialize(NULL, params);
+            int nestedLength = value->Serialize(nullptr, params);
             int length = SerializeLengthHelper(nestedLength, stream, params);
             if (length > 0)
             {

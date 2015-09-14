@@ -16,18 +16,18 @@ HRESULT GetEntryFuncs(wchar_t* szFile, HMODULE *phLib,
 	PDLLGETCLASSOBJECT* pDllGetClassObject, PDLLCANUNLOADNOW* pDllCanUnloadNow)
 {
 	*phLib = LoadLibraryW(szFile);
-	if(*phLib != NULL)
+	if (*phLib != nullptr)
 	{
 		*pDllGetClassObject = (PDLLGETCLASSOBJECT)GetProcAddress(*phLib, "DllGetClassObject");
 		*pDllCanUnloadNow = (PDLLCANUNLOADNOW)GetProcAddress(*phLib, "DllCanUnloadNow");
-		if(NULL != *pDllGetClassObject && NULL != *pDllCanUnloadNow)
+		if (nullptr != *pDllGetClassObject && nullptr != *pDllCanUnloadNow)
 		{
 			return S_OK;
 		}
 		else
 		{
 			FreeLibrary(*phLib);
-			*phLib = NULL;
+			*phLib = nullptr;
 			return S_FALSE;
 		}
 	}
@@ -39,17 +39,15 @@ int __cdecl wmain()
 {
 	wprintf(L"Starting!\n");
 
-
-	HMODULE hLib = NULL;
-	PDLLGETCLASSOBJECT pDllGetClassObject = NULL;
-	PDLLCANUNLOADNOW pDllCanUnloadNow = NULL;
+	HMODULE hLib = nullptr;
+	PDLLGETCLASSOBJECT pDllGetClassObject = nullptr;
+	PDLLCANUNLOADNOW pDllCanUnloadNow = nullptr;
 
 	if(GetEntryFuncs(L"AnimalServer.dll", &hLib, &pDllGetClassObject, &pDllCanUnloadNow) != S_OK)
 	{
 		wprintf(L"ERROR getting entry funcs\n");
 		return 1;
 	}
-
 
 	ComPtr<IClassFactory> spFactory;
 
@@ -61,7 +59,7 @@ int __cdecl wmain()
 		return 1;
 	}
 	ComPtr<IAnimalFactory> spAnimalFactory;
-    spFactory->CreateInstance(NULL, __uuidof(spAnimalFactory), (void**)&spAnimalFactory );
+    spFactory->CreateInstance(nullptr, __uuidof(spAnimalFactory), (void**)&spAnimalFactory );
 
 	ComPtr<IAnimal> spAnimal;
 	spAnimalFactory->Create((IAnimal**)&spAnimal);
@@ -86,5 +84,3 @@ int __cdecl wmain()
     wprintf(L"OuterStruct.Inner.a: %d\n", strct.Inner.a );
 	wprintf(L"Complete!\n");
 }
-
-

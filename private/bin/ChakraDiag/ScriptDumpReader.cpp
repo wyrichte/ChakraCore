@@ -21,7 +21,7 @@ HRESULT WINAPI BeginThreadStackReconstruction(
     _In_ ULONG bufferSize)
 {
     if (streamType != MINIDUMP_STREAM_TYPE::JavaScriptDataStream
-        || miniDumpStreamBuffer == NULL
+        || miniDumpStreamBuffer == nullptr
         || bufferSize == 0)
     {
         return E_INVALIDARG;
@@ -49,12 +49,12 @@ HRESULT WINAPI ReconstructStack(
     _Out_ PSTACK_SYM_FRAME_INFO *ppStackSymFrames,
     _Out_ ULONG *pStackSymFramesFilled)
 {
-    if (g_scriptDumpReader == NULL)
+    if (g_scriptDumpReader == nullptr)
     {
         return E_UNEXPECTED;
     }
 
-    if (ppStackSymFrames == NULL || pStackSymFramesFilled == NULL)
+    if (ppStackSymFrames == nullptr || pStackSymFramesFilled == nullptr)
     {
         return E_POINTER;
     }
@@ -72,7 +72,7 @@ HRESULT WINAPI ReconstructStack(
 HRESULT WINAPI FreeStackSymFrames(
     _In_ PSTACK_SYM_FRAME_INFO pStackSymFrames)
 {
-    if (pStackSymFrames != NULL)
+    if (pStackSymFrames != nullptr)
     {
         delete[] pStackSymFrames;
     }
@@ -95,12 +95,12 @@ HRESULT WINAPI PrivateGetStackThreadId(
     _In_ ULONG index,
     _Out_ ULONG *pSystemThreadId)
 {
-    if (g_scriptDumpReader == NULL)
+    if (g_scriptDumpReader == nullptr)
     {
         return E_UNEXPECTED;
     }
 
-    if (pSystemThreadId == NULL)
+    if (pSystemThreadId == nullptr)
     {
         return E_POINTER;
     }
@@ -120,7 +120,7 @@ namespace JsDiag
         MemoryReadStream stream(miniDumpStreamBuffer, bufferSize);
 
         AutoPtr<WerMessage> message = new(oomthrow) WerMessage();
-        Serializer::Deserialize(&stream, NULL, message);
+        Serializer::Deserialize(&stream, nullptr, message);
 
         // Verify magic cookie
         message->ValidateMagicCookie();
@@ -150,7 +150,7 @@ namespace JsDiag
         }
         else
         {
-            *ppStackSymFrames = NULL;
+            *ppStackSymFrames = nullptr;
             *pStackSymFramesFilled = 0;
         }
     }

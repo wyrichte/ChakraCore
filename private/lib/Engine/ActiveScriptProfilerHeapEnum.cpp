@@ -2446,8 +2446,8 @@ void ActiveScriptProfilerHeapEnum::CloseHeapEnum()
 #ifdef HEAP_ENUMERATION_VALIDATION
 
 ActiveScriptProfilerHeapEnum::VtableMap::VtableMap() :
-    pageAllocator(NULL),
-    arenaAllocator(L"Vtable map", &pageAllocator, Js::Throw::OutOfMemory), m_vtableMapHash(null)
+    pageAllocator(nullptr),
+    arenaAllocator(L"Vtable map", &pageAllocator, Js::Throw::OutOfMemory), m_vtableMapHash(nullptr)
 {
 }
 

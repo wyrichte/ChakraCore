@@ -192,7 +192,7 @@ namespace JsDiag
     {
         typedef HRESULT (STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
         FN_DllGetClassObject proc = (FN_DllGetClassObject)::GetProcAddress(libraryHandle, "DllGetClassObject");
-        if (proc == NULL)
+        if (proc == nullptr)
         {
             DiagException::Throw(HRESULT_FROM_WIN32(::GetLastError()), DiagErrorCode::DIAGHOOK_GETPROC);
         }
@@ -202,7 +202,7 @@ namespace JsDiag
         CheckHR(hr, DiagErrorCode::DIAGHOOK_CREATE);
 
         CComPtr<IDiagHook> diagHook;
-        hr = classFactory->CreateInstance(NULL, __uuidof(IDiagHook), (PVOID*)&diagHook);
+        hr = classFactory->CreateInstance(nullptr, __uuidof(IDiagHook), (PVOID*)&diagHook);
         CheckHR(hr, DiagErrorCode::DIAGHOOK_CREATE);
 
         return diagHook;
@@ -221,7 +221,7 @@ namespace JsDiag
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // AutoLibrary
     AutoLibrary::AutoLibrary(LPCWSTR fileName):
-        Handle(NULL)
+        Handle(nullptr)
     {
         if (fileName)
         {

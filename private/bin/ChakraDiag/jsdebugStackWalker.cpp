@@ -7,7 +7,7 @@
 namespace JsDiag
 {
     JsDebugStackWalker::JsDebugStackWalker():
-        m_previousEffectiveFrameBase(NULL)
+        m_previousEffectiveFrameBase(nullptr)
     {
     }
 
@@ -20,7 +20,7 @@ namespace JsDiag
         m_debugProcess = process;
         CreateComObject(process, &m_inspectionContext);
 
-        m_stackWalker = new(oomthrow) RemoteStackWalker(m_debugProcess->GetDebugClient(), threadId, /*threadContextAddr*/NULL, /*walkInternalFrame*/false, m_debugProcess->DoDebugModeValidation());
+        m_stackWalker = new(oomthrow) RemoteStackWalker(m_debugProcess->GetDebugClient(), threadId, /*threadContextAddr*/nullptr, /*walkInternalFrame*/false, m_debugProcess->DoDebugModeValidation());
     }
 
     //
@@ -34,7 +34,7 @@ namespace JsDiag
     {
         return JsDebugApiWrapper([=]
         {
-            RemoteStackFrame* remoteFrame = NULL;
+            RemoteStackFrame* remoteFrame = nullptr;
 
             if(!m_nextFrame.p)
             {
@@ -73,8 +73,8 @@ namespace JsDiag
                 *ppFrame = remoteFrame;
                 return S_OK;
             }
-            Assert(m_nextFrame == NULL);
-            m_previousEffectiveFrameBase = NULL;
+            Assert(m_nextFrame == nullptr);
+            m_previousEffectiveFrameBase = nullptr;
             return E_JsDEBUG_OUTSIDE_OF_VM;
         });
     }

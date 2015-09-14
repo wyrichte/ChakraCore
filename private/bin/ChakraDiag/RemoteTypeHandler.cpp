@@ -304,7 +304,7 @@ namespace JsDiag
             {
                 if (RemotePropertyRecord(m_reader, descriptor.Id)->GetPropertyId() == propertyId)
                 {
-                    return GetPropertyInfo(NULL, slotIndex, prop);
+                    return GetPropertyInfo(nullptr, slotIndex, prop);
                 }
             }
 
@@ -359,7 +359,7 @@ namespace JsDiag
         PropertyIndex index;
         if (m_typePath.TryLookup(propertyId, pathLength, &index))
         {
-            return GetPropertyInfo(NULL, index, prop);
+            return GetPropertyInfo(nullptr, index, prop);
         }
 
         return false;
@@ -434,7 +434,7 @@ namespace JsDiag
         if (m_propertyMap.TryGetValue(propertyRecord, &descriptor)
             && pThis()->HasProperty(descriptor))
         {
-            return pThis()->GetPropertyInfo((const PropertyRecord*)NULL, descriptor, prop);
+            return pThis()->GetPropertyInfo((const PropertyRecord*)nullptr, descriptor, prop);
         }
 
         return false;
@@ -531,10 +531,10 @@ namespace JsDiag
                 uint getterSlotIndex = descriptor.GetGetterPropertyIndex();
                 uint setterSlotIndex = descriptor.GetSetterPropertyIndex();
 
-                Js::Var getter = (getterSlotIndex != TargetType::NoSlots ? ReadSlot(getterSlotIndex) : NULL);
-                Js::Var setter = (setterSlotIndex != TargetType::NoSlots ? ReadSlot(setterSlotIndex) : NULL);
+                Js::Var getter = (getterSlotIndex != TargetType::NoSlots ? ReadSlot(getterSlotIndex) : nullptr);
+                Js::Var setter = (setterSlotIndex != TargetType::NoSlots ? ReadSlot(setterSlotIndex) : nullptr);
 
-                if (getter != NULL && setter != NULL)
+                if (getter != nullptr && setter != nullptr)
                 {
                     *prop = PROPERTY_INFO(name, getter, setter);
                     return true;
@@ -602,7 +602,7 @@ namespace Js
             // We can read the string directly here because it is finalized when put
             // into the dictionary as a key.  This allows us to get away with making
             // the string comparison here without requiring an InspectionContext
-            AssertMsg(remoteStr1->m_pszValue != NULL, "Expected strings stored as keys to be finalized");
+            AssertMsg(remoteStr1->m_pszValue != nullptr, "Expected strings stored as keys to be finalized");
             CString cstr1 = JsDiag::InspectionContext::ReadStringLen(str2.GetReader(), remoteStr1->m_pszValue, remoteStr1->m_charLength);
             CString cstr2 = JsDiag::InspectionContext::ReadStringLen(str2.GetReader(), str2.GetRemoteAddr()->GetBuffer(), str2->GetLength());
 

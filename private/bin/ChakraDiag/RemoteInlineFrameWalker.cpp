@@ -26,7 +26,7 @@ namespace JsDiag
 
         FunctionEntryPointInfo* entryPointInfoAddr = functionBody.GetEntryPointFromNativeAddress(
             (DWORD_PTR)physicalFrame->InstructionPointer);
-        AssertMsg(entryPointInfoAddr != NULL, "Inlined frame should resolve to the right parent address");
+        AssertMsg(entryPointInfoAddr != nullptr, "Inlined frame should resolve to the right parent address");
 
         if (function.GetFrameHeight(entryPointInfoAddr))   // When we inline, frameHeight != 0.
         {
@@ -57,13 +57,13 @@ namespace JsDiag
             }
         }
 
-        return NULL;
+        return nullptr;
     }
 
     bool RemoteInlineFrameWalker::Next()
     {
         m_currentIndex++;
-        return this->GetCurrentFrame() != NULL;
+        return this->GetCurrentFrame() != nullptr;
     }
 
     void** RemoteInlineFrameWalker::GetCurrentArgvAddress()
@@ -114,7 +114,7 @@ namespace JsDiag
         // Note: this can be called to check whether a frame is available.
         return index >= 0 && index < m_frameCount ? 
             m_frames[index] :
-            NULL;
+            nullptr;
     }
 
 } // namespace JsDiag.

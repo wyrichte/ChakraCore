@@ -27,7 +27,7 @@ namespace JsDiag
 
     void* RemoteAllocator::SnailAllocate(size_t size)
     {
-        Assert(m_headChunk == NULL || m_headChunk->GetFreeBytes() <= size);
+        Assert(m_headChunk == nullptr || m_headChunk->GetFreeBytes() <= size);
 
         size_t chunkSize = max(size, AllocationChunk::DefaultSize);
         //TODO: align allocated Address to Virtual memory allocation granularity
@@ -35,7 +35,7 @@ namespace JsDiag
         HRESULT hr = m_reader->AllocateVirtualMemory(NULL, chunkSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE, &allocatedAddress);
         CheckHR(hr, DiagErrorCode::ALLOCATE_VIRTUAL);
         AllocationChunk* chunk = new(nothrow) AllocationChunk((BYTE*)allocatedAddress, chunkSize, m_headChunk);
-        if(chunk == NULL)
+        if(chunk == nullptr)
         {
             m_reader->FreeVirtualMemory(allocatedAddress, /*size=*/ 0, MEM_RELEASE);
             DiagException::ThrowOOM();
@@ -47,7 +47,7 @@ namespace JsDiag
     void RemoteAllocator::ReleaseAll()
     {
         AllocationChunk* chunk = m_headChunk;
-        while(chunk != NULL)
+        while(chunk != nullptr)
         {
             AllocationChunk* currentChunk = chunk;
             HRESULT hr = m_reader->FreeVirtualMemory((UINT64)currentChunk->GetBaseAddress(), /*size=*/ 0, MEM_RELEASE);
@@ -55,6 +55,6 @@ namespace JsDiag
             chunk = currentChunk->GetNext();
             delete currentChunk;
         }
-        m_headChunk = NULL;
+        m_headChunk = nullptr;
     }
 }

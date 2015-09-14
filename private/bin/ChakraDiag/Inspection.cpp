@@ -89,7 +89,7 @@ namespace JsDiag
         typeId(static_cast<::JavascriptTypeId>(typeId))
     {
         extensionObject = context->IsMshtmlObject(typeId) ?
-            RemoteCustomExternalObject(context->GetReader(), static_cast<const CustomExternalObject*>(instance)).ReadExtensionObject() : NULL;
+            RemoteCustomExternalObject(context->GetReader(), static_cast<const CustomExternalObject*>(instance)).ReadExtensionObject() : nullptr;
     }
 
     void JavascriptProxyWalker::InsertProperties(const DynamicObject* var)
@@ -397,7 +397,7 @@ namespace JsDiag
             DiagException::Throw(E_UNEXPECTED, DiagErrorCode::UI64_TO_STRING);
         }
         *pValue = SysAllocString(valueString);
-        if(*pValue == NULL)
+        if(*pValue == nullptr)
         {
             DiagException::ThrowOOM();
         }
@@ -1168,7 +1168,7 @@ namespace JsDiag
         m_arr = instance;
         m_start = start;
         m_end = min(end, arr->length);
-        m_seg = NULL;
+        m_seg = nullptr;
         m_item = NULL;
 
         // Find start segment
@@ -1232,7 +1232,7 @@ namespace JsDiag
                 }
             }
 
-            m_seg = NULL; // DONE
+            m_seg = nullptr; // DONE
             m_item = NULL;
         }
 
@@ -1267,7 +1267,7 @@ namespace JsDiag
             m_items[i] = indexPropertyMap.Item(i);
         }
 
-        qsort_s(m_items.GetData(), m_items.GetCount(), sizeof(EntryType), CompareEntry, NULL);
+        qsort_s(m_items.GetData(), m_items.GetCount(), sizeof(EntryType), CompareEntry, nullptr);
 
         // Find start/end index. CONSIDER: binary search
         uint i = 0;
@@ -1530,7 +1530,7 @@ namespace JsDiag
 
     void FakeObjectProperty::Init(InspectionContext* context, const CString& displayName, LPCWSTR displayType, RecyclableObject* prototype, _In_opt_ IJsDebugPropertyInternal* parent)
     {
-        __super::Init(context, PROPERTY_INFO(displayName, (Js::Var)NULL), parent);
+        __super::Init(context, PROPERTY_INFO(displayName, (Js::Var)nullptr), parent);
         __super::SetTypeString(displayType);
         m_prototype = prototype;
     }
@@ -1557,18 +1557,18 @@ namespace JsDiag
     void FakeObjectWalker::Init(InspectionContext* context, FakeObjectProperty* fakeObject)
     {
         m_fakeObject = fakeObject;
-        __super::Init(context, NULL, fakeObject);
+        __super::Init(context, nullptr, fakeObject);
     }
 
     RecyclableObject* FakeObjectWalker::GetPrototype(const DynamicObject* var) const
     {
-        Assert(var == NULL);
+        Assert(var == nullptr);
         return m_fakeObject->GetPrototype();
     }
 
     void FakeObjectWalker::InsertProperties(const DynamicObject* var)
     {
-        Assert(var == NULL);
+        Assert(var == nullptr);
         const CAtlArray<PROPERTY_INFO>& properties = m_fakeObject->GetProperties();
 
         // Although owner FakeObject already does book keeping of all its properties, we still need to
@@ -1664,7 +1664,7 @@ namespace JsDiag
         Js::JavascriptMap::MapDataNode* node = remoteMap->list.first;
         ULONG index = 0;
 
-        while (node != NULL)
+        while (node != nullptr)
         {
             RemoteData<const Js::JavascriptMap::MapDataNode> remoteNode(m_context->GetReader(), node);
 
@@ -1687,7 +1687,7 @@ namespace JsDiag
         Js::JavascriptSet::SetDataNode* node = remoteSet->list.first;
         UINT index = 0;
 
-        while (node != NULL)
+        while (node != nullptr)
         {
             RemoteData<const Js::JavascriptSet::SetDataNode> remoteNode(m_context->GetReader(), node);
 
@@ -1711,7 +1711,7 @@ namespace JsDiag
         {
             const Js::JavascriptWeakMap::WeakMapKeyMap* keyMap = GetWeakMapKeyMapFromKey(key);
 
-            if (keyMap != NULL)
+            if (keyMap != nullptr)
             {
                 RemoteDictionary<Js::JavascriptWeakMap::WeakMapKeyMap> remoteWeakMap(m_context->GetReader(), keyMap);
                 Js::Var value;
@@ -1742,14 +1742,14 @@ namespace JsDiag
         AutoPtr<ITypeHandler> typeHandler = m_context->CreateTypeHandler(key);
 
         PROPERTY_INFO prop;
-        if (typeHandler != NULL &&
+        if (typeHandler != nullptr &&
             typeHandler->GetInternalProperty(m_context->GetInternalPropertyRecord(InternalPropertyIds::WeakMapKeyMap), &prop))
         {
             Assert(prop.type == PROPERTY_INFO::DATA_PROPERTY);
             return static_cast<const Js::JavascriptWeakMap::WeakMapKeyMap*>(prop.data);
         }
 
-        return NULL;
+        return nullptr;
     }
 
     void WeakSetWalker::InsertProperties(const Js::JavascriptWeakSet* weakSet)
@@ -1849,7 +1849,7 @@ namespace JsDiag
     bool InspectionContext::ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual)
     {
         IRemoteStringFactory* fac = GetRemoteStringFactory(s);
-        if (fac != NULL)
+        if (fac != nullptr)
         {
             fac->Read(this, s, buf, bufLen, actual);
             return true;
@@ -1945,7 +1945,7 @@ namespace JsDiag
 
     bool InspectionContext::CheckObject(Js::Var var)
     {
-        return m_opStack.Find(var) != NULL;
+        return m_opStack.Find(var) != nullptr;
     }
 
     InspectionContext::AutoOpStackObject::AutoOpStackObject(InspectionContext* context, Js::Var var):
@@ -2026,7 +2026,7 @@ namespace JsDiag
             return fac->Create(this, typeHandler.GetRemoteAddr(), var);
         }
 
-        return NULL; // Failed to identify remote type handler
+        return nullptr; // Failed to identify remote type handler
     }
 
     //
@@ -2108,7 +2108,7 @@ namespace JsDiag
         _In_opt_ IJsDebugPropertyInternal* parent,
         _Out_ IJsDebugPropertyInternal** ppDebugProperty)
     {
-        AssertMsg(info.data, "Got a NULL Var?");
+        AssertMsg(info.data, "Got a nullptr Var?");
         Js::TypeId typeId = GetTypeId(info.data);
 
         switch (typeId)
@@ -2450,7 +2450,7 @@ namespace JsDiag
         typedef HRESULT (STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
 
         FN_DllGetClassObject proc = (FN_DllGetClassObject)::GetProcAddress(hModule, "DllGetClassObject");
-        if (proc == NULL)
+        if (proc == nullptr)
         {
             return HRESULT_FROM_WIN32(::GetLastError());
         }
@@ -2459,7 +2459,7 @@ namespace JsDiag
         HRESULT hr = proc(clsid, IID_PPV_ARGS(&classFactory));
         if (SUCCEEDED(hr))
         {
-            hr = classFactory->CreateInstance(NULL, riid, ppUnk);
+            hr = classFactory->CreateInstance(nullptr, riid, ppUnk);
         }
 
         return hr;

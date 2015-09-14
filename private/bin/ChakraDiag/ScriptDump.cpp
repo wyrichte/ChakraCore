@@ -6,12 +6,21 @@
 
 namespace JsDiag
 {
-    WerFrame::WerFrame():
-        FrameBase(NULL), ReturnAddress(NULL), InstructionPointer(NULL), StackPointer(NULL), IsInlineFrame(false),
-        Uri(NULL), FunctionName(NULL), Row(0), Col(0) {}
+    WerFrame::WerFrame() :
+        FrameBase(NULL),
+        ReturnAddress(NULL),
+        InstructionPointer(NULL),
+        StackPointer(NULL),
+        IsInlineFrame(false),
+        Uri(nullptr),
+        FunctionName(nullptr),
+        Row(0),
+        Col(0)
+    {
+    }
 
     WerFrame::~WerFrame()
-    { 
+    {
         // Use free() to release string memory. These were allocated by strdup() or malloc().
         free((void*)this->Uri);
         free((void*)this->FunctionName);
@@ -77,7 +86,7 @@ namespace JsDiag
         return 0;
     }
 
-    WerStack::WerStack(ULONG threadId /*= 0*/, ULONG frameCount /*= 0*/, WerFrame* frames /*= NULL*/):
+    WerStack::WerStack(ULONG threadId /*= 0*/, ULONG frameCount /*= 0*/, WerFrame* frames /*= nullptr*/):
         ThreadId(threadId),
         FrameCount(frameCount),
         Frames(frames) // Take ownsership
@@ -95,7 +104,7 @@ namespace JsDiag
         this->Frames = stack.Frames; // Take ownership
 
         stack.FrameCount = 0;
-        stack.Frames = NULL;
+        stack.Frames = nullptr;
 
         return *this;
     }
@@ -122,7 +131,7 @@ namespace JsDiag
         return 0;
     }
 
-    WerMessage::WerMessage(ULONG stackCount /*= 0*/, WerStack* stacks /*= NULL*/):
+    WerMessage::WerMessage(ULONG stackCount /*= 0*/, WerStack* stacks /*= nullptr*/):
         MagicCookie(0),
         Version(0),
         StackCount(stackCount),

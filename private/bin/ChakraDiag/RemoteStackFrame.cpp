@@ -6,9 +6,18 @@
 
 namespace JsDiag
 {
-    RemoteStackFrame::RemoteStackFrame() : m_effectiveFrameBase(NULL), m_returnAddress(NULL), 
-        m_isInlineFrame(false), m_frameEnd(NULL), m_frameStart(NULL), m_loopNumber(LoopHeader::NoLoop), m_frameId(0),
-        m_diagFrame(NULL), m_functionAddr(NULL), m_argvAddr(NULL), m_callInfo(0) 
+    RemoteStackFrame::RemoteStackFrame() :
+        m_effectiveFrameBase(nullptr),
+        m_returnAddress(nullptr),
+        m_frameEnd(nullptr),
+        m_frameStart(nullptr),
+        m_functionAddr(nullptr),
+        m_argvAddr(nullptr),
+        m_callInfo(0),
+        m_isInlineFrame(false),
+        m_loopNumber(LoopHeader::NoLoop),
+        m_frameId(0),
+        m_diagFrame(nullptr)
     {
     }
 
@@ -47,7 +56,7 @@ namespace JsDiag
         {
             static const wchar_t loop[] = L"Loop";
             size_t len = wcslen(buf);
-            if (len + /*length of largest int32*/ 10 + _countof(loop) + /*NULL*/ 1 <= _countof(buf))
+            if (len + /*length of largest int32*/ 10 + _countof(loop) + /*nullptr*/ 1 <= _countof(buf))
             {
                 swprintf_s(buf + len, _countof(buf) - len, L"Loop%d", m_loopNumber + 1);
             }
@@ -119,12 +128,12 @@ namespace JsDiag
     {
         if(pStart)
         {
-            Assert(m_frameStart != NULL);
+            Assert(m_frameStart != nullptr);
            *pStart = (UINT64)m_frameStart;
         }
         if(pEnd)
         {
-            Assert(m_frameEnd != NULL);
+            Assert(m_frameEnd != nullptr);
             *pEnd = (UINT64)m_frameEnd;
         }
         return S_OK;
@@ -272,7 +281,7 @@ namespace JsDiag
     // The instance is owned by RemoteStackFrame, so do not call destructor outside.
     RemoteDiagFrame* RemoteStackFrame::GetTempDiagFrame()
     {
-        if (m_diagFrame == NULL)
+        if (m_diagFrame == nullptr)
         {
             m_diagFrame = this->CreateDiagFrame();
         }

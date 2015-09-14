@@ -20,25 +20,33 @@ namespace JsDiag
 
 // TODO: for WER a ctor which takes CONTEXT* makes more sense.
 RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, ThreadContext* threadContextAddr, bool walkInternalFrame, bool doDebugModeValidation) :
-    m_scriptEntryExitRecord(NULL), 
-    m_interpreterFrame(NULL), m_prevInterpreterFrame(NULL), m_frameEnumerator(NULL), m_currentFrame(NULL),
-    m_inlineWalker(NULL), m_scriptExitFrameAddr(NULL),
-    m_threadId(threadId), m_scriptEntryFrameBase(NULL),
-    m_scriptEntryReturnAddress(NULL), m_currentJavascriptFrameIndex(0),
-    m_isJavascriptFrame(false), m_walkInternalFrame(walkInternalFrame), m_checkedFirstInterpreterFrame(false)
+    m_frameEnumerator(nullptr),
+    m_threadId(threadId),
+    m_currentJavascriptFrameIndex(0),
+    m_scriptEntryExitRecord(nullptr),
+    m_prevInterpreterFrame(nullptr),
+    m_interpreterFrame(nullptr),
+    m_currentFrame(nullptr),
+    m_inlineWalker(nullptr),
+    m_scriptExitFrameAddr(nullptr),
+    m_scriptEntryFrameBase(nullptr),
+    m_scriptEntryReturnAddress(nullptr),
+    m_isJavascriptFrame(false),
+    m_walkInternalFrame(walkInternalFrame),
+    m_checkedFirstInterpreterFrame(false)
 {
     // Set up the Debug Client.
     Assert(debugClient);
     m_debugClient = debugClient;
 
-    CreateComObject(static_cast<RemoteScriptContext*>(NULL), &m_scriptContext); // Initialize m_scriptContext to NULL.
+    CreateComObject(static_cast<RemoteScriptContext*>(nullptr), &m_scriptContext); // Initialize m_scriptContext to nullptr.
 
     m_reader = m_debugClient->GetReader();
 
-    if (threadContextAddr == NULL)
+    if (threadContextAddr == nullptr)
     {
         ThreadContextTLSEntry* threadContextTlsEntry = m_debugClient->GetThreadContextTlsEntry(threadId);
-        if(threadContextTlsEntry == NULL)
+        if(threadContextTlsEntry == nullptr)
         {
             DiagException::Throw(E_JsDEBUG_UNKNOWN_THREAD);
         }
@@ -64,13 +72,13 @@ RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, T
 
         // If we are outside the script, grab the frame from which we left script.
         // Otherwise, just start from top of stack (do nothing, that's the default for the enumerator).
-        if (frameAddrOfScriptExitFunction != NULL)
+        if (frameAddrOfScriptExitFunction != nullptr)
         {
             this->SetScriptContext(m_scriptEntryExitRecord->ToTargetPtr()->scriptContext);
         }
        
         // Make sure that we have initial ScriptContext set.
-        if (m_scriptContext->Get() == NULL)
+        if (m_scriptContext->Get() == nullptr)
         {
             // Get top one from ThreadContext::ScriptContext list.
             this->SetScriptContext(threadContext->scriptContextList);
@@ -84,7 +92,7 @@ RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, T
 
             m_prevInterpreterFrame = threadContext->leafInterpreterFrame ?
                 new(oomthrow) RemoteInterpreterStackFrame(m_reader, threadContext->leafInterpreterFrame) :
-                NULL;
+                nullptr;
 
             // If the script context is not in debug mode - the public API
             // is supposed to return with an error
@@ -136,7 +144,7 @@ bool RemoteStackWalker::WalkToTarget(Js::JavascriptFunction* funcTargetRemoteAdd
 
 void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame)
 {
-    if (m_currentFrame == NULL)
+    if (m_currentFrame == nullptr)
     {
         // Either WalkToNextJavascriptFrame() wasn't called OR no more frames available.
         DiagException::Throw(E_UNEXPECTED, DiagErrorCode::STACKFRAMEENUMERATOR_NO_MORE_FRAME);
@@ -178,7 +186,7 @@ void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame
         // TODO: consider moving these into constructor.
         frame->SetInterpreterFrame(m_interpreterFrame.Detach()); // WARNING: This detaches and passes ownership of interpreterFrame
         frame->SetByteCodeOffset(byteCodeOffset);
-        frame->SetIsInlineFrame(m_inlineWalker != NULL);
+        frame->SetIsInlineFrame(m_inlineWalker != nullptr);
         frame->SetLoopBodyNumber(loopNumber);
         frame->SetFrameId(this->m_currentJavascriptFrameIndex);
 
@@ -190,18 +198,18 @@ void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame
 // Returns false when there are no more frames available.
 bool RemoteStackWalker::WalkOneFrame()
 {
-    m_interpreterFrame = NULL;
+    m_interpreterFrame = nullptr;
     if (m_lastInternalFrame.IsFrameConsumed())
     {
         m_lastInternalFrame.Reset();
     }
-    
+
     if (m_inlineWalker)
     {
         bool isNextInlineFrameAvailable = m_inlineWalker->Next();
         if (!isNextInlineFrameAvailable)
         {
-            m_inlineWalker = NULL;
+            m_inlineWalker = nullptr;
             // Next frame now is the native frame we had when inline walk was initiated.
         }
 
@@ -210,7 +218,7 @@ bool RemoteStackWalker::WalkOneFrame()
 
     if (m_frameEnumerator && m_frameEnumerator->Next())
     {
-        bool isFirstFrame = m_currentFrame == NULL;
+        bool isFirstFrame = m_currentFrame == nullptr;
         m_currentFrame = new(oomthrow) InternalStackFrame(m_reader, m_scriptContext->Get()->ToTargetPtr()->threadContext);
         m_frameEnumerator->Current(m_currentFrame);
 
@@ -258,7 +266,7 @@ bool RemoteStackWalker::WalkOneFrame()
 
     InternalStackFrame* oldValue = m_currentFrame.Detach();
     delete oldValue;
-    Assert(m_currentFrame == NULL);
+    Assert(m_currentFrame == nullptr);
     return false;
 }
 
@@ -306,7 +314,7 @@ void RemoteStackWalker::UpdateFrame()
         }
         else
         {
-            Assert(m_interpreterFrame == NULL || m_interpreterFrame->ToTargetPtr()->function == functionAddr);
+            Assert(m_interpreterFrame == nullptr || m_interpreterFrame->ToTargetPtr()->function == functionAddr);
         }
 
         if (functionAddr)
@@ -320,7 +328,7 @@ void RemoteStackWalker::UpdateFrame()
 bool RemoteStackWalker::CheckJavascriptFrame()
 {
     void* ip = m_currentFrame->InstructionPointer;
-    if(ip == NULL || m_debugClient->IsJsModuleAddress(ip))
+    if(ip == nullptr || m_debugClient->IsJsModuleAddress(ip))
     {
         return false;
     }
@@ -344,7 +352,7 @@ bool RemoteStackWalker::CheckJavascriptFrame()
         Js::InterpreterStackFrame* interpreterFrame = m_interpreterFrame->ToTargetPtr()->previousInterpreterFrame;
         m_prevInterpreterFrame = interpreterFrame ?
             new(oomthrow) RemoteInterpreterStackFrame(m_reader, interpreterFrame) :
-            NULL;
+            nullptr;
 
         if (m_interpreterFrame->IsCurrentLoopNativeAddr(m_lastInternalFrame.GetFrameAddress()))
         {
@@ -368,7 +376,7 @@ bool RemoteStackWalker::CheckJavascriptFrame()
             // There could be nested internal frames in the case of try...catch..finally
             // let's not set the last internal frame address if it has already been set.
             // Note: this is for just native frames (it doesn't have to be interpreter frame owning internal EH frame).
-            if (m_lastInternalFrame.GetFrameAddress() == NULL)
+            if (m_lastInternalFrame.GetFrameAddress() == nullptr)
             {
                 m_lastInternalFrame.SetFrame(ip, InternalFrameType::IFT_EHFrame);
             }
@@ -386,13 +394,13 @@ bool RemoteStackWalker::CheckJavascriptFrame()
         // Current frame is native; if there was internal EH frame, we should keep it for e.g. GetByteCodeOffset,
         // so the line/col number corresponds to the internal frame where the IP actually is.
         // Mark it as consumed, as it's valid only within context of current native frame.
-        if (m_lastInternalFrame.GetFrameAddress() != NULL)
+        if (m_lastInternalFrame.GetFrameAddress() != nullptr)
         {
             AssertMsg(m_lastInternalFrame.GetFrameType() == InternalFrameType::IFT_EHFrame, "Got unexpected internal frame!");
             m_lastInternalFrame.SetIsFrameConsumed();
         }
 
-        AssertMsg(!m_inlineWalker, "When we get here, m_inlineWalker must be NULL!");
+        AssertMsg(!m_inlineWalker, "When we get here, m_inlineWalker must be nullptr!");
         m_inlineWalker = RemoteInlineFrameWalker::FromPhysicalFrame(m_reader, m_currentFrame, 
             reinterpret_cast<ScriptFunction *>(this->GetCurrentFunction()));
         if (m_inlineWalker)
@@ -415,7 +423,7 @@ uint32 RemoteStackWalker::GetByteCodeOffset(uint* loopNumber)
 {
     if (this->IsJavascriptFrame())
     {
-        if (m_interpreterFrame && m_lastInternalFrame.GetFrameAddress() == NULL) // Pure interpreter frame (no loop body).
+        if (m_interpreterFrame && m_lastInternalFrame.GetFrameAddress() == nullptr) // Pure interpreter frame (no loop body).
         {
             RemoteByteCodeReader reader(m_reader, m_interpreterFrame->GetReader());
             uint32 offset = reader.GetCurrentOffset();
@@ -483,7 +491,7 @@ uint32 RemoteStackWalker::GetByteCodeOffset(uint* loopNumber)
             RemoteJavascriptFunction function(m_reader, functionAddr);
             FunctionBody* inlinee = m_inlineWalker ? 
                 RemoteJavascriptFunction(m_reader, m_inlineWalker->GetCurrentFunction()).GetFunction() :
-                NULL;
+                nullptr;
             AssertMsg(!m_interpreterFrame || m_lastInternalFrame.GetFrameAddress(), "Interpreter frame must be jit loop body here.");
             // Note: inlining is disabled in jit loop body. Don't attempt to get the statement map from the inlined frame for jit loop body. 
 
@@ -567,13 +575,13 @@ void RemoteStackWalker::GetCodeAddrAndLoopNumberFromCurrentFrame(DWORD_PTR* pCod
 bool RemoteStackWalker::IsInterpreterFrame(void* instructionPointer)
 {
     return
-        m_prevInterpreterFrame != NULL &&
+        m_prevInterpreterFrame != nullptr &&
         instructionPointer == m_prevInterpreterFrame->ToTargetPtr()->returnAddress;
 }
 
 bool RemoteStackWalker::IsNativeFrame(void* instructionPointer)
 {
-    return (m_scriptContext->Get() != NULL ? m_scriptContext->Get()->IsNativeAddress(instructionPointer) : false);
+    return (m_scriptContext->Get() != nullptr ? m_scriptContext->Get()->IsNativeAddress(instructionPointer) : false);
 }
 
 bool RemoteStackWalker::IsJavascriptFrame()
@@ -644,7 +652,7 @@ Js::Var RemoteStackWalker::GetPermanentArguments(const InspectionContext* contex
 //
 // Advance enumerator and m_currentFrame to specific frame below.
 // If we can't find it, leave the enumerator at last frame and m_currentFrame unchanged.
-// Returns stack pointer of frame that was advanced to. NULL if the frame was not found.
+// Returns stack pointer of frame that was advanced to. null if the frame was not found.
 //
 void* RemoteStackWalker::AdvanceToFrame(const void* advanceToAddr)
 {
@@ -667,7 +675,7 @@ void* RemoteStackWalker::AdvanceToFrame(const void* advanceToAddr)
         return m_currentFrame->EffectiveFrameBase;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 void** RemoteStackWalker::GetCurrentArgvAddress(bool includeInlineFrames /* = true */)
@@ -716,7 +724,7 @@ Js::CallInfo RemoteStackWalker::GetCurrentCallInfo(bool includeInlineFrames /* =
 
 void RemoteStackWalker::SetScriptContext(const Js::ScriptContext* newScriptContextAddr)
 {
-    // Note: even if newScriptContextAddr is NULL, we still wrap it with CComPtr<CComObject> for consistency.
+    // Note: even if newScriptContextAddr is null, we still wrap it with CComPtr<CComObject> for consistency.
     RefCounted<RemoteScriptContext> scriptContext;
     this->GetRefCountedRemoteScriptContext(newScriptContextAddr, &scriptContext);
     m_scriptContext = scriptContext;
@@ -724,7 +732,7 @@ void RemoteStackWalker::SetScriptContext(const Js::ScriptContext* newScriptConte
 
 void RemoteStackWalker::SetScriptEntryExitRecord(const Js::ScriptEntryExitRecord* newRecord)
 {
-    m_scriptEntryExitRecord = newRecord ? new(oomthrow) RemoteScriptEntryExitRecord(m_reader, newRecord) : NULL;
+    m_scriptEntryExitRecord = newRecord ? new(oomthrow) RemoteScriptEntryExitRecord(m_reader, newRecord) : nullptr;
 }
 
 void* RemoteStackWalker::GetCurrentScriptExitFrameBase()
@@ -783,20 +791,22 @@ void RemoteStackWalker::DumpFrame()
 // InternalFrameTracker
 
 RemoteStackWalker::InternalFrameTracker::InternalFrameTracker() :
-    m_state(InternalFrameState::IFS_NoFrame), m_frameAddress(NULL), m_frameType(InternalFrameType::IFT_None)
+    m_state(InternalFrameState::IFS_NoFrame),
+    m_frameAddress(nullptr),
+    m_frameType(InternalFrameType::IFT_None)
 {
 }
 
 void RemoteStackWalker::InternalFrameTracker::Reset()
 {
     this->SetState(InternalFrameState::IFS_NoFrame);
-    m_frameAddress = NULL;
+    m_frameAddress = nullptr;
     m_frameType = InternalFrameType::IFT_None;
 }
 
 void RemoteStackWalker::InternalFrameTracker::SetFrame(void* frameAddr, InternalFrameType frameType)
 {
-    AssertMsg(m_frameAddress == NULL || m_frameAddress == frameAddr, "It is not valid to redefine internal frame.");
+    AssertMsg(m_frameAddress == nullptr || m_frameAddress == frameAddr, "It is not valid to redefine internal frame.");
     Assert(m_frameType == InternalFrameType::IFT_None || m_frameType == frameType);
 
     this->SetState(InternalFrameState::IFS_FrameDetected);
