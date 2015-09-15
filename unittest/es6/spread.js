@@ -71,22 +71,34 @@ var tests = [
   {
     name: "Testing array literals with gaps",
     body: function () {
-      assert.areEqual([...[1, , 3]], [1,,3]);
-      assert.areEqual([...[...[,,1,,2,3],...[1,2,3], 3]], [,,1,,2,3,1,2,3,3]);
+      assert.areEqual([1, undefined, 3], [...[1,,3]], "Spreading missing values gives undefined in the new array elements");
+      assert.areEqual([undefined, undefined, 1, undefined, 2, 3, 1, 2, 3, 3], [...[...[,,1,,2,3], ...[1, 2, 3], 3]], "Spreading missing values gives undefined in the new array elements");
     }
   },
   {
     name: "Testing call spread args with gaps",
     body: function () {
-      helpers.writeln(...[1, , 3]);
-      helpers.writeln(...[1,,,...[,2]]);
+        function spreadValid1(a, b, c, d) {
+            assert.areEqual(1,         a, "Spreading call arguments with array gaps: a is 1");
+            assert.areEqual(undefined, b, "Spreading call arguments with array gaps: b is undefined");
+            assert.areEqual(3,         c, "Spreading call arguments with array gaps: c is 3");
+            assert.areEqual(undefined, d, "Spreading call arguments with array gaps: d is undefined");
+        }
+        spreadValid1(...[1, , 3,]);
+        
+        function spreadValid2(e, f, g, h) {
+            assert.areEqual(4,         e, "Spreading nested call arguments with array gaps: e is 4");
+            assert.areEqual(undefined, f, "Spreading nested call arguments with array gaps: f is undefined");
+            assert.areEqual(undefined, g, "Spreading nested call arguments with array gaps: g is undefined");
+            assert.areEqual(8,         h, "Spreading nested call arguments with array gaps: h is 8");
+        }
+        spreadValid2(...[4, , ...[, 8]]);
     }
   },
   {
     name: "Testing spread with string literals",
     body: function () {
-      helpers.writeln(..."string");
-      helpers.writeln([..."string"]);
+      assert.areEqual(["s", "t", "r", "i", "n", "g"], [..."string"], "Spreading a string creates a character array of the string");
     }
   },
   {
@@ -241,4 +253,4 @@ var tests = [
   }
 ];
 
-testRunner.runTests(tests);
+testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

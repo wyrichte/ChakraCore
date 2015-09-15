@@ -642,8 +642,7 @@
   <test>
     <default>
       <files>spread.js</files>
-      <baseline>spread.baseline</baseline>
-      <compile-flags> -ES6Spread -ES6StringTemplate</compile-flags>
+      <compile-flags> -ES6Spread -ES6StringTemplate -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
