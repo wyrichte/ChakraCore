@@ -561,6 +561,17 @@ after`;
             assert.isTrue(eval("GetRawStringValue`\\\u2029${0}`") === "\\\u2029", "String template raw literal doesn't normalize escaped <PS> line continuation token"); // `\<PS>`.raw => '\<PS>'
         }
     },
+    {
+        name: "Bug fix : 4532336 String Template should trigger ToString on the substitution expression",
+        body: function() {
+		    var a = {
+				toString: function (){ return "foo";},
+				valueOf: function() { return "bar";}
+			};
+			
+			assert.areEqual(`${a}`, "foo", "toString should be called instead of valueOf on the substitution expression");
+		}
+	},
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
