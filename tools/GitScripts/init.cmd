@@ -127,6 +127,7 @@ if not exist "%PYTHON_PATH%" (
 )
 
 set PATH=%PATH%;%PYTHON_PATH%
+set PATH=%PATH%;%PYTHON_PATH%\scripts
 
 REM ============================================
 REM Run initialization script from developer directory if one exists

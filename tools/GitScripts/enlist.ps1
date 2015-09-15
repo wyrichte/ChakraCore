@@ -26,7 +26,7 @@ if ($installTools) {
         $pythonInstallConfig += " DefaultAllUsersTargetDir=`"$pythonInstallPath`""
     }
 
-    $pythonInstaller = "\\chakrafs01\RepoTools\dep\python-installer.exe"
+    $pythonInstaller = "\\chakrafs01\RepoTools\dep\python_installer.exe"
 
     $gitCommand = Get-Command "git.exe" -ErrorAction SilentlyContinue
     if ($gitCommand -eq $null) {
@@ -52,6 +52,14 @@ if ($installTools) {
         Write-Host "Python found- skipping install"
     }
 
+    if ($pythonInstallPath -ne $null) {
+        if ((Test-Path (Join-Path $pythonInstallPath "python.exe")) -and
+            (Test-Path (Join-Path $pythonInstallPath "Scripts"))) {
+                $env:Path += ";$pythonInstallPath"
+                $env:Path += ";$(Join-Path $pythonInstallPath `"Scripts`")"
+            }
+    }
+
     Write-Host "Configuring python"
     $result = ((iex "pip list") | Select-String gitpython)
 
@@ -60,6 +68,15 @@ if ($installTools) {
         Start-Process -FilePath "pip" -ArgumentList "install gitpython" -Wait -NoNewWindow
     } else {
         Write-Host "gitpython found"
+    }
+
+    $result = ((iex "pip list") | Select-String plumbum)
+
+    if ($result -eq $null) {
+        Write-Host "plumbum not installed- installing"
+        Start-Process -FilePath "pip" -ArgumentList "install plumbum" -Wait -NoNewWindow
+    } else {
+        Write-Host "plumbum found"
     }
 } else {
     $cmd = Get-Command "git.exe" -ErrorAction SilentlyContinue

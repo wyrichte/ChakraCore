@@ -33,7 +33,10 @@ this.Utils = {};
     };
 
     this.GetChakraToolRoot = function(shell) {
-        return shell.getEnv("SDXROOT") + "\\inetcore\\jscript\\tools\\ChakraTool";
+        var scriptPath = WScript.ScriptFullName;
+        var tokens = scriptPath.split("\\");
+        tokens[tokens.length - 1] = '';
+        return tokens.join("\\");
     }
 
     this.CreateEnum = function (obj, flagBased) {
