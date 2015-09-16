@@ -17,6 +17,7 @@ Build/swum-cache.txt
 core/
 .untrackedPathsMap.ini
 unittest/*/*.baseline.rebase
+unittest/*/profile.dpl.*
 .*.swp
 sd.ini
 *.vcxproj.user
