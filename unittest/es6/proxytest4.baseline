@@ -129,6 +129,7 @@ preventExtensions trap
 isExtensible trap
 set trap nonExtObj
 getOwnPropertyDescriptor trap nonExtObj
+getOwnPropertyDescriptor trap nonExtObj
 defineProperty trap nonExtObj
 get trap nonExtObj on object receiver object
 PASSED
@@ -203,6 +204,7 @@ call trap2
 PASSED
 *** Running test #42 (18): construct
 construct trap
+get trap prototype on function receiver function
 target func
 PASSED
 *** Running test #43 (19): construct with argument
@@ -213,6 +215,7 @@ construct trap
 PASSED
 *** Running test #45 (21): new on builtin
 construct trap
+get trap prototype on function receiver function
 get trap prototype on function receiver function
 PASSED
 *** Running test #46 (22): new return undefined

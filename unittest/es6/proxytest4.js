@@ -108,10 +108,10 @@ var tests = [
         name: "object.keys return undefined",
         body: function () {
             cleanupBeforeTestStarts();
-            handler.trapOwnKeys = function() {
+            handler.trapOwnKeys = function () {
                 return undefined;
             }
-            assert.throws(function(){var newKey = Object.keys(observerProxy)}, TypeError);
+            assert.throws(function () { var newKey = Object.keys(observerProxy) }, TypeError);
             assert.areEqual(savedLogResult.length, 1, "keys");
         }
     },
@@ -181,7 +181,7 @@ var tests = [
                 count++;
             }
             assert.areEqual(inCount, count, "enumerate all")
-            assert.areEqual(savedLogResult.length, 2*count + 2, "enumerate + getPrototypeOf + n*has");
+            assert.areEqual(savedLogResult.length, 2 * count + 2, "enumerate + getPrototypeOf + n*has");
         }
     },
     {
@@ -220,7 +220,7 @@ var tests = [
                     count++;
                 }
             }
-            handler.trapEnumerate = function () { return null;}
+            handler.trapEnumerate = function () { return null; }
             assert.throws(test, TypeError, "", "");
             assert.areEqual(inCount, count, "enumerate all");
         }
@@ -282,7 +282,13 @@ var tests = [
         body: function () {
             cleanupBeforeTestStarts();
             var newProxy = new observerProxy();
-            assert.areEqual(savedLogResult.length, 1, "trap construct");
+            /* Reflect scenario passes newTarget to the construct method which causes an additional prototype check. But we don't have a way to simulate this
+            in proxy case. So adding special case according to the test mode*/
+            if (testPassStyle === 'Reflect') {
+                assert.areEqual(savedLogResult.length, 2, "trap construct");
+            } else {
+                assert.areEqual(savedLogResult.length, 1, "trap construct");
+            }
         }
     },
     {
@@ -308,7 +314,7 @@ var tests = [
         body: function () {
             cleanupBeforeTestStarts();
             var myProxy = new Proxy(Math.abs, handler);
-            assert.throws(function () { new myProxy()}, TypeError);
+            assert.throws(function () { new myProxy() }, TypeError);
             assert.areEqual(savedLogResult.length, 1, "trap non-constructable");
         }
     },
@@ -318,14 +324,14 @@ var tests = [
             cleanupBeforeTestStarts();
             var myProxy = new Proxy(Object, handler);
             var newObj = new myProxy();
-            
+
             if (testPassStyle === 'Reflect') {
-                assert.areEqual(savedLogResult.length, 2, "When calling Reflect.construct with an object as new.target, we will perform a get of 'prototype' on the func");
-            } 
+                assert.areEqual(savedLogResult.length, 3, "When calling Reflect.construct with an object as new.target, we will perform a get of 'prototype' on the func");
+            }
             else {
                 assert.areEqual(savedLogResult.length, 1, "trap builtin");
             }
-            
+
             assert.areEqual(newObj instanceof Object, true, "isObject");
         }
     },

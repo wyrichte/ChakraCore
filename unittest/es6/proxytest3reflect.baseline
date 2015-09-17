@@ -1,6 +1,7 @@
 *** Running test #1 (0): basic set test
 set trap test1
 getOwnPropertyDescriptor trap test1
+getOwnPropertyDescriptor trap test1
 defineProperty trap test1
 PASSED
 *** Running test #2 (1): set argument shape
@@ -13,12 +14,14 @@ PASSED
 *** Running test #4 (3): set in eval
 set trap testEval
 getOwnPropertyDescriptor trap testEval
+getOwnPropertyDescriptor trap testEval
 defineProperty trap testEval
 PASSED
 *** Running test #5 (4): set in with
 get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.testWith
 set trap testWith
+getOwnPropertyDescriptor trap testWith
 getOwnPropertyDescriptor trap testWith
 defineProperty trap testWith
 PASSED
@@ -33,6 +36,7 @@ defineProperty trap 1
 PASSED
 *** Running test #8 (7): set element i #2
 set trap test5
+getOwnPropertyDescriptor trap test5
 getOwnPropertyDescriptor trap test5
 defineProperty trap test5
 PASSED
@@ -66,8 +70,10 @@ PASSED
 *** Running test #17 (16): set on proxy in forin of i
 set trap a
 getOwnPropertyDescriptor trap a
+getOwnPropertyDescriptor trap a
 defineProperty trap a
 set trap b
+getOwnPropertyDescriptor trap b
 getOwnPropertyDescriptor trap b
 defineProperty trap b
 PASSED

@@ -26,10 +26,11 @@ var tests = [
             cleanupBeforeTestStarts();
             observerProxy.test1 = 20;
             assert.areEqual(target.test1, 20, "set trap forward");
-            assert.areEqual(savedLogResult.length, 3, "one trp on set and nested traps from reflect");
+            assert.areEqual(savedLogResult.length, 4, "one trp on set and nested traps from reflect");
             assert.areEqual(savedLogResult[0], "set trap test1")
             assert.areEqual(savedLogResult[1], "getOwnPropertyDescriptor trap test1")
-            assert.areEqual(savedLogResult[2], "defineProperty trap test1")
+            assert.areEqual(savedLogResult[2], "getOwnPropertyDescriptor trap test1")
+            assert.areEqual(savedLogResult[3], "defineProperty trap test1")
         }
     },
     {
@@ -66,10 +67,11 @@ var tests = [
             cleanupBeforeTestStarts();
             eval("observerProxy.testEval = 22");
             assert.areEqual(target.testEval, 22, "set trap forward");
-            assert.areEqual(savedLogResult.length, 3, "one traps on set inside eval");
+            assert.areEqual(savedLogResult.length, 4, "one traps on set inside eval");
             assert.areEqual(savedLogResult[0], "set trap testEval")
             assert.areEqual(savedLogResult[1], "getOwnPropertyDescriptor trap testEval")
-            assert.areEqual(savedLogResult[2], "defineProperty trap testEval")
+            assert.areEqual(savedLogResult[2], "getOwnPropertyDescriptor trap testEval")
+            assert.areEqual(savedLogResult[3], "defineProperty trap testEval")
         }
     },
     {
@@ -81,7 +83,7 @@ var tests = [
                 testWith = 20;
             }
             assert.areEqual(target.testWith, 20, "set trap forward");
-            assert.areEqual(5, savedLogResult.length, "two traps on set inside with");
+            assert.areEqual(6, savedLogResult.length, "two traps on set inside with");
             assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]);
             assert.areEqual("has trap function.testWith", savedLogResult[1]);
             assert.areEqual("set trap testWith", savedLogResult[2]);
@@ -124,7 +126,7 @@ var tests = [
             target['test5'] = 22;
             observerProxy['test5'] = 12;
             assert.areEqual(target['test5'], 12, "set trap forward");
-            assert.areEqual(savedLogResult.length, 3, "one trap on set and two on nested trap");
+            assert.areEqual(savedLogResult.length, 4, "one trap on set and two on nested trap");
             assert.areEqual(savedLogResult[0], "set trap test5");
         }
     },
@@ -144,7 +146,7 @@ var tests = [
             cleanupBeforeTestStarts();
             Object.defineProperty(target, "readOnly", { value: 6, configurable: false, writable: false });
             handler.trapSet = function (obj, key, value, receiver) {
-                    return true;
+                return true;
             }
             assert.throws(function () { observerProxy.readOnly = 44; }, TypeError);
             assert.areEqual(target.readOnly, 6, "readOnly data can't be changed")
@@ -207,7 +209,7 @@ var tests = [
     },
     {
         name: "set on number",
-        body: function() {
+        body: function () {
             cleanupBeforeTestStarts();
             var oldproto = Object.getPrototypeOf(Number.prototype);
             Object.setPrototypeOf(Number.prototype, observerProxy);
@@ -240,7 +242,7 @@ var tests = [
             for (i in foo) {
                 observerProxy[i] = 24;
             }
-            assert.areEqual(savedLogResult.length, 6, "trap count: 2*(set + 2 nested reflect trap)");
+            assert.areEqual(savedLogResult.length, 8, "trap count: 2*(set + 2 nested reflect trap)");
             assert.areEqual(target.a, 24, "foo is set");
             assert.areEqual(target.b, 24, "foo is set");
         }
@@ -268,7 +270,7 @@ var tests = [
             observerProxy.test12 = 45;
             for (i = 0; i < 10; i++) {
                 assert.areEqual(observerProxy.test12, 45, "value is still set without trapping set");
-                assert.areEqual(savedLogResult.length, 2 +i, "defineProperty and get");
+                assert.areEqual(savedLogResult.length, 2 + i, "defineProperty and get");
             }
             handler.set = oldSet;
         }

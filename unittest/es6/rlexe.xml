@@ -630,6 +630,12 @@
   </test>
   <test>
     <default>
+      <files>ReflectApiTests.js</files>
+      <compile-flags>-ES6Classes -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>proxyTrapConsumeNewTarget.js</files>
       <compile-flags>-ES6Classes -args summary -endargs</compile-flags>
     </default>
