@@ -37,8 +37,8 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "arguments": "null",
-        "caller": "null",
+        "arguments": "Function evaluation is disabled while debugging native code",
+        "caller": "Function evaluation is disabled while debugging native code",
         "length": "0",
         "name": ""
       }

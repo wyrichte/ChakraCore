@@ -242,17 +242,6 @@
   </test>
   <test>
     <default>
-      <files>invokeput.js</files>
-      <baseline>invokeput.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>invokeput2.js</files>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>funcExpr.js</files>
       <baseline>funcExpr5.baseline</baseline>
       <tags>fail_mutators</tags>

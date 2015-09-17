@@ -41,16 +41,12 @@
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0",
               "name": "Collator",
               "prototype": "{...}"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0"
             }
           },
@@ -82,8 +78,6 @@
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0",
               "name": "NumberFormat",
               "prototype": "{...}"
@@ -97,8 +91,6 @@
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0"
             }
           },
@@ -131,8 +123,6 @@
               "[Methods]": "{...}",
               "__proto__": "<large string>",
               "__relevantExtensionKeys": "[ca,nu]",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0",
               "name": "<large string>",
               "prototype": "{...}"
@@ -146,8 +136,6 @@
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0"
             }
           },

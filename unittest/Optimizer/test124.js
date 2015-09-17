@@ -12,7 +12,7 @@ function test14() {
                 GiantPrintArray.push('obj0.prop0 = ' + (obj0.prop0 | 0));
                 for(var __loopvar2 = 0; __loopvar2 < 3; __loopvar2++) {
                     for(var __loopvar3 = 0; __loopvar3 < 3; __loopvar3++) {
-                        1 = 1;
+                        eval('1 = 1');
                     }
                 }
             }

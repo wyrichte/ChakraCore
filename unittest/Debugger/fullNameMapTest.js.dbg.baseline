@@ -8,8 +8,8 @@
               "map.__proto__.clear.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.clear.__proto__.__proto__": "{...}",
-                "map.__proto__.clear.__proto__.arguments": "null",
-                "map.__proto__.clear.__proto__.caller": "null",
+                "map.__proto__.clear.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.clear.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.clear.__proto__.length": "0",
                 "map.__proto__.clear.__proto__.name": ""
               },
@@ -25,8 +25,8 @@
               "map.__proto__.constructor.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.constructor.__proto__.__proto__": "{...}",
-                "map.__proto__.constructor.__proto__.arguments": "null",
-                "map.__proto__.constructor.__proto__.caller": "null",
+                "map.__proto__.constructor.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.constructor.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.constructor.__proto__.length": "0",
                 "map.__proto__.constructor.__proto__.name": ""
               },
@@ -44,8 +44,8 @@
               "map.__proto__.delete.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.delete.__proto__.__proto__": "{...}",
-                "map.__proto__.delete.__proto__.arguments": "null",
-                "map.__proto__.delete.__proto__.caller": "null",
+                "map.__proto__.delete.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.delete.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.delete.__proto__.length": "0",
                 "map.__proto__.delete.__proto__.name": ""
               },
@@ -58,8 +58,8 @@
               "map.__proto__.entries.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.entries.__proto__.__proto__": "{...}",
-                "map.__proto__.entries.__proto__.arguments": "null",
-                "map.__proto__.entries.__proto__.caller": "null",
+                "map.__proto__.entries.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.entries.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.entries.__proto__.length": "0",
                 "map.__proto__.entries.__proto__.name": ""
               },
@@ -72,8 +72,8 @@
               "map.__proto__.forEach.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.forEach.__proto__.__proto__": "{...}",
-                "map.__proto__.forEach.__proto__.arguments": "null",
-                "map.__proto__.forEach.__proto__.caller": "null",
+                "map.__proto__.forEach.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.forEach.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.forEach.__proto__.length": "0",
                 "map.__proto__.forEach.__proto__.name": ""
               },
@@ -86,8 +86,8 @@
               "map.__proto__.get.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.get.__proto__.__proto__": "{...}",
-                "map.__proto__.get.__proto__.arguments": "null",
-                "map.__proto__.get.__proto__.caller": "null",
+                "map.__proto__.get.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.get.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.get.__proto__.length": "0",
                 "map.__proto__.get.__proto__.name": ""
               },
@@ -100,8 +100,8 @@
               "map.__proto__.has.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.has.__proto__.__proto__": "{...}",
-                "map.__proto__.has.__proto__.arguments": "null",
-                "map.__proto__.has.__proto__.caller": "null",
+                "map.__proto__.has.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.has.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.has.__proto__.length": "0",
                 "map.__proto__.has.__proto__.name": ""
               },
@@ -114,8 +114,8 @@
               "map.__proto__.keys.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.keys.__proto__.__proto__": "{...}",
-                "map.__proto__.keys.__proto__.arguments": "null",
-                "map.__proto__.keys.__proto__.caller": "null",
+                "map.__proto__.keys.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.keys.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.keys.__proto__.length": "0",
                 "map.__proto__.keys.__proto__.name": ""
               },
@@ -128,8 +128,8 @@
               "map.__proto__.set.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.set.__proto__.__proto__": "{...}",
-                "map.__proto__.set.__proto__.arguments": "null",
-                "map.__proto__.set.__proto__.caller": "null",
+                "map.__proto__.set.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.set.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.set.__proto__.length": "0",
                 "map.__proto__.set.__proto__.name": ""
               },
@@ -142,8 +142,8 @@
               "__proto__": {
                 "[Methods]": "{...}",
                 "__proto__": "{...}",
-                "arguments": "null",
-                "caller": "null",
+                "arguments": "Accessing the 'arguments' property is restricted in this context",
+                "caller": "Accessing the 'caller' property is restricted in this context",
                 "length": "0",
                 "name": ""
               },
@@ -156,8 +156,8 @@
               "map.__proto__.values.__proto__": {
                 "[Methods]": "{...}",
                 "map.__proto__.values.__proto__.__proto__": "{...}",
-                "map.__proto__.values.__proto__.arguments": "null",
-                "map.__proto__.values.__proto__.caller": "null",
+                "map.__proto__.values.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+                "map.__proto__.values.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
                 "map.__proto__.values.__proto__.length": "0",
                 "map.__proto__.values.__proto__.name": ""
               },

@@ -91,4 +91,6 @@ PASSED
 PASSED
 *** Running test #28 (27): Class identifier is evaluated in strict mode
 PASSED
-Summary of tests: total executed: 28; passed: 28; failed: 0
+*** Running test #29 (28): Classes with caller/arguments methods
+PASSED
+Summary of tests: total executed: 29; passed: 29; failed: 0

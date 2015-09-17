@@ -1,6 +1,5 @@
 Script Profiler starts
-SyntaxError: Out of stack space
-	at code (bug_350137.js:1:1)
+JavascriptError: Out of stack space
 ERROR: hr = (scriptDirect->Parse(scriptCode, &varFunction)) Hr:0x80020101
 Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 3, Column: 1, Character Position: 97

@@ -17,10 +17,8 @@ ReferenceError: Use before declaration
 ReferenceError: Use before declaration
 ReferenceError: Use before declaration
 ReferenceError: Use before declaration
-ReferenceError: Use before declaration
-ReferenceError: Use before declaration
-ReferenceError: Use before declaration
-ReferenceError: Use before declaration
+ReferenceError: Invalid left-hand side in assignment
+ReferenceError: Invalid left-hand side in assignment
 false
 ReferenceError: Use before declaration
 false

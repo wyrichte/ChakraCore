@@ -76,6 +76,13 @@ namespace JsDiag
     }
 
     template <class T>
+    JavascriptMethod RemoteRecyclableObjectBase<T>::GetEntrypoint()
+    {
+        RemoteType type(m_reader, ToTargetPtr()->GetType());
+        return type->GetEntryPoint();
+    }
+
+    template <class T>
     JavascriptLibrary* RemoteRecyclableObjectBase<T>::GetLibrary()
     {
         RemoteType type(m_reader, ToTargetPtr()->GetType());
@@ -289,13 +296,19 @@ namespace JsDiag
 
         // This method is in sync with JavascriptFunction::GetCallerProperty() on the runtime side.
         auto reader = GetReader();
-        if (IsStrictMode())
+
+        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
+        RemoteDynamicObject remoteFunctionPrototype(reader, library.GetFunctionPrototype());
+        Js::Type* typeAddr = remoteFunctionPrototype.ToTargetPtr()->type;
+        RemoteType remoteType(reader, typeAddr);
+        Js::JavascriptMethod entrypoint = remoteType.ToTargetPtr()->entryPoint;
+
+        if (this->IsStrictMode() || this->GetEntrypoint() == entrypoint)
         {
             error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
             return false;
         }
 
-        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
         RecyclableObject* nullObject = library.GetNull();
         if (IsLibraryCode()) // Hide .caller for builtins
         {
@@ -359,7 +372,13 @@ namespace JsDiag
 
         // This method is in sync with JavascriptFunction::GetArgumentsProperty() on the runtime side.
         auto reader = GetReader();
-        if (IsStrictMode())
+        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
+        RemoteDynamicObject remoteFunctionPrototype(reader, library.GetFunctionPrototype());
+        Js::Type* typeAddr = remoteFunctionPrototype.ToTargetPtr()->type;
+        RemoteType remoteType(reader, typeAddr);
+        Js::JavascriptMethod entrypoint = remoteType.ToTargetPtr()->entryPoint;
+
+        if (this->IsStrictMode() || this->GetEntrypoint() == entrypoint)
         {
             error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
             return false;
@@ -367,7 +386,6 @@ namespace JsDiag
 
         RemoteScriptContext scriptContext = RemoteScriptContext(reader, GetScriptContext());
         RemoteThreadContext threadContext = RemoteThreadContext(reader, scriptContext.GetThreadContext());
-        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
         *value = library.GetNull();
         *ppDebugProperty = nullptr;
 
@@ -446,6 +464,22 @@ namespace JsDiag
         }
 
         return false;
+    }
+
+    bool RemoteJavascriptFunction::HasRestrictedProperties() const
+    {
+        // This method is in sync with JavascriptFunction::HasRestrictedProperties() on the runtime side.
+        FunctionInfo* functionInfoAddr = this->ToTargetPtr()->functionInfo;
+        Assert(functionInfoAddr);
+
+        RemoteFunctionInfo functionInfo(m_reader, functionInfoAddr);
+        if (functionInfo->HasBody())
+        {
+            RemoteParseableFunctionInfo parseableFunctionInfo = RemoteParseableFunctionInfo(m_reader, functionInfo.GetFunction());
+            return !(parseableFunctionInfo->IsClassMethod() || parseableFunctionInfo->IsClassConstructor() || parseableFunctionInfo->IsLambda());
+        }
+
+        return true;
     }
 
     FunctionBody* RemoteScriptFunction::GetFunction()

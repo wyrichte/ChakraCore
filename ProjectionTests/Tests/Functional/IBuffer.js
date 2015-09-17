@@ -210,6 +210,18 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         }
     });
 
+    runner.addTest({
+        id: 5,
+        desc: 'graceful failed if input buffer is not IBuffer',
+        pri: '0',
+        test: function () {
+            var data=new Windows.Foundation.Collections.PropertySet();
+            verify.exception(function () {
+                new Int8Array(data);
+            }, TypeError, "new Int8Array(ibuf);");
+        }
+    });
+
     Loader42_FileName = "IBuffer";
 
 })();

@@ -140,8 +140,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -617,8 +615,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -1929,8 +1925,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -2072,8 +2066,6 @@
       },
       "onComplete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -2320,8 +2312,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -2454,8 +2444,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -2979,8 +2967,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -4113,8 +4099,6 @@
       },
       "init": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"
@@ -5242,8 +5226,6 @@
       },
       "error": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "handlesOnError": "true",
         "length": "1",
         "name": "error",
@@ -6756,8 +6738,6 @@
       },
       "error": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "handlesOnError": "true",
         "length": "1",
         "name": "error",
@@ -6904,8 +6884,6 @@
       },
       "onComplete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "",
         "prototype": "{...}"

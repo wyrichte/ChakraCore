@@ -37,8 +37,8 @@
       "f": {
         "[Methods]": "{...}",
         "f.__proto__": "{...}",
-        "f.arguments": "null",
-        "f.caller": "null",
+        "f.arguments": "Accessing the 'arguments' property is restricted in this context",
+        "f.caller": "Accessing the 'caller' property is restricted in this context",
         "f.length": "0",
         "f.name": ""
       }

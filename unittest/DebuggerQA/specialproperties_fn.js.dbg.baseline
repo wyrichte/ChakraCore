@@ -39,8 +39,6 @@
     "evaluate": {
       "arrow": {
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
-        "arguments": "null",
-        "caller": "null",
         "length": "0",
         "name": "arrow"
       }

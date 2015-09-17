@@ -11,6 +11,6 @@ Length: 1
 0 => prop2
 Syntax error
 Syntax error
-Syntax error
-Syntax error
+Invalid left-hand side in assignment
+Invalid left-hand side in assignment
 done

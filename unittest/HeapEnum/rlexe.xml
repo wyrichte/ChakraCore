@@ -41,7 +41,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>blockScopeSlotArrayTest.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayTest.baseline</baseline>
     </default>
   </test>
@@ -49,7 +49,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>blockScopeSlotArrayTest.js</files>
-      <compile-flags>-forceserialized -es6classes</compile-flags>
+      <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayTest.baseline</baseline>
     </default>
   </test>
@@ -57,7 +57,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>blockScopeActivationObjectAsSlotArray.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
     </default>
   </test>
@@ -65,7 +65,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>blockScopeActivationObjectAsSlotArray.js</files>
-      <compile-flags>-forceserialized -es6classes</compile-flags>
+      <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
     </default>
   </test>
@@ -73,7 +73,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.baseline</baseline>
     </default>
   </test>
@@ -103,7 +103,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>boundfunction.js</files>
-      <compile-flags>-es6classes -es6functionnamefull</compile-flags>
+      <compile-flags>-es6classes -es6functionnamefull -es6HasInstance</compile-flags>
       <baseline>boundfunction.es6.baseline</baseline>
     </default>
   </test>
@@ -291,7 +291,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>closure2.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>closure2.baseline</baseline>
     </default>
   </test>
@@ -299,7 +299,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>closure_catch.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>closure_catch.baseline</baseline>
     </default>
   </test>
@@ -308,7 +308,7 @@
       <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_serialized</tags>
       <files>closure2.js</files>
       <baseline>closure2.baseline</baseline>
-      <compile-flags>-forceserialized -es6classes</compile-flags>
+      <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
     </default>
   </test>
   <test>
@@ -443,7 +443,7 @@
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_arm</tags>
       <files>multifuncdecl.js</files>
-      <compile-flags>-es6classes</compile-flags>
+      <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>multifuncdecl.baseline</baseline>
     </default>
   </test>
@@ -500,7 +500,7 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
-      <compile-flags>-ES6Lambda -ES6Classes</compile-flags>
+      <compile-flags>-ES6Lambda -ES6Classes -es6HasInstance</compile-flags>
       <files>lambda.js</files>
       <baseline>lambda.baseline</baseline>
     </default>
