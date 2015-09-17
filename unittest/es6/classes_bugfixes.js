@@ -126,8 +126,9 @@ var tests = [
     }
   },
   {
-    name: "OS 1114090: Home object should remain unchanged with 'super' call",
+    name: "OS 1114090: Getters in superclass should use instance of subclass as actual 'this' object",
     body: function () {
+
         class Person {
             getFullName() {
                 return this.firstName + " " + this.lastName;
@@ -136,7 +137,9 @@ var tests = [
                 return this.firstName + " " + this.lastName;
             }
         }
+
         class MedicalWorker extends Person { } // to show it works through inheritance chain
+
         class Doctor extends MedicalWorker {
             constructor(firstName,lastName) {
                 super();
@@ -145,19 +148,87 @@ var tests = [
             }
             getFullNameExplicit() { return "Dr. " + super.getFullName(); }
             getFullNameProperty() { return "Dr. " + super.fullName; }
-            getFullNameEval() { return "Dr. " + super.getFullNameEval(); }
             getFullNameEvalCall() { return "Dr. " + eval('super.getFullName()'); }
             getFullNameEvalProperty() { return "Dr. " + eval('super.fullName'); }
             getFullNameLambdaCall() { return "Dr. " + (()=>super.getFullName()) (); }
             getFullNameLambdaProperty() { return "Dr. " + (()=>super.fullName) (); }
         }
+
         let x = new Doctor("John","Smith");
-        assert.areEqual("Dr. John Smith", x.getFullNameExplicit(), "explicit super call should use subclass as home object");
-        assert.areEqual("Dr. John Smith", x.getFullNameProperty(), "property accessor in superclass should use subclass as home object");
+        assert.areEqual("Dr. John Smith", x.getFullNameExplicit(), "explicit super call should use instance of subclass as actual 'this' object");
+        assert.areEqual("Dr. John Smith", x.getFullNameProperty(), "property accessor in superclass should use instance of subclass as actual 'this' object");
         assert.areEqual("Dr. John Smith", x.getFullNameEvalCall(), "super called from within eval should have same behavior as outside of eval");
         assert.areEqual("Dr. John Smith", x.getFullNameEvalProperty(), "super object property access from within eval should have same behavior as outside of eval");
         assert.areEqual("Dr. John Smith", x.getFullNameLambdaCall(), "super called from within lambda should have same behavior as outside of lambda");
         assert.areEqual("Dr. John Smith", x.getFullNameLambdaProperty(), "super object property access from within lambda should have same behavior as outside of lambda");
+    }
+  },
+  {
+    name: "OS 4586602: Setters in superclass should use instance of subclass as actual 'this' object",
+    body: function () {
+
+        // test case from OS4586602
+
+        class Proto {
+            set  x(v) {  return this._x = v;  }
+        };
+
+        class Obj extends Proto {
+            set x(v) { super.x = v;  }
+        };
+
+        var object = new Obj();
+        object.x=1;
+        assert.areEqual(1, object._x, "setters in superclass should use instance of subclass as actual 'this' object");
+
+        // behavior according to ECMA2015 when superclass accessors are not present
+
+        class A { }
+
+        class B extends A {
+            getA() { return super.i; }
+            setA(v) { super.i = v; }
+        }
+
+        let b = new B();
+        b.setA(15);
+
+        assert.areEqual(true, b.hasOwnProperty('i'), "Property 'i' should exist in actualThis object(b)");
+        assert.areEqual(15, b.i, "Property 'i' should match assigned value in actualThis object(b)");
+        assert.areEqual(false, A.prototype.hasOwnProperty('i'), "Property 'i' should not exist in base object(A.prototype)");
+        assert.areEqual(undefined, b.getA(), "Property 'i' should be undefined in base object(A.prototype)");
+
+        // other cases similiar to getter tests above
+
+        class Base {
+            setName(v) { this._name = v; }
+            set name(v) { this._name = v; }
+        }
+
+        class Middle extends Base { } // to show it works through inheritance chain
+
+        class Subclass extends Middle {
+            setNameExplicit(name) { super.setName(name); }
+            setNameProperty(name) { super.name=name; }
+            setNameEvalCall(name) { eval('super.setName(name)'); }
+            setNameEvalProperty(name) { eval('super.name=name'); }
+            setNameLambdaCall(name) { (()=>super.setName(name)) (); }
+            setNameLambdaProperty(name) { (()=>super.name=name) (); }
+        }
+
+        let x = new Subclass();
+        x.setNameExplicit("explicit");
+        assert.areEqual("explicit", x._name, "explicit super call should use instance of subclass as actual 'this' object");
+        x.setNameProperty("property");
+        assert.areEqual("property", x._name, "property accessor in superclass should use instance of subclass as actual 'this' object");
+        x.setNameEvalCall("evalCall");
+        assert.areEqual("evalCall", x._name, "super called from within eval should have same behavior as outside of eval");
+        x.setNameEvalProperty("evalProperty");
+        assert.areEqual("evalProperty", x._name, "super object property access from within eval should have same behavior as outside of eval");
+        x.setNameLambdaCall("lambdaCall");
+        assert.areEqual("lambdaCall", x._name, "super called from within lambda should have same behavior as outside of lambda");
+        x.setNameLambdaProperty("lambdaProperty");
+        assert.areEqual("lambdaProperty", x._name, "super object property access from within lambda should have same behavior as outside of lambda");
     }
   },
   {

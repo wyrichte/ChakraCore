@@ -422,6 +422,8 @@ var tests = [
           methodIndex()     { return {}; }
           methodRestProp()  { return {}; }
           methodRestIndex() { return {}; }
+          get x()           { return this._x; }
+          set x(v)          { this._x = v; }
         };
         class extended extends base {
           methodProp()      { return [super.x] = [10, 20, 30]; }

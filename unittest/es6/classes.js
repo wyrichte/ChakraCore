@@ -349,8 +349,10 @@ var tests = [
     name: "Basic uses of super",
     body: function () {
       class A {
-        constructor() { this.initialized = true; p('constructor A'); }
+        constructor() { this._initialized = true; p('constructor A'); }
         method()      { return 'method A'; }
+        set initialized(v) { this._initialized = v; }
+        get initialized() { return this._initialized; }
       }
 
       class B extends A {
