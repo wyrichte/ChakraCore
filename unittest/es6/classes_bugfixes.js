@@ -263,6 +263,30 @@ var tests = [
         assert.areEqual("function () { }", b.arguments.toString(), "Get/set accessor \'arguments\'");
     }
   },
+  {
+    name: "OS4497562,OS4497908: InitClassMember overriding existing accessor property",
+    body: function () {
+        class A {
+            set z(v) {}
+            z() {} // bug repro: ASSERT(jscript\core\lib\Runtime\Types\DictionaryTypeHandler.cpp, line 1737) Expect to only come down this path for ...
+        };
+
+        class B {
+            static set z(v) {}
+            static z() {} // bug repro: ASSERT(jscript\core\lib\Runtime\Types\DictionaryTypeHandler.cpp, line 1737) Expect to only come down this path for ...
+        };
+
+        class C {
+            set z(v) {}
+            *z() {} // bug repro: ASSERT(jscript\core\lib\Runtime\Types\DictionaryTypeHandler.cpp, line 1737) Expect to only come down this path for ...
+        };
+
+        class D {
+            set z(v) {}
+            ["z"]() {} // bug repro: ASSERT(jscript\core\lib\Runtime\Types\DictionaryTypeHandler.cpp, line 1737) Expect to only come down this path for ...
+        };
+    }
+  },
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });

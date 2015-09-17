@@ -21,7 +21,7 @@ function test0(){
   }
   Object.prototype.method0 = func1; 
   var d = 1;
-  1 = arrObj0.method0();
+  arrObj0.method0();
 };
 
 var testOutcome = false;

@@ -73,7 +73,7 @@ try{var shouldBailout = (WScript.Arguments[0] == 'bailout');}catch(e){};
 (function(){/*sStart*/;window;;;/*sEnd*/})();
 (function(){/*sStart*/;try{try{;}catch(e){}}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;print(functional);functional = x;;;/*sEnd*/})();
-(function(){/*sStart*/;"use strict"; try{-524287;(-0);	}catch(e){};;/*sEnd*/})();
+(function(){/*sStart*/;"use strict"; try{-524287;(-0);  }catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;var e = [11,12,13,14].map;(e);;;/*sEnd*/})();
 //(function(){/*sStart*/;"use strict"; /*oLoop*/for (var gpxhfw = 0; gpxhfw < 9; ++gpxhfw) { throw "u5046"; } ;;/*sEnd*/})();
 (function(){/*sStart*/;print(x);/*
@@ -158,7 +158,7 @@ try{var shouldBailout = (WScript.Arguments[0] == 'bailout');}catch(e){};
     [] >>> this;
     ;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; /*tLoop*/for (var functional in [new Number(1.5), null, function(){}, null, new Number(1.5), null, null, null, function(){}, function(){}, function(){}, null, new Number(1.5), null, new Number(1.5), function(){}, function(){}, function(){}, new Number(1.5), function(){}, null]) { print( '' ); };;/*sEnd*/})();
-//(function(){/*sStart*/;"use strict"; functional = 	false;(function(){return 2;})();	null;/*replaced*/functional(0);/*replaced*/;;/*sEnd*/})();
+//(function(){/*sStart*/;"use strict"; functional =     false;(function(){return 2;})();        null;/*replaced*/functional(0);/*replaced*/;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; if(shouldBailout){function shapeyConstructor(baaarl){delete this.y;if (baaarl) Object.preventExtensions(this);delete this.x;return 2+this; }; shapeyConstructor(e);};;;/*sEnd*/})();
 (function(){/*sStart*/;if(shouldBailout){function shapeyConstructor(pbnbah){return 2+this; }; shapeyConstructor(createFunction);};;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; /*vLoop*/for (get = 0; get < 12; ++get) { x = get; print(this);
@@ -166,7 +166,7 @@ try{var shouldBailout = (WScript.Arguments[0] == 'bailout');}catch(e){};
 } ;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; for (var length in x) { Exception(length); };;/*sEnd*/})();
 (function(){/*sStart*/;/*oLoop*/for (var xandqf = 0; xandqf < 12; ++xandqf) { /*oLoop*/for (vrvohn = 0; vrvohn < 2 && Math.pow(undefined, 1.2821814073120837e+308); ++vrvohn) { print(x); }  } ;;/*sEnd*/})();
-//(function(){/*sStart*/;var y = 257()/*replaced*/;(Math.max(0xB504F332, window)	);;;/*sEnd*/})();
+//(function(){/*sStart*/;var y = 257()/*replaced*/;(Math.max(0xB504F332, window)        );;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; ((4277));;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; x;
     try{print(createFunction);}catch(e){}
@@ -349,12 +349,12 @@ x
     print(x);
     ;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; print(window);;;/*sEnd*/})();
-//(function(){/*sStart*/;print(this.zzz.zzz);/*replaced*/print(this['x']	);/*replaced*/;;/*sEnd*/})();
+//(function(){/*sStart*/;print(this.zzz.zzz);/*replaced*/print(this['x']        );/*replaced*/;;/*sEnd*/})();
 //(function(){/*sStart*/;"use strict"; (createFunction("++\"u2E9D\".__defineGetter__(\"x\", encodeURIComponent)"))/*replaced*/;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; /*iii*/print(false);/*hhh*/function qvqzid(){print( '' );};;/*sEnd*/})();
 //(function(){/*sStart*/;var asybhm = new ArrayBuffer(0); var asybhm_0 = new b(asybhm); asybhm_0[0] = 549755813888; var asybhm_1 = new WebGLFloatArray(asybhm); asybhm_1[0] = 131072; print(asybhm);Math.ceil(Math.min([[1]], "u9CAE"));(function(){return;})();;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; print(x);(function handlerFactory(x) {return {getOwnPropertyDescriptor: undefined, getPropertyDescriptor: function(){ var yum = 'PCAL'; dumpln(yum + 'LED: getPropertyDescriptor');}, defineProperty: function(){ var yum = 'PCAL'; dumpln(yum + 'LED: defineProperty');}, getOwnPropertyNames: function() { var yum = 'PCAL'; dumpln(yum + 'LED: getOwnPropertyNames'); return []; }, fix: function() { var yum = 'PCAL'; dumpln(yum + 'LED: fix'); return []; }, has: undefined, hasOwn: function() { var yum = 'PCAL'; dumpln(yum + 'LED: hasOwn'); return false; }, get: function() { var yum = 'PCAL'; dumpln(yum + 'LED: get'); return undefined }, set: function() { var yum = 'PCAL'; dumpln(yum + 'LED: set'); return true; }, iterate: function() { var yum = 'PCAL'; dumpln(yum + 'LED: iterate'); return (function() { throw StopIteration; }); }, enumerate: function() { var yum = 'PCAL'; dumpln(yum + 'LED: enumerate'); return []; }, keys: function() { var yum = 'PCAL'; dumpln(yum + 'LED: keys'); return []; }, }; });;/*sEnd*/})();
-(function(){/*sStart*/;with(this.	setInt16()){print(x);print(x); };;/*sEnd*/})();
+(function(){/*sStart*/;with(this.       setInt16()){print(x);print(x); };;/*sEnd*/})();
 (function(){/*sStart*/;print(x);
     /*tLoop*/for (var y in [[], [], (void 0), (void 0), []]) { /*oLoop*/for (linkedList = 0; linkedList < 2; ++linkedList) { print(x);"uF7B6"; }  }
     ;;/*sEnd*/})();
@@ -363,7 +363,7 @@ x
 //(function(){/*sStart*/;"use strict"; if(shouldBailout){function shapeyConstructor(jpccsp){this.functional = (createFunction("print(this);"));return 2+this; }; shapeyConstructor(NaN);};;;/*sEnd*/})();
 (function(){/*sStart*/;try{throw  "" ;}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;/*oLoop*/for (var oszatt = 0; oszatt < 3; ++oszatt) { for(var functional =  ''  in "u00E6") print(createFunction); } ;;/*sEnd*/})();
-(function(){/*sStart*/;"use strict"; /*hhh*/function colpnz(){print((4277) %= x);}/*iii*/print(x);"uD938";print(x);;;/*sEnd*/})();
+(function(){/*sStart*/;"use strict"; /*hhh*/function colpnz(){print(eval('(4277) %= x'));}/*iii*/print(x);"uD938";print(x);;;/*sEnd*/})();
 //(function(){/*sStart*/;var osrjdj = new ArrayBuffer(0); var osrjdj_0 = new WebGLIntArray(osrjdj); osrjdj_0[0] = -1125899906842625; var osrjdj_1 = new Uint8Array(osrjdj); //@cc_on /*replaced*//*replaced*/print("u7F66"++);;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; /*vLoop*/for (get = 0; get < 0 && -2305843009213694000; ++get) { functional = get; print(x);(4277); } ;;/*sEnd*/})();
 //(function(){/*sStart*/;"use strict"; M:if(new Exception()) { if (((x) = (-functional.x))) {(x);({a2:c}) }} else {print(x); };;/*sEnd*/})();
@@ -374,7 +374,7 @@ x
 (function(){/*sStart*/;"use strict"; try{try{for(let y in [Math.PI, 1e4, NaN, NaN, 1e4, 1e4, new Boolean(true), new Boolean(true), Math.PI, Math.PI, NaN]) Object.seal}catch(e){}}catch(e){};;/*sEnd*/})();
 //(function(){/*sStart*/;"use strict"; print(( /x/ )[null]);y = (new (new ( '' )(undefined)).filter(createFunction("Math.min(-1.0848997131754768e+308, this)", x)));;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; print(x);
-    null	;
+    null        ;
     ;;/*sEnd*/})();
 (function(){/*sStart*/;try{try{throw StopIteration;}catch(e){}try{try { ("u32A5"); } catch(e) { print(e.stack); } }catch(e){}}catch(e){};;/*sEnd*/})();
 //(function(){/*sStart*/;{var opn = Object.getOwnPropertyNames(c); for (var j = 0; j < opn.length; ++j) { Exception(opn[j]); } };;/*sEnd*/})();
@@ -500,8 +500,8 @@ x
 (function(){/*sStart*/;print(x);;;/*sEnd*/})();
 (function(){/*sStart*/;try{(function(){return;})();}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;(functional) = (Math.max(x, 3.141592653589793));;;/*sEnd*/})();
-//(function(){/*sStart*/;if(((function fibonacci(ghcdrp) { ; if (ghcdrp <= 1) { c, functional, x, y, x, functional;false;; return 1; } ; return fibonacci(ghcdrp - 1) + fibonacci(ghcdrp - 2);  })(7))) { if ((createFunction = "u7AB8"++).prototype) {try{try{throw StopIteration;}catch(e){}}catch(e){} }} else {/*oLoop*/for (var qmznsn = 0; qmznsn < 7; ++qmznsn) { "u9958".throw("uB4C0")	; } print((4277)); };;/*sEnd*/})();
-(function(){/*sStart*/;print(undefined);function u3056()	{/*jjj*/}print(x);function x(e){/*jjj*/}print(b);b = null;;;/*sEnd*/})();
+//(function(){/*sStart*/;if(((function fibonacci(ghcdrp) { ; if (ghcdrp <= 1) { c, functional, x, y, x, functional;false;; return 1; } ; return fibonacci(ghcdrp - 1) + fibonacci(ghcdrp - 2);  })(7))) { if ((createFunction = "u7AB8"++).prototype) {try{try{throw StopIteration;}catch(e){}}catch(e){} }} else {/*oLoop*/for (var qmznsn = 0; qmznsn < 7; ++qmznsn) { "u9958".throw("uB4C0") ; } print((4277)); };;/*sEnd*/})();
+(function(){/*sStart*/;print(undefined);function u3056()        {/*jjj*/}print(x);function x(e){/*jjj*/}print(b);b = null;;;/*sEnd*/})();
 (function(){/*sStart*/;/*tLoop*/for (var b in [ /x/ ,  /x/ , true, true, true,  /x/ ,  /x/ , Infinity, true, true, Infinity,  /x/ , true,  /x/ ,  /x/ , Infinity,  /x/ ,  /x/ ,  /x/ ,  /x/ , Infinity, true, Infinity, Infinity, Infinity,  /x/ , true,  /x/ ]) { "uC952"; };;/*sEnd*/})();
 (function(){/*sStart*/;/*vLoop*/for (aczsfk = 0; aczsfk < 1; ++aczsfk) { var c = aczsfk; print(x); } ;;/*sEnd*/})();
 //(function(){/*sStart*/;"use strict"; print(y);y = null.x >= (4277);;;/*sEnd*/})();
@@ -575,7 +575,7 @@ x
 (function(){/*sStart*/;try{ /x/ ;("u93F5");}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; {/*tLoop*/for (var y in [new Number(1), new Number(1), (void 0), false, false,  '' , new Number(1), false, new Number(1),  '' , new Number(1)]) { ( '' ); } }var c = x;;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict"; print( /x/ );( "" );e = "uED09" <= this;;;/*sEnd*/})();
-//(function(){/*sStart*/;	tnnmif();/*replaced*/x = linkedList(x, 3822);/*replaced*//*replaced*/tnnmif();print(x);/*replaced*/;;/*sEnd*/})();
+//(function(){/*sStart*/;       tnnmif();/*replaced*/x = linkedList(x, 3822);/*replaced*//*replaced*/tnnmif();print(x);/*replaced*/;;/*sEnd*/})();
 (function(){/*sStart*/;c = "uC704" && "u1353".createFunction(delete functional.c);try{try{c = c;}catch(e){}}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;print(x);;;/*sEnd*/})();
 (function(){/*sStart*/; '' ;;;/*sEnd*/})();
@@ -590,7 +590,7 @@ x
 //(function(){/*sStart*/;"use strict"; ([ "" ].map(tnnmif));;;/*sEnd*/})();
 (function(){/*sStart*/;"use strict";  /x/g ;;;/*sEnd*/})();
 //(function(){/*sStart*/;[ "" ].filter(-0);;;/*sEnd*/})();
-//(function(){/*sStart*/;/*bLoop*/for (fidipn = 0; fidipn < 24; ++fidipn) { if (fidipn % 7 == 6) { print(["u29F9".watch("createFunction",  '' .sup)].map([,,u3056].	x)); } else { x, x = "uD6BA", x;(function(){return  '' ;})(); }  } ;;/*sEnd*/})();
+//(function(){/*sStart*/;/*bLoop*/for (fidipn = 0; fidipn < 24; ++fidipn) { if (fidipn % 7 == 6) { print(["u29F9".watch("createFunction",  '' .sup)].map([,,u3056].     x)); } else { x, x = "uD6BA", x;(function(){return  '' ;})(); }  } ;;/*sEnd*/})();
 (function(){/*sStart*/;try{try{yield (4277);}catch(e){}}catch(e){};;/*sEnd*/})();
 (function(){/*sStart*/;print(x);
     print(-8192);

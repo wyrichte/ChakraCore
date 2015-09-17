@@ -130,7 +130,8 @@ HRESULT AttemptCreateArrayBufferFromIBuffer(__in Projection::ProjectionObjectIns
         while (0); // Any breaks will allow END_LEAVE_SCRIPT to do its job before using IfFailGo as normal.
     }
     END_LEAVE_SCRIPT(scriptContext)
-    IfFailGo(hr);
+    if (hr != S_OK) 
+        goto Error;
 
     // Notify Recycler of IBuffer's memory
     Recycler *recycler = library->GetRecycler();
@@ -141,7 +142,7 @@ HRESULT AttemptCreateArrayBufferFromIBuffer(__in Projection::ProjectionObjectIns
     Assert(*ppArrayBuffer != nullptr);
 
 Error:
-    if (FAILED(hr))
+    if (hr != S_OK)
     {
         *ppArrayBuffer = nullptr;
     }

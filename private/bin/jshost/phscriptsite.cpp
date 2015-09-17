@@ -1771,7 +1771,10 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
             memset(&excepInfo.exceptionInfo, 0, sizeof(excepInfo.exceptionInfo));
 
             // If it's a ParseError there wont be any stack, display this message instead
-            if (excepInfo.errorType.typeNumber == JsErrorType::JavascriptParseError)
+            if (excepInfo.callStack.frameCount == 0 &&
+                (excepInfo.errorType.typeNumber == JsErrorType::JavascriptParseError ||
+                 excepInfo.errorType.typeNumber == JsErrorType::JavascriptReferenceError ||
+                 excepInfo.errorType.typeNumber == JsErrorType::JavascriptSyntaxError))
             {
                 DWORD sourceContext;
                 ULONG lineNumber;

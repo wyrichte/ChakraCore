@@ -1,5 +1,5 @@
 function test0() {
-    throw 2251799813685249++;
+    throw eval('2251799813685249++');
     while(false);
 }
 safeCall(test0);

@@ -413,6 +413,101 @@ function test23()
    print('test23 done.');
 }
 
+// Verifies ownPropertyNames, ownPropertySymbols
+function test24()
+{
+    var o = {};
+    var s1 = Symbol('b');
+    var s2 = Symbol('c');
+    Object.defineProperty(o, 'a', { value: 5, enumerable : true });
+    Object.defineProperty(o, s1, { value: 5, enumerable: true });
+    Object.defineProperty(o, s2, { value: 5, enumerable: false });
+    var proxy = new Proxy(o, {});
+    var propNames = Object.getOwnPropertyNames(proxy);
+    var propSyms = Object.getOwnPropertySymbols(proxy);
+    var propKeys = Reflect.ownKeys(proxy);
+    
+    print('*** ownPropertyNames');
+    for (var p in propNames) {
+        print(propNames[p].toString());
+    }
+    
+    print('*** ownPropertySymbols');
+    for (var p in propSyms) {
+        print(propSyms[p].toString());
+    }
+    
+    print('*** ownKeys');
+    for (var p in propKeys) {
+        print(propKeys[p].toString());
+    }
+}
+
+function test25() {
+    // CreateDynamicFunction -> GetPrototypeFromConstructor -> Get -> [[Get]]
+    var get = [];
+    var p = new Proxy(Function, { get: function(o, k) { get.push(k); return o[k]; }});
+    new p;
+    for (var x in get) {
+        print(get[x].toString());
+    }
+    print(get.length);
+    print(get);
+}
+
+function test26(){
+    // SerializeJSONObject -> EnumerableOwnNames -> [[OwnPropertyKeys]]
+    var ownKeysCalled = 0;
+    var p = new Proxy({}, { ownKeys: function(o) { ownKeysCalled++; return Object.keys(o); }});
+    JSON.stringify({ a: p, b: p });
+    print(ownKeysCalled);
+    print(ownKeysCalled === 2);
+}
+
+// has, deleteproperty, methodhelper
+function test27() 
+{   
+    var handler = {
+        get: function(target, property){
+            print('getTrap, property : ' + property);       
+            if(property == 'foo123'){
+                return function() {print('foo called'); return 23;}
+            }
+            return Reflect.get(target, property);
+        },
+        has: function(target, property){
+            print('hasTrap, property : ' + property);
+            return Reflect.has(target, property);
+        },
+        deleteProperty: function (target, property) {
+            print('deleteTrap, property : ' + property);
+            return Reflect.deleteProperty(target, property);
+        }
+
+    };
+    
+    // try to have different properties for below test cases
+        
+        var x = 'foo123';
+        var y = 'bar123';
+        var o = {};
+        var p = new Proxy(o, handler);
+        Reflect.has(p, 'p1');
+        'p2' in p;
+        Reflect.deleteProperty(p, 'p3');
+        typeof p[y];
+        p[x]();
+}
+
+// Set property problem
+function test28(){
+     var o2 = { p: 43 };
+    var receiver = { p: 44 };
+    var result = Reflect.set(o2, 'p', 42, receiver);
+    print(o2.p);
+    print(receiver.p);
+}
+
 test0();
 test1();
 test2();
@@ -437,3 +532,8 @@ test20();
 test21();
 test22();
 test23();
+test24();
+test25();
+test26();
+test27();
+test28();

@@ -2,12 +2,6 @@
 <regress-exe>
   <test>
     <default>
-      <files>assign-to-const.js</files>
-      <baseline>assign-to-const.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>errorProps.js</files>
       <baseline>errorProps_v4.baseline</baseline>
     </default>

@@ -35,7 +35,7 @@ test1();
 
 function test2() {
         for (knbnbs = 0; knbnbs < 0; ++knbnbs) {
-                (-3 / 0++);
+                (-3 / 0+1);
         }; ;
 };
 test2();

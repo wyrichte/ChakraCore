@@ -214,7 +214,7 @@ PASS: TestOnScriptErrorGetExceptionInfoWithArguments2
 	    var e = 'string;
 
 Compile Error:
-	exInfo.errorType.typeNumber: 9
+	exInfo.errorType.typeNumber: 4
 	exInfo.errorType.typeText: Parse error
 	exInfo.callStack.frameCount: 0
 	exInfo.callStack.frames: NULL
@@ -229,7 +229,7 @@ PASS: TestOnScriptErrorGetNoExceptionInfoOnCompileError
 	    var e = 'string;
 
 Compile Error:
-	exInfo.errorType.typeNumber: 9
+	exInfo.errorType.typeNumber: 4
 	exInfo.errorType.typeText: Parse error
 	exInfo.callStack.frameCount: 0
 	exInfo.callStack.frames: NULL

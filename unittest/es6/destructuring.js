@@ -223,7 +223,7 @@ var tests = [
       assert.throws(function () { eval("function foo() { return {}; }; var [foo()] = [];"); },       SyntaxError,    "Destructured var array declaration with a call expression throws",                      "Syntax error");
       assert.throws(function () { eval("function foo() { return {}; }; let [foo()] = [];"); },       SyntaxError,    "Destructured let array declaration with a call expression throws",                      "Let/Const redeclaration");
       assert.throws(function () { eval("function foo() { return {}; }; const [foo()] = [];"); },     SyntaxError,    "Destructured const array declaration with a call expression throws",                    "Let/Const redeclaration");
-      assert.throws(function () { eval("function foo() { return {}; }; [foo()] = [];"); },           ReferenceError, "Destructured array assignment with a call expression throws",                           "Cannot assign to a function result");
+      assert.throws(function () { eval("function foo() { return {}; }; [foo()] = [];"); },           ReferenceError, "Destructured array assignment with a call expression throws",                           "Invalid left-hand side in assignment");
       assert.throws(function () { eval("function foo() { return {}; }; var [foo().x] = [];"); },     SyntaxError,    "Destructured var array declaration with a call expression property reference throws",   "Syntax error");
       assert.throws(function () { eval("function foo() { return {}; }; let [foo().x] = [];"); },     SyntaxError,    "Destructured let array declaration with a call expression property reference throws",   "Let/Const redeclaration");
       assert.throws(function () { eval("function foo() { return {}; }; const [foo().x] = [];"); },   SyntaxError,    "Destructured const array declaration with a call expression property reference throws", "Let/Const redeclaration");
@@ -583,21 +583,21 @@ var tests = [
         (() => [a,, b, c] = [1, 2, 3])();
         assert.areEqual([1, 3, undefined], [a, b, c], "Destructuring array assignment inside a lambda expression works correctly");
       }
-	  
-	  // nested destructuring
-	  {	  
+          
+          // nested destructuring
+          {       
         let [[a]=[1]] = [[2]];
-		assert.areEqual(a, 2, "Nested destructuring - value is present");
+                assert.areEqual(a, 2, "Nested destructuring - value is present");
 
-		[[a]=[1]] = [[]];
-		assert.areEqual(a, undefined, "Nested destructuring - value is present but undefined");
+                [[a]=[1]] = [[]];
+                assert.areEqual(a, undefined, "Nested destructuring - value is present but undefined");
 
-		[[a]=[1]] = [];
-		assert.areEqual(a, 1, "Nested destructuring - value is not present - use defult");
+                [[a]=[1]] = [];
+                assert.areEqual(a, 1, "Nested destructuring - value is not present - use defult");
 
-		[[a]=1] = [[]];
-		assert.areEqual(a, undefined, "Nested destructuring - value is present - default is incorrect - does not have @@iterator");      
-	  }
+                [[a]=1] = [[]];
+                assert.areEqual(a, undefined, "Nested destructuring - value is present - default is incorrect - does not have @@iterator");      
+          }
     }
   }
 ];

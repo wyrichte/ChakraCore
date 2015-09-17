@@ -20,17 +20,11 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "null",
-          "l1.__proto__.caller": "null",
+          "l1.__proto__.arguments": "Function evaluation is disabled while debugging native code",
+          "l1.__proto__.caller": "Function evaluation is disabled while debugging native code",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
-        "l1.arguments": {
-          "[Methods]": "{...}",
-          "l1.arguments.__proto__": "{...}",
-          "l1.arguments.length": "0"
-        },
-        "l1.caller": "null",
         "l1.length": "0",
         "l1.name": "l1"
       }
@@ -52,13 +46,11 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "null",
-          "l1.__proto__.caller": "null",
+          "l1.__proto__.arguments": "Function evaluation is disabled while debugging native code",
+          "l1.__proto__.caller": "Function evaluation is disabled while debugging native code",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
-        "l1.arguments": "null",
-        "l1.caller": "null",
         "l1.length": "0",
         "l1.name": "l1"
       }
@@ -70,13 +62,11 @@
         "A.__proto__": {
           "[Methods]": "{...}",
           "A.__proto__.__proto__": "{...}",
-          "A.__proto__.arguments": "null",
-          "A.__proto__.caller": "null",
+          "A.__proto__.arguments": "Function evaluation is disabled while debugging native code",
+          "A.__proto__.caller": "Function evaluation is disabled while debugging native code",
           "A.__proto__.length": "0",
           "A.__proto__.name": ""
         },
-        "A.arguments": "Function evaluation is disabled while debugging native code",
-        "A.caller": "Function evaluation is disabled while debugging native code",
         "A.length": "0",
         "A.name": "A",
         "A.prototype": {

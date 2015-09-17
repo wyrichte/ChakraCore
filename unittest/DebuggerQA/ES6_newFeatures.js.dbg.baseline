@@ -5,13 +5,11 @@
         "arrow_b.__proto__": {
           "[Methods]": "{...}",
           "arrow_b.__proto__.__proto__": "{...}",
-          "arrow_b.__proto__.arguments": "null",
-          "arrow_b.__proto__.caller": "null",
+          "arrow_b.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
+          "arrow_b.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
           "arrow_b.__proto__.length": "0",
           "arrow_b.__proto__.name": ""
         },
-        "arrow_b.arguments": "null",
-        "arrow_b.caller": "null",
         "arrow_b.length": "0",
         "arrow_b.name": "arrow_b"
       }
@@ -69,8 +67,6 @@
     "evaluate": {
       "arrow_a": {
         "arrow_a.__proto__": "\nfunction() {\n    [native code]\n}\n",
-        "arrow_a.arguments": "{...}",
-        "arrow_a.caller": "null",
         "arrow_a.length": "0",
         "arrow_a.name": "arrow_a"
       }

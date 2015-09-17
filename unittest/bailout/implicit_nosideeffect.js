@@ -2,7 +2,7 @@
 function print(s) {}
 function f(a) {
     for (var vxmvvw = 0; vxmvvw < 1; ++vxmvvw) { if (vxmvvw % 10 == 3) { print(x); } else 
-    { ( ""  <<= a); }  } 
+    { ( eval('""  <<= a') ); }  } 
 }
 function Ctor()
 {

@@ -706,30 +706,34 @@ namespace JsDiag
 
         Js::Var value;
         CString error;
-        if (function.GetCaller(m_context, &value, error))
-        {
-            pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::caller, value);
-        }
-        else
-        {
-            pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::caller, error);
-        }
 
-        CComPtr<IJsDebugPropertyInternal> pDebugProperty;
-        if (function.GetArguments(m_context, &value, &pDebugProperty, error))
+        if (function.HasRestrictedProperties())
         {
-            if (pDebugProperty)
+            if (function.GetCaller(m_context, &value, error))
             {
-                pThis()->InsertItem(PROPERTY_INFO(pDebugProperty));
+                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::caller, value);
             }
             else
             {
-                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::arguments, value);
+                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::caller, error);
             }
-        }
-        else
-        {
-            pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::arguments, error);
+
+            CComPtr<IJsDebugPropertyInternal> pDebugProperty;
+            if (function.GetArguments(m_context, &value, &pDebugProperty, error))
+            {
+                if (pDebugProperty)
+                {
+                    pThis()->InsertItem(PROPERTY_INFO(pDebugProperty));
+                }
+                else
+                {
+                    pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::arguments, value);
+                }
+            }
+            else
+            {
+                pThis()->InsertSpecialProperty(&threadContext, var, Js::PropertyIds::arguments, error);
+            }
         }
 
         if (function.IsScriptFunction())
