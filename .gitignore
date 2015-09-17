@@ -24,4 +24,5 @@ sd.ini
 *.pyc
 __pycache__/*
 *.orig
+initenv.cmd
 
