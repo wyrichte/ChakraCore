@@ -635,25 +635,25 @@
   <test>
     <default>
       <files>memop_lifetime_bug.js</files>
-      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+      <compile-flags>-mic:1 -off:simplejit -mmoc:0</compile-flags>
     </default>
   </test>
   <test>
      <default>
         <files>memset.js</files>
-        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody -off:inline</compile-flags>
+        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody -off:inline -mmoc:0</compile-flags>
      </default>
   </test>
   <test>
      <default>
         <files>memset2.js</files>
-        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody</compile-flags>
+        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody -mmoc:0</compile-flags>
      </default>
   </test>
   <test>
      <default>
         <files>memcopy.js</files>
-        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody -off:inline</compile-flags>
+        <compile-flags>-mic:1 -off:simplejit -off:JITLoopBody -off:inline -mmoc:0</compile-flags>
      </default>
   </test>
 </regress-exe>
