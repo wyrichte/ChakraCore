@@ -598,6 +598,17 @@ var tests = [
                 [[a]=1] = [[]];
                 assert.areEqual(a, undefined, "Nested destructuring - value is present - default is incorrect - does not have @@iterator");      
           }
+
+       // Bug OSG : 4533495
+       {
+         function foo() {
+            for(var [i, j, k] in { qux: 1 }) {
+                return i === "q" && j === "u" && k === "x";
+            }
+        }
+        assert.isTrue(foo(), "Array destructuring pattern on for..in is initialized correctly");
+      }
+
     }
   }
 ];
