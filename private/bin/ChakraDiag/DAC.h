@@ -627,7 +627,6 @@ namespace JsDiag
         RecyclableObject* GetTrue() const { return this->ReadField<RecyclableObject*>(offsetof(TargetType, booleanTrue)); }
         RecyclableObject* GetFalse() const { return this->ReadField<RecyclableObject*>(offsetof(TargetType, booleanFalse)); }
         ObjectPrototypeObject* GetObjectPrototype() const { return this->ReadField<ObjectPrototypeObject*>(offsetof(TargetType, objectPrototype)); }
-        DynamicObject* GetFunctionPrototype() const { return this->ReadField<DynamicObject*>(offsetof(TargetType, functionPrototype)); }
         DynamicObject* GetBooleanPrototype() const { return this->ReadField<DynamicObject*>(offsetof(TargetType, booleanPrototype)); }
         DynamicObject* GetSymbolPrototype() const { return this->ReadField<DynamicObject*>(offsetof(TargetType, symbolPrototype)); }
         DynamicObject* GetNumberPrototype() const { return this->ReadField<DynamicObject*>(offsetof(TargetType, numberPrototype)); }
@@ -738,7 +737,6 @@ namespace JsDiag
         ScriptContext* GetScriptContext();
         RecyclableObject* GetPrototype();
         JavascriptLibrary* GetLibrary();
-        JavascriptMethod GetEntrypoint();
     };
 
     typedef RemoteRecyclableObjectBase<RecyclableObject> RemoteRecyclableObject;
@@ -776,7 +774,6 @@ namespace JsDiag
         bool IsScriptFunction() const;
         bool IsBoundFunction(const InspectionContext* inspectionContext) const;
         bool IsStrictMode() const;
-        bool HasRestrictedProperties() const;
     };
 
     struct RemoteBoundFunction : public RemoteRecyclableObjectBase<BoundFunction>

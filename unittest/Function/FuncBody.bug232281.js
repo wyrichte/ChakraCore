@@ -16,7 +16,7 @@ function test0(){
   }
   var func1 = function(argObj0,argArr1,argMath2){
     eval("");
-    func0();
+    1 = func0();
   }
   Object.prototype.method0 = func1; 
   obj1.length = ((shouldBailout ? func0 = obj0.method0 : 1), func0()); 

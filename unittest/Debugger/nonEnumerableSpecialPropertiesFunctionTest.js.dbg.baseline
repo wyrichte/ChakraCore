@@ -40,21 +40,19 @@
             ],
             "flagsAsValue": 16
           },
-          "arguments": "<large string>",
+          "arguments": "null",
           "arguments - [Attributes]": {
             "flags": [
-              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
               "DBGPROP_ATTRIB_VALUE_READONLY"
             ],
-            "flagsAsValue": 2064
+            "flagsAsValue": 2048
           },
-          "caller": "<large string>",
+          "caller": "null",
           "caller - [Attributes]": {
             "flags": [
-              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
               "DBGPROP_ATTRIB_VALUE_READONLY"
             ],
-            "flagsAsValue": 2064
+            "flagsAsValue": 2048
           },
           "length": "0",
           "length - [Attributes]": {

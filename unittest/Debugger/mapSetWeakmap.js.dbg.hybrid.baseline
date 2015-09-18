@@ -113,8 +113,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "{...}",
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -135,8 +135,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "{...}",
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -162,8 +162,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -655,8 +655,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -697,8 +697,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -729,8 +729,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -1179,8 +1179,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1221,8 +1221,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1253,8 +1253,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -1816,8 +1816,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1858,8 +1858,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },

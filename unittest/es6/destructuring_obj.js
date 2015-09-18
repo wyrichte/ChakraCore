@@ -59,7 +59,7 @@ var tests = [
     name: "Object destructuring syntax with identifier reference",
     body: function () {
       assert.throws(function () { eval("function foo() { return {}; }; let {x:foo()} = {};"); }, SyntaxError,  "Object declaration pattern with a call expression is not valid syntax", "Let/Const redeclaration");
-      assert.throws(function () { eval("function foo() { return {}; }; ({x:foo()} = {});"); }, ReferenceError,  "Object expression pattern with a call expression is not valid syntax", "Invalid left-hand side in assignment");
+      assert.throws(function () { eval("function foo() { return {}; }; ({x:foo()} = {});"); }, SyntaxError,  "Object expression pattern with a call expression is not valid syntax", "Unexpected operator in destructuring expression");
       assert.throws(function () { eval("function foo() { return {}; }; var {x:foo().x} = {};"); }, SyntaxError,  "Object declaration pattern with property reference on call is not valid syntax", "Syntax error");
 
       assert.doesNotThrow(function () { eval("var a = {}; ({x:a.x} = {});"); }, "Object expresion pattern with a property reference is valid syntax");
@@ -112,7 +112,7 @@ var tests = [
       assert.throws(function () { eval("let a; [...1+a] = [{}];"); }, SyntaxError, "Under declaration, rest element has operator is not valid syntax",   "Invalid destructuring assignment target");
 
       assert.throws(function () { eval("let a; [...[a+1] = [{}];"); }, SyntaxError, "Under expression, having rest element as pattern which has operator is not valid syntax",   "Unexpected operator in destructuring expression");
-      assert.throws(function () { eval("function foo() { return {x:1}; }; [...foo()] = [10];"); }, ReferenceError, "Under expression, having rest element as call expression is not valid syntax", "Invalid left-hand side in assignment");
+      assert.throws(function () { eval("function foo() { return {x:1}; }; [...foo()] = [10];"); }, SyntaxError, "Under expression, having rest element as call expression is not valid syntax", "Invalid destructuring assignment target");
     }
    },
    {
@@ -137,7 +137,7 @@ var tests = [
       assert.doesNotThrow(function () { eval("let a, r1; ({a:((((a1 = r1))))} = {})"); }, "Object expression pattern with defaults as reference under parens is valid syntax");
       assert.doesNotThrow(function () { eval("let a, r1; ({a:a1 = r1 = 44} = {})"); }, "Object expression pattern with chained assignments as defaults is valid syntax");
       assert.doesNotThrow(function () { eval("let a, r1; ({a:(a1 = r1 = 44)} = {})"); }, "Object expression pattern with chained assignments as defaults under paren is valid syntax");
-      assert.throws(function () { eval("let a, r1; ({a:(a1 = r1) = 44} = {})"); }, ReferenceError, "Object expression pattern with chained assignments but paren in between is not valid syntax", "Invalid left-hand side in assignment");
+      assert.throws(function () { eval("let a, r1; ({a:(a1 = r1) = 44} = {})"); }, SyntaxError, "Object expression pattern with chained assignments but paren in between is not valid syntax", "Unexpected operator in destructuring expression");
       assert.doesNotThrow(function () { eval("var a; `${({a} = {})}`"); }, "Object expression pattern inside a string template is valid syntax");
       assert.throws(function () { eval("for (let {x} = {} of []) {}"); }, SyntaxError, "for.of has declaration pattern with initializer is not valid syntax", "Destructuring expression cannot have an initializer");
       assert.throws(function () { eval("for ({x} = {} of []) {}"); }, SyntaxError, "for.of has expression pattern with initializer is not valid syntax", "Destructuring expression cannot have an initializer");

@@ -91,7 +91,8 @@ passed
 Test case 38
 passed
 Test case 40
-ReferenceError: Invalid left-hand side in assignment
+ReferenceError: 'undefinedFunction' is undefined
+   at eval code (eval code:1:22)
    at testRuntimeError (randombug.js:465:9)
    at test31 (randombug.js:469:2)
    at Global code (randombug.js:461:2)

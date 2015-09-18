@@ -43,6 +43,12 @@
   </test>
   <test>
     <default>
+      <files>calliput.js</files>
+      <baseline>calliput.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>addexception.js</files>
       <baseline>addexception.baseline</baseline>
     </default>
@@ -227,12 +233,25 @@
       <compile-flags>-bgjit- -on:asmjs -simdjs -testtrace:asmjs -AsmJsStopOnError -maic:0</compile-flags>
     </default>
   </test>
-  <!-- Disable until we figure out how to handle the early error while preserving the coverage
   <test>
     <default>
       <files>OS_4341640.js</files>
       <tags>BugFix</tags>
     </default>
   </test>
-  -->
+  <test>
+    <default>
+      <files>OS_3797688.js</files>
+      <compile-flags>-loopinterpretcount:3 -bgjit- -maxsimplejitruncount:2 -maxinterpretcount:2 -forceserialized</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>OS_3797688_2.js</files>
+      <compile-flags>-MaxinterpretCount:1 -MaxSimpleJITRunCount:1 -force:PolymorphicInlineCache -force:Rejit -force:ObjTypeSpec -force:Cse -bgjit- -loopinterpretcount:3 -bgjit- -loopinterpretcount:2 -forceSerialized</compile-flags>
+      <baseline>OS_3797688_2.baseline</baseline>
+      <tags>BugFix</tags>
+    </default>
+  </test>
 </regress-exe>

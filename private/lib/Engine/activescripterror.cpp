@@ -394,8 +394,7 @@ void ActiveScriptError::FillParseErrorInfo(ExtendedExceptionInfo &exInfo)
 {
     // Fake error type. Only for WWA. It can not be thrown.
     FillText(exInfo.errorType.typeText, L"Parse error");
-    exInfo.errorType.typeNumber = 
-        ErrorTypeHelper::MapToExternal(Js::JavascriptError::MapParseError(exInfo.exceptionInfo.scode));
+    exInfo.errorType.typeNumber = JavascriptParseError;
     exInfo.flags = ExtendedExceptionInfo_Available;
     exInfo.callStack.frameCount = 0;
     exInfo.callStack.frames = nullptr;

@@ -1,0 +1,173 @@
+In w(), count = 0
+In y(), count = 1
+In z(), count = 2
+In catch1, count = 3
+In w(), count = 4
+In y(), count = 5
+In z(), count = 6
+In catch2, count = 7
+In w(), count = 8
+In y(), count = 9
+In z(), count = 10
+In catch3, count = 11
+In w(), count = 12
+In y(), count = 13
+In x(), count = 14
+In z(), count = 15
+In catch1, count = 16
+In w(), count = 17
+In y(), count = 18
+In x(), count = 19
+In z(), count = 20
+In catch2, count = 21
+In w(), count = 22
+In y(), count = 23
+In x(), count = 24
+In z(), count = 25
+In catch3, count = 26
+
+Test: CallFld with compound assignment and complex RHS
+In w(), count = 27
+In y(), count = 28
+In x(), count = 29
+In catch, count = 30 ReferenceError: Cannot assign to a function result
+
+Test: CallElem with compound assignment and complex RHS
+In w(), count = 31
+In y(), count = 32
+In x(), count = 33
+In catch, count = 34 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with compound assignment and complex RHS
+In y(), count = 35
+In w(), count = 36
+In catch, count = 37 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with eval with compound assignment and complex RHS
+In y(), count = 38
+In w(), count = 39
+In catch, count = 40 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with simple RHS
+In w(), count = 41
+In catch, count = 42 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with complex RHS
+In w(), count = 43
+In catch, count = 44 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with eval with simple RHS
+In w(), count = 45
+In catch, count = 46 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with eval with complext RHS
+In w(), count = 47
+In catch, count = 48 ReferenceError: Cannot assign to a function result
+
+Test: CallFld Post Incr
+In w(), count = 49
+In y(), count = 50
+In x(), count = 51
+In catch, count = 52 ReferenceError: Cannot assign to a function result
+
+Test: CallElem Post Incr
+In w(), count = 53
+In y(), count = 54
+In x(), count = 55
+In catch, count = 56 ReferenceError: Cannot assign to a function result
+
+Test: CallFld Post Incr
+In y(), count = 57
+In w(), count = 58
+In catch, count = 59 ReferenceError: Cannot assign to a function result
+
+Test: CallI with Post Incr
+In w(), count = 60
+In catch, count = 61 ReferenceError: Cannot assign to a function result
+
+Test: CallFld Pre Incr
+In w(), count = 62
+In y(), count = 63
+In x(), count = 64
+In catch, count = 65 ReferenceError: Cannot assign to a function result
+
+Test: CallElem Pre Incr
+In w(), count = 66
+In y(), count = 67
+In x(), count = 68
+In catch, count = 69 ReferenceError: Cannot assign to a function result
+
+Test: CallFld Pre Incr
+In y(), count = 70
+In w(), count = 71
+In catch, count = 72 ReferenceError: Cannot assign to a function result
+
+Test: CallI with Pre Decr
+In w(), count = 73
+In catch, count = 74 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with multiple args and compound assignment and complex RHS
+In w(), count = 75
+In y(), count = 76
+In x(), count = 77
+In catch, count = 78 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with multiple args and compound assignment and complex RHS
+In w(), count = 79
+In y(), count = 80
+In x(), count = 81
+In catch, count = 82 ReferenceError: Cannot assign to a function result
+
+Test: Eval with compound assingment
+In catch, count = 83 ReferenceError: Cannot assign to a function result
+
+Test: Eval with post increment
+In catch, count = 84 ReferenceError: Cannot assign to a function result
+
+Test: Eval with pre increment
+In catch, count = 85 ReferenceError: Cannot assign to a function result
+
+Test: CallFld with compound assignment and complex RHS
+In w(), count = 86
+In y(), count = 87
+In x(), count = 88
+In catch, count = 89 ReferenceError: Cannot assign to a function result
+
+Test: Compund assignment of local
+In w(), count = 90
+In catch, count = 91 TypeError: Function expected
+
+Test: Simple assignment of local
+In w(), count = 92
+In catch, count = 93 ReferenceError: Cannot assign to a function result
+
+Test: Simple assignment of closure variable
+
+Test: Compund assignment of closure variable
+In foo(), count = 94
+In catch, count = 95 ReferenceError: Cannot assign to a function result
+
+Test: Simple assignment in a with scope.
+In catch, count = 96 ReferenceError: Cannot assign to a function result
+
+Test: Compound assignment in a with scope.
+In foo(), count = 97
+In catch, count = 98 ReferenceError: Cannot assign to a function result
+
+Test: Simple assignment with function as argument
+In catch, count = 99 ReferenceError: Cannot assign to a function result
+
+Test: Compound assignment with function as argument
+In foo(), count = 100
+In catch, count = 101 ReferenceError: Cannot assign to a function result
+
+Test: Simple assignment with function expression
+In catch, count = 102 ReferenceError: Cannot assign to a function result
+
+Test: Compound assignment with function expression
+In foo(), count = 103
+In catch, count = 104 ReferenceError: Cannot assign to a function result
+
+Test: Compound assignment with function expression with Complext RHS
+In foo(), count = 105
+In catch, count = 106 ReferenceError: Cannot assign to a function result

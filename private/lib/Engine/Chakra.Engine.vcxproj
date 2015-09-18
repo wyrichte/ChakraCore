@@ -176,7 +176,6 @@
     <ClInclude Include="HostObject.h" />
     <ClInclude Include="HostVariant.h" />
     <ClInclude Include="IDebugBitCorrectApplicationThread.h" />
-    <ClInclude Include="IHTMLDOMConstructor.h" />
     <ClInclude Include="JavascriptDispatch.h" />
     <ClInclude Include="JavascriptExternalOperators.h" />
     <ClInclude Include="javascriptpixelarraydispatch.h" />

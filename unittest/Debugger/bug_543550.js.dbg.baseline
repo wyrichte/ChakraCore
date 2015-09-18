@@ -35,10 +35,24 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Accessing the 'arguments' property is restricted in this context",
-          "caller": "Accessing the 'caller' property is restricted in this context",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
+        },
+        "arguments": {
+          "__proto__": "",
+          "description": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "message": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "number": "-2146823193",
+          "stack": "<large string>"
+        },
+        "caller": {
+          "__proto__": "",
+          "description": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "message": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "number": "-2146823245",
+          "stack": "<large string>"
         },
         "length": "0",
         "name": "bar",

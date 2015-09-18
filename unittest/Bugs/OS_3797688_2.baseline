@@ -1,0 +1,2 @@
+ReferenceError: Cannot assign to a function result
+	at Global code (OS_3797688_2.js:9:1)

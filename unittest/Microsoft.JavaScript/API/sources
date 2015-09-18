@@ -25,9 +25,6 @@ BINPLACE_USE_FULLCLASS=1
 BINPLACE_NO_SYMCHK=1
 PASS2_BINPLACE= \
     $(_NTTREE)\chakra.dll \
-# Symbols are released in a normal "SYMBOLS" chunk and later in a non-critical "SYMBOLS_NONCRIT."
-# Therefore, the symbols commented out below are not available when this directory is build during
-# the non-critical build phase
-#    $(_NTTREE)\symbols.pri\retail\dll\chakra.pdb \
+    $(_NTTREE)\symbols.pri\retail\dll\chakra.pdb \
     $(_NTTREE)\jscript\chakratest.dll \
-#    $(_NTTREE)\symbols.pri\jscript\dll\chakratest.pdb
+    $(_NTTREE)\symbols.pri\jscript\dll\chakratest.pdb

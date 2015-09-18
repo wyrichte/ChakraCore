@@ -5,7 +5,7 @@ if (this.WScript && this.WScript.LoadScriptFile) { // Check for running in
 
 function foo() {
   function bar() {
-    eval('[a] = this;');
+    [a] = this;
   }
   let a;
   bar();

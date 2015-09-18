@@ -20,7 +20,7 @@ function foo(a) {
 }
 
 foo(1);
-safeCall(function() { foo(1); eval('foo(1) = true;'); });
+safeCall(function() { foo(1) = true; });
 //foo.call(this, 2);
 foo.call(o, 3);
 

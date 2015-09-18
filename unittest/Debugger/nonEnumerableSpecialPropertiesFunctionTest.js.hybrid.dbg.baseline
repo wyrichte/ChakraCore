@@ -41,14 +41,14 @@
             ],
             "flagsAsValue": 9
           },
-          "arguments": "<large string>",
+          "arguments": "null",
           "arguments - [Attributes]": {
             "flags": [
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 8
           },
-          "caller": "<large string>",
+          "caller": "null",
           "caller - [Attributes]": {
             "flags": [
               "JS_PROPERTY_READONLY"

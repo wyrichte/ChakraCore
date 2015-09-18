@@ -173,7 +173,7 @@ try { var shouldBailout = (WScript.Arguments[0] == 'bailout'); } catch(linkedLis
     17;
 };;/*sEnd*/
 })();
-//(function() {/*sStart*/; try { try { (( /* Comment */x))([15, 16, 17, 18].map(isNaN, (eval(this, '')).__defineSetter__("b", Array.reduce).__defineSetter__("b", (gczeal(0))))) = b; } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
+(function() {/*sStart*/; try { try { (( /* Comment */x))([15, 16, 17, 18].map(isNaN, (eval(this, '')).__defineSetter__("b", Array.reduce).__defineSetter__("b", (gczeal(0))))) = b; } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
 //(function(){/*sStart*/;w.byteLength = linkedList(w.byteLength, 4941);;;/*sEnd*/})();
 //(function(){/*sStart*/;if(shouldBailout){function shapeyConstructor(htlwio){htlwio.gczeal = Infinity;htlwio.gczeal =  '\0' ;Object.defineProperty(htlwio, "x", ({writable: true, enumerable: false}));Object.seal(htlwio);delete htlwio.gczeal;if (htlwio) {  } Object.defineProperty(htlwio, "x", ({configurable: true}));return 2+htlwio; }; shapeyConstructor( 'A' );};;;/*sEnd*/})();
 (function() {/*sStart*/; try { try { with({}) try { let (functional, u3056 = "u5E02", d, functional)((function() { try { with({}) { try { while((2199023255551) && 0) { print(x); (-0); } } catch(linkedList) { } } } catch(linkedList) { } })()); } catch(linkedList) { } } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
@@ -274,7 +274,7 @@ try { var shouldBailout = (WScript.Arguments[0] == 'bailout'); } catch(linkedLis
 (function() {/*sStart*/; if(([a = gczeal].map(decodeURI)))[1, , ]; else if(x) print(x);/*oLoop*/for(qklmnp = 0; qklmnp < 3; ++qklmnp) { print(gczeal); };;/*sEnd*/ })();
 (function() {/*sStart*/; "use strict"; try { try { a = x; } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
 (function() {/*sStart*/; "use strict"; M: with({ d: /x/g }) { -5.431015841186214e+307; };;/*sEnd*/ })();
-//(function() {/*sStart*/;/*hhh*/function uoqwju() { print([] = x.gczeal); }/*iii*//*bLoop*/for(var zuairv = 0; zuairv < 23; ++zuairv) { if(zuairv % 10 == 5) { ''; } else { (/x/g); } };;/*sEnd*/ })();
+(function() {/*sStart*/;/*hhh*/function uoqwju() { print([] = x.gczeal); }/*iii*//*bLoop*/for(var zuairv = 0; zuairv < 23; ++zuairv) { if(zuairv % 10 == 5) { ''; } else { (/x/g); } };;/*sEnd*/ })();
 //(function(){/*sStart*/;"use strict"; ++"u0D4C".throw(true).u3056;try{try{a = x;}catch(linkedList){}}catch(linkedList){}/*replaced*/gczeal('strict')/*replaced*/;;/*sEnd*/})();
 (function() {/*sStart*/; "use strict"; print(x - this.functional++);;;/*sEnd*/ })();
 (function() {/*sStart*/; (function() { return "u16FA"; })(); print(x);;;/*sEnd*/ })();
@@ -381,7 +381,7 @@ try { var shouldBailout = (WScript.Arguments[0] == 'bailout'); } catch(linkedLis
 (function() {/*sStart*/; "use strict"; with({ functional: (4277) }) { (function() { return; })(); (/x/g); };;/*sEnd*/ })();
 (function() {/*sStart*/; "use strict"; gczeal++;;;/*sEnd*/ })();
 (function() {/*sStart*/; print(x);;;/*sEnd*/ })();
-//(function(){/*sStart*/;"use strict"; switch([ , x] &= linkedList) { default: break; case 0: break; case 4: Math.sin(16);break; case gczeal: /*tLoop*/for (var functional in [ /x/ ,  /x/ ,  /x/ ,  /x/ , new Number(1.5),  /x/ , new Number(1.5), new Number(1.5),  /x/ ]) { XPCNativeWrapper; }print(x);break; for (var p in gczeal) { addPropertyName(p); }break;  };;/*sEnd*/})();
+//(function(){/*sStart*/;"use strict"; switch([	, x] &= linkedList) { default: break; case 0: break; case 4: Math.sin(16);break; case gczeal: /*tLoop*/for (var functional in [ /x/ ,  /x/ ,  /x/ ,  /x/ , new Number(1.5),  /x/ , new Number(1.5), new Number(1.5),  /x/ ]) { XPCNativeWrapper; }print(x);break; for (var p in gczeal) { addPropertyName(p); }break;  };;/*sEnd*/})();
 //(function(){/*sStart*/;ihgcpt(new EvalError(({} = x), eval("( \"\" );")));/*hhh*/function ihgcpt(){print(x);};;/*sEnd*/})();
 (function() {/*sStart*/; "use strict"; L: print((4277)); function XPCNativeWrapper() {/*jjj*/ } new addPropertyName("uC334");;;/*sEnd*/ })();
 (function() {/*sStart*/; "use strict"; { };;/*sEnd*/ })();
@@ -667,7 +667,7 @@ try { var shouldBailout = (WScript.Arguments[0] == 'bailout'); } catch(linkedLis
 (function() {/*sStart*/; for(d in x = Proxy.createFunction((function handlerFactory() { return { getOwnPropertyDescriptor: function() { var yum = 'PCAL'; dumpln(yum + 'LED: getOwnPropertyDescriptor'); }, getPropertyDescriptor: function() { var yum = 'PCAL'; dumpln(yum + 'LED: getPropertyDescriptor'); }, defineProperty: function() { var yum = 'PCAL'; dumpln(yum + 'LED: defineProperty'); }, getOwnPropertyNames: function() { var yum = 'PCAL'; dumpln(yum + 'LED: getOwnPropertyNames'); return []; }, fix: function() { var yum = 'PCAL'; dumpln(yum + 'LED: fix'); return []; }, has: function() { var yum = 'PCAL'; dumpln(yum + 'LED: has'); return false; }, hasOwn: function() { var yum = 'PCAL'; dumpln(yum + 'LED: hasOwn'); return false; }, get: XPCSafeJSObjectWrapper, set: function() { var yum = 'PCAL'; dumpln(yum + 'LED: set'); return true; }, iterate: function() { var yum = 'PCAL'; dumpln(yum + 'LED: iterate'); return (function() { throw StopIteration; }); }, enumerate: function() { var yum = 'PCAL'; dumpln(yum + 'LED: enumerate'); return []; }, keys: function() { var yum = 'PCAL'; dumpln(yum + 'LED: keys'); return []; }, }; })(({ x: /x/g })), new Function, x)) { try { try {; } catch(linkedList) { } } catch(linkedList) { } do print(true); while(("") && 0); };;/*sEnd*/ })();
 //(function(){/*sStart*/;"use strict"; gczeal(0);;;/*sEnd*/})();
 (function() {/*sStart*/; "use strict"; var opn = Object.getOwnPropertyNames(eval); for(var j = 0; j < opn.yiyqcc; ++j) { addPropertyName(opn[j]); };;/*sEnd*/ })();
-//(function() {/*sStart*/; try { try { for(let gczeal in [({ x: 3 }), false, ({ x: 3 }), false, false, false, false, false, false, ({ x: 3 }), false, false, ({ x: 3 }), false, false, ({ x: 3 }), false, false, false]) try { for(let x in []); } catch(linkedList) { } } catch(linkedList) { } try { let ([] = x.__defineSetter__("w", Proxy.create), lithfp)((function() { try {; } catch(linkedList) { } })()); } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
+(function() {/*sStart*/; try { try { for(let gczeal in [({ x: 3 }), false, ({ x: 3 }), false, false, false, false, false, false, ({ x: 3 }), false, false, ({ x: 3 }), false, false, ({ x: 3 }), false, false, false]) try { for(let x in []); } catch(linkedList) { } } catch(linkedList) { } try { let ([] = x.__defineSetter__("w", Proxy.create), lithfp)((function() { try {; } catch(linkedList) { } })()); } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
 (function() {/*sStart*/; if(shouldBailout) { { var vqkpgd;; } };;;/*sEnd*/ })();
 (function() {/*sStart*/; try { try { throw w; } catch(linkedList) { } } catch(linkedList) { };;/*sEnd*/ })();
 (function() {/*sStart*/;/*oLoop*/for(var opxfzt = 0; opxfzt < 11; ++opxfzt) {; };;/*sEnd*/ })();

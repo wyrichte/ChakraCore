@@ -102,8 +102,7 @@ function test5() {
                 while(((Function("") instanceof Boolean)) && __loopvar6 < 3) {
                     __loopvar6++;
                     obj0.prop0 = (1, obj1.prop1, obj1.prop1);
-                    a = obj1;
-                    let a;
+                    1 = obj1;
                 }
             }
             else {
@@ -685,7 +684,7 @@ WScript.Echo("test37: " + test37());
             for(qmsdtp = 0; qmsdtp < 16 && undefined && (y %= null) ; ++qmsdtp) {
                 if(qmsdtp % 7 == 5) {
                 } else {
-                    with(1 ^ (/x/g.prototype.prototype)) { }
+                    with(1 ^= (/x/g.prototype.prototype)) { }
                 }
             };;
         })();

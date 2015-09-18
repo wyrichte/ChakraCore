@@ -71,33 +71,27 @@ function exceptToString(ee) {
 
 (function Test5() {
     "use strict";
-    var str = "function.arguments and function.caller descriptors are undefined";
+    var str = "function.arguments.get/set and funciton.caller.get/set are equal/strictEqual to each other";
 
     // Properties on the function object. 
-    var callerDescriptor = Object.getOwnPropertyDescriptor(function() {}, 'caller');
-    var argumentsDescriptor = Object.getOwnPropertyDescriptor(function() {}, 'arguments');
-    
-    write("Return: " +
-        (callerDescriptor === undefined) + " " +
-        (argumentsDescriptor === undefined) + ": " +
-        str);
-})();
+    var callerGet = Object.getOwnPropertyDescriptor(function() {}, 'caller').get;
+    var callerSet = Object.getOwnPropertyDescriptor(function() {}, 'caller').set;
+    var argumentsGet = Object.getOwnPropertyDescriptor(function() {}, 'arguments').get;
+    var argumentsSet = Object.getOwnPropertyDescriptor(function() {}, 'arguments').set;
 
-(function Test5() {
-    "use strict";
-    var str = "arguments.caller and arguments.callee are equal/strictEqual to each other";
-    
     // Properties on the arguments object. 
     var argumentsCallerGet = Object.getOwnPropertyDescriptor(arguments, 'caller').get;
     var argumentsCallerSet = Object.getOwnPropertyDescriptor(arguments, 'caller').set;
     var argumentsCalleeGet = Object.getOwnPropertyDescriptor(arguments, 'callee').get;
     var argumentsCalleeSet = Object.getOwnPropertyDescriptor(arguments, 'callee').set;
-    
+        
     write("Return: " + 
-      (argumentsCallerGet == argumentsCalleeGet && argumentsCallerSet == argumentsCalleeSet && 
-       argumentsCallerGet == argumentsCallerSet).toString() + " " +
-      (argumentsCallerGet === argumentsCalleeGet && argumentsCallerSet === argumentsCalleeSet && 
-       argumentsCallerGet === argumentsCallerSet).toString() + ": " +
+      (callerGet == argumentsGet && callerSet == argumentsSet && callerGet == callerSet &&
+       argumentsCallerGet == argumentsCalleeGet && argumentsCallerSet == argumentsCalleeSet && 
+       argumentsCallerGet == argumentsCallerSet && callerGet == argumentsCallerGet).toString() + " " +
+      (callerGet === argumentsGet && callerSet === argumentsSet && callerGet === callerSet &&
+       argumentsCallerGet === argumentsCalleeGet && argumentsCallerSet === argumentsCalleeSet && 
+       argumentsCallerGet === argumentsCallerSet && callerGet === argumentsCallerGet).toString() + ": " +
       str);
 })();
 

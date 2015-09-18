@@ -20,11 +20,17 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "l1.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "l1.__proto__.arguments": "null",
+          "l1.__proto__.caller": "null",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
+        "l1.arguments": {
+          "[Methods]": "{...}",
+          "l1.arguments.__proto__": "{...}",
+          "l1.arguments.length": "0"
+        },
+        "l1.caller": "null",
         "l1.length": "0",
         "l1.name": "l1"
       }
@@ -46,11 +52,13 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "l1.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "l1.__proto__.arguments": "null",
+          "l1.__proto__.caller": "null",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
+        "l1.arguments": "null",
+        "l1.caller": "null",
         "l1.length": "0",
         "l1.name": "l1"
       }
@@ -62,10 +70,24 @@
         "A.__proto__": {
           "[Methods]": "{...}",
           "A.__proto__.__proto__": "{...}",
-          "A.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "A.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "A.__proto__.arguments": "null",
+          "A.__proto__.caller": "null",
           "A.__proto__.length": "0",
           "A.__proto__.name": ""
+        },
+        "A.arguments": {
+          "A.arguments.__proto__": "",
+          "A.arguments.description": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "A.arguments.message": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+          "A.arguments.number": "-2146823193",
+          "A.arguments.stack": "<large string>"
+        },
+        "A.caller": {
+          "A.caller.__proto__": "",
+          "A.caller.description": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "A.caller.message": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
+          "A.caller.number": "-2146823245",
+          "A.caller.stack": "<large string>"
         },
         "A.length": "0",
         "A.name": "A",

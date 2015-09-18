@@ -83,8 +83,8 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Function evaluation is disabled while debugging native code",
-          "caller": "Function evaluation is disabled while debugging native code",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
@@ -105,11 +105,13 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Function evaluation is disabled while debugging native code",
-          "caller": "Function evaluation is disabled while debugging native code",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
+        "arguments": "null",
+        "caller": "null",
         "length": "1",
         "name": "foo"
       }
@@ -121,11 +123,13 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Function evaluation is disabled while debugging native code",
-          "caller": "Function evaluation is disabled while debugging native code",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
+        "arguments": "null",
+        "caller": "null",
         "length": "1",
         "name": "bar"
       }

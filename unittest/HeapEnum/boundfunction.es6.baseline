@@ -11,7 +11,7 @@ undefined
  |  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (2)
  |  |  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |  |  |    |  [Properties] count: 9
+ |  |  |  |    |  [Properties] count: 8
  |  |  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |  |    |  | 1 length: value: 0.000000
@@ -56,13 +56,6 @@ undefined
  |  |  |  |    |  |    | 0 length: value: 1.000000
  |  |  |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |  |    |  |    |    [Internal property] value: toMethod
- |  |  |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |  |    |  | 8 Symbol.hasInstance: type: FunctionObject flags: (new) optional info records (2)
- |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |  |  |    |  |    [Properties] count: 2
- |  |  |  |    |  |    | 0 length: value: 1.000000
- |  |  |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |  |    |  |    |    [Internal property] value: [Symbol.hasInstance]
  |  |  |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
  |  |  |  |    [Prototype] type: FunctionObject (seen)

@@ -3,6 +3,8 @@
     "evaluate": {
       "sample": {
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arguments": "Accessing the 'arguments' property of a function is not allowed in strict mode",
+        "caller": "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode",
         "length": "0",
         "name": "sample",
         "prototype": "{...}"
@@ -78,8 +80,8 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Accessing the 'arguments' property is restricted in this context",
-          "caller": "Accessing the 'caller' property is restricted in this context",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
@@ -100,11 +102,13 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Accessing the 'arguments' property is restricted in this context",
-          "caller": "Accessing the 'caller' property is restricted in this context",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
+        "arguments": "null",
+        "caller": "null",
         "length": "1",
         "name": "foo"
       }
@@ -116,11 +120,13 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "arguments": "Accessing the 'arguments' property is restricted in this context",
-          "caller": "Accessing the 'caller' property is restricted in this context",
+          "arguments": "null",
+          "caller": "null",
           "length": "0",
           "name": ""
         },
+        "arguments": "null",
+        "caller": "null",
         "length": "1",
         "name": "bar"
       }

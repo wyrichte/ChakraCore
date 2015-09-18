@@ -78,8 +78,8 @@
         "Array.__proto__": {
           "[Methods]": "{...}",
           "Array.__proto__.__proto__": "{...}",
-          "Array.__proto__.arguments": "Function evaluation is disabled while debugging native code",
-          "Array.__proto__.caller": "Function evaluation is disabled while debugging native code",
+          "Array.__proto__.arguments": "null",
+          "Array.__proto__.caller": "null",
           "Array.__proto__.length": "0",
           "Array.__proto__.name": ""
         },

@@ -10,55 +10,41 @@ function p(x) {
 function verifyClassMember(obj, name, expectedReturnValue, isGet, isSet, isGenerator) {
     let p = Object.getOwnPropertyDescriptor(obj, name);
     let strMethodSignature = `obj[${name}](${isGet},${isSet},${isGenerator})`;
-    let fn;
     
     if (isGet) {
-        fn = p.get;
-        
-        assert.areEqual('function', typeof fn, `${strMethodSignature}: Get method has 'get' property set in descriptor`);
+        assert.areEqual('function', typeof p.get, `${strMethodSignature}: Get method has 'get' property set in descriptor`);
         assert.areEqual(expectedReturnValue, obj[name], `${strMethodSignature}: Invoking class get method returns correct value`);
-        assert.areEqual(expectedReturnValue, fn(), `${strMethodSignature}: Calling class get method function directly returns correct value`);
+        assert.areEqual(expectedReturnValue, p.get(), `${strMethodSignature}: Calling class get method function directly returns correct value`);
         
-        assert.isFalse('prototype' in fn, `${strMethodSignature}: Class method get does not have 'prototype' property`);
+        //assert.isFalse('prototype' in p.get, `${strMethodSignature}: Class method get does not have 'prototype' property`);
     } else if (isSet) {
-        fn = p.set;
-        
-        assert.areEqual('function', typeof fn, `${strMethodSignature}: Set method has 'set' property set in descriptor`);
+        assert.areEqual('function', typeof p.set, `${strMethodSignature}: Set method has 'set' property set in descriptor`);
         assert.areEqual(undefined, obj[name], `${strMethodSignature}: Invoking class set method returns undefined`);
-        assert.areEqual(expectedReturnValue, fn(), `${strMethodSignature}: Calling class set method function directly returns correct value`);
+        assert.areEqual(expectedReturnValue, p.set(), `${strMethodSignature}: Calling class set method function directly returns correct value`);
         
-        assert.isFalse('prototype' in fn, `${strMethodSignature}: Class method set does not have 'prototype' property`);
-        
-        
+        //assert.isFalse('prototype' in p.set, `${strMethodSignature}: Class method set does not have 'prototype' property`);
     } else if (isGenerator) {
-        fn = obj[name];
-        
-        assert.areEqual('function', typeof fn, `${strMethodSignature}: Class method generator function has correct type`);
+        assert.areEqual('function', typeof obj[name], `${strMethodSignature}: Class method generator function has correct type`);
         
         let s;
-        for (s of fn()) {}
+        for (s of obj[name]()) {}
         assert.areEqual(expectedReturnValue, s, `${strMethodSignature}: Calling class method generator returns correct value`);
         
         assert.isTrue(p.writable, `${strMethodSignature}: Class method generator functions are writable`);
         
-        assert.isTrue('prototype' in fn, `${strMethodSignature}: Class method generator does have 'prototype' property`);
+        //assert.isTrue('prototype' in obj[name], `${strMethodSignature}: Class method generator does have 'prototype' property`);
     } else {
-        fn = obj[name]
-        
-        assert.areEqual('function', typeof fn, `${strMethodSignature}: Class method has correct type`);
-        assert.areEqual(expectedReturnValue, fn(), `${strMethodSignature}: Calling class method returns correct value`);
+        assert.areEqual('function', typeof obj[name], `${strMethodSignature}: Class method has correct type`);
+        assert.areEqual(expectedReturnValue, obj[name](), `${strMethodSignature}: Calling class method returns correct value`);
         
         // get/set property descriptors do not have writable properties
         assert.isTrue(p.writable, `${strMethodSignature}: Class method functions are writable`);
         
-        assert.isFalse('prototype' in fn, `${strMethodSignature}: Class method does not have 'prototype' property`);
+        //assert.isFalse('prototype' in obj[name], `${strMethodSignature}: Class method does not have 'prototype' property`);
     }
     
     assert.isFalse(p.enumerable, `${strMethodSignature}: Class methods are not enumerable`);
     assert.isTrue(p.configurable, `${strMethodSignature}: Class methods are configurable`);
-    
-    assert.isFalse(fn.hasOwnProperty('arguments'), `${strMethodSignature}: Class methods do not have an 'arguments' property`);
-    assert.isFalse(fn.hasOwnProperty('caller'), `${strMethodSignature}: Class methods do not have an 'caller' property`);
 }
 
 var tests = [
@@ -811,8 +797,8 @@ var tests = [
         name: "Extends expression of a class declaration or expression is strict mode",
         body: function() {
             var BadClass = class extends function() { arguments.caller; } {};
-            assert.throws(function() { Object.getPrototypeOf(BadClass).arguments; }, TypeError, "The extends expression of a class expression should be parsed in strict mode", "Accessing the 'arguments' property is restricted in this context");
-            assert.throws(function() { new BadClass(); }, TypeError, "New'ing a class with a parent constructor that throws in strict mode, should throw", "Accessing the 'caller' property is restricted in this context");
+            assert.throws(function() { Object.getPrototypeOf(BadClass).arguments; }, TypeError, "The extends expression of a class expression should be parsed in strict mode", "Accessing the 'arguments' property of a function is not allowed in strict mode");
+            assert.throws(function() { new BadClass(); }, TypeError, "New'ing a class with a parent constructor that throws in strict mode, should throw", "Accessing the 'caller' property of a function or arguments object is not allowed in strict mode");
             
             assert.throws(function() { eval('class WorseClass extends (function foo() { with ({}); return foo; }()) {};'); }, SyntaxError, "The extends expression of a class decl should be parsed in strict mode", "'with' statements are not allowed in strict mode");
         }
@@ -825,130 +811,6 @@ var tests = [
             
             assert.throws(function() { eval('class eval {};'); }, SyntaxError, "A class may not be named eval because assigning to arguments in strict mode is not allowed", "Invalid usage of 'eval' in strict mode");
             assert.throws(function() { eval('var x = class eval {};'); }, SyntaxError, "A class may not be named eval because assigning to arguments in strict mode is not allowed", "Invalid usage of 'eval' in strict mode");
-        }
-    },
-    {
-        name: "Classes with caller/arguments methods",
-        body: function() {
-            class ClassWithArgumentsAndCallerMethods {
-                static arguments() { return 'abc'; }
-                static caller() { return 'def'; }
-                
-                arguments() { return '123'; }
-                caller() { return '456'; }
-            }
-            
-            assert.areEqual('abc', ClassWithArgumentsAndCallerMethods.arguments(), "ClassWithArgumentsAndCallerMethods.arguments() === 'abc'");
-            assert.areEqual('def', ClassWithArgumentsAndCallerMethods.caller(), "ClassWithArgumentsAndCallerMethods.caller() === 'def'");
-            assert.areEqual('123', new ClassWithArgumentsAndCallerMethods().arguments(), "new ClassWithArgumentsAndCallerMethods().arguments() === '123'");
-            assert.areEqual('456', new ClassWithArgumentsAndCallerMethods().caller(), "new ClassWithArgumentsAndCallerMethods().caller() === '456'");
-            
-            let set_arguments = '';
-            let set_caller = '';
-            class ClassWithArgumentsAndCallerAccessors {
-                static get arguments() { return 'abc'; }
-                static set arguments(v) { set_arguments = v; }
-                static get caller() { return 'def'; }
-                static set caller(v) { set_caller = v; }
-                
-                get arguments() { return '123'; }
-                set arguments(v) { set_arguments = v; }
-                get caller() { return '456'; }
-                set caller(v) { set_caller = v; }
-            }
-            
-            assert.areEqual('abc', ClassWithArgumentsAndCallerAccessors.arguments, "ClassWithArgumentsAndCallerAccessors.arguments === 'abc'");
-            assert.areEqual('def', ClassWithArgumentsAndCallerAccessors.caller, "ClassWithArgumentsAndCallerAccessors.caller === 'def'");
-            assert.areEqual('123', new ClassWithArgumentsAndCallerAccessors().arguments, "new ClassWithArgumentsAndCallerAccessors().arguments === '123'");
-            assert.areEqual('456', new ClassWithArgumentsAndCallerAccessors().caller, "new ClassWithArgumentsAndCallerAccessors().caller === '456'");
-            ClassWithArgumentsAndCallerAccessors.arguments = 123
-            assert.areEqual(123, set_arguments, "ClassWithArgumentsAndCallerAccessors.arguments = 123 (calls setter)");
-            new ClassWithArgumentsAndCallerAccessors().arguments = 456
-            assert.areEqual(456, set_arguments, "new ClassWithArgumentsAndCallerAccessors().arguments = 456 (calls setter)");
-            ClassWithArgumentsAndCallerAccessors.caller = 123
-            assert.areEqual(123, set_caller, "ClassWithArgumentsAndCallerAccessors.caller = 123 (calls setter)");
-            new ClassWithArgumentsAndCallerAccessors().caller = 456
-            assert.areEqual(456, set_caller, "new ClassWithArgumentsAndCallerAccessors().caller = 456 (calls setter)");
-            
-            class ClassWithArgumentsAndCallerGeneratorMethods {
-                static *arguments() { yield 'abc'; }
-                static *caller() { yield 'def'; }
-                
-                *arguments() { yield '123'; }
-                *caller() { yield '456'; }
-            }
-            
-            let s;
-            for (s of ClassWithArgumentsAndCallerGeneratorMethods.arguments()) {}
-            assert.areEqual('abc', s, "s of ClassWithArgumentsAndCallerGeneratorMethods.arguments() === 'abc'");
-            s;
-            for (s of ClassWithArgumentsAndCallerGeneratorMethods.caller()) {}
-            assert.areEqual('def', s, "s of ClassWithArgumentsAndCallerGeneratorMethods.caller() === 'def'");
-            s;
-            for (s of new ClassWithArgumentsAndCallerGeneratorMethods().arguments()) {}
-            assert.areEqual('123', s, "s of new ClassWithArgumentsAndCallerGeneratorMethods().arguments() === '123'");
-            s;
-            for (s of new ClassWithArgumentsAndCallerGeneratorMethods().caller()) {}
-            assert.areEqual('456', s, "s of new ClassWithArgumentsAndCallerGeneratorMethods().caller() === '456'");
-            
-            class ClassWithArgumentsAndCallerComputedNameMethods {
-                static ['arguments']() { return 'abc'; }
-                static ['caller']() { return 'def'; }
-                
-                ['arguments']() { return '123'; }
-                ['caller']() { return '456'; }
-            }
-            
-            assert.areEqual('abc', ClassWithArgumentsAndCallerComputedNameMethods.arguments(), "ClassWithArgumentsAndCallerComputedNameMethods.arguments() === 'abc'");
-            assert.areEqual('def', ClassWithArgumentsAndCallerComputedNameMethods.caller(), "ClassWithArgumentsAndCallerComputedNameMethods.caller() === 'def'");
-            assert.areEqual('123', new ClassWithArgumentsAndCallerComputedNameMethods().arguments(), "new ClassWithArgumentsAndCallerComputedNameMethods().arguments() === '123'");
-            assert.areEqual('456', new ClassWithArgumentsAndCallerComputedNameMethods().caller(), "new ClassWithArgumentsAndCallerComputedNameMethods().caller() === '456'");
-            
-            class ClassWithArgumentsAndCallerComputedNameAccessors {
-                static get ['arguments']() { return 'abc'; }
-                static set ['arguments'](v) { set_arguments = v; }
-                static get ['caller']() { return 'def'; }
-                static set ['caller'](v) { set_caller = v; }
-                
-                get ['arguments']() { return '123'; }
-                set ['arguments'](v) { set_arguments = v; }
-                get ['caller']() { return '456'; }
-                set ['caller'](v) { set_caller = v; }
-            }
-            
-            assert.areEqual('abc', ClassWithArgumentsAndCallerAccessors.arguments, "ClassWithArgumentsAndCallerAccessors.arguments === 'abc'");
-            assert.areEqual('def', ClassWithArgumentsAndCallerAccessors.caller, "ClassWithArgumentsAndCallerAccessors.caller === 'def'");
-            assert.areEqual('123', new ClassWithArgumentsAndCallerAccessors().arguments, "new ClassWithArgumentsAndCallerAccessors().arguments === '123'");
-            assert.areEqual('456', new ClassWithArgumentsAndCallerAccessors().caller, "new ClassWithArgumentsAndCallerAccessors().caller === '456'");
-            ClassWithArgumentsAndCallerAccessors.arguments = 123
-            assert.areEqual(123, set_arguments, "ClassWithArgumentsAndCallerAccessors.arguments = 123 (calls setter)");
-            new ClassWithArgumentsAndCallerAccessors().arguments = 456
-            assert.areEqual(456, set_arguments, "new ClassWithArgumentsAndCallerAccessors().arguments = 456 (calls setter)");
-            ClassWithArgumentsAndCallerAccessors.caller = 123
-            assert.areEqual(123, set_caller, "ClassWithArgumentsAndCallerAccessors.caller = 123 (calls setter)");
-            new ClassWithArgumentsAndCallerAccessors().caller = 456
-            assert.areEqual(456, set_caller, "new ClassWithArgumentsAndCallerAccessors().caller = 456 (calls setter)");
-            
-            class ClassWithArgumentsAndCallerComputedNameGeneratorMethods {
-                static *['arguments']() { yield 'abc'; }
-                static *['caller']() { yield 'def'; }
-                
-                *['arguments']() { yield '123'; }
-                *['caller']() { yield '456'; }
-            }
-            
-            s;
-            for (s of ClassWithArgumentsAndCallerComputedNameGeneratorMethods.arguments()) {}
-            assert.areEqual('abc', s, "s of ClassWithArgumentsAndCallerComputedNameGeneratorMethods.arguments() === 'abc'");
-            s;
-            for (s of ClassWithArgumentsAndCallerComputedNameGeneratorMethods.caller()) {}
-            assert.areEqual('def', s, "s of ClassWithArgumentsAndCallerComputedNameGeneratorMethods.caller() === 'def'");
-            s;
-            for (s of new ClassWithArgumentsAndCallerComputedNameGeneratorMethods().arguments()) {}
-            assert.areEqual('123', s, "s of new ClassWithArgumentsAndCallerComputedNameGeneratorMethods().arguments() === '123'");
-            s;
-            for (s of new ClassWithArgumentsAndCallerComputedNameGeneratorMethods().caller()) {}
-            assert.areEqual('456', s, "s of new ClassWithArgumentsAndCallerComputedNameGeneratorMethods().caller() === '456'");
         }
     }
 ];

@@ -226,7 +226,7 @@ var tests = [
     body: function () {
       function a() {};
       var x = [];
-      assert.throws(function() { eval('a(...x)--'); }, ReferenceError, "Spread with CallIPut throws a ReferenceError");
+      assert.throws(function() { a(...x)--; }, ReferenceError, "Spread with CallIPut throws a ReferenceError");
     }
   },
   {

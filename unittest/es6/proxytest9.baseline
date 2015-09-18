@@ -94,25 +94,3 @@ expected :Proxy argument target is not a valid object
 Proxy.prototype = false
 done test22
 test23 done.
-*** ownPropertyNames
-a
-*** ownPropertySymbols
-Symbol(b)
-Symbol(c)
-*** ownKeys
-a
-Symbol(b)
-Symbol(c)
-prototype
-1
-prototype
-2
-true
-hasTrap, property : p1
-hasTrap, property : p2
-deleteTrap, property : p3
-getTrap, property : bar123
-getTrap, property : foo123
-foo called
-43
-42

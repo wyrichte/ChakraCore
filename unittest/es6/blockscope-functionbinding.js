@@ -723,7 +723,7 @@ print(glo_t19_q);
 }
 try
 { 
-    eval('xxx()++');
+    xxx()++;
 }
 catch(e)
 {

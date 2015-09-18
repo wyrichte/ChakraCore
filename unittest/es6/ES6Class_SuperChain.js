@@ -1306,7 +1306,7 @@ var tests = [
         }
     },
     {
-        name: "ES5-style class as a base class - explicit return of this from base",
+        name: "ES5-style class as a base class",
         body: function () {
             function Base() {
                 assert.areEqual(new.target, Derived, "new.target === Derived");
@@ -1331,7 +1331,7 @@ var tests = [
         }
     },
     {
-        name: "ES5-style class as a base class with the super call inside an eval - explicit return of this from base",
+        name: "ES5-style class as a base class with the super call inside an eval",
         body: function () {
             function Base() {
                 assert.areEqual(new.target, Derived, "new.target === Derived");
@@ -1356,7 +1356,7 @@ var tests = [
         }
     },
     {
-        name: "ES5-style class as a base class with the super call inside an arrow - explicit return of this from base",
+        name: "ES5-style class as a base class with the super call inside an arrow",
         body: function () {
             function Base() {
                 assert.areEqual(new.target, Derived, "new.target === Derived");
@@ -1375,173 +1375,6 @@ var tests = [
             }
             let result = new Derived();
                 
-            assert.isTrue(result instanceof Base, "Result object is instanceof base class");
-            assert.isTrue(result instanceof Derived, "Result object is instanceof derived class");
-            assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");
-            assert.areEqual('Derived', result.bar, "Result object has derived field bar set to 'Derived'");
-        }
-    },
-    {
-        name: "ES5-style class as a base class - implicit return of this from base",
-        body: function () {
-            function Base() {
-                assert.areEqual(new.target, Derived, "new.target === Derived");
-                this.foo = "Base";
-            }
-            Base.prototype = {
-                constructor: Base
-            }
-            class Derived extends Base {
-                constructor() {
-                    super();
-                    this.bar = "Derived";
-                }
-            }
-            let result = new Derived();
-                
-            assert.isTrue(result instanceof Base, "Result object is instanceof base class");
-            assert.isTrue(result instanceof Derived, "Result object is instanceof derived class");
-            assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");
-            assert.areEqual('Derived', result.bar, "Result object has derived field bar set to 'Derived'");
-        }
-    },
-    {
-        name: "ES5-style class as a base class with the super call inside an eval - implicit return of this from base",
-        body: function () {
-            function Base() {
-                assert.areEqual(new.target, Derived, "new.target === Derived");
-                this.foo = "Base";
-            }
-            Base.prototype = {
-                constructor: Base
-            }
-            class Derived extends Base {
-                constructor() {
-                    eval('super();');
-                    this.bar = "Derived";
-                }
-            }
-            let result = new Derived();
-                
-            assert.isTrue(result instanceof Base, "Result object is instanceof base class");
-            assert.isTrue(result instanceof Derived, "Result object is instanceof derived class");
-            assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");
-            assert.areEqual('Derived', result.bar, "Result object has derived field bar set to 'Derived'");
-        }
-    },
-    {
-        name: "ES5-style class as a base class with the super call inside an arrow - implicit return of this from base",
-        body: function () {
-            function Base() {
-                assert.areEqual(new.target, Derived, "new.target === Derived");
-                this.foo = "Base";
-            }
-            Base.prototype = {
-                constructor: Base
-            }
-            class Derived extends Base {
-                constructor() {
-                    let arrow = () => { super(); };
-                    arrow();
-                    this.bar = "Derived";
-                }
-            }
-            let result = new Derived();
-                
-            assert.isTrue(result instanceof Base, "Result object is instanceof base class");
-            assert.isTrue(result instanceof Derived, "Result object is instanceof derived class");
-            assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");
-            assert.areEqual('Derived', result.bar, "Result object has derived field bar set to 'Derived'");
-        }
-    },
-    {
-        name: "Function as a base class can't assign this to non-object via super call",
-        body: function () {
-            function BaseReturnsArgument(arg) { 
-                assert.areEqual(new.target, DerivedFromBase, "new.target === DerivedFromBase");
-                this.foo = 'BaseReturnsArgument';
-                return arg;
-            }
-            BaseReturnsArgument.prototype = {
-                constructor: BaseReturnsArgument
-            }
-            class DerivedFromBase extends BaseReturnsArgument {
-                constructor(arg) {
-                    super(arg);
-                    assert.isFalse(this === arg, "If base function returns non-object, 'this' is returned instead");
-                    this.bar = 'DerivedFromBase';
-                }
-            }
-            
-            function testDerivedClass(arg) {
-                let result = new DerivedFromBase(arg);
-                
-                assert.isTrue(result instanceof BaseReturnsArgument, "Result object is instanceof base class");
-                assert.isTrue(result instanceof DerivedFromBase, "Result object is instanceof derived class");
-                assert.areEqual('BaseReturnsArgument', result.foo, "Class derived from Base has foo field set to 'Base'");
-                assert.areEqual('DerivedFromBase', result.bar, "Result object has derived field bar set to 'Derived'");
-            }
-            
-            testDerivedClass();
-            testDerivedClass(undefined);
-            testDerivedClass(null);
-            testDerivedClass('string');
-            testDerivedClass(5);
-            testDerivedClass(Symbol());
-        }
-    },
-    {
-        name: "Function as a base class can return an object to override this",
-        body: function () {
-            function Base() { 
-                assert.areEqual(new.target, Derived, "new.target === Derived");
-                this.foo = 'bad';
-                return { foo: 'Base' };
-            }
-            Base.prototype = {
-                constructor: Base
-            }
-            class Derived extends Base {
-                constructor() {
-                    super();
-                    this.bar = 'Derived';
-                }
-            }
-        
-            let result = new Derived();
-            
-            assert.isFalse(result instanceof Base, "Result object is instanceof base class");
-            assert.isFalse(result instanceof Derived, "Result object is instanceof derived class");
-            assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");
-            assert.areEqual('Derived', result.bar, "Result object has derived field bar set to 'Derived'");
-        }
-    },
-    {
-        name: "Super call with expressions in arguments",
-        body: function () {
-            function Base() { 
-                assert.areEqual(new.target, Derived, "new.target === Derived");
-                assert.areEqual(3, arguments[0], 'arguments[0] === 3')
-                assert.areEqual('str', arguments[1], 'arguments[1] === "str"')
-                assert.areEqual(1, arguments[2], 'arguments[2] === 1')
-                assert.areEqual(2, arguments[3], 'arguments[3] === 2')
-                assert.areEqual(3, arguments[4], 'arguments[4] === 3')
-                assert.areEqual(5, arguments.length, 'arguments.length === 5');
-                this.foo = 'Base';
-            }
-            Base.prototype = {
-                constructor: Base
-            }
-            function foo() { return 'str'; }
-            class Derived extends Base {
-                constructor() {
-                    super(1+2,foo(),...[1,2,3]);
-                    this.bar = 'Derived';
-                }
-            }
-            
-            let result = new Derived();
-            
             assert.isTrue(result instanceof Base, "Result object is instanceof base class");
             assert.isTrue(result instanceof Derived, "Result object is instanceof derived class");
             assert.areEqual('Base', result.foo, "Class derived from Base has foo field set to 'Base'");

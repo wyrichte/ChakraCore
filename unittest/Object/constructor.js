@@ -49,7 +49,6 @@ for (var i=0; i< objs.length; i++) {
     testEval("x = new Object(" + objs[i] + ");");    
 }
 
-
 Object.prototype.protoFunc = function () { WScript.Echo("ObjectprotoFunc");}
 
 var customPrototype = { protoFunc: function () { WScript.Echo("protoFunc");}}

@@ -120,8 +120,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "{...}",
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -142,8 +142,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "{...}",
-            "arguments": "<large string>",
-            "caller": "<large string>",
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -169,8 +169,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -191,8 +191,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -676,20 +676,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -731,20 +719,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -775,8 +751,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -797,8 +773,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -1239,20 +1215,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1294,20 +1258,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1338,8 +1290,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -1360,8 +1312,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "arguments": "<large string>",
-              "caller": "<large string>",
+              "arguments": "null",
+              "caller": "null",
               "length": "0",
               "name": ""
             },
@@ -1915,20 +1867,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
@@ -1970,20 +1910,8 @@
               "[Methods]": "{...}",
               "__proto__": "null"
             },
-            "arguments": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823193",
-              "stack": "<large string>"
-            },
-            "caller": {
-              "__proto__": "",
-              "description": "<large string>",
-              "message": "<large string>",
-              "number": "-2146823245",
-              "stack": "<large string>"
-            },
+            "arguments": "null",
+            "caller": "null",
             "length": "0",
             "name": ""
           },
