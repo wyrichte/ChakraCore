@@ -144,6 +144,9 @@ public:
     static void SetArgInfo(ArgInfo& args);
     static HRESULT FinalGC();
     static HRESULT DisplayRecyclerStats();
+#ifdef ENABLE_INTL_OBJECT
+    static HRESULT ClearTimeZoneCalendars();
+#endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);
     static HRESULT OnJScript9Loaded(TestHooks& testHooks);

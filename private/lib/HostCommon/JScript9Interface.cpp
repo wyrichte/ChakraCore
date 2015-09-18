@@ -222,6 +222,18 @@ HRESULT JScript9Interface::DisplayRecyclerStats()
     return S_FALSE;
 }
 
+#ifdef ENABLE_INTL_OBJECT
+HRESULT JScript9Interface::ClearTimeZoneCalendars()
+{
+    if (m_testHooks.pfClearTimeZoneCalendars)
+    {
+        m_testHooks.pfClearTimeZoneCalendars();
+        return S_OK;
+    }
+    return S_FALSE;
+}
+#endif
+
 void JScript9Interface::UnloadDll(HINSTANCE jscriptLibrary)
 {
     Assert(jscriptLibrary);

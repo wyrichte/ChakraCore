@@ -68,15 +68,42 @@ testDateTimeFormatOptions({ weekday: "long" }, new Date(2000, 1, 1), "Tuesday");
 
 testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", year: "2-digit" }, new Date(-59958100000000), "01/01/70");
 
+testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", timeZone: "America/New_York", timeZoneName: "short" }, new Date(-59958100000000), "1/1/70 7:13:20 AM EST");
+
+testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", timeZone: "America/Denver", timeZoneName: "long" }, new Date(-59958100000000), "1/1/70 5:13:20 AM Mountain Standard Time");
+
 //Expect no error here, Blue: 448060
 try {
     var test = new Intl.DateTimeFormat(undefined, { minute: "numeric" });
 }
 catch(e)
 {
+    
     passed = false;
 }
 
+// Read default time zone
+try {
+    var test = new Intl.DateTimeFormat('en-US', { timeZone: "america/New_york" });
+    var options = test.resolvedOptions();
+    if (options.timeZone !== "America/New_York")
+    {
+        WScript.Echo('Expected : America/New_York but got :' + options.timeZone);
+        passed = false;
+    }
+    
+} catch (e) {
+    WScript.Echo(e.message);
+    passed = false;
+}
+
+// Expected to fail
+try {
+    var test = new Intl.DateTimeFormat("en-US", { timeZone: "ABC" });
+    WScript.Echo('Should have thrown exception.');
+    passed = false;
+} catch (e) {
+}
 
 //Round Tripping of Date and Time
 var originalDate = new Date();

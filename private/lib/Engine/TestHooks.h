@@ -43,7 +43,10 @@ struct TestHooks
 
     typedef HRESULT (__stdcall * StartScriptProfilingPtr)(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context);
     typedef HRESULT (__stdcall * StopScriptProfilingPtr)(IActiveScriptDirect * scriptDirect);
-    typedef void (__stdcall * DisplayMemStatsPtr)();
+    typedef void(__stdcall * DisplayMemStatsPtr)();
+#ifdef ENABLE_INTL_OBJECT
+    typedef void (__stdcall * ClearTimeZoneCalendarsPtr)();
+#endif
 #ifdef FAULT_INJECTION
     typedef unsigned int(__stdcall *GetCurrentFaultInjectionCountPtr)();
 #endif
@@ -71,6 +74,9 @@ struct TestHooks
     StartScriptProfilingPtr pfStartScriptProfiling;
     StopScriptProfilingPtr pfStopScriptProfiling;
     DisplayMemStatsPtr pfDisplayMemStats;
+#ifdef ENABLE_INTL_OBJECT
+    ClearTimeZoneCalendarsPtr pfClearTimeZoneCalendars;
+#endif
     FlushOutputPtr pfFlushOutput;
 #ifdef FAULT_INJECTION
     GetCurrentFaultInjectionCountPtr pfGetCurrentFaultInjectionCount;

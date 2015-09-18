@@ -149,6 +149,18 @@ void __stdcall DisplayMemStats()
     }
 }
 
+#ifdef ENABLE_INTL_OBJECT
+void __stdcall ClearTimeZoneCalendars()
+{
+    ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
+    if (!threadContext)
+    {
+        return;
+    }
+    threadContext->GetWindowsGlobalizationAdapter()->ClearTimeZoneCalendars();
+}
+#endif
+
 BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect) 
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
@@ -439,6 +451,9 @@ HRESULT OnJScript9Loaded()
         StartScriptProfiling,
         StopScriptProfiling,
         DisplayMemStats,
+#ifdef ENABLE_INTL_OBJECT
+        ClearTimeZoneCalendars,
+#endif
         FlushOutput,
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,
