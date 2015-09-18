@@ -1518,6 +1518,72 @@ var tests = [
             assert.throws(function () { g2['throw']({value : 1}); }, TypeError, "A TypeError is thrown if the inner result of iteractor close is not an object", "Object expected");
         }
     },
+    {
+        name: "The HomeObject of Functions declared as methods is the Object prototype.",
+        body: function () {
+            var obj = {
+                method() {  return super.toString; }
+            };
+
+            obj.toString = null;
+
+            assert.areEqual(Object.prototype.toString, obj.method());
+        }
+    },
+    {
+        name: "The HomeObject accessed through default argument of Functions declared as methods is the Object prototype.",
+        body: function () {
+            var obj = {
+                method(x = super.toString) {  return x; }
+            };
+
+            obj.toString = null;
+
+            assert.areEqual(Object.prototype.toString, obj.method());
+        }
+    },
+    {
+        name: "Generator method body using super property",
+        body: function () {
+            var obj = {
+                *foo() {  return super.toString; }
+            };
+
+            obj.toString = null;
+
+            assert.areEqual(Object.prototype.toString, obj.foo().next().value);
+        }
+    },
+    {
+        name: "Generator method body using super property as default argument",
+        body: function () {
+            var obj = {
+                *foo(a = super.toString) {  return a; }
+            };
+
+            obj.toString = null;
+
+            assert.areEqual(Object.prototype.toString, obj.foo().next().value);
+        }
+    },
+    {
+        name: "super method calls in object literal concise generator",
+        body: function () {
+            var proto = {
+                method() {  return 42; }
+            };
+
+            var object = {
+                *g() {  yield super.method();  }
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            assert.areEqual(42, object.g().next().value,
+                "The value of `object.g().next().value` is `42`, after executing `Object.setPrototypeOf(object, proto);`"
+            );
+        }
+    },
     // TODO: Test yield in expression positions of control flow constructs, e.g. initializer, condition, and increment of a for loop
 ];
 

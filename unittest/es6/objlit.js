@@ -283,7 +283,120 @@ var tests = [
             assert.areEqual(obj.x, 1, "Regular production should assign the internal prototype");
             assert.areEqual(obj.__proto__.x, 10, "Computed property definition of __proto__ is added as a data member");
         }
-    }
+    },
+    {
+        name: "computed property getters can call super methods",
+        body: function () {
+            function ID(x) {  return x; }
+
+            var proto = {
+                m() {  return ' proto m'; }
+            };
+            var object = {
+                get ['a']() { return 'a' + super.m(); },
+                get [ID('b')]() { return 'b' + super.m(); },
+                get [0]() { return '0' + super.m(); },
+                get [ID(1)]() { return '1' + super.m(); },
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            assert.areEqual('a proto m', object.a, "The value of `object.a` is `'a proto m'`. Defined as `get ['a']() { return 'a' + super.m(); }`");
+            assert.areEqual('b proto m', object.b, "The value of `object.a` is `'b proto m'`. Defined as `get [ID('b')]() { return 'b' + super.m(); }`");
+            assert.areEqual('0 proto m', object[0], "The value of `object[0]` is `'0 proto m'`. Defined as `get [0]() { return '0' + super.m(); }`");
+            assert.areEqual('1 proto m', object[1], "The value of `object[1]` is `'1 proto m'`. Defined as `get [ID(1)]() { return '1' + super.m(); }`");
+        }
+    },
+    {
+        name: "computed property setters can call super methods",
+        body: function () {
+            function ID(x) {
+              return x;
+            }
+
+            var value;
+            var proto = {
+                m(name, v) {  value = name + ' ' + v; }
+            };
+            var object = {
+                set ['a'](v) { super.m('a', v); },
+                set [ID('b')](v) { super.m('b', v); },
+                set [0](v) { super.m('0', v); },
+                set [ID(1)](v) { super.m('1', v); },
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            object.a = 2;
+            assert.areEqual('a 2', value, "The value of `value` is `'a 2'`, after executing `object.a = 2;`");
+            object.b = 3;
+            assert.areEqual('b 3', value, "The value of `value` is `'b 3'`, after executing `object.b = 3;`");
+            object[0] = 4;
+            assert.areEqual('0 4', value, "The value of `value` is `'0 4'`, after executing `object[0] = 4;`");
+            object[1] = 5;
+            assert.areEqual('1 5', value, "The value of `value` is `'1 5'`, after executing `object[1] = 5;`");
+        }
+    },
+    {
+        name: "computed property methods can call super methods",
+        body: function () {
+            function ID(x) { return x; }
+
+            var proto = {
+                m() {  return ' proto m'; }
+            };
+            var object = {
+                ['a']() { return 'a' + super.m(); },
+                [ID('b')]() { return 'b' + super.m(); },
+                [0]() { return '0' + super.m(); },
+                [ID(1)]() { return '1' + super.m(); },
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            assert.areEqual('a proto m', object.a(), "`object.a()` returns `'a proto m'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual('b proto m', object.b(), "`object.b()` returns `'b proto m'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual('0 proto m', object[0](), "`object[0]()` returns `'0 proto m'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual('1 proto m', object[1](), "`object[1]()` returns `'1 proto m'`, after executing `Object.setPrototypeOf(object, proto);`");
+        }
+    },
+    {
+        name: "super method calls in object literal method",
+        body: function () {
+            var proto = {
+                method(x) {  return 'proto' + x; }
+            };
+
+            var object = {
+                method(x) {  return super.method(x); }
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            assert.areEqual('proto42', object.method(42), "`object.method(42)` returns `'proto42'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual('proto42', proto.method(42), "`proto.method(42)` returns `'proto42'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual('proto42', Object.getPrototypeOf(object).method(42), "`Object.getPrototypeOf(object).method(42)` returns `'proto42'`");
+        }
+    },
+    {
+        name: "super method calls in object literal getter",
+        body: function () {
+            var proto = {
+                _x: 42,
+                get x() {  return 'proto' + this._x; }
+            };
+
+            var object = {
+                get x() {  return super.x; }
+            };
+
+            Object.setPrototypeOf(object, proto);
+
+            assert.areEqual('proto42', object.x, "The value of `object.x` is `'proto42'`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual(42, object._x, "The value of `object._x` is `42`, after executing `Object.setPrototypeOf(object, proto);`");
+            assert.areEqual(42, Object.getPrototypeOf(object)._x, "The value of `Object.getPrototypeOf(object)._x` is `42`");
+        }
+    },
 ];
 
 testRunner.runTests(tests, { verbose: WScript.Arguments[0] != "summary" });
