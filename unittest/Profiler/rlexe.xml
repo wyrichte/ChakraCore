@@ -132,6 +132,7 @@
       <compile-flags>-PerformUTF8BoundaryTest -LogLineColumnProfileInfo-</compile-flags>
     </default>
   </test>
+  <!--
   <test>
     <default>
       <files>proxy.js</files>
@@ -139,7 +140,7 @@
       <baseline>proxy.baseline</baseline>
       <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>Generators.js</files>
