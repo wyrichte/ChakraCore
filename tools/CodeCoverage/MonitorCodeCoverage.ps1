@@ -18,7 +18,7 @@ $global:gumshoeDir      = "{0}\Program Files\Gumshoe" -f $global:sysDrive
 $global:gumshoeExe      = "$global:gumshoeDir\gumshoe.exe"
 $global:copyShareBase   = "\\chakrafs01\CodeCoverageLogs"
 
-$global:db              = [MongoDB.Driver.MongoDatabase]::Create('mongodb://bptvmh02/ReportingDB');
+$global:db              = [MongoDB.Driver.MongoDatabase]::Create('mongodb://MongoDB/ReportingDB');
 $global:collection      = $global:db['CodeCoverage']
 
 # Parse command line args
