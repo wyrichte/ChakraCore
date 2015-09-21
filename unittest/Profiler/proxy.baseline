@@ -229,8 +229,8 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function, Line: 185, Column: 20, Character Position: 6949
 [FunctionCompiled]: Function: Anonymous function, Line: 258, Column: 27, Character Position: 10315
 [FunctionCompiled]: Function: Anonymous function, Line: 276, Column: 27, Character Position: 10973
-[FunctionCompiled]: Function: Anonymous function, Line: 315, Column: 27, Character Position: 12692
-[FunctionCompiled]: Function: Anonymous function, Line: 343, Column: 27, Character Position: 13728
+[FunctionCompiled]: Function: Anonymous function, Line: 317, Column: 27, Character Position: 12863
+[FunctionCompiled]: Function: Anonymous function, Line: 345, Column: 27, Character Position: 13899
 [FunctionCompiled]: Function: Anonymous function, Line: 59, Column: 27, Character Position: 2197
 [FunctionCompiled]: Function: Anonymous function, Line: 74, Column: 27, Character Position: 2848
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
@@ -256,11 +256,11 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 264, Column: 15, Character Position: 10518
 [FunctionCompiled]: Function: body, Line: 273, Column: 15, Character Position: 10850
 [FunctionCompiled]: Function: body, Line: 282, Column: 15, Character Position: 11171
-[FunctionCompiled]: Function: body, Line: 294, Column: 15, Character Position: 11666
-[FunctionCompiled]: Function: body, Line: 312, Column: 15, Character Position: 12566
+[FunctionCompiled]: Function: body, Line: 296, Column: 15, Character Position: 11837
+[FunctionCompiled]: Function: body, Line: 314, Column: 15, Character Position: 12737
 [FunctionCompiled]: Function: body, Line: 32, Column: 15, Character Position: 1054
-[FunctionCompiled]: Function: body, Line: 321, Column: 15, Character Position: 12903
-[FunctionCompiled]: Function: body, Line: 338, Column: 15, Character Position: 13558
+[FunctionCompiled]: Function: body, Line: 323, Column: 15, Character Position: 13074
+[FunctionCompiled]: Function: body, Line: 340, Column: 15, Character Position: 13729
 [FunctionCompiled]: Function: body, Line: 41, Column: 15, Character Position: 1418
 [FunctionCompiled]: Function: body, Line: 54, Column: 15, Character Position: 2005
 [FunctionCompiled]: Function: body, Line: 66, Column: 15, Character Position: 2493
@@ -272,8 +272,8 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: get isVersion10OrLater, Line: 41, Column: 13, Character Position: 1887
 [FunctionCompiled]: Function: getDummyObject, Line: 46, Column: 25, Character Position: 2089
 [FunctionCompiled]: Function: handler.trapApply, Line: 240, Column: 33, Character Position: 9496
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 296, Column: 37, Character Position: 11735
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 340, Column: 37, Character Position: 13627
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 298, Column: 37, Character Position: 11906
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 342, Column: 37, Character Position: 13798
 [FunctionCompiled]: Function: handler.trapEnumerate, Line: 223, Column: 37, Character Position: 8956
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 56, Column: 40, Character Position: 2074
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 71, Column: 40, Character Position: 2725
@@ -311,8 +311,8 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
 [FunctionCompiled]: Function: run, Line: 110, Column: 14, Character Position: 4358
 [FunctionCompiled]: Function: runTest, Line: 114, Column: 18, Character Position: 4461
-[FunctionCompiled]: Function: runTestPass, Line: 349, Column: 1, Character Position: 13922
-[FunctionCompiled]: Function: runTestPasses, Line: 355, Column: 1, Character Position: 14043
+[FunctionCompiled]: Function: runTestPass, Line: 351, Column: 1, Character Position: 14093
+[FunctionCompiled]: Function: runTestPasses, Line: 357, Column: 1, Character Position: 14214
 [FunctionCompiled]: Function: runTests, Line: 85, Column: 19, Character Position: 3324
 [FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9193
 [FunctionCompiled]: Function: test, Line: 213, Column: 13, Character Position: 8567
