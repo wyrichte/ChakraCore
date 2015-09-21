@@ -1213,6 +1213,22 @@
         <compile-flags>-es6classes -args summary -endargs -es6generators</compile-flags>
     </default>
 </test>
+
+<test>
+    <default>
+      <files>ES6NewTarget_bugfixes.js</files>
+      <compile-flags>-ES6Classes -Off:Deferparse -args summary -endargs</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+</test>
+<test>
+    <default>
+      <files>ES6NewTarget_bugfixes.js</files>
+      <compile-flags>-ES6Classes -Force:Deferparse -args summary -endargs</compile-flags>
+      <tags>BugFix</tags>
+    </default>
+</test>
+
 <test>
     <default>
         <files>ES6Class_SuperChain.js</files>
