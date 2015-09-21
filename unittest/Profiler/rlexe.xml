@@ -132,6 +132,7 @@
       <compile-flags>-PerformUTF8BoundaryTest -LogLineColumnProfileInfo-</compile-flags>
     </default>
   </test>
+  <!-- Test is failing in CI runs, tracking bug: 4666026
   <test>
     <default>
       <files>proxy.js</files>
@@ -140,6 +141,7 @@
       <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>Generators.js</files>

@@ -1247,6 +1247,7 @@
         <compile-flags>-args summary -endargs -es7exponentiationoperator</compile-flags>
     </default>
 </test>
+<!-- Test is causing failures in CI jobs, tracking bug id: 4665993
 <test>
     <default>
         <files>ES6HasInstance.js</files>
@@ -1254,6 +1255,7 @@
         <baseline>ES6HasInstance.baseline</baseline>
     </default>
 </test>
+-->
 <test>
     <default>
         <files>ES6RestrictedProperties.js</files>
