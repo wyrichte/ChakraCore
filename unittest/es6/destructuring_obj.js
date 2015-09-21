@@ -144,6 +144,17 @@ var tests = [
       assert.doesNotThrow(function () { eval("var a; [a = class aClass {}] = []"); }, "Expression pattern has class as initializer is valid syntax");
       assert.doesNotThrow(function () { eval("var a; for ({x:x = class aClass {}} of []) {}"); }, "for.of's expression pattern has class as initializer is valid syntax");
       assert.doesNotThrow(function () { eval("var {x:[...y]} = {x:[1]}"); }, "rest element nesting under object pattern is valid syntax");
+      assert.throws(function () { eval("let {foo() {}} = {};"); }, SyntaxError, "Invalid object pattern as it has the function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("let {get foo() {}} = {};"); }, SyntaxError, "Invalid object pattern as it has the get function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("let {set foo() {}} = {};"); }, SyntaxError, "Invalid object pattern as it has the set function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("let {get ['foo']() {}} = {};"); }, SyntaxError, "Invalid object pattern as it has the get function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("let {set ['foo'](a) {}} = {};"); }, SyntaxError, "Invalid object pattern as it has the set function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
+
+      assert.throws(function () { eval("({foo() {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("({get foo() {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the get function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("({set foo(a) {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the set function short-hand instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("({get ['foo']() {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the get function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
+      assert.throws(function () { eval("({set ['foo'](a) {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the set function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
       
     }
   },
