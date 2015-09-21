@@ -726,7 +726,7 @@ void RunBasicTests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests>* v
     HRESULT hr;
     try
     {
-        Print("Test basic IActiveScirptDirect functionality");
+        Print("Test basic IActiveScriptDirect functionality");
         hr = TestBasicFastDOM(mytest->GetScriptDirectNoRef());
         if (SUCCEEDED(hr))
         {
