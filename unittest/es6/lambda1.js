@@ -176,6 +176,7 @@ var tests = [
             assert.throws(() => { eval('0 || x => 0'); }, SyntaxError, "Arrow function naked param is not valid on RHS of ||", "Expected '('");
             assert.throws(() => { eval('0 || (x) => 0'); }, SyntaxError, "Arrow function single param is not valid on RHS of ||", "Expected '('");
             assert.throws(() => { eval('0 || (x,y) => 0'); }, SyntaxError, "Arrow function more than single param is not valid on RHS of ||", "Expected '('");
+            assert.throws(() => { eval('!()=>{}'); }, SyntaxError, "Arrow function preceded by UnaryOperator is a SyntaxError", "Expected '('");
 
             assert.doesNotThrow(function () { eval('function foo() { }; foo(x => x);'); }, "lambda with one formal and nor parentheses parses as argument to function call");
             assert.doesNotThrow(function () { eval('function foo() { }; foo(() => "abc"); foo(() => "abc", 123);'); }, "lambda with no formals parses as argument to function call");
@@ -184,6 +185,7 @@ var tests = [
             assert.doesNotThrow(function () { eval('() => () => 0'); }, "lambda nested in lambda");
             assert.doesNotThrow(function () { eval('() => x => (a, b, c) => 0'); }, "lambda nested in lambda nested in lambda with parameters");
             assert.doesNotThrow(function () { eval('y => () => (a) => 0'); }, "lambda nested in lambda nested in lambda with other parameters");
+            assert.doesNotThrow(() => { eval('function * foo() { yield ()=>{}; }'); }, "Arrow function preceded by yield is not an Error");
         }
     },
     {
@@ -400,14 +402,14 @@ var tests = [
             assert.throws(function () { eval('var a = (x) \n => d;'); }, SyntaxError, "Arrow with simple expression body and single parameter assigned to a var", "Syntax error");
             assert.throws(function () { eval('() \n => d;'); }, SyntaxError, "Arrow with simple expression body and empty parameter list", "Syntax error");
             assert.throws(function () { eval('var a = () \n => d;'); }, SyntaxError, "Arrow with simple expression body and empty parameter list assigned to a var", "Syntax error");
-            
+
             assert.throws(function () { eval('x \n => { return d };'); }, SyntaxError, "Arrow with block body and simple parameter", "Syntax error");
             assert.throws(function () { eval('var a = x \n => { return d };'); }, SyntaxError, "Arrow with block body and simple parameter assigned to a var", "Syntax error");
             assert.throws(function () { eval('(x) \n => { return d };'); }, SyntaxError, "Arrow with block body and single parameter", "Syntax error");
             assert.throws(function () { eval('var a = (x) \n => { return d };'); }, SyntaxError, "Arrow with block body and single parameter assigned to a var", "Syntax error");
             assert.throws(function () { eval('() \n => { return d };'); }, SyntaxError, "Arrow with block body and empty parameter list", "Syntax error");
             assert.throws(function () { eval('var a = () \n => { return d };'); }, SyntaxError, "Arrow with block body and empty parameter list assigned to a var", "Syntax error");
-            
+
             assert.throws(function () { eval('var a = {}; a.x \n => d;'); }, SyntaxError, "Verify that badly formed arrow functions return correct error even if a newline is before the => token", "Syntax error");
             assert.throws(function () { eval('var a = {}; a\n.x => d;'); }, SyntaxError, "Verify that badly formed arrow functions return correct error even if a newline is before the => token", "Syntax error");
         }
