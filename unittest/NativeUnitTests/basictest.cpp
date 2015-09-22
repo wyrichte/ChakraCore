@@ -243,11 +243,10 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         uint slot_idx = 1;
         PropertyId propId = 0x456;
         const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
-    hr = activeScriptDirect->CreateType(TypeId_Unspecified, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
         hr = activeScriptDirect->CreateType(0x2000, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
         IfFailedReturn(hr);
 
-    hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx+1), FALSE, &externalVar);
+
         hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
         IfFailedReturn(hr);
 
@@ -259,7 +258,6 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
 
         ((void**)slotAddr)[slot_idx] = jsFunction;
 
-    {
         Var getter, setter;
         hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3000, propId, slot_idx, &getter, &setter);
         IfFailedReturn(hr);
