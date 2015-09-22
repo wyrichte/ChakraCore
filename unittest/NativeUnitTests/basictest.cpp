@@ -238,21 +238,26 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
 
 
     // test for FTL inherited typeId for instanceOf type validation
-    uint slot_idx = 1;
-    PropertyId propId = 0x456;
-    const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
+
+    {
+        uint slot_idx = 1;
+        PropertyId propId = 0x456;
+        const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
     hr = activeScriptDirect->CreateType(TypeId_Unspecified, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
-    IfFailedReturn(hr);
+        hr = activeScriptDirect->CreateType(0x2000, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
+        IfFailedReturn(hr);
 
     hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx+1), FALSE, &externalVar);
-    IfFailedReturn(hr);
+        hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
+        IfFailedReturn(hr);
 
-    void* slotAddr = nullptr;
-    JavascriptTypeId typeId;
-    hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
-    IfFailedReturn(hr);
 
-    ((void**)slotAddr)[slot_idx] = jsFunction;
+        void* slotAddr = nullptr;
+        JavascriptTypeId typeId;
+        hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
+        IfFailedReturn(hr);
+
+        ((void**)slotAddr)[slot_idx] = jsFunction;
 
     {
         Var getter, setter;
@@ -275,6 +280,22 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     {
+        uint slot_idx = 1;
+        PropertyId propId = 0x567;
+        const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
+        hr = activeScriptDirect->CreateType(0x2001, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
+        IfFailedReturn(hr);
+
+        hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
+        IfFailedReturn(hr);
+
+
+        void* slotAddr = nullptr;
+        JavascriptTypeId typeId;
+        hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
+        IfFailedReturn(hr);
+
+        ((void**)slotAddr)[slot_idx] = jsFunction;
         Var getter, setter;
         hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3001, propId, slot_idx, &getter, &setter);
         IfFailedReturn(hr);
@@ -292,7 +313,6 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         }
         printf("inherited typeid test passed 2\n");
     }
-
 
     return NOERROR;
 };
