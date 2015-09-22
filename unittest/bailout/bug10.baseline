@@ -1,3 +1,0 @@
-ReferenceError: 'b' is undefined
-	at Anonymous function() (bug10.js:16:7)
-	at Global code (bug10.js:2:2)

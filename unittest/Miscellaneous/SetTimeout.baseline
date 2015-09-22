@@ -1,3 +1,0 @@
-OK
-TypeError: Unable to get property 'an' of undefined or null reference
-	at Anonymous function() (SetTimeout.js:5:2)

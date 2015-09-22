@@ -65,72 +65,9 @@
   </test>
   <test>
     <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>simpleThrow.js</files>
-      <compile-flags>-errorStackTrace- -args runTest -endargs</compile-flags>
-      <baseline>simpleThrow.js.stackTraceDisabled.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>PropertyValidation.js</files>
-      <baseline>PropertyValidation.nostrict.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>PropertyValidation.js</files>
-      <compile-flags>-forceStrictMode</compile-flags>
-      <baseline>PropertyValidation.nostrict.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>simpleThrow.js</files>
-      <compile-flags>-args runTest -endargs</compile-flags>
-      <baseline>simpleThrow.js.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <tags>StackTrace</tags>
       <files>simpleThrow.html</files>
       <baseline>simpleThrow.html.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>LongCallStackThrow.js</files>
-      <compile-flags>-args runTest 5 -endargs</compile-flags>
-      <baseline>LongCallStackThrow.js.Args5.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>LongCallStackThrow.js</files>
-      <compile-flags>-args runTest 6 -endargs</compile-flags>
-      <baseline>LongCallStackThrow.js.Args6.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>LongCallStackThrow.js</files>
-      <compile-flags>-args runTest 7 -endargs</compile-flags>
-      <baseline>LongCallStackThrow.js.Args7.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>LongCallStackThrow.js</files>
-      <compile-flags>-args runTest 30 -endargs</compile-flags>
-      <baseline>LongCallStackThrow.js.Args30.baseline</baseline>
     </default>
   </test>
   <test>
@@ -153,13 +90,6 @@
   <test>
     <default>
       <tags>StackTrace</tags>
-      <files>StackTraceLimit.js</files>
-      <baseline>StackTraceLimit.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
       <files>StackTraceLimit.html</files>
       <baseline>StackTraceLimit.mshtml.baseline</baseline>
     </default>
@@ -169,21 +99,6 @@
       <tags>StackTrace</tags>
       <files>StackTraceLimitParent.html</files>
       <baseline>StackTraceLimitParent.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>StackTraceLimitOOS.js</files>
-      <baseline>StackTraceLimitOOS.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace,exclude_ship</tags>
-      <files>StackTraceLimitOOS.js</files>
-      <compile-flags>-on:interruptprobe</compile-flags>
-      <baseline>StackTraceLimitOOS.baseline</baseline>
     </default>
   </test>
   <test>
@@ -203,51 +118,8 @@
   <test>
     <default>
       <tags>StackTrace</tags>
-      <files>HostThrow.js</files>
-      <baseline>HostThrow.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>dynamic.js</files>
-      <baseline>dynamic.js.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
       <files>dynamic.html</files>
       <baseline>dynamic.html.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>ErrorPrototype.js</files>
-      <baseline>ErrorPrototype.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>ErrorDotStackAlreadyExists.js</files>
-      <baseline>ErrorDotStackAlreadyExists.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <files>FunctionName.js</files>
-      <baseline>FunctionName.js.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>StackTrace</tags>
-      <compile-flags>-jsrt:0</compile-flags>
-      <files>reg_46298.js</files>
-      <baseline>reg_46298.baseline</baseline>
     </default>
   </test>
   <test>
@@ -270,21 +142,6 @@
       <compile-flags>-debuglaunch</compile-flags>
       <baseline>getStackTraceTest1_dbg.baseline</baseline>
       <tags>exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>x64StackWalk.js</files>
-      <tags>exclude_x86,exclude_arm,exclude_dynapogo</tags>
-      <baseline>x64StackWalk.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>x64StackWalkLoopBody.js</files>
-      <tags>exclude_x86,exclude_arm,exclude_dynapogo</tags>
-      <baseline>x64StackWalkLoopBody.baseline</baseline>
-      <compile-flags>-loopinterpretcount:1</compile-flags>
     </default>
   </test>
 </regress-exe>

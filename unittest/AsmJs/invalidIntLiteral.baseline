@@ -1,3 +1,0 @@
-Var declaration with integer literal outside range [-2^31, 2^32)
-Successfully compiled asm.js code
--2147483649

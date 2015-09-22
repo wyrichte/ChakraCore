@@ -2,7 +2,7 @@
 // Test locals of different types
 //
 
-WScript.LoadScriptFile("..\\Strings\\CompoundStringUtilities.js", "self");
+WScript.LoadScriptFile("..\\..\\core\\test\\Strings\\CompoundStringUtilities.js", "self");
 
 (function f() {
     var x = (function s2() {
