@@ -34,15 +34,14 @@ WCHAR *g_ProcessExclusionList[] = {
 
 void __cdecl firePackageTelemetry()
 {
-  HRESULT hr = NOERROR;
-  BEGIN_TRANSLATE_OOM_TO_HRESULT
+
     if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
     {
         g_TraceLoggingClient->CreateHashAndFirePackageTelemetry();
         g_TraceLoggingClient->ReleaseNodePackageList();
         g_TraceLoggingClient->SetIsPackageTelemetryFired(true);
     }
-  END_TRANSLATE_OOM_TO_HRESULT(hr);
+
 }
 
 
