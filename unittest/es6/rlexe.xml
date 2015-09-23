@@ -471,6 +471,12 @@
   </test>
   <test>
     <default>
+      <files>StringTemplate-crossthread.js</files>
+      <compile-flags> -ES6StringTemplate -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>ES6TypedArrayExtensions.js</files>
       <compile-flags> -ES6 -ES6TypedArrayExtensions -es6tostringtag -ES6ObjectLiterals -ES6Iterators -ES6Species -args summary -endargs</compile-flags>
       <tags>Slow</tags>
@@ -498,6 +504,12 @@
     <default>
       <files>ES6Symbol.js</files>
       <compile-flags> -ES6Symbol -ES6ObjectLiterals -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Species -ES6HasInstance -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Symbol-crossthread.js</files>
+      <compile-flags> -ES6Symbol -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -1260,4 +1272,10 @@
         <compile-flags>-args summary -endargs</compile-flags>
     </default>
 </test>
+<test>
+    <default>
+      <files>TypedArrayExtensions-ImageData.js</files>
+      <compile-flags>-ES6 -ES6TypedArrayExtensions -args summary -endargs</compile-flags>
+    </default>
+  </test>
 </regress-exe>
