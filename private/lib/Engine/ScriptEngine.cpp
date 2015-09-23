@@ -6756,7 +6756,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript(scriptText, nullptr, &se, true /* isExpression */, false /* disableDeferredParse */, &sourceInfo, Js::Constants::UnknownScriptCode);
+    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript(scriptText, nullptr, &se, true /* isExpression */, false /* disableDeferredParse */, false /*isByteCodeBufferForLibrary*/, &sourceInfo, Js::Constants::UnknownScriptCode);
 
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)

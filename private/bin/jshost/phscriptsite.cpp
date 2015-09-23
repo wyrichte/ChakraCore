@@ -1000,7 +1000,6 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     //For validating the header file agains the library file    
     auto outputStr = 
         "// Copyright (C) Microsoft. All rights reserved.\r\n"
-        "// Generated via jshost -GenerateLibraryByteCodeHeader\r\n"
         "#if 0 \r\n";
     if (! WriteFile(fileHandle, outputStr, strlen(outputStr), &written, nullptr)) IfFailGo(E_FAIL);        
     if (! WriteFile(fileHandle, contentsRaw, lengthBytes, &written, nullptr)) IfFailGo(E_FAIL);
