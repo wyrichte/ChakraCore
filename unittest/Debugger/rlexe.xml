@@ -2724,6 +2724,7 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test> -->
+  <!-- Temporarily disabling for FI 09/22/2015
   <test>
     <default>
       <files>basichtmltest_Attach2.html</files>
@@ -2731,6 +2732,7 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>basichtmltest_Main.htm</files>
@@ -2753,6 +2755,7 @@
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  <!-- Temporarily disabling for FI: 09/22/2015
   <test>
     <default>
       <files>html_workertest_Attach.html</files>
@@ -2775,6 +2778,7 @@
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>bug_551355.js</files>
@@ -3302,12 +3306,14 @@
       <tags>exclude_dynapogo,exclude_serialized</tags>
     </default>
   </test>
+  <!-- Temporarily disabling for FI: 09/22/2015
   <test>
     <default>
       <files>htmlSuffix.html</files>
       <tags>exclude_dynapogo,exclude_serialized</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>returnedvaluetests3.js</files>

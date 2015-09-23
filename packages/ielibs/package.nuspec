@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IELibs</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -21,8 +21,44 @@
     <file src="..\..\..\..\devtoolbar\jstools\setup\amd64\*" target="pdm\x64" />
     <file src="..\..\..\..\devtoolbar\jstools\setup\arm\*" target="pdm\arm" />
 
-    <!-- These two are entire directories that need to be copied -->
-    <file src="manifests\**" target="manifests" />
+    <!-- Copy the various flavors of Chakra's manifests -->
+    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\i386\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\i386\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\arm\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\arm\Microsoft-Scripting-Chakra.man" />
+    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.h" />
+    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.rc" />
+    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
+    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
+
+    <!-- These entire directory needs to be copied -->
     <file src="lib\**" />
   </files>
 </package>

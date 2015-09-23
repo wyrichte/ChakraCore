@@ -480,7 +480,8 @@ function _razzleBuildIEDepPackageTaskGroup(bldType, bldArch, oacrAll)
         _razzleBuildTask(bldType, bldArch, {
             taskNameString: "inetcore-package-dep",
             directories: [
-                "inetcore\\published\\internal\\inc",
+                "inetcore\\jscript\\publish0",
+                "inetcore\\jscript\\publish",
                 "inetcore\\manifests\\inbox",
                 "inetcore\\lib\\devtb\\dtbhost",
                 "inetcore\\lib\\ScriptProjectionHost\\iel3_edge"]

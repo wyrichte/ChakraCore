@@ -15,6 +15,15 @@
 #include "IHTMLDOMConstructor.h"
 #endif
 
+#include <mshtml.h>
+
+#ifndef __IHTMLDOMConstructor_INTERFACE_DEFINED__
+#define __IHTMLDOMConstructor_INTERFACE_DEFINED__
+//This is a hack to build in Visual Studio where razzle environment is not present
+//Hence we redefine the interface from mshtml.h
+#include "IHTMLDOMConstructor.h"
+#endif
+
 extern "C" PVOID _ReturnAddress(VOID);
 #pragma intrinsic(_ReturnAddress)
 

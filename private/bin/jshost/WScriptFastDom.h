@@ -6,6 +6,7 @@
 #pragma once
 
 #include "edgescriptdirect.h"
+typedef void(*NotifyCallback)();
 
 class WScriptFastDom
 {
@@ -73,6 +74,7 @@ public:
 
     static Var Echo(Var function, CallInfo callInfo, Var* args);
     static Var Quit(Var function, CallInfo callInfo, Var* args);
+    static Var QuitHtmlHost(Var function, CallInfo callInfo, Var* args);
     static Var StdErrWriteLine(Var function, CallInfo callInfo, Var* args);
     static Var StdErrWrite(Var function, CallInfo callInfo, Var* args);
     static Var StdOutWriteLine(Var function, CallInfo callInfo, Var* args);
@@ -100,8 +102,9 @@ public:
     static Var SetEvalEnabled(Var function, CallInfo callInfo, Var* args); 
     static Var SetRestrictedMode(Var function, CallInfo callInfo, Var* args);
     static Var TestConstructor(Var function, CallInfo callInfo, Var* args);
+    static Var SetKeepAlive(Var function, CallInfo callInfo, Var* args);
 
-    static HRESULT Initialize(IActiveScript * activeScript);
+    static HRESULT Initialize(IActiveScript * activeScript, BOOL inHTMLHost = FALSE, NotifyCallback keepaliveCallback = nullptr);
     static HRESULT InitializeStreams(IActiveScriptDirect *activeScriptDirect, Var wscript);
     static HRESULT InitializeProperty(IActiveScriptDirect *activeScriptDirect, __in LPCWSTR propName, __out Var * obj, __out PropertyId *propId);
 
@@ -122,6 +125,7 @@ private:
 
     static MessageQueue *s_messageQueue;
     __declspec(thread) static JsHostActiveScriptSite* s_mainScriptSite;
+    __declspec(thread) static NotifyCallback s_keepaliveCallback;
 
     static bool s_enableEditTest;
     static bool s_stdInAtEOF;

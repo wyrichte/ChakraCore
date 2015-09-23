@@ -16,6 +16,7 @@ std::multimap<Var, IJsHostScriptSite*> scriptEngineMap;
 
 MessageQueue *WScriptFastDom::s_messageQueue = NULL;
 JsHostActiveScriptSite* WScriptFastDom::s_mainScriptSite = nullptr;
+NotifyCallback WScriptFastDom::s_keepaliveCallback = nullptr;
 bool WScriptFastDom::s_enableEditTest = false;
 bool WScriptFastDom::s_stdInAtEOF = false;
 unsigned int MessageBase::s_messageCount = 0;
@@ -384,6 +385,16 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
 
     return NULL;
 }
+
+Var WScriptFastDom::QuitHtmlHost(Var function, CallInfo callInfo, Var* args)
+{
+    // Post a custom quit message to delay shutdown gracefully. This is invoked from WScript.Quit,
+    // thus we are in the middle of some dispatch call. If we cleanup right now, we may null out
+    // some objects unexpected by the dispatch call path (e.g. HostDispatch::scriptSite).
+    PostThreadMessage(GetCurrentThreadId(), WM_USER_QUIT, (WPARAM)0, (LPARAM)0);  
+    return nullptr;
+}
+
 
 bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& runInfo, bool isSourceRaw)
 {
@@ -1298,6 +1309,11 @@ Error:
     return result;
 }
 
+Var WScriptFastDom::SetKeepAlive(Var function, CallInfo callInfo, Var* args)
+{
+    s_keepaliveCallback();
+    return NOERROR;
+}
 
 /* static */
 HRESULT WScriptFastDom::CreateArgsObject(IActiveScriptDirect *const activeScriptDirect, __out Var *argsObject)
@@ -1451,7 +1467,7 @@ LReturn:
     return hr;
 }
 
-HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript)
+HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost, NotifyCallback keepaliveCallback)
 {
     HRESULT hr = S_OK;
     ITypeOperations * operations = NULL;
@@ -1501,12 +1517,29 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript)
     IfFailedGo(InitializeStreams(activeScriptDirect, wscript));
 
     // Create the Quit method
-    hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::Quit);
+    if (!isHTMLHost)
+    {
+        hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::Quit);
+    }
+    else
+    {
+        hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::QuitHtmlHost);
+    }
     IfFailedGo(hr);
 
-    // Create the LoadScriptFile method
-    hr = AddMethodToObject(L"LoadScriptFile", activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
+    if (isHTMLHost)
+    {
+        s_keepaliveCallback = keepaliveCallback;
+        hr = AddMethodToObject(L"SetKeepAlive", activeScriptDirect, wscript, WScriptFastDom::SetKeepAlive);
+    }
     IfFailedGo(hr);
+
+    if (!isHTMLHost)
+    {
+        // Create the LoadScriptFile method
+        hr = AddMethodToObject(L"LoadScriptFile", activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
+        IfFailedGo(hr);
+    }
 
     // Create the LoadScript method
     hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);

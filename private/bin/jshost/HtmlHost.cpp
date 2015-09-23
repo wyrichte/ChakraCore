@@ -30,6 +30,8 @@ HRESULT DoOneHtmlIteration(BSTR filename)
     HRESULT hr = S_OK;
     CAppWindow* pAppWindow = nullptr;
 
+    MessageQueue* messageQueue = new MessageQueue();
+    WScriptFastDom::AddMessageQueue(messageQueue);
     JScript9Interface::NotifyOnScriptStateChanged(OnScriptStateChangedCallBack);
 
     g_pApp = new CApp;
@@ -164,7 +166,7 @@ BOOL __stdcall OnScriptStateChangedCallBack(IActiveScriptDirect* scriptDirectRef
     HRESULT hr = NOERROR;
     if (ss == SCRIPTSTATE_STARTED)
     {
-        hr = WScriptFastDom::Initialize((IActiveScript*)scriptDirectRef);
+        hr = WScriptFastDom::Initialize((IActiveScript*)scriptDirectRef, TRUE, SetKeepAliveWrapper);
     }
     return true;
 }
