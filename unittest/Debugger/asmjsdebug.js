@@ -61,16 +61,21 @@ function outer()
 var moduleFunc = outer();
 this['byteLength'] = Function.prototype.call.bind(Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'byteLength').get);
 var buffer = new ArrayBuffer(1<<24);
-var module = moduleFunc(this, {bar: function f(c){print("import func, val " + c)}, c: 4.5, d: 12}, buffer);
-print(Math.round(module.gExp(2)));
-print(Math.round(module.fExp(1)));
+var module1 = moduleFunc(this, {bar: function f(c){print("import func, val " + c)}, c: 4.5, d: 12}, buffer);
+var module2 = moduleFunc(this, {bar: function f(c){print("import2 func, val " + c)}, c: 5.5, d: 13}, new ArrayBuffer(1<<25));
+print(Math.round(module1.gExp(2)));
+print(Math.round(module1.fExp(1)));
 function debugCallback()
 {
     print("debugCallback");
-    print(Math.round(module.fExp(1)));
-    print(Math.round(module.gExp(2)));
-    print(module.ch(new ArrayBuffer(1<<25)));
-    print(Math.round(module.gExp(2)));
+    print(Math.round(module2.fExp(1)));
+    print(Math.round(module2.gExp(2)));
+    print(module2.ch(new ArrayBuffer(1<<25)));
+    print(Math.round(module2.gExp(2)));
+    print(Math.round(module1.fExp(1)));
+    print(Math.round(module1.gExp(2)));
+    print(module1.ch(new ArrayBuffer(1<<25)));
+    print(Math.round(module1.gExp(2)));
 }
 WScript.Attach(debugCallback);
 WScript.Detach(debugCallback);
