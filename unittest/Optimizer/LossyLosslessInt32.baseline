@@ -6,3 +6,4 @@ test3b: valueOf
 test3b: valueOf
 test3b: 2
 test3c: TypeError
+test3d: 0

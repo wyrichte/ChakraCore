@@ -69,6 +69,14 @@ function test3c(a) {
 }
 WScript.Echo("test3c: " + safeCall(test3c, { valueOf: null, toString: null }));
 
+function test3d(a) {
+    // This will hoist a conversion to int32 which will try to throw, but in reality is never called
+    for (0; 0; a ^= '') {
+    }
+    return 0;
+}
+WScript.Echo("test3d: " + safeCall(test3d, Symbol()));
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function safeCall(f) {
