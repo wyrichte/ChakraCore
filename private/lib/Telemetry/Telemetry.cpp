@@ -34,14 +34,21 @@ WCHAR *g_ProcessExclusionList[] = {
 
 void __cdecl firePackageTelemetry()
 {
-
     if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
     {
-        g_TraceLoggingClient->CreateHashAndFirePackageTelemetry();
-        g_TraceLoggingClient->ReleaseNodePackageList();
-        g_TraceLoggingClient->SetIsPackageTelemetryFired(true);
+      g_TraceLoggingClient->FirePackageTelemetryHelper();
     }
+}
 
+void __cdecl firePackageTelemetryAtExit() 
+{
+  if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
+  {
+    HRESULT hr = NOERROR;
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+      g_TraceLoggingClient->FirePackageTelemetryHelper();
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+  }
 }
 
 
@@ -115,6 +122,14 @@ void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
         TraceLoggingBool(isJSRT, "isJSRT")
         );
 
+}
+
+void TraceLoggingClient::FirePackageTelemetryHelper() 
+{
+  Assert(!(this->IsPackageTelemetryFired()));
+  this->CreateHashAndFirePackageTelemetry();
+  this->ReleaseNodePackageList();
+  this->SetIsPackageTelemetryFired(true);
 }
 
 

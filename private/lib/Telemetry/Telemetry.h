@@ -36,7 +36,8 @@
 #endif
 #endif
 
-void __cdecl firePackageTelemetry();
+void __cdecl firePackageTelemetryAtExit(); // Creating another wrapper for atExit Scenario as we want to tackle OOM and other exceptions.
+void __cdecl firePackageTelemetry(); // This will fired in standard shutdown scenario. Same code just the handling of error is already taken care of by Engine.
 extern struct _TlgProvider_t const * const g_hTraceLoggingProv;
 
 class CEventTraceProperties
@@ -117,6 +118,7 @@ public:
     // For node telemetry purposes
     void TryLogNodePackage(Recycler*, const wchar_t*url);
     HCRYPTPROV EnsureCryptoContext();
+    void FirePackageTelemetryHelper();
 };
 
 extern TraceLoggingClient *g_TraceLoggingClient;
