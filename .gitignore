@@ -1,5 +1,6 @@
 *.log
-External/
+/External
+/tools/PerfTester
 *.sdf
 *.suo
 *.opensdf
@@ -30,4 +31,4 @@ __pycache__/*
 *.orig
 initenv.cmd
 
-.project 
+.project
