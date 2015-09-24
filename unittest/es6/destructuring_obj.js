@@ -156,6 +156,7 @@ var tests = [
       assert.throws(function () { eval("({get ['foo']() {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the get function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
       assert.throws(function () { eval("({set ['foo'](a) {}} = {});"); }, SyntaxError, "Invalid object expression pattern as it has the set function name as computed property instead of binding identifier", "Invalid destructuring assignment target");
       
+      assert.throws(function () { eval("for([z] = function ([a]) { } in []) {}"); }, SyntaxError, "Initializer as function expression is not valid syntax", "Expected ';'");
     }
   },
   {
