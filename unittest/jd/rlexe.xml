@@ -121,7 +121,7 @@
     <default>
       <files>locals2.js</files>
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:256 -VerifyShortAndFullNameValues-</compile-flags>
-      <tags>exclude_jsrt,Slow,Slow</tags>
+      <tags>exclude_jsrt,Slow</tags>
     </default>
   </test>
   <!--

@@ -69,7 +69,7 @@
     <default>
       <files>sca_lookup.js</files>
       <baseline>sca_lookup.baseline</baseline>
-      <tags>Slow,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

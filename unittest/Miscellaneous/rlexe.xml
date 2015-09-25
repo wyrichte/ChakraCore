@@ -40,7 +40,7 @@
     <default>
       <files>neuterApi.js</files>
       <baseline>neuterApi.baseline</baseline>
-      <tags>Slow,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

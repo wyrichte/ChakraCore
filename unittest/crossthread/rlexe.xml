@@ -202,7 +202,7 @@
       <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 -CollectGarbage</compile-flags>
       <files>FaultInjectionForScriptTermination.js</files>
       <baseline>FaultInjectionForScriptTermination.baseline</baseline>
-      <tags>exclude_fre,exclude_apollo,Slow,Slow</tags>
+      <tags>exclude_fre,exclude_apollo,Slow</tags>
     </default>
   </test>
   <test>

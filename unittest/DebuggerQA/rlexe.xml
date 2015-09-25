@@ -846,7 +846,7 @@
       <command>jdtest.exe -dbgbaseline:localinspection_fn.js.dbg.baseline -targeted jshost -disableDebugObject</command>
       <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
       <baseline>localinspection_fn.js.baseline</baseline>
-      <tags>fail_mutators,exclude_winglob,Slow,Slow</tags>
+      <tags>fail_mutators,exclude_winglob,Slow</tags>
     </default>
   </test>
   <test>
@@ -855,7 +855,7 @@
       <command>jdtest.exe -dbgbaseline:localinspection_global.js.dbg.baseline -targeted jshost -Intl -disableDebugObject</command>
       <compile-flags>-debuglaunch:hybrid -es6functionnamefull -es6classes</compile-flags>
       <baseline>localinspection_global.js.baseline</baseline>
-      <tags>fail_mutators,exclude_winglob,Slow,Slow</tags>
+      <tags>fail_mutators,exclude_winglob,Slow</tags>
     </default>
   </test>
   <test>
@@ -1003,7 +1003,7 @@
       <files>specialproperties.js</files>
       <command>jdtest.exe -dbgbaseline:specialproperties.js.hybrid.dbg.baseline -inspectmaxstringlength:100 -targeted jshost</command>
       <compile-flags>-debuglaunch:hybrid -es6functionnamefull -ES6Species</compile-flags>
-      <tags>fail_mutators,Slow,Slow</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>

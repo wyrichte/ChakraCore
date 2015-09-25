@@ -4,7 +4,7 @@
     <default>
       <files>richards.js</files>
       <compile-flags>-debuglaunch -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <tags>Slow,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -968,7 +968,7 @@
       <files>mapSetWeakmap.js</files>
       <command>jdtest.exe -dbgbaseline:mapSetWeakmap.js.dbg.hybrid.baseline -targeted jshost</command>
       <compile-flags>-debuglaunch:hybrid -Intl- -es6classes</compile-flags>
-      <tags>fail_mutators,Slow,Slow</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
@@ -1734,14 +1734,14 @@
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-Intl-</compile-flags>
-      <tags>fail_mutators,Slow,Slow</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-automaticsourcerundown -Intl-</compile-flags>
-      <tags>fail_mutators,Slow,Slow</tags>
+      <tags>fail_mutators,Slow</tags>
     </default>
   </test>
   <test>
