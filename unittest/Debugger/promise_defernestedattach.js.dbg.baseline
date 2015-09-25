@@ -141,7 +141,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -616,7 +615,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -1926,7 +1924,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -2067,7 +2064,6 @@
       "onComplete": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "newValue": "undefined",
@@ -2313,7 +2309,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -2445,7 +2440,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -2968,7 +2962,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -4100,7 +4093,6 @@
       "init": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "oncancel": "undefined",
@@ -6885,7 +6877,6 @@
       "onComplete": {
         "__proto__": "<large string>",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       },
       "newValue": {

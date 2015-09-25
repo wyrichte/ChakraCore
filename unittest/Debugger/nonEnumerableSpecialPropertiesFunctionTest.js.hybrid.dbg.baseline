@@ -61,13 +61,6 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 8
-          },
-          "name": "",
-          "name - [Attributes]": {
-            "flags": [
-              "JS_PROPERTY_READONLY"
-            ],
-            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {

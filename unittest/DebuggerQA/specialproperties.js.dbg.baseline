@@ -39,8 +39,7 @@
         "__proto__": "{...}",
         "arguments": "Accessing the 'arguments' property is restricted in this context",
         "caller": "Accessing the 'caller' property is restricted in this context",
-        "length": "0",
-        "name": ""
+        "length": "0"
       }
     }
   },
@@ -627,7 +626,6 @@
         "__proto__": "\nfunction() {\n    [native code]\n}\n",
         "arguments": "{...}",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       }
     }

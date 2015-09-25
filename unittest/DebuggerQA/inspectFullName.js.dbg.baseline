@@ -81,8 +81,7 @@
           "Array.__proto__.__proto__": "{...}",
           "Array.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
           "Array.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
-          "Array.__proto__.length": "0",
-          "Array.__proto__.name": ""
+          "Array.__proto__.length": "0"
         },
         "Array.arguments": "null",
         "Array.caller": "null",

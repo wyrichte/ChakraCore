@@ -382,9 +382,8 @@
  |  |  |    |    [Prototype] type: ObjectObject (seen)
  |  |  |    |    [Properties] count: 1
  |  |  |    |    | 0 constructor: type: FunctionObject (seen)
- |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |    [Internal property] value: (empty string)
- |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 1 name: type: Undefined flags: (new) optional info records (1)
+ |  |  |    |    [Prototype] type: Null (seen)
  |  |  |    | 2 length: value: 0.000000
  |  |  | 8 __proto__: rsFlags: setter type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
@@ -393,9 +392,7 @@
  |  |  |    |    [Prototype] type: ObjectObject (seen)
  |  |  |    |    [Properties] count: 1
  |  |  |    |    | 0 constructor: type: FunctionObject (seen)
- |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |    [Internal property] value: (empty string)
- |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 1 name: type: Undefined (seen)
  |  |  |    | 2 length: value: 1.000000
  |  |  | 9 __defineGetter__: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)

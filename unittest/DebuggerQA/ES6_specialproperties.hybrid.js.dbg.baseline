@@ -85,8 +85,7 @@
           "__proto__": "{...}",
           "arguments": "Function evaluation is disabled while debugging native code",
           "caller": "Function evaluation is disabled while debugging native code",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "arguments": "null",
         "caller": "null",
@@ -107,8 +106,7 @@
           "__proto__": "{...}",
           "arguments": "Function evaluation is disabled while debugging native code",
           "caller": "Function evaluation is disabled while debugging native code",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "length": "1",
         "name": "foo"
@@ -123,8 +121,7 @@
           "__proto__": "{...}",
           "arguments": "Function evaluation is disabled while debugging native code",
           "caller": "Function evaluation is disabled while debugging native code",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "length": "1",
         "name": "bar"
