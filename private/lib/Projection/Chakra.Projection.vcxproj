@@ -51,11 +51,14 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ProjectionPch.h</PrecompiledHeaderFile>
-      <!--
-        4510: default constructor could not be generated
-        4610: can never be instantiated - user defined constructor required
-        -->
-      <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4510;   <!-- default constructor could not be generated -->
+        4610;   <!-- can never be instantiated - user defined constructor required -->
+
+        <!-- TODO: Should clean this up -->
+        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

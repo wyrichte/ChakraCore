@@ -224,12 +224,16 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
         for (int i = 0; i < upto; i++)
         {
             const wchar_t* stringToHash = this->NodePackageIncludeList->GetValueAt(i);
-            DWORD strSize = wcslen(stringToHash);
+            size_t strSize = wcslen(stringToHash);
+            if (strSize > INT_MAX)
+            {
+                return;
+            }
 
             if (hProv &&
                 CryptCreateHash(hProv, CALG_SHA1, 0, 0, &hHash))
             {
-                if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(stringToHash), (strSize)*sizeof(wchar_t), 0))
+                if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(stringToHash), static_cast<DWORD>(strSize)*sizeof(wchar_t), 0))
                 {
                     return;
                 }

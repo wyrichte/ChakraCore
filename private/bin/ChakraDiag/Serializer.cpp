@@ -5,6 +5,9 @@
 #include "StdAfx.h"
 #include "Serializer.h"
 
+// TODO: Clean this warning up
+#pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
+
 namespace JsDiag
 {
     namespace Serialization

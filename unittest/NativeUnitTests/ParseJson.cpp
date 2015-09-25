@@ -43,7 +43,7 @@ HRESULT TestBasicActiveScriptDirectParseJson(MyScriptDirectTests* myTests)
 
     auto TestJson = [&](JSONTestData& data)->bool
     {
-        UINT len = data.length < 0 ? wcslen(data.jsonText) : data.length;
+        UINT len = data.length < 0 ? (UINT)wcslen(data.jsonText) : data.length;
         HRESULT hr = activeScriptDirect->ParseJson(data.jsonText, len, data.var);
         printData(data, hr);
         return data.verify(data, hr);

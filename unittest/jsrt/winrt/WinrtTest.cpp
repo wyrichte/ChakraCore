@@ -208,7 +208,7 @@ namespace JsrtUnitTests
         Windows::Foundation::IPropertyValueStatics * propertyFactory = nullptr;
         IInspectable* propertyValue = nullptr;
         HSTRING factoryName;
-        hr = WindowsCreateString(L"Windows.Foundation.PropertyValue", wcslen(L"Windows.Foundation.PropertyValue"), &factoryName);
+        hr = WindowsCreateString(L"Windows.Foundation.PropertyValue", _countof(L"Windows.Foundation.PropertyValue") - 1, &factoryName);
         if (SUCCEEDED(hr))
         {
             hr = RoGetActivationFactory(factoryName, Windows::Foundation::IID_IPropertyValueStatics, (void**)&propertyFactory);
@@ -250,7 +250,7 @@ namespace JsrtUnitTests
         Windows::Globalization::DateTimeFormatting::IDateTimeFormatterStatics* dtFormatterFactory = nullptr;
         IInspectable* dtFormatterInspectable = nullptr;
         HSTRING dtFormatterFactoryName;
-        hr = WindowsCreateString(L"Windows.Globalization.DateTimeFormatting.DateTimeFormatter", wcslen(L"Windows.Globalization.DateTimeFormatting.DateTimeFormatter"), &dtFormatterFactoryName);
+        hr = WindowsCreateString(L"Windows.Globalization.DateTimeFormatting.DateTimeFormatter", _countof(L"Windows.Globalization.DateTimeFormatting.DateTimeFormatter") - 1, &dtFormatterFactoryName);
         if (SUCCEEDED(hr))
         {
             hr = RoGetActivationFactory(dtFormatterFactoryName, Windows::Globalization::DateTimeFormatting::IID_IDateTimeFormatterStatics, (void**)&dtFormatterFactory);

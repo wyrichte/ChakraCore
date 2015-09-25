@@ -33,6 +33,12 @@
       </AdditionalIncludeDirectories>      
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>WinRTPCH.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+
+        <!-- TODO: Should clean this up -->
+        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
