@@ -226,7 +226,7 @@ PASSED
 Summary of tests: total executed: 46; passed: 46; failed: 0
 Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function, Line: 114, Column: 27, Character Position: 4729
-[FunctionCompiled]: Function: Anonymous function, Line: 185, Column: 20, Character Position: 6949
+[FunctionCompiled]: Function: Anonymous function, Line: 185, Column: 20, Character Position: 6942
 [FunctionCompiled]: Function: Anonymous function, Line: 258, Column: 27, Character Position: 10315
 [FunctionCompiled]: Function: Anonymous function, Line: 276, Column: 27, Character Position: 10973
 [FunctionCompiled]: Function: Anonymous function, Line: 317, Column: 27, Character Position: 12863
@@ -237,12 +237,12 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
-[FunctionCompiled]: Function: Global code, Line: 27, Column: 1, Character Position: 1402
+[FunctionCompiled]: Function: Global code, Line: 27, Column: 1, Character Position: 1395
 [FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
 [FunctionCompiled]: Function: VerifyReflectThis, Line: 189, Column: 1, Character Position: 5150
 [FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
-[FunctionCompiled]: Function: areEqual, Line: 228, Column: 19, Character Position: 8404
-[FunctionCompiled]: Function: assert, Line: 149, Column: 14, Character Position: 5620
+[FunctionCompiled]: Function: areEqual, Line: 228, Column: 19, Character Position: 8397
+[FunctionCompiled]: Function: assert, Line: 149, Column: 14, Character Position: 5613
 [FunctionCompiled]: Function: body, Line: 109, Column: 15, Character Position: 4561
 [FunctionCompiled]: Function: body, Line: 120, Column: 15, Character Position: 4960
 [FunctionCompiled]: Function: body, Line: 134, Column: 15, Character Position: 5541
@@ -267,10 +267,10 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 81, Column: 15, Character Position: 3150
 [FunctionCompiled]: Function: body, Line: 99, Column: 15, Character Position: 4226
 [FunctionCompiled]: Function: cleanupBeforeTestStarts, Line: 14, Column: 1, Character Position: 538
-[FunctionCompiled]: Function: compare, Line: 160, Column: 19, Character Position: 5921
-[FunctionCompiled]: Function: get isCompatVersion9, Line: 38, Column: 13, Character Position: 1776
-[FunctionCompiled]: Function: get isVersion10OrLater, Line: 41, Column: 13, Character Position: 1887
-[FunctionCompiled]: Function: getDummyObject, Line: 46, Column: 25, Character Position: 2089
+[FunctionCompiled]: Function: compare, Line: 160, Column: 19, Character Position: 5914
+[FunctionCompiled]: Function: get isCompatVersion9, Line: 38, Column: 13, Character Position: 1769
+[FunctionCompiled]: Function: get isVersion10OrLater, Line: 41, Column: 13, Character Position: 1880
+[FunctionCompiled]: Function: getDummyObject, Line: 46, Column: 25, Character Position: 2082
 [FunctionCompiled]: Function: handler.trapApply, Line: 240, Column: 33, Character Position: 9496
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 298, Column: 37, Character Position: 11906
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 342, Column: 37, Character Position: 13798
@@ -278,11 +278,11 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 56, Column: 40, Character Position: 2074
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 71, Column: 40, Character Position: 2725
 [FunctionCompiled]: Function: handler.trapOwnKeys, Line: 111, Column: 35, Character Position: 4630
-[FunctionCompiled]: Function: helpers, Line: 27, Column: 15, Character Position: 1402
+[FunctionCompiled]: Function: helpers, Line: 27, Column: 15, Character Position: 1395
 [FunctionCompiled]: Function: initialize, Line: 324, Column: 1, Character Position: 9162
-[FunctionCompiled]: Function: isInBrowser, Line: 33, Column: 22, Character Position: 1555
-[FunctionCompiled]: Function: isObject, Line: 151, Column: 20, Character Position: 5670
-[FunctionCompiled]: Function: logTestNameIf, Line: 118, Column: 13, Character Position: 4687
+[FunctionCompiled]: Function: isInBrowser, Line: 33, Column: 22, Character Position: 1548
+[FunctionCompiled]: Function: isObject, Line: 151, Column: 20, Character Position: 5663
+[FunctionCompiled]: Function: logTestNameIf, Line: 118, Column: 13, Character Position: 4680
 [FunctionCompiled]: Function: observeHandler.apply, Line: 171, Column: 24, Character Position: 4643
 [FunctionCompiled]: Function: observeHandler.construct, Line: 180, Column: 28, Character Position: 4897
 [FunctionCompiled]: Function: observeHandler.enumerate, Line: 122, Column: 28, Character Position: 3319
@@ -295,7 +295,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: observeHandler.ownKeys, Line: 156, Column: 26, Character Position: 4276
 [FunctionCompiled]: Function: observeHandler.preventExtensions, Line: 76, Column: 36, Character Position: 1913
 [FunctionCompiled]: Function: observeHandler.set, Line: 103, Column: 22, Character Position: 2775
-[FunctionCompiled]: Function: printObject, Line: 69, Column: 22, Character Position: 2807
+[FunctionCompiled]: Function: printObject, Line: 69, Column: 22, Character Position: 2800
 [FunctionCompiled]: Function: reflectHandler.apply, Line: 303, Column: 24, Character Position: 8574
 [FunctionCompiled]: Function: reflectHandler.construct, Line: 312, Column: 28, Character Position: 8844
 [FunctionCompiled]: Function: reflectHandler.defineProperty, Line: 249, Column: 33, Character Position: 6918
@@ -309,17 +309,17 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 240, Column: 36, Character Position: 6649
 [FunctionCompiled]: Function: reflectHandler.set, Line: 267, Column: 22, Character Position: 7557
 [FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
-[FunctionCompiled]: Function: run, Line: 110, Column: 14, Character Position: 4358
-[FunctionCompiled]: Function: runTest, Line: 114, Column: 18, Character Position: 4461
+[FunctionCompiled]: Function: run, Line: 110, Column: 14, Character Position: 4351
+[FunctionCompiled]: Function: runTest, Line: 114, Column: 18, Character Position: 4454
 [FunctionCompiled]: Function: runTestPass, Line: 351, Column: 1, Character Position: 14093
 [FunctionCompiled]: Function: runTestPasses, Line: 357, Column: 1, Character Position: 14214
-[FunctionCompiled]: Function: runTests, Line: 85, Column: 19, Character Position: 3324
+[FunctionCompiled]: Function: runTests, Line: 85, Column: 19, Character Position: 3317
 [FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9193
 [FunctionCompiled]: Function: test, Line: 213, Column: 13, Character Position: 8567
-[FunctionCompiled]: Function: testRunner, Line: 78, Column: 18, Character Position: 3067
-[FunctionCompiled]: Function: throws, Line: 262, Column: 17, Character Position: 9945
-[FunctionCompiled]: Function: validate, Line: 212, Column: 20, Character Position: 7897
-[FunctionCompiled]: Function: writeln, Line: 56, Column: 18, Character Position: 2380
+[FunctionCompiled]: Function: testRunner, Line: 78, Column: 18, Character Position: 3060
+[FunctionCompiled]: Function: throws, Line: 262, Column: 17, Character Position: 9938
+[FunctionCompiled]: Function: validate, Line: 212, Column: 20, Character Position: 7890
+[FunctionCompiled]: Function: writeln, Line: 56, Column: 18, Character Position: 2373
   runTestPasses
     runTestPass
       initialize
