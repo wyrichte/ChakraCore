@@ -52,15 +52,16 @@ set _HadFailures=0
   call :runTests unit x64debug
   call :runTests unit x64test
 
+  call :summarizeLogs
   call :copyLogsToDrop
 
   echo.
   if "%_HadFailures%" == "1" (
-    echo runcitests.cmd ^>^> Tests failed!
+    echo -- runcitests.cmd ^>^> Tests failed! 1>&2
   ) else (
-    echo runcitests.cmd ^>^> Tests passed!
+    echo -- runcitests.cmd ^>^> Tests passed!
   )
-  echo runcitests.cmd ^>^> Logs at %_DropRootDir%\testlogs
+  echo -- runcitests.cmd ^>^> Logs at %_DropRootDir%\testlogs
 
   exit /b %_HadFailures%
 
@@ -87,8 +88,25 @@ set _HadFailures=0
 
   call :do xcopy %_RootDir%\core\test\logs %_StagingDir%\testlogs\coretest /S /Y /C /I
   call :do xcopy %_RootDir%\unittest\logs %_StagingDir%\testlogs\unittest /S /Y /C /I
+  call :do move %_StagingDir%\testlogs\coretest\summary.coretest.log %_StagingDir%\testlogs
+  call :do move %_StagingDir%\testlogs\unittest\summary.unittest.log %_StagingDir%\testlogs
 
   goto :eof
+
+:: ============================================================================
+:: Summarize the logs into a listing of only the failures
+:: ============================================================================
+:summarizeLogs
+
+  pushd %_RootDir%\core\test\logs
+  findstr /sp failed rl.results.log > summary.coretest.log
+  type summary.coretest.log 1>&2
+  popd
+
+  pushd %_RootDir%\unittest\logs
+  findstr /sp failed rl.results.log > summary.unittest.log
+  type summary.unittest.log 1>&2
+  popd
 
 :: ============================================================================
 :: Echo a command line before executing it
