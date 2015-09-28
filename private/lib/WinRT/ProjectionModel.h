@@ -2193,10 +2193,10 @@ namespace ProjectionModel
             };
         } CustomAttributeInfo;
 
-        ProjectionBuilder(ITypeResolver * resolver, Metadata::IStringConverter * stringConverter, ArenaAllocator * allocator, DWORD targetVersion)
+        ProjectionBuilder(ITypeResolver * resolver, Metadata::IStringConverter * stringConverter, ArenaAllocator * allocator, DWORD targetVersion, bool isWinRTAdaptiveAppsEnabled)
             : resolver(resolver), stringConverter(stringConverter), allocator(allocator), builtInConstructorProperties(nullptr), targetVersion(targetVersion),
               builtInInstanceProperties(nullptr),implementedInterfaceConstructorsCheck(nullptr), currentImplementedRuntimeClassInterfaceConstructors(nullptr)
-              ,ignoreWebHidden(false), enforceAllowForWeb(false)
+              ,ignoreWebHidden(false), enforceAllowForWeb(false), isWinRTAdaptiveAppsEnabled(isWinRTAdaptiveAppsEnabled)
         {
             Js::VerifyCatastrophic(resolver);
             Js::VerifyCatastrophic(stringConverter);
@@ -2427,6 +2427,7 @@ namespace ProjectionModel
 
         Metadata::IStringConverter * stringConverter;
         ITypeResolver * GetResolver() { return resolver; }
+        bool IsWinRTAdaptiveAppsEnabled() const { return isWinRTAdaptiveAppsEnabled; }
 
     private:
         bool CanMarshalType(RtTYPE type, bool fAllowGenericType = false, bool allowMissingTypes = false, bool *outWasMissingType = nullptr, bool allowWebHidden = false);
@@ -2555,6 +2556,7 @@ namespace ProjectionModel
         BOOL    ignoreWebHidden;    // TODO: have a enum for more properties?
         BOOL    enforceAllowForWeb;
         ITypeResolver * resolver;
+        const bool isWinRTAdaptiveAppsEnabled;
         DWORD targetVersion;
         ArenaAllocator * allocator;
         INTERFACECONSTRUCTORMAP * interfaceCache; // Key is interface type id (Can this fold into typeIdToType?)

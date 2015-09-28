@@ -52,6 +52,7 @@ namespace Projection
         ProjectionWriter * writer;
 
         HRESULT GetTypeFromTypeNameParts(__in DWORD typeNamePartsCount, __in_ecount(typeNamePartsCount) HSTRING *typeNameParts, __in RtTYPE *type, DWORD *readParts);
+        void EnsureProjectionBuilder();
 
     public:
         ProjectionContext(ScriptSite* scriptSite, ThreadContext *threadContext);

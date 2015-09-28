@@ -9,6 +9,13 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "byteLength": "5",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         }
       },
       "arrBuffer - [Attributes]": {
@@ -93,6 +100,42 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": "[object ArrayBuffer]",
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "4",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "4",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -369,20 +412,6 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 8
-        },
-        "sticky": "false",
-        "sticky - [Attributes]": {
-          "flags": [
-            "JS_PROPERTY_READONLY"
-          ],
-          "flagsAsValue": 8
-        },
-        "unicode": "false",
-        "unicode - [Attributes]": {
-          "flags": [
-            "JS_PROPERTY_READONLY"
-          ],
-          "flagsAsValue": 8
         }
       },
       "regex - [Attributes]": {
@@ -442,20 +471,6 @@
         },
         "source": ".\\s?",
         "source - [Attributes]": {
-          "flags": [
-            "JS_PROPERTY_READONLY"
-          ],
-          "flagsAsValue": 8
-        },
-        "sticky": "false",
-        "sticky - [Attributes]": {
-          "flags": [
-            "JS_PROPERTY_READONLY"
-          ],
-          "flagsAsValue": 8
-        },
-        "unicode": "false",
-        "unicode - [Attributes]": {
           "flags": [
             "JS_PROPERTY_READONLY"
           ],
@@ -520,6 +535,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "1",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -528,6 +579,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "1",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "1",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "1",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -567,6 +670,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "1",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -575,6 +714,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "2",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "2",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "1",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "2",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -621,6 +812,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "2",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -629,6 +856,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "6",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "6",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "2",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "3",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -682,6 +961,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "2",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -690,6 +1005,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "8",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "8",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "2",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "4",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -750,6 +1117,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -758,6 +1161,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "20",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "20",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "5",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -825,6 +1280,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -833,6 +1324,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "24",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "24",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "6",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -907,6 +1450,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "4",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -915,6 +1494,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "28",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "28",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "4",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "7",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {
@@ -996,6 +1627,42 @@
               "JS_PROPERTY_READONLY"
             ],
             "flagsAsValue": 9
+          },
+          "buffer": "[object ArrayBuffer]",
+          "buffer - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "0",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "byteOffset": "0",
+          "byteOffset - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "BYTES_PER_ELEMENT": "8",
+          "BYTES_PER_ELEMENT - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          },
+          "length": "0",
+          "length - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
           }
         },
         "__proto__ - [Attributes]": {
@@ -1004,6 +1671,58 @@
             "JS_PROPERTY_READONLY"
           ],
           "flagsAsValue": 9
+        },
+        "buffer": {
+          "__proto__": "[object ArrayBuffer]",
+          "__proto__ - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_HAS_CHILDREN",
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 9
+          },
+          "byteLength": "64",
+          "byteLength - [Attributes]": {
+            "flags": [
+              "JS_PROPERTY_READONLY"
+            ],
+            "flagsAsValue": 8
+          }
+        },
+        "buffer - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_HAS_CHILDREN",
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 9
+        },
+        "byteLength": "64",
+        "byteLength - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "byteOffset": "0",
+        "byteOffset - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "BYTES_PER_ELEMENT": "8",
+        "BYTES_PER_ELEMENT - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
+        },
+        "length": "8",
+        "length - [Attributes]": {
+          "flags": [
+            "JS_PROPERTY_READONLY"
+          ],
+          "flagsAsValue": 8
         },
         "[0]": "0",
         "[0] - [Attributes]": {

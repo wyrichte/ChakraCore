@@ -326,12 +326,7 @@ namespace Projection
     {
         IfNullReturnError(ppAssembly, E_INVALIDARG);
 
-        if (builder == nullptr)
-        {
-            builder = Anew(projectionAllocator, ProjectionModel::ProjectionBuilder, this, this, projectionAllocator, this->GetTargetVersion());
-            builder->SetIgnoreWebHidden(IgnoreWebHidden());
-            builder->SetEnforceAllowForWeb(EnforceAllowForWeb());
-        }
+        EnsureProjectionBuilder();
 
         if (metadata == nullptr)
         {
@@ -365,12 +360,7 @@ namespace Projection
         Assert(concreteTypeName != NULL);
         Assert(expr != NULL);
 
-        if (builder == nullptr)
-        {
-            builder = Anew(projectionAllocator, ProjectionModel::ProjectionBuilder, this, this, projectionAllocator, this->GetTargetVersion());
-            builder->SetIgnoreWebHidden(IgnoreWebHidden());
-            builder->SetEnforceAllowForWeb(EnforceAllowForWeb());
-        }
+        EnsureProjectionBuilder();
 
         UINT32 length;
         Js::DelayLoadWinRtString *winrtStringDelayLoad = threadContext->GetWinRTStringLibrary();
@@ -479,6 +469,25 @@ namespace Projection
         JS_ETW(EventWriteJSCRIPT_PROJECTION_GETTYPEFROMTYPENAMEPARTS_STOP(fullTypeName));
 
         return S_OK;
+    }
+
+    void ProjectionContext::EnsureProjectionBuilder()
+    {
+        if (builder != nullptr)
+        {
+            return;
+        }
+
+        builder = Anew(
+            projectionAllocator,
+            ProjectionModel::ProjectionBuilder,
+            this,
+            this,
+            projectionAllocator,
+            this->GetTargetVersion(),
+            scriptContext->GetConfig()->IsWinRTAdaptiveAppsEnabled());
+        builder->SetIgnoreWebHidden(IgnoreWebHidden());
+        builder->SetEnforceAllowForWeb(EnforceAllowForWeb());
     }
 
     HRESULT ProjectionContext::GetExpr(MetadataStringId typeId, MetadataStringId fullNameId, LPCWSTR fullName, ImmutableList<RtTYPE> * genericParameters, RtEXPR* expr)

@@ -556,7 +556,7 @@ namespace ProjectionModel
     // Info:        Determine and remember whether this type can be marshaled
     bool Type::CanMarshal(ProjectionBuilder * builder, bool allowMissingTypes, bool *outWasMissingType) const
     {
-        if (!CONFIG_FLAG_RELEASE(WinRTAdaptiveApps))
+        if (!builder->IsWinRTAdaptiveAppsEnabled())
         {
             allowMissingTypes = false;
         }

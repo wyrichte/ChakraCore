@@ -745,10 +745,25 @@ namespace JsDiag
 
     struct RemoteScriptConfiguration : public RemoteData<ScriptConfiguration>
     {
-        RemoteScriptConfiguration(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}        
-        bool IsES6TypedArrayExtensionsEnabled() { return ToTargetPtr()->IsES6TypedArrayExtensionsEnabled(); }
-        bool IsES6UnicodeExtensionsEnabled() { return ToTargetPtr()->IsES6UnicodeExtensionsEnabled(); }
-        bool IsES6RegExStickyEnabled() { return ToTargetPtr()->IsES6RegExStickyEnabled(); }
+        RemoteScriptConfiguration(IVirtualReader* reader, const TargetType* addr) :
+            RemoteData<TargetType>(reader, addr),
+            m_threadConfig(m_reader, ToTargetPtr()->threadConfig)
+        {
+        }
+
+        bool IsES6TypedArrayExtensionsEnabled() { return m_threadConfig->IsES6TypedArrayExtensionsEnabled(); }
+        bool IsES6UnicodeExtensionsEnabled() { return m_threadConfig->IsES6UnicodeExtensionsEnabled(); }
+        bool IsES6RegExStickyEnabled() { return m_threadConfig->IsES6RegExStickyEnabled(); }
+
+    private:
+        ThreadConfiguration *GetThreadConfig()
+        {
+            const ThreadConfiguration * const threadConfigAddr = ToTargetPtr()->threadConfig;
+            RemoteData<ThreadConfiguration> remoteThreadConfig(m_reader, threadConfigAddr);
+            return remoteThreadConfig.ToTargetPtr();
+        }
+
+        RemoteData<ThreadConfiguration> m_threadConfig;
     };
 
     struct RemoteJavascriptFunction : public RemoteRecyclableObjectBase<JavascriptFunction>
