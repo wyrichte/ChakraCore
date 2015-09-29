@@ -4,6 +4,8 @@
 
 #pragma once
 #include <float.h>
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4127) // conditional expression is constant
 namespace JsrtUnitTests
 {
     template<JsRuntimeAttributes attributes>

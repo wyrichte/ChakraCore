@@ -6,6 +6,9 @@
 
 #pragma once
 
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4127) // conditional expression is constant
+
 #define IfFailGo(expr) IfFailGoto(expr, Error)
 
 #define IfNullGo(expr, result) \

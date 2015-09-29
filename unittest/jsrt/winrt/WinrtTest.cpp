@@ -9,6 +9,8 @@
 #include <windows.foundation.h>
 #include <windows.globalization.h>
 
+#pragma warning(disable:4100) // unreferenced formal parameter
+
 using namespace WEX::Common;
 using namespace WEX::Logging;
 using namespace WEX::TestExecution;

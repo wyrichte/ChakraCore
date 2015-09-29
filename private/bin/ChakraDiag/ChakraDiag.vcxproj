@@ -84,6 +84,8 @@
       </AdditionalDependencies>
 
       <DelayLoadDLLs>%(DelayLoadDLLs);api-ms-win-shcore-stream-l1-1-0.dll</DelayLoadDLLs>
+      <!-- Always use LTCG since atls_nouser32.lib contain /GL objects -->
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Link Condition="'$(BuildingWithBuildExe)'=='true'">
       <!-- For Razzle build, Solution relies on ProjectReferences -->
@@ -95,9 +97,6 @@
         $(ChakraCommonDataStructureLib);
         $(ChakraRuntimeLanguageLib)
       </AdditionalDependencies>
-
-      <!-- Always use LTCG since atls_nouser32.lib contain /GL objects -->
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
