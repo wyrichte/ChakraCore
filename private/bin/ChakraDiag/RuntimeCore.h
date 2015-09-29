@@ -431,8 +431,8 @@ class ScriptContextTelemetry;
 #include "RegexStats.h"
 #include "CharTrie.h"
 #include "TextbookBoyerMoore.h"
+#include "CaseInsensitive.h"            // Needed by RegexRunTime.h and OctoquadIdentifier.h
 #include "OctoquadIdentifier.h"
-#include "CaseInsensitive.h"            // Needed by RegexRunTime.h
 #include "RegexRunTime.h"               // Needed by RegexPattern.h
 #include "RegexPattern.h"               // Needed by JavascriptRegularExpression.h
 #include "JavascriptRegularExpression.h"

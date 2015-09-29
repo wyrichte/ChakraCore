@@ -14,6 +14,11 @@ def groupEquivs(mappings):
     allEquivs = set(map(frozenset, charToEquivs.values()))
     return allEquivs
 
+# UnicodeData equivs are used when the Unicode RegExp flag isn't present.
+# This function parses "UnicodeData.txt" and returns the equivs generated
+# from it. Explanation of the file format can be found at [1].
+#
+# [1] http://www.unicode.org/Public/5.1.0/ucd/UCD.html#UnicodeData.txt
 def generateUnicodeDataEquivs():
     #UPPERCASE_COLUMN = 12
     #LOWERCASE_COLUMN = 13
@@ -40,6 +45,9 @@ def generateUnicodeDataEquivs():
     allEquivs = groupEquivs(mappings)
     return allEquivs
 
+# CaseFolding equivs are used when the Unicode RegExp flag is present.
+# This function parses "CaseFolding.txt" and returns the equivs generated
+# from it.
 def generateCaseFoldingEquivs():
     def readCaseFoldingFile():
         lines = open(sys.argv[2]).readlines()
@@ -53,6 +61,26 @@ def generateCaseFoldingEquivs():
     allEquivs = groupEquivs(mappings)
     return allEquivs
 
+def convertToCanonicalHex(number):
+    return '0x' + hex(number)[2:].zfill(4)
+
+def assertEquivsSize(allEquivs, errorHeader):
+    # Max allowed size should match UnifiedRegex::CaseInsensitive::EquivClassSize C++ variable
+    MAX_ALLOWED_SIZE = 4
+
+    failed = False
+    printedErrorHeader = False
+    for equivs in allEquivs:
+        if len(equivs) > MAX_ALLOWED_SIZE:
+            if not printedErrorHeader:
+                print(errorHeader, file = sys.stderr)
+                printedErrorHeader = True
+            failed = True
+            printableEquivs = list(map(convertToCanonicalHex, equivs))
+            message = 'Eqiv set "%s" is bigger than the max allowed size %d' % (printableEquivs, MAX_ALLOWED_SIZE)
+            print(message, file = sys.stderr)
+    return failed
+
 def printEquivs(allEquivs):
     print('Length: %d' % len(allEquivs))
     sortedAllEquivs = sorted(allEquivs, key = min)
@@ -62,6 +90,15 @@ def printEquivs(allEquivs):
         chars = list(map(chr, sortedEquivs))
         print(hexValues, chars)
 
+# Converts equivs to a suitable format that could directly be inserted into the
+# "transforms" array in the UnifiedRegex::CaseInsensitive C++ namespace. Each
+# line consists of:
+#
+#    1, <char range start>, <char range end>, source, <equiv char 1 delta>, <equiv char 2 delta>,<equiv char 3 delta>,<equiv char 5 delta>
+#
+# The number "1" at the beginning denotes that all characters in the range are
+# used. It is possible to skip every other character in the range. If this is
+# needed, see "CaseInsensitive.cpp" for an explanation.
 def printTransforms(allEquivs, source):
     allEquivs = list(allEquivs)
     numDeltas = max(map(len, allEquivs))
@@ -70,8 +107,6 @@ def printTransforms(allEquivs, source):
         return list(map(lambda equiv: equiv - char, equivs))
     def padDeltas(deltas):
         return deltas + ([deltas[-1]] * (numDeltas - len(deltas)))
-    def convertToCanonicalHex(number):
-        return '0x' + hex(number)[2:].zfill(4)
     Transform = collections.namedtuple('Transform', 'char deltas')
     def generateTransforms(equivs):
         equivs = set(equivs)
@@ -96,7 +131,7 @@ def printTransforms(allEquivs, source):
         for transform in transforms:
             rangeStart, rangeEnd, deltas = transform
             paddedDeltas = padDeltas(deltas)
-            arrayEntry = list(map(str, [1, convertToCanonicalHex(rangeStart), convertToCanonicalHex(rangeEnd), source] + list(paddedDeltas)))
+            arrayEntry = list(map(str, [1, source, convertToCanonicalHex(rangeStart), convertToCanonicalHex(rangeEnd)] + list(paddedDeltas)))
             ## ',' is there at the end because the line is going to be inserted into an array
             arrayEntry = ', '.join(arrayEntry) + ','
             print(arrayEntry)
@@ -112,6 +147,11 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     unicodeDataEquivs = generateUnicodeDataEquivs()
+    assertionFailed = assertEquivsSize(unicodeDataEquivs, 'UnicodeData Equivs')
+
     caseFoldingEquivs = generateCaseFoldingEquivs()
-    caseFoldingOnlyEquivs = caseFoldingEquivs - unicodeDataEquivs
-    printTransforms(caseFoldingOnlyEquivs, 'MappingSource::CaseFolding')
+    assertionFailed |= assertEquivsSize(caseFoldingEquivs, 'CaseFolding Equivs')
+
+    if not assertionFailed:
+        caseFoldingOnlyEquivs = caseFoldingEquivs - unicodeDataEquivs
+        printTransforms(caseFoldingOnlyEquivs, 'MappingSource::CaseFolding')
