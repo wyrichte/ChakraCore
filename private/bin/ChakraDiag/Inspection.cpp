@@ -833,7 +833,8 @@ namespace JsDiag
                     size_t bytes = min(count * 3, body->LengthInBytes());
 
                     AutoArrayPtr<BYTE> pSource = VirtualReader::ReadBuffer(reader, sourceInfo.GetDebugModeSource() + body->m_cbStartOffset, bytes);
-                    utf8::DecodeInto(str.GetBufferSetLength(count), pSource, count, utf8::doAllowThreeByteSurrogates);
+                    utf8::DecodeOptions options = sourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;
+                    utf8::DecodeInto(str.GetBufferSetLength(count), pSource, count, options);
                     str.ReleaseBufferSetLength(count);
                 }
             }

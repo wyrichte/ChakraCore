@@ -1,0 +1,37 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {},
+        "this.__proto__": {
+          "[Methods]": "{...}",
+          "this.__proto__.__proto__": "null"
+        },
+        "this.abc": "1",
+        "this.obj": {
+          "[Methods]": "{...}",
+          "this.obj.__proto__": "{...}"
+        }
+      },
+      "arguments": {
+        "[Methods]": {
+          "arguments.callee": "function () {\n    var x = \"���������\"\n    var y = 1;/**bp:locals(2,0x100);**/\n}"
+        },
+        "arguments.__proto__": {
+          "[Methods]": "{...}",
+          "arguments.__proto__.__proto__": "null"
+        },
+        "arguments.length": "0"
+      },
+      "x": "���������",
+      "y": "undefined",
+      "[Globals]": {
+        "obj": {
+          "[Methods]": "{...}",
+          "obj.__proto__": "{...}"
+        },
+        "abc": "1"
+      }
+    }
+  }
+]

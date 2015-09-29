@@ -3711,6 +3711,20 @@
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:1000 -dbgbaseline:2171813.js.dbg.baseline</compile-flags>
     </default>
   </test>
+    <test>
+    <default>
+      <files>cesuCharacters.js</files>
+      <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:1000 -dbgbaseline:cesuCharacters.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>cesuCharacters.js</files>      
+      <command>jdtest.exe -targeted -dbgbaseline:cesuCharacters.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
+      <compile-flags>-debuglaunch:hybrid</compile-flags>
+      <tags>exclude_jsrt,exclude_dynapogo</tags>      
+    </default>
+  </test>
   <test>
     <default>
       <files>bug_OS_2628934.html</files>
