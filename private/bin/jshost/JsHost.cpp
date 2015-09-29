@@ -1233,7 +1233,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
 #ifdef ENABLE_INTL_OBJECT
-    JScript9Interface::ClearTimeZoneCalendars();
+    JScript9Interface::ReleaseWindowsGlobalizationObjects();
 #endif
 
     CoUninitialize();

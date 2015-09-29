@@ -151,14 +151,14 @@ void __stdcall DisplayMemStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-void __stdcall ClearTimeZoneCalendars()
+void __stdcall ReleaseWindowsGlobalizationObjects()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
     if (!threadContext)
     {
         return;
     }
-    threadContext->GetWindowsGlobalizationAdapter()->ClearTimeZoneCalendars();
+    threadContext->GetWindowsGlobalizationAdapter()->ReleaseWindowsGlobalizationObjects();
 }
 #endif
 
@@ -453,7 +453,7 @@ HRESULT OnJScript9Loaded()
         StopScriptProfiling,
         DisplayMemStats,
 #ifdef ENABLE_INTL_OBJECT
-        ClearTimeZoneCalendars,
+        ReleaseWindowsGlobalizationObjects,
 #endif
         FlushOutput,
 #ifdef FAULT_INJECTION

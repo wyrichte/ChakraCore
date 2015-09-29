@@ -145,7 +145,7 @@ public:
     static HRESULT FinalGC();
     static HRESULT DisplayRecyclerStats();
 #ifdef ENABLE_INTL_OBJECT
-    static HRESULT ClearTimeZoneCalendars();
+    static HRESULT ReleaseWindowsGlobalizationObjects();
 #endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);

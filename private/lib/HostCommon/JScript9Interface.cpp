@@ -223,7 +223,7 @@ HRESULT JScript9Interface::DisplayRecyclerStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-HRESULT JScript9Interface::ClearTimeZoneCalendars()
+HRESULT JScript9Interface::ReleaseWindowsGlobalizationObjects()
 {
     if (m_testHooks.pfClearTimeZoneCalendars)
     {
