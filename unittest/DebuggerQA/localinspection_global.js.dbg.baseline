@@ -298,8 +298,7 @@
           },
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "arguments": "null",
         "caller": "null",
@@ -523,8 +522,7 @@
           },
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "arguments": "null",
         "caller": "null",
@@ -556,8 +554,7 @@
           },
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0",
-          "name": ""
+          "length": "0"
         },
         "arguments": "null",
         "caller": "null",

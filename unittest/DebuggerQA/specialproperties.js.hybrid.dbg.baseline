@@ -39,8 +39,7 @@
         "__proto__": "{...}",
         "arguments": "Function evaluation is disabled while debugging native code",
         "caller": "Function evaluation is disabled while debugging native code",
-        "length": "0",
-        "name": ""
+        "length": "0"
       }
     }
   },
@@ -629,7 +628,6 @@
         "arguments": "{...}",
         "caller": "null",
         "length": "1",
-        "name": "",
         "prototype": "{...}"
       }
     }
