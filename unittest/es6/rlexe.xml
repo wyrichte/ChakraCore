@@ -63,12 +63,6 @@
   </test>
   <test>
     <default>
-      <files>ES6FunctionAPI.js</files>
-      <compile-flags>-ES6 -ES6Classes -ES6Generators -args summary -endargs</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>ES6Symbol_DOM.html</files>
       <compile-flags> -ES6Symbol</compile-flags>
       <baseline>ES6Symbol_DOM.baseline</baseline>
