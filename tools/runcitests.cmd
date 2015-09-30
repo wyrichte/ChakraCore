@@ -51,6 +51,10 @@ set _HadFailures=0
   call :runTests unit x86test
   call :runTests unit x64debug
   call :runTests unit x64test
+  call :runJsRTTests x86debug
+  call :runJsRTTests x86test
+  call :runJsRTTests x64debug
+  call :runJsRTTests x64test
 
   call :summarizeLogs
   call :copyLogsToDrop
@@ -71,6 +75,17 @@ set _HadFailures=0
 :runTests
 
   call :do %_ToolsDir%run%1tests.cmd -%2 -quiet -cleanupall -binDir %_StagingDir%\bin
+
+  if ERRORLEVEL 1 set _HadFailures=1
+
+  goto :eof
+
+:: ============================================================================
+:: Run jsrt test suite against one build config and record if there were errors
+:: ============================================================================
+:runJsRTTests
+
+  call :do %_ToolsDir%runjsrttests.cmd -%1 -binDir %_StagingDir%\bin
 
   if ERRORLEVEL 1 set _HadFailures=1
 

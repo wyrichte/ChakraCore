@@ -1,3 +1,11 @@
+:: ============================================================================
+::
+:: runjsrttests.cmd
+::
+:: Runs JsRT native unittests.
+::
+:: ============================================================================
+
 @echo off
 setlocal
 
@@ -96,6 +104,8 @@ goto :main
   if /i "%1" == "-x86test"          set _BuildArch=x86&set _BuildType=test&                     goto :ArgOk
   if /i "%1" == "-x64test"          set _BuildArch=x64&set _BuildType=test&                     goto :ArgOk
 
+  if /i "%1" == "-binDir"           set _BinDirBase=%~f2&                                      goto :ArgOkShift2
+
   if not "%1" == "" echo Unknown argument: %1 & set fShowGetHelp=1
 
   goto :eof
@@ -142,15 +152,30 @@ goto :main
 :: ============================================================================
 :runtest
 
-  set _AllTestBins=%_BinDir%UnitTest.JsRT.API.dll %_BinDir%UnitTest.JsRT.ComProjection.dll %_BinDir%UnitTest.JsRT.MemoryPolicy.dll %_BinDir%UnitTest.JsRT.RentalThreading.dll %_BinDir%UnitTest.JsRT.ThreadService.dll %_BinDir%UnitTest.JsRT.WinRT.dll
+  set _AllTestBins=
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.API.dll
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.ComProjection.dll
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.MemoryPolicy.dll
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.RentalThreading.dll
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.ThreadService.dll
+  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.WinRT.dll
 
   set _RazzleBuildArch=%_BuildArch%
   if "%_BuildArch%" == "x64" set _RazzleBuildArch=amd64
 
   set _TECommand=%_RootDir%\External\%_RazzleTools%\%_RazzleBuildArch%\te 
-  echo Executing command : %_TECommand% %_AllTestBins%  /select:"not(@Disabled='Yes')" /unicodeoutput:false /parallel:1 /logOutput:lowest
-  %_TECommand% %_AllTestBins%  /select:"not(@Disabled='Yes')" /unicodeoutput:false /parallel:1 /logOutput:lowest
+  call :do %_TECommand% %_AllTestBins%  /select:"not(@Disabled='Yes')" /unicodeoutput:false /parallel:1 /logOutput:lowest
 
   if ERRORLEVEL 1 set _HadFailures=1
+
+  goto :eof
+
+:: ============================================================================
+:: Echo a command line before executing it
+:: ============================================================================
+:do
+
+  echo -- runjsrttests.cmd ^>^> %*
+  cmd /s /c "%*"
 
   goto :eof
