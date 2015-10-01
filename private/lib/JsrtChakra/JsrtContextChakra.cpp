@@ -306,51 +306,61 @@ void JsrtContextChakra::ReleaseDebugApplication()
     scriptSite->ReleaseDebugApplication();
 }
 
+HRESULT JsrtContextChakra::EnsureProjectionHost()
+{
+    HRESULT hr = NOERROR;
+    if (!hasProjectionHost)
+    {
+        Js::ScriptContext * scriptContext = this->GetScriptContext();
+        IActiveScriptDirect* activeScriptDirect = scriptContext->GetActiveScriptDirect();
+        if (activeScriptDirect == nullptr)
+        {
+            Assert(FALSE);
+            return E_FAIL;  // we'll return cannotstartprojection later.
+        }
+        CComPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
+        hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProjection), (void**)&activeScriptProjection);
+        CComPtr<IActiveScript> activeScript;
+        hr = activeScriptDirect->QueryInterface(&activeScript);
+        if (SUCCEEDED(hr))
+        {
+            BEGIN_LEAVE_SCRIPT(scriptContext)
+            {
+                hr = CreateScriptProjectionHost(
+                    activeScript,
+                    activeScriptProjection,
+                    nullptr,  // applicationObjectsToExpose
+                    0);       // applicationObjectsToExposeCount
+
+                if (SUCCEEDED(hr))
+                {
+                    // Reset delegate wrapper to ours, even if this->projectionDelegateWrapper == nullptr.
+                    CComPtr<IPrivateScriptProjection> privateScriptProjection;
+                    hr = activeScriptProjection->QueryInterface(&privateScriptProjection);
+                    if (SUCCEEDED(hr))
+                    {
+                        hr = privateScriptProjection->ResetDelegateWrapper(this->projectionDelegateWrapper);
+                    }
+                }
+            }
+            END_LEAVE_SCRIPT(scriptContext)
+        }
+
+        hasProjectionHost = SUCCEEDED(hr);
+    }
+    return hr;
+}
+
 JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace)
 {
     HRESULT hr = NOERROR;
-    Js::ScriptContext * scriptContext = this->GetScriptContext();
-    IActiveScriptDirect* activeScriptDirect = scriptContext->GetActiveScriptDirect();
-    if (activeScriptDirect == nullptr)
-    {
-        Assert(FALSE);
-        return JsErrorCannotStartProjection;
-    }
-    CComPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
-    hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProjection), (void**)&activeScriptProjection);
-
+    hr = EnsureProjectionHost();
     if (SUCCEEDED(hr))
     {
-        if (!hasProjectionHost)
-        {
-            CComPtr<IActiveScript> activeScript;
-            hr = activeScriptDirect->QueryInterface(&activeScript);
-            if (SUCCEEDED(hr))
-            {
-                BEGIN_LEAVE_SCRIPT(scriptContext)
-                {
-                    hr = CreateScriptProjectionHost(
-                        activeScript,
-                        activeScriptProjection,
-                        nullptr,  // applicationObjectsToExpose
-                        0);       // applicationObjectsToExposeCount
-
-                    if (SUCCEEDED(hr))
-                    {
-                        // Reset delegate wrapper to ours, even if this->projectionDelegateWrapper == nullptr.
-                        CComPtr<IPrivateScriptProjection> privateScriptProjection;
-                        hr = activeScriptProjection->QueryInterface(&privateScriptProjection);
-                        if (SUCCEEDED(hr))
-                        {
-                            hr = privateScriptProjection->ResetDelegateWrapper(this->projectionDelegateWrapper);
-                        }
-                    }
-                }
-                END_LEAVE_SCRIPT(scriptContext)
-            }
-
-            hasProjectionHost = SUCCEEDED(hr);
-        }
+        Js::ScriptContext * scriptContext = this->GetScriptContext();
+        IActiveScriptDirect* activeScriptDirect = scriptContext->GetActiveScriptDirect();
+        CComPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
+        hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProjection), (void**)&activeScriptProjection);
 
         if (SUCCEEDED(hr))
         {

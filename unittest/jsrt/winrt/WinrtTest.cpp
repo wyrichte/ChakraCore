@@ -204,7 +204,17 @@ namespace JsrtUnitTests
         VERIFY_IS_TRUE(JsDisposeRuntime(runtime) == JsNoError);
     }
 
-    void WinRTTest::InspectableTest()
+    void WinRTTest::InspectableTest1()
+    {
+        InspectableTest(1);
+    }
+
+    void WinRTTest::InspectableTest2()
+    {
+        InspectableTest(2);
+    }
+
+    void WinRTTest::InspectableTest(int testCase)
     {        
         HRESULT hr;
         Windows::Foundation::IPropertyValueStatics * propertyFactory = nullptr;
@@ -232,8 +242,11 @@ namespace JsrtUnitTests
 
         VERIFY_IS_TRUE(JsCreateContext(runtime, &context) == JsNoError);
         VERIFY_IS_TRUE(JsSetCurrentContext(context) == JsNoError);
-        VERIFY_IS_TRUE(JsProjectWinRTNamespace(L"Windows") == JsNoError);
-
+        if (testCase == 1)
+        {
+            VERIFY_IS_TRUE(JsProjectWinRTNamespace(L"Windows") == JsNoError);
+        }
+        
         VERIFY_IS_TRUE(JsInspectableToObject(propertyValue, &builtinVar) == JsNoError);
 
         double retValue;

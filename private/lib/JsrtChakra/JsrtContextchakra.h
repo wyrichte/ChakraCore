@@ -12,6 +12,7 @@ public:
     ScriptEngine * GetScriptEngine() const { return this->scriptEngine; }
     JsErrorCode ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace);
     JsErrorCode SetProjectionDelegateWrapper(_In_ IDelegateWrapper *delegateWrapper);
+    HRESULT EnsureProjectionHost();
     bool SetDebugApplication(IDebugApplication *debugApplication);
     void ReleaseDebugApplication();
 

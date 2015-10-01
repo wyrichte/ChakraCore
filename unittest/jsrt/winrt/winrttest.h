@@ -20,7 +20,8 @@ namespace JsrtUnitTests
         TEST_METHOD(ProjectionCallbackEventTest);
         TEST_METHOD(ProjectionCallbackAsyncTest);
         TEST_METHOD(ProjectionCallbackErrorTest);
-        TEST_METHOD(InspectableTest);
+        TEST_METHOD(InspectableTest1);
+        TEST_METHOD(InspectableTest2);
 
     public:
         static JsValueRef GetUndefined()
@@ -29,6 +30,8 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsGetUndefinedValue(&undefined) == JsNoError);
             return undefined;
         }
+        static void InspectableTest(int testCase);
+
     };
 };
 

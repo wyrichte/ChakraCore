@@ -297,12 +297,13 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
 #endif
         JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         HRESULT hr = NOERROR;
-        ScriptEngine* scriptEngine = context->GetScriptEngine();
-        if (scriptEngine->GetProjectionContext() == nullptr)
+        if (FAILED(context->EnsureProjectionHost()))
         {
             return JsErrorCannotStartProjection;
         }
         BEGIN_LEAVE_SCRIPT(scriptContext)
+
+        ScriptEngine* scriptEngine = context->GetScriptEngine();
         hr = scriptEngine->InspectableUnknownToVarInternal(inspectable, value);
         END_LEAVE_SCRIPT(scriptContext)
         if (FAILED(hr))
@@ -321,8 +322,7 @@ STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspect
         *inspectable = nullptr;
         // Check if projection is enabled, if not return error
         JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
-        ScriptEngine* scriptEngine = context->GetScriptEngine();
-        if (scriptEngine->GetProjectionContext() == nullptr)
+        if (FAILED(context->EnsureProjectionHost()))
         {
             return JsErrorCannotStartProjection;
         }
@@ -342,11 +342,13 @@ STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspect
         // Found a CEO, QI for IInspectable and if succeed return that
         HRESULT hr = NOERROR;
         BEGIN_LEAVE_SCRIPT(scriptContext)
+        {
             hr = externalObject->QueryObjectInterface(__uuidof(IInspectable), (void**)inspectable);
+        }
         END_LEAVE_SCRIPT(scriptContext)
             if (FAILED(hr))
             {
-            return JsErrorObjectNotInspectable;
+                return JsErrorObjectNotInspectable;
             }
         return JsNoError;
     });

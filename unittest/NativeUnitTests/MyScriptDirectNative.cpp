@@ -311,7 +311,7 @@ void MyScriptDirectTests::CreateFunction(std::wstring function_name,std::wstring
     std::string fname(function_name.length(),L'');
 
     char* str_c2=new char[function_name.length()];
-    memcpy(str_c2,function_name.c_str(),function_name.size());
+    memcpy(str_c2,function_name.c_str(),function_name.length());
     fname=str_c2;
 
     WCHAR* funcname=const_cast<WCHAR*>(function_name.c_str());

@@ -117,7 +117,7 @@
       <!-- ======== From makefile.def ======== -->
       <!-- REVIEW: NOOPTIDATA is undocumented, prevent .idata to be merged into .text-->
       <AdditionalOptions>%(AdditionalOptions) /NOVCFEATURE /NOOPTIDATA /SECTION:.idata,R</AdditionalOptions>
-      <AdditionalOptions>%(AdditionalOptions) /merge:.rdata=.text</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Platform)'!='x64'">%(AdditionalOptions) /merge:.rdata=.text</AdditionalOptions>
       <!--# merge .orpc sections with .text. .orpc is used by older versions of the VS
           # debugger to automatically step over marshalling code. -->
       <AdditionalOptions>%(AdditionalOptions) /merge:.orpc=.text</AdditionalOptions>
@@ -148,8 +148,11 @@
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
       <AdditionalOptions>%(AdditionalOptions) /d2guard4 /d2nocfgrngchk /d2guardcfgfuncptr</AdditionalOptions>
+
+      <!-- Razzle turn on /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
+      <AdditionalOptions>%(AdditionalOptions) /d2guardgsforcfg-</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">/d2guardcheckesp2 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Platoform)'!='ARM' and '$(Platform)'!='Arm64'">%(AdditionalOptions) /d2psvcallopt150000</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Platform)'!='ARM' and '$(Platform)'!='Arm64'">%(AdditionalOptions) /d2psvcallopt150000</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
@@ -159,6 +162,8 @@
     </MASM>
     <Link>
       <AdditionalOptions>%(AdditionalOptions) /guard:export /guard:mixed /d2:-guardcfgfuncptr</AdditionalOptions>
+      <!-- Razzle turn on /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
+      <AdditionalOptions>%(AdditionalOptions) /d2:-guardgsforcfg-</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.props" />

@@ -318,13 +318,14 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
+  <!--OS: Bug 4723781: Unittest disabled in SNAP: debugger\attachdetach-delaycapture.js
   <test>
     <default>
       <files>attachdetach-delaycapture.js</files>
       <compile-flags>-dbgbaseline:attachdetach-delaycapture.js.dbg.baseline</compile-flags>
       <tags>BugFix</tags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>globalFuncVars.js</files>
