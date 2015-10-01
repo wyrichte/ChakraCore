@@ -87,7 +87,7 @@ namespace Projection
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         LPCWSTR pszElementTypeName = StringOfId(scriptContext, elementType->fullTypeNameId);            
 
-        int lenElementTypeName = wcslen(pszElementTypeName) + wcslen(L"Array") + 1;
+        size_t lenElementTypeName = wcslen(pszElementTypeName) + wcslen(L"Array") + 1;
         WCHAR *pszArrayName = new WCHAR[lenElementTypeName ];
         IfNullReturnError(pszArrayName, E_OUTOFMEMORY);
         wcscpy_s(pszArrayName, lenElementTypeName, pszElementTypeName);
@@ -178,7 +178,11 @@ namespace Projection
 #endif
                 Js::ArrayBuffer* arrayBuffer;
                 auto elementSize = elementType->storageSize;
-                uint32 sizeOfBlock = length * elementSize;
+                auto requestedSize = length * elementSize;
+                if (requestedSize > UINT32_MAX)         // Previous behavior would be to underflow sizeOfBlock without a check.
+                    return E_OUTOFMEMORY;               // Instead we raise a responsible out-of-memory exception.
+
+                uint32 sizeOfBlock = (uint32)(length * elementSize);
                 Assert(Js::JavascriptConversion::ToUInt32((double)sizeOfBlock) >= length);
                 // Create a instance that stores pointer to memory block
                 if (!fOwnBuffer)
@@ -977,7 +981,8 @@ namespace Projection
         }
 
         // Get item  at the index
-        uint uElementTypeSize = elementType->storageSize;
+        AssertMsg(elementType->storageSize < INT_MAX, "Invalid metadata: Max storage size should never exceed 2gb.");
+        uint uElementTypeSize = (uint)elementType->storageSize;
 
         auto elementPointer = pArrayBlockPointer + (index * uElementTypeSize);
         ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
@@ -1006,7 +1011,8 @@ namespace Projection
         }
 
         // Get item  at the index
-        uint uElementTypeSize = elementType->storageSize;
+        AssertMsg(elementType->storageSize < INT_MAX, "Invalid metadata: Max storage size should never exceed 2gb.");
+        uint uElementTypeSize = (uint)elementType->storageSize;
         auto elementPointer = pArrayBlockPointer + (index * uElementTypeSize);
         ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, fReleaseExistingItem);
         auto final = marshal.WriteInType(value, elementType, elementPointer, uElementTypeSize, true);

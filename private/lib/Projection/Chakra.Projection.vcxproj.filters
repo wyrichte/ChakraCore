@@ -27,7 +27,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)namespaceProjection.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionContext.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)projectionTypeOperations.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)StdAfx.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)UnknownImpl.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)VariableArgMethodHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)VectorArray.cpp" />
@@ -40,9 +39,10 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)arm64\CallingConvention.cpp">
       <Filter>arm64</Filter>
     </ClCompile>
+    <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionPch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptWinRTDate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="ABIDelegates.h" />
     <ClInclude Include="ABIEvents.h" />
     <ClInclude Include="ArrayAsCollection.h" />
@@ -82,6 +82,9 @@
     <ClInclude Include="arm\CallingConvention.h">
       <Filter>arm</Filter>
     </ClInclude>
+    <ClInclude Include="JavascriptWinRTFunction.h" />
+    <ClInclude Include="JavascriptWinRTDate.h" />
+    <ClInclude Include="ProjectionPch.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="$(MsBuildThisFileDirectory)amd64\UnknownImplHelper.asm">

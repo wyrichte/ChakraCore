@@ -559,7 +559,7 @@ namespace Projection
         this->projectionContext->GetProjectionWriter()->GetRuntimeClassTypeInformation(externalObjects[0]->typeNameId, &hType, &typeInformation); 
         Assert(foundTypeInfo);
         Assert(((Js::CustomExternalType *)hType)->GetNameId() == this->GetTypeNameId());
-        externalObjects[0]->size = Projection::GetApproximateSizeForGCPressure(typeInformation->GCPressure());
+        externalObjects[0]->size = (UINT)Projection::GetApproximateSizeForGCPressure(typeInformation->GCPressure());
         if (externalObjects[0]->size == 0)
         {
             externalObjects[0]->flags = externalObjects[0]->flags | PROFILER_HEAP_OBJECT_FLAGS_SIZE_UNAVAILABLE;

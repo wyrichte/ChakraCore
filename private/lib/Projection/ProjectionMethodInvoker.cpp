@@ -101,17 +101,21 @@ namespace Projection
             {
                 // PassArray or FillArray pattern with [in] lengthAttribute
                 // We can only use [in] length attribute as thats the only one that has been applied at this point of the time
-                uint32 lengthForArray = (unsigned __int32)Js::JavascriptConversion::ToInt32(arguments[lengthParam->inParameterIndex + 1], scriptContext);
-                marshal.WriteInArrayTypeIndividual(arguments[parameter->inParameterIndex + 1], ArrayType::From(parameter->type), false, location, location + sizeof(LPVOID), parameter->isOut, true, lengthForArray);
+                
+                AssertMsg(lengthParam->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
+                uint32 lengthForArray = (uint32)Js::JavascriptConversion::ToInt32(arguments[(int)lengthParam->inParameterIndex + 1], scriptContext);
+                marshal.WriteInArrayTypeIndividual(arguments[(int)parameter->inParameterIndex + 1], ArrayType::From(parameter->type), false, location, location + sizeof(LPVOID), parameter->isOut, true, lengthForArray);
             }
             else if (parameter->isOut)
             {
-                Var inOutArg = parameter->isIn ? arguments[parameter->inParameterIndex + 1] : nullptr;
+                AssertMsg(parameter->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
+                Var inOutArg = parameter->isIn ? arguments[(int)parameter->inParameterIndex + 1] : nullptr;
                 marshal.WriteOutParameter(inOutArg, parameter, location, parameter->GetSizeOnStack(), signature->nameId);
             } 
             else
             {
-                marshal.WriteInParameter(arguments[parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
+                AssertMsg(parameter->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
+                marshal.WriteInParameter(arguments[(int)parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
             }
 
 #ifndef _M_ARM32_OR_ARM64
@@ -164,7 +168,8 @@ namespace Projection
 
             if (parameter->isOut)
             {
-                Var inOutArgument = parameter->isIn ? arguments[parameter->inParameterIndex + 1] : nullptr;
+                AssertMsg(parameter->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
+                Var inOutArgument = parameter->isIn ? arguments[(int)parameter->inParameterIndex + 1] : nullptr;
                 Var parameterValue = nullptr;
                 if (isMissingType)
                 {
@@ -181,7 +186,7 @@ namespace Projection
                         lengthParamLocation += parameter->GetSizeOnStack();
                     });                        
 #endif
-                    Var lengthVar = (lengthParam->isIn) ? arguments[lengthParam->inParameterIndex + 1] : marshal.ReadOutParameter(nullptr, lengthParam, lengthParamLocation, lengthParam->GetSizeOnStack(), signature->nameId);
+                    Var lengthVar = (lengthParam->isIn) ? arguments[(int)lengthParam->inParameterIndex + 1] : marshal.ReadOutParameter(nullptr, lengthParam, lengthParamLocation, lengthParam->GetSizeOnStack(), signature->nameId);
         
                     uint32 lengthForArray = (unsigned __int32)Js::JavascriptConversion::ToInt32(lengthVar, marshal.projectionContext->GetScriptContext());
 
@@ -270,7 +275,8 @@ namespace Projection
 
         // Invoke method
 #if defined(_M_IX86) || defined(_M_X64)
-        uint argsSize = signature->GetParameters()->sizeOfCallstack;
+        AssertMsg(signature->GetParameters()->sizeOfCallstack < UINT32_MAX, "Size of call stack would exceed OS capabilities and parameter/index combination (only 64k parameters permitted).");
+        uint argsSize = (uint)signature->GetParameters()->sizeOfCallstack;
 #endif
         HRESULT hr = S_OK;
 

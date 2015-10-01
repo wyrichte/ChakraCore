@@ -238,7 +238,7 @@ namespace Projection
 #pragma warning(disable:26000)
 #pragma warning(disable:28931)
     // Parameters: __in_opt T value, __out unsigned *index, __out boolean *found
-    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, IndexOf, 3, sizeOnStackOfElement + sizeof(uint *) + sizeof (boolean*), Var varValue;, E_ACCESSDENIED)
+    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, IndexOf, 3, (DWORD)(sizeOnStackOfElement + sizeof(uint *) + sizeof (boolean*)), Var varValue;, E_ACCESSDENIED)
     {
         ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
         DefineCallingConventionLocals();
@@ -336,7 +336,7 @@ namespace Projection
 #pragma warning(disable:4189) // local variable is initialized but not referenced
 #pragma warning(disable:28931)
     // Parameters : __in_opt T value
-    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, Append, 1, sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED)
+    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, Append, 1, sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED) 
     {
         hr = SupportsWrite();
         
