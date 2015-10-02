@@ -1801,6 +1801,12 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                 }
             }
 
+            size_t len = wcslen(filename);
+            for (size_t i = 0; i < len; i++)
+            {
+                filename[i] = towlower(filename[i]);
+            }
+
             for (unsigned int i = 0; i < excepInfo.callStack.frameCount; i++)
             {
                 if (NULL != filenameFlag && !this->delegateErrorHandling)
