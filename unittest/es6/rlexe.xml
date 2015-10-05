@@ -223,4 +223,11 @@
       <compile-flags>-ES6 -ES6TypedArrayExtensions -args summary -endargs</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>ES6Promise_RemoveWScript.js</files>
+      <baseline>ES6Promise_RemoveWScript.baseline</baseline>
+      <compile-flags> -ES6 -ES6Promise</compile-flags>
+    </default>
+  </test>
 </regress-exe>

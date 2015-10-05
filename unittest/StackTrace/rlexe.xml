@@ -144,4 +144,19 @@
       <tags>exclude_serialized</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <tags>StackTrace</tags>
+      <files>HostThrow.js</files>
+      <baseline>HostThrow.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>StackTrace</tags>
+      <compile-flags>-jsrt:0</compile-flags>
+      <files>reg_46298.js</files>
+      <baseline>reg_46298.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>
