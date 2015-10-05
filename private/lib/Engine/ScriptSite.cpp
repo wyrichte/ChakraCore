@@ -886,7 +886,7 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
-        *result = function->CallRootFunction(args, scriptContext);
+        *result = function->CallRootFunction(args, scriptContext, false);
     }
     TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
     {
