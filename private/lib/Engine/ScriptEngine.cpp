@@ -5056,6 +5056,12 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         grfscr |= fscrIsLibraryCode;
     }
 
+    if (PHASE_FORCE1(Js::EvalCompilePhase))
+    {
+        // pretend it is eval
+        grfscr |= (fscrEval | fscrEvalCode);
+    }
+
     // Create the code body, passing the name of the global function to the parser
     // to identify the function we want to wrap and return to the caller.
     CompileScriptException se;
