@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>crypto.js</files>
+      <baseline>crypto.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>crypto.js</files>
+      <baseline>crypto.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <!--
+         TODO broken in ch: -testEtwDll is not available in ch. Consider
+         integrating all testEtwDLl back to unittest into their own suite
+         and using code coverage to whittle it down to the bare minimum.
+       -->
+      <tags>exclude_ship,exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>crypto.js</files>
+      <baseline>crypto.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>deltablue.js</files>
+      <baseline>deltablue.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>deltablue.js</files>
+      <baseline>deltablue.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll -Serialized:earley-boyer2.js.bc</compile-flags>
+      <files>earley-boyer.js</files>
+      <baseline>earley-boyer.baseline</baseline>
+      <!--
+         TODO broken in ch: -testEtwDll is not available in ch. Consider
+         integrating all testEtwDLl back to unittest into their own suite
+         and using code coverage to whittle it down to the bare minimum.
+       -->
+      <tags>exclude_ship,exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-Serialized:earley-boyer.js.bc</compile-flags>
+      <files>earley-boyer.js</files>
+      <baseline>earley-boyer.baseline</baseline>
+      <!--
+         TODO broken in ch: Uses -Serialized which is jshost only.
+         Consider integrating all serialized tests back to full
+         in their own test suite and running code coverage to whittle
+         them down to only the core tests needed.
+      -->
+      <tags>exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>earley-boyer.js</files>
+      <baseline>earley-boyer.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>earley-boyer.js</files>
+      <baseline>earley-boyer.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <!--
+         TODO broken in ch: -testEtwDll is not available in ch. Consider
+         integrating all testEtwDLl back to unittest into their own suite
+         and using code coverage to whittle it down to the bare minimum.
+       -->
+      <tags>exclude_ship,exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>earley-boyer.js</files>
+      <baseline>earley-boyer.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>raytrace.js</files>
+      <baseline>raytrace.baseline</baseline>
+      <!--
+         TODO broken in ch: AVs at the end during shutdown
+      -->
+      <tags>exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>raytrace.js</files>
+      <baseline>raytrace.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <!--
+         TODO broken in ch: AVs at the end during shutdown
+      -->
+      <tags>exclude_fre,exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>raytrace.js</files>
+      <baseline>raytrace.baseline</baseline>
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <!--
+         TODO broken in ch: -testEtwDll is not available in ch. Consider
+         integrating all testEtwDLl back to unittest into their own suite
+         and using code coverage to whittle it down to the bare minimum.
+       -->
+      <tags>exclude_ship,exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regexp.js</files>
+      <baseline>regexp.baseline</baseline>
+      <tags>fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regexp.js</files>
+      <baseline>regexp.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre,fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regexp_unused.js</files>
+      <baseline>regexp_unused.baseline</baseline>
+      <compile-flags>-SkipSplitOnNoResult</compile-flags>
+      <!--
+        TODO broken in ch: prints ? characters in output that are not in the baseline
+      -->
+      <tags>exclude_ch</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>richards.js</files>
+      <baseline>richards.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>richards.js</files>
+      <baseline>richards.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>splay.js</files>
+      <baseline>splay.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>splay.js</files>
+      <baseline>splay.baseline</baseline>
+      <compile-flags>-optimizeForManyInstances</compile-flags>
+      <tags>exclude_fre</tags>
+    </default>
+  </test>
+</regress-exe>

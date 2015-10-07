@@ -3,97 +3,97 @@
   <Table Id="Table">
       <ParameterTypes/>
       <Row>
-        <Parameter Name="Location">Basics\Accessors</Parameter>
+        <Parameter Name="Location">core\test\Basics\Accessors</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\Array</Parameter>
+        <Parameter Name="Location">core\test\Basics\Array</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\ArrayConcat</Parameter>
+        <Parameter Name="Location">core\test\Basics\ArrayConcat</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\ArrayInit</Parameter>
+        <Parameter Name="Location">core\test\Basics\ArrayInit</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\ArrayResize</Parameter>
+        <Parameter Name="Location">core\test\Basics\ArrayResize</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\Branching</Parameter>
+        <Parameter Name="Location">core\test\Basics\Branching</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\DefProp</Parameter>
+        <Parameter Name="Location">core\test\Basics\DefProp</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\DeleteProperty1</Parameter>
+        <Parameter Name="Location">core\test\Basics\DeleteProperty1</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\DirectCall</Parameter>
+        <Parameter Name="Location">core\test\Basics\DirectCall</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\equal_object</Parameter>
+        <Parameter Name="Location">core\test\Basics\equal_object</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\inlinecache</Parameter>
+        <Parameter Name="Location">core\test\Basics\inlinecache</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\length</Parameter>
+        <Parameter Name="Location">core\test\Basics\length</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\logical</Parameter>
+        <Parameter Name="Location">core\test\Basics\logical</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\ParameterOrder</Parameter>
+        <Parameter Name="Location">core\test\Basics\ParameterOrder</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\Parameters</Parameter>
+        <Parameter Name="Location">core\test\Basics\Parameters</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\scopedaccessors</Parameter>
+        <Parameter Name="Location">core\test\Basics\scopedaccessors</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\StringCharCodeAt</Parameter>
+        <Parameter Name="Location">core\test\Basics\StringCharCodeAt</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\StringField</Parameter>
+        <Parameter Name="Location">core\test\Basics\StringField</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\StringFromCharCode</Parameter>
+        <Parameter Name="Location">core\test\Basics\StringFromCharCode</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\StringSubstring</Parameter>
+        <Parameter Name="Location">core\test\Basics\StringSubstring</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\switch</Parameter>
+        <Parameter Name="Location">core\test\Basics\switch</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\Switch2</Parameter>
+        <Parameter Name="Location">core\test\Basics\Switch2</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\TernaryOperator</Parameter>
+        <Parameter Name="Location">core\test\Basics\TernaryOperator</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\typeof</Parameter>
+        <Parameter Name="Location">core\test\Basics\typeof</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\typeofcombi</Parameter>
+        <Parameter Name="Location">core\test\Basics\typeofcombi</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\TypePromotion</Parameter>
+        <Parameter Name="Location">core\test\Basics\TypePromotion</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\UndefinedVsNull</Parameter>
+        <Parameter Name="Location">core\test\Basics\UndefinedVsNull</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\With2</Parameter>
+        <Parameter Name="Location">core\test\Basics\With2</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">Basics\WithEval</Parameter>
+        <Parameter Name="Location">core\test\Basics\WithEval</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">V8_Functionality\splay</Parameter>
+        <Parameter Name="Location">unittest\V8_Functionality\splay</Parameter>
       </Row>
       <Row>
-        <Parameter Name="Location">EH\so</Parameter>
+        <Parameter Name="Location">core\test\EH\so</Parameter>
       </Row>
   </Table>
 </Data>

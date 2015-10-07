@@ -42,6 +42,12 @@
 </dir>
 <dir>
   <default>
+    <files>V8_Functionality</files>
+    <tags>exclude_snap,Slow</tags>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>Basics</files>
   </default>
 </dir>

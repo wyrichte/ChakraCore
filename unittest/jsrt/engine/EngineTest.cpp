@@ -31,7 +31,7 @@ namespace JsrtUnitTests
 
             String basePath(sdxRoot);
 
-            basePath += L"\\inetcore\\jscript\\core\\test\\";
+            basePath += L"\\inetcore\\jscript\\";
 
             String outputFile = basePath + testLocation + L".out";
             this->output = CreateFile(outputFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
