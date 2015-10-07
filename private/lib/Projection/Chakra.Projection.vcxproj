@@ -51,14 +51,6 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ProjectionPch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>
-        %(DisableSpecificWarnings);
-        4510;   <!-- default constructor could not be generated -->
-        4610;   <!-- can never be instantiated - user defined constructor required -->
-
-        <!-- TODO: Should clean this up -->
-        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
-      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,14 +152,14 @@
     <ClInclude Include="ProjectionFastPath.h" />
     <ClInclude Include="ProjectionMarshaler.h" />
     <ClInclude Include="ProjectionMemoryInformation.h" />
-    <ClInclude Include="ProjectionMethodInvoker.h" />    
+    <ClInclude Include="ProjectionMethodInvoker.h" />
     <ClInclude Include="ProjectionObjectInstance.h" />
     <ClInclude Include="ProjectionPch.h" />
     <ClInclude Include="ProjectionTypeOperations.h" />
     <ClInclude Include="ProjectionWriter.h" />
     <ClInclude Include="PropertySet.h" />
     <ClInclude Include="PropertySetEnumerator.h" />
-    <ClInclude Include="SpecialProjection.h" />    
+    <ClInclude Include="SpecialProjection.h" />
     <ClInclude Include="UnknownImpl.h" />
     <ClInclude Include="VariableArgMethodHelper.h" />
     <ClInclude Include="VectorArray.h" />
@@ -184,7 +176,7 @@
       <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />

@@ -711,10 +711,11 @@ namespace ProjectionModel
         {
             size_t typeNameCount = typeNamesBuilder.GetCount();
             LPCWSTR *typeNames = typeNamesBuilder.Get();
+            AssertMsg(typeNameCount < 65536, "Invalid metadata: ECMA-335 II.22.20 defines GenericParam as having a 2-byte index");
 
             MetadataLocator locator(*builder);
             auto hr = builder->GetResolver()->GetRoParameterizedIIDDelayLoad()->RoGetParameterizedTypeInstanceIID(
-                typeNameCount,
+                (uint)typeNameCount,            
                 typeNames,
                 locator,
                 instantiatedIID);
@@ -723,7 +724,7 @@ namespace ProjectionModel
             {
                 Assert(locatorNames != nullptr);
 
-                *locatorNameCount = typeNameCount;
+                *locatorNameCount = (uint)typeNameCount;
                 *locatorNames = typeNames;
                 typeNamesBuilder.DisableAutoDelete();
             }
@@ -1144,7 +1145,7 @@ namespace ProjectionModel
     {
         auto size = Metadata::Assembly::GetBasicTypeSize(metadataType);
         auto naturalAlignment = Metadata::Assembly::GetBasicTypeAlignment(metadataType);
-        auto result = RtAnew(allocator,BasicType,GetBasicTypeIdFromTypeCor(metadataType),metadataType,::Math::Align<uint>(size, sizeof(LPVOID)), size, naturalAlignment);
+        auto result = RtAnew(allocator,BasicType,GetBasicTypeIdFromTypeCor(metadataType),metadataType,::Math::Align<uint>((uint32)size, (uint32)sizeof(LPVOID)), (UINT32)size, naturalAlignment); /* Type sizes always within UINT_MAX range */
 
         return result;
     }
@@ -1205,6 +1206,8 @@ namespace ProjectionModel
         size_t inParameterIndex,
         size_t retValIndex)
     {
+        AssertMsg(retValIndex < 65536, "Invalid metadata: ECMA-335 II.22.33: Param indices are encoded as 2-byte integers.");
+
         auto type =
             parameter->typedByRef
             ? typeObject
@@ -1231,7 +1234,7 @@ namespace ProjectionModel
 
                 if (lengthIsParamterSequence == 0)
                 {
-                    lengthIsParamterSequence = retValIndex;
+                    lengthIsParamterSequence = (INT32)retValIndex; /* ECMA-335 II.22.33: Param indices are 0 ... 65535 */
                 }
                 else
                 {
@@ -1448,12 +1451,13 @@ namespace ProjectionModel
     // Returns:     List of parameters
     ImmutableList<RtSYNTHETICPARAMETER> * ProjectionBuilder::SyntheticOverloadParameters(size_t maxArity)
     {
+        AssertMsg(maxArity < 65536, "Invalid metadata: ECMA-335 II.22.33: Param indices are encoded as 2-byte integers.");
         auto parameters = ImmutableList<RtSYNTHETICPARAMETER>::Empty();
         for(size_t i = 0; i<maxArity; ++i)
         {
             LPCWSTR base = L"param";
             wchar_t scratch[20];
-            _itow_s(maxArity - i, scratch, 20, 10);
+            _itow_s((int)maxArity - (int)i, scratch, 20, 10); /* ECMA-335 II.22.33: Arity constrained to 65535, conversion to int is safe */
             wchar_t paramName[25];
             swprintf_s(paramName, 25, L"%s%s", base, scratch);
             MetadataStringId paramNameId = stringConverter->IdOfString(paramName);
@@ -1470,8 +1474,9 @@ namespace ProjectionModel
     {
         // Find max arity
         auto maxArity =
-            overloadGroup->overloads->Accumulate(0,[](size_t maxSoFar, RtABIMETHODSIGNATURE overload)->int {
-                return max(maxSoFar,overload->inParameterCount);
+            (int)overloadGroup->overloads->Accumulate((size_t)0,[](size_t maxSoFar, RtABIMETHODSIGNATURE overload)->size_t {
+                AssertMsg(overload->inParameterCount < 65536, "Invalid metadata: ECMA-335 II.22.33: Param indices are encoded as 2-byte integers.");
+                return (size_t)max(maxSoFar,overload->inParameterCount);
         });
 
         auto parameters = SyntheticOverloadParameters(maxArity)->Cast<RtPARAMETER>();
@@ -1518,7 +1523,8 @@ namespace ProjectionModel
             auto overloadGroup = OverloadGroupOfMetadataOverloadGroup(iid,metadataOverloadGroup, parentType->assembly, genericParameters);
             auto signature = OverloadedMethodSignatureOfOverloadGroup(overloadGroup);
             auto minimumArity = overloadGroup->overloads->Last()->inParameterCount; // Last is minimum because list is sorted descending by arity
-            auto properties = FunctionLengthPropertiesObjectOfInt(minimumArity, lengthId, allocator);
+            AssertMsg(minimumArity < 65536, "Invalid metadata: Maximum arity is 65535 (metadata specifies parameter name by 2-byte index)");
+            auto properties = FunctionLengthPropertiesObjectOfInt((int)minimumArity, lengthId, allocator);
             auto function = Anew(allocator, OverloadGroupConstructor, signature, properties);
 
             result = RtAnew(allocator, OverloadParentProperty, overloadGroup->id, function);
@@ -1536,7 +1542,8 @@ namespace ProjectionModel
     RtABIMETHODPROPERTY ProjectionBuilder::PropertyOfMethod(MetadataStringId id, const Metadata::TypeDefProperties * parentType, RtIID iid, const Metadata::MethodProperties * method, ImmutableList<RtTYPE> * genericParameters)
     {
         auto signature = MethodSignatureOfMethod(parentType, iid, method,genericParameters);
-        auto properties = FunctionLengthPropertiesObjectOfInt(signature->inParameterCount, lengthId, allocator);
+        AssertMsg(signature->inParameterCount < 65536, "Invalid metadata: Maximum arity is 65535 (metadata specifies parameter name by 2-byte index)");
+        auto properties = FunctionLengthPropertiesObjectOfInt((int)signature->inParameterCount, lengthId, allocator);
         auto function = Anew(allocator, AbiMethod, signature, properties);
         auto result = RtAnew(allocator, AbiMethodProperty, id, function);
 
@@ -2486,7 +2493,8 @@ namespace ProjectionModel
         case 1:
             {
                 *resultSignature = allSignatures->ToSingle();
-                *length = allSignatures->ToSingle()->inParameterCount;
+                AssertMsg(allSignatures->ToSingle()->inParameterCount < 65536, "Invalid metadata: Maximum arity is 65535.");
+                *length = (int)allSignatures->ToSingle()->inParameterCount;
                 return;
             }
         }
@@ -2508,7 +2516,8 @@ namespace ProjectionModel
 
         auto overloadGroup = Anew(allocator, OverloadGroup, stringConverter->IdOfString(constructorName), arityGroups);
         *resultSignature = OverloadedMethodSignatureOfOverloadGroup(overloadGroup);
-        *length = arityGroups->Last()->inParameterCount;
+        AssertMsg(arityGroups->Last()->inParameterCount < 65536, "Invalid metadata: Maximum arity is 65535.");
+        *length = (int)arityGroups->Last()->inParameterCount;
         return;
     }
 
@@ -3105,7 +3114,8 @@ namespace ProjectionModel
             auto overloadGroup = overloadedParentProperty->overloadConstructor->signature->overloads->overloads;
             overloadGroup->Iterate([&](RtABIMETHODSIGNATURE signature) {
                 MetadataStringId id = overloadedParentProperty->identifier;
-                auto properties = FunctionLengthPropertiesObjectOfInt(signature->inParameterCount, lengthId, allocator);
+                AssertMsg(signature->inParameterCount < 65536, "Invalid metadata: Maximum arity is 65535.");
+                auto properties = FunctionLengthPropertiesObjectOfInt((int)signature->inParameterCount, lengthId, allocator);
                 auto function = Anew(allocator, AbiMethod, signature, properties);
 
                 auto newAbiMethodProperty = RtAnew(allocator, AbiMethodProperty, id, function);
@@ -3244,7 +3254,8 @@ namespace ProjectionModel
                                         TRACE_METADATA(L"ResolveAliases - ArityGroup with %d parameters - no aliasing due to overloads across multiple interfaces\n",
                                             groupsOfSameArity->First()->inParameterCount);
                                         int index = 0;
-                                        int count = groupsOfSameArity->Count();
+                                        AssertMsg(groupsOfSameArity->Count() < 65537, "Invalid metadata: Maximum number of arity groups is 65536; arity may be 0...65535, due to 2-byte encoding of method parameter name indices.");
+                                        int count = (int)groupsOfSameArity->Count();
                                         groupsOfSameArity->Iterate([&](RtABIMETHODSIGNATURE sig) {
                                             LPCWSTR str = TraceRtABIMETHODSIGNATURE(sig, stringConverter, alloc);
                                             TRACE_METADATA(L"ResolveAliases - %d#%d - %s\n", index, count, str);
@@ -3285,7 +3296,8 @@ namespace ProjectionModel
                         auto syntheticParameters = SyntheticOverloadParameters(maxArity);
                         auto overloadMethodSignature = Anew(alloc, OverloadedMethodSignature, nameId, overloadGroup, Anew(alloc, Parameters, syntheticParameters->Cast<RtPARAMETER>(), typeObject));
                         auto minimumArity = overloadGroup->overloads->Last()->inParameterCount; // Last is minimum because list is sorted descending by arity
-                        auto overloadFunctionProperties = FunctionLengthPropertiesObjectOfInt(minimumArity, lengthId, alloc);
+                        AssertMsg(minimumArity < 65536, "Invalid metadata: Maximum arity is 65535.");
+                        auto overloadFunctionProperties = FunctionLengthPropertiesObjectOfInt((int)minimumArity, lengthId, alloc);
                         auto overloadGroupConstructor = Anew(alloc, OverloadGroupConstructor, overloadMethodSignature, overloadFunctionProperties);
                         RtOVERLOADPARENTPROPERTY newOverloadParentProperty = RtAnew(alloc, OverloadParentProperty, nameId, overloadGroupConstructor);
 
@@ -3687,7 +3699,8 @@ namespace ProjectionModel
                         // Always use the class name for the method.
                         // Must fully qualify if it conflicts with an event property (i.e. addEventListener).
                         auto nameId = fullyQualifyIfConflicts(disambiguationNameId, method->id, instanceEventProperties);
-                        auto properties = FunctionLengthPropertiesObjectOfInt(signature->inParameterCount, lengthId, allocator);
+                        AssertMsg(signature->inParameterCount < 65536, "Invalid metadata: Maximum arity is 65535.");
+                        auto properties = FunctionLengthPropertiesObjectOfInt((int)signature->inParameterCount, lengthId, allocator);
                         auto body = Anew(allocator, AbiMethod, signature, properties);
                         return RtAnew(allocator, AbiMethodProperty, nameId, body);
                     }
@@ -4941,12 +4954,13 @@ namespace ProjectionModel
             }, [&](const Metadata::FieldProperties * field)->RtABIFIELDPROPERTY {
                 auto type = ConcreteTypeOfType(field->type, field->assembly, nullptr);
                 isBlittable = isBlittable & ConcreteType::IsBlittable(type);
-                fieldOffset = ::Math::Align<uint>(fieldOffset, type->naturalAlignment);
+                AssertMsg(fieldOffset < INT_MAX, "Invalid metadata: Maximum size of type spec is 2gb");
+                fieldOffset = ::Math::Align<uint>((uint)fieldOffset, (uint)type->naturalAlignment);
 
                 auto prop =  PropertyOfFieldProperties(field, fieldOffset, nullptr);
                 if (type->naturalAlignment > structAlignment)
                 {
-                    structAlignment = type->naturalAlignment;
+                    structAlignment = (uint)type->naturalAlignment; // We always provide naturalAlignment and is 0...8 
                 }
 
                 fieldOffset = fieldOffset + type->storageSize;
@@ -4974,7 +4988,7 @@ namespace ProjectionModel
 
         auto fieldProperties = CamelCaseProperties(properties, builtInInstanceProperties);
         auto deconflictedFieldProperties = deconflict(type->id, fieldProperties)->Cast<RtABIFIELDPROPERTY>();
-        auto structSize = ::Math::Align<uint>(fieldOffset, structAlignment);
+        auto structSize = ::Math::Align<uint>((uint)fieldOffset, (uint)structAlignment); // fieldOffset / structAlignment asserted-over above in the decl of properties.
         auto sizeOnStack = ::Math::Align<uint>(structSize, sizeof(LPVOID));
         auto isPassByReference = false;
 #if _M_X64

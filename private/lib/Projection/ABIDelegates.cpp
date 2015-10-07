@@ -347,7 +347,8 @@ namespace Projection
 #endif
 
         // Allocate array for JavaScript callback function arguments + this param
-        JsVarList jsCallbackParams(signature->inParameterCount + 1);
+        AssertMsg(signature->inParameterCount < 65536, "Invalid metadata: ECMA-335 II.22.33: Param indices are 0 ... 65535");
+        JsVarList jsCallbackParams((int)signature->inParameterCount + 1);
 
         // Add global object as "this" parameter
         jsCallbackParams.Add(scriptContext->GetLibrary()->GetUndefined());

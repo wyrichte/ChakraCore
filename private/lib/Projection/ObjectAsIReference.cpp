@@ -52,8 +52,8 @@ namespace Projection
             __in RtCONCRETETYPE elementType)
     {
         Assert(elementType != nullptr);
-
-        UINT32 numberOfElements = typeStorageSize/ elementType->storageSize;
+        AssertMsg(!isArray || (isArray && typeStorageSize / elementType->storageSize < UINT32_MAX), "Invalid array for projection to Windows Runtime: Max length exceeds bounds of 0xffffffff elements.");
+        UINT32 numberOfElements = (UINT32)(typeStorageSize / elementType->storageSize);
 
         // Get IID of IReference<elementType>
         ArenaAllocator *a = projectionContext->ProjectionAllocator();

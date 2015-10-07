@@ -284,7 +284,8 @@ namespace Projection
         localVariableDefines                                                                                                                                                \
                                                                                                                                                                             \
         /* This value is always used by the exit code so determine it right away. */                                                                                        \
-        *stackBytesToCleanup = paramStackSize + sizeof(void*);                                                                                                              \
+        AssertMsg(paramStackSize + sizeof(void*) < DWORD_MAX, "Invalid metadata: Calculated stack size exceeds allowable size based on metadata constraints.");             \
+        *stackBytesToCleanup = (DWORD)(paramStackSize + sizeof(void*));                                                                                                     \
                                                                                                                                                                             \
         CUnknown_BeginScriptEnter(scriptClosedHR)                                                                                                                           \
         {                                                                                                                                                                   \
@@ -419,7 +420,7 @@ namespace Projection
 #else
     // Per AMD64/ARM calling convention, first 4 function args are passed in registers. 
     // The fist arg is 'this' pointer so we substract 1.
-    const int REG_PARAMS = 4;
+const int REG_PARAMS = 4;
 #endif
 
 #define Declare_Extern_ClassMethodImpl(className, methodName)                                                                                                               \
@@ -476,13 +477,15 @@ namespace Projection
     stackBytesRead += ##paramSize;
 
 #define UpdateParameterReadByModelParameter(modelParameter) \
-    paramIndex += parameter->GetParameterOnStackCount(); \
-    stackBytesRead += parameter->GetSizeOnStack();
+    AssertMsg(parameter->GetParameterOnStackCount() < 65536 && parameter->GetSizeOnStack() < INT_MAX, "Invalid metadata: Parameter projection exceeds allowable sizes by metadata."); \
+    paramIndex += (int)parameter->GetParameterOnStackCount(); \
+    stackBytesRead += (int)parameter->GetSizeOnStack();
 
 #define GetArrayLengthParamLocation() \
     lengthParamLocation = stackArgs; \
     signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateFirstN(((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter, [&](RtABIPARAMETER parameter) { \
-        lengthParamLocation += parameter->GetSizeOnStack(); \
+        AssertMsg(parameter->GetSizeOnStack() < UINT_MAX, "Invalid metadata: Parameter projection exceeds allowable sizes by metadata."); \
+        lengthParamLocation += (uint)parameter->GetSizeOnStack(); \
     });                        
 
 // These are unused for this architecture and thus expand into nothing.
@@ -520,15 +523,17 @@ namespace Projection
     paramIndex++;
 
 #define UpdateParameterReadByModelParameter(parameter) \
-    paramIndex += parameter->GetParameterOnStackCount(); \
-    stackBytesRead += parameter->GetSizeOnStack();
+    AssertMsg(parameter->GetParameterOnStackCount() < 65536 && parameter->GetSizeOnStack() < INT_MAX, "Invalid metadata: Parameter projection exceeds allowable sizes by metadata."); \
+    paramIndex += (int)parameter->GetParameterOnStackCount(); \
+    stackBytesRead += (int)parameter->GetSizeOnStack();
 
 #define GetArrayLengthParamLocation() \
     size_t lengthParamIndex = 0; \
     signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateFirstN(((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter, [&](RtABIPARAMETER parameter) { \
+        AssertMsg(parameter->GetSizeOnStack() < UINT_MAX, "Invalid metadata: Parameter projection exceeds allowable sizes by metadata."); \
         lengthParamIndex += parameter->GetParameterOnStackCount(); \
     }); \
-    lengthParamLocation = StackVarArgReader::Read(lengthParamIndex, ConcreteType::From(lengthParam->type), stackArgs);
+    lengthParamLocation = StackVarArgReader::Read((int)lengthParamIndex, ConcreteType::From(lengthParam->type), stackArgs);
 
 // These are unused for this architecture and thus expand into nothing.
 #define DefineAndInitParameterLocations(parameterCount)

@@ -218,7 +218,8 @@ namespace Projection
                     methodType == DeprecatedInvocation_Event)
                 {
                     stringBuilder->Append(L'.');
-                    stringBuilder->Append(methodName->GetBuffer() + methodNameOffset, methodName->GetLength() - methodNameOffset);
+                    AssertMsg(methodNameOffset < UINT32_MAX, "Invalid metadata: Method name sizes constrain to 2gb.");
+                    stringBuilder->Append(methodName->GetBuffer() + methodNameOffset, methodName->GetLength() - (charcount_t)methodNameOffset);
                 }
                 stringBuilder->AppendCppLiteral(L" has been deprecated. ");
                 stringBuilder->AppendSz(deprecatedAttribute.infoString);
@@ -1361,7 +1362,7 @@ namespace Projection
             EventWriteJSCRIPT_PROJECTION_GETTYPEDARRAYASPROPERTYVALUE_START(StringOfId(type->fullTypeNameId));
         }
 #endif
-        UINT32 length = arraySize / type->storageSize;
+        UINT32 length = (UINT32)(arraySize / type->storageSize); // Typed array originates from JS, therefore is constrained to INT_MAX length
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         switch(type->typeCode)
@@ -1464,7 +1465,7 @@ namespace Projection
         }
 #endif
         Windows::Foundation::IPropertyValueStatics *propertyValueFactory = projectionContext->GetProjectionWriter()->GetPropertyValueFactory();
-        UINT32 length = arraySize / Metadata::Assembly::GetBasicTypeSize(type);
+        UINT32 length = (UINT32)(arraySize / Metadata::Assembly::GetBasicTypeSize(type)); // Typed array originates from JS, therefore is constrained to INT_MAX length
         HRESULT hr;
         switch(type)
         {
@@ -1677,7 +1678,8 @@ namespace Projection
         }
 
         byte * storage = mem;
-        int bytesReadFromMem = constructor->structType->storageSize;
+        AssertMsg(constructor->structType->storageSize < INT_MAX, "Invalid metadata: Max size of struct limited to 2gb");
+        int bytesReadFromMem = (int)constructor->structType->storageSize;
 #if _M_X64
         if (!structsByValue && constructor->structType->isPassByReference)
         {
@@ -1697,7 +1699,7 @@ namespace Projection
 
             // we are reading only LPVOID from the mem so update only that
             Assert(constructor->structType->sizeOnStack == sizeof(LPVOID));
-            bytesReadFromMem = constructor->structType->sizeOnStack; 
+            bytesReadFromMem = (int)constructor->structType->sizeOnStack; 
         }
 #endif
         ImmutableList<RtABIFIELDPROPERTY> * properties = constructor->structType->fields;
@@ -4295,7 +4297,7 @@ namespace Projection
                     }
 #endif
 
-                    uint uElementTypeSize = ConcreteType::From(arrayType->elementType)->storageSize;
+                    uint uElementTypeSize = (uint)ConcreteType::From(arrayType->elementType)->storageSize;
                     Assert(Js::JavascriptConversion::ToUInt32((double)(uElementTypeSize * elementCount)) >= elementCount);
                     ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
                     for (uint iIndex = 0; iIndex < readArrayLength; iIndex++)

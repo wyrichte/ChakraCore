@@ -107,7 +107,9 @@ namespace ProjectionModel
                                 auto fullTypeName = builder.stringConverter->StringOfId(runtimeClassConstructor->typeDef->id);
                                 if (interfaceConstructor->genericParameters->Count()>0)
                                 {
-                                    return metaDataDestination.SetRuntimeClassParameterizedDefault(fullTypeName, interfaceConstructor->nameCount, interfaceConstructor->locatorNames);
+                                    // Cast of size_t to UINT32: ECMA-335 II.22.20 defines GenericParam as having an index of 0 to 65535 (2 byte value)
+                                    AssertMsg(interfaceConstructor->nameCount < 65536, "Invalid metadata: Max of 65535 generic type parameters.");
+                                    return metaDataDestination.SetRuntimeClassParameterizedDefault(fullTypeName, (UINT32)interfaceConstructor->nameCount, interfaceConstructor->locatorNames);
                                 }
                                 auto interfaceTypeName = builder.stringConverter->StringOfId(interfaceConstructor->signature->parameters->returnType->fullTypeNameId);
                                 return metaDataDestination.SetRuntimeClassSimpleDefault(fullTypeName, interfaceTypeName, &interfaceConstructor->iid->instantiated);
@@ -125,7 +127,8 @@ namespace ProjectionModel
                         }
 
                         auto interfaceConstructor = RuntimeInterfaceConstructor::From(function);
-                        UINT32 parameterCount = interfaceConstructor->genericParameters->Count();
+                        AssertMsg(interfaceConstructor->genericParameters->Count() < 65536, "Invalid metadata: Max of 65535 generic type parameters.");
+                        UINT32 parameterCount = (UINT32)interfaceConstructor->genericParameters->Count();
                         if (parameterCount>0)
                         {
                             return metaDataDestination.SetParameterizedInterface(interfaceConstructor->iid->piid, parameterCount);
@@ -210,7 +213,8 @@ namespace ProjectionModel
                             }
                         });
 
-                        auto hr = metaDataDestination.SetStruct(fullTypeName, fieldCount, fieldTypeNames);
+                        AssertMsg(fieldCount < INT_MAX, "Invalid metadata: Max size of a type is 2gb.");
+                        auto hr = metaDataDestination.SetStruct(fullTypeName, (UINT32)fieldCount, fieldTypeNames);
                         delete [] fieldTypeNames;
                         return hr;
                     }
@@ -218,7 +222,8 @@ namespace ProjectionModel
                     {
                         auto delegateConstructor = DelegateConstructor::From(function);
                         auto interfaceConstructor = RuntimeInterfaceConstructor::From(delegateConstructor->invokeInterface);
-                        UINT32 parameterCount = interfaceConstructor->genericParameters->Count();
+                        AssertMsg(interfaceConstructor->genericParameters->Count() < 65536, "Invalid metadata: Max arity of a parameterized interface is 65535.");
+                        UINT32 parameterCount = (UINT32)interfaceConstructor->genericParameters->Count();
                         if (parameterCount>0)
                         {
                             return metaDataDestination.SetParameterizedDelegate(interfaceConstructor->iid->piid, parameterCount);

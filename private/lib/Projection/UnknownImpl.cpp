@@ -205,7 +205,8 @@ namespace Projection
             return E_ACCESSDENIED;
         }
         
-        return projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsCreateString(m_typeName, wcslen(m_typeName), className);
+        AssertMsg(wcslen(m_typeName) < UINT32_MAX, "Invalid metadata: Max type name is 2gb in length.");
+        return projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsCreateString(m_typeName, (UINT32)wcslen(m_typeName), className);
     }
     CUnknownMethodNoErrorImpl_Epilog()
 

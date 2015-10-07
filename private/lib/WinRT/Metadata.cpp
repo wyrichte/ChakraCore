@@ -854,7 +854,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetTypeDefProps(td, name.Get(), name.GetLength(), &sizeName, &props->flags, &props->extends);
+        /* cast of size_t -> ULONG: AutoHeapString.GetLength() returns the same size that it was initialized with */
+        hr = GetImport()->GetTypeDefProps(td, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, &props->extends);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 #if DBG
@@ -923,7 +924,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetMemberProps(mt, &props->classToken, name.Get(), name.GetLength(), &sizeName, &props->flags, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetMemberProps(mt, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
@@ -991,7 +993,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetEventProps(mt, &props->classToken, name.Get(), name.GetLength(), &sizeName, &props->flags, 
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetEventProps(mt, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags,
                 &props->eventType, &props->addOn, &props->removeOn, &props->fire, nullptr, 0, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
@@ -1048,7 +1051,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetGenericParamProps(gp, &props->sequence, &props->flags, nullptr, nullptr, name.Get(), name.GetLength(), &sizeName);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetGenericParamProps(gp, &props->sequence, &props->flags, nullptr, nullptr, name.Get(), (ULONG)name.GetLength(), &sizeName);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
@@ -1175,7 +1179,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetMethodProps(mb, &props->classToken, name.Get(), name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, nullptr, nullptr);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetMethodProps(mb, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, nullptr, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
@@ -1272,7 +1277,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetFieldProps(fd, &props->classToken, name.Get(), name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, &props->dwCPlusTypeFlag, &props->constantValue, nullptr);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetFieldProps(fd, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, &props->dwCPlusTypeFlag, &props->constantValue, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
         auto read = DecodeField(sizeSig, sigBlob, a, &props->type);
@@ -1340,7 +1346,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetPropertyProps(pt, &props->classToken, name.Get(), name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, nullptr, nullptr, nullptr, &props->setter, &props->getter, nullptr, 0, nullptr);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetPropertyProps(pt, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, &sigBlob, &sizeSig, nullptr, nullptr, nullptr, &props->setter, &props->getter, nullptr, 0, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
         auto read = DecodeProperty(sizeSig, sigBlob, a, &props->hasThis, &props->paramCount, &props->type, &props->parameters);
@@ -1373,7 +1380,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetMemberRefProps(mr, &props->classToken, name.Get(), name.GetLength(), &sizeName, &sigBlob, &sizeSig);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetMemberRefProps(mr, &props->classToken, name.Get(), (ULONG)name.GetLength(), &sizeName, &sigBlob, &sizeSig);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
         props->pvSig = sigBlob;
@@ -1529,7 +1537,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetTypeRefProps(tr, &props->resolutionScope, name.Get(), name.GetLength(), &sizeName);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetTypeRefProps(tr, &props->resolutionScope, name.Get(), (ULONG)name.GetLength(), &sizeName);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
@@ -1656,7 +1665,8 @@ namespace Metadata
         Js::VerifyCatastrophic(sizeName > 0);
         AutoHeapString name;
         name.CreateNew(sizeName);
-        hr = GetImport()->GetParamProps(pt, &props->methodToken, &props->sequence, name.Get(), name.GetLength(), &sizeName, &props->flags, nullptr, nullptr, nullptr);
+        // name was sizeName which was provided within the range of a ULONG, therefore it is still a ULONG when retrieved.
+        hr = GetImport()->GetParamProps(pt, &props->methodToken, &props->sequence, name.Get(), (ULONG)name.GetLength(), &sizeName, &props->flags, nullptr, nullptr, nullptr);
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
         
