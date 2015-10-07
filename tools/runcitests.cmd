@@ -51,10 +51,10 @@ set _HadFailures=0
   call :runTests unit x86test
   call :runTests unit x64debug
   call :runTests unit x64test
-  call :runJsRTTests x86debug
-  call :runJsRTTests x86test
-  call :runJsRTTests x64debug
-  call :runJsRTTests x64test
+  call :runJsRTTests x86 debug
+  call :runJsRTTests x86 test
+  call :runJsRTTests x64 debug
+  call :runJsRTTests x64 test
 
   call :summarizeLogs
   call :copyLogsToDrop
@@ -85,7 +85,7 @@ set _HadFailures=0
 :: ============================================================================
 :runJsRTTests
 
-  call :do %_ToolsDir%runjsrttests.cmd -%1 -binDir %_StagingDir%\bin
+  call :do %_ToolsDir%runjsrttests.cmd -%1 -%2 -binDir %_StagingDir%\bin > %_RootDir%\unittest\logs\%1_%2\jsrt.log 2>&1
 
   if ERRORLEVEL 1 set _HadFailures=1
 
@@ -120,6 +120,8 @@ set _HadFailures=0
 
   pushd %_RootDir%\unittest\logs
   findstr /sp failed rl.results.log > summary.unittest.log
+
+  findstr /sp Failed] jsrt.log >> summary.unittest.log
   type summary.unittest.log 1>&2
   popd
 
