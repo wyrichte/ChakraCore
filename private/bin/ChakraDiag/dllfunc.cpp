@@ -154,3 +154,30 @@ HRESULT Module::GetVersionInfo(__in LPCWSTR pszPath, DWORD* majorVersion, DWORD*
     }
     return hr;
 }
+
+// This is consumed by AutoSystemInfo. AutoSystemInfo is in Chakra.Common.Core.lib, which is linked
+// into multiple DLLs. The hosting DLL provides the implementation of this function.
+bool GetDeviceFamilyInfo(
+    _Out_opt_ ULONGLONG* pullUAPInfo,
+    _Out_opt_ ULONG* pulDeviceFamily,
+    _Out_opt_ ULONG* pulDeviceForm)
+{
+    bool deviceInfoRetrieved = false;
+
+    HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+    if (hModNtDll == nullptr)
+    {
+        RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);
+    }
+    typedef void(*PFNRTLGETDEVICEFAMILYINFOENUM)(ULONGLONG*, ULONG*, ULONG*);
+    PFNRTLGETDEVICEFAMILYINFOENUM pfnRtlGetDeviceFamilyInfoEnum =
+        reinterpret_cast<PFNRTLGETDEVICEFAMILYINFOENUM>(GetProcAddress(hModNtDll, "RtlGetDeviceFamilyInfoEnum"));
+
+    if (pfnRtlGetDeviceFamilyInfoEnum)
+    {
+        pfnRtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm);
+        deviceInfoRetrieved = true;
+    }
+
+    return deviceInfoRetrieved;
+}

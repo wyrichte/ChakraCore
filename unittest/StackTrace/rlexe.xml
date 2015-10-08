@@ -77,7 +77,6 @@
       <baseline>LongCallStackThrow.html.baseline</baseline>
     </default>
   </test>
-  <!-- Disabling for FI: 09/23/2015
   <test>
     <default>
       <tags>StackTrace</tags>
@@ -86,7 +85,6 @@
       <baseline>LongCallStackThrow.WER.html.baseline</baseline>
     </default>
   </test>
-  -->
   <test>
     <default>
       <tags>StackTrace</tags>

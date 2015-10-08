@@ -147,6 +147,7 @@ namespace Js
     class JavascriptPromiseResolveThenableTaskFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseAllResolveElementFunction; // Used by JavascriptLibrary.h
     struct JavascriptPromiseAllResolveElementFunctionRemainingElementsWrapper; // Used by JavascriptLibrary.h
+    struct JavascriptPromiseResolveOrRejectFunctionAlreadyResolvedWrapper; // Used by JavascriptLibrary.h
     class JavascriptProxy;                  // used by JavascriptLibrary.h
     class JavascriptGenerator;              // Used by JavascriptLibrary.h
     class FunctionCodeGenJitTimeData;       // Used by NativeCodeGenerator.h

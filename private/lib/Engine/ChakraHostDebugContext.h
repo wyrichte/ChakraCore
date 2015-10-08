@@ -55,13 +55,7 @@ public:
 
     HRESULT SetThreadDescription(__in LPCWSTR url)
     {
-        HRESULT hr = S_OK;
-        ScriptEngine * scriptEngine = this->GetScriptSite()->GetScriptEngine();
-        if (scriptEngine->IsSetThreadDescription())
-        {
-            hr = scriptEngine->SetThreadDescription(url);
-        }
-        return hr;
+        return this->GetScriptSite()->GetScriptEngine()->SetThreadDescription(url);
     }
 
     HRESULT DbgRegisterFunction(Js::ScriptContext * scriptContext, Js::FunctionBody * functionBody, DWORD_PTR dwDebugSourceContext, LPCWSTR title)

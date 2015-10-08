@@ -1073,7 +1073,6 @@ public:
     HRESULT DebugDocMarkForClose();
 
     HRESULT SetThreadDescription(__in LPCWSTR url);
-    BOOL IsSetThreadDescription() const { return this->fSetThreadDescription; }
 
     BOOL NamedBPEnter(void) { return m_NBPmutx.Enter(); }
     void NamedBPLeave(void) { m_NBPmutx.Leave(); }

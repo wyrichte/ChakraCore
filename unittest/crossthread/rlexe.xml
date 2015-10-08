@@ -187,13 +187,11 @@
       <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent.js.dbg.baseline</compile-flags>
       <files>388447parent.js</files>
       <files>388447parent.baseline</files>
-      <baseline />
     </default>
   </test>
   <test>
     <default>
       <files>bug705618.js</files>
-      <baseline />
       <tags>exclude_apollo</tags>
     </default>
   </test>
@@ -252,7 +250,6 @@
   <test>
     <default>
       <files>proxybug1.js</files>
-      <baseline />
       <tags>exclude_fre,exclude_apollo</tags>
     </default>
   </test>

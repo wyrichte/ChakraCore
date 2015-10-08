@@ -2315,7 +2315,11 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
         return E_UNEXPECTED;
     }
 
-    Assert(fSetThreadDescription == FALSE);
+    if (fSetThreadDescription)
+    {
+        return S_OK; // We already set the thread description, this can happen if webworker have multiple eval codes and attach happens after webworker starts running.
+    }
+
     fSetThreadDescription = TRUE;
 
     if (m_debugApplicationThread != nullptr)
