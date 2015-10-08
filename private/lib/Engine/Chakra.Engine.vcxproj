@@ -80,7 +80,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
@@ -119,7 +119,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngine.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ScriptEngineBase.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scriptsite.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />    
+    <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -170,7 +170,7 @@
     <ClInclude Include="dllfunc.h" />
     <ClInclude Include="DOMProperties.h" />
     <ClInclude Include="DynamicSourceHolder.h" />
-    <ClInclude Include="EnginePch.h" />    
+    <ClInclude Include="EnginePch.h" />
     <ClInclude Include="ErrorTypeHelper.h" />
     <ClInclude Include="EventSink.h" />
     <ClInclude Include="GenerateByteCodeConfig.h" />
@@ -195,7 +195,6 @@
     <ClInclude Include="QueryContinuePoller.h" />
     <ClInclude Include="ProfileDataObject.h" />
     <ClInclude Include="refcountedHostVariant.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="ScriptDAC.h" />
     <ClInclude Include="DiagHook.h" />
     <ClInclude Include="ScriptDebugDocument.h" />
@@ -204,7 +203,7 @@
     <ClInclude Include="ScriptEngine.h" />
     <ClInclude Include="scriptsite.h" />
     <ClInclude Include="scrpting.h" />
-    <ClInclude Include="scrutil.h" />    
+    <ClInclude Include="scrutil.h" />
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />

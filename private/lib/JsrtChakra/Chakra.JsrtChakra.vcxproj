@@ -69,7 +69,6 @@
   <ItemGroup>
     <ClInclude Include="jsrt.h" />
     <ClInclude Include="JsrtComException.h" />
-    <ClInclude Include="JsrtContext.h" />
     <ClInclude Include="JsrtContextchakra.h" />
     <ClInclude Include="JsrtDelegateWrapper.h" />
     <ClInclude Include="jsrtprivate.h" />
@@ -94,6 +93,6 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
@@ -208,6 +208,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Chakra\Chakra.vcxproj">
+      <Project>{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
