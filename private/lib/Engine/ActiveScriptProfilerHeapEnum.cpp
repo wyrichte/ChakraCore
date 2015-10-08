@@ -63,12 +63,10 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_Symbol, HeapObjectType_Symbol },
     { Js::TypeIds_Enumerator, HeapObjectType_Invalid},
     { Js::TypeIds_VariantDate, HeapObjectType_GetVarDateFunctionObject },
-#ifdef SIMD_JS_ENABLED
     { Js::TypeIds_SIMDFloat32x4, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDFloat64x2, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDInt32x4, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDInt8x16, HeapObjectType_SIMD },
-#endif
     { Js::TypeIds_HostDispatch, HeapObjectType_HostObject },
     { Js::TypeIds_WithScopeObject, HeapObjectType_Scope },
     { Js::TypeIds_UndeclBlockVar, HeapObjectType_Invalid},
@@ -188,9 +186,7 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_Generator].typeNameId = GetPropertyId(L"Generator");
     typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(L"Promise");
     typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(L"ReflectIterator");
-#ifdef SIMD_JS_ENABLED
     typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(L"SIMD");
-#endif
 }
 
 PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(ProfilerHeapObjectType objectType)

@@ -113,7 +113,6 @@ namespace Js
     class JavascriptBooleanObject;          // Used by JavascriptLibrary.h
     class JavascriptNumberObject;           // Used by JavascriptLibrary.h
 
-#ifdef SIMD_JS_ENABLED
     // SIMD
     class SIMDFloat32x4Lib;                 // Used by JavascriptLibrary.h
     class JavascriptSIMDFloat32x4;          // Used by JavascriptLibrary.h
@@ -123,7 +122,6 @@ namespace Js
     class JavascriptSIMDInt32x4;            // Used by JavascriptLibrary.h
     class SIMDInt8x16Lib;                   // Used by JavascriptLibrary.h
     class JavascriptSIMDInt8x16;            // Used by JavascriptLibrary.h
-#endif
 
     class JavascriptStringObject;           // Used by JavascriptLibrary.h
     class ObjectPrototypeObject;            // Used by JavascriptLibrary.h
@@ -287,13 +285,11 @@ namespace Projection
 #include "PropertyDescriptor.h"         // Used by RecyclableObject.h
 #include "JavascriptNumber.h"           // Used by LibraryCommon.h
 
-#ifdef SIMD_JS_ENABLED
 // SIMD types
 #include "JavascriptSIMDFloat32x4.h"
 #include "JavascriptSIMDFloat64x2.h"
 #include "JavascriptSIMDInt32x4.h"
 #include "JavascriptSIMDInt8x16.h"
-#endif
 
 #include "RecyclerFastAllocator.h"      // Used by LibraryCommon.h
 #include "Debug\SourceContextInfo.h"    // Used by ScriptContext::noContextSourceContextInfo
@@ -335,13 +331,11 @@ namespace Projection
 #include "JavascriptLibrarybase.h"
 #include "JavascriptLibrary.h"
 
-#ifdef SIMD_JS_ENABLED
 // SIMD libs
 #include "SIMDFloat32x4Lib.h"
 #include "SIMDFloat64x2Lib.h"
 #include "SIMDInt32x4Lib.h"
 #include "SIMDInt8x16Lib.h"
-#endif
 
 #include "MathLibrary.h"
 

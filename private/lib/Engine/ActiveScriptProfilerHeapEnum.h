@@ -55,12 +55,9 @@ public:
         HeapObjectType_StringIterator              =0x26,
         HeapObjectType_Generator                   =0x27,
         HeapObjectType_Promise                     =0x28,
-#ifdef SIMD_JS_ENABLED
         HeapObjectType_SIMD                        =0x29,
         HeapObjectType_JsrtExternalObject          =0x2a,
-#else
-        HeapObjectType_JsrtExternalObject          =0x29,
-#endif
+
         HeapObjectType_Last                        =HeapObjectType_JsrtExternalObject,
         HeapObjectType_Invalid                     =0xff
     };
