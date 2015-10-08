@@ -13,7 +13,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />    
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
-  <ItemGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'">
+  <ItemGroup Condition="'$(BuildRazzleDependencies)'=='true'">
     <Midl Include="..\..\published\internal\inc\activdbg_private.idl" />
     <Midl Include="..\..\published\internal\inc\activscp2.idl" />
     <Midl Include="..\..\published\internal\inc\activscp_private.idl" />

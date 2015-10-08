@@ -1,0 +1,10 @@
+DIRS = \
+    codex \
+    Core \
+    Common \
+    DataStructures \
+    Exceptions \
+    Memory \
+    util \
+    
+    

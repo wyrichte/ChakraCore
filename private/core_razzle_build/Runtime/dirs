@@ -1,0 +1,7 @@
+DIRS=\
+    bytecode \
+    Debug    \
+    Math     \
+    language \
+    types    \
+    library  \

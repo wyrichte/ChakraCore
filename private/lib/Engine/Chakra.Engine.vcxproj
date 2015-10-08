@@ -36,8 +36,7 @@
         $(MSBuildThisFileDirectory)..\EnC;
 
         $(ChakraInternalIDLIntDir);
-        $(ChakraManifestsIncludeDirectory);
-        
+
         <!-- For EdgeJsStatic.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)publish;
         $(ChakraPublishIntDir);
@@ -125,7 +124,7 @@
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
-    <ClCompile Include="ActiveScriptExternalLibrary.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
@@ -217,17 +216,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\core\Manifests\Manifests.vcxproj">
-      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
-    </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\manifests-inbox.vcxproj">
-      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />

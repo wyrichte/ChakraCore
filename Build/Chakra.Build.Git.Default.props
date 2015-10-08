@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <USE_EXTERNAL_DEPENDENCIES>yes</USE_EXTERNAL_DEPENDENCIES>
-  </PropertyGroup>
-  <PropertyGroup>
     <!-- How do we deal with versioning here?? -->
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.6</PUBLIC_ROOT>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.4</RazzleToolPath>

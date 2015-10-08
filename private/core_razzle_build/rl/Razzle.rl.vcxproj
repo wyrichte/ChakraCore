@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuiltThisFileDirectory)..\..\..\Build\Chakra.Build.Paths.props" />
+  <PropertyGroup>
+    <BuildForCoreSystem>true</BuildForCoreSystem>
+    <TestCode>true</TestCode>
+    <!-- TestCode does not demote OACR errors to warnings like TEST_CODE=1
+         does in a sources build so for now disable oacr directly -->
+    <BUILD_OACR>0</BUILD_OACR>
+  </PropertyGroup>
+  <!-- Razzle binplace -->
+  <ItemGroup>
+    <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
+      <DestinationFolder>jscript</DestinationFolder>
+    </BinplaceLinked>
+  </ItemGroup>
+  <Import Project="..\..\..\core\bin\rl\rl.vcxproj" />
+</Project>
+

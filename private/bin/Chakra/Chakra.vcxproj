@@ -177,8 +177,7 @@
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc">
       <AdditionalIncludeDirectories>
-        $(ChakraParserIntDir);
-        $(ManifestsInboxIncludeDirectory);
+        $(ChakraParserIntDir);        
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ResourceCompile>
@@ -211,7 +210,7 @@
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
     </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\dtbhost.vcxproj">
+    <ProjectReference Condition="'$(BuildRazzleDependencies)'=='true'" Include="..\..\..\dep\dtbhost.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac37}</Project>
       <Private>true</Private>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -219,15 +218,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\manifests-inbox.vcxproj">
-      <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Condition="'$(USE_EXTERNAL_DEPENDENCIES)'!='yes'" Include="..\..\..\dep\ScriptProjectionHostApi.vcxproj">
+    <ProjectReference Condition="'$(BuildRazzleDependencies)'=='true'" Include="..\..\..\dep\ScriptProjectionHostApi.vcxproj">
       <Project>{62154ab9-058d-4aa5-98e2-bc6d9af71af4}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Backend\Chakra.Backend.vcxproj">

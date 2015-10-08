@@ -4,6 +4,6 @@ TARGETTYPE=DYNLINK
 
 SOURCES=resources.rc
 
-USER_INCLUDES=$(OBJ_PATH)\..\..\core\Manifests\$(O)
+USER_INCLUDES=$(OBJ_PATH)\..\..\private\Manifests\$(O)
 
 MUI_DRV=1

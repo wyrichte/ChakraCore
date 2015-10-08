@@ -27,4 +27,8 @@
          manifest xmls in the expanded NuGet package -->
     <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
   </PropertyGroup>
+  <!-- razzle solution build will use fake dependencies -->
+  <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true' AND '$(BuildingGitRepo)'!='true'">
+    <BuildRazzleDependencies>true</BuildRazzleDependencies>
+  </PropertyGroup>
 </Project>

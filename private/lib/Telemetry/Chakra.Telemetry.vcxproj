@@ -25,8 +25,6 @@
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Backend;
-        $(ChakraManifestsIncludeDirectory);
-        $(ManifestsInboxIncludeDirectory);
         <!-- For ChakraVersion.h -->
         $(MSBuildThisFileDirectory)..\..\lib\Engine;
         %(AdditionalIncludeDirectories);
@@ -82,11 +80,7 @@
     <None Include="KnownMethodTelemetryList.inc" />
     <None Include="sources.inc" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(ChakraRootDirectory)core\Manifests\Manifests.vcxproj">
-      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
+

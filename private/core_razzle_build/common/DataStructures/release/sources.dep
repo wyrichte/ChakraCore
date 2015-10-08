@@ -1,0 +1,3 @@
+PUBLIC_PASS0_CONSUMES= \
+    redist\mspartners\netfx45\core\binary_release|PASS0 \
+

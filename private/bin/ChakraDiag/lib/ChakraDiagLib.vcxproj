@@ -25,7 +25,6 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
-        $(ChakraManifestsIncludeDirectory);
         $(ChakraRootDirectory)core\Lib\Common;
         $(ChakraRootDirectory)core\Lib\Common\Core;
         $(ChakraRootDirectory)core\Lib\Common\DataStructures;

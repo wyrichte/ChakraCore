@@ -33,7 +33,7 @@ LINKLIBS= \
     ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
-    $(OBJECT_JSCRIPT_DIR)\core\lib\common\codex\$(O)\chakra.common.codex.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\codex\$(O)\chakra.common.codex.lib \
     $(INETCORE_LIB_PATH)\iertutilp.lib \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \

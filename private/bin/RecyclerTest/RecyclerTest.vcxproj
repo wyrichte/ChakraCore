@@ -18,9 +18,9 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\crt\stl70</IncludePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(USE_EXTERNAL_DEPENDENCIES)'=='yes'">
+  <ItemDefinitionGroup Condition="'$(BuildRazzleDependencies)'!='true'">
     <Link>      
-      <AdditionalDependencies>Chakra.Common.Codex.lib;ieshare_iedevtools_host_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ieshare_iedevtools_host_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>

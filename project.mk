@@ -127,7 +127,7 @@ COREINCLUDES=\
     $(SDK_INC_PATH);\
     $(MINWIN_PRIV_SDK_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
-    $(OBJECT_JSCRIPT_DIR)\core\manifests\$(O); \
+    $(OBJECT_JSCRIPT_DIR)\private\manifests\$(O); \
 
 
 SITEINCLUDES=\

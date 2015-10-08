@@ -1,0 +1,9 @@
+DIRS = \
+    common \
+    parser \
+    runtime \
+    backend \
+    jsrt \
+    rl{noncrit} \
+    
+    

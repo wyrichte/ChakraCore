@@ -27,17 +27,15 @@
       <AdditionalIncludeDirectories>
         $(MSBuildThisFileDirectory)..;
         $(ChakraRootDirectory)core\lib\Common;
-        $(ChakraManifestsIncludeDirectory);
-        $(ManifestsInboxIncludeDirectory);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ClCompile>
     <!-- For Razzle build, Solution relies on ProjectReferences -->
     <Lib Condition="'$(BuildingWithBuildExe)'=='true'">
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</AdditionalDependencies>
-      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\core\lib\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\datastructures\$(RazzleJscriptObjectDirectory)Chakra.Common.DataStructures.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</AdditionalDependencies>
       <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\lib\MemProtectHeap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>

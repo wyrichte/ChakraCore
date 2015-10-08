@@ -1,7 +1,6 @@
 DIRS = \
     publish0{!min_rt} \
     publish{!min_rt} \
-    core \
     private \
     tools{!min_rt,!cs_xbox} \
     ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt,!cs_xbox}\

@@ -1,3 +1,5 @@
 DIRS = \
+    core_razzle_build \
+    manifests \
     Lib \
     bin \

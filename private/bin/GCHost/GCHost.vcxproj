@@ -21,7 +21,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\Common;..\..\Publish;..\..\Lib\Common;..\..\Lib\MemProtectHeap;$(IntDir)..\Common;$(ChakraManifestsIncludeDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\Common;..\..\Publish;..\..\Lib\Common;..\..\Lib\MemProtectHeap;$(IntDir)..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>      
       <AdditionalDependencies>%(AdditionalDependencies);MemProtectHeap.lib;muiload.lib;version.lib;psapi.lib;CommonUtilityLibrary.lib;onecore.lib;mincore_fw.lib;mincore_private.lib;ieshare_common_iel1.lib;iertutilp.lib;iesettingsid.lib;iesettingsapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -39,11 +39,6 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>        
     </ClCompile>
   </ItemDefinitionGroup> 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Manifests\Manifests.vcxproj">
-      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCHost.h" />
     <ClInclude Include="StdAfx.h" />

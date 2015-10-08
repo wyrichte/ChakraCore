@@ -23,8 +23,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
-        $(ChakraManifestsIncludeDirectory);
-        $(ManifestsInboxIncludeDirectory);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>      
     </ClCompile>
@@ -34,11 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MemProtectHeap.h" />   
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(ChakraRootDirectory)core\Manifests\Manifests.vcxproj">
-      <Project>{bcc5c029-2f2c-4eaa-8e60-664d72766936}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

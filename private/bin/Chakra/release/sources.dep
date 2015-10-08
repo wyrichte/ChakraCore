@@ -11,7 +11,7 @@ PUBLIC_PASS0_CONSUMES= \
     minkernel\published\base|PASS0 \
 
 BUILD_PASS1_CONSUMES= \
-    inetcore\jscript\core\lib\jsrt\release|PASS1 \
+    inetcore\jscript\private\core_razzle_build\jsrt\release|PASS1 \
     inetcore\jscript\lib\memprotectheap\release|PASS1 \
     inetcore\jscript\lib\memprotectheap\test|PASS1 \
     inetcore\jscript\private\lib\enc\release|PASS1 \

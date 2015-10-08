@@ -14,8 +14,7 @@
   <ItemGroup>
     <None Include="$(RepositoryRoot)\packages.config" />
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /> 
   
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

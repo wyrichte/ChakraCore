@@ -53,7 +53,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jdtest", "..\private\bin\jd
 		{D81EF7CF-1D44-46B5-843E-4C0F1626A1E2} = {D81EF7CF-1D44-46B5-843E-4C0F1626A1E2}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Manifests", "..\core\Manifests\Manifests.vcxproj", "{BCC5C029-2F2C-4EAA-8E60-664D72766936}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Manifests", "..\private\Manifests\Manifests.vcxproj", "{BCC5C029-2F2C-4EAA-8E60-664D72766936}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "manifests-inbox", "..\dep\manifests-inbox.vcxproj", "{14BBB4B1-DA6A-4C69-BF07-F8D4865E0815}"
 EndProject
