@@ -18,7 +18,7 @@ var tests_typedArray = (function(){
     // Add ArrayBuffers
     data.forEach(function(arr){
         var test = {};
-        test.root = Uint8Array(arr).buffer;
+        test.root = new Uint8Array(arr).buffer;
         test.lookups = [["byteLength"]];
         tests.push(test);
     });
@@ -27,7 +27,7 @@ var tests_typedArray = (function(){
     arrTypes.forEach(function(type){
         data.forEach(function(arr){
             var test = {};
-            test.root = type.call(type, arr);
+            test.root = new type(arr);
             test.lookups = [["byteOffset"],["length"]];
             tests.push(test);
         });
@@ -36,7 +36,7 @@ var tests_typedArray = (function(){
     // Add DataViews
     data.forEach(function(arr){
         var test = {};
-        test.root = new DataView(Uint8Array(arr).buffer);
+        test.root = new DataView(new Uint8Array(arr).buffer);
         test.lookups = [["byteOffset"],["byteLength"]];
         tests.push(test);
     });
@@ -44,7 +44,7 @@ var tests_typedArray = (function(){
 	
     arrTypes.forEach(function(type){
             var test = {};
-            test.root = type.call(type, new Array(1<<16));
+            test.root = new type(new Array(1<<16));
             test.lookups = [["byteOffset"],["length"]];
             tests.push(test);
         
@@ -75,7 +75,8 @@ var tests_typedArray = (function(){
         var root = {};
         var props = [];
         arrs.forEach(function(arr){
-            props.push(arr[0].call(arr[0], buf, arr[1], arr[2]));
+            var ctor = arr[0];
+            props.push(new ctor(buf, arr[1], arr[2]));
         });
         addProperties(root, props);
         tests.push(root);

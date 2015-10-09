@@ -2104,7 +2104,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedArray(
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr)
     }
-    Js::CallInfo info(Js::CallFlags_Value, 2);
+    Js::CallInfo info(Js::CallFlags_New, 2);
 
     Js::Arguments args(info, values);
     switch (typedArrayType)

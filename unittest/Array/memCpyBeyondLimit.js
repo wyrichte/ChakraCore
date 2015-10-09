@@ -29,8 +29,8 @@ var func4 = function () {
 };
 obj0.method1 = func4;
 var ary = Array();
-var i16 = Int16Array();
-var ui8 = Uint8Array();
+var i16 = new Int16Array();
+var ui8 = new Uint8Array();
 var cpa8 = WScript.CreateCanvasPixelArray(ui8);
 var b = 1;
 var c = 1;

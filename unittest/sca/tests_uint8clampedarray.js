@@ -19,7 +19,7 @@ var tests_uint8clampedarray = (function(){
     // Add ArrayBuffers
     data.forEach(function(arr){
         var test = {};
-        test.root = Uint8Array(arr).buffer;
+        test.root = new Uint8Array(arr).buffer;
         test.lookups = [["byteLength"]];
         tests.push(test);
     });
@@ -28,7 +28,7 @@ var tests_uint8clampedarray = (function(){
     arrTypes.forEach(function(type){
         data.forEach(function(arr){
             var test = {};
-            test.root = type.call(type, arr);
+            test.root = new type(arr);
             test.lookups = [["byteOffset"],["length"]];
             tests.push(test);
         });
@@ -37,7 +37,7 @@ var tests_uint8clampedarray = (function(){
     // Add DataViews
     data.forEach(function(arr){
         var test = {};
-        test.root = new DataView(Uint8Array(arr).buffer);
+        test.root = new DataView(new Uint8Array(arr).buffer);
         test.lookups = [["byteOffset"],["byteLength"]];
         tests.push(test);
     });
