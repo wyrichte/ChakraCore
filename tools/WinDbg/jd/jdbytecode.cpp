@@ -831,6 +831,7 @@ JD_PRIVATE_COMMAND(bc,
     if (strcmp(inputType, "int") == 0 || strcmp(inputType, "int64") == 0)
     {
         // Just an address
+        Out("0x%u treated as the byte code buffer", input.GetLong64());
         jdbytecode.DumpBytes(ExtRemoteTyped("(unsigned char *)@$extin", input.GetLong64()));
     }
     else

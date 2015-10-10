@@ -2081,7 +2081,14 @@ void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorD
         data.blockUsedSize += EXT_CLASS_BASE::GetSizeT(bigBlock.Field("currentByte"));
         return false;
     };
-    LinkListForEach(arenaAllocator.Field("bigBlocks"), "nextBigBlock", bigBlockFn);
+    ExtRemoteTyped firstBigBlock = arenaAllocator.Field("bigBlocks");
+    if (firstBigBlock.GetPtr())
+    {
+        data.blockUsedSize +=
+            arenaAllocator.Field("cacheBlockCurrent").GetPtr() - firstBigBlock.GetPtr() - sizeofBigBlockHeader
+            - EXT_CLASS_BASE::GetSizeT(firstBigBlock.Field("currentByte"));
+    }
+    LinkListForEach(firstBigBlock, "nextBigBlock", bigBlockFn);
     LinkListForEach(arenaAllocator.Field("fullBlocks"), "nextBigBlock", bigBlockFn);
     LinkListForEach(arenaAllocator.Field("mallocBlocks"), "next", arenaMemoryBlockFn);
 }
