@@ -8,7 +8,6 @@
       <baseline>DocumentWrite.baseline</baseline>
     </default>
   </test>
-  <!--OS: Bug 4795287: Disabled unittest\InternalProfile\rlexe.xml
   <test>
     <default>
       <tags>exclude_fre</tags>
@@ -17,5 +16,4 @@
       <baseline></baseline>
     </default>
   </test>
-  -->
 </regress-exe>

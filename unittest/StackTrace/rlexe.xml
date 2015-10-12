@@ -90,6 +90,7 @@
   <test>
     <default>
       <tags>StackTrace</tags>
+      <compile-flags>-ExtendedErrorStackForTestHost</compile-flags>
       <files>StackTraceLimit.html</files>
       <baseline>StackTraceLimit.mshtml.baseline</baseline>
     </default>
