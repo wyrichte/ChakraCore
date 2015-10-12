@@ -49,7 +49,8 @@ namespace ProjectionModel
         // Note: for tcMissingNamedType, the data is unreliable/garbage, we'll report the error later 
         //       when the arg is actually used (like WriteInType), here assuming 8-bytes/non floating point.
         bool isMissingType = argument->type->typeCode == tcMissingNamedType;
-        int byteCount = isMissingType ? 8 : argument->GetSizeOnStack();
+        AssertMsg(argument->GetSizeOnStack() < INT_MAX, "No argument should exceed available stack space.");
+        int byteCount = isMissingType ? 8 : (int)argument->GetSizeOnStack();
         bool isFloatingPoint = isMissingType ? false : CallingConventionHelper::IsFloatingPoint(concreteType);
 
         return GetNextParameterLocation(byteCount, isFloatingPoint, loc);

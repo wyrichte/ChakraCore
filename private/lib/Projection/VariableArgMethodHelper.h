@@ -681,7 +681,8 @@ const int REG_PARAMS = 4;
 
 // Note: '_' is added to the end of macro name to avoid conflict with CallingConventionHelper::GetNextParameterLocation.
 #define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)                                                                \
-    callingConvention.GetNextParameterLocation(sizeOnStack, isFloatingPoint, parameterLocation)
+    AssertMsg(sizeOnStack < INT_MAX, "ARM64: Element size on stack should not exceed available stack space.");                                             \
+    callingConvention.GetNextParameterLocation((int)sizeOnStack, isFloatingPoint, parameterLocation)
 
 #endif
 
