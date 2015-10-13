@@ -2,7 +2,10 @@
 // Copyright (C) Microsoft. All rights reserved.
 //-------------------------------------------------------------------------------------------------------
 #include "ProjectionPch.h"
-#include "Library\engineinterfaceObject.h"
+
+#include "Types\DeferredTypeHandler.h"
+#include "Library\EngineInterfaceObject.h"
+
 #include "WinRTPromiseEngineInterfaceExtensionObject.h"
 #include "AsyncDebug.h"
 

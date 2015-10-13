@@ -3,11 +3,20 @@
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
+
+#include "Types\NullTypeHandler.h"
+#include "Types\SimpleTypeHandler.h"
+#include "Types\PathTypeHandler.h"
+#include "Types\PropertyIndexRanges.h"
+#include "Types\SimpleDictionaryPropertyDescriptor.h"
+#include "Types\SimpleDictionaryTypeHandler.h"
 #include "Types\SimpleDictionaryUnorderedTypeHandler.h"
+
 #include "Library\BoundFunction.h"
 #include "Library\JSONString.h"
 #include "Library\SingleCharString.h"
 #include "Library\SubString.h"
+#include "Library\BufferStringBuilder.h"
 
 // Parser includes
 #include "errstr.h"

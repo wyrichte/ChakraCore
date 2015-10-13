@@ -4,6 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "EnginePch.h"
+#include "Language\InterpreterStackFrame.h"
 
 #if _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM
 #pragma warning(push)

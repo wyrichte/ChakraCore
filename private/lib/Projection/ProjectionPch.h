@@ -52,6 +52,7 @@
 
 #include "DiagnosticsScriptObject.h"
 #include "ActiveScriptExternalLibrary.h"
+#include "Library\EngineInterfaceObject.h"
 #include "WinRtPromiseEngineInterfaceExtensionObject.h"
 #include "ProjectionExternalLibrary.h"
 #include "scriptsite.h"

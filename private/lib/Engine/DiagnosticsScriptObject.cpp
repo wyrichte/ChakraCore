@@ -335,7 +335,7 @@ namespace Js
                 if (!func->IsLibraryCode())
                 {
                     InterpreterStackFrame *interpreterFrame = walker.GetCurrentInterpreterFrame();
-                    ScriptContext* frameScriptContext = interpreterFrame ? interpreterFrame->GetScriptContext() : walker.GetCurrentScriptContext();
+                    ScriptContext* frameScriptContext = walker.GetCurrentScriptContext();
                     Assert(frameScriptContext);
 
                     if (frameScriptContext == targetScriptContext)

@@ -8,6 +8,11 @@
 #include "DispIdHelper.h"
 #include "typeinfobuilder.h"
 
+#include "Types\DynamicObjectEnumerator.h"
+#include "Types\DynamicObjectSnapshotEnumerator.h"
+#include "Types\DynamicObjectSnapshotEnumeratorWPCache.h"
+#include "Library\ForInObjectEnumerator.h"
+
 // Useful constants:
 
 #define	pszTLibFileName   OLESTR("JSDeb.tlb")

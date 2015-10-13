@@ -6,6 +6,7 @@
 #include <EnginePch.h>
 
 #include "RegexFlags.h"
+#include "Library\NullEnumerator.h"
 
 namespace Js
 {

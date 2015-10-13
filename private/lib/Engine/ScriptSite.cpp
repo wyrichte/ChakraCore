@@ -3,14 +3,23 @@
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
+#include "Library\ModuleRoot.h"
+#include "Library\JavascriptTypedObjectSlotAccessorFunction.h"
 #include "Library\DOMFastPathInfo.h"
 #include "ChakraHostScriptContext.h"
 #include "ChakraHostDebugContext.h"
+#include "Types\DeferredTypeHandler.h"
+#include "Types\PathTypeHandler.h"
+#include "Types\PropertyIndexRanges.h"
+#include "Types\SimpleDictionaryPropertyDescriptor.h"
+#include "Types\SimpleDictionaryTypeHandler.h"
+
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "..\Telemetry\Telemetry.h"
 #include "..\Telemetry\ScriptContextTelemetry.h"
 #endif
 #ifdef ENABLE_PROJECTION
+#include "Library\EngineInterfaceObject.h"
 #include "..\Projection\\WinRtPromiseEngineInterfaceExtensionObject.h"
 #include "..\Projection\ProjectionExternalLibrary.h"
 #include "..\Projection\ProjectionContext.h"

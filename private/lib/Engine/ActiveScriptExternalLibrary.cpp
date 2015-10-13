@@ -5,6 +5,11 @@
 #include "EnginePch.h"
 #include "DiagnosticsScriptObject.h"
 
+#include "Types\PathTypeHandler.h"
+#include "Types\PropertyIndexRanges.h"
+#include "Types\SimpleDictionaryPropertyDescriptor.h"
+#include "Types\SimpleDictionaryTypeHandler.h"
+
 ActiveScriptExternalLibrary::ActiveScriptExternalLibrary()
     : ExternalLibraryBase(),
     dispMemberProxyType(nullptr),

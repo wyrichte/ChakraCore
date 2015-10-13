@@ -4,6 +4,7 @@
 
 #include "EnginePch.h"
 
+#include "Types\DeferredTypeHandler.h"
 
 #ifdef ENABLE_JS_ETW
 #include <IERESP_mshtml.h>

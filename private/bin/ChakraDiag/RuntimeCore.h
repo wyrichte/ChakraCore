@@ -8,6 +8,7 @@
 
 // Forwards
 class SourceContextInfo;                // Used in Utf8SourceInfo.h
+class ActiveScriptProfilerHeapEnum;     // Used in ArgumentsObject.h
 namespace Js
 {
     // TODO: consider extracting and pulling enums (instead of forward), as changing their underlying type may break us.
@@ -97,6 +98,7 @@ namespace Js
     class JavascriptRegExp;	                // Used by JavascriptLibrary.h
     class JavascriptRegExpConstructor;      // Used by JavascriptLibrary.h
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
+    class JavascriptEnumerator;             // Used by JavascriptLibrary.h
     class NullEnumerator;                   // Used by JavascriptLibrary.h
     class PropertyStringCacheMap;           // Used by JavascriptLibrary.h
     class JavascriptExternalFunction;       // Used by JavascriptLibrary.h        
@@ -368,6 +370,7 @@ class ScriptContextTelemetry;
 #include "PathTypeHandler.h"
 #include "SimpleDictionaryPropertyDescriptor.h"
 #include "SimpleDictionaryUnorderedTypeHandler.h"
+#include "PropertyIndexRanges.h"
 #include "SimpleDictionaryTypeHandler.h"
 #include "DictionaryPropertyDescriptor.h"
 #include "DictionaryTypeHandler.h"

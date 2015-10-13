@@ -24,6 +24,12 @@
 #include "Library\HostObjectBase.h"
 #include "Library\DateImplementation.h"
 #include "Library\JavascriptDate.h"
+
+#include "Types\PropertyIndexRanges.h"
+#include "Types\DictionaryPropertyDescriptor.h"
+#include "Types\DictionaryTypeHandler.h"
+#include "Library\ES5ArrayTypeHandler.h"
+
 #ifdef ENABLE_MUTATION_BREAKPOINT
 #include "activdbg_private.h"
 #include "Debug\MutationBreakpoint.h"

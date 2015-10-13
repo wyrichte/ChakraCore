@@ -17,7 +17,7 @@
 #include "Library\JavascriptMapIterator.h"
 #include "Library\JavascriptSetIterator.h"
 #include "Library\JavascriptStringIterator.h"
-
+#include "Library\ArgumentsObject.h"
 
 #ifdef ENABLE_PROJECTION
 #include "ProjectionWriter.h"

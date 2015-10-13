@@ -3,6 +3,9 @@
 //-------------------------------------------------------------------------------------------------------
 #include "ProjectionPch.h"
 
+#include "Types\DeferredTypeHandler.h"
+#include "Types\PathTypeHandler.h"
+
 ProjectionExternalLibrary::ProjectionExternalLibrary() :
     winrtDateType(nullptr),
     winrtErrorType(nullptr),

@@ -17,6 +17,9 @@
 #include "RegexCommon.h"
 #include "Library\RegexHelper.h"
 
+#include "Types\DeferredTypeHandler.h"
+#include "Types\PathTypeHandler.h"
+
 // SCA support
 #include "SCAEngine.h"
 #include "StreamHelper.h"

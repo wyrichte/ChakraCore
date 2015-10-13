@@ -10,6 +10,11 @@
 #include "Library\DateImplementation.h"
 #include "Library\JavascriptDate.h"
 #include "Library\dataview.h"
+
+#include "Types\PropertyIndexRanges.h"
+#include "Types\DictionaryPropertyDescriptor.h"
+#include "Types\DictionaryTypeHandler.h"
+#include "Library\ES5ArrayTypeHandler.h"
 #include "Library\JavascriptArrayIndexEnumerator.h"
 #include "Library\ES5ArrayIndexEnumerator.h"
 
