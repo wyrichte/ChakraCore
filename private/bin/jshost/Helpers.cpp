@@ -4,6 +4,7 @@
 *                                                       *
 ********************************************************/
 #include "StdAfx.h"
+#include "codex\Utf8Codex.h"
 
 HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUtf8Out, LPCWSTR* contentsRawOut, UINT* lengthBytesOut, bool printFileOpenError)
 {
@@ -97,21 +98,17 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
 
     if (isUtf8)
     {        
-        UINT cAnsiChars = lengthBytes + 1;
-        contents = (LPCWSTR)HeapAlloc(GetProcessHeap(), 0, cAnsiChars * sizeof(WCHAR)); // Simulate Trident buffer, allocate by HeapAlloc
+        utf8::DecodeOptions decodeOptions = utf8::doAllowInvalidWCHARs;
+
+        UINT cUtf16Chars = utf8::ByteIndexIntoCharacterIndex(pRawBytes, lengthBytes, decodeOptions);
+        contents = (LPCWSTR)HeapAlloc(GetProcessHeap(), 0, (cUtf16Chars + 1) * sizeof(WCHAR)); // Simulate Trident buffer, allocate by HeapAlloc
         if (NULL == contents)
         {
             fwprintf(stderr, L"out of memory");
             IfFailGo(E_OUTOFMEMORY);
         }
 
-        // Covert to Unicode.
-        if (0 == MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)contentsRaw, cAnsiChars,
-            (LPWSTR)contents, cAnsiChars))
-        {
-            fwprintf(stderr, L"failed MultiByteToWideChar conversion");
-            IfFailGo(HRESULT_FROM_WIN32(GetLastError()));
-        }
+        utf8::DecodeIntoAndNullTerminate((wchar_t*) contents, pRawBytes, cUtf16Chars, decodeOptions);
     }
 
 Error:

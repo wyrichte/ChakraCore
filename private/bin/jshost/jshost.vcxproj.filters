@@ -26,6 +26,7 @@
     <ClCompile Include="TypeResolution.cpp" />
     <ClCompile Include="WScriptFastDom.cpp" />
     <ClCompile Include="WScriptJsrt.cpp" />
+    <ClCompile Include="CodexAssert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />

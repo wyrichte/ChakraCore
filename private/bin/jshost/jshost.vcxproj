@@ -130,6 +130,7 @@
     </BinplaceLinked>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CodexAssert.cpp" />
     <ClCompile Include="DebuggerCore.cpp" />
     <ClCompile Include="DelayLoadLibrary.cpp" />
     <ClCompile Include="delegatewrapper.cpp" />
@@ -199,6 +200,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\core\lib\common\codex\Chakra.Common.Codex.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac38}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\lib\InternalIDL\Chakra.InternalIDL.vcxproj">
       <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
     </ProjectReference>
