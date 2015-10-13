@@ -2,9 +2,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <BuildingGitRepo>true</BuildingGitRepo>
-    <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>        
+    <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>
   </PropertyGroup>
-  
+  <!-- Change configuration name to output to a different folder than Release -->
+  <!-- POGO instrumentation-->
+  <PropertyGroup>
+    <IsPogoBuild />
+    <IsPogoBuild Condition="('$(POGO_TYPE)'=='PGO' OR '$(POGO_TYPE)'=='PGI') AND '$(Configuration)'=='Release'">true</IsPogoBuild>
+    <OutDirName Condition="'$(IsPogoBuild)'=='true'">pogo</OutDirName>
+  </PropertyGroup>
+
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
   <ImportGroup Condition="'$(BuildingWithBuildExe)'!='true'">
     <Import Project="$(ChakraCoreBuildDirectory)Common.Build.Default.props" />
