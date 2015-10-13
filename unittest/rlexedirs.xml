@@ -159,6 +159,11 @@
 </dir>
 <dir>
   <default>
+    <files>fieldopts</files>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>FixedFields</files>
   </default>
 </dir>
@@ -207,6 +212,27 @@
   <default>
     <files>AsmJs</files>
     <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>bailout</files>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>Regex</files>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>UnifiedRegex</files>
+  </default>
+</dir>
+<dir>
+  <default>
+    <files>SIMD.workloads.asmjs</files>
+    <tags>exclude_serialized,exclude_arm,exclude_arm64</tags>
   </default>
 </dir>
 </regress-exe>

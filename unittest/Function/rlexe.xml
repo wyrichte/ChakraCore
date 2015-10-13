@@ -2,6 +2,28 @@
 <regress-exe>
   <test>
     <default>
+      <files>deferNestedJitLoopBody.js</files>
+      <baseline>deferNestedJitLoopBody.baseline</baseline>
+      <compile-flags>-force:deferparse -deferNested -forceJitLoopBody</compile-flags>
+      <tags>exclude_ship</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>FuncBody.bug133933.2.js</files>
+      <baseline>FuncBody.bug133933.2.baseline</baseline>
+      <compile-flags>-trace:FunctionSourceInfoParse -off:deferparse</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>repro.bug188541.js</files>
+      <baseline>repro.bug188541.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>redeclareConst.html</files>
       <baseline>redeclareConst.baseline</baseline>
     </default>

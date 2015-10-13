@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-dynamicprofilecache:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_dynapogo,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailout:45 -off:copyprop -off:typespec -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailout:89 -off:copyprop -off:typespec -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailout:111 -off:copyprop -off:typespec -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailout:212 -bailout:214 -off:copyprop -off:typespec -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailout:35 -off:typespec -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailoutateverybytecode -force:inline -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-cube.js</files>
+      <compile-flags>-bailoutateverybytecode -on:inline -dynamicprofileinput:profile.dpl.3d-cube.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
+      <baseline>3d-cube.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-raytrace.js</files>
+      <compile-flags>-bailout:234 -off:copyprop -off:typespec -dynamicprofilecache:profile.dpl.3d-raytrace.js</compile-flags>
+      <tags>exclude_dynapogo,exclude_fre</tags>
+      <baseline>3d-raytrace.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-raytrace.js</files>
+      <compile-flags>-bailout:234 -off:copyprop -off:typespec -dynamicprofileinput:profile.dpl.3d-raytrace.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-raytrace.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-raytrace.js</files>
+      <compile-flags>-bailout:196 -off:typespec -dynamicprofileinput:profile.dpl.3d-raytrace.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre</tags>
+      <baseline>3d-raytrace.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>3d-raytrace.js</files>
+      <compile-flags>-bailoutateverybytecode -force:inline -dynamicprofileinput:profile.dpl.3d-raytrace.js</compile-flags>
+      <tags>exclude_interpreted,exclude_fre,Slow</tags>
+      <baseline>3d-raytrace.baseline</baseline>
+    </default>
+  </test>
+</regress-exe>

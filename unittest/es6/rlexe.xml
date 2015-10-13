@@ -2,6 +2,14 @@
 <regress-exe>
   <test>
     <default>
+      <files>unicode_sunspider_regexp-dna.js</files>
+      <baseline />
+      <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
+      <tags>exclude_ship</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>lambda_debugging.js</files>
       <compile-flags> -es6lambda -debuglaunch -targeted -dbgbaseline:lambda_debugging.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_serialized</tags>

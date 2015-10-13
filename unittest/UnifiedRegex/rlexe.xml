@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>dna.js</files>
+      <baseline>dna.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>gmail.js</files>
+      <baseline>gmail.baseline</baseline>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>unpack.js</files>
+      <baseline>unpack.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>v8bench.js</files>
+      <baseline>v8bench.baseline</baseline>
+      <tags>Slow</tags>
+    </default>
+  </test>
+</regress-exe>

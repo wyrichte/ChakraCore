@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>objtypespec-add-3.js</files>
+      <baseline>objtypespec-add-3.baseline</baseline>
+      <compile-flags>-maxinterpretcount:2</compile-flags>
+      <tags>exclude_ship, exclude_dynapogo</tags>
+    </default>
+  </test>
+</regress-exe>

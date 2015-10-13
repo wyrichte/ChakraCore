@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>regexp-dnaFunctional.js</files>
+      <baseline>regexp-dnaFunctional.baseline</baseline>
+      <tags>fail</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>string-unpack-codeFunctional.js</files>
+      <baseline>string-unpack-codeFunctional.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regex_gmail.js</files>
+      <baseline>regex_gmail.baseline</baseline>
+      <tags>Slow</tags>
+    </default>
+  </test>
+</regress-exe>

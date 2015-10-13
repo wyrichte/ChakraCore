@@ -14,4 +14,10 @@
       <tags>exclude_fre</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>simple.kraken.js</files>
+      <baseline>simple.kraken.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>
