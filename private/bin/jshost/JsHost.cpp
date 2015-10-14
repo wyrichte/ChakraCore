@@ -1232,10 +1232,6 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
         UTF8SourceMapper = nullptr;
     }
 
-#ifdef ENABLE_INTL_OBJECT
-    JScript9Interface::ReleaseWindowsGlobalizationObjects();
-#endif
-
     CoUninitialize();
 
     return ret;

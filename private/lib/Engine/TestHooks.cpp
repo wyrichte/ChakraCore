@@ -150,18 +150,6 @@ void __stdcall DisplayMemStats()
     }
 }
 
-#ifdef ENABLE_INTL_OBJECT
-void __stdcall ReleaseWindowsGlobalizationObjects()
-{
-    ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
-    if (!threadContext)
-    {
-        return;
-    }
-    threadContext->GetWindowsGlobalizationAdapter()->ReleaseWindowsGlobalizationObjects();
-}
-#endif
-
 BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect) 
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
@@ -452,9 +440,6 @@ HRESULT OnJScript9Loaded()
         StartScriptProfiling,
         StopScriptProfiling,
         DisplayMemStats,
-#ifdef ENABLE_INTL_OBJECT
-        ReleaseWindowsGlobalizationObjects,
-#endif
         FlushOutput,
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,

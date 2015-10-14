@@ -883,13 +883,87 @@ Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var* arg
         return NULL;
     }
 
-
     if (callInfo.Count > 1)
     {
         args = &args[1];
 
         FastDomDebugDetach(args[0]);
     }
+    return NULL;
+}
+
+HRESULT WScriptFastDom::GetHtmlDebugFunctionHelper(Var function, CallInfo callInfo, Var* args, IDispatchEx** dispFunction)
+{
+    HRESULT hr = NOERROR;
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (FAILED(hr))
+    {
+        return E_FAIL;
+    }
+    if (callInfo.Count < 2)
+    {
+        return E_FAIL;
+    }
+    BOOL isCallable;
+    hr = activeScriptDirect->IsObjectCallable(args[1], &isCallable);
+    if (FAILED(hr) || !isCallable)
+    {
+        return E_FAIL;
+    }
+    hr = activeScriptDirect->VarToDispEx(args[1], dispFunction);
+
+    return hr;
+}
+
+Var WScriptFastDom::HtmlPerformSourceRundown(Var function, CallInfo callInfo, Var* args)
+{
+    CComPtr<IDispatchEx> functionDispatch;
+    HRESULT hr = GetHtmlDebugFunctionHelper(function, callInfo, args, &functionDispatch);
+    if (FAILED(hr))
+    {
+        return nullptr;
+    }
+    DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+    CreateDebugCallbackMessage(functionDispatch, [=]()
+    {
+        return diagnosticsHelper->HtmlDynamicAttach(IDM_DEBUGGERDYNAMICATTACHSOURCERUNDOWN);
+    });
+
+    return nullptr;
+}
+
+Var WScriptFastDom::HtmlDebugDynamicAttach(Var function, CallInfo callInfo, Var* args)
+{
+    CComPtr<IDispatchEx> functionDispatch;
+    HRESULT hr = GetHtmlDebugFunctionHelper(function, callInfo, args, &functionDispatch);
+    if (FAILED(hr))
+    {
+        return nullptr;
+    }
+    DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+    CreateDebugCallbackMessage(functionDispatch, [=]()
+    {
+        return diagnosticsHelper->HtmlDynamicAttach(IDM_DEBUGGERDYNAMICATTACH);
+    });
+
+    return NULL;
+}
+
+Var WScriptFastDom::HtmlDebugDynamicDetach(Var function, CallInfo callInfo, Var* args)
+{
+    CComPtr<IDispatchEx> functionDispatch;
+    HRESULT hr = GetHtmlDebugFunctionHelper(function, callInfo, args, &functionDispatch);
+    if (FAILED(hr))
+    {
+        return nullptr;
+    }
+    DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+    CreateDebugCallbackMessage(functionDispatch, [=]()
+    {
+        return diagnosticsHelper->HtmlDynamicDetach();
+    });
+
     return NULL;
 }
 
@@ -1502,16 +1576,19 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(L"Echo", activeScriptDirect, wscript, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
-    // Create the Args method
-    PropertyId argsPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"Arguments", &argsPropertyId);
-    IfFailedGo(hr);    
-    Var args;
-    hr = CreateArgsObject(activeScriptDirect, &args);
-    IfFailedGo(hr);
-    Assert(args);
-    hr =  operations->SetProperty(activeScriptDirect, wscript, argsPropertyId, args, &result);
-    IfFailedGo(hr);
+    if (!isHTMLHost)
+    {
+        // Create the Args method
+        PropertyId argsPropertyId;
+        hr = activeScriptDirect->GetOrAddPropertyId(L"Arguments", &argsPropertyId);
+        IfFailedGo(hr);
+        Var args;
+        hr = CreateArgsObject(activeScriptDirect, &args);
+        IfFailedGo(hr);
+        Assert(args);
+        hr = operations->SetProperty(activeScriptDirect, wscript, argsPropertyId, args, &result);
+        IfFailedGo(hr);
+    }
 
     // Initialize StdErr, StdOut, StdIn
     IfFailedGo(InitializeStreams(activeScriptDirect, wscript));
@@ -1539,27 +1616,44 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
         // Create the LoadScriptFile method
         hr = AddMethodToObject(L"LoadScriptFile", activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
         IfFailedGo(hr);
+
+        // Create the LoadScript method
+        hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
+        IfFailedGo(hr);
+
+        // Create the InitializeProjection method
+        hr = AddMethodToObject(L"InitializeProjection", activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
+        IfFailedGo(hr);
     }
 
-    // Create the LoadScript method
-    hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
-    IfFailedGo(hr);
+    if (!isHTMLHost)
+    {
+        // Create the perform source rundown method
+        hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::PerformSourceRundown);
+        IfFailedGo(hr);
 
-    // Create the InitializeProjection method
-    hr = AddMethodToObject(L"InitializeProjection", activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
-    IfFailedGo(hr);
+        // Create the Dynamic attach method
+        hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicAttach);
+        IfFailedGo(hr);
 
-    // Create the perform source rundown method
-    hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::PerformSourceRundown);
-    IfFailedGo(hr);
+        // Create the Dynamic detach method
+        hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicDetach);
+        IfFailedGo(hr);
+    }
+    else
+    {
+        // Create the perform source rundown method
+        hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::HtmlPerformSourceRundown);
+        IfFailedGo(hr);
 
-    // Create the Dynamic attach method
-    hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicAttach);
-    IfFailedGo(hr);
+        // Create the Dynamic attach method
+        hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicAttach);
+        IfFailedGo(hr);
 
-    // Create the Dynamic detach method
-    hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicDetach);
-    IfFailedGo(hr);
+        // Create the Dynamic detach method
+        hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicDetach);
+        IfFailedGo(hr);
+    }
 
 #ifdef EDIT_AND_CONTINUE
     if (s_enableEditTest) // Only add method when command line explicitly requests, to avoid affecting other unrelated baseline.
@@ -1594,13 +1688,16 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(L"Shutdown", activeScriptDirect, wscript, WScriptFastDom::Shutdown);
     IfFailedGo(hr);
 
-    // Create the SetTimeout method
-    hr = AddMethodToObject(L"SetTimeout", activeScriptDirect, wscript, WScriptFastDom::SetTimeout);
-    IfFailedGo(hr);
-    
-    // Create the ClearTimeout method
-    hr = AddMethodToObject(L"ClearTimeout", activeScriptDirect, wscript, WScriptFastDom::ClearTimeout);
-    IfFailedGo(hr);
+    if (!isHTMLHost)
+    {
+        // Create the SetTimeout method
+        hr = AddMethodToObject(L"SetTimeout", activeScriptDirect, wscript, WScriptFastDom::SetTimeout);
+        IfFailedGo(hr);
+
+        // Create the ClearTimeout method
+        hr = AddMethodToObject(L"ClearTimeout", activeScriptDirect, wscript, WScriptFastDom::ClearTimeout);
+        IfFailedGo(hr);
+    }
 
     hr = AddMethodToObject(L"EmitStackTraceEvent", activeScriptDirect, wscript, WScriptFastDom::EmitStackTraceEvent);
     IfFailedGo(hr);

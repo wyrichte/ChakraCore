@@ -9,25 +9,22 @@
   <test>
     <default>
       <files>redeclar1.htm</files>
-      <baseline />
+      <baseline/>
     </default>
   </test>
   <test>
     <default>
       <files>redeclar2.htm</files>
-      <baseline />
     </default>
   </test>
   <test>
     <default>
       <files>redeclar3.htm</files>
-      <baseline />
     </default>
   </test>
   <test>
     <default>
       <files>EventHandlerCall.htm</files>
-      <baseline />
     </default>
   </test>
 </regress-exe>

@@ -92,6 +92,9 @@ public:
     static Var PerformSourceRundown(Var function, CallInfo callInfo, Var* args);
     static Var DebugDynamicAttach(Var function, CallInfo callInfo, Var* args);
     static Var DebugDynamicDetach(Var function, CallInfo callInfo, Var* args);
+    static Var HtmlPerformSourceRundown(Var function, CallInfo callInfo, Var* args);
+    static Var HtmlDebugDynamicAttach(Var function, CallInfo callInfo, Var* args);
+    static Var HtmlDebugDynamicDetach(Var function, CallInfo callInfo, Var* args);
     static Var Edit(Var function, CallInfo callInfo, Var* args);
     static Var StartScriptProfiler(Var function, CallInfo callInfo, Var* args);
     static Var StopScriptProfiler(Var function, CallInfo callInfo, Var* args);
@@ -132,5 +135,6 @@ private:
     static const int StdInMaxLineLength = 1024 * 1024;
 
     static HRESULT GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScript, VARIANT* varResult);
+    static HRESULT GetHtmlDebugFunctionHelper(Var function, CallInfo callInfo, Var* args, IDispatchEx** dispFunction);
 };
 

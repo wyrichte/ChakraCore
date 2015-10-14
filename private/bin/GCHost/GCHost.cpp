@@ -510,6 +510,20 @@ void MemProtectHeap_MultiThreaded_AllProtected()
 
 //////////////////// End test implementations ////////////////////
 
+//////////////////// Begin test stubs ////////////////////
+
+// This is consumed by AutoSystemInfo. AutoSystemInfo is in Chakra.Common.Core.lib, which is linked
+// into multiple DLLs. The hosting DLL provides the implementation of this function.
+bool GetDeviceFamilyInfo(
+    _Out_opt_ ULONGLONG* /*pullUAPInfo*/,
+    _Out_opt_ ULONG* /*pulDeviceFamily*/,
+    _Out_opt_ ULONG* /*pulDeviceForm*/)
+{
+    return false;
+}
+
+//////////////////// End test stubs ////////////////////
+
 //////////////////// Begin program entrypoint ////////////////////
 
 void usage(const WCHAR* self)

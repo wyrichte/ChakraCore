@@ -2,76 +2,10 @@
   {
     "locals": {
       "this": {
-        "[Methods]": {
-          "Array": "<large string>",
-          "ArrayBuffer": "<large string>",
-          "Boolean": "<large string>",
-          "CollectGarbage": "<large string>",
-          "DataView": "<large string>",
-          "Date": "<large string>",
-          "decodeURI": "<large string>",
-          "decodeURIComponent": "<large string>",
-          "encodeURI": "<large string>",
-          "encodeURIComponent": "<large string>",
-          "Error": "<large string>",
-          "escape": "<large string>",
-          "eval": "<large string>",
-          "EvalError": "<large string>",
-          "Float32Array": "<large string>",
-          "Float64Array": "<large string>",
-          "Function": "<large string>",
-          "ImageData": "<large string>",
-          "Int8Array": "<large string>",
-          "Int16Array": "<large string>",
-          "Int32Array": "<large string>",
-          "isFinite": "<large string>",
-          "isNaN": "<large string>",
-          "Map": "<large string>",
-          "Number": "<large string>",
-          "Object": "<large string>",
-          "parseFloat": "<large string>",
-          "parseInt": "<large string>",
-          "Promise": "<large string>",
-          "RangeError": "<large string>",
-          "ReferenceError": "<large string>",
-          "RegExp": "{...}",
-          "ScriptEngine": "<large string>",
-          "ScriptEngineBuildVersion": "<large string>",
-          "ScriptEngineMajorVersion": "<large string>",
-          "ScriptEngineMinorVersion": "<large string>",
-          "Set": "<large string>",
-          "String": "<large string>",
-          "Symbol": "<large string>",
-          "SyntaxError": "<large string>",
-          "TypeError": "<large string>",
-          "Uint8Array": "<large string>",
-          "Uint8ClampedArray": "<large string>",
-          "Uint16Array": "<large string>",
-          "Uint32Array": "<large string>",
-          "unescape": "<large string>",
-          "URIError": "<large string>",
-          "VBArray": "<large string>",
-          "WeakMap": "<large string>"
-        },
+        "[Methods]": {},
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
-        },
-        "Debug": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "debuggerEnabled": "true",
-          "EngineInterface": "{...}",
-          "faultInjectionCookie": "0",
-          "MS_ASYNC_CALLBACK_STATUS_ASSIGN_DELEGATE": "0",
-          "MS_ASYNC_CALLBACK_STATUS_CANCEL": "3",
-          "MS_ASYNC_CALLBACK_STATUS_CHOOSEANY": "2",
-          "MS_ASYNC_CALLBACK_STATUS_ERROR": "4",
-          "MS_ASYNC_CALLBACK_STATUS_JOIN": "1",
-          "MS_ASYNC_OP_STATUS_CANCELED": "2",
-          "MS_ASYNC_OP_STATUS_ERROR": "3",
-          "MS_ASYNC_OP_STATUS_SUCCESS": "1",
-          "setNonUserCodeExceptions": "false"
         },
         "e": {
           "[Methods]": "{...}",
@@ -83,159 +17,14 @@
           "Math": "{...}",
           "NaN": "NaN",
           "obj": "{...}",
+          "Reflect": "{...}",
           "SCA": "{...}",
           "undefined": "undefined",
           "WScript": "{...}"
-        },
-        "Infinity": "Infinity",
-        "Intl": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
-        "JSON": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
-        "Math": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "E": "<large string>",
-          "LN2": "<large string>",
-          "LN10": "<large string>",
-          "LOG2E": "<large string>",
-          "LOG10E": "<large string>",
-          "PI": "<large string>",
-          "SQRT1_2": "<large string>",
-          "SQRT2": "<large string>"
-        },
-        "NaN": "NaN",
-        "SCA": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
-        "undefined": "undefined",
-        "WScript": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "Arguments": "[]",
-          "StdErr": "{...}"
-        }
-      },
-      "WScript": {
-        "[Methods]": {
-          "Attach": "<large string>",
-          "ClearTimeout": "<large string>",
-          "CopyOnWrite": "<large string>",
-          "CreateCanvasPixelArray": "<large string>",
-          "Detach": "<large string>",
-          "Echo": "<large string>",
-          "EmitStackTraceEvent": "<large string>",
-          "GetWorkingSet": "<large string>",
-          "InitializeProjection": "<large string>",
-          "LoadScriptFile": "<large string>",
-          "PerformSourceRundown": "<large string>",
-          "Quit": "<large string>",
-          "RegisterCrossThreadInterfacePS": "<large string>",
-          "SetEvalEnabled": "<large string>",
-          "SetRestrictedMode": "<large string>",
-          "SetTimeout": "<large string>",
-          "Shutdown": "<large string>",
-          "StartProfiling": "<large string>",
-          "StopProfiling": "<large string>"
-        },
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "null"
-        },
-        "Arguments": {
-          "__proto__": "[]",
-          "length": "0"
-        },
-        "StdErr": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        }
-      },
-      "SCA": {
-        "[Methods]": {
-          "deserialize": "<large string>",
-          "lookup": "<large string>",
-          "makeInt64": "<large string>",
-          "makeUint64": "<large string>",
-          "serialize": "<large string>"
-        },
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "null"
-        }
-      },
-      "ImageData": {
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "arguments": "null",
-          "caller": "null",
-          "length": "0"
-        },
-        "arguments": "null",
-        "caller": "null",
-        "prototype": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
         }
       },
       "e": {
-        "[Methods]": {
-          "Array": "<large string>",
-          "ArrayBuffer": "<large string>",
-          "Boolean": "<large string>",
-          "CollectGarbage": "<large string>",
-          "DataView": "<large string>",
-          "Date": "<large string>",
-          "decodeURI": "<large string>",
-          "decodeURIComponent": "<large string>",
-          "encodeURI": "<large string>",
-          "encodeURIComponent": "<large string>",
-          "Error": "<large string>",
-          "escape": "<large string>",
-          "eval": "<large string>",
-          "EvalError": "<large string>",
-          "Float32Array": "<large string>",
-          "Float64Array": "<large string>",
-          "Function": "<large string>",
-          "ImageData": "<large string>",
-          "Int8Array": "<large string>",
-          "Int16Array": "<large string>",
-          "Int32Array": "<large string>",
-          "isFinite": "<large string>",
-          "isNaN": "<large string>",
-          "Map": "<large string>",
-          "Number": "<large string>",
-          "Object": "<large string>",
-          "parseFloat": "<large string>",
-          "parseInt": "<large string>",
-          "Promise": "<large string>",
-          "RangeError": "<large string>",
-          "ReferenceError": "<large string>",
-          "RegExp": "{...}",
-          "ScriptEngine": "<large string>",
-          "ScriptEngineBuildVersion": "<large string>",
-          "ScriptEngineMajorVersion": "<large string>",
-          "ScriptEngineMinorVersion": "<large string>",
-          "Set": "<large string>",
-          "String": "<large string>",
-          "Symbol": "<large string>",
-          "SyntaxError": "<large string>",
-          "TypeError": "<large string>",
-          "Uint8Array": "<large string>",
-          "Uint8ClampedArray": "<large string>",
-          "Uint16Array": "<large string>",
-          "Uint32Array": "<large string>",
-          "unescape": "<large string>",
-          "URIError": "<large string>",
-          "VBArray": "<large string>",
-          "WeakMap": "<large string>"
-        },
+        "[Methods]": {},
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
@@ -282,6 +71,10 @@
           "__proto__": "{...}",
           "x": "foo2.x"
         },
+        "Reflect": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "SCA": {
           "[Methods]": "{...}",
           "__proto__": "{...}"
@@ -291,7 +84,9 @@
           "[Methods]": "{...}",
           "__proto__": "{...}",
           "Arguments": "[]",
-          "StdErr": "{...}"
+          "StdErr": "{...}",
+          "StdIn": "{...}",
+          "StdOut": "{...}"
         }
       }
     }

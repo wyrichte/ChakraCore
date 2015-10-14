@@ -46,12 +46,13 @@
    </default>
 </test>
 -->
+  <!--OS Bug:4806991
   <test>
     <default>
       <files>letconst_global_across_scripts.html</files>
       <baseline>letconst_global_across_scripts.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>classes_debugging.js</files>
@@ -69,13 +70,14 @@
       <compile-flags>-ES6Classes -ES6Lambda -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
+  <!--OS Bug:4806991
   <test>
     <default>
       <files>ES6Symbol_DOM.html</files>
       <compile-flags> -ES6Symbol</compile-flags>
       <baseline>ES6Symbol_DOM.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>ES6Promise_DOM.html</files>

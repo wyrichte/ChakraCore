@@ -30,8 +30,6 @@ HRESULT DoOneHtmlIteration(BSTR filename)
     HRESULT hr = S_OK;
     CAppWindow* pAppWindow = nullptr;
 
-    MessageQueue* messageQueue = new MessageQueue();
-    WScriptFastDom::AddMessageQueue(messageQueue);
     JScript9Interface::NotifyOnScriptStateChanged(OnScriptStateChangedCallBack);
 
     g_pApp = new CApp;
@@ -119,21 +117,6 @@ void QuitHtmlHost()
     // some objects unexpected by the dispatch call path (e.g. HostDispatch::scriptSite).
     PostThreadMessage(GetCurrentThreadId(), WM_USER_QUIT, (WPARAM)0, (LPARAM)0);
 }
-
-template <class Func>
-void CreateDebugCallbackMessage(IDispatch *function, const Func& func)
-{
-    WScriptDispatchCallbackMessage* message = WScriptDispatchCallbackMessage::Create(function, [=](WScriptDispatchCallbackMessage &msg)
-    {
-        HRESULT hr = func();
-        if (hr == S_OK)
-        {
-            hr = msg.CallJavascriptFunction(true /*force*/);
-        }
-        return hr;
-    });
-    PostThreadMessage(GetCurrentThreadId(), WM_USER_DEBUG_MESSAGE, (WPARAM)message, (LPARAM)0);
- }
 
 void DynamictAttachDetachDebugger(UINT cmdId, IDispatch *function)
 {

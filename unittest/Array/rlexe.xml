@@ -14,13 +14,14 @@
       <tags>exclude_snap</tags>
     </default>
   </test>
+  <!--OS Bug:4806991
   <test>
     <default>
       <files>PixelArrayParent.html</files>
       <baseline>PixelArrayParent.baseline</baseline>
       <compile-flags>-htmlversion</compile-flags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>array_marhsall_bugfix.html</files>
