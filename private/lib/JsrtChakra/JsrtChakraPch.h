@@ -49,4 +49,6 @@
 //====================================
 // JsrtChakra includes
 //====================================
+#define _JSRT_
+#include "chakrart.h"
 #include "JsrtContext.h"

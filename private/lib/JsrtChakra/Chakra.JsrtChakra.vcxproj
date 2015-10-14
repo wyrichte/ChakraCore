@@ -49,6 +49,7 @@
         4610: can never be instantiated - user defined constructor required
         -->
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4510;4610</DisableSpecificWarnings>
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</PreprocessToFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
@@ -66,6 +67,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="chakrart.h" />
     <ClInclude Include="jsrt.h" />
     <ClInclude Include="JsrtComException.h" />
     <ClInclude Include="JsrtContextchakra.h" />
