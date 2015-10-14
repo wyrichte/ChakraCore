@@ -228,8 +228,8 @@ class StackSym;                             // Used by InlineeFrameInfo.h
 class Func;                                 // Used by InlineeFrameInfo.h
 struct InlinedFrameLayout;                  // Used by InlineeFrameInfo.h
 
-typedef __int32   IntConstType;
-typedef unsigned __int32  UIntConstType;
+typedef intptr_t  IntConstType;
+typedef uintptr_t UIntConstType;
 typedef double  FloatConstType;
 struct LazyBailOutRecord;
 
