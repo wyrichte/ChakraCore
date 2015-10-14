@@ -83,7 +83,7 @@ void HostConfigFlags::PrintUsage()
     HostConfigFlags::PrintUsageString();
 }
 
-int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, int targetArgLen)
+int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, size_t targetArgLen)
 {
     return FindArg(argc, argv, [=](PCWSTR arg) -> bool
     {

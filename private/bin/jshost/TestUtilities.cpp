@@ -330,7 +330,8 @@ Var TestUtilities::GetSystemStringFromHr(Var function, CallInfo callInfo, Var* a
     }
 
     Var result;
-    hr = scriptDirect->StringToVar(szMsg, wcslen(szMsg), &result);
+    // Ok to trucate cMessage as it is guarded by overflow check inside StringToVar
+    hr = scriptDirect->StringToVar(szMsg, static_cast<int>(wcslen(szMsg)), &result);
     LocalFree(szMsg);
     if (FAILED(hr)) { return nullObject; }
     return result;
@@ -358,7 +359,7 @@ DevTests::SimpleTestNamespace::ISimpleInterface * TestUtilities::GetAndUpdateSim
 
     LPCWSTR strMessageSent = L"Goodbye";
     HSTRING hstrMessage = NULL;
-    m_WinRTStringLibrary->WindowsCreateString(strMessageSent, wcslen(strMessageSent), &hstrMessage);
+    m_WinRTStringLibrary->WindowsCreateString(strMessageSent, static_cast<UINT32>(wcslen(strMessageSent)), &hstrMessage);
     hr = spSimple->SetMessage(hstrMessage);
     IfFailedGo(hr);
     m_WinRTStringLibrary->WindowsDeleteString(hstrMessage);
@@ -514,7 +515,8 @@ Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var* args)
     }
 
     Var result;
-    hr = scriptDirect->StringToVar(retMsg, wcslen(retMsg), &result);
+    // Ok to trucate retMsg as it is guarded by overflow check inside StringToVar
+    hr = scriptDirect->StringToVar(retMsg, static_cast<int>(wcslen(retMsg)), &result);
     if (FAILED(hr)) { return nullObject; }
     return result;
 }

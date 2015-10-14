@@ -30,12 +30,6 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);INLINE_TEST_METHOD_MARKUP;</PreprocessorDefinitions>
-      <DisableSpecificWarnings>
-        %(DisableSpecificWarnings);
-        
-        <!-- TODO: Should clean this up -->
-        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
-      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>

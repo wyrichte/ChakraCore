@@ -21,7 +21,7 @@ public:
     static int argsCount;    
     static void (__stdcall *pfnPrintUsage)();
 
-    static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, int targetArgLen);
+    static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, size_t targetArgLen);
     static void RemoveArg(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], int index);
     static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], PCWSTR switchNameWithColon, int switchNameWithColonLen);
     static void AddSwitch(int& argc, _Inout_updates_to_(argc, argc) LPWSTR*& argv, _In_ PWSTR newArg);

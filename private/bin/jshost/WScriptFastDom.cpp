@@ -111,10 +111,11 @@ Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
         size_t bufLen = strlen(buf);
         hr = S_OK;
 
+        // bufLen will never be trucated as it is guarded by StdInMaxLineLength above.
         DWORD retVal = 0;
         if (bufLen > 0)
         {
-            retVal = MultiByteToWideChar(CP_UTF8, 0, buf, bufLen, wbuf, StdInMaxLineLength);
+            retVal = MultiByteToWideChar(CP_UTF8, 0, buf, static_cast<int>(bufLen), wbuf, StdInMaxLineLength);
         }
 
         if (bufLen > 0 && retVal == 0)
@@ -124,7 +125,7 @@ Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
         }
         else
         {
-            hr = activeScriptDirect->StringToVar(wbuf, wcslen(wbuf), &result);
+            hr = activeScriptDirect->StringToVar(wbuf, static_cast<int>(wcslen(wbuf)), &result);
         }
 
         delete[] wbuf;
@@ -1421,7 +1422,8 @@ HRESULT WScriptFastDom::CreateArgsObject(IActiveScriptDirect *const activeScript
 
     for (int i = 0; i < HostConfigFlags::argsCount; i++)
     {
-        hr = activeScriptDirect->StringToVar((LPCWSTR)argv[i], wcslen((LPCWSTR)argv[i]), &value);
+        // Ok to trucate cArgs as it is guarded by overflow check inside StringToVar
+        hr = activeScriptDirect->StringToVar((LPCWSTR)argv[i], static_cast<int>(wcslen((LPCWSTR)argv[i])), &value);
         if (FAILED(hr))
         {
             return hr;

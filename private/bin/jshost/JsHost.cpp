@@ -813,7 +813,10 @@ void WaitForThreadsToFinish(std::set<HANDLE> threads)
     // Note: COWAIT_WAITALL cannot be used as it does not process messages in this mode.
     while (true)
     {
-        int handleCount = handles.size();
+        size_t cHandles = handles.size();
+        AssertMsg(cHandles <= UINT_MAX, "Dataloss while downcasting handlesCount from size_t to UINT.");
+        UINT handleCount = static_cast<UINT>(cHandles);
+
         if (handleCount == 0)
         {
             // Either all signaled, or the set was empty, anyhow, we are done.
@@ -1795,7 +1798,7 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
 {
     LPCWSTR dbgBaselineFlag = L"-dbgbaseline:";
     LPCWSTR dbgBaselineFlagWithoutColon = L"-dbgbaseline";
-    int dbgBaselineFlagLen = wcslen(dbgBaselineFlag);
+    size_t dbgBaselineFlagLen = wcslen(dbgBaselineFlag);
 
     int i = 0;
     for(i = 1; i < argc; ++i)

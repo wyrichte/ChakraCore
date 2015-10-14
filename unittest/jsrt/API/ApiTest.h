@@ -1243,7 +1243,7 @@ namespace JsrtUnitTests
         {
             for (int type = JsArrayTypeInt8; type <= JsArrayTypeFloat64; type++)
             {
-                size_t size = 0;
+                unsigned int size = 0;
 
                 switch (type)
                 {
@@ -1737,9 +1737,9 @@ namespace JsrtUnitTests
 
         TEST_METHOD(SetIndexedPropertiesToExternalData)
         {
-            auto verifyIndexedPropertiesEqual = [](JsValueRef a, JsValueRef b, int len)
+            auto verifyIndexedPropertiesEqual = [](JsValueRef a, JsValueRef b, unsigned int len)
             {
-                for (int i = 0; i < len; i++)
+                for (unsigned int i = 0; i < len; i++)
                 {
                     JsValueRef index, itemA, itemB;
                     VERIFY_IS_TRUE(JsIntToNumber(i, &index) == JsNoError);
@@ -1757,6 +1757,9 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsRunScript(L"[-12.3, -500, -256, -255, -1, 0, 1, 200, 255, 256, 500, 1.2, false, new Boolean(true), NaN, 'String', {}]",
                 JS_SOURCE_CONTEXT_NONE, L"", &baseArray) == JsNoError);
             VERIFY_IS_TRUE(JsGetArrayLength(baseArray, &length) == JsNoError);
+            
+            unsigned int uiLength = static_cast<unsigned int>(length);
+            VERIFY_ARE_EQUAL(length, uiLength);
 
             const JsTypedArrayType types[] =
             {
@@ -1784,7 +1787,7 @@ namespace JsrtUnitTests
 
                 JsValueRef obj;
                 VERIFY_IS_TRUE(JsCreateObject(&obj) == JsNoError);
-                VERIFY_IS_TRUE(JsSetIndexedPropertiesToExternalData(obj, buffer, type, length) == JsNoError);
+                VERIFY_IS_TRUE(JsSetIndexedPropertiesToExternalData(obj, buffer, type, uiLength) == JsNoError);
 
                 bool tmpHas;
                 VERIFY_IS_TRUE(JsHasIndexedPropertiesExternalData(obj, &tmpHas) == JsNoError);
@@ -1796,18 +1799,18 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(JsGetIndexedPropertiesExternalData(obj, &tmpData, &tmpType, &tmpLength) == JsNoError);
                 VERIFY_ARE_EQUAL(static_cast<void*>(buffer), tmpData);
                 VERIFY_ARE_EQUAL(type, tmpType);
-                VERIFY_ARE_EQUAL(static_cast<unsigned int>(length), tmpLength);
+                VERIFY_ARE_EQUAL(uiLength, tmpLength);
 
-                verifyIndexedPropertiesEqual(typedArray, obj, length);
+                verifyIndexedPropertiesEqual(typedArray, obj, uiLength);
 
-                for (int k = 0; k < static_cast<int>(length); k++)
+                for (unsigned int k = 0; k < uiLength; k++)
                 {
                     JsValueRef index, value;
                     VERIFY_IS_TRUE(JsIntToNumber(k, &index) == JsNoError);
                     VERIFY_IS_TRUE(JsIntToNumber(k * 100, &value) == JsNoError);
                     VERIFY_IS_TRUE(JsSetIndexedProperty(obj, index, value) == JsNoError);
                 }
-                verifyIndexedPropertiesEqual(typedArray, obj, length);
+                verifyIndexedPropertiesEqual(typedArray, obj, uiLength);
             }
         }
 
