@@ -16,7 +16,7 @@
 // =================
 #include "Runtime.h"
 #include "Library\EtwTrace.h"
-#include "Library\AsyncDebug.h"
+#include "AsyncDebug.h"
 #include "Library\dataview.h"
 #include "Library\JavascriptProxy.h"
 #include "Library\ThreadContextTLSEntry.h"
@@ -132,7 +132,9 @@
 
 #include "scrpting.h"
 #include "caller.h"
+#include "DiagnosticsScriptObject.h"
 #include "activescripterror.h"
+#include "ActiveScriptExternalLibrary.h"
 #include "scriptsite.h"
 #include "QueryContinuePoller.h"
 #include "dbgprop.h"

@@ -35,6 +35,10 @@ class CJavascriptOperations;
 interface IDebugSetValueCallback;
 
 #ifdef ENABLE_PROJECTION
+namespace Projection
+{
+    class ProjectionContext;
+}
 using namespace Projection;
 #endif
 

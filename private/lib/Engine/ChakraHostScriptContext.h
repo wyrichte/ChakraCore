@@ -105,6 +105,23 @@ public:
         return scriptSite->GetExternalJitData(id, data);
     }
 
+    HRESULT SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke) override
+    {
+        scriptSite->GetActiveScriptExternalLibrary()->SetDispatchInvoke(dispatchInvoke);
+        return NOERROR;
+    }
+
+    HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
+        __out Js::ArrayBuffer **ppArrayBuffer) override
+    {
+        return scriptSite->ArrayBufferFromExternalObject(obj, ppArrayBuffer);
+    }
+
+    Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr)
+    {
+        return scriptSite->CreateWinRTError(perrinfo, proerrstr);
+    }
+
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     void EnsureParentInfo(Js::ScriptContext* scriptContext = nullptr) override
     {

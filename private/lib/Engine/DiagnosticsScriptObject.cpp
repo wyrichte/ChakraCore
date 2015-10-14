@@ -83,7 +83,8 @@ namespace Js
         Js::JavascriptStackWalker walker(scriptContext);
         Js::JavascriptArray * arrayObject = scriptContext->GetLibrary()->CreateArray();
 
-        Js::DiagnosticsScriptObject *scriptObject = scriptContext->GetLibrary()->GetDiagnosticsScriptObect();
+        ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
+        Js::DiagnosticsScriptObject *scriptObject = scriptSite->GetActiveScriptExternalLibrary()->GetDiagnosticsScriptObect();
         Assert(scriptObject != nullptr);
 
         ushort frameCount = walker.WalkUntil((ushort)maxFrameCount, [&](Js::JavascriptFunction* function, ushort frameIndex) -> bool

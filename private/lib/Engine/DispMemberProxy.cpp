@@ -63,7 +63,7 @@ Js::RecyclableObject * DispMemberProxy::CloneToScriptContext(Js::ScriptContext* 
         DispMemberProxy,        
         refCountedHostVariant,
         this->m_id,
-        requestContext->GetLibrary()->GetDispMemberProxyType(),
+        GetScriptSite()->GetActiveScriptExternalLibrary()->GetDispMemberProxyType(),
         this->m_pwszName);
     return proxy;
 }

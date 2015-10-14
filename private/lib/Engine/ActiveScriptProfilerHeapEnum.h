@@ -69,7 +69,7 @@ public:
     void FillHeapObjectInternalUnnamedJSVarProperty(ProfilerHeapObjectOptionalInfo *optionalInfo, Var jsVar);
     void FillHeapObjectInternalUnnamedExternalProperty(ProfilerHeapObjectOptionalInfo *optionalInfo, PROFILER_EXTERNAL_OBJECT_ADDRESS externalObjectAddress);
     static UINT GetHeapObjectIndexPropertiesInfoSize(int propertyCount);
-    void VisitRoot(CUnknownImpl *unknownImpl);
+    void VisitRoot(Projection::CUnknownImpl *unknownImpl);
     void CloseHeapEnum();
 
     static PROFILER_RELATIONSHIP_INFO GetRelationshipInfo(const PROFILER_HEAP_OBJECT_RELATIONSHIP& relationship);

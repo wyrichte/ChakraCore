@@ -79,6 +79,7 @@ private:
     ArenaAllocator* hostAllocator;
     Js::ScriptContext* scriptSiteContext;
     Recycler* recycler;
+    ActiveScriptExternalLibrary* externalLibary;
 
     // Caller stuff.
     DispatchExCaller *currentDispatchExCaller;
@@ -155,6 +156,11 @@ public:
     HRESULT CheckEvalRestriction() const;
     HRESULT HostExceptionFromHRESULT(HRESULT hr, Var* outError) const;
     HRESULT GetExternalJitData(ExternalJitData id, void *data) const;
+    HRESULT SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke);
+    HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
+        __out Js::ArrayBuffer **ppArrayBuffer);
+    Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
+
 
     // Reference Counting
     void AddRef(void) { InterlockedIncrement(&refCount); }
@@ -182,6 +188,8 @@ public:
     DispatchMap * EnsureDispatchMap();
     DispatchMap * GetDispatchMap() { return this->dispatchMap; }
     RefCountedHostVariantAllocator * GetRefCountedHostVariantAllocator() { return &refCountedHostVariantAllocator; }
+
+    ActiveScriptExternalLibrary* GetActiveScriptExternalLibrary() const { return externalLibary;}
 
     // adding objects to the ModuleRoot
     HRESULT AddExternalObject(
@@ -356,6 +364,7 @@ private:
     HRESULT CheckIsSiteAlive();
     HRESULT VerifyStackOnEntry(BOOL allowedInHeapEnum = FALSE);
 
+    void EnsureExternalLibrary();
     void InitializeExternalLibrary();
     void InitializeTypes();
     void InitializeDebugObject();

@@ -50,6 +50,7 @@ namespace Projection
         ProjectionAsyncDebug* m_projectionAsyncDebug;
 
         ProjectionWriter * writer;
+        ProjectionExternalLibrary* projectionExternalLibrary;
 
         HRESULT GetTypeFromTypeNameParts(__in DWORD typeNamePartsCount, __in_ecount(typeNamePartsCount) HSTRING *typeNameParts, __in RtTYPE *type, DWORD *readParts);
         void EnsureProjectionBuilder();
@@ -67,6 +68,7 @@ namespace Projection
         ThreadContext* GetThreadContext() const { return threadContext; };
         ScriptEngine * GetScriptEngine() const; 
         ProjectionAsyncDebug* GetProjectionAsyncDebug() { return m_projectionAsyncDebug; }
+        ProjectionExternalLibrary* GetProjectionExternalLibrary() const { return projectionExternalLibrary; }
         DWORD GetTargetVersion() const;
 
         bool SupportsWeakDelegate() const { return supportsWeakDelegate; }
@@ -129,6 +131,8 @@ namespace Projection
         MetadataStringId toStringId;
 
         void ClearCaches();
+        static HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
+            __out Js::ArrayBuffer **ppArrayBuffer);
         
 #ifdef PROJECTION_METADATA_TRACE
         void Trace(const wchar_t *form, ...) const

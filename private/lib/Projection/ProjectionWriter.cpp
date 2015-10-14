@@ -1696,7 +1696,7 @@ namespace Projection
 
     Js::JavascriptFunction* ProjectionWriter::GetPromiseMaker()
     {
-        return projectionContext->GetScriptContext()->GetLibrary()->GetWinRTPromiseConstructor();
+        return projectionContext->GetProjectionExternalLibrary()->GetWinRTPromiseConstructor();
     }
 
     Windows::Foundation::IPropertyValueStatics *ProjectionWriter::GetPropertyValueFactory()

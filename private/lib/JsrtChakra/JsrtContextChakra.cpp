@@ -15,6 +15,8 @@
 #include "hostdispatch.h"
 #include "dispmemberproxy.h"
 #include "scrpting.h"
+#include "DiagnosticsScriptObject.h"
+#include "ActiveScriptExternalLibrary.h"
 #include "ScriptSite.h"
 
 #ifdef ENABLE_BASIC_TELEMETRY

@@ -10,6 +10,11 @@
 #include "..\Telemetry\Telemetry.h"
 #include "..\Telemetry\ScriptContextTelemetry.h"
 #endif
+#ifdef ENABLE_PROJECTION
+#include "..\Projection\\WinRtPromiseEngineInterfaceExtensionObject.h"
+#include "..\Projection\ProjectionExternalLibrary.h"
+#include "..\Projection\ProjectionContext.h"
+#endif
 
 #define DEFINE_OBJECT_NAME(object) const wchar_t *pwszObjectName = L#object;
 
@@ -48,6 +53,13 @@
 
 #define REG_GLOBAL_CONSTRUCTOR(functionPropertyId)\
     REG_LIB_FUNC(nullptr, functionPropertyId, Javascript##functionPropertyId##::NewInstance)\
+
+#define REG_GLOBAL_LIB_FUNC(functionPropertyId, entryPoint)\
+    REG_LIB_FUNC(NULL, functionPropertyId, entryPoint)\
+
+#define REGISTER_ERROR_OBJECT(functionPropertyId)\
+    REG_GLOBAL_LIB_FUNC(functionPropertyId, Js::JavascriptError::New##functionPropertyId##Instance)\
+    REG_LIB_FUNC(L#functionPropertyId, toString, Js::JavascriptError::EntryToString)\
 
 #define CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) recycler->SetIsScriptSiteCloseGC(true);
 
@@ -113,6 +125,43 @@ HRESULT ScriptSite::GetExternalJitData(ExternalJitData id, void *data) const
     }
 }
 
+HRESULT ScriptSite::SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke)
+{
+    GetActiveScriptExternalLibrary()->SetDispatchInvoke(dispatchInvoke);
+    return NOERROR;
+}
+
+HRESULT ScriptSite::ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
+    __out Js::ArrayBuffer **ppArrayBuffer)
+{
+#ifdef ENABLE_PROJECTION
+//    OUTPUT_TRACE(TypedArrayPhase, L"Suspected Projection ArrayBuffer source - attempting to get buffer\n");
+    Projection::ProjectionContext* projectionContext = scriptEngine->GetProjectionContext();
+    if (projectionContext && obj->IsExternal())
+    {
+        return ProjectionContext::ArrayBufferFromExternalObject(obj, ppArrayBuffer);
+    }
+    *ppArrayBuffer = nullptr;
+    return S_FALSE;
+
+#else
+    *ppArrayBuffer = nullptr;
+    return S_FALSE;
+#endif
+}
+
+Js::JavascriptError* ScriptSite::CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr)
+{
+#ifdef ENABLE_PROJECTION
+    Projection::ProjectionContext* projectionContext = GetScriptEngine()->GetProjectionContext();
+    if (projectionContext != nullptr)
+    {
+        return projectionContext->GetProjectionExternalLibrary()->CreateWinRTError(perrinfo, proerrstr);
+    }
+#endif
+    return GetScriptSiteContext()->GetLibrary()->CreateError();
+}
+
 ScriptSite::ScriptSite()
     : refCount(1)
     , scriptEngine(nullptr)
@@ -132,6 +181,7 @@ ScriptSite::ScriptSite()
     , isClosed(FALSE)
     , outstandingDispatchCount(0)
     , activeScriptKeepAlive(nullptr)
+    , externalLibary(nullptr)
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     , debugObjectHelper(nullptr)
 #endif
@@ -604,10 +654,10 @@ void ScriptSite::CreateModuleRoot(
     }
 #endif
     tempModule = RecyclerNew(this->GetRecycler(), Js::ModuleRoot,
-        GetScriptSiteContext()->GetLibrary()->GetModuleRootType());
+        externalLibary->GetModuleRootType());
     Js::ScriptContext * scriptContext = GetScriptSiteContext();
     HostObject* hostObject = RecyclerNew(this->GetRecycler(), HostObject, scriptContext, dispatch,
-        GetScriptSiteContext()->GetLibrary()->GetHostObjectType());
+        GetActiveScriptExternalLibrary()->GetHostObjectType());
     tempModule->SetHostObject(moduleID, hostObject);
     moduleRoots->Add(tempModule);
 }
@@ -805,13 +855,12 @@ HRESULT ScriptSite::AddGlobalDispatch(
 
 
     Js::GlobalObject* globalObject = scriptContext->GetGlobalObject();
-    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
     HostObject* hostObject = RecyclerNew(
         this->GetRecycler(),
         HostObject,
         scriptContext,
         dispatch,
-        library->GetHostObjectType());
+        externalLibary->GetHostObjectType());
 
     if (globalObject->GetHostObject() == nullptr)
     {
@@ -1587,42 +1636,28 @@ HRESULT ScriptSite::CheckIsSiteAlive()
 void
 ScriptSite::InitializeExternalLibrary()
 {
-    InitializeTypes();
+    EnsureExternalLibrary();
+    externalLibary->Initialize(GetScriptSiteContext()->GetLibrary());
+
     InitializeDebugObject();
-
-    if (GetScriptSiteContext()->IsDiagnosticsScriptContext())
-    {
-        InitializeDiagnosticsScriptObject();
-    }
-
 #if defined(EDIT_AND_CONTINUE) && defined(ENABLE_DEBUG_CONFIG_OPTIONS)
     InitializeEditTest();
 #endif
 }
 
-void ScriptSite::InitializeTypes()
+void ScriptSite::EnsureExternalLibrary()
 {
-    Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
-    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
-
-    Js::DynamicObject * dispMemberProxyPrototype = library->CreateObject();
-    library->dispMemberProxyType = Js::StaticType::New(scriptContext, Js::TypeIds_HostDispatch,
-            dispMemberProxyPrototype, DispMemberProxy::DefaultInvoke);
-
-    library->hostDispatchType = Js::StaticType::New(scriptContext, Js::TypeIds_HostDispatch,
-            library->GetNull(), HostDispatch::Invoke);
-
-    library->hostDispatchType->SetHasSpecialPrototype(true);
-
-    library->moduleRootType = Js::DynamicType::New(scriptContext, Js::TypeIds_ModuleRoot, library->GetObjectPrototype(), nullptr,
-        Js::SimpleDictionaryTypeHandler::New(scriptContext->GetRecycler(), 0, 0, 0, true, true), true, true);
-
-    library->hostObjectType = Js::DynamicType::New(scriptContext, Js::TypeIds_HostObject, library->GetNull(), nullptr,
-        Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
+    if (externalLibary == nullptr)
+    {
+        Js::ScriptContext * scriptContext = this->GetScriptSiteContext();
+        Js::JavascriptLibrary* library = scriptContext->GetLibrary();
+        externalLibary = RecyclerNew(library->GetRecycler(), ActiveScriptExternalLibrary);
+    }
 }
 
 void ScriptSite::InitializeDebugObject()
 {
+    // TODO: move this to ActiveScriptExternalLibrary after move out Promise.
     Js::ScriptContext* scriptContext = this->GetScriptSiteContext();
     Js::JavascriptLibrary* library = scriptContext->GetLibrary();
 
@@ -1750,21 +1785,6 @@ void ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::D
         debugObject->SetAttributes(Js::PropertyIds::msTraceAsyncOperationCompleted, PropertyNone);
     }
 
-}
-
-void ScriptSite::InitializeDiagnosticsScriptObject()
-{
-    Js::ScriptContext* scriptContext = this->GetScriptSiteContext();
-    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
-
-    Js::DiagnosticsScriptObject* diagnosticsScriptObject = Js::DiagnosticsScriptObject::New(scriptContext->GetRecycler(), library->GetObjectType());
-    library->InitializeDiagnosticsScriptObject(diagnosticsScriptObject);
-
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"getStackTrace", &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"debugEval", &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
-#ifdef EDIT_AND_CONTINUE
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"editSource", &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
-#endif
 }
 
 #if defined(EDIT_AND_CONTINUE) && defined(ENABLE_DEBUG_CONFIG_OPTIONS)
@@ -2152,6 +2172,10 @@ HRESULT ScriptSite::RegisterExternalLibrary(Js::ScriptContext *pScriptContext)
     HRESULT hr = S_OK;
 
     REGISTER_OBJECT(Debug);
+    if (pScriptContext->GetConfig()->IsWinRTEnabled())
+    {
+        REGISTER_ERROR_OBJECT(WinRTError);
+    }
 
     return hr;
 }

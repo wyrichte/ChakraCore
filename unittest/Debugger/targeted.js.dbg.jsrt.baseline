@@ -47,8 +47,7 @@
           "f": "<large string>",
           "f1": "<large string>",
           "g": "<large string>",
-          "g1": "<large string>",
-          "WinRTError": "<large string>"
+          "g1": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -162,8 +161,7 @@
           "f": "<large string>",
           "f1": "<large string>",
           "g": "<large string>",
-          "g1": "<large string>",
-          "WinRTError": "<large string>"
+          "g1": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -277,8 +275,7 @@
           "f": "<large string>",
           "f1": "<large string>",
           "g": "<large string>",
-          "g1": "<large string>",
-          "WinRTError": "<large string>"
+          "g1": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -392,8 +389,7 @@
           "f": "<large string>",
           "f1": "<large string>",
           "g": "<large string>",
-          "g1": "<large string>",
-          "WinRTError": "<large string>"
+          "g1": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -507,8 +503,7 @@
           "f": "<large string>",
           "f1": "<large string>",
           "g": "<large string>",
-          "g1": "<large string>",
-          "WinRTError": "<large string>"
+          "g1": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",

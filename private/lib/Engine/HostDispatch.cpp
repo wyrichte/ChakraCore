@@ -78,11 +78,12 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL t
         }
     }
 
+    ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
     return RecyclerNewFinalized(
         recycler,
         HostDispatch,        
         hostVariant,
-        scriptContext->GetLibrary()->GetHostDispatchType());
+        scriptSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
 
 HostDispatch* 
@@ -104,12 +105,13 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
     {
         Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: L"NEED MESSAGE" */);
     } 
-    
+
+    ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
     HostDispatch* hostDispatch = RecyclerNewFinalized(
         recycler,
         HostDispatch,        
         hostVariant,
-        scriptContext->GetLibrary()->GetHostDispatchType());
+        scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
         
     return hostDispatch;
 }
@@ -138,22 +140,25 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, ITracker 
         hostVariant = RecyclerNewTrackedLeaf(recycler, HostVariant, tracker, scriptContext);
     }
 
+    ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
     return RecyclerNewFinalized(
         recycler,
         HostDispatch,        
         hostVariant,
-        scriptContext->GetLibrary()->GetHostDispatchType());    
+        scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
 
 HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, LPCOLESTR itemName)
 {
     Assert(scriptContext->GetThreadContext()->IsScriptActive());
     Recycler* recycler = scriptContext->GetRecycler();
+    ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
+
     return RecyclerNewFinalized(
         recycler,
         HostDispatch,        
         RecyclerNewTrackedLeaf(recycler, HostVariant, itemName),
-        scriptContext->GetLibrary()->GetHostDispatchType());   
+        scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
 
 HostDispatch::HostDispatch(HostVariant* hostVariant, Js::StaticType * type) :
@@ -676,7 +681,7 @@ void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_
         DispMemberProxy,        
         RecyclerNewTrackedLeaf(scriptContext->GetRecycler(), HostVariant, FastGetDispatchNoRef(pHostVariant), scriptContext),
         id,
-        scriptContext->GetLibrary()->GetDispMemberProxyType(),
+        scriptSite->GetActiveScriptExternalLibrary()->GetDispMemberProxyType(),
         name);
 
     *pValue = proxy;
@@ -2143,11 +2148,12 @@ Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* req
     }
 
     Recycler* recycler = requestContext->GetRecycler();
+    ScriptSite* requestSite = ScriptSite::FromScriptContext(requestContext);
     HostDispatch* newHostDispatch = RecyclerNewFinalized(
         recycler,
         HostDispatch,        
         refCountedHostVariant,
-        requestContext->GetLibrary()->GetHostDispatchType());
+        requestSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
     
     return newHostDispatch;    
 

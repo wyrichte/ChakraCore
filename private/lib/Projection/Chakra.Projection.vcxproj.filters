@@ -41,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ProjectionPch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptWinRTDate.cpp" />
+    <ClCompile Include="ProjectionExternalLibrary.cpp" />
+    <ClCompile Include="WinRtPromiseEngineInterfaceExtensionObject.cpp" />
+    <ClCompile Include="AsyncDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ABIDelegates.h" />
@@ -85,6 +88,9 @@
     <ClInclude Include="JavascriptWinRTFunction.h" />
     <ClInclude Include="JavascriptWinRTDate.h" />
     <ClInclude Include="ProjectionPch.h" />
+    <ClInclude Include="ProjectionExternalLibrary.h" />
+    <ClInclude Include="AsyncDebug.h" />
+    <ClInclude Include="WinRtPromiseEngineInterfaceExtensionObject.h" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="$(MsBuildThisFileDirectory)amd64\UnknownImplHelper.asm">

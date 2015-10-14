@@ -207,7 +207,7 @@ PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(Js::Rec
     }
     if (! Js::ExternalObject::Is(obj))
     {
-        if (IsWinRTConstructorFunction(obj))
+        if (Projection::IsWinRTConstructorFunction(obj))
         {
             return GetTypeNameId(HeapObjectType_WinRT);
         }
@@ -803,7 +803,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         // Constructor function
         if (obj->GetTypeId() == Js::TypeIds_Function)
         {
-            Assert(IsWinRTConstructorFunction(obj));
+            Assert(Projection::IsWinRTConstructorFunction(obj));
             extObj = Projection::CreateWinrtConstructorObjectElement(this, obj);
         }
         else
@@ -1047,7 +1047,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
 HostProfilerHeapObject* ActiveScriptProfilerHeapEnum::CreateExternalObjectElement(PROFILER_HEAP_OBJECT_NAME_ID typeNameId, Js::RecyclableObject* obj)
 {
     Assert(typeNameId == GetTypeNameId(HeapObjectType_DOM) || typeNameId == GetTypeNameId(HeapObjectType_WinRT));
-    Assert(!IsWinRTConstructorFunction(obj));
+    Assert(!Projection::IsWinRTConstructorFunction(obj));
     HostProfilerHeapObject* externalHeapObjInfo;
     HeapObjectInfoReturnResult returnResult = HeapObjectInfoReturnResult_NoResult;
     HRESULT hr = GetHeapObjectInfo(obj, &externalHeapObjInfo, returnResult);

@@ -38,7 +38,9 @@ namespace Js
 
     JavascriptWinRTDate* JavascriptWinRTDate::New(INT64 rtDate, ScriptContext* scriptContext)
     {
+        ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
+        ProjectionContext* projectionContext = scriptSite->GetScriptEngine()->GetProjectionContext();
         return RecyclerNew(scriptContext->GetRecycler(), Js::JavascriptWinRTDate, rtDate,
-            scriptContext->GetLibrary()->GetWinRTDateType());
+            projectionContext->GetProjectionExternalLibrary()->GetWinRTDateType());
     }
 }

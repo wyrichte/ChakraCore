@@ -298,14 +298,19 @@ namespace Projection
             replaceAllId = IdOfString(L"replaceAll");
             toStringId = IdOfString(L"toString");
 
-            // Hook up the ArrayBuffer Lib to DLL mapping
-            Js::JavascriptLibrary * library = scriptSite->GetScriptSiteContext()->GetLibrary();
-            library->pfArrayBufferFromExternalObject = ProjectionObjectInstance::ArrayBufferFromExternalObjectDispatch;
+            projectionExternalLibrary = RecyclerNew(threadContext->GetRecycler(), ProjectionExternalLibrary);
+            projectionExternalLibrary->Initialize(scriptContext->GetLibrary());
 
             TRACE_METADATA(L"WinRT Projections initialized\n");
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr)
         return hr;
+    }
+
+    HRESULT ProjectionContext::ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
+        __out Js::ArrayBuffer **ppArrayBuffer)
+    {
+        return ProjectionObjectInstance::ArrayBufferFromExternalObjectDispatch(obj, ppArrayBuffer);
     }
 
     ProjectionWriter * ProjectionContext::GetProjectionWriter()

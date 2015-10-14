@@ -125,6 +125,7 @@
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
+    <ClCompile Include="ActiveScriptExternalLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activescripterror.h" />
+    <ClInclude Include="ActiveScriptExternalLibrary.h" />
     <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
     <ClInclude Include="ad1ex.h" />
     <ClInclude Include="AttrParser.h" />

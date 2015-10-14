@@ -7,8 +7,6 @@
 
 #include <atlbase.h>
 
-
-
 // =================
 // Parser Includes
 // =================
@@ -18,7 +16,7 @@
 // Runtime Includes
 // =================
 #include "Runtime.h"
-#include "Library\AsyncDebug.h"
+#include "AsyncDebug.h"
 #include "Debug\DiagProbe.h"
 #include "Library\JavascriptErrorDebug.h"
 
@@ -52,6 +50,10 @@
 #include "ActiveScriptProfilerHeapEnum.h"
 #endif
 
+#include "DiagnosticsScriptObject.h"
+#include "ActiveScriptExternalLibrary.h"
+#include "WinRtPromiseEngineInterfaceExtensionObject.h"
+#include "ProjectionExternalLibrary.h"
 #include "scriptsite.h"
 #include "AutoCallerPointer.h"
 
