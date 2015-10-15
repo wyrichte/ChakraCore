@@ -1,0 +1,296 @@
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Unable to create new function table imp
+Asm.js compilation failed.
+Unable to create new function table tbl
+Asm.js compilation failed.
+Invalid variable after function declaration
+Asm.js compilation failed.
+Function table [tbl] size must be a power of 2
+Asm.js compilation failed.
+Function table [tbl] size must be a power of 2
+Asm.js compilation failed.
+Invalid element in function table tbl
+Asm.js compilation failed.
+Element in function table tbl is not a function
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+Function return types in table tbl do not match
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+Function return types in table tbl do not match
+Asm.js compilation failed.
+
+functionPtr.js(48, 36)
+	Asm.js Compilation Error function : None::g
+	Unable to find function table tbl
+
+Asm.js compilation failed.
+
+functionPtr.js(49, 50)
+	Asm.js Compilation Error function : None::g
+	Function call must be of format identifier(...) or identifier[expr & size](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(50, 50)
+	Asm.js Compilation Error function : None::g
+	Identifier f is not a function table
+
+Asm.js compilation failed.
+
+functionPtr.js(51, 50)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(52, 50)
+	Asm.js Compilation Error function : None::g
+	Trying to load from Function table tbl of size [2] with size [1]
+
+Asm.js compilation failed.
+
+functionPtr.js(53, 50)
+	Asm.js Compilation Error function : None::g
+	Trying to load from Function table tbl of size [2] with size [4]
+
+Asm.js compilation failed.
+
+functionPtr.js(54, 50)
+	Asm.js Compilation Error function : None::g
+	Invalid type for [| & ^ >> << >>>] left and right operand must be of type intish
+
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+Function signatures in table tbl do not match
+Asm.js compilation failed.
+
+functionPtr.js(59, 25)
+	Asm.js Compilation Error function : None::g
+	Unable to find function table tbl
+
+Asm.js compilation failed.
+
+functionPtr.js(60, 50)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(61, 50)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(62, 70)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(63, 50)
+	Asm.js Compilation Error function : None::g
+	Function table size must be positive
+
+Asm.js compilation failed.
+
+functionPtr.js(64, 62)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(65, 50)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(66, 70)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(67, 50)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(68, 71)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(69, 61)
+	Asm.js Compilation Error function : None::g
+	Function table call must be of format identifier[expr & NumericLiteral](...)
+
+Asm.js compilation failed.
+
+functionPtr.js(70, 50)
+	Asm.js Compilation Error function : None::g
+	Function table size must be a power of 2
+
+Asm.js compilation failed.
+42
+0
+42
+42
+13
+13
+42
+42
+42
+42
+13
+13
+5
+5
+20
+20
+22
+22
+13.5
+13.5
+42
+42
+13
+13
+10.1
+15.1
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13
+13
+13
+13
+13
+13
+42
+13
+13

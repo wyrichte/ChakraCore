@@ -104,4 +104,428 @@
       <compile-flags>-testtrace:asmjs -debuglaunch</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>mathLib.js</files>
+      <baseline>mathLib.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mathLib.js</files>
+      <baseline>mathLib.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mathLib.js</files>
+      <baseline>mathLib.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>functionPtr.js</files>
+      <baseline>functionPtr.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>functionPtr.js</files>
+      <baseline>functionPtr.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>functionPtr.js</files>
+      <baseline>functionPtr.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>functionPtr.js</files>
+      <baseline>functionPtr.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>floatingPoint.js</files>
+      <baseline>floatingPoint.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>floatingPoint.js</files>
+      <baseline>floatingPoint.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>floatingPoint.js</files>
+      <baseline>floatingPoint.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>clang.js</files>
+      <baseline>clang.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>changeHeap.js</files>
+      <baseline>changeHeap.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>changeHeap.js</files>
+      <baseline>changeHeap.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>changeHeap.js</files>
+      <baseline>changeHeap.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmHeapAccess.js</files>
+      <baseline>asmHeapAccess.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmHeapAccess.js</files>
+      <baseline>asmHeapAccess.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmHeapAccess.js</files>
+      <baseline>asmHeapAccess.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmGlobals.js</files>
+      <baseline>asmGlobals.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmGlobals.js</files>
+      <baseline>asmGlobals.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmGlobals.js</files>
+      <baseline>asmGlobals.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmExpressions.js</files>
+      <baseline>asmExpressions.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmExpressions.js</files>
+      <baseline>asmExpressions.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmExpressions.js</files>
+      <baseline>asmExpressions.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmControlFlow.js</files>
+      <baseline>asmControlFlow.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -mtjrc:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmControlFlow.js</files>
+      <baseline>asmControlFlow.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>asmControlFlow.js</files>
+      <baseline>asmControlFlow.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ammogrowable.js</files>
+      <baseline>ammogrowable.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ammogrowable.js</files>
+      <baseline>ammogrowable.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ammogrowable.js</files>
+      <baseline>ammogrowable.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>ammogrowable.js</files>
+      <baseline>ammogrowable.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>MatrixLinkFail.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -forceasmjslinkfail</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>Matrix.baseline</baseline>
+      <tags></tags>
+      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>Matrix.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>Matrix.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>Matrix.baseline</baseline>
+      <tags>Slow</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsmFloatTests.js</files>
+      <baseline>AsmFloatTests.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsmFloatTests.js</files>
+      <baseline>AsmFloatTests.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AsmFloatTests.js</files>
+      <baseline>AsmFloatTests.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>pi.js</files>
+      <baseline>pi.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>pi.js</files>
+      <baseline>pi.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>pi.js</files>
+      <baseline>pi.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>massiveLoopBug.js</files>
+      <baseline>massiveLoopBug.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -bgjit- -lic:1</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testCall.js</files>
+      <baseline>testCall.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testCall.js</files>
+      <baseline>testCall.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testCall.js</files>
+      <baseline>testCall.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testCall.js</files>
+      <baseline>testCall.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testFFI.js</files>
+      <baseline>testFFI.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testFFI.js</files>
+      <baseline>testFFI.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testFFI.js</files>
+      <baseline>testFFI.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testFFI.js</files>
+      <baseline>testFFI.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testBasic.js</files>
+      <baseline>testBasic.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testBasic.js</files>
+      <baseline>testBasic.baseline</baseline>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testBasic.js</files>
+      <baseline>testBasic.baseline</baseline>
+      <tags>exclude_amd64</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
+    </default>
+  </test>
 </regress-exe>

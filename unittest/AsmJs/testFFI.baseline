@@ -1,0 +1,77 @@
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
+23
+undefined
+1
+1
+2
+2
+3
+10
+10
+13
+13
+35.800000000000004
+35.800000000000004
+6
+171.99999999999997
+17
+16
+6
+4
+3.3
+7.6
+12.899999999999998
+1
+-2147483648
+number
+2
+number
+3
+number
+4
+number
+10
+14
+13.37
+13.37
+6.4
+10.4
+38.4
+13.37
+NaN
+0
+Asm.js Runtime Error : Foreign function import doesntExist is not a function
+asm.js linking failed.
+13.37
+Asm.js Runtime Error : Foreign function import a is not a function
+asm.js linking failed.
+13.37
+Asm.js Runtime Error : Accessing var import a has side effects
+asm.js linking failed.
+implicit valueOf
+13.37
