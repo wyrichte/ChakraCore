@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <test>
+    <default>
+      <files>unicode-3d-cube.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>unicode-controlflow-recursive.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>unicode-crypto-md5-2.js</files>
+      <tags>fail_mutators,fail</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>unicode-crypto-md5.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>utf8-3d-cube.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>utf8-controlflow-recursive.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>utf8-crypto-md5-2.js</files>
+      <baseline />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>utf8-crypto-md5.js</files>
+      <baseline />
+    </default>
+  </test>
+</regress-exe>

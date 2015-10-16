@@ -241,4 +241,9 @@
     <tags>exclude_serialized,exclude_arm,exclude_arm64</tags>
   </default>
 </dir>
+<dir>
+  <default>
+    <files>utf8</files>
+  </default>
+</dir>
 </regress-exe>
