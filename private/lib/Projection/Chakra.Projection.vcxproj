@@ -104,9 +104,9 @@
       <ObjectFileName Condition="'$(Platform)'!='Arm64'">$(IntDir)\arm64</ObjectFileName>
       <ExcludedFromBuild Condition="'$(Platform)'!='Arm64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="AsyncDebug.cpp" />
-    <ClCompile Include="ProjectionExternalLibrary.cpp" />
-    <ClCompile Include="WinRtPromiseEngineInterfaceExtensionObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AsyncDebug.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectionExternalLibrary.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WinRtPromiseEngineInterfaceExtensionObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="$(MsBuildThisFileDirectory)amd64\projectioncall.asm">

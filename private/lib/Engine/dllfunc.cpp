@@ -408,12 +408,7 @@ LONG CComEngineModule::GetLockCount()
     return (LONG)s_cLibRef;
 }
 
-// This is consumed by AutoSystemInfo. AutoSystemInfo is in Chakra.Common.Core.lib, which is linked
-// into multiple DLLs. The hosting DLL provides the implementation of this function.
-bool GetDeviceFamilyInfo(
-    _Out_opt_ ULONGLONG* pullUAPInfo,
-    _Out_opt_ ULONG* pulDeviceFamily,
-    _Out_opt_ ULONG* pulDeviceForm)
+static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
 {
     bool deviceInfoRetrieved = false;
 
@@ -428,9 +423,23 @@ bool GetDeviceFamilyInfo(
 
     if (pfnRtlGetDeviceFamilyInfoEnum)
     {
-        pfnRtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm);
+        ULONGLONG UAPInfo;
+        ULONG DeviceForm;
+        pfnRtlGetDeviceFamilyInfoEnum(&UAPInfo, pulDeviceFamily, &DeviceForm);
         deviceInfoRetrieved = true;
     }
 
     return deviceInfoRetrieved;
+}
+
+void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
+{
+    ULONG DeviceFamily;
+    if (GetDeviceFamily(&DeviceFamily))
+    {
+        bool isMobile = (DeviceFamily == 0x00000004 /*DEVICEFAMILYINFOENUM_MOBILE*/);
+        autoSystemInfo->shouldQCMoreFrequently = isMobile;
+        autoSystemInfo->supportsOnlyMultiThreadedCOM = isMobile;  //TODO: pick some other platform to the list
+        autoSystemInfo->isLowMemoryDevice = isMobile;  //TODO: pick some other platform to the list
+    }
 }

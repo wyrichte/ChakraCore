@@ -105,6 +105,7 @@
     <Link Condition="'$(BuildingWithBuildExe)'=='true'">
       <AdditionalDependencies>
         %(AdditionalDependencies);
+        $(ChakraCommonCodexLib);
         $(RazzleJscriptObjectRoot)\private\lib\scalookup\$(ObjectDirectory)\SCALookup_iel3.lib;
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
         $(SdkLibPath)\advapi32.lib

@@ -94,3 +94,23 @@ extern "C"
         return true;
     }
 }
+
+bool GetDeviceFamilyInfo(
+    _Out_opt_ ULONGLONG* /*pullUAPInfo*/,
+    _Out_opt_ ULONG* /*pulDeviceFamily*/,
+    _Out_opt_ ULONG* /*pulDeviceForm*/);
+
+void
+ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
+{
+    ULONGLONG UAPInfo;
+    ULONG DeviceFamily;
+    ULONG DeviceForm;
+    if (GetDeviceFamilyInfo(&UAPInfo, &DeviceFamily, &DeviceForm))
+    {
+        bool isMobile = (DeviceFamily == 0x00000004 /*DEVICEFAMILYINFOENUM_MOBILE*/);
+        autoSystemInfo->shouldQCMoreFrequently = isMobile;
+        autoSystemInfo->supportsOnlyMultiThreadedCOM = isMobile;  //TODO: pick some other platform to the list
+        autoSystemInfo->isLowMemoryDevice = isMobile;  //TODO: pick some other platform to the list
+    }
+}
