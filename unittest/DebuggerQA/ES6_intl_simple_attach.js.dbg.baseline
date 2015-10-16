@@ -33,8 +33,6 @@
           "[Methods]": {
             "compare": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "2",
               "name": "bound compare"
             },
@@ -84,8 +82,6 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "1",
               "name": "bound format"
             },
@@ -129,8 +125,6 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "arguments": "<large string>",
-              "caller": "<large string>",
               "length": "0",
               "name": "bound format"
             },

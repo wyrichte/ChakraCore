@@ -620,8 +620,6 @@
       "oncancel": "undefined",
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -737,8 +735,6 @@
       },
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -1929,22 +1925,16 @@
       "oncancel": "undefined",
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
       "error": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "bound _error"
       },
       "progress": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -2967,8 +2957,6 @@
       "oncancel": "undefined",
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -3096,8 +3084,6 @@
       },
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -4098,22 +4084,16 @@
       "oncancel": "undefined",
       "complete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
       "error": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "bound _error"
       },
       "progress": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -5365,8 +5345,6 @@
       },
       "onComplete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
@@ -6580,8 +6558,6 @@
       },
       "onComplete": {
         "__proto__": "<large string>",
-        "arguments": "<large string>",
-        "caller": "<large string>",
         "length": "1",
         "name": "<large string>"
       },
