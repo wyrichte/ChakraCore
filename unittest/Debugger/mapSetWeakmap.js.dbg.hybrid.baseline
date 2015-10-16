@@ -645,7 +645,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
@@ -686,7 +685,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
@@ -1166,7 +1164,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
@@ -1207,7 +1204,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
@@ -1800,7 +1796,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
@@ -1841,7 +1836,6 @@
               "bind": "<large string>",
               "call": "<large string>",
               "constructor": "<large string>",
-              "toMethod": "<large string>",
               "toString": "<large string>"
             },
             "__proto__": {
