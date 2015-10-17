@@ -441,7 +441,6 @@
           },
           "length": "0",
           "Symbol.unscopables": {
-            "__proto__": "{...}",
             "copyWithin": "true",
             "entries": "true",
             "fill": "true",
@@ -493,7 +492,6 @@
           },
           "length": "0",
           "Symbol.unscopables": {
-            "__proto__": "{...}",
             "copyWithin": "true",
             "entries": "true",
             "fill": "true",

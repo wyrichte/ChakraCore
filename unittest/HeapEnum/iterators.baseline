@@ -577,7 +577,7 @@
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 27 Symbol.iterator: type: FunctionObject (seen)
  |  |    |    |  | 28 Symbol.unscopables: type: ObjectObject flags: (new) optional info records (2)
- |  |    |    |  |    [Prototype] type: ObjectObject (seen)
+ |  |    |    |  |    [Prototype] type: Null (seen)
  |  |    |    |  |    [Properties] count: 7
  |  |    |    |  |    | 0 find: type: Boolean flags: (new) optional info records (1)
  |  |    |    |  |    |    [Prototype] type: BooleanObject flags: (new) optional info records (1)
@@ -1213,7 +1213,7 @@
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 27 Symbol.iterator: type: FunctionObject (seen)
  |  |    |    |  | 28 Symbol.unscopables: type: ObjectObject flags: (old) optional info records (2)
- |  |    |    |  |    [Prototype] type: ObjectObject (seen)
+ |  |    |    |  |    [Prototype] type: Null (seen)
  |  |    |    |  |    [Properties] count: 7
  |  |    |    |  |    | 0 find: type: Boolean flags: (old) optional info records (1)
  |  |    |    |  |    |    [Prototype] type: BooleanObject flags: (old) optional info records (1)
