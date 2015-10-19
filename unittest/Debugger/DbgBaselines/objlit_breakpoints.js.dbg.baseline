@@ -442,7 +442,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -459,7 +460,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -476,7 +478,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -493,7 +496,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1225,7 +1229,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1242,7 +1247,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1259,7 +1265,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1276,7 +1283,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1371,7 +1379,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1388,7 +1397,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1405,7 +1415,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",
@@ -1422,7 +1433,8 @@
           "__proto__": "{...}",
           "arguments": "<large string>",
           "caller": "<large string>",
-          "length": "0"
+          "length": "0",
+          "name": ""
         },
         "arguments": "null",
         "caller": "null",

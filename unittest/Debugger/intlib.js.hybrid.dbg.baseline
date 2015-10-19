@@ -370,13 +370,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 58503,
+        "start": 58462,
         "length": 72,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -428,13 +428,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 58503,
+        "start": 58462,
         "length": 72,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -614,7 +614,7 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 59292,
+        "start": 59251,
         "length": 74,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -648,7 +648,7 @@
   {
     "callstack": [
       {
-        "start": 59367,
+        "start": 59326,
         "length": 64,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -1026,13 +1026,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63505,
+        "start": 63464,
         "length": 112,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1090,13 +1090,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63505,
+        "start": 63464,
         "length": 112,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1166,13 +1166,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64263,
+        "start": 64222,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1230,13 +1230,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64263,
+        "start": 64222,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1306,13 +1306,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 65023,
+        "start": 64982,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"
@@ -1370,13 +1370,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53722,
+        "start": 53681,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 65023,
+        "start": 64982,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"

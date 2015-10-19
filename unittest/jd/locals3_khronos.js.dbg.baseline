@@ -377,7 +377,9 @@
           "caller - [Type]": "Error",
           "caller": "Accessing the 'caller' property is restricted in this context",
           "length - [Type]": "Number",
-          "length": "0"
+          "length": "0",
+          "name - [Type]": "String",
+          "name": ""
         },
         "$' - [Type]": "String",
         "$'": "",

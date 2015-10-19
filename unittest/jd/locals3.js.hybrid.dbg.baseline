@@ -392,7 +392,9 @@
           "caller - [Type]": "String",
           "caller": "Function evaluation is disabled while debugging native code",
           "length - [Type]": "Number",
-          "length": "0"
+          "length": "0",
+          "name - [Type]": "String",
+          "name": ""
         },
         "$' - [Type]": "String",
         "$'": "",
