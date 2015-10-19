@@ -122,6 +122,11 @@ public:
         return scriptSite->CreateWinRTError(perrinfo, proerrstr);
     }
 
+    Js::JavascriptFunction* InitializeHostPromiseContinuationFunction()
+    {
+        return scriptSite->InitializeHostPromiseContinuationFunction();
+    }
+
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     void EnsureParentInfo(Js::ScriptContext* scriptContext = nullptr) override
     {

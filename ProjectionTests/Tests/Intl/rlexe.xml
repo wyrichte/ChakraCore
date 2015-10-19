@@ -127,14 +127,6 @@
     </test>
     <test>
         <default>
-            <files>StackWithScriptInLibrary.js</files>
-            <baseline>StackWithScriptInLibrary.win7.baseline</baseline>
-            <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -ForceDownlevelAsyncDebug -DebugLaunch</compile-flags>
-            <tags>exclude_win7,exclude_win8,exclude_arm</tags>            
-        </default>
-    </test>
-    <test>
-        <default>
             <files>funcSource.js</files>
             <compile-flags>-targeted -inspectmaxstringlength:100 -debuglaunch -dbgbaseline:funcSource.js.dbg.baseline</compile-flags>
             <tags>exclude_win7,exclude_win8,exclude_arm</tags>

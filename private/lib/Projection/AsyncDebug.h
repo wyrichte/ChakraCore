@@ -127,9 +127,5 @@ protected:
     static void EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::AsyncOperationId operationId);
 #endif
 
-    static AsyncOperationId nextAsyncOperationId;
-    static char isDownlevel;
-
-    // Look to see if we need to use the downlevel async debug API or the WinRT interface for win8+.
-    static bool IsDownlevel(Js::ScriptContext* scriptContext);
+    __declspec(thread) static AsyncOperationId nextAsyncOperationId;
 };

@@ -22,7 +22,6 @@ const GUID AsyncDebug::ChakraPlatformGUID = { 0x3ceff62f, 0xe251, 0x4588, { 0xae
 const AsyncDebug::AsyncSource AsyncDebug::ChakraAsyncSource = AsyncDebug::AsyncSource_Library;
 const AsyncDebug::AsyncOperationId AsyncDebug::InvalidAsyncOperationId = 0;
 AsyncDebug::AsyncOperationId AsyncDebug::nextAsyncOperationId = 0;
-char AsyncDebug::isDownlevel = -1;
 
 // Forward-declare downlevel causaily API defined in RoCausality.cpp.
 HRESULT RoCausalityTraceAsyncOperationCreation(
@@ -80,38 +79,6 @@ AsyncDebug::AsyncOperationId AsyncDebug::GetNextAsyncOperationId()
 bool AsyncDebug::IsAsyncDebuggingEnabled(Js::ScriptContext* scriptContext)
 {
     return CONFIG_FLAG(AsyncDebugging);
-}
-
-bool AsyncDebug::IsDownlevel(Js::ScriptContext* scriptContext)
-{
-    // isDownlevel is a tri-state. 
-    //   -1 = not calculated. 
-    //    1 = downlevel. 
-    //    0 = not downlevel.
-    if (AsyncDebug::isDownlevel == -1)
-    {
-        // If foundation object isn't available (or disabled), we are running on Win7.
-#ifdef ENABLE_FOUNDATION_OBJECT
-        AsyncDebug::isDownlevel = scriptContext->GetThreadContext()->GetWinRtFoundationLibrary()->IsAvailable() ? 0 : 1;
-#else
-        AsyncDebug::isDownlevel = 1;
-#endif
-
-        // We can force the use of the downlevel causality API via a flag.
-        if (CONFIG_FLAG(ForceDownlevelAsyncDebug))
-        {
-            AsyncDebug::isDownlevel = 1;
-        }
-
-        // Emit a one-time message that we will be using the downlevel causality API.
-        if (CONFIG_FLAG(TraceAsyncDebugCalls) && AsyncDebug::isDownlevel == 1)
-        {
-            Output::Print(L"Using downlevel causality API (RoCausality) instead of WinRT-based API.\n");
-            Output::Flush();
-        }
-    }
-
-    return AsyncDebug::isDownlevel == 1;
 }
 
 HRESULT AsyncDebug::HostWrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, LogLevel logLevel, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
@@ -207,16 +174,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptCo
         Output::Flush();
     }
 
-    if (IsDownlevel(scriptContext))
-    {
-        hr = RoCausalityTraceAsyncOperationCreation((CausalityTraceLevel)logLevel, (CausalitySource)source, platformId, operationId, operationName, relatedContext);
-    }
-    else
-    {
-#ifdef ENABLE_FOUNDATION_OBJECT
-        hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationCreation(scriptContext, logLevel, source, platformId, operationId, operationName, relatedContext);
-#endif
-    }
+    hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationCreation(scriptContext, logLevel, source, platformId, operationId, operationName, relatedContext);
 
     return hr;
 }
@@ -249,16 +207,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationCompletion(Js::ScriptContext* script
         Output::Flush();
     }
 
-    if (IsDownlevel(scriptContext))
-    {
-        hr = RoCausalityTraceAsyncOperationCompletion((CausalityTraceLevel)logLevel, (CausalitySource)source, platformId, operationId, (AsyncStatus)status);
-    }
-    else
-    {
-#ifdef ENABLE_FOUNDATION_OBJECT
-        hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationCompletion(scriptContext, logLevel, source, platformId, operationId, status);
-#endif
-    }
+    hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationCompletion(scriptContext, logLevel, source, platformId, operationId, status);
 
     return hr;
 }
@@ -296,16 +245,7 @@ HRESULT AsyncDebug::WrapperForTraceSynchronousWorkStart(Js::ScriptContext* scrip
         Output::Flush();
     }
 
-    if (IsDownlevel(scriptContext))
-    {
-        hr = RoCausalityTraceSynchronousWorkItemStart((CausalityTraceLevel)logLevel, (CausalitySource)source, platformId, operationId, (CausalitySynchronousWork)workType);
-    }
-    else
-    {
-#ifdef ENABLE_FOUNDATION_OBJECT
-        hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceSynchronousWorkStart(scriptContext, logLevel, source, platformId, operationId, workType);
-#endif
-    }
+    hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceSynchronousWorkStart(scriptContext, logLevel, source, platformId, operationId, workType);
 
     return hr;
 }
@@ -335,16 +275,7 @@ HRESULT AsyncDebug::WrapperForTraceSynchronousWorkCompletion(Js::ScriptContext* 
         Output::Flush();
     }
 
-    if (IsDownlevel(scriptContext))
-    {
-        hr = RoCausalityTraceSynchronousWorkItemCompletion((CausalityTraceLevel)logLevel, (CausalitySource)source, (CausalitySynchronousWork)workType);
-    }
-    else
-    {
-#ifdef ENABLE_FOUNDATION_OBJECT
-        hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceSynchronousWorkCompletion(scriptContext, logLevel, source, workType);
-#endif
-    }
+    hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceSynchronousWorkCompletion(scriptContext, logLevel, source, workType);
 
     return hr;
 }
@@ -377,16 +308,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationRelation(Js::ScriptContext* scriptCo
         Output::Flush();
     }
     
-    if (IsDownlevel(scriptContext))
-    {
-        hr = RoCausalityTraceAsyncOperationRelation((CausalityTraceLevel)logLevel, (CausalitySource)source, platformId, operationId, (CausalityRelation)relation);
-    }
-    else
-    {
-#ifdef ENABLE_FOUNDATION_OBJECT
-        hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationRelation(scriptContext, logLevel, source, platformId, operationId, relation);
-#endif
-    }
+    hr = scriptContext->GetThreadContext()->GetWindowsFoundationAdapter()->TraceOperationRelation(scriptContext, logLevel, source, platformId, operationId, relation);
 
     return hr;
 }

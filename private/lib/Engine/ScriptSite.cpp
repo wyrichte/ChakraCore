@@ -1655,6 +1655,48 @@ void ScriptSite::EnsureExternalLibrary()
     }
 }
 
+Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
+{
+    // TODO: Below loads and returns WScript.SetTimeout or window.setTimeout. Later, we should instead use the task queue.
+    // NOTE: The code here is placeholder until we get the task queue from trident.
+    //       If user code changes WScript.SetTimeout or window.setTimeout, the Promise feature won't work!
+    Js::ScriptContext* scriptContext = GetScriptSiteContext();
+    Js::PropertyId windowId = scriptContext->GetOrAddPropertyIdTracked(L"window");
+    Js::PropertyId setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(L"setTimeout");
+    Js::Var global = scriptContext->GetGlobalObject();
+    Js::Var window;
+    Js::Var setTimeout;
+
+    // Try to load window.setTimeout
+    if (Js::JavascriptOperators::GetRootProperty(global, windowId, &window, scriptContext) &&
+        Js::RecyclableObject::Is(window) &&
+        Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(window), setTimeoutId, &setTimeout, scriptContext) &&
+        Js::JavascriptConversion::IsCallable(setTimeout))
+    {
+        return Js::JavascriptFunction::FromVar(setTimeout);
+    }
+    else if (Js::JavascriptOperators::GetRootProperty(global, setTimeoutId, &setTimeout, scriptContext) &&
+        Js::JavascriptConversion::IsCallable(setTimeout))
+    {
+        // Workers do not have a window property, but they do have setTimeout on their global
+        return Js::JavascriptFunction::FromVar(setTimeout);
+    }
+
+    PropertyId wscriptId = scriptContext->GetOrAddPropertyIdTracked(L"WScript");
+    setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(L"SetTimeout");
+    Var wscript;
+
+    // Try to load WScript.SetTimeout
+    if (Js::JavascriptOperators::GetRootProperty(global, wscriptId, &wscript, scriptContext) &&
+        Js::RecyclableObject::Is(wscript) &&
+        Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(wscript), setTimeoutId, &setTimeout, scriptContext) &&
+        Js::JavascriptConversion::IsCallable(setTimeout))
+    {
+        return Js::JavascriptFunction::FromVar(setTimeout);
+    }
+    return scriptContext->GetLibrary()->GetThrowerFunction();
+}
+
 void ScriptSite::InitializeDebugObject()
 {
     // TODO: move this to ActiveScriptExternalLibrary after move out Promise.

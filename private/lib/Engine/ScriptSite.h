@@ -160,7 +160,7 @@ public:
     HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
         __out Js::ArrayBuffer **ppArrayBuffer);
     Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
-
+    Js::JavascriptFunction* InitializeHostPromiseContinuationFunction();
 
     // Reference Counting
     void AddRef(void) { InterlockedIncrement(&refCount); }
