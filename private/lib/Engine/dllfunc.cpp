@@ -6,7 +6,7 @@
 //TBD to restore the TLS support
 
 #include "EnginePch.h"
-#include "guids.h"
+#include "core\AtomLockGuids.h"
 #include "proxystub.h"
 #include "core\ConfigParser.h"
 #ifdef DYNAMIC_PROFILE_STORAGE
@@ -71,15 +71,20 @@ static BOOL AttachProcess(HANDLE hmod)
     ValueType::Initialize();
 
     wchar_t *engine = szChakraLock;
-#if DEBUG
 
+#if DEBUG
 
     if (Js::Configuration::Global.flags.ForceLegacyEngine)
     {
         engine = szJScript9Lock;
         if (::FindAtom(szChakraLock) != 0)
         {
-            AssertMsg(FALSE, "Expecting to Load jscrip9.dll but process already loaded chakra.dll");
+            AssertMsg(FALSE, "Expecting to load jscrip9.dll but process already loaded chakra.dll");
+            Binary_Inconsistency_fatal_error();
+        }
+        if (::FindAtom(szChakraCoreLock) != 0)
+        {
+            AssertMsg(FALSE, "Expecting to load jscrip9.dll but process already loaded chakracore.dll");
             Binary_Inconsistency_fatal_error();
         }
     }
@@ -88,7 +93,12 @@ static BOOL AttachProcess(HANDLE hmod)
     {
         if (::FindAtom(szJScript9Lock) != 0)
         {
-            AssertMsg(FALSE, "Expecting to Load chakra.dll but process already loaded jscrip9.dll");
+            AssertMsg(FALSE, "Expecting to load chakra.dll but process already loaded jscrip9.dll");
+            Binary_Inconsistency_fatal_error();
+        }
+        if (::FindAtom(szChakraCoreLock) != 0)
+        {
+            AssertMsg(FALSE, "Expecting to load chakra.dll but process already loaded chakracore.dll");
             Binary_Inconsistency_fatal_error();
         }
     }
@@ -200,7 +210,7 @@ EXTERN_C BOOL WINAPI ChakraDllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReser
     case DLL_PROCESS_DETACH:
 
         lockedDll = ::DeleteAtom(lockedDll); // If the function succeeds, the return value is zero.
-        AssertMsg(lockedDll == 0, "Failed to release the lock");
+        AssertMsg(lockedDll == 0, "Failed to release the lock for chakra.dll");
 
 
 #ifdef DYNAMIC_PROFILE_STORAGE    

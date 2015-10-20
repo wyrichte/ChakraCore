@@ -5,6 +5,7 @@
 #include "StdAfx.h"
 #include "proxystub.h"
 #include "guids.h"
+#include "core\AtomLockGuids.h"
 #include "DbgHelp.h"
 #include "WScriptJsrt.h"
 #include "Shellapi.h"
@@ -1984,7 +1985,7 @@ int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
         IsRunningUnderJdtest = true;
     }
     ATOM lock = ::AddAtom(szChakraLock);
-    AssertMsg(lock, "failed to lock dll");
+    AssertMsg(lock, "failed to lock chakra.dll");
     int ret = 0;
     if (UseLargeAddresses(argc, argv))
     {
