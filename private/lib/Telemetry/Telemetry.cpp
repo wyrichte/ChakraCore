@@ -32,14 +32,8 @@ WCHAR *g_ProcessExclusionList[] = {
     L"loader42"
 };
 
-void __cdecl firePackageTelemetry()
-{
-    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
-    {
-      g_TraceLoggingClient->FirePackageTelemetryHelper();
-    }
-}
 
+// Creating wrapper for atExit Scenario as we want to tackle OOM and other exceptions.
 void __cdecl firePackageTelemetryAtExit() 
 {
   if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
@@ -51,6 +45,22 @@ void __cdecl firePackageTelemetryAtExit()
   }
 }
 
+DWORD Telemetry::initialized = FALSE;
+void Telemetry::EnsureInitializeForJSRT()
+{
+    if (::InterlockedExchange(&initialized, TRUE) == FALSE)
+    {
+        atexit(firePackageTelemetryAtExit);
+    }
+}
+
+void Telemetry::OnJSRTThreadContextClose()
+{
+    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
+    {
+        g_TraceLoggingClient->FirePackageTelemetryHelper();
+    }
+}
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 

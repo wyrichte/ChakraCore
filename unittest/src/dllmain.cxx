@@ -26,3 +26,10 @@ void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
 {
     /* Do Nothing */
 }
+
+namespace Js
+{
+    void GCTelemetry::LogGCPauseStartTime() {}
+    void GCTelemetry::LogGCPauseEndTime() {}
+};
+

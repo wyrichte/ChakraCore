@@ -114,3 +114,9 @@ ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
         autoSystemInfo->isLowMemoryDevice = isMobile;  //TODO: pick some other platform to the list
     }
 }
+
+namespace Js
+{
+    void GCTelemetry::LogGCPauseStartTime() {};
+    void GCTelemetry::LogGCPauseEndTime() {};
+};

@@ -36,8 +36,15 @@
 #endif
 #endif
 
-void __cdecl firePackageTelemetryAtExit(); // Creating another wrapper for atExit Scenario as we want to tackle OOM and other exceptions.
-void __cdecl firePackageTelemetry(); // This will fired in standard shutdown scenario. Same code just the handling of error is already taken care of by Engine.
+class Telemetry
+{
+public:
+    static void EnsureInitializeForJSRT();
+    static void OnJSRTThreadContextClose();
+private:
+    static DWORD initialized;
+};
+
 extern struct _TlgProvider_t const * const g_hTraceLoggingProv;
 
 class CEventTraceProperties

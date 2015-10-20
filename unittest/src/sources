@@ -20,6 +20,7 @@ C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE
 INCLUDES= \
           $(INCLUDES);    \
           $(COREINCLUDES); \
+          ..\..\private\lib\Telemetry; \
           $(SDK_INC_PATH)\crt\stl70; \
           $(SDK_INC_PATH)\atl30; \
           $(SDKTOOLS_INC_PATH)\WexTest\Cue; \
@@ -38,7 +39,6 @@ LINKLIBS= \
     $(INETCORE_LIB_PATH)\IESettingsId.lib \
     $(INETCORE_LIB_PATH)\IESettingsApi.lib \
     $(JS_LIBS_COMMON) \
-    $(JS_LIBS_RUNTIME) \
 
 TARGETLIBS=     \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \

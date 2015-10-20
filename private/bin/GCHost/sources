@@ -13,7 +13,8 @@ TEST_CODE=1
 # Turns on fretest for test code
 !include $(JSCRIPT_ROOT)\jslibtest.inc
 
-INCLUDES=$(COREINCLUDES);
+INCLUDES=$(COREINCLUDES); \
+    ..\..\lib\Telemetry; \
 
 # Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete 
 # do not cause 'already defined in msvcrt.lib error'.

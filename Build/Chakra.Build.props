@@ -109,6 +109,12 @@
       <MinimalRebuild>false</MinimalRebuild>
       <MinimalRebuild Condition="'$(BuildingInsideVisualStudio)'=='true' AND '$(Configuration)' == 'Debug'">true</MinimalRebuild>
 
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)private\lib\Telemetry;
+        $(ChakraRootDirectory)private\lib\MemProtectHeap;
+        $(ChakraRootDirectory)tools\external\inc;
+      </AdditionalIncludeDirectories>
     </ClCompile>
 
     <Link>
