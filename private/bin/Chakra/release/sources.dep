@@ -1,19 +1,5 @@
-PUBLIC_PASS0_CONSUMES= \
-    base\published2|PASS0 \
-    com\oleaut32\oleaut32|PASS0 \
-    com\oleaut32\stdole|PASS0 \
-    com\published\idlole\publish|PASS0 \
-    enduser\sql\xml\msxml3\publish|PASS0 \
-    inetcore\jscript\publish|PASS0 \
-    inetcore\jscript\publish0|PASS0 \
-    inetcore\published\internal\inc|PASS0 \
-    inetcore\published\sdk\inc|PASS0 \
-    minkernel\published\base|PASS0 \
-
 BUILD_PASS1_CONSUMES= \
     inetcore\jscript\private\core_razzle_build\jsrt\release|PASS1 \
-    inetcore\jscript\lib\memprotectheap\release|PASS1 \
-    inetcore\jscript\lib\memprotectheap\test|PASS1 \
     inetcore\jscript\private\lib\enc\release|PASS1 \
     inetcore\jscript\private\lib\engine\release|PASS1 \
     inetcore\jscript\private\lib\jsrtchakra\release|PASS1 \
