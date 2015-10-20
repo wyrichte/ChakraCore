@@ -1,5 +1,4 @@
 BUILD_PASS1_CONSUMES= \
-    inetcore\jscript\dll\microsoft.javascript|PASS1 \
     inetcore\jscript\private\bin\microsoft.javascript|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \

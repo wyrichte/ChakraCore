@@ -286,6 +286,15 @@ HRESULT ScriptEngine::InitializeThreadBound()
     HRESULT hr = S_OK;
     BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+        // Enable expermental flags is specified by the host. ThreadContext
+        // reads experimental flags during construction, so this has to be done
+        // before it's created.
+        if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS))
+        {
+            Js::Configuration::Global.flags.EnableExperimentalFlag();
+        }
+#endif
         ThreadContext *threadContext = ThreadBoundThreadContextManager::EnsureContextForCurrentThread();
         // threadContext won't be null since it's using throw alloc.
         Assert(threadContext);
@@ -375,14 +384,6 @@ ScriptEngine::EnsureScriptContext()
 
     library->GetEvalFunctionObject()->SetEntryPoint(m_fIsEvalRestrict ? &Js::GlobalObject::EntryEvalRestrictedMode : &Js::GlobalObject::EntryEval);
     library->GetFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewInstanceRestrictedMode : &Js::JavascriptFunction::NewInstance);
-
-#ifdef ENABLE_EXPERIMENTAL_FLAGS
-    // Enable expermental flags is specified by the host
-    if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS))
-    {
-        Js::Configuration::Global.flags.EnableExperimentalFlag();
-    }
-#endif
 
     return this->scriptContext;
 }
