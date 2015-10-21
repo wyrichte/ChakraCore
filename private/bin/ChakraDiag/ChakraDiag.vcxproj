@@ -197,7 +197,7 @@
     <ClInclude Include="VirtualReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="$(MSBuildThisFileDirectory)jscript9diag.rc" />    
+    <ResourceCompile Include="$(MSBuildThisFileDirectory)ChakraDiag.rc" />    
   </ItemGroup>
   <ItemGroup>
     <None Include="JsDebug.rgs" />

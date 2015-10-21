@@ -1,0 +1,30 @@
+// Copyright (C) Microsoft. All rights reserved. 
+
+#ifdef CHAKRA_VERSION_BUILD_OFFICIAL
+#define OFFICIAL_BUILD 1
+
+#ifdef CHAKRA_VERSION_BUILD_RELEASE
+#define BETA 0
+#else
+#define BETA 1
+#endif
+#endif
+
+#ifdef CHAKRA_VERSION_BUILD_COMMIT
+#ifndef __BUILDMACHINE__
+#define __BUILDMACHINE__ CHAKRA_VERSION_BUILD_COMMIT
+
+// TODO: This was removed from common.ver. Remove this define one we updated public
+#define INCLUDE_BUILD_MACHINE_TAG
+#endif
+#endif
+
+#ifdef CHAKRA_VERSION_BUILD_DATE
+#ifndef __BUILDDATE__
+#define __BUILDDATE__ CHAKRA_VERSION_BUILD_DATE
+#endif
+#endif
+
+#include <ieverp.h>
+
+#include "common.ver"

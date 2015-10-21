@@ -6967,6 +6967,18 @@ bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, si
     return true;
 }
 
+#ifdef CHAKRA_VERSION_BUILD_COMMIT
+#ifndef __BUILDMACHINE__
+#define __BUILDMACHINE__ CHAKRA_VERSION_BUILD_COMMIT
+#endif
+#endif
+
+#ifdef CHAKRA_VERSION_BUILD_DATE
+#ifndef __BUILDDATE__
+#define __BUILDDATE__ CHAKRA_VERSION_BUILD_DATE
+#endif
+#endif
+
 void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
 {
     Output::Print(L"INIT: PID        : %d\n", GetCurrentProcessId());
