@@ -362,6 +362,14 @@
       <tags>Slow</tags>
     </default>
   </test>
+    <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>MatrixLinkFail.baseline</baseline>
+      <compile-flags>-forceserialized -testtrace:asmjs -simdjs -forceasmjslinkfail</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
   <test>
     <default>
       <files>Matrix.js</files>
