@@ -90,7 +90,7 @@ ulong ComputeGrfscrUTF8(const void * pDelimiter)
 ulong ComputeGrfscrUTF8ForSerialization(const void * pDelimiter)
 {
     ulong result = ComputeGrfscrUTF8(pDelimiter);
-    return result | fscrNoPreJit;
+    return result | fscrNoAsmJs | fscrNoPreJit;
 }
 
 ulong ComputeGrfscrUTF8ForDeserialization(const void * pDelimiter)
@@ -5046,6 +5046,11 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         grfscr &= ~fscrDeferFncParse;
     }
 
+    if (CONFIG_FLAG(ForceSerialized))
+    {
+        grfscr |= fscrNoAsmJs;
+    }
+
     if (dwFlags & SCRIPTTEXT_ISNONUSERCODE)
     {
         grfscr |= fscrIsLibraryCode;
@@ -5599,12 +5604,7 @@ HRESULT ScriptEngine::CompileUTF8(
     SETRETVAL(ppSourceInfo, sourceInfo);
 
     hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
-    if (hr == JSERR_AsmJsCompileError)
-    {
-        grfscr |= fscrNoAsmJs;
-        // recompile if we have asm.js parse error
-        hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
-    }
+
     LEAVE_PINNED_SCOPE();
 
     return hr;
