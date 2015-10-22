@@ -98,7 +98,7 @@
       <files>StackTraceLimitParent.html</files>
       <baseline>StackTraceLimitParent.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <tags>StackTrace</tags>
