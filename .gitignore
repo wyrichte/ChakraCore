@@ -15,7 +15,6 @@ buildchk.*
 buildfre.*
 Build/swum-cache.txt
 *.tlog/
-core/
 .untrackedPathsMap.ini
 unittest/*/*.dpl.*
 unittest/*/*.dpl
