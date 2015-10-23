@@ -67,7 +67,7 @@ namespace Js
                     stringBuilder.Append(L' ');
                 });
 
-                size_t len = stringBuilder.Count() > 0 ? stringBuilder.Count() - 1 : 0; // Strip last trailing space if appended
+                charcount_t len = stringBuilder.Count() > 0 ? stringBuilder.Count() - 1 : 0; // Strip last trailing space if appended
                 ret = LiteralString::NewCopyBuffer(stringBuilder.Buffer(), len, scriptContext);
             }
             END_TEMP_ALLOCATOR(tmpAlloc, scriptContext);
