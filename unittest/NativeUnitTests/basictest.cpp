@@ -246,8 +246,10 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         hr = activeScriptDirect->CreateType(0x2000, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
         IfFailedReturn(hr);
 
+
         hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
         IfFailedReturn(hr);
+
 
         void* slotAddr = nullptr;
         JavascriptTypeId typeId;
