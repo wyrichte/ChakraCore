@@ -11,13 +11,15 @@ set DESTINATION=%~5
 set path=%path%;%EXEC_PATH%
 
 set _BuildArch=%PLATFORM%
-set pgort_Arch=%PLATFORM%
 if "%PLATFORM%"=="win32" (
   set _BuildArch=x86
-  set pgort_Arch=i386
 ) else if "%PLATFORM%"=="x64" (
   set _BuildArch=amd64
-  set pgort_Arch=amd64
+)
+
+set pgort_Arch=%_BuildArch%
+if "%_BuildArch%"=="x86" (
+  set pgort_Arch=i386
 )
 
 set FILEVER_PATH=%RAZZLE_TOOLS_PATH%\x86\filever.exe
@@ -59,12 +61,16 @@ if "%COPY_PGO_TYPE%"=="bin" (
 echo %matching_build%\binaries.%_BuildArch%ret\lib\%pgort_Arch%\pgort.lib
 copy /Y %matching_build%\binaries.%_BuildArch%ret\lib\%pgort_Arch%\pgort.lib %DESTINATION%\pgort.lib
 
+if "%COPY_PGO_TYPE%"=="both" (
+  goto:copy_bin
+)
+
 endlocal
 goto:eof
 
 :copy_bin
-copy /Y %matching_build%\binaries.%_BuildArch%ret\bin\%pgort_Arch%\pgort120.dll %DESTINATION%pgort120.dll
-copy /Y %matching_build%\binaries.%_BuildArch%ret\bin\%pgort_Arch%\pgort120.pdb %DESTINATION%pgort120.pdb
+copy /Y %matching_build%\binaries.%_BuildArch%ret\bin\%pgort_Arch%\pgort120.dll %DESTINATION%\pgort120.dll
+copy /Y %matching_build%\binaries.%_BuildArch%ret\bin\%pgort_Arch%\pgort120.pdb %DESTINATION%\pgort120.pdb
 copy /Y %matching_build%\binaries.%_BuildArch%ret\bin\%pgort_Arch%\msvcr120.* %DESTINATION%
 
 endlocal

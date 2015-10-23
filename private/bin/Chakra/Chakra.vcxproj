@@ -177,7 +177,7 @@
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc">
       <AdditionalIncludeDirectories>
-        $(ChakraParserIntDir);        
+        $(ChakraParserIntDir);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ResourceCompile>
@@ -198,13 +198,9 @@
     </ClCompile>
     <!-- Copy pgort.lib to Intermediate folder so we can link to it -->
     <PreBuildEvent>
-      <Command Condition="'$(POGO_TYPE)'=='PGI'">$(SolutionDir)\..\tools\copyPgortBin.bat lib "$(RazzleToolPath)" "$(path)" "$(Platform.ToLower())" "$(IntDir)"</Command>
+      <Command Condition="'$(POGO_TYPE)'=='PGI'">$(SolutionDir)\..\tools\copyPgortBinFromExternals.bat "$(RazzleToolPath)" "$(Platform.ToLower())" "$(IntDir)" "$(OutDir)"</Command>
       <Message Condition="'$(POGO_TYPE)'=='PGI'">Update pgort.lib</Message>
     </PreBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(POGO_TYPE)'=='PGI'">$(SolutionDir)\..\tools\copyPgortBin.bat bin "$(RazzleToolPath)" "$(path)" "$(Platform.ToLower())" "$(OutDir)"</Command>
-      <Message Condition="'$(POGO_TYPE)'=='PGI'">Update pgort binaries</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <!-- How do we deal with versioning here?? -->
+    <!-- Todo:: Find a way to use the versions in packages.config -->
+    <!-- !! Keep version number in sync with packages.config !! -->
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.5</IELibPath>
+    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.5</RazzleToolPath>
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.6</PUBLIC_ROOT>
-    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.4</RazzleToolPath>
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.5</IELibPath>    
 
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
@@ -13,7 +14,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>        
+      <AdditionalIncludeDirectories>
         <!-- For ntverp.h -->
         $(RazzleToolPath)\public\sdk\inc;
         <!-- For devtbhost.h and ScriptProjectionHost.hxx -->
