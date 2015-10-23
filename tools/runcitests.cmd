@@ -35,28 +35,52 @@ set _HadFailures=0
 :: ============================================================================
 :main
 
+  call :parseArgs %*
+
+  if not "%fShowUsage%" == "" (
+    call :printUsage
+    goto :eof
+  )
+
+  call :validateArgs
+
+  if not "%fShowGetHelp%" == "" (
+    call :printGetHelp
+    goto :eof
+  )
+
   if not "%TF_BUILD%" == "True" (
-    echo This script must be run under a TF Build Agent environment
+    echo Error: TF_BUILD environment variable is not set to "True".
+    echo   This script must be run under a TF Build Agent environment.
     exit /b 2
   )
 
   call :doSilent rd /s/q %_RootDir%\core\test\logs
   call :doSilent rd /s/q %_RootDir%\unittest\logs
 
-  call :runTests core x86debug
-  call :runTests core x86test
-  call :runTests core x64debug
-  call :runTests core x64test
-  call :runTests unit x86debug
-  call :runTests unit x86test
-  call :runTests unit x64debug
-  call :runTests unit x64test
-  call :runJsRTTests x86 debug
-  call :runJsRTTests x86 test
-  call :runJsRTTests x64 debug
-  call :runJsRTTests x64 test
+  if not "%_RunAll%" == "" (
+    call :runTests core x86 debug
+    call :runTests core x86 test
+    call :runTests core x64 debug
+    call :runTests core x64 test
+    call :runTests unit x86 debug
+    call :runTests unit x86 test
+    call :runTests unit x64 debug
+    call :runTests unit x64 test
+    call :runJsRTTests x86 debug
+    call :runJsRTTests x86 test
+    call :runJsRTTests x64 debug
+    call :runJsRTTests x64 test
 
-  call :summarizeLogs
+    call :summarizeLogs .log
+  ) else (
+    call :runTests core %_BuildArch% %_BuildType%
+    call :runTests unit %_BuildArch% %_BuildType%
+    call :runJsRTTests %_BuildArch% %_BuildType%
+
+    call :summarizeLogs .%_BuildArch%%_BuildType%.log
+  )
+
   call :copyLogsToDrop
 
   echo.
@@ -74,7 +98,12 @@ set _HadFailures=0
 :: ============================================================================
 :runTests
 
-  call :do %_ToolsDir%run%1tests.cmd -%2 -quiet -cleanupall -binDir %_StagingDir%\bin
+  :: Cannot run tests for arm on build machine and release builds
+  :: do not work with jshost.exe so no-op those configurations.
+  if "%2" == "arm" goto :eof
+  if "%3" == "release" goto :eof
+
+  call :do %_ToolsDir%run%1tests.cmd -%2%3 -quiet -cleanupall -binDir %_StagingDir%\bin
 
   if ERRORLEVEL 1 set _HadFailures=1
 
@@ -84,6 +113,11 @@ set _HadFailures=0
 :: Run jsrt test suite against one build config and record if there were errors
 :: ============================================================================
 :runJsRTTests
+
+  :: Cannot run tests for arm on build machine and release builds
+  :: of jsrt tests have not been invested in.
+  if "%1" == "arm" goto :eof
+  if "%2" == "release" goto :eof
 
   call :do %_ToolsDir%runjsrttests.cmd -%1 -%2 -binDir %_StagingDir%\bin > %_RootDir%\unittest\logs\%1_%2\jsrt.log 2>&1
 
@@ -103,8 +137,8 @@ set _HadFailures=0
 
   call :do xcopy %_RootDir%\core\test\logs %_StagingDir%\testlogs\coretest /S /Y /C /I
   call :do xcopy %_RootDir%\unittest\logs %_StagingDir%\testlogs\unittest /S /Y /C /I
-  call :do move %_StagingDir%\testlogs\coretest\summary.coretest.log %_StagingDir%\testlogs
-  call :do move %_StagingDir%\testlogs\unittest\summary.unittest.log %_StagingDir%\testlogs
+  call :do move %_StagingDir%\testlogs\coretest\summary.coretest*.log %_StagingDir%\testlogs
+  call :do move %_StagingDir%\testlogs\unittest\summary.unittest*.log %_StagingDir%\testlogs
 
   goto :eof
 
@@ -114,16 +148,112 @@ set _HadFailures=0
 :summarizeLogs
 
   pushd %_RootDir%\core\test\logs
-  findstr /sp failed rl.results.log > summary.coretest.log
-  type summary.coretest.log 1>&2
+  findstr /sp failed rl.results.log > summary.coretest%1
+  type summary.coretest%1 1>&2
   popd
 
   pushd %_RootDir%\unittest\logs
-  findstr /sp failed rl.results.log > summary.unittest.log
+  findstr /sp failed rl.results.log > summary.unittest%1
 
-  findstr /sp Failed] jsrt.log >> summary.unittest.log
-  type summary.unittest.log 1>&2
+  findstr /sp Failed] jsrt.log >> summary.unittest%1
+  type summary.unittest%1 1>&2
   popd
+
+  goto :eof
+
+:: ============================================================================
+:: Print usage
+:: ============================================================================
+:printUsage
+
+  echo runcitests.cmd -x86^|-x64^|-arm -debug^|-test^|-release
+  echo.
+  echo Runs tests post-build for automated VSO TFS Builds.
+  echo Depends on TFS Build environment.
+  echo.
+  echo Required switches:
+  echo.
+  echo   Specify architecture of build to test:
+  echo.
+  echo   -x86           Build arch of binaries is x86
+  echo   -x64           Build arch of binaries is x64
+  echo   -arm           Build arch of binaries is ARM
+  echo.
+  echo   Specify type of of build to test:
+  echo.
+  echo   -debug         Build type of binaries is debug
+  echo   -test          Build type of binaries is test
+  echo   -release       Build type of binaries is release
+  echo.
+  echo   Shorthand combinations can be used, e.g. -x64debug
+  echo.
+  echo   Note: No tests are run for ARM or release as they are
+  echo   not supported.  The switches are provided for tooling
+  echo   convenience.
+
+  goto :eof
+
+:: ============================================================================
+:: Print how to get help
+:: ============================================================================
+:printGetHelp
+
+  echo For help use runcitests.cmd -?
+
+  goto :eof
+
+:: ============================================================================
+:: Parse the user arguments into environment variables
+:: ============================================================================
+:parseArgs
+
+  :NextArgument
+
+  if "%1" == "-?" set fShowUsage=1& goto :ArgOk
+  if "%1" == "/?" set fShowUsage=1& goto :ArgOk
+
+  if /i "%1" == "-x86"              set _BuildArch=x86&                                         goto :ArgOk
+  if /i "%1" == "-x64"              set _BuildArch=x64&                                         goto :ArgOk
+  if /i "%1" == "-arm"              set _BuildArch=arm&                                         goto :ArgOk
+  if /i "%1" == "-debug"            set _BuildType=debug&                                       goto :ArgOk
+  if /i "%1" == "-test"             set _BuildType=test&                                        goto :ArgOk
+  if /i "%1" == "-release"          set _BuildType=release&                                     goto :ArgOk
+
+  if /i "%1" == "-x86debug"         set _BuildArch=x86&set _BuildType=debug&                    goto :ArgOk
+  if /i "%1" == "-x64debug"         set _BuildArch=x64&set _BuildType=debug&                    goto :ArgOk
+  if /i "%1" == "-armdebug"         set _BuildArch=arm&set _BuildType=debug&                    goto :ArgOk
+  if /i "%1" == "-x86test"          set _BuildArch=x86&set _BuildType=test&                     goto :ArgOk
+  if /i "%1" == "-x64test"          set _BuildArch=x64&set _BuildType=test&                     goto :ArgOk
+  if /i "%1" == "-armtest"          set _BuildArch=arm&set _BuildType=test&                     goto :ArgOk
+  if /i "%1" == "-x86release"       set _BuildArch=x86&set _BuildType=release&                  goto :ArgOk
+  if /i "%1" == "-x64release"       set _BuildArch=x64&set _BuildType=release&                  goto :ArgOk
+  if /i "%1" == "-armrelease"       set _BuildArch=arm&set _BuildType=release&                  goto :ArgOk
+
+  if /i "%1" == "-all"              set _RunAll=1&                                              goto :ArgOk
+
+  if not "%1" == "" echo Unknown argument: %1 & set fShowGetHelp=1
+
+  goto :eof
+
+  :ArgOk
+  shift
+
+  goto :NextArgument
+
+:: ============================================================================
+:: Validate arguments; if non specified default to -all
+:: ============================================================================
+:validateArgs
+
+  if "%_BuildArch%" == "" (
+    set _RunAll=1
+  )
+
+  if "%_BuildType%" == "" (
+    set _RunAll=1
+  )
+
+  goto :eof
 
 :: ============================================================================
 :: Echo a command line before executing it
