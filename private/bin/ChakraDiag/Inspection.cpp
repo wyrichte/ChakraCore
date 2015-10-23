@@ -829,8 +829,8 @@ namespace JsDiag
                 }
                 else
                 {
-                    size_t count = min(JavascriptFunction::DIAG_MAX_FUNCTION_STRING, body->LengthInChars());
-                    size_t bytes = min(count * 3, body->LengthInBytes());
+                    uint count = min(JavascriptFunction::DIAG_MAX_FUNCTION_STRING, body->LengthInChars());
+                    uint bytes = min(count * 3, body->LengthInBytes());
 
                     AutoArrayPtr<BYTE> pSource = VirtualReader::ReadBuffer(reader, sourceInfo.GetDebugModeSource() + body->m_cbStartOffset, bytes);
                     utf8::DecodeOptions options = sourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;
@@ -1586,8 +1586,8 @@ namespace JsDiag
 
     uint FakeObjectWalker::GetInternalArrayCount() const
     {
-        const CAtlArray<PROPERTY_INFO>& items = m_fakeObject->GetItems();
-        return items.GetCount();
+        const CAtlArray<PROPERTY_INFO>& items = m_fakeObject->GetItems();     
+        return static_cast<uint>(items.GetCount());
     }
 
     bool_result FakeObjectWalker::TryGetInternalArrayItem(uint index, _Outptr_ IJsDebugPropertyInternal **ppDebugProperty)
