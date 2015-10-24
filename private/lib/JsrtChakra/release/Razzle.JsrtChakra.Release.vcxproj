@@ -2,5 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuiltThisFileDirectory)..\..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Project="..\Chakra.JsrtChakra.vcxproj" />
+  <ItemGroup>
+<!-- 
+    Need to update publicchanges.txt first
+    <PublishGenerated Include="..\..\..\..\core\lib\jsrt\chakracommon.h">
+      <DestinationFile>$(SdkIncPath)\chakracommon.h</DestinationFile>
+    </PublishGenerated>
+    <PublishGenerated Include="..\chakrart.h">
+      <DestinationFile>$(SdkIncPath)\chakrart.h</DestinationFile>
+    </PublishGenerated>
+-->
+    <PublishGenerated Include="chakrartold.h">
+      <DestinationFile>$(SdkIncPath)\chakrart.h</DestinationFile>
+    </PublishGenerated>
+  </ItemGroup>
 </Project>
 
