@@ -55,6 +55,13 @@ set _HadFailures=0
     exit /b 2
   )
 
+  :: Cannot run tests for arm on build machine and release builds
+  :: do not work with ch.exe so no-op those configurations.
+  :: Include _RunAll in the check because if it is specified it
+  :: should trump this early out.
+  if "%_RunAll%%_BuildArch%" == "arm" goto :noTests
+  if "%_RunAll%%_BuildType%" == "release" goto :noTests
+
   call :doSilent rd /s/q %_RootDir%\core\test\logs
   call :doSilent rd /s/q %_RootDir%\unittest\logs
 
@@ -93,15 +100,18 @@ set _HadFailures=0
 
   exit /b %_HadFailures%
 
+:noTests
+
+  echo -- runcitests.cmd ^>^> The tests are not supported on this build configuration.
+  echo -- runcitests.cmd ^>^> No tests were run.  This is expected.
+  echo -- runcitests.cmd ^>^> Configuration: %_BuildArch% %_BuildType%
+
+  exit /b 0
+
 :: ============================================================================
 :: Run one test suite against one build config and record if there were errors
 :: ============================================================================
 :runTests
-
-  :: Cannot run tests for arm on build machine and release builds
-  :: do not work with jshost.exe so no-op those configurations.
-  if "%2" == "arm" goto :eof
-  if "%3" == "release" goto :eof
 
   call :do %_ToolsDir%run%1tests.cmd -%2%3 -quiet -cleanupall -binDir %_StagingDir%\bin
 
@@ -113,11 +123,6 @@ set _HadFailures=0
 :: Run jsrt test suite against one build config and record if there were errors
 :: ============================================================================
 :runJsRTTests
-
-  :: Cannot run tests for arm on build machine and release builds
-  :: of jsrt tests have not been invested in.
-  if "%1" == "arm" goto :eof
-  if "%2" == "release" goto :eof
 
   call :do %_ToolsDir%runjsrttests.cmd -%1 -%2 -binDir %_StagingDir%\bin > %_RootDir%\unittest\logs\%1_%2\jsrt.log 2>&1
 
