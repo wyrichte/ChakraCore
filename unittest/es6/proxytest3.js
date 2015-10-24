@@ -86,8 +86,8 @@ var tests = [
             }
             assert.areEqual(target.testWith, 20, "set trap forward");
             assert.areEqual(3,savedLogResult.length, "two traps on set inside with");
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]); 
-            assert.areEqual("has trap function.testWith", savedLogResult[1]);
+            assert.areEqual("has trap function.testWith", savedLogResult[0]);
+            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[1]); 
             assert.areEqual("set trap testWith", savedLogResult[2]);
         }
     },
@@ -99,9 +99,8 @@ var tests = [
                 testWith1 = 20;
             }
             assert.areEqual(target.testWith1, undefined, "set trap non existing property");
-            assert.areEqual(2, savedLogResult.length, "one traps on set inside with");
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]); 
-            assert.areEqual("has trap function.testWith1", savedLogResult[1]);
+            assert.areEqual(1, savedLogResult.length, "one traps on set inside with");
+            assert.areEqual("has trap function.testWith1", savedLogResult[0]);
         }
     },
     {

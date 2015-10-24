@@ -53,18 +53,14 @@ PASSED
 has trap function.foo
 PASSED
 *** Running test #19 (18): has trap using with
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.eval
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.LogResult
 get trap Symbol(Symbol.unscopables) on function receiver function
 get trap foo on function receiver function
 eval out:5
 PASSED
 *** Running test #20 (19): has trap using with1
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.eval
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.LogResult
 get trap Symbol(Symbol.unscopables) on function receiver function
 get trap foo1 on function receiver function
@@ -80,9 +76,7 @@ PASSED
 get trap nonexistProperty on function receiver function
 PASSED
 *** Running test #23 (22): typeof element using with; known bug of extra has trap
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.assert
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.nonexisting
 PASSED
 *** Running test #24 (23): no get trap
@@ -143,18 +137,14 @@ PASSED
 has trap function.foo
 PASSED
 *** Running test #43 (18): has trap using with
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.eval
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.LogResult
 get trap Symbol(Symbol.unscopables) on function receiver function
 get trap foo on function receiver function
 eval out:5
 PASSED
 *** Running test #44 (19): has trap using with1
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.eval
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.LogResult
 get trap Symbol(Symbol.unscopables) on function receiver function
 get trap foo1 on function receiver function
@@ -170,9 +160,7 @@ PASSED
 get trap nonexistProperty on function receiver function
 PASSED
 *** Running test #47 (22): typeof element using with; known bug of extra has trap
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.assert
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.nonexisting
 PASSED
 *** Running test #48 (23): no get trap

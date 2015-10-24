@@ -272,14 +272,12 @@ var tests = [
                 eval("LogResult('eval out:' + foo);");
             }
             delete target.foo;
-            assert.areEqual(savedLogResult.length, 7, "two output: has trap and eval");
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]); 
-            assert.areEqual("has trap function.eval", savedLogResult[1]); // need to find eval in "with"
+            assert.areEqual(5, savedLogResult.length, "two output: has trap and eval");
+            assert.areEqual("has trap function.eval", savedLogResult[0]); // need to find eval in "with"
+            assert.areEqual("has trap function.LogResult", savedLogResult[1], "second has in eval");  // need to find logResult in eval, env contains with
             assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[2]); 
-            assert.areEqual("has trap function.LogResult", savedLogResult[3], "second has in eval");  // need to find logResult in eval, env contains with
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[4]); 
-            assert.areEqual("get trap foo on function receiver function", savedLogResult[5]);
-            assert.areEqual('eval out:5', savedLogResult[6]);
+            assert.areEqual("get trap foo on function receiver function", savedLogResult[3]);
+            assert.areEqual('eval out:5', savedLogResult[4]);
         }
     },
     {
@@ -292,14 +290,12 @@ var tests = [
                 eval("LogResult('eval out:' + foo1);");
             }
             delete target.foo;
-            assert.areEqual(savedLogResult.length, 7, "two output: has trap and eval")
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]); 
-            assert.areEqual("has trap function.eval", savedLogResult[1]); // need to find eval in "with"
-             assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[2]); 
-            assert.areEqual("has trap function.LogResult", savedLogResult[3]);  // need to find logResult in eval, env contains with
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[4]); 
-            assert.areEqual("get trap foo1 on function receiver function", savedLogResult[5]);
-            assert.areEqual('eval out:5', savedLogResult[6]);
+            assert.areEqual(5, savedLogResult.length, "two output: has trap and eval")
+            assert.areEqual("has trap function.eval", savedLogResult[0]); // need to find eval in "with"
+            assert.areEqual("has trap function.LogResult", savedLogResult[1]);  // need to find logResult in eval, env contains with 
+            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[2]);  
+            assert.areEqual("get trap foo1 on function receiver function", savedLogResult[3]);
+            assert.areEqual('eval out:5', savedLogResult[4]);
         }
     },
 
@@ -340,11 +336,9 @@ var tests = [
             with (observerProxy) {
                 assert.areEqual('undefined', typeof nonexisting, "undefined for non-existing property")
             }
-            assert.areEqual(savedLogResult.length, 4, "go through env");
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[0]); 
-            assert.areEqual("has trap function.assert", savedLogResult[1]);
-            assert.areEqual("get trap Symbol(Symbol.unscopables) on function receiver function", savedLogResult[2]); 
-            assert.areEqual("has trap function.nonexisting", savedLogResult[3]);
+            assert.areEqual(2, savedLogResult.length, "go through env");
+            assert.areEqual("has trap function.assert", savedLogResult[0]);
+            assert.areEqual("has trap function.nonexisting", savedLogResult[1]);
         }
     },
     {

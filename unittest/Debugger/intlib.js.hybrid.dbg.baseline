@@ -2,31 +2,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -44,7 +44,7 @@
         "frameDescription": "toString"
       },
       {
-        "start": 24526,
+        "start": 24581,
         "length": 29,
         "text": "",
         "frameDescription": "Intl.Collator.prototype.compare"
@@ -78,38 +78,38 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18788,
+        "start": 18806,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 23755,
-        "length": 103,
+        "start": 23811,
+        "length": 104,
         "text": "",
         "frameDescription": "Intl.Collator"
       },
@@ -142,32 +142,32 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18788,
+        "start": 18806,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 23755,
-        "length": 103,
+        "start": 23811,
+        "length": 104,
         "text": "",
         "frameDescription": "Intl.Collator"
       },
@@ -206,43 +206,43 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 13588,
+        "start": 13598,
         "length": 96,
         "text": "",
         "frameDescription": "Intl.Collator.supportedLocalesOf"
@@ -276,37 +276,37 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 13588,
+        "start": 13598,
         "length": 96,
         "text": "",
         "frameDescription": "Intl.Collator.supportedLocalesOf"
@@ -346,37 +346,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 58462,
+        "start": 58554,
         "length": 72,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -410,31 +410,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 58462,
+        "start": 58554,
         "length": 72,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -474,43 +474,43 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14522,
+        "start": 14532,
         "length": 102,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.supportedLocalesOf"
@@ -544,37 +544,37 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14522,
+        "start": 14532,
         "length": 102,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.supportedLocalesOf"
@@ -614,7 +614,7 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 59251,
+        "start": 59343,
         "length": 74,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -648,7 +648,7 @@
   {
     "callstack": [
       {
-        "start": 59326,
+        "start": 59418,
         "length": 64,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -688,37 +688,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -752,31 +752,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -816,43 +816,43 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14049,
+        "start": 14059,
         "length": 100,
         "text": "",
         "frameDescription": "Intl.NumberFormat.supportedLocalesOf"
@@ -886,37 +886,37 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 12167,
+        "start": 12176,
         "length": 53,
         "text": "",
         "frameDescription": "supportedLocalesOf"
       },
       {
-        "start": 11980,
+        "start": 11989,
         "length": 49,
         "text": "",
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14049,
+        "start": 14059,
         "length": 100,
         "text": "",
         "frameDescription": "Intl.NumberFormat.supportedLocalesOf"
@@ -956,13 +956,13 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6854,
+        "start": 6864,
         "length": 54,
         "text": "",
         "frameDescription": "ToNumber"
       },
       {
-        "start": 35632,
+        "start": 35697,
         "length": 40,
         "text": "",
         "frameDescription": "Intl.NumberFormat.prototype.format"
@@ -1002,37 +1002,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63464,
+        "start": 63556,
         "length": 112,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1072,31 +1072,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63464,
+        "start": 63556,
         "length": 112,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1142,37 +1142,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64222,
+        "start": 64314,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1212,31 +1212,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64222,
+        "start": 64314,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1282,37 +1282,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64982,
+        "start": 65074,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"
@@ -1352,31 +1352,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 53681,
+        "start": 53758,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 64982,
+        "start": 65074,
         "length": 114,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"
@@ -1422,37 +1422,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 39244,
+        "start": 39309,
         "length": 79,
         "text": "",
         "frameDescription": "Number.prototype.toLocaleString"
@@ -1486,31 +1486,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 39244,
+        "start": 39309,
         "length": 79,
         "text": "",
         "frameDescription": "Number.prototype.toLocaleString"
@@ -1550,37 +1550,37 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 6731,
+        "start": 6741,
         "length": 60,
         "text": "",
         "frameDescription": "ToString"
       },
       {
-        "start": 10191,
+        "start": 10201,
         "length": 51,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18788,
+        "start": 18806,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 27961,
+        "start": 28016,
         "length": 73,
         "text": "",
         "frameDescription": "String.prototype.localeCompare"
@@ -1614,31 +1614,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18788,
+        "start": 18806,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 27961,
+        "start": 28016,
         "length": 73,
         "text": "",
         "frameDescription": "String.prototype.localeCompare"
@@ -1672,31 +1672,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1742,31 +1742,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1812,31 +1812,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1882,31 +1882,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1952,31 +1952,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2022,31 +2022,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2092,31 +2092,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2162,31 +2162,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2226,31 +2226,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2290,31 +2290,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2360,31 +2360,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2430,31 +2430,31 @@
   {
     "callstack": [
       {
-        "start": 10306,
+        "start": 10316,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3003,
+        "start": 3005,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9956,
+        "start": 9966,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30523,
+        "start": 30578,
         "length": 61,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35334,
+        "start": 35399,
         "length": 70,
         "text": "",
         "frameDescription": "Intl.NumberFormat"

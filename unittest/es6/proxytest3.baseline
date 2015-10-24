@@ -12,12 +12,11 @@ PASSED
 set trap testEval
 PASSED
 *** Running test #5 (4): set in with
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.testWith
+get trap Symbol(Symbol.unscopables) on function receiver function
 set trap testWith
 PASSED
 *** Running test #6 (5): set in with1
-get trap Symbol(Symbol.unscopables) on function receiver function
 has trap function.testWith1
 PASSED
 *** Running test #7 (6): set element i
