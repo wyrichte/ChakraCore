@@ -59,6 +59,7 @@
 #include "AutoCallerPointer.h"
 
 #include "..\staticlib\base\MockExternalObject.h"
+#include "ExternalObject.h"
 #include "CustomExternalType.h"
 
 //====================================

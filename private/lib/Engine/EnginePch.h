@@ -76,6 +76,7 @@
 #include "dispmemberproxy.h"
 #include "javascriptdispatch.h"
 #include "..\staticlib\base\MockExternalObject.h"
+#include "ExternalObject.h"
 #include "CustomExternalType.h"
 #include "JavascriptExternalOperators.h"
 #include "DefaultScriptOperations.h"

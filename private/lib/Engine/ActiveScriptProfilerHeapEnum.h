@@ -2,6 +2,8 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
+class JavascriptDispatch;
+
 namespace Projection
 {
     class CUnknownImpl;

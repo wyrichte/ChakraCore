@@ -15,6 +15,7 @@
 #include "hostdispatch.h"
 #include "dispmemberproxy.h"
 #include "DispatchHelper.h"
+#include "ExternalObject.h"
 #include "ActiveScriptProfilerHeapEnum.h"
 
 STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakContainerRef)

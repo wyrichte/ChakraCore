@@ -4,6 +4,10 @@
 
 #include "EnginePch.h"
 #include "DiagnosticsScriptObject.h"
+#include "ExternalObject.h"
+#include "DOMFastPath.h"
+#include "DOMFastPathInfo.h"
+#include "JavascriptTypedObjectSlotAccessorFunction.h"
 
 #include "Types\PathTypeHandler.h"
 #include "Types\PropertyIndexRanges.h"
@@ -75,3 +79,27 @@ void ActiveScriptExternalLibrary::SetDispatchInvoke(Js::JavascriptMethod dispatc
     }
 }
 
+Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
+{
+    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
+
+    // GC should zero out the whole library; we shouldn't need to explicitly zero out
+    if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
+    {
+        typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
+        scriptContext->EnsureDOMFastPathIRHelperMap()->Add(functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+    }
+    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+}
+
+Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
+{
+    Js::JavascriptLibrary* library = scriptContext->GetLibrary();
+    // GC should zero out the whole library; we shouldn't need to explicitly zero out
+    if (typedObjectSlotSetterFunctionTypes[slotIndex] == nullptr)
+    {
+        typedObjectSlotSetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
+
+    }
+    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+}

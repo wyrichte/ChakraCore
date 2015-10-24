@@ -1487,7 +1487,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedObjectSlotAccessor(
     }
 
     HRESULT hr = NOERROR;
-    if (slotIndex >= Js::JavascriptLibrary::DOM_BUILTIN_MAX_SLOT_COUNT)
+    if (slotIndex >= ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_SLOT_COUNT)
     {
         return E_INVALIDARG;
     }

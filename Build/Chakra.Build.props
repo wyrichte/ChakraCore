@@ -68,7 +68,10 @@
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
-      <!-- ========= From inetcore\project.mk =========-->
+      <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ChakraRootDirectory)private\lib\placeholder</AdditionalIncludeDirectories>
+      
+    <!-- ========= From inetcore\project.mk =========-->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->

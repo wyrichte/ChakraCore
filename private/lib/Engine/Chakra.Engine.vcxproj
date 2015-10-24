@@ -29,6 +29,7 @@
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\Backend;
+        $(ChakraCoreRootDirectory)Lib\Backend\$(PlatformPathNameAlt);
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Projection;
         $(MSBuildThisFileDirectory)..\SCA;
@@ -64,6 +65,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ChakraHostScriptContext.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)classfac.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)codectx.cpp" />
@@ -78,10 +80,12 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxy.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DOMFastPath.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DynamicSourceHolder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ErrorTypeHelper.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EventSink.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)guids.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -89,6 +93,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchEnumerator.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostDispatchType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalLowerer.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostObject.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostObjectType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)HostVariant.cpp" />
@@ -96,6 +101,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptExternalOperators.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptPixelArrayDispatch.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)javascriptThreadService.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptTypedObjectSlotAccessorFunction.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)jsfac.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedEventHandler.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)NamedItemList.cpp" />
@@ -169,11 +175,14 @@
     <ClInclude Include="dispidhelper.h" />
     <ClInclude Include="DispMemberProxy.h" />
     <ClInclude Include="dllfunc.h" />
+    <ClInclude Include="domfastpath.h" />
+    <ClInclude Include="DOMFastpathinfolist.h" />
     <ClInclude Include="DOMProperties.h" />
     <ClInclude Include="DynamicSourceHolder.h" />
     <ClInclude Include="EnginePch.h" />
     <ClInclude Include="ErrorTypeHelper.h" />
     <ClInclude Include="EventSink.h" />
+    <ClInclude Include="ExternalObject.h" />
     <ClInclude Include="GenerateByteCodeConfig.h" />
     <ClInclude Include="guids.h" />
     <ClInclude Include="HostDispatch.h" />
@@ -186,6 +195,7 @@
     <ClInclude Include="JavascriptExternalOperators.h" />
     <ClInclude Include="javascriptpixelarraydispatch.h" />
     <ClInclude Include="javascriptThreadService.h" />
+    <ClInclude Include="JavascriptTypedObjectSlotAccessorFunction.h" />
     <ClInclude Include="JnDOMDirectFields.h" />
     <ClInclude Include="jscriptdllcommon.h" />
     <ClInclude Include="jsfac.h" />

@@ -85,10 +85,7 @@ public:
         return scriptSite->VerifyDOMSecurity(targetContext, obj);
     }
 
-    Js::JavascriptMethod GetSimpleSlotAccessCrossSiteThunk() override
-    {
-        return DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk;
-    }
+    virtual bool SetCrossSiteForFunctionType(Js::JavascriptFunction * function) override;
 
     HRESULT CheckEvalRestriction() override
     {
@@ -134,6 +131,9 @@ public:
     }
 #endif
 
+#if DBG
+    virtual bool IsHostCrossSiteThunk(Js::JavascriptMethod address) override;
+#endif
     ScriptSite * GetScriptSite() { return scriptSite; }
 private:
     ScriptSite * scriptSite;

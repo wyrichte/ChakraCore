@@ -4,8 +4,8 @@
 
 #include "EnginePch.h"
 #include "Library\ModuleRoot.h"
-#include "Library\JavascriptTypedObjectSlotAccessorFunction.h"
-#include "Library\DOMFastPathInfo.h"
+#include "JavascriptTypedObjectSlotAccessorFunction.h"
+#include "DOMFastPathInfo.h"
 #include "ChakraHostScriptContext.h"
 #include "ChakraHostDebugContext.h"
 #include "Types\DeferredTypeHandler.h"
@@ -2423,9 +2423,8 @@ IDispatch* ScriptSite::GetGlobalObjectDispatch()
 
 Js::JavascriptFunction* ScriptSite::GetDefaultGetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex)
 {
-    Js::JavascriptLibrary* library = GetScriptSiteContext()->GetLibrary();
     Js::FunctionInfo* functionInfo = ::DOMFastPathInfo::GetGetterInfo(slotIndex);
-    Js::JavascriptFunction* getterFunction = library->CreateTypedObjectSlotGetterFunction(slotIndex, functionInfo, typeId, nameId);
+    Js::JavascriptFunction* getterFunction = GetActiveScriptExternalLibrary()->CreateTypedObjectSlotGetterFunction(slotIndex, functionInfo, typeId, nameId);
     getterFunction->SetPropertyWithAttributes(Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(0), PropertyNone, NULL);
 
     return getterFunction;
@@ -2433,9 +2432,8 @@ Js::JavascriptFunction* ScriptSite::GetDefaultGetter(JavascriptTypeId typeId, Pr
 
 Js::JavascriptFunction* ScriptSite::GetDefaultSetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex)
 {
-    Js::JavascriptLibrary* library = GetScriptSiteContext()->GetLibrary();
     Js::FunctionInfo* functionInfo = ::DOMFastPathInfo::GetSetterInfo(slotIndex);
-    Js::JavascriptFunction* setterFunction = library->CreateTypedObjectSlotSetterFunction(slotIndex, functionInfo, typeId, nameId);
+    Js::JavascriptFunction* setterFunction = GetActiveScriptExternalLibrary()->CreateTypedObjectSlotSetterFunction(slotIndex, functionInfo, typeId, nameId);
     setterFunction->SetPropertyWithAttributes(Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(1), PropertyNone, NULL);
 
     return setterFunction;
