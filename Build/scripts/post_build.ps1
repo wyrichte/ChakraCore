@@ -1,22 +1,68 @@
-# 
-# Post-build script
-#
-# This script is fairly simple. It checks if it's running
-# in a VSO. If it is, it will delete the cloned child core 
-# repo
-#
+param (
+    [ValidateSet("x86", "x64", "arm")]
+    [string]$arch="",
 
-if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
-{
-    $sourcesDir = $Env:TF_BUILD_SOURCESDIRECTORY
-    $coreDir = "core"
+    [ValidateSet("debug", "release", "test")]
+    [string]$flavor = "",
+    
+    [string]$srcpath = ".\",
+    [string]$binpath = "Build\VcBuild\bin\$arch_$flavor",
 
-    Push-Location $sourcesDir
+    [string]$srcsrvcmdpath = "Build\script"
+)
 
-    if ((Test-Path -Path $coreDir)) {
-        Get-ChildItem $coreDir -Recurse | Remove-Item -Recurse -Force
-        Write-Host "Cleaned up '$core' repo"
-    }
+$repo = "full"
 
-    Pop-Location
+if ($repo -eq "core") {
+    $bvtcmd="test\runcitests.cmd"
+} elseif ($repo -eq "full") {
+    $bvtcmd="tools\runcitests.cmd"
+} else {
+    write-error Unknow repo $repo
+    exit -1;
 }
+
+$srcsrvcmd = "$srcsrvcmdpath\srcsrv.bat"
+$pogocmd = ""
+
+
+$exitcode = 0
+
+# generate srcsrv
+if ($srcsrvcmd -ne "" -and (Test-Path $srcsrvcmd) -and (Test-Path $srcpath) -and (Test-Path $binpath)) {
+    $cmd = "$srcsrvcmd $repo $srcpath $binpath\*.pdb"
+    write-host Running $cmd
+    invoke-expression $cmd 
+    write-host "ExitCode:" $lastexitcode
+    if($lastexitcode -ne 0) {
+        Write-Error "Failed"
+        $exitcode = $lastexitcode
+    }
+}
+
+# do PoGO
+if ($pogocmd -ne "") {
+    $cmd = "$pogocmd"
+    write-host Running $cmd
+    invoke-expression $cmd 
+    write-host "ExitCode:" $lastexitcode
+    if($lastexitcode -ne 0) {
+        Write-Error "Failed"
+        $exitcode = $lastexitcode
+    }
+}
+
+
+# run test
+if ($bvtcmd -ne "") {
+    $cmd = "$bvtcmd -$arch$flavor"
+    write-host Running $cmd
+    invoke-expression $cmd 
+    write-host "ExitCode:" $lastexitcode
+    if($lastexitcode -ne 0) {
+        Write-Error "Failed"
+        $exitcode = $lastexitcode
+    }
+}
+
+exit $exitcode

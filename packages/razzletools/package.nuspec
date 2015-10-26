@@ -48,5 +48,10 @@
     <file src="tools\x86\Wex.*" target="x86" />
     <file src="tools\amd64\Wex.*" target="amd64" />
     <file src="tools\arm\Wex.*" target="arm" />
+    
+    <!-- Needed for srcsrv, currently  these file is running from \\chakrafs\fs\Tools\srcsrv-->
+    <file src="tools\x86\srctool.exe" target="x86" />
+    <file src="tools\x86\pdbstr.exe" target="x86" />
+    <file src="tools\x86\contool.exe" target="x86" />
   </files>
 </package>
