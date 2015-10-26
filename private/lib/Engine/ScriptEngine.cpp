@@ -4142,7 +4142,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     }
     else
     {
-        pScriptSourceInfo->SetTridentBuffer(pcszCode);
+        pScriptSourceInfo->SetHostBuffer(pcszCode);
     }
 
     return hr;
@@ -4199,7 +4199,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     }
     else
     {
-        pScriptSourceInfo->SetTridentBuffer(pcszCode);
+        pScriptSourceInfo->SetHostBuffer(pcszCode);
     }
     return hr;
 }
