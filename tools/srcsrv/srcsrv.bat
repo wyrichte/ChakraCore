@@ -117,6 +117,6 @@ if /I [%fullpath%] equ [] goto :eof
 call set relative=%%fullpath:%rootpath%\=%%
 set relative=%relative: =%
 set gitPath=%relative:\=/%
-if [%contoolRspFile%] neq [] echo %git% log -n 1 --pretty="%full%*%proj%*%gitPath%*%%H" -- %gitPath% >> %contoolRspFile%
-if [%contoolRspFile%] equ [] %git% log -n 1 --pretty="%full%*%proj%*%gitPath%*%%H" -- %gitPath%
+if [%contoolRspFile%] neq [] echo %git% log -n 1 --pretty="%fullpath%*%proj%*%gitPath%*%%H" -- %gitPath% >> %contoolRspFile%
+if [%contoolRspFile%] equ [] %git% log -n 1 --pretty="%fullpath%*%proj%*%gitPath%*%%H" -- %gitPath%
 goto :eof
