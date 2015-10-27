@@ -243,7 +243,7 @@ namespace JsDiag
         template <typename TMapFunction>
         void Map(TMapFunction mapFunction)
         {
-            MapUntil( [=] (uint i, T item) -> bool 
+            MapUntil( [=] (uint i, T item) -> bool
             {
                 mapFunction(i, item);
                 return false;
@@ -271,7 +271,7 @@ namespace JsDiag
         template <typename TMapFunction>
         void MapReverse(TMapFunction mapFunction)
         {
-            MapUntilReverse( [=] (uint i, T item) -> bool 
+            MapUntilReverse( [=] (uint i, T item) -> bool
             {
                 mapFunction(i, item);
                 return false;
@@ -426,7 +426,7 @@ namespace JsDiag
         template<class Fn>
         void Map(Fn fn)
         {
-            for(int i = 0; i < ToTargetPtr()->size; i++) 
+            for(int i = 0; i < ToTargetPtr()->size; i++)
             {
                 if(m_buckets[i] != -1)
                 {
@@ -453,7 +453,7 @@ namespace JsDiag
         typedef typename T::EntryType EntryType;
         typedef typename T::ValueType TValue;
 
-    private:       
+    private:
         RemoteArray<EntryType> m_entries;
         RemoteArray<int> m_buckets;
     public:
@@ -520,12 +520,12 @@ namespace JsDiag
         template<typename Fn>
         void MapEntryUntil(Fn fn) const
         {
-            for (uint i=0; i < ToTargetPtr()->bucketCount; i++) 
+            for (uint i=0; i < ToTargetPtr()->bucketCount; i++)
             {
                 if(m_buckets[i] != -1)
-                {                    
-                    for (int currentIndex = m_buckets[i] ; currentIndex != -1 ; currentIndex = m_entries[currentIndex].next) 
-                    {                        
+                {
+                    for (int currentIndex = m_buckets[i] ; currentIndex != -1 ; currentIndex = m_entries[currentIndex].next)
+                    {
                         if (fn(m_entries[currentIndex]))
                         {
                             return;
@@ -716,16 +716,16 @@ namespace JsDiag
     struct RemoteGrowingUint32HeapArray : public RemoteData<JsUtil::GrowingUint32HeapArray>
     {
         RemoteGrowingUint32HeapArray(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        uint32 ItemInBuffer(int index);
+        uint32 ItemInBuffer(uint32 index);
     };
 
     struct RemoteSmallSpanSequence : public RemoteData<SmallSpanSequence>
     {
         RemoteSmallSpanSequence(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
         BOOL GetMatchingStatementFromBytecode(int bytecode, SmallSpanSequenceIter& iter, StatementData& data);
-        template <typename TFilterFn> 
+        template <typename TFilterFn>
         bool GetMatchingStatement(SmallSpanSequenceIter& iter, TFilterFn filterFn, StatementData& data);
-        int Count();
+        uint32 Count();
         void ResetIterator(SmallSpanSequenceIter &iter);
         BOOL GetRangeAt(int index, SmallSpanSequenceIter& iter, int* pCountOfMissed, StatementData& data);
         BOOL Item(int index, SmallSpanSequenceIter& iter, StatementData& data);
@@ -954,7 +954,7 @@ namespace JsDiag
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
         DaylightTimeHelper* GetDaylightTimeHelper() const { return this->GetFieldAddr<DaylightTimeHelper>(offsetof(ScriptContext, daylightTimeHelper)); }
         DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
-        bool IsInDebugMode() const  
+        bool IsInDebugMode() const
         {
             if (this->GetDebugContext() != nullptr)
             {
@@ -1089,7 +1089,7 @@ namespace JsDiag
 
         Utf8SourceInfo* GetUtf8SourceInfo() const;
         UINT64 GetDocumentId() const;
-        FunctionBody::SourceInfo* GetSourceInfo() const;        
+        FunctionBody::SourceInfo* GetSourceInfo() const;
         FunctionEntryPointInfo* GetEntryPointFromNativeAddress(DWORD_PTR codeAddress);
         LoopEntryPointInfo* GetLoopEntryPointFromNativeAddress(DWORD_PTR codeAddress, uint loopNum);
         LoopHeader* GetLoopHeader(uint index);
@@ -1294,11 +1294,11 @@ namespace JsDiag
         RemoteRegexPattern(IVirtualReader* reader, const TargetType* addr)
             : RemoteData<TargetType>(reader, addr)
         {
-            // Cache the flags for the regex pattern so we don't have to read them 
+            // Cache the flags for the regex pattern so we don't have to read them
             // from the remote process multiple times when checking if they're set.
-            
+
             RemoteData<UnifiedRegex::Program> program(GetReader(), ToTargetPtr()->rep.unified.program);
-            this->cachedFlags = program->flags;            
+            this->cachedFlags = program->flags;
         }
 
         bool IsGlobal() const;
@@ -1448,7 +1448,7 @@ namespace JsDiag
     {
         RemoteDebuggerScope(IVirtualReader* reader, const TargetType* addr) : RemoteData<DebuggerScope>(reader, addr) {}
 
-        // Check if the property is there in the scope 
+        // Check if the property is there in the scope
         bool ContainsProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, DebuggerScopeProperty* outProperty = nullptr);
         bool ContainsValidProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, int offset, bool* isInDeadZone);
     };
@@ -1473,7 +1473,7 @@ namespace JsDiag
     public:
         RemoteConfiguration() : m_isInitialized(false) {}
         static RemoteConfiguration* GetInstance();
-        static void EnsureInstance(IVirtualReader* reader, const Configuration* addr);        
+        static void EnsureInstance(IVirtualReader* reader, const Configuration* addr);
         Configuration* ToTargetPtr() { return reinterpret_cast<Configuration*>(m_data); }
 
         bool PhaseOff1(Phase phase);

@@ -27,7 +27,7 @@ namespace JsDiag
 {
     using namespace Js;
     using namespace JsUtil;
-    
+
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     //static
     RemoteConfiguration RemoteConfiguration::s_instance;
@@ -270,9 +270,9 @@ namespace JsDiag
                 funcCaller = walker.GetCurrentFunction();
 
                 if (walker.IsCallerGlobalFunction())
-                {                  
+                {
                     funcCaller = nullObject;
-                }              
+                }
 
                 break;
             }
@@ -417,14 +417,14 @@ namespace JsDiag
 
         RecyclableObject* targetFunction = this->ToTargetPtr()->targetFunction;
         Assert(targetFunction);
-		
+
         RemoteJavascriptFunction remoteTargetFunction = RemoteJavascriptFunction(reader, static_cast<const JavascriptFunction*>(targetFunction));
 
         if (remoteTargetFunction.IsBoundFunction(context))
         {
             RemoteBoundFunction remoteBoundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(targetFunction));
             return remoteBoundFunction.GetLength(context, propInfo);
-        } 
+        }
         else if (remoteTargetFunction.IsScriptFunction())
         {
             return remoteTargetFunction.GetLength();
@@ -432,20 +432,20 @@ namespace JsDiag
         else
         {
             // It's a runtime function
-            if (!context->GetProperty((Js::Var)targetFunction, Js::PropertyIds::length, propInfo)) 
+            if (!context->GetProperty((Js::Var)targetFunction, Js::PropertyIds::length, propInfo))
             {
                 DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_GETPROPERTY);
             }
-													
+
             return TARGETS_RUNTIME_FUNCTION;
         }
     }
-	
+
     uint16 RemoteJavascriptFunction::GetLength()
     {
         FunctionBody* functionBodyAddr = GetFunction();
         Assert(functionBodyAddr != nullptr); // This is a script function, so the body will be there.
-		
+
         RemoteFunctionBody functionBody(m_reader, functionBodyAddr);
         return functionBody->GetInParamsCount() - 1;
     }
@@ -538,7 +538,7 @@ namespace JsDiag
                 }
 
                 currentFunction = nullptr;
-            }          
+            }
             break;
         }
 
@@ -869,7 +869,7 @@ namespace JsDiag
 
     LPVOID RemotePreReservedVirtualAllocWrapper::GetPreReservedStartAddress()
     {
-        return this->ReadField<LPVOID>(offsetof(TargetType, preReservedStartAddress)); 
+        return this->ReadField<LPVOID>(offsetof(TargetType, preReservedStartAddress));
     }
 
     LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress()
@@ -971,7 +971,7 @@ namespace JsDiag
         return false;
     }
 
-    
+
     bool RemoteScriptContext::IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address)
     {
         if (codeGenAllocatorsAddr)
@@ -1040,7 +1040,7 @@ namespace JsDiag
 
         LoopEntryPointInfo* entryPoint = nullptr;
         RemoteLoopHeader loopHeader(m_reader, loopHeaderAddr);
-        loopHeader.MapEntryPoints([&](int index, LoopEntryPointInfo* currentEntryPointAddr) 
+        loopHeader.MapEntryPoints([&](int index, LoopEntryPointInfo* currentEntryPointAddr)
         {
             RemoteLoopEntryPointInfo currentEntryPoint(m_reader, currentEntryPointAddr);
             if (currentEntryPoint.IsCodeGenDone() &&
@@ -1056,7 +1056,7 @@ namespace JsDiag
 
     FunctionEntryPointInfo* RemoteFunctionBody::GetEntryPointInfo(int index)
     {
-        //typedef SynchronizableList<FunctionEntryPointWeakRef*, JsUtil::List<FunctionEntryPointWeakRef*>> FunctionEntryPointList;        
+        //typedef SynchronizableList<FunctionEntryPointWeakRef*, JsUtil::List<FunctionEntryPointWeakRef*>> FunctionEntryPointList;
         RemoteList<FunctionEntryPointWeakRef*> entryPoints(m_reader, this->ToTargetPtr()->entryPoints);
         RemoteRecyclerWeakReference<FunctionEntryPointInfo> weakEntryPoint(m_reader, entryPoints.Item(index));
         FunctionEntryPointInfo* entryPoint = weakEntryPoint.Get();
@@ -1078,7 +1078,7 @@ namespace JsDiag
 
     template <typename Fn>
     void RemoteFunctionBody::MapEntryPoints(Fn fn)
-    {        
+    {
         if (this->ToTargetPtr()->entryPoints)
         {
             //typedef SynchronizableList<FunctionEntryPointWeakRef*, JsUtil::List<FunctionEntryPointWeakRef*>> FunctionEntryPointList;
@@ -1099,7 +1099,7 @@ namespace JsDiag
     {
         Assert(this->ToTargetPtr()->loopHeaderArray != nullptr);
         Assert(index < this->ToTargetPtr()->loopCount);
-        
+
         return this->ToTargetPtr()->loopHeaderArray + index;
     }
 
@@ -1108,7 +1108,7 @@ namespace JsDiag
     {
         AssertMsg(loopNum == LoopHeader::NoLoop || inlineeOffset == 0 && inlinee == nullptr,
             "Interpreter Jit loop body frame can't have inlinees.");
-        return inlineeOffset != 0 ? 
+        return inlineeOffset != 0 ?
             this->GetMatchingStatementMapFromNativeOffset(statementMap, codeAddress, inlineeOffset, inlinee) :
             this->GetMatchingStatementMapFromNativeAddress(statementMap, codeAddress, loopNum, inlinee);
     }
@@ -1187,7 +1187,7 @@ namespace JsDiag
     }
 
     bool RemoteFunctionBody::InstallProbe(int offset, RemoteAllocator* allocator)
-    {        
+    {
         RemoteByteBlock remoteByteCodeBlock(m_reader, this->ToTargetPtr()->byteCodeBlock);
         if (offset < 0 || ((uint)offset + 1) >= remoteByteCodeBlock->m_contentSize)
         {
@@ -1230,7 +1230,7 @@ namespace JsDiag
     }
 
     void RemoteFunctionBody::UninstallProbe(int offset)
-    {        
+    {
         RemoteByteBlock remoteByteCodeBlock(m_reader, this->ToTargetPtr()->byteCodeBlock);
         if (offset < 0 || ((uint)offset + 1) >= remoteByteCodeBlock->m_contentSize)
         {
@@ -1248,10 +1248,10 @@ namespace JsDiag
         uint8 originalOpCodeByte = VirtualReader::ReadVirtual<uint8>(m_reader, remoteProbeBackingBlock->m_content + offset);
 
         BYTE* byteCodeBuffer = remoteByteCodeBlock->m_content;
-     
+
         HRESULT hr = m_reader->WriteMemory(byteCodeBuffer + offset, &originalOpCodeByte, sizeof(uint8));
         CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-           
+
 
         remoteSourceInfo.DecrementProbeCount();
     }
@@ -1260,7 +1260,7 @@ namespace JsDiag
     {
         RemoteFunctionBody_SourceInfo remoteSourceInfo(this->m_reader, this);
         auto statementMaps = remoteSourceInfo.GetStatementMaps();
-       
+
         if (statementMaps)
         {
             RemoteList<FunctionBody::StatementMap*> remoteStatementMaps(m_reader, statementMaps);
@@ -1324,7 +1324,7 @@ namespace JsDiag
             else
             {
                 // typedef JsUtil::List<Js::FunctionBody::StatementMap*> StatementMapList;
-                RemoteFunctionBody_SourceInfo sourceInfo(m_reader, this);                
+                RemoteFunctionBody_SourceInfo sourceInfo(m_reader, this);
                 Assert(this->ToTargetPtr()->pStatementMaps);
 
                 RemoteList<Js::FunctionBody::StatementMap*> statementMaps(m_reader, this->ToTargetPtr()->pStatementMaps);
@@ -1343,9 +1343,9 @@ namespace JsDiag
         return FALSE;
     }
 
-    uint32 RemoteGrowingUint32HeapArray::ItemInBuffer(int index)
+    uint32 RemoteGrowingUint32HeapArray::ItemInBuffer(uint32 index)
     {
-        if (index < 0 || index >= this->ToTargetPtr()->count)
+        if (index >= this->ToTargetPtr()->Count())
         {
             return 0;
         }
@@ -1355,8 +1355,8 @@ namespace JsDiag
         return *static_cast<uint32*>(item);
     }
 
-        
-    int RemoteSmallSpanSequence::Count()
+
+    uint32 RemoteSmallSpanSequence::Count()
     {
         GrowingUint32HeapArray* statementBufferAddr = this->ToTargetPtr()->pStatementBuffer;
         if (statementBufferAddr)
@@ -1365,7 +1365,7 @@ namespace JsDiag
         }
         return 0;
     }
-    
+
     BOOL RemoteSmallSpanSequence::Item(int index, SmallSpanSequenceIter& iter, StatementData& data)
     {
         GrowingUint32HeapArray* statementBufferAddr = this->ToTargetPtr()->pStatementBuffer;
@@ -1375,7 +1375,7 @@ namespace JsDiag
         }
 
         RemoteGrowingUint32HeapArray statementBuffer(m_reader, statementBufferAddr);
-        if (index >= statementBuffer->count)
+        if ((uint32)index >= statementBuffer->Count())
         {
             return FALSE;
         }
@@ -1387,7 +1387,7 @@ namespace JsDiag
 
         while (iter.accumulatedIndex <= index)
         {
-            Assert(iter.accumulatedIndex < statementBuffer->count);
+            Assert((uint32)iter.accumulatedIndex < statementBuffer->Count());
 
             int countOfMissed = 0;
             if (!this->GetRangeAt(iter.accumulatedIndex, iter, &countOfMissed, data))
@@ -1427,7 +1427,7 @@ namespace JsDiag
     template <typename TFilterFn>
     bool RemoteSmallSpanSequence::GetMatchingStatement(SmallSpanSequenceIter& iter, TFilterFn filterFn, StatementData& data)
     {
-        while (iter.accumulatedIndex < this->Count())
+        while ((uint32)iter.accumulatedIndex < this->Count())
         {
             int countOfMissed = 0;
             if (!this->GetRangeAt(iter.accumulatedIndex, iter, &countOfMissed, data))
@@ -1461,13 +1461,13 @@ namespace JsDiag
         {
             // Support only in forward direction
             if (bytecode < iter.accumulatedBytecodeBegin
-                || iter.accumulatedIndex <= 0 || iter.accumulatedIndex >= this->Count())
+                || iter.accumulatedIndex <= 0 || (uint32)iter.accumulatedIndex >= this->Count())
             {
                 // Re-initialize the accumulator.
                 this->ResetIterator(iter);
             }
 
-            auto filterFn = [bytecode](SmallSpanSequenceIter& iter, StatementData& data) 
+            auto filterFn = [bytecode](SmallSpanSequenceIter& iter, StatementData& data)
             {
                 if (data.bytecodeBegin >= bytecode)
                 {
@@ -1496,7 +1496,7 @@ namespace JsDiag
     // Get Values of the begining of the statement at particular index.
     BOOL RemoteSmallSpanSequence::GetRangeAt(int index, SmallSpanSequenceIter& iter, int* pCountOfMissed, StatementData& data)
     {
-        Assert(index < this->Count());
+        Assert((uint32)index < this->Count());
         RemoteGrowingUint32HeapArray statementBuffer(m_reader, this->ToTargetPtr()->pStatementBuffer);
         SmallSpan span(statementBuffer.ItemInBuffer(index));  // Note: SmallSpan is fine to use as a data class.
         int countOfMissed = 0;
@@ -1507,8 +1507,8 @@ namespace JsDiag
             Assert(this->ToTargetPtr()->pActualOffsetList);
 
             RemoteGrowingUint32HeapArray actualOffsetList(m_reader, this->ToTargetPtr()->pActualOffsetList);
-            Assert(actualOffsetList->count > 0);
-            Assert(actualOffsetList->count > iter.indexOfActualOffset);
+            Assert(actualOffsetList->Count() > 0);
+            Assert(actualOffsetList->Count() > (uint32)iter.indexOfActualOffset);
 
             data.sourceBegin = actualOffsetList.ItemInBuffer(iter.indexOfActualOffset);
             countOfMissed++;
@@ -1524,8 +1524,8 @@ namespace JsDiag
             Assert(this->ToTargetPtr()->pActualOffsetList);
 
             RemoteGrowingUint32HeapArray actualOffsetList(m_reader, this->ToTargetPtr()->pActualOffsetList);
-            Assert(actualOffsetList->count > 0);
-            Assert(actualOffsetList->count > iter.indexOfActualOffset + countOfMissed);
+            Assert(actualOffsetList->Count() > 0);
+            Assert(actualOffsetList->Count() > (uint32)(iter.indexOfActualOffset + countOfMissed));
 
             data.bytecodeBegin = actualOffsetList.ItemInBuffer(iter.indexOfActualOffset + countOfMissed);
             countOfMissed++;
@@ -1623,14 +1623,14 @@ namespace JsDiag
         return this->ToTargetPtr()->lineOffsetCacheList;
     }
 
-    RemoteFunctionBody_SourceInfo::RemoteFunctionBody_SourceInfo(IVirtualReader* reader, const RemoteFunctionBody* functionBody) : 
+    RemoteFunctionBody_SourceInfo::RemoteFunctionBody_SourceInfo(IVirtualReader* reader, const RemoteFunctionBody* functionBody) :
         RemoteData<TargetType>(reader, functionBody->GetSourceInfo()),
         m_functionBody(functionBody)
     {}
 
-    const FunctionBody* RemoteFunctionBody_SourceInfo::GetFunctionBody() 
-    { 
-        return m_functionBody->operator const Js::FunctionBody *(); 
+    const FunctionBody* RemoteFunctionBody_SourceInfo::GetFunctionBody()
+    {
+        return m_functionBody->operator const Js::FunctionBody *();
     }
 
     // Get char offsets for statement start and end.
@@ -1695,7 +1695,7 @@ namespace JsDiag
 
             auto filterFn = [statementStartSourceOffset](SmallSpanSequenceIter& iter, StatementData& data)
             {
-                return data.sourceBegin >= 0 && 
+                return data.sourceBegin >= 0 &&
                        static_cast<ULONG>(data.sourceBegin) > statementStartSourceOffset;
             };
 
@@ -1703,8 +1703,8 @@ namespace JsDiag
             if (spanSequence.GetMatchingStatement(iter, filterFn, data))
             {
                 int prevStatementEnd = data.sourceBegin - 1;
-                *statementEndSourceOffset = prevStatementEnd >= 0 && static_cast<ULONG>(prevStatementEnd) > statementStartSourceOffset ? 
-                    prevStatementEnd : 
+                *statementEndSourceOffset = prevStatementEnd >= 0 && static_cast<ULONG>(prevStatementEnd) > statementStartSourceOffset ?
+                    prevStatementEnd :
                     statementStartSourceOffset;
                 return true;
             }
@@ -1793,12 +1793,12 @@ namespace JsDiag
 
     bool RemoteFunctionBody_SourceInfo::HasLineBreak(charcount_t start, charcount_t end)
     {
-        if (start > end) 
+        if (start > end)
         {
             return false;
         }
         charcount_t cchLength = end - start;
-        if (start < this->GetFunctionBody()->m_cchStartOffset || cchLength > this->GetFunctionBody()->m_cchLength) 
+        if (start < this->GetFunctionBody()->m_cchStartOffset || cchLength > this->GetFunctionBody()->m_cchLength)
         {
             return false;
         }
@@ -1806,7 +1806,7 @@ namespace JsDiag
         size_t lengthInBytes = this->LengthInBytes();
         RemoteUtf8SourceInfo funcUtf8SourceInfo(m_reader, this->GetFunctionBody()->m_utf8SourceInfo);
         LPCUTF8 src = funcUtf8SourceInfo.GetDebugModeSource() + this->GetFunctionBody()->m_cbStartOffset;
-        size_t offset; 
+        size_t offset;
 
         // TODO: PERF: Consider copying only part of this.
         RemoteBuffer<utf8char_t> source(m_reader, const_cast<LPUTF8>(src), lengthInBytes, lengthInBytes);
@@ -1880,8 +1880,8 @@ namespace JsDiag
         // TODO: What about surrogate pairs?
         utf8::DecodeOptions options = utf8::doAllowThreeByteSurrogates;
 
-        // TODO: it seem that we can make this more efficient by reading from the start of the function as opposed to start of the document. 
-        //       We should know the line number at the start of the function and we should be able to add the offset of the statement to that. 
+        // TODO: it seem that we can make this more efficient by reading from the start of the function as opposed to start of the document.
+        //       We should know the line number at the start of the function and we should be able to add the offset of the statement to that.
         //       It seems that product code can do the same it just does not currently.
         // Count newlines from start of document
         // Note: m_cbLength is length in bytes for script, and we need from doc start.
@@ -1966,7 +1966,7 @@ namespace JsDiag
     }
 
     FunctionBody::StatementMapList* RemoteFunctionBody_SourceInfo::GetStatementMaps()
-    {        
+    {
         return this->GetFunctionBody()->pStatementMaps;
     }
 
@@ -1976,8 +1976,8 @@ namespace JsDiag
         return srcInfo->sourceContextInfo;
     }
 
-    const SRCINFO* RemoteFunctionBody_SourceInfo::GetHostSrcInfo() 
-    { 
+    const SRCINFO* RemoteFunctionBody_SourceInfo::GetHostSrcInfo()
+    {
         RemoteUtf8SourceInfo utf8SourceInfo(m_reader, this->GetFunctionBody()->m_utf8SourceInfo);
         return utf8SourceInfo->m_srcInfo;
     }
@@ -2003,7 +2003,7 @@ namespace JsDiag
     }
 
     ByteBlock* RemoteFunctionBody_SourceInfo::GetProbeBackingBlock()
-    {        
+    {
         return this->ToTargetPtr()->m_probeBackingBlock;
     }
 
@@ -2046,8 +2046,8 @@ namespace JsDiag
         if (remoteSourceContextInfo->IsDynamic())
         {
             // TODO: consider evaluating this during function body creation and saving to sourceContextInfo->Url.
-            // This will ensure we do not need to duplicate this logic with the runtime. 
-            // None of the logic seems to change over the lifetime of a function and it makes sense 
+            // This will ensure we do not need to duplicate this logic with the runtime.
+            // None of the logic seems to change over the lifetime of a function and it makes sense
             // to be set once at the time of FunctionBody initialization.
             if (this->GetFunctionBody()->m_isEval)
             {
@@ -2069,7 +2069,7 @@ namespace JsDiag
     }
 
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-    void RemoteConfiguration::EnsureInitialize(IVirtualReader* reader, const Configuration* addr) 
+    void RemoteConfiguration::EnsureInitialize(IVirtualReader* reader, const Configuration* addr)
     {
         if(!m_isInitialized)
         {
@@ -2122,9 +2122,9 @@ namespace JsDiag
     }
 
     bool RemoteFunctionBody::Is(InspectionContext* context, void* ptr)
-    { 
-        if(ptr) 
-        { 
+    {
+        if(ptr)
+        {
             return context->MatchVTable(ptr, Diag_FunctionBody);
         }
         return false;
@@ -2145,7 +2145,7 @@ namespace JsDiag
 
     void RemoteFunctionBody::GetFunctionName(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const
     {
-        nameBuffer[0] = 0;        
+        nameBuffer[0] = 0;
         LPCWSTR displayNamePtr = (*this)->m_displayName;
 
         LPCWSTR displayName = nameBuffer;
@@ -2160,7 +2160,7 @@ namespace JsDiag
             bool isGlobalFunc = static_cast<const Js::FunctionBody*>(*this)->m_isGlobalFunc;
             name = this->GetExternalDisplayName(displayName, isDynamicScript, isGlobalFunc);
         });
-        
+
         if (name != displayName)
         {
             wcscpy_s(nameBuffer, nameBufferElementCount, name);
@@ -2189,7 +2189,7 @@ namespace JsDiag
     // Template method used to get both uri and function name.
     template <typename Fn>
     void RemoteFunctionBody::GetFunctionBodyInfo(Fn fn) const
-    {        
+    {
         RemoteFunctionBody_SourceInfo sourceInfo(m_reader, this);
         RemoteUtf8SourceInfo utf8SourceInfo(m_reader, (*this)->GetUtf8SourceInfo());
         const SRCINFO* hostSrcInfoAddr = utf8SourceInfo->m_srcInfo;
@@ -2227,7 +2227,7 @@ namespace JsDiag
         {
             DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_NULL_UTF8SOURCEINFO);
         }
-        
+
         RemoteUtf8SourceInfo remoteUtf8SourceInfo(m_reader, utf8SourceInfoPtr);
         UINT64 documentId = (UINT64)remoteUtf8SourceInfo.GetDocumentId();
         return documentId;
@@ -2416,7 +2416,7 @@ namespace JsDiag
         RemoteData<UnifiedRegex::RegexPattern> pattern(reader, ToTargetPtr()->pattern);
         RemoteData<UnifiedRegex::Program> program(reader, pattern->rep.unified.program);
         *pSource = program->source;
-        *pLength = program->sourceLen;    
+        *pLength = program->sourceLen;
     }
 
     bool RemoteRegexPattern::IsFlagSet(UnifiedRegex::RegexFlags flag) const
@@ -2497,7 +2497,7 @@ namespace JsDiag
 
         return RemoteScriptContext(m_reader, GetScriptContext()).GetPropertyName(propertyId);
     }
-    
+
     bool RemoteExternalObject::IsProjectionObjectInstance(DebugClient* debugClient) const
     {
         const void* vtable = this->ReadVTable();
