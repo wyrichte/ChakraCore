@@ -675,15 +675,15 @@ void ScriptDebugDocument::GetFormattedTitle(LPCWSTR title, _Out_z_cap_(length) L
     int id = -1;
     if (wcscmp(title, Js::Constants::EvalCode) == 0)
     {
-        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::EvalCode);
+        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::DFT_EvalCode);
     }
     else if (wcscmp(title, Js::Constants::FunctionCode) == 0)
     {
-        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::AnonymousCode);
+        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::DFT_AnonymousCode);
     }
     else
     {
-        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::JScriptBlock);
+        id = threadContext->GetDebugManager()->GetNextId(Js::DebugManager::DFT_JScriptBlock);
     }
     swprintf_s(formattedTitle, length, OLESTR("%s (%d)"), title, id);
 }

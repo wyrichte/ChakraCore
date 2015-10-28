@@ -116,3 +116,14 @@ namespace JsDiag
         return E_FAIL;
     }
 } // namespace JsDiag.
+
+#if DBG
+//
+// Verify all concrete string classes are listed in DiagVTableList.h. Any missing string class
+// won't have "_declareConcreteStringClass" implementation and results in a link error.
+//
+#define STRING_ENTRY(s)                     void Js::s##::_declareConcreteStringClass() {}
+#define STRING_ENTRY_TEMPLATE(s, c, ...)    template<> void Js::c##<__VA_ARGS__>::_declareConcreteStringClass() {}
+#include "DiagVTableList.h"
+#endif
+

@@ -74,6 +74,8 @@
     <ClInclude Include="dbgpropImpl.h" />
     <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DefaultScriptOperations.h" />
+    <ClInclude Include="DiagGlobalList.h" />
+    <ClInclude Include="DiagVTableList.h" />
     <ClInclude Include="DiagnosticsScriptObject.h" />
     <ClInclude Include="DispatchHelper.h" />
     <ClInclude Include="dispidhelper.h" />
