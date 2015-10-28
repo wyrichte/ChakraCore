@@ -1003,12 +1003,15 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
 
     DWORD written;
 
-    //For validating the header file agains the library file    
-    auto outputStr = 
+    // For validating the header file against the library file
+    auto outputStr =
+        "//-------------------------------------------------------------------------------------------------------\r\n"
         "// Copyright (C) Microsoft. All rights reserved.\r\n"
-        "#if 0 \r\n";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);        
-    if (! WriteFile(fileHandle, contentsRaw, lengthBytes, &written, nullptr)) IfFailGo(E_FAIL);
+        "// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.\r\n"
+        "//-------------------------------------------------------------------------------------------------------\r\n"
+        "#if 0\r\n";
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+    if (!WriteFile(fileHandle, contentsRaw, lengthBytes, &written, nullptr)) IfFailGo(E_FAIL);
     if (lengthBytes < 2 || contentsRaw[lengthBytes - 2] != '\r' || contentsRaw[lengthBytes - 1] != '\n')
     {
         outputStr = "\r\n#endif\r\n";
@@ -1017,47 +1020,47 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     {
         outputStr = "#endif\r\n";
     }
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
-    
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+
     // Write out the bytecode
-    outputStr = "namespace Js \r\n{\r\n    const char Library_Bytecode_";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+    outputStr = "namespace Js\r\n{\r\n    const char Library_Bytecode_";
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
     size_t convertedChars;
     char libraryNameNarrow[MAX_PATH + 1];
     if (wcstombs_s(&convertedChars, libraryNameNarrow, libraryNameWide, _TRUNCATE) != 0) IfFailGo(E_FAIL);
-    if (! WriteFile(fileHandle, libraryNameNarrow, static_cast<DWORD>(strlen(libraryNameNarrow)), &written, nullptr)) IfFailGo(E_FAIL);
-    outputStr = "[] = \r\n/* 00000000 */ {";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
-    
+    if (!WriteFile(fileHandle, libraryNameNarrow, static_cast<DWORD>(strlen(libraryNameNarrow)), &written, nullptr)) IfFailGo(E_FAIL);
+    outputStr = "[] = {\r\n/* 00000000 */";
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+
     for (unsigned int i = 0; i < bufferSize; i++)
     {
-        const DWORD scratchLen = 5;
-        const DWORD commaSpaceLen = 3;
-        const DWORD offsetLen = 18;
+        const DWORD scratchLen = 6;
+        const DWORD commaSpaceLen = 2;
+        const DWORD offsetLen = 17;
         char scratch[scratchLen];
-        int num =_snprintf_s(scratch, scratchLen, "0x%02X", buffer[i]);
-        Assert(num == 4);
-        if (! WriteFile(fileHandle, scratch, scratchLen-1, &written, nullptr)) IfFailGo(E_FAIL);
+        int num = _snprintf_s(scratch, scratchLen, " 0x%02X", buffer[i]);
+        Assert(num == 5);
+        if (!WriteFile(fileHandle, scratch, scratchLen - 1, &written, nullptr)) IfFailGo(E_FAIL);
 
         //Add a comma and a space if this is not the last item
-        if(i < bufferSize - 1)
+        if (i < bufferSize - 1)
         {
             char commaSpace[commaSpaceLen];
-            _snprintf_s(commaSpace, commaSpaceLen, ", ");  // close quote, new line, offset and open quote
-            if (! WriteFile(fileHandle, commaSpace, commaSpaceLen-1, &written, nullptr)) IfFailGo(E_FAIL);
+            _snprintf_s(commaSpace, commaSpaceLen, ",");  // close quote, new line, offset and open quote
+            if (!WriteFile(fileHandle, commaSpace, commaSpaceLen - 1, &written, nullptr)) IfFailGo(E_FAIL);
         }
 
         //Add a line break every 16 scratches, primarily so the compiler doesn't complain about the string being too long.
         //Also, won't add for the last scratch
-        if(i % 16 == 15 && i < bufferSize -1)
+        if (i % 16 == 15 && i < bufferSize - 1)
         {
             char offset[offsetLen];
-            _snprintf_s(offset, offsetLen, "\r\n/* %08X */ ", i + 1);  // close quote, new line, offset and open quote
-            if (! WriteFile(fileHandle, offset, offsetLen-1, &written, nullptr)) IfFailGo(E_FAIL);
+            _snprintf_s(offset, offsetLen, "\r\n/* %08X */", i + 1);  // close quote, new line, offset and open quote
+            if (!WriteFile(fileHandle, offset, offsetLen - 1, &written, nullptr)) IfFailGo(E_FAIL);
         }
     }
     outputStr = "};\r\n\r\n";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
     outputStr = "}";
     if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
