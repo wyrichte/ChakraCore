@@ -31,149 +31,6 @@ Successfully compiled asm.js code
 Successfully compiled asm.js code
 Warning: Typed array builtin already defined for var b1
 Successfully compiled asm.js code
-Successfully compiled asm.js code
-      Error creating function entry
-Asm.js compilation failed.
-      Error creating function entry
-Asm.js compilation failed.
-Successfully compiled asm.js code
-default & rest args not allowed
-Asm.js compilation failed.
-default & rest args not allowed
-Asm.js compilation failed.
-Successfully compiled asm.js code
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-
-changeHeap.js(61, 106)
-	Asm.js Compilation Error function : None::ch
-	Unhandled parse opcode for asm.js
-
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Successfully compiled asm.js code
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Expecting an assignment
-Asm.js compilation failed.
-Warning: Typed array builtin already defined for var I32
-Expecting an assignment
-Asm.js compilation failed.
-Warning: Typed array builtin already defined for var I32
-Expecting an assignment
-Asm.js compilation failed.
-Warning: Typed array builtin already defined for var I32
-Expecting an assignment
-Asm.js compilation failed.
-Warning: Typed array builtin already defined for var I32
-Successfully compiled asm.js code
-Warning: Typed array builtin already defined for var I32
-Expecting an assignment
-Asm.js compilation failed.
-Warning: Typed array builtin already defined for var I32
-Successfully compiled asm.js code
-Successfully compiled asm.js code
-Successfully compiled asm.js code
-Successfully compiled asm.js code
 Asm.js Runtime Error : Array builtin function is invalid
 asm.js linking failed.
 Asm.js Runtime Error : Array builtin function is invalid
@@ -213,81 +70,221 @@ Asm.js Runtime Error : Array builtin function is invalid
 asm.js linking failed.
 42
 43
+Successfully compiled asm.js code
 42
+      Error creating function entry
+Asm.js compilation failed.
 42
+      Error creating function entry
+Asm.js compilation failed.
 42
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 42
+default & rest args not allowed
+Asm.js compilation failed.
 42
+default & rest args not allowed
+Asm.js compilation failed.
 42
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+
+changeHeap.js(61, 106)
+	Asm.js Compilation Error function : None::ch
+	Unhandled parse opcode for asm.js
+
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Expecting an assignment
+Asm.js compilation failed.
 42
+Warning: Typed array builtin already defined for var I32
+Expecting an assignment
+Asm.js compilation failed.
 42
+Warning: Typed array builtin already defined for var I32
+Expecting an assignment
+Asm.js compilation failed.
 42
+Warning: Typed array builtin already defined for var I32
+Expecting an assignment
+Asm.js compilation failed.
 42
+Warning: Typed array builtin already defined for var I32
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 42
+Warning: Typed array builtin already defined for var I32
+Expecting an assignment
+Asm.js compilation failed.
 42
+Warning: Typed array builtin already defined for var I32
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 42
@@ -411,6 +408,7 @@ Asm.js compilation failed.
 Expecting an assignment
 Asm.js compilation failed.
 0
+Successfully compiled asm.js code
 function (glob,ffis,b){"use asm";var I32=glob.Int32Array; var i32=new I32(b);var len=glob.byteLength;function ch(b2) { if(len(b2) & 0xffffff || len(b2) <= 0xffffff || len(b2) > 0x80000000) return false; i32=new I32(b2); b=b2; return true } function get(i) { i=i|0; return i32[i>>2]|0 } function set(i, v) { i=i|0; v=v|0; i32[i>>2] = v } return {get:get, set:set, changeHeap:ch}}
 42
 13
@@ -424,11 +422,13 @@ true
 42
 13
 0
+Successfully compiled asm.js code
 27
 56
 85
 56
 27
+Successfully compiled asm.js code
 Asm.js Runtime Error : Buffer bytelength is not a valid size for asm.js
 asm.js linking failed.
 0

@@ -218,22 +218,24 @@
     <default>
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -off:deferparse -simdjs -maic:0</compile-flags>
+      <tags>exclude_dynapogo</tags>
+      <compile-flags>-testtrace:asmjs -forcedeferparse -simdjs -maic:0</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -off:fulljit</compile-flags>
+      <tags>exclude_dynapogo</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -forcedeferparse -off:fulljit</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>changeHeap.js</files>
       <baseline>changeHeap.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate</compile-flags>
+      <tags>exclude_amd64,exclude_dynapogo</tags>
+      <compile-flags>-testtrace:asmjs -simdjs -forcedeferparse -on:asmjsjittemplate</compile-flags>
     </default>
   </test>
   <test>
@@ -359,6 +361,14 @@
       <files>Matrix.js</files>
       <baseline>MatrixLinkFail.baseline</baseline>
       <compile-flags>-testtrace:asmjs -simdjs -forceasmjslinkfail</compile-flags>
+      <tags>Slow</tags>
+    </default>
+  </test>
+    <test>
+    <default>
+      <files>Matrix.js</files>
+      <baseline>MatrixLinkFail.baseline</baseline>
+      <compile-flags>-forceserialized -testtrace:asmjs -simdjs -forceasmjslinkfail</compile-flags>
       <tags>Slow</tags>
     </default>
   </test>
