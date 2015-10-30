@@ -483,17 +483,10 @@ namespace JsDiag
         Assert(isLetConst);
         Assert(isInDeadZone);
 
-        if (propertyId == Js::PropertyIds::_lexicalThisSlotSymbol)
-        {
-            return false;
-        }
-
-        if (propertyId == Js::PropertyIds::_superReferenceSymbol)
-        {
-            return false;
-        }
-
-        if (propertyId == Js::PropertyIds::_lexicalNewTargetSymbol)
+        if (   propertyId == Js::PropertyIds::_lexicalThisSlotSymbol
+            || propertyId == Js::PropertyIds::_superReferenceSymbol
+            || propertyId == Js::PropertyIds::_superCtorReferenceSymbol
+            || propertyId == Js::PropertyIds::_lexicalNewTargetSymbol )
         {
             return false;
         }

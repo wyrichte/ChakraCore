@@ -1886,7 +1886,7 @@ LPCWSTR HeapDumper::GetNameFromId(PROFILER_HEAP_OBJECT_NAME_ID nameId)
     {
         return L"this";
     }
-    if (nameId == Js::PropertyIds::_superReferenceSymbol)
+    if (nameId == Js::PropertyIds::_superReferenceSymbol || nameId == Js::PropertyIds::_superCtorReferenceSymbol)
     {
         return L"super";
     }
