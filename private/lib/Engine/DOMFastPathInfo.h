@@ -14,8 +14,8 @@ public:
     static Js::FunctionInfo setterTable[];
     static Js::FunctionInfo* GetGetterInfo(unsigned int slotIndex) { return &(getterTable[slotIndex]); }
     static Js::FunctionInfo* GetSetterInfo(unsigned int slotIndex) { return &(setterTable[slotIndex]); }
-    static IR::JnHelperMethod getterHelperIDTable[];
-    static IR::JnHelperMethod setterHelperIDTable[];
+    static IR::JnHelperMethod const getterHelperIDTable[];
+    static IR::JnHelperMethod const setterHelperIDTable[];
     static IR::JnHelperMethod GetGetterIRHelper(unsigned int slotIndex) { return getterHelperIDTable[slotIndex]; }
     static IR::JnHelperMethod GetSetterIRHelper(unsigned int slotIndex) { return setterHelperIDTable[slotIndex]; }
 

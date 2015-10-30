@@ -22,7 +22,7 @@ namespace Js
 
     class DOMProperties
     {
-    static const Js::PropertyRecord *builtInPropertyRecords[];
+    static const Js::PropertyRecord * const builtInPropertyRecords[];
 
     public:
         static void InitializeDOMProperties(ThreadContext* threadContext);

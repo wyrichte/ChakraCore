@@ -1,7 +1,7 @@
 #include "EnginePch.h"
 
 #if DOMEnabled
-const Js::PropertyRecord * Js::DOMProperties::builtInPropertyRecords[] =
+const Js::PropertyRecord * const Js::DOMProperties::builtInPropertyRecords[] =
 {
 #define ENTRYDOM(n, hash) Js::DOMBuiltInPropertyRecords::DOM_##n,
 //Don't add existing properties ehre as they will be covered by builtInPropertyRecords above

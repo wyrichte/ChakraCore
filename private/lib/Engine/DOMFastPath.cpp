@@ -45,14 +45,14 @@ Js::FunctionInfo DOMFastPathInfo::setterTable[] = {
 #undef _ONE_SIMPLESLOT_RECORD
 };
 
-IR::JnHelperMethod DOMFastPathInfo::getterHelperIDTable [] = {
+IR::JnHelperMethod const DOMFastPathInfo::getterHelperIDTable [] = {
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameGetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
 };
 
-IR::JnHelperMethod DOMFastPathInfo::setterHelperIDTable [] = {
+IR::JnHelperMethod const DOMFastPathInfo::setterHelperIDTable [] = {
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameSetter,
 #include "DOMFastPathInfolist.h"
