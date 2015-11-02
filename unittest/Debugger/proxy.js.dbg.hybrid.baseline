@@ -51,7 +51,7 @@
         "start": 1074,
         "length": 39,
         "text": "return Reflect.get(obj, name, receiver)",
-        "frameDescription": "get handler"
+        "frameDescription": "handler.get"
       },
       {
         "start": 1303,

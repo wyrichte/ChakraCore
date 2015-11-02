@@ -37,7 +37,7 @@
         "start": 811,
         "length": 8,
         "text": "return a",
-        "frameDescription": "get property1"
+        "frameDescription": "property1.get"
       },
       {
         "start": 1221,
@@ -53,7 +53,7 @@
         "start": 886,
         "length": 3,
         "text": "a++",
-        "frameDescription": "set property1"
+        "frameDescription": "property1.set"
       },
       {
         "start": 1246,
@@ -69,7 +69,7 @@
         "start": 1056,
         "length": 8,
         "text": "return a",
-        "frameDescription": "get property2"
+        "frameDescription": "property2.get"
       },
       {
         "start": 1268,
@@ -85,7 +85,7 @@
         "start": 1131,
         "length": 3,
         "text": "a++",
-        "frameDescription": "set property2"
+        "frameDescription": "property2.set"
       },
       {
         "start": 1289,
