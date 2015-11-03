@@ -16,7 +16,7 @@ goto :main
 :: ============================================================================
 :printUsage
 
-  echo runjsrttests.cmd -x86^|-x64 -debug^|-test 
+  echo runjsrttests.cmd -x86^|-x64 -debug^|-test
   echo.
   echo Required switches:
   echo.
@@ -81,7 +81,7 @@ goto :main
   set _BinDir=
   set _BuildArch=
   set _BuildType=
-  set _RazzleTools=RazzleTools.1.0.4
+  set _RazzleTools=RazzleTools.1.0.5
   goto :eof
 
 :: ============================================================================
@@ -148,7 +148,7 @@ goto :main
   goto :eof
 
 :: ============================================================================
-:: Running tests using te.exe 
+:: Running tests using te.exe
 :: ============================================================================
 :runtest
 
@@ -163,7 +163,7 @@ goto :main
   set _RazzleBuildArch=%_BuildArch%
   if "%_BuildArch%" == "x64" set _RazzleBuildArch=amd64
 
-  set _TECommand=%_RootDir%\External\%_RazzleTools%\%_RazzleBuildArch%\te 
+  set _TECommand=%_RootDir%\External\%_RazzleTools%\%_RazzleBuildArch%\te
   call :do %_TECommand% %_AllTestBins%  /select:"not(@Disabled='Yes')" /unicodeoutput:false /parallel:1 /logOutput:lowest
 
   if ERRORLEVEL 1 set _HadFailures=1
