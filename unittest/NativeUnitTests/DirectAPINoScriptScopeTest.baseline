@@ -1,0 +1,15 @@
+
+
+Running DirectAPINoScriptScopeTest tests
+
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope) // HRESULT == S_OK
+SUCCESS: noScriptScope initialized to false
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true) // HRESULT == S_OK
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope) // HRESULT == S_OK
+SUCCESS: noScriptScope set to true
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false) // HRESULT == S_OK
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope) // HRESULT == S_OK
+SUCCESS: noScriptScope reset to false
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true) // HRESULT == S_OK
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false) // HRESULT == S_OK
+RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.

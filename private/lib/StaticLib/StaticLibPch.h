@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
@@ -20,3 +20,11 @@
 #include "base\scriptenginebase.h"
 #include "..\..\..\core\lib\common\common\NumberUtilitiesBase.h"
 #include <edgescriptdirect.h>
+#include "activscp_private.h"
+
+#ifndef __IIdleTaskHost_FWD_DEFINED__
+#define __IIdleTaskHost_FWD_DEFINED__
+typedef interface IIdleTaskHost IIdleTaskHost;
+#endif  /* __IIdleTaskHost_FWD_DEFINED__ */
+
+#include "javascriptThreadService.h"

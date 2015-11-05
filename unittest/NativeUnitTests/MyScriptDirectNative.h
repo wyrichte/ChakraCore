@@ -14,6 +14,7 @@ private:
     static FN_JsVarRelease ptr_JsVarRelease;
     JsHostNativeTestArguments* mptr_jsHostArgs;
     IActiveScriptDirect* mptr_EzeScriptDirect;
+    IJavascriptThreadProperty* threadProperty;
     IActiveScriptParse* mptr_ActiveScriptParse;
     IActiveScriptGarbageCollector* mptr_ActiveScriptGC;
     Data* mptr_mydata;
@@ -29,13 +30,15 @@ private:
     BOOL GetTypeOp();
     BOOL GetJsop();
     void Pass(std::string message);
-
+    IJavascriptThreadProperty* CreateThreadService(HINSTANCE jscriptLibrary);
 
 public:
     static HRESULT PinObject(Var obj);
     static HRESULT UnpinObject(Var obj);
     MyScriptDirectTests(JsHostNativeTestArguments* jsHostArgs);
     ~MyScriptDirectTests();
+    void InitThreadService() { this->threadProperty = CreateThreadService(this->mptr_jsHostArgs->jscriptLibrary); }
+    IJavascriptThreadProperty* GetThreadService() const { return threadProperty; }
     void SetPropertyOnTypedObject(std::wstring  objname,std::wstring propname,std::wstring value,std::string type,std::string expval);
     void SetPrototypeOnTypedObject();
     Data* GetData(){return mptr_mydata;};

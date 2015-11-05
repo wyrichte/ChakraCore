@@ -180,6 +180,24 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
         Print("\n\nRunning version tests\n");
         RunJsDirectTest(&test);
     }
+    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeTest") == 0)
+    {
+        Print("\n\nRunning DirectAPINoScriptScopeTest tests\n");
+        RunJsDirectNoScriptScopeTests(&test);
+        return S_OK;
+    }
+    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeErrorCaseTest") == 0)
+    {
+        Print("\n\nRunning DirectAPINoScriptScopeErrorCaseTest tests\n");
+        RunJsDirectNoScriptScopeErrorCaseTests(&test);
+        return S_OK;
+    }
+    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeFailfastTest") == 0)
+    {
+        Print("\n\nRunning DirectAPINoScriptScopeFailfastTest tests\n");
+        RunJsDirectNoScriptScopeFailfastTest(&test);
+        return S_OK;
+    }
     else if (_wcsicmp(jsHostArgs->flags[0], L"AsyncDebugTest") == 0)
     {
         Print("\n\nRunning AsyncDebugging tests\n");

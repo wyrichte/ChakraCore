@@ -142,6 +142,30 @@
   </test>
   <test>
     <default>
+      <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeTest</compile-flags>
+      <files>dummy.js</files>
+      <baseline>DirectAPINoScriptScopeTest.baseline</baseline>
+      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeErrorCaseTest</compile-flags>
+      <files>dummy.js</files>
+      <baseline>DirectAPINoScriptScopeErrorCaseTest.baseline</baseline>
+      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeFailfastTest</compile-flags>
+      <files>dummy.js</files>
+      <baseline>DirectAPINoScriptScopeFailfastTest.baseline</baseline>
+      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <compile-flags>-nativetest:NativeUnitTests.dll StaticLibVerificationTest</compile-flags>
       <files>dummy.js</files>
       <baseline>StaticLibVerificationTest.baseline</baseline>

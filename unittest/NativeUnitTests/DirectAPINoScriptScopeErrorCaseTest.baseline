@@ -1,0 +1,16 @@
+
+
+Running DirectAPINoScriptScopeErrorCaseTest tests
+
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, true) // HRESULT == E_INVALIDARG
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope) // HRESULT == E_INVALIDARG
+SUCCESS: noScriptScope set to true when passed an invalid argument
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, false) // HRESULT == E_INVALIDARG
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope) // HRESULT == E_INVALIDARG
+SUCCESS: noScriptScope set to true when passed an invalid argument
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, true) // HRESULT == E_INVALIDARG
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope) // HRESULT == E_INVALIDARG
+SUCCESS: noScriptScope set to true when passed an invalid argument
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, false) // HRESULT == E_INVALIDARG
+SUCCESS: JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope) // HRESULT == E_INVALIDARG
+SUCCESS: noScriptScope set to true when passed an invalid argument

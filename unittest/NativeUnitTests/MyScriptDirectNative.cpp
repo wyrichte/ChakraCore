@@ -43,9 +43,13 @@ HRESULT MyScriptDirectTests::UnpinObject(Var obj)
     return S_OK;
 }
 
+// the CLSID_ChakraThreadService is defined in private\lib\engine, but the include path for this project have diag path ahead,
+// so include guids.h includes a wrong file. Let's just copy it here.
+DEFINE_GUID(CLSID_ChakraThreadService, 0x337448ee, 0x2a70, 0x43f7, 0x99, 0xf9, 0x40, 0xf2, 0x85, 0x79, 0x50, 0xb9);
+
 MyScriptDirectTests::MyScriptDirectTests(JsHostNativeTestArguments* jsHostArgs) : 
     mptr_mydata(new Data()), mptr_EzeScriptDirect(nullptr), mptr_ActiveScriptParse(nullptr), mptr_ActiveScriptGC(nullptr),
-    mptr_jsop(nullptr), mptr_typeop(nullptr)
+    mptr_jsop(nullptr), mptr_typeop(nullptr), threadProperty(nullptr)
 {
     InitJScriptEngine(jsHostArgs);
     mptr_data_item=0;
@@ -89,6 +93,29 @@ BOOL MyScriptDirectTests::GetTypeOp()
 {
     FAIL_hr(mptr_EzeScriptDirect->GetDefaultTypeOperations(&mptr_typeop),L"GetDefaultTypeOperations");
     return true;
+}
+
+IJavascriptThreadProperty* MyScriptDirectTests::CreateThreadService(HINSTANCE jscriptLibrary)
+{
+    typedef HRESULT(STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
+    IJavascriptThreadProperty* threadService = nullptr;
+    FN_DllGetClassObject proc = (FN_DllGetClassObject)::GetProcAddress(jscriptLibrary, "DllGetClassObject");
+    if (proc == nullptr)
+    {
+        FAIL_hr(E_FAIL, L"can't get classobject");
+    }
+
+    CComPtr <IClassFactory> classFactory;
+    HRESULT hr = proc(CLSID_ChakraThreadService, IID_PPV_ARGS(&classFactory));
+    if (SUCCEEDED(hr))
+    {
+        hr = classFactory->CreateInstance(nullptr, __uuidof(IJavascriptThreadProperty), (void**)&threadService);
+    }
+    if (FAILED(hr))
+    {
+        FAIL_hr(hr, L"can't get classobject");
+    }
+    return threadService;
 }
 
 void MyScriptDirectTests::InitJScriptEngine(JsHostNativeTestArguments* jsHostArgs)
@@ -631,6 +658,10 @@ MyScriptDirectTests::~MyScriptDirectTests()
     if (mptr_typeop)
     {
         mptr_typeop->Release();
+    }
+    if (threadProperty != nullptr)
+    {
+        threadProperty->Release();
     }
     delete mptr_mydata;
 }

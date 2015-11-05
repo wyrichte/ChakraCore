@@ -1,5 +1,6 @@
-// Copyright (C) Microsoft. All rights reserved.
-//
+//----------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved. 
+//----------------------------------------------------------------------------
 
 #include "stdafx.h"
 #include "edgejsStatic.h"
@@ -42,7 +43,7 @@ HRESULT VerifyVarToInt(MyScriptDirectTests* myTest)
         JsStaticAPI::DataConversion::VarToInt(myDouble, &actualOutput);
         if (actualOutput != tests[i][1])
         {
-            printf("verify DataConversion::VarToInt for double failed, expecting: %d, actual: %d.\n", tests[i][1], actualOutput);
+            printf("verify DataConversion::VarToInt for double failed, expecting: %d, actual: %d.\n", (int)tests[i][1], actualOutput);
             return E_FAIL;
         }
         else
@@ -112,13 +113,13 @@ HRESULT VerifyBool(Var inVar, BOOL expected)
 
 HRESULT VerifyIASD(Var inVar, IActiveScriptDirect* activeScriptDirect)
 {
-	IActiveScriptDirect* iasdFromVar = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(inVar);
-	if (iasdFromVar != activeScriptDirect)
-	{
-		printf("FAILED: IASD from Var is not consistent with original IASD");
-		return E_FAIL;
-	}
-	return NOERROR;
+    IActiveScriptDirect* iasdFromVar = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(inVar);
+    if (iasdFromVar != activeScriptDirect)
+    {
+        printf("FAILED: IASD from Var is not consistent with original IASD");
+        return E_FAIL;
+    }
+    return NOERROR;
 }
 
 void RunConversionTests(MyScriptDirectTests* myTest)
@@ -165,6 +166,118 @@ void RunJsDirectTest(MyScriptDirectTests* myTests)
     RunLibraryObjectTests(myTests);
     RunConversionTests(myTests);
 }
+
+#ifndef NOSCRIPTSCOPE_CHECK_HRESULT
+#define NOSCRIPTSCOPE_CHECK_HRESULT(expr, expected) \
+    hr = expr; \
+    if (expected == hr) \
+    { \
+        printf("SUCCESS: " #expr " // HRESULT == " #expected "\n"); \
+    } \
+    else \
+    { \
+        printf("FAILURE: " #expr " // HRESULT != " #expected "\n"); \
+    }
+#ifndef NOSCRIPTSCOPE_CHECK_BOOL
+#define NOSCRIPTSCOPE_CHECK_BOOL(which, expected, message) \
+    printf(which == expected \
+        ? "SUCCESS: " #which " " message "\n" \
+        : "FAILURE: " #which " not " message "\n");
+
+void RunNoFailFastScopeTest(MyScriptDirectTests* myTests)
+{
+    HRESULT hr = S_OK;
+
+    // noScriptScope == false, so this call should not fail
+    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+
+    // ensure set and reset works
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
+    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+
+    printf("RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.\n");
+}
+
+void RunJsDirectNoScriptScopeTests(MyScriptDirectTests* myTests)
+{
+    myTests->InitThreadService();
+
+    bool noScriptScope = false;
+    HRESULT hr = S_OK;
+
+    //
+    // using myTests->GetThreadService()
+    //
+
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, false, "initialized to false");
+
+    // set and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true");
+
+    // reset and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, false, "reset to false");
+
+    RunNoFailFastScopeTest(myTests);
+}
+
+void RunJsDirectNoScriptScopeErrorCaseTests(MyScriptDirectTests* myTests)
+{
+    myTests->InitThreadService();
+
+    bool noScriptScope = false;
+    HRESULT hr = S_OK;
+
+    // some arbitrary pointer which is the wrong kind of IUnknown
+    IUnknown *pWrongKind = static_cast<IUnknown *>(myTests->GetScriptDirectNoRef());
+
+    //
+    // using nullptr
+    //
+
+    // set and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, true), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
+
+    // reset and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, false), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
+
+    //
+    // using pWrongKind
+    //
+
+    // set and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, true), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
+
+    // reset and query noScriptScope
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, false), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope), E_INVALIDARG);
+    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
+}
+
+void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
+{
+    myTests->InitThreadService();
+
+    JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true);
+    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+    printf("This should not be printed out as the EnterScript earlier should have failed fast.\n");
+}
+
+#undef NOSCRIPTSCOPE_CHECK_BOOL
+#endif
+#undef NOSCRIPTSCOPE_CHECK_HRESULT
+#endif
 
 void RunStaticLibVerificationTest()
 {
