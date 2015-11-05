@@ -5,7 +5,11 @@
 #include <windows.h>
 
 #define VER_FILESUBTYPE                 VFT2_UNKNOWN
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+#define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae Chakra Diagnostics (Internal)\0"
+#else
 #define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae Chakra Diagnostics\0"
+#endif
 #define VER_INTERNALNAME_STR            "chakradiag.dll"
 #define VER_FILETYPE                    VFT_DLL
 

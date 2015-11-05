@@ -5,7 +5,12 @@
 #include <windows.h>
 
 #define VER_FILESUBTYPE                 VFT2_UNKNOWN
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+#define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae Chakra Host (Internal)\0"
+#else
 #define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae Chakra Host\0"
+#endif
+
 #define VER_INTERNALNAME_STR            "jshost.exe"
 #define VER_FILETYPE                    VFT_APP
 

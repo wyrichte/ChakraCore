@@ -31,4 +31,8 @@
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true' AND '$(BuildingGitRepo)'!='true'">
     <BuildRazzleDependencies>true</BuildRazzleDependencies>
   </PropertyGroup>
+  <!-- For dev build -->
+  <PropertyGroup Condition="'$(ChakraVersionBuildCommit)'==''" >
+    <ChakraVersionBuildCommit>$(COMPUTERNAME)($(UserName))</ChakraVersionBuildCommit>    
+  </PropertyGroup>
 </Project>
