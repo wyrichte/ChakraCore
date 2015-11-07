@@ -33,6 +33,11 @@ if "%_arg%" EQU "/core" (
     goto :parseArgs
 )
 
+if "%_arg%" EQU "/prefast" (
+    set _msbuildArgs=%_msbuildArgs% /p:RunCodeAnalysis=true;CodeAnalysisTreatWarningsAsErrors=true
+    goto :parseArgs
+)
+
 if "%_arg%" EQU "/c" (
     set _targets=/t:Clean,Build
     goto :parseArgs
