@@ -1,68 +1,28 @@
 param (
-    [ValidateSet("x86", "x64", "arm")]
+    [ValidateSet("x86", "x64", "arm", "*")]
     [string]$arch="",
 
-    [ValidateSet("debug", "release", "test")]
+    [ValidateSet("debug", "release", "test", "*")]
     [string]$flavor = "",
     
-    [string]$srcpath = ".\",
-    [string]$binpath = "Build\VcBuild\bin\$arch_$flavor",
-
-    [string]$srcsrvcmdpath = "Build\script"
+    [string]$srcpath = "",
+    [string]$binpath = "",
+    [string]$objpath = "",
+    [string]$srcsrvcmdpath = "Build\script\srcsrv.bat",
+    [string]$logFile = "",
+    [switch]$noaction
 )
 
-$repo = "full"
+$CoreScriptDir = "$PSScriptRoot\..\..\core\build\scripts"
 
-if ($repo -eq "core") {
-    $bvtcmd="test\runcitests.cmd"
-} elseif ($repo -eq "full") {
-    $bvtcmd="tools\runcitests.cmd"
+$OutterScriptRoot = $PSScriptRoot;
+. "$CoreScriptDir\pre_post_util.ps1"
+$bvtcmdpath = "$srcpath\tools\runcitests.cmd"
+
+if ($noaction) {
+    & $CoreScriptDir\post_build.ps1 -repo "full" -arch $arch -flavor $flavor -srcpath $srcpath -binpath $binpath -objpath $objpath -srcsrvcmdpath $srcsrvcmdpath -bvtcmdpath $bvtcmdpath -noaction -logFile ""$logFile""
 } else {
-    write-error Unknow repo $repo
-    exit -1;
+    & $CoreScriptDir\post_build.ps1 -repo "full" -arch $arch -flavor $flavor -srcpath $srcpath -binpath $binpath -objpath $objpath -srcsrvcmdpath $srcsrvcmdpath -bvtcmdpath $bvtcmdpath -logFile ""$logFile""
 }
+exit $LastExitCode
 
-$srcsrvcmd = "$srcsrvcmdpath\srcsrv.bat"
-$pogocmd = ""
-
-
-$exitcode = 0
-
-# generate srcsrv
-if ($srcsrvcmd -ne "" -and (Test-Path $srcsrvcmd) -and (Test-Path $srcpath) -and (Test-Path $binpath)) {
-    $cmd = "$srcsrvcmd $repo $srcpath $binpath\*.pdb"
-    write-host Running $cmd
-    invoke-expression $cmd 
-    write-host "ExitCode:" $lastexitcode
-    if($lastexitcode -ne 0) {
-        Write-Error "Failed"
-        $exitcode = $lastexitcode
-    }
-}
-
-# do PoGO
-if ($pogocmd -ne "") {
-    $cmd = "$pogocmd"
-    write-host Running $cmd
-    invoke-expression $cmd 
-    write-host "ExitCode:" $lastexitcode
-    if($lastexitcode -ne 0) {
-        Write-Error "Failed"
-        $exitcode = $lastexitcode
-    }
-}
-
-
-# run test
-if ($bvtcmd -ne "") {
-    $cmd = "$bvtcmd -$arch$flavor"
-    write-host Running $cmd
-    invoke-expression $cmd 
-    write-host "ExitCode:" $lastexitcode
-    if($lastexitcode -ne 0) {
-        Write-Error "Failed"
-        $exitcode = $lastexitcode
-    }
-}
-
-exit $exitcode
