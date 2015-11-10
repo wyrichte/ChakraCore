@@ -553,6 +553,8 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             Output::Print(L"DefaultCount %d\n", langStats->DefaultArgFunctionCount.parseCount);
             Output::Print(L"StickyRegexFlagCount %d\n", langStats->StickyRegexFlagCount.parseCount);
             Output::Print(L"UnicodeRegexFlagCount %d\n", langStats->UnicodeRegexFlagCount.parseCount);
+            Output::Print(L"Array.prototype.includes count: %d\n", langStats->ArrayIncludesCount.callCount);
+            Output::Print(L"Array.prototype.includes debug mode call count: %d\n", langStats->ArrayIncludesCount.debugModeCallCount);
 
         }
 
@@ -672,6 +674,8 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             TraceLoggingUInt32(langStats->ContainsCount.debugModeCallCount, "ContainsDebugModeCallCount"),
             TraceLoggingUInt32(langStats->RepeatCount.callCount, "RepeatCount"),
             TraceLoggingUInt32(langStats->RepeatCount.debugModeCallCount, "RepeatDebugModeCallCount"),
+            TraceLoggingUInt32(langStats->ArrayIncludesCount.callCount, "arrayIncludesCount"),
+            TraceLoggingUInt32(langStats->ArrayIncludesCount.debugModeCallCount, "arrayIncludesDebugModeCallCount"),
             TraceLoggingUInt32(host, "HostingInterface"),
             TraceLoggingBool(isJSRT, "isJSRT"),
             TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -723,6 +727,8 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
             TraceLoggingUInt32(langStats->TAForEachCount.debugModeCallCount, "TAForEachDebugModeCallCount"),
             TraceLoggingUInt32(langStats->TAIndexOfCount.callCount, "TAIndexOfCount"),
             TraceLoggingUInt32(langStats->TAIndexOfCount.debugModeCallCount, "TAIndexOfDebugModeCallCount"),
+            TraceLoggingUInt32(langStats->TAIncludesCount.callCount, "TAIncludesCount"),
+            TraceLoggingUInt32(langStats->TAIncludesCount.debugModeCallCount, "TAIncludesDebugModeCallCount"),
             TraceLoggingUInt32(langStats->TAJoinCount.callCount, "TAJoinCount"),
             TraceLoggingUInt32(langStats->TAJoinCount.debugModeCallCount, "TAJoinDebugModeCallCount"),
             TraceLoggingUInt32(langStats->TAKeysCount.callCount, "TAKeysCount"),
