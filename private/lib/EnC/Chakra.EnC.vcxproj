@@ -27,6 +27,7 @@
         $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
+        $(ChakraCoreRootDirectory)Lib\CodeGenClient;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraInternalIDLIntDir);
         $(MSBuildThisFileDirectory)..\Engine;
