@@ -1,3 +1,3 @@
-BailOut: function: Anonymous function ( (#1.9), #10) offset: #0048 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: Anonymous function ( (#1.9), #10) offset: #003c Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: controllerObj.addSourceFile ( (#1.19), #20) offset: #00ad Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 BailOut: function: foo ( (#1.1), #2) offset: #0000 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStep

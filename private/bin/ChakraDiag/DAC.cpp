@@ -727,7 +727,7 @@ namespace JsDiag
     {
         if (frameDisplayRegister != Constants::NoRegister && frameDisplayRegister != 0)
         {
-            return reinterpret_cast<FrameDisplay*>(GetReg(frameDisplayRegister));
+            return ReadField<Js::FrameDisplay*>(offsetof(InterpreterStackFrame, localFrameDisplay));
         }
         else
         {
