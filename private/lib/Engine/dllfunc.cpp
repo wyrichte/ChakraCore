@@ -377,7 +377,8 @@ STDAPIEXPORT DllCanUnloadNow(void)
     {
         return hr;
     }
-
+    ThreadContextTLSEntry * currentEntry = ThreadContextTLSEntry::GetEntryForCurrentThread();
+    currentEntry->GetThreadContext()->m_codeGenManager.StopRpcServer();
     if (_Module.GetLockCount() == 0)
     {
         // Since DestoryAllContexts will wait for thread finish, we can't have THREAD_DETACH

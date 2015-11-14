@@ -30,6 +30,8 @@
 #include "..\Telemetry\ScriptEngineTelemetry.h"
 #endif
 
+#include "CodeGenClient.h"
+
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
 #define Compile (this->*(CompileFunction))

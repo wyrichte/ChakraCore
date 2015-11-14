@@ -214,9 +214,6 @@
     <ProjectReference Include="..\..\..\core\lib\CodeGenClient\Chakra.CodeGenClient.vcxproj">
       <Project>{ffd0fa88-7a39-407e-a92d-d3a06273e1ac}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\lib\CodeGenIDL\Chakra.CodeGenIDL.vcxproj">
-      <Project>{3dc33867-c76b-4b97-a231-d77da9144352}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
     </ProjectReference>
