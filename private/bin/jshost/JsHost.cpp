@@ -1688,12 +1688,9 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
             }
         }
         else if (hr == E_NOTIMPL)
-        {
-            if (argc > 1 && _waccess(argv[1], 0) != -1) {
+        { 
+            if (!JScript9Interface::IsUsageStringPrinted() && argc > 1 && _waccess(argv[1], 0) != -1) {
                 hr = pfDoOneIteration(argv[1]);
-            }
-            else {
-                wprintf(L"Jshost accept only filename as parameter when running with free chakra.dll\n");
             }
         }
     }
@@ -1743,12 +1740,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 
 void __stdcall PrintUsage()
 {
-    wprintf(L"\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] [filename]|[-nativetest:testdll [nativetestargs]]\n");
-    HostConfigFlags::PrintUsageString();
-    if (JScript9Interface::SupportsPrintConfigFlagsUsageString())
-    {
-        JScript9Interface::PrintConfigFlagsUsageString();
-    }
+    wprintf(L"\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] filename|[-nativetest:testdll [nativetestargs]]\n");   
 }
 
 int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])

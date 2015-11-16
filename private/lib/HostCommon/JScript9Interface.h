@@ -132,6 +132,7 @@ public:
 private:
     static boolean m_testHooksSetup;
     static boolean m_testHooksInitialized;
+    static boolean m_usageStringPrinted;
     static boolean m_freeChakraLoaded;
     static ArgInfo m_argInfo;
     static TestHooks m_testHooks;
@@ -155,7 +156,7 @@ public:
     static HRESULT JsVarRelease(Var instance) { return CHECKED_CALL(JsVarRelease, instance); }
     static HRESULT JsVarToExtension(Var instance, void** extensionRef) { return CHECKED_CALL(JsVarToExtension, instance, extensionRef); }
     static HRESULT SetConfigFlags(__in int argc, __in_ecount(argc) LPWSTR argv[], ICustomConfigFlags * pCustomConfigFlags) { return CHECKED_CALL(SetConfigFlags, argc, argv, pCustomConfigFlags); }
-    static HRESULT PrintConfigFlagsUsageString() { return CHECKED_CALL(PrintConfigFlagsUsageString); }
+    static HRESULT PrintConfigFlagsUsageString() { m_usageStringPrinted = true; return CHECKED_CALL(PrintConfigFlagsUsageString); }
     static HRESULT GenerateValidPointersMapHeader(LPCWSTR vpmFullPath) { return CHECKED_CALL(GenerateValidPointersMapHeader, vpmFullPath); }
     static HRESULT GetFileNameFlag(BSTR * filename) { return CHECKED_CALL(GetFilenameFlag, filename); }
     static HRESULT FlushOutput() { return CHECKED_CALL(FlushOutput); }
@@ -198,6 +199,7 @@ public:
     static BOOL GetMemoryFootprintOfRC(IActiveScriptDirect * scriptDirect, LPCWSTR fullTypeName, INT32 * gcPressure) { return CHECKED_CALL_RETURN(GetMemoryFootprintOfRC, FALSE, scriptDirect, fullTypeName, gcPressure); }
     static void DoNotSupportWeakDelegate(IActiveScriptDirect * scriptDirect) { CHECKED_CALL(DoNotSupportWeakDelegate,scriptDirect); }
     static BOOL SupportsWeakDelegate(IActiveScriptDirect * scriptDirect) { return CHECKED_CALL_RETURN(SupportsWeakDelegate, FALSE, scriptDirect); }
+    static boolean IsUsageStringPrinted() { return m_usageStringPrinted; }
     static HRESULT GetLoopFlag(int * flag)
     {
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS

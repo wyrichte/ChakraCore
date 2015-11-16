@@ -78,9 +78,12 @@ void HostConfigFlags::PrintUsage()
     if (pfnPrintUsage)
     {
         pfnPrintUsage();
-        return;
     }
     HostConfigFlags::PrintUsageString();
+    if (JScript9Interface::SupportsPrintConfigFlagsUsageString())
+    {
+        JScript9Interface::PrintConfigFlagsUsageString();
+    }
 }
 
 int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, size_t targetArgLen)

@@ -13,6 +13,7 @@ MemProtectTestHooks JScript9Interface::m_memProtectTestHooks = { 0 };
 boolean JScript9Interface::m_testHooksSetup = false;
 boolean JScript9Interface::m_freeChakraLoaded = false;
 boolean JScript9Interface::m_testHooksInitialized = false;
+boolean JScript9Interface::m_usageStringPrinted = false;
 
 void JScript9Interface::SetArgInfo(ArgInfo& args)
 {
@@ -72,6 +73,12 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
                 int ret = GetLastError();
                 fwprintf(stderr, L"FATAL ERROR: chakratest.dll nor chakra.dll found next to jshost.exe. GLE=0x%x\n", ret);
                 fflush(stderr);
+                return nullptr;
+            }
+
+            if (m_usageStringPrinted)
+            {
+                UnloadDll(chakraLibrary);
                 return nullptr;
             }
         }
@@ -241,26 +248,42 @@ HRESULT JScript9Interface::ParseConfigFlags()
     // Pass the command line arguments to the dll
     if (m_testHooks.pfSetAssertToConsoleFlag)
     {
-        IfFailedReturn(SetAssertToConsoleFlag(true));
+        SetAssertToConsoleFlag(true);
     }
     if (m_testHooks.pfSetConfigFlags)
     {
-        IfFailedReturn(SetConfigFlags(m_argInfo.argc, m_argInfo.argv, &HostConfigFlags::flags));
+        hr = SetConfigFlags(m_argInfo.argc, m_argInfo.argv, &HostConfigFlags::flags);
+        if (hr != S_OK && !m_usageStringPrinted)
+        {
+            m_argInfo.hostPrintUsage();
+            m_usageStringPrinted = true;
+        }
     }
 
-    if (! m_argInfo.filename)
+    if (hr == S_OK)
     {
-        return S_OK;
-    }
-    *(m_argInfo.filename) = NULL;
-    if (m_testHooks.pfGetFilenameFlag)
-    {
-        return GetFileNameFlag(m_argInfo.filename);
-    }
+        if (!m_argInfo.filename)
+        {
+            return S_OK;
+        }
+        *(m_argInfo.filename) = NULL;
+        if (m_testHooks.pfGetFilenameFlag)
+        {
+            hr = GetFileNameFlag(m_argInfo.filename);
+            if (hr != S_OK)
+            {
+                wprintf(L"Error: no script file specified.");
+                m_argInfo.hostPrintUsage();
+                m_usageStringPrinted = true;
+            }
+            return S_OK;
+        }
 
-    *(m_argInfo.filename) = SysAllocString(m_argInfo.argv[m_argInfo.argc-1]);
+        *(m_argInfo.filename) = SysAllocString(m_argInfo.argv[m_argInfo.argc - 1]);
 
-    return *(m_argInfo.filename) ? S_OK : E_OUTOFMEMORY;
+        return *(m_argInfo.filename) ? S_OK : E_OUTOFMEMORY;
+    }
+    return S_OK;
 }
 
 HRESULT JScript9Interface::OnJScript9Loaded(TestHooks& testHooks)
