@@ -8,8 +8,8 @@
   <!-- POGO instrumentation-->
   <PropertyGroup>
     <IsPogoBuild />
-    <IsPogoBuild Condition="('$(POGO_TYPE)'=='PGO' OR '$(POGO_TYPE)'=='PGI') AND '$(Configuration)'=='Release'">true</IsPogoBuild>
-    <OutDirName Condition="'$(IsPogoBuild)'=='true'">pogo</OutDirName>
+    <IsPogoBuild Condition="('$(POGO_TYPE)'=='PGO' OR '$(POGO_TYPE)'=='PGI')">true</IsPogoBuild>
+    <OutDirName Condition="'$(IsPogoBuild)'=='true'">$(Configuration.ToLower())_pogo</OutDirName>
     <OutDirName Condition="'$(ENABLE_CODECOVERAGE)'=='true'">noopt</OutDirName>
   </PropertyGroup>
 
@@ -24,7 +24,7 @@
     <Import Project="Chakra.Build.Solution.Default.props" />
   </ImportGroup>
   <PropertyGroup>
-    <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the 
+    <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the
          manifest xmls in the expanded NuGet package -->
     <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
   </PropertyGroup>
@@ -34,6 +34,6 @@
   </PropertyGroup>
   <!-- For dev build -->
   <PropertyGroup Condition="'$(ChakraVersionBuildCommit)'==''" >
-    <ChakraVersionBuildCommit>$(COMPUTERNAME)($(UserName))</ChakraVersionBuildCommit>    
+    <ChakraVersionBuildCommit>$(COMPUTERNAME)($(UserName))</ChakraVersionBuildCommit>
   </PropertyGroup>
 </Project>

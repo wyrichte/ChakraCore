@@ -2,13 +2,8 @@
 
 set _BuildArch=x86
 set _BuildType=chk
-
-REM HACK: Surely someone has a nicer way to get the parent directory?
-set CURRENT_DIR=%~dp0
-pushd %CURRENT_DIR%
-cd ..\..
-set REPO_ROOT=%CD%
-popd
+for %%i in ("%~dp0..\..") do set "REPO_ROOT=%%~fi"
+call %~dp0\add-msbuild-path.cmd
 
 if "%PYTHON_PATH%" EQU "" (
    REM Hardcoded to the path that the enlistment script installs python to
@@ -50,51 +45,12 @@ if not "%1"=="" (
 REM Check for tools, setup path variable
 
 
-REM ========================================
-REM Set up msbuild.exe
-REM ========================================
-where /q msbuild.exe 
-IF "%ERRORLEVEL%" == "0" (
-    goto :SkipMsBuildSetup
-)
-
-REM Try Dev14 first
-set MSBUILD_VERSION=14.0
-set MSBUILD_PATH="%ProgramFiles%\msbuild\%MSBUILD_VERSION%\Bin\x86"
-
-if not exist %MSBUILD_PATH%\msbuild.exe (
-    set MSBUILD_PATH="%ProgramFiles(x86)%\msbuild\%MSBUILD_VERSION%\Bin\amd64"
-)
-
-if exist %MSBUILD_PATH%\msbuild.exe (
-    goto :MSBuildFound
-)
-
-set MSBUILD_VERSION=12.0
-set MSBUILD_PATH="%ProgramFiles%\msbuild\%MSBUILD_VERSION%\Bin\x86"
-echo Dev14 not found, trying Dev %MSBUILD_VERSION%
-
-if not exist %MSBUILD_PATH%\msbuild.exe (
-    set MSBUILD_PATH="%ProgramFiles(x86)%\msbuild\%MSBUILD_VERSION%\Bin\amd64"
-)
-
-if not exist %MSBUILD_PATH%\msbuild.exe (
-    echo Can't find msbuild.exe in %MSBUILD_PATH%
-    goto :SkipMsBuildSetup
-) 
-
-:MSBuildFound
-echo MSBuild located at %MSBUILD_PATH%
-
-set PATH=%MSBUILD_PATH%;%PATH%
-set MSBUILD_PATH=
-
 :SkipMsBuildSetup
 REM ========================================
 REM Set up Git.exe
 REM ========================================
 
-where /q git.exe 
+where /q git.exe
 IF "%ERRORLEVEL%" == "0" (
     goto :SkipGitSetup
 )
