@@ -4,6 +4,9 @@
 
 #include "EnginePch.h"
 
+#include "Library\ES5Array.h"
+#include "ActiveScriptProfilerHeapEnum.h"
+
 Js::FunctionInfo DebugObject::EntryInfo::Write(DebugObject::EntryWrite);
 Js::FunctionInfo DebugObject::EntryInfo::WriteLine(DebugObject::EntryWriteLine);
 Js::FunctionInfo DebugObject::EntryInfo::GetterSetNonUserCodeExceptions(DebugObject::EntryGetterSetNonUserCodeExceptions, Js::FunctionInfo::DoNotProfile);
@@ -35,6 +38,7 @@ Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(
 Js::FunctionInfo DebugObject::EntryInfo::DetachAndFreeObject(DebugObject::DetachAndFreeObject);
 Js::FunctionInfo DebugObject::EntryInfo::IsAsmJSModule(DebugObject::EntryIsAsmJSModule);
 Js::FunctionInfo DebugObject::EntryInfo::Enable(DebugObject::EntryEnable);
+
 #else
 #ifdef ENABLE_HEAP_DUMPER
 Js::FunctionInfo DebugObject::EntryInfo::DumpHeap(DebugObject::DumpHeap);

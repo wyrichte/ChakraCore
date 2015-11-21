@@ -27,13 +27,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>        
+      <AdditionalIncludeDirectories>
         $(IntDir);
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Common\Core;
         $(ChakraRootDirectory)core\lib\Common\Memory;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Runtime;
+        $(ChakraRootDirectory)core\lib\Runtime\Base;
         $(ChakraRootDirectory)core\lib\Runtime\Library;
         $(ChakraRootDirectory)core\lib\Backend;
         $(ChakraRootDirectory)private\bin\Chakra;

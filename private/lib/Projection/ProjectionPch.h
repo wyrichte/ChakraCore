@@ -46,10 +46,6 @@
 #include "refcountedHostVariant.h"
 #include "hostdispatch.h"
 
-#if !defined(USED_IN_STATIC_LIB)
-#include "ActiveScriptProfilerHeapEnum.h"
-#endif
-
 #include "DiagnosticsScriptObject.h"
 #include "ActiveScriptExternalLibrary.h"
 #include "Library\EngineInterfaceObject.h"
@@ -61,6 +57,8 @@
 #include "..\staticlib\base\MockExternalObject.h"
 #include "ExternalObject.h"
 #include "CustomExternalType.h"
+
+#include "ActiveScriptProfilerHeapEnum.h"
 
 //====================================
 // Projection includes
@@ -75,6 +73,7 @@
 #ifdef _M_ARM64
 #include "arm64\CallingConvention.h"
 #endif
+#include "Library\ES5Array.h"
 
 #include "ProjectionMemoryInformation.h"
 #include "JavascriptWinRTFunction.h"

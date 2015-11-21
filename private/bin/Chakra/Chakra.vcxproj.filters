@@ -18,4 +18,7 @@
       <UniqueIdentifier>{0b99d483-00ad-43aa-bd84-7db847bd5e4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ChakraCommon.ver" />
+  </ItemGroup>
 </Project>

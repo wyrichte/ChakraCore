@@ -34,6 +34,7 @@
         $(ChakraRootDirectory)core\Lib\Common\Memory;
         $(ChakraRootDirectory)core\Lib\Parser;
         $(ChakraRootDirectory)core\Lib\Runtime;
+        $(ChakraRootDirectory)core\Lib\Runtime\Base;
         $(ChakraRootDirectory)core\Lib\Runtime\ByteCode;
         $(ChakraRootDirectory)core\Lib\Runtime\Debug;
         $(ChakraRootDirectory)core\Lib\Runtime\Language;
@@ -42,7 +43,7 @@
         $(ChakraRootDirectory)core\Lib\Backend;
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\lib\Projection;
-        
+
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;

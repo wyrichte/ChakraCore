@@ -214,6 +214,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest.JsRT.RentalThreadi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest.JsRT.ComProjection", "..\unittest\jsrt\ComProjection\UnitTest.JsRT.ComProjection.vcxproj", "{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Base", "..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		all-Debug|ARM = all-Debug|ARM
@@ -1940,15 +1942,51 @@ Global
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.all-Test|x64.Build.0 = Test|x64
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.all-Test|x86.ActiveCfg = Test|Win32
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.all-Test|x86.Build.0 = Test|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Debug|ARM.ActiveCfg = Debug|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Debug|x64.ActiveCfg = Debug|Win32
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Debug|ARM.ActiveCfg = Debug|ARM
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Debug|x64.ActiveCfg = Debug|x64
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Debug|x86.ActiveCfg = Debug|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Release|ARM.ActiveCfg = Release|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Release|x64.ActiveCfg = Release|Win32
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Release|ARM.ActiveCfg = Release|ARM
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Release|x64.ActiveCfg = Release|x64
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Release|x86.ActiveCfg = Release|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Test|ARM.ActiveCfg = Release|Win32
-		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Test|x64.ActiveCfg = Release|Win32
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Test|ARM.ActiveCfg = Test|ARM
+		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Test|x64.ActiveCfg = Test|x64
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}.jshost-Test|x86.ActiveCfg = Release|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|ARM.ActiveCfg = Debug|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|ARM.Build.0 = Debug|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|x64.ActiveCfg = Debug|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|x64.Build.0 = Debug|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|x86.ActiveCfg = Debug|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Debug|x86.Build.0 = Debug|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|ARM.ActiveCfg = Release|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|ARM.Build.0 = Release|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|x64.ActiveCfg = Release|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|x64.Build.0 = Release|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|x86.ActiveCfg = Release|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Release|x86.Build.0 = Release|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|ARM.ActiveCfg = Test|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|ARM.Build.0 = Test|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|x64.ActiveCfg = Test|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|x64.Build.0 = Test|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|x86.ActiveCfg = Test|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.all-Test|x86.Build.0 = Test|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|ARM.ActiveCfg = Debug|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|ARM.Build.0 = Debug|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|x64.ActiveCfg = Debug|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|x64.Build.0 = Debug|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|x86.ActiveCfg = Debug|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Debug|x86.Build.0 = Debug|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|ARM.ActiveCfg = Release|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|ARM.Build.0 = Release|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|x64.ActiveCfg = Release|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|x64.Build.0 = Release|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|x86.ActiveCfg = Release|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Release|x86.Build.0 = Release|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|ARM.ActiveCfg = Test|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|ARM.Build.0 = Test|ARM
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|x64.ActiveCfg = Test|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|x64.Build.0 = Test|x64
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|x86.ActiveCfg = Test|Win32
+		{706083F7-6AA4-4558-A153-6352EF9110EE}.jshost-Test|x86.Build.0 = Test|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2018,5 +2056,6 @@ Global
 		{6907D1DF-8AF2-4396-ABEB-5646888277FA} = {63C6414A-E688-4C5B-955E-A8B8D1CC59F8}
 		{E5D59D7A-D112-4152-B5A1-4322ADD3353D} = {63C6414A-E688-4C5B-955E-A8B8D1CC59F8}
 		{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C} = {63C6414A-E688-4C5B-955E-A8B8D1CC59F8}
+		{706083F7-6AA4-4558-A153-6352EF9110EE} = {DDF436E7-0A8E-41AA-82B3-902B5D2D0809}
 	EndGlobalSection
 EndGlobal

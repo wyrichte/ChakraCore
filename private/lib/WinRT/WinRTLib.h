@@ -22,7 +22,7 @@
 #include "..\Common\DataStructures\ImmutableList.h"
 
 // All we need from the runtime is just the delay load library
-#include "..\Runtime\Library\DelayLoadLibrary.h"
+#include "..\Runtime\Base\DelayLoadLibrary.h"
 
 // Copied from ParserCommon.h, needed to get the VBSERR_OutOfStack
 #define MAKE_HR(vbserr) (MAKE_HRESULT(SEVERITY_ERROR, FACILITY_CONTROL, vbserr))

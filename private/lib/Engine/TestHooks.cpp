@@ -16,6 +16,10 @@ HRESULT OnJScript9Loaded()
 }
 
 #else
+
+#include "Library\ES5Array.h"
+#include "ActiveScriptProfilerHeapEnum.h"
+
 class CClassFactory;
 extern CClassFactory* (*pfCreateJscript9ClassFactory)(void);
 

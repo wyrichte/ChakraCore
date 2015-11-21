@@ -13,6 +13,8 @@
 #include "Types\PropertyIndexRanges.h"
 #include "Types\SimpleDictionaryPropertyDescriptor.h"
 #include "Types\SimpleDictionaryTypeHandler.h"
+#include "Library\ES5Array.h"
+#include "ActiveScriptProfilerHeapEnum.h"
 
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "..\Telemetry\Telemetry.h"

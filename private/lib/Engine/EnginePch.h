@@ -15,12 +15,12 @@
 // Runtime Includes
 // =================
 #include "Runtime.h"
-#include "Library\EtwTrace.h"
+#include "Base\EtwTrace.h"
+#include "Base\ThreadContextTLSEntry.h"
+#include "Base\ThreadBoundThreadContextManager.h"
 #include "AsyncDebug.h"
 #include "Library\dataview.h"
 #include "Library\JavascriptProxy.h"
-#include "Library\ThreadContextTLSEntry.h"
-#include "Library\ThreadBoundThreadContextManager.h"
 #include "Library\HostObjectBase.h"
 #include "Library\DateImplementation.h"
 #include "Library\JavascriptDate.h"
@@ -28,7 +28,7 @@
 #include "Types\PropertyIndexRanges.h"
 #include "Types\DictionaryPropertyDescriptor.h"
 #include "Types\DictionaryTypeHandler.h"
-#include "Library\ES5ArrayTypeHandler.h"
+#include "Types\ES5ArrayTypeHandler.h"
 
 #ifdef ENABLE_MUTATION_BREAKPOINT
 #include "activdbg_private.h"
@@ -150,9 +150,6 @@
 #include "DebugObject.h"
 #include "DiagnosticsScriptObject.h"
 #include "DOMProperties.h"
-#if !defined(USED_IN_STATIC_LIB)
-#include "ActiveScriptProfilerHeapEnum.h"
-#endif
 
 #include "resource.h"
 #include "ChakraVersion.h"

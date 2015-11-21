@@ -8,8 +8,8 @@
 #include "ieconfig.h"
 #include "globalthreadstate.h"
 #include <telemetry\MicrosoftTelemetry.h>
-#include "Library\ThreadContextTLSEntry.h"
-#include "Library\ThreadBoundThreadContextManager.h"
+#include "Base\ThreadContextTLSEntry.h"
+#include "Base\ThreadBoundThreadContextManager.h"
 
 // GUID for "ChakraProvider_V0.1": {FC7BA620-EB50-483D-97A0-72D8268A14B5}
 

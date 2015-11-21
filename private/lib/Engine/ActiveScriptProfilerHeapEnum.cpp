@@ -4,7 +4,7 @@
 
 #include "EnginePch.h"
 #include "JsrtExternalObject.h"
-#include "Library\LiteralStringObject.h"
+#include "Library\JavascriptStringObject.h"
 #include "Library\BoundFunction.h"
 #include "Library\JavascriptSymbol.h"
 #include "Library\SameValueComparer.h"
@@ -18,6 +18,8 @@
 #include "Library\JavascriptSetIterator.h"
 #include "Library\JavascriptStringIterator.h"
 #include "Library\ArgumentsObject.h"
+#include "Library\ES5Array.h"
+#include "ActiveScriptProfilerHeapEnum.h"
 
 #ifdef ENABLE_PROJECTION
 #include "ProjectionWriter.h"

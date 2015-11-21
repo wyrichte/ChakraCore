@@ -9,7 +9,7 @@
 #include "WinRTPromiseEngineInterfaceExtensionObject.h"
 #include "AsyncDebug.h"
 
-#include "Language\ByteCodeSerializer.h"
+#include "ByteCode\ByteCodeSerializer.h"
 #include "errstr.h"
 #include "ByteCode\ByteCodeDumper.h"
 

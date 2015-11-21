@@ -16,7 +16,7 @@
 #include "..\..\..\core\lib\common\core\finalizableObject.h"
 #include "edgejsstatic.h"
 #include "base\MockexternalObject.h"
-#include "..\..\..\core\lib\runtime\language\scriptContextbase.h"
+#include "..\..\..\core\lib\runtime\base\scriptContextbase.h"
 #include "base\scriptenginebase.h"
 #include "..\..\..\core\lib\common\common\NumberUtilitiesBase.h"
 #include <edgescriptdirect.h>

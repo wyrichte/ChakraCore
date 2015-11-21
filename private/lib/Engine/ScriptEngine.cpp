@@ -15,9 +15,12 @@
 #include "GenerateByteCodeConfig.h"
 
 #include "core\ConfigParser.h"
-#include "Language\ByteCodeSerializer.h"
+#include "ByteCode\ByteCodeSerializer.h"
 #include "Library\BoundFunction.h"
 #include "ByteCode\ByteCodeAPI.h"
+
+#include "Library\ES5Array.h"
+#include "ActiveScriptProfilerHeapEnum.h"
 
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
 #include <iesettings.h>

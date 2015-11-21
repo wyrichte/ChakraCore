@@ -950,7 +950,7 @@ HRESULT WriteByteCodes(HANDLE thread, JsHostActiveScriptSite * scriptSite, DWORD
 }
 
 #include "GenerateByteCodeConfig.h"
-#include "..\..\..\core\lib\Runtime\Language\ByteCodeSerializeFlags.h"
+#include "..\..\..\core\lib\Runtime\ByteCode\ByteCodeSerializeFlags.h"
 static CGenerateByteCodeConfig s_generateLibraryByteCodeHeaderConfig(GENERATE_BYTE_CODE_BUFFER_LIBRARY);
 HRESULT PerformUTF8BoundaryTest(JsHostActiveScriptSite *scriptSite, DWORD lengthInBytes, BYTE *contentsRaw, DWORD_PTR dwSourceCookie)
 {

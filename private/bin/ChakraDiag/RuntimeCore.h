@@ -268,7 +268,7 @@ namespace Projection
 #include "DynamicType.h"                // Needed by inspection
 #include "InlineCache.h"                // Used by FunctionBody
 #include "InlineCachePointerArray.h"    // Used by FunctionBody, PolymorphicInlineCacheInfo
-#include "Library\ExpirableObject.h"
+#include "Base\ExpirableObject.h"
 #include "..\Backend\NativeCodeData.h"  // Used by FunctionBody
 #include "FunctionInfo.h"               // Used by FunctionBody : FunctionInfo
 #include "..\Backend\IRType.h"
@@ -398,13 +398,9 @@ class ScriptContextTelemetry;
 #define IsJsDiag
 #include "CompoundString.h"
 #include "CompoundString.cpp"
-#ifdef _M_X64_OR_ARM64
-// TODO: Clean this warning up
-#pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
-#endif
 #undef IsJsDiag
 #include "BufferStringBuilder.h"
-#include "LiteralStringObject.h"        // Needed by JavascriptStringObject DAC
+#include "JavascriptStringObject.h"     // Needed by JavascriptStringObject DAC
 #include "SparseArraySegment.h"         // Needed by JavascriptArray.h
 #include "JavascriptArray.h"            // Needed by JavascriptArray DAC
 #include "ES5ArrayTypeHandler.h"
@@ -453,3 +449,7 @@ class ScriptContextTelemetry;
 #include "scrpting.h"                       // Used by ScriptDebugDocument.h
 #include "ScriptDebugDocument.h"            // Used by DAC.h
 
+#ifdef _M_X64_OR_ARM64
+// TODO: Clean this warning up
+#pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
+#endif
