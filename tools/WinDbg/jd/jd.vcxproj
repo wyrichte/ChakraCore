@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7BF12A9-AA93-4D11-832E-18B223E4D07A}</ProjectGuid>
@@ -27,26 +27,23 @@
       <DisableSpecificWarnings>4290</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>
-        $(SdkToolsIncPath);
-        $(ChakraCoreRootDirectory)lib\common;
-        $(ChakraCoreRootDirectory)lib\common\common;
-        $(ChakraCoreRootDirectory)lib\common\memory;
-        $(ChakraCoreRootDirectory)lib\backend;
-        $(ChakraRootDirectory)private\bin\jshost;
-        $(ChakraRootDirectory)private\bin\jdtest;
-        $(ChakraRootDirectory)private\bin\ChakraDiag;
-        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
-        $(ChakraPublishIntDir);
-        $(ChakraCoreRootDirectory)lib\runtime\types;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
-      <AdditionalDependencies>engextcpp.lib;advapi32.lib;kernel32.lib;oleaut32.lib;user32.lib;dbghelp.lib;dbgeng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(InternalSdkLibPath)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+        engextcpp.lib;
+        $(SdkLibPath)\kernel32.lib;
+        $(SdkLibPath)\user32.lib;
+        $(SdkLibPath)\ole32.lib;
+        $(SdkLibPath)\dbghelp.lib;
+        $(SdkLibPath)\dbgeng.lib;
+        $(SdkLibPath)\shlwapi.lib;
+        $(SdkLibPath)\oleaut32.lib;
+        $(SdkLibPath)\advapi32.lib;
+        chakradiaglib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(InternalSdkLibPath);$(IntDir)..\ChakraDiagLib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Test' or '$(Configuration)'=='Release'">
@@ -124,6 +121,6 @@
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

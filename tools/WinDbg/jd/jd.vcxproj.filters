@@ -16,9 +16,6 @@
     <ClCompile Include="RemotePageAllocator.cpp" />
     <ClCompile Include="RemoteThreadContext.cpp" />
     <ClCompile Include="RemoteRecycler.cpp" />
-    <ClCompile Include="..\..\..\Dll\JScriptDiag\ScriptDump.cpp" />
-    <ClCompile Include="..\..\..\Dll\JScriptDiag\Serializer.cpp" />
-    <ClCompile Include="..\..\..\Dll\JScriptDiag\thrownew.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />

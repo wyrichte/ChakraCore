@@ -28,7 +28,7 @@ public:
     void Map(Fn fn);
 
 private:
-    
+
     bool _pinRecordsWithStacks;
     int _currentIndex;
     ULONG64 _transientPinnedObject;
@@ -59,7 +59,7 @@ public :
 
     int Count()
     {
-        return _addresses.size();
+        return (int)_addresses.size();
     }
 };
 
@@ -88,18 +88,18 @@ public:
                     Assert(address < MAXULONG32);
                 }
 #endif
-                Add(address);                 
+                Add(address);
                 return true;
             }
         }
 
         return false;
     }
-    
+
     void Add(ULONG64 address)
     {
         //Assert(_addresses.count(address) == 0);
-        _addresses.insert(address);        
+        _addresses.insert(address);
     }
 
 private:

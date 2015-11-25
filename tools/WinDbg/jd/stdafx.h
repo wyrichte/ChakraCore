@@ -108,7 +108,6 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 
 #include "DataStructures\BitVector.h"
 #include "time.h"
-#include "IEUtest.h"
 #include "UTestHelper.h"
 #include "ComObject.h"
 #include "Nullable.h"

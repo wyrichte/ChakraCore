@@ -156,7 +156,7 @@ PrintHeapBlockStats::ProcessHeapBlock(size_t, size_t, ULONG64 blockAddress, ExtR
         stats = &normalWBStats[bucketIndex];
     else if (type == ext->enum_SmallFinalizableBlockWithBarrierType())
         stats = &finalizableWBStats[bucketIndex];
-    else 
+    else
         Assert(false);
 
     if (!this->heapBlockCollector.HasBlock(blockAddress))
@@ -300,7 +300,7 @@ RecyclerForEachHeapBlock::Run()
     ExtRemoteTyped buckets = autoHeap.Field("heapBuckets");
     ExtRemoteTyped mediumBuckets = autoHeap.Field("mediumHeapBuckets");
     ExtRemoteTyped largeBucket = autoHeap.Field("largeObjectBucket");
-    
+
     ULONG typeId;
     bool oldStyleMediumBlock = g_Ext->m_Symbols3->GetTypeId(recycler.m_Typed.ModBase, "MediumAllocationBlockAttributes", &typeId) != S_OK;
 
@@ -472,7 +472,7 @@ RecyclerForEachHeapBlock::ProcessBucket(unsigned int bucketIndex, ExtRemoteTyped
         ProcessHeapBlockList(bucket, "pendingDisposeList") ||
         ProcessHeapBlockList(bucket, "partialHeapBlockList") ||
         ProcessHeapBlockList(bucket, "partialSweptHeapBlockList");
-        
+
     if (!skipRecyclerSweepData)
     {
         keepProcessing = keepProcessing ||
@@ -498,7 +498,7 @@ RecyclerForEachHeapBlock::ProcessHeapBlockList(ExtRemoteTyped bucket, char const
         {
             return true;
         }
-        
+
         ExtRemoteTyped nextField = next.Field("next");
         next.Set(false, next.m_Typed.ModBase, next.m_Typed.TypeId, nextField.m_Offset);
     }
@@ -771,7 +771,7 @@ RecyclerPrintBucketStats::ProcessLargeHeapBlock(ExtRemoteTyped heapBlock)
         {
             continue;
         }
-        current.objectCount++;        
+        current.objectCount++;
         current.objectByteCount += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
     }
 
@@ -784,7 +784,7 @@ ExtRemoteTyped HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped 
 {
     uint id1 = HeapBlockMap32::GetLevel1Id((void *)address);
     ExtRemoteTyped l2map = heapBlockMap.Field("map").ArrayElement(id1);
-    
+
     if (l2map.GetPtr() == NULL)
     {
         if (allowOutput)
@@ -842,7 +842,7 @@ ushort HeapBlockHelper::GetSmallHeapBlockObjectIndex(ExtRemoteTyped heapBlockObj
     ExtRemoteTyped validPointerArray = validPointers.Field("validPointers");
 
     unsigned int offset = (unsigned int)(objectAddress - blockAddress);
-        
+
     offset = offset >> GetObjectAllocationShift();
 
     return validPointerArray.ArrayElement(offset).GetUshort();
@@ -1176,7 +1176,7 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     HeapObject heapObject;
     heapObject.index = (ushort) largeObjectHeader.Field("objectIndex").m_Typed.Data; // Why does calling UShort not work?
 
-    size_t largeObjectHeaderPtrSize = ext->m_PtrSize;
+    ULONG largeObjectHeaderPtrSize = ext->m_PtrSize;
 
     ULONG64 headerArrayAddress = heapBlock + sizeOfHeapBlock + (heapObject.index * largeObjectHeaderPtrSize);
     ExtRemoteData  headerData(headerArrayAddress, largeObjectHeaderPtrSize);
@@ -1197,14 +1197,14 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     if (largeObjectHeader.HasField("attributesAndChecksum"))
     {
         heapObject.objectInfoBits = (UCHAR)((largeObjectHeader.Field("attributesAndChecksum").GetUshort() ^ (USHORT)cookie) >> 8);
-    } 
-    else 
+    }
+    else
     {
         heapObject.objectInfoBits = largeObjectHeader.Field("attributes").GetUchar();
     }
     heapObject.objectSize = EXT_CLASS_BASE::GetSizeT(largeObjectHeader.Field("objectSize"));
 
-    ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount")); 
+    ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount"));
 
     ExtRemoteTyped freeBitWord;
     heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == NULL);
@@ -1268,23 +1268,23 @@ void HeapBlockHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock
 
 void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 {
-    // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);        
-    
+    // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);
+
     ext->Out(L"Object: ");
-    std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);       
-        
+    std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);
+
     if (!className.empty())
-    {           
+    {
         ext->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
     }
     else
     {
         ext->Out(L"0x%p ", heapObject.address);
     }
-    
-    ext->Out(L" (Symbol @ 0x%p: ", heapObject.vtable); 
-    ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); 
-    ext->Out(")");    
+
+    ext->Out(L" (Symbol @ 0x%p: ", heapObject.vtable);
+    ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable);
+    ext->Out(")");
 
     ext->Out("\n");
     ext->Out(L"Object size: 0x%x\n", heapObject.objectSize);
@@ -1293,7 +1293,7 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
     ext->Out(" @0x%p\n", heapObject.objectInfoAddress);
 
     ext->Out("Object index: %d\n", heapObject.index);
-    
+
     if (heapObject.heapBlockType == ext->enum_SmallLeafBlockType()
         || heapObject.heapBlockType == ext->enum_SmallNormalBlockType()
 #ifdef RECYCLER_WRITE_BARRIER
@@ -1334,7 +1334,7 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     heapObject.heapBlock = heapBlock;
     heapObject.heapBlockType = heapBlockObject.Field("heapBlockType").GetChar();
 
-    ULONG64 sizeOfHeapBlock = ext->EvalExprU64("@@c++(sizeof(SmallHeapBlock))");    
+    ULONG64 sizeOfHeapBlock = ext->EvalExprU64("@@c++(sizeof(SmallHeapBlock))");
     heapObject.objectSize = heapBlockObject.Field("objectSize").GetUshort();
 
     uint objectCount = (uint) heapBlockObject.Field("objectCount").m_Typed.Data; // Assume objectCount is 32 bit
@@ -1345,7 +1345,7 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
 
         ExtRemoteData heapObjectData(heapObject.address, ext->m_PtrSize);
         heapObject.vtable = heapObjectData.GetPtr();
-    
+
         heapObject.addressBitIndex = GetAddressSmallHeapBlockBitIndex(heapObject.address);
 
         ExtRemoteTyped freeBitWord;
@@ -1369,7 +1369,7 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     }
 }
 
-ExtRemoteTyped 
+ExtRemoteTyped
 EXT_CLASS_BASE::GetRecycler(ULONG64 optionalRecyclerAddress)
 {
     ExtRemoteTyped recycler;
@@ -1379,7 +1379,7 @@ EXT_CLASS_BASE::GetRecycler(ULONG64 optionalRecyclerAddress)
         recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), optionalRecyclerAddress);
     }
     else
-    {        
+    {
         recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
     }
 
@@ -1397,7 +1397,7 @@ size_t EXT_CLASS_BASE::GetBVFixedAllocSize(int length)
     typedef UnitWord64 UnitWord;
 #endif
 
-void 
+void
 EXT_CLASS_BASE::DisplayLargeHeapBlockInfo(ExtRemoteTyped& largeHeapBlock)
 {
     largeHeapBlock.OutFullValue();
@@ -1405,7 +1405,7 @@ EXT_CLASS_BASE::DisplayLargeHeapBlockInfo(ExtRemoteTyped& largeHeapBlock)
     // TODO
 }
 
-void 
+void
 EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, ExtRemoteTyped recycler)
 {
     HeapBlockHelper heapBlockHelper(this, recycler);
@@ -1716,7 +1716,7 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, Comm
         }
 
         if (freePageList != 0)
-        {   
+        {
             RemoteListIterator<true> iter(this->FillModuleV("%s::FreePageEntry", this->GetPageAllocatorType()), freePageList + alignment);
 
             while (iter.Next())
@@ -1984,8 +1984,8 @@ JD_PRIVATE_COMMAND(swb,
         BYTE value = cardTable.ArrayElement(cardIndex).GetChar();
 
         Out("Card Index: %d\nDirty: %d\n", cardIndex, value);
-    } 
-    else 
+    }
+    else
     {
         Out("Write barriers not implemented for 64 bit yet\n");
     }
@@ -2045,7 +2045,7 @@ JD_PRIVATE_COMMAND(hbstats,
 
 void DisplayArenaAllocatorDataHeader()
 {
-   
+
     ExtOut("-------------------------------------------------------------------------------------\n");
     ExtOut("Allocator     #Block       Total        Used      Unused    Overhead OverHead%% Unused%%\n");
     ExtOut("-------------------------------------------------------------------------------------\n");
@@ -2053,7 +2053,7 @@ void DisplayArenaAllocatorDataHeader()
 }
 
 struct ArenaAllocatorData
-{    
+{
     ULONG64 blockSize;
     ULONG64 blockUsedSize;
     ULONG64 overheadSize;
@@ -2117,7 +2117,7 @@ JD_PRIVATE_COMMAND(memstats,
     "All memory stats",
     "{all;b,o;;Display all information}"
     "{a;b,o;;Display arena allocator information}"
-    "{p;b,o;;Display page allocator information}"    
+    "{p;b,o;;Display page allocator information}"
     "{t;e,o,d=0;Display information for thread context}"
     "{z;b,o;;Display zero entries}")
 {
@@ -2301,7 +2301,7 @@ ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, std::stri
         ExtBuffer<char> vtableName;
         if (this->GetOffsetSymbol(vtbleAddr, &vtableName))
         {
-            int len = strlen(vtableName.GetBuffer()) - strlen("::`vftable'");
+            int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
             if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
             {
                 vtableName.GetBuffer()[len] = '\0';
@@ -2694,7 +2694,7 @@ MPH_COMMAND(mpheap,
             {
                 return;
             }
-            
+
             Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr);
             rootPointers->Map([this, &recycler, &verbose, &address](ULONG64 rootAddress)
             {

@@ -77,7 +77,7 @@ JD_PRIVATE_COMMAND(diagstack,
     while( (hr = stackWalker->GetNext(&debugFrame)) != E_JsDEBUG_OUTSIDE_OF_VM)
     {
         IfFailThrow(hr);
-        CComBSTR name;            
+        CComBSTR name;
         IfFailThrow(debugFrame->GetName(&name));
         CComBSTR url;
         DWORD line, column;
@@ -328,7 +328,7 @@ JD_PRIVATE_COMMAND(dumptrace,
 
         if (log[current].GetPtr())
         {
-            // We have run across the bottom, so current is the 1st available log. 
+            // We have run across the bottom, so current is the 1st available log.
             // Print from current till end.
             for (ULONG i = current; i < capacity; ++i)
             {
@@ -458,13 +458,13 @@ void EXT_CLASS_BASE::CreateDebugProcess(IJsDebugProcess** ppDebugProcess)
     CComPtr<DbgEngDataTarget> dataTarget;
     IfFailThrow(CreateComObject(&dataTarget));
     IfFailThrow(dataTarget->Init(m_Client));
-    
+
     DWORD processId;
     IfFailThrow(m_System->GetCurrentProcessSystemId(&processId));
 
     UINT64 baseAddress; ULONG index;
     IfFailThrow(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &baseAddress));
-    
+
     // Skip validateDebugMode, so that a user can always decode the script stack. (Subsequent locals inspection could fail.)
     IfFailThrow(m_jsDebug->OpenVirtualProcess(dataTarget, /*validateDebugMode*/false, processId, baseAddress, NULL, ppDebugProcess));
 }
@@ -571,7 +571,7 @@ std::string EXT_CLASS_BASE::GetTypeName(ExtRemoteTyped& offset, bool includeModu
     ULONG64 vtable = ExtRemoteTyped("(void**)@$extin", offset.GetPtr()).Dereference().GetPtr();
     IfFailThrow(m_symbols5->GetNameByOffset(vtable, symbolName, _countof(symbolName), NULL, NULL));
 
-    //Example format: jc!IR::RegOpnd::`vftable' 
+    //Example format: jc!IR::RegOpnd::`vftable'
     char* startOfTypeName = symbolName;
     if (!includeModuleName)
     {

@@ -118,8 +118,8 @@ struct JsModuleList
 {
     static PCSTR moduleList[];
 };
-PCSTR JsModuleList<true>::moduleList[] = { "chakra", "jscript9" }; // Only support jscript9 and chakra for public tool
-PCSTR JsModuleList<false>::moduleList[] = { "chakratest", "chakra", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc" };
+PCSTR JsModuleList<true>::moduleList[] = { "chakra", "chakracore", "jscript9" }; // Only support jscript9 and chakra for public tool
+PCSTR JsModuleList<false>::moduleList[] = { "chakratest", "chakra", "chakracore", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc" };
 
 template <bool IsPublic>
 HRESULT FindJScriptModuleByName(_In_ IDebugSymbols* pSymbols, _Out_ ULONG* pIndex, _Out_ ULONG64* pBase)

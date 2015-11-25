@@ -50,7 +50,7 @@ RemotePageAllocator::GetCommittedBytes()
 
 void
 RemotePageAllocator::ComputeReservedAndCommittedBytes()
-{    
+{
     ULONG64 reserved = 0;
     ULONG64 decommitted = 0;
     auto accumulateSegments = [&](ExtRemoteTyped segment)
@@ -97,7 +97,7 @@ RemotePageAllocator::DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserve
         ExtOut(" ");
     }
     ExtOut(": ");
-    ExtOut("% 11I64u % 11I64u % 11I64u % 11I64u    %6.2f%%    %6.2f%%\n", 
+    ExtOut("% 11I64u % 11I64u % 11I64u % 11I64u    %6.2f%%    %6.2f%%\n",
         used, reserved, committed, (committed - used), 100.0 * (committed / (double)reserved), 100.0 * (used / (double)committed));
 }
 
@@ -113,8 +113,8 @@ RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries)
         PCSTR typeName = pageAllocator.GetTypeName();
         std::string encodedTypeName = JDUtil::EncodeDml(JDUtil::StripStructClass(typeName));
         g_Ext->Dml("<link cmd=\"dt %s!%s %p\">%s</link>", ((EXT_CLASS_BASE*)g_ExtInstancePtr)->FillModule("%s"), encodedTypeName.c_str(), JDUtil::IsPointerType(typeName)? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr(), name);
-        DisplayData(strlen(name), used, reserved, committed);
-    }      
+        DisplayData((ULONG)strlen(name), used, reserved, committed);
+    }
 }
 
 

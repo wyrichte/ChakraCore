@@ -24,7 +24,7 @@ struct DefaultValue<T*>
     }
 };
 
-// Wrappers for some STL classes to make it nicer 
+// Wrappers for some STL classes to make it nicer
 template <typename T>
 class Set
 {
@@ -115,11 +115,11 @@ public:
 
     const int Count()
     {
-        return _map.size();
+        return (int)_map.size();
     }
 
-    template <typename Fn> 
-    void Map(Fn func) 
+    template <typename Fn>
+    void Map(Fn func)
     {
         for (auto it = _map.begin(); it != _map.end(); it++)
         {
@@ -141,13 +141,13 @@ public:
     TKey Key;
 
     template <typename Fn>
-    void MapEdges(Fn func) 
+    void MapEdges(Fn func)
     {
         Edges.Map(func);
     }
 
     template <typename Fn>
-    void MapPredecessors(Fn func) 
+    void MapPredecessors(Fn func)
     {
         Predecessors.Map(func);
     }

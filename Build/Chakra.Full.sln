@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24706.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra", "..\private\bin\Chakra\Chakra.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -64,6 +64,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ut_jsdiag", "..\unittest\jd\ut_jsdiag.vcxproj", "{0335EF4B-D4E2-426D-80C8-6F312CB4F957}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jd", "..\tools\WinDbg\jd\jd.vcxproj", "{E7BF12A9-AA93-4D11-832E-18B223E4D07A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B47B46FB-C348-4B6C-9157-8B0E7ABC84FE} = {B47B46FB-C348-4B6C-9157-8B0E7ABC84FE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "static", "..\private\lib\staticlib\static.vcxproj", "{706083F7-6AA4-4558-A153-6352EF911FF5}"
 EndProject
@@ -698,14 +701,20 @@ Global
 		{0335EF4B-D4E2-426D-80C8-6F312CB4F957}.jshost-Test|x64.ActiveCfg = Test|x64
 		{0335EF4B-D4E2-426D-80C8-6F312CB4F957}.jshost-Test|x86.ActiveCfg = Test|Win32
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|ARM.ActiveCfg = Debug|ARM
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|ARM.Build.0 = Debug|ARM
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|x64.ActiveCfg = Debug|x64
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|x64.Build.0 = Debug|x64
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|x86.ActiveCfg = Debug|Win32
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Debug|x86.Build.0 = Debug|Win32
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Release|ARM.ActiveCfg = Release|ARM
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Release|x64.ActiveCfg = Release|x64
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Release|x86.ActiveCfg = Release|Win32
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|ARM.ActiveCfg = Test|ARM
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|ARM.Build.0 = Test|ARM
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|x64.ActiveCfg = Test|x64
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|x64.Build.0 = Test|x64
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|x86.ActiveCfg = Test|Win32
+		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.all-Test|x86.Build.0 = Test|Win32
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.jshost-Debug|ARM.ActiveCfg = Debug|ARM
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.jshost-Debug|x64.ActiveCfg = Debug|x64
 		{E7BF12A9-AA93-4D11-832E-18B223E4D07A}.jshost-Debug|x86.ActiveCfg = Debug|Win32

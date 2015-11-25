@@ -175,7 +175,7 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
                 if (shortestPath.size() == 0 || shortestPath.size() > path.size())
                 {
                     shortestPath = path;
-                    if (shortestPath.size() != 0) { 
+                    if (shortestPath.size() != 0) {
                         _ext->Out("Shortest path so far is from 0x%P\n", rootAddress);
                         pathsFound++;
                     }
@@ -215,7 +215,7 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
                 ExtRemoteTyped heapBlock(_ext->FillModuleAndMemoryNS("%s!%sHeapBlock"), heapBlockAddress, false);
                 auto type = _heapBlockHelper.GetHeapBlockType(heapBlock);
                 ULONG64 objectSize = 0;
-                
+
                 if (type == _ext->enum_LargeBlockType())
                 {
                     ExtRemoteTyped largeBlock(_ext->FillModuleAndMemoryNS("%s!%sLargeHeapBlock"), heapBlockAddress, false);
@@ -239,7 +239,7 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
 
                 if (type != _ext->enum_SmallLeafBlockType())
                 {
-                    node->aux.objectSize = (size_t)objectSize;
+                    node->aux.objectSize = (uint)objectSize;
                 }
                 else
                 {
@@ -281,7 +281,7 @@ ULONG64 RecyclerObjectGraph::GetLargeObjectSize(ExtRemoteTyped heapBlockObject, 
         return 0;
     }
 
-    size_t largeObjectHeaderPtrSize = _ext->m_PtrSize;    
+    ULONG largeObjectHeaderPtrSize = _ext->m_PtrSize;
     ULONG64 headerArrayAddress = heapBlock + sizeOfHeapBlock + (heapObject.index * largeObjectHeaderPtrSize);
     ExtRemoteData  headerData(headerArrayAddress, largeObjectHeaderPtrSize);
 
@@ -378,7 +378,7 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
     ULONG64 stackBase = 0;
     if (recycler.HasField("stackBase"))
     {
-        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.Field("stackBase").GetUlong() 
+        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.Field("stackBase").GetUlong()
             : recycler.Field("stackBase").GetPtr());
     }
     else
@@ -388,7 +388,7 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
             : tib.Field("StackBase").GetPtr());
     }
 
-    
+
     ULONG64 stackTop = GetStackTop(ext);
 
     // memprotectheap recycler->stackBase is not set
@@ -397,26 +397,26 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
     stackTop = tib.Field("StackLimit").GetPtr();
 
     size_t stackSizeInBytes = (size_t) (stackBase - stackTop);
-
     void** stack = (void**) malloc(stackSizeInBytes);
     if (!stack)
     {
         ext->ThrowOutOfMemory();
     }
+    ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
 
 #ifdef _M_X64
     if (ext->m_PtrSize == 4)
     {
         ULONG32* stack32 = (ULONG32*)stack;
-        ExtRemoteData data(stackTop, stackSizeInBytes);
-        data.ReadBuffer(stack32, stackSizeInBytes);
+        ExtRemoteData data(stackTop, stackSizeInBytesLong);
+        data.ReadBuffer(stack32, stackSizeInBytesLong);
 
         if (print)
         {
             ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
         }
 
-        for (uint i = 0; i < stackSizeInBytes / ext->m_PtrSize; i++)
+        for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
             if (rootPointerManager.TryAdd((ULONG64)stack32[i]) && print)
             {
@@ -429,15 +429,15 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
     else
 #endif
     {
-        ExtRemoteData data(stackTop, stackSizeInBytes);
-        data.ReadBuffer(stack, stackSizeInBytes);
+        ExtRemoteData data(stackTop, stackSizeInBytesLong);
+        data.ReadBuffer(stack, stackSizeInBytesLong);
 
         if (print)
         {
             ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
         }
 
-        for (uint i = 0; i < stackSizeInBytes / ext->m_PtrSize; i++)
+        for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
             if (rootPointerManager.TryAdd((ULONG64)stack[i]) && print)
             {
@@ -468,8 +468,8 @@ void ScanObject(ULONG64 object, size_t bytes, RootPointers& rootPointerManager)
             ext->ThrowOutOfMemory();
         }
 
-        ExtRemoteData data(object, bytes);
-        data.ReadBuffer(objectBytes, bytes);
+        ExtRemoteData data(object, (ULONG)bytes);
+        data.ReadBuffer(objectBytes, (ULONG)bytes);
         for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
         {
             rootPointerManager.TryAdd((ULONG64)objectBytes[i]);
@@ -486,8 +486,8 @@ void ScanObject(ULONG64 object, size_t bytes, RootPointers& rootPointerManager)
             ext->ThrowOutOfMemory();
         }
 
-        ExtRemoteData data(object, bytes);
-        data.ReadBuffer(objectBytes, bytes);
+        ExtRemoteData data(object, (ULONG)bytes);
+        data.ReadBuffer(objectBytes, (ULONG)bytes);
         for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
         {
             rootPointerManager.TryAdd((ULONG64)objectBytes[i]);
@@ -567,11 +567,11 @@ public:
         }
     }
     virtual bool ProcessHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block)
-    {     
+    {
         ULONG64 heapBlock = block.GetPtr();
         ushort objectCount = block.Field("objectCount").GetUshort();
         ULONG64 attributeStartAddress = heapBlock - objectCount;
-        
+
         ExtRemoteData remoteAttributes(attributeStartAddress, objectCount);
         std::vector<byte> attributes(objectCount);
         remoteAttributes.ReadBuffer(&attributes[0], objectCount);
@@ -691,7 +691,7 @@ void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, c
 {
     ext->Out("Index: (0x%x, %d), Entry: 0x%p", i, j, entryPointer);
     ext->Out(", Key: 0x%p ", entry.address);
-    ext->Out("(Ref count: %d)", entry.pinnedCount); 
+    ext->Out("(Ref count: %d)", entry.pinnedCount);
     // Appears to be a bug in ext->Out where it doesn't deal with %d properly when
     // mixed with other types
 
@@ -900,7 +900,7 @@ RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
 
         SearchRange(startAddress, (uint)objectSize, ext, this->referencedObject, [&](ULONG64 addr){
             bool isRoot = rootPointers->Contains(addr);
-            
+
             FindRefData result;
             result.address = addr;
             result.offset = 0;
@@ -976,7 +976,7 @@ JD_PRIVATE_COMMAND(oi,
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
     ExtRemoteTyped threadContext;
     ExtRemoteTyped recycler;
-    
+
     if (recyclerArg != 0)
     {
         recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
@@ -992,7 +992,7 @@ JD_PRIVATE_COMMAND(oi,
     HeapBlockHelper heapBlockHelper(this, recycler);
     ULONG64 heapBlockAddress = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
     if (heapBlockAddress != NULL)
-    {        
+    {
         ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), heapBlockAddress);
         ULONG64 heapBlockType = heapBlockHelper.GetHeapBlockType(heapBlock);
 
@@ -1005,7 +1005,7 @@ JD_PRIVATE_COMMAND(oi,
         }
 
         if (heapBlockType == this->enum_LargeBlockType())
-        {            
+        {
             heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, verbose);
         }
         else
@@ -1112,7 +1112,7 @@ JD_PRIVATE_COMMAND(showroots,
     Out("\nStack\n");
     ScanRegisters(this, rootPointerManager);
     ScanStack(this, recycler, rootPointerManager);
-    
+
     PCSTR typeName = recycler.Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
 }

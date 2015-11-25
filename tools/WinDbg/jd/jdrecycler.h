@@ -160,7 +160,7 @@ public:
     }
 
     int Count() {
-        return blocks.size();
+        return (int)blocks.size();
     }
 
     virtual bool ProcessLargeHeapBlock(ExtRemoteTyped block) { return false; }
@@ -201,7 +201,7 @@ protected:
 
     EXT_CLASS_BASE* ext;
     ULONG64 lastLargeHeapBlock;
-    bool skipMultipleLargeHeapBlocks;  
+    bool skipMultipleLargeHeapBlocks;
     ExtRemoteTyped recycler;
 };
 
@@ -258,7 +258,7 @@ protected:
 
     RecyclerBucketStats largeStats;
     RecyclerBucketStats smallStats;
-    
+
     HeapBlockHelper heapBlockHelper;
     CollectSmallHeapBlocks heapBlockCollector;
 };
@@ -273,7 +273,7 @@ enum PrintBucketStatsFilter
 class RecyclerPrintBucketStats : public RecyclerForEachHeapBlock
 {
 public:
-    RecyclerPrintBucketStats(EXT_CLASS_BASE * ext, PrintBucketStatsFilter filter, ExtRemoteTyped recycler) 
+    RecyclerPrintBucketStats(EXT_CLASS_BASE * ext, PrintBucketStatsFilter filter, ExtRemoteTyped recycler)
         : RecyclerForEachHeapBlock(recycler), ext(ext), filter(filter)
     {}
     virtual bool Run() override;
@@ -296,7 +296,7 @@ private:
     RecyclerBucketStats newObjectStats;
 };
 
-// Walk through every heap block, scan the valid objects for a reference to 
+// Walk through every heap block, scan the valid objects for a reference to
 // the given object
 class RecyclerFindReference : public RecyclerForEachHeapBlock
 {
