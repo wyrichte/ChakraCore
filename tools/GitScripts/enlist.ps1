@@ -5,21 +5,25 @@
 param (
     [switch]$installTools,
     [string]$pythonInstallPath = "C:\Python35",
-    [string]$repoRoot = $null
+    [string]$repoRoot = ""
 )
 
-if ($repoRoot -eq $null) {
+if (-not $repoRoot) {
     if (Test-Path Env:\REPO_ROOT) {
-        $repoRoot = Env:\REPO_ROOT
+        Write-Host "Found $($Env:REPO_ROOT)"
+        $repoRoot = $Env:REPO_ROOT
     }
 }
 
-if ($repoRoot -eq $null) {
+if (-not $repoRoot) {
     throw "Error: Please pass in -RepoRoot:<path to repo>"
 }
 
+Write-Host "Repo root is $repoRoot"
+
 if ($installTools) {
     $gitInstaller = "\\cpvsbuild\drops\dd\Git\InstallGit.cmd"
+    $gitRemoteHelperPath = "\\chakrafs01\RepoTools\GCM\Setup.exe"
     $pythonInstallConfig = "AssociateFiles=0 InstallAllUsers=1 Include_Launcher=0 SimpleInstall=1"
 
     if ($pythonInstallPath -ne $null) {
@@ -35,6 +39,9 @@ if ($installTools) {
     } else {
         Write-Host "Git found- skipping install"
     }
+
+    Write-Host "Deploying MSFT Git Credential Manager module"
+    Start-Process -FilePath $gitRemoteHelperPath -ArgumentList "/VerySilent" -Wait -NoNewWindow
 
     if ($pythonInstallPath -ne $null) {
         if ((Test-Path (Join-Path $pythonInstallPath "python.exe")) -and
@@ -82,7 +89,35 @@ if ($installTools) {
     $cmd = Get-Command "git.exe" -ErrorAction SilentlyContinue
     if ($cmd -eq $null) {
         Write-Host "WARNING: git not found in the path and install skipped"
+    } else {
+        $gitVersion = git --version
+        $versionFields = [regex]::match($gitVersion, 'git version (\d+)\.(\d+)\..*').Groups
+        $major = $versionFields[1].Value
+        $minor = $versionFields[2].Value
+        $gitVersionOK = $True
+
+        if ($major -ge 2) {
+            if ($minor -lt 5) {
+                $gitVersionOK = $False
+            }
+        } else {
+            $gitVersionOK = $False
+        }
+
+        if (!$gitVersionOK) {
+            Write-Host "
+ERROR: Your currently-installed version of Git is out of date. This script requires Git version 2.5 or later.
+    Your currently-installed version is:
+        $gitVersion
+    Please install the latest version of Git from:
+        http://www.git-scm.com/download/win
+    You can confirm the currently-installed version of Git by running:
+        git --version
+        "
+            exit 1
+        }
     }
+
     $cmd = Get-Command "python.exe" -ErrorAction SilentlyContinue
     if ($cmd -eq $null) {
         Write-Host "WARNING: python not found in the path and install skipped"
@@ -112,6 +147,10 @@ git config core.safecrlf false
 
 
 $repoFolderName = Split-Path -Leaf $repoRoot
+if ($repoFolderName -eq $null) {
+    $repoFolderName = "Chakra";
+}
+
 $repoParent = Split-Path $repoRoot
 if (-not (Test-Path $repoParent))
 {
@@ -119,7 +158,29 @@ if (-not (Test-Path $repoParent))
 }
 
 Push-Location $repoParent
-git clone --recurse "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/Chakra" $repoFolderName
+git clone --no-checkout "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/Chakra" $repoFolderName
+Push-Location $repoRoot
+
+git config core.autocrlf false
+# Set to false because some unit test repros need CRLF instead of LF
+git config core.safecrlf false
+# Rebase preserving merges by default on pulls
+git config pull.rebase preserve
+
+git checkout master
+git submodule update --init
+Push-Location (Join-Path $repoRoot "core")
+
+git config core.autocrlf true
+# Set to false because some unit test repros need CRLF instead of LF
+git config core.safecrlf false
+# Rebase preserving merges by default on pulls
+git config pull.rebase preserve
+
+git rm -rf *
+git checkout master --force
+Pop-Location
+Pop-Location
 Pop-Location
 
 Write-Host "`nEnvironment setup completed- run $repoRoot\tools\GitScripts\init.cmd to launch environment"
