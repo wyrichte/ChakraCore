@@ -70,9 +70,14 @@ function createIEDepPackage(envStr) {
     return _doPCT("buildAndCreateIEDepPackage", envStr)
 }
 
-function _getPackageStageFolder()
+function createProjectionPackage(envStr) {
+    WScript.Echo("Creating Projection ABI packages");
+    return _doPCT("buildAndCreateProjectionPackage", envStr)
+}
+
+function _getPackageStageFolder(packageName)
 {
-    return Env("SDXROOT") + "\\inetcore\\jscript\\packages\\ielibs\\stage";
+    return Env("SDXROOT") + "\\inetcore\\jscript\\packages\\" + packageName + "\\stage";
 }
 
 function copyIEDepLibsToStagingFolder() {
@@ -84,7 +89,7 @@ function copyIEDepLibsToStagingFolder() {
         ["manifests\\inbox", [] ]
     ];
 
-    var target = _getPackageStageFolder();
+    var target = _getPackageStageFolder("ielibs");
     for (var i = 0; i < folders.length; i++) {
         var listing = folders[i];
         var sourceSubFolder = listing[0] + "\\" + bldAlt;
@@ -106,6 +111,21 @@ function copyIEDepLibsToStagingFolder() {
     }
 }
 
+function copyProjectionBinariesToStagingFolder() {
+    var binRoot = Env("build.nttree");
+    var buildType = Env("build.type");
+    var buildArch = Env("build.arch");
+    var targetFolder = _getPackageStageFolder("projectionabis") + "\\" + buildArch + buildType;
+    
+    if (!FSOFolderExists(targetFolder)) {
+        FSOCreatePath(targetFolder);
+    }
+    
+    var sourceFile = binRoot + "\\Projection\\WinRT\\*.*";
+    WScript.Echo("Copying " + sourceFile + " to " + targetFolder);
+    FSOCopyFile(sourceFile, targetFolder, true /* overwrite */);
+}
+
 function _runRazzleCommand(bldArch, baseBldType, command)
 {
     var srcBase = Env("SDXROOT");
@@ -115,7 +135,7 @@ function _runRazzleCommand(bldArch, baseBldType, command)
 
 function consolidateIEPackage()
 {
-    var packageStageFolder = _getPackageStageFolder();
+    var packageStageFolder = _getPackageStageFolder("ielibs");
 
     if (FSOFolderExists(packageStageFolder)) {
         WScript.Echo("Warning: staging folder already exists");
@@ -134,9 +154,41 @@ function consolidateIEPackage()
     return true;
 }
 
-function cleanIEDepPackageStage()
+function consolidateProjectionPackage()
 {
-    var packageStageFolder = _getPackageStageFolder();
+    var packageStageFolder = _getPackageStageFolder("projectionabis");
+
+    if (FSOFolderExists(packageStageFolder)) {
+        WScript.Echo("Warning: staging folder already exists");
+    }
+
+    var archs = [ "x86", "amd64", "arm" ];
+    var flavors = [ "chk", "fre" ];
+    // Open razzle, copy binaries to staging folder
+    for (var i = 0; i < archs.length; i++) {
+        for (var j = 0; j < flavors.length; j++) { 
+            _runRazzleCommand(archs[i], flavors[j], ScriptDir + "\\runjs copyProjectionBinariesToStagingFolder");
+        }
+    }
+    
+    var toolsPath = Env("RazzleToolPath");
+    var targetFolder = _getPackageStageFolder("projectionabis");
+    
+    if (!FSOFolderExists(targetFolder)) {
+        FSOCreatePath(targetFolder);
+    }
+    
+    var sourceFile = toolsPath + "\\x86\\TakeRegistryAdminOwnership.exe";
+    WScript.Echo("Copying " + sourceFile + " to " + targetFolder);
+    FSOCopyFile(sourceFile, targetFolder + "\\", true /* overwrite */);
+
+    WScript.Echo("Consolidating projection ABI package");
+    return true;
+}
+
+function cleanPackageStage(packageName)
+{
+    var packageStageFolder = _getPackageStageFolder(packageName);
     if (FSOFolderExists(packageStageFolder)) {
         WScript.Echo("Deleting " + packageStageFolder);
         FSODeleteFolder(packageStageFolder, true);
@@ -145,12 +197,32 @@ function cleanIEDepPackageStage()
     return true;
 }
 
+function cleanIEDepPackageStage()
+{
+    return cleanPackageStage("ielibs");
+}
+
+function cleanProjectionPackageStage()
+{
+    return cleanPackageStage("projectionabis");
+}
+
+function buildPackage(packageName)
+{
+    WScript.Echo("Building " + packageName + " package");
+    var srcBase = Env("SDXROOT");
+    var run = runCmdToLog("call " + srcBase + "\\inetcore\\jscript\\packages\\" + packageName + "\\pack.cmd");
+    return true;
+}
+
 function buildIEPackage()
 {
-    WScript.Echo("Building IE dependency package");
-    var srcBase = Env("SDXROOT");
-    var run = runCmdToLog("call " + srcBase + "\\inetcore\\jscript\\packages\\ielibs\\pack.cmd");
-    return true;
+    return buildPackage("ielibs");
+}
+
+function buildProjectionPackage()
+{
+    return buildPackage("projectionabis");
 }
 
 function syncAndTvsOACRGate(envStr) {
@@ -248,6 +320,23 @@ while (true)
             (taskNew("cleanIEPackageStage", "runjs cleanIEDepPackageStage", undefined, undefined, "This task cleans the staging directories for building the IE package")),
             _taskBuildAllIEPackageDep,
             _createPackageTask()
+        ]);
+        
+    var _taskBuildAllProjectionPackage = 
+        taskGroup("buildAllProjectionPackageDep", [
+            _razzleBuildProjectionPackageTaskGroup("chk", "x86"),
+            _razzleBuildProjectionPackageTaskGroup("fre", "x86"),
+            _razzleBuildProjectionPackageTaskGroup("chk", "amd64"),
+            _razzleBuildProjectionPackageTaskGroup("fre", "amd64"),
+            _razzleBuildProjectionPackageTaskGroup("chk", "arm"),
+            _razzleBuildProjectionPackageTaskGroup("fre", "arm"),
+        ]);
+        
+    var _taskBuildAndCreateProjectionPackage = 
+        taskGroup("buildAndCreateProjectionPackage", [
+            (taskNew("cleanProjectionPackageStage", "runjs cleanProjectionPackageStage", undefined, undefined, "This task cleans the staging directories for building the Projection ABI package")),
+            _taskBuildAllProjectionPackage,
+            _createProjectionPackageTask()
         ]);
 
     var _taskBuildAllHere =
@@ -395,7 +484,8 @@ while (true)
         _taskPreCheckinTestsFullF12,
         _taskSyncAndPreCheckinTestsFullF12,
         _taskSyncAndTvsOACRGate,
-        _taskBuildAndCreateIEDepPackage
+        _taskBuildAndCreateIEDepPackage,
+        _taskBuildAndCreateProjectionPackage
     ];
 
     break;
@@ -489,6 +579,21 @@ function _razzleBuildIEDepPackageTaskGroup(bldType, bldArch, oacrAll)
     ]);
 }
 
+function _razzleBuildProjectionPackageTaskGroup(bldType, bldArch, oacrAll)
+{
+    bldType = getBldType(bldType);
+    bldArch = getBldArch(bldArch);
+    
+    return taskGroup("buildFull_" + (oacrAll ? "oacrAll_" : "") + bldArch + bldType, [
+        _razzleBuildTask(bldType, bldArch, {
+            taskNameString: "inetcore-package-dep",
+            directories: [
+                "inetcore\\jscript\\ProjectionTests"
+            ]
+        }, undefined, 1 * HOUR)
+    ]);
+}
+
 function _buildAndUnitTestTask(bldType, bldArch, bldRelDir)
 {
     bldType = getBldType(bldType);
@@ -509,6 +614,15 @@ function _createPackageTask()
     return taskGroup("consolidateAndCreatePackage", [
         (taskNew("consolidateIEPackage", "runjs consolidateIEPackage", undefined, undefined, "This task consolidates an IE package from the object directories to a staging directory")),
         (taskNew("buildIEPackage", "runjs buildIEPackage", undefined, undefined, "This task builds the IE package from the staging directory"))
+    ]);
+}
+
+function _createProjectionPackageTask()
+{
+    WScript.Echo("Creating Projection ABI package task");
+    return taskGroup("consolidateAndCreateProjectionPackage", [
+        (taskNew("consolidateProjectionPackage", "runjs consolidateProjectionPackage", undefined, undefined, "This task consolidates an projection ABI package from the binary directories to a staging directory")),
+        (taskNew("buildProjectionPackage", "runjs buildProjectionPackage", undefined, undefined, "This task builds the projection ABI package from the staging directory"))
     ]);
 }
 

@@ -13,6 +13,7 @@ if EXIST %NUGET_PACKAGE_OUT% (
 )
 
 call runjs createIEDepPackage
+call runjs createProjectionPackage
 
 for /f "usebackq" %%i in (`dir /a:d /b`) do (
     if exist %%i\pack.cmd (

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ProjectionABIs</id>
+    <version>1.0.0</version>
+    <authors>tawoll</authors>
+    <owners>tawoll</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Projection ABI binaries</description>
+    <releaseNotes>Binaries needed to execute Chakra projection unit tests</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Chakra Projection ABIs</tags>
+  </metadata>
+  <files>
+    <file src="amd64chk\Animals.dll" target="x64_debug\Animals.dll" />
+    <file src="amd64chk\Animals.man" target="x64_debug\Animals.man" />
+    <file src="amd64chk\Animals.winmd" target="x64_debug\Animals.winmd" />
+    <file src="amd64chk\DevTests.dll" target="x64_debug\DevTests.dll" />
+    <file src="amd64chk\DevTests.man" target="x64_debug\DevTests.man" />
+    <file src="amd64chk\DevTests.winmd" target="x64_debug\DevTests.winmd" />
+    <file src="amd64chk\DevTests.CamelCasing.dll" target="x64_debug\DevTests.CamelCasing.dll" />
+    <file src="amd64chk\DevTests.CamelCasing.man" target="x64_debug\DevTests.CamelCasing.man" />
+    <file src="amd64chk\DevTests.CamelCasing.winmd" target="x64_debug\DevTests.CamelCasing.winmd" />
+    <file src="amd64chk\DevTests.Repros.dll" target="x64_debug\DevTests.Repros.dll" />
+    <file src="amd64chk\DevTests.Repros.man" target="x64_debug\DevTests.Repros.man" />
+    <file src="amd64chk\DevTests.Repros.winmd" target="x64_debug\DevTests.Repros.winmd" />
+    <file src="amd64chk\Winery.dll" target="x64_debug\Winery.dll" />
+    <file src="amd64chk\Winery.man" target="x64_debug\Winery.man" />
+    <file src="amd64chk\Winery.winmd" target="x64_debug\Winery.winmd" />
+    <file src="amd64chk\Fabrikam.Kitchen.winmd" target="x64_debug\Fabrikam.Kitchen.winmd" />
+    <file src="amd64chk\Fabrikam.man" target="x64_debug\Fabrikam.man" />
+    <file src="amd64chk\FabrikamKitchenServer.dll" target="x64_debug\FabrikamKitchenServer.dll" />
+    <file src="amd64chk\FabrikamKitchenServer.ProxyStub.dll" target="x64_debug\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="amd64chk\JsEtwConsole.exe" target="x64_debug\JsEtwConsole.exe" />
+    <file src="amd64chk\projectionsglue.js" target="x64_debug\projectionsglue.js" />
+
+    <file src="amd64fre\Animals.dll" target="x64_test\Animals.dll" />
+    <file src="amd64fre\Animals.man" target="x64_test\Animals.man" />
+    <file src="amd64fre\Animals.winmd" target="x64_test\Animals.winmd" />
+    <file src="amd64fre\DevTests.dll" target="x64_test\DevTests.dll" />
+    <file src="amd64fre\DevTests.man" target="x64_test\DevTests.man" />
+    <file src="amd64fre\DevTests.winmd" target="x64_test\DevTests.winmd" />
+    <file src="amd64fre\DevTests.CamelCasing.dll" target="x64_test\DevTests.CamelCasing.dll" />
+    <file src="amd64fre\DevTests.CamelCasing.man" target="x64_test\DevTests.CamelCasing.man" />
+    <file src="amd64fre\DevTests.CamelCasing.winmd" target="x64_test\DevTests.CamelCasing.winmd" />
+    <file src="amd64fre\DevTests.Repros.dll" target="x64_test\DevTests.Repros.dll" />
+    <file src="amd64fre\DevTests.Repros.man" target="x64_test\DevTests.Repros.man" />
+    <file src="amd64fre\DevTests.Repros.winmd" target="x64_test\DevTests.Repros.winmd" />
+    <file src="amd64fre\Winery.dll" target="x64_test\Winery.dll" />
+    <file src="amd64fre\Winery.man" target="x64_test\Winery.man" />
+    <file src="amd64fre\Winery.winmd" target="x64_test\Winery.winmd" />
+    <file src="amd64fre\Fabrikam.Kitchen.winmd" target="x64_test\Fabrikam.Kitchen.winmd" />
+    <file src="amd64fre\Fabrikam.man" target="x64_test\Fabrikam.man" />
+    <file src="amd64fre\FabrikamKitchenServer.dll" target="x64_test\FabrikamKitchenServer.dll" />
+    <file src="amd64fre\FabrikamKitchenServer.ProxyStub.dll" target="x64_test\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="amd64fre\JsEtwConsole.exe" target="x64_test\JsEtwConsole.exe" />
+    <file src="amd64fre\projectionsglue.js" target="x64_test\projectionsglue.js" />
+
+    <file src="x86chk\Animals.dll" target="x86_debug\Animals.dll" />
+    <file src="x86chk\Animals.man" target="x86_debug\Animals.man" />
+    <file src="x86chk\Animals.winmd" target="x86_debug\Animals.winmd" />
+    <file src="x86chk\DevTests.dll" target="x86_debug\DevTests.dll" />
+    <file src="x86chk\DevTests.man" target="x86_debug\DevTests.man" />
+    <file src="x86chk\DevTests.winmd" target="x86_debug\DevTests.winmd" />
+    <file src="x86chk\DevTests.CamelCasing.dll" target="x86_debug\DevTests.CamelCasing.dll" />
+    <file src="x86chk\DevTests.CamelCasing.man" target="x86_debug\DevTests.CamelCasing.man" />
+    <file src="x86chk\DevTests.CamelCasing.winmd" target="x86_debug\DevTests.CamelCasing.winmd" />
+    <file src="x86chk\DevTests.Repros.dll" target="x86_debug\DevTests.Repros.dll" />
+    <file src="x86chk\DevTests.Repros.man" target="x86_debug\DevTests.Repros.man" />
+    <file src="x86chk\DevTests.Repros.winmd" target="x86_debug\DevTests.Repros.winmd" />
+    <file src="x86chk\Winery.dll" target="x86_debug\Winery.dll" />
+    <file src="x86chk\Winery.man" target="x86_debug\Winery.man" />
+    <file src="x86chk\Winery.winmd" target="x86_debug\Winery.winmd" />
+    <file src="x86chk\Fabrikam.Kitchen.winmd" target="x86_debug\Fabrikam.Kitchen.winmd" />
+    <file src="x86chk\Fabrikam.man" target="x86_debug\Fabrikam.man" />
+    <file src="x86chk\FabrikamKitchenServer.dll" target="x86_debug\FabrikamKitchenServer.dll" />
+    <file src="x86chk\FabrikamKitchenServer.ProxyStub.dll" target="x86_debug\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="x86chk\JsEtwConsole.exe" target="x86_debug\JsEtwConsole.exe" />
+    <file src="x86chk\projectionsglue.js" target="x86_debug\projectionsglue.js" />
+
+    <file src="x86fre\Animals.dll" target="x86_test\Animals.dll" />
+    <file src="x86fre\Animals.man" target="x86_test\Animals.man" />
+    <file src="x86fre\Animals.winmd" target="x86_test\Animals.winmd" />
+    <file src="x86fre\DevTests.dll" target="x86_test\DevTests.dll" />
+    <file src="x86fre\DevTests.man" target="x86_test\DevTests.man" />
+    <file src="x86fre\DevTests.winmd" target="x86_test\DevTests.winmd" />
+    <file src="x86fre\DevTests.CamelCasing.dll" target="x86_test\DevTests.CamelCasing.dll" />
+    <file src="x86fre\DevTests.CamelCasing.man" target="x86_test\DevTests.CamelCasing.man" />
+    <file src="x86fre\DevTests.CamelCasing.winmd" target="x86_test\DevTests.CamelCasing.winmd" />
+    <file src="x86fre\DevTests.Repros.dll" target="x86_test\DevTests.Repros.dll" />
+    <file src="x86fre\DevTests.Repros.man" target="x86_test\DevTests.Repros.man" />
+    <file src="x86fre\DevTests.Repros.winmd" target="x86_test\DevTests.Repros.winmd" />
+    <file src="x86fre\Winery.dll" target="x86_test\Winery.dll" />
+    <file src="x86fre\Winery.man" target="x86_test\Winery.man" />
+    <file src="x86fre\Winery.winmd" target="x86_test\Winery.winmd" />
+    <file src="x86fre\Fabrikam.Kitchen.winmd" target="x86_test\Fabrikam.Kitchen.winmd" />
+    <file src="x86fre\Fabrikam.man" target="x86_test\Fabrikam.man" />
+    <file src="x86fre\FabrikamKitchenServer.dll" target="x86_test\FabrikamKitchenServer.dll" />
+    <file src="x86fre\FabrikamKitchenServer.ProxyStub.dll" target="x86_test\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="x86fre\JsEtwConsole.exe" target="x86_test\JsEtwConsole.exe" />
+    <file src="x86fre\projectionsglue.js" target="x86_test\projectionsglue.js" />
+
+    <file src="armfre\Animals.dll" target="arm_test\Animals.dll" />
+    <file src="armfre\Animals.man" target="arm_test\Animals.man" />
+    <file src="armfre\Animals.winmd" target="arm_test\Animals.winmd" />
+    <file src="armfre\DevTests.dll" target="arm_test\DevTests.dll" />
+    <file src="armfre\DevTests.man" target="arm_test\DevTests.man" />
+    <file src="armfre\DevTests.winmd" target="arm_test\DevTests.winmd" />
+    <file src="armfre\DevTests.CamelCasing.dll" target="arm_test\DevTests.CamelCasing.dll" />
+    <file src="armfre\DevTests.CamelCasing.man" target="arm_test\DevTests.CamelCasing.man" />
+    <file src="armfre\DevTests.CamelCasing.winmd" target="arm_test\DevTests.CamelCasing.winmd" />
+    <file src="armfre\DevTests.Repros.dll" target="arm_test\DevTests.Repros.dll" />
+    <file src="armfre\DevTests.Repros.man" target="arm_test\DevTests.Repros.man" />
+    <file src="armfre\DevTests.Repros.winmd" target="arm_test\DevTests.Repros.winmd" />
+    <file src="armfre\Winery.dll" target="arm_test\Winery.dll" />
+    <file src="armfre\Winery.man" target="arm_test\Winery.man" />
+    <file src="armfre\Winery.winmd" target="arm_test\Winery.winmd" />
+    <file src="armfre\Fabrikam.Kitchen.winmd" target="arm_test\Fabrikam.Kitchen.winmd" />
+    <file src="armfre\Fabrikam.man" target="arm_test\Fabrikam.man" />
+    <file src="armfre\FabrikamKitchenServer.dll" target="arm_test\FabrikamKitchenServer.dll" />
+    <file src="armfre\FabrikamKitchenServer.ProxyStub.dll" target="arm_test\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="armfre\projectionsglue.js" target="arm_test\projectionsglue.js" />
+
+    <file src="armchk\Animals.dll" target="arm_debug\Animals.dll" />
+    <file src="armchk\Animals.man" target="arm_debug\Animals.man" />
+    <file src="armchk\Animals.winmd" target="arm_debug\Animals.winmd" />
+    <file src="armchk\DevTests.dll" target="arm_debug\DevTests.dll" />
+    <file src="armchk\DevTests.man" target="arm_debug\DevTests.man" />
+    <file src="armchk\DevTests.winmd" target="arm_debug\DevTests.winmd" />
+    <file src="armchk\DevTests.CamelCasing.dll" target="arm_debug\DevTests.CamelCasing.dll" />
+    <file src="armchk\DevTests.CamelCasing.man" target="arm_debug\DevTests.CamelCasing.man" />
+    <file src="armchk\DevTests.CamelCasing.winmd" target="arm_debug\DevTests.CamelCasing.winmd" />
+    <file src="armchk\DevTests.Repros.dll" target="arm_debug\DevTests.Repros.dll" />
+    <file src="armchk\DevTests.Repros.man" target="arm_debug\DevTests.Repros.man" />
+    <file src="armchk\DevTests.Repros.winmd" target="arm_debug\DevTests.Repros.winmd" />
+    <file src="armchk\Winery.dll" target="arm_debug\Winery.dll" />
+    <file src="armchk\Winery.man" target="arm_debug\Winery.man" />
+    <file src="armchk\Winery.winmd" target="arm_debug\Winery.winmd" />
+    <file src="armchk\Fabrikam.Kitchen.winmd" target="arm_debug\Fabrikam.Kitchen.winmd" />
+    <file src="armchk\Fabrikam.man" target="arm_debug\Fabrikam.man" />
+    <file src="armchk\FabrikamKitchenServer.dll" target="arm_debug\FabrikamKitchenServer.dll" />
+    <file src="armchk\FabrikamKitchenServer.ProxyStub.dll" target="arm_debug\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="armchk\projectionsglue.js" target="arm_debug\projectionsglue.js" />
+    
+    <file src="TakeRegistryAdminOwnership.exe" target="TakeRegistryAdminOwnership.exe" />
+  </files>
+</package>
