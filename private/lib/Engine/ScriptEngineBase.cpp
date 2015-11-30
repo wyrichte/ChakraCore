@@ -28,6 +28,28 @@
 #include "SCASerialization.h"
 #include "SCADeserialization.h"
 
+// TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+class DisableNoScriptScope
+{
+private:
+    bool noScriptScope;
+    ThreadContext *threadContext;
+
+public:
+    DisableNoScriptScope(ThreadContext *tc) :
+        threadContext(tc),
+        noScriptScope(tc->IsNoScriptScope())
+    {
+        threadContext->SetNoScriptScope(false);
+    }
+
+    ~DisableNoScriptScope()
+    {
+        threadContext->SetNoScriptScope(noScriptScope);
+        threadContext = nullptr;
+    }
+};
+
 ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),
     threadContext(nullptr),
@@ -1737,6 +1759,10 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeToVar(
     {
         return hr;
     }
+
+    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
+
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         hr = DispatchHelper::MarshalVariantToJsVar(inVariant, instance, scriptContext);

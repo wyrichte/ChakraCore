@@ -1,0 +1,8 @@
+
+
+Running DirectAPIDisableNoScriptScopeTest tests
+
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false) // HRESULT == S_OK
+When NoScriptScope==false, this should pass.
+SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true) // HRESULT == S_OK
+When NoScriptScope==true, and DisableNoScriptScope workaround is in place, this should pass.

@@ -37,6 +37,7 @@ void RunJsDirectTest(MyScriptDirectTests* mytest);
 void RunJsDirectNoScriptScopeTests(MyScriptDirectTests* myTests);
 void RunJsDirectNoScriptScopeErrorCaseTests(MyScriptDirectTests* myTests);
 void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests);
+void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests);
 void RunAsyncDebugTest(MyScriptDirectTests* myTests);
 void RunStaticLibVerificationTest();
 void RunVarToNativeArrayTest(MyScriptDirectTests* myTests);
