@@ -6,7 +6,7 @@
          KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
          EH blocks.
      -->
-      <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt</tags>
+      <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
       <compile-flags>-WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
@@ -18,7 +18,7 @@
          KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
          EH blocks.
      -->
-      <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt</tags>
+      <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
       <compile-flags>-bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
