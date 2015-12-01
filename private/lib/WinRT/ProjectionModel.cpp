@@ -1358,17 +1358,6 @@ namespace ProjectionModel
             }
         }
         auto continuation = Anew(allocator, ReadSignatureContinuation, this, method, genericParameters, parameters, returnMetadataType, returnTypeNameId);
-#if JSGEN
-        auto signature = Anew(allocator, AbiMethodSignature, method->id, uniqueName, iid, method->methodIndex,
-            computedInParameterCount,
-            isDefaultOverload, MetadataStringIdNil, method->id,
-            nullptr,
-            continuation,
-            deprecatedAttributes,
-            methodKind,
-            customAttributeInfo.supportedOnAttributes
-            );
-#else
         auto signature = Anew(allocator, AbiMethodSignature, method->id, uniqueName, iid, method->methodIndex,
             computedInParameterCount,
             isDefaultOverload, MetadataStringIdNil, method->id,
@@ -1377,8 +1366,7 @@ namespace ProjectionModel
             deprecatedAttributes,
             methodKind
             );
-#endif
-       
+
         return signature;
     }
 
@@ -1621,13 +1609,7 @@ namespace ProjectionModel
         {
             auto typeSignature = MethodSignatureOfType(typeDef, nullptr);
             auto structType = StructType::From(type);
-#if JSGEN
-            CustomAttributeInfo customAttributeInfo;
-            AnalyzeTypeCustomAttributes(typeDef->td, &customAttributeInfo, typeDef->assembly);
-            auto structConstructor = Anew(allocator, StructConstructor, structType->typeId, typeSignature, emptyPropertiesObject, structType, customAttributeInfo.supportedOnAttributes);
-#else
             auto structConstructor = Anew(allocator, StructConstructor, structType->typeId, typeSignature, emptyPropertiesObject, structType);
-#endif
             
             if (CanMarshalExpr(structConstructor, true))
             {
@@ -1706,13 +1688,7 @@ namespace ProjectionModel
         fields = deconflict(type->id, fields);
 
         auto body = Anew(allocator, PropertiesObject, fields);
-#if JSGEN
-        CustomAttributeInfo customAttributeInfo;
-        AnalyzeTypeCustomAttributes(type->td, &customAttributeInfo, type->assembly);
-        auto result = Anew(allocator, Enum, type->id, type, body, (CorElementType)baseTypeField->type->typeCode, customAttributeInfo.supportedOnAttributes);
-#else
         auto result = Anew(allocator, Enum, type->id, type, body, (CorElementType)baseTypeField->type->typeCode);
-#endif
 
         return result;
     }
@@ -2443,9 +2419,6 @@ namespace ProjectionModel
         *resultSignature = nullptr;
         *length = -1;
 
-#if JSGEN
-        auto supportedOnAttributes = customAttributeInfo.supportedOnAttributes;
-#endif
         auto constructorName = LastSegmentByDot(stringConverter->StringOfId(type->id));
         auto constructorNameId = stringConverter->IdOfString(constructorName);
         ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr;
@@ -2461,13 +2434,8 @@ namespace ProjectionModel
 
         // Rename signatures to constructor name
         auto allSignatures = extract.signatures->SelectInPlace([&](RtABIMETHODSIGNATURE old) {
-#if JSGEN
-            return Anew(allocator, AbiMethodSignature, stringConverter->IdOfString(constructorName), old->uniqueName, old->iid, old->vtableIndex, old->inParameterCount,
-                old->hasDefaultOverloadAttribute, old->runtimeClassNameId, ctorMetadataId, old->parameters, old->continuation, deprecatedAttributes, old->methodKind, supportedOnAttributes);
-#else
             return Anew(allocator, AbiMethodSignature, stringConverter->IdOfString(constructorName), old->uniqueName, old->iid, old->vtableIndex, old->inParameterCount,
                 old->hasDefaultOverloadAttribute, old->runtimeClassNameId, ctorMetadataId, old->parameters, old->continuation, deprecatedAttributes, old->methodKind);
-#endif
         });
 
         if (customAttributeInfo.isSimpleActivatable)
@@ -2477,13 +2445,8 @@ namespace ProjectionModel
             auto byRefType = RtAnew(allocator, ByRefType, byRefTypeNameId, rttype);
             auto parameter = Anew(allocator, AbiParameter, constructorResultId, byRefType, false, true, 0);
             auto allParams = ToImmutableList(parameter, allocator);
-#if JSGEN
-            auto signature = Anew(allocator, AbiMethodSignature, constructorNameId, nullptr, &simpleActivatableIID, 0, 0, false, type->id,
-                ctorMetadataId, Anew(allocator, Parameters, allParams->Cast<RtPARAMETER>(), rttype, sizeof(LPVOID), L"-Class"), nullptr, deprecatedAttributes, MethodKind_Normal, supportedOnAttributes);
-#else
             auto signature = Anew(allocator, AbiMethodSignature, constructorNameId, nullptr, &simpleActivatableIID, 0, 0, false, type->id,
                 ctorMetadataId, Anew(allocator, Parameters, allParams->Cast<RtPARAMETER>(), rttype, sizeof(LPVOID), L"-Class"), nullptr, deprecatedAttributes, MethodKind_Normal);
-#endif
             allSignatures = allSignatures->Prepend(signature, allocator);
         }
 
@@ -2643,53 +2606,6 @@ namespace ProjectionModel
         // Return actual data from blob
         return *((DWORD *)(bytes + 2));
     }
-
-
-#if JSGEN
-    // According to MIDL spec, the blob is a binary serialization of the following elements:
-    // The fixed prologue 0x0001
-    // A uint32 value for version
-    // A uint32 value for platform (corresponding to the metadata Platform enum).
-    void ProjectionBuilder::TryGetSupportedOnValueFromCustomAttribute(const Metadata::CustomAttributeProperties * attr, CustomAttributeInfo* customAttributeInfo)
-    {
-        SupportedOnAttribute supportedOnAttribute;
-        auto bytes = reinterpret_cast<const byte*>(attr->blob);
-        ULONG verifiedBytes = 0;
-        
-        // Verify Prolog
-        verifiedBytes += attr->assembly.VerifyNextInt16OfAttribute(attr->blobSize, bytes, PrologBytes);
-        
-        // Get the supported on version
-        UINT version = *((UNALIGNED UINT*)(bytes + verifiedBytes));
-        verifiedBytes += sizeof(UINT);
-        supportedOnAttribute.version = version;
-        
-        // Ensure the supported on attribute also has a platform defined
-        Js::VerifyCatastrophic(attr->blobSize == verifiedBytes + 2 + sizeof(DWORD));
-
-        // Get the platform
-        UINT platform = *((UNALIGNED UINT*)(bytes + verifiedBytes));
-        verifiedBytes += sizeof(UINT);
-
-        // Verify number of named arguments is 0
-        verifiedBytes += attr->assembly.VerifyNextInt16OfAttribute(attr->blobSize - verifiedBytes, &(bytes[verifiedBytes]), 0);
-
-        switch (platform)
-        {
-            case 0:
-                supportedOnAttribute.platform = Platform::Platform_windows;
-                break;
-            case 1:
-                supportedOnAttribute.platform = Platform::Platform_windowsPhone;
-                break;
-            default:
-                Js::VerifyCatastrophic(false);
-        }
-        
-        customAttributeInfo->supportedOnAttributes = customAttributeInfo->supportedOnAttributes->Prepend(supportedOnAttribute, allocator);
-        return;
-    }
-#endif
 
     // According to MIDL spec, the blob is a binary serialization of the following elements:
     //The fixed prologue 0x0001
@@ -2968,12 +2884,6 @@ namespace ProjectionModel
                 TRACE_METADATA(L"Previous contract attribute seen\n");
             }
 
-#if JSGEN
-            else if (supportedOnAttributeId == attr->attributeTypeId)
-            {
-                TryGetSupportedOnValueFromCustomAttribute(attr, customAttributeInfo);
-            }
-#endif
             // Ignore other attributes
 
         });
@@ -2994,38 +2904,11 @@ namespace ProjectionModel
             {
                 TryGetDeprecatedValueFromCustomAttribute(attr, classId, customAttributeInfo);
             }
-#if JSGEN
-            else if (supportedOnAttributeId == attr->attributeTypeId)
-            {
-                TryGetSupportedOnValueFromCustomAttribute(attr, customAttributeInfo);
-            }
-#endif
             // Ignore other attributes
 
         });
     }
 
-#if JSGEN
-    // Info:        Look at the attributes of this type and gather the supported on information
-    // Parameters:  typeDef - typedef token.
-    //              customAttributeInfo - the custom attribute information
-    //              assembly - the assembly containing the typeDef
-    void ProjectionBuilder::AnalyzeTypeCustomAttributes(
-        mdTypeDef typeDef,
-        __inout CustomAttributeInfo* customAttributeInfo,
-        const Metadata::Assembly & assembly)
-    {
-        auto attributes = assembly.CustomAttributes(typeDef, 0);
-        attributes->Iterate([&](const Metadata::CustomAttributeProperties * attr) {
-
-            if (supportedOnAttributeId == attr->attributeTypeId)
-            {
-                TryGetSupportedOnValueFromCustomAttribute(attr, customAttributeInfo);
-            }
-            // Ignore other attributes
-        });
-    }
-#endif
 
     // Info:        Look at the attributes of this interface and see if we have exclusiveto attribute.
     // Parameters:  typeDef - typedef token.
@@ -3506,16 +3389,6 @@ namespace ProjectionModel
     void ProjectionBuilder::InjectIBufferByteLengthProperty(const Metadata::TypeDefProperties * type,
                                                             ImmutableList<RtPROPERTY> * & instanceProperties)
     {
-        // Avoid JsGen crash when Windows.winmd is missing or corrupted - we should find exactly one capacity prop.
-        if (BinaryFeatureControl::JsGen() && instanceProperties->CountWhere([&](RtPROPERTY property)->bool {
-            return (property->identifier == capacityId);
-        }) != 1)
-        {
-            // There is no capacity prop to duplicate, signifying Windows.winmd was not processed properly. We skip
-            // property injection and return without throwing a fatal error, allowing JsGen to finish.
-            return;
-        }
-
         TRACE_METADATA(L"IBuffer byteLength injection: IBuffer interface detected, beginning property injection\n");
 
         // Check for an existing byteLength property

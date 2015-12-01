@@ -1440,25 +1440,6 @@ namespace Metadata
                 const MemberRefProperties* memberRefProps = GetMemberRefProperties(props->attributeTypeToken);
                 switch(TypeFromToken(memberRefProps->classToken))
                 {
-                    // The mdtTypeDef case is required when running JSGen against annotated winmds.
-                    // The CCI does not currently adhere to the standards set by winmd and generates typedef 
-                    // tokens for types in the same assembly, which is not the same rule for a regular .NET
-                    // assembly. This is fine for a stop gap solution but we'll want to remove this when the REX
-                    // team provides the final solution. (DevDiv #841897)
-                    case mdtTypeDef:
-                        {
-                            if (BinaryFeatureControl::JsGen())
-                            {
-                                const TypeDefProperties* typeDefProps = GetTypeDefProperties(memberRefProps->classToken);
-                                props->attributeTypeId = typeDefProps->id;
-                            }
-                            else
-                            {
-                                // Outside of JSGen throw a projection error 
-                                Js::Throw::FatalProjectionError();
-                            }
-                        }
-                        break;
                     case mdtTypeRef:
                         {
                             const TypeRefProperties* typeRefProps = GetTypeRefProperties(memberRefProps->classToken);

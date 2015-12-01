@@ -653,11 +653,7 @@ namespace ProjectionModel
 
         if (structType != function->structType || properties != function->properties || signature != function->signature)
         {
-#if JSGEN
-            return Anew(a, StructConstructor, function->typeId, TypeConstructorMethodSignature::From(signature), properties, structType, function->supportedOnAttributes);
-#else
             return Anew(a, StructConstructor, function->typeId, TypeConstructorMethodSignature::From(signature), properties, structType);
-#endif	
         }
 
         return function;
@@ -668,11 +664,7 @@ namespace ProjectionModel
         auto properties = PropertiesObject::From(VisitPropertiesObject(_enum->properties));
         if (properties != _enum->properties)
         {	
-#if JSGEN
-            return Anew(a, Enum, _enum->typeId, _enum->typeDef, properties, _enum->baseTypeCode, _enum->supportedOnAttributes);
-#else
-            return Anew(a, Enum, _enum->typeId, _enum->typeDef, properties, _enum->baseTypeCode);
-#endif		
+            return Anew(a, Enum, _enum->typeId, _enum->typeDef, properties, _enum->baseTypeCode);	
         }
 
         return _enum;

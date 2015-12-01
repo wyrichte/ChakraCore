@@ -316,16 +316,8 @@ namespace ProjectionModel
         const Metadata::TypeDefProperties * typeDef;
         RtPROPERTIESOBJECT properties;
         CorElementType baseTypeCode;  // Should be ELEMENT_TYPE_I4 or ELEMENT_TYPE_U4
-#if JSGEN
-        // All enums can be marked as supported on. 
-        ImmutableList<ProjectionModel::SupportedOnAttribute>* supportedOnAttributes;
-
-        Enum(MetadataStringId typeId, const Metadata::TypeDefProperties * typeDef, RtPROPERTIESOBJECT properties, CorElementType baseTypeCode, ImmutableList<SupportedOnAttribute>* supportedOnAttributes)
-            : Expr(exprEnum), typeId(typeId), typeDef(typeDef), properties(properties), baseTypeCode(baseTypeCode), supportedOnAttributes(supportedOnAttributes)
-#else
         Enum(MetadataStringId typeId, const Metadata::TypeDefProperties * typeDef, RtPROPERTIESOBJECT properties, CorElementType baseTypeCode)
-            : Expr(exprEnum), typeId(typeId), typeDef(typeDef), properties(properties), baseTypeCode(baseTypeCode)
-#endif		
+            : Expr(exprEnum), typeId(typeId), typeDef(typeDef), properties(properties), baseTypeCode(baseTypeCode)	
         {
             Js::VerifyCatastrophic(typeDef);
             Js::VerifyCatastrophic(properties);
@@ -772,20 +764,11 @@ namespace ProjectionModel
         // We can have a bigger container for other optional attributes
         // in the future.
         ImmutableList<ProjectionModel::DeprecatedAttribute>* deprecatedAttributes;
-#if JSGEN
-        // All methods can be marked as supported on. 
-        ImmutableList<ProjectionModel::SupportedOnAttribute>* supportedOnAttributes;
-#endif
         virtual RtPARAMETERS GetParameters() const = 0; // Virtual to support laziness
 
     protected:
-#if JSGEN
-        MethodSignature(MethodSignatureType signatureType, MetadataStringId nameId, ImmutableList<DeprecatedAttribute>* deprecatedAttributes, ImmutableList<SupportedOnAttribute>* supportedOnAttributes)
-            : signatureType(signatureType), nameId(nameId), deprecatedAttributes(deprecatedAttributes), supportedOnAttributes(supportedOnAttributes)
-#else
         MethodSignature(MethodSignatureType signatureType, MetadataStringId nameId, ImmutableList<DeprecatedAttribute>* deprecatedAttributes)
             : signatureType(signatureType), nameId(nameId), deprecatedAttributes(deprecatedAttributes)
-#endif
         {
             Js::VerifyCatastrophic(nameId != MetadataStringIdNil);
         }
@@ -832,15 +815,9 @@ namespace ProjectionModel
         }
 
     protected:
-#if JSGEN
-        MethodSignatureWithParameters(MethodSignatureType signatureType, MetadataStringId nameId, RtPARAMETERS parameters,
-            ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-            : MethodSignature(signatureType, nameId, deprecatedAttributes, supportedOnAttributes), parameters(parameters)
-#else
         MethodSignatureWithParameters(MethodSignatureType signatureType, MetadataStringId nameId, RtPARAMETERS parameters,
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
             : MethodSignature(signatureType, nameId, deprecatedAttributes), parameters(parameters)
-#endif
         {
             Js::VerifyCatastrophic(parameters);
         }
@@ -849,15 +826,9 @@ namespace ProjectionModel
     struct UncallableMethodSignature : MethodSignatureWithParameters
     {
 
-#if JSGEN
-        UncallableMethodSignature(MetadataStringId uncallableMethodSignatureId, RtPARAMETERS parameters,
-        ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-        : MethodSignatureWithParameters(mstUncallableMethodSignature, uncallableMethodSignatureId, parameters, deprecatedAttributes, supportedOnAttributes)
-#else
         UncallableMethodSignature(MetadataStringId uncallableMethodSignatureId, RtPARAMETERS parameters,
         ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
         : MethodSignatureWithParameters(mstUncallableMethodSignature, uncallableMethodSignatureId, parameters, deprecatedAttributes)
-#endif
         {  }
         PROJECTIONMODEL_METHODSIGNATURE_METHODS(UncallableMethodSignature)
     };
@@ -865,17 +836,10 @@ namespace ProjectionModel
     struct OverloadedMethodSignature : MethodSignatureWithParameters
     {
         RtOVERLOADGROUP overloads;
-#if JSGEN
-        OverloadedMethodSignature(MetadataStringId nameId, RtOVERLOADGROUP overloads, RtPARAMETERS parameters,
-            ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-            : MethodSignatureWithParameters(mstOverloadedMethodSignature, nameId, parameters, deprecatedAttributes, supportedOnAttributes),
-            overloads(overloads)
-#else
         OverloadedMethodSignature(MetadataStringId nameId, RtOVERLOADGROUP overloads, RtPARAMETERS parameters,
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
             : MethodSignatureWithParameters(mstOverloadedMethodSignature, nameId, parameters, deprecatedAttributes),
             overloads(overloads)
-#endif
         {
             Js::VerifyCatastrophic(overloads);
         }
@@ -885,15 +849,9 @@ namespace ProjectionModel
     struct MissingDelegateInvokeMethodSignature : MethodSignatureWithParameters
     {
         LPCWSTR interfaceName; // The interface with an Invoke method
-#if JSGEN
-        MissingDelegateInvokeMethodSignature(LPCWSTR interfaceName, MetadataStringId invokeId, RtPARAMETERS parameters,
-            ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-            : MethodSignatureWithParameters(mstMissingDelegateInvokeMethodSignature,invokeId,parameters, deprecatedAttributes, supportedOnAttributes)
-#else
         MissingDelegateInvokeMethodSignature(LPCWSTR interfaceName, MetadataStringId invokeId, RtPARAMETERS parameters,
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
             : MethodSignatureWithParameters(mstMissingDelegateInvokeMethodSignature, invokeId, parameters, deprecatedAttributes)
-#endif
         {  }
         PROJECTIONMODEL_METHODSIGNATURE_METHODS(MissingDelegateInvokeMethodSignature)
     };
@@ -901,17 +859,10 @@ namespace ProjectionModel
     struct GenericDelegateInvokeMethodSignature : MethodSignatureWithParameters
     {
         RtDELEGATETYPE delegateType;
-#if JSGEN
-        GenericDelegateInvokeMethodSignature(MetadataStringId invokeId, RtDELEGATETYPE delegateType, RtPARAMETERS parameters,
-            ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-            : MethodSignatureWithParameters(mstGenericDelegateInvokeMethodSignature, invokeId, parameters, deprecatedAttributes, supportedOnAttributes),
-            delegateType(DelegateType::From(parameters->returnType))
-#else
         GenericDelegateInvokeMethodSignature(MetadataStringId invokeId, RtDELEGATETYPE delegateType, RtPARAMETERS parameters,
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
             : MethodSignatureWithParameters(mstGenericDelegateInvokeMethodSignature, invokeId, parameters, deprecatedAttributes),
             delegateType(DelegateType::From(parameters->returnType))
-#endif
         {  }
         PROJECTIONMODEL_METHODSIGNATURE_METHODS(GenericDelegateInvokeMethodSignature)
     };
@@ -919,31 +870,18 @@ namespace ProjectionModel
     struct MissingTypeConstructorMethodSignature : MethodSignatureWithParameters
     {
         RtMISSINGNAMEDTYPE returnType;
-#if JSGEN
-        MissingTypeConstructorMethodSignature(MetadataStringId ctorId, RtPARAMETERS parameters,
-            ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-            : MethodSignatureWithParameters(mstMissingTypeConstructorMethodSignature, ctorId, parameters, deprecatedAttributes, supportedOnAttributes),
-            returnType(MissingNamedType::From(parameters->returnType))
-#else
         MissingTypeConstructorMethodSignature(MetadataStringId ctorId, RtPARAMETERS parameters,
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
             : MethodSignatureWithParameters(mstMissingTypeConstructorMethodSignature, ctorId, parameters, deprecatedAttributes),
             returnType(MissingNamedType::From(parameters->returnType))
-#endif
         {  }
         PROJECTIONMODEL_METHODSIGNATURE_METHODS(MissingTypeConstructorMethodSignature)
     };
 
     struct TypeConstructorMethodSignature : MethodSignatureWithParameters
     {
-#if JSGEN
-        TypeConstructorMethodSignature(MetadataStringId ctorId, RtPARAMETERS parameters, ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr, 
-        ImmutableList<SupportedOnAttribute>* supportedOnAttributes = nullptr)
-        : MethodSignatureWithParameters(mstTypeConstructorMethodSignature, ctorId, parameters, deprecatedAttributes, supportedOnAttributes)
-#else
         TypeConstructorMethodSignature(MetadataStringId ctorId, RtPARAMETERS parameters, ImmutableList<DeprecatedAttribute>* deprecatedAttributes = nullptr)
         : MethodSignatureWithParameters(mstTypeConstructorMethodSignature, ctorId, parameters, deprecatedAttributes)
-#endif
         {  }
         PROJECTIONMODEL_METHODSIGNATURE_METHODS(TypeConstructorMethodSignature)
     };
@@ -976,19 +914,11 @@ namespace ProjectionModel
         const ReadSignatureContinuation * continuation;
         MethodKind methodKind;
 
-#if JSGEN
-        AbiMethodSignature(MetadataStringId nameId, LPCWSTR uniqueName, RtIID iid, int vtableIndex, size_t inParameterCount,
-            bool hasDefaultOverloadAttribute, MetadataStringId runtimeClassNameId, MetadataStringId metadataNameId,
-            RtPARAMETERS parameters, const ReadSignatureContinuation * continuation, ImmutableList<DeprecatedAttribute>* deprecatedAttributes,
-            MethodKind methodKind, ImmutableList<SupportedOnAttribute>* supportedOnAttributes)
-            : MethodSignature(mstAbiMethodSignature, nameId, deprecatedAttributes, supportedOnAttributes),
-#else
         AbiMethodSignature(MetadataStringId nameId, LPCWSTR uniqueName, RtIID iid, int vtableIndex, size_t inParameterCount,
             bool hasDefaultOverloadAttribute, MetadataStringId runtimeClassNameId, MetadataStringId metadataNameId,
             RtPARAMETERS parameters, const ReadSignatureContinuation * continuation, ImmutableList<DeprecatedAttribute>* deprecatedAttributes,
             MethodKind methodKind)
             : MethodSignature(mstAbiMethodSignature, nameId, deprecatedAttributes),
-#endif
                 uniqueName(uniqueName),
                 vtableIndex(vtableIndex),
                 iid(iid),
@@ -1003,13 +933,8 @@ namespace ProjectionModel
             Assert(vtableIndex >= 0);
         }
 
-#if JSGEN
-        AbiMethodSignature(MetadataStringId nameId, const AbiMethodSignature* that)
-            : MethodSignature(mstAbiMethodSignature, nameId, that->deprecatedAttributes, that->supportedOnAttributes),
-#else
         AbiMethodSignature(MetadataStringId nameId, const AbiMethodSignature* that)
             : MethodSignature(mstAbiMethodSignature, nameId, that->deprecatedAttributes),
-#endif
                 uniqueName(that->uniqueName),
                 vtableIndex(that->vtableIndex),
                 iid(that->iid),
@@ -1744,16 +1669,8 @@ namespace ProjectionModel
         RtSTRUCTTYPE structType;
         const TypeConstructorMethodSignature * signature;
 
-#if JSGEN
-        // All enums can be marked as supported on. 
-        ImmutableList<ProjectionModel::SupportedOnAttribute>* supportedOnAttributes;
-
-        StructConstructor(MetadataStringId typeId, const TypeConstructorMethodSignature * signature, RtPROPERTIESOBJECT properties, RtSTRUCTTYPE structType, ImmutableList<SupportedOnAttribute>* supportedOnAttributes)
-            : TypeConstructor(functionStructConstructor, typeId, signature, properties), signature(signature), structType(structType), supportedOnAttributes(supportedOnAttributes)
-#else
         StructConstructor(MetadataStringId typeId, const TypeConstructorMethodSignature * signature, RtPROPERTIESOBJECT properties, RtSTRUCTTYPE structType)
             : TypeConstructor(functionStructConstructor, typeId, signature, properties), signature(signature), structType(structType)
-#endif	
         {
             Js::VerifyCatastrophic(this->structType);
         }
@@ -2174,9 +2091,6 @@ namespace ProjectionModel
             DWORD version;
             INT32 gcPressure;
             ImmutableList<DeprecatedAttribute>* deprecatedAttributes;
-#if JSGEN
-            ImmutableList<SupportedOnAttribute>* supportedOnAttributes;
-#endif
             CustomAttributeInfo()
             {
                 isWebHostHidden = false;
@@ -2187,9 +2101,6 @@ namespace ProjectionModel
                 version = 0;
                 gcPressure = 0;
                 deprecatedAttributes = ImmutableList<DeprecatedAttribute>::Empty();
-#if JSGEN
-                supportedOnAttributes = ImmutableList<SupportedOnAttribute>::Empty();
-#endif	
             };
         } CustomAttributeInfo;
 
@@ -2238,9 +2149,6 @@ namespace ProjectionModel
             previousContractVersionAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.PreviousContractVersionAttribute");
             uncallableMethodSignatureId = stringConverter->IdOfString(L"{UncallableMethodSignature}");
             exclusiveToAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.ExclusiveToAttribute");
-#if JSGEN
-            supportedOnAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.SupportedOnAttribute");
-#endif		
 
             getSizeMethodId = stringConverter->IdOfString(L"get_Size");
             getAtMethodId = stringConverter->IdOfString(L"GetAt");
@@ -2510,9 +2418,6 @@ namespace ProjectionModel
         MetadataStringId ctorId;
         MetadataStringId ctorMetadataId;
         MetadataStringId exclusiveToAttributeId;
-#if JSGEN
-        MetadataStringId supportedOnAttributeId;
-#endif
 
         MetadataStringId getSizeMethodId;
         MetadataStringId getAtMethodId;
@@ -2649,9 +2554,6 @@ namespace ProjectionModel
         bool InWindowsNamespace(MetadataStringId typeNameId);
         INT32 TryGetValueFromCustomEnumAttribute(const Metadata::CustomAttributeProperties * attr);
         void TryGetDeprecatedValueFromCustomAttribute(const Metadata::CustomAttributeProperties * attr, MetadataStringId classId, CustomAttributeInfo* customAttributeInfo);
-#if JSGEN
-        void TryGetSupportedOnValueFromCustomAttribute(const Metadata::CustomAttributeProperties * attr, CustomAttributeInfo* customAttributeInfo);
-#endif
         void TryGetExclusiveToFromCustomAttribute(const Metadata::CustomAttributeProperties * attr, CustomAttributeInfo* customAttributeInfo);
         DWORD TryGetDWORDValueFromAttribute(const Metadata::CustomAttributeProperties * attr);
 
@@ -2685,12 +2587,6 @@ namespace ProjectionModel
         MetadataStringId AnalyzeInterfaceCustomAttributes(
             mdTypeDef typeDef,
             const Metadata::Assembly & assembly);
-#if JSGEN
-        void AnalyzeTypeCustomAttributes(
-            mdTypeDef typeDef,
-            __inout CustomAttributeInfo* customAttributeInfo,
-            const Metadata::Assembly & assembly);
-#endif
 
         LPCWSTR GetCallPatternOfSignature(ImmutableList<RtABIPARAMETER> * parameters);
 
