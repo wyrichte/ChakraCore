@@ -1736,6 +1736,7 @@
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-Intl-</compile-flags>
       <tags>fail_mutators,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -1743,6 +1744,7 @@
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-automaticsourcerundown -Intl-</compile-flags>
       <tags>fail_mutators,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>

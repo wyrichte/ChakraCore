@@ -11,6 +11,7 @@
       <files>gmail.js</files>
       <baseline>gmail.baseline</baseline>
       <tags>Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>

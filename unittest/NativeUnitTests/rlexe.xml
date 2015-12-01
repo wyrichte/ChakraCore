@@ -10,6 +10,7 @@
       <compile-flags>-WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -22,6 +23,7 @@
       <compile-flags>-bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>

@@ -212,6 +212,7 @@
       <baseline>clang.baseline</baseline>
       <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
       <tags>Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>

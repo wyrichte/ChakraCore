@@ -6,6 +6,7 @@
       <!-- x86 all -->
       <baseline>math.baseline</baseline>
       <tags>exclude_amd64,exclude_arm</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -14,6 +15,7 @@
       <baseline>math.x64.baseline</baseline>
       <!-- Win7 x64 -->
       <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -22,6 +24,7 @@
       <baseline>math.x64.win8.baseline</baseline>
       <!-- Win8/Blue x64 -->
       <tags>exclude_arm,exclude_x86,exclude_win7,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -31,6 +34,7 @@
       <!--  ARM -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
       <tags>exclude_x86,exclude_amd64</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -40,6 +44,7 @@
       <baseline>math.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
       <tags>exclude_amd64,exclude_arm</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -49,6 +54,7 @@
       <!--  Win7 x64 -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
       <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -58,6 +64,7 @@
       <!--  Win8/blue x64 -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
       <tags>exclude_arm,exclude_x86,exclude_win7,Slow</tags>
+      <timeout>300</timeout>
     </default>
   </test>
   <test>
@@ -67,6 +74,7 @@
       <!--  ARM -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
       <tags>exclude_x86,exclude_amd64</tags>
+      <timeout>300</timeout>
     </default>
   </test>
 </regress-exe>
