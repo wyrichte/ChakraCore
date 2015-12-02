@@ -101,7 +101,7 @@ bool GetDeviceFamilyInfo(
     _Out_opt_ ULONG* /*pulDeviceForm*/);
 
 void
-ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
+ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
 {
     ULONGLONG UAPInfo;
     ULONG DeviceFamily;

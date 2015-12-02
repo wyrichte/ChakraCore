@@ -442,7 +442,14 @@ static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
     return deviceInfoRetrieved;
 }
 
-void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
+#if DBG
+// __DATE__ and __TIME__ are only available in debug for chakra.dll
+#define USE_DATE_TIME_MACRO
+#else
+#include <rtlfilever.c> // For RtlGetVersionResourceFromSelf in release builds
+#endif
+
+void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
 {
     ULONG DeviceFamily;
     if (GetDeviceFamily(&DeviceFamily))
@@ -452,4 +459,23 @@ void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
         autoSystemInfo->supportsOnlyMultiThreadedCOM = isMobile;  //TODO: pick some other platform to the list
         autoSystemInfo->isLowMemoryDevice = isMobile;  //TODO: pick some other platform to the list
     }
+
+#ifdef USE_DATE_TIME_MACRO
+    autoSystemInfo->buildDateHash = JsUtil::CharacterBuffer<char>::StaticGetHashCode(__DATE__, _countof(__DATE__));
+    autoSystemInfo->buildTimeHash = JsUtil::CharacterBuffer<char>::StaticGetHashCode(__TIME__, _countof(__TIME__));
+#else
+    // Release builds cannot use __DATE__ or __TIME__
+    RTL_VERSION_RESOURCE buildTimestamp;
+    RtlGetVersionResourceFromSelf(&buildTimestamp);
+
+    if (buildTimestamp.Success)
+    {
+        autoSystemInfo->buildDateHash = JsUtil::CharacterBuffer<wchar_t>::StaticGetHashCode(
+            buildTimestamp.StringFileInfo.FileVersion.__Date__,
+            _countof(buildTimestamp.StringFileInfo.FileVersion.__Date__));
+        autoSystemInfo->buildTimeHash = JsUtil::CharacterBuffer<wchar_t>::StaticGetHashCode(
+            buildTimestamp.StringFileInfo.FileVersion.__Time__,
+            _countof(buildTimestamp.StringFileInfo.FileVersion.__Time__));
+    }
+#endif
 }

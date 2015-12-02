@@ -179,7 +179,9 @@ static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
     return deviceInfoRetrieved;
 }
 
-void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
+
+
+void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
 {
     ULONG DeviceFamily;
     if (GetDeviceFamily(&DeviceFamily))
