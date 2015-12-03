@@ -838,6 +838,7 @@ namespace JsDiag
         Js::Var GetReg(RegSlot reg);
         FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister);
         Js::Var GetRootObject();
+        Js::Var GetInnerScope(RegSlot scopeLocation);
     };
 
     struct RemoteByteCodeReader : public RemoteData<ByteCodeReader>

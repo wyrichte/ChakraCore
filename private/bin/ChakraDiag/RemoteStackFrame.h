@@ -179,6 +179,7 @@ namespace JsDiag
 
             virtual ScriptContext* GetScriptContext() override;
             virtual FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister) override;
+            virtual Js::Var GetInnerScope(RegSlot scopeLocation) override;
             virtual Js::Var GetRootObject() override;
             virtual Js::Var GetArgumentsObject() override;
             virtual Js::Var GetReg(RegSlot reg) override;
@@ -201,6 +202,7 @@ namespace JsDiag
 
             virtual ScriptContext* GetScriptContext() override;
             virtual FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister) override;
+            virtual Js::Var GetInnerScope(RegSlot scopeLocation) override;
             virtual Js::Var GetRootObject() override;
             virtual Js::Var GetArgumentsObject() override;
             virtual Js::Var GetReg(RegSlot reg) override;

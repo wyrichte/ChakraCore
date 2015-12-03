@@ -24,6 +24,11 @@ namespace JsDiag
         return m_actualFrame->GetRemoteInterpreterFrame()->GetFrameDisplay(frameDisplayRegister);
     }
 
+    Js::Var RemoteStackFrame::RemoteDiagInterpreterFrame::GetInnerScope(RegSlot scopeLocation)
+    {
+        return m_actualFrame->GetRemoteInterpreterFrame()->GetInnerScope(scopeLocation);
+    }
+
     Js::Var RemoteStackFrame::RemoteDiagInterpreterFrame::GetRootObject()
     {
         return m_actualFrame->GetRemoteInterpreterFrame()->GetRootObject();
@@ -112,6 +117,11 @@ namespace JsDiag
         }
 
         return displayAddr;
+    }
+
+    Js::Var RemoteStackFrame::RemoteDiagNativeFrame::GetInnerScope(RegSlot scopeLocation)
+    {
+        return GetReg(scopeLocation);
     }
 
     Js::Var RemoteStackFrame::RemoteDiagNativeFrame::GetRootObject()

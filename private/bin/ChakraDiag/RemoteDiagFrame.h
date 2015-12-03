@@ -14,6 +14,7 @@ namespace JsDiag
     public:
         virtual ScriptContext* GetScriptContext() = 0;
         virtual FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister) = 0;
+        virtual Js::Var GetInnerScope(RegSlot scopeLocation) = 0;
         virtual Js::Var GetRootObject() = 0;
         virtual Js::Var GetArgumentsObject() = 0;
         virtual Js::Var GetReg(RegSlot reg) = 0;

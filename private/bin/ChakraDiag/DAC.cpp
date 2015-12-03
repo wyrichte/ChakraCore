@@ -736,6 +736,14 @@ namespace JsDiag
         }
     }
 
+    Js::Var RemoteInterpreterStackFrame::GetInnerScope(RegSlot scopeLocation)
+    {
+        RemoteFunctionBody functionBody(m_reader, ToTargetPtr()->GetFunctionBody());
+        uint32 index = scopeLocation - functionBody->FirstInnerScopeReg();
+        Js::Var* innerScopeArray = ReadField<Js::Var*>(offsetof(TargetType, innerScopeArray));
+        return ReadVirtual<Js::Var>(innerScopeArray + index);
+    }
+
     Js::Var RemoteInterpreterStackFrame::GetRootObject()
     {
         return GetReg(FunctionBody::RootObjectRegSlot);

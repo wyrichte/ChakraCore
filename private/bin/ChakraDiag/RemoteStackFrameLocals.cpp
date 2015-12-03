@@ -815,14 +815,14 @@ namespace JsDiag
                         break;
                     case DiagCatchScopeInSlot:
                         {
-                            Js::Var* pArr = (Js::Var*)diagFrame->GetReg(debuggerScope->scopeLocation);
+                            Js::Var* pArr = (Js::Var*)diagFrame->GetInnerScope(debuggerScope->scopeLocation);
                             Js::Var data = RemoteArray<Js::Var>(reader, pArr).Item(Js::ScopeSlots::FirstSlotIndex);
                             InsertWalkerForProperty(context, PROPERTY_INFO(name, data));
                         }
                         break;
                     case DiagBlockScopeInSlot:
                         {
-                            Js::Var* slotArrayAddr = (Js::Var*)diagFrame->GetReg(debuggerScope->scopeLocation);
+                            Js::Var* slotArrayAddr = (Js::Var*)diagFrame->GetInnerScope(debuggerScope->scopeLocation);
                             CComPtr<SlotArrayLocalsWalker> propertyWalker;
                             CreateComObject(frame, slotArrayAddr, &propertyWalker);
                             this->InsertWalker(propertyWalker);
@@ -830,7 +830,7 @@ namespace JsDiag
                         break;
                     case DiagCatchScopeInObject:
                         {
-                            Js::Var object = diagFrame->GetReg(debuggerScope->scopeLocation);
+                            Js::Var object = diagFrame->GetInnerScope(debuggerScope->scopeLocation);
                             PROPERTY_INFO info;
                             if (context->GetProperty(object, prop.propId, &info))
                             {
@@ -850,7 +850,8 @@ namespace JsDiag
                         break;
                     case DiagBlockScopeInObject:
                         {
-                            const Js::DynamicObject* scopeObject = (const Js::DynamicObject*)diagFrame->GetReg(debuggerScope->scopeLocation);
+                            const Js::DynamicObject* scopeObject =
+                                (const Js::DynamicObject*)diagFrame->GetInnerScope(debuggerScope->scopeLocation);
                             CComPtr<ActivationObjectWalker> propertyWalker;
                             CreateComObject(frame, scopeObject, /*ownerProperty*/ nullptr, &propertyWalker);
                             this->InsertWalker(propertyWalker);
