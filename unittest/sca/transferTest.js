@@ -141,3 +141,10 @@ neuterTests();
 //if (Uint8Array.prototype.find !== undefined || Array.prototype.find) {
 //    WScript.Echo("We most likely merged with a branch that has ES6 changes, should expand on this testing. Ping anborod and sanyamc.");
 //}
+
+// Validate invalid args to transfer don't hit ASSERT
+function transferInvalidObjects(arrayToTransfer) {
+    SCA.deserialize(SCA.serialize(null, { context: "samethread" }, undefined, arrayToTransfer));
+}
+
+transferInvalidObjects([null, new Int32Array(5).buffer, 1, undefined, "hello", NaN, Symbol("sym")]);

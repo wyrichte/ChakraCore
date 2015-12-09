@@ -200,12 +200,23 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
                         IfFailGo(hr = E_OUTOFMEMORY);
                     }
 
+                    int validArrayIndex = 0;
                     for (int i = 0; i < arrayLength; i++)
                     {
                         Var index = nullptr;
                         IfFailGo(pScriptDirect->IntToVar(i, &index));
-                        IfFailGo(pScriptDirect.GetItem(transferVars, index, (transferVarsArray + i)));
+                        Var value = nullptr;
+                        JavascriptTypeId typeId;
+                        IfFailGo(pScriptDirect.GetItem(transferVars, index, &value));
+                        IfFailGo(pScriptDirect->GetTypeIdForVar(value, &typeId));                        
+                        if (typeId != TypeIds_ArrayBuffer)
+                        {
+                            continue;
+                        }
+                        *(transferVarsArray + validArrayIndex) = value;
+                        validArrayIndex++;
                     }
+                    arrayLength = validArrayIndex;
                 }
             }
 
