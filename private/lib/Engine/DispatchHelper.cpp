@@ -118,7 +118,6 @@ HRESULT DispatchHelper::MarshalJsVarsToVariants(Js::Var *pAtom, VARIANT *pVar, i
 
 void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
 {
-
     //
     // For the DynamicObject types, create a proxy, hook it to
     // the object, and return as an IDispatch.
@@ -126,12 +125,16 @@ void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
 
     JavascriptDispatch*   jsdisp;
     Js::DynamicObject  *obj = Js::DynamicObject::FromVar(var);
+    Js::ScriptContext* scriptContext = obj->GetScriptContext();
     jsdisp = JavascriptDispatch::Create<true>(obj);
     AssertMsg(jsdisp->GetObject() == var, "Bad dispatch map entry");
     pVar->vt = VT_DISPATCH;
-
-    HRESULT hr = jsdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pVar->pdispVal);
-    Assert(hr == S_OK);
+    BEGIN_LEAVE_SCRIPT(scriptContext)
+    {
+        HRESULT hr = jsdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pVar->pdispVal);
+        Assert(hr == S_OK);
+    }
+    END_LEAVE_SCRIPT(scriptContext);
 }
 
 HRESULT DispatchHelper::MarshalJsVarToVariantNoThrow(Js::Var var, VARIANT * pVar, Js::ScriptContext * scriptContext)

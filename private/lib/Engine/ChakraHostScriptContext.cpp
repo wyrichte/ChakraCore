@@ -19,7 +19,7 @@ ChakraHostScriptContext::SetCrossSiteForFunctionType(Js::JavascriptFunction * fu
     }
 
     Assert(!Js::ScriptFunction::Is(function));
-    Assert(VirtualTableInfo<Js::JavascriptTypedObjectSlotAccessorFunction>::HasVirtualTable(function));
+    Assert(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(function));
     Assert((function->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
     Assert(!function->GetDynamicType()->GetIsShared() 
         || function->GetDynamicType()->GetTypeHandler() == function->GetLibrary()->functionTypeHandler);
