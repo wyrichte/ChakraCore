@@ -84,6 +84,7 @@
   </test>
 
   <!-- Disable async debug tests with line numbers in the baselines until promise.js RIs - BLUE: 478208 !-->
+<!--
   <test>
     <default>
       <files>AsyncDebug.js</files>
@@ -92,6 +93,7 @@
       <tags>exclude_win7</tags>
     </default>
   </test>
+-->
   
   <test>
     <default>

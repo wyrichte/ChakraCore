@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "WineryServer.h"
 
-#include <stdio.h>
 
 // Define this for convenience, but don't put this in a header, otherwise 
 // it defeats the purpose of using a namespace.

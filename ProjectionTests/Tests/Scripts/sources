@@ -17,4 +17,4 @@ PASS1_BINPLACE= \
 
 
 PASS0_PUBLISH=\
-    {..\projectionsGlue.js=$(INETCORE_INC_PATH)\bpt\edgeprojectionsGlue.js} \
+    {..\projectionsGlue.js=$(PROJECT_INC_PATH)\bpt\edgeprojectionsGlue.js} \

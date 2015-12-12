@@ -10,7 +10,6 @@
 using namespace Windows::Foundation::Collections::Internal;
 using namespace Windows::Foundation::Collections;
 
-#include <stdio.h>
 
 #define MarshalMethodImp(type) IFACEMETHODIMP Animals::AnimalServer::Marshal##type(t_##type _in, __out t_##type* _out) \
 { \

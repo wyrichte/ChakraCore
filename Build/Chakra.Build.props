@@ -204,7 +204,7 @@
     <ProjectReference Condition="'$(BuildRazzleDependencies)'=='true'" Include="$(MsBuildThisFileDirectory)..\dep\manifests-inbox.vcxproj">
       <Project>{14bbb4b1-da6a-4c69-bf07-f8d4865e0815}</Project>
     </ProjectReference>
-    <ProjectReference Condition="'$(MSBuildProjectName)' != 'Publish' AND '$(BuildRazzleDependencies)'=='true'" Include="..\..\..\publish\Publish.vcxproj">
+    <ProjectReference Condition="'$(MSBuildProjectName)' != 'Publish' AND '$(BuildRazzleDependencies)'=='true'" Include="$(MSBuildThisDirectory)\..\publish\Publish.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
     <ProjectReference Condition="'$(MSBuildProjectName)' != 'Manifests'" Include="$(MsBuildThisFileDirectory)..\private\Manifests\Manifests.vcxproj">

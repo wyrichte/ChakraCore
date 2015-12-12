@@ -1,10 +1,8 @@
 //  Copyright (c) Microsoft Corporation. All rights reserved.
 
 #include "stdafx.h"
-#include "kitchen_common.h"
 #include "ToastServer.h"
 
-#include <stdio.h>
 
 HRESULT
 Fabrikam::Kitchen::ToastServer::PrivateInitialize(HSTRING hstrMessage)

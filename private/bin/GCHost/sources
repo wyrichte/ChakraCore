@@ -33,9 +33,9 @@ TARGETLIBS=     \
     $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
-    $(INETCORE_LIB_PATH)\iertutilp.lib \
-    $(INETCORE_LIB_PATH)\IESettingsId.lib \
-    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
+    $(PROJECT_LIB_PATH)\iertutilp.lib \
+    $(PROJECT_LIB_PATH)\IESettingsId.lib \
+    $(PROJECT_LIB_PATH)\IESettingsApi.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \

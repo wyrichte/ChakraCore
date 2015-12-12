@@ -22,6 +22,7 @@
       <tags>exclude_serialized,exclude_dynapogo</tags>
     </default>
   </test>
+<!--
   <test>
     <default>
       <files>proto_basic.html</files>
@@ -29,6 +30,7 @@
       <compile-flags>-__proto__</compile-flags>
     </default>
   </test>
+-->
   <test>
     <default>
       <files>weakmap_DOMkey.html</files>

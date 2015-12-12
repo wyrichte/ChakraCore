@@ -2,7 +2,6 @@
 #include "MemProtectHeap.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "minmax.h"
 
 class OSHeap
 {

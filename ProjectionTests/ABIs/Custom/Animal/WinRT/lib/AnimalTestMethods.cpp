@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "AnimalServer.h"
 
-#include <stdio.h>
 
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation::Collections::Internal;

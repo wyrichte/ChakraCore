@@ -43,6 +43,7 @@
         $(ChakraRootDirectory)core\Lib\Backend;
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\lib\Projection;
+        $(ChakraRootDirectory)private\lib;
 
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);

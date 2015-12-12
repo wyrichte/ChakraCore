@@ -37,6 +37,7 @@
         $(ChakraRootDirectory)private\lib\SCALookup;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
+        $(ChakraRootDirectory)Private\lib\winrt;
         $(ChakraInternalIDLIntDir);
 
         <!-- For EdgeJsHostNativeTest.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->

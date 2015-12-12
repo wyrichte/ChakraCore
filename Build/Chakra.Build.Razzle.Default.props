@@ -62,6 +62,7 @@
     <ChakraCommonCommonLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\common\$(RazzleJscriptObjectDirectory)Chakra.Common.Common.lib</ChakraCommonCommonLib>
     <ChakraCommonMemoryLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
     <ChakraRuntimeLanguageLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\language\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
+    <ChakraRuntimeBaseLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\base\$(RazzleJscriptObjectDirectory)Chakra.Runtime.base.lib</ChakraRuntimeBaseLib>
     
     <ChakraCommonMinLibs>$(ChakraCommonMemoryLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonCoreLib)</ChakraCommonMinLibs>
@@ -75,6 +76,7 @@
 
     <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeLanguageLib)</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeBaseLib)</ChakraRuntimeLibs>
     
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\debug\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Debug.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>

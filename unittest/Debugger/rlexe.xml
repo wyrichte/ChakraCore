@@ -2704,14 +2704,14 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <files>bug_553748.html</files>
       <compile-flags>-trace:StackFramesEvent -DeferLoadingAvailableSource</compile-flags>
       <baseline>bug_553748.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>basichtmltest1.html</files>

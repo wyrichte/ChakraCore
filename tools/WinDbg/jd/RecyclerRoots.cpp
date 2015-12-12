@@ -5,7 +5,6 @@
 
 #include <hash_set>
 #include <stack>
-#include <queue>
 
 #ifdef JD_PRIVATE
 

@@ -9,8 +9,8 @@
 #include "mshtmhst.h"
 #include "delegatewrapper.h"
 #include "guids.h"
-#include "..\..\Lib\Common\Core\BasePtr.h"
-#include "..\..\Lib\Common\Memory\AutoPtr.h"
+#include "Core\BasePtr.h"
+#include "Memory\AutoPtr.h"
 #include "hostsysinfo.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;

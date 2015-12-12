@@ -41,6 +41,7 @@ JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\language\$(JS_LIBTYPE)\$(O)\chakra.runtime.language.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\types\$(JS_LIBTYPE)\$(O)\chakra.runtime.types.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\library\$(JS_LIBTYPE)\$(O)\chakra.runtime.library.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\base\$(JS_LIBTYPE)\$(O)\chakra.runtime.base.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\bytecode\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.bytecode.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\debug\$(JS_LIBTYPE_LS)\$(O)\chakra.runtime.debug.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \

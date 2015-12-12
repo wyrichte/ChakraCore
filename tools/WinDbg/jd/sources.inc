@@ -43,7 +43,7 @@ INCLUDES = \
     $(JSCRIPT_ROOT)\core\lib\common\memory; \
     $(JSCRIPT_ROOT)\publish; \
     $(JSCRIPT_ROOT)\core\lib\backend;\
-    $(OBJECT_ROOT)\inetcore\jscript\publish\$(O); \
+    $(PROJECT_OBJ_ROOT)\jscript\publish\$(O); \
     $(JSCRIPT_ROOT)\private\bin\jshost; \
     $(JSCRIPT_ROOT)\private\bin\jdtest; \
     $(JSCRIPT_ROOT)\private\bin\ChakraDiag \

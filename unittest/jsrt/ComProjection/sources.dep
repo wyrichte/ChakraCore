@@ -6,4 +6,5 @@ PUBLIC_PASS1_CONSUMES= \
     enduser\vc_binaries\src\atlthunk|PASS1 \
     minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
     minkernel\crts\libw32\lib\extdlllib|PASS1 \
+    onecore\enduser\vc_binaries\src\atlthunk|PASS1 \
 

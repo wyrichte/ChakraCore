@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <stdio.h>
-#include <strsafe.h>
 #include "HiddenServer.h"
 
 

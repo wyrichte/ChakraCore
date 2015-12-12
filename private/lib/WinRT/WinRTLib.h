@@ -16,17 +16,17 @@
 #include "WeakReference.h"
 
 #include "EdgeScriptDirect.h"
-#include "..\Common\Exceptions\Throw.h"
-#include "..\Common\DataStructures\Option.h"
-#include "..\Common\DataStructures\Tuple.h"
-#include "..\Common\DataStructures\ImmutableList.h"
+#include "Exceptions\Throw.h"
+#include "DataStructures\Option.h"
+#include "DataStructures\Tuple.h"
+#include "DataStructures\ImmutableList.h"
 
 // All we need from the runtime is just the delay load library
-#include "..\Runtime\Base\DelayLoadLibrary.h"
+#include "base\DelayLoadLibrary.h"
 
 // Copied from ParserCommon.h, needed to get the VBSERR_OutOfStack
 #define MAKE_HR(vbserr) (MAKE_HRESULT(SEVERITY_ERROR, FACILITY_CONTROL, vbserr))
-#include "..\Parser\rterror.h"
+#include "rterror.h"
 
 //#define WINRTFINDPREMATURECOLLECTION
 

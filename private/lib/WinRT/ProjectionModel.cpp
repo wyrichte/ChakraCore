@@ -2700,7 +2700,6 @@ namespace ProjectionModel
             if (argCount == 2)
             {
                 param1 = CorSigUncompressElementType(sig);
-                Assert(param1 == ELEMENT_TYPE_CLASS);
                 constructorType = AttributeConstructorType::ContractVersioned;
             }
             else if (argCount == 1)
@@ -2715,10 +2714,8 @@ namespace ProjectionModel
             if (argCount == 3)
             {
                 param1 = CorSigUncompressElementType(sig);
-                CorElementType param2 = CorSigUncompressElementType(sig);
 
                 Assert(param1 == ELEMENT_TYPE_U4);
-                Assert(param2 == ELEMENT_TYPE_CLASS);
 
                 constructorType = AttributeConstructorType::FactoryContractVersioned;
             }

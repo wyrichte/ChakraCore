@@ -9,7 +9,7 @@ $(TARGETNAME).cab :
    echo BUILDMSG: SNAP_BIN is "$(SNAP_BIN)", OFFICIAL_BUILD_MACHINE is "$(OFFICIAL_BUILD_MACHINE)", TIMEBUILD is "$(TIMEBUILD)", USERNAME is "$(USERNAME)"
 !if "$(SNAP_BIN)" != "" || "$(OFFICIAL_BUILD_MACHINE)" != "" || "$(TIMEBUILD)" != "" || "$(USERNAME)" == "wincbld"
    echo BUILDMSG: Building ProjectionTests cab file via BuildTestsCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab $(PUBLIC_ROOT)
-   BuildTestsCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab $(PUBLIC_ROOT) > $(OBJ_PATH)\$O\BuildTestsCab.log 2>&1
+   BuildTestsCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab $(PUBLIC_ROOT) > $(OBJECT_ROOT)\Temp\$(MAKEDIR_RELATIVE_TO_BASEDIR)\BuildTestsCab.log 2>&1
 !else
    echo BUILDMSG: Building ProjectionTests cab file via set
    set > $(OBJ_PATH)\$O\$(TARGETNAME).cab
