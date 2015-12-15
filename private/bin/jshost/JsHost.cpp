@@ -1648,6 +1648,12 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         LaunchAndAttachDebugger();
     }
 
+    if (HostConfigFlags::flags.EnableOutOfProcJIT)
+    {
+        // TODO: Error checking
+        JitProcessManager::StartRpcServer();
+    }
+
 #ifdef CHECK_MEMORY_LEAK
     // Always check memory leak in jshost.exe, unless user specfied the flag already
     if (!JScript9Interface::IsEnabledCheckMemoryFlag())
@@ -1696,6 +1702,8 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     }
     __except(JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
     {
+        // Terminate JIT Process
+        JitProcessManager::StopRpcServer();
         // Flush all I/O buffers
         _flushall();
 
@@ -1714,6 +1722,8 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         ret = hr;
     }
 
+    // Terminate JIT Process
+    JitProcessManager::StopRpcServer();
     // Flush all I/O buffers
     _flushall();
 

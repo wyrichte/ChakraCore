@@ -157,6 +157,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     IDispatch * globalObjectDispatch = NULL;
     IDispatchEx * globalObjectDispatchEx = NULL;
     CComPtr<IActiveScriptProperty> activeScriptProperty;
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
     HRESULT hr = NOERROR;
 
     hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
@@ -242,6 +243,12 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     IfFailedGo(hr);
 
     hr = git->RegisterInterfaceInGlobal(globalObjectDispatchEx, __uuidof(IDispatchEx), &globalObjectIDispatchExCookie);
+    IfFailedGo(hr);
+
+    hr = GetActiveScriptDirect(&activeScriptDirect);
+    IfFailedGo(hr);
+
+    hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessId(), JitProcessManager::GetRpcConnectionId());
     IfFailedGo(hr);
 
 LReturn:

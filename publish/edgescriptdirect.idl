@@ -25,6 +25,7 @@ interface IActiveScriptByteCodeSource;
 typedef int StringId;
 typedef int PropertyId;
 typedef void* HTYPE;
+typedef GUID UUID;
 
 const JavascriptTypeId TypeId_Unspecified = (JavascriptTypeId)-1;
 
@@ -1071,6 +1072,11 @@ interface IActiveScriptDirect : IUnknown
     /// Set Trident base address.  Used for telemetry purposes.
     ///   loadAddress       : edgehtml.dll's load address.
     HRESULT SetTridentLoadAddress([in] void* loadAddress);
+
+    /// Set the OOP Jit information
+    ///   processId         : The processId of the JIT process
+    ///   connectionId      : The RPC connectionId used by the JIT process to establish an RPC server
+    HRESULT SetJITConnectionInfo([in] DWORD processId, [in] UUID connectionId);
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.

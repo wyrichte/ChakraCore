@@ -7165,6 +7165,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetTridentLoadAddress(__in void* loadAdd
     return S_OK;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in DWORD processId, __in UUID connectionId)
+{
+    ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(processId, connectionId);
+    return S_OK;
+}
+
 /*static*/
 void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::ScriptContext *scriptContext, Js::Utf8SourceInfo *sourceInfo)
 {

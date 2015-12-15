@@ -39,5 +39,6 @@ FLAG(bool, EnableExtendedErrorMessages,		"JSHost will by default print short err
 FLAG(bool, EvalRestriction,                 "Puts the script engine into Eval restricted mode, to restrict eval access use WScript.RegisterEvalApprover(func).", false)
 FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specified, this flag is used to determine the default value of 'IsEvalAllowed' API call that will be done on the host.", false)
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
+FLAG(bool, EnableOutOfProcJIT,				"JIT jobs should be run in a separate process", true)
 #undef FLAG
 #endif
