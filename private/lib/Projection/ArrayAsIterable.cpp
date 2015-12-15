@@ -51,6 +51,8 @@ namespace Projection
         HRESULT hr = __super::Initialize(iterable->iid->instantiated, (pVectorOrView != nullptr) ? pVectorOrView->GetFullTypeName() : StringOfId(projectionContext->GetScriptContext(), iterable->typeId), pVectorOrView == NULL);
         IfFailedReturn(hr);
 
+        Js::JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(pUnderlyingArray);
+
         this->m_pUnderlyingArray = pUnderlyingArray;
         this->m_pVectorOrView = pVectorOrView;
         this->m_iidVectorOrView = iidVectorOrView;
