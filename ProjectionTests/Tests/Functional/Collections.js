@@ -243,7 +243,7 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
 
     var errorObjectMemberExpected = 'Error: Object member expected';
     var errorObjectDoesntSupportAction = 'Error: Object doesn\'t support this action';
-    var errorArrayLengthShouldBeFinite = 'RangeError: Array length must be assigned a finite positive number';
+    var errorArrayLengthShouldBeFinite = 'RangeError: Array length must be assigned a finite positive integer';
     var errorTypeObjectDoesntSupportAction = 'TypeError: Object doesn\'t support this action';
 
     function IsLessThan50(x) {

@@ -371,10 +371,10 @@ PASS: TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow
 	exInfo.errorType.typeNumber: 2
 	exInfo.errorType.typeText: Range error
 	exInfo.bstrSource: JavaScript runtime error
-	exInfo.bstrDescription: Array length must be assigned a finite positive number
+	exInfo.bstrDescription: Array length must be assigned a finite positive integer
 	exInfo.scode: 800a13a6
 
-	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive number)
+	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive integer)
 
 PASS: TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative
 
@@ -537,18 +537,18 @@ PASS: TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow
 	    var a = new Array(); a.length = -1;
 
 unhandled exception info
-result.description=Array length must be assigned a finite positive number
+result.description=Array length must be assigned a finite positive integer
 result.number=-2146823258
-result.stack=RangeError: Array length must be assigned a finite positive number
+result.stack=RangeError: Array length must be assigned a finite positive integer
    at Global code (:1:22)
     Uncaught exception:
 	exInfo.errorType.typeNumber: 2
 	exInfo.errorType.typeText: Range error
 	exInfo.bstrSource: JavaScript runtime error
-	exInfo.bstrDescription: Array length must be assigned a finite positive number
+	exInfo.bstrDescription: Array length must be assigned a finite positive integer
 	exInfo.scode: 800a13a6
 
-	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive number)
+	expected error type 2, got: 2 (Range error: Array length must be assigned a finite positive integer)
 
 PASS: TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative
 
