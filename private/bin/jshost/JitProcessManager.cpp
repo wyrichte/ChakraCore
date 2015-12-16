@@ -36,7 +36,7 @@ HRESULT JitProcessManager::CreateServerProcess()
     WCHAR cmdLine[MAX_PATH];
     WCHAR* connectionUuidString = NULL;
 
-    hr = StringCchCopyW(cmdLine, ARRAYSIZE(cmdLine), L"ChakraCodeGen.exe ");
+    hr = StringCchCopyW(cmdLine, ARRAYSIZE(cmdLine), L"JsHostJIT.exe ");
     if (FAILED(hr))
     {
         return hr;

@@ -25,6 +25,7 @@ EXPORTS
     JsStartDebugging
     JsInspectableToObject
     JsObjectToInspectable
+    JsInitializeRpcServer
 #if DBG || CHAKRATEST || CHAKRAFRETEST
     JsStopDebugging
     JsGetArrayLength

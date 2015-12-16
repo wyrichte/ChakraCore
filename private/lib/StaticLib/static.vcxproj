@@ -23,6 +23,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)core\lib\JITClient;
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\BackEnd;

@@ -27,7 +27,7 @@
         $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
-        $(ChakraCoreRootDirectory)Lib\CodeGenClient;
+        $(ChakraCoreRootDirectory)Lib\JITClient;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;
