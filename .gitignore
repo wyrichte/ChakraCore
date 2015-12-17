@@ -4,6 +4,7 @@
 *.sdf
 *.suo
 *.opensdf
+*.opendb
 *.user
 Build/.vs/
 Build/VCBuild/
