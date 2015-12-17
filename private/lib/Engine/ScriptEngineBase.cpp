@@ -28,6 +28,28 @@
 #include "SCASerialization.h"
 #include "SCADeserialization.h"
 
+// TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+class DisableNoScriptScope
+{
+private:
+    bool noScriptScope;
+    ThreadContext *threadContext;
+
+public:
+    DisableNoScriptScope(ThreadContext *tc) :
+        threadContext(tc),
+        noScriptScope(tc->IsNoScriptScope())
+    {
+        threadContext->SetNoScriptScope(false);
+    }
+
+    ~DisableNoScriptScope()
+    {
+        threadContext->SetNoScriptScope(noScriptScope);
+        threadContext = nullptr;
+    }
+};
+
 ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),
     threadContext(nullptr),
@@ -70,48 +92,46 @@ STDMETHODIMP_(ULONG) ScriptEngineBase::Release(void)
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* dataContext)
 {
-    // BUGBUG yongqu reenable this after RS1 tree start working.
-    //JsStaticAPI::BinaryVerificationData * binaryVerificationData = (JsStaticAPI::BinaryVerificationData*)dataContext;
-    //if (
-    //    binaryVerificationData->majorVersion != SCRIPT_ENGINE_MAJOR_VERSION ||
-    //    binaryVerificationData->minorVersion != SCRIPT_ENGINE_MINOR_VERSION ||
-    //    binaryVerificationData->scriptEngineBaseSize != sizeof(ScriptEngineBase) ||
-    //    binaryVerificationData->scriptEngineBaseOffset != (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)) ||
-    //    binaryVerificationData->scriptContextBaseSize != sizeof(Js::ScriptContextBase) ||
-    //    binaryVerificationData->scriptContextBaseOffset != (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase() ||
-    //    binaryVerificationData->javascriptLibraryBaseSize != sizeof(Js::JavascriptLibraryBase) ||
-    //    binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
-    //    binaryVerificationData->customExternalObjectSize != sizeof(Js::CustomExternalObject) ||
-    //    binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset() ||
-    //    binaryVerificationData->typeIdOffset != (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
-    //    binaryVerificationData->taggedIntSize != sizeof(Js::TaggedInt) ||
-    //    binaryVerificationData->typeIdLimit != TypeIds_Limit ||
-    //    binaryVerificationData->javascriptNumberSize != sizeof(Js::JavascriptNumber) ||
-    //    binaryVerificationData->numberUtilitiesBaseSize != sizeof(Js::NumberUtilitiesBase) ||
-    //    binaryVerificationData->numberUtilitiesBaseOffset != (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase())
-    //{
-    //    wasBinaryVerified = FALSE;
-    //    JS_ETW(EventWriteJSCRIPT_HOSTING_BINARYINCONSISTENCY(
-    //        sizeof(ScriptEngineBase), binaryVerificationData->scriptEngineBaseSize,
-    //        sizeof(Js::ScriptContextBase), binaryVerificationData->scriptContextBaseSize,
-    //        sizeof(Js::JavascriptLibraryBase), binaryVerificationData->javascriptLibraryBaseSize,
-    //        sizeof(Js::CustomExternalObject), binaryVerificationData->customExternalObjectSize,
-    //        (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)), binaryVerificationData->scriptEngineBaseOffset,
-    //        (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase(), binaryVerificationData->scriptContextBaseOffset,
-    //        (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase(), binaryVerificationData->javascriptLibraryBaseOffset,
-    //        (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset(), binaryVerificationData->typeOffset,
-    //        (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset(), binaryVerificationData->typeIdOffset,
-    //        sizeof(Js::TaggedInt), binaryVerificationData->taggedIntSize,
-    //        sizeof(Js::JavascriptNumber), binaryVerificationData->javascriptNumberSize,
-    //        TypeIds_Limit, binaryVerificationData->typeIdLimit,
-    //        sizeof(Js::NumberUtilitiesBase), binaryVerificationData->numberUtilitiesBaseSize,
-    //        (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase(), binaryVerificationData->numberUtilitiesBaseOffset
-    //        ));
-    //    Binary_Inconsistency_fatal_error();
-    //    AssertMsg(FALSE, "should not come here");
-    //    return E_FAIL;
-    //}
-    wasBinaryVerified = TRUE;
+    JsStaticAPI::BinaryVerificationData * binaryVerificationData = (JsStaticAPI::BinaryVerificationData*)dataContext;
+    if (
+        binaryVerificationData->majorVersion != SCRIPT_ENGINE_MAJOR_VERSION ||
+        binaryVerificationData->minorVersion != SCRIPT_ENGINE_MINOR_VERSION ||
+        binaryVerificationData->scriptEngineBaseSize != sizeof(ScriptEngineBase) ||
+        binaryVerificationData->scriptEngineBaseOffset != (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)) ||
+        binaryVerificationData->scriptContextBaseSize != sizeof(Js::ScriptContextBase) ||
+        binaryVerificationData->scriptContextBaseOffset != (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase() ||
+        binaryVerificationData->javascriptLibraryBaseSize != sizeof(Js::JavascriptLibraryBase) ||
+        binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
+        binaryVerificationData->customExternalObjectSize != sizeof(Js::CustomExternalObject) ||
+        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset() ||
+        binaryVerificationData->typeIdOffset != (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
+        binaryVerificationData->taggedIntSize != sizeof(Js::TaggedInt) ||
+        binaryVerificationData->typeIdLimit != TypeIds_Limit ||
+        binaryVerificationData->javascriptNumberSize != sizeof(Js::JavascriptNumber) ||
+        binaryVerificationData->numberUtilitiesBaseSize != sizeof(Js::NumberUtilitiesBase) ||
+        binaryVerificationData->numberUtilitiesBaseOffset != (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase())
+    {
+        wasBinaryVerified = FALSE;
+        JS_ETW(EventWriteJSCRIPT_HOSTING_BINARYINCONSISTENCY(
+            sizeof(ScriptEngineBase), binaryVerificationData->scriptEngineBaseSize,
+            sizeof(Js::ScriptContextBase), binaryVerificationData->scriptContextBaseSize,
+            sizeof(Js::JavascriptLibraryBase), binaryVerificationData->javascriptLibraryBaseSize,
+            sizeof(Js::CustomExternalObject), binaryVerificationData->customExternalObjectSize,
+            (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)), binaryVerificationData->scriptEngineBaseOffset,
+            (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase(), binaryVerificationData->scriptContextBaseOffset,
+            (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase(), binaryVerificationData->javascriptLibraryBaseOffset,
+            (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset(), binaryVerificationData->typeOffset,
+            (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset(), binaryVerificationData->typeIdOffset,
+            sizeof(Js::TaggedInt), binaryVerificationData->taggedIntSize,
+            sizeof(Js::JavascriptNumber), binaryVerificationData->javascriptNumberSize,
+            TypeIds_Limit, binaryVerificationData->typeIdLimit,
+            sizeof(Js::NumberUtilitiesBase), binaryVerificationData->numberUtilitiesBaseSize,
+            (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase(), binaryVerificationData->numberUtilitiesBaseOffset
+            ));
+        Binary_Inconsistency_fatal_error();
+        AssertMsg(FALSE, "should not come here");
+        return E_FAIL;
+    }
     return NOERROR;
 }
 
@@ -1737,6 +1757,10 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeToVar(
     {
         return hr;
     }
+
+    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
+
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         hr = DispatchHelper::MarshalVariantToJsVar(inVariant, instance, scriptContext);

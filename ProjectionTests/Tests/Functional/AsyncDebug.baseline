@@ -101,8 +101,7 @@ PASS [Test 9: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameter]
 Starting [Test 10: AsyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject]
 Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegate, relatedContext=0)
 Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject, relatedContext=0)
-WinRTError: Unspecified error
-
+WinRTError: Unspecified error
 
 	at Anonymous function (asyncdebug.js:296:21)
 Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, status=1)

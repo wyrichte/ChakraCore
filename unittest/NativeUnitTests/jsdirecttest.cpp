@@ -274,6 +274,32 @@ void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
     printf("This should not be printed out as the EnterScript earlier should have failed fast.\n");
 }
 
+void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
+{
+    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+
+    myTests->InitThreadService();
+
+    HRESULT hr = S_OK;
+    IActiveScriptDirect *x = myTests->GetScriptDirectNoRef();
+
+    // set up variables
+    VARIANT variant;
+    Var var = nullptr;
+    variant.vt = VT_R8;
+    variant.dblVal = 3.14;
+
+    // NoScriptScope == false
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
+    x->ChangeTypeToVar(&variant, &var); // should pass even before fix
+    printf("When NoScriptScope==false, this should pass.\n");
+
+    // NoScriptScope == true
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
+    x->ChangeTypeToVar(&variant, &var); // would fail before fix, expect to pass now
+    printf("When NoScriptScope==true, and DisableNoScriptScope workaround is in place, this should pass.\n");
+}
+
 #undef NOSCRIPTSCOPE_CHECK_BOOL
 #endif
 #undef NOSCRIPTSCOPE_CHECK_HRESULT

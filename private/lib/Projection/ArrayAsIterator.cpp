@@ -44,6 +44,8 @@ namespace Projection
         HRESULT hr = __super::Initialize(iterator->iid->instantiated, StringOfId(projectionContext->GetScriptContext(), iterator->typeId));
         IfFailedReturn(hr);
 
+        Js::JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(pUnderlyingArray);
+
         this->iterator = iterator;
         this->elementType = ProjectionModel::ConcreteType::From(iterator->genericParameters->First());
         this->m_pUnderlyingArray = pUnderlyingArray;

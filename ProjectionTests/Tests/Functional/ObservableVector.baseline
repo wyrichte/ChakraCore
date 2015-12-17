@@ -679,7 +679,7 @@ Pass: myVector[4]
 
 Comment: myVector.length = 'abc';
 Pass: e.toString()
-      Actual: RangeError: Array length must be assigned a finite positive number
+      Actual: RangeError: Array length must be assigned a finite positive integer
 
 Pass: Expected exception was caught
       Actual: true

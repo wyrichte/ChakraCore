@@ -136,7 +136,7 @@ private:
     void SetIsInCall() {Assert(!isInCall); isInCall = TRUE; }
     void ResetIsInCall() { isInCall = FALSE; }
     BOOL IsInCall() const { return isInCall; }
-    HRESULT VerifyOnEntry();
+    HRESULT VerifyOnEntry(bool isValidThreadScope);
 
     static const unsigned short k_dispAll = DISPATCH_METHOD | DISPATCH_PROPERTYGET | DISPATCH_PROPERTYPUT |
         DISPATCH_PROPERTYPUTREF | DISPATCH_CONSTRUCT;

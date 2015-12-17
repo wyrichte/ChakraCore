@@ -7,6 +7,17 @@
 
     <script language="JScript">
 
+        // For debugging
+        var debugLog = false;
+        var logFilePath = "d:\\temp\\gitsrcsrv.log";
+        var logFileCommandPipe = debugLog? " 2>&1 >> " + logFilePath : "";
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+
+        if (debugLog) {
+            if (fso.FileExists(logFilePath))
+                fso.DeleteFile(logFilePath);
+        }
+            
         if (WScript.Arguments.Count() != 4) {
             WScript.Echo("Wrong args");
             WScript.Quit();
@@ -20,10 +31,9 @@
         var saveAs = WScript.Arguments.Item(3);
         var saveInFolder = saveAs.substring(0, saveAs.lastIndexOf("\\") + 1);
 
-        downloadFromLocalRepo(false)
-        downloadWithGitSourceStreamTool("c:\\debuggers\\GitSourceStream.exe");
+        downloadFromLocalRepo(false);
+        downloadWithGitSourceStreamTool("GitSourceStream.exe");
         downloadWithTf();
-        downloadWithGitSourceStreamTool("\\\\dbg\\privates\\latest\\uncompressed\\x86\\GitSourceStream.exe");
 
         // try download from VSO with winhttp+restful API
         // downloadFromVSOWithRestApi(repo, repoPath, commitId, saveAs);
@@ -33,77 +43,108 @@
         /////////////////////////////////////////////////////////////////
         // helpers
 
+        function debugPrint(msg)
+        {
+            if (debugLog) {
+                for (var i = 0; i < 10; i++) 
+                {
+                    try {
+                        var file = fso.OpenTextFile(logFilePath, 8, true);
+                        file.WriteLine(msg);
+                        file.Close();
+                        break;
+                    } catch (e) {
+                    } 
+                }
+            }
+        }
+        function print(msg)
+        {
+            WScript.Echo(msg);
+            debugPrint(msg);
+        }
         function downloadFromLocalRepo(askRepoPath) {
             var chakra_repo = getLocalChakraRepo(askRepoPath);
             if (chakra_repo != "") {
-                WScript.Echo("Try using local git repo: " + chakra_repo);
+                print("Try using local git repo: " + chakra_repo);
 
                 var cmd = "git show " + commitId + ":" + repoPath;
                 var shell = new ActiveXObject("WScript.Shell");
                 shell.currentDirectory = chakra_repo + (repo == "ChakraCore" ? "\\core" : "");
 
                 var tfile = CreateNewTempFile();
-                WScript.Echo(tfile);
+                print(tfile);
                 cmd = "cmd /c " + cmd + ">" + tfile; //redirect
-                WScript.Echo(shell.currentDirectory);
-                WScript.Echo(cmd);
+                print(shell.currentDirectory);
+                print(cmd);
 
                 var gitProc = shell.Run(cmd, 0, true);
-                var fso = new ActiveXObject("Scripting.FileSystemObject");
                 if (fso.getFile(tfile).size > 0) {
                     CreateFolder(saveInFolder);
                     fso.copyFile(tfile, saveAs, true);
-                    WScript.Echo("Saved file " + saveAs);
+                    print("Saved file " + saveAs);
                     WScript.Quit();
                 }
             }
         }
 
         function downloadWithGitSourceStreamTool(gitSourceStreamTool) {
-            WScript.Echo("Try " + gitSourceStreamTool);
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
-            if (!fso.fileexists(gitSourceStreamTool)) {
-                return;
-            }
+            print("Try " + gitSourceStreamTool);
             //USAGE: GitSourceStream.exe <output file> <VSO collection URL>
             //<repository file repoPath> <commitId ID> <URL-encoded project name>
             //<URL-encoded repository name>
             var shell = new ActiveXObject("WScript.Shell");
-            var cmd = gitSourceStreamTool
+            var cmd = "\"" + gitSourceStreamTool + "\""
                 + " " + saveAs
                 + " " + collection
                 + " " + repoPath
                 + " " + commitId
                 + " " + proj 
-                + " " + repo;
-            WScript.Echo(cmd);
-            shell.Run(cmd, 0, true);
+                + " " + repo
+                + logFileCommandPipe;
+            print(cmd);
+            try {
+                shell.Run(cmd, 0, true);
+            } catch (e) {
+                debugPrint("Exception: " + e.name + ": " + e.number + ": " + e.message);
+            }
             if (fso.fileexists(saveAs)) {
                 WScript.Quit();
             }
         }
         
         function downloadWithTf() {
-            WScript.Echo("Try tf.exe");
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var shell = new ActiveXObject("WScript.Shell");
+            var path = shell.Environment("SYSTEM")("VS140COMNTOOLS"); 
+            if (!path) {
+                path = shell.Environment("SYSTEM")("VS120COMNTOOLS");
+                if (!path) {
+                    path = "";
+                }
+            } 
+            print("Try " + path + "tf.exe");
             // tf git view /path:path
             //             /collection:TeamProjectCollectionUrl
             //             /teamproject:TeamProjectIdentifier
             //             /repository:RepositoryIdentifier
-            //             [/commitId:commitId]
+            //             [/commitId:com1GmitId]
             //             [/output:localfile]
             //             [/console]
             //             [/login:username,[password]]
-            var shell = new ActiveXObject("WScript.Shell");
-            var cmd = "tf.exe git view"
+            var cmd = "\"" + path + "tf.exe\" git view"
                 + " /output:" + saveAs
                 + " /collection:" + collection
                 + " /path:" + repoPath
-                + " /commitId" + commitId
+                + " /commitId:" + commitId
                 + " /teamproject:" + proj 
-                + " /repository:" + repo;
-            WScript.Echo(cmd);
-            shell.Run(cmd, 0, true);
+                + " /repository:" + repo
+                + logFileCommandPipe;
+            print(cmd);
+            try {
+                shell.Run(cmd, 0, true);
+            } catch (e) {
+                debugPrint("Exception: " + e.name + ": " + e.number + ": " + e.message);
+            }
             if (fso.fileexists(saveAs)) {
                 WScript.Quit();
             }
@@ -113,7 +154,7 @@
             var url = collection + "/" + proj + "/_apis/git/repositories/"
                       + repo + "/items?api-version=1.0&scopepath=" + repoPath
                       + "&versionType=Commit&versionOptions=None&version=" + commitId;
-            WScript.Echo(url);
+            print(url);
 
             var http = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
             http.open("GET", url, false);
@@ -122,22 +163,20 @@
                 // use the user input username/password
                 http.setRequestHeader("Authorization", "Basic " + auth);
             } else {
-                WScript.Echo("try chakraAut token");
+                print("try chakraAut token");
                 // todo: get chakraaut token
                 //http.setRequestHeader("Authorization", "Bearer <chakraAut token>");
             }
 
             http.send();
-            WScript.Echo(http.status)
+            print(http.status)
             if (http.status == 200) {
                 CreateFolder(saveInFolder);
-                var fso = new ActiveXObject("Scripting.FileSystemObject");
                 if (fso.fileexists(saveAs)) {
                     fso.deleteFile(saveAs);
-                    fso = null;
                 }
 
-                WScript.Echo(saveAs);
+                print(saveAs);
 
                 var stream = new ActiveXObject("ADODB.Stream")
                 stream.open();
@@ -149,8 +188,8 @@
                 stream = null;
             } else {
 
-                //WScript.Echo(http.getAllRequestHeaders());
-                WScript.Echo(http.getAllResponseHeaders());
+                //print(http.getAllRequestHeaders());
+                print(http.getAllResponseHeaders());
 
                 if (http.status == 203 && typeof auth == 'undefined') {
                     // ask for password
@@ -166,7 +205,6 @@
         function getLocalChakraRepo(askRepoPath) {
             // try env VAR
             var chakra_repo = getEnvVar("chakra_repo");
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
             if (!fso.folderexists(chakra_repo) || !fso.folderexists(chakra_repo + "\\.git")) {
                 chakra_repo = "";
                 var chakra_repo_file = getEnvVar("userprofile") + "\\chakra_repo.txt";
@@ -178,9 +216,9 @@
                     f.close();
                 }
                 else if(askRepoPath){
-                    WScript.Echo("Show input box for local chakra repo repoPath");
+                    print("Show input box for local chakra repo repoPath");
                     chakra_repo = VBInputBox("Enter local chakra repo repoPath", "Chakra Repo");
-                    WScript.Echo(chakra_repo);
+                    print(chakra_repo);
                     var f = fso.OpenTextFile(chakra_repo_file, 2, true);
                     f.write(chakra_repo);
                     f.close();
@@ -195,7 +233,6 @@
         }
 
         function CreateFolder(folder) {
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
             if (!fso.folderexists(folder)) {
                 var shell = new ActiveXObject("Wscript.Shell");
                 shell.run("cmd /c mkdir " + folder);
@@ -203,7 +240,6 @@
             }
         }
         function CreateNewTempFile() {
-            var fso = new ActiveXObject("Scripting.FileSystemObject");
             var TemporaryFolder = 2;
             var tfolder = fso.GetSpecialFolder(TemporaryFolder);
             var tname = fso.GetTempName();

@@ -1339,6 +1339,14 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(JsGetDataViewStorage(typedArray, &buffer, &bufferLength) == JsErrorInvalidArgument);
                 VERIFY_IS_TRUE(JsGetDataViewStorage(bad, &buffer, &bufferLength) == JsErrorInvalidArgument);
 
+                // no base array
+                VERIFY_IS_TRUE(JsCreateTypedArray((JsTypedArrayType)type, JS_INVALID_REFERENCE, /*byteOffset*/0, /*length*/0, &typedArray) == JsNoError); // no base array
+                VERIFY_IS_TRUE(JsGetTypedArrayInfo(typedArray, &arrayType, &tmpArrayBuffer, &tmpByteOffset, &tmpByteLength) == JsNoError);
+                VERIFY_ARE_EQUAL(type, arrayType);
+                VERIFY_IS_TRUE(tmpArrayBuffer != nullptr);
+                VERIFY_IS_TRUE(tmpByteOffset == 0);
+                VERIFY_IS_TRUE(tmpByteLength == 0);
+
                 // InvalidArgs Create...
                 VERIFY_IS_TRUE(JsCreateTypedArray((JsTypedArrayType)(type + 100), arrayBuffer, /*byteOffset*/size, /*length*/12, &typedArray) == JsErrorInvalidArgument); // bad array type
                 VERIFY_IS_TRUE(JsCreateTypedArray((JsTypedArrayType)type, JS_INVALID_REFERENCE, /*byteOffset*/size, /*length*/12, &typedArray) == JsErrorInvalidArgument);  // byteOffset should be 0

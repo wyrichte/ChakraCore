@@ -87,6 +87,8 @@ namespace Projection
         HRESULT hr = __super::Initialize(vector->iid->instantiated, StringOfId(projectionContext->GetScriptContext(), vector->typeId));
         IfFailedReturn(hr);
 
+        Js::JavascriptLibrary::CheckAndConvertCopyOnAccessNativeIntArray<Var>(pUnderlyingArray);
+
         this->vector = vector;
         this->elementType = ProjectionModel::ConcreteType::From(vector->genericParameters->First());
         this->sizeOnStackOfElement = this->elementType->sizeOnStack;

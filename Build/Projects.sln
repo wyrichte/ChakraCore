@@ -72,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{2D98823A-DF4
 		..\private\Bin\Chakra\Chakra.vcxproj = ..\private\Bin\Chakra\Chakra.vcxproj
 		..\private\bin\ChakraDiag\ChakraDiag.vcxproj = ..\private\bin\ChakraDiag\ChakraDiag.vcxproj
 		..\private\Bin\GCHost\GCHost.vcxproj = ..\private\Bin\GCHost\GCHost.vcxproj
+		..\private\bin\GCStress\GCStress.vcxproj = ..\private\bin\GCStress\GCStress.vcxproj
 		..\private\lib\HostCommon\HostCommon.vcxproj = ..\private\lib\HostCommon\HostCommon.vcxproj
 		..\private\Bin\JC\JC.vcxproj = ..\private\Bin\JC\JC.vcxproj
 		..\private\Bin\jdtest\jdtest.vcxproj = ..\private\Bin\jdtest\jdtest.vcxproj

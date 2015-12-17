@@ -390,7 +390,7 @@ ULONG JavascriptDispatch::Release(void)
 HRESULT JavascriptDispatch::GetTypeInfoCount(UINT *pctinfo)
 {
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    HRESULT hr = VerifyOnEntry();
+    HRESULT hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     *pctinfo = 1;
@@ -404,7 +404,7 @@ HRESULT JavascriptDispatch::GetTypeInfo(UINT iti, LCID lcid, ITypeInfo **ppti)
         return DISP_E_BADINDEX;
 
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    HRESULT hr = VerifyOnEntry();
+    HRESULT hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     AutoActiveCallPointer autoActiveCallPointer(this);
@@ -456,7 +456,7 @@ HRESULT JavascriptDispatch::GetIDsOfNames(REFIID riid, __in_ecount(cpsz) LPOLEST
     UINT i;
     HRESULT hr = NOERROR;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     if (riid != IID_NULL)
@@ -551,7 +551,7 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
 
     HRESULT hr1;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr1 = VerifyOnEntry();
+    hr1 = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr1);
 
     Assert(scriptObject != nullptr);
@@ -996,7 +996,7 @@ HRESULT JavascriptDispatch::InvokeEx(
     HRESULT         hr = S_OK;
 
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
@@ -1155,7 +1155,7 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
 {
     HRESULT hr = NOERROR;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     // Initialize out parameters.
@@ -1637,7 +1637,7 @@ HRESULT JavascriptDispatch::DeleteMemberByName(BSTR bstrName, DWORD grfdex)
     Js::PropertyId propertyId;
     uint32 indexVal;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     AutoActiveCallPointer autoActiveCallPointer(this);
@@ -1660,7 +1660,7 @@ HRESULT JavascriptDispatch::DeleteMemberByDispID(DISPID id)
 {
     HRESULT hr = S_FALSE;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
     Js::ScriptContext* scriptContext = this->GetScriptContext();
 
@@ -1708,7 +1708,7 @@ HRESULT JavascriptDispatch::GetMemberName(DISPID id, BSTR *pbstr)
     HRESULT hr = NOERROR;
     IfNullReturnError(pbstr, E_INVALIDARG);
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     AutoActiveCallPointer autoActiveCallPointer(this);
@@ -1784,7 +1784,7 @@ HRESULT JavascriptDispatch::GetNextDispID(DWORD grfdex, DISPID id, DISPID *pid)
 {
     HRESULT hr = E_FAIL;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
     *pid = 0;
 #if DBG
@@ -1879,7 +1879,7 @@ HRESULT JavascriptDispatch::GetNameSpaceParent(IUnknown **ppunk)
 {
     HRESULT hr = NOERROR;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
     AutoActiveCallPointer autoActiveCallPointer(this);
     IfNullReturnError(ppunk, E_INVALIDARG);
@@ -1909,7 +1909,7 @@ HRESULT JavascriptDispatch::GetTypeId(int* typeId)
 {
     HRESULT hr = E_FAIL;
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
     *typeId = Js::JavascriptOperators::GetTypeId(scriptObject);
     return S_OK;
@@ -1933,7 +1933,7 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
     HRESULT hr = NOERROR;
 
     ThreadContextScope scope(this->scriptSite->GetThreadContext());
-    hr = VerifyOnEntry();
+    hr = VerifyOnEntry(scope.IsValid());
     IfFailedReturn(hr);
 
     if (scriptSite->IsClosed())
@@ -2106,8 +2106,14 @@ HRESULT JavascriptDispatch::ResetContentToNULL()
     return NOERROR;
 }
 
-HRESULT JavascriptDispatch::VerifyOnEntry()
+HRESULT JavascriptDispatch::VerifyOnEntry(bool isValidThreadScope)
 {
+    // Called on wrong thread
+    if (!isValidThreadScope)
+    {
+        return E_ACCESSDENIED;
+    }
+
     if (!VerifyCallingThread())
     {
         return E_UNEXPECTED;

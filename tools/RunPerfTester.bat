@@ -5,7 +5,7 @@ if "%_BuildType%" neq "fre" (
     goto :eof
 )
 
-call robocopy "\\bptstorage3\Users\PerfTester" "%~dp0PerfTester" /e /xo /ndl /njh /njs
+call robocopy "\\chakrafs\fs\Tools\vso\PerfTester" "%~dp0PerfTester" /e /xo /ndl /njh /njs
 
 setlocal EnableDelayedExpansion
 set Path=%Path%;%~dp0PerfTester
