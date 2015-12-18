@@ -20,9 +20,15 @@ using namespace Memory;
 class StackBackTrace;
 
 #include "DiagAssertion.h"
+
+// TODO (doilij): remove JD's dependency on ATL
+#pragma push_macro("_DEBUG")
+#undef _DEBUG
 #include <atlbase.h>
 #include <atlcoll.h>
 #include <atlcom.h>
+#pragma pop_macro("_DEBUG")
+
 #include <objbase.h>
 #include "edgescriptDirect.h"
 #include "jscript9diag.h"
