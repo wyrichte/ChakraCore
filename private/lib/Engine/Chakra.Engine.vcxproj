@@ -38,6 +38,7 @@
         $(MSBuildThisFileDirectory)..\EnC;
 
         $(ChakraInternalIDLIntDir);
+        $(ChakraJITIDLIntDir);
 
         <!-- For EdgeJsStatic.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)publish;
@@ -54,11 +55,8 @@
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
         4510;   <!-- default constructor could not be generated -->
-        4610;   <!-- can never be instantiated - user defined constructor required -->
-        
-        <!-- TODO: Should clean this up -->
-        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
-      </DisableSpecificWarnings>
+        4610;   <!-- can never be instantiated - user defined constructor required --><!-- TODO: Should clean this up -->
+        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data --></DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -226,6 +224,9 @@
     <ClInclude Include="var.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\core\lib\JITIDL\Chakra.JITIDL.vcxproj">
+      <Project>{0db5ecbc-9385-4a65-be2c-4ef7c65cb719}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
       <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
     </ProjectReference>

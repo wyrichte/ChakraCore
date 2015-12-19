@@ -194,6 +194,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.EnC", "..\private\lib\EnC\Chakra.EnC.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FEC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Engine", "..\private\lib\Engine\Chakra.Engine.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FDC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DB5ECBC-9385-4A65-BE2C-4EF7C65CB719} = {0DB5ECBC-9385-4A65-BE2C-4EF7C65CB719}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.JsrtChakra", "..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj", "{9336AC1D-5D92-4F1E-A9ED-AACB609C2082}"
 EndProject

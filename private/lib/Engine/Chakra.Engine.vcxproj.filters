@@ -57,7 +57,12 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)scrutil.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)guids.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp" />
-    <ClCompile Include="ActiveScriptExternalLibrary.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ChakraHostScriptContext.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DOMFastPath.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalType.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ExternalLowerer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptTypedObjectSlotAccessorFunction.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activescripterror.h" />
@@ -126,6 +131,10 @@
     <ClInclude Include="IDebugBitCorrectApplicationThread.h" />
     <ClInclude Include="ChakraHostScriptContext.h" />
     <ClInclude Include="ActiveScriptExternalLibrary.h" />
+    <ClInclude Include="domfastpath.h" />
+    <ClInclude Include="DOMFastpathinfolist.h" />
+    <ClInclude Include="ExternalObject.h" />
+    <ClInclude Include="JavascriptTypedObjectSlotAccessorFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />
