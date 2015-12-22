@@ -214,7 +214,6 @@ JD_PRIVATE_COMMAND(tc,
     "{;e,o,d=0;threadctx;Thread context address}")
 {
     ULONG64 arg = GetUnnamedArgU64(0);
-    ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
     ExtRemoteTyped threadContext;
 
     if (arg != 0)
@@ -226,7 +225,10 @@ JD_PRIVATE_COMMAND(tc,
         ULONG threadId = 0;
         this->m_System4->GetCurrentThreadId(&threadId);
         Out("Current thread: %d\n", threadId);
-        threadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
+
+        // @$teb resolves to the 64-bit TEB in the 64-bit process regardless of the bit-ness of the debuggee,
+        // so don't rely on the TEB to get the threadContext.
+        threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
     }
 
     if (threadContext.GetPtr() == 0)
