@@ -118,6 +118,10 @@
         $(ChakraRootDirectory)private\lib\MemProtectHeap;
         $(ChakraRootDirectory)tools\external\inc;
       </AdditionalIncludeDirectories>
+
+      <!-- ======== For Code Covearge ======== -->
+      <Optimization Condition="'$(ENABLE_CODECOVERAGE)'=='true'">Disabled</Optimization>
+
     </ClCompile>
 
     <Link>
@@ -132,6 +136,9 @@
       <AdditionalOptions>%(AdditionalOptions) /merge:.orpc=.text</AdditionalOptions>
       <Version>$(LinkerAppVersion)</Version>
       <AdditionalOptions>%(AdditionalOptions) /osversion:$(LinkerOSVersion)</AdditionalOptions>
+
+      <!-- ======== For Code Covearge ======== -->
+      <AdditionalOptions Condition="'$(ENABLE_CODECOVERAGE)'=='true'">%(AdditionalOptions) /DEBUGTYPE:CV,FIXUP</AdditionalOptions>
 
       <!-- Clear all the library and we build our own lib list -->
       <AdditionalDependencies />
