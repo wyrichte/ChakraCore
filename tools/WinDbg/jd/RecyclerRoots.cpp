@@ -223,7 +223,7 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
                 }
                 else if (type != _ext->enum_SmallLeafBlockType())
                 {
-                    ExtRemoteTyped smallBlock(_ext->FillModuleAndMemoryNS("%s!%sSmallHeapBlock"), heapBlockAddress, false);
+                    ExtRemoteTyped smallBlock(_ext->GetSmallHeapBlockTypeName(), heapBlockAddress, false);
 
                     // Hack- make this a friend of SmallHeapBlock
                     if (_heapBlockHelper.GetSmallHeapBlockObjectIndex(smallBlock, address) != 0xffff)
@@ -243,7 +243,7 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
                 }
                 else
                 {
-                    ExtRemoteTyped smallBlock(_ext->FillModuleAndMemoryNS("%s!%sSmallHeapBlock"), heapBlockAddress, false);
+                    ExtRemoteTyped smallBlock(_ext->GetSmallHeapBlockTypeName(), heapBlockAddress, false);
 
                     node->aux.objectSize = (ULONG64)smallBlock.Field("objectSize").GetUshort();
                 }

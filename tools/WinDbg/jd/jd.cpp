@@ -17,6 +17,8 @@ EXT_CLASS_BASE::EXT_CLASS_BASE()
     m_unitTestMode = false;
     m_uiServerString[0] = '\0';
     m_gcNS[0] = '\1';
+    m_isCachedHasMemoryNS = false;
+    m_hasMemoryNS = false;
 #endif
 }
 
@@ -121,27 +123,50 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
 
     return m_moduleName;
 }
+
+bool EXT_CLASS_BASE::HasMemoryNS()
+{
+    if (m_isCachedHasMemoryNS)
+    {
+        return m_hasMemoryNS;
+    }
+
+    char symRecyclerType[256];
+    ULONG symRecyclerTypeId = 0;
+    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
+    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    {
+        m_hasMemoryNS = true;
+        m_isCachedHasMemoryNS = true;
+    }
+    else
+    {
+        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
+        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+        {
+            m_hasMemoryNS = false;
+            m_isCachedHasMemoryNS = true;
+        }
+        else
+        {
+            this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
+        }
+    }
+
+    return m_hasMemoryNS;
+}
+
 PCSTR EXT_CLASS_BASE::GetMemoryNS()
 {
-    if (m_gcNS[0] == '\1') {
-        char symRecyclerType[256];
-        ULONG symRecyclerTypeId = 0;
-        sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    if (m_gcNS[0] == '\1')
+    {
+        if (HasMemoryNS())
         {
             strcpy_s(m_gcNS, "Memory::");
         }
         else
         {
-            sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-            if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
-            {
-                strcpy_s(m_gcNS, "");
-            }
-            else
-            {
-                this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
-            }
+            strcpy_s(m_gcNS, "");
         }
     }
 
@@ -184,6 +209,18 @@ PCSTR EXT_CLASS_BASE::FillModuleAndMemoryNS(PCSTR fmt)
 {
     sprintf_s(m_fillModuleBuffer, fmt, GetModuleName(), GetMemoryNS());
     return m_fillModuleBuffer;
+}
+
+PCSTR EXT_CLASS_BASE::GetSmallHeapBlockTypeName()
+{
+    if (HasMemoryNS())
+    {
+        return FillModule("%s!Memory::SmallHeapBlockT<SmallAllocationBlockAttributes>");
+    }
+    else
+    {
+        return FillModule("%s!SmallHeapBlock");
+    }
 }
 
 bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()

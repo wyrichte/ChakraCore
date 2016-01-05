@@ -147,6 +147,7 @@ public:
     PCSTR FillModuleV(PCSTR fmt, ...);
 
     PCSTR FillModuleAndMemoryNS(PCSTR fmt);
+    PCSTR GetSmallHeapBlockTypeName();
 
     bool CheckTypeName(PCSTR typeName, ULONG* typeId = nullptr);
     PCSTR GetPageAllocatorType();
@@ -198,6 +199,7 @@ protected:
     void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
     PCSTR GetModuleName();
+    bool HasMemoryNS();
     PCSTR GetMemoryNS();
 
     ExtRemoteTyped GetTlsEntryList();
@@ -295,6 +297,9 @@ protected:
     CComPtr<IDebugSymbols5> m_symbols5;
     int m_jsFrameNumber;
     bool m_unitTestMode;
+
+    bool m_isCachedHasMemoryNS;
+    bool m_hasMemoryNS;
 
 #endif //JD_PRIVATE
 };
