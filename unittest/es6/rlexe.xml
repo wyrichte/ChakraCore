@@ -240,4 +240,10 @@
       <compile-flags> -ES6 -ES6Promise</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>forloops-per-iteration-bindings-debugging.js</files>
+      <compile-flags>-debuglaunch -targeted -InspectMaxStringLength:200</compile-flags>
+    </default>
+  </test>
 </regress-exe>

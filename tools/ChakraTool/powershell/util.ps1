@@ -9,7 +9,8 @@
 
 function TryLoadTeamFoundationAssembly($assemblyName)
 {
-   $assembly = [System.Reflection.Assembly]::LoadWithPartialName($assemblyName)
+   # Load only the v14 versions of the library, don't use the GAC
+   $assembly = $nil
 
    if ($assembly -eq $nil) {
       try {      

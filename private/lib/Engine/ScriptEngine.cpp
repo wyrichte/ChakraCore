@@ -209,6 +209,7 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_pNonDebugDocFirst     = nullptr;
     m_pda                   = nullptr;
     m_debugApplicationThread= nullptr;
+    m_debugApp110           = nullptr;
     m_debugHelper           = nullptr;
     m_debugFormatter        = nullptr;
 
@@ -1010,6 +1011,7 @@ void ScriptEngine::HandleResumeAction(Js::InterpreterHaltState* haltState, BREAK
         ///
         scriptContext->GetDebugContext()->GetProbeContainer()->RemoveAllProbes();
         scriptContext->GetDebugContext()->GetProbeContainer()->UninstallInlineBreakpointProbe(NULL);
+        scriptContext->GetDebugContext()->GetProbeContainer()->UninstallDebuggerScriptOptionCallback();
         throw Js::ScriptAbortException();
     }
     else
@@ -1046,6 +1048,35 @@ bool ScriptEngine::CanAllowBreakpoints()
     }
 
     return false;
+}
+
+bool ScriptEngine::IsScriptDebuggerOptionsEnabled(SCRIPT_DEBUGGER_OPTIONS flag)
+{
+    if (this->m_debugApp110 != nullptr)
+    {
+        SCRIPT_DEBUGGER_OPTIONS option;
+        if (this->m_debugApp110->GetCurrentDebuggerOptions(&option) == S_OK && ((option & flag) == flag))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool ScriptEngine::IsFirstChanceExceptionEnabled()
+{
+    return IsScriptDebuggerOptionsEnabled(SDO_ENABLE_FIRST_CHANCE_EXCEPTIONS);
+}
+
+bool ScriptEngine::IsNonUserCodeSupportEnabled()
+{
+    return IsScriptDebuggerOptionsEnabled(SDO_ENABLE_NONUSER_CODE_SUPPORT);
+}
+
+bool ScriptEngine::IsLibraryStackFrameSupportEnabled()
+{
+    return IsScriptDebuggerOptionsEnabled(SDO_ENABLE_LIBRARY_STACK_FRAME);
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionName(_In_ Var instance, _Out_ BSTR * pBstrName)
@@ -2417,7 +2448,8 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
         IRemoteDebugApplication110 *pDebugApp110 = nullptr;
         if (m_pda->QueryInterface(__uuidof(IRemoteDebugApplication110), (void **)&pDebugApp110) == S_OK)
         {
-            scriptContext->GetDebugContext()->GetProbeContainer()->InitializeForScriptOption(pDebugApp110);
+            this->m_debugApp110 = pDebugApp110;
+            scriptContext->GetDebugContext()->GetProbeContainer()->InitializeDebuggerScriptOptionCallback(this);
         }
     }
 
@@ -2445,12 +2477,14 @@ void ScriptEngine::ResetDebugger(void)
         }
 
         RELEASEPTR(m_debugApplicationThread);
+        RELEASEPTR(m_debugApp110);
         RELEASEPTR(m_debugHelper);
         RELEASEPTR(m_debugFormatter);
         RELEASEPTR(m_pda);
     }
     Assert(nullptr == m_pda);
     Assert(nullptr == m_debugApplicationThread);
+    Assert(nullptr == m_debugApp110);
     Assert(nullptr == m_debugHelper);
     Assert(nullptr == m_debugFormatter);
     UNADVISERELEASE(m_pcpAppEvents,m_dwAppAdviseID);
@@ -2571,6 +2605,7 @@ LNoDebugger:
     if (nullptr != m_pda)
     {
         RELEASEPTR(m_debugApplicationThread);
+        RELEASEPTR(m_debugApp110);
         RELEASEPTR(m_debugHelper);
         RELEASEPTR(m_debugFormatter);
         RELEASEPTR(m_pda);
@@ -3087,6 +3122,7 @@ HRESULT ScriptEngine::CloseInternal()
             m_fClearingDebugDocuments = TRUE;
             this->scriptContext->EnsureClearDebugDocument();
             this->scriptContext->GetDebugContext()->GetProbeContainer()->UninstallInlineBreakpointProbe(this); // ScriptEngine closed, uninstall probe
+            this->scriptContext->GetDebugContext()->GetProbeContainer()->UninstallDebuggerScriptOptionCallback();
         }
 
         if (nullptr != GetScriptSiteHolder())

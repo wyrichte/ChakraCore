@@ -121,7 +121,8 @@ class ScriptEngine :
     // Other interfaces
     //
     public IObjectSafety,
-    public Js::HaltCallback
+    public Js::HaltCallback,
+    public Js::DebuggerOptionsCallback
 {
     friend class ScriptSite;
 
@@ -596,6 +597,12 @@ public:
     virtual void CleanupHalt() sealed;
     virtual bool CanAllowBreakpoints();
     virtual bool IsInClosedState();
+
+    bool IsScriptDebuggerOptionsEnabled(SCRIPT_DEBUGGER_OPTIONS flag);
+    // Js::DebuggerOptionsCallback
+    virtual bool IsFirstChanceExceptionEnabled();
+    virtual bool IsNonUserCodeSupportEnabled();
+    virtual bool IsLibraryStackFrameSupportEnabled();
 
     // Helper method
     static void HandleResumeAction(Js::InterpreterHaltState* pHaltState, BREAKRESUMEACTION resumeAction);
@@ -1132,6 +1139,7 @@ private:
     CScriptSourceDocumentText*      m_pNonDebugDocFirst; // Linked list of doclets
     IDebugApplication*              m_pda;
     IDebugApplicationThread*        m_debugApplicationThread;
+    IRemoteDebugApplication110*     m_debugApp110;
     IDebugHelper*                   m_debugHelper;
     IDebugFormatter*                m_debugFormatter;
     IConnectionPoint*               m_pcpAppEvents;    // Connection point to application
