@@ -23,6 +23,7 @@
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\JITClient;
+        $(ChakraJITIDLIntDir);
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Backend;

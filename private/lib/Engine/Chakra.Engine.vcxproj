@@ -29,6 +29,7 @@
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\JITClient;
+        $(ChakraJITIDLIntDir);
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Backend\$(PlatformPathNameAlt);
         $(ChakraCoreRootDirectory)Lib\Jsrt;
