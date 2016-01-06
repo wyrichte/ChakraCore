@@ -41,6 +41,8 @@
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;
         $(ChakraRootDirectory)core\Lib\Backend;
+        $(ChakraRootDirectory)core\Lib\JITClient;
+        $(ChakraJITIDLIntDir);
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\lib\Projection;
 

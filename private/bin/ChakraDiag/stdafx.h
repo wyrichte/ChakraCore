@@ -71,6 +71,7 @@
 #define protected public
 
 #include "EdgeScriptDirect.h"
+#include "JITClient.h"
 #include "RuntimeCore.h"
 
 #undef private
