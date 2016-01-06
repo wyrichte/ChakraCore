@@ -2,7 +2,7 @@ param (
     [ValidateSet("x86", "x64", "arm", "*")]
     [string]$arch="",
 
-    [ValidateSet("debug", "release", "test", "*")]
+    [ValidateSet("debug", "release", "test", "codecoverage", "*")]
     [string]$flavor = "",
 
     [string]$srcpath = "",

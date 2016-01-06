@@ -10,7 +10,6 @@
     <IsPogoBuild />
     <IsPogoBuild Condition="('$(POGO_TYPE)'=='PGO' OR '$(POGO_TYPE)'=='PGI')">true</IsPogoBuild>
     <OutDirName Condition="'$(IsPogoBuild)'=='true'">$(Configuration.ToLower())_pogo</OutDirName>
-    <OutDirName Condition="'$(ENABLE_CODECOVERAGE)'=='true'">noopt</OutDirName>
   </PropertyGroup>
 
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
