@@ -79,3 +79,4 @@ function debugCallback()
 }
 WScript.Attach(debugCallback);
 WScript.Detach(debugCallback);
+WScript.Attach(debugCallback);
