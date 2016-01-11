@@ -317,7 +317,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9193
 [FunctionCompiled]: Function: test, Line: 213, Column: 13, Character Position: 8567
 [FunctionCompiled]: Function: testRunner, Line: 83, Column: 18, Character Position: 3433
-[FunctionCompiled]: Function: throws, Line: 267, Column: 17, Character Position: 10326
+[FunctionCompiled]: Function: throws, Line: 275, Column: 17, Character Position: 10643
 [FunctionCompiled]: Function: validate, Line: 217, Column: 20, Character Position: 8278
 [FunctionCompiled]: Function: writeln, Line: 61, Column: 18, Character Position: 2746
   runTestPasses
