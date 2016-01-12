@@ -1,3 +1,6 @@
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//---------------------------------------------------------------------------
 #pragma once
 
 #ifdef JD_PRIVATE
@@ -83,9 +86,9 @@ public:
     void DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address, bool verbose);
     void DumpHeapObject(const HeapObject& heapObject, bool verbose);
     void DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock);
-    ULONG64 FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput = true);
-    ExtRemoteTyped FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput = true, ULONG64* mapAddr = nullptr);
-    ExtRemoteTyped FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap, bool allowOutput = true);
+    ULONG64 FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler);    
+    ExtRemoteTyped FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, ULONG64* mapAddr = nullptr);
+    ExtRemoteTyped FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap);
     ULONG64 GetHeapBlockType(ExtRemoteTyped& heapBlock);
     ushort GetAddressSmallHeapBlockBitIndex(ULONG64 objectAddress);
 
@@ -187,21 +190,17 @@ private:
 class HeapBlockMapWalker
 {
 public:
-    HeapBlockMapWalker(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, bool skipMultipleLargeHeapBlocks = true) :
-        ext(ext), recycler(recycler), skipMultipleLargeHeapBlocks(skipMultipleLargeHeapBlocks), lastLargeHeapBlock(0)
+    HeapBlockMapWalker(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, bool skipMultipleHeapBlocks = true) :
+        ext(ext), recycler(recycler), skipMultipleHeapBlocks(skipMultipleHeapBlocks)
     {}
 
     virtual bool Run();
 protected:
-    virtual bool ProcessHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
-    virtual bool ProcessLargeHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
-
-    virtual bool ProcessL1Chunk(ExtRemoteTyped chunk);
-    virtual bool ProcessL2Chunk(size_t l1Id, ExtRemoteTyped chunk);
+    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
+    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
 
     EXT_CLASS_BASE* ext;
-    ULONG64 lastLargeHeapBlock;
-    bool skipMultipleLargeHeapBlocks;
+    bool skipMultipleHeapBlocks;
     ExtRemoteTyped recycler;
 };
 
@@ -247,8 +246,8 @@ public:
 
     virtual bool Run();
 protected:
-    virtual bool ProcessHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
-    virtual bool ProcessLargeHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
+    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
+    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
 
     RecyclerBucketStats normalStats[HeapConstants::BucketCount];
     RecyclerBucketStats leafStats[HeapConstants::BucketCount];

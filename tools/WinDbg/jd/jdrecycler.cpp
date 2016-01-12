@@ -1,11 +1,12 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-//----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 #include "stdafx.h"
 #include "jdrecycler.h"
 #include "RemoteRecyclerList.h"
 #include "RemoteRecycler.h"
 #include "RecyclerRoots.h"
+#include "RemoteHeapBlockMap.h"
 
 // ---- Begin jd private commands implementation --------------------------------------------------
 #ifdef JD_PRIVATE
@@ -13,101 +14,42 @@
 
 #pragma warning(disable: 4481)  // allow use of abstract and override keywords
 
-// TODO: Get the number of buckets from the recycler.h
-static const DWORD PageSize = 4096;
-
 bool
 HeapBlockMapWalker::Run()
 {
-    ExtRemoteTyped hbm = recycler.Field("heapBlockMap");
+    RemoteHeapBlockMap hbm(recycler.Field("heapBlockMap"));
 
-    if (ext->m_PtrSize == 4)
+    ULONG64 lastHeapBlock;
+    return hbm.ForEachHeapBlockDirect([&](ULONG64 nodeIndex, ULONG64 l1Id, ULONG64 l2Id, ULONG64 block, ExtRemoteTyped heapBlock)
     {
-        ExtRemoteTyped map = hbm.Field("map");
-
-        return ProcessL1Chunk(map);
-    }
-    else
-    {
-        ExtRemoteTyped current = hbm.Field("list");
-        while (current.GetPtr() != 0)
+        if (this->skipMultipleHeapBlocks && lastHeapBlock == block)
         {
-            ExtRemoteTyped map = current.Field("map");
-            ExtRemoteTyped l1ChunkArray = map.Field("map");
-            if (ProcessL1Chunk(l1ChunkArray))
-            {
-                return true;
-            }
-
-            current = current.Field("next");
+            return false;
         }
-    }
+        lastHeapBlock = block;
 
-    return false;
-}
-
-bool
-HeapBlockMapWalker::ProcessL1Chunk(ExtRemoteTyped chunk)
-{
-    const size_t l1Count = chunk.GetTypeSize() / chunk.ArrayElement(0).GetTypeSize();
-
-    for (size_t l1Id = 0; l1Id < l1Count; l1Id++)
-    {
-        ExtRemoteTyped l2MapChunk = chunk.ArrayElement(l1Id);
-        if (GetAsPointer(l2MapChunk) != 0)
+        auto type = heapBlock.Field("heapBlockType").GetChar();
+        if (type == ext->enum_LargeBlockType())
         {
-            if (ProcessL2Chunk(l1Id, l2MapChunk.Dereference()))
+            if (ProcessLargeHeapBlock(l1Id, l1Id, block, heapBlock))
             {
                 return true;
             }
         }
-    }
-
-    return false;
-}
-
-bool
-HeapBlockMapWalker::ProcessL2Chunk(size_t l1Id, ExtRemoteTyped chunk)
-{
-    ExtRemoteTyped l2map = chunk.Field("map");
-    const size_t l2Count = l2map.GetTypeSize() / l2map.ArrayElement(0).GetTypeSize();
-    for (size_t l2Id = 0; l2Id < l2Count; l2Id++)
-    {
-        ExtRemoteTyped heapBlock = l2map.ArrayElement(l2Id);
-        ULONG64 block = GetAsPointer(heapBlock);
-        if (block != 0)
+        else
         {
-            heapBlock = ext->CastWithVtable(heapBlock);
-            auto type = heapBlock.Field("heapBlockType").GetChar();
-
-            if (type == ext->enum_LargeBlockType())
+            if (ProcessHeapBlock(l1Id, l2Id, block, heapBlock))
             {
-                // Only LargeHeapBlock cross multiple entries
-                if (!this->skipMultipleLargeHeapBlocks || lastLargeHeapBlock != block)
-                {
-                    if (ProcessLargeHeapBlock(l1Id, l2Id, block, heapBlock))
-                    {
-                        return true;
-                    }
-                    lastLargeHeapBlock = block;
-                }
-            }
-            else
-            {
-                Assert(block != lastLargeHeapBlock);
-                if (ProcessHeapBlock(l1Id, l2Id, block, heapBlock))
-                {
-                    return true;
-                }
+                return true;
             }
         }
-    }
-
-    return false;
+        
+        return false;
+    });   
 }
 
 bool
-PrintHeapBlockStats::ProcessLargeHeapBlock(size_t, size_t, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
+PrintHeapBlockStats::ProcessLargeHeapBlock(ULONG64, ULONG64, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
 {
     largeStats.count++;
     unsigned long finalizeCount = heapBlock.Field("finalizeCount").GetUlong();
@@ -132,14 +74,13 @@ PrintHeapBlockStats::ProcessLargeHeapBlock(size_t, size_t, ULONG64 blockAddress,
         largeStats.objectByteCount += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
     }
 
-    largeStats.totalByteCount += 4096 * EXT_CLASS_BASE::GetSizeT(heapBlock.Field("pageCount"));
+    largeStats.totalByteCount += g_Ext->m_PageSize * EXT_CLASS_BASE::GetSizeT(heapBlock.Field("pageCount"));
     return false; //  not done yet
 }
 
 bool
-PrintHeapBlockStats::ProcessHeapBlock(size_t, size_t, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
+PrintHeapBlockStats::ProcessHeapBlock(ULONG64, ULONG64, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
 {
-
     auto type = heapBlock.Field("heapBlockType").GetChar();
     ushort objectSize = heapBlock.Field("objectSize").GetUshort();
     uint bucketIndex = (objectSize >> heapBlockHelper.GetObjectAllocationShift()) - 1;
@@ -161,20 +102,33 @@ PrintHeapBlockStats::ProcessHeapBlock(size_t, size_t, ULONG64 blockAddress, ExtR
 
     if (!this->heapBlockCollector.HasBlock(blockAddress))
     {
-        ext->Out("Unseen block: 0x%p, New: %d, InAllocator: %d, Size: 0x%x, Type: %d\n",
-            blockAddress,
-            heapBlock.Field("isNewHeapBlock").GetChar(),
-            heapBlock.Field("isInAllocator").GetChar(),
-            objectSize,
-            type
-            );
+        if (heapBlock.HasField("isNewHeapBlock"))
+        {
+            ext->Out("Unseen block: 0x%p, New: %d, InAllocator: %d, Size: 0x%x, Type: %d\n",
+                blockAddress,
+                heapBlock.Field("isNewHeapBlock").GetChar(),
+                heapBlock.Field("isInAllocator").GetChar(),
+                objectSize,
+                type
+                );
+        }
+        else
+        {
+            // isNewHeapBlock is gone for TH and above
+            ext->Out("Unseen block: 0x%p, InAllocator: %d, Size: 0x%x, Type: %d\n",
+                blockAddress,
+                heapBlock.Field("isInAllocator").GetChar(),
+                objectSize,
+                type
+                );
+        }
     }
 
     ushort objectCount = heapBlock.Field("objectCount").GetUshort();
     stats->count++;
     stats->objectCount += objectCount;
     stats->objectByteCount += (objectCount * heapBlock.Field("objectSize").GetUshort());
-    stats->totalByteCount += 4096;
+    stats->totalByteCount += g_Ext->m_PageSize;
     if (heapBlock.HasField("finalizeCount"))
     {
         unsigned short finalizeCount = heapBlock.Field("finalizeCount").GetUshort();
@@ -684,12 +638,15 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
 {
     // Skip any allocator blocks that are in the new heap block list
     // TODO: Change the model so that we can update stats for different buckets out of order
-    if (isAllocator && heapBlock.Field("isNewHeapBlock").GetChar() != 0)
+    if (isAllocator && heapBlock.HasField("isNewHeapBlock") && heapBlock.Field("isNewHeapBlock").GetChar() != 0)
     {
         return false;
     }
 
     current.count++;
+    const unsigned short totalObjectCount = heapBlock.Field("objectCount").GetUshort();
+    const unsigned short objectSize = heapBlock.Field("objectSize").GetUshort();
+    current.totalByteCount += ((totalObjectCount * objectSize) + g_Ext->m_PageSize - 1) & ~(g_Ext->m_PageSize - 1);
     int objectCount;
     if (isBumpAllocator)
     {
@@ -697,7 +654,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
     }
     else
     {
-        objectCount = heapBlock.Field("objectCount").GetUshort();
+        objectCount = totalObjectCount;
         if (freeObjectList.HasField("next"))
         {
             objectCount -= (unsigned short)EXT_CLASS_BASE::Count(freeObjectList, "next");
@@ -729,7 +686,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
     }
 
     current.objectCount += objectCount;
-    current.objectByteCount += objectCount * heapBlock.Field("objectSize").GetUshort();
+    current.objectByteCount += objectCount * objectSize;
 
     if (!newHeapBlockLayout || !isAllocator)
     {
@@ -743,7 +700,6 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
                 current.finalizeCount += finalizeCount;
             }
         }
-        current.totalByteCount += 4096;
     }
     return false; //  not done yet
 }
@@ -775,23 +731,19 @@ RecyclerPrintBucketStats::ProcessLargeHeapBlock(ExtRemoteTyped heapBlock)
         current.objectByteCount += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
     }
 
-    current.totalByteCount += 4096 * EXT_CLASS_BASE::GetSizeT(heapBlock.Field("pageCount"));
+    current.totalByteCount += g_Ext->m_PageSize * EXT_CLASS_BASE::GetSizeT(heapBlock.Field("pageCount"));
     return false; //  not done yet
 
 }
 
-ExtRemoteTyped HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap, bool allowOutput)
+ExtRemoteTyped HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap)
 {
     uint id1 = HeapBlockMap32::GetLevel1Id((void *)address);
     ExtRemoteTyped l2map = heapBlockMap.Field("map").ArrayElement(id1);
 
     if (l2map.GetPtr() == NULL)
     {
-        if (allowOutput)
-        {
-            ext->Out("Heap block not found\n");
-        }
-        return ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), 0);
+        return ExtRemoteTyped("(void *)0");
     }
 
     uint id2 = HeapBlockMap32::GetLevel2Id((void *)address);
@@ -799,8 +751,17 @@ ExtRemoteTyped HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped 
     return l2map.Field("map").ArrayElement(id2);
 }
 
-ExtRemoteTyped HeapBlockHelper::FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput, ULONG64* mapAddr)
+ExtRemoteTyped HeapBlockHelper::FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, ULONG64* mapAddr)
 {
+    if (mapAddr == nullptr)
+    {
+        RemoteHeapBlockMapWithCache * heapBlockMap = ext->recyclerCachedData.GetHeapBlockMap(recycler, false);
+        if (heapBlockMap)
+        {
+            return heapBlockMap->FindHeapBlock(address);
+        }
+    }
+
     ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
 
     if (heapBlockMap.HasField("list"))
@@ -819,19 +780,19 @@ ExtRemoteTyped HeapBlockHelper::FindHeapBlockTyped(ULONG64 address, ExtRemoteTyp
                 {
                     *mapAddr = node.GetPtr();
                 }
-                return FindHeapBlock32(address, heapBlockMap, allowOutput);
+                return FindHeapBlock32(address, heapBlockMap);
             }
             node = node.Field("next");
         }
 
-        return ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), 0);
+        return ExtRemoteTyped("(void *)0");
     }
-    return FindHeapBlock32(address, heapBlockMap, allowOutput);
+    return FindHeapBlock32(address, heapBlockMap);
 }
 
-ULONG64 HeapBlockHelper::FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler, bool allowOutput)
+ULONG64 HeapBlockHelper::FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler)
 {
-    return FindHeapBlockTyped(address, recycler, allowOutput).GetPtr();
+    return FindHeapBlockTyped(address, recycler).GetPtr();
 }
 
 ushort HeapBlockHelper::GetSmallHeapBlockObjectIndex(ExtRemoteTyped heapBlockObject, ULONG64 objectAddress)
@@ -1648,7 +1609,7 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
         ULONG64 addressOfSegment = pageSegmentListIterator.GetDataPtr();
 
         ULONG64 address = segment.Field("address").GetPtr();
-        ULONG64 segmentSize = EXT_CLASS_BASE::GetSizeT(segment.Field("segmentPageCount")) * 4096;
+        ULONG64 segmentSize = EXT_CLASS_BASE::GetSizeT(segment.Field("segmentPageCount")) * g_Ext->m_PageSize;
         totalSize += segmentSize;
 
         if (outputType == CommandOutputType::NormalOutputType ||
@@ -1733,7 +1694,7 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, Comm
             }
         }
 
-        Out("\nFree page list: %d entries (%d bytes)\n", count, (pageCount * 4096));
+        Out("\nFree page list: %d entries (%d bytes)\n", count, (pageCount * g_Ext->m_PageSize));
 
         count = 0;
         pageCount = 0;
@@ -1754,7 +1715,7 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, Comm
                 count++;
             }
         }
-        Out("Pending Zero page list: %d entries (%d bytes)\n", count, (pageCount * 4096));
+        Out("Pending Zero page list: %d entries (%d bytes)\n", count, (pageCount * g_Ext->m_PageSize));
     }
 }
 
@@ -1828,13 +1789,13 @@ public:
     {
     }
 
-    virtual bool ProcessHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block) override
+    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) override
     {
         ProcessBlock(blockAddress, block);
         return false;
     }
 
-    virtual bool ProcessLargeHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block) override
+    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) override
     {
         ProcessBlock(blockAddress, block);
         return false;
@@ -1843,7 +1804,7 @@ public:
     void PrintSummary()
     {
         ext->Out("----------------------------\n");
-        ext->Out("Type       Count       Bytes\n");
+        ext->Out("Type     Count       Bytes\n");
         ext->Out("----------------------------\n");
         ext->Out("Large: %7u %11I64u\n", largeCount, largeBlockBytes);
         ext->Out("Small: %7u %11I64u\n", smallCount, smallBlockBytes);
@@ -1858,14 +1819,18 @@ private:
 
         if (type == ext->enum_LargeBlockType())
         {
-            ExtRemoteTyped largeBlock(ext->FillModuleAndMemoryNS("(%s!%sLargeHeapBlock*)@$extin"), block);
-            largeBlockBytes += (4096 * EXT_CLASS_BASE::GetSizeT(largeBlock.Field("pageCount")));
+            ExtRemoteTyped largeBlock = ext->recyclerCachedData.GetAsLargeHeapBlock(block);            
+            largeBlockBytes += (g_Ext->m_PageSize * EXT_CLASS_BASE::GetSizeT(largeBlock.Field("pageCount")));
             // Out("Large block: 0x%x\n", heapBlock.GetPtr());
             largeCount++;
         }
         else
         {
-            smallBlockBytes += 4096;
+            ExtRemoteTyped smallBlock = ext->recyclerCachedData.GetAsSmallHeapBlock(block);
+            // Small block can have multple pages in Threshold
+            ULONG64 objectCount = smallBlock.Field("objectCount").GetUshort();
+            ULONG64 objectSize = smallBlock.Field("objectSize").GetUshort();
+            smallBlockBytes += JDUtil::Align<ULONG64>(objectCount * objectSize, g_Ext->m_PageSize);
             smallCount++;
         }
 
@@ -2200,7 +2165,7 @@ JD_PRIVATE_COMMAND(memstats,
         }
         if (showPageAllocator || showThreadSummary)
         {
-            g_Ext->Dml("<link cmd=\"!jd.memstats -tc %p\">%016p</link>", threadContextPtr, threadContextPtr);
+            g_Ext->Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
             RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes);
         }
 
@@ -2270,11 +2235,13 @@ JD_PRIVATE_COMMAND(memstats,
     }
 }
 
-ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, std::string* typeName)
-{
-    static std::map<ULONG64, ULONG> vtableTypeIdMap;
-    static std::map<ULONG64, std::string> vtableTypeNameMap;
+ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, char const ** typeName)
+{    
+    return CastWithVtable(ExtRemoteTyped("(void *)@$extin", objectAddress), typeName);
+}
 
+ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, char const** typeName)
+{
     if (original.m_Typed.Tag != SymTagPointerType)
     {
         original = original.GetPointerTo();
@@ -2287,40 +2254,38 @@ ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, std::stri
     }
     ExtRemoteTyped result = original;
 
-    if (typeName && vtableTypeNameMap.find(vtbleAddr) != vtableTypeNameMap.end())
-    {
-        *typeName = vtableTypeNameMap[vtbleAddr];
-    }
-
     if (vtableTypeIdMap.find(vtbleAddr) != vtableTypeIdMap.end())
     {
-        result.Set(true, original.m_Typed.ModBase, vtableTypeIdMap[vtbleAddr], original.GetPtr());
-    }
-    else
-    {
-        ExtBuffer<char> vtableName;
-        if (this->GetOffsetSymbol(vtbleAddr, &vtableName))
+        std::pair<ULONG64, ULONG> vtableTypeId = vtableTypeIdMap[vtbleAddr];
+        result.Set(true, vtableTypeId.first, vtableTypeId.second, original.GetPtr());
+
+        if (typeName)
         {
-            int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
-            if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
-            {
-                vtableName.GetBuffer()[len] = '\0';
-                if (typeName)
-                {
-                    *typeName = vtableName.GetBuffer();
-                }
+            *typeName = GetTypeNameFromVTablePointer(vtbleAddr);
+        }
 
-                vtableTypeNameMap[vtbleAddr] = vtableName.GetBuffer();
-
-                ULONG typeId;
-                this->m_Symbols3->GetTypeId(original.m_Typed.ModBase, vtableName.GetBuffer(), &typeId);
-
-                result.Set(true, original.m_Typed.ModBase, typeId, original.GetPtr());
-                vtableTypeIdMap[vtbleAddr] = typeId;
-            }
+        return result;
+    }
+    
+    char const * localTypeName = GetTypeNameFromVTablePointer(vtbleAddr);
+    if (localTypeName != nullptr)
+    {
+        if (typeName)
+        {
+            *typeName = localTypeName;
+        }
+        ULONG64 modBase;
+        ULONG typeId;
+        if (SUCCEEDED(this->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
+            && SUCCEEDED(this->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
+        {
+            result.Set(true, modBase, typeId, original.GetPtr());
+            vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
+            return result;
         }
     }
-    return result;
+
+    return original;
 }
 
 typedef struct _OBJECTINFO
@@ -2338,7 +2303,7 @@ typedef struct _OBJECTINFO
     ExtRemoteTyped heapBlock;
     bool succeeded = false;
     std::string message;
-    std::string typeName;
+    char const * typeName;
     ULONG64 x64MapAddr = 0;
 } OBJECTINFO;
 
@@ -2347,21 +2312,21 @@ OBJECTINFO GetObjectInfo(ULONG64 address, ExtRemoteTyped recycler, EXT_CLASS_BAS
     OBJECTINFO info;
     HeapBlockHelper helper(ext, recycler);
     ExtRemoteTyped& heapBlock = info.heapBlock;
-    heapBlock = helper.FindHeapBlockTyped(address, recycler, false, &info.x64MapAddr);
+    heapBlock = helper.FindHeapBlockTyped(address, recycler, &info.x64MapAddr);
     if (heapBlock.GetPtr() == 0)
     {
         info.message = "Could not find heap block corresponding to this address";
         return info;
     }
 
-    std::string& typeName = info.typeName;
+    char const *& typeName = info.typeName;    
     heapBlock = ext->CastWithVtable(heapBlock, &typeName);
 
     ExtRemoteTyped heapBlockType = heapBlock.Field("heapBlockType");
     auto typeEnumName = heapBlockType.GetSimpleValue();
     if (strstr(typeEnumName, "Large") == typeEnumName)
     {
-        if (strstr(typeName.c_str(), "LargeHeapBlock") == nullptr)
+        if (strstr(typeName, "LargeHeapBlock") == nullptr)
         {
             info.message = "not a valid large block.";
             return info;
@@ -2405,7 +2370,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, ExtRemoteTyped recycler, EXT_CLASS_BAS
 
         if (strstr(typeEnumName, "Small") == typeEnumName)
         {
-            if (strstr(typeName.c_str(), "Small") == nullptr)
+            if (strstr(typeName, "Small") == nullptr)
             {
                 info.message = "not a valid small block.";
                 return info;
@@ -2413,7 +2378,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, ExtRemoteTyped recycler, EXT_CLASS_BAS
         }
         else if (strstr(typeEnumName, "Medium") == typeEnumName)
         {
-            if (strstr(typeName.c_str(), "Medium") == nullptr)
+            if (strstr(typeName, "Medium") == nullptr)
             {
                 info.message = "not a valid Medium block.";
                 return info;
@@ -2591,7 +2556,7 @@ MPH_COMMAND(mpheap,
                 ULONG leadingGuardPageCount = pageSegment.Field("leadingGuardPageCount").GetUlong();
                 ULONG trailingGuardPageCount = pageSegment.Field("trailingGuardPageCount").GetUlong();
                 ULONG validPageCount = pageCount - leadingGuardPageCount - trailingGuardPageCount;
-                ULONG64 validAddress = address + leadingGuardPageCount * 4096;
+                ULONG64 validAddress = address + leadingGuardPageCount * g_Ext->m_PageSize;
 
                 if (validAddresses.find(validAddress) != validAddresses.end())
                 {
@@ -2600,10 +2565,10 @@ MPH_COMMAND(mpheap,
                 }
 
                 PCSTR searchcmd = FillModuleV(this->m_PtrSize == 8 ? "s -%c 0x%016I64x L?0x%x 0x%016I64x" : "s -%c 0x%08I64x L?0x%x 0x%08I64x",
-                    type, validAddress, validPageCount * 4096, pattern);
+                    type, validAddress, validPageCount * g_Ext->m_PageSize, pattern);
                 if (verbose)
                 {
-                    this->Dml("\nSegment: %p+<link cmd=\"%s\">%x</link>:\n", validAddress, searchcmd, validPageCount * 4096);
+                    this->Dml("\nSegment: %p+<link cmd=\"%s\">%x</link>:\n", validAddress, searchcmd, validPageCount * g_Ext->m_PageSize);
                 }
                 this->Execute(searchcmd);
                 return false;
@@ -2810,7 +2775,7 @@ JD_PRIVATE_COMMAND(findpage,
             pageAllocator.ForEachSegment([&](PCSTR segName, ExtRemoteTyped pageSegment)->bool{
                 ULONG64 address = pageSegment.Field("address").GetUlongPtr();
                 ULONG pageCount = pageSegment.Field("segmentPageCount").GetUlong();
-                if (address <= targetAddress && pageCount * 4096 + address > targetAddress)
+                if (address <= targetAddress && pageCount * g_Ext->m_PageSize + address > targetAddress)
                 {
                     this->Out("Page Allocator: %p, %s\n", pageAllocator.GetExtRemoteTyped().GetPointerTo().GetPtr(), name);
                     pageAllocator.GetExtRemoteTyped().OutFullValue();

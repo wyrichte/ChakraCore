@@ -91,7 +91,7 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
 void
 EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
 {
-    this->recyclerCachedData.Clear();
+    this->ClearCache();
 }
 
 // Get cached JS module name
@@ -172,7 +172,6 @@ PCSTR EXT_CLASS_BASE::GetMemoryNS()
 
     return m_gcNS;
 }
-
 
 ULONG64 EXT_CLASS_BASE::GetSizeT(ExtRemoteTyped data)
 {
@@ -819,6 +818,32 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
         return std::string(vtablename).substr(0, len - vftableSuffixLen);
     }
     return std::string();
+}
+
+char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
+{
+    auto i = vtableTypeNameMap.find(vtableAddr);
+    if (i != vtableTypeNameMap.end())
+    {
+        return (*i).second->c_str();
+    }
+
+    ExtBuffer<char> vtableName;
+    if (this->GetOffsetSymbol(vtableAddr, &vtableName))
+    {
+        int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
+        if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+        {
+            vtableName.GetBuffer()[len] = '\0';
+
+            auto newString = new std::string(vtableName.GetBuffer());
+            // Actual type name in expression shouldn't have __ptr64 in them
+            JDUtil::ReplaceString(*newString, " __ptr64", "");
+            vtableTypeNameMap[vtableAddr] = newString;
+            return newString->c_str();;
+        }
+    }
+    return nullptr;
 }
 
 std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
