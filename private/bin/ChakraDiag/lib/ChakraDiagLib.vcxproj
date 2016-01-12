@@ -36,6 +36,7 @@
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;
         $(ChakraRootDirectory)core\Lib\Backend;
+        $(ChakraRootDirectory)core\lib\WasmReader;
         $(ChakraRootDirectory)private\lib\Engine;
         $(ChakraRootDirectory)private\lib\Projection;
         $(ChakraRootDirectory)private\bin\Chakra;

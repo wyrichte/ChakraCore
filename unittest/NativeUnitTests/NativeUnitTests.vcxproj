@@ -37,6 +37,7 @@
         $(ChakraRootDirectory)core\lib\Runtime\Base;
         $(ChakraRootDirectory)core\lib\Runtime\Library;
         $(ChakraRootDirectory)core\lib\Backend;
+        $(ChakraRootDirectory)core\lib\WasmReader;
         $(ChakraRootDirectory)private\bin\Chakra;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
         $(ChakraRootDirectory)private\lib\HostCommon;

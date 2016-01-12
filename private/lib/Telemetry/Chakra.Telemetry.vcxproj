@@ -24,6 +24,7 @@
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Parser;
+        $(ChakraRootDirectory)core\lib\WasmReader;
         $(ChakraRootDirectory)core\lib\Backend;
         <!-- For ChakraVersion.h -->
         $(MSBuildThisFileDirectory)..\..\lib\Engine;
