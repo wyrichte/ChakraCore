@@ -1004,6 +1004,8 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     DWORD written;
 
     // For validating the header file against the library file
+    // We want to keep the MIT notice here because Intl.js ByteCode can, in theory, be produced using either ch.exe or jshost.exe.
+    // No matter how it is generated, we want to make sure that the MIT License is definitely present in case we commit the result to Git.
     auto outputStr =
         "//-------------------------------------------------------------------------------------------------------\r\n"
         "// Copyright (C) Microsoft. All rights reserved.\r\n"
@@ -1062,8 +1064,8 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     outputStr = "};\r\n\r\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
-    outputStr = "}";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+    outputStr = "}\r\n";
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
 Error:
     if (fileHandle) CloseHandle(fileHandle);
