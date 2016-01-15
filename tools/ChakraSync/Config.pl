@@ -4,15 +4,17 @@ our %OPTIONS = (
     ServiceAccountEmail => 'ChakrAut@microsoft.com', # Email address of the service account (to send from)
 
     # Email options
-    EmailTo             => 'tcare@microsoft.com',
-    EmailCC             => ['curtism@microsoft.com', 'hiteshk@microsoft.com'],
+    EmailTo             => ['tcare@microsoft.com', 'cc:curtism@microsoft.com', 'cc:hiteshk@microsoft.com', 'cc:doilij@microsoft.com'],
     Email               => 1,
 
     # Enlistment options
-    RootSDEnlistment    => "C:\\dev3.sd\\chakra",
-    CoreSDEnlistment    => "C:\\dev3.sd\\chakracore",
-    VSOCoreURL          => "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/ChakraCore",
-    VSOPrivateURL       => "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/Chakra",
+    SDEnlistment        => "C:\\rs1_dev3\\inetcore\\jscript",
+    RemoteGitURL        => "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/Chakra",
+    FullBranch          => 'unreleased/rs1', # Remote working Git branch
+    CoreBranch          => 'unreleased/rs1', # Used to override the association of the Full branch with the Core one. E.g. after a branch rename
+    GitHubURL           => 'https://username:token@github.com/Microsoft/ChakraCore.git',
+    GitHubRepoName      => 'ChakraCore',
+    VSOCoreURL          => 'https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/ChakraCore',
 
     # General run options
     Verbose             => 1,
