@@ -8,10 +8,11 @@ RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, ExtRemoteTyp
     _ext(extension),
     _verbose(verbose),
     _heapBlockHelper(extension, recycler),
-    _recycler(recycler),
+    m_hbm(recycler.Field("heapBlockMap")),
     m_hasTypeName(false),
     m_hasTypeNameAndFields(false),
-    m_trident(false)
+    m_trident(false),
+    m_interior(recycler.HasField("enableScanInteriorPointers") && recycler.Field("enableScanInteriorPointers").GetStdBool())
 {
 }
 
@@ -49,9 +50,6 @@ void RecyclerObjectGraph::Construct(Addresses& roots)
     {
         PushMark(root, 0);
     });
-
-    // Ensure the cached heap block map
-    _ext->recyclerCachedData.GetHeapBlockMap(_recycler);
 
     int iters = 0;
 
@@ -580,107 +578,41 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 
 void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
 {
-    if (address != 0 && _heapBlockHelper.IsAlignedAddress(address))
+    if (address == 0 || !_heapBlockHelper.IsAlignedAddress(address))
     {
-        ULONG64 heapBlockAddress = _heapBlockHelper.FindHeapBlock(address, _recycler);
-        if (heapBlockAddress != 0)
+        return;
+    }
+    RemoteHeapBlock * remoteHeapBlock = m_hbm.FindHeapBlock(address);
+    if (remoteHeapBlock == 0)
+    {
+        return;
+    }
+    HeapObjectInfo info;
+    if (!remoteHeapBlock->GetRecyclerHeapObjectInfo(address, info, this->m_interior))
+    {
+        return;
+    }
+
+    GraphNode<ULONG64, RecyclerGraphNodeAux>* node = _objectGraph.GetNode(info.objectAddress);
+    if (prev)
+    {
+        _objectGraph.AddEdge(prev, node);
+    }
+    else
+    {
+        node->aux.isRoot = true;
+    }
+
+    if (!node->aux.isScanned)
+    {
+        node->aux.objectSize = info.objectSize;
+        if (!info.IsLeaf())
         {
-            GraphNode<ULONG64, RecyclerGraphNodeAux>* node = _objectGraph.GetNode(address);
-            if (prev)
-            {
-                _objectGraph.AddEdge(prev, node);
-            }
-            else
-            {
-                node->aux.isRoot = true;
-            }
-
-            if (!node->aux.isScanned)
-            {
-                ExtRemoteTyped heapBlock = _ext->recyclerCachedData.GetAsHeapBlock(heapBlockAddress);
-                auto type = _heapBlockHelper.GetHeapBlockType(heapBlock);
-                ULONG64 objectSize = 0;
-
-                if (type == _ext->enum_LargeBlockType())
-                {
-                    ExtRemoteTyped largeBlock = _ext->recyclerCachedData.GetAsLargeHeapBlock(heapBlockAddress);
-                    objectSize = GetLargeObjectSize(largeBlock, address);
-                }
-                else if (type != _ext->enum_SmallLeafBlockType() && type != _ext->enum_MediumLeafBlockType())
-                {
-                    ExtRemoteTyped smallBlock = _ext->recyclerCachedData.GetAsSmallHeapBlock(heapBlockAddress);
-
-                    // Hack- make this a friend of SmallHeapBlock
-                    if (_heapBlockHelper.GetSmallHeapBlockObjectIndex(smallBlock, address) != 0xffff)
-                    {
-                        objectSize = (ULONG64)smallBlock.Field("objectSize").GetUshort();
-                    }
-                }
-
-                if (objectSize != 0)
-                {
-                    ScanBytes(address, objectSize);
-                }
-
-                if (type != _ext->enum_SmallLeafBlockType())
-                {
-                    node->aux.objectSize = (uint)objectSize;
-                }
-                else
-                {
-                    ExtRemoteTyped smallBlock = _ext->recyclerCachedData.GetAsSmallHeapBlock(heapBlockAddress);
-                    node->aux.objectSize = (ULONG64)smallBlock.Field("objectSize").GetUshort();
-                }
-                node->aux.isScanned = true;
-            }
-        }
-    }
-}
-
-ULONG64 RecyclerObjectGraph::GetLargeObjectSize(ExtRemoteTyped heapBlockObject, ULONG64 objectAddress)
-{
-    ULONG64 heapBlock = heapBlockObject.GetPointerTo().GetPtr();
-    ULONG64 blockAddress = heapBlockObject.Field("address").GetPtr();
-
-    ULONG64 sizeOfHeapBlock = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-
-    ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
-
-    if (headerAddress < blockAddress)
-    {
-        if (_verbose)
-            _ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-        return 0;
-    }
-
-    ExtRemoteTyped largeObjectHeader(_ext->FillModuleAndMemoryNS("%s!%sLargeObjectHeader"), headerAddress, false);
-
-    HeapObject heapObject;
-    ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount"));
-    heapObject.index = (ushort)largeObjectHeader.Field("objectIndex").m_Typed.Data; // Why does calling UShort not work?
-
-    if (heapObject.index > objectCount)
-    {
-        return 0;
-    }
-
-    ULONG largeObjectHeaderPtrSize = _ext->m_PtrSize;
-    ULONG64 headerArrayAddress = heapBlock + sizeOfHeapBlock + (heapObject.index * largeObjectHeaderPtrSize);
-    ExtRemoteData  headerData(headerArrayAddress, largeObjectHeaderPtrSize);
-
-    if (headerData.GetPtr() != headerAddress)
-    {
-        if (_verbose)
-        {
-            _ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-            _ext->Out("Header address: 0x%p, Header in index %d is 0x%p\n", headerAddress, heapObject.index, headerData.GetPtr());
+            ScanBytes(info.objectAddress, info.objectSize);
         }
 
-        return 0;
+        node->aux.isScanned = true;
     }
-
-    return EXT_CLASS_BASE::GetSizeT(largeObjectHeader.Field("objectSize"));
 }
 
 void RecyclerObjectGraph::ScanBytes(ULONG64 address, ULONG64 size)

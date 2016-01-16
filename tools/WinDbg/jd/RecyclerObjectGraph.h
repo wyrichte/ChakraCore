@@ -50,7 +50,6 @@ public:
 protected:
     void ClearTypeInfo();
     void MarkObject(ULONG64 address, ULONG64 prev);
-    ULONG64 GetLargeObjectSize(ExtRemoteTyped heapBlockObject, ULONG64 objectAddress);
     void ScanBytes(ULONG64 address, ULONG64 size);
     void PushMark(ULONG64 object, ULONG64 prev);
 
@@ -59,6 +58,7 @@ protected:
     std::stack<MarkStackEntry> _markStack;
     GraphImplType _objectGraph;
 
+    RemoteHeapBlockMap m_hbm;
     HeapBlockHelper _heapBlockHelper;
     ExtRemoteTyped _recycler;
     EXT_CLASS_BASE* _ext;
@@ -66,6 +66,7 @@ protected:
     bool m_trident;
     bool m_hasTypeName;
     bool m_hasTypeNameAndFields;
+    bool m_interior;
 };
 
 

@@ -67,6 +67,7 @@
     <ClCompile Include="RecyclerRoots.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
+    <ClCompile Include="RemoteHeapBlock.cpp" />
     <ClCompile Include="RemoteHeapBlockMap.cpp" />
     <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
     <ClCompile Include="RemoteJavascriptFunction.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
     <ClInclude Include="CachedTypeInfo.h" />
     <ClInclude Include="Collections.h" />
+    <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RecyclerObjectGraph.h" />
     <ClInclude Include="RemoteHeapBlockMap.h" />
     <ClInclude Include="jdbackend.h" />

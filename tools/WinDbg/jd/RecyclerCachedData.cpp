@@ -41,22 +41,20 @@ Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemo
     return rootPointers;
 }
 
-RemoteHeapBlockMapWithCache * RecyclerCachedData::GetHeapBlockMap(ExtRemoteTyped recycler, bool create)
+RemoteHeapBlockMap::Cache * RecyclerCachedData::GetHeapBlockMap(ExtRemoteTyped heapBlockMap)
 {
-    auto i = m_heapblockMapCache.find(recycler.GetPtr());
+    auto i = m_heapblockMapCache.find(heapBlockMap.GetPtr());
     if (i != m_heapblockMapCache.end())
     {
         return (*i).second;
     }
-
-    if (create)
-    {
-        RemoteHeapBlockMapWithCache  * remoteHeapBlockMap = new RemoteHeapBlockMapWithCache(recycler.Field("heapBlockMap"));
-        m_heapblockMapCache[recycler.GetPtr()] = remoteHeapBlockMap;
-        return remoteHeapBlockMap;
-    }
-
     return nullptr;
+}
+
+void RecyclerCachedData::SetHeapBlockMap(ExtRemoteTyped heapBlockMap, RemoteHeapBlockMap::Cache * cache)
+{
+    Assert(m_heapblockMapCache.find(heapBlockMap.GetPtr()) == m_heapblockMapCache.end());
+    m_heapblockMapCache[heapBlockMap.GetPtr()] = cache;
 }
 
 void RecyclerCachedData::Clear()

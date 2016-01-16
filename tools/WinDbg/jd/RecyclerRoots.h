@@ -78,9 +78,10 @@ public:
     {
         if (address != 0 && _heapBlockHelper.IsAlignedAddress(address))
         {
-            ULONG64 heapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler);
+            RemoteHeapBlock * remoteHeapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler);
 
-            if (heapBlock != NULL && m_addresses->_addresses.count(address) == 0)
+            // TODO: Validate it is a valid object pointer?
+            if (remoteHeapBlock && m_addresses->_addresses.count(address) == 0)
             {
 #if DBG
                 if (g_Ext->m_PtrSize == 4)
@@ -114,6 +115,7 @@ public:
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
     void ScanArenaBigBlocks(ExtRemoteTyped blocks);
     void ScanObject(ULONG64 object, size_t bytes);
+    void ScanImplicitRoots(bool print = true);
 private:
     std::auto_ptr<Addresses> m_addresses;
     ExtRemoteTyped _recycler;

@@ -10,6 +10,7 @@
 #include <stack>
 #include <queue>
 #include "RecyclerObjectGraph.h"
+#include "RemoteHeapBlockMap.h"
 
 #ifdef JD_PRIVATE
 
@@ -308,94 +309,82 @@ void RootPointerReader::ScanArena(ULONG64 arena, bool verbose)
     ScanArenaData(arena);
 }
 
-class ScanImplicitRoot : public HeapBlockMapWalker
+void RootPointerReader::ScanImplicitRoots(bool print)
 {
-public:
-    ScanImplicitRoot(EXT_CLASS_BASE * ext, ExtRemoteTyped recycler, RootPointerReader& rootPointers, bool print = true) :
-        HeapBlockMapWalker(ext, recycler), rootPointers(rootPointers), implicitRootCount(0), implicitRootSize(0), print(print)
-    {};
-    ~ScanImplicitRoot()
-    {
-        if (print)
-        {
-            ext->Out("\nImplicit Root: Count=%I64d Size=%I64d\n", implicitRootCount, implicitRootSize);
-        }
-    }
-    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block)
-    {
-        ULONG64 heapBlock = block.GetPtr();
-        ushort objectCount = block.Field("objectCount").GetUshort();
-        ULONG64 attributeStartAddress = heapBlock - objectCount;
-
-        ExtRemoteData remoteAttributes(attributeStartAddress, objectCount);
-        std::vector<byte> attributes(objectCount);
-        remoteAttributes.ReadBuffer(&attributes[0], objectCount);
-
-        ULONG64 heapBlockAddress = block.Field("address").GetPtr();
-        ushort objectSize = block.Field("objectSize").GetUshort();
-        for (ushort i = 0; i < objectCount; i++)
-        {
-            if ((attributes[objectCount - i - 1] & ObjectInfoBits::ImplicitRootBit)
-                && (attributes[objectCount - i - 1] & ObjectInfoBits::PendingDisposeBit) == 0)
-            {
-                rootPointers.Add(heapBlockAddress + objectSize * i);
-                if (print)
-                {
-                    implicitRootCount++;
-                    implicitRootSize += objectSize;
-                }
-            }
-        }
-        return false;
-    }
-    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
-    {
-        unsigned int allocCount = heapBlock.Field("allocCount").GetUlong();
-        ExtRemoteTyped headerList =
-            ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), heapBlock.GetPtr() + heapBlock.Dereference().GetTypeSize());
-        ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-        for (unsigned int i = 0; i < allocCount; i++)
-        {
-            ExtRemoteTyped header = headerList.ArrayElement(i);
-            if (header.GetPtr() == 0)
-            {
-                continue;
-            }
-            byte attribute;
-
-            if (header.HasField("attributesAndChecksum"))
-            {
-                attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ recycler.Field("Cookie").GetUlong() >> 8);
-            }
-            else if (header.HasField("attributes"))
-            {
-                attribute = header.Field("attributes").GetUchar();
-            }
-            else
-            {
-                ext->Err("Can't find either attributes or attributesAndChecksum on LargeHeapBlock");
-                return false;
-            }
-
-            if (attribute & ObjectInfoBits::ImplicitRootBit)
-            {
-                rootPointers.Add(header.GetPtr() + sizeOfObjectHeader);
-                if (print)
-                {
-                    implicitRootCount++;
-                    implicitRootSize += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
-                }
-            }
-        }
-        return false;
-    }
-
-private:
-    RootPointerReader& rootPointers;
     ULONG64 implicitRootCount;
     ULONG64 implicitRootSize;
-    bool print;
-};
+
+    RemoteHeapBlockMap hbm(_recycler.Field("heapBlockMap"));
+
+    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+    {
+        if (remoteHeapBlock.IsLargeHeapBlock())
+        {
+            ULONG64 sizeOfObjectHeader = g_Ext->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            return remoteHeapBlock.ForEachLargeObjectHeader([&](ExtRemoteTyped& header)
+            {
+                byte attribute;
+
+                if (header.HasField("attributesAndChecksum"))
+                {
+                    attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ _recycler.Field("Cookie").GetUlong() >> 8);
+                }
+                else if (header.HasField("attributes"))
+                {
+                    attribute = header.Field("attributes").GetUchar();
+                }
+                else
+                {
+                    g_Ext->Err("Can't find either attributes or attributesAndChecksum on LargeHeapBlock");
+                    return true;
+                }
+
+                if (attribute & ObjectInfoBits::ImplicitRootBit)
+                {
+                    this->Add(header.GetPtr() + sizeOfObjectHeader);
+                    if (print)
+                    {
+                        implicitRootCount++;
+                        implicitRootSize += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
+                    }
+                }
+                return false;
+            });
+        }
+        else
+        {
+            ULONG64 heapBlock = remoteHeapBlock.GetHeapBlockAddress();
+            ULONG objectCount = remoteHeapBlock.GetTotalObjectCount();
+            ULONG64 attributeStartAddress = heapBlock - objectCount;
+
+            ExtRemoteData remoteAttributes(attributeStartAddress, objectCount);
+            std::vector<byte> attributes(objectCount);
+            remoteAttributes.ReadBuffer(&attributes[0], objectCount);
+
+            ULONG64 heapBlockAddress = remoteHeapBlock.GetAddress();
+            ULONG64 objectSize = remoteHeapBlock.GetBucketObjectSize();
+            for (ULONG i = 0; i < objectCount; i++)
+            {
+                if ((attributes[objectCount - i - 1] & ObjectInfoBits::ImplicitRootBit)
+                    && (attributes[objectCount - i - 1] & ObjectInfoBits::PendingDisposeBit) == 0)
+                {
+                    this->Add(heapBlockAddress + objectSize * i);
+                    if (print)
+                    {
+                        implicitRootCount++;
+                        implicitRootSize += objectSize;
+                    }
+                }
+            }
+        }
+        return false;
+    });
+
+    if (print)
+    {
+        g_Ext->Out("\nImplicit Root: Count=%I64d Size=%I64d\n", implicitRootCount, implicitRootSize);
+    }
+}
 
 bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext, bool verbose)
 {
@@ -745,13 +734,12 @@ JD_PRIVATE_COMMAND(oi,
     }
 
     HeapBlockHelper heapBlockHelper(this, recycler);
-    ULONG64 heapBlockAddress = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
-    if (heapBlockAddress != NULL)
-    {
-        ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), heapBlockAddress);
-        ULONG64 heapBlockType = heapBlockHelper.GetHeapBlockType(heapBlock);
+    RemoteHeapBlock * remoteHeapBlock = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
+    if (remoteHeapBlock != NULL)
+    {        
+        ULONG64 heapBlockType = remoteHeapBlock->GetType();
 
-        heapBlockHelper.DumpHeapBlockLink(heapBlockType, heapBlock.GetPtr());
+        heapBlockHelper.DumpHeapBlockLink(heapBlockType, remoteHeapBlock->GetHeapBlockAddress());
 
         if (heapBlockType >= this->enum_BlockTypeCount())
         {
@@ -759,6 +747,7 @@ JD_PRIVATE_COMMAND(oi,
             return;
         }
 
+        ExtRemoteTyped heapBlock = remoteHeapBlock->GetExtRemoteTyped();
         if (heapBlockType == this->enum_LargeBlockType())
         {
             heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, verbose);
@@ -821,8 +810,7 @@ JD_PRIVATE_COMMAND(showroots,
 
     if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
     {
-        ScanImplicitRoot implicitRootScan(this, recycler, rootPointerManager);
-        implicitRootScan.Run();
+        rootPointerManager.ScanImplicitRoots();
     }
 
     if (threadContext.GetPtr() != NULL && threadContext.HasField("externalWeakReferenceCacheList"))
@@ -889,8 +877,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
 
     if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
     {
-        ScanImplicitRoot implicitRootScan(ext, recycler, rootPointerManager, dump);
-        implicitRootScan.Run();
+        rootPointerManager.ScanImplicitRoots(dump);
     }
 
     if (threadContext && threadContext->HasField("externalWeakReferenceCacheList"))

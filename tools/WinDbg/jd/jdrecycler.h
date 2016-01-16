@@ -48,6 +48,8 @@
 #include "Memory\HeapBlockMap.h"
 #endif
 
+#include "RemoteHeapBlock.h"
+
 // STL headers
 #include <hash_set>
 #include <hash_map>
@@ -86,9 +88,9 @@ public:
     void DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlock, ULONG64 address, bool verbose);
     void DumpHeapObject(const HeapObject& heapObject, bool verbose);
     void DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock);
-    ULONG64 FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler);    
-    ExtRemoteTyped FindHeapBlockTyped(ULONG64 address, ExtRemoteTyped recycler, ULONG64* mapAddr = nullptr);
-    ExtRemoteTyped FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap);
+    RemoteHeapBlock * FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler);
+    RemoteHeapBlock FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler, ULONG64* mapAddr);
+    RemoteHeapBlock FindHeapBlock32(ULONG64 address, ExtRemoteTyped heapBlockMap);
     ULONG64 GetHeapBlockType(ExtRemoteTyped& heapBlock);
     ushort GetAddressSmallHeapBlockBitIndex(ULONG64 objectAddress);
 
@@ -152,7 +154,7 @@ class CollectSmallHeapBlocks : public RecyclerForEachHeapBlock
 {
 
 public:
-    CollectSmallHeapBlocks(Extension* ext, ExtRemoteTyped recycler) :
+    CollectSmallHeapBlocks(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler) :
         RecyclerForEachHeapBlock(recycler),
         ext(ext)
     {}
@@ -178,32 +180,9 @@ public:
         return false;
     }
 private:
-    Extension* ext;
+    EXT_CLASS_BASE* ext;
     stdext::hash_set<ULONG64> blocks;
 };
-
-///
-/// Similar to RecyclerForEachHeapBlock, in that it's used to enumerate all heap blocks
-/// The difference is that it operates off the heap block map instead of HeapInfo
-/// The results should be effectively the same
-///
-class HeapBlockMapWalker
-{
-public:
-    HeapBlockMapWalker(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, bool skipMultipleHeapBlocks = true) :
-        ext(ext), recycler(recycler), skipMultipleHeapBlocks(skipMultipleHeapBlocks)
-    {}
-
-    virtual bool Run();
-protected:
-    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
-    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block) = 0;
-
-    EXT_CLASS_BASE* ext;
-    bool skipMultipleHeapBlocks;
-    ExtRemoteTyped recycler;
-};
-
 
 struct RecyclerBucketStats
 {
@@ -219,7 +198,6 @@ struct RecyclerBucketStats
     {
         count += current.count;
         emptyCount += current.emptyCount;
-        finalizeBlockCount += current.finalizeBlockCount;
         finalizeCount += current.finalizeCount;
         objectCount += current.objectCount;
         objectByteCount += current.objectByteCount;
@@ -228,38 +206,11 @@ struct RecyclerBucketStats
 
     void Out(ExtExtension * ext)
     {
-        ext->Out("%5I64u %5I64u %7I64u %4I64u %11I64u %11I64u %11I64u   %6.2f%%",
-            count, finalizeBlockCount, objectCount, finalizeCount,
+        ext->Out("%5I64u %7I64u %7I64u %11I64u %11I64u %11I64u   %6.2f%%",
+            count, objectCount, finalizeCount,
             objectByteCount, totalByteCount - objectByteCount, totalByteCount,
             100.0 * (static_cast<double>(objectByteCount) / totalByteCount));
     }
-};
-
-class PrintHeapBlockStats : HeapBlockMapWalker
-{
-public:
-    PrintHeapBlockStats(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler) :
-        HeapBlockMapWalker(ext, recycler),
-        heapBlockHelper(ext, recycler),
-        heapBlockCollector((Extension*)ext, recycler)
-    {}
-
-    virtual bool Run();
-protected:
-    virtual bool ProcessHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
-    virtual bool ProcessLargeHeapBlock(ULONG64 l1Id, ULONG64 l2Id, ULONG64 blockAddress, ExtRemoteTyped block);
-
-    RecyclerBucketStats normalStats[HeapConstants::BucketCount];
-    RecyclerBucketStats leafStats[HeapConstants::BucketCount];
-    RecyclerBucketStats finalizableStats[HeapConstants::BucketCount];
-    RecyclerBucketStats normalWBStats[HeapConstants::BucketCount];
-    RecyclerBucketStats finalizableWBStats[HeapConstants::BucketCount];
-
-    RecyclerBucketStats largeStats;
-    RecyclerBucketStats smallStats;
-
-    HeapBlockHelper heapBlockHelper;
-    CollectSmallHeapBlocks heapBlockCollector;
 };
 
 enum PrintBucketStatsFilter

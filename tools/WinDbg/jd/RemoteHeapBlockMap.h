@@ -7,10 +7,13 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
+#include "RemoteHeapBlock.h"
+
 class RemoteHeapBlockMap
 {
 public:
-    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap) : heapBlockMap(heapBlockMap) {};
+    typedef stdext::hash_map<ULONG64, RemoteHeapBlock> Cache;
+    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache = true);
 
     template <typename Fn>
     bool ForEachHeapBlock(Fn fn);
@@ -18,7 +21,11 @@ public:
     template <typename Fn>
     bool ForEachHeapBlockDirect(Fn processFunction);
 
+    RemoteHeapBlock * FindHeapBlock(ULONG64 address);
 private:
+    template <typename Fn>
+    bool ForEachHeapBlockRaw(Fn processFunction);
+
     template <typename Fn>
     bool ProcessL1Chunk(ULONG64 nodeIndex, ExtRemoteTyped l1ChunkArray, Fn processFunction);
 
@@ -27,49 +34,57 @@ private:
 
 protected:
     ExtRemoteTyped heapBlockMap;
-
+    Cache * cachedHeapBlock;
     ULONG64 l1ChunkSize;
     ULONG64 l2ChunkSize;
-};
-
-
-class RemoteHeapBlockMapWithCache : public RemoteHeapBlockMap
-{
-public:
-    RemoteHeapBlockMapWithCache(ExtRemoteTyped heapBlockMap);
-    ~RemoteHeapBlockMapWithCache();
-
-    ExtRemoteTyped FindHeapBlock(ULONG64 address);
-
-private:
-    bool hasCache;
-    stdext::hash_map<ULONG64, ExtRemoteTyped> cachedHeapBlock;
 };
 
 template <typename Fn>
 bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
 {
-    // Heap block can cross multiple entries, filter them
-    ExtRemoteTyped lastHeapBlock;
-    auto processFunction = [&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, ExtRemoteTyped heapBlock)
+    if (cachedHeapBlock)
     {
-        if (lastHeapBlock.GetPtr() == heapBlock.GetPtr())
+        for (auto i = cachedHeapBlock->begin(); i != cachedHeapBlock->end(); i++)
         {
-            return false;
+            RemoteHeapBlock& remoteHeapBlock = (*i).second;
+            if ((*i).first != remoteHeapBlock.GetAddress())
+            {
+                // Skip heap block that are not at the begining of the address, to avoid repeats
+                continue;
+            }
+            if (fn((*i).second))
+            {
+                return true;
+            }
         }
-        lastHeapBlock = heapBlock;
-        return fn(heapBlock);
-    };
-    return ForEachHeapBlockDirect(fn);
+        return false;
+    }
+    return ForEachHeapBlockDirect([&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock) { return fn(heapBlock); });
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlockDirect(Fn processFunction)
-{
+bool RemoteHeapBlockMap::ForEachHeapBlockDirect(Fn fn)
+{    
+    // Heap block can cross multiple entries, filter them
+    ULONG64 lastHeapBlock = 0;
+    auto processFunction = [&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
+    {
+        if (lastHeapBlock == heapBlock.GetHeapBlockAddress())
+        {
+            return false;
+        }
+        lastHeapBlock = heapBlock.GetHeapBlockAddress();
+        return fn(nodeIndex, l1, l2, block, heapBlock);
+    };
+    return ForEachHeapBlockRaw(processFunction);
+}
 
+template <typename Fn>
+bool RemoteHeapBlockMap::ForEachHeapBlockRaw(Fn processFunction)
+{
     if (g_Ext->m_PtrSize == 4)
     {
-        ExtRemoteTyped map = heapBlockMap.Field("map");        
+        ExtRemoteTyped map = heapBlockMap.Field("map");
         return ProcessL1Chunk(0, map, processFunction);
     }
     else
@@ -124,9 +139,8 @@ RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, ExtRemoteTyp
         ULONG64 block = GetAsPointer(heapBlock);
         if (block != 0)
         {
-            heapBlock = GetExtension()->CastWithVtable(heapBlock);
-
-            if (fn(nodeIndex, l1Id, l2Id, block, heapBlock))
+            RemoteHeapBlock remoteHeapBlock(block);
+            if (fn(nodeIndex, l1Id, l2Id, block, remoteHeapBlock))
             {
                 return true;
             }

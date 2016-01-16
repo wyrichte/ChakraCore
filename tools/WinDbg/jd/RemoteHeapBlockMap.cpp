@@ -9,40 +9,36 @@
 // ------------------------------------------------------------------------------------------------
 
 
-RemoteHeapBlockMapWithCache::RemoteHeapBlockMapWithCache(ExtRemoteTyped heapBlockMap)
-    : RemoteHeapBlockMap(heapBlockMap)
+RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
+    : heapBlockMap(heapBlockMap)
 {    
-    ForEachHeapBlockDirect([this](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, ExtRemoteTyped heapBlock)
-    {
-        ULONG64 address = ((nodeIndex * l1ChunkSize + l1) * l2ChunkSize + l2) * g_Ext->m_PageSize;
-        cachedHeapBlock[address] = heapBlock;
-        return false;
-    });    
-}
 
-RemoteHeapBlockMapWithCache::~RemoteHeapBlockMapWithCache()
-{
-    // when we are not executing a command, the ExtExtension isn't populated, so we can't release the ExtRemoteTyped.
-    // We can change this to just save the mod/type/address information here instead of the ExtRemoteTyped as well.
-    if (g_Ext->m_CurCommand == nullptr)
+    cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMap);
+    if (cachedHeapBlock == nullptr && cache)
     {
-        for (auto i = cachedHeapBlock.begin(); i != cachedHeapBlock.end(); i++)
+        std::auto_ptr<Cache> localCachedHeapBlock(new Cache());
+        ForEachHeapBlockRaw([this, &localCachedHeapBlock](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
         {
-            (*i).second.m_Release = false;
-        }
-        heapBlockMap.m_Release = false;
-    }
+            ULONG64 address = ((nodeIndex * l1ChunkSize + l1) * l2ChunkSize + l2) * g_Ext->m_PageSize;
+            (*localCachedHeapBlock.get())[address] = heapBlock;
+            return false;
+        });
+        GetExtension()->recyclerCachedData.SetHeapBlockMap(heapBlockMap, localCachedHeapBlock.get());
+        cachedHeapBlock = localCachedHeapBlock.release();
+    }    
 }
 
-ExtRemoteTyped RemoteHeapBlockMapWithCache::FindHeapBlock(ULONG64 address)
+RemoteHeapBlock * RemoteHeapBlockMap::FindHeapBlock(ULONG64 address)
 {
+    Assert(cachedHeapBlock);
+    
     ULONG64 pageAddress = address & ~((ULONG64)g_Ext->m_PageSize - 1);
-    auto i = cachedHeapBlock.find(pageAddress);
-    if (i != cachedHeapBlock.end())
+    auto i = cachedHeapBlock->find(pageAddress);
+    if (i != cachedHeapBlock->end())
     {
-        return (*i).second;
+        return &(*i).second;
     }
-    return ExtRemoteTyped("(void *)0");
+    return nullptr;
 }
 
 // ---- End jd private commands implementation ----------------------------------------------------
