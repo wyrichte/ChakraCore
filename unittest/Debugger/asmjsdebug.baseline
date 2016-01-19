@@ -34,3 +34,19 @@ import func, val 512
 true
 import func, val 1024
 0
+AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
+debugCallback
+import2 func, val 512
+0
+import2 func, val 1024
+1
+true
+import2 func, val 2048
+0
+import func, val 2048
+0
+import func, val 4096
+1
+true
+import func, val 8192
+0

@@ -1,6 +1,6 @@
 @echo off
 
-if "%_BuildType%" neq "fre" (
+if DEFINED _BuildType if "%_BuildType%" neq "fre" (
     echo Performance tests should be run on fre builds.
     goto :eof
 )

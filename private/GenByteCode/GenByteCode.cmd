@@ -1,5 +1,19 @@
 @echo off
 setlocal
+
+if "%RazzleToolPath%" == "" (
+    echo.
+    echo --- ERROR ---
+    echo This script should be run from within a Razzle prompt.
+    echo.
+    echo If you meant to regenerate ByteCode outside of a Razzle prompt,
+    echo you may be looking for one of these scripts:
+    echo     core\lib\Runtime\Library\InJavascript\GenByteCode.cmd (Intl.js)
+    echo     private\lib\Projection\InJavascript\GenByteCode.cmd (Promise.js)
+
+    exit /B 1
+)
+
 set _FILE=
 set _HASERROR=0
 set _BUILD=1
@@ -30,13 +44,13 @@ set _RZARG=%_RZARG:chk=%
 set _RZARG=%_RZARG:fre=%
 if "%_BUILD%" == "1" (
     echo Building x86chk
-    start /WAIT /I %WINDIR%\SysWOW64\cmd.exe /C "%~dp0BuildGenByteCodeBin.cmd %RazzleToolPath%\razzle %_RZARG% x86chk" 
+    start /WAIT /I %WINDIR%\SysWOW64\cmd.exe /C "%~dp0BuildGenByteCodeBin.cmd %RazzleToolPath%\razzle %_RZARG% x86chk"
     if exist "%JSCRIPT_ROOT%\buildchk.err" (
         type %JSCRIPT_ROOT%\buildchk.err
     )
     echo Building amd64chk
-    start /WAIT /I %WINDIR%\SysWOW64\cmd.exe /C "%~dp0BuildGenByteCodeBin.cmd %RazzleToolPath%\razzle %_RZARG% amd64chk" 
-    if exist "%JSCRIPT_ROOT%\buildchk.err" (    
+    start /WAIT /I %WINDIR%\SysWOW64\cmd.exe /C "%~dp0BuildGenByteCodeBin.cmd %RazzleToolPath%\razzle %_RZARG% amd64chk"
+    if exist "%JSCRIPT_ROOT%\buildchk.err" (
         type %JSCRIPT_ROOT%\buildchk.err
     )
 )

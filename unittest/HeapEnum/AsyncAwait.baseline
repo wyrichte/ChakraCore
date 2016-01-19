@@ -104,7 +104,8 @@
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Properties] count: 2
  |  | 0 asyncMethod: type: FunctionObject flags: (new) optional info records (3)
- |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Prototype] type: ObjectObject flags: (new) optional info records (1)
+ |  |    |  [Prototype] type: FunctionObject (seen)
  |  |    [Function name] asyncFactorial
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: asyncawait.js

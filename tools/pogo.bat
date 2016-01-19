@@ -20,14 +20,14 @@ REM build baseline pogo, all __forceinline keep as is
 if [%pogo_mode%] equ [buildbase] (
   set __FORCE_INLINE_LEVEL=
   set targetFolder=%targetFolder%_base
-  call :BuildAndTrain 
+  call :BuildAndTrain
   goto :eof
 )
 
 REM build opt pogo, tuned to turn on a few __forceinline, most old __forceinline are changed to inline
 if [%pogo_mode%] equ [buildopt]  (
   set __FORCE_INLINE_LEVEL=2
-  call :BuildAndTrain 
+  call :BuildAndTrain
   goto :eof
 )
 
@@ -252,7 +252,7 @@ copy  /Y  %OBJECT_ROOT%\%buildpath%\%_BuildAlt%\%binname%.pgd  %_target%\%binnam
 copy  /Y %OBJECT_ROOT%\%buildpath%\%_BuildAlt%\%binary%  %_target%\%binary%
 endlocal&goto :eof
 
-:pgoAll3Binaries 
+:pgoAll3Binaries
 setlocal
 set pattern=%1
 set _pgofolder=%2
@@ -364,9 +364,9 @@ del %_target%\*.pgc
 if /I [%is_msbuild%] equ [1] del %OBJECT_ROOT%\%buildpath%\%_BuildAlt%\*.pgc
 
 echo path=%_target%>%_target%\train.bat
-for %%A in (%SDXROOT%\inetcore\jscript\unittest\SunSpider1.0.2\*.js) do call :RunTrainingTest %%A SunSpider %_target% %binary% %training_exe% %is_msbuild% %buildpath%
-for %%A in (%SDXROOT%\inetcore\jscript\unittest\Kraken\*.js) do call :RunTrainingTest %%A Kraken %_target% %binary% %training_exe% %is_msbuild% %buildpath%
-for %%A in (%SDXROOT%\inetcore\jscript\unittest\Octane\*.js) do call :RunTrainingTest %%A Octane %_target% %binary% %training_exe% %is_msbuild% %buildpath%
+for %%A in (%SDXROOT%\inetcore\jscript\core\test\SunSpider\*.js) do call :RunTrainingTest %%A SunSpider %_target% %binary% %training_exe% %is_msbuild% %buildpath%
+for %%A in (%SDXROOT%\inetcore\jscript\core\test\Kraken\*.js) do call :RunTrainingTest %%A Kraken %_target% %binary% %training_exe% %is_msbuild% %buildpath%
+for %%A in (%SDXROOT%\inetcore\jscript\core\test\Octane\*.js) do call :RunTrainingTest %%A Octane %_target% %binary% %training_exe% %is_msbuild% %buildpath%
 
 if /I [%is_msbuild%] equ [1] (
    echo copy /Y %_target%\%binname%*.pgc  %OBJECT_ROOT%\%buildpath%\%_BuildAlt%\>>%_target%\train.bat

@@ -18,6 +18,14 @@ public:
     {
         return JDUtil::GetWrappedField(*this, "byteCodeBlock");
     }
+    ExtRemoteTyped GetAuxBlock()
+    {
+        return JDUtil::GetWrappedField(*this, "auxBlock");
+    }
+    ExtRemoteTyped GetAuxContextBlock()
+    {
+        return JDUtil::GetWrappedField(*this, "auxContextBlock");
+    }
     ExtRemoteTyped GetProbeBackingStore()
     {
         return GetSourceInfo().Field("m_probeBackingBlock");
@@ -73,6 +81,26 @@ public:
     ULONG GetFunctionNumber()
     {
         return JDUtil::GetWrappedField(*this, "m_functionNumber").GetUlong();
+    }
+
+    ExtRemoteTyped GetStatementMaps()
+    {
+        return JDUtil::GetWrappedField(*this, "pStatementMaps");
+    }
+
+    ExtRemoteTyped GetEntryPoints()
+    {
+        return JDUtil::GetWrappedField(*this, "entryPoints");
+    }
+
+    ULONG GetInlineCacheCount()
+    {
+        return JDUtil::GetWrappedField(*this, "inlineCacheCount").GetUlong();
+    }
+
+    USHORT GetProfiledCallSiteCount()
+    {
+        return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();        
     }
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);

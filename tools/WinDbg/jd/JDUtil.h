@@ -84,6 +84,12 @@ public:
             pos = s.find(before, pos);
         }        
     }
+
+    template <typename T>
+    static T Align(T value, T alignment)
+    {
+        return (value + (alignment - 1)) & ~(alignment - 1);
+    }
 };
 
 #define ENUM_EQUAL(e, n) (strncmp(e, #n, _countof(#n) - 1) == 0)
