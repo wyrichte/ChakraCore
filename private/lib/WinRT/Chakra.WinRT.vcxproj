@@ -33,6 +33,10 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>WinRTPCH.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4091    <!-- 'typedef ': ignored on left of 'NGenHintEnum' when no variable is declared -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

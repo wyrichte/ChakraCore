@@ -55,7 +55,7 @@
         4189: local variable is initialized but not referenced
         4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 
         -->
-      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290</DisableSpecificWarnings>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290;4091</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->

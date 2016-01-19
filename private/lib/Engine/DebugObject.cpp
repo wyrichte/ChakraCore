@@ -1198,7 +1198,7 @@ Js::Var DebugObject::EntryCreateDebugDisposableObject(Js::RecyclableObject* func
 
 #define USING_PROPERTY_RECORD(propertyName)  \
     const Js::PropertyRecord* propertyName##PropertyRecord = NULL; \
-    LPCWSTR propertyName##PropertyName = L""L#propertyName; \
+    LPCWSTR propertyName##PropertyName = L"" L#propertyName; \
     threadContext->GetOrAddPropertyId(propertyName##PropertyName, (int) Js::JavascriptString::GetBufferLength(propertyName##PropertyName), &propertyName##PropertyRecord);
 
     USING_PROPERTY_RECORD(collectOnDispose);

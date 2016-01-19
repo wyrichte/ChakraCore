@@ -10,5 +10,6 @@ PUBLIC_PASS0_CONSUMES= \
     onecore\base\published2|PASS0 \
     onecore\com\published\idlole\publish|PASS0 \
     onecore\com\winrt\buildtools\winmetadata|PASS0 \
+    onecore\enduser\sql\xml\msxml3\publish|PASS0 \
     onecore\inetcore\published\sdk\inc|PASS0 \
 

@@ -81,5 +81,13 @@ Pass: winery.getBestSellingSweet()
 PASS [Test 6: IWineRetail]
 =================================================
 
-Passed: 6
+=================================================
+Starting [Test 7: empty event handler]
+Pass: Number of events handled
+      Actual: 0
+
+PASS [Test 7: empty event handler]
+=================================================
+
+Passed: 7
 Failed: 0

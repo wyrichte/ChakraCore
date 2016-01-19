@@ -109,6 +109,20 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         }
     });
 
+    runner.addTest({
+        id: 7,
+        desc: 'empty event handler',
+        pri: '0',
+        test: function () {
+            var eventsHandled = 0;
+            var onAgeComplete = function (sender, warehouse) { eventsHandled += 1; }
+            winery.addEventListener("ageemptyevent", onAgeComplete);
+            winery.removeEventListener("ageemptyevent", onAgeComplete);
+            verify(eventsHandled, 0, 'Number of events handled');
+        }
+    });
+
+
     Loader42_FileName = 'Winery tests';
 
 })();

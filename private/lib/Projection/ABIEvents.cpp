@@ -186,7 +186,6 @@ namespace Projection
             {
                 inspectable->Release();
             }
-            eventHandler->Release();
         }
         END_LEAVE_SCRIPT(scriptContext)
 
@@ -203,8 +202,11 @@ namespace Projection
     //              projectionContext - projection context
     //              isDefaultInterface - inspectable does not need to be released if it is the default interface pointer
     //              weakDelegate - ptr to the weakReference of the delegate
+    //              pDelegate - ptr to the strong reference of the delegate
     // Returns:     on success event cookie corresponding to the event handler that is added
-    __int64 AddEventHandler(RtEVENT eventInfo, IInspectable *inspectable, Js::JavascriptFunction *jsEventFunction, LPCWSTR methodName, ProjectionContext *projectionContext, bool isDefaultInterface, CComPtr<CExternalWeakReferenceImpl> &weakDelegate)
+    __int64 AddEventHandler(RtEVENT eventInfo, IInspectable *inspectable, Js::JavascriptFunction *jsEventFunction, 
+        LPCWSTR methodName, ProjectionContext *projectionContext, bool isDefaultInterface, 
+        CComPtr<CExternalWeakReferenceImpl> &weakDelegate, CComPtr<IUnknown> &pDelegate)
     {
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         RtABIMETHODSIGNATURE addMethod = AbiMethodSignature::From(eventInfo->addOn);
@@ -261,7 +263,7 @@ namespace Projection
             Js::JavascriptErrorDebug::MapAndThrowError(scriptContext, hr);
         }
 
-        IUnknown *pDelegate = delegateObject->GetUnknown();
+        pDelegate.p = delegateObject->GetUnknown();
         weakDelegate.p = delegateObject->GetPrivateWeakReference();
 
         return AddEventHandlerCore(addMethod, inspectable, pDelegate, scriptContext, isDefaultInterface);
@@ -579,7 +581,9 @@ namespace Projection
                         bool isDefaultInterface = false;
                         IInspectable *inspectable = GetInspectableForAddOrRemoveEvent(thisInfo, rtmethod, args[0], projectionContext, &isDefaultInterface);
                         CComPtr<CExternalWeakReferenceImpl> weakDelegate;
-                        __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::JavascriptFunction::FromVar(args[2]), L"addEventListener", projectionContext, isDefaultInterface, weakDelegate);
+                        CComPtr<IUnknown> pDelegate;
+                        __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::JavascriptFunction::FromVar(args[2]), 
+                            L"addEventListener", projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
                         // Now, add the cookie to the list
                         NamedEventRegistration * namedEvent = RecyclerNewFinalized(recycler, NamedEventRegistration, eventInfo, eventNameId, weakDelegate, eventCookie);
@@ -750,7 +754,9 @@ namespace Projection
         {
             Assert(inspectable != nullptr);
             CComPtr<CExternalWeakReferenceImpl> weakDelegate;
-            __int64 eventCookie = AddEventHandler(signature->abiEvent, inspectable, Js::JavascriptFunction::FromVar(args[1]), StringOfId(scriptContext, signature->eventPropertyNameId), projectionContext, isDefaultInterface, weakDelegate);
+            CComPtr<IUnknown> pDelegate;
+            __int64 eventCookie = AddEventHandler(signature->abiEvent, inspectable, Js::JavascriptFunction::FromVar(args[1]),
+                StringOfId(scriptContext, signature->eventPropertyNameId), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
             if (registration != nullptr)
             {
