@@ -51,11 +51,13 @@
 
         $(SdkToolsIncPath);
       </AdditionalIncludeDirectories>
-      <!-- 
-        4189: local variable is initialized but not referenced
-        4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow) 
-        -->
-      <DisableSpecificWarnings>%(DisableSpecificWarnings);4189;4290;4091</DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4091;     <!-- '': ignore on lef of 'type' when no variable is declared -->
+        4189;     <!-- local variable is initialized but not referenced -->
+        4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
+        4459;     <!-- declaration of '' hides global declaration -->
+      </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->

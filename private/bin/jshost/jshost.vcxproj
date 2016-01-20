@@ -52,7 +52,7 @@
         %(DisableSpecificWarnings);
 
         <!-- TODO: Should clean this up -->
-	4091
+        4091;     <!-- '': ignore on lef of 'type' when no variable is declared -->
       </DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->

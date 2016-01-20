@@ -30,7 +30,7 @@ namespace JsrtUnitTests
         static bool SetDispatchProperty(IDispatch * object, BSTR name, VARIANT * value);
         static bool SetDispatchProperty(IDispatchEx * object, BSTR name, VARIANT * value);
         static bool GetDispatchProperty(IDispatch * object, BSTR name, VARIANT * value);
-        static bool InvokeDispatchMethod(IDispatch * object, BSTR name, VARIANT * args, int cargs, VARIANT * result);
+        static bool InvokeDispatchMethod(IDispatch * object, BSTR name, VARIANT * args, UINT cargs, VARIANT * result);
 
     private:
         JsRuntimeHandle runtime;

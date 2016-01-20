@@ -32,7 +32,7 @@ inline unsigned int GetRandomInteger(unsigned int limit)
 #include "Common.h"
 #include "CommonInl.h"
 
-extern Recycler * recycler;
+extern Recycler * recyclerInstance;
 
 #include "GCStress.h"
 #include "RecyclerTestObject.h"

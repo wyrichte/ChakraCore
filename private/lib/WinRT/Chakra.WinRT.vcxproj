@@ -35,7 +35,7 @@
       <PrecompiledHeaderFile>WinRTPCH.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
-        4091    <!-- 'typedef ': ignored on left of 'NGenHintEnum' when no variable is declared -->
+        4091      <!-- 'typedef ': ignored on left of 'NGenHintEnum' when no variable is declared -->
       </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>

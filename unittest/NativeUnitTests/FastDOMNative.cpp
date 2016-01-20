@@ -398,7 +398,7 @@ void FastDomTestCase8(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
 
             mytest->Start();
 			std::wstring ctrname=L"ctroname"+i;
-			std::wstring tname=L"tname"+i;
+			tname=L"tname"+i;
             mytest->CreateFunction(ctor_name,prototype,proto_proto,ctrname);
             mytest->CreateTypedObjectWithPrototype(ctor_name,object,tname);
             mytest->SetPropertyOnTypedObject(object,obj_prop,obj_value,"int",str6.str());
