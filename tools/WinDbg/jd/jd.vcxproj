@@ -58,6 +58,8 @@
     <ClCompile Include="CachedTypeInfo.cpp" />
     <ClCompile Include="Collections.cpp" />
     <ClCompile Include="diag.cpp" />
+    <ClCompile Include="ExtRemoteTypedUtil.cpp" />
+    <ClCompile Include="FieldInfoCache.cpp" />
     <ClCompile Include="jdbackend.cpp" />
     <ClCompile Include="jdbytecode.cpp" />
     <ClCompile Include="jdfunctionbody.cpp" />
@@ -76,6 +78,7 @@
     <ClCompile Include="RemoteRecycler.cpp" />
     <ClCompile Include="RemoteScriptFunction.cpp" />
     <ClCompile Include="RemoteThreadContext.cpp" />
+    <ClCompile Include="JDRemoteTyped.cpp" />
     <ClCompile Include="RemoteTypeHandler.cpp" />
     <ClCompile Include="ScriptDebugSite.cpp" />
     <ClCompile Include="jd.cpp" />
@@ -92,6 +95,8 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
     <ClInclude Include="CachedTypeInfo.h" />
     <ClInclude Include="Collections.h" />
+    <ClInclude Include="ExtRemoteTypedUtil.h" />
+    <ClInclude Include="FieldInfoCache.h" />
     <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RecyclerObjectGraph.h" />
     <ClInclude Include="RemoteHeapBlockMap.h" />
@@ -112,6 +117,7 @@
     <ClInclude Include="RemoteRecyclerList.h" />
     <ClInclude Include="RemoteScriptFunction.h" />
     <ClInclude Include="RemoteThreadContext.h" />
+    <ClInclude Include="JDRemoteTyped.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="ScriptDebugSite.h" />
     <ClInclude Include="jd.h" />

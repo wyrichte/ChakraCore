@@ -119,6 +119,10 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "Nullable.h"
 #include "RemoteTypeHandler.h"
 #include "ScriptDebugSite.h"
+
+#include "ExtRemoteTypedUtil.h"
+#include "JDRemoteTyped.h"
+
 #include "RecyclerCachedData.h"
 #include "jd.h"
 #include "TypeHandlerPropertyNameReader.h"

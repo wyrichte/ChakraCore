@@ -21,6 +21,8 @@ public:
     RemoteHeapBlock();
     RemoteHeapBlock(ULONG64 heapBlockAddress);
     RemoteHeapBlock(ExtRemoteTyped& heapBlock);
+    RemoteHeapBlock(RemoteHeapBlock const&);
+    ~RemoteHeapBlock();
 
     char GetType();
 
@@ -42,8 +44,11 @@ public:
     ULONG64 GetTotalObjectSize();
     ULONG GetTotalObjectCount();
 
-    ULONG64 GetFreeObjectCount();
-    ULONG64 GetFreeObjectSize();    
+    ULONG64 GetFreeObjectSize();
+    ULONG GetFreeObjectCount();
+
+    ULONG64 GetAllocatedObjectSize();
+    ULONG GetAllocatedObjectCount();
 
     ULONG GetBucketObjectSize() { return bucketObjectSize; }
 
@@ -56,16 +61,16 @@ public:
     bool ForEachLargeObjectHeader(Fn fn)
     {
         Assert(IsLargeHeapBlock());
-        
-        ExtRemoteTyped heapBlock = GetExtRemoteTyped();
+
+        JDRemoteTyped heapBlock = GetExtRemoteTyped();
 
         unsigned int allocCount = heapBlock.Field("allocCount").GetUlong();
-        ExtRemoteTyped headerList =
-            ExtRemoteTyped(GetExtension()->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), this->GetHeapBlockAddress() + heapBlock.GetTypeSize());
+        JDRemoteTyped headerList =
+            JDRemoteTyped(GetExtension()->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), this->GetHeapBlockAddress() + heapBlock.GetTypeSize());
 
         for (unsigned int i = 0; i < allocCount; i++)
         {
-            ExtRemoteTyped header = headerList.ArrayElement(i);
+            JDRemoteTyped header = headerList.ArrayElement(i);
             if (header.GetPtr() == 0)
             {
                 continue;
@@ -78,20 +83,35 @@ public:
         return false;
     }
 
+    char * GetDebuggeeMemory();
+    char * GetDebuggeeMemory(ULONG64 address);
+    void FlushDebuggeeMemory();
+
     static RemoteHeapBlock NullHeapBlock;
 private:
+    ULONG GetObjectIndex(ULONG64 objectAddress);
+    ULONG64 GetObjectAddressFromIndex(ULONG objectIndex);
     ULONG GetRecyclerCookie();
-    ULONG GetLargeHeapBlockHeaderList(ExtRemoteTyped& headerList);
+    ULONG GetLargeHeapBlockHeaderList(JDRemoteTyped& headerList);
     void Initialize();
     void EnsureCachedTotalObjectCountAndSize();
+    void EnsureCachedAllocatedObjectCountAndSize();
 
     ULONG64 heapBlockAddress;
     ULONG64 address;
     char type;
     ULONG64 size;
 
-    bool hasCachedTotalObjectCountAndSize;      
+    bool hasCachedTotalObjectCountAndSize;
     ULONG bucketObjectSize;
     ULONG totalObjectCount;
     ULONG64 totalObjectSize;
+
+    bool hasCachedAllocatedObjectCountAndSize;
+    ULONG allocatedObjectCount;
+    ULONG64 allocatedObjectSize;
+    std::vector<bool> freeObject;
+    UCHAR * attributes;
+
+    char * debuggeeMemory;
 };

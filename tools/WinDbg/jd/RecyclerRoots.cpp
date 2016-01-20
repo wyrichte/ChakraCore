@@ -207,51 +207,28 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
     free(stack);
 }
 
-void RootPointerReader::ScanObject(ULONG64 object, size_t bytes)
+void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes)
 {
     EXT_CLASS_BASE* ext = GetExtension();
-
-#if _M_X64
-    bool targetIs32Bit = (g_Ext->m_PtrSize == 4);
-
-    if (targetIs32Bit)
+    ULONG64 remainingBytes = bytes;
+    ULONG64 curr = object;
+    while (remainingBytes != 0)
     {
-        Assert(bytes % sizeof(ULONG32) == 0);
-
-        ULONG32* objectBytes = (ULONG32*)malloc(bytes);
-        if (!objectBytes)
+        ULONG readBytes = remainingBytes < 4096 ? (ULONG)remainingBytes : 4096;
+        byte buffer[4096];
+        ExtRemoteData data(curr, readBytes);
+        data.ReadBuffer(buffer, readBytes);
+        ULONG numPointers = readBytes / ext->m_PtrSize;
+        byte * currBuffer = buffer;
+        for (uint i = 0; i < numPointers; i++)
         {
-            ext->ThrowOutOfMemory();
+            this->TryAdd(ext->m_PtrSize == 8? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer);
+            currBuffer += ext->m_PtrSize;
         }
 
-        ExtRemoteData data(object, (ULONG)bytes);
-        data.ReadBuffer(objectBytes, (ULONG)bytes);
-        for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
-        {
-            this->TryAdd((ULONG64)objectBytes[i]);
-        }
-
-        free(objectBytes);
+        remainingBytes -= readBytes;
+        curr += (ULONG64)readBytes;
     }
-    else
-#endif
-    {
-        void** objectBytes = (void**)malloc(bytes);
-        if (!objectBytes)
-        {
-            ext->ThrowOutOfMemory();
-        }
-
-        ExtRemoteData data(object, (ULONG)bytes);
-        data.ReadBuffer(objectBytes, (ULONG)bytes);
-        for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
-        {
-            this->TryAdd((ULONG64)objectBytes[i]);
-        }
-
-        free(objectBytes);
-    }
-
 }
 
 void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
@@ -267,7 +244,7 @@ void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
         ExtRemoteTyped block = blocks.Dereference();
         ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
-        size_t byteCount = (size_t)EXT_CLASS_BASE::GetSizeT(nBytesField);
+        ULONG64 byteCount = ExtRemoteTypedUtil::GetSizeT(nBytesField);
         if (byteCount != 0)
         {
             ScanObject(blockBytes, byteCount);
@@ -345,7 +322,7 @@ void RootPointerReader::ScanImplicitRoots(bool print)
                     if (print)
                     {
                         implicitRootCount++;
-                        implicitRootSize += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
+                        implicitRootSize += ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
                     }
                 }
                 return false;
@@ -625,7 +602,7 @@ bool
 RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
 {
     Addresses * rootPointers = this->rootPointerManager;
-    unsigned int allocCount = (uint)EXT_CLASS_BASE::GetSizeT(block.Field("allocCount"));
+    unsigned int allocCount = (uint)ExtRemoteTypedUtil::GetSizeT(block.Field("allocCount"));
     ExtRemoteTyped headerList =
         ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), block.GetPtr() + block.Dereference().GetTypeSize());
 
@@ -638,7 +615,7 @@ RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
         {
             continue;
         }
-        ULONG64 objectSize = EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
+        ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
 
         ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
 

@@ -114,7 +114,7 @@ public:
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
     void ScanArenaBigBlocks(ExtRemoteTyped blocks);
-    void ScanObject(ULONG64 object, size_t bytes);
+    void ScanObject(ULONG64 object, ULONG64 bytes);
     void ScanImplicitRoots(bool print = true);
 private:
     std::auto_ptr<Addresses> m_addresses;

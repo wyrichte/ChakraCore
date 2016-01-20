@@ -28,6 +28,9 @@
     <ClCompile Include="CachedTypeInfo.cpp" />
     <ClCompile Include="RemoteHeapBlock.cpp" />
     <ClCompile Include="RemoteHeapBlockMap.cpp" />
+    <ClCompile Include="ExtRemoteTypedUtil.cpp" />
+    <ClCompile Include="FieldInfoCache.cpp" />
+    <ClCompile Include="JDRemoteTyped.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -62,6 +65,9 @@
     <ClInclude Include="CachedTypeInfo.h" />
     <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RemoteHeapBlockMap.h" />
+    <ClInclude Include="ExtRemoteTypedUtil.h" />
+    <ClInclude Include="FieldInfoCache.h" />
+    <ClInclude Include="JDRemoteTyped.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

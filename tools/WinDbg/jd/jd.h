@@ -18,6 +18,7 @@ class RootPointers;
 #endif
 
 #include <map>
+#include "FieldInfoCache.h"
 
 enum CommandOutputType
 {
@@ -115,9 +116,6 @@ public:
     virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
 
-    static ULONG64 Count(ExtRemoteTyped head, PCSTR field);
-    static ULONG64 TaggedCount(ExtRemoteTyped head, PCSTR field);
-    static ULONG64 GetSizeT(ExtRemoteTyped data);
     bool PrintProperty(ULONG64 name, ULONG64 value, ULONG64 value1 = 0, int depth = 0);
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
@@ -147,6 +145,7 @@ public:
 
     PCSTR FillModuleAndMemoryNS(PCSTR fmt);
     PCSTR GetSmallHeapBlockTypeName();
+    PCSTR GetSmallHeapBucketTypeName();
 
     bool CheckTypeName(PCSTR typeName, ULONG* typeId = nullptr);
     PCSTR GetPageAllocatorType();
@@ -190,6 +189,7 @@ public:
     ENUM(SmallBlockTypeCount);
     ENUM(BlockTypeCount);
 
+    FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
@@ -319,6 +319,7 @@ protected:
 
     std::map<ULONG64, std::pair<ULONG64, ULONG>> vtableTypeIdMap;
     std::map<ULONG64, std::string *> vtableTypeNameMap;
+    
 #endif //JD_PRIVATE
 };
 
@@ -438,25 +439,10 @@ private:
 
 std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset);
 ULONG64 GetPointerAtAddress(ULONG64 offset);
-ULONG64 GetAsPointer(ExtRemoteTyped object);
 int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
 EXT_CLASS_BASE* GetExtension();
 void ReplacePlaceHolders(PCSTR holder, std::string value, std::string& cmd);
 
-template <typename Fn>
-static bool LinkListForEach(ExtRemoteTyped list, char const * next, Fn fn)
-{
-    ExtRemoteTyped curr = list;
-    while (curr.GetPtr() != 0)
-    {
-        if (fn(curr))
-        {
-            return true;
-        }
-        curr = curr.Field(next);
-    }
-    return false;
-}
 
 template <typename Fn>
 static bool SListForEach(ExtRemoteTyped list,  Fn fn)

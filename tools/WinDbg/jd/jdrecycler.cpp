@@ -7,6 +7,7 @@
 #include "RemoteRecycler.h"
 #include "RecyclerRoots.h"
 #include "RemoteHeapBlockMap.h"
+#include "ExtRemotetypedUtil.h"
 
 // ---- Begin jd private commands implementation --------------------------------------------------
 #ifdef JD_PRIVATE
@@ -416,18 +417,18 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
     int objectCount;
     if (isBumpAllocator)
     {
-        objectCount = (ushort)((GetAsPointer(freeObjectList) - GetAsPointer(heapBlock.Field("address"))) / heapBlock.Field("objectSize").GetUshort());
+        objectCount = (ushort)((ExtRemoteTypedUtil::GetAsPointer(freeObjectList) - ExtRemoteTypedUtil::GetAsPointer(heapBlock.Field("address"))) / heapBlock.Field("objectSize").GetUshort());
     }
     else
     {
         objectCount = totalObjectCount;
         if (freeObjectList.HasField("next"))
         {
-            objectCount -= (unsigned short)EXT_CLASS_BASE::Count(freeObjectList, "next");
+            objectCount -= (unsigned short)ExtRemoteTypedUtil::Count(freeObjectList, "next");
         }
         else
         {
-            objectCount -= (unsigned short)EXT_CLASS_BASE::TaggedCount(freeObjectList, "taggedNext");
+            objectCount -= (unsigned short)ExtRemoteTypedUtil::TaggedCount(freeObjectList, "taggedNext");
         }
     }
 
@@ -447,7 +448,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
         if (newHeapBlockLayout)
         {
             objectCount -= heapBlock.Field("objectCount").GetUshort();
-            objectCount += (unsigned short)EXT_CLASS_BASE::TaggedCount(heapBlock.Field("freeObjectList"), "taggedNext");
+            objectCount += (unsigned short)ExtRemoteTypedUtil::TaggedCount(heapBlock.Field("freeObjectList"), "taggedNext");
         }
     }
 
@@ -494,10 +495,10 @@ RecyclerPrintBucketStats::ProcessLargeHeapBlock(ExtRemoteTyped heapBlock)
             continue;
         }
         current.objectCount++;
-        current.objectByteCount += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
+        current.objectByteCount += ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
     }
 
-    current.totalByteCount += g_Ext->m_PageSize * EXT_CLASS_BASE::GetSizeT(heapBlock.Field("pageCount"));
+    current.totalByteCount += g_Ext->m_PageSize * ExtRemoteTypedUtil::GetSizeT(heapBlock.Field("pageCount"));
     return false; //  not done yet
 
 }
@@ -514,7 +515,7 @@ RemoteHeapBlock HeapBlockHelper::FindHeapBlock32(ULONG64 address, ExtRemoteTyped
 
     uint id2 = HeapBlockMap32::GetLevel2Id((void *)address);
 
-    return GetAsPointer(l2map.Field("map").ArrayElement(id2));
+    return ExtRemoteTypedUtil::GetAsPointer(l2map.Field("map").ArrayElement(id2));
 }
 
 RemoteHeapBlock HeapBlockHelper::FindHeapBlock(ULONG64 address, ExtRemoteTyped recycler, ULONG64* mapAddr)
@@ -930,12 +931,12 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     {
         heapObject.objectInfoBits = largeObjectHeader.Field("attributes").GetUchar();
     }
-    heapObject.objectSize = EXT_CLASS_BASE::GetSizeT(largeObjectHeader.Field("objectSize"));
+    heapObject.objectSize = ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));
 
-    ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount"));
+    ULONG64 objectCount = ExtRemoteTypedUtil::GetSizeT(heapBlockObject.Field("objectCount"));
 
     ExtRemoteTyped freeBitWord;
-    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == NULL);
+    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < ExtRemoteTypedUtil::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == NULL);
     heapObject.freeBitWord = NULL;
 
     ExtRemoteTyped markBitWord;
@@ -1374,7 +1375,7 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
         ULONG64 addressOfSegment = pageSegmentListIterator.GetDataPtr();
 
         ULONG64 address = segment.Field("address").GetPtr();
-        ULONG64 segmentSize = EXT_CLASS_BASE::GetSizeT(segment.Field("segmentPageCount")) * g_Ext->m_PageSize;
+        ULONG64 segmentSize = ExtRemoteTypedUtil::GetSizeT(segment.Field("segmentPageCount")) * g_Ext->m_PageSize;
         totalSize += segmentSize;
 
         if (outputType == CommandOutputType::NormalOutputType ||
@@ -1721,38 +1722,100 @@ void VerifyHeapBlockMap(ExtRemoteTyped& recycler, RemoteHeapBlockMap& hbm)
         return false;
     });
 }
+
 JD_PRIVATE_COMMAND(hbstats,
     "Count recycler objects",
     "{;e,o,d=0;recycler;Recycler address}"
-    "{summary;b,o;;Display only a summary}"
-    "{filter;s,o;type;Filter the output to either alloc (PageAllocator) or buckets (Heap Buckets)}")
+    "{ft;s,o;filter by type;Filter the output to particular bucket type (norm|fin|leaf|normwb|finwb) or combination (wb|nwb)}"
+    "{fs;edn=(10),o,d=0;filter by size;Filter the output to particular bucket size}"
+    "{fc;s,o;filter by size class;Filter the output to particular size class (small|medium|large)}"
+    "{noheader;b,o;no header;Do not display header}"
+    )
 {
     ULONG64 arg = GetUnnamedArgU64(0);
-    PrintBucketStatsFilter filter = StatsFilterBuckets;
-
-    if (this->HasArg("summary"))
+    enum FilterType
     {
-        filter = StatsFilterSummary;
-    }
+        ShowSmallBlock = 0x1,
+        ShowMediumBlock = 0x2,
+        ShowLargeBlock = 0x4,
 
-    if (this->HasArg("filter"))
+        ShowNormalBlock = 0x8,
+        ShowLeafBlock = 0x10,
+        ShowFinalizableBlock = 0x20,
+        ShowNormalWriteBarrierBlock = 0x40,
+        ShowFinalizableWriteBarrierBlock = 0x80,
+
+        ShowAnyNonWriteBarrierBlock = ShowNormalBlock | ShowLeafBlock | ShowFinalizableBlock,
+        ShowAnyWriteBarrierBlock = ShowNormalWriteBarrierBlock | ShowFinalizableWriteBarrierBlock,
+
+        ShowAnySizeClass = ShowSmallBlock | ShowMediumBlock | ShowLargeBlock,
+        ShowAnyType = ShowAnyNonWriteBarrierBlock | ShowAnyWriteBarrierBlock,
+
+        ShowAnyBlock = ShowAnySizeClass | ShowAnyType
+    } filterType = ShowAnyBlock;
+    if (this->HasArg("ft"))
     {
-        PCSTR arg = this->GetArgStr("filter");
+        PCSTR arg = this->GetArgStr("ft");
 
-        if (_stricmp("alloc", arg) == 0)
+        if (_stricmp("norm", arg) == 0)
         {
-            filter = StatsFilterPageAllocator;
+            filterType = (FilterType)(ShowNormalBlock | ShowAnySizeClass);
         }
-        else if (_stricmp("buckets", arg) == 0)
+        else if (_stricmp("fin", arg) == 0)
         {
-            filter = StatsFilterBuckets;
+            filterType = (FilterType)(ShowFinalizableBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("leaf", arg) == 0)
+        {
+            filterType = (FilterType)(ShowLeafBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("normwb", arg) == 0)
+        {
+            filterType = (FilterType)(ShowNormalWriteBarrierBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("finwb", arg) == 0)
+        {
+            filterType = (FilterType)(ShowFinalizableWriteBarrierBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("wb", arg) == 0)
+        {
+            filterType = (FilterType)(ShowAnyWriteBarrierBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("nwb", arg) == 0)
+        {
+            filterType = (FilterType)(ShowAnyNonWriteBarrierBlock | ShowAnySizeClass);
         }
         else
         {
-            Out("Invalid argument: %s\n", arg);
+            Out("Invalid argument for -ft: %s\n", arg);
             return;
         }
     }
+
+    if (this->HasArg("fc"))
+    {
+        PCSTR arg = this->GetArgStr("fc");
+
+        if (_stricmp("small", arg) == 0)
+        {
+            filterType = (FilterType)(ShowSmallBlock | (filterType & ShowAnyType));
+        }
+        else if (_stricmp("medium", arg) == 0)
+        {
+            filterType = (FilterType)(ShowMediumBlock | (filterType & ShowAnyType));
+        }
+        else if (_stricmp("large", arg) == 0)
+        {
+            filterType = (FilterType)(ShowLargeBlock | (filterType & ShowAnyType));
+        }        
+        else
+        {
+            Out("Invalid argument for -fc: %s\n", arg);
+            return;
+        }
+    }
+
+    ULONG64 filterSize = this->GetArgU64("fs");
 
     ExtRemoteTyped recycler;
     if (arg != 0)
@@ -1764,118 +1827,225 @@ JD_PRIVATE_COMMAND(hbstats,
         recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
     }
 
-    // If we're only interested in the page allocator data, don't bother collecting bucket stats
-    if (filter == StatsFilterBuckets || filter == StatsFilterSummary)
+    RemoteHeapBlockMap hbm(recycler.Field("heapBlockMap"));
+  
+    stdext::hash_map<HeapBlockTypeSizePair, RecyclerBucketStats> statsMap;
+    RecyclerBucketStats totalStats = { 0 };
+    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
     {
-        RemoteHeapBlockMap hbm(recycler.Field("heapBlockMap"));
-        VerifyHeapBlockMap(recycler, hbm);
-
-        stdext::hash_map<HeapBlockTypeSizePair, RecyclerBucketStats> statsMap;
-        RecyclerBucketStats totalStats = { 0 };
-        hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+        ULONG bucketObjectSize = remoteHeapBlock.GetBucketObjectSize();
+        if (filterSize != 0 && filterSize != bucketObjectSize)
         {
-            auto type = remoteHeapBlock.GetType();
-            RecyclerBucketStats* stats = nullptr;
-            auto key = HeapBlockTypeSizePair(type, remoteHeapBlock.GetBucketObjectSize());
-            auto i = statsMap.find(key);
-            if (i == statsMap.end())
-            {
-                stats = &(statsMap[key] = { 0 });
-            }
-            else
-            {
-                stats = &(*i).second;
-            }
-
-            stats->count++;
-            stats->totalByteCount += remoteHeapBlock.GetSize();
-            stats->finalizeCount += remoteHeapBlock.GetFinalizeCount();
-            stats->objectCount += remoteHeapBlock.GetTotalObjectCount();
-            stats->objectByteCount += remoteHeapBlock.GetTotalObjectSize();
             return false;
-        });
+        }
 
+        auto type = remoteHeapBlock.GetType();
+        if (type == this->enum_SmallNormalBlockType())
+        {
+            if ((filterType & (ShowSmallBlock | ShowNormalBlock)) != (ShowSmallBlock | ShowNormalBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_SmallLeafBlockType())
+        {
+            if ((filterType & (ShowSmallBlock | ShowLeafBlock)) != (ShowSmallBlock | ShowLeafBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_SmallFinalizableBlockType())
+        {
+            if ((filterType & (ShowSmallBlock | ShowFinalizableBlock)) != (ShowSmallBlock | ShowFinalizableBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_SmallNormalBlockWithBarrierType())
+        {
+            if ((filterType & (ShowSmallBlock | ShowNormalWriteBarrierBlock)) != (ShowSmallBlock | ShowNormalWriteBarrierBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_SmallFinalizableBlockWithBarrierType())
+        {
+            if ((filterType & (ShowSmallBlock | ShowFinalizableWriteBarrierBlock)) != (ShowSmallBlock | ShowFinalizableWriteBarrierBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_MediumNormalBlockType())
+        {
+            if ((filterType & (ShowMediumBlock | ShowNormalBlock)) != (ShowMediumBlock | ShowNormalBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_MediumLeafBlockType())
+        {
+            if ((filterType & (ShowMediumBlock | ShowLeafBlock)) != (ShowMediumBlock | ShowLeafBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_MediumFinalizableBlockType())
+        {
+            if ((filterType & (ShowMediumBlock | ShowFinalizableBlock)) != (ShowMediumBlock | ShowFinalizableBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_MediumNormalBlockWithBarrierType())
+        {
+            if ((filterType & (ShowMediumBlock | ShowNormalWriteBarrierBlock)) != (ShowMediumBlock | ShowNormalWriteBarrierBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_MediumFinalizableBlockWithBarrierType())
+        {
+            if ((filterType & (ShowMediumBlock | ShowFinalizableWriteBarrierBlock)) != (ShowMediumBlock | ShowFinalizableWriteBarrierBlock))
+            {
+                return false;
+            }
+        }
+        else if (type == this->enum_LargeBlockType())
+        {
+            if ((filterType & ShowLargeBlock) != ShowLargeBlock)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            Assert(false);
+        }
+
+        RecyclerBucketStats* stats = nullptr;
+        auto key = HeapBlockTypeSizePair(type, bucketObjectSize);
+        auto i = statsMap.find(key);
+        if (i == statsMap.end())
+        {
+            stats = &(statsMap[key] = { 0 });
+        }
+        else
+        {
+            stats = &(*i).second;
+        }
+
+        stats->count++;
+        stats->totalByteCount += remoteHeapBlock.GetSize();
+        stats->finalizeCount += remoteHeapBlock.GetFinalizeCount();
+        stats->objectCount += remoteHeapBlock.GetAllocatedObjectCount();
+        stats->objectByteCount += remoteHeapBlock.GetAllocatedObjectSize();
+        return false;
+    });
+
+
+    std::auto_ptr<RecyclerBucketInfo> sortedArray(new RecyclerBucketInfo[statsMap.size()]);
+    int c = 0;
+    for (auto i = statsMap.begin(); i != statsMap.end(); i++)
+    {
+        sortedArray.get()[c++] = (*i);
+    }
+    qsort(sortedArray.get(), c, sizeof(RecyclerBucketInfo), RecyclerBucketInfoComparer);
+
+    if (!this->HasArg("noheader"))
+    {
         this->Out("Recycler Bucket stats\n");
         this->Out("---------------------------------------------------------------------------------------\n");
         this->Out("                  #Blk   #Objs    #Fin      PgBytes   FreeBytes  TotalBytes UsedPercent\n");
         this->Out("---------------------------------------------------------------------------------------\n");
+    }
 
-        std::auto_ptr<RecyclerBucketInfo> sortedArray(new RecyclerBucketInfo[statsMap.size()]);
-        int c = 0;
-        for (auto i = statsMap.begin(); i != statsMap.end(); i++)
+    for (int i = 0; i < c; i++)
+    {
+        RecyclerBucketInfo& info = sortedArray.get()[i];
+
+        if (info.second.count == 0)
         {
-            sortedArray.get()[c++] = (*i);
-        }
-        qsort(sortedArray.get(), c, sizeof(RecyclerBucketInfo), RecyclerBucketInfoComparer);
-        for (int i = 0; i < c; i++)
-        {
-            RecyclerBucketInfo& info = sortedArray.get()[i];
-
-            if (info.second.count == 0)
-            {
-                return;
-            }
-
-            char const * name = "";
-            char const * format = "%-9s %4d : ";
-            char type = info.first.first;
-            if (type == this->enum_SmallNormalBlockType())
-            {
-                name = "Normal (S)";
-            }
-            else if (type == this->enum_SmallLeafBlockType())
-            {
-                name = "Leaf   (S)";
-            }
-            else if (type == this->enum_SmallFinalizableBlockType())
-            {
-                name = "Fin    (S)";
-            }
-            else if (type == this->enum_SmallNormalBlockWithBarrierType())
-            {
-                name = "NormWB (S)";
-            }
-            else if (type == this->enum_SmallFinalizableBlockWithBarrierType())
-            {
-                name = "FinWB  (S)";
-            }
-            else if (type == this->enum_MediumNormalBlockType())
-            {
-                name = "Normal (M)";
-            }
-            else if (type == this->enum_MediumLeafBlockType())
-            {
-                name = "Leaf   (M)";
-            }
-            else if (type == this->enum_MediumFinalizableBlockType())
-            {
-                name = "Fin    (M)";
-            }
-            else if (type == this->enum_MediumNormalBlockWithBarrierType())
-            {
-                name = "NormWB (M)";
-            }
-            else if (type == this->enum_MediumFinalizableBlockWithBarrierType())
-            {
-                name = "FinWB  (M)";
-            }
-            else if (type == this->enum_LargeBlockType())
-            {
-                name = "Large     ";
-                format = "%-9s      : ";
-            }
-            else
-            {
-                Assert(false);
-            }
-
-
-            this->Out(format, name, info.first.second);
-            info.second.Out(this);
-            totalStats.Merge(info.second);
-            this->Out("\n");
+            continue;
         }
 
+        totalStats.Merge(info.second);
+
+        if (filterSize != 0 && filterSize != info.first.second)
+        {
+            continue;
+        }
+
+        char const * name = "";
+        char const * format = "%-9s %4d : ";
+        char type = info.first.first;
+        if (type == this->enum_SmallNormalBlockType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowNormalBlock)) == (ShowSmallBlock | ShowNormalBlock));
+            name = "Normal (S)";
+        }
+        else if (type == this->enum_SmallLeafBlockType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowLeafBlock)) == (ShowSmallBlock | ShowLeafBlock));
+            name = "Leaf   (S)";
+        }
+        else if (type == this->enum_SmallFinalizableBlockType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowFinalizableBlock)) == (ShowSmallBlock | ShowFinalizableBlock));
+            name = "Fin    (S)";
+        }
+        else if (type == this->enum_SmallNormalBlockWithBarrierType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowNormalWriteBarrierBlock)) == (ShowSmallBlock | ShowNormalWriteBarrierBlock));
+            name = "NormWB (S)";
+        }
+        else if (type == this->enum_SmallFinalizableBlockWithBarrierType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowFinalizableWriteBarrierBlock)) == (ShowSmallBlock | ShowFinalizableWriteBarrierBlock));
+            name = "FinWB  (S)";
+        }
+        else if (type == this->enum_MediumNormalBlockType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowNormalBlock)) == (ShowMediumBlock | ShowNormalBlock));
+            name = "Normal (M)";
+        }
+        else if (type == this->enum_MediumLeafBlockType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowLeafBlock)) == (ShowMediumBlock | ShowLeafBlock));
+            name = "Leaf   (M)";
+        }
+        else if (type == this->enum_MediumFinalizableBlockType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowFinalizableBlock)) == (ShowMediumBlock | ShowFinalizableBlock));
+            name = "Fin    (M)";
+        }
+        else if (type == this->enum_MediumNormalBlockWithBarrierType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowNormalWriteBarrierBlock)) == (ShowMediumBlock | ShowNormalWriteBarrierBlock));
+            name = "NormWB (M)";
+        }
+        else if (type == this->enum_MediumFinalizableBlockWithBarrierType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowFinalizableWriteBarrierBlock)) == (ShowMediumBlock | ShowFinalizableWriteBarrierBlock));
+            name = "FinWB  (M)";
+        }
+        else if (type == this->enum_LargeBlockType())
+        {
+            Assert((filterType & ShowLargeBlock) == ShowLargeBlock);
+            name = "Large     ";
+            format = "%-9s      : ";
+        }
+        else
+        {
+            Assert(false);
+        }
+
+        this->Out(format, name, info.first.second);
+        info.second.Out(this);
+        this->Out("\n");
+    }
+
+    if (c > 1)
+    {
         this->Out("-----------------------------------------------------------------------------------------\n");
         this->Out("Total           : ");
         totalStats.Out(this);
@@ -1908,7 +2078,7 @@ void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorD
     {
         data.overheadSize += sizeofArenaMemoryBlockHeader;
         data.blockCount++;
-        ULONG64 nbytes = EXT_CLASS_BASE::GetSizeT(mallocBlock.Field("nbytes"));
+        ULONG64 nbytes = ExtRemoteTypedUtil::GetSizeT(mallocBlock.Field("nbytes"));
         data.blockSize += nbytes;
         data.blockUsedSize += nbytes;
         return false;
@@ -1917,8 +2087,8 @@ void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorD
     {
         data.overheadSize += sizeofBigBlockHeader;
         data.blockCount++;
-        data.blockSize += EXT_CLASS_BASE::GetSizeT(bigBlock.Field("nbytes"));
-        data.blockUsedSize += EXT_CLASS_BASE::GetSizeT(bigBlock.Field("currentByte"));
+        data.blockSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.Field("nbytes"));
+        data.blockUsedSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.Field("currentByte"));
         return false;
     };
     ExtRemoteTyped firstBigBlock = arenaAllocator.Field("bigBlocks");
@@ -1926,11 +2096,11 @@ void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorD
     {
         data.blockUsedSize +=
             arenaAllocator.Field("cacheBlockCurrent").GetPtr() - firstBigBlock.GetPtr() - sizeofBigBlockHeader
-            - EXT_CLASS_BASE::GetSizeT(firstBigBlock.Field("currentByte"));
+            - ExtRemoteTypedUtil::GetSizeT(firstBigBlock.Field("currentByte"));
     }
-    LinkListForEach(firstBigBlock, "nextBigBlock", bigBlockFn);
-    LinkListForEach(arenaAllocator.Field("fullBlocks"), "nextBigBlock", bigBlockFn);
-    LinkListForEach(arenaAllocator.Field("mallocBlocks"), "next", arenaMemoryBlockFn);
+    ExtRemoteTypedUtil::LinkListForEach(firstBigBlock, "nextBigBlock", bigBlockFn);
+    ExtRemoteTypedUtil::LinkListForEach(arenaAllocator.Field("fullBlocks"), "nextBigBlock", bigBlockFn);
+    ExtRemoteTypedUtil::LinkListForEach(arenaAllocator.Field("mallocBlocks"), "next", arenaMemoryBlockFn);
 }
 
 void DisplayArenaAllocatorData(char const * name, ExtRemoteTyped arenaAllocator, bool showZeroEntries)
@@ -1974,7 +2144,7 @@ JD_PRIVATE_COMMAND(memstats,
     if (showThreadSummary || !threadContextAddress)
     {
         ExtRemoteTyped totalUsedBytes(this->FillModule("%s!totalUsedBytes"));
-        this->Out("Page Allocator Total Used Bytes: %u\n", EXT_CLASS_BASE::GetSizeT(totalUsedBytes));
+        this->Out("Page Allocator Total Used Bytes: %u\n", ExtRemoteTypedUtil::GetSizeT(totalUsedBytes));
     }
     if (showThreadSummary)
     {

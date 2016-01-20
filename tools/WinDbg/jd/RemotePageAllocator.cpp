@@ -11,7 +11,7 @@
 ULONG64
 RemotePageAllocator::GetUsedBytes()
 {
-    return EXT_CLASS_BASE::GetSizeT(pageAllocator.Field("usedBytes"));
+    return ExtRemoteTypedUtil::GetSizeT(pageAllocator.Field("usedBytes"));
 }
 
 ULONG64
@@ -21,7 +21,7 @@ RemotePageAllocator::GetReservedBytes()
     {
         if (GetExtension()->PageAllocatorHasExtendedCounters())
         {
-            this->reservedBytes = EXT_CLASS_BASE::GetSizeT(pageAllocator.Field("reservedBytes"));
+            this->reservedBytes = ExtRemoteTypedUtil::GetSizeT(pageAllocator.Field("reservedBytes"));
         }
         else
         {
@@ -38,7 +38,7 @@ RemotePageAllocator::GetCommittedBytes()
     {
         if (GetExtension()->PageAllocatorHasExtendedCounters())
         {
-            this->committedBytes = EXT_CLASS_BASE::GetSizeT(pageAllocator.Field("committedBytes"));
+            this->committedBytes = ExtRemoteTypedUtil::GetSizeT(pageAllocator.Field("committedBytes"));
         }
         else
         {
@@ -55,13 +55,13 @@ RemotePageAllocator::ComputeReservedAndCommittedBytes()
     ULONG64 decommitted = 0;
     auto accumulateSegments = [&](ExtRemoteTyped segment)
     {
-        reserved += EXT_CLASS_BASE::GetSizeT(segment.Field("segmentPageCount")) * 4096;
+        reserved += ExtRemoteTypedUtil::GetSizeT(segment.Field("segmentPageCount")) * 4096;
         return false;
     };
     auto accumulatePageSegments = [&](ExtRemoteTyped pageSegment)
     {
         accumulateSegments(pageSegment);
-        decommitted += EXT_CLASS_BASE::GetSizeT(pageSegment.Field("decommitPageCount")) * 4096;
+        decommitted += ExtRemoteTypedUtil::GetSizeT(pageSegment.Field("decommitPageCount")) * 4096;
         return false;
     };
     SListForEach(pageAllocator.Field("segments").GetPointerTo(), accumulatePageSegments);
