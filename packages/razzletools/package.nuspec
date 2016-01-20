@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RazzleTools</id>
-    <version>1.0.5</version>
+    <version>1.0.7</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,7 +12,7 @@
     <tags>Chakra Razzle Tools</tags>
   </metadata>
   <files>
-    <file src="tools\dev12\**" target="dev12"/>
+    <file src="tools\dev12-fkg\**" target="dev12"/>
 
     <!-- Needed for compiling interface definitions -->
     <file src="tools\x86\midl*" target="x86" />

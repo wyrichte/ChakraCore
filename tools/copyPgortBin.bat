@@ -23,7 +23,7 @@ if "%_BuildArch%"=="x86" (
 )
 
 set FILEVER_PATH=%RAZZLE_TOOLS_PATH%\x86\filever.exe
-set LINK_PATH=%RAZZLE_TOOLS_PATH%\dev12\x32\%_BuildArch%\link.exe
+set LINK_PATH=%RAZZLE_TOOLS_PATH%\dev12-fkg\x32\%_BuildArch%\link.exe
 echo filever: %FILEVER_PATH%
 echo link: %LINK_PATH%
 
