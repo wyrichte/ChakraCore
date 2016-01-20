@@ -2,32 +2,32 @@
   {
     "callstack": [
       {
-        "start": 10316,
+        "start": 10326,
         "length": 77,
         "text": "",
         "frameDescription": "Anonymous function"
       },
       {
-        "start": 3005,
+        "start": 3015,
         "length": 32,
         "text": "",
         "frameDescription": "forEach"
       },
       {
-        "start": 9966,
+        "start": 9976,
         "length": 676,
         "text": "",
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 30578,
-        "length": 61,
+        "start": 32182,
+        "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 35399,
-        "length": 70,
+        "start": 38198,
+        "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
       },

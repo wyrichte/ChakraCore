@@ -24,9 +24,12 @@
     <ClCompile Include="RemoteFunctionInfo.cpp" />
     <ClCompile Include="RemoteRecyclableObject.cpp" />
     <ClCompile Include="RemoteJavascriptFunction.cpp" />
+    <ClCompile Include="RecyclerObjectGraph.cpp" />
+    <ClCompile Include="CachedTypeInfo.cpp" />
+    <ClCompile Include="RemoteHeapBlock.cpp" />
+    <ClCompile Include="RemoteHeapBlockMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Exe\jshost\ComObject.h" />
     <ClInclude Include="jd.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="ScriptDebugSite.h" />
@@ -55,6 +58,10 @@
     <ClInclude Include="RemoteFunctionInfo.h" />
     <ClInclude Include="RemoteRecyclableObject.h" />
     <ClInclude Include="RemoteJavascriptFunction.h" />
+    <ClInclude Include="RecyclerObjectGraph.h" />
+    <ClInclude Include="CachedTypeInfo.h" />
+    <ClInclude Include="RemoteHeapBlock.h" />
+    <ClInclude Include="RemoteHeapBlockMap.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CachedTypeInfo.cpp" />
     <ClCompile Include="Collections.cpp" />
     <ClCompile Include="diag.cpp" />
     <ClCompile Include="jdbackend.cpp" />
@@ -71,9 +72,12 @@
     <ClCompile Include="jdfunctionbody.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
+    <ClCompile Include="RecyclerObjectGraph.cpp" />
     <ClCompile Include="RecyclerRoots.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
+    <ClCompile Include="RemoteHeapBlock.cpp" />
+    <ClCompile Include="RemoteHeapBlockMap.cpp" />
     <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
     <ClCompile Include="RemoteJavascriptFunction.cpp" />
     <ClCompile Include="RemotePageAllocator.cpp" />
@@ -95,8 +99,11 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\ScriptDumpReader.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
-    <ClInclude Include="..\..\..\Exe\jshost\ComObject.h" />
+    <ClInclude Include="CachedTypeInfo.h" />
     <ClInclude Include="Collections.h" />
+    <ClInclude Include="RemoteHeapBlock.h" />
+    <ClInclude Include="RecyclerObjectGraph.h" />
+    <ClInclude Include="RemoteHeapBlockMap.h" />
     <ClInclude Include="jdbackend.h" />
     <ClInclude Include="jdbytecode.h" />
     <ClInclude Include="jdrecycler.h" />

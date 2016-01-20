@@ -28,7 +28,7 @@ void RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
     fn("WriteWatch", RemotePageAllocator(recycler.Field("recyclerPageAllocator")));
     if (recycler.HasField("recyclerLargeBlockPageAllocator"))
     {
-        fn("WriteWatchL", RemotePageAllocator(recycler.Field("recyclerLargeBlockPageAllocator")));
+        fn("WriteWatchLarge", RemotePageAllocator(recycler.Field("recyclerLargeBlockPageAllocator")));
     } 
     if (recycler.HasField("recyclerWithBarrierPageAllocator"))
     {
