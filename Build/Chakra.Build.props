@@ -75,6 +75,8 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->
+      <!-- Also remove -Wv:17 -->
+      <AdditionalOptions>%(AdditionalOptions) -Zc:implicitNoexcept- -Zc:threadSafeInit- -Zc:sizedDealloc- -d1vc7dname -d1NTcompat -d1NonStandardNewDelete</AdditionalOptions>
       <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
       <AdditionalOptions Condition="'$(OptimizedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
