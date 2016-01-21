@@ -7,7 +7,7 @@ SOURCES=WWAHostJSCounterProvider.cpp
 
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
 
-USER_INCLUDES=$(OBJ_PATH)\..\..\private\Manifests\$(O);$(JSCRIPT_ROOT)\core\lib\common\core
+USER_INCLUDES=$(OBJ_PATH)\..\..\private\Manifests\$(O);$(JSCRIPT_ROOT)\core\lib\common\core;$(JSCRIPT_ROOT)\core\lib\common\Memory;
 
 C_DEFINES = $(C_DEFINES) -DUNICODE -D_UNICODE
 UMENTRY = wmain

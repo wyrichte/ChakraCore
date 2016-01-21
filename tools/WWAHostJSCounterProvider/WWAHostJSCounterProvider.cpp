@@ -66,7 +66,7 @@ public:
 #define ENABLE_COUNTER_NOTIFICATION_CALLBACK
 typedef unsigned int uint;
 #include "perfcounter.h"
-#include "..\Memory\PageAllocatorDefines.h"
+#include "PageAllocatorDefines.h"
 #include "perfcounterImpl.cpp"
 
 /*=====================================================
