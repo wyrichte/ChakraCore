@@ -57,6 +57,12 @@
         4189;     <!-- local variable is initialized but not referenced -->
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4459;     <!-- declaration of '' hides global declaration -->
+        4475;     <!-- TODO(curtism): Invalid length modifier in format string on x64 -->
+      </DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+        %(DisableSpecificWarnings);
+        4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
       </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
