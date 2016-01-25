@@ -821,22 +821,13 @@ namespace JsDiag
             }
             else
             {
-                if (body->IsDefaultConstructor())
-                {
-                    str = (body->HasSuperReference())
-                          ? JS_DEFAULT_EXTENDS_CTOR_DISPLAY_STRING
-                          : JS_DEFAULT_CTOR_DISPLAY_STRING;
-                }
-                else
-                {
-                    uint count = min(JavascriptFunction::DIAG_MAX_FUNCTION_STRING, body->LengthInChars());
-                    uint bytes = min(count * 3, body->LengthInBytes());
+                uint count = min(JavascriptFunction::DIAG_MAX_FUNCTION_STRING, body->LengthInChars());
+                uint bytes = min(count * 3, body->LengthInBytes());
 
-                    AutoArrayPtr<BYTE> pSource = VirtualReader::ReadBuffer(reader, sourceInfo.GetDebugModeSource() + body->m_cbStartOffset, bytes);
-                    utf8::DecodeOptions options = sourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;
-                    utf8::DecodeInto(str.GetBufferSetLength(count), pSource, count, options);
-                    str.ReleaseBufferSetLength(count);
-                }
+                AutoArrayPtr<BYTE> pSource = VirtualReader::ReadBuffer(reader, sourceInfo.GetDebugModeSource() + body->m_cbStartOffset, bytes);
+                utf8::DecodeOptions options = sourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;
+                utf8::DecodeInto(str.GetBufferSetLength(count), pSource, count, options);
+                str.ReleaseBufferSetLength(count);
             }
         }
         else
