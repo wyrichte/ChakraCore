@@ -96,10 +96,6 @@ public:
         {
             fn("Diag", RemotePageAllocator(threadContext.Field("diagnosticPageAllocator")));
         }
-        else if (threadContext.HasField("debugManager"))
-        {
-            fn("Diag", RemotePageAllocator(threadContext.Field("debugManager.diagnosticPageAllocator")));
-        }
         
         if (threadContext.HasField("jobProcessor"))
         {
@@ -137,7 +133,7 @@ public:
             ExtRemoteTyped customHeap = codeGenAllocators.Field("emitBufferManager.allocationHeap");
             if (customHeap.HasField("preReservedHeapPageAllocator"))
             {
-                fn(foreground ? "FG-CodePreRes" : "BG-CodePreRes", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
+                fn(foreground ? "FG-CodePR" : "BG-CodePR", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
             }
             fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
         };
@@ -146,7 +142,7 @@ public:
             ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
             if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
             {
-                fn("CodeThunkPreRes", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                fn("CodeThunkPR", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
             }
             fn("CodeThunk", RemotePageAllocator(thunkCustomHeap.Field("pageAllocator")));
 
@@ -155,7 +151,7 @@ public:
                 ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
                 if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
                 {
-                    fn("CodeAsmJSThunkPreRes", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                    fn("CodeAsmJSThunkPR", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
                 }
                 fn("CodeAsmJSThunk", RemotePageAllocator(asmJsThunkCustomHeap.Field("pageAllocator")));
             }

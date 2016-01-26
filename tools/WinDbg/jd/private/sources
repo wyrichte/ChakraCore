@@ -16,7 +16,6 @@ SOURCES = \
         ..\jdbytecode.cpp \
         ..\RecyclerCachedData.cpp \
         ..\RecyclerList.cpp \
-        ..\RecyclerObjectGraph.cpp \
         ..\RecyclerRoots.cpp \
         ..\RemoteTypeHandler.cpp \
         ..\RemotePageAllocator.cpp \
@@ -28,9 +27,6 @@ SOURCES = \
         ..\RemoteRecyclableObject.cpp \
         ..\RemoteJavascriptFunction.cpp \
         ..\RemoteScriptFunction.cpp \
-        ..\RemoteHeapBlock.cpp \
-        ..\RemoteHeapBlockMap.cpp \
         ..\jdfunctionbody.cpp \
         ..\util.cpp \
-        ..\collections.cpp \
-        ..\CachedTypeInfo.cpp \
+        ..\collections.cpp \        

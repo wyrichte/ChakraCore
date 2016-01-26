@@ -40,7 +40,6 @@ private:
 class RecyclerObjectGraph;
 class Addresses
 {
-    friend class RootPointerReader;
 protected:
     stdext::hash_set<ULONG64> _addresses;
 public :
@@ -64,13 +63,14 @@ public :
     }
 };
 
-class RootPointerReader
+class RootPointers : public Addresses
 {
 public:
-    RootPointerReader(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler) :
+    friend class RecyclerObjectGraph;
+
+    RootPointers(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler) :
         _heapBlockHelper(extension, recycler),
-        _recycler(recycler),
-        m_addresses(new Addresses())
+        _recycler(recycler)
     {
     }
 
@@ -78,10 +78,9 @@ public:
     {
         if (address != 0 && _heapBlockHelper.IsAlignedAddress(address))
         {
-            RemoteHeapBlock * remoteHeapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler);
+            ULONG64 heapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler, false);
 
-            // TODO: Validate it is a valid object pointer?
-            if (remoteHeapBlock && m_addresses->_addresses.count(address) == 0)
+            if (heapBlock != NULL && _addresses.count(address) == 0)
             {
 #if DBG
                 if (g_Ext->m_PtrSize == 4)
@@ -100,24 +99,10 @@ public:
     void Add(ULONG64 address)
     {
         //Assert(_addresses.count(address) == 0);
-        m_addresses->_addresses.insert(address);
+        _addresses.insert(address);
     }
 
-    Addresses * DetachAddresses()
-    {
-        return m_addresses.release();
-    }
-
-    void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true);
-    void ScanArenaData(ULONG64 arenaDataPtr);
-    void ScanArena(ULONG64 arena, bool verbose);
-    void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
-    void ScanArenaBigBlocks(ExtRemoteTyped blocks);
-    void ScanObject(ULONG64 object, size_t bytes);
-    void ScanImplicitRoots(bool print = true);
 private:
-    std::auto_ptr<Addresses> m_addresses;
     ExtRemoteTyped _recycler;
     HeapBlockHelper _heapBlockHelper;
 };
@@ -125,4 +110,45 @@ private:
 template <typename Fn>
 void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback);
 
+// Represents the recycler object graph
+// Encapsulates logic to scan remote recycler objects
+class RecyclerObjectGraph
+{
+public:
+    typedef Graph<ULONG64, RecyclerGraphNodeAux> GraphImplType;
+    typedef GraphImplType::NodeType GraphImplNodeType;
+
+    RecyclerObjectGraph(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, bool verbose = false);
+    ~RecyclerObjectGraph();
+    void Construct(Addresses& roots);
+
+    void DumpForPython(const char* filename);
+    void DumpForJs(const char* filename);
+#if ENABLE_MARK_OBJ
+    void FindPathTo(RootPointers& roots, ULONG64 address, ULONG64 root);
+#endif
+
+    template <class Fn>
+    void MapNodes(Fn fn)
+    {
+        _objectGraph.MapNodes(fn);
+    }
+
+protected:
+
+    void MarkObject(ULONG64 address, ULONG64 prev);
+    ULONG64 GetLargeObjectSize(ExtRemoteTyped heapBlockObject, ULONG64 objectAddress);
+    void ScanBytes(ULONG64 address, ULONG64 size);
+    void PushMark(ULONG64 object, ULONG64 prev);
+
+    typedef std::pair<ULONG64, ULONG64> MarkStackEntry;
+
+    std::stack<MarkStackEntry> _markStack;
+    GraphImplType _objectGraph;
+
+    HeapBlockHelper _heapBlockHelper;
+    ExtRemoteTyped _recycler;
+    EXT_CLASS_BASE* _ext;
+    bool _verbose;
+};
 #endif

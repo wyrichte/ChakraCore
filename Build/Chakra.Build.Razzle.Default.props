@@ -7,6 +7,8 @@
     <Use_Asmmeta>false</Use_Asmmeta>
   </PropertyGroup>
   <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
+  <Import Project="$(EnlistmentRoot)\inetcore\inc\Prerelease.Build.Settings" />
+ 
   <!-- Override Configuration from Microsoft.Build.Settings -->
   <PropertyGroup>
     <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">Release</Configuration>

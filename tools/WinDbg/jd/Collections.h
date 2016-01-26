@@ -64,32 +64,18 @@ public:
         return changed;
     }
 
-    size_t Count() const
+    int Count() const
     {
         return items.size();
     }
 
     template <typename Fn>
-    bool Map(Fn func)
+    void Map(Fn func)
     {
         for (auto it = items.begin(); it != items.end(); it++)
         {
-            if (func(*it))
-            {
-                return true;
-            }
+            func(*it);
         }
-        return false;
-    }
-
-    template <typename Fn>
-    void MapAll(Fn func)
-    {
-        Map([func](const T& item)
-        {
-            func(item);
-            return false;
-        });
     }
 
 private:
@@ -133,28 +119,15 @@ public:
     }
 
     template <typename Fn>
-    bool Map(Fn func)
+    void Map(Fn func)
     {
         for (auto it = _map.begin(); it != _map.end(); it++)
         {
             EntryType entry = (*it);
-            if (func(entry.first, entry.second))
-            {
-                return true;
-            }
+            func(entry.first, entry.second);
         }
-        return false;
     }
 
-    template <typename Fn>
-    void MapAll(Fn func)
-    {
-        Map([func](const TKey& key, const TValue& value)
-        {
-            func(key, value);
-            return false;
-        });
-    }
 private:
     stdext::hash_map<TKey, TValue> _map;
 };
@@ -168,27 +141,15 @@ public:
     TKey Key;
 
     template <typename Fn>
-    bool MapEdges(Fn func)
+    void MapEdges(Fn func)
     {
-        return Edges.Map(func);
+        Edges.Map(func);
     }
 
     template <typename Fn>
-    bool MapPredecessors(Fn func)
+    void MapPredecessors(Fn func)
     {
-        return Predecessors.Map(func);
-    }
-
-    template <typename Fn>
-    void MapAllEdges(Fn func)
-    {
-        Edges.MapAll(func);
-    }
-
-    template <typename Fn>
-    void MapAllPredecessors(Fn func)
-    {
-        Predecessors.MapAll(func);
+        Predecessors.Map(func);
     }
 
     Set<Node*> Edges;
@@ -220,11 +181,6 @@ public:
 
         return node;
     }
-    
-    NodeType * FindNode(const TKey& key)
-    {
-        return _nodes.Get(key);
-    }
 
     void AddEdge(const TKey& from, const TKey& to)
     {
@@ -238,33 +194,14 @@ public:
         }
     }
 
-    void AddEdge(const TKey& from, NodeType *nodeTo)
-    {
-        NodeType* nodeFrom = GetNode(from);
-
-        if (nodeFrom != nodeTo)
-        {
-            nodeFrom->Edges.Add(nodeTo);
-            nodeTo->Predecessors.Add(nodeFrom);
-        }
-    }
-
     template <class Fn>
-    bool MapNodes(Fn fn)
+    void MapNodes(Fn fn)
     {
-        return _nodes.Map([&](const TKey& key, NodeType* node)
-        {
-            return fn(key, node);
-        });
-    }
-
-    template <class Fn>
-    void MapAllNodes(Fn fn)
-    {
-        _nodes.MapAll([&](const TKey& key, NodeType* node)
+        _nodes.Map([&](TKey& key, NodeType* node)
         {
             fn(key, node);
         });
+
     }
 
     // Export to Python
@@ -277,20 +214,13 @@ public:
             fprintf(f, "import networkx as nx\n");
             fprintf(f, "G = nx.DiGraph()\n");
 
-            this->MapAllNodes([&](const TKey&, NodeType* node)
+            this->MapNodes([&](TKey&, NodeType* node)
             {
-                node->MapAllEdges([&] (NodeType* toNode)
+                node->MapEdges([&] (NodeType* toNode)
                 {
-                    ULONG64 fromPointer = node->Key;
-                    ULONG64 toPointer = toNode->Key;
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "G.add_edge('0x%016llX', '0x%016llX')\n", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "G.add_edge('0x%08X', '0x%08X')\n", fromPointer, toPointer);
-                    }
+                    g_Ext->Out("0x%P => 0x%P\n", node->Key, toNode->Key);
+                    fprintf(f, "G.add_edge('0x%p'", node->Key);
+                    fprintf(f, ", '0x%p')\n", toNode->Key);
                 });
             });
 
@@ -305,21 +235,15 @@ public:
         FILE* f = fopen(filename, "w+");
         if (f != nullptr)
         {
-            this->MapAllNodes([&](const TKey&, NodeType* node)
+            this->MapNodes([&](TKey&, NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapEdges([&](NodeType* toNode)
                 {
+                    //g_Ext->Out("0x%P => 0x%P\n", node->Key, toNode->Key);
                     ULONG64 fromPointer = node->Key;
                     ULONG64 toPointer = toNode->Key;
 
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "G.add_edge(\"0x%016llX\", \"0x%016llX\")\n", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "G.add_edge(\"0x%08X\", \"0x%08X\")\n", fromPointer, toPointer);
-                    }
+                    fprintf(f, "G.add_edge(\"0x%p\", \"0x%p\")\n", fromPointer, toPointer);
                 });
             });
 
@@ -329,7 +253,7 @@ public:
 
     ~Graph()
     {
-        _nodes.MapAll([] (const TKey& key, const NodeType* node)
+        _nodes.Map([] (const TKey& key, const NodeType* node)
         {
             delete node;
         });
@@ -350,22 +274,101 @@ private:
 
 struct RecyclerGraphNodeAux
 {
-    RecyclerGraphNodeAux() 
-    { 
-        isScanned = false; 
-        typeName = nullptr; 
-        typeNameOrField = nullptr;
-        hasVtable = false;
-        isPropagated = false;
+    RecyclerGraphNodeAux() { isScanned = false; }
+
+    uint objectSize;
+    bool isScanned;
+};
+
+// Simple sorted map class
+// Insertion is O(n) so use only with a small buffer size
+// The advantage here is that the underlying datastructure is always stored sorted
+// so sorted traversal is also O(n)
+template <typename TKey, typename TValue, int BufferSize>
+class SortedBuffer
+{
+    struct KVP
+    {
+        TKey key;
+        TValue value;
+    };
+public:
+    SortedBuffer() :
+        _min(TValue()),
+        _tail(-1)
+    {
+        for (int i = 0; i < BufferSize; i++) {
+            _buffer[i].key = TKey();
+            _buffer[i].value = TValue();
+        }
     }
 
-    uint objectSize;    
-    const char * typeName;
-    const char * typeNameOrField;
-    bool hasVtable;
-    bool isPropagated;
-    bool isScanned;
-    bool isRoot;
+    void Add(TKey key, TValue value)
+    {
+        // If the key already exists, remove it
+        for (int i = 0; i <= _tail; i++)
+        {
+#if DBG_SB
+            g_Ext->Out("Checking whether %d == %d\n", _buffer[i].key, key);
+#endif
+            // If the key's already in here, remove it first
+            if (_buffer[i].key == key) {
+                for (int j = i; j < _tail; j++) {
+#if DBG_SB
+                    g_Ext->Out("Moving %d to %d\n", j + 1, j);
+#endif
+
+                    _buffer[j] = _buffer[j + 1];
+                }
+                if (_tail >= 0) { _tail--; }
+                break;
+            }
+        }
+
+        // Check if new value is greater than whats in the buffer so far
+        if (_tail + 1 < BufferSize || value > _min)
+        {
+            int i = 0;
+            // Find a spot to insert the new item
+            while (_buffer[i].value > value)
+            {
+                i++;
+            }
+
+            // See if we have hit our size limit
+            if (_tail + 1 < BufferSize) _tail++;
+
+            // Start from the end, move every item to its next slot
+            int j = _tail;
+            while (j > i)
+            {
+                _buffer[j] = _buffer[j - 1];
+                j--;
+            }
+
+            // Insert the new item into its chosen slot
+            _buffer[i].key = key;
+            _buffer[i].value = value;
+
+            // Update the cached smallest value
+            _min = _buffer[_tail].value;
+        }
+    }
+
+    template <class Fn>
+    void Map(Fn fn)
+    {
+        for (int i = 0; i <= _tail; i++) {
+            fn(_buffer[i].key, _buffer[i].value);
+        }
+    }
+
+    int Count() { return _tail + 1; }
+
+private:
+    TValue _min;
+    int _tail;
+    KVP _buffer[BufferSize];
 };
 
 #endif

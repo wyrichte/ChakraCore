@@ -17,8 +17,6 @@ EXT_CLASS_BASE::EXT_CLASS_BASE()
     m_unitTestMode = false;
     m_uiServerString[0] = '\0';
     m_gcNS[0] = '\1';
-    m_isCachedHasMemoryNS = false;
-    m_hasMemoryNS = false;
 #endif
 }
 
@@ -91,7 +89,7 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
 void
 EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
 {
-    this->ClearCache();
+    this->recyclerCachedData.Clear();
 }
 
 // Get cached JS module name
@@ -123,55 +121,33 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
 
     return m_moduleName;
 }
-
-bool EXT_CLASS_BASE::HasMemoryNS()
-{
-    if (m_isCachedHasMemoryNS)
-    {
-        return m_hasMemoryNS;
-    }
-
-    char symRecyclerType[256];
-    ULONG symRecyclerTypeId = 0;
-    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
-    {
-        m_hasMemoryNS = true;
-        m_isCachedHasMemoryNS = true;
-    }
-    else
-    {
-        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
-        {
-            m_hasMemoryNS = false;
-            m_isCachedHasMemoryNS = true;
-        }
-        else
-        {
-            this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
-        }
-    }
-
-    return m_hasMemoryNS;
-}
-
 PCSTR EXT_CLASS_BASE::GetMemoryNS()
 {
-    if (m_gcNS[0] == '\1')
-    {
-        if (HasMemoryNS())
+    if (m_gcNS[0] == '\1') {
+        char symRecyclerType[256];
+        ULONG symRecyclerTypeId = 0;
+        sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
+        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
         {
             strcpy_s(m_gcNS, "Memory::");
         }
         else
         {
-            strcpy_s(m_gcNS, "");
+            sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
+            if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+            {
+                strcpy_s(m_gcNS, "");
+            }
+            else
+            {
+                this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
+            }
         }
     }
 
     return m_gcNS;
 }
+
 
 ULONG64 EXT_CLASS_BASE::GetSizeT(ExtRemoteTyped data)
 {
@@ -208,18 +184,6 @@ PCSTR EXT_CLASS_BASE::FillModuleAndMemoryNS(PCSTR fmt)
 {
     sprintf_s(m_fillModuleBuffer, fmt, GetModuleName(), GetMemoryNS());
     return m_fillModuleBuffer;
-}
-
-PCSTR EXT_CLASS_BASE::GetSmallHeapBlockTypeName()
-{
-    if (HasMemoryNS())
-    {
-        return FillModule("%s!Memory::SmallHeapBlockT<SmallAllocationBlockAttributes>");
-    }
-    else
-    {
-        return FillModule("%s!SmallHeapBlock");
-    }
 }
 
 bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()
@@ -818,32 +782,6 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
         return std::string(vtablename).substr(0, len - vftableSuffixLen);
     }
     return std::string();
-}
-
-char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
-{
-    auto i = vtableTypeNameMap.find(vtableAddr);
-    if (i != vtableTypeNameMap.end())
-    {
-        return (*i).second->c_str();
-    }
-
-    ExtBuffer<char> vtableName;
-    if (this->GetOffsetSymbol(vtableAddr, &vtableName))
-    {
-        int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
-        if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
-        {
-            vtableName.GetBuffer()[len] = '\0';
-
-            auto newString = new std::string(vtableName.GetBuffer());
-            // Actual type name in expression shouldn't have __ptr64 in them
-            JDUtil::ReplaceString(*newString, " __ptr64", "");
-            vtableTypeNameMap[vtableAddr] = newString;
-            return newString->c_str();;
-        }
-    }
-    return nullptr;
 }
 
 std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
