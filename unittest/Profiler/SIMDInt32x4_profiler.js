@@ -174,24 +174,24 @@ function testSIMDInt32x4_CompareOp() {
     var n = SIMD.Int32x4(2000, 2000, 1, 100);
     var cmp;
     cmp = SIMD.Int32x4.lessThan(m, n);
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 3));
 
     WScript.Echo("SIMDInt32x4 equal");
     cmp = SIMD.Int32x4.equal(m, n);
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 3));
 
     WScript.Echo("SIMDInt32x4 greaterThan");
     cmp = SIMD.Int32x4.greaterThan(m, n);
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 3));
 
 }
 
@@ -238,7 +238,7 @@ function testSIMDInt32x4_Shuffle() {
 
 function testSIMDInt32x4_Select() {
     WScript.Echo("test SIMDInt32x4 Select......");
-    var m = SIMD.Int32x4.bool(true, true, false, false);
+    var m = SIMD.Bool32x4(true, true, false, false);
     var t = SIMD.Int32x4(1, 2, 3, 4);
     var f = SIMD.Int32x4(5, 6, 7, 8);
     var s = SIMD.Int32x4.select(m, t, f);
