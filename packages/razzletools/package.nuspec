@@ -12,7 +12,7 @@
     <tags>Chakra Razzle Tools</tags>
   </metadata>
   <files>
-    <file src="tools\vc\**" target="dev12"/>
+    <file src="tools\vc\**" target="vc"/>
 
     <!-- Needed for compiling interface definitions -->
     <file src="tools\x86\midl*" target="x86" />
