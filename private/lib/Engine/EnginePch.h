@@ -7,7 +7,6 @@
 
 #include <atlbase.h>
 #include <strsafe.h>
-#include <IEMSRCSettings.h>
 #include "Parser.h"
 #include "common\ByteSwap.h"
 

@@ -2393,8 +2393,8 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
         recycler,
         HostDispatch,        
         hostVariant,
-        scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
-        
+        scriptSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
+
     return hostDispatch;
 }
 
