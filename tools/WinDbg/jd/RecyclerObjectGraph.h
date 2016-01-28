@@ -13,7 +13,7 @@ public:
     typedef Graph<ULONG64, RecyclerGraphNodeAux> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
 
-    RecyclerObjectGraph(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, bool verbose = false);
+    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
     ~RecyclerObjectGraph();
     void Construct(Addresses& roots);
 
@@ -50,17 +50,16 @@ public:
 protected:
     void ClearTypeInfo();
     void MarkObject(ULONG64 address, ULONG64 prev);
-    void ScanBytes(ULONG64 address, ULONG64 size);
-    void PushMark(ULONG64 object, ULONG64 prev);
+    void ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjectInfo const& info);
 
-    typedef std::pair<ULONG64, ULONG64> MarkStackEntry;
+    typedef std::pair<RemoteHeapBlock *, HeapObjectInfo> MarkStackEntry;
 
     std::stack<MarkStackEntry> _markStack;
     GraphImplType _objectGraph;
 
     RemoteHeapBlockMap m_hbm;
     HeapBlockHelper _heapBlockHelper;
-    ExtRemoteTyped _recycler;
+    JDRemoteTyped _recycler;
     EXT_CLASS_BASE* _ext;
     bool _verbose;
     bool m_trident;

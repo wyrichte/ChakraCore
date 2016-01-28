@@ -27,10 +27,10 @@ private:
     bool ForEachHeapBlockRaw(Fn processFunction);
 
     template <typename Fn>
-    bool ProcessL1Chunk(ULONG64 nodeIndex, ExtRemoteTyped l1ChunkArray, Fn processFunction);
+    bool ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& l1ChunkArray, Fn processFunction);
 
     template <typename Fn>
-    bool ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, ExtRemoteTyped l2ChunkArray, Fn processFunction);
+    bool ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& l2ChunkArray, Fn processFunction);
 
 protected:
     ExtRemoteTyped heapBlockMap;
@@ -84,17 +84,17 @@ bool RemoteHeapBlockMap::ForEachHeapBlockRaw(Fn processFunction)
 {
     if (g_Ext->m_PtrSize == 4)
     {
-        ExtRemoteTyped map = heapBlockMap.Field("map");
+        JDRemoteTyped map = heapBlockMap.Field("map");
         return ProcessL1Chunk(0, map, processFunction);
     }
     else
     {
-        ExtRemoteTyped current = heapBlockMap.Field("list");
+        JDRemoteTyped current = heapBlockMap.Field("list");
         while (current.GetPtr() != 0)
         {
             ULONG64 nodeIndex = current.Field("nodeIndex").GetUlong();
-            ExtRemoteTyped map = current.Field("map");
-            ExtRemoteTyped l1ChunkArray = map.Field("map");
+            JDRemoteTyped map = current.Field("map");
+            JDRemoteTyped l1ChunkArray = map.Field("map");
             if (ProcessL1Chunk(nodeIndex, l1ChunkArray, processFunction))
             {
                 return true;
@@ -108,16 +108,17 @@ bool RemoteHeapBlockMap::ForEachHeapBlockRaw(Fn processFunction)
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, ExtRemoteTyped chunk, Fn fn)
+bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& chunk, Fn fn)
 {
     const size_t l1Count = chunk.GetTypeSize() / chunk.ArrayElement(0).GetTypeSize();
     l1ChunkSize = l1Count;
     for (size_t l1Id = 0; l1Id < l1Count; l1Id++)
     {
-        ExtRemoteTyped l2MapChunk = chunk.ArrayElement(l1Id);
-        if (GetAsPointer(l2MapChunk) != 0)
+        JDRemoteTyped l2MapChunk = chunk.ArrayElement(l1Id);
+        if (ExtRemoteTypedUtil::GetAsPointer(l2MapChunk) != 0)
         {
-            if (ProcessL2Chunk(nodeIndex, l1Id, l2MapChunk.Dereference(), fn))
+            JDRemoteTyped l2MapChunkDeref = l2MapChunk.Dereference();
+            if (ProcessL2Chunk(nodeIndex, l1Id, l2MapChunkDeref, fn))
             {
                 return true;
             }
@@ -128,7 +129,7 @@ bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, ExtRemoteTyped chunk,
 
 template <typename Fn>
 bool
-RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, ExtRemoteTyped chunk, Fn fn)
+RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& chunk, Fn fn)
 {
     ExtRemoteTyped l2map = chunk.Field("map");
     const size_t l2Count = l2map.GetTypeSize() / l2map.ArrayElement(0).GetTypeSize();
@@ -136,7 +137,7 @@ RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, ExtRemoteTyp
     for (size_t l2Id = 0; l2Id < l2Count; l2Id++)
     {
         ExtRemoteTyped heapBlock = l2map.ArrayElement(l2Id);
-        ULONG64 block = GetAsPointer(heapBlock);
+        ULONG64 block = ExtRemoteTypedUtil::GetAsPointer(heapBlock);
         if (block != 0)
         {
             RemoteHeapBlock remoteHeapBlock(block);

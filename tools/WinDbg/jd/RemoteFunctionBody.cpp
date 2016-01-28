@@ -38,7 +38,7 @@ RemoteFunctionBody::PrintByteCodeLink(EXT_CLASS_BASE * ext)
 void
 RemoteFunctionBody::PrintSourceUrl(EXT_CLASS_BASE *ext)
 {
-    ExtRemoteTyped sourceContextInfo = GetSourceContextInfo();
+    JDRemoteTyped sourceContextInfo = GetSourceContextInfo();
     if (sourceContextInfo.Field("isHostDynamicDocument").GetStdBool())
     {
         ext->Out("[dynamic script #%d]", sourceContextInfo.Field("hash"));
@@ -53,7 +53,7 @@ void
 RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
 {
     
-    ExtRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
+    JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
     ULONG64 buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
     if (buffer == 0)
     {
@@ -64,8 +64,8 @@ RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
             return;
         }
     }
-    ULONG64 startOffset = EXT_CLASS_BASE::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbStartOffset"));
-    ULONG length = (ULONG)EXT_CLASS_BASE::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbLength"));   
+    ULONG64 startOffset = ExtRemoteTypedUtil::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbStartOffset"));
+    ULONG length = (ULONG)ExtRemoteTypedUtil::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbLength"));
     ExtRemoteData source(buffer + startOffset, length);
     ExtBuffer<CHAR> sourceBuffer;
     sourceBuffer.Require(length + 1);    
@@ -74,13 +74,13 @@ RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
     ext->Out("%s", sourceBuffer.GetBuffer());
 }
 
-ExtRemoteTyped
+JDRemoteTyped
 RemoteFunctionBody::GetUtf8SourceInfo()
 {
     return JDUtil::GetWrappedField(*this, "m_utf8SourceInfo");
 }
 
-ExtRemoteTyped
+JDRemoteTyped
 RemoteFunctionBody::GetSourceContextInfo()
 {
     return GetUtf8SourceInfo().Field("m_srcInfo.sourceContextInfo");

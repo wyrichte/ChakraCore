@@ -77,6 +77,8 @@ ENTRY_BUILTIN(StartsWithCount)
 ENTRY_BUILTIN(EndsWithCount)
 ENTRY_BUILTIN(ContainsCount)
 ENTRY_BUILTIN(RepeatCount)
+ENTRY_BUILTIN(PadStartCount)
+ENTRY_BUILTIN(PadEndCount)
 
 //Ctors
 ENTRY_BUILTIN(ProxyCount)

@@ -17,6 +17,8 @@ EXT_CLASS_BASE::EXT_CLASS_BASE()
     m_unitTestMode = false;
     m_uiServerString[0] = '\0';
     m_gcNS[0] = '\1';
+    m_isCachedHasMemoryNS = false;
+    m_hasMemoryNS = false;
 #endif
 }
 
@@ -89,7 +91,7 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
 void
 EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
 {
-    this->recyclerCachedData.Clear();
+    this->ClearCache();
 }
 
 // Get cached JS module name
@@ -121,41 +123,54 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
 
     return m_moduleName;
 }
+
+bool EXT_CLASS_BASE::HasMemoryNS()
+{
+    if (m_isCachedHasMemoryNS)
+    {
+        return m_hasMemoryNS;
+    }
+
+    char symRecyclerType[256];
+    ULONG symRecyclerTypeId = 0;
+    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
+    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    {
+        m_hasMemoryNS = true;
+        m_isCachedHasMemoryNS = true;
+    }
+    else
+    {
+        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
+        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+        {
+            m_hasMemoryNS = false;
+            m_isCachedHasMemoryNS = true;
+        }
+        else
+        {
+            this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
+        }
+    }
+
+    return m_hasMemoryNS;
+}
+
 PCSTR EXT_CLASS_BASE::GetMemoryNS()
 {
-    if (m_gcNS[0] == '\1') {
-        char symRecyclerType[256];
-        ULONG symRecyclerTypeId = 0;
-        sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    if (m_gcNS[0] == '\1')
+    {
+        if (HasMemoryNS())
         {
             strcpy_s(m_gcNS, "Memory::");
         }
         else
         {
-            sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-            if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
-            {
-                strcpy_s(m_gcNS, "");
-            }
-            else
-            {
-                this->Err("Cannot find Recycler type, do you have symbol loaded?\n");
-            }
+            strcpy_s(m_gcNS, "");
         }
     }
 
     return m_gcNS;
-}
-
-
-ULONG64 EXT_CLASS_BASE::GetSizeT(ExtRemoteTyped data)
-{
-    if (data.GetTypeSize() == 8)
-    {
-        return data.GetUlong64();
-    }
-    return data.GetUlong();
 }
 
 // Fill a symbol name with module name. The result string uses my shared buffer.
@@ -184,6 +199,30 @@ PCSTR EXT_CLASS_BASE::FillModuleAndMemoryNS(PCSTR fmt)
 {
     sprintf_s(m_fillModuleBuffer, fmt, GetModuleName(), GetMemoryNS());
     return m_fillModuleBuffer;
+}
+
+PCSTR EXT_CLASS_BASE::GetSmallHeapBlockTypeName()
+{
+    if (HasMemoryNS())
+    {
+        return FillModule("%s!Memory::SmallHeapBlockT<SmallAllocationBlockAttributes>");
+    }
+    else
+    {
+        return FillModule("%s!SmallHeapBlock");
+    }
+}
+
+PCSTR EXT_CLASS_BASE::GetSmallHeapBucketTypeName()
+{
+    if (HasMemoryNS())
+    {
+        return FillModule("%s!Memory::HeapBucketT<Memory::SmallNormalHeapBlockT<SmallAllocationBlockAttributes> >");
+    }
+    else
+    {
+        return FillModule("%s!HeapBucketT<SmallHeapBlock>");
+    }
 }
 
 bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()
@@ -784,6 +823,32 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
     return std::string();
 }
 
+char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
+{
+    auto i = vtableTypeNameMap.find(vtableAddr);
+    if (i != vtableTypeNameMap.end())
+    {
+        return (*i).second->c_str();
+    }
+
+    ExtBuffer<char> vtableName;
+    if (this->GetOffsetSymbol(vtableAddr, &vtableName))
+    {
+        int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
+        if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+        {
+            vtableName.GetBuffer()[len] = '\0';
+
+            auto newString = new std::string(vtableName.GetBuffer());
+            // Actual type name in expression shouldn't have __ptr64 in them
+            JDUtil::ReplaceString(*newString, " __ptr64", "");
+            vtableTypeNameMap[vtableAddr] = newString;
+            return newString->c_str();;
+        }
+    }
+    return nullptr;
+}
+
 std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
 {
     std::string vtablename = GetSymbolForOffset(this, vtableAddress);
@@ -915,9 +980,9 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
     else
     {
         ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
-        ExtRemoteTyped hostScriptContext("(ChakraHostScriptContext*)@$extin", hostScriptContextField.GetPtr());
-        if (hostScriptContext.GetPtr())
+        if (hostScriptContextField.GetPtr())
         {
+            ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
             try
             {
                 if (strcmp(hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine").GetSimpleValue(), "0n0") == 0)
@@ -1026,17 +1091,12 @@ void EXT_CLASS_BASE::PrintAllUrl()
 {
 
     ULONG64 currentThreadContextPtr = 0;
-    try
+    RemoteThreadContext remoteThreadContext;
+    if (RemoteThreadContext::TryGetCurrentThreadContext(remoteThreadContext))
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
-        currentThreadContextPtr = currentThreadContext.GetPtr();
+        currentThreadContextPtr = remoteThreadContext.GetExtRemoteTyped().GetPtr();
     }
-    catch (...)
-    {
-        Out("Cannot find current thread context\n");
-    }
-
+    
     RemoteThreadContext::ForEach([this, currentThreadContextPtr](RemoteThreadContext threadContext)
     {
         ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
@@ -1193,44 +1253,7 @@ JD_PRIVATE_COMMAND(count,
     sprintf_s(buffer, "(%s *)@$extin", type);
 
     ExtRemoteTyped object(buffer, head);
-    Out("%I64u\n", Count(object, nextstr));
-}
-
-ULONG64 EXT_CLASS_BASE::Count(ExtRemoteTyped object, PCSTR field)
-{
-    ULONG64 head = GetAsPointer(object);
-    ULONG64 count = 0;
-
-    ULONG64 ptr = head;
-
-    while (ptr != 0)
-    {
-        count++;
-        object = object.Field(field);
-
-        ptr = object.GetPtr();
-        if (ptr == head)
-        {
-            break;
-        }
-    }
-    return count;
-}
-
-ULONG64 EXT_CLASS_BASE::TaggedCount(ExtRemoteTyped object, PCSTR field)
-{
-    ULONG64 head = GetAsPointer(object);
-    ULONG64 count = 0;
-
-    ULONG64 ptr = head;
-    ULONG offset = object.GetFieldOffset(field);
-    while (ptr != 0 && ptr != head)
-    {
-        count++;
-        ExtRemoteData data(ptr + offset, IsPtr64() ? 8 : 4);
-        ptr = data.GetPtr() & ~1;
-    }
-    return count;
+    Out("%I64u\n", ExtRemoteTypedUtil::Count(object, nextstr));
 }
 
 void EXT_CLASS_BASE::PrintFrameNumberWithLink(uint frameNumber)
