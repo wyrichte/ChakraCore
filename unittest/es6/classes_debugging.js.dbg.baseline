@@ -26,7 +26,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -60,7 +60,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -94,7 +94,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -128,7 +128,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -162,7 +162,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -196,7 +196,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -230,7 +230,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -264,7 +264,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -298,7 +298,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -332,7 +332,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -366,7 +366,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -400,7 +400,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -411,7 +411,7 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "A": "constructor() {}",
+      "A": "class A {\n          run() {}\n      }",
       "[Globals]": ""
     }
   },
@@ -448,7 +448,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -625,7 +625,7 @@
         "frameDescription": "runTests"
       },
       {
-        "start": 4945,
+        "start": 5345,
         "length": 26,
         "text": "testRunner.runTests(tests)",
         "frameDescription": "Global code"
@@ -634,7 +634,7 @@
   },
   {
     "locals": {
-      "this": "constructor(...args) { super(...args); }",
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
@@ -644,6 +644,15 @@
   {
     "evaluate": {
       "super.staticMethod();": "static"
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "class a {\n        method() { return \"hello world\"; }\n        static staticMethod() { return \"static\"; }\n      }",
+      "b": "class b extends a {\n        method1() {\n          return null;\n        }\n        method2() {\n          return super.method();\n        }\n      }",
+      "[Globals]": ""
     }
   }
 ]

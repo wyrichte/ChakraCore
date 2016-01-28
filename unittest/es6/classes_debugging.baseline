@@ -7,4 +7,6 @@ PASSED
 PASSED
 *** Running test #4 (3): Super evaluation in eval/lambda contexts
 PASSED
-Summary of tests: total executed: 4; passed: 4; failed: 0
+*** Running test #5 (4): GetDiagValueString on constructor
+PASSED
+Summary of tests: total executed: 5; passed: 5; failed: 0

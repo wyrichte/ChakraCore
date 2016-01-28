@@ -40,6 +40,8 @@ ENTRY_BUILTIN(ObjectIsExtensibleCount)
 ENTRY_BUILTIN(ObjectGetOwnPropertyNamesCount)
 ENTRY_BUILTIN(ObjectGetPrototypeOfCount)
 ENTRY_BUILTIN(ObjectKeysCount)
+ENTRY_BUILTIN(ObjectValuesCount)
+ENTRY_BUILTIN(ObjectEntriesCount)
 
 ENTRY_BUILTIN(DateToISOStringCount)
 ENTRY_BUILTIN(FunctionBindCount)
