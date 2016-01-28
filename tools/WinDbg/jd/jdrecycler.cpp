@@ -850,7 +850,7 @@ uint HeapBlockHelper::GetObjectAllocationShift()
         {
             auto firstSizeCat = ext->GetNumberValue<ULONG64>(recycler.Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
             int i = 0;
-            while (firstSizeCat > (ULONG64)(1 << (++i)));
+            while (firstSizeCat > ((ULONG64)1 << (++i)));
             objectAllocationShift = i;
         }
         catch (ExtException&)

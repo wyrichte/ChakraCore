@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <string>
+#include <guiddef.h>
 
 #ifdef JD_PRIVATE
 EXT_CLASS_BASE* GetExtension()

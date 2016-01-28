@@ -6,6 +6,7 @@
 // ---- Begin jd private commands implementation --------------------------------------------------
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
+#include "RemotePageAllocator.h"
 
 ULONG64
 RemotePageAllocator::GetUsedBytes()
