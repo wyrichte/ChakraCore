@@ -129,7 +129,7 @@ public:
     {
         unsigned int count = minCount + GetRandomInteger(maxCount - minCount + 1);
         
-        return RecyclerNewPlusLeaf(recycler, sizeof(size_t) * count, LeafObject, count);
+        return RecyclerNewPlusLeaf(recyclerInstance, sizeof(size_t) * count, LeafObject, count);
     }
 
 protected:
@@ -161,7 +161,7 @@ public:
     {
         unsigned int count = minCount + GetRandomInteger(maxCount - minCount + 1);
         
-        return RecyclerNewPlus(recycler, sizeof(RecyclerTestObject *) * count, ScannedObject, count);
+        return RecyclerNewPlus(recyclerInstance, sizeof(RecyclerTestObject *) * count, ScannedObject, count);
     }
 
     virtual bool TryGetRandomLocation(Location * location) override
@@ -206,7 +206,7 @@ public:
     {
         unsigned int count = minCount + GetRandomInteger(maxCount - minCount + 1);
         
-        return RecyclerNewWithBarrierPlus(recycler, sizeof(RecyclerTestObject *) * count, BarrierObject, count);
+        return RecyclerNewWithBarrierPlus(recyclerInstance, sizeof(RecyclerTestObject *) * count, BarrierObject, count);
     }
 
     virtual bool TryGetRandomLocation(Location * location) override
@@ -251,7 +251,7 @@ public:
     {
         unsigned int count = minCount + GetRandomInteger(maxCount - minCount + 1);
         
-        return RecyclerNewTrackedLeafPlusZ(recycler, sizeof(RecyclerTestObject *) * count, TrackedObject, count);
+        return RecyclerNewTrackedLeafPlusZ(recyclerInstance, sizeof(RecyclerTestObject *) * count, TrackedObject, count);
     }
 
     virtual bool TryGetRandomLocation(Location * location) override

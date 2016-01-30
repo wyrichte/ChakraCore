@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "..\..\Lib\Common\core\ICustomConfigFlags.h"
+#include "core\ICustomConfigFlags.h"
 
 class HostConfigFlags : public ICustomConfigFlags
 {

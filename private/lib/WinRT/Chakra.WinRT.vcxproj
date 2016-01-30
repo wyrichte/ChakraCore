@@ -22,7 +22,8 @@
         <!-- For unicode.h -->
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Common;
-
+        $(ChakraRootDirectory)core\lib\runtime;
+        $(ChakraRootDirectory)private\lib\engine;
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
@@ -32,6 +33,10 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>WinRTPCH.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4091      <!-- 'typedef ': ignored on left of 'NGenHintEnum' when no variable is declared -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -335,6 +335,11 @@ namespace JsDiag
                 // Don't copy nested string trees yet, as that involves a recursive call, and the recursion can become
                 // excessive. Just collect the nested string trees and the buffer location where they should be copied, and
                 // the caller can deal with those after returning.
+
+                // Suppress 26015 prefast warning: Potential overflow using expression '& buffer[copiedCharLength]' 
+                // Buffer access is apparently unbounded by the buffer size.
+                // The buffer length is checked in DIAG_VERIFY_RUNTIME
+#pragma prefast(suppress:26015)    
                 nestedStringTreeCopyInfos.Push(StringCopyInfo(s.GetRemoteAddr(), &buffer[copiedCharLength]));
             }
             else

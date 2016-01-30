@@ -22,6 +22,10 @@ int UTRunTests(UTest::UTCOMMANDARGS *pCommandArgs)
     return errorCode;
 }
 
+void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
+{
+}
+
 void ChakraInitPerImageSystemPolicy(AutoSystemInfo * autoSystemInfo)
 {
     /* Do Nothing */

@@ -253,11 +253,11 @@ namespace JsDiag
         auto reader = GetReader();
         DebugClient* debugClient = inspectionContext->GetDebugClient();
 
-        RemoteStackWalker walker = RemoteStackWalker(
+        RemoteStackWalker walker {
             debugClient,
             remoteThreadContext->ToTargetPtr()->currentThreadId,
             nullptr,
-            false /*walkInternalFrame*/);
+            false /*walkInternalFrame*/};
 
         foundThis = false;
         if (walker.WalkToTarget(this->GetRemoteAddr()))
@@ -391,11 +391,11 @@ namespace JsDiag
 
         DebugClient* debugClient = context->GetDebugClient();
 
-        RemoteStackWalker walker = RemoteStackWalker(
+        RemoteStackWalker walker{
             debugClient,
             threadContext.GetCurrentThreadId(),
             nullptr,
-            false /*walkInternalFrame*/);
+            false /*walkInternalFrame*/};
 
         if (walker.WalkToTarget(this->GetRemoteAddr()))
         {
@@ -585,11 +585,11 @@ namespace JsDiag
         auto reader = GetReader();
         DebugClient* debugClient = inspectionContext->GetDebugClient();
 
-        RemoteStackWalker walker = RemoteStackWalker(
+        RemoteStackWalker walker{
             debugClient,
             threadContext->ToTargetPtr()->currentThreadId,
             nullptr,
-            false /*walkInternalFrame*/);
+            false /*walkInternalFrame*/};
 
         if (!this->AdvanceWalkerToArgsFrame(inspectionContext, &walker))
         {

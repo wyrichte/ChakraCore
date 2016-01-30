@@ -28,6 +28,8 @@
         $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
+        $(ChakraCoreRootDirectory)Lib\Runtime\ByteCode;
+        $(ChakraCoreRootDirectory)Lib\Runtime\Math;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Backend\$(PlatformPathNameAlt);
         $(ChakraCoreRootDirectory)Lib\Jsrt;
@@ -35,6 +37,9 @@
         $(MSBuildThisFileDirectory)..\SCA;
         $(MSBuildThisFileDirectory)..\JsrtChakra;
         $(MSBuildThisFileDirectory)..\EnC;
+        $(MSBuildThisFileDirectory)..\staticLib;
+        $(MSBuildThisFileDirectory)..\winrt;
+        $(MSBuildThisFileDirectory)..;
 
         $(ChakraInternalIDLIntDir);
 
@@ -52,11 +57,19 @@
       <PrecompiledHeaderFile>EnginePch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
-        4510;   <!-- default constructor could not be generated -->
-        4610;   <!-- can never be instantiated - user defined constructor required -->
+        4510;     <!-- default constructor could not be generated -->
+        4610;     <!-- can never be instantiated - user defined constructor required -->
+        4091;     <!-- 'typedef ': ignored on left of '' when no variable is declared -->
         
         <!-- TODO: Should clean this up -->
-        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
+        4267;     <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
+        4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
+        4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
+      </DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+        %(DisableSpecificWarnings);
+        4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
       </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>

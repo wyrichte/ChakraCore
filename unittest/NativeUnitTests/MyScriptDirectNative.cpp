@@ -335,7 +335,7 @@ void MyScriptDirectTests::CreateFunction(std::wstring function_name,std::wstring
     Var protofunc=0;
     Var globalObject=0;
     FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObject),L"GetGlobalObject");
-    std::string fname(function_name.length(),L'');
+    std::string fname(function_name.length(),L'\0');
 
     char* str_c2=new char[function_name.length()];
     memcpy(str_c2,function_name.c_str(),function_name.length());

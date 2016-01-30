@@ -12,7 +12,6 @@
 #include "HiddenServer.h"
 #include "VariableProjectionServer.h"
 
-#include <stdio.h>
 
 namespace Animals
 {

@@ -510,6 +510,14 @@ namespace Winery
         //	__out Windows::Foundation::Collections::IMap<HSTRING, Winery::IGeneralShop*> **namesMappings) override;
 
         // IProductionLine::add_AgeCompleteEvent
+        IFACEMETHOD(add_AgeEmptyEvent)( 
+            Winery::IAgeCompleteHandler *handler,
+            __out EventRegistrationToken *pCookie) override;
+
+        // IProductionLine::remove_AgeCompleteEvent
+        IFACEMETHOD(remove_AgeEmptyEvent)(EventRegistrationToken iCookie) override;
+
+        // IProductionLine::add_AgeCompleteEvent
         IFACEMETHOD(add_AgeCompleteEvent)( 
             Winery::IAgeCompleteHandler *handler,
             __out EventRegistrationToken *pCookie) override;

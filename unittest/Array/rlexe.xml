@@ -22,10 +22,12 @@
       <compile-flags>-htmlversion</compile-flags>
     </default>
   </test>-->
+<!--
   <test>
     <default>
       <files>array_marhsall_bugfix.html</files>
       <compile-flags>-MaxInterpretCount:1 -nonative-</compile-flags>
     </default>
   </test>
+-->
 </regress-exe>

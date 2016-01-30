@@ -3110,6 +3110,54 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ThrowException(_In_ Var exceptionObj
     return hr;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
+    /* [in] */ __RPC__deref_in_opt ModuleRecord *referencingModule,
+    /* [size_is][in] */ __RPC__in_ecount_full(specifierLength) LPCWSTR normalizedSpecifier,
+    /* [in] */ UINT specifierLength,
+    /* [out] */ __RPC__deref_out_opt ModuleRecord *moduleRecord)
+{
+    Assert(false);
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
+    /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+    /* [in] */ __RPC__in void *sourceContext,
+    /* [in] */ unsigned long ulStartingLineNumber,
+    /* [in] */ __RPC__in LPCWSTR sourceText,
+    /* [in] */ unsigned long sourceLength,
+    /* [out] */ __RPC__deref_out_opt Var *exceptionVar)
+{
+    Assert(false);
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
+    /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+    /* [out] */ __RPC__deref_out_opt Var *varResult)
+{
+    Assert(false);
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::SetModuleHostInfo(
+    /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+    /* [in] */ ModuleHostInfoKind moduleHostState,
+    /* [in] */ __RPC__in void *hostInfo)
+{
+    Assert(false);
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetModuleHostInfo(
+    /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+    /* [in] */ ModuleHostInfoKind moduleHostState,
+    /* [out] */ __RPC__deref_out_opt void **hostInfo)
+{
+    Assert(false);
+    return E_NOTIMPL;
+}
+
 HRESULT ScriptEngineBase::VerifyOnEntry(BOOL allowedInHeapEnum)
 {
     HRESULT hr = NOERROR;

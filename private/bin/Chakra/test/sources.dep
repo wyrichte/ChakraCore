@@ -29,6 +29,8 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\private\core_razzle_build\jsrt\test|PASS1 \
     inetcore\jscript\private\core_razzle_build\parser\release|PASS1 \
     inetcore\jscript\private\core_razzle_build\parser\test|PASS1 \
+    inetcore\jscript\private\core_razzle_build\runtime\base\release|PASS1 \
+    inetcore\jscript\private\core_razzle_build\runtime\base\test|PASS1 \
     inetcore\jscript\private\core_razzle_build\runtime\bytecode\release|PASS1 \
     inetcore\jscript\private\core_razzle_build\runtime\bytecode\test|PASS1 \
     inetcore\jscript\private\core_razzle_build\runtime\debug\release|PASS1 \
@@ -63,4 +65,5 @@ PUBLIC_PASS1_CONSUMES= \
     enduser\vc_binaries\src\atlthunk|PASS1 \
     minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
     minkernel\crts\libw32\lib\extdlllib|PASS1 \
+    onecore\enduser\vc_binaries\src\atlthunk|PASS1 \
 

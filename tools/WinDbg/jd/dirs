@@ -1,4 +1,3 @@
 DIRS=\
     private{noncrit} \
-    release{noncrit} \
     mph{noncrit} \

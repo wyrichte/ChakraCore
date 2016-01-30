@@ -1,4 +1,3 @@
-!include $(BASEDIR)\ieversions.inc
 
 TARGETTYPE      = NOTARGET
 SOURCES         =
