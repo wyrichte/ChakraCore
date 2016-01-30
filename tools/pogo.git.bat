@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 
 setlocal
 
@@ -64,9 +64,7 @@ set POGO_TYPE=
  REM Clean binaries we no longer need
 if exist %BIN_PATH%\*.pgc ( del %BIN_PATH%\*.pgc )
 if exist %BIN_PATH%\*.pgd ( del %BIN_PATH%\*.pgd )
-if exist %BIN_PATH%\pgort120.dll ( del %BIN_PATH%\pgort120.dll )
-if exist %BIN_PATH%\pgort120.pdb ( del %BIN_PATH%\pgort120.pdb )
-if exist %BIN_PATH%\msvcr120.* ( del %BIN_PATH%\msvcr120.* )
+if exist %BIN_PATH%\pgort* ( del %BIN_PATH%\pgort* )
 
 endlocal
 goto:eof
@@ -75,7 +73,7 @@ goto:eof
   set logFileName=%BIN_PATH%\build_%arch%%flavor%%POGO_TYPE%
   set _LoggingParams=/fl1 /flp1:logfile=%logFileName%.log;verbosity=normal /fl2 /flp2:logfile=%logFileName%.err;errorsonly /fl3 /flp3:logfile=%logFileName%.wrn;warningsonly
   echo msbuild /m /p:Configuration=jshost-%flavor% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
-  msbuild /m /p:Configuration=jshost-%flavor% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
+  call msbuild /m /p:Configuration=jshost-%flavor% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
   if "%errorlevel%" NEQ "0" (
     set builderror=%errorlevel%
   )
