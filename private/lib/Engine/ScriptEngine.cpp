@@ -291,7 +291,7 @@ HRESULT ScriptEngine::InitializeThreadBound()
     BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
-        // Enable expermental flags is specified by the host. ThreadContext
+        // Enable experimental flags is specified by the host. ThreadContext
         // reads experimental flags during construction, so this has to be done
         // before it's created.
         if (GetExperimentalFlag(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS))
@@ -336,7 +336,7 @@ ScriptEngine::EnsureScriptContext()
     Assert(localThreadContext->GetDebugManager() != nullptr);
 
     newScriptContext->DispatchDefaultInvoke = DispMemberProxy::DefaultInvoke;
-    newScriptContext->DispatchProfileInoke = DispMemberProxy::ProfileInvoke;
+    newScriptContext->DispatchProfileInvoke = DispMemberProxy::ProfileInvoke;
 
     newScriptContext->SetRaiseMessageToDebuggerFunction(ScriptEngine::RaiseMessageToDebugger);
     newScriptContext->SetTransitionToDebugModeIfFirstSourceFn(ScriptEngine::TransitionToDebugModeIfFirstSource);
@@ -4862,7 +4862,7 @@ void ScriptEngine::OnLeaveScript(void)
     AutoNestedHandledExceptionType autoNestedHandledExceptionType(ExceptionType_HasStackProbe);
 #endif
 
-    // The code was moved to be called before insript flag was cleared in threadcontext. It is called
+    // The code was moved to be called before inScript flag was cleared in threadcontext. It is called
     // half way in ctor so we should avoid exceptions. should be safe as this is callrootlevel 0
     BEGIN_LEAVE_SCRIPT_NO_STACK_PROBE(scriptContext)
     {
@@ -5045,7 +5045,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
 
     // We want to be able to debug global code. However we do not want to
     // keep around transient code. e.g. Code blocks generated from
-    // sombody executing window.execScript in IE. So we compromise and
+    // somebody executing window.execScript in IE. So we compromise and
     // only keep around global code for smart hosts.
     // In cases where we don't want to keep the global code, we set the flag
     // indicating that the function body should be allocated in the recycler so that
@@ -5797,7 +5797,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
             }
             if (scriptContext->IsInDebugOrSourceRundownMode())
             {
-                // Register the document with PDM to ensure critical errors like syntax errors are correctly reproted
+                // Register the document with PDM to ensure critical errors like syntax errors are correctly reported
                 // in the debugger
                 CScriptBody* scriptBody = HeapNewNoThrow(CScriptBody, /*functionBody*/ nullptr, this, utf8SourceInfo);
                 if(scriptBody)
@@ -5823,7 +5823,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
         auto srcInfo = pRootFunc->GetHostSrcInfo();
         if (srcInfo->moduleID == kmodGlobal)
         {
-            byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache gaurantee is that the buffer lives as long as the process.
+            byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache guarantee is that the buffer lives as long as the process.
             DWORD dwByteCodeSize;
             Js::FunctionBody* deserializedFunction = nullptr;
 
@@ -6302,8 +6302,8 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
     case SCRIPTPROP_CONVERSIONLCID:
         return E_NOTIMPL;
 
-        // Safe devide functionality. When set, we'll do long division
-        // and return NaN if divedend is 0 (default is long division).
+        // Safe divide functionality. When set, we'll do long division
+        // and return NaN if dividend is 0 (default is long division).
         // not used in windows.
     case SCRIPTPROP_INTEGERMODE:
         // This flag can only be set if the engine is uninitialized.
@@ -6340,7 +6340,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
 
         // IIS is using this to catch a bunch of exceptions,
         // including some fatal exceptions. COM interfaces are
-        // not supposed to raise excpetion, and from security
+        // not supposed to raise exception, and from security
         // perspective we are not supposed to catch fatal exceptions
         // I think we shouldn't do this.
         // IIS doesn't appear to be checking return HR from the call
@@ -6639,7 +6639,7 @@ LReturn:
 * ScriptEngine::GetINETSecurityManagerNoRef
 *
 * This function obtains an IInternetSecurityManager from the
-* script site.  If the site gives us no joy, we cocreate one.
+* script site.  If the site gives us no joy, we co-create one.
 *
 * We cache the pointer, so there is no need to Release() it.
 *
@@ -6876,7 +6876,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     }
 
     // TODO: Parse should be called with a parameter to indicate if this source is host managed
-    // or runtime managed, and set it in srcinfo.  If host managed, the srccontext cookie should
+    // or runtime managed, and set it in srcInfo. If host managed, the srcContext cookie should
     // also be set. For now this script is always runtime managed.
     if(this->IsDebuggerEnvironmentAvailable())
     {
@@ -7096,7 +7096,7 @@ HRESULT __stdcall JsVarAddRef(Var instance)
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
-    // We are expecting only two HRESULTs here- either it succeded or it ran out of memory
+    // We are expecting only two HRESULTs here- either it succeeded or it ran out of memory
     Assert(SUCCEEDED(hr) || hr == E_OUTOFMEMORY);
 
     // This method can return a failure HRESULT
@@ -7406,7 +7406,7 @@ IsOs_OneCoreUAP()
             s_fIsOsOneCoreUAP = true;
 
             ULONG ulPlatform;
-            pfnRtlGetDeviceFamilyInfoEnum(nullptr /* uap info */, &ulPlatform, nullptr /* deviceClass */);
+            pfnRtlGetDeviceFamilyInfoEnum(nullptr /* UAP info */, &ulPlatform, nullptr /* deviceClass */);
             if (ulPlatform == 3 || /* DEVICEFAMILYINFOENUM_DESKTOP */
                 ulPlatform == 6 || /* DEVICEFAMILYINFOENUM_TEAM    */
                 ulPlatform == 9)   /* DEVICEFAMILYINFOENUM_SERVER  */

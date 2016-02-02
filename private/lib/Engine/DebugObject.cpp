@@ -205,12 +205,12 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
 
 #ifdef FAULT_INJECTION // no action for free test build because faultinjection is not enabled in fretest build
 
-    // for fault injetion self testing
+    // for fault injection self testing
     // command: 'jshost -FaultInjection:1 -FaultInjectionType:6 xx.js' will show OOM
     // xx.js: 
     //  Debug.faultInjectionCookie = 12345;
     //  WScript.Echo(Debug.faultInjectionCookie);
-    INJECT_FAULT(Js::FaultInjection::Global.FaultInjectioSelfTest, []()->bool{
+    INJECT_FAULT(Js::FaultInjection::Global.FaultInjectionSelfTest, []()->bool{
         return Js::FaultInjection::Global.FaultInjectionCookie == 12345;
     }, {
         Output::Print(L"Fault Injected!");
