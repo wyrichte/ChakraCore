@@ -41,7 +41,8 @@ namespace Js
             Throw::OutOfMemory(); // scriptDebugDocument is null, likely previous Register failed
         }
 
-        return scriptDebugDocument->GetScriptBody()->GetRootFunction();
+        Assert(scriptDebugDocument->GetScriptBody()->GetRootFunction()->IsFunctionBody());
+        return scriptDebugDocument->GetScriptBody()->GetRootFunction()->GetFunctionBody();
     }
 
     //

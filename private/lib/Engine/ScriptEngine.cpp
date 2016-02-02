@@ -3688,7 +3688,7 @@ HRESULT ScriptEngine::AddScriptletCore(
     ULONG           ichLimHost;
     Js::ModuleID           moduleID;
     CScriptBody *   pbody     = nullptr;
-    Js::FunctionBody* pFuncBody = nullptr;
+    Js::ParseableFunctionInfo* pFuncInfo = nullptr;
     LPOLESTR        pszFunc   = nullptr;
     LPOLESTR        pszTitle  = nullptr;
     LPOLESTR        pszEvt    = nullptr;
@@ -3718,7 +3718,13 @@ HRESULT ScriptEngine::AddScriptletCore(
         )
         dwFlags |= SCRIPTTEXT_FORCEEXECUTION;
     else
+    {
         dwFlags &= (~SCRIPTTEXT_FORCEEXECUTION);
+        if (!PHASE_OFF1(Js::DeferEventHandlersPhase))
+        {
+            grfscr |= fscrDeferFncParse;
+        }
+    }
 
     pnid = m_NamedItemList.Find(pcszItemName);
     if (!pnid)
@@ -3797,7 +3803,7 @@ HRESULT ScriptEngine::AddScriptletCore(
         {
             Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
-            hr = Compile(pszFunc, ostrlen(pszFunc), grfscr, &si, pszTitle, &se, &pbody, &pFuncBody,
+            hr = Compile(pszFunc, ostrlen(pszFunc), grfscr, &si, pszTitle, &se, &pbody, &pFuncInfo,
                 fUsedExisting, &sourceInfo /* no source to free here */, &ScriptEngine::CompileUTF16);
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)
@@ -3891,7 +3897,8 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
     }
 
     BOD *body = (BOD*)(m_pglbod->PvGet(0));
-    Js::FunctionBody *function = body->pbody->GetRootFunction();
+    Assert(body->pbody->GetRootFunction()->IsFunctionBody());
+    Js::FunctionBody *function = body->pbody->GetRootFunction()->GetFunctionBody();
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
@@ -4267,7 +4274,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     LPCOLESTR    pszTitle = nullptr;
     void * pcszCodeT = pcszCode;
     NamedItem * pnid      = nullptr;
-    Js::FunctionBody* pFuncBody = nullptr;
+    Js::ParseableFunctionInfo* pFuncInfo = nullptr;
 
 #if defined(ONE_PAGE_SS)
     this->GetScriptSiteHolder()->SessionReset();
@@ -4412,7 +4419,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
         };
 
         hr = CreateScriptBody(pcszCodeT, len, dwFlags, allowDeferredParse, &si, pcszDelimiter, pszTitle,
-            fnCoreCompile, ComputeGrfscr, fUsedExisiting, &pFuncBody, ppSourceInfo, pexcepinfo);
+            fnCoreCompile, ComputeGrfscr, fUsedExisiting, &pFuncInfo, ppSourceInfo, pexcepinfo);
     }
 
     if ((dwFlags & SCRIPTTEXT_FORCEEXECUTION) && SUCCEEDED(hr))
@@ -4643,6 +4650,11 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         grfscr |= fscrImplicitParents;
     }
 
+    if (!PHASE_OFF1(Js::DeferEventHandlersPhase))
+    {
+        grfscr |= fscrDeferFncParse;
+    }
+
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         si.sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)pszSrcLen, isDynamicDocument, sourceMapUrl, spProfileDataCache);
@@ -4662,7 +4674,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         {
             Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
             AutoCOMPtr<CScriptBody> pbody;
-            Js::FunctionBody* funcBody;
+            Js::ParseableFunctionInfo* funcBody;
 
             hr = Compile(pszSrc, ostrlen(pszSrc), grfscr, &si, pszTitle, &se, &pbody, &funcBody, fUsedExisting, &sourceInfo, &ScriptEngine::CompileUTF16);
             if (SUCCEEDED(hr))
@@ -5008,7 +5020,7 @@ LHaveBase:
 HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags, bool allowDeferParse, SRCINFO *psi,
                                        const void *pszDelimiter, LPCOLESTR pszTitle,
                                        CoreCompileFunction fnCoreCompile, ComputeGrfscrFunction ComputeGrfscr,
-                                       BOOL &fUsedExisting, Js::FunctionBody** ppFuncBody, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO *pei, CScriptBody **ppbody)
+                                       BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO *pei, CScriptBody **ppbody)
 {
     Assert(pszSrc != nullptr);
     AssertMem(psi);
@@ -5105,7 +5117,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
     {
         Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
-        hr = Compile( pszSrc, len, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncBody, fUsedExisting, &sourceInfo, fnCoreCompile);
+        hr = Compile( pszSrc, len, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncInfo, fUsedExisting, &sourceInfo, fnCoreCompile);
         SETRETVAL(ppSourceInfo, sourceInfo);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
@@ -5435,15 +5447,15 @@ HRESULT ScriptEngine::ProfileModeCompile(
     __in LPCOLESTR pszTitle,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo,
     __in CoreCompileFunction fnCoreCompile)
 {
     CHECK_POINTER(ppbody);
     *ppbody = nullptr;
-    CHECK_POINTER(ppFuncBody);
-    *ppFuncBody = nullptr;
+    CHECK_POINTER(ppFuncInfo);
+    *ppFuncInfo = nullptr;
     fUsedExisting = false;
     CHECK_POINTER(ppSourceInfo);
     *ppSourceInfo = nullptr;
@@ -5451,7 +5463,7 @@ HRESULT ScriptEngine::ProfileModeCompile(
     // When we're profiling, might as well deserialize everything
     grfscr = (grfscr & (~fscrAllowFunctionProxy));
 
-    HRESULT hr = DefaultCompile(pszSrc, len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncBody, fUsedExisting, ppSourceInfo, fnCoreCompile);
+    HRESULT hr = DefaultCompile(pszSrc, len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, fnCoreCompile);
 
     if (SUCCEEDED(hr) && !fUsedExisting)
     {
@@ -5479,12 +5491,12 @@ HRESULT ScriptEngine::DefaultCompile(
     __in LPCOLESTR pszTitle,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo,
     __in CoreCompileFunction fnCoreCompile)
 {
-    return (this->*fnCoreCompile)(pszSrc,len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncBody, fUsedExisting, ppSourceInfo);
+    return (this->*fnCoreCompile)(pszSrc,len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo);
 }
 
 HRESULT ScriptEngine::CompileByteCodeBuffer(
@@ -5495,7 +5507,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     __in LPCOLESTR pszTitle,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** pSourceInfo)
 {
@@ -5518,7 +5530,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
 
     // CompileByteCodeBuffer is called by ParseScriptText which handles OOM
     *ppbody = HeapNew(CScriptBody, rootFunction, this, rootFunction->GetUtf8SourceInfo());
-    *ppFuncBody = rootFunction;
+    *ppFuncInfo = rootFunction;
     return hr;
 }
 
@@ -5530,7 +5542,7 @@ HRESULT ScriptEngine::CompileUTF16(
     __in LPCOLESTR pszTitle,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo)
 {
@@ -5590,7 +5602,7 @@ HRESULT ScriptEngine::CompileUTF16(
 
     // Compile the UTF8 source
     SETRETVAL(ppSourceInfo, sourceInfo);
-    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncBody, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncInfo, fUsedExisting);
 
     LEAVE_PINNED_SCOPE();
 
@@ -5605,7 +5617,7 @@ HRESULT ScriptEngine::CompileUTF8(
     __in LPCOLESTR pszTitle,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo)
 {
@@ -5638,13 +5650,13 @@ HRESULT ScriptEngine::CompileUTF8(
     }
     SETRETVAL(ppSourceInfo, sourceInfo);
 
-    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
     if (pse->ei.scode == JSERR_AsmJsCompileError)
     {
         // recompile if we have asm.js parse error
         grfscr |= fscrNoAsmJs;
         pse->Clear();
-        hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncBody, fUsedExisting);
+        hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
     }
     LEAVE_PINNED_SCOPE();
 
@@ -5660,7 +5672,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     __in BOOL fOriginalUTF8Code,
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
-    __out Js::FunctionBody** ppFuncBody,
+    __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting)
 {
 
@@ -5691,8 +5703,25 @@ HRESULT ScriptEngine::CompileUTF8Core(
             void* cachedSrcInfo = (*ppbody)->PvGetData(&srcLength);
             if (srcLength == sizeof(SRCINFO) && (memcmp(srcInfo, cachedSrcInfo, sizeof(SRCINFO)) ==0))
             {
+                Js::ParseableFunctionInfo *functionInfo = (*ppbody)->GetRootFunction();
+                if (functionInfo != functionInfo->GetFunctionProxy())
+                {
+                    // The function was originally deferred and has been compiled since the CScriptBody was
+                    // created. Make a new CScriptBody pointing to the full FunctionBody and let it replace
+                    // the current entry in the map.
+                    Assert(functionInfo->GetFunctionProxy() && functionInfo->GetFunctionProxy()->IsFunctionBody());
+                    functionInfo = functionInfo->GetFunctionProxy()->GetParseableFunctionInfo();
+
+                    CScriptBody *newBody = HeapNew(CScriptBody, functionInfo, this, utf8SourceInfo);
+                    Assert(!scriptContext->IsInDebugOrSourceRundownMode());
+
+                    scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, ppbody);
+                    (*ppbody)->Release();                   
+                    scriptBodyMap->Add(utf8SourceInfo, newBody);
+                    *ppbody = newBody;
+                }
                 (*ppbody)->AddRef();
-                (*ppFuncBody) = (*ppbody)->GetRootFunction();
+                (*ppFuncInfo) = (*ppbody)->GetRootFunction();
 
                 fUsedExisting = TRUE;
                 return NOERROR;
@@ -5707,7 +5736,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
     fUsedExisting = FALSE;
 
-    Js::FunctionBody* pRootFunc = nullptr;
+    Js::ParseableFunctionInfo* pRootFunc = nullptr;
 
     uint sourceIndex = 0;
     LPCUTF8 pszSrc = utf8SourceInfo->GetSource(L"ScriptEngine::CompileUTF8Core");
@@ -5781,7 +5810,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             return hr;
         }
-        pRootFunc = func->GetFunctionBody();
+        pRootFunc = func->GetParseableFunctionInfo();
         // Mark the particular source buffer to have deferred functions using a static deferral threshold and not one based on profile.
         if (ps.GetSourceLength() > Parser::GetDeferralThreshold(/* isProfileLoaded */ false) )
         {
@@ -5800,7 +5829,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forcing serialization.\n");
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc, srcInfo, true, &byteCode, &dwByteCodeSize);
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
             {
@@ -5839,7 +5868,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
         pRootFunc->SetDisplayName(pszTitle);
     }
 
-    *ppFuncBody = pRootFunc;
+    *ppFuncInfo = pRootFunc;
     *ppbody = nullptr;
 
     // CompileUtf8Core is called by callers who wrap it in BEGIN_TRANSLATE_EXCEPTION_*
