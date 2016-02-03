@@ -1295,6 +1295,17 @@ namespace JsDiag
     typedef RemoteData<JavascriptDate> RemoteJavascriptDate;
     typedef RemoteRecyclableObjectBase<JavascriptVariantDate> RemoteJavascriptVariantDate;
 
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt32x4>   RemoteJavascriptSimdInt32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDFloat32x4> RemoteJavascriptSimdFloat32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt8x16>   RemoteJavascriptSimdInt8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt16x8>   RemoteJavascriptSimdInt16x8;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool32x4>  RemoteJavascriptSimdBool32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool8x16>  RemoteJavascriptSimdBool8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool16x8>  RemoteJavascriptSimdBool16x8;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint32x4>  RemoteJavascriptSimdUint32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint8x16>  RemoteJavascriptSimdUint8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint16x8>  RemoteJavascriptSimdUint16x8;
+
     struct RemoteRegexPattern: public RemoteData<UnifiedRegex::RegexPattern>
     {
         RemoteRegexPattern(IVirtualReader* reader, const TargetType* addr)

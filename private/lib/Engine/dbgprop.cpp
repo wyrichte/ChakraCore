@@ -451,6 +451,12 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
             *pbstrFullName = SysAllocString(L"");
             IfNullReturnError(*pbstrFullName, E_OUTOFMEMORY);
         }
+        else if (displayType == Js::DiagObjectModelDisplayType_RecyclableSimdDisplay)
+        {
+            SysFreeString(*pbstrFullName);
+            *pbstrFullName = SysAllocString(L"SIMD");
+            IfNullReturnError(*pbstrFullName, E_OUTOFMEMORY);
+        }
         else if (*pbstrFullName == nullptr)
         {
             // So we wanted to get the fullname for fake node itself.
