@@ -126,7 +126,8 @@ HRESULT ScriptDocumentProviderBridge::GetDocumentClassId(CLSID *pclsidDocument)
 
 
 ScriptDebugDocument::ScriptDebugDocument(CScriptBody *pScriptBody, DWORD_PTR debugSourceContext) : 
-    DebugDocument(pScriptBody->GetUtf8SourceInfo(), pScriptBody->GetRootFunction()),
+    DebugDocument(pScriptBody->GetUtf8SourceInfo(), 
+                  pScriptBody->GetRootFunction() ? pScriptBody->GetRootFunction()->GetFunctionBody() : nullptr),
     m_refCount(1),
     m_pScriptBody(pScriptBody),
     m_debugSourceCookie(debugSourceContext),
