@@ -1,0 +1,24 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 57,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "match"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.match"
+      },
+      {
+        "start": 98,
+        "length": 19,
+        "text": "'string'.match(/./)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]
