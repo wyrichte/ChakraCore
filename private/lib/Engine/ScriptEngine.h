@@ -1220,6 +1220,7 @@ public:
     HRESULT STDMETHODCALLTYPE SetActivityId(__in const GUID* activityId);
     HRESULT STDMETHODCALLTYPE SetTridentLoadAddress(__in void* loadAddress);
     HRESULT STDMETHODCALLTYPE SetJITConnectionInfo(__in DWORD processId, __in UUID connectionId);
+    HRESULT STDMETHODCALLTYPE SetJITInfoForScript();
 
 private:
     // flags and values pased by the host via  IActiveScriptProperty

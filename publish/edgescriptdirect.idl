@@ -1077,6 +1077,9 @@ interface IActiveScriptDirect : IUnknown
     ///   processId         : The processId of the JIT process
     ///   connectionId      : The RPC connectionId used by the JIT process to establish an RPC server
     HRESULT SetJITConnectionInfo([in] DWORD processId, [in] UUID connectionId);
+    
+    /// Initialize OOP JIT for the current ScriptContext
+    HRESULT SetJITInfoForScript();
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.
