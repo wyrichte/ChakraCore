@@ -3220,7 +3220,14 @@ namespace ProjectionModel
 
     bool CharIsLowerCase(wchar_t c)
     {
-        wchar_t upper = CharToUpperCase(c);
+        wchar_t upper = c;
+#if DBG
+        DWORD converted =
+#endif
+            CharUpperBuffW(&upper, 1);
+
+        Assert(converted == 1);
+
         return (upper != c);
     }
 
@@ -3247,7 +3254,15 @@ namespace ProjectionModel
         // Lowercase the entire uppercase prefix of the identifier,
         // unless the identifier begins with exactly 3 uppercase letters followed by a lowercase letter.
         // For this case, lowercase only the first two letters of the 3-letter prefix.
-        wchar_t currCharLower = CharToLowerCase(camelInsertionPoint[0]);
+        wchar_t currCharLower = camelInsertionPoint[0];
+
+#if DBG
+        DWORD converted =
+#endif
+            CharLowerBuffW(&currCharLower, 1);
+
+        Assert(converted == 1);
+
         for (size_t i=0; (i < nameLength) && (currCharLower != camelInsertionPoint[i]); i++)
         {
             // The current character is uppercase
@@ -3261,7 +3276,13 @@ namespace ProjectionModel
             Assert(i < (nameLength-1));
 
             // Indexing to (i+1) is now safe, because we will not reach this point if this was the last character
-            wchar_t nextCharLower = CharToLowerCase(camelInsertionPoint[i+1]);
+            wchar_t nextCharLower = camelInsertionPoint[i + 1];
+#if DBG
+            converted =
+#endif
+                CharLowerBuffW(&nextCharLower, 1);
+
+            Assert(converted == 1);
 
             if (nextCharLower != camelInsertionPoint[i+1])
             {
@@ -5392,14 +5413,8 @@ namespace ProjectionModel
             auto eventInsertionPoint = const_cast<wchar_t*>(LastSegmentByDot(lowerCasedIdentifier.Get()));
 
             // Lower case entire identifier
-            while (*eventInsertionPoint)
-            {
-#pragma warning(push)
-#pragma warning(disable:22102)
-                *eventInsertionPoint = CharToLowerCase(*eventInsertionPoint);
-#pragma warning(pop)
-                ++eventInsertionPoint;
-            }
+            CharLowerW(eventInsertionPoint);
+
             return stringConverter->IdOfString(lowerCasedIdentifier.Get());
         };
 
