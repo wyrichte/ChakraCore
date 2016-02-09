@@ -3809,4 +3809,10 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>regex-symbols.js</files>
+      <compile-flags>-ES6RegExSymbols -debuglaunch -targeted -dbgbaseline:regex-symbols.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
 </regress-exe>
