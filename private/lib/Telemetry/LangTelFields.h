@@ -82,6 +82,10 @@ ENTRY_BUILTIN(RepeatCount)
 ENTRY_BUILTIN(PadStartCount)
 ENTRY_BUILTIN(PadEndCount)
 
+// RegEx builtins
+ENTRY_BUILTIN(RegexSymbolMatchCount)
+ENTRY_BUILTIN(RegexSymbolSearchCount)
+
 //Ctors
 ENTRY_BUILTIN(ProxyCount)
 ENTRY_BUILTIN(SymbolCount)

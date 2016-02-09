@@ -140,7 +140,7 @@ public:
                     // Free the implicit root
                     // TODO: This should be better encapsulated
                     RecyclerHeapObjectInfo heapObject;
-                    bool found = recycler->FindHeapObject(holder, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject);
+                    bool found = recyclerInstance->FindHeapObject(holder, FindHeapObjectFlags_VerifyFreeBitForAttribute, heapObject);
                     VerifyCondition(found);
 
                     // Zero pointers in order to eliminate false-positives
@@ -155,7 +155,7 @@ public:
                 if (value != nullptr)
                 {
                     // Create new holder object
-                    holder = RecyclerNewImplicitRoot(recycler, ImplicitRootHolder, value);
+                    holder = RecyclerNewImplicitRoot(recyclerInstance, ImplicitRootHolder, value);
                     VerifyCondition(holder != nullptr);
 
                     // Store holder back to the location
@@ -204,7 +204,7 @@ private:
     {
         if (*location != nullptr)
         {
-            recycler->RootRelease(*location);
+            recyclerInstance->RootRelease(*location);
         }
     }
     
@@ -212,7 +212,7 @@ private:
     {
         if (*location != nullptr)
         {
-            recycler->RootAddRef(*location);
+            recyclerInstance->RootAddRef(*location);
         }
     }
     

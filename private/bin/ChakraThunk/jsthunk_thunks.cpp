@@ -25,3 +25,4 @@ Author:
 #undef THUNK
 #define THUNK(n) IMPL(n)
 THUNKS
+#pragma optimize("", on)

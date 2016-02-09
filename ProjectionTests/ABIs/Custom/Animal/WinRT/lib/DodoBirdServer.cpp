@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <stdio.h>
-#include <windowsstringp.h>
 #include "DodoBirdServer.h"
 
 using namespace Microsoft::WRL;

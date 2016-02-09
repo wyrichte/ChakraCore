@@ -205,12 +205,12 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
 
 #ifdef FAULT_INJECTION // no action for free test build because faultinjection is not enabled in fretest build
 
-    // for fault injetion self testing
+    // for fault injection self testing
     // command: 'jshost -FaultInjection:1 -FaultInjectionType:6 xx.js' will show OOM
     // xx.js: 
     //  Debug.faultInjectionCookie = 12345;
     //  WScript.Echo(Debug.faultInjectionCookie);
-    INJECT_FAULT(Js::FaultInjection::Global.FaultInjectioSelfTest, []()->bool{
+    INJECT_FAULT(Js::FaultInjection::Global.FaultInjectionSelfTest, []()->bool{
         return Js::FaultInjection::Global.FaultInjectionCookie == 12345;
     }, {
         Output::Print(L"Fault Injected!");
@@ -1198,7 +1198,7 @@ Js::Var DebugObject::EntryCreateDebugDisposableObject(Js::RecyclableObject* func
 
 #define USING_PROPERTY_RECORD(propertyName)  \
     const Js::PropertyRecord* propertyName##PropertyRecord = NULL; \
-    LPCWSTR propertyName##PropertyName = L""L#propertyName; \
+    LPCWSTR propertyName##PropertyName = L"" L#propertyName; \
     threadContext->GetOrAddPropertyId(propertyName##PropertyName, (int) Js::JavascriptString::GetBufferLength(propertyName##PropertyName), &propertyName##PropertyRecord);
 
     USING_PROPERTY_RECORD(collectOnDispose);

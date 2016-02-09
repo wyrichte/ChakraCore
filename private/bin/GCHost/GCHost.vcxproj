@@ -45,9 +45,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\lib\common\common\Chakra.Common.Common.vcxproj">
-      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj">
       <Project>{cc4153ff-ac3e-4734-b562-ee23812df31b}</Project>
     </ProjectReference>

@@ -46,11 +46,11 @@
         {                                                                                                                                                       \
             return E_POINTER;                                                                                                                                   \
         }                                                                                                                                                       \
-        ZeroMemory(value, sizeof(Windows::Foundation::##typeName));                                                                                              \
+        ZeroMemory(value, sizeof(Windows::Foundation::typeName));                                                                                              \
                                                                                                                                                                 \
-        if (!this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation."L#typeName) == 0)              \
+        if (!this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation." L#typeName) == 0)              \
         {                                                                                                                                                       \
-            hr = this->objectIReference->get_Value(sizeof(Windows::Foundation::##typeName), (byte *)value);                                                     \
+            hr = this->objectIReference->get_Value(sizeof(Windows::Foundation::typeName), (byte *)value);                                                     \
         }                                                                                                                                                       \
         else                                                                                                                                                    \
         {                                                                                                                                                       \
@@ -130,7 +130,7 @@
             *value = nullptr;                                                                                                                                   \
         }                                                                                                                                                       \
                                                                                                                                                                 \
-        if (this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation."L#typeName) == 0)               \
+        if (this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation." L#typeName) == 0)               \
         {                                                                                                                                                       \
             uint32 numberOfElements = this->objectIReference->GetNumberOfElements();                                                                            \
             *value = (Windows::Foundation::##typeName *)CoTaskMemAlloc(sizeof(Windows::Foundation::##typeName) * numberOfElements);                             \

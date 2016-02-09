@@ -487,10 +487,10 @@ public:
     // Disable exit checks (we may exit too late to allow synchronizing with threads due to the loader lock).
     void SetDisableConcurentThreadExitedCheck()
     {
-        recycler.SetDisableConcurentThreadExitedCheck();
+        recycler.SetDisableConcurrentThreadExitedCheck();
     }
 
-    // Pase the given command line options into the config table.
+    // Parse the given command line options into the config table.
     static void ParseCommandLine(int argc, __in_ecount(argc) LPWSTR argv[])
     {
         CmdLineArgsParser parser(nullptr, ConfigurationLoader::Flags());

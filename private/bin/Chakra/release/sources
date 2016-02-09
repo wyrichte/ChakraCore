@@ -64,9 +64,9 @@ LINKLIBS= \
     $(JS_LIBS_JSRT) \
     $(JS_LIBS_WINRT) \
     $(JS_LINK_LIBS) \
-    $(INETCORE_LIB_PATH)\iertutilp.lib \
-    $(INETCORE_LIB_PATH)\IESettingsApi.lib \
-    $(INETCORE_LIB_PATH)\IESettingsId.lib \
+    $(PROJECT_LIB_PATH)\iertutilp.lib \
+    $(PROJECT_LIB_PATH)\IESettingsApi.lib \
+    $(PROJECT_LIB_PATH)\IESettingsId.lib \
     $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
     $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost\$(O)\iedevtools_host_iel1.lib \
     $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \

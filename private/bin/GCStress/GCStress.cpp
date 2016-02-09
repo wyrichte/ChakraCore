@@ -28,7 +28,7 @@ static const unsigned int operationsPerHeapWalk = 1000000;
 // Some global variables
 
 // Recycler instance
-Recycler * recycler = nullptr;
+Recycler * recyclerInstance = nullptr;
 
 // TODO, make this configurable on the command line
 bool implicitRootsMode = false;
@@ -246,9 +246,9 @@ void SimpleRecyclerTest()
         AUTO_NESTED_HANDLED_EXCEPTION_TYPE(ExceptionType_DisableCheck);
 #endif
 
-        recycler = HeapNewZ(Recycler, nullptr, &pageAllocator, Js::Throw::OutOfMemory, Js::Configuration::Global.flags);
+        recyclerInstance = HeapNewZ(Recycler, nullptr, &pageAllocator, Js::Throw::OutOfMemory, Js::Configuration::Global.flags);
 
-        recycler->Initialize(false /* forceInThread */, nullptr /* threadService */);
+        recyclerInstance->Initialize(false /* forceInThread */, nullptr /* threadService */);
 
 #if FALSE
         // TODO: Support EnableImplicitRoots call on Recycler (or similar, e.g. constructor param)
@@ -309,7 +309,7 @@ void SimpleRecyclerTest()
             WalkHeap();
 
             // Dispose now
-            recycler->FinishDisposeObjectsNow<FinishDispose>();
+            recyclerInstance->FinishDisposeObjectsNow<FinishDispose>();
         }
     }
     catch (Js::OutOfMemoryException)
@@ -341,7 +341,7 @@ bool GetDeviceFamilyInfo(
 void usage(const WCHAR* self)
 {
     wprintf(
-        L"usage: [-?|-v] [-js <jscript options from here on>]\n"
+        L"usage: %s [-?|-v] [-js <jscript options from here on>]\n"
         L"  -v\n\tverbose logging\n",
         self);
 }

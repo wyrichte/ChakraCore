@@ -4,8 +4,6 @@
 #include "kitchen_common.h"
 #include "ToasterServer.h"
 #include "ToastServer.h"
-#include <ntassert.h>
-#include <stdio.h>
 
 // Define this for convenience, but don't put this in a header, otherwise 
 // it defeats the purpose of using a namespace.

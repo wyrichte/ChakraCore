@@ -24,7 +24,16 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>4290</DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+        4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
+        4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
+        4456;     <!-- declaration of '' hides previous local declaration -->
+        4457;     <!-- declaration of '' hides function parameter -->
+        4458;     <!-- declaration of '' hides class memeber -->
+        4474;     <!-- 'sprintf_s': too many arguments passed for format string -->
+        4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
+        4838;     <!-- conversion from 'unsigned int' to 'int requires a narrowing conversion -->
+      </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

@@ -3,9 +3,9 @@
   <PropertyGroup>
     <!-- Todo:: Find a way to use the versions in packages.config -->
     <!-- !! Keep version number in sync with packages.config and tools\runjsrttests.cmd (RazzleTools) !! -->
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.5</IELibPath>
-    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.6</RazzleToolPath>
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.6</PUBLIC_ROOT>
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.9</IELibPath>
+    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.9</RazzleToolPath>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.9</PUBLIC_ROOT>
 
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
@@ -21,6 +21,8 @@
         $(IELibPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <!-- Workaround for core depdendency on IE MSRC macros. Remove when we no longer need IEMSRCSettings, and do not allow to make it to OSS. -->
+      <ForcedIncludeFiles>IEMSRCSettings.h</ForcedIncludeFiles>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>

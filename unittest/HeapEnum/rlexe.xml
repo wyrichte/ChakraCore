@@ -355,13 +355,13 @@
       <baseline>SimpleDom.baseline</baseline>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <tags>HeapEnum</tags>
       <files>EventHandler.html</files>
       <baseline>EventHandler.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>

@@ -11,6 +11,13 @@
     <IsPogoBuild Condition="('$(POGO_TYPE)'=='PGO' OR '$(POGO_TYPE)'=='PGI')">true</IsPogoBuild>
     <OutDirName Condition="'$(IsPogoBuild)'=='true'">$(Configuration.ToLower())_pogo</OutDirName>
   </PropertyGroup>
+  
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- Workaround for core depdendency on IE MSRC macros. Remove when we no longer need IEMSRCSettings, and do not allow to make it to OSS. -->
+      <ForcedIncludeFiles>IEMSRCSettings.h</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
 
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.Default.props" />
   <ImportGroup Condition="'$(BuildingWithBuildExe)'!='true'">

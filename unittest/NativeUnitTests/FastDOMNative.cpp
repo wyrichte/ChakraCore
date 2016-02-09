@@ -14,7 +14,7 @@ void FastDomTestCase1(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         std::wstring someprop=L"someprop";
         PropertyId pid=mytest->GetOrAddPropertyId(someprop.c_str());
         std::wstring retprop=mytest->GetPropertyName(pid);
-        std::string retprop_str(retprop.length(),L'');
+        std::string retprop_str(retprop.length(),L'\0');
 
         // TODO: following was failing in snap, disabling temporarily
         /*
@@ -398,7 +398,7 @@ void FastDomTestCase8(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
 
             mytest->Start();
 			std::wstring ctrname=L"ctroname"+i;
-			std::wstring tname=L"tname"+i;
+			tname=L"tname"+i;
             mytest->CreateFunction(ctor_name,prototype,proto_proto,ctrname);
             mytest->CreateTypedObjectWithPrototype(ctor_name,object,tname);
             mytest->SetPropertyOnTypedObject(object,obj_prop,obj_value,"int",str6.str());
