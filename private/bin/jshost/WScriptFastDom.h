@@ -39,7 +39,8 @@ public:
         {
             self,
             sameThread,
-            crossThread
+            crossThread,
+            module
         };
 
         LPCWSTR source;
@@ -64,6 +65,10 @@ public:
             else if (wcscmp(context, L"crossthread") == 0)
             {
                 this->context = ContextType::crossThread;
+            }
+            else if (wcscmp(context, L"module") == 0)
+            {
+                this->context = ContextType::module;
             }
             else
             {

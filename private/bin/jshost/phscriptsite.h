@@ -54,7 +54,7 @@ public:
 };
 
 class JsHostActiveScriptSite : IActiveScriptSite, IActiveScriptSiteDebug, IActiveScriptSiteDebugHelper, IJsHostScriptSite, ISCAHost, IHeapEnumHost, IOleCommandTarget, 
-    IActiveScriptDirectSite
+    IActiveScriptDirectSite, IActiveScriptDirectHost
 {
     PREVENT_COPY(JsHostActiveScriptSite)
 
@@ -108,8 +108,10 @@ private:
 
     HRESULT CreateScriptEngine(bool isPrimary = true);
 
-    HRESULT LoadScriptFromFile(LPCOLESTR filename);
+    HRESULT LoadScriptFromFile(LPCOLESTR filename, bool isModuleCode = false);
     HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8);
+
+    HRESULT LoadModuleFromString(bool isUtf8, LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength);
 
     HRESULT StopScriptEngine();
 
@@ -155,6 +157,7 @@ public:
 
     // IJsHostScriptSite interfaces
     STDMETHODIMP LoadScriptFile(LPCOLESTR filename);
+    STDMETHODIMP LoadModuleFile(LPCOLESTR filename);
     STDMETHODIMP LoadScript(LPCOLESTR script);
     STDMETHODIMP InitializeProjection();
     STDMETHODIMP RegisterCrossThreadInterface();
@@ -169,6 +172,24 @@ public:
     // IOleCommandTarget interfaces
     STDMETHODIMP QueryStatus(const GUID *pguidCmdGroup, ULONG cCmds, OLECMD prgCmds[], OLECMDTEXT *pCmdText);
     STDMETHODIMP Exec(const GUID *pguidCmdGroup, DWORD nCmdID, DWORD nCmdexecopt, VARIANT *pvaIn, VARIANT *pvaOut);
+
+    // IActiveScriptDirectHost interface
+    STDMETHODIMP ValidateCall(
+        /* [in] */ __RPC__in_opt IActiveScriptSite *src,
+        /* [in] */ __RPC__in_opt IActiveScriptSite *dest,
+        /* [in] */ __RPC__in Var instance) {
+        return E_NOTIMPL;
+    }
+
+    STDMETHODIMP FetchImportedModule(
+        /* [in] */ __RPC__in ModuleRecord referencingModule,
+        /* [in] */ __RPC__in LPCWSTR specifier,
+        /* [in] */ unsigned long specifierLength,
+        /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord);
+
+    STDMETHODIMP NotifyModuleReady(
+        /* [in] */ __RPC__in ModuleRecord referencingModule,
+        /* [in] */ __RPC__in Var exceptionVar);
 
     HRESULT GetActiveScript(IActiveScript ** activeScript);
     HRESULT GetActiveScriptDirect(IActiveScriptDirect ** activeScriptDirect);

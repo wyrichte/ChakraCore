@@ -13,6 +13,7 @@ import "unknwn.idl";
 interface IJsHostScriptSite : IUnknown
 {
     HRESULT LoadScriptFile(LPCOLESTR filename);
+    HRESULT LoadModuleFile(LPCOLESTR filename);
     HRESULT LoadScript(LPCOLESTR script);
     HRESULT InitializeProjection();
     HRESULT RegisterCrossThreadInterface();
