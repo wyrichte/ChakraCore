@@ -221,6 +221,14 @@ typedef HRESULT (__cdecl *InitializeMethod)(Var instance);
 typedef void (__cdecl *CollectGarbageCallBack)(void * context, CollectGarbageCallBackFlags flags);
 typedef void * CollectGarbageCallBackHandle;
 
+typedef [v1_enum] enum ModuleHostInfoKind
+{
+    ModuleHostInfo_Exception = 0x01,
+    ModuleHostInfo_HostDefined = 0x02
+} ModuleHostInfoKind;
+
+typedef void* ModuleRecord;
+
 [
     object,
     uuid(79D57FFB-9F0D-4996-8BC8-9CBAA0DF58C0),
@@ -1071,6 +1079,41 @@ interface IActiveScriptDirect : IUnknown
     /// Set Trident base address.  Used for telemetry purposes.
     ///   loadAddress       : edgehtml.dll's load address.
     HRESULT SetTridentLoadAddress([in] void* loadAddress);
+
+    /// Initialize a ModuleRecord from host. 
+    /// referencingModule       : The referencingModule as in HostResolveImportedModule (15.2.1.17). nullptr if this is the top level module 
+    /// normalizedSpecifier     : The host normalized specifier. This is the key to a unique ModuleRecord. 
+    /// specifierLength         : The length of normalizedSpecifier.
+    /// moduleRecord            : The new ModuleRecord created. The host should not try to call this API twice with the same normalizedSpecifier.
+    ///                           chakra will return an existing ModuleRecord if the specifier was passed in before. 
+    /// return value            : duplicated request if same input has been used before; 
+    ///                           invalid arg/OOM etc. 
+    HRESULT InitializeModuleRecord([in] ModuleRecord* referencingModule, [in, size_is(specifierLength)] LPCWSTR normalizedSpecifier, [in] UINT specifierLength, [out] ModuleRecord* moduleRecord);
+
+    /// Parse the module source. This is basically ParseModule operation 
+    /// Potentially this API can be called from a different thread.
+    /// This is slightly different in that the ModuleRecord was initialized earlier, and passed in as an argument. 
+    /// requestModule           : The ModuleRecord that holds the parse tree of the source code. 
+    /// sourceContext           : debugger context, same as in the ParseScriptText call
+    /// ulStartingLineNumber    : Starting linenumber in the source text, for debugger purpose.
+    /// sourceText              : The source code to be parsed, but not executed in this code. 
+    /// sourceLength            : The source length of sourceText. The input could have nested null character in it.
+    /// return value            : If there are parse error, onError will be called to report the error back. 
+    HRESULT ParseModuleSource([in] ModuleRecord* requestModule, [in] void* sourceContext, [in] unsigned long ulStartingLineNumber,
+        [in] LPCWSTR sourceText, [in] unsigned long sourceLength, [out] Var* exceptionVar);
+
+    /// Execute module code. Implements 15.2.1.1.6.5
+    /// At this time, chakra have notify the host that the module and all its dependent are ready to be executed. 
+    /// requestModule           : The module to be executed.
+    /// varResult               : return value of the function. If the execution failed, it's the exception.
+    /// return value            : S_OK if succeeded; unhandled execption saved in varResult if error code.
+    HRESULT ModuleEvaluation([in] ModuleRecord* requestModule, [out] Var* varResult);
+
+    /// Set the host info for the specified module. 
+    HRESULT SetModuleHostInfo([in] ModuleRecord* requestModule, [in] ModuleHostInfoKind moduleHostState, [in] void* hostInfo);
+
+    /// Retrieve the host information for the specified module.
+    HRESULT GetModuleHostInfo([in] ModuleRecord* requestModule, [in] ModuleHostInfoKind moduleHostState, [out] void** hostInfo);
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.
@@ -1332,6 +1375,23 @@ interface IActiveScriptDirectHost : IUnknown
     // S_OK if the call can go through.
     // E_ACCESSDENIED otherise.
     HRESULT ValidateCall([in] IActiveScriptSite* src, [in] IActiveScriptSite* dest, [in] Var instance);
+
+    /// Notify the host of the dependent module, the "import" part before HostREsolveImportedModule.
+    /// This notify the host that the refererncing module has the specified module dependency, and the host need to retrieve the module back
+    /// referencingModule       : the referencing module that is requesting the dependency modules
+    /// specifier               : speceifier coming from the module source code. 
+    /// specifierLength         : the length of the specifier.
+    /// dependentModuleRecord   : the ModuleRecord of the dependent module. If the module was requested before from other source, return the
+    ///                           existing ModuleRecord, otherwise create a new ModuleRecord.
+    HRESULT FetchImportedModule([in] ModuleRecord* referencingModule, [in] LPCWSTR specifier, [in] unsigned long specifierLength,
+        [out] ModuleRecord* dependentModuleRecord);
+
+    /// Notify the host after ModuleDeclarationInstantiation step (15.2.1.1.6.4) is finished. If there were error in the process, exceptionVar
+    /// holds the exception. otherwise the referencingModule is ready and the host should schedule execution afterwards.
+    /// referencingModule       : the referencing module that have finished running ModuleDeclarationInstantiation step. 
+    /// exceptionVar            : if nullptr, the module is successfully initialized and host should queue the execution job
+    ///                           otherwise it's the exception object. 
+    HRESULT NotifyModuleReady([in] ModuleRecord* referencingModule, [in] Var exceptionVar);
 };
 
 typedef struct tagSourceContextPair

@@ -1,12 +1,14 @@
 # Chakra Git<->SD sync
 # Brings in changes from SD and rebases Git changes on to them. Commits the result to Git and SD.
 # TODO:
-# Verify we are using Git directly rather than the buggy razzle git
+# - Verify we are using Git directly rather than the buggy razzle git
+# - SD and git ranges for sync
 use strict;
 use warnings;
 
 # The following libraries are distributed under Razzle, so don't dynamically check for their existence.
 use POSIX qw(strftime);
+my @ARGVSave = @ARGV; # Save ARGV since Getopt will destroy it. We need it to print the resume command later.
 use Getopt::Long qw(GetOptions);
 use IPC::Cmd qw(can_run run);
 $IPC::Cmd::USE_IPC_OPEN3 = 1;
@@ -23,6 +25,7 @@ use lib "$FindBin::Bin\\";
 
 our %OPTIONS;
 require "Config.pl";
+require "Common.pl";
 
 use lib "$ENV{ProgramFiles}\\Git\\lib\\perl5\\site_perl";
 
@@ -32,48 +35,21 @@ our $PRIVATE_VSO_CHANGED = 0;
 our $CORE_SD_CHANGED     = 0;
 our $CORE_VSO_CHANGED    = 0;
 
-sub execCmd {
-    my $command = shift;
-    
-    # Execute options
-    # - Skip: Skip the command if true (usually any command that results in permanent changes)
-    # - SurviveError: Do not die on non-zero exit code. Allows custom error handling, e.g. rebase merge conflict.
-    my %execOptions = @_;
-
-    if ($OPTIONS{'DryRun'} && $execOptions{'Skip'}) {
-        msg("Skipping: $command", $OPTIONS{'Verbose'});
-        return '';
-    } else {
-        msg("Executing command '$command'", 1);
-        my ($output, $exit);
-        if (($OPTIONS{'Verbose'} > 1 && !$execOptions{'NOISY'})
-            || $OPTIONS{'Verbose'} > 2) {
-           ($output, $exit) = tee_merged {
-                system($command);
-            };
-        } else {
-            ($output, $exit) = capture_merged {
-                system($command);
-            };
-        }
-
-        if ($execOptions{'SurviveError'} || $exit == 0) {
-            debug("Ignoring exit code $exit") if $execOptions{'SurviveError'};
-            debug($output);
-        } else {
-            die "Error while running $command. Output follows:\n$output";
-        }
-        return $output;
-    }
+sub chdirAndLog {
+    my $dir = shift;
+    msg("Changing directory to '$dir'", 1);
+    chdir($dir);
 }
 
 sub checkAndParseArgs {
-    $OPTIONS{'Resume'} = 0;
-    
-    my $usage = <<"END";
-perl $0 --repo [core|private] [options]
+    $OPTIONS{'Resume'} = '';
+    $OPTIONS{'Repo'} = '';
+    $OPTIONS{'endSdChange'} = '';
+    $OPTIONS{'endFullGitHash'} = '';
 
-   --repo               Core or private repo (TODO: remove)
+    my $usage = <<"END";
+Usage:
+perl $0 --gitHash hash --sdChange change [options]
 
  Options:
    -v --verbose         Show status info. Use flag twice for more verbosity.
@@ -83,23 +59,29 @@ perl $0 --repo [core|private] [options]
       --no-snap         Don't submit a SNAP job
    -d --dry-run         Don't make any changes that could result in breakage and angry people
                         (Implies --no-email and --no-snap)
+      --sdEnlistment    Root of the SD enlistment to use (jscript folder)
    -? --help            This message
 END
     my $help = 0;
-    GetOptions('repo=s'      => \$OPTIONS{'Repo'},
-               'verbose|v+'  => \$OPTIONS{'Verbose'},
-               'dry-run|d'   => \$OPTIONS{'DryRun'},
-               'resume=s'    => \$OPTIONS{'Resume'},
-               'email!'      => \$OPTIONS{'Email'},
-               'cleanup!'    => \$OPTIONS{'Cleanup'},
-               'snap!'       => \$OPTIONS{'SNAP'},
-               'sdChange=s'  => \$OPTIONS{'sdChange'},
-               'gitHash=s'   => \$OPTIONS{'gitHash'},
-               'help|?'      => \$help) or die $usage;
+    GetOptions('repo=s'        => \$OPTIONS{'Repo'},
+               'coreBranch=s'  => \$OPTIONS{'CoreBranch'},
+               'fullBranch=s'  => \$OPTIONS{'FullBranch'},
+               'verbose|v+'    => \$OPTIONS{'Verbose'},
+               'dry-run|d'     => \$OPTIONS{'DryRun'},
+               'resume=s'      => \$OPTIONS{'Resume'},
+               'email!'        => \$OPTIONS{'Email'},
+               'cleanup!'      => \$OPTIONS{'Cleanup'},
+               'snap!'         => \$OPTIONS{'SNAP'},
+               'sdChange=s'    => \$OPTIONS{'sdChange'},
+               'gitHash=s'     => \$OPTIONS{'fullGitHash'},
+               'endSdChange=s' => \$OPTIONS{'endSdChange'},
+               'endGitHash=s'  => \$OPTIONS{'endFullGitHash'},
+               'sdEnlistment'  => \$OPTIONS{'SDEnlistment'},
+               'help|?'        => \$help)
+        or die $usage;
+    $help |= $OPTIONS{'SDEnlistment'} eq '';
 
-    $help |= $OPTIONS{'RootSDEnlistment'} eq '';
-    $help |= $OPTIONS{'Repo'} eq '';
-
+    $OPTIONS{'Email'} = 0 if $help;
     die $usage if $help;
 
     if ($OPTIONS{'DryRun'}) {
@@ -107,29 +89,15 @@ END
         $OPTIONS{'SNAP'} = 0;
     }
 
-    debug("Options: " . Dumper(\%OPTIONS), $OPTIONS{'Verbose'} > 1);
-}
-
-sub sendMail {
-    my %args = @_;
-    print ($args{body}) if $OPTIONS{'Verbose'} > 1;
-
-    if (!$OPTIONS{'Email'}) {
-        msg("Email NOT sent due to run settings");
-        return;
+    if ($OPTIONS{'Repo'} ne '' && $OPTIONS{'Resume'} eq '') {
+        die "--repo option can only be used with --resume present";
     }
     
-    # Fetch the log stack for inclusion.
-    my $msgs  = Log::Message::Simple->stack_as_string;
-    print $msgs if $OPTIONS{'Verbose'} > 2;
-    $args{body} .= "\n\n$msgs\n";
+    if ($OPTIONS{'Resume'} ne '' && $OPTIONS{'Repo'} eq '') {
+        die "--resume option can only be used with --repo present";
+    }
 
-    require $ENV{'sdxroot'} . '\TOOLS\sendmsg.pl';
-    sendmsg($OPTIONS{'ServiceAccountEmail'},
-            $args{subject},
-            $args{body},
-            $OPTIONS{'EmailTo'});
-    msg("Email sent");
+    debug("Options: " . Dumper(\%OPTIONS), $OPTIONS{'Verbose'} > 1);
 }
 
 sub generateChangesTable {
@@ -181,13 +149,20 @@ sub mergeConflictEmail {
     # Generate the dynamic parts of the message
     my $changesTable = generateChangesTable();
 
+    if ($ARGVSave[-4] eq '--repo' && $ARGVSave[-2] eq '--resume') {
+        # Remove the last resume commands that we added.
+        splice @ARGVSave, -4;
+    }
+
+    my $resumeCmd = "perl $0 @ARGVSave --repo $OPTIONS{'Repo'} --resume continue";
+
     my $body = <<"END";
 This is an automatically generated message from the ChakraGit Git<->SD sync tool.
 
 The $ENV{'_BuildBranch'} RI from Git to SD did not merge cleanly in the temporary git branch GitToSD. A manual rebase is required. TS to 'ChakraGit' as 'REDMOND\\ChakraAut' and run the following commands from Razzle:
-cd $OPTIONS{'RootGitEnlistment'}
+cd $OPTIONS{'SDEnlistment'}
 git mergetool
-perl $scriptLocation --resume
+$resumeCmd
 
 Rebase output is below.
 
@@ -198,6 +173,13 @@ END
         subject => 'ChakraGit: ACTION REQUIRED: ' . $ENV{'_BuildBranch'} . ' ' . strftime('%Y/%m/%d', localtime) . ' Git->SD sync has merge conflicts',
         body    => $body
     );
+    
+    debug("Resume using: cd $OPTIONS{'SDEnlistment'} & $resumeCmd", $OPTIONS{'Verbose'});
+}
+sub getHeadCommitHash {
+    my $headHash = execCmd('git rev-parse HEAD');
+    $headHash =~ s/\s+//g;
+    return $headHash;
 }
 
 sub summaryEmail {
@@ -206,15 +188,15 @@ sub summaryEmail {
 
     # Get last sync data
     my ($startSdChange, $startGitHash) = getLastSyncedData();
-    my $currSdChange = `sd counter change`;
-    my $currGitChange = `git rev-parse HEAD`;
+    my $currSdChange = getLatestSDChangeForDir();
+    my $currGitChange = getHeadCommitHash();
     my $sdChangeCount = 1;
 
     # Generate the dynamic parts of the message
     my $changesTable = generateChangesTable();
 
     my $summary = <<"END";
-$ENV{'_BuildBranch'} $OPTIONS{'Repo'} sync successfully completed.
+$ENV{'_BuildBranch'} sync successfully completed.
 
 $changesTable
 
@@ -254,10 +236,9 @@ checkAndParseArgs();
 use IPC::Cmd qw(can_run run);
 
 msg("Checking preconditions", 1);
--e $OPTIONS{'RootSDEnlistment'} or die "Can't find enlistment at $OPTIONS{'RootSDEnlistment'}\n";
--e $OPTIONS{'CoreSDEnlistment'} or die "Can't find enlistment at $OPTIONS{'CoreSDEnlistment'}\n";
+-e $OPTIONS{'SDEnlistment'} or die "Can't find enlistment at $OPTIONS{'SDEnlistment'}\n";
 
-# Verify Git, SD, and TeamHub(Manager) executables are available
+# Verify Git, and SD executables are available
 sub canRunGit {
     # Silence 'unrecognised escape' warning. This occurs on Windows and is expected.
     local $SIG{__WARN__} = sub {
@@ -268,11 +249,11 @@ sub canRunGit {
             }
         }
     };
-    can_run 'git.exe'        or die "Unable to find Git executable on %PATH%. Is Git for Windows installed?\n";
+    can_run 'git.exe'        or die "Unable to find Git executable on %PATH%. Ensure Git for Windows is installed and on %PATH% before Razzle tools.\n";
 }
 
 canRunGit();
-can_run 'SD.exe'             or die "Unable to find SD executable on %PATH%. Are you running this script from inside Razzle?\n";
+can_run 'SD.exe'             or die "Unable to find SD executable on %PATH%. This script needs to be run inside Razzle.\n";
 
 my $sd_old_revision;
 my $sd_new_revision;
@@ -289,12 +270,12 @@ sub cleanUp {
     }
 }
 
-sub submitSNAP {
+sub submitToSNAP {
     return if !$OPTIONS{'SNAP'};
     msg("Submitting stability job to SNAP", $OPTIONS{'Verbose'});
 
     # Generate a DPK and submit to SNAP.
-    chdir $OPTIONS{'RootSDEnlistment'};
+    chdir $OPTIONS{'SDEnlistment'};
     execCmd('sd edit dummy.txt');
     open FH, '>>', 'dummy.txt' or die "Couldn't open dummy.txt for appending: $@";
     print FH ".\n";
@@ -308,45 +289,89 @@ sub initEnlistmentGit {
     execCmd("rmdir /q /s .git") if -e '.git';
     execCmd("rmdir /q /s core") if -e 'core';
     execCmd('git init');
-    execCmd('git remote add origin '. ($OPTIONS{'Repo'} =~ /core/i ? $OPTIONS{'VSOCoreURL'} : $OPTIONS{'VSOPrivateURL'}));
-    execCmd('git fetch origin master');
-    if ($OPTIONS{'Repo'} =~ /full/i) {
-        execCmd('git submodule init');
-    }
+    execCmd('git remote add origin '. $OPTIONS{'RemoteGitURL'});
+    execCmd("git fetch");
+    execCmd("git checkout $OPTIONS{'FullBranch'} --force");
+    execCmd('git config mergetool.keepBackup false');
+
+    # Verify gitHash parameter exists in full
+    execCmd("git rev-parse $OPTIONS{'fullGitHash'}");
+
+    msg('Initializing core submodule', $OPTIONS{'Verbose'});
+    execCmd('git submodule update --init'); # Run before first SD sync since it will overwrite core.
+    chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+    execCmd("git fetch");
+    execCmd('git config mergetool.keepBackup false');
     msg('Initialization complete. Running sync commands.', $OPTIONS{'Verbose'});
 }
 
+sub getLatestSDChangeForDir {
+    my $latestChange = execCmd('sd changes -m 1 ...');
+    $latestChange =~ s/^Change (\d+).*$/$1/;
+    #$latestChange =~ s/\s//sg;
+    return $latestChange;
+}
+
 sub generateSDSummary {
-    # Get the changelist descriptions for all changes we are adding.
-    # Takes one argument: The SD change we started to sync from.
-    my $newestChange = execCmd('sd counter change');
-    $newestChange =~ s/\s//sg;
-    
+    my $newestChange = shift;
+    my $sdChange = shift;
+
     # Get the next most recent change number.
     # TODO: Surely SD CLI has a nicer way to do this..
-    my @changes = reverse split("\n", execCmd("sd changes -r ...@" . shift . ','));
+    my @changes = reverse split("\n", execCmd("sd changes -r ...@" . $sdChange . ','));
     my $startChange = (scalar @changes == 1) ? $changes[0] : $changes[1];
     $startChange =~ s/^Change (\d+).*$/$1/ or die "Couldn't extract starting change number for the SD change log.";
     $startChange =~ s/\s//sg;
-    
-    my $log = "Add SD changes from CL#$startChange to CL#$newestChange.\n\n" . execCmd('sd changes -l ...@' . $startChange . ',');
+
+    my $log = "Add SD changes from CL#$startChange to CL#$newestChange.\n\n" . execCmd('sd changes -l ...@' . $startChange . ',', (Noisy => 1));
     return $log;
 }
 
 sub getLastSyncedData {
     # Get last change synced
     my ($sdChange, $gitHash);
-    if (-e '.chakraSync')
-    {
+    if (-e '.chakraSync') {
         open my $fh, '+<', '.chakraGit';
         my $line = <$fh>;
         $line =~ /^(\d+),(\w)+$/ or die('.chakraGit sync metadata file is corrupted. Delete it to reset sync.');
         ($sdChange, $gitHash) = ($1, $2);
     } else {
-        $sdChange = $OPTIONS{sdChange};
-        $gitHash  = $OPTIONS{'gitHash'};
+        $sdChange = $OPTIONS{'sdChange'};
+        $gitHash  = $OPTIONS{'fullGitHash'};
     }
+
+    if (!defined $sdChange) { die "No SD change provided"; }
+    if (!defined $gitHash)  { die "No Git hash provided"; }
+    if ($sdChange !~ /\d+/) { die "Invalid SD change provided: $sdChange"; }
+    if ($gitHash !~ /\w+/)  { die "Invalid Git hash specified: $gitHash"; }
+
     return ($sdChange, $gitHash);
+}
+
+sub generateAndCommitGitLog {
+    my $newestChange = shift;
+    my $sdChange = shift;
+    
+    my $log = generateSDSummary($newestChange, $sdChange);
+
+    # Strange hack for a weird state that happens after the previous SD command.
+    # Without this status call, the process spawn for the following add command will fail.
+    # This is most likely a windows perl bug.
+    execCmd("git status");
+    
+    # Add all changes. THIS ASSUMES .gitignore IS UP TO DATE.
+    execCmd('git add -A', Noisy => 1);
+
+    # Grab a temporary file to put the message in Git
+    # tempFile will evaluate to both the filename and the file handle in the correct contexts automatically.
+    my $tempFile = File::Temp->new(UNLINK => 0) or die "Couldn't create temporary file for log message";
+    print $tempFile $log;
+
+    # Commit the sd changes
+    execCmd("git commit --file=$tempFile");
+    #File::Temp::cleanup(); # We no longer need the tempFile and don't need to wait until process completion.
+
+    return getHeadCommitHash();
 }
 
 sub stageSDToGit {
@@ -359,229 +384,207 @@ sub stageSDToGit {
     msg('Staging SD changes as a Git commit in local branch SDToGit', $OPTIONS{'Verbose'});
 
     # Checkout LKG revision
-    execCmd('git checkout master -f');
+    chdirAndLog($OPTIONS{'SDEnlistment'});
+    execCmd("git checkout $OPTIONS{'FullBranch'} --force");
+    execCmd('git branch -D SDToGit', (SurviveError => 1));
     execCmd('git checkout -b SDToGit');
 
     # Restore previous sync state.
     execCmd("sd revert ...");
-    execCmd("sd sync -f ...@" . $sdChange, NOISY => 1);
+    execCmd("sd sync -f ...@" . $sdChange, Noisy => 1);
+    # Strange hack for a weird state that happens after the previous SD command.
+    # Without this status call, the process spawn for the add command will fail.
+    execCmd("git status");
     execCmd('git add -A');
     execCmd("git reset --hard $gitHash");
-    
-    # Update with changes from SD.
-    execCmd("sd sync -f ...", NOISY => 1);
-
-    # Add all changes. THIS ASSUMES .gitignore IS UP TO DATE.
+    chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
     execCmd('git add -A');
-    
-    my $status = execCmd('git status');
-    if ($status =~ /nothing to commit, working directory clean/) {
-        # No effective changes from SD.
-        msg('No changes from SD. Skipping SD sync.', $OPTIONS{'Verbose'});
-        return 1;
+    execCmd("git reset --hard");
+    chdirAndLog($OPTIONS{'SDEnlistment'});
+    execCmd("git submodule update");
+
+    # Clear non-staged core changes before submodule update.
+    chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+    execCmd('git branch -D SDToGit', (SurviveError => 1));
+    execCmd('git checkout -b SDToGit');
+
+    # Update with changes from SD.
+    chdirAndLog($OPTIONS{'SDEnlistment'});
+    execCmd("sd sync -f ..." . ($OPTIONS{'endSdChange'} eq '' ? '' : '@') . $OPTIONS{'endSdChange'}, Noisy => 1);
+
+# TODO: More effective heuristics for detecting if no changes need to be brought across.
+#    my $status = execCmd('git status');
+#    if ($status =~ /nothing to commit, working directory clean/) {
+#        # No effective changes from SD.
+#        msg('No changes from SD. Skipping SD sync.', $OPTIONS{'Verbose'});
+#        return 1;
+#    }
+
+    # Process core first.
+    msg('Checking for Core changes from SD...', $OPTIONS{'Verbose'});
+    chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+    my $latestCoreChange = getLatestSDChangeForDir();
+    my $coreChanges = 0;
+    if ($latestCoreChange == $sdChange) {
+        # No changes to core. We can use the existing commit as the submodule.
+        $OPTIONS{'coreGitHash'} = getHeadCommitHash();
+        msg("No core changes, using $OPTIONS{'coreGitHash'}", $OPTIONS{'Verbose'});
+    } else {
+        msg('Staging Core changes...', $OPTIONS{'Verbose'});
+        $OPTIONS{'coreGitHash'} = generateAndCommitGitLog($latestCoreChange, $sdChange) or die "Error committing full SD changes";
+        $coreChanges = 1;
     }
 
-    # Get the changelist descriptions for all changes we are adding.
-    my $log = generateSDSummary($sdChange);
+    # Now process full.
+    msg('Checking for Full changes from SD...', $OPTIONS{'Verbose'});
+    chdirAndLog($OPTIONS{'SDEnlistment'}); 
+    msg('Staging Full changes...', $OPTIONS{'Verbose'});
+    my $fullChanges = 0;
+    my $latestFullChange = getLatestSDChangeForDir();
+    if ($latestFullChange == $sdChange && !$coreChanges) {
+        # No changes to full.
+        $OPTIONS{'fullGitHash'} = $gitHash;
+        msg('No core or full changes. Skipping full commit.');
+    } else {
+        $fullChanges = 1;
+        $OPTIONS{'fullGitHash'} = generateAndCommitGitLog($latestFullChange, $sdChange) or die "Error committing core SD changes";
+    }
 
-    # Grab a temporary file to put the message in Git
-    # tempFile will evaluate to both the filename and the file handle in the correct contexts automatically.
-    my $tempFile = File::Temp->new(UNLINK => 0) or die "Couldn't create temporary file for log message";
-    print $tempFile $log;
-
-    # Commit the sd changes
-    execCmd("git commit --file=$tempFile");
-    #File::Temp::cleanup(); # We no longer need the tempFile and don't need to wait until process completion.
-
-    $OPTIONS{'gitHash'} = execCmd("git rev-parse HEAD");
-    $OPTIONS{'gitHash'} =~ s/\s+//g;
-
-    msg('SD changes staged as commit ' .  $OPTIONS{'gitHash'}, $OPTIONS{'Verbose'});
+    msg('SD changes staged as full ' .  $OPTIONS{'fullGitHash'} . ' with core ' . $OPTIONS{'coreGitHash'}, $OPTIONS{'Verbose'});
 
     return 1;
 }
 
-sub gitToSD {
-    msg('Bringing Git changes back to SD', $OPTIONS{'Verbose'});
-    
-    # Read last checked-in commit
-    # Get last change synced
-    my ($sdChange, $gitHash) = getLastSyncedData();
-
-    my $rebaseResult = ''; 
+sub resumeRebase {
     if ($OPTIONS{'Resume'} =~ /^skip$/i) {
-        $rebaseResult = execCmd('git rebase --skip');
-    } elsif ($OPTIONS{'Resume'}) {
-        $rebaseResult = execCmd('git rebase --continue');
+        execCmd('git rebase --skip', (SurviveError => 1));
+    } elsif ($OPTIONS{'Resume'} =~ /continue/i) {
+        execCmd('git rebase --continue', (SurviveError => 1));
     } else {
-        # Checkout the commit
-        execCmd('git checkout master --force');
-        execCmd("git reset --hard FETCH_HEAD");
-        execCmd('git checkout -b gitToSD');
-
-        # Fetch the changes from VSO
-        execCmd('git fetch origin master');
-    
-        # Rebase the changes on top of the SD changes we just committed.
-        $rebaseResult = execCmd('git rebase SDToGit', (SurviveError => 1));
+        execCmd('git rebase SDToGit', (SurviveError => 1));
     }
-    
+    $OPTIONS{'Resume'} = '';
+
+    my $rebaseStatus = execCmd('git status');
+
     # If there are merge issues, send an email.
-    if ($rebaseResult =~ /CONFLICT/) {
+    if ($rebaseStatus =~ /rebase in progress; onto/) {
         $OPTIONS{'Cleanup'} = 0;
         mergeConflictEmail();
         exit(1);
     }
-
-    # Get list of commits to add to SD
-    my @revs = reverse split("\n", execCmd("git log --pretty=format:%H $gitHash.."));
-
-    msg("Importing " . scalar @revs . " revision(s) into SD\n", $OPTIONS{'Verbose'});
-    debug("Revision list:\n" . join "\n", @revs);
-
-    foreach my $rev (@revs) {
-        # Skip undefined and empty lines
-        next unless defined $rev and $rev =~ /\w+/;
-
-        # Check for an empty commit. We can find these by checking for non-whitespace in the diff output.
-        if (`git diff $rev~1..$rev` !~ /\w+/) {
-            msg("Skipping empty git commit $rev", $OPTIONS{'Verbose'});
-        }
-
-        # Prepare the Git changes for staging to SD.
-        msg("Checking out revision $rev\n", $OPTIONS{'Verbose'});
-        execCmd("sd revert ...");
-        execCmd("git checkout $rev --force");
-        
-        # Remove all excess files
-        execCmd("git add --all");
-        execCmd("git reset --hard");
-        
-        # Add files to SD changelist and remove empty changes
-        execCmd("sd online");
-        execCmd("sd revert -a ...");
-        
-        my $openedFiles = execCmd("sd opened ...");
-        if ($openedFiles =~ /\.\.\. - file\(s\) not opened on this client\./) {
-            msg("Skipping delta empty commit $rev (no effective changes)", $OPTIONS{'Verbose'});
-            next;
-        }
-        
-        # Added files need to be explicitly added. We can use the list of changed files in the diff to get these.
-        # git diff --name-status will output added files like the following:
-        # A path/to/added/file
-        # We need to:
-        # - filter just those lines (split/grep),
-        my @changedFiles = split("\n", execCmd("git diff --name-status $rev~1..$rev"));
-        # - grab the path (grep regex), and
-        my @addedFiles = grep s/^A\s+(.*?)/$1/g, @changedFiles;
-        # - replace forward slashes with backslashes
-        @addedFiles = grep s/\//\\/g, @addedFiles;
-        foreach my $addedFile (@addedFiles) {
-            execCmd("sd add $addedFile");
-        }
-        
-        # Format the Git log to be useful for SD. This primarily involves having the title on the first line (for sdv,)
-        # and adding the commit hash to the SD changelist description.
-        msg("Processing log for revision $rev\n", $OPTIONS{'Verbose'});
-        my $log = execCmd("git log -n 1 --format=\"%s%n%nCommitted as %H by %an <%ae> at %ad%n%n%b%n\" $rev");
-
-        # Grab the author of the file and attempt to prefix the correct domain qualifier
-        my $author = execCmd('git log ' . $rev . ' -n 1 --format="%ae"');
-        $author =~ /(\w+)@/ or die "Couldn't determine alias from log:\n$author\n";
-        $author = $1;
-        if ($author =~ /tawoll/i || $author =~ /yongqu/i) {
-        # if (scalar grep qr/$author/i, $OPTIONS{'NTDEVAliases'}) {
-            $author = "NTDEV\\" . $author;
-        } else {
-            $author = "REDMOND\\" . $author;
-        }
-
-        # Add SD trigger if the log doesnt' have one
-        if ($log !~ /(FW|MSFT|NIB|BUILD):/) {
-            msg("No SD trigger found, prefixing FW:", $OPTIONS{'Verbose'});
-            $log = 'FW: ' . $log;
-        }
-        
-        # Suffix [Git <repo>] to the first line so we can see that it is a git change when viewing in SDV.
-        if ($OPTIONS{'Repo'} !~ /core/i) {
-            $log =~ s/\n/ [Git FULL]\n/;
-        } else {
-            $log =~ s/\n/ [Git CORE]\n/;
-        } 
-        $log =~ s/\n/\n\t/g;
-
-        # Create the change and insert the description. STDIN is complicated in Windows so we'll use a tempfile.
-        my $changeSpec = execCmd("sd change -o");
-        $changeSpec =~ s/\<enter description here\>/$log/ or die "Couldn't process changelist specification";
-        debug("Generated changespec:\n$changeSpec", $OPTIONS{'Verbose'} > 1);
-        # tempFile will evaluate to both the filename and the file handle in the correct contexts automatically.
-        if (!$OPTIONS{'DryRun'}) {
-            my $tempFile = File::Temp->new(UNLINK => 0) or die "Couldn't create temporary file for changelist specification";
-            print $tempFile $changeSpec;
-    
-            # Perform the actual SD submit.
-            my $submittedBy = $OPTIONS{'ServiceAccountUser'};
-            msg("Submitting as $author using $submittedBy\n", $OPTIONS{'Verbose'});
-            my $result = execCmd("sd submit -u $author -i <$tempFile", (Skip => 1));
-        }
-        if ($OPTIONS{'Repo'} =~ /core/i) {
-            $CORE_SD_CHANGED = 1;
-        } else {
-            $PRIVATE_SD_CHANGED = 1;
-        }
-        #File::Temp::cleanup(); # We no longer need the tempFile and don't need to wait until process completion.
-
-        # Write checked-in commit.
-        my $newChangeList = `sd counter change`;
-        msg('Changes submitted as SD change ' . $newChangeList, $OPTIONS{'Verbose'});
-    }
-
-    # Push the rebased changes back to VSO. We already resolved the conflicts, so just pull in all the changes.
-    execCmd("git checkout master");
-    execCmd("git merge --squash --strategy=recursive --strategy-option=theirs SDToGit");
-
-    # Update the submodule reference for full.
-    if ($OPTIONS{'Repo'} !~ /core/i) {
-        execCmd("git submodule init");
-        execCmd("git submodule update");
-        execCmd("git add core");
-    }
-
-    # We have to regenerate the message here in case this is a resume. TODO: This logic could be smarter.
-    # Get the changelist descriptions for all changes we are adding.
-    my $log = generateSDSummary($sdChange);
-    my $tempFile = File::Temp->new(UNLINK => 0) or die "Couldn't create temporary file for merge description";
-    print $tempFile $log;
-    execCmd("git commit --file=$tempFile");
-    
-    execCmd("git push origin master", (Skip => 1));
-    if ($OPTIONS{'Repo'} =~ /core/i) {
-        $CORE_VSO_CHANGED = 1;
-    } else {
-        $PRIVATE_VSO_CHANGED = 1;
-    }
-
-    submitSNAP();
-
-    return 1;
 }
 
-chdir(($OPTIONS{'Repo'} =~ /core/i) ? $OPTIONS{'CoreSDEnlistment'} : $OPTIONS{'RootSDEnlistment'});
+sub gitToSDBoth {
+    msg('Bringing Git changes back to SD', $OPTIONS{'Verbose'});
+
+    # Read last checked-in commit
+    # Get last change synced
+    my ($sdChange, $gitHash) = getLastSyncedData();
+    my $coreGitHash = '';
+
+    # 1. Init repos for rebasing
+    if($OPTIONS{'Repo'} eq '') {
+        # Checkout the commit and set up the staging branch
+        execCmd("git checkout $OPTIONS{'FullBranch'} --force");
+        execCmd('git add -A');
+        execCmd("git reset --hard origin/$OPTIONS{'FullBranch'}");
+        execCmd('git branch -D gitToSD', (SurviveError => 1));
+        execCmd('git checkout -b gitToSD');
+        execCmd("git submodule update");
+
+        # Do the same for core
+        chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+        my $coreGitHash = getHeadCommitHash();
+        execCmd("git checkout $OPTIONS{'CoreBranch'} --force");
+        execCmd('git add -A');
+        execCmd("git reset --hard $coreGitHash");
+        execCmd('git branch -D gitToSD', (SurviveError => 1));
+        execCmd('git checkout -b gitToSD');
+        
+        # Start processing core repo
+        $OPTIONS{'Repo'} = 'core';
+    }
+
+    # TODO: Refactor into states
+    if ($OPTIONS{'Repo'} =~ /core/i) {
+        chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+
+        resumeRebase();
+
+        # Start processing Full repo
+        $OPTIONS{'Repo'} = 'full';
+    }
+
+    if ($OPTIONS{'Repo'} =~ /full/i) {
+        chdirAndLog($OPTIONS{'SDEnlistment'});
+
+        resumeRebase();
+    }
+
+    # If we aren't submitting all Git changes, reset to the end change.
+    if ($OPTIONS{'endFullGitHash'} ne '') {
+        execCmd("git reset --hard $OPTIONS{'endFullGitHash'}");
+        execCmd('git submodule update');
+    }
+
+    # Pick up changes that need to go into SD
+    chdirAndLog($OPTIONS{'SDEnlistment'});
+    execCmd("sd online ...",    (Noisy => 1, SurviveError => 1));
+    execCmd("sd edit ...",      (Noisy => 1, SurviveError => 1));
+    execCmd("sd add ...",       (Noisy => 1, SurviveError => 1));
+    execCmd("sd revert -a ...", (Noisy => 1, SurviveError => 1));
+
+    my $openedFiles = execCmd("sd opened ...", (Noisy => 1));
+    if ($openedFiles =~ /\.\.\. - file\(s\) not opened on this client\./) {
+        msg("Skipping empty commit (no effective changes)", $OPTIONS{'Verbose'});
+    }
+
+    my $log = execCmd("git log $gitHash..$OPTIONS{'FullBranch'}", (Noisy => 1));
+    my $coreHash = execCmd("git rev-parse $gitHash:core");
+    chdirAndLog($OPTIONS{'SDEnlistment'} . '\core');
+    $log .= execCmd("git log $coreHash..$OPTIONS{'CoreBranch'}", (Noisy => 1));
+    chdirAndLog($OPTIONS{'SDEnlistment'});
+
+    # Create the change and insert the description. STDIN is complicated in Windows so we'll use a tempfile.
+    my $changeSpec = execCmd("sd change -o");
+    $changeSpec =~ s/\<enter description here\>/$log/ or die "Couldn't process changelist specification";
+    debug("Generated changespec:\n$changeSpec", $OPTIONS{'Verbose'} > 1);
+    # tempFile will evaluate to both the filename and the file handle in the correct contexts automatically.
+    if (!$OPTIONS{'DryRun'}) {
+        my $tempFile = File::Temp->new(UNLINK => 0) or die "Couldn't create temporary file for changelist specification";
+        print $tempFile $changeSpec;
+
+        # Perform the actual SD submit.
+        my $submittedBy = $OPTIONS{'ServiceAccountUser'};
+        msg("Submitting as $submittedBy\n", $OPTIONS{'Verbose'});
+        my $result = execCmd("sd submit -i <$tempFile", (HasSideEffects => 1));
+    }
+    if ($OPTIONS{'Repo'} =~ /core/i) {
+        $CORE_SD_CHANGED = 1;
+    } else {
+        $PRIVATE_SD_CHANGED = 1;
+    }
+    #File::Temp::cleanup(); # We no longer need the tempFile and don't need to wait until process completion.
+
+    # Write checked-in commit.
+    my $newChangeList = getLatestSDChangeForDir();
+    msg('Changes submitted as SD change ' . $newChangeList, $OPTIONS{'Verbose'});
+
+    msg('SD changes for Git have been staged in the SDToGit branches in full and core. Please MANUALLY inspect these changes and their message before pushing');
+}
+
+chdirAndLog($OPTIONS{'SDEnlistment'});
 
 my $result = 0;
 if (!$OPTIONS{'Resume'}) {
-     $result = eval {
+    $result = eval {
         stageSDToGit();
     };
 }
-if ($result || $OPTIONS{'Resume'}) {
-    $result = eval {
-        gitToSD();
-    };
-}
+
+gitToSDBoth();
 
 summaryEmail();
 
 cleanUp();
-

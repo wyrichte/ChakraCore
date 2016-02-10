@@ -1,7 +1,6 @@
 //  Copyright (c) Microsoft Corporation. All rights reserved.
 
 #include "stdafx.h"
-#include "kitchen_common.h"
 #include "OvenServer.h"
 #include "CookieServer.h"
 #include "PrivateInterfaces.h"

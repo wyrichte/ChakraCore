@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-  <test>
+  <!--<test>
     <default>
       <tags>Intl,exclude_dynapogo,exclude_drt,exclude_nightly,exclude_nonrazzle</tags>
       <compile-flags>-relbasepath core\lib\runtime\library\injavascript -bytecodefn Intl</compile-flags>
@@ -8,7 +8,7 @@
       <files>Dummy.js</files>
       <baseline>ValidateGeneratedByteCode.bsl</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <tags>Intl,exclude_apollo,exclude_winglob</tags>

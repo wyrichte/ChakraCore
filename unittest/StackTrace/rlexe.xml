@@ -85,6 +85,7 @@
       <baseline>LongCallStackThrow.WER.html.baseline</baseline>
     </default>
   </test>
+<!--
   <test>
     <default>
       <tags>StackTrace</tags>
@@ -93,6 +94,7 @@
       <baseline>StackTraceLimit.mshtml.baseline</baseline>
     </default>
   </test>
+-->
   <test>
     <default>
       <tags>StackTrace</tags>

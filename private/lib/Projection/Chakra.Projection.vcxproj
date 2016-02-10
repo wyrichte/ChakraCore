@@ -32,6 +32,7 @@
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\WasmReader;
+        $(ChakraCoreRootDirectory)Lib\Runtime\ByteCode;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(MSBuildThisFileDirectory)..\Engine;
         $(MSBuildThisFileDirectory)..\EnC;
@@ -53,9 +54,12 @@
       <PrecompiledHeaderFile>ProjectionPch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
-        4510;   <!-- default constructor could not be generated -->
-        4610;   <!-- can never be instantiated - user defined constructor required --><!-- TODO: Should clean this up -->
-        4267    <!-- implicit conversion from 64bit to 32bit value, possible loss of data --></DisableSpecificWarnings>
+        4510;     <!-- default constructor could not be generated -->
+        4610;     <!-- can never be instantiated - user defined constructor required -->
+        4091;     <!-- 'typedef ': ignored on left of '' when no variable is declared -->
+        4267;     <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
+        4429      <!-- possible incomplete or improperly formed universal-character-name -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

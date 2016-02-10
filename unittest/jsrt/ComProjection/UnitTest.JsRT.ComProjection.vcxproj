@@ -34,6 +34,10 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);INLINE_TEST_METHOD_MARKUP;</PreprocessorDefinitions>
+      <DisableSpecificWarnings>
+        4456;     <!-- declaration of '' hides previous local declaration -->
+        4595;     <!-- 'operator delete': non-member operator new or delete functions may not be declared inline -->
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>

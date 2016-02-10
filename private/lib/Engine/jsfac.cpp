@@ -9,8 +9,8 @@
 
 #include "guids.h"
 
-OLECHAR szLangName[] = OLESTR("JScript");
-LPOLESTR g_pszLangName = szLangName;
+static OLECHAR s_szLangName[] = OLESTR("JScript");
+LPOLESTR g_pszLangName = s_szLangName;
 static const WCHAR* s_rgpszLang[] =
 {
     L"JScript",
@@ -43,7 +43,7 @@ STDMETHODIMP CJScript9ClassFactory::CreateInstance(IUnknown *punkOuter, REFIID r
     if (NULL != punkOuter)
         return CLASS_E_NOAGGREGATION;
 
-    pos = AllocateEngine(szLangName);
+    pos = AllocateEngine(s_szLangName);
     IFNULLMEMRET(pos);
     IfFailGo(pos->InitializeThreadBound());
 

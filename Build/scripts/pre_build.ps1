@@ -7,7 +7,7 @@ param (
 
 $CoreScriptDir = "$PSScriptRoot\..\..\core\build\scripts"
 
-$OutterScriptRoot = $PSScriptRoot;
+$OuterScriptRoot = $PSScriptRoot;
 . "$CoreScriptDir\pre_post_util.ps1"
 
 & $PSScriptRoot\..\..\core\Build\Scripts\pre_build.ps1 -oauth $oauth -srcpath $srcpath -binpath $binpath -objpath $objpath
@@ -18,7 +18,7 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
 {
     $commitHash = ($Env:TF_BUILD_SOURCEGETVERSION).split(':')[2];
     $gitExe = GetGitPath;
-    
+
     $outputDir = $Env:TF_BUILD_DROPLOCATION
     $outputFile = Join-Path -Path $outputDir -ChildPath "change.txt"
 
@@ -37,4 +37,3 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
         Pop-Location
     }
 }
-

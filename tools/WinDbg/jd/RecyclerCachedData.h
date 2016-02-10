@@ -6,11 +6,11 @@
 
 #include <map>
 #include "CachedTypeInfo.h"
+#include "RemoteHeapBlockMap.h"
 
 class EXT_CLASS_BASE;
 class Addresses;
 class RootPointers;
-class RemoteHeapBlockMapWithCache;
 
 class RecyclerCachedData
 {
@@ -19,7 +19,8 @@ public:
     
     Addresses * GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext);
 
-    RemoteHeapBlockMapWithCache * GetHeapBlockMap(ExtRemoteTyped recycler, bool create = true);
+    RemoteHeapBlockMap::Cache * GetHeapBlockMap(ExtRemoteTyped recycler);
+    void SetHeapBlockMap(ExtRemoteTyped heapBlockMap, RemoteHeapBlockMap::Cache * cache);
 
     void Clear();
 
@@ -28,7 +29,7 @@ public:
     ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
 private:
     std::map<ULONG64, Addresses *> rootPointersCache;
-    std::map<ULONG64, RemoteHeapBlockMapWithCache *> m_heapblockMapCache;
+    std::map<ULONG64, RemoteHeapBlockMap::Cache *> m_heapblockMapCache;
     
     CachedTypeInfo m_heapBlockTypeInfo;
     CachedTypeInfo m_smallHeapBlockTypeInfo;

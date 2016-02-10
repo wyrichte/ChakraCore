@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RazzleTools</id>
-    <version>1.0.6</version>
+    <version>1.0.10</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,7 +12,7 @@
     <tags>Chakra Razzle Tools</tags>
   </metadata>
   <files>
-    <file src="tools\dev12\**" target="dev12"/>
+    <file src="tools\vc\**" target="vc"/>
 
     <!-- Needed for compiling interface definitions -->
     <file src="tools\x86\midl*" target="x86" />
@@ -39,14 +39,8 @@
 
     <!-- Needed for Pogo build -->
     <file src="tools\x86\pgort*" target="x86" />
-    <file src="tools\x86\msvcr110.*" target="x86" />
-    <file src="tools\x86\msvcr120.*" target="x86" />
     <file src="tools\amd64\pgort*" target="amd64" />
-    <file src="tools\amd64\msvcr110.*" target="amd64" />
-    <file src="tools\amd64\msvcr120.*" target="amd64" />
     <file src="tools\arm\pgort*" target="arm" />
-    <file src="tools\arm\msvcr110.*" target="arm" />
-    <file src="tools\arm\msvcr120.*" target="arm" />
 
     <file src="tools\x86\rcdll.dll" target="x86" />
     <file src="tools\amd64\rcdll.dll" target="amd64" />

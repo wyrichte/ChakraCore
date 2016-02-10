@@ -208,19 +208,26 @@ public:
         NodeType* node = _nodes.Get(key);
         if (node == nullptr)
         {
-            node = new NodeType;
-            if (!node)
-            {
-                g_Ext->ThrowOutOfMemory();
-            }
-
-            node->Key = key;
-            _nodes.Add(key, node);
+            return AddNode(key);
         }
 
         return node;
     }
     
+    NodeType* AddNode(const TKey& key)
+    {
+        Assert(_nodes.Get(key) == nullptr);
+        NodeType * node = new NodeType;
+        if (!node)
+        {
+            g_Ext->ThrowOutOfMemory();
+        }
+
+        node->Key = key;
+        _nodes.Add(key, node);
+        return node;
+    }
+
     NodeType * FindNode(const TKey& key)
     {
         return _nodes.Get(key);
@@ -352,7 +359,6 @@ struct RecyclerGraphNodeAux
 {
     RecyclerGraphNodeAux() 
     { 
-        isScanned = false; 
         typeName = nullptr; 
         typeNameOrField = nullptr;
         hasVtable = false;
@@ -363,9 +369,10 @@ struct RecyclerGraphNodeAux
     const char * typeName;
     const char * typeNameOrField;
     bool hasVtable;
-    bool isPropagated;
-    bool isScanned;
+    bool isPropagated;    
     bool isRoot;
+
+    bool HasTypeInfo() const { return typeName != nullptr; }
 };
 
 #endif

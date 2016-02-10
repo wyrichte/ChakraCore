@@ -16,7 +16,7 @@ param (
 
 $CoreScriptDir = "$PSScriptRoot\..\..\core\build\scripts"
 
-$OutterScriptRoot = $PSScriptRoot;
+$OuterScriptRoot = $PSScriptRoot;
 . "$CoreScriptDir\pre_post_util.ps1"
 $bvtcmdpath = "$srcpath\tools\runcitests.cmd";
 $pogoscript = "$srcpath\tools\pogo.git.bat";
@@ -27,4 +27,3 @@ if ($noaction) {
     & $CoreScriptDir\post_build.ps1 -repo "full" -arch $arch -flavor $flavor -srcpath $srcpath -binpath $binpath -objpath $objpath -srcsrvcmdpath $srcsrvcmdpath -bvtcmdpath $bvtcmdpath -logFile ""$logFile"" -pogo $pogo -pogoscript $pogoscript
 }
 exit $LastExitCode
-

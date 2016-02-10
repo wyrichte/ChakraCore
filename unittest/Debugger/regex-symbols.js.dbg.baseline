@@ -1,0 +1,46 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 59,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "search"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.search"
+      },
+      {
+        "start": 100,
+        "length": 20,
+        "text": "'string'.search(/./)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 182,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "match"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.match"
+      },
+      {
+        "start": 223,
+        "length": 19,
+        "text": "'string'.match(/./)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

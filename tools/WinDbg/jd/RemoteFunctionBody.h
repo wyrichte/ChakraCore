@@ -8,29 +8,29 @@
 // ------------------------------------------------------------------------------------------------
 
 #include "JDUtil.h"
-class RemoteFunctionBody : public ExtRemoteTyped
+class RemoteFunctionBody : public JDRemoteTyped
 {
 public:
     RemoteFunctionBody() {}
-    RemoteFunctionBody(ULONG64 pBody) : ExtRemoteTyped("(Js::FunctionBody*)@$extin", pBody) {}
-    RemoteFunctionBody(ExtRemoteTyped const& functionBody) : ExtRemoteTyped(functionBody) {};
-    ExtRemoteTyped GetByteCodeBlock() 
+    RemoteFunctionBody(ULONG64 pBody) : JDRemoteTyped("(Js::FunctionBody*)@$extin", pBody) {}
+    RemoteFunctionBody(ExtRemoteTyped const& functionBody) : JDRemoteTyped(functionBody) {};
+    JDRemoteTyped GetByteCodeBlock()
     {
         return JDUtil::GetWrappedField(*this, "byteCodeBlock");
     }
-    ExtRemoteTyped GetAuxBlock()
+    JDRemoteTyped GetAuxBlock()
     {
         return JDUtil::GetWrappedField(*this, "auxBlock");
     }
-    ExtRemoteTyped GetAuxContextBlock()
+    JDRemoteTyped GetAuxContextBlock()
     {
         return JDUtil::GetWrappedField(*this, "auxContextBlock");
     }
-    ExtRemoteTyped GetProbeBackingStore()
+    JDRemoteTyped GetProbeBackingStore()
     {
         return GetSourceInfo().Field("m_probeBackingBlock");
     }
-    ExtRemoteTyped GetCacheIdToPropertyIdMap()
+    JDRemoteTyped GetCacheIdToPropertyIdMap()
     {
         return JDUtil::GetWrappedField(*this, "cacheIdToPropertyIdMap");
     }
@@ -46,20 +46,20 @@ public:
     {
         return this->Field("m_hasImplicitArgIns").GetStdBool();
     }
-    ExtRemoteTyped GetConstTable()
+    JDRemoteTyped GetConstTable()
     {
         return JDUtil::GetWrappedField(*this, "m_constTable");
     }
-    ExtRemoteTyped GetSourceInfo()
+    JDRemoteTyped GetSourceInfo()
     {
         return this->Field("m_sourceInfo");
     }
 
-    ExtRemoteTyped GetScriptContext()
+    JDRemoteTyped GetScriptContext()
     {
         return JDUtil::GetWrappedField(*this, "m_scriptContext");
     }
-    ExtRemoteTyped GetThreadContext()
+    JDRemoteTyped GetThreadContext()
     {
         return GetScriptContext().Field("threadContext");
     }
@@ -83,12 +83,12 @@ public:
         return JDUtil::GetWrappedField(*this, "m_functionNumber").GetUlong();
     }
 
-    ExtRemoteTyped GetStatementMaps()
+    JDRemoteTyped GetStatementMaps()
     {
         return JDUtil::GetWrappedField(*this, "pStatementMaps");
     }
 
-    ExtRemoteTyped GetEntryPoints()
+    JDRemoteTyped GetEntryPoints()
     {
         return JDUtil::GetWrappedField(*this, "entryPoints");
     }
@@ -109,8 +109,8 @@ public:
     void PrintSourceUrl(EXT_CLASS_BASE *ext);
     void PrintSource(EXT_CLASS_BASE *ext);
 private:
-    ExtRemoteTyped GetUtf8SourceInfo();
-    ExtRemoteTyped GetSourceContextInfo();
+    JDRemoteTyped GetUtf8SourceInfo();
+    JDRemoteTyped GetSourceContextInfo();
 };
 
 

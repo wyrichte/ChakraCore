@@ -2704,14 +2704,14 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <files>bug_553748.html</files>
       <compile-flags>-trace:StackFramesEvent -DeferLoadingAvailableSource</compile-flags>
       <baseline>bug_553748.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>basichtmltest1.html</files>
@@ -3807,6 +3807,12 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:commaexpression_span.js.dbg.baseline</compile-flags>
       <baseline>commaexpression_span.baseline</baseline>
       <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regex-symbols.js</files>
+      <compile-flags>-ES6RegExSymbols -debuglaunch -targeted -dbgbaseline:regex-symbols.js.dbg.baseline</compile-flags>
     </default>
   </test>
 </regress-exe>

@@ -321,7 +321,7 @@
   },
   {
     "locals": {
-      "this": "constructor(...args) { super(...args); }",
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
@@ -370,7 +370,7 @@
   },
   {
     "locals": {
-      "this": "constructor(...args) { super(...args); }",
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
@@ -380,8 +380,8 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "a": "constructor() {}",
-      "b": "constructor(...args) { super(...args); }",
+      "a": "<large string>",
+      "b": "<large string>",
       "classb": "{...}",
       "[Globals]": ""
     }

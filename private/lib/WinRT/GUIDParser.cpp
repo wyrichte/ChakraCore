@@ -2,7 +2,7 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
 #include "WinRTPch.h"
-#include "..\engine\jscriptdllcommon.h"
+#include "jscriptdllcommon.h"
 #include <Shlwapi.h>
 #include <ATLBase.h>
 #include "GUIDParser.h"

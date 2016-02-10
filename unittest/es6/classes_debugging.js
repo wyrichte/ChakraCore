@@ -165,6 +165,24 @@ var tests = [
       instance.propSet = 1;
       b.staticMethod();
     }
+  },
+  {
+    name: "GetDiagValueString on constructor",
+    body: function () {
+      class a {
+        method() { return "hello world"; }
+        static staticMethod() { return "static"; }
+      };
+      class b extends a {
+        method1() {
+          return null;
+        }
+        method2() {
+          return super.method();
+        }
+      }
+      1; /**bp:locals()**/
+    }
   }
 ];
 

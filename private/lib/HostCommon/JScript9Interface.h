@@ -222,9 +222,6 @@ public:
     static HRESULT SetCheckMemoryLeakFlag(bool flag) { return CHECKED_CALL(SetCheckMemoryLeakFlag,flag); }
     static HRESULT SetEnableCheckMemoryLeakOutput(bool flag) { return CHECKED_CALL(SetEnableCheckMemoryLeakOutput, flag); }
 #endif
-#ifdef DBG
-    static HRESULT SetCheckOpHelpersFlag(bool flag) { return CHECKED_CALL(SetCheckOpHelpersFlag,flag); }
-#endif
 
     static boolean SupportsDllGetClassObjectCallback() {return m_testHooks.pfDllGetClassObject != NULL; }
     static boolean SupportsPrintConfigFlagsUsageString() { return m_testHooksSetup && m_testHooks.pfPrintConfigFlagsUsageString != NULL; }

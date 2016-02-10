@@ -173,15 +173,6 @@ PCSTR EXT_CLASS_BASE::GetMemoryNS()
     return m_gcNS;
 }
 
-ULONG64 EXT_CLASS_BASE::GetSizeT(ExtRemoteTyped data)
-{
-    if (data.GetTypeSize() == 8)
-    {
-        return data.GetUlong64();
-    }
-    return data.GetUlong();
-}
-
 // Fill a symbol name with module name. The result string uses my shared buffer.
 PCSTR EXT_CLASS_BASE::FillModule(PCSTR fmt)
 {
@@ -219,6 +210,18 @@ PCSTR EXT_CLASS_BASE::GetSmallHeapBlockTypeName()
     else
     {
         return FillModule("%s!SmallHeapBlock");
+    }
+}
+
+PCSTR EXT_CLASS_BASE::GetSmallHeapBucketTypeName()
+{
+    if (HasMemoryNS())
+    {
+        return FillModule("%s!Memory::HeapBucketT<Memory::SmallNormalHeapBlockT<SmallAllocationBlockAttributes> >");
+    }
+    else
+    {
+        return FillModule("%s!HeapBucketT<SmallHeapBlock>");
     }
 }
 
@@ -977,9 +980,9 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
     else
     {
         ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
-        ExtRemoteTyped hostScriptContext("(ChakraHostScriptContext*)@$extin", hostScriptContextField.GetPtr());
-        if (hostScriptContext.GetPtr())
+        if (hostScriptContextField.GetPtr())
         {
+            ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
             try
             {
                 if (strcmp(hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine").GetSimpleValue(), "0n0") == 0)
@@ -1088,17 +1091,12 @@ void EXT_CLASS_BASE::PrintAllUrl()
 {
 
     ULONG64 currentThreadContextPtr = 0;
-    try
+    RemoteThreadContext remoteThreadContext;
+    if (RemoteThreadContext::TryGetCurrentThreadContext(remoteThreadContext))
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
-        currentThreadContextPtr = currentThreadContext.GetPtr();
+        currentThreadContextPtr = remoteThreadContext.GetExtRemoteTyped().GetPtr();
     }
-    catch (...)
-    {
-        Out("Cannot find current thread context\n");
-    }
-
+    
     RemoteThreadContext::ForEach([this, currentThreadContextPtr](RemoteThreadContext threadContext)
     {
         ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
@@ -1255,44 +1253,7 @@ JD_PRIVATE_COMMAND(count,
     sprintf_s(buffer, "(%s *)@$extin", type);
 
     ExtRemoteTyped object(buffer, head);
-    Out("%I64u\n", Count(object, nextstr));
-}
-
-ULONG64 EXT_CLASS_BASE::Count(ExtRemoteTyped object, PCSTR field)
-{
-    ULONG64 head = GetAsPointer(object);
-    ULONG64 count = 0;
-
-    ULONG64 ptr = head;
-
-    while (ptr != 0)
-    {
-        count++;
-        object = object.Field(field);
-
-        ptr = object.GetPtr();
-        if (ptr == head)
-        {
-            break;
-        }
-    }
-    return count;
-}
-
-ULONG64 EXT_CLASS_BASE::TaggedCount(ExtRemoteTyped object, PCSTR field)
-{
-    ULONG64 head = GetAsPointer(object);
-    ULONG64 count = 0;
-
-    ULONG64 ptr = head;
-    ULONG offset = object.GetFieldOffset(field);
-    while (ptr != 0 && ptr != head)
-    {
-        count++;
-        ExtRemoteData data(ptr + offset, IsPtr64() ? 8 : 4);
-        ptr = data.GetPtr() & ~1;
-    }
-    return count;
+    Out("%I64u\n", ExtRemoteTypedUtil::Count(object, nextstr));
 }
 
 void EXT_CLASS_BASE::PrintFrameNumberWithLink(uint frameNumber)

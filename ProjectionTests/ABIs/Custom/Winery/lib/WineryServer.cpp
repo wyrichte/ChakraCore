@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "WineryServer.h"
 
-#include <stdio.h>
 
 // Define this for convenience, but don't put this in a header, otherwise 
 // it defeats the purpose of using a namespace.
@@ -138,6 +137,21 @@ Winery::WineryServer::remove_AgeCompleteEvent(
     return _evtAgeComplete.Remove(iCookie);
 }
 
+IFACEMETHODIMP
+Winery::WineryServer::add_AgeEmptyEvent(
+    __in Winery::IAgeCompleteHandler *,
+    __out EventRegistrationToken *pCookie)
+{
+    pCookie->value = 0;
+    return S_OK;
+}
+                
+IFACEMETHODIMP
+Winery::WineryServer::remove_AgeEmptyEvent(
+    __in EventRegistrationToken )
+{
+    return S_OK;
+}
 
 IFACEMETHODIMP
 Winery::WineryServer::SendToWarehouse(Winery::IWarehouse *pWarehouse)

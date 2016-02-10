@@ -28,6 +28,7 @@
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\WasmReader;
+        $(ChakraCoreRootDirectory)Lib\Runtime\ByteCode;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;

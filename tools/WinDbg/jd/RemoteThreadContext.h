@@ -35,7 +35,7 @@ public:
     static bool ForEach(Fn fn)
     {        
         ExtRemoteTyped container = GetFirstThreadContextContainer();
-        while (GetAsPointer(container))
+        while (ExtRemoteTypedUtil::GetAsPointer(container))
         {
             RemoteThreadContext threadContext = GetThreadContextFromContainer(container);
 
@@ -65,7 +65,7 @@ public:
     {
         if (threadContext.HasField("scriptContextList"))
         {
-            return LinkListForEach(threadContext.Field("scriptContextList"), "next", fn);
+            return ExtRemoteTypedUtil::LinkListForEach(threadContext.Field("scriptContextList"), "next", fn);
         }
         else
         {

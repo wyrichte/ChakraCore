@@ -1185,7 +1185,7 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
 #define BUILT_IN_OPERATION(o, p, f) \
     case o:\
         parentObject = library->p; \
-        entryPoint = &f.GetOriginalEntryPoint(); \
+        entryPoint = f.GetOriginalEntryPoint(); \
         break;
 #include "BuiltInOperations.h"
 #undef BUILT_IN_OPERATION

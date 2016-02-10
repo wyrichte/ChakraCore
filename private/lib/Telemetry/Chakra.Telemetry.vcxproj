@@ -22,6 +22,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Runtime;
+        $(ChakraRootDirectory)core\lib\Runtime\ByteCode;
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\WasmReader;

@@ -43,7 +43,7 @@ if "%errorlevel%" NEQ "0" (
     Echo %0 : error: Error generating bytecode file. Ensure %comparisonFile% is writable. 1>&2
     goto Exit;
 )
-diff %baseFileName% %comparisonFile%
+diff -dw %baseFileName% %comparisonFile%
 if "%errorlevel%" NEQ "0" (
     Echo errorlevel is %errorlevel%
     Echo Engine modifications require that the ValidPointersMap be regenerated. 1>&2

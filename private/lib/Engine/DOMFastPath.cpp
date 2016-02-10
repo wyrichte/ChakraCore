@@ -28,16 +28,14 @@ DECLARE_TEN_SIMPLEACCESS_INFO(6)
 DECLARE_TEN_SIMPLEACCESS_INFO(7)
 DECLARE_TEN_SIMPLEACCESS_INFO(8)
 DECLARE_TEN_SIMPLEACCESS_INFO(9)
-// Turn off compiler optimizations for this function, as it causes the compiler to crash with the latest compiler we got after 3/9 FI
-#pragma optimize("", off)
+
 Js::FunctionInfo DOMFastPathInfo::getterTable[] = {
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attributeGetter, attributeSetter) funcInfoGetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
 };
-//Turn the optimizations back on
-#pragma optimize("", on)
+
 Js::FunctionInfo DOMFastPathInfo::setterTable[] = {
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) funcInfoSetter,

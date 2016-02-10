@@ -5,15 +5,7 @@
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>AsyncAwait.js</files>
       <baseline>AsyncAwait.baseline</baseline>
-      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -nodeferparse</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
-      <files>AsyncAwait.js</files>
-      <baseline>AsyncAwait.baseline</baseline>
-      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators -forcedeferparse</compile-flags>
+      <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators</compile-flags>
     </default>
   </test>
   <test>
@@ -363,13 +355,13 @@
       <baseline>SimpleDom.baseline</baseline>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <tags>HeapEnum</tags>
       <files>EventHandler.html</files>
       <baseline>EventHandler.baseline</baseline>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
