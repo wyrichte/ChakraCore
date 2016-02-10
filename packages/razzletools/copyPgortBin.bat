@@ -21,22 +21,28 @@ for /F %%a in ('echo %linker_build%') do set linker_build=%%a
 echo Linker Build: %linker_build%
 echo Linker Version: %linker_version%
 
-set linker_sharepath=\\vcfs\builds\VS\feature_%linker_build%
+ rem set linker_sharepath=\\vcfs\builds\VS\feature_WinCCompLKG
+set linker_sharepath=\\vcgnt-24-64\Test\Dev14
+ rem set linker_sharepath=\\vcfs\drops\LKG\18.1
 
 for /F %%a in ('dir /b /ad /o-n %linker_sharepath%') do (
-  for /F "tokens=2" %%a in ('%FILEVER_PATH% /V %linker_sharepath%\%%a\binaries.x86ret\bin\i386\link.exe ^| find "ProductVersion"') do set current_linker_version=%%a
-  echo Build: %%a, Version: !current_linker_version!
-  if [!current_linker_version!] equ [%linker_version%] set matching_build=%linker_sharepath%\%%a
+  set shareroot=%linker_sharepath%\%%a
+  for /F %%a in ('dir /b /ad /o-n !shareroot!') do (
+    set buildFolder=!shareroot!\%%a
+    echo !buildFolder!
+    for /F "tokens=2" %%a in ('%FILEVER_PATH% /V !buildFolder!\bin\x32\link.exe ^| find "ProductVersion"') do set current_linker_version=%%a
+    echo Build: %%a, Version: !current_linker_version!
+    if [!current_linker_version!] equ [%linker_version%] set matching_build=!buildFolder!
+  )
 )
-
-echo VC tools build to use: %matching_build%
 
 if [%matching_build%] equ [] (
   set errmsg=Can not find a matching link.exe under %linker_sharepath%.
   echo %errmsg%
-  echo %errmsg%>%targetFolder%\pogo.err
+  echo %errmsg%>%DESTINATION%\pogo.err
   goto:error
 )
+echo VC tools build to use: %matching_build%
 
 for %%p in (%PLATFORM%) do (
   set arch=%%p
@@ -47,26 +53,37 @@ for %%p in (%PLATFORM%) do (
     md !dst!
   )
 
-  if "!arch!"=="x64" (
-    set arch=amd64
+  if /I "!arch!"=="x86" (
+    set arch=x32
+  ) else if /I "!arch!"=="amd64" (
+    set arch=x64
+  ) else if /I "!arch!"=="arm" (
+    set arch=a32
+  ) else if /I "!arch!"=="arm64" (
+    set arch=a64
+  )
+  set libArch=!arch!
+
+  if /I "!libArch!"=="x32" (
+    set libArch=x86
+  ) else if /I "!libArch!"=="x64" (
+    set libArch=amd64
+  ) else if /I "!libArch!"=="a32" (
+    set libArch=arm
+  ) else if /I "!libArch!"=="a64" (
+    set libArch=arm64
   )
 
-  set pgort_Arch=!arch!
-  if "!pgort_Arch!"=="x86" (
-    set pgort_Arch=i386
-  )
+  set archBinFolder=%matching_build%\bin\!arch!
+  set archLibFolder=%matching_build%\lib.DO_NOT_REDIST\!libArch!
 
-  echo %matching_build%\binaries.!arch!ret\lib\!pgort_Arch!\pgort.lib =^> !dst!\pgort.lib
-  copy /Y %matching_build%\binaries.!arch!ret\lib\!pgort_Arch!\pgort.lib !dst!\pgort.lib
+  del !dst!\pgort.lib
+  echo !archLibFolder!\pgort.lib =^> !dst!\pgort.lib
+  copy /Y !archLibFolder!\pgort.lib !dst!\pgort.lib
 
-  echo %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\pgort120.dll =^> !dst!\pgort120.dll
-  copy /Y %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\pgort120.dll !dst!\pgort120.dll
-
-  echo %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\pgort120.pdb =^> !dst!\pgort120.pdb
-  copy /Y %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\pgort120.pdb !dst!\pgort120.pdb
-
-  echo %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\msvcr120.* =^> !dst!
-  copy /Y %matching_build%\binaries.!arch!ret\bin\!pgort_Arch!\msvcr120.* !dst!
+  del !dst!\pgort*.dll
+  echo !archBinFolder!\pgort*.dll =^> !dst!\pgort*.dll
+  copy /Y !archBinFolder!\pgort*.dll !dst!\pgort*.dll
 
   echo done for !arch!
 )

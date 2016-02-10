@@ -14,9 +14,7 @@ if "%PLATFORM%"=="win32" (
 )
 
 copy /Y %RAZZLE_TOOLS_PATH%\%_BuildArch%\pgort.lib %LIB_DESTINATION%\pgort.lib
-copy /Y %RAZZLE_TOOLS_PATH%\%_BuildArch%\pgort120.dll %BIN_DESTINATION%\pgort120.dll
-copy /Y %RAZZLE_TOOLS_PATH%\%_BuildArch%\pgort120.pdb %BIN_DESTINATION%\pgort120.pdb
-copy /Y %RAZZLE_TOOLS_PATH%\%_BuildArch%\msvcr120.* %BIN_DESTINATION%
+copy /Y %RAZZLE_TOOLS_PATH%\%_BuildArch%\pgort* %BIN_DESTINATION%
 
 endlocal
 goto:eof

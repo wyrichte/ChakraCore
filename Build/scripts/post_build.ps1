@@ -10,7 +10,7 @@ param (
     [string]$objpath = "",
     [string]$srcsrvcmdpath = "Build\script\srcsrv.bat",
     [string]$logFile = "",
-    [string[]]$pogo = @(),
+    [string[]]$pogo = @("x86","test","x64","test","arm","test"),
     [switch]$noaction
 )
 
