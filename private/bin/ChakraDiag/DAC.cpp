@@ -1105,10 +1105,11 @@ namespace JsDiag
 
     LoopHeader* RemoteFunctionBody::GetLoopHeader(uint index)
     {
-        Assert(this->ToTargetPtr()->loopHeaderArray != nullptr);
+        auto loopHeaderArray = static_cast<const Js::LoopHeader*>(this->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::LoopHeaderArray));
+        Assert(loopHeaderArray != nullptr);
         Assert(index < this->ToTargetPtr()->loopCount);
 
-        return this->ToTargetPtr()->loopHeaderArray + index;
+        return const_cast<LoopHeader*>(loopHeaderArray) + index;
     }
 
     BOOL RemoteFunctionBody::GetMatchingStatementMapFromNativeOffset(
@@ -1333,9 +1334,10 @@ namespace JsDiag
             {
                 // typedef JsUtil::List<Js::FunctionBody::StatementMap*> StatementMapList;
                 RemoteFunctionBody_SourceInfo sourceInfo(m_reader, this);
-                Assert(this->ToTargetPtr()->pStatementMaps);
+                Js::FunctionBody::StatementMapList* pStatementMaps = (Js::FunctionBody::StatementMapList*)this->GetAuxPtrs(FunctionProxy::AuxPointerType::StatementMaps);
+                Assert(pStatementMaps);
 
-                RemoteList<Js::FunctionBody::StatementMap*> statementMaps(m_reader, this->ToTargetPtr()->pStatementMaps);
+                RemoteList<Js::FunctionBody::StatementMap*> statementMaps(m_reader, pStatementMaps);
                 if (statementIndex >= statementMaps.Count())
                 {
                     return FALSE;
@@ -1349,6 +1351,48 @@ namespace JsDiag
         }
 
         return FALSE;
+    }
+
+    const void* RemoteFunctionBody::GetAuxPtrs(FunctionProxy::AuxPointerType pointerType) const
+    {
+        void* auxPtrsRaw = static_cast<void*>(this->ToTargetPtr()->auxPtrs);
+        uint8* auxPtrs = static_cast<uint8*>(auxPtrsRaw);
+        uint8 pointerTypeValue = static_cast<uint8>(pointerType);
+        if (auxPtrs != nullptr)
+        {
+            uint8 count = ReadVirtual<uint8>(auxPtrs);
+            if (count == FunctionProxy::AuxPtrsT::AuxPtrs16::MaxCount)
+            {
+                for (uint8 i = 0; i < count; i++)
+                {
+                    uint8 type = ReadVirtual<uint8>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs16, type) + i);
+                    if (type == pointerTypeValue)
+                    {
+                        return ReadVirtual<void*>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs16, ptr) + sizeof(void*) * i);
+                    }
+                }
+            }
+            else if (count == FunctionProxy::AuxPtrsT::AuxPtrs32::MaxCount)
+            {
+                for (uint8 i = 0; i < count; i++)
+                {
+                    uint8 type = ReadVirtual<uint8>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs32, type) + i);
+                    if (type == pointerTypeValue)
+                    {
+                        return ReadVirtual<void*>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs32, ptr) + sizeof(void*) * i);
+                    }
+                }
+            }
+            else if (count > FunctionProxy::AuxPtrsT::AuxPtrs32::MaxCount)
+            {
+                uint8 offset = ReadVirtual<uint8>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT, offsets) + pointerTypeValue);
+                if (offset != (uint8)FunctionProxy::AuxPointerType::Invalid)
+                {
+                    return ReadVirtual<void*>(auxPtrs + offsetof(FunctionProxy::AuxPtrsT, ptrs) + sizeof(void*) * offset);
+                }
+            }
+        }
+        return nullptr;
     }
 
     uint32 RemoteGrowingUint32HeapArray::ItemInBuffer(uint32 index)
@@ -1725,7 +1769,7 @@ namespace JsDiag
             {
                 // Find statement map that corresponds to statement with this source.
                 // Well, not precise as there could be newlines and closing brackets in between, but that seems to be the best we can.
-                RemoteList<FunctionBody::StatementMap*> maps(m_reader, mapsAddr);
+                RemoteList<Js::FunctionBody::StatementMap*> maps(m_reader, mapsAddr);
                 for (int i = 0; i < maps.Count(); ++i)
                 {
                     FunctionBody::StatementMap* mapAddr = maps.Item(i);
@@ -1973,9 +2017,9 @@ namespace JsDiag
         return RemoteUtf8SourceInfo(m_reader, this->GetFunctionBody()->m_utf8SourceInfo).ToTargetPtr()->m_lineOffsetCache;
     }
 
-    FunctionBody::StatementMapList* RemoteFunctionBody_SourceInfo::GetStatementMaps()
+    Js::FunctionBody::StatementMapList* RemoteFunctionBody_SourceInfo::GetStatementMaps()
     {
-        return this->GetFunctionBody()->pStatementMaps;
+        return (Js::FunctionBody::StatementMapList*)m_functionBody->GetAuxPtrs(FunctionProxy::AuxPointerType::StatementMaps);
     }
 
     SourceContextInfo* RemoteFunctionBody_SourceInfo::GetSourceContextInfo()

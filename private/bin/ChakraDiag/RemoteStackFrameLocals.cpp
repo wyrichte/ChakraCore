@@ -201,9 +201,10 @@ namespace JsDiag
             }
         }
 
-        if (funcBody->ToTargetPtr()->propertyIdOnRegSlotsContainer)
+        auto propertyIdOnRegSlotsContainer = static_cast<const Js::PropertyIdOnRegSlotsContainer*>(funcBody->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::PropertyIdOnRegSlotsContainer));
+        if (propertyIdOnRegSlotsContainer)
         {
-            RemotePropertyIdOnRegSlotsContainer propIdContainer(reader, funcBody->ToTargetPtr()->propertyIdOnRegSlotsContainer);
+            RemotePropertyIdOnRegSlotsContainer propIdContainer(reader, propertyIdOnRegSlotsContainer);
 
             if (propIdContainer->length > 0)
             {
@@ -618,9 +619,10 @@ namespace JsDiag
         {
             RemoteFunctionBody funcBody(reader, reinterpret_cast<FunctionBody*>(slotArray.Item(ScopeSlots::ScopeMetadataSlotIndex)));            
             uint slotCount = (uint)slotArray.Item(ScopeSlots::EncodedSlotCountSlotIndex);
-            if (funcBody->propertyIdsForScopeSlotArray)
+            auto propertyIdsForScopeSlotArray = static_cast<const Js::PropertyId*>(funcBody.GetAuxPtrs(Js::FunctionProxy::AuxPointerType::PropertyIdsForScopeSlotArray));
+            if (propertyIdsForScopeSlotArray)
             {
-                RemoteArray<Js::PropertyId> propertyIdsForScopeSlotArray(reader, funcBody->propertyIdsForScopeSlotArray);
+                RemoteArray<Js::PropertyId> propertyIdsForScopeSlotArray(reader, propertyIdsForScopeSlotArray);
 
                 bool hasScopeChain = LocalsWalker::HasScopeChain(frame);
                 for (uint index = 0; index < slotCount; index++)
@@ -858,8 +860,9 @@ namespace JsDiag
                         }
                         break;
                     case DiagBlockScopeDirect:
-                        {                            
-                            RemotePropertyIdOnRegSlotsContainer propIdContainer(reader, frame->GetRemoteFunctionBody()->ToTargetPtr()->propertyIdOnRegSlotsContainer);
+                        {
+                            auto propertyIdOnRegSlotsContainer = static_cast<const Js::PropertyIdOnRegSlotsContainer*>(frame->GetRemoteFunctionBody()->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::PropertyIdOnRegSlotsContainer));
+                            RemotePropertyIdOnRegSlotsContainer propIdContainer(reader, propertyIdOnRegSlotsContainer);
                             Assert(propIdContainer->length > 0);
 
                             CComPtr<RegSlotLocalsWalker> propertyWalker;
