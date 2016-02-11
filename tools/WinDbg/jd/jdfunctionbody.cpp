@@ -15,6 +15,7 @@ void PrintFunctionBody(EXT_CLASS_BASE *ext, RemoteFunctionBody& functionBody)
     ext->Out("\n");
     functionBody.PrintSource(ext);
     ext->Out("\n");
+    functionBody.PrintAuxPtrs(ext);
 }
 
 EXT_COMMAND(fb,

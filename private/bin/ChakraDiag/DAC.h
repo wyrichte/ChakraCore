@@ -1120,6 +1120,9 @@ namespace JsDiag
         uint32 GetFirstNonTempLocalIndex() const;
         uint32 GetEndNonTempLocalIndex() const;
         RegSlot GetLocalsCount() const;
+
+    public:
+        const void* GetAuxPtrs(FunctionProxy::AuxPointerType e) const;
     }; // RemoteFunctionBody.
 
     struct RemoteScriptDebugDocument : public RemoteData<ScriptDebugDocument>

@@ -115,7 +115,7 @@ Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
         DWORD retVal = 0;
         if (bufLen > 0)
         {
-            retVal = MultiByteToWideChar(CP_UTF8, 0, buf, static_cast<int>(bufLen), wbuf, StdInMaxLineLength);
+            retVal = MultiByteToWideChar(CP_UTF8, 0, buf, static_cast<int>(bufLen + 1 /*for null terminator*/), wbuf, StdInMaxLineLength);
         }
 
         if (bufLen > 0 && retVal == 0)

@@ -211,7 +211,7 @@ Error:
         }));
 
         // Load jit loop body symbols
-        IfFailGo(Map(debugSite, static_cast<Js::LoopHeader*>((*this)->loopHeaderArray), (*this)->GetLoopCount(), [&](int loopNumber, const LoopHeader& header)
+        IfFailGo(Map(debugSite, static_cast<Js::LoopHeader*>((*this)->GetLoopHeaderArray()), (*this)->GetLoopCount(), [&](int loopNumber, const LoopHeader& header)
         {
             header.MapEntryPoints(debugSite, [&](int, const LoopEntryPointInfo* pEntryPointInfo)
             {
@@ -255,7 +255,8 @@ Error:
         LPCWSTR name = displayName; // Default to displayName
         IfFailGo(debugSite->ReadString(displayNamePtr, nameBuffer, nameBufferSize));
 
-        Js::Utf8SourceInfo* sourceInfoPtr = (*this)->m_utf8SourceInfo;
+        Js::Utf8SourceInfo* sourceInfoPtr = (*this)->m_utf8SourceInfo; 
+
         IfFailGo(utf8SourceInfo.Read(debugSite, sourceInfoPtr));
         const SRCINFO* srcInfoPtr = utf8SourceInfo->GetSrcInfo();
         
