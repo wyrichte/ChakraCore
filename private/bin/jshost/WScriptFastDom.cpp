@@ -1638,6 +1638,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
         hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
         IfFailedGo(hr);
 
+        // Create the LoadScript method
+        hr = AddMethodToObject(L"LoadModule", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
+        IfFailedGo(hr);
+
         // Create the InitializeProjection method
         hr = AddMethodToObject(L"InitializeProjection", activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
         IfFailedGo(hr);
