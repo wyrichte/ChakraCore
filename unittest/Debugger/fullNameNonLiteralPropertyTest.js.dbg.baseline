@@ -34,11 +34,17 @@
           "[Methods]": {
             "arr.__proto__.concat": "function concat() { [native code] }",
             "arr.__proto__.constructor": "function Array() { [native code] }",
+            "arr.__proto__.copyWithin": "function copyWithin() { [native code] }",
+            "arr.__proto__.entries": "function entries() { [native code] }",
             "arr.__proto__.every": "function every() { [native code] }",
+            "arr.__proto__.fill": "function fill() { [native code] }",
             "arr.__proto__.filter": "function filter() { [native code] }",
+            "arr.__proto__.find": "function find() { [native code] }",
+            "arr.__proto__.findIndex": "function findIndex() { [native code] }",
             "arr.__proto__.forEach": "function forEach() { [native code] }",
             "arr.__proto__.indexOf": "function indexOf() { [native code] }",
             "arr.__proto__.join": "function join() { [native code] }",
+            "arr.__proto__.keys": "function keys() { [native code] }",
             "arr.__proto__.lastIndexOf": "function lastIndexOf() { [native code] }",
             "arr.__proto__.map": "function map() { [native code] }",
             "arr.__proto__.pop": "function pop() { [native code] }",
@@ -51,15 +57,26 @@
             "arr.__proto__.some": "function some() { [native code] }",
             "arr.__proto__.sort": "function sort() { [native code] }",
             "arr.__proto__.splice": "function splice() { [native code] }",
+            "Symbol.iterator": "function values() { [native code] }",
             "arr.__proto__.toLocaleString": "function toLocaleString() { [native code] }",
             "arr.__proto__.toString": "function toString() { [native code] }",
-            "arr.__proto__.unshift": "function unshift() { [native code] }"
+            "arr.__proto__.unshift": "function unshift() { [native code] }",
+            "arr.__proto__.values": "function values() { [native code] }"
           },
           "arr.__proto__.__proto__": {
             "[Methods]": "{...}",
             "arr.__proto__.__proto__.__proto__": "null"
           },
-          "arr.__proto__.length": "0"
+          "arr.__proto__.length": "0",
+          "Symbol.unscopables": {
+            "copyWithin": "true",
+            "entries": "true",
+            "fill": "true",
+            "find": "true",
+            "findIndex": "true",
+            "keys": "true",
+            "values": "true"
+          }
         },
         "arr['@#&*(!)#$@']": {
           "arr['@#&*(!)#$@'].__proto__": {

@@ -359,8 +359,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 }
 
-                addField(JDUtil::GetWrappedField(functionBody, "loopHeaderArray"), "Js::FunctionBody.loopHeaderArray");
-                addField(JDUtil::GetWrappedField(functionBody, "dynamicProfileInfo"), "Js::FunctionBody.dynamicProfileInfo");
+                addField(functionBody.GetWrappedField("loopHeaderArray"), "Js::FunctionBody.loopHeaderArray");
+                addField(functionBody.GetWrappedField("dynamicProfileInfo"), "Js::FunctionBody.dynamicProfileInfo");
 
                 std::list<JDRemoteTyped> functionCodeGenRuntimeDataArrayStack;
                 auto addFunctionCodeGenRuntimeDataArray = [&](JDRemoteTyped arr, uint count)
@@ -379,8 +379,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 };
 
-                addFunctionCodeGenRuntimeDataArray(JDUtil::GetWrappedField(functionBody, "m_codeGenRuntimeData"), functionBody.GetProfiledCallSiteCount());
-                addFunctionCodeGenRuntimeDataArray(JDUtil::GetWrappedField(functionBody, "m_codeGenGetSetRuntimeData"), functionBody.GetInlineCacheCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenRuntimeData"), functionBody.GetProfiledCallSiteCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenGetSetRuntimeData"), functionBody.GetInlineCacheCount());
 
                 while (!functionCodeGenRuntimeDataArrayStack.empty())
                 {
@@ -401,25 +401,25 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 }
 
-                addField(JDUtil::GetWrappedField(functionBody, "inlineCaches"), "Js::FunctionBody.<inlineCaches[]>");
+                addField(functionBody.GetWrappedField("inlineCaches"), "Js::FunctionBody.<inlineCaches[]>");
                 addField(JDUtil::GetWrappedField(functionBody.Field("polymorphicInlineCaches"), "inlineCaches"), "Js::FunctionBody.<polymorphicInlineCaches[]>");
 
                 addField(functionBody.GetSourceInfo().Field("pSpanSequence"), "Js::FunctionBody.sourceInfo.pSpanSequence");
                 addField(functionBody.GetConstTable(), "Js::FunctionBody.m_constTable");
-                addField(JDUtil::GetWrappedField(functionBody, "cacheIdToPropertyIdMap"), "Js::FunctionBody.cacheIdToPropertyIdMap");
-                addField(JDUtil::GetWrappedField(functionBody, "referencedPropertyIdMap"), "Js::FunctionBody.referencedPropertyIdMap");
-                addField(JDUtil::GetWrappedField(functionBody, "literalRegexes"), "Js::FunctionBody.literalRegexes");
+                addField(functionBody.GetWrappedField("cacheIdToPropertyIdMap"), "Js::FunctionBody.cacheIdToPropertyIdMap");
+                addField(functionBody.GetWrappedField("referencedPropertyIdMap"), "Js::FunctionBody.referencedPropertyIdMap");
+                addField(functionBody.GetWrappedField("literalRegexes"), "Js::FunctionBody.literalRegexes");
 
-                addField(JDUtil::GetWrappedField(functionBody, "m_boundPropertyRecords"), "Js::FunctionBody.m_boundPropertyRecords");
-                addField(JDUtil::GetWrappedField(functionBody, "m_displayName"), "Js::FunctionBody.m_displayName");
-                addField(JDUtil::GetWrappedField(functionBody, "m_scopeInfo"), "Js::FunctionBody.m_scopeInfo");
+                addField(functionBody.GetWrappedField("m_boundPropertyRecords"), "Js::FunctionBody.m_boundPropertyRecords");
+                addField(functionBody.GetWrappedField("m_displayName"), "Js::FunctionBody.m_displayName");
+                addField(functionBody.GetWrappedField("m_scopeInfo"), "Js::FunctionBody.m_scopeInfo");
 
             }
             else if (strcmp(simpleTypeName, "Js::ParseableFunctionInfo *") == 0)
             {
                 addField(JDUtil::GetWrappedField(remoteTyped, "m_boundPropertyRecords"), "Js::ParseableFunctionInfo.m_boundPropertyRecords");
                 addField(JDUtil::GetWrappedField(remoteTyped, "m_displayName"), "Js::ParseableFunctionInfo.m_displayName");
-                addField(JDUtil::GetWrappedField(remoteTyped, "m_scopeInfo"), "Js::ParseableFunctionInfo.m_scopeInfo");
+                addField(RemoteParseableFunctionInfo(remoteTyped.GetPtr()).GetScopeInfo(), "Js::ParseableFunctionInfo.m_scopeInfo");                
             }
             else if (strcmp(simpleTypeName, "Js::SimpleSourceHolder *") == 0)
             {

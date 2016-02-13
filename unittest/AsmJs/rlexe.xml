@@ -239,6 +239,7 @@
       <compile-flags>-testtrace:asmjs -simdjs -forcedeferparse -on:asmjsjittemplate</compile-flags>
     </default>
   </test>
+  <!-- temporarily disable
   <test>
     <default>
       <files>asmHeapAccess.js</files>
@@ -260,7 +261,7 @@
       <tags>exclude_amd64</tags>
       <compile-flags>-testtrace:asmjs -simdjs -off:deferparse -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>asmGlobals.js</files>
