@@ -88,6 +88,7 @@ public:
     static Var StdInEOF(Var function, CallInfo callInfo, Var* args);
     static Var LoadScriptFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadScript(Var function, CallInfo callInfo, Var* args);
+    static Var LoadModule(Var function, CallInfo callInfo, Var* args);
     static bool ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& scriptArgs, bool isSourceRaw = false);
     static Var InitializeProjection(Var function, CallInfo callInfo, Var* args);
     static Var RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var* args);
