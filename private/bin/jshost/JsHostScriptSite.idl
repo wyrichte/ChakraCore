@@ -15,6 +15,7 @@ interface IJsHostScriptSite : IUnknown
     HRESULT LoadScriptFile(LPCOLESTR filename);
     HRESULT LoadModuleFile(LPCOLESTR filename);
     HRESULT LoadScript(LPCOLESTR script);
+    HRESULT LoadModule(LPCOLESTR script);
     HRESULT InitializeProjection();
     HRESULT RegisterCrossThreadInterface();
 };

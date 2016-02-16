@@ -1606,6 +1606,30 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
     return hr;
 }
 
+STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script)
+{
+    HRESULT hr = S_OK;
+
+    IJsHostScriptSite * scriptSite = NULL;
+    hr = git->GetInterfaceFromGlobal(jsHostScriptSiteCookie, IID_IJsHostScriptSite, (void**)&scriptSite);
+    if (SUCCEEDED(hr))
+    {
+        if (scriptSite != this)
+        {
+            hr = E_NOTIMPL;
+        }
+        else
+        {
+            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR));
+        }
+
+        scriptSite->Release();
+    }
+
+    return hr;
+}
+
+
 STDMETHODIMP JsHostActiveScriptSite::QueryInterface(REFIID riid, void ** ppvObj)
 {
     QI_IMPL(IID_IUnknown, IActiveScriptSite);

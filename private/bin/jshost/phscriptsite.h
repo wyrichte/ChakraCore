@@ -159,6 +159,7 @@ public:
     STDMETHODIMP LoadScriptFile(LPCOLESTR filename);
     STDMETHODIMP LoadModuleFile(LPCOLESTR filename);
     STDMETHODIMP LoadScript(LPCOLESTR script);
+    STDMETHODIMP LoadModule(LPCOLESTR script);
     STDMETHODIMP InitializeProjection();
     STDMETHODIMP RegisterCrossThreadInterface();
 
