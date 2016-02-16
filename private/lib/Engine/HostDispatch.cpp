@@ -302,7 +302,7 @@ HRESULT HostDispatch::EnsureDispatch()
                 {
                     itemUnknown->Release();
                     pHostVariant->varDispatch.vt = VT_DISPATCH;
-                    if (dispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&FastGetDispatchNoRef(pHostVariant)) == S_OK
+                    if (dispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&pHostVariant->varDispatch.pdispVal) == S_OK
                         && FastGetDispatchNoRef(pHostVariant))
                     {
                         dispatch->Release();
@@ -313,7 +313,7 @@ HRESULT HostDispatch::EnsureDispatch()
                     {
                         pHostVariant->supportIDispatchEx = FALSE;
                         pHostVariant->isUnknown = FALSE;
-                        FastGetDispatchNoRef(pHostVariant) = dispatch;
+                        pHostVariant->varDispatch.pdispVal = dispatch;
                     }
                 }
                 else
@@ -339,8 +339,12 @@ HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VAR
     HostVariant* pHostVariant = nullptr;
     IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
     
-    IDispatchEx *pDispEx = (IDispatchEx*)FastGetDispatchNoRef(pHostVariant);
+    IDispatchEx *pDispEx = (IDispatchEx*)GetDispatchNoRef();
     DispatchExCaller* pdc = nullptr;
+    if (pDispEx == NULL)
+    {
+        return E_ACCESSDENIED;
+    }   
 
     BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
     {
@@ -389,13 +393,14 @@ HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIA
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     HRESULT hr;
     UINT uArgErr;
-    HostVariant* pHostVariant = nullptr;
-    IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
+    IDispatch* pdisp = GetDispatchNoRef();
+    if (pdisp == NULL)
+    {
+        return E_ACCESSDENIED;
+    }
     
     BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
     {
-        IDispatch* pdisp = FastGetDispatchNoRef(pHostVariant);
-
         pdisp->AddRef();
 
         hr = pdisp->Invoke(id, IID_NULL, 0x409/*lcid*/, wFlags, pdp, pvarRes, pei, &uArgErr);
@@ -535,10 +540,13 @@ HRESULT HostDispatch::GetDispID(LPCWSTR psz, ULONG flags, DISPID *pid)
         return DISP_E_UNKNOWNNAME;
     }
 
-    HostVariant* hostVariant = GetHostVariant();
     IfFailedReturn(EnsureDispatch());
     // Ok to access hostVariant directly since EnsureDispatch makes sure it's there
-    IDispatchEx *pDispEx = (IDispatchEx*)FastGetDispatchNoRef(hostVariant);
+    IDispatchEx *pDispEx = (IDispatchEx*)GetDispatchNoRef();
+    if (pDispEx == NULL)
+    {
+        return E_ACCESSDENIED;
+    }
 
     flags |= (scriptEngine->GetInvokeVersion() << 28);
 
@@ -567,6 +575,11 @@ HRESULT HostDispatch::GetIDsOfNames(LPCWSTR psz, DISPID* pid)
     IfFailedReturn(EnsureDispatch());
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return E_ACCESSDENIED;
+    }
 
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
@@ -574,7 +587,7 @@ HRESULT HostDispatch::GetIDsOfNames(LPCWSTR psz, DISPID* pid)
         cycleStack = &nextStack;
 
         // Ok to access hostVariant directly- EnsureDispatch has verified it exists
-        hr = FastGetDispatchNoRef(GetHostVariant())->GetIDsOfNames(IID_NULL, (LPOLESTR*)&psz, 1, 0x409, pid);
+        hr = pDispatch->GetIDsOfNames(IID_NULL, (LPOLESTR*)&psz, 1, 0x409, pid);
 
         Assert(cycleStack == &nextStack);
         cycleStack = cycleStack->Next;
@@ -674,12 +687,21 @@ void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_
 
     HostVariant* pHostVariant = NULL;
     HRESULT hr = GetHostVariantWrapper(&pHostVariant);
-    if (FAILED(hr)) HandleDispatchError(hr, nullptr);
+    if (FAILED(hr)) 
+    {
+        HandleDispatchError(hr, nullptr);
+    }
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        HandleDispatchError(E_ACCESSDENIED, nullptr);
+    }
 
+    ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
     DispMemberProxy* proxy = RecyclerNewFinalized(
         scriptContext->GetRecycler(),
         DispMemberProxy,        
-        RecyclerNewTrackedLeaf(scriptContext->GetRecycler(), HostVariant, FastGetDispatchNoRef(pHostVariant), scriptContext),
+        RecyclerNewTrackedLeaf(scriptContext->GetRecycler(), HostVariant, pDispatch, scriptContext),
         id,
         scriptSite->GetActiveScriptExternalLibrary()->GetDispMemberProxyType(),
         name);
@@ -801,13 +823,18 @@ BOOL HostDispatch::GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* 
     VariantInit(&varSetter);
     *setter = NULL;
     *getter = NULL;
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return FALSE;
+    }
     
     BEGIN_LEAVE_SCRIPT(requestContext)
     {
         propName = SysAllocString(name);
         if (propName != NULL)
         {
-            hr = FastGetDispatchNoRef(GetHostVariant())->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
+            hr = pDispatch->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
 
             if (SUCCEEDED(hr))
             {
@@ -953,7 +980,12 @@ BOOL HostDispatch::SetAccessors(const wchar_t * name, Js::Var getter, Js::Var se
     {
         return FALSE;
     }
-  
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return FALSE;
+    }
+
     if (getter == nullptr && setter == nullptr)
     {
         return FALSE;
@@ -990,8 +1022,7 @@ BOOL HostDispatch::SetAccessors(const wchar_t * name, Js::Var getter, Js::Var se
             }
             else
             {
-                hr = FastGetDispatchNoRef(GetHostVariant())->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
-
+                hr = pDispatch->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
                 if (SUCCEEDED(hr) && getter != nullptr)
                 {
                     hr = pDomConst->DefineGetter(propName, &varGetter);
@@ -1128,7 +1159,11 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
         return FALSE;
     }
 
-    IDispatchEx *pDispEx = (IDispatchEx*)FastGetDispatchNoRef(hostVariant);
+    IDispatchEx *pDispEx = (IDispatchEx*)GetDispatchNoRef();
+    if (pDispEx == NULL)
+    {
+        return FALSE;
+    }
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     BEGIN_LEAVE_SCRIPT(scriptContext)
@@ -1147,10 +1182,18 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
             HostVariant* pHostVariant = nullptr;
             if (SUCCEEDED(GetHostVariantWrapper(&pHostVariant)))
             {
-                if(SUCCEEDED(FastGetDispatchNoRef(pHostVariant)->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                pDispEx = (IDispatchEx*)pHostVariant->GetDispatchNoRef();
+                if (pDispEx != NULL)
                 {
-                    hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
-                    pProxy->Release();
+                    if(SUCCEEDED(pDispEx->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                    {
+                        hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
+                        pProxy->Release();
+                    }
+                }
+                else
+                {
+                    hr = E_ACCESSDENIED;
                 }
             }
         }
@@ -1187,13 +1230,12 @@ BOOL HostDispatch::DeleteProperty(const wchar_t * psz)
         return FALSE;
     }
 
-    pDispEx = (IDispatchEx*)FastGetDispatchNoRef(hostVariant);
+    pDispEx = (IDispatchEx*)GetDispatchNoRef();
     ScriptEngine* scriptEngine = this->scriptSite->GetScriptEngine();
-    if (nullptr == scriptEngine)
+    if ((nullptr == scriptEngine) || (nullptr == pDispEx))
     {
         return FALSE;
     }
-
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     
@@ -1222,10 +1264,18 @@ BOOL HostDispatch::DeleteProperty(const wchar_t * psz)
             HostVariant* pHostVariant = nullptr;
             if (SUCCEEDED(GetHostVariantWrapper(&pHostVariant)))
             {
-                if(SUCCEEDED(FastGetDispatchNoRef(pHostVariant)->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                pDispEx = (IDispatchEx*)GetDispatchNoRef();
+                if (pDispEx == NULL)
                 {
-                    hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
-                    pProxy->Release();
+                    hr = E_ACCESSDENIED;
+                }
+                else
+                {
+                    if(SUCCEEDED(pDispEx->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                    {
+                        hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
+                        pProxy->Release();
+                    }
                 }
             }
         }
@@ -1291,6 +1341,11 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
     HostVariant* hostVariant = GetHostVariant();
     // Ok to use hostVariant directly- EnsureDispatch has verified its existence
     if (hostVariant->isUnknown)
+    {
+        Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
+    }
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
     {
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
     }
@@ -1391,7 +1446,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
                     IJavascriptDispatchLocalProxy *pProxy = nullptr;
-                    if(SUCCEEDED(FastGetDispatchNoRef(hostVariant)->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                    if(SUCCEEDED(pDispatch->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
                     {
                         pProxy->Release();
                         keepThis = TRUE;
@@ -1399,7 +1454,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
                     else
                     {
                         IJavascriptDispatchRemoteProxy *pRemoteProxy = nullptr;
-                        if(SUCCEEDED(FastGetDispatchNoRef(hostVariant)->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void**)&pRemoteProxy)) && pRemoteProxy)
+                        if(SUCCEEDED(pDispatch->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void**)&pRemoteProxy)) && pRemoteProxy)
                         {
                             pRemoteProxy->Release();
                             keepThis = TRUE;
@@ -1756,8 +1811,13 @@ HRESULT HostDispatch::QueryObjectInterface(REFIID riid, void** ppvObj)
         return E_POINTER;
     }
 
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return E_ACCESSDENIED;
+    }
     // Ok to directly access hostVariant since EnsureDispatch checked to see if it exists
-    hr = FastGetDispatchNoRef(GetHostVariant())->QueryInterface(riid, ppvObj);
+    hr = pDispatch->QueryInterface(riid, ppvObj);
 
     if (SUCCEEDED(hr) && !(*ppvObj))
     {
@@ -1778,10 +1838,15 @@ HRESULT HostDispatch::QueryObjectInterfaceInScript(REFIID riid, void** ppvObj)
         return E_POINTER;
     }
 
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return E_ACCESSDENIED;
+    }
+
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        // Ok to directly access hostVariant since EnsureDispatch checked to see if it exists
-        hr = FastGetDispatchNoRef(GetHostVariant())->QueryInterface(riid, ppvObj);
+        hr = pDispatch->QueryInterface(riid, ppvObj);
 
         if (SUCCEEDED(hr) && !(*ppvObj))
         {
@@ -1800,8 +1865,11 @@ BOOL HostDispatch::GetRemoteTypeId(Js::TypeId* typeId)
         return FALSE;
     }
 
-    // Ok to access hostVariant here since EnsureDispatch was called just before
-    IDispatch* dispatch = FastGetDispatchNoRef(GetHostVariant());
+    IDispatch* dispatch = GetDispatchNoRef();
+    if (dispatch == nullptr)
+    {
+        return FALSE;
+    }
     IJavascriptDispatchRemoteProxy* jscriptInfo = nullptr;
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();  
@@ -1869,12 +1937,16 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
         return FALSE;
     }
 
-    HostVariant* hostVariant = GetHostVariant();
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return FALSE;
+    }
     
     // Make sure the object on the other side is a JavascriptDispatch object
     IJavascriptDispatchRemoteProxy* dispatchProxy;
 
-    hr = HostDispatch::QueryInterfaceWithLeaveScript(hostVariant->varDispatch.pdispVal, IID_IJavascriptDispatchRemoteProxy, (void**)&dispatchProxy, scriptContext);
+    hr = HostDispatch::QueryInterfaceWithLeaveScript(pDispatch, IID_IJavascriptDispatchRemoteProxy, (void**)&dispatchProxy, scriptContext);
     if (FAILED(hr))
     {
         return FALSE;
@@ -1960,9 +2032,18 @@ Js::DynamicObject* HostDispatch::GetRemoteObject()
     IJavascriptDispatchLocalProxy* jsProxy = nullptr;
     HostVariant* pHostVariant = nullptr;
     HRESULT hr;
-    if (FAILED(hr = GetHostVariantWrapper(&pHostVariant))) return nullptr;
+    if (FAILED(hr = GetHostVariantWrapper(&pHostVariant)))
+    {
+        return nullptr;
+    }
 
-    hr = HostDispatch::QueryInterfaceWithLeaveScript(FastGetDispatchNoRef(pHostVariant), __uuidof(IJavascriptDispatchLocalProxy), (void**)&jsProxy, GetScriptContext());
+    IDispatch* pDispatch = GetDispatchNoRef();
+    if (pDispatch == NULL)
+    {
+        return nullptr;
+    }
+
+    hr = HostDispatch::QueryInterfaceWithLeaveScript(pDispatch, __uuidof(IJavascriptDispatchLocalProxy), (void**)&jsProxy, GetScriptContext());
     if (FAILED(hr) || !jsProxy)
     {
         return nullptr;

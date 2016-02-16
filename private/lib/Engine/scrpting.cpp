@@ -7,16 +7,16 @@
 #include "EnginePch.h"
 #pragma hdrstop
 
-CScriptBody::CScriptBody(Js::FunctionBody* functionBody, ScriptEngine *scriptEngine, Js::Utf8SourceInfo* utf8SourceInfo) : 
+CScriptBody::CScriptBody(Js::ParseableFunctionInfo* functionInfo, ScriptEngine *scriptEngine, Js::Utf8SourceInfo* utf8SourceInfo) : 
     m_refCount(1),
     m_scriptEngine(scriptEngine),
     m_scriptDocumentText(nullptr),
     m_utf8SourceInfo(utf8SourceInfo)
 {
     scriptEngine->AddRef();
-    if(functionBody != nullptr)
+    if(functionInfo != nullptr)
     {
-        this->functionBody.Root(functionBody, m_scriptEngine->GetScriptContext()->GetRecycler());
+        this->functionInfo.Root(functionInfo, m_scriptEngine->GetScriptContext()->GetRecycler());
     }
 }
 
@@ -26,11 +26,11 @@ CScriptBody* CScriptBody::Clone(ScriptEngine * pos)
 
     Js::ScriptContext* newScriptContext = pos->GetScriptContext();
 
-    Js::FunctionBody* newFunctionBody = GetRootFunction()->Clone(newScriptContext);
+    Js::ParseableFunctionInfo* newFunctionInfo = GetRootFunction()->Clone(newScriptContext);
 
     // Finally, create the new script body, point it to the new global function, and pass it back to the caller.
     // This is called by ScriptEngine::CloneScriptBodies which handles OOMs so it is ok to throw here
-    return HeapNew(CScriptBody, newFunctionBody, pos, newFunctionBody->GetUtf8SourceInfo()); 
+    return HeapNew(CScriptBody, newFunctionInfo, pos, newFunctionInfo->GetUtf8SourceInfo()); 
 }
 
 CScriptBody::~CScriptBody()
@@ -41,9 +41,9 @@ CScriptBody::~CScriptBody()
     Recycler* recycler = threadContext->GetRecycler();
     Assert(recycler != nullptr);
 
-    if(functionBody)
+    if(functionInfo)
     {
-        functionBody.Unroot(recycler);
+        functionInfo.Unroot(recycler);
     }
     m_scriptEngine->Release();
     m_scriptEngine = nullptr;
@@ -65,8 +65,8 @@ void CScriptBody::Release(void)
 Js::DynamicObject* CScriptBody::CreateEntryPoint(ScriptSite* scriptSite)
 {
     Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
-    Assert(functionBody->HasBody());
-    return scriptContext->GetLibrary()->CreateScriptFunction(functionBody);
+    Assert(functionInfo->HasBody());
+    return scriptContext->GetLibrary()->CreateScriptFunction(functionInfo);
 }
 
 void CScriptBody::ClearAllBreakPoints(void)

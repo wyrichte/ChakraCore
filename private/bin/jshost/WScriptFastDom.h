@@ -39,7 +39,8 @@ public:
         {
             self,
             sameThread,
-            crossThread
+            crossThread,
+            module
         };
 
         LPCWSTR source;
@@ -65,6 +66,10 @@ public:
             {
                 this->context = ContextType::crossThread;
             }
+            else if (wcscmp(context, L"module") == 0)
+            {
+                this->context = ContextType::module;
+            }
             else
             {
                 this->context = ContextType::self;
@@ -83,6 +88,7 @@ public:
     static Var StdInEOF(Var function, CallInfo callInfo, Var* args);
     static Var LoadScriptFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadScript(Var function, CallInfo callInfo, Var* args);
+    static Var LoadModule(Var function, CallInfo callInfo, Var* args);
     static bool ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& scriptArgs, bool isSourceRaw = false);
     static Var InitializeProjection(Var function, CallInfo callInfo, Var* args);
     static Var RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var* args);

@@ -141,7 +141,7 @@ function testSIMDFloat32x4_UnaryOp() {
     equal(1.0, SIMD.Float32x4.extractLane(c1, 3));
 
     var a2 = SIMD.Float32x4(8.0, 4.0, 2.0, -2.0);
-    var c2 = SIMD.Float32x4.reciprocal(a2);
+    var c2 = SIMD.Float32x4.reciprocalApproximation(a2);
     equal(0.125, SIMD.Float32x4.extractLane(c2, 0));
     equal(0.250, SIMD.Float32x4.extractLane(c2, 1));
     equal(0.5, SIMD.Float32x4.extractLane(c2, 2));
@@ -154,40 +154,40 @@ function testSIMDFloat32x4_CompareOp() {
     var n = SIMD.Float32x4(2.0, 2.0, 0.001, 0.1);
     var cmp;
     cmp = SIMD.Float32x4.lessThan(m, n);
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 3));
 
     cmp = SIMD.Float32x4.lessThanOrEqual(m, n);
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 3));
 
     cmp = SIMD.Float32x4.equal(m, n);
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 3));
 
     cmp = SIMD.Float32x4.notEqual(m, n);
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 3));
 
     cmp = SIMD.Float32x4.greaterThanOrEqual(m, n);
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 3));
 
     cmp = SIMD.Float32x4.greaterThan(m, n);
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 0));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 1));
-    equal(-1, SIMD.Int32x4.extractLane(cmp, 2));
-    equal(0x0, SIMD.Int32x4.extractLane(cmp, 3));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 0));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 1));
+    equal(true, SIMD.Bool32x4.extractLane(cmp, 2));
+    equal(false, SIMD.Bool32x4.extractLane(cmp, 3));
 }
 
 function testSIMDFloat32x4_Swizzle() {
@@ -255,7 +255,7 @@ function testSIMDFloat32x4_Clamp() {
 
 function testSIMDFloat32x4_Select() {
     WScript.Echo("test SIMDFloat32x4 Select......");
-    var m = SIMD.Int32x4.bool(true, true, false, false);
+    var m = SIMD.Bool32x4(true, true, false, false);
     var t = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
     var f = SIMD.Float32x4(5.0, 6.0, 7.0, 8.0);
     var s = SIMD.Float32x4.select(m, t, f);

@@ -14,13 +14,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -63,13 +63,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -111,13 +111,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -167,13 +167,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -209,13 +209,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -258,13 +258,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -300,13 +300,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -321,7 +321,7 @@
   },
   {
     "locals": {
-      "this": "constructor(...args) { super(...args); }",
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
@@ -349,13 +349,13 @@
         "frameDescription": "body"
       },
       {
-        "start": 5398,
+        "start": 5592,
         "length": 10,
         "text": "testBody()",
         "frameDescription": "runTest"
       },
       {
-        "start": 4291,
+        "start": 4485,
         "length": 55,
         "text": "this.runTest(i, testsToRun[i].name, testsToRun[i].body)",
         "frameDescription": "runTests"
@@ -370,7 +370,7 @@
   },
   {
     "locals": {
-      "this": "constructor(...args) { super(...args); }",
+      "this": "<large string>",
       "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
@@ -380,8 +380,8 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "a": "constructor() {}",
-      "b": "constructor(...args) { super(...args); }",
+      "a": "<large string>",
+      "b": "<large string>",
       "classb": "{...}",
       "[Globals]": ""
     }

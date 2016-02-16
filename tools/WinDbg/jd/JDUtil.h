@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-
+#include "FieldInfoCache.h"
 class JDUtil
 {
 public:
@@ -20,9 +20,9 @@ public:
         return valueStr;
     }
 
-    static ExtRemoteTyped GetWrappedField(ExtRemoteTyped obj, PCSTR field)        
+    static JDRemoteTyped GetWrappedField(JDRemoteTyped obj, PCSTR field)
     {
-        ExtRemoteTyped value = obj.Field(field);
+        JDRemoteTyped value = obj.Field(field);
         if (strncmp(value.GetTypeName(), "class WriteBarrierPtr<", _countof("class WriteBarrierPtr<") - 1) == 0
           || strncmp(value.GetTypeName(), "class Memory::WriteBarrierPtr<", _countof("class Memory::WriteBarrierPtr<") - 1) == 0)
         {
@@ -52,7 +52,7 @@ public:
     }
     static bool IsPointerType(PCSTR name)
     {
-        return (strchr(name, '*') != 0);        
+        return (strchr(name, '*') != 0);
     }
     static PCSTR StripModuleName(PCSTR name)
     {
@@ -83,6 +83,12 @@ public:
             pos += afterLen;
             pos = s.find(before, pos);
         }        
+    }
+
+    template <typename T>
+    static T Align(T value, T alignment)
+    {
+        return (value + (alignment - 1)) & ~(alignment - 1);
     }
 };
 

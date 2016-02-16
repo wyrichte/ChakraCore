@@ -24,7 +24,16 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>4290</DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+        4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
+        4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
+        4456;     <!-- declaration of '' hides previous local declaration -->
+        4457;     <!-- declaration of '' hides function parameter -->
+        4458;     <!-- declaration of '' hides class memeber -->
+        4474;     <!-- 'sprintf_s': too many arguments passed for format string -->
+        4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
+        4838;     <!-- conversion from 'unsigned int' to 'int requires a narrowing conversion -->
+      </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -55,16 +64,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CachedTypeInfo.cpp" />
     <ClCompile Include="Collections.cpp" />
     <ClCompile Include="diag.cpp" />
+    <ClCompile Include="ExtRemoteTypedUtil.cpp" />
+    <ClCompile Include="FieldInfoCache.cpp" />
     <ClCompile Include="jdbackend.cpp" />
     <ClCompile Include="jdbytecode.cpp" />
     <ClCompile Include="jdfunctionbody.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
+    <ClCompile Include="RecyclerObjectGraph.cpp" />
     <ClCompile Include="RecyclerRoots.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
+    <ClCompile Include="RemoteHeapBlock.cpp" />
+    <ClCompile Include="RemoteHeapBlockMap.cpp" />
     <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
     <ClCompile Include="RemoteJavascriptFunction.cpp" />
     <ClCompile Include="RemotePageAllocator.cpp" />
@@ -72,6 +87,7 @@
     <ClCompile Include="RemoteRecycler.cpp" />
     <ClCompile Include="RemoteScriptFunction.cpp" />
     <ClCompile Include="RemoteThreadContext.cpp" />
+    <ClCompile Include="JDRemoteTyped.cpp" />
     <ClCompile Include="RemoteTypeHandler.cpp" />
     <ClCompile Include="ScriptDebugSite.cpp" />
     <ClCompile Include="jd.cpp" />
@@ -86,8 +102,13 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\ScriptDumpReader.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
-    <ClInclude Include="..\..\..\Exe\jshost\ComObject.h" />
+    <ClInclude Include="CachedTypeInfo.h" />
     <ClInclude Include="Collections.h" />
+    <ClInclude Include="ExtRemoteTypedUtil.h" />
+    <ClInclude Include="FieldInfoCache.h" />
+    <ClInclude Include="RemoteHeapBlock.h" />
+    <ClInclude Include="RecyclerObjectGraph.h" />
+    <ClInclude Include="RemoteHeapBlockMap.h" />
     <ClInclude Include="jdbackend.h" />
     <ClInclude Include="jdbytecode.h" />
     <ClInclude Include="jdrecycler.h" />
@@ -105,6 +126,7 @@
     <ClInclude Include="RemoteRecyclerList.h" />
     <ClInclude Include="RemoteScriptFunction.h" />
     <ClInclude Include="RemoteThreadContext.h" />
+    <ClInclude Include="JDRemoteTyped.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="ScriptDebugSite.h" />
     <ClInclude Include="jd.h" />

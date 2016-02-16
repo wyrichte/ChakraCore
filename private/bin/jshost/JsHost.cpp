@@ -1039,7 +1039,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         if (filename)
         {
             // Load the main script
-            hr = mainScriptSite->LoadScriptFile(filename);            
+            hr = mainScriptSite->LoadScriptFile(filename);
         }
         else if (pfNativeTestEntryPoint)
         {
@@ -1235,6 +1235,10 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
         delete UTF8SourceMapper;
         UTF8SourceMapper = nullptr;
     }
+
+#ifdef ENABLE_INTL_OBJECT
+    JScript9Interface::ClearTimeZoneCalendars();
+#endif
 
     CoUninitialize();
 
@@ -1671,10 +1675,6 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     // Disable the output in case an unhandled exception happens
     // We will reenable it if there is no unhandled exceptions
     JScript9Interface::SetEnableCheckMemoryLeakOutput(false);
-#endif
-#ifdef DBG
-    // Always enable this in console CHK builds
-    JScript9Interface::SetCheckOpHelpersFlag(true);
 #endif
 
     __try

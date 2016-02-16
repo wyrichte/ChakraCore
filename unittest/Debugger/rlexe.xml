@@ -374,28 +374,14 @@
   <test>
     <default>
       <files>fullNameNonLiteralPropertyTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameNonLiteralPropertyTest.es6.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>fullNameNonLiteralPropertyTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameNonLiteralPropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted -es6-</compile-flags>
+      <compile-flags>-dbgbaseline:fullNameNonLiteralPropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameNegativePropertyTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameNegativePropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted -es6-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>fullNameNegativePropertyTest.js</files>
-      <compile-flags>-dbgbaseline:fullNameNegativePropertyTest.es6.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
+      <compile-flags>-dbgbaseline:fullNameNegativePropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -2648,7 +2634,7 @@
   <test>
     <default>
       <files>symbols.js</files>
-      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2656,14 +2642,14 @@
     <default>
       <files>symbols.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:symbols.js.dbg.baseline jshost</command>
-      <compile-flags>-ES6Species -debuglaunch:hybrid -es6toprimitive -es6isConcatSpreadable -es6tostringtag -ES6Symbol</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch:hybrid -es6toprimitive -es6isConcatSpreadable -es6tostringtag</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>symbols1.js</files>
-      <compile-flags>-debuglaunch -dbgbaseline:symbols1.js.dbg.baseline -targeted -InspectMaxStringLength:100 -ES6Symbol</compile-flags>
+      <compile-flags>-debuglaunch -dbgbaseline:symbols1.js.dbg.baseline -targeted -InspectMaxStringLength:100</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2671,7 +2657,7 @@
     <default>
       <files>symbols1.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:symbols1.js.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -ES6Symbol</compile-flags>
+      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2704,14 +2690,14 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <files>bug_553748.html</files>
       <compile-flags>-trace:StackFramesEvent -DeferLoadingAvailableSource</compile-flags>
       <baseline>bug_553748.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>basichtmltest1.html</files>
@@ -2937,7 +2923,7 @@
   <test>
     <default>
       <files>spread_debugging.js</files>
-      <compile-flags>-ES6Spread -ES6StringTemplate -DebugLaunch -Targeted -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-ES6Spread -DebugLaunch -Targeted -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_serialized</tags>
     </default>
   </test>
@@ -2946,7 +2932,7 @@
       <files>spread_debugging.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:spread_debugging.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
       <tags>exclude_serialized</tags>
-      <compile-flags>-ES6Spread -ES6StringTemplate -debuglaunch:hybrid</compile-flags>
+      <compile-flags>-ES6Spread -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3807,6 +3793,12 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:commaexpression_span.js.dbg.baseline</compile-flags>
       <baseline>commaexpression_span.baseline</baseline>
       <tags>fail_mutators</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>regex-symbols.js</files>
+      <compile-flags>-ES6RegExSymbols -debuglaunch -targeted -dbgbaseline:regex-symbols.js.dbg.baseline</compile-flags>
     </default>
   </test>
 </regress-exe>

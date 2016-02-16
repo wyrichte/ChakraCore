@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-//----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 #pragma once
 
 #ifdef JD_PRIVATE
@@ -18,6 +18,7 @@ class RootPointers;
 #endif
 
 #include <map>
+#include "FieldInfoCache.h"
 
 enum CommandOutputType
 {
@@ -97,28 +98,24 @@ protected:
 
 public:
     EXT_CLASS_BASE();
+    ~EXT_CLASS_BASE() { ClearCache(); }
 
 // ------------------------------------------------------------------------------------------------
 // jd private commands: Wrap anything not meant to be published under JD_PRIVATE.
 // ------------------------------------------------------------------------------------------------
 #ifdef JD_PRIVATE
 public:
-    friend class HeapBlockHelper;
+    friend class HeapBlockHelper;    
     friend class RecyclerObjectGraph;
 
     template <bool slist> 
     friend class RemoteListIterator;
-
-    friend void ScanArena(ULONG64 arena, RootPointers& rootPointerManager);
-    friend RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump);    
+    
     friend bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext);
     
     virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
 
-    static ULONG64 Count(ExtRemoteTyped head, PCSTR field);
-    static ULONG64 TaggedCount(ExtRemoteTyped head, PCSTR field);
-    static ULONG64 GetSizeT(ExtRemoteTyped data);
     bool PrintProperty(ULONG64 name, ULONG64 value, ULONG64 value1 = 0, int depth = 0);
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
@@ -147,6 +144,8 @@ public:
     PCSTR FillModuleV(PCSTR fmt, ...);
 
     PCSTR FillModuleAndMemoryNS(PCSTR fmt);
+    PCSTR GetSmallHeapBlockTypeName();
+    PCSTR GetSmallHeapBucketTypeName();
 
     bool CheckTypeName(PCSTR typeName, ULONG* typeId = nullptr);
     PCSTR GetPageAllocatorType();
@@ -155,9 +154,15 @@ public:
 
     ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);        
     ExtRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
-    ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, std::string* typeName = nullptr);
+    ExtRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
+    ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);
+    char const * GetTypeNameFromVTablePointer(ULONG64 vtableAddr);
+
+    // TODO: Remove this and use CastWithVtable instead
     std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
+
     ULONG64 GetEnumValue(const char* enumName, ULONG64 default = -1);
+
 
 #define ENUM(name)\
     ULONG64 enum_##name(){ \
@@ -184,6 +189,7 @@ public:
     ENUM(SmallBlockTypeCount);
     ENUM(BlockTypeCount);
 
+    FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
@@ -198,6 +204,7 @@ protected:
     void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
     PCSTR GetModuleName();
+    bool HasMemoryNS();
     PCSTR GetMemoryNS();
 
     ExtRemoteTyped GetTlsEntryList();
@@ -254,6 +261,16 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
+    void ClearCache()
+    {
+        this->recyclerCachedData.Clear();
+        this->vtableTypeIdMap.clear();
+        for (auto i = this->vtableTypeNameMap.begin(); i != this->vtableTypeNameMap.end(); i++)
+        {
+            delete (*i).second;
+        }
+        this->vtableTypeNameMap.clear();
+    }
 public:
     template<typename T>
     T GetNumberValue(ExtRemoteTyped var)
@@ -267,6 +284,7 @@ protected:
     char m_fillModuleBuffer[1024]; // one temp buffer
     char m_uiServerString[40]; // UI Server session GUID string
     char m_gcNS[16];
+
     //
     // Detect some features dynamically so that this extension supports many jscript versions.
     //
@@ -296,6 +314,12 @@ protected:
     int m_jsFrameNumber;
     bool m_unitTestMode;
 
+    bool m_isCachedHasMemoryNS;
+    bool m_hasMemoryNS;
+
+    std::map<ULONG64, std::pair<ULONG64, ULONG>> vtableTypeIdMap;
+    std::map<ULONG64, std::string *> vtableTypeNameMap;
+    
 #endif //JD_PRIVATE
 };
 
@@ -415,25 +439,10 @@ private:
 
 std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset);
 ULONG64 GetPointerAtAddress(ULONG64 offset);
-ULONG64 GetAsPointer(ExtRemoteTyped object);
 int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
 EXT_CLASS_BASE* GetExtension();
 void ReplacePlaceHolders(PCSTR holder, std::string value, std::string& cmd);
 
-template <typename Fn>
-static bool LinkListForEach(ExtRemoteTyped list, char const * next, Fn fn)
-{
-    ExtRemoteTyped curr = list;
-    while (curr.GetPtr() != 0)
-    {
-        if (fn(curr))
-        {
-            return true;
-        }
-        curr = curr.Field(next);
-    }
-    return false;
-}
 
 template <typename Fn>
 static bool SListForEach(ExtRemoteTyped list,  Fn fn)

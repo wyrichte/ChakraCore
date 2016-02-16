@@ -48,8 +48,8 @@ public:
 
     IDispatch* GetDispatchNoRef() 
     {
-        if (isUnknown)
-        {
+        if (isUnknown || this->varDispatch.vt != VT_DISPATCH)
+    {
             return nullptr;
         }
         return this->varDispatch.pdispVal;
@@ -57,7 +57,7 @@ public:
 
     IDispatch* GetDispatch() 
     { 
-        if (isUnknown)
+        if (isUnknown || this->varDispatch.vt != VT_DISPATCH)
         {
             return nullptr;
         }
@@ -78,7 +78,7 @@ protected:
         }
         else
         {
-            if (this->varDispatch.pdispVal)
+            if (this->varDispatch.vt == VT_DISPATCH && this->varDispatch.pdispVal)
             {
                 this->varDispatch.pdispVal->Release();
                 this->varDispatch.pdispVal = nullptr;

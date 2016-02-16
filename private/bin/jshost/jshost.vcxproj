@@ -37,6 +37,7 @@
         $(ChakraRootDirectory)private\lib\SCALookup;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
+        $(ChakraRootDirectory)Private\lib\winrt;
         $(ChakraInternalIDLIntDir);
 
         <!-- For EdgeJsHostNativeTest.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
@@ -47,6 +48,17 @@
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+
+        <!-- TODO: Should clean this up -->
+        4091;     <!-- '': ignore on lef of 'type' when no variable is declared -->
+      </DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+        %(DisableSpecificWarnings);
+        4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
+      </DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">

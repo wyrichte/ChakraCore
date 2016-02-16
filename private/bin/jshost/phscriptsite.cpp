@@ -9,8 +9,8 @@
 #include "mshtmhst.h"
 #include "delegatewrapper.h"
 #include "guids.h"
-#include "..\..\Lib\Common\Core\BasePtr.h"
-#include "..\..\Lib\Common\Memory\AutoPtr.h"
+#include "Core\BasePtr.h"
+#include "Memory\AutoPtr.h"
 #include "hostsysinfo.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
@@ -1014,6 +1014,8 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     DWORD written;
 
     // For validating the header file against the library file
+    // We want to keep the MIT notice here because Intl.js ByteCode can, in theory, be produced using either ch.exe or jshost.exe.
+    // No matter how it is generated, we want to make sure that the MIT License is definitely present in case we commit the result to Git.
     auto outputStr =
         "//-------------------------------------------------------------------------------------------------------\r\n"
         "// Copyright (C) Microsoft. All rights reserved.\r\n"
@@ -1072,8 +1074,8 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     outputStr = "};\r\n\r\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
-    outputStr = "}";
-    if (! WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
+    outputStr = "}\r\n";
+    if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
 Error:
     if (fileHandle) CloseHandle(fileHandle);
@@ -1083,7 +1085,7 @@ Error:
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
+HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr;
     LPCOLESTR contents = NULL;
@@ -1104,7 +1106,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
     }
 
     // canonicalize that path name to lower case for the profile storage
-    size_t len = wcslen(fullpath);
+    UINT len = (UINT)wcslen(fullpath);
     for (size_t i = 0; i < len; i ++)
     {
         fullpath[i] = towlower(fullpath[i]);
@@ -1127,6 +1129,19 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename)
         {
             m_fileMap[m_dwNextSourceCookie].m_sourceContent = ::SysAllocString(contents);
         }
+    }
+
+    if (isModuleCode)
+    {
+        if (isUtf8)
+        {
+            hr = LoadModuleFromString(isUtf8, fullpath, len, contentsRaw, lengthBytes, errorObject);
+        }
+        else
+        {
+            hr = LoadModuleFromString(isUtf8, fullpath, len, contents, (UINT)wcslen(contents)*sizeof(wchar_t), errorObject);
+        }
+        goto Error;
     }
 
     if (isUtf8 && HostConfigFlags::flags.PerformUTF8BoundaryTestIsEnabled)
@@ -1332,6 +1347,40 @@ DWORD_PTR JsHostActiveScriptSite::AddUrl(_In_z_ LPCWSTR url)
     return dwSourceCookie;
 }
 
+// TODO: make source code heapalloc.
+HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, 
+    LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
+{
+    HRESULT hr = S_OK;
+    CComPtr<IActiveScript> activeScript;
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = GetActiveScript(&activeScript);
+    if (SUCCEEDED(hr))
+    {
+        hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
+    }
+    if (SUCCEEDED(hr))
+    {
+        DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
+    // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
+        ModuleRecord requestModule = nullptr;
+        hr = activeScriptDirect->InitializeModuleRecord(nullptr, fileName, fileNameLength, &requestModule);
+        if (SUCCEEDED(hr))
+        {
+            if (isUtf8)
+            {
+                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
+            }
+            else
+            {
+                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
+                 ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
+            }
+        }
+    }
+    return hr;
+}
+
 HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8)
 {
     HRESULT hr = S_OK;
@@ -1524,6 +1573,16 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
     return hr;
 }
 
+
+STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, byte** errorObject)
+{
+    HRESULT hr = S_OK;
+
+    hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
+
+    return hr;
+}
+
 STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
 {
     HRESULT hr = S_OK;
@@ -1557,6 +1616,30 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
     return hr;
 }
 
+STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorObject)
+{
+    HRESULT hr = S_OK;
+
+    IJsHostScriptSite * scriptSite = NULL;
+    hr = git->GetInterfaceFromGlobal(jsHostScriptSiteCookie, IID_IJsHostScriptSite, (void**)&scriptSite);
+    if (SUCCEEDED(hr))
+    {
+        if (scriptSite != this)
+        {
+            hr = E_NOTIMPL;
+        }
+        else
+        {
+            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
+        }
+
+        scriptSite->Release();
+    }
+
+    return hr;
+}
+
+
 STDMETHODIMP JsHostActiveScriptSite::QueryInterface(REFIID riid, void ** ppvObj)
 {
     QI_IMPL(IID_IUnknown, IActiveScriptSite);
@@ -1568,6 +1651,7 @@ STDMETHODIMP JsHostActiveScriptSite::QueryInterface(REFIID riid, void ** ppvObj)
     QI_IMPL_INTERFACE(IActiveScriptSiteDebug);
     QI_IMPL_INTERFACE(IActiveScriptSiteDebugHelper);
     QI_IMPL_INTERFACE(IActiveScriptDirectSite);
+    QI_IMPL_INTERFACE(IActiveScriptDirectHost);
 
     *ppvObj = NULL;
     return E_NOINTERFACE;
@@ -2127,6 +2211,36 @@ STDMETHODIMP JsHostActiveScriptSite::Exec(const GUID *pguidCmdGroup, DWORD nCmdI
     }
 
     return E_NOTIMPL;
+}
+
+STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
+    /* [in] */ __RPC__in ModuleRecord referencingModule,
+    /* [in] */ __RPC__in LPCWSTR specifier,
+    /* [in] */ unsigned long specifierLength,
+    /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
+{
+    return E_NOTIMPL;
+}
+
+STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
+    /* [in] */ __RPC__in ModuleRecord referencingModule,
+    /* [in] */ __RPC__in Var exceptionVar)
+{
+    HRESULT hr = NOERROR;
+    Assert(exceptionVar == nullptr); // TODO: handle error case.
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = GetActiveScriptDirect(&activeScriptDirect);
+    if (SUCCEEDED(hr))
+    {
+        // TODO: promise/enqueue
+        hr = activeScriptDirect->ModuleEvaluation(referencingModule, &exceptionVar);
+        if (FAILED(hr))
+        {
+            // TODO: OnScriptError style error reporting??
+        }
+    }
+
+    return hr;
 }
 
 OperationUsage ScriptOperations::defaultUsage =

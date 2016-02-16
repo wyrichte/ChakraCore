@@ -58,7 +58,8 @@
       },
       "arguments": {
         "[Methods]": {
-          "callee": "<large string>"
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -172,7 +173,8 @@
       },
       "arguments": {
         "[Methods]": {
-          "callee": "<large string>"
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -286,7 +288,8 @@
       },
       "arguments": {
         "[Methods]": {
-          "callee": "<large string>"
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -400,7 +403,8 @@
       },
       "arguments": {
         "[Methods]": {
-          "callee": "<large string>"
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -514,7 +518,8 @@
       },
       "arguments": {
         "[Methods]": {
-          "callee": "<large string>"
+          "callee": "<large string>",
+          "Symbol.iterator": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",

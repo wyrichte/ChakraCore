@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include <stdio.h>
-#include <windowsstringp.h>
 #include "DinoServer.h"
 
 using namespace Microsoft::WRL;

@@ -1,3 +1,6 @@
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//---------------------------------------------------------------------------
 #include "stdafx.h"
 #include "jdrecycler.h"
 #include "RemoteRecyclerList.h"
@@ -6,6 +9,8 @@
 #include <hash_set>
 #include <stack>
 #include <queue>
+#include "RecyclerObjectGraph.h"
+#include "RemoteHeapBlockMap.h"
 
 #ifdef JD_PRIVATE
 
@@ -42,7 +47,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
 
     PinnedObjectEntry currentEntry;
 
-    if (_transientPinnedObject != 0 )
+    if (_transientPinnedObject != 0)
     {
         currentEntry.address = (TPointerType)_transientPinnedObject;
         currentEntry.pinnedCount = 1;
@@ -90,256 +95,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
     free(pinnedObjectMapEntries);
 }
 
-RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, bool verbose) :
-    _ext(extension),
-    _verbose(verbose),
-    _heapBlockHelper(extension, recycler),
-    _recycler(recycler)
-{
-}
-
-RecyclerObjectGraph::~RecyclerObjectGraph()
-{
-}
-
-// Dumps the object graph for manipulation in python
-void RecyclerObjectGraph::DumpForPython(const char* outfile)
-{
-    _objectGraph.ExportToPython(outfile);
-}
-
-// Dumps the object graph for manipulation in js
-void RecyclerObjectGraph::DumpForJs(const char* outfile)
-{
-    _objectGraph.ExportToJs(outfile);
-}
-
-void RecyclerObjectGraph::PushMark(ULONG64 object, ULONG64 prev)
-{
-    if (object != 0)
-    {
-        MarkStackEntry entry;
-        entry.first = object;
-        entry.second = prev;
-        _markStack.push(entry);
-    }
-}
-
-void RecyclerObjectGraph::Construct(Addresses& roots)
-{
-    roots.Map([&] (ULONG64 root)
-    {
-        PushMark(root, 0);
-    });
-
-    int iters = 0;
-
-    while (_markStack.size() != 0)
-    {
-        const MarkStackEntry& object = _markStack.top();
-        _markStack.pop();
-
-        ULONG64 objectAddress = object.first;
-        ULONG64 prevAddress = object.second;
-
-        MarkObject(objectAddress, prevAddress);
-
-        iters++;
-        if (iters % 0x10000 == 0)
-        {
-            iters = 0;
-            _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rTraversing object graph, unvisited object count: %d", _markStack.size(), _objectGraph.Count());
-        }
-    }
-}
-
-#if ENABLE_MARK_OBJ
-void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG64 root)
-{
-    if (_objectGraph.GetNode(address) != nullptr)
-    {
-        std::vector<ULONG64> shortestPath;
-        int pathsFound = 0;
-
-        if (root)
-        {
-            shortestPath = _objectGraph.FindPath(root, address);
-        }
-        else
-        {
-            roots.Map([&] (ULONG64 rootAddress)
-            {
-                _ext->Out("Finding path from 0x%P\n", rootAddress);
-                std::vector<ULONG64> path = _objectGraph.FindPath(rootAddress, address);
-
-                if (shortestPath.size() == 0 || shortestPath.size() > path.size())
-                {
-                    shortestPath = path;
-                    if (shortestPath.size() != 0) {
-                        _ext->Out("Shortest path so far is from 0x%P\n", rootAddress);
-                        pathsFound++;
-                    }
-                }
-            });
-        }
-
-        _ext->Out("Shortest path has %d nodes\n", shortestPath.size());
-        for (auto it = shortestPath.begin(); it != shortestPath.end(); it++)
-        {
-            _ext->Out("0x%P\n", (*it));
-        }
-    }
-    else
-    {
-        _ext->Out("Object not found\n");
-    }
-}
-#endif
-
-void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
-{
-    if (_heapBlockHelper.IsAlignedAddress(address))
-    {
-        ULONG64 heapBlockAddress = _heapBlockHelper.FindHeapBlock(address, _recycler, false);
-        if (heapBlockAddress != 0)
-        {
-            if (prev)
-            {
-                _objectGraph.AddEdge(prev, address);
-            }
-
-            GraphNode<ULONG64, RecyclerGraphNodeAux>* node = _objectGraph.GetNode(address);
-
-            if (!node->aux.isScanned)
-            {
-                ExtRemoteTyped heapBlock(_ext->FillModuleAndMemoryNS("%s!%sHeapBlock"), heapBlockAddress, false);
-                auto type = _heapBlockHelper.GetHeapBlockType(heapBlock);
-                ULONG64 objectSize = 0;
-
-                if (type == _ext->enum_LargeBlockType())
-                {
-                    ExtRemoteTyped largeBlock(_ext->FillModuleAndMemoryNS("%s!%sLargeHeapBlock"), heapBlockAddress, false);
-                    objectSize = GetLargeObjectSize(largeBlock, address);
-                }
-                else if (type != _ext->enum_SmallLeafBlockType())
-                {
-                    ExtRemoteTyped smallBlock(_ext->FillModuleAndMemoryNS("%s!%sSmallHeapBlock"), heapBlockAddress, false);
-
-                    // Hack- make this a friend of SmallHeapBlock
-                    if (_heapBlockHelper.GetSmallHeapBlockObjectIndex(smallBlock, address) != 0xffff)
-                    {
-                        objectSize = (ULONG64)smallBlock.Field("objectSize").GetUshort();
-                    }
-                }
-
-                if (objectSize != 0)
-                {
-                    ScanBytes(address, objectSize);
-                }
-
-                if (type != _ext->enum_SmallLeafBlockType())
-                {
-                    node->aux.objectSize = (uint)objectSize;
-                }
-                else
-                {
-                    ExtRemoteTyped smallBlock(_ext->FillModuleAndMemoryNS("%s!%sSmallHeapBlock"), heapBlockAddress, false);
-
-                    node->aux.objectSize = (ULONG64)smallBlock.Field("objectSize").GetUshort();
-                }
-                node->aux.isScanned = true;
-            }
-        }
-    }
-}
-
-ULONG64 RecyclerObjectGraph::GetLargeObjectSize(ExtRemoteTyped heapBlockObject, ULONG64 objectAddress)
-{
-    ULONG64 heapBlock = heapBlockObject.GetPointerTo().GetPtr();
-    ULONG64 blockAddress = heapBlockObject.Field("address").GetPtr();
-
-    ULONG64 sizeOfHeapBlock = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = _ext->EvalExprU64(_ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-
-    ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
-
-    if (headerAddress < blockAddress)
-    {
-        if (_verbose)
-            _ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-        return 0;
-    }
-
-    ExtRemoteTyped largeObjectHeader(_ext->FillModuleAndMemoryNS("%s!%sLargeObjectHeader"), headerAddress, false);
-
-    HeapObject heapObject;
-    ULONG64 objectCount = EXT_CLASS_BASE::GetSizeT(heapBlockObject.Field("objectCount"));
-    heapObject.index = (ushort) largeObjectHeader.Field("objectIndex").m_Typed.Data; // Why does calling UShort not work?
-
-    if (heapObject.index > objectCount)
-    {
-        return 0;
-    }
-
-    ULONG largeObjectHeaderPtrSize = _ext->m_PtrSize;
-    ULONG64 headerArrayAddress = heapBlock + sizeOfHeapBlock + (heapObject.index * largeObjectHeaderPtrSize);
-    ExtRemoteData  headerData(headerArrayAddress, largeObjectHeaderPtrSize);
-
-    if (headerData.GetPtr() != headerAddress)
-    {
-        if (_verbose)
-        {
-            _ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-            _ext->Out("Header address: 0x%p, Header in index %d is 0x%p\n", headerAddress, heapObject.index, headerData.GetPtr());
-        }
-
-        return 0;
-    }
-
-    return EXT_CLASS_BASE::GetSizeT(largeObjectHeader.Field("objectSize"));
-}
-
-void RecyclerObjectGraph::ScanBytes(ULONG64 address, ULONG64 size)
-{
-    char* object = (char*)malloc((size_t)size);
-    if (!object)
-    {
-        _ext->ThrowOutOfMemory();
-    }
-
-    ExtRemoteData data(address, (ULONG) size);
-
-    data.ReadBuffer(object, (ULONG) size);
-    char* end = object + size;
-    char* current = object;
-    ulong ptrSize = this->_ext->m_PtrSize;
-
-    while (current < end)
-    {
-        ULONG64 value;
-
-        if (ptrSize == 8)
-        {
-            value = *((ULONG64*)current);
-        }
-        else
-        {
-            value = *((ULONG32*)current);
-        }
-
-        ULONG64 objectAlignmentMask = this->_heapBlockHelper.GetObjectAlignmentMask();
-        if ((0 == (((size_t)address) & objectAlignmentMask)) && (value != address))
-        {
-            PushMark(value, address);
-        }
-
-        current += ptrSize;
-    }
-
-    free(object);
-}
-
-void ScanRegisters(EXT_CLASS_BASE* ext, RootPointers& rootPointerManager, bool print = true)
+void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
 {
     ULONG numRegisters;
     ExtCheckedPointer<IDebugRegisters2> pRegisters = ext->m_Registers2;
@@ -366,14 +122,14 @@ void ScanRegisters(EXT_CLASS_BASE* ext, RootPointers& rootPointerManager, bool p
             value = debugValue.I32;
         }
 
-        if (rootPointerManager.TryAdd(value) && print)
+        if (this->TryAdd(value) && print)
         {
             ext->Out("0x%p (Register %s)\n", value, buffer);
         }
     }
 }
 
-void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& rootPointerManager, bool print = true)
+void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print)
 {
     ULONG64 stackBase = 0;
     if (recycler.HasField("stackBase"))
@@ -396,8 +152,8 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
     stackBase = tib.Field("StackBase").GetPtr();
     stackTop = tib.Field("StackLimit").GetPtr();
 
-    size_t stackSizeInBytes = (size_t) (stackBase - stackTop);
-    void** stack = (void**) malloc(stackSizeInBytes);
+    size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
+    void** stack = (void**)malloc(stackSizeInBytes);
     if (!stack)
     {
         ext->ThrowOutOfMemory();
@@ -418,7 +174,7 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
 
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            if (rootPointerManager.TryAdd((ULONG64)stack32[i]) && print)
+            if (this->TryAdd((ULONG64)stack32[i]) && print)
             {
                 ext->Out("0x%p", stack32[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
@@ -439,7 +195,7 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
 
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            if (rootPointerManager.TryAdd((ULONG64)stack[i]) && print)
+            if (this->TryAdd((ULONG64)stack[i]) && print)
             {
                 ext->Out("0x%p", stack[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
@@ -451,54 +207,31 @@ void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, RootPointers& root
     free(stack);
 }
 
-void ScanObject(ULONG64 object, size_t bytes, RootPointers& rootPointerManager)
+void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes)
 {
     EXT_CLASS_BASE* ext = GetExtension();
-
-#if _M_X64
-    bool targetIs32Bit = (g_Ext->m_PtrSize == 4);
-
-    if (targetIs32Bit)
+    ULONG64 remainingBytes = bytes;
+    ULONG64 curr = object;
+    while (remainingBytes != 0)
     {
-        Assert(bytes % sizeof(ULONG32) == 0);
-
-        ULONG32* objectBytes = (ULONG32*)malloc(bytes);
-        if (!objectBytes)
+        ULONG readBytes = remainingBytes < 4096 ? (ULONG)remainingBytes : 4096;
+        byte buffer[4096];
+        ExtRemoteData data(curr, readBytes);
+        data.ReadBuffer(buffer, readBytes);
+        ULONG numPointers = readBytes / ext->m_PtrSize;
+        byte * currBuffer = buffer;
+        for (uint i = 0; i < numPointers; i++)
         {
-            ext->ThrowOutOfMemory();
+            this->TryAdd(ext->m_PtrSize == 8? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer);
+            currBuffer += ext->m_PtrSize;
         }
 
-        ExtRemoteData data(object, (ULONG)bytes);
-        data.ReadBuffer(objectBytes, (ULONG)bytes);
-        for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
-        {
-            rootPointerManager.TryAdd((ULONG64)objectBytes[i]);
-        }
-
-        free(objectBytes);
+        remainingBytes -= readBytes;
+        curr += (ULONG64)readBytes;
     }
-    else
-#endif
-    {
-        void** objectBytes = (void**)malloc(bytes);
-        if (!objectBytes)
-        {
-            ext->ThrowOutOfMemory();
-        }
-
-        ExtRemoteData data(object, (ULONG)bytes);
-        data.ReadBuffer(objectBytes, (ULONG)bytes);
-        for (uint i = 0; i < bytes / ext->m_PtrSize; i++)
-        {
-            rootPointerManager.TryAdd((ULONG64)objectBytes[i]);
-        }
-
-        free(objectBytes);
-    }
-
 }
 
-void ScanArenaBigBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManager)
+void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
 {
     EXT_CLASS_BASE* ext = GetExtension();
 
@@ -511,17 +244,17 @@ void ScanArenaBigBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManager)
         ExtRemoteTyped block = blocks.Dereference();
         ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
-        size_t byteCount = (size_t)EXT_CLASS_BASE::GetSizeT(nBytesField);
+        ULONG64 byteCount = ExtRemoteTypedUtil::GetSizeT(nBytesField);
         if (byteCount != 0)
         {
-            ScanObject(blockBytes, byteCount, rootPointerManager);
+            ScanObject(blockBytes, byteCount);
         }
         blocks = block.Field("nextBigBlock");
     }
 
 }
 
-void ScanArenaMemoryBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManager)
+void RootPointerReader::ScanArenaMemoryBlocks(ExtRemoteTyped blocks)
 {
     EXT_CLASS_BASE* ext = GetExtension();
 
@@ -530,117 +263,105 @@ void ScanArenaMemoryBlocks(ExtRemoteTyped blocks, RootPointers& rootPointerManag
         ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
         size_t byteCount = (size_t)nBytesField.GetLong();
-        ScanObject(blockBytes, byteCount, rootPointerManager);
+        ScanObject(blockBytes, byteCount);
         blocks = blocks.Field("next");
     }
 }
 
-void ScanArenaData(ULONG64 arenaDataPtr, RootPointers& rootPointerManager)
+void RootPointerReader::ScanArenaData(ULONG64 arenaDataPtr)
 {
     EXT_CLASS_BASE* ext = GetExtension();
     ExtRemoteTyped arenaData(ext->FillModuleAndMemoryNS("(%s!%sArenaData*)@$extin"), arenaDataPtr);
-    ScanArenaBigBlocks(arenaData.Field("bigBlocks"), rootPointerManager);
-    ScanArenaBigBlocks(arenaData.Field("fullBlocks"), rootPointerManager);
-    ScanArenaMemoryBlocks(arenaData.Field("mallocBlocks"), rootPointerManager);
+    ScanArenaBigBlocks(arenaData.Field("bigBlocks"));
+    ScanArenaBigBlocks(arenaData.Field("fullBlocks"));
+    ScanArenaMemoryBlocks(arenaData.Field("mallocBlocks"));
 }
 
-void ScanArena(ULONG64 arena, RootPointers& rootPointerManager, bool verbose)
+void RootPointerReader::ScanArena(ULONG64 arena, bool verbose)
 {
     EXT_CLASS_BASE* ext = GetExtension();
     if (verbose)
         ext->Out("Scanning arena 0x%p\n", arena);
     arena += ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sAllocator))"));
-    ScanArenaData(arena, rootPointerManager);
+    ScanArenaData(arena);
 }
 
-class ScanImplicitRoot : public HeapBlockMapWalker
+void RootPointerReader::ScanImplicitRoots(bool print)
 {
-public:
-    ScanImplicitRoot(EXT_CLASS_BASE * ext, ExtRemoteTyped recycler, RootPointers& rootPointers, bool print = true) :
-        HeapBlockMapWalker(ext, recycler), rootPointers(rootPointers), implicitRootCount(0), implicitRootSize(0), print(print)
-    {};
-    ~ScanImplicitRoot()
-    {
-        if (print)
-        {
-            ext->Out("\nImplicit Root: Count=%I64d Size=%I64d\n", implicitRootCount, implicitRootSize);
-        }
-    }
-    virtual bool ProcessHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped block)
-    {
-        ULONG64 heapBlock = block.GetPtr();
-        ushort objectCount = block.Field("objectCount").GetUshort();
-        ULONG64 attributeStartAddress = heapBlock - objectCount;
-
-        ExtRemoteData remoteAttributes(attributeStartAddress, objectCount);
-        std::vector<byte> attributes(objectCount);
-        remoteAttributes.ReadBuffer(&attributes[0], objectCount);
-
-        ULONG64 heapBlockAddress = block.Field("address").GetPtr();
-        ushort objectSize = block.Field("objectSize").GetUshort();
-        for (ushort i = 0; i < objectCount; i++)
-        {
-            if ((attributes[objectCount - i - 1] & ObjectInfoBits::ImplicitRootBit)
-                && (attributes[objectCount - i - 1] & ObjectInfoBits::PendingDisposeBit) == 0)
-            {
-                rootPointers.Add(heapBlockAddress + objectSize * i);
-                if (print)
-                {
-                    implicitRootCount++;
-                    implicitRootSize += objectSize;
-                }
-            }
-        }
-        return false;
-    }
-    virtual bool ProcessLargeHeapBlock(size_t l1Id, size_t l2Id, ULONG64 blockAddress, ExtRemoteTyped heapBlock)
-    {
-        unsigned int allocCount = heapBlock.Field("allocCount").GetUlong();
-        ExtRemoteTyped headerList =
-            ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), heapBlock.GetPtr() + heapBlock.Dereference().GetTypeSize());
-        ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-        for (unsigned int i = 0; i < allocCount; i++)
-        {
-            ExtRemoteTyped header = headerList.ArrayElement(i);
-            if (header.GetPtr() == 0)
-            {
-                continue;
-            }
-            byte attribute;
-
-            if (header.HasField("attributesAndChecksum"))
-            {
-                attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ recycler.Field("Cookie").GetUlong() >> 8);
-            }
-            else if (header.HasField("attributes"))
-            {
-                attribute = header.Field("attributes").GetUchar();
-            }
-            else
-            {
-                ext->Err("Can't find either attributes or attributesAndChecksum on LargeHeapBlock");
-                return false;
-            }
-
-            if (attribute & ObjectInfoBits::ImplicitRootBit)
-            {
-                rootPointers.Add(header.GetPtr() + sizeOfObjectHeader);
-                if (print)
-                {
-                    implicitRootCount++;
-                    implicitRootSize += EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
-                }
-            }
-        }
-        return false;
-    }
-
-private:
-    RootPointers& rootPointers;
     ULONG64 implicitRootCount;
     ULONG64 implicitRootSize;
-    bool print;
-};
+
+    RemoteHeapBlockMap hbm(_recycler.Field("heapBlockMap"));
+
+    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+    {
+        if (remoteHeapBlock.IsLargeHeapBlock())
+        {
+            ULONG64 sizeOfObjectHeader = g_Ext->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            return remoteHeapBlock.ForEachLargeObjectHeader([&](ExtRemoteTyped& header)
+            {
+                byte attribute;
+
+                if (header.HasField("attributesAndChecksum"))
+                {
+                    attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ _recycler.Field("Cookie").GetUlong() >> 8);
+                }
+                else if (header.HasField("attributes"))
+                {
+                    attribute = header.Field("attributes").GetUchar();
+                }
+                else
+                {
+                    g_Ext->Err("Can't find either attributes or attributesAndChecksum on LargeHeapBlock");
+                    return true;
+                }
+
+                if (attribute & ObjectInfoBits::ImplicitRootBit)
+                {
+                    this->Add(header.GetPtr() + sizeOfObjectHeader);
+                    if (print)
+                    {
+                        implicitRootCount++;
+                        implicitRootSize += ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
+                    }
+                }
+                return false;
+            });
+        }
+        else
+        {
+            ULONG64 heapBlock = remoteHeapBlock.GetHeapBlockAddress();
+            ULONG objectCount = remoteHeapBlock.GetTotalObjectCount();
+            ULONG64 attributeStartAddress = heapBlock - objectCount;
+
+            ExtRemoteData remoteAttributes(attributeStartAddress, objectCount);
+            std::vector<byte> attributes(objectCount);
+            remoteAttributes.ReadBuffer(&attributes[0], objectCount);
+
+            ULONG64 heapBlockAddress = remoteHeapBlock.GetAddress();
+            ULONG64 objectSize = remoteHeapBlock.GetBucketObjectSize();
+            for (ULONG i = 0; i < objectCount; i++)
+            {
+                if ((attributes[objectCount - i - 1] & ObjectInfoBits::ImplicitRootBit)
+                    && (attributes[objectCount - i - 1] & ObjectInfoBits::PendingDisposeBit) == 0)
+                {
+                    this->Add(heapBlockAddress + objectSize * i);
+                    if (print)
+                    {
+                        implicitRootCount++;
+                        implicitRootSize += objectSize;
+                    }
+                }
+            }
+        }
+        return false;
+    });
+
+    if (print)
+    {
+        g_Ext->Out("\nImplicit Root: Count=%I64d Size=%I64d\n", implicitRootCount, implicitRootSize);
+    }
+}
 
 bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext, bool verbose)
 {
@@ -713,7 +434,7 @@ void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, c
                 offsetOfExternalObject = 0x30;
             }
 #endif
-            ULONG64 externalObject = (ULONG64) entry.address + offsetOfExternalObject;
+            ULONG64 externalObject = (ULONG64)entry.address + offsetOfExternalObject;
             ULONG64 domObject = GetPointerAtAddress(externalObject);
             if (domObject != 0)
             {
@@ -881,7 +602,7 @@ bool
 RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
 {
     Addresses * rootPointers = this->rootPointerManager;
-    unsigned int allocCount = (uint)EXT_CLASS_BASE::GetSizeT(block.Field("allocCount"));
+    unsigned int allocCount = (uint)ExtRemoteTypedUtil::GetSizeT(block.Field("allocCount"));
     ExtRemoteTyped headerList =
         ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), block.GetPtr() + block.Dereference().GetTypeSize());
 
@@ -894,11 +615,11 @@ RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
         {
             continue;
         }
-        ULONG64 objectSize = EXT_CLASS_BASE::GetSizeT(header.Field("objectSize"));
+        ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
 
         ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
 
-        SearchRange(startAddress, (uint)objectSize, ext, this->referencedObject, [&](ULONG64 addr){
+        SearchRange(startAddress, (uint)objectSize, ext, this->referencedObject, [&](ULONG64 addr) {
             bool isRoot = rootPointers->Contains(addr);
 
             FindRefData result;
@@ -938,7 +659,7 @@ JD_PRIVATE_COMMAND(findref,
     Out("Referring objects:\n");
 
     findRef.Run();
-    std::for_each(findRef.results.begin(), findRef.results.end(), [&](decltype(findRef.results[0])& result){
+    std::for_each(findRef.results.begin(), findRef.results.end(), [&](decltype(findRef.results[0])& result) {
         if (result.isLarge)
         {
             this->Dml("\t<link cmd=\"!oi 0x%p%s\">0x%p</link> (Object) %s\n",
@@ -990,13 +711,12 @@ JD_PRIVATE_COMMAND(oi,
     }
 
     HeapBlockHelper heapBlockHelper(this, recycler);
-    ULONG64 heapBlockAddress = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
-    if (heapBlockAddress != NULL)
-    {
-        ExtRemoteTyped heapBlock(FillModuleAndMemoryNS("(%s!%sHeapBlock*)@$extin"), heapBlockAddress);
-        ULONG64 heapBlockType = heapBlockHelper.GetHeapBlockType(heapBlock);
+    RemoteHeapBlock * remoteHeapBlock = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
+    if (remoteHeapBlock != NULL)
+    {        
+        ULONG64 heapBlockType = remoteHeapBlock->GetType();
 
-        heapBlockHelper.DumpHeapBlockLink(heapBlockType, heapBlock.GetPtr());
+        heapBlockHelper.DumpHeapBlockLink(heapBlockType, remoteHeapBlock->GetHeapBlockAddress());
 
         if (heapBlockType >= this->enum_BlockTypeCount())
         {
@@ -1004,6 +724,7 @@ JD_PRIVATE_COMMAND(oi,
             return;
         }
 
+        ExtRemoteTyped heapBlock = remoteHeapBlock->GetExtRemoteTyped();
         if (heapBlockType == this->enum_LargeBlockType())
         {
             heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, verbose);
@@ -1028,7 +749,7 @@ JD_PRIVATE_COMMAND(oi,
     }
     else
     {
-        Out("Object not found\n");
+        Out("Object not found (no heap block)\n");
     }
 }
 
@@ -1051,7 +772,7 @@ JD_PRIVATE_COMMAND(showroots,
         recycler = threadContext.Field("recycler");
     }
 
-    RootPointers rootPointerManager(this, recycler);
+    RootPointerReader rootPointerManager(this, recycler);
 
     /*
      * FindRoots algorithm
@@ -1066,8 +787,7 @@ JD_PRIVATE_COMMAND(showroots,
 
     if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
     {
-        ScanImplicitRoot implicitRootScan(this, recycler, rootPointerManager);
-        implicitRootScan.Run();
+        rootPointerManager.ScanImplicitRoots();
     }
 
     if (threadContext.GetPtr() != NULL && threadContext.HasField("externalWeakReferenceCacheList"))
@@ -1094,7 +814,7 @@ JD_PRIVATE_COMMAND(showroots,
     {
         DumpPinnedObject(this, i, j, entryPointer, entry);
         count++;
-        rootPointerManager.TryAdd((ULONG64) entry.address);
+        rootPointerManager.TryAdd((ULONG64)entry.address);
     }, true);
 
     Out("Count is %d\n", count);
@@ -1110,16 +830,16 @@ JD_PRIVATE_COMMAND(showroots,
     DumpList<false>(this, externalGuestArenaList, "ArenaData *");
 
     Out("\nStack\n");
-    ScanRegisters(this, rootPointerManager);
-    ScanStack(this, recycler, rootPointerManager);
+    rootPointerManager.ScanRegisters(this);
+    rootPointerManager.ScanStack(this, recycler);
 
     PCSTR typeName = recycler.Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
 }
 
-RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump)
+Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump)
 {
-    std::auto_ptr<RootPointers> rootPointerManager(new RootPointers(ext, recycler));
+    RootPointerReader rootPointerManager(ext, recycler);
 
     /*
      * FindRoots algorithm
@@ -1134,8 +854,7 @@ RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRem
 
     if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
     {
-        ScanImplicitRoot implicitRootScan(ext, recycler, *rootPointerManager, dump);
-        implicitRootScan.Run();
+        rootPointerManager.ScanImplicitRoots(dump);
     }
 
     if (threadContext && threadContext->HasField("externalWeakReferenceCacheList"))
@@ -1151,7 +870,7 @@ RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRem
 
     MapPinnedObjects(ext, recycler, [&rootPointerManager](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
     {
-        rootPointerManager->TryAdd(entry.address);
+        rootPointerManager.TryAdd(entry.address);
     }, dump);
 
     ULONG64 recyclerAddress = recycler.m_Data; // TODO: recycler needs to be a pointer to make this work
@@ -1168,7 +887,7 @@ RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRem
         ExtRemoteTyped isPendingDelete = guestArena.Dereference().Field("pendingDelete");
         if (!isPendingDelete.GetBoolean())
         {
-            ScanArena(data, *rootPointerManager, dump);
+            rootPointerManager.ScanArena(data, dump);
         }
     }
 
@@ -1182,13 +901,13 @@ RootPointers * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRem
     {
         ULONG64 dataPtr = externalGuestArenaIterator.GetDataPtr();
 
-        ScanArenaData(GetPointerAtAddress(dataPtr), *rootPointerManager);
+        rootPointerManager.ScanArenaData(GetPointerAtAddress(dataPtr));
     }
 
-    ScanRegisters(ext, *rootPointerManager, dump);
-    ScanStack(ext, recycler, *rootPointerManager, dump);
+    rootPointerManager.ScanRegisters(ext, dump);
+    rootPointerManager.ScanStack(ext, recycler, dump);
 
-    return rootPointerManager.release();
+    return rootPointerManager.DetachAddresses();
 }
 
 #if ENABLE_MARK_OBJ
@@ -1282,45 +1001,85 @@ JD_PRIVATE_COMMAND(savegraph,
     }
 }
 
+
+struct ObjectAllocStats
+{
+    uint count;
+    uint size;
+    uint unknownCount;
+    uint unknownSize;
+    bool hasVtable;
+};
+
+int __cdecl ObjectAllocCountComparer(const void * a, const void * b)
+{
+    auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
+    auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
+    return ptrB->second.count - ptrA->second.count;
+}
+
+int __cdecl ObjectAllocSizeComparer(const void * a, const void * b)
+{
+    auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
+    auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
+    return ptrB->second.size - ptrA->second.size;
+}
+
+int __cdecl ObjectAllocUnknownCountComparer(const void * a, const void * b)
+{
+    auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
+    auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
+    return ptrB->second.unknownCount - ptrA->second.unknownCount;
+}
+
+int __cdecl ObjectAllocUnknownSizeComparer(const void * a, const void * b)
+{
+    auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
+    auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
+    return ptrB->second.unknownSize - ptrA->second.unknownSize;
+}
+
+int __cdecl ObjectAllocNameComparer(const void * a, const void * b)
+{
+    auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
+    auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
+    return strcmp(ptrA->first, ptrB->first);
+}
+
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
     "{;e,o,d=0;recycler;Recycler address}"
     "{v;b,o;verbose;Display verbose tracing}"
     "{t;b,o;trident;Display trident symbols}"
+    "{sc;b,o;sortByCount;Sort by count instead of bytes}"
+    "{sn;b,o;sortByName;Sort by name instead of bytes}"
+    "{su;b,o;sortByUnknown;Sort by unknown}"
+    "{top;en=(10),o,d=-1;count;Number of entries to display}"
+    "{vt;b,o;vtable;Vtable Only}"
+    "{u;b,o;grouped;Show unknown count}"
+    "{k;b,o;known;Known object only}"
     )
 {
-    ULONG moduleIndex = 0;
-    ULONG64 baseAddress = 0;
-    ULONG64 endAddress = 0;
-    bool verbose = HasArg("v");
+    const bool trident = HasArg("t");
+    const bool verbose = HasArg("v");
+    const bool infer = !HasArg("vt");
+    const bool showUnknown = HasArg("u");
+    const bool knownOnly = HasArg("k");
+    const ULONG64 limit = GetArgU64("top");
 
-    if (FAILED(this->m_Symbols3->GetModuleByModuleName(this->GetModuleName(), 0, &moduleIndex, &baseAddress)))
+    if (HasArg("sc") && HasArg("sn"))
     {
-        Out("Unable to get range for module '%s'. Is Chakra loaded?\n", this->GetModuleName());
-        return;
+        throw ExtException(E_FAIL, "Can't specify both -sc and -sn");
     }
-
-    IMAGEHLP_MODULEW64 moduleInfo;
-    this->GetModuleImagehlpInfo(baseAddress, &moduleInfo);
-    endAddress = baseAddress + moduleInfo.ImageSize;
-    Out("Chakra Vtables are in the range %p to %p\n", baseAddress, endAddress);
-
-    bool trident = HasArg("t");
-
-    ULONG64 tridentBaseAddress = 0;
-    ULONG64 tridentEndAddress = 0;
-    if (trident)
+    if (HasArg("su") && HasArg("sn"))
     {
-        if (FAILED(this->m_Symbols3->GetModuleByModuleName("mshtml", 0, &moduleIndex, &tridentBaseAddress)) &&
-            FAILED(this->m_Symbols3->GetModuleByModuleName("edgehtml", 0, &moduleIndex, &tridentBaseAddress)))
-        {
-            Out("Unable to get range for module 'mshtml' or 'edgehtml. Is Trident loaded?\n");
-            return;
-        }
-        this->GetModuleImagehlpInfo(tridentBaseAddress, &moduleInfo);
-        tridentEndAddress = tridentBaseAddress + moduleInfo.ImageSize;
-        Out("Trident Vtables are in the range %p to %p\n", tridentBaseAddress, tridentEndAddress);
+        throw ExtException(E_FAIL, "Can't specify both -su and -sn");
     }
+    auto sortComparer = HasArg("sn")? ObjectAllocNameComparer :
+        HasArg("su")?
+        (HasArg("sc") ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
+        (HasArg("sc") ? ObjectAllocCountComparer :  ObjectAllocSizeComparer);
+
 
     ULONG64 arg = GetUnnamedArgU64(0);
     ExtRemoteTyped recycler = GetRecycler(arg);
@@ -1328,112 +1087,117 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     if (verbose)
+    {
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
+    }
 
     RecyclerObjectGraph objectGraph(this, recycler);
 
-    objectGraph.Construct(*rootPointerManager);
-    Out("\rObject graph construction complete                                  \n");
+    objectGraph.Construct(*rootPointerManager);    
+    objectGraph.EnsureTypeInfo(infer, trident, verbose);
 
-    struct ObjectAllocStats
-    {
-        int count;
-        int size;
-        ULONG64 pointerTo;
-    };
-
-    enum SortKind
-    {
-        SortKindByCount,
-        SortKindBySize
-    };
-
-    SortKind sortKind = SortKindByCount;
-    stdext::hash_map<ULONG64, ObjectAllocStats> vtableCounts;
+    stdext::hash_map<char const *, ObjectAllocStats> objectCounts;
     int numNodes = 0;
     int totalSize = 0;
 
-    SortedBuffer<ULONG64, int, 50> topNVTables;
+    auto addStats = [&](RecyclerObjectGraph::GraphImplNodeType * node)
+    {        
+        char const * typeName = infer ? node->aux.typeNameOrField : node->aux.typeName;
+        auto i = objectCounts.find(typeName);
+        if (i != objectCounts.end())
+        {
+            ObjectAllocStats& stats = (*i).second;
+            stats.count++;
+            stats.size += node->aux.objectSize;
+            stats.unknownCount += node->aux.isPropagated;
+            stats.unknownSize += node->aux.isPropagated ? node->aux.objectSize : 0;
+        }
+        else
+        {
+            ObjectAllocStats stats;
+            stats.count = 1;
+            stats.size = node->aux.objectSize;
+            stats.unknownCount = node->aux.isPropagated;
+            stats.unknownSize = node->aux.isPropagated ? node->aux.objectSize : 0;
+            stats.hasVtable = node->aux.hasVtable;
+            objectCounts[typeName] = stats;
+        }
+    };
 
-    objectGraph.MapNodes([&](ULONG64& objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
+    objectGraph.MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
     {
         numNodes++;
         totalSize += (node->aux.objectSize);
-
-        ExtRemoteData data(objectAddress, this->m_PtrSize);
-        data.Read();
-        ULONG64 vtable = data.GetPtr();
-
-        bool isVtable = vtable % 4 == 0 && vtable >= baseAddress && vtable < endAddress;
-
-        if (!isVtable && trident)
-        {
-            // REVIEW: 0xc is the start object offset?
-            ExtRemoteData tridentdata(objectAddress + 0xc, this->m_PtrSize);
-            tridentdata.Read();
-            vtable = tridentdata.GetPtr();
-            isVtable = vtable % 4 == 0 && vtable >= tridentBaseAddress && vtable < tridentEndAddress;
-        }
-
-        if (isVtable)
-        {
-            ObjectAllocStats stats;
-            stats.count = 0;
-            stats.size = 0;
-            stats.pointerTo = objectAddress;
-
-            if (vtableCounts.find(vtable) != vtableCounts.end())
-            {
-                stats = vtableCounts[vtable];
-            }
-
-            stats.count++;
-            stats.size += (node->aux.objectSize);
-
-            vtableCounts[vtable] = stats;
-
-            if (sortKind == SortKindByCount)
-            {
-                topNVTables.Add(vtable, stats.count);
-            }
-            else if (sortKind == SortKindBySize)
-            {
-                topNVTables.Add(vtable, stats.size);
-            }
-        }
+        addStats(node);
     });
 
-    if (sortKind == SortKindByCount)
+    Out("\r");
+    if (showUnknown)
     {
-        Out("      Count\t       Size\tSymbol\n");
+        Out(" Count?      Bytes? %%Count %%Bytes | ");
     }
-    else if (sortKind == SortKindBySize)
+    Out("  Count       Bytes %%Count %%Bytes Symbol                \n");
+    uint knownObjectCount = 0;
+    uint knownObjectSize = 0;
+    uint vtableCount = 0;
+    std::auto_ptr<std::pair<char const *, ObjectAllocStats>> sortedArray(new std::pair<char const *, ObjectAllocStats>[objectCounts.size()]);
+    int c = 0;
+    for (auto i = objectCounts.begin(); i != objectCounts.end(); i++)
     {
-        Out("       Size\t      Count\t\tSymbol\n");
+        sortedArray.get()[c++] = (*i);
+        ObjectAllocStats& stats = (*i).second;
+        knownObjectCount += stats.count - stats.unknownCount;
+        knownObjectSize += stats.size - stats.unknownSize;
+        vtableCount += stats.hasVtable;
     }
+ 
+    qsort(sortedArray.get(), c, sizeof(std::pair<char const *, ObjectAllocStats>), sortComparer);
+
 
     Out("----------------------------------------------------------------------------\n");
-    topNVTables.Map([&](ULONG64 vtable, int count)
+
+    for (int i = 0; i < c; i++)
     {
-        ObjectAllocStats stats = vtableCounts[vtable];
-        if (sortKind == SortKindByCount)
+        char const * typeName = sortedArray.get()[i].first;
+        ObjectAllocStats& stats = sortedArray.get()[i].second;
+        uint currCount = stats.count;
+        uint currSize = stats.size;
+        if (knownOnly)
         {
-            Out("%11u\t%11u\t%y (0x%p)\n", stats.count, stats.size, vtable, stats.pointerTo);
+            currCount -= stats.unknownCount;
+            currSize -= stats.unknownSize;
         }
-        else if (sortKind == SortKindBySize)
+        if (showUnknown)
         {
-            Out("%11u\t%11u\t%y (0x%p)\n", stats.size, stats.count, vtable, stats.pointerTo);
+            Out("%7u %11u %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize, 
+                (float)stats.unknownCount / (float)numNodes * 100, (float)stats.unknownSize / (float)totalSize * 100);
         }
-    });
+        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100, (float)currSize / (float)totalSize * 100,
+            stats.hasVtable ? "" : "[Field] ", typeName);        
+
+        if (i > limit)
+        {
+            Out("<%d limit reached>\n", limit);
+            break;
+        }
+    }
     Out("----------------------------------------------------------------------------\n");
 
-    if (verbose)
-    {
-        Out("%d vtable's found\n", vtableCounts.size());
-    }
-    Out("Number of marked objects: %d\n", numNodes);
-    Out("Total size of marked objects: %d\n", totalSize);
+    uint unknownTotalCount = numNodes - knownObjectCount;
+    uint unknownTotalSize = totalSize - knownObjectSize;
+    Out("%7u %11u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
+        (float)unknownTotalCount / (float)numNodes * 100, (float)unknownTotalSize / (float)totalSize * 100);
+    Out(showUnknown ? " | " : " Unknown object summary\n");
 
+    Out("%7u %11u %5.1f%% %5.1f%% Known object summary\n", knownObjectCount, knownObjectSize,
+        (float)knownObjectCount / (float)numNodes * 100, (float)knownObjectSize / (float)totalSize * 100);
+
+    if (showUnknown)
+    {
+        Out("                                  | ");
+    }
+    Out("%7u %11u               Total object summary\n", numNodes, totalSize);
+    Out("Found %d (%d vtable, %d field)\n", objectCounts.size(), vtableCount, objectCounts.size() - vtableCount);
 }
 
 #endif

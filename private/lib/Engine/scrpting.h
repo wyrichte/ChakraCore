@@ -22,11 +22,11 @@ private:
     Js::Utf8SourceInfo* m_utf8SourceInfo;
     CScriptSourceDocumentText * m_scriptDocumentText;
     ScriptEngine * m_scriptEngine;
-    RecyclerRootPtr<Js::FunctionBody> functionBody;
+    RecyclerRootPtr<Js::ParseableFunctionInfo> functionInfo;
 
     ~CScriptBody(void);
 public:
-    CScriptBody(Js::FunctionBody* functionBody, ScriptEngine *scriptEngine, Js::Utf8SourceInfo* sourceInfo);
+    CScriptBody(Js::ParseableFunctionInfo* functionInfo, ScriptEngine *scriptEngine, Js::Utf8SourceInfo* sourceInfo);
     CScriptBody * Clone(ScriptEngine *pos);
 
     // reference count stuff
@@ -34,7 +34,7 @@ public:
     void Release(void);
 
     Js::ScriptContext* GetScriptContext();
-    Js::FunctionBody *GetRootFunction() { return this->functionBody; }
+    Js::ParseableFunctionInfo *GetRootFunction() { return this->functionInfo; }
 
     void SetDoc(CScriptSourceDocumentText *pdoc);
     CScriptSourceDocumentText *GetScriptDocumentText(void) { return m_scriptDocumentText; }

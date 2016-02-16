@@ -3,7 +3,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function[2], Line: 46, Column: 18, Character Position: 692
 [FunctionCompiled]: Function: Foo, Line: 80, Column: 11, Character Position: 1282
 [FunctionCompiled]: Function: Global code, Line: 3, Column: 1, Character Position: 64
-[FunctionCompiled]: Function: OneClass, Line: 96, Column: 5, Character Position: 1563
+[FunctionCompiled]: Function: OneClass, Line: 94, Column: 1, Character Position: 1543
 [FunctionCompiled]: Function: OneClass.method1, Line: 99, Column: 12, Character Position: 1624
 [FunctionCompiled]: Function: OneClass.prototype.method, Line: 103, Column: 5, Character Position: 1697
 [FunctionCompiled]: Function: f2, Line: 55, Column: 10, Character Position: 847

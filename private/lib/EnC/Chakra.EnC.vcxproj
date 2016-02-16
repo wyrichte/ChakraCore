@@ -29,6 +29,7 @@
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\JITClient;
         $(ChakraJITIDLIntDir);
+        $(ChakraCoreRootDirectory)Lib\Runtime\ByteCode;
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraInternalIDLIntDir);
         $(MSBuildThisFileDirectory)..\Engine;

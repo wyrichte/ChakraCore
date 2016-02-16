@@ -219,9 +219,6 @@
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj">
-      <Project>{706083f7-6aa4-4558-a153-6352ef9110ee}</Project>
-    </ProjectReference>
     <ProjectReference Condition="'$(BuildRazzleDependencies)'=='true'" Include="..\..\..\dep\dtbhost.vcxproj">
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac37}</Project>
       <Private>true</Private>
@@ -271,6 +268,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9110f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Lib\Runtime\Base\Chakra.Runtime.Base.vcxproj">
+      <Project>{706083F7-6AA4-4558-A153-6352EF9110EE}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9110f7}</Project>

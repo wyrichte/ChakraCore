@@ -26,6 +26,8 @@
         $(ChakraRootDirectory)core\lib\JITClient;
         $(ChakraJITIDLIntDir);
         $(ChakraRootDirectory)core\lib\Runtime;
+        $(ChakraRootDirectory)core\lib\Runtime\ByteCode;
+        $(ChakraRootDirectory)core\lib\Runtime\Math;
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\BackEnd;
         <!-- For ChakraVersion.h -->
@@ -41,6 +43,11 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StaticLibPch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+        %(DisableSpecificWarnings);
+        4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
+      </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->

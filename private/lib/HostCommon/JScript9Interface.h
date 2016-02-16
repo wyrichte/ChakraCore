@@ -145,6 +145,9 @@ public:
     static void SetArgInfo(ArgInfo& args);
     static HRESULT FinalGC();
     static HRESULT DisplayRecyclerStats();
+#ifdef ENABLE_INTL_OBJECT
+    static HRESULT ClearTimeZoneCalendars();
+#endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);
     static HRESULT OnJScript9Loaded(TestHooks& testHooks);
@@ -218,9 +221,6 @@ public:
     static bool IsEnabledCheckMemoryFlag() { return CHECKED_CALL_RETURN(IsEnabledCheckMemoryLeakFlag, FALSE); }
     static HRESULT SetCheckMemoryLeakFlag(bool flag) { return CHECKED_CALL(SetCheckMemoryLeakFlag,flag); }
     static HRESULT SetEnableCheckMemoryLeakOutput(bool flag) { return CHECKED_CALL(SetEnableCheckMemoryLeakOutput, flag); }
-#endif
-#ifdef DBG
-    static HRESULT SetCheckOpHelpersFlag(bool flag) { return CHECKED_CALL(SetCheckOpHelpersFlag,flag); }
 #endif
 
     static boolean SupportsDllGetClassObjectCallback() {return m_testHooks.pfDllGetClassObject != NULL; }

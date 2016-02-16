@@ -122,8 +122,22 @@ namespace Js
     class JavascriptSIMDFloat64x2;          // Used by JavascriptLibrary.h
     class SIMDInt32x4Lib;                   // Used by JavascriptLibrary.h
     class JavascriptSIMDInt32x4;            // Used by JavascriptLibrary.h
+    class SIMDInt16x8Lib;                   // Used by JavascriptLibrary.h
+    class JavascriptSIMDInt16x8;            // Used by JavascriptLibrary.h
     class SIMDInt8x16Lib;                   // Used by JavascriptLibrary.h
     class JavascriptSIMDInt8x16;            // Used by JavascriptLibrary.h
+    class SIMDUint32x4Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDUint32x4;           // Used by JavascriptLibrary.h
+    class SIMDUint16x8Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDUint16x8;           // Used by JavascriptLibrary.h
+    class SIMDUint8x16Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDUint8x16;           // Used by JavascriptLibrary.h
+    class SIMDBool32x4Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDBool32x4;           // Used by JavascriptLibrary.h
+    class SIMDBool16x8Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDBool16x8;           // Used by JavascriptLibrary.h
+    class SIMDBool8x16Lib;                  // Used by JavascriptLibrary.h
+    class JavascriptSIMDBool8x16;           // Used by JavascriptLibrary.h
 
     class JavascriptStringObject;           // Used by JavascriptLibrary.h
     class ObjectPrototypeObject;            // Used by JavascriptLibrary.h
@@ -291,7 +305,14 @@ namespace Projection
 #include "JavascriptSIMDFloat32x4.h"
 #include "JavascriptSIMDFloat64x2.h"
 #include "JavascriptSIMDInt32x4.h"
+#include "JavascriptSIMDInt16x8.h"
 #include "JavascriptSIMDInt8x16.h"
+#include "JavascriptSIMDUint32x4.h"
+#include "JavascriptSIMDUint16x8.h"
+#include "JavascriptSIMDUint8x16.h"
+#include "JavascriptSIMDBool32x4.h"
+#include "JavascriptSIMDBool16x8.h"
+#include "JavascriptSIMDBool8x16.h"
 
 #include "RecyclerFastAllocator.h"      // Used by LibraryCommon.h
 #include "Debug\SourceContextInfo.h"    // Used by ScriptContext::noContextSourceContextInfo
@@ -338,7 +359,14 @@ namespace Projection
 #include "SIMDFloat32x4Lib.h"
 #include "SIMDFloat64x2Lib.h"
 #include "SIMDInt32x4Lib.h"
+#include "SIMDInt16x8Lib.h"
 #include "SIMDInt8x16Lib.h"
+#include "SIMDUint32x4Lib.h"
+#include "SIMDUint16x8Lib.h"
+#include "SIMDUint8x16Lib.h"
+#include "SIMDBool32x4Lib.h"
+#include "SIMDBool16x8Lib.h"
+#include "SIMDBool8x16Lib.h"
 
 #include "MathLibrary.h"
 

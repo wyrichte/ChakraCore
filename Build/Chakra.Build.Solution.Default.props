@@ -32,9 +32,9 @@
     <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
        
-    <ExecutablePath>$(RazzleToolPath)\Dev12\x32\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
-    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\Dev12\x64\amd64;$(RazzleToolPath)\amd64</ExecutablePath>
-    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'=='true'">$(RazzleToolPath)\Dev12\x32\amd64;$(RazzleToolPath)\x86</ExecutablePath>
+    <ExecutablePath>$(RazzleToolPath)\vc\x32\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\vc\x64\amd64;$(RazzleToolPath)\amd64</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'=='true'">$(RazzleToolPath)\vc\x32\amd64;$(RazzleToolPath)\x86</ExecutablePath>
    
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->

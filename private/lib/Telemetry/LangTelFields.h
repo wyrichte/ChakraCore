@@ -40,6 +40,8 @@ ENTRY_BUILTIN(ObjectIsExtensibleCount)
 ENTRY_BUILTIN(ObjectGetOwnPropertyNamesCount)
 ENTRY_BUILTIN(ObjectGetPrototypeOfCount)
 ENTRY_BUILTIN(ObjectKeysCount)
+ENTRY_BUILTIN(ObjectValuesCount)
+ENTRY_BUILTIN(ObjectEntriesCount)
 
 ENTRY_BUILTIN(DateToISOStringCount)
 ENTRY_BUILTIN(FunctionBindCount)
@@ -77,6 +79,12 @@ ENTRY_BUILTIN(StartsWithCount)
 ENTRY_BUILTIN(EndsWithCount)
 ENTRY_BUILTIN(ContainsCount)
 ENTRY_BUILTIN(RepeatCount)
+ENTRY_BUILTIN(PadStartCount)
+ENTRY_BUILTIN(PadEndCount)
+
+// RegEx builtins
+ENTRY_BUILTIN(RegexSymbolMatchCount)
+ENTRY_BUILTIN(RegexSymbolSearchCount)
 
 //Ctors
 ENTRY_BUILTIN(ProxyCount)

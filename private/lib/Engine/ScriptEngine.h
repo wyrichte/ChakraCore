@@ -662,16 +662,16 @@ public:
     // Compile Function type
     typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength,
         ulong grfscr, SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
-        CScriptBody** ppbody, Js::FunctionBody** ppFuncBody, BOOL &fUsedExisting, Js::Utf8SourceInfo** pSourceInfo);
+        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** pSourceInfo);
     typedef ulong (ComputeGrfscrFunction)(const void *pDelimiter);
     typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, ulong grfscr,
         SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
-        CScriptBody** ppbody, Js::FunctionBody** ppFuncBody, BOOL &fUsedExisting, Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);
+        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);
     CompileScriptType CompileFunction;
 
     HRESULT CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags, bool allowDeferParse, SRCINFO* psi,
         const void *pszDelimiter, LPCOLESTR pszTitle, CoreCompileFunction fnCoreCompile,
-        ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::FunctionBody** ppFuncBody, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO* pei = NULL, CScriptBody** ppbody = NULL);
+        ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO* pei = NULL, CScriptBody** ppbody = NULL);
 
     void RemoveEventSinks(EventSink *eventSink) { return eventSinks->Remove(eventSink);}
     ArenaAllocator* GetScriptAllocator() { return scriptAllocator;}
@@ -885,7 +885,7 @@ private:
         __in LPCOLESTR pszTitle,
         __in_opt CompileScriptException* pse,
         __out CScriptBody** ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
         __in CoreCompileFunction fnCoreCompile);
@@ -898,7 +898,7 @@ private:
         __in LPCOLESTR pszTitle,
         __in_opt CompileScriptException* pse,
         __out CScriptBody** ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
         __in CoreCompileFunction fnCoreCompile);
@@ -911,7 +911,7 @@ private:
         __in LPCOLESTR pszTitle,
         __in_opt CompileScriptException* pse,
         __out CScriptBody** ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
 
@@ -923,7 +923,7 @@ private:
         __in LPCOLESTR pszTitle,
         __in_opt CompileScriptException* pse,
         __out CScriptBody** ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
 
@@ -935,7 +935,7 @@ private:
         __in LPCOLESTR pszTitle,
         __in_opt CompileScriptException *pse,
         __out CScriptBody **ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
 
@@ -948,7 +948,7 @@ private:
         __in BOOL fOriginalUTF8Code,
         __in_opt CompileScriptException *pse,
         __out CScriptBody **ppbody,
-        __out Js::FunctionBody** ppFuncBody,
+        __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting);
 
     SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
@@ -1224,7 +1224,7 @@ public:
 
 private:
     // flags and values pased by the host via  IActiveScriptProperty
-    DWORD                       hostType;	// One of enum SCRIPTHOSTTYPE values.
+    DWORD                       hostType;       // One of enum SCRIPTHOSTTYPE values.
     DWORD                       webWorkerID;
     BOOL                        fCanOptimizeGlobalLookup : 1; //free to optimize globals when true
     BOOL                        fNonPrimaryEngine : 1; //is this engine an iframe or non-top level navigation engine

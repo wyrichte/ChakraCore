@@ -804,6 +804,12 @@ midl_pragma warning ( default: 4066 )
         [eventadd] HRESULT AgeCompleteEvent([in] AgeCompleteHandler *handler, [out,retval] EventRegistrationToken *pCookie);
         [deprecated("remove winery age is old.", deprecate, NTDDI_WINBLUE)]
         [eventremove] HRESULT AgeCompleteEvent([in] EventRegistrationToken iCookie);
+
+        [deprecated("add winery age is old.", deprecate, NTDDI_WINBLUE)]
+        [eventadd] HRESULT AgeEmptyEvent([in] AgeCompleteHandler *handler, [out,retval] EventRegistrationToken *pCookie);
+        [deprecated("remove winery age is old.", deprecate, NTDDI_WINBLUE)]
+        [eventremove] HRESULT AgeEmptyEvent([in] EventRegistrationToken iCookie);
+
         HRESULT SendToWarehouse([in] IWarehouse *pWarehouse);
         HRESULT Produce();
     }

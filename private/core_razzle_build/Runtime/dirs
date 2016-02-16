@@ -5,3 +5,4 @@ DIRS=\
     language \
     types    \
     library  \
+    base \

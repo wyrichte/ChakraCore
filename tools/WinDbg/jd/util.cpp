@@ -35,20 +35,6 @@ std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset)
     return str;
 }
 
-ULONG64 GetAsPointer(ExtRemoteTyped object)
-{
-#if _M_X64
-    if (g_Ext->m_PtrSize == 4)
-    {
-        return (ULONG64)object.GetUlong();
-    }
-    else
-#endif
-    {
-        return object.GetPtr();
-    }
-}
-
 ULONG64 GetPointerAtAddress(ULONG64 offset)
 {
     ExtRemoteData data(offset, g_Ext->m_PtrSize);

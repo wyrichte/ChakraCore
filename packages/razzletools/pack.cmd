@@ -2,9 +2,8 @@
 setlocal
 
 set NUGET_BASE_PATH=%SDXROOT%
-
-call ..\..\tools\copyPgortBin.bat both %SDXROOT%\tools "" win32 %SDXROOT%\tools\x86
-call ..\..\tools\copyPgortBin.bat both %SDXROOT%\tools "" x64 %SDXROOT%\tools\amd64
+pushd %~dp0
+call copyPgortBin.bat %SDXROOT%\tools "x86,amd64,arm" %SDXROOT%\tools
 call ..\create_package.cmd
-
+popd
 endlocal

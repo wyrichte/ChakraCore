@@ -81,7 +81,7 @@ goto :main
   set _BinDir=
   set _BuildArch=
   set _BuildType=
-  set _RazzleTools=RazzleTools.1.0.5
+  set _RazzleTools=RazzleTools.1.0.10
   goto :eof
 
 :: ============================================================================

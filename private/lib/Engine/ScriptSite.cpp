@@ -1708,6 +1708,40 @@ Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
     return scriptContext->GetLibrary()->GetThrowerFunction();
 }
 
+HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord)
+{
+    HRESULT hr = NOERROR;
+    IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
+    if (scriptHost == nullptr)
+    {
+        hr = E_ACCESSDENIED;
+    }
+    else
+    {
+        Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
+        hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier->GetSz(), specifier->GetLength(), (ModuleRecord*)dependentModuleRecord);
+    }
+    return hr;
+}
+
+HRESULT ScriptSite::NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar)
+{
+    HRESULT hr = NOERROR;
+    IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
+    if (scriptHost == nullptr)
+    {
+        hr = E_ACCESSDENIED;
+    }
+    else
+    {
+        // we don't need this block if the host does not callback to scriptengine right away and use Promise/EnqueueTask instead.
+        BEGIN_NO_EXCEPTION
+        hr = scriptHost->NotifyModuleReady(referencingModule, exceptionVar);
+        END_NO_EXCEPTION
+    }
+    return hr;
+}
+
 void ScriptSite::InitializeDebugObject()
 {
     // TODO: move this to ActiveScriptExternalLibrary after move out Promise.

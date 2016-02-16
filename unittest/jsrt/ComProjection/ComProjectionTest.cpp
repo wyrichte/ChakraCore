@@ -267,7 +267,7 @@ namespace JsrtUnitTests
         return true;
     }
 
-    bool ComProjectionTest::InvokeDispatchMethod(IDispatch * object, BSTR name, VARIANT * args, int cargs, VARIANT * result)
+    bool ComProjectionTest::InvokeDispatchMethod(IDispatch * object, BSTR name, VARIANT * args, UINT cargs, VARIANT * result)
     {
         DISPID id;       
         DISPPARAMS params = { args, NULL, cargs, 0 };

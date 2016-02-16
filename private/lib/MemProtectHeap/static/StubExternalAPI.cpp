@@ -115,6 +115,21 @@ ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
     }
 }
 
+UINT_PTR
+Math::Rand()
+{
+    unsigned int rand;
+    rand_s(&rand);
+    UINT_PTR newRand = static_cast<UINT_PTR>(rand);
+
+#if TARGET_64
+    rand_s(&rand);
+    newRand |= static_cast<UINT_PTR>(rand) << 32;
+#endif
+
+    return newRand;
+}
+
 namespace Js
 {
     void GCTelemetry::LogGCPauseStartTime() {};
