@@ -108,10 +108,11 @@ private:
 
     HRESULT CreateScriptEngine(bool isPrimary = true);
 
-    HRESULT LoadScriptFromFile(LPCOLESTR filename, bool isModuleCode = false);
+    HRESULT LoadScriptFromFile(LPCOLESTR filename, Var* errorObject = nullptr, bool isModuleCode = false);
     HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8);
 
-    HRESULT LoadModuleFromString(bool isUtf8, LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength);
+    HRESULT LoadModuleFromString(bool isUtf8, 
+        LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, Var* errorObject);
 
     HRESULT StopScriptEngine();
 
@@ -157,9 +158,9 @@ public:
 
     // IJsHostScriptSite interfaces
     STDMETHODIMP LoadScriptFile(LPCOLESTR filename);
-    STDMETHODIMP LoadModuleFile(LPCOLESTR filename);
+    STDMETHODIMP LoadModuleFile(LPCOLESTR filename, byte** errorObject);
     STDMETHODIMP LoadScript(LPCOLESTR script);
-    STDMETHODIMP LoadModule(LPCOLESTR script);
+    STDMETHODIMP LoadModule(LPCOLESTR script, byte** errorObject);
     STDMETHODIMP InitializeProjection();
     STDMETHODIMP RegisterCrossThreadInterface();
 

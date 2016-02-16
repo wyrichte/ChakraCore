@@ -3194,6 +3194,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
     /* [out] */ __RPC__deref_out_opt Var *varResult)
 {
     HRESULT hr = NOERROR;
+    Js::JavascriptExceptionObject* exceptionObject = nullptr;
     hr = VerifyOnEntry(TRUE);
     if (FAILED(hr))
     {
@@ -3204,7 +3205,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
         Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
         *varResult = moduleRecord->ModuleEvaluation();
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
+    END_ENTER_SCRIPT \
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
+    END_GET_ERROROBJECT(hr, scriptContext, exceptionObject) \
+    CATCH_UNHANDLED_EXCEPTION(hr)
+
+    if (exceptionObject != nullptr)
+    {
+        // return exception up if there is any failure.
+        *varResult = exceptionObject->GetThrownObject(scriptContext);
+        hr = SCRIPT_E_RECORDED;
+    }
     return hr;
 }
 

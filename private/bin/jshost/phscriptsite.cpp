@@ -1075,7 +1075,7 @@ Error:
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, bool isModuleCode)
+HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr;
     LPCOLESTR contents = NULL;
@@ -1125,11 +1125,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, bool isModu
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contentsRaw, lengthBytes);
+            hr = LoadModuleFromString(isUtf8, fullpath, len, contentsRaw, lengthBytes, errorObject);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contents, (UINT)wcslen(contents)*sizeof(wchar_t));
+            hr = LoadModuleFromString(isUtf8, fullpath, len, contents, (UINT)wcslen(contents)*sizeof(wchar_t), errorObject);
         }
         goto Error;
     }
@@ -1338,7 +1338,8 @@ DWORD_PTR JsHostActiveScriptSite::AddUrl(_In_z_ LPCWSTR url)
 }
 
 // TODO: make source code heapalloc.
-HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength)
+HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, 
+    LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
 {
     HRESULT hr = S_OK;
     CComPtr<IActiveScript> activeScript;
@@ -1351,20 +1352,19 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, LPCWSTR fileNa
     if (SUCCEEDED(hr))
     {
         DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
-        Var exceptionVar;
-        // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
+    // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
         ModuleRecord requestModule = nullptr;
         hr = activeScriptDirect->InitializeModuleRecord(nullptr, fileName, fileNameLength, &requestModule);
         if (SUCCEEDED(hr))
         {
             if (isUtf8)
             {
-                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, &exceptionVar);
+                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
             }
             else
             {
                 hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
-                 ParseModuleSourceFlags_DataIsUTF16LE, &exceptionVar);
+                 ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
             }
         }
     }
@@ -1564,11 +1564,11 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
 }
 
 
-STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename)
+STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, byte** errorObject)
 {
     HRESULT hr = S_OK;
 
-    hr = LoadScriptFromFile(filename, true);
+    hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
 
     return hr;
 }
@@ -1606,7 +1606,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
     return hr;
 }
 
-STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script)
+STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorObject)
 {
     HRESULT hr = S_OK;
 
@@ -1620,7 +1620,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script)
         }
         else
         {
-            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR));
+            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
         }
 
         scriptSite->Release();
@@ -2224,11 +2224,10 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     {
         // TODO: promise/enqueue
         hr = activeScriptDirect->ModuleEvaluation(referencingModule, &exceptionVar);
-        // TODO: yongqu implement this.
-        //if (FAILED(hr))
-        //{
-        //    ReportError(exceptionVar);
-        //}
+        if (FAILED(hr))
+        {
+            // TODO: OnScriptError style error reporting??
+        }
     }
 
     return hr;
