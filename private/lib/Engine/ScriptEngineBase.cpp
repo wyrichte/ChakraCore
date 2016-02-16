@@ -3116,10 +3116,38 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
     /* [in] */ UINT specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *moduleRecord)
 {
-    Assert(false);
-    return E_NOTIMPL;
+    HRESULT hr = NOERROR;
+
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    Js::SourceTextModuleRecord* referencingModuleRecord = Js::SourceTextModuleRecord::FromHost(referencingModule);
+    Js::SourceTextModuleRecord* childModuleRecord = nullptr;
+
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        childModuleRecord = Js::SourceTextModuleRecord::Create(GetScriptContext());
+        if (referencingModule == nullptr)
+        {
+            childModuleRecord->SetIsRootModule();
+        }
+    #if DBG
+        childModuleRecord->AddParent(referencingModuleRecord, normalizedSpecifier, specifierLength);
+    #endif
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    if (SUCCEEDED(hr))
+    {
+        *moduleRecord = childModuleRecord;
+    }
+    return hr;
 }
 
+// Theoretically this method can be called from different thread. We'll need to move out the 
+// moduledeclarationInitialization (for GC allocation) part. ModuleEvaluation should be out by default, called from host.
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
         /* [in] */ __RPC__in ModuleRecord requestModule,
         /* [in] */ __RPC__in_opt IUnknown *punkContext,
@@ -3129,16 +3157,55 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
         /* [in] */ ParseModuleSourceFlags sourceFlag,
         /* [out] */ __RPC__deref_out_opt Var *exceptionVar)
 {
-    Assert(false);
-    return E_NOTIMPL;
+    HRESULT hr = NOERROR;
+    // TODO: allow parallel parsing? we need to pick the right allocator in ModuleRecord,
+    // and remove thread check (VerifyOnEntry call)
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    if (scriptSiteHolder == nullptr)
+    {
+        return E_ACCESSDENIED;
+    }
+    if (requestModule == nullptr || exceptionVar == nullptr || sourceFlag > ParseModuleSourceFlags_DataMax)
+    {
+        return E_INVALIDARG;
+    }
+    if (sourceFlag == ParseModuleSourceFlags_DataIsIntermediateCode)
+    {
+        // TODO: investigate the possibility of using bytecode cache.
+        return E_INVALIDARG;
+    }
+    *exceptionVar = nullptr;
+    
+    Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        hr = moduleRecord->ParseSource(sourceText, sourceLength, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    return hr;
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
     /* [in] */ __RPC__deref_in_opt ModuleRecord requestModule,
     /* [out] */ __RPC__deref_out_opt Var *varResult)
 {
-    Assert(false);
-    return E_NOTIMPL;
+    HRESULT hr = NOERROR;
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
+        *varResult = moduleRecord->ModuleEvaluation();
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    return hr;
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::SetModuleHostInfo(
@@ -3146,8 +3213,30 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::SetModuleHostInfo(
     /* [in] */ ModuleHostInfoKind moduleHostState,
     /* [in] */ __RPC__in void *hostInfo)
 {
-    Assert(false);
-    return E_NOTIMPL;
+    HRESULT hr;
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
+    switch (moduleHostState)
+    {
+    case ModuleHostInfo_HostDefined:
+        moduleRecord->SetHostDefined(hostInfo);
+        hr = S_OK;
+        break;
+    case ModuleHostInfo_Exception:
+        // This is after the script engine ask the host for child module, and it failed to download the module
+        hr = moduleRecord->OnHostException(hostInfo);
+        Assert(false);
+        break;
+    default:
+        Assert(false);
+        hr = E_INVALIDARG;
+        break;
+    }
+    return hr;
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetModuleHostInfo(
@@ -3155,8 +3244,28 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetModuleHostInfo(
     /* [in] */ ModuleHostInfoKind moduleHostState,
     /* [out] */ __RPC__deref_out_opt void **hostInfo)
 {
-    Assert(false);
-    return E_NOTIMPL;
+    HRESULT hr;
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
+    switch (moduleHostState)
+    {
+    case ModuleHostInfo_HostDefined:
+        *hostInfo = moduleRecord->GetHostDefined();
+        hr = S_OK;
+        break;
+    case ModuleHostInfo_Exception:
+        Assert(false);
+        break;
+    default:
+        Assert(false);
+        hr = E_INVALIDARG;
+        break;
+    }
+    return hr;
 }
 
 HRESULT ScriptEngineBase::VerifyOnEntry(BOOL allowedInHeapEnum)

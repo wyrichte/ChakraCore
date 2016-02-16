@@ -638,6 +638,21 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 }
             }
         }
+        else  // from  module
+        {
+            CComPtr<IActiveScript> activeScript;
+            runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                CComPtr<IJsHostScriptSite> jsHostScriptSite;
+                runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source);
+                }
+            }
+
+        }
     }
 
     if (FAILED(runInfo.hr))

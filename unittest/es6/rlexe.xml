@@ -239,4 +239,9 @@
       <compile-flags>-debuglaunch -targeted -InspectMaxStringLength:200</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>moduletest1.js</files>
+    </default>
+  </test>
 </regress-exe>
