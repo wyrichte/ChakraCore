@@ -11,14 +11,13 @@
   <test>
     <default>
       <files>lambda_debugging.js</files>
-      <compile-flags> -es6lambda -debuglaunch -targeted -dbgbaseline:lambda_debugging.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:lambda_debugging.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_serialized</tags>
     </default>
   </test>
   <test>
     <default>
       <files>lambdaBug590468.html</files>
-      <compile-flags> -ES6Lambda</compile-flags>
       <tags>exclude_serialized,exclude_dynapogo</tags>
     </default>
   </test>
@@ -27,7 +26,6 @@
     <default>
       <files>proto_basic.html</files>
       <baseline>proto_basic.baseline</baseline>
-      <compile-flags>-__proto__</compile-flags>
     </default>
   </test>
 -->
@@ -58,7 +56,7 @@
   <test>
     <default>
       <files>classes_debugging.js</files>
-      <compile-flags>-ES6Classes -ES6Lambda -DebugLaunch -Targeted -InspectMaxStringLength:200</compile-flags>
+      <compile-flags>-ES6Classes -DebugLaunch -Targeted -InspectMaxStringLength:200</compile-flags>
       <tags>exclude_serialized</tags>
       <baseline>classes_debugging.baseline</baseline>
     </default>
@@ -69,14 +67,13 @@
       <command>jdtest.exe -targeted -dbgbaseline:classes_debugging_hybrid.js.dbg.baseline -InspectMaxStringLength:200 jshost</command>
       <baseline>classes_debugging_hybrid.baseline</baseline>
       <tags>exclude_serialized</tags>
-      <compile-flags>-ES6Classes -ES6Lambda -debuglaunch:hybrid</compile-flags>
+      <compile-flags>-ES6Classes -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <!--OS Bug:4806991
   <test>
     <default>
       <files>ES6Symbol_DOM.html</files>
-      <compile-flags> -ES6Symbol</compile-flags>
       <baseline>ES6Symbol_DOM.baseline</baseline>
     </default>
   </test>-->
@@ -84,14 +81,14 @@
     <default>
       <files>ES6Promise_DOM.html</files>
       <baseline>ES6Promise_DOM.baseline</baseline>
-      <compile-flags> -ES6 -ES6Promise -ES6Iterators -HtmlKeepAlive</compile-flags>
+      <compile-flags>-HtmlKeepAlive</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6Promise_WebWorker.html</files>
       <baseline>ES6Promise_WebWorker.baseline</baseline>
-      <compile-flags> -ES6 -ES6Promise -ES6Iterators -HtmlKeepAlive</compile-flags>
+      <compile-flags>-HtmlKeepAlive</compile-flags>
     </default>
   </test>
   <test>
@@ -120,20 +117,19 @@
   <test>
     <default>
       <files>StringTemplate-crossthread.js</files>
-      <compile-flags> -ES6StringTemplate -args summary -endargs</compile-flags>
+      <compile-flags>-args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>Symbol-crossthread.js</files>
-      <compile-flags> -ES6Symbol -args summary -endargs</compile-flags>
+      <compile-flags>-args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6Symbol_withHashtable.js</files>
       <baseline>ES6Symbol_withHashtable.baseline</baseline>
-      <compile-flags> -ES6 -ES6Symbol</compile-flags>
       <tags>exclude_amd64</tags>
     </default>
   </test>
@@ -141,7 +137,6 @@
     <default>
       <files>ES6Symbol_withHashtable.amd64.js</files>
       <baseline>ES6Symbol_withHashtable.amd64.baseline</baseline>
-      <compile-flags> -ES6 -ES6Symbol</compile-flags>
       <tags>exclude_x86,exclude_arm</tags>
     </default>
   </test>
@@ -200,21 +195,18 @@
     <default>
       <files>proxytest3.js</files>
       <baseline>proxytest3.baseline</baseline>
-      <compile-flags>-ES6Iterators</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>proxytest3reflect.js</files>
       <baseline>proxytest3reflect.baseline</baseline>
-      <compile-flags>-ES6Iterators</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>proxytest4.js</files>
       <baseline>proxytest4.baseline</baseline>
-      <compile-flags>-ES6Iterators</compile-flags>
     </default>
   </test>
   <test>
@@ -239,7 +231,6 @@
     <default>
       <files>ES6Promise_RemoveWScript.js</files>
       <baseline>ES6Promise_RemoveWScript.baseline</baseline>
-      <compile-flags> -ES6 -ES6Promise</compile-flags>
     </default>
   </test>
   <test>

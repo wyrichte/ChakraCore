@@ -213,9 +213,6 @@
     <ProjectReference Include="..\..\..\core\lib\jsrt\Chakra.Jsrt.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9220f5}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj">
-      <Project>{706083f7-6aa4-4558-a153-6352ef9110ee}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\core\lib\WasmReader\Chakra.WasmReader.vcxproj">
       <Project>{53d52b0b-86d9-4d31-ad09-0d6b3c063add}</Project>
     </ProjectReference>

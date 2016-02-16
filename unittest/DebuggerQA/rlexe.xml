@@ -169,7 +169,7 @@
   <test>
     <default>
       <files>es6_forof_decl.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -177,7 +177,7 @@
   <test>
     <default>
       <files>es6_forof_decl-2.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl-2.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl-2.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl-2.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -185,7 +185,7 @@
   <test>
     <default>
       <files>es6_forof_decl-3.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl-3.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl-3.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl-3.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -193,7 +193,7 @@
   <test>
     <default>
       <files>es6_forof_decl-4.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl-4.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl-4.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl-4.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -201,7 +201,7 @@
   <test>
     <default>
       <files>es6_forof_decl-5.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl-5.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl-5.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl-5.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -209,7 +209,7 @@
   <test>
     <default>
       <files>es6_forof_decl-6.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_decl-6.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_decl-6.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_decl-6.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -217,7 +217,7 @@
   <test>
     <default>
       <files>es6_forof_setnextintofor.js</files>
-      <compile-flags>-targeted -ES6 -ES6Iterators -dbgbaseline:es6_forof_setnextintofor.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -ES6 -dbgbaseline:es6_forof_setnextintofor.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_setnextintofor.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -225,7 +225,7 @@
   <test>
     <default>
       <files>es6_forof_setnextintofor_withdecl.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6 -ES6Iterators -dbgbaseline:es6_forof_setnextintofor_withdecl.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_setnextintofor_withdecl.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_setnextintofor_withdecl.js.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>

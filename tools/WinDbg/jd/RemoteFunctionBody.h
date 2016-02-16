@@ -8,23 +8,59 @@
 // ------------------------------------------------------------------------------------------------
 
 #include "JDUtil.h"
-class RemoteFunctionBody : public JDRemoteTyped
+#include <functional>
+class RemoteFunctionProxy : public JDRemoteTyped
+{
+public:
+    RemoteFunctionProxy() {}
+    RemoteFunctionProxy(ULONG64 pBody) : JDRemoteTyped("(Js::FunctionProxy*)@$extin", pBody) {}
+    RemoteFunctionProxy(const char* subType, ULONG64 pBody) : JDRemoteTyped(subType, pBody) {}
+    RemoteFunctionProxy(ExtRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
+
+    // Get the auxiliary pointer on the function body by the field name
+    JDRemoteTyped GetAuxPtrsField(const char* fieldName, char* castType = nullptr);
+    // Print all instantiated auxiliary pointers
+    void PrintAuxPtrs(EXT_CLASS_BASE *ext);
+private:
+    template<typename Fn>
+    void WalkAuxPtrs(Fn fn);
+
+};
+
+class RemoteParseableFunctionInfo : public RemoteFunctionProxy
+{
+public:
+    RemoteParseableFunctionInfo() {}
+    RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy("(Js::ParseableFunctionInfo*)@$extin", pBody) {}
+    RemoteParseableFunctionInfo(const char* subType, ULONG64 pBody) : RemoteFunctionProxy(subType, pBody) {}
+    RemoteParseableFunctionInfo(ExtRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
+
+    JDRemoteTyped GetScopeInfo()
+    {
+        return this->GetWrappedField("m_scopeInfo");
+    }
+    
+    JDRemoteTyped GetWrappedField(char* fieldName);
+};
+
+class RemoteFunctionBody : public RemoteParseableFunctionInfo
 {
 public:
     RemoteFunctionBody() {}
-    RemoteFunctionBody(ULONG64 pBody) : JDRemoteTyped("(Js::FunctionBody*)@$extin", pBody) {}
-    RemoteFunctionBody(ExtRemoteTyped const& functionBody) : JDRemoteTyped(functionBody) {};
+    RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo("(Js::FunctionBody*)@$extin", pBody) {}
+    RemoteFunctionBody(ExtRemoteTyped const& functionBody) : RemoteParseableFunctionInfo(functionBody) {}
+
     JDRemoteTyped GetByteCodeBlock()
     {
         return JDUtil::GetWrappedField(*this, "byteCodeBlock");
     }
     JDRemoteTyped GetAuxBlock()
     {
-        return JDUtil::GetWrappedField(*this, "auxBlock");
+        return this->GetWrappedField("auxBlock", "Js::ByteBlock");
     }
     JDRemoteTyped GetAuxContextBlock()
     {
-        return JDUtil::GetWrappedField(*this, "auxContextBlock");
+        return this->GetWrappedField("auxContextBlock");
     }
     JDRemoteTyped GetProbeBackingStore()
     {
@@ -85,7 +121,7 @@ public:
 
     JDRemoteTyped GetStatementMaps()
     {
-        return JDUtil::GetWrappedField(*this, "pStatementMaps");
+        return this->GetWrappedField("StatementMaps", nullptr, "pStatementMaps");
     }
 
     JDRemoteTyped GetEntryPoints()
@@ -102,6 +138,9 @@ public:
     {
         return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();        
     }
+
+    JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithRawLink(EXT_CLASS_BASE * ext);
