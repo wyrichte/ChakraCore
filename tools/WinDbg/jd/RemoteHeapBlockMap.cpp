@@ -9,7 +9,6 @@
 // ------------------------------------------------------------------------------------------------
 
 RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
-    : heapBlockMap(heapBlockMap)
 {
     cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMap);
     if (cachedHeapBlock == nullptr && cache)
@@ -18,7 +17,7 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
         std::auto_ptr<Cache> localCachedHeapBlock(new Cache());
 
         ULONG64 iter = 0;
-        ForEachHeapBlockRaw([this, &localCachedHeapBlock, &iter](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
+        ForEachHeapBlockRaw(heapBlockMap, [this, &localCachedHeapBlock, &iter](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
         {
             ULONG64 address = ((nodeIndex * l1ChunkSize + l1) * l2ChunkSize + l2) * g_Ext->m_PageSize;
             (*localCachedHeapBlock.get())[address] = heapBlock;

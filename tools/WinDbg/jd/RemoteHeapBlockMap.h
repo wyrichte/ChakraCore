@@ -16,15 +16,15 @@ public:
     RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache = true);
 
     template <typename Fn>
-    bool ForEachHeapBlock(Fn fn);
+    bool ForEachHeapBlock(ExtRemoteTyped& heapBlockMap, Fn fn);
 
     template <typename Fn>
-    bool ForEachHeapBlockDirect(Fn processFunction);
+    bool ForEachHeapBlockDirect(ExtRemoteTyped& heapBlockMap, Fn processFunction);
 
     RemoteHeapBlock * FindHeapBlock(ULONG64 address);
 private:
     template <typename Fn>
-    bool ForEachHeapBlockRaw(Fn processFunction);
+    bool ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction);
 
     template <typename Fn>
     bool ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& l1ChunkArray, Fn processFunction);
@@ -33,14 +33,13 @@ private:
     bool ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& l2ChunkArray, Fn processFunction);
 
 protected:
-    ExtRemoteTyped heapBlockMap;
     Cache * cachedHeapBlock;
     ULONG64 l1ChunkSize;
     ULONG64 l2ChunkSize;
 };
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
+bool RemoteHeapBlockMap::ForEachHeapBlock(ExtRemoteTyped& heapBlockMap, Fn fn)
 {
     if (cachedHeapBlock)
     {
@@ -49,22 +48,26 @@ bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
             RemoteHeapBlock& remoteHeapBlock = (*i).second;
             if ((*i).first != remoteHeapBlock.GetAddress())
             {
-                // Skip heap block that are not at the begining of the address, to avoid repeats
+                // Skip heap block that are not at the beginning of the address, to avoid repeats
                 continue;
             }
+
             if (fn((*i).second))
             {
                 return true;
             }
         }
+
         return false;
     }
-    return ForEachHeapBlockDirect([&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock) { return fn(heapBlock); });
+
+    return ForEachHeapBlockDirect(heapBlockMap,
+        [&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock) { return fn(heapBlock); });
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlockDirect(Fn fn)
-{    
+bool RemoteHeapBlockMap::ForEachHeapBlockDirect(ExtRemoteTyped& heapBlockMap, Fn fn)
+{
     // Heap block can cross multiple entries, filter them
     ULONG64 lastHeapBlock = 0;
     auto processFunction = [&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
@@ -76,11 +79,12 @@ bool RemoteHeapBlockMap::ForEachHeapBlockDirect(Fn fn)
         lastHeapBlock = heapBlock.GetHeapBlockAddress();
         return fn(nodeIndex, l1, l2, block, heapBlock);
     };
-    return ForEachHeapBlockRaw(processFunction);
+
+    return ForEachHeapBlockRaw(heapBlockMap, processFunction);
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlockRaw(Fn processFunction)
+bool RemoteHeapBlockMap::ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction)
 {
     if (g_Ext->m_PtrSize == 4)
     {
@@ -124,6 +128,7 @@ bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& chunk,
             }
         }
     }
+
     return false;
 }
 

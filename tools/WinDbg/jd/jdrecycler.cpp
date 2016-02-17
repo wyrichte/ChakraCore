@@ -832,38 +832,58 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
     ext->Out(L")");
 }
 
-uint HeapBlockHelper::GetObjectAlignmentMask()
+uint HeapBlockAlignmentUtility::GetObjectAlignmentMask(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
 {
-    return GetObjectGranularity() - 1;
+    return this->GetObjectGranularity(ext, recycler) - 1;
 }
 
-uint HeapBlockHelper::GetObjectGranularity()
+uint HeapBlockAlignmentUtility::GetObjectGranularity(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
 {
-    return 1u << GetObjectAllocationShift();
+    return 1u << this->GetObjectAllocationShift(ext, recycler);
 }
 
-uint HeapBlockHelper::GetObjectAllocationShift()
+uint HeapBlockAlignmentUtility::GetObjectAllocationShift(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
 {
-    if (objectAllocationShift == 0)
+    if (this->objectAllocationShift == 0)
     {
         try
         {
-            auto firstSizeCat = ext->GetNumberValue<ULONG64>(recycler.Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
+            auto firstSizeCat = ext->GetNumberValue<ULONG64>(recycler->Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
             int i = 0;
             while (firstSizeCat > ((ULONG64)1 << (++i)));
-            objectAllocationShift = i;
+            this->objectAllocationShift = i;
         }
         catch (ExtException&)
         {
             return 4;
         }
     }
-    return objectAllocationShift;
+    return this->objectAllocationShift;
+}
+
+bool HeapBlockAlignmentUtility::IsAlignedAddress(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler, ULONG64 address)
+{
+    return (0 == (((size_t)address) & this->GetObjectAlignmentMask(ext, recycler)));
+}
+
+uint HeapBlockHelper::GetObjectAlignmentMask()
+{
+    return this->alignmentUtility.GetObjectAlignmentMask(this->ext, &(this->recycler));
+}
+
+uint HeapBlockHelper::GetObjectGranularity()
+{
+    return this->alignmentUtility.GetObjectGranularity(this->ext, &(this->recycler));
+}
+
+uint HeapBlockHelper::GetObjectAllocationShift()
+{
+    return this->alignmentUtility.GetObjectAllocationShift(this->ext, &(this->recycler));
 }
 
 bool HeapBlockHelper::IsAlignedAddress(ULONG64 address)
 {
-    return (0 == (((size_t)address) & GetObjectAlignmentMask()));
+    return this->alignmentUtility.IsAlignedAddress(this->ext, &(this->recycler), address);
 }
 
 // Same logic as SmallHeapBlock::GetAddressBitIndex
@@ -1578,9 +1598,10 @@ JD_PRIVATE_COMMAND(hbm,
     ULONG64 smallBlockBytes = 0;
     AutoCppExpressionSyntax cppSyntax(m_Control5);
 
-    RemoteHeapBlockMap hbm(recycler.Field("heapBlockMap"));
+    ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
+    RemoteHeapBlockMap hbm(heapBlockMap);
 
-    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+    hbm.ForEachHeapBlock(heapBlockMap, [&](RemoteHeapBlock& remoteHeapBlock)
     {
         if (remoteHeapBlock.IsLargeHeapBlock())
         {
@@ -1709,7 +1730,8 @@ void VerifyHeapBlockMap(ExtRemoteTyped& recycler, RemoteHeapBlockMap& hbm)
     heapBlockCollector.Run();
 
     GetExtension()->Out("Collected small blocks: %d\n", heapBlockCollector.Count());
-    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+    ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
+    hbm.ForEachHeapBlock(heapBlockMap, [&](RemoteHeapBlock& remoteHeapBlock)
     {
         if (!remoteHeapBlock.IsLargeHeapBlock())
         {
@@ -1828,10 +1850,12 @@ JD_PRIVATE_COMMAND(hbstats,
     }
 
     RemoteHeapBlockMap hbm(recycler.Field("heapBlockMap"));
-  
+    ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
+
     stdext::hash_map<HeapBlockTypeSizePair, RecyclerBucketStats> statsMap;
     RecyclerBucketStats totalStats = { 0 };
-    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+
+    hbm.ForEachHeapBlock(heapBlockMap, [&](RemoteHeapBlock& remoteHeapBlock)
     {
         ULONG bucketObjectSize = remoteHeapBlock.GetBucketObjectSize();
         if (filterSize != 0 && filterSize != bucketObjectSize)
@@ -1941,7 +1965,6 @@ JD_PRIVATE_COMMAND(hbstats,
         stats->objectByteCount += remoteHeapBlock.GetAllocatedObjectSize();
         return false;
     });
-
 
     std::auto_ptr<RecyclerBucketInfo> sortedArray(new RecyclerBucketInfo[statsMap.size()]);
     int c = 0;
