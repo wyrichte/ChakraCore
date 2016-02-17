@@ -846,6 +846,7 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             return newString->c_str();;
         }
     }
+
     return nullptr;
 }
 
@@ -856,7 +857,7 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
     {
         return std::string();
     }
-    return GetTypeNameFromVTable(vtablename.c_str());    
+    return GetTypeNameFromVTable(vtablename.c_str());
 }
 
 std::string EXT_CLASS_BASE::GetTypeNameFromVTableOfObject(ULONG64 objectAddress)

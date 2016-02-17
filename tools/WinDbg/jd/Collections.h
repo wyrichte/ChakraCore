@@ -167,6 +167,14 @@ public:
 
     TKey Key;
 
+    // TODO (doilij) possibly remove this?
+    // Note this is true of being a graph root but not necessarily of whether
+    // an object is a root from !showroots point of view.
+    bool IsRoot()
+    {
+        return Predecessors.Count() == 0;
+    }
+
     template <typename Fn>
     bool MapEdges(Fn func)
     {
@@ -191,8 +199,8 @@ public:
         Predecessors.MapAll(func);
     }
 
-    Set<Node*> Edges;
-    Set<Node*> Predecessors;
+    Set<Node*> Edges;           // edges to child nodes
+    Set<Node*> Predecessors;    // edges to parent nodes
     TAux aux;
 };
 
@@ -327,6 +335,83 @@ public:
                     {
                         fprintf(f, "G.add_edge(\"0x%08X\", \"0x%08X\")\n", fromPointer, toPointer);
                     }
+                });
+            });
+
+            fclose(f);
+        }
+    }
+
+    // TODO (doilij) refactor all of these export commands (they share a common structure)
+    // Export to CSV
+    // sourcePointer, destPointer
+    void ExportToCsv(const char* filename)
+    {
+        FILE* f = fopen(filename, "w+");
+        if (f != nullptr)
+        {
+            this->MapAllNodes([&](const TKey&, NodeType* node)
+            {
+                node->MapAllEdges([&](NodeType* toNode)
+                {
+                    ULONG64 fromPointer = node->Key;
+                    ULONG64 toPointer = toNode->Key;
+
+                    if (g_Ext->m_PtrSize == 8)
+                    {
+                        fprintf(f, "0x%016llX,0x%016llX\n", fromPointer, toPointer);
+                    }
+                    else
+                    {
+                        fprintf(f, "0x%08X,0x%08X\n", fromPointer, toPointer);
+                    }
+                });
+            });
+
+            fclose(f);
+        }
+    }
+
+    // Export to CSV Extended
+    // sourcePointer, destPointer, sourceTypeId, destTypeId, sourceTypeName, destTypeName
+    void ExportToCsvExtended(EXT_CLASS_BASE *ext, const char* filename)
+    {
+        // display some info on the console about the data layout
+        ext->Out("CSVX column info:\n");
+        ext->Out("    sourcePointer,destPointer,sourceTypeId,destTypeId,sourceTypeName,destTypeName\n");
+
+        FILE* f = fopen(filename, "w+");
+        if (f != nullptr)
+        {
+            this->MapAllNodes([&](const TKey&, NodeType* node)
+            {
+                node->MapAllEdges([&](NodeType* toNode)
+                {
+                    ULONG64 fromPointer = node->Key;
+                    ULONG64 toPointer = toNode->Key;
+
+                    if (g_Ext->m_PtrSize == 8)
+                    {
+                        fprintf(f, "0x%016llX,0x%016llX", fromPointer, toPointer);
+                    }
+                    else
+                    {
+                        fprintf(f, "0x%08X,0x%08X", fromPointer, toPointer);
+                    }
+
+                    fprintf(f, ","); // comma following the first two fields
+
+                    ULONG64 fromPointerVtable = GetPointerAtAddress(fromPointer);
+                    ULONG64 toPointerVtable = GetPointerAtAddress(toPointer);
+
+                    // TODO (doilij) fromAddrTypeId
+                    fprintf(f, ",");
+
+                    // TODO (doilij) toAddrTypeId
+                    fprintf(f, ",");
+
+                    fprintf(f, "\"%s\",", ext->GetTypeNameFromVTable(fromPointerVtable).c_str());
+                    fprintf(f, "\"%s\"\n", ext->GetTypeNameFromVTable(toPointerVtable).c_str());
                 });
             });
 
