@@ -6,8 +6,8 @@
 
 RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose) :
     _ext(extension),
+    _alignmentUtility(),
     _verbose(verbose),
-    _heapBlockHelper(extension, recycler),
     m_hbm(recycler.Field("heapBlockMap")),
     m_hasTypeName(false),
     m_hasTypeNameAndFields(false),
@@ -32,7 +32,19 @@ void RecyclerObjectGraph::DumpForJs(const char* outfile)
     _objectGraph.ExportToJs(outfile);
 }
 
-void RecyclerObjectGraph::Construct(Addresses& roots)
+// Dumps the object graph as a CSV file
+void RecyclerObjectGraph::DumpForCsv(const char* outfile)
+{
+    _objectGraph.ExportToCsv(outfile);
+}
+
+// Dumps the object graph as a CSV file with extra info
+void RecyclerObjectGraph::DumpForCsvExtended(EXT_CLASS_BASE *ext, const char* outfile)
+{
+    _objectGraph.ExportToCsvExtended(ext, outfile);
+}
+
+void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots)
 {
     auto start = _time64(nullptr);
     roots.Map([&](ULONG64 root)
@@ -56,7 +68,7 @@ void RecyclerObjectGraph::Construct(Addresses& roots)
         }
     }
 
-    m_hbm.ForEachHeapBlock([](RemoteHeapBlock& heapBlock)
+    m_hbm.ForEachHeapBlock(heapBlockMap, [](RemoteHeapBlock& heapBlock)
     {
         heapBlock.FlushDebuggeeMemory();
         return false;
@@ -565,29 +577,27 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 }
 #endif
 
-
 void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
 {
-    if (address == 0)
+    if (address == NULL ||
+        !this->_alignmentUtility.IsAlignedAddress(this->_ext, &(this->_recycler), address))
     {
         return;
     }
-    if (!this->_heapBlockHelper.IsAlignedAddress(address))
+
+    RemoteHeapBlock *remoteHeapBlock = m_hbm.FindHeapBlock(address);
+    if (remoteHeapBlock == nullptr)
     {
         return;
     }
-    RemoteHeapBlock * remoteHeapBlock = m_hbm.FindHeapBlock(address);
-    if (remoteHeapBlock == 0)
-    {
-        return;
-    }
+
     HeapObjectInfo info;
     if (!remoteHeapBlock->GetRecyclerHeapObjectInfo(address, info, this->m_interior))
     {
         return;
     }
 
-    GraphNode<ULONG64, RecyclerGraphNodeAux>* node = _objectGraph.FindNode(info.objectAddress);
+    GraphNode<ULONG64, RecyclerGraphNodeAux> *node = _objectGraph.FindNode(info.objectAddress);
     if (node)
     {
         return;

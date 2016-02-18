@@ -15,10 +15,12 @@ public:
 
     RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
     ~RecyclerObjectGraph();
-    void Construct(Addresses& roots);
+    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
 
     void DumpForPython(const char* filename);
     void DumpForJs(const char* filename);
+    void DumpForCsv(const char* filename);
+    void DumpForCsvExtended(EXT_CLASS_BASE *ext, const char* filename);
 #if ENABLE_MARK_OBJ
     void FindPathTo(RootPointers& roots, ULONG64 address, ULONG64 root);
 #endif
@@ -58,15 +60,14 @@ protected:
     GraphImplType _objectGraph;
 
     RemoteHeapBlockMap m_hbm;
-    HeapBlockHelper _heapBlockHelper;
     JDRemoteTyped _recycler;
     EXT_CLASS_BASE* _ext;
+    HeapBlockAlignmentUtility _alignmentUtility;
     bool _verbose;
     bool m_trident;
     bool m_hasTypeName;
     bool m_hasTypeNameAndFields;
     bool m_interior;
 };
-
 
 #endif
