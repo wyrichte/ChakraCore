@@ -76,7 +76,7 @@ struct TestHooks
     DisplayMemStatsPtr pfDisplayMemStats;
     FlushOutputPtr pfFlushOutput;
 #ifdef ENABLE_INTL_OBJECT
-    ClearTimeZoneCalendarsPtr pfClearTimeZoneCalendars;
+    ClearTimeZoneCalendarsPtr pfResetTimeZoneFactoryObjects;
 #endif
 #ifdef FAULT_INJECTION
     GetCurrentFaultInjectionCountPtr pfGetCurrentFaultInjectionCount;
