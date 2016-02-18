@@ -1039,7 +1039,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         if (filename)
         {
             // Load the main script
-            hr = mainScriptSite->LoadScriptFile(filename);            
+            hr = mainScriptSite->LoadScriptFile(filename);
         }
         else if (pfNativeTestEntryPoint)
         {

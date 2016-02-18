@@ -418,30 +418,31 @@ public:
     HRESULT STDMETHODCALLTYPE ThrowException(_In_ Var exceptionObject);
 
     HRESULT STDMETHODCALLTYPE InitializeModuleRecord(
-        /* [in] */ __RPC__deref_in_opt ModuleRecord *referencingModule,
+        /* [in] */ __RPC__deref_in_opt ModuleRecord referencingModule,
         /* [size_is][in] */ __RPC__in_ecount_full(specifierLength) LPCWSTR normalizedSpecifier,
         /* [in] */ UINT specifierLength,
         /* [out] */ __RPC__deref_out_opt ModuleRecord *moduleRecord) override;
 
     HRESULT STDMETHODCALLTYPE ParseModuleSource(
-        /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+        /* [in] */ __RPC__in ModuleRecord requestModule,
+        /* [in] */ __RPC__in_opt IUnknown *punkContext,
         /* [in] */ __RPC__in void *sourceContext,
-        /* [in] */ unsigned long ulStartingLineNumber,
-        /* [in] */ __RPC__in LPCWSTR sourceText,
+        /* [size_is][in] */ __RPC__in_ecount_full(sourceLength) byte *sourceText,
         /* [in] */ unsigned long sourceLength,
+        /* [in] */ ParseModuleSourceFlags sourceFlag,
         /* [out] */ __RPC__deref_out_opt Var *exceptionVar) override;
 
     HRESULT STDMETHODCALLTYPE ModuleEvaluation(
-        /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+        /* [in] */ __RPC__deref_in_opt ModuleRecord requestModule,
         /* [out] */ __RPC__deref_out_opt Var *varResult) override;
 
     HRESULT STDMETHODCALLTYPE SetModuleHostInfo(
-        /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+        /* [in] */ __RPC__deref_in_opt ModuleRecord requestModule,
         /* [in] */ ModuleHostInfoKind moduleHostState,
         /* [in] */ __RPC__in void *hostInfo) override;
 
     HRESULT STDMETHODCALLTYPE GetModuleHostInfo(
-        /* [in] */ __RPC__deref_in_opt ModuleRecord *requestModule,
+        /* [in] */ __RPC__deref_in_opt ModuleRecord requestModule,
         /* [in] */ ModuleHostInfoKind moduleHostState,
         /* [out] */ __RPC__deref_out_opt void **hostInfo) override;
 

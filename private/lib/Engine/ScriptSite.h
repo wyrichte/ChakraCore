@@ -161,6 +161,8 @@ public:
         __out Js::ArrayBuffer **ppArrayBuffer);
     Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
     Js::JavascriptFunction* InitializeHostPromiseContinuationFunction();
+    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord);
+    HRESULT NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar);
 
     // Reference Counting
     void AddRef(void) { InterlockedIncrement(&refCount); }

@@ -124,6 +124,16 @@ public:
         return scriptSite->InitializeHostPromiseContinuationFunction();
     }
 
+    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord)
+    {
+        return scriptSite->FetchImportedModule(referencingModule, specifier, dependentModuleRecord);
+    }
+
+    HRESULT NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar)
+    {
+        return scriptSite->NotifyHostAboutModuleReady(referencingModule, exceptionVar);
+    }
+
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     void EnsureParentInfo(Js::ScriptContext* scriptContext = nullptr) override
     {
