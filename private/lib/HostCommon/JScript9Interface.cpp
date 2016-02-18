@@ -230,11 +230,11 @@ HRESULT JScript9Interface::DisplayRecyclerStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-HRESULT JScript9Interface::ClearTimeZoneCalendars()
+HRESULT JScript9Interface::ResetTimeZoneFactoryObjects()
 {
-    if (m_testHooks.pfClearTimeZoneCalendars)
+    if (m_testHooks.pfResetTimeZoneFactoryObjects)
     {
-        m_testHooks.pfClearTimeZoneCalendars();
+        m_testHooks.pfResetTimeZoneFactoryObjects();
         return S_OK;
     }
     return S_FALSE;
