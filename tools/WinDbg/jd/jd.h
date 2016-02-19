@@ -6,8 +6,10 @@
 #ifdef JD_PRIVATE
 #define ENABLE_MARK_OBJ 0
 #define ENABLE_UI_SERVER 0
+#define ENABLE_DEBUG_OUTPUT 0
 class RootPointers;
 #include <guiddef.h>
+#include "RecyclerObjectGraph.h"
 #include "RemoteRecyclableObject.h"
 #include "RemoteFunctionInfo.h"
 #include "RemoteFunctionBody.h"
@@ -105,7 +107,7 @@ public:
 // ------------------------------------------------------------------------------------------------
 #ifdef JD_PRIVATE
 public:
-    friend class HeapBlockHelper;    
+    friend class HeapBlockHelper;
     friend class RecyclerObjectGraph;
 
     template <bool slist> 
@@ -120,7 +122,11 @@ public:
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
     void Out(_In_ PCWSTR fmt, ...);
+    void Dbg(_In_ PCSTR fmt, ...);
+    void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
+
+    void DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
 
     class PropertyNameReader
     {
@@ -152,7 +158,7 @@ public:
     PCSTR GetSegmentType();
     PCSTR GetPageSegmentType();
 
-    ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);        
+    ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);
     ExtRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
     ExtRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
     ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);
@@ -162,7 +168,6 @@ public:
     std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
 
     ULONG64 GetEnumValue(const char* enumName, ULONG64 default = -1);
-
 
 #define ENUM(name)\
     ULONG64 enum_##name(){ \
@@ -174,6 +179,7 @@ public:
             return(s##name); \
         }\
     }
+
     // dynamic read HeapBlock enums
     ENUM(SmallNormalBlockType);
     ENUM(SmallLeafBlockType);
@@ -194,6 +200,11 @@ public:
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
+
+private:
+    // TODO (doilij) add check for recycler pointer used to construct this cached graph -- invalidate if different
+    RecyclerObjectGraph *cachedObjectGraph;
+
 protected:
     size_t GetBVFixedAllocSize(int length);
     void DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeField, int index);
@@ -232,12 +243,13 @@ protected:
     void PrintSimpleVarValue(ExtRemoteTyped& obj);
     std::string GetRemoteVTableName(PCSTR type);
     std::string GetTypeNameFromVTable(PCSTR vtablename);
+public: // TODO (doilij) reorganize public member (this being public is needed for CSVX)
     std::string GetTypeNameFromVTable(ULONG64 vtableAddress);
+protected:
     std::string GetTypeNameFromVTableOfObject(ULONG64 objectAddress);    
     ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
-    
     void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf);
 
     // jscript9diag
@@ -261,6 +273,21 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
+    RecyclerObjectGraph * GetOrCreateRecyclerObjectGraph(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
+    {
+        if (this->cachedObjectGraph)
+        {
+            return this->cachedObjectGraph;
+        }
+
+        Addresses *rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, threadContext);
+        ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
+        cachedObjectGraph = new RecyclerObjectGraph(this, recycler);
+        cachedObjectGraph->Construct(heapBlockMap, *rootPointerManager);
+
+        return cachedObjectGraph;
+    }
+
     void ClearCache()
     {
         this->recyclerCachedData.Clear();
@@ -270,7 +297,14 @@ protected:
             delete (*i).second;
         }
         this->vtableTypeNameMap.clear();
+
+        if (this->cachedObjectGraph != nullptr)
+        {
+            delete this->cachedObjectGraph;
+            this->cachedObjectGraph = nullptr;
+        }
     }
+
 public:
     template<typename T>
     T GetNumberValue(ExtRemoteTyped var)
@@ -374,6 +408,7 @@ public:
 #if ENABLE_MARK_OBJ
     JD_PRIVATE_COMMAND_METHOD(markobj);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(traceroots);
     JD_PRIVATE_COMMAND_METHOD(savegraph);
     JD_PRIVATE_COMMAND_METHOD(slist);
     JD_PRIVATE_COMMAND_METHOD(dlist);

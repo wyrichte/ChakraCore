@@ -42,6 +42,7 @@ class Addresses
 {
     friend class RootPointerReader;
 protected:
+    // TODO (doilij) add extra info here (pinned object flag, where you found it [what kind of root])
     stdext::hash_set<ULONG64> _addresses;
 public :
     template <typename Fn>

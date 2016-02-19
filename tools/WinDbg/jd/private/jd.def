@@ -35,6 +35,7 @@ EXPORTS
     showpinned
     markmap
 ;    markobj
+    traceroots
     savegraph
     slist
     dlist

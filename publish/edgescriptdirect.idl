@@ -227,6 +227,14 @@ typedef [v1_enum] enum ModuleHostInfoKind
     ModuleHostInfo_HostDefined = 0x02
 } ModuleHostInfoKind;
 
+typedef [v1_enum] enum ParseModuleSourceFlags
+{
+    ParseModuleSourceFlags_DataIsUTF16LE = 0x00000000,
+    ParseModuleSourceFlags_DataIsUTF8 = 0x00000001,
+    ParseModuleSourceFlags_DataIsIntermediateCode = 0x00000002,
+    ParseModuleSourceFlags_DataMax = 0x00000002
+} ParseModuleSourceFlags; 
+
 typedef void* ModuleRecord;
 
 [
@@ -1088,32 +1096,39 @@ interface IActiveScriptDirect : IUnknown
     ///                           chakra will return an existing ModuleRecord if the specifier was passed in before. 
     /// return value            : duplicated request if same input has been used before; 
     ///                           invalid arg/OOM etc. 
-    HRESULT InitializeModuleRecord([in] ModuleRecord* referencingModule, [in, size_is(specifierLength)] LPCWSTR normalizedSpecifier, [in] UINT specifierLength, [out] ModuleRecord* moduleRecord);
+    HRESULT InitializeModuleRecord([in] ModuleRecord referencingModule, [in, size_is(specifierLength)] LPCWSTR normalizedSpecifier, [in] UINT specifierLength, [out] ModuleRecord* moduleRecord);
 
     /// Parse the module source. This is basically ParseModule operation 
     /// Potentially this API can be called from a different thread.
     /// This is slightly different in that the ModuleRecord was initialized earlier, and passed in as an argument. 
     /// requestModule           : The ModuleRecord that holds the parse tree of the source code. 
+    /// punkContext             : the source context for debugger
     /// sourceContext           : debugger context, same as in the ParseScriptText call
-    /// ulStartingLineNumber    : Starting linenumber in the source text, for debugger purpose.
     /// sourceText              : The source code to be parsed, but not executed in this code. 
     /// sourceLength            : The source length of sourceText. The input could have nested null character in it.
+    /// sourceFlag              : The type of the source code passed in. It could be UNICODE or utf8, with potentially
+    ///                           bytecode cache support.
     /// return value            : If there are parse error, onError will be called to report the error back. 
-    HRESULT ParseModuleSource([in] ModuleRecord* requestModule, [in] void* sourceContext, [in] unsigned long ulStartingLineNumber,
-        [in] LPCWSTR sourceText, [in] unsigned long sourceLength, [out] Var* exceptionVar);
+    HRESULT ParseModuleSource([in] ModuleRecord requestModule, 
+        [in] IUnknown* punkContext, 
+        [in] void* sourceContext, 
+        [in, size_is(sourceLength)] byte* sourceText, 
+        [in] unsigned long sourceLength, 
+        [in] ParseModuleSourceFlags sourceFlag,
+        [out] Var* exceptionVar);
 
     /// Execute module code. Implements 15.2.1.1.6.5
     /// At this time, chakra have notify the host that the module and all its dependent are ready to be executed. 
     /// requestModule           : The module to be executed.
     /// varResult               : return value of the function. If the execution failed, it's the exception.
     /// return value            : S_OK if succeeded; unhandled execption saved in varResult if error code.
-    HRESULT ModuleEvaluation([in] ModuleRecord* requestModule, [out] Var* varResult);
+    HRESULT ModuleEvaluation([in] ModuleRecord requestModule, [out] Var* varResult);
 
     /// Set the host info for the specified module. 
-    HRESULT SetModuleHostInfo([in] ModuleRecord* requestModule, [in] ModuleHostInfoKind moduleHostState, [in] void* hostInfo);
+    HRESULT SetModuleHostInfo([in] ModuleRecord requestModule, [in] ModuleHostInfoKind moduleHostState, [in] void* hostInfo);
 
     /// Retrieve the host information for the specified module.
-    HRESULT GetModuleHostInfo([in] ModuleRecord* requestModule, [in] ModuleHostInfoKind moduleHostState, [out] void** hostInfo);
+    HRESULT GetModuleHostInfo([in] ModuleRecord requestModule, [in] ModuleHostInfoKind moduleHostState, [out] void** hostInfo);
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.
@@ -1383,7 +1398,7 @@ interface IActiveScriptDirectHost : IUnknown
     /// specifierLength         : the length of the specifier.
     /// dependentModuleRecord   : the ModuleRecord of the dependent module. If the module was requested before from other source, return the
     ///                           existing ModuleRecord, otherwise create a new ModuleRecord.
-    HRESULT FetchImportedModule([in] ModuleRecord* referencingModule, [in] LPCWSTR specifier, [in] unsigned long specifierLength,
+    HRESULT FetchImportedModule([in] ModuleRecord referencingModule, [in] LPCWSTR specifier, [in] unsigned long specifierLength,
         [out] ModuleRecord* dependentModuleRecord);
 
     /// Notify the host after ModuleDeclarationInstantiation step (15.2.1.1.6.4) is finished. If there were error in the process, exceptionVar
@@ -1391,7 +1406,7 @@ interface IActiveScriptDirectHost : IUnknown
     /// referencingModule       : the referencing module that have finished running ModuleDeclarationInstantiation step. 
     /// exceptionVar            : if nullptr, the module is successfully initialized and host should queue the execution job
     ///                           otherwise it's the exception object. 
-    HRESULT NotifyModuleReady([in] ModuleRecord* referencingModule, [in] Var exceptionVar);
+    HRESULT NotifyModuleReady([in] ModuleRecord referencingModule, [in] Var exceptionVar);
 };
 
 typedef struct tagSourceContextPair

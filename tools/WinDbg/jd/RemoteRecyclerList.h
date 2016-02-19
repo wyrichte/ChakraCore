@@ -57,7 +57,6 @@ public:
     {
         EXT_CLASS_BASE* ext = GetExtension();
 
-
         ExtRemoteTyped node(ext->FillModule(_typeString), GetDataPtr());
         return node;
     }

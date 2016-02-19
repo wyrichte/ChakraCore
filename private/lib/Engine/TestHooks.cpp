@@ -155,14 +155,14 @@ void __stdcall DisplayMemStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-void __stdcall ClearTimeZoneCalendars()
+void __stdcall ResetTimeZoneFactoryObjects()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
     if (!threadContext)
     {
         return;
     }
-    threadContext->GetWindowsGlobalizationAdapter()->ClearTimeZoneCalendars();
+    threadContext->GetWindowsGlobalizationAdapter()->ResetTimeZoneFactoryObjects();
 }
 #endif
 
@@ -458,7 +458,7 @@ HRESULT OnJScript9Loaded()
         DisplayMemStats,
         FlushOutput,
 #ifdef ENABLE_INTL_OBJECT
-        ClearTimeZoneCalendars,
+        ResetTimeZoneFactoryObjects,
 #endif
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,

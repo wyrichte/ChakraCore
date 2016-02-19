@@ -638,23 +638,75 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 }
             }
         }
-    }
-
-    if (FAILED(runInfo.hr))
-    {
-        Var errorObject = NULL;
-        runInfo.hr = activeScriptDirect->CreateErrorObject(JavascriptError, runInfo.hr, runInfo.errorMessage, &errorObject);
-        if (SUCCEEDED(runInfo.hr))
+        else  // from  module
         {
-            operations->Release();
-            activeScriptDirect->Release();
-            runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+            CComPtr<IActiveScript> activeScript;
+            runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+            if (SUCCEEDED(runInfo.hr))
+            {
+                CComPtr<IJsHostScriptSite> jsHostScriptSite;
+                Var errorObject = nullptr;
+                runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+                if (SUCCEEDED(runInfo.hr))
+                {
+                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, (byte**)&errorObject);
+                }
+                if (FAILED(runInfo.hr))
+                {
+                    runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+                }
+            }
         }
     }
 
     operations->Release();
     activeScriptDirect->Release();
 
+    return returnValue;
+}
+
+Var WScriptFastDom::LoadModule(Var function, CallInfo callInfo, Var* args)
+{
+    RunInfo runInfo;
+    CComPtr<IActiveScriptDirect> activeScriptDirect = NULL;
+    CComPtr<IJavascriptOperations> operations = NULL;
+    JsHostActiveScriptSite *scriptSite = nullptr;
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (SUCCEEDED(runInfo.hr))
+    {
+        runInfo.hr = activeScriptDirect->GetJavascriptOperations(&operations);
+    }
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
+    CComPtr<IActiveScript> activeScript;
+    Var errorObject = nullptr;
+    runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
+
+    args = &args[1];
+    Var returnValue = NULL;
+    CComPtr<IJsHostScriptSite> jsHostScriptSite;
+    runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+    if (SUCCEEDED(runInfo.hr))
+    {
+        if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo, true))
+        {
+            scriptSite = (JsHostActiveScriptSite*)(IJsHostScriptSite*)jsHostScriptSite;
+            if (scriptSite != nullptr)
+            {
+                runInfo.hr = scriptSite->LoadModule(runInfo.source, (byte**)&errorObject);
+            }
+        }
+    }
+    if (FAILED(runInfo.hr))
+    {
+        runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+    }
     return returnValue;
 }
 
@@ -1621,6 +1673,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
         // Create the LoadScript method
         hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
+        IfFailedGo(hr);
+
+        // Create the LoadScript method
+        hr = AddMethodToObject(L"LoadModule", activeScriptDirect, wscript, WScriptFastDom::LoadModule);
         IfFailedGo(hr);
 
         // Create the InitializeProjection method

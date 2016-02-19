@@ -1039,7 +1039,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         if (filename)
         {
             // Load the main script
-            hr = mainScriptSite->LoadScriptFile(filename);            
+            hr = mainScriptSite->LoadScriptFile(filename);
         }
         else if (pfNativeTestEntryPoint)
         {
@@ -1237,7 +1237,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
 #ifdef ENABLE_INTL_OBJECT
-    JScript9Interface::ClearTimeZoneCalendars();
+    JScript9Interface::ResetTimeZoneFactoryObjects();
 #endif
 
     CoUninitialize();
