@@ -226,6 +226,25 @@
     </ProjectReference>
   </ItemGroup>
 
+  <!-- Link dependencies for projects that link with Chakra libraries -->
+  <PropertyGroup>
+    <ChakraCommonLinkDependencies>
+        $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
+        $(MinCoreSdkLibPath)\mincore_fw.lib;
+        <!-- For FindAtom/AddAtom/DeleteAttom, and in non-fre build perf counters and Crypt* and IsMessageBoxWPresent dependency -->
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
+    </ChakraCommonLinkDependencies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OptimizedBuild)'!='true'">
+    <ChakraCommonLinkDependencies>
+        $(ChakraCommonLinkDependencies);
+        $(SdkLibPath)\dbghelp.lib;
+
+        <!-- For IsMessageBoxWPresent -->
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
+    </ChakraCommonLinkDependencies>
+  </PropertyGroup>
+
   <Import Condition="'$(BuildingWithBuildExe)'=='true'" Project="Chakra.Build.Razzle.props" />
   <Import Condition="'$(BuildingWithBuildExe)'!='true'" Project="Chakra.Build.Solution.props" />
 </Project>
