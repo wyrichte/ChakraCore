@@ -55,6 +55,11 @@
   </test>-->
   <test>
     <default>
+      <files>letconst_global_across_scripts_builtins_nonconfigurable.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>classes_debugging.js</files>
       <compile-flags>-ES6Classes -DebugLaunch -Targeted -InspectMaxStringLength:200</compile-flags>
       <tags>exclude_serialized</tags>
