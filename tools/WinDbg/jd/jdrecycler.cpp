@@ -2164,6 +2164,7 @@ JD_PRIVATE_COMMAND(memstats,
     ULONG64 totalReservedBytes = 0;
     ULONG64 totalCommittedBytes = 0;
     ULONG64 totalUsedBytes = 0;
+    ULONG64 totalUnusedBytes = 0;
     if (showThreadSummary || !threadContextAddress)
     {
         ExtRemoteTyped totalUsedBytes(this->FillModule("%s!totalUsedBytes"));
@@ -2173,7 +2174,7 @@ JD_PRIVATE_COMMAND(memstats,
     {
         RemotePageAllocator::DisplayDataHeader("Thread Context");
     }
-    RemoteThreadContext::ForEach([=, &numThreads, &totalReservedBytes, &totalCommittedBytes, &totalUsedBytes](RemoteThreadContext threadContext)
+    RemoteThreadContext::ForEach([=, &numThreads, &totalReservedBytes, &totalCommittedBytes, &totalUsedBytes, &totalUnusedBytes](RemoteThreadContext threadContext)
     {
         numThreads++;
 
@@ -2208,11 +2209,13 @@ JD_PRIVATE_COMMAND(memstats,
         ULONG64 reservedBytes = 0;
         ULONG64 committedBytes = 0;
         ULONG64 usedBytes = 0;
-        threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes](PCSTR name, RemotePageAllocator pageAllocator)
+        ULONG64 unusedBytes = 0;
+        threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes, &unusedBytes](PCSTR name, RemotePageAllocator pageAllocator)
         {
             reservedBytes += pageAllocator.GetReservedBytes();
             committedBytes += pageAllocator.GetCommittedBytes();
             usedBytes += pageAllocator.GetUsedBytes();
+            unusedBytes += pageAllocator.GetUnusedBytes();
 
             if (showPageAllocator)
             {
@@ -2224,6 +2227,7 @@ JD_PRIVATE_COMMAND(memstats,
         totalReservedBytes += reservedBytes;
         totalCommittedBytes += committedBytes;
         totalUsedBytes += usedBytes;
+        totalUnusedBytes += unusedBytes;
 
         if (showPageAllocator && !showThreadSummary)
         {
@@ -2232,7 +2236,7 @@ JD_PRIVATE_COMMAND(memstats,
         if (showPageAllocator || showThreadSummary)
         {
             g_Ext->Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
-            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes);
+            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes, totalUnusedBytes);
         }
 
         if (showArenaAllocator)
@@ -2297,7 +2301,7 @@ JD_PRIVATE_COMMAND(memstats,
     {
         RemotePageAllocator::DisplayDataLine();
         this->Out("Total");
-        RemotePageAllocator::DisplayData(_countof("Total") - 1, totalUsedBytes, totalReservedBytes, totalCommittedBytes);
+        RemotePageAllocator::DisplayData(_countof("Total") - 1, totalUsedBytes, totalReservedBytes, totalCommittedBytes, totalUnusedBytes);
     }
 }
 
