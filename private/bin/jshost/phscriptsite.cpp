@@ -1366,6 +1366,18 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
                 hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
                  ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
             }
+            if (FAILED(hr) && *errorObject != nullptr)
+            {
+                // This is alternative way to report error coming from ParseModuleSource. However here the call
+                // comes from an external function call, and we want to just throw back out, from the caller.
+                //IActiveScriptError* scriptError = nullptr;
+                //hr = activeScriptDirect->CreateScriptErrorFromVar(*errorObject, &scriptError);
+                //if (SUCCEEDED(hr))
+                //{
+                //    hr = OnScriptError(scriptError);
+                //    scriptError->Release();
+                //}
+            }
         }
     }
     return hr;
@@ -1610,7 +1622,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorOb
 {
     HRESULT hr = S_OK;
 
-    IJsHostScriptSite * scriptSite = NULL;
+    CComPtr<IJsHostScriptSite> scriptSite = NULL;
     hr = git->GetInterfaceFromGlobal(jsHostScriptSiteCookie, IID_IJsHostScriptSite, (void**)&scriptSite);
     if (SUCCEEDED(hr))
     {
@@ -1622,8 +1634,6 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorOb
         {
             hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
         }
-
-        scriptSite->Release();
     }
 
     return hr;
@@ -2220,13 +2230,23 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
+    Var result;
     if (SUCCEEDED(hr))
     {
         // TODO: promise/enqueue
-        hr = activeScriptDirect->ModuleEvaluation(referencingModule, &exceptionVar);
-        if (FAILED(hr))
+        if (exceptionVar != nullptr)
         {
-            // TODO: OnScriptError style error reporting??
+            IActiveScriptError* scriptError = nullptr;
+            hr = activeScriptDirect->CreateScriptErrorFromVar(exceptionVar, &scriptError);
+            if (SUCCEEDED(hr))
+            {
+                OnScriptError(scriptError);
+                scriptError->Release();
+            }
+        }
+        else
+        {
+            hr = activeScriptDirect->ModuleEvaluation(referencingModule, &result);
         }
     }
 

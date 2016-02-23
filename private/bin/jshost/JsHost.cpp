@@ -1208,6 +1208,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     ret = ExecuteTests(argc, argv, DoOneIASIteration);
 
     UnregisterPSObject(classFactoryCookie);
+    git->Release();
 
     // Force one final GC before we CoUninitialize
     JScript9Interface::FinalGC();
