@@ -14,10 +14,11 @@ public:
     ULONG64 GetUsedBytes();
     ULONG64 GetReservedBytes();
     ULONG64 GetCommittedBytes();
+    ULONG64 GetUnusedBytes();
 
     static void DisplayDataHeader(PCSTR name);
     static void DisplayDataLine();
-    static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed);
+    static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed, ULONG64 unused);
     void DisplayData(PCSTR name, bool showZeroEntries);
     template <typename Fn>
     void ForEachSegment(Fn fn)
@@ -46,6 +47,7 @@ private:
     void ComputeReservedAndCommittedBytes();
     
     ExtRemoteTyped pageAllocator;
+    Nullable<ULONG64> freedBytes;
     Nullable<ULONG64> reservedBytes;
     Nullable<ULONG64> committedBytes;
 };

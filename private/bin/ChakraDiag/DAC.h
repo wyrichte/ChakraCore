@@ -667,6 +667,7 @@ namespace JsDiag
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
+        CustomHeap::CodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::CodePageAllocators>(offsetof(TargetType, codePageAllocators));}
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
@@ -920,12 +921,17 @@ namespace JsDiag
         static void GetSegmentOffsets(size_t* segments, size_t* fullSegments, size_t* decommitSegments, size_t* largeSegments);
     };
 
+    struct RemoteCodePageAllocators : public RemoteData<CustomHeap::CodePageAllocators>
+    {
+        RemoteCodePageAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        HeapPageAllocator<VirtualAllocWrapper> * GetHeapPageAllocator();
+    };
     struct RemoteCodeGenAllocators : public RemoteData<CodeGenAllocators>
     {
         RemoteCodeGenAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
         EmitBufferManager<CriticalSection>* GetEmitBufferManager();
-        bool IsInRange(void* address);
     };
 
     struct RemoteDebugContext : public RemoteData<DebugContext>
@@ -964,10 +970,6 @@ namespace JsDiag
             }
             return false;
         }
-    private:
-        bool IsNativeAddressCheckMeOnly(void* address);    // Check only current script context.
-        bool IsNativeAddressCheckThreadContext(void* address);
-        bool IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address);
     };
 
     struct RemoteProbeContainer: public RemoteData<ProbeContainer>

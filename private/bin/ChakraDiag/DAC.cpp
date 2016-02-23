@@ -762,11 +762,6 @@ namespace JsDiag
         return this->GetFieldAddr<CustomHeap::Heap>(offsetof(EmitBufferManager<CriticalSection>, allocationHeap));
     }
 
-    HeapPageAllocator<VirtualAllocWrapper>* RemoteHeap::GetHeapPageAllocator()
-    {
-        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::Heap, pageAllocator));
-    }
-
     bool RemoteSegment::IsInSegment(void* addr)
     {
         void* start = this->ToTargetPtr()->address;
@@ -805,7 +800,9 @@ namespace JsDiag
 
     HeapPageAllocator<PreReservedVirtualAllocWrapper>* RemoteHeap::GetPreReservedHeapPageAllocator()
     {
-        return this->GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::Heap, preReservedHeapPageAllocator));
+        CustomHeap::CodePageAllocators * codePageAllocators = this->ReadField<CustomHeap::CodePageAllocators *>(offsetof(CustomHeap::Heap, codePageAllocators));
+        RemoteData<CustomHeap::CodePageAllocators> remoteCodePageAllocators(this->m_reader, codePageAllocators);
+        return remoteCodePageAllocators.GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, preReservedHeapPageAllocator));
     }
 
     bool RemoteHeapPageAllocator::IsAddressFromAllocator(void* address)
@@ -895,13 +892,9 @@ namespace JsDiag
         return (address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress());
     }
 
-    bool RemoteCodeGenAllocators::IsInRange(void* address)
+    HeapPageAllocator<VirtualAllocWrapper> * RemoteCodePageAllocators::GetHeapPageAllocator()
     {
-        RemoteEmitBufferManager emitBufferManager(m_reader, this->GetEmitBufferManager());
-        RemoteHeap heap(m_reader, emitBufferManager.GetAllocationHeap());
-        RemoteHeapPageAllocator heapPageAllocator(m_reader, heap.GetHeapPageAllocator());
-        RemotePreReservedHeapPageAllocator preReservedHeapPageAllocator(m_reader, (HeapPageAllocator<PreReservedVirtualAllocWrapper>*)heap.GetPreReservedHeapPageAllocator());
-        return preReservedHeapPageAllocator.IsInRange(address) || heapPageAllocator.IsAddressFromAllocator(address);
+        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, pageAllocator));
     }
 
     // Check current script context and all contexts from its thread context.
@@ -925,72 +918,10 @@ namespace JsDiag
             }
         }
 
-        // ScriptContext::IsNativeAddress():
-        //     return IsNativeFunctionAddr(this, codeAddr) || this->threadContext->IsNativeAddress(codeAddr);
-        // 1) return scriptContext->GetNativeCodeGenerator()->IsNativeFunctionAddr(address);
-        //     NativeCodeGenerator::IsNativeFunctionAddr(void * address):
-        //         this->backgroundAllocators && this->backgroundAllocators->emitBufferManager.IsInRange(address) ||
-        //         this->foregroundAllocators && this->foregroundAllocators->emitBufferManager.IsInRange(address);
-        // 2) ThreadContext -- scan all scriptContexts in the list and ask them IsNativeCodeAddress.
+        RemoteCodePageAllocators codePageAllocators(this->m_reader, threadContext.GetCodePageAllocators());
+        RemoteHeapPageAllocator heapPageAllocator(this->m_reader, codePageAllocators.GetHeapPageAllocator());
 
-        // Get nativeCodeGen of ScriptContext (that being nullptr is a valid case).
-        if (this->IsNativeAddressCheckMeOnly(address))
-        {
-            return true;
-        }
-
-        // Now see in the thread context.
-        return this->IsNativeAddressCheckThreadContext(address);
-    }
-
-    // Check only current script context.
-    bool RemoteScriptContext::IsNativeAddressCheckMeOnly(void* address)
-    {
-        NativeCodeGenerator* nativeCodeGenAddr = this->ToTargetPtr()->nativeCodeGen;
-        if (nativeCodeGenAddr)
-        {
-            RemoteNativeCodeGenerator nativeCodeGen(m_reader, nativeCodeGenAddr);
-            if (this->IsNativeAddress(nativeCodeGen->backgroundAllocators, address) ||
-                this->IsNativeAddress(nativeCodeGen->foregroundAllocators, address))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool RemoteScriptContext::IsNativeAddressCheckThreadContext(void* address)
-    {
-        RemoteThreadContext threadContext(m_reader, this->ToTargetPtr()->threadContext);
-        ScriptContext* scriptContextAddr = threadContext.GetScriptContextList();
-        while (scriptContextAddr)
-        {
-            RemoteScriptContext scriptContext(m_reader, scriptContextAddr);
-            if (scriptContextAddr != m_remoteAddr)    // Prevent re-entrance.
-            {
-                if (scriptContext.IsNativeAddressCheckMeOnly(address))
-                {
-                    return true;
-                }
-            }
-            scriptContextAddr = scriptContext->next;
-        }
-
-        return false;
-    }
-
-
-    bool RemoteScriptContext::IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address)
-    {
-        if (codeGenAllocatorsAddr)
-        {
-            RemoteCodeGenAllocators codeGenAllocators(m_reader, codeGenAllocatorsAddr);
-            if (codeGenAllocators.IsInRange(address))
-            {
-                return true;
-            }
-        }
-        return false;
+        return heapPageAllocator.IsAddressFromAllocator(address);       
     }
 
     JavascriptLibrary* RemoteScriptContext::GetLibrary() const
