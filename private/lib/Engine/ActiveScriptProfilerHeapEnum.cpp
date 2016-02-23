@@ -128,6 +128,7 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_HostObject, HeapObjectType_HostObject},
     { Js::TypeIds_ActivationObject, HeapObjectType_Scope},
     { Js::TypeIds_SpreadArgument, HeapObjectType_ObjectObject },
+    { Js::TypeIds_ModuleNamespace, HeapObjectType_ObjectObject },
 };
 
 #if DBG
