@@ -271,7 +271,6 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: compare, Line: 170, Column: 19, Character Position: 6496
 [FunctionCompiled]: Function: get isCompatVersion9, Line: 48, Column: 13, Character Position: 2336
 [FunctionCompiled]: Function: get isVersion10OrLater, Line: 51, Column: 13, Character Position: 2447
-[FunctionCompiled]: Function: getDummyObject, Line: 56, Column: 25, Character Position: 2649
 [FunctionCompiled]: Function: handler.trapApply, Line: 240, Column: 33, Character Position: 9496
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 298, Column: 37, Character Position: 11906
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 342, Column: 37, Character Position: 13798
@@ -296,7 +295,6 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: observeHandler.ownKeys, Line: 156, Column: 26, Character Position: 4276
 [FunctionCompiled]: Function: observeHandler.preventExtensions, Line: 76, Column: 36, Character Position: 1913
 [FunctionCompiled]: Function: observeHandler.set, Line: 103, Column: 22, Character Position: 2775
-[FunctionCompiled]: Function: printObject, Line: 79, Column: 22, Character Position: 3367
 [FunctionCompiled]: Function: reflectHandler.apply, Line: 303, Column: 24, Character Position: 8574
 [FunctionCompiled]: Function: reflectHandler.construct, Line: 312, Column: 28, Character Position: 8844
 [FunctionCompiled]: Function: reflectHandler.defineProperty, Line: 249, Column: 33, Character Position: 6918
@@ -310,7 +308,6 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 240, Column: 36, Character Position: 6649
 [FunctionCompiled]: Function: reflectHandler.set, Line: 267, Column: 22, Character Position: 7557
 [FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
-[FunctionCompiled]: Function: run, Line: 120, Column: 14, Character Position: 4933
 [FunctionCompiled]: Function: runTest, Line: 124, Column: 18, Character Position: 5036
 [FunctionCompiled]: Function: runTestPass, Line: 351, Column: 1, Character Position: 14093
 [FunctionCompiled]: Function: runTestPasses, Line: 357, Column: 1, Character Position: 14214
