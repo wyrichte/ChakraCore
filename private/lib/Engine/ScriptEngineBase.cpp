@@ -103,7 +103,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
         binaryVerificationData->javascriptLibraryBaseSize != sizeof(Js::JavascriptLibraryBase) ||
         binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
         binaryVerificationData->customExternalObjectSize != sizeof(Js::CustomExternalObject) ||
-        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset() ||
+        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType() ||
         binaryVerificationData->typeIdOffset != (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
         binaryVerificationData->taggedIntSize != sizeof(Js::TaggedInt) ||
         binaryVerificationData->typeIdLimit != TypeIds_Limit ||
@@ -120,7 +120,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
             (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)), binaryVerificationData->scriptEngineBaseOffset,
             (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase(), binaryVerificationData->scriptContextBaseOffset,
             (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase(), binaryVerificationData->javascriptLibraryBaseOffset,
-            (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset(), binaryVerificationData->typeOffset,
+            (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType(), binaryVerificationData->typeOffset,
             (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset(), binaryVerificationData->typeIdOffset,
             sizeof(Js::TaggedInt), binaryVerificationData->taggedIntSize,
             sizeof(Js::JavascriptNumber), binaryVerificationData->javascriptNumberSize,
