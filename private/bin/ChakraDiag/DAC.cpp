@@ -93,6 +93,17 @@ namespace JsDiag
     template struct RemoteRecyclableObjectBase<DynamicObject>;
     template struct RemoteRecyclableObjectBase<JavascriptVariantDate>;
 
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDInt32x4>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDFloat32x4>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDInt8x16>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDInt16x8>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDBool32x4>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDBool8x16>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDBool16x8>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDUint32x4>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDUint8x16>;
+    template struct RemoteRecyclableObjectBase<Js::JavascriptSIMDUint16x8>;
+
     RemoteJavascriptLibrary::RemoteJavascriptLibrary(IVirtualReader* reader, const ScriptContext* scriptContext):
         RemoteData(reader, RemoteScriptContext(reader, scriptContext)->GetLibrary())
     {

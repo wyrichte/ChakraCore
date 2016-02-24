@@ -1990,4 +1990,240 @@ namespace JsDiag
         }
     };
 
+    //
+    // SIMD walker
+    //
+    template <class simdT, const uint elementCount, Js::TypeId tid>
+    class ATL_NO_VTABLE SIMDWalker :
+        public PropertyWalker<simdT>
+    {
+    protected:
+        CComPtr<IJsDebugPropertyInternal> m_property[elementCount];
+
+    public:
+        void Init(InspectionContext* context, Js::Var simd);
+        IJsDebugPropertyInternal* GetPropertyByIndex(int index) { return m_property[index]; }
+
+        uint GetCount() const { return elementCount; }
+        bool GetNextProperty(uint index, _Out_ IJsDebugPropertyInternal **ppDebugProperty)
+        {
+            if (index < elementCount)
+            {
+                *ppDebugProperty = GetPropertyByIndex(index);
+                (*ppDebugProperty)->AddRef();
+                return true;
+            }
+            return false;
+        }
+    };
+
+    //
+    // Concrete JavascriptSimdFloat32x4Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdFloat32x4Walker : 
+        public SIMDWalker<JavascriptSimdFloat32x4Walker, 4, Js::TypeIds_SIMDFloat32x4>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdInt32x4Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt32x4Walker :
+        public SIMDWalker<JavascriptSimdInt32x4Walker, 4, Js::TypeIds_SIMDInt32x4>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdInt8x16Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt8x16Walker :
+        public SIMDWalker<JavascriptSimdInt8x16Walker, 16, Js::TypeIds_SIMDInt8x16>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdInt16x8Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt16x8Walker :
+        public SIMDWalker<JavascriptSimdInt16x8Walker, 8, Js::TypeIds_SIMDInt16x8>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdBool32x4Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool32x4Walker :
+        public SIMDWalker<JavascriptSimdBool32x4Walker, 4, Js::TypeIds_SIMDBool32x4>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdBool8x16Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool8x16Walker :
+        public SIMDWalker<JavascriptSimdBool8x16Walker, 16, Js::TypeIds_SIMDBool8x16>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdBool16x8Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool16x8Walker :
+        public SIMDWalker<JavascriptSimdBool16x8Walker, 8, Js::TypeIds_SIMDBool16x8>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdUint32x4Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint32x4Walker :
+        public SIMDWalker<JavascriptSimdUint32x4Walker, 4, Js::TypeIds_SIMDUint32x4>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdUint8x16Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint8x16Walker :
+        public SIMDWalker<JavascriptSimdUint8x16Walker, 16, Js::TypeIds_SIMDUint8x16>
+    {
+    };
+
+    //
+    // Concrete JavascriptSimdUint16x8Walker
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint16x8Walker :
+        public SIMDWalker<JavascriptSimdUint16x8Walker, 8, Js::TypeIds_SIMDUint16x8>
+    {
+    };
+
+    //
+    // SIMD property
+    //
+    template <class T, typename Walker, typename simdType, typename remoteSimd>
+    class ATL_NO_VTABLE SIMDProperty :
+        public VariableProperty<T>
+    {
+    protected:
+        SIMDValue m_value;
+        CComPtr<Walker> m_walker;
+
+    public:
+        void Init(InspectionContext* context, const PROPERTY_INFO& info, _In_opt_ IJsDebugPropertyInternal* parent);
+
+        bool HasChildren() { return true; }
+        DWORD GetAttribute() { return JS_PROPERTY_FAKE | JS_PROPERTY_READONLY; }
+
+        bool_result TryGetEnumerator(_Outptr_ IJsEnumDebugProperty **ppEnum)
+        {
+            m_walker->CreateEnumerator(ppEnum);
+            return true;
+        }
+
+        SIMDValue GetValue() const { return m_value; }
+
+        void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
+    };
+
+    //
+    // Concrete JavascriptSimdInt32x4Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt32x4Property :
+        public SIMDProperty<JavascriptSimdInt32x4Property, JavascriptSimdInt32x4Walker, Js::JavascriptSIMDInt32x4, RemoteJavascriptSimdInt32x4>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Int32x4"; }
+    };
+
+    //
+    // Concrete JavascriptSimdFloat32x4Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdFloat32x4Property :
+        public SIMDProperty<JavascriptSimdFloat32x4Property, JavascriptSimdFloat32x4Walker, Js::JavascriptSIMDFloat32x4, RemoteJavascriptSimdFloat32x4>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Float32x4"; }
+        void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
+    };
+
+    //
+    // Concrete JavascriptSimdInt8x16Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt8x16Property :
+        public SIMDProperty<JavascriptSimdInt8x16Property, JavascriptSimdInt8x16Walker, Js::JavascriptSIMDInt8x16, RemoteJavascriptSimdInt8x16>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Int8x16"; }
+    };
+
+    //
+    // Concrete JavascriptSimdInt16x8Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdInt16x8Property :
+        public SIMDProperty<JavascriptSimdInt16x8Property, JavascriptSimdInt16x8Walker, Js::JavascriptSIMDInt16x8, RemoteJavascriptSimdInt16x8>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Int16x8"; }
+    };
+
+    //
+    // Concrete JavascriptSimdBool32x4Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool32x4Property :
+        public SIMDProperty<JavascriptSimdBool32x4Property, JavascriptSimdBool32x4Walker, Js::JavascriptSIMDBool32x4, RemoteJavascriptSimdBool32x4>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Bool32x4"; }
+    };
+
+    //
+    // Concrete JavascriptSimdBool8x16Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool8x16Property :
+        public SIMDProperty<JavascriptSimdBool8x16Property, JavascriptSimdBool8x16Walker, Js::JavascriptSIMDBool8x16, RemoteJavascriptSimdBool8x16>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Bool8x16"; }
+    };
+
+    //
+    // Concrete JavascriptSimdBool16x8Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdBool16x8Property :
+        public SIMDProperty<JavascriptSimdBool16x8Property, JavascriptSimdBool16x8Walker, Js::JavascriptSIMDBool16x8, RemoteJavascriptSimdBool16x8>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Bool16x8"; }
+    };
+
+    //
+    // Concrete JavascriptSimdUint32x4Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint32x4Property :
+        public SIMDProperty<JavascriptSimdUint32x4Property, JavascriptSimdUint32x4Walker, Js::JavascriptSIMDUint32x4, RemoteJavascriptSimdUint32x4>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Uint32x4"; }
+    };
+
+    //
+    // Concrete JavascriptSimdUint8x16Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint8x16Property :
+        public SIMDProperty<JavascriptSimdUint8x16Property, JavascriptSimdUint8x16Walker, Js::JavascriptSIMDUint8x16, RemoteJavascriptSimdUint8x16>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Uint8x16"; }
+    };
+
+    //
+    // Concrete JavascriptSimdUint16x8Property
+    //
+    class ATL_NO_VTABLE JavascriptSimdUint16x8Property :
+        public SIMDProperty<JavascriptSimdUint16x8Property, JavascriptSimdUint16x8Walker, Js::JavascriptSIMDUint16x8, RemoteJavascriptSimdUint16x8>
+    {
+    public:
+        LPCWSTR GetType() const { return L"SIMD.Uint16x8"; }
+    };
+
 } // namespace JsDiag.

@@ -380,6 +380,149 @@ namespace JsDiag
         NumberProperty::GetValueBSTR(value, nRadix, pValue);
     }
 
+    // SIMD walker initialization
+    template <class T, const uint elementCount, Js::TypeId tid>
+    void SIMDWalker<T, elementCount, tid>::Init(InspectionContext* context, Js::Var simd)
+    {
+        SIMDValue sValue = *(static_cast<SIMDValue*>(simd));
+
+        CString valueString;
+        wchar_t stringBuffer[SIMD_INDEX_VALUE_MAX];
+        Assert(elementCount == 4 || elementCount == 8 || elementCount == 16);
+        for (uint i = 0; i < elementCount; i++)
+        {
+            swprintf_s(stringBuffer, SIMD_INDEX_VALUE_MAX, L"[%d]", i);
+            valueString.Empty();
+            valueString.Append(stringBuffer);
+            
+            if (tid == Js::TypeIds_SIMDFloat32x4)
+            {
+                PROPERTY_INFO value(valueString, sValue.f32[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDInt32x4)
+            {
+                PROPERTY_INFO value(valueString, sValue.i32[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDInt8x16)
+            {
+                PROPERTY_INFO value(valueString, sValue.i8[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDInt16x8)
+            {
+                PROPERTY_INFO value(valueString, sValue.i16[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDBool32x4)
+            {
+                PROPERTY_INFO value(valueString, (sValue.i32[i]) ? true : false);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDBool8x16)
+            {
+                PROPERTY_INFO value(valueString, (sValue.i8[i]) ? true : false);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDBool16x8)
+            {
+                PROPERTY_INFO value(valueString, (sValue.i16[i]) ? true : false);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDUint32x4)
+            {
+                PROPERTY_INFO value(valueString, sValue.u32[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDUint8x16)
+            {
+                PROPERTY_INFO value(valueString, sValue.u8[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else if (tid == Js::TypeIds_SIMDUint16x8)
+            {
+                PROPERTY_INFO value(valueString, sValue.u16[i]);
+                context->CreateDebugProperty(value, nullptr, &m_property[i]);
+            }
+            else
+            {
+                AssertMsg(false, "Unexpected SIMD typeId");
+            }
+
+        }
+    }
+
+    // SIMD property initialization
+    template <class T, typename Walker, typename simdType, typename remoteSimd>
+    void SIMDProperty<T, Walker, simdType, remoteSimd>::Init(InspectionContext* context, const PROPERTY_INFO& info, _In_opt_ IJsDebugPropertyInternal* parent)
+    {
+        auto reader = context->GetReader();
+        Assert(info.HasData());
+
+        remoteSimd rSimd(reader, reinterpret_cast<simdType*>(info.data));
+
+        m_value = rSimd->GetValue();
+        CreateComObject(context, &m_value, &m_walker);
+
+        __super::Init(context, info, parent);
+    }
+
+    // SIMD property GetValueBSTR, get string buffer from simd value
+    template <class T, typename Walker, typename simdType, typename remoteSimd>
+    void SIMDProperty<T, Walker, simdType, remoteSimd>::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
+    {
+        CString valueString;
+
+        wchar_t stringBuffer[SIMD_STRING_BUFFER_MAX];
+        simdType::ToStringBuffer(m_value, stringBuffer, SIMD_STRING_BUFFER_MAX);
+
+        valueString.Append(stringBuffer);
+
+        *pValue = valueString.AllocSysString();
+
+        if (*pValue == nullptr)
+        {
+            DiagException::ThrowOOM();
+        }
+    }
+
+
+    // Note SimdFloat32x4Property GetValueBSTR is different from rest of SIMD types since 
+    // JavaScriptSimdFloat32x4::ToStringBuffer needs pass in ScriptContext, which
+    // is not available from ChakraDiag, so we use NumberProperty::GetValueBSTR to 
+    // achieve the same result. 
+    void JavascriptSimdFloat32x4Property::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
+    {
+        CString valueString;
+        CComBSTR bstr0, bstr1, bstr2, bstr3;
+
+        valueString.Append(L"SIMD.Float32x4(");
+
+        NumberProperty::GetValueBSTR((double)m_value.f32[0], nRadix, &bstr0);
+        valueString.Append(bstr0, ::SysStringLen(bstr0));
+        valueString.Append(L", ");
+
+        NumberProperty::GetValueBSTR((double)m_value.f32[1], nRadix, &bstr1);
+        valueString.Append(bstr1, ::SysStringLen(bstr1));
+        valueString.Append(L", ");
+
+        NumberProperty::GetValueBSTR((double)m_value.f32[2], nRadix, &bstr2);
+        valueString.Append(bstr2, ::SysStringLen(bstr2));
+        valueString.Append(L", ");
+
+        NumberProperty::GetValueBSTR((double)m_value.f32[3], nRadix, &bstr3);
+        valueString.Append(bstr3, ::SysStringLen(bstr3));
+        valueString.Append(L")");
+
+        *pValue = valueString.AllocSysString();
+
+        if (*pValue == nullptr)
+        {
+            DiagException::ThrowOOM();
+        }
+    }
+
     void JavascriptPointerProperty::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
     {
         WCHAR valueString[70]; // Max is size 64 for base 2, and 1 for NULL, and 2 more prefix
@@ -2291,6 +2434,46 @@ namespace JsDiag
 
         case Js::TypeIds_Promise:
             CreateComObject<JavascriptPromiseProperty>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDInt32x4:
+            CreateComObject<JavascriptSimdInt32x4Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDFloat32x4:
+            CreateComObject<JavascriptSimdFloat32x4Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDInt8x16:
+            CreateComObject<JavascriptSimdInt8x16Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDInt16x8:
+            CreateComObject<JavascriptSimdInt16x8Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDBool32x4:
+            CreateComObject<JavascriptSimdBool32x4Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDBool8x16:
+            CreateComObject<JavascriptSimdBool8x16Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDBool16x8:
+            CreateComObject<JavascriptSimdBool16x8Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDUint32x4:
+            CreateComObject<JavascriptSimdUint32x4Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDUint8x16:
+            CreateComObject<JavascriptSimdUint8x16Property>(this, info, parent, ppDebugProperty);
+            return;
+
+        case Js::TypeIds_SIMDUint16x8:
+            CreateComObject<JavascriptSimdUint16x8Property>(this, info, parent, ppDebugProperty);
             return;
 
         case Js::TypeIds_CopyOnAccessNativeIntArray:
