@@ -1,3 +1,9 @@
+BailOut: function: InitializeCollator ( (#-1.36), #39) offset: #011d Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: Anonymous function ( (#-1.43), #25) offset: #019f Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeNumberFormat ( (#-1.44), #46) offset: #00ff Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: Anonymous function ( (#-1.51), #26) offset: #029e Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeDateTimeFormat ( (#-1.59), #59) offset: #00d4 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: EcmaOptionsToWindowsTemplate ( (#-1.53), #54) offset: #0376 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 In global function: Before outer...Jit: true
 BailOut: function: outer ( (#1.3), #72) offset: #0000 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStep
 In outer

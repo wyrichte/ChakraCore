@@ -454,7 +454,10 @@ namespace Js
         {
             srcInfo = scriptContext->GetModuleSrcInfo(kmodGlobal);
         }
-        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo);
+
+        AssertMsg(!((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode), "Editing library code?");
+
+        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo, ((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode));
         sourceInfo->SetParseFlags(parseFlags);
         sourceInfo->SetByteCodeGenerationFlags(byteCodeGenerationFlags);
         Parse(alloc, sourceInfo);
