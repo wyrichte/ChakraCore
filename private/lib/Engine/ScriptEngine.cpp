@@ -350,12 +350,12 @@ ScriptEngine::EnsureScriptContext()
             newScriptContext->ForceNoNative();
         }
 
-        newScriptContext->GetDebugContext()->SetInDebugMode();
+        newScriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::Debugging);
     }
     else if (this->CanRegisterDebugSources())
     {
         // We're in source rundown mode.
-        newScriptContext->GetDebugContext()->SetInSourceRundownMode();
+        newScriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
     }
 
     // Initialize with WebWorker State
@@ -1679,7 +1679,7 @@ HRESULT ScriptEngine::NonDbgGetSourceDocumentFromHostContext(
 {
     AssertMem(ppdoc);
     Assert(pFunctionBody != nullptr);
-    Assert(!pFunctionBody->GetScriptContext()->IsInDebugMode() || pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode());
+    Assert(!pFunctionBody->GetScriptContext()->IsScriptContextInDebugMode() || pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode());
 
     Assert(pFunctionBody->IsDynamicScript() || pFunctionBody->GetSecondaryHostSourceContext() == Js::Constants::NoHostSourceContext);
 
@@ -1779,7 +1779,7 @@ HRESULT ScriptEngine::GetDebugDocumentContextFromHostPosition(
     IDebugDocumentContext       **ppDebugDocumentContext)
 {
     // The library code should not be register to the PDM, as they will not be shown to the user.
-    if (pContext->IsInDebugOrSourceRundownMode() && !pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode())
+    if (pContext->IsScriptContextInSourceRundownOrDebugMode() && !pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode())
     {
         Js::Utf8SourceInfo *pUtf8SourceInfo = pFunctionBody->GetUtf8SourceInfo();
         ScriptDebugDocument *pDebugDocument = nullptr;
@@ -2054,7 +2054,7 @@ STDMETHODIMP ScriptEngine::OnBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugAppl
 
             if (GetScriptSiteHolder()->GetScriptSiteContext() != nullptr && !GetScriptSiteHolder()->IsClosed())
             {
-                if (!GetScriptSiteHolder()->GetScriptSiteContext()->IsInDebugMode())
+                if (!GetScriptSiteHolder()->GetScriptSiteContext()->IsScriptContextInDebugMode())
                 {
                     AssertMsg(false, "Why do we get this event when we are not in debug mode?");
                     return E_UNEXPECTED;
@@ -2184,7 +2184,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
         return E_FAIL;
     }
 
-    if (this->scriptContext->IsInDebugMode())
+    if (this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the non-debug mode to perform dynamic attach, o/w we assume that we have done the attach for this engine already.
         OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerAttached already in the debug mode\n");
@@ -2223,7 +2223,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
         return E_FAIL;
     }
 
-    if (!this->scriptContext->IsInDebugMode())
+    if (!this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the debug mode to perform dynamic detach, o/w we assume that we have done the detach for this engine already.
         OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerDetached already in the non-debug mode\n");
@@ -2274,10 +2274,9 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
         return E_FAIL;
     }
 
-    if (!this->scriptContext->IsInNonDebugMode())
+    if (this->scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         // We should be in the non-debug mode to perform source rundown, o/w we assume that we have done the rundown for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::PerformSourceRundown already in the %s mode\n", this->scriptContext->IsInSourceRundownMode() ? L"SourceRundown" : L"Debug");
         return S_OK;
     }
 
@@ -2291,7 +2290,7 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
     }
 
     // Move the debugger into source rundown mode.
-    scriptContext->GetDebugContext()->SetInSourceRundownMode();
+    scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
 
     // Save the pairCount and pSourceContextPairs so that scriptContext can query for dwDebugHostSourceContext
     AutoRestoreValue<ULONG> sourceContextPairCount(&this->pairCount, pairCount);
@@ -2345,7 +2344,7 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
         return E_FAIL;
     }
 
-    if (scriptContext->IsInNonDebugMode())
+    if (scriptContext->IsScriptContextInNonDebugMode())
     {
         return E_UNEXPECTED;
     }
@@ -2636,7 +2635,7 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
             scriptContext->InitializeDebugging();
 
             //Utf8SourceInfo is not part of scriptContext by this point, need to manually put it into debug mode if it's not
-            if (utf8SourceInfo && !utf8SourceInfo->IsInDebugMode())
+            if (utf8SourceInfo && !utf8SourceInfo->GetIsLibraryCode() && !utf8SourceInfo->IsInDebugMode())
             {
                 utf8SourceInfo->SetInDebugMode(true);
             }
@@ -2645,7 +2644,7 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
         }
         else if (this->CanRegisterDebugSources())
         {
-            this->scriptContext->GetDebugContext()->SetInSourceRundownMode();
+            this->scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
         }
         m_isFirstSourceCompile = FALSE;
 
@@ -2778,14 +2777,14 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
 
     if (IsDebuggerEnvironmentAvailable(/*requery*/true))
     {
-        if (scriptContext->IsInDebugMode() && (!Js::Configuration::Global.EnableJitInDebugMode()))
+        if (scriptContext->IsScriptContextInDebugMode() && (!Js::Configuration::Global.EnableJitInDebugMode()))
         {
             scriptContext->ForceNoNative();
         }
         scriptContext->InitializeDebugging();
     }
 
-    if (scriptContext->IsInDebugOrSourceRundownMode())
+    if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         // Register all script blocks
         DisableInterrupts();
@@ -3227,7 +3226,7 @@ HRESULT ScriptEngine::CloseInternal()
 
 STDMETHODIMP ScriptEngine::Close(void)
 {
-    if (this->scriptContext != nullptr && this->scriptContext->IsInDebugMode())
+    if (this->scriptContext != nullptr && this->scriptContext->IsScriptContextInDebugMode())
     {
         // Lock since enumeration of code contexts (via ScriptEngine::EnumCodeContextsOfPosition()) occurs
         // on a different thread and we don't want enumeration to proceed as the engine is being closed.
@@ -5592,11 +5591,7 @@ HRESULT ScriptEngine::CompileUTF16(
     // Don't need to handle OOM here since this is currently always called from a try-catch block
 
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
-    sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo);
-    if ((grfscr & fscrIsLibraryCode) != 0)
-    {
-        sourceInfo->SetIsLibraryCode();
-    }
+    sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo, ((grfscr & fscrIsLibraryCode) != 0));
 
     Assert(utf8::CharsAreEqual(pszSrc, pchUtf8Code, stringLength, utf8::doAllowThreeByteSurrogates));
 
@@ -5643,11 +5638,8 @@ HRESULT ScriptEngine::CompileUTF8(
     // Currently always called from a try-catch
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
 
-    sourceInfo = Js::Utf8SourceInfo::NewWithNoCopy(scriptContext, (LPUTF8) pSrc, stringLength, stringLength, srcInfo);
-    if ((grfscr & fscrIsLibraryCode) != 0)
-    {
-        sourceInfo->SetIsLibraryCode();
-    }
+    sourceInfo = Js::Utf8SourceInfo::NewWithNoCopy(scriptContext, (LPUTF8) pSrc, stringLength, stringLength, srcInfo, ((grfscr & fscrIsLibraryCode) != 0));
+
     SETRETVAL(ppSourceInfo, sourceInfo);
 
     hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
@@ -5713,7 +5705,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     functionInfo = functionInfo->GetFunctionProxy()->GetParseableFunctionInfo();
 
                     CScriptBody *newBody = HeapNew(CScriptBody, functionInfo, this, utf8SourceInfo);
-                    Assert(!scriptContext->IsInDebugOrSourceRundownMode());
+                    Assert(scriptContext->IsScriptContextInNonDebugMode());
 
                     scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, ppbody);
                     (*ppbody)->Release();                   
@@ -5773,16 +5765,10 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 hr = GenerateByteCode(parseTree, grfscr, scriptContext, &func, sourceIndex, scriptContext->IsForceNoNative(), &ps, pse);
                 utf8SourceInfo->SetByteCodeGenerationFlags(grfscr);
             }
-            else
+            else if (scriptContext->IsScriptContextInDebugMode() && !utf8SourceInfo->GetIsLibraryCode() && !utf8SourceInfo->IsInDebugMode())
             {
                 // In case of syntax error, if we are in debug mode, put the utf8SourceInfo into debug mode.
-                if (scriptContext->IsInDebugMode())
-                {
-                    if (!utf8SourceInfo->IsInDebugMode())
-                    {
-                        utf8SourceInfo->SetInDebugMode(true);
-                    }
-                }
+                utf8SourceInfo->SetInDebugMode(true);
             }
         }
 
@@ -5795,7 +5781,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 if (SUCCEEDED(HR(pse->ei.scode)))
                     pse->ei.scode = E_FAIL;
             }
-            if (scriptContext->IsInDebugOrSourceRundownMode())
+            if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
             {
                 // Register the document with PDM to ensure critical errors like syntax errors are correctly reported
                 // in the debugger
@@ -5877,7 +5863,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     *ppbody = HeapNew(CScriptBody, pRootFunc, this, utf8SourceInfo);
 
     // Register it.
-    if (scriptContext->IsInDebugOrSourceRundownMode())
+    if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         if (FAILED(hr = DbgRegisterScriptBlock(*ppbody)))
         {

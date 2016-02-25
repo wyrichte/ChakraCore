@@ -961,7 +961,7 @@ namespace Projection
                     auto promiseMaker = GetPromiseMaker();
                     LPCWSTR typeName = StringOfId(typeNameId);
                     Js::JavascriptString * asyncOpTypeVar = Js::JavascriptString::NewCopyBuffer(typeName, wcslen(typeName), scriptContext);
-                    Var asyncOpSourceVar = scriptContext->IsInDebugMode() ? GetAsyncOperationSource() : scriptContext->GetLibrary()->GetUndefined();
+                    Var asyncOpSourceVar = scriptContext->IsScriptContextInDebugMode() ? GetAsyncOperationSource() : scriptContext->GetLibrary()->GetUndefined();
 
                     Var asyncOpCausalityIdVar;
                     if (AsyncDebug::IsAsyncDebuggingEnabled(scriptContext) && constructorArguments && constructorArguments->type == ConstructorArgumentType_Promise)

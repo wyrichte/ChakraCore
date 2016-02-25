@@ -304,7 +304,7 @@ Js::Var DebugObject::EntryGetterDebuggerEnabled(Js::RecyclableObject* function, 
     ARGUMENTS(args, callInfo);
 
     Js::ScriptContext* scriptContext = function->GetScriptContext();
-    return Js::JavascriptBoolean::ToVar(scriptContext->IsInDebugMode(), scriptContext);
+    return Js::JavascriptBoolean::ToVar(scriptContext->IsScriptContextInDebugMode(), scriptContext);
 }
 
 Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments args, bool newLine)

@@ -321,7 +321,7 @@ namespace Js
         // In non-break state F12 doesn't need that.
         // The good thing is that in break state we can take advantage of debugger scopes and populate (captured) local using them.
         // In non-break state we can't but it's not needed.
-        if (targetScriptContext->IsInDebugMode() &&
+        if (targetScriptContext->IsScriptContextInDebugMode() &&
             targetScriptContext->GetThreadContext()->GetDebugManager()->IsAtDispatchHalt())
         {
             Assert(targetScriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena());
