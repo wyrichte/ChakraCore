@@ -3931,4 +3931,10 @@
       <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>parambind_os6622447.js</files>
+      <compile-flags>-force:deferparse -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
+    </default>
+  </test>
 </regress-exe>
