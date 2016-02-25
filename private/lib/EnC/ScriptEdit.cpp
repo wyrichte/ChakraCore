@@ -495,7 +495,7 @@ namespace Js
             hrParser = m_parser.ParseSourceWithOffset(&m_parseTree,
                 utf8SourceInfo->GetSource(), /*offset*/0, utf8SourceInfo->GetCbLength(), /*cchOffset*/0, utf8SourceInfo->GetIsCesu8(),
                 grfscr, &m_parseException, &sourceContextInfo->nextLocalFunctionId, /*lineNumber*/0, sourceContextInfo,
-                /*functionInfo*/nullptr, /*reparse*/true);
+                /*functionInfo*/nullptr);
         }
 
         if (FAILED(hrParser))
