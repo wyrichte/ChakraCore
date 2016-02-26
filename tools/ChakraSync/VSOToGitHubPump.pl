@@ -10,23 +10,50 @@ use POSIX qw(strftime);
 
 $OPTIONS{'Verbose'} = 2;
 
-sub sendErrorEmail {
-    my $subject = 'ACTION REQUIRED: Chakra VSO->GitHub Sync failed for ' . strftime("%x %X", localtime);
-    my $body = <<"END";
-VSO to GitHub pump has detected a conflicting commit on GitHub and cannot fast forward. Please investigate GitHub.
-
-The pump has been stopped and must be MANUALLY restarted. Restart the 'VSO to GitHub Pump' scheduled task on ChakraGit when issues are resolved and a fast-forward merge is possible.
-
--Chakra VSO -> GitHub sync service
-END
+sub sendResultEmail {
+    my $subject = shift;
+    my $body = shift;
+    
     sendMail(
         subject => $subject,
         body    => $body
     );
 
     debug("$subject\n\n$body", $OPTIONS{'Verbose'});
+}
 
-    exit(1);
+sub sendSuccessEmail {
+    my $subject = 'Chakra VSO->GitHub Sync succeeded for ' . strftime("%x %X", localtime);
+    my $body = <<"END";
+The Pump successfully ran. Log follows.
+
+-Chakra VSO -> GitHub sync service
+END
+
+    sendResultEmail($subject, $body);
+}
+
+sub sendConflictEmail {
+    my $subject = 'ACTION REQUIRED: Chakra VSO->GitHub Sync conflict for ' . strftime("%x %X", localtime);
+    my $body = <<"END";
+VSO to GitHub pump has detected a conflicting commit on GitHub and cannot fast forward. Please investigate GitHub, VSO, and the log below.
+
+The pump has been stopped and must be MANUALLY restarted. Restart the 'VSO to GitHub Pump' scheduled task on ChakraGit when issues are resolved and a fast-forward merge is possible.
+
+-Chakra VSO -> GitHub sync service
+END
+    sendResultEmail($subject, $body);
+}
+
+sub sendFatalErrorEmail {
+    my $subject = 'ACTION REQUIRED: Chakra VSO->GitHub Sync failed for ' . strftime("%x %X", localtime);
+    my $body = <<"END";
+VSO to GitHub pump was unable to complete successfully. See the log below.
+
+The pump has been stopped and must be MANUALLY restarted. Restart the 'VSO to GitHub Pump' scheduled task on ChakraGit when issues are resolved.
+
+-Chakra VSO -> GitHub sync service
+END
 }
 
 # Error handler. If we get an error, we need to email the error and gracefully exit.
@@ -39,7 +66,7 @@ $SIG{__DIE__} = sub {
 
     error($error. Carp::longmess());
 
-    sendErrorEmail();
+    sendFatalErrorEmail();
 
     exit(1);
 };
@@ -77,7 +104,12 @@ msg('Verifying there are no extra commits', $OPTIONS{'Verbose'});
 my $extraGitCommits = execCmd("git rev-list upstream/master..origin/master");
 
 if ($extraGitCommits =~ /\w+/g) {
-    sendErrorEmail();
+    sendConflictEmail();
+    exit (1);
 }
 
+sendSuccessEmail() if $OPTIONS{'Verbose'} > 2;
+
 msg('Sync completed successfully', $OPTIONS{'Verbose'});
+
+exit(0);
