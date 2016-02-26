@@ -1545,7 +1545,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
                 (float)stats.unknownCount / (float)numNodes * 100, (float)stats.unknownSize / (float)totalSize * 100);
         }
         Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100, (float)currSize / (float)totalSize * 100,
-            stats.hasVtable ? "" : "[Field] ", typeName);        
+            stats.hasVtable ? (knownOnly? "" : "[Group] ") : "[Field] ", typeName);        
 
         if (i > limit)
         {
