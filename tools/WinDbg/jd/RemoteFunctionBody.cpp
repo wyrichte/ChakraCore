@@ -37,7 +37,6 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
     if (this->HasField("auxPtrs"))
     {
         JDRemoteTyped auxPtrs = this->Field("auxPtrs").Field("ptr");
-        g_Ext->Out("auxPtrs: 0x%I64X\n", auxPtrs.GetPtr());
         if (auxPtrs.GetPtr() != 0)
         {
             InitAuxPtrsEnums();
@@ -100,6 +99,10 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
         }
     }
 }
+
+RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) : 
+    JDRemoteTyped(GetExtension()->CastWithVtable(pBody)) 
+{}
  
 JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* castType)
 {

@@ -431,7 +431,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             {
                 addField(JDUtil::GetWrappedField(remoteTyped, "m_boundPropertyRecords"), "Js::ParseableFunctionInfo.m_boundPropertyRecords");
                 addField(JDUtil::GetWrappedField(remoteTyped, "m_displayName"), "Js::ParseableFunctionInfo.m_displayName");
-                addField(RemoteParseableFunctionInfo(remoteTyped.GetPtr()).GetScopeInfo(), "Js::ParseableFunctionInfo.m_scopeInfo");                
+                addField(RemoteParseableFunctionInfo(remoteTyped).GetScopeInfo(), "Js::ParseableFunctionInfo.m_scopeInfo");                
             }
             else if (strcmp(simpleTypeName, "Js::SimpleSourceHolder *") == 0)
             {

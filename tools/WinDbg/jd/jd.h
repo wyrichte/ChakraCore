@@ -167,33 +167,18 @@ public:
     // TODO: Remove this and use CastWithVtable instead
     std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
 
-    ULONG64 GetEnumValue(const char* enumName, ULONG64 default = -1);
+    ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
-#define ENUM(name)\
-    ULONG64 enum_##name(){ \
-        if (this->inMPHCmd){ \
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        } else {\
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        }\
+#define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
+    ULONG64 enum_##name() \
+    { \
+        return (this->inMPHCmd)? \
+            this->recyclerCachedData.GetMPHBlockTypeEnum##name() : \
+            this->recyclerCachedData.GetBlockTypeEnum##name(); \
     }
 
-    // dynamic read HeapBlock enums
-    ENUM(SmallNormalBlockType);
-    ENUM(SmallLeafBlockType);
-    ENUM(SmallFinalizableBlockType);
-    ENUM(SmallNormalBlockWithBarrierType);
-    ENUM(SmallFinalizableBlockWithBarrierType);
-    ENUM(MediumNormalBlockType);
-    ENUM(MediumLeafBlockType);
-    ENUM(MediumFinalizableBlockType);
-    ENUM(MediumNormalBlockWithBarrierType);
-    ENUM(MediumFinalizableBlockWithBarrierType);
-    ENUM(LargeBlockType);
-    ENUM(SmallBlockTypeCount);
-    ENUM(BlockTypeCount);
+    BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
+#undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
