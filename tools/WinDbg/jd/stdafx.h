@@ -41,6 +41,7 @@ class StackBackTrace;
 #include <strsafe.h>
 
 // From Common.h
+typedef wchar_t wchar16;
 typedef wchar_t wchar;
 typedef unsigned int uint;
 typedef unsigned short ushort;
