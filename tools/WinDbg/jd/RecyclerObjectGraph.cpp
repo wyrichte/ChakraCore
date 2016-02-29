@@ -49,7 +49,7 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
     auto start = _time64(nullptr);
     roots.Map([&](ULONG64 root)
     {
-        MarkObject(root, 0);
+        MarkObject(root, 0, roots.GetRootType(root));
     });
 
     int iters = 0;
@@ -64,7 +64,9 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
         iters++;
         if (iters % 0x10000 == 0)
         {
-            _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rTraversing object graph, object count - stack: %6d, visited: %d", _markStack.size(), _objectGraph.Count());
+            _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
+                "\rTraversing object graph, object count - stack: %6d, visited: %d",
+                _markStack.size(), _objectGraph.Count());
         }
     }
 
@@ -577,7 +579,7 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 }
 #endif
 
-void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
+void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev, RootType rootType)
 {
     if (address == NULL ||
         !this->_alignmentUtility.IsAlignedAddress(address))
@@ -614,6 +616,8 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
         node->aux.isRoot = true;
     }
 
+    node->aux.rootType = rootType; // propagate RootType info to ObjectGraph
+
     node->aux.objectSize = info.objectSize;
     if (!info.IsLeaf())
     {
@@ -634,7 +638,7 @@ void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjec
     while (current < end)
     {
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
-        MarkObject(value, info.objectAddress);
+        MarkObject(value, info.objectAddress, RootType::RootTypeNone); // TODO (doilij): REVIEW: is this RootType correct?
         current += ptrSize;
     }
 }
