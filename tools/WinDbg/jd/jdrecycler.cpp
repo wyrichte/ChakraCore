@@ -2236,7 +2236,7 @@ JD_PRIVATE_COMMAND(memstats,
         if (showPageAllocator || showThreadSummary)
         {
             g_Ext->Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
-            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes, totalUnusedBytes);
+            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes, unusedBytes);
         }
 
         if (showArenaAllocator)
