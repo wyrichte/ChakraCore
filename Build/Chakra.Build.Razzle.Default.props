@@ -50,6 +50,9 @@
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' != 'true'">release\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' == 'true'">test\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
 
+    <!-- This one is missing from Microsoft.Build.Paths.props -->
+    <OneCoreSdkLibPath>$(SdkLibDest)\OneCore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
+    
     <ManifestsInboxIncludeDirectory>$(ObjectRoot)\onecoreuap\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\private\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>

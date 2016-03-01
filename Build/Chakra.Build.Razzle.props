@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <!-- This one is missing from Microsoft.Build.Paths.props -->
-    <OneCoreSdkLibPath>$(SdkLibDest)\OneCore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
-  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <!-- For Utf8Codex.h -->
