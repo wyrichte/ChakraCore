@@ -750,7 +750,7 @@ namespace JsDiag
     Js::Var RemoteInterpreterStackFrame::GetInnerScope(RegSlot scopeLocation)
     {
         RemoteFunctionBody functionBody(m_reader, ToTargetPtr()->GetFunctionBody());
-        uint32 index = scopeLocation - functionBody->FirstInnerScopeReg();
+        uint32 index = scopeLocation - functionBody.GetCounter(FunctionBody::CounterFields::FirstInnerScopeRegister);
         Js::Var* innerScopeArray = ReadField<Js::Var*>(offsetof(TargetType, innerScopeArray));
         return ReadVirtual<Js::Var>(innerScopeArray + index);
     }
@@ -1049,7 +1049,7 @@ namespace JsDiag
     {
         auto loopHeaderArray = static_cast<const Js::LoopHeader*>(this->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::LoopHeaderArray));
         Assert(loopHeaderArray != nullptr);
-        Assert(index < this->ToTargetPtr()->loopCount);
+        Assert(index < this->GetCounter(FunctionBody::CounterFields::LoopCount));
 
         return const_cast<LoopHeader*>(loopHeaderArray) + index;
     }
@@ -1295,6 +1295,45 @@ namespace JsDiag
         return FALSE;
     }
 
+    const uint32 RemoteFunctionBody::GetCounter(FunctionBody::CounterFields fieldEnum) const
+    {
+        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
+
+        // for registers, it's using UINT32_MAX to represent NoRegister
+        if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !this->ToTargetPtr()->m_hasLocalClosureRegister)
+            || (fieldEnum == FunctionBody::CounterFields::LocalFrameDisplayRegister && !this->ToTargetPtr()->m_hasLocalFrameDisplayRegister)
+            || (fieldEnum == FunctionBody::CounterFields::EnvRegister && !this->ToTargetPtr()->m_hasEnvRegister)
+            || (fieldEnum == FunctionBody::CounterFields::ThisRegisterForEventHandler && !this->ToTargetPtr()->m_hasThisRegisterForEventHandler)
+            || (fieldEnum == FunctionBody::CounterFields::FirstInnerScopeRegister && !this->ToTargetPtr()->m_hasFirstInnerScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FuncExprScopeRegister && !this->ToTargetPtr()->m_hasFuncExprScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FirstTmpRegister && !this->ToTargetPtr()->m_hasFirstTmpRegister)
+            )
+        {
+            return Constants::NoRegister;
+        }
+
+        uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
+        uint8 fieldSize = this->ToTargetPtr()->counters.fieldSize;
+        auto funcBody = this->ToTargetPtr();
+        auto& counters = funcBody->counters;      
+        if (fieldSize == 1)
+        {
+            return counters.u8Fields[fieldEnumVal];
+        }
+        else if (fieldSize == 2)
+        {
+            return ReadVirtual<uint16>(counters.u16Fields.ptr + fieldEnumVal);
+        }
+        else if (fieldSize == 4)
+        {
+            return ReadVirtual<uint32>(counters.u32Fields.ptr + fieldEnumVal);
+        }
+        else
+        {
+            Assert(false);
+            return 0;
+        }
+    }
     const void* RemoteFunctionBody::GetAuxPtrs(FunctionProxy::AuxPointerType pointerType) const
     {
         void* auxPtrsRaw = static_cast<void*>(this->ToTargetPtr()->auxPtrs);
@@ -2271,18 +2310,19 @@ namespace JsDiag
 
     uint32 RemoteFunctionBody::GetFirstNonTempLocalIndex() const
     {
-        return this->ToTargetPtr()->m_constCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount);
     }
 
     uint32 RemoteFunctionBody::GetEndNonTempLocalIndex() const
     {
-        uint32 firstTempReg = this->ToTargetPtr()->m_firstTmpReg;
+        uint32 firstTempReg = this->GetCounter(FunctionBody::CounterFields::FirstTmpRegister);
         return firstTempReg != Constants::NoRegister ? firstTempReg : this->GetLocalsCount();
     }
 
     RegSlot RemoteFunctionBody::GetLocalsCount() const
     {
-        return this->ToTargetPtr()->m_constCount + this->ToTargetPtr()->m_varCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount) 
+            + this->GetCounter(FunctionBody::CounterFields::VarCount);
     }
 
     RootObjectBase* RemoteFunctionBody::GetRootObject() const
@@ -2305,7 +2345,30 @@ namespace JsDiag
     void RemotePropertyIdOnRegSlotsContainer::FetchItemAt(uint index, RemoteFunctionBody* pFuncBody, _Out_ Js::PropertyId* pPropId, _Out_ RegSlot* pRegSlot) const
     {
         *pPropId = m_propertyIdsForRegSlots.Item(index);
-        *pRegSlot = pFuncBody->ToTargetPtr()->MapRegSlot(index);
+
+        uint32 constCount = pFuncBody->GetCounter(Js::FunctionBody::CounterFields::ConstantCount);
+
+        // logic copied from FunctionBody.cpp
+        auto RegIsConst = [&](RegSlot reg)->bool
+        {
+            return reg > REGSLOT_TO_CONSTREG(constCount);
+        };
+        auto MapRegSlot = [&](RegSlot reg)
+        {
+            if (RegIsConst(reg))
+            {
+                reg = CONSTREG_TO_REGSLOT(reg);
+                Assert(reg < constCount);
+            }
+            else
+            {
+                reg += constCount;
+            }
+
+            return reg;
+        };
+
+        *pRegSlot = MapRegSlot(index);
     }
 
     void* RemoteFrameDisplay::GetItem(uint index) const
