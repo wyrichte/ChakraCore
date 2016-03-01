@@ -6,7 +6,7 @@
 
 RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose) :
     _ext(extension),
-    _alignmentUtility(),
+    _alignmentUtility(recycler),
     _verbose(verbose),
     m_hbm(recycler.Field("heapBlockMap")),
     m_hasTypeName(false),
@@ -580,7 +580,7 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev)
 {
     if (address == NULL ||
-        !this->_alignmentUtility.IsAlignedAddress(this->_ext, &(this->_recycler), address))
+        !this->_alignmentUtility.IsAlignedAddress(address))
     {
         return;
     }

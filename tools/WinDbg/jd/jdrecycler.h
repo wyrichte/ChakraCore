@@ -78,16 +78,11 @@ struct HeapObject
 class HeapBlockAlignmentUtility
 {
 public:
-    HeapBlockAlignmentUtility()
-        : objectAllocationShift(0)
-    {
-    }
-
-    uint GetObjectAlignmentMask(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    uint GetObjectGranularity(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    uint GetObjectAllocationShift(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    bool IsAlignedAddress(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler, ULONG64 address);
-
+    HeapBlockAlignmentUtility(ExtRemoteTyped recycler);
+    bool IsAlignedAddress(ULONG64 address);
+    uint GetObjectAlignmentMask();
+    uint GetObjectGranularity();
+    uint GetObjectAllocationShift();
 private:
     ULONG objectAllocationShift;
 };
@@ -96,7 +91,7 @@ class HeapBlockHelper
 {
 public:
     HeapBlockHelper(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler)
-        : ext(extension), recycler(recycler), alignmentUtility()
+        : ext(extension), recycler(recycler), alignmentUtility(recycler)
     {
     }
 

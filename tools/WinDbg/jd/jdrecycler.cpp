@@ -832,58 +832,52 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
     ext->Out(L")");
 }
 
-uint HeapBlockAlignmentUtility::GetObjectAlignmentMask(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+HeapBlockAlignmentUtility::HeapBlockAlignmentUtility(ExtRemoteTyped recycler)
 {
-    return this->GetObjectGranularity(ext, recycler) - 1;
+    auto firstSizeCat = GetExtension()->GetNumberValue<ULONG64>(recycler.Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
+    int i = 0;
+    while (firstSizeCat > ((ULONG64)1 << (++i)));
+    objectAllocationShift = i;
 }
 
-uint HeapBlockAlignmentUtility::GetObjectGranularity(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+uint HeapBlockAlignmentUtility::GetObjectAlignmentMask()
 {
-    return 1u << this->GetObjectAllocationShift(ext, recycler);
+    return this->GetObjectGranularity() - 1;
 }
 
-uint HeapBlockAlignmentUtility::GetObjectAllocationShift(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+uint HeapBlockAlignmentUtility::GetObjectGranularity()
 {
-    if (this->objectAllocationShift == 0)
-    {
-        try
-        {
-            auto firstSizeCat = ext->GetNumberValue<ULONG64>(recycler->Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
-            int i = 0;
-            while (firstSizeCat > ((ULONG64)1 << (++i)));
-            this->objectAllocationShift = i;
-        }
-        catch (ExtException&)
-        {
-            return 4;
-        }
-    }
-    return this->objectAllocationShift;
+    return 1u << this->GetObjectAllocationShift();
 }
 
-bool HeapBlockAlignmentUtility::IsAlignedAddress(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler, ULONG64 address)
+uint HeapBlockAlignmentUtility::GetObjectAllocationShift()
 {
-    return (0 == (((size_t)address) & this->GetObjectAlignmentMask(ext, recycler)));
+    return objectAllocationShift;
+}
+
+bool HeapBlockAlignmentUtility::IsAlignedAddress(ULONG64 address)
+{
+    return (0 == (((size_t)address) & this->GetObjectAlignmentMask()));
 }
 
 uint HeapBlockHelper::GetObjectAlignmentMask()
 {
-    return this->alignmentUtility.GetObjectAlignmentMask(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectAlignmentMask();
 }
 
 uint HeapBlockHelper::GetObjectGranularity()
 {
-    return this->alignmentUtility.GetObjectGranularity(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectGranularity();
 }
 
 uint HeapBlockHelper::GetObjectAllocationShift()
 {
-    return this->alignmentUtility.GetObjectAllocationShift(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectAllocationShift();
 }
 
 bool HeapBlockHelper::IsAlignedAddress(ULONG64 address)
 {
-    return this->alignmentUtility.IsAlignedAddress(this->ext, &(this->recycler), address);
+    return this->alignmentUtility.IsAlignedAddress(address);
 }
 
 // Same logic as SmallHeapBlock::GetAddressBitIndex

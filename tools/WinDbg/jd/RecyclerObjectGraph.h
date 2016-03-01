@@ -60,7 +60,6 @@ protected:
     GraphImplType _objectGraph;
 
     RemoteHeapBlockMap m_hbm;
-    JDRemoteTyped _recycler;
     EXT_CLASS_BASE* _ext;
     HeapBlockAlignmentUtility _alignmentUtility;
     bool _verbose;
