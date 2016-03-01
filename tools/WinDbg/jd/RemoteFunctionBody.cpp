@@ -8,29 +8,32 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
-static std::map<std::string, uint8> auxPtrsEnum;
-static std::vector<std::string> vecAuxPtrsEnum;
-
-void InitAuxPtrsEnums()
+void InitEnums(char* enumType, std::map<std::string, uint8>& nameValMap, std::vector<std::string>& names)
 {
-    if (auxPtrsEnum.empty())
+    if (nameValMap.empty())
     {
         char buf[MAX_PATH];
         for (uint8 i = 0; i < 255; i++)
         {
-            sprintf_s(buf, "@@c++((%s!Js::FunctionProxy::AuxPointerType)%d)", GetExtension()->FillModule("%s"), i);
+            sprintf_s(buf, "@@c++((%s!%s)%d)", GetExtension()->FillModule("%s"), enumType, i);
             auto enumName = JDRemoteTyped(buf).GetSimpleValue();
             if (strstr(enumName, "No matching enumerant"))
             {
                 break;
             }
             *strchr(enumName, ' ') = '\0';
-            auxPtrsEnum[enumName] = i;
-            vecAuxPtrsEnum.push_back(enumName);
+            nameValMap[enumName] = i;
+            names.push_back(enumName);
         }
     }
 }
 
+static std::map<std::string, uint8> auxPtrsEnum;
+static std::vector<std::string> vecAuxPtrsEnum;
+void EnsureAuxPtrsEnums() 
+{
+    InitEnums("Js::FunctionProxy::AuxPointerType", auxPtrsEnum, vecAuxPtrsEnum);
+}
 template<typename Fn>
 void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
 {
@@ -39,7 +42,7 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
         JDRemoteTyped auxPtrs = this->Field("auxPtrs").Field("ptr");
         if (auxPtrs.GetPtr() != 0)
         {
-            InitAuxPtrsEnums();
+            EnsureAuxPtrsEnums();
             char buf[MAX_PATH];
             uint8 count = auxPtrs.Field("count").GetUchar();
             uint8 maxCount16 = g_Ext->IsCurMachine64() ? 1 : 3;
@@ -108,7 +111,7 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* 
 {
     JDRemoteTyped ret = Eval("@@c++((void*)0)");
 
-    InitAuxPtrsEnums();
+    EnsureAuxPtrsEnums();
     if (strlen(fieldName) > 2 && (fieldName[0] == 'm' && fieldName[1] == '_')) // 'm_' has been removed in the field enum name in core
     {
         fieldName = fieldName + 2;
@@ -168,6 +171,66 @@ JDRemoteTyped RemoteFunctionBody::GetWrappedField(char* fieldName, char* castTyp
 
     return JDUtil::GetWrappedField(*this, oldFieldName ? oldFieldName : fieldName);
 }
+
+static std::map<std::string, uint8> counterEnum;
+static std::vector<std::string> vecCounterEnum;
+static std::map<std::string, std::string> counterFieldNameMap; // counter field old name and new enum name map
+void EnsureCountersEnums()
+{
+    // note, with this way it can't parse duplicated enum names. 
+    // TODO: change to parse 'dt' command result when we need to use the duplicated enum names
+    InitEnums("Js::FunctionBody::CounterFields", counterEnum, vecCounterEnum);
+    if (counterFieldNameMap.empty()) 
+    {
+        counterFieldNameMap["m_constCount"] = "ConstantCount";
+        counterFieldNameMap["inlineCacheCount"] = "InlineCacheCount";
+    }
+}
+
+uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
+{
+    if (this->HasField("counters"))
+    {
+        EnsureCountersEnums();
+        if (counterFieldNameMap.find(oldName) != counterFieldNameMap.end()) 
+        {
+            uint8 filedEnum = counterEnum[counterFieldNameMap[oldName]];
+            auto counter = JDUtil::GetWrappedField(*this, "counters");
+            auto fieldSize = counter.Field("fieldSize").GetUchar();
+
+            if (fieldSize == 1) 
+            {
+                return counter.Field("u8Fields").ArrayElement(filedEnum).GetUchar();
+            }
+            else if (fieldSize == 2)
+            {
+                return counter.Field("u16Fields").ArrayElement(filedEnum).GetUshort();
+            }
+            else if (fieldSize == 4)
+            {
+                return counter.Field("u32Fields").ArrayElement(filedEnum).GetUlong();
+            }
+            else 
+            {
+                g_Ext->Err("Function body counter structure corrupted, fieldSize is: %d", fieldSize);
+            }
+        }
+        else 
+        {
+            g_Ext->Warn("JD need to update to map %s to new field enum on FunctionBody", oldName);
+        }
+    }
+
+    if(wasWrapped)
+    {
+        return JDUtil::GetWrappedField(*this, oldName).GetUlong();
+    }
+    else 
+    {
+        return this->Field(oldName).GetUlong();
+    }
+}
+
 
 void
 RemoteFunctionBody::PrintNameAndNumber(EXT_CLASS_BASE * ext)

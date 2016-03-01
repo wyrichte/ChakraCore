@@ -1125,6 +1125,7 @@ namespace JsDiag
 
     public:
         const void* GetAuxPtrs(FunctionProxy::AuxPointerType e) const;
+        const uint32 GetCounter(FunctionBody::CounterFields e) const;
     }; // RemoteFunctionBody.
 
     struct RemoteScriptDebugDocument : public RemoteData<ScriptDebugDocument>
