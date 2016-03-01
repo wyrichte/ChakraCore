@@ -186,7 +186,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (context->GetScriptContext()->IsInDebugMode())
+            if (context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorAlreadyDebuggingContext;
             }
@@ -227,7 +227,7 @@ STDAPI_(JsErrorCode) JsStopDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (!context->GetScriptContext()->IsInDebugMode())
+            if (!context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorNotDebuggingContext;
             }

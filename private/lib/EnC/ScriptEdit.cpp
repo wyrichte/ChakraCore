@@ -454,7 +454,10 @@ namespace Js
         {
             srcInfo = scriptContext->GetModuleSrcInfo(kmodGlobal);
         }
-        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo);
+
+        AssertMsg(!((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode), "Editing library code?");
+
+        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo, ((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode));
         sourceInfo->SetParseFlags(parseFlags);
         sourceInfo->SetByteCodeGenerationFlags(byteCodeGenerationFlags);
         Parse(alloc, sourceInfo);
@@ -492,7 +495,7 @@ namespace Js
             hrParser = m_parser.ParseSourceWithOffset(&m_parseTree,
                 utf8SourceInfo->GetSource(), /*offset*/0, utf8SourceInfo->GetCbLength(), /*cchOffset*/0, utf8SourceInfo->GetIsCesu8(),
                 grfscr, &m_parseException, &sourceContextInfo->nextLocalFunctionId, /*lineNumber*/0, sourceContextInfo,
-                /*functionInfo*/nullptr, /*reparse*/true);
+                /*functionInfo*/nullptr);
         }
 
         if (FAILED(hrParser))

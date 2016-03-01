@@ -623,21 +623,20 @@ std::string EXT_CLASS_BASE::GetTypeName(ExtRemoteTyped& offset, bool includeModu
     return symbol;
 }
 
-ULONG64 EXT_CLASS_BASE::GetEnumValue(const char* enumName, ULONG64 default)
+ULONG64 EXT_CLASS_BASE::GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 default)
 {
     char buf[MAX_PATH];
-    sprintf_s(buf, "@@c++(%s!%s)", this->FillModule("%s"), enumName);
+    char const * prefix = useMemoryNamespace ? this->FillModuleAndMemoryNS("%s!%s") : this->FillModule("%s!");
+    sprintf_s(buf, "@@c++(%s%s)", prefix, enumName);
     try
     {
         return this->EvalExprU64(buf);
     }
     catch (...)
     {
-        this->Out("Error get enum: %s\n", enumName);
         return default;
     }
 }
-
 
 void EXT_CLASS_BASE::ValidateEvaluateFullName(const JsDebugPropertyInfo& info, int radix)
 {

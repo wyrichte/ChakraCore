@@ -651,7 +651,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 {
                     runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, (byte**)&errorObject);
                 }
-                if (FAILED(runInfo.hr))
+                if (FAILED(runInfo.hr) && errorObject != nullptr)
                 {
                     runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
                 }

@@ -396,7 +396,7 @@ void TraceLoggingClient::FireSiteNavigation(const wchar_t *url, GUID activityId,
         Js::ScriptContext* contextList = threadContext->GetScriptContextList();
         while (contextList != NULL)
         {
-            if (contextList->IsInDebugMode())
+            if (contextList->IsScriptContextInDebugMode())
             {
                 isAnyScriptCtxtInDebugMode = true;
                 break;

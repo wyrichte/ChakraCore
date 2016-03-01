@@ -98,7 +98,11 @@ public:
         }
         else if (threadContext.HasField("debugManager"))
         {
-            fn("Diag", RemotePageAllocator(threadContext.Field("debugManager.diagnosticPageAllocator")));
+            ExtRemoteTyped debugManager = threadContext.Field("debugManager");
+            if (debugManager.GetPtr() != 0)
+            {
+                fn("Diag", RemotePageAllocator(debugManager.Field("diagnosticPageAllocator")));
+            }
         }
         
         if (threadContext.HasField("jobProcessor"))
@@ -124,7 +128,21 @@ public:
             }
         }        
 
-        auto forEachCodeGenAllocatorPageAllocator = [fn](ExtRemoteTyped codeGenAllocators, bool foreground)
+        // Switch to per thread code page allocators in RS1
+        bool useCodePageAllocators = false;
+        if (threadContext.HasField("codePageAllocators"))
+        {
+            useCodePageAllocators = true;
+            ExtRemoteTyped codePageAllocators = threadContext.Field("codePageAllocators");
+            fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator")));
+            fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator")));            
+
+            ExtRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
+            fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
+            fn("CodeThunk", RemotePageAllocator(thunkPageAllocators.Field("pageAllocator")));
+        }
+
+        auto forEachCodeGenAllocatorPageAllocator = [fn](ExtRemoteTyped codeGenAllocators, bool foreground, bool useCodePageAllocators)
         {
             if (codeGenAllocators.GetPtr() == 0) { return; }
 
@@ -132,38 +150,47 @@ public:
             // So it doesn't have separate page allocator
             if (codeGenAllocators.HasField("pageAllocator"))
             {
-                fn(foreground? "FG-CodeGen" : "BG-CodeGen", RemotePageAllocator(codeGenAllocators.Field("pageAllocator")));                
+                fn(foreground? "FG-CodeGen" : "BG-CodeGen", RemotePageAllocator(codeGenAllocators.Field("pageAllocator")));
             }
-            ExtRemoteTyped customHeap = codeGenAllocators.Field("emitBufferManager.allocationHeap");
-            if (customHeap.HasField("preReservedHeapPageAllocator"))
-            {
-                fn(foreground ? "FG-CodePreRes" : "BG-CodePreRes", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
-            }
-            fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
-        };
-        this->ForEachScriptContext([fn, forEachCodeGenAllocatorPageAllocator](ExtRemoteTyped scriptContext)
-        {            
-            ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
-            if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
-            {
-                fn("CodeThunkPreRes", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
-            }
-            fn("CodeThunk", RemotePageAllocator(thunkCustomHeap.Field("pageAllocator")));
 
-            if (scriptContext.HasField("asmJsInterpreterThunkEmitter"))
+            // Page allocators for code no longer in the custom heap after we switch to use the per thread code page allocators in RS1
+            if (!useCodePageAllocators)
             {
-                ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
-                if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
+                ExtRemoteTyped customHeap = codeGenAllocators.Field("emitBufferManager.allocationHeap");
+                if (customHeap.HasField("preReservedHeapPageAllocator"))
                 {
-                    fn("CodeAsmJSThunkPreRes", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                    fn(foreground ? "FG-CodePreRes" : "BG-CodePreRes", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
                 }
-                fn("CodeAsmJSThunk", RemotePageAllocator(asmJsThunkCustomHeap.Field("pageAllocator")));
+                fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
+            }
+        };
+        this->ForEachScriptContext([fn, forEachCodeGenAllocatorPageAllocator, useCodePageAllocators](ExtRemoteTyped scriptContext)
+        {
+            // Page allocators for code no longer in the custom heap after we switch to use the per thread code page allocators in RS1
+            if (!useCodePageAllocators)
+            {
+                ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
+                if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
+                {
+                    fn("CodeThunkPreRes", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                }
+                fn("CodeThunk", RemotePageAllocator(thunkCustomHeap.Field("pageAllocator")));
+
+                if (scriptContext.HasField("asmJsInterpreterThunkEmitter"))
+                {
+                    ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
+                    if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
+                    {
+                        fn("CodeAsmJSThunkPreRes", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
+                    }
+                    fn("CodeAsmJSThunk", RemotePageAllocator(asmJsThunkCustomHeap.Field("pageAllocator")));
+                }
             }
 
             ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
             
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"), true);
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"), false);            
+            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"), true, useCodePageAllocators);
+            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"), false, useCodePageAllocators);
             return false;
         });
     }

@@ -1708,7 +1708,7 @@ Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
     return scriptContext->GetLibrary()->GetThrowerFunction();
 }
 
-HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord)
+HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
 {
     HRESULT hr = NOERROR;
     IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
@@ -1719,7 +1719,7 @@ HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule,
     else
     {
         Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
-        hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier->GetSz(), specifier->GetLength(), (ModuleRecord*)dependentModuleRecord);
+        hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
     }
     return hr;
 }

@@ -667,6 +667,7 @@ namespace JsDiag
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
+        CustomHeap::CodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::CodePageAllocators>(offsetof(TargetType, codePageAllocators));}
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
@@ -920,12 +921,17 @@ namespace JsDiag
         static void GetSegmentOffsets(size_t* segments, size_t* fullSegments, size_t* decommitSegments, size_t* largeSegments);
     };
 
+    struct RemoteCodePageAllocators : public RemoteData<CustomHeap::CodePageAllocators>
+    {
+        RemoteCodePageAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        HeapPageAllocator<VirtualAllocWrapper> * GetHeapPageAllocator();
+    };
     struct RemoteCodeGenAllocators : public RemoteData<CodeGenAllocators>
     {
         RemoteCodeGenAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
         EmitBufferManager<CriticalSection>* GetEmitBufferManager();
-        bool IsInRange(void* address);
     };
 
     struct RemoteDebugContext : public RemoteData<DebugContext>
@@ -964,10 +970,6 @@ namespace JsDiag
             }
             return false;
         }
-    private:
-        bool IsNativeAddressCheckMeOnly(void* address);    // Check only current script context.
-        bool IsNativeAddressCheckThreadContext(void* address);
-        bool IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address);
     };
 
     struct RemoteProbeContainer: public RemoteData<ProbeContainer>
@@ -1292,6 +1294,17 @@ namespace JsDiag
     typedef RemoteData<ThreadContext::RecyclableData> RemoteRecyclableData;
     typedef RemoteData<JavascriptDate> RemoteJavascriptDate;
     typedef RemoteRecyclableObjectBase<JavascriptVariantDate> RemoteJavascriptVariantDate;
+
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt32x4>   RemoteJavascriptSimdInt32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDFloat32x4> RemoteJavascriptSimdFloat32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt8x16>   RemoteJavascriptSimdInt8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDInt16x8>   RemoteJavascriptSimdInt16x8;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool32x4>  RemoteJavascriptSimdBool32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool8x16>  RemoteJavascriptSimdBool8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDBool16x8>  RemoteJavascriptSimdBool16x8;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint32x4>  RemoteJavascriptSimdUint32x4;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint8x16>  RemoteJavascriptSimdUint8x16;
+    typedef RemoteRecyclableObjectBase<Js::JavascriptSIMDUint16x8>  RemoteJavascriptSimdUint16x8;
 
     struct RemoteRegexPattern: public RemoteData<UnifiedRegex::RegexPattern>
     {

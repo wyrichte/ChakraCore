@@ -86,7 +86,21 @@ ScriptEngineWrapper::ScriptEngineWrapper()
     }
     
     // Run the built-in controller script.
-    if (JScript9Interface::JsrtRunScript(controllerScript, (DWORD_PTR)-3 /*A large number which can't be address*/, L"dbgcontroller.js", nullptr) != JsNoError)
+    JsValueRef globalFunc = JS_INVALID_REFERENCE;
+    if (JScript9Interface::JsrtParseScriptWithFlags(controllerScript, JS_SOURCE_CONTEXT_NONE, L"dbgcontroller.js", JsParseScriptAttributeLibraryCode, &globalFunc) != JsNoError)
+    {
+        DebuggerController::LogError(L"parse controller script");
+    }
+
+    JsValueRef undefinedValue = JS_INVALID_REFERENCE;
+    if (JScript9Interface::JsrtGetUndefinedValue(&undefinedValue) != JsNoError)
+    {
+        DebuggerController::LogError(L"Unable to get undefined value");
+    }
+
+    JsValueRef args[] = { undefinedValue };
+    JsValueRef result = JS_INVALID_REFERENCE;
+    if (JScript9Interface::JsrtCallFunction(globalFunc, args, _countof(args), &result) != JsNoError)
     {
         DebuggerController::LogError(L"run controller script");
     }

@@ -151,7 +151,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptCo
 #ifdef ENABLE_JS_ETW
     // Walk the stack if debugger is attached and the listener is active for the ETW event or if we are tracing async calls.
     // Tracing should only be enabled for unit tests or manually troubleshooting and is easier to configure than an ETW consumer.
-    if (scriptContext->IsInDebugMode() && (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls)))
+    if (scriptContext->IsScriptContextInDebugMode() && (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls)))
     {
         EmitStackWalk(scriptContext, operationId);
     }

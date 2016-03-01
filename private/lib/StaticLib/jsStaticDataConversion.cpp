@@ -119,7 +119,7 @@ namespace JsStaticAPI
         binaryVerificationData->javascriptLibraryBaseSize = sizeof(Js::JavascriptLibraryBase);
         binaryVerificationData->javascriptLibraryBaseOffset = (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase();
         binaryVerificationData->customExternalObjectSize = sizeof(Js::MockExternalObject);
-        binaryVerificationData->typeOffset = (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset();
+        binaryVerificationData->typeOffset = (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType();
         binaryVerificationData->typeIdOffset = (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset();
         binaryVerificationData->taggedIntSize = sizeof(Js::TaggedInt);
         binaryVerificationData->javascriptNumberSize = sizeof(Js::JavascriptNumber);

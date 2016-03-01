@@ -14,7 +14,7 @@ namespace Js
     {
         if (FAILED(hr))
         {
-            if (GetScriptContext()->IsInDebugMode())
+            if (GetScriptContext()->IsScriptContextInDebugMode())
             {
                 JavascriptExceptionObject *exception = nullptr;
                 try
