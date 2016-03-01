@@ -137,7 +137,7 @@ undefined
  |  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |  |    |    [Internal property] value: __lookupSetter__
  |  |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  [Properties] count: 31
+ |  |  [Properties] count: 32
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  | 1 push: type: FunctionObject flags: (new) optional info records (2)
@@ -321,7 +321,7 @@ undefined
  |  |  | 27 Symbol.iterator: type: FunctionObject (seen)
  |  |  | 28 Symbol.unscopables: type: ObjectObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: Null (seen)
- |  |  |    [Properties] count: 7
+ |  |  |    [Properties] count: 8
  |  |  |    | 0 find: type: Boolean flags: (new) optional info records (1)
  |  |  |    |    [Prototype] type: BooleanObject flags: (new) optional info records (1)
  |  |  |    |    |  [Prototype] type: ObjectObject (seen)
@@ -329,8 +329,9 @@ undefined
  |  |  |    | 2 fill: type: Boolean (seen)
  |  |  |    | 3 copyWithin: type: Boolean (seen)
  |  |  |    | 4 entries: type: Boolean (seen)
- |  |  |    | 5 keys: type: Boolean (seen)
- |  |  |    | 6 values: type: Boolean (seen)
+ |  |  |    | 5 includes: type: Boolean (seen)
+ |  |  |    | 6 keys: type: Boolean (seen)
+ |  |  |    | 7 values: type: Boolean (seen)
  |  |  | 29 fill: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Properties] count: 2
@@ -344,6 +345,13 @@ undefined
  |  |  |    | 0 length: value: 2.000000
  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: copyWithin
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 31 includes: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 length: value: 1.000000
+ |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: includes
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Properties] count: 2
  |  | 0 boundFunctionWithThisAndArgs: type: FunctionObject flags: (new) optional info records (4)
