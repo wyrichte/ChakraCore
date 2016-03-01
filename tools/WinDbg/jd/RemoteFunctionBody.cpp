@@ -194,21 +194,21 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
         EnsureCountersEnums();
         if (counterFieldNameMap.find(oldName) != counterFieldNameMap.end()) 
         {
-            uint8 filedEnum = counterEnum[counterFieldNameMap[oldName]];
-            auto counter = JDUtil::GetWrappedField(*this, "counters");
+            uint8 fieldEnum = counterEnum[counterFieldNameMap[oldName]];
+            auto counter = this->Field("counters");
             auto fieldSize = counter.Field("fieldSize").GetUchar();
 
             if (fieldSize == 1) 
             {
-                return counter.Field("u8Fields").ArrayElement(filedEnum).GetUchar();
+                return counter.Field("u8Fields").ArrayElement(fieldEnum).GetUchar();
             }
             else if (fieldSize == 2)
             {
-                return counter.Field("u16Fields").ArrayElement(filedEnum).GetUshort();
+                return JDUtil::GetWrappedField(counter, "u16Fields").ArrayElement(fieldEnum).GetUshort();
             }
             else if (fieldSize == 4)
             {
-                return counter.Field("u32Fields").ArrayElement(filedEnum).GetUlong();
+                return JDUtil::GetWrappedField(counter, "u32Fields").ArrayElement(fieldEnum).GetUlong();
             }
             else 
             {
