@@ -7,8 +7,8 @@
     <Use_Asmmeta>false</Use_Asmmeta>
   </PropertyGroup>
   <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
-  <Import Project="$(EnlistmentRoot)\inetcore\inc\Prerelease.Build.Settings" />
- 
+  <Import Project="$(EnlistmentRoot)\data\msrc\Prerelease.Build.Settings" />
+
   <!-- Override Configuration from Microsoft.Build.Settings -->
   <PropertyGroup>
     <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">Release</Configuration>
@@ -44,19 +44,19 @@
     <PlatformPathNameAlt Condition="'$(Platform)'=='Win32'">i386</PlatformPathNameAlt>
   </PropertyGroup>
   <PropertyGroup>    
-    <IELibPath>$(ObjectRoot)\inetcore\lib</IELibPath>
+    <IELibPath>$(ObjectRoot)\onecoreuap\inetcore\lib</IELibPath>
     <BaseLibPath>$(PUBLIC_ROOT)\internal\base\lib\$(BuildArchitecture)</BaseLibPath>
-    <RazzleJscriptObjectRoot>$(ObjectRoot)\inetcore\jscript</RazzleJscriptObjectRoot>
+    <RazzleJscriptObjectRoot>$(ObjectRoot)\onecoreuap\inetcore\jscript</RazzleJscriptObjectRoot>
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' != 'true'">release\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
     <RazzleJscriptObjectDirectory Condition="'$(FreTest)' == 'true'">test\$(ObjectDirectory)</RazzleJscriptObjectDirectory>
 
-    <ManifestsInboxIncludeDirectory>$(ObjectRoot)\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
+    <ManifestsInboxIncludeDirectory>$(ObjectRoot)\onecoreuap\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\private\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(RazzleJscriptObjectRoot)\private\lib\InternalIDL\$(ObjectDirectory)</ChakraInternalIDLIntDir>
     <ChakraPublishIntDir>$(RazzleJscriptObjectRoot)\publish\$(ObjectDirectory)</ChakraPublishIntDir>
-    
+
     <!-- Libraries -->
     <ChakraCommonCodexLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\codex\$(ObjectDirectory)Chakra.Common.Codex.lib</ChakraCommonCodexLib>
     <ChakraCommonCoreLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\core\$(RazzleJscriptObjectDirectory)Chakra.Common.Core.lib</ChakraCommonCoreLib>
@@ -65,7 +65,7 @@
     <ChakraCommonMemoryLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
     <ChakraRuntimeLanguageLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\language\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
     <ChakraRuntimeBaseLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\base\$(RazzleJscriptObjectDirectory)Chakra.Runtime.base.lib</ChakraRuntimeBaseLib>
-    
+
     <ChakraCommonMinLibs>$(ChakraCommonMemoryLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonCoreLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonDataStructureLib)</ChakraCommonMinLibs>
@@ -79,11 +79,11 @@
     <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeLanguageLib)</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeBaseLib)</ChakraRuntimeLibs>
-    
+
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\debug\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Debug.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\math\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Math.lib</ChakraRuntimeLibs>
-    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\types\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Types.lib</ChakraRuntimeLibs>   
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\types\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Types.lib</ChakraRuntimeLibs>
 
     <ChakraParserLibs>$(ChakraParserIntDir)Chakra.Parser.lib</ChakraParserLibs>
 
@@ -98,7 +98,7 @@
     <ChakraSCALibs>$(RazzleJscriptObjectRoot)\private\lib\sca\$(RazzleJscriptObjectDirectory)Chakra.SCA.lib</ChakraSCALibs>
     <ChakraProjectionLibs>$(RazzleJscriptObjectRoot)\private\lib\projection\$(RazzleJscriptObjectDirectory)Chakra.Projection.lib</ChakraProjectionLibs>
     <ChakraEngineLibs>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)Chakra.Engine.lib</ChakraEngineLibs>
-    
+
     <ChakraLibs>
       $(ChakraRuntimeLibs);
       $(ChakraParserLibs);

@@ -3149,13 +3149,13 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
 // Theoretically this method can be called from different thread. We'll need to move out the 
 // moduledeclarationInitialization (for GC allocation) part. ModuleEvaluation should be out by default, called from host.
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
-        /* [in] */ __RPC__in ModuleRecord requestModule,
-        /* [in] */ __RPC__in_opt IUnknown *punkContext,
-        /* [in] */ __RPC__in void *sourceContext,
-        /* [size_is][in] */ __RPC__in_ecount_full(sourceLength) byte *sourceText,
-        /* [in] */ unsigned long sourceLength,
-        /* [in] */ ParseModuleSourceFlags sourceFlag,
-        /* [out] */ __RPC__deref_out_opt Var *exceptionVar)
+    /* [in] */ __RPC__in ModuleRecord requestModule,
+    /* [in] */ __RPC__in_opt IUnknown *punkContext,
+    /* [in] */ __RPC__in void *sourceContext,
+    /* [size_is][in] */ __RPC__in_ecount_full(sourceLength) byte *sourceText,
+    /* [in] */ unsigned long sourceLength,
+    /* [in] */ ParseModuleSourceFlags sourceFlag,
+    /* [out] */ __RPC__deref_out_opt Var *exceptionVar)
 {
     HRESULT hr = NOERROR;
     // TODO: allow parallel parsing? we need to pick the right allocator in ModuleRecord,

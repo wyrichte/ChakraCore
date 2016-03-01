@@ -239,9 +239,8 @@ UTEST_GROUP(CustomHeapTests)
 
     void Free(Heap* heap, Allocation* allocation)
     {
-        DWORD oldProtect;
         // It is requirement to free only executable memory
-        UT_ASSERT(heap->ProtectAllocation(allocation, PAGE_EXECUTE, &oldProtect, PAGE_EXECUTE));
+        UT_ASSERT(heap->ProtectAllocation(allocation, PAGE_EXECUTE, PAGE_EXECUTE));
         heap->Free(allocation);
     }
 

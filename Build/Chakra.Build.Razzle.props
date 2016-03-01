@@ -9,8 +9,9 @@
       <!-- For Utf8Codex.h -->
       <AdditionalIncludeDirectories>
           %(AdditionalIncludeDirectories);
-          $(EnlistmentRoot)\inetcore\inc;
-          $(EnlistmentRoot)\inetcore\jscript\core\lib\common
+          $(EnlistmentRoot)\data\MSRC;
+          $(EnlistmentRoot)\onecoreuap\inetcore\inc;
+          $(EnlistmentRoot)\onecoreuap\inetcore\jscript\core\lib\common
       </AdditionalIncludeDirectories>
 
       <!-- ======== From tools\makefile.def ========-->
@@ -19,7 +20,7 @@
 
       <!--
       This flags are in the original razzle build, but don't look like it is necessary for our build
-        
+
         /D__NOTHROW_SELECTANY=__declspec(selectany)             // For UCRT? in vcruntime.h
         /D_APISET_MINCORE_VERSION=0x0100                        // No difference for us
         /D_APISET_MINWIN_VERSION=0x0101                         // No difference for us
@@ -34,7 +35,7 @@
         /DBUILD_WOW64_ENABLED=0                                 // For WOW64 support, which we don't have special code for wow64
         /DMSC_NOOPT                                             // We don't use this macro (nor any header we included)
         /DWINBLUE_KBSPRING14                                    // We don't care about APIs in 8.1 update
-        /d1trimfile:d:\win\ie\                        
+        /d1trimfile:d:\win\ie\
         /d1trimfile:e:\rzout\js\binaries.armchk\
         /d1trimfile:e:\rzout\js\obj.armchk\
         /d1trimfile:f:\ie.public\
@@ -48,7 +49,7 @@
         /D__BUILDDATE__     - unused
         /D__BUILDMACHINE__  - unused
         /analyze-           - (default)
-        /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1      
+        /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1
         /DWIN64             - harmless, introduced in Microsoft.Build.Cpp.props (it probably should have been /D_WIN64
         /If:\ie.public\internal\ddk\inc
         /If:\ie.public\sdk\inc\lkg

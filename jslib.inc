@@ -1,6 +1,5 @@
 # build/link config for release or test or language service binaries
 
-!include $(_PROJECT_MK_PATH)\..\prerelease.inc
 !if $(FREEBUILD) && defined(FRETEST)
 JS_LIBTYPE = test
 C_DEFINES = $(C_DEFINES) -DENABLE_DEBUG_CONFIG_OPTIONS=1
@@ -30,13 +29,13 @@ JS_LIBS_COMMON = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\exceptions\$(JS_LIBTYPE)\$(O)\chakra.common.exceptions.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\datastructures\$(JS_LIBTYPE)\$(O)\chakra.common.datastructures.lib \
     $(JS_LIBS_MEMPROTECTHEAP)
-    
+
 
 JS_LIBS_PARSER_INC = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)
 
 JS_LIBS_PARSER = \
-    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib 
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib
 
 JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\language\$(JS_LIBTYPE)\$(O)\chakra.runtime.language.lib \

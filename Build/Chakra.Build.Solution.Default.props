@@ -17,6 +17,8 @@
     <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
     <BaseLibPath Condition="'$(BaseLibPath)'==''">$(PublicInternalPath)\base\lib\$(PlatformPathNameAlt)</BaseLibPath>
 
+    <BaseDataPath>$(RazzleDataPath)</BaseDataPath>
+
     <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>
   </PropertyGroup>
   <PropertyGroup>
