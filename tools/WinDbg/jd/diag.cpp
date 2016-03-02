@@ -333,7 +333,7 @@ JD_PRIVATE_COMMAND(dumptrace,
             for (ULONG i = current; i < capacity; ++i)
             {
                 this->DumpStackTraceEntry(log[i].GetPtr(), reuseBuf);
-            } // for.
+            }
         }
 
         for (ULONG i = 0; i < current; ++i)
@@ -434,44 +434,6 @@ void EXT_CLASS_BASE::Out(_In_ PCWSTR fmt, ...)
     m_Control4->OutputVaListWide(DEBUG_OUTPUT_NORMAL, fmt, args);
 
     va_end(args);
-}
-
-void EXT_CLASS_BASE::Dbg(_In_ PCSTR fmt, ...)
-{
-#if ENABLE_DEBUG_OUTPUT
-    va_list args;
-    va_start(args, fmt);
-
-    std::string s;
-    if (m_unitTestMode)
-    {
-        s = std::string("$ut$") + fmt;
-        fmt = s.c_str();
-    }
-
-    m_Control->OutputVaList(DEBUG_OUTPUT_VERBOSE, fmt, args);
-
-    va_end(args);
-#endif
-}
-
-void EXT_CLASS_BASE::Dbg(_In_ PCWSTR fmt, ...)
-{
-#if ENABLE_DEBUG_OUTPUT
-    va_list args;
-    va_start(args, fmt);
-
-    std::wstring s;
-    if (m_unitTestMode)
-    {
-        s = std::wstring(L"$ut$") + fmt;
-        fmt = s.c_str();
-    }
-
-    m_Control4->OutputVaListWide(DEBUG_OUTPUT_VERBOSE, fmt, args);
-
-    va_end(args);
-#endif
 }
 
 USE_DbgEngDataTarget(); // Use DbgEngDataTarget implementation

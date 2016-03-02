@@ -51,7 +51,7 @@ public:
 
 protected:
     void ClearTypeInfo();
-    void MarkObject(ULONG64 address, ULONG64 prev);
+    void MarkObject(ULONG64 address, ULONG64 prev, RootType rootType);
     void ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjectInfo const& info);
 
     typedef std::pair<RemoteHeapBlock *, HeapObjectInfo> MarkStackEntry;

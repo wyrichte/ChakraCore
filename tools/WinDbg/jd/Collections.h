@@ -8,6 +8,7 @@
 #include <vector>
 #include <hash_map>
 #include <stdio.h>
+#include "RecyclerRoots.h"
 
 template <typename T>
 struct DefaultValue
@@ -166,14 +167,6 @@ public:
     typedef GraphNode<TKey, TAux> Node;
 
     TKey Key;
-
-    // TODO (doilij) possibly remove this?
-    // Note this is true of being a graph root but not necessarily of whether
-    // an object is a root from !showroots point of view.
-    bool IsRoot()
-    {
-        return Predecessors.Count() == 0;
-    }
 
     template <typename Fn>
     bool MapEdges(Fn func)
@@ -373,12 +366,11 @@ public:
     }
 
     // Export to CSV Extended
-    // sourcePointer, destPointer, sourceTypeId, destTypeId, sourceTypeName, destTypeName
     void ExportToCsvExtended(EXT_CLASS_BASE *ext, const char* filename)
     {
         // display some info on the console about the data layout
         ext->Out("CSVX column info:\n");
-        ext->Out("    sourcePointer,destPointer,sourceTypeId,destTypeId,sourceTypeName,destTypeName\n");
+        ext->Out("    sourcePointer, destPointer, sourceTypeId, destTypeId, sourceTypeName, destTypeName, sourceRootFlags, destRootFlags\n");
 
         FILE* f = fopen(filename, "w+");
         if (f != nullptr)
@@ -404,14 +396,22 @@ public:
                     ULONG64 fromPointerVtable = GetPointerAtAddress(fromPointer);
                     ULONG64 toPointerVtable = GetPointerAtAddress(toPointer);
 
-                    // TODO (doilij) fromAddrTypeId
+                    // TODO (doilij) implement fromAddrTypeId column
                     fprintf(f, ",");
 
-                    // TODO (doilij) toAddrTypeId
+                    // TODO (doilij) implement toAddrTypeId column
                     fprintf(f, ",");
 
                     fprintf(f, "\"%s\",", ext->GetTypeNameFromVTable(fromPointerVtable).c_str());
-                    fprintf(f, "\"%s\"\n", ext->GetTypeNameFromVTable(toPointerVtable).c_str());
+                    fprintf(f, "\"%s\",", ext->GetTypeNameFromVTable(toPointerVtable).c_str());
+
+                    // print node flags information for node and toNode
+                    const uint flagsBufferLength = 8; // space for 7 flags plus NULL
+                    char flagsBuffer[flagsBufferLength];
+                    FormatPointerFlags(flagsBuffer, flagsBufferLength, node);
+                    fprintf(f, "\"%s\",", flagsBuffer);
+                    FormatPointerFlags(flagsBuffer, flagsBufferLength, toNode);
+                    fprintf(f, "\"%s\"\n", flagsBuffer);
                 });
             });
 
@@ -442,20 +442,25 @@ private:
 
 struct RecyclerGraphNodeAux
 {
-    RecyclerGraphNodeAux() 
-    { 
-        typeName = nullptr; 
-        typeNameOrField = nullptr;
-        hasVtable = false;
-        isPropagated = false;
+    RecyclerGraphNodeAux() :
+        typeName(nullptr),
+        typeNameOrField(nullptr),
+        hasVtable(false),
+        isPropagated(false),
+        isRoot(false),
+        rootType(RootType::RootTypeNone)
+    {
     }
 
-    uint objectSize;    
+    uint objectSize;
+
     const char * typeName;
     const char * typeNameOrField;
     bool hasVtable;
-    bool isPropagated;    
+    bool isPropagated;
+
     bool isRoot;
+    RootType rootType;
 
     bool HasTypeInfo() const { return typeName != nullptr; }
 };

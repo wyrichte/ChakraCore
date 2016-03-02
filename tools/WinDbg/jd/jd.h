@@ -6,7 +6,6 @@
 #ifdef JD_PRIVATE
 #define ENABLE_MARK_OBJ 0
 #define ENABLE_UI_SERVER 0
-#define ENABLE_DEBUG_OUTPUT 0
 class RootPointers;
 #include <guiddef.h>
 #include "RecyclerObjectGraph.h"
