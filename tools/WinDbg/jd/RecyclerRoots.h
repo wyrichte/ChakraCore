@@ -36,7 +36,7 @@ private:
     ULONG _pinnedObjectTableSize;
 };
 
-enum RootType : uint
+enum RootType : unsigned char
 {
     RootTypeNone            = 0x00,
     RootTypePinned          = 0x01,

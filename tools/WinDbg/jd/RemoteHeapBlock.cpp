@@ -447,7 +447,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         UCHAR attributes;
         if (largeObjectHeader.HasField("attributesAndChecksum"))
         {
-            attributes = (UCHAR)(largeObjectHeader.Field("attributesAndChecksum").GetUshort() ^ GetRecyclerCookie());
+            attributes = (UCHAR)((largeObjectHeader.Field("attributesAndChecksum").GetUshort() ^ (USHORT)GetRecyclerCookie()) >> 8);
         }
         else if (largeObjectHeader.HasField("attributes"))
         {
