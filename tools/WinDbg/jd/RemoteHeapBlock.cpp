@@ -472,13 +472,22 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         return true;
     }
 
+    if (originalAddress >= GetAddress() + GetTotalObjectSize())
+    {
+        if (verbose)
+        {
+            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", originalAddress);
+            g_Ext->Out("Pass end of valid objects 0x%p\n", originalAddress);
+        }
+        return false;
+    }
     ULONG objectIndex = GetObjectIndex(originalAddress);
     ULONG64 objectAddress = GetObjectAddressFromIndex(objectIndex);
     if (!interior && objectAddress != originalAddress)
     {
         if (verbose)
         {
-            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
+            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", originalAddress);
             g_Ext->Out("Interior pointer to index: %d, 0x%p\n", objectIndex, objectAddress);
         }
         return false;

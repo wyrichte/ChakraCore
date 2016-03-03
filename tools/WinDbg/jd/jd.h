@@ -181,6 +181,8 @@ public:
 
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
+    CachedTypeInfo m_AuxPtrsFix16;
+    CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
@@ -201,9 +203,7 @@ protected:
     PCSTR GetModuleName();
     bool HasMemoryNS();
     PCSTR GetMemoryNS();
-
-    ExtRemoteTyped GetTlsEntryList();
-  
+ 
     ExtRemoteTyped GetRecycler(ULONG64 optionalRecyclerAddress);
     ExtRemoteTyped GetInternalStringBuffer(ExtRemoteTyped internalString);
     ExtRemoteTyped GetPropertyName(ExtRemoteTyped propertyNameListEntry);
@@ -266,9 +266,10 @@ protected:
 
         Addresses *rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, threadContext);
         ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
-        cachedObjectGraph = new RecyclerObjectGraph(this, recycler);
-        cachedObjectGraph->Construct(heapBlockMap, *rootPointerManager);
+        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(this, recycler));
+        newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
 
+        cachedObjectGraph = newObjectGraph.Detach();
         return cachedObjectGraph;
     }
 
@@ -378,6 +379,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(gcstats);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
+    JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);
     JD_PRIVATE_COMMAND_METHOD(pagealloc);
     JD_PRIVATE_COMMAND_METHOD(hbm);
     JD_PRIVATE_COMMAND_METHOD(swb);

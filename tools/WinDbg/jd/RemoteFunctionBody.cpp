@@ -43,14 +43,12 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
         if (auxPtrs.GetPtr() != 0)
         {
             EnsureAuxPtrsEnums();
-            char buf[MAX_PATH];
             uint8 count = auxPtrs.Field("count").GetUchar();
             uint8 maxCount16 = g_Ext->IsCurMachine64() ? 1 : 3;
             uint8 maxCount32 = g_Ext->IsCurMachine64() ? 3 : 6;
             if (count == maxCount16)
             {
-                sprintf_s(buf, "@@c++((%s!Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,%u>*)0x%I64X)", GetExtension()->FillModule("%s"), maxCount16, auxPtrs.GetPtr());
-                auto auxPtr16 = Eval(buf);
+                auto auxPtr16 = GetExtension()->m_AuxPtrsFix16.Cast(auxPtrs.GetPtr());
                 for (uint i = 0; i < count; i++)
                 {
                     uint8 type = auxPtr16.Field("type").ArrayElement(i).GetUchar();
@@ -65,8 +63,7 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
             }
             else if (count == maxCount32)
             {
-                sprintf_s(buf, "@@c++((%s!Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,%u>*)0x%I64X)", GetExtension()->FillModule("%s"), maxCount32, auxPtrs.GetPtr());
-                auto auxPtr32 = Eval(buf);
+                auto auxPtr32 = GetExtension()->m_AuxPtrsFix32.Cast(auxPtrs.GetPtr());
                 for (uint i = 0; i < count; i++)
                 {
                     uint8 type = auxPtr32.Field("type").ArrayElement(i).GetUchar();

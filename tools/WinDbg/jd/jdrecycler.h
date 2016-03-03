@@ -312,4 +312,21 @@ private:
     void* _ptr;
 };
 
+template <typename T>
+class AutoDelete
+{
+public:
+    AutoDelete(T * t) : _ptr(t) {};
+    ~AutoDelete() { if (_ptr) delete _ptr; }
+    operator T*() const { return _ptr; }
+    T *operator->() const { return _ptr; }
+    T * Detach() 
+    { 
+        T * t = _ptr;
+        _ptr = nullptr;
+        return t;  
+    }
+private:
+    T * _ptr;
+};
 #endif

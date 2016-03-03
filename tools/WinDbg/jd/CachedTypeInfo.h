@@ -10,9 +10,10 @@
 class CachedTypeInfo
 {
 public:
-    CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra = false);
+    CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra = true);
+    CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra = true);
     CachedTypeInfo(char const * (*GetTypeNameFunc)());
-    ExtRemoteTyped Cast(ULONG64 address);
+    JDRemoteTyped Cast(ULONG64 address);
 
     char const * const GetTypeName();
     std::string GetFullTypeName();
@@ -22,7 +23,8 @@ private:
     void EnsureCached();
     void EnsureTypeName();
 
-    std::string typeName;
+    std::string typeName32;
+    std::string typeName64;
     char const * (*GetTypeNameFunc)();
     bool isChakra;
     bool memoryNS;

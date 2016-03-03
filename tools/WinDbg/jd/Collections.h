@@ -234,18 +234,6 @@ public:
         return _nodes.Get(key);
     }
 
-    void AddEdge(const TKey& from, const TKey& to)
-    {
-        NodeType* nodeFrom = GetNode(from);
-        NodeType* nodeTo = GetNode(to);
-
-        if (nodeFrom != nodeTo)
-        {
-            nodeFrom->Edges.Add(nodeTo);
-            nodeTo->Predecessors.Add(nodeFrom);
-        }
-    }
-
     void AddEdge(const TKey& from, NodeType *nodeTo)
     {
         NodeType* nodeFrom = GetNode(from);

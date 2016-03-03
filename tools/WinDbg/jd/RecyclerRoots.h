@@ -44,6 +44,8 @@ enum RootType : uint
     RootTypeRegister        = 0x04,
     RootTypeArena           = 0x08,
     RootTypeImplicit        = 0x10,
+
+    RootTypeTransient       = RootTypeStack | RootTypeRegister
 };
 
 class RootTypeUtils
@@ -76,6 +78,11 @@ public:
             static_cast<uint>(a) |
             static_cast<uint>(b));
         return type;
+    }
+
+    static inline bool IsNonTransientRootType(RootType type)
+    {
+        return (static_cast<uint>(type) & ~RootTypeTransient) != 0;
     }
 };
 
@@ -184,7 +191,7 @@ public:
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
     void ScanArenaBigBlocks(ExtRemoteTyped blocks);
-    void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType = RootType::RootTypeNone);
+    void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType);
     void ScanImplicitRoots(bool print = true);
 private:
     std::auto_ptr<Addresses> m_addresses;

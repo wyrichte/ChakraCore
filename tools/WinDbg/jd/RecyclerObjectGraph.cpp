@@ -56,7 +56,7 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
 
     while (_markStack.size() != 0)
     {
-        const MarkStackEntry& object = _markStack.top();
+        const MarkStackEntry object = _markStack.top();
         _markStack.pop();
 
         ScanBytes(object.first, object.second);
@@ -110,6 +110,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
         }
         else
         {
+            Assert(infer);
             if (m_hasTypeNameAndFields)
             {
                 return;
@@ -531,6 +532,9 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
         });
     }
 
+    m_hasTypeName = true;
+    m_trident = trident;
+    m_hasTypeNameAndFields = infer;
     _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
         "\rObject graph type info complete - elapsed time: %us                                                    \n",
         (ULONG)(_time64(nullptr) - start));
@@ -600,26 +604,26 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev, RootType roo
     }
 
     GraphNode<ULONG64, RecyclerGraphNodeAux> *node = _objectGraph.FindNode(info.objectAddress);
-    if (node)
+    bool found = node != nullptr;
+    if (!found)
     {
-        return;
+        node = _objectGraph.AddNode(info.objectAddress);
+        node->aux.objectSize = info.objectSize;
     }
-
-    node = _objectGraph.AddNode(info.objectAddress);
-
+    Assert(node->aux.objectSize == info.objectSize);
     if (prev)
     {
         _objectGraph.AddEdge(prev, node);
+        Assert(!RootTypeUtils::IsAnyRootType(rootType));
     }
     else
     {
+        Assert(RootTypeUtils::IsAnyRootType(rootType));
         node->aux.isRoot = true;
+        node->aux.rootType = RootTypeUtils::CombineTypes(node->aux.rootType, rootType); // propagate RootType info to ObjectGraph
     }
-
-    node->aux.rootType = rootType; // propagate RootType info to ObjectGraph
-
-    node->aux.objectSize = info.objectSize;
-    if (!info.IsLeaf())
+    
+    if (!found && !info.IsLeaf())
     {
         MarkStackEntry entry;
         entry.first = remoteHeapBlock;
@@ -638,6 +642,7 @@ void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjec
     while (current < end)
     {
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
+        Assert(info.objectAddress != 0);
         MarkObject(value, info.objectAddress, RootType::RootTypeNone); // TODO (doilij): REVIEW: is this RootType correct?
         current += ptrSize;
     }
