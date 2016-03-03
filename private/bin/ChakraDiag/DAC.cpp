@@ -1313,20 +1313,20 @@ namespace JsDiag
         }
 
         uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
-        uint8 fieldSize = this->ToTargetPtr()->counters.fieldSize;
-        auto funcBody = this->ToTargetPtr();
-        auto& counters = funcBody->counters;      
+        auto remoteCounters = this->ToTargetPtr()->counters;
+        uint8 fieldSize = remoteCounters.fieldSize;
+        
         if (fieldSize == 1)
         {
-            return counters.u8Fields[fieldEnumVal];
+            return ReadVirtual<uint8>(&remoteCounters.fields.ptr->u8Fields[fieldEnumVal]);
         }
         else if (fieldSize == 2)
         {
-            return ReadVirtual<uint16>(counters.u16Fields.ptr + fieldEnumVal);
+            return ReadVirtual<uint16>(&remoteCounters.fields.ptr->u16Fields[fieldEnumVal]);
         }
         else if (fieldSize == 4)
         {
-            return ReadVirtual<uint32>(counters.u32Fields.ptr + fieldEnumVal);
+            return ReadVirtual<uint32>(&remoteCounters.fields.ptr->u32Fields[fieldEnumVal]);
         }
         else
         {
