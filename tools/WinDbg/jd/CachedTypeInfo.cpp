@@ -5,11 +5,15 @@
 #include "CachedTypeInfo.h"
 
 CachedTypeInfo::CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra) :
-    typeName(typeName), memoryNS(memoryNS), isChakra(isChakra), modBase(0), typeId(0), GetTypeNameFunc(nullptr)
+    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), modBase(0), typeId(0), GetTypeNameFunc(nullptr)
+{}
+
+CachedTypeInfo::CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra) :
+    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), modBase(0), typeId(0), GetTypeNameFunc(nullptr)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * (*GetTypeNameFunc)()) :
-    typeName(), memoryNS(false), isChakra(false), GetTypeNameFunc(GetTypeNameFunc), modBase(0), typeId(0)
+    memoryNS(false), isChakra(false), GetTypeNameFunc(GetTypeNameFunc), modBase(0), typeId(0)
 {}
 
 void CachedTypeInfo::Clear()
@@ -22,7 +26,7 @@ void CachedTypeInfo::Clear()
 char const * const CachedTypeInfo::GetTypeName()
 {
     EnsureTypeName();
-    return typeName.c_str();
+    return g_Ext->IsCurMachine32() ? typeName32.c_str() : typeName64.c_str();
 }
 
 std::string CachedTypeInfo::GetFullTypeName()
@@ -31,11 +35,11 @@ std::string CachedTypeInfo::GetFullTypeName()
     return fullTypeName;
 }
 
-ExtRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
+JDRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
 {
     EnsureCached();
 
-    ExtRemoteTyped ret;
+    JDRemoteTyped ret;
     ret.Set(false, modBase, typeId, address);
     return ret;
 }
@@ -44,7 +48,8 @@ void CachedTypeInfo::EnsureTypeName()
 {
     if (GetTypeNameFunc != nullptr)
     {
-        typeName = GetTypeNameFunc();
+        typeName32 = GetTypeNameFunc();
+        typeName64 = typeName32;
         GetTypeNameFunc = nullptr;
     }
 }
@@ -64,7 +69,7 @@ void CachedTypeInfo::EnsureCached()
     }
     else if (isChakra)
     {
-        std::string typeStringFormat("%s");
+        std::string typeStringFormat("%s!");
         typeStringFormat += GetTypeName();
         fullTypeName = GetExtension()->FillModule(typeStringFormat.c_str());
     }

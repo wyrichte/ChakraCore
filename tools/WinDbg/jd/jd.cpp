@@ -7,9 +7,13 @@
 // the framework's assumed globals.
 EXT_DECLARE_GLOBALS();
 
-EXT_CLASS_BASE::EXT_CLASS_BASE() 
+EXT_CLASS_BASE::EXT_CLASS_BASE() :
+    m_AuxPtrsFix16("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,3>", 
+        "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,1>", false),
+    m_AuxPtrsFix32("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,6>",
+        "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,3>", false),
 #ifdef JD_PRIVATE
-   : recyclerCachedData(this)
+   recyclerCachedData(this)
 #endif
 {
 #ifdef JD_PRIVATE
