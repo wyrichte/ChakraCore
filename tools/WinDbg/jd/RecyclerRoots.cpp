@@ -149,7 +149,6 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
     // memprotectheap recycler->stackBase is not set
     ExtRemoteTyped tib("@$TEB->NtTib");
     stackBase = tib.Field("StackBase").GetPtr();
-    stackTop = tib.Field("StackLimit").GetPtr();
 
     size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
     void** stack = (void**)malloc(stackSizeInBytes);
@@ -732,12 +731,6 @@ JD_PRIVATE_COMMAND(oi,
 
         heapBlockHelper.DumpHeapBlockLink(heapBlockType, remoteHeapBlock->GetHeapBlockAddress());
 
-        if (heapBlockType >= this->enum_BlockTypeCount())
-        {
-            Out("Object returned Invalid Heap Block\n");
-            return;
-        }
-
         ExtRemoteTyped heapBlock = remoteHeapBlock->GetExtRemoteTyped();
         if (heapBlockType == this->enum_LargeBlockType())
         {
@@ -1027,11 +1020,12 @@ void DumpPointerPropertiesDescendantsHeader(EXT_CLASS_BASE* ext)
 template <>
 void FormatPointerFlags(char *buffer, uint bufferLength, RecyclerObjectGraph::GraphImplNodeType *node)
 {
-    bool isPinned       = RootTypeUtils::IsType(node->aux.rootType, RootType::RootTypePinned);      // P
-    bool isStack        = RootTypeUtils::IsType(node->aux.rootType, RootType::RootTypeStack);       //  S
-    bool isRegister     = RootTypeUtils::IsType(node->aux.rootType, RootType::RootTypeRegister);    //   R
-    bool isArena        = RootTypeUtils::IsType(node->aux.rootType, RootType::RootTypeArena);       //    A
-    bool isImplicit     = RootTypeUtils::IsType(node->aux.rootType, RootType::RootTypeImplicit);    //     I
+    RootType rootType = node->GetRootType();
+    bool isPinned       = RootTypeUtils::IsType(rootType, RootType::RootTypePinned);      // P
+    bool isStack        = RootTypeUtils::IsType(rootType, RootType::RootTypeStack);       //  S
+    bool isRegister     = RootTypeUtils::IsType(rootType, RootType::RootTypeRegister);    //   R
+    bool isArena        = RootTypeUtils::IsType(rootType, RootType::RootTypeArena);       //    A
+    bool isImplicit     = RootTypeUtils::IsType(rootType, RootType::RootTypeImplicit);    //     I
 
     Assert(bufferLength > 5);
     if (bufferLength <= 5)
@@ -1069,7 +1063,7 @@ void DumpPointerProperties(EXT_CLASS_BASE* ext, RecyclerObjectGraph &objectGraph
     //
 
     auto node = objectGraph.FindNode(address);
-    ext->Out("%6d %6d ", node->Predecessors.Count(), node->Edges.Count());
+    ext->Out("%6d %6d ", node->GetPredecessorCount(), node->GetSuccessorCount());
 
     const uint bufferLength = 6; // space for 5 flags plus NULL
     char buffer[bufferLength];
@@ -1148,14 +1142,16 @@ JD_PRIVATE_COMMAND(traceroots,
     "{;e,o,d=0;pointer;Address to trace}"
     "{;e,o,d=0;recycler;Recycler address}"
     "{;e,o,d=1;numroots;Stop after hitting this many roots in the traversal (0 for full traversal)}"
-    "{it;b,o;ignoreTransient;Ignore Transient Roots}"
-    "{child;e,o,d=10;childLimit;Number of child to list}")
+    "{t;b,o;TransientRoots;Use Transient Roots}"
+    "{a;b,o;all;Shortest path to all roots}"
+    "{limit;edn=(10),o,d=10;successorLimit;Number of successor to list}")
 {
-    const bool ignoreTransientRoots = HasArg("it");
+    const bool transientRoots = HasArg("t");
+    const bool allShortestPath = HasArg("a");
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
     const ULONG64 numRootsArg = GetUnnamedArgU64(2);
-    const ULONG64 childLimitArg = GetArgU64("child");
+    const ULONG64 successorLimitArg = GetArgU64("limit");
     if (pointerArg == NULL)
     {
         this->Out("Please specify a non-null pointer.\n"
@@ -1222,10 +1218,16 @@ JD_PRIVATE_COMMAND(traceroots,
 
     Node node = objectGraph.FindNode(pointerArg);
 
+    if (node == nullptr)
+    {
+        this->Err("ERROR: %p not a GC pointer\n", pointerArg);
+        return;
+    }
+
     // Initially add the current node to the hash with level 0 and 0 roots (initial values)
     // Even if the first node is a root we don't care about that. We probably want to see one level past that if possible.
-    TraversalData * data = new TraversalData{ node->Key, 0, nullptr, 0 };
-    traversalMap.Add(node->Key, data);   
+    TraversalData * data = new TraversalData{ node->Key(), 0, nullptr, 0 };
+    traversalMap.Add(node->Key(), data);   
     nodeQueue.push(std::make_pair(node, data));
 
 
@@ -1253,18 +1255,24 @@ JD_PRIVATE_COMMAND(traceroots,
         
         ULONG64 currentRootHitCount = currentData->rootHitCount; // the current count of roots encountered on the current traversal path
 
-        Assert(currentNode->Predecessors.Count() != 0 || RootTypeUtils::IsAnyRootType(currentNode->aux.rootType));
-        bool allowRoot = (!ignoreTransientRoots || RootTypeUtils::IsNonTransientRootType(currentNode->aux.rootType));
+        RootType rootType = currentNode->GetRootType();
+        Assert(currentNode->GetPredecessorCount() != 0 || RootTypeUtils::IsAnyRootType(rootType));
+        bool allowRoot = (transientRoots || RootTypeUtils::IsNonTransientRootType(rootType));
         // Capture the value of rootHitCount from the perspective of currentNode; increment if currentNode is a root.
-        if (allowRoot && RootTypeUtils::IsAnyRootType(currentNode->aux.rootType))
+        if (allowRoot && RootTypeUtils::IsAnyRootType(rootType))
         {
             currentRootHitCount++;
             rootQueue.push(current);
+
+            if (!allShortestPath)
+            {
+                break;
+            }
         }
 
         currentNode->MapAllPredecessors([this, currentData, &traversalMap, &nodeQueue, numRootsArg, currentRootHitCount](Node parent)
         {
-            ULONG64 address = parent->Key;
+            ULONG64 address = parent->Key();
 
             // Don't keep traversing from this node if the currentRootHitCount is too large
             if (numRootsArg != 0 && currentRootHitCount >= numRootsArg)
@@ -1322,31 +1330,31 @@ JD_PRIVATE_COMMAND(traceroots,
         rootQueue.pop();
 
         NodeQueueNode rootNode = root.first;
-        ULONG64 address = rootNode->Key;
+        ULONG64 address = rootNode->Key();
         TraversalData *pTraversalData = traversalMap.Get(address);
         while (pTraversalData != nullptr)
         {
             DumpPointerProperties(this, objectGraph, pointerArg, pTraversalData->address, pTraversalData->level);
             pTraversalData = pTraversalData->child;
         }
-        this->Out("--------------\n");
+        this->Out("---------------------+\n");
     }   
 
     // Only display the descendants section if node actually has descendants.
-    if (node->Edges.Count() > 0)
+    if (node->GetSuccessorCount() > 0)
     {
         // Display the target pointer and one level of its descendants
         DumpPointerPropertiesDescendantsHeader(this);
         DumpPointerProperties(this, objectGraph, pointerArg, pointerArg, 0);
 
         uint count = 0;
-        node->MapEdges([this, &objectGraph, &pointerArg, &count, childLimitArg, node](Node child)
+        node->MapEdges([this, &objectGraph, &pointerArg, &count, successorLimitArg, node](Node child)
         {
-            ULONG64 address = child->Key;
+            ULONG64 address = child->Key();
             DumpPointerProperties(this, objectGraph, pointerArg, address, 1);
-            if (count >= childLimitArg)
+            if (count >= successorLimitArg)
             {
-                this->Out("Limit Reached. %d more not displayed.", node->Edges.Count() - count);
+                this->Out("Limit Reached. %d more not displayed.", node->GetSuccessorCount() - count);
                 return true;
             }
             count++;
@@ -1513,32 +1521,32 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     auto addStats = [&](RecyclerObjectGraph::GraphImplNodeType * node)
     {        
-        char const * typeName = infer ? node->aux.typeNameOrField : node->aux.typeName;
+        char const * typeName = infer ? node->GetTypeNameOrField() : node->GetTypeName();
         auto i = objectCounts.find(typeName);
         if (i != objectCounts.end())
         {
             ObjectAllocStats& stats = (*i).second;
             stats.count++;
-            stats.size += node->aux.objectSize;
-            stats.unknownCount += node->aux.isPropagated;
-            stats.unknownSize += node->aux.isPropagated ? node->aux.objectSize : 0;
+            stats.size += node->GetObjectSize();
+            stats.unknownCount += node->IsPropagated();
+            stats.unknownSize += node->IsPropagated() ? node->GetObjectSize() : 0;
         }
         else
         {
             ObjectAllocStats stats;
             stats.count = 1;
-            stats.size = node->aux.objectSize;
-            stats.unknownCount = node->aux.isPropagated;
-            stats.unknownSize = node->aux.isPropagated ? node->aux.objectSize : 0;
-            stats.hasVtable = node->aux.hasVtable;
+            stats.size = node->GetObjectSize();
+            stats.unknownCount = node->IsPropagated();
+            stats.unknownSize = node->IsPropagated() ? node->GetObjectSize() : 0;
+            stats.hasVtable = node->HasVtable();
             objectCounts[typeName] = stats;
         }
     };
 
-    objectGraph.MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
+    objectGraph.MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
         numNodes++;
-        totalSize += (node->aux.objectSize);
+        totalSize += (node->GetObjectSize());
         addStats(node);
     });
 
@@ -1615,39 +1623,93 @@ struct SortNodeBySuccessor
 {
     bool operator()(RecyclerObjectGraph::GraphImplNodeType* left, RecyclerObjectGraph::GraphImplNodeType* right) const
     {
-        return left->Edges.Count() > right->Edges.Count() ||
-            (left->Edges.Count() == right->Edges.Count() && left->Key < right->Key);
+        return left->GetSuccessorCount() > right->GetSuccessorCount() ||
+            (left->GetSuccessorCount() == right->GetSuccessorCount() && left->Key() < right->Key());
+    }
+};
+
+struct SortNodeByPredecessor
+{
+    bool operator()(RecyclerObjectGraph::GraphImplNodeType* left, RecyclerObjectGraph::GraphImplNodeType* right) const
+    {
+        return left->GetPredecessorCount() > right->GetPredecessorCount() ||
+            (left->GetPredecessorCount() == right->GetPredecessorCount() && left->Key() < right->Key());
+    }
+};
+
+struct SortNodeByObjectSize
+{
+    bool operator()(RecyclerObjectGraph::GraphImplNodeType* left, RecyclerObjectGraph::GraphImplNodeType* right) const
+    {
+        return left->GetObjectSize() > right->GetObjectSize() ||
+            (left->GetObjectSize() == right->GetObjectSize() && left->Key() < right->Key());
     }
 };
 
 JD_PRIVATE_COMMAND(jsobjectnodes,
     "Dump a table of object types and statistics",
-    "{;e,o,d=0;recycler;Recycler address}")
+    "{;e,o,d=0;recycler;Recycler address}"
+    "{ti;b,o;typeInfo;Type info}"
+    "{sp;b,o;predecssorCount;Sort by predecessor count}"
+    "{ss;b,o;objectSize;Sort by object size}"
+    "{limit;edn=(10),o,d=10;nodes;Number of nodes to display}")
 {
     ULONG64 arg = GetUnnamedArgU64(0);
     ExtRemoteTyped recycler = GetRecycler(arg);
-    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
-    
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
-    objectGraph.EnsureTypeInfo(true, false, false);
-    
-    std::set<RecyclerObjectGraph::GraphImplNodeType*, SortNodeBySuccessor> sortedNodes;
-    objectGraph.MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
-    {
-        sortedNodes.insert(node);
-    });
+    ULONG64 limit = GetArgU64("limit");
+    bool typeInfo = HasArg("ti");
+    bool sortByPred = HasArg("sp");
+    bool sortBySize = HasArg("ss");
 
-    uint limit = 10;
-    uint count = 0;
-    for (auto i = sortedNodes.begin(); i != sortedNodes.end(); i++)
+    if (sortByPred && sortBySize)
     {
-        Out("%6d %6d %p %s%s\n", (*i)->Predecessors.Count(), (*i)->Edges.Count(), (*i)->Key, (*i)->aux.isPropagated? "[RefBy] " : "", (*i)->aux.typeName);
+        Err("ERROR: -sp and -ss can't be specified together\n");
+        return;
+    }
+    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
+
+    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    if (typeInfo)
+    {
+        objectGraph.EnsureTypeInfo(true, false, false);
+    }
+
+    ULONG64 count = 0;
+    auto output = [&](RecyclerObjectGraph::GraphImplNodeType* node)
+    {
+        Out("%6d %6d %8d %p ", node->GetPredecessorCount(), node->GetSuccessorCount(), node->GetObjectSize(), node->Key());
+        if (typeInfo)
+        {
+            Out("%s%s", node->IsPropagated() ? "[RefBy] " : "", node->GetTypeName());
+        }
+        else
+        {
+            DumpPossibleSymbol(node->Key());
+        }
+        Out("\n");
         if (count >= limit)
         {
-            break;
+            Out("<%d limit reached>\n", limit);
+            return true;
         }
         count++;
+        return false;
+    };
+
+    if (sortBySize)
+    {
+        objectGraph.MapSorted<SortNodeByObjectSize>(output);
     }
+    else if (sortByPred)
+    {
+        objectGraph.MapSorted<SortNodeByPredecessor>(output);
+    }
+    else
+    {
+        objectGraph.MapSorted<SortNodeBySuccessor>(output);
+    }
+    Out("----------------------------------------------------------\n");
+    Out("Total %d nodes, %d edges\n", objectGraph.GetNodeCount(), objectGraph.GetEdgeCount());
 }
 
 #endif

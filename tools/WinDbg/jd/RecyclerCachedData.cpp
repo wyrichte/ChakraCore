@@ -19,7 +19,8 @@ RecyclerCachedData::RecyclerCachedData(EXT_CLASS_BASE * ext) :
     m_smallHeapBlockTypeInfo(StaticGetSmallHeapBlockTypeName),
     m_largeHeapBlockTypeInfo("LargeHeapBlock", true),
     m_blockTypeEnumInitialized(false),
-    m_mphblockTypeEnumInitialized(false)
+    m_mphblockTypeEnumInitialized(false),
+    m_debuggeeMemoryCache(NULL)
 {}
 
 Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
@@ -61,6 +62,7 @@ void RecyclerCachedData::SetHeapBlockMap(ULONG64 heapBlockMapAddr, RemoteHeapBlo
 
 void RecyclerCachedData::Clear()
 {
+    DisableCachedDebuggeeMemory();
     for (auto i = rootPointersCache.begin(); i != rootPointersCache.end(); i++)
     {
         delete (*i).second;
@@ -85,6 +87,79 @@ ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)
 ExtRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
 {
     return m_smallHeapBlockTypeInfo.Cast(address);
+}
+
+bool RecyclerCachedData::GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory)
+{
+    if (m_debuggeeMemoryCache == NULL)
+    {
+        return false;
+    }
+
+    ExtRemoteData data(address, size);
+    class AutoCleanup
+    {
+    public:
+        AutoCleanup(HANDLE heap, ULONG size) : heap(heap)
+        {
+            address = HeapAlloc(heap, 0, size);
+        };
+        ~AutoCleanup()
+        {
+            if (address)
+            {
+                HeapFree(heap, 0, address);
+            }
+        }
+        char * Detach()
+        {
+            char * buffer = GetBuffer();
+            address = nullptr;
+            return buffer;
+        }
+        char * GetBuffer() { return (char *)address; }
+    private:
+        HANDLE heap;
+        LPVOID address;
+    } newBuffer(m_debuggeeMemoryCache, size);
+    data.ReadBuffer(newBuffer.GetBuffer(), size);
+    m_debuggeeMemoryCacheReferences.insert(debuggeeMemory);
+    *debuggeeMemory = newBuffer.Detach();
+    return true;
+}
+
+void RecyclerCachedData::RemoveCachedDebuggeeMemory(char ** debuggeeMemory)
+{
+    if (*debuggeeMemory)
+    {
+        HeapFree(m_debuggeeMemoryCache, 0, *debuggeeMemory);
+        *debuggeeMemory = nullptr;
+    }
+}
+
+void RecyclerCachedData::EnableCachedDebuggeeMemory()
+{
+    if (m_debuggeeMemoryCache != NULL)
+    {
+        return;
+    }
+    m_debuggeeMemoryCache = HeapCreate(0, 0, 0);
+}
+
+void RecyclerCachedData::DisableCachedDebuggeeMemory()
+{
+    if (m_debuggeeMemoryCache == NULL)
+    {
+        return;
+    }
+
+    for (auto i = m_debuggeeMemoryCacheReferences.begin(); i != m_debuggeeMemoryCacheReferences.end(); i++)
+    {
+        *(*i) = nullptr;
+    }
+    m_debuggeeMemoryCacheReferences.clear();
+    HeapDestroy(m_debuggeeMemoryCache);
+    m_debuggeeMemoryCache = NULL;
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)

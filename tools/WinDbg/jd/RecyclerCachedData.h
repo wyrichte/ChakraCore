@@ -5,6 +5,7 @@
 #pragma once
 
 #include <map>
+#include <set>
 #include "CachedTypeInfo.h"
 #include "RemoteHeapBlockMap.h"
 
@@ -24,8 +25,9 @@ class RootPointers;
     MACRO(MediumNormalBlockWithBarrierType) \
     MACRO(MediumFinalizableBlockWithBarrierType) \
     MACRO(LargeBlockType) \
-    MACRO(SmallBlockTypeCount) \
-    MACRO(BlockTypeCount)
+
+//    MACRO(SmallBlockTypeCount) \
+//    MACRO(BlockTypeCount)
 
 class RecyclerCachedData
 {
@@ -42,6 +44,11 @@ public:
     ExtRemoteTyped GetAsHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
+
+    bool GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory);
+    void RemoveCachedDebuggeeMemory(char ** debuggeeMemory);
+    void EnableCachedDebuggeeMemory();
+    void DisableCachedDebuggeeMemory();
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name) \
     ULONG64 GetBlockTypeEnum##name() { EnsureBlockTypeEnum(); return m_blockTypeEnumValue##name; } \
@@ -69,4 +76,7 @@ private:
     EXT_CLASS_BASE * _ext;
     bool m_blockTypeEnumInitialized;
     bool m_mphblockTypeEnumInitialized;
+
+    HANDLE m_debuggeeMemoryCache;
+    std::set<char **> m_debuggeeMemoryCacheReferences;
 };

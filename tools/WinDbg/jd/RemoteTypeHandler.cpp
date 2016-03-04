@@ -130,8 +130,9 @@ void RemoteSimpleDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& o
     }
 }
 
-// Specialize on USHORT
+// Specialize on USHORT and INT
 template class RemoteSimpleDictionaryTypeHandler<USHORT>;
+template class RemoteSimpleDictionaryTypeHandler<INT>;
 
 template <typename T>
 void RemoteDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& obj, const ObjectPropertyListener& listener)
