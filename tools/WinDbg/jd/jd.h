@@ -20,6 +20,7 @@ class RootPointers;
 
 #include <map>
 #include "FieldInfoCache.h"
+#include "RecyclerObjectTypeInfo.h"
 
 enum CommandOutputType
 {
@@ -181,6 +182,7 @@ public:
 
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
+    RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;
     CachedTypeInfo m_AuxPtrsFix16;
     CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
@@ -297,6 +299,7 @@ public:
         Assert(var.GetTypeSize() <= m_PtrSize);
         return (T)var.GetData(var.GetTypeSize());
     }
+
 
 protected:
     char m_moduleName[16]; // jc or jscript9, access through GetModuleName()

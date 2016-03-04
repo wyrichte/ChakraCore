@@ -83,12 +83,32 @@ public:
         return false;
     }
 
-    char * GetDebuggeeMemory();
-    char * GetDebuggeeMemory(ULONG64 address);
-    void FlushDebuggeeMemory();
+    class AutoDebuggeeMemory
+    {
+    public:
+        AutoDebuggeeMemory(RemoteHeapBlock * heapBlock, ULONG64 address, ULONG size) : heapBlock(heapBlock) 
+        {
+            debuggeeMemory = heapBlock->GetDebuggeeMemory(address, size, &cached);
+        };
+        ~AutoDebuggeeMemory()
+        {
+            if (!cached)
+            {
+                delete[] debuggeeMemory;
+            }            
+        }
+        operator char*() { return debuggeeMemory;  }
+
+    private:
+        RemoteHeapBlock * heapBlock;
+        char * debuggeeMemory;
+        bool cached;
+    };
+    
 
     static RemoteHeapBlock NullHeapBlock;
 private:
+    char * GetDebuggeeMemory(ULONG64 address, ULONG size, bool * cached);
     ULONG GetObjectIndex(ULONG64 objectAddress);
     ULONG64 GetObjectAddressFromIndex(ULONG objectIndex);
     ULONG GetRecyclerCookie();

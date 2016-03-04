@@ -47,6 +47,7 @@ void RecyclerObjectGraph::DumpForCsvExtended(EXT_CLASS_BASE *ext, const char* ou
 void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots)
 {
     auto start = _time64(nullptr);
+    GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
     roots.Map([&](ULONG64 root)
     {
         MarkObject(root, 0, roots.GetRootType(root));
@@ -66,15 +67,11 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
         {
             _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
                 "\rTraversing object graph, object count - stack: %6d, visited: %d",
-                _markStack.size(), _objectGraph.Count());
+                _markStack.size(), _objectGraph.GetNodeCount());
         }
     }
 
-    m_hbm.ForEachHeapBlock(heapBlockMap, [](RemoteHeapBlock& heapBlock)
-    {
-        heapBlock.FlushDebuggeeMemory();
-        return false;
-    });
+    GetExtension()->recyclerCachedData.DisableCachedDebuggeeMemory();    
 
     _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
         "\rObject graph construction completed - elapsed time: %us                                                    \n",
@@ -83,12 +80,9 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
 
 void RecyclerObjectGraph::ClearTypeInfo()
 {
-    this->MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
+    this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
-        node->aux.typeName = nullptr;
-        node->aux.typeNameOrField = nullptr;
-        node->aux.hasVtable = false;
-        node->aux.isPropagated = false;
+        node->ClearTypeInfo();
     });
 }
 
@@ -184,10 +178,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
 
     auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, bool hasVtable, bool isPropagated)
     {
-        node->aux.typeName = typeName;
-        node->aux.typeNameOrField = typeNameOrField;
-        node->aux.hasVtable = hasVtable;
-        node->aux.isPropagated = isPropagated;
+        node->SetTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated);
         if (!infer)
         {
             return false;
@@ -197,21 +188,22 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
     };
 
     ULONG numNodes = 0;
-    this->MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
-    {
+    this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
+    {        
         numNodes++;
         if (numNodes % 10000 == 0)
         {
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info - %11d/%11d", numNodes, this->NumNodes());
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info - %11d/%11d", numNodes, this->GetNodeCount());
         }
 
-        if (node->aux.HasTypeInfo())
+        if (node->HasTypeInfo())
         {
             return;
         }
 
         char const * typeName = nullptr;
-        if (!mayHaveVtable(objectAddress, node->aux.objectSize))
+        ULONG64 objectAddress = node->Key();
+        if (!mayHaveVtable(objectAddress, node->GetObjectSize()))
         {
             return;
         }
@@ -229,7 +221,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                 if (field.GetPtr() != 0)
                 {
                     auto fieldNode = this->FindNode(field.GetPtr());
-                    if (fieldNode && !fieldNode->aux.HasTypeInfo())
+                    if (fieldNode && !fieldNode->HasTypeInfo())
                     {
                         setNodeData(typeName, name, fieldNode, false, false);
                         return true;
@@ -504,26 +496,26 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
     while (missedRef)
     {
         missedRef = false;
-        this->MapAllNodes([&](ULONG64 objectAddress, RecyclerObjectGraph::GraphImplNodeType* node)
+        this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
         {
-            if (node->aux.HasTypeInfo())
+            if (node->HasTypeInfo())
             {
                 return;
             }
 
-            if (node->aux.isRoot)
+            if (node->IsRoot())
             {
                 setNodeData("<Root>", "<Root>", node, false, true);
             }
 
             if (!node->MapPredecessors([&](RecyclerObjectGraph::GraphImplNodeType* pred)
             {
-                if (!pred->aux.HasTypeInfo())
+                if (!pred->HasTypeInfo())
                 {
                     return false;
                 }
 
-                setNodeData(pred->aux.typeName, pred->aux.typeNameOrField, node, pred->aux.hasVtable, true);
+                setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, pred->HasVtable(), true);
                 return true;
             }))
             {
@@ -583,7 +575,7 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 }
 #endif
 
-void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev, RootType rootType)
+void RecyclerObjectGraph::MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
 {
     if (address == NULL ||
         !this->_alignmentUtility.IsAlignedAddress(address))
@@ -603,49 +595,56 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, ULONG64 prev, RootType roo
         return;
     }
 
-    GraphNode<ULONG64, RecyclerGraphNodeAux> *node = _objectGraph.FindNode(info.objectAddress);
+    GraphImplNodeType *node = _objectGraph.FindNode(info.objectAddress);
     bool found = node != nullptr;
     if (!found)
     {
         node = _objectGraph.AddNode(info.objectAddress);
-        node->aux.objectSize = info.objectSize;
+        node->SetObjectSize(info.objectSize);
     }
-    Assert(node->aux.objectSize == info.objectSize);
-    if (prev)
+    Assert(node->objectSize == info.objectSize);
+    if (successors)
     {
-        _objectGraph.AddEdge(prev, node);
+        successors->Add(node);
         Assert(!RootTypeUtils::IsAnyRootType(rootType));
     }
     else
     {
         Assert(RootTypeUtils::IsAnyRootType(rootType));
-        node->aux.isRoot = true;
-        node->aux.rootType = RootTypeUtils::CombineTypes(node->aux.rootType, rootType); // propagate RootType info to ObjectGraph
+        node->AddRootType(rootType); // propagate RootType info to ObjectGraph
     }
     
     if (!found && !info.IsLeaf())
     {
         MarkStackEntry entry;
         entry.first = remoteHeapBlock;
-        entry.second = info;
+        entry.second = node;
         _markStack.push(entry);
     }
 }
 
-void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjectInfo const& info)
+void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node)
 {
-    char * object = remoteHeapBlock->GetDebuggeeMemory(info.objectAddress);
-    char* end = object + info.objectSize;
-    char* current = object;
-    ulong ptrSize = this->_ext->m_PtrSize;
+    ULONG64 objectAddress = node->Key();
+    Assert(objectAddress != 0);
 
+    uint objectSize = node->GetObjectSize();
+    RemoteHeapBlock::AutoDebuggeeMemory object(remoteHeapBlock, objectAddress, objectSize);   
+    char* current = (char *)object;
+    char* end = current + objectSize;
+    ulong ptrSize = this->_ext->m_PtrSize;
+    Set<GraphImplNodeType *> successors;
     while (current < end)
     {
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
-        Assert(info.objectAddress != 0);
-        MarkObject(value, info.objectAddress, RootType::RootTypeNone); // TODO (doilij): REVIEW: is this RootType correct?
+        if (value != objectAddress)
+        {
+            MarkObject(value, &successors, RootType::RootTypeNone);
+        }
         current += ptrSize;
     }
+
+    this->_objectGraph.AddEdges(node, successors);
 }
 
 #endif
