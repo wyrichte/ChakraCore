@@ -1719,7 +1719,9 @@ HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule,
     else
     {
         Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
+        BEGIN_NO_EXCEPTION
         hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
+        END_NO_EXCEPTION
     }
     return hr;
 }

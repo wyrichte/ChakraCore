@@ -649,7 +649,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
                 if (SUCCEEDED(runInfo.hr))
                 {
-                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, (byte**)&errorObject);
+                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, FALSE, (byte**)&errorObject);
                 }
                 if (FAILED(runInfo.hr) && errorObject != nullptr)
                 {
@@ -1852,6 +1852,43 @@ HRESULT WScriptFastDom::CallbackMessage::Call()
 {
     return CallJavascriptFunction();
 }
+
+WScriptFastDom::ModuleMessage::ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect)
+    : MessageBase(0), moduleRecord(module), specifier(specifier), scriptDirect(activeScriptDirect)
+{
+    // TODO: we might need to JsVarAddRef if chakra doesn't
+}
+
+WScriptFastDom::ModuleMessage::~ModuleMessage()
+{
+}
+
+HRESULT WScriptFastDom::ModuleMessage::Call()
+{
+    HRESULT hr;
+    Var result;
+    if (specifier == nullptr)
+    {
+        hr = scriptDirect->ModuleEvaluation(moduleRecord, &result);
+    }
+    else
+    {
+        Var errorObject;
+        // fetch the module.
+        CComPtr<IJsHostScriptSite> jsHostScriptSite = nullptr;
+        CComPtr<IActiveScript> activeScript;
+        IfFailGo(scriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript));
+
+        hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+        if (SUCCEEDED(hr))
+        {
+            hr = jsHostScriptSite->LoadModuleFile(specifier, TRUE, (byte**)&errorObject);
+        }
+    }
+Error:
+    return hr;
+}
+
 
 void WScriptFastDom::EnableEditTests()
 {

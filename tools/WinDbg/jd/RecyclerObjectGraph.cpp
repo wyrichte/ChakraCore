@@ -602,7 +602,7 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, Set<GraphImplNodeType *> *
         node = _objectGraph.AddNode(info.objectAddress);
         node->SetObjectSize(info.objectSize);
     }
-    Assert(node->objectSize == info.objectSize);
+    Assert(node->GetObjectSize() == info.objectSize);
     if (successors)
     {
         successors->Add(node);

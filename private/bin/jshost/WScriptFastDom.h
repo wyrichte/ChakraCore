@@ -32,6 +32,26 @@ public:
         }
     };
 
+    class ModuleMessage : public MessageBase
+    {
+    private:
+        ModuleRecord moduleRecord;
+        LPCWSTR specifier;
+        CComPtr<IActiveScriptDirect> scriptDirect;
+
+        ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect);
+
+    public:
+        ~ModuleMessage();
+
+        virtual HRESULT Call() override;
+
+        static ModuleMessage* Create(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect)
+        {
+            return new ModuleMessage(module, specifier, activeScriptDirect);
+        }
+    };
+
     class RunInfo
     {
     public:
