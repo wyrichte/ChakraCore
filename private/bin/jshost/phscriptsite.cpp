@@ -1125,11 +1125,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contentsRaw, lengthBytes, errorObject);
+            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contentsRaw, lengthBytes, errorObject);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contents, (UINT)wcslen(contents)*sizeof(wchar_t), errorObject);
+            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contents, (UINT)wcslen(contents)*sizeof(wchar_t), errorObject);
         }
         goto Error;
     }
@@ -1339,7 +1339,7 @@ DWORD_PTR JsHostActiveScriptSite::AddUrl(_In_z_ LPCWSTR url)
 
 // TODO: make source code heapalloc.
 HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, 
-    LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
+    LPCWSTR filename, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
 {
     HRESULT hr = S_OK;
     CComPtr<IActiveScript> activeScript;
@@ -1354,30 +1354,33 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
         DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
     // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
         ModuleRecord requestModule = nullptr;
-        hr = activeScriptDirect->InitializeModuleRecord(nullptr, fileName, fileNameLength, &requestModule);
-        if (SUCCEEDED(hr))
+        auto moduleRecordEntry = moduleRecordMap.find(filename);
+        if (moduleRecordEntry == moduleRecordMap.end())
         {
-            if (isUtf8)
-            {
-                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
-            }
-            else
-            {
-                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
-                 ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
-            }
-            if (FAILED(hr) && *errorObject != nullptr)
-            {
-                // This is alternative way to report error coming from ParseModuleSource. However here the call
-                // comes from an external function call, and we want to just throw back out, from the caller.
-                //IActiveScriptError* scriptError = nullptr;
-                //hr = activeScriptDirect->CreateScriptErrorFromVar(*errorObject, &scriptError);
-                //if (SUCCEEDED(hr))
-                //{
-                //    hr = OnScriptError(scriptError);
-                //    scriptError->Release();
-                //}
-            }
+            fwprintf(stderr, L"module record for %s should have been created \n", filename);
+            return E_INVALIDARG;
+        }
+        requestModule = moduleRecordEntry->second;
+        if (isUtf8)
+        {
+            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
+        }
+        else
+        {
+            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
+                ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
+        }
+        if (FAILED(hr) && *errorObject != nullptr)
+        {
+            // This is alternative way to report error coming from ParseModuleSource. However here the call
+            // comes from an external function call, and we want to just throw back out, from the caller.
+            //IActiveScriptError* scriptError = nullptr;
+            //hr = activeScriptDirect->CreateScriptErrorFromVar(*errorObject, &scriptError);
+            //if (SUCCEEDED(hr))
+            //{
+            //    hr = OnScriptError(scriptError);
+            //    scriptError->Release();
+            //}
         }
     }
     return hr;
@@ -1576,10 +1579,38 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
 }
 
 
-STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, byte** errorObject)
+STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject)
 {
     HRESULT hr = S_OK;
 
+    auto moduleEntry = moduleRecordMap.find(filename);
+    if (useExistingModuleRecord)
+    {
+        if (moduleEntry == moduleRecordMap.end())
+        {
+            fwprintf(stderr, L"missing module record for %s\n", filename);
+            return E_INVALIDARG;
+        }
+    }
+    else
+    {
+        if (moduleEntry != moduleRecordMap.end())
+        {
+            fwprintf(stderr, L"ERROR: same module file was loaded multiple times %s\n", filename);
+            return E_INVALIDARG;
+        }
+        CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
+        ModuleRecord moduleRecord = nullptr;
+        hr = GetActiveScriptDirect(&scriptDirect);
+        if (SUCCEEDED(hr))
+        {
+            hr = scriptDirect->InitializeModuleRecord(nullptr, filename, (UINT)wcslen(filename), &moduleRecord);
+        }
+        if (SUCCEEDED(hr))
+        {
+            moduleRecordMap[filename] = moduleRecord;
+        }
+    }
     hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
 
     return hr;
@@ -1632,7 +1663,23 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorOb
         }
         else
         {
-            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
+            ModuleRecord requestModuleRecord = nullptr;
+            CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
+            hr = GetActiveScriptDirect(&scriptDirect);
+            if (moduleRecordMap.find(script) != moduleRecordMap.end())
+            {
+                fwprintf(stderr, L"same script got loaded as module more than once\n");
+                hr = E_INVALIDARG;
+            }
+            if (SUCCEEDED(hr))
+            {
+                hr = scriptDirect->InitializeModuleRecord(nullptr, script, (UINT)wcslen(script), &requestModuleRecord);
+            }
+            if (SUCCEEDED(hr))
+            {
+                moduleRecordMap[script] = requestModuleRecord;
+                hr = LoadModuleFromString(false, script, (UINT)wcslen(script), script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
+            }
         }
     }
 
@@ -2219,7 +2266,27 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ unsigned long specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
 {
-    return E_NOTIMPL;
+    HRESULT hr;
+    // TODO: implement the dictionary
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = GetActiveScriptDirect(&activeScriptDirect);
+    ModuleRecord moduleRecord = nullptr;
+    auto moduleEntry = moduleRecordMap.find(specifier);
+    if (moduleEntry != moduleRecordMap.end())
+    {
+        fwprintf(stderr, L"ERROR: same module file was loaded multiple times %s\n", specifier);
+        return E_INVALIDARG;
+    }
+    hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
+    if (SUCCEEDED(hr))
+    {
+        moduleRecordMap[specifier] = moduleRecord;
+        WScriptFastDom::ModuleMessage* moduleMessage =
+            WScriptFastDom::ModuleMessage::Create(referencingModule, specifier, activeScriptDirect);
+        WScriptFastDom::PushMessage(moduleMessage);
+        *dependentModuleRecord = moduleRecord;
+    }
+    return hr;
 }
 
 STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
@@ -2230,10 +2297,8 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
-    Var result;
     if (SUCCEEDED(hr))
     {
-        // TODO: promise/enqueue
         if (exceptionVar != nullptr)
         {
             IActiveScriptError* scriptError = nullptr;
@@ -2246,7 +2311,9 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
         }
         else
         {
-            hr = activeScriptDirect->ModuleEvaluation(referencingModule, &result);
+            WScriptFastDom::ModuleMessage* moduleMessage =
+                WScriptFastDom::ModuleMessage::Create(referencingModule, nullptr, activeScriptDirect);
+            WScriptFastDom::PushMessage(moduleMessage);
         }
     }
 
