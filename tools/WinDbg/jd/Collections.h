@@ -746,12 +746,16 @@ private:
 
 struct RecyclerGraphNodeData
 {
+#if DBG
+    friend RecyclerObjectGraph;
+#endif
+
     RecyclerGraphNodeData(ULONG64 address) :
         address(address),
       
         rootType(RootType::RootTypeNone)
     {
-        Assert(address & 0xFF00000000000000 == 0);
+        Assert((address & 0xFF00000000000000) == 0);
         ClearTypeInfo();
     }
 
