@@ -58,7 +58,8 @@ public:
         HeapObjectType_Generator                   =0x27,
         HeapObjectType_Promise                     =0x28,
         HeapObjectType_SIMD                        =0x29,
-        HeapObjectType_JsrtExternalObject          =0x2a,
+        HeapObjectType_SIMDObject                  =0x2a,
+        HeapObjectType_JsrtExternalObject          =0x2b,
 
         HeapObjectType_Last                        =HeapObjectType_JsrtExternalObject,
         HeapObjectType_Invalid                     =0xff

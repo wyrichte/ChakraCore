@@ -7,7 +7,7 @@ verify typeid == 0 : SUCCEEDED
 verify typeid == 1 : SUCCEEDED
 verify typeid == 2 : SUCCEEDED
 verify typeid == 2 : SUCCEEDED
-verify typeid == 69 : SUCCEEDED
+verify typeid == 70 : SUCCEEDED
 library object test succeeded
 verify bool succeeded
 verify bool succeeded
