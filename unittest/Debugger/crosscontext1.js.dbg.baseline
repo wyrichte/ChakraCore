@@ -61,6 +61,7 @@
         "testNumber1": "3.14",
         "testObject": "{...}",
         "undefined": "undefined",
+        "Wasm": "{...}",
         "WScript": "{...}"
       }
     }

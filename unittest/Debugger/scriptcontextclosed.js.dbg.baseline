@@ -47,6 +47,10 @@
           "__proto__": "{...}"
         },
         "undefined": "undefined",
+        "Wasm": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "WScript": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

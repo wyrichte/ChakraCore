@@ -146,6 +146,7 @@ var controllerObj = {
             "unescape",
             "URIError",
             "VBArray",
+            "Wasm",
             "WeakMap",
             "WeakSet",
             "WScript"
