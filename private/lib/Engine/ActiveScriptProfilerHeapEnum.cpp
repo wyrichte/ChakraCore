@@ -92,6 +92,7 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_BooleanObject, HeapObjectType_BooleanObject},
     { Js::TypeIds_NumberObject, HeapObjectType_NumberObject},
     { Js::TypeIds_StringObject, HeapObjectType_StringObject},
+    { Js::TypeIds_SIMDObject, HeapObjectType_SIMDObject },
     { Js::TypeIds_Arguments, HeapObjectType_ArgumentObject},
     { Js::TypeIds_ES5Array, HeapObjectType_ArrayObject},
     { Js::TypeIds_ArrayBuffer, HeapObjectType_ArrayBuffer},
@@ -197,6 +198,7 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(L"Promise");
     typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(L"ReflectIterator");
     typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(L"SIMD");
+    typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(L"SIMDObject");
 }
 
 PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(ProfilerHeapObjectType objectType)
