@@ -21,4 +21,7 @@
   <ItemGroup>
     <None Include="..\ChakraCommon.ver" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\..\tools\VsVisualizers\JScript9.natvis" />
+  </ItemGroup>
 </Project>

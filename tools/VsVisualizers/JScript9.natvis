@@ -46,7 +46,7 @@
   </Type>
   <Type Name="IR::HelperCallOpnd">
     <DisplayString>{JnHelperMethodNames[m_fnHelper],su}</DisplayString>
-  </Type>  
+  </Type>
   <Type Name="IR::RegOpnd">
     <DisplayString Condition="m_sym == 0">{RegNames[m_reg],sb}</DisplayString>
     <DisplayString Condition="m_reg != 0">{*m_sym}({RegNames[m_reg],sb})</DisplayString>
@@ -123,8 +123,8 @@
     <DisplayString LegacyAddin="chakratest.dll"
                    Export="NatVis_BVSparse_JitArenaAllocator"/>
   </Type>
-  <Type Name="Js::FunctionBody">
-    <DisplayString>{this->m_displayName.ptr,su} ({this->functionId})</DisplayString>  
+  <Type Name="Js::ParseableFunctionInfo">
+    <DisplayString>{this->m_displayName.ptr,su} ({this->functionId})</DisplayString>
   </Type>
   <Type Name="Func">
     <DisplayString Condition="this->m_workItem->type == JsLoopBodyWorkItemType">{this->m_jnFunction->m_displayName.ptr,su} Loop ({this->m_jnFunction->functionId})</DisplayString>
@@ -145,6 +145,168 @@
         <Size>length</Size>
         <ValuePointer>(void**)(this+1)</ValuePointer>
       </ArrayItems >
+    </Expand>
+  </Type>
+  <Type Name="Js::CompactCounters&lt;Js::FunctionBody,enum Js::FunctionBody::CounterFields&gt;">
+    <Expand>
+      <Item Name="[fieldSize]">(unsigned int)this->fieldSize</Item>
+      <Item Condition="this->fieldSize==1" Name="VarCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::VarCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="ConstantCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ConstantCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="OutParamMaxDepth" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::OutParamMaxDepth]</Item>
+      <Item Condition="this->fieldSize==1" Name="ByteCodeCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ByteCodeCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="ByteCodeWithoutLDACount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ByteCodeWithoutLDACount]</Item>
+      <Item Condition="this->fieldSize==1" Name="ByteCodeInLoopCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ByteCodeInLoopCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="LoopCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::LoopCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="InlineCacheCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::InlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="RootObjectLoadInlineCacheStart" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::RootObjectLoadInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==1" Name="RootObjectLoadMethodInlineCacheStart" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::RootObjectLoadMethodInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==1" Name="RootObjectStoreInlineCacheStart" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::RootObjectStoreInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==1" Name="IsInstInlineCacheCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::IsInstInlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="ReferencedPropertyIdCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ReferencedPropertyIdCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="ObjLiteralCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ObjLiteralCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="LiteralRegexCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::LiteralRegexCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="InnerScopeCount" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::InnerScopeCount]</Item>
+      <Item Condition="this->fieldSize==1" Name="LocalClosureRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::LocalClosureRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="LocalFrameDisplayRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::LocalFrameDisplayRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="EnvRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::EnvRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="ThisRegisterForEventHandler" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::ThisRegisterForEventHandler]</Item>
+      <Item Condition="this->fieldSize==1" Name="FirstInnerScopeRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::FirstInnerScopeRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="FuncExprScopeRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::FuncExprScopeRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="FirstTmpRegister" >this->fields.ptr->u8Fields[Js::FunctionBody::CounterFields::FirstTmpRegister]</Item>
+      <Item Condition="this->fieldSize==1" Name="SerializationIndex" >this->fields.ptr->i8Fields[Js::FunctionBody::CounterFields::SerializationIndex]</Item>
+
+      <Item Condition="this->fieldSize==2" Name="VarCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::VarCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="ConstantCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ConstantCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="OutParamMaxDepth" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::OutParamMaxDepth]</Item>
+      <Item Condition="this->fieldSize==2" Name="ByteCodeCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ByteCodeCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="ByteCodeWithoutLDACount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ByteCodeWithoutLDACount]</Item>
+      <Item Condition="this->fieldSize==2" Name="ByteCodeInLoopCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ByteCodeInLoopCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="LoopCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::LoopCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="InlineCacheCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::InlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="RootObjectLoadInlineCacheStart" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::RootObjectLoadInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==2" Name="RootObjectLoadMethodInlineCacheStart" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::RootObjectLoadMethodInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==2" Name="RootObjectStoreInlineCacheStart" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::RootObjectStoreInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==2" Name="IsInstInlineCacheCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::IsInstInlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="ReferencedPropertyIdCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ReferencedPropertyIdCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="ObjLiteralCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ObjLiteralCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="LiteralRegexCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::LiteralRegexCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="InnerScopeCount" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::InnerScopeCount]</Item>
+      <Item Condition="this->fieldSize==2" Name="LocalClosureRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::LocalClosureRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="LocalFrameDisplayRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::LocalFrameDisplayRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="EnvRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::EnvRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="ThisRegisterForEventHandler" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::ThisRegisterForEventHandler]</Item>
+      <Item Condition="this->fieldSize==2" Name="FirstInnerScopeRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::FirstInnerScopeRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="FuncExprScopeRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::FuncExprScopeRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="FirstTmpRegister" >this->fields.ptr->u16Fields[Js::FunctionBody::CounterFields::FirstTmpRegister]</Item>
+      <Item Condition="this->fieldSize==2" Name="SerializationIndex" >this->fields.ptr->i16Fields[Js::FunctionBody::CounterFields::SerializationIndex]</Item>
+
+      <Item Condition="this->fieldSize==4" Name="VarCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::VarCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="ConstantCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ConstantCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="OutParamMaxDepth" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::OutParamMaxDepth]</Item>
+      <Item Condition="this->fieldSize==4" Name="ByteCodeCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ByteCodeCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="ByteCodeWithoutLDACount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ByteCodeWithoutLDACount]</Item>
+      <Item Condition="this->fieldSize==4" Name="ByteCodeInLoopCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ByteCodeInLoopCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="LoopCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::LoopCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="InlineCacheCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::InlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="RootObjectLoadInlineCacheStart" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::RootObjectLoadInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==4" Name="RootObjectLoadMethodInlineCacheStart" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::RootObjectLoadMethodInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==4" Name="RootObjectStoreInlineCacheStart" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::RootObjectStoreInlineCacheStart]</Item>
+      <Item Condition="this->fieldSize==4" Name="IsInstInlineCacheCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::IsInstInlineCacheCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="ReferencedPropertyIdCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ReferencedPropertyIdCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="ObjLiteralCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ObjLiteralCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="LiteralRegexCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::LiteralRegexCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="InnerScopeCount" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::InnerScopeCount]</Item>
+      <Item Condition="this->fieldSize==4" Name="LocalClosureRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::LocalClosureRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="LocalFrameDisplayRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::LocalFrameDisplayRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="EnvRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::EnvRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="ThisRegisterForEventHandler" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::ThisRegisterForEventHandler]</Item>
+      <Item Condition="this->fieldSize==4" Name="FirstInnerScopeRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::FirstInnerScopeRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="FuncExprScopeRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::FuncExprScopeRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="FirstTmpRegister" >this->fields.ptr->u32Fields[Js::FunctionBody::CounterFields::FirstTmpRegister]</Item>
+      <Item Condition="this->fieldSize==4" Name="SerializationIndex" >this->fields.ptr->i32Fields[Js::FunctionBody::CounterFields::SerializationIndex]</Item>
+    </Expand>
+
+  </Type>
+  <Type Name="Js::AuxPtrsFix&lt;enum Js::FunctionProxy::AuxPointerType,*,*&gt;">
+    <Expand>
+      <Item Name="Max Count">this->count</Item>
+      <CustomListItems>
+        <Variable Name="i" InitialValue="0"/>
+        <Loop Condition="i&lt;count">
+          <Item Name="DeferredStubs" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::DeferredStubs">(DeferredFunctionStub*)this->ptr[i].ptr</Item>
+          <Item Name="CachedSourceString" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::CachedSourceString">(Var)this->ptr[i].ptr</Item>
+          <Item Name="AsmJsFunctionInfo" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::AsmJsFunctionInfo">(Js::AsmJsFunctionInfo*)this->ptr[i].ptr</Item>
+          <Item Name="AsmJsModuleInfo" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::AsmJsModuleInfo">(Js::AsmJsModuleInfo*)this->ptr[i].ptr</Item>
+          <Item Name="StatementMaps" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::StatementMaps">(Js::FunctionBody::StatementMapList*)this->ptr[i].ptr</Item>
+          <Item Name="StackNestedFuncParent" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::StackNestedFuncParent">(Memory::RecyclerWeakReference&lt;Js::FunctionBody&gt;*)this->ptr[i].ptr</Item>
+          <Item Name="SimpleJitEntryPointInfo" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::SimpleJitEntryPointInfo">(Js::FunctionEntryPointInfo*)this->ptr[i].ptr</Item>
+          <Item Name="FunctionObjectTypeList" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::FunctionObjectTypeList">(Js::FunctionProxy::FunctionTypeWeakRefList*)this->ptr[i].ptr</Item>
+          <Item Name="CodeGenGetSetRuntimeData" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::CodeGenGetSetRuntimeData">(Js::FunctionCodeGenRuntimeData**)this->ptr[i].ptr</Item>
+          <Item Name="PropertyIdOnRegSlotsContainer" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::PropertyIdOnRegSlotsContainer">(Js::PropertyIdOnRegSlotsContainer*)this->ptr[i].ptr</Item>
+          <Item Name="LoopHeaderArray" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::LoopHeaderArray">(Js::LoopHeader*)this->ptr[i].ptr</Item>
+          <Item Name="CodeGenRuntimeData" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::CodeGenRuntimeData">(Js::FunctionCodeGenRuntimeData**)this->ptr[i].ptr</Item>
+          <Item Name="PolymorphicInlineCachesHead" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::PolymorphicInlineCachesHead">(Js::PolymorphicInlineCache*)this->ptr[i].ptr</Item>
+          <Item Name="PropertyIdsForScopeSlotArray" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::PropertyIdsForScopeSlotArray">(Js::PropertyId*)this->ptr[i].ptr</Item>
+          <Item Name="PolymorphicCallSiteInfoHead" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::PolymorphicCallSiteInfoHead">(Js::PolymorphicCallSiteInfo*)this->ptr[i].ptr</Item>
+          <Item Name="AuxBlock" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::AuxBlock">(Js::ByteBlock*)this->ptr[i].ptr</Item>
+          <Item Name="AuxContextBlock" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::AuxContextBlock">(Js::ByteBlock*)this->ptr[i].ptr</Item>
+          <Item Name="ReferencedPropertyIdMap" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::ReferencedPropertyIdMap">(Js::PropertyId*)this->ptr[i].ptr</Item>
+          <Item Name="LiteralRegexes" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::LiteralRegexes">(UnifiedRegex::RegexPattern**)this->ptr[i].ptr</Item>
+          <Item Name="ObjLiteralTypes" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::ObjLiteralTypes">(DynamicType**)this->ptr[i].ptr</Item>
+          <Item Name="ScopeInfo" Condition="this->type[i]==Js::FunctionProxy::AuxPointerType::ScopeInfo">(Js::ScopeInfo*)this->ptr[i].ptr</Item>
+
+          <Exec>i++</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="Js::AuxPtrs&lt;Js::FunctionProxy,enum Js::FunctionProxy::AuxPointerType&gt;">
+    <Expand>
+      <CustomListItems Condition="(sizeof(void*)==8&amp;&amp;this->count>3)||(sizeof(void*)==4&amp;&amp;this->count>7)">
+        <Variable Name="type" InitialValue="0"/>
+        <Variable Name="offset" InitialValue="0"/>
+        <Loop Condition="type&lt;Js::FunctionProxy::AuxPointerType::Max">
+          <Exec>offset=this->offsets[type]</Exec>
+          <Item Name="DeferredStubs" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::DeferredStubs">(DeferredFunctionStub*)this->ptrs[offset].ptr</Item>
+          <Item Name="CachedSourceString" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::CachedSourceString">(Var)this->ptrs[offset].ptr</Item>
+          <Item Name="AsmJsFunctionInfo" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::AsmJsFunctionInfo">(Js::AsmJsFunctionInfo*)this->ptrs[offset].ptr</Item>
+          <Item Name="AsmJsModuleInfo" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::AsmJsModuleInfo">(Js::AsmJsModuleInfo*)this->ptrs[offset].ptr</Item>
+          <Item Name="StatementMaps" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::StatementMaps">(Js::FunctionBody::StatementMapList*)this->ptrs[offset].ptr</Item>
+          <Item Name="StackNestedFuncParent" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::StackNestedFuncParent">(Memory::RecyclerWeakReference&lt;Js::FunctionBody&gt;*)this->ptrs[offset].ptr</Item>
+          <Item Name="SimpleJitEntryPointInfo" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::SimpleJitEntryPointInfo">(Js::FunctionEntryPointInfo*)this->ptrs[offset].ptr</Item>
+          <Item Name="FunctionObjectTypeList" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::FunctionObjectTypeList">(Js::FunctionProxy::FunctionTypeWeakRefList*)this->ptrs[offset].ptr</Item>
+          <Item Name="CodeGenGetSetRuntimeData" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::CodeGenGetSetRuntimeData">(Js::FunctionCodeGenRuntimeData**)this->ptrs[offset].ptr</Item>
+          <Item Name="PropertyIdOnRegSlotsContainer" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::PropertyIdOnRegSlotsContainer">(Js::PropertyIdOnRegSlotsContainer*)this->ptrs[offset].ptr</Item>
+          <Item Name="LoopHeaderArray" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::LoopHeaderArray">(Js::LoopHeader*)this->ptrs[offset].ptr</Item>
+          <Item Name="CodeGenRuntimeData" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::CodeGenRuntimeData">(Js::FunctionCodeGenRuntimeData**)this->ptrs[offset].ptr</Item>
+          <Item Name="PolymorphicInlineCachesHead" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::PolymorphicInlineCachesHead">(Js::PolymorphicInlineCache*)this->ptrs[offset].ptr</Item>
+          <Item Name="PropertyIdsForScopeSlotArray" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::PropertyIdsForScopeSlotArray">(Js::PropertyId*)this->ptrs[offset].ptr</Item>
+          <Item Name="PolymorphicCallSiteInfoHead" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::PolymorphicCallSiteInfoHead">(Js::PolymorphicCallSiteInfo*)this->ptrs[offset].ptr</Item>
+          <Item Name="AuxBlock" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::AuxBlock">(Js::ByteBlock*)this->ptrs[offset].ptr</Item>
+          <Item Name="AuxContextBlock" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::AuxContextBlock">(Js::ByteBlock*)this->ptrs[offset].ptr</Item>
+          <Item Name="ReferencedPropertyIdMap" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::ReferencedPropertyIdMap">(Js::PropertyId*)this->ptrs[offset].ptr</Item>
+          <Item Name="LiteralRegexes" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::LiteralRegexes">(UnifiedRegex::RegexPattern**)this->ptrs[offset].ptr</Item>
+          <Item Name="ObjLiteralTypes" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::ObjLiteralTypes">(DynamicType**)this->ptrs[offset].ptr</Item>
+          <Item Name="ScopeInfo" Condition="offset!=255&amp;&amp;type==Js::FunctionProxy::AuxPointerType::ScopeInfo">(Js::ScopeInfo*)this->ptrs[offset].ptr</Item>
+          <Exec>type++</Exec>
+        </Loop>
+      </CustomListItems>
+      <ExpandedItem Condition="(sizeof(void*)==8&amp;&amp;this->count==1)||(sizeof(void*)==4&amp;&amp;this->count==3)">(Js::AuxPtrs&lt;Js::FunctionProxy,enum Js::FunctionProxy::AuxPointerType&gt;::AuxPtrs16*)this</ExpandedItem>
+      <ExpandedItem Condition="(sizeof(void*)==8&amp;&amp;this->count==3)||(sizeof(void*)==4&amp;&amp;this->count==7)">(Js::AuxPtrs&lt;Js::FunctionProxy,enum Js::FunctionProxy::AuxPointerType&gt;::AuxPtrs32*)this</ExpandedItem>
+    </Expand>
+  </Type>
+  <Type Name="Memory::WriteBarrierPtr&lt;*&gt;">
+    <Expand>
+      <ExpandedItem>this->ptr</ExpandedItem>
+    </Expand>
+  </Type>
+  <Type Name="Js::ParseableFunctionInfo::NestedArray">
+    <Expand>
+      <ArrayItems Condition="this!=0">
+        <Size>this->nestedCount</Size>
+        <LowerBound>0</LowerBound>
+        <ValuePointer>this->functionProxyArray</ValuePointer>
+      </ArrayItems>
     </Expand>
   </Type>
 </AutoVisualizer>
