@@ -14,7 +14,7 @@ void FastDomTestCase1(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         std::wstring someprop=_u("someprop");
         PropertyId pid=mytest->GetOrAddPropertyId(someprop.c_str());
         std::wstring retprop=mytest->GetPropertyName(pid);
-        std::string retprop_str(retprop.length(),L'\0');
+        std::string retprop_str(retprop.length(),_u('\0'));
 
         // TODO: following was failing in snap, disabling temporarily
         /*

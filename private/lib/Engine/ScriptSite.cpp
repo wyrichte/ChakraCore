@@ -1894,7 +1894,7 @@ ScriptSite::SetUrl(BSTR bstrUrl)
 
     char16* urlCopy = HeapNewArray(char16, length);
     js_memcpy_s(urlCopy, (length - 1) * sizeof(char16), bstrUrl, (length - 1) * sizeof(char16));
-    urlCopy[length - 1] = L'\0';
+    urlCopy[length - 1] = _u('\0');
     this->wszLocation = urlCopy;
 }
 #endif

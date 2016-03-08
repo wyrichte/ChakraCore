@@ -217,7 +217,7 @@ namespace JsDiag
             
             char16* str = (char16*)malloc(sizeof(char16) * (strLength + 1)); // Extra 1 char is for NULL-terminator. Use malloc/free for strings.
             stream->Read(str, strLength * sizeof(char16));
-            str[strLength] = L'\0';
+            str[strLength] = _u('\0');
 
             byteCount += strByteCount;
             *value = str;

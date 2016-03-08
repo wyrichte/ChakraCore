@@ -552,7 +552,7 @@ namespace JsDiag
 
         if (info.type == PROPERTY_INFO::STRING_VALUE)
         {
-            m_str = L'\"' + info.strValue + L'\"';
+            m_str = _u('\"') + info.strValue + _u('\"');
         }
         else
         {
@@ -567,10 +567,10 @@ namespace JsDiag
             len += 2;
 
             LPWSTR buf = m_str.GetBufferSetLength(len);
-            buf[0] = L'\"';
+            buf[0] = _u('\"');
             charcount_t actual;
             context->ReadString(var, &buf[1], len - 2, &actual);
-            buf[actual + 1] = L'\"';
+            buf[actual + 1] = _u('\"');
             m_str.ReleaseBuffer(actual + 2);
         }
     }

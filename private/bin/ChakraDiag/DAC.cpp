@@ -1941,7 +1941,7 @@ namespace JsDiag
 
             switch (ch)
             {
-            case L'\r':
+            case _u('\r'):
                 if ((offsetCh + 1) < (size_t)startCharOfStatement)
                 {
                     allSource.EnsurePtr(sizeof(CUTF8));

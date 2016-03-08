@@ -1559,7 +1559,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
         size_t length = wcslen(message);
         char16* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, length + 1);
         wmemcpy_s(allocatedString, length + 1, message, length);
-        allocatedString[length] = L'\0';
+        allocatedString[length] = _u('\0');
 
         Js::JavascriptError::SetErrorMessageProperties(pError, hCode, allocatedString, scriptContext);
         *errorObject = pError;

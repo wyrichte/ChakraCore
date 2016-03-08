@@ -1145,7 +1145,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
         WCHAR filename[_MAX_PATH];
         WCHAR ext[_MAX_EXT];
         _wsplitpath_s(fullpath, NULL, 0, NULL, 0, filename, _countof(filename), ext, _countof(ext));
-        if (HostConfigFlags::flags.GenerateLibraryByteCodeHeader != NULL && *HostConfigFlags::flags.GenerateLibraryByteCodeHeader != L'\0')
+        if (HostConfigFlags::flags.GenerateLibraryByteCodeHeader != NULL && *HostConfigFlags::flags.GenerateLibraryByteCodeHeader != _u('\0'))
         {
             bcFullPath = HostConfigFlags::flags.GenerateLibraryByteCodeHeader;
         }

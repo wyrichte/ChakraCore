@@ -162,7 +162,7 @@ void TraceLoggingClient::TryLogNodePackage(Recycler* recycler, const char16* pac
             curr = wcswcs(curr, NODE_MODULES);
         }
         // now startPos is at the package name
-        char16 ch = L'\\';
+        char16 ch = _u('\\');
         char16* endPos = wcschr(startPos, ch);
         size_t len = 0;
         if (endPos == nullptr) // for cases like node_modules\\foo.js i.e. which doesn't have sub-directory
@@ -178,7 +178,7 @@ void TraceLoggingClient::TryLogNodePackage(Recycler* recycler, const char16* pac
         {
             name = RecyclerNewArrayLeaf(recycler, char16, len + 1);
             js_wmemcpy_s(name, len, startPos, len);
-            name[len] = L'\0';
+            name[len] = _u('\0');
             this->AddPackageName(name);
         }
     }
@@ -203,7 +203,7 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
     // Fire Hashed Package Counts and Hashed Packages
     int packageCount = 0;
     int upto = 0;
-    char16* buf = L'\0';
+    char16* buf = _u('\0');
     double hashTime = 0.0;
 
     ThreadContext* threadContext = ThreadContext::GetThreadContextList();
@@ -293,7 +293,7 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
                 return;
             }
         }
-        buf[counter] = L'\0';
+        buf[counter] = _u('\0');
 
         if (this->isHighResAvail)
         {

@@ -1819,7 +1819,7 @@ namespace Metadata
             {
                 chName = strLen;
             }
-            sz[chName] = L'\0';
+            sz[chName] = _u('\0');
             return sz;
         }
 

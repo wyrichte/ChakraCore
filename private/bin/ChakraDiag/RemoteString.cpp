@@ -430,7 +430,7 @@ namespace JsDiag
         const wchar* startSz =  sz + start;
         const wchar* lastFlushSz = startSz;
         
-        stringBuffer.Append(L'\"');
+        stringBuffer.Append(_u('\"'));
         if(start != 0)
         {
             stringBuffer.AppendLarge(sz, start);
@@ -453,7 +453,7 @@ namespace JsDiag
                
                 stringBuffer.AppendLarge(lastFlushSz, (charcount_t)(current - lastFlushSz));
                 lastFlushSz = current + 1;
-                stringBuffer.Append(L'\\');
+                stringBuffer.Append(_u('\\'));
                 stringBuffer.Append(specialChar);
                 if(specialChar == _u('u'))
                 {
@@ -483,7 +483,7 @@ namespace JsDiag
         {
             stringBuffer.AppendLarge(lastFlushSz, (charcount_t)(endSz - lastFlushSz));
         }
-        stringBuffer.Append(L'\"');
+        stringBuffer.Append(_u('\"'));
     }
 
     template class RemoteConcatStringWrapping<_u('['), _u(']')>;

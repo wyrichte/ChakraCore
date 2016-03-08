@@ -114,7 +114,7 @@ Error:
         // Make a copy of name
         char16* buf = RecyclerNewArrayLeaf(recycler, char16, fullLen);
         js_memcpy_s(buf, byteLen, name, byteLen);
-        buf[len] = L'\0';
+        buf[len] = _u('\0');
 
         // Add to the property bag
         IfFailGo(InternalAddNoCopy(buf, len, value));

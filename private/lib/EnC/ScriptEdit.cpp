@@ -651,12 +651,12 @@ namespace Js
                 WCHAR text[64];
                 ULONG maxLen = min(r.editTextSpan.length, static_cast<ULONG>(_countof(text) - 1));
                 PCWSTR pText = SUCCEEDED(r.debugDocumentText->GetText(r.editTextSpan.start, text, nullptr, nullptr, maxLen)) ? text : _u("[GetText failed]");
-                text[maxLen] = L'\0';
+                text[maxLen] = _u('\0');
 
                 WCHAR newText[64];
                 maxLen = min(r.newTextLength, static_cast<ULONG>(_countof(newText) - 1));
                 wcsncpy_s(newText, r.newText, maxLen);
-                newText[maxLen] = L'\0';
+                newText[maxLen] = _u('\0');
 
                 OUTPUT_TRACE(Phase::ENCPhase, _u("%s (%d,%d):\n%s...\n===>\n%s...\n"), pName, r.editTextSpan.start, r.editTextSpan.length, pText, newText);
             }

@@ -70,7 +70,7 @@ namespace JsDiag
         {
             // m_pos points to the position after last written byte.
             char* result = new char[2 * (m_pos + 1)];
-            result[m_pos] = L'\0';
+            result[m_pos] = _u('\0');
 
             BYTE* src = m_buffer;
             char* dst = result;

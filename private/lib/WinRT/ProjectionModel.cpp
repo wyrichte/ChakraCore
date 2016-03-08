@@ -2511,7 +2511,7 @@ namespace ProjectionModel
         int chInterfaceName = MultiByteToWideChar(CP_UTF8, 0, (char*)(stringArg), strLen, interfaceName, strLen + 1);
         Js::VerifyCatastrophic(chInterfaceName > 0);
         __analysis_assume((ULONG)chInterfaceName <= strLen);
-        interfaceName[chInterfaceName] = L'\0';
+        interfaceName[chInterfaceName] = _u('\0');
 
         const Metadata::TypeDefProperties* result = DoWithTypenameFromOtherAssembly<const Metadata::TypeDefProperties *>(interfaceName,
             [](const Metadata::TypeDefProperties * typeDef) { return typeDef; },
@@ -2544,7 +2544,7 @@ namespace ProjectionModel
         auto chStringName = MultiByteToWideChar(CP_UTF8, 0, (char*)(stringArg), strLen, stringName, strLen+1);
         Js::VerifyCatastrophic(chStringName > 0);
         __analysis_assume((ULONG)chStringName <=strLen);
-        stringName[chStringName] = L'\0';
+        stringName[chStringName] = _u('\0');
 
         MetadataStringId rtcNameId = stringConverter->IdOfString(stringName);
         TRACE_METADATA(_u("runtime class name from exclusiveto: %s, id=%d n"), stringName, rtcNameId);
@@ -2655,7 +2655,7 @@ namespace ProjectionModel
         Assert(strLen != 0);
         auto chName = MultiByteToWideChar(CP_UTF8, 0, deprecatedText, strLen, deprecatedAttribute.infoString, strLen+1);
         __analysis_assume(chName < (INT)strLen);
-        deprecatedAttribute.infoString[chName] = L'\0';
+        deprecatedAttribute.infoString[chName] = _u('\0');
 
         switch (deprecatedType)
         {
