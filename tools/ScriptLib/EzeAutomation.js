@@ -446,7 +446,7 @@ function runJsrtUnitTests(binaryRoot)
     }
     var args = arguments;
 
-    var scriptsSourceFolder = Env("sdxroot") + "\\inetcore\\jscript\\unittest\\jsrt\\scripts";
+    var scriptsSourceFolder = Env("sdxroot") + "\\onecoreuap\\inetcore\\jscript\\unittest\\jsrt\\scripts";
     var scriptsDestFolder = binaryRoot + "\\jsrt\\unittest";
     
      // Making the current folder writable so that FSOCopyFolder will not fail.

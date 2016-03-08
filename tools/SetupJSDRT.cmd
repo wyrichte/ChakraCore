@@ -375,7 +375,7 @@ set _scriptFullname=%~f0
     goto :EOF
     
 :SetupUnitTests
-    set _targetDir=%_targetRoot%\inetcore\jscript
+    set _targetDir=%_targetRoot%\onecoreuap\inetcore\jscript
     
     call :CleanDir %_targetDir%
     call :MakeDirIfNotExist %_jscriptRoot%\jshost.exe.local

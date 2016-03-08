@@ -12,13 +12,13 @@ if "%1" == "" (
 set %_Error%=0
 
 set _TestsDirectory=
-set path=%path%;%sdxroot%\inetcore\jscript\tools;%_nttree%\jscript
-set setupCmd=%sdxroot%\inetcore\jscript\projectionTests\Tests\setup.cmd
-set runCmd=%sdxroot%\inetcore\jscript\projectionTests\Tests\runalltests.cmd -snapTests -logverbose %*
+set path=%path%;%sdxroot%\onecoreuap\inetcore\jscript\tools;%_nttree%\jscript
+set setupCmd=%sdxroot%\onecoreuap\inetcore\jscript\projectionTests\Tests\setup.cmd
+set runCmd=%sdxroot%\onecoreuap\inetcore\jscript\projectionTests\Tests\runalltests.cmd -snapTests -logverbose %*
 
 echo :: Running standalone Projection UnitTests:
 
-pushd %sdxroot%\inetcore\jscript\projectionTests\Tests
+pushd %sdxroot%\onecoreuap\inetcore\jscript\projectionTests\Tests
 
 call runjs setupWindowsGlobalization
 
