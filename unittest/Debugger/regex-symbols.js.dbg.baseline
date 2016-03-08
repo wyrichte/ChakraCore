@@ -64,5 +64,27 @@
         "frameDescription": "Global code"
       }
     ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 424,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "replace"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.replace"
+      },
+      {
+        "start": 463,
+        "length": 26,
+        "text": "'string'.replace(/./, '-')",
+        "frameDescription": "Global code"
+      }
+    ]
   }
 ]

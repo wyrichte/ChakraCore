@@ -13,4 +13,9 @@ RegExp.prototype[Symbol.split] = function split() {
 }
 'string'.split(/./);
 
+RegExp.prototype[Symbol.replace] = function replace() {
+    return undefined; /**bp:stack()**/
+}
+'string'.replace(/./, '-');
+
 print("Pass");
