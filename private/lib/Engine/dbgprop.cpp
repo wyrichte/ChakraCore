@@ -566,7 +566,7 @@ void DebugProperty::EnumEscapeCharacters(_In_reads_z_(strLength) PCWSTR str, uin
             }
             break;
 
-        case L'\\':
+        case _u('\\'):
             {
                 static const WCHAR ESCAPE[] = _u("\\\\");      // \  => \\  
                 escaped = ESCAPE;
@@ -574,7 +574,7 @@ void DebugProperty::EnumEscapeCharacters(_In_reads_z_(strLength) PCWSTR str, uin
             }
             break;
 
-        case L'\0':
+        case _u('\0'):
             {
                 static const WCHAR ESCAPE[] = _u("\\u0000");   // \0  => \u0000
                 escaped = ESCAPE;

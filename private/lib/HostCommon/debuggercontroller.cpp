@@ -10,7 +10,7 @@
 // backslashes and wrapping each line as a string then #including it here
 static const WCHAR controllerScript[] = {
     #include "dbgcontroller.js.encoded"
-    L'\0'
+    _u('\0')
 };
 
 #define IfFlagSet(value ,flag) ((value & flag) == flag)
@@ -591,7 +591,7 @@ LPCWSTR DebuggerController::EncodeString(_In_reads_z_(len) LPCWSTR str, _In_ siz
             break;
         default:
             {
-                WCHAR charStr[2] = { str[i], L'\0' };
+                WCHAR charStr[2] = { str[i], _u('\0') };
                 encodedStr += charStr;
                 break;
             }
@@ -829,16 +829,16 @@ void SourceMap::Initialize(LPCWSTR text)
     {
         switch(*ptr++) 
         {
-        case L'\r':
+        case _u('\r'):
             if(*ptr == _u('\n'))
                 ptr++;
             // fall through
         case _u('\n'):
-        case L'\u2028':
-        case L'\u2029':
+        case _u('\u2028'):
+        case _u('\u2029'):
             // The next line starts at the next character.  If the buffer ends here,
             // then don't count the line.
-            if(*ptr != L'\0')
+            if(*ptr != _u('\0'))
             {
                 m_lineOffsets.push_back(static_cast<int>(ptr-text));
             }

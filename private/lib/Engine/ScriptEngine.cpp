@@ -3390,7 +3390,7 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
     // Figure out what module this goes in. Assume global module if directHostObject is set
     // and "window" named item is not.
-    if (pcszItemName && pcszItemName[0] != L'\0')
+    if (pcszItemName && pcszItemName[0] != _u('\0'))
     {
         pnid = m_NamedItemList.Find(pcszItemName);
         if (!pnid)
@@ -4315,7 +4315,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     else
     {
         // Figure out what module this goes in
-        if (pcszItemName && pcszItemName[0] != L'\0')
+        if (pcszItemName && pcszItemName[0] != _u('\0'))
         {
             pnid = m_NamedItemList.Find(pcszItemName);
             if (!pnid)

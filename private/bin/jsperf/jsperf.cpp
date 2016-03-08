@@ -95,7 +95,7 @@ void ParseArg(__in __nullterminated char16 *arg)
     char16 *argend = wcschr(arg, _u(':'));
     if(argend != NULL)
     {
-        *argend++ = L'\0';
+        *argend++ = _u('\0');
     }
 
     // Parse the arguments.
@@ -169,7 +169,7 @@ void ParseArg(__in __nullterminated char16 *arg)
         do {
             end = wcschr(ptr, _u(','));
             if(end != NULL)
-                *end = L'\0';
+                *end = _u('\0');
             
             // convert the argument
             g_testContext.args.push_back(_wtoi(ptr));

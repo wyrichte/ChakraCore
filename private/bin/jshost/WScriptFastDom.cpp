@@ -107,7 +107,7 @@ Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
         // The string we read is UTF8, and needs to be converted.
         bool failed = false;
         char16 *wbuf = new char16[StdInMaxLineLength];
-        wbuf[0] = L'\0';
+        wbuf[0] = _u('\0');
         size_t bufLen = strlen(buf);
         hr = S_OK;
 

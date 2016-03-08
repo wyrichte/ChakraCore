@@ -110,7 +110,7 @@ namespace JsDiag
                 break;
 
             case _u('\''):
-            case L'\"':
+            case _u('\"'):
                 tk = TokenType::STRING;
                 break;
             }

@@ -63,7 +63,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     //
     fread((void*) contentsRaw, sizeof(char), lengthBytes, file);
     fclose(file);
-    *(WCHAR*)((byte*)contentsRaw + lengthBytes) = L'\0'; // Null terminate it. Could be LPCWSTR.
+    *(WCHAR*)((byte*)contentsRaw + lengthBytes) = _u('\0'); // Null terminate it. Could be LPCWSTR.
 
     //
     // Read encoding, handling any conversion to Unicode.
@@ -141,7 +141,7 @@ void GetShortNameFromUrl(__in LPCWSTR pchUrl, __in LPWSTR pchShortName, __in siz
     LPWSTR pchFile = wcsrchr(pchUrl, _u('/'));
     if (pchFile == NULL)
     {
-        pchFile = wcsrchr(pchUrl, L'\\');
+        pchFile = wcsrchr(pchUrl, _u('\\'));
     }
 
     LPCWSTR pchToCopy = pchUrl;

@@ -10,8 +10,8 @@
 #include <strsafe.h>
 #include "GUIDParser.h"
 
-static const  char16 whitespace[] = {L'\x0020', L'\x1680', L'\x180E', L'\x2000', L'\x2001', L'\x2002', L'\x2003', L'\x2004', L'\x2005', L'\x2006', L'\x2007', L'\x2008', L'\x2009', L'\x200A', 
-    L'\x202F', L'\x205F', L'\x3000', L'\x2028', L'\x2029', L'\x0009', L'\x000A', L'\x000B', L'\x000C', L'\x000D', L'\x0085', L'\x00A0', L'\0'};
+static const  char16 whitespace[] = {_u('\x0020'), _u('\x1680'), _u('\x180E'), _u('\x2000'), _u('\x2001'), _u('\x2002'), _u('\x2003'), _u('\x2004'), _u('\x2005'), _u('\x2006'), _u('\x2007'), _u('\x2008'), _u('\x2009'), _u('\x200A'), 
+    _u('\x202F'), _u('\x205F'), _u('\x3000'), _u('\x2028'), _u('\x2029'), _u('\x0009'), _u('\x000A'), _u('\x000B'), _u('\x000C'), _u('\x000D'), _u('\x0085'), _u('\x00A0'), _u('\0')};
 
 
 // This code was copied and slightly modified from the support code for 
@@ -483,12 +483,12 @@ HRESULT GUIDParser::TryParseGUIDWithDashes(_In_z_ PCWSTR g, _Out_ GUID* result)
     unsigned long value;
     char16 final = '\0';
 
-    if (g[pos] != L'\0' && g[pos] == '{')
+    if (g[pos] != _u('\0') && g[pos] == '{')
     {
         final = '}';
         pos++;
     }
-    else if (g[pos] != L'\0' && g[pos] == '(')
+    else if (g[pos] != _u('\0') && g[pos] == '(')
     {
         final = ')';
         pos++;
