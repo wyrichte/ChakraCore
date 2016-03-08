@@ -175,15 +175,15 @@ namespace JsDiag
 
         CString str;
         LPWSTR buf = str.GetBufferSetLength(MAX_LENGTH + 3); // Leading/ending [] and Null terminator
-        *buf++ = L'[';
+        *buf++ = _u('[');
         if (_ui64tow_s(name, buf, MAX_LENGTH + 1, 10) == 0)
         {
             str.ReleaseBuffer();
-            str += L']';
+            str += _u(']');
             return str;
         }
         
-        return L"[.]";
+        return _u("[.]");
     }
     
     bool RemoteDynamicTypeHandler::IsObjectHeaderInlinedTypeHandler()

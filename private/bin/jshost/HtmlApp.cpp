@@ -152,7 +152,7 @@ STDMETHODIMP CApp::QueryInterface(REFIID riid, LPVOID* ppv)
         WCHAR wszBuff[39];
         int i = StringFromGUID2(riid, wszBuff, 39);
         Assert(i != 0);
-        ODS(L"CApp QI: "); ODS(wszBuff); ODS(L"\n");
+        ODS(_u("CApp QI: ")); ODS(wszBuff); ODS(_u("\n"));
         return E_NOTIMPL;
     }
 }
@@ -160,7 +160,7 @@ STDMETHODIMP CApp::QueryInterface(REFIID riid, LPVOID* ppv)
 STDMETHODIMP_(ULONG) CApp::AddRef()
 {
     TCHAR szBuff[255];
-    swprintf_s(szBuff, 255, L"CApp refcount increased to %d\n", m_dwRef+1);
+    swprintf_s(szBuff, 255, _u("CApp refcount increased to %d\n"), m_dwRef+1);
     ODS(szBuff);
     return ++m_dwRef;
 }
@@ -171,12 +171,12 @@ STDMETHODIMP_(ULONG) CApp::Release()
 
     if (--m_dwRef == 0)
     {
-        ODS(L"Deleting CApp\n");
+        ODS(_u("Deleting CApp\n"));
         delete this;
         return 0;
     }
 
-    swprintf_s(szBuff, 255, L"CApp refcount reduced to %d\n", m_dwRef);
+    swprintf_s(szBuff, 255, _u("CApp refcount reduced to %d\n"), m_dwRef);
     ODS(szBuff);
     return m_dwRef;
 }
@@ -207,20 +207,20 @@ STDMETHODIMP CApp::OnChanged(DISPID dispID)
             switch (m_lReadyState)
             {    
               case READYSTATE_UNINITIALIZED:    //= 0,
-                wcscpy_s(szReadyState, RSLENGTH, L"Uninitialized");
+                wcscpy_s(szReadyState, RSLENGTH, _u("Uninitialized"));
                   break;
               case READYSTATE_LOADING: //    = 1,
-                wcscpy_s(szReadyState, RSLENGTH, L"Loading");
+                wcscpy_s(szReadyState, RSLENGTH, _u("Loading"));
                 hr = InitAfterLoad();
                 break;
               case READYSTATE_LOADED:    // = 2,
-                wcscpy_s(szReadyState, RSLENGTH, L"Loaded");
+                wcscpy_s(szReadyState, RSLENGTH, _u("Loaded"));
                   break;
               case READYSTATE_INTERACTIVE: //    = 3,
-                wcscpy_s(szReadyState, RSLENGTH, L"Interactive");
+                wcscpy_s(szReadyState, RSLENGTH, _u("Interactive"));
                   break;
               case READYSTATE_COMPLETE: // = 4
-                wcscpy_s(szReadyState, RSLENGTH, L"Complete");
+                wcscpy_s(szReadyState, RSLENGTH, _u("Complete"));
                 // Let the app know that the page has loaded
                 PostThreadMessage(GetCurrentThreadId(),
                     WM_USER_PAGE_LOADED,
@@ -229,17 +229,17 @@ STDMETHODIMP CApp::OnChanged(DISPID dispID)
                 break;
             }
 
-            swprintf_s(szBuff, 255, L"OnChanged: readyState = %s\n", szReadyState);
+            swprintf_s(szBuff, 255, _u("OnChanged: readyState = %s\n"), szReadyState);
             VariantClear(&vResult);
         }
         else
         {
-            wcscpy_s(szBuff, 255, L"Unable to cfvobtain readyState value\n");
+            wcscpy_s(szBuff, 255, _u("Unable to cfvobtain readyState value\n"));
         }
     }
     else
     {
-        swprintf_s(szBuff, 255, L"OnChanged: %d\n", dispID);
+        swprintf_s(szBuff, 255, _u("OnChanged: %d\n"), dispID);
     }
 
     ODS(szBuff);
@@ -251,7 +251,7 @@ STDMETHODIMP CApp::OnRequestEdit(DISPID dispID)
 {
     // Property changes are OK any time as far as this app is concerned
     WCHAR szBuff[255];
-    swprintf_s(szBuff, 255, L"OnRequestEdit: %d\n", dispID);
+    swprintf_s(szBuff, 255, _u("OnRequestEdit: %d\n"), dispID);
     ODS(szBuff);
 
     return NOERROR;
@@ -343,7 +343,7 @@ STDMETHODIMP CApp::Exec(
             break;
 
         case OLECMDID_SHOWMESSAGE:
-            wprintf(L"Exec: Ignore DocHostUIHandler command %d\n", nCmdID);
+            wprintf(_u("Exec: Ignore DocHostUIHandler command %d\n"), nCmdID);
             // trident calls into here to show script abort dialog, we don't want to abort everytime.
             // we can also have some kind of heuristic here to test abort.
             if (pvaIn && V_VT(pvaIn) == VT_UNKNOWN)
@@ -417,7 +417,7 @@ HRESULT CApp::SimulateShowMessage(VARIANT* pvarIn, VARIANT* pvaOut)
     HRESULT hr = NOERROR;
 
     static const int MAX_STRING_RESOURCE_LENGTH = 65535;
-    static const LPCWSTR qcStartString = L"Stop running this script?";
+    static const LPCWSTR qcStartString = _u("Stop running this script?");
     static const SExpandoInfo s_aMessageExpandos[] =
     {
         { TEXT("messageText"), VT_BSTR },
@@ -509,7 +509,7 @@ HRESULT CApp::ProcessArgs(__in_ecount(urlLen) LPCWSTR url, size_t urlLen)
 // We will put the host to debug mode upfront by using the IERTUTIL.dll's function
 void CApp::SetHostToDebugMode()
 {
-    HMODULE  hIeRtUtilModule = LoadLibraryEx(L"iertutil.dll", nullptr, 0);
+    HMODULE  hIeRtUtilModule = LoadLibraryEx(_u("iertutil.dll"), nullptr, 0);
 
     if (hIeRtUtilModule)
     {
@@ -533,7 +533,7 @@ HRESULT CApp::Init(CAppWindow* pAppWindow)
         CLSCTX_INPROC_SERVER, __uuidof(IHTMLDocument2),
         (LPVOID*)&g_pApp->m_pMSHTML)))
     {
-        ODS(L"FATAL ERROR: PrivateCoCreateForEdgeHtml failed\n");
+        ODS(_u("FATAL ERROR: PrivateCoCreateForEdgeHtml failed\n"));
         return hr;
     }
 
@@ -730,7 +730,7 @@ HRESULT CApp::LoadURLFromMoniker()
         // for this state change
         TCHAR szBuff[MAX_PATH];
 
-        swprintf_s(szBuff, MAX_PATH, L"Loading %s...\n", m_szURL);
+        swprintf_s(szBuff, MAX_PATH, _u("Loading %s...\n"), m_szURL);
 
         ODS(szBuff);
         hr = pPMk->Load(FALSE, pMk, pBCtx, STGM_READ);
@@ -751,9 +751,9 @@ HRESULT CApp::LoadURLFromFile()
     HRESULT hr;
 
     FILE* htmlFile;
-    if (_wfopen_s(&htmlFile, m_szURL, L"r") != 0)
+    if (_wfopen_s(&htmlFile, m_szURL, _u("r")) != 0)
     {
-        wprintf(L"FATAL ERROR: Could not open file %s\n", m_szURL);
+        wprintf(_u("FATAL ERROR: Could not open file %s\n"), m_szURL);
         return E_FAIL;
     }
     fclose(htmlFile);
@@ -762,13 +762,13 @@ HRESULT CApp::LoadURLFromFile()
     if ( SUCCEEDED(hr = m_pMSHTML->QueryInterface(__uuidof(IPersistFile), (LPVOID*) &pPF)))
     {
         TCHAR szBuff[MAX_PATH];
-        swprintf_s(szBuff, MAX_PATH, L"Loading %s...\n", m_szURL);
+        swprintf_s(szBuff, MAX_PATH, _u("Loading %s...\n"), m_szURL);
         ODS(szBuff);
 
         DWORD result = GetFullPathName(m_szURL, _countof(szBuff), szBuff, NULL);
         if (result == 0)
         {
-            wprintf(L"FATAL ERROR: GetFullPathName failed on %s, GLE: %d\n", m_szURL, GetLastError());
+            wprintf(_u("FATAL ERROR: GetFullPathName failed on %s, GLE: %d\n"), m_szURL, GetLastError());
             return E_FAIL;
         }
 
@@ -787,7 +787,7 @@ HRESULT CApp::OnPageLoaded()
 
     if (READYSTATE_COMPLETE != m_lReadyState)
     {
-        ODS(L"Shouldn't get here 'til MSHTML changes readyState to READYSTATE_COMPLETE\n");
+        ODS(_u("Shouldn't get here 'til MSHTML changes readyState to READYSTATE_COMPLETE\n"));
         DebugBreak();
         return E_UNEXPECTED;
     }
@@ -877,13 +877,13 @@ void PrintDISPID(DISPID dispidMember)
     {
         if (dispidMember == aDISPIDS[i].dispid)
         {
-            swprintf_s(szBuff, 255, L"MSHTML requesting '%s'\n", aDISPIDS[i].szDesc);
+            swprintf_s(szBuff, 255, _u("MSHTML requesting '%s'\n"), aDISPIDS[i].szDesc);
             ODS(szBuff);
             return;
         }
     }
     
-    swprintf_s(szBuff, 255, L"MSHTML requesting DISPID '%d'\n", dispidMember);
+    swprintf_s(szBuff, 255, _u("MSHTML requesting DISPID '%d'\n"), dispidMember);
     ODS(szBuff);
 }
 
@@ -957,7 +957,7 @@ HRESULT CApp::PrivateCoCreateForEdgeHtml(
     FN_InitializeLocalHtmlEngine pProcEdgeHtml = NULL;
     if (hInstance == nullptr)
     {
-        hInstance = LoadLibraryEx(L"edgehtml.dll", nullptr, 0);
+        hInstance = LoadLibraryEx(_u("edgehtml.dll"), nullptr, 0);
         if (hInstance == NULL)
         {
             return E_FAIL;

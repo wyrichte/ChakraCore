@@ -1883,9 +1883,9 @@ namespace ProjectionModel
     //              createString - function that creates string
     // Returns:     Empty if there is no dot
     template<class F>
-    Option<wchar_t> GetToDot(LPCWSTR name, F createString)
+    Option<char16> GetToDot(LPCWSTR name, F createString)
     {
-        auto dot = wcschr(name,L'.');
+        auto dot = wcschr(name,_u('.'));
         if (nullptr != dot)
         {
             auto length = (int)(dot-name+1);
@@ -1965,7 +1965,7 @@ namespace ProjectionModel
             retValue.Append(strConverter->StringOfId(this->typeId));
             if (!this->genericParameters->IsEmpty())
             {
-                retValue.Append(L"<");
+                retValue.Append(_u("<"));
                 bool isFirst = true;
                 this->genericParameters->Iterate([&](RtTYPE genericParameter) {
                     if (isFirst)
@@ -1974,20 +1974,20 @@ namespace ProjectionModel
                     }
                     else
                     {
-                        retValue.Append(L",");
+                        retValue.Append(_u(","));
                     }
 
                     retValue.Append(strConverter->StringOfId(genericParameter->fullTypeNameId));
                 });
-                retValue.Append(L">");
+                retValue.Append(_u(">"));
             }
 
             // followed by ids
-            retValue.Append(L" (#");
+            retValue.Append(_u(" (#"));
             retValue.AppendInt32(this->typeId);
             if (!this->genericParameters->IsEmpty())
             {
-                retValue.Append(L"<#");
+                retValue.Append(_u("<#"));
                 bool isFirst = true;
                 this->genericParameters->Iterate([&](RtTYPE genericParameter) {
                     if (isFirst)
@@ -1996,14 +1996,14 @@ namespace ProjectionModel
                     }
                     else
                     {
-                        retValue.Append(L",#");
+                        retValue.Append(_u(",#"));
                     }
 
                     retValue.AppendInt32(genericParameter->fullTypeNameId);
                 });
-                retValue.Append(L">");
+                retValue.Append(_u(">"));
             }
-            retValue.Append(L")");
+            retValue.Append(_u(")"));
 
             return retValue.Get(allocator);
         }
@@ -2125,71 +2125,71 @@ namespace ProjectionModel
             pendingStructTypes = Anew(allocator, PENDINGTYPESTACK, allocator);
 
             //Pre-compute ids of string literals
-            constructorId = stringConverter->IdOfString(L"constructor");
-            prototypeId = stringConverter->IdOfString(L"prototype");
-            lengthId = stringConverter->IdOfString(L"length");
+            constructorId = stringConverter->IdOfString(_u("constructor"));
+            prototypeId = stringConverter->IdOfString(_u("prototype"));
+            lengthId = stringConverter->IdOfString(_u("length"));
             returnValueId = stringConverter->IdOfString(szDefaultRetValParameterName);
-            iteratorId = stringConverter->IdOfString(L"Windows.Foundation.Collections.IIterator`1");
-            iteratorInstantiatedId = stringConverter->IdOfString(L"Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Object>>");
-            addEventListenerId = stringConverter->IdOfString(L"addEventListener");
-            removeEventListenerId = stringConverter->IdOfString(L"removeEventListener");
-            unknownStaticInterfaceId = stringConverter->IdOfString(L"Unknown static interface");
-            constructorResultId = stringConverter->IdOfString(L"constructorResult");
-            invokeId = stringConverter->IdOfString(L"Invoke");
-            ctorId = stringConverter->IdOfString(L".ctor");
-            ctorMetadataId = stringConverter->IdOfString(L"#ctor");
-            activatableAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.ActivatableAttribute");
-            deprecatedAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.DeprecatedAttribute");
-            staticAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.StaticAttribute");
-            webHostHiddenAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.WebHostHiddenAttribute");
-            allowForWebAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.AllowForWebAttribute");
-            gcPressureAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.GCPressureAttribute");
-            versionAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.VersionAttribute");
-            contractVersionAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.ContractVersionAttribute");
-            previousContractVersionAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.PreviousContractVersionAttribute");
-            uncallableMethodSignatureId = stringConverter->IdOfString(L"{UncallableMethodSignature}");
-            exclusiveToAttributeId = stringConverter->IdOfString(L"Windows.Foundation.Metadata.ExclusiveToAttribute");
+            iteratorId = stringConverter->IdOfString(_u("Windows.Foundation.Collections.IIterator`1"));
+            iteratorInstantiatedId = stringConverter->IdOfString(_u("Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String,Object>>"));
+            addEventListenerId = stringConverter->IdOfString(_u("addEventListener"));
+            removeEventListenerId = stringConverter->IdOfString(_u("removeEventListener"));
+            unknownStaticInterfaceId = stringConverter->IdOfString(_u("Unknown static interface"));
+            constructorResultId = stringConverter->IdOfString(_u("constructorResult"));
+            invokeId = stringConverter->IdOfString(_u("Invoke"));
+            ctorId = stringConverter->IdOfString(_u(".ctor"));
+            ctorMetadataId = stringConverter->IdOfString(_u("#ctor"));
+            activatableAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.ActivatableAttribute"));
+            deprecatedAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.DeprecatedAttribute"));
+            staticAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.StaticAttribute"));
+            webHostHiddenAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.WebHostHiddenAttribute"));
+            allowForWebAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.AllowForWebAttribute"));
+            gcPressureAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.GCPressureAttribute"));
+            versionAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.VersionAttribute"));
+            contractVersionAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.ContractVersionAttribute"));
+            previousContractVersionAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.PreviousContractVersionAttribute"));
+            uncallableMethodSignatureId = stringConverter->IdOfString(_u("{UncallableMethodSignature}"));
+            exclusiveToAttributeId = stringConverter->IdOfString(_u("Windows.Foundation.Metadata.ExclusiveToAttribute"));
 
-            getSizeMethodId = stringConverter->IdOfString(L"get_Size");
-            getAtMethodId = stringConverter->IdOfString(L"GetAt");
-            setAtMethodId = stringConverter->IdOfString(L"SetAt");
-            appendMethodId = stringConverter->IdOfString(L"Append");
-            removeAtEndMethodId = stringConverter->IdOfString(L"RemoveAtEnd");
-            hasKeyMethodId = stringConverter->IdOfString(L"HasKey");
-            insertMethodId = stringConverter->IdOfString(L"Insert");
-            lookupMethodId = stringConverter->IdOfString(L"Lookup");
-            removeMethodId = stringConverter->IdOfString(L"Remove");
-            firstMethodId = stringConverter->IdOfString(L"First");
-            getValueMethodId = stringConverter->IdOfString(L"get_Value");
+            getSizeMethodId = stringConverter->IdOfString(_u("get_Size"));
+            getAtMethodId = stringConverter->IdOfString(_u("GetAt"));
+            setAtMethodId = stringConverter->IdOfString(_u("SetAt"));
+            appendMethodId = stringConverter->IdOfString(_u("Append"));
+            removeAtEndMethodId = stringConverter->IdOfString(_u("RemoveAtEnd"));
+            hasKeyMethodId = stringConverter->IdOfString(_u("HasKey"));
+            insertMethodId = stringConverter->IdOfString(_u("Insert"));
+            lookupMethodId = stringConverter->IdOfString(_u("Lookup"));
+            removeMethodId = stringConverter->IdOfString(_u("Remove"));
+            firstMethodId = stringConverter->IdOfString(_u("First"));
+            getValueMethodId = stringConverter->IdOfString(_u("get_Value"));
 
-            stringTypeId = stringConverter->IdOfString(L"String");
-            booleanTypeId = stringConverter->IdOfString(L"Boolean");
-            uint8TypeId = stringConverter->IdOfString(L"UInt8");
-            int16TypeId = stringConverter->IdOfString(L"Int16");
-            int32TypeId = stringConverter->IdOfString(L"Int32");
-            int64TypeId = stringConverter->IdOfString(L"Int64");
-            singleTypeId = stringConverter->IdOfString(L"Single");
-            doubleTypeId = stringConverter->IdOfString(L"Double");
-            uint16TypeId = stringConverter->IdOfString(L"UInt16");
-            uint32TypeId = stringConverter->IdOfString(L"UInt32");
-            uint64TypeId = stringConverter->IdOfString(L"UInt64");
-            objectTypeId = stringConverter->IdOfString(L"Object");
-            char16TypeId = stringConverter->IdOfString(L"Char16");
+            stringTypeId = stringConverter->IdOfString(_u("String"));
+            booleanTypeId = stringConverter->IdOfString(_u("Boolean"));
+            uint8TypeId = stringConverter->IdOfString(_u("UInt8"));
+            int16TypeId = stringConverter->IdOfString(_u("Int16"));
+            int32TypeId = stringConverter->IdOfString(_u("Int32"));
+            int64TypeId = stringConverter->IdOfString(_u("Int64"));
+            singleTypeId = stringConverter->IdOfString(_u("Single"));
+            doubleTypeId = stringConverter->IdOfString(_u("Double"));
+            uint16TypeId = stringConverter->IdOfString(_u("UInt16"));
+            uint32TypeId = stringConverter->IdOfString(_u("UInt32"));
+            uint64TypeId = stringConverter->IdOfString(_u("UInt64"));
+            objectTypeId = stringConverter->IdOfString(_u("Object"));
+            char16TypeId = stringConverter->IdOfString(_u("Char16"));
             
             dateTimeTypeId = stringConverter->IdOfString(GetWindowsFoundationDateTimeTypeName());
             timeSpanTypeId = stringConverter->IdOfString(GetWindowsFoundationTimeSpanTypeName());
             eventRegistrationTokenTypeId = stringConverter->IdOfString(GetWindowsFoundationEventRegistrationTokenTypeName());
             hResultTypeId = stringConverter->IdOfString(GetWindowsFoundationHResultTypeName());
 
-            arrayTypeNameId = stringConverter->IdOfString(L"Array");
-            byRefTypeNameId = stringConverter->IdOfString(L"ByRef");
-            varTypeNameId = stringConverter->IdOfString(L"T");
-            iBufferId = stringConverter->IdOfString(L"Windows.Storage.Streams.IBuffer");
-            capacityId = stringConverter->IdOfString(L"Capacity");
-            byteLengthId = stringConverter->IdOfString(L"byteLength");
+            arrayTypeNameId = stringConverter->IdOfString(_u("Array"));
+            byRefTypeNameId = stringConverter->IdOfString(_u("ByRef"));
+            varTypeNameId = stringConverter->IdOfString(_u("T"));
+            iBufferId = stringConverter->IdOfString(_u("Windows.Storage.Streams.IBuffer"));
+            capacityId = stringConverter->IdOfString(_u("Capacity"));
+            byteLengthId = stringConverter->IdOfString(_u("byteLength"));
 
             exprNull = Anew(allocator, Expr, exprNullLiteral);
-            typeVoid = RtAnew(allocator, VoidType, stringConverter->IdOfString(L"Void"));
+            typeVoid = RtAnew(allocator, VoidType, stringConverter->IdOfString(_u("Void")));
             typeMultiOut = RtAnew(allocator, MultiOutType);
             typeString = TypeOfBasicType(ELEMENT_TYPE_STRING);
             typeBool = TypeOfBasicType(ELEMENT_TYPE_BOOLEAN);
@@ -2204,7 +2204,7 @@ namespace ProjectionModel
             typeUint64 = TypeOfBasicType(ELEMENT_TYPE_U8);
             typeObject = TypeOfBasicType(ELEMENT_TYPE_OBJECT);
             typeCharProjectedAsString = TypeOfBasicType(ELEMENT_TYPE_CHAR);
-            typeSystemGuid = RtAnew(allocator, SystemGuidType, stringConverter->IdOfString(L"Guid"));
+            typeSystemGuid = RtAnew(allocator, SystemGuidType, stringConverter->IdOfString(_u("Guid")));
 
             typeWindowsFoundationDateTime = RtAnew(allocator, WindowsFoundationDateTimeType, dateTimeTypeId);
             typeWindowsFoundationTimeSpan = RtAnew(allocator, WindowsFoundationTimeSpanType, timeSpanTypeId);
@@ -2229,7 +2229,7 @@ namespace ProjectionModel
             constructorBool = ConstructorOfBasicType(typeBool);
             constructorObject = ConstructorOfBasicType(typeObject);
             constructorVoid = Anew(allocator, VoidConstructor, Anew(allocator, TypeConstructorMethodSignature, ctorId, voidParameters));
-            constructorSystemGuid = Anew(allocator, SystemGuidConstructor, stringConverter->IdOfString(L"System.Guid"), Anew(allocator, TypeConstructorMethodSignature, ctorId, Anew(allocator, Parameters, nullptr, typeSystemGuid)));
+            constructorSystemGuid = Anew(allocator, SystemGuidConstructor, stringConverter->IdOfString(_u("System.Guid")), Anew(allocator, TypeConstructorMethodSignature, ctorId, Anew(allocator, Parameters, nullptr, typeSystemGuid)));
 
             constructorWindowsFoundationDateTime = Anew(allocator, WindowsFoundationDateTimeConstructor, dateTimeTypeId, Anew(allocator, TypeConstructorMethodSignature, ctorId, Anew(allocator, Parameters, nullptr, typeWindowsFoundationDateTime)));
             constructorWindowsFoundationTimeSpan = Anew(allocator, WindowsFoundationTimeSpanConstructor, timeSpanTypeId, Anew(allocator, TypeConstructorMethodSignature, ctorId, Anew(allocator, Parameters, nullptr, typeWindowsFoundationTimeSpan)));
@@ -2242,7 +2242,7 @@ namespace ProjectionModel
             builtInConstructorProperties = builtInConstructorProperties->PrependArray(constructorBuiltIns,sizeof(constructorBuiltIns)/sizeof(MetadataStringId),allocator);
             builtInInstanceProperties = builtInInstanceProperties->PrependArray(instanceBuiltIns,sizeof(instanceBuiltIns)/sizeof(MetadataStringId),allocator);
 
-            typeUnprojectable = RtAnew(allocator, UnprojectableType, stringConverter->IdOfString(L"Unprojectable"));
+            typeUnprojectable = RtAnew(allocator, UnprojectableType, stringConverter->IdOfString(_u("Unprojectable")));
             noFields = nullptr;
             noAssignments = nullptr;
             noGenericParameters = ImmutableList<const Metadata::GenericParameterProperties*>::Empty();
@@ -2264,13 +2264,13 @@ namespace ProjectionModel
             // for debug builds, print out the leaked deferred Ctors
             if (deferredConstructorMap->Count() > 0)
             {
-                Output::Print(L"Leaked ProjectionModel::deferredConstructorMap:\n");
+                Output::Print(_u("Leaked ProjectionModel::deferredConstructorMap:\n"));
                 size_t count = deferredConstructorMap->Count();
                 for (size_t offset=0; offset<count; offset++)
                 {
                     DeferredProjectionConstructorExpr* value = deferredConstructorMap->GetValueAt((int)offset);
                     Assert(value != nullptr);
-                    Output::Print(L"deferredConstructorMap[%d/%d]: %s (#%d) - deferredType=%d\n", 
+                    Output::Print(_u("deferredConstructorMap[%d/%d]: %s (#%d) - deferredType=%d\n"), 
                         offset, count, this->stringConverter->StringOfId(value->typeId), value->typeId, value->deferredType);
                 }
                 Output::Flush();
@@ -2296,10 +2296,10 @@ namespace ProjectionModel
         RtTYPE GetWindowsFoundationEventRegistrationTokenType() const { return typeWindowsFoundationEventRegistrationToken; }
         RtTYPE GetWindowsFoundationHResultType() const { return typeWindowsFoundationHResult; }
 
-        LPCWSTR GetWindowsFoundationDateTimeTypeName() const { return L"Windows.Foundation.DateTime"; }
-        LPCWSTR GetWindowsFoundationTimeSpanTypeName() const { return L"Windows.Foundation.TimeSpan"; }
-        LPCWSTR GetWindowsFoundationEventRegistrationTokenTypeName() const { return L"Windows.Foundation.EventRegistrationToken"; }
-        LPCWSTR GetWindowsFoundationHResultTypeName() const { return L"Windows.Foundation.HResult"; }
+        LPCWSTR GetWindowsFoundationDateTimeTypeName() const { return _u("Windows.Foundation.DateTime"); }
+        LPCWSTR GetWindowsFoundationTimeSpanTypeName() const { return _u("Windows.Foundation.TimeSpan"); }
+        LPCWSTR GetWindowsFoundationEventRegistrationTokenTypeName() const { return _u("Windows.Foundation.EventRegistrationToken"); }
+        LPCWSTR GetWindowsFoundationHResultTypeName() const { return _u("Windows.Foundation.HResult"); }
 
         RtBASICTYPE GetBasicType(CorElementType metadataType) const;
         RtBASICTYPE GetChar16BasicType() const { return this->typeCharProjectedAsString; }
@@ -2648,13 +2648,13 @@ namespace ProjectionModel
         }
         private:
 #ifdef PROJECTION_METADATA_TRACE
-        static void Trace(const wchar_t *form, ...) // const
+        static void Trace(const char16 *form, ...) // const
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {
                 va_list argptr;
                 va_start(argptr, form);
-                Output::Print(L"ProjectionModel: ");
+                Output::Print(_u("ProjectionModel: "));
                 Output::VPrint(form, argptr);
                 Output::Flush();
             }

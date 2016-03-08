@@ -867,7 +867,7 @@ namespace Js
         }
         else
         {
-            OUTPUT_TRACE_DEBUGONLY(Js::RunPhase, L"DefaultScriptOperations::GetCurrentScriptContext() - requestSite is null");
+            OUTPUT_TRACE_DEBUGONLY(Js::RunPhase, _u("DefaultScriptOperations::GetCurrentScriptContext() - requestSite is null"));
             
 #if DBG
             // verify the script state is closed

@@ -25,22 +25,22 @@ SimpleDebugger::SimpleDebugger()
         m_pController = new DebuggerController(g_dbgBaselineFilename);
 
         // Install the callbacks for the controller.
-        IfFailGo(m_pController->InstallHostCallback(L"InsertBreakpoint", &SimpleDebugger::JsInsertBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"ModifyBreakpoint", &SimpleDebugger::JsModifyBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"ResumeFromBreakpoint", &SimpleDebugger::JsResumeFromBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpLocals", &SimpleDebugger::JsDumpLocals, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpCallstack", &SimpleDebugger::JsDumpCallstack, this));
-        IfFailGo(m_pController->InstallHostCallback(L"EvaluateExpression", &SimpleDebugger::JsEvaluateExpression, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetFrame", &SimpleDebugger::JsSetFrame, this));
-        IfFailGo(m_pController->InstallHostCallback(L"LogJson", &SimpleDebugger::JsLogJson, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetExceptionResume", &SimpleDebugger::JsSetExceptionResume, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetDebuggerOptions", &SimpleDebugger::JsSetDebuggerOptions, this));
-        IfFailGo(m_pController->InstallHostCallback(L"TrackProjectionCall", &SimpleDebugger::JsTrackProjectionCall, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("InsertBreakpoint"), &SimpleDebugger::JsInsertBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("ModifyBreakpoint"), &SimpleDebugger::JsModifyBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("ResumeFromBreakpoint"), &SimpleDebugger::JsResumeFromBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpLocals"), &SimpleDebugger::JsDumpLocals, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpCallstack"), &SimpleDebugger::JsDumpCallstack, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("EvaluateExpression"), &SimpleDebugger::JsEvaluateExpression, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetFrame"), &SimpleDebugger::JsSetFrame, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("LogJson"), &SimpleDebugger::JsLogJson, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetExceptionResume"), &SimpleDebugger::JsSetExceptionResume, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetDebuggerOptions"), &SimpleDebugger::JsSetDebuggerOptions, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("TrackProjectionCall"), &SimpleDebugger::JsTrackProjectionCall, this));
     }
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"host callback initialization failed");
+        DebuggerController::LogError(_u("host callback initialization failed"));
     }
 }
 
@@ -98,7 +98,7 @@ void SimpleDebugger::Attach(ULONG pid)
 {
     // Generate the event name
     WCHAR buf[64];
-    std::wstring eventName = L"jdtest";
+    std::wstring eventName = _u("jdtest");
     _itow_s(pid, buf, 10);
     eventName += buf;
 
@@ -253,15 +253,15 @@ STDMETHODIMP SimpleDebugger::Exception (
                 remoteDebugEvent->InsertDocumentText.DocumentUrl.Address, 
                 remoteDebugEvent->InsertDocumentText.DocumentUrl.Length);
             
-            wchar_t filename[_MAX_FNAME];
-            wchar_t ext[_MAX_EXT];
+            char16 filename[_MAX_FNAME];
+            char16 ext[_MAX_EXT];
             
             _wsplitpath_s(url, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
             wcscat_s(filename, ext);
-            Out(false, L"Script loaded: %s\n", filename);
+            Out(false, _u("Script loaded: %s\n"), filename);
         
             if(FAILED(OnInsertText(remoteDebugEvent->InsertDocumentText.DocumentId, url, filename, documentText)))
-                DebuggerController::LogError(L"OnInsertText");
+                DebuggerController::LogError(_u("OnInsertText"));
 
             // Update the script debugger options to their current values.  This is currently only checked by the in-proc module
             // on document insertion events.
@@ -275,10 +275,10 @@ STDMETHODIMP SimpleDebugger::Exception (
         }
         case ET_Breakpoint:
         {
-            Out(false, L"Breakpoint hit! Reason: %s \n", m_pController->GetBreakpointReason(remoteDebugEvent->Breakpoint.reason));
+            Out(false, _u("Breakpoint hit! Reason: %s \n"), m_pController->GetBreakpointReason(remoteDebugEvent->Breakpoint.reason));
 
             if(FAILED(OnBreakpoint(&remoteDebugEvent)))
-                DebuggerController::LogError(L"OnBreakpoint");
+                DebuggerController::LogError(_u("OnBreakpoint"));
 
             if(remoteDebugEvent->Breakpoint.reason == BREAKREASON_BREAKPOINT)
             {
@@ -354,10 +354,10 @@ STDMETHODIMP SimpleDebugger::LoadModule(
     if(g_dynamicAttach)
         return NOERROR;
     
-    if(wcscmp(ModuleName, L"chakratest") == 0
-    || wcscmp(ModuleName, L"chakra") == 0
-    || wcscmp(ModuleName, L"jscript9") == 0
-    || wcscmp(ModuleName, L"jscript9test") == 0 )
+    if(wcscmp(ModuleName, _u("chakratest")) == 0
+    || wcscmp(ModuleName, _u("chakra")) == 0
+    || wcscmp(ModuleName, _u("jscript9")) == 0
+    || wcscmp(ModuleName, _u("jscript9test")) == 0 )
     {
         IfFailedReturn(EnsureDebugInterfaces());
     }
@@ -410,7 +410,7 @@ void SimpleDebugger::Out(_In_ bool unitTest, _In_ PCTSTR fmt, ...)
 
     if(unitTest)
     {
-        std::wstring s = std::wstring(L"$ut$") + fmt;
+        std::wstring s = std::wstring(_u("$ut$")) + fmt;
         fmt = s.c_str();
     }
 
@@ -451,10 +451,10 @@ HRESULT SimpleDebugger::EnsureDebugInterfaces()
     }
 
     // Once the unittest are using only vs build, we will not be needing chakradiagtest.dll
-    hr = PrivateCoCreate(L"chakradiagtest.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug));
+    hr = PrivateCoCreate(_u("chakradiagtest.dll"), CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug));
     if (FAILED(hr))
     {
-        IfFailGo(PrivateCoCreate(L"chakradiag.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug)));
+        IfFailGo(PrivateCoCreate(_u("chakradiag.dll"), CLSID_ChakraDiag, IID_PPV_ARGS(&m_pJsDebug)));
     }
 
     IfFailGo(m_client.QueryInterface<IDebugSystemObjects>(&m_pSystem));
@@ -499,12 +499,12 @@ HRESULT SimpleDebugger::DumpBreakpoint(RemoteScriptDebugEvent *evt)
     IfFailGo(pStackWalker->GetNext(&pDebugFrame));
     IfFailGo(GetLocation(pDebugFrame, location));
 
-    json += L"{\"breakpoint\" : {\"reason\": \"";
+    json += _u("{\"breakpoint\" : {\"reason\": \"");
     json += reason;
-    json += L"\"";
-    json += L", \"location\": ";
+    json += _u("\"");
+    json += _u(", \"location\": ");
     json += location.ToString();
-    json += L"}}";
+    json += _u("}}");
 
     IfFailGo(m_pController->LogBreakpoint(json.c_str()));
 
@@ -529,7 +529,7 @@ HRESULT SimpleDebugger::InsertBreakpoint(UINT64 docId, DWORD charOffset, DWORD c
 
     if(bpState == BREAKPOINT_ENABLED && !isEnabled)
     {
-        DebuggerController::LogError(L"breakpoint not enabled");
+        DebuggerController::LogError(_u("breakpoint not enabled"));
     }
 
     *bpInfo = new BpInfo;
@@ -657,8 +657,8 @@ HRESULT SimpleDebugger::GetCallstack(LocationToStringFlags flags)
     CComPtr<IJsDebugFrame> pDebugFrame;
     CComPtr<IJsDebugFrame> pPreviousDebugFrame;
 
-    std::wstring callstackEvent = L"{\"callstack\" : [";
-    std::wstring separator = L"";
+    std::wstring callstackEvent = _u("{\"callstack\" : [");
+    std::wstring separator = _u("");
 
     IfFailGo(EnsureDebugInterfaces());
     IfFailGo(m_pDebugProcess->CreateStackWalker(m_threadId, &pStackWalker));
@@ -672,7 +672,7 @@ HRESULT SimpleDebugger::GetCallstack(LocationToStringFlags flags)
         ValidateStackFrame(pDebugFrame, pPreviousDebugFrame);
 
         callstackEvent += separator;
-        separator = L", ";
+        separator = _u(", ");
         callstackEvent += location.ToString(flags, true);
         pPreviousDebugFrame = pDebugFrame;
 
@@ -683,7 +683,7 @@ HRESULT SimpleDebugger::GetCallstack(LocationToStringFlags flags)
         hr = S_OK;
     
 
-    callstackEvent += L"]}";
+    callstackEvent += _u("]}");
 
     IfFailGo(m_pController->LogCallstack(callstackEvent.c_str()));
 
@@ -741,25 +741,25 @@ HRESULT SimpleDebugger::EnsureFullNameEvaluationValueIsEquivalent(IJsDebugProper
 
         // We need to exclude __proto__.size properties that throw exceptions because Maps/Sets/Weakmaps
         // will throw an exception if __proto__.size is accessed.
-        bool isMapProtoSize = wcscmp(fullNameDebugPropertyInfo.type, L"Error") == 0
-                           && wcsstr(fullNameDebugPropertyInfo.fullName, L".size") != nullptr;
+        bool isMapProtoSize = wcscmp(fullNameDebugPropertyInfo.type, _u("Error")) == 0
+                           && wcsstr(fullNameDebugPropertyInfo.fullName, _u(".size")) != nullptr;
 
         // Exclude maps, sets, and weakmaps because any child properties are automatically resolved
         // to the map/set/weakmap variable's full name.
-        bool isCollection = wcsstr(fullNameDebugPropertyInfo.type, L"(Map)") != nullptr
-                         || wcsstr(fullNameDebugPropertyInfo.type, L"(Set)") != nullptr
-                         || wcsstr(fullNameDebugPropertyInfo.type, L"(WeakMap)") != nullptr
-                         || wcsstr(fullNameDebugPropertyInfo.type, L"(WeakSet)") != nullptr;
+        bool isCollection = wcsstr(fullNameDebugPropertyInfo.type, _u("(Map)")) != nullptr
+                         || wcsstr(fullNameDebugPropertyInfo.type, _u("(Set)")) != nullptr
+                         || wcsstr(fullNameDebugPropertyInfo.type, _u("(WeakMap)")) != nullptr
+                         || wcsstr(fullNameDebugPropertyInfo.type, _u("(WeakSet)")) != nullptr;
 
         // Exclude {error} and {exception} properties.
-        bool isError = wcsstr(fullNameDebugPropertyInfo.fullName, L"{error}") != nullptr
-                    || wcsstr(fullNameDebugPropertyInfo.fullName, L"{exception}") != nullptr;
+        bool isError = wcsstr(fullNameDebugPropertyInfo.fullName, _u("{error}")) != nullptr
+                    || wcsstr(fullNameDebugPropertyInfo.fullName, _u("{exception}")) != nullptr;
 
         if (bothPropertiesAreReal && !isMapProtoSize && !isCollection && !isError)
         {
             AssertMsg(
                 wcscmp(debugPropertyInfo.value, fullNameDebugPropertyInfo.value) == 0,
-                L"Short name and full name expression evaluation values don't match.");
+                _u("Short name and full name expression evaluation values don't match."));
         }
     }
 
@@ -776,7 +776,7 @@ HRESULT SimpleDebugger::EvaluateExpression(PCWSTR expression, int expandLevel, D
     }    
 
     HRESULT hr = S_OK;
-    std::wstring json = L"{\"evaluate\" : {";
+    std::wstring json = _u("{\"evaluate\" : {");
 
     CComPtr<IJsDebugProperty> pDebugProperty;
     CComBSTR error;
@@ -789,18 +789,18 @@ HRESULT SimpleDebugger::EvaluateExpression(PCWSTR expression, int expandLevel, D
     {
         std::wstring encodedExpression;
         DebuggerController::EncodeString(expression, encodedExpression);
-        json += L"\"" + encodedExpression + L"\" : ";
+        json += _u("\"") + encodedExpression + _u("\" : ");
 
         std::wstring encodedError;
         DebuggerController::EncodeString(error, encodedError);
-        json += L"\"" + encodedError + L"\"";
+        json += _u("\"") + encodedError + _u("\"");
     }
     else if (pDebugProperty)
     {
         IfFailGo(m_pController->DumpProperty(*this, pDebugProperty, expandLevel, flags, json));
     }
 
-    json += L"}}";
+    json += _u("}}");
     IfFailGo(m_pController->LogLocals(json.c_str()));
 Error:
     return hr;
@@ -896,7 +896,7 @@ HRESULT SimpleDebugger::OnInsertText(UINT64 docId, _In_ LPWSTR url, _In_ LPWSTR 
         // At the same time, we want to allow eval'd code to have automatic breakpoints.
         if(m_filename != filename)
         {
-            LPWSTR searchStrs[] = { L"newGlue.js", L"loggerglue.js" };
+            LPWSTR searchStrs[] = { _u("newGlue.js"), _u("loggerglue.js") };
             for(int i = 0; i < _countof(searchStrs); ++i)
             {
                 LPWSTR ptr = StrStrI(url, searchStrs[i]);
@@ -1098,7 +1098,7 @@ JsValueRef CALLBACK SimpleDebugger::JsModifyBreakpoint(JsValueRef callee, bool i
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsModifyBreakpoint");
+        DebuggerController::LogError(_u("JsModifyBreakpoint"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1153,7 +1153,7 @@ JsValueRef CALLBACK SimpleDebugger::JsInsertBreakpoint(JsValueRef callee, bool i
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsInsertBreakpoint");
+        DebuggerController::LogError(_u("JsInsertBreakpoint"));
     }
 
     return retval ? retval : DebuggerController::GetJavascriptUndefined();
@@ -1191,7 +1191,7 @@ JsValueRef CALLBACK SimpleDebugger::JsDumpLocals(JsValueRef callee, bool isConst
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpLocals");
+        DebuggerController::LogError(_u("JsDumpLocals"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1228,7 +1228,7 @@ JsValueRef CALLBACK SimpleDebugger::JsSetFrame(JsValueRef callee, bool isConstru
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetFrame");
+        DebuggerController::LogError(_u("JsSetFrame"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1268,7 +1268,7 @@ JsValueRef CALLBACK SimpleDebugger::JsSetDebuggerOptions(JsValueRef callee, bool
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetDebuggerOptions");
+        DebuggerController::LogError(_u("JsSetDebuggerOptions"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1307,7 +1307,7 @@ JsValueRef CALLBACK SimpleDebugger::JsDumpCallstack(JsValueRef callee, bool isCo
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpCallstack");
+        DebuggerController::LogError(_u("JsDumpCallstack"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1342,7 +1342,7 @@ JsValueRef CALLBACK SimpleDebugger::JsEvaluateExpression(JsValueRef callee, bool
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsEvaluateExpression_Internal");
+        DebuggerController::LogError(_u("JsEvaluateExpression_Internal"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1370,19 +1370,19 @@ JsValueRef CALLBACK SimpleDebugger::JsResumeFromBreakpoint(JsValueRef callee, bo
         IfFailGo(converter.Convert(&resumeAction));
 
         BREAKRESUMEACTION action = BREAKRESUMEACTION_ABORT;
-        if(!wcscmp(resumeAction, L"continue"))
+        if(!wcscmp(resumeAction, _u("continue")))
             action = BREAKRESUMEACTION_CONTINUE;
-        else if(!wcscmp(resumeAction, L"step_into"))
+        else if(!wcscmp(resumeAction, _u("step_into")))
             action = BREAKRESUMEACTION_STEP_INTO;
-        else if(!wcscmp(resumeAction, L"step_over"))
+        else if(!wcscmp(resumeAction, _u("step_over")))
             action = BREAKRESUMEACTION_STEP_OVER;
-        else if(!wcscmp(resumeAction, L"step_out"))
+        else if(!wcscmp(resumeAction, _u("step_out")))
             action = BREAKRESUMEACTION_STEP_OUT;
-        else if(!wcscmp(resumeAction, L"step_document"))
+        else if(!wcscmp(resumeAction, _u("step_document")))
             action = BREAKRESUMEACTION_STEP_DOCUMENT;
         else
         {
-            DebuggerController::LogError(L"invalid BREAKRESUMEACTION: \"%s\"", resumeAction);
+            DebuggerController::LogError(_u("invalid BREAKRESUMEACTION: \"%s\""), resumeAction);
             IfFailGo(E_FAIL);
         }
 
@@ -1398,7 +1398,7 @@ JsValueRef CALLBACK SimpleDebugger::JsResumeFromBreakpoint(JsValueRef callee, bo
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsResumeFromBreakpoint");
+        DebuggerController::LogError(_u("JsResumeFromBreakpoint"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1426,13 +1426,13 @@ JsValueRef CALLBACK SimpleDebugger::JsSetExceptionResume(JsValueRef callee, bool
         IfFailGo(converter.Convert(&resumeAction));
 
         ERRORRESUMEACTION action = ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller;
-        if(!wcscmp(resumeAction, L"ignore"))
+        if(!wcscmp(resumeAction, _u("ignore")))
             action = ERRORRESUMEACTION_SkipErrorStatement;
-        else if(!wcscmp(resumeAction, L"break"))
+        else if(!wcscmp(resumeAction, _u("break")))
             action = ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller;
         else
         {
-            DebuggerController::LogError(L"invalid ERRORRESUMEACTION");
+            DebuggerController::LogError(_u("invalid ERRORRESUMEACTION"));
             IfFailGo(E_FAIL);
         }
 
@@ -1447,7 +1447,7 @@ JsValueRef CALLBACK SimpleDebugger::JsSetExceptionResume(JsValueRef callee, bool
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetExceptionResume");
+        DebuggerController::LogError(_u("JsSetExceptionResume"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1486,7 +1486,7 @@ JsValueRef CALLBACK SimpleDebugger::JsLogJson(JsValueRef callee, bool isConstruc
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsLogJson");
+        DebuggerController::LogError(_u("JsLogJson"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1516,7 +1516,7 @@ JsValueRef CALLBACK SimpleDebugger::JsTrackProjectionCall(JsValueRef callee, boo
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsTrackProjectionCall");
+        DebuggerController::LogError(_u("JsTrackProjectionCall"));
     }
 
     return DebuggerController::GetJavascriptUndefined();
@@ -1562,7 +1562,7 @@ UINT64 SimpleDebugger::GetDocIdForSrcId(ULONG srcId)
     std::map<ULONG,UINT64>::iterator iter = m_docIdMap.find(srcId);
     if(iter == m_docIdMap.end())
     {
-        DebuggerController::LogError(L"unknown srcid");
+        DebuggerController::LogError(_u("unknown srcid"));
         return 0;
     }   
     else
@@ -1578,6 +1578,6 @@ ULONG SimpleDebugger::GetSrcIdForDocId(UINT64 docid)
         if(iter->second == docid)
             return iter->first;
     }
-    DebuggerController::LogError(L"unknown docid");
+    DebuggerController::LogError(_u("unknown docid"));
     return 0;
 }

@@ -612,7 +612,7 @@ MemProtectHeap::ConfigurationLoader::ConfigurationLoader()
 {
     CmdLineArgsParser parser(nullptr, s_userConfig.flags);
 
-    ConfigParser configParser(s_userConfig.flags, L"memprotect");
+    ConfigParser configParser(s_userConfig.flags, _u("memprotect"));
     configParser.ParseRegistry(parser);
 
     HMODULE hmod = ::GetModuleHandle(NULL);

@@ -81,8 +81,8 @@ namespace JsDiag
 
         ULONG GetRow();
         ULONG GetColumn();
-        wchar_t* GetUri() const;
-        wchar_t* GetFunctionName() const;
+        char16* GetUri() const;
+        char16* GetFunctionName() const;
         bool IsInlineFrame() const;
         void* GetEffectiveFrameBase() const;
         void* GetReturnAddress() const;
@@ -164,7 +164,7 @@ namespace JsDiag
 
         void GetRowAndColumn(ULONG* pRow, ULONG* pColumn);
         void GetStatementStartAndEndOffset(ULONG* startOffset, ULONG* endOffset);
-        static wchar_t* WcsDup(_In_z_ const wchar_t* src, size_t maxCharacterCount);
+        static char16* WcsDup(_In_z_ const char16* src, size_t maxCharacterCount);
         RemoteDiagFrame* CreateDiagFrame();
 
     private:

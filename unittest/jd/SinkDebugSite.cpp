@@ -31,7 +31,7 @@ HRESULT SinkDebugSite::Init(EXT_CLASS* ext, LPCTSTR pModule, IDebugSymbols3* pDe
 
 STDMETHODIMP SinkDebugSite::Out(LPCWSTR msg)
 {
-    m_ext->Out(L"%s\n", msg);
+    m_ext->Out(_u("%s\n"), msg);
     return S_OK;
 }
 
@@ -99,7 +99,7 @@ STDMETHODIMP SinkDebugSite::AddSyntheticModule(const void* addr, ULONG size)
         std::bind2nd(std::mem_fun_ref(&interval_type::overlaps), m));
     if (i != m_modules.end())
     {
-        wprintf(L"Error: Synthetic module %p-%p overlaps with previous module %p-%p\n", m.begin, m.end, i->begin, i->end);
+        wprintf(_u("Error: Synthetic module %p-%p overlaps with previous module %p-%p\n"), m.begin, m.end, i->begin, i->end);
         IfFalseAssertReturnEFAIL(false);
     }
 
@@ -115,7 +115,7 @@ STDMETHODIMP SinkDebugSite::AddSyntheticModule(const void* addr, ULONG size)
 
     if (TraceVerbose())
     {
-        wprintf(L"Synthetic module %p-%p\n", m.begin, m.end);
+        wprintf(_u("Synthetic module %p-%p\n"), m.begin, m.end);
     }
 
     return hr;
@@ -141,7 +141,7 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
         std::bind2nd(std::mem_fun_ref(&symbol_info::overlaps), sym));
     if (i != m_symbols.end())
     {
-        wprintf(L"Error: Synthetic symbol %p-%p (%s) overlaps with previous symbol %p-%p (%s)\n", sym.begin, sym.end, sym.name.c_str(), i->begin, i->end, i->name.c_str());
+        wprintf(_u("Error: Synthetic symbol %p-%p (%s) overlaps with previous symbol %p-%p (%s)\n"), sym.begin, sym.end, sym.name.c_str(), i->begin, i->end, i->name.c_str());
 
         IfFalseAssertReturnEFAIL(false);
     }
@@ -151,7 +151,7 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
         std::bind2nd(std::mem_fun_ref(&interval_type::contains), sym));
     if (m == m_modules.end())
     {
-        wprintf(L"Error: Synthetic symbol %p-%p (%s) isn't contained by any existing synthetic module.\n", sym.begin, sym.end, sym.name.c_str());
+        wprintf(_u("Error: Synthetic symbol %p-%p (%s) isn't contained by any existing synthetic module.\n"), sym.begin, sym.end, sym.name.c_str());
         IfFalseAssertReturnEFAIL(false);
     }
 
@@ -167,7 +167,7 @@ STDMETHODIMP SinkDebugSite::AddSyntheticSymbol(const void* addr, ULONG size, LPC
 
     if (TraceVerbose())
     {
-       wprintf(L"Synthetic symbol %p-%p %s\n", sym.begin, sym.end, sym.name.c_str());
+       wprintf(_u("Synthetic symbol %p-%p %s\n"), sym.begin, sym.end, sym.name.c_str());
     }
     return hr;
 }

@@ -387,7 +387,7 @@ template <typename Fn>
 void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback, bool verbose)
 {
     bool isUsingDebugPinnedRecord = IsUsingDebugPinRecord(ext, verbose);
-    // ext->Out(L"Possible symbol for %p: ", heapObject.vtable); ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); ext->Out("\n");
+    // ext->Out(_u("Possible symbol for %p: "), heapObject.vtable); ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); ext->Out("\n");
     if (ext->m_PtrSize == 8)
     {
         PinnedObjectMap<ULONG64> pinnedObjects(recycler, isUsingDebugPinnedRecord);

@@ -431,8 +431,8 @@ namespace Projection
             }
 
             auto interfaceType = InterfaceType::From(returnType);
-            Assert(wcscmp(StringOfId(scriptContext, interfaceType->typeDef->id), L"Windows.Foundation.Collections.IIterator`1") == 0);
-            Assert(wcsncmp(StringOfId(scriptContext, interfaceType->typeId), L"Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String,", 97 /* length of string :  "Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String," */) == 0);
+            Assert(wcscmp(StringOfId(scriptContext, interfaceType->typeDef->id), _u("Windows.Foundation.Collections.IIterator`1")) == 0);
+            Assert(wcsncmp(StringOfId(scriptContext, interfaceType->typeId), _u("Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String,"), 97 /* length of string :  "Windows.Foundation.Collections.IIterator`1<Windows.Foundation.Collections.IKeyValuePair`2<String," */) == 0);
 
             RtEXPR iteratorExpr;
             HRESULT hr = specialization->projectionContext->GetExpr(interfaceType->typeId, interfaceType->typeDef->id, nullptr, interfaceType->genericParameters, &iteratorExpr); 

@@ -36,19 +36,19 @@ public:
         switch (errorCode)
         {
         case (JsErrorCode::JsErrorInvalidArgument) :
-            return L"TypeError: InvalidArgument";
+            return _u("TypeError: InvalidArgument");
         case (JsErrorCode::JsErrorNullArgument) :
-            return L"TypeError: NullArgument";
+            return _u("TypeError: NullArgument");
         case (JsErrorCode::JsErrorArgumentNotObject) :
-            return L"TypeError: ArgumentNotAnObject";
+            return _u("TypeError: ArgumentNotAnObject");
         case (JsErrorCode::JsErrorOutOfMemory) :
-            return L"OutOfMemory";
+            return _u("OutOfMemory");
         case (JsErrorCode::JsErrorScriptException) :
-            return L"ScriptError";
+            return _u("ScriptError");
         case (JsErrorCode::JsErrorScriptCompile) :
-            return L"SyntaxError";
+            return _u("SyntaxError");
         case (JsErrorCode::JsErrorFatal) :
-            return L"FatalError";
+            return _u("FatalError");
         default:
             AssertMsg(false, "Unexpected JsErrorCode");
             return NULL;

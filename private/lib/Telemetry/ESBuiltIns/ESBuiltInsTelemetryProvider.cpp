@@ -13,8 +13,8 @@ ESBuiltInsTelemetryProvider::ESBuiltInsTelemetryProvider( ScriptContextTelemetry
     usageMap( ESBuiltInsDatabase::CreateUsageMap( *scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) )
 #ifdef TELEMETRY_ESB_STRINGS
     ,
-    nameMath( nullptr ), // JavascriptString::NewCopySzFromArena(L"Math", &scriptContextTelemetry.GetScriptContext(), scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) ),
-    nameJson( nullptr ) // JavascriptString::NewCopySzFromArena(L"JSON", &scriptContextTelemetry.GetScriptContext(), scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) )
+    nameMath( nullptr ), // JavascriptString::NewCopySzFromArena(_u("Math"), &scriptContextTelemetry.GetScriptContext(), scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) ),
+    nameJson( nullptr ) // JavascriptString::NewCopySzFromArena(_u("JSON"), &scriptContextTelemetry.GetScriptContext(), scriptContextTelemetry.GetScriptContext().TelemetryAllocator() ) )
 #endif
 {
     // Register the opcodeTelemetry callback handler:
@@ -214,7 +214,7 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Object( 
                 FunctionProxy* constructorFunctionProxy = constructorFunction->GetFunctionProxy();
                 if( constructorFunctionProxy != nullptr )
                 {
-                    const wchar_t* constructorNameCStr = constructorFunctionProxy->GetDisplayName();
+                    const char16* constructorNameCStr = constructorFunctionProxy->GetDisplayName();
                     constructorName = JavascriptString::NewCopySz( constructorNameCStr, scriptContextPtr );
                 }
                 else
@@ -327,16 +327,16 @@ void ESBuiltInsTelemetryProvider::OutputPrint()
 #ifdef TELEMETRY_OUTPUTPRINT
     if( CONFIG_ISENABLED(Js::ESBLangTelFlag) )
     {
-        Output::Print( L"----------\r\n" );
-        Output::Print( L"-- ECMAScript 5-7 Built-Ins Telemetry.\r\n" );
-        Output::Print( L"Date.parse Telemetry.\r\n");
-        Output::Print( L"OnPropertyEncountered     : %d \r\n", count_OnPropertyEncountered      );
-        Output::Print( L"OnConstructorCalled       : %d \r\n", count_OnConstructorCalled        );
-        Output::Print( L"GetBuiltInTypeNameFunction: %d \r\n", count_GetBuiltInTypeNameFunction );
-        Output::Print( L"GetBuiltInTypeNameObject  : %d \r\n", count_GetBuiltInTypeNameObject   );
-        Output::Print( L"GetBuiltInTypeNameOther   : %d \r\n", count_GetBuiltInTypeNameOther    );
+        Output::Print( _u("----------\r\n") );
+        Output::Print( _u("-- ECMAScript 5-7 Built-Ins Telemetry.\r\n") );
+        Output::Print( _u("Date.parse Telemetry.\r\n"));
+        Output::Print( _u("OnPropertyEncountered     : %d \r\n"), count_OnPropertyEncountered      );
+        Output::Print( _u("OnConstructorCalled       : %d \r\n"), count_OnConstructorCalled        );
+        Output::Print( _u("GetBuiltInTypeNameFunction: %d \r\n"), count_GetBuiltInTypeNameFunction );
+        Output::Print( _u("GetBuiltInTypeNameObject  : %d \r\n"), count_GetBuiltInTypeNameObject   );
+        Output::Print( _u("GetBuiltInTypeNameOther   : %d \r\n"), count_GetBuiltInTypeNameOther    );
 
-        Output::Print( L"ESBuiltInPropertyId \tObject               \tFunction            \tCallCount \r\n" );
+        Output::Print( _u("ESBuiltInPropertyId \tObject               \tFunction            \tCallCount \r\n") );
 
         bool atLeast1 = false;
         // For each ESBuiltInProperty in ESBuiltInsDatabase::ESBuiltInPropertyList
@@ -353,21 +353,21 @@ void ESBuiltInsTelemetryProvider::OutputPrint()
             byte count = this->usageMap[ i ];
             if( count == BYTE_MAX )
             {
-                Output::Print( L"%20d\t%-20s\t%-20s\t255+\r\n", prop.esbiPropertyId, prop.constructorName, prop.propertyName );
+                Output::Print( _u("%20d\t%-20s\t%-20s\t255+\r\n"), prop.esbiPropertyId, prop.constructorName, prop.propertyName );
                 atLeast1 = true;
             }
             else if( count > 0 )
             {
-                Output::Print( L"%20d\t%-20s\t%-20s\t%9d\r\n", prop.esbiPropertyId, prop.constructorName, prop.propertyName, count );
+                Output::Print( _u("%20d\t%-20s\t%-20s\t%9d\r\n"), prop.esbiPropertyId, prop.constructorName, prop.propertyName, count );
                 atLeast1 = true;
             }
         }
 
         if( !atLeast1 )
         {
-            Output::Print( L"No built-ins called.\r\n" );
+            Output::Print( _u("No built-ins called.\r\n") );
         }
-        Output::Print( L"----------\r\n");
+        Output::Print( _u("----------\r\n"));
     }
 #endif
 }

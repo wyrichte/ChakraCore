@@ -13,7 +13,7 @@ public:
     };
 
     virtual ~Engine();
-    virtual int ParseScript(wchar_t *str) = 0;
+    virtual int ParseScript(char16 *str) = 0;
     virtual void SetupTest() = 0;
     virtual void RunTest() = 0;
 
@@ -26,7 +26,7 @@ class ChakraEngine : public Engine
 public:
     ChakraEngine();
     ~ChakraEngine();
-    int ParseScript(wchar_t *str);
+    int ParseScript(char16 *str);
     void SetupTest();
     void RunTest();
 private:
@@ -39,7 +39,7 @@ class JsRTEngine : public Engine
     public:
     JsRTEngine(Engine::Kind engineKind);
     ~JsRTEngine();
-    int ParseScript(wchar_t *str);
+    int ParseScript(char16 *str);
     void SetupTest();
     void RunTest();
 private:
@@ -49,7 +49,7 @@ private:
     static JsRuntimeHandle g_sharedRuntime;
     static JsContextRef g_sharedContext;
 
-    void CallFunction(wchar_t *funcName);
+    void CallFunction(char16 *funcName);
 };
 
 #ifdef ALLOW_V8
@@ -58,7 +58,7 @@ class V8Engine : public Engine
 public:
     V8Engine(bool isolate);
     ~V8Engine();
-    int ParseScript(wchar_t *str);
+    int ParseScript(char16 *str);
     void SetupTest();
     void RunTest();
 private:

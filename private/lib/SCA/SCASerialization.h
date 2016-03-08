@@ -28,7 +28,7 @@ namespace Js
             m_writer->Write(data);
         }
 
-        void Write(const wchar_t* str, charcount_t len) const;
+        void Write(const char16* str, charcount_t len) const;
         void Write(const BYTE* bytes, uint32 len) const;
 
         //
@@ -201,7 +201,7 @@ namespace Js
 
         bool MoveNext();
 
-        const wchar_t* GetNameString() const
+        const char16* GetNameString() const
         {
             return m_name->GetString();
         }

@@ -44,7 +44,7 @@ namespace Js
 
 
     public:
-        DelayLoadWinRtString() : DelayLoadLibrary(L"api-ms-win-core-winrt-string-l1-1-0.dll"), m_pfnWindowsCreateString(NULL), m_pfWindowsGetStringRawBuffer(NULL), m_pfnWindowsDeleteString(NULL){ }
+        DelayLoadWinRtString() : DelayLoadLibrary(_u("api-ms-win-core-winrt-string-l1-1-0.dll")), m_pfnWindowsCreateString(NULL), m_pfWindowsGetStringRawBuffer(NULL), m_pfnWindowsDeleteString(NULL){ }
         virtual ~DelayLoadWinRtString() { }
 
         HRESULT WindowsCreateString(__in_ecount_opt(length) const WCHAR * sourceString, UINT32 length, __out HSTRING * string);

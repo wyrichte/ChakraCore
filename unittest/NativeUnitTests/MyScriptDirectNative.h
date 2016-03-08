@@ -66,9 +66,9 @@ public:
     BOOL FAIL_hr(HRESULT hres,std::wstring message, HRESULT expectedHR=S_OK);
 
     Var GetGlobalObject();
-    PropertyId GetOrAddPropertyId(const wchar_t *const name);
-    Var GetProperty(const Var instance, const wchar_t *const name);
-    void SetProperty(const Var instance, const wchar_t *const name, const Var value);
+    PropertyId GetOrAddPropertyId(const char16 *const name);
+    Var GetProperty(const Var instance, const char16 *const name);
+    void SetProperty(const Var instance, const char16 *const name, const Var value);
     bool ToBoolean(const Var value);
     double ToDouble(const Var value);
     std::wstring ToString(const Var value);

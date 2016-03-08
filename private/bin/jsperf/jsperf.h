@@ -8,6 +8,6 @@ DWORD WINAPI ThreadProc(LPVOID param);
 extern HANDLE hProcess;
 
 void Fail(__in __nullterminated char *reason);
-void ParseArg(__in __nullterminated wchar_t *arg);
+void ParseArg(__in __nullterminated char16 *arg);
 void Usage();
 

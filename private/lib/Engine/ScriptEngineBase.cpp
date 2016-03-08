@@ -1557,7 +1557,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
         Js::JavascriptError *pError = scriptContext->GetLibrary()->CreateExternalError(errorTypeInternal);
 
         size_t length = wcslen(message);
-        wchar_t* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, length + 1);
+        char16* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, length + 1);
         wmemcpy_s(allocatedString, length + 1, message, length);
         allocatedString[length] = L'\0';
 

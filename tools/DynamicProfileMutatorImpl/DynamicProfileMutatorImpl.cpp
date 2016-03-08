@@ -8,7 +8,7 @@ class DynamicProfileMutatorImpl : public DynamicProfileMutator
 public:
     virtual void Mutate(DynamicProfileInfo * info) override;
     virtual void Delete() { delete this; }
-    virtual void Initialize(const wchar_t * options) override;
+    virtual void Initialize(const char16 * options) override;
     DynamicProfileMutatorImpl(): m_elem(-1), m_return(-1), m_param(-1), m_loopImplicitFlag(-1), m_implicitFlag(-1), m_random(false) {}
 private:
     static const size_t MaxProfiledValueTypes = 256;
@@ -20,9 +20,9 @@ private:
     static ValueType RandomValueType(ScriptContext *const scriptContext);
     static int FromValueType(const ValueType valueType);
     static ValueType ToValueType(const int i);
-    void ConvertStrToValueType(wchar_t * enumStr, int *param);
+    void ConvertStrToValueType(char16 * enumStr, int *param);
 
-    void ConvertStrToImplicitCallFlags(wchar_t * enumStr, int *param);
+    void ConvertStrToImplicitCallFlags(char16 * enumStr, int *param);
     // Can't make this as enum because we need to know if no option is passed, Constructor sets these to -1
     int m_elem;
     int m_return;
@@ -162,47 +162,47 @@ DynamicProfileMutator * CREATE_MUTATOR_PROC_NAME()
 }
 
 
-void DynamicProfileMutatorImpl::Initialize(const wchar_t * options) {
+void DynamicProfileMutatorImpl::Initialize(const char16 * options) {
     if(NULL == options) {
-        Output::Print(L"ERROR: Options must be specified with -dynamicprofilemutator switch\n");
+        Output::Print(_u("ERROR: Options must be specified with -dynamicprofilemutator switch\n"));
         Js::Throw::FatalInternalError();
     }
     // Need to copy the const string to a buffer to split
-    wchar_t optionsBuffer[2048];
+    char16 optionsBuffer[2048];
     wcscpy_s(optionsBuffer, wcslen(options) + 1, options);
-    wchar_t *p = optionsBuffer;
-    wchar_t *nextOption = NULL;
-    p = wcstok_s(optionsBuffer, L";",&nextOption);
+    char16 *p = optionsBuffer;
+    char16 *nextOption = NULL;
+    p = wcstok_s(optionsBuffer, _u(";"),&nextOption);
 
     while(p != NULL) {
-        wchar_t *optionType = p;
-        wchar_t *optionValue = NULL;
+        char16 *optionType = p;
+        char16 *optionValue = NULL;
 
-        optionType = wcstok_s(optionType, L"=",&optionValue);
-        if(0 == wcscmp(optionType, L"random")) {
+        optionType = wcstok_s(optionType, _u("="),&optionValue);
+        if(0 == wcscmp(optionType, _u("random"))) {
             m_random = true;
             break;
         }
-        if(0 == wcscmp(optionType, L"elem")) {
+        if(0 == wcscmp(optionType, _u("elem"))) {
             ConvertStrToValueType(optionValue, &m_elem);
-        } else if(0 == wcscmp(optionType, L"return")) {
+        } else if(0 == wcscmp(optionType, _u("return"))) {
             ConvertStrToValueType(optionValue, &m_return);
-        } else if(0 == wcscmp(optionType, L"param")) {
+        } else if(0 == wcscmp(optionType, _u("param"))) {
             ConvertStrToValueType(optionValue, &m_param);
-        } else if(0 == wcscmp(optionType, L"loopimplicitflag")) {
+        } else if(0 == wcscmp(optionType, _u("loopimplicitflag"))) {
             ConvertStrToImplicitCallFlags(optionValue, &m_loopImplicitFlag);
-        } else if(0 == wcscmp(optionType, L"implicitflag")) {
+        } else if(0 == wcscmp(optionType, _u("implicitflag"))) {
             ConvertStrToImplicitCallFlags(optionValue, &m_implicitFlag);
         }
-        p = wcstok_s(NULL, L";",&nextOption);
+        p = wcstok_s(NULL, _u(";"),&nextOption);
     }
     if((-1 == m_elem) && (-1 == m_return) && (-1 == m_param) && (-1 == m_loopImplicitFlag) && (-1 == m_implicitFlag) && (false == m_random)) {
-        Output::Print(L"ERROR: Invalid value passed for dynamicprofilemutator:%s\n", options);
+        Output::Print(_u("ERROR: Invalid value passed for dynamicprofilemutator:%s\n"), options);
         Js::Throw::FatalInternalError();
     }
 }
 
-void DynamicProfileMutatorImpl::ConvertStrToValueType(wchar_t * enumStr, int *param) {
+void DynamicProfileMutatorImpl::ConvertStrToValueType(char16 * enumStr, int *param) {
     ValueType valueType;
     if(ValueType::FromString(enumStr, &valueType) && IsProfiledValueType(valueType))
     {
@@ -210,14 +210,14 @@ void DynamicProfileMutatorImpl::ConvertStrToValueType(wchar_t * enumStr, int *pa
     }
     else
     {
-        Output::Print(L"ERROR: Invalid enum type %s\n", enumStr);
+        Output::Print(_u("ERROR: Invalid enum type %s\n"), enumStr);
         Js::Throw::FatalInternalError();
     }
 }
 
-void DynamicProfileMutatorImpl::ConvertStrToImplicitCallFlags(wchar_t * enumStr, int *param) {
-    wchar_t * implicitCallFlagsEnumStrs[] = { L"ImplicitCall_HasNoInfo", L"ImplicitCall_None", L"ImplicitCall_ToPrimitive",L"ImplicitCall_Accessor", L"ImplicitCall_External", L"ImplicitCall_Exception", L"ImplicitCall_NoOpSetProperty", L"ImplicitCall_All", L"ImplicitCall_AsyncHostOperation"};
-    uint impCallFlagsEnumLen = sizeof(implicitCallFlagsEnumStrs)/sizeof(wchar_t *);
+void DynamicProfileMutatorImpl::ConvertStrToImplicitCallFlags(char16 * enumStr, int *param) {
+    char16 * implicitCallFlagsEnumStrs[] = { _u("ImplicitCall_HasNoInfo"), _u("ImplicitCall_None"), _u("ImplicitCall_ToPrimitive"),_u("ImplicitCall_Accessor"), _u("ImplicitCall_External"), _u("ImplicitCall_Exception"), _u("ImplicitCall_NoOpSetProperty"), _u("ImplicitCall_All"), _u("ImplicitCall_AsyncHostOperation")};
+    uint impCallFlagsEnumLen = sizeof(implicitCallFlagsEnumStrs)/sizeof(char16 *);
 
     for(uint index = 0; index < impCallFlagsEnumLen; ++index) {
         if(0 == wcscmp(enumStr, implicitCallFlagsEnumStrs[index])) {
@@ -227,7 +227,7 @@ void DynamicProfileMutatorImpl::ConvertStrToImplicitCallFlags(wchar_t * enumStr,
     }
     if (-1 == *param)
     {
-        Output::Print(L"ERROR: Invalid enum type %s\n", enumStr);
+        Output::Print(_u("ERROR: Invalid enum type %s\n"), enumStr);
         Js::Throw::FatalInternalError();
     }
 }

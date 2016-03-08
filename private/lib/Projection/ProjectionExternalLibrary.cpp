@@ -101,7 +101,7 @@ void ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObjec
     if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
     {
         Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable;
-        library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(L"WinRTError"), prototypeNameMessageAttributes);
+        library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
     }
     constructor->SetHasNoEnumerableProperties(true);
 }
@@ -117,7 +117,7 @@ void ProjectionExternalLibrary::InitializeWinRTErrorPrototype(Js::DynamicObject*
     library->AddMember(prototype, Js::PropertyIds::constructor, projectionContext->GetProjectionExternalLibrary()->GetWinRTErrorConstructor());
     bool hasNoEnumerableProperties = true;
     Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable | PropertyWritable;
-    library->AddMember(prototype, Js::PropertyIds::name, library->CreateStringFromCppLiteral(L"WinRTError"), prototypeNameMessageAttributes);
+    library->AddMember(prototype, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
     library->AddMember(prototype, Js::PropertyIds::message, library->GetEmptyString(), prototypeNameMessageAttributes);
     library->AddFunctionToLibraryObject(prototype, Js::PropertyIds::toString, &Js::JavascriptError::EntryInfo::ToString, 0);
     prototype->SetHasNoEnumerableProperties(hasNoEnumerableProperties);

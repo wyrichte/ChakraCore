@@ -55,12 +55,12 @@ namespace JsDiag
         bool GetProperty(const Js::Var instance, Js::PropertyId propertyId, _Out_ PROPERTY_INFO* prop);
 
         static CString ReadString(IVirtualReader* reader, LPCWSTR addr, UINT maxLen);
-        static void ReadStringLen(IVirtualReader* reader, const wchar_t* addr, _Out_writes_all_(len) wchar_t* buf, charcount_t len);
-        static CString ReadStringLen(IVirtualReader* reader, const wchar_t* addr, charcount_t len);
+        static void ReadStringLen(IVirtualReader* reader, const char16* addr, _Out_writes_all_(len) char16* buf, charcount_t len);
+        static CString ReadStringLen(IVirtualReader* reader, const char16* addr, charcount_t len);
         static CString ReadPropertyName(IVirtualReader* reader, const PropertyRecord* propertyRecord);
         CString ReadPropertyName(const PropertyRecord* propertyRecord) const;
 
-        bool ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual);
+        bool ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) char16* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual);
         CString ReadString(JavascriptString* s);
 
         bool IsMshtmlObject(Js::TypeId typeId);
@@ -218,7 +218,7 @@ namespace JsDiag
     public:
         void Init(InspectionContext* context, const PROPERTY_INFO& info, CString value, _In_opt_ IJsDebugPropertyInternal* parent);
         void Init(InspectionContext* context, const PROPERTY_INFO& info, _In_opt_ IJsDebugPropertyInternal* parent);
-        LPCWSTR GetType() const { return L"Symbol"; }
+        LPCWSTR GetType() const { return _u("Symbol"); }
         const CString& GetValue(UINT nRadix) const { return m_value; }
 
         virtual bool_result TryToObject(_Out_ IJsDebugPropertyInternal** ppDebugProperty) override;
@@ -233,8 +233,8 @@ namespace JsDiag
         public VariableProperty<T, HasWalkerPolicy<T, Walker>>
     {
     public:
-        LPCWSTR GetType() const { return L"Object"; }
-        LPCWSTR GetValue(UINT nRadix) const { return L"{...}"; }
+        LPCWSTR GetType() const { return _u("Object"); }
+        LPCWSTR GetValue(UINT nRadix) const { return _u("{...}"); }
 
         // Supports WalkerPolicy
         bool_result TryCreateWalker(_Outptr_ WalkerType** ppWalker)
@@ -278,8 +278,8 @@ namespace JsDiag
             return reinterpret_cast<const RemoteType::TargetType*>(m_info.data);
         }
 
-        void GetUndefinedValue(_Out_ BSTR* pValue) const { ToBSTR(L"undefined", pValue); }
-        void GetUndefinedType(_Out_ BSTR* pValue) const { ToBSTR(L"Undefined", pValue); }
+        void GetUndefinedValue(_Out_ BSTR* pValue) const { ToBSTR(_u("undefined"), pValue); }
+        void GetUndefinedType(_Out_ BSTR* pValue) const { ToBSTR(_u("Undefined"), pValue); }
     };
 
     // --------------------------------------------------------------------------------------------
@@ -320,7 +320,7 @@ namespace JsDiag
     public:
         void Init(InspectionContext* context, const PROPERTY_INFO& info, double value, _In_opt_ IJsDebugPropertyInternal* parent);
 
-        LPCWSTR GetType() const { return L"Number"; }
+        LPCWSTR GetType() const { return _u("Number"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
 
         virtual bool_result TryToObject(_Out_ IJsDebugPropertyInternal** ppDebugProperty) override;
@@ -362,7 +362,7 @@ namespace JsDiag
         public VariableProperty<JavascriptTypedNumberProperty<T>>
     {
     public:
-        LPCWSTR GetType() const { return L"Number, (Object)"; }
+        LPCWSTR GetType() const { return _u("Number, (Object)"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
     };
 
@@ -392,7 +392,7 @@ namespace JsDiag
         bool_result TryGetBuiltInProperty(const CString& name, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty);
         bool_result TryGetItemDirect(UINT index, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty);
 
-        static LPCWSTR GetTypeString() { return L"String"; }
+        static LPCWSTR GetTypeString() { return _u("String"); }
 
     private:
         UINT GetStringLength() const { return static_cast<UINT>(m_str.GetLength() - 2); }  // unquoted
@@ -511,7 +511,7 @@ namespace JsDiag
         }
 
         const CString& GetName() const { return s_name; }
-        LPCWSTR GetValue(UINT nRadix) { return L"{...}"; }
+        LPCWSTR GetValue(UINT nRadix) { return _u("{...}"); }
         bool HasChildren() { return true; }
         DWORD GetAttribute() { return JS_PROPERTY_FAKE | JS_PROPERTY_METHOD | JS_PROPERTY_READONLY; }
 
@@ -659,7 +659,7 @@ namespace JsDiag
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
         {
             CString value;
-            value.Format(L"size = %u", m_walker->GetCount());
+            value.Format(_u("size = %u"), m_walker->GetCount());
             *pValue = value.AllocSysString();
         }
         bool HasChildren() { return m_walker->GetCount() > 0; }
@@ -672,10 +672,10 @@ namespace JsDiag
         }
     };
 
-    template <> const CString CollectionGroupProperty<MapWalker>::s_name(L"[Map]");
-    template <> const CString CollectionGroupProperty<SetWalker>::s_name(L"[Set]");
-    template <> const CString CollectionGroupProperty<WeakMapWalker>::s_name(L"[WeakMap]");
-    template <> const CString CollectionGroupProperty<WeakSetWalker>::s_name(L"[WeakSet]");
+    template <> const CString CollectionGroupProperty<MapWalker>::s_name(_u("[Map]"));
+    template <> const CString CollectionGroupProperty<SetWalker>::s_name(_u("[Set]"));
+    template <> const CString CollectionGroupProperty<WeakMapWalker>::s_name(_u("[WeakMap]"));
+    template <> const CString CollectionGroupProperty<WeakSetWalker>::s_name(_u("[WeakSet]"));
 
     typedef CollectionGroupProperty<MapWalker> MapGroupProperty;
     typedef CollectionGroupProperty<SetWalker> SetGroupProperty;
@@ -1003,7 +1003,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptMapProperty, RemoteDynamicObject, JavascriptMapWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Map"; }
+        LPCWSTR GetType() const { return _u("Map"); }
     };
 
     //
@@ -1013,7 +1013,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptSetProperty, RemoteDynamicObject, JavascriptSetWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Set"; }
+        LPCWSTR GetType() const { return _u("Set"); }
     };
 
     //
@@ -1023,7 +1023,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptWeakMapProperty, RemoteDynamicObject, JavascriptWeakMapWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"WeakMap"; }
+        LPCWSTR GetType() const { return _u("WeakMap"); }
     };
 
     //
@@ -1033,7 +1033,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptWeakSetProperty, RemoteDynamicObject, JavascriptWeakSetWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"WeakSet"; }
+        LPCWSTR GetType() const { return _u("WeakSet"); }
     };
 
     //
@@ -1075,7 +1075,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptProxyProperty, RemoteDynamicObject, JavascriptProxyWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Proxy"; }
+        LPCWSTR GetType() const { return _u("Proxy"); }
     };
 
     class ATL_NO_VTABLE JavascriptPromiseWalker:
@@ -1090,7 +1090,7 @@ namespace JsDiag
         public BaseObjectProperty<JavascriptPromiseProperty, RemoteDynamicObject, JavascriptPromiseWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Promise"; }
+        LPCWSTR GetType() const { return _u("Promise"); }
     };
 
     //
@@ -1127,7 +1127,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptBooleanObjectProperty, RemoteJavascriptBooleanObject, JavascriptBooleanObjectWalker>
     {
     public:
-        static LPCWSTR GetDisplayType() { return L"Boolean, (Object)"; }
+        static LPCWSTR GetDisplayType() { return _u("Boolean, (Object)"); }
         static DynamicObject* GetDefaultPrototype(const RemoteJavascriptLibrary& lib) { return lib.GetBooleanPrototype(); }
 
         LPCWSTR GetType() const { return GetDisplayType(); }
@@ -1143,7 +1143,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptSymbolObjectProperty, RemoteJavascriptSymbolObject, JavascriptSymbolObjectWalker>
     {
     public:
-        static LPCWSTR GetDisplayType() { return L"Symbol, (Object)"; }
+        static LPCWSTR GetDisplayType() { return _u("Symbol, (Object)"); }
         static DynamicObject* GetDefaultPrototype(const RemoteJavascriptLibrary& lib) { return lib.GetSymbolPrototype(); }
 
         LPCWSTR GetType() const { return GetDisplayType(); }
@@ -1159,7 +1159,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptNumberObjectProperty, RemoteJavascriptNumberObject, JavascriptNumberObjectWalker>
     {
     public:
-        static LPCWSTR GetDisplayType() { return L"Number, (Object)"; }
+        static LPCWSTR GetDisplayType() { return _u("Number, (Object)"); }
         static DynamicObject* GetDefaultPrototype(const RemoteJavascriptLibrary& lib) { return lib.GetNumberPrototype(); }
 
         LPCWSTR GetType() const { return GetDisplayType(); }
@@ -1207,7 +1207,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptFunctionProperty, RemoteJavascriptFunction, JavascriptFunctionWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Object, (Function)"; }
+        LPCWSTR GetType() const { return _u("Object, (Function)"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
 
         void Init(InspectionContext* context, const PROPERTY_INFO& info, _In_opt_ IJsDebugPropertyInternal* parent)
@@ -1247,7 +1247,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptErrorProperty, RemoteJavascriptError, JavascriptErrorWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Error"; }
+        LPCWSTR GetType() const { return _u("Error"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
     };
 
@@ -1260,7 +1260,7 @@ namespace JsDiag
         public DynamicObjectProperty<JavascriptDateProperty, RemoteJavascriptDate, JavascriptDateWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Object, (Date)"; }
+        LPCWSTR GetType() const { return _u("Object, (Date)"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
     };
 
@@ -1331,7 +1331,7 @@ namespace JsDiag
                 return true;
             }
 
-            if (name == L"length") // Supports evaluation of array.length. It may not be listed by walker.
+            if (name == _u("length")) // Supports evaluation of array.length. It may not be listed by walker.
             {
                 m_context->CreateDebugProperty(PROPERTY_INFO(name, m_arrayLength), GetOwnerDebugProperty(), ppDebugProperty);
                 return true;
@@ -1451,7 +1451,7 @@ namespace JsDiag
         CString m_valueString;
 
     public:
-        LPCWSTR GetType() const { return L"Object, (Array)"; }
+        LPCWSTR GetType() const { return _u("Object, (Array)"); }
 
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
         {
@@ -1637,27 +1637,27 @@ namespace JsDiag
         static bool_result TryGetBuiltInProperty(InspectionContext* context, RemoteTypedArray<T, clamped>& arr,
             const CString& name, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty)
         {
-            if (name == L"length")
+            if (name == _u("length"))
             {
                 context->CreateDebugProperty(PROPERTY_INFO(name, arr.ToTargetPtr()->GetLength()), nullptr, ppDebugProperty);
                 return true;
             }
-            if (name == L"byteLength")
+            if (name == _u("byteLength"))
             {
                 context->CreateDebugProperty(PROPERTY_INFO(name, arr.ToTargetPtr()->GetByteLength()), nullptr, ppDebugProperty);
                 return true;
             }
-            if (name == L"byteOffset")
+            if (name == _u("byteOffset"))
             {
                 context->CreateDebugProperty(PROPERTY_INFO(name, arr.ToTargetPtr()->GetByteOffset()), nullptr, ppDebugProperty);
                 return true;
             }
-            if (name == L"BYTES_PER_ELEMENT")
+            if (name == _u("BYTES_PER_ELEMENT"))
             {
                 context->CreateDebugProperty(PROPERTY_INFO(name, arr.ToTargetPtr()->GetBytesPerElement()), nullptr, ppDebugProperty);
                 return true;
             }
-            if (name == L"buffer")
+            if (name == _u("buffer"))
             {
                 context->CreateDebugProperty(PROPERTY_INFO(name, arr.ToTargetPtr()->GetArrayBuffer()), nullptr, ppDebugProperty);
                 return true;
@@ -1672,33 +1672,33 @@ namespace JsDiag
     }
 
     template <class T, bool clamped>
-    const LPCWSTR TypedArrayTrace<T, clamped>::NAME   = L"Object";
-    const LPCWSTR TypedArrayTrace<int8>::NAME         = L"Object, (Int8Array)";
-    const LPCWSTR TypedArrayTrace<uint8, false>::NAME = L"Object, (Uint8Array)";
-    const LPCWSTR TypedArrayTrace<uint8, true>::NAME  = L"Object, (Uint8ClampedArray)";
-    const LPCWSTR TypedArrayTrace<int16>::NAME        = L"Object, (Int16Array)";
-    const LPCWSTR TypedArrayTrace<uint16>::NAME       = L"Object, (Uint16Array)";
-    const LPCWSTR TypedArrayTrace<int32>::NAME        = L"Object, (Int32Array)";
-    const LPCWSTR TypedArrayTrace<uint32>::NAME       = L"Object, (Uint32Array)";
-    const LPCWSTR TypedArrayTrace<float>::NAME        = L"Object, (Float32Array)";
-    const LPCWSTR TypedArrayTrace<double>::NAME       = L"Object, (Float64Array)";
+    const LPCWSTR TypedArrayTrace<T, clamped>::NAME   = _u("Object");
+    const LPCWSTR TypedArrayTrace<int8>::NAME         = _u("Object, (Int8Array)");
+    const LPCWSTR TypedArrayTrace<uint8, false>::NAME = _u("Object, (Uint8Array)");
+    const LPCWSTR TypedArrayTrace<uint8, true>::NAME  = _u("Object, (Uint8ClampedArray)");
+    const LPCWSTR TypedArrayTrace<int16>::NAME        = _u("Object, (Int16Array)");
+    const LPCWSTR TypedArrayTrace<uint16>::NAME       = _u("Object, (Uint16Array)");
+    const LPCWSTR TypedArrayTrace<int32>::NAME        = _u("Object, (Int32Array)");
+    const LPCWSTR TypedArrayTrace<uint32>::NAME       = _u("Object, (Uint32Array)");
+    const LPCWSTR TypedArrayTrace<float>::NAME        = _u("Object, (Float32Array)");
+    const LPCWSTR TypedArrayTrace<double>::NAME       = _u("Object, (Float64Array)");
 
     template <class T, bool clamped>
-    const LPCWSTR TypedArrayTrace<T, clamped>::VALUE = L"[object]";
-    const LPCWSTR TypedArrayTrace<int8>::VALUE = L"[object Int8Array]";
-    const LPCWSTR TypedArrayTrace<uint8, false>::VALUE = L"[object Uint8Array]";
-    const LPCWSTR TypedArrayTrace<uint8, true>::VALUE = L"[object Uint8ClampedArray]";
-    const LPCWSTR TypedArrayTrace<int16>::VALUE = L"[object Int16Array]";
-    const LPCWSTR TypedArrayTrace<uint16>::VALUE = L"[object Uint16Array]";
-    const LPCWSTR TypedArrayTrace<int32>::VALUE = L"[object Int32Array]";
-    const LPCWSTR TypedArrayTrace<uint32>::VALUE = L"[object Uint32Array]";
-    const LPCWSTR TypedArrayTrace<float>::VALUE = L"[object Float32Array]";
-    const LPCWSTR TypedArrayTrace<double>::VALUE = L"[object Float64Array]";
+    const LPCWSTR TypedArrayTrace<T, clamped>::VALUE = _u("[object]");
+    const LPCWSTR TypedArrayTrace<int8>::VALUE = _u("[object Int8Array]");
+    const LPCWSTR TypedArrayTrace<uint8, false>::VALUE = _u("[object Uint8Array]");
+    const LPCWSTR TypedArrayTrace<uint8, true>::VALUE = _u("[object Uint8ClampedArray]");
+    const LPCWSTR TypedArrayTrace<int16>::VALUE = _u("[object Int16Array]");
+    const LPCWSTR TypedArrayTrace<uint16>::VALUE = _u("[object Uint16Array]");
+    const LPCWSTR TypedArrayTrace<int32>::VALUE = _u("[object Int32Array]");
+    const LPCWSTR TypedArrayTrace<uint32>::VALUE = _u("[object Uint32Array]");
+    const LPCWSTR TypedArrayTrace<float>::VALUE = _u("[object Float32Array]");
+    const LPCWSTR TypedArrayTrace<double>::VALUE = _u("[object Float64Array]");
 
     // To be consistent with runtime, not type specialized
-    struct CharArrayTrace: TypedArrayTrace<wchar_t>
+    struct CharArrayTrace: TypedArrayTrace<char16>
     {
-        static PROPERTY_INFO FromData(uint index, wchar_t value)
+        static PROPERTY_INFO FromData(uint index, char16 value)
         {
             return PROPERTY_INFO(index, CString(value));
         }
@@ -1813,7 +1813,7 @@ namespace JsDiag
     typedef TypedArrayProperty<uint64>       Uint64ArrayProperty;
     typedef TypedArrayProperty<bool>         BoolArrayProperty;
 
-    typedef TypedArrayProperty<wchar_t, false, TypedArrayWalker<wchar_t, false, RemoteTypedArray<wchar_t, false>, CharArrayTrace>>
+    typedef TypedArrayProperty<char16, false, TypedArrayWalker<char16, false, RemoteTypedArray<char16, false>, CharArrayTrace>>
         CharArrayProperty;
 
     class ATL_NO_VTABLE ArrayBufferWalker :
@@ -1830,8 +1830,8 @@ namespace JsDiag
         public DynamicObjectProperty<ArrayBufferProperty, RemoteArrayBuffer, ArrayBufferWalker>
     {
     public:
-        LPCWSTR GetType() const { return L"Object, (ArrayBuffer)"; }
-        LPCWSTR GetValue(UINT nRadix) const { return L"[object ArrayBuffer]"; }
+        LPCWSTR GetType() const { return _u("Object, (ArrayBuffer)"); }
+        LPCWSTR GetValue(UINT nRadix) const { return _u("[object ArrayBuffer]"); }
     };
 
     //
@@ -1884,8 +1884,8 @@ namespace JsDiag
         public DynamicObjectProperty<ArgumentsObjectProperty, RemoteArgumentsObject, ArgumentsObjectWalker>
     {
     public:
-        static LPCWSTR GetDisplayName() { return L"arguments"; }
-        static LPCWSTR GetDisplayType() { return L"Object, (Arguments)"; }
+        static LPCWSTR GetDisplayName() { return _u("arguments"); }
+        static LPCWSTR GetDisplayType() { return _u("Object, (Arguments)"); }
 
         LPCWSTR GetType() const { return GetDisplayType(); }
 
@@ -2132,7 +2132,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdInt32x4Property, JavascriptSimdInt32x4Walker, Js::JavascriptSIMDInt32x4, RemoteJavascriptSimdInt32x4>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Int32x4"; }
+        LPCWSTR GetType() const { return _u("SIMD.Int32x4"); }
     };
 
     //
@@ -2142,7 +2142,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdFloat32x4Property, JavascriptSimdFloat32x4Walker, Js::JavascriptSIMDFloat32x4, RemoteJavascriptSimdFloat32x4>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Float32x4"; }
+        LPCWSTR GetType() const { return _u("SIMD.Float32x4"); }
         void GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue);
     };
 
@@ -2153,7 +2153,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdInt8x16Property, JavascriptSimdInt8x16Walker, Js::JavascriptSIMDInt8x16, RemoteJavascriptSimdInt8x16>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Int8x16"; }
+        LPCWSTR GetType() const { return _u("SIMD.Int8x16"); }
     };
 
     //
@@ -2163,7 +2163,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdInt16x8Property, JavascriptSimdInt16x8Walker, Js::JavascriptSIMDInt16x8, RemoteJavascriptSimdInt16x8>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Int16x8"; }
+        LPCWSTR GetType() const { return _u("SIMD.Int16x8"); }
     };
 
     //
@@ -2173,7 +2173,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdBool32x4Property, JavascriptSimdBool32x4Walker, Js::JavascriptSIMDBool32x4, RemoteJavascriptSimdBool32x4>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Bool32x4"; }
+        LPCWSTR GetType() const { return _u("SIMD.Bool32x4"); }
     };
 
     //
@@ -2183,7 +2183,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdBool8x16Property, JavascriptSimdBool8x16Walker, Js::JavascriptSIMDBool8x16, RemoteJavascriptSimdBool8x16>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Bool8x16"; }
+        LPCWSTR GetType() const { return _u("SIMD.Bool8x16"); }
     };
 
     //
@@ -2193,7 +2193,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdBool16x8Property, JavascriptSimdBool16x8Walker, Js::JavascriptSIMDBool16x8, RemoteJavascriptSimdBool16x8>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Bool16x8"; }
+        LPCWSTR GetType() const { return _u("SIMD.Bool16x8"); }
     };
 
     //
@@ -2203,7 +2203,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdUint32x4Property, JavascriptSimdUint32x4Walker, Js::JavascriptSIMDUint32x4, RemoteJavascriptSimdUint32x4>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Uint32x4"; }
+        LPCWSTR GetType() const { return _u("SIMD.Uint32x4"); }
     };
 
     //
@@ -2213,7 +2213,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdUint8x16Property, JavascriptSimdUint8x16Walker, Js::JavascriptSIMDUint8x16, RemoteJavascriptSimdUint8x16>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Uint8x16"; }
+        LPCWSTR GetType() const { return _u("SIMD.Uint8x16"); }
     };
 
     //
@@ -2223,7 +2223,7 @@ namespace JsDiag
         public SIMDProperty<JavascriptSimdUint16x8Property, JavascriptSimdUint16x8Walker, Js::JavascriptSIMDUint16x8, RemoteJavascriptSimdUint16x8>
     {
     public:
-        LPCWSTR GetType() const { return L"SIMD.Uint16x8"; }
+        LPCWSTR GetType() const { return _u("SIMD.Uint16x8"); }
     };
 
 } // namespace JsDiag.

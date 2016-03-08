@@ -146,7 +146,7 @@ void TestCustomHeap()
 {
     IdleDecommitPageAllocator pageAllocator;
 
-    ArenaAllocator* alloc = new ArenaAllocator(L"customHeapArena", &pageAllocator, OutOfMemory);
+    ArenaAllocator* alloc = new ArenaAllocator(_u("customHeapArena"), &pageAllocator, OutOfMemory);
     SmartArena allocGuard(alloc);
 
     DebugPrint("\nTesting Heap\n");
@@ -223,28 +223,28 @@ void TestCustomHeap()
 
 void TestBitVector()
 {
-    Output::Print(L"BitVector tests\n");
+    Output::Print(_u("BitVector tests\n"));
 
-    BVUnit bv(0xffffffff); bv.DumpWord(); VerboseHeapTrace(L"\n");
+    BVUnit bv(0xffffffff); bv.DumpWord(); VerboseHeapTrace(_u("\n"));
 
-    bv.Clear(31); bv.DumpWord(); VerboseHeapTrace(L"\n"); Assert(bv.GetWord() == 0x7fffffff);
-    bv.Clear(0); bv.DumpWord(); VerboseHeapTrace(L"\n"); Assert(bv.GetWord() == 0x7ffffffe);
+    bv.Clear(31); bv.DumpWord(); VerboseHeapTrace(_u("\n")); Assert(bv.GetWord() == 0x7fffffff);
+    bv.Clear(0); bv.DumpWord(); VerboseHeapTrace(_u("\n")); Assert(bv.GetWord() == 0x7ffffffe);
 
-    bv = BVUnit(0xffffffff); bv.DumpWord(); VerboseHeapTrace(L"\n"); Assert(bv.GetWord() == 0xffffffff);
-    bv.ClearRange(28, 4); bv.DumpWord(); VerboseHeapTrace(L"\n");Assert(bv.GetWord() == 0x0fffffff);
+    bv = BVUnit(0xffffffff); bv.DumpWord(); VerboseHeapTrace(_u("\n")); Assert(bv.GetWord() == 0xffffffff);
+    bv.ClearRange(28, 4); bv.DumpWord(); VerboseHeapTrace(_u("\n"));Assert(bv.GetWord() == 0x0fffffff);
 
-    bv.ClearRange(0, 1); bv.DumpWord(); VerboseHeapTrace(L"\n"); Assert(bv.GetWord() == 0x0ffffffe);
+    bv.ClearRange(0, 1); bv.DumpWord(); VerboseHeapTrace(_u("\n")); Assert(bv.GetWord() == 0x0ffffffe);
 
     int l = 4;
 
-    bv.Dump(); VerboseHeapTrace(L"\n");
+    bv.Dump(); VerboseHeapTrace(_u("\n"));
 
-    VerboseHeapTrace(L"Num leading zeroes: %d\n", bv.GetNumberOfLeadingZeroes());
+    VerboseHeapTrace(_u("Num leading zeroes: %d\n"), bv.GetNumberOfLeadingZeroes());
     int i = bv.FirstStringOfOnes(l);
-    VerboseHeapTrace(L"First string of 1's of length %d: %d\n", l, i + l);
+    VerboseHeapTrace(_u("First string of 1's of length %d: %d\n"), l, i + l);
 
     bv.ClearRange(i, l); 
-    bv.DumpWord(); VerboseHeapTrace(L"\n"); 
+    bv.DumpWord(); VerboseHeapTrace(_u("\n")); 
     Assert(bv.GetWord() == 0x0fffffe0);
 }
 #endif
@@ -253,7 +253,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
 {
     if (!ThreadContext::Initialize())
     {
-        fwprintf(stderr, L"FATAL ERROR: Failed to initialize ThreadContext");
+        fwprintf(stderr, _u("FATAL ERROR: Failed to initialize ThreadContext"));
         return(-1);
     }
 
@@ -272,7 +272,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
     }
     catch (Js::OutOfMemoryException)
     {
-        fwprintf(stderr, L"FATAL ERROR: Out of memory initializing thread context\n");
+        fwprintf(stderr, _u("FATAL ERROR: Out of memory initializing thread context\n"));
         return -1;
     }
 

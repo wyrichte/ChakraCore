@@ -10,7 +10,7 @@ const Js::PropertyRecord * const Js::DOMProperties::builtInPropertyRecords[] =
 };
 
 
-#define ENTRYDOM(n, hash) const Js::BuiltInPropertyRecord<ARRAYSIZE(L#n)> Js::DOMBuiltInPropertyRecords::DOM_##n = { Js::PropertyRecord(DOMPropertyIds::DOM_##n, hash, false, (ARRAYSIZE(L#n) - 1) * sizeof(wchar_t)), L#n };
+#define ENTRYDOM(n, hash) const Js::BuiltInPropertyRecord<ARRAYSIZE(_u(#n))> Js::DOMBuiltInPropertyRecords::DOM_##n = { Js::PropertyRecord(DOMPropertyIds::DOM_##n, hash, false, (ARRAYSIZE(_u(#n)) - 1) * sizeof(char16)), _u(#n) };
 #define ENTRYDOM_Existing(n, key) 
 #include "JnDOMDirectFields.h"
 

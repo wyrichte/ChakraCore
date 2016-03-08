@@ -107,13 +107,13 @@ HRESULT TestAsyncDebugWithScriptClosed(MyScriptDirectTests* myTests)
         goto error;
     }
 
-    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, L"SomeOtherOperationName", &operationId, AsyncCausality_LogLevel_Required), error);
+    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, _u("SomeOtherOperationName"), &operationId, AsyncCausality_LogLevel_Required), error);
     
     IfFailGoto(activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript), error);
 
     activeScript->Close();
     
-    if(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, L"SimpleTestOperationName", &operationId, AsyncCausality_LogLevel_Required) != E_ACCESSDENIED)
+    if(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, _u("SimpleTestOperationName"), &operationId, AsyncCausality_LogLevel_Required) != E_ACCESSDENIED)
     {
         hr = E_FAIL;
         goto error;
@@ -145,12 +145,12 @@ HRESULT TestBasicActiveScriptDirectAsyncCausality(MyScriptDirectTests* myTests)
         goto error;
     }
 
-    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, L"SimpleTestOperationName", &operationId, AsyncCausality_LogLevel_Required), error);
+    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, &testGuid, _u("SimpleTestOperationName"), &operationId, AsyncCausality_LogLevel_Required), error);
     IfFailGoto(TestTraceAsyncOperationCompleted(asyncCausality, &testGuid, operationId, AsyncCausality_OperationStatus_Completed, AsyncCausality_LogLevel_Required), error);
     IfFailGoto(TestTraceAsyncCallbackStarting(asyncCausality, &testGuid, operationId, AsyncCausality_CallbackType_Completion, AsyncCausality_LogLevel_Verbose), error);
     IfFailGoto(TestTraceAsyncCallbackCompleted(asyncCausality, AsyncCausality_CallbackType_Completion, AsyncCausality_LogLevel_Verbose), error);
 
-    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, NULL, L"SomeOtherOperationName", &operationId, AsyncCausality_LogLevel_Required), error);
+    IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, NULL, _u("SomeOtherOperationName"), &operationId, AsyncCausality_LogLevel_Required), error);
     IfFailGoto(TestTraceAsyncOperationStarting(asyncCausality, NULL, NULL, &operationId2, AsyncCausality_LogLevel_Required), error);
     IfFailGoto(TestTraceAsyncOperationCompleted(asyncCausality, NULL, operationId, AsyncCausality_OperationStatus_Error, AsyncCausality_LogLevel_Required), error);
     IfFailGoto(TestTraceAsyncCallbackStarting(asyncCausality, NULL, operationId, AsyncCausality_CallbackType_Completion, AsyncCausality_LogLevel_Verbose), error);
@@ -228,15 +228,15 @@ void RunAsyncDebugTest(MyScriptDirectTests* myTests)
 
     try
     {
-        if (srcFileNameFullPath && _wcsicmp(srcFileName, L"TestCausalityEnums") == 0)
+        if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("TestCausalityEnums")) == 0)
         {
             hr = TestCausalityEnums(myTests);
         }
-        else if(srcFileNameFullPath && _wcsicmp(srcFileName, L"TestBasicActiveScriptDirectAsyncCausality") == 0)
+        else if(srcFileNameFullPath && _wcsicmp(srcFileName, _u("TestBasicActiveScriptDirectAsyncCausality")) == 0)
         {
             hr = TestBasicActiveScriptDirectAsyncCausality(myTests);
         }
-        else if(srcFileNameFullPath && _wcsicmp(srcFileName, L"TestAsyncDebugWithScriptClosed") == 0)
+        else if(srcFileNameFullPath && _wcsicmp(srcFileName, _u("TestAsyncDebugWithScriptClosed")) == 0)
         {
             hr = TestAsyncDebugWithScriptClosed(myTests);
         }

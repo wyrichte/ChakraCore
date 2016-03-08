@@ -6,13 +6,13 @@
 
 namespace Js
 {
-    const wchar_t Constants::AnonymousFunction[] = L"Anonymous function";
-    const wchar_t Constants::Anonymous[] = L"anonymous";
-    const wchar_t Constants::FunctionCode[] = L"Function code";
-    const wchar_t Constants::GlobalFunction[] = L"glo";
-    const wchar_t Constants::GlobalCode[] = L"Global code";
-    const wchar_t Constants::EvalCode[] = L"eval code";
-    const wchar_t Constants::UnknownScriptCode[] = L"Unknown script code";
+    const char16 Constants::AnonymousFunction[] = _u("Anonymous function");
+    const char16 Constants::Anonymous[] = _u("anonymous");
+    const char16 Constants::FunctionCode[] = _u("Function code");
+    const char16 Constants::GlobalFunction[] = _u("glo");
+    const char16 Constants::GlobalCode[] = _u("Global code");
+    const char16 Constants::EvalCode[] = _u("eval code");
+    const char16 Constants::UnknownScriptCode[] = _u("Unknown script code");
 }
 // --- Dummy definitions - to satisfy the linker ---
 __declspec(noinline) void DebugHeap_OOM_fatal_error()
@@ -1937,7 +1937,7 @@ namespace JsDiag
         for(size_t offsetCh = byteOrderMarkCharOffset; offsetCh < (size_t)startCharOfStatement;)
         {
             const ULONG availableBytes = allSource.EnsurePtr(4 * sizeof(CUTF8)); // Make sure that we have enough bytes copied locally.
-            wchar_t ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
+            char16 ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
 
             switch (ch)
             {
@@ -1953,7 +1953,7 @@ namespace JsDiag
                     }
                 }
                 // Falls-through
-            case L'\n':
+            case _u('\n'):
                 extraLines++;
                 lastNewLine = offsetCh;
                 break;
@@ -2239,8 +2239,8 @@ namespace JsDiag
         }
     }
 
-    const wchar_t* RemoteFunctionBody::GetExternalDisplayName(
-        const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
+    const char16* RemoteFunctionBody::GetExternalDisplayName(
+        const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
     {
         GetFunctionBodyNameData funcBody(*this, displayName, isDynamicScript, isGlobalFunc);
         return FunctionBody::GetExternalDisplayName(&funcBody);
@@ -2399,9 +2399,9 @@ namespace JsDiag
         RemoteJavascriptSymbol obj(reader, reinterpret_cast<const TargetType*>(var));
         const PropertyRecord* propertyRecord = obj->GetValue();
 
-        CString name = L"Symbol(";
+        CString name = _u("Symbol(");
         name += InspectionContext::ReadPropertyName(reader, propertyRecord);
-        name += L")";
+        name += _u(")");
 
         return name;
     }
@@ -2523,25 +2523,25 @@ namespace JsDiag
         // JavascriptRegExp::GetPropertyBuiltIns() for the matching details.
         if (pattern.IsGlobal())
         {
-            options.AppendChar(L'g');
+            options.AppendChar(_u('g'));
         }
 
         if (pattern.IsIgnoreCase())
         {
-            options.AppendChar(L'i');
+            options.AppendChar(_u('i'));
         }
 
         if (pattern.IsMultiline())
         {
-            options.AppendChar(L'm');
+            options.AppendChar(_u('m'));
         }
         if (IsES6UnicodeExtensionsEnabled && pattern.IsUnicode())
         {
-            options.AppendChar(L'u');
+            options.AppendChar(_u('u'));
         }
         if (isEs6RegExpStickyFlagEnabled && pattern.IsSticky())
         {
-            options.AppendChar(L'y');
+            options.AppendChar(_u('y'));
         }
 
         return options;

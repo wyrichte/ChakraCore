@@ -26,7 +26,7 @@ namespace Projection
         m_pPropertyValue(nullptr), 
         finalizableTypedArrayContents(nullptr)
     {
-        getValueId = IdOfString(projectionContext->GetScriptContext(), L"getValue");
+        getValueId = IdOfString(projectionContext->GetScriptContext(), _u("getValue"));
     }
 
 
@@ -60,7 +60,7 @@ namespace Projection
         IID instantiatedIID;
         ImmutableList<RtTYPE> *genericInstantiations = ImmutableList<RtTYPE>::Empty();
         genericInstantiations = genericInstantiations->Prepend(elementType, a);
-        LPCWSTR parentTypeName = (isArray) ? L"Windows.Foundation.IReferenceArray`1" :  L"Windows.Foundation.IReference`1";
+        LPCWSTR parentTypeName = (isArray) ? _u("Windows.Foundation.IReferenceArray`1") :  _u("Windows.Foundation.IReference`1");
         auto parentTypeNameId = IdOfString(projectionContext->GetScriptContext(), parentTypeName);
 
         HRESULT hr = projectionContext->GetProjectionBuilder()->GetInstantiatedIID(

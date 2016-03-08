@@ -35,6 +35,7 @@
 #define DEBUG_UNICODE_MACROS
 #include <engextcpp.hpp>
 #include <dbghelp.h>
+#include "Core/CommonTypedefs.h"
 
 #define IfNullReturnError(expr, hrError) \
     do {                        \
@@ -118,7 +119,7 @@ try \
 catch (...) \
 { \
     m_fLastTestCaseFailed = true; \
-    wprintf(L"'%ls' has thrown an exception but it should not have", L## #exp); \
+    wprintf(_u("'%ls' has thrown an exception but it should not have"), _u(#exp)); \
     return; \
 }
 

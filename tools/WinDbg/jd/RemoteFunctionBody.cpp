@@ -233,21 +233,21 @@ void
 RemoteFunctionBody::PrintNameAndNumber(EXT_CLASS_BASE * ext)
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Out(L"%s (#%d.%d, #%d)", GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+    ext->Out(_u("%s (#%d.%d, #%d)"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
 }
 
 void
 RemoteFunctionBody::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Dml(L"<link cmd=\"!jd.fb (Js::FunctionBody *)0x%p\">%s</link> (#%d.%d, #%d)", this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+    ext->Dml(_u("<link cmd=\"!jd.fb (Js::FunctionBody *)0x%p\">%s</link> (#%d.%d, #%d)"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
 }
 
 void
 RemoteFunctionBody::PrintNameAndNumberWithRawLink(EXT_CLASS_BASE * ext)
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Dml(L"%s (#%d.%d, #%d) @ <link cmd=\"dt Js::FunctionBody 0x%p\">0x%p</link>", GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), this->GetPtr(), this->GetPtr());
+    ext->Dml(_u("%s (#%d.%d, #%d) @ <link cmd=\"dt Js::FunctionBody 0x%p\">0x%p</link>"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), this->GetPtr(), this->GetPtr());
 }
 
 void

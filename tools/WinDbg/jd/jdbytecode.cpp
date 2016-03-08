@@ -206,7 +206,7 @@ JDByteCode::DumpCallIExtended(ExtRemoteTyped layout, char * opcodeStr, uint next
     if (layout.Field("Options").GetUchar() & CallIExtended_SpreadArgs)
     {
         // TODO: dump spread args
-        ext->Out(L" spreadArgs [???]");
+        ext->Out(_u(" spreadArgs [???]"));
     }
 }
 
@@ -262,16 +262,16 @@ JDByteCode::DumpReg2Int1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
     }   
 }
 
-wchar_t *
-JDByteCode::GetPropertyNameFromCacheId(uint inlineCacheIndex, wchar_t * buffer, ULONG bufferSize)
+char16 *
+JDByteCode::GetPropertyNameFromCacheId(uint inlineCacheIndex, char16 * buffer, ULONG bufferSize)
 {
     if (this->propertyNameReader)
     {
         int32 propertyId = this->functionBody.GetCacheIdToPropertyIdMap()[(ULONG)inlineCacheIndex].GetLong();
-        ExtRemoteTyped propertyName("(wchar_t *)@$extin", this->propertyNameReader->GetNameByPropertyId(propertyId));
+        ExtRemoteTyped propertyName("(char16 *)@$extin", this->propertyNameReader->GetNameByPropertyId(propertyId));
         return (*propertyName).GetString(buffer, bufferSize, bufferSize);
     }
-    return L"???";
+    return _u("???");
 }
 
 
@@ -280,8 +280,8 @@ JDByteCode::DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint next
 {
     uint value = GetUnsigned(layout.Field("Value"));    
     uint inlineCacheIndex = GetUnsigned(layout.Field("inlineCacheIndex"));
-    wchar_t tempBuffer[1024];
-    wchar_t * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
+    char16 tempBuffer[1024];
+    char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
     if (ENUM_EQUAL(opcodeStr, LdRoot) || ENUM_EQUAL(opcodeStr, ProfiledLdRoot))
     {
         ext->Out(" R%u = root.%S #%u",
@@ -315,8 +315,8 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     uint value = GetUnsigned(layout.Field("Value"));
     uint instance = GetUnsigned(layout.Field("Instance"));
     uint inlineCacheIndex = GetUnsigned(layout.Field("inlineCacheIndex"));
-    wchar_t tempBuffer[1024];
-    wchar_t * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
+    char16 tempBuffer[1024];
+    char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
     if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd) || ENUM_EQUAL(opcodeStr, ScopedLdMethodFld))
     {
         ext->Out(" R%u = R%u.%S #%u",
@@ -505,7 +505,7 @@ JDByteCode::DumpImplicitArgIns()
     {
         return;
     }
-    ext->Out(L"    Implicit Arg Ins:\n    ======== =====\n");
+    ext->Out(_u("    Implicit Arg Ins:\n    ======== =====\n"));
     uint constCount = this->functionBody.GetConstCount();
     
     for (uint reg = 1; reg < inParamCount; reg++)

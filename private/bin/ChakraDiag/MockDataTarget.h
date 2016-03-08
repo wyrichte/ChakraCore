@@ -290,8 +290,8 @@ private:
         ULONG cacheSize = 64;
         {
 #if defined(DBG) || defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-            wchar_t envBuf[16];
-            DWORD storedCharCount = GetEnvironmentVariableW(L"FrameCacheSize", envBuf, sizeof(envBuf) / sizeof(wchar_t));
+            char16 envBuf[16];
+            DWORD storedCharCount = GetEnvironmentVariableW(_u("FrameCacheSize"), envBuf, sizeof(envBuf) / sizeof(char16));
             if (storedCharCount > 0)
             {
                 cacheSize = _wtoi(envBuf);
@@ -396,15 +396,15 @@ Error:
 
     void DumpCache()
     {
-        wprintf(L"\n");
+        wprintf(_u("\n"));
         ULONG frameCount = m_maxFrameCount < m_cachedFrameCount ? m_maxFrameCount : m_cachedFrameCount;
         for (ULONG i = 0; i < frameCount; ++i)
         {
             DEBUG_STACK_FRAME frame = m_buffer[i];
 #ifdef _M_X64
-            wprintf(L"Frm=0x%016llX Stk=0x%016llX IP=0x%016llX Ret=0x%016llX\n", frame.FrameOffset, frame.StackOffset, frame.InstructionOffset, frame.ReturnOffset);
+            wprintf(_u("Frm=0x%016llX Stk=0x%016llX IP=0x%016llX Ret=0x%016llX\n"), frame.FrameOffset, frame.StackOffset, frame.InstructionOffset, frame.ReturnOffset);
 #else
-            wprintf(L"Frm=0x%08X Stk=0x%08X IP=0x%08X Ret=0x%08X\n", static_cast<ULONG>(frame.FrameOffset), static_cast<ULONG>(frame.StackOffset),
+            wprintf(_u("Frm=0x%08X Stk=0x%08X IP=0x%08X Ret=0x%08X\n"), static_cast<ULONG>(frame.FrameOffset), static_cast<ULONG>(frame.StackOffset),
                 static_cast<ULONG>(frame.InstructionOffset), static_cast<ULONG>(frame.ReturnOffset));
 #endif
         }

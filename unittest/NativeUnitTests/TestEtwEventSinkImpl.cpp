@@ -3,15 +3,15 @@
 
 TestEtwEventSink* TestEtwEventSinkImpl::Instance = NULL;
 
-const std::wstring MethodEventNames::Load = L"EventWriteMethodLoad";
-const std::wstring MethodEventNames::Unload = L"EventWriteMethodUnload";
-const std::wstring MethodEventNames::DCStart = L"EventWriteMethodDCStart";
-const std::wstring MethodEventNames::DCEnd = L"EventWriteMethodDCEnd";
+const std::wstring MethodEventNames::Load = _u("EventWriteMethodLoad");
+const std::wstring MethodEventNames::Unload = _u("EventWriteMethodUnload");
+const std::wstring MethodEventNames::DCStart = _u("EventWriteMethodDCStart");
+const std::wstring MethodEventNames::DCEnd = _u("EventWriteMethodDCEnd");
 
-const std::wstring SourceEventNames::Load = L"EventWriteSourceLoad";
-const std::wstring SourceEventNames::Unload = L"EventWriteSourceUnload";
-const std::wstring SourceEventNames::DCStart = L"EventWriteSourceDCStart";
-const std::wstring SourceEventNames::DCEnd = L"EventWriteSourceDCEnd";
+const std::wstring SourceEventNames::Load = _u("EventWriteSourceLoad");
+const std::wstring SourceEventNames::Unload = _u("EventWriteSourceUnload");
+const std::wstring SourceEventNames::DCStart = _u("EventWriteSourceDCStart");
+const std::wstring SourceEventNames::DCEnd = _u("EventWriteSourceDCEnd");
 
 #define ETWEVENTSINK_TRACE0(sink, msg, ...) if (sink->IsTraceOn()) { wprintf(msg, __VA_ARGS__); }
 #define ETWEVENTSINK_TRACE(msg, ...) ETWEVENTSINK_TRACE0(this, msg, __VA_ARGS__)
@@ -21,7 +21,7 @@ TestEtwEventSink* __stdcall CREATE_EVENTSINK_PROC_NAME(TestEtwEventSink::Rundown
     return !rundown ? TestEtwEventSinkImpl::GetInstance(trace) : MockEtwController::GetInstance(rundown, trace);
 }
 
-void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName, 
+void TestEtwEventSinkImpl::WriteMethodEvent(const char16* eventName, 
         void* scriptContextId,
         void* methodStartAddress, 
         uint64 methodSize, 
@@ -31,9 +31,9 @@ void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName,
         DWORD_PTR sourceID, 
         uint line, 
         uint column, 
-        const wchar_t* methodName)
+        const char16* methodName)
 {
-    ETWEVENTSINK_TRACE(L"%s, 0x%p, 0x%p, %4I64u, %4u, %4hu, %4hu, %4Iu, %4u, %4u, %s\n", eventName, scriptContextId, methodStartAddress, 
+    ETWEVENTSINK_TRACE(_u("%s, 0x%p, 0x%p, %4I64u, %4u, %4hu, %4hu, %4Iu, %4u, %4u, %s\n"), eventName, scriptContextId, methodStartAddress, 
             methodSize, methodID, methodFlags, methodAddressRangeID, sourceID, line, column, methodName);
 
     if(eventName == MethodEventNames::Load)
@@ -71,14 +71,14 @@ void TestEtwEventSinkImpl::WriteMethodEvent(const wchar_t* eventName,
     }
     else
     {
-        UnconditionallyFail(L"Unexpected method event type");
+        UnconditionallyFail(_u("Unexpected method event type"));
     }
 }
 
 
-void TestEtwEventSinkImpl::WriteSourceEvent(const wchar_t* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const wchar_t* url )
+void TestEtwEventSinkImpl::WriteSourceEvent(const char16* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const char16* url )
 {
-    ETWEVENTSINK_TRACE(L"%s, %4I64u, 0x%p, %4u, %s\n", eventName, sourceContext, scriptContextId, sourceFlags, url);
+    ETWEVENTSINK_TRACE(_u("%s, %4I64u, 0x%p, %4u, %s\n"), eventName, sourceContext, scriptContextId, sourceFlags, url);
 
     if(eventName == SourceEventNames::Load)
     {
@@ -107,7 +107,7 @@ void TestEtwEventSinkImpl::WriteSourceEvent(const wchar_t* eventName, uint64 sou
     }
     else
     {
-        UnconditionallyFail(L"Unexpected source event type");
+        UnconditionallyFail(_u("Unexpected source event type"));
     }
 }
 
@@ -121,7 +121,7 @@ void TestEtwEventSinkImpl::UnloadInstance()
 
     if(m_fLastTestCaseFailed)
     {
-        wprintf(L"\n ***IMPORTANT*** To debug test failures use -trace:etw\n");
+        wprintf(_u("\n ***IMPORTANT*** To debug test failures use -trace:etw\n"));
     }
 
     assert(TestEtwEventSinkImpl::Instance == this);
@@ -168,19 +168,19 @@ void MockEtwController::StartEtwThread()
     s_terminateRequestEvent = CreateEvent(NULL, /*bManualReset*/TRUE, /*bInitialState*/FALSE, NULL);
     if (!s_terminateRequestEvent)
     {
-        UnconditionallyFail(L"Failed to create terminate request event");
+        UnconditionallyFail(_u("Failed to create terminate request event"));
     }
 
     terminatedEvent = CreateEvent(NULL, /*bManualReset*/TRUE, /*bInitialState*/FALSE, NULL);
     if (!terminatedEvent)
     {
-        UnconditionallyFail(L"Failed to create terminated event");
+        UnconditionallyFail(_u("Failed to create terminated event"));
     }
 
     etwThread = CreateThread(NULL, 0, &EtwThreadProc, this, 0, &etwThreadId);
     if (!etwThread)
     {
-        UnconditionallyFail(L"Failed to create etw callback thread");
+        UnconditionallyFail(_u("Failed to create etw callback thread"));
     }
 
     // NOTE: We can't deterministically wait for EtwThreadProc to start here. This function is called
@@ -205,14 +205,14 @@ void MockEtwController::StopEtwThread()
         // Always signal terminate request
         if (!SetEvent(s_terminateRequestEvent))
         {
-            UnconditionallyFail(L"Failed to signal terminate request event");
+            UnconditionallyFail(_u("Failed to signal terminate request event"));
         }
 
         // Only proceed if ETW thread really started. There is a small possibility that the thread
         // was queued to initialize and we request to terminate it here.
         if (!this->etwThreadStarted)
         {
-            ETWEVENTSINK_TRACE(L"ETW callback thread is requested to terminate before actual start\n");
+            ETWEVENTSINK_TRACE(_u("ETW callback thread is requested to terminate before actual start\n"));
             return; // Done, we've signalled and the etw thread won't Run().
         }
     }
@@ -230,16 +230,16 @@ void MockEtwController::StopEtwThread()
     switch (dwWaitResult)
     {
     case WAIT_OBJECT_0: // terminatedEvent signaled
-        ETWEVENTSINK_TRACE(L"ETW callback thread terminated\n");
+        ETWEVENTSINK_TRACE(_u("ETW callback thread terminated\n"));
         break; // success
 
     case WAIT_OBJECT_0 + 1: // etw thread dead
-        ETWEVENTSINK_TRACE(L"ETW callback thread was already terminated\n");
+        ETWEVENTSINK_TRACE(_u("ETW callback thread was already terminated\n"));
         break; // maybe terminated by ExitProcess
 
     default:
-        wprintf(L"Wait for terminate result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
-        UnconditionallyFail(L"Failed to wait for terminate event\n");
+        wprintf(_u("Wait for terminate result: %d, last error: %d\n"), (int)dwWaitResult, (int)GetLastError());
+        UnconditionallyFail(_u("Failed to wait for terminate event\n"));
         break; // failed
     }
 
@@ -279,7 +279,7 @@ DWORD WINAPI MockEtwController::EtwThreadProc(_In_ LPVOID lpParameter)
             break;  // Not signaled, we can proceed.
 
         default:
-            wprintf(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
+            wprintf(_u("Failed to wait for terminate request. Wait result: %d, last error: %d\n"), (int)dwWaitResult, (int)GetLastError());
             return (DWORD)(-1); // Failed
         }
 
@@ -287,9 +287,9 @@ DWORD WINAPI MockEtwController::EtwThreadProc(_In_ LPVOID lpParameter)
         controller->etwThreadStarted = true;
     }
 
-    ETWEVENTSINK_TRACE0(controller, L"Etw callback thread started\n");
+    ETWEVENTSINK_TRACE0(controller, _u("Etw callback thread started\n"));
     DWORD dwResult = controller->Run();
-    ETWEVENTSINK_TRACE0(controller, L"Etw callback thread completed: exit %d\n", dwResult);
+    ETWEVENTSINK_TRACE0(controller, _u("Etw callback thread completed: exit %d\n"), dwResult);
 
     SetEvent(controller->terminatedEvent); // Signal terminated
     return dwResult;
@@ -315,13 +315,13 @@ DWORD MockEtwController::Run()
             break;
 
         default:
-            wprintf(L"Failed to wait for terminate request. Wait result: %d, last error: %d\n", (int)dwWaitResult, (int)GetLastError());
+            wprintf(_u("Failed to wait for terminate request. Wait result: %d, last error: %d\n"), (int)dwWaitResult, (int)GetLastError());
             return (DWORD)(-1); // Failed
         }
     }
 }
 
-void MockEtwController::WriteMethodEvent(const wchar_t* eventName, 
+void MockEtwController::WriteMethodEvent(const char16* eventName, 
         void* scriptContextId,
         void* methodStartAddress, 
         uint64 methodSize, 
@@ -331,7 +331,7 @@ void MockEtwController::WriteMethodEvent(const wchar_t* eventName,
         DWORD_PTR sourceID, 
         uint line, 
         uint column, 
-        const wchar_t* methodName)
+        const char16* methodName)
 {
     // DC events should only be from etw thread. Other events (load/unload) should only be from non-etw thread.
     bool isDCEvent = (eventName == MethodEventNames::DCStart || eventName == MethodEventNames::DCEnd);
@@ -341,7 +341,7 @@ void MockEtwController::WriteMethodEvent(const wchar_t* eventName,
     __super::WriteMethodEvent(eventName, scriptContextId, methodStartAddress, methodSize, methodID, methodFlags, methodAddressRangeID, sourceID, line, column, methodName);
 }
 
-void MockEtwController::WriteSourceEvent(const wchar_t* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const wchar_t* url)
+void MockEtwController::WriteSourceEvent(const char16* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const char16* url)
 {
     // DC events should only be from etw thread. Other events (load/unload) should only be from non-etw thread.
     bool isDCEvent = (eventName == SourceEventNames::DCStart || eventName == SourceEventNames::DCEnd);

@@ -49,7 +49,7 @@ EXT_COMMAND(ldsym,
         IfFailThrow(m_Symbols3->GetModuleNameStringWide(DEBUG_MODNAME_IMAGE, index, base, imageName, _countof(imageName), NULL),
             "Failed to find jscript9 module path");
     }
-    Out(L"Use %s\n", imageName);
+    Out(_u("Use %s\n"), imageName);
 
     const CLSID CLSID_JScript9DAC = { 0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c };
     CComPtr<IScriptDAC> pDAC;
@@ -630,9 +630,9 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             if (functionInfo.HasBody())
             {
                 RemoteFunctionBody functionBody = functionInfo.GetFunctionBody();
-                Out(L"  [FunctionBody] ");
+                Out(_u("  [FunctionBody] "));
                 functionBody.PrintNameAndNumberWithLink(this);
-                Out(L" ");
+                Out(_u(" "));
                 functionBody.PrintByteCodeLink(this);
                 Out("\n");
             }
@@ -1381,10 +1381,10 @@ void EXT_CLASS_BASE::PrintReferencedPids(ExtRemoteTyped scriptContext, ExtRemote
     {
         ExtRemoteTyped entry = referencedPidDictionaryEntries.ArrayElement(i);
         long pid = entry.Field(isReferencedPropertyRecords ? "value.pid" : "value").GetLong();
-        ExtRemoteTyped propertyName("(wchar_t *)@$extin", propertyNameReader.GetNameByPropertyId(pid));
-        Out(L"Pid: %d ", pid);
+        ExtRemoteTyped propertyName("(char16 *)@$extin", propertyNameReader.GetNameByPropertyId(pid));
+        Out(_u("Pid: %d "), pid);
         propertyName.OutSimpleValue();
-        Out(L"\n");
+        Out(_u("\n"));
     }
 }
 

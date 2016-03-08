@@ -118,7 +118,7 @@ HRESULT Module::GetVersionInfo(__in LPCWSTR pszPath, DWORD* majorVersion, DWORD*
             if(GetFileVersionInfoEx(FILE_VER_GET_LOCALISED|FILE_VER_GET_NEUTRAL, pszPath, 0, cbVersionSz, pVerBuffer))
             {
                 UINT    uiSz = sizeof(VS_FIXEDFILEINFO);
-                if(!VerQueryValue(pVerBuffer, L"\\", (LPVOID*)&pFileInfo, &uiSz))
+                if(!VerQueryValue(pVerBuffer, _u("\\"), (LPVOID*)&pFileInfo, &uiSz))
                 {
                     hr = HRESULT_FROM_WIN32(GetLastError());
                 }
@@ -159,7 +159,7 @@ static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
 {
     bool deviceInfoRetrieved = false;
 
-    HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+    HMODULE hModNtDll = GetModuleHandle(_u("ntdll.dll"));
     if (hModNtDll == nullptr)
     {
         RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);

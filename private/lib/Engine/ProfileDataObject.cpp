@@ -16,14 +16,14 @@ namespace Js
             Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
 
         // Load the builtin property IDs for this object.
-        LoadPropertyId(L"implicitCallFlags", &this->implicitCallFlags);
-        LoadPropertyId(L"loopCount", &this->loopCount);
-        LoadPropertyId(L"loopImplicitCallFlags", &this->loopImplicitCallFlags);
-        LoadPropertyId(L"returnTypeInfo", &this->returnTypeInfo);
-        LoadPropertyId(L"parameterInfo", &this->parameterInfo);
+        LoadPropertyId(_u("implicitCallFlags"), &this->implicitCallFlags);
+        LoadPropertyId(_u("loopCount"), &this->loopCount);
+        LoadPropertyId(_u("loopImplicitCallFlags"), &this->loopImplicitCallFlags);
+        LoadPropertyId(_u("returnTypeInfo"), &this->returnTypeInfo);
+        LoadPropertyId(_u("parameterInfo"), &this->parameterInfo);
 
-        LoadPropertyId(L"ValueType", &this->propValueType);
-        LoadPropertyId(L"ImplicitCallFlags", &this->propImplicitCallFlags);
+        LoadPropertyId(_u("ValueType"), &this->propValueType);
+        LoadPropertyId(_u("ImplicitCallFlags"), &this->propImplicitCallFlags);
 
         // Create arrays wrapping the profile data.
         CompileAssert(sizeof(ImplicitCallFlags) == sizeof(uint8));
@@ -85,14 +85,14 @@ namespace Js
         });
 
         // Value type bits
-        #define VALUE_TYPE_BIT(t, b) SetConstantProperty(L"" STRINGIZEW(t) L"Bit", b, valueTypeObj);
+        #define VALUE_TYPE_BIT(t, b) SetConstantProperty(_u("") STRINGIZEW(t) _u("Bit"), b, valueTypeObj);
         #include "..\..\Lib\Runtime\Language\ValueTypes.h"
         #undef VALUE_TYPE_BIT
 
         // Value type bit counts
-        SetConstantProperty(L"VALUE_TYPE_COMMON_BIT_COUNT", VALUE_TYPE_COMMON_BIT_COUNT, valueTypeObj);
-        SetConstantProperty(L"VALUE_TYPE_NONOBJECT_BIT_COUNT", VALUE_TYPE_NONOBJECT_BIT_COUNT, valueTypeObj);
-        SetConstantProperty(L"VALUE_TYPE_OBJECT_BIT_COUNT", VALUE_TYPE_OBJECT_BIT_COUNT, valueTypeObj);
+        SetConstantProperty(_u("VALUE_TYPE_COMMON_BIT_COUNT"), VALUE_TYPE_COMMON_BIT_COUNT, valueTypeObj);
+        SetConstantProperty(_u("VALUE_TYPE_NONOBJECT_BIT_COUNT"), VALUE_TYPE_NONOBJECT_BIT_COUNT, valueTypeObj);
+        SetConstantProperty(_u("VALUE_TYPE_OBJECT_BIT_COUNT"), VALUE_TYPE_OBJECT_BIT_COUNT, valueTypeObj);
 
         DynamicObject::SetPropertyWithAttributes(
             propValueType, 
@@ -103,14 +103,14 @@ namespace Js
 
         // ImplicitCallFlags
         Var icf = jsLibrary->CreateObject();
-        SetConstantProperty(L"HasNoInfo", ImplicitCall_HasNoInfo, icf);
-        SetConstantProperty(L"None", ImplicitCall_None, icf);
-        SetConstantProperty(L"ToPrimitive", ImplicitCall_ToPrimitive, icf);
-        SetConstantProperty(L"Accessor", ImplicitCall_Accessor, icf);
-        SetConstantProperty(L"External", ImplicitCall_External, icf);
-        SetConstantProperty(L"Exception", ImplicitCall_Exception, icf);
-        SetConstantProperty(L"All", ImplicitCall_All, icf);
-        SetConstantProperty(L"Async", ImplicitCall_AsyncHostOperation, icf);
+        SetConstantProperty(_u("HasNoInfo"), ImplicitCall_HasNoInfo, icf);
+        SetConstantProperty(_u("None"), ImplicitCall_None, icf);
+        SetConstantProperty(_u("ToPrimitive"), ImplicitCall_ToPrimitive, icf);
+        SetConstantProperty(_u("Accessor"), ImplicitCall_Accessor, icf);
+        SetConstantProperty(_u("External"), ImplicitCall_External, icf);
+        SetConstantProperty(_u("Exception"), ImplicitCall_Exception, icf);
+        SetConstantProperty(_u("All"), ImplicitCall_All, icf);
+        SetConstantProperty(_u("Async"), ImplicitCall_AsyncHostOperation, icf);
         DynamicObject::SetPropertyWithAttributes(
             propImplicitCallFlags, 
             icf,

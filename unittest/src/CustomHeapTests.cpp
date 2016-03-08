@@ -270,6 +270,6 @@ UTEST_GROUP(CustomHeapTests)
         allocXdata = false;
 #endif
         pageAllocator = new PageAllocator(NULL, Js::Configuration::Global.flags);
-        arena = new ArenaAllocator(L"customHeapArena", pageAllocator, OutOfMemory1);
+        arena = new ArenaAllocator(_u("customHeapArena"), pageAllocator, OutOfMemory1);
     }
 };

@@ -30,7 +30,7 @@ public:
         {
             HeapDeleteArray(this->stringLength, this->heapString);
         }
-        this->heapString = HeapNewArray(wchar_t, stringLength);
+        this->heapString = HeapNewArray(char16, stringLength);
         this->stringLength = stringLength;
     }
 

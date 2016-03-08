@@ -1061,17 +1061,17 @@ namespace JsDiag
         {
         private:
             const RemoteFunctionBody& m_funcBody;
-            const wchar_t* m_displayName;
+            const char16* m_displayName;
             BOOL m_isDynamicScript;
             BOOL m_isGlobalFunc;
 
         public:
-            GetFunctionBodyNameData(const RemoteFunctionBody& funcBody, const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc)
+            GetFunctionBodyNameData(const RemoteFunctionBody& funcBody, const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc)
                 : m_funcBody(funcBody), m_displayName(displayName),  m_isDynamicScript(isDynamicScript), m_isGlobalFunc(isGlobalFunc)
             {
             }
 
-            const wchar_t* GetDisplayName() const { return m_displayName; }
+            const char16* GetDisplayName() const { return m_displayName; }
             BOOL IsDynamicScript() const { return m_isDynamicScript; }
             uint GetScriptId() const { return m_funcBody->m_uScriptId; }
             uint GetFunctionNumber() const { return m_funcBody->m_functionNumber; }
@@ -1110,8 +1110,8 @@ namespace JsDiag
         bool GetNonTempSlotOffset(RegSlot slotId, __out int32 * slotOffset) const;
 
     private:
-        static const wchar_t* GetExternalDisplayName(const GetFunctionBodyNameData* funcBody);
-        const wchar_t* GetExternalDisplayName(const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const;
+        static const char16* GetExternalDisplayName(const GetFunctionBodyNameData* funcBody);
+        const char16* GetExternalDisplayName(const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const;
         template <typename Fn> void GetFunctionBodyInfo(Fn fn) const;
         BOOL GetMatchingStatementMapFromNativeAddress(StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, FunctionBody* inlinee = NULL);
         BOOL GetMatchingStatementMapFromNativeOffset(StatementData* statementMap, DWORD_PTR codeAddress, uint32 offset, FunctionBody* inlinee = NULL);

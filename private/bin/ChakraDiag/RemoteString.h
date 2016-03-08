@@ -19,11 +19,11 @@ namespace JsDiag
     public:
         // Read remote "str" content to "buf". throw if conent can not fit in "bufLen". Return actual content length in "*actual" (<= bufLen).
         virtual void Read(InspectionContext* context, Js::Var str,
-            _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual) = 0;
+            _Out_writes_to_(bufLen, *actual) char16* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual) = 0;
 
         // Copy remote "str" content to "buf". throw if remote "str" length is not "bufLen".
         virtual void Copy(InspectionContext* context, Js::Var str,
-            _Out_writes_(bufLen) wchar_t* buf, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth) = 0;
+            _Out_writes_(bufLen) char16* buf, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth) = 0;
 
         virtual bool IsTree(InspectionContext* context, Js::Var str) const = 0;
     };
@@ -34,13 +34,13 @@ namespace JsDiag
     {
     public:
         virtual void Read(InspectionContext* context, Js::Var str,
-            _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual)
+            _Out_writes_to_(bufLen, *actual) char16* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual)
         {
             DAC(context, static_cast<const T*>(str)).Read(buf, bufLen, actual);
         }
 
         virtual void Copy(InspectionContext* context, Js::Var str,
-            _Out_writes_(bufLen) wchar_t* buf, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth)
+            _Out_writes_(bufLen) char16* buf, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth)
         {
             DAC(context, static_cast<const T*>(str)).Copy(buf, bufLen, nestedStringTreeCopyInfos, recursionDepth);
         }
@@ -72,8 +72,8 @@ namespace JsDiag
         {
         }
 
-        void Read(_Out_writes_to_(bufLen, *actual) wchar_t* buffer, _In_ charcount_t bufLen, _Out_ charcount_t* actual);
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Read(_Out_writes_to_(bufLen, *actual) char16* buffer, _In_ charcount_t bufLen, _Out_ charcount_t* actual);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
         bool IsTree() const { return false; }
 
         charcount_t GetLength() const { return ToTargetPtr()->m_charLength; }
@@ -81,7 +81,7 @@ namespace JsDiag
     protected:
         const Sub* pThis() const { return (const Sub*)this; }
         Sub* pThis() { return (Sub*)this; }
-        const wchar_t* GetString() const { return ToTargetPtr()->m_pszValue; }
+        const char16* GetString() const { return ToTargetPtr()->m_pszValue; }
         bool IsFinalized() const { return GetString() != NULL; }
     };
 
@@ -108,7 +108,7 @@ namespace JsDiag
     public:
         RemoteJSONString(InspectionContext* context, const TargetType* str) : RemoteString(context, str) {}
 
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
         bool IsTree() const { return false; }
 
         JavascriptString * GetOriginalString() { return this->ToTargetPtr()->m_originalString; }
@@ -137,7 +137,7 @@ namespace JsDiag
             const CompoundString::Block *Previous() const;
 
         public:
-            const wchar_t *Chars() const;
+            const char16 *Chars() const;
             CharCount CharLength() const;
 
         public:
@@ -157,7 +157,7 @@ namespace JsDiag
         const void *LastBlockBuffer();
 
     private:
-        const wchar_t *LastBlockChars();
+        const char16 *LastBlockChars();
         CharCount LastBlockCharLength() const;
 
     private:
@@ -165,7 +165,7 @@ namespace JsDiag
         CharCount LastBlockPointerLength() const;
 
     public:
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
         bool IsTree() const;
     };
 
@@ -179,7 +179,7 @@ namespace JsDiag
     public:
         RemoteConcatStringBase(InspectionContext* context, const TargetType* str): RemoteString(context, str) {}
 
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
         bool IsTree() const { return true; }
 
         // These below are used by Copy. Derived classes that don't support these operations need to override (hide) Copy.
@@ -216,25 +216,25 @@ namespace JsDiag
     public:
         RemoteConcatStringBuilder(InspectionContext* context, const TargetType* str): RemoteConcatStringBase(context, str) {}
 
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
     };
 
     //
     // Handles ConcatStringWrapping
     //
-    template <wchar_t L, wchar_t R>
+    template <char16 L, char16 R>
     class RemoteConcatStringWrapping:
         public RemoteConcatStringBase<ConcatStringWrapping<L, R>, RemoteConcatStringWrapping<L, R>>
     {
     public:
         RemoteConcatStringWrapping(InspectionContext* context, const TargetType* str): RemoteConcatStringBase(context, str) {}
 
-        void Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
+        void Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth);
     };
 
-    typedef RemoteConcatStringWrapping<L'[', L']'> RemoteConcatStringWrappingSB;
-    typedef RemoteConcatStringWrapping<L'{', L'}'> RemoteConcatStringWrappingB;
-    typedef RemoteConcatStringWrapping<L'"', L'"'> RemoteConcatStringWrappingQ;
+    typedef RemoteConcatStringWrapping<_u('['), _u(']')> RemoteConcatStringWrappingSB;
+    typedef RemoteConcatStringWrapping<_u('{'), _u('}')> RemoteConcatStringWrappingB;
+    typedef RemoteConcatStringWrapping<_u('"'), _u('"')> RemoteConcatStringWrappingQ;
 
     class RemoteConcatStringMulti:
         public RemoteConcatStringBase<ConcatStringMulti, RemoteConcatStringMulti>
@@ -255,7 +255,7 @@ namespace JsDiag
 
     template<class T, class DAC>
     void RemoteString<T, DAC>::Read(
-        _Out_writes_to_(bufLen, *actual) wchar_t* buffer,
+        _Out_writes_to_(bufLen, *actual) char16* buffer,
         _In_ charcount_t bufLen,
         _Out_ charcount_t* actual)
     {
@@ -295,7 +295,7 @@ namespace JsDiag
 
     template<class T, class DAC>
     void RemoteString<T, DAC>::Copy(
-        _Out_writes_(bufLen) wchar_t* buffer,
+        _Out_writes_(bufLen) char16* buffer,
         _In_ charcount_t bufLen,
         StringCopyInfoStack &nestedStringTreeCopyInfos,
         const byte recursionDepth)
@@ -307,7 +307,7 @@ namespace JsDiag
 
     template<class T, class Sub>
     void RemoteConcatStringBase<T, Sub>::Copy(
-        _Out_writes_(bufLen) wchar_t* buffer,
+        _Out_writes_(bufLen) char16* buffer,
         _In_ charcount_t bufLen,
         StringCopyInfoStack &nestedStringTreeCopyInfos,
         const byte recursionDepth)
@@ -362,14 +362,14 @@ namespace JsDiag
     class WritableStringBuffer
     {    
     public:
-        WritableStringBuffer(_In_count_(length) wchar_t* str, _In_ int length) : m_pszString(str), m_pszCurrentPtr(str), m_length(length) {}
+        WritableStringBuffer(_In_count_(length) char16* str, _In_ int length) : m_pszString(str), m_pszCurrentPtr(str), m_length(length) {}
 
-        void Append(wchar_t c);
-        void Append(const wchar_t * str, charcount_t countNeeded);
-        void AppendLarge(const wchar_t * str, charcount_t countNeeded);
+        void Append(char16 c);
+        void Append(const char16 * str, charcount_t countNeeded);
+        void AppendLarge(const char16 * str, charcount_t countNeeded);
     private:
-        wchar_t* m_pszString;
-        wchar_t* m_pszCurrentPtr;
+        char16* m_pszString;
+        char16* m_pszCurrentPtr;
         charcount_t m_length;
 #if DBG
         charcount_t GetCount() 

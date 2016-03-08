@@ -476,7 +476,7 @@ STDMETHODIMP_(void) RecyclerFinishConcurrentIdleTask::RunIdleTask(void)
 
     Recycler* recycler = this->threadContext->GetRecycler();
 
-    IDLE_COLLECT_TRACE(L"Running FinishConcurrent during Idle Task\n");
+    IDLE_COLLECT_TRACE(_u("Running FinishConcurrent during Idle Task\n"));
 
     // At this point, we are in one of three states:
     //  1) A collection is not in progress
@@ -493,7 +493,7 @@ STDMETHODIMP_(void) RecyclerFinishConcurrentIdleTask::RunIdleTask(void)
     // as we speak, and when that's done, FinishConcurrent can be changed to help with the background marking process.
     if (!recycler->CollectionInProgress() || recycler->IsSweeping() || recycler->FinishConcurrent<FinishConcurrentOnIdleAtRoot>())
     {
-        IDLE_COLLECT_TRACE(L"FinishConcurrent succeeded, completing task\n");
+        IDLE_COLLECT_TRACE(_u("FinishConcurrent succeeded, completing task\n"));
 
         // TODO: If we have to do this multiple times, move this assert to an if-statement
         Assert(this->isIdleTaskComplete == false);
@@ -661,7 +661,7 @@ bool JavascriptThreadService::CanScheduleIdleCollect()
 void JavascriptThreadService::SetIdleTaskState(IdleTaskState newState)
 {
     IdleTaskState oldState = this->idleTaskState;
-    IDLE_COLLECT_VERBOSE_TRACE(L"Changing idle task state. Old: %d, New: %d\n", oldState, newState);
+    IDLE_COLLECT_VERBOSE_TRACE(_u("Changing idle task state. Old: %d, New: %d\n"), oldState, newState);
     this->idleTaskState = newState;
 }
 
@@ -695,7 +695,7 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
         }
         else
         {
-            IDLE_COLLECT_VERBOSE_TRACE(L"Set needScheduleIdleTask to true\n");
+            IDLE_COLLECT_VERBOSE_TRACE(_u("Set needScheduleIdleTask to true\n"));
             this->SetIdleTaskState(IdleTaskState::NeedToSchedule);
         }
     }
@@ -707,11 +707,11 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
 #ifdef RECYCLER_TRACE
         if (hasTimerScheduled)
         {
-            IDLE_COLLECT_TRACE(L"Idle timer restarted: %d\n", ticks);
+            IDLE_COLLECT_TRACE(_u("Idle timer restarted: %d\n"), ticks);
         }
         else
         {
-            IDLE_COLLECT_TRACE(L"Idle timer started  : %d\n", ticks);
+            IDLE_COLLECT_TRACE(_u("Idle timer started  : %d\n"), ticks);
         }
         hasTimerScheduled = true;
 #endif
@@ -743,14 +743,14 @@ void JavascriptThreadService::OnFinishIdleCollect()
             Assert(this->idleTaskHost);
             Assert(this->idleTaskState == IdleTaskState::Completed);
 
-            IDLE_COLLECT_TRACE(L"Killing the idle task\n");
+            IDLE_COLLECT_TRACE(_u("Killing the idle task\n"));
             HRESULT hr = this->idleTaskHost->RemoveIdleTask(this->finishConcurrentTask);
             Assert(SUCCEEDED(hr));
             DebugOnly(this->isIdleTaskScheduled = false);
         }
         else
         {
-            IDLE_COLLECT_TRACE(L"Killing the timer\n");
+            IDLE_COLLECT_TRACE(_u("Killing the timer\n"));
             timerProvider->KillPendingTimer();
         }
 
@@ -764,14 +764,14 @@ void JavascriptThreadService::OnFinishIdleCollect()
 void __cdecl 
 JavascriptThreadService::IdleCollectCallback(void* context)
 {
-    IDLE_COLLECT_TRACE(L"Idle collect callback called\n");
+    IDLE_COLLECT_TRACE(_u("Idle collect callback called\n"));
     JavascriptThreadService* threadService = static_cast<JavascriptThreadService*>(context);
     Assert(!threadService->isIdleTaskScheduled);
 
     AssertMsg(threadService->GetThreadContext() == ThreadBoundThreadContextManager::EnsureContextForCurrentThread(), "invalid calling function");
 
     bool hasScheduledIdleCollect = threadService->IdleCollect();
-    IDLE_COLLECT_VERBOSE_TRACE(L"IdleCollectCallback- Set hasScheduledIdleCollect to %d\n", hasScheduledIdleCollect);
+    IDLE_COLLECT_VERBOSE_TRACE(_u("IdleCollectCallback- Set hasScheduledIdleCollect to %d\n"), hasScheduledIdleCollect);
 
     // Make sure we have register the callback or kill the timer
     Assert(hasScheduledIdleCollect || !threadService->hasTimerScheduled);

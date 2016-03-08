@@ -346,9 +346,9 @@ namespace JsDiag
         WalkerType* GetWalker() const { return m_walkerPolicy.GetWalker(); } // NOTE: Only available for HasWalkerPolicy
 
         // Overload to customize diagnostics display of Name, Type, Value
-        //LPCWSTR GetName() { return L""; }
-        LPCWSTR GetType() { return L""; }
-        LPCWSTR GetValue(UINT nRadix) { return L""; }
+        //LPCWSTR GetName() { return _u(""); }
+        LPCWSTR GetType() { return _u(""); }
+        LPCWSTR GetValue(UINT nRadix) { return _u(""); }
 
         // Overload to customize diagnostics display attributes
         bool HasChildren() { return m_walkerPolicy.HasChildren(pThis()); }
@@ -453,9 +453,9 @@ namespace JsDiag
             if (!parentFullName.IsEmpty())
             {
                 m_fullName = parentFullName;
-                if (!skipThisName && name[0] != L'[')
+                if (!skipThisName && name[0] != _u('['))
                 {
-                    m_fullName += L'.';
+                    m_fullName += _u('.');
                 }
             }
         }
@@ -812,7 +812,7 @@ namespace JsDiag
         typedef BSTR LibStringType;
 
         template <size_t N>
-        BSTR CreateStringFromCppLiteral(const wchar_t (&value)[N]) const
+        BSTR CreateStringFromCppLiteral(const char16 (&value)[N]) const
         {
             BSTR bstr = ::SysAllocStringLen(value, N - 1); // "N - 1" excludes terminating NULL
             if (bstr == NULL)
@@ -831,7 +831,7 @@ namespace JsDiag
     public:
         // Simulate JavascriptLibrary method
         template <size_t N>
-        CString CreateStringFromCppLiteral(const wchar_t (&value)[N]) const
+        CString CreateStringFromCppLiteral(const char16 (&value)[N]) const
         {
             return CString(value, N - 1); // "N - 1" excludes terminating NULL
         }
@@ -882,7 +882,7 @@ namespace JsDiag
         void AppendChars(_In_reads_(count) LPCWSTR s, const CharCount count) { Append(s, count); }
 
         template<CharCount AppendCharLengthPlusOne>
-        void AppendChars(const wchar_t (&s)[AppendCharLengthPlusOne])
+        void AppendChars(const char16 (&s)[AppendCharLengthPlusOne])
         {
             Append(s, AppendCharLengthPlusOne - 1);
         }
@@ -895,7 +895,7 @@ namespace JsDiag
             Assert(maximumAppendCharLength <= AbsoluteMaximumAppendCharLength);
             
             ++maximumAppendCharLength; // + 1 for null terminator
-            wchar_t convertBuffer[AbsoluteMaximumAppendCharLength + 1]; // + 1 for null terminator
+            char16 convertBuffer[AbsoluteMaximumAppendCharLength + 1]; // + 1 for null terminator
 
             ConvertToString(value, convertBuffer, maximumAppendCharLength);
 
