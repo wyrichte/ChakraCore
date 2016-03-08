@@ -6,7 +6,7 @@
 namespace JsDiag
 {
     // escape, comment, operators
-    static PWSTR UNSUPPORTED_CHARS = L"\\/+-*?:{};()=|&^%";
+    static PWSTR UNSUPPORTED_CHARS = _u("\\/+-*?:{};()=|&^%");
 
     SimpleExpressionEvaluator::SimpleExpressionEvaluator(
         InspectionContext* context, _In_ IJsDebugPropertyInternal* root) :        
@@ -14,10 +14,10 @@ namespace JsDiag
         m_root(root)
     {
         const RemoteJavascriptLibrary& lib = context->GetJavascriptLibrary();
-        InitConst(context, L"undefined", lib.GetUndefined(), &m_undefined);
-        InitConst(context, L"null", lib.GetNull());
-        InitConst(context, L"true", lib.GetTrue());
-        InitConst(context, L"false", lib.GetFalse());
+        InitConst(context, _u("undefined"), lib.GetUndefined(), &m_undefined);
+        InitConst(context, _u("null"), lib.GetNull());
+        InitConst(context, _u("true"), lib.GetTrue());
+        InitConst(context, _u("false"), lib.GetFalse());
     }
 
     bool_result SimpleExpressionEvaluator::TryEvaluate(
@@ -97,19 +97,19 @@ namespace JsDiag
             const WCHAR ch = expression[i];
             switch (ch)
             {
-            case L'.':
+            case _u('.'):
                 tk = TokenType::DOT;
                 break;
 
-            case L'[':
+            case _u('['):
                 tk = TokenType::LBRACKET;
                 break;
 
-            case L']':
+            case _u(']'):
                 tk = TokenType::RBRACKET;
                 break;
 
-            case L'\'':
+            case _u('\''):
             case L'\"':
                 tk = TokenType::STRING;
                 break;

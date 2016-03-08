@@ -14,7 +14,7 @@ public:
         HostVariant* hostVariant, 
         DISPID id, 
         Js::StaticType * type,
-        const wchar_t *name) :
+        const char16 *name) :
         HostDispatch(hostVariant, type)
     {
         m_id = id;
@@ -25,7 +25,7 @@ public:
         RefCountedHostVariant* refCountHostVariant, 
         DISPID id, 
         Js::StaticType * type,
-        const wchar_t *name) :
+        const char16 *name) :
         HostDispatch(refCountHostVariant, type)
     {
         m_id = id;
@@ -35,7 +35,7 @@ public:
     static Js::Var DefaultInvoke(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var ProfileInvoke(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
 
-    const wchar_t *GetName()
+    const char16 *GetName()
     {
         return m_pwszName;
     }
@@ -58,5 +58,5 @@ protected:
     
 private:
     DISPID m_id;
-    const wchar_t * m_pwszName;
+    const char16 * m_pwszName;
 };

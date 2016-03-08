@@ -57,8 +57,8 @@ namespace JsDiag
     {
         if (s_alloc_fault < 0)
         {
-            wchar_t buf[16];
-            if (GetEnvironmentVariableW(L"JsDiag_AllocFail", buf, _countof(buf)) > 0)
+            char16 buf[16];
+            if (GetEnvironmentVariableW(_u("JsDiag_AllocFail"), buf, _countof(buf)) > 0)
             {
                 s_alloc_fault = _wtoi(buf);
             }

@@ -52,7 +52,7 @@ void ScriptDebugNodeSource::Init(__in IDebugApplicationNode *pDebugApplicationNo
 {
     if (pDebugApplicationNode == NULL || pDebugCore == NULL)
     {
-        fwprintf(stdout, L"[FAILED] at ScriptDebugNodeSource::Init (Invalid arg)\n");
+        fwprintf(stdout, _u("[FAILED] at ScriptDebugNodeSource::Init (Invalid arg)\n"));
         return;
     }
 
@@ -106,7 +106,7 @@ void ScriptDebugNodeSource::FetchFileUrl()
 
     if (hr != S_OK)
     {
-        fwprintf(stdout, L"[FAILED] to get file name at ScriptDebugNodeSource::FetchFileUrl\n");
+        fwprintf(stdout, _u("[FAILED] to get file name at ScriptDebugNodeSource::FetchFileUrl\n"));
     }
 }
 
@@ -126,7 +126,7 @@ HRESULT ScriptDebugNodeSource::GetPostionOfLine(ULONG ulLineNumber, ULONG *pcCha
         return hr;
     }
 
-    fwprintf(stdout, L"[FAILED] at ScriptDebugNodeSource::GetPostionOfLine\n");
+    fwprintf(stdout, _u("[FAILED] at ScriptDebugNodeSource::GetPostionOfLine\n"));
 
     return E_FAIL;
 }

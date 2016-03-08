@@ -87,11 +87,11 @@ namespace Projection
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         LPCWSTR pszElementTypeName = StringOfId(scriptContext, elementType->fullTypeNameId);            
 
-        size_t lenElementTypeName = wcslen(pszElementTypeName) + wcslen(L"Array") + 1;
+        size_t lenElementTypeName = wcslen(pszElementTypeName) + wcslen(_u("Array")) + 1;
         WCHAR *pszArrayName = new WCHAR[lenElementTypeName ];
         IfNullReturnError(pszArrayName, E_OUTOFMEMORY);
         wcscpy_s(pszArrayName, lenElementTypeName, pszElementTypeName);
-        wcscat_s(pszArrayName, lenElementTypeName, L"Array");
+        wcscat_s(pszArrayName, lenElementTypeName, _u("Array"));
         PropertyId propertyId = IdOfString(scriptContext, pszArrayName);
         delete [] pszArrayName;
 
@@ -172,7 +172,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
-                    Output::Print(L"    Creating Typed Array : %s\n", TypedArrayName(createTypedArrayFunc));
+                    Output::Print(_u("    Creating Typed Array : %s\n"), TypedArrayName(createTypedArrayFunc));
                     Output::Flush();
                 }
 #endif
@@ -202,7 +202,7 @@ namespace Projection
 #if DBG_DUMP
                         if (Js::Configuration::Global.flags.TraceWin8Allocations)
                         {
-                            Output::Print(L"    Copying %u Elements\n", readArrayLength);
+                            Output::Print(_u("    Copying %u Elements\n"), readArrayLength);
                             Output::Flush();
                         }
 #endif
@@ -214,7 +214,7 @@ namespace Projection
 #if DBG_DUMP
                             if (Js::Configuration::Global.flags.TraceWin8Allocations)
                             {
-                                Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                                Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                                 Output::Flush();
                             }
 #endif
@@ -226,7 +226,7 @@ namespace Projection
 #if DBG_DUMP
                         if (Js::Configuration::Global.flags.TraceWin8Allocations)
                         {
-                            Output::Print(L"    Setting all elements to 0\n");
+                            Output::Print(_u("    Setting all elements to 0\n"));
                             Output::Flush();
                         }
 #endif
@@ -242,7 +242,7 @@ namespace Projection
 #if DBG_DUMP
                         if (Js::Configuration::Global.flags.TraceWin8Allocations)
                         {
-                            Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                            Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                             Output::Flush();
                         }
 #endif
@@ -264,7 +264,7 @@ namespace Projection
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"    Creating ArrayProjection : ");
+            Output::Print(_u("    Creating ArrayProjection : "));
             Output::Flush();
         }
 #endif
@@ -275,7 +275,7 @@ namespace Projection
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"%s\n", StringOfId(scriptContext, pArrayProjection->GetPropertyId()));
+            Output::Print(_u("%s\n"), StringOfId(scriptContext, pArrayProjection->GetPropertyId()));
             Output::Flush();
         }
 #endif
@@ -288,7 +288,7 @@ namespace Projection
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceWin8Allocations)
             {
-                Output::Print(L"    Create new buffer\n");
+                Output::Print(_u("    Create new buffer\n"));
                 Output::Flush();
             }
 #endif
@@ -305,7 +305,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
-                    Output::Print(L"    Copying %u Elements\n", readArrayLength);
+                    Output::Print(_u("    Copying %u Elements\n"), readArrayLength);
                     Output::Flush();
                 }
 #endif
@@ -335,7 +335,7 @@ namespace Projection
 #if DBG_DUMP
                         if (Js::Configuration::Global.flags.TraceWin8Allocations)
                         {
-                            Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                            Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                             Output::Flush();
                         }
 #endif
@@ -348,7 +348,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
-                    Output::Print(L"    Clear the buffer\n");
+                    Output::Print(_u("    Clear the buffer\n"));
                     Output::Flush();
                 }
 #endif
@@ -366,7 +366,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
-                    Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                    Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                     Output::Flush();
                 }
 #endif
@@ -377,7 +377,7 @@ namespace Projection
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"    Creates Finalizer\n");
+            Output::Print(_u("    Creates Finalizer\n"));
             Output::Flush();
         }
 #endif
@@ -1101,31 +1101,31 @@ namespace Projection
     LPCWSTR ArrayProjection::TypedArrayName(Js::PFNCreateTypedArray createTypedArrayFunc)
     {
         if (createTypedArrayFunc == Js::BoolArray::Create)
-            return L"BoolArray";
+            return _u("BoolArray");
         if (createTypedArrayFunc == Js::Int64Array::Create)
-            return L"Int64Array";
+            return _u("Int64Array");
         if (createTypedArrayFunc == Js::Uint64Array::Create)
-            return L"Uint64Array";
+            return _u("Uint64Array");
         if (createTypedArrayFunc == Js::Int8Array::Create)
-            return L"Int8Array";
+            return _u("Int8Array");
         if (createTypedArrayFunc == Js::Uint8Array::Create)
-            return L"Uint8Array";
+            return _u("Uint8Array");
         if (createTypedArrayFunc == Js::Uint8ClampedArray::Create)
-            return L"Uint8ClampedArray";
+            return _u("Uint8ClampedArray");
         if (createTypedArrayFunc == Js::Int16Array::Create)
-            return L"Int16Array";
+            return _u("Int16Array");
         if (createTypedArrayFunc == Js::Uint16Array::Create)
-            return L"Uint16Array";
+            return _u("Uint16Array");
         if (createTypedArrayFunc == Js::CharArray::Create)
-            return L"CharArray";
+            return _u("CharArray");
         if (createTypedArrayFunc == Js::Int32Array::Create)
-            return L"Int32Array";
+            return _u("Int32Array");
         if (createTypedArrayFunc == Js::Uint32Array::Create)
-            return L"Uint32Array";
+            return _u("Uint32Array");
         if (createTypedArrayFunc == Js::Float32Array::Create)
-            return L"Float32Array";
+            return _u("Float32Array");
         if (createTypedArrayFunc == Js::Float64Array::Create)
-            return L"Float64Array";
+            return _u("Float64Array");
         
         Js::Throw::FatalProjectionError();
     }
@@ -1136,31 +1136,31 @@ namespace Projection
         switch (Js::JavascriptOperators::GetTypeId(typedArray))
         {
         case Js::TypeIds_Int8Array:
-            return L"Int8Array";
+            return _u("Int8Array");
         case Js::TypeIds_Uint8Array:
-            return L"Uint8Array";
+            return _u("Uint8Array");
         case Js::TypeIds_Uint8ClampedArray:
-            return L"Uint8ClampedArray";
+            return _u("Uint8ClampedArray");
         case Js::TypeIds_Int16Array:
-            return L"Int16Array";
+            return _u("Int16Array");
         case Js::TypeIds_Uint16Array:
-            return L"Uint16Array";
+            return _u("Uint16Array");
         case Js::TypeIds_Int32Array:
-            return L"Int32Array";
+            return _u("Int32Array");
         case Js::TypeIds_Uint32Array:
-            return L"Uint32Array";
+            return _u("Uint32Array");
         case Js::TypeIds_Int64Array:
-            return L"Int64Array";
+            return _u("Int64Array");
         case Js::TypeIds_Uint64Array:
-            return L"Uint64Array";
+            return _u("Uint64Array");
         case Js::TypeIds_Float32Array:
-            return L"Float32Array";
+            return _u("Float32Array");
         case Js::TypeIds_Float64Array:
-            return L"Float64Array";
+            return _u("Float64Array");
         case Js::TypeIds_CharArray:
-            return L"CharArray";
+            return _u("CharArray");
         case Js::TypeIds_BoolArray:
-            return L"BoolArray";
+            return _u("BoolArray");
         default:
             Js::Throw::FatalProjectionError();
         }

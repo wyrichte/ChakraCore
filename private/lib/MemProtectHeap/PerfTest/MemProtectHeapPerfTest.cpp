@@ -347,7 +347,7 @@ double ThreadTest(double(*function)())
             r3 * TIME_PER_N_ALLOCATION, r4 * TIME_PER_N_ALLOCATION, (r3 - r4) / r3 * 100);  \
     }
 
-int __cdecl wmain(int argc, wchar_t * argv[])
+int __cdecl wmain(int argc, char16 * argv[])
 {
     startTest = CreateEvent(NULL, true, FALSE, NULL);
     doneInit1 = CreateEvent(NULL, true, FALSE, NULL);

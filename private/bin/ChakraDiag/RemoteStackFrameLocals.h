@@ -75,7 +75,7 @@ namespace JsDiag
     public:
         void Init(RemoteStackFrame* frame);
         const CString& GetName() const { return s_localsName; }
-        LPCWSTR GetValue(UINT nRadix) { return L"Locals"; }
+        LPCWSTR GetValue(UINT nRadix) { return _u("Locals"); }
         bool HasChildren() { return true; }
         bool_result TryGetEnumeratorEx(JS_PROPERTY_MEMBERS members, _Outptr_ IJsEnumDebugProperty **ppEnum);
         bool_result TryCreateWalker(_Outptr_ WalkerType** ppWalker);
@@ -250,7 +250,7 @@ namespace JsDiag
         bool HasChildren() { return true; }
 
     protected:
-        void ReadValue() { m_value = L""; }
+        void ReadValue() { m_value = _u(""); }
     };
 
     template <class T, class Walker>

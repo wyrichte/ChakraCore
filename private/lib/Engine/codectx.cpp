@@ -23,7 +23,7 @@ static const GUID IID_IInternalCodeContext = { 0x50467580, 0x71b7, 0x11d1, { 0x8
 void CDebugStackFrame::ValidateLegitDebugSession()
 {
     Js::DebugManager * debugManager = m_scriptSite->GetScriptSiteContext()->GetThreadContext()->GetDebugManager();
-    OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::ValidateLegitDebugSession: m_debugSessionNumber=%d, probeManager->GetDebugSessionNumber()=%d\n",
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::ValidateLegitDebugSession: m_debugSessionNumber=%d, probeManager->GetDebugSessionNumber()=%d\n"),
         m_debugSessionNumber, debugManager->GetDebugSessionNumber());
     Assert(debugManager->IsAtDispatchHalt());
     AssertMsg(m_debugSessionNumber == debugManager->GetDebugSessionNumber(), "Stack frame is outdated");
@@ -384,7 +384,7 @@ HRESULT CDebugStackFrame::Init(ScriptSite* scriptSite, int frameIndex)
 #if DBG
         m_debugSessionNumber = scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber();
 #endif
-        OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::Init:  this=%p, debug session #%d\n", 
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::Init:  this=%p, debug session #%d\n"), 
             this, scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber());
 
         Js::DiagStack* framePointers = this->m_framePointers->GetStrongReference();
@@ -526,7 +526,7 @@ HRESULT CDebugStackFrame::GetLanguageString(BOOL fLong, BSTR *pbstr)
 {
     CHECK_POINTER(pbstr);
     AssertMem(pbstr);
-    *pbstr = SysAllocString(L"JavaScript");
+    *pbstr = SysAllocString(_u("JavaScript"));
 
     return S_OK;
 }
@@ -744,7 +744,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
 {
     //
     // In order to understand the logic in this routine clearly lets assume, the setnext statement happens between A -> B. (A is current statement, B is the one user has asked to jump)
-    OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: start: this=%p, m_currentFrame->GetFunction()=%p\n", 
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: start: this=%p, m_currentFrame->GetFunction()=%p\n"), 
         this, m_currentFrame->GetFunction());
 
     if (stackFrame == nullptr || codeContext == nullptr)
@@ -785,7 +785,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
 
     if (pBody == nullptr)
     {
-        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: pCodeContext->Pbody() is NULL: this=%p\n", this);
+        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: pCodeContext->Pbody() is NULL: this=%p\n"), this);
         return HR(E_FAIL);
     }
 
@@ -793,12 +793,12 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
 
     if (_pFuncBody != pFuncBody)
     {
-        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: func body mismatch: this=%p, _pFuncBody=%p, pFuncBody=%p\n", this, _pFuncBody, pFuncBody);
+        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: func body mismatch: this=%p, _pFuncBody=%p, pFuncBody=%p\n"), this, _pFuncBody, pFuncBody);
         return HR(E_FAIL);
     }
 
     VALIDATE_LEGIT_DEBUGSESSION();
-    OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: checking for statements: this=%p, pFuncBody=%p\n", this, pFuncBody);
+    OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: checking for statements: this=%p, pFuncBody=%p\n"), this, pFuncBody);
 
     // Get the matching statementSpan for the B.
     // If we are going forward, account for recorded branch offsets (i.e. cases when statement start in map is after actual start - example is ForIn)
@@ -849,7 +849,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
     if (byteCodeSpanB.Includes(currentOffset))
     {
         // Bytecode for A and B on the same statement.
-        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: byteCodeSpanB includes current offset: this=%p, current=0x%x, BStart=0x%x, BEnd=0x%x\n", 
+        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: byteCodeSpanB includes current offset: this=%p, current=0x%x, BStart=0x%x, BEnd=0x%x\n"), 
             this, currentOffset, byteCodeSpanB.begin, byteCodeSpanB.end);
         return HR(S_FALSE);
     }
@@ -862,7 +862,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
     // Check for block scope jump behavior.
     if (!CanDoBlockScopeSetNextStatement(pFuncBody, currentOffset, byteCodeSpanB.begin))
     {
-        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: can't do block scope jump: this=%p\n", this);
+        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: can't do block scope jump: this=%p\n"), this);
         return E_FAIL;
     }
 
@@ -877,7 +877,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
             if (!debuggerScope->IsBlockScope() && !debuggerScope->IsOffsetInScope(currentOffset) 
                  && debuggerScope->IsOffsetInScope(byteCodeSpanB.begin))
             {
-                OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: can't do non-block scope jump: this=%p\n", this);
+                OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: can't do non-block scope jump: this=%p\n"), this);
                 return E_FAIL;
             }
         }
@@ -887,7 +887,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
     // Note: regular statements never span across try-catch boundary, thus it doesn't matter whether we pass begin or end of range.
     if (this->IsJmpCrossInterpreterStackFrame(currentOffset, byteCodeSpanB.begin, pFuncBody))
     {
-        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: can't do cross-interpreter stack frame jump: this=%p\n", this);
+        OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: can't do cross-interpreter stack frame jump: this=%p\n"), this);
         return E_FAIL;
     }
 
@@ -916,7 +916,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
     }
 
     hr = IsTmpRegCountIncreased ? HR(E_FAIL) : HR(S_OK) ;
-    OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::CanDoSetNextStatement: done: this=%p, from=0x%x, to=0x%x, hr=0x%x\n",
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::CanDoSetNextStatement: done: this=%p, from=0x%x, to=0x%x, hr=0x%x\n"),
         this, currentOffset, byteCodeSpanB.begin, hr);
     return hr;
 }
@@ -958,11 +958,11 @@ STDMETHODIMP CDebugStackFrame::SetNextStatement(IDebugStackFrame *stackFrame,
                 (DWORD_PTR)codeContext);
         }
 
-        OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::SetNextStatement: start: this=%p\n", this);
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::SetNextStatement: start: this=%p\n"), this);
         HRESULT hr = S_OK;
         if (DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
         {
-            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::SetNextStatement: script site is closed: this=%p\n", this);
+            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::SetNextStatement: script site is closed: this=%p\n"), this);
             return hr;
         }
 
@@ -979,7 +979,7 @@ STDMETHODIMP CDebugStackFrame::SetNextStatement(IDebugStackFrame *stackFrame,
             
         }
 
-        OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::SetNextStatement: done: this=%p, ret=0x%x\n", this, hr);
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::SetNextStatement: done: this=%p, ret=0x%x\n"), this, hr);
         return hr;
     });
 }
@@ -1113,15 +1113,15 @@ static void SetConditionalMutationBreakpointVariables(Js::DynamicObject * active
     {
         if (Js::Constants::NoProperty == debugManager->mutationNewValuePid)
         {
-            debugManager->mutationNewValuePid = scriptContext->GetOrAddPropertyIdTracked(L"$newValue$", 10);
+            debugManager->mutationNewValuePid = scriptContext->GetOrAddPropertyIdTracked(_u("$newValue$"), 10);
         }
         if (Js::Constants::NoProperty == debugManager->mutationPropertyNamePid)
         {
-            debugManager->mutationPropertyNamePid = scriptContext->GetOrAddPropertyIdTracked(L"$propertyName$", 14);
+            debugManager->mutationPropertyNamePid = scriptContext->GetOrAddPropertyIdTracked(_u("$propertyName$"), 14);
         }
         if (Js::Constants::NoProperty == debugManager->mutationTypePid)
         {
-            debugManager->mutationTypePid = scriptContext->GetOrAddPropertyIdTracked(L"$mutationType$", 14);
+            debugManager->mutationTypePid = scriptContext->GetOrAddPropertyIdTracked(_u("$mutationType$"), 14);
         }
 
         AssertMsg(debugManager->mutationNewValuePid != Js::Constants::NoProperty, "Should have a valid mutationNewValuePid");
@@ -1262,7 +1262,7 @@ void CDebugStackFrame::TryFetchValueAndAddress(Js::DiagStackFrame* frame, LPCOLE
     
     // Do fast path for 'this', fields on slot, TODO : literals (integer,string)
 
-    if (length == 4 && wcsncmp(pszSource, L"this", 4) == 0)
+    if (length == 4 && wcsncmp(pszSource, _u("this"), 4) == 0)
     {
         pOutResolvedObj->obj = GetThisFromFrame(frame, &pOutResolvedObj->address);
         if (pOutResolvedObj->obj == nullptr)
@@ -1299,10 +1299,10 @@ bool CDebugStackFrame::CanDoBlockScopeSetNextStatement(Js::FunctionBody* pFuncBo
 {
     Assert(pFuncBody);
 
-    OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Checking if set next statment is allowed in blocks from offset 0x%x to offset 0x%x.\n", startOffset, endOffset);
+    OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Checking if set next statment is allowed in blocks from offset 0x%x to offset 0x%x.\n"), startOffset, endOffset);
     if (!pFuncBody->GetScopeObjectChain())
     {
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - No scope chain so allowing set next to proceed.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - No scope chain so allowing set next to proceed.\n"));
         return true;
     }
 
@@ -1329,7 +1329,7 @@ bool CDebugStackFrame::CanDoBlockScopeSetNextStatement(Js::FunctionBody* pFuncBo
     if (startDebuggerScope == nullptr && endDebuggerScope == nullptr)
     {
         // Not jumping between block scopes.
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Two block scopes to jump between not found so allowing set next to proceed.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Two block scopes to jump between not found so allowing set next to proceed.\n"));
         return true;
     }
 
@@ -1337,17 +1337,17 @@ bool CDebugStackFrame::CanDoBlockScopeSetNextStatement(Js::FunctionBody* pFuncBo
     bool isValidJump = true;
     if (startDebuggerScope == endDebuggerScope)
     {
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Attempting jump in the same scope block.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Attempting jump in the same scope block.\n"));
         isValidJump = CanJumpWithinCurrentBlock(startDebuggerScope, startOffset, endOffset);
     }
     else if (startDebuggerScope == nullptr || startDebuggerScope->IsAncestorOf(endDebuggerScope))
     {
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Attempting jump from an outer scope to an inner scope.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Attempting jump from an outer scope to an inner scope.\n"));
         isValidJump = CanJumpIntoInnerBlock(startDebuggerScope, endDebuggerScope, startOffset, endOffset);
     }
     else if (endDebuggerScope == nullptr || endDebuggerScope->IsAncestorOf(startDebuggerScope))
     {
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Attempting jump from an inner scope to an outer scope.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Attempting jump from an inner scope to an outer scope.\n"));
 
         // If we're jumping to an outer scope, backwards is always allowed.
         if (isJumpingForward)
@@ -1359,14 +1359,14 @@ bool CDebugStackFrame::CanDoBlockScopeSetNextStatement(Js::FunctionBody* pFuncBo
     }
     else
     {
-        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Attempting jump from a sibling/grandchild block to another.\n");
+        OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Attempting jump from a sibling/grandchild block to another.\n"));
 
         // Performing a sibling jump across a common ancestor.
         Js::DebuggerScope* commonAncestorDebuggerScope = startDebuggerScope->FindCommonAncestor(endDebuggerScope);
         isValidJump = CanJumpIntoInnerBlock(commonAncestorDebuggerScope, endDebuggerScope, startOffset, endOffset);
     }
 
-    OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, L"CanDoBlockScopeSetNextStatement() - Block jump allowed? '%s'.\n", isValidJump ? L"Yes" : L"No");
+    OUTPUT_TRACE_DEBUGONLY(Js::DebuggerPhase, _u("CanDoBlockScopeSetNextStatement() - Block jump allowed? '%s'.\n"), isValidJump ? _u("Yes") : _u("No"));
     return isValidJump;
 }
 
@@ -1536,8 +1536,8 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         AssertPsz(pszSrc);
         AssertMemN(ppdp);
 
-        OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::EvaluateImmediate: start: this=%p, dwFlags=0x%x, pszSrc='%s'\n",
-            this, dwFlags, pszSrc != nullptr ? pszSrc : L"NULL");
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: start: this=%p, dwFlags=0x%x, pszSrc='%s'\n"),
+            this, dwFlags, pszSrc != nullptr ? pszSrc : _u("NULL"));
 
         if (!ppdp)
         {
@@ -1548,7 +1548,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         HRESULT hr = S_OK;
         if (DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
         {
-            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::EvaluateImmediate: script site is closed: this=%p\n");
+            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: script site is closed: this=%p\n"));
             return hr;
         }
  
@@ -1590,7 +1590,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
                                 pCurrentFuncBody->SetIsNonUserCode(true);
                             }
                         }
-                        OUTPUT_TRACE(Js::ConsoleScopePhase, L"EvaluateImmediate strict = %d, libraryCode = %d, source = '%s'\n",
+                        OUTPUT_TRACE(Js::ConsoleScopePhase, _u("EvaluateImmediate strict = %d, libraryCode = %d, source = '%s'\n"),
                             CDebugEval::IsStrictMode(frame), dwFlags & DEBUG_TEXT_ISNONUSERCODE, pszSrc);
                         resolvedObject.obj = CDebugEval::DoEval(pfuncScript, frame);
                     }
@@ -1633,7 +1633,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         // We need to check again because user code above might have caused the script engine to be closed
         if (DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
         {
-            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::EvaluateImmediate: script site is closed (2): this=%p\n");
+            OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: script site is closed (2): this=%p\n"));
             return hr;
         }
 
@@ -1680,7 +1680,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
             return scriptEngine->DbgCreateBrowserFromProperty(&variant, this, resolvedObject.name, ppdp);
         }
 
-        OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugStackFrame::EvaluateImmediate: done: this=%p, result=%x, hr=%x\n",
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: done: this=%p, result=%x, hr=%x\n"),
             this, dwFlags, resolvedObject.obj, hr);
         return hr;
     });
@@ -1737,8 +1737,8 @@ HRESULT CDebugEval::Create(CDebugEval **ppDebugEval, LPCOLESTR pszSource, DWORD 
     AssertMem(stackFrame);
     AssertMem(applicationThread);
 
-    OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugEval::Create: start: stackFrame=%p, dwFlags=0x%x, pszSrc='%s'\n",
-        stackFrame, dwFlags, pszSource != nullptr ? pszSource : L"NULL");
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugEval::Create: start: stackFrame=%p, dwFlags=0x%x, pszSrc='%s'\n"),
+        stackFrame, dwFlags, pszSource != nullptr ? pszSource : _u("NULL"));
 
     CDebugEval *pdev;
 
@@ -1760,7 +1760,7 @@ HRESULT CDebugEval::Create(CDebugEval **ppDebugEval, LPCOLESTR pszSource, DWORD 
 
     *ppDebugEval = pdev;
 
-    OUTPUT_TRACE(Js::DebuggerPhase, L"CDebugEval::Create: done: stackFrame=%p, *ppDebugEval=%p\n", stackFrame, *ppDebugEval);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugEval::Create: done: stackFrame=%p, *ppDebugEval=%p\n"), stackFrame, *ppDebugEval);
 
     return NOERROR;
 }

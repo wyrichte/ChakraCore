@@ -40,7 +40,7 @@ void HostConfigFlags::Parse<BSTR>(ICmdLineArgsParser * parser,  BSTR * bstr)
     *bstr = parser->GetCurrentString();
     if(*bstr == NULL)
     {
-        *bstr = SysAllocString(L"");
+        *bstr = SysAllocString(_u(""));
     }
 }
 
@@ -56,7 +56,7 @@ HostConfigFlags::HostConfigFlags()  :
 bool HostConfigFlags::ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser) 
 {
 #define FLAG(Type, Name, Desc, Default) \
-    if (_wcsicmp(L ## #Name, flagsString) == 0) \
+    if (_wcsicmp(_u(#Name), flagsString) == 0) \
     { \
         this->Name##IsEnabled = true; \
         Parse<Type>(parser, &this->Name); \
@@ -69,7 +69,7 @@ bool HostConfigFlags::ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser
 void HostConfigFlags::PrintUsageString()
 {
 #define FLAG(Type, Name, Desc, Default) \
-    wprintf(L"%20ls          \t%ls\n", L ## #Name, L ## #Desc);
+    wprintf(_u("%20ls          \t%ls\n"), _u(#Name), _u(#Desc));
 #include "HostConfigFlagsList.h"
 }
 
@@ -133,11 +133,11 @@ int HostConfigFlags::PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[])
 {
     int version = 0;
 
-    const WCHAR versionSwitch[] = L"-version:";
+    const WCHAR versionSwitch[] = _u("-version:");
     int i = FindArg(argc, argv, versionSwitch);
     if (i < 0)
     {
-        i = FindArg(argc, argv, L"/version:");
+        i = FindArg(argc, argv, _u("/version:"));
     }
 
     if (i >= 0)
@@ -151,18 +151,18 @@ int HostConfigFlags::PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[])
 
 void HostConfigFlags::HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    jdtestCmdLine = ExtractSwitch(argc, argv, L"-jdtest:");
+    jdtestCmdLine = ExtractSwitch(argc, argv, _u("-jdtest:"));
 }
 
 void HostConfigFlags::HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    jsEtwConsoleCmdLine = ExtractSwitch(argc, argv, L"-JsEtwConsole:");
+    jsEtwConsoleCmdLine = ExtractSwitch(argc, argv, _u("-JsEtwConsole:"));
 }
 
 void HostConfigFlags::HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    const LPCWSTR argsFlag = L"-args";
-    const LPCWSTR endArgsFlag = L"-endargs";
+    const LPCWSTR argsFlag = _u("-args");
+    const LPCWSTR endArgsFlag = _u("-endargs");
     int argsFlagLen = static_cast<int>(wcslen(argsFlag));
     int i;
     for (i=1; i < argc; i++)

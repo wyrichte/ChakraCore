@@ -24,19 +24,19 @@ namespace ProjectionModel
 
         if (type != nullptr)
         {
-            retValue.Append(L"{typeName:\"");
+            retValue.Append(_u("{typeName:\""));
             retValue.Append(strConverter->StringOfId(type->fullTypeNameId));
-            retValue.Append(L"(#");
+            retValue.Append(_u("(#"));
             retValue.AppendInt32(type->fullTypeNameId);
-            retValue.Append(L")\", typeCode:");
+            retValue.Append(_u(")\", typeCode:"));
             retValue.AppendInt32(type->typeCode);
-            retValue.Append(L", canMarshal:");
+            retValue.Append(_u(", canMarshal:"));
             retValue.AppendInt32(type->canMarshal);
-            retValue.Append(L"}");
+            retValue.Append(_u("}"));
         }
         else
         {
-            retValue.Append(L"\"<NULL>\"");
+            retValue.Append(_u("\"<NULL>\""));
         }
 
         return retValue.Get(allocator);
@@ -48,44 +48,44 @@ namespace ProjectionModel
 
         if (parameters != nullptr)
         {
-            retValue.Append(L"{callPattern:");
-            retValue.Append(parameters->callPattern == nullptr ? L"\"<NULL>\"" : parameters->callPattern);
-            retValue.Append(L", sizeOfCallstack:");
+            retValue.Append(_u("{callPattern:"));
+            retValue.Append(parameters->callPattern == nullptr ? _u("\"<NULL>\"") : parameters->callPattern);
+            retValue.Append(_u(", sizeOfCallstack:"));
             retValue.AppendUInt64(parameters->sizeOfCallstack);
-            retValue.Append(L", returnType:");
+            retValue.Append(_u(", returnType:"));
             LPCWSTR returnTypeString = TraceRtTYPE(parameters->returnType, strConverter, allocator);
             retValue.AppendWithCopy(returnTypeString);
             DefaultImmutableStringBuilder::FreeString(allocator, returnTypeString, wcslen(returnTypeString));
-            retValue.Append(L", parameters:[");
+            retValue.Append(_u(", parameters:["));
             bool isFirstProperty = true;
             parameters->allParameters->Iterate([&](RtPARAMETER parameter) {
                 if (isFirstProperty == false)
                 {
-                    retValue.Append(L", ");
+                    retValue.Append(_u(", "));
                 }
-                retValue.Append(L"{id:\"");
+                retValue.Append(_u("{id:\""));
                 retValue.Append(strConverter->StringOfId(parameter->id));
-                retValue.Append(L"(#");
+                retValue.Append(_u("(#"));
                 retValue.AppendInt32(parameter->id);
-                retValue.Append(L")\", isIn:");
+                retValue.Append(_u(")\", isIn:"));
                 retValue.AppendBool(parameter->isIn);
-                retValue.Append(L", isOut:");
+                retValue.Append(_u(", isOut:"));
                 retValue.AppendBool(parameter->isOut);
-                retValue.Append(L", parameterType:");
+                retValue.Append(_u(", parameterType:"));
                 retValue.AppendInt32(parameter->parameterType);
-                retValue.Append(L", type:");
+                retValue.Append(_u(", type:"));
                 LPCWSTR parameterTypeString = TraceRtTYPE(parameter->type, strConverter, allocator);
                 retValue.AppendWithCopy(parameterTypeString);
                 DefaultImmutableStringBuilder::FreeString(allocator, parameterTypeString, wcslen(parameterTypeString));
-                retValue.Append(L"}");
+                retValue.Append(_u("}"));
 
                 isFirstProperty = false;
             });
-            retValue.Append(L"]}");
+            retValue.Append(_u("]}"));
         }
         else
         {
-            retValue.Append(L"\"<NULL>\"");
+            retValue.Append(_u("\"<NULL>\""));
         }
 
         return retValue.Get(allocator);
@@ -97,55 +97,55 @@ namespace ProjectionModel
 
         if (signature != nullptr)
         {
-            retValue.Append(L"{name:\"");
+            retValue.Append(_u("{name:\""));
             retValue.Append(strConverter->StringOfId(signature->nameId));
-            retValue.Append(L"(#");
+            retValue.Append(_u("(#"));
             retValue.AppendInt32(signature->nameId);
-            retValue.Append(L")\", signType:");
+            retValue.Append(_u(")\", signType:"));
             retValue.AppendInt32(signature->signatureType);
-            retValue.Append(L", overloads:{");
+            retValue.Append(_u(", overloads:{"));
 
             if (signature->overloads != nullptr)
             {
-                retValue.Append(L"id:\"");
+                retValue.Append(_u("id:\""));
                 retValue.Append(strConverter->StringOfId(signature->overloads->id));
-                retValue.Append(L"(#");
+                retValue.Append(_u("(#"));
                 retValue.AppendInt32(signature->overloads->id);
-                retValue.Append(L")\"");
+                retValue.Append(_u(")\""));
 
                 if (signature->overloads->overloads != nullptr)
                 {
                     bool isFirstProperty = true;
-                    retValue.Append(L", overloads:[");
+                    retValue.Append(_u(", overloads:["));
 
                     signature->overloads->overloads->Iterate([&](RtABIMETHODSIGNATURE signature) {
                         if (isFirstProperty == false)
                         {
-                            retValue.Append(L", ");
+                            retValue.Append(_u(", "));
                         }
-                        retValue.Append(L"{signature:");
+                        retValue.Append(_u("{signature:"));
                         LPCWSTR signatureString = TraceRtABIMETHODSIGNATURE(signature, strConverter, allocator);
                         retValue.AppendWithCopy(signatureString);
                         DefaultImmutableStringBuilder::FreeString(allocator, signatureString, wcslen(signatureString));
-                        retValue.Append(L"}");
+                        retValue.Append(_u("}"));
 
                         isFirstProperty = false;
                     });
 
-                    retValue.Append(L"]");
+                    retValue.Append(_u("]"));
                 }
             }
 
-            retValue.Append(L"}, parameters:");
+            retValue.Append(_u("}, parameters:"));
             LPCWSTR parametersString = TraceRtPARAMETERS(signature->parameters, strConverter, allocator);
             retValue.AppendWithCopy(parametersString);
             DefaultImmutableStringBuilder::FreeString(allocator, parametersString, wcslen(parametersString));
 
-            retValue.Append(L"}");
+            retValue.Append(_u("}"));
         }
         else
         {
-            retValue.Append(L"\"<NULL>\"");
+            retValue.Append(_u("\"<NULL>\""));
         }
 
         return retValue.Get(allocator);
@@ -159,13 +159,13 @@ namespace ProjectionModel
         {
             WCHAR guidStr[MaxGuidLength];
 
-            retValue.Append(L"{piid:\"");
+            retValue.Append(_u("{piid:\""));
             StringFromGUID2(rtIID->piid, guidStr, ARRAYSIZE(guidStr));
             retValue.Append(guidStr);
-            retValue.Append(L"\", instantiated:\"");
+            retValue.Append(_u("\", instantiated:\""));
             StringFromGUID2(rtIID->instantiated, guidStr, ARRAYSIZE(guidStr));
             retValue.Append(guidStr);
-            retValue.Append(L"\"}");
+            retValue.Append(_u("\"}"));
         }
 
         return retValue.Get(allocator);
@@ -179,31 +179,31 @@ namespace ProjectionModel
         {
             LPCWSTR string = nullptr;
 
-            retValue.Append(L"{hasDefaultOverride:");
+            retValue.Append(_u("{hasDefaultOverride:"));
             retValue.AppendBool(signature->hasDefaultOverloadAttribute);
-            retValue.Append(L", iid:");
+            retValue.Append(_u(", iid:"));
             string = TraceRtIID(signature->iid, strConverter, allocator);
             retValue.AppendWithCopy(string);
             DefaultImmutableStringBuilder::FreeString(allocator, string, wcslen(string));
-            retValue.Append(L", \"#in params\":");
+            retValue.Append(_u(", \"#in params\":"));
             retValue.AppendUInt64(signature->inParameterCount);
-            retValue.Append(L", metadataName:\"");
+            retValue.Append(_u(", metadataName:\""));
             retValue.Append(strConverter->StringOfId(signature->metadataNameId));
-            retValue.Append(L"(#");
+            retValue.Append(_u("(#"));
             retValue.AppendInt32(signature->metadataNameId);
-            retValue.Append(L")\", runtimeClassName:\"");
+            retValue.Append(_u(")\", runtimeClassName:\""));
             retValue.Append(strConverter->StringOfId(signature->runtimeClassNameId));
-            retValue.Append(L"(#");
+            retValue.Append(_u("(#"));
             retValue.AppendInt32(signature->runtimeClassNameId);
-            retValue.Append(L")\", parameters:");
+            retValue.Append(_u(")\", parameters:"));
             string = TraceRtPARAMETERS(signature->parameters, strConverter, allocator);
             retValue.AppendWithCopy(string);
             DefaultImmutableStringBuilder::FreeString(allocator, string, wcslen(string));
-            retValue.Append(L"}");
+            retValue.Append(_u("}"));
         }
         else
         {
-            retValue.Append(L"\"<NULL>\"");
+            retValue.Append(_u("\"<NULL>\""));
         }
 
         return retValue.Get(allocator);
@@ -215,32 +215,32 @@ namespace ProjectionModel
 
         if (properties != nullptr)
         {
-            retValue.Append(L"{type:");
+            retValue.Append(_u("{type:"));
             retValue.AppendInt32(properties->type);
-            retValue.Append(L", fields:[");
+            retValue.Append(_u(", fields:["));
 
             bool isFirstProperty = true;
             properties->fields->Iterate([&](RtPROPERTY prop) {
                 if (isFirstProperty == false)
                 {
-                    retValue.Append(L", ");
+                    retValue.Append(_u(", "));
                 }
 
-                retValue.Append(L"{name:\"");
+                retValue.Append(_u("{name:\""));
                 retValue.Append(strConverter->StringOfId(prop->identifier));
-                retValue.Append(L"(#");
+                retValue.Append(_u("(#"));
                 retValue.AppendInt32(prop->identifier);
-                retValue.Append(L")\"");
+                retValue.Append(_u(")\""));
                 isFirstProperty = false;
 
                 // TODO: value?
-                retValue.Append(L"}");
+                retValue.Append(_u("}"));
             });
-            retValue.Append(L"]}");
+            retValue.Append(_u("]}"));
         }
         else
         {
-            retValue.Append(L"\"<NULL>\"");
+            retValue.Append(_u("\"<NULL>\""));
         }
 
         return retValue.Get(allocator);
@@ -249,14 +249,14 @@ namespace ProjectionModel
     void ProjectionBuilder::TraceRtOVERLOADPARENTPROPERTY(_In_ RtOVERLOADPARENTPROPERTY overloadParentProperty, _In_z_ LPWSTR prefixMessage, _In_ Metadata::IStringConverter* strConverter, _In_ ArenaAllocator* allocator)
     {
         DefaultImmutableStringBuilder retValue;
-        prefixMessage = prefixMessage == nullptr ? L"TraceRtOVERLOADPARENTPROPERTY()" : prefixMessage;
+        prefixMessage = prefixMessage == nullptr ? _u("TraceRtOVERLOADPARENTPROPERTY()") : prefixMessage;
 
         if (overloadParentProperty != nullptr)
         {
             LPCWSTR signatureString = TraceRtOVERLOADEDMETHODSIGNATURE(overloadParentProperty->overloadConstructor->signature, strConverter, allocator);
             LPCWSTR propertiesString = TraceRtPROPERTIESOBJECT(overloadParentProperty->overloadConstructor->properties, strConverter, allocator);
 
-            TRACE_METADATA(L"%s: {name:\"%s(#%d)\", propertyType:\"%d ptOverloadParentProperty\", expr:%d, overloadConstructor: {signature:%s, properties:%s}}\n",
+            TRACE_METADATA(_u("%s: {name:\"%s(#%d)\", propertyType:\"%d ptOverloadParentProperty\", expr:%d, overloadConstructor: {signature:%s, properties:%s}}\n"),
                 prefixMessage,
                 strConverter->StringOfId(overloadParentProperty->identifier),
                 overloadParentProperty->identifier,
@@ -269,7 +269,7 @@ namespace ProjectionModel
         }
         else
         {
-            TRACE_METADATA(L"%s: (no overloadParentProperty passed)\n", prefixMessage);
+            TRACE_METADATA(_u("%s: (no overloadParentProperty passed)\n"), prefixMessage);
             AssertMsg(false, "no overloadParentProperty passed");
         }
     }
@@ -277,14 +277,14 @@ namespace ProjectionModel
     void ProjectionBuilder::TraceRtABIMETHODPROPERTY(_In_ RtABIMETHODPROPERTY methodProperty, _In_z_ LPWSTR prefixMessage, _In_ Metadata::IStringConverter* strConverter, _In_ ArenaAllocator* allocator)
     {
         DefaultImmutableStringBuilder retValue;
-        prefixMessage = prefixMessage == nullptr ? L"TraceRtABIMETHODPROPERTY()" : prefixMessage;
+        prefixMessage = prefixMessage == nullptr ? _u("TraceRtABIMETHODPROPERTY()") : prefixMessage;
 
         if (methodProperty != nullptr)
         {
             LPCWSTR signatureString = TraceRtABIMETHODSIGNATURE(methodProperty->body->signature, strConverter, allocator);
             LPCWSTR propertiesString = TraceRtPROPERTIESOBJECT(methodProperty->body->properties, strConverter, allocator);
 
-            TRACE_METADATA(L"%s: {name:\"%s(#%d)\", propertyType:\"%d ptAbiMethodProperty\", signature:%s, properties:%s}\n",
+            TRACE_METADATA(_u("%s: {name:\"%s(#%d)\", propertyType:\"%d ptAbiMethodProperty\", signature:%s, properties:%s}\n"),
                 prefixMessage,
                 strConverter->StringOfId(methodProperty->identifier),
                 methodProperty->identifier,
@@ -296,14 +296,14 @@ namespace ProjectionModel
         }
         else
         {
-            TRACE_METADATA(L"%s: (no methodProperty passed)\n", prefixMessage);
+            TRACE_METADATA(_u("%s: (no methodProperty passed)\n"), prefixMessage);
             AssertMsg(false, "no methodProperty passed");
         }
     }
 
     void ProjectionBuilder::TraceRtABIMETHODPROPERTY(_In_ ImmutableList<RtPROPERTY>* methodProperties, _In_z_ LPWSTR prefixMessage, _In_ Metadata::IStringConverter* strConverter, _In_ ArenaAllocator* allocator)
     {
-        TRACE_METADATA(L"%s invoked\n", prefixMessage);
+        TRACE_METADATA(_u("%s invoked\n"), prefixMessage);
 
         methodProperties->Iterate([&](RtPROPERTY methodProperty) {
             if (AbiMethodProperty::Is(methodProperty))
@@ -313,12 +313,12 @@ namespace ProjectionModel
             }
         });
 
-        TRACE_METADATA(L"%s completed\n", prefixMessage);
+        TRACE_METADATA(_u("%s completed\n"), prefixMessage);
     }
 
     void ProjectionBuilder::TraceRtPROPERTY(_In_ RtPROPERTY prop, _In_z_ LPWSTR prefixMessage, _In_ Metadata::IStringConverter* strConverter, _In_ ArenaAllocator* allocator)
     {
-        prefixMessage = prefixMessage == nullptr ? L"TraceRtABIMETHODPROPERTY()" : prefixMessage;
+        prefixMessage = prefixMessage == nullptr ? _u("TraceRtABIMETHODPROPERTY()") : prefixMessage;
 
         if (prop != nullptr)
         {
@@ -339,7 +339,7 @@ namespace ProjectionModel
                 break;
 
             default:
-                TRACE_METADATA(L"%s: {name:\"%s\", id:%d, \"unknown propertyType\":%d}\n",
+                TRACE_METADATA(_u("%s: {name:\"%s\", id:%d, \"unknown propertyType\":%d}\n"),
                     prefixMessage,
                     strConverter->StringOfId(prop->identifier),
                     prop->identifier,
@@ -349,7 +349,7 @@ namespace ProjectionModel
         }
         else
         {
-            TRACE_METADATA(L"%s: (no RtPROPERTY passed)\n", prefixMessage);
+            TRACE_METADATA(_u("%s: (no RtPROPERTY passed)\n"), prefixMessage);
             AssertMsg(false, "no RtPROPERTY passed");
         }
     }
@@ -408,14 +408,14 @@ namespace ProjectionModel
             {
                 OUTPUT_TRACE(
                     ProjectionMetadataPhase, 
-                    L"CheckForDuplicateTypeId::AddTypeId - Duplicate %s present and re-added\n",
+                    _u("CheckForDuplicateTypeId::AddTypeId - Duplicate %s present and re-added\n"),
                     typeString);
             }
             else
             {
                 OUTPUT_TRACE_DEBUGONLY(
                     ProjectionMetadataPhase,
-                    L"CheckForDuplicateTypeId::AddTypeId - New (unique for now) %s\n",
+                    _u("CheckForDuplicateTypeId::AddTypeId - New (unique for now) %s\n"),
                     typeString);
             }
 
@@ -529,20 +529,20 @@ namespace ProjectionModel
     {
         switch(typeCor)
         {
-            case ELEMENT_TYPE_CHAR: return L"Char16";
-            case ELEMENT_TYPE_STRING:  return L"String";
-            case ELEMENT_TYPE_BOOLEAN: return L"Boolean";
-            case ELEMENT_TYPE_U1: return L"UInt8";
-            case ELEMENT_TYPE_I2: return L"Int16";
-            case ELEMENT_TYPE_U2: return L"UInt16";
-            case ELEMENT_TYPE_I4: return L"Int32";
-            case ELEMENT_TYPE_U4: return L"UInt32";
-            case ELEMENT_TYPE_I8: return L"Int64";
-            case ELEMENT_TYPE_U8: return L"UInt64";
-            case ELEMENT_TYPE_R4: return L"Single";
-            case ELEMENT_TYPE_R8: return L"Double";
-            case ELEMENT_TYPE_OBJECT: return L"Object";
-            case ELEMENT_TYPE_VAR: return L"T";
+            case ELEMENT_TYPE_CHAR: return _u("Char16");
+            case ELEMENT_TYPE_STRING:  return _u("String");
+            case ELEMENT_TYPE_BOOLEAN: return _u("Boolean");
+            case ELEMENT_TYPE_U1: return _u("UInt8");
+            case ELEMENT_TYPE_I2: return _u("Int16");
+            case ELEMENT_TYPE_U2: return _u("UInt16");
+            case ELEMENT_TYPE_I4: return _u("Int32");
+            case ELEMENT_TYPE_U4: return _u("UInt32");
+            case ELEMENT_TYPE_I8: return _u("Int64");
+            case ELEMENT_TYPE_U8: return _u("UInt64");
+            case ELEMENT_TYPE_R4: return _u("Single");
+            case ELEMENT_TYPE_R8: return _u("Double");
+            case ELEMENT_TYPE_OBJECT: return _u("Object");
+            case ELEMENT_TYPE_VAR: return _u("T");
             default: Js::Throw::FatalProjectionError();
         }
     }
@@ -754,27 +754,27 @@ namespace ProjectionModel
             pattern.Append(GetBasicTypeName(BasicType::From(type)));
             break;
         case tcArrayType:
-            pattern.Append(L"[");
+            pattern.Append(_u("["));
             AppendTypePattern(ArrayType::From(type)->elementType, pattern);
-            pattern.Append(L"]");
+            pattern.Append(_u("]"));
             break;
         case tcVoidType:
-            pattern.Append(L"Void");
+            pattern.Append(_u("Void"));
             break;
         case tcSystemGuidType:
-            pattern.Append(L"Guid");
+            pattern.Append(_u("Guid"));
             break;
         case tcWindowsFoundationDateTimeType:
-            pattern.Append(L"DateTime");
+            pattern.Append(_u("DateTime"));
             break;
         case tcWindowsFoundationTimeSpanType:
-            pattern.Append(L"TimeSpan");
+            pattern.Append(_u("TimeSpan"));
             break;
         case tcWindowsFoundationEventRegistrationTokenType:
-            pattern.Append(L"EventRegistrationTokenType");
+            pattern.Append(_u("EventRegistrationTokenType"));
             break;
         case tcWindowsFoundationHResultType:
-            pattern.Append(L"HResultTokenType");
+            pattern.Append(_u("HResultTokenType"));
             break;
         case tcInterfaceType:
             {
@@ -782,14 +782,14 @@ namespace ProjectionModel
                 auto expr = IntermediateExprOfToken(MetadataStringIdNil, ic->typeDef->td, ic->typeDef->assembly, nullptr);
                 if (RuntimeInterfaceConstructor::Is(expr))
                 {
-                    pattern.Append(L"Interface");
+                    pattern.Append(_u("Interface"));
                     return;
                 }
                 else if (InterfaceConstructor::Is(expr))
                 {
-                    pattern.Append(L"missingInterface(");
+                    pattern.Append(_u("missingInterface("));
                     pattern.Append(stringConverter->StringOfId(InterfaceConstructor::From(expr)->typeId));
-                    pattern.Append(L")");
+                    pattern.Append(_u(")"));
                     return;
                 }
                 Js::Throw::FatalInternalError();
@@ -804,33 +804,33 @@ namespace ProjectionModel
 
                     if (rcc->specialization==nullptr)
                     {
-                        pattern.Append(L"Class");
+                        pattern.Append(_u("Class"));
                         return;
                     }
                     switch(rcc->specialization->specializationType)
                     {
-                    case specVectorSpecialization: pattern.Append(L"Class(Vector)"); return;
-                    case specVectorViewSpecialization: pattern.Append(L"Class(VectorView)"); return;
-                    case specPromiseSpecialization: pattern.Append(L"Class(Promise)"); return;
-                    case specPropertyValueSpecialization: pattern.Append(L"Class(PropertyValue)"); return;
-                    case specMapSpecialization: pattern.Append(L"Class(Map)"); return;
-                    case specMapViewSpecialization: pattern.Append(L"Class(MapView)"); return;
+                    case specVectorSpecialization: pattern.Append(_u("Class(Vector)")); return;
+                    case specVectorViewSpecialization: pattern.Append(_u("Class(VectorView)")); return;
+                    case specPromiseSpecialization: pattern.Append(_u("Class(Promise)")); return;
+                    case specPropertyValueSpecialization: pattern.Append(_u("Class(PropertyValue)")); return;
+                    case specMapSpecialization: pattern.Append(_u("Class(Map)")); return;
+                    case specMapViewSpecialization: pattern.Append(_u("Class(MapView)")); return;
                     default: Js::Throw::FatalProjectionError();
                     }
                 }
             }
         case tcDelegateType:
-            pattern.Append(L"Delegate");
+            pattern.Append(_u("Delegate"));
             break;
         case tcStructType:
-            pattern.Append(L"{");
+            pattern.Append(_u("{"));
             StructType::From(type)
                 ->fields
                 ->IterateBetween(
                     [&](RtABIFIELDPROPERTY field) {AppendTypePattern(field->type, pattern);},
-                    [&](RtABIFIELDPROPERTY,RtABIFIELDPROPERTY) {pattern.Append(L",");}
+                    [&](RtABIFIELDPROPERTY,RtABIFIELDPROPERTY) {pattern.Append(_u(","));}
             );
-            pattern.Append(L"}");
+            pattern.Append(_u("}"));
             break;
         case tcEnumType:
             {
@@ -838,7 +838,7 @@ namespace ProjectionModel
                 auto expr = IntermediateExprOfToken(MetadataStringIdNil, enumType->typeDef->td, enumType->typeDef->assembly, nullptr);
                 if(Enum::Is(expr))
                 {
-                    Enum::From(expr)->baseTypeCode == ELEMENT_TYPE_I4 ? pattern.Append(L"Int32") : pattern.Append(L"UInt32");
+                    Enum::From(expr)->baseTypeCode == ELEMENT_TYPE_I4 ? pattern.Append(_u("Int32")) : pattern.Append(_u("UInt32"));
                     return;
                 }
                 Js::Throw::FatalInternalError();
@@ -847,15 +847,15 @@ namespace ProjectionModel
             AppendTypePattern(ByRefType::From(type)->pointedTo, pattern);
             break;
         case tcMissingNamedType:
-            pattern.Append(L"missing(");
+            pattern.Append(_u("missing("));
             pattern.Append(stringConverter->StringOfId(MissingNamedType::From(type)->fullTypeNameId));
-            pattern.Append(L")");
+            pattern.Append(_u(")"));
             break;
         case tcUnprojectableType:
         case tcGenericClassVarType:
         case tcGenericParameterType:
         case tcMissingGenericInstantiationType:
-            pattern.Append(L"uncallable");
+            pattern.Append(_u("uncallable"));
             break;
         default:
             Js::Throw::FatalProjectionError();
@@ -867,8 +867,8 @@ namespace ProjectionModel
     {
         DefaultImmutableStringBuilder pattern;
         auto appendPattern = [&](RtPARAMETER param) {
-            if(param->isIn) pattern.Append(L"+");
-            if(param->isOut) pattern.Append(L"-");
+            if(param->isIn) pattern.Append(_u("+"));
+            if(param->isOut) pattern.Append(_u("-"));
             AppendTypePattern(param->type, pattern);
         };
 
@@ -890,7 +890,7 @@ namespace ProjectionModel
 
         DefaultImmutableStringBuilder instantiatedName;
         instantiatedName.Append(stringConverter->StringOfId(parentTypeName));
-        instantiatedName.Append(L"<");
+        instantiatedName.Append(_u("<"));
         genericParameters->IterateBetween([&](RtTYPE type){
             Js::VerifyCatastrophic(MetadataStringIdNil!=type->fullTypeNameId);
             // If this is a System.Guid type, append the display name used in metadata "System.Guid",
@@ -898,15 +898,15 @@ namespace ProjectionModel
             // and deconflicted interface member names we generate.
             if (type->typeCode == tcSystemGuidType)
             {
-                instantiatedName.Append(L"System.Guid");
+                instantiatedName.Append(_u("System.Guid"));
             }
             else {
                 instantiatedName.Append(stringConverter->StringOfId(type->fullTypeNameId));
             }
         }, [&](RtTYPE,RtTYPE){
-            instantiatedName.Append(L",");
+            instantiatedName.Append(_u(","));
         });
-        instantiatedName.Append(L">");
+        instantiatedName.Append(_u(">"));
         auto instantiatedNameStr = instantiatedName.Get<HeapAllocator>(&HeapAllocator::Instance);
         auto instantiatedNameId = stringConverter->IdOfString(instantiatedNameStr);
         HeapDeleteArray(wcslen(instantiatedNameStr) + 1, instantiatedNameStr);
@@ -1224,7 +1224,7 @@ namespace ProjectionModel
         if (ArrayType::Is(type) || (ByRefType::Is(type) && ArrayType::Is(ByRefType::From(type)->pointedTo)))
         {
             INT32 lengthIsParamterSequence = 0;
-            if (props->assembly.GetInt32Attribute(props->pt, L"Windows.Foundation.Metadata.LengthIsAttribute", lengthIsParamterSequence))
+            if (props->assembly.GetInt32Attribute(props->pt, _u("Windows.Foundation.Metadata.LengthIsAttribute"), lengthIsParamterSequence))
             {
                 // Array type with LengthIs parameter
 
@@ -1349,7 +1349,7 @@ namespace ProjectionModel
                 // TODO: The iterator takes the object instead of reference. we should change the iterator to take/pass & vnext. 
                 if (rtcNameId != MetadataStringIdNil)
                 {
-                    TRACE_METADATA(L"found exclusiveto %s", stringConverter->StringOfId(rtcNameId));
+                    TRACE_METADATA(_u("found exclusiveto %s"), stringConverter->StringOfId(rtcNameId));
                     deprecatedAttributes->Iterate([&](DeprecatedAttribute& deprecatedAttribute) 
                     {
                         deprecatedAttribute.rtcNameId = rtcNameId;
@@ -1443,11 +1443,11 @@ namespace ProjectionModel
         auto parameters = ImmutableList<RtSYNTHETICPARAMETER>::Empty();
         for(size_t i = 0; i<maxArity; ++i)
         {
-            LPCWSTR base = L"param";
-            wchar_t scratch[20];
+            LPCWSTR base = _u("param");
+            char16 scratch[20];
             _itow_s((int)maxArity - (int)i, scratch, 20, 10); /* ECMA-335 II.22.33: Arity constrained to 65535, conversion to int is safe */
-            wchar_t paramName[25];
-            swprintf_s(paramName, 25, L"%s%s", base, scratch);
+            char16 paramName[25];
+            swprintf_s(paramName, 25, _u("%s%s"), base, scratch);
             MetadataStringId paramNameId = stringConverter->IdOfString(paramName);
 
             auto parameter = Anew(allocator, SyntheticParameter, paramNameId, typeObject);
@@ -1630,7 +1630,7 @@ namespace ProjectionModel
         size_t qualifiedNameLen = wcslen(path) + wcslen(name) + 2;
         AutoHeapString qualifiedName;
         qualifiedName.CreateNew(qualifiedNameLen);
-        swprintf_s(qualifiedName.Get(), qualifiedName.GetLength(), L"%s%c%s", path, L'.', name);
+        swprintf_s(qualifiedName.Get(), qualifiedName.GetLength(), _u("%s%c%s"), path, _u('.'), name);
         return stringConverter->IdOfString(qualifiedName.Get());
     }
 
@@ -1779,7 +1779,7 @@ namespace ProjectionModel
             CheckForDuplicateTypeId checker(&implementedInterfaceConstructorsCheck);
             if (checker.AddTypeId(type->id, genericParameters, allocator, this->stringConverter) )
             {
-                OUTPUT_TRACE(ProjectionMetadataPhase, L"Detected duplicate type %s (#%d)\n", this->stringConverter->StringOfId(type->id), type->id);
+                OUTPUT_TRACE(ProjectionMetadataPhase, _u("Detected duplicate type %s (#%d)\n"), this->stringConverter->StringOfId(type->id), type->id);
             }
 
             auto interfacesImplemented = assembly.InterfacesImplemented(token);
@@ -1789,7 +1789,7 @@ namespace ProjectionModel
                         if (!IsWithinTargetVersion(ii, assembly))
                         {
                             OUTPUT_TRACE(Js::ProjectionMetadataPhase, 
-                                L"IsWithinTargetVersion(%s (#%d), mdInterfaceImpl=0x%04X) == false\n",
+                                _u("IsWithinTargetVersion(%s (#%d), mdInterfaceImpl=0x%04X) == false\n"),
                                 this->stringConverter->StringOfId(type->id),
                                 type->id,
                                 ii);
@@ -1805,7 +1805,7 @@ namespace ProjectionModel
                         if (nullptr != defaultInterface)
                         {
                             // See if this is the default interface
-                            if (assembly.IsAttributePresent(ii, L"Windows.Foundation.Metadata.DefaultAttribute"))
+                            if (assembly.IsAttributePresent(ii, _u("Windows.Foundation.Metadata.DefaultAttribute")))
                             {
                                 *defaultInterface = constructedInterface;
                             }
@@ -1981,7 +1981,7 @@ namespace ProjectionModel
                 });
                 Js::VerifyCatastrophic(iterableInterface.HasValue());
                 auto icIterable =  RuntimeInterfaceConstructor::From(*(iterableInterface.GetValue()));
-                if (wcsncmp(stringConverter->StringOfId(icIterable->typeId), L"Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,",
+                if (wcsncmp(stringConverter->StringOfId(icIterable->typeId), _u("Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String,"),
                     97 /* length of string :  "Windows.Foundation.Collections.IIterable`1<Windows.Foundation.Collections.IKeyValuePair`2<String," */) == 0)
                 {
                     if (specializationIID->piid == IID_IMap2)
@@ -2153,11 +2153,11 @@ namespace ProjectionModel
                 {
                     MetadataStringId pathDotName = PathDotName(fullTypeNameId, prop->identifier, alloc, strConverter);
 
-                    TraceRtPROPERTY(prop, L"RTProperty with name conflict", strConverter, alloc);
-                    TRACE_METADATA(L"RTProperty conflict resolution: %s -> %s\n", stringConverter->StringOfId(prop->identifier), stringConverter->StringOfId(pathDotName));
+                    TraceRtPROPERTY(prop, _u("RTProperty with name conflict"), strConverter, alloc);
+                    TRACE_METADATA(_u("RTProperty conflict resolution: %s -> %s\n"), stringConverter->StringOfId(prop->identifier), stringConverter->StringOfId(pathDotName));
 
                     bool isConflictingFromParentOrBuildin = isConflictingPropertyFromParentOrBuildIn(prop);
-                    TRACE_METADATA(L"RTProperty - isStatic=%d, prop->propertyType=%d, isConflictingPropertyFromParentOrBuildIn()=%d\n",
+                    TRACE_METADATA(_u("RTProperty - isStatic=%d, prop->propertyType=%d, isConflictingPropertyFromParentOrBuildIn()=%d\n"),
                         isStatic,
                         prop->propertyType,
                         isConflictingFromParentOrBuildin);
@@ -2260,13 +2260,13 @@ namespace ProjectionModel
 
                         // get the name for on eventhandler
                         onEventHandlerName.Append(stringConverter->StringOfId(fullTypeNameId));
-                        onEventHandlerName.Append(L".on");
+                        onEventHandlerName.Append(_u(".on"));
                         onEventHandlerName.Append(stringConverter->StringOfId(selectedEvent->nameId));
                     }
                     else
                     {
                         // get the name for on eventhandler
-                        onEventHandlerName.Append(L"on");
+                        onEventHandlerName.Append(_u("on"));
                         onEventHandlerName.Append(stringConverter->StringOfId(selectedEvent->nameId));
                     }
 
@@ -2324,7 +2324,7 @@ namespace ProjectionModel
         {
             renamedPropertiesToBeRemoved->Iterate([&](ConflictingPropertyInfo* conflictingPropertyInfoToBeRemoved) {
                 Assert(conflictingPropertyInfoToBeRemoved != nullptr);
-                TRACE_METADATA(L"Renamed property %s (#%d) from projected properties - to be removed?\n",
+                TRACE_METADATA(_u("Renamed property %s (#%d) from projected properties - to be removed?\n"),
                     stringConverter->StringOfId(conflictingPropertyInfoToBeRemoved->fullNameId),
                     conflictingPropertyInfoToBeRemoved->fullNameId);
 
@@ -2345,7 +2345,7 @@ namespace ProjectionModel
                         return areSameIdentifier(conflictingPropertyInfoToBeRemoved->prop->identifier, aliasedMetadataStringId);
                     });
 
-                    TRACE_METADATA(L"Renamed property %s (#%d) from projected properties was aliased as %s (#%d) %d time(s)\n",
+                    TRACE_METADATA(_u("Renamed property %s (#%d) from projected properties was aliased as %s (#%d) %d time(s)\n"),
                         stringConverter->StringOfId(conflictingPropertyInfoToBeRemoved->fullNameId),
                         conflictingPropertyInfoToBeRemoved->fullNameId,
                         stringConverter->StringOfId(conflictingPropertyInfoToBeRemoved->prop->identifier),
@@ -2355,7 +2355,7 @@ namespace ProjectionModel
                     if (numberAliasedMatch > 0)
                     {
                         allMembers->RemoveValueInPlace(match);
-                        TraceRtPROPERTY(match, L"Removed renamed property", stringConverter, allocator);
+                        TraceRtPROPERTY(match, _u("Removed renamed property"), stringConverter, allocator);
                     }
                 }
             });
@@ -2446,7 +2446,7 @@ namespace ProjectionModel
             auto parameter = Anew(allocator, AbiParameter, constructorResultId, byRefType, false, true, 0);
             auto allParams = ToImmutableList(parameter, allocator);
             auto signature = Anew(allocator, AbiMethodSignature, constructorNameId, nullptr, &simpleActivatableIID, 0, 0, false, type->id,
-                ctorMetadataId, Anew(allocator, Parameters, allParams->Cast<RtPARAMETER>(), rttype, sizeof(LPVOID), L"-Class"), nullptr, deprecatedAttributes, MethodKind_Normal);
+                ctorMetadataId, Anew(allocator, Parameters, allParams->Cast<RtPARAMETER>(), rttype, sizeof(LPVOID), _u("-Class")), nullptr, deprecatedAttributes, MethodKind_Normal);
             allSignatures = allSignatures->Prepend(signature, allocator);
         }
 
@@ -2507,7 +2507,7 @@ namespace ProjectionModel
             return nullptr;
         }
 
-        wchar_t* interfaceName = HeapNewArray(wchar_t, strLen+1);
+        char16* interfaceName = HeapNewArray(char16, strLen+1);
         int chInterfaceName = MultiByteToWideChar(CP_UTF8, 0, (char*)(stringArg), strLen, interfaceName, strLen + 1);
         Js::VerifyCatastrophic(chInterfaceName > 0);
         __analysis_assume((ULONG)chInterfaceName <= strLen);
@@ -2540,14 +2540,14 @@ namespace ProjectionModel
             return MetadataStringIdNil;
         }
 
-        auto stringName = HeapNewArray(wchar_t, strLen+1);
+        auto stringName = HeapNewArray(char16, strLen+1);
         auto chStringName = MultiByteToWideChar(CP_UTF8, 0, (char*)(stringArg), strLen, stringName, strLen+1);
         Js::VerifyCatastrophic(chStringName > 0);
         __analysis_assume((ULONG)chStringName <=strLen);
         stringName[chStringName] = L'\0';
 
         MetadataStringId rtcNameId = stringConverter->IdOfString(stringName);
-        TRACE_METADATA(L"runtime class name from exclusiveto: %s, id=%d n", stringName, rtcNameId);
+        TRACE_METADATA(_u("runtime class name from exclusiveto: %s, id=%d n"), stringName, rtcNameId);
         HeapDeleteArray(strLen+1, stringName);
         return rtcNameId;
     }
@@ -2560,14 +2560,14 @@ namespace ProjectionModel
     {
         LPCWSTR typeName = stringConverter->StringOfId(typeNameId);
 
-        auto dot = wcschr(typeName, L'.');
+        auto dot = wcschr(typeName, _u('.'));
         if (nullptr != dot)
         {
             auto length = dot-typeName;
             if (length == 7)
             {
                 // check if it is Windows
-                return (wcsncmp(typeName, L"Windows", 7) == 0);
+                return (wcsncmp(typeName, _u("Windows"), 7) == 0);
             }
         }
 
@@ -2651,7 +2651,7 @@ namespace ProjectionModel
         }
 
         DeprecatedAttribute deprecatedAttribute;
-        deprecatedAttribute.infoString = AnewArrayZ(allocator, wchar_t, strLen+1);
+        deprecatedAttribute.infoString = AnewArrayZ(allocator, char16, strLen+1);
         Assert(strLen != 0);
         auto chName = MultiByteToWideChar(CP_UTF8, 0, deprecatedText, strLen, deprecatedAttribute.infoString, strLen+1);
         __analysis_assume(chName < (INT)strLen);
@@ -2734,7 +2734,7 @@ namespace ProjectionModel
             Js::Throw::FatalProjectionError();
         }
 
-        TRACE_METADATA(L"Param 0 type: %x, 1 type: %x, conv: %x, argCount: %d\n", param0, param1, callConv, argCount);
+        TRACE_METADATA(_u("Param 0 type: %x, 1 type: %x, conv: %x, argCount: %d\n"), param0, param1, callConv, argCount);
 
         return constructorType;
     }
@@ -2804,7 +2804,7 @@ namespace ProjectionModel
                 {                    
                     if (isContractVersioned || (!assembly.isVersioned || (TryGetDWORDValueFromAttribute(attr) <= targetVersion)))
                     {
-                        TRACE_METADATA(L"isSimpleActivatable = true\n");
+                        TRACE_METADATA(_u("isSimpleActivatable = true\n"));
                         customAttributeInfo->isSimpleActivatable = true;
                     }
                 }
@@ -2815,7 +2815,7 @@ namespace ProjectionModel
                     auto interfaceDef = TryGetInterfaceTypeDefPropertiesFromAttribute(attr, isContractVersioned);
                     if (interfaceDef)
                     {
-                        TRACE_METADATA(L"Found factory interface %s\n", interfaceDef->typeName_Debug);
+                        TRACE_METADATA(_u("Found factory interface %s\n"), interfaceDef->typeName_Debug);
                         *factoryInterfaces = (*factoryInterfaces)->Prepend(interfaceDef, allocator);
                     }
                 }
@@ -2833,18 +2833,18 @@ namespace ProjectionModel
                 auto interfaceDef = TryGetInterfaceTypeDefPropertiesFromAttribute(attr, (type & AttributeConstructorType::ContractVersioned) != 0);
                 if (interfaceDef)
                 {
-                    TRACE_METADATA(L"Found static interface %s\n", interfaceDef->typeName_Debug);
+                    TRACE_METADATA(_u("Found static interface %s\n"), interfaceDef->typeName_Debug);
                     *staticInterfaces = (*staticInterfaces)->Prepend(interfaceDef, allocator);
                 }
             }
             else if (webHostHiddenAttributeId == attr->attributeTypeId && !IgnoreWebHidden())
             {
-                TRACE_METADATA(L"isWebHostHidden = true\n");
+                TRACE_METADATA(_u("isWebHostHidden = true\n"));
                 customAttributeInfo->isWebHostHidden = true;
             }
             else if (allowForWebAttributeId == attr->attributeTypeId && EnforceAllowForWeb())
             {
-                TRACE_METADATA(L"isAllowForWeb = true\n");
+                TRACE_METADATA(_u("isAllowForWeb = true\n"));
                 customAttributeInfo->isAllowForWeb = true;
             }
             else if (gcPressureAttributeId == attr->attributeTypeId)
@@ -2852,13 +2852,13 @@ namespace ProjectionModel
                 if (InWindowsNamespace(typeNameId))
                 {
                     customAttributeInfo->gcPressure = TryGetValueFromCustomEnumAttribute(attr);
-                    TRACE_METADATA(L"gcPressure = %d\n", customAttributeInfo->gcPressure);
+                    TRACE_METADATA(_u("gcPressure = %d\n"), customAttributeInfo->gcPressure);
                 }
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
                 else if (Js::Configuration::Global.flags.EnableThirdPartyGCPressure)
                 {
                     customAttributeInfo->gcPressure = TryGetValueFromCustomEnumAttribute(attr);
-                    TRACE_METADATA(L"gcPressure = %d\n", customAttributeInfo->gcPressure);
+                    TRACE_METADATA(_u("gcPressure = %d\n"), customAttributeInfo->gcPressure);
                 }
 #endif
             }
@@ -2869,16 +2869,16 @@ namespace ProjectionModel
             else if (assembly.isVersioned && (versionAttributeId == attr->attributeTypeId))
             {
                 customAttributeInfo->version = TryGetDWORDValueFromAttribute(attr);
-                TRACE_METADATA(L"version = %d\n", customAttributeInfo->version);
+                TRACE_METADATA(_u("version = %d\n"), customAttributeInfo->version);
             }
             else if (contractVersionAttributeId == attr->attributeTypeId)
             {
-                TRACE_METADATA(L"Contract attribute seen\n");
+                TRACE_METADATA(_u("Contract attribute seen\n"));
                 customAttributeInfo->isContractVersioned = true;
             }
             else if (previousContractVersionAttributeId == attr->attributeTypeId)
             {
-                TRACE_METADATA(L"Previous contract attribute seen\n");
+                TRACE_METADATA(_u("Previous contract attribute seen\n"));
             }
 
             // Ignore other attributes
@@ -2983,7 +2983,7 @@ namespace ProjectionModel
 
         ImmutableList<RtPROPERTY>* retValue = ImmutableList<RtPROPERTY>::Empty();
 
-        TraceRtOVERLOADPARENTPROPERTY(overloadedParentProperty, L"PropertiesOfOverload() invoked", stringConverter, allocator);
+        TraceRtOVERLOADPARENTPROPERTY(overloadedParentProperty, _u("PropertiesOfOverload() invoked"), stringConverter, allocator);
 
         if (overloadedParentProperty != nullptr &&
             overloadedParentProperty->overloadConstructor != nullptr &&
@@ -3000,7 +3000,7 @@ namespace ProjectionModel
 
                 auto newAbiMethodProperty = RtAnew(allocator, AbiMethodProperty, id, function);
 
-                TraceRtABIMETHODPROPERTY(newAbiMethodProperty, L"PropertiesOfOverload() generated", stringConverter, allocator);
+                TraceRtABIMETHODPROPERTY(newAbiMethodProperty, _u("PropertiesOfOverload() generated"), stringConverter, allocator);
 
                 retValue = retValue->Prepend(newAbiMethodProperty, allocator);
             });
@@ -3028,7 +3028,7 @@ namespace ProjectionModel
                 return prior->AppendListToCurrentList(overloadedAsAbiMethods);
         });
 
-        TraceRtABIMETHODPROPERTY(accumulatedAbiMethods, L"PropertiesOfOverloadsAndMethods() resultset", stringConverter, allocator);
+        TraceRtABIMETHODPROPERTY(accumulatedAbiMethods, _u("PropertiesOfOverloadsAndMethods() resultset"), stringConverter, allocator);
 
         return accumulatedAbiMethods;
     }
@@ -3051,14 +3051,14 @@ namespace ProjectionModel
                 ->GroupByAdjacentOnCurrentList(PropertyEqualsById,allocator)
                 ->Select<RtPROPERTY>([&](ImmutableList<RtPROPERTY> * propertyGroup)->RtPROPERTY {
                     size_t propertyGroupCount = propertyGroup->Count();
-                    TRACE_METADATA(L"ResolveAliases - PROP group %s (#%d) with %d member(s)\n",
-                        propertyGroupCount == 0 ? L"<NULL>" : stringConverter->StringOfId(propertyGroup->First()->identifier),
+                    TRACE_METADATA(_u("ResolveAliases - PROP group %s (#%d) with %d member(s)\n"),
+                        propertyGroupCount == 0 ? _u("<NULL>") : stringConverter->StringOfId(propertyGroup->First()->identifier),
                         propertyGroupCount == 0 ? 0 : propertyGroup->First()->identifier,
                         propertyGroupCount);
 
                     if(propertyGroupCount == 1)
                     {
-                        TraceRtPROPERTY(propertyGroup->First(), L"ResolveAliases - PROP", stringConverter, allocator);
+                        TraceRtPROPERTY(propertyGroup->First(), _u("ResolveAliases - PROP"), stringConverter, allocator);
                         return propertyGroup->First();
                     }
                     else
@@ -3083,7 +3083,7 @@ namespace ProjectionModel
                                 }
                                 // Handle case in which properties or events appear with same name as a method or eachother.
                                 // This is technically disallowed, but seen in a C# hybrid winmd.
-                                TraceRtPROPERTY(propertyGroup->First(), L"ResolveAliases - Unresolvable", stringConverter, alloc);
+                                TraceRtPROPERTY(propertyGroup->First(), _u("ResolveAliases - Unresolvable"), stringConverter, alloc);
 
                                 return RtAnew(alloc, UnresolvableNameConflictProperty, propertyGroup->First()->identifier, exprNull, propertyGroup);
                             }
@@ -3131,14 +3131,14 @@ namespace ProjectionModel
                                     {
                                         // shadowing
 #if DBG
-                                        TRACE_METADATA(L"ResolveAliases - ArityGroup with %d parameters - no aliasing due to overloads across multiple interfaces\n",
+                                        TRACE_METADATA(_u("ResolveAliases - ArityGroup with %d parameters - no aliasing due to overloads across multiple interfaces\n"),
                                             groupsOfSameArity->First()->inParameterCount);
                                         int index = 0;
                                         AssertMsg(groupsOfSameArity->Count() < 65537, "Invalid metadata: Maximum number of arity groups is 65536; arity may be 0...65535, due to 2-byte encoding of method parameter name indices.");
                                         int count = (int)groupsOfSameArity->Count();
                                         groupsOfSameArity->Iterate([&](RtABIMETHODSIGNATURE sig) {
                                             LPCWSTR str = TraceRtABIMETHODSIGNATURE(sig, stringConverter, alloc);
-                                            TRACE_METADATA(L"ResolveAliases - %d#%d - %s\n", index, count, str);
+                                            TRACE_METADATA(_u("ResolveAliases - %d#%d - %s\n"), index, count, str);
                                             index++;
                                             DefaultImmutableStringBuilder::FreeString(allocator, str, wcslen(str));
                                         });
@@ -3161,7 +3161,7 @@ namespace ProjectionModel
 
                             ProjectionModel::Property* ignoredProperty = const_cast<ProjectionModel::Property*>(prop);
                             ignoredProperty->propertyType = ptNone;
-                            TRACE_METADATA(L"ResolveAliases - marking %s (#%d) as not to be aliased\n", stringConverter->StringOfId(prop->identifier), prop->identifier);
+                            TRACE_METADATA(_u("ResolveAliases - marking %s (#%d) as not to be aliased\n"), stringConverter->StringOfId(prop->identifier), prop->identifier);
 
                             return ignoredProperty;
                         }
@@ -3181,7 +3181,7 @@ namespace ProjectionModel
                         auto overloadGroupConstructor = Anew(alloc, OverloadGroupConstructor, overloadMethodSignature, overloadFunctionProperties);
                         RtOVERLOADPARENTPROPERTY newOverloadParentProperty = RtAnew(alloc, OverloadParentProperty, nameId, overloadGroupConstructor);
 
-                        TraceRtPROPERTY(newOverloadParentProperty, L"ResolveAliases - new OPP", stringConverter, alloc);
+                        TraceRtPROPERTY(newOverloadParentProperty, _u("ResolveAliases - new OPP"), stringConverter, alloc);
 
                         return newOverloadParentProperty;
                     }
@@ -3218,9 +3218,9 @@ namespace ProjectionModel
         return find.hasEventHandlers;
     }
 
-    bool CharIsLowerCase(wchar_t c)
+    bool CharIsLowerCase(char16 c)
     {
-        wchar_t upper = c;
+        char16 upper = c;
 #if DBG
         DWORD converted =
 #endif
@@ -3248,13 +3248,13 @@ namespace ProjectionModel
         wcscpy_s(camelCasedName.Get(), nameLength + 1, name);
 
         // Camel case the last segment if there are dots
-        auto camelInsertionPoint = const_cast<wchar_t*>(LastSegmentByDot(camelCasedName.Get()));
+        auto camelInsertionPoint = const_cast<char16*>(LastSegmentByDot(camelCasedName.Get()));
         nameLength = wcslen(camelInsertionPoint);
 
         // Lowercase the entire uppercase prefix of the identifier,
         // unless the identifier begins with exactly 3 uppercase letters followed by a lowercase letter.
         // For this case, lowercase only the first two letters of the 3-letter prefix.
-        wchar_t currCharLower = camelInsertionPoint[0];
+        char16 currCharLower = camelInsertionPoint[0];
 
 #if DBG
         DWORD converted =
@@ -3276,7 +3276,7 @@ namespace ProjectionModel
             Assert(i < (nameLength-1));
 
             // Indexing to (i+1) is now safe, because we will not reach this point if this was the last character
-            wchar_t nextCharLower = camelInsertionPoint[i + 1];
+            char16 nextCharLower = camelInsertionPoint[i + 1];
 #if DBG
             converted =
 #endif
@@ -3407,7 +3407,7 @@ namespace ProjectionModel
     void ProjectionBuilder::InjectIBufferByteLengthProperty(const Metadata::TypeDefProperties * type,
                                                             ImmutableList<RtPROPERTY> * & instanceProperties)
     {
-        TRACE_METADATA(L"IBuffer byteLength injection: IBuffer interface detected, beginning property injection\n");
+        TRACE_METADATA(_u("IBuffer byteLength injection: IBuffer interface detected, beginning property injection\n"));
 
         // Check for an existing byteLength property
         bool conflict = instanceProperties->ContainsWhere([&](RtPROPERTY property)->bool {
@@ -3416,7 +3416,7 @@ namespace ProjectionModel
 
         if (conflict)
         {
-            TRACE_METADATA(L"IBuffer byteLength injection: Conflicting byteLength property detected, resolving conflict\n");
+            TRACE_METADATA(_u("IBuffer byteLength injection: Conflicting byteLength property detected, resolving conflict\n"));
 
             // Generate the new id name
             MetadataStringId newName = PathDotName(type->id, byteLengthId, allocator, stringConverter);
@@ -3428,7 +3428,7 @@ namespace ProjectionModel
             instanceProperties->SelectInPlace([&](RtPROPERTY property)->RtPROPERTY {
                 MetadataStringId camelCasedId = CamelCaseString(property->identifier, allocator, stringConverter, idToCamelCasedId);
                 if (camelCasedId == byteLengthId) {
-                    TRACE_METADATA(L"IBuffer byteLength injection: Conflict resolved; %s -> %s\n",
+                    TRACE_METADATA(_u("IBuffer byteLength injection: Conflict resolved; %s -> %s\n"),
                             stringConverter->StringOfId(camelCasedId),
                             stringConverter->StringOfId(newName));
                     return CreateRenamedPropertyIdentifierAsCopy(property, newName, allocator);
@@ -3447,7 +3447,7 @@ namespace ProjectionModel
         }, allocator)->ToSingle();
 
         instanceProperties = instanceProperties->Prepend(capacityProperty, allocator);
-        TRACE_METADATA(L"IBuffer byteLength injection: Capacity clone byteLength has been successfully injected.\n");
+        TRACE_METADATA(_u("IBuffer byteLength injection: Capacity clone byteLength has been successfully injected.\n"));
     }
 
     // Info:        Get the constructor function for this runtime class
@@ -3458,14 +3458,14 @@ namespace ProjectionModel
         ImmutableList<const Metadata::TypeDefProperties*> * factoryInterfaceTypeDefs = nullptr;
         ImmutableList<const Metadata::TypeDefProperties*> * staticInterfaceTypeDefs = nullptr;
 
-        TRACE_METADATA(L"Enter ExprOfRuntimeClass(%s (#%d))\n", type->typeName_Debug, type->id);
+        TRACE_METADATA(_u("Enter ExprOfRuntimeClass(%s (#%d))\n"), type->typeName_Debug, type->id);
 
         RtTYPECONSTRUCTOR cachedExpr;
         if (runtimeClassCache->TryGetValue(type->id, &cachedExpr))
         {
             Js::VerifyCatastrophic(cachedExpr->typeId == type->id);
 
-            TRACE_METADATA(L"Leave ExprOfRuntimeClass(%s (#%d)) (found in cache)\n", type->typeName_Debug, type->id);
+            TRACE_METADATA(_u("Leave ExprOfRuntimeClass(%s (#%d)) (found in cache)\n"), type->typeName_Debug, type->id);
 
             return cachedExpr;
         }
@@ -3484,7 +3484,7 @@ namespace ProjectionModel
 
         if (isHidden)
         {
-            TRACE_METADATA(L"Leave ExprOfRuntimeClass(%s (#%d)) (hidden type)\n", type->typeName_Debug, type->id);
+            TRACE_METADATA(_u("Leave ExprOfRuntimeClass(%s (#%d)) (hidden type)\n"), type->typeName_Debug, type->id);
 
             auto result = ConstructorOfMissingTypeDef(type, true /*isWebHidden*/);
             runtimeClassCache->Item(type->id, result);
@@ -3688,7 +3688,7 @@ namespace ProjectionModel
         {
             if (deferredCtorExpr->IsPass1())
             {
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"DeferredCTOR - PASS 1 (w/o cycles) completed for RTC %s (#%d) - deferredType = %d\n", 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for RTC %s (#%d) - deferredType = %d\n"), 
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 Assert(deferredCtorExpr->deferredType == dpcetRuntimeClass);
                 // store the 'low-fi' RtEXPR, and restart the ConstructorOfInterface logic
@@ -3696,7 +3696,7 @@ namespace ProjectionModel
                 deferredCtorExpr->minimalRtEXPR = result;
 
                 // call the same method for doing pass 2
-                TRACE_METADATA(L"Leave ExprOfRuntimeClass for %s (#%d) (built from scratch - deferred - PASS 1 - no cache)\n", type->typeName_Debug, type->id);
+                TRACE_METADATA(_u("Leave ExprOfRuntimeClass for %s (#%d) (built from scratch - deferred - PASS 1 - no cache)\n"), type->typeName_Debug, type->id);
                 auto postDeferResult = ExprOfRuntimeClass(type);
 
                 return postDeferResult;
@@ -3705,7 +3705,7 @@ namespace ProjectionModel
             {
                 Assert(deferredCtorExpr->IsPass2());
                 Assert(deferredCtorExpr->deferredType == dpcetRuntimeClass);
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"DeferredCTOR - PASS 2 completed for RTC %s (#%d) - deferredType = %d\n", 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for RTC %s (#%d) - deferredType = %d\n"), 
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 // deferred ctor initialization completed - clean up
                 DeleteFromDeferredConstructorMap(type->id);
@@ -3715,7 +3715,7 @@ namespace ProjectionModel
         // add to cache - either no deferred parsing or deferred parsing pass 2 completed
         runtimeClassCache->Item(type->id, result);
 
-        TRACE_METADATA(L"Leave ExprOfRuntimeClass(%s (#%d)) (built from scratch)\n", type->typeName_Debug, type->id);
+        TRACE_METADATA(_u("Leave ExprOfRuntimeClass(%s (#%d)) (built from scratch)\n"), type->typeName_Debug, type->id);
 
         return result;
     }
@@ -3794,7 +3794,7 @@ namespace ProjectionModel
             return true;
         }
 
-        return !assembly.isVersioned || !assembly.GetDWORDAttribute(token, L"Windows.Foundation.Metadata.VersionAttribute", version) || (version <= targetVersion);
+        return !assembly.isVersioned || !assembly.GetDWORDAttribute(token, _u("Windows.Foundation.Metadata.VersionAttribute"), version) || (version <= targetVersion);
     }
 
     bool ProjectionBuilder::CanMarshalExpr(RtEXPR expr, bool fAllowGenericType, bool allowMissingTypes, bool *outWasMissingType, bool allowWebHidden)
@@ -4033,7 +4033,7 @@ namespace ProjectionModel
                 return prior->Prepend(newGroup,allocator);
             });
         
-        TRACE_METADATA(L"MethodsOfInterface(%s, %s), result count: %d\n", interfaceDef->typeName_Debug, stringConverter->StringOfId(invokeId), overloadsByNameThenArity->Count());
+        TRACE_METADATA(_u("MethodsOfInterface(%s, %s), result count: %d\n"), interfaceDef->typeName_Debug, stringConverter->StringOfId(invokeId), overloadsByNameThenArity->Count());
 
         return overloadsByNameThenArity;
     }
@@ -4062,7 +4062,7 @@ namespace ProjectionModel
         WCHAR guidStr[MaxGuidLength];
         StringFromGUID2(iid->piid, guidStr, ARRAYSIZE(guidStr));
 
-        TRACE_METADATA(L"PropertyOfPropertyProperties(%s, %s, count=%d), result: %d\n", 
+        TRACE_METADATA(_u("PropertyOfPropertyProperties(%s, %s, count=%d), result: %d\n"), 
             guidStr, 
             stringConverter->StringOfId(propertyProperties->id), 
             genericParameters->Count(), 
@@ -4158,7 +4158,7 @@ namespace ProjectionModel
                     wcsncpy_s(dottedNameStr, dottedName.GetLength(), currentEventName, dottedName.GetLength() - 1);
                     onEventHandlerName.Append(dottedNameStr);
                 }
-                onEventHandlerName.Append(L"on");
+                onEventHandlerName.Append(_u("on"));
                 onEventHandlerName.Append(eventInsertionPoint);
                 MetadataStringId onEventHandlerId = stringConverter->IdOfString(onEventHandlerName.Get<ArenaAllocator>(allocator));
                 RtPROPERTY eventHandlerProperty = RtAnew(allocator, AbiEventHandlerProperty, onEventHandlerId, exprNull, currentEvent);
@@ -4189,7 +4189,7 @@ namespace ProjectionModel
     // Parameters:  type - typedef for the interface
     RtINTERFACECONSTRUCTOR ProjectionBuilder::ConstructorOfInterface(const Metadata::TypeDefProperties * type, ImmutableList<RtTYPE> * genericParameters)
     {
-        TRACE_METADATA(L"Enter ConstructorOfInterface for %s (#%d)\n", type->typeName_Debug, type->id);
+        TRACE_METADATA(_u("Enter ConstructorOfInterface for %s (#%d)\n"), type->typeName_Debug, type->id);
 
         // Get the type for this interface
         auto instantiation = InstantiateTypeDefinition(type, genericParameters);
@@ -4201,7 +4201,7 @@ namespace ProjectionModel
         {
             Js::VerifyCatastrophic(constructor->typeId == typeId);
 
-            TRACE_METADATA(L"Leave ConstructorOfInterface for %s (#%d) (found in cache)\n", type->typeName_Debug, type->id);
+            TRACE_METADATA(_u("Leave ConstructorOfInterface for %s (#%d) (found in cache)\n"), type->typeName_Debug, type->id);
 
             return constructor;
         }
@@ -4214,21 +4214,21 @@ namespace ProjectionModel
             auto result = Anew(allocator, MissingInterfaceConstructor, typeId, uncallableMethodSignature, emptyPropertiesObject, true);
             interfaceCache->Item(typeId, result);
 
-            TRACE_METADATA(L"Leave ConstructorOfInterface for %s (#%d) (hidden interface)\n", type->typeName_Debug, type->id);
+            TRACE_METADATA(_u("Leave ConstructorOfInterface for %s (#%d) (hidden interface)\n"), type->typeName_Debug, type->id);
 
             return result;
         }
 
         // Get the iid for this interface
         auto iid = Anew(allocator, InstantiatedIID);
-        type->assembly.GetGuidAttributeValue(type->td,  L"Windows.Foundation.Metadata.GuidAttribute", iid->piid);
+        type->assembly.GetGuidAttributeValue(type->td,  _u("Windows.Foundation.Metadata.GuidAttribute"), iid->piid);
         iid->instantiated = iid->piid;
 
 #if OUTPUT_TRACE_DEBUGONLY_ENABLED
         {
             WCHAR guidStr[MaxGuidLength];
             StringFromGUID2(iid->piid, guidStr, ARRAYSIZE(guidStr));
-            TRACE_METADATA(L"ConstructorOfInterface %s (#%d) - piid = %s\n", type->typeName_Debug, type->id, guidStr);
+            TRACE_METADATA(_u("ConstructorOfInterface %s (#%d) - piid = %s\n"), type->typeName_Debug, type->id, guidStr);
         }
 #endif
 
@@ -4258,7 +4258,7 @@ namespace ProjectionModel
                 if (deferredExpr != nullptr)
                 {
                     OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, 
-                        L"ConstructorOfInterface %s (#%d) using deferred type as generic instantiation type %s (#%d) currently deferred initialized\n",
+                        _u("ConstructorOfInterface %s (#%d) using deferred type as generic instantiation type %s (#%d) currently deferred initialized\n"),
                         type->typeName_Debug, type->id,
                         this->stringConverter->StringOfId(genericInstantiationType->fullTypeNameId), genericInstantiationType->fullTypeNameId);
                     return true;
@@ -4289,7 +4289,7 @@ namespace ProjectionModel
         // Handle IBuffer case
         if (typeId == iBufferId)
         {
-            TRACE_METADATA(L"IBuffer byteLength injection: IBuffer interface detected, beginning property injection\n");
+            TRACE_METADATA(_u("IBuffer byteLength injection: IBuffer interface detected, beginning property injection\n"));
             // We have an IBuffer.. find capacity prop
             RtPROPERTY capacityProperty = ownProperties->SelectNotNull<RtPROPERTY>([&](RtPROPERTY property)->RtPROPERTY {
                 if (property->identifier == capacityId)
@@ -4300,7 +4300,7 @@ namespace ProjectionModel
             }, allocator)->ToSingle();
 
             ownProperties = ownProperties->Prepend(capacityProperty, allocator);
-            TRACE_METADATA(L"IBuffer byteLength injection: Capacity clone byteLength has been successfully injected.\n");
+            TRACE_METADATA(_u("IBuffer byteLength injection: Capacity clone byteLength has been successfully injected.\n"));
         }
 
         // Get all parent properties
@@ -4321,10 +4321,10 @@ namespace ProjectionModel
             }));
 
             // Un-rename any IBuffer byteLength properties that were conflicted.
-            static MetadataStringId conflictediBufferId = stringConverter->IdOfString(L"Windows.Storage.Streams.IBuffer.byteLength");
+            static MetadataStringId conflictediBufferId = stringConverter->IdOfString(_u("Windows.Storage.Streams.IBuffer.byteLength"));
             allProperties->SelectInPlace([&](RtPROPERTY property)->RtPROPERTY {
                if (property->identifier == conflictediBufferId) {
-                   TRACE_METADATA(L"IBuffer byteLength injection: Fully qualified IBuffer byteLength property detected; renaming back to 'byteLength'\n");
+                   TRACE_METADATA(_u("IBuffer byteLength injection: Fully qualified IBuffer byteLength property detected; renaming back to 'byteLength'\n"));
                    return CreateRenamedPropertyIdentifierAsCopy(property, byteLengthId, allocator);
                }
                return property;
@@ -4355,7 +4355,7 @@ namespace ProjectionModel
         {
             if (deferredCtorExpr->IsPass1())
             {
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"DeferredCTOR - PASS 1 (w/o cycles) completed for %s (#%d) - deferredType = %d\n", 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for %s (#%d) - deferredType = %d\n"), 
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 Assert(deferredCtorExpr->deferredType == dpcetInterface);
                 // store the 'low-fi' RtEXPR, and restart the ConstructorOfInterface logic
@@ -4363,7 +4363,7 @@ namespace ProjectionModel
                 deferredCtorExpr->minimalRtEXPR = result;
 
                 // call the same method for doing pass 2
-                TRACE_METADATA(L"Leave ConstructorOfInterface for %s (#%d) (built from scratch - deferred - PASS 1 - no cache)\n", type->typeName_Debug, type->id);
+                TRACE_METADATA(_u("Leave ConstructorOfInterface for %s (#%d) (built from scratch - deferred - PASS 1 - no cache)\n"), type->typeName_Debug, type->id);
                 auto postDeferResult = ConstructorOfInterface(type, genericParameters);
 
                 return postDeferResult;
@@ -4372,7 +4372,7 @@ namespace ProjectionModel
             {
                 Assert(deferredCtorExpr->IsPass2());
                 Assert(deferredCtorExpr->deferredType == dpcetInterface);
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"DeferredCTOR - PASS 2 completed for %s (#%d) - deferredType = %d\n", 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for %s (#%d) - deferredType = %d\n"), 
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
 
                 // make sure we add it to the cache
@@ -4390,10 +4390,10 @@ namespace ProjectionModel
         }
         else
         {
-            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ConstructorOfInterface - bypass caching for %s (#%d)\n", type->typeName_Debug, type->id);
+            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ConstructorOfInterface - bypass caching for %s (#%d)\n"), type->typeName_Debug, type->id);
         }
 
-        TRACE_METADATA(L"Leave ConstructorOfInterface for %s (#%d) (built from scratch)\n", type->typeName_Debug, type->id);
+        TRACE_METADATA(_u("Leave ConstructorOfInterface for %s (#%d) (built from scratch)\n"), type->typeName_Debug, type->id);
 
         return result;
     }
@@ -4421,11 +4421,11 @@ namespace ProjectionModel
 
         if (this->deferredConstructorMap->TryGetValue<MetadataStringId>(typeId, &retValue))
         {
-            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"GetFromDeferredConstructorMap(%s (#%d)) - cache hit\n", this->stringConverter->StringOfId(typeId), typeId);
+            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("GetFromDeferredConstructorMap(%s (#%d)) - cache hit\n"), this->stringConverter->StringOfId(typeId), typeId);
         }
         else
         {
-            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"GetFromDeferredConstructorMap(%s (#%d)) - cache miss\n", this->stringConverter->StringOfId(typeId), typeId);
+            OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("GetFromDeferredConstructorMap(%s (#%d)) - cache miss\n"), this->stringConverter->StringOfId(typeId), typeId);
         }
 
         return retValue;
@@ -4437,7 +4437,7 @@ namespace ProjectionModel
     {
         Assert(this->deferredConstructorMap != nullptr);
         bool deleted = this->deferredConstructorMap->Remove(typeId);
-        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"DeleteFromDeferredConstructorMap(%s (#%d)) - deleted = %d\n", this->stringConverter->StringOfId(typeId), typeId, deleted);
+        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("DeleteFromDeferredConstructorMap(%s (#%d)) - deleted = %d\n"), this->stringConverter->StringOfId(typeId), typeId, deleted);
         Assert(deleted);
     }
 
@@ -4605,12 +4605,12 @@ namespace ProjectionModel
             return result;
         }
 
-        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ExprOfPossiblyGenericTypename(%s) - ResolveTypeName started\n", typeName);
+        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s) - ResolveTypeName started\n"), typeName);
 
         Metadata::TypeDefProperties * typeDef;
         auto hr = resolver->ResolveTypeName(typeId, typeName, &typeDef);
 
-        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ExprOfPossiblyGenericTypename(%s) - ResolveTypeName returned 0x%08x\n", typeName, hr);
+        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s) - ResolveTypeName returned 0x%08x\n"), typeName, hr);
 
         if(FAILED(hr))
         {
@@ -4618,13 +4618,13 @@ namespace ProjectionModel
             // for debug builds, print out all known typeIdToExpr
             if (typeIdToExpr->Count() > 0)
             {
-                Output::Print(L"ProjectionModel::typeIdToExpr:\n");
+                Output::Print(_u("ProjectionModel::typeIdToExpr:\n"));
                 size_t count = typeIdToExpr->Count();
                 for (size_t offset=0; offset<count; offset++)
                 {
                     const MetadataStringId typeId = typeIdToExpr->GetKeyAt((int)offset);
                     Assert(typeId != MetadataStringIdNil);
-                    Output::Print(L"typeIdToExpr[%d/%d]: %s (#%d)\n", 
+                    Output::Print(_u("typeIdToExpr[%d/%d]: %s (#%d)\n"), 
                         offset, count, this->stringConverter->StringOfId(typeId), typeId);
                 }
 
@@ -4657,7 +4657,7 @@ namespace ProjectionModel
                 // no hit yet - this is PASS 1 - bookmark the type information and break the cyclic dependency in type projection
                 DeferredProjectionConstructorExprType deferredCtorType = 
                     IsCurrentImplementedRuntimeClassInterfaceConstructorsContains(typeId) ? dpcetRuntimeClass : dpcetInterface; 
-                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 1 - returning low-fi RtEXPR - deferredCtorType = %d\n", typeName, typeId, deferredCtorType);
+                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 1 - returning low-fi RtEXPR - deferredCtorType = %d\n"), typeName, typeId, deferredCtorType);
                 deferredCtor = Anew(allocator, DeferredProjectionConstructorExpr, deferredCtorType, typeId);
                 Assert(deferredCtor != nullptr);
                 this->deferredConstructorMap->AddNew(typeId, deferredCtor);
@@ -4669,7 +4669,7 @@ namespace ProjectionModel
             else if (deferredCtor->IsPass1())
             {
                 // PASS 1 - (multiple referencing) - like for RTC*
-                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 1 - returning low-fi RtEXPR - deferredCtorType = %d\n", typeName, typeId, deferredCtor->deferredType);
+                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 1 - returning low-fi RtEXPR - deferredCtorType = %d\n"), typeName, typeId, deferredCtor->deferredType);
 
                 // report null - as we need to substitute a 'dummy type'
                 return nullptr;
@@ -4680,7 +4680,7 @@ namespace ProjectionModel
                 Assert(deferredCtor->IsPass2());
                 Assert(deferredCtor->minimalRtEXPR != nullptr);
 
-                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 2 - returning low-fi RtEXPR - deferredCtorType = %d\n", typeName, typeId, deferredCtor->deferredType);
+                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 2 - returning low-fi RtEXPR - deferredCtorType = %d\n"), typeName, typeId, deferredCtor->deferredType);
 
                 // do not cache it in typeIdToExpr
                 return deferredCtor->minimalRtEXPR;
@@ -4808,7 +4808,7 @@ namespace ProjectionModel
         }
 
         GUID iid;
-        typeDef->assembly.GetGuidAttributeValue(typeDef->td,  L"Windows.Foundation.GuidAttribute", iid);
+        typeDef->assembly.GetGuidAttributeValue(typeDef->td,  _u("Windows.Foundation.GuidAttribute"), iid);
         return addType(RtAnew(allocator, InterfaceType, typeId, typeDef, genericInstantiations, iid));
     }
 
@@ -5329,7 +5329,7 @@ namespace ProjectionModel
         if (!type->IsNested() && type->IsWindowsRuntime())
         {
             auto nextFragment = GetToDot(remainingName, [&](int strLength)->LPWSTR {
-                return AnewArray(allocator, wchar_t, strLength);
+                return AnewArray(allocator, char16, strLength);
             });
 
             if (!nextFragment.HasValue())
@@ -5410,7 +5410,7 @@ namespace ProjectionModel
             wcscpy_s(lowerCasedIdentifier.Get(), lowerCasedIdentifier.GetLength(), identifierString);
 
             // Lower case the last segment
-            auto eventInsertionPoint = const_cast<wchar_t*>(LastSegmentByDot(lowerCasedIdentifier.Get()));
+            auto eventInsertionPoint = const_cast<char16*>(LastSegmentByDot(lowerCasedIdentifier.Get()));
 
             // Lower case entire identifier
             CharLowerW(eventInsertionPoint);
@@ -5553,65 +5553,65 @@ namespace ProjectionModel
             return GetWindowsFoundationHResultType();
         }
         // TODO :
-        // L"Windows.Foundation.IAsyncInfo" ? probably
+        // _u("Windows.Foundation.IAsyncInfo") ? probably
         return nullptr;
     }
 
     RtTYPE ProjectionBuilder::GetBasicAndKnownTypeByName(LPCWSTR fullTypeName)
     {
-        if (wcscmp(fullTypeName, L"Int32") == 0)
+        if (wcscmp(fullTypeName, _u("Int32")) == 0)
         {
             return typeInt32;
         }
-        else if (wcscmp(fullTypeName, L"String") == 0)
+        else if (wcscmp(fullTypeName, _u("String")) == 0)
         {
             return typeString;
         }
-        else if (wcscmp(fullTypeName, L"Object") == 0)
+        else if (wcscmp(fullTypeName, _u("Object")) == 0)
         {
             return typeObject;
         }
-        else if (wcscmp(fullTypeName, L"Guid") == 0)
+        else if (wcscmp(fullTypeName, _u("Guid")) == 0)
         {
             return typeSystemGuid;
         }
-        else if (wcscmp(fullTypeName, L"UInt32") == 0)
+        else if (wcscmp(fullTypeName, _u("UInt32")) == 0)
         {
             return typeUint32;
         }
-        else if (wcscmp(fullTypeName, L"Boolean") == 0)
+        else if (wcscmp(fullTypeName, _u("Boolean")) == 0)
         {
             return typeBool;
         }
-        else if (wcscmp(fullTypeName, L"Double") == 0)
+        else if (wcscmp(fullTypeName, _u("Double")) == 0)
         {
             return typeDouble;
         }
-        else if (wcscmp(fullTypeName, L"Single") == 0)
+        else if (wcscmp(fullTypeName, _u("Single")) == 0)
         {
             return typeFloat;
         }
-        else if (wcscmp(fullTypeName, L"UInt8") == 0)
+        else if (wcscmp(fullTypeName, _u("UInt8")) == 0)
         {
             return typeByte;
         }
-        else if (wcscmp(fullTypeName, L"Int64") == 0)
+        else if (wcscmp(fullTypeName, _u("Int64")) == 0)
         {
             return typeInt64;
         }
-        else if (wcscmp(fullTypeName, L"UInt64") == 0)
+        else if (wcscmp(fullTypeName, _u("UInt64")) == 0)
         {
             return typeUint64;
         }
-        else if (wcscmp(fullTypeName, L"Char16") == 0)
+        else if (wcscmp(fullTypeName, _u("Char16")) == 0)
         {
             return typeCharProjectedAsString;
         }
-        else if (wcscmp(fullTypeName, L"Int16") == 0)
+        else if (wcscmp(fullTypeName, _u("Int16")) == 0)
         {
             return typeInt16;
         }
-        else if (wcscmp(fullTypeName, L"UInt16") == 0)
+        else if (wcscmp(fullTypeName, _u("UInt16")) == 0)
         {
             return typeUint16;
         }
@@ -5621,7 +5621,7 @@ namespace ProjectionModel
 
     inline BOOL ProjectionBuilder::IsTypeWebHidden(const Metadata::TypeDefProperties * type)
     {
-        return type->assembly.IsAttributePresent(type->td, L"Windows.Foundation.Metadata.WebHostHiddenAttribute") && !IgnoreWebHidden(); 
+        return type->assembly.IsAttributePresent(type->td, _u("Windows.Foundation.Metadata.WebHostHiddenAttribute")) && !IgnoreWebHidden(); 
     }
 
     bool ProjectionBuilder::TypePartiallyResolved(const Metadata::TypeDefProperties * type)
@@ -5638,7 +5638,7 @@ namespace ProjectionModel
 
     inline BOOL ProjectionBuilder::IsTypeAllowedForWeb(const Metadata::TypeDefProperties * type)
     {
-        return !EnforceAllowForWeb() || type->assembly.IsAttributePresent(type->td, L"Windows.Foundation.Metadata.AllowForWebAttribute");
+        return !EnforceAllowForWeb() || type->assembly.IsAttributePresent(type->td, _u("Windows.Foundation.Metadata.AllowForWebAttribute"));
     }
 }
 

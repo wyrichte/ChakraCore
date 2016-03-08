@@ -86,5 +86,5 @@ private:
     void DumpConstantTable();
     void DumpImplicitArgIns();
 
-    wchar_t * GetPropertyNameFromCacheId(uint inlineCacheIndex, wchar_t * buffer, ULONG bufferSize);
+    char16 * GetPropertyNameFromCacheId(uint inlineCacheIndex, char16 * buffer, ULONG bufferSize);
 };

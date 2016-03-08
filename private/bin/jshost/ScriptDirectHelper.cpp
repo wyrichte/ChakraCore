@@ -269,7 +269,7 @@ HRESULT ScriptDirect::NewDate(double time, Var* pValue)
     IfFailGo(m_pScriptDirect->GetGlobalObject(&global));
 
     Var date;
-    IfFailGo(GetProperty(global, L"Date", &date));
+    IfFailGo(GetProperty(global, _u("Date"), &date));
 
     Var timeVar;
     IfFailGo(m_pScriptDirect->DoubleToVar(time, &timeVar));
@@ -297,7 +297,7 @@ void ScriptDirect::ThrowIfFailed(HRESULT hr, LPCWSTR msg)
         static WCHAR buf[bufsize];
 
         Var err;
-        if (SUCCEEDED(StringCchPrintf(buf, bufsize, L"%8X %s", hr, msg))
+        if (SUCCEEDED(StringCchPrintf(buf, bufsize, _u("%8X %s"), hr, msg))
             && SUCCEEDED(m_pScriptDirect->CreateErrorObject(JsErrorType::CustomError, hr, buf, &err)))
         {
             pJavascriptOperations->ThrowException(m_pScriptDirect, err, FALSE);

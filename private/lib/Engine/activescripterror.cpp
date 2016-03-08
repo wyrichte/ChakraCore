@@ -348,7 +348,7 @@ HRESULT ActiveScriptError::GetErrorInfo(BSTR* pbstrSource,
         IDebugDocumentContext** ppDebugDocumentContext)
 {
     // source is always "SCRIPT", not localized
-    *pbstrSource = ::SysAllocString(L"SCRIPT");
+    *pbstrSource = ::SysAllocString(_u("SCRIPT"));
     if(*pbstrSource == nullptr)
     {
         return HR(E_OUTOFMEMORY);
@@ -394,7 +394,7 @@ HRESULT ActiveScriptError::GetCompileErrorInfo(_Out_ BSTR* description, _Out_ UL
 void ActiveScriptError::FillParseErrorInfo(ExtendedExceptionInfo &exInfo)
 {
     // Fake error type. Only for WWA. It can not be thrown.
-    FillText(exInfo.errorType.typeText, L"Parse error");
+    FillText(exInfo.errorType.typeText, _u("Parse error"));
     exInfo.errorType.typeNumber = 
         ErrorTypeHelper::MapToExternal(Js::JavascriptError::MapParseError(exInfo.exceptionInfo.scode));
     exInfo.flags = ExtendedExceptionInfo_Available;
@@ -459,9 +459,9 @@ HRESULT ActiveScriptError::CreateCompileError(const SRCINFO * psi, CompileScript
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     if(Js::Configuration::Global.flags.IsEnabled(Js::ReportErrorsFlag))
     {
-        Output::Print(L"Error: %s (%d, %d)\n", pase->m_ei.exceptionInfo.bstrDescription, pase->m_ulLineNumber + 1, pase->m_lCharacterPosition + 1);
-        Output::Print(L"Error code: %x\n", pase->m_ei.exceptionInfo.wCode);
-        Output::Print(L"Source Line: %s\n", pase->m_bstrSourceLine);
+        Output::Print(_u("Error: %s (%d, %d)\n"), pase->m_ei.exceptionInfo.bstrDescription, pase->m_ulLineNumber + 1, pase->m_lCharacterPosition + 1);
+        Output::Print(_u("Error code: %x\n"), pase->m_ei.exceptionInfo.wCode);
+        Output::Print(_u("Source Line: %s\n"), pase->m_bstrSourceLine);
         Output::Flush();
     }
 #endif //ENABLE_DEBUG_CONFIG_OPTIONS
@@ -567,7 +567,7 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
     }
 
     HRESULT exceptionHR = JSERR_UncaughtException;  // default to uncaught exception (for non-Error object exception)
-    wchar_t const * messageSz = nullptr;
+    char16 const * messageSz = nullptr;
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
         JsErrorType errorTypeNumber = CustomError;
@@ -632,7 +632,7 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
 }
 
 
-void ActiveScriptError::FillExcepInfo(HRESULT hr, wchar_t const * messageSz, EXCEPINFO *excepInfo)
+void ActiveScriptError::FillExcepInfo(HRESULT hr, char16 const * messageSz, EXCEPINFO *excepInfo)
 {
     BSTR bstrError = nullptr;
     if (messageSz == nullptr)
@@ -727,7 +727,7 @@ ActiveScriptError::ExternalStackTrace::ExternalStackTrace(HRESULT exceptionHR, J
             memset(&m_frames[indexOfTruncateMessage], 0, sizeof(m_frames[0]));
             // The following is explicilty not localized for WER error reporting, as with ErrorTypeHelper
             // Ignore OOM here. Just don't get the text
-            FillText(m_frames[indexOfTruncateMessage].functionName, L"Recurring functions on call stack truncated due to stack overflow");
+            FillText(m_frames[indexOfTruncateMessage].functionName, _u("Recurring functions on call stack truncated due to stack overflow"));
         }
     }
 }
@@ -759,11 +759,11 @@ void ActiveScriptError::ExternalStackTrace::Dump()
     {
         return;
     }
-    Output::Print(L"\nExtendedExceptionInfo stack trace for thrown exception, count is %d\n", TotalFrameCount());
+    Output::Print(_u("\nExtendedExceptionInfo stack trace for thrown exception, count is %d\n"), TotalFrameCount());
     CallStackFrame* framesOut = AllFrames();
     for (int i = 0; i < TotalFrameCount(); i++)
     {        
-        Output::Print(L"    %3d: %s (%d, %d)\n", i, framesOut[i].functionName, framesOut[i].lineNumber, framesOut[i].characterPosition);
+        Output::Print(_u("    %3d: %s (%d, %d)\n"), i, framesOut[i].functionName, framesOut[i].lineNumber, framesOut[i].characterPosition);
     }
     Output::Flush();
 #endif
@@ -1045,7 +1045,7 @@ HRESULT ActiveScriptError::CanHandleException(Js::ScriptContext * scriptContext,
     return hr;
 }
 
-LPCWSTR CallStackFrameHelper::DelimiterString = L"[Throw Stack Follows]";
+LPCWSTR CallStackFrameHelper::DelimiterString = _u("[Throw Stack Follows]");
 CallStackFrameHelper::CallStackFrameHelper(CallStackFrame* callStackFrame, ULONG totalFrameCount, HRESULT& hr) :
     callStackFrames(callStackFrame), frameCount(totalFrameCount), currentFrame(0), hResult(hr)
 {

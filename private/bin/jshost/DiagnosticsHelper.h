@@ -62,13 +62,13 @@ public:
     bool                            m_shouldPerformSourceRundown;
 
     // Editing states
-    bool AddEditRangeAndContent(const wchar_t* editLabel, IDebugDocumentText* debugDocumentText, ULONG startOffset, ULONG length, PCWSTR editContent, ULONG newLength);
-    bool GetEditRangeAndContent(const wchar_t* editLabel, IDebugDocumentText** ppDebugDocumentText, ULONG* startOffset, ULONG* length, PCWSTR* editContent, ULONG* newLength);
+    bool AddEditRangeAndContent(const char16* editLabel, IDebugDocumentText* debugDocumentText, ULONG startOffset, ULONG length, PCWSTR editContent, ULONG newLength);
+    bool GetEditRangeAndContent(const char16* editLabel, IDebugDocumentText** ppDebugDocumentText, ULONG* startOffset, ULONG* length, PCWSTR* editContent, ULONG* newLength);
 
     struct EditRangeAndContent
     {
     public:
-        EditRangeAndContent(IDebugDocumentText* debugDocumentText, ULONG m_startOffset, ULONG m_length, const wchar_t* editContent, ULONG newLength);
+        EditRangeAndContent(IDebugDocumentText* debugDocumentText, ULONG m_startOffset, ULONG m_length, const char16* editContent, ULONG newLength);
 
         CComPtr<IDebugDocumentText> debugDocumentText;
         ULONG m_startOffset;

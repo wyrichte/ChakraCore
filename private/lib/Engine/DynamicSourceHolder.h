@@ -50,7 +50,7 @@ namespace Js
         };
 
         // Returns false if the source was unable to map succesfully.
-        bool EnsureSource(MapRequestFor requestedFor, const wchar_t* reasonString)
+        bool EnsureSource(MapRequestFor requestedFor, const char16* reasonString)
         {
             if (!isSourceMapped)
             {
@@ -82,7 +82,7 @@ namespace Js
 
         // Following two methods are calls to EnsureSource before attempting to get the source
         // If EnsureSource returns false, these methods will return nullptr and 0 respectively.
-        virtual LPCUTF8 GetSource(const wchar_t* reasonString) override
+        virtual LPCUTF8 GetSource(const char16* reasonString) override
         {
             if (this->EnsureSource(MapRequestFor::Source, reasonString))
             {
@@ -92,7 +92,7 @@ namespace Js
             return nullptr;
         }
                 
-        virtual size_t GetByteLength(const wchar_t* reasonString) override
+        virtual size_t GetByteLength(const char16* reasonString) override
         {
             if (this->EnsureSource(MapRequestFor::Length, reasonString))
             {
@@ -120,14 +120,14 @@ namespace Js
         bool Equals(ISourceHolder* other)
         {
             return this == other || 
-                (this->GetByteLength(L"Equal Comparison") == other->GetByteLength(L"Equal Comparison")
-                    && memcmp(this->GetSource(L"Equal Comparison"), other->GetSource(L"Equal Comparison"), this->GetByteLength(L"Equal Comparison")));
+                (this->GetByteLength(_u("Equal Comparison")) == other->GetByteLength(_u("Equal Comparison"))
+                    && memcmp(this->GetSource(_u("Equal Comparison")), other->GetSource(_u("Equal Comparison")), this->GetByteLength(_u("Equal Comparison"))));
         }
         
         int GetHashCode()
         {
-            LPCUTF8 source = GetSource(L"Hash Code Calculation");
-            size_t byteLength = GetByteLength(L"Hash Code Calculation");
+            LPCUTF8 source = GetSource(_u("Hash Code Calculation"));
+            size_t byteLength = GetByteLength(_u("Hash Code Calculation"));
             Assert(byteLength < MAXUINT32);
             return JsUtil::CharacterBuffer<utf8char_t>::StaticGetHashCode(source, (charcount_t)byteLength);
         }

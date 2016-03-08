@@ -82,7 +82,7 @@ public:
 
         if (!Js::ExternalObject::Is(args[0]))
         {
-            Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, L"DOM object");
+            Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
         }
         if (args.Info.Count == 1)
         {

@@ -214,7 +214,7 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         }
 
 #ifdef RECYCLER_TRACE_WEAKREF
-        Output::Print(L"After adding nodes\n");
+        Output::Print(_u("After adding nodes\n"));
         hashTable.Dump();
 #endif
 
@@ -231,7 +231,7 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         }
 
 #ifdef RECYCLER_TRACE_WEAKREF
-        Output::Print(L"After removing nodes\n");
+        Output::Print(_u("After removing nodes\n"));
         hashTable.Dump();
 #endif
 
@@ -487,7 +487,7 @@ void TestMem(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx) {
     ctx->Start();
     while(ctx->NextIteration()) {
         ++i;
-        a2=new ArenaAllocator(L"eeek", alloc->GetPageAllocator(), OutOfMemory);
+        a2=new ArenaAllocator(_u("eeek"), alloc->GetPageAllocator(), OutOfMemory);
         r2=new Recycler(NULL, (IdleDecommitPageAllocator *)alloc->GetPageAllocator(), OutOfMemory);
         r2->Initialize(false, NULL);
         delete r2;

@@ -73,8 +73,8 @@ BOOL MyScriptDirectTests::FAIL_hr(HRESULT hres,std::wstring method, HRESULT expe
     {
         if(FAILED(hres) && hres != expectedHR)
         {
-            std::wstring fail_str=L"";
-            fail_str=L"FAILED:  "+method;
+            std::wstring fail_str=_u("");
+            fail_str=_u("FAILED:  ")+method;
             throw fail_str;
         }
         return true;
@@ -86,12 +86,12 @@ BOOL MyScriptDirectTests::FAIL_hr(HRESULT hres,std::wstring method, HRESULT expe
 }
 BOOL MyScriptDirectTests::GetJsop()
 {
-    FAIL_hr(mptr_EzeScriptDirect->GetJavascriptOperations(&mptr_jsop),L"GetJavascriptOperations");
+    FAIL_hr(mptr_EzeScriptDirect->GetJavascriptOperations(&mptr_jsop),_u("GetJavascriptOperations"));
     return true;
 }
 BOOL MyScriptDirectTests::GetTypeOp()
 {
-    FAIL_hr(mptr_EzeScriptDirect->GetDefaultTypeOperations(&mptr_typeop),L"GetDefaultTypeOperations");
+    FAIL_hr(mptr_EzeScriptDirect->GetDefaultTypeOperations(&mptr_typeop),_u("GetDefaultTypeOperations"));
     return true;
 }
 
@@ -102,7 +102,7 @@ IJavascriptThreadProperty* MyScriptDirectTests::CreateThreadService(HINSTANCE js
     FN_DllGetClassObject proc = (FN_DllGetClassObject)::GetProcAddress(jscriptLibrary, "DllGetClassObject");
     if (proc == nullptr)
     {
-        FAIL_hr(E_FAIL, L"can't get classobject");
+        FAIL_hr(E_FAIL, _u("can't get classobject"));
     }
 
     CComPtr <IClassFactory> classFactory;
@@ -113,7 +113,7 @@ IJavascriptThreadProperty* MyScriptDirectTests::CreateThreadService(HINSTANCE js
     }
     if (FAILED(hr))
     {
-        FAIL_hr(hr, L"can't get classobject");
+        FAIL_hr(hr, _u("can't get classobject"));
     }
     return threadService;
 }
@@ -124,24 +124,24 @@ void MyScriptDirectTests::InitJScriptEngine(JsHostNativeTestArguments* jsHostArg
     BOOL check = 0;
     if (! jsHostArgs || ! jsHostArgs->activeScript || ! jsHostArgs->jscriptLibrary)
     {
-        FAIL_hr(E_FAIL, L"Invalid jsHostArgs structure");
+        FAIL_hr(E_FAIL, _u("Invalid jsHostArgs structure"));
     }
     ptr_JsVarAddRef = (FN_JsVarAddRef) GetProcAddress(jsHostArgs->jscriptLibrary, "JsVarAddRef");
     if (!ptr_JsVarAddRef)
     {
-        FAIL_hr(E_FAIL, L"GetProcAddress JsVarAddRef");
+        FAIL_hr(E_FAIL, _u("GetProcAddress JsVarAddRef"));
     }
     ptr_JsVarRelease = (FN_JsVarRelease) GetProcAddress(jsHostArgs->jscriptLibrary, "JsVarRelease");
     if (!ptr_JsVarRelease)
     {
-        FAIL_hr(E_FAIL, L"GetProcAddress JsVarRelease");
+        FAIL_hr(E_FAIL, _u("GetProcAddress JsVarRelease"));
     }
  
     mptr_jsHostArgs = jsHostArgs;
     IActiveScript* script = jsHostArgs->activeScript;
-    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptDirect), (LPVOID*)&mptr_EzeScriptDirect),L"QI IActiveScriptDirect");
-    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptParse), (LPVOID*)&mptr_ActiveScriptParse),L"QI IActiveScriptParse");
-    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptGarbageCollector), (LPVOID*)&mptr_ActiveScriptGC),L"QI IActiveScriptGarbageCollector");
+    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptDirect), (LPVOID*)&mptr_EzeScriptDirect),_u("QI IActiveScriptDirect"));
+    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptParse), (LPVOID*)&mptr_ActiveScriptParse),_u("QI IActiveScriptParse"));
+    FAIL_hr(script->QueryInterface(__uuidof(IActiveScriptGarbageCollector), (LPVOID*)&mptr_ActiveScriptGC),_u("QI IActiveScriptGarbageCollector"));
     
     mptr_mydata->activescriptdirect=mptr_EzeScriptDirect;
     check=GetJsop();
@@ -161,7 +161,7 @@ void MyScriptDirectTests::InitJScriptEngine(JsHostNativeTestArguments* jsHostArg
 
 LPWSTR ConvertToLPWSTR( const std::string& s )
 {
-    WCHAR* ws = new wchar_t[s.size()+1]; // +1 for zero at the end
+    WCHAR* ws = new char16[s.size()+1]; // +1 for zero at the end
     memcpy( ws, s.c_str(), s.size());
     ws[s.size()] = 0; // zero at the end
     return ws;
@@ -219,7 +219,7 @@ void MyScriptDirectTests::ParseAndExecute( __in LPCWSTR str, HRESULT expectedHR)
 {
     EXCEPINFO excepInfo;
     VARIANT result;
-    FAIL_hr(mptr_ActiveScriptParse->ParseScriptText(str, nullptr, nullptr, nullptr, 0xdeadbeef, 0, SCRIPTTEXT_HOSTMANAGESSOURCE, &result, &excepInfo), L"ParseScriptText", expectedHR);
+    FAIL_hr(mptr_ActiveScriptParse->ParseScriptText(str, nullptr, nullptr, nullptr, 0xdeadbeef, 0, SCRIPTTEXT_HOSTMANAGESSOURCE, &result, &excepInfo), _u("ParseScriptText"), expectedHR);
 }
 
 void MyScriptDirectTests::CreateTypeObject(std::wstring objname)
@@ -231,37 +231,37 @@ void MyScriptDirectTests::CreateTypeObject(std::wstring objname)
     PropertyId pid=-1;
     PropertyId exists_id=-1;
     std::string obname="";
-    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&exists_id),L" Find Property Id Failed for Property: "+objname);
+    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&exists_id),_u(" Find Property Id Failed for Property: ")+objname);
     if(exists_id>0)
     {
-        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),L"GetGlobalObject");
+        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),_u("GetGlobalObject"));
         BOOL results=0;
-        FAIL_hr(mptr_jsop->HasProperty(mptr_EzeScriptDirect, globalObj,exists_id,&results),L"GetProperty for Property: "+objname);
+        FAIL_hr(mptr_jsop->HasProperty(mptr_EzeScriptDirect, globalObj,exists_id,&results),_u("GetProperty for Property: ")+objname);
         if(!results)
         {
-            WCHAR* pn=L"xasd";
+            WCHAR* pn=_u("xasd");
             PropertyId nameId=GetOrAddPropertyId(pn);
-            FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1,nullptr,0,nullptr,nullptr,mptr_typeop, false, nameId,true,&newtyperef), L"Create Type");
-            FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef,100,TRUE,&typeobj),L"CreateTypedObject");
-            FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObj,exists_id,typeobj,&results),L"SetProperty");
+            FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1,nullptr,0,nullptr,nullptr,mptr_typeop, false, nameId,true,&newtyperef), _u("Create Type"));
+            FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef,100,TRUE,&typeobj),_u("CreateTypedObject"));
+            FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObj,exists_id,typeobj,&results),_u("SetProperty"));
         }
     }
     else
     {
-        WCHAR* pn=L"xasd1";
+        WCHAR* pn=_u("xasd1");
         PropertyId nameId=GetOrAddPropertyId(pn);
-        FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1, nullptr, 0, nullptr, nullptr, mptr_typeop, false, nameId, true, &newtyperef), L"Create Type");
-        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&pid),L"GetOrAddPropertyId");;
+        FAIL_hr(mptr_EzeScriptDirect->CreateType((JavascriptTypeId)-1, nullptr, 0, nullptr, nullptr, mptr_typeop, false, nameId, true, &newtyperef), _u("Create Type"));
+        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&pid),_u("GetOrAddPropertyId"));;
         if (pid<0)
         {
             std::string fail_str="";
             fail_str="Property ID is less than 0 ";
             throw fail_str;
         }
-        FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef, 100, true, &typeobj),L"CreateTypedObject");
+        FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef, 100, true, &typeobj),_u("CreateTypedObject"));
 
-        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),L"GetGlobalObject");
-        FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObj,pid,typeobj,&setresult),L"SetProperty");
+        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),_u("GetGlobalObject"));
+        FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObj,pid,typeobj,&setresult),_u("SetProperty"));
         if (!setresult)
         {
             std::string fail_str="";
@@ -283,9 +283,9 @@ void MyScriptDirectTests::SetPropertyOnTypedObject(std::wstring objname,std::wst
 {
     try
     {
-        std::wstring srcstr=L"this."+objname+L"."+propname+L"="+value;
-        wchar_t* l_str=new wchar_t[srcstr.size()];
-        l_str=const_cast<wchar_t*>(srcstr.c_str());
+        std::wstring srcstr=_u("this.")+objname+_u(".")+propname+_u("=")+value;
+        char16* l_str=new char16[srcstr.size()];
+        l_str=const_cast<char16*>(srcstr.c_str());
         ParseAndExecute(l_str);
 
         //Set State
@@ -308,9 +308,9 @@ BOOL MyScriptDirectTests::SetPropertyOnGlobalObject(std::wstring propname,std::w
 {
     try
     {
-        std::wstring srcstr=L"this."+propname+L"="+value;
-        wchar_t* l_str=new wchar_t[srcstr.size()];
-        l_str=const_cast<wchar_t*>(srcstr.c_str());
+        std::wstring srcstr=_u("this.")+propname+_u("=")+value;
+        char16* l_str=new char16[srcstr.size()];
+        l_str=const_cast<char16*>(srcstr.c_str());
 
         ParseAndExecute(l_str);
 
@@ -334,7 +334,7 @@ void MyScriptDirectTests::CreateFunction(std::wstring function_name,std::wstring
     Var proto_instance=0;
     Var protofunc=0;
     Var globalObject=0;
-    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObject),L"GetGlobalObject");
+    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObject),_u("GetGlobalObject"));
     std::string fname(function_name.length(),L'\0');
 
     char* str_c2=new char[function_name.length()];
@@ -343,23 +343,23 @@ void MyScriptDirectTests::CreateFunction(std::wstring function_name,std::wstring
 
     WCHAR* funcname=const_cast<WCHAR*>(function_name.c_str());
     WCHAR* cnstrname=const_cast<WCHAR*>(cname.c_str());
-    if(proto_objname.compare(L"default")==0)
+    if(proto_objname.compare(_u("default"))==0)
     {
         //Create a prototype Object and set that object to the constructor function
-        FAIL_hr(mptr_EzeScriptDirect->CreateObject(&proto_instance),L"CreateObject Failed ");
+        FAIL_hr(mptr_EzeScriptDirect->CreateObject(&proto_instance),_u("CreateObject Failed "));
     }
     else
     {
         PropertyId pid_proto=-1;
-        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(proto_objname.c_str(),&pid_proto),L"FindPropertyId");
+        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(proto_objname.c_str(),&pid_proto),_u("FindPropertyId"));
 
-        if(proto_objname.compare(L"default")==0 && proto_protoname.compare(L"default")==0 )
+        if(proto_objname.compare(_u("default"))==0 && proto_protoname.compare(_u("default"))==0 )
         {
-            FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalObject,pid_proto,&proto_instance),L"GetProperty");
+            FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalObject,pid_proto,&proto_instance),_u("GetProperty"));
         }
-        else if(proto_protoname.compare(L"default")==0 && proto_objname.compare(L"default")!=0)
+        else if(proto_protoname.compare(_u("default"))==0 && proto_objname.compare(_u("default"))!=0)
         {
-            InsideData* newdata_item=mptr_mydata->inheritance[L"default"];
+            InsideData* newdata_item=mptr_mydata->inheritance[_u("default")];
             proto_instance=newdata_item->GetTypeObj();
         }
         else
@@ -370,11 +370,11 @@ void MyScriptDirectTests::CreateFunction(std::wstring function_name,std::wstring
 
     }
     PropertyId constructorId=GetOrAddPropertyId(cnstrname);
-    FAIL_hr(mptr_EzeScriptDirect->CreateConstructor(proto_instance,MyObjectConstructor,constructorId,true,&protofunc),L"CreateConstructor Failed for the Function: "+function_name);
+    FAIL_hr(mptr_EzeScriptDirect->CreateConstructor(proto_instance,MyObjectConstructor,constructorId,true,&protofunc),_u("CreateConstructor Failed for the Function: ")+function_name);
 
     PropertyId pid=GetOrAddPropertyId(funcname);
     BOOL result;
-    FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObject,pid,protofunc,&result),L"SetProperty failed to set Property: "+function_name+L" to the Global Object");
+    FAIL_hr(mptr_typeop->SetProperty(mptr_EzeScriptDirect, globalObject,pid,protofunc,&result),_u("SetProperty failed to set Property: ")+function_name+_u(" to the Global Object"));
 
     mptr_data_item->SetPrototypeObj(proto_instance);
     mptr_data_item->ctor_name=function_name;
@@ -413,28 +413,28 @@ BOOL MyScriptDirectTests::CreateTypedObjectWithPrototype(std::wstring ctor_name,
 
     //Create a type with the prototype object
     PropertyId nameId=GetOrAddPropertyId(type_name);
-    FAIL_hr(mptr_EzeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, mptr_data_item->GetPrototypeObj(), nullptr, mptr_typeop, false, nameId, true, &newtyperef), L"Create Type");
+    FAIL_hr(mptr_EzeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, mptr_data_item->GetPrototypeObj(), nullptr, mptr_typeop, false, nameId, true, &newtyperef), _u("Create Type"));
 
     pid_obj=GetOrAddPropertyId(obj_name);
 
-    PropertyId pid_this=GetOrAddPropertyId(L"_this");
+    PropertyId pid_this=GetOrAddPropertyId(_u("_this"));
     Var _thisval;
-    FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef, sizeof(this), true, &_thisval),L"CreateTypeObject");
+    FAIL_hr(mptr_EzeScriptDirect->CreateTypedObject(newtyperef, sizeof(this), true, &_thisval),_u("CreateTypeObject"));
     void* offset;
     JavascriptTypeId typeId;
-    FAIL_hr(mptr_EzeScriptDirect->VarToExtension(_thisval, &offset, &typeId),L"VarToExtension");
+    FAIL_hr(mptr_EzeScriptDirect->VarToExtension(_thisval, &offset, &typeId),_u("VarToExtension"));
     *(void**)offset = this;
     if (extensionOffset == -1)
     {
         extensionOffset = (byte*)offset-(byte*)_thisval;
     }
-    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),L"GetGlobalObject");
-    FAIL_hr(mptr_jsop->SetProperty(mptr_EzeScriptDirect, globalObj,pid_this,_thisval),L"SetProperty");
+    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),_u("GetGlobalObject"));
+    FAIL_hr(mptr_jsop->SetProperty(mptr_EzeScriptDirect, globalObj,pid_this,_thisval),_u("SetProperty"));
 
     // Add property to the prototype Object using Parse and Execute
-    std::wstring w_script=L"this."+objname+L"= new "+ctor_name + L"(_this)";
-    wchar_t* l_str=new wchar_t[w_script.size()];
-    l_str=const_cast<wchar_t*>(w_script.c_str());
+    std::wstring w_script=_u("this.")+objname+_u("= new ")+ctor_name + _u("(_this)");
+    char16* l_str=new char16[w_script.size()];
+    l_str=const_cast<char16*>(w_script.c_str());
 
     mptr_data_item->SetType(newtyperef);
 
@@ -450,13 +450,13 @@ BOOL MyScriptDirectTests::CreateTypedObjectWithPrototype(std::wstring ctor_name,
     mptr_mydata->objmapping.insert(current_obj);
 
 
-    if(mptr_data_item->prototypeobj_name.compare(L"default")==0)
+    if(mptr_data_item->prototypeobj_name.compare(_u("default"))==0)
     {
         std::pair<std::wstring,InsideData*>inheri_obj1;
         inheri_obj1.first=mptr_data_item->typeobj_name;
         inheri_obj1.second=mptr_data_item;
         mptr_mydata->inheritance.insert(inheri_obj1);
-        inheri_obj.first=L"default";
+        inheri_obj.first=_u("default");
         inheri_obj.second=mptr_data_item;
     }
     else
@@ -474,18 +474,18 @@ void MyScriptDirectTests::SetPropertyOnPrototypeInstance(std::wstring ctor_name,
     //Check if the prototype instance for the ctor exists
     PropertyId exists_id=-1;
     Var globalObj=0;
-    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),L"GetGlobalObject");
-    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(ctor_name.c_str(),&exists_id),L"FindPropertyId");
+    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObj),_u("GetGlobalObject"));
+    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(ctor_name.c_str(),&exists_id),_u("FindPropertyId"));
     if(exists_id>0)
     {
         Var ctorobj=0;
-        FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalObj,exists_id,&ctorobj),L"GetProperty");
+        FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalObj,exists_id,&ctorobj),_u("GetProperty"));
         exists_id=-1;
-        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(L"prototype",&exists_id),L"FindPropertyId");
+        FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(_u("prototype"),&exists_id),_u("FindPropertyId"));
         if(exists_id>0)
         {
             BOOL result=0;
-            FAIL_hr(mptr_typeop->HasOwnProperty(mptr_EzeScriptDirect, ctorobj,exists_id,&result),L"HasOwnProperty");
+            FAIL_hr(mptr_typeop->HasOwnProperty(mptr_EzeScriptDirect, ctorobj,exists_id,&result),_u("HasOwnProperty"));
             if(!result)
             {
                 cout<<"The Ctor does not have a prototype object"<<endl;
@@ -504,9 +504,9 @@ void MyScriptDirectTests::SetPropertyOnPrototypeInstance(std::wstring ctor_name,
         cout<<"The Ctor does not exist"<<endl;
 
     }
-    std::wstring srcstr=ctor_name+L".prototype."+prop_name+L"="+value;
-    wchar_t* l_str=new wchar_t[srcstr.size()];
-    l_str=const_cast<wchar_t*>(srcstr.c_str());
+    std::wstring srcstr=ctor_name+_u(".prototype.")+prop_name+_u("=")+value;
+    char16* l_str=new char16[srcstr.size()];
+    l_str=const_cast<char16*>(srcstr.c_str());
 
     ParseAndExecute(l_str);
     mptr_data_item->proto_prop_name=prop_name;
@@ -522,7 +522,7 @@ std::wstring MyScriptDirectTests::GetPropertyName(PropertyId pid)
 {
     //Get or Add Property ID's Various Values
     LPCWSTR prop_name;
-    FAIL_hr(mptr_EzeScriptDirect->GetPropertyName(pid,&prop_name),L"GetPropertyName");
+    FAIL_hr(mptr_EzeScriptDirect->GetPropertyName(pid,&prop_name),_u("GetPropertyName"));
     std::wstring w_propname=prop_name;
     return w_propname;
 }
@@ -532,12 +532,12 @@ void MyScriptDirectTests::DeleteProperty(std::wstring prop_name,std::wstring obj
     try
     {
         Var globalobject=0;
-        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalobject),L"GetGlobalObject");
-        if(objname.compare(L"global")==0)
+        FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalobject),_u("GetGlobalObject"));
+        if(objname.compare(_u("global"))==0)
         {
             PropertyId pid_prop=-1;
-            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(prop_name.c_str(),&pid_prop),L"FindPropertyId");
-            FAIL_hr(mptr_jsop->DeleteProperty(mptr_EzeScriptDirect, globalobject,pid_prop),L"DeleteProperty");
+            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(prop_name.c_str(),&pid_prop),_u("FindPropertyId"));
+            FAIL_hr(mptr_jsop->DeleteProperty(mptr_EzeScriptDirect, globalobject,pid_prop),_u("DeleteProperty"));
             if(mbool_dataitem_init==1)
                 mptr_data_item->prop_value="";
         }
@@ -546,10 +546,10 @@ void MyScriptDirectTests::DeleteProperty(std::wstring prop_name,std::wstring obj
             Var obj_name=0;
             PropertyId pid_obj=-1;
             PropertyId pid_prop=-1;
-            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&pid_obj),L"FindPropertyId");
-            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(prop_name.c_str(),&pid_prop),L"FindPropertyId");
-            FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalobject,pid_obj,&obj_name),L"GetProperty");
-            FAIL_hr(mptr_jsop->DeleteProperty(mptr_EzeScriptDirect, obj_name,pid_prop),L"DeleteProperty");
+            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(objname.c_str(),&pid_obj),_u("FindPropertyId"));
+            FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(prop_name.c_str(),&pid_prop),_u("FindPropertyId"));
+            FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, globalobject,pid_obj,&obj_name),_u("GetProperty"));
+            FAIL_hr(mptr_jsop->DeleteProperty(mptr_EzeScriptDirect, obj_name,pid_prop),_u("DeleteProperty"));
             mptr_data_item->prop_value="";
         }
 
@@ -585,55 +585,55 @@ HRESULT MyScriptDirectTests::CollectGarbage(SCRIPTGCTYPE scriptgctype)
 Var MyScriptDirectTests::GetGlobalObject()
 {
     Var globalObject;
-    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObject), L"GetGlobalObject");
+    FAIL_hr(mptr_EzeScriptDirect->GetGlobalObject(&globalObject), _u("GetGlobalObject"));
     return globalObject;
 }
 
-PropertyId MyScriptDirectTests::GetOrAddPropertyId(const wchar_t *const name)
+PropertyId MyScriptDirectTests::GetOrAddPropertyId(const char16 *const name)
 {
     PropertyId propertyId;
-    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(name, &propertyId), L"GetOrAddPropertyId");
+    FAIL_hr(mptr_EzeScriptDirect->GetOrAddPropertyId(name, &propertyId), _u("GetOrAddPropertyId"));
     return propertyId;
 }
 
-Var MyScriptDirectTests::GetProperty(const Var instance, const wchar_t *const name)
+Var MyScriptDirectTests::GetProperty(const Var instance, const char16 *const name)
 {
     Var value;
-    FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, instance, GetOrAddPropertyId(name), &value), L"GetProperty");
+    FAIL_hr(mptr_jsop->GetProperty(mptr_EzeScriptDirect, instance, GetOrAddPropertyId(name), &value), _u("GetProperty"));
     return value;
 }
 
-void MyScriptDirectTests::SetProperty(const Var instance, const wchar_t *const name, const Var value)
+void MyScriptDirectTests::SetProperty(const Var instance, const char16 *const name, const Var value)
 {
-    FAIL_hr(mptr_jsop->SetProperty(mptr_EzeScriptDirect, instance, GetOrAddPropertyId(name), value), L"SetProperty");
+    FAIL_hr(mptr_jsop->SetProperty(mptr_EzeScriptDirect, instance, GetOrAddPropertyId(name), value), _u("SetProperty"));
 }
 
 bool MyScriptDirectTests::ToBoolean(const Var value)
 {
     BOOL converted;
-    FAIL_hr(mptr_EzeScriptDirect->VarToBOOL(value, &converted), L"ToBoolean");
+    FAIL_hr(mptr_EzeScriptDirect->VarToBOOL(value, &converted), _u("ToBoolean"));
     return converted==TRUE;
 }
 
 double MyScriptDirectTests::ToDouble(const Var value)
 {
     double converted;
-    FAIL_hr(mptr_EzeScriptDirect->VarToDouble(value, &converted), L"ToDouble");
+    FAIL_hr(mptr_EzeScriptDirect->VarToDouble(value, &converted), _u("ToDouble"));
     return converted;
 }
 
 std::wstring MyScriptDirectTests::ToString(const Var value)
 {
-    const wchar_t *str;
+    const char16 *str;
     unsigned int length;
-    FAIL_hr(mptr_EzeScriptDirect->VarToRawString(value, &str, &length), L"ToString");
+    FAIL_hr(mptr_EzeScriptDirect->VarToRawString(value, &str, &length), _u("ToString"));
     return std::wstring(str, length);
 }
 
 Var MyScriptDirectTests::ToVar(const bool value)
 {
     Var converted;
-    FAIL_hr(mptr_EzeScriptDirect->BOOLToVar(value, &converted), L"ToVar");
+    FAIL_hr(mptr_EzeScriptDirect->BOOLToVar(value, &converted), _u("ToVar"));
     return converted;
 }
 

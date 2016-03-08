@@ -36,7 +36,7 @@ class ExceptionData
 {
 public:
     JsErrorType errorType;
-    wchar_t *description;
+    char16 *description;
     Var thrownObject;
 
     ExceptionData()
@@ -465,7 +465,7 @@ private:
     PFNGetActivationFactory m_pfnGetActivationFactory;
 
 public:
-    DelayLoadWinRt() : Js::DelayLoadLibrary(L"api-ms-win-core-winrt-l1-1-0.dll"), m_pfnActivateInstance(NULL), m_pfnGetActivationFactory(NULL) { }
+    DelayLoadWinRt() : Js::DelayLoadLibrary(_u("api-ms-win-core-winrt-l1-1-0.dll")), m_pfnActivateInstance(NULL), m_pfnGetActivationFactory(NULL) { }
     virtual ~DelayLoadWinRt() { }
 
     HRESULT ActivateInstance(HSTRING activatableClassId, __deref_out IInspectable ** instance);
@@ -480,7 +480,7 @@ private:
     PFNCRoResolveNamespace m_pfnRoResolveNamespace;
 
 public:
-    DelayLoadWinRtTypeResolution() : Js::DelayLoadLibrary(L"api-ms-win-ro-typeresolution-l1-1-0.dll"), m_pfnRoResolveNamespace(NULL) { }
+    DelayLoadWinRtTypeResolution() : Js::DelayLoadLibrary(_u("api-ms-win-ro-typeresolution-l1-1-0.dll")), m_pfnRoResolveNamespace(NULL) { }
     virtual ~DelayLoadWinRtTypeResolution() { }
 
     HRESULT RoResolveNamespace(
@@ -505,7 +505,7 @@ typedef enum
 // This is the base path where to look for *.winmd files
 // Will leverage the WIN_JSHOST_METADATA_BASE_PATH env. var if present.
 // (note: the '.' is intended, to support seemlessly the scenarios where the env. var is defined or not, with or w/o trailing '\')
-#define WIN_JSHOST_METADATA_BASE_PATH L"%WIN_JSHOST_METADATA_BASE_PATH%.\\"
+#define WIN_JSHOST_METADATA_BASE_PATH _u("%WIN_JSHOST_METADATA_BASE_PATH%.\\")
 
 class ActiveScriptDirectHost : public IActiveScriptProjectionHost, IActiveScriptProjectionTelemetryHost
 {

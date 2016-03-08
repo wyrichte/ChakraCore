@@ -26,7 +26,7 @@ HRESULT ExternalFuncFpcwTest(IActiveScriptDirect* activeScriptDirect)
     Print("Test basic RunExternalFuncFpcwTest functionality");
 
     // Add it to the GlobalObject.
-    hr = activeScriptDirect->GetOrAddPropertyId(L"MyFPCWTest", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("MyFPCWTest"), &propertyId);
     IfFailedReturn(hr);
 
     hr = activeScriptDirect->BuildDOMDirectFunction(NULL, MyFPCWTest, propertyId, -1, 0, &jsFunction);

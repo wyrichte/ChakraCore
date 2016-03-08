@@ -145,7 +145,7 @@ void RuntimeHost::ProcessWorkItemQueue()
             catch(JsRT::Exception ex)
             {
                 // TODO: report the actual exception
-                data->host->m_pHostData->m_pManager->Error(L"RuntimeHost::InternalCallback failed with an exception");
+                data->host->m_pHostData->m_pManager->Error(_u("RuntimeHost::InternalCallback failed with an exception"));
             }
 
             // Clean up the work object

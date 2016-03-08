@@ -17,8 +17,8 @@ const double Js::JavascriptNativeFloatArray::MissingItem = *(double*)&FloatMissi
 
 namespace JsDiag
 {
-    static const CString s_lengthPropertyName(L"length");
-    const CString MethodGroupProperty::s_name(L"[Methods]");
+    static const CString s_lengthPropertyName(_u("length"));
+    const CString MethodGroupProperty::s_name(_u("[Methods]"));
 
     int __cdecl ComparePropertyInfo(_In_ void* context, _In_ const void* item1, _In_ const void* item2)
     {
@@ -77,7 +77,7 @@ namespace JsDiag
             CString name;
             if (RemoteJavascriptFunction::TryReadDisplayName(m_context->GetReader(), constructor.data, &name))
             {
-                return L"Object, (" + name + L")";
+                return _u("Object, (") + name + _u(")");
             }
         }
 
@@ -98,11 +98,11 @@ namespace JsDiag
         PROPERTY_INFO info;
         info.type = PROPERTY_INFO::DATA_PROPERTY;
         info.attr = JS_PROPERTY_READONLY | JS_PROPERTY_FAKE;
-        info.name = L"[handler]";
+        info.name = _u("[handler]");
         info.pointer = remoteObject->GetHandler();
         pThis()->InsertItem(info);
 
-        info.name = L"[target]";
+        info.name = _u("[target]");
         info.pointer = remoteObject->GetTarget();
         pThis()->InsertItem(info);
     }
@@ -120,7 +120,7 @@ namespace JsDiag
         {
             PROPERTY_INFO  info;
             info.type = PROPERTY_INFO::POINTER_VALUE;
-            info.name = L"[Native Object]";
+            info.name = _u("[Native Object]");
             info.attr = JS_PROPERTY_NATIVE_WINRT_POINTER;
             RemoteProjectionObjectInstance instance(m_context->GetReader(),  static_cast<const Projection::ProjectionObjectInstance*>(var));
             info.pointer = instance->unknown;
@@ -139,7 +139,7 @@ namespace JsDiag
     {
         CString name = m_context->ReadPropertyName(
             RemoteExternalObject(m_context->GetReader(), static_cast<ExternalObject*>(m_info.data)).GetClassName());
-        return L"[Object, " + name + L"]";
+        return _u("[Object, ") + name + _u("]");
     }
 
     void ExternalObjectProperty::EnumNonIndexProperties(IPropertyListener* listener, const OriginalObjectInfo& originalObject, bool requireEnumerable) const
@@ -170,7 +170,7 @@ namespace JsDiag
 
     void JavascriptBooleanProperty::Init(InspectionContext* context, const PROPERTY_INFO& info, bool value, _In_opt_ IJsDebugPropertyInternal* parent)
     {
-        __super::Init(context, info, L"Boolean", GetString(value), parent);
+        __super::Init(context, info, _u("Boolean"), GetString(value), parent);
     }
 
     void JavascriptBooleanProperty::Init(InspectionContext* context, const PROPERTY_INFO& info, _In_opt_ IJsDebugPropertyInternal* parent)
@@ -181,7 +181,7 @@ namespace JsDiag
 
     LPCWSTR JavascriptBooleanProperty::GetString(bool b)
     {
-        return b ? L"true" : L"false";
+        return b ? _u("true") : _u("false");
     }
 
     bool_result JavascriptBooleanProperty::TryToObject(_Out_ IJsDebugPropertyInternal** ppDebugProperty)
@@ -252,7 +252,7 @@ namespace JsDiag
         if (bstr == nullptr)
         {
             static const int bufSize = 256;
-            wchar_t szBuffer[bufSize]; //TODO: This seems overly generous
+            char16 szBuffer[bufSize]; //TODO: This seems overly generous
 
             if(Js::NumberUtilities::FNonZeroFiniteDblToStr(value, szBuffer, bufSize))
             {
@@ -276,13 +276,13 @@ namespace JsDiag
         if (bstr == nullptr)
         {
             static const int bufSize = 256;
-            wchar_t szBuffer[bufSize];
+            char16 szBuffer[bufSize];
 
             WCHAR* psz = szBuffer;
             int len = bufSize;
             if (radix == 16)
             {
-                static const WCHAR PREFIX16[] = L"0x";
+                static const WCHAR PREFIX16[] = _u("0x");
                 static const int PREFIX_LEN = _countof(PREFIX16) - 1;
                 wcscpy_s(szBuffer, PREFIX16);
                 psz += PREFIX_LEN;
@@ -316,18 +316,18 @@ namespace JsDiag
         {
             if (radix == 16)
             {
-                return lib.CreateStringFromCppLiteral(L"0x0");
+                return lib.CreateStringFromCppLiteral(_u("0x0"));
             }
             else
             {
                 if (radix == 10 && Js::JavascriptNumber::IsNegZero(value))
                 {
                     // In debugger, we wanted to show negative zero explicitly (only for radix 10)
-                    return lib.CreateStringFromCppLiteral(L"-0");
+                    return lib.CreateStringFromCppLiteral(_u("-0"));
                 }
                 else
                 {
-                    return lib.CreateStringFromCppLiteral(L"0");
+                    return lib.CreateStringFromCppLiteral(_u("0"));
                 }
             }
         }
@@ -387,11 +387,11 @@ namespace JsDiag
         SIMDValue sValue = *(static_cast<SIMDValue*>(simd));
 
         CString valueString;
-        wchar_t stringBuffer[SIMD_INDEX_VALUE_MAX];
+        char16 stringBuffer[SIMD_INDEX_VALUE_MAX];
         Assert(elementCount == 4 || elementCount == 8 || elementCount == 16);
         for (uint i = 0; i < elementCount; i++)
         {
-            swprintf_s(stringBuffer, SIMD_INDEX_VALUE_MAX, L"[%d]", i);
+            swprintf_s(stringBuffer, SIMD_INDEX_VALUE_MAX, _u("[%d]"), i);
             valueString.Empty();
             valueString.Append(stringBuffer);
             
@@ -474,7 +474,7 @@ namespace JsDiag
     {
         CString valueString;
 
-        wchar_t stringBuffer[SIMD_STRING_BUFFER_MAX];
+        char16 stringBuffer[SIMD_STRING_BUFFER_MAX];
         simdType::ToStringBuffer(m_value, stringBuffer, SIMD_STRING_BUFFER_MAX);
 
         valueString.Append(stringBuffer);
@@ -497,23 +497,23 @@ namespace JsDiag
         CString valueString;
         CComBSTR bstr0, bstr1, bstr2, bstr3;
 
-        valueString.Append(L"SIMD.Float32x4(");
+        valueString.Append(_u("SIMD.Float32x4("));
 
         NumberProperty::GetValueBSTR((double)m_value.f32[0], nRadix, &bstr0);
         valueString.Append(bstr0, ::SysStringLen(bstr0));
-        valueString.Append(L", ");
+        valueString.Append(_u(", "));
 
         NumberProperty::GetValueBSTR((double)m_value.f32[1], nRadix, &bstr1);
         valueString.Append(bstr1, ::SysStringLen(bstr1));
-        valueString.Append(L", ");
+        valueString.Append(_u(", "));
 
         NumberProperty::GetValueBSTR((double)m_value.f32[2], nRadix, &bstr2);
         valueString.Append(bstr2, ::SysStringLen(bstr2));
-        valueString.Append(L", ");
+        valueString.Append(_u(", "));
 
         NumberProperty::GetValueBSTR((double)m_value.f32[3], nRadix, &bstr3);
         valueString.Append(bstr3, ::SysStringLen(bstr3));
-        valueString.Append(L")");
+        valueString.Append(_u(")"));
 
         *pValue = valueString.AllocSysString();
 
@@ -668,7 +668,7 @@ namespace JsDiag
         }
         else
         {
-            ToBSTR(L"\"\"", pValue);
+            ToBSTR(_u("\"\""), pValue);
         }
     }
 
@@ -696,7 +696,7 @@ namespace JsDiag
 
             for (uint i = start; i < end; i++)
             {
-                wchar_t ch = str[i];
+                char16 ch = str[i];
                 if (!listener->EnumItem(i, PROPERTY_INFO(i, CString(ch))))
                 {
                     break;
@@ -938,7 +938,7 @@ namespace JsDiag
 
     static CString GetShortFunctionDisplayName(const CString& name)
     {
-        int i = name.ReverseFind(L'.');
+        int i = name.ReverseFind(_u('.'));
         return i >= 0 ? name.Mid(i + 1) : name;
     }
 
@@ -1028,7 +1028,7 @@ namespace JsDiag
             return;
         }
 
-        ToBSTR(L"", pValue); // Display an empty string
+        ToBSTR(_u(""), pValue); // Display an empty string
     }
 
     //
@@ -1235,7 +1235,7 @@ namespace JsDiag
         {
             if (i > 0)
             {
-                str += L",";
+                str += _u(",");
             }
 
             const PROPERTY_INFO& prop = props[i];
@@ -1274,10 +1274,10 @@ namespace JsDiag
 
         if (length >= SmallArrayListener::MAX_SMALL_ARRAY_SIZE)
         {
-            return L"[...]";
+            return _u("[...]");
         }
 
-        CString str = L"[";
+        CString str = _u("[");
         Js::Var instance = (Js::Var)GetInstance();
         if (!m_context->CheckObject(instance)) // prevent loop
         {
@@ -1292,7 +1292,7 @@ namespace JsDiag
 
             str += items.Join(m_context);
         }
-        str += L"]";
+        str += _u("]");
 
         return str;
     }
@@ -1745,8 +1745,8 @@ namespace JsDiag
 
     void KeyValueWalker::Init(InspectionContext* context, Js::Var key, Js::Var value)
     {
-        PROPERTY_INFO infoKey(L"key", key);
-        PROPERTY_INFO infoValue(L"value", value);
+        PROPERTY_INFO infoKey(_u("key"), key);
+        PROPERTY_INFO infoValue(_u("value"), value);
 
         context->CreateDebugProperty(infoKey, /*parent*/nullptr, &m_key);
         context->CreateDebugProperty(infoValue, /*parent*/nullptr, &m_value);
@@ -1779,7 +1779,7 @@ namespace JsDiag
     void KeyValueProperty::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
     {
         CString valueString;
-        valueString.Append(L"[");
+        valueString.Append(_u("["));
 
         CComBSTR bstrKey;
         CComBSTR bstrValue;
@@ -1787,12 +1787,12 @@ namespace JsDiag
         m_walker->GetKeyProperty()->GetDisplayValue(nRadix, &bstrKey);
         valueString.Append(bstrKey, ::SysStringLen(bstrKey));
 
-        valueString.Append(L", ");
+        valueString.Append(_u(", "));
 
         m_walker->GetValueProperty()->GetDisplayValue(nRadix, &bstrValue);
         valueString.Append(bstrValue, ::SysStringLen(bstrValue));
 
-        valueString.Append(L"]");
+        valueString.Append(_u("]"));
 
         *pValue = valueString.AllocSysString();
     }
@@ -1808,7 +1808,7 @@ namespace JsDiag
             RemoteData<const Js::JavascriptMap::MapDataNode> remoteNode(m_context->GetReader(), node);
 
             CString name;
-            name.Format(L"%u", index);
+            name.Format(_u("%u"), index);
 
             CComPtr<KeyValueProperty> keyValueProperty;
             CreateComObject(m_context, name, remoteNode->data.Key(), remoteNode->data.Value(), &keyValueProperty);
@@ -1831,7 +1831,7 @@ namespace JsDiag
             RemoteData<const Js::JavascriptSet::SetDataNode> remoteNode(m_context->GetReader(), node);
 
             CString name;
-            name.Format(L"%u", index);
+            name.Format(_u("%u"), index);
 
             PROPERTY_INFO info(name, remoteNode->data);
             pThis()->InsertItem(info);
@@ -1864,7 +1864,7 @@ namespace JsDiag
                 }
 
                 CString name;
-                name.Format(L"%u", index);
+                name.Format(_u("%u"), index);
 
                 CComPtr<KeyValueProperty> keyValueProperty;
                 CreateComObject(m_context, name, (Js::Var)key, value, &keyValueProperty);
@@ -1899,7 +1899,7 @@ namespace JsDiag
         remoteKeySet.Map([&] (const DynamicObject* key, bool)
         {
             CString name;
-            name.Format(L"%u", index);
+            name.Format(_u("%u"), index);
 
             PROPERTY_INFO info(name, (Js::Var)key);
             pThis()->InsertItem(info);
@@ -1936,12 +1936,12 @@ namespace JsDiag
     //
     // Read a string of known length into a buffer
     //
-    void InspectionContext::ReadStringLen(IVirtualReader* reader, const wchar_t* addr, _Out_writes_all_(len) wchar_t* buf, charcount_t len)
+    void InspectionContext::ReadStringLen(IVirtualReader* reader, const char16* addr, _Out_writes_all_(len) char16* buf, charcount_t len)
     {
         // NOTE: Javascript string can contain embeded NULL. Do not handle it as LPCWSTR.
         // Read memory directly for string content since we know exact string length.
 
-        ULONG bytes = len * sizeof(wchar_t);
+        ULONG bytes = len * sizeof(char16);
         ULONG bytesRead;
         HRESULT hr = reader->ReadVirtual(addr, buf, bytes, &bytesRead);
         CheckHR(hr, DiagErrorCode::READ_STRING);
@@ -1954,7 +1954,7 @@ namespace JsDiag
     //
     // Read a string of known length
     //
-    CString InspectionContext::ReadStringLen(IVirtualReader* reader, const wchar_t* addr, charcount_t len)
+    CString InspectionContext::ReadStringLen(IVirtualReader* reader, const char16* addr, charcount_t len)
     {
         if (len >= JavascriptString::MaxCharLength)
         {
@@ -1985,7 +1985,7 @@ namespace JsDiag
         return ReadPropertyName(this->GetReader(), propertyRecord);
     }
 
-    bool InspectionContext::ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) wchar_t* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual)
+    bool InspectionContext::ReadString(JavascriptString* s, _Out_writes_to_(bufLen, *actual) char16* buf, _In_ charcount_t bufLen, _Out_ charcount_t* actual)
     {
         IRemoteStringFactory* fac = GetRemoteStringFactory(s);
         if (fac != nullptr)
@@ -2045,7 +2045,7 @@ namespace JsDiag
 
     const PCWSTR InspectionContext::GetPrototypeDisplay() const
     {
-        return is__proto__Enabled() ? L"__proto__" : L"[prototype]";
+        return is__proto__Enabled() ? _u("__proto__") : _u("[prototype]");
     }
 
     void InspectionContext::TryResolve__proto__Value(const RecyclableObject* instance, CAtlArray<PROPERTY_INFO>& items)
@@ -2057,7 +2057,7 @@ namespace JsDiag
         {
             if (instance == m_javascriptLibrary->GetObjectPrototype())
             {
-                CString __proto__(L"__proto__");
+                CString __proto__(_u("__proto__"));
                 for (uint i = 0; i < static_cast<uint>(items.GetCount()); i++)
                 {
                     if (items[i].type == PROPERTY_INFO::ACCESSOR_PROPERTY
@@ -2253,11 +2253,11 @@ namespace JsDiag
         switch (typeId)
         {
         case Js::TypeIds_Undefined:
-            CreateComObject<SimpleProperty>(this, info, L"Undefined", L"undefined", parent, ppDebugProperty);
+            CreateComObject<SimpleProperty>(this, info, _u("Undefined"), _u("undefined"), parent, ppDebugProperty);
             return;
 
         case Js::TypeIds_Null:
-            CreateComObject<SimpleProperty>(this, info, L"Null", L"null", parent, ppDebugProperty);
+            CreateComObject<SimpleProperty>(this, info, _u("Null"), _u("null"), parent, ppDebugProperty);
             return;
 
         case Js::TypeIds_Boolean:
@@ -2496,7 +2496,7 @@ namespace JsDiag
                 {
                     AssertMsg(false, "TypeId missing inspection?");
                 }
-                CreateComObject<UnknownProperty>(this, info, L"[Unrecognized Type]", L"{...}", parent, ppDebugProperty);
+                CreateComObject<UnknownProperty>(this, info, _u("[Unrecognized Type]"), _u("{...}"), parent, ppDebugProperty);
             }
             break;
         }
@@ -2552,7 +2552,7 @@ namespace JsDiag
 
         default:
             Assert(info.type == PROPERTY_INFO::ACCESSOR_PROPERTY);
-            CreateComObject<UnknownProperty>(this, info, L"", GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported), parent, ppDebugProperty);
+            CreateComObject<UnknownProperty>(this, info, _u(""), GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported), parent, ppDebugProperty);
         }
     }
 
@@ -2578,7 +2578,7 @@ namespace JsDiag
             {
                 try
                 {
-                    m_mshtmlDacLib.Load(L"EdgeHtmlDac.dll");
+                    m_mshtmlDacLib.Load(_u("EdgeHtmlDac.dll"));
                     AssertMsg(false, "EdgeHtmlDac.dll found. Time to fix html inspection scenarios in hybrid debugging");
                 }
                 catch(const DiagException&)

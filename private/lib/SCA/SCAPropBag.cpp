@@ -109,10 +109,10 @@ Error:
         IfFailGo(UInt32Add(len, 1, &fullLen));
 
         charcount_t byteLen; // byte length (excluding null terminator)
-        IfFailGo(UInt32Mult(len, sizeof(wchar_t), &byteLen));
+        IfFailGo(UInt32Mult(len, sizeof(char16), &byteLen));
 
         // Make a copy of name
-        wchar_t* buf = RecyclerNewArrayLeaf(recycler, wchar_t, fullLen);
+        char16* buf = RecyclerNewArrayLeaf(recycler, char16, fullLen);
         js_memcpy_s(buf, byteLen, name, byteLen);
         buf[len] = L'\0';
 

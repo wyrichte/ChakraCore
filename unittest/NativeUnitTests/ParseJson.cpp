@@ -18,19 +18,19 @@ Var nullVar;
 
 void printData(const JSONTestData &data, HRESULT hr)
 {
-    std::wcout << L"JSON Text:" << std::wstring(data.jsonText == nullptr ? L"<nullptr>" : data.jsonText)
-        << L", HR:" << hex << hr << L", Var:";
+    std::wcout << _u("JSON Text:") << std::wstring(data.jsonText == nullptr ? _u("<nullptr>") : data.jsonText)
+        << _u(", HR:") << hex << hr << _u(", Var:");
     if (data.var == nullptr)
     {
-        std::wcout << L"<nullptr>";
+        std::wcout << _u("<nullptr>");
     }
     else if (data.var == nullVar)
     {
-        std::wcout << L"<nullVar>";
+        std::wcout << _u("<nullVar>");
     }
     else
     {
-        std::wcout << L"<Var>";
+        std::wcout << _u("<Var>");
     }
     std::wcout << endl;
 }
@@ -52,12 +52,12 @@ HRESULT TestBasicActiveScriptDirectParseJson(MyScriptDirectTests* myTests)
     Var varOut;
     
     JSONTestData testdata[] = {
-        { L"", -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr != S_OK && *(data.var) == nullVar; } },
-        { L"{\"a\":1}", -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == S_OK && *(data.var) != nullVar; } },
-        { L"adsfa", -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{  return hr != S_OK && *(data.var) == nullVar; } },
+        { _u(""), -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr != S_OK && *(data.var) == nullVar; } },
+        { _u("{\"a\":1}"), -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == S_OK && *(data.var) != nullVar; } },
+        { _u("adsfa"), -1, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{  return hr != S_OK && *(data.var) == nullVar; } },
         { nullptr, 0, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == E_INVALIDARG && *(data.var) == nullVar; } },
-        { L"{a:0}", -1, (Var*)nullptr, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == E_INVALIDARG && data.var == nullptr; } },
-        { L"{\"a\":1}}}}}", 7, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == S_OK && *(data.var) != nullVar; } },
+        { _u("{a:0}"), -1, (Var*)nullptr, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == E_INVALIDARG && data.var == nullptr; } },
+        { _u("{\"a\":1}}}}}"), 7, &varOut, [](const JSONTestData &data, HRESULT hr)->bool{ return hr == S_OK && *(data.var) != nullVar; } },
     };
 
     int failedCount = 0;

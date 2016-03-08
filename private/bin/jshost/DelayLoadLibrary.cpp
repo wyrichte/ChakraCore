@@ -76,7 +76,7 @@ namespace Js
                 m_pfWindowsGetStringRawBuffer = (PFNCWindowsGetStringRawBuffer)GetFunction("WindowsGetStringRawBuffer");
                 if (m_pfWindowsGetStringRawBuffer == NULL)
                 {
-                    return L"\0";
+                    return _u("\0");
                 }
             }
 
@@ -84,7 +84,7 @@ namespace Js
             return m_pfWindowsGetStringRawBuffer(string, length);
         }
 
-        return L"\0";
+        return _u("\0");
     }
 
     HRESULT DelayLoadWinRtString::WindowsCompareStringOrdinal(HSTRING string1, HSTRING string2, __out INT32 * result)

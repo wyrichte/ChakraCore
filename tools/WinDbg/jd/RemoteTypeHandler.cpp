@@ -83,12 +83,12 @@ void RemotePathTypeHandler::EnumerateProperties(ExtRemoteTyped& obj, const Objec
     LONG pathLength;
     if (m_typeHandler->HasField("pathLength"))
     {
-        // Old style pathLength (before CL#1160359)
+        // Old style pathLength (before C_u(#1160359))
         pathLength = m_typeHandler->Field("pathLength").GetLong();
     }
     else if (m_typeHandler->GetFieldOffset("unusedBytes") > m_typeHandler->GetFieldOffset("inlineSlotCapacity"))
     {
-        // Old style of unused byte without the tag bit (before CL#1329022)
+        // Old style of unused byte without the tag bit (before C_u(#1329022))
         pathLength = m_typeHandler->Field("unusedBytes").GetUshort();
     }
     else

@@ -115,7 +115,7 @@ namespace Projection
 #if DBG
     void WinRTPromiseEngineInterfaceExtensionObject::DumpByteCode()
     {
-        Output::Print(L"Dumping Promise Byte Code:");
+        Output::Print(_u("Dumping Promise Byte Code:"));
         this->EnsurePromiseByteCode(GetScriptContext());
         Js::ByteCodeDumper::DumpRecursively(promiseByteCode);
     }

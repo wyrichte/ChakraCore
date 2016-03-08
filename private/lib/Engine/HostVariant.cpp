@@ -198,8 +198,8 @@ void HostVariant::Dispose(bool isShutdown)
     }
     else
     {
-        LEAK_REPORT_PRINT(L"HostVariant %p: Finalize not called on shutdown (%s %p)\n", this,
-            isUnknown? L"IUnknown" : this->varDispatch.vt == VT_LPWSTR? L"LPWSTR" : L"IDispatch",
+        LEAK_REPORT_PRINT(_u("HostVariant %p: Finalize not called on shutdown (%s %p)\n"), this,
+            isUnknown? _u("IUnknown") : this->varDispatch.vt == VT_LPWSTR? _u("LPWSTR") : _u("IDispatch"),
             isUnknown? varDispatch.punkVal : this->varDispatch.vt == VT_LPWSTR? 0 :
                 this->varDispatch.pdispVal
             );

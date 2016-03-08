@@ -135,13 +135,13 @@ namespace Projection
             __out Js::ArrayBuffer **ppArrayBuffer);
         
 #ifdef PROJECTION_METADATA_TRACE
-        void Trace(const wchar_t *form, ...) const
+        void Trace(const char16 *form, ...) const
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {
                 va_list argptr;
                 va_start(argptr, form);
-                Output::Print(L"ProjectionContext: ");
+                Output::Print(_u("ProjectionContext: "));
                 Output::VPrint(form, argptr);
                 Output::Flush();
             }

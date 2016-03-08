@@ -169,7 +169,7 @@ namespace Js
             }
             else
             {
-                LEAK_REPORT_PRINT(L"CustomExternalObject %p: Finalize not called on shutdown\n", this);
+                LEAK_REPORT_PRINT(_u("CustomExternalObject %p: Finalize not called on shutdown\n"), this);
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Js
 
         // Only the ArrayBufferFromIBuffer class itself needs to know about the specialization.
         // We should only pass around an ArrayBuffer.
-        OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"Creating ArrayBuffer using IBuffer projection with capacity/length/byteLength %u bytes\n", capacity);
+        OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("Creating ArrayBuffer using IBuffer projection with capacity/length/byteLength %u bytes\n"), capacity);
         return static_cast<ArrayBuffer*>(RecyclerNewFinalized(library->GetRecycler(),
                                                               ArrayBufferFromIBuffer,
                                                               iBuf,
@@ -58,7 +58,7 @@ namespace Js
         // Use the recycler field off library instead of scriptcontext to avoid av.
         Recycler* recycler = GetType()->GetLibrary()->GetRecycler();
         recycler->ReportExternalMemoryFree(bufferLength);
-        OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"ArrayBufferFromIBuffer finalize call freed %u external bytes\n", bufferLength);
+        OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("ArrayBufferFromIBuffer finalize call freed %u external bytes\n"), bufferLength);
     }
 
     void ArrayBufferFromIBuffer::Dispose(bool isShutdown)

@@ -29,36 +29,36 @@ namespace JsDiag
     ULONG RemoteStackFrame::GetColumn() { return m_rowColumn.GetColumn(this); }
 
     // Returned memory must be freed by the caller using delete[].
-    wchar_t* RemoteStackFrame::GetUri() const
+    char16* RemoteStackFrame::GetUri() const
     {
         if (IsAmd64FakeEHFrame())
         {
-            return WcsDup(L"JS Internal", DiagConstants::MaxUriLength);
+            return WcsDup(_u("JS Internal"), DiagConstants::MaxUriLength);
         }
 
-        wchar_t buf[DiagConstants::MaxUriLength];
+        char16 buf[DiagConstants::MaxUriLength];
         GetRemoteFunctionBody()->GetUri(buf, _countof(buf));
         return WcsDup(buf, DiagConstants::MaxUriLength);
     }
 
     // Returned memory must be freed by the caller using delete[].
-    wchar_t* RemoteStackFrame::GetFunctionName() const
+    char16* RemoteStackFrame::GetFunctionName() const
     {
         if (IsAmd64FakeEHFrame())
         {
-            return WcsDup(L"Amd64EHFrame", DiagConstants::MaxFunctionNameLength);
+            return WcsDup(_u("Amd64EHFrame"), DiagConstants::MaxFunctionNameLength);
         }
 
-        wchar_t buf[DiagConstants::MaxFunctionNameLength];
+        char16 buf[DiagConstants::MaxFunctionNameLength];
         GetRemoteFunctionBody()->GetFunctionName(buf, _countof(buf));
 
         if (m_loopNumber != LoopHeader::NoLoop)
         {
-            static const wchar_t loop[] = L"Loop";
+            static const char16 loop[] = _u("Loop");
             size_t len = wcslen(buf);
             if (len + /*length of largest int32*/ 10 + _countof(loop) + /*nullptr*/ 1 <= _countof(buf))
             {
-                swprintf_s(buf + len, _countof(buf) - len, L"Loop%d", m_loopNumber + 1);
+                swprintf_s(buf + len, _countof(buf) - len, _u("Loop%d"), m_loopNumber + 1);
             }
         }
 
@@ -95,13 +95,13 @@ namespace JsDiag
     // - src: the sring to copy
     // - maxDstCharCount: buffer size of dst (which is to be created) in chars.
     // static
-    wchar_t* RemoteStackFrame::WcsDup(_In_z_ const wchar_t* src, size_t maxDstCharCount)
+    char16* RemoteStackFrame::WcsDup(_In_z_ const char16* src, size_t maxDstCharCount)
     {
         Assert(src);
         Assert(maxDstCharCount > 0);
 
         size_t dstCharCount = wcsnlen_s(src, maxDstCharCount - 1) + 1;
-        wchar_t* dst = new(oomthrow) wchar_t[dstCharCount];
+        char16* dst = new(oomthrow) char16[dstCharCount];
 
         // Copy src including NULL-terminator with truncate if needed, note: NULL-terminator is always appended.
         wcsncpy_s(dst, dstCharCount, src, _TRUNCATE);
@@ -159,7 +159,7 @@ namespace JsDiag
 
         return JsDebugApiWrapper([=]
         {
-            wchar_t functionName[DiagConstants::MaxFunctionNameLength];
+            char16 functionName[DiagConstants::MaxFunctionNameLength];
             GetRemoteFunctionBody()->GetFunctionName(functionName, _countof(functionName));
 
             CComBSTR name(functionName);
@@ -207,7 +207,7 @@ namespace JsDiag
     {
         if(pDocumentName)
         {
-            wchar_t uri[DiagConstants::MaxUriLength];
+            char16 uri[DiagConstants::MaxUriLength];
             GetRemoteFunctionBody()->GetUri(uri, _countof(uri));
 
             CComBSTR documentName(uri);

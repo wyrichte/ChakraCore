@@ -26,10 +26,10 @@ DEFINE_GUID(IID_IDefaultScriptOperations,  /* 07ef09cb-0fe0-446e-876e-b11593ca3d
     0x87, 0x6e, 0xb1, 0x15, 0x93, 0xca, 0x3d, 0xaf);
 
 // The GUID used to identify the coclass of the JavaScript engine
-#define szCLSID_Chakra L"{1b7cd997-e5ff-4932-a7a6-2a9e636da385}"
+#define szCLSID_Chakra _u("{1b7cd997-e5ff-4932-a7a6-2a9e636da385}")
 DEFINE_GUID(CLSID_Chakra, 0x1b7cd997, 0xe5ff, 0x4932, 0xa7, 0xa6, 0x2a, 0x9e, 0x63, 0x6d, 0xa3, 0x85);
 
-#define szCLSID_ChakraThreadService L"{337448ee-2a70-43f7-99f9-40f2857950b9}"
+#define szCLSID_ChakraThreadService _u("{337448ee-2a70-43f7-99f9-40f2857950b9}")
 DEFINE_GUID(CLSID_ChakraThreadService, 0x337448ee, 0x2a70, 0x43f7, 0x99, 0xf9, 0x40, 0xf2, 0x85, 0x79, 0x50, 0xb9);
 
 // The GUID used to identify Javascript proxy objects

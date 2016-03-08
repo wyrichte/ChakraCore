@@ -29,10 +29,10 @@ namespace Js
         {
             JavascriptString* strA = JavascriptConversion::ToString(args[1], scriptContext);
             JavascriptString* strB = JavascriptConversion::ToString(args[2], scriptContext);
-            const wchar_t* a = strA->GetString();
-            const wchar_t* b = strB->GetString();
+            const char16* a = strA->GetString();
+            const char16* b = strB->GetString();
 
-            BEGIN_TEMP_ALLOCATOR(tmpAlloc, scriptContext, L"Test")
+            BEGIN_TEMP_ALLOCATOR(tmpAlloc, scriptContext, _u("Test"))
             {
                 LongestCommonSubsequence<ArenaAllocator> lcs(tmpAlloc, strA->GetLength(), strB->GetLength(), [=](int x, int y)
                 {
@@ -50,12 +50,12 @@ namespace Js
                         break;
 
                     case Insert:
-                        stringBuilder.Append(L'+');
+                        stringBuilder.Append(_u('+'));
                         stringBuilder.Append(b[y]);
                         break;
 
                     case Delete:
-                        stringBuilder.Append(L'-');
+                        stringBuilder.Append(_u('-'));
                         stringBuilder.Append(a[x]);
                         break;
 
@@ -64,7 +64,7 @@ namespace Js
                         break;
                     }
 
-                    stringBuilder.Append(L' ');
+                    stringBuilder.Append(_u(' '));
                 });
 
                 charcount_t len = stringBuilder.Count() > 0 ? stringBuilder.Count() - 1 : 0; // Strip last trailing space if appended
@@ -96,7 +96,7 @@ namespace Js
         {
             JavascriptString* str = JavascriptConversion::ToString(args[1], scriptContext);
 
-            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, L"Test")
+            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, _u("Test"))
             {
                 Recycler* recycler = scriptContext->GetRecycler();
                 AutoAllocatorObjectPtr<ScriptParseTree, EditAllocator> tree(Parse(recycler, str, scriptContext), recycler);
@@ -121,10 +121,10 @@ namespace Js
     EditTest::AstDumpContext<Allocator>::AstDumpContext(Allocator* alloc, ScriptContext* scriptContext) :
         alloc(alloc), scriptContext(scriptContext), path(alloc), root(nullptr)
     {
-        propertyIds[NodePropertyIds::TYPE] = scriptContext->GetOrAddPropertyIdTracked(L"type");
-        propertyIds[NodePropertyIds::CH_MIN] = scriptContext->GetOrAddPropertyIdTracked(L"min");
-        propertyIds[NodePropertyIds::CH_LIM] = scriptContext->GetOrAddPropertyIdTracked(L"lim");
-        propertyIds[NodePropertyIds::CHILDREN] = scriptContext->GetOrAddPropertyIdTracked(L"children");
+        propertyIds[NodePropertyIds::TYPE] = scriptContext->GetOrAddPropertyIdTracked(_u("type"));
+        propertyIds[NodePropertyIds::CH_MIN] = scriptContext->GetOrAddPropertyIdTracked(_u("min"));
+        propertyIds[NodePropertyIds::CH_LIM] = scriptContext->GetOrAddPropertyIdTracked(_u("lim"));
+        propertyIds[NodePropertyIds::CHILDREN] = scriptContext->GetOrAddPropertyIdTracked(_u("children"));
     }
 
     //
@@ -197,9 +197,9 @@ namespace Js
     EditTest::EditDumpContext<Allocator>::EditDumpContext(Allocator* alloc, ScriptContext* scriptContext) :
         astDumpContext(alloc, scriptContext)
     {
-        propertyIds[EditPropertyIds::KIND] = scriptContext->GetOrAddPropertyIdTracked(L"kind");
-        propertyIds[EditPropertyIds::OLD_NODE] = scriptContext->GetOrAddPropertyIdTracked(L"oldNode");
-        propertyIds[EditPropertyIds::NEW_NODE] = scriptContext->GetOrAddPropertyIdTracked(L"newNode");
+        propertyIds[EditPropertyIds::KIND] = scriptContext->GetOrAddPropertyIdTracked(_u("kind"));
+        propertyIds[EditPropertyIds::OLD_NODE] = scriptContext->GetOrAddPropertyIdTracked(_u("oldNode"));
+        propertyIds[EditPropertyIds::NEW_NODE] = scriptContext->GetOrAddPropertyIdTracked(_u("newNode"));
     }
 
     //
@@ -214,7 +214,7 @@ namespace Js
         RecyclableObject* nullObject = library->GetNull();
 
         // WARNING: Following names must be in sync with enum EditKind (rarely changed)
-        static PCWSTR s_editKinds[] = { L"None", L"Update", L"Insert", L"Delete", L"Move", L"Reorder" };
+        static PCWSTR s_editKinds[] = { _u("None"), _u("Update"), _u("Insert"), _u("Delete"), _u("Move"), _u("Reorder") };
 
         obj->SetProperty(propertyIds[EditPropertyIds::KIND], JavascriptString::NewWithSz(s_editKinds[edit.Kind()], scriptContext),
             PropertyOperationFlags::PropertyOperation_Force, nullptr);
@@ -232,8 +232,8 @@ namespace Js
     {
         JavascriptLibrary* library = scriptContext->GetLibrary();
         DynamicObject* diff = library->CreateObject();
-        PropertyId matchPropertyId = scriptContext->GetOrAddPropertyIdTracked(L"match");
-        PropertyId editsPropertyId = scriptContext->GetOrAddPropertyIdTracked(L"edits");
+        PropertyId matchPropertyId = scriptContext->GetOrAddPropertyIdTracked(_u("match"));
+        PropertyId editsPropertyId = scriptContext->GetOrAddPropertyIdTracked(_u("edits"));
 
         // Do TreeMatch
         TreeMatch<TreeComparer, Allocator> match(alloc, rootA, rootB, comparer);
@@ -281,7 +281,7 @@ namespace Js
             JavascriptString* strA = JavascriptConversion::ToString(args[1], scriptContext);
             JavascriptString* strB = JavascriptConversion::ToString(args[2], scriptContext);
 
-            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, L"Test")
+            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, _u("Test"))
             {
                 Recycler* recycler = scriptContext->GetRecycler();
                 AutoAllocatorObjectPtr<ScriptParseTree, EditAllocator> treeA(Parse(recycler, strA, scriptContext), recycler);
@@ -322,13 +322,13 @@ namespace Js
         {
             JavascriptString* fileName = JavascriptConversion::ToString(args[1], scriptContext);
 
-            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, L"Test")
+            BEGIN_TEMP_ALLOCATOR(alloc, scriptContext, _u("Test"))
             {
                 FILE* file;
                 LPCOLESTR contents = nullptr;
                 LPCUTF8 contentsUtf8 = nullptr;
 
-                if (!_wfopen_s(&file, fileName->GetSz(), L"rb"))
+                if (!_wfopen_s(&file, fileName->GetSz(), _u("rb")))
                 {
                     fseek(file, 0, SEEK_END);
                     uint lengthBytes = ftell(file);
@@ -348,7 +348,7 @@ namespace Js
                         else if ((lengthBytes >= sizeof(OLECHAR) && contentsRaw[0] == 0xFFFE)
                             || (lengthBytes >= sizeof(OLECHAR) * 2 && contentsRaw[0] == 0x0000 && contentsRaw[1] == 0xFEFF))
                         {
-                            fwprintf(stderr, L"unsupported file encoding"); // UTF-16BE or UTF-32BE, both are unsupported
+                            fwprintf(stderr, _u("unsupported file encoding")); // UTF-16BE or UTF-32BE, both are unsupported
                         }
                         else if (lengthBytes >= sizeof(OLECHAR) && contentsRaw[0] == 0xFEFF)
                         {

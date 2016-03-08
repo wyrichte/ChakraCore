@@ -3,7 +3,6 @@
 //---------------------------------------------------------------------------
 
 #include "StdAfx.h"
-#include "Serializer.h"
 
 // TODO: Clean this warning up
 #pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
@@ -32,7 +31,7 @@ namespace JsDiag
                 // - key
                 // - length in bytes
                 // - all chars exlcuding NULL terminator.
-                size_t strByteCount = wcslen(value) * sizeof(wchar_t);
+                size_t strByteCount = wcslen(value) * sizeof(char16);
                 if (strByteCount)
                 {
                     int length = SerializeKey(FieldType::LengthDefined, fieldIndex, stream, params);
@@ -216,8 +215,8 @@ namespace JsDiag
             AssertMsg(strByteCount % 2 == 0, "The string must've been serialized with even # of bytes since it's UNICODE string.");
             int strLength = strByteCount / 2;
             
-            wchar_t* str = (wchar_t*)malloc(sizeof(wchar_t) * (strLength + 1)); // Extra 1 char is for NULL-terminator. Use malloc/free for strings.
-            stream->Read(str, strLength * sizeof(wchar_t));
+            char16* str = (char16*)malloc(sizeof(char16) * (strLength + 1)); // Extra 1 char is for NULL-terminator. Use malloc/free for strings.
+            stream->Read(str, strLength * sizeof(char16));
             str[strLength] = L'\0';
 
             byteCount += strByteCount;

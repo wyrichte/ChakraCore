@@ -21,22 +21,22 @@ HRESULT SCA::Initialize(IActiveScript* pActiveScript)
     Var SCA;
     IfFailGo(pScriptDirect->CreateObject(&SCA));
 
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"serialize", &Serialize));
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"deserialize", &Deserialize));
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"lookup", &Lookup));
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"lookupEx", &LookupEx));//With Dense Arrays
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"dataToKey", &DataToKey));
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"makeInt64", &MakeInt64));
-    IfFailGo(pScriptDirect.AddMethod(SCA, L"makeUint64", &MakeUint64));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("serialize"), &Serialize));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("deserialize"), &Deserialize));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("lookup"), &Lookup));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("lookupEx"), &LookupEx));//With Dense Arrays
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("dataToKey"), &DataToKey));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("makeInt64"), &MakeInt64));
+    IfFailGo(pScriptDirect.AddMethod(SCA, _u("makeUint64"), &MakeUint64));
 
     Var global;
     IfFailGo(pScriptDirect->GetGlobalObject(&global));
-    IfFailGo(pScriptDirect.AddProperty(global, L"SCA", SCA));
+    IfFailGo(pScriptDirect.AddProperty(global, _u("SCA"), SCA));
 
     // Add constructor ImageData
     PropertyId namePropertyId;
     Var imageData;
-    IfFailGo(pScriptDirect->GetOrAddPropertyId(L"ImageData", &namePropertyId));
+    IfFailGo(pScriptDirect->GetOrAddPropertyId(_u("ImageData"), &namePropertyId));
     IfFailGo(pScriptDirect->CreateConstructor(NULL, &ImageDataConstructor, namePropertyId, FALSE, &imageData));
     IfFailGo(pScriptDirect.SetProperty(global, namePropertyId, imageData));
 
@@ -73,32 +73,32 @@ HRESULT SCA::GetOptions(ScriptDirect& pScriptDirect, CallInfo callInfo, Var* arg
             argIndex++; // Yes, "options" object provided
 
             BOOL hasContext;
-            IfFailGo(pScriptDirect.HasProperty(options, L"context", &hasContext));
+            IfFailGo(pScriptDirect.HasProperty(options, _u("context"), &hasContext));
             if (hasContext)
             {
                 CComBSTR contextStr;
-                IfFailGo(pScriptDirect.GetOwnProperty(options, L"context", &contextStr));
-                if (_wcsicmp(contextStr, L"samethread") == 0)
+                IfFailGo(pScriptDirect.GetOwnProperty(options, _u("context"), &contextStr));
+                if (_wcsicmp(contextStr, _u("samethread")) == 0)
                 {
                     context = SCAContext_SameThread;
                 }
-                else if (_wcsicmp(contextStr, L"crossthread") == 0)
+                else if (_wcsicmp(contextStr, _u("crossthread")) == 0)
                 {
                     context = SCAContext_CrossThread;
                 }
-                else if (_wcsicmp(contextStr, L"crossprocess") == 0)
+                else if (_wcsicmp(contextStr, _u("crossprocess")) == 0)
                 {
                     context = SCAContext_CrossProcess;
                 }
             }
 
             BOOL hasTarget;
-            IfFailGo(pScriptDirect.HasProperty(options, L"target", &hasTarget));
+            IfFailGo(pScriptDirect.HasProperty(options, _u("target"), &hasTarget));
             if (hasTarget)
             {
                 CComPtr<IActiveScriptDirect> pTargetScriptDirect;
                 Var targetVar;
-                IfFailGo(pScriptDirect.GetOwnProperty(options, L"target", &targetVar));
+                IfFailGo(pScriptDirect.GetOwnProperty(options, _u("target"), &targetVar));
                 IfFailGo(ScriptDirect::JsVarToScriptDirect(targetVar, &pTargetScriptDirect));
                 IfFailGo(((IUnknown*)pTargetScriptDirect)->QueryInterface(&pTarget));
             }
@@ -190,7 +190,7 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
                     IfFailGo(E_INVALIDARG);
                 }
 
-                IfFailGo(pScriptDirect.GetProperty(transferVars, L"length", &arrayLength));
+                IfFailGo(pScriptDirect.GetProperty(transferVars, _u("length"), &arrayLength));
 
                 if (arrayLength > 0)
                 {
@@ -262,7 +262,7 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
                 pScriptDirect->Int64ToVar((long long)outDependentObject, &pointer);
              
                 //This isn't the best approach, but its test code
-                IfFailGo(pScriptDirect.AddProperty(uint8Array, L"__state__", (Var)pointer));
+                IfFailGo(pScriptDirect.AddProperty(uint8Array, _u("__state__"), (Var)pointer));
             }
             return uint8Array;
         }
@@ -299,12 +299,12 @@ Var SCA::Deserialize(Var function, CallInfo callInfo, Var* args)
         IfFailGo(pScriptDirect->GetServiceProviderOfCaller(&pServiceProvider));
 
         BOOL boolResult = false;
-        IfFailGo(pScriptDirect.HasProperty(data, L"__state__", &boolResult));
+        IfFailGo(pScriptDirect.HasProperty(data, _u("__state__"), &boolResult));
 
         if (boolResult)
         {
             Var pointerValue = nullptr;
-            IfFailGo(pScriptDirect.GetProperty(data, L"__state__", &pointerValue));
+            IfFailGo(pScriptDirect.GetProperty(data, _u("__state__"), &pointerValue));
             long long outInt64 = 0;
             pScriptDirect->VarToInt64(pointerValue, &outInt64);
 
@@ -411,7 +411,7 @@ HRESULT SCA::VariantToVar(_In_ ScriptDirect& pScriptDirect, _In_ const VARIANT &
     switch (V_VT(&value))
     {
     case VT_EMPTY:
-        IfFailGo(pScriptDirect.StringToVar(L"NotIndexable", outVar));
+        IfFailGo(pScriptDirect.StringToVar(_u("NotIndexable"), outVar));
         break;
 
     case VT_NULL:
@@ -449,7 +449,7 @@ HRESULT SCA::VariantToVar(_In_ ScriptDirect& pScriptDirect, _In_ const VARIANT &
             const size_t bufsize = 256;
             static WCHAR buf[bufsize];
 
-            IfFailGo(StringCchPrintf(buf, bufsize, L"Unexpected VT: %d", V_VT(&value)));
+            IfFailGo(StringCchPrintf(buf, bufsize, _u("Unexpected VT: %d"), V_VT(&value)));
             IfFailGo(pScriptDirect.StringToVar(buf, outVar));
         }
         break;
@@ -569,7 +569,7 @@ Var SCA::LookupHelper(_In_ APIFuncType ReadIndexableProperty /* In order to avoi
 
         if (hr == S_FALSE)
         {
-            IfFailGo(pScriptDirect.StringToVar(canPropertyBeAdded ? L"NoProperty, CanAdd" : L"NoProperty", &var));
+            IfFailGo(pScriptDirect.StringToVar(canPropertyBeAdded ? _u("NoProperty, CanAdd") : _u("NoProperty"), &var));
             return var;
         }
 
@@ -747,7 +747,7 @@ HRESULT SCA::EnsureImageDataType(ScriptDirect& pScriptDirect)
         JavascriptTypeId typeId;
         PropertyId nameId;
         IfFailGo(pScriptDirect->ReserveTypeIds(1, &typeId));
-        IfFailGo(pScriptDirect->GetOrAddPropertyId(L"ImageData", &nameId));
+        IfFailGo(pScriptDirect->GetOrAddPropertyId(_u("ImageData"), &nameId));
         IfFailGo(pScriptDirect->CreateType(typeId, NULL, 0, NULL, NULL, pTypeOperations, FALSE, nameId, TRUE, &htypeImageData));
     }
 

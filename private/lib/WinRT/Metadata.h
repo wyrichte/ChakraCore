@@ -584,13 +584,13 @@ namespace Metadata
         }
 
 #ifdef PROJECTION_METADATA_TRACE
-        void Trace(const wchar_t *form, ...) const
+        void Trace(const char16 *form, ...) const
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {
                 va_list argptr;
                 va_start(argptr, form);
-                Output::Print(L"WinMD: %s: ", properties->name);
+                Output::Print(_u("WinMD: %s: "), properties->name);
                 Output::VPrint(form, argptr);
                 Output::Flush();
             }

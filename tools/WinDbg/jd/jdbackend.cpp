@@ -54,7 +54,7 @@ char * JDBackend::GetPropertySymDumpString(ExtRemoteTyped propertySym, char* buf
     if (ENUM_EQUAL(fieldKind, PropertyKindData))
     {
         
-        ExtRemoteTyped fieldName = ExtRemoteTyped("(wchar_t *)@$extin", propertyNameReader.GetNameByPropertyId(propertyId));
+        ExtRemoteTyped fieldName = ExtRemoteTyped("(char16 *)@$extin", propertyNameReader.GetNameByPropertyId(propertyId));
         wchar tempBuffer2[TEMP_BUFFER_SIZE];
         RETURNBUFFER("%s->%S", stackSymDumpStr,
             (*fieldName).GetString(tempBuffer2, _countof(tempBuffer2), _countof(tempBuffer2)));        
@@ -309,7 +309,7 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
         ExtRemoteTyped opcode = ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
         if (ENUM_EQUAL(opcode.GetSimpleValue(), StatementBoundary))
         {
-            ext->Out(L"%20s StatementBoundary #%d", "", ExtRemoteTyped(ext->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
+            ext->Out(_u("%20s StatementBoundary #%d"), "", ExtRemoteTyped(ext->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
         }
         else
         {

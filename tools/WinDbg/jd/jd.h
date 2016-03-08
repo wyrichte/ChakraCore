@@ -236,7 +236,7 @@ protected:
     ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
-    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf);
+    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
 
     // jscript9diag
     void EnsureJsDebug(PCWSTR jscript9diagPath = nullptr);

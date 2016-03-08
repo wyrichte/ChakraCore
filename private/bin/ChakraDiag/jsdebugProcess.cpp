@@ -125,7 +125,7 @@ namespace JsDiag
             CComPtr<InspectionContext> inspectionContext;
             CreateComObject(this, &inspectionContext);
             CString name;
-            name.Format(L"0x%p", var);
+            name.Format(_u("0x%p"), var);
             inspectionContext->CreateDebugProperty(PROPERTY_INFO(name, var), /*parent*/nullptr, ppDebugProperty);
             return S_OK;
         });

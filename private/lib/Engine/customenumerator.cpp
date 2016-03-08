@@ -25,7 +25,7 @@ namespace Js
             }
             else
             {
-                LEAK_REPORT_PRINT(L"CustomEnumerator %p: Finalize not called on shutdown (IVarEnumerator %p)\n",
+                LEAK_REPORT_PRINT(_u("CustomEnumerator %p: Finalize not called on shutdown (IVarEnumerator %p)\n"),
                     this, varEnumerator);
             }
         }

@@ -38,8 +38,8 @@ const ULONG ActiveScriptProfilerHeapEnum::INTERNAL_PROFILER_HEAP_OBJECT_INTERNAL
 const ULONG ActiveScriptProfilerHeapEnum::PROFILER_RELATIONSHIP_INFO_MASK     = 0x0000ffff;
 const ULONG ActiveScriptProfilerHeapEnum::PROFILER_RELATIONSHIP_FLAGS_MASK    = 0xffff0000;
 
-const LPCWSTR c_functionRelationshipNames[] = { L"sourceUrl", L"sourceRow", L"sourceCol" };
-const LPCWSTR c_dataViewRelationshipNames[] = { L"buffer", L"byteOffset", L"byteLength" };
+const LPCWSTR c_functionRelationshipNames[] = { _u("sourceUrl"), _u("sourceRow"), _u("sourceCol") };
+const LPCWSTR c_dataViewRelationshipNames[] = { _u("buffer"), _u("byteOffset"), _u("byteLength") };
 
 #ifdef ENABLE_TEST_HOOKS
 ActiveScriptProfilerHeapEnum::GetHeapObjectInfoPtr ActiveScriptProfilerHeapEnum::pfGetHeapObjectInfo = NULL;
@@ -157,48 +157,48 @@ PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetPropertyId(LPCWSTR
 // Property Ids is unique to a script engine, so can't use a static table
 void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
 {
-    typeNameIdMap[HeapObjectType_Undefined].typeNameId = GetPropertyId(L"Undefined");
-    typeNameIdMap[HeapObjectType_Null].typeNameId = GetPropertyId(L"Null");
-    typeNameIdMap[HeapObjectType_Boolean].typeNameId = GetPropertyId(L"Boolean");
-    typeNameIdMap[HeapObjectType_Number].typeNameId = GetPropertyId(L"Number");
-    typeNameIdMap[HeapObjectType_String].typeNameId = GetPropertyId(L"String");
-    typeNameIdMap[HeapObjectType_ArgumentObject].typeNameId = GetPropertyId(L"ArgumentObject");
-    typeNameIdMap[HeapObjectType_ArrayObject].typeNameId = GetPropertyId(L"ArrayObject");
-    typeNameIdMap[HeapObjectType_ArrayBuffer].typeNameId = GetPropertyId(L"ArrayBuffer");
-    typeNameIdMap[HeapObjectType_BooleanObject].typeNameId = GetPropertyId(L"BooleanObject");
-    typeNameIdMap[HeapObjectType_DataView].typeNameId = GetPropertyId(L"DataView");
-    typeNameIdMap[HeapObjectType_DateObject].typeNameId = GetPropertyId(L"DateObject");
-    typeNameIdMap[HeapObjectType_ErrorObject].typeNameId = GetPropertyId(L"ErrorObject");
-    typeNameIdMap[HeapObjectType_GetVarDateFunctionObject].typeNameId = GetPropertyId(L"GetVarDateFunctionObject");
-    typeNameIdMap[HeapObjectType_FunctionObject].typeNameId = GetPropertyId(L"FunctionObject");
-    typeNameIdMap[HeapObjectType_NumberObject].typeNameId = GetPropertyId(L"NumberObject");
-    typeNameIdMap[HeapObjectType_ObjectObject].typeNameId = GetPropertyId(L"ObjectObject");
-    typeNameIdMap[HeapObjectType_RegexObject].typeNameId = GetPropertyId(L"RegexObject");
-    typeNameIdMap[HeapObjectType_StringObject].typeNameId = GetPropertyId(L"StringObject");
-    typeNameIdMap[HeapObjectType_TypedArrayObject].typeNameId = GetPropertyId(L"TypedArrayObject");
-    typeNameIdMap[HeapObjectType_GlobalObject].typeNameId = GetPropertyId(L"GlobalObject");
-    typeNameIdMap[HeapObjectType_FormObject].typeNameId = GetPropertyId(L"FormObject");
-    typeNameIdMap[HeapObjectType_Scope].typeNameId = GetPropertyId(L"Scope");
-    typeNameIdMap[HeapObjectType_HostObject].typeNameId = GetPropertyId(L"HostObject");
-    typeNameIdMap[HeapObjectType_DOM].typeNameId = GetPropertyId(L"DOMObject");
+    typeNameIdMap[HeapObjectType_Undefined].typeNameId = GetPropertyId(_u("Undefined"));
+    typeNameIdMap[HeapObjectType_Null].typeNameId = GetPropertyId(_u("Null"));
+    typeNameIdMap[HeapObjectType_Boolean].typeNameId = GetPropertyId(_u("Boolean"));
+    typeNameIdMap[HeapObjectType_Number].typeNameId = GetPropertyId(_u("Number"));
+    typeNameIdMap[HeapObjectType_String].typeNameId = GetPropertyId(_u("String"));
+    typeNameIdMap[HeapObjectType_ArgumentObject].typeNameId = GetPropertyId(_u("ArgumentObject"));
+    typeNameIdMap[HeapObjectType_ArrayObject].typeNameId = GetPropertyId(_u("ArrayObject"));
+    typeNameIdMap[HeapObjectType_ArrayBuffer].typeNameId = GetPropertyId(_u("ArrayBuffer"));
+    typeNameIdMap[HeapObjectType_BooleanObject].typeNameId = GetPropertyId(_u("BooleanObject"));
+    typeNameIdMap[HeapObjectType_DataView].typeNameId = GetPropertyId(_u("DataView"));
+    typeNameIdMap[HeapObjectType_DateObject].typeNameId = GetPropertyId(_u("DateObject"));
+    typeNameIdMap[HeapObjectType_ErrorObject].typeNameId = GetPropertyId(_u("ErrorObject"));
+    typeNameIdMap[HeapObjectType_GetVarDateFunctionObject].typeNameId = GetPropertyId(_u("GetVarDateFunctionObject"));
+    typeNameIdMap[HeapObjectType_FunctionObject].typeNameId = GetPropertyId(_u("FunctionObject"));
+    typeNameIdMap[HeapObjectType_NumberObject].typeNameId = GetPropertyId(_u("NumberObject"));
+    typeNameIdMap[HeapObjectType_ObjectObject].typeNameId = GetPropertyId(_u("ObjectObject"));
+    typeNameIdMap[HeapObjectType_RegexObject].typeNameId = GetPropertyId(_u("RegexObject"));
+    typeNameIdMap[HeapObjectType_StringObject].typeNameId = GetPropertyId(_u("StringObject"));
+    typeNameIdMap[HeapObjectType_TypedArrayObject].typeNameId = GetPropertyId(_u("TypedArrayObject"));
+    typeNameIdMap[HeapObjectType_GlobalObject].typeNameId = GetPropertyId(_u("GlobalObject"));
+    typeNameIdMap[HeapObjectType_FormObject].typeNameId = GetPropertyId(_u("FormObject"));
+    typeNameIdMap[HeapObjectType_Scope].typeNameId = GetPropertyId(_u("Scope"));
+    typeNameIdMap[HeapObjectType_HostObject].typeNameId = GetPropertyId(_u("HostObject"));
+    typeNameIdMap[HeapObjectType_DOM].typeNameId = GetPropertyId(_u("DOMObject"));
     typeNameIdMap[HeapObjectType_WinRT].typeNameId = GetPropertyId(WinRTObjectType);
-    typeNameIdMap[HeapObjectType_MapObject].typeNameId = GetPropertyId(L"MapObject");
-    typeNameIdMap[HeapObjectType_SetObject].typeNameId = GetPropertyId(L"SetObject");
-    typeNameIdMap[HeapObjectType_WeakMapObject].typeNameId = GetPropertyId(L"WeakMapObject");
-    typeNameIdMap[HeapObjectType_WeakSetObject].typeNameId = GetPropertyId(L"WeakSetObject");
-    typeNameIdMap[HeapObjectType_JsrtExternalObject].typeNameId = GetPropertyId(L"ExternalObject");
-    typeNameIdMap[HeapObjectType_Symbol].typeNameId = GetPropertyId(L"Symbol");
-    typeNameIdMap[HeapObjectType_SymbolObject].typeNameId = GetPropertyId(L"SymbolObject");
-    typeNameIdMap[HeapObjectType_ProxyObject].typeNameId = GetPropertyId(L"Proxy");
-    typeNameIdMap[HeapObjectType_ArrayIterator].typeNameId = GetPropertyId(L"ArrayIterator");
-    typeNameIdMap[HeapObjectType_MapIterator].typeNameId = GetPropertyId(L"MapIterator");
-    typeNameIdMap[HeapObjectType_SetIterator].typeNameId = GetPropertyId(L"SetIterator");
-    typeNameIdMap[HeapObjectType_StringIterator].typeNameId = GetPropertyId(L"StringIterator");
-    typeNameIdMap[HeapObjectType_Generator].typeNameId = GetPropertyId(L"Generator");
-    typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(L"Promise");
-    typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(L"ReflectIterator");
-    typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(L"SIMD");
-    typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(L"SIMDObject");
+    typeNameIdMap[HeapObjectType_MapObject].typeNameId = GetPropertyId(_u("MapObject"));
+    typeNameIdMap[HeapObjectType_SetObject].typeNameId = GetPropertyId(_u("SetObject"));
+    typeNameIdMap[HeapObjectType_WeakMapObject].typeNameId = GetPropertyId(_u("WeakMapObject"));
+    typeNameIdMap[HeapObjectType_WeakSetObject].typeNameId = GetPropertyId(_u("WeakSetObject"));
+    typeNameIdMap[HeapObjectType_JsrtExternalObject].typeNameId = GetPropertyId(_u("ExternalObject"));
+    typeNameIdMap[HeapObjectType_Symbol].typeNameId = GetPropertyId(_u("Symbol"));
+    typeNameIdMap[HeapObjectType_SymbolObject].typeNameId = GetPropertyId(_u("SymbolObject"));
+    typeNameIdMap[HeapObjectType_ProxyObject].typeNameId = GetPropertyId(_u("Proxy"));
+    typeNameIdMap[HeapObjectType_ArrayIterator].typeNameId = GetPropertyId(_u("ArrayIterator"));
+    typeNameIdMap[HeapObjectType_MapIterator].typeNameId = GetPropertyId(_u("MapIterator"));
+    typeNameIdMap[HeapObjectType_SetIterator].typeNameId = GetPropertyId(_u("SetIterator"));
+    typeNameIdMap[HeapObjectType_StringIterator].typeNameId = GetPropertyId(_u("StringIterator"));
+    typeNameIdMap[HeapObjectType_Generator].typeNameId = GetPropertyId(_u("Generator"));
+    typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(_u("Promise"));
+    typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(_u("ReflectIterator"));
+    typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(_u("SIMD"));
+    typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(_u("SIMDObject"));
 }
 
 PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(ProfilerHeapObjectType objectType)
@@ -1154,7 +1154,7 @@ UINT ActiveScriptProfilerHeapEnum::GetNamePropertySlotCount(Js::RecyclableObject
         if (relationshipId == Js::Constants::NoProperty) reason = 1;
         else if (Js::IsInternalPropertyId(relationshipId)) reason = 2;
         else if (! Js::JavascriptOperators::HasOwnPropertyNoHostObjectForHeapEnum(obj, relationshipId, obj->GetScriptContext(), getter, setter)) reason = 3;
-        Output::Print(L"*** Skipping name property %p for reason %d***\n", obj, reason);
+        Output::Print(_u("*** Skipping name property %p for reason %d***\n"), obj, reason);
     }
 #endif
     return count;
@@ -2236,7 +2236,7 @@ void ActiveScriptProfilerHeapEnum::EnsureRecyclableObjectsAreVisitedCallback(con
             {
                 if  (obj->GetHeapEnumValidationCookie() == HEAP_ENUMERATION_LIBRARY_OBJECT_COOKIE)
                 {
-                    Output::Print(L"*** [%d/%d] %p object of %S in GC heap not enumerated (library object) ***\n", libObjectCount, userObjectCount + libObjectCount, heapObject.GetObjectAddress(), className);
+                    Output::Print(_u("*** [%d/%d] %p object of %S in GC heap not enumerated (library object) ***\n"), libObjectCount, userObjectCount + libObjectCount, heapObject.GetObjectAddress(), className);
                     libObjectCount++;
                     currentEnumerator->Visit(obj, PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_LIBRARY_OBJECT);
                 }
@@ -2244,7 +2244,7 @@ void ActiveScriptProfilerHeapEnum::EnsureRecyclableObjectsAreVisitedCallback(con
                 {
 //                    uint threshHoldForAssertingOnNonReportedObjects = 100;
 //                    AssertMsg((userObjectCount + libObjectCount) < threshHoldForAssertingOnNonReportedObjects, "Exceeded threshold of Js::DynamicObject in GC heap that weren't enumerated");
-                    Output::Print(L"*** [%d/%d] %p object of %S in GC heap not enumerated (user object) ***\n", userObjectCount, libObjectCount + userObjectCount, heapObject.GetObjectAddress(), className);
+                    Output::Print(_u("*** [%d/%d] %p object of %S in GC heap not enumerated (user object) ***\n"), userObjectCount, libObjectCount + userObjectCount, heapObject.GetObjectAddress(), className);
                     userObjectCount++;
                     currentEnumerator->Visit(obj, PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_USER_OBJECT);
                 }
@@ -2461,7 +2461,7 @@ bool ActiveScriptProfilerHeapEnum::IsJavascriptString(Js::RecyclableObject* obj)
 
 ActiveScriptProfilerHeapEnum::VtableMap::VtableMap() :
     pageAllocator(nullptr),
-    arenaAllocator(L"Vtable map", &pageAllocator, Js::Throw::OutOfMemory), m_vtableMapHash(nullptr)
+    arenaAllocator(_u("Vtable map"), &pageAllocator, Js::Throw::OutOfMemory), m_vtableMapHash(nullptr)
 {
 }
 

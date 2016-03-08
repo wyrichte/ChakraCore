@@ -305,14 +305,14 @@ HRESULT EventSink::Connect(void)
     hr = m_pdisp->QueryInterface(__uuidof(IConnectionPointContainer), (void **)&pcpc);
     if (FAILED(hr))
     {
-        DebugPrintf((L"QI(IConnectionPointContainer) Failed\n"));
+        DebugPrintf((_u("QI(IConnectionPointContainer) Failed\n")));
         goto Error;
     }
 
     hr = pcpc->FindConnectionPoint(m_iid, &m_pconn);
     if (FAILED(hr))
     {
-        DebugPrintf((L"FindConnectionPoint Failed\n"));
+        DebugPrintf((_u("FindConnectionPoint Failed\n")));
         m_pconn = NULL;
         goto Error;
     }
@@ -322,7 +322,7 @@ HRESULT EventSink::Connect(void)
     {
         m_pconn->Release();
         m_pconn = NULL;
-        DebugPrintf((L"Advise() Failed\n"));
+        DebugPrintf((_u("Advise() Failed\n")));
         goto Error;
     }
 
@@ -351,7 +351,7 @@ HRESULT EventSink::Disconnect(void)
     hr = m_pconn->Unadvise(m_dwCookie);
     if (FAILED(hr))
     {
-        DebugPrintf((L"Unadvise() Failed\n"));
+        DebugPrintf((_u("Unadvise() Failed\n")));
         goto Error;
     }
 

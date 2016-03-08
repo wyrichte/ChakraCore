@@ -55,7 +55,7 @@ namespace Projection
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"MemoryTrace: Explicit release of projection object (msReleaseWinRTObject)\n");
+            Output::Print(_u("MemoryTrace: Explicit release of projection object (msReleaseWinRTObject)\n"));
             Output::Flush();
         }
 #endif
@@ -103,7 +103,7 @@ namespace Projection
         if(args.Info.Count < 3)
         {
             // If not both parameters passed : object from which to get the weak property and propertyName
-            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, L"msGetWeakWinRTProperty");
+            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("msGetWeakWinRTProperty"));
         }
 
         // Param1
@@ -137,7 +137,7 @@ namespace Projection
         if(args.Info.Count < 4)
         {
             // If not all three parameters passed : object from which to set the weak property, propertyName and actual property value
-            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, L"msSetWeakWinRTProperty");
+            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("msSetWeakWinRTProperty"));
         }
 
         // Param1
@@ -266,23 +266,23 @@ namespace Projection
 
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            projectionAllocator = HeapNew(ArenaAllocator, L"Projection", threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
+            projectionAllocator = HeapNew(ArenaAllocator, _u("Projection"), threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
             m_namespaces = Anew(projectionAllocator, NAMESPACEMAP, projectionAllocator);
 
-            PropertyId releaseMethodId = IdOfString(L"msReleaseWinRTObject");
+            PropertyId releaseMethodId = IdOfString(_u("msReleaseWinRTObject"));
 
             auto releaseMethod = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(ReleaseMethodThunk), releaseMethodId, nullptr, false);
             Var varLength = Js::JavascriptNumber::ToVar(1, scriptContext);
             releaseMethod->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             scriptContext->GetGlobalObject()->SetPropertyWithAttributes(releaseMethodId, releaseMethod, PropertyBuiltInMethodDefaults, nullptr);
 
-            PropertyId getWeakWinRTPropertyId = IdOfString(L"msGetWeakWinRTProperty");
+            PropertyId getWeakWinRTPropertyId = IdOfString(_u("msGetWeakWinRTProperty"));
             auto getWeakWinRTProperty = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(GetWeakWinRTPropertyThunk), getWeakWinRTPropertyId, this, false);
             varLength = Js::JavascriptNumber::ToVar(2, scriptContext);
             getWeakWinRTProperty->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             scriptContext->GetGlobalObject()->SetPropertyWithAttributes(getWeakWinRTPropertyId, getWeakWinRTProperty, PropertyBuiltInMethodDefaults, nullptr);
 
-            PropertyId setWeakWinRTPropertyId = IdOfString(L"msSetWeakWinRTProperty");
+            PropertyId setWeakWinRTPropertyId = IdOfString(_u("msSetWeakWinRTProperty"));
             auto setWeakWinRTProperty = this->CreateWinRTFunction(reinterpret_cast<Js::JavascriptMethod>(SetWeakWinRTPropertyThunk), setWeakWinRTPropertyId, this, false);
             varLength = Js::JavascriptNumber::ToVar(3, scriptContext);
             setWeakWinRTProperty->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
@@ -290,18 +290,18 @@ namespace Projection
 
             m_projectionAsyncDebug = Anew(projectionAllocator, ProjectionAsyncDebug, this);
 
-            getItemAtId = IdOfString(L"getItemAt");
-            indexOfId = IdOfString(L"indexOf");
-            setAtId = IdOfString(L"setAt");
-            insertAtId = IdOfString(L"insertAt");
-            appendId = IdOfString(L"append");
-            replaceAllId = IdOfString(L"replaceAll");
-            toStringId = IdOfString(L"toString");
+            getItemAtId = IdOfString(_u("getItemAt"));
+            indexOfId = IdOfString(_u("indexOf"));
+            setAtId = IdOfString(_u("setAt"));
+            insertAtId = IdOfString(_u("insertAt"));
+            appendId = IdOfString(_u("append"));
+            replaceAllId = IdOfString(_u("replaceAll"));
+            toStringId = IdOfString(_u("toString"));
 
             projectionExternalLibrary = RecyclerNew(threadContext->GetRecycler(), ProjectionExternalLibrary);
             projectionExternalLibrary->Initialize(scriptContext->GetLibrary());
 
-            TRACE_METADATA(L"WinRT Projections initialized\n");
+            TRACE_METADATA(_u("WinRT Projections initialized\n"));
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr)
         return hr;
@@ -338,7 +338,7 @@ namespace Projection
             metadata = Anew(projectionAllocator, ASSEMBLYMAP, projectionAllocator);
         }
 
-        wchar_t assemblyName[MAX_PATH];
+        char16 assemblyName[MAX_PATH];
         DWORD assemblyNameLength;
         GUID   assemblyGuid;
 
@@ -350,11 +350,11 @@ namespace Projection
             *ppAssembly = Anew(projectionAllocator, Metadata::Assembly, pMetaDataImport, this, projectionAllocator, isVersioned);
             metadata->Add(assemblyGuid, *ppAssembly);
 
-            TRACE_METADATA(L"Metadata loaded for assembly %s\n", assemblyName); 
+            TRACE_METADATA(_u("Metadata loaded for assembly %s\n"), assemblyName); 
         }
         else
         {
-            TRACE_METADATA(L"Assembly %s already has metadata loaded\n", assemblyName);
+            TRACE_METADATA(_u("Assembly %s already has metadata loaded\n"), assemblyName);
         }
 
         return hr;
@@ -544,15 +544,15 @@ namespace Projection
     {
         if (m_namespaces != nullptr)
         {
-            TRACE_METADATA(L"ProjectionContext::DeleteSubNamespace(%s) invoked - m_namespaces->Count() = %d\n", fullName, m_namespaces->Count());
+            TRACE_METADATA(_u("ProjectionContext::DeleteSubNamespace(%s) invoked - m_namespaces->Count() = %d\n"), fullName, m_namespaces->Count());
 
             m_namespaces->Remove(fullName);
 
-            TRACE_METADATA(L"ProjectionContext::DeleteSubNamespace(%s) completed - m_namespaces->Count() = %d\n", fullName, m_namespaces->Count());
+            TRACE_METADATA(_u("ProjectionContext::DeleteSubNamespace(%s) completed - m_namespaces->Count() = %d\n"), fullName, m_namespaces->Count());
         }
         else
         {
-            TRACE_METADATA(L"ProjectionContext::DeleteSubNamespace(%s) no-op - m_namespaces == nullptr\n", fullName);
+            TRACE_METADATA(_u("ProjectionContext::DeleteSubNamespace(%s) no-op - m_namespaces == nullptr\n"), fullName);
         }
     }
 
@@ -561,7 +561,7 @@ namespace Projection
         host->AddRef();
         m_pProjectionHost = host;
         m_isConfigurable = isConfigurable;
-        TRACE_METADATA(L"ProjectionContext::SetProjectionHost(): set m_isConfigurable = %d\n", m_isConfigurable);
+        TRACE_METADATA(_u("ProjectionContext::SetProjectionHost(): set m_isConfigurable = %d\n"), m_isConfigurable);
         m_delegateWrapper = delegateWrapper;
         if (m_delegateWrapper != nullptr)
         {
@@ -576,7 +576,7 @@ namespace Projection
         {
             if (Js::Configuration::Global.flags.TraceProjection <= TraceLevel_Info)
             {
-                Output::Print(L"Failed to get IActiveScriptProjectionTelemetryHost from host\n");
+                Output::Print(_u("Failed to get IActiveScriptProjectionTelemetryHost from host\n"));
                 Output::Flush();
             }
         }
@@ -613,7 +613,7 @@ namespace Projection
 
         this->scriptContext->SetProjectionTargetVersion(targetVersion);
 
-        TRACE_METADATA(L"Setting TargetWinRTVersion as 0x%08X\n", targetVersion);
+        TRACE_METADATA(_u("Setting TargetWinRTVersion as 0x%08X\n"), targetVersion);
 
         return S_OK;
     }
@@ -654,9 +654,9 @@ namespace Projection
             isExtensible = TRUE;
         }
         
-        TRACE_METADATA(L"ProjectionContext::ReserveNamespace(): %s: isExtensible = %d %s\n", name, isExtensible, AreProjectionPrototypesConfigurable() == TRUE ? L"(DESIGN MODE)" : L"");
+        TRACE_METADATA(_u("ProjectionContext::ReserveNamespace(): %s: isExtensible = %d %s\n"), name, isExtensible, AreProjectionPrototypesConfigurable() == TRUE ? _u("(DESIGN MODE)") : _u(""));
 
-        // TODO - make sure we don't begin or end with a L'.'
+        // TODO - make sure we don't begin or end with a _u('.')
         if (m_namespaces->ContainsKey(name))
         {
             return E_INVALIDARG;
@@ -674,7 +674,7 @@ namespace Projection
             wcscpy_s(finalNamespace.Get(), finalNamespace.GetLength(), name);
 
             LPWSTR nextValue = NULL;
-            LPWSTR currentNamespace = wcstok_s(finalNamespace.Get(), L".", &nextValue);
+            LPWSTR currentNamespace = wcstok_s(finalNamespace.Get(), _u("."), &nextValue);
 
             while(NULL != currentNamespace)
             {
@@ -691,14 +691,14 @@ namespace Projection
                 // The newly created parent namespace is now the current parent
                 parentNamespaceObject = parentNamespaceProjection->GetJSInstance();
 
-                currentNamespace = wcstok_s(NULL, L".", &nextValue);
+                currentNamespace = wcstok_s(NULL, _u("."), &nextValue);
 
                 // Append a "." to our name if there is more to add to our namespace
                 if (currentNamespace != nullptr)
                 {
                     // Not root space
                     Assert(currentNamespace - finalNamespace.Get() > 0);
-                    *(currentNamespace - 1) = L'.';
+                    *(currentNamespace - 1) = _u('.');
                 }
             }
         }
@@ -838,7 +838,7 @@ namespace Projection
         {
             hr = m_pProjectionHost->GetTypeMetaDataInformation(typeName, metaDataInformation, typeDefToken, isVersioned);
 
-            TRACE_METADATA(L"GetTypeMetadataInformation(\"%s\"), result: %d\n", typeName, *typeDefToken);            
+            TRACE_METADATA(_u("GetTypeMetadataInformation(\"%s\"), result: %d\n"), typeName, *typeDefToken);            
         }
         END_LEAVE_SCRIPT(scriptContext);
 
@@ -885,7 +885,7 @@ namespace Projection
         }
 
 #if DBG_DUMP
-        threadContext->DumpProjectionContextMemoryStats(L"Stats after ProjectionContextClose");
+        threadContext->DumpProjectionContextMemoryStats(_u("Stats after ProjectionContextClose"));
 #endif
 
         Assert(!threadContext->IsScriptActive());

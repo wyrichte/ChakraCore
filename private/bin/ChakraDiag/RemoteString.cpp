@@ -30,7 +30,7 @@ namespace JsDiag
                 ? VirtualReader::ReadBuffer(
                     context->GetReader(),
                     ToTargetPtr()->bufferOwner + 1,
-                    ToTargetPtr()->charLength * sizeof(wchar_t))
+                    ToTargetPtr()->charLength * sizeof(char16))
                 : nullptr)
     {
     }
@@ -51,7 +51,7 @@ namespace JsDiag
         return ToTargetPtr()->previous;
     }
 
-    const wchar_t *RemoteCompoundString::RemoteBlock::Chars() const
+    const char16 *RemoteCompoundString::RemoteBlock::Chars() const
     {
         return CompoundString::Block::Chars(Buffer());
     }
@@ -94,12 +94,12 @@ namespace JsDiag
                 VirtualReader::ReadBuffer(
                     m_context->GetReader(),
                     ToTargetPtr()->lastBlockInfo.buffer,
-                    ToTargetPtr()->lastBlockInfo.charLength * sizeof(wchar_t));
+                    ToTargetPtr()->lastBlockInfo.charLength * sizeof(char16));
         }
         return const_cast<const void *>(static_cast<void *>(lastBlockBuffer));
     }
 
-    const wchar_t *RemoteCompoundString::LastBlockChars()
+    const char16 *RemoteCompoundString::LastBlockChars()
     {
         return CompoundString::Block::Chars(LastBlockBuffer());
     }
@@ -120,7 +120,7 @@ namespace JsDiag
     }
 
     void RemoteCompoundString::Copy(
-        _Out_writes_(bufLen) wchar_t* buffer,
+        _Out_writes_(bufLen) char16* buffer,
         _In_ charcount_t bufLen,
         StringCopyInfoStack &nestedStringTreeCopyInfos,
         const byte recursionDepth)
@@ -267,7 +267,7 @@ namespace JsDiag
             }
 
             // Copy direct chars
-            const wchar_t *blockChars = block.GetRemoteAddr() == ToTargetPtr()->lastBlock ? LastBlockChars() : block.Chars();
+            const char16 *blockChars = block.GetRemoteAddr() == ToTargetPtr()->lastBlock ? LastBlockChars() : block.Chars();
             while(true)
             {
                 if(blockCharLength != 0)
@@ -312,7 +312,7 @@ namespace JsDiag
     }
 
     void RemoteConcatStringBuilder::Copy(
-        _Out_writes_(bufLen) wchar_t* buffer,
+        _Out_writes_(bufLen) char16* buffer,
         _In_ charcount_t bufLen,
         StringCopyInfoStack &nestedStringTreeCopyInfos,
         const byte recursionDepth)
@@ -363,9 +363,9 @@ namespace JsDiag
         }
     }
 
-    template<wchar_t L, wchar_t R>
+    template<char16 L, char16 R>
     void RemoteConcatStringWrapping<L, R>::Copy(
-        _Out_writes_(bufLen) wchar_t* buffer,
+        _Out_writes_(bufLen) char16* buffer,
         _In_ charcount_t bufLen,
         StringCopyInfoStack &nestedStringTreeCopyInfos,
         const byte recursionDepth)
@@ -416,7 +416,7 @@ namespace JsDiag
         CompileAssert(offsetof(ConcatStringMulti, m_slots) == sizeof(ConcatStringMulti));
     }
 
-    void RemoteJSONString::Copy(_Out_writes_(bufLen) wchar_t* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth)
+    void RemoteJSONString::Copy(_Out_writes_(bufLen) char16* buffer, _In_ charcount_t bufLen, StringCopyInfoStack &nestedStringTreeCopyInfos, const byte recursionDepth)
     {
         Assert(!this->IsFinalized());
         RemoteJavascriptString originalString(this->m_context, this->GetOriginalString());
@@ -455,24 +455,24 @@ namespace JsDiag
                 lastFlushSz = current + 1;
                 stringBuffer.Append(L'\\');
                 stringBuffer.Append(specialChar);
-                if(specialChar == L'u')
+                if(specialChar == _u('u'))
                 {
-                    wchar_t bf[5];
+                    char16 bf[5];
                     _ltow_s(wch, bf, _countof(bf), 16);
                     size_t count = wcslen(bf);
                     if (count < 4)
                     {
                         if(count == 1)
                         {
-                            stringBuffer.Append(L"000", 3);
+                            stringBuffer.Append(_u("000"), 3);
                         }
                         else if(count == 2)
                         {
-                            stringBuffer.Append(L"00", 2);
+                            stringBuffer.Append(_u("00"), 2);
                         }
                         else
                         {
-                            stringBuffer.Append(L"0", 1);
+                            stringBuffer.Append(_u("0"), 1);
                         }
                     }
                     stringBuffer.Append(bf, count);
@@ -486,22 +486,22 @@ namespace JsDiag
         stringBuffer.Append(L'\"');
     }
 
-    template class RemoteConcatStringWrapping<L'[', L']'>;
-    template class RemoteConcatStringWrapping<L'{', L'}'>;
-    template class RemoteConcatStringWrapping<L'"', L'"'>;
+    template class RemoteConcatStringWrapping<_u('['), _u(']')>;
+    template class RemoteConcatStringWrapping<_u('{'), _u('}')>;
+    template class RemoteConcatStringWrapping<_u('"'), _u('"')>;
 
-    void WritableStringBuffer::Append(const wchar_t * str, charcount_t countNeeded)
+    void WritableStringBuffer::Append(const char16 * str, charcount_t countNeeded)
     {
         this->AppendLarge(str, countNeeded);
     }
 
-    void WritableStringBuffer::Append(wchar_t c)
+    void WritableStringBuffer::Append(char16 c)
     {   
         *m_pszCurrentPtr = c;
         this->m_pszCurrentPtr++;
         Assert(this->GetCount() <= m_length);
     }
-    void WritableStringBuffer::AppendLarge(const wchar_t * str, charcount_t countNeeded)
+    void WritableStringBuffer::AppendLarge(const char16 * str, charcount_t countNeeded)
     {
         js_memcpy_s(m_pszCurrentPtr, sizeof(WCHAR) * countNeeded, str, sizeof(WCHAR) * countNeeded);
         this->m_pszCurrentPtr += countNeeded;

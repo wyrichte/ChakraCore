@@ -311,20 +311,20 @@ namespace Js
 
     BOOL ExternalObject::GetDiagValueString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext)
     {
-        stringBuilder->AppendCppLiteral(L"{...}");
+        stringBuilder->AppendCppLiteral(_u("{...}"));
         return TRUE;
     }
 
     BOOL ExternalObject::GetDiagTypeString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext)
     {
-        stringBuilder->AppendCppLiteral(L"[Object");
+        stringBuilder->AppendCppLiteral(_u("[Object"));
         JavascriptString *pString = GetClassName(requestContext);
         if (pString)
         {
-            stringBuilder->AppendCppLiteral(L", ");
+            stringBuilder->AppendCppLiteral(_u(", "));
             stringBuilder->Append(pString->GetString(), pString->GetLength());
         }
-        stringBuilder->Append(L']');
+        stringBuilder->Append(_u(']'));
 
         return TRUE;
     }

@@ -432,7 +432,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
         }
     }
 
-    // After CL#1149965, heap block in the allocator are also in the heap block list
+    // After C_u(#1149965), heap block in the allocator are also in the heap block list
     // But the allocator has the more up to date information. so subtract the heap block information
     // to counteract when we count the same block in the heap block list
 
@@ -440,7 +440,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
     bool newHeapBlockLayout = heapBlock.HasField("needOOMRescan");
     if (isAllocator)
     {
-        // After CL#1149965, heap block in the allocator are also in the heap block list
+        // After C_u(#1149965), heap block in the allocator are also in the heap block list
         // But the allocator has the more up to date information. so subtract the heap block information
         // to counteract when we count the same block in the heap block list
 
@@ -457,7 +457,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
 
     if (!newHeapBlockLayout || !isAllocator)
     {
-        // After CL#1139848, not all heap block has finalize count
+        // After C_u(#1139848), not all heap block has finalize count
         if (heapBlock.HasField("finalizeCount"))
         {
             unsigned short finalizeCount = heapBlock.Field("finalizeCount").GetUshort();
@@ -662,7 +662,7 @@ JD_PRIVATE_COMMAND(markmap,
 
     if (!recycler.HasField("markMap"))
     {
-        Out(L"Recycler doesn't have mark map field. Please rebuild jscript9 with RECYCLER_MARK_TRACK enabled.\n");
+        Out(_u("Recycler doesn't have mark map field. Please rebuild jscript9 with RECYCLER_MARK_TRACK enabled.\n"));
         return;
     }
 
@@ -818,7 +818,7 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
 {
     info = info & ObjectInfoBits::InternalObjectInfoBitMask;
 
-    ext->Out(L"Info: 0x%x (", info);
+    ext->Out(_u("Info: 0x%x ("), info);
 
     if (info & ObjectInfoBits::FinalizeBit) ext->Out(" Finalize ");
     if (info & ObjectInfoBits::LeafBit) ext->Out(" Leaf ");
@@ -829,7 +829,7 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
     if (info & ObjectInfoBits::ClientTrackedBit) ext->Out(" ClientTrackedBit ");
     if (info & ObjectInfoBits::TraceBit) ext->Out(" TraceBit ");
 
-    ext->Out(L")");
+    ext->Out(_u(")"));
 }
 
 HeapBlockAlignmentUtility::HeapBlockAlignmentUtility(ExtRemoteTyped recycler)
@@ -1013,7 +1013,7 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 {
     // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);
 
-    ext->Out(L"Object: ");
+    ext->Out(_u("Object: "));
     std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);
 
     if (!className.empty())
@@ -1022,15 +1022,15 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
     }
     else
     {
-        ext->Out(L"0x%p ", heapObject.address);
+        ext->Out(_u("0x%p "), heapObject.address);
     }
 
-    ext->Out(L" (Symbol @ 0x%p: ", heapObject.vtable);
+    ext->Out(_u(" (Symbol @ 0x%p: "), heapObject.vtable);
     ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable);
     ext->Out(")");
 
     ext->Out("\n");
-    ext->Out(L"Object size: 0x%x\n", heapObject.objectSize);
+    ext->Out(_u("Object size: 0x%x\n"), heapObject.objectSize);
 
     DumpObjectInfoBits(heapObject.objectInfoBits);
     ext->Out(" @0x%p\n", heapObject.objectInfoAddress);
@@ -1044,7 +1044,7 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 #endif
         )
     {
-        ext->Out(L"Address bit index: %d\n", heapObject.addressBitIndex);
+        ext->Out(_u("Address bit index: %d\n"), heapObject.addressBitIndex);
     }
 
     if (verbose)

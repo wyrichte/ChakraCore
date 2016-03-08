@@ -78,6 +78,7 @@ do { \
 #include "edgescriptDirect.h"
 #include "jscript9diag.h"
 #include "jscript9diagprivate.h"
+#include "Core/CommonTypedefs.h"
 #include "UTestHelper.h"
 #include "ScriptDebugEvent.h"
 #include "RemoteData.h"

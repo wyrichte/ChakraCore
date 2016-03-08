@@ -236,7 +236,7 @@ void CScriptSourceDocumentText::SetScriptBody(CScriptBody *pbody)
         {
             GetIchMinHost(&m_ichMinDisplay);
             GetIchLimHost(&m_ichLimDisplay);
-            LPCUTF8 pchSrc = m_utf8SourceInfo->GetSource(L"CScriptSourceDocumentText::SetScriptBody");            
+            LPCUTF8 pchSrc = m_utf8SourceInfo->GetSource(_u("CScriptSourceDocumentText::SetScriptBody"));            
             LPCUTF8 pchMin = pchSrc + m_utf8SourceInfo->CharacterIndexToByteIndex(m_ichMinDisplay);
             LPCUTF8 pchLim = pchSrc + m_utf8SourceInfo->CharacterIndexToByteIndex(m_ichLimDisplay);
 
@@ -635,7 +635,7 @@ HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchM
                 return HR(E_OUTOFMEMORY);
             }
 
-            hr = m_scriptEngine->GetScriptTextAttributesUTF8(m_utf8SourceInfo->GetSource(L"ScpText::GetText"), static_cast< ULONG >(m_utf8SourceInfo->GetCbLength(L"ScpText::GetText")), 
+            hr = m_scriptEngine->GetScriptTextAttributesUTF8(m_utf8SourceInfo->GetSource(_u("ScpText::GetText")), static_cast< ULONG >(m_utf8SourceInfo->GetCbLength(_u("ScpText::GetText"))), 
                 NULL, static_cast< ULONG >(m_utf8SourceInfo->GetCchLength()), 0, m_sourceTextAttirbutes);
             if (FAILED(hr))
             {

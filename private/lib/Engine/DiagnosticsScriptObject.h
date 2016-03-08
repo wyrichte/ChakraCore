@@ -38,10 +38,10 @@ namespace Js
 #endif
 
         template <size_t N>
-        static void SetPropertyStatic(RecyclableObject* obj, const wchar_t(&propertyName)[N], Var value,
+        static void SetPropertyStatic(RecyclableObject* obj, const char16(&propertyName)[N], Var value,
             ScriptContext* scriptContext);
         template <size_t N>
-        static void SetPropertyStatic(RecyclableObject* obj, const wchar_t(&propertyName)[N], BSTR value,
+        static void SetPropertyStatic(RecyclableObject* obj, const char16(&propertyName)[N], BSTR value,
             ScriptContext* scriptContext);
 
         PropertyId GetFunctionNameId() const { return functionNameId; }

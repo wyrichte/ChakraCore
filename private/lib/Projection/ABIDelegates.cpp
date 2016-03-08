@@ -103,7 +103,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceProjection <= TraceLevel_Warning)
                 {
-                    Output::Print(L"event delegate \n");
+                    Output::Print(_u("event delegate \n"));
                     Output::Flush();
                 }
 #endif
@@ -140,8 +140,8 @@ namespace Projection
             {
                 const bool verifyShouldWrap = isInAsyncInterface && 
                     (eventInfo == nullptr) &&
-                    (wcscmp(signature->parameters->callPattern, L"+Interface+Int32") == 0) &&
-                    (wcscmp(StringOfId(projectionContext->GetScriptContext(), signature->nameId), L"invoke") == 0);
+                    (wcscmp(signature->parameters->callPattern, _u("+Interface+Int32")) == 0) &&
+                    (wcscmp(StringOfId(projectionContext->GetScriptContext(), signature->nameId), _u("invoke")) == 0);
 
                 // Technically isInAsyncInterface should be enough to determine that we should wrap the delegate. However, for
                 // additional assurance we have verifyShouldWrap which performs a few other checks.
@@ -153,7 +153,7 @@ namespace Projection
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceProjection <= TraceLevel_Warning)
             {
-                Output::Print(L"priority delegate \n");
+                Output::Print(_u("priority delegate \n"));
                 Output::Flush();
             }
 #endif
@@ -496,7 +496,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceProjection <= TraceLevel_Warning)
                 {
-                    Output::Print(L"disconnected delegate \n");
+                    Output::Print(_u("disconnected delegate \n"));
                     Output::Flush();
                 }
 #endif
