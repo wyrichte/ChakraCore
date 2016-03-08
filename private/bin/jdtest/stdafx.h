@@ -35,6 +35,7 @@ typedef std::string string;
 #define DEBUG_UNICODE_MACROS
 #include "dbghelp.h"
 #include "dbgeng.h"
+#include "Core/CommonTypedefs.h"
 #include "DiagException.h"
 
 extern bool g_autoBreakpoints;
@@ -78,7 +79,6 @@ do { \
 #include "edgescriptDirect.h"
 #include "jscript9diag.h"
 #include "jscript9diagprivate.h"
-#include "Core/CommonTypedefs.h"
 #include "UTestHelper.h"
 #include "ScriptDebugEvent.h"
 #include "RemoteData.h"
