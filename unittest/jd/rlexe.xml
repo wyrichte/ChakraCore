@@ -4,11 +4,12 @@
     <default>
       <!-- Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
                 Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test1.js</files>
+      <!-- Bug #
+	  <files>test1.js</files>
       <baseline>test1.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:profile.dpl.test1.js.1</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags> -->
     </default>
   </test>
   <test>
@@ -47,11 +48,12 @@
     <default>
       <!-- Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
                 Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test2.js</files>
+      <!-- Bug #
+	  <files>test2.js</files>
       <baseline>test2.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo ---verifyall again---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Intl-</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags> -->
     </default>
   </test>
   <test>

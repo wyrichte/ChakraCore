@@ -1,7 +1,6 @@
 DIRS = \
     EnC \
     Engine \
-    GuidParser{!cs_xbox} \
     InternalIDL \
     JsrtChakra \
     Projection \

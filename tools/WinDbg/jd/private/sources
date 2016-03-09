@@ -21,6 +21,7 @@ SOURCES = \
         ..\RecyclerList.cpp \
         ..\RecyclerRoots.cpp \
 		..\RecyclerObjectGraph.cpp \
+		..\RecyclerObjectTypeInfo.cpp \
         ..\RemoteTypeHandler.cpp \
         ..\RemotePageAllocator.cpp \
         ..\RemoteThreadContext.cpp \
