@@ -38,14 +38,14 @@ public:
     ESBuiltInPropertyId       esbiPropertyId; // not the same thing as `PropertyId`, which is a key in the interned string table of property names.
     bool                      isInstance; // the property is an Instance or Prototype property, not a Constructor property.
 
-    const wchar_t*            constructorName;
+    const char16*            constructorName;
     ESBuiltInTypeNameId       typeNameId;
     
-    const wchar_t*            propertyName;
+    const char16*            propertyName;
     Js::PropertyId            propertyId;
 
     ESBuiltInProperty(); // Uses `ESBuiltInPropertyId::None` as it's the zero value.
-    ESBuiltInProperty( ESBuiltInPropertyId functionId, _In_z_ wchar_t* const constructorName, const bool isInstanceProperty, _In_z_ wchar_t* const functionName, const Js::PropertyId propertyId );
+    ESBuiltInProperty( ESBuiltInPropertyId functionId, _In_z_ char16* const constructorName, const bool isInstanceProperty, _In_z_ char16* const functionName, const Js::PropertyId propertyId );
 };
 
 // Use the HeapAllocator rather than Recycler so the instance lasts the life of the process, not the ScriptContext.
@@ -78,7 +78,7 @@ private:
     static ESBuiltInPropertyList esbiPropertyList;
 #endif
 
-    static ESBuiltInPropertyId   AddBuiltInExtension(const bool isInstanceProperty, const wchar_t* typeNameCStr2, const size_t typeNameCStr2Length, const wchar_t* propertyNameCStr, const size_t propertyNameLength);
+    static ESBuiltInPropertyId   AddBuiltInExtension(const bool isInstanceProperty, const char16* typeNameCStr2, const size_t typeNameCStr2Length, const char16* propertyNameCStr, const size_t propertyNameLength);
 
     /// <remarks>Cannot be called from ScriptEngine's constructor because AssertCanHandleOutOfMemory() fails at that point.</remarks>
     static void Initialize();

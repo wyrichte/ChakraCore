@@ -30,8 +30,8 @@ namespace Js
             m_reader->Read(value);
         }
 
-        bool TryReadString(const wchar_t** str, charcount_t* len) const;
-        void ReadString(const wchar_t** str, charcount_t* len) const;
+        bool TryReadString(const char16** str, charcount_t* len) const;
+        void ReadString(const char16** str, charcount_t* len) const;
         void Read(BYTE* buf, uint32 len) const;
 
         //
@@ -66,7 +66,7 @@ namespace Js
         {
             for(;;)
             {
-                const wchar_t* buf;
+                const char16* buf;
                 charcount_t len;
                 if (!TryReadString(&buf, &len))
                 {
@@ -131,7 +131,7 @@ namespace Js
         {
         }
 
-        void SetProperty(const wchar_t* name, charcount_t len, Var value);
+        void SetProperty(const char16* name, charcount_t len, Var value);
     };
 
     class SCADeserializationEngine

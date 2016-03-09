@@ -315,7 +315,7 @@ HRESULT ScriptEngine::Initialize(ThreadContext * threadContext)
     this->threadContext = threadContext;
     m_dwSafetyOptions = INTERFACE_USES_DISPEX;
 
-    scriptAllocator = HeapNew(ArenaAllocator, L"ScriptEngine", this->threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
+    scriptAllocator = HeapNew(ArenaAllocator, _u("ScriptEngine"), this->threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
     eventHandlers = JsUtil::List<BaseEventHandler*, ArenaAllocator>::New(scriptAllocator);
     eventSinks = JsUtil::List<EventSink*, ArenaAllocator>::New(scriptAllocator);
     return hr;
@@ -539,7 +539,7 @@ HRESULT ScriptEngine::CheckForExternalProfiler(IActiveScriptProfilerCallback **p
     CLSID clsid = {0};
     HRESULT hr = E_FAIL;
 
-    DWORD dwResult = GetEnvironmentVariableW(L"JS_PROFILER", guid, 39);
+    DWORD dwResult = GetEnvironmentVariableW(_u("JS_PROFILER"), guid, 39);
     if (0 != dwResult)
     {
         AssertMsg(dwResult <= 39, "Environment variable JS_PROFILER should be of the format '{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}' (braces should also be present)");
@@ -570,7 +570,7 @@ HRESULT ScriptEngine::StartProfilingInternal(
 {
 #ifdef ENABLE_NATIVE_CODEGEN
 
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::StartProfilingInternal\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::StartProfilingInternal\n"));
 
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
@@ -597,7 +597,7 @@ HRESULT ScriptEngine::StartProfilingInternal(
 STDMETHODIMP ScriptEngine::SetProfilerEventMask(
     __in DWORD dwEventMask)
 {
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::SetProfilerEventMask\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::SetProfilerEventMask\n"));
 
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
@@ -612,7 +612,7 @@ STDMETHODIMP ScriptEngine::StopProfiling(
     __in HRESULT hrShutdownReason)
 {
 #ifdef ENABLE_NATIVE_CODEGEN
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::StopProfiling\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::StopProfiling\n"));
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
     {
@@ -691,7 +691,7 @@ STDMETHODIMP ScriptEngine::DumpHeap(const WCHAR* outputFile, HeapDumperObjectToD
     // if file already opened, don't set it here. Just ignore this one.
     if (! Output::GetOutputFile())
     {
-        HRESULT hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, L"wt");
+        HRESULT hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, _u("wt"));
         if (FAILED(hr))
         {
             return hr;
@@ -773,7 +773,7 @@ STDMETHODIMP ScriptEngine::EnumHeap2(PROFILER_HEAP_ENUM_FLAGS enumFlags, IActive
     return hr;
 }
 
-const wchar_t *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext)
+const char16 *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext)
 {
     DispMemberProxy* pDispMemberProxy = (DispMemberProxy*)pFunction;
 
@@ -1114,7 +1114,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionName(_In_ Var instance, _Out_
     Js::FunctionProxy *pFBody = jsFunction->GetFunctionProxy();
     if (pFBody != nullptr)
     {
-        const wchar_t * pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
+        const char16 * pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
         if (pwzName != nullptr)
         {
             *pBstrName = ::SysAllocString(pwzName);
@@ -1309,7 +1309,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionInfo(
         if (pBstrName != nullptr)
         {
             *pBstrName = nullptr;
-            const wchar_t * pwzName = pFBody->GetExternalDisplayName();
+            const char16 * pwzName = pFBody->GetExternalDisplayName();
             if (pwzName != nullptr)
             {
                 *pBstrName = ::SysAllocString(pwzName);
@@ -1738,7 +1738,7 @@ ScriptDebugDocument * ScriptEngine::FindDebugDocument(SourceContextInfo * pInfo)
     return pDebugDocument;
 }
 
-void ScriptEngine::RegisterDebugDocument(CScriptBody *pBody, const wchar_t * title, DWORD_PTR dwDebugSourceContext)
+void ScriptEngine::RegisterDebugDocument(CScriptBody *pBody, const char16 * title, DWORD_PTR dwDebugSourceContext)
 {
     Assert(this->CanRegisterDebugSources());
 
@@ -1874,8 +1874,8 @@ static BOOL FUserWantsDebugger(void)
     DWORD dwType;
     DWORD dwDebug   = 0;
     DWORD dwSize    = sizeof(DWORD);
-    LPCWSTR pszKey = L"Software\\Microsoft\\Windows Script\\Settings";
-    LPCWSTR pszVal = L"JITDebug";
+    LPCWSTR pszKey = _u("Software\\Microsoft\\Windows Script\\Settings");
+    LPCWSTR pszVal = _u("JITDebug");
 
     lErr = RegOpenKeyExW(HKEY_CURRENT_USER, pszKey, 0, KEY_READ, &hk);
     if (NOERROR != lErr)
@@ -2169,7 +2169,7 @@ void ScriptEngine::CheckHostInDebugMode()
         }
         if(m_isHostInDebugMode != isInDebugMode)
         {
-            OUTPUT_TRACE(Js::DebuggerPhase, L"Host transitioned debug mode from %s to %s \n", IsTrueOrFalse(m_isHostInDebugMode),  IsTrueOrFalse(isInDebugMode));
+            OUTPUT_TRACE(Js::DebuggerPhase, _u("Host transitioned debug mode from %s to %s \n"), IsTrueOrFalse(m_isHostInDebugMode),  IsTrueOrFalse(isInDebugMode));
         }
         m_isHostInDebugMode = isInDebugMode;
     }
@@ -2177,7 +2177,7 @@ void ScriptEngine::CheckHostInDebugMode()
 
 STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is][in] */__RPC__in_ecount_full(pairCount) SourceContextPair *pSourceContextPairs)
 {
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n", this, pairCount);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n"), this, pairCount);
 
     if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
     {
@@ -2187,7 +2187,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
     if (this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the non-debug mode to perform dynamic attach, o/w we assume that we have done the attach for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerAttached already in the debug mode\n");
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached already in the debug mode\n"));
         return S_OK;
     }
 
@@ -2208,7 +2208,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
 
 STDMETHODIMP ScriptEngine::OnDebuggerDetached()
 {
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerDetached: start 0x%p\n", this);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached: start 0x%p\n"), this);
 
     if (m_pda == nullptr)
     {
@@ -2226,7 +2226,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
     if (!this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the debug mode to perform dynamic detach, o/w we assume that we have done the detach for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerDetached already in the non-debug mode\n");
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached already in the non-debug mode\n"));
         return S_OK;
     }
 
@@ -2268,7 +2268,7 @@ STDMETHODIMP ScriptEngine::PopInvocationContext(__in DWORD cookie)
 // Returns S_OK upon success (currently returns E_NOTIMPL).
 STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_is][in] */__RPC__in_ecount_full(pairCount) SourceContextPair *pSourceContextPairs)
 {
-    //wprintf(L"Performing Source Rundown\n");
+    //wprintf(_u("Performing Source Rundown\n"));
     if (IsInClosedState() || this->scriptContext == nullptr)
     {
         return E_FAIL;
@@ -2626,7 +2626,7 @@ BOOL ScriptEngine::IsDebuggerEnvironmentAvailable(bool requery)
 HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
 {
     HRESULT hr = S_OK;
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n", this, scriptContext, m_isFirstSourceCompile);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n"), this, scriptContext, m_isFirstSourceCompile);
     if (m_isFirstSourceCompile)
     {
         // We will not transition the state if we have failed to attach or detach.
@@ -2707,7 +2707,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
             if ((Js::Configuration::Global.flags.PrintRunTimeDataCollectionTrace) && (false == fNonPrimaryEngine))
             {
                 // Primary engine is created for top level Page, if start page is set to about:blank/about:Tabs, first primary engine AllocId is 1.
-                Output::Print(L"ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n", scriptContext->allocId, bstrUrl);
+                Output::Print(_u("ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n"), scriptContext->allocId, bstrUrl);
             }
 #endif
 #if DBG_DUMP
@@ -2726,11 +2726,11 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
         if (activeScriptSite->GetLCID(&lcidTemp) == E_NOTIMPL)
         {
             threadContext->SetRootTrackerScriptContext(scriptContext);
-            scriptContext->urlRecord = LeakReport::LogUrl(L"<CRootTracker?>", scriptContext->GetGlobalObject());
+            scriptContext->urlRecord = LeakReport::LogUrl(_u("<CRootTracker?>"), scriptContext->GetGlobalObject());
         }
         else
         {
-            scriptContext->urlRecord = LeakReport::LogUrl(L"<unknown>", scriptContext->GetGlobalObject());
+            scriptContext->urlRecord = LeakReport::LogUrl(_u("<unknown>"), scriptContext->GetGlobalObject());
         }
     }
 
@@ -3390,14 +3390,14 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
     // Figure out what module this goes in. Assume global module if directHostObject is set
     // and "window" named item is not.
-    if (pcszItemName && pcszItemName[0] != L'\0')
+    if (pcszItemName && pcszItemName[0] != _u('\0'))
     {
         pnid = m_NamedItemList.Find(pcszItemName);
         if (!pnid)
         {
             if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
             {
-                DebugPrintf((L"Unable to find named item for script\n"));
+                DebugPrintf((_u("Unable to find named item for script\n")));
                 return E_INVALIDARG;
             }
         }
@@ -3728,7 +3728,7 @@ HRESULT ScriptEngine::AddScriptletCore(
     pnid = m_NamedItemList.Find(pcszItemName);
     if (!pnid)
     {
-        DebugPrintf((L"Unable to find named item for event source\n"));
+        DebugPrintf((_u("Unable to find named item for event source\n")));
         FAILGO(E_INVALIDARG);
     }
     bs.AppendSz(OLESTR("function "));
@@ -3900,7 +3900,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
     Js::FunctionBody *function = body->pbody->GetRootFunction()->GetFunctionBody();
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
-    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
+    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
     hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, 0, nullptr, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     END_TRANSLATE_OOM_TO_HRESULT(hr);
@@ -3917,7 +3917,7 @@ HRESULT ScriptEngine::DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode,
     // Byte code execution not allowed under debugger.
     if (IsDebuggerEnvironmentAvailable(/*requery*/ true))
     {
-        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::DeserializeByteCodes: Failed because under debugger.\n");
+        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::DeserializeByteCodes: Failed because under debugger.\n"));
         return E_FAIL;
     }
 
@@ -3942,7 +3942,7 @@ HRESULT ScriptEngine::DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode,
             pexcepinfo
             );
 
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::DeserializeByteCodes: HR=0x%08X.\n", hr);
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::DeserializeByteCodes: HR=0x%08X.\n"), hr);
     return hr;
 }
 
@@ -3961,7 +3961,7 @@ HRESULT ScriptEngine::GenerateByteCodeBuffer(
     /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*pdwByteCodeSize) BYTE **byteCode,
     /* [out] */ __RPC__out DWORD *pdwByteCodeSize)
 {
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::GenerateByteCodeBuffer\n");
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::GenerateByteCodeBuffer\n"));
 
     CHECK_POINTER(byteCode);
     *byteCode = nullptr;
@@ -3989,7 +3989,7 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
     /* [in] */ DWORD_PTR dwSourceContext,
     /* [out] */ __RPC__out EXCEPINFO *pexcepinfo)
 {
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::ExecuteByteCodeBuffer\n");
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer\n"));
 
     if (pexcepinfo != nullptr)
     {
@@ -3999,7 +3999,7 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     if (Js::Configuration::Global.flags.ExecuteByteCodeBufferReturnsInvalidByteCode)
     {
-        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::ExecuteByteCodeBuffer: Forced failure.\n");
+        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer: Forced failure.\n"));
         return SCRIPT_E_INVALID_BYTECODE;
     }
 #endif
@@ -4315,14 +4315,14 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     else
     {
         // Figure out what module this goes in
-        if (pcszItemName && pcszItemName[0] != L'\0')
+        if (pcszItemName && pcszItemName[0] != _u('\0'))
         {
             pnid = m_NamedItemList.Find(pcszItemName);
             if (!pnid)
             {
                 if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
                 {
-                    DebugPrintf((L"Unable to find named item for script\n"));
+                    DebugPrintf((_u("Unable to find named item for script\n")));
                     FAILGO(E_INVALIDARG);
                 }
             }
@@ -4334,15 +4334,15 @@ HRESULT ScriptEngine::ParseScriptTextCore(
 
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            if (nullptr != pcszItemName && wcscmp(pcszItemName, L"window") != 0)
+            if (nullptr != pcszItemName && wcscmp(pcszItemName, _u("window")) != 0)
             {
                 ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
                 Recycler* recycler = threadContext->GetRecycler();
                 Js::StringBuilder<Recycler>* stringBuilder = Js::StringBuilder<Recycler>::New(recycler, 32);
 
                 stringBuilder->AppendSz(pcszItemName);
-                stringBuilder->Append(L' ');
-                stringBuilder->AppendCppLiteral(L"script block");
+                stringBuilder->Append(_u(' '));
+                stringBuilder->AppendCppLiteral(_u("script block"));
                 pszTitle = stringBuilder->Detach();
             }
             else
@@ -4547,7 +4547,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         {
             if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
             {
-                DebugPrintf((L"Unable to find named item for script\n"));
+                DebugPrintf((_u("Unable to find named item for script\n")));
                 FAILGO(E_INVALIDARG);
             }
         }
@@ -5579,11 +5579,11 @@ HRESULT ScriptEngine::CompileUTF16(
 #if DBG_DUMP
     if (Js::Configuration::Global.flags.TraceMemory.IsEnabled(Js::ParsePhase) && Js::Configuration::Global.flags.Verbose)
     {
-        Output::Print(L"Default Compile\n"
-            L"  Tile:                   %s\n"
-            L"  Unicode size (in bytes) %u\n"
-            L"  UTF-8 size (in bytes)   %u\n"
-            L"  Expected savings        %d\n", pszTitle != nullptr ? pszTitle : L"", stringLength * sizeof(wchar_t), cbLength, stringLength * sizeof(wchar_t) - cbLength);
+        Output::Print(_u("Default Compile\n")
+            _u("  Tile:                   %s\n")
+            _u("  Unicode size (in bytes) %u\n")
+            _u("  UTF-8 size (in bytes)   %u\n")
+            _u("  Expected savings        %d\n"), pszTitle != nullptr ? pszTitle : _u(""), stringLength * sizeof(char16), cbLength, stringLength * sizeof(char16) - cbLength);
     }
 #endif
 
@@ -5731,8 +5731,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
     Js::ParseableFunctionInfo* pRootFunc = nullptr;
 
     uint sourceIndex = 0;
-    LPCUTF8 pszSrc = utf8SourceInfo->GetSource(L"ScriptEngine::CompileUTF8Core");
-    size_t cbLength = utf8SourceInfo->GetCbLength(L"ScriptEngine::CompileUTF8Core");
+    LPCUTF8 pszSrc = utf8SourceInfo->GetSource(_u("ScriptEngine::CompileUTF8Core"));
+    size_t cbLength = utf8SourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core"));
     // BLOCK
     {
         Parser ps(this->scriptContext);
@@ -5813,8 +5813,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
             DWORD dwByteCodeSize;
             Js::FunctionBody* deserializedFunction = nullptr;
 
-            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forcing serialization.\n");
-            BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
+            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
+            BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
             hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
@@ -5830,20 +5830,20 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
                 if (SUCCEEDED(hr))
                 {                    
-                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization succeeded.\n");
+                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization succeeded.\n"));
                     pRootFunc = deserializedFunction;
                 }
                 else
                 {
-                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization failed.\n");
+                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization failed.\n"));
                 }
             }
             else
             {
-                OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization failed.\n");
+                OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization failed.\n"));
             }
             END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
-            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forced serialization done.\n");
+            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forced serialization done.\n"));
         }
     }
 
@@ -5875,7 +5875,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     if ((grfscr & fscrImplicitThis) != 0)
     {
         Js::Utf8SourceInfo *sourceInfo = this->scriptContext->GetSource(sourceIndex);
-        Assert(sourceInfo->GetCbLength(L"ScriptEngine::CompileUTF8Core") == cbLength);
+        Assert(sourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core")) == cbLength);
         CScriptBody* oldBody;
         if (scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, &oldBody))
         {
@@ -6823,7 +6823,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
     LoadScriptFlag loadScriptFlag = LoadScriptFlag_Expression;
-    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(wchar_t), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
+    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)
     {
@@ -7007,7 +7007,7 @@ IActiveScriptDirectHost* ScriptEngine::GetActiveScriptDirectHostNoRef()
     return nullptr;
 }
 
-const LPWSTR g_featureKeyName = L"Software\\Microsoft\\Internet Explorer\\JScript9";
+const LPWSTR g_featureKeyName = _u("Software\\Microsoft\\Internet Explorer\\JScript9");
 
 LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
@@ -7016,7 +7016,7 @@ LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 
 bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, __in LPWSTR moduleName)
 {
-    swprintf_s(buffer, cchBufferSize, L"PID: %d - %s - %d.%d.%4d.%d", GetCurrentProcessId(), moduleName,
+    swprintf_s(buffer, cchBufferSize, _u("PID: %d - %s - %d.%d.%4d.%d"), GetCurrentProcessId(), moduleName,
         SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
 
     return true;
@@ -7036,9 +7036,9 @@ bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, si
 
 void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
 {
-    Output::Print(L"INIT: PID        : %d\n", GetCurrentProcessId());
-    Output::Print(L"INIT: DLL Path   : %s\n", moduleName);
-    Output::Print(L"INIT: Build      : %d.%d.%4d.%d", SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
+    Output::Print(_u("INIT: PID        : %d\n"), GetCurrentProcessId());
+    Output::Print(_u("INIT: DLL Path   : %s\n"), moduleName);
+    Output::Print(_u("INIT: Build      : %d.%d.%4d.%d"), SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
 #if defined(__BUILDMACHINE__)
 #if defined(__BUILDDATE__)
 #define B2(x,y) " (" #x "." #y ")"
@@ -7049,7 +7049,7 @@ void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
 #define B1(x) B2(x)
 #define BUILD_MACHINE_TAG B1(__BUILDMACHINE__)
 #endif
-    Output::Print(L"%S", BUILD_MACHINE_TAG);
+    Output::Print(_u("%S"), BUILD_MACHINE_TAG);
 #endif
 }
 
@@ -7369,7 +7369,7 @@ IsOs_OneCoreUAP()
 
     if (!s_fInitialized)
     {
-        HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+        HMODULE hModNtDll = GetModuleHandle(_u("ntdll.dll"));
         if (hModNtDll == nullptr)
         {
             RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);

@@ -22,12 +22,12 @@ HRESULT __stdcall GetHeapObjectInfo(Var instance, HostProfilerHeapObject** heapO
     IFFAILRET(scriptDirectRef->GetGlobalObject(&globalObject));
     CComPtr<IJavascriptOperations> jsOperations;
     PropertyId dummyFastDomVarPid;
-    IFFAILRET(scriptDirectRef->GetOrAddPropertyId(L"dummyFastDomVar", &dummyFastDomVarPid));
+    IFFAILRET(scriptDirectRef->GetOrAddPropertyId(_u("dummyFastDomVar"), &dummyFastDomVarPid));
     IFFAILRET(scriptDirectRef->GetJavascriptOperations(&jsOperations));
     Var dummyFastDomVar;
     IFFAILRET(jsOperations->GetProperty(scriptDirectRef, globalObject, dummyFastDomVarPid, &dummyFastDomVar));
     PropertyId DomHeapObjectType;
-    IFFAILRET(scriptDirectRef->GetOrAddPropertyId(L"DOMObject", &DomHeapObjectType));
+    IFFAILRET(scriptDirectRef->GetOrAddPropertyId(_u("DOMObject"), &DomHeapObjectType));
 
     USHORT optionalInfoCount = 3;
     UINT headerAllocSize =  offsetof(HostProfilerHeapObject, optionalInfo);

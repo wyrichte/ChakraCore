@@ -167,12 +167,12 @@ public:
     }
     bool IsEnabled() { return data != NULL; }
 
-    bool Initialize(wchar_t const * wszInstanceName, DWORD processId)
+    bool Initialize(char16 const * wszInstanceName, DWORD processId)
     {
         if (IsProviderInitialized())
         {
             /* Get the app continaers name object path */
-            wchar_t szAppContainerNameObjectPath[MAX_OBJECT_NAME_PREFIX];
+            char16 szAppContainerNameObjectPath[MAX_OBJECT_NAME_PREFIX];
             HRESULT hr = GetProcessAppContainerNamedObjectPath(processId, szAppContainerNameObjectPath, _countof(szAppContainerNameObjectPath));
             if (FAILED(hr))
             {
@@ -239,14 +239,14 @@ public:
         if (!wszInstanceName)
         {
             // Get the module name to use as instance name instead
-            wchar_t wszModuleName[_MAX_PATH];
+            char16 wszModuleName[_MAX_PATH];
 
             if (!GetModuleFileNameEx(hProcess, NULL, wszModuleName, _MAX_PATH))
             {
                 return false;
             }
 
-            wchar_t wszFilename[_MAX_FNAME];
+            char16 wszFilename[_MAX_FNAME];
             _wsplitpath_s(wszModuleName, NULL, 0, NULL, 0, wszFilename, _MAX_FNAME, NULL, 0);
             wszInstanceName = _wcsdup(wszFilename);
             if (wszInstanceName == NULL)
@@ -269,12 +269,12 @@ public:
     {
         return hProcess;
     }
-    wchar_t const * GetInstanceName()
+    char16 const * GetInstanceName()
     {
         return wszInstanceName;
     }
 private:
-    static wchar_t const * GetPackageName(HANDLE hProcess)
+    static char16 const * GetPackageName(HANDLE hProcess)
     {
         // Get the package name to use as instance name
         UINT32 len = 0;
@@ -289,7 +289,7 @@ private:
             return NULL;
         }
 
-        wchar_t const * ret = NULL;
+        char16 const * ret = NULL;
         if (ERROR_SUCCESS == GetPackageId(hProcess, &len, buffer))
         {
             ret = _wcsdup(((PACKAGE_ID *)buffer)->name);
@@ -298,7 +298,7 @@ private:
         return ret;
     }
 
-    wchar_t const * wszInstanceName;
+    char16 const * wszInstanceName;
     HANDLE hProcess;
     ProxyCounterSetInstance<PageAllocatorCounterSetDefinition> pageAllocatorCounter;
     ProxyCounterSetInstance<BasicCounterSetDefinition> basicCounter;
@@ -333,7 +333,7 @@ VOID CALLBACK OnProcessExitCallBack(PVOID lpParameter, BOOLEAN)
     ::EnterCriticalSection(&s_cs);
     DWORD pid = (DWORD)lpParameter;
 
-    wprintf(L"STATUS:     Exit: %s (PID: %d)\n", s_counterMap[pid].counters->GetInstanceName(), pid);
+    wprintf(_u("STATUS:     Exit: %s (PID: %d)\n"), s_counterMap[pid].counters->GetInstanceName(), pid);
     delete s_counterMap[pid].counters;
     s_counterMap[pid].counters = NULL;
     ::SetEvent(s_cleanupEvent);
@@ -348,7 +348,7 @@ void UpdateInstances(bool printStatus = true)
     if (!EnumProcesses(rgProcessIds, sizeof(rgProcessIds), &cbNeeded))
     {
         // Why?
-        wprintf(L"ERROR : Unable to enumerate process\n");
+        wprintf(_u("ERROR : Unable to enumerate process\n"));
         return;
     }
 
@@ -367,7 +367,7 @@ void UpdateInstances(bool printStatus = true)
         Counters * counters = new Counters();
         if (counters == NULL)
         {
-            wprintf(L"ERROR : Out of memory updating instances.\n");
+            wprintf(_u("ERROR : Out of memory updating instances.\n"));
             break;
         }
 
@@ -383,23 +383,23 @@ void UpdateInstances(bool printStatus = true)
             &OnProcessExitCallBack, (PVOID)rgProcessIds[i], INFINITE, WT_EXECUTEONLYONCE))
         {
             // Why?
-            wprintf(L"ERROR : RegisterWaitForSingleObject failed.\n");
+            wprintf(_u("ERROR : RegisterWaitForSingleObject failed.\n"));
             delete counters;
             break;
         }
 
         CounterRecord record = { counters, waitHandle };
         s_counterMap[rgProcessIds[i]] = record;
-        wprintf(L"STATUS:     Add: %s (PID: %d)\n", counters->GetInstanceName(), rgProcessIds[i]);
+        wprintf(_u("STATUS:     Add: %s (PID: %d)\n"), counters->GetInstanceName(), rgProcessIds[i]);
         added++;
     }
     if (printStatus)
     {
-        wprintf(L"STATUS: Finish update instances. %d added. Total %d\n", added, s_counterMap.size());
+        wprintf(_u("STATUS: Finish update instances. %d added. Total %d\n"), added, s_counterMap.size());
     }
     else if (added != 0)
     {
-        wprintf(L"STATUS: Scanning instance found %d added. Total %d\n", added, s_counterMap.size());
+        wprintf(_u("STATUS: Scanning instance found %d added. Total %d\n"), added, s_counterMap.size());
     }
     ::LeaveCriticalSection(&s_cs);
 }
@@ -415,7 +415,7 @@ void CleanupInstances()
         {
             /* Unregister the thread pool wait */
             UnregisterWait((*i).second.waitHandle);
-            wprintf(L"STATUS:     Remove (PID: %d)\n", (*i).first);
+            wprintf(_u("STATUS:     Remove (PID: %d)\n"), (*i).first);
             s_counterMap.erase(i++);
 
         }
@@ -448,23 +448,23 @@ NotificationCallBack(ULONG RequestCode, PVOID Buffer, ULONG BufferSize)
 
 unsigned int updateIntervalInMilliSeconds = INFINITE;
 
-bool ParseCommandLine(int argc, wchar_t const ** argv)
+bool ParseCommandLine(int argc, char16 const ** argv)
 {
     for (int i = 1; i < argc; i++)
     {
-        if (_wcsnicmp(argv[i], L"-updateinterval:", _countof( L"-updateinterval:") - 1) == 0)
+        if (_wcsnicmp(argv[i], _u("-updateinterval:"), _countof( _u("-updateinterval:")) - 1) == 0)
         {
-            wchar_t * endptr;
-            updateIntervalInMilliSeconds = wcstol(argv[i] + _countof( L"-updateinterval:") - 1, &endptr, 10) * 1000;
+            char16 * endptr;
+            updateIntervalInMilliSeconds = wcstol(argv[i] + _countof( _u("-updateinterval:")) - 1, &endptr, 10) * 1000;
             if ((size_t)(endptr - argv[i]) != wcslen(argv[i]))
             {
-                wprintf(L"ERROR: Invalid number in -updateinterval '%s'\n", argv[i] + _countof( L"-updateinterval:") - 1);
+                wprintf(_u("ERROR: Invalid number in -updateinterval '%s'\n"), argv[i] + _countof( _u("-updateinterval:")) - 1);
                 return false;
             }
             continue;
         }
 
-        wprintf(L"ERROR: Invalid paramater '%s'\n", argv[i]);
+        wprintf(_u("ERROR: Invalid paramater '%s'\n"), argv[i]);
         return false;
     }
     return true;
@@ -472,12 +472,12 @@ bool ParseCommandLine(int argc, wchar_t const ** argv)
 
 void PrintUsage()
 {
-    wprintf(L"WWAHostJSCounterProvider.exe <options>\n");
-    wprintf(L"Options:\n");
-    wprintf(L"    -updateinterval:<seconds> - time between updating the instances (default: infinite))n");
+    wprintf(_u("WWAHostJSCounterProvider.exe <options>\n"));
+    wprintf(_u("Options:\n"));
+    wprintf(_u("    -updateinterval:<seconds> - time between updating the instances (default: infinite))n"));
 }
 
-int __cdecl wmain(int argc, wchar_t const ** argv)
+int __cdecl wmain(int argc, char16 const ** argv)
 {
     if (!ParseCommandLine(argc, argv))
     {
@@ -489,7 +489,7 @@ int __cdecl wmain(int argc, wchar_t const ** argv)
     s_cleanupEvent = ::CreateEvent(NULL, TRUE, FALSE, NULL);
     if (s_cleanupEvent == NULL)
     {
-        wprintf(L"ERROR : Unable to create event\n");
+        wprintf(_u("ERROR : Unable to create event\n"));
         return -1;
     }
 

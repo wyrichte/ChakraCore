@@ -75,7 +75,7 @@ HRESULT StressManager::CreateHost(RuntimeHost **host)
 Cleanup:
     if(*host == NULL)
     {
-        Error(L"failed to create RuntimeHost");
+        Error(_u("failed to create RuntimeHost"));
     }
     if(tmpHost != NULL)
     {
@@ -85,7 +85,7 @@ Cleanup:
     return hr;
 }
 
-void StressManager::Error(__in wchar_t *message)
+void StressManager::Error(__in char16 *message)
 {
     // TODO: allow app to override this behavior.  For now, just be cautious and exit the app,
     // because we're using this for perf and functional validation.
@@ -114,7 +114,7 @@ void StressManager::CreateHostAndExecute()
     }
     catch(JsRT::Exception ex)
     {
-        Error(L"CreateHostAndExecute failed with an exception");
+        Error(_u("CreateHostAndExecute failed with an exception"));
     }
 }
 
@@ -127,7 +127,7 @@ void StressManager::PostNewRequest()
     }
 }
 
-HRESULT StressManager::AddScript(__in const wchar_t *script)
+HRESULT StressManager::AddScript(__in const char16 *script)
 {
     HRESULT hr = S_OK;
 
@@ -172,7 +172,7 @@ HRESULT StressManager::Run()
     // since we should increment it one extra time at the end for each runtime
     if (createdHostCount != (requestCount + runtimeCount))
     {
-        Error(L"Internal error on total host count");
+        Error(_u("Internal error on total host count"));
     }
 
 Cleanup:

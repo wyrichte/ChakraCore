@@ -35,6 +35,7 @@ typedef std::string string;
 #define DEBUG_UNICODE_MACROS
 #include "dbghelp.h"
 #include "dbgeng.h"
+#include "Core/CommonTypedefs.h"
 #include "DiagException.h"
 
 extern bool g_autoBreakpoints;

@@ -164,51 +164,51 @@ namespace Projection
                     // if runtimeclass name is specified, the method is defined from an interface with exclusiveto attribute. the method
                     // is not published, and we'll output the runtimeclass name from the exclusiveto attribute instead.
                     qualifyingName = scriptContext->GetPropertyName(deprecatedAttribute.rtcNameId);
-                    TRACE_METADATA(L"Deprecated from rtcName: %s\n", qualifyingName);
+                    TRACE_METADATA(_u("Deprecated from rtcName: %s\n"), qualifyingName);
                 }
                 else
                 {
                     qualifyingName = scriptContext->GetPropertyName(deprecatedAttribute.classId);
-                    TRACE_METADATA(L"Deprecated from interface: %s\n", qualifyingName);
+                    TRACE_METADATA(_u("Deprecated from interface: %s\n"), qualifyingName);
                 }
                 // In IE10 and above, console.log is available by default.
-                stringBuilder->AppendCppLiteral(L"try { ");
-                stringBuilder->AppendCppLiteral(L"console.warn(\"");
-                stringBuilder->AppendCppLiteral(L"The ");
+                stringBuilder->AppendCppLiteral(_u("try { "));
+                stringBuilder->AppendCppLiteral(_u("console.warn(\""));
+                stringBuilder->AppendCppLiteral(_u("The "));
                 switch (methodType)
                 {
                 case DeprecatedInvocation_Method:
                     if (rtmethod->methodKind == MethodKind_Getter ||
                         rtmethod->methodKind == MethodKind_Setter )
                     {
-                        stringBuilder->AppendCppLiteral(L"property");
+                        stringBuilder->AppendCppLiteral(_u("property"));
                     }
                     else
                     {
-                        stringBuilder->AppendCppLiteral(L"method");
+                        stringBuilder->AppendCppLiteral(_u("method"));
                     }
                     break;
                 case DeprecatedInvocation_Class:
-                    stringBuilder->AppendCppLiteral(L"class");
+                    stringBuilder->AppendCppLiteral(_u("class"));
                     break;
                 case DeprecatedInvocation_Delegate:
-                    stringBuilder->AppendCppLiteral(L"delegate");
+                    stringBuilder->AppendCppLiteral(_u("delegate"));
                     break;
                 case DeprecatedInvocation_Event:
-                    stringBuilder->AppendCppLiteral(L"event");
+                    stringBuilder->AppendCppLiteral(_u("event"));
                     break;
                 }
-                stringBuilder->Append(L' ');
+                stringBuilder->Append(_u(' '));
                 stringBuilder->Append(qualifyingName->GetBuffer(), qualifyingName->GetLength());
                 size_t methodNameOffset = 0;
                 if (rtmethod->methodKind == MethodKind_Getter) 
                 {
-                    methodNameOffset = wcslen(L"get_");
+                    methodNameOffset = wcslen(_u("get_"));
                     Assert(wcslen(methodName->GetBuffer()) > methodNameOffset);
                 }
                 if (rtmethod->methodKind == MethodKind_Setter) 
                 {
-                    methodNameOffset = wcslen(L"put_");
+                    methodNameOffset = wcslen(_u("put_"));
                     Assert(wcslen(methodName->GetBuffer()) > methodNameOffset);
                 }
 
@@ -217,15 +217,15 @@ namespace Projection
                 if (methodType == DeprecatedInvocation_Method ||
                     methodType == DeprecatedInvocation_Event)
                 {
-                    stringBuilder->Append(L'.');
+                    stringBuilder->Append(_u('.'));
                     AssertMsg(methodNameOffset < UINT32_MAX, "Invalid metadata: Method name sizes constrain to 2gb.");
                     stringBuilder->Append(methodName->GetBuffer() + methodNameOffset, methodName->GetLength() - (charcount_t)methodNameOffset);
                 }
-                stringBuilder->AppendCppLiteral(L" has been deprecated. ");
+                stringBuilder->AppendCppLiteral(_u(" has been deprecated. "));
                 stringBuilder->AppendSz(deprecatedAttribute.infoString);
-                stringBuilder->AppendCppLiteral(L"\");} catch(e) {};");
+                stringBuilder->AppendCppLiteral(_u("\");} catch(e) {};"));
                 methodStr = stringBuilder->Detach();
-                TRACE_METADATA(L"Deprecated attribute message:%s\n", methodStr);
+                TRACE_METADATA(_u("Deprecated attribute message:%s\n"), methodStr);
                 Var scriptFunc;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {            
@@ -285,7 +285,7 @@ namespace Projection
         ProjectionMethodInvoker invoker(rtmethod, projectionContext);
         if (thisInfo->GetSpecialization() != nullptr && 
             thisInfo->GetSpecialization()->specializationType == specPromiseSpecialization &&
-            (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), L"put_Completed")))
+            (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), _u("put_Completed"))))
         {
             // When the containing interface is derived from IAsyncInfo, the delegate created from the interface is treated as "async", and we support
             // priority delegate that host can prioritize the work items as needed. We need to set this out at method invocation time such that we 
@@ -295,7 +295,7 @@ namespace Projection
 
         if (thisInfo->GetSpecialization() != nullptr && 
             thisInfo->GetSpecialization()->specializationType == specPromiseSpecialization &&
-            (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), L"put_Progress")))
+            (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), _u("put_Progress"))))
         {
             // N.B. For IAsyncInfoWithProgress put_Progress supplies a delegate that accepts (IInspectable* operation, T progress).
             // Our existing delegate wrappers do not understand how to marshal type T, which is passed by value and not
@@ -479,7 +479,7 @@ namespace Projection
         fReleaseOutResources(false), outHstrings(nullptr), outUnknowns(nullptr), fReleaseDelegateOutResources(false), delegateOutHstrings(nullptr), delegateOutUnknowns(nullptr),
         delegateOutMemory(nullptr), delegateOutArrayContents(nullptr), fInAsyncInterface(false)
     {
-        allocatorObject = projectionContext->GetScriptContext()->GetTemporaryAllocator(L"ProjectionMarshaler"); 
+        allocatorObject = projectionContext->GetScriptContext()->GetTemporaryAllocator(_u("ProjectionMarshaler")); 
         alloc = allocatorObject->GetAllocator();
 
         // Save a unknownsReleaser for this instance of projection marshaler
@@ -716,13 +716,13 @@ namespace Projection
         {
         case ELEMENT_TYPE_CHAR:
             {
-                if (memSize<sizeof(wchar_t))
+                if (memSize<sizeof(char16))
                     Js::Throw::FatalProjectionError();
                 LPCWSTR asString = (Js::JavascriptConversion::ToString(arg, scriptContext))->GetSz(); 
                 if(asString != NULL && ::wcslen(asString) == 1)
                 {
-                    *(wchar_t*)mem = asString[0];
-                    return mem + sizeof(wchar_t);
+                    *(char16*)mem = asString[0];
+                    return mem + sizeof(char16);
                 }
                 Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedWinRTChar); 
             }
@@ -1040,11 +1040,11 @@ namespace Projection
                 // Win8 doesn't have Int8 arrays
                 if (boxInterface)
                 {
-                    Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidPropertyValue, L"Int8Array");
+                    Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidPropertyValue, _u("Int8Array"));
                 }
                 else
                 {
-                    Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidIInspectable, L"Int8Array");
+                    Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidIInspectable, _u("Int8Array"));
                 }
 
             case Js::TypeIds_CopyOnAccessNativeIntArray:
@@ -1805,7 +1805,7 @@ namespace Projection
         // If the rtc has default interface as IPropertyValue then we can marshal the rtc Windows.Foundation.PropertyValue only, rest of them should throw error
         if (iface->iid->instantiated == Windows::Foundation::IID_IPropertyValue)
         {
-            if (rtc->typeDef->id != IdOfString(L"Windows.Foundation.PropertyValue"))
+            if (rtc->typeDef->id != IdOfString(_u("Windows.Foundation.PropertyValue")))
             {
                 Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidRTCPropertyValueIn, StringOfId(rtc->typeDef->id));
             }
@@ -2003,9 +2003,9 @@ namespace Projection
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
             // Identify Pattern and print the info
-            Output::Print(L"MemoryTrace: Writing Array for: %s\n", (resourceCleanup == CalleeTransfersOwnership) ? L"Method Call" : L"Delegate Invoke");
-            Output::Print(L"    Array Pattern: %s\n", isByRef ? L"ReceiveArray" : isOut ? L"FillArray" : L"PassArray");
-            Output::Print(L"    Considering length attribute: %s\n", hasLength ? L"true" : L"false");
+            Output::Print(_u("MemoryTrace: Writing Array for: %s\n"), (resourceCleanup == CalleeTransfersOwnership) ? _u("Method Call") : _u("Delegate Invoke"));
+            Output::Print(_u("    Array Pattern: %s\n"), isByRef ? _u("ReceiveArray") : isOut ? _u("FillArray") : _u("PassArray"));
+            Output::Print(_u("    Considering length attribute: %s\n"), hasLength ? _u("true") : _u("false"));
             Output::Flush();
         }
 #endif
@@ -2052,26 +2052,26 @@ namespace Projection
         {
             if (isArray)
             {
-                Output::Print(L"    Reading data from: Javascript Array\n");
+                Output::Print(_u("    Reading data from: Javascript Array\n"));
             }
             else if (isNullArray)
             {
-                Output::Print(L"    Reading data from: %s\n", typeId == Js::TypeIds_Null ? L"null" : L"undefined");
+                Output::Print(_u("    Reading data from: %s\n"), typeId == Js::TypeIds_Null ? _u("null") : _u("undefined"));
             }
             else
             {
                 if (isArrayProjection)
                 {
-                    Output::Print(L"    Reading data from: ArrayProjection %s\n", StringOfId(ArrayProjection::GetArrayObjectInstance(arg)->GetPropertyId()));
+                    Output::Print(_u("    Reading data from: ArrayProjection %s\n"), StringOfId(ArrayProjection::GetArrayObjectInstance(arg)->GetPropertyId()));
                 }
                 else
                 {
-                    Output::Print(L"    Reading data from: Typed Array %s\n", ArrayProjection::TypedArrayName(arg));
+                    Output::Print(_u("    Reading data from: Typed Array %s\n"), ArrayProjection::TypedArrayName(arg));
                 }
             }
-            Output::Print(L"    Array Length: %u\n", arrayLength);
-            Output::Print(L"    Read array Length: %u\n", readArrayLength);
-            Output::Print(L"    Write Array of type: %s\n", StringOfId(elementType->fullTypeNameId));
+            Output::Print(_u("    Array Length: %u\n"), arrayLength);
+            Output::Print(_u("    Read array Length: %u\n"), readArrayLength);
+            Output::Print(_u("    Write Array of type: %s\n"), StringOfId(elementType->fullTypeNameId));
             Output::Flush();
         }
 #endif
@@ -2132,7 +2132,7 @@ namespace Projection
 #if DBG_DUMP
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Creating Finalizer\n");
+                        Output::Print(_u("    Creating Finalizer\n"));
                         Output::Flush();
                     }
 #endif
@@ -2151,7 +2151,7 @@ namespace Projection
 #if DBG_DUMP
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Allocated space using new[]\n");
+                        Output::Print(_u("    Allocated space using new[]\n"));
                         Output::Flush();
                     }
 #endif
@@ -2171,7 +2171,7 @@ namespace Projection
 #if DBG_DUMP
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Allocated space in arena\n");
+                        Output::Print(_u("    Allocated space in arena\n"));
                         Output::Flush();
                     }
 #endif
@@ -2195,7 +2195,7 @@ namespace Projection
 #if DBG_DUMP
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Clearing buffer pointed by array\n");
+                        Output::Print(_u("    Clearing buffer pointed by array\n"));
                         Output::Flush();
                     }
 #endif
@@ -2217,7 +2217,7 @@ namespace Projection
 #if DBG_DUMP
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                        Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                         Output::Flush();
                     }
 #endif
@@ -2255,7 +2255,7 @@ namespace Projection
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceWin8Allocations)
             {
-                Output::Print(L"    Allocated space using CoTaskMemAlloc\n");
+                Output::Print(_u("    Allocated space using CoTaskMemAlloc\n"));
                 Output::Flush();
             }
 #endif
@@ -2275,7 +2275,7 @@ namespace Projection
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceWin8Allocations)
             {
-                Output::Print(L"    Copying %u Elements\n    Releasing existing values: No\n", readArrayLength);
+                Output::Print(_u("    Copying %u Elements\n    Releasing existing values: No\n"), readArrayLength);
                 Output::Flush();
             }
 #endif
@@ -2828,11 +2828,11 @@ namespace Projection
         JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        WCHAR *sIReference = wcsstr(runtimeClassString, L"Windows.Foundation.IReference`1");
+        WCHAR *sIReference = wcsstr(runtimeClassString, _u("Windows.Foundation.IReference`1"));
         // If the string doesnt start with IReference`1 then try and check for IReferenceArray
         if (sIReference == nullptr || sIReference != runtimeClassString)
         {
-            WCHAR *sIReferenceArray = wcsstr(runtimeClassString, L"Windows.Foundation.IReferenceArray`1");
+            WCHAR *sIReferenceArray = wcsstr(runtimeClassString, _u("Windows.Foundation.IReferenceArray`1"));
             // If the string doesnt start with IReferenceArray`1 either then we dont support this type, throw error
             if (sIReferenceArray == nullptr || sIReferenceArray != runtimeClassString)
             {
@@ -2986,7 +2986,7 @@ namespace Projection
 
         case Windows::Foundation::PropertyType_Char16:
             {
-                wchar_t value;
+                char16 value;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
                     hr = propertyValue->GetChar16(&value);
@@ -3265,7 +3265,7 @@ namespace Projection
 
         case Windows::Foundation::PropertyType_Char16Array:
             {
-                wchar_t *arrayFromPropertyValue;
+                char16 *arrayFromPropertyValue;
                 UINT32 length;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
@@ -3458,7 +3458,7 @@ namespace Projection
             }
             else
             {
-                TRACE_METADATA(L"ReadPropertyValueVarFromRuntimeClassName(%s) - design mode, extensions permitted\n", runtimeClassString);
+                TRACE_METADATA(_u("ReadPropertyValueVarFromRuntimeClassName(%s) - design mode, extensions permitted\n"), runtimeClassString);
             }
         }
 
@@ -3801,8 +3801,8 @@ namespace Projection
         if (!allowIdentity || !projectionWriter->TryGetTypedInstanceFromCache(unknown, &result))
         {
             result = projectionWriter->CreateNewTypeInstance(
-                projectionContext->IdOfString(L""), 
-                L"",
+                projectionContext->IdOfString(_u("")), 
+                _u(""),
                 nullptr, 
                 nullptr,
                 nullptr,
@@ -4072,8 +4072,8 @@ namespace Projection
         switch(typeCor)
         {
         case ELEMENT_TYPE_CHAR: 
-            AnalysisAssert(memSize >= sizeof(wchar_t));
-            return Js::JavascriptString::NewCopyBuffer((wchar_t*)mem, 1, scriptContext);
+            AnalysisAssert(memSize >= sizeof(char16));
+            return Js::JavascriptString::NewCopyBuffer((char16*)mem, 1, scriptContext);
         case ELEMENT_TYPE_BOOLEAN:
             AnalysisAssert(memSize >= sizeof(bool));
             return Js::JavascriptBoolean::ToVar(*((bool*)mem), scriptContext);
@@ -4175,7 +4175,7 @@ namespace Projection
     {
         // From ABIPRojectionProvider.cpp(256)--------------------------------------------------------------------------------
         const size_t sizeOfGuid = 37;
-        wchar_t guidString[sizeOfGuid] = L"";
+        char16 guidString[sizeOfGuid] = _u("");
 
         byte * storage = mem;
 #if _M_X64
@@ -4218,14 +4218,14 @@ namespace Projection
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
             // Identify Pattern and print the info
-            Output::Print(L"MemoryTrace: Reading Array for: %s\n", (resourceCleanup == CalleeTransfersOwnership) ? L"Method Call" : L"Delegate Invoke");
-            Output::Print(L"    Array Pattern: %s\n", isByRef ? L"ReceiveArray" : isOut ? L"FillArray" : L"PassArray");
-            Output::Print(L"    Considering length attribute: %s\n", hasLength ? L"true" : L"false");
+            Output::Print(_u("MemoryTrace: Reading Array for: %s\n"), (resourceCleanup == CalleeTransfersOwnership) ? _u("Method Call") : _u("Delegate Invoke"));
+            Output::Print(_u("    Array Pattern: %s\n"), isByRef ? _u("ReceiveArray") : isOut ? _u("FillArray") : _u("PassArray"));
+            Output::Print(_u("    Considering length attribute: %s\n"), hasLength ? _u("true") : _u("false"));
             Output::Flush();
         }
 #endif
-        TRACE_METADATA(L"ReadOutArrayType(): Reading Array for: %s,  Array Pattern: %s, Considering length attribute: %s\n", 
-            (resourceCleanup == CalleeTransfersOwnership) ? L"Method Call" : L"Delegate Invoke", isByRef ? L"ReceiveArray" : isOut ? L"FillArray" : L"PassArray", hasLength ? L"true" : L"false");
+        TRACE_METADATA(_u("ReadOutArrayType(): Reading Array for: %s,  Array Pattern: %s, Considering length attribute: %s\n"), 
+            (resourceCleanup == CalleeTransfersOwnership) ? _u("Method Call") : _u("Delegate Invoke"), isByRef ? _u("ReceiveArray") : isOut ? _u("FillArray") : _u("PassArray"), hasLength ? _u("true") : _u("false"));
 
         if (memSize1 < sizeof(uint) || memSize2 < sizeof(LPVOID))
         {
@@ -4241,13 +4241,13 @@ namespace Projection
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"    Read Array of type: %s\n", StringOfId(arrayType->elementType->fullTypeNameId));
-            Output::Print(L"    Array Length: %u\n", elementCount);
-            Output::Print(L"    Read array Length: %u\n", readArrayLength);
+            Output::Print(_u("    Read Array of type: %s\n"), StringOfId(arrayType->elementType->fullTypeNameId));
+            Output::Print(_u("    Array Length: %u\n"), elementCount);
+            Output::Print(_u("    Read array Length: %u\n"), readArrayLength);
             Output::Flush();
         }
 #endif
-        TRACE_METADATA(L"ReadOutArrayType(): Read Array of type: %s (#%d), Array Length: %u, Read array Length: %u\n", 
+        TRACE_METADATA(_u("ReadOutArrayType(): Read Array of type: %s (#%d), Array Length: %u, Read array Length: %u\n"), 
             StringOfId(arrayType->elementType->fullTypeNameId), arrayType->elementType->fullTypeNameId, elementCount, readArrayLength);
 
         if (hasLength && readArrayLength > elementCount)
@@ -4279,7 +4279,7 @@ namespace Projection
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
                     // Identify Pattern and print the info
-                    Output::Print(L"    Reading data into existing: %s\n", typedId == Js::TypeIds_Null ? L"null" : L"undefined");
+                    Output::Print(_u("    Reading data into existing: %s\n"), typedId == Js::TypeIds_Null ? _u("null") : _u("undefined"));
                     Output::Flush();
                 }
             }
@@ -4291,8 +4291,8 @@ namespace Projection
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
                         // Update the existing array
-                        Output::Print(L"    Reading data into existing: Javascript Array\n");
-                        Output::Print(L"    Copying %u Elements\n", readArrayLength);
+                        Output::Print(_u("    Reading data into existing: Javascript Array\n"));
+                        Output::Print(_u("    Copying %u Elements\n"), readArrayLength);
                         Output::Flush();
                     }
 #endif
@@ -4315,7 +4315,7 @@ namespace Projection
 #if DBG_DUMP
                         if (Js::Configuration::Global.flags.TraceWin8Allocations)
                         {
-                            Output::Print(L"    Clearing buffer after %u index in the array\n", readArrayLength);
+                            Output::Print(_u("    Clearing buffer after %u index in the array\n"), readArrayLength);
                             Output::Flush();
                         }
 #endif
@@ -4335,7 +4335,7 @@ namespace Projection
                 {
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Reading data into existing: Typed Array %s\n", ArrayProjection::TypedArrayName(inOutArgument));
+                        Output::Print(_u("    Reading data into existing: Typed Array %s\n"), ArrayProjection::TypedArrayName(inOutArgument));
                         Output::Flush();
                     }
                 }
@@ -4347,7 +4347,7 @@ namespace Projection
 
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
-                        Output::Print(L"    Reading data into existing: ArrayProjection %s\n", StringOfId(pArrayProjectionInstance->GetPropertyId()));
+                        Output::Print(_u("    Reading data into existing: ArrayProjection %s\n"), StringOfId(pArrayProjectionInstance->GetPropertyId()));
                         Output::Flush();
                     }
                 }
@@ -4361,7 +4361,7 @@ namespace Projection
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceWin8Allocations)
             {
-                Output::Print(L"    Projecting: Null object\n");
+                Output::Print(_u("    Projecting: Null object\n"));
                 Output::Flush();
             }
 #endif
@@ -4373,7 +4373,7 @@ namespace Projection
 #if DBG_DUMP
                 if (Js::Configuration::Global.flags.TraceWin8Allocations)
                 {
-                    Output::Print(L"    Deleting the buffer using: CoTaskMemFree\n");
+                    Output::Print(_u("    Deleting the buffer using: CoTaskMemFree\n"));
                     Output::Flush();
                 }
 #endif
@@ -4401,7 +4401,7 @@ namespace Projection
             }
             else
             {
-                TRACE_METADATA(L"ReadOutArrayType() - design mode, extensions permitted\n");
+                TRACE_METADATA(_u("ReadOutArrayType() - design mode, extensions permitted\n"));
             }
         }
 

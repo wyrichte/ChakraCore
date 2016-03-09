@@ -23,6 +23,7 @@
 #include "dbghelp.h"
 #include "DbgEng.h"
 
+#include "Core/CommonTypedefs.h"
 #include "thrownew.h"
 #include "BasePtr.h"
 #include "AutoPtr.h"

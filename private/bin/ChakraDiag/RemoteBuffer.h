@@ -10,8 +10,8 @@ namespace JsDiag
     // and supports sequential access which is done via RemoteBuffer::Iterator.
     // To read, it uses IVirtualReader, although it is easy to extract out this aspect.
     // Example:
-    //     RemoteBuffer<wchar_t> buf(m_reader, remoteStr, remoteStrSizeInBytes, /* cacheSize = */ 64);
-    //     for (int i = 0; i < remoteStrLen; ++i) { buf.EnsurePtr(sizeof(wchar_t)); wprintf("%s", *buf.Ptr++); }
+    //     RemoteBuffer<char16> buf(m_reader, remoteStr, remoteStrSizeInBytes, /* cacheSize = */ 64);
+    //     for (int i = 0; i < remoteStrLen; ++i) { buf.EnsurePtr(sizeof(char16)); wprintf("%s", *buf.Ptr++); }
     //
     // Parameters:
     // T: the type of underlying elements in the remote buffer.

@@ -711,7 +711,7 @@ public:
     };
 
     static const unsigned int ScriptBodyMRUSize = 128;
-    static const wchar_t *GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext);
+    static const char16 *GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext);
     typedef JsUtil::Cache<Js::Utf8SourceInfo *, CScriptBody *, RecyclerNonLeafAllocator, PrimeSizePolicy, JsUtil::MRURetentionPolicy<Js::Utf8SourceInfo *, ScriptBodyMRUSize>, DefaultComparer, JsUtil::DictionaryEntry> ScriptBodyDictionary;
 
 protected:
@@ -1074,7 +1074,7 @@ public:
         return m_pda;
     }
 
-    void RegisterDebugDocument(CScriptBody *pBody, const wchar_t * title, DWORD_PTR dwDebugSourceContext);
+    void RegisterDebugDocument(CScriptBody *pBody, const char16 * title, DWORD_PTR dwDebugSourceContext);
     ScriptDebugDocument * FindDebugDocument(SourceContextInfo * pInfo);
 
     HRESULT CleanupDocumentContextListInternal(Js::ScriptContext *pScriptContext);

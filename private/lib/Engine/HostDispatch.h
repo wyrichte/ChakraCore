@@ -18,10 +18,10 @@ class HostDispatch : public Js::RecyclableObject
 
     struct StackNode
     {
-        const wchar_t* Name;
+        const char16* Name;
         StackNode* Next;
 
-        StackNode(const wchar_t* name, StackNode* next)
+        StackNode(const char16* name, StackNode* next)
         {
             this->Name = name;
             this->Next = next;
@@ -29,7 +29,7 @@ class HostDispatch : public Js::RecyclableObject
     };
 
     StackNode* cycleStack;
-    BOOL IsGetDispIdCycle(const wchar_t* name);
+    BOOL IsGetDispIdCycle(const char16* name);
 
 public:
     static HostDispatch * Create(Js::ScriptContext * scriptContext, LPCOLESTR itemName);
@@ -92,20 +92,20 @@ public:
     BOOL CanSupportIDispatchEx() const;
     static IDispatch*& FastGetDispatchNoRef(HostVariant* hostVariant);
 
-    BOOL HasProperty(const wchar_t * name);
-    BOOL GetValue(const wchar_t * name, Js::Var *pValue);
-    BOOL GetPropertyReference(const wchar_t * name, Js::Var *pValue);
-    BOOL PutValue(const wchar_t * name, Js::Var value);
-    BOOL DeleteProperty(const wchar_t * name);
+    BOOL HasProperty(const char16 * name);
+    BOOL GetValue(const char16 * name, Js::Var *pValue);
+    BOOL GetPropertyReference(const char16 * name, Js::Var *pValue);
+    BOOL PutValue(const char16 * name, Js::Var value);
+    BOOL DeleteProperty(const char16 * name);
     BOOL GetDefaultValue(Js::JavascriptHint hint, Js::Var* value, BOOL throwException = TRUE);
-    BOOL SetAccessors(const wchar_t * name, Js::Var getter, Js::Var setter);
-    BOOL GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext);
+    BOOL SetAccessors(const char16 * name, Js::Var getter, Js::Var setter);
+    BOOL GetAccessors(const char16 * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext);
 
-    BOOL GetDispIdForProperty(const wchar_t * name, DISPID *pDispId);
-    BOOL EnsureDispIdForProperty(const wchar_t * name, DISPID *pDispId);
+    BOOL GetDispIdForProperty(const char16 * name, DISPID *pDispId);
+    BOOL EnsureDispIdForProperty(const char16 * name, DISPID *pDispId);
 
     BOOL GetValueByDispId(DISPID dispId, Js::Var *pValue);
-    void GetReferenceByDispId(DISPID dispId, Js::Var *pValue, const wchar_t * name);
+    void GetReferenceByDispId(DISPID dispId, Js::Var *pValue, const char16 * name);
     BOOL PutValueByDispId(DISPID dispId, Js::Var value);
     BOOL DeletePropertyByDispId(DISPID dispId);
 
@@ -164,6 +164,6 @@ private:
     static BOOL GetBuiltInOperationFromEntryPoint(Js::JavascriptMethod entryPoint, BuiltInOperation* operation);
     static BOOL InvokeBuiltInOperationRemotelyHelper(Js::JavascriptMethod entryPoint, Js::Var* result);
 
-    BOOL SetPropertyCore(const wchar_t* propertyName, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info);
-    Js::DescriptorFlags GetSetterCore(const wchar_t* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext);
+    BOOL SetPropertyCore(const char16* propertyName, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info);
+    Js::DescriptorFlags GetSetterCore(const char16* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext);
 };

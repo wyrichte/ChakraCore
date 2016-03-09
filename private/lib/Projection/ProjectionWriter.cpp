@@ -314,7 +314,7 @@ namespace Projection
 #if DBG
         AllowHeavyOperation allowHeavy;
         LPCWSTR methodName = StringOfId(signature->nameId);
-        if (wcscmp(L"maxVersionInterfaceVectorIn", methodName) == 0)
+        if (wcscmp(_u("maxVersionInterfaceVectorIn"), methodName) == 0)
         {
             Assert(methodName != nullptr);
         }
@@ -1100,7 +1100,7 @@ namespace Projection
         PropertyId typeNameId = _enum->typeDef->id;
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        Assert(!_enum->typeDef->assembly.IsAttributePresent(_enum->typeDef->td, L"Windows.Foundation.Metadata.WebHostHiddenAttribute"));
+        Assert(!_enum->typeDef->assembly.IsAttributePresent(_enum->typeDef->td, _u("Windows.Foundation.Metadata.WebHostHiddenAttribute")));
 
         HRESULT hr = S_OK;
         Assert(scriptContext->GetThreadContext()->IsScriptActive());
@@ -1180,7 +1180,7 @@ namespace Projection
     {
         PropertyId propertyId = prop->identifier;
 
-        ProjectionModel::ProjectionBuilder::TraceRtPROPERTY(prop, L"ProjectionWriter::ApplyPropertyToJsObject", (Metadata::IStringConverter*)this->projectionContext, this->projectionContext->ProjectionAllocator());
+        ProjectionModel::ProjectionBuilder::TraceRtPROPERTY(prop, _u("ProjectionWriter::ApplyPropertyToJsObject"), (Metadata::IStringConverter*)this->projectionContext, this->projectionContext->ProjectionAllocator());
 
         switch(prop->propertyType)
         {
@@ -1215,12 +1215,12 @@ namespace Projection
                 getterName.CreateNew(4 /* size of 'get' + '\0' */  + Js::JavascriptString::GetBufferLength(eventName));
                 getterName.CreateNew(getterName.GetLength());
                 LPWSTR getterNameStr = getterName.Get();
-                wcscpy_s(getterNameStr, getterName.GetLength(), L"get");
+                wcscpy_s(getterNameStr, getterName.GetLength(), _u("get"));
                 wcscat_s(getterNameStr, getterName.GetLength(), eventName);
 
                 Js::JavascriptWinRTFunction * getter = BuildDirectFunction(signature, GetEventHandlerThunk, IdOfString(getterNameStr), false);
 
-                getterNameStr[0] = L's';
+                getterNameStr[0] = _u('s');
                 Js::JavascriptWinRTFunction * setter = BuildDirectFunction(signature, SetEventHandlerThunk, IdOfString(getterNameStr), false);
                 SetProperty(setter, lengthId, one);
 
@@ -1251,7 +1251,7 @@ namespace Projection
                     auto length =
                         FunctionLengthProperty::From(
                         overload->overloadConstructor->properties->fields->WhereSingle([&](RtPROPERTY field) {
-                        return wcscmp(L"length", StringOfId(field->identifier)) == 0;
+                        return wcscmp(_u("length"), StringOfId(field->identifier)) == 0;
                     }))->value->value;
                     SetProperty(dynamicObject, propertyId, function);
                     SetProperty(function, lengthId, Js::JavascriptNumber::ToVar(length, projectionContext->GetScriptContext()));
@@ -1451,7 +1451,7 @@ namespace Projection
 
                 if (SUCCEEDED(hr) && inspectable != nullptr)
                 {
-                    JS_ETW(const wchar_t* typeName = scriptContext->GetPropertyName(eventProjectionHandler->GetTypeId())->GetBuffer());
+                    JS_ETW(const char16* typeName = scriptContext->GetPropertyName(eventProjectionHandler->GetTypeId())->GetBuffer());
                     JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_START(typeName));
                     eventProjectionHandler->RemoveAllEventsAndEventHandlers(inspectable, scriptContext);
                     JS_ETW(EventWriteJSCRIPT_PROJECTION_REMOVEALLEVENTSANDEVENTHANDLERS_STOP(typeName));
@@ -1703,7 +1703,7 @@ namespace Projection
     {
         if (propertyValueFactory == nullptr)
         {
-            projectionContext->CreateTypeFactoryInstance(L"Windows.Foundation.PropertyValue", Windows::Foundation::IID_IPropertyValueStatics, (IUnknown **)&propertyValueFactory);
+            projectionContext->CreateTypeFactoryInstance(_u("Windows.Foundation.PropertyValue"), Windows::Foundation::IID_IPropertyValueStatics, (IUnknown **)&propertyValueFactory);
         }
 
         return propertyValueFactory;
@@ -1739,10 +1739,10 @@ namespace Projection
         isMarkedForClose = false;
 #endif
 
-        lengthId = IdOfString(L"length");
-        targetId = IdOfString(L"target");
-        detailId = IdOfString(L"detail");
-        typeId = IdOfString(L"type");
+        lengthId = IdOfString(_u("length"));
+        targetId = IdOfString(_u("target"));
+        detailId = IdOfString(_u("detail"));
+        typeId = IdOfString(_u("type"));
 
         ArenaAllocator * alloc = projectionContext->ProjectionAllocator();
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();

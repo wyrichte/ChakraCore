@@ -20,7 +20,7 @@ void EXT_CLASS_BASE::EnsureJsDebug(PCWSTR jscript9diagPath /*= nullptr*/)
         return; // Use existing one
     }
 
-    PCWSTR paths[] = { jscript9diagPath, L"chakradiagtest.dll", L"chakradiag.dll" };
+    PCWSTR paths[] = { jscript9diagPath, _u("chakradiagtest.dll"), _u("chakradiag.dll") };
     const int begin = jscript9diagPath ? 0 : 1;
     const int end = jscript9diagPath ? 1 : _countof(paths);
 
@@ -84,17 +84,17 @@ JD_PRIVATE_COMMAND(diagstack,
 
         IfFailThrow(debugFrame->GetDocumentPositionWithName(&url, &line, &column));
 
-        wchar_t filename[_MAX_FNAME];
-        wchar_t ext[_MAX_EXT];
+        char16 filename[_MAX_FNAME];
+        char16 ext[_MAX_EXT];
         _wsplitpath_s(url, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
 
         if (printFrameNo)
         {
-            Out(L"%2x %s (%s%s:%u,%u)\n", frameNo++, name, filename, ext, line, column);
+            Out(_u("%2x %s (%s%s:%u,%u)\n"), frameNo++, name, filename, ext, line, column);
         }
         else
         {
-            Out(L"%s (%s%s:%u,%u)\n", name, filename, ext, line, column);
+            Out(_u("%s (%s%s:%u,%u)\n"), name, filename, ext, line, column);
         }
 
         UINT64 start, end;
@@ -294,7 +294,7 @@ JD_PRIVATE_COMMAND(diageval,
 
         if (bstrError)
         {
-            Out(L"ERROR: %s\n", bstrError);
+            Out(_u("ERROR: %s\n"), bstrError);
         }
         else
         {
@@ -319,7 +319,7 @@ JD_PRIVATE_COMMAND(dumptrace,
 {
     ExtRemoteTyped memoryLogger = ExtRemoteTyped(FillModule2("(%s!Js::MemoryLogger*)%s!Output::s_inMemoryLogger"));
     ULONG64 memoryLoggerAddr = memoryLogger.GetPtr();
-    AutoBuffer<wchar_t> reuseBuf;
+    AutoBuffer<char16> reuseBuf;
     if (memoryLoggerAddr)
     {
         ULONG current = memoryLogger.Field("m_current").GetUlong(); // current is the slot to add next item.
@@ -333,7 +333,7 @@ JD_PRIVATE_COMMAND(dumptrace,
             for (ULONG i = current; i < capacity; ++i)
             {
                 this->DumpStackTraceEntry(log[i].GetPtr(), reuseBuf);
-            } // for.
+            }
         }
 
         for (ULONG i = 0; i < current; ++i)
@@ -344,10 +344,10 @@ JD_PRIVATE_COMMAND(dumptrace,
     }
 }
 
-// The addr is address of a string (wchar_t*) that contains addrs of functions on stack delimited by space.
-void EXT_CLASS_BASE::DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf)
+// The addr is address of a string (char16*) that contains addrs of functions on stack delimited by space.
+void EXT_CLASS_BASE::DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf)
 {
-    const wchar_t callStackPrefix[] = L"call stack:";
+    const char16 callStackPrefix[] = _u("call stack:");
     ULONG charCount = _countof(callStackPrefix);
     buf.EnsureCapacity(charCount);
 
@@ -356,18 +356,18 @@ void EXT_CLASS_BASE::DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf)
     if (!wcsncmp(callStackPrefix, buf, charCount - 1))
     {
         // Parse stack trace.
-        Out(L"%s\n", callStackPrefix);
+        Out(_u("%s\n"), callStackPrefix);
         ULONG neededChars;
-        entry.GetString((wchar_t*)NULL, 0, ULONG_MAX, false, &neededChars);
+        entry.GetString((char16*)NULL, 0, ULONG_MAX, false, &neededChars);
         buf.EnsureCapacity(neededChars);
         entry.GetString(buf, neededChars);
 
-        wchar_t* context;
-        const wchar_t* delims = L" \n";
-        wchar_t* tok = wcstok_s(buf + wcslen(callStackPrefix), delims, &context);
+        char16* context;
+        const char16* delims = _u(" \n");
+        char16* tok = wcstok_s(buf + wcslen(callStackPrefix), delims, &context);
         while (tok)
         {
-            wchar_t* endptr;
+            char16* endptr;
             ULONG64 ip = _wcstoui64(tok, &endptr, 16);
             if (!*endptr && ip != _UI64_MAX)
             {
@@ -377,11 +377,11 @@ void EXT_CLASS_BASE::DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf)
                 HRESULT hr = symbols3->GetNameByOffsetWide(ip, nameBuffer, sizeof(nameBuffer), &nameSize, NULL);
                 if (SUCCEEDED(hr))
                 {
-                    Out(L"  %p %s\n", ip, nameBuffer);
+                    Out(_u("  %p %s\n"), ip, nameBuffer);
                 }
                 else
                 {
-                    Out(L"  %p\n", ip);
+                    Out(_u("  %p\n"), ip);
                 }
             }
             tok = wcstok_s(NULL, delims, &context);
@@ -390,7 +390,7 @@ void EXT_CLASS_BASE::DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf)
     else
     {
         // String w/o stack, just print it.
-        Out(L"%mu", addr);
+        Out(_u("%mu"), addr);
     }
 }
 
@@ -427,51 +427,13 @@ void EXT_CLASS_BASE::Out(_In_ PCWSTR fmt, ...)
     std::wstring s;
     if (m_unitTestMode)
     {
-        s = std::wstring(L"$ut$") + fmt;
+        s = std::wstring(_u("$ut$")) + fmt;
         fmt = s.c_str();
     }
 
     m_Control4->OutputVaListWide(DEBUG_OUTPUT_NORMAL, fmt, args);
 
     va_end(args);
-}
-
-void EXT_CLASS_BASE::Dbg(_In_ PCSTR fmt, ...)
-{
-#if ENABLE_DEBUG_OUTPUT
-    va_list args;
-    va_start(args, fmt);
-
-    std::string s;
-    if (m_unitTestMode)
-    {
-        s = std::string("$ut$") + fmt;
-        fmt = s.c_str();
-    }
-
-    m_Control->OutputVaList(DEBUG_OUTPUT_VERBOSE, fmt, args);
-
-    va_end(args);
-#endif
-}
-
-void EXT_CLASS_BASE::Dbg(_In_ PCWSTR fmt, ...)
-{
-#if ENABLE_DEBUG_OUTPUT
-    va_list args;
-    va_start(args, fmt);
-
-    std::wstring s;
-    if (m_unitTestMode)
-    {
-        s = std::wstring(L"$ut$") + fmt;
-        fmt = s.c_str();
-    }
-
-    m_Control4->OutputVaListWide(DEBUG_OUTPUT_VERBOSE, fmt, args);
-
-    va_end(args);
-#endif
 }
 
 USE_DbgEngDataTarget(); // Use DbgEngDataTarget implementation
@@ -509,27 +471,27 @@ void EXT_CLASS_BASE::CreateDebugProcess(IJsDebugProcess** ppDebugProcess)
 
 void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, int radix, int maxDepth)
 {
-    PCWSTR fmt = L"%0s%-24s %-16s %-16s\n";
-    Out(fmt, L"", L"#Name", L"#Value", L"#Type");
+    PCWSTR fmt = _u("%0s%-24s %-16s %-16s\n");
+    Out(fmt, _u(""), _u("#Name"), _u("#Value"), _u("#Type"));
     Print(prop, fmt, radix, 0, maxDepth);
 }
 
 static void JoinLines(BSTR& bstr)
 {
-    if (wcschr(bstr, L'\n'))
+    if (wcschr(bstr, _u('\n')))
     {
         std::wstring str(bstr, ::SysStringLen(bstr));
         std::wstring::size_type i = 0;
 
-        while ((i = str.find_first_of(L"\n\r", i)) != std::wstring::npos)
+        while ((i = str.find_first_of(_u("\n\r"), i)) != std::wstring::npos)
         {
-            if (str[i] == L'\n')
+            if (str[i] == _u('\n'))
             {
-                str.replace(i, 1, L"\\n");
+                str.replace(i, 1, _u("\\n"));
             }
             else
             {
-                str.replace(i, 1, L"");
+                str.replace(i, 1, _u(""));
             }
         }
 
@@ -545,7 +507,7 @@ void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int de
     ValidateEvaluateFullName(info, radix);
 
     JoinLines(info.value); // Join Value lines
-    Out(fmt, L"", info.name, info.value, info.type);
+    Out(fmt, _u(""), info.name, info.value, info.type);
 
     if ((info.attr & JS_PROPERTY_ATTRIBUTES::JS_PROPERTY_HAS_CHILDREN) && depth++ < maxDepth)
     {
@@ -561,8 +523,8 @@ void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int de
         {
             const int NAME_FIELD_LEN = 24;
             const int indent = depth * 4;
-            swprintf_s(fmt, L"%%%ds%%-%ds", indent, NAME_FIELD_LEN - indent);
-            wcscat_s(fmt, L" %-16s %-16s\n");
+            swprintf_s(fmt, _u("%%%ds%%-%ds"), indent, NAME_FIELD_LEN - indent);
+            wcscat_s(fmt, _u(" %-16s %-16s\n"));
         }
 
         ULONG claimedCount = 0, actualCount = 0;

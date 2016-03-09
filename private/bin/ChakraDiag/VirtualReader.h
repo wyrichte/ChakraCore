@@ -98,7 +98,7 @@ namespace JsDiag
                 }
                 else if (charsRead == bufferElementCount)
                 {
-                    buffer[bufferElementCount - 1] = L'\0';
+                    buffer[bufferElementCount - 1] = _u('\0');
                     return S_FALSE;
                 }
 

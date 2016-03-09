@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-#define WinRTObjectType L"WinRTObject"
+#define WinRTObjectType _u("WinRTObject")
 
 namespace Projection
 {
@@ -55,7 +55,7 @@ namespace Projection
     public:
         //UnknownsReleaser(ImmutableList<IUnknown *> *unknowns);
         UnknownsReleaser(PageAllocator *pageAllocator) 
-            : unknowns(nullptr), unknownRefs(nullptr), allocator(L"ProjectionUnknownReleaser", pageAllocator, nullptr)
+            : unknowns(nullptr), unknownRefs(nullptr), allocator(_u("ProjectionUnknownReleaser"), pageAllocator, nullptr)
         {
         }
 
@@ -274,13 +274,13 @@ namespace Projection
         }
 
 #ifdef PROJECTION_METADATA_TRACE
-        static void Trace(const wchar_t *form, ...) // const
+        static void Trace(const char16 *form, ...) // const
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {
                 va_list argptr;
                 va_start(argptr, form);
-                Output::Print(L"ProjectionModel: ");
+                Output::Print(_u("ProjectionModel: "));
                 Output::VPrint(form, argptr);
                 Output::Flush();
             }

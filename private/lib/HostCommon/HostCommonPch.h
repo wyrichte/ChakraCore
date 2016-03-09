@@ -46,6 +46,7 @@
 #include "activscp_private.h"
 #include "activdbg.h"
 #include "edgescriptdirect.h"
+#include "Core/CommonTypedefs.h"
 #include "HostConfigFlags.h"
 #ifndef USE_EDGEMODE_JSRT
 #define USE_EDGEMODE_JSRT

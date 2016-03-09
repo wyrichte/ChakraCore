@@ -115,124 +115,124 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
         Print("NativeUnitTests::RunNativeTests called with no test suite selection\n");
         return E_FAIL;
     }
-    if (_wcsicmp(jsHostArgs->flags[0], L"FastDOM") == 0)
+    if (_wcsicmp(jsHostArgs->flags[0], _u("FastDOM")) == 0)
     {
         Print("\n\nRunning FastDom Tests\n");
         RunFastDomTests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"GetExtendedExceptionInfo") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("GetExtendedExceptionInfo")) == 0)
     {
         Print("\n\nRunning GetExtendedExceptionInfo Tests\n");
         RunGetExtendedExceptionInfoTests(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"StackTraceInline") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("StackTraceInline")) == 0)
     {
         Print("\n\nRunning StackTraceInline Tests\n");
         RunStackTraceInlineTests(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"Regex") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("Regex")) == 0)
     {
         Print("\n\nRunning Regex Tests\n");
         RunRegexTests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"TypedArray") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("TypedArray")) == 0)
     {
         Print("\n\nRunning TypedArray Tests\n");
         RunTypedArrayTests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"TypedArrayES6") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("TypedArrayES6")) == 0)
     {
         Print("\n\nRunning TypedArray ES6 Tests\n");
         RunTypedArrayES6Tests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"Int64") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("Int64")) == 0)
     {
         Print("\n\nRunning Int64 Tests\n");
         RunInt64Tests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"BasicTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("BasicTest")) == 0)
     {
         Print("\n\nRunning Basic Tests\n");
         RunBasicTests(&test, &verify);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"HeapEnum") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("HeapEnum")) == 0)
     {
         Print("\n\nRunning HeapEnum Tests\n");
         RunHeapEnumTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"ProfileCacheTests") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("ProfileCacheTests")) == 0)
     {
         Print("\n\nRunning ProfileCacheTests Tests\n");
         RunProfileCacheTests(jsHostArgs);
     } 
-    else if (_wcsicmp(jsHostArgs->flags[0], L"VersionTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("VersionTest")) == 0)
     {
         Print("\n\nRunning version tests\n");
         RunVersionTest();
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"ScriptDiagSerialization") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("ScriptDiagSerialization")) == 0)
     {
         Print("\n\nRunning JScript9Diag serialization tests\n");
         RunScriptDiagSerializationTest();
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPITest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPITest")) == 0)
     {
         Print("\n\nRunning version tests\n");
         RunJsDirectTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPINoScriptScopeTest")) == 0)
     {
         Print("\n\nRunning DirectAPINoScriptScopeTest tests\n");
         RunJsDirectNoScriptScopeTests(&test);
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeErrorCaseTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPINoScriptScopeErrorCaseTest")) == 0)
     {
         Print("\n\nRunning DirectAPINoScriptScopeErrorCaseTest tests\n");
         RunJsDirectNoScriptScopeErrorCaseTests(&test);
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPINoScriptScopeFailfastTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPINoScriptScopeFailfastTest")) == 0)
     {
         Print("\n\nRunning DirectAPINoScriptScopeFailfastTest tests\n");
         RunJsDirectNoScriptScopeFailfastTest(&test);
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"DirectAPIDisableNoScriptScopeTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPIDisableNoScriptScopeTest")) == 0)
     {
         // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
         Print("\n\nRunning DirectAPIDisableNoScriptScopeTest tests\n");
         RunJsDirectDisableNoScriptScopeTest(&test);
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"AsyncDebugTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("AsyncDebugTest")) == 0)
     {
         Print("\n\nRunning AsyncDebugging tests\n");
         RunAsyncDebugTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"CreatePromiseTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("CreatePromiseTest")) == 0)
     {
         Print("\n\nRunning CreatePromise tests\n");
         RunCreatePromiseTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"ParseJsonTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("ParseJsonTest")) == 0)
     {
         Print("\n\nRunning ParseJson tests\n");
         RunParseJsonTest(&test);
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"StaticLibVerificationTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("StaticLibVerificationTest")) == 0)
     {
         Print("\n\nRunning static library verification tests\n");
         RunStaticLibVerificationTest();
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"VarToNativeArrayTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("VarToNativeArrayTest")) == 0)
     {
         Print("\n\nRunning VarTonativeArray tests\n");
         RunVarToNativeArrayTest(&test);
         return S_OK;
     }
-    else if (_wcsicmp(jsHostArgs->flags[0], L"RunExternalFuncFpcwTest") == 0)
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("RunExternalFuncFpcwTest")) == 0)
     {
         Print("\n\nRunning RunExternalFuncFpcwTest tests\n");
         RunExternalFuncFpcwTest(&test);

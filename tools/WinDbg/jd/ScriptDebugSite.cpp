@@ -16,7 +16,7 @@ HRESULT ScriptDebugSite::Init(LPCWSTR pModule, ExtExtension* pExtention,
                         IDebugDataSpaces* pDebugDataSpaces, IDebugDataSpaces4* pDebugDataSpaces4)
 {
     m_module = pModule;
-    m_module += L"!";
+    m_module += _u("!");
 
     m_pExtention = pExtention;
     m_pDebugSymbols = pDebugSymbols;

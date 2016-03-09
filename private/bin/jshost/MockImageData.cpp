@@ -5,13 +5,13 @@
 ********************************************************/
 #include "stdafx.h"
 
-static const LPCWSTR NAME_WIDTH = L"width";
-static const LPCWSTR NAME_HEIGHT = L"height";
-static const LPCWSTR NAME_DATA = L"data";
-static const LPCWSTR NAME_TYPE = L"type";
-static const LPCWSTR NAME_SIZE = L"size";
-static const LPCWSTR NAME_COMPRESSION = L"compression";
-static const LPCWSTR NAME_LASTMODIFIEDDATE = L"lastModifiedDate";
+static const LPCWSTR NAME_WIDTH = _u("width");
+static const LPCWSTR NAME_HEIGHT = _u("height");
+static const LPCWSTR NAME_DATA = _u("data");
+static const LPCWSTR NAME_TYPE = _u("type");
+static const LPCWSTR NAME_SIZE = _u("size");
+static const LPCWSTR NAME_COMPRESSION = _u("compression");
+static const LPCWSTR NAME_LASTMODIFIEDDATE = _u("lastModifiedDate");
 
 STDMETHODIMP MockImageData::QueryInterface(REFIID riid, void** ppvObj)
 {
@@ -139,7 +139,7 @@ HRESULT MockImageData::InitFrom(Var options)
         Var data;
         int length;
         IfFailGo(pScriptDirect.GetOwnProperty(options, NAME_DATA, &data));
-        IfFailGo(pScriptDirect.GetOwnProperty(data, L"length", &length));
+        IfFailGo(pScriptDirect.GetOwnProperty(data, _u("length"), &length));
 
         IfFailGo(pScriptDirect->CreatePixelArray(static_cast<UINT>(length), &pixelArray));
 
@@ -193,7 +193,7 @@ HRESULT MockImageData::InitInternal(int width, int height, Var pixelArray)
 
     // Hacky way to expose the pixelArray
     IfFailGo(pScriptDirect.From(m_instance));
-    IfFailGo(pScriptDirect->GetOrAddPropertyId(L"data", &propertyId));
+    IfFailGo(pScriptDirect->GetOrAddPropertyId(_u("data"), &propertyId));
     IfFailGo(pScriptDirect.SetProperty(m_instance, propertyId, pixelArray));
 
 Error:

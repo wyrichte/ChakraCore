@@ -49,7 +49,8 @@ RemoteHeapBlock::RemoteHeapBlock(RemoteHeapBlock const& other) :
 }
 RemoteHeapBlock::~RemoteHeapBlock()
 {
-    FlushDebuggeeMemory();
+    GetExtension()->recyclerCachedData.RemoveCachedDebuggeeMemory(&debuggeeMemory);
+
     if (attributes)
     {
         delete[] attributes;
@@ -308,7 +309,7 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
 
     if (!isBumpAllocation && head.GetPtr())
     {
-        char * debuggeeMemory = this->GetDebuggeeMemory();
+        AutoDebuggeeMemory autoDebuggeeMemory(this, this->GetAddress(), (ULONG)this->GetSize());
         ULONG64 curr = head.GetPtr();
         while (curr != 0)
         {
@@ -318,40 +319,29 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
             allocatedObjectSize -= this->bucketObjectSize;
             ULONG objectIndex = GetObjectIndex(curr);
             freeObject[objectIndex] = true;
-            char * currBuffer = debuggeeMemory + (curr - this->GetAddress());
+            char * currBuffer = (char *)autoDebuggeeMemory + (curr - this->GetAddress());
             curr = (g_Ext->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer) &~1;
         }
     }
     hasCachedAllocatedObjectCountAndSize = true;
 }
 
-char * RemoteHeapBlock::GetDebuggeeMemory()
-{
-    if (this->debuggeeMemory == nullptr)
-    {
-        ULONG readSize = (ULONG)this->GetSize();
-        ExtRemoteData data(this->GetAddress(), readSize);
-        std::auto_ptr<char> newBuffer(new char[readSize]);
-        data.ReadBuffer(newBuffer.get(), readSize);
-        this->debuggeeMemory = newBuffer.release();
-    }
-    return this->debuggeeMemory;
-}
-
-char * RemoteHeapBlock::GetDebuggeeMemory(ULONG64 address)
+char * RemoteHeapBlock::GetDebuggeeMemory(ULONG64 address, ULONG size, bool * cached)
 {
     Assert(address >= this->GetAddress());
+    Assert(size <= this->GetSize());
     Assert(address - this->GetAddress() < this->GetSize());
-    return this->GetDebuggeeMemory() + address - this->GetAddress();
-}
-
-void RemoteHeapBlock::FlushDebuggeeMemory()
-{
-    if (this->debuggeeMemory)
+    if (this->debuggeeMemory != nullptr || GetExtension()->recyclerCachedData.GetCachedDebuggeeMemory(this->GetAddress(), (ULONG)this->GetSize(), &this->debuggeeMemory))
     {
-        delete[] this->debuggeeMemory;
-        this->debuggeeMemory = nullptr;
+        *cached = true;
+        return this->debuggeeMemory + address - this->GetAddress();
     }
+
+    ExtRemoteData data(address, size);
+    std::auto_ptr<char> newBuffer(new char[size]);
+    data.ReadBuffer(newBuffer.get(), size);
+    *cached = false;
+    return newBuffer.release();
 }
 
 ULONG RemoteHeapBlock::GetLargeHeapBlockHeaderList(JDRemoteTyped& headerList)
@@ -447,7 +437,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         UCHAR attributes;
         if (largeObjectHeader.HasField("attributesAndChecksum"))
         {
-            attributes = (UCHAR)(largeObjectHeader.Field("attributesAndChecksum").GetUshort() ^ GetRecyclerCookie());
+            attributes = (UCHAR)((largeObjectHeader.Field("attributesAndChecksum").GetUshort() ^ (USHORT)GetRecyclerCookie()) >> 8);
         }
         else if (largeObjectHeader.HasField("attributes"))
         {
@@ -472,13 +462,22 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         return true;
     }
 
+    if (originalAddress >= GetAddress() + GetTotalObjectSize())
+    {
+        if (verbose)
+        {
+            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", originalAddress);
+            g_Ext->Out("Pass end of valid objects 0x%p\n", originalAddress);
+        }
+        return false;
+    }
     ULONG objectIndex = GetObjectIndex(originalAddress);
     ULONG64 objectAddress = GetObjectAddressFromIndex(objectIndex);
     if (!interior && objectAddress != originalAddress)
     {
         if (verbose)
         {
-            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
+            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", originalAddress);
             g_Ext->Out("Interior pointer to index: %d, 0x%p\n", objectIndex, objectAddress);
         }
         return false;

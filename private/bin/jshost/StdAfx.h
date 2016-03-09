@@ -37,7 +37,7 @@
 
 #define IfNullReturnError(EXPR, ERROR) do { if (!(EXPR)) { return (ERROR); } } while(FALSE)
 #define IfFailedReturn(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
-#define IfFailedGoLabel(expr, label) do { hr = (expr); if (FAILED(hr)) { if(hr != E_ABORT) { DebuggerController::LogError(L"%s Hr:0x%x", _TEXT(#expr), hr); } goto label;  } } while (FALSE)
+#define IfFailedGoLabel(expr, label) do { hr = (expr); if (FAILED(hr)) { if(hr != E_ABORT) { DebuggerController::LogError(_u("%s Hr:0x%x"), _TEXT(#expr), hr); } goto label;  } } while (FALSE)
 #define IfFailedGo(expr) IfFailedGoLabel(expr, LReturn)
 
 #define IfFailedGoLabel_NoLog(expr, label) do { hr = (expr); if (FAILED(hr)) { goto label; } } while (FALSE)
@@ -49,8 +49,7 @@
 #define IfFailRet(expr) IfFailedReturn(expr)
 
 #define ODS(x) OutputDebugString(x)
-#define WIDEN2(x) L ## x
-#define WIDEN(x) WIDEN2(x)
+#define WIDEN(x) _u(x)
 #define __WFUNCTION__ WIDEN(__FUNCTION__)
 #define WM_USER_PAGE_LOADED     ((WM_USER) + 1)
 #define WM_USER_QUIT            ((WM_USER) + 2)
@@ -112,6 +111,7 @@
 #define USE_EDGEMODE_JSRT
 #endif // USE_EDGEMODE_JSRT
 #include "jsrt.h"
+#include "Core/CommonTypedefs.h"
 #include "EdgeJsHostNativeTest.h"
 #include "ThreadMessage.h"
 #include "MessageQueue.h"

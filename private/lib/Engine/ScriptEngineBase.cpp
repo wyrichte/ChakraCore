@@ -1557,9 +1557,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
         Js::JavascriptError *pError = scriptContext->GetLibrary()->CreateExternalError(errorTypeInternal);
 
         size_t length = wcslen(message);
-        wchar_t* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, length + 1);
+        char16* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, length + 1);
         wmemcpy_s(allocatedString, length + 1, message, length);
-        allocatedString[length] = L'\0';
+        allocatedString[length] = _u('\0');
 
         Js::JavascriptError::SetErrorMessageProperties(pError, hCode, allocatedString, scriptContext);
         *errorObject = pError;
@@ -3188,11 +3188,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     *exceptionVar = nullptr;
     
     Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
         hr = moduleRecord->ParseSource(sourceText, sourceLength, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
     }
-    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
     return hr;
 }
 

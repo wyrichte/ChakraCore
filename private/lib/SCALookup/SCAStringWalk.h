@@ -31,7 +31,7 @@ HRESULT SCAStringWalker<T>::Walk(const StreamReader& reader, UINT byteLen)
 
     if (ShouldRead(len))
     {
-        wchar_t* buf = NULL;
+        char16* buf = NULL;
         IfFailGo(EnsureSize(len, &buf));
         IfFailGo(reader.Read(buf, byteLen));
         buf[len] = NULL;
@@ -89,7 +89,7 @@ protected:
         return true;
     }
 
-    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) wchar_t** ppBuf);
+    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) char16** ppBuf);
 
     BSTR Detach()
     {
@@ -111,7 +111,7 @@ protected:
         return false;
     }
 
-    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) wchar_t** /* ppBuf */)
+    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) char16** /* ppBuf */)
     {
         UNREFERENCED_PARAMETER(len);
         ATLASSERT(FALSE);
@@ -130,10 +130,10 @@ template <UINT StaticBufLen>
 class StringWalker
 {
 private:
-    wchar_t m_buf[StaticBufLen]; // Static buffer
+    char16 m_buf[StaticBufLen]; // Static buffer
     CComBSTR m_bstr; // Dynamic buffer
 
-    wchar_t* m_pStr; // Current buffer
+    char16* m_pStr; // Current buffer
     UINT m_capacity; // Capacity of current buffer
     UINT m_length;   // Current string length
 
@@ -143,7 +143,7 @@ protected:
         return true;
     }
 
-    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) wchar_t** ppBuf);
+    HRESULT EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) char16** ppBuf);
 
 public:
     StringWalker()
@@ -152,7 +152,7 @@ public:
         m_capacity = StaticBufLen - 1;
     }
 
-    const wchar_t* GetString() const
+    const char16* GetString() const
     {
         return m_pStr;
     }
@@ -167,7 +167,7 @@ public:
 // Ensure a buffer to hold the requested string length.
 //
 template <UINT StaticBufLen>
-HRESULT StringWalker<StaticBufLen>::EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) wchar_t** ppBuf)
+HRESULT StringWalker<StaticBufLen>::EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) char16** ppBuf)
 {
     if (m_capacity < len)
     {

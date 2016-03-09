@@ -19,12 +19,12 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     // Open the file as a binary file to prevent CRT from handling encoding, line-break conversions,
     // etc.
     //
-    if (_wfopen_s(&file, filename, L"rb") != 0)
+    if (_wfopen_s(&file, filename, _u("rb")) != 0)
     {
         if (printFileOpenError)
         {
-            wchar_t wszBuff[512];
-            fwprintf(stderr, L"_wfopen of %s failed", filename);
+            char16 wszBuff[512];
+            fwprintf(stderr, _u("_wfopen of %s failed"), filename);
             wszBuff[0] = 0;
             if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
                 NULL,
@@ -34,9 +34,9 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
                 _countof(wszBuff),
                 NULL))
             {
-                fwprintf(stderr, L": %s", wszBuff);
+                fwprintf(stderr, _u(": %s"), wszBuff);
             }
-            fwprintf(stderr, L"\n");
+            fwprintf(stderr, _u("\n"));
             IfFailGo(E_FAIL);
         }
         else
@@ -54,7 +54,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     contentsRaw = (LPCWSTR)HeapAlloc(GetProcessHeap(), 0, lengthBytes + sizeof(WCHAR)); // Simulate Trident buffer, allocate by HeapAlloc
     if (NULL == contentsRaw)
     {
-        fwprintf(stderr, L"out of memory");
+        fwprintf(stderr, _u("out of memory"));
         IfFailGo(E_OUTOFMEMORY);
     }
 
@@ -63,7 +63,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     //
     fread((void*) contentsRaw, sizeof(char), lengthBytes, file);
     fclose(file);
-    *(WCHAR*)((byte*)contentsRaw + lengthBytes) = L'\0'; // Null terminate it. Could be LPCWSTR.
+    *(WCHAR*)((byte*)contentsRaw + lengthBytes) = _u('\0'); // Null terminate it. Could be LPCWSTR.
 
     //
     // Read encoding, handling any conversion to Unicode.
@@ -81,7 +81,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     else if (0xFFFE == *contentsRaw || 0x0000 == *contentsRaw && 0xFEFF == *(contentsRaw+1))
     {
         // unicode unsupported
-        fwprintf(stderr, L"unsupported file encoding");
+        fwprintf(stderr, _u("unsupported file encoding"));
         IfFailGo(E_UNEXPECTED);
     }
     else if (0xFEFF == *contentsRaw)
@@ -104,11 +104,11 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
         contents = (LPCWSTR)HeapAlloc(GetProcessHeap(), 0, (cUtf16Chars + 1) * sizeof(WCHAR)); // Simulate Trident buffer, allocate by HeapAlloc
         if (NULL == contents)
         {
-            fwprintf(stderr, L"out of memory");
+            fwprintf(stderr, _u("out of memory"));
             IfFailGo(E_OUTOFMEMORY);
         }
 
-        utf8::DecodeIntoAndNullTerminate((wchar_t*) contents, pRawBytes, cUtf16Chars, decodeOptions);
+        utf8::DecodeIntoAndNullTerminate((char16*) contents, pRawBytes, cUtf16Chars, decodeOptions);
     }
 
 Error:
@@ -138,10 +138,10 @@ void GetShortNameFromUrl(__in LPCWSTR pchUrl, __in LPWSTR pchShortName, __in siz
 {
     // Note : We can use help from the wininet for cracking the url properly. but for now below logic will just do.
 
-    LPWSTR pchFile = wcsrchr(pchUrl, L'/');
+    LPWSTR pchFile = wcsrchr(pchUrl, _u('/'));
     if (pchFile == NULL)
     {
-        pchFile = wcsrchr(pchUrl, L'\\');
+        pchFile = wcsrchr(pchUrl, _u('\\'));
     }
 
     LPCWSTR pchToCopy = pchUrl;
@@ -182,10 +182,10 @@ HRESULT LoadPDM(HINSTANCE* phInstPdm, IProcessDebugManager ** ppPDM)
     // Only try loading from the same path as jshost.  Do not try to fallback and load
     // whatever pdm is registered with the system.  We want to ensure that we always
     // run with our version of pdm.  Therefore, fail fast if it is not found beside jshost.
-    wchar_t pdmPath[_MAX_PATH];
-    wchar_t pdmDir[_MAX_PATH];
-    wchar_t pdmDrive[_MAX_DRIVE];
-    wchar_t *pdmFilename = L"pdm.dll";
+    char16 pdmPath[_MAX_PATH];
+    char16 pdmDir[_MAX_PATH];
+    char16 pdmDrive[_MAX_DRIVE];
+    char16 *pdmFilename = _u("pdm.dll");
 
     if (phInstPdm != nullptr)
     {

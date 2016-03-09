@@ -19,6 +19,7 @@
 
 #include "scaformat.h"
 #include "scalookup.h"
+#include "Core/CommonTypedefs.h"
 
 #define IfFalseReturnError(expr, hr) do { if (!(expr)) { return (hr); } } while(FALSE)
 #define IfNullReturnError(expr, hr) IfFalseReturnError(expr, hr)

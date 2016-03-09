@@ -47,7 +47,7 @@ public:
                DWORD_PTR sourceID, 
                uint line, 
                uint column, 
-               const wchar_t* methodName) :
+               const char16* methodName) :
             scriptContextId(scriptContextId),
             methodStartAddress(methodStartAddress),
             methodID(methodID),
@@ -61,7 +61,7 @@ public:
             this->name = std::wstring(methodName);
         }
 
-    const wchar_t* Name() const
+    const char16* Name() const
     {
         return name.c_str();
     }
@@ -80,7 +80,7 @@ public:
     SourceInfo(uint64 sourceContext,
         void* scriptContextId,
         uint sourceFlags,
-        const wchar_t* url) :
+        const char16* url) :
             sourceContext(sourceContext),
             scriptContextId(scriptContextId),
             sourceFlags(sourceFlags)
@@ -88,7 +88,7 @@ public:
                 this->url = std::wstring(url);
             }
 
-    const wchar_t* Name() const
+    const char16* Name() const
     {
         return url.c_str();
     }
@@ -98,7 +98,7 @@ class TestEtwEventSinkImpl :
     public TestEtwEventSink
 {
 public:
-    void WriteMethodEvent(const wchar_t* eventName, 
+    void WriteMethodEvent(const char16* eventName, 
         void* scriptContextId,
         void* methodStartAddress, 
         uint64 methodSize, 
@@ -108,9 +108,9 @@ public:
         DWORD_PTR sourceID, 
         uint line, 
         uint column, 
-        const wchar_t* methodName);
+        const char16* methodName);
 
-    void WriteSourceEvent(const wchar_t* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const wchar_t* url);
+    void WriteSourceEvent(const char16* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const char16* url);
 
     void UnloadInstance();
 
@@ -183,7 +183,7 @@ private:
     bool IsEtwThread() const;
 
 public:
-    virtual void WriteMethodEvent(const wchar_t* eventName, 
+    virtual void WriteMethodEvent(const char16* eventName, 
         void* scriptContextId,
         void* methodStartAddress, 
         uint64 methodSize, 
@@ -193,8 +193,8 @@ public:
         DWORD_PTR sourceID, 
         uint line, 
         uint column, 
-        const wchar_t* methodName);
-    virtual void WriteSourceEvent(const wchar_t* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const wchar_t* url);
+        const char16* methodName);
+    virtual void WriteSourceEvent(const char16* eventName, uint64 sourceContext, void* scriptContextId, uint sourceFlags, const char16* url);
     virtual void UnloadInstance();
 
     static TestEtwEventSink* GetInstance(RundownFunc rundown, bool trace);

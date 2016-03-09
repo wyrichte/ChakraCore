@@ -32,7 +32,7 @@ RemoteScriptFunction::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
 {
     RemoteFunctionBody functionBody = this->GetFunctionBody();
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Dml(L"<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)", object.GetPtr(),
+    ext->Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)"), object.GetPtr(),
         functionBody.GetDisplayName(&displayNameBuffer), 
         functionBody.GetSourceContextId(), 
         functionBody.GetLocalFunctionId(), 

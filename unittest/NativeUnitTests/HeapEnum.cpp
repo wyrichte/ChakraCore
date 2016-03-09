@@ -15,7 +15,7 @@ enum DumpMode
 };
 
 DumpMode dumpMode = DumpHETestOnly;
-LPCWSTR defaultScript = L"var a = new Array();";
+LPCWSTR defaultScript = _u("var a = new Array();");
 ULONG numSnapshotElements= 0; 
 PROFILER_HEAP_OBJECT** pSnapshot = NULL;
 UINT maxNameId = 0;
@@ -35,7 +35,7 @@ bool IsGlobal(PROFILER_HEAP_OBJECT_NAME_ID nameId)
     {
         for (UINT i=0; i < maxNameId; i++)
         {
-            if (wcscmp(GetNameFromId(i), L"GlobalObject") == 0)
+            if (wcscmp(GetNameFromId(i), _u("GlobalObject")) == 0)
             {
                 globalTypeNameId = i;
             }
@@ -80,7 +80,7 @@ PROFILER_HEAP_OBJECT_ID FindHETestObjectInSnapshot()
             for (UINT k = 0; k < properties.count; k++)
             {
                 PROFILER_HEAP_OBJECT_RELATIONSHIP& elem = properties.elements[k];
-                if (wcscmp(GetNameFromId(elem.relationshipId), L"HETest") == 0)
+                if (wcscmp(GetNameFromId(elem.relationshipId), _u("HETest")) == 0)
                 {
                     return elem.objectId;
                 }
@@ -387,7 +387,7 @@ void DoPrivateDumpHeap(MyScriptDirectTests* myTests)
         hr = E_FAIL;
         if (retVal <= MAX_PATH && retVal > 0)
         {
-            retVal = GetTempFileName(tempPath, L"PDH", 0, outputFile);
+            retVal = GetTempFileName(tempPath, _u("PDH"), 0, outputFile);
             if (retVal != 0)
             {
                 hr = heapDumper->DumpHeap(outputFile, HeapDumperDumpOld, TRUE, FALSE);
@@ -553,7 +553,7 @@ void RunHeapEnumTest(MyScriptDirectTests* myTests)
     if (flagCount > 1)
     {
         int curFlag = 1;
-        if (_wcsicmp(flags[1], L"-dump") == 0)
+        if (_wcsicmp(flags[1], _u("-dump")) == 0)
         {
             dumpMode = FullDump;
             ++curFlag;
@@ -572,23 +572,23 @@ void RunHeapEnumTest(MyScriptDirectTests* myTests)
     {
         _wsplitpath_s(srcFileNameFullPath, srcFileDrive, _countof(srcFileDrive), srcFileDir, _countof(srcFileDir), srcFileName, _countof(srcFileName), NULL, 0);
     }
-    if (srcFileNameFullPath && _wcsicmp(srcFileName, L"DoOneEnumWithNewEngine") == 0)
+    if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("DoOneEnumWithNewEngine")) == 0)
     {
         DoOneEnumWithNewEngine(myTests);
     }
-    else if (srcFileNameFullPath && _wcsicmp(srcFileName, L"DoMultipleEnumsWithinOneEngine") == 0)
+    else if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("DoMultipleEnumsWithinOneEngine")) == 0)
     {
         DoMultipleEnumsWithinOneEngine(myTests);
     }
-    else if (srcFileNameFullPath && _wcsicmp(srcFileName, L"DoMultipleEnumsAcrossEngines") == 0)
+    else if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("DoMultipleEnumsAcrossEngines")) == 0)
     {
         DoMultipleEnumsAcrossEngines(myTests);
     }
-    else if (srcFileNameFullPath && _wcsicmp(srcFileName, L"DoPrivateDumpHeap") == 0)
+    else if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("DoPrivateDumpHeap")) == 0)
     {
         DoPrivateDumpHeap(myTests);
     }
-    else if (srcFileNameFullPath && _wcsicmp(srcFileName, L"DoHeapSummary") == 0)
+    else if (srcFileNameFullPath && _wcsicmp(srcFileName, _u("DoHeapSummary")) == 0)
     {
         DoHeapSummary(myTests);
     }

@@ -490,13 +490,13 @@ namespace Projection
         void SetIsInAsyncInterface() { fInAsyncInterface = true; }
 
 #ifdef PROJECTION_METADATA_TRACE
-        static void Trace(const wchar_t *form, ...) 
+        static void Trace(const char16 *form, ...) 
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {
                 va_list argptr;
                 va_start(argptr, form);
-                Output::Print(L"ProjectionMarshaler: ");
+                Output::Print(_u("ProjectionMarshaler: "));
                 Output::VPrint(form, argptr);
                 Output::Flush();
             }

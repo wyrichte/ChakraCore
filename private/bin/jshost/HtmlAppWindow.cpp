@@ -74,7 +74,7 @@ STDMETHODIMP_(ULONG) CAppWindow::Release()
 {
     if (--_dwRef == 0)
     {
-        ODS(L"Deleting CAppWindow\n");
+        ODS(_u("Deleting CAppWindow\n"));
         delete this;
         return 0;
     }

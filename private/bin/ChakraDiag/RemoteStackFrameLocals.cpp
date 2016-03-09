@@ -5,9 +5,9 @@
 
 namespace JsDiag
 {
-    const CString RemoteStackFrameLocals::s_localsName(L"Locals");
-    const CString RemoteStackFrameLocals::s_scopeName(L"[Scope]");
-    const CString RemoteStackFrameLocals::s_globalsScopeName(L"[Globals]");
+    const CString RemoteStackFrameLocals::s_localsName(_u("Locals"));
+    const CString RemoteStackFrameLocals::s_scopeName(_u("[Scope]"));
+    const CString RemoteStackFrameLocals::s_globalsScopeName(_u("[Globals]"));
 
     void RemoteStackFrameLocals::Init(RemoteStackFrame* frame)
     {
@@ -246,7 +246,7 @@ namespace JsDiag
         if (exception)
         {
             CComPtr<IJsDebugPropertyInternal> prop;
-            context->CreateDebugProperty(PROPERTY_INFO(CString(L"{exception}"), exception), /*parent*/nullptr, &prop);
+            context->CreateDebugProperty(PROPERTY_INFO(CString(_u("{exception}")), exception), /*parent*/nullptr, &prop);
             __super::InsertItem(prop);
         }
     }
@@ -285,7 +285,7 @@ namespace JsDiag
                 if (remoteReturnedValue->isValueOfReturnStatement)
                 {
                     Js::Var object = frame->GetTempDiagFrame()->GetReg(Js::FunctionBody::ReturnValueRegSlot);
-                    context->CreateDebugProperty(PROPERTY_INFO(CString(L"[Return value]"), object), /*parent*/nullptr, &prop);
+                    context->CreateDebugProperty(PROPERTY_INFO(CString(_u("[Return value]")), object), /*parent*/nullptr, &prop);
                     __super::InsertItem(prop);
                 }
                 else
@@ -302,7 +302,7 @@ namespace JsDiag
                     }
                     if (!name.IsEmpty())
                     {
-                        context->CreateDebugProperty(PROPERTY_INFO(CString(L"[" + name + " returned]"), remoteReturnedValue->returnedValue), /*parent*/nullptr, &prop);
+                        context->CreateDebugProperty(PROPERTY_INFO(CString(_u("[") + name + " returned]"), remoteReturnedValue->returnedValue), /*parent*/nullptr, &prop);
                         __super::InsertItem(prop);
                     }
                 }
@@ -356,7 +356,7 @@ namespace JsDiag
         }
 
         CComPtr<IJsDebugPropertyInternal> prop;
-        context->CreateDebugProperty(PROPERTY_INFO(CString(L"this"), thisVar), /*parent*/nullptr, &prop);
+        context->CreateDebugProperty(PROPERTY_INFO(CString(_u("this")), thisVar), /*parent*/nullptr, &prop);
 
         if (needToObject)
         {
@@ -423,18 +423,18 @@ namespace JsDiag
                 argsObj->AddItem(PROPERTY_INFO(i, inParams[i]));
             }
         }
-        argsObj->AddProperty(PROPERTY_INFO(CString(L"length"), static_cast<double>(paramCount)));
+        argsObj->AddProperty(PROPERTY_INFO(CString(_u("length")), static_cast<double>(paramCount)));
 
         if (isStrictMode)
         {
             // In strict mode we should have 2 accessors. We can't inspect them, so effectively we can present 2 simple string properties.
             CString errMessage(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
-            argsObj->AddProperty(PROPERTY_INFO(CString(L"callee"), errMessage));
-            argsObj->AddProperty(PROPERTY_INFO(CString(L"caller"), errMessage));
+            argsObj->AddProperty(PROPERTY_INFO(CString(_u("callee")), errMessage));
+            argsObj->AddProperty(PROPERTY_INFO(CString(_u("caller")), errMessage));
         }
         else
         {
-            argsObj->AddProperty(PROPERTY_INFO(CString(L"callee"), diagFrame->GetFunction()));
+            argsObj->AddProperty(PROPERTY_INFO(CString(_u("callee")), diagFrame->GetFunction()));
         }
 
         if (argumentsObject)

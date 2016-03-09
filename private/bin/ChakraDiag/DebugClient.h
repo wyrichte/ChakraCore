@@ -9,7 +9,7 @@ namespace JsDiag
     struct RemoteStackFrameEnumerator;
     typedef const void* VTABLE_PTR;
 
-#define JS9_MODULE_NAME L"chakra"
+#define JS9_MODULE_NAME _u("chakra")
 
     //
     // Main entry point for debug/diag dealing with jscript9.dll internals. 
@@ -27,10 +27,10 @@ namespace JsDiag
         bool m_hasTargetHooks;
 
         static const unsigned int c_pointerSize = sizeof(void*);
-        static const wchar_t* c_js9ModuleName;
-        static const wchar_t* c_js9FileName;
-        static const wchar_t* c_js9TestModuleName;
-        static const wchar_t* c_js9TestFileName;
+        static const char16* c_js9ModuleName;
+        static const char16* c_js9FileName;
+        static const char16* c_js9TestModuleName;
+        static const char16* c_js9TestFileName;
         static const CLSID c_CLSID_DiagHook;
         static const LibraryName c_librariesToTry[];
 
@@ -99,8 +99,8 @@ namespace JsDiag
 
     struct LibraryName
     {
-        const wchar_t* ModuleName;
-        const wchar_t* FileName;
+        const char16* ModuleName;
+        const char16* FileName;
     };
 
     // Loads the library unelss it's already loaded, unloads in dtor if it had to load it.

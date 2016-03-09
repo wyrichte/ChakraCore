@@ -71,7 +71,7 @@ public:
     }
     uint GetConstCount()
     {
-        return this->Field("m_constCount").GetUlong();
+        return this->GetCounterField("m_constCount");
     }
     ushort GetParamCount()
     {
@@ -130,7 +130,7 @@ public:
 
     ULONG GetInlineCacheCount()
     {
-        return JDUtil::GetWrappedField(*this, "inlineCacheCount").GetUlong();
+        return this->GetCounterField("inlineCacheCount", true);
     }
 
     USHORT GetProfiledCallSiteCount()
@@ -139,6 +139,7 @@ public:
     }
 
     JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);

@@ -153,7 +153,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
         recycler->Initialize(false, nullptr);
         recycler->Prime();
 
-        ArenaAllocator alloc(L"TestAllocator", &pageAllocator, OutOfMemory);
+        ArenaAllocator alloc(_u("TestAllocator"), &pageAllocator, OutOfMemory);
 
         if(g_testMix == NULL)
         {
@@ -183,7 +183,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
     }
     catch (Js::OutOfMemoryException)
     {
-        fwprintf(stderr, L"FATAL ERROR: Out of memory initializing thread context\n");
+        fwprintf(stderr, _u("FATAL ERROR: Out of memory initializing thread context\n"));
         delete recycler;
         return -1;
     }

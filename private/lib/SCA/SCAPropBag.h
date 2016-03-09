@@ -51,7 +51,7 @@ namespace Js
 
             bool MoveNext();
 
-            const wchar_t* GetNameString() const
+            const char16* GetNameString() const
             {
                 return m_properties->GetKeyAt(m_curIndex).GetBuffer();
             }
@@ -81,7 +81,7 @@ namespace Js
             {
             }
 
-            void SetProperty(const wchar_t* name, charcount_t len, Var value)
+            void SetProperty(const char16* name, charcount_t len, Var value)
             {
                 HRESULT hr = m_propbag->InternalAddNoCopy(name, len, value);
                 m_propbag->ThrowIfFailed(hr);

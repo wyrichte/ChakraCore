@@ -103,7 +103,7 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
 
     if (FAILED(hr))
     {
-        Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: L"NEED MESSAGE" */);
+        Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: _u("NEED MESSAGE") */);
     } 
 
     ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
@@ -411,7 +411,7 @@ HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIA
     return hr;
 }
 
-BOOL HostDispatch::IsGetDispIdCycle(const wchar_t* name)
+BOOL HostDispatch::IsGetDispIdCycle(const char16* name)
 {
     StackNode* current = cycleStack;
     while(current)
@@ -597,7 +597,7 @@ HRESULT HostDispatch::GetIDsOfNames(LPCWSTR psz, DISPID* pid)
     return hr;
 }
 
-BOOL HostDispatch::HasProperty(const wchar_t *psz)
+BOOL HostDispatch::HasProperty(const char16 *psz)
 {
     // See whether the instance has this property by trying to get its DISPID.
 
@@ -666,7 +666,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     HandleDispatchError(hr, &ei);
 }
 
-BOOL HostDispatch::GetValue(const wchar_t * psz, Js::Var *pValue)
+BOOL HostDispatch::GetValue(const char16 * psz, Js::Var *pValue)
 {
     DISPID       id = DISPID_UNKNOWN;
 
@@ -679,7 +679,7 @@ BOOL HostDispatch::GetValue(const wchar_t * psz, Js::Var *pValue)
     return this->GetValueByDispId(id, pValue);
 }
 
-void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_t *name)
+void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const char16 *name)
 {
     // Given an instance and a DISPID, create an lvalue reference (DispMemberProxy).
 
@@ -709,7 +709,7 @@ void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_
     *pValue = proxy;
 }
 
-BOOL HostDispatch::GetPropertyReference(const wchar_t * psz, Js::Var *pValue)
+BOOL HostDispatch::GetPropertyReference(const char16 * psz, Js::Var *pValue)
 {
     DISPID       id = DISPID_UNKNOWN;
     Js::ScriptContext* scriptContext = this->GetScriptContext();
@@ -781,7 +781,7 @@ BOOL HostDispatch::PutValueByDispId(DISPID id, Js::Var value)
     HandleDispatchError(hr, &ei);
 }
 
-BOOL HostDispatch::PutValue(const wchar_t * psz, Js::Var value)
+BOOL HostDispatch::PutValue(const char16 * psz, Js::Var value)
 {
     DISPID       id = DISPID_UNKNOWN;
 
@@ -793,7 +793,7 @@ BOOL HostDispatch::PutValue(const wchar_t * psz, Js::Var value)
     return this->PutValueByDispId(id, value);
 }
 
-BOOL HostDispatch::GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext)
+BOOL HostDispatch::GetAccessors(const char16 * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext)
 {
     HRESULT hr = S_OK;
     BSTR propName = NULL;
@@ -911,11 +911,11 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::Proper
     {
         if (descriptor.ConfigurableSpecified() && !descriptor.IsConfigurable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"configurable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("configurable"));
         }
         if (descriptor.EnumerableSpecified() && descriptor.IsEnumerable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeTrue, L"enumerable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeTrue, _u("enumerable"));
         }
 
         Assert(!descriptor.WritableSpecified());  // Not allowed by JavascriptOperators::ToPropertyDescriptor
@@ -928,15 +928,15 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::Proper
         }
         if (descriptor.ConfigurableSpecified() && !descriptor.IsConfigurable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"configurable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("configurable"));
         }
         if (descriptor.EnumerableSpecified() && !descriptor.IsEnumerable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"enumerable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("enumerable"));
         }
         if (descriptor.WritableSpecified() && !descriptor.IsWritable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"writable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("writable"));
         }
     }
 }
@@ -962,7 +962,7 @@ BOOL HostDispatch::GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descript
     return false;
 }
 
-BOOL HostDispatch::SetAccessors(const wchar_t * name, Js::Var getter, Js::Var setter)
+BOOL HostDispatch::SetAccessors(const char16 * name, Js::Var getter, Js::Var setter)
 {
     AssertInScript();
 
@@ -1061,9 +1061,9 @@ BOOL HostDispatch::HasItem(uint32 index)
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1080,9 +1080,9 @@ BOOL HostDispatch::GetItemReference(Js::Var originalInstance, __in uint32 index,
         *value = requestContext->GetLibrary()->GetNull();
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1099,9 +1099,9 @@ BOOL HostDispatch::GetItem(Js::Var originalInstance, __in uint32 index, __out Js
         *value = requestContext->GetLibrary()->GetNull();
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1117,9 +1117,9 @@ BOOL HostDispatch::SetItem(__in uint32 index, __in Js::Var value, __in Js::Prope
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1135,9 +1135,9 @@ BOOL HostDispatch::DeleteItem(uint32 index, Js::PropertyOperationFlags flags)
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1208,7 +1208,7 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
     HandleDispatchError(hr, nullptr);
 }
 
-BOOL HostDispatch::DeleteProperty(const wchar_t * psz)
+BOOL HostDispatch::DeleteProperty(const char16 * psz)
 {
     IDispatchEx *pDispEx = nullptr;    
     HRESULT hr;
@@ -1766,7 +1766,7 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
             // move the EXCEPINFO's description to a recycler allocation
             Assert(exceptInfo->bstrDescription);
             uint32 len = SysStringLen(exceptInfo->bstrDescription) + 1;
-            wchar_t * allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, len);
+            char16 * allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, len);
             wcscpy_s(allocatedString, len, exceptInfo->bstrDescription);
 
             // save hCode before we clear exceptInfo

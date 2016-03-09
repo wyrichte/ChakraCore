@@ -7,10 +7,10 @@ extern HANDLE g_hInstance;
 
 namespace JsDiag
 {
-    const wchar_t* DebugClient::c_js9ModuleName = JS9_MODULE_NAME;
-    const wchar_t* DebugClient::c_js9FileName = JS9_MODULE_NAME L".dll";
-    const wchar_t* DebugClient::c_js9TestModuleName = JS9_MODULE_NAME L"test";
-    const wchar_t* DebugClient::c_js9TestFileName = JS9_MODULE_NAME L"test.dll";
+    const char16* DebugClient::c_js9ModuleName = JS9_MODULE_NAME;
+    const char16* DebugClient::c_js9FileName = JS9_MODULE_NAME _u(".dll");
+    const char16* DebugClient::c_js9TestModuleName = JS9_MODULE_NAME _u("test");
+    const char16* DebugClient::c_js9TestFileName = JS9_MODULE_NAME _u("test.dll");
 
     const LibraryName DebugClient::c_librariesToTry[] = {
         { DebugClient::c_js9ModuleName, DebugClient::c_js9FileName }, 

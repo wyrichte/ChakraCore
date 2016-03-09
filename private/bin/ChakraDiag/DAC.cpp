@@ -6,13 +6,13 @@
 
 namespace Js
 {
-    const wchar_t Constants::AnonymousFunction[] = L"Anonymous function";
-    const wchar_t Constants::Anonymous[] = L"anonymous";
-    const wchar_t Constants::FunctionCode[] = L"Function code";
-    const wchar_t Constants::GlobalFunction[] = L"glo";
-    const wchar_t Constants::GlobalCode[] = L"Global code";
-    const wchar_t Constants::EvalCode[] = L"eval code";
-    const wchar_t Constants::UnknownScriptCode[] = L"Unknown script code";
+    const char16 Constants::AnonymousFunction[] = _u("Anonymous function");
+    const char16 Constants::Anonymous[] = _u("anonymous");
+    const char16 Constants::FunctionCode[] = _u("Function code");
+    const char16 Constants::GlobalFunction[] = _u("glo");
+    const char16 Constants::GlobalCode[] = _u("Global code");
+    const char16 Constants::EvalCode[] = _u("eval code");
+    const char16 Constants::UnknownScriptCode[] = _u("Unknown script code");
 }
 // --- Dummy definitions - to satisfy the linker ---
 __declspec(noinline) void DebugHeap_OOM_fatal_error()
@@ -750,7 +750,7 @@ namespace JsDiag
     Js::Var RemoteInterpreterStackFrame::GetInnerScope(RegSlot scopeLocation)
     {
         RemoteFunctionBody functionBody(m_reader, ToTargetPtr()->GetFunctionBody());
-        uint32 index = scopeLocation - functionBody->FirstInnerScopeReg();
+        uint32 index = scopeLocation - functionBody.GetCounter(FunctionBody::CounterFields::FirstInnerScopeRegister);
         Js::Var* innerScopeArray = ReadField<Js::Var*>(offsetof(TargetType, innerScopeArray));
         return ReadVirtual<Js::Var>(innerScopeArray + index);
     }
@@ -1049,7 +1049,7 @@ namespace JsDiag
     {
         auto loopHeaderArray = static_cast<const Js::LoopHeader*>(this->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::LoopHeaderArray));
         Assert(loopHeaderArray != nullptr);
-        Assert(index < this->ToTargetPtr()->loopCount);
+        Assert(index < this->GetCounter(FunctionBody::CounterFields::LoopCount));
 
         return const_cast<LoopHeader*>(loopHeaderArray) + index;
     }
@@ -1295,6 +1295,45 @@ namespace JsDiag
         return FALSE;
     }
 
+    const uint32 RemoteFunctionBody::GetCounter(FunctionBody::CounterFields fieldEnum) const
+    {
+        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
+
+        // for registers, it's using UINT32_MAX to represent NoRegister
+        if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !this->ToTargetPtr()->m_hasLocalClosureRegister)
+            || (fieldEnum == FunctionBody::CounterFields::LocalFrameDisplayRegister && !this->ToTargetPtr()->m_hasLocalFrameDisplayRegister)
+            || (fieldEnum == FunctionBody::CounterFields::EnvRegister && !this->ToTargetPtr()->m_hasEnvRegister)
+            || (fieldEnum == FunctionBody::CounterFields::ThisRegisterForEventHandler && !this->ToTargetPtr()->m_hasThisRegisterForEventHandler)
+            || (fieldEnum == FunctionBody::CounterFields::FirstInnerScopeRegister && !this->ToTargetPtr()->m_hasFirstInnerScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FuncExprScopeRegister && !this->ToTargetPtr()->m_hasFuncExprScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FirstTmpRegister && !this->ToTargetPtr()->m_hasFirstTmpRegister)
+            )
+        {
+            return Constants::NoRegister;
+        }
+
+        uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
+        auto remoteCounters = this->ToTargetPtr()->counters;
+        uint8 fieldSize = remoteCounters.fieldSize;
+        
+        if (fieldSize == 1)
+        {
+            return ReadVirtual<uint8>(&remoteCounters.fields.ptr->u8Fields[fieldEnumVal]);
+        }
+        else if (fieldSize == 2)
+        {
+            return ReadVirtual<uint16>(&remoteCounters.fields.ptr->u16Fields[fieldEnumVal]);
+        }
+        else if (fieldSize == 4)
+        {
+            return ReadVirtual<uint32>(&remoteCounters.fields.ptr->u32Fields[fieldEnumVal]);
+        }
+        else
+        {
+            Assert(false);
+            return 0;
+        }
+    }
     const void* RemoteFunctionBody::GetAuxPtrs(FunctionProxy::AuxPointerType pointerType) const
     {
         void* auxPtrsRaw = static_cast<void*>(this->ToTargetPtr()->auxPtrs);
@@ -1898,11 +1937,11 @@ namespace JsDiag
         for(size_t offsetCh = byteOrderMarkCharOffset; offsetCh < (size_t)startCharOfStatement;)
         {
             const ULONG availableBytes = allSource.EnsurePtr(4 * sizeof(CUTF8)); // Make sure that we have enough bytes copied locally.
-            wchar_t ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
+            char16 ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
 
             switch (ch)
             {
-            case L'\r':
+            case _u('\r'):
                 if ((offsetCh + 1) < (size_t)startCharOfStatement)
                 {
                     allSource.EnsurePtr(sizeof(CUTF8));
@@ -1914,7 +1953,7 @@ namespace JsDiag
                     }
                 }
                 // Falls-through
-            case L'\n':
+            case _u('\n'):
                 extraLines++;
                 lastNewLine = offsetCh;
                 break;
@@ -2200,8 +2239,8 @@ namespace JsDiag
         }
     }
 
-    const wchar_t* RemoteFunctionBody::GetExternalDisplayName(
-        const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
+    const char16* RemoteFunctionBody::GetExternalDisplayName(
+        const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
     {
         GetFunctionBodyNameData funcBody(*this, displayName, isDynamicScript, isGlobalFunc);
         return FunctionBody::GetExternalDisplayName(&funcBody);
@@ -2271,18 +2310,19 @@ namespace JsDiag
 
     uint32 RemoteFunctionBody::GetFirstNonTempLocalIndex() const
     {
-        return this->ToTargetPtr()->m_constCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount);
     }
 
     uint32 RemoteFunctionBody::GetEndNonTempLocalIndex() const
     {
-        uint32 firstTempReg = this->ToTargetPtr()->m_firstTmpReg;
+        uint32 firstTempReg = this->GetCounter(FunctionBody::CounterFields::FirstTmpRegister);
         return firstTempReg != Constants::NoRegister ? firstTempReg : this->GetLocalsCount();
     }
 
     RegSlot RemoteFunctionBody::GetLocalsCount() const
     {
-        return this->ToTargetPtr()->m_constCount + this->ToTargetPtr()->m_varCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount) 
+            + this->GetCounter(FunctionBody::CounterFields::VarCount);
     }
 
     RootObjectBase* RemoteFunctionBody::GetRootObject() const
@@ -2305,7 +2345,30 @@ namespace JsDiag
     void RemotePropertyIdOnRegSlotsContainer::FetchItemAt(uint index, RemoteFunctionBody* pFuncBody, _Out_ Js::PropertyId* pPropId, _Out_ RegSlot* pRegSlot) const
     {
         *pPropId = m_propertyIdsForRegSlots.Item(index);
-        *pRegSlot = pFuncBody->ToTargetPtr()->MapRegSlot(index);
+
+        uint32 constCount = pFuncBody->GetCounter(Js::FunctionBody::CounterFields::ConstantCount);
+
+        // logic copied from FunctionBody.cpp
+        auto RegIsConst = [&](RegSlot reg)->bool
+        {
+            return reg > REGSLOT_TO_CONSTREG(constCount);
+        };
+        auto MapRegSlot = [&](RegSlot reg)
+        {
+            if (RegIsConst(reg))
+            {
+                reg = CONSTREG_TO_REGSLOT(reg);
+                Assert(reg < constCount);
+            }
+            else
+            {
+                reg += constCount;
+            }
+
+            return reg;
+        };
+
+        *pRegSlot = MapRegSlot(index);
     }
 
     void* RemoteFrameDisplay::GetItem(uint index) const
@@ -2336,9 +2399,9 @@ namespace JsDiag
         RemoteJavascriptSymbol obj(reader, reinterpret_cast<const TargetType*>(var));
         const PropertyRecord* propertyRecord = obj->GetValue();
 
-        CString name = L"Symbol(";
+        CString name = _u("Symbol(");
         name += InspectionContext::ReadPropertyName(reader, propertyRecord);
-        name += L")";
+        name += _u(")");
 
         return name;
     }
@@ -2460,25 +2523,25 @@ namespace JsDiag
         // JavascriptRegExp::GetPropertyBuiltIns() for the matching details.
         if (pattern.IsGlobal())
         {
-            options.AppendChar(L'g');
+            options.AppendChar(_u('g'));
         }
 
         if (pattern.IsIgnoreCase())
         {
-            options.AppendChar(L'i');
+            options.AppendChar(_u('i'));
         }
 
         if (pattern.IsMultiline())
         {
-            options.AppendChar(L'm');
+            options.AppendChar(_u('m'));
         }
         if (IsES6UnicodeExtensionsEnabled && pattern.IsUnicode())
         {
-            options.AppendChar(L'u');
+            options.AppendChar(_u('u'));
         }
         if (isEs6RegExpStickyFlagEnabled && pattern.IsSticky())
         {
-            options.AppendChar(L'y');
+            options.AppendChar(_u('y'));
         }
 
         return options;

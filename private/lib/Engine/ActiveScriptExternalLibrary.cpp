@@ -49,13 +49,13 @@ void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()
 
     diagnosticsScriptObject = Js::DiagnosticsScriptObject::New(scriptContext->GetRecycler(), library->GetObjectType());
     library->AddMember(javascriptLibrary->GetGlobalObject(),
-        scriptContext->GetOrAddPropertyIdTracked(L"diagnosticsScript"),
+        scriptContext->GetOrAddPropertyIdTracked(_u("diagnosticsScript")),
         this->diagnosticsScriptObject);
 
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"getStackTrace", &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"debugEval", &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("getStackTrace"), &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("debugEval"), &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
 #ifdef EDIT_AND_CONTINUE
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"editSource", &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("editSource"), &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
 #endif
 }
 

@@ -106,8 +106,8 @@ Var WScriptFastDom::StdInReadLine(Var function, CallInfo callInfo, Var* args)
     {
         // The string we read is UTF8, and needs to be converted.
         bool failed = false;
-        wchar_t *wbuf = new wchar_t[StdInMaxLineLength];
-        wbuf[0] = L'\0';
+        char16 *wbuf = new char16[StdInMaxLineLength];
+        wbuf[0] = _u('\0');
         size_t bufLen = strlen(buf);
         hr = S_OK;
 
@@ -150,7 +150,7 @@ LReturn:
     if (readFailed)
     {
         Var errorObject = NULL;
-        hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, L"Read from stdin failed.", &errorObject);
+        hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, _u("Read from stdin failed."), &errorObject);
         if (SUCCEEDED(hr))
         {
             operations->Release();
@@ -221,9 +221,9 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
         {
             if (i > 0)
             {
-                fwprintf(stream, L" ");
+                fwprintf(stream, _u(" "));
             }
-            fwprintf(stream, L"%ls", argToString);
+            fwprintf(stream, _u("%ls"), argToString);
             SysFreeString(argToString);
         }
         else
@@ -237,7 +237,7 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
 
     if (newLine)
     {
-        fwprintf(stream, L"\n");
+        fwprintf(stream, _u("\n"));
     }
     fflush(stream);
 
@@ -247,7 +247,7 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
 
     return undefined;
 }
-// LPCWSTR WorkingSetProc = L"var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;";  template <typename T>  
+// LPCWSTR WorkingSetProc = _u("var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;");  template <typename T>  
 HRESULT WScriptFastDom::GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScriptDirect, VARIANT* varResult)
 {
     HRESULT hr = NOERROR;
@@ -280,7 +280,7 @@ HRESULT WScriptFastDom::GetWorkingSetFromActiveScript(IActiveScriptDirect* activ
     if (SUCCEEDED(hr))
     {
         hr = procedureParse->ParseProcedureText(
-            L"var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;",
+            _u("var ws = new Object(); ws.workingSet = arguments[0]; ws.maxWorkingSet = arguments[1]; ws.pageFault = arguments[2]; ws.privateUsage = arguments[3]; return ws;"),
             NULL, NULL, NULL, NULL, NULL, (DWORD)(-1), 0, 0, &procDispatch);
     }
 
@@ -400,7 +400,7 @@ Var WScriptFastDom::QuitHtmlHost(Var function, CallInfo callInfo, Var* args)
 bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& runInfo, bool isSourceRaw)
 {
     runInfo.hr = S_OK;
-    runInfo.errorMessage = L"";
+    runInfo.errorMessage = _u("");
 
     /*
         Arguments:
@@ -412,7 +412,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
     if (callInfo.Count < 2 || callInfo.Count > 6)
     {
         runInfo.hr = E_INVALIDARG;
-        runInfo.errorMessage = L"Too many or too few arguments.";
+        runInfo.errorMessage = _u("Too many or too few arguments.");
 
         return false;
     }
@@ -426,12 +426,12 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
     {
         BSTR content;
         runInfo.hr = activeScriptDirect->VarToString(args[0], &content);
-        runInfo.source = content ? content : L"";
+        runInfo.source = content ? content : _u("");
     }
 
     if (!SUCCEEDED(runInfo.hr))
     {
-        runInfo.errorMessage = L"Failed while reading the source";
+        runInfo.errorMessage = _u("Failed while reading the source");
         return false;
     }
 
@@ -451,7 +451,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
                     }
                     else
                     {
-                        runInfo.errorMessage = L"Failed while reading the fifth arg (domainId)";
+                        runInfo.errorMessage = _u("Failed while reading the fifth arg (domainId)");
                         return false;
                     }
                 }
@@ -464,7 +464,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
                 }
                 else
                 {
-                    runInfo.errorMessage = L"Failed while reading the fourth arg (primary flag)";
+                    runInfo.errorMessage = _u("Failed while reading the fourth arg (primary flag)");
                     return false;
                 }
             }
@@ -473,7 +473,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
             runInfo.hr = activeScriptDirect->VarToString(args[2], &diagnostics);
             if (SUCCEEDED(runInfo.hr))
             {
-                if (wcscmp(diagnostics, L"diagnostics") == 0)
+                if (wcscmp(diagnostics, _u("diagnostics")) == 0)
                 {
                     runInfo.isDiagnosticHost = true;
                 }
@@ -481,7 +481,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
             }
             else
             {
-                runInfo.errorMessage = L"Failed while reading the third arg (diagnostics flag)";
+                runInfo.errorMessage = _u("Failed while reading the third arg (diagnostics flag)");
                 return false;
             }
         }
@@ -495,7 +495,7 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
         }
         else
         {
-            runInfo.errorMessage = L"Failed while reading the second arg (context flag)";
+            runInfo.errorMessage = _u("Failed while reading the second arg (context flag)");
             return false;
         }
     }
@@ -649,7 +649,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
                 if (SUCCEEDED(runInfo.hr))
                 {
-                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, (byte**)&errorObject);
+                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, FALSE, (byte**)&errorObject);
                 }
                 if (FAILED(runInfo.hr) && errorObject != nullptr)
                 {
@@ -914,7 +914,7 @@ Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var* arg
     if(IsRunningUnderJdtest)
     {
         // Detach unsupported in hybrid mode.
-        LPCWSTR errorMessage = L"WScript.Detach not available in hybrid mode";
+        LPCWSTR errorMessage = _u("WScript.Detach not available in hybrid mode");
         IActiveScriptDirect * activeScriptDirect = NULL;
         IJavascriptOperations * operations = NULL;
         hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
@@ -1053,7 +1053,7 @@ Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var* args)
             else
             {
                 // Ooops, label not found 
-                LPCWSTR errorMessage = L"WScript.Edit() label not found.";
+                LPCWSTR errorMessage = _u("WScript.Edit() label not found.");
                 CComPtr<IJavascriptOperations> operations = nullptr;
                 hr = activeScriptDirect->GetJavascriptOperations(&operations);
                 Var errorObject = nullptr;
@@ -1180,7 +1180,7 @@ Var WScriptFastDom::CreateCanvasPixelArray(Var function, CallInfo callInfo, Var*
     }
 
     int length;
-    IfFailGo(scriptDirect.GetProperty(args[0], L"length", &length));
+    IfFailGo(scriptDirect.GetProperty(args[0], _u("length"), &length));
 
     Var pixelArray;
     IfFailGo(scriptDirect->CreatePixelArray(static_cast<UINT>(length), &pixelArray));
@@ -1571,21 +1571,21 @@ HRESULT WScriptFastDom::InitializeStreams(IActiveScriptDirect * activeScriptDire
     // Create the properties on WScript
     Var stdErr, stdOut, stdIn;
     PropertyId stdErrPropId, stdOutPropId, stdInPropId;
-    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdErr", &stdErr, &stdErrPropId));
+    IfFailedGo(InitializeProperty(activeScriptDirect, _u("StdErr"), &stdErr, &stdErrPropId));
     IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdErrPropId, stdErr, &result));
-    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdOut", &stdOut, &stdOutPropId));
+    IfFailedGo(InitializeProperty(activeScriptDirect, _u("StdOut"), &stdOut, &stdOutPropId));
     IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdOutPropId, stdOut, &result));
-    IfFailedGo(InitializeProperty(activeScriptDirect, L"StdIn", &stdIn, &stdInPropId));
+    IfFailedGo(InitializeProperty(activeScriptDirect, _u("StdIn"), &stdIn, &stdInPropId));
     IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, stdInPropId, stdIn, &result));
     
 
     // Add methods to the streams
-    IfFailedGo(AddMethodToObject(L"WriteLine", activeScriptDirect, stdErr, WScriptFastDom::StdErrWriteLine));
-    IfFailedGo(AddMethodToObject(L"Write", activeScriptDirect, stdErr, WScriptFastDom::StdErrWrite));
-    IfFailedGo(AddMethodToObject(L"WriteLine", activeScriptDirect, stdOut, WScriptFastDom::StdOutWriteLine));
-    IfFailedGo(AddMethodToObject(L"Write", activeScriptDirect, stdOut, WScriptFastDom::StdOutWrite));
-    IfFailedGo(AddMethodToObject(L"ReadLine", activeScriptDirect, stdIn, WScriptFastDom::StdInReadLine));
-    IfFailedGo(AddMethodToObject(L"EOF", activeScriptDirect, stdIn, WScriptFastDom::StdInEOF));
+    IfFailedGo(AddMethodToObject(_u("WriteLine"), activeScriptDirect, stdErr, WScriptFastDom::StdErrWriteLine));
+    IfFailedGo(AddMethodToObject(_u("Write"), activeScriptDirect, stdErr, WScriptFastDom::StdErrWrite));
+    IfFailedGo(AddMethodToObject(_u("WriteLine"), activeScriptDirect, stdOut, WScriptFastDom::StdOutWriteLine));
+    IfFailedGo(AddMethodToObject(_u("Write"), activeScriptDirect, stdOut, WScriptFastDom::StdOutWrite));
+    IfFailedGo(AddMethodToObject(_u("ReadLine"), activeScriptDirect, stdIn, WScriptFastDom::StdInReadLine));
+    IfFailedGo(AddMethodToObject(_u("EOF"), activeScriptDirect, stdIn, WScriptFastDom::StdInEOF));
 
 LReturn:
     if (operations != nullptr)
@@ -1614,7 +1614,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the WScript object
     PropertyId wscriptPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"WScript", &wscriptPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("WScript"), &wscriptPropertyId);
     IfFailedGo(hr);
     Var wscript;
     hr =  activeScriptDirect->CreateObject(&wscript);
@@ -1623,18 +1623,18 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     IfFailedGo(hr);
 
     // Create the print method of the global object
-    hr = AddMethodToObject(L"print", activeScriptDirect, globalObject, WScriptFastDom::Echo);
+    hr = AddMethodToObject(_u("print"), activeScriptDirect, globalObject, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
     // Create the Echo method
-    hr = AddMethodToObject(L"Echo", activeScriptDirect, wscript, WScriptFastDom::Echo);
+    hr = AddMethodToObject(_u("Echo"), activeScriptDirect, wscript, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
     if (!isHTMLHost)
     {
         // Create the Args method
         PropertyId argsPropertyId;
-        hr = activeScriptDirect->GetOrAddPropertyId(L"Arguments", &argsPropertyId);
+        hr = activeScriptDirect->GetOrAddPropertyId(_u("Arguments"), &argsPropertyId);
         IfFailedGo(hr);
         Var args;
         hr = CreateArgsObject(activeScriptDirect, &args);
@@ -1650,66 +1650,66 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     // Create the Quit method
     if (!isHTMLHost)
     {
-        hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::Quit);
+        hr = AddMethodToObject(_u("Quit"), activeScriptDirect, wscript, WScriptFastDom::Quit);
     }
     else
     {
-        hr = AddMethodToObject(L"Quit", activeScriptDirect, wscript, WScriptFastDom::QuitHtmlHost);
+        hr = AddMethodToObject(_u("Quit"), activeScriptDirect, wscript, WScriptFastDom::QuitHtmlHost);
     }
     IfFailedGo(hr);
 
     if (isHTMLHost)
     {
         s_keepaliveCallback = keepaliveCallback;
-        hr = AddMethodToObject(L"SetKeepAlive", activeScriptDirect, wscript, WScriptFastDom::SetKeepAlive);
+        hr = AddMethodToObject(_u("SetKeepAlive"), activeScriptDirect, wscript, WScriptFastDom::SetKeepAlive);
     }
     IfFailedGo(hr);
 
     if (!isHTMLHost)
     {
         // Create the LoadScriptFile method
-        hr = AddMethodToObject(L"LoadScriptFile", activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
+        hr = AddMethodToObject(_u("LoadScriptFile"), activeScriptDirect, wscript, WScriptFastDom::LoadScriptFile);
         IfFailedGo(hr);
 
         // Create the LoadScript method
-        hr = AddMethodToObject(L"LoadScript", activeScriptDirect, wscript, WScriptFastDom::LoadScript);
+        hr = AddMethodToObject(_u("LoadScript"), activeScriptDirect, wscript, WScriptFastDom::LoadScript);
         IfFailedGo(hr);
 
         // Create the LoadScript method
-        hr = AddMethodToObject(L"LoadModule", activeScriptDirect, wscript, WScriptFastDom::LoadModule);
+        hr = AddMethodToObject(_u("LoadModule"), activeScriptDirect, wscript, WScriptFastDom::LoadModule);
         IfFailedGo(hr);
 
         // Create the InitializeProjection method
-        hr = AddMethodToObject(L"InitializeProjection", activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
+        hr = AddMethodToObject(_u("InitializeProjection"), activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
         IfFailedGo(hr);
     }
 
     if (!isHTMLHost)
     {
         // Create the perform source rundown method
-        hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::PerformSourceRundown);
+        hr = AddMethodToObject(_u("PerformSourceRundown"), activeScriptDirect, wscript, WScriptFastDom::PerformSourceRundown);
         IfFailedGo(hr);
 
         // Create the Dynamic attach method
-        hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicAttach);
+        hr = AddMethodToObject(_u("Attach"), activeScriptDirect, wscript, WScriptFastDom::DebugDynamicAttach);
         IfFailedGo(hr);
 
         // Create the Dynamic detach method
-        hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::DebugDynamicDetach);
+        hr = AddMethodToObject(_u("Detach"), activeScriptDirect, wscript, WScriptFastDom::DebugDynamicDetach);
         IfFailedGo(hr);
     }
     else
     {
         // Create the perform source rundown method
-        hr = AddMethodToObject(L"PerformSourceRundown", activeScriptDirect, wscript, WScriptFastDom::HtmlPerformSourceRundown);
+        hr = AddMethodToObject(_u("PerformSourceRundown"), activeScriptDirect, wscript, WScriptFastDom::HtmlPerformSourceRundown);
         IfFailedGo(hr);
 
         // Create the Dynamic attach method
-        hr = AddMethodToObject(L"Attach", activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicAttach);
+        hr = AddMethodToObject(_u("Attach"), activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicAttach);
         IfFailedGo(hr);
 
         // Create the Dynamic detach method
-        hr = AddMethodToObject(L"Detach", activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicDetach);
+        hr = AddMethodToObject(_u("Detach"), activeScriptDirect, wscript, WScriptFastDom::HtmlDebugDynamicDetach);
         IfFailedGo(hr);
     }
 
@@ -1717,65 +1717,65 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     if (s_enableEditTest) // Only add method when command line explicitly requests, to avoid affecting other unrelated baseline.
     {
         // Create the Dynamic edit method
-        hr = AddMethodToObject(L"Edit", activeScriptDirect, wscript, WScriptFastDom::Edit);
+        hr = AddMethodToObject(_u("Edit"), activeScriptDirect, wscript, WScriptFastDom::Edit);
         IfFailedGo(hr);
     }
 #endif
 
     // Create the Script Profile method
-    hr = AddMethodToObject(L"StartProfiling", activeScriptDirect, wscript, WScriptFastDom::StartScriptProfiler);
+    hr = AddMethodToObject(_u("StartProfiling"), activeScriptDirect, wscript, WScriptFastDom::StartScriptProfiler);
     IfFailedGo(hr);
 
     // Create the Script Profile method
-    hr = AddMethodToObject(L"StopProfiling", activeScriptDirect, wscript, WScriptFastDom::StopScriptProfiler);
+    hr = AddMethodToObject(_u("StopProfiling"), activeScriptDirect, wscript, WScriptFastDom::StopScriptProfiler);
     IfFailedGo(hr);
 
     // Create the RegisterCrossThreadInterfacePS method
-    hr = AddMethodToObject(L"RegisterCrossThreadInterfacePS", activeScriptDirect, wscript, WScriptFastDom::RegisterCrossThreadInterfacePS);
+    hr = AddMethodToObject(_u("RegisterCrossThreadInterfacePS"), activeScriptDirect, wscript, WScriptFastDom::RegisterCrossThreadInterfacePS);
     IfFailedGo(hr);
 
     // Create the GetWorkingSet method
-    hr = AddMethodToObject(L"GetWorkingSet", activeScriptDirect, wscript, WScriptFastDom::GetWorkingSet);
+    hr = AddMethodToObject(_u("GetWorkingSet"), activeScriptDirect, wscript, WScriptFastDom::GetWorkingSet);
     IfFailedGo(hr);
     
     // Create the CreateCanvasPixelArray method
-    hr = AddMethodToObject(L"CreateCanvasPixelArray", activeScriptDirect, wscript, WScriptFastDom::CreateCanvasPixelArray);
+    hr = AddMethodToObject(_u("CreateCanvasPixelArray"), activeScriptDirect, wscript, WScriptFastDom::CreateCanvasPixelArray);
     IfFailedGo(hr);
 
     // Create the Shutdown method
-    hr = AddMethodToObject(L"Shutdown", activeScriptDirect, wscript, WScriptFastDom::Shutdown);
+    hr = AddMethodToObject(_u("Shutdown"), activeScriptDirect, wscript, WScriptFastDom::Shutdown);
     IfFailedGo(hr);
 
     if (!isHTMLHost)
     {
         // Create the SetTimeout method
-        hr = AddMethodToObject(L"SetTimeout", activeScriptDirect, wscript, WScriptFastDom::SetTimeout);
+        hr = AddMethodToObject(_u("SetTimeout"), activeScriptDirect, wscript, WScriptFastDom::SetTimeout);
         IfFailedGo(hr);
 
         // Create the ClearTimeout method
-        hr = AddMethodToObject(L"ClearTimeout", activeScriptDirect, wscript, WScriptFastDom::ClearTimeout);
+        hr = AddMethodToObject(_u("ClearTimeout"), activeScriptDirect, wscript, WScriptFastDom::ClearTimeout);
         IfFailedGo(hr);
     }
 
-    hr = AddMethodToObject(L"EmitStackTraceEvent", activeScriptDirect, wscript, WScriptFastDom::EmitStackTraceEvent);
+    hr = AddMethodToObject(_u("EmitStackTraceEvent"), activeScriptDirect, wscript, WScriptFastDom::EmitStackTraceEvent);
     IfFailedGo(hr);
 
     if (HostConfigFlags::flags.EnableMiscWScriptFunctions)
     {
-        hr = AddMethodToObject(L"CallFunction", activeScriptDirect, wscript, WScriptFastDom::CallFunction);
+        hr = AddMethodToObject(_u("CallFunction"), activeScriptDirect, wscript, WScriptFastDom::CallFunction);
         IfFailedGo(hr);
     }
 
-    hr = AddMethodToObject(L"SetEvalEnabled", activeScriptDirect, wscript, WScriptFastDom::SetEvalEnabled); 
+    hr = AddMethodToObject(_u("SetEvalEnabled"), activeScriptDirect, wscript, WScriptFastDom::SetEvalEnabled); 
     IfFailedGo(hr);
 
-    hr = AddMethodToObject(L"SetRestrictedMode", activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
+    hr = AddMethodToObject(_u("SetRestrictedMode"), activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
     IfFailedGo(hr);
 
     // Add constructor ImageData
     PropertyId namePropertyId;
     Var testConstructor;
-    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(L"TestConstructor", &namePropertyId));
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("TestConstructor"), &namePropertyId));
     IfFailedGo(activeScriptDirect->CreateDeferredConstructor(&WScriptFastDom::TestConstructor, namePropertyId, TestConstructorInitMethod, 5, FALSE, FALSE,  &testConstructor));
     IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, namePropertyId, testConstructor, &result));
 
@@ -1852,6 +1852,43 @@ HRESULT WScriptFastDom::CallbackMessage::Call()
 {
     return CallJavascriptFunction();
 }
+
+WScriptFastDom::ModuleMessage::ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect)
+    : MessageBase(0), moduleRecord(module), specifier(specifier), scriptDirect(activeScriptDirect)
+{
+    // TODO: we might need to JsVarAddRef if chakra doesn't
+}
+
+WScriptFastDom::ModuleMessage::~ModuleMessage()
+{
+}
+
+HRESULT WScriptFastDom::ModuleMessage::Call()
+{
+    HRESULT hr;
+    Var result;
+    if (specifier == nullptr)
+    {
+        hr = scriptDirect->ModuleEvaluation(moduleRecord, &result);
+    }
+    else
+    {
+        Var errorObject;
+        // fetch the module.
+        CComPtr<IJsHostScriptSite> jsHostScriptSite = nullptr;
+        CComPtr<IActiveScript> activeScript;
+        IfFailGo(scriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript));
+
+        hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
+        if (SUCCEEDED(hr))
+        {
+            hr = jsHostScriptSite->LoadModuleFile(specifier, TRUE, (byte**)&errorObject);
+        }
+    }
+Error:
+    return hr;
+}
+
 
 void WScriptFastDom::EnableEditTests()
 {

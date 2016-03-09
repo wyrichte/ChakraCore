@@ -158,7 +158,7 @@ private:
             }
             else if(type.compare("string")==0)
             {
-                BSTR actstrval=L"";
+                BSTR actstrval=_u("");
                 FAIL_hr(m_data->activescriptdirect->VarToString(actval,&actstrval),"VarToString");
                 std::wstring wstrval(actstrval);
                 std::string strval(wstrval.begin(),wstrval.end());

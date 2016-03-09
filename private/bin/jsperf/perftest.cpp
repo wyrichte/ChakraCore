@@ -4,10 +4,10 @@
 HANDLE hTestEvent;
 
 const PerfTest::TestCase PerfTest::TestList[4] = {
-    { L"CreateDestroyContexts", &PerfTest::CreateDestroyContexts },
-    { L"CreateHoldDestroyContextsFIFO", &PerfTest::CreateHoldDestroyContextsFIFO },
-    { L"CreateHoldDestroyContextsLIFO", &PerfTest::CreateHoldDestroyContextsLIFO },
-    { L"CreateDestroyContextsWithCache", &PerfTest::CreateDestroyContextsWithCache },
+    { _u("CreateDestroyContexts"), &PerfTest::CreateDestroyContexts },
+    { _u("CreateHoldDestroyContextsFIFO"), &PerfTest::CreateHoldDestroyContextsFIFO },
+    { _u("CreateHoldDestroyContextsLIFO"), &PerfTest::CreateHoldDestroyContextsLIFO },
+    { _u("CreateDestroyContextsWithCache"), &PerfTest::CreateDestroyContextsWithCache },
 };
 
 
@@ -91,61 +91,61 @@ void DataCollector::DumpStatsToXML()
     }
 
     FILE *fp;
-    if((fp = _wfsopen(g_testContext.resultsXMLFileName, L"wt", _SH_DENYWR)) == NULL)
+    if((fp = _wfsopen(g_testContext.resultsXMLFileName, _u("wt"), _SH_DENYWR)) == NULL)
     {
         Fail("results xml file open failed.");
     }
 
-    fwprintf_s(fp, L"%s\n", L"<?xml version=\"1.0\"?>");
-    fwprintf_s(fp, L"%s\n", L"<Results>");
-    fwprintf_s(fp, L"%s\n", L"    <Measurement Name=\"Startup\" Type=\"Iteration\">");
+    fwprintf_s(fp, _u("%s\n"), _u("<?xml version=\"1.0\"?>"));
+    fwprintf_s(fp, _u("%s\n"), _u("<Results>"));
+    fwprintf_s(fp, _u("%s\n"), _u("    <Measurement Name=\"Startup\" Type=\"Iteration\">"));
     for(int i = 0; i < m_startupTimes.size(); ++i)
     {
-        fwprintf_s(fp, L"%s%f%s\n", L"        <Times>", m_startupTimes[i], L"</Times>");
+        fwprintf_s(fp, _u("%s%f%s\n"), _u("        <Times>"), m_startupTimes[i], _u("</Times>"));
     }
-    fwprintf_s(fp, L"%s\n", L"    </Measurement>");
+    fwprintf_s(fp, _u("%s\n"), _u("    </Measurement>"));
 
     if(ranScript) 
     {
-        fwprintf_s(fp, L"%s\n", L"    <Measurement Name=\"ParseScript\" Type=\"Iteration\">");
+        fwprintf_s(fp, _u("%s\n"), _u("    <Measurement Name=\"ParseScript\" Type=\"Iteration\">"));
         for(int i = 0; i < m_parseScriptTimes.size(); ++i)
         {
-            fwprintf_s(fp, L"%s%f%s\n", L"        <Times>", m_parseScriptTimes[i], L"</Times>");
+            fwprintf_s(fp, _u("%s%f%s\n"), _u("        <Times>"), m_parseScriptTimes[i], _u("</Times>"));
         }
-        fwprintf_s(fp, L"%s\n", L"    </Measurement>");
+        fwprintf_s(fp, _u("%s\n"), _u("    </Measurement>"));
         fflush(fp);
 
-        fwprintf_s(fp, L"%s\n", L"    <Measurement Name=\"RunTest\" Type=\"Iteration\">");
+        fwprintf_s(fp, _u("%s\n"), _u("    <Measurement Name=\"RunTest\" Type=\"Iteration\">"));
         for(int i = 0; i < m_runTestTimes.size(); ++i)
         {
-            fwprintf_s(fp, L"%s%f%s\n", L"        <Times>", m_runTestTimes[i], L"</Times>");
+            fwprintf_s(fp, _u("%s%f%s\n"), _u("        <Times>"), m_runTestTimes[i], _u("</Times>"));
         }
-        fwprintf_s(fp, L"%s\n", L"    </Measurement>");
+        fwprintf_s(fp, _u("%s\n"), _u("    </Measurement>"));
     }
 
-    fwprintf_s(fp, L"%s\n", L"    <Measurement Name=\"Shutdown\" Type=\"Iteration\">");
+    fwprintf_s(fp, _u("%s\n"), _u("    <Measurement Name=\"Shutdown\" Type=\"Iteration\">"));
     for(int i = 0; i < m_shutdownTimes.size(); ++i)
     {
-        fwprintf_s(fp, L"%s%f%s\n", L"        <Times>", m_shutdownTimes[i], L"</Times>");
+        fwprintf_s(fp, _u("%s%f%s\n"), _u("        <Times>"), m_shutdownTimes[i], _u("</Times>"));
     }
-    fwprintf_s(fp, L"%s\n", L"    </Measurement>");
+    fwprintf_s(fp, _u("%s\n"), _u("    </Measurement>"));
 
     
-    fwprintf_s(fp, L"%s\n", L"    <Measurement Name=\"WorkingSet\" Type=\"Sample\">");
-    fwprintf_s(fp, L"%s\n", L"        <Sample>");
-    fwprintf_s(fp, L"%s\n", L"            <Timestamp>Init</Timestamp>");
-    fwprintf_s(fp, L"%s%f%s\n", L"            <Times>", (g_testContext.initialMemoryCounters.WorkingSetSize / 1024.0 / 1024.0) ,L"</Times>");
-    fwprintf_s(fp, L"%s\n", L"        </Sample>");
+    fwprintf_s(fp, _u("%s\n"), _u("    <Measurement Name=\"WorkingSet\" Type=\"Sample\">"));
+    fwprintf_s(fp, _u("%s\n"), _u("        <Sample>"));
+    fwprintf_s(fp, _u("%s\n"), _u("            <Timestamp>Init</Timestamp>"));
+    fwprintf_s(fp, _u("%s%f%s\n"), _u("            <Times>"), (g_testContext.initialMemoryCounters.WorkingSetSize / 1024.0 / 1024.0) ,_u("</Times>"));
+    fwprintf_s(fp, _u("%s\n"), _u("        </Sample>"));
     for(int i = 0; i < m_workingSet.size(); ++i)
     {
         double timestamp = 1000.0 * (m_workingSet[i].first.QuadPart - m_workingSet[0].first.QuadPart) / g_frequency.QuadPart;
-        fwprintf_s(fp, L"%s\n", L"        <Sample>");
-        fwprintf_s(fp, L"%s%f%s\n", L"            <Timestamp>",timestamp,L"</Timestamp>");
-        fwprintf_s(fp, L"%s%f%s\n", L"            <Times>", (m_workingSet[i].second.WorkingSetSize / 1024.0 / 1024.0) ,L"</Times>");
-        fwprintf_s(fp, L"%s\n", L"        </Sample>");
+        fwprintf_s(fp, _u("%s\n"), _u("        <Sample>"));
+        fwprintf_s(fp, _u("%s%f%s\n"), _u("            <Timestamp>"),timestamp,_u("</Timestamp>"));
+        fwprintf_s(fp, _u("%s%f%s\n"), _u("            <Times>"), (m_workingSet[i].second.WorkingSetSize / 1024.0 / 1024.0) ,_u("</Times>"));
+        fwprintf_s(fp, _u("%s\n"), _u("        </Sample>"));
     }
-    fwprintf_s(fp, L"%s\n", L"    </Measurement>");
-    fwprintf_s(fp, L"%s\n", L"</Results>");
+    fwprintf_s(fp, _u("%s\n"), _u("    </Measurement>"));
+    fwprintf_s(fp, _u("%s\n"), _u("</Results>"));
     
     fflush(fp);
     fclose(fp);
@@ -585,7 +585,7 @@ void PerfTest::RunMultithreaded(PfnTest pfnTest, int numThreads, int count, int 
     delete[] handles;
 }
 
-PerfTest::PfnTest PerfTest::GetTestFunction(wchar_t *str)
+PerfTest::PfnTest PerfTest::GetTestFunction(char16 *str)
 {
     for(int i = 0; i < NumTestCases; ++i)
     {
@@ -596,15 +596,15 @@ PerfTest::PfnTest PerfTest::GetTestFunction(wchar_t *str)
     return NULL;
 }
 
-void TestContext::LoadScriptFile(wchar_t *filename)
+void TestContext::LoadScriptFile(char16 *filename)
 {
-    FILE *file = _wfopen(filename, L"rt");
+    FILE *file = _wfopen(filename, _u("rt"));
     if(file == NULL)
         Fail("Couldn't open script file");
 
     const int MaxSize = 1024 * 512;
     char *data = new char[MaxSize];
-    g_testContext.script = new wchar_t[MaxSize];
+    g_testContext.script = new char16[MaxSize];
 
     int numRead = fread(data, 1, MaxSize, file);
     if(numRead == 0)

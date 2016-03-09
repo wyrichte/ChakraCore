@@ -134,7 +134,7 @@ namespace Js
         {
         case SCA_StringValue: // Clone string value as object type to resolve multiple references
             {
-                const wchar_t* buf;
+                const char16* buf;
                 charcount_t len;
                 ReadString(&buf, &len);
                 *dst = Js::JavascriptString::NewWithBuffer(buf, len, scriptContext);
@@ -168,7 +168,7 @@ namespace Js
 
         case SCA_StringObject:
             {
-                const wchar_t* buf;
+                const char16* buf;
                 charcount_t len;
                 ReadString(&buf, &len);
                 *dst = lib->CreateStringObject(buf, len);
@@ -177,7 +177,7 @@ namespace Js
 
         case SCA_RegExpObject:
             {
-                const wchar_t* buf;
+                const char16* buf;
                 charcount_t len;
                 ReadString(&buf, &len);
 
@@ -400,7 +400,7 @@ Error:
     // SCA_PROPERTY_TERMINATOR will appear at the place of [byteLen]. Return false in this case.
     //
     template <class Reader>
-    bool DeserializationCloner<Reader>::TryReadString(const wchar_t** str, charcount_t* len) const
+    bool DeserializationCloner<Reader>::TryReadString(const char16** str, charcount_t* len) const
     {
         uint32 byteLen;
         m_reader->Read(&byteLen);
@@ -411,7 +411,7 @@ Error:
         }
         else if (byteLen == 0)
         {
-            static const wchar_t* emptyString = L"";
+            static const char16* emptyString = _u("");
             *str = emptyString;
             *len = 0;
         }
@@ -419,8 +419,8 @@ Error:
         {
             Recycler* recycler = GetScriptContext()->GetRecycler();
 
-            *len = byteLen / sizeof(wchar_t);
-            wchar_t* buf = RecyclerNewArrayLeaf(recycler, wchar_t, *len + 1);
+            *len = byteLen / sizeof(char16);
+            char16* buf = RecyclerNewArrayLeaf(recycler, char16, *len + 1);
             m_reader->Read(buf, byteLen);
             buf[*len] = NULL;
 
@@ -442,7 +442,7 @@ Error:
     // Throw if seeing SCA_PROPERTY_TERMINATOR.
     //
     template <class Reader>
-    void DeserializationCloner<Reader>::ReadString(const wchar_t** str, charcount_t* len) const
+    void DeserializationCloner<Reader>::ReadString(const char16** str, charcount_t* len) const
     {
         if (!TryReadString(str, len))
         {
@@ -522,7 +522,7 @@ Error:
 
     template class DeserializationCloner<StreamReader>;
 
-    void ObjectPropertySink::SetProperty(const wchar_t* name, charcount_t len, Var value)
+    void ObjectPropertySink::SetProperty(const char16* name, charcount_t len, Var value)
     {
         ScriptContext* scriptContext = GetScriptContext();
 

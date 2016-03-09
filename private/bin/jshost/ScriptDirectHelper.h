@@ -62,7 +62,7 @@ public:
     HRESULT StringToVar(LPCWSTR str, Var* value);
     HRESULT NewDate(double time, Var* pValue);
 
-    void ThrowIfFailed(HRESULT hr, LPCWSTR msg = L"");
+    void ThrowIfFailed(HRESULT hr, LPCWSTR msg = _u(""));
     HRESULT CheckRecordedException(HRESULT hr);
 
     template <class T>
@@ -78,7 +78,7 @@ HRESULT ScriptDirect::ReadArray(Var data, T* container)
     HRESULT hr = S_OK;
 
     int len;
-    IfFailGo(GetProperty(data, L"length", &len));
+    IfFailGo(GetProperty(data, _u("length"), &len));
 
     for (int i = 0; i < len; i++) {
         Var index, value;

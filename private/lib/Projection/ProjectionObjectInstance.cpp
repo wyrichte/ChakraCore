@@ -627,15 +627,15 @@ LReturn:
         IfFailGo(Is(obj) ? S_OK : E_FAIL);
 
         Projection::ProjectionObjectInstance *prObj = static_cast<Projection::ProjectionObjectInstance *>(obj);
-        OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"Projection Instance found; attempting to source ArrayBuffer from IBuffer\n");
+        OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("Projection Instance found; attempting to source ArrayBuffer from IBuffer\n"));
         hr = AttemptCreateArrayBufferFromIBuffer(prObj, ppArrayBuffer);
         IfFailGo(hr);
 
-        OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"ArrayBuffer from IBuffer succeeded with HR=0x%08X\n", hr);
+        OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("ArrayBuffer from IBuffer succeeded with HR=0x%08X\n"), hr);
         goto Return;
 
     Error:
-        OUTPUT_TRACE(Js::ProjectionMetadataPhase, L"ArrayBuffer from IBuffer failed with HR=0x%08X\n", hr);
+        OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("ArrayBuffer from IBuffer failed with HR=0x%08X\n"), hr);
         *ppArrayBuffer = nullptr;
 
     Return:

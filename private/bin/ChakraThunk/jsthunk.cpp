@@ -595,12 +595,12 @@ JScriptThunkInstrumentation_ReportThread(PVOID)
             auto const & commandLine = parameters->CommandLine;
             auto const & currentDirectory = parameters->CurrentDirectory.DosPath;
             CStringW base = CStringW(commandLine.Buffer, commandLine.Length / sizeof(WCHAR));
-            base += L" ";
+            base += _u(" ");
             base += CStringW(currentDirectory.Buffer, currentDirectory.Length / sizeof(WCHAR));
             for (auto data = JSThunkThreadData; data; data = data->Next)
             {
                 CStringW s = base;
-                s.AppendFormat(L" threadId:%X MaxStack:%Iuk\n", data->ThreadId, data->StackUsed / 1024);
+                s.AppendFormat(_u(" threadId:%X MaxStack:%Iuk\n"), data->ThreadId, data->StackUsed / 1024);
                 DbgPrintEx(0, ~0u, "%ls\n", s.GetString());
             }
         }

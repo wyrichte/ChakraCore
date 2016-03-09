@@ -8,12 +8,12 @@ class GUIDParser
 {    
 public:
     static HRESULT TryParseGUID(LPCWSTR g, GUID* result);
-    static HRESULT TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result, size_t length);
+    static HRESULT TryGUIDToString(GUID* g, __in_ecount(length) char16* result, size_t length);
 
 private:
-    static bool IsWhitespace(wchar_t c);
-    static void EatAllWhitespace(__in_ecount(length) wchar_t* string, size_t length);
-    static bool IsHexDigit(wchar_t c) { return (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))); }
+    static bool IsWhitespace(char16 c);
+    static void EatAllWhitespace(__in_ecount(length) char16* string, size_t length);
+    static bool IsHexDigit(char16 c) { return (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))); }
     static HRESULT TryParseHexValueExact(LPCWSTR g, int length, unsigned long* value);
     static HRESULT TryParseHexValue(LPCWSTR g, int maxLength, int* offset, unsigned long* value);
     static HRESULT TryParseGUIDWithHexFormat(LPCWSTR g, GUID* result);

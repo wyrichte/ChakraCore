@@ -10,12 +10,12 @@
 // backslashes and wrapping each line as a string then #including it here
 static const WCHAR controllerScript[] = {
     #include "dbgcontroller.js.encoded"
-    L'\0'
+    _u('\0')
 };
 
 #define IfFlagSet(value ,flag) ((value & flag) == flag)
 
-LPCWSTR DebuggerController::s_largeString = L"\"<large string>\"";
+LPCWSTR DebuggerController::s_largeString = _u("\"<large string>\"");
 
 // 200MB, expergen generates huge file sometimes.
 #define MAX_BASELINE_SIZE       (1024*1024*200)
@@ -26,7 +26,7 @@ JsValueRef __stdcall ScriptEngineWrapper::EchoCallback(JsValueRef callee, bool i
     {
         if (i > 1)
         {
-            wprintf(L" ");
+            wprintf(_u(" "));
         }
         JsValueRef strValue;
         if (JScript9Interface::JsrtConvertValueToString(arguments[i], &strValue) == JsNoError)
@@ -35,12 +35,12 @@ JsValueRef __stdcall ScriptEngineWrapper::EchoCallback(JsValueRef callee, bool i
             size_t length;
             if (JScript9Interface::JsrtStringToPointer(strValue, &str, &length) == JsNoError)
             {
-                wprintf(L"%s", str);
+                wprintf(_u("%s"), str);
             }
         }
     }
 
-    wprintf(L"\n");
+    wprintf(_u("\n"));
 
     JsValueRef undefinedValue;
     JScript9Interface::JsrtGetUndefinedValue(&undefinedValue);
@@ -53,56 +53,56 @@ ScriptEngineWrapper::ScriptEngineWrapper()
     // TODO: better error handling.
 
     // Make sure chakra dll is loaded.
-    if(GetModuleHandle(L"chakratest.dll") == NULL && GetModuleHandle(L"chakra.dll") == NULL)
+    if(GetModuleHandle(_u("chakratest.dll")) == NULL && GetModuleHandle(_u("chakra.dll")) == NULL)
     {
         JScript9Interface::ArgInfo args;
         if(JScript9Interface::LoadDll(false, nullptr, args) == NULL)
         {
-            DebuggerController::LogError(L"unable to load chakra dll");
+            DebuggerController::LogError(_u("unable to load chakra dll"));
             return;
         }
     }
 
     if (JScript9Interface::JsrtCreateRuntime(JsRuntimeAttributeDisableBackgroundWork, NULL, &m_runtime) != JsNoError)
     {
-        DebuggerController::LogError(L"debugger controller script initialization");
+        DebuggerController::LogError(_u("debugger controller script initialization"));
         return;
     }
     if (JScript9Interface::JsrtCreateContext(m_runtime, &m_context) != JsNoError)
     {
-        DebuggerController::LogError(L"debugger controller context creation");
+        DebuggerController::LogError(_u("debugger controller context creation"));
         return;
     }
     if (JScript9Interface::JsrtSetCurrentContext(m_context) != JsNoError)
     {
-        DebuggerController::LogError(L"debugger controller SetCurrentContext");
+        DebuggerController::LogError(_u("debugger controller SetCurrentContext"));
     }
 
     // TODO: dependency on jsrt from common? 
     // Install WScript.Echo
-    if (FAILED(InstallHostCallback(L"Echo", &EchoCallback, nullptr)))
+    if (FAILED(InstallHostCallback(_u("Echo"), &EchoCallback, nullptr)))
     {
-        DebuggerController::LogError(L"installation of WScript.Echo");
+        DebuggerController::LogError(_u("installation of WScript.Echo"));
     }
     
     // Run the built-in controller script.
     JsValueRef globalFunc = JS_INVALID_REFERENCE;
-    if (JScript9Interface::JsrtParseScriptWithFlags(controllerScript, JS_SOURCE_CONTEXT_NONE, L"dbgcontroller.js", JsParseScriptAttributeLibraryCode, &globalFunc) != JsNoError)
+    if (JScript9Interface::JsrtParseScriptWithFlags(controllerScript, JS_SOURCE_CONTEXT_NONE, _u("dbgcontroller.js"), JsParseScriptAttributeLibraryCode, &globalFunc) != JsNoError)
     {
-        DebuggerController::LogError(L"parse controller script");
+        DebuggerController::LogError(_u("parse controller script"));
     }
 
     JsValueRef undefinedValue = JS_INVALID_REFERENCE;
     if (JScript9Interface::JsrtGetUndefinedValue(&undefinedValue) != JsNoError)
     {
-        DebuggerController::LogError(L"Unable to get undefined value");
+        DebuggerController::LogError(_u("Unable to get undefined value"));
     }
 
     JsValueRef args[] = { undefinedValue };
     JsValueRef result = JS_INVALID_REFERENCE;
     if (JScript9Interface::JsrtCallFunction(globalFunc, args, _countof(args), &result) != JsNoError)
     {
-        DebuggerController::LogError(L"run controller script");
+        DebuggerController::LogError(_u("run controller script"));
     }
 }
 
@@ -110,11 +110,11 @@ ScriptEngineWrapper::~ScriptEngineWrapper()
 {
     if(JScript9Interface::JsrtSetCurrentContext(NULL) != JsNoError)
     {
-        DebuggerController::LogError(L"debugger controller teardown"); 
+        DebuggerController::LogError(_u("debugger controller teardown")); 
     }
     if(JScript9Interface::JsrtDisposeRuntime(m_runtime) != JsNoError)
     {
-        DebuggerController::LogError(L"debugger controller runtime teardown");
+        DebuggerController::LogError(_u("debugger controller runtime teardown"));
     }
 }
 
@@ -187,7 +187,7 @@ HRESULT ScriptEngineWrapper::InstallHostCallback(LPCWSTR propName, JsNativeFunct
 
     // Get the property ID for WScript
     JsPropertyIdRef wscriptId;
-    JsrtCheckError(JScript9Interface::JsrtGetPropertyIdFromName(L"WScript", &wscriptId));
+    JsrtCheckError(JScript9Interface::JsrtGetPropertyIdFromName(_u("WScript"), &wscriptId));
 
     // Check if WScript exists on global
     JsValueRef wscriptObject;
@@ -233,7 +233,7 @@ Error:
 
 DebuggerController::DebuggerController(LPCWSTR baselineFilename)
     : m_scriptWrapper(new ScriptEngineWrapper), 
-    m_baselineFilename(baselineFilename ? baselineFilename : L"")
+    m_baselineFilename(baselineFilename ? baselineFilename : _u(""))
 {
 }
 
@@ -244,37 +244,37 @@ DebuggerController::~DebuggerController()
 
 HRESULT DebuggerController::DumpLog()
 {
-    return m_scriptWrapper->CallGlobalFunction(L"DumpLog", NULL);
+    return m_scriptWrapper->CallGlobalFunction(_u("DumpLog"), NULL);
 }
 
 HRESULT DebuggerController::LogBreakpoint(__in __nullterminated WCHAR const* reason)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, reason);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, reason);
 }
 
 HRESULT DebuggerController::LogLocals(__in __nullterminated WCHAR const* locals)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, locals);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, locals);
 }
 
 HRESULT DebuggerController::LogCallstack(__in __nullterminated WCHAR const* callstack)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, callstack);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, callstack);
 }
 
 HRESULT DebuggerController::LogSetNextStatement(__in __nullterminated WCHAR const* description)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, description);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, description);
 }
 
 HRESULT DebuggerController::LogEvaluateExpression(__in __nullterminated WCHAR const* expression)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, expression);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, expression);
 }
 
 HRESULT DebuggerController::LogMessage(__in __nullterminated WCHAR const* message)
 {
-    return m_scriptWrapper->CallGlobalFunction(L"RecordEvent", NULL, message);
+    return m_scriptWrapper->CallGlobalFunction(_u("RecordEvent"), NULL, message);
 }
 
 HRESULT DebuggerController::LogJson(__in __nullterminated WCHAR const* logString)
@@ -284,9 +284,9 @@ HRESULT DebuggerController::LogJson(__in __nullterminated WCHAR const* logString
     std::wstring encodedLogString;
     DebuggerController::EncodeString(logString, encodedLogString);
 
-    std::wstring message = L"{\"log\" : \"";
+    std::wstring message = _u("{\"log\" : \"");
     message += encodedLogString;
-    message += L"\"}";
+    message += _u("\"}");
     hr = this->LogMessage(message.c_str());
 
     return hr;
@@ -300,9 +300,9 @@ HRESULT DebuggerController::SetBaseline()
     LPWSTR wideScript = NULL;
     HRESULT hr = S_OK;
 
-    if(_wfopen_s(&file, m_baselineFilename.c_str(), L"rb") != 0)
+    if(_wfopen_s(&file, m_baselineFilename.c_str(), _u("rb")) != 0)
     {
-        DebuggerController::LogError(L"opening baseline file '%s'", m_baselineFilename.c_str());
+        DebuggerController::LogError(_u("opening baseline file '%s'"), m_baselineFilename.c_str());
     }
     else
     {
@@ -320,21 +320,21 @@ HRESULT DebuggerController::SetBaseline()
                 wideScript = new WCHAR[numChars + 2];
                 if(MultiByteToWideChar(CP_UTF8, 0, script, static_cast<int>(strlen(script)) + 1, wideScript, numChars + 2) == 0)
                 {
-                    DebuggerController::LogError(L"MultiByteToWideChar");
+                    DebuggerController::LogError(_u("MultiByteToWideChar"));
                     IfFailGo(E_FAIL);
                 }
 
-                IfFailGo(m_scriptWrapper->CallGlobalFunction(L"SetBaseline", NULL, wideScript));
+                IfFailGo(m_scriptWrapper->CallGlobalFunction(_u("SetBaseline"), NULL, wideScript));
             }
             else
             {
-                DebuggerController::LogError(L"failed to read from baseline file");
+                DebuggerController::LogError(_u("failed to read from baseline file"));
                 IfFailGo(E_FAIL);
             }
         }
         else
         {
-            DebuggerController::LogError(L"baseline file too large");
+            DebuggerController::LogError(_u("baseline file too large"));
             IfFailGo(E_FAIL);
         }
     }
@@ -357,9 +357,9 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     FILE *file = NULL;
     LPSTR baselineDataANSI = NULL;
 
-    if (filename == L"")
+    if (filename == _u(""))
     {
-        DebuggerController::LogError(L"Debugger did not receive .js file load notification.");
+        DebuggerController::LogError(_u("Debugger did not receive .js file load notification."));
         goto Error;
     }
 
@@ -368,7 +368,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     if (m_baselineFilename.empty())
     {
         // test.js.baseline
-        baselineFilename = filename + L".dbg.baseline";
+        baselineFilename = filename + _u(".dbg.baseline");
         // Check if we have read permission, if succeed then treat this as baseline file to compare against
         if (_waccess_s(baselineFilename.c_str(), 4) == 0)
         {
@@ -377,7 +377,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
         }
         else
         {
-            DebuggerController::LogError(L"Failed opening baseline file, baseline will be created at '%s'", baselineFilename.c_str());
+            DebuggerController::LogError(_u("Failed opening baseline file, baseline will be created at '%s'"), baselineFilename.c_str());
         }
     }
     else
@@ -391,7 +391,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     size_t baselineDataLength;
 
     // Call the verification function.
-    IfFailGo(m_scriptWrapper->CallGlobalFunction(L"Verify", &result));
+    IfFailGo(m_scriptWrapper->CallGlobalFunction(_u("Verify"), &result));
 
     double val;
     JsValueRef numberVal;
@@ -404,7 +404,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     // If the test failed, or a new baseline was requested, write out a baseline
     if (!passed || m_baselineFilename.empty())
     {
-        JsrtCheckError(m_scriptWrapper->CallGlobalFunction(L"GetOutputJson", &result));
+        JsrtCheckError(m_scriptWrapper->CallGlobalFunction(_u("GetOutputJson"), &result));
         IfFailGo(JScript9Interface::JsrtStringToPointer(result, &baselineData, &baselineDataLength));
 
 #pragma warning(disable: 38021) // From MSDN: For the code page UTF-8 dwFlags must be set to either 0 or WC_ERR_INVALID_CHARS. Otherwise, the function fails with ERROR_INVALID_FLAGS.
@@ -413,24 +413,24 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
         if (WideCharToMultiByte(CP_UTF8, 0, baselineData, -1, baselineDataANSI, multiByteDataLength, NULL, NULL) == 0)
         {
 #pragma warning(default: 38021) // From MSDN: For the code page UTF-8 dwFlags must be set to either 0 or WC_ERR_INVALID_CHARS. Otherwise, the function fails with ERROR_INVALID_FLAGS.
-            DebuggerController::LogError(L"WideCharToMultiByte");
+            DebuggerController::LogError(_u("WideCharToMultiByte"));
             goto Error;
         }
         std::wstring newFile = baselineFilename;
         if (!passed && !m_baselineFilename.empty())
         {
-            newFile = m_baselineFilename + L".rebase";
+            newFile = m_baselineFilename + _u(".rebase");
         }
-        if (_wfopen_s(&file, newFile.c_str(), L"wt") != 0)
+        if (_wfopen_s(&file, newFile.c_str(), _u("wt")) != 0)
         {
-            DebuggerController::LogError(L"DumpLogToFile failed to open rebase file '%s'", newFile.c_str());
+            DebuggerController::LogError(_u("DumpLogToFile failed to open rebase file '%s'"), newFile.c_str());
             goto Error;
         }
 
         int countWritten = static_cast<int>(fwrite(baselineDataANSI, sizeof(baselineDataANSI[0]), strlen(baselineDataANSI), file));
         if (countWritten != (int)strlen(baselineDataANSI))
         {
-            DebuggerController::LogError(L"DumpLogToFile failed to write data to file");
+            DebuggerController::LogError(_u("DumpLogToFile failed to write data to file"));
             goto Error;
         }
 
@@ -444,26 +444,26 @@ Error:
     return hr;
 }
 
-void DebuggerController::Log(__in __nullterminated wchar_t *msg, ...)
+void DebuggerController::Log(__in __nullterminated char16 *msg, ...)
 {
     BOOL debuggerPresent = IsDebuggerPresent();
     if (HostConfigFlags::flags.DebugDumpText || debuggerPresent)
     {
         va_list args;
         va_start(args, msg);
-        wchar_t buf[2048];
+        char16 buf[2048];
 
-        const wchar_t* prefix = L"LOG: ";
+        const char16* prefix = _u("LOG: ");
         const int prefixLength = static_cast<int>(wcslen(prefix));
         StringCchCopyW(buf, _countof(buf), prefix);
         size_t usableLength = _countof(buf) - prefixLength - 2; // accounting for \n\0 at the end
         _vsnwprintf_s(buf + prefixLength, usableLength, _TRUNCATE, msg, args);
-        StringCchCatW(buf, _countof(buf), L"\n\0");
+        StringCchCatW(buf, _countof(buf), _u("\n\0"));
         va_end(args);
     
         if (HostConfigFlags::flags.DebugDumpText)
         {
-            wprintf(L"%s", buf);
+            wprintf(_u("%s"), buf);
             fflush(stdout);
         }
 
@@ -474,13 +474,13 @@ void DebuggerController::Log(__in __nullterminated wchar_t *msg, ...)
     }
 }
 
-void DebuggerController::LogError(__in __nullterminated wchar_t *msg, ...)
+void DebuggerController::LogError(__in __nullterminated char16 *msg, ...)
 {
     va_list args;
     va_start(args, msg);
-    wprintf(L"ERROR: ");
+    wprintf(_u("ERROR: "));
     vwprintf(msg, args);
-    wprintf(L"\n");
+    wprintf(_u("\n"));
     fflush(stdout);
     va_end(args);
 }
@@ -495,7 +495,7 @@ HRESULT DebuggerController::AddSourceFile(LPCWSTR text, ULONG srcId)
     WCHAR buf[64];
     _itow_s(srcId, buf, 10);
     JsValueRef result;
-    return m_scriptWrapper->CallGlobalFunction(L"AddSourceFile", &result, text, buf);
+    return m_scriptWrapper->CallGlobalFunction(_u("AddSourceFile"), &result, text, buf);
 }
 
 HRESULT DebuggerController::HandleBreakpoint(LONG bpId)
@@ -503,25 +503,25 @@ HRESULT DebuggerController::HandleBreakpoint(LONG bpId)
     JsValueRef result;
     WCHAR buf[64];
     _itow_s(bpId, buf, 10);
-    return m_scriptWrapper->CallGlobalFunction(L"HandleBreakpoint", &result, buf);
+    return m_scriptWrapper->CallGlobalFunction(_u("HandleBreakpoint"), &result, buf);
 }
 
 HRESULT DebuggerController::HandleException()
 {
     JsValueRef result;
-    return m_scriptWrapper->CallGlobalFunction(L"HandleException", &result);
+    return m_scriptWrapper->CallGlobalFunction(_u("HandleException"), &result);
 }
 
 HRESULT DebuggerController::ResetBpMap()
 {
     JsValueRef result;
-    return m_scriptWrapper->CallGlobalFunction(L"ResetBpMap", &result);
+    return m_scriptWrapper->CallGlobalFunction(_u("ResetBpMap"), &result);
 }
 
 HRESULT DebuggerController::HandleMutationBreakpoint()
 {
     JsValueRef result;
-    return m_scriptWrapper->CallGlobalFunction(L"HandleMutationBreakpoint", &result);
+    return m_scriptWrapper->CallGlobalFunction(_u("HandleMutationBreakpoint"), &result);
 }
 
 HRESULT ScriptEngineWrapper::GetExternalData(JsValueRef func, void **data)
@@ -575,23 +575,23 @@ LPCWSTR DebuggerController::EncodeString(_In_reads_z_(len) LPCWSTR str, _In_ siz
         switch(str[i])
         {
         case '\"':
-            encodedStr += L"\\\"";
+            encodedStr += _u("\\\"");
             break;
         case '\\':
-            encodedStr += L"\\\\";
+            encodedStr += _u("\\\\");
             break;
         case '\r':
             //swallow \r
             break;
         case '\n':
-            encodedStr += L"\\n";
+            encodedStr += _u("\\n");
             break;
         case '\t':
-            encodedStr += L"\\t";
+            encodedStr += _u("\\t");
             break;
         default:
             {
-                WCHAR charStr[2] = { str[i], L'\0' };
+                WCHAR charStr[2] = { str[i], _u('\0') };
                 encodedStr += charStr;
                 break;
             }
@@ -611,30 +611,30 @@ LPCWSTR DebuggerController::GetBreakpointReason(BREAKREASON reason)
     switch(reason)
     {
     case BREAKREASON_ERROR:                     // script error
-        return L"exception";
+        return _u("exception");
 
     case BREAKREASON_BREAKPOINT:                // Script breakpoint
-        return L"breakpoint";
+        return _u("breakpoint");
 
     case BREAKREASON_STEP:                      // Caused by the stepping mode
-        return L"step";
+        return _u("step");
 
     case BREAKREASON_DEBUGGER_BLOCK:            // Caused by another thread breaking
-        return L"debugger_block";
+        return _u("debugger_block");
 
     case BREAKREASON_HOST_INITIATED:            // Caused by host requested break
-        return L"host_initiated";
+        return _u("host_initiated");
 
     case BREAKREASON_LANGUAGE_INITIATED:        // Caused by a scripted break
-        return L"language_initiated";
+        return _u("language_initiated");
 
     case BREAKREASON_DEBUGGER_HALT:             // Caused by debugger IDE requested break
-        return L"debugger_halt";
+        return _u("debugger_halt");
     case BREAKREASON_MUTATION_BREAKPOINT:       // Caused by mutation breakpoint
-        return L"mutation_breakpoint";
+        return _u("mutation_breakpoint");
     case BREAKREASON_JIT:                   // Caused by JIT Debugging startup
     default:
-        return L"unknown";
+        return _u("unknown");
     }
 }
 
@@ -643,28 +643,28 @@ LPCWSTR DebuggerController::GetBreakResumeAction(BREAKRESUMEACTION resumeAction)
     switch (resumeAction)
     {
     case BREAKRESUMEACTION_ABORT:
-        return L"abort";
+        return _u("abort");
 
     case BREAKRESUMEACTION_CONTINUE:
-        return L"continue";
+        return _u("continue");
 
     case BREAKRESUMEACTION_STEP_INTO:
-        return L"step_into";
+        return _u("step_into");
 
     case BREAKRESUMEACTION_STEP_OVER:
-        return L"step_over";
+        return _u("step_over");
 
     case BREAKRESUMEACTION_STEP_OUT:
-        return L"step_out";
+        return _u("step_out");
 
     case BREAKRESUMEACTION_IGNORE:
-        return L"ignore";
+        return _u("ignore");
 
     case BREAKRESUMEACTION_STEP_DOCUMENT:
-        return L"step_document";
+        return _u("step_document");
 
     default:
-        return L"unknown";
+        return _u("unknown");
     }
 }
 
@@ -673,16 +673,16 @@ LPCWSTR DebuggerController::GetErrorResumeAction(ERRORRESUMEACTION errorAction)
     switch (errorAction)
     {
     case ERRORRESUMEACTION_ReexecuteErrorStatement:
-        return L"ReexecuteErrorStatement";
+        return _u("ReexecuteErrorStatement");
 
     case ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller:
-        return L"AbortCallAndReturnErrorToCaller";
+        return _u("AbortCallAndReturnErrorToCaller");
 
     case ERRORRESUMEACTION_SkipErrorStatement:
-        return L"SkipErrorStatement";
+        return _u("SkipErrorStatement");
 
     default:
-        return L"unknown";
+        return _u("unknown");
     }
 }
 
@@ -691,16 +691,16 @@ LPCWSTR DebuggerController::GetBreakpointState(BREAKPOINT_STATE state)
     switch (state)
     {
     case BREAKPOINT_DELETED:
-        return L"deleted";
+        return _u("deleted");
 
     case BREAKPOINT_DISABLED:
-        return L"disabled";
+        return _u("disabled");
 
     case BREAKPOINT_ENABLED:
-        return L"enabled";
+        return _u("enabled");
 
     default:
-        return L"unknown";
+        return _u("unknown");
     }
 }
 
@@ -708,31 +708,31 @@ LPCWSTR Location::ToString(LocationToStringFlags flags, bool isHybridDebugger)
 {
     WCHAR buf[20];
 
-    stringRep = L"{\"start\" : ";
+    stringRep = _u("{\"start\" : ");
     _itow_s(startChar,buf,_countof(buf),10);
     stringRep += buf;
 
-    stringRep += L", \"length\" : ";
+    stringRep += _u(", \"length\" : ");
     _itow_s(length,buf,_countof(buf),10);
     stringRep += buf;
 
-    stringRep += L", \"text\" : \"";
+    stringRep += _u(", \"text\" : \"");
     stringRep += DebuggerController::EncodeString(text, encodedText);
-    stringRep += L"\"";
+    stringRep += _u("\"");
 
     if (frameDescription.size())
     {
-        stringRep += L", \"frameDescription\" : \"";
+        stringRep += _u(", \"frameDescription\" : \"");
 
         std::wstring frameEncodedText;
         stringRep += DebuggerController::EncodeString(frameDescription, frameEncodedText);
-        stringRep += L"\"";
+        stringRep += _u("\"");
     }
 
     if ((flags & LTSF_IncludeDocId) != 0)
     {
         // really output the source id (ever incrementing source file index)
-        stringRep += L", \"documentId\" : ";
+        stringRep += _u(", \"documentId\" : ");
         _itow_s((int)(this->srcId), buf, _countof(buf), 10);
         stringRep += buf;
     }
@@ -745,16 +745,16 @@ LPCWSTR Location::ToString(LocationToStringFlags flags, bool isHybridDebugger)
     if ((flags & LTSF_IncludeLineCol) != 0)
     {
         // line number
-        stringRep += L", \"line\" : ";
+        stringRep += _u(", \"line\" : ");
         _itow_s((int)(this->lineNumber), buf, _countof(buf), 10);
         stringRep += buf;
 
-        stringRep += L", \"column\" : ";
+        stringRep += _u(", \"column\" : ");
         _itow_s((int)(this->columnNumber), buf, _countof(buf), 10);
         stringRep += buf;
     }
 
-    stringRep += L"}";
+    stringRep += _u("}");
 
     return stringRep.c_str();
 }
@@ -829,16 +829,16 @@ void SourceMap::Initialize(LPCWSTR text)
     {
         switch(*ptr++) 
         {
-        case L'\r':
-            if(*ptr == L'\n')
+        case _u('\r'):
+            if(*ptr == _u('\n'))
                 ptr++;
             // fall through
-        case L'\n':
-        case L'\u2028':
-        case L'\u2029':
+        case _u('\n'):
+        case _u('\u2028'):
+        case _u('\u2029'):
             // The next line starts at the next character.  If the buffer ends here,
             // then don't count the line.
-            if(*ptr != L'\0')
+            if(*ptr != _u('\0'))
             {
                 m_lineOffsets.push_back(static_cast<int>(ptr-text));
             }
@@ -875,47 +875,47 @@ void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& str
 {
     if (prefixSeparator)
     {
-        stringRep += L", ";
+        stringRep += _u(", ");
     }
 
-    stringRep += L"\"flags\" : [";
+    stringRep += _u("\"flags\" : [");
 
     if (!isHybridDebugger)
     {
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_INVALID) ? L"\"DBGPROP_ATTRIB_VALUE_IS_INVALID\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE) ? L"\"DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_FAKE) ? L"\"DBGPROP_ATTRIB_VALUE_IS_FAKE\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_METHOD) ? L"\"DBGPROP_ATTRIB_VALUE_IS_METHOD\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EVENT) ? L"\"DBGPROP_ATTRIB_VALUE_IS_EVENT\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_RAW_STRING) ? L"\"DBGPROP_ATTRIB_VALUE_IS_RAW_STRING\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_READONLY) ? L"\"DBGPROP_ATTRIB_VALUE_READONLY\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PUBLIC) ? L"\"DBGPROP_ATTRIB_ACCESS_PUBLIC\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PRIVATE) ? L"\"DBGPROP_ATTRIB_ACCESS_PRIVATE\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PROTECTED) ? L"\"DBGPROP_ATTRIB_ACCESS_PROTECTED\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_FINAL) ? L"\"DBGPROP_ATTRIB_ACCESS_FINAL\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_GLOBAL) ? L"\"DBGPROP_ATTRIB_STORAGE_GLOBAL\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_STATIC) ? L"\"DBGPROP_ATTRIB_STORAGE_STATIC\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_FIELD) ? L"\"DBGPROP_ATTRIB_STORAGE_FIELD\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_VIRTUAL) ? L"\"DBGPROP_ATTRIB_STORAGE_VIRTUAL\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_CONSTANT) ? L"\"DBGPROP_ATTRIB_TYPE_IS_CONSTANT\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED) ? L"\"DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_VOLATILE) ? L"\"DBGPROP_ATTRIB_TYPE_IS_VOLATILE\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS) ? L"\"DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INTRYBLOCK) ? L"\"DBGPROP_ATTRIB_FRAME_INTRYBLOCK\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INCATCHBLOCK) ? L"\"DBGPROP_ATTRIB_FRAME_INCATCHBLOCK\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK) ? L"\"DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK\", " : L"";
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_INVALID) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_INVALID\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_FAKE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_FAKE\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_METHOD) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_METHOD\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EVENT) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EVENT\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_RAW_STRING) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_RAW_STRING\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_READONLY) ? _u("\"DBGPROP_ATTRIB_VALUE_READONLY\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PUBLIC) ? _u("\"DBGPROP_ATTRIB_ACCESS_PUBLIC\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PRIVATE) ? _u("\"DBGPROP_ATTRIB_ACCESS_PRIVATE\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PROTECTED) ? _u("\"DBGPROP_ATTRIB_ACCESS_PROTECTED\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_FINAL) ? _u("\"DBGPROP_ATTRIB_ACCESS_FINAL\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_GLOBAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_GLOBAL\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_STATIC) ? _u("\"DBGPROP_ATTRIB_STORAGE_STATIC\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_FIELD) ? _u("\"DBGPROP_ATTRIB_STORAGE_FIELD\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_VIRTUAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_VIRTUAL\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_CONSTANT) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_CONSTANT\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_VOLATILE) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_VOLATILE\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS) ? _u("\"DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INTRYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INTRYBLOCK\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INCATCHBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INCATCHBLOCK\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK\", ") : _u("");
     }
     else
     {
         // hybrid properties
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_HAS_CHILDREN) ? L"\"JS_PROPERTY_HAS_CHILDREN\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FAKE) ? L"\"JS_PROPERTY_FAKE\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_METHOD) ? L"\"JS_PROPERTY_METHOD\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_READONLY) ? L"\"JS_PROPERTY_READONLY\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_NATIVE_WINRT_POINTER) ? L"\"JS_PROPERTY_NATIVE_WINRT_POINTER\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INTRYBLOCK) ? L"\"JS_PROPERTY_FRAME_INTRYBLOCK\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INCATCHBLOCK) ? L"\"JS_PROPERTY_FRAME_INCATCHBLOCK\", " : L"";
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INFINALLYBLOCK) ? L"\"JS_PROPERTY_FRAME_INFINALLYBLOCK\", " : L"";
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_HAS_CHILDREN) ? _u("\"JS_PROPERTY_HAS_CHILDREN\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FAKE) ? _u("\"JS_PROPERTY_FAKE\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_METHOD) ? _u("\"JS_PROPERTY_METHOD\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_READONLY) ? _u("\"JS_PROPERTY_READONLY\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_NATIVE_WINRT_POINTER) ? _u("\"JS_PROPERTY_NATIVE_WINRT_POINTER\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INTRYBLOCK) ? _u("\"JS_PROPERTY_FRAME_INTRYBLOCK\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INCATCHBLOCK) ? _u("\"JS_PROPERTY_FRAME_INCATCHBLOCK\", ") : _u("");
+        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INFINALLYBLOCK) ? _u("\"JS_PROPERTY_FRAME_INFINALLYBLOCK\", ") : _u("");
     }
 
     if (debugPropertyAttributes != 0)
@@ -925,7 +925,7 @@ void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& str
     }
 
     WCHAR buf[20];
-    stringRep += L"], \"flagsAsValue\" : ";
+    stringRep += _u("], \"flagsAsValue\" : ");
     _itow_s(debugPropertyAttributes, buf, _countof(buf), 10);
     stringRep += buf;
 }

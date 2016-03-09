@@ -16,7 +16,7 @@ HRESULT FakeMSHTML::GetReadDataStream(__out IStream **ppStream)
     if(mInputCacheFile != NULL)
     {
         FILE* file;
-        if(!_wfopen_s(&file, mInputCacheFile, L"rb"))
+        if(!_wfopen_s(&file, mInputCacheFile, _u("rb")))
         {
             fseek(file, 0, SEEK_END);
             UINT lengthBytes = ftell(file);
@@ -24,7 +24,7 @@ HRESULT FakeMSHTML::GetReadDataStream(__out IStream **ppStream)
             byte *contentsRaw = (byte*) calloc(lengthBytes, sizeof(byte));
             if (NULL == contentsRaw)
             {
-                fwprintf(stderr, L"out of memory");
+                fwprintf(stderr, _u("out of memory"));
                 return E_OUTOFMEMORY;
             }
             fread((void*) contentsRaw, sizeof(byte), lengthBytes, file);
@@ -90,7 +90,7 @@ HRESULT FakeMSHTML::SaveWriteDataStream(__in IStream *pStream)
 
     //Positive case, saving IStream to profile cache file
     IStream *outStream;
-    LPWSTR outCacheFileName = L"output.out";
+    LPWSTR outCacheFileName = _u("output.out");
     if(mOutputCacheFile != NULL)
     {
         outCacheFileName = this->mOutputCacheFile;

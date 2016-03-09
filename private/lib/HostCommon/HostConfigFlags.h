@@ -28,8 +28,8 @@ public:
     static int PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[]);
 
     template <class Func> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], Func func);
-    template <int LEN> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], const wchar_t(&targetArg)[LEN]);
-    template <int LEN> static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN]);
+    template <int LEN> static int FindArg(int argc, _In_reads_(argc) PWSTR argv[], const char16(&targetArg)[LEN]);
+    template <int LEN> static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const char16 (&switchNameWithColon)[LEN]);
 
     static void HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
     static void HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
@@ -41,7 +41,7 @@ public:
 
     static bool IsHybridDebugging()
     {
-        bool isHybridDebugging = _wcsicmp(HostConfigFlags::flags.DebugLaunch, L"hybrid") == 0;
+        bool isHybridDebugging = _wcsicmp(HostConfigFlags::flags.DebugLaunch, _u("hybrid")) == 0;
         if(isHybridDebugging)
         {
             Assert(IsDebuggerPresent());
@@ -72,13 +72,13 @@ int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], Func func)
 }
 
 template <int LEN>
-int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], const wchar_t (&targetArg)[LEN])
+int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], const char16 (&targetArg)[LEN])
 {
     return FindArg(argc, argv, targetArg, LEN - 1); // -1 to exclude null terminator
 }    
 
 template <int LEN>
-PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const wchar_t (&switchNameWithColon)[LEN])
+PCWSTR HostConfigFlags::ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const char16 (&switchNameWithColon)[LEN])
 {
     return ExtractSwitch(argc, argv, switchNameWithColon, LEN - 1); // -1 to exclude null terminator
 }
