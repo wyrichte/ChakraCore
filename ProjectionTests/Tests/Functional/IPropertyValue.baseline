@@ -1814,7 +1814,7 @@ PASS [Test 102: IPropertyValue_Out: Custom PropertyValue out with GRCN as IRefer
 
 =================================================
 Starting [Test 103: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
-Pass: testRCPV2_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue2 is not supported as out parameter)
+Pass: testRCPV2_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue2 is not supported as an output parameter)
       Actual: true
 
 PASS [Test 103: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
@@ -1822,7 +1822,7 @@ PASS [Test 103: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName
 
 =================================================
 Starting [Test 104: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
-Pass: testRCPV3_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+Pass: testRCPV3_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as an output parameter)
       Actual: true
 
 PASS [Test 104: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
@@ -1839,7 +1839,7 @@ PASS [Test 105: IPropertyValue_Out: Custom PropertyValue out with GRCN as IRefer
 
 =================================================
 Starting [Test 106: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
-Pass: testRCPV5_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue5 is not supported as out parameter)
+Pass: testRCPV5_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Animals.RCPropertyValue5 is not supported as an output parameter)
       Actual: true
 
 PASS [Test 106: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName]
@@ -1847,7 +1847,7 @@ PASS [Test 106: IPropertyValue_Out: Custom PropertyValue out with GRCN as RCName
 
 =================================================
 Starting [Test 107: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]
-Pass: testRCPV6_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as out parameter)
+Pass: testRCPV6_IPropertyValueOut returned (TypeError: The object with interface Windows.Foundation.IPropertyValue that has runtimeclass name Windows.Foundation.IPropertyValue is not supported as an output parameter)
       Actual: true
 
 PASS [Test 107: IPropertyValue_Out: Custom PropertyValue out with GRCN as Windows.Foundation.IPropertyValue]

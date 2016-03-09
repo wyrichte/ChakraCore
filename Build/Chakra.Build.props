@@ -65,6 +65,10 @@
     <ClCompile>
       <!-- ========= For IESettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
+
+      <!-- ========= For GlobalMSRCSettings.h ========= -->
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(BaseDataPath)\MSRC</AdditionalIncludeDirectories>
+
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
