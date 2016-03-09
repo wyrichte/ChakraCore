@@ -9,7 +9,7 @@
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (1)
  |  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |  |    [Properties] count: 20
+ |  |  |    [Properties] count: 22
  |  |  |    | 0 length: value: 1.000000
  |  |  |    | 1 prototype: type: ObjectObject (seen)
  |  |  |    | 2 name: type: String flags: (new size_approximate) optional info records (2)
@@ -137,6 +137,20 @@
  |  |  |    |    | 0 length: value: 2.000000
  |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    |    [Internal property] value: assign
+ |  |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 20 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |  |    |    [Properties] count: 2
+ |  |  |    |    | 0 length: value: 1.000000
+ |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    |    [Internal property] value: values
+ |  |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 21 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |  |    |    [Properties] count: 2
+ |  |  |    |    | 0 length: value: 1.000000
+ |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    |    [Internal property] value: entries
  |  |  |    |    |    [Prototype] type: StringObject (seen)
  |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
