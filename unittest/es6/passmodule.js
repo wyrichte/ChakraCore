@@ -1,2 +1,2 @@
 import { x } from 'exportmodule.js';
-WScript.Echo("Pass");
+WScript.Echo(x);
