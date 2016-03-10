@@ -1,2 +1,2 @@
 export var x;
-x = 20;
+x = 'Pass';

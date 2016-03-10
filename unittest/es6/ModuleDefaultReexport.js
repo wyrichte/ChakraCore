@@ -3,6 +3,5 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
-export { bar2 as ModuleComplexReexports_foo } from 'ModuleComplexExports.js';
-
-export { function as switch } from 'ModuleComplexExports.js';
+export { default } from 'ModuleDefaultExport1.js'
+export { default as not_default } from 'ModuleDefaultExport2.js'

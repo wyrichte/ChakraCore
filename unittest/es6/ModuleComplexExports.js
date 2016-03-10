@@ -48,3 +48,7 @@ function changeMutatingExportTarget() {
 }
 
 export { mutatingExportTarget as target, changeMutatingExportTarget as changeTarget };
+
+var exportedAsKeyword = 'ModuleComplexExports';
+export { exportedAsKeyword as export };
+export { exportedAsKeyword as function };
