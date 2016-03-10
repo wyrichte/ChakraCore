@@ -250,7 +250,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     segment = segment.Field("next");
                 }
 
-                addField(arr.Field("segmentUnion").Field("segmentBTreeRoot"), "Js::JavascriptArray.segmentBTreeRoot");
+                if (GetExtension()->IsJScript9())
+                {
+                    addField(arr.Field("segmentMap"), "Js::JavascriptArray.segmentBTreeRoot");
+                }
+                else
+                {
+                    addField(arr.Field("segmentUnion").Field("segmentBTreeRoot"), "Js::JavascriptArray.segmentBTreeRoot");
+                }
             };
 
             char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());

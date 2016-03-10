@@ -271,7 +271,8 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
     JDRemoteTyped heapBlock = GetExtRemoteTyped();
     JDRemoteTyped head;
     bool isBumpAllocation = false;
-    if (heapBlock.Field("isInAllocator").GetChar())
+    bool hasIsInAllocatorField = !GetExtension()->IsJScript9() || heapBlock.HasField("isInAllocator");
+    if (!hasIsInAllocatorField || heapBlock.Field("isInAllocator").GetChar())
     {
         JDRemoteTyped heapBucket(GetExtension()->GetSmallHeapBucketTypeName(), heapBlock.Field("heapBucket").GetPtr(), false);
         bool found = ExtRemoteTypedUtil::LinkListForEach(
@@ -300,7 +301,17 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
             return false;
         });
 
-        Assert(found);
+        if (!found)
+        {
+            if (!hasIsInAllocatorField)
+            {
+                head = heapBlock.Field("freeObjectList");
+            }
+            else
+            {
+                g_Ext->ThrowStatus(E_FAIL, "isInAllocator field is corrupted for heap block %p", heapBlockAddress);
+            }
+        }
     }
     else
     {

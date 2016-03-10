@@ -98,6 +98,11 @@ EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
     this->ClearCache();
 }
 
+bool EXT_CLASS_BASE::IsJScript9()
+{
+    return _stricmp(GetModuleName(), "jscript9") == 0;
+}
+
 // Get cached JS module name
 PCSTR EXT_CLASS_BASE::GetModuleName()
 {
@@ -133,6 +138,13 @@ bool EXT_CLASS_BASE::HasMemoryNS()
     if (m_isCachedHasMemoryNS)
     {
         return m_hasMemoryNS;
+    }
+
+    if (IsJScript9())
+    {
+        m_hasMemoryNS = false;
+        m_isCachedHasMemoryNS = true;
+        return false;
     }
 
     char symRecyclerType[256];
@@ -225,7 +237,7 @@ PCSTR EXT_CLASS_BASE::GetSmallHeapBucketTypeName()
     }
     else
     {
-        return FillModule("%s!HeapBucketT<SmallHeapBlock>");
+        return FillModule("%s!HeapBucketT<SmallNormalHeapBlock>");
     }
 }
 
