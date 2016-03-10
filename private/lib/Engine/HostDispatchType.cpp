@@ -196,7 +196,7 @@ BOOL HostDispatch::SetProperty(Js::JavascriptString* propertyNameString, Var val
     return SetPropertyCore(propertyRecord->GetBuffer(), value, flags, info);
 }
 
-BOOL HostDispatch::SetPropertyCore(const wchar_t* propertyName, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)
+BOOL HostDispatch::SetPropertyCore(const char16* propertyName, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)
 {
     // Reject implicit call (for IR::BailOutOnImplicitCallsPreOp generate by type hardcoding)
     Js::ScriptContext * scriptContext = this->GetScriptContext();
@@ -261,7 +261,7 @@ Js::DescriptorFlags HostDispatch::GetSetter(Js::JavascriptString* propertyNameSt
     return GetSetterCore(propertyNameString->GetSz(), setterValue, info, requestContext);
 }
 
-Js::DescriptorFlags HostDispatch::GetSetterCore(const wchar_t* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
+Js::DescriptorFlags HostDispatch::GetSetterCore(const char16* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
 {
     // TODO: what to do with requestScriptContext?    
     Js::Var getter;

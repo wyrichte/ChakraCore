@@ -39,7 +39,7 @@ namespace Js
         /* [out] */ IScriptEditQuery **ppQueryResult)
     {
         HRESULT hr = S_OK;
-        OUTPUT_TRACE(Phase::ENCPhase, L"QueryEdit: %d requests\n", count);
+        OUTPUT_TRACE(Phase::ENCPhase, _u("QueryEdit: %d requests\n"), count);
 
         CComPtr<ScriptEditQuery> spScriptEditQuery;
         IFFAILRET(ScriptEditQuery::CreateInstance(&spScriptEditQuery));
@@ -454,7 +454,10 @@ namespace Js
         {
             srcInfo = scriptContext->GetModuleSrcInfo(kmodGlobal);
         }
-        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo);
+
+        AssertMsg(!((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode), "Editing library code?");
+
+        Utf8SourceInfo* sourceInfo = Utf8SourceInfo::New(scriptContext, utf8Buffer, cchSource, cbSource, srcInfo, ((parseFlags & fscrIsLibraryCode) == fscrIsLibraryCode));
         sourceInfo->SetParseFlags(parseFlags);
         sourceInfo->SetByteCodeGenerationFlags(byteCodeGenerationFlags);
         Parse(alloc, sourceInfo);
@@ -492,7 +495,7 @@ namespace Js
             hrParser = m_parser.ParseSourceWithOffset(&m_parseTree,
                 utf8SourceInfo->GetSource(), /*offset*/0, utf8SourceInfo->GetCbLength(), /*cchOffset*/0, utf8SourceInfo->GetIsCesu8(),
                 grfscr, &m_parseException, &sourceContextInfo->nextLocalFunctionId, /*lineNumber*/0, sourceContextInfo,
-                /*functionInfo*/nullptr, /*reparse*/true);
+                /*functionInfo*/nullptr);
         }
 
         if (FAILED(hrParser))
@@ -643,19 +646,19 @@ namespace Js
             if (r.debugDocumentText)
             {
                 CComBSTR name;
-                PCWSTR pName = SUCCEEDED(r.debugDocumentText->GetName(DOCUMENTNAMETYPE_APPNODE, &name)) ? name : L"[GetName failed]";
+                PCWSTR pName = SUCCEEDED(r.debugDocumentText->GetName(DOCUMENTNAMETYPE_APPNODE, &name)) ? name : _u("[GetName failed]");
 
                 WCHAR text[64];
                 ULONG maxLen = min(r.editTextSpan.length, static_cast<ULONG>(_countof(text) - 1));
-                PCWSTR pText = SUCCEEDED(r.debugDocumentText->GetText(r.editTextSpan.start, text, nullptr, nullptr, maxLen)) ? text : L"[GetText failed]";
-                text[maxLen] = L'\0';
+                PCWSTR pText = SUCCEEDED(r.debugDocumentText->GetText(r.editTextSpan.start, text, nullptr, nullptr, maxLen)) ? text : _u("[GetText failed]");
+                text[maxLen] = _u('\0');
 
                 WCHAR newText[64];
                 maxLen = min(r.newTextLength, static_cast<ULONG>(_countof(newText) - 1));
                 wcsncpy_s(newText, r.newText, maxLen);
-                newText[maxLen] = L'\0';
+                newText[maxLen] = _u('\0');
 
-                OUTPUT_TRACE(Phase::ENCPhase, L"%s (%d,%d):\n%s...\n===>\n%s...\n", pName, r.editTextSpan.start, r.editTextSpan.length, pText, newText);
+                OUTPUT_TRACE(Phase::ENCPhase, _u("%s (%d,%d):\n%s...\n===>\n%s...\n"), pName, r.editTextSpan.start, r.editTextSpan.length, pText, newText);
             }
         }
     }
@@ -666,12 +669,12 @@ namespace Js
         {
             if (this->m_editScript != nullptr)
             {
-                OUTPUT_TRACE(Phase::ENCPhase, L"=== AST Diffing ===\n");
+                OUTPUT_TRACE(Phase::ENCPhase, _u("=== AST Diffing ===\n"));
                 LPCUTF8 oldSource = m_oldTree->GetUtf8Source();
                 LPCUTF8 newSource = m_newTree->GetUtf8Source();
 
                 // WARNING: Following names must be in sync with enum EditKind (rarely changed)
-                static PCWSTR s_editKinds[] = { L"None", L"Update", L"Insert", L"Delete", L"Move", L"Reorder" };
+                static PCWSTR s_editKinds[] = { _u("None"), _u("Update"), _u("Insert"), _u("Delete"), _u("Move"), _u("Reorder") };
 
                 m_editScript->Edits().Map([&](int, const Edit<ParseNodePtr>& edit)
                 {
@@ -700,7 +703,7 @@ namespace Js
             }
             else 
             {
-                OUTPUT_TRACE(Phase::ENCPhase, L"=== Parse error ===\n");
+                OUTPUT_TRACE(Phase::ENCPhase, _u("=== Parse error ===\n"));
             }
         }
     }
@@ -709,7 +712,7 @@ namespace Js
     {
         if (Js::Configuration::Global.flags.Trace.IsEnabled(Phase::ENCPhase))
         {
-            OUTPUT_TRACE(Phase::ENCPhase, L"=== Semantic Changes ===\n");
+            OUTPUT_TRACE(Phase::ENCPhase, _u("=== Semantic Changes ===\n"));
             m_semanticChanges->Map([&](int, const SemanticChange& change)
             {
                 change.Trace(*this);
@@ -726,12 +729,12 @@ namespace Js
         {
             utf8char_t newBuffer[32];
             GetNodeStr(newBuffer, _countof(newBuffer), pNewNode, newSource);
-            OUTPUT_TRACE(Phase::ENCPhase, L"%s: %s %S -> %s %S\n", label,
+            OUTPUT_TRACE(Phase::ENCPhase, _u("%s: %s %S -> %s %S\n"), label,
                 GetParseNodeName(pnode), buffer, GetParseNodeName(pNewNode), newBuffer);
         }
         else
         {
-            OUTPUT_TRACE(Phase::ENCPhase, L"%s: %s %S\n", label, GetParseNodeName(pnode), buffer);
+            OUTPUT_TRACE(Phase::ENCPhase, _u("%s: %s %S\n"), label, GetParseNodeName(pnode), buffer);
         }
     }
 
@@ -757,7 +760,7 @@ namespace Js
 #define PTNODE(nop,sn,pc,nk,ok,json) OLESTR(json),
 #include "ptlist.h"
 #undef PTNODE
-        L"INVALID_PARSE_NODE_NAME" // dummy entry to work around intellisense warning
+        _u("INVALID_PARSE_NODE_NAME") // dummy entry to work around intellisense warning
     };
 
     PCWSTR ScriptDiff::GetParseNodeName(ParseNodePtr pnode)

@@ -359,16 +359,16 @@ HRESULT TestGetTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScrip
 HRESULT TestGetES5TypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScriptDirectTests* myTests)
 {
     LPWSTR const getBufferTests[] = {
-        L"(function() {var testArray = new ArrayBuffer(40); return testArray;})(); ",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int8Array(testArray, 4, 8); myresult[0] = 20; return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8Array(testArray, 4, 8); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new Float32Array(testArray, 8, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new Float64Array(testArray, 8, 2); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new DataView(testArray);return myresult;})();",
+        _u("(function() {var testArray = new ArrayBuffer(40); return testArray;})(); "),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int8Array(testArray, 4, 8); myresult[0] = 20; return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8Array(testArray, 4, 8); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new Float32Array(testArray, 8, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new Float64Array(testArray, 8, 2); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new DataView(testArray);return myresult;})();"),
     };
 
     return TestGetTypedArrayBuffer(activeScriptDirect, myTests, getBufferTests, MYCOUNTOF(getBufferTests));
@@ -377,17 +377,17 @@ HRESULT TestGetES5TypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MySc
 HRESULT TestGetES6TypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScriptDirectTests* myTests)
 {
     LPWSTR const getBufferTests[] = {
-        L"(function() {var testArray = new ArrayBuffer(40); return testArray;})(); ",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int8Array(testArray, 4, 8); myresult[0] = 20; return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8Array(testArray, 4, 8); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8ClampedArray(testArray, 4, 8); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Int32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new Float32Array(testArray, 8, 4); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new Float64Array(testArray, 8, 2); myresult[0] = 20;return myresult;})();",
-        L"(function() {var testArray = new ArrayBuffer(80); var myresult = new DataView(testArray);return myresult;})();",
+        _u("(function() {var testArray = new ArrayBuffer(40); return testArray;})(); "),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int8Array(testArray, 4, 8); myresult[0] = 20; return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8Array(testArray, 4, 8); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint8ClampedArray(testArray, 4, 8); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint16Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Int32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(40); var myresult = new Uint32Array(testArray, 4, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new Float32Array(testArray, 8, 4); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new Float64Array(testArray, 8, 2); myresult[0] = 20;return myresult;})();"),
+        _u("(function() {var testArray = new ArrayBuffer(80); var myresult = new DataView(testArray);return myresult;})();"),
     };
 
     return TestGetTypedArrayBuffer(activeScriptDirect, myTests, getBufferTests, MYCOUNTOF(getBufferTests));

@@ -295,11 +295,11 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
         }
         else
         {
-            wchar_t * allocatedString = NULL;
+            char16 * allocatedString = NULL;
             if (pExcepInfo->bstrDescription != NULL)
             {
                 uint32 len = SysStringLen(pExcepInfo->bstrDescription) + 1;
-                allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, len);
+                allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, len);
                 wcscpy_s(allocatedString, len, pExcepInfo->bstrDescription);
             }
 

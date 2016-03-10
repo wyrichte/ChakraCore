@@ -1,4 +1,4 @@
-
+#include <GlobalMSRCSettings.h>
 #include "TargetVer.h"
 
 #include <windows.h>
@@ -20,4 +20,3 @@
 #include "WexTestClass.h"
 #include "IEUTest.h"
 #include "list"
-

@@ -279,7 +279,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
             bstrFullString = bstrFullName; 
         }
 
-        if ((hr = bstrFullString.Append(L" = ")) == S_OK
+        if ((hr = bstrFullString.Append(_u(" = "))) == S_OK
             && (hr = bstrFullString.Append(pszValue)) == S_OK)
         {
             Js::ScriptFunction* updatedFunc = CDebugEval::TryGetFunctionForEval(scriptContext, bstrFullString, CDebugEval::IsStrictMode(frame), CDebugEval::IsThisAvailable(frame));
@@ -418,7 +418,7 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
             BSTR composedName = *pbstrFullName;
             if (currentName != nullptr && SysStringLen(currentName) == 0)
             {
-                CComBSTR emptyName(L"[\"\"]");
+                CComBSTR emptyName(_u("[\"\"]"));
                 IfFailGo(PrependParentNameToChildFullName(emptyName, composedName, isLiteralProperty, pbstrFullName));
             }
             else
@@ -448,7 +448,13 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
             // Chop the total string we've been building back down to nothing.
             // The parent (which is the map variable name) will be added on next iteration.
             SysFreeString(*pbstrFullName);
-            *pbstrFullName = SysAllocString(L"");
+            *pbstrFullName = SysAllocString(_u(""));
+            IfNullReturnError(*pbstrFullName, E_OUTOFMEMORY);
+        }
+        else if (displayType == Js::DiagObjectModelDisplayType_RecyclableSimdDisplay)
+        {
+            SysFreeString(*pbstrFullName);
+            *pbstrFullName = SysAllocString(_u("SIMD"));
             IfNullReturnError(*pbstrFullName, E_OUTOFMEMORY);
         }
         else if (*pbstrFullName == nullptr)
@@ -500,7 +506,7 @@ HRESULT DebugProperty::PrependParentNameToChildFullName(
 
     if (parentNameLength == 0 && childFullNameLength == 0)
     {
-        *combinedFullName = SysAllocString(L"");
+        *combinedFullName = SysAllocString(_u(""));
         IfNullReturnError(*combinedFullName, E_OUTOFMEMORY);
         return S_OK;
     }
@@ -528,7 +534,7 @@ HRESULT DebugProperty::PrependParentNameToChildFullName(
     _In_ uint childFullNameLength,
     _Out_ BSTR* combinedFullName)
 {
-    const bool fullNameWasArrayElement = childFullNameLength > 0 ? childFullName[0] == L'[' : false;
+    const bool fullNameWasArrayElement = childFullNameLength > 0 ? childFullName[0] == _u('[') : false;
     if (fullNameWasArrayElement)
     {
         return PrependParentArrayNameToChildFullName(parentName, parentNameLength, childFullName, childFullNameLength, combinedFullName);
@@ -552,25 +558,25 @@ void DebugProperty::EnumEscapeCharacters(_In_reads_z_(strLength) PCWSTR str, uin
 
         switch (currentCharacter)
         {
-        case L'\'':
+        case _u('\''):
             {
-                static const WCHAR ESCAPE[] = L"\\\'";      // '  =>  \'
+                static const WCHAR ESCAPE[] = _u("\\\'");      // '  =>  \'
                 escaped = ESCAPE;
                 escapedLength = _countof(ESCAPE) - 1;
             }
             break;
 
-        case L'\\':
+        case _u('\\'):
             {
-                static const WCHAR ESCAPE[] = L"\\\\";      // \  => \\  
+                static const WCHAR ESCAPE[] = _u("\\\\");      // \  => \\  
                 escaped = ESCAPE;
                 escapedLength = _countof(ESCAPE) - 1;
             }
             break;
 
-        case L'\0':
+        case _u('\0'):
             {
-                static const WCHAR ESCAPE[] = L"\\u0000";   // \0  => \u0000
+                static const WCHAR ESCAPE[] = _u("\\u0000");   // \0  => \u0000
                 escaped = ESCAPE;
                 escapedLength = _countof(ESCAPE) - 1;
             }
@@ -661,8 +667,8 @@ HRESULT DebugProperty::PrependNonLiteralPropertyNameToChildFullName(
     PWCHAR currentAdjustedNameElement = adjustedName;
 
     // Ex. "a" and "-1" become "a['-1']".
-    *currentAdjustedNameElement++ = L'[';
-    *currentAdjustedNameElement++ = L'\'';
+    *currentAdjustedNameElement++ = _u('[');
+    *currentAdjustedNameElement++ = _u('\'');
     if (noEscapeCharacters)
     {
         js_memcpy_s(currentAdjustedNameElement, sizeof(OLECHAR) * parentNameLength, parentName, sizeof(OLECHAR) * parentNameLength);
@@ -673,8 +679,8 @@ HRESULT DebugProperty::PrependNonLiteralPropertyNameToChildFullName(
     }
     currentAdjustedNameElement += escapedNameLength;
 
-    *currentAdjustedNameElement++ = L'\'';
-    *currentAdjustedNameElement++ = L']';
+    *currentAdjustedNameElement++ = _u('\'');
+    *currentAdjustedNameElement++ = _u(']');
 
     IfFailGo(PrependParentNameToChildFullName(adjustedName, adjustedNameLength, childFullName, childFullNameLength, combinedFullName));
 
@@ -693,7 +699,7 @@ HRESULT DebugProperty::PrependParentArrayNameToChildFullName(
     Assert(parentName);
     Assert(childFullName);
     Assert(combinedFullName);
-    Assert(childFullName[0] == L'[');
+    Assert(childFullName[0] == _u('['));
 
     HRESULT hr = S_OK;
 
@@ -744,7 +750,7 @@ HRESULT DebugProperty::PrependDottedElementNameToChildFullName(
     // Ex. 'a' and 'b' become 'a.b'.
     js_memcpy_s(dottedFullName, sizeof(OLECHAR) * parentNameLength, parentName, sizeof(OLECHAR) * parentNameLength);
     dottedFullName += parentNameLength;
-    *dottedFullName++ = L'.';
+    *dottedFullName++ = _u('.');
     js_memcpy_s(dottedFullName, sizeof(OLECHAR) * childFullNameLength, childFullName, sizeof(OLECHAR) * childFullNameLength);
 
 Error:
@@ -1316,7 +1322,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
             resolvedObj.address = NULL;
             resolvedObj.scriptContext = exception->GetScriptContext();
             resolvedObj.typeId = Js::JavascriptOperators::GetTypeId(error);
-            resolvedObj.name = L"{error}";
+            resolvedObj.name = _u("{error}");
             resolvedObj.propId = Js::Constants::NoProperty;
             ret = TRUE;
         }

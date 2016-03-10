@@ -114,7 +114,7 @@ namespace Projection
                 Assert(p != nullptr);
 
                 OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase,
-                    L"TryGetInterface(%s (#%d) :: %s (#%d)) invoked\n",
+                    _u("TryGetInterface(%s (#%d) :: %s (#%d)) invoked\n"),
                     p->GetProjectionContext()->StringOfId(expectedTypeId),
                     expectedTypeId,
                     p->GetProjectionContext()->StringOfId(methodNameId),
@@ -131,7 +131,7 @@ namespace Projection
                 IUnknown* retValue = p->GetInterfaceOfNativeABI(iid, scriptContext, isDefaultInterface);
 
                 OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase,
-                    L"TryGetInterface(%s (#%d) :: %s (#%d)) returned IUnknown=0x%08X\n",
+                    _u("TryGetInterface(%s (#%d) :: %s (#%d)) returned IUnknown=0x%08X\n"),
                     p->GetProjectionContext()->StringOfId(expectedTypeId),
                     expectedTypeId,
                     p->GetProjectionContext()->StringOfId(methodNameId),
@@ -576,7 +576,7 @@ namespace Projection
             {
                 auto instance = ArrayProjection::GetArrayObjectInstance(var);
                 Assert(instance != NULL);
-                if (instance->GetPropertyId() != IdOfString(scriptContext, L"String"))
+                if (instance->GetPropertyId() != IdOfString(scriptContext, _u("String")))
                 {
                     Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
                 }
@@ -1432,172 +1432,172 @@ namespace Projection
         if (thisInfo->thisType == thisRuntimeClass)
         {
             // Static---------------
-            if (wcscmp(callPattern,L"-Class")==0)
+            if (wcscmp(callPattern,_u("-Class"))==0)
             {
                 auto fn = StaticFastPathOut<false, RuntimeClassTraits>;
                 return makeStatic(fn);
             } 
-            else if (wcscmp(callPattern,L"-String")==0)
+            else if (wcscmp(callPattern,_u("-String"))==0)
             {
                 auto fn = StaticFastPathOut<false, HStringReferenceTraits<false> >;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-Int32")==0)
+            } else if (wcscmp(callPattern,_u("-Int32"))==0)
             {
                 auto fn = StaticFastPathOut<false, Int32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+String")==0)
+            } else if (wcscmp(callPattern,_u("+String"))==0)
             {
                 auto fn = StaticFastPathIn<HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-UInt32")==0)
+            } else if (wcscmp(callPattern,_u("-UInt32"))==0)
             {
                 auto fn = StaticFastPathOut<false, UInt32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-UInt32"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,UInt32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"")==0)
+            } else if (wcscmp(callPattern,_u(""))==0)
             {
                 auto fn = StaticFastPath;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("-Boolean"))==0)
             {
                 auto fn = StaticFastPathOut<false, BoolTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Int32")==0)
+            } else if (wcscmp(callPattern,_u("+Int32"))==0)
             {
                 auto fn = StaticFastPathIn<Int32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32"))==0)
             {
                 auto fn = StaticFastPathIn<UInt32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+Boolean"))==0)
             {
                 auto fn = StaticFastPathIn<BoolTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-Single")==0)
+            } else if (wcscmp(callPattern,_u("-Single"))==0)
             {
                 auto fn = StaticFastPathOut<false, SingleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-Double")==0)
+            } else if (wcscmp(callPattern,_u("-Double"))==0)
             {
                 auto fn = StaticFastPathOut<false, DoubleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Single")==0)
+            } else if (wcscmp(callPattern,_u("+Single"))==0)
             {
                 auto fn = StaticFastPathIn<SingleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Int32-String")==0)
+            } else if (wcscmp(callPattern,_u("+Int32-String"))==0)
             {
                 auto fn = StaticFastPathInOut<Int32Traits,HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+String-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+String-Boolean"))==0)
             {
                 auto fn = StaticFastPathInOut<HStringReferenceTraits<false>,BoolTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Double")==0)
+            } else if (wcscmp(callPattern,_u("+Double"))==0)
             {
                 auto fn = StaticFastPathIn<DoubleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+String-Class")==0)
+            } else if (wcscmp(callPattern,_u("+String-Class"))==0)
             {
                 auto fn = StaticFastPathInOut<HStringReferenceTraits<false>,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Int32-Class")==0)
+            } else if (wcscmp(callPattern,_u("+Int32-Class"))==0)
             {
                 auto fn = StaticFastPathInOut<Int32Traits,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Class")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Class"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class"))==0)
             {
                 auto fn = StaticFastPathIn<RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Class+Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class+Class"))==0)
             {
                 auto fn = StaticFastPathInIn<RuntimeClassTraits,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Class-Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class-Class"))==0)
             {
                 auto fn = StaticFastPathInOut<RuntimeClassTraits,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+String-String")==0)
+            } else if (wcscmp(callPattern,_u("+String-String"))==0)
             {
                 auto fn = StaticFastPathInOut<HStringReferenceTraits<false>,HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"-Interface")==0)
+            } else if (wcscmp(callPattern,_u("-Interface"))==0)
             {
                 auto fn = StaticFastPathOut<true, InterfaceTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+Interface")==0)
+            } else if (wcscmp(callPattern,_u("+Interface"))==0)
             {
                 auto fn = StaticFastPathIn<InterfaceTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+[String]")==0)
+            } else if (wcscmp(callPattern,_u("+[String]"))==0)
             {
                 auto fn = StaticFastPathIn<ArrayTraits<HStringReferenceTraits<true>>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+DateTime-String")==0)
+            } else if (wcscmp(callPattern,_u("+DateTime-String"))==0)
             {
                 auto fn = StaticFastPathInOut<DateTimeTraits,HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-String")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-String"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Int32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Int32"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,Int32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Boolean"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,BoolTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Single")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Single"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,SingleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Double")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Double"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,DoubleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Interface")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Interface"))==0)
             {
                 auto fn = StaticFastPathInOut<UInt32Traits,InterfaceTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+String")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+String"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,HStringReferenceTraits<false>>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+UInt32"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,UInt32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Int32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Int32"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,Int32Traits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Boolean"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,BoolTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Single")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Single"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,SingleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Double")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Double"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,DoubleTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Class")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Class"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,RuntimeClassTraits>;
                 return makeStatic(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Interface")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Interface"))==0)
             {
                 auto fn = StaticFastPathInIn<UInt32Traits,InterfaceTraits>;
                 return makeStatic(fn);
@@ -1606,171 +1606,171 @@ namespace Projection
         else
         {
             // Nonstatic---------------
-            if (wcscmp(callPattern,L"-Class")==0)
+            if (wcscmp(callPattern,_u("-Class"))==0)
             {
                 auto fn = FastPathOut<RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-String")==0)
+            } else if (wcscmp(callPattern,_u("-String"))==0)
             {
                 auto fn = FastPathOut<HStringReferenceTraits<false> >;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-Int32")==0)
+            } else if (wcscmp(callPattern,_u("-Int32"))==0)
             {
                 auto fn = FastPathOut<Int32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+String")==0)
+            } else if (wcscmp(callPattern,_u("+String"))==0)
             {
                 auto fn = FastPathIn<HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-UInt32")==0)
+            } else if (wcscmp(callPattern,_u("-UInt32"))==0)
             {
                 auto fn = FastPathOut<UInt32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-UInt32"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,UInt32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"")==0)
+            } else if (wcscmp(callPattern,_u(""))==0)
             {
                 auto fn = FastPath;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("-Boolean"))==0)
             {
                 auto fn = FastPathOut<BoolTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Int32")==0)
+            } else if (wcscmp(callPattern,_u("+Int32"))==0)
             {
                 auto fn = FastPathIn<Int32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32"))==0)
             {
                 auto fn = FastPathIn<UInt32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+Boolean"))==0)
             {
                 auto fn = FastPathIn<BoolTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-Single")==0)
+            } else if (wcscmp(callPattern,_u("-Single"))==0)
             {
                 auto fn = FastPathOut<SingleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-Double")==0)
+            } else if (wcscmp(callPattern,_u("-Double"))==0)
             {
                 auto fn = FastPathOut<DoubleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Single")==0)
+            } else if (wcscmp(callPattern,_u("+Single"))==0)
             {
                 auto fn = FastPathIn<SingleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Int32-String")==0)
+            } else if (wcscmp(callPattern,_u("+Int32-String"))==0)
             {
                 auto fn = FastPathInOut<Int32Traits,HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+String-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+String-Boolean"))==0)
             {
                 auto fn = FastPathInOut<HStringReferenceTraits<false>,BoolTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Double")==0)
+            } else if (wcscmp(callPattern,_u("+Double"))==0)
             {
                 auto fn = FastPathIn<DoubleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+String-Class")==0)
+            } else if (wcscmp(callPattern,_u("+String-Class"))==0)
             {
                 auto fn = FastPathInOut<HStringReferenceTraits<false>,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Int32-Class")==0)
+            } else if (wcscmp(callPattern,_u("+Int32-Class"))==0)
             {
                 auto fn = FastPathInOut<Int32Traits,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Class")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Class"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class"))==0)
             {
                 auto fn = FastPathIn<RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Class+Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class+Class"))==0)
             {
                 auto fn = FastPathInIn<RuntimeClassTraits,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Class-Class")==0)
+            } else if (wcscmp(callPattern,_u("+Class-Class"))==0)
             {
                 auto fn = FastPathInOut<RuntimeClassTraits,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+String-String")==0)
+            } else if (wcscmp(callPattern,_u("+String-String"))==0)
             {
                 auto fn = FastPathInOut<HStringReferenceTraits<false>,HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"-Interface")==0)
+            } else if (wcscmp(callPattern,_u("-Interface"))==0)
             {
                 auto fn = FastPathOut<InterfaceTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+Interface")==0)
+            } else if (wcscmp(callPattern,_u("+Interface"))==0)
             {
                 auto fn = FastPathIn<InterfaceTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+[String]")==0)
+            } else if (wcscmp(callPattern,_u("+[String]"))==0)
             {
                 auto fn = FastPathIn<ArrayTraits<HStringReferenceTraits<true>>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+DateTime-String")==0)
+            } else if (wcscmp(callPattern,_u("+DateTime-String"))==0)
             {
                 auto fn = FastPathInOut<DateTimeTraits,HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-String")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-String"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Int32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Int32"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,Int32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Boolean"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,BoolTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Single")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Single"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,SingleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Double")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Double"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,DoubleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32-Interface")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32-Interface"))==0)
             {
                 auto fn = FastPathInOut<UInt32Traits,InterfaceTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+String")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+String"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,HStringReferenceTraits<false>>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+UInt32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+UInt32"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,UInt32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Int32")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Int32"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,Int32Traits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Boolean")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Boolean"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,BoolTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Single")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Single"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,SingleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Double")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Double"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,DoubleTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Class")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Class"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,RuntimeClassTraits>;
                 return make(fn);
-            } else if (wcscmp(callPattern,L"+UInt32+Interface")==0)
+            } else if (wcscmp(callPattern,_u("+UInt32+Interface"))==0)
             {
                 auto fn = FastPathInIn<UInt32Traits,InterfaceTraits>;
                 return make(fn);

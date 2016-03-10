@@ -32,7 +32,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Basic)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
 
         for(int i = 100; i < 2000000; i += 100)
         {
@@ -49,7 +50,9 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Small_Functions)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
+
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
         for(uint i = 8; i < count; i += 1)
@@ -71,7 +74,9 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Small_Functions)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
+
         uint count = 160;
         Allocation** allocations = new Allocation*[count];
         for(int j = 0; j < 400; j++)
@@ -97,7 +102,9 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_NoFree_Small_Functions)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
+
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
         for(int j = 0; j < 5; j++)
@@ -118,7 +125,9 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Large_Functions)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
+
         uint count = 400;
         Allocation** allocations = new Allocation*[count];
         for(uint j = 0; j < 5; j++)
@@ -137,11 +146,7 @@ UTEST_GROUP(CustomHeapTests)
 #endif
                 VerifyAllocation(allocations[i+1], i * 50, GET_PDATA_COUNT(3), GET_XDATA_SIZE(25));
             }
-            for(uint i = 1; i < count / 2; i += 2)
-            {
-                heap.Decommit(allocations[i]);
-                heap.Decommit(allocations[i+1]);
-            }
+            heap.DecommitAll();
             for(uint i = 1; i < count / 2; i += 2)
             {
                 heap.Free(allocations[i]);
@@ -156,7 +161,9 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Realistic)
     {
-        Heap heap(NULL, arena, allocXdata);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
+        Heap heap(arena, &codePageAllocators);
+
         uint sizes[] = { 200, 130, 400, 800, 230, 210, 100, 150, 180, 400, 900, 4096, 8192, 323, 421, 123, 432, 543, 543, 1232, 123, 22, 2345, 2343, 53, 4232, 231, 12, 123 , 214, 2354, 543, 2312 };
         ushort xdataSizes[] = { 20, 13, 40, 55, 0, 21, 0, 28, 18, 40, 50, 40, 72, 32, 42, 12, 43, 54, 54, 12, 12, 22, 23, 23, 53, 42, 23, 12, 12 , 21, 23, 54, 23 };
         ushort pdataCounts[] = { 2, 1, 4, 2, 5, 8, 3, 1, 1, 2, 2, 3, 1, 250, 2, 2, 3, 1, 5, 2, 2, 3, 6, 1, 2, 2, 3, 1, 1, 2, 2, 6, 8 };
@@ -174,10 +181,7 @@ UTEST_GROUP(CustomHeapTests)
             VerifyAllocation(allocation, sizes[i], GET_PDATA_COUNT(pdataCounts[i]), GET_XDATA_SIZE(xdataSizes[i]));
         }
         
-        for(auto it = allocations.begin(); it != allocations.end(); it++)
-        {
-            heap.Decommit(*it);
-        }
+        heap.DecommitAll();
 
         for(auto it = allocations.begin(); it != allocations.end(); it++)
         {
@@ -239,9 +243,8 @@ UTEST_GROUP(CustomHeapTests)
 
     void Free(Heap* heap, Allocation* allocation)
     {
-        DWORD oldProtect;
         // It is requirement to free only executable memory
-        UT_ASSERT(heap->ProtectAllocation(allocation, PAGE_EXECUTE, &oldProtect, PAGE_EXECUTE));
+        UT_ASSERT(heap->ProtectAllocation(allocation, PAGE_EXECUTE, PAGE_EXECUTE));
         heap->Free(allocation);
     }
 
@@ -267,6 +270,6 @@ UTEST_GROUP(CustomHeapTests)
         allocXdata = false;
 #endif
         pageAllocator = new PageAllocator(NULL, Js::Configuration::Global.flags);
-        arena = new ArenaAllocator(L"customHeapArena", pageAllocator, OutOfMemory1);
+        arena = new ArenaAllocator(_u("customHeapArena"), pageAllocator, OutOfMemory1);
     }
 };

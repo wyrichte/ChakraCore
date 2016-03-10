@@ -63,8 +63,8 @@ namespace JsDiag
 #ifdef _M_X64
         ulong cacheSize = 16;
 #if defined(DBG) || defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-        wchar_t envBuf[16];
-        DWORD storedCharCount = GetEnvironmentVariableW(L"FrameCacheSize", envBuf, sizeof(envBuf) / sizeof(wchar_t));
+        char16 envBuf[16];
+        DWORD storedCharCount = GetEnvironmentVariableW(_u("FrameCacheSize"), envBuf, sizeof(envBuf) / sizeof(char16));
         if (storedCharCount > 0)
         {
             cacheSize = _wtoi(envBuf);

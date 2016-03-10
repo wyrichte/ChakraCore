@@ -157,7 +157,7 @@ namespace Projection
 
         ~ProjectionMemoryInformation()
         {
-            DumpCurrentStats(L"Stats while destroying thread", true);
+            DumpCurrentStats(_u("Stats while destroying thread"), true);
         }
 
         void Release()

@@ -215,7 +215,7 @@ namespace Projection
             if (m_pVectorView == NULL)
             {
                 RtEXPR expr;
-                hr = projectionContext->GetExpr(MetadataStringIdNil, IdOfString(projectionContext->GetScriptContext(), L"Windows.Foundation.Collections.IVectorView`1"), L"Windows.Foundation.Collections.IVectorView`1", vector->genericParameters, &expr);
+                hr = projectionContext->GetExpr(MetadataStringIdNil, IdOfString(projectionContext->GetScriptContext(), _u("Windows.Foundation.Collections.IVectorView`1")), _u("Windows.Foundation.Collections.IVectorView`1"), vector->genericParameters, &expr);
 
                 if (SUCCEEDED(hr))
                 {

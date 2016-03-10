@@ -69,12 +69,9 @@
               PathCchAppend   (used in iedevtools_host_iel1.lib) -->
       <AdditionalDependencies>
         %(AdditionalDependencies);
+        $(ChakraCommonLinkDependencies);
         $(MinCorePrivSdkLibPath)\pathcchapis.lib;
         $(SdkLibPath)\muiload.lib;
-        $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
-        $(MinCoreSdkLibPath)\mincore_fw.lib;
-        <!-- For FindAtom/AddAtom/DeleteAttom, and in non-fre build perf counters and Crypt* and IsMessageBoxWPresent dependency -->
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
 
         <!-- Setting store -->
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
@@ -85,13 +82,6 @@
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
-      <AdditionalDependencies Condition="'$(OptimizedBuild)'!='true'">
-        %(AdditionalDependencies);
-        $(SdkLibPath)\dbghelp.lib;
-
-        <!-- For IsMessageBoxWPresent -->
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
-      </AdditionalDependencies>
       <AdditionalDependencies Condition="'$(Configuration)'!='Release' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
         %(AdditionalDependencies);
         $(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib
@@ -299,6 +289,9 @@
     <ProjectReference Include="..\..\lib\SCA\Chakra.SCA.vcxproj">
       <Project>{ea882c8d-81fc-42fe-abd5-2666db933eeb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\..\tools\VsVisualizers\JScript9.natvis" />
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

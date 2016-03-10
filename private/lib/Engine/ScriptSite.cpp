@@ -27,7 +27,7 @@
 #include "..\Projection\ProjectionContext.h"
 #endif
 
-#define DEFINE_OBJECT_NAME(object) const wchar_t *pwszObjectName = L#object;
+#define DEFINE_OBJECT_NAME(object) const char16 *pwszObjectName = _u(#object);
 
 #define REGISTER_OBJECT(object)\
     if (FAILED(hr = Register##object(pScriptContext)))\
@@ -57,7 +57,7 @@
     }
 
 #define REG_LIB_FUNC(pwszObjectName, functionPropertyId, entryPoint)\
-    REG_LIB_FUNC_CORE(pwszObjectName, L#functionPropertyId, Js::PropertyIds::##functionPropertyId, entryPoint)\
+    REG_LIB_FUNC_CORE(pwszObjectName, _u(#functionPropertyId), Js::PropertyIds::##functionPropertyId, entryPoint)\
 
 #define REG_OBJECTS_LIB_FUNC(functionPropertyId, entryPoint)\
     REG_LIB_FUNC(pwszObjectName, functionPropertyId, entryPoint)\
@@ -70,7 +70,7 @@
 
 #define REGISTER_ERROR_OBJECT(functionPropertyId)\
     REG_GLOBAL_LIB_FUNC(functionPropertyId, Js::JavascriptError::New##functionPropertyId##Instance)\
-    REG_LIB_FUNC(L#functionPropertyId, toString, Js::JavascriptError::EntryToString)\
+    REG_LIB_FUNC(_u(#functionPropertyId), toString, Js::JavascriptError::EntryToString)\
 
 #define CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) recycler->SetIsScriptSiteCloseGC(true);
 
@@ -146,7 +146,7 @@ HRESULT ScriptSite::ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj
     __out Js::ArrayBuffer **ppArrayBuffer)
 {
 #ifdef ENABLE_PROJECTION
-//    OUTPUT_TRACE(TypedArrayPhase, L"Suspected Projection ArrayBuffer source - attempting to get buffer\n");
+//    OUTPUT_TRACE(TypedArrayPhase, _u("Suspected Projection ArrayBuffer source - attempting to get buffer\n"));
     Projection::ProjectionContext* projectionContext = scriptEngine->GetProjectionContext();
     if (projectionContext && obj->IsExternal())
     {
@@ -255,7 +255,7 @@ HRESULT ScriptSite::Init(
 
         if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::HostPhase))
         {
-            Output::Print(L"%p> ScriptSite %d(%p): Initialized \n", this->threadId, this->allocId, this);
+            Output::Print(_u("%p> ScriptSite %d(%p): Initialized \n"), this->threadId, this->allocId, this);
         }
 #endif
 
@@ -349,7 +349,7 @@ ScriptSite::~ScriptSite()
 #endif
     if (dump)
     {
-        this->DumpSiteInfo(L"Deleted");
+        this->DumpSiteInfo(_u("Deleted"));
         Output::Flush();
     }
 #if DBG_DUMP
@@ -631,7 +631,7 @@ void ScriptSite::Close()
 
 #ifdef ENABLE_PROJECTION
 #if DBG_DUMP
-    threadContext->DumpProjectionContextMemoryStats(L"Stats after scriptSite close", true);
+    threadContext->DumpProjectionContextMemoryStats(_u("Stats after scriptSite close"), true);
 #endif
 #endif
 }
@@ -821,7 +821,7 @@ HRESULT ScriptSite::AddExternalObject(
 #ifdef PROFILE_MEM
         || MemoryProfiler::IsEnabled() || MemoryProfiler::IsTraceEnabled()
 #endif
-        ) && wcscmp(pszName, L"window") == 0)
+        ) && wcscmp(pszName, _u("window")) == 0)
     {
         SetupWindowHost(hostDispatch);
     }
@@ -859,7 +859,7 @@ HRESULT ScriptSite::AddGlobalDispatch(
     {
         if (hostAllocator == nullptr)
         {
-            hostAllocator = HeapNew(ArenaAllocator, L"Global-Host", this->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
+            hostAllocator = HeapNew(ArenaAllocator, _u("Global-Host"), this->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
         }
         globalDispatches = JsUtil::List<HostDispatch*, ArenaAllocator>::New(hostAllocator);
     }
@@ -890,7 +890,7 @@ HRESULT ScriptSite::AddGlobalDispatch(
     HRESULT ScriptSite::RegisterDebugDumpHeap(Js::ScriptContext *pContext)
     {
         Js::JavascriptLibrary* library = pContext->GetLibrary();
-        if (library->AddFunctionToLibraryObjectWithPropertyName(library->GetDebugObject(), L"dumpHeap", &DebugObject::EntryInfo::DumpHeap, 0))
+        if (library->AddFunctionToLibraryObjectWithPropertyName(library->GetDebugObject(), _u("dumpHeap"), &DebugObject::EntryInfo::DumpHeap, 0))
         {
             return S_OK;
         }
@@ -1553,7 +1553,7 @@ ScriptSite::DispatchMap * ScriptSite::EnsureDispatchMap(void)
     {
         if (hostAllocator == NULL)
         {
-            hostAllocator = HeapNew(ArenaAllocator, L"Global-Host", this->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
+            hostAllocator = HeapNew(ArenaAllocator, _u("Global-Host"), this->GetThreadContext()->GetPageAllocator(), Js::Throw::OutOfMemory);
         }
         this->dispatchMap = Anew(hostAllocator, DispatchMap, hostAllocator, 17);
     }
@@ -1672,8 +1672,8 @@ Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
     // NOTE: The code here is placeholder until we get the task queue from trident.
     //       If user code changes WScript.SetTimeout or window.setTimeout, the Promise feature won't work!
     Js::ScriptContext* scriptContext = GetScriptSiteContext();
-    Js::PropertyId windowId = scriptContext->GetOrAddPropertyIdTracked(L"window");
-    Js::PropertyId setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(L"setTimeout");
+    Js::PropertyId windowId = scriptContext->GetOrAddPropertyIdTracked(_u("window"));
+    Js::PropertyId setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(_u("setTimeout"));
     Js::Var global = scriptContext->GetGlobalObject();
     Js::Var window;
     Js::Var setTimeout;
@@ -1693,8 +1693,8 @@ Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
         return Js::JavascriptFunction::FromVar(setTimeout);
     }
 
-    PropertyId wscriptId = scriptContext->GetOrAddPropertyIdTracked(L"WScript");
-    setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(L"SetTimeout");
+    PropertyId wscriptId = scriptContext->GetOrAddPropertyIdTracked(_u("WScript"));
+    setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(_u("SetTimeout"));
     Var wscript;
 
     // Try to load WScript.SetTimeout
@@ -1708,7 +1708,7 @@ Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
     return scriptContext->GetLibrary()->GetThrowerFunction();
 }
 
-HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord)
+HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
 {
     HRESULT hr = NOERROR;
     IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
@@ -1719,7 +1719,9 @@ HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule,
     else
     {
         Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
-        hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier->GetSz(), specifier->GetLength(), (ModuleRecord*)dependentModuleRecord);
+        BEGIN_NO_EXCEPTION
+        hr = scriptHost->FetchImportedModule((ModuleRecord)referencingModule, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
+        END_NO_EXCEPTION
     }
     return hr;
 }
@@ -1786,43 +1788,43 @@ void ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::D
     {
         library->SetDebugObjectFaultInjectionCookieGetterAccessor(&DebugObject::EntryInfo::GetterFaultInjectionCookie, &DebugObject::EntryInfo::SetterFaultInjectionCookie);
         Js::PropertyRecord const * faultInjectionCookiePropertyRecord;
-        scriptContext->GetOrAddPropertyRecord(L"faultInjectionCookie", &faultInjectionCookiePropertyRecord);
+        scriptContext->GetOrAddPropertyRecord(_u("faultInjectionCookie"), &faultInjectionCookiePropertyRecord);
         Js::PropertyId faultInjectionCookiePropertyId = faultInjectionCookiePropertyRecord->GetPropertyId();
         debugObject->SetAccessors(faultInjectionCookiePropertyId, library->GetDebugObjectFaultInjectionCookieGetterFunction(), library->GetDebugObjectFaultInjectionCookieSetterFunction());
         debugObject->SetAttributes(faultInjectionCookiePropertyId, PropertyWritable);
 
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getWorkingSet", &DebugObject::EntryInfo::GetWorkingSet, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"sourceDebugBreak", &DebugObject::EntryInfo::SourceDebugBreak, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"invokeFunction", &DebugObject::EntryInfo::InvokeFunction, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getMemoryInfo", &DebugObject::EntryInfo::GetMemoryInfo, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getHostInfo", &DebugObject::EntryInfo::GetHostInfo, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getTypeHandlerName", &DebugObject::EntryInfo::GetTypeHandlerName, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getArrayType", &DebugObject::EntryInfo::GetArrayType, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"createDebugDisposableObject", &DebugObject::EntryInfo::CreateDebugDisposableObject, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"isInJit", &DebugObject::EntryInfo::IsInJit, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getCurrentSourceInfo", &DebugObject::EntryInfo::GetCurrentSourceInfo, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getLineOfPosition", &DebugObject::EntryInfo::GetLineOfPosition, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getPositionOfLine", &DebugObject::EntryInfo::GetPositionOfLine, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"createTypedObject", &DebugObject::EntryInfo::CreateTypedObject, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"createProjectionArrayBuffer", &DebugObject::EntryInfo::CreateProjectionArrayBuffer, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"addFTLProperty", &DebugObject::EntryInfo::AddFTLProperty, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"emitStackTraceEvent", &DebugObject::EntryInfo::EmitStackTraceEvent, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getTypeInfo", &DebugObject::EntryInfo::GetTypeInfo, 1);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"parseFunction", &DebugObject::EntryInfo::ParseFunction, 1);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"setAutoProxyName", &DebugObject::EntryInfo::SetAutoProxyName, 1);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"disableAutoProxy", &DebugObject::EntryInfo::DisableAutoProxy, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"createDebugFuncExecutorInDisposeObject", &DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"detachAndFreeObject", &DebugObject::EntryInfo::DetachAndFreeObject, 1);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"isAsmJSModule", &DebugObject::EntryInfo::IsAsmJSModule, 0);
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"enable", &DebugObject::EntryInfo::Enable, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getWorkingSet"), &DebugObject::EntryInfo::GetWorkingSet, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("sourceDebugBreak"), &DebugObject::EntryInfo::SourceDebugBreak, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("invokeFunction"), &DebugObject::EntryInfo::InvokeFunction, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getMemoryInfo"), &DebugObject::EntryInfo::GetMemoryInfo, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getHostInfo"), &DebugObject::EntryInfo::GetHostInfo, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getTypeHandlerName"), &DebugObject::EntryInfo::GetTypeHandlerName, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getArrayType"), &DebugObject::EntryInfo::GetArrayType, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createDebugDisposableObject"), &DebugObject::EntryInfo::CreateDebugDisposableObject, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("isInJit"), &DebugObject::EntryInfo::IsInJit, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getCurrentSourceInfo"), &DebugObject::EntryInfo::GetCurrentSourceInfo, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getLineOfPosition"), &DebugObject::EntryInfo::GetLineOfPosition, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getPositionOfLine"), &DebugObject::EntryInfo::GetPositionOfLine, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createTypedObject"), &DebugObject::EntryInfo::CreateTypedObject, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createProjectionArrayBuffer"), &DebugObject::EntryInfo::CreateProjectionArrayBuffer, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("addFTLProperty"), &DebugObject::EntryInfo::AddFTLProperty, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("emitStackTraceEvent"), &DebugObject::EntryInfo::EmitStackTraceEvent, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getTypeInfo"), &DebugObject::EntryInfo::GetTypeInfo, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("parseFunction"), &DebugObject::EntryInfo::ParseFunction, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("setAutoProxyName"), &DebugObject::EntryInfo::SetAutoProxyName, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("disableAutoProxy"), &DebugObject::EntryInfo::DisableAutoProxy, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createDebugFuncExecutorInDisposeObject"), &DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("detachAndFreeObject"), &DebugObject::EntryInfo::DetachAndFreeObject, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("isAsmJSModule"), &DebugObject::EntryInfo::IsAsmJSModule, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("enable"), &DebugObject::EntryInfo::Enable, 1);
     }
     if (!CONFIG_FLAG(DisableDebugObject) || CONFIG_FLAG(DumpHeap))
     {
-        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"dumpHeap", &DebugObject::EntryInfo::DumpHeap, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("dumpHeap"), &DebugObject::EntryInfo::DumpHeap, 0);
     }
 #endif
 #if JS_PROFILE_DATA_INTERFACE
-    library->AddFunctionToLibraryObjectWithPropertyName(debugObject, L"getProfileDataObject", &DebugObject::EntryInfo::GetProfileDataObject, 0);
+    library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getProfileDataObject"), &DebugObject::EntryInfo::GetProfileDataObject, 0);
 #endif
 
     if (CONFIG_FLAG(AsyncDebugging) && !CONFIG_FLAG(DisableDebugObject))
@@ -1890,42 +1892,42 @@ ScriptSite::SetUrl(BSTR bstrUrl)
 {
     charcount_t length = SysStringLen(bstrUrl) + 1; // Add 1 for the NULL.
 
-    wchar_t* urlCopy = HeapNewArray(wchar_t, length);
-    js_memcpy_s(urlCopy, (length - 1) * sizeof(wchar_t), bstrUrl, (length - 1) * sizeof(wchar_t));
-    urlCopy[length - 1] = L'\0';
+    char16* urlCopy = HeapNewArray(char16, length);
+    js_memcpy_s(urlCopy, (length - 1) * sizeof(char16), bstrUrl, (length - 1) * sizeof(char16));
+    urlCopy[length - 1] = _u('\0');
     this->wszLocation = urlCopy;
 }
 #endif
 
 void
-ScriptSite::DumpSiteInfo(wchar_t const * message, wchar_t const * message2)
+ScriptSite::DumpSiteInfo(char16 const * message, char16 const * message2)
 {
-    if (message2 == nullptr) { message2 = L""; }
+    if (message2 == nullptr) { message2 = _u(""); }
 #if DBG_DUMP
-    Output::Print(L"%p> ScriptSite %d(%p): %s%s\n\t", this->threadId, this->allocId, this, message, message2);
+    Output::Print(_u("%p> ScriptSite %d(%p): %s%s\n\t"), this->threadId, this->allocId, this, message, message2);
     EnsureParentInfo();
 
     if (this->parentScriptSite != nullptr)
     {
-        Output::Print(L"%s ScriptSite %d(%p)",
-            this->isCloned? L"Cloned" : L"Parent", this->parentAllocId, parentScriptSite);
+        Output::Print(_u("%s ScriptSite %d(%p)"),
+            this->isCloned? _u("Cloned") : _u("Parent"), this->parentAllocId, parentScriptSite);
     }
     else if (this->nextTopLevelScriptSite != nullptr)
     {
-        Output::Print(L"Top Level");
+        Output::Print(_u("Top Level"));
     }
     else
     {
-        Output::Print(L"Unknown");
+        Output::Print(_u("Unknown"));
     }
 
     if (this->wszLocation != nullptr)
     {
-        Output::Print(L": URL: %s",  this->wszLocation);
+        Output::Print(_u(": URL: %s"),  this->wszLocation);
     }
-    Output::Print(L"\n");
+    Output::Print(_u("\n"));
 #else
-    Output::Print(L"%p> ScriptSite %p: %s%s\n", this->threadId, this, message, message2);
+    Output::Print(_u("%p> ScriptSite %p: %s%s\n"), this->threadId, this, message, message2);
 #endif
 }
 
@@ -1956,7 +1958,7 @@ ProfileOnLoadCallBack::EntryProfileOnLoadCallBack(Js::RecyclableObject* function
         )
     {
         Js::PropertyRecord const * propertyRecord;
-        scriptContext->GetOrAddPropertyRecord(L"document", _countof(L"document") - 1, &propertyRecord);
+        scriptContext->GetOrAddPropertyRecord(_u("document"), _countof(_u("document")) - 1, &propertyRecord);
         PropertyId propertyId = propertyRecord->GetPropertyId();
         Var aValue = Js::JavascriptOperators::GetProperty(hostDispatch, propertyId, scriptContext);
         if (Js::TaggedNumber::Is(aValue))
@@ -1965,16 +1967,16 @@ ProfileOnLoadCallBack::EntryProfileOnLoadCallBack(Js::RecyclableObject* function
         }
         hostDispatch = Js::RecyclableObject::FromVar(aValue);
 
-        scriptContext->GetOrAddPropertyRecord(L"readyState", _countof(L"readyState") - 1, &propertyRecord);
+        scriptContext->GetOrAddPropertyRecord(_u("readyState"), _countof(_u("readyState")) - 1, &propertyRecord);
         propertyId = propertyRecord->GetPropertyId();
         aValue = Js::JavascriptOperators::GetProperty(hostDispatch, propertyId, scriptContext);
-        wchar_t const * readyState = L"unknown";
+        char16 const * readyState = _u("unknown");
         if (Js::JavascriptString::Is(aValue))
         {
             readyState = Js::JavascriptString::FromVar(aValue)->GetSz();
         }
 
-        scriptSite->DumpSiteInfo(L"onreadystatechange event: ", readyState);
+        scriptSite->DumpSiteInfo(_u("onreadystatechange event: "), readyState);
 
 #ifdef PROFILE_EXEC
         scriptContext->ProfileEnd(Js::RunPhase);
@@ -2013,7 +2015,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
     Js::ScriptContext * scriptContext = scriptSite->GetScriptSiteContext();
 
     Js::PropertyRecord const * propertyRecord;
-    scriptContext->GetOrAddPropertyRecord(L"document", _countof(L"document") - 1, &propertyRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("document"), _countof(_u("document")) - 1, &propertyRecord);
     PropertyId propertyId = propertyRecord->GetPropertyId();
     Var aValue = Js::JavascriptOperators::GetProperty(hostDispatch, propertyId, scriptContext);
     if (Js::TaggedNumber::Is(aValue))
@@ -2021,7 +2023,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
         return false;
     }
     hostDispatch = Js::RecyclableObject::FromVar(aValue);
-    scriptContext->GetOrAddPropertyRecord(L"attachEvent", _countof(L"attachEvent") - 1, &propertyRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("attachEvent"), _countof(_u("attachEvent")) - 1, &propertyRecord);
     propertyId = propertyRecord->GetPropertyId();
     aValue = Js::JavascriptOperators::GetPropertyReference(hostDispatch, propertyId, scriptContext);
     if (Js::TaggedNumber::Is(aValue))
@@ -2030,7 +2032,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
     }
     Js::Var values[3] = {
         hostDispatch,
-        scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"onreadystatechange"),
+        scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("onreadystatechange")),
         RecyclerNew(scriptContext->GetRecycler(), ProfileOnLoadCallBack, scriptSite)
     };
     Js::CallInfo info(Js::CallFlags_None, 3);
@@ -2082,7 +2084,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
         Assert(this->parentScriptSite == nullptr);
 
         // check if this is a top level script site.
-        scriptContext->GetOrAddPropertyRecord(L"top", _countof(L"top") - 1, &propertyRecord);
+        scriptContext->GetOrAddPropertyRecord(_u("top"), _countof(_u("top")) - 1, &propertyRecord);
         propertyId = propertyRecord->GetPropertyId();
 
         // TODO: Catch exception for this call too?  We just got the host dispatch, so it should still be valid
@@ -2114,7 +2116,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
                 scriptContext->SetRecyclerProfiler();
                 if (!ProfileOnLoadCallBack::AttachEvent(this))
                 {
-                    Output::Print(L"Unable to set up on load event for profile print\n");
+                    Output::Print(_u("Unable to set up on load event for profile print\n"));
                     Output::Flush();
                 }
                 eventAttached = true;
@@ -2125,7 +2127,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
             {
                 if (!ProfileOnLoadCallBack::AttachEvent(this))
                 {
-                    Output::Print(L"Unable to set up on load event for profile print\n");
+                    Output::Print(_u("Unable to set up on load event for profile print\n"));
                     Output::Flush();
                 }
             }
@@ -2165,7 +2167,7 @@ void ScriptSite::EnsureParentInfoWithScriptEnter()
 #if DBG_DUMP
         if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::HostPhase))
         {
-            this->DumpSiteInfo(L"Parent info infered");
+            this->DumpSiteInfo(_u("Parent info infered"));
             Output::Flush();
         }
 #endif
@@ -2212,11 +2214,11 @@ ScriptSite::SetupWindowHost(Js::RecyclableObject * hostObj)
     {
         if (this->hasParentInfo)
         {
-            this->DumpSiteInfo(L"'window' External Object Added");
+            this->DumpSiteInfo(_u("'window' External Object Added"));
         }
         else
         {
-            Output::Print(L"%p> ScriptSite %d(%p): 'window' External Object Added, parent info defered\n\t", this->threadId, this->allocId, this);
+            Output::Print(_u("%p> ScriptSite %d(%p): 'window' External Object Added, parent info defered\n\t"), this->threadId, this->allocId, this);
         }
         Output::Flush();
     }
@@ -2276,20 +2278,20 @@ HRESULT ScriptSite::RegisterDebug(Js::ScriptContext *pScriptContext)
     REG_OBJECTS_LIB_FUNC(write, DebugObject::EntryWrite);
     REG_OBJECTS_LIB_FUNC(writeln, DebugObject::EntryWriteLine);
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getWorkingSet", DebugObject::EntryGetWorkingSet);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"sourceDebugBreak", DebugObject::EntrySourceDebugBreak);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"invokeFunction", DebugObject::EntryInvokeFunction);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"isInJit", DebugObject::EntryIsInJit);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getMemoryInfo", DebugObject::EntryGetMemoryInfo);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getHostInfo", DebugObject::EntryGetHostInfo);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getTypeHandlerName", DebugObject::EntryGetTypeHandlerName);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getArrayType", DebugObject::EntryGetArrayType);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"dumpHeap", DebugObject::DumpHeapInternal);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"createDebugDisposableObject", DebugObject::EntryCreateDebugDisposableObject);
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"createDebugFuncExecutorInDisposeObject", DebugObject::EntryCreateDebugFuncExecutorInDisposeObject);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getWorkingSet"), DebugObject::EntryGetWorkingSet);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("sourceDebugBreak"), DebugObject::EntrySourceDebugBreak);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("invokeFunction"), DebugObject::EntryInvokeFunction);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("isInJit"), DebugObject::EntryIsInJit);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getMemoryInfo"), DebugObject::EntryGetMemoryInfo);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getHostInfo"), DebugObject::EntryGetHostInfo);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getTypeHandlerName"), DebugObject::EntryGetTypeHandlerName);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getArrayType"), DebugObject::EntryGetArrayType);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("dumpHeap"), DebugObject::DumpHeapInternal);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("createDebugDisposableObject"), DebugObject::EntryCreateDebugDisposableObject);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("createDebugFuncExecutorInDisposeObject"), DebugObject::EntryCreateDebugFuncExecutorInDisposeObject);
 #endif
 #if JS_PROFILE_DATA_INTERFACE
-    REG_OBJECTS_DYNAMIC_LIB_FUNC(L"getProfileDataObject", DebugObject::EntryGetProfileDataObject);
+    REG_OBJECTS_DYNAMIC_LIB_FUNC(_u("getProfileDataObject"), DebugObject::EntryGetProfileDataObject);
 #endif
 
     if (CONFIG_FLAG(AsyncDebugging))

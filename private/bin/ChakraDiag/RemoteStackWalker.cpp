@@ -755,14 +755,14 @@ void RemoteStackWalker::DumpFrame()
 {
     WCHAR buf[256];
 #ifdef _M_X64
-    swprintf_s(buf, _countof(buf), L"\t#%02d Base=%08llp IP=%08llp Ret=%08llp %s\n",
-        m_currentFrame->FrameId, m_currentFrame->EffectiveFrameBase, m_currentFrame->InstructionPointer, m_currentFrame->ReturnAddress, m_isJavascriptFrame ? L"JS" : L"");
+    swprintf_s(buf, _countof(buf), _u("\t#%02d Base=%08llp IP=%08llp Ret=%08llp %s\n"),
+        m_currentFrame->FrameId, m_currentFrame->EffectiveFrameBase, m_currentFrame->InstructionPointer, m_currentFrame->ReturnAddress, m_isJavascriptFrame ? _u("JS") : _u(""));
 #else
-    swprintf_s(buf, _countof(buf), L"\t#%02d Base=%08p IP=%08p Ret=%08p %s\n",
-        m_currentFrame->FrameId, m_currentFrame->EffectiveFrameBase, m_currentFrame->InstructionPointer, m_currentFrame->ReturnAddress, m_isJavascriptFrame ? L"JS" : L"");
+    swprintf_s(buf, _countof(buf), _u("\t#%02d Base=%08p IP=%08p Ret=%08p %s\n"),
+        m_currentFrame->FrameId, m_currentFrame->EffectiveFrameBase, m_currentFrame->InstructionPointer, m_currentFrame->ReturnAddress, m_isJavascriptFrame ? _u("JS") : _u(""));
 #endif
     OutputDebugString(buf);
-    wprintf_s(L"%s", buf);
+    wprintf_s(_u("%s"), buf);
 
     // Read some data from the stack.
     WCHAR* start = buf;
@@ -771,9 +771,9 @@ void RemoteStackWalker::DumpFrame()
         int charsWritten = 0;
         RemoteData<long*> data(m_reader, (const PLONG*)((BYTE*)m_currentFrame->EffectiveFrameBase + j * sizeof(long*)));
 #ifdef _M_X64
-        charsWritten = swprintf_s(start, _countof(buf) - (start - buf), L"\t\t%08llp", *data.ToTargetPtr());
+        charsWritten = swprintf_s(start, _countof(buf) - (start - buf), _u("\t\t%08llp"), *data.ToTargetPtr());
 #else
-        charsWritten = swprintf_s(start, _countof(buf) - (start - buf), L"\t\t%08p", *data.ToTargetPtr());
+        charsWritten = swprintf_s(start, _countof(buf) - (start - buf), _u("\t\t%08p"), *data.ToTargetPtr());
 #endif
         if(charsWritten == -1)
         {
@@ -782,8 +782,8 @@ void RemoteStackWalker::DumpFrame()
         start += charsWritten;
     }
     OutputDebugString(buf);
-    OutputDebugString(L"\n");
-    wprintf_s(L"%s\n", buf);
+    OutputDebugString(_u("\n"));
+    wprintf_s(_u("%s\n"), buf);
 }
 #endif
 

@@ -160,9 +160,10 @@
         EPILOG_STACK_RESTORE r11        ; mov sp, r11
         EPILOG_POP r11, lr
 #if defined(_CONTROL_FLOW_GUARD)
-        EPILOG_POP {r4-r5}
-#endif
+        EPILOG_POP {r0-r5}
+#else
         EPILOG_STACK_FREE 16
+#endif
         EPILOG_RETURN
 
         NESTED_END IndirectMethodInvoker

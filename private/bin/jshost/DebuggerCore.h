@@ -215,7 +215,7 @@ public:
     void ClearCurrentFrame();
     HRESULT SetCurrentFrame(ULONG depth);
     HRESULT LogJson(LPCWSTR logString);
-    HRESULT LogJson(__in __nullterminated wchar_t *msg, ...);
+    HRESULT LogJson(__in __nullterminated char16 *msg, ...);
 
     HRESULT AddNode(__in IDebugApplicationNode *pRootNode, ULONG ulContainerId);
     HRESULT RemoveNode(__in IDebugApplicationNode *pRootNode);

@@ -13,19 +13,19 @@ static OLECHAR s_szLangName[] = OLESTR("JScript");
 LPOLESTR g_pszLangName = s_szLangName;
 static const WCHAR* s_rgpszLang[] =
 {
-    L"JScript",
-    L"LiveScript",
-    L"JavaScript",
-    L"JavaScript1.1",
-    L"JavaScript1.2",
-    L"JavaScript1.3",
-    L"ECMAScript"
+    _u("JScript"),
+    _u("LiveScript"),
+    _u("JavaScript"),
+    _u("JavaScript1.1"),
+    _u("JavaScript1.2"),
+    _u("JavaScript1.3"),
+    _u("ECMAScript")
 };
 
 CJScript9ClassFactory::CJScript9ClassFactory(void)
         : CClassFactory(
-        CLSID_Chakra, szCLSID_Chakra, L"JavaScript Language", NULL,
-            L"Chakra.dll",
+        CLSID_Chakra, szCLSID_Chakra, _u("JavaScript Language"), NULL,
+            _u("Chakra.dll"),
             NULL, 0, //Do not add ProgId for chakra.dll
             inCatActiveScript | inCatActiveScriptParse
           )
@@ -97,8 +97,8 @@ STDMETHODIMP CJScript9ThreadServiceClassFactory::CreateInstance(IUnknown *punkOu
 
 CJScript9ThreadServiceClassFactory::CJScript9ThreadServiceClassFactory(void)
         : CClassFactory(
-            CLSID_ChakraThreadService, szCLSID_ChakraThreadService, L"JavaScript Language", NULL,
-            L"Chakra.dll",
+            CLSID_ChakraThreadService, szCLSID_ChakraThreadService, _u("JavaScript Language"), NULL,
+            _u("Chakra.dll"),
             NULL, 0, 
             0
           )

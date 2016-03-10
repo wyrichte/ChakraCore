@@ -8,7 +8,7 @@ TestContext g_testContext;
 LARGE_INTEGER g_frequency;
 HANDLE hProcess;
 
-int wmain(int argc, wchar_t *argv[])
+int wmain(int argc, char16 *argv[])
 {
     for(int i = 1; i < argc; ++i)
         ParseArg(argv[i]);
@@ -25,7 +25,7 @@ int wmain(int argc, wchar_t *argv[])
 
     QueryPerformanceFrequency(&g_frequency);
 
-    g_jscript9dll = LoadLibrary(L"jscript9test.dll");
+    g_jscript9dll = LoadLibrary(_u("jscript9test.dll"));
     if (!g_jscript9dll)
     {
         return E_FAIL;
@@ -77,34 +77,34 @@ void Fail(__in __nullterminated char *reason)
     exit(1);
 }
 
-void ParseArg(__in __nullterminated wchar_t *arg)
+void ParseArg(__in __nullterminated char16 *arg)
 {
-    if(arg[0] != L'-' && arg[0] != L'/')
+    if(arg[0] != _u('-') && arg[0] != _u('/'))
     {
         Fail("argument must start with '-' or '/'");
     }
 
     ++arg;
     
-    if(arg[0] == L'?')
+    if(arg[0] == _u('?'))
     {
         Usage();
     }
 
     // Find the argument separator, if it exists.
-    wchar_t *argend = wcschr(arg, L':');
+    char16 *argend = wcschr(arg, _u(':'));
     if(argend != NULL)
     {
-        *argend++ = L'\0';
+        *argend++ = _u('\0');
     }
 
     // Parse the arguments.
     // TODO: factor
-    if(!_wcsicmp(arg, L"debug"))
+    if(!_wcsicmp(arg, _u("debug")))
     {
         g_debugPrint = 1;
     }
-    else if(!_wcsicmp(arg, L"v8"))
+    else if(!_wcsicmp(arg, _u("v8")))
     {
 #ifdef ALLOW_V8
         g_testContext.testKind = Engine::Kind::V8;
@@ -112,7 +112,7 @@ void ParseArg(__in __nullterminated wchar_t *arg)
         Fail("-v8 specified, but this build does not support the V8 engine");
 #endif
     }
-    else if(!_wcsicmp(arg, L"v8isolates"))
+    else if(!_wcsicmp(arg, _u("v8isolates")))
     {
 #ifdef ALLOW_V8
         g_testContext.testKind = Engine::Kind::V8Isolates;
@@ -120,23 +120,23 @@ void ParseArg(__in __nullterminated wchar_t *arg)
         Fail("-v8isolate specified, but this build does not support the V8 engine");
 #endif
     }
-    else if(!_wcsicmp(arg, L"chakra"))
+    else if(!_wcsicmp(arg, _u("chakra")))
     {
         g_testContext.testKind = Engine::Kind::Chakra;
     }
-    else if(!_wcsicmp(arg, L"lagunacontexts"))
+    else if(!_wcsicmp(arg, _u("lagunacontexts")))
     {
         g_testContext.testKind = Engine::Kind::LagunaContext;
     }
-    else if(!_wcsicmp(arg, L"lagunaruntimes"))
+    else if(!_wcsicmp(arg, _u("lagunaruntimes")))
     {
         g_testContext.testKind = Engine::Kind::LagunaRuntime;
     }
-    else if(!_wcsicmp(arg, L"lagunasamecontext"))
+    else if(!_wcsicmp(arg, _u("lagunasamecontext")))
     {
         g_testContext.testKind = Engine::Kind::LagunaSameContext;
     }
-    else if(!_wcsicmp(arg, L"test"))
+    else if(!_wcsicmp(arg, _u("test")))
     {
         if(argend == NULL)
             Fail("-test requires an argument");
@@ -146,7 +146,7 @@ void ParseArg(__in __nullterminated wchar_t *arg)
         if(g_testContext.pfnTest == NULL)
             Fail("Test function not found");
     }
-    else if(!_wcsicmp(arg, L"threads"))
+    else if(!_wcsicmp(arg, _u("threads")))
     {
         if(argend == NULL)
             Fail("-threads requires an argument");
@@ -154,7 +154,7 @@ void ParseArg(__in __nullterminated wchar_t *arg)
         if(g_testContext.numThreads == 0)
             Fail("-threads requires an integer argument");
     }
-    else if(!_wcsicmp(arg, L"iterations"))
+    else if(!_wcsicmp(arg, _u("iterations")))
     {
         if(argend == NULL)
             Fail("-iterations requires an argument");
@@ -162,14 +162,14 @@ void ParseArg(__in __nullterminated wchar_t *arg)
         if(g_testContext.numIterations == 0)
             Fail("-iterations requires an integer argument");
     }
-    else if(!_wcsicmp(arg, L"args"))
+    else if(!_wcsicmp(arg, _u("args")))
     {
-        wchar_t *ptr = argend;
-        wchar_t *end;
+        char16 *ptr = argend;
+        char16 *end;
         do {
-            end = wcschr(ptr, L',');
+            end = wcschr(ptr, _u(','));
             if(end != NULL)
-                *end = L'\0';
+                *end = _u('\0');
             
             // convert the argument
             g_testContext.args.push_back(_wtoi(ptr));
@@ -180,19 +180,19 @@ void ParseArg(__in __nullterminated wchar_t *arg)
             ptr = end + 1;
         } while(1);
     }
-    else if(!_wcsicmp(arg, L"samplerate"))
+    else if(!_wcsicmp(arg, _u("samplerate")))
     {
         if(argend == NULL)
             Fail("-samplerate requires an argument");
         g_testContext.workingSetSampleRate = _wtoi(argend);
     }
-    else if(!_wcsicmp(arg, L"script"))
+    else if(!_wcsicmp(arg, _u("script")))
     {
         if(argend == NULL)
             Fail("-script requires an argument");
         g_testContext.LoadScriptFile(argend);
     }
-    else if(!_wcsicmp(arg, L"resultsxml"))
+    else if(!_wcsicmp(arg, _u("resultsxml")))
     {
         if(argend == NULL)
             Fail("-resultsxml requires an argument");

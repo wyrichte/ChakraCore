@@ -6,7 +6,7 @@ namespace Js
     class DOMBuiltInPropertyRecords
     {
     public:
-#define ENTRYDOM(n, hash) const static BuiltInPropertyRecord<ARRAYSIZE(L#n)> DOM_##n;
+#define ENTRYDOM(n, hash) const static BuiltInPropertyRecord<ARRAYSIZE(_u(#n))> DOM_##n;
 #define ENTRYDOM_Existing(n, key) 
 #include "JnDOMDirectFields.h"
     };

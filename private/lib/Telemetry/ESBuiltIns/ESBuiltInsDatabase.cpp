@@ -26,7 +26,7 @@ void ESBuiltInsDatabase::Initialize()
     if( ESBuiltInsDatabase::isInitialized ) return;
 
     esbiPropertyList.Add(
-        ESBuiltInProperty( ESBuiltInPropertyId::_None, L"", true, L"", static_cast<Js::PropertyIds>( 0 ) )
+        ESBuiltInProperty( ESBuiltInPropertyId::_None, _u(""), true, _u(""), static_cast<Js::PropertyIds>( 0 ) )
     );
 
 #define Constructor 0x8000 // set the 15th bit high
@@ -34,7 +34,7 @@ void ESBuiltInsDatabase::Initialize()
 #define Prototype   0
 #define BUILTIN(typeName,location,propertyName,propertyKind,esVersion) \
     esbiPropertyList.Add( \
-        ESBuiltInProperty( ESBuiltInPropertyId::typeName ## _ ## location ## _ ## propertyName, L#typeName, location == Constructor, L#propertyName, Js::PropertyIds:: ## propertyName ) \
+        ESBuiltInProperty( ESBuiltInPropertyId::typeName ## _ ## location ## _ ## propertyName, _u(#typeName), location == Constructor, _u(#propertyName), Js::PropertyIds:: ## propertyName ) \
     );
 #include "ESBuiltInsDatabase.inc"
 #undef BUILTIN
@@ -55,7 +55,7 @@ ESBuiltInProperty::ESBuiltInProperty() :
 {
 }
 
-ESBuiltInProperty::ESBuiltInProperty( ESBuiltInPropertyId esbiPropertyId, _In_z_ wchar_t* constructorName, bool isInstanceProperty, _In_z_ wchar_t* const propertyName, const Js::PropertyId propertyId ) :
+ESBuiltInProperty::ESBuiltInProperty( ESBuiltInPropertyId esbiPropertyId, _In_z_ char16* constructorName, bool isInstanceProperty, _In_z_ char16* const propertyName, const Js::PropertyId propertyId ) :
     esbiPropertyId( esbiPropertyId ),
     constructorName( constructorName ),
     isInstance( isInstanceProperty ),
@@ -126,7 +126,7 @@ ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByTypeId( const J
 
 ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByString( Js::JavascriptString* typeName )
 {
-    const wchar_t* value       = typeName->GetString();
+    const char16* value       = typeName->GetString();
     size_t         valueLength = typeName->GetLength();
 
 #include "ESBuiltInsTypeNames.trie.inc"

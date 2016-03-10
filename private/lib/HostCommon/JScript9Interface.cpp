@@ -31,20 +31,20 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
     bool useDefault = alternateDllName == nullptr && !useRetailDllName;
     LPCWSTR dllName;
 
-    wchar_t filename[_MAX_PATH];
-    wchar_t drive[_MAX_DRIVE];
-    wchar_t dir[_MAX_DIR];
+    char16 filename[_MAX_PATH];
+    char16 drive[_MAX_DRIVE];
+    char16 dir[_MAX_DIR];
 
     if (!useDefault)
     {
-        dllName = alternateDllName != nullptr ? alternateDllName : L"chakra.dll";
+        dllName = alternateDllName != nullptr ? alternateDllName : _u("chakra.dll");
     }
     else
     {
-        wchar_t modulename[_MAX_PATH];
+        char16 modulename[_MAX_PATH];
         GetModuleFileName(NULL, modulename, _MAX_PATH);
         _wsplitpath_s(modulename, drive, _MAX_DRIVE, dir, _MAX_DIR, nullptr, 0, nullptr, 0);
-        _wmakepath_s(filename, drive, dir, L"chakratest.dll", nullptr);
+        _wmakepath_s(filename, drive, dir, _u("chakratest.dll"), nullptr);
         dllName = filename;
     }
 
@@ -59,19 +59,19 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
         if (!useDefault)
         {
             int ret = GetLastError();
-            fwprintf(stderr, L"FATAL ERROR: Unable to load %s. GLE=0x%x\n", dllName, ret);
+            fwprintf(stderr, _u("FATAL ERROR: Unable to load %s. GLE=0x%x\n"), dllName, ret);
             fflush(stderr);
             return nullptr;
         }
         else
         {
-            _wmakepath_s(filename, drive, dir, L"chakra.dll", nullptr);
+            _wmakepath_s(filename, drive, dir, _u("chakra.dll"), nullptr);
             chakraLibrary = LoadLibraryEx(filename, nullptr, 0);
 
             if (!chakraLibrary)
             {
                 int ret = GetLastError();
-                fwprintf(stderr, L"FATAL ERROR: chakratest.dll nor chakra.dll found next to jshost.exe. GLE=0x%x\n", ret);
+                fwprintf(stderr, _u("FATAL ERROR: chakratest.dll nor chakra.dll found next to jshost.exe. GLE=0x%x\n"), ret);
                 fflush(stderr);
                 return nullptr;
             }
@@ -135,6 +135,8 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
     m_jsrtTestHooks.pfJsrtRelease = (JsrtTestHooks::JsrtReleasePtr)GetProcAddress(chakraLibrary, "JsRelease");
     m_jsrtTestHooks.pfJsrtAddRef = (JsrtTestHooks::JsrtAddRefPtr)GetProcAddress(chakraLibrary, "JsAddRef");
     m_jsrtTestHooks.pfJsrtGetValueType = (JsrtTestHooks::JsrtGetValueType)GetProcAddress(chakraLibrary, "JsGetValueType");
+
+    m_jsrtTestHooks.pfJsrtParseScriptWithFlags = (JsrtTestHooks::JsrtParseScriptWithFlags)GetProcAddress(chakraLibrary, "JsParseScriptWithFlags");
 
 
     m_memProtectTestHooks.pfMemProtectHeapCreate = (MemProtectTestHooks::MemProtectHeapCreatePtr)GetProcAddress(chakraLibrary, "MemProtectHeapCreate");
@@ -230,11 +232,11 @@ HRESULT JScript9Interface::DisplayRecyclerStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-HRESULT JScript9Interface::ClearTimeZoneCalendars()
+HRESULT JScript9Interface::ResetTimeZoneFactoryObjects()
 {
-    if (m_testHooks.pfClearTimeZoneCalendars)
+    if (m_testHooks.pfResetTimeZoneFactoryObjects)
     {
-        m_testHooks.pfClearTimeZoneCalendars();
+        m_testHooks.pfResetTimeZoneFactoryObjects();
         return S_OK;
     }
     return S_FALSE;
@@ -284,7 +286,7 @@ HRESULT JScript9Interface::ParseConfigFlags()
             hr = GetFileNameFlag(m_argInfo.filename);
             if (hr != S_OK)
             {
-                wprintf(L"Error: no script file specified.");
+                wprintf(_u("Error: no script file specified."));
                 m_argInfo.hostPrintUsage();
                 m_usageStringPrinted = true;
             }

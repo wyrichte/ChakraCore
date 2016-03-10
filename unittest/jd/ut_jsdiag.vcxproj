@@ -25,7 +25,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>        
+      <AdditionalIncludeDirectories>
+        $(ChakraCoreRootDirectory)Lib\Common;
         $(ChakraRootDirectory)private\bin\jdtest;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
 

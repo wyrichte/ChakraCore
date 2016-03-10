@@ -81,7 +81,7 @@ namespace ProjectionModel
         case exprEnum:
             {
                 auto _enum = Enum::From(expr);
-                auto baseTypeName = _enum->baseTypeCode == ELEMENT_TYPE_I4 ? L"Int32" : L"UInt32";
+                auto baseTypeName = _enum->baseTypeCode == ELEMENT_TYPE_I4 ? _u("Int32") : _u("UInt32");
                 return metaDataDestination.SetEnum(builder.stringConverter->StringOfId(_enum->typeDef->id), baseTypeName);
             }
         case exprFunction:
@@ -165,7 +165,7 @@ namespace ProjectionModel
                             }
                         });
 
-                        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"Locate(): functionStructConstructor - setting up %d field(s) for type %s (#%d)\n", 
+                        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("Locate(): functionStructConstructor - setting up %d field(s) for type %s (#%d)\n"), 
                             fieldCount, fullTypeName, structConstructor->signature->parameters->returnType->fullTypeNameId);
 
                         // pass 2 - allocate and fill
@@ -188,7 +188,7 @@ namespace ProjectionModel
                                 Assert(genericType->typeDef != nullptr);
                                 fieldTypeNames[currentFieldIndex++] = builder.stringConverter->StringOfId(genericType->typeDef->id);
 
-                                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"Locate(): functionStructConstructor field #%d/%d: G< >: %s (#%d)\n",
+                                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("Locate(): functionStructConstructor field #%d/%d: G< >: %s (#%d)\n"),
                                     currentFieldIndex, fieldCount, fieldTypeNames[currentFieldIndex-1], genericType->typeId);
                                 
                                 if (genericType->genericParameters != nullptr)
@@ -197,7 +197,7 @@ namespace ProjectionModel
                                         Assert(currentFieldIndex < fieldCount);
                                         fieldTypeNames[currentFieldIndex++] = builder.stringConverter->StringOfId(type->fullTypeNameId);
 
-                                        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"Locate(): functionStructConstructor field #%d/%d:   T : %s (#%d)\n",
+                                        OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("Locate(): functionStructConstructor field #%d/%d:   T : %s (#%d)\n"),
                                             currentFieldIndex, fieldCount, fieldTypeNames[currentFieldIndex-1], type->fullTypeNameId);
                                     });
                                 }
@@ -208,7 +208,7 @@ namespace ProjectionModel
                                 Assert(currentFieldIndex < fieldCount);
                                 fieldTypeNames[currentFieldIndex++] = builder.stringConverter->StringOfId(fieldProperty->type->fullTypeNameId);
 
-                                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, L"Locate(): functionStructConstructor field #%d/%d: ----: %s (#%d)\n",
+                                OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("Locate(): functionStructConstructor field #%d/%d: ----: %s (#%d)\n"),
                                     currentFieldIndex, fieldCount, fieldTypeNames[currentFieldIndex-1], fieldProperty->type->fullTypeNameId);
                             }
                         });

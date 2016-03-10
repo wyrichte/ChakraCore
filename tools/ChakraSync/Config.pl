@@ -12,7 +12,7 @@ our %OPTIONS = (
     RemoteGitURL        => "https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/Chakra",
     FullBranch          => 'unreleased/rs1', # Remote working Git branch
     CoreBranch          => 'unreleased/rs1', # Used to override the association of the Full branch with the Core one. E.g. after a branch rename
-    GitHubURL           => 'https://username:token@github.com/Microsoft/ChakraCore.git',
+    GitHubURL           => 'https://chakrabot:<censored>@github.com/Microsoft/ChakraCore.git',
     GitHubRepoName      => 'ChakraCore',
     VSOCoreURL          => 'https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_git/ChakraCore',
 

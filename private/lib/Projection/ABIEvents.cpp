@@ -533,7 +533,7 @@ namespace Projection
         // in + this
         if (size_t(args.Info.Count) < 3)
         {
-            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, L"addEventListener");
+            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("addEventListener"));
         }
 
         if (Js::RecyclableObject::Is(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
@@ -567,7 +567,7 @@ namespace Projection
                     EventProjectionHandler *eventProjectionHandler = GetEventProjectionHandlerFromThisInfo(scriptContext, thisInfo, args[0]);
                     if (eventProjectionHandler == nullptr)
                     {
-                        Js::JavascriptError::ThrowReferenceError(scriptContext, JSERR_This_ReleasedInspectableObject, L"addEventListener");
+                        Js::JavascriptError::ThrowReferenceError(scriptContext, JSERR_This_ReleasedInspectableObject, _u("addEventListener"));
                     }
 
                     NamedEventRegistrationList * events = eventProjectionHandler->GetEvents(recycler);
@@ -583,7 +583,7 @@ namespace Projection
                         CComPtr<CExternalWeakReferenceImpl> weakDelegate;
                         CComPtr<IUnknown> pDelegate;
                         __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::JavascriptFunction::FromVar(args[2]), 
-                            L"addEventListener", projectionContext, isDefaultInterface, weakDelegate, pDelegate);
+                            _u("addEventListener"), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
                         // Now, add the cookie to the list
                         NamedEventRegistration * namedEvent = RecyclerNewFinalized(recycler, NamedEventRegistration, eventInfo, eventNameId, weakDelegate, eventCookie);
@@ -626,7 +626,7 @@ namespace Projection
         // in + this
         if (size_t(args.Info.Count) < 3)
         {
-            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, L"removeEventListener");
+            Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("removeEventListener"));
         }
 
         if (Js::RecyclableObject::Is(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
@@ -657,7 +657,7 @@ namespace Projection
                     EventProjectionHandler *eventProjectionHandler = GetEventProjectionHandlerFromThisInfo(scriptContext, thisInfo, args[0]);
                     if (eventProjectionHandler == nullptr)
                     {
-                        Js::JavascriptError::ThrowReferenceError(scriptContext, JSERR_This_ReleasedInspectableObject, L"removeEventListener");
+                        Js::JavascriptError::ThrowReferenceError(scriptContext, JSERR_This_ReleasedInspectableObject, _u("removeEventListener"));
                     }
 
                     NamedEventRegistrationList * events = eventProjectionHandler->GetEvents(scriptContext->GetRecycler());

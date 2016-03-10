@@ -48,7 +48,7 @@ public:
     ULONG STDMETHODCALLTYPE AddRef(void);
     ULONG STDMETHODCALLTYPE Release(void);
     HRESULT ReParentToCaller();
-    HRESULT Register(const wchar_t *title);
+    HRESULT Register(const char16 *title);
 
     HRESULT EnumCodeContextsOfHostPosition(ULONG uCharacterOffset, ULONG uNumChars, IEnumDebugCodeContexts **ppEnumCodeContext);
     HRESULT EnumCodeContextsOfPosition(ULONG uCharacterOffset, ULONG uNumChars, IEnumDebugCodeContexts **ppEnumCodeContext);

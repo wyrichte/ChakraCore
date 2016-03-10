@@ -353,7 +353,7 @@ HRESULT JsrtContextChakra::EnsureProjectionHost()
     return hr;
 }
 
-JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace)
+JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const char16* nameSpace)
 {
     HRESULT hr = NOERROR;
     hr = EnsureProjectionHost();
@@ -398,7 +398,7 @@ void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js
             JsrtRuntime* runtime = this->GetRuntime();
             if (runtime != nullptr)
             {
-                const wchar_t* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
+                const char16* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
                 g_TraceLoggingClient->TryLogNodePackage(runtime->GetThreadContext()->GetRecycler(), url);
             }
         }

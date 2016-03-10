@@ -21,11 +21,11 @@ namespace Js
         Assert(scriptContext != nullptr);
         Assert(scriptContext->IsDiagnosticsScriptContext());
 
-        functionNameId = scriptContext->GetOrAddPropertyIdTracked(L"functionName");
-        urlId = scriptContext->GetOrAddPropertyIdTracked(L"documentUrl");
-        documentId = scriptContext->GetOrAddPropertyIdTracked(L"documentID");
-        lineId = scriptContext->GetOrAddPropertyIdTracked(L"line");
-        columnId = scriptContext->GetOrAddPropertyIdTracked(L"column");
+        functionNameId = scriptContext->GetOrAddPropertyIdTracked(_u("functionName"));
+        urlId = scriptContext->GetOrAddPropertyIdTracked(_u("documentUrl"));
+        documentId = scriptContext->GetOrAddPropertyIdTracked(_u("documentID"));
+        lineId = scriptContext->GetOrAddPropertyIdTracked(_u("line"));
+        columnId = scriptContext->GetOrAddPropertyIdTracked(_u("column"));
     }
 
     /*static*/
@@ -35,7 +35,7 @@ namespace Js
     }
 
     template <size_t N>
-    void DiagnosticsScriptObject::SetPropertyStatic(RecyclableObject* obj, const wchar_t(&propertyName)[N], Var value,
+    void DiagnosticsScriptObject::SetPropertyStatic(RecyclableObject* obj, const char16(&propertyName)[N], Var value,
         ScriptContext* scriptContext)
     {
         const PropertyRecord* propertyRecord;
@@ -44,7 +44,7 @@ namespace Js
     }
 
     template <size_t N>
-    void DiagnosticsScriptObject::SetPropertyStatic(RecyclableObject* obj, const wchar_t(&propertyName)[N], BSTR value,
+    void DiagnosticsScriptObject::SetPropertyStatic(RecyclableObject* obj, const char16(&propertyName)[N], BSTR value,
         ScriptContext* scriptContext)
     {
         SetPropertyStatic(obj, propertyName, JavascriptString::NewCopyBuffer(value, SysStringLen(value), scriptContext), scriptContext);
@@ -91,7 +91,7 @@ namespace Js
         {
             ULONG lineNumber = 0;
             LONG columnNumber = 0;
-            const wchar_t* name = nullptr;
+            const char16* name = nullptr;
             Js::Var urlVar = scriptContext->GetLibrary()->GetUndefined();
             Var documentIdVar = nullptr;
 
@@ -260,7 +260,7 @@ namespace Js
         JavascriptExceptionObject* reThrownEx = nullptr;
         try
         {
-            OUTPUT_TRACE(Js::ConsoleScopePhase, L"EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n", isStrictMode, isLibraryCode, JavascriptString::FromVar(args[1])->GetSz());
+            OUTPUT_TRACE(Js::ConsoleScopePhase, _u("EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n"), isStrictMode, isLibraryCode, JavascriptString::FromVar(args[1])->GetSz());
             Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval);
             value = CrossSite::MarshalVar(debugEvalScriptContext, value);  // MarshalVar if needed.
             Assert(!CrossSite::NeedMarshalVar(value, debugEvalScriptContext));
@@ -321,7 +321,7 @@ namespace Js
         // In non-break state F12 doesn't need that.
         // The good thing is that in break state we can take advantage of debugger scopes and populate (captured) local using them.
         // In non-break state we can't but it's not needed.
-        if (targetScriptContext->IsInDebugMode() &&
+        if (targetScriptContext->IsScriptContextInDebugMode() &&
             targetScriptContext->GetThreadContext()->GetDebugManager()->IsAtDispatchHalt())
         {
             Assert(targetScriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena());
@@ -425,7 +425,7 @@ namespace Js
                 IfFailGo(pScriptEditQuery->CommitEdit());
             }
 
-            OUTPUT_TRACE(Phase::ENCPhase, L"EnC: Cannot apply edit\n");
+            OUTPUT_TRACE(Phase::ENCPhase, _u("EnC: Cannot apply edit\n"));
 
             ULONG count;
             IfFailGo(pScriptEditQuery->GetResultCount(&count));
@@ -448,19 +448,19 @@ namespace Js
         {
             WCHAR buf[32];
             _ui64tow_s(reinterpret_cast<UINT64>(result.newDebugDocumentText), buf, _countof(buf), 10);
-            SetPropertyStatic(ret, L"newDocId", JavascriptString::NewCopySz(buf, scriptContext), scriptContext);
+            SetPropertyStatic(ret, _u("newDocId"), JavascriptString::NewCopySz(buf, scriptContext), scriptContext);
         }
         if (result.message)
         {
-            OUTPUT_TRACE(Phase::ENCPhase, L"EnC: Compile error: %ls, line %d, column %d\n", result.message, result.line, result.column);
+            OUTPUT_TRACE(Phase::ENCPhase, _u("EnC: Compile error: %ls, line %d, column %d\n"), result.message, result.line, result.column);
             OUTPUT_FLUSH();
 
             RecyclableObject* error = scriptContext->GetLibrary()->CreateObject();
-            SetPropertyStatic(error, L"message", result.message, scriptContext);
-            SetPropertyStatic(error, L"line", JavascriptNumber::ToVar(static_cast<uint32>(result.line), scriptContext), scriptContext);
-            SetPropertyStatic(error, L"column", JavascriptNumber::ToVar(static_cast<uint32>(result.column), scriptContext), scriptContext);
+            SetPropertyStatic(error, _u("message"), result.message, scriptContext);
+            SetPropertyStatic(error, _u("line"), JavascriptNumber::ToVar(static_cast<uint32>(result.line), scriptContext), scriptContext);
+            SetPropertyStatic(error, _u("column"), JavascriptNumber::ToVar(static_cast<uint32>(result.column), scriptContext), scriptContext);
 
-            SetPropertyStatic(ret, L"error", error, scriptContext);
+            SetPropertyStatic(ret, _u("error"), error, scriptContext);
         }
 
         return ret;

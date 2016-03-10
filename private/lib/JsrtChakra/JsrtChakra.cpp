@@ -186,7 +186,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (context->GetScriptContext()->IsInDebugMode())
+            if (context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorAlreadyDebuggingContext;
             }
@@ -227,7 +227,7 @@ STDAPI_(JsErrorCode) JsStopDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (!context->GetScriptContext()->IsInDebugMode())
+            if (!context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorNotDebuggingContext;
             }
@@ -274,7 +274,7 @@ STDAPI_(JsErrorCode) JsSetProjectionEnqueueCallback(_In_ JsProjectionEnqueueCall
     });
 }
 
-STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const wchar_t *nameSpace)
+STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const char16 *nameSpace)
 {
     return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
         JsErrorCode errorCode;

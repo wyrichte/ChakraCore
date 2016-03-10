@@ -29,7 +29,7 @@ namespace Js
         HRESULT hr = S_OK;
 
         LPCVOID threadContextListPtr;
-        IfFailGo(debugSite->FindSymbol(L"ThreadContext::globalListFirst", &threadContextListPtr));
+        IfFailGo(debugSite->FindSymbol(_u("ThreadContext::globalListFirst"), &threadContextListPtr));
 
         const ThreadContext* threadContextPtr;
         IfFailGo(ReadPointer(debugSite, threadContextListPtr, &threadContextPtr));
@@ -220,7 +220,7 @@ Error:
                     && entryPoint->IsCodeGenDone())
                 {
                     WCHAR loopBodyName[MAX_SYMBOL_NAME];
-                    swprintf_s(loopBodyName, L"%s Loop%d (%s:%d,%d)", name, loopNumber, url, line, column);
+                    swprintf_s(loopBodyName, _u("%s Loop%d (%s:%d,%d)"), name, loopNumber, url, line, column);
                     AddSymbol(debugSite,
                         (void *)entryPoint->GetNativeAddress(),
                         static_cast<ULONG>(entryPoint->GetCodeSize()),
@@ -308,7 +308,7 @@ Error:
         WCHAR fullName[MAX_SYMBOL_NAME];
         if (url && *url)
         {
-            swprintf_s(fullName, L"%s (%s:%d,%d)", name, url, line, column);
+            swprintf_s(fullName, _u("%s (%s:%d,%d)"), name, url, line, column);
             name = fullName;
         }
 

@@ -44,7 +44,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     CallInfo callInfo = {0, CallFlags_None};
     BOOL wasPropertySet = FALSE, wasPropertyPresent = FALSE;
     Var topFunc;
-    hr = activeScriptDirect->Parse(L"new Number(1234567);", &topFunc);
+    hr = activeScriptDirect->Parse(_u("new Number(1234567);"), &topFunc);
     IfFailedReturn(hr);
     Var varResult;
     hr = activeScriptDirect->Execute(topFunc, callInfo, NULL, /*servicerProvider*/ NULL, &varResult);
@@ -56,12 +56,12 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     Var functionName;
-    LPWSTR funName = L"my function name";
+    LPWSTR funName = _u("my function name");
     hr = activeScriptDirect->StringToVar(funName, static_cast<int>(wcslen(funName)), &functionName);
     IfFailedReturn(hr);
 
     PropertyId constructorId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"constructor", &constructorId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("constructor"), &constructorId);
     IfFailedReturn(hr);
 
     Var constructor;
@@ -69,7 +69,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     PropertyId prototypeId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"prototype", &prototypeId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("prototype"), &prototypeId);
     IfFailedReturn(hr);
 
     BOOL wasProtoAvailable = FALSE;
@@ -98,7 +98,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     PropertyId testInstanceOfId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"testInstanceOf", &testInstanceOfId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("testInstanceOf"), &testInstanceOfId);
     if (FAILED(hr))
     {
         return hr;
@@ -111,7 +111,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     Var callerTestFunc;
-    hr = activeScriptDirect->Parse(L"(function f2(){if (testInstanceOf instanceof testInstanceOf) return TRUE;})()", &callerTestFunc);
+    hr = activeScriptDirect->Parse(_u("(function f2(){if (testInstanceOf instanceof testInstanceOf) return TRUE;})()"), &callerTestFunc);
     IfFailedReturn(hr);
 
     hr = activeScriptDirect->Execute(callerTestFunc, callInfo, NULL, /*serviceProvider*/ NULL,&varResult);
@@ -130,7 +130,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     }
 
     PropertyId propertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"hello", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("hello"), &propertyId);
     IfFailedReturn(hr);
 
     LPCWSTR propertyName;
@@ -180,7 +180,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     // Add it to the GlobalObject.
-    hr = activeScriptDirect->GetOrAddPropertyId(L"MyCallerTest", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("MyCallerTest"), &propertyId);
     IfFailedReturn(hr);
 
     hr = defaultScriptOperations->SetProperty(activeScriptDirect, globalObject, propertyId, functionVar, &wasPropertySet);
@@ -327,7 +327,7 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     // Add it to the GlobalObject.
-    hr = activeScriptDirect->GetOrAddPropertyId(L"my class", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("my class"), &propertyId);
     IfFailedReturn(hr);
 
     hr = activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, NULL, NULL, NULL, FALSE, propertyId, false, &prototypeHandle);
@@ -337,7 +337,7 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->CreateTypedObject(prototypeHandle, 0, FALSE, &prototype);
     IfFailedReturn(hr);
 
-    hr = activeScriptDirect->GetOrAddPropertyId(L"my class", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("my class"), &propertyId);
     IfFailedReturn(hr);
 
     hr = activeScriptDirect->CreateConstructor(prototype, NULL, propertyId, FALSE, &constructor);
@@ -352,13 +352,13 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     // Add it to the GlobalObject.
-    hr = activeScriptDirect->GetOrAddPropertyId(L"MytoStringTest", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("MytoStringTest"), &propertyId);
     IfFailedReturn(hr);
     hr = defaultScriptOperations->SetProperty(activeScriptDirect, globalObject, propertyId, constructor, &wasPropertySet);
     IfFailedReturn(hr);
 
         // Add it to the GlobalObject.
-    hr = activeScriptDirect->GetOrAddPropertyId(L"toStringInstance", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("toStringInstance"), &propertyId);
     IfFailedReturn(hr);
     hr = defaultScriptOperations->SetProperty(activeScriptDirect, globalObject, propertyId, instanceObject, &wasPropertySet);
     if (FAILED(hr) || !wasPropertySet)
@@ -368,7 +368,7 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
 
 
     Var topFunc;
-    hr = activeScriptDirect->Parse(L"WScript.Echo(MytoStringTest.toString());WScript.Echo(MytoStringTest.prototype.toString()); WScript.Echo(toStringInstance.toString());", &topFunc);
+    hr = activeScriptDirect->Parse(_u("WScript.Echo(MytoStringTest.toString());WScript.Echo(MytoStringTest.prototype.toString()); WScript.Echo(toStringInstance.toString());"), &topFunc);
     IfFailedReturn(hr);
     Var varResult;
     hr = activeScriptDirect->Execute(topFunc, callInfo, NULL, /*serviceProvider*/ NULL, &varResult);
@@ -401,7 +401,7 @@ HRESULT TestArray(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(activeScriptDirect->GetGlobalObject((Var*)&globalObject));
 
     // Add it to the GlobalObject.
-    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(L"arrayInstance", &propertyId));
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(_u("arrayInstance"), &propertyId));
     hr = defaultScriptOperations->SetProperty(activeScriptDirect, globalObject, propertyId, arrayInstance, &wasPropertySet);
     if (!wasPropertySet)
     {
@@ -411,7 +411,7 @@ HRESULT TestArray(IActiveScriptDirect* activeScriptDirect)
     IfFailedReturn(hr);
 
     Var topFunc;
-    IfFailedReturn(activeScriptDirect->Parse(L"var sum =0; for (i = 0; i < 20; i++) {arrayInstance[i] = i; sum += arrayInstance[i]}; WScript.Echo('sum is' + sum);", &topFunc));
+    IfFailedReturn(activeScriptDirect->Parse(_u("var sum =0; for (i = 0; i < 20; i++) {arrayInstance[i] = i; sum += arrayInstance[i]}; WScript.Echo('sum is' + sum);"), &topFunc));
     Var varResult;
     hr = activeScriptDirect->Execute(topFunc, callInfo, NULL, /*serviceProvider*/ NULL, &varResult);
 
@@ -441,7 +441,7 @@ HRESULT PrintDate(IActiveScriptDirect* activeScriptDirect, Var varDate)
     Var toISOString;
     {
         Var topFunc;
-        hr = activeScriptDirect->Parse(L"Date.prototype.toISOString", &topFunc);
+        hr = activeScriptDirect->Parse(_u("Date.prototype.toISOString"), &topFunc);
         IfFailedReturn(hr);
 
         CallInfo callInfo = {0, CallFlags_None};
@@ -468,7 +468,7 @@ HRESULT TestVarToDate(IActiveScriptDirect* activeScriptDirect)
     CallInfo callInfo = {0, CallFlags_None};
 
     Var topFunc;
-    hr = activeScriptDirect->Parse(L"new Date('2011-06-20T22:54:51.244Z')", &topFunc);
+    hr = activeScriptDirect->Parse(_u("new Date('2011-06-20T22:54:51.244Z')"), &topFunc);
     IfFailedReturn(hr);
 
     Var varDate;
@@ -557,7 +557,7 @@ HRESULT TestSYSTEMTIMEConversions(IActiveScriptDirect* activeScriptDirect)
 
     // Verify VarToSystemTime only accepts date objects
     Var notADate;
-    hr = activeScriptDirect->Parse(L"new Number(1234567);", &notADate);
+    hr = activeScriptDirect->Parse(_u("new Number(1234567);"), &notADate);
     IfFailedReturn(hr);
     hr = activeScriptDirect->VarToSYSTEMTIME(notADate, &t2);
     IfNotInvalidArgReturn("VarToSYSTEMTIME", hr);
@@ -634,25 +634,25 @@ static HRESULT TestIsPrimitiveType(IActiveScriptDirect* activeScriptDirect)
     HRESULT hr = NOERROR;
 
     LPCWSTR primitives[] = {
-        L"undefined", L"null", L"true", L"false",
-        L"0", L"+0", L"-0", L"123",
-        L"1.5", L"-123.4", L"Number.NaN", L"Infinity", L"-Infinity",
-        L"\"\"", L"\"string value\""
+        _u("undefined"), _u("null"), _u("true"), _u("false"),
+        _u("0"), _u("+0"), _u("-0"), _u("123"),
+        _u("1.5"), _u("-123.4"), _u("Number.NaN"), _u("Infinity"), _u("-Infinity"),
+        _u("\"\""), _u("\"string value\"")
     };
     IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, primitives, _countof(primitives), TRUE));
 
     Var var;
     IfFailedReturn(activeScriptDirect->Int64ToVar(0x10F0F0F0Fll, &var));
-    IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, L"int64", var, TRUE));
+    IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, _u("int64"), var, TRUE));
     IfFailedReturn(activeScriptDirect->UInt64ToVar(0x10F0F0F0Full, &var));
-    IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, L"uint64", var, TRUE));
+    IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, _u("uint64"), var, TRUE));
 
     LPCWSTR nonPrimitives[] = {
-        L"new Boolean(true)", L"new Boolean(false)",
-        L"new Number(123)",
-        L"new Number(-123.5)",
-        L"new String(\"string object\")",
-        L"({})", L"[0, 1]", L"new Object()", L"new Array()", L"new Date('2011-06-20T22:54:51.244Z')"
+        _u("new Boolean(true)"), _u("new Boolean(false)"),
+        _u("new Number(123)"),
+        _u("new Number(-123.5)"),
+        _u("new String(\"string object\")"),
+        _u("({})"), _u("[0, 1]"), _u("new Object()"), _u("new Array()"), _u("new Date('2011-06-20T22:54:51.244Z')")
     };
     IfFailedReturn(AssertIsPrimitiveType(activeScriptDirect, nonPrimitives, _countof(nonPrimitives), FALSE));
 
@@ -672,7 +672,7 @@ static HRESULT TestCallable(IActiveScriptDirect* activeScriptDirect)
     Var instance = nullptr;
     PropertyId propertyId;
     Print("Test callable object");
-    hr = activeScriptDirect->GetOrAddPropertyId(L"foo", &propertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("foo"), &propertyId);
     if (SUCCEEDED(hr))
     {
         hr = activeScriptDirect->CreateType(0, nullptr, 0, nullptr, ObjectEntryPoint, nullptr, false, propertyId, true, &typeRef);

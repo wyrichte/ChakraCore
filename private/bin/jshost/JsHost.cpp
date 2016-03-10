@@ -41,75 +41,75 @@ LPCWSTR JsErrorCodeToString(JsErrorCode jsErrorCode)
     switch (jsErrorCode)
     {
     case JsNoError: // not really an error, but still worth stringifying properly
-        return L"JsNoError";
+        return _u("JsNoError");
         break;
 
     case JsErrorInvalidArgument:
-        return L"JsErrorInvalidArgument";
+        return _u("JsErrorInvalidArgument");
         break;
 
     case JsErrorNullArgument:
-        return L"JsErrorNullArgument";
+        return _u("JsErrorNullArgument");
         break;
 
     case JsErrorNoCurrentContext:
-        return L"JsErrorNoCurrentContext";
+        return _u("JsErrorNoCurrentContext");
         break;
 
     case JsErrorInExceptionState:
-        return L"JsErrorInExceptionState";
+        return _u("JsErrorInExceptionState");
         break;
 
     case JsErrorNotImplemented:
-        return L"JsErrorNotImplemented";
+        return _u("JsErrorNotImplemented");
         break;
 
     case JsErrorWrongThread:
-        return L"JsErrorWrongThread";
+        return _u("JsErrorWrongThread");
         break;
 
     case JsErrorRuntimeInUse:
-        return L"JsErrorRuntimeInUse";
+        return _u("JsErrorRuntimeInUse");
         break;
 
     case JsErrorBadSerializedScript:
-        return L"JsErrorBadSerializedScript";
+        return _u("JsErrorBadSerializedScript");
         break;
 
     case JsErrorInDisabledState:
-        return L"JsErrorInDisabledState";
+        return _u("JsErrorInDisabledState");
         break;
 
     case JsErrorCannotDisableExecution:
-        return L"JsErrorCannotDisableExecution";
+        return _u("JsErrorCannotDisableExecution");
         break;
 
     case JsErrorHeapEnumInProgress:
-        return L"JsErrorHeapEnumInProgress";
+        return _u("JsErrorHeapEnumInProgress");
         break;
 
     case JsErrorOutOfMemory:
-        return L"JsErrorOutOfMemory";
+        return _u("JsErrorOutOfMemory");
         break;
 
     case JsErrorScriptException:
-        return L"JsErrorScriptException";
+        return _u("JsErrorScriptException");
         break;
 
     case JsErrorScriptCompile:
-        return L"JsErrorScriptCompile";
+        return _u("JsErrorScriptCompile");
         break;
 
     case JsErrorScriptTerminated:
-        return L"JsErrorScriptTerminated";
+        return _u("JsErrorScriptTerminated");
         break;
 
     case JsErrorFatal:
-        return L"JsErrorFatal";
+        return _u("JsErrorFatal");
         break;
 
     default:
-        return L"<unknown>";
+        return _u("<unknown>");
         break;
     }
 }
@@ -254,7 +254,7 @@ Exit:
     return hr;
 }
 
-#define IfJsrtErrorFail(expr) do { JsErrorCode jsErrorCode = expr; if ((jsErrorCode) != JsNoError) { fwprintf(stderr, L"ERROR: " TEXT(#expr) L" failed. JsErrorCode=0x%x (%s)\n", jsErrorCode, JsErrorCodeToString(jsErrorCode)); fflush(stderr); goto Error; } } while (0)
+#define IfJsrtErrorFail(expr) do { JsErrorCode jsErrorCode = expr; if ((jsErrorCode) != JsNoError) { fwprintf(stderr, _u("ERROR: ") TEXT(#expr) _u(" failed. JsErrorCode=0x%x (%s)\n"), jsErrorCode, JsErrorCodeToString(jsErrorCode)); fflush(stderr); goto Error; } } while (0)
 
 HRESULT DoOneJsrtIteration(BSTR filename)
 {
@@ -264,7 +264,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
 
     if (pfNativeTestEntryPoint)
     {
-        fwprintf(stderr, L"Cannot use native tests with -jsrt flag.\n");
+        fwprintf(stderr, _u("Cannot use native tests with -jsrt flag.\n"));
         fflush(stderr);
         return E_FAIL;
     }
@@ -290,7 +290,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
         hr = diagnosticsHelper->InitializeDebugging(/*canSetBreakpoints*/true);
         if (hr != S_OK)
         {
-            wprintf(L"[FAILED] to load the PDM\n");
+            wprintf(_u("[FAILED] to load the PDM\n"));
             goto Error;
         }
         IfJsrtErrorFail(JScript9Interface::JsrtStartDebugging());
@@ -301,7 +301,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
         { 
         if (JsNoError != JScript9Interface::JsrtAddRef(function, NULL))
             {
-                fwprintf(stderr, L"FATAL ERROR: JsAddRef failed\n");
+                fwprintf(stderr, _u("FATAL ERROR: JsAddRef failed\n"));
                 exit(-1);
             }
             attachFunction = function; 
@@ -313,7 +313,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
     messageQueue = new MessageQueue();
     WScriptJsrt::AddMessageQueue(messageQueue);
 
-    wchar_t fullPath[_MAX_PATH];
+    char16 fullPath[_MAX_PATH];
 
     if (_wfullpath(fullPath, filename, _MAX_PATH) == nullptr)
     {
@@ -333,7 +333,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
     if (JScript9Interface::GetFaultInjectionFlag(&faultInjection) == S_OK
         && faultInjection == 0)
     {
-        fwprintf(stderr, L"FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n", JScript9Interface::GetCurrentFaultInjectionCount());
+        fwprintf(stderr, _u("FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n"), JScript9Interface::GetCurrentFaultInjectionCount());
         fflush(stderr);
     }
 #endif
@@ -354,7 +354,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
             }
 
             // Time to attach the debugger to the host dynamically.
-            HostConfigFlags::flags.DebugLaunch = SysAllocString(L"");
+            HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
             HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
             if (hr != S_OK)
@@ -365,7 +365,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
             hr = diagnosticsHelper->InitializeDebugging(/*canSetBreakpoints*/true);
             if (hr != S_OK)
             {
-                wprintf(L"[FAILED] to load the PDM\n");
+                wprintf(_u("[FAILED] to load the PDM\n"));
                 goto Error;
             }
 
@@ -831,7 +831,7 @@ void WaitForThreadsToFinish(std::set<HANDLE> threads)
         {
             if (hr != RPC_S_CALLPENDING)
             {
-                fwprintf(stderr, L"ERROR: CoWaitForMultipleHandles on engine threads failed. hr=0x%x, GLE=0x%x\n", hr, GetLastError());
+                fwprintf(stderr, _u("ERROR: CoWaitForMultipleHandles on engine threads failed. hr=0x%x, GLE=0x%x\n"), hr, GetLastError());
                 fflush(stderr);
             }
             break;
@@ -863,7 +863,7 @@ HRESULT PerformDebugOperation(Message& msg, PCWSTR operationName, const SiteFunc
         hr = siteFunc(scriptSite);
         if (FAILED(hr))
         {
-            fwprintf(stderr, L"ERROR: %s failed, hr=0x%x\n", operationName, hr);
+            fwprintf(stderr, _u("ERROR: %s failed, hr=0x%x\n"), operationName, hr);
             fflush(stderr);
         }
     });
@@ -901,7 +901,7 @@ void PerformSourceRundown()
             return S_OK;
         }
 
-        PerformDebugOperation(msg, L"SourceRundown", [](JsHostActiveScriptSite* scriptSite)
+        PerformDebugOperation(msg, _u("SourceRundown"), [](JsHostActiveScriptSite* scriptSite)
         {
             return scriptSite->CheckPerformSourceRundown();
         });
@@ -928,7 +928,7 @@ void CheckAutomaticSourceRundown()
 template <class Message, bool attach>
 void DebugAttachOrDetach(typename Message::CustomArgType function)
 {
-    QueueDefaultDebugOperation<Message>(function, attach ? L"DebugAttach" : L"DebugDetach", [=](JsHostActiveScriptSite* scriptSite)
+    QueueDefaultDebugOperation<Message>(function, attach ? _u("DebugAttach") : _u("DebugDetach"), [=](JsHostActiveScriptSite* scriptSite)
     {
         return attach ? scriptSite->CheckDynamicAttach() : scriptSite->CheckDynamicDetach();
     });
@@ -968,14 +968,14 @@ void FastDomEdit(Var function, IDebugDocumentText* debugDocumentText, ULONG star
         }
         else
         {
-            wprintf(L"EnC: Cannot apply edit\n");
+            wprintf(_u("EnC: Cannot apply edit\n"));
             ULONG resultCount;
             IfFailGo(pScriptEditQuery->GetResultCount(&resultCount));
             for (ULONG i = 0; i < resultCount; i++)
             {
                 AutoScriptEditResult result;
                 IfFailGo(pScriptEditQuery->GetResult(i, &result));
-                wprintf(L"EnC: Compile error: %ls, line %d, column %d\n", result.message, result.line, result.column);
+                wprintf(_u("EnC: Compile error: %ls, line %d, column %d\n"), result.message, result.line, result.column);
             }
             
             //TODO: even more info
@@ -995,7 +995,7 @@ void StartOrStopProfiler(typename Message::CustomArgType function)
 {
     QueueDebugOperation<Message>(function, [=](Message& msg)
     {
-        return PerformDebugOperation(msg, start ? L"StartProfiler" : L"StopProfiler", [=](JsHostActiveScriptSite* scriptSite)
+        return PerformDebugOperation(msg, start ? _u("StartProfiler") : _u("StopProfiler"), [=](JsHostActiveScriptSite* scriptSite)
         {
             return start ? scriptSite->StartScriptProfiler() : scriptSite->StopScriptProfiler();
         });
@@ -1028,7 +1028,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         if (JScript9Interface::GetFaultInjectionFlag(&faultInjection) == S_OK
             && faultInjection == 0)
         {
-            fwprintf(stderr, L"FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n", JScript9Interface::GetCurrentFaultInjectionCount());
+            fwprintf(stderr, _u("FaultInjection - Checkpoint EngineLoaded Allocation Count:%d\n"), JScript9Interface::GetCurrentFaultInjectionCount());
             fflush(stderr);
         }
 #endif
@@ -1048,7 +1048,7 @@ HRESULT DoOneIASIteration(BSTR filename)
             hr = mainScriptSite->GetActiveScript(&activeScript);
             if (FAILED(hr))
             {
-                fwprintf(stderr, L"FATAL ERROR: Unable to load QI for IActiveScript. HR=0x%x\n", hr);
+                fwprintf(stderr, _u("FATAL ERROR: Unable to load QI for IActiveScript. HR=0x%x\n"), hr);
                 fflush(stderr);
             }
             else
@@ -1072,7 +1072,7 @@ HRESULT DoOneIASIteration(BSTR filename)
         }
         else
         {
-            fwprintf(stderr, L"ERROR: No file or native test entry point provided\n");
+            fwprintf(stderr, _u("ERROR: No file or native test entry point provided\n"));
             fflush(stderr);
         }
 
@@ -1164,7 +1164,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);   
     if (FAILED(hr))
     {
-        wprintf(L"FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n", hr);
+        wprintf(_u("FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n"), hr);
         exit(1);
     }
 
@@ -1173,7 +1173,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     hr = RegisterPSObject(&classFactoryCookie);
     if (FAILED(hr))
     {
-        wprintf(L"FATAL ERROR: CoRegisterClassObject() failed. hr=0x%x\n", hr);
+        wprintf(_u("FATAL ERROR: CoRegisterClassObject() failed. hr=0x%x\n"), hr);
         exit(1);
     }
 
@@ -1181,7 +1181,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     hr = CoRegisterPSClsid(IID_IJsHostScriptSite, IID_IJsHostScriptSite);
     if (FAILED(hr))
     {
-        wprintf(L"FATAL ERROR: CoRegisterPSClsid() failed. hr=0x%x\n", hr);
+        wprintf(_u("FATAL ERROR: CoRegisterPSClsid() failed. hr=0x%x\n"), hr);
         exit(1);
     }
 
@@ -1189,7 +1189,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     hr = CoCreateInstance(CLSID_StdGlobalInterfaceTable, NULL, CLSCTX_INPROC_SERVER, __uuidof(IGlobalInterfaceTable), (void **)&git);
     if (FAILED(hr))
     {
-        wprintf(L"FATAL ERROR: CoCreateInstance(CLSID_StdGlobalInterfaceTable) failed. hr=0x%x\n", hr);
+        wprintf(_u("FATAL ERROR: CoCreateInstance(CLSID_StdGlobalInterfaceTable) failed. hr=0x%x\n"), hr);
         exit(1);
     }
 
@@ -1198,7 +1198,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     if (!shutdownEvent)
     {
         ret = GetLastError();
-        fwprintf(stderr, L"FATAL ERROR: CreateEvent(shutdownEvent) failed. GLE=0x%x\n", ret);
+        fwprintf(stderr, _u("FATAL ERROR: CreateEvent(shutdownEvent) failed. GLE=0x%x\n"), ret);
         fflush(stderr);
         return ret;
     }
@@ -1208,6 +1208,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     ret = ExecuteTests(argc, argv, DoOneIASIteration);
 
     UnregisterPSObject(classFactoryCookie);
+    git->Release();
 
     // Force one final GC before we CoUninitialize
     JScript9Interface::FinalGC();
@@ -1218,9 +1219,9 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
 
         memCounters.cb=sizeof(memCounters);
         GetProcessMemoryInfo(GetCurrentProcess(),(PROCESS_MEMORY_COUNTERS*)&memCounters,memCounters.cb);
-        wprintf(L"Peak working set %Iu\n",memCounters.PeakWorkingSetSize);
-        wprintf(L"Working set      %Iu\n",memCounters.WorkingSetSize);
-        wprintf(L"Private memory   %Iu\n",memCounters.PrivateUsage);
+        wprintf(_u("Peak working set %Iu\n"),memCounters.PeakWorkingSetSize);
+        wprintf(_u("Working set      %Iu\n"),memCounters.WorkingSetSize);
+        wprintf(_u("Private memory   %Iu\n"),memCounters.PrivateUsage);
 
         JScript9Interface::DisplayRecyclerStats();
     }
@@ -1237,7 +1238,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
 #ifdef ENABLE_INTL_OBJECT
-    JScript9Interface::ClearTimeZoneCalendars();
+    JScript9Interface::ResetTimeZoneFactoryObjects();
 #endif
 
     CoUninitialize();
@@ -1263,41 +1264,41 @@ LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
         {
 
             ErrorReason reasonCode = (ErrorReason)lpep->ExceptionRecord->ExceptionInformation[0];
-            wchar_t const * reason = L"Unknown Reason";
+            char16 const * reason = _u("Unknown Reason");
             switch (reasonCode)
             {
             case JavascriptDispatch_OUTOFMEMORY:
-                reason = L"JavascriptDispatch out of memory";
+                reason = _u("JavascriptDispatch out of memory");
                 break;
             case Fatal_Internal_Error:
-                reason = L"internal error";
+                reason = _u("internal error");
                 break;
             case Fatal_Debug_Heap_OUTOFMEMORY:
-                reason = L"debug heap out of memory";
+                reason = _u("debug heap out of memory");
                 break;
             case Fatal_Amd64StackWalkerOutOfContexts:
-                reason = L"amd64 stack walker out of contexts";
+                reason = _u("amd64 stack walker out of contexts");
                 break;
             case Fatal_Binary_Inconsistency:
-                reason = L"binary inconsistency";
+                reason = _u("binary inconsistency");
                 break;
             case WriteBarrier_OUTOFMEMORY:
-                reason = L"write Barrier out of memory";
+                reason = _u("write Barrier out of memory");
                 break;
             case CustomHeap_MEMORYCORRUPTION:
-                reason = L"customHeap memory corruption";
+                reason = _u("customHeap memory corruption");
                 break;
             case LargeHeapBlock_Metadata_Corrupt:
-                reason = L"large heap block metadata corruption";
+                reason = _u("large heap block metadata corruption");
                 break;
             case Fatal_Version_Inconsistency:
-                reason = L"version inconsistency";
+                reason = _u("version inconsistency");
                 break;
             case MarkStack_OUTOFMEMORY:
-                reason = L"mark stack out of memory";
+                reason = _u("mark stack out of memory");
                 break;
             };
-            fwprintf(stderr, L"NON-CONTINUABLE FATAL ERROR: jshost.exe failed due to exception code %x, %s (%d)\n", exceptionCode, reason, reasonCode);
+            fwprintf(stderr, _u("NON-CONTINUABLE FATAL ERROR: jshost.exe failed due to exception code %x, %s (%d)\n"), exceptionCode, reason, reasonCode);
             _flushall();
 
             TerminateProcess(::GetCurrentProcess(), exceptionCode);
@@ -1328,7 +1329,7 @@ int JcExceptionFilter(int exceptionCode, _EXCEPTION_POINTERS *ep)
         return EXCEPTION_CONTINUE_SEARCH;
     }
 
-    fwprintf(stderr, L"FATAL ERROR: jshost.exe failed due to exception code %x\n", exceptionCode);
+    fwprintf(stderr, _u("FATAL ERROR: jshost.exe failed due to exception code %x\n"), exceptionCode);
     fflush(stderr);
 
     return EXCEPTION_EXECUTE_HANDLER;
@@ -1338,7 +1339,7 @@ void LaunchAndAttachDebugger()
 {
     WCHAR buf[64];
     WCHAR cmdLineBuf[1024] = { 0 };
-    std::wstring eventName = L"jdtest";
+    std::wstring eventName = _u("jdtest");
     std::wstring cmdLine;
 
     // event name: jdtest1234
@@ -1346,9 +1347,9 @@ void LaunchAndAttachDebugger()
     eventName += buf;
 
     // command line: ... -event:jdtest1234
-    cmdLine = L"jdtest.exe ";
+    cmdLine = _u("jdtest.exe ");
     cmdLine += HostConfigFlags::jdtestCmdLine;
-    cmdLine += L" -event:";
+    cmdLine += _u(" -event:");
     cmdLine += eventName;
     wcscpy_s(cmdLineBuf, cmdLine.c_str());
 
@@ -1360,7 +1361,7 @@ void LaunchAndAttachDebugger()
     startupInfo.cb = sizeof(STARTUPINFO);
     if(CreateProcess(NULL, cmdLineBuf, NULL, NULL, FALSE, 0, NULL, NULL, &startupInfo, &procInfo) == FALSE)
     {
-        wprintf(L"ERROR: failed to attach debugger\n");
+        wprintf(_u("ERROR: failed to attach debugger\n"));
         exit(1);
     }
 
@@ -1369,13 +1370,13 @@ void LaunchAndAttachDebugger()
 
     if(WaitForSingleObject(hDebuggerEvt, INFINITE) != WAIT_OBJECT_0)
     {
-        wprintf(L"ERROR: failed to attach debugger\n");
+        wprintf(_u("ERROR: failed to attach debugger\n"));
         exit(1);
     }
 
     if(!IsDebuggerPresent())
     {
-        wprintf(L"ERROR: failed to attach debugger\n");
+        wprintf(_u("ERROR: failed to attach debugger\n"));
         exit(1);
     }
 
@@ -1390,19 +1391,19 @@ void LaunchEtwListenerAndWaitForReady()
     WCHAR buf[MAX_PATH];
     WCHAR cmdLineBuf[1024] = {0};
     std::wstring cmdLine;
-    std::wstring etwBaseFilename = L"JsEtwConsole";
+    std::wstring etwBaseFilename = _u("JsEtwConsole");
     std::wstring autoExitFilename;
 
     // etwBaseFilename is the name of the event we will pass to JsEtwConsole
     _itow_s(GetCurrentProcessId(), buf, 10);
-    etwBaseFilename += L".";
+    etwBaseFilename += _u(".");
     etwBaseFilename += buf;
 
     // autoExitFilename is the name of a file which JsEtwConsole will watch for and exit when it exists.
     // This is how we will signal for JsEtwConsole to quit.
-    autoExitFilename = L"";
+    autoExitFilename = _u("");
     autoExitFilename += etwBaseFilename;
-    autoExitFilename += L".autoexit";
+    autoExitFilename += _u(".autoexit");
 
     // Build command line used to execute JsEtwConsole.exe
     //   -noetwcleanup: we don't want to clean-up any in-progress ETW sessions from other instances
@@ -1412,15 +1413,15 @@ void LaunchEtwListenerAndWaitForReady()
     //   -exitwhenexists: this is the file which we will create to indicate JsEtwConsole.exe should exit
     //   -eventname: name of the event which JsEtwConsole should set when it have finished startup/shutdown
     //   Also append any additional flags specified via the -JsEtwConsole switch.
-    cmdLine = L" -noetwcleanup -filenonverbose -processid ";
+    cmdLine = _u(" -noetwcleanup -filenonverbose -processid ");
     cmdLine += buf;
-    cmdLine += L" ";
+    cmdLine += _u(" ");
     cmdLine += HostConfigFlags::jsEtwConsoleCmdLine;
-    cmdLine += L" -file "; 
+    cmdLine += _u(" -file "); 
     cmdLine += etwBaseFilename;
-    cmdLine += L".etwlog -eventname ";
+    cmdLine += _u(".etwlog -eventname ");
     cmdLine += etwBaseFilename;
-    cmdLine += L" -exitwhenexists ";
+    cmdLine += _u(" -exitwhenexists ");
     cmdLine += autoExitFilename;
 
     wcscpy_s(cmdLineBuf, cmdLine.c_str());
@@ -1434,45 +1435,45 @@ void LaunchEtwListenerAndWaitForReady()
     if (jsEtwConsoleEvent == NULL)
     {
         DWORD hr = GetLastError();
-        wprintf(L"ERROR: failed to create event for JsEtwConsole with hr=%X\n", hr);
+        wprintf(_u("ERROR: failed to create event for JsEtwConsole with hr=%X\n"), hr);
         exit(1);
     }
 
     // Construct the full path for JsEtwConsole, assume it is next to JsHost.exe
-    wchar_t modulePath[_MAX_PATH];
+    char16 modulePath[_MAX_PATH];
     if (GetModuleFileName(NULL, modulePath, _MAX_PATH) == _MAX_PATH)
     {
-        wprintf(L"ERROR: failed to module path with gle=%X\n", GetLastError());
+        wprintf(_u("ERROR: failed to module path with gle=%X\n"), GetLastError());
         exit(1);
     }
     std::wstring JsEtwConsoleExe = modulePath;
-    wchar_t wszDrive[_MAX_DRIVE];
-    wchar_t wszDir[_MAX_DIR];
+    char16 wszDrive[_MAX_DRIVE];
+    char16 wszDir[_MAX_DIR];
     errno_t err;
     if ((err = _wsplitpath_s(modulePath, wszDrive, _MAX_DRIVE, wszDir, _MAX_DIR, NULL, 0, NULL, 0)) != 0)
     {
-        wprintf(L"ERROR: failed to split module path errno=%X\n", err);
+        wprintf(_u("ERROR: failed to split module path errno=%X\n"), err);
         exit(1);
     }
 
-    if ((err = _wmakepath_s(modulePath, wszDrive, wszDir, L"JsEtwConsole", L".exe")) != 0)
+    if ((err = _wmakepath_s(modulePath, wszDrive, wszDir, _u("JsEtwConsole"), _u(".exe"))) != 0)
     {
-        wprintf(L"ERROR: failed to make module path errno=%X\n", err);
+        wprintf(_u("ERROR: failed to make module path errno=%X\n"), err);
         exit(1);
     }
 
     // Launch JsEtwConsole and elevate if needed (but run as minimized)
-    int success = (int)ShellExecute(NULL, L"runas", modulePath, cmdLineBuf, NULL, SW_SHOWMINNOACTIVE);
+    int success = (int)ShellExecute(NULL, _u("runas"), modulePath, cmdLineBuf, NULL, SW_SHOWMINNOACTIVE);
     if (success <= 32)
     {
-        wprintf(L"ERROR: failed to launch JsEtwConsole with code=%d\n", success);
+        wprintf(_u("ERROR: failed to launch JsEtwConsole with code=%d\n"), success);
         exit(1);
     }
     
     // Wait for JsEtwConsole to set the event indicating it has finished starting up
     if (WaitForSingleObject(jsEtwConsoleEvent, INFINITE) != WAIT_OBJECT_0)
     {
-        wprintf(L"ERROR: failed to launch JsEtwConsole (failed to receive signal from JsEtwConsole)\n");
+        wprintf(_u("ERROR: failed to launch JsEtwConsole (failed to receive signal from JsEtwConsole)\n"));
         exit(1);
     }
 
@@ -1484,23 +1485,23 @@ void LaunchEtwListenerAndWaitForReady()
 void StopEtwListener()
 {
     WCHAR buf[MAX_PATH];
-    std::wstring autoExitFilename = L"JsEtwConsole";
+    std::wstring autoExitFilename = _u("JsEtwConsole");
 
     _itow_s(GetCurrentProcessId(), buf, 10);
-    autoExitFilename += L".";
+    autoExitFilename += _u(".");
     autoExitFilename += buf;
-    autoExitFilename += L".autoexit";
+    autoExitFilename += _u(".autoexit");
 
     wcscpy_s(buf, autoExitFilename.c_str());
 
     // We indicate to JsEtwConsole that it should exit by writing a file
-    FILE* f = _wfopen(buf, L"w");
+    FILE* f = _wfopen(buf, _u("w"));
     fclose(f);
 
     // Wait for JsEtwConsole to set the event indicating it has finished shutting down
     if (WaitForSingleObject(jsEtwConsoleEvent, INFINITE) != WAIT_OBJECT_0)
     {
-        wprintf(L"ERROR: failed to stop JsEtwConsole\n");
+        wprintf(_u("ERROR: failed to stop JsEtwConsole\n"));
         exit(1);
     }
 
@@ -1513,19 +1514,19 @@ void WriteEtwLog()
 {
     bool success = false;
     WCHAR buf[2048];
-    std::wstring etwLogFilename = L"JsEtwConsole";
+    std::wstring etwLogFilename = _u("JsEtwConsole");
 
     _itow_s(GetCurrentProcessId(), buf, 10);
-    etwLogFilename += L".";
+    etwLogFilename += _u(".");
     etwLogFilename += buf;
-    etwLogFilename += L".etwlog";
+    etwLogFilename += _u(".etwlog");
     
     wcscpy_s(buf, etwLogFilename.c_str());
 
-    FILE* f = _wfopen(buf, L"r");
+    FILE* f = _wfopen(buf, _u("r"));
     if (f == nullptr)
     {
-        wprintf(L"ERROR: failed to open etw log file\n");
+        wprintf(_u("ERROR: failed to open etw log file\n"));
         exit(1);
     }
 
@@ -1542,7 +1543,7 @@ void WriteEtwLog()
 
         if (utf8buf == nullptr)
         {
-            wprintf(L"ERROR: failed to allocate buffer to read etw log file\n");
+            wprintf(_u("ERROR: failed to allocate buffer to read etw log file\n"));
             goto LReturn;
         }
 
@@ -1554,7 +1555,7 @@ void WriteEtwLog()
 
         if (utf16buf == nullptr)
         {
-            wprintf(L"ERROR: failed to allocate buffer to read etw log file\n");
+            wprintf(_u("ERROR: failed to allocate buffer to read etw log file\n"));
             goto LReturn;
         }
 
@@ -1563,19 +1564,19 @@ void WriteEtwLog()
 
         if (result != 0)
         {
-            wprintf(L"ERROR: failed to convert character buffer from utf8 to utf16\n");
+            wprintf(_u("ERROR: failed to convert character buffer from utf8 to utf16\n"));
             goto LReturn;
         }
 
-        wprintf(L"ETW Log Begin\n");
-        wprintf(L"=============================================================\n");
+        wprintf(_u("ETW Log Begin\n"));
+        wprintf(_u("=============================================================\n"));
         wprintf(utf16buf);
-        wprintf(L"=============================================================\n");
-        wprintf(L"ETW Log End\n");
+        wprintf(_u("=============================================================\n"));
+        wprintf(_u("ETW Log End\n"));
     }
     else
     {
-        wprintf(L"ERROR: etw log file is too large\n");
+        wprintf(_u("ERROR: etw log file is too large\n"));
         goto LReturn;
     }
 
@@ -1627,7 +1628,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 
     if (useChakra && !JScript9Interface::SupportsNotifyOnScriptStateChanged())
     {
-        fwprintf(stderr, L"FATAL ERROR: Loaded chakra dll engine isn't the test version\n");
+        fwprintf(stderr, _u("FATAL ERROR: Loaded chakra dll engine isn't the test version\n"));
         return E_FAIL;
     }
 
@@ -1648,7 +1649,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         {
             SysFreeString(HostConfigFlags::flags.DebugLaunch);
         }
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(L"hybrid");
+        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u("hybrid"));
         LaunchAndAttachDebugger();
     }
 
@@ -1740,12 +1741,12 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 
 void __stdcall PrintUsage()
 {
-    wprintf(L"\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] filename|[-nativetest:testdll [nativetestargs]]\n");   
+    wprintf(_u("\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] filename|[-nativetest:testdll [nativetestargs]]\n"));   
 }
 
 int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    LPCWSTR nativeTestFlag = L"-nativetest:";
+    LPCWSTR nativeTestFlag = _u("-nativetest:");
     size_t nativeTestFlagLen = wcslen(nativeTestFlag);
     int i = HostConfigFlags::FindArg(argc, argv, nativeTestFlag, nativeTestFlagLen);
     if (i < 0)
@@ -1764,7 +1765,7 @@ int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
     if (! nativeTestDll)
     {
         ret = GetLastError();
-        fwprintf(stderr, L"FATAL ERROR: Unable to load %s. GLE=0x%x\n", nativeDllName, ret);
+        fwprintf(stderr, _u("FATAL ERROR: Unable to load %s. GLE=0x%x\n"), nativeDllName, ret);
         fflush(stderr);
         return ret;
     }
@@ -1772,7 +1773,7 @@ int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
     if (!pfNativeTestEntryPoint)
     {
         ret = GetLastError();
-        fwprintf(stderr, L"FATAL ERROR: Unable to get address of %S in %s. GLE=0x%x\n", nativeTestEntryPointName, nativeDllName, ret);
+        fwprintf(stderr, _u("FATAL ERROR: Unable to get address of %S in %s. GLE=0x%x\n"), nativeTestEntryPointName, nativeDllName, ret);
         fflush(stderr);
         return ret;
     }
@@ -1789,8 +1790,8 @@ int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
 
 int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    LPCWSTR dbgBaselineFlag = L"-dbgbaseline:";
-    LPCWSTR dbgBaselineFlagWithoutColon = L"-dbgbaseline";
+    LPCWSTR dbgBaselineFlag = _u("-dbgbaseline:");
+    LPCWSTR dbgBaselineFlagWithoutColon = _u("-dbgbaseline");
     size_t dbgBaselineFlagLen = wcslen(dbgBaselineFlag);
 
     int i = 0;
@@ -1798,7 +1799,7 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
     {
         if(!_wcsicmp(argv[i], dbgBaselineFlagWithoutColon)) 
         {
-            dbgBaselineFilename = L"";
+            dbgBaselineFilename = _u("");
             break;
         } 
         else if(!_wcsnicmp(argv[i], dbgBaselineFlag, dbgBaselineFlagLen))
@@ -1806,7 +1807,7 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
             dbgBaselineFilename = argv[i] + dbgBaselineFlagLen;
             if(wcslen(dbgBaselineFilename) == 0)
             {
-                fwprintf(stdout, L"[FAILED]: must pass a filename to -dbgbaseline:\n");
+                fwprintf(stdout, _u("[FAILED]: must pass a filename to -dbgbaseline:\n"));
                 return 1;
             }
             else
@@ -1827,7 +1828,7 @@ int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR 
 
 bool HandleJsrtTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    LPCWSTR jsrtTestFlag = L"-jsrt";    
+    LPCWSTR jsrtTestFlag = _u("-jsrt");    
     size_t jsrtTestFlagLen = wcslen(jsrtTestFlag);
     
     int i = HostConfigFlags::FindArg(argc, argv, jsrtTestFlag, jsrtTestFlagLen);
@@ -1840,7 +1841,7 @@ bool HandleJsrtTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
     if (wcslen(argv[i]) != jsrtTestFlagLen)
     {
         LPWSTR jsrtAttributeSupplied = argv[i] + jsrtTestFlagLen + 1;
-        if (! swscanf_s(jsrtAttributeSupplied, L"%x", &jsrtAttributes))
+        if (! swscanf_s(jsrtAttributeSupplied, _u("%x"), &jsrtAttributes))
         {
             return false;
         }
@@ -1860,15 +1861,15 @@ bool HandleHtmlTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
     {
         if (!isHtmlTest)
         {
-            PCWCHAR ext = wcsrchr(arg, L'.');
-            isHtmlTest = _wcsnicmp(arg, L"http://", 7) == 0
-                || _wcsnicmp(arg, L"https://", 8) == 0
-                || (ext && _wcsicmp(ext, L".htm") == 0)
-                || (ext && _wcsicmp(ext, L".html") == 0);
+            PCWCHAR ext = wcsrchr(arg, _u('.'));
+            isHtmlTest = _wcsnicmp(arg, _u("http://"), 7) == 0
+                || _wcsnicmp(arg, _u("https://"), 8) == 0
+                || (ext && _wcsicmp(ext, _u(".htm")) == 0)
+                || (ext && _wcsicmp(ext, _u(".html")) == 0);
         }
 
         // Even if isHtmlTest, we still need to finish searching for "-html" because we need to remove it.
-        return _wcsicmp(arg, L"-html") == 0;
+        return _wcsicmp(arg, _u("-html")) == 0;
     });
 
     if (htmlSwitchIndex >= 0)
@@ -1881,13 +1882,13 @@ bool HandleHtmlTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 
 bool HandleAlternateDllFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
-    alternateDllName = HostConfigFlags::ExtractSwitch(argc, argv, L"-alternateDll:");
+    alternateDllName = HostConfigFlags::ExtractSwitch(argc, argv, _u("-alternateDll:"));
     return alternateDllName != nullptr;
 }
 
 void PeekRuntimeFlag(int argc, _In_reads_(argc) LPWSTR argv[])
 {
-    if (HostConfigFlags::FindArg(argc, argv, L"-EditTest") >= 0)
+    if (HostConfigFlags::FindArg(argc, argv, _u("-EditTest")) >= 0)
     {
         WScriptFastDom::EnableEditTests();
     }
@@ -1919,7 +1920,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
     if (HostConfigFlags::flags.Auto && !HostConfigFlags::flags.DebugLaunch)
     {
-        wprintf(L"ERROR: -auto must be used with -debuglaunch\n");
+        wprintf(_u("ERROR: -auto must be used with -debuglaunch\n"));
         return EXIT_FAILURE;
     }
 
@@ -1935,7 +1936,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     }
     else
     {
-        if (HostConfigFlags::FindArg(argc, argv, L"-WERExceptionSupport", wcslen(L"WERExceptionSupport")) >= 0)
+        if (HostConfigFlags::FindArg(argc, argv, _u("-WERExceptionSupport"), wcslen(_u("WERExceptionSupport"))) >= 0)
         {
             // Projection test, use the old comment style
             HostConfigFlags::flags.EnableExtendedErrorMessages = false;
@@ -1944,7 +1945,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
         {
             // otherwise use the new comment format
             HostConfigFlags::flags.EnableExtendedErrorMessages = true;
-            HostConfigFlags::AddSwitch(argc, argv, L"-WERExceptionSupport");
+            HostConfigFlags::AddSwitch(argc, argv, _u("-WERExceptionSupport"));
         }
         ret = ExecuteIASTests(argc, argv);
     }

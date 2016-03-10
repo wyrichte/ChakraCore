@@ -213,7 +213,7 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
     INJECT_FAULT(Js::FaultInjection::Global.FaultInjectionSelfTest, []()->bool{
         return Js::FaultInjection::Global.FaultInjectionCookie == 12345;
     }, {
-        Output::Print(L"Fault Injected!");
+        Output::Print(_u("Fault Injected!"));
         Output::Flush();
         Js::Throw::OutOfMemory();
     });
@@ -304,7 +304,7 @@ Js::Var DebugObject::EntryGetterDebuggerEnabled(Js::RecyclableObject* function, 
     ARGUMENTS(args, callInfo);
 
     Js::ScriptContext* scriptContext = function->GetScriptContext();
-    return Js::JavascriptBoolean::ToVar(scriptContext->IsInDebugMode(), scriptContext);
+    return Js::JavascriptBoolean::ToVar(scriptContext->IsScriptContextInDebugMode(), scriptContext);
 }
 
 Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments args, bool newLine)
@@ -327,7 +327,7 @@ Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments a
             try
             {
                 Js::JavascriptString *value = Js::JavascriptConversion::ToString(args[i], scriptContext);
-                const wchar_t * str = value->GetSz(); // flatten it before leave script
+                const char16 * str = value->GetSz(); // flatten it before leave script
 
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
@@ -339,7 +339,7 @@ Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments a
             {
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
-                    pda->DebugOutput(L"[error]");
+                    pda->DebugOutput(_u("[error]"));
                 }
                 END_LEAVE_SCRIPT(scriptContext)
             }
@@ -349,7 +349,7 @@ Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments a
         {
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                pda->DebugOutput(L"\n");
+                pda->DebugOutput(_u("\n"));
             }
             END_LEAVE_SCRIPT(scriptContext)
         }
@@ -377,10 +377,10 @@ Js::Var DebugObject::EntryGetWorkingSet(Js::RecyclableObject* function, Js::Call
     }
     Js::DynamicObject* result = library->CreateObject();
 
-    Js::PropertyId workingSetId = scriptContext->GetOrAddPropertyIdTracked(L"workingSet", wcslen(L"workingSet"));
-    Js::PropertyId maxWorkingSetId = scriptContext->GetOrAddPropertyIdTracked(L"maxWorkingSet", wcslen(L"maxWorkingSet"));
-    Js::PropertyId pageFaultId = scriptContext->GetOrAddPropertyIdTracked(L"pageFault", wcslen(L"pageFault"));
-    Js::PropertyId privateUsageId = scriptContext->GetOrAddPropertyIdTracked(L"privateUsage", wcslen(L"privateUsage"));
+    Js::PropertyId workingSetId = scriptContext->GetOrAddPropertyIdTracked(_u("workingSet"), wcslen(_u("workingSet")));
+    Js::PropertyId maxWorkingSetId = scriptContext->GetOrAddPropertyIdTracked(_u("maxWorkingSet"), wcslen(_u("maxWorkingSet")));
+    Js::PropertyId pageFaultId = scriptContext->GetOrAddPropertyIdTracked(_u("pageFault"), wcslen(_u("pageFault")));
+    Js::PropertyId privateUsageId = scriptContext->GetOrAddPropertyIdTracked(_u("privateUsage"), wcslen(_u("privateUsage")));
 
     result->SetProperty(workingSetId, Js::JavascriptNumber::New((double)memoryCounter.WorkingSetSize, scriptContext), Js::PropertyOperation_None, NULL);
     result->SetProperty(maxWorkingSetId, Js::JavascriptNumber::New((double)memoryCounter.PeakWorkingSetSize, scriptContext), Js::PropertyOperation_None, NULL);
@@ -476,15 +476,15 @@ Js::Var DebugObject::EntryGetCurrentSourceInfo(Js::RecyclableObject* function, J
                 scriptContext->GetLibrary()->GetNullString();
 
             Js::JavascriptOperators::SetProperty(obj, obj,
-                scriptContext->GetOrAddPropertyIdTracked(L"url", wcslen(L"url")),
+                scriptContext->GetOrAddPropertyIdTracked(_u("url"), wcslen(_u("url"))),
                 urlVar,
                 scriptContext);
             Js::JavascriptOperators::SetProperty(obj, obj,
-                scriptContext->GetOrAddPropertyIdTracked(L"line", wcslen(L"line")),
+                scriptContext->GetOrAddPropertyIdTracked(_u("line"), wcslen(_u("line"))),
                 Js::JavascriptNumber::ToVar(static_cast<uint32>(line), scriptContext),
                 scriptContext);
             Js::JavascriptOperators::SetProperty(obj, obj,
-                scriptContext->GetOrAddPropertyIdTracked(L"column", wcslen(L"column")),
+                scriptContext->GetOrAddPropertyIdTracked(_u("column"), wcslen(_u("column"))),
                 Js::JavascriptNumber::ToVar(static_cast<uint32>(column), scriptContext),
                 scriptContext);
 
@@ -543,12 +543,12 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
                     Js::DynamicObject* obj = scriptContext->GetLibrary()->CreateObject();
 
                     Js::JavascriptOperators::SetProperty(obj, obj,
-                        scriptContext->GetOrAddPropertyIdTracked(L"line", wcslen(L"line")),
+                        scriptContext->GetOrAddPropertyIdTracked(_u("line"), wcslen(_u("line"))),
                         Js::JavascriptNumber::ToVar(static_cast<uint32>(line), scriptContext),
                         scriptContext);
 
                     Js::JavascriptOperators::SetProperty(obj, obj,
-                        scriptContext->GetOrAddPropertyIdTracked(L"column", wcslen(L"column")),
+                        scriptContext->GetOrAddPropertyIdTracked(_u("column"), wcslen(_u("column"))),
                         Js::JavascriptNumber::ToVar(static_cast<uint32>(column), scriptContext),
                         scriptContext);
 
@@ -637,7 +637,7 @@ Js::Var DebugObject::EntryGetHostInfo(Js::RecyclableObject* function, Js::CallIn
 
     Js::DynamicObject* result = library->CreateObject();
 
-    Js::PropertyId activeSiteCountId = scriptContext->GetOrAddPropertyIdTracked(L"activeSiteCount", wcslen(L"activeSiteCount"));
+    Js::PropertyId activeSiteCountId = scriptContext->GetOrAddPropertyIdTracked(_u("activeSiteCount"), wcslen(_u("activeSiteCount")));
     result->SetProperty(activeSiteCountId, Js::JavascriptNumber::New((double)ThreadContext::GetScriptSiteHolderCount(), scriptContext), Js::PropertyOperation_None, NULL);
 
     Js::ScriptContext* contextList = scriptContext->GetThreadContext()->GetScriptContextList();
@@ -681,7 +681,7 @@ Js::Var DebugObject::EntryGetTypeHandlerName(Js::RecyclableObject* function, Js:
     if (Js::JavascriptOperators::IsObject(args[1]) && Js::RecyclableObject::FromVar(args[1])->GetTypeId() != TypeIds_HostDispatch)
     {
         Js::DynamicObject* obj = Js::DynamicObject::FromVar(args[1]);
-        wchar_t name[256];
+        char16 name[256];
         size_t size;
         if (mbstowcs_s(&size, name, obj->GetDynamicType()->GetTypeHandler()->GetCppName(), _TRUNCATE) != 0)
         {
@@ -692,7 +692,7 @@ Js::Var DebugObject::EntryGetTypeHandlerName(Js::RecyclableObject* function, Js:
     }
     else
     {
-        return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"The argument does not have a type handler");
+        return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("The argument does not have a type handler"));
     }
 }
 
@@ -714,23 +714,23 @@ Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallI
         Js::TypeId typeIdOfObject = Js::JavascriptOperators::GetTypeId(args[1]);
         if (typeIdOfObject == TypeIds_HostDispatch) {
             if (Js::RecyclableObject::FromVar(args[1])->GetRemoteTypeId(&typeIdOfObject) == FALSE)
-                return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"Notarray");
+                return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("Notarray"));
         }
 
         switch (typeIdOfObject)
         {
         case Js::TypeIds_Array:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"var[]");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("var[]"));
             break;
         case Js::TypeIds_NativeIntArray:
         case Js::TypeIds_CopyOnAccessNativeIntArray:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"int[]");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("int[]"));
             break;
         case Js::TypeIds_NativeFloatArray:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"float[]");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("float[]"));
             break;
         case Js::TypeIds_ES5Array:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"ES5[]");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("ES5[]"));
             break;
         case Js::TypeIds_Uint8Array:
         case Js::TypeIds_Int16Array:
@@ -743,16 +743,16 @@ Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallI
         case Js::TypeIds_Uint64Array:
         case Js::TypeIds_CharArray:
         case Js::TypeIds_BoolArray:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"Typed[]");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("Typed[]"));
         default:
-            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"Notarray");
+            return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("Notarray"));
             break;
         }
 
     }
     else
     {
-        return scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"The argument is not a valid object");
+        return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("The argument is not a valid object"));
     }
 }
 
@@ -1020,7 +1020,7 @@ Js::Var DebugObject::EntryGetTypeInfo(Js::RecyclableObject* function, Js::CallIn
             END_LEAVE_SCRIPT(scriptContext);
             if (count != 1)
             {
-                Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_InternalError, L"invalid typeinfo count");
+                Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_InternalError, _u("invalid typeinfo count"));
             }
         }
     }
@@ -1070,9 +1070,9 @@ Js::Var DebugObject::EntryEnable(Js::RecyclableObject* function, Js::CallInfo ca
 
     Js::JavascriptString* featureString = Js::JavascriptConversion::ToString(args.Values[1], scriptContext);
     PCWSTR feature = featureString->GetSz();
-    if (_wcsicmp(feature, L"TestDeferredConstructor") == 0)
+    if (_wcsicmp(feature, _u("TestDeferredConstructor")) == 0)
     {
-        Js::PropertyId nameId = scriptContext->GetOrAddPropertyIdTracked(L"TestDeferredConstructor");
+        Js::PropertyId nameId = scriptContext->GetOrAddPropertyIdTracked(_u("TestDeferredConstructor"));
         Var resultFunc;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {            
@@ -1090,7 +1090,7 @@ Js::Var DebugObject::EntryEnable(Js::RecyclableObject* function, Js::CallInfo ca
         if (SUCCEEDED(hr))
         {
             Js::RecyclableObject::FromVar(args.Values[0])->SetProperty(
-                scriptContext->GetLibrary()->CreateStringFromCppLiteral(L"TestDeferredConstructor"),
+                scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("TestDeferredConstructor")),
                 resultFunc,
                 Js::PropertyOperationFlags::PropertyOperation_None,
                 nullptr);
@@ -1198,7 +1198,7 @@ Js::Var DebugObject::EntryCreateDebugDisposableObject(Js::RecyclableObject* func
 
 #define USING_PROPERTY_RECORD(propertyName)  \
     const Js::PropertyRecord* propertyName##PropertyRecord = NULL; \
-    LPCWSTR propertyName##PropertyName = L"" L#propertyName; \
+    LPCWSTR propertyName##PropertyName = _u("") _u(#propertyName); \
     threadContext->GetOrAddPropertyId(propertyName##PropertyName, (int) Js::JavascriptString::GetBufferLength(propertyName##PropertyName), &propertyName##PropertyRecord);
 
     USING_PROPERTY_RECORD(collectOnDispose);
@@ -1381,11 +1381,11 @@ Js::Var DebugObject::DumpHeap(Js::RecyclableObject* function, Js::CallInfo callI
 }
 #endif
 
-void OutputDump(Js::ScriptContext* scriptContext, const wchar_t *form, ...)
+void OutputDump(Js::ScriptContext* scriptContext, const char16 *form, ...)
 {
     va_list argptr;
     va_start(argptr, form);
-    wchar_t buf[2048];
+    char16 buf[2048];
     _vsnwprintf_s(buf, _countof(buf), _TRUNCATE, form, argptr);
 
     if (s_pda)
@@ -1407,7 +1407,7 @@ HRESULT HeapDumper::IndentBuffer::Append(LPCWSTR appendStr, UINT& prevIndent)
     UINT appendLen = wcslen(appendStr);
     if ((maxIndent - currIndent) < appendLen)
     {        
-        Output::Print(L"*** Error: maxindent exceeded ***\n");
+        Output::Print(_u("*** Error: maxindent exceeded ***\n"));
         return E_FAIL;
     }
     wcscat_s(buffer, maxIndent, appendStr);
@@ -1433,7 +1433,7 @@ void HeapDumper::IndentBuffer::SetIndent(UINT indentAmount)
 
 void HeapDumper::IndentBuffer::Print()
 {
-    Output::Print(L"%s", buffer);
+    Output::Print(_u("%s"), buffer);
 }
 
 ULONG HeapDumper::FindObjectInSnapshot(DWORD_PTR obj)
@@ -1452,13 +1452,13 @@ void HeapDumper::DumpAddress(ULONG objIndex, bool newLine=true)
 {
     if (! dumpArgs.printBaselineComparison)
     {
-        Output::Print(L" index: %u", objIndex);
-        Output::Print(L" id: %u", pSnapshot[objIndex]->objectId);
-        Output::Print(L" address: %p", pSnapshot[objIndex]->objectId);
+        Output::Print(_u(" index: %u"), objIndex);
+        Output::Print(_u(" id: %u"), pSnapshot[objIndex]->objectId);
+        Output::Print(_u(" address: %p"), pSnapshot[objIndex]->objectId);
     }
     if (newLine)
     {
-        Output::Print(L"\n");
+        Output::Print(_u("\n"));
     }
 }
 
@@ -1467,15 +1467,15 @@ HRESULT HeapDumper::DumpSnapshotObject(DWORD_PTR address)
     ULONG objIndex = FindObjectInSnapshot(address);
     if (objIndex == ULONG_MAX)
     {
-        Output::Print(L"*** Error: Object missing from snapshot ***\n");
+        Output::Print(_u("*** Error: Object missing from snapshot ***\n"));
         return E_FAIL;
     }
     PROFILER_HEAP_OBJECT& obj = *pSnapshot[objIndex];
     if ((obj.flags & profilerHeapObjectFlagsDumped) != 0)
     {
-        Output::Print(L" type: %s" , obj.typeNameId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE ? L"unspecified" : GetNameFromId(obj.typeNameId));
+        Output::Print(_u(" type: %s") , obj.typeNameId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE ? _u("unspecified") : GetNameFromId(obj.typeNameId));
         DumpAddress(objIndex, false);
-        Output::Print(L" (seen)\n");
+        Output::Print(_u(" (seen)\n"));
     }
     else
     {
@@ -1489,11 +1489,11 @@ LPCWSTR HeapDumper::GetStringValue(LPCWSTR propertyValue)
 {
     if (!propertyValue)
     {
-        return L"(null)";
+        return _u("(null)");
     }
     else if (wcslen(propertyValue) == 0)
     {
-        return L"(empty string)";
+        return _u("(empty string)");
     }
     else if (this->dumpArgs.trimDirectoryNameFromFullPath)
     {
@@ -1521,18 +1521,18 @@ HRESULT HeapDumper::DumpProperty(PROFILER_HEAP_OBJECT_RELATIONSHIP& elem)
         case PROFILER_PROPERTY_TYPE_HEAP_OBJECT:
         case PROFILER_PROPERTY_TYPE_EXTERNAL_OBJECT:
         {
-            IfFailGo(IndentBuffer::Append(L"  ", prevIndent));
+            IfFailGo(IndentBuffer::Append(_u("  "), prevIndent));
             IfFailGo(DumpSnapshotObject(elem.objectId));
             break;
         }
         case PROFILER_PROPERTY_TYPE_NUMBER:
         {
-            Output::Print(L" value: %f\n", elem.numberValue);
+            Output::Print(_u(" value: %f\n"), elem.numberValue);
             break;
         }
         case PROFILER_PROPERTY_TYPE_STRING:
         {
-            Output::Print(L" value: %.200s\n", GetStringValue(elem.stringValue));
+            Output::Print(_u(" value: %.200s\n"), GetStringValue(elem.stringValue));
             break;
         }
         case PROFILER_PROPERTY_TYPE_SUBSTRING:
@@ -1544,7 +1544,7 @@ HRESULT HeapDumper::DumpProperty(PROFILER_HEAP_OBJECT_RELATIONSHIP& elem)
                 {
                     return E_OUTOFMEMORY;
                 }
-                Output::Print(L" value: %.200s\n", GetStringValue(bstrStringValue));
+                Output::Print(_u(" value: %.200s\n"), GetStringValue(bstrStringValue));
                 SysFreeString(bstrStringValue);
             }
             else 
@@ -1556,13 +1556,13 @@ HRESULT HeapDumper::DumpProperty(PROFILER_HEAP_OBJECT_RELATIONSHIP& elem)
         case PROFILER_PROPERTY_TYPE_BSTR:
         {
             // length of string must be shorter than buffer length in Output::Print()
-            Output::Print(L" value: %.2000s\n", GetStringValue(elem.bstrValue));
+            Output::Print(_u(" value: %.2000s\n"), GetStringValue(elem.bstrValue));
             break;
         }
         default:
         {
             IndentBuffer::Print();
-            Output::Print(L"*** Error: Unexpected property type ***\n");
+            Output::Print(_u("*** Error: Unexpected property type ***\n"));
             return E_FAIL;
         }
 
@@ -1580,15 +1580,15 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
 {
     PROFILER_HEAP_OBJECT& obj = *pSnapshot[objIndex];
     HRESULT hr = S_OK;
-    Output::Print(L" type: %s" , obj.typeNameId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE ? L"unspecified" : GetNameFromId(obj.typeNameId));
-    Output::Print(L" flags: (");
+    Output::Print(_u(" type: %s") , obj.typeNameId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE ? _u("unspecified") : GetNameFromId(obj.typeNameId));
+    Output::Print(_u(" flags: ("));
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_NEW_STATE_UNAVAILABLE)
     {
-        Output::Print(L"new_state_unavailable");
+        Output::Print(_u("new_state_unavailable"));
     }
     else
     {
-        Output::Print(L"%s", (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT) == 0 ? L"old" : L"new");
+        Output::Print(_u("%s"), (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT) == 0 ? _u("old") : _u("new"));
     }
 #ifdef HEAP_ENUMERATION_VALIDATION
     // If change this, must also update ActiveScriptProfilerHeapEnum::PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_OBJECT
@@ -1596,66 +1596,66 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
     ULONG PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_OBJECT_USER = 0x10000000;
     if (obj.flags & PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_OBJECT_LIBRARY)
     {
-        Output::Print(L" *** unreported library object ***");
+        Output::Print(_u(" *** unreported library object ***"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_OBJECT_USER)
     {
-        Output::Print(L" *** unreported user object ***");
+        Output::Print(_u(" *** unreported user object ***"));
     }
 #endif
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT)
     {
-        Output::Print(L" root");
+        Output::Print(_u(" root"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED)
     {
-        Output::Print(L" closed");
+        Output::Print(_u(" closed"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_WINRT_INSTANCE)
     {
-        Output::Print(L" WinRT_Instance");
+        Output::Print(_u(" WinRT_Instance"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_WINRT_RUNTIMECLASS)
     {
-        Output::Print(L" WinRT_RuntimeClass");
+        Output::Print(_u(" WinRT_RuntimeClass"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_WINRT_DELEGATE)
     {
-        Output::Print(L" WinRT_Delegate");
+        Output::Print(_u(" WinRT_Delegate"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_WINRT_NAMESPACE)
     {
-        Output::Print(L" WinRT_Namespace");
+        Output::Print(_u(" WinRT_Namespace"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_EXTERNAL)
     {
-        Output::Print(L" external");
+        Output::Print(_u(" external"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_EXTERNAL_UNKNOWN)
     {
-        Output::Print(L" external_unknown");
+        Output::Print(_u(" external_unknown"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_EXTERNAL_DISPATCH)
     {
-        Output::Print(L" external_dispatch");
+        Output::Print(_u(" external_dispatch"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_SIZE_APPROXIMATE)
     {
-        Output::Print(L" size_approximate");
+        Output::Print(_u(" size_approximate"));
     }
     if (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_SIZE_UNAVAILABLE)
     {
-        Output::Print(L" size_unavailable");
+        Output::Print(_u(" size_unavailable"));
     }
-    Output::Print(L")");
+    Output::Print(_u(")"));
     DumpAddress(objIndex, false);
     if (! dumpArgs.printBaselineComparison)
     {
-        Output::Print(L" size: %u", obj.size);
+        Output::Print(_u(" size: %u"), obj.size);
     }
-    Output::Print(L" optional info records (%u)\n", obj.optionalInfoCount);
+    Output::Print(_u(" optional info records (%u)\n"), obj.optionalInfoCount);
     UINT prevIndent = UINT_MAX;
-    IfFailGo(IndentBuffer::Append(L"  ", prevIndent));
+    IfFailGo(IndentBuffer::Append(_u("  "), prevIndent));
     UINT currIndent = IndentBuffer::CurrentIndent();
 
     if (currIndent <= dumpArgs.maxDumpIndent)
@@ -1672,32 +1672,32 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
             {
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY:
                 {
-                    Output::Print(L"[Internal property]");
-                    IfFailGo(IndentBuffer::Append(L"|"));
+                    Output::Print(_u("[Internal property]"));
+                    IfFailGo(IndentBuffer::Append(_u("|")));
                     IfFailGo(DumpProperty(*(optionalInfo->internalProperty)));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_PROTOTYPE:
                 {
-                    Output::Print(L"[Prototype]");
-                    IfFailGo(IndentBuffer::Append(L"|"));
+                    Output::Print(_u("[Prototype]"));
+                    IfFailGo(IndentBuffer::Append(_u("|")));
                     IfFailGo(DumpSnapshotObject(optionalInfo->prototype));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_FUNCTION_NAME:
                 {
-                    Output::Print(L"[Function name] %s\n", optionalInfo->functionName);
+                    Output::Print(_u("[Function name] %s\n"), optionalInfo->functionName);
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SCOPE_LIST:
                 {
                     PROFILER_HEAP_OBJECT_SCOPE_LIST& scopeList = *optionalInfo->scopeList;
-                    Output::Print(L"[Scopes] count: %u\n", scopeList.count);
-                    IfFailGo(IndentBuffer::Append(L"|"));
+                    Output::Print(_u("[Scopes] count: %u\n"), scopeList.count);
+                    IfFailGo(IndentBuffer::Append(_u("|")));
                     for (UINT k = 0; k < scopeList.count; k++)
                     {
                         IndentBuffer::Print();
-                        Output::Print(L" scope[%u]:", k);
+                        Output::Print(_u(" scope[%u]:"), k);
                         IfFailGo(DumpSnapshotObject(scopeList.scopes[k]));
                     }
                     break;
@@ -1705,58 +1705,58 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_NAME_PROPERTIES:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& properties = *optionalInfo->namePropertyList;
-                    Output::Print(L"[Properties] count: %u\n", properties.count);
+                    Output::Print(_u("[Properties] count: %u\n"), properties.count);
                     IfFailGo(DumpRelationshipList(properties, /*isIndexPropertyList*/ false, /*includeId*/!dumpArgs.printBaselineComparison));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INDEX_PROPERTIES:
                 {
                     _PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& arrayElements = *optionalInfo->indexPropertyList;
-                    Output::Print(L"[Array elements] count: %u\n", arrayElements.count);
+                    Output::Print(_u("[Array elements] count: %u\n"), arrayElements.count);
                     IfFailGo(DumpRelationshipList(arrayElements, /*isIndexPropertyList*/ true, /*includeId*/false));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_RELATIONSHIPS:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& relationships = *optionalInfo->relationshipList;
-                    Output::Print(L"[Relationships] count: %u\n", relationships.count);
+                    Output::Print(_u("[Relationships] count: %u\n"), relationships.count);
                     IfFailGo(DumpRelationshipList(relationships, /*isIndexPropertyList*/ false, /*includeId*/!dumpArgs.printBaselineComparison));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_ATTRIBUTES_SIZE:
                 {
-                    Output::Print(L"[Element attributes size] %u\n", optionalInfo->elementAttributesSize);
+                    Output::Print(_u("[Element attributes size] %u\n"), optionalInfo->elementAttributesSize);
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_ELEMENT_TEXT_CHILDREN_SIZE:
                 {
-                    Output::Print(L"[Element text children size] %u\n", optionalInfo->elementTextChildrenSize);
+                    Output::Print(_u("[Element text children size] %u\n"), optionalInfo->elementTextChildrenSize);
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WINRTEVENTS:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& events = *optionalInfo->eventList;
-                    Output::Print(L"[Events] count: %u\n", events.count);
+                    Output::Print(_u("[Events] count: %u\n"), events.count);
                     IfFailGo(DumpRelationshipList(events, /*isIndexPropertyList*/ false, /*includeId*/!dumpArgs.printBaselineComparison));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_MAP_COLLECTION_LIST:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list = *optionalInfo->mapCollectionList;
-                    Output::Print(L"[Map key-value pairs] count: %u\n", list.count);
+                    Output::Print(_u("[Map key-value pairs] count: %u\n"), list.count);
                     IfFailGo(DumpCollectionList(list));
                     break;
                 }
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SET_COLLECTION_LIST:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list = *optionalInfo->setCollectionList;
-                    if (wcscmp(L"WeakSetObject", GetNameFromId(obj.typeNameId)) == 0)
+                    if (wcscmp(_u("WeakSetObject"), GetNameFromId(obj.typeNameId)) == 0)
                     {
-                        Output::Print(L"[WeakSet values] count: %u \n", list.count);
+                        Output::Print(_u("[WeakSet values] count: %u \n"), list.count);
                     }
                     else
                     {
-                        Output::Print(L"[Set values] count: %u\n", list.count);
+                        Output::Print(_u("[Set values] count: %u\n"), list.count);
                     }
                     IfFailGo(DumpCollectionList(list));
                     break;
@@ -1764,7 +1764,7 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
                 case PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WEAKMAP_COLLECTION_LIST:
                 {
                     PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list = *optionalInfo->weakMapCollectionList;
-                    Output::Print(L"[WeakMap key-value pairs] count: %u\n", list.count);
+                    Output::Print(_u("[WeakMap key-value pairs] count: %u\n"), list.count);
                     IfFailGo(DumpCollectionList(list));
                     break;
                 }
@@ -1772,7 +1772,7 @@ HRESULT HeapDumper::DumpObjectInfo(ULONG objIndex)
                 {
                     Assert(false);
                     IndentBuffer::Print();
-                    Output::Print(L"*** Error: Unexpected optional info type ***\n");
+                    Output::Print(_u("*** Error: Unexpected optional info type ***\n"));
                     return E_FAIL;
                 }
             } // end switch
@@ -1789,30 +1789,30 @@ Error:
 HRESULT HeapDumper::DumpRelationshipList(PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list, bool isIndexPropertyList, bool includeId)
 {
     HRESULT hr = S_OK;
-    IfFailGo(IndentBuffer::Append(L"|"));
+    IfFailGo(IndentBuffer::Append(_u("|")));
     for (UINT k = 0; k < list.count; k++)
     {
         PROFILER_HEAP_OBJECT_RELATIONSHIP& elem = list.elements[k];
         IndentBuffer::Print();
         if (elem.relationshipId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE)
         {
-            Output::Print(L" [ID unavailable]:");
+            Output::Print(_u(" [ID unavailable]:"));
         }
         else
         {
             if (isIndexPropertyList)
             {
-                Output::Print(L" %u:", elem.relationshipId);
+                Output::Print(_u(" %u:"), elem.relationshipId);
             }
             else
             {
-                Output::Print(L" %u %s:", k, GetNameFromId(elem.relationshipId));
+                Output::Print(_u(" %u %s:"), k, GetNameFromId(elem.relationshipId));
 
                 DumpRelationshipFlags(elem);
 
                 if (includeId)
                 {
-                    Output::Print(L" pid: %u ", elem.relationshipId);
+                    Output::Print(_u(" pid: %u "), elem.relationshipId);
                 }
             }
         }
@@ -1825,13 +1825,13 @@ Error:
 HRESULT HeapDumper::DumpCollectionList(PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list)
 {
     HRESULT hr = S_OK;
-    IfFailGo(IndentBuffer::Append(L"|"));
+    IfFailGo(IndentBuffer::Append(_u("|")));
     for (UINT k = 0; k < list.count; k++)
     {
         PROFILER_HEAP_OBJECT_RELATIONSHIP& elem = list.elements[k];
         Assert(elem.relationshipId == PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE);
         IndentBuffer::Print();
-        Output::Print(L" %u:", k);
+        Output::Print(_u(" %u:"), k);
         DumpProperty(elem);
     }
 Error:
@@ -1845,34 +1845,34 @@ void HeapDumper::DumpRelationshipFlags(PROFILER_HEAP_OBJECT_RELATIONSHIP& relati
         return;
     }
 
-    Output::Print(L" rsFlags:");
+    Output::Print(_u(" rsFlags:"));
 
     bool wasDumped = false;
     if (ActiveScriptProfilerHeapEnum::IsRelationshipFlagSet(relationship, PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_GET_ACCESSOR))
     {
-        Output::Print(L" getter");
+        Output::Print(_u(" getter"));
         wasDumped = true;
     }
     if (ActiveScriptProfilerHeapEnum::IsRelationshipFlagSet(relationship, PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_SET_ACCESSOR))
     {
-        Output::Print(L" setter");
+        Output::Print(_u(" setter"));
         wasDumped = true;
     }
     if (ActiveScriptProfilerHeapEnum::IsRelationshipFlagSet(relationship, PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_LET_VARIABLE))
     {
-        Output::Print(L" let");
+        Output::Print(_u(" let"));
         wasDumped = true;
     }
     if (ActiveScriptProfilerHeapEnum::IsRelationshipFlagSet(relationship, PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_CONST_VARIABLE))
     {
-        Output::Print(L" const");
+        Output::Print(_u(" const"));
         wasDumped = true;
     }
 
     AssertMsg(wasDumped, "Unhandled PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS encountered.  Update DumpRelationshipFlags().");
     if (!wasDumped)
     {
-        Output::Print(L" ** Error ***: unknown relationship flag");
+        Output::Print(_u(" ** Error ***: unknown relationship flag"));
     }
 }
 
@@ -1880,23 +1880,23 @@ LPCWSTR HeapDumper::GetNameFromId(PROFILER_HEAP_OBJECT_NAME_ID nameId)
 {
     if (nameId > maxPropertyId)
     {
-        return L"** Error ***: invalid nameId";
+        return _u("** Error ***: invalid nameId");
     }
     if (nameId == 0)
     {
-        return L"** Error ***: property ID is 0";
+        return _u("** Error ***: property ID is 0");
     }		  
     if (nameId == Js::PropertyIds::_lexicalThisSlotSymbol)
     {
-        return L"this";
+        return _u("this");
     }
     if (nameId == Js::PropertyIds::_superReferenceSymbol || nameId == Js::PropertyIds::_superCtorReferenceSymbol)
     {
-        return L"super";
+        return _u("super");
     }
     if (nameId == Js::PropertyIds::_lexicalNewTargetSymbol)
     {
-        return L"new.target";
+        return _u("new.target");
     }
     return pPropertyIdMap[nameId];
 }
@@ -1919,24 +1919,24 @@ Js::Var HeapDumper::DumpHeap()
 
 #ifdef ENABLE_TEST_HOOKS
     // mshtmlhost support to avoid allocation at enumeration time.
-    scriptContext->GetOrAddPropertyIdTracked(L"dummyFastDomVar", wcslen(L"dummyFastDomVar"));
-    scriptContext->GetOrAddPropertyIdTracked(L"DOMObject", wcslen(L"DOMObject"));
+    scriptContext->GetOrAddPropertyIdTracked(_u("dummyFastDomVar"), wcslen(_u("dummyFastDomVar")));
+    scriptContext->GetOrAddPropertyIdTracked(_u("DOMObject"), wcslen(_u("DOMObject")));
 #endif
 
-    Js::PropertyId typePid = scriptContext->GetOrAddPropertyIdTracked(L"type", wcslen(L"type"));
-    Js::PropertyId sizePid = scriptContext->GetOrAddPropertyIdTracked(L"size", wcslen(L"size"));
-    Js::PropertyId newPid = scriptContext->GetOrAddPropertyIdTracked(L"new", wcslen(L"new"));    
-    Js::PropertyId objectIdPid = scriptContext->GetOrAddPropertyIdTracked(L"id", wcslen(L"id"));
-    Js::PropertyId objectPid = scriptContext->GetOrAddPropertyIdTracked(L"object", wcslen(L"object"));
+    Js::PropertyId typePid = scriptContext->GetOrAddPropertyIdTracked(_u("type"), wcslen(_u("type")));
+    Js::PropertyId sizePid = scriptContext->GetOrAddPropertyIdTracked(_u("size"), wcslen(_u("size")));
+    Js::PropertyId newPid = scriptContext->GetOrAddPropertyIdTracked(_u("new"), wcslen(_u("new")));    
+    Js::PropertyId objectIdPid = scriptContext->GetOrAddPropertyIdTracked(_u("id"), wcslen(_u("id")));
+    Js::PropertyId objectPid = scriptContext->GetOrAddPropertyIdTracked(_u("object"), wcslen(_u("object")));
 
-    scriptContext->GetOrAddPropertyIdTracked(L"pinned", wcslen(L"pinned"));
-    scriptContext->GetOrAddPropertyIdTracked(L"sub object", wcslen(L"sub object"));
+    scriptContext->GetOrAddPropertyIdTracked(_u("pinned"), wcslen(_u("pinned")));
+    scriptContext->GetOrAddPropertyIdTracked(_u("sub object"), wcslen(_u("sub object")));
 
     BEGIN_LEAVE_SCRIPT(scriptContext);
     hr = scriptEngine.EnumHeap2(dumpArgs.enumFlags, &pEnum);
     if (hr != S_OK)
     {
-        OutputDump(scriptContext, L"[error : DumpHeap failed on EnumHeap]\n");
+        OutputDump(scriptContext, _u("[error : DumpHeap failed on EnumHeap]\n"));
         goto Error;
     }
 
@@ -1947,7 +1947,7 @@ Js::Var HeapDumper::DumpHeap()
     pSnapshot = (PROFILER_HEAP_OBJECT**)malloc(sizeof(PROFILER_HEAP_OBJECT*));
     if (! pSnapshot)
     {
-        OutputDump(scriptContext, L"[error : DumpHeap failed on malloc]\n");
+        OutputDump(scriptContext, _u("[error : DumpHeap failed on malloc]\n"));
         goto Error;
     }
     
@@ -1958,7 +1958,7 @@ Js::Var HeapDumper::DumpHeap()
         void* newSnapshot = realloc(pSnapshot, sizeof(PROFILER_HEAP_OBJECT*) * (numSnapshotElements + numFetched));
         if (! newSnapshot)
         {
-            OutputDump(scriptContext, L"[error : DumpHeap failed on malloc]\n");
+            OutputDump(scriptContext, _u("[error : DumpHeap failed on malloc]\n"));
             goto Error;
         }
         pSnapshot = (PROFILER_HEAP_OBJECT**)newSnapshot;
@@ -1974,7 +1974,7 @@ Js::Var HeapDumper::DumpHeap()
     }
     if (FAILED(hr))
     {
-        OutputDump(scriptContext, L"[error : DumpHeap failed on Next()]\n");
+        OutputDump(scriptContext, _u("[error : DumpHeap failed on Next()]\n"));
         goto Error;
     }
     END_LEAVE_SCRIPT(scriptContext);
@@ -1986,11 +1986,11 @@ Js::Var HeapDumper::DumpHeap()
     }
     if (dumpArgs.printHeapEnum)
     {
-        Output::Print(L"\n\n===========>Starting Heap Dump for %s<===============\n", 
-            dumpArgs.objectToDump ? L"specific object" :
-            dumpArgs.dumpType==HeapDumperDumpNew ? L"new objects only" : 
-            dumpArgs.dumpType==HeapDumperDumpOld ? L"old objects only" : 
-            L"all objects");
+        Output::Print(_u("\n\n===========>Starting Heap Dump for %s<===============\n"), 
+            dumpArgs.objectToDump ? _u("specific object") :
+            dumpArgs.dumpType==HeapDumperDumpNew ? _u("new objects only") : 
+            dumpArgs.dumpType==HeapDumperDumpOld ? _u("old objects only") : 
+            _u("all objects"));
     }
     ULONG elemCount = 0;
     for (ULONG i=0; i < numSnapshotElements; i++)
@@ -2018,12 +2018,12 @@ Js::Var HeapDumper::DumpHeap()
         {
             Js::DynamicObject* element = library->CreateObject();
 
-            Js::PropertyId rootPid = scriptContext->GetOrAddPropertyIdTracked(L"root", wcslen(L"root"));            
-            Js::PropertyId externalAddressPid = scriptContext->GetOrAddPropertyIdTracked(L"externalAddress", wcslen(L"externalAddress"));            
-            Js::PropertyId winrtInstancePid = scriptContext->GetOrAddPropertyIdTracked(L"winrtInstance", wcslen(L"winrtInstance"));
-            Js::PropertyId winrtRuntimeClassPid = scriptContext->GetOrAddPropertyIdTracked(L"winrtRuntimeClass", wcslen(L"winrtRuntimeClass"));
-            Js::PropertyId winrtDelegatePid = scriptContext->GetOrAddPropertyIdTracked(L"winrtDelegate", wcslen(L"winrtDelegate"));
-            Js::PropertyId winrtNamespacePid = scriptContext->GetOrAddPropertyIdTracked(L"winrtNamespace", wcslen(L"winrtNamespace"));
+            Js::PropertyId rootPid = scriptContext->GetOrAddPropertyIdTracked(_u("root"), wcslen(_u("root")));            
+            Js::PropertyId externalAddressPid = scriptContext->GetOrAddPropertyIdTracked(_u("externalAddress"), wcslen(_u("externalAddress")));            
+            Js::PropertyId winrtInstancePid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtInstance"), wcslen(_u("winrtInstance")));
+            Js::PropertyId winrtRuntimeClassPid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtRuntimeClass"), wcslen(_u("winrtRuntimeClass")));
+            Js::PropertyId winrtDelegatePid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtDelegate"), wcslen(_u("winrtDelegate")));
+            Js::PropertyId winrtNamespacePid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtNamespace"), wcslen(_u("winrtNamespace")));
 
             if (obj.typeNameId != PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE)
             {
@@ -2052,9 +2052,9 @@ Js::Var HeapDumper::DumpHeap()
         }
         if (dumpArgs.printHeapEnum && (obj.flags & profilerHeapObjectFlagsDumped) == 0)
         {
-            Output::Print(L"\n");
+            Output::Print(_u("\n"));
             IndentBuffer::SetIndent(0);
-            IndentBuffer::Append(L" |");
+            IndentBuffer::Append(_u(" |"));
             DumpSnapshotObject(obj.objectId);
         }
         if (dumpArgs.objectToDump != NULL)
@@ -2065,7 +2065,7 @@ Js::Var HeapDumper::DumpHeap()
     }
     if (dumpArgs.printHeapEnum)
     {
-        Output::Print(L"\n==========>End Heap Dump<===============\n\n\n");
+        Output::Print(_u("\n==========>End Heap Dump<===============\n\n\n"));
         Output::Flush();
     }
 

@@ -72,7 +72,7 @@ STDMETHODIMP ScriptProfiler::Initialize(DWORD dwContext)
     m_fProfileOn = true;
     if (HostConfigFlags::flags.LogProfilerVerbose)
     {
-        wprintf(L"Script Profiler starts\n");
+        wprintf(_u("Script Profiler starts\n"));
     }    
 
     return S_OK;
@@ -92,7 +92,7 @@ STDMETHODIMP ScriptProfiler::Shutdown(HRESULT /* hrReason */)
 
     if (HostConfigFlags::flags.LogProfilerVerbose)
     {
-        wprintf(L"Script Profiler ends\n");
+        wprintf(_u("Script Profiler ends\n"));
     }
     return S_OK;
 }
@@ -119,7 +119,7 @@ STDMETHODIMP ScriptProfiler::ScriptCompiled(
     auto mapItem = m_scriptMetaDataList.find(id);
     if (mapItem != m_scriptMetaDataList.end()) 
     {
-        wprintf(L"ERROR : Script compiled already sent for the id : %d\n", id);
+        wprintf(_u("ERROR : Script compiled already sent for the id : %d\n"), id);
         return E_FAIL;
     }
 
@@ -149,7 +149,7 @@ STDMETHODIMP ScriptProfiler::FunctionCompiled(
     auto mapItem = m_scriptMetaDataList.find(scriptId);
     if (mapItem == m_scriptMetaDataList.end()) 
     {
-        wprintf(L"ERROR : Script ID (%d) not found\n", scriptId);
+        wprintf(_u("ERROR : Script ID (%d) not found\n"), scriptId);
         return E_FAIL;
     }
 
@@ -158,13 +158,13 @@ STDMETHODIMP ScriptProfiler::FunctionCompiled(
     std::map<PROFILER_TOKEN, std::wstring> *functionsList = &mapItem->second->listOffunctions;
     if (functionsList->find(functionId) != functionsList->end())
     {
-        wprintf(L"ERROR : Function compiled already sent for function id %d\n", functionId);
+        wprintf(_u("ERROR : Function compiled already sent for function id %d\n"), functionId);
         return E_FAIL;
     }
 
     if (pwszFunctionName == NULL && pwszFunctionNameHint == NULL)
     {
-        wprintf(L"ERROR : No function name passed for function id %d\n", functionId);
+        wprintf(_u("ERROR : No function name passed for function id %d\n"), functionId);
         return E_FAIL;
     }
 
@@ -211,7 +211,7 @@ STDMETHODIMP ScriptProfiler::FunctionCompiled(
                         WCHAR buffer[512];
 
                         // Line/column indexes are 0-based.
-                        swprintf_s(buffer, L"[FunctionCompiled]: Function: %s, Line: %d, Column: %d, Character Position: %d\n", pwszFunctionName, line + 1, column + 1, characterPosition);
+                        swprintf_s(buffer, _u("[FunctionCompiled]: Function: %s, Line: %d, Column: %d, Character Position: %d\n"), pwszFunctionName, line + 1, column + 1, characterPosition);
                         m_functionCompiledLog.push_back(buffer);
                     }
                 }
@@ -262,7 +262,7 @@ STDMETHODIMP ScriptProfiler::OnFunctionExit(PROFILER_TOKEN scriptId, PROFILER_TO
         if (m_functionCallStack.empty()
             || m_functionCallStack.top() != FunctionCallInfo(scriptId, functionId))
         {
-            wprintf(L"ERROR : Function Exit event without Enter event\n");
+            wprintf(_u("ERROR : Function Exit event without Enter event\n"));
             return E_FAIL;
         }
         m_functionCallStack.pop();
@@ -287,7 +287,7 @@ STDMETHODIMP ScriptProfiler::OnFunctionExitByName(const WCHAR *pwszFunctionName,
         if (m_functionCallStack.empty()
             || m_functionCallStack.top() != FunctionCallInfo(pwszFunctionName, type))
         {
-            wprintf(L"ERROR : Function Exit event without Enter event\n");
+            wprintf(_u("ERROR : Function Exit event without Enter event\n"));
             return E_FAIL;
         }
         m_functionCallStack.pop();
@@ -300,16 +300,16 @@ const WCHAR* ScriptProfiler::GetFunctionName(PROFILER_TOKEN scriptId, PROFILER_T
     auto scriptIter = m_scriptMetaDataList.find(scriptId);
     if (scriptIter == m_scriptMetaDataList.end())
     {
-        wprintf(L"ERROR : Script ID (%d) not found\n", scriptId);
-        return L"";
+        wprintf(_u("ERROR : Script ID (%d) not found\n"), scriptId);
+        return _u("");
     }
 
     const std::map<PROFILER_TOKEN, std::wstring>& functionsList = scriptIter->second->listOffunctions;
     auto functionIter = functionsList.find(functionId);
     if (functionIter == functionsList.end())
     {
-        wprintf(L"ERROR : No compile even found for function %d\n", functionId);
-        return L"";
+        wprintf(_u("ERROR : No compile even found for function %d\n"), functionId);
+        return _u("");
     }
 
     return functionIter->second.c_str();
@@ -375,8 +375,8 @@ void ScriptProfiler::CheckFunctionEnter()
     if (HostConfigFlags::flags.LogProfilerCallTree)
     {
         WCHAR fmt[64], buf[256];
-        StringCchPrintf(fmt, _countof(fmt), L"%%%ds%%s\n", 2 * static_cast<int>(m_functionCallStack.size()));
-        StringCchPrintf(buf, _countof(buf), fmt, L"", functionName);
+        StringCchPrintf(fmt, _countof(fmt), _u("%%%ds%%s\n"), 2 * static_cast<int>(m_functionCallStack.size()));
+        StringCchPrintf(buf, _countof(buf), fmt, _u(""), functionName);
         m_logs.push_back(buf);
     }
 }
@@ -385,12 +385,12 @@ void ScriptProfiler::ValidateEvents()
 {
     if (!m_functionCallStack.empty())
     {
-        wprintf(L"ERROR : Missing %d function exit events!\n", static_cast<int>(m_functionCallStack.size()));
+        wprintf(_u("ERROR : Missing %d function exit events!\n"), static_cast<int>(m_functionCallStack.size()));
     }
 
     if (!m_functionCompiledLog.empty())
     {
-        wprintf(L"Dumping sorted function compiled events\n");
+        wprintf(_u("Dumping sorted function compiled events\n"));
         m_functionCompiledLog.sort();
         for (auto iter = m_functionCompiledLog.begin(); iter != m_functionCompiledLog.end(); ++iter)
         {
@@ -406,7 +406,7 @@ void ScriptProfiler::ValidateEvents()
 
     if (HostConfigFlags::flags.LogProfilerVerbose)
     {
-        wprintf(L"Passed: Validation\n");
+        wprintf(_u("Passed: Validation\n"));
     }
 }
 

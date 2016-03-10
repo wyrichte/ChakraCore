@@ -46,8 +46,8 @@ public:
     if (FAILED(_hr_)) \
     { \
         m_fLastTestCaseFailed = true; \
-        wprintf(L"Error 0x%X: %s\n", _hr_, L## #e); \
-        wprintf(L"Function %s at %s, line %d\n", __FUNCTIONW__, __FILEW__, __LINE__); \
+        wprintf(_u("Error 0x%X: %s\n"), _hr_, _u(#e)); \
+        wprintf(_u("Function %s at %s, line %d\n"), __FUNCTIONW__, __FILEW__, __LINE__); \
         __debugbreak(); \
         return; \
     } \

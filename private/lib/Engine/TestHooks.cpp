@@ -87,8 +87,8 @@ LPWSTR __stdcall GetSystemStringFromHr(HRESULT hr)
 {
     LPWSTR returnStr = NULL;
 
-    DWORD_PTR pArgs[] = { (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", 
-        (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"" };
+    DWORD_PTR pArgs[] = { (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), 
+        (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u("") };
 
     if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | 
         FORMAT_MESSAGE_ARGUMENT_ARRAY | 
@@ -155,14 +155,14 @@ void __stdcall DisplayMemStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-void __stdcall ClearTimeZoneCalendars()
+void __stdcall ResetTimeZoneFactoryObjects()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
     if (!threadContext)
     {
         return;
     }
-    threadContext->GetWindowsGlobalizationAdapter()->ClearTimeZoneCalendars();
+    threadContext->GetWindowsGlobalizationAdapter()->ResetTimeZoneFactoryObjects();
 }
 #endif
 
@@ -176,19 +176,19 @@ BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect)
 void PreInitializePropertyIds(IActiveScriptDirect* scriptDirect)
 {
     static const LPWSTR WinRTHeapEnumPropertyNames[] = {
-        L"size",
-        L"new",
-        L"pinned",
-        L"object",
-        L"type",
-        L"gcPressure",
-        L"winrtType",
-        L"Instance",
-        L"RuntimeClass",
-        L"nativePtr",
-        L"eventCount",
-        L"eventNames",
-        L"eventHandlers" };
+        _u("size"),
+        _u("new"),
+        _u("pinned"),
+        _u("object"),
+        _u("type"),
+        _u("gcPressure"),
+        _u("winrtType"),
+        _u("Instance"),
+        _u("RuntimeClass"),
+        _u("nativePtr"),
+        _u("eventCount"),
+        _u("eventNames"),
+        _u("eventHandlers") };
     PropertyId propertyId;
     HRESULT hr = NOERROR;
     for (uint i = 0; i < _countof(WinRTHeapEnumPropertyNames) && SUCCEEDED(hr); i++)
@@ -458,7 +458,7 @@ HRESULT OnJScript9Loaded()
         DisplayMemStats,
         FlushOutput,
 #ifdef ENABLE_INTL_OBJECT
-        ClearTimeZoneCalendars,
+        ResetTimeZoneFactoryObjects,
 #endif
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,

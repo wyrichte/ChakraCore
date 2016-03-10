@@ -446,6 +446,8 @@ public:
         /* [in] */ ModuleHostInfoKind moduleHostState,
         /* [out] */ __RPC__deref_out_opt void **hostInfo) override;
 
+    HRESULT STDMETHODCALLTYPE CreateScriptErrorFromVar(Var errorObject, IActiveScriptError** scriptError) override;
+
     HRESULT VerifyOnEntry(BOOL allowedInHeapEnum = FALSE);
 
     HRESULT CreateTypeFromScript(

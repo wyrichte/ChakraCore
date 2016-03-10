@@ -66,6 +66,7 @@
                 "create": "<large string>",
                 "defineProperties": "<large string>",
                 "defineProperty": "<large string>",
+                "entries": "<large string>",
                 "freeze": "<large string>",
                 "getOwnPropertyDescriptor": "<large string>",
                 "getOwnPropertyNames": "<large string>",
@@ -78,7 +79,8 @@
                 "keys": "<large string>",
                 "preventExtensions": "<large string>",
                 "seal": "<large string>",
-                "setPrototypeOf": "<large string>"
+                "setPrototypeOf": "<large string>",
+                "values": "<large string>"
               },
               "__proto__": {
                 "[Methods]": "{...}",

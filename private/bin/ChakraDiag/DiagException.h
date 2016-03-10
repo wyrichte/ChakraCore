@@ -26,8 +26,8 @@ namespace JsDiag
         __declspec(noreturn) static void Throw(HRESULT hr, DiagErrorCode errorCode = DiagErrorCode::NONE)
         {
 #if defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-            wchar_t buffer[16];
-            DWORD count = GetEnvironmentVariableW(L"DiagDebug", buffer, _countof(buffer));
+            char16 buffer[16];
+            DWORD count = GetEnvironmentVariableW(_u("DiagDebug"), buffer, _countof(buffer));
             if (count > 0)
             {
                 int debugbreak = _wtoi(buffer);

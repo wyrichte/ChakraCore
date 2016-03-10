@@ -9,7 +9,7 @@
 
 #include "stdafx.h"
 
-#define METADATA_FILE_EXTENSION L".winmd"
+#define METADATA_FILE_EXTENSION _u(".winmd")
 
 static const UINT32 MAX_TYPE_NAME = 512;
 
@@ -32,7 +32,7 @@ HRESULT ActiveScriptDirectHost::ValidateNameFormat(__in const HSTRING hstrFullNa
         {
             pszFullName = m_WinRTStringLibrary.WindowsGetStringRawBuffer(hstrFullName, &cFullName);
 
-            wchar_t *pszLastDot = wcsrchr(pszFullName, L'.');
+            char16 *pszLastDot = wcsrchr(pszFullName, _u('.'));
             if (pszLastDot != nullptr)
             {
                 const size_t cTypeName = wcslen(pszLastDot) - 1;
@@ -93,7 +93,7 @@ HRESULT ActiveScriptDirectHost::FindTypeInMetaDataFile(
     if (SUCCEEDED(hr))
     {
         const size_t cFullName = wcslen(pszFullName);
-        wchar_t pszRetrievedName[MAX_TYPE_NAME];
+        char16 pszRetrievedName[MAX_TYPE_NAME];
         HCORENUM hEnum = nullptr;
         mdTypeDef rgTypeDefs[32];
         ULONG cTypeDefs;
@@ -148,11 +148,11 @@ HRESULT ActiveScriptDirectHost::FindTypeInMetaDataFile(
                     const size_t cRetrievedName = wcslen(pszRetrievedName);
                     if (cRetrievedName > cFullName)
                     {
-                        const wchar_t *pch = nullptr;
+                        const char16 *pch = nullptr;
                         pch = wcsstr(pszRetrievedName, pszFullName);
                         if ((pch != nullptr) &&
                             (pch == pszRetrievedName) &&
-                            (pszRetrievedName[cFullName] == L'.'))
+                            (pszRetrievedName[cFullName] == _u('.')))
                         {
                             fEntryFound = true;
                             hr = RO_E_METADATA_NAME_IS_NAMESPACE;
@@ -188,12 +188,12 @@ HRESULT ActiveScriptDirectHost::FindTypeInDirectory(
 {
     HRESULT hr = RO_E_METADATA_NAME_NOT_FOUND;
 
-    wchar_t pszCandidateFilePath[MAX_PATH + 1] = {0};
-    wchar_t pszCandidateFileName[MAX_PATH + 1] = {0};
+    char16 pszCandidateFilePath[MAX_PATH + 1] = {0};
+    char16 pszCandidateFileName[MAX_PATH + 1] = {0};
     StringCchCopy(pszCandidateFileName, ARRAYSIZE(pszCandidateFileName), pszFullName);
 
     bool fFileExists = false;
-    wchar_t *pszLastDot;
+    char16 *pszLastDot;
 
     // To resolve type Windows.B.C, first check if Windows.B.C is a type or
     // namespace in the first existing WinMD file, in this order:
@@ -252,13 +252,13 @@ HRESULT ActiveScriptDirectHost::FindTypeInDirectory(
     // the name might be a namespace name in a down-level file.
     if (hr == RO_E_METADATA_NAME_NOT_FOUND)
     {
-        wchar_t pszFilePathSearchTemplate[MAX_PATH + 1] = {0};
+        char16 pszFilePathSearchTemplate[MAX_PATH + 1] = {0};
         WIN32_FIND_DATA fd;
         HANDLE hFindFile;
 
         StringCchCopy(pszFilePathSearchTemplate, ARRAYSIZE(pszFilePathSearchTemplate), pszDirectoryPath);
         StringCchCat(pszFilePathSearchTemplate, ARRAYSIZE(pszFilePathSearchTemplate), pszFullName);
-        StringCchCat(pszFilePathSearchTemplate, ARRAYSIZE(pszFilePathSearchTemplate), L".*");
+        StringCchCat(pszFilePathSearchTemplate, ARRAYSIZE(pszFilePathSearchTemplate), _u(".*"));
         StringCchCat(pszFilePathSearchTemplate, ARRAYSIZE(pszFilePathSearchTemplate), METADATA_FILE_EXTENSION);
 
         // Search in all files in the directory whose name begin with the input string.

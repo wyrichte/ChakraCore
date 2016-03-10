@@ -111,7 +111,7 @@ private:
 #if DBG_DUMP
     uint allocId;
     uint parentAllocId;
-    wchar_t const * wszLocation;
+    char16 const * wszLocation;
 #endif
 #if DBG_DUMP || defined(PROFILE_EXEC)
 #ifdef PROFILE_EXEC
@@ -161,7 +161,7 @@ public:
         __out Js::ArrayBuffer **ppArrayBuffer);
     Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
     Js::JavascriptFunction* InitializeHostPromiseContinuationFunction();
-    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord);
+    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord);
     HRESULT NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar);
 
     // Reference Counting
@@ -392,7 +392,7 @@ private:
 
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
-    void DumpSiteInfo(wchar_t const * message, wchar_t const * message2 = nullptr);
+    void DumpSiteInfo(char16 const * message, char16 const * message2 = nullptr);
     friend class ProfileOnLoadCallBack;
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS

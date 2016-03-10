@@ -81,7 +81,7 @@ HRESULT DiagnosticsHelper::HtmlDynamicAttach(DWORD cmdID)
         hr = spCmdTarget->Exec(&CGID_MSHTML, cmdID, 0, NULL, NULL);
         if (hr == S_OK)
         {
-            HostConfigFlags::flags.DebugLaunch = ::SysAllocString(L"");
+            HostConfigFlags::flags.DebugLaunch = ::SysAllocString(_u(""));
 
             if (m_debugApplication == nullptr) // m_debugApplication will not be null for multiple dynamic attach scenario
             {
@@ -92,12 +92,12 @@ HRESULT DiagnosticsHelper::HtmlDynamicAttach(DWORD cmdID)
                     hr = AttachToDebugger();
                     if (hr != S_OK)
                     {
-                        wprintf(L"Error: Failed to AttachDebugger\n");
+                        wprintf(_u("Error: Failed to AttachDebugger\n"));
                     }
                 }
                 else
                 {
-                    wprintf(L"Error: Failed to get IRemoteDebugApplication\n");
+                    wprintf(_u("Error: Failed to get IRemoteDebugApplication\n"));
                 }
             }
             if (hr == S_OK && cmdID == IDM_DEBUGGERDYNAMICATTACH)
@@ -107,7 +107,7 @@ HRESULT DiagnosticsHelper::HtmlDynamicAttach(DWORD cmdID)
         }
         else
         {
-            wprintf(L"Error: Failed to IOleCmdTarget::Exec\n");
+            wprintf(_u("Error: Failed to IOleCmdTarget::Exec\n"));
         }
     }
     return hr;
@@ -127,7 +127,7 @@ HRESULT DiagnosticsHelper::HtmlDynamicDetach()
         }
         else
         {
-            wprintf(L"Error: Failed to IOleCmdTarget::Exec\n");
+            wprintf(_u("Error: Failed to IOleCmdTarget::Exec\n"));
         }
     }
 
@@ -163,14 +163,14 @@ HRESULT DiagnosticsHelper::InitializeDebugManager()
     HRESULT hr = LoadPDM(&m_hInstPdm, &m_processDebugManager);
     if (hr != S_OK)
     {
-        wprintf(L"[FAILED] to load the PDM\n");
+        wprintf(_u("[FAILED] to load the PDM\n"));
         return hr;
     }
 
     hr = m_processDebugManager->GetDefaultApplication(&m_debugApplication);
     IfFailedGo(hr);
 
-    hr = m_debugApplication->SetName(L"JsHost Application");
+    hr = m_debugApplication->SetName(_u("JsHost Application"));
     IfFailedGo(hr);
 
     hr = m_processDebugManager->AddApplication(m_debugApplication, &m_debugAppCookie);
@@ -292,7 +292,7 @@ void DiagnosticsHelper::DisposeHelper(bool forceNull/*=false default*/)
     }
 }
 
-bool DiagnosticsHelper::AddEditRangeAndContent(const wchar_t* editLabel, IDebugDocumentText* debugDocumentText, ULONG  startOffset, ULONG  length, const wchar_t*  editContent, ULONG newLength)
+bool DiagnosticsHelper::AddEditRangeAndContent(const char16* editLabel, IDebugDocumentText* debugDocumentText, ULONG  startOffset, ULONG  length, const char16*  editContent, ULONG newLength)
 {
     try
     {
@@ -313,7 +313,7 @@ bool DiagnosticsHelper::AddEditRangeAndContent(const wchar_t* editLabel, IDebugD
     }
 }
 
-bool DiagnosticsHelper::GetEditRangeAndContent(const wchar_t* editLabel, IDebugDocumentText** ppDebugDocumentText, ULONG* startOffset, ULONG* length, const wchar_t** editContent, ULONG* newLength)
+bool DiagnosticsHelper::GetEditRangeAndContent(const char16* editLabel, IDebugDocumentText** ppDebugDocumentText, ULONG* startOffset, ULONG* length, const char16** editContent, ULONG* newLength)
 {
     try
     {
@@ -342,7 +342,7 @@ bool DiagnosticsHelper::GetEditRangeAndContent(const wchar_t* editLabel, IDebugD
 
 // TODO: Consider updating existing edits after an edit is applied
 
-DiagnosticsHelper::EditRangeAndContent::EditRangeAndContent(IDebugDocumentText* debugDocumentText, ULONG startOffset, ULONG length, const wchar_t* content, ULONG newLength)
+DiagnosticsHelper::EditRangeAndContent::EditRangeAndContent(IDebugDocumentText* debugDocumentText, ULONG startOffset, ULONG length, const char16* content, ULONG newLength)
 : debugDocumentText(debugDocumentText)
 , m_startOffset(startOffset)
 , m_length(length)

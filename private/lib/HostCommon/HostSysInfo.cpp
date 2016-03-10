@@ -5,7 +5,7 @@ HostSystemInfo HostSystemInfo::Data;
 
 HostSystemInfo::HostSystemInfo()
 {
-    HMODULE hModNtDll = GetModuleHandleW(L"ntdll.dll");
+    HMODULE hModNtDll = GetModuleHandleW(_u("ntdll.dll"));
     if (hModNtDll == nullptr)
     {
         RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);

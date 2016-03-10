@@ -13,7 +13,7 @@ class RemoteFunctionProxy : public JDRemoteTyped
 {
 public:
     RemoteFunctionProxy() {}
-    RemoteFunctionProxy(ULONG64 pBody) : JDRemoteTyped("(Js::FunctionProxy*)@$extin", pBody) {}
+    RemoteFunctionProxy(ULONG64 pBody);
     RemoteFunctionProxy(const char* subType, ULONG64 pBody) : JDRemoteTyped(subType, pBody) {}
     RemoteFunctionProxy(ExtRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
 
@@ -31,8 +31,7 @@ class RemoteParseableFunctionInfo : public RemoteFunctionProxy
 {
 public:
     RemoteParseableFunctionInfo() {}
-    RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy("(Js::ParseableFunctionInfo*)@$extin", pBody) {}
-    RemoteParseableFunctionInfo(const char* subType, ULONG64 pBody) : RemoteFunctionProxy(subType, pBody) {}
+    RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy(pBody) {}
     RemoteParseableFunctionInfo(ExtRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
 
     JDRemoteTyped GetScopeInfo()
@@ -47,7 +46,7 @@ class RemoteFunctionBody : public RemoteParseableFunctionInfo
 {
 public:
     RemoteFunctionBody() {}
-    RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo("(Js::FunctionBody*)@$extin", pBody) {}
+    RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo(pBody) {}
     RemoteFunctionBody(ExtRemoteTyped const& functionBody) : RemoteParseableFunctionInfo(functionBody) {}
 
     JDRemoteTyped GetByteCodeBlock()
@@ -72,7 +71,7 @@ public:
     }
     uint GetConstCount()
     {
-        return this->Field("m_constCount").GetUlong();
+        return this->GetCounterField("m_constCount");
     }
     ushort GetParamCount()
     {
@@ -131,7 +130,7 @@ public:
 
     ULONG GetInlineCacheCount()
     {
-        return JDUtil::GetWrappedField(*this, "inlineCacheCount").GetUlong();
+        return this->GetCounterField("inlineCacheCount", true);
     }
 
     USHORT GetProfiledCallSiteCount()
@@ -140,6 +139,7 @@ public:
     }
 
     JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);

@@ -14,7 +14,7 @@
         "frameDescription": "String.prototype.search"
       },
       {
-        "start": 100,
+        "start": 98,
         "length": 20,
         "text": "'string'.search(/./)",
         "frameDescription": "Global code"
@@ -24,7 +24,7 @@
   {
     "callstack": [
       {
-        "start": 182,
+        "start": 180,
         "length": 16,
         "text": "return undefined",
         "frameDescription": "match"
@@ -36,9 +36,53 @@
         "frameDescription": "String.prototype.match"
       },
       {
-        "start": 223,
+        "start": 219,
         "length": 19,
         "text": "'string'.match(/./)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 300,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "split"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.split"
+      },
+      {
+        "start": 339,
+        "length": 19,
+        "text": "'string'.split(/./)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 424,
+        "length": 16,
+        "text": "return undefined",
+        "frameDescription": "replace"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "String.prototype.replace"
+      },
+      {
+        "start": 463,
+        "length": 26,
+        "text": "'string'.replace(/./, '-')",
         "frameDescription": "Global code"
       }
     ]

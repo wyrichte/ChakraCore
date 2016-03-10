@@ -6,7 +6,6 @@
 #ifdef JD_PRIVATE
 #define ENABLE_MARK_OBJ 0
 #define ENABLE_UI_SERVER 0
-#define ENABLE_DEBUG_OUTPUT 0
 class RootPointers;
 #include <guiddef.h>
 #include "RecyclerObjectGraph.h"
@@ -21,6 +20,7 @@ class RootPointers;
 
 #include <map>
 #include "FieldInfoCache.h"
+#include "RecyclerObjectTypeInfo.h"
 
 enum CommandOutputType
 {
@@ -167,36 +167,24 @@ public:
     // TODO: Remove this and use CastWithVtable instead
     std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
 
-    ULONG64 GetEnumValue(const char* enumName, ULONG64 default = -1);
+    ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
-#define ENUM(name)\
-    ULONG64 enum_##name(){ \
-        if (this->inMPHCmd){ \
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        } else {\
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        }\
+#define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
+    ULONG64 enum_##name() \
+    { \
+        return (this->inMPHCmd)? \
+            this->recyclerCachedData.GetMPHBlockTypeEnum##name() : \
+            this->recyclerCachedData.GetBlockTypeEnum##name(); \
     }
 
-    // dynamic read HeapBlock enums
-    ENUM(SmallNormalBlockType);
-    ENUM(SmallLeafBlockType);
-    ENUM(SmallFinalizableBlockType);
-    ENUM(SmallNormalBlockWithBarrierType);
-    ENUM(SmallFinalizableBlockWithBarrierType);
-    ENUM(MediumNormalBlockType);
-    ENUM(MediumLeafBlockType);
-    ENUM(MediumFinalizableBlockType);
-    ENUM(MediumNormalBlockWithBarrierType);
-    ENUM(MediumFinalizableBlockWithBarrierType);
-    ENUM(LargeBlockType);
-    ENUM(SmallBlockTypeCount);
-    ENUM(BlockTypeCount);
+    BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
+#undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
+    RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;
+    CachedTypeInfo m_AuxPtrsFix16;
+    CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
@@ -217,9 +205,7 @@ protected:
     PCSTR GetModuleName();
     bool HasMemoryNS();
     PCSTR GetMemoryNS();
-
-    ExtRemoteTyped GetTlsEntryList();
-  
+ 
     ExtRemoteTyped GetRecycler(ULONG64 optionalRecyclerAddress);
     ExtRemoteTyped GetInternalStringBuffer(ExtRemoteTyped internalString);
     ExtRemoteTyped GetPropertyName(ExtRemoteTyped propertyNameListEntry);
@@ -250,7 +236,7 @@ protected:
     ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
-    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf);
+    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
 
     // jscript9diag
     void EnsureJsDebug(PCWSTR jscript9diagPath = nullptr);
@@ -282,9 +268,10 @@ protected:
 
         Addresses *rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, threadContext);
         ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
-        cachedObjectGraph = new RecyclerObjectGraph(this, recycler);
-        cachedObjectGraph->Construct(heapBlockMap, *rootPointerManager);
+        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(this, recycler));
+        newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
 
+        cachedObjectGraph = newObjectGraph.Detach();
         return cachedObjectGraph;
     }
 
@@ -312,6 +299,7 @@ public:
         Assert(var.GetTypeSize() <= m_PtrSize);
         return (T)var.GetData(var.GetTypeSize());
     }
+
 
 protected:
     char m_moduleName[16]; // jc or jscript9, access through GetModuleName()
@@ -394,6 +382,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(gcstats);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
+    JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);
     JD_PRIVATE_COMMAND_METHOD(pagealloc);
     JD_PRIVATE_COMMAND_METHOD(hbm);
     JD_PRIVATE_COMMAND_METHOD(swb);

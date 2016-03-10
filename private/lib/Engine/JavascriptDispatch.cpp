@@ -426,7 +426,7 @@ HRESULT JavascriptDispatch::GetTypeInfoWithScriptEnter(UINT iti, LCID lcid, ITyp
     BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
     {
 
-        hr = TypeInfoBuilder::Create(L"JScriptTypeInfo", lcid, &typeinfoBuild);
+        hr = TypeInfoBuilder::Create(_u("JScriptTypeInfo"), lcid, &typeinfoBuild);
         if (SUCCEEDED(hr))
         {
             hr = typeinfoBuild->AddJavascriptObject(scriptObject);
@@ -1098,9 +1098,9 @@ HRESULT JavascriptDispatch::InvokeEx(
             Js::JavascriptFunction *func = Js::JavascriptFunction::FromVar(this->scriptObject);
             // We are profiling, so we can afford a check if the function is deserialized
             if ((wFlags & k_dispCallOrGet) && func->GetFunctionProxy()
-                && wcscmp(func->GetFunctionProxy()->EnsureDeserialized()->GetDisplayName(), L"onload") == 0)
+                && wcscmp(func->GetFunctionProxy()->EnsureDeserialized()->GetDisplayName(), _u("onload")) == 0)
             {
-                scriptSite->DumpSiteInfo(L"OnLoad event");
+                scriptSite->DumpSiteInfo(_u("OnLoad event"));
 #ifdef PROFILE_EXEC
                 if (Js::Configuration::Global.flags.IsEnabled(Js::ProfileFlag))
                 {
@@ -2258,10 +2258,10 @@ JavascriptDispatch::PrintJavascriptRefCountStackTraces()
     TrackNode * curr = allocatedList;
     while (curr != nullptr)
     {
-        Output::Print(L"%p\n", curr->javascriptDispatch);
-        Output::Print(L" Allocation Stack Trace:\n");
+        Output::Print(_u("%p\n"), curr->javascriptDispatch);
+        Output::Print(_u(" Allocation Stack Trace:\n"));
         curr->stackBackTrace->Print();
-        Output::Print(L" Ref count Stack Trace:\n");
+        Output::Print(_u(" Ref count Stack Trace:\n"));
         StackBackTraceNode::PrintAll(curr->refCountStackBackTraces);
         curr = curr->next;
     }
@@ -2284,16 +2284,16 @@ JavascriptDispatchLeakOutput::~JavascriptDispatchLeakOutput()
 #ifdef CHECK_MEMORY_LEAK
     if (Js::Configuration::Global.flags.CheckMemoryLeak)
     {
-        Output::Print(L"-------------------------------------------------------------------------------------\n");
-        Output::Print(L"Leaked JavascriptDispatch");
-        Output::Print(L"-------------------------------------------------------------------------------------\n");
+        Output::Print(_u("-------------------------------------------------------------------------------------\n"));
+        Output::Print(_u("Leaked JavascriptDispatch"));
+        Output::Print(_u("-------------------------------------------------------------------------------------\n"));
         JavascriptDispatch::PrintJavascriptRefCountStackTraces();
     }
 #endif
 #ifdef LEAK_REPORT
     if (Js::Configuration::Global.flags.IsEnabled(Js::LeakReportFlag))
     {
-        LeakReport::StartSection(L"Leaked JavascriptDispatch");
+        LeakReport::StartSection(_u("Leaked JavascriptDispatch"));
         LeakReport::StartRedirectOutput();
         JavascriptDispatch::PrintJavascriptRefCountStackTraces();
         LeakReport::EndRedirectOutput();

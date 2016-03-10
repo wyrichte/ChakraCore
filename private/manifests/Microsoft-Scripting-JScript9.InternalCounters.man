@@ -1518,15 +1518,15 @@
           </counter>
           <counter
               defaultScale="-4"
-              description="JScript9 Recycler Tracker wchar_t[] Count"
+              description="JScript9 Recycler Tracker char16[] Count"
               descriptionID="630"
               detailLevel="standard"
               id="31"
-              name="Recycler Alloc Count - Data - wchar_t[]"
+              name="Recycler Alloc Count - Data - char16[]"
               nameID="632"
-              symbol="JS9InternalCounter_RecyclerTrackerCounterSet_wchar_tArrayCount"
+              symbol="JS9InternalCounter_RecyclerTrackerCounterSet_char16ArrayCount"
               type="perf_counter_rawcount"
-              uri="Microsoft.Windows.System.PerfCounters.JS9InternalCounter_RecyclerTrackerCounterSet.wchar_tArrayCount"
+              uri="Microsoft.Windows.System.PerfCounters.JS9InternalCounter_RecyclerTrackerCounterSet.char16ArrayCount"
               >
             <counterAttributes>
               <counterAttribute name = "reference" />
@@ -1534,15 +1534,15 @@
           </counter>
           <counter
               defaultScale="-4"
-              description="JScript9 Recycler Tracker wchar_t[] Size"
+              description="JScript9 Recycler Tracker char16[] Size"
               descriptionID="634"
               detailLevel="standard"
               id="32"
-              name="Recycler Alloc Size - Data - wchar_t[]"
+              name="Recycler Alloc Size - Data - char16[]"
               nameID="636"
-              symbol="JS9InternalCounter_RecyclerTrackerCounterSet_wchar_tArraySize"
+              symbol="JS9InternalCounter_RecyclerTrackerCounterSet_char16ArraySize"
               type="perf_counter_rawcount"
-              uri="Microsoft.Windows.System.PerfCounters.JS9InternalCounter_RecyclerTrackerCounterSet.wchar_tArraySize"
+              uri="Microsoft.Windows.System.PerfCounters.JS9InternalCounter_RecyclerTrackerCounterSet.char16ArraySize"
               >
             <counterAttributes>
               <counterAttribute name = "reference" />

@@ -21,19 +21,19 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtCreateObjectPtr)(JsValueRef *object);
     typedef JsErrorCode (WINAPI *JsrtCreateExternalObjectPtr)(void* data, JsFinalizeCallback callback, JsValueRef *object);
     typedef JsErrorCode (WINAPI *JsrtCreateFunctionPtr)(JsNativeFunction nativeFunction, void *callbackState, JsValueRef *function);
-    typedef JsErrorCode (WINAPI *JsrtPointerToStringPtr)(const wchar_t *stringValue, size_t length, JsValueRef *value);
+    typedef JsErrorCode (WINAPI *JsrtPointerToStringPtr)(const char16 *stringValue, size_t length, JsValueRef *value);
     typedef JsErrorCode (WINAPI *JsrtSetPropertyPtr)(JsValueRef object, JsPropertyIdRef property, JsValueRef value, bool useStrictRules);
     typedef JsErrorCode (WINAPI *JsrtGetGlobalObjectPtr)(JsValueRef *globalObject);
     typedef JsErrorCode (WINAPI *JsrtGetUndefinedValuePtr)(JsValueRef *globalObject);
     typedef JsErrorCode (WINAPI *JsrtConvertValueToStringPtr)(JsValueRef value, JsValueRef *stringValue);
     typedef JsErrorCode (WINAPI *JsrtConvertValueToNumberPtr)(JsValueRef value, JsValueRef *numberValue);
     typedef JsErrorCode (WINAPI *JsrtConvertValueToBooleanPtr)(JsValueRef value, JsValueRef *booleanValue);
-    typedef JsErrorCode (WINAPI *JsrtStringToPointerPtr)(JsValueRef value, const wchar_t **stringValue, size_t *length);
+    typedef JsErrorCode (WINAPI *JsrtStringToPointerPtr)(JsValueRef value, const char16 **stringValue, size_t *length);
     typedef JsErrorCode (WINAPI *JsrtBooleanToBoolPtr)(JsValueRef value, bool *boolValue);
-    typedef JsErrorCode (WINAPI *JsrtGetPropertyIdFromNamePtr)(const wchar_t *name, JsPropertyIdRef *propertyId);
+    typedef JsErrorCode (WINAPI *JsrtGetPropertyIdFromNamePtr)(const char16 *name, JsPropertyIdRef *propertyId);
     typedef JsErrorCode (WINAPI *JsrtGetPropertyPtr)(JsValueRef object, JsPropertyIdRef property, JsValueRef* value);
     typedef JsErrorCode (WINAPI *JsrtHasPropertyPtr)(JsValueRef object, JsPropertyIdRef property, bool *hasProperty);
-    typedef JsErrorCode (WINAPI *JsrtRunScriptPtr)(const wchar_t *script, DWORD_PTR sourceContext, const wchar_t *sourceUrl, JsValueRef* result);
+    typedef JsErrorCode (WINAPI *JsrtRunScriptPtr)(const char16 *script, DWORD_PTR sourceContext, const char16 *sourceUrl, JsValueRef* result);
     typedef JsErrorCode (WINAPI *JsrtCallFunctionPtr)(JsValueRef function, JsValueRef* arguments, unsigned short argumentCount, JsValueRef *result);
     typedef JsErrorCode (WINAPI *JsrtNumberToDoublePtr)(JsValueRef value, double *doubleValue);
     typedef JsErrorCode (WINAPI *JsrtDoubleToNumberPtr)(double doubleValue, JsValueRef* value);
@@ -49,6 +49,7 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtReleasePtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtAddRefPtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtGetValueType)(JsValueRef value, JsValueType *type);
+    typedef JsErrorCode (WINAPI *JsrtParseScriptWithFlags)(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result);
 
     JsrtCreateRuntimePtr pfJsrtCreateRuntime;
     JsrtCreateContextPtr pfJsrtCreateContext;
@@ -88,6 +89,7 @@ struct JsrtTestHooks
     JsrtReleasePtr pfJsrtRelease;
     JsrtAddRefPtr pfJsrtAddRef;
     JsrtGetValueType pfJsrtGetValueType;
+    JsrtParseScriptWithFlags pfJsrtParseScriptWithFlags;
 };
 
 struct MemProtectTestHooks
@@ -146,7 +148,7 @@ public:
     static HRESULT FinalGC();
     static HRESULT DisplayRecyclerStats();
 #ifdef ENABLE_INTL_OBJECT
-    static HRESULT ClearTimeZoneCalendars();
+    static HRESULT ResetTimeZoneFactoryObjects();
 #endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);
@@ -213,7 +215,7 @@ public:
 #endif
     }    
 
-    static LPTSTR GetSystemStringFromHr(HRESULT hr) { return CHECKED_CALL_RETURN(GetSystemStringFromHr, L"", hr); }
+    static LPTSTR GetSystemStringFromHr(HRESULT hr) { return CHECKED_CALL_RETURN(GetSystemStringFromHr, _u(""), hr); }
     static HRESULT NotifyOnScriptStateChanged(TestHooks::NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack) { return CHECKED_CALL(NotifyOnScriptStateChanged,pfCallBack); }    
     static HRESULT ClearAllProjectionCaches(IActiveScriptDirect * scriptDirect) { return CHECKED_CALL(ClearAllProjectionCaches,scriptDirect); }
     static HRESULT SetAssertToConsoleFlag(bool flag) { return CHECKED_CALL(SetAssertToConsoleFlag,flag); }
@@ -256,7 +258,7 @@ public:
     static JsErrorCode WINAPI JsrtCreateObject(JsValueRef *object) { return m_jsrtTestHooks.pfJsrtCreateObject(object); }
     static JsErrorCode WINAPI JsrtCreateExternalObject(void *data, JsFinalizeCallback callback, JsValueRef *object) { return m_jsrtTestHooks.pfJsrtCreateExternalObject(data, callback, object); }
     static JsErrorCode WINAPI JsrtCreateFunction(JsNativeFunction nativeFunction, void *callbackState, JsValueRef *function) { return m_jsrtTestHooks.pfJsrtCreateFunction(nativeFunction, callbackState, function); }
-    static JsErrorCode WINAPI JsrtPointerToString(const wchar_t *stringValue, size_t length, JsValueRef *value) { return m_jsrtTestHooks.pfJsrtPointerToString(stringValue, length, value); }
+    static JsErrorCode WINAPI JsrtPointerToString(const char16 *stringValue, size_t length, JsValueRef *value) { return m_jsrtTestHooks.pfJsrtPointerToString(stringValue, length, value); }
     static JsErrorCode WINAPI JsrtSetProperty(JsValueRef object, JsPropertyIdRef property, JsValueRef value, bool useStrictRules) { return m_jsrtTestHooks.pfJsrtSetProperty(object, property, value, useStrictRules); }
     static JsErrorCode WINAPI JsrtGetGlobalObject(JsValueRef *globalObject) { return m_jsrtTestHooks.pfJsrtGetGlobalObject(globalObject); }
     static JsErrorCode WINAPI JsrtGetUndefinedValue(JsValueRef *globalObject) { return m_jsrtTestHooks.pfJsrtGetUndefinedValue(globalObject); }
@@ -265,12 +267,12 @@ public:
     static JsErrorCode WINAPI JsrtConvertValueToString(JsValueRef value, JsValueRef *stringValue) { return m_jsrtTestHooks.pfJsrtConvertValueToString(value, stringValue); }
     static JsErrorCode WINAPI JsrtConvertValueToNumber(JsValueRef value, JsValueRef *numberValue) { return m_jsrtTestHooks.pfJsrtConvertValueToNumber(value, numberValue); }
     static JsErrorCode WINAPI JsrtConvertValueToBoolean(JsValueRef value, JsValueRef *booleanValue) { return m_jsrtTestHooks.pfJsrtConvertValueToBoolean(value, booleanValue); }
-    static JsErrorCode WINAPI JsrtStringToPointer(JsValueRef value, const wchar_t **stringValue, size_t *length) { return m_jsrtTestHooks.pfJsrtStringToPointer(value, stringValue, length); }
+    static JsErrorCode WINAPI JsrtStringToPointer(JsValueRef value, const char16 **stringValue, size_t *length) { return m_jsrtTestHooks.pfJsrtStringToPointer(value, stringValue, length); }
     static JsErrorCode WINAPI JsrtBooleanToBool(JsValueRef value, bool* boolValue) { return m_jsrtTestHooks.pfJsrtBooleanToBool(value, boolValue); }
-    static JsErrorCode WINAPI JsrtGetPropertyIdFromName(const wchar_t *name, JsPropertyIdRef *propertyId) { return m_jsrtTestHooks.pfJsrtGetPropertyIdFromName(name, propertyId); }
+    static JsErrorCode WINAPI JsrtGetPropertyIdFromName(const char16 *name, JsPropertyIdRef *propertyId) { return m_jsrtTestHooks.pfJsrtGetPropertyIdFromName(name, propertyId); }
     static JsErrorCode WINAPI JsrtGetProperty(JsValueRef object, JsPropertyIdRef property, JsValueRef* value) { return m_jsrtTestHooks.pfJsrtGetProperty(object, property, value); }
     static JsErrorCode WINAPI JsrtHasProperty(JsValueRef object, JsPropertyIdRef property, bool *hasProperty) { return m_jsrtTestHooks.pfJsrtHasProperty(object, property, hasProperty); }
-    static JsErrorCode WINAPI JsrtRunScript(const wchar_t *script, DWORD_PTR sourceContext, const wchar_t *sourceUrl, JsValueRef* result) { return m_jsrtTestHooks.pfJsrtRunScript(script, sourceContext, sourceUrl, result); }
+    static JsErrorCode WINAPI JsrtRunScript(const char16 *script, DWORD_PTR sourceContext, const char16 *sourceUrl, JsValueRef* result) { return m_jsrtTestHooks.pfJsrtRunScript(script, sourceContext, sourceUrl, result); }
     static JsErrorCode WINAPI JsrtCallFunction(JsValueRef function, JsValueRef* arguments, unsigned short argumentCount, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCallFunction(function, arguments, argumentCount, result); }
     static JsErrorCode WINAPI JsrtNumberToDouble(JsValueRef value, double* doubleValue) { return m_jsrtTestHooks.pfJsrtNumbertoDouble(value, doubleValue); }
     static JsErrorCode WINAPI JsrtDoubleToNumber(double doubleValue, JsValueRef* value) { return m_jsrtTestHooks.pfJsrtDoubleToNumber(doubleValue, value); }
@@ -286,6 +288,7 @@ public:
     static JsErrorCode WINAPI JsrtRelease(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtRelease(ref, count); }
     static JsErrorCode WINAPI JsrtAddRef(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtAddRef(ref, count); }
     static JsErrorCode WINAPI JsrtGetValueType(JsValueRef value, JsValueType *type) { return m_jsrtTestHooks.pfJsrtGetValueType(value, type); }
+    static JsErrorCode WINAPI JsrtParseScriptWithFlags(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtParseScriptWithFlags(script, sourceContext, sourceUrl, parseAttributes, result); }
 
 
     static HRESULT MemProtectHeapCreate(void ** heapHandle, int flags) { return m_memProtectTestHooks.pfMemProtectHeapCreate(heapHandle, flags); }

@@ -6,8 +6,8 @@
 
 #include "EnginePch.h"
 
-#define szSERVERKEY         L"InprocServer32"
-#define szOTHERSERVERKEY    L"InprocServer"
+#define szSERVERKEY         _u("InprocServer32")
+#define szOTHERSERVERKEY    _u("InprocServer")
 
 // Helper function to create a component category and associated description
 static HRESULT CreateComponentCategory(CATID catid, LPCOLESTR catDescription)
@@ -69,7 +69,7 @@ static BOOL FExistsCLSID(REFCLSID clsid)
     WCHAR buf[MAX_PROGID_LENGTH];
 
         StringFromGUID2(clsid, buf, ARRAYSIZE(buf));
-        lRes = RegOpenKeyExW(HKEY_CLASSES_ROOT, L"CLSID", 0, KEY_READ, &hkeyCLSID);
+        lRes = RegOpenKeyExW(HKEY_CLASSES_ROOT, _u("CLSID"), 0, KEY_READ, &hkeyCLSID);
         if (0 != lRes)
                 return FALSE;
 
@@ -191,8 +191,8 @@ STDMETHODIMP CClassFactory::LockServer(BOOL fLock)
     return NOERROR;
 }
 
-#define WSZCAT_SCRIPT       L"Active Scripting Engine"
-#define WSZCAT_SCRIPTPARSE  L"Active Scripting Engine with Parsing"
+#define WSZCAT_SCRIPT       _u("Active Scripting Engine")
+#define WSZCAT_SCRIPTPARSE  _u("Active Scripting Engine with Parsing")
 
 STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
 {
@@ -222,29 +222,29 @@ STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
         {
             return E_FAIL;
         }
-        if (NOERROR != RegCreateKeyExW(hk, L"OLEScript", 0, NULL, 0, KEY_WRITE, NULL, &hkSub, NULL))
+        if (NOERROR != RegCreateKeyExW(hk, _u("OLEScript"), 0, NULL, 0, KEY_WRITE, NULL, &hkSub, NULL))
         {
             RegCloseKey(hk);
             return E_FAIL;
         }
         RegCloseKey(hkSub);
         RegSetValueExW(HKEY_CLASSES_ROOT, m_prgpszNames[ipsz], 0, REG_SZ, 
-                       (const BYTE *)m_pszDescription, cszDescription*sizeof(wchar_t));
+                       (const BYTE *)m_pszDescription, cszDescription*sizeof(char16));
 
-        if (NOERROR != RegCreateKeyExW(hk, L"CLSID", 0, NULL, 0, KEY_WRITE, NULL, &hkSub, NULL))
+        if (NOERROR != RegCreateKeyExW(hk, _u("CLSID"), 0, NULL, 0, KEY_WRITE, NULL, &hkSub, NULL))
         {
             RegCloseKey(hk);
             return E_FAIL;
         }
 
-        RegSetValueExW(hkSub, NULL, 0, REG_SZ, (const BYTE *)m_pszClassID, cszClassID*sizeof(wchar_t));
+        RegSetValueExW(hkSub, NULL, 0, REG_SZ, (const BYTE *)m_pszClassID, cszClassID*sizeof(char16));
         RegCloseKey(hkSub);
 
         RegCloseKey(hk);
     }
 
     // Register createable class
-    if (NOERROR != RegCreateKeyExW(HKEY_CLASSES_ROOT, L"CLSID", 0, NULL, 0, KEY_WRITE, NULL, &hk, NULL))
+    if (NOERROR != RegCreateKeyExW(HKEY_CLASSES_ROOT, _u("CLSID"), 0, NULL, 0, KEY_WRITE, NULL, &hk, NULL))
     {
         return E_FAIL;
     }
@@ -253,18 +253,18 @@ STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
         RegCloseKey(hk);
         return E_FAIL;
     }
-    if (NOERROR != RegCreateKeyExW(hkSub, L"OLEScript", 0, NULL, 0, KEY_WRITE, NULL, &hkSub2, NULL))
+    if (NOERROR != RegCreateKeyExW(hkSub, _u("OLEScript"), 0, NULL, 0, KEY_WRITE, NULL, &hkSub2, NULL))
     {
         RegCloseKey(hk);
         RegCloseKey(hkSub);
         return E_FAIL;
     }
 
-    RegSetValueExW(hk, m_pszClassID, 0, REG_SZ, (const BYTE *)m_pszDescription, cszDescription*sizeof(wchar_t));
+    RegSetValueExW(hk, m_pszClassID, 0, REG_SZ, (const BYTE *)m_pszDescription, cszDescription*sizeof(char16));
 
     if (0 != m_cpszNames)
     {
-        RegSetValueExW(hkSub, L"ProgID", 0, REG_SZ, (const BYTE *)m_prgpszNames[0], (DWORD)wcslen(m_prgpszNames[0])*sizeof(wchar_t));
+        RegSetValueExW(hkSub, _u("ProgID"), 0, REG_SZ, (const BYTE *)m_prgpszNames[0], (DWORD)wcslen(m_prgpszNames[0])*sizeof(char16));
     }
 
     HKEY hkthread;
@@ -279,11 +279,11 @@ STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
         RegCloseKey(hk);
         return E_FAIL;
     }
-    RegSetValueExW(hkthread, NULL, 0, REG_SZ, (const BYTE *)szDllPath, cbDllPath*sizeof(wchar_t));
+    RegSetValueExW(hkthread, NULL, 0, REG_SZ, (const BYTE *)szDllPath, cbDllPath*sizeof(char16));
 
-    RegSetValueEx(hkthread,L"ThreadingModel", 0, REG_SZ, 
+    RegSetValueEx(hkthread,_u("ThreadingModel"), 0, REG_SZ, 
         (BYTE *)threadModel, 
-        (DWORD)wcslen(threadModel)*sizeof(wchar_t)
+        (DWORD)wcslen(threadModel)*sizeof(char16)
         );
 
     RegCloseKey(hkthread);
@@ -298,7 +298,7 @@ STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel)
     {
             // REVIEW: list of extensions?
             if (NOERROR != RegSetValueExW(HKEY_CLASSES_ROOT, m_pszExtension,
-                            0, REG_SZ, (const BYTE *)m_prgpszNames[0], (DWORD)wcslen(m_prgpszNames[0])*sizeof(wchar_t)))
+                            0, REG_SZ, (const BYTE *)m_prgpszNames[0], (DWORD)wcslen(m_prgpszNames[0])*sizeof(char16)))
                     return E_FAIL;
     }
 
@@ -327,7 +327,7 @@ STDMETHODIMP CClassFactory::UnregisterServer()
     // If we're on x86, then if the other platform (win32 if we're win16
     // and win16 if we're win32) is registered, we only need to delete
     // the server key.
-    if (ERROR_SUCCESS == RegOpenKeyExW(HKEY_CLASSES_ROOT, L"CLSID", 0, KEY_WRITE, &hk))
+    if (ERROR_SUCCESS == RegOpenKeyExW(HKEY_CLASSES_ROOT, _u("CLSID"), 0, KEY_WRITE, &hk))
     {
         if (ERROR_SUCCESS == RegOpenKeyExW(hk, m_pszClassID, 0, KEY_WRITE, &hkSub))
         {
@@ -349,7 +349,7 @@ STDMETHODIMP CClassFactory::UnregisterServer()
                 {
                     UnRegisterCLSIDInCategory(m_guidClassID, CATID_ActiveScriptParse);
                 }
-                RegDeleteKeyEx(hk, L"Implemented Categories", 0, 0);
+                RegDeleteKeyEx(hk, _u("Implemented Categories"), 0, 0);
                 RegCloseKey(hk);
                 return hr;
             }
@@ -376,11 +376,11 @@ STDMETHODIMP CClassFactory::UnregisterServer()
         }
         else
         {
-            if (NOERROR != RegDeleteKeyEx(hk, L"CLSID", 0, 0))
+            if (NOERROR != RegDeleteKeyEx(hk, _u("CLSID"), 0, 0))
             {
                 hr = E_FAIL;
             }
-            if (NOERROR != RegDeleteKeyEx(hk, L"OLEScript", 0, 0))
+            if (NOERROR != RegDeleteKeyEx(hk, _u("OLEScript"), 0, 0))
             {
                 hr = E_FAIL;
             }
@@ -393,7 +393,7 @@ STDMETHODIMP CClassFactory::UnregisterServer()
     }
 
     // delete classes_root\clsid\{our classid}\*
-    if (NOERROR != RegCreateKeyExW(HKEY_CLASSES_ROOT, L"CLSID", 0, NULL, 0, KEY_WRITE, NULL, &hk, NULL))
+    if (NOERROR != RegCreateKeyExW(HKEY_CLASSES_ROOT, _u("CLSID"), 0, NULL, 0, KEY_WRITE, NULL, &hk, NULL))
     {
         hr = E_FAIL;
     }
@@ -406,17 +406,17 @@ STDMETHODIMP CClassFactory::UnregisterServer()
         else
         {
             // delete classes_root\clsid\{our classid}\progid
-            if ((0 != m_cpszNames) && (NOERROR != RegDeleteKeyEx(hkSub, L"ProgID", 0, 0)))
+            if ((0 != m_cpszNames) && (NOERROR != RegDeleteKeyEx(hkSub, _u("ProgID"), 0, 0)))
             {
                 hr = E_FAIL;
             }
             // delete classes_root\clsid\{our classid}\OLEScript
-            if (NOERROR != RegDeleteKeyEx(hkSub, L"OLEScript", 0, 0))
+            if (NOERROR != RegDeleteKeyEx(hkSub, _u("OLEScript"), 0, 0))
             {
                 hr = E_FAIL;
             }
             // delete classes_root\clsid\{our classid}\Implemented Categories
-            if (NOERROR != RegDeleteKeyEx(hkSub, L"Implemented Categories", 0, 0))
+            if (NOERROR != RegDeleteKeyEx(hkSub, _u("Implemented Categories"), 0, 0))
             {
                 hr = E_FAIL;
             }

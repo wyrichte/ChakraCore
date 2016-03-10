@@ -49,6 +49,7 @@ EXPORTS
     irfunc
     bc
     jsobjectstats
+    jsobjectnodes
     stst
     pagealloc
     hbm

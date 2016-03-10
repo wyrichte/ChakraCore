@@ -208,7 +208,7 @@ public:
         {
             if (info.value == nullptr || wcslen(info.value) == 0)
             {
-                DebuggerController::LogError(L"WinRT pointer value missing");
+                DebuggerController::LogError(_u("WinRT pointer value missing"));
             }
             return S_OK;
         }

@@ -41,6 +41,7 @@
             "arr.__proto__.find": "function find() { [native code] }",
             "arr.__proto__.findIndex": "function findIndex() { [native code] }",
             "arr.__proto__.forEach": "function forEach() { [native code] }",
+            "arr.__proto__.includes": "function includes() { [native code] }",
             "arr.__proto__.indexOf": "function indexOf() { [native code] }",
             "arr.__proto__.join": "function join() { [native code] }",
             "arr.__proto__.keys": "function keys() { [native code] }",
@@ -73,6 +74,7 @@
             "fill": "true",
             "find": "true",
             "findIndex": "true",
+            "includes": "true",
             "keys": "true",
             "values": "true"
           }

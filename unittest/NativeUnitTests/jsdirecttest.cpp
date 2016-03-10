@@ -189,12 +189,12 @@ void RunNoFailFastScopeTest(MyScriptDirectTests* myTests)
     HRESULT hr = S_OK;
 
     // noScriptScope == false, so this call should not fail
-    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+    myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
 
     // ensure set and reset works
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
-    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+    myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
 
     printf("RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.\n");
 }
@@ -270,7 +270,7 @@ void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
     myTests->InitThreadService();
 
     JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true);
-    myTests->ParseAndExecute(L"var x;", S_OK); // this should cause EnterScriptObject
+    myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
     printf("This should not be printed out as the EnterScript earlier should have failed fast.\n");
 }
 
