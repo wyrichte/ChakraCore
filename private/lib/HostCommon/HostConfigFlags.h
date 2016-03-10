@@ -54,6 +54,9 @@ private:
 
     template <typename T>
     void Parse(ICmdLineArgsParser * parser, T * value);
+
+    template <typename T>
+    void ParseAsDefault(ICmdLineArgsParser * parser, T * value);
 };
 
 // Find an arg in the arg list that satisfies func. Return the arg index if found.

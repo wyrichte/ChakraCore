@@ -3937,4 +3937,10 @@
       <compile-flags>-force:deferparse -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>default.js</files>
+      <compile-flags>-debugLaunch -targeted -dbgbaseline:default.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
 </regress-exe>

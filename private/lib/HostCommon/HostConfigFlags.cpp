@@ -44,6 +44,27 @@ void HostConfigFlags::Parse<BSTR>(ICmdLineArgsParser * parser,  BSTR * bstr)
     }
 }
 
+template <>
+void HostConfigFlags::ParseAsDefault<bool>(ICmdLineArgsParser * parser, bool * value)
+{
+    *value = true;
+}
+
+template <>
+void HostConfigFlags::ParseAsDefault<int>(ICmdLineArgsParser * parser, int* value)
+{
+    // No-op
+}
+
+template <>
+void HostConfigFlags::ParseAsDefault<BSTR>(ICmdLineArgsParser * parser, BSTR * bstr)
+{
+    if (*bstr == NULL)
+    {
+        *bstr = SysAllocString(L"");
+    }
+}
+
 HostConfigFlags::HostConfigFlags()  :
 #define FLAG(Type, Name, Desc, Default) \
     Name##IsEnabled(false), \
@@ -60,6 +81,15 @@ bool HostConfigFlags::ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser
     { \
         this->Name##IsEnabled = true; \
         Parse<Type>(parser, &this->Name); \
+        return true; \
+    }
+#define FLAGA2(Acronym, Name1, Type1, Name2, Type2, Desc) \
+    if (_wcsicmp(L ## #Acronym, flagsString) == 0) \
+    { \
+        this->Name1##IsEnabled = true; \
+        ParseAsDefault<Type1>(parser, &this->Name1); \
+        this->Name2##IsEnabled = true; \
+        ParseAsDefault<Type2>(parser, &this->Name2); \
         return true; \
     }
 #include "HostConfigFlagsList.h"
