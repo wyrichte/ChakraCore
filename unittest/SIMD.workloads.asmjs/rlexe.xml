@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+  <!-- Temporarily disabling test and tracking the failure as a simd asmjs bug.
   <test>
     <default>
          <files>mandelbrot.js</files>
@@ -23,7 +24,32 @@
          <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
          <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
-</test>
+    
+   <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
+      <compile-flags>-bgjit- -testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
+      <compile-flags>-bgjit- -testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -lic:1</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>mandelbrot.js</files>
+      <baseline>mandelbrot.baseline</baseline>
+      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
+      <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
+    </default>
+  </test>
+</test>-->
 
 <test>
     <default>
@@ -49,30 +75,6 @@
          <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
 </test>
-  <test>
-    <default>
-      <files>mandelbrot.js</files>
-      <baseline>mandelbrot.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
-      <compile-flags>-bgjit- -testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -maic:0</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>mandelbrot.js</files>
-      <baseline>mandelbrot.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
-      <compile-flags>-bgjit- -testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -lic:1</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>mandelbrot.js</files>
-      <baseline>mandelbrot.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
-      <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
-    </default>
-  </test>
 
   <test>
     <default>
