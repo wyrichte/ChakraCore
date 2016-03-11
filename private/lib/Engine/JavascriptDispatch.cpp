@@ -586,7 +586,10 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
                 if (Js::JavascriptOperators::TryConvertToUInt32(bstr, nameLength, &indexVal) &&
                     (indexVal != Js::JavascriptArray::InvalidIndex))
                 {
+                    BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
                     Js::JavascriptOperators::SetItem(scriptObject, scriptObject, indexVal, scriptContext->GetLibrary()->GetNull(), scriptContext);
+                    END_JS_RUNTIME_CALL(scriptContext);
+
                     Js::PropertyRecord const * propertyRecord;
                     scriptContext->GetOrAddPropertyRecord(bstr, nameLength, &propertyRecord);
                     CachePropertyId(propertyRecord);
