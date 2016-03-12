@@ -41,3 +41,7 @@ FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specifie
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
 #undef FLAG
 #endif
+#ifdef FLAGA2
+FLAGA2(DT, DebugLaunch, BSTR, Targeted, bool, "Combining DebugLaunch and Targeted flags")
+#undef FLAGA2
+#endif

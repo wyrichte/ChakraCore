@@ -4,6 +4,6 @@ DIRS = \
     runtime \
     backend \
     jsrt \
-    rl{noncrit} \
+    rl{noncrit,!cs_xbox} \
     
     

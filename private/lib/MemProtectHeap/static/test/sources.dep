@@ -7,4 +7,13 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\private\core_razzle_build\common\exceptions\test|PASS1 \
     inetcore\jscript\private\core_razzle_build\common\memory\test|PASS1 \
     inetcore\jscript\private\lib\memprotectheap\test|PASS1 \
+    onecoreuap\inetcore\jscript\core\lib\common\core\test|PASS1 \
+    onecoreuap\inetcore\jscript\core\lib\common\datastructures\test|PASS1 \
+    onecoreuap\inetcore\jscript\core\lib\common\exceptions\test|PASS1 \
+    onecoreuap\inetcore\jscript\core\lib\common\memory\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\core\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\datastructures\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\exceptions\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\memory\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\memprotectheap\test|PASS1 \
 

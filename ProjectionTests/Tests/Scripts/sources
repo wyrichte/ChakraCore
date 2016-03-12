@@ -6,7 +6,6 @@ PASS1_BINPLACE= \
     .\..\*.js \
     -:DEST Projection\DevTests\Registration .\..\Registration\*.* \
     -:DEST Projection\APPX ..\projectionsGlue.js \
-    $(INETCORE_TST_INC_PATH)\bpt\*.* \
 	-:DEST Projection\SNAP \
 	..\rlexedirs.xml \
 	..\runalltests.cmd \

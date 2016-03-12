@@ -35,8 +35,8 @@ var tests = [
         name: "Validate a simple module export",
         body: function () {
             let functionBody = 
-                `import { foo } from 'ModuleSimpleExport.js';
-                assert.areEqual('foo', foo(), 'Failed to import foo from ModuleSimpleExport.js');`;
+                `import { ModuleSimpleExport_foo } from 'ModuleSimpleExport.js';
+                assert.areEqual('ModuleSimpleExport', ModuleSimpleExport_foo(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleExport.js');`;
             testModuleScript(functionBody, "Test importing a simple exported function", false);
         }
     },
@@ -44,8 +44,8 @@ var tests = [
         name: "Validate importing from multiple modules",
         body: function () {
             let functionBody = 
-                `import { foo } from 'ModuleSimpleExport.js';
-                assert.areEqual('foo', foo(), 'Failed to import foo from ModuleSimpleExport.js');
+                `import { ModuleSimpleExport_foo } from 'ModuleSimpleExport.js';
+                assert.areEqual('ModuleSimpleExport', ModuleSimpleExport_foo(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleExport.js');
                 import { foo2 } from 'ModuleComplexExports.js';
                 assert.areEqual('foo', foo2(), 'Failed to import foo2 from ModuleComplexExports.js');`;
             testModuleScript(functionBody, "Test importing from multiple modules", false);
@@ -95,8 +95,8 @@ var tests = [
         name: "Import an export as a different binding identifier",
         body: function () {
             let functionBody = 
-                `import { foo as foo3 } from 'ModuleSimpleExport.js';
-                assert.areEqual('foo', foo3(), 'Failed to import foo from ModuleSimpleExport.js');
+                `import { ModuleSimpleExport_foo as foo3 } from 'ModuleSimpleExport.js';
+                assert.areEqual('ModuleSimpleExport', foo3(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleExport.js');
                 import { foo2 as foo4 } from 'ModuleComplexExports.js';
                 assert.areEqual('foo', foo4(), 'Failed to import foo4 from ModuleComplexExports.js');`;
             testModuleScript(functionBody, "Test importing as different binding identifiers", false);
@@ -106,9 +106,9 @@ var tests = [
         name: "Import the same export under multiple local binding identifiers",
         body: function () {
             let functionBody = 
-                `import { foo as foo3, foo as foo4 } from 'ModuleSimpleExport.js';
-                assert.areEqual('foo', foo3(), 'Failed to import foo from ModuleSimpleExport.js');
-                assert.areEqual('foo', foo4(), 'Failed to import foo from ModuleSimpleExport.js');
+                `import { ModuleSimpleExport_foo as foo3, ModuleSimpleExport_foo as foo4 } from 'ModuleSimpleExport.js';
+                assert.areEqual('ModuleSimpleExport', foo3(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleExport.js');
+                assert.areEqual('ModuleSimpleExport', foo4(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleExport.js');
                 assert.isTrue(foo3 === foo4, 'Export has the same value even if rebound');`;
             testModuleScript(functionBody, "Test importing the same export under multiple binding identifier", false);
         }
@@ -128,8 +128,8 @@ var tests = [
         name: "Simple re-export forwards import to correct slot",
         body: function () {
             let functionBody = 
-                `import { foo } from 'ModuleSimpleReexport.js';
-                assert.areEqual('foo', foo(), 'Failed to import foo from ModuleSimpleReexport.js');`;
+                `import { ModuleSimpleExport_foo } from 'ModuleSimpleReexport.js';
+                assert.areEqual('ModuleSimpleExport', ModuleSimpleExport_foo(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleReexport.js');`;
             testModuleScript(functionBody, "Simple re-export from one module to another", false);
         }
     },
@@ -137,8 +137,8 @@ var tests = [
         name: "Import of renamed re-export forwards import to correct slot",
         body: function () {
             let functionBody = 
-                `import { foo as baz } from 'ModuleSimpleReexport.js';
-                assert.areEqual('foo', baz(), 'Failed to import foo from ModuleSimpleReexport.js');`;
+                `import { ModuleSimpleExport_foo as ModuleSimpleExport_baz } from 'ModuleSimpleReexport.js';
+                assert.areEqual('ModuleSimpleExport', ModuleSimpleExport_baz(), 'Failed to import ModuleSimpleExport_foo from ModuleSimpleReexport.js');`;
             testModuleScript(functionBody, "Rename simple re-export", false);
         }
     },
@@ -146,9 +146,101 @@ var tests = [
         name: "Renamed re-export and renamed import",
         body: function () {
             let functionBody = 
-                `import { foo as baz } from 'ModuleComplexReexports.js';
-                assert.areEqual('bar', baz(), 'Failed to import foo from ModuleComplexReexports.js');`;
+                `import { ModuleComplexReexports_foo as ModuleComplexReexports_baz } from 'ModuleComplexReexports.js';
+                assert.areEqual('bar', ModuleComplexReexports_baz(), 'Failed to import ModuleComplexReexports_foo from ModuleComplexReexports.js');`;
             testModuleScript(functionBody, "Rename already renamed re-export", false);
+        }
+    },
+    {
+        name: "Explicit export/import to default binding",
+        body: function () {
+            let functionBody = 
+                `import { default as baz } from 'ModuleDefaultExport1.js';
+                assert.areEqual('ModuleDefaultExport1', baz(), 'Failed to import default from ModuleDefaultExport1.js');`;
+            testModuleScript(functionBody, "Explicitly export and import a local name to the default binding", false);
+        }
+    },
+    {
+        name: "Explicit import of default binding",
+        body: function () {
+            let functionBody = 
+                `import { default as baz } from 'ModuleDefaultExport2.js';
+                assert.areEqual('ModuleDefaultExport2', baz(), 'Failed to import default from ModuleDefaultExport2.js');`;
+            testModuleScript(functionBody, "Explicitly import the default export binding", false);
+        }
+    },
+    {
+        name: "Implicitly re-export default export",
+        body: function () {
+            let functionBody = 
+                `import baz from 'ModuleDefaultReexport.js';
+                assert.areEqual('ModuleDefaultExport1', baz(), 'Failed to import default from ModuleDefaultReexport.js');`;
+            testModuleScript(functionBody, "Implicitly re-export the default export binding", false);
+        }
+    },
+    {
+        name: "Implicitly re-export default export and rename the imported binding",
+        body: function () {
+            let functionBody = 
+                `import { default as baz } from 'ModuleDefaultReexport.js';
+                assert.areEqual('ModuleDefaultExport1', baz(), 'Failed to import default from ModuleDefaultReexport.js');
+                import { not_default as bat } from 'ModuleDefaultReexport.js';
+                assert.areEqual('ModuleDefaultExport2', bat(), 'Failed to import not_default from ModuleDefaultReexport.js');`;
+            testModuleScript(functionBody, "Implicitly re-export the default export binding and rename the import binding", false);
+        }
+    },
+    {
+        name: "Exporting module changes value of default export",
+        body: function () {
+            let functionBody = 
+                `import ModuleDefaultExport3_default from 'ModuleDefaultExport3.js';
+                assert.areEqual(2, ModuleDefaultExport3_default, 'Failed to import default from ModuleDefaultExport3.js');
+                import ModuleDefaultExport4_default from 'ModuleDefaultExport4.js';
+                assert.areEqual(1, ModuleDefaultExport4_default, 'Failed to import not_default from ModuleDefaultExport4.js');`;
+            testModuleScript(functionBody, "Exported value incorrectly bound", false);
+        }
+    },
+    {
+        name: "Import bindings used in a nested function",
+        body: function () {
+            let functionBody = 
+                `import foo from 'ModuleDefaultExport2.js';
+                function test() {
+                    assert.areEqual('ModuleDefaultExport2', foo(), 'Failed to import default from ModuleDefaultExport2.js');
+                }
+                test();`;
+            testModuleScript(functionBody, "Failed to find imported name correctly in nested function", false);
+        }
+    },
+    {
+        name: "Exported name may be any keyword",
+        body: function () {
+            let functionBody = 
+                `import { export as baz } from 'ModuleComplexExports.js';
+                assert.areEqual('ModuleComplexExports', baz, 'Failed to import export from ModuleDefaultExport2.js');
+                import { function as bat } from 'ModuleComplexExports.js';
+                assert.areEqual('ModuleComplexExports', bat, 'Failed to import function from ModuleDefaultExport2.js');`;
+            testModuleScript(functionBody, "Exported name may be a keyword (import binding must be binding identifier)", false);
+        }
+    },
+    {
+        name: "Import binding of a keyword-named export may not be a keyword unless it is bound to a different binding identifier",
+        body: function () {
+            let functionBody = `import { export } from 'ModuleComplexExports.js';`;
+            testModuleScript(functionBody, "Import binding must be binding identifier even if export name is not (export)", true);
+            functionBody = `import { function } from 'ModuleComplexExports.js';`;
+            testModuleScript(functionBody, "Import binding must be binding identifier even if export name is not (function)", true);
+            functionBody = `import { switch } from 'ModuleComplexReexports.js';`;
+            testModuleScript(functionBody, "Import binding must be binding identifier even if re-export name is not (switch)", true);
+        }
+    },
+    {
+        name: "Exported name may be any keyword testing re-exports",
+        body: function () {
+            let functionBody = 
+                `import { switch as baz } from 'ModuleComplexReexports.js';
+                assert.areEqual('ModuleComplexExports', baz, 'Failed to import switch from ModuleComplexReexports.js');`;
+            testModuleScript(functionBody, "Exported name may be a keyword including re-epxort chains", false);
         }
     },
 ];

@@ -15,3 +15,5 @@
 
 #include <stdio.h>
 #include <tchar.h>
+
+#include <GlobalMSRCSettings.h>

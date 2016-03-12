@@ -125,7 +125,7 @@ public:
     void Dbg(_In_ PCSTR fmt, ...);
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
-
+    bool IsJScript9();
     void DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
 
     class PropertyNameReader

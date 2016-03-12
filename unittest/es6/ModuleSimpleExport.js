@@ -3,4 +3,4 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
-export function foo() { return 'foo'; };
+export function ModuleSimpleExport_foo() { return 'ModuleSimpleExport'; };

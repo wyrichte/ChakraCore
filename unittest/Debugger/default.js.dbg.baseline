@@ -1,0 +1,300 @@
+[
+  {
+    "log": "Stepping on default params - formals on regslot"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 407,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 417,
+        "length": 6,
+        "text": "c = 2)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a = 11": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "log": "Stepping on default params - formals on regslot and slot array"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "undefined",
+      "c": "undefined",
+      "a": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 719,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "undefined",
+      "c": "undefined",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 729,
+        "length": 6,
+        "text": "c = 2)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a = 11": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "a": "1"
+    }
+  },
+  {
+    "log": "Stepping on default params - formals on activation object"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1095,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "undefined",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1105,
+        "length": 6,
+        "text": "c = 2)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "a = 11": "11"
+    }
+  },
+  {
+    "evaluate": {
+      "a": "11"
+    }
+  },
+  {
+    "log": "Stepping on default params - has mixed destructuring patterns"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "<large string>",
+      "c": "<large string>",
+      "b": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1425,
+        "length": 11,
+        "text": "{a} = {a:1}",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "c": "<large string>",
+      "b": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1441,
+        "length": 9,
+        "text": "[c] = [2]",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - one formal has function as default"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 1754,
+        "length": 6,
+        "text": "c = 3)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - one formal has function as default but formals on slot array"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2088,
+        "length": 6,
+        "text": "c = 3)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - one formal has function as default but formals on activation object"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "undefined",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 2466,
+        "length": 6,
+        "text": "c = 3)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - break at function at formals and do setframe"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  }
+]

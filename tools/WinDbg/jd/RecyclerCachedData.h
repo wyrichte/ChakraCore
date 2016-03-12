@@ -29,6 +29,12 @@ class RootPointers;
 //    MACRO(SmallBlockTypeCount) \
 //    MACRO(BlockTypeCount)
 
+#define BLOCKTYPELIST_JSCRIPT9(MACRO) \
+    MACRO(SmallNormalBlock) \
+    MACRO(SmallLeafBlock) \
+    MACRO(SmallFinalizableBlock) \
+    MACRO(LargeBlock) \
+
 class RecyclerCachedData
 {
 public:
