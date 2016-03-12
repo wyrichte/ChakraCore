@@ -3946,4 +3946,11 @@
       <compile-flags>-debugLaunch -targeted -dbgbaseline:default.js.dbg.baseline</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>bug_vso5792108.js</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_vso5792108.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators,BugFix</tags>
+    </default>
+  </test>
 </regress-exe>
