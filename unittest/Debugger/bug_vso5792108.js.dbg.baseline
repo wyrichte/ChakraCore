@@ -1,0 +1,68 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 155,
+        "length": 9,
+        "text": "var x = 1",
+        "frameDescription": "func1"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 407,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "func22"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 709,
+        "length": 9,
+        "text": "var x = 1",
+        "frameDescription": "func3"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 924,
+        "length": 7,
+        "text": "var x=1",
+        "frameDescription": "func4"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1135,
+        "length": 9,
+        "text": "var y = 1",
+        "frameDescription": "func55"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 1420,
+        "length": 9,
+        "text": "var y = 1",
+        "frameDescription": "func66"
+      }
+    }
+  }
+]
