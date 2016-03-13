@@ -510,13 +510,13 @@
   {
     "callstack": [
       {
-        "start": 2788,
+        "start": 2860,
         "length": 39,
         "text": "var b = SIMD.Int16x8.fromInt32x4Bits(a)",
         "frameDescription": "testSIMDInt16x8_conversion"
       },
       {
-        "start": 3858,
+        "start": 3967,
         "length": 28,
         "text": "testSIMDInt16x8_conversion()",
         "frameDescription": "Global code"
@@ -657,13 +657,13 @@
   {
     "callstack": [
       {
-        "start": 3413,
+        "start": 3506,
         "length": 43,
         "text": "var f = SIMD.Int16x8.replaceLane(c, 0, 111)",
         "frameDescription": "testSIMDInt16x8_replaceLane"
       },
       {
-        "start": 3888,
+        "start": 3998,
         "length": 29,
         "text": "testSIMDInt16x8_replaceLane()",
         "frameDescription": "Global code"
@@ -715,13 +715,13 @@
   {
     "callstack": [
       {
-        "start": 3771,
+        "start": 3875,
         "length": 1,
         "text": "}",
         "frameDescription": "testSIMDInt16x8_replaceLane"
       },
       {
-        "start": 3888,
+        "start": 3998,
         "length": 29,
         "text": "testSIMDInt16x8_replaceLane()",
         "frameDescription": "Global code"
