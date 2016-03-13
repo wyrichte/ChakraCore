@@ -3,7 +3,7 @@
     "breakpoint": {
       "reason": "breakpoint",
       "location": {
-        "start": 215,
+        "start": 222,
         "length": 9,
         "text": "local = 0",
         "frameDescription": "f"
@@ -32,7 +32,7 @@
   {
     "callstack": [
       {
-        "start": 215,
+        "start": 222,
         "length": 9,
         "text": "local = 0",
         "frameDescription": "f"
@@ -43,7 +43,7 @@
     "breakpoint": {
       "reason": "breakpoint",
       "location": {
-        "start": 314,
+        "start": 326,
         "length": 27,
         "text": "if (i !== 1 || local !== 1)",
         "frameDescription": "f"
@@ -72,7 +72,7 @@
   {
     "callstack": [
       {
-        "start": 314,
+        "start": 326,
         "length": 27,
         "text": "if (i !== 1 || local !== 1)",
         "frameDescription": "f"
@@ -83,7 +83,7 @@
     "breakpoint": {
       "reason": "breakpoint",
       "location": {
-        "start": 447,
+        "start": 464,
         "length": 1,
         "text": "}",
         "frameDescription": "f"
@@ -112,7 +112,7 @@
   {
     "callstack": [
       {
-        "start": 447,
+        "start": 464,
         "length": 1,
         "text": "}",
         "frameDescription": "f"
