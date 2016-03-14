@@ -540,7 +540,7 @@ namespace JsrtUnitTests
             JsValueRef result;
             VERIFY_IS_TRUE(JsConstructObject(function, args, 1, &result) == JsNoError);
         }
-
+/*
         TEST_METHOD(ExternalFunctionTestForFPCW)
         {
             // This test is explicitely disabled because we will hit Assert in LeaveScript since we don't 
@@ -558,7 +558,7 @@ namespace JsrtUnitTests
             JsValueRef result;
             VERIFY_IS_TRUE(JsConstructObject(function, args, 1, &result) == JsNoError);
         }
-
+*/
         TEST_METHOD(ExternalFunctionWithScriptAbortionTest)
         {
             if (!(attributes & JsRuntimeAttributeAllowScriptInterrupt))
@@ -1569,6 +1569,43 @@ namespace JsrtUnitTests
             }
         }
 
+        // Callback calls JsSetContext
+        TEST_METHOD(ObjectBeforeCollect_JsSetCurrentContextNull)
+        {
+            int called = 0;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef)
+                {
+                    VERIFY_IS_TRUE(JsSetCurrentContext(nullptr) == JsNoError);
+                    ++called;
+                    return true; // collect
+                });
+            });
+
+            VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
+            VERIFY_ARE_EQUAL(1, called);
+        }
+
+        // Callback calls JsSetContext
+        TEST_METHOD(ObjectBeforeCollect_JsSetCurrentContext)
+        {
+            int called = 0;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef ref)
+                {
+                    JsContextRef testContext;
+                    VERIFY_IS_TRUE(JsGetContextOfObject(ref, &testContext) == JsNoError);
+                    VERIFY_IS_TRUE(JsSetCurrentContext(testContext) == JsNoError);
+                    ++called;
+                    return true; // collect
+                });
+            });
+            VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
+            VERIFY_ARE_EQUAL(1, called);
+        }
+
         // Mix with JsAddRef/JsRelease
         TEST_METHOD(ObjectBeforeCollect_AddRelease_0)
         {
@@ -1666,6 +1703,32 @@ namespace JsrtUnitTests
                     return ++called >= OBJECTBEFORECOLLECT_GC_ITERATIONS; // collect after OBJECTBEFORECOLLECT_GC_ITERATIONS
                 });
             });
+        }
+
+        // Test shutdown behavior
+        TEST_METHOD(ObjectBeforeCollect_ResetContextInFinalizer)
+        {
+            int called = 0;
+            bool finalized = false;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef)
+                {
+                    ++called;
+                    return true;
+                });
+            }, [&]()
+            {
+                finalized = true;
+                JsSetCurrentContext(nullptr);
+            });
+            // manually shutdown
+            JsSetCurrentContext(NULL);
+            JsDisposeRuntime(this->runtime);
+            this->runtime = nullptr;
+
+            VERIFY_ARE_EQUAL(1, called);
+            VERIFY_IS_TRUE(finalized);
         }
 
         // Test shutdown behavior
