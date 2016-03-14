@@ -323,7 +323,7 @@ HRESULT ScriptSite::Init(
         DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
         if (threadContext != nullptr)
         {
-            isJSRT = !(threadContext->GetIsThreadBound());
+            isJSRT = threadContext->IsJSRT();
         }
         if (g_TraceLoggingClient!=nullptr && (this->scriptEngine->fNonPrimaryEngine == 0 || isJSRT))
         {
@@ -452,7 +452,7 @@ void ScriptSite::Close()
         DWORD hostType = scriptEngine->GetHostType(); // 0 for JShost, 1 for browser, 2 for WWA/JSRT, 3 for webview in WWA/XAML
         if (threadContext != nullptr)
         {
-            isJSRT = !(threadContext->GetIsThreadBound());
+            isJSRT = threadContext->IsJSRT();
         }
         if (!isNonPrimaryEngine || isJSRT)
         {
@@ -518,7 +518,7 @@ void ScriptSite::Close()
     // In JSRT, global object can be disposed before JSRTContxt, and we'll AV here.
     // We need to clean up the global object to break potential circular reference. we don't
     // need to do that for jsrt.
-    if (GetScriptSiteContext()->GetThreadContext()->GetIsThreadBound())
+    if (!GetScriptSiteContext()->GetThreadContext()->IsJSRT())
     {
         Js::GlobalObject* globalObject = GetScriptSiteContext()->GetGlobalObject();
         globalObject->SetHostObject(nullptr);
