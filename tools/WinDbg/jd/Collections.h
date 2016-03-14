@@ -463,7 +463,7 @@ public:
     }
 
     template <typename Fn>
-    bool MapEdges(Fn func)
+    bool MapSuccessors(Fn func)
     {
         return successors.Map(func);
     }
@@ -475,7 +475,7 @@ public:
     }
 
     template <typename Fn>
-    void MapAllEdges(Fn func)
+    void MapAllSuccessors(Fn func)
     {
         successors.MapAll(func);
     }
@@ -564,7 +564,7 @@ public:
 
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&] (NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -592,7 +592,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -622,7 +622,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -654,7 +654,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
