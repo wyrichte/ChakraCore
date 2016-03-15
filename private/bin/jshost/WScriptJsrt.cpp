@@ -18,24 +18,24 @@ MessageQueue* WScriptJsrt::s_messageQueue = NULL;
 JsValueRef __stdcall WScriptJsrt::EchoCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
 {
     for (unsigned int i = 1; i < argumentCount; i++)
-    {          
+    {
         if (i > 1)
         {
             wprintf(L" ");
         }
         JsValueRef strValue;
-        if (JScript9Interface::JsrtConvertValueToString(arguments[i], &strValue) == JsNoError) 
+        if (JScript9Interface::JsrtConvertValueToString(arguments[i], &strValue) == JsNoError)
         {
             LPCWSTR str = NULL;
             size_t length;
-            if (JScript9Interface::JsrtStringToPointer(strValue, &str, &length) == JsNoError) 
+            if (JScript9Interface::JsrtStringToPointer(strValue, &str, &length) == JsNoError)
             {
                 wprintf(L"%s", str);
             }
         }
     }
 
-    wprintf(L"\n");        
+    wprintf(L"\n");
 
     JsValueRef undefinedValue;
     if (JScript9Interface::JsrtGetUndefinedValue(&undefinedValue) == JsNoError)
@@ -215,7 +215,7 @@ JsValueRef __stdcall WScriptJsrt::LoadScriptCallback(JsValueRef callee, bool isC
             IfJsrtErrorSetGo(JScript9Interface::JsrtGetCurrentContext(&context));
             JsRuntimeHandle runtime = JS_INVALID_RUNTIME_HANDLE;
             IfJsrtErrorSetGo(JScript9Interface::JsrtGetRuntime(context, &runtime));
-                    
+
             IfJsrtErrorSetGo(JScript9Interface::JsrtCreateContext(runtime, &newContext));
             IfJsrtErrorSetGo(JScript9Interface::JsrtSetCurrentContext(newContext));
 
@@ -424,6 +424,104 @@ Error:
     return JS_INVALID_REFERENCE;
 }
 
+JsValueRef __stdcall WScriptJsrt::LoadTextFileCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+{
+    HRESULT hr = E_FAIL;
+    JsValueRef returnValue = JS_INVALID_REFERENCE;
+    JsErrorCode errorCode = JsNoError;
+
+    if (argumentCount < 2)
+    {
+        fwprintf(stderr, L"Too too few arguments.\n");
+    }
+    else
+    {
+        const char16 *fileContent;
+        const char16 *fileName;
+        size_t fileNameLength;
+
+        IfJsrtErrorSetGo(JScript9Interface::JsrtStringToPointer(arguments[1], &fileName, &fileNameLength));
+
+        if (errorCode == JsNoError)
+        {
+            HRESULT hr;
+            UINT lengthBytes = 0;
+            bool isUtf8 = false;
+            LPCOLESTR contentsRaw = nullptr;
+            hr = JsHostLoadScriptFromFile(fileName, fileContent, &isUtf8, &contentsRaw, &lengthBytes);
+            fileContent; // Unused for now.
+
+            if (FAILED(hr))
+            {
+                fwprintf(stderr, L"Couldn't load file.\n");
+            }
+            else
+            {
+                JsValueRef stringObject;
+                IfJsrtErrorSetGo(JScript9Interface::JsrtPointerToString(fileContent, lengthBytes, &stringObject));
+                return stringObject;
+            }
+        }
+    }
+
+Error:
+    return returnValue;
+}
+
+JsValueRef __stdcall WScriptJsrt::LoadBinaryFileCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+{
+    HRESULT hr = E_FAIL;
+    JsValueRef returnValue = JS_INVALID_REFERENCE;
+    JsErrorCode errorCode = JsNoError;
+
+    if (argumentCount < 2)
+    {
+        fwprintf(stderr, L"Too too few arguments.\n");
+    }
+    else
+    {
+        const char16 *fileContent;
+        const char16 *fileName;
+        size_t fileNameLength;
+
+        IfJsrtErrorSetGo(JScript9Interface::JsrtStringToPointer(arguments[1], &fileName, &fileNameLength));
+
+        if (errorCode == JsNoError)
+        {
+            HRESULT hr;
+            UINT lengthBytes = 0;
+
+            hr = JsHostLoadBinaryFile(fileName, fileContent, lengthBytes);
+            if (FAILED(hr))
+            {
+                fwprintf(stderr, L"Couldn't load file.\n");
+            }
+            else
+            {
+                JsValueRef arrayBuffer;
+                IfJsrtErrorSetGo(JScript9Interface::JsrtCreateArrayBuffer(lengthBytes, &arrayBuffer));
+                BYTE* buffer;
+                unsigned int bufferLength;
+                IfJsrtErrorSetGo(JScript9Interface::JsrtGetArrayBufferStorage(arrayBuffer, &buffer, &bufferLength));
+                if (bufferLength < lengthBytes)
+                {
+                    fwprintf(stderr, L"Array buffer size is insufficient to store the binary file.\n");
+                }
+                else
+                {
+                    if (memcpy_s(buffer, bufferLength, (BYTE*)fileContent, lengthBytes) == 0)
+                    {
+                        returnValue = arrayBuffer;
+                    }
+                }
+            }
+        }
+    }
+
+Error:
+    return returnValue;
+}
+
 JsValueRef WScriptJsrt::ClearTimeoutCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
 {
     LPWSTR errorMessage = L"invalid call to WScript.ClearTimeout";
@@ -474,6 +572,18 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
 
     JsValueRef wscript;
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&wscript), false);
+
+    JsValueRef loadBinaryFile;
+    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadBinaryFileCallback, nullptr, &loadBinaryFile), false);
+    JsPropertyIdRef loadBinaryFileName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(_u("LoadBinaryFile"), &loadBinaryFileName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadBinaryFileName, loadBinaryFile, true), false);
+
+    JsValueRef loadTextFile;
+    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadTextFileCallback, nullptr, &loadTextFile), false);
+    JsPropertyIdRef loadTextFileName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(_u("LoadTextFile"), &loadTextFileName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadTextFileName, loadTextFile, true), false);
 
     JsValueRef echo;
     IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(EchoCallback, nullptr, &echo), false);
@@ -543,6 +653,14 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"print", &printName), false);
     IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, printName, echo, true), false);
 
+    JsPropertyIdRef readName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"read", &readName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, readName, loadTextFile, true), false);
+
+    JsPropertyIdRef readbufferName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"readbuffer", &readbufferName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, readbufferName, loadBinaryFile, true), false);
+
     return true;
 }
 
@@ -603,7 +721,7 @@ Error:
         IfJsrtErrorFail(JScript9Interface::JsrtConvertValueToString(exception, &strExcep), E_FAIL);
         IfJsrtErrorFail(JScript9Interface::JsrtStringToPointer(strExcep, &msg, &length), E_FAIL);
 
-        wprintf(L"Script Error: %s\n", msg);        
+        wprintf(L"Script Error: %s\n", msg);
     }
     return hr;
 }

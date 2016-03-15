@@ -97,7 +97,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
 
 
     if (isUtf8)
-    {        
+    {
         utf8::DecodeOptions decodeOptions = utf8::doAllowInvalidWCHARs;
 
         UINT cUtf16Chars = utf8::ByteIndexIntoCharacterIndex(pRawBytes, lengthBytes, decodeOptions);
@@ -125,6 +125,79 @@ Error:
         HeapFree(GetProcessHeap(), 0, (void*)contentsRaw);
     }
 
+    if (contents && FAILED(hr))
+    {
+        HeapFree(GetProcessHeap(), 0, (void*)contents);
+        contents = nullptr;
+    }
+
+    return hr;
+}
+
+HRESULT JsHostLoadBinaryFile(LPCWSTR filename, LPCWSTR& contents, UINT& lengthBytes, bool printFileOpenError)
+{
+    HRESULT hr = S_OK;
+    contents = nullptr;
+    lengthBytes = 0;
+    FILE * file;
+
+    //
+    // Open the file as a binary file to prevent CRT from handling encoding, line-break conversions,
+    // etc.
+    //
+    if (_wfopen_s(&file, filename, _u("rb")) != 0)
+    {
+        if (printFileOpenError)
+        {
+            DWORD lastError = GetLastError();
+            char16 wszBuff[512];
+            fwprintf(stderr, _u("Error in opening file '%s' "), filename);
+            wszBuff[0] = 0;
+            if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
+                              nullptr,
+                              lastError,
+                              0,
+                              wszBuff,
+                              _countof(wszBuff),
+                              nullptr))
+            {
+                fwprintf(stderr, _u(": %s"), wszBuff);
+            }
+            fwprintf(stderr, _u("\n"));
+            IfFailGo(E_FAIL);
+        }
+        else
+        {
+            return E_FAIL;
+        }
+    }
+    // file will not be nullptr if _wfopen_s succeeds
+    __analysis_assume(file != nullptr);
+
+    //
+    // Determine the file length, in bytes.
+    //
+    fseek(file, 0, SEEK_END);
+    lengthBytes = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    contents = (LPCWSTR)HeapAlloc(GetProcessHeap(), 0, lengthBytes);
+    if (nullptr == contents)
+    {
+        fwprintf(stderr, _u("out of memory"));
+        IfFailGo(E_OUTOFMEMORY);
+    }
+    //
+    // Read the entire content as a binary block.
+    //
+    size_t result = fread((void*)contents, sizeof(char), lengthBytes, file);
+    if (result != lengthBytes)
+    {
+        fwprintf(stderr, _u("Read error"));
+        IfFailGo(E_FAIL);
+    }
+    fclose(file);
+
+Error:
     if (contents && FAILED(hr))
     {
         HeapFree(GetProcessHeap(), 0, (void*)contents);

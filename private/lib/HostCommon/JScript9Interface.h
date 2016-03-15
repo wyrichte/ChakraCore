@@ -39,6 +39,8 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtDoubleToNumberPtr)(double doubleValue, JsValueRef* value);
     typedef JsErrorCode (WINAPI *JsrtGetExternalDataPtr)(JsValueRef object, void **data);
     typedef JsErrorCode (WINAPI *JsrtCreateArrayPtr)(unsigned int length, JsValueRef *result);
+    typedef JsErrorCode (WINAPI *JsrtCreateArrayBufferPtr)(unsigned int byteLength, JsValueRef *result);
+    typedef JsErrorCode (WINAPI *JsrtGetArrayBufferStoragePtr)(JsValueRef instance, BYTE **buffer, unsigned int *bufferLength);
     typedef JsErrorCode (WINAPI *JsrtSetIndexedPropertyPtr)(JsValueRef object, JsValueRef index, JsValueRef value);
     typedef JsErrorCode (WINAPI *JsrtCreateErrorPtr)(JsValueRef message, JsValueRef *error);
     typedef JsErrorCode (WINAPI *JsrtSetExceptionPtr)(JsValueRef exception);
@@ -79,6 +81,8 @@ struct JsrtTestHooks
     JsrtDoubleToNumberPtr pfJsrtDoubleToNumber;
     JsrtGetExternalDataPtr pfJsrtGetExternalData;
     JsrtCreateArrayPtr pfJsrtCreateArray;
+    JsrtCreateArrayBufferPtr pfJsrtCreateArrayBuffer;
+    JsrtGetArrayBufferStoragePtr pfJsrtGetArrayBufferStorage;
     JsrtSetIndexedPropertyPtr pfJsrtSetIndexedProperty;
     JsrtCreateErrorPtr pfJsrtCreateError;
     JsrtSetExceptionPtr pfJsrtSetException;
@@ -278,6 +282,8 @@ public:
     static JsErrorCode WINAPI JsrtDoubleToNumber(double doubleValue, JsValueRef* value) { return m_jsrtTestHooks.pfJsrtDoubleToNumber(doubleValue, value); }
     static JsErrorCode WINAPI JsrtGetExternalData(JsValueRef object, void **data) { return m_jsrtTestHooks.pfJsrtGetExternalData(object, data); }
     static JsErrorCode WINAPI JsrtCreateArray(unsigned int length, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCreateArray(length, result); }
+    static JsErrorCode WINAPI JsrtCreateArrayBuffer(unsigned int byteLength, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCreateArrayBuffer(byteLength, result); }
+    static JsErrorCode WINAPI JsrtGetArrayBufferStorage(JsValueRef instance, BYTE **buffer, unsigned int *bufferLength) { return m_jsrtTestHooks.pfJsrtGetArrayBufferStorage(instance, buffer, bufferLength); }
     static JsErrorCode WINAPI JsrtSetIndexedProperty(JsValueRef object, JsValueRef index, JsValueRef value) { return m_jsrtTestHooks.pfJsrtSetIndexedProperty(object, index, value); }
     static JsErrorCode WINAPI JsrtCreateError(JsValueRef message, JsValueRef *error) { return m_jsrtTestHooks.pfJsrtCreateError(message, error); }
     static JsErrorCode WINAPI JsrtSetException(JsValueRef exception) { return m_jsrtTestHooks.pfJsrtSetException(exception); }
