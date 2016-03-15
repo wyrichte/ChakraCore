@@ -117,7 +117,7 @@ function testSIMDFloat32x4_replaceLane() {
 
 testSIMDFloat32x4_unaryop();
 testSIMDFloat32x4_binaryop();
-testSIMDFloat32x4_clamp();
+
 testSIMDFloat32x4_compareop();
 testSIMDFloat32x4_conversion();
 testSIMDFloat32x4_replaceLane();

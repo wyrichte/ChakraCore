@@ -125,7 +125,7 @@ public:
     void Dbg(_In_ PCSTR fmt, ...);
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
-
+    bool IsJScript9();
     void DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
 
     class PropertyNameReader
@@ -259,6 +259,8 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
+// TODO (doilij) reorganize permissions blocks
+public:
     RecyclerObjectGraph * GetOrCreateRecyclerObjectGraph(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
     {
         if (this->cachedObjectGraph)
@@ -275,6 +277,7 @@ protected:
         return cachedObjectGraph;
     }
 
+protected:
     void ClearCache()
     {
         this->recyclerCachedData.Clear();
@@ -397,6 +400,8 @@ public:
 #if ENABLE_MARK_OBJ
     JD_PRIVATE_COMMAND_METHOD(markobj);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(predecessors);
+    JD_PRIVATE_COMMAND_METHOD(successors);
     JD_PRIVATE_COMMAND_METHOD(traceroots);
     JD_PRIVATE_COMMAND_METHOD(savegraph);
     JD_PRIVATE_COMMAND_METHOD(slist);

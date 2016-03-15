@@ -167,6 +167,29 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(!wcscmp(str, L"white"));
         }
 
+        TEST_METHOD(DeleteObjectIndexedPropertyBug) {
+          JsValueRef object;
+          VERIFY_IS_TRUE(JsRunScript(L"({a: 'a', 1: 1, 100: 100})", JS_SOURCE_CONTEXT_NONE, L"", &object) == JsNoError);
+
+          JsPropertyIdRef idRef;
+          JsValueRef result;
+          // delete property "a" triggers PathTypeHandler -> SimpleDictionaryTypeHandler
+          VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"a", &idRef) == JsNoError);
+          VERIFY_IS_TRUE(JsDeleteProperty(object, idRef, false, &result) == JsNoError);
+          // Now delete property "100". Bug causes we always delete "1" instead.
+          VERIFY_IS_TRUE(JsGetPropertyIdFromName(L"100", &idRef) == JsNoError);
+          VERIFY_IS_TRUE(JsDeleteProperty(object, idRef, false, &result) == JsNoError);
+
+          bool has;
+          JsValueRef indexRef;
+          VERIFY_IS_TRUE(JsIntToNumber(100, &indexRef) == JsNoError);
+          VERIFY_IS_TRUE(JsHasIndexedProperty(object, indexRef, &has) == JsNoError);
+          VERIFY_IS_TRUE(!has); // index 100 should be deleted
+          VERIFY_IS_TRUE(JsIntToNumber(1, &indexRef) == JsNoError);
+          VERIFY_IS_TRUE(JsHasIndexedProperty(object, indexRef, &has) == JsNoError);
+          VERIFY_IS_TRUE(has); // index 1 should be intact
+        }
+
         TEST_METHOD(CrossContextSetPropertyTest)
         {
             bool hasExternalData;
@@ -517,7 +540,7 @@ namespace JsrtUnitTests
             JsValueRef result;
             VERIFY_IS_TRUE(JsConstructObject(function, args, 1, &result) == JsNoError);
         }
-
+/*
         TEST_METHOD(ExternalFunctionTestForFPCW)
         {
             // This test is explicitely disabled because we will hit Assert in LeaveScript since we don't 
@@ -535,7 +558,7 @@ namespace JsrtUnitTests
             JsValueRef result;
             VERIFY_IS_TRUE(JsConstructObject(function, args, 1, &result) == JsNoError);
         }
-
+*/
         TEST_METHOD(ExternalFunctionWithScriptAbortionTest)
         {
             if (!(attributes & JsRuntimeAttributeAllowScriptInterrupt))
@@ -1546,6 +1569,43 @@ namespace JsrtUnitTests
             }
         }
 
+        // Callback calls JsSetContext
+        TEST_METHOD(ObjectBeforeCollect_JsSetCurrentContextNull)
+        {
+            int called = 0;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef)
+                {
+                    VERIFY_IS_TRUE(JsSetCurrentContext(nullptr) == JsNoError);
+                    ++called;
+                    return true; // collect
+                });
+            });
+
+            VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
+            VERIFY_ARE_EQUAL(1, called);
+        }
+
+        // Callback calls JsSetContext
+        TEST_METHOD(ObjectBeforeCollect_JsSetCurrentContext)
+        {
+            int called = 0;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef ref)
+                {
+                    JsContextRef testContext;
+                    VERIFY_IS_TRUE(JsGetContextOfObject(ref, &testContext) == JsNoError);
+                    VERIFY_IS_TRUE(JsSetCurrentContext(testContext) == JsNoError);
+                    ++called;
+                    return true; // collect
+                });
+            });
+            VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
+            VERIFY_ARE_EQUAL(1, called);
+        }
+
         // Mix with JsAddRef/JsRelease
         TEST_METHOD(ObjectBeforeCollect_AddRelease_0)
         {
@@ -1643,6 +1703,32 @@ namespace JsrtUnitTests
                     return ++called >= OBJECTBEFORECOLLECT_GC_ITERATIONS; // collect after OBJECTBEFORECOLLECT_GC_ITERATIONS
                 });
             });
+        }
+
+        // Test shutdown behavior
+        TEST_METHOD(ObjectBeforeCollect_ResetContextInFinalizer)
+        {
+            int called = 0;
+            bool finalized = false;
+            CreateObject([&](JsRef obj)
+            {
+                SetObjectBeforeCollectCallback(obj, [&](JsRef)
+                {
+                    ++called;
+                    return true;
+                });
+            }, [&]()
+            {
+                finalized = true;
+                JsSetCurrentContext(nullptr);
+            });
+            // manually shutdown
+            JsSetCurrentContext(NULL);
+            JsDisposeRuntime(this->runtime);
+            this->runtime = nullptr;
+
+            VERIFY_ARE_EQUAL(1, called);
+            VERIFY_IS_TRUE(finalized);
         }
 
         // Test shutdown behavior

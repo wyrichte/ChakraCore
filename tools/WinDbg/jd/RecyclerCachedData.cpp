@@ -173,18 +173,32 @@ void RecyclerCachedData::EnsureBlockTypeEnum()
     {
         return;
     }
-    bool useMemoryNamespace = (GetExtension()->GetEnumValue("SmallNormalBlockType", false) == (ULONG64)-1);
-    
+
+    if (GetExtension()->IsJScript9())
+    {
 #define INIT_BLOCKTYPE_ENUM(name) \
-    m_blockTypeEnumValue##name = GetExtension()->GetEnumValue(#name, useMemoryNamespace); \
-    if (m_blockTypeEnumValue##name == (ULONG64)-1) \
-    { \
-        g_Ext->Out("Enum value for block type " #name " doesn't exist\n"); \
-    }
+        m_blockTypeEnumValue##name##Type = GetExtension()->GetEnumValue(#name, false); \
+        if (m_blockTypeEnumValue##name##Type == (ULONG64)-1) \
+        { \
+            g_Ext->Out("Enum value for block type " #name " doesn't exist\n"); \
+        }
 
-    BLOCKTYPELIST(INIT_BLOCKTYPE_ENUM)
+        BLOCKTYPELIST_JSCRIPT9(INIT_BLOCKTYPE_ENUM)
 #undef INIT_BLOCKTYPE_ENUM
+    }
+    else
+    {
+        bool useMemoryNamespace = (GetExtension()->GetEnumValue("SmallNormalBlockType", false) == (ULONG64)-1);
+#define INIT_BLOCKTYPE_ENUM(name) \
+        m_blockTypeEnumValue##name = GetExtension()->GetEnumValue(#name, useMemoryNamespace); \
+        if (m_blockTypeEnumValue##name == (ULONG64)-1) \
+        { \
+            g_Ext->Out("Enum value for block type " #name " doesn't exist\n"); \
+        }
 
+        BLOCKTYPELIST(INIT_BLOCKTYPE_ENUM)
+#undef INIT_BLOCKTYPE_ENUM
+    }
     m_blockTypeEnumInitialized = true;
 }
 

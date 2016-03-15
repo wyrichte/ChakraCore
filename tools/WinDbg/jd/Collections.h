@@ -463,7 +463,7 @@ public:
     }
 
     template <typename Fn>
-    bool MapEdges(Fn func)
+    bool MapSuccessors(Fn func)
     {
         return successors.Map(func);
     }
@@ -475,7 +475,7 @@ public:
     }
 
     template <typename Fn>
-    void MapAllEdges(Fn func)
+    void MapAllSuccessors(Fn func)
     {
         successors.MapAll(func);
     }
@@ -564,7 +564,7 @@ public:
 
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&] (NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -574,7 +574,7 @@ public:
                     }
                     else
                     {
-                        fprintf(f, "G.add_edge('0x%08X', '0x%08X')\n", fromPointer, toPointer);
+                        fprintf(f, "G.add_edge('0x%08llX', '0x%08llX')\n", fromPointer, toPointer);
                     }
                 });
             });
@@ -592,7 +592,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -603,7 +603,7 @@ public:
                     }
                     else
                     {
-                        fprintf(f, "G.add_edge(\"0x%08X\", \"0x%08X\")\n", fromPointer, toPointer);
+                        fprintf(f, "G.add_edge(\"0x%08llX\", \"0x%08llX\")\n", fromPointer, toPointer);
                     }
                 });
             });
@@ -622,7 +622,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -633,7 +633,7 @@ public:
                     }
                     else
                     {
-                        fprintf(f, "0x%08X,0x%08X\n", fromPointer, toPointer);
+                        fprintf(f, "0x%08llX,0x%08llX\n", fromPointer, toPointer);
                     }
                 });
             });
@@ -654,7 +654,7 @@ public:
         {
             this->MapAllNodes([&](NodeType* node)
             {
-                node->MapAllEdges([&](NodeType* toNode)
+                node->MapAllSuccessors([&](NodeType* toNode)
                 {
                     ULONG64 fromPointer = node->Key();
                     ULONG64 toPointer = toNode->Key();
@@ -665,7 +665,7 @@ public:
                     }
                     else
                     {
-                        fprintf(f, "0x%08X,0x%08X", fromPointer, toPointer);
+                        fprintf(f, "0x%08llX,0x%08llX", fromPointer, toPointer);
                     }
 
                     fprintf(f, ","); // comma following the first two fields
