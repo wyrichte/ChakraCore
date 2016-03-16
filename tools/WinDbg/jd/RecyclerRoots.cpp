@@ -1246,22 +1246,20 @@ void DumpSuccessors(EXT_CLASS_BASE* ext, Node node, RecyclerObjectGraph &objectG
     DumpPredSucc<false, links>(ext, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
-// TODO (doilij) rename DML commands (desc->predecessors)
 JD_PRIVATE_COMMAND(predecessors,
     "Given a pointer in the graph, show all of its descendants.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show predecessors which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
     PredSuccImpl<true>(this);
 }
 
-// TODO doilij rename DML commands (succ->successors)
 JD_PRIVATE_COMMAND(successors,
     "Given a pointer in the graph, show all of its descendants.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show descendants which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
@@ -1320,9 +1318,9 @@ JD_PRIVATE_COMMAND(successors,
 //
 JD_PRIVATE_COMMAND(traceroots,
     "Given a pointer in the graph, perform a BFS traversal to find the shortest path to a root.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
-    "{roots;e,o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
+    "{roots;edn=(10),o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
     "{a;b,o;all;Shortest path to all roots}"
@@ -1552,7 +1550,7 @@ JD_PRIVATE_COMMAND(traceroots,
 JD_PRIVATE_COMMAND(savegraph,
     "Saves the current recycler object graph into a file (js, python, csv, etc.)",
     "{;s;filename;Filename to output to}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{;s,o,d=js;filetype;Save file type <js|python|csv|csvx>}")
 {
     PCSTR filename = GetUnnamedArgStr(0);
@@ -1647,42 +1645,47 @@ int __cdecl ObjectAllocNameComparer(const void * a, const void * b)
 
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;recycler;Recycler address}"
+    "{top;edn=(10),o,d=-1;count;Number of entries to display}"
     "{v;b,o;verbose;Display verbose tracing}"
     "{t;b,o;trident;Display trident symbols}"
     "{sc;b,o;sortByCount;Sort by count instead of bytes}"
     "{sn;b,o;sortByName;Sort by name instead of bytes}"
     "{su;b,o;sortByUnknown;Sort by unknown}"
-    "{top;en=(10),o,d=-1;count;Number of entries to display}"
     "{vt;b,o;vtable;Vtable Only}"
     "{u;b,o;grouped;Show unknown count}"
-    "{k;b,o;known;Known object only}"
+    "{k;b,o;known;Known objects only}"
     )
 {
-    const bool trident = HasArg("t");
+    const ULONG64 recyclerArg = GetUnnamedArgU64(0);
+    const ULONG64 limit = GetArgU64("top");
     const bool verbose = HasArg("v");
+    const bool trident = HasArg("t");
+    const bool sortByCount = HasArg("sc");
+    const bool sortByName = HasArg("sn");
+    const bool sortByUnknown = HasArg("su");
     const bool infer = !HasArg("vt");
     const bool showUnknown = HasArg("u");
     const bool knownOnly = HasArg("k");
-    const ULONG64 limit = GetArgU64("top");
 
-    if (HasArg("sc") && HasArg("sn"))
+    if (sortByCount && sortByName)
     {
         throw ExtException(E_FAIL, "Can't specify both -sc and -sn");
     }
 
-    if (HasArg("su") && HasArg("sn"))
+    if (sortByUnknown && sortByName)
     {
         throw ExtException(E_FAIL, "Can't specify both -su and -sn");
     }
 
-    auto sortComparer = HasArg("sn") ? ObjectAllocNameComparer :
-        HasArg("su") ?
-        (HasArg("sc") ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
-        (HasArg("sc") ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
+    // Note: (sortByCount && sortByUnknown) is allowed -- see below
 
-    ULONG64 arg = GetUnnamedArgU64(0);
-    ExtRemoteTyped recycler = GetRecycler(arg);
+    auto sortComparer = sortByName ? ObjectAllocNameComparer :
+        sortByUnknown ?
+        (sortByCount ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
+        (sortByCount ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
+
+    ExtRemoteTyped recycler = GetRecycler(recyclerArg);
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
     if (verbose)
@@ -1771,7 +1774,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out("%7u %11u %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize,
                 (float)stats.unknownCount / (float)numNodes * 100, (float)stats.unknownSize / (float)totalSize * 100);
         }
-        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100, (float)currSize / (float)totalSize * 100,
+        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100,
+            (float)currSize / (float)totalSize * 100,
             stats.hasVtable ? (knownOnly ? "" : "[Group] ") : "[Field] ", typeName);
 
         if (i > limit)
@@ -1783,8 +1787,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     Out("----------------------------------------------------------------------------\n");
 
-    uint unknownTotalCount = numNodes - knownObjectCount;
-    uint unknownTotalSize = totalSize - knownObjectSize;
+    const uint unknownTotalCount = numNodes - knownObjectCount;
+    const uint unknownTotalSize = totalSize - knownObjectSize;
     Out("%7u %11u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
         (float)unknownTotalCount / (float)numNodes * 100, (float)unknownTotalSize / (float)totalSize * 100);
     Out(showUnknown ? " | " : " Unknown object summary\n");
