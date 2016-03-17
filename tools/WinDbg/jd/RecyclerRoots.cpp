@@ -101,10 +101,7 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
 
     pRegisters->GetNumberRegisters(&numRegisters);
 
-    if (print)
-    {
-        ext->Out("Number of registers: %d\n", numRegisters);
-    }
+    ULONG scannedRegisters = 0;
 
     for (ULONG i = 0; i < numRegisters; i++)
     {
@@ -113,19 +110,49 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
         ULONG nameSize = 0;
         pRegisters->GetDescription(i, buffer, 32, &nameSize, &registerDescription);
 
+        if ((registerDescription.Flags & DEBUG_REGISTER_SUB_REGISTER))
+        {
+            // Don't care about subregister
+            continue;
+        }
+
+        if (ext->m_PtrSize == 4)
+        {
+            if (registerDescription.Type != DEBUG_VALUE_INT32)
+            {
+                continue;
+            }
+        }
+        else
+        {
+            if (registerDescription.Type != DEBUG_VALUE_INT64)
+            {
+                continue;
+            }
+        }
+
+        // Don't scan debug registers
+        if (strncmp(buffer, "dr", 2) == 0)
+        {
+            continue;
+        }
+
+        scannedRegisters++;
         DEBUG_VALUE debugValue;
         pRegisters->GetValue(i, &debugValue);
 
-        ULONG64 value = debugValue.I64;
-        if (ext->m_PtrSize == 4)
-        {
-            value = debugValue.I32;
-        }
+        ULONG64 value = ext->m_PtrSize == 4? debugValue.I32 : debugValue.I64;
 
         if (this->TryAdd(value, RootType::RootTypeRegister) && print)
         {
             ext->Out("0x%p (Register %s)\n", value, buffer);
         }
+    }
+
+    if (print)
+    {
+        ext->Out("Number of scanned registers: %d\n", scannedRegisters);
+        ext->Out("Number of total registers: %d\n", numRegisters);
     }
 }
 
@@ -400,87 +427,72 @@ void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& ca
     }
 }
 
-void EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
+bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
 {
-    ULONG64 vtable = GetPointerAtAddress(address);
-    std::string symbol = GetSymbolForOffset(this, vtable);
-
-    if (!symbol.empty())
+    char const * typeName;
+    JDRemoteTyped object = GetExtension()->CastWithVtable(address, &typeName);
+    
+    if (typeName == nullptr)
     {
-        const char *type = this->GetTypeNameFromVTable(symbol.c_str()).c_str();
+        return false;
+    }
 
-        if (makeLink)
-        {
-            this->Out(" -- %s ", type);
-            this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", type, address);
+    if (makeLink)
+    {
+        this->Out(" = %s ", typeName);
+        this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", typeName, address);
 
-            // TODO (doilij) don't include link unless object has type.typeId
-            //this->CastWithVtable(address, "Js::RecyclableObject");
+        // TODO (doilij) don't include link unless object has type.typeId
+        //this->CastWithVtable(address, "Js::RecyclableObject");
 
-            this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
-        }
-        else
-        {
-            this->Out(" -- %s", type);
-        }
+        this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+    }
+    else
+    {
+        this->Out(" = %s", typeName);
+    }
 #undef SYMBOL_GUESS
 
-        if (symbol.rfind("ArrayObjectInstance") != std::string::npos ||
-            symbol.rfind("Js::CustomExternalObject") != std::string::npos)
-        {
-            ULONG64 offsetOfExternalObject = 0x18;
+    if (strstr(typeName, "ArrayObjectInstance") != 0 ||
+        strstr(typeName, "Js::CustomExternalObject") != 0)
+    {
+        ULONG64 offsetOfExternalObject = 0x18;
 
 #ifdef _M_AMD64
-            if (this->m_PtrSize == 8)
-            {
-                offsetOfExternalObject = 0x30;
-            }
-#endif
-            ULONG64 externalObject = (ULONG64)address + offsetOfExternalObject;
-            ULONG64 domObject = GetPointerAtAddress(externalObject);
-            if (domObject != NULL)
-            {
-                ULONG64 domVtable = GetPointerAtAddress(domObject);
-                std::string symbol = GetSymbolForOffset(this, domVtable);
-
-                if (!symbol.empty())
-                {
-                    this->Out("(maybe DOM item %s)", symbol.c_str());
-                }
-                else
-                {
-                    this->Out("(0x%p)", externalObject);
-                }
-            }
+        if (this->m_PtrSize == 8)
+        {
+            offsetOfExternalObject = 0x30;
         }
-        else if (symbol.rfind("JavascriptDispatch") != std::string::npos)
-        {
-            ULONG64 offsetOfDispatch = 0x14;
-
-#ifdef _M_AMD64
-            if (this->m_PtrSize == 8)
-            {
-                offsetOfDispatch = 0x28;
-            }
 #endif
-            ULONG64 externalObject = (ULONG64)address + offsetOfDispatch;
-            ULONG64 dispatchObject = GetPointerAtAddress(externalObject);
-            if (dispatchObject)
-            {
-                ULONG64 dispatchVTable = GetPointerAtAddress(dispatchObject);
-                std::string symbol = GetSymbolForOffset(this, dispatchVTable);
+        ULONG64 externalObject = address + offsetOfExternalObject;
+        ULONG64 domObject = GetPointerAtAddress(externalObject);
+        if (domObject != NULL)
+        {
+            ULONG64 domVtable = GetPointerAtAddress(domObject);
+            std::string symbol = GetSymbolForOffset(this, domVtable);
 
-                if (!symbol.empty())
-                {
-                    this->Out("(maybe script Object is %s)", symbol.c_str());
-                }
-                else
-                {
-                    this->Out("(0x%p)", externalObject);
-                }
+            if (!symbol.empty())
+            {
+                this->Out("(maybe DOM item %s)", symbol.c_str());
+            }
+            else
+            {
+                this->Out("(0x%p)", externalObject);
             }
         }
     }
+    else if (strstr(typeName, "JavascriptDispatch") != 0)
+    {
+        ExtRemoteTyped scriptObject = object.Field("scriptObject");
+        this->Out("[ScriptObject ");
+        if (!DumpPossibleSymbol(scriptObject.GetPtr(), makeLink))
+        {
+            this->Out(" = 0x%p", scriptObject.GetPtr());
+        }
+        this->Out("]");
+    }
+
+    return true;
 }
 
 void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry)

@@ -70,6 +70,7 @@
     <ClCompile Include="FieldInfoCache.cpp" />
     <ClCompile Include="jdbackend.cpp" />
     <ClCompile Include="jdbytecode.cpp" />
+    <ClCompile Include="JDByteCodeCachedData.cpp" />
     <ClCompile Include="jdfunctionbody.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
     <ClInclude Include="CachedTypeInfo.h" />
+    <ClInclude Include="JDByteCodeCachedData.h" />
     <ClInclude Include="RecyclerObjectTypeInfo.h" />
     <ClInclude Include="Collections.h" />
     <ClInclude Include="ExtRemoteTypedUtil.h" />
