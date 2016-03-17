@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 58
+ |  [Properties] count: 60
  |  | 0 NaN: value: -1.#IND00
  |  | 1 Infinity: value: 1.#INF00
  |  | 2 undefined: type: Undefined (seen)
@@ -398,7 +398,11 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  | 54 print: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 55 SCA: type: ObjectObject flags: (new) optional info records (2)
+ |  | 55 read: type: FunctionObject flags: (new) optional info records (1)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  | 56 readbuffer: type: FunctionObject flags: (new) optional info records (1)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  | 57 SCA: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 7
  |  |    | 0 serialize: type: FunctionObject flags: (new) optional info records (1)
@@ -415,7 +419,7 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 6 makeUint64: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 56 ImageData: type: FunctionObject flags: (new) optional info records (2)
+ |  | 58 ImageData: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 2
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
@@ -425,7 +429,7 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: ImageData
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 57 test: type: FunctionObject flags: (new) optional info records (3)
+ |  | 59 test: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] test
  |  |    [Relationships] count: 3

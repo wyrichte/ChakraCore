@@ -432,7 +432,7 @@ JsValueRef __stdcall WScriptJsrt::LoadTextFileCallback(JsValueRef callee, bool i
 
     if (argumentCount < 2)
     {
-        fwprintf(stderr, L"Too too few arguments.\n");
+        IfJsrtErrorSetGo(JScript9Interface::JsrtGetUndefinedValue(&returnValue));
     }
     else
     {
@@ -476,7 +476,7 @@ JsValueRef __stdcall WScriptJsrt::LoadBinaryFileCallback(JsValueRef callee, bool
 
     if (argumentCount < 2)
     {
-        fwprintf(stderr, L"Too too few arguments.\n");
+        IfJsrtErrorSetGo(JScript9Interface::JsrtGetUndefinedValue(&returnValue));
     }
     else
     {
