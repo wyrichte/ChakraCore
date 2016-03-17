@@ -129,6 +129,8 @@ var controllerObj = {
             "Promise",
             "Proxy",
             "RangeError",
+            "read",
+            "readbuffer",
             "ReferenceError",
             "Reflect",
             "RegExp",

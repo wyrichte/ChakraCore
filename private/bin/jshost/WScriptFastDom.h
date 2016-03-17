@@ -106,6 +106,8 @@ public:
     static Var StdOutWrite(Var function, CallInfo callInfo, Var* args);
     static Var StdInReadLine(Var function, CallInfo callInfo, Var* args);
     static Var StdInEOF(Var function, CallInfo callInfo, Var* args);
+    static Var LoadTextFile(Var function, CallInfo callInfo, Var* args);
+    static Var LoadBinaryFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadScriptFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadScript(Var function, CallInfo callInfo, Var* args);
     static Var LoadModule(Var function, CallInfo callInfo, Var* args);

@@ -503,6 +503,99 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
     return true;
 }
 
+Var WScriptFastDom::LoadTextFile(Var function, CallInfo callInfo, Var* args)
+{
+    ScriptDirect scriptDirect;
+    RunInfo runInfo;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    Var returnVar = NULL;
+    runInfo.errorMessage = _u("LoadTextFile call failed.");
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (FAILED(runInfo.hr))
+    {
+        scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+        return returnVar;
+    }
+
+    if (callInfo.Count < 2)
+    {
+        runInfo.errorMessage = _u("Too too few arguments.");
+        runInfo.hr = E_INVALIDARG;
+        goto Cleanup;
+    }
+
+    const char16 *fileName;
+    uint fileNameLength;
+
+    runInfo.hr = activeScriptDirect->VarToRawString(args[0], &fileName, &fileNameLength);
+    if (FAILED(runInfo.hr))
+    {
+        goto Cleanup;
+    }
+
+    UINT lengthBytes = 0;
+    bool isUtf8 = false;
+    LPCOLESTR contentsRaw = nullptr;
+    const char16 *fileContent;
+    runInfo.hr = JsHostLoadScriptFromFile(fileName, fileContent, &isUtf8, &contentsRaw, &lengthBytes);
+    if (FAILED(runInfo.hr))
+    {
+        goto Cleanup;
+    }
+    scriptDirect.StringToVar(fileContent, &returnVar);
+
+Cleanup:
+    activeScriptDirect->Release();
+    scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+    return returnVar;
+}
+
+Var WScriptFastDom::LoadBinaryFile(Var function, CallInfo callInfo, Var* args)
+{
+    ScriptDirect scriptDirect;
+    RunInfo runInfo;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    Var returnVar = NULL;
+    runInfo.errorMessage = _u("LoadBinaryFile call failed.");
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+
+    if (callInfo.Count < 2)
+    {
+        runInfo.errorMessage = _u("Too too few arguments.");
+        runInfo.hr = E_INVALIDARG;
+        goto Cleanup;
+    }
+
+    const char16 *fileName;
+    uint fileNameLength;
+
+    runInfo.hr = activeScriptDirect->VarToRawString(args[1], &fileName, &fileNameLength);
+    if (FAILED(runInfo.hr))
+    {
+        goto Cleanup;
+    }
+
+    const char16 *fileContent;
+    UINT lengthBytes = 0;
+    runInfo.hr = JsHostLoadBinaryFile(fileName, fileContent, lengthBytes);
+    if (FAILED(runInfo.hr))
+    {
+        goto Cleanup;
+    }
+
+    runInfo.hr = activeScriptDirect->CreateArrayBufferFromBuffer((byte*)fileContent, lengthBytes, &returnVar);
+    if (FAILED(runInfo.hr))
+    {
+        goto Cleanup;
+    }
+
+Cleanup:
+    activeScriptDirect->Release();
+    scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+    return returnVar;
+}
+
 Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
@@ -1624,6 +1717,12 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the print method of the global object
     hr = AddMethodToObject(_u("print"), activeScriptDirect, globalObject, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    hr = AddMethodToObject(_u("read"), activeScriptDirect, globalObject, WScriptFastDom::LoadTextFile);
+    IfFailedGo(hr);
+
+    hr = AddMethodToObject(_u("readbuffer"), activeScriptDirect, globalObject, WScriptFastDom::LoadBinaryFile);
     IfFailedGo(hr);
 
     // Create the Echo method
