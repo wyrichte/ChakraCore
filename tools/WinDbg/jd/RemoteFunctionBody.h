@@ -138,6 +138,14 @@ public:
         return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();        
     }
 
+    JDRemoteTyped GetCodeGenRuntiemData()
+    {
+        return this->GetWrappedField("CodeGenRuntimeData", "Js::FunctionCodeGenRuntimeData *", "m_codeGenRuntimeData");
+    }
+    JDRemoteTyped GetCodeGenGetSetRuntimeData()
+    {
+        return this->GetWrappedField("CodeGenGetSetRuntimeData", "Js::FunctionCodeGenRuntimeData *", "m_codeGenGetSetRuntimeData");
+    }
     JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 

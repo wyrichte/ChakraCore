@@ -260,6 +260,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                 }
             };
 
+            auto addPathTypeBase = [&](JDRemoteTyped pathType, char const * typePathName)
+            {
+                JDRemoteTyped typePath = remoteTyped.Field("typePath");
+                addField(typePath, typePathName);
+                if (typePath.HasField("data"))
+                {
+                    addField(typePath.Field("data"), typePathName);
+                }
+                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+            };
+
             char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
 
             if (strcmp(simpleTypeName, "Js::RecyclableObject *") == 0)
@@ -393,8 +404,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 };
 
-                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenRuntimeData"), functionBody.GetProfiledCallSiteCount());
-                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenGetSetRuntimeData"), functionBody.GetInlineCacheCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenRuntiemData(), functionBody.GetProfiledCallSiteCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenGetSetRuntimeData(), functionBody.GetInlineCacheCount());
 
                 while (!functionCodeGenRuntimeDataArrayStack.empty())
                 {
@@ -441,8 +452,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             }
             else if (strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0)
             {
-                addField(remoteTyped.Field("typePath"), "Js::SimplePathTypeHandler.typePath");
-                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+                addPathTypeBase(remoteTyped, "Js::SimplePathTypeHandler.typePath");
                 JDRemoteTyped successorTypeWeakRef = remoteTyped.Field("successorTypeWeakRef");
                 if (successorTypeWeakRef.GetPtr() != 0)
                 {
@@ -452,8 +462,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             }
             else if (strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0)
             {
-                addField(remoteTyped.Field("typePath"), "Js::PathTypeHandler.typePath");
-                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+                addPathTypeBase(remoteTyped, "Js::PathTypeHandler.typePath");
                 JDRemoteTyped propertySuccessors = remoteTyped.Field("propertySuccessors");
                 if (propertySuccessors.GetPtr() != 0)
                 {
