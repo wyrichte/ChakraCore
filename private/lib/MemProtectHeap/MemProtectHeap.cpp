@@ -100,10 +100,25 @@ public:
         Assert(old != ThreadState::StopRequest);
     }
 
+    //check if the thread exits because that TerminateThread is invoked from the thread itself
+    //If yes, we will not be notified to set disableStackScanningDueToLeakedThread. 
+    //We need to set it here once we have confirmed the thread exits already. 
+    bool IsLeakedThread()
+    {
+        if ( this->disableStackScanningDueToLeakedThread )
+            return true;
+
+        if( WaitForSingleObject(this->hThread, 0) != WAIT_TIMEOUT)
+        {
+            this->disableStackScanningDueToLeakedThread = true;
+        }
+        return this->disableStackScanningDueToLeakedThread;
+    }
+
     // Check if the thread is running (not stopped)
     bool IsRunning()
     {
-        return state != ThreadState::Stopped && !this->disableStackScanningDueToLeakedThread;
+        return state != ThreadState::Stopped && !this->IsLeakedThread();
     }
 
     // Invoke the cooperative callback (if one exists for this context)
@@ -1247,7 +1262,7 @@ MemProtectRecyclerCollectionWrapper::DisposeObjects(Recycler* recycler)
 void
 MemProtectThreadContext::RequestSuspension()
 {
-    if (this->disableStackScanningDueToLeakedThread)
+    if (this->IsLeakedThread())
     {
         // This thread has exited prematurely
         return;
@@ -1258,7 +1273,7 @@ MemProtectThreadContext::RequestSuspension()
     if (suspendCount == (DWORD)-1)
     {
         // Suspend may fail here if the thread has exited in the window above.
-        Assert(this->disableStackScanningDueToLeakedThread);
+        Assert(this->IsLeakedThread());
         return;
     }
 }
@@ -1266,7 +1281,7 @@ MemProtectThreadContext::RequestSuspension()
 void
 MemProtectThreadContext::EnsureSuspended()
 {
-    if (this->disableStackScanningDueToLeakedThread)
+    if (this->IsLeakedThread())
     {
         return;
     }
@@ -1308,7 +1323,7 @@ MemProtectThreadContext::EnsureSuspended()
                 break;
             }
         }
-        else if (this->disableStackScanningDueToLeakedThread)
+        else if (this->IsLeakedThread())
         {
             // A thread has exited between the suspend request and the GetThreadContext call.
             break;
@@ -1366,7 +1381,7 @@ MemProtectThreadContext::EnsureSuspended()
 void
 MemProtectThreadContext::ResumeFromSuspension()
 {
-    if (this->disableStackScanningDueToLeakedThread)
+    if (this->IsLeakedThread())
     {
         return;
     }
@@ -1392,20 +1407,22 @@ MemProtectThreadContext::MemProtectThreadContext(MemProtectHeap* memProtectHeap,
     localUnmarkedUnrootSize(0),
     tib((NT_TIB*)NtCurrentTeb())
 {
+    DWORD handlePermissions = SYNCHRONIZE;
     if (this->memProtectHeap->InSuspendMultipleThreadMode())
     {
-        // With suspension we need a handle to stop this thread.
-        if (!DuplicateHandle(
-            GetCurrentProcess(),
-            GetCurrentThread(),
-            GetCurrentProcess(),
-            &this->hThread,
-            THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT | THREAD_QUERY_INFORMATION,
-            FALSE,
-            0))
-        {
-            FailFast("Could not create a thread handle (used for SuspendThread)");
-        }
+        handlePermissions |= THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT | THREAD_QUERY_INFORMATION;
+    }
+    // With suspension we need a handle to stop this thread.
+    if (!DuplicateHandle(
+        GetCurrentProcess(),
+        GetCurrentThread(),
+        GetCurrentProcess(),
+        &this->hThread,
+        handlePermissions,
+        FALSE,
+        0))
+    {
+        FailFast("Could not create a thread handle (used for SuspendThread)");
     }
 
     this->threadId = GetCurrentThreadId();
@@ -1413,10 +1430,7 @@ MemProtectThreadContext::MemProtectThreadContext(MemProtectHeap* memProtectHeap,
 
 MemProtectThreadContext::~MemProtectThreadContext()
 {
-    if (this->memProtectHeap->InSuspendMultipleThreadMode())
-    {
-        CloseHandle(this->hThread);
-    }
+    CloseHandle(this->hThread);
 }
 
 void
@@ -1517,7 +1531,7 @@ void MemProtectThreadContext::SaveContextAndUpdateBounds(jmp_buf& context)
 size_t
 MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
 {
-    if (this->disableStackScanningDueToLeakedThread)
+    if (this->IsLeakedThread())
     {
         return 0;
     }
@@ -1561,6 +1575,34 @@ MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
             {
                 // We are somehow confused about the stack, which should never happen (fail-fast)
                 FailFast("VirtualQuery to find stack extents failed.");
+            }
+
+            if ((memoryInfo.Protect & PAGE_GUARD) != 0)
+            {
+                // Skip over any protected regions at the top of the stack
+                void* allocationBase = memoryInfo.AllocationBase;
+                while (memoryInfo.AllocationBase == allocationBase && (memoryInfo.Protect & PAGE_GUARD) != 0)
+                {
+                     if(memoryInfo.RegionSize==0)
+                    {
+                        // We get zero sized memory region, which should never happen (fail-fast)
+                        FailFast("Zero size memory region found in stack memory");
+                    }
+
+                    this->stackTop = (void*)((size_t)(this->stackTop) + memoryInfo.RegionSize);
+                    if (VirtualQuery(this->stackTop, &memoryInfo, sizeof(MEMORY_BASIC_INFORMATION)) == 0)
+                    {
+                        // We are somehow confused about the stack, which should never happen (fail-fast)
+                        FailFast("VirtualQuery to find stack extents failed.");
+                    }
+                }
+                if(memoryInfo.AllocationBase != allocationBase)
+                {
+                    // We failed to get a unprotected memory region in the stack to scan the stack memory, 
+                    //which should never happen (fail-fast)
+                    FailFast("we failed to get a unprotected memory. Fail-fast for better diagnose experience");
+                }
+
             }
 
             // Set the stack base so we can scan the entire stack if we do not have a valid bottom

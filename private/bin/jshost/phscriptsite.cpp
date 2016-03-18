@@ -2260,6 +2260,13 @@ STDMETHODIMP JsHostActiveScriptSite::Exec(const GUID *pguidCmdGroup, DWORD nCmdI
     return E_NOTIMPL;
 }
 
+void __stdcall JsHostActiveScriptSite::EnqueuePromiseTask(Var task)
+{
+    // Push the callback
+    WScriptFastDom::CallbackMessage *msg = new WScriptFastDom::CallbackMessage(0, task);
+    WScriptFastDom::PushMessage(msg);
+}
+
 STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ __RPC__in ModuleRecord referencingModule,
     /* [in] */ __RPC__in LPCWSTR specifier,

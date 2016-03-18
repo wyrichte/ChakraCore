@@ -1,6 +1,7 @@
 DIRS = \
     EnC \
     Engine \
+    GuidParser \
     InternalIDL \
     JsrtChakra \
     Projection \
@@ -9,7 +10,5 @@ DIRS = \
     MemProtectHeap \
     StaticLib  \
     WinRT      \
-    HostCommon{!cs_xbox} \
+    HostCommon \
     Telemetry  \
-
-    

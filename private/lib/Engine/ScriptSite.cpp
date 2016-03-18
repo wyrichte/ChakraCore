@@ -332,7 +332,7 @@ HRESULT ScriptSite::Init(
     }
 
 #endif
-   
+
     return hr;
 }
 
@@ -457,7 +457,7 @@ void ScriptSite::Close()
         if (!isNonPrimaryEngine || isJSRT)
         {
             g_TraceLoggingClient->FireSiteNavigation(scriptContext->GetUrl(), scriptEngine->GetActivityId(), hostType, isJSRT);
-            
+
             if (scriptContext->HasTelemetry())
             {
                 scriptContext->GetTelemetry().OutputTraceLogging(scriptEngine->GetActivityId(), hostType, isJSRT);
@@ -1666,46 +1666,54 @@ void ScriptSite::EnsureExternalLibrary()
     }
 }
 
-Js::JavascriptFunction* ScriptSite::InitializeHostPromiseContinuationFunction()
+HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
 {
-    // TODO: Below loads and returns WScript.SetTimeout or window.setTimeout. Later, we should instead use the task queue.
-    // NOTE: The code here is placeholder until we get the task queue from trident.
-    //       If user code changes WScript.SetTimeout or window.setTimeout, the Promise feature won't work!
-    Js::ScriptContext* scriptContext = GetScriptSiteContext();
-    Js::PropertyId windowId = scriptContext->GetOrAddPropertyIdTracked(_u("window"));
-    Js::PropertyId setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(_u("setTimeout"));
-    Js::Var global = scriptContext->GetGlobalObject();
-    Js::Var window;
-    Js::Var setTimeout;
-
-    // Try to load window.setTimeout
-    if (Js::JavascriptOperators::GetRootProperty(global, windowId, &window, scriptContext) &&
-        Js::RecyclableObject::Is(window) &&
-        Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(window), setTimeoutId, &setTimeout, scriptContext) &&
-        Js::JavascriptConversion::IsCallable(setTimeout))
+    if (IsClosed())
     {
-        return Js::JavascriptFunction::FromVar(setTimeout);
-    }
-    else if (Js::JavascriptOperators::GetRootProperty(global, setTimeoutId, &setTimeout, scriptContext) &&
-        Js::JavascriptConversion::IsCallable(setTimeout))
-    {
-        // Workers do not have a window property, but they do have setTimeout on their global
-        return Js::JavascriptFunction::FromVar(setTimeout);
+        return E_ACCESSDENIED;
     }
 
-    PropertyId wscriptId = scriptContext->GetOrAddPropertyIdTracked(_u("WScript"));
-    setTimeoutId = scriptContext->GetOrAddPropertyIdTracked(_u("SetTimeout"));
-    Var wscript;
-
-    // Try to load WScript.SetTimeout
-    if (Js::JavascriptOperators::GetRootProperty(global, wscriptId, &wscript, scriptContext) &&
-        Js::RecyclableObject::Is(wscript) &&
-        Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(wscript), setTimeoutId, &setTimeout, scriptContext) &&
-        Js::JavascriptConversion::IsCallable(setTimeout))
+    IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
+    if (scriptHost != nullptr)
     {
-        return Js::JavascriptFunction::FromVar(setTimeout);
+        BEGIN_LEAVE_SCRIPT(scriptSiteContext)
+        {
+            scriptHost->EnqueuePromiseTask(taskVar);
+        }
+        END_LEAVE_SCRIPT(scriptSiteContext);
     }
-    return scriptContext->GetLibrary()->GetThrowerFunction();
+    else
+    {
+        // This is a fallback for WScript
+        PropertyId wscriptId = scriptSiteContext->GetOrAddPropertyIdTracked(_u("WScript"));
+        PropertyId setTimeoutId = scriptSiteContext->GetOrAddPropertyIdTracked(_u("SetTimeout"));
+
+        Js::Var global = scriptSiteContext->GetGlobalObject();
+        Js::Var wscript;
+        Js::Var setTimeout;
+        Js::JavascriptFunction* hostCallback;
+
+        // Try to load WScript.SetTimeout
+        if (Js::JavascriptOperators::GetRootProperty(global, wscriptId, &wscript, scriptSiteContext) &&
+            Js::RecyclableObject::Is(wscript) &&
+            Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(wscript), setTimeoutId, &setTimeout, scriptSiteContext) &&
+            Js::JavascriptConversion::IsCallable(setTimeout))
+        {
+            hostCallback = Js::JavascriptFunction::FromVar(setTimeout);
+        }
+        else
+        {
+            hostCallback = scriptSiteContext->GetLibrary()->GetThrowerFunction();
+        }
+
+        hostCallback->GetEntryPoint()(
+            hostCallback,
+            Js::CallInfo(Js::CallFlags::CallFlags_Value, 3),
+            scriptSiteContext->GetLibrary()->GetUndefined(),
+            taskVar,
+            Js::JavascriptNumber::ToVar(0, scriptSiteContext));
+    }
+    return NOERROR;
 }
 
 HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
@@ -2451,13 +2459,11 @@ ULONG ScriptSite::AddDispatchCount()
     return newCount;
 }
 
-
 IDispatch* ScriptSite::GetGlobalObjectDispatch()
 {
     JavascriptDispatch* globalDispatch = JavascriptDispatch::Create<false>(this->GetScriptSiteContext()->GetGlobalObject());
     return globalDispatch->GetThis();
 }
-
 
 Js::JavascriptFunction* ScriptSite::GetDefaultGetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex)
 {

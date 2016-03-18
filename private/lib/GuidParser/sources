@@ -1,0 +1,23 @@
+TARGETNAME  = JScript.GuidParser
+TARGETTYPE  = LIBRARY
+USE_ATL=1
+ATL_VER=70
+
+C_DEFINES=-DUNICODE -D_UNICODE
+MSC_WARNING_LEVEL=/W4 /WX
+
+USE_PDB_TO_COMPILE=0
+
+SOURCES =   \
+    GUIDParser.cpp \
+
+PASS0_PUBLISH=\
+    {GuidParser.h=$(PROJECT_INC_PATH)\GuidParser.h}
+
+PASS1_PUBLISH=\
+    {$(OBJ_PATH)\$(O)\JScript.GuidParser.lib=$(PROJECT_LIB_PATH)\JScript.GuidParser.lib}
+
+
+
+
+

@@ -25,16 +25,19 @@
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
+  <!-- VSO bug #6883889
+       Replace "&#x002D"s below with "-" when the test is reenabled. Two consecutive "-"s aren't allowed in XML comments.
   <test>
     <default>
-      <!-- Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
+      <!&#x002D&#x002D Disable on ARM because it is flaky on WOACHK PerCheckin run.&#x002D&#x002D>
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo &#x002D&#x002D-1st bp&#x002D&#x002D-;!ldsym;!jsstack;g;    !echo;!echo &#x002D&#x002D-2nd bp&#x002D&#x002D-;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <!--Run again without -Off:Inline, remove baseline as well.
