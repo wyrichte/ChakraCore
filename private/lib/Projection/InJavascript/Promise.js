@@ -52,6 +52,22 @@
     AsyncBehaviorError.prototype = ObjectCreate(Error.prototype);
     AsyncBehaviorError.prototype.constructor = AsyncBehaviorError;
 
+    ObjectPreventExtensions(AsyncBehaviorError);
+    ObjectPreventExtensions(AsyncBehaviorError.prototype);
+
+    function TryToRecordAsyncBehaviorErrorDetails(exception, asyncOpType, asyncOpSource, asyncOpCausalityId) {
+        try {
+            if (typeof exception === 'object' && !exception.asyncOpType) {
+                exception.originatedFromHandler = true;
+                exception.asyncOpType = asyncOpType;
+                exception.asyncOpSource = asyncOpSource;
+                exception.asyncOpCausalityId = asyncOpCausalityId;
+            }
+        } catch (e) {
+            // Intentionally ignore this error
+        }
+    }
+
     function doComplete(carrier, completeValue) {
         if (carrier._state !== state_working) {
             return;
@@ -157,12 +173,7 @@
                     DebugUpdateAsyncCallbackRelation(asyncOpCausalityId, platform.MS_ASYNC_CALLBACK_STATUS_ERROR, log_level_verbose);
                     DebugTraceAsyncCallbackCompleted(log_level_required, asyncOpCausalityId);
                 }
-                if (!exception.asyncOpType) {
-                    exception.originatedFromHandler = true;
-                    exception.asyncOpType = asyncOpType;
-                    exception.asyncOpSource = asyncOpSource;
-                    exception.asyncOpCausalityId = asyncOpCausalityId;
-                }
+                TryToRecordAsyncBehaviorErrorDetails(exception, asyncOpType, asyncOpSource, asyncOpCausalityId);
                 doError(carrier, exception);
             }
         }
@@ -201,12 +212,7 @@
                     DebugUpdateAsyncCallbackRelation(asyncOpCausalityId, platform.MS_ASYNC_CALLBACK_STATUS_ERROR, log_level_verbose);
                     DebugTraceAsyncCallbackCompleted(log_level_required, asyncOpCausalityId);
                 }
-                if (!exception.asyncOpType) {
-                    exception.originatedFromHandler = true;
-                    exception.asyncOpType = asyncOpType;
-                    exception.asyncOpSource = asyncOpSource;
-                    exception.asyncOpCausalityId = asyncOpCausalityId;
-                }
+                TryToRecordAsyncBehaviorErrorDetails(exception, asyncOpType, asyncOpSource, asyncOpCausalityId);
                 doError(carrier, exception);
             }
         }
@@ -262,13 +268,14 @@
     }
 
     function createDebugStackFunction(err) {
+        var originatedFromHandler = err && err.originatedFromHandler;
         var stack = [];
         stack.push('WinRT Promise.done()');
-        if (err && err.originatedFromHandler) {
+        if (originatedFromHandler) {
             stack.push('Promise handler');
         }
         if (err && err.asyncOpType) {
-            if (err.originatedFromHandler) {
+            if (originatedFromHandler) {
                 stack.push('WinRT Promise object for ' + err.asyncOpType);
             } else {
                 stack.push(err.asyncOpType);
