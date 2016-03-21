@@ -209,12 +209,12 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
             }
             else 
             {
-                g_Ext->Err("Function body counter structure corrupted, fieldSize is: %d", fieldSize);
+                g_Ext->ThrowStatus(E_FAIL, "Function body counter structure corrupted, fieldSize is: %d", fieldSize);
             }
         }
         else 
         {
-            g_Ext->Warn("JD need to update to map %s to new field enum on FunctionBody", oldName);
+            g_Ext->ThrowStatus(E_FAIL, "JD need to update to map %s to new field enum on FunctionBody", oldName);
         }
     }
 
