@@ -117,8 +117,6 @@ param(
         Position=0,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true)]
-    [Alias('Fullname')]
-    [Alias('Path')]
     [String[]]
     $filenames,
     
@@ -339,8 +337,6 @@ param(
         Position=0,
         ValueFromPipeline=$true,
         ValueFromPipelineByPropertyName=$true)]
-    [Alias('Fullname')]
-    [Alias('Path')]
     [String[]]
     $filenames,
     

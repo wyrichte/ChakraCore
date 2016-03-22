@@ -6,6 +6,10 @@ TARGETNAME=SCALookup_iel3
 USE_STATIC_ATL=1
 ATL_VER=70
 
+INCLUDES = \
+    $(INCLUDES); \
+    $(JSCRIPT_ROOT)\core\lib\common; \
+
 SOURCES= \
     PropertyReader.cpp \
     SCALookup.cpp \

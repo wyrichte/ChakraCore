@@ -234,12 +234,6 @@
   </test>
   <test>
     <default>
-      <files>ES6Promise_RemoveWScript.js</files>
-      <baseline>ES6Promise_RemoveWScript.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>forloops-per-iteration-bindings-debugging.js</files>
       <compile-flags>-debuglaunch -targeted -InspectMaxStringLength:200</compile-flags>
     </default>

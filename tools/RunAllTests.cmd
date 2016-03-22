@@ -15,7 +15,7 @@ set args=%*
 set InDRT=false
 set InRazzle=true
 set addPath=%_nttree%\jscript
-set JSToolsDir=%SDXROOT%\inetcore\jscript\tools
+set JSToolsDir=%SDXROOT%\onecoreuap\inetcore\jscript\tools
 set path=%path%;%addPath%
 set Timeout=1800
 

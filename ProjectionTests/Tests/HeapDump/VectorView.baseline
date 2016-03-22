@@ -87,7 +87,7 @@
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 1
  |  |    |  |  |    | 0 length: value: 1.000000
- |  |    |  [Properties] count: 22
+ |  |    |  [Properties] count: 27
  |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  | 1 push: type: FunctionObject flags: (new) optional info records (2)
@@ -171,6 +171,23 @@
  |  |    |  |    [Properties] count: 1
  |  |    |  |    | 0 length: value: 1.000000
  |  |    |  | 21 some: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  | 22 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 23 keys: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 24 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 1
+ |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 25 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |  | 26 includes: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 1
  |  |    |  |    | 0 length: value: 1.000000

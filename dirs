@@ -2,7 +2,7 @@ DIRS = \
     publish0{!min_rt} \
     publish{!min_rt} \
     private \
-    tools{!min_rt,!cs_xbox} \
-    ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt,!cs_xbox}\
-    unittest{!min_rt,!cs_xbox} \
+    tools{!min_rt} \
+    ProjectionTests{!EXCLUDE_IE_MAIN,!min_rt}\
+    unittest{!min_rt} \
     static{!min_rt} \

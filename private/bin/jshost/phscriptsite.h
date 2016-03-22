@@ -184,6 +184,8 @@ public:
         return E_NOTIMPL;
     }
 
+    void __stdcall EnqueuePromiseTask(Var task);
+
     STDMETHODIMP FetchImportedModule(
         /* [in] */ __RPC__in ModuleRecord referencingModule,
         /* [in] */ __RPC__in LPCWSTR specifier,

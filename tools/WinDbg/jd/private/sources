@@ -10,17 +10,18 @@ SOURCES = \
         ..\jd.cpp \
         ..\jd.rc \
         ..\ScriptDebugSite.cpp \
-		..\CachedTypeInfo.cpp \
+        ..\CachedTypeInfo.cpp \
         ..\diag.cpp \
-		..\ExtRemoteTypedUtil.cpp \
-		..\FieldInfoCache.cpp \
+        ..\ExtRemoteTypedUtil.cpp \
+        ..\FieldInfoCache.cpp \
         ..\jdrecycler.cpp \
         ..\jdbackend.cpp \
         ..\jdbytecode.cpp \
         ..\RecyclerCachedData.cpp \
         ..\RecyclerList.cpp \
         ..\RecyclerRoots.cpp \
-		..\RecyclerObjectGraph.cpp \
+        ..\RecyclerObjectGraph.cpp \
+        ..\RecyclerObjectTypeInfo.cpp \
         ..\RemoteTypeHandler.cpp \
         ..\RemotePageAllocator.cpp \
         ..\RemoteThreadContext.cpp \
@@ -31,9 +32,9 @@ SOURCES = \
         ..\RemoteRecyclableObject.cpp \
         ..\RemoteJavascriptFunction.cpp \
         ..\RemoteScriptFunction.cpp \
-		..\RemoteHeapBlock.cpp \
-		..\RemoteHeapBlockMap.cpp \
+        ..\RemoteHeapBlock.cpp \
+        ..\RemoteHeapBlockMap.cpp \
         ..\jdfunctionbody.cpp \
-		..\JDRemoteTyped.cpp \
+        ..\JDRemoteTyped.cpp \
         ..\util.cpp \
         ..\collections.cpp \        

@@ -1394,6 +1394,14 @@ interface IActiveScriptDirectHost : IUnknown
     // E_ACCESSDENIED otherise.
     HRESULT ValidateCall([in] IActiveScriptSite* src, [in] IActiveScriptSite* dest, [in] Var instance);
 
+    // Registers a Promise Callback - Not yet generalized for other forms of tasks, but can take an enumeration to select the appropriate task queue.
+    //  When we generalize we'll also change the name to EnqueueTask or EnqueueJob.
+    //
+    // Params :
+    //      task            : The var of the task to be queued and execute on the micro-task queue.
+    //
+    void EnqueuePromiseTask([in] Var task);
+
     /// Notify the host of the dependent module, the "import" part before HostREsolveImportedModule.
     /// This notify the host that the refererncing module has the specified module dependency, and the host need to retrieve the module back
     /// referencingModule       : the referencing module that is requesting the dependency modules

@@ -849,9 +849,9 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsParseScript(
-        _In_z_ const char16 *script,
+        _In_z_ const wchar_t *script,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_ JsValueRef *result);
 
     /// <summary>
@@ -871,9 +871,9 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsRunScript(
-        _In_z_ const char16 *script,
+        _In_z_ const wchar_t *script,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_ JsValueRef *result);
 
     /// <summary>
@@ -900,7 +900,7 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsSerializeScript(
-        _In_z_ const char16 *script,
+        _In_z_ const wchar_t *script,
         _Out_writes_to_opt_(*bufferSize, *bufferSize) BYTE *buffer,
         _Inout_ unsigned long *bufferSize);
 
@@ -913,7 +913,7 @@
     /// <returns>
     ///     true if the operation succeeded, false otherwise.
     /// </returns>
-    typedef bool (CALLBACK * JsSerializedScriptLoadSourceCallback)(_In_ JsSourceContext sourceContext, _Outptr_result_z_ const char16** scriptBuffer);
+    typedef bool (CALLBACK * JsSerializedScriptLoadSourceCallback)(_In_ JsSourceContext sourceContext, _Outptr_result_z_ const wchar_t** scriptBuffer);
 
     /// <summary>
     ///     Called by the runtime when it is finished with all resources related to the script execution.
@@ -954,7 +954,7 @@
         _In_ JsSerializedScriptUnloadCallback scriptUnloadCallback,
         _In_ BYTE *buffer,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_ JsValueRef * result);
 
     /// <summary>
@@ -991,7 +991,7 @@
         _In_ JsSerializedScriptUnloadCallback scriptUnloadCallback,
         _In_ BYTE *buffer,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_opt_ JsValueRef * result);
 
     /// <summary>
@@ -1018,10 +1018,10 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsParseSerializedScript(
-        _In_z_ const char16 *script,
+        _In_z_ const wchar_t *script,
         _In_ BYTE *buffer,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_ JsValueRef *result);
 
     /// <summary>
@@ -1050,10 +1050,10 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsRunSerializedScript(
-        _In_z_ const char16 *script,
+        _In_z_ const wchar_t *script,
         _In_ BYTE *buffer,
         _In_ JsSourceContext sourceContext,
-        _In_z_ const char16 *sourceUrl,
+        _In_z_ const wchar_t *sourceUrl,
         _Out_ JsValueRef *result);
 
     /// <summary>
@@ -1076,7 +1076,7 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsGetPropertyIdFromName(
-        _In_z_ const char16 *name,
+        _In_z_ const wchar_t *name,
         _Out_ JsPropertyIdRef *propertyId);
 
     /// <summary>
@@ -1099,7 +1099,7 @@
     STDAPI_(JsErrorCode)
         JsGetPropertyNameFromId(
         _In_ JsPropertyIdRef propertyId,
-        _Outptr_result_z_ const char16 **name);
+        _Outptr_result_z_ const wchar_t **name);
 
     /// <summary>
     ///     Gets the symbol associated with the property ID.
@@ -1489,7 +1489,7 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsPointerToString(
-        _In_reads_(stringLength) const char16 *stringValue,
+        _In_reads_(stringLength) const wchar_t *stringValue,
         _In_ size_t stringLength,
         _Out_ JsValueRef *value);
 
@@ -1517,7 +1517,7 @@
     STDAPI_(JsErrorCode)
         JsStringToPointer(
         _In_ JsValueRef value,
-        _Outptr_result_buffer_(*stringLength) const char16 **stringValue,
+        _Outptr_result_buffer_(*stringLength) const wchar_t **stringValue,
         _Out_ size_t *stringLength);
 
     /// <summary>
@@ -2741,7 +2741,7 @@
     /// </returns>
     STDAPI_(JsErrorCode)
         JsProjectWinRTNamespace(
-        _In_z_ const char16 *namespaceName);
+        _In_z_ const wchar_t *namespaceName);
 
 #endif // WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP)
 #pragma endregion
