@@ -453,10 +453,10 @@ JDByteCode::DumpElementSlotI1(ExtRemoteTyped layout, char * opcodeStr, uint next
 {
     if (ENUM_EQUAL(opcodeStr, St))
     {
-        ext->Out(" [%u] = R%u", GetUnsigned(layout.Field("SlotIndex")),            
+        ext->Out(" [%u] = R%u", GetUnsigned(layout.Field("SlotIndex")),
             GetUnsigned(layout.Field("Value")));
     }
-    else if (ENUM_EQUAL(opcodeStr, Ld))
+    else if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd))
     {
         ext->Out(" R%u = [%u]", GetUnsigned(layout.Field("Value")),
             GetUnsigned(layout.Field("SlotIndex")));
@@ -707,7 +707,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 
             if (isExtendOpcode)
             {
-                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte + (opcodePrefix << 8)));
+                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte + (1 << 8)));
                 opCodeLayoutTable = cachedData.extendedLayoutTable;
                 opCodeAttrTable = cachedData.extendedAttributesTable;
             }
