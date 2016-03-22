@@ -146,9 +146,9 @@ public:
     static HINSTANCE LoadDll(bool useRetailDllName, LPCWSTR alternateDllName, ArgInfo& argInfo);
     static void SetArgInfo(ArgInfo& args);
     static HRESULT FinalGC();
-    static HRESULT DisplayRecyclerStats();
+    static void DisplayRecyclerStats();
 #ifdef ENABLE_INTL_OBJECT
-    static HRESULT ResetTimeZoneFactoryObjects();
+    static void ResetTimeZoneFactoryObjects();
 #endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);

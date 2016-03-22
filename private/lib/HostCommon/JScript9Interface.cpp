@@ -155,14 +155,10 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
 
 HRESULT JScript9Interface::GetThreadService(IActiveScriptGarbageCollector** threadService)
 {
-    HRESULT hr;
-    if (m_testHooks.pfnGetThreadService)
+    HRESULT hr = CHECKED_CALL(nGetThreadService, threadService);
+    if (SUCCEEDED(hr))
     {
-        hr = m_testHooks.pfnGetThreadService(threadService);
-        if (SUCCEEDED(hr))
-        {
-            return hr;
-        }
+        return hr;
     }
    
     if (!JScript9Interface::SupportsDllGetClassObjectCallback())
@@ -184,14 +180,13 @@ LReturn:
 }
 
 HRESULT JScript9Interface::FinalGC()
-{    
-    if (m_testHooks.pfFinalGC)
+{   
+    HRESULT hr = CHECKED_CALL_RETURN(FinalGC, E_FAIL);
+    if (SUCCEEDED(hr))
     {
-        m_testHooks.pfFinalGC();
         return S_OK;
     }
 
-    HRESULT hr = S_OK;
     IActiveScript* activeScript = NULL;
    
     if (!JScript9Interface::SupportsDllGetClassObjectCallback())
@@ -220,26 +215,15 @@ LReturn:
     return hr;
 }
 
-HRESULT JScript9Interface::DisplayRecyclerStats()
-{    
-    if (m_testHooks.pfDisplayMemStats)
-    {
-        m_testHooks.pfDisplayMemStats();
-        return S_OK;
-    }
-
-    return S_FALSE;
+void JScript9Interface::DisplayRecyclerStats()
+{   
+    CHECKED_CALL(DisplayMemStats);
 }
 
 #ifdef ENABLE_INTL_OBJECT
-HRESULT JScript9Interface::ResetTimeZoneFactoryObjects()
+void JScript9Interface::ResetTimeZoneFactoryObjects()
 {
-    if (m_testHooks.pfResetTimeZoneFactoryObjects)
-    {
-        m_testHooks.pfResetTimeZoneFactoryObjects();
-        return S_OK;
-    }
-    return S_FALSE;
+    CHECKED_CALL(ResetTimeZoneFactoryObjects);
 }
 #endif
 
