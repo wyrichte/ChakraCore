@@ -1071,13 +1071,11 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 
 void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress, bool verbose)
 {
-    ULONG64 heapBlock = heapBlockObject.GetPtr();
+    ULONG64 heapBlock = heapBlockObject.GetPointerTo().GetPtr();
 
     HeapObject heapObject;
     heapObject.heapBlock = heapBlock;
     heapObject.heapBlockType = heapBlockObject.Field("heapBlockType").GetChar();
-
-    ULONG64 sizeOfHeapBlock = ext->EvalExprU64("@@c++(sizeof(SmallHeapBlock))");
     heapObject.objectSize = heapBlockObject.Field("objectSize").GetUshort();
 
     uint objectCount = (uint)heapBlockObject.Field("objectCount").m_Typed.Data; // Assume objectCount is 32 bit
@@ -1092,12 +1090,38 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
         heapObject.addressBitIndex = GetAddressSmallHeapBlockBitIndex(heapObject.address);
 
         ExtRemoteTyped freeBitWord;
-        ULONG64 freeBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize) + ext->GetBVFixedAllocSize(objectCount));
+        ULONG64 freeBitVector;
+        if (heapBlockObject.HasField("freeBits"))
+        {
+            freeBitVector = heapBlockObject.Field("freeBits").GetPointerTo().GetPtr();
+        }
+        else
+        {
+            // Before CL#884601 on 2011/09/09, pre-win8.1
+            ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+            freeBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize) + ext->GetBVFixedAllocSize(objectCount));
+        }
         heapObject.isFreeSet = ext->TestFixed(freeBitVector, heapObject.addressBitIndex, freeBitWord);
         heapObject.freeBitWord = freeBitWord.GetPointerTo().GetPtr();
 
         ExtRemoteTyped markBitWord;
-        ULONG64 markBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize));
+        ULONG64 markBitVector;
+        if (heapBlockObject.HasField("markBits"))
+        {
+            ExtRemoteTyped markBits = heapBlockObject.Field("markBits");
+            if (markBits.GetTypeSize() > ext->m_PtrSize)
+            {
+                markBits = markBits.GetPointerTo();
+            }
+            markBitVector = markBits.GetPtr();
+        }
+        else
+        {
+            // Before CL#884601 on 2011/09/09, pre-win8.1
+            ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+            markBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize));
+        }
+
         heapObject.isMarkSet = ext->TestFixed(markBitVector, heapObject.addressBitIndex, markBitWord);
         heapObject.markBitWord = markBitWord.GetPointerTo().GetPtr();
         heapObject.objectInfoAddress = heapBlock - heapObject.index - 1;
