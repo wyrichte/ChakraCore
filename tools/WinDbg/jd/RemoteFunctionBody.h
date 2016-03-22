@@ -36,10 +36,26 @@ public:
 
     JDRemoteTyped GetScopeInfo()
     {
-        return this->GetWrappedField("m_scopeInfo");
+        return this->GetAuxWrappedField("m_scopeInfo");
     }
     
-    JDRemoteTyped GetWrappedField(char* fieldName);
+    JDRemoteTyped GetBoundPropertyRecords()
+    {
+        return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
+    }
+
+    JDRemoteTyped GetDisplayName()
+    {
+        return JDUtil::GetWrappedField(*this, "m_displayName");
+    }
+
+    PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
+    {
+        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
+    }
+
+private:
+    JDRemoteTyped GetAuxWrappedField(char* fieldName);
 };
 
 class RemoteFunctionBody : public RemoteParseableFunctionInfo
@@ -51,15 +67,19 @@ public:
 
     JDRemoteTyped GetByteCodeBlock()
     {
-        return JDUtil::GetWrappedField(*this, "byteCodeBlock");
+        return this->GetWrappedFieldRecyclerData("byteCodeBlock");
     }
     JDRemoteTyped GetAuxBlock()
     {
-        return this->GetWrappedField("auxBlock", "Js::ByteBlock");
+        return this->GetAuxWrappedFieldRecyclerData("auxBlock", "Js::ByteBlock");
     }
     JDRemoteTyped GetAuxContextBlock()
     {
-        return this->GetWrappedField("auxContextBlock");
+        return this->GetAuxWrappedFieldRecyclerData("auxContextBlock");
+    }
+    JDRemoteTyped GetLoopHeaderArray()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("loopHeaderArray");
     }
     JDRemoteTyped GetProbeBackingStore()
     {
@@ -67,8 +87,10 @@ public:
     }
     JDRemoteTyped GetCacheIdToPropertyIdMap()
     {
-        return JDUtil::GetWrappedField(*this, "cacheIdToPropertyIdMap");
+        return this->GetWrappedFieldRecyclerData( "cacheIdToPropertyIdMap");
     }
+    JDRemoteTyped GetReferencedPropertyIdMap();
+
     uint GetConstCount()
     {
         return this->GetCounterField("m_constCount");
@@ -83,7 +105,7 @@ public:
     }
     JDRemoteTyped GetConstTable()
     {
-        return JDUtil::GetWrappedField(*this, "m_constTable");
+        return this->GetWrappedFieldRecyclerData("m_constTable");
     }
     JDRemoteTyped GetSourceInfo()
     {
@@ -98,11 +120,6 @@ public:
     {
         return GetScriptContext().Field("threadContext");
     }
-    PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
-    {
-        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
-    }
-
     ULONG GetSourceContextId()
     {
         return GetSourceContextInfo().Field("sourceContextId").GetUlong();
@@ -120,12 +137,12 @@ public:
 
     JDRemoteTyped GetStatementMaps()
     {
-        return this->GetWrappedField("StatementMaps", nullptr, "pStatementMaps");
+        return this->GetAuxWrappedFieldRecyclerData("StatementMaps", nullptr, "pStatementMaps");
     }
 
     JDRemoteTyped GetEntryPoints()
     {
-        return JDUtil::GetWrappedField(*this, "entryPoints");
+        return this->GetWrappedFieldRecyclerData("entryPoints");
     }
 
     ULONG GetInlineCacheCount()
@@ -140,13 +157,37 @@ public:
 
     JDRemoteTyped GetCodeGenRuntiemData()
     {
-        return this->GetWrappedField("CodeGenRuntimeData", "Js::FunctionCodeGenRuntimeData *", "m_codeGenRuntimeData");
+        return this->GetAuxWrappedFieldRecyclerData("m_codeGenRuntimeData", "Js::FunctionCodeGenRuntimeData *");
     }
     JDRemoteTyped GetCodeGenGetSetRuntimeData()
     {
-        return this->GetWrappedField("CodeGenGetSetRuntimeData", "Js::FunctionCodeGenRuntimeData *", "m_codeGenGetSetRuntimeData");
+        return this->GetAuxWrappedFieldRecyclerData("m_codeGenGetSetRuntimeData", "Js::FunctionCodeGenRuntimeData *");
     }
-    JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+
+    JDRemoteTyped GetInlineCaches()
+    {
+        return this->GetWrappedFieldRecyclerData("inlineCaches");
+    }
+
+    JDRemoteTyped GetPolymorphicInlineCaches()
+    {
+        return this->GetFieldRecyclerData("polymorphicInlineCaches");
+    }
+
+    JDRemoteTyped GetPropertyIdsForScopeSlotArray()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("propertyIdsForScopeSlotArray", "Js::PropertyId");
+    }
+
+    JDRemoteTyped GetLiteralRegexes()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("literalRegexes", "UnifiedRegex::RegexPattern *");
+    }
+
+    JDRemoteTyped GetFieldRecyclerData(char * fieldName);
+    JDRemoteTyped GetWrappedFieldRecyclerData(char* fieldName);
+    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
