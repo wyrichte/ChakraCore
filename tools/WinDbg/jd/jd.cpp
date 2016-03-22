@@ -848,21 +848,26 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     }
 
     ExtBuffer<char> vtableName;
-    if (this->GetOffsetSymbol(vtableAddr, &vtableName))
+    try
     {
-        int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
-        if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+        if (this->GetOffsetSymbol(vtableAddr, &vtableName))
         {
-            vtableName.GetBuffer()[len] = '\0';
+            int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
+            if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+            {
+                vtableName.GetBuffer()[len] = '\0';
 
-            auto newString = new std::string(vtableName.GetBuffer());
-            // Actual type name in expression shouldn't have __ptr64 in them
-            JDUtil::ReplaceString(*newString, " __ptr64", "");
-            vtableTypeNameMap[vtableAddr] = newString;
-            return newString->c_str();;
+                auto newString = new std::string(vtableName.GetBuffer());
+                // Actual type name in expression shouldn't have __ptr64 in them
+                JDUtil::ReplaceString(*newString, " __ptr64", "");
+                vtableTypeNameMap[vtableAddr] = newString;
+                return newString->c_str();;
+            }
         }
     }
-
+    catch (...)
+    {
+    }
     return nullptr;
 }
 
@@ -1515,6 +1520,34 @@ JD_PRIVATE_COMMAND(bv,
         curr = curr.Field("next");
     }
     Out("]\n");
+}
+
+JD_PRIVATE_COMMAND(jsdisp,
+    "Dumps JavascriptDispatch",
+    "")
+{
+    RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
+    threadContext.ForEachScriptContext([this](ExtRemoteTyped scriptContext)
+    {
+
+        ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
+        if (hostScriptContextField.GetPtr())
+        {
+            ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
+            ExtRemoteTyped javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)0"));
+            ULONG64 offset = javascriptDispatch.GetFieldOffset("linkList");
+            ExtRemoteTyped head = hostScriptContext.Field("scriptSite").Field("javascriptDispatchListHead").GetPointerTo();
+            ExtRemoteTyped curr = head.Field("Flink");
+            
+            while (curr.GetPtr() != head.GetPtr())
+            {
+                javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)@$extin"), curr.GetPtr() - offset);
+                Out("%p %p %d\n", javascriptDispatch.GetPtr(), javascriptDispatch.Field("scriptObject").GetPtr(), javascriptDispatch.Field("isGCTracked").GetW32Bool());
+                curr = curr.Field("Flink");
+            }
+        }
+        return false;
+    });
 }
 
 #if ENABLE_UI_SERVER

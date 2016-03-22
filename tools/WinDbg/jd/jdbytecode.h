@@ -19,6 +19,10 @@ public:
     void DumpForFunc(ExtRemoteTyped func);
     void DumpForIRBuilder(ExtRemoteTyped irbuilder);    
     void DumpBytes(ExtRemoteTyped bytes);
+
+public:
+
+
 private:
     bool dumpProbeBackingBlock;
     bool verbose;
@@ -26,17 +30,8 @@ private:
 
     RemoteFunctionBody functionBody;
     EXT_CLASS_BASE::PropertyNameReader * propertyNameReader;
-
     EXT_CLASS_BASE * ext;
-    ExtRemoteTyped layoutTable;
-    ExtRemoteTyped extendedLayoutTable;
-    ExtRemoteTyped attributesTable;
-    ExtRemoteTyped extendedAttributesTable;
-    
-    int OpcodeAttr_OpHasMultiSizeLayout;     
-    int LayoutSize_SmallLayout;
-    int LayoutSize_MediumLayout;
-    int LayoutSize_LargeLayout;
+    JDByteCodeCachedData const& cachedData;
     uint RootObjectRegSlot;
     ULONG64 readerOffset;
     unsigned char CallIExtended_SpreadArgs;
@@ -77,7 +72,11 @@ private:
 
     void DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpElementSlot(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpElementSlotI1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpElementSlotI2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpElementScopedC2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpElementI(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
 
     void DumpStartCall(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
@@ -87,4 +86,5 @@ private:
     void DumpImplicitArgIns();
 
     char16 * GetPropertyNameFromCacheId(uint inlineCacheIndex, char16 * buffer, ULONG bufferSize);
+    char16 * GetPropertyNameFromReferencedIndex(uint referencedIndex, char16 * buffer, ULONG bufferSize);
 };

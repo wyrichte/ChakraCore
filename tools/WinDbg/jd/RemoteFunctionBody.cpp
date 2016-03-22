@@ -149,7 +149,7 @@ void RemoteFunctionProxy::PrintAuxPtrs(EXT_CLASS_BASE *ext)
     });
 }
 
-JDRemoteTyped RemoteParseableFunctionInfo::GetWrappedField(char* fieldName)
+JDRemoteTyped RemoteParseableFunctionInfo::GetAuxWrappedField(char* fieldName)
 {
     if (this->HasField("auxPtrs"))
     {
@@ -159,7 +159,33 @@ JDRemoteTyped RemoteParseableFunctionInfo::GetWrappedField(char* fieldName)
     return JDUtil::GetWrappedField(*this, fieldName);
 }
 
-JDRemoteTyped RemoteFunctionBody::GetWrappedField(char* fieldName, char* castType, char* oldFieldName)
+
+JDRemoteTyped RemoteFunctionBody::GetReferencedPropertyIdMap()
+{
+    if (!GetExtension()->IsJScript9())
+    {
+        return this->GetAuxWrappedField("referencedPropertyIdMap", "Js::PropertyId");
+    }
+    return JDRemoteTyped("(void *)0");
+}
+
+JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char * fieldName)
+{
+    if (GetExtension()->IsJScript9())
+    {
+        return this->Field("recyclerData").Field(fieldName);
+    }
+    return this->Field(fieldName);
+}
+JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char * fieldName)
+{
+    if (GetExtension()->IsJScript9())
+    {
+        return this->Field("recyclerData").Field(fieldName);
+    }
+    return JDUtil::GetWrappedField(*this, fieldName);
+}
+JDRemoteTyped RemoteFunctionBody::GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName)
 {
     if (this->HasField("auxPtrs"))
     {
@@ -167,6 +193,15 @@ JDRemoteTyped RemoteFunctionBody::GetWrappedField(char* fieldName, char* castTyp
     }
 
     return JDUtil::GetWrappedField(*this, oldFieldName ? oldFieldName : fieldName);
+}
+
+JDRemoteTyped RemoteFunctionBody::GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType, char* oldFieldName)
+{
+    if (GetExtension()->IsJScript9())
+    {
+        return this->Field("recyclerData").Field(oldFieldName != nullptr ? oldFieldName : fieldName);
+    }
+    return this->GetAuxWrappedField(fieldName, castType, oldFieldName);
 }
 
 static std::map<std::string, uint8> counterEnum;
@@ -209,12 +244,12 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
             }
             else 
             {
-                g_Ext->Err("Function body counter structure corrupted, fieldSize is: %d", fieldSize);
+                g_Ext->ThrowStatus(E_FAIL, "Function body counter structure corrupted, fieldSize is: %d", fieldSize);
             }
         }
         else 
         {
-            g_Ext->Warn("JD need to update to map %s to new field enum on FunctionBody", oldName);
+            g_Ext->ThrowStatus(E_FAIL, "JD need to update to map %s to new field enum on FunctionBody", oldName);
         }
     }
 

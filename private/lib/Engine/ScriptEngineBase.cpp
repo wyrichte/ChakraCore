@@ -1533,6 +1533,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
     __out Var* errorObject)
 {
     IfNullReturnError(errorObject, E_INVALIDARG);
+    IfNullReturnError(message, E_INVALIDARG);
     *errorObject = nullptr;
 
     ErrorTypeEnum errorTypeInternal;

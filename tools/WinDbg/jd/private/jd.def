@@ -35,6 +35,8 @@ EXPORTS
     showpinned
     markmap
 ;    markobj
+    predecessors
+    successors
     traceroots
     savegraph
     slist
@@ -60,4 +62,5 @@ EXPORTS
     mpheap
     bv
     sourceInfos
+    jsdisp
 

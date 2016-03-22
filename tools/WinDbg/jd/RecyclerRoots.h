@@ -202,8 +202,8 @@ private:
 template <typename Fn>
 void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback);
 
-// Use this template to get around nested type definition not being available in this file:
-// RecyclerObjectGraph::GraphImplNodeType
+// Use this template to get around the following nested type definition not being available in this file:
+// - RecyclerObjectGraph::GraphImplNodeType
 template <typename TNode>
 void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
 

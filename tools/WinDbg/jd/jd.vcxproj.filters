@@ -32,6 +32,7 @@
     <ClCompile Include="FieldInfoCache.cpp" />
     <ClCompile Include="JDRemoteTyped.cpp" />
     <ClCompile Include="RecyclerObjectTypeInfo.cpp" />
+    <ClCompile Include="JDByteCodeCachedData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="FieldInfoCache.h" />
     <ClInclude Include="JDRemoteTyped.h" />
     <ClInclude Include="RecyclerObjectTypeInfo.h" />
+    <ClInclude Include="JDByteCodeCachedData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

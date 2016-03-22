@@ -30,7 +30,12 @@ if not exist %BIN_PATH% (
 
  REM Build with pgo instrumentation
 set POGO_TYPE=PGI
+
+REM Temporary fix around pgo bug, todo:: check if still necessary once toolset is updated
+set _LINK_=/cgthreads:1
 call :build
+set _LINK_=
+
 if /I "%builderror%" NEQ "" (
   echo %builderror%: An error occurred in the build instrumentation
   endlocal

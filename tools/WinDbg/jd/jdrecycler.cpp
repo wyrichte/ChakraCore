@@ -2306,6 +2306,11 @@ ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, char const 
 
 ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, char const** typeName)
 {
+    if (typeName)
+    {
+        *typeName = nullptr;
+    }
+
     if (original.m_Typed.Tag != SymTagPointerType)
     {
         original = original.GetPointerTo();

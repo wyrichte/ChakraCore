@@ -200,13 +200,13 @@
   {
     "callstack": [
       {
-        "start": 1462,
+        "start": 1491,
         "length": 2,
         "text": "o1",
         "frameDescription": "testSIMDUint32x4_binaryop"
       },
       {
-        "start": 4618,
+        "start": 4733,
         "length": 27,
         "text": "testSIMDUint32x4_binaryop()",
         "frameDescription": "Global code"

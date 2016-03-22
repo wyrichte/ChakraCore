@@ -21,6 +21,7 @@ class RootPointers;
 #include <map>
 #include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
+#include "JDByteCodeCachedData.h"
 
 enum CommandOutputType
 {
@@ -126,7 +127,7 @@ public:
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
     bool IsJScript9();
-    void DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
+    bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
 
     class PropertyNameReader
     {
@@ -182,14 +183,20 @@ public:
 
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
-    RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;
+    RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;    
     CachedTypeInfo m_AuxPtrsFix16;
     CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
 
+    JDByteCodeCachedData const& GetByteCodeCachedData()
+    {
+        byteCodeCachedData.Ensure();
+        return byteCodeCachedData;
+    }
 private:
+    JDByteCodeCachedData byteCodeCachedData;
     // TODO (doilij) add check for recycler pointer used to construct this cached graph -- invalidate if different
     RecyclerObjectGraph *cachedObjectGraph;
 
@@ -259,6 +266,8 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
+// TODO (doilij) reorganize permissions blocks
+public:
     RecyclerObjectGraph * GetOrCreateRecyclerObjectGraph(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
     {
         if (this->cachedObjectGraph)
@@ -275,8 +284,10 @@ protected:
         return cachedObjectGraph;
     }
 
+protected:
     void ClearCache()
     {
+        this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
         this->vtableTypeIdMap.clear();
         for (auto i = this->vtableTypeNameMap.begin(); i != this->vtableTypeNameMap.end(); i++)
@@ -397,6 +408,8 @@ public:
 #if ENABLE_MARK_OBJ
     JD_PRIVATE_COMMAND_METHOD(markobj);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(predecessors);
+    JD_PRIVATE_COMMAND_METHOD(successors);
     JD_PRIVATE_COMMAND_METHOD(traceroots);
     JD_PRIVATE_COMMAND_METHOD(savegraph);
     JD_PRIVATE_COMMAND_METHOD(slist);
@@ -409,6 +422,7 @@ public:
 #if ENABLE_UI_SERVER
     EXT_COMMAND_METHOD(uiserver);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(jsdisp);
     JD_PRIVATE_COMMAND_METHOD(arrseg);
     JD_PRIVATE_COMMAND_METHOD(memstats);
     JD_PRIVATE_COMMAND_METHOD(findpage);
@@ -425,7 +439,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(diagframe);
     JD_PRIVATE_COMMAND_METHOD(diageval);
     JD_PRIVATE_COMMAND_METHOD(utmode);
-    JD_PRIVATE_COMMAND_METHOD(jsstream);   
+    JD_PRIVATE_COMMAND_METHOD(jsstream);
 
     MPH_COMMAND_METHOD(mpheap);
 };
