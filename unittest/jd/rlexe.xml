@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+  <!-- Bug #
+       Replace "&#x002D"s below with "-" when the test is reenabled. Two consecutive "-"s aren't allowed in XML comments.
   <test>
     <default>
-      <!-- Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
-                Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test1.js</files>
+      <!&#x002D&#x002D Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
+                Disable on ARM because it is flaky on WOACHK PerCheckin run. &#x002D&#x002D>
+	  <files>test1.js</files>
       <baseline>test1.baseline</baseline>
-      <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest -q -c ".load ut_jsdiag; g;!echo &#x002D&#x002D&#x002D1st bp&#x002D&#x002D&#x002D;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo &#x002D&#x002D&#x002D2nd bp&#x002D&#x002D&#x002D;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <!--Run again without -Off:Inline, remove baseline as well.
@@ -22,16 +25,19 @@
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
+  <!-- VSO bug #6883889
+       Replace "&#x002D"s below with "-" when the test is reenabled. Two consecutive "-"s aren't allowed in XML comments.
   <test>
     <default>
-      <!-- Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
+      <!&#x002D&#x002D Disable on ARM because it is flaky on WOACHK PerCheckin run.&#x002D&#x002D>
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo &#x002D&#x002D-1st bp&#x002D&#x002D-;!ldsym;!jsstack;g;    !echo;!echo &#x002D&#x002D-2nd bp&#x002D&#x002D-;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <!--Run again without -Off:Inline, remove baseline as well.
@@ -43,17 +49,20 @@
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
+  <!-- Bug #
+       Replace "&#x002D"s below with "-" when the test is reenabled. Two consecutive "-"s aren't allowed in XML comments.
   <test>
     <default>
-      <!-- Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
-                Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test2.js</files>
+      <!&#x002D&#x002D Note: turn off Intl as we force-initialize it in hybrid and ldsym produces lots of noise from Intl.
+                Disable on ARM because it is flaky on WOACHK PerCheckin run. &#x002D&#x002D>
+	  <files>test2.js</files>
       <baseline>test2.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo ---verifyall again---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo &#x002D&#x002D&#x002Dverifyall again&#x002D&#x002D&#x002D;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Intl-</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <!--Run again without -Off:Inline, remove baseline as well.
