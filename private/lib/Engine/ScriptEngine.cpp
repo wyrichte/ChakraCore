@@ -7009,7 +7009,7 @@ IActiveScriptDirectHost* ScriptEngine::GetActiveScriptDirectHostNoRef()
 
 const LPWSTR g_featureKeyName = _u("Software\\Microsoft\\Internet Explorer\\JScript9");
 
-LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
+LPCWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
     return g_featureKeyName;
 }
