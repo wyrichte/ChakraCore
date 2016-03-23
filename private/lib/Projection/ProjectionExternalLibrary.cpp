@@ -37,7 +37,7 @@ void ProjectionExternalLibrary::Initialize(Js::JavascriptLibrary* library)
 
         winrtErrorPrototype = RecyclerNew(library->GetRecycler(), Js::JavascriptError,
             Js::DynamicType::New(scriptContext, Js::TypeIds_Error, library->GetErrorPrototype(), nullptr,
-                Js::DeferredTypeHandler<InitializeWinRTErrorPrototype>::GetDefaultInstance()),
+                Js::DeferredTypeHandler<InitializeWinRTErrorPrototype, Js::DefaultDeferredTypeFilter, true>::GetDefaultInstance()),
             /*isExternalError*/FALSE, /*isPrototype*/TRUE);
 
         winrtErrorType = Js::DynamicType::New(scriptContext, Js::TypeIds_Error, winrtErrorPrototype, nullptr,
