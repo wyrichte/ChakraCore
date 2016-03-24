@@ -17,6 +17,12 @@
   </test>
   <test>
     <default>
+      <files>docprototype.html</files>
+      <tags>BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>globalaccessor.html</files>
       <baseline>globalaccessor.baseline</baseline>
     </default>
