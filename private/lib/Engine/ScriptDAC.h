@@ -330,6 +330,9 @@ Error:
             _Out_writes_z_(urlBufferSize) LPWSTR urlBuffer, ULONG urlBufferSize,
             ULONG* line, ULONG* column) const;
 
+        void* GetAuxPtrs(IScriptDebugSite* debugSite, FunctionProxy::AuxPointerType type) const;
+        uint GetCounter(IScriptDebugSite* debugSite, FunctionBody::CounterFields counterType) const;
+
         static HRESULT AddSymbol(
             IScriptDebugSite* debugSite, LPCVOID addr, ULONG size, LPCWSTR name,
             LPCWSTR url = NULL, ULONG line = 0, ULONG column = 0);
