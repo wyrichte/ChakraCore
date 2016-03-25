@@ -39,6 +39,7 @@
         $(ChakraRootDirectory)core\Lib\Runtime\Debug;
         $(ChakraRootDirectory)core\Lib\Runtime\Language;
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
+        $(ChakraRootDirectory)core\Lib\Runtime\PlatformAgnostic;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;
         $(ChakraRootDirectory)core\Lib\Backend;
         $(ChakraRootDirectory)private\lib\Engine;
