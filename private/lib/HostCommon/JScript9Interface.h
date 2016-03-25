@@ -49,7 +49,7 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtReleasePtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtAddRefPtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtGetValueType)(JsValueRef value, JsValueType *type);
-    typedef JsErrorCode (WINAPI *JsrtParseScriptWithFlags)(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result);
+    typedef JsErrorCode (WINAPI *JsrtParseScriptWithAttributes)(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result);
 
     JsrtCreateRuntimePtr pfJsrtCreateRuntime;
     JsrtCreateContextPtr pfJsrtCreateContext;
@@ -89,7 +89,7 @@ struct JsrtTestHooks
     JsrtReleasePtr pfJsrtRelease;
     JsrtAddRefPtr pfJsrtAddRef;
     JsrtGetValueType pfJsrtGetValueType;
-    JsrtParseScriptWithFlags pfJsrtParseScriptWithFlags;
+    JsrtParseScriptWithAttributes pfJsrtParseScriptWithAttributes;
 };
 
 struct MemProtectTestHooks
@@ -288,7 +288,7 @@ public:
     static JsErrorCode WINAPI JsrtRelease(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtRelease(ref, count); }
     static JsErrorCode WINAPI JsrtAddRef(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtAddRef(ref, count); }
     static JsErrorCode WINAPI JsrtGetValueType(JsValueRef value, JsValueType *type) { return m_jsrtTestHooks.pfJsrtGetValueType(value, type); }
-    static JsErrorCode WINAPI JsrtParseScriptWithFlags(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtParseScriptWithFlags(script, sourceContext, sourceUrl, parseAttributes, result); }
+    static JsErrorCode WINAPI JsrtParseScriptWithAttributes(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtParseScriptWithAttributes(script, sourceContext, sourceUrl, parseAttributes, result); }
 
 
     static HRESULT MemProtectHeapCreate(void ** heapHandle, int flags) { return m_memProtectTestHooks.pfMemProtectHeapCreate(heapHandle, flags); }
