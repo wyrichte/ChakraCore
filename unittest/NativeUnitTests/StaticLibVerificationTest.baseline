@@ -8,7 +8,7 @@ scriptEngineBaseSize: 28
 scriptEngineBaseOffset: 0
 scriptContextBaseSize: 16
 scriptContextBaseOffset: 0
-javascriptLibraryBaseSize: 536
+javascriptLibraryBaseSize: 540
 javascriptLibraryBaseOffset: 0
 customExternalObjectSize: 24
 typeOffset: 4
