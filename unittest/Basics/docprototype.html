@@ -1,0 +1,16 @@
+<html>
+<body>
+<script>
+Object.defineProperty(Node.prototype, '_', {
+  get: function() {
+    Object.defineProperty(this, '_', { value: "PASSED" });
+    return this._;
+  }
+});
+EventTarget.prototype.abc = function() {
+  WScript.Echo(this._);
+};
+document.abc();
+</script>
+</body>
+</html>

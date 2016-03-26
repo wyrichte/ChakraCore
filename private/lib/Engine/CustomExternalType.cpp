@@ -812,6 +812,24 @@ namespace Js
                 notPresent = true;
             }
         }
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
+        {
+            if (JavascriptOperators::HasItem(this->GetPrototype(), index))
+            {
+                BOOL result = JavascriptOperators::GetItem(this->GetPrototype(), index, value, requestContext);
+                if (result)
+                {
+                    *value = CrossSite::MarshalVar(requestContext, *value);
+                }
+                return result;
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
         if (notPresent || (this->GetOperationUsage().useAlways & OperationFlag_getOwnItem))
         {
             BOOL result = FALSE;
@@ -1400,12 +1418,44 @@ namespace Js
 
     BOOL CustomExternalObject::GetAccessors(PropertyId propertyId, Var *getter, Var *setter, ScriptContext * requestContext)
     {
+        BOOL notPresent = false;
         if (!this->VerifyObjectAlive()) return FALSE;
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
         }
-        if (this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getAccessors)
+        {
+            if (ExternalObject::HasProperty(propertyId))
+            {
+                return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
+        {
+            if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
+            {
+                BOOL result = JavascriptOperators::GetAccessors(this->GetPrototype(), propertyId, requestContext, getter, setter);
+                if (result)
+                {
+                    *getter = CrossSite::MarshalVar(requestContext, *getter);
+                    *setter = CrossSite::MarshalVar(requestContext, *setter);
+                }
+                return result;
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
+        if (notPresent || this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
         {
             HRESULT hr = E_FAIL;
             BOOL result = FALSE;
