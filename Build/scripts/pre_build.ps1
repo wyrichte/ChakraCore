@@ -25,7 +25,7 @@ if (Test-Path Env:\TF_BUILD_SOURCEGETVERSION)
     Push-Location $srcpath;
     $summary = iex "$gitExe diff --submodule $commitHash~1..$commitHash core"
     Pop-Location
-    if ($summary)
+    if ($summary -and ($summary -is [System.Array]))
     {
         Push-Location "$srcpath\core"
         $commits = $summary[0].split()[2].replace(":","");
