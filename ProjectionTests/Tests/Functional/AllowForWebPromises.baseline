@@ -467,11 +467,6 @@ PASS [Test 17: CancelAfterDoneWithNoErrorHandler]
 =================================================
 
 =================================================
-Starting [Test 18: ErrorAfterDoneWithNoErrorHandler]
-PASS [Test 18: ErrorAfterDoneWithNoErrorHandler]
-=================================================
-
-=================================================
 Starting [Test 413280: Verify that we get an error from a chained promise]
 Comment: Error: my throw
    at testLibraryStackFrame (allowforwebpromises.js:11:13)
@@ -598,5 +593,9 @@ Comment: Error: my throw
 PASS [Test 24-done: InvalidSenderPassedToCompleted]
 =================================================
 
-Passed: 52
+Passed: 51
 Failed: 0
+WinRTError: Not enough storage is available to complete this operation.
+
+	at o[WinRT Promise.done()]() (allowforwebpromises.js:1:177)
+	at o[Winery.AllowForWebCustomAsyncInfo]() (allowforwebpromises.js:1:104)
