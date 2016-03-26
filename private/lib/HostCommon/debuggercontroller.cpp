@@ -87,7 +87,7 @@ ScriptEngineWrapper::ScriptEngineWrapper()
     
     // Run the built-in controller script.
     JsValueRef globalFunc = JS_INVALID_REFERENCE;
-    if (JScript9Interface::JsrtParseScriptWithFlags(controllerScript, JS_SOURCE_CONTEXT_NONE, _u("dbgcontroller.js"), JsParseScriptAttributeLibraryCode, &globalFunc) != JsNoError)
+    if (JScript9Interface::JsrtParseScriptWithAttributes(controllerScript, JS_SOURCE_CONTEXT_NONE, _u("dbgcontroller.js"), JsParseScriptAttributeLibraryCode, &globalFunc) != JsNoError)
     {
         DebuggerController::LogError(_u("parse controller script"));
     }
