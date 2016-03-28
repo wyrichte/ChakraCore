@@ -274,12 +274,14 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
         {
             shortName = const_cast<char16*>(title);
             longName = HeapNewNoThrowArray(WCHAR, nameSize);
+            IfNullReturnError(longName, E_OUTOFMEMORY);
             this->GetFormattedTitle(shortName, longName, nameSize);
         }
         else
         {
             longName = const_cast<char16*>(title);
             shortName = HeapNewNoThrowArray(WCHAR, nameSize);
+            IfNullReturnError(shortName, E_OUTOFMEMORY);
             Js::FunctionBody::GetShortNameFromUrl(longName, shortName, nameSize);
         }
 
