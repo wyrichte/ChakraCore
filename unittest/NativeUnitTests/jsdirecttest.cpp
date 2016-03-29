@@ -309,6 +309,8 @@ void RunStaticLibVerificationTest()
 {
     JsStaticAPI::BinaryVerificationData binaryVerificationData;
     JsStaticAPI::DataConversion::FillInBinaryVerificationData(&binaryVerificationData);
+    printf("Please be careful when you change the baseline here as it will break edge browser unless edge is built with matching source in SD\n");
+    printf("Please add yongqu to codereview when you change this file\n");
     printf("majorVersion: %d\n", binaryVerificationData.majorVersion);
     printf("minorVersion: %d\n", binaryVerificationData.minorVersion);
     printf("scriptEngineBaseSize: %d\n", binaryVerificationData.scriptEngineBaseSize);
