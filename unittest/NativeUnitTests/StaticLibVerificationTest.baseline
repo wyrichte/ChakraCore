@@ -2,6 +2,8 @@
 
 Running static library verification tests
 
+Please be careful when you change the baseline here as it will break edge browser unless edge is built with matching source in SD
+Please add yongqu to codereview when you change this file
 majorVersion: 11
 minorVersion: 0
 scriptEngineBaseSize: 28
