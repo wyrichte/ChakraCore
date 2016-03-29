@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 setlocal
 setlocal EnableDelayedExpansion
 
@@ -11,30 +11,27 @@ set LINK_PATH=%RAZZLE_TOOLS_PATH%\vc\x32\x86\link.exe
 echo filever: %FILEVER_PATH%
 echo link: %LINK_PATH%
 
- REM look for matching linker version
+REM look for matching linker version
 set matching_build=
 for /F "tokens=2" %%a in ('%FILEVER_PATH% %LINK_PATH% /VA ^| find "ProductVersion"') do set linker_version=%%a
 for /F "tokens=5" %%a in ('%FILEVER_PATH% %LINK_PATH% /VA ^| find "FileVersion"') do set linker_build=%%a
 set linker_build=%linker_build:(= %
 set linker_build=%linker_build:)=%
 for /F %%a in ('echo %linker_build%') do set linker_build=%%a
+for /F "tokens=3,4 delims=." %%a in ('echo %linker_version%') do set minorVersion=%%a
 echo Linker Build: %linker_build%
 echo Linker Version: %linker_version%
 
- rem set linker_sharepath=\\vcfs\builds\VS\feature_WinCCompLKG
-set linker_sharepath=\\vcgnt-24-64\Test\Dev14
- rem set linker_sharepath=\\vcfs\drops\LKG\18.1
 
-for /F %%a in ('dir /b /ad /o-n %linker_sharepath%') do (
-  set shareroot=%linker_sharepath%\%%a
-  for /F %%a in ('dir /b /ad /o-n !shareroot!') do (
-    set buildFolder=!shareroot!\%%a
-    echo !buildFolder!
-    for /F "tokens=2" %%a in ('%FILEVER_PATH% /V !buildFolder!\bin\x32\link.exe ^| find "ProductVersion"') do set current_linker_version=%%a
-    echo Build: %%a, Version: !current_linker_version!
-    if [!current_linker_version!] equ [%linker_version%] set matching_build=!buildFolder!
-  )
-)
+set linker_sharepath=\\cpvsbuild\drops\dev14\%linker_build%\raw
+
+set shareroot=%linker_sharepath%
+set buildFolder=!shareroot!\%minorVersion%.00
+echo !buildFolder!
+for /F "tokens=2" %%a in ('%FILEVER_PATH% /V !buildFolder!\binaries.x86ret\bin\i386\link.exe ^| find "ProductVersion"') do set current_linker_version=%%a
+echo Build: minorVersion, Version: !current_linker_version!
+
+if [!current_linker_version!] equ [%linker_version%] set matching_build=!buildFolder!
 
 if [%matching_build%] equ [] (
   set errmsg=Can not find a matching link.exe under %linker_sharepath%.
@@ -53,29 +50,14 @@ for %%p in (%PLATFORM%) do (
     md !dst!
   )
 
-  if /I "!arch!"=="x86" (
-    set arch=x32
-  ) else if /I "!arch!"=="amd64" (
-    set arch=x64
-  ) else if /I "!arch!"=="arm" (
-    set arch=a32
-  ) else if /I "!arch!"=="arm64" (
-    set arch=a64
-  )
   set libArch=!arch!
 
-  if /I "!libArch!"=="x32" (
-    set libArch=x86
-  ) else if /I "!libArch!"=="x64" (
-    set libArch=amd64
-  ) else if /I "!libArch!"=="a32" (
-    set libArch=arm
-  ) else if /I "!libArch!"=="a64" (
-    set libArch=arm64
+  if /I "!libArch!"=="x86" (
+    set libArch=i386
   )
 
-  set archBinFolder=%matching_build%\bin\!arch!
-  set archLibFolder=%matching_build%\lib.DO_NOT_REDIST\!libArch!
+  set archBinFolder=%matching_build%\binaries.!arch!ret\bin\!libArch!
+  set archLibFolder=%matching_build%\binaries.!arch!ret\lib\!libArch!
 
   del !dst!\pgort.lib
   echo !archLibFolder!\pgort.lib =^> !dst!\pgort.lib

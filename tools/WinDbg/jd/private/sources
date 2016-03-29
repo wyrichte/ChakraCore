@@ -37,4 +37,5 @@ SOURCES = \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
         ..\util.cpp \
-        ..\collections.cpp \        
+        ..\collections.cpp \
+        ..\JDByteCodeCachedData.cpp\

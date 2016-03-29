@@ -21,7 +21,9 @@ class RootPointers;
 #include <map>
 #include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
+#ifdef JD_PRIVATE
 #include "JDByteCodeCachedData.h"
+#endif
 
 enum CommandOutputType
 {
@@ -190,13 +192,17 @@ public:
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
 
+#ifdef JD_PRIVATE
     JDByteCodeCachedData const& GetByteCodeCachedData()
     {
         byteCodeCachedData.Ensure();
         return byteCodeCachedData;
     }
+#endif
 private:
+#ifdef JD_PRIVATE
     JDByteCodeCachedData byteCodeCachedData;
+#endif
     // TODO (doilij) add check for recycler pointer used to construct this cached graph -- invalidate if different
     RecyclerObjectGraph *cachedObjectGraph;
 
