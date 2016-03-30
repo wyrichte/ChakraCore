@@ -2281,8 +2281,8 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     auto moduleEntry = moduleRecordMap.find(specifier);
     if (moduleEntry != moduleRecordMap.end())
     {
-        fwprintf(stderr, _u("ERROR: same module file was loaded multiple times %s\n"), specifier);
-        return E_INVALIDARG;
+        *dependentModuleRecord = moduleEntry->second;
+        return S_OK;
     }
     hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
     if (SUCCEEDED(hr))

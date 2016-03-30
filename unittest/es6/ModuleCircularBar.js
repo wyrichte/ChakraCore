@@ -3,9 +3,12 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
-export { bar2 as ModuleComplexReexports_foo } from 'ModuleComplexExports.js';
-
-export { function as switch } from 'ModuleComplexExports.js';
-
-import { foo, foo2, foo as localfoo, foo2 as localfoo2 } from "ModuleComplexExports.js";
-export { foo, foo2 as baz, localfoo, localfoo as bar, localfoo2, localfoo2 as bar2 };
+import { circular_foo } from "ModuleCircularFoo.js"
+export function circular_bar() {
+    increment();
+    return circular_foo();
+}
+export function increment() { 
+    counter++;
+}
+export var counter = 0;

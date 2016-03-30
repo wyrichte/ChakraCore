@@ -81,7 +81,7 @@ private:
     static MappingInfo unmapOnShutdown[freeOnShutdownCount];
     DWORD nextDeleteSimpleSourceMappersOnShutDown;
     SimpleSourceMapper* deleteSimpleSourceMappersOnShutDown[freeOnShutdownCount];
-    std::map<LPCWSTR, ModuleRecord> moduleRecordMap;
+    std::map<std::wstring, ModuleRecord> moduleRecordMap;
 
     Js::DelayLoadWinRtString * m_WinRTStringLibrary;
     DelayLoadWinRtTypeResolution * m_WinRTTypeResolutionLibrary;

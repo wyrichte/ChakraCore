@@ -65,7 +65,6 @@ var tests = [
             testModuleScript('export class { }', 'Syntax error if class declaration is missing binding identifier', true);
             testModuleScript('function foo() { }; export [ foo ];', 'Syntax error if we use brackets instead of curly braces in export statement', true);
             testModuleScript('function foo() { export default function() { } }', 'Syntax error if export statement is in a nested function', true);
-//            testModuleScript("eval('export default function() { }');", 'Syntax error if export statement is in eval', true);
             testModuleScript('function foo() { }; export { , foo };', 'Syntax error if named export list contains an empty element', true);
             testModuleScript('function foo() { }; () => { export { foo }; }', 'Syntax error if export statement is in arrow function', true);
             testModuleScript('function foo() { }; try { export { foo }; } catch(e) { }', 'Syntax error if export statement is in try catch statement', true);
@@ -80,9 +79,12 @@ var tests = [
     {
         name: "Syntax error import statements",
         body: function () {
-//            testModuleScript(`eval('import foo from "ValidExportStatements.js";');`, 'Syntax error if import statement is in eval', true);
             testModuleScript('function foo() { import foo from "ValidExportStatements.js"; }', 'Syntax error if import statement is in nested function', true);
             testModuleScript('import foo, bar from "ValidExportStatements.js";', 'Syntax error if import statement has multiple default bindings', true);
+            testModuleScript('import { foo, foo } from "ValidExportStatements.js";', 'Redeclaration error if multiple imports have the same local name', true);
+            testModuleScript('import { foo, bar as foo } from "ValidExportStatements.js";', 'Redeclaration error if multiple imports have the same local name', true);
+            testModuleScript('const foo = 12; import { foo } from "ValidExportStatements.js";', 'Syntax error if module body has a const declaration bound to the same name as a module import', true);
+            testModuleScript('function foo() { }; import { foo } from "ValidExportStatements.js";', 'Syntax error if module body has a function declaration bound to the same name as a module import', true);
             testModuleScript('import foo;', 'Syntax error if import statement is missing from clause', true);
             testModuleScript('import * as foo, from "ValidExportStatements.js";', 'Syntax error if import statement has comma after namespace import', true);
             testModuleScript('import * as foo, bar from "ValidExportStatements.js";', 'Syntax error if import statement has default binding after namespace import', true);
