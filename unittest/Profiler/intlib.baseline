@@ -6,6 +6,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: toString, Line: 5, Column: 21, Character Position: 73
   foo
     Collator
+    Anonymous function
     Array.sort
       toString
         bar

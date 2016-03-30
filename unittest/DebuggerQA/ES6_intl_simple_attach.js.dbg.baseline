@@ -33,8 +33,7 @@
           "[Methods]": {
             "compare": {
               "__proto__": "<large string>",
-              "length": "2",
-              "name": "bound compare"
+              "length": "2"
             },
             "constructor": {
               "[Methods]": "{...}",
@@ -45,7 +44,8 @@
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "<large string>"
             }
           },
           "__proto__": {
@@ -82,12 +82,12 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "length": "1",
-              "name": "bound format"
+              "length": "1"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "<large string>"
             }
           },
           "__proto__": {
@@ -125,12 +125,12 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "length": "0",
-              "name": "bound format"
+              "length": "0"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
-              "length": "0"
+              "length": "0",
+              "name": "<large string>"
             }
           },
           "__proto__": {
