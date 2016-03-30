@@ -2301,7 +2301,6 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     /* [in] */ __RPC__in Var exceptionVar)
 {
     HRESULT hr = NOERROR;
-    Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
     if (SUCCEEDED(hr))
