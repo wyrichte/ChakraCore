@@ -119,7 +119,7 @@ public:
         return scriptSite->CreateWinRTError(perrinfo, proerrstr);
     }
 
-    HRESULT EnqueuePromiseTask(Var varTask) override
+    HRESULT EnqueuePromiseTask(Js::Var varTask) override
     {
         return scriptSite->EnqueuePromiseTask(varTask);
     }
