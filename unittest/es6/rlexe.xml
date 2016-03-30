@@ -265,6 +265,13 @@
 </test>
 <test>
     <default>
+        <files>ModuleLateSyntaxErrors.js</files>
+        <baseline>ModuleLateSyntaxErrors.baseline</baseline>
+        <compile-flags>-ES6Module</compile-flags>
+    </default>
+</test>
+<test>
+    <default>
         <files>module-syntax.js</files>
         <compile-flags>-ES6Module -force:deferparse -args summary -endargs</compile-flags>
     </default>

@@ -204,10 +204,11 @@ var tests = [
         name: "Import bindings used in a nested function",
         body: function () {
             let functionBody = 
-                `import foo from 'ModuleDefaultExport2.js';
-                function test() {
+                `function test() {
                     assert.areEqual('ModuleDefaultExport2', foo(), 'Failed to import default from ModuleDefaultExport2.js');
                 }
+                test();
+                import foo from 'ModuleDefaultExport2.js';
                 test();`;
             testModuleScript(functionBody, "Failed to find imported name correctly in nested function", false);
         }
@@ -241,6 +242,53 @@ var tests = [
                 `import { switch as baz } from 'ModuleComplexReexports.js';
                 assert.areEqual('ModuleComplexExports', baz, 'Failed to import switch from ModuleComplexReexports.js');`;
             testModuleScript(functionBody, "Exported name may be a keyword including re-epxort chains", false);
+        }
+    },
+    {
+        name: "Odd case of 'export { as as as }; import { as as as };'",
+        body: function () {
+            let functionBody = 
+                `import { as as as } from 'ModuleComplexExports.js';
+                assert.areEqual('as', as(), 'String "as" is not reserved word');`;
+            testModuleScript(functionBody, "Test 'import { as as as}'", false);
+        }
+    },
+    {
+        name: "Typeof a module export",
+        body: function () {
+            let functionBody = 
+                `import _default from 'ModuleDefaultExport2.js';
+                assert.areEqual('function', typeof _default, 'typeof default export from ModuleDefaultExport2.js is function');`;
+                
+            WScript.LoadModule(functionBody, 'samethread');
+        }
+    },
+    {
+        name: "Circular module dependency",
+        body: function () {
+            let functionBody = 
+                `import { circular_foo } from 'ModuleCircularFoo.js';
+                assert.areEqual(2, circular_foo(), 'This function calls between both modules in the circular dependency incrementing a counter in each');
+                import { circular_bar } from 'ModuleCircularBar.js';
+                assert.areEqual(4, circular_bar(), 'Second call originates in the other module but still increments the counter twice');`;
+                
+            WScript.LoadModule(functionBody, 'samethread');
+        }
+    },
+    {
+        name: "Implicitly re-exporting an import binding (import { foo } from ''; export { foo };)",
+        body: function () {
+            let functionBody = 
+                `import { foo, baz, localfoo, bar, localfoo2, bar2, bar2 as bar3 } from 'ModuleComplexReexports.js';
+                assert.areEqual('foo', foo(), 'Simple implicit re-export');
+                assert.areEqual('foo', baz(), 'Renamed export imported and renamed during implicit re-export');
+                assert.areEqual('foo', localfoo(), 'Export renamed as import and implicitly re-exported');
+                assert.areEqual('foo', bar(), 'Renamed export renamed as import and renamed again during implicit re-exported');
+                assert.areEqual('foo', localfoo2(), 'Renamed export renamed as import and implicitly re-exported');
+                assert.areEqual('foo', bar2(), 'Renamed export renamed as import and renamed again during implicit re-export');
+                assert.areEqual('foo', bar3(), 'Renamed export renamed as import renamed during implicit re-export and renamed in final import');`;
+                
+            WScript.LoadModule(functionBody, 'samethread');
         }
     },
 ];
