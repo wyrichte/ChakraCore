@@ -21,8 +21,7 @@ public:
         ULONG offset = head.GetFieldOffset(field);
         while (current != 0)
         {
-            JDRemoteTyped object;
-            object.Set(true, deferencedType.m_Typed.ModBase, deferencedType.m_Typed.TypeId, current);
+            JDRemoteTyped object(deferencedType.m_Typed.ModBase, deferencedType.m_Typed.TypeId, current, true);
             if (fn(object))
             {
                 return true;

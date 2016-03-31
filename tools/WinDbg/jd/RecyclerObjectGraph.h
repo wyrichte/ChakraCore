@@ -10,12 +10,19 @@
 class RecyclerObjectGraph
 {
 public:
+    enum TypeInfoFlags
+    {
+        None,
+        Infer,
+        Trident
+    };
     typedef Graph<ULONG64, RecyclerGraphNodeData> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
 
-    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
+    static RecyclerObjectGraph * New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext,
+        RecyclerObjectGraph::TypeInfoFlags typeInfoFlags = RecyclerObjectGraph::TypeInfoFlags::None);
+
     ~RecyclerObjectGraph();
-    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
 
     void DumpForPython(const char* filename);
     void DumpForJs(const char* filename);
@@ -52,7 +59,6 @@ public:
         return _objectGraph.GetEdgeCount();
     }
 
-    void EnsureTypeInfo(bool infer, bool trident, bool verbose);
 
     template <typename Sort, typename Fn>
     bool MapSorted(Fn fn)
@@ -73,6 +79,10 @@ public:
         return false;
     }
 protected:
+    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
+    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
+    void EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);
+
     void ClearTypeInfo();
     void MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
     void ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);

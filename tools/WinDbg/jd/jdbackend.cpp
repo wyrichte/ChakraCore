@@ -181,47 +181,47 @@ char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 
 char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {        
-    std::string typeName = ext->GetTypeName(opnd);
+    char const * typeName;
+    ExtRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
+    typeName = JDUtil::StripModuleName(typeName);
 
-    ExtRemoteTyped typedOpnd = ext->Cast(typeName.c_str(), opnd.GetPtr());
-
-    if (typeName == "IR::IntConstOpnd")
+    if (strcmp(typeName, "IR::IntConstOpnd") == 0)
     {
         return GetIntConstOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::FloatConstOpnd")
+    if (strcmp(typeName, "IR::FloatConstOpnd") == 0)
     {
         return GetFloatConstOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::HelperCallOpnd")
+    if (strcmp(typeName, "IR::HelperCallOpnd") == 0)
     {
         return GetHelperCallOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::SymOpnd" || typeName == "IR::PropertySymOpnd")
+    if (strcmp(typeName, "IR::SymOpnd") == 0 || strcmp(typeName, "IR::PropertySymOpnd") == 0)
     {
         return GetSymOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::RegOpnd")
+    if (strcmp(typeName, "IR::RegOpnd") == 0)
     {
         return GetRegOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::AddrOpnd")
+    if (strcmp(typeName, "IR::AddrOpnd") == 0)
     {
         return GetAddrOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::IndirOpnd")
+    if (strcmp(typeName, "IR::IndirOpnd") == 0)
     {
         return GetIndirOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::LabelOpnd")
+    if (strcmp(typeName, "IR::LabelOpnd") == 0)
     {
         return GetLabelOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::MemRefOpnd")
+    if (strcmp(typeName, "IR::MemRefOpnd") == 0)
     {
         return GetMemRefOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::RegBVOpnd")
+    if (strcmp(typeName, "IR::RegBVOpnd") == 0)
     {
         return GetRegBVOpndDumpString(typedOpnd, buffer, len);
     }

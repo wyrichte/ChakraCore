@@ -30,12 +30,12 @@ private:
         ULONG m_fieldOffset;
         ULONG64 m_ModBase;
         ULONG m_TypeId;
-        bool m_derefField;
     };
 
     stdext::hash_map<Key, Value> cache;
 public:
-    static JDRemoteTyped GetField(JDRemoteTyped object, char const * field);
+    static bool HasField(ExtRemoteTyped& object, char const * field);
+    static JDRemoteTyped GetField(JDRemoteTyped& object, char const * field);
 };
 
 inline bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b)
