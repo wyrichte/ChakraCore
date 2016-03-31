@@ -555,7 +555,14 @@ void WScriptJsrt::AddMessageQueue(MessageQueue *messageQueue)
 
 WScriptJsrt::CallbackMessage::CallbackMessage(unsigned int time, JsValueRef function) : MessageBase(time), m_function(function)
 {
-    JScript9Interface::JsrtAddRef(m_function, NULL);
+    JsErrorCode error = JScript9Interface::JsrtAddRef(m_function, NULL);
+    if (error != JsNoError)
+    {
+        // Simply report a fatal error and exit because continuing from this point would result in inconsistent state
+        // and FailFast telemetry would not be useful.
+        wprintf(_u("FATAL ERROR: JScript9Interface::JsrtAddRef failed in WScriptJsrt::CallbackMessage::`ctor`. error=0x%x\n"), error);
+        exit(1);
+    }
 }
 
 WScriptJsrt::CallbackMessage::~CallbackMessage()
