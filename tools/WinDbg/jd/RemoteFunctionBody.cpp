@@ -132,9 +132,7 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* 
 
     if (castType)
     {
-        char buf[MAX_PATH];
-        sprintf_s(buf, "@@c++((%s!%s*)0x%I64X)", GetExtension()->FillModule("%s"), castType, ret.GetPtr());
-        ret = Eval(buf);
+        ret = GetExtension()->Cast(castType, ret.GetPtr());
     }
 
     return ret;

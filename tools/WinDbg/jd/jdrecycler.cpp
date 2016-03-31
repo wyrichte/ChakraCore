@@ -2323,64 +2323,6 @@ JD_PRIVATE_COMMAND(memstats,
     }
 }
 
-ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, char const ** typeName)
-{
-    return CastWithVtable(ExtRemoteTyped("(void *)@$extin", objectAddress), typeName);
-}
-
-ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, char const** typeName)
-{
-    if (typeName)
-    {
-        *typeName = nullptr;
-    }
-
-    if (original.m_Typed.Tag != SymTagPointerType)
-    {
-        original = original.GetPointerTo();
-    }
-
-    ULONG64 vtbleAddr = ExtRemoteData(original.GetPtr(), this->m_PtrSize).GetPtr();
-    if (vtbleAddr == 0)
-    {
-        return original;
-    }
-    ExtRemoteTyped result = original;
-
-    if (vtableTypeIdMap.find(vtbleAddr) != vtableTypeIdMap.end())
-    {
-        std::pair<ULONG64, ULONG> vtableTypeId = vtableTypeIdMap[vtbleAddr];
-        result.Set(true, vtableTypeId.first, vtableTypeId.second, original.GetPtr());
-
-        if (typeName)
-        {
-            *typeName = GetTypeNameFromVTablePointer(vtbleAddr);
-        }
-
-        return result;
-    }
-
-    char const * localTypeName = GetTypeNameFromVTablePointer(vtbleAddr);
-    if (localTypeName != nullptr)
-    {
-        if (typeName)
-        {
-            *typeName = localTypeName;
-        }
-        ULONG64 modBase;
-        ULONG typeId;
-        if (SUCCEEDED(this->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
-            && SUCCEEDED(this->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
-        {
-            result.Set(true, modBase, typeId, original.GetPtr());
-            vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
-            return result;
-        }
-    }
-
-    return original;
-}
-
 typedef struct _OBJECTINFO
 {
     enum
