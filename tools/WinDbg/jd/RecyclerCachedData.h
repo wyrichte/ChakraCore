@@ -12,6 +12,7 @@
 class EXT_CLASS_BASE;
 class Addresses;
 class RootPointers;
+class RecyclerObjectGraph;
 
 #define BLOCKTYPELIST(MACRO) \
     MACRO(SmallNormalBlockType) \
@@ -51,10 +52,16 @@ public:
     ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
 
+    RemoteHeapBlock * FindCachedHeapBlock(ULONG64 address);
+
+    RecyclerObjectGraph * GetCachedRecyclerObjectGraph(ULONG64 recyclerAddress);
+    void CacheRecyclerObjectGraph(ULONG64 recyclerAddress, RecyclerObjectGraph * graph);
+
     bool GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory);
     void RemoveCachedDebuggeeMemory(char ** debuggeeMemory);
     void EnableCachedDebuggeeMemory();
     void DisableCachedDebuggeeMemory();
+    bool IsCachedDebuggeeMemoryEnabled() { return m_debuggeeMemoryCache != nullptr; }
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name) \
     ULONG64 GetBlockTypeEnum##name() { EnsureBlockTypeEnum(); return m_blockTypeEnumValue##name; } \
@@ -76,6 +83,9 @@ private:
     std::map<ULONG64, Addresses *> rootPointersCache;
     std::map<ULONG64, RemoteHeapBlockMap::Cache *> m_heapblockMapCache;
     
+    RecyclerObjectGraph * cachedObjectGraph;
+    ULONG64 cachedObjectGraphRecyclerAddress;
+
     CachedTypeInfo m_heapBlockTypeInfo;
     CachedTypeInfo m_smallHeapBlockTypeInfo;
     CachedTypeInfo m_largeHeapBlockTypeInfo;
