@@ -37,4 +37,4 @@ SOURCES = \
         ..\RemoteHeapBlockMap.cpp \
         ..\util.cpp \
         ..\collections.cpp \
-        
+        ..\JDByteCodeCachedData.cpp\

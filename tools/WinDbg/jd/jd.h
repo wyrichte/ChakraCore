@@ -21,7 +21,9 @@ class RootPointers;
 #include <map>
 #include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
+#ifdef JD_PRIVATE
 #include "JDByteCodeCachedData.h"
+#endif
 
 enum CommandOutputType
 {
@@ -193,15 +195,19 @@ public:
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
 
+#ifdef JD_PRIVATE
     JDByteCodeCachedData const& GetByteCodeCachedData()
     {
         byteCodeCachedData.Ensure();
         return byteCodeCachedData;
     }
+#endif
 private:
     bool CastWithVtable(ULONG64 address, JDRemoteTyped& result, char const ** typeName = nullptr);
 
+#ifdef JD_PRIVATE
     JDByteCodeCachedData byteCodeCachedData;
+#endif
 
 protected:
     size_t GetBVFixedAllocSize(int length);

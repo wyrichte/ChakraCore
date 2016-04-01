@@ -8,12 +8,13 @@
 :: NUGET_VERBOSITY: Parameters controlling how verbose the NuGet output is
 ::
 
-:: @echo off
+@echo off
 
 setlocal
+setlocal EnableDelayedExpansion
 
 if "%NUGET_PACKAGE_OUT%" EQU "" (
-    set NUGET_PACKAGE_OUT=%SDXROOT%\inetcore\jscript\packages\package_output
+    set NUGET_PACKAGE_OUT=%SDXROOT%\onecoreuap\inetcore\jscript\packages\package_output
     echo Setting package output directory to %NUGET_PACKAGE_OUT%
 )
 
@@ -34,8 +35,11 @@ if "%NUGET_BASE_PATH%" EQU "" (
     goto :Exit
 )
 
-:: For more diagnostics, run set the following variable
-:: Set NUGET_VERBOSITY=-Verbosity detailed 
+:: TODO: use the following to pass the version explictly to nuget. This way we don't need to update the versions in the nuspec files.
+:: perl -nle "print $1 if /%NUGET_PACKAGE_SOURCE_DIR%.*(\d+\.\d+\.\d+)/" %SDXROOT%\onecoreuap\inetcore\jscript\packages.config
+
+:: For more diagnostics, set the following variable to 'normal' or 'detailed'
+set NUGET_VERBOSITY=-Verbosity quiet 
 %NUGET_PATH%\nuget pack %NUGET_PACKAGE_SOURCE_DIR%\package.nuspec %NUGET_VERBOSITY% -BasePath %NUGET_BASE_PATH% -OutputDirectory %NUGET_PACKAGE_OUT%
 
 :Exit

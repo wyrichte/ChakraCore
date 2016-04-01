@@ -30,7 +30,7 @@
       <!-- Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo -----1st bp-----;!ldsym;!jsstack;g;    !echo;!echo -----2nd bp-----;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
       <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>

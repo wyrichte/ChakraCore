@@ -722,6 +722,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     hr = GetOPrototypeInformationForTypeCreation(varPrototype, nameId, &objPrototype);
     IfFailedReturn(hr);
 
+    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
+
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
         hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
