@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IELibs</id>
-    <version>1.0.10</version>
+    <version>1.0.15</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,13 +14,14 @@
   <files>
     <!-- These files are relative to inetcore\jscript\packages\ielibs\stage -->
     <file src="..\..\..\..\inc\devtbhost.h" target="devtbhost.h" />
-    <file src="..\..\..\..\inc\IEMSRCSettings.h" target="IEMSRCSettings.h" />
+    <file src="..\..\..\..\..\..\data\MSRC\GlobalMSRCSettings.h" target="GlobalMSRCSettings.h" />
+	<file src="..\..\..\..\..\..\data\MSRC\VerifyGlobalMSRCSettings.inl" target="VerifyGlobalMSRCSettings.inl" />
     <file src="..\..\..\..\inc\ScriptProjectionHost.hxx" target="ScriptProjectionHost.hxx" />
 
     <!-- pdm files needed for debugger tests (these files are also relative to \stage) -->
-    <file src="..\..\..\..\devtoolbar\jstools\setup\x86\*" target="pdm\x86" />
-    <file src="..\..\..\..\devtoolbar\jstools\setup\amd64\*" target="pdm\x64" />
-    <file src="..\..\..\..\devtoolbar\jstools\setup\arm\*" target="pdm\arm" />
+    <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\x86\*" target="pdm\x86" />
+    <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\amd64\*" target="pdm\x64" />
+    <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\arm\*" target="pdm\arm" />
 
     <!-- Copy the various flavors of Chakra's manifests -->
     <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" />

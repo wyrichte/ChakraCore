@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 setlocal
 
 set NUGET_BASE_PATH=%SDXROOT%
