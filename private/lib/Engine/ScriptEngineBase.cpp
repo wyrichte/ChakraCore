@@ -2662,11 +2662,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     }
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
-    
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
     {
-        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
-        try
+        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
             Js::SCASerializationEngine::Serialize(context, instance, &writer, transferableVars, cTransferableVars);
@@ -2684,20 +2682,19 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 transferableHolder->DetachAll(transferableVars);
             }
         }
+        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
         catch (Js::JavascriptExceptionObject *exceptionObject)
         {
-            caughtExceptionObject = exceptionObject;
+            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
         }
-        END_ENTER_SCRIPT
-
-        if (caughtExceptionObject != nullptr)
-        {
-            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
-            hr = HandleSCAException(caughtExceptionObject, scriptContext, serviceProvider);
-        }
+        CATCH_UNHANDLED_EXCEPTION(hr)
     }
-    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
-    CATCH_UNHANDLED_EXCEPTION(hr)   
+    END_ENTER_SCRIPT
+
+    if (caughtExceptionObject != nullptr)
+    {
+        hr = HandleSCAException(caughtExceptionObject, scriptContext, serviceProvider);
+    }
     return hr;
 }
 
@@ -2747,11 +2744,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
     {
-        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
-        try
-        {
+        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
             AutoLeaveScriptPtr<ISCAHost> pSCAHost(scriptContext);
             ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
 
@@ -2759,21 +2754,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
             Js::StreamReader reader(scriptContext, pInSteam);
             *pValue = Js::SCADeserializationEngine::Deserialize(pSCAHost, context, &reader, transferableHolder);
-        }
+        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
         catch (Js::JavascriptExceptionObject *  exceptionObject)
         {
-            caughtExceptionObject = exceptionObject;
+            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
         }
-        END_ENTER_SCRIPT
-
-        if (caughtExceptionObject != nullptr)
-        {
-            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
-            hr = hr = HandleSCAException(caughtExceptionObject, scriptContext, serviceProvider);
-        }
+        CATCH_UNHANDLED_EXCEPTION(hr)
     }
-    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)    
-    CATCH_UNHANDLED_EXCEPTION(hr)
+    END_ENTER_SCRIPT
+
+
+    if (caughtExceptionObject != nullptr)
+    {
+        hr = HandleSCAException(caughtExceptionObject, scriptContext, serviceProvider);
+    }
     return hr;
 }
 
