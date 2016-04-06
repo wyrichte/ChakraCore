@@ -82,4 +82,46 @@ glob; /**bp:logJson("Stepping on default params - break at function at formals a
     f1();
 })();
 
+glob; /**bp:logJson("Stepping on default params - split scope due to function at formals")**/
+(function() {
+    function f1(a = 1, b = function () { return a; }, c = 3) {
+        var m = 3;
+    }
+    f1(); /**bp:resume('step_into');locals();dumpBreak();resume('step_into');resume('step_into');locals();dumpBreak();resume('step_into');locals();dumpBreak();**/
+})();
+
+glob; /**bp:logJson("Stepping on default params - split scope due to function at formals and few var captured in inner function")**/
+(function() {
+    function f1(a = 1, b = function () { return a; }, c) {
+        var m = 3;
+        (function () {
+            a;
+            m;
+        })();
+    }
+    f1(); /**bp:resume('step_into');locals();dumpBreak();resume('step_into');resume('step_into');locals();dumpBreak();**/
+})();
+
+glob; /**bp:logJson("Stepping on default params - split scope and body has eval")**/
+(function() {
+    function f1(a = 1, b = function () { return a; }, c) {
+        var m = 3;
+        (function () {
+        })();
+        eval('');
+    }
+    f1(); /**bp:resume('step_into');locals();dumpBreak();resume('step_into');resume('step_into');locals();dumpBreak();**/
+})();
+
+glob; /**bp:logJson("Stepping on default params - split scope and body has eval inside inner function")**/
+(function() {
+    function f1(a = 1, b = function () { return a; }, c) {
+        var m = 3;
+        (function () {
+            eval('');
+        })();
+    }
+    f1(); /**bp:resume('step_into');locals();dumpBreak();resume('step_into');resume('step_into');locals();dumpBreak();**/
+})();
+
 print("Pass");
