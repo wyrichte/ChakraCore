@@ -581,6 +581,7 @@ namespace Js
                 return TRUE;
             }
 
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetProperty)
             {
                 hr = this->GetTypeOperations()->SetProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, value, &result);
