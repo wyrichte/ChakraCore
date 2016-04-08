@@ -951,8 +951,6 @@ private:
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting);
 
-    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
-
     HRESULT GetUrl(__out BSTR *pUrl);
 
 
@@ -1087,6 +1085,8 @@ public:
 
     BOOL NamedBPEnter(void) { return m_NBPmutx.Enter(); }
     void NamedBPLeave(void) { m_NBPmutx.Leave(); }
+
+    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
 
     DWORD DwResetGeneration (void) { return m_dwResetGeneration; }
     HRESULT DbgCreateBrowserFromCodeContext (
