@@ -268,6 +268,7 @@
         <files>ModuleLateSyntaxErrors.js</files>
         <baseline>ModuleLateSyntaxErrors.baseline</baseline>
         <compile-flags>-ES6Module</compile-flags>
+        <tags>exclude_dynapogo</tags>
     </default>
 </test>
 <test>

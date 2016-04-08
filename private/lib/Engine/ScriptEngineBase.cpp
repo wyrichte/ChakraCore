@@ -3207,7 +3207,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
-        hr = moduleRecord->ParseSource(sourceText, sourceLength, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
+        ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+        SourceContextInfo* sourceContextInfo = scriptEngine->GetSourceContextInfo((ULONG_PTR)sourceContext, (uint)sourceLength, FALSE, nullptr, nullptr);
+        SRCINFO si = {
+            /* sourceContextInfo   */ sourceContextInfo,
+            /* dlnHost             */ 0,
+            /* ulColumnHost        */ 0,
+            /* lnMinHost           */ 0,
+            /* ichMinHost          */ 0,
+            /* ichLimHost          */ 0,
+            /* ulCharOffset        */ 0,
+            /* mod                 */ 0,
+            /* grfsi               */ 0
+        };
+        hr = moduleRecord->ParseSource(sourceText, sourceLength, &si, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
     return hr;

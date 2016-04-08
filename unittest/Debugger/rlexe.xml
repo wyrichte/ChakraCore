@@ -3947,6 +3947,18 @@
   </test>
   <test>
     <default>
+      <files>testmodule.js</files>
+      <compile-flags>-debugLaunch -targeted -es6module -dbgbaseline:testmodule.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>testmodule1.js</files>
+      <compile-flags>-targeted -es6module -dbgbaseline:testmodule1.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug_vso5792108.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_vso5792108.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,BugFix</tags>
