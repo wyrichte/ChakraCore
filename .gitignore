@@ -8,6 +8,7 @@
 *.user
 Build/.vs/
 Build/VCBuild/
+Build/Chakra.Full.VC.db
 Build/ipch/
 build_*.log
 build_*.wrn
