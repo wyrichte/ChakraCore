@@ -21,7 +21,9 @@ class RootPointers;
 #include <map>
 #include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
+#ifdef JD_PRIVATE
 #include "JDByteCodeCachedData.h"
+#endif
 
 enum CommandOutputType
 {
@@ -160,15 +162,14 @@ public:
     PCSTR GetPageSegmentType();
 
     ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);
-    ExtRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
-    ExtRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
-    ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);
+    JDRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
+    JDRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
+    JDRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);    
     char const * GetTypeNameFromVTablePointer(ULONG64 vtableAddr);
 
-    // TODO: Remove this and use CastWithVtable instead
-    std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
-
     ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
+
+    bool InChakraModule(ULONG64 address);
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
     ULONG64 enum_##name() \
@@ -181,24 +182,32 @@ public:
     BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
 #undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
+    stdext::hash_map<LPCSTR, std::pair<ULONG64, ULONG>> cacheTypeInfoCache;
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
     RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;    
     CachedTypeInfo m_AuxPtrsFix16;
     CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
+    ULONG64 chakraModuleBaseAddress;
+    ULONG64 chakraModuleEndAddress;
+
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
 
+#ifdef JD_PRIVATE
     JDByteCodeCachedData const& GetByteCodeCachedData()
     {
         byteCodeCachedData.Ensure();
         return byteCodeCachedData;
     }
+#endif
 private:
+    bool CastWithVtable(ULONG64 address, JDRemoteTyped& result, char const ** typeName = nullptr);
+
+#ifdef JD_PRIVATE
     JDByteCodeCachedData byteCodeCachedData;
-    // TODO (doilij) add check for recycler pointer used to construct this cached graph -- invalidate if different
-    RecyclerObjectGraph *cachedObjectGraph;
+#endif
 
 protected:
     size_t GetBVFixedAllocSize(int length);
@@ -266,24 +275,6 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
-// TODO (doilij) reorganize permissions blocks
-public:
-    RecyclerObjectGraph * GetOrCreateRecyclerObjectGraph(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
-    {
-        if (this->cachedObjectGraph)
-        {
-            return this->cachedObjectGraph;
-        }
-
-        Addresses *rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, threadContext);
-        ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
-        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(this, recycler));
-        newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
-
-        cachedObjectGraph = newObjectGraph.Detach();
-        return cachedObjectGraph;
-    }
-
 protected:
     void ClearCache()
     {
@@ -295,12 +286,8 @@ protected:
             delete (*i).second;
         }
         this->vtableTypeNameMap.clear();
-
-        if (this->cachedObjectGraph != nullptr)
-        {
-            delete this->cachedObjectGraph;
-            this->cachedObjectGraph = nullptr;
-        }
+        this->chakraModuleBaseAddress = 0;
+        this->chakraModuleEndAddress = 0;
     }
 
 public:

@@ -23,6 +23,9 @@ namespace Js
     template BOOL CustomExternalObject::DeletePropertyImpl<true>(PropertyId propertyId, PropertyOperationFlags flags);
     template BOOL CustomExternalObject::DeletePropertyImpl<false>(PropertyId propertyId, PropertyOperationFlags flags);
 
+    // while this interface is defined with HRESULT return value, we don't really use the hr as trident will
+    // throw if there is something wrong. Add explicit statement to ignore those return hr;
+#define IGNORE_HR(hr) hr; 
     HRESULT CustomExternalType::Initialize()
     {
         if (NULL == this->operations)
@@ -42,8 +45,8 @@ namespace Js
 
         }
         HRESULT hr = this->GetTypeOperations()->GetOperationUsage(&this->usage);
-        if (SUCCEEDED(hr) &&
-            GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
+        IGNORE_HR(hr)
+        if (GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
         {
             this->flags |= TypeFlagMask_SkipsPrototype;
         }
@@ -224,11 +227,13 @@ namespace Js
                     return TRUE;
                 }
 
+                HRESULT hr;
                 BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), propertyId, CustomExternalObject_HasOwnProperty)
                 {
-                    this->GetTypeOperations()->HasOwnProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
+                    hr = this->GetTypeOperations()->HasOwnProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
                 }
                 END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), propertyId, CustomExternalObject_HasOwnProperty);
+                IGNORE_HR(hr)
             }
             return result;
         }
@@ -325,7 +330,8 @@ namespace Js
                 hr = this->GetTypeOperations()->GetOwnProperty(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty);
-            if (SUCCEEDED(hr) && result)
+            IGNORE_HR(hr);
+            if (result)
                 {
                     // The site might have been closed during the GetOwnProperty call.
                     if (!this->VerifyObjectAlive()) return FALSE;
@@ -334,9 +340,10 @@ namespace Js
                         BOOL resultCrossDomainCheck;
                         BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty)
                         {
-                            this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
+                            hr = this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
                         }
                         END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetOwnProperty);
+                        IGNORE_HR(hr)
                         if (resultCrossDomainCheck)
                         {
                             fXDomainMarshal = true;
@@ -471,7 +478,8 @@ namespace Js
                 hr = this->GetTypeOperations()->GetPropertyReference(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
-            if (SUCCEEDED(hr) && result)
+            IGNORE_HR(hr)
+            if (result)
                 {
                     if (!this->VerifyObjectAlive()) return FALSE;
                     if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
@@ -479,9 +487,10 @@ namespace Js
                         BOOL resultCrossDomainCheck;
                         BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference)
                         {
-                            this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
+                            hr = this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
                         }
                         END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
+                        IGNORE_HR(hr)
                         if (resultCrossDomainCheck)
                         {
                             fXDomainMarshal = true;
@@ -572,11 +581,13 @@ namespace Js
                 return TRUE;
             }
 
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetProperty)
             {
-                this->GetTypeOperations()->SetProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, value, &result);
+                hr = this->GetTypeOperations()->SetProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetProperty);
+            IGNORE_HR(hr)
             return result;
         }
         if (checkLocal)
@@ -639,11 +650,13 @@ namespace Js
                 return TRUE;
             }
 
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext,  Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetPropertyWithAttributes)
             {
-                this->GetTypeOperations()->SetPropertyWithAttributes(scriptContext->GetActiveScriptDirect(), this, propertyId, value, (::PropertyAttributes) attributes, (::SideEffects) possibleSideEffects, &result);
+                hr = this->GetTypeOperations()->SetPropertyWithAttributes(scriptContext->GetActiveScriptDirect(), this, propertyId, value, (::PropertyAttributes) attributes, (::SideEffects) possibleSideEffects, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetPropertyWithAttributes);
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::SetPropertyWithAttributes(propertyId, value, attributes, info, flags, possibleSideEffects);
@@ -712,9 +725,10 @@ namespace Js
                 return TRUE;
             }
 
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_DeleteProperty)
             {
-                this->GetTypeOperations()->DeleteProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
+                hr = this->GetTypeOperations()->DeleteProperty(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_DeleteProperty);
             return result;
@@ -782,11 +796,13 @@ namespace Js
                 }
 
                 Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
+                HRESULT hr;
                 BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_HasOwnItem)
                 {
-                    this->GetTypeOperations()->HasOwnItem(scriptContext->GetActiveScriptDirect(), this, varIndex, &result);
+                    hr = this->GetTypeOperations()->HasOwnItem(scriptContext->GetActiveScriptDirect(), this, varIndex, &result);
                 }
                 END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_HasOwnItem);
+                IGNORE_HR(hr)
             }
             return result;
         }
@@ -812,6 +828,24 @@ namespace Js
                 notPresent = true;
             }
         }
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
+        {
+            if (JavascriptOperators::HasItem(this->GetPrototype(), index))
+            {
+                BOOL result = JavascriptOperators::GetItem(this->GetPrototype(), index, value, requestContext);
+                if (result)
+                {
+                    *value = CrossSite::MarshalVar(requestContext, *value);
+                }
+                return result;
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
         if (notPresent || (this->GetOperationUsage().useAlways & OperationFlag_getOwnItem))
         {
             BOOL result = FALSE;
@@ -835,11 +869,13 @@ namespace Js
                 return TRUE;
             }
             Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_GetOwnItem)
             {
-                this->GetTypeOperations()->GetOwnItem(requestContext->GetActiveScriptDirect(), this, varIndex, value, &result);
+                hr = this->GetTypeOperations()->GetOwnItem(requestContext->GetActiveScriptDirect(), this, varIndex, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_GetOwnItem);
+            IGNORE_HR(hr)
             if (result)
             {
                 // This is defense in depth. In some weird scenario DOM could return S_OK without actually getting the return value.
@@ -899,11 +935,13 @@ namespace Js
                 return TRUE;
             }
             Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_SetItem)
             {
-                this->GetTypeOperations()->SetItem(scriptContext->GetActiveScriptDirect(), this, varIndex, value, &result);
+                hr = this->GetTypeOperations()->SetItem(scriptContext->GetActiveScriptDirect(), this, varIndex, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_SetItem);
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::SetItem(index, value, flags);
@@ -935,10 +973,7 @@ namespace Js
                 hr = this->GetTypeOperations()->GetEnumerator(requestContext->GetActiveScriptDirect(), this, enumNonEnumerable, enumSymbols, &varEnumerator);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), 0, CustomExternalObject_GetEnumerator);
-            if (FAILED(hr))
-            {
-                return FALSE;
-            }
+            IGNORE_HR(hr)
             // This is defense in depth. In some weird scenario DOM could return S_OK without actually getting the return value.
             // It is basically access denied.
             if (varEnumerator == nullptr)
@@ -1013,11 +1048,13 @@ namespace Js
                 return TRUE;
             }
             Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_DeleteItem)
             {
-                this->GetTypeOperations()->DeleteItem(scriptContext->GetActiveScriptDirect(), this, varIndex, &result);
+                hr = this->GetTypeOperations()->DeleteItem(scriptContext->GetActiveScriptDirect(), this, varIndex, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_DeleteItem);
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::DeleteItem(index, flags);
@@ -1065,11 +1102,13 @@ namespace Js
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsEnumerable)
             {
-                this->GetTypeOperations()->IsEnumerable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
+                hr = this->GetTypeOperations()->IsEnumerable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsEnumerable);
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::IsEnumerable(propertyId);
@@ -1115,12 +1154,13 @@ namespace Js
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsWritable)
             {
-                this->GetTypeOperations()->IsWritable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
+                hr = this->GetTypeOperations()->IsWritable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsWritable);
-
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::IsWritable(propertyId);
@@ -1166,11 +1206,13 @@ namespace Js
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsConfigurable)
             {
-                this->GetTypeOperations()->IsConfigurable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
+                hr = this->GetTypeOperations()->IsConfigurable(scriptContext->GetActiveScriptDirect(), this, propertyId, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_IsConfigurable);
+            IGNORE_HR(hr)
             return result;
         }
         return ExternalObject::IsConfigurable(propertyId);
@@ -1216,11 +1258,13 @@ namespace Js
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetEnumerable)
             {
-                result = this->GetTypeOperations()->SetEnumerable(scriptContext->GetActiveScriptDirect(), this, propertyId, value);
+                hr = result = this->GetTypeOperations()->SetEnumerable(scriptContext->GetActiveScriptDirect(), this, propertyId, value);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetEnumerable);
+            IGNORE_HR(hr)
             return SUCCEEDED(result);
         }
         return ExternalObject::SetEnumerable(propertyId, value);
@@ -1266,11 +1310,13 @@ namespace Js
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
+            HRESULT hr;
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetWritable)
             {
-                result = this->GetTypeOperations()->SetWritable(scriptContext->GetActiveScriptDirect(), this, propertyId, value);
+                hr = result = this->GetTypeOperations()->SetWritable(scriptContext->GetActiveScriptDirect(), this, propertyId, value);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetWritable);
+            IGNORE_HR(hr)
             return SUCCEEDED(result);
         }
         return ExternalObject::SetWritable(propertyId, value);
@@ -1321,7 +1367,8 @@ namespace Js
                 result = this->GetTypeOperations()->SetConfigurable(scriptContext->GetActiveScriptDirect(), this, propertyId, value);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetConfigurable);
-            return SUCCEEDED(result);
+            IGNORE_HR(result)
+            return true;
         }
         return ExternalObject::SetConfigurable(propertyId, value);
     }
@@ -1393,19 +1440,52 @@ namespace Js
                 result = this->GetTypeOperations()->SetAccessors(scriptContext->GetActiveScriptDirect(), this, propertyId, getter, setter);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_SetAccessors);
-            return SUCCEEDED(result);
+            IGNORE_HR(result)
+            return true;
         }
         return ExternalObject::SetAccessors(propertyId, getter, setter, flags);
     }
 
     BOOL CustomExternalObject::GetAccessors(PropertyId propertyId, Var *getter, Var *setter, ScriptContext * requestContext)
     {
+        BOOL notPresent = false;
         if (!this->VerifyObjectAlive()) return FALSE;
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
         }
-        if (this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getAccessors)
+        {
+            if (ExternalObject::HasProperty(propertyId))
+            {
+                return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
+        if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
+        {
+            if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
+            {
+                BOOL result = JavascriptOperators::GetAccessors(this->GetPrototype(), propertyId, requestContext, getter, setter);
+                if (result)
+                {
+                    *getter = CrossSite::MarshalVar(requestContext, *getter);
+                    *setter = CrossSite::MarshalVar(requestContext, *setter);
+                }
+                return result;
+            }
+            else
+            {
+                notPresent = true;
+            }
+        }
+
+        if (notPresent || this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
         {
             HRESULT hr = E_FAIL;
             BOOL result = FALSE;
@@ -1424,8 +1504,8 @@ namespace Js
                 hr = this->GetTypeOperations()->GetAccessors(scriptContext->GetActiveScriptDirect(), this, propertyId, getter, setter, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(requestContext, Js::JavascriptOperators::GetTypeId(this), requestContext->GetThreadContext()->GetPropertyName(propertyId), CustomExternalObject_GetAccessors);
-
-            if (SUCCEEDED(hr) && result)
+            IGNORE_HR(hr)
+            if (result)
             {
                 if (*getter)
                 {
@@ -1489,6 +1569,7 @@ namespace Js
                 hr = this->GetTypeOperations()->GetSetter(requestContext->GetActiveScriptDirect(), this, propertyId, setterValue, (::DescriptorFlags*)&flags);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetSetter);
+            IGNORE_HR(hr)
 
             // DictionaryTypeHandler only set the setterValue in Accessor scenario, so we don't need to worry about
             // the setterValue marshalling.
@@ -1575,6 +1656,7 @@ namespace Js
                     this, varIndex, setterValue, (::DescriptorFlags*)&flags);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_GetItemSetter);
+            IGNORE_HR(hr)
             if ((flags & Accessor) == Accessor && *setterValue)
             {
                 *setterValue = CrossSite::MarshalVar(requestContext, *setterValue);
@@ -1607,6 +1689,7 @@ namespace Js
         return hr;
     }
 
+    // We should be able to get rid of Equals and StrictEquals post rs1.
     BOOL CustomExternalObject::Equals(Var other, BOOL* returnResult, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
@@ -1698,7 +1781,8 @@ namespace Js
                 hr = this->GetTypeOperations()->HasInstance(scriptContext->GetActiveScriptDirect(), this, instance, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), Js::JavascriptOperators::GetTypeId(instance), CustomExternalObject_HasInstance);
-            return SUCCEEDED(hr) && result;
+            IGNORE_HR(hr)
+            return result;
         }
         return ExternalObject::HasInstance(instance, scriptContext);
     }
@@ -1755,7 +1839,9 @@ namespace Js
             if (this != globalObject->GetSecureDirectHostObject())
             {
                 BOOL resultCrossDomainCheck;
-                this->GetTypeOperations()->CrossDomainCheck(globalObject->GetScriptContext()->GetActiveScriptDirect(),this, &resultCrossDomainCheck);
+                HRESULT hr;
+                hr = this->GetTypeOperations()->CrossDomainCheck(globalObject->GetScriptContext()->GetActiveScriptDirect(),this, &resultCrossDomainCheck);
+                IGNORE_HR(hr)
                 if ( resultCrossDomainCheck )
                 {
                     return requestContext->GetLibrary()->GetNull();

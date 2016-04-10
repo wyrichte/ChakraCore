@@ -48,7 +48,7 @@ namespace Js
                 // Load symbols for functions in the script context
                 IfFailGo(scriptContext.LoadScriptSymbols(debugSite));
 
-                scriptContextPtr = scriptContext->next;            
+                scriptContextPtr = scriptContext->next;
             }
 
             threadContextPtr = threadContext->Next();
@@ -176,7 +176,7 @@ Error:
         HRESULT hr = S_OK;
 
         WCHAR name[MAX_FUNCTION_NAME], url[MAX_URL];
-        ULONG line, column;        
+        ULONG line, column;
 
         IfFailGo(GetFunctionBodyInfo(debugSite, name, _countof(name), url, _countof(url), &line, &column));
 
@@ -191,7 +191,7 @@ Error:
 
 
         // Load jit symbols
-        // Need to static_cast here because the entry points are a write barriered field and Map is unable to deduce that we want it to be cast to 
+        // Need to static_cast here because the entry points are a write barriered field and Map is unable to deduce that we want it to be cast to
         IfFailGo(Map(debugSite, static_cast<Js::FunctionEntryPointList*>((*this)->entryPoints), [&](int index, const RecyclerWeakReference<FunctionEntryPointInfo>* pEntryPointWeakRef)
         {
             RemoteWeakReference<FunctionEntryPointInfo> remoteWeakRef;
@@ -211,7 +211,9 @@ Error:
         }));
 
         // Load jit loop body symbols
-        IfFailGo(Map(debugSite, static_cast<Js::LoopHeader*>((*this)->GetLoopHeaderArray()), (*this)->GetLoopCount(), [&](int loopNumber, const LoopHeader& header)
+        Js::LoopHeader* loopHeaderArray = static_cast<Js::LoopHeader*>(this->GetAuxPtrs(debugSite, FunctionProxy::AuxPointerType::LoopHeaderArray));
+        uint loopCount = this->GetCounter(debugSite, FunctionBody::CounterFields::LoopCount);
+        IfFailGo(Map(debugSite, loopHeaderArray, loopCount, [&](int loopNumber, const LoopHeader& header)
         {
             header.MapEntryPoints(debugSite, [&](int, const LoopEntryPointInfo* pEntryPointInfo)
             {
@@ -246,8 +248,8 @@ Error:
         urlBuffer[0] = 0;
         *line = 0;
         *column = 0;
-        
-        RemoteData<Js::Utf8SourceInfo> utf8SourceInfo;        
+
+        RemoteData<Js::Utf8SourceInfo> utf8SourceInfo;
 
         LPCWSTR displayNamePtr = (*this)->m_displayName;
 
@@ -255,11 +257,11 @@ Error:
         LPCWSTR name = displayName; // Default to displayName
         IfFailGo(debugSite->ReadString(displayNamePtr, nameBuffer, nameBufferSize));
 
-        Js::Utf8SourceInfo* sourceInfoPtr = (*this)->m_utf8SourceInfo; 
+        Js::Utf8SourceInfo* sourceInfoPtr = (*this)->m_utf8SourceInfo;
 
         IfFailGo(utf8SourceInfo.Read(debugSite, sourceInfoPtr));
         const SRCINFO* srcInfoPtr = utf8SourceInfo->GetSrcInfo();
-        
+
         if (srcInfoPtr)
         {
             RemoteData<SRCINFO> srcInfo;
@@ -299,6 +301,113 @@ Error:
         }
 Error:
         return hr;
+    }
+
+    void* RemoteFunctionBody::GetAuxPtrs(IScriptDebugSite* debugSite, FunctionProxy::AuxPointerType pointerType) const
+    {
+        void* auxPtrsRaw = static_cast<void*>((*this)->auxPtrs);
+        uint8* auxPtrs = static_cast<uint8*>(auxPtrsRaw);
+        uint8 pointerTypeValue = static_cast<uint8>(pointerType);
+        ulong bytesRead;
+        HRESULT hr;
+        void* ret = nullptr;
+        if (auxPtrs != nullptr)
+        {
+            uint8 count = 0;
+            IFFAILGO(debugSite->ReadVirtual(auxPtrs, &count, sizeof(count), &bytesRead));
+            if (count == FunctionProxy::AuxPtrsT::AuxPtrs16::MaxCount)
+            {
+                for (uint8 i = 0; i < count; i++)
+                {
+                    uint8 type = 0;
+                    IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs16, type) + i, &type, sizeof(type), &bytesRead));
+                    if (type == pointerTypeValue)
+                    {
+                        IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs16, ptr) + sizeof(void*) * i, &ret, sizeof(ret), &bytesRead));
+                        return ret;
+                    }
+                }
+            }
+            else if (count == FunctionProxy::AuxPtrsT::AuxPtrs32::MaxCount)
+            {
+                for (uint8 i = 0; i < count; i++)
+                {
+                    uint8 type = 0;
+                    IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs32, type) + i, &type, sizeof(type), &bytesRead));
+                    if (type == pointerTypeValue)
+                    {
+                        IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT::AuxPtrs32, ptr) + sizeof(void*) * i, &ret, sizeof(ret), &bytesRead));
+                        return ret;
+                    }
+                }
+            }
+            else if (count > FunctionProxy::AuxPtrsT::AuxPtrs32::MaxCount)
+            {
+                uint8 offset = 0;
+                IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT, offsets) + pointerTypeValue, &offset, sizeof(offset), &bytesRead));
+                if (offset != (uint8)FunctionProxy::AuxPointerType::Invalid)
+                {
+                    IFFAILGO(debugSite->ReadVirtual(auxPtrs + offsetof(FunctionProxy::AuxPtrsT, ptrs) + sizeof(void*) * offset, &ret, sizeof(ret), &bytesRead));
+                    return ret;
+                }
+            }
+        }
+    LReturn:
+        return ret;
+    }
+
+    uint RemoteFunctionBody::GetCounter(IScriptDebugSite* debugSite, FunctionBody::CounterFields fieldEnum) const
+    {
+        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
+
+        // for registers, it's using UINT32_MAX to represent NoRegister
+        if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !(*this)->m_hasLocalClosureRegister)
+            || (fieldEnum == FunctionBody::CounterFields::LocalFrameDisplayRegister && !(*this)->m_hasLocalFrameDisplayRegister)
+            || (fieldEnum == FunctionBody::CounterFields::EnvRegister && !(*this)->m_hasEnvRegister)
+            || (fieldEnum == FunctionBody::CounterFields::ThisRegisterForEventHandler && !(*this)->m_hasThisRegisterForEventHandler)
+            || (fieldEnum == FunctionBody::CounterFields::FirstInnerScopeRegister && !(*this)->m_hasFirstInnerScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FuncExprScopeRegister && !(*this)->m_hasFuncExprScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FirstTmpRegister && !(*this)->m_hasFirstTmpRegister)
+            )
+        {
+            return Constants::NoRegister;
+        }
+
+        uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
+        auto remoteCounters = (*this)->counters;
+        uint8 fieldSize = remoteCounters.fieldSize;
+        ulong bytesRead;
+        HRESULT hr;
+        if (fieldSize == 1)
+        {
+            uint8 result;
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u8Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            return result;
+        }
+        else if (fieldSize == 2)
+        {
+            uint16 result;
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u16Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            return result;
+        }
+        else if (fieldSize == 4)
+        {
+            uint32 result;
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u32Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            return result;
+        }
+        else if (fieldSize == 0) // in case OOM while initializing
+        {
+            return 0;
+        }
+        else
+        {
+            Assert(false);
+            return 0;
+        }
+    LReturn:
+        Assert(false);
+        return 0;
     }
 
     HRESULT RemoteFunctionBody::AddSymbol(

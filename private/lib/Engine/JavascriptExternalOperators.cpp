@@ -12,12 +12,7 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
             uint32 indexVal;
-            BOOL isCEO = scriptObject->IsExternal() && Js::ExternalObject::FromVar(scriptObject)->IsCustomExternalObject();
-            // externalObject might have their own dispid space. it might look like a numeric id but actually not. We should go to the object's
-            // GetProperty/SetProperty/deleteProperty instead of taking the shortcut here. 
-            // It is by design that properties in javascript side (expando) overrides the potential builtin from DOM side. 
-            // This is only used when we have JavascriptDispatch wrapping external objects
-            if (!isCEO && scriptContext->IsNumericPropertyId(id, &indexVal))
+            if (scriptContext->IsNumericPropertyId(id, &indexVal))
             {
                 rc = JavascriptOperators::GetItem(scriptObject, indexVal, varMember, scriptContext);
             }
@@ -30,16 +25,8 @@ namespace Js
                     //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
                     if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                     {
-                        if (isCEO)
-                        {
-                            rc = Js::CustomExternalObject::FromVar(scriptObject)->GetPropertyImpl<false>(scriptObject, id, varMember, NULL, scriptContext);
-                        }
-                        else
-                        {
-                            AssertMsg(FALSE, "invalid propertyid");
-                            rc = false;
-                        }
-
+                        AssertMsg(FALSE, "invalid propertyid");
+                        Throw::FatalInternalError();
                     }
                     else
                     {
@@ -68,8 +55,7 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
             uint32 indexVal;
-            BOOL isCEO = scriptObject->IsExternal() && Js::ExternalObject::FromVar(scriptObject)->IsCustomExternalObject();
-            if (!isCEO && scriptContext->IsNumericPropertyId(id, &indexVal))
+            if (scriptContext->IsNumericPropertyId(id, &indexVal))
             {
                 rc = JavascriptOperators::GetItemReference(scriptObject, indexVal, varMember, scriptContext);
             }
@@ -82,15 +68,8 @@ namespace Js
                     //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
                     if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                     {
-                        if (isCEO)
-                        {
-                            rc = Js::CustomExternalObject::FromVar(scriptObject)->GetPropertyReferenceImpl<false>(scriptObject, id, varMember, NULL, scriptContext);
-                        }
-                        else
-                        {
-                            AssertMsg(FALSE, "invalid propertyid");
-                            rc = false;
-                        }
+                        AssertMsg(FALSE, "invalid propertyid");
+                        Throw::FatalInternalError();
                     }
                     else
                     {
@@ -120,8 +99,7 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
             uint32 indexVal;
-            BOOL isCEO = scriptObject->IsExternal() && Js::ExternalObject::FromVar(scriptObject)->IsCustomExternalObject();
-            if (!isCEO && scriptContext->IsNumericPropertyId(id, &indexVal))
+            if (scriptContext->IsNumericPropertyId(id, &indexVal))
             {
                 rc = JavascriptOperators::SetItem(scriptObject, scriptObject, indexVal, value, scriptContext);
             }
@@ -131,15 +109,8 @@ namespace Js
                 //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
                 if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                 {
-                    if (isCEO)
-                    {
-                        rc = Js::CustomExternalObject::FromVar(scriptObject)->SetPropertyImpl<false>(id, value, PropertyOperation_None, NULL);
-                    }
-                    else
-                    {
-                        AssertMsg(FALSE, "invalid propertyid");
-                        rc = false;
-                    }
+                    AssertMsg(FALSE, "invalid propertyid");
+                    Throw::FatalInternalError();
                 }
                 else
                 {
@@ -158,8 +129,7 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
             uint32 indexVal;
-            BOOL isCEO = scriptObject->IsExternal() && Js::ExternalObject::FromVar(scriptObject)->IsCustomExternalObject();
-            if (!isCEO && scriptContext->IsNumericPropertyId(id, &indexVal))
+            if (scriptContext->IsNumericPropertyId(id, &indexVal))
             {
                 rc = JavascriptOperators::DeleteItem(scriptObject, indexVal);
             }
@@ -169,15 +139,8 @@ namespace Js
                 //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
                 if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                 {
-                    if (isCEO)
-                    {
-                        rc = Js::CustomExternalObject::FromVar(scriptObject)->DeletePropertyImpl<false>(id, PropertyOperation_None);
-                    }
-                    else
-                    {
-                        AssertMsg(FALSE, "invalid propertyid");
-                        rc = false;
-                    }
+                    AssertMsg(FALSE, "invalid propertyid");
+                    Throw::FatalInternalError();
                 }
                 else
                 {

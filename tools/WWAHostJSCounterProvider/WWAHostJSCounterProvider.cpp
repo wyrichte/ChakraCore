@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <psapi.h>
 #include <appmodel.h>
+#include "CommonTypedefs.h"
 
 #pragma warning(disable: 4512)  // private operator= are good to have
 

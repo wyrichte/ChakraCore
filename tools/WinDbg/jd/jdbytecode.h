@@ -31,7 +31,9 @@ private:
     RemoteFunctionBody functionBody;
     EXT_CLASS_BASE::PropertyNameReader * propertyNameReader;
     EXT_CLASS_BASE * ext;
+#ifdef JD_PRIVATE
     JDByteCodeCachedData const& cachedData;
+#endif
     uint RootObjectRegSlot;
     ULONG64 readerOffset;
     unsigned char CallIExtended_SpreadArgs;

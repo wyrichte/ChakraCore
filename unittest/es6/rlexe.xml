@@ -234,12 +234,6 @@
   </test>
   <test>
     <default>
-      <files>ES6Promise_RemoveWScript.js</files>
-      <baseline>ES6Promise_RemoveWScript.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>forloops-per-iteration-bindings-debugging.js</files>
       <compile-flags>-debuglaunch -targeted -InspectMaxStringLength:200</compile-flags>
     </default>
@@ -267,6 +261,14 @@
     <default>
         <files>module-functionality.js</files>
         <compile-flags>-ES6Module -args summary -endargs</compile-flags>
+    </default>
+</test>
+<test>
+    <default>
+        <files>ModuleLateSyntaxErrors.js</files>
+        <baseline>ModuleLateSyntaxErrors.baseline</baseline>
+        <compile-flags>-ES6Module</compile-flags>
+        <tags>exclude_dynapogo</tags>
     </default>
 </test>
 <test>

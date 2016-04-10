@@ -17,6 +17,7 @@
 #include "dbgeng.h"
 
 #define null NULL
+#include "Core\CommonTypedefs.h"
 #include "thrownew.h"
 #include "DiagException.h"
 #include "BasePtr.h"

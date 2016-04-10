@@ -1233,7 +1233,7 @@ void PredSuccImpl(EXT_CLASS_BASE *ext)
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(ext->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
@@ -1376,7 +1376,7 @@ JD_PRIVATE_COMMAND(traceroots,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
 
     //
     // Data types and traversal state
@@ -1591,7 +1591,7 @@ JD_PRIVATE_COMMAND(savegraph,
     Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
 
     Out("Saving object graph to %s\n", filename);
     if (_stricmp(filetype, "js") == 0)
@@ -1711,8 +1711,16 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
     }
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
-    objectGraph.EnsureTypeInfo(infer, trident, verbose);
+    RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;
+    if (infer)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Infer);
+    }
+    if (trident)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
+    }
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
 
     stdext::hash_map<char const *, ObjectAllocStats> objectCounts;
     int numNodes = 0;
@@ -1872,11 +1880,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
-    if (typeInfo)
-    {
-        objectGraph.EnsureTypeInfo(true, false, false);
-    }
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, RecyclerObjectGraph::TypeInfoFlags::Infer));
 
     this->Out("\n");
     this->Out("%22s ^     Run !jd.predecessors on this node\n", "");

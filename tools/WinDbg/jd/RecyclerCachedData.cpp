@@ -20,8 +20,46 @@ RecyclerCachedData::RecyclerCachedData(EXT_CLASS_BASE * ext) :
     m_largeHeapBlockTypeInfo("LargeHeapBlock", true),
     m_blockTypeEnumInitialized(false),
     m_mphblockTypeEnumInitialized(false),
-    m_debuggeeMemoryCache(NULL)
+    m_debuggeeMemoryCache(NULL),
+    cachedObjectGraphRecyclerAddress(0),
+    cachedObjectGraph(NULL)
+
 {}
+
+RemoteHeapBlock * RecyclerCachedData::FindCachedHeapBlock(ULONG64 address)
+{
+    ULONG64 pageAddress = address & ~((ULONG64)g_Ext->m_PageSize - 1);
+    for (auto it = this->m_heapblockMapCache.begin(); it != this->m_heapblockMapCache.end(); it++)
+    {
+        RemoteHeapBlockMap::Cache * cache = (*it).second;
+        auto i = cache->find(pageAddress);
+        if (i != cache->end())
+        {
+            return &(*i).second;
+        }
+    }
+    return nullptr;
+}
+
+RecyclerObjectGraph * RecyclerCachedData::GetCachedRecyclerObjectGraph(ULONG64 recyclerAddress)
+{
+    if (cachedObjectGraphRecyclerAddress == recyclerAddress)
+    {
+        return cachedObjectGraph;
+    }
+    return nullptr;
+}
+
+void RecyclerCachedData::CacheRecyclerObjectGraph(ULONG64 recyclerAddress, RecyclerObjectGraph * graph)
+{
+    // Only cache one graph at a time
+    if (cachedObjectGraph != nullptr)
+    {
+        delete cachedObjectGraph;
+    }
+    cachedObjectGraphRecyclerAddress = recyclerAddress;
+    cachedObjectGraph = graph;
+}
 
 Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
 {
@@ -77,6 +115,12 @@ void RecyclerCachedData::Clear()
     m_heapBlockTypeInfo.Clear();
     m_smallHeapBlockTypeInfo.Clear();
     m_largeHeapBlockTypeInfo.Clear();
+
+    if (this->cachedObjectGraph != nullptr)
+    {
+        delete this->cachedObjectGraph;
+        this->cachedObjectGraph = nullptr;
+    }
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)

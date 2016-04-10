@@ -821,6 +821,24 @@ bool EXT_CLASS_BASE::GetUsingInlineSlots(ExtRemoteTyped& typeHandler)
     return m_usingInlineSlots;
 }
 
+bool EXT_CLASS_BASE::InChakraModule(ULONG64 address)
+{
+    if (chakraModuleBaseAddress == 0)
+    {
+        ULONG moduleIndex = 0;
+        if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(GetExtension()->GetModuleName(), 0, &moduleIndex, &chakraModuleBaseAddress)))
+        {
+            g_Ext->Err("Unable to get range for module '%s'. Is Chakra loaded?\n", GetExtension()->GetModuleName());            
+        }
+
+        IMAGEHLP_MODULEW64 moduleInfo;
+        g_Ext->GetModuleImagehlpInfo(chakraModuleBaseAddress, &moduleInfo);
+        chakraModuleEndAddress = chakraModuleBaseAddress + moduleInfo.ImageSize;
+    }
+
+    return (address >= chakraModuleBaseAddress && address < chakraModuleEndAddress);
+}
+
 // Get VTable of a type
 std::string EXT_CLASS_BASE::GetRemoteVTableName(PCSTR type)
 {

@@ -907,31 +907,31 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.push(11)
-Pass: myVectorView.push(11) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(11) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(22)
-Pass: myVectorView.push(22) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(22) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(33)
-Pass: myVectorView.push(33) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(33) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(44)
-Pass: myVectorView.push(44) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(44) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(55)
-Pass: myVectorView.push(55) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(55) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(66)
-Pass: myVectorView.push(66) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(66) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView.push(77)
-Pass: myVectorView.push(77) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(77) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -967,7 +967,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.push(11, 22, 33, 44, 55, 66)
-Pass: myVectorView.push(11, 22, 33, 44, 55, 66) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.push(11, 22, 33, 44, 55, 66) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1003,7 +1003,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: Array.prototype.push.call(myVectorView, 100)
-Pass: Array.prototype.push.call(myVectorView, 100) returned (TypeError: Object doesn't support this action)
+Pass: Array.prototype.push.call(myVectorView, 100) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1118,7 +1118,7 @@ Starting [Test 4: VectorViewAsArray_Shift_Unshift]
 Comment: var myVectorView = myAnimal.getVector()
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
 Comment: myVectorView.shift()
-Pass: myVectorView.shift() returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.shift() returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1190,7 +1190,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.unshift(0)
-Pass: myVectorView.unshift(0) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.unshift(0) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1226,7 +1226,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.unshift(25, 50, 100)
-Pass: myVectorView.unshift(25, 50, 100) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.unshift(25, 50, 100) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1558,7 +1558,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.splice(5, 2)
-Pass: myVectorView.splice(5, 2) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.splice(5, 2) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1594,7 +1594,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.splice(2, 2, 14, 98, 54)
-Pass: myVectorView.splice(2, 2, 14, 98, 54) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.splice(2, 2, 14, 98, 54) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1630,7 +1630,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: myVectorView.splice(4, 0, 32, 83)
-Pass: myVectorView.splice(4, 0, 32, 83) returned (TypeError: Object doesn't support this action)
+Pass: myVectorView.splice(4, 0, 32, 83) returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -1999,7 +1999,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: var a = myVectorView.reverse()
-Pass: var a = myVectorView.reverse() returned (TypeError: Object doesn't support this action)
+Pass: var a = myVectorView.reverse() returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9
@@ -2071,7 +2071,7 @@ Pass: myVectorView[8]
       Actual: 9
 
 Comment: a = Array.prototype.reverse.call(myVectorView);
-Pass: a = Array.prototype.reverse.call(myVectorView); returned (TypeError: Object doesn't support this action)
+Pass: a = Array.prototype.reverse.call(myVectorView); returned (TypeError: Cannot create property for a non-extensible object)
       Actual: true
 
 Comment: myVectorView[9]: 1,2,3,4,5,6,7,8,9

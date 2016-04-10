@@ -1,5 +1,5 @@
 DIRS=\
     release{!EXCLUDE_IE_MAIN} \
-    test{!EXCLUDE_IE_MAIN,noncrit,!cs_xbox} \
-    lib{!EXCLUDE_IE_MAIN,noncrit,!cs_xbox} \
-    dump{!EXCLUDE_IE_MAIN,!cs_xbox} \
+    test{!EXCLUDE_IE_MAIN,noncrit} \
+    lib{!EXCLUDE_IE_MAIN,noncrit} \
+    dump{!EXCLUDE_IE_MAIN} \

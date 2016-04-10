@@ -15,24 +15,32 @@ JDByteCodeCachedData::Ensure()
     }
 
     EXT_CLASS_BASE * ext = GetExtension();
-    layoutTable = ext->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts");
-    extendedLayoutTable = ext->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts");
-    TotalNumberOfBuiltInProperties = ExtRemoteTyped(ext->FillModule("%s!TotalNumberOfBuiltInProperties")).GetLong();
-
-    try
+    
+    layoutTable = ReadTable<uint>(ExtRemoteTyped(ext->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts")));
+    extendedLayoutTable = ReadTable<uint>(ExtRemoteTyped(ext->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts")));
+    if (ext->CanResolveSymbol(ext->FillModule("%s!TotalNumberOfBuiltInProperties")))
     {
-        attributesTable = ext->FillModule("%s!OpcodeAttr::OpcodeAttributes");
-        extendedAttributesTable = ext->FillModule("%s!OpcodeAttr::ExtendedOpcodeAttributes");
+        TotalNumberOfBuiltInProperties = ExtRemoteTyped(ext->FillModule("%s!TotalNumberOfBuiltInProperties")).GetLong();
+    }
+    else
+    {
+        TotalNumberOfBuiltInProperties = ExtRemoteTyped(ext->FillModule("(int)%s!_countJSOnlyProperty")).GetLong();
+    }
+
+    if (ext->CanResolveSymbol(ext->FillModule("%s!OpcodeAttr::OpcodeAttributes")))
+    {
+        attributesTable = ReadTable<int>(ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::OpcodeAttributes")));
+        extendedAttributesTable = ReadTable<int>(ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::ExtendedOpcodeAttributes")));
         OpcodeAttr_OpHasMultiSizeLayout = ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")).GetLong();
         LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!Js::SmallLayout")).GetLong();
         LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!Js::MediumLayout")).GetLong();
         LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!Js::LargeLayout")).GetLong();
     }
-    catch (...)
+    else
     {
         // Dev12 tool set doesn't add namespace to statics and enum
-        attributesTable = ext->FillModule("%s!OpcodeAttributes");
-        extendedAttributesTable = ext->FillModule("%s!ExtendedOpcodeAttributes");
+        attributesTable = ReadTable<int>(ext->FillModule("%s!OpcodeAttributes"));
+        extendedAttributesTable = ReadTable<int>(ext->FillModule("%s!ExtendedOpcodeAttributes"));
 
         // There are two enum of the same name OpCodeAttr and OpCodeAttrAsmJs versions.  Need to go thru them to find the one we want
         OpcodeAttr_OpHasMultiSizeLayout = 0;
@@ -56,7 +64,14 @@ JDByteCodeCachedData::Ensure()
 void
 JDByteCodeCachedData::Clear()
 {
-    initialized = false;
+    if (initialized)
+    {
+        initialized = false;
+        delete[] layoutTable;
+        delete[] extendedLayoutTable;
+        delete[] attributesTable;
+        delete[] extendedAttributesTable;
+    }
 }
 
 #endif

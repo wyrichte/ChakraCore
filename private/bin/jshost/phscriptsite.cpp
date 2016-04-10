@@ -2260,6 +2260,13 @@ STDMETHODIMP JsHostActiveScriptSite::Exec(const GUID *pguidCmdGroup, DWORD nCmdI
     return E_NOTIMPL;
 }
 
+void __stdcall JsHostActiveScriptSite::EnqueuePromiseTask(Var task)
+{
+    // Push the callback
+    WScriptFastDom::CallbackMessage *msg = new WScriptFastDom::CallbackMessage(0, task);
+    WScriptFastDom::PushMessage(msg);
+}
+
 STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ __RPC__in ModuleRecord referencingModule,
     /* [in] */ __RPC__in LPCWSTR specifier,
@@ -2274,8 +2281,8 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     auto moduleEntry = moduleRecordMap.find(specifier);
     if (moduleEntry != moduleRecordMap.end())
     {
-        fwprintf(stderr, _u("ERROR: same module file was loaded multiple times %s\n"), specifier);
-        return E_INVALIDARG;
+        *dependentModuleRecord = moduleEntry->second;
+        return S_OK;
     }
     hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
     if (SUCCEEDED(hr))
@@ -2294,7 +2301,6 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     /* [in] */ __RPC__in Var exceptionVar)
 {
     HRESULT hr = NOERROR;
-    Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
     if (SUCCEEDED(hr))

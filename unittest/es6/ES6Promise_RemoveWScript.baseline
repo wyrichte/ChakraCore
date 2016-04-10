@@ -1,6 +1,0 @@
-Executing test #0 - Host Enqueue Function is undefined so we'll throw when calling then on a promise
-Caught exception: 
-function() {
-    [native code]
-}
-

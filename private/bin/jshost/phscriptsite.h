@@ -81,7 +81,7 @@ private:
     static MappingInfo unmapOnShutdown[freeOnShutdownCount];
     DWORD nextDeleteSimpleSourceMappersOnShutDown;
     SimpleSourceMapper* deleteSimpleSourceMappersOnShutDown[freeOnShutdownCount];
-    std::map<LPCWSTR, ModuleRecord> moduleRecordMap;
+    std::map<std::wstring, ModuleRecord> moduleRecordMap;
 
     Js::DelayLoadWinRtString * m_WinRTStringLibrary;
     DelayLoadWinRtTypeResolution * m_WinRTTypeResolutionLibrary;
@@ -183,6 +183,8 @@ public:
         /* [in] */ __RPC__in Var instance) {
         return E_NOTIMPL;
     }
+
+    void __stdcall EnqueuePromiseTask(Var task);
 
     STDMETHODIMP FetchImportedModule(
         /* [in] */ __RPC__in ModuleRecord referencingModule,

@@ -136,7 +136,7 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
     m_jsrtTestHooks.pfJsrtAddRef = (JsrtTestHooks::JsrtAddRefPtr)GetProcAddress(chakraLibrary, "JsAddRef");
     m_jsrtTestHooks.pfJsrtGetValueType = (JsrtTestHooks::JsrtGetValueType)GetProcAddress(chakraLibrary, "JsGetValueType");
 
-    m_jsrtTestHooks.pfJsrtParseScriptWithFlags = (JsrtTestHooks::JsrtParseScriptWithFlags)GetProcAddress(chakraLibrary, "JsParseScriptWithFlags");
+    m_jsrtTestHooks.pfJsrtParseScriptWithAttributes = (JsrtTestHooks::JsrtParseScriptWithAttributes)GetProcAddress(chakraLibrary, "JsParseScriptWithAttributes");
 
 
     m_memProtectTestHooks.pfMemProtectHeapCreate = (MemProtectTestHooks::MemProtectHeapCreatePtr)GetProcAddress(chakraLibrary, "MemProtectHeapCreate");

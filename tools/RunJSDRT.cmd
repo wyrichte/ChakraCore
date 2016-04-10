@@ -148,9 +148,9 @@ set _htmltags=-nottags html
     goto :Error
 
 :Main
-    set _toolsRoot=%_targetRoot%\inetcore\jscript\tools
-    set _unittestRoot=%_targetRoot%\inetcore\jscript\unittest
-    set _coreUnittestRoot=%_targetRoot%\inetcore\jscript\core\test
+    set _toolsRoot=%_targetRoot%\onecoreuap\inetcore\jscript\tools
+    set _unittestRoot=%_targetRoot%\onecoreuap\inetcore\jscript\unittest
+    set _coreUnittestRoot=%_targetRoot%\onecoreuap\inetcore\jscript\core\test
     set _projectionTestsRoot=%_targetRoot%\ProjectionTests
 
     :: Use the bucket index to figure out which suite of tests to run.

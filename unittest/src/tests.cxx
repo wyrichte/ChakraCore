@@ -36,7 +36,7 @@ class runalltests
 
         // quick check if rl exists
         if(GetFileAttributes(rlfullpath.c_str()) == INVALID_FILE_ATTRIBUTES)
-            FAIL("rl.exe doesn't exist: bcz inetcore\\jscript\\core\\bin\\rl");
+            FAIL("rl.exe doesn't exist: bcz onecoreuap\\inetcore\\jscript\\core\\bin\\rl");
 
         // build the path to jshost.exe
         pos = GetEnvironmentVariable(L"_NTTREE", buf, _countof(buf));
@@ -49,7 +49,7 @@ class runalltests
 
         // quick check if jc exists
         if(GetFileAttributes(jcfullpath.c_str()) == INVALID_FILE_ATTRIBUTES)
-            FAIL("jc.exe doesn't exist: bcz inetcore\\jscript");
+            FAIL("jc.exe doesn't exist: bcz onecoreuap\\inetcore\\jscript");
 
 
         // add rl.exe and jc.exe to path
@@ -67,7 +67,7 @@ class runalltests
         if(pos == 0 || pos > _countof(buf))
             FAIL("failed trying to retrieve %_NTROOT%");
 
-        cwd = wstring(buf) + L"\\inetcore\\jscript\\tools";
+        cwd = wstring(buf) + L"\\onecoreuap\\inetcore\\jscript\\tools";
 
         // determine target os
         wstring os;

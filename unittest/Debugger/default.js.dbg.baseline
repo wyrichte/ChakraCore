@@ -296,5 +296,217 @@
       "c": "undefined",
       "[Globals]": ""
     }
+  },
+  {
+    "log": "Stepping on default params - split scope due to function at formals"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3068,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3106,
+        "length": 6,
+        "text": "c = 3)",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "<large string>",
+      "c": "3",
+      "m": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3124,
+        "length": 9,
+        "text": "var m = 3",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - split scope due to function at formals and few var captured in inner function"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3481,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "<large string>",
+      "c": "undefined",
+      "a": "1",
+      "m": "undefined",
+      "[Scope]1": "f1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3533,
+        "length": 9,
+        "text": "var m = 3",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - split scope and body has eval"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3872,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "undefined",
+      "b": "<large string>",
+      "a": "1",
+      "m": "undefined",
+      "[Scope]1": "f1",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 3924,
+        "length": 9,
+        "text": "var m = 3",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "log": "Stepping on default params - split scope and body has eval inside inner function"
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "undefined",
+      "[Scope]1": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 4272,
+        "length": 6,
+        "text": "a = 1,",
+        "frameDescription": "f1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "c": "undefined",
+      "b": "<large string>",
+      "a": "1",
+      "m": "undefined",
+      "[Scope]1": "",
+      "[Scope]2": "",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 4324,
+        "length": 9,
+        "text": "var m = 3",
+        "frameDescription": "f1"
+      }
+    }
   }
 ]
