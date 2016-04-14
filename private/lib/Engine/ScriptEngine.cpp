@@ -1992,7 +1992,7 @@ STDMETHODIMP ScriptEngine::OnDestroyThread(IRemoteDebugApplicationThread *prdat)
 
 HRESULT ScriptEngine::SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicationThread* prdatSteppingThread, bool fDuringSetupDebugApp)
 {
-    Assert(GetScriptSiteHolder() != nullptr && GetScriptSiteHolder()->GetScriptSiteContext() != nullptr && !GetScriptSiteHolder()->IsClosed());
+    Assert(GetScriptSiteHolder() != nullptr && !GetScriptSiteHolder()->IsClosed());
 
     BOOL fIsOurThread = FALSE;
     m_remoteDbgThreadId = NOBASETHREAD;
@@ -2005,38 +2005,54 @@ HRESULT ScriptEngine::SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicat
     }
     GetScriptSiteHolder()->SetAppBreakFlags(abf, fIsOurThread);
 
-    Js::ScriptContext* scriptContext=GetScriptSiteHolder()->GetScriptSiteContext();
+    Js::ScriptContext* scriptContext = GetScriptSiteHolder()->GetScriptSiteContext();
 
-    if (APPBREAKFLAG_DEBUGGER_HALT&abf && !threadContext->GetDebugManager()->IsAtDispatchHalt())
+    // None of the functions call below go out of the engine, so it is ok take the critical section
+    if (scriptContext != nullptr && !scriptContext->IsActuallyClosed() &&
+        scriptContext->GetDebugContextCloseCS()->TryEnter())
     {
-        scriptContext->GetDebugContext()->GetProbeContainer()->AsyncActivate(this);
-        if (Js::Configuration::Global.EnableJitInDebugMode())
+        Js::DebugContext* debugContext = scriptContext->GetDebugContext();
+        if (debugContext != nullptr)
         {
-            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(true);
-        }
-    }
-    else if (!fDuringSetupDebugApp)
-    {
-        if (Js::Configuration::Global.EnableJitInDebugMode())
-        {
-            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(false);
-        }
-        scriptContext->GetDebugContext()->GetProbeContainer()->AsyncDeactivate();
-    }
+            Js::ProbeContainer* probeContainer = debugContext->GetProbeContainer();
+            Js::DebugManager* debugManager = threadContext->GetDebugManager();
 
-    if (fIsOurThread && (abf & APPBREAKFLAG_STEP))
-    {
-        // This is to mention that the last action was stepping, hence update the state of the diagnostics accordingly.
-        Assert(scriptContext);
-        scriptContext->GetDebugContext()->GetProbeContainer()->UpdateStep(fDuringSetupDebugApp);
-    }
-    else if (!fDuringSetupDebugApp)
-    {
-        Assert(scriptContext);
-        scriptContext->GetDebugContext()->GetProbeContainer()->DeactivateStep();
-    }
+            if (APPBREAKFLAG_DEBUGGER_HALT&abf && !debugManager->IsAtDispatchHalt())
+            {
+                probeContainer->AsyncActivate(this);
+                if (Js::Configuration::Global.EnableJitInDebugMode())
+                {
+                    debugManager->GetDebuggingFlags()->SetForceInterpreter(true);
+                }
+            }
+            else if (!fDuringSetupDebugApp)
+            {
+                if (Js::Configuration::Global.EnableJitInDebugMode())
+                {
+                    debugManager->GetDebuggingFlags()->SetForceInterpreter(false);
+                }
+                probeContainer->AsyncDeactivate();
+            }
 
-    return NOERROR;
+            if (fIsOurThread && (abf & APPBREAKFLAG_STEP))
+            {
+                // This is to mention that the last action was stepping, hence update the state of the diagnostics accordingly.
+                probeContainer->UpdateStep(fDuringSetupDebugApp);
+            }
+            else if (!fDuringSetupDebugApp)
+            {
+                probeContainer->DeactivateStep();
+            }
+        }
+
+        scriptContext->GetDebugContextCloseCS()->Leave();
+
+        return NOERROR;
+    }
+    else
+    {
+        return E_UNEXPECTED;
+    }
 }
 
 // === IRemoteDebugApplicationEvents ===
