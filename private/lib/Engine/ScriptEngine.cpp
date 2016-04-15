@@ -17,6 +17,7 @@
 #include "core\ConfigParser.h"
 #include "ByteCode\ByteCodeSerializer.h"
 #include "Library\BoundFunction.h"
+#include "Library\JavascriptGeneratorFunction.h"
 #include "ByteCode\ByteCodeAPI.h"
 
 #include "Library\ES5Array.h"
@@ -388,6 +389,14 @@ ScriptEngine::EnsureScriptContext()
 
     library->GetEvalFunctionObject()->SetEntryPoint(m_fIsEvalRestrict ? &Js::GlobalObject::EntryEvalRestrictedMode : &Js::GlobalObject::EntryEval);
     library->GetFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewInstanceRestrictedMode : &Js::JavascriptFunction::NewInstance);
+    if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
+    {
+        library->GetGeneratorFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode : &Js::JavascriptGeneratorFunction::NewInstance);
+    }
+    if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
+    {
+        library->GetAsyncFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode : &Js::JavascriptFunction::NewAsyncFunctionInstance);
+    }
 
     return this->scriptContext;
 }
@@ -6535,11 +6544,15 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             this->m_fIsEvalRestrict = (pvarValue->boolVal != VARIANT_FALSE);
 
             Js::JavascriptMethod newFunctionFunc = &Js::JavascriptFunction::NewInstance;
+            Js::JavascriptMethod newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstance;
+            Js::JavascriptMethod newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstance;
             Js::JavascriptMethod evalFunc = &Js::GlobalObject::EntryEval;
             
             if (this->m_fIsEvalRestrict)
             {
                 newFunctionFunc = &Js::JavascriptFunction::NewInstanceRestrictedMode;
+                newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode;
+                newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode;
                 evalFunc = &Js::GlobalObject::EntryEvalRestrictedMode;
             }
             
@@ -6550,6 +6563,14 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
 
                 library->GetEvalFunctionObject()->SetEntryPoint(evalFunc);
                 library->GetFunctionConstructor()->SetEntryPoint(newFunctionFunc);
+                if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
+                {
+                    library->GetGeneratorFunctionConstructor()->SetEntryPoint(newGeneratorFunctionFunc);
+                }
+                if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
+                {
+                    library->GetAsyncFunctionConstructor()->SetEntryPoint(newAsyncFunctionFunc);
+                }
             }
             return NOERROR;
         }
