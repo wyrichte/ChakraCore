@@ -9,6 +9,7 @@
 Build/.vs/
 Build/VCBuild/
 Build/ipch/
+Build/*.VC.db
 build_*.log
 build_*.wrn
 build_*.err
