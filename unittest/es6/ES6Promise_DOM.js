@@ -1,9 +1,8 @@
 var isWscript = typeof WScript !== 'undefined';
-if (isWscript) {
-  window = {};
-  window.setTimeout = WScript.SetTimeout;
-}
 
+function localSetTimeout(fnc, timeout) {
+    window.setTimeout(fnc, timeout);
+}
 function echo(str) {
   if (!isWscript) {
     var p = document.createElement('p');
@@ -17,7 +16,7 @@ function echo(str) {
 
 var promise = new Promise(
   function(resolve, reject) {
-    window.setTimeout(
+    localSetTimeout(
       function() {
         resolve('success');
       },
@@ -61,11 +60,6 @@ promise.then(
   }
 );
 
-window.setTimeout(
-  function() {
-    if (isWscript) {
-      WScript.Quit();
-    }
-  },
-  100
-);
+if (isWscript) {
+  localSetTimeout(() => WScript.Quit(), 100);
+}
