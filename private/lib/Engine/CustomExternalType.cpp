@@ -14,14 +14,6 @@
 namespace Js
 {
     DEFINE_RECYCLER_TRACKER_PERF_COUNTER(CustomExternalObject);
-    template BOOL CustomExternalObject::GetPropertyImpl<true>(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-    template BOOL CustomExternalObject::GetPropertyImpl<false>(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-    template BOOL CustomExternalObject::GetPropertyReferenceImpl<true>(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-    template BOOL CustomExternalObject::GetPropertyReferenceImpl<false>(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-    template BOOL CustomExternalObject::SetPropertyImpl<true>(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info);
-    template BOOL CustomExternalObject::SetPropertyImpl<false>(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info);
-    template BOOL CustomExternalObject::DeletePropertyImpl<true>(PropertyId propertyId, PropertyOperationFlags flags);
-    template BOOL CustomExternalObject::DeletePropertyImpl<false>(PropertyId propertyId, PropertyOperationFlags flags);
 
     // while this interface is defined with HRESULT return value, we don't really use the hr as trident will
     // throw if there is something wrong. Add explicit statement to ignore those return hr;
@@ -242,16 +234,10 @@ namespace Js
 
     BOOL CustomExternalObject::GetProperty(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
-        return GetPropertyImpl<true>(originalInstance, propertyId, value, info, requestContext);
-    }
-
-    template <bool checkLocal>
-    BOOL CustomExternalObject::GetPropertyImpl(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
-    {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
         if (!this->VerifyObjectAlive()) return FALSE;
-        Assert(checkLocal || !GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
+        Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -259,7 +245,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getOwnProperty)
         {
-            if  (checkLocal && ExternalObject::HasProperty(propertyId))
+            if  (ExternalObject::HasProperty(propertyId))
             {
                 return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
             }
@@ -271,7 +257,7 @@ namespace Js
 
         if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
         {
-            if (checkLocal && JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
+            if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
             {
                 BOOL result = JavascriptOperators::GetProperty(originalInstance, this->GetPrototype(), propertyId, value, requestContext, info);
                 if (result)
@@ -287,6 +273,7 @@ namespace Js
                 dontCachePrototype = true;
                 notPresent = true;
             }
+            if (!this->VerifyObjectAlive()) return FALSE;
         }
         else
         {
@@ -298,7 +285,7 @@ namespace Js
             PropertyValueInfo::SetNoCache(info, this); // We can't cache the property
 
             GlobalObject* globalObject = GetLibrary()->GetGlobalObject();
-            if (checkLocal && this == globalObject->GetSecureDirectHostObject())
+            if (this == globalObject->GetSecureDirectHostObject())
             {
                 if (globalObject->GetProperty(originalInstance, propertyId, value, info, requestContext))
                 {
@@ -371,14 +358,7 @@ namespace Js
             }
             return result;
         }
-        if (checkLocal)
-        {
-            return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
-        }
-        else
-        {
-            return false;
-        }
+        return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
     }
 
     BOOL CustomExternalObject::GetProperty(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
@@ -391,17 +371,10 @@ namespace Js
     BOOL CustomExternalObject::GetPropertyReference(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info,
         ScriptContext* requestContext)
     {
-        return GetPropertyReferenceImpl<true>(originalInstance, propertyId, value, info, requestContext);
-    }
-
-    template <bool checkLocal>
-    BOOL CustomExternalObject::GetPropertyReferenceImpl(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info,
-        ScriptContext* requestContext)
-    {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
         if (!this->VerifyObjectAlive()) return FALSE;
-        Assert(checkLocal || !GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
+        Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -409,7 +382,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getPropertyReference)
         {
-            if (checkLocal && ExternalObject::HasProperty(propertyId))
+            if (ExternalObject::HasProperty(propertyId))
             {
                 return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
             }
@@ -421,7 +394,7 @@ namespace Js
 
         if (this->GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations)
         {
-            if (checkLocal && JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
+            if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
             {
                 BOOL result = JavascriptOperators::GetPropertyReference(originalInstance, this->GetPrototype(), propertyId, value, requestContext, info);
                 if (result)
@@ -435,6 +408,7 @@ namespace Js
                 dontCachePrototype = true;
                 notPresent = true;
             }
+            if (!this->VerifyObjectAlive()) return FALSE;
         }
         else
         {
@@ -446,7 +420,7 @@ namespace Js
             PropertyValueInfo::SetNoCache(info, this); // We can't cache the property
 
             GlobalObject* globalObject = GetScriptContext()->GetGlobalObject();
-            if (checkLocal && this == globalObject->GetSecureDirectHostObject())
+            if (this == globalObject->GetSecureDirectHostObject())
             {
                 if (globalObject->GetPropertyReference(originalInstance, propertyId, value, info, requestContext))
                 {
@@ -520,28 +494,14 @@ namespace Js
 
             return result;
         }
-        if (checkLocal)
-        {
-            return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
-        }
-        else
-        {
-            AssertMsg(false, "invalid propertyId is used without going through CustomExternalObject");
-            return false;
-        }
+        return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
     }
 
     BOOL CustomExternalObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
-        return SetPropertyImpl<true>(propertyId, value, flags, info);
-    }
-
-    template <bool checkLocal>
-    BOOL CustomExternalObject::SetPropertyImpl(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
-    {
         BOOL notPresent=false;
         if (!this->VerifyObjectAlive()) return FALSE;
-        Assert(checkLocal || !GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
+        Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -549,7 +509,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setProperty)
         {
-            if (checkLocal && ExternalObject::HasProperty(propertyId))
+            if (ExternalObject::HasProperty(propertyId))
             {
                 return ExternalObject::SetProperty(propertyId, value, flags, info);
             }
@@ -567,7 +527,7 @@ namespace Js
             BOOL result = FALSE;
             value = Js::CrossSite::MarshalVar(scriptContext, value);
 
-            if (checkLocal && this == globalObject->GetSecureDirectHostObject() )
+            if (this == globalObject->GetSecureDirectHostObject() )
             {
                 return globalObject->SetProperty(propertyId, value, flags, info);
             }
@@ -590,15 +550,7 @@ namespace Js
             IGNORE_HR(hr)
             return result;
         }
-        if (checkLocal)
-        {
             return ExternalObject::SetProperty(propertyId, value, flags, info);
-        }
-        else
-        {
-            AssertMsg(false, "invalid propertyId is used without going through CustomExternalObject");
-            return false;
-        }
     }
 
     BOOL CustomExternalObject::SetProperty(JavascriptString* propertyNameString, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
@@ -677,15 +629,9 @@ namespace Js
 
     BOOL CustomExternalObject::DeleteProperty(PropertyId propertyId, PropertyOperationFlags flags)
     {
-        return DeletePropertyImpl<true>(propertyId, flags);
-    }
-
-    template <bool checkLocal>
-    BOOL CustomExternalObject::DeletePropertyImpl(PropertyId propertyId, PropertyOperationFlags flags)
-    {
         BOOL notPresent=false;
         if (!this->VerifyObjectAlive()) return FALSE;
-        Assert(checkLocal || !GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
+        Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -693,7 +639,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_deleteProperty)
         {
-            if (checkLocal && ExternalObject::HasProperty(propertyId))
+            if (ExternalObject::HasProperty(propertyId))
             {
                 return ExternalObject::DeleteProperty(propertyId, flags);
             }
@@ -709,7 +655,7 @@ namespace Js
 
             // CONSIDER: We should be able to go directly to globalObject->DeleteProperty()
             GlobalObject* globalObject = scriptContext->GetGlobalObject();
-            if (checkLocal && this == globalObject->GetSecureDirectHostObject())
+            if (this == globalObject->GetSecureDirectHostObject())
             {
                 if (globalObject->DynamicObject::HasProperty(propertyId))
                 {
@@ -733,15 +679,7 @@ namespace Js
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_DeleteProperty);
             return result;
         }
-        if (checkLocal)
-        {
-            return ExternalObject::DeleteProperty(propertyId, flags);
-        }
-        else
-        {
-            AssertMsg(false, "invalid propertyId is used without going through CustomExternalObject");
-            return false;
-        }
+        return ExternalObject::DeleteProperty(propertyId, flags);
 }
 
     BOOL CustomExternalObject::HasItem(uint32 index)
@@ -844,6 +782,7 @@ namespace Js
             {
                 notPresent = true;
             }
+            if (!this->VerifyObjectAlive()) return FALSE;
         }
 
         if (notPresent || (this->GetOperationUsage().useAlways & OperationFlag_getOwnItem))
@@ -1483,6 +1422,7 @@ namespace Js
             {
                 notPresent = true;
             }
+            if (!this->VerifyObjectAlive()) return FALSE;
         }
 
         if (notPresent || this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
