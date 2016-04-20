@@ -236,7 +236,10 @@ namespace Js
     {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -273,7 +276,10 @@ namespace Js
                 dontCachePrototype = true;
                 notPresent = true;
             }
-            if (!this->VerifyObjectAlive()) return FALSE;
+            if (!this->VerifyObjectAlive())
+            {
+                return FALSE;
+            }
         }
         else
         {
@@ -321,7 +327,10 @@ namespace Js
             if (result)
                 {
                     // The site might have been closed during the GetOwnProperty call.
-                    if (!this->VerifyObjectAlive()) return FALSE;
+                    if (!this->VerifyObjectAlive())
+                    {
+                        return FALSE;
+                    }
                     if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
                     {
                         BOOL resultCrossDomainCheck;
@@ -373,7 +382,10 @@ namespace Js
     {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -408,7 +420,10 @@ namespace Js
                 dontCachePrototype = true;
                 notPresent = true;
             }
-            if (!this->VerifyObjectAlive()) return FALSE;
+            if (!this->VerifyObjectAlive())
+            {
+                return FALSE;
+            }
         }
         else
         {
@@ -452,25 +467,28 @@ namespace Js
                 hr = this->GetTypeOperations()->GetPropertyReference(requestContext->GetActiveScriptDirect(), this, propertyId, value, &result);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
-            IGNORE_HR(hr)
+            IGNORE_HR(hr);
             if (result)
+            {
+                if (!this->VerifyObjectAlive())
                 {
-                    if (!this->VerifyObjectAlive()) return FALSE;
-                    if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
+                    return FALSE;
+                }
+                if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
+                {
+                    BOOL resultCrossDomainCheck;
+                    BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference)
                     {
-                        BOOL resultCrossDomainCheck;
-                        BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference)
-                        {
-                            hr = this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
-                        }
-                        END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
-                        IGNORE_HR(hr)
+                        hr = this->GetTypeOperations()->CrossDomainCheck(requestContext->GetActiveScriptDirect(), this, &resultCrossDomainCheck);
+                    }
+                    END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetPropertyReference);
+                    IGNORE_HR(hr)
                         if (resultCrossDomainCheck)
                         {
                             fXDomainMarshal = true;
                         }
-                    }
                 }
+            }
 
             if(result)
             {
@@ -500,7 +518,10 @@ namespace Js
     BOOL CustomExternalObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -563,7 +584,10 @@ namespace Js
     BOOL CustomExternalObject::SetPropertyWithAttributes(PropertyId propertyId, Var value, PropertyAttributes attributes, PropertyValueInfo* info, PropertyOperationFlags flags, SideEffects possibleSideEffects)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetPropertyWithAttributes(propertyId, value, attributes, info, flags, possibleSideEffects);
@@ -616,7 +640,10 @@ namespace Js
 
     BOOL CustomExternalObject::InitProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
 
         GlobalObject* globalObject = GetScriptContext()->GetGlobalObject();
         if (this == globalObject->GetSecureDirectHostObject())
@@ -630,7 +657,10 @@ namespace Js
     BOOL CustomExternalObject::DeleteProperty(PropertyId propertyId, PropertyOperationFlags flags)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -750,7 +780,10 @@ namespace Js
     BOOL CustomExternalObject::GetItem(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::GetItem(originalInstance, index, value, requestContext);
@@ -782,7 +815,10 @@ namespace Js
             {
                 notPresent = true;
             }
-            if (!this->VerifyObjectAlive()) return FALSE;
+            if (!this->VerifyObjectAlive())
+            {
+                return FALSE;
+            }
         }
 
         if (notPresent || (this->GetOperationUsage().useAlways & OperationFlag_getOwnItem))
@@ -833,14 +869,20 @@ namespace Js
 
     BOOL CustomExternalObject::GetItemReference(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         return GetItem(originalInstance, index, value, requestContext);
     }
 
     BOOL CustomExternalObject::SetItem(uint32 index, Var value, PropertyOperationFlags flags)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetItem(index, value, flags);
@@ -889,7 +931,10 @@ namespace Js
     BOOL CustomExternalObject::GetEnumerator(BOOL enumNonEnumerable, Var* enumerator, ScriptContext * requestContext, bool preferSnapshotSemantics, bool enumSymbols)
     {
         HRESULT hr = FALSE;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -953,7 +998,10 @@ namespace Js
     BOOL CustomExternalObject::DeleteItem(uint32 index, PropertyOperationFlags flags)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1002,7 +1050,10 @@ namespace Js
     BOOL CustomExternalObject::IsEnumerable(PropertyId propertyId)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1056,7 +1107,10 @@ namespace Js
     BOOL CustomExternalObject::IsWritable(PropertyId propertyId)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::IsWritable(propertyId);
@@ -1108,7 +1162,10 @@ namespace Js
     BOOL CustomExternalObject::IsConfigurable(PropertyId propertyId)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::IsConfigurable(propertyId);
@@ -1160,7 +1217,10 @@ namespace Js
     BOOL CustomExternalObject::SetEnumerable(PropertyId propertyId, BOOL value)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetEnumerable(propertyId, value);
@@ -1212,7 +1272,10 @@ namespace Js
     BOOL CustomExternalObject::SetWritable(PropertyId propertyId, BOOL value)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetWritable(propertyId, value);
@@ -1264,7 +1327,10 @@ namespace Js
     BOOL CustomExternalObject::SetConfigurable(PropertyId propertyId, BOOL value)
     {
         BOOL notPresent=false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetConfigurable(propertyId, value);
@@ -1328,7 +1394,10 @@ namespace Js
     BOOL CustomExternalObject::SetAccessors(PropertyId propertyId, Var getter, Var setter, PropertyOperationFlags flags)
     {
         BOOL notPresent = false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::SetAccessors(propertyId, getter, setter, flags);
@@ -1388,7 +1457,10 @@ namespace Js
     BOOL CustomExternalObject::GetAccessors(PropertyId propertyId, Var *getter, Var *setter, ScriptContext * requestContext)
     {
         BOOL notPresent = false;
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
@@ -1422,7 +1494,10 @@ namespace Js
             {
                 notPresent = true;
             }
-            if (!this->VerifyObjectAlive()) return FALSE;
+            if (!this->VerifyObjectAlive())
+            {
+                return FALSE;
+            }
         }
 
         if (notPresent || this->GetOperationUsage().useAlways & OperationFlag_getAccessors)
@@ -1464,7 +1539,10 @@ namespace Js
 
     DescriptorFlags CustomExternalObject::GetSetter(PropertyId propertyId, Var* setterValue, PropertyValueInfo* info, ScriptContext* requestContext)
     {
-        if (!this->VerifyObjectAlive()) return DescriptorFlags::None;
+        if (!this->VerifyObjectAlive())
+        {
+            return DescriptorFlags::None;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1550,7 +1628,10 @@ namespace Js
 
     DescriptorFlags CustomExternalObject::GetItemSetter(uint32 index, Var* setterValue, ScriptContext* requestContext)
     {
-        if (!this->VerifyObjectAlive()) return DescriptorFlags::None;
+        if (!this->VerifyObjectAlive())
+        {
+            return DescriptorFlags::None;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1632,7 +1713,10 @@ namespace Js
     // We should be able to get rid of Equals and StrictEquals post rs1.
     BOOL CustomExternalObject::Equals(Var other, BOOL* returnResult, ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::Equals(other, returnResult, requestContext);
@@ -1659,7 +1743,10 @@ namespace Js
 
     BOOL CustomExternalObject::StrictEquals(Var other, BOOL* returnResult, ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
             return ExternalObject::StrictEquals(other, returnResult, requestContext);
@@ -1692,7 +1779,10 @@ namespace Js
 
     BOOL CustomExternalObject::HasInstance(Var instance, ScriptContext* scriptContext, IsInstInlineCache* inlineCache)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return FALSE;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1729,7 +1819,10 @@ namespace Js
 
     Var CustomExternalObject::GetNamespaceParent(Var instance)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return nullptr;
+        }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
@@ -1765,7 +1858,10 @@ namespace Js
 
     RecyclableObject* CustomExternalObject::GetConfigurablePrototype(ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            return nullptr;
+        }
         if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
         {
             GlobalObject* globalObject = this->GetScriptContext()->GetGlobalObject();
@@ -1793,7 +1889,10 @@ namespace Js
 
     void CustomExternalObject::SetPrototype(RecyclableObject* newPrototype)
     {
-        if (!this->VerifyObjectAlive()) return;
+        if (!this->VerifyObjectAlive())
+        {
+            return;
+        }
 
         GlobalObject* globalObject = this->GetScriptContext()->GetGlobalObject();
         if (this == globalObject->GetSecureDirectHostObject())
