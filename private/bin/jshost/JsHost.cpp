@@ -1677,6 +1677,10 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     // We will reenable it if there is no unhandled exceptions
     JScript9Interface::SetEnableCheckMemoryLeakOutput(false);
 #endif
+#ifdef DBG
+    // Always enable this in console CHK builds
+    JScript9Interface::SetCheckOpHelpersFlag(true);
+#endif
 
     __try
     {
