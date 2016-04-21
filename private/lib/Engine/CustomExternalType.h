@@ -155,15 +155,6 @@ namespace Js
         virtual RecyclableObject* GetConfigurablePrototype(ScriptContext * requestContext) override;
         virtual void SetPrototype(RecyclableObject* newPrototype) override;
 
-        template <bool checkLocal>
-        BOOL GetPropertyImpl(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-        template <bool checkLocal>
-        BOOL GetPropertyReferenceImpl(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext);
-        template <bool checkLocal>
-        BOOL SetPropertyImpl(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info);
-        template <bool checkLocal>
-        BOOL DeletePropertyImpl(PropertyId propertyId, PropertyOperationFlags flags);
-
         PropertyId GetTypeNameId() const
         {
             return this->GetNameId();

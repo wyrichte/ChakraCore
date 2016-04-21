@@ -484,12 +484,17 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
     else if (strstr(typeName, "JavascriptDispatch") != 0)
     {
         ExtRemoteTyped scriptObject = object.Field("scriptObject");
-        this->Out("[ScriptObject ");
-        if (!DumpPossibleSymbol(scriptObject.GetPtr(), makeLink))
+        ULONG64 scriptObjectPointer = scriptObject.GetPtr();
+        // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
+        if (scriptObjectPointer)
         {
-            this->Out(" = 0x%p", scriptObject.GetPtr());
+            this->Out("[ScriptObject");
+            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink))
+            {
+                this->Out(" = 0x%p", scriptObjectPointer);
+            }
+            this->Out("]");
         }
-        this->Out("]");
     }
 
     return true;

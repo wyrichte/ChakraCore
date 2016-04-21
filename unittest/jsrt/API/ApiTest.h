@@ -929,11 +929,11 @@ namespace JsrtUnitTests
             JsValueType type;
             bool boolValue;
             BYTE *compiledScript = nullptr;
-            DWORD scriptSize = 0;
+            unsigned int scriptSize = 0;
 
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &scriptSize) == JsNoError);
             compiledScript = new BYTE[scriptSize];
-            DWORD newScriptSize = scriptSize;
+            unsigned int newScriptSize = scriptSize;
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &newScriptSize) == JsNoError);
             VERIFY_IS_TRUE(newScriptSize == scriptSize);
             VERIFY_IS_TRUE(JsRunSerializedScript(script, compiledScript, JS_SOURCE_CONTEXT_NONE, L"", &result) == JsNoError);
@@ -977,7 +977,7 @@ namespace JsrtUnitTests
             JsValueType type;
             bool boolValue;
             BYTE *compiledScript = nullptr;
-            DWORD scriptSize = 0;
+            unsigned int scriptSize = 0;
             const wchar_t *stringValue;
             size_t stringLength;
             ByteCodeCallbackTracker tracker = {};
@@ -993,7 +993,7 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &scriptSize) == JsNoError);
             compiledScript = (BYTE*)VirtualAlloc(nullptr, scriptSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
-            DWORD newScriptSize = scriptSize;
+            unsigned int newScriptSize = scriptSize;
             VERIFY_IS_TRUE(JsSerializeScript(script, compiledScript, &newScriptSize) == JsNoError);
             VERIFY_IS_TRUE(newScriptSize == scriptSize);
 

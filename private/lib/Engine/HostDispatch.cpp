@@ -332,8 +332,44 @@ HRESULT HostDispatch::EnsureDispatch()
     return hr;
 }
 
+HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+#ifdef FAULT_INJECTION
+    if (Js::Configuration::Global.flags.FaultInjection >= 0)
+    {
+        return (this->*func)(id, wFlags, pdp, pvarRes, pei);
+    }
+#endif
 
-HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+    HRESULT hr = 0;
+
+    // mark volatile, because otherwise VC will incorrectly optimize away load in the finally block
+    volatile ulong exceptionCode = 0;
+    EXCEPTION_POINTERS exceptionInfo = {0};
+    __try
+    {
+        __try
+        {
+            hr = (this->*func)(id, wFlags, pdp, pvarRes, pei);
+        }
+        __except (exceptionInfo = *GetExceptionInformation(), exceptionCode = GetExceptionCode(), EXCEPTION_CONTINUE_SEARCH)
+        {
+            Assert(UNREACHED);
+        }
+    }
+    __finally
+    {
+        // ensure that there is no EH across this boundary, as that can lead to bad state (e.g. destructors not called)
+        if (exceptionCode != 0 && !IsDebuggerPresent())
+        {
+            exceptionInfo;
+            RaiseFailFastException(NULL, NULL, NULL);
+        }
+    }
+    return hr;
+}
+
+HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
     Js::ScriptContext* scriptContext = this->GetScriptContext();
 
@@ -390,7 +426,12 @@ HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VAR
     return hr;
 }
 
-HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    return CallInvokeHandler(&HostDispatch::CallInvokeExInternal, id, wFlags, pdp, pvarRes, pei);
+}
+
+HRESULT HostDispatch::CallInvokeInternal (DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     HRESULT hr;
@@ -411,6 +452,11 @@ HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIA
     }
     END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
     return hr;
+}
+
+HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    return CallInvokeHandler(&HostDispatch::CallInvokeInternal, id, wFlags, pdp, pvarRes, pei);
 }
 
 BOOL HostDispatch::IsGetDispIdCycle(const char16* name)

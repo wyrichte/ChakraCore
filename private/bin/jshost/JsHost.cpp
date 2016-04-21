@@ -1330,9 +1330,15 @@ int JcExceptionFilter(int exceptionCode, _EXCEPTION_POINTERS *ep)
     }
 
     fwprintf(stderr, _u("FATAL ERROR: jshost.exe failed due to exception code %x\n"), exceptionCode);
-    fflush(stderr);
 
-    return EXCEPTION_EXECUTE_HANDLER;
+    // Flush all I/O buffers
+    _flushall();
+
+    // Exception happened, so we probably didn't clean up properly, 
+    // Don't exit normally, just terminate
+    TerminateProcess(::GetCurrentProcess(), exceptionCode);
+
+    return EXCEPTION_CONTINUE_SEARCH;
 }
 
 void LaunchAndAttachDebugger()
@@ -1697,12 +1703,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     }
     __except(JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
     {
-        // Flush all I/O buffers
-        _flushall();
-
-        // Exception happened, so we probably didn't clean up properly, 
-        // Don't exit normally, just terminate
-        TerminateProcess(::GetCurrentProcess(), GetExceptionCode());
+        Assert(false);
     }
 
     if (argInfo.filename)
