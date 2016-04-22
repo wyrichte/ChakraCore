@@ -1297,7 +1297,6 @@ namespace JsDiag
 
     const uint32 RemoteFunctionBody::GetCounter(FunctionBody::CounterFields fieldEnum) const
     {
-        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
 
         // for registers, it's using UINT32_MAX to represent NoRegister
         if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !this->ToTargetPtr()->m_hasLocalClosureRegister)

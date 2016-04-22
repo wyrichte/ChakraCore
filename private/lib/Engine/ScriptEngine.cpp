@@ -3901,7 +3901,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, 0, nullptr, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
+    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
@@ -5815,7 +5815,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
             {
