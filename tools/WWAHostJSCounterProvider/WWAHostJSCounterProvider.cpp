@@ -396,11 +396,11 @@ void UpdateInstances(bool printStatus = true)
     }
     if (printStatus)
     {
-        wprintf(_u("STATUS: Finish update instances. %d added. Total %d\n"), added, s_counterMap.size());
+        wprintf(_u("STATUS: Finish update instances. %I added. Total %I\n"), added, s_counterMap.size());
     }
     else if (added != 0)
     {
-        wprintf(_u("STATUS: Scanning instance found %d added. Total %d\n"), added, s_counterMap.size());
+        wprintf(_u("STATUS: Scanning instance found %I added. Total %I\n"), added, s_counterMap.size());
     }
     ::LeaveCriticalSection(&s_cs);
 }
