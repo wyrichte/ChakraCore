@@ -358,7 +358,6 @@ Error:
 
     uint RemoteFunctionBody::GetCounter(IScriptDebugSite* debugSite, FunctionBody::CounterFields fieldEnum) const
     {
-        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
 
         // for registers, it's using UINT32_MAX to represent NoRegister
         if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !(*this)->m_hasLocalClosureRegister)
