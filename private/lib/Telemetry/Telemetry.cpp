@@ -279,14 +279,20 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
                     CryptDestroyHash(hHash);
                 }
 
-                for (DWORD i = 0; i < hashLength; ++i)
+                for (DWORD i = 0; i < hashLength && counter + 1 < (upto * MaxHashLength) + 1; ++i)
                 {
                     char16 tmp[3];
                     swprintf_s(tmp, _u("%02X"), hashedData[i]);
-                    buf[counter] = tmp[0]; buf[counter + 1] = tmp[1];
+                    buf[counter] = tmp[0];
+                    buf[counter + 1] = tmp[1];
                     counter += 2;
                 }
 
+                if (counter >= (upto * MaxHashLength) + 1)
+                {
+                    AssertMsg(false, "Buffer overflow");
+                    return;
+                }
                 buf[counter] = _u(';');
                 counter++;
             }
@@ -294,6 +300,11 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
             {
                 return;
             }
+        }
+        if (counter >= (upto * MaxHashLength) + 1)
+        {
+            AssertMsg(false, "Buffer overflow");
+            return;
         }
         buf[counter] = _u('\0');
 
