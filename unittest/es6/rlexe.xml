@@ -260,14 +260,14 @@
 <test>
     <default>
         <files>module-functionality.js</files>
-        <compile-flags>-ES6Module -args summary -endargs</compile-flags>
+        <compile-flags>-ES6Module  -ES7AsyncAwait -args summary -endargs</compile-flags>
     </default>
 </test>
 <test>
     <default>
         <files>ModuleLateSyntaxErrors.js</files>
         <baseline>ModuleLateSyntaxErrors.baseline</baseline>
-        <compile-flags>-ES6Module</compile-flags>
+        <compile-flags>-ES6Module -ES7AsyncAwait</compile-flags>
         <tags>exclude_dynapogo</tags>
     </default>
 </test>
