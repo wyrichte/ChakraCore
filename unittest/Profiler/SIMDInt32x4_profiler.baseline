@@ -63,22 +63,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDInt32x4 UnaryOp......
 Correct
 Correct
@@ -201,22 +185,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDInt32x4 UnaryOp......
 Correct
 Correct
@@ -278,11 +246,11 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDInt32x4, Line: 9, Column: 1, Character Position: 141
 [FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 71, Column: 1, Character Position: 2597
-[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 170, Column: 1, Character Position: 6993
-[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 239, Column: 1, Character Position: 9936
-[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 218, Column: 1, Character Position: 8994
-[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 198, Column: 1, Character Position: 8100
-[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 154, Column: 1, Character Position: 6365
+[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 154, Column: 1, Character Position: 6545
+[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 223, Column: 1, Character Position: 9488
+[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 202, Column: 1, Character Position: 8546
+[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 182, Column: 1, Character Position: 7652
+[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 138, Column: 1, Character Position: 5917
 [FunctionCompiled]: Function: testSIMDInt32x4_conversion, Line: 38, Column: 1, Character Position: 1301
 Passed: Validation
 Script Profiler ends
