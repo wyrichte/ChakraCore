@@ -2766,8 +2766,9 @@
   <test>
     <default>
       <files>setTimeout.html</files>
-      <compile-flags>-targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <baseline>settimeout.html.baseline</baseline>
     </default>
   </test>
   <test>

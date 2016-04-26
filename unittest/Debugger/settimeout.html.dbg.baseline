@@ -6,7 +6,7 @@
   },
   {
     "evaluate": {
-      "foo()": "undefined"
+      "foo()": "PASS"
     }
   }
 ]
