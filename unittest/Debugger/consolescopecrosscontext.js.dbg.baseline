@@ -56,7 +56,7 @@
   },
   {
     "evaluate": {
-      "delete cc2Obj;": "true"
+      "delete cc2Obj;": "false"
     }
   },
   {

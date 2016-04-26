@@ -255,7 +255,7 @@ namespace Js
         emptyTopMostScope->SetPrototype(targetScriptContext->GetLibrary()->GetNull());
         DynamicObject* activeScopeObject = GetActiveScopeObject(targetScriptContext, &isStrictMode);
         Js::DebugManager* debugManager = targetScriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
-        FrameDisplay* environment = debugManager->GetFrameDisplay(targetScriptContext, emptyTopMostScope, activeScopeObject, /* addGlobalThisAtScopeTwo = */ true);
+        FrameDisplay* environment = debugManager->GetFrameDisplay(targetScriptContext, emptyTopMostScope, activeScopeObject);
 
         JavascriptExceptionObject* reThrownEx = nullptr;
         try
@@ -362,7 +362,8 @@ namespace Js
             // Use LocalsWalker to populate frame display with variables.
             if (frm)
             {
-                LocalsWalker* localsWalker = Anew(diagArena, Js::LocalsWalker, frm, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference);
+                LocalsWalker* localsWalker = Anew(diagArena, Js::LocalsWalker, frm, 
+                    Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference | Js::FrameWalkerFlags::FW_DontAddGlobalsDirectly);
                 activeScopeObject = localsWalker->CreateAndPopulateActivationObject(targetScriptContext, [](Js::ResolvedObject& resolveObject){});
             }
         }

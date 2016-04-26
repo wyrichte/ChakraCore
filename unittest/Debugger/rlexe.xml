@@ -2765,6 +2765,13 @@
   </test>
   <test>
     <default>
+      <files>setTimeout.html</files>
+      <compile-flags>-targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug_551355.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:bug_551355.js.dbg.baseline jshost</command>
       <compile-flags>-debuglaunch:hybrid -DeferLoadingAvailableSource</compile-flags>
