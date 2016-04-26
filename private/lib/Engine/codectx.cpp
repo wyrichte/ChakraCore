@@ -1171,7 +1171,8 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     Js::ScriptContext* scriptContext = frame->GetScriptContext();
 
     ArenaAllocator *arena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
-    Js::LocalsWalker *localsWalker = Anew(arena, Js::LocalsWalker, frame, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference);
+    Js::LocalsWalker *localsWalker = Anew(arena, Js::LocalsWalker, frame,
+        Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference | Js::FrameWalkerFlags::FW_DontAddGlobalsDirectly);
 
     // Store the diag address of a var to the map so that it will be used for editing the value.
     typedef JsUtil::BaseDictionary<Js::PropertyId, Js::IDiagObjectAddress*, ArenaAllocator, PrimeSizePolicy> PropIdToDiagAddressMap;
@@ -1204,7 +1205,7 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     // Remove its prototype object so that those item will not be visible to the expression evaluation.
     dummyObject->SetPrototype(scriptContext->GetLibrary()->GetNull());
     Js::DebugManager* debugManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
-    Js::FrameDisplay* env = debugManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject, /* addGlobalThisAtScopeTwo = */ false);
+    Js::FrameDisplay* env = debugManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject);
     pfuncScript->SetEnvironment(env);
 
     Js::Var varThis = GetThisFromFrame(frame, nullptr, localsWalker);
