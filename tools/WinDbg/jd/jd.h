@@ -218,6 +218,7 @@ protected:
     void DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, CommandOutputType outputType = NormalOutputType);
     void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
+    bool HasType(const char* moduleName, const char* typeName);
     PCSTR GetModuleName();
     bool HasMemoryNS();
     PCSTR GetMemoryNS();
