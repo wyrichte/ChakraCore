@@ -94,6 +94,10 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 
 #define PropertyDeleted         0x08
 
+#if defined(_M_X64) || defined(_M_ARM64)
+#define _M_X64_OR_ARM64 1
+#endif
+
 #include "DataStructures\BitVector.h"
 #include "time.h"
 #include "UTestHelper.h"
