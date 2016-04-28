@@ -147,18 +147,16 @@ bool EXT_CLASS_BASE::HasMemoryNS()
         return false;
     }
 
-    char symRecyclerType[256];
-    ULONG symRecyclerTypeId = 0;
-    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    const char* moduleName = GetModuleName();
+
+    if (HasType(moduleName, "Memory::Recycler"))
     {
         m_hasMemoryNS = true;
         m_isCachedHasMemoryNS = true;
     }
     else
     {
-        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+        if (HasType(moduleName, "Recycler"))
         {
             m_hasMemoryNS = false;
             m_isCachedHasMemoryNS = true;
@@ -170,6 +168,14 @@ bool EXT_CLASS_BASE::HasMemoryNS()
     }
 
     return m_hasMemoryNS;
+}
+
+bool EXT_CLASS_BASE::HasType(const char* moduleName, const char* typeName)
+{
+    char symRecyclerType[256];
+    ULONG symRecyclerTypeId = 0;
+    sprintf_s(symRecyclerType, "%s!%s", moduleName, typeName);
+    return this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK;
 }
 
 PCSTR EXT_CLASS_BASE::GetMemoryNS()

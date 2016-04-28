@@ -2492,17 +2492,32 @@ MPH_COMMAND(mpheap,
     bool verbose = HasArg("v");
     char buffer[1024];
 
-    ExtRemoteTyped g_pHeapHandle(FillModuleV("%s!g_pHeapHandle", tridentModule));
-    if (verbose)
+    char* gpHeapHandle;
+    if (HasType(tridentModule, "MemoryProtection::g_pHeapHandle")) 
     {
-        this->Out("%s!g_pHeapHandle: %x\n", tridentModule, g_pHeapHandle.GetPtr());
+        gpHeapHandle = "MemoryProtection::g_pHeapHandle";
+    }
+    else if(HasType(tridentModule, "g_pHeapHandle"))
+    {
+        gpHeapHandle = "g_pHeapHandle";
+    }
+    else
+    {
+        this->Err("Can't find either %s!MemoryProtection::g_pHeapHandle or %s!:g_pHeapHandle", tridentModule, tridentModule);
+        return;
     }
 
-    ExtRemoteTyped heapInstance(FillModuleV("(%s!MemProtectHeap*)(%s!g_pHeapHandle)", memGCModule, tridentModule));
+    ExtRemoteTyped g_pHeapHandle(FillModuleV("%s!%s", tridentModule, gpHeapHandle));
     if (verbose)
     {
-        this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!g_pHeapHandle)", memGCModule, tridentModule), heapInstance.GetPtr());
-        this->Out("threadContextTlsIndex: %x\n", heapInstance.Field("threadContextTlsIndex").GetUlong());
+        this->Out("%s!%s: %x\n", tridentModule, gpHeapHandle, g_pHeapHandle.GetPtr());
+    }
+
+    ExtRemoteTyped heapInstance(FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule, gpHeapHandle));
+    if (verbose)
+    {
+        this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule), heapInstance.GetPtr());
+        this->Out("threadContextTlsIndex: %x\n", heapInstance.Field("threadContextTlsIndex").GetUlong(), gpHeapHandle);
     }
 
     // list of thread contexts:
@@ -2644,14 +2659,14 @@ MPH_COMMAND(mpheap,
                 //!list -t chakra!HeapBlockMap64::Node.next -x ".if(poi(@$extret)==(%x>>0n32)){?? ((chakra!HeapBlockMap64::Node*)@$extret)->map}" @@c++(((chakra!MemProtectHeap*)(edgehtml!g_pHeapHandle))->recycler.heapBlockMap.list)
                 sprintf_s(buffer, "!list -t %s!%sHeapBlockMap64::Node.next -x "
                     "\".if(poi(@$extret)==(0x%I64x>>0n32)){ ?? @@c++((((%s!%sHeapBlockMap64::Node*)@$extret)->map.map[(0x%I64x&0xffffffff)>>0x14]->map[(0x%I64x&0x000FF000)>>0xc]))}\""
-                    " @@c++(((%s!MemProtectHeap*)(edgehtml!g_pHeapHandle))->recycler.heapBlockMap.list)",
-                    memGCModule, this->GetMemoryNS(), address, memGCModule, this->GetMemoryNS(), address, address, memGCModule, tridentModule);
+                    " @@c++(((%s!MemProtectHeap*)(%s!%s))->recycler.heapBlockMap.list)",
+                    memGCModule, this->GetMemoryNS(), address, memGCModule, this->GetMemoryNS(), address, address, memGCModule, tridentModule, gpHeapHandle);
             }
             else
             {
                 //?? ((mshtml!MemProtectHeap*)(mshtml!g_pHeapHandle))->recycler.heapBlockMap.map[0x051e8130>>0x14]->map[(0x051e8130&0x000FF000)>>0xc]
-                sprintf_s(buffer, "?? @@c++(((%s!MemProtectHeap*)(%s!g_pHeapHandle))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
-                    memGCModule, tridentModule, address, address);
+                sprintf_s(buffer, "?? @@c++(((%s!MemProtectHeap*)(%s!%s))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
+                    memGCModule, tridentModule, gpHeapHandle, address, address);
             }
             this->Out("Command to show block: %s\n", buffer);
         }
@@ -2664,21 +2679,22 @@ MPH_COMMAND(mpheap,
             return;
         }
 
-        ExtRemoteTyped heapBlock = info.heapBlock;
-        ULONG64 x64MapAddr = info.x64MapAddr;
+        ExtRemoteTyped heapBlock = this->CastWithVtable(info.heapBlock);
+        //ULONG64 x64MapAddr = info.x64MapAddr;
         std::string typeName = info.typeName;
-        PageHeapMode pageHeapMode = (PageHeapMode)heapBlock.Field("pageHeapMode").GetLong();
+        PageHeapMode pageHeapMode = PageHeapMode::PageHeapModeOff;
+        if (heapBlock.HasField("pageHeapMode"))
+        {
+            pageHeapMode = (PageHeapMode)heapBlock.Field("pageHeapMode").GetLong();
+        }
 
         if (m_PtrSize == 8)
         {
-            // DML does not support the command containing double quote, so use the already found block map
-            sprintf_s(buffer, "?? @@c++((%s*)(((%s!%sHeapBlockMap64::Node*)0x%I64x)->map.map[(0x%I64x&0xffffffff)>>0x14]->map[(0x%I64x&0x000FF000)>>0xc]))",
-                typeName.c_str(), memGCModule, this->GetMemoryNS(), x64MapAddr, address, address);
+            sprintf_s(buffer, "dx (%s!Memory::HeapBlock*)0x%I64x", memGCModule, heapBlock.GetPtr());
         }
         else
         {
-            sprintf_s(buffer, "?? @@c++((%s*)((%s!MemProtectHeap*)(%s!g_pHeapHandle))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
-                typeName.c_str(), memGCModule, tridentModule, address, address);
+            sprintf_s(buffer, "dx (%s!Memory::HeapBlock*)0x%llx", memGCModule, heapBlock.GetPtr());
         }
 
         this->Dml("\taddress %p found in\n", address);

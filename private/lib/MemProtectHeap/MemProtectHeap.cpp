@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "static\MemProtectHeapPch.h"
@@ -47,9 +47,9 @@ class MemProtectThreadContext : public JsUtil::DoublyLinkedListElement<MemProtec
 public:
     enum class ThreadState : LONG
     {
-        // This is the default state for a protected thread. It indicates that the 
-        // thread-local-allocations are enable (if available) and requires the GC to 
-        // scan this thread's stack durring GC. 
+        // This is the default state for a protected thread. It indicates that the
+        // thread-local-allocations are enable (if available) and requires the GC to
+        // scan this thread's stack durring GC.
         Protected = 0,
 
         // This flag is set by the GC, while holding the GC lock, indicating that a safe point
@@ -57,7 +57,7 @@ public:
         // the Stopped state.
         StopRequest = 1,
 
-        // This flag indicates that the thread has reached a safe point, and is waiting to 
+        // This flag indicates that the thread has reached a safe point, and is waiting to
         // acquire the GC lock.
         Stopped = 2,
     };
@@ -101,8 +101,8 @@ public:
     }
 
     //check if the thread exits because that TerminateThread is invoked from the thread itself
-    //If yes, we will not be notified to set disableStackScanningDueToLeakedThread. 
-    //We need to set it here once we have confirmed the thread exits already. 
+    //If yes, we will not be notified to set disableStackScanningDueToLeakedThread.
+    //We need to set it here once we have confirmed the thread exits already.
     bool IsLeakedThread()
     {
         if ( this->disableStackScanningDueToLeakedThread )
@@ -179,10 +179,10 @@ private:
 
     // The Windows thread id and handle
     DWORD threadId;
-    
+
     // The Windows thread handle
     HANDLE hThread;
-    
+
     // A pointer to the thread information block.
     NT_TIB* tib;
 
@@ -1299,7 +1299,7 @@ MemProtectThreadContext::EnsureSuspended()
         //      context first.
         //
         //   2) In WoW, we can get the context while running 64 bit code we always just return the saved 32 bit
-        //      context for the thread. But we could be in the process of saving it, so we actually see the 
+        //      context for the thread. But we could be in the process of saving it, so we actually see the
         //      context for the previous syscall.
         //
         // On newer OSes (Win8+) we can detect 2 by using CONTEXT_EXCEPTION_REQUEST and the OS will
@@ -1330,7 +1330,7 @@ MemProtectThreadContext::EnsureSuspended()
         }
 
         // We have either suspended in a dangerous region or a region where GetThreadContext fails.
-        // On AMD64 and ARM getting the user mode context requires unwinding the stack, which 
+        // On AMD64 and ARM getting the user mode context requires unwinding the stack, which
         // may not be possible due to bad assembly code.
 
         bool resumedThread = false;
@@ -1549,7 +1549,7 @@ MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
             // Note: GetThreadContext has already loaded the context into this->context in EnsureSuspended()
             //
 
-            // 
+            //
             // The stack pointer and the two addresses in the Teb can be inconsistent during fiber switch,
             // so we can only safely use a single value and VirtualQuery to determine the stack limits.
             // If the stack pointer points within this range we reduce the region scanned down to the sp.
@@ -1598,7 +1598,7 @@ MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
                 }
                 if(memoryInfo.AllocationBase != allocationBase)
                 {
-                    // We failed to get a unprotected memory region in the stack to scan the stack memory, 
+                    // We failed to get a unprotected memory region in the stack to scan the stack memory,
                     //which should never happen (fail-fast)
                     FailFast("we failed to get a unprotected memory. Fail-fast for better diagnose experience");
                 }
@@ -1616,7 +1616,7 @@ MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
                 this->stackTop = sp;
             }
 
-            // Scan the entire context record 
+            // Scan the entire context record
             scanMemory((void**)&this->context, sizeof(CONTEXT));
             contextSize = sizeof(CONTEXT);
         }
@@ -1716,15 +1716,20 @@ MemProtectHeapRootReallocImpl(TContext* context, size_t newSize, void** memory)
         return E_INVALIDARG;
     }
 
+    size_t objSize = heapObject.GetSize();
+    Assert(objSize == HeapInfo::GetAlignedSizeNoCheck(objSize) || heapObject.IsPageHeapAlloc());
+
     if (leaf != heapObject.IsLeaf())
     {
-        return E_INVALIDARG;
+        // looks in trident there's lots of small allocations (less than pointer size) are allocated as non-leaf
+        // in page heap I forced those allocation to be leaf
+        if ((!heapObject.IsPageHeapAlloc() && objSize < sizeof(void*)))
+        {
+            return E_INVALIDARG;
+        }
     }
 
-    size_t objSize = heapObject.GetSize();
     size_t newSizeAligned = HeapInfo::GetAlignedSizeNoCheck(newSize);
-    Assert(objSize == HeapInfo::GetAlignedSizeNoCheck(objSize));
-
     if (newSizeAligned == objSize)
     {
         // reuse allocation if the new allocation would end up being the same size anyway.
@@ -1809,7 +1814,7 @@ MemProtectHeapUnrootAndZeroImpl(MemProtectThreadContext* threadContext, void* me
     if (threadContext->GetRecycler()->ShouldCapturePageHeapFreeStack())
     {
         // Capturing the free stack requires allocating memory using the process heap
-        // If we're in the process of suspending, this could lead to a deadlock since 
+        // If we're in the process of suspending, this could lead to a deadlock since
         // the GC thread could hold a lock on the process heap
         return MemProtectHeapBeginUnrootAndZeroImplInternal<SafepointAutoCriticalSection>(threadContext, memory);
     }
@@ -1847,9 +1852,9 @@ MemProtectHeapRootFreeImpl(TContext* context, void* memory)
 #define MemProtectEntrypoint(heapHandle, expression) MemProtectEntrypointBase(false, heapHandle, expression)
 
 // Initially, this macro expanded into a call to a function that did most of the work. However, we found
-// that the function, while easier to debug, was inhibiting effective inlining of the Impl methods as 
-// the lambda could not be marked force-inline. This results in extra call prolog/epilog without any code 
-// savings (after constant folding, these functions are called from precisely one location each). 
+// that the function, while easier to debug, was inhibiting effective inlining of the Impl methods as
+// the lambda could not be marked force-inline. This results in extra call prolog/epilog without any code
+// savings (after constant folding, these functions are called from precisely one location each).
 #define MemProtectEntrypointBase(alwaysLocked, heapHandle, statement) \
     MemProtectHeap* heap = reinterpret_cast<MemProtectHeap*>(heapHandle); \
     MemProtectThreadContext* threadContext = heap->CurrentThreadContext(); \
