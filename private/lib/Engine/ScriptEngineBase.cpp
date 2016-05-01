@@ -722,13 +722,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     hr = GetOPrototypeInformationForTypeCreation(varPrototype, nameId, &objPrototype);
     IfFailedReturn(hr);
 
-    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
-
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -1373,11 +1371,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DispExToVar(
         result->Release();
     }
 #endif
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-    {
-        hr = DispatchHelper::MarshalIDispatchToJsVarNoThrow(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
-    }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    hr = DispatchHelper::MarshalIDispatchToJsVarNoThrow(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
     return hr;
 }
 
@@ -1761,14 +1755,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeToVar(
         return hr;
     }
 
-    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
-    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
-
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-    {
-        hr = DispatchHelper::MarshalVariantToJsVar(inVariant, instance, scriptContext);
-    }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(inVariant, instance, scriptContext);
     return hr;
 }
 
