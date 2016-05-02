@@ -80,19 +80,11 @@ function testSIMDInt32x4_BinaryOp() {
     equal(0x55555555, SIMD.Int32x4.extractLane(n, 1));
     equal(0x55555555, SIMD.Int32x4.extractLane(n, 2));
     equal(0x55555555, SIMD.Int32x4.extractLane(n, 3));
-    equal(true, n.flagX);
-    equal(true, n.flagY);
-    equal(true, n.flagZ);
-    equal(true, n.flagW);
     var o = SIMD.Int32x4.and(m, n);  // and
     equal(0x0, SIMD.Int32x4.extractLane(o, 0));
     equal(0x0, SIMD.Int32x4.extractLane(o, 1));
     equal(0x0, SIMD.Int32x4.extractLane(o, 2));
     equal(0x0, SIMD.Int32x4.extractLane(o, 3));
-    equal(false, o.flagX);
-    equal(false, o.flagY);
-    equal(false, o.flagZ);
-    equal(false, o.flagW);
 
     var m1 = SIMD.Int32x4(0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA);
     var n1 = SIMD.Int32x4(0x55555555, 0x55555555, 0x55555555, 0x55555555);
@@ -101,10 +93,6 @@ function testSIMDInt32x4_BinaryOp() {
     equal(-1, SIMD.Int32x4.extractLane(o1, 1));
     equal(-1, SIMD.Int32x4.extractLane(o1, 2));
     equal(-1, SIMD.Int32x4.extractLane(o1, 3));
-    equal(true, o1.flagX);
-    equal(true, o1.flagY);
-    equal(true, o1.flagZ);
-    equal(true, o1.flagW);
 
     var m2 = SIMD.Int32x4(0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA, 0xAAAAAAAA);
     var n2 = SIMD.Int32x4(0x55555555, 0x55555555, 0x55555555, 0x55555555);
@@ -121,10 +109,6 @@ function testSIMDInt32x4_BinaryOp() {
     equal(0x0, SIMD.Int32x4.extractLane(o2, 1));
     equal(0x0, SIMD.Int32x4.extractLane(o2, 2));
     equal(0x0, SIMD.Int32x4.extractLane(o2, 3));
-    equal(false, o2.flagX);
-    equal(false, o2.flagY);
-    equal(false, o2.flagZ);
-    equal(false, o2.flagW);
 
     var a = SIMD.Int32x4(0xFFFFFFFF, 0xFFFFFFFF, 0x7fffffff, 0x0);
     var b = SIMD.Int32x4(0x1, 0xFFFFFFFF, 0x1, 0xFFFFFFFF);
