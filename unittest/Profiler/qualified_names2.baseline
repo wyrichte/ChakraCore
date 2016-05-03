@@ -1,12 +1,12 @@
 Script Profiler starts
 Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 3, Column: 1, Character Position: 79
-[FunctionCompiled]: Function: get bar, Line: 6, Column: 43, Character Position: 186
+[FunctionCompiled]: Function: bar.get, Line: 6, Column: 43, Character Position: 186
+[FunctionCompiled]: Function: bar.set, Line: 10, Column: 43, Character Position: 392
 [FunctionCompiled]: Function: property1.get, Line: 20, Column: 10, Character Position: 729
 [FunctionCompiled]: Function: property1.set, Line: 24, Column: 11, Character Position: 794
 [FunctionCompiled]: Function: property2.get, Line: 30, Column: 10, Character Position: 932
 [FunctionCompiled]: Function: property2.set, Line: 34, Column: 11, Character Position: 997
-[FunctionCompiled]: Function: set bar, Line: 10, Column: 43, Character Position: 392
 [FunctionCompiled]: Function: temp, Line: 45, Column: 1, Character Position: 1193
 Passed: Validation
 Script Profiler ends
