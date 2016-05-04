@@ -10,8 +10,8 @@
 // === ActiveScriptError ==
 ActiveScriptError::ActiveScriptError() : m_cRef(1),
         m_dwSourceContext(0), m_ulLineNumber(0), m_lCharacterPosition(0),
-        m_bstrSourceLine(nullptr), m_errInfo(nullptr), m_fHasDispatchedToDebugger(FALSE), m_fIsFirstChance(FALSE), m_fIsExceptionCaughtInNonUserCode(FALSE),
-        m_scriptDebugDocument(nullptr), thrownObject(nullptr), recycler(nullptr), m_wasRooted(FALSE)
+        m_bstrSourceLine(nullptr), m_errInfo(nullptr), m_fHasDispatchedToDebugger(false), m_fIsFirstChance(false), m_fIsExceptionCaughtInNonUserCode(false),
+        m_scriptDebugDocument(nullptr), thrownObject(nullptr), recycler(nullptr), m_wasRooted(false)
 {
     memset(&m_ei, 0, sizeof(m_ei));
     memset(&m_restrictedStr, 0, sizeof(m_restrictedStr));
@@ -242,7 +242,7 @@ HRESULT ActiveScriptError::HasDispatchedToDebugger(BOOL *pfHasDispatched)
         return E_POINTER;
     }
 
-    *pfHasDispatched = ((m_fHasDispatchedToDebugger != FALSE) ? TRUE : FALSE);
+    *pfHasDispatched = ((m_fHasDispatchedToDebugger != false) ? TRUE : FALSE);
 
     return S_OK;
 }
@@ -504,15 +504,15 @@ HRESULT ActiveScriptError::CreateRuntimeError(Js::JavascriptExceptionObject * ex
             *ppase = nullptr;
             return hr;
         }
-        pase->m_wasRooted = TRUE;
+        pase->m_wasRooted = true;
     }
 
     *pHrError = FillExcepInfo(exceptionObject, nullptr, &pase->m_ei, &pase->m_restrictedStr);
     StoreErrorInfo(exceptionObject, &pase->m_errInfo);
 
-    pase->m_fHasDispatchedToDebugger = (exceptionObject->HasDebuggerLogged() ? TRUE : FALSE);
-    pase->m_fIsFirstChance = (exceptionObject->IsFirstChanceException() ? TRUE : FALSE);
-    pase->m_fIsExceptionCaughtInNonUserCode = (exceptionObject->IsExceptionCaughtInNonUserCode() ? TRUE : FALSE);
+    pase->m_fHasDispatchedToDebugger = (exceptionObject->HasDebuggerLogged() ? true : false);
+    pase->m_fIsFirstChance = (exceptionObject->IsFirstChanceException() ? true : false);
+    pase->m_fIsExceptionCaughtInNonUserCode = (exceptionObject->IsExceptionCaughtInNonUserCode() ? true : false);
 
     Js::FunctionBody * funcBody = exceptionObject->GetFunctionBody();
 

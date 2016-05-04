@@ -188,7 +188,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
     // we dont need to force a GC at scriptsite close. it's relatively lightweight,
     // and we can let JsCollectGarbage called by user.
 
-    this->scriptEngine->SetNonPrimaryEngine(TRUE);
+    this->scriptEngine->SetNonPrimaryEngine(true);
 
     VARIANT variant;
     HRESULT hr;

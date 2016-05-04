@@ -2046,8 +2046,8 @@ CEnumDebugStackFrames::CEnumDebugStackFrames(DWORD_PTR dwSpMin, ScriptSite* _act
      m_dwThread(GetCurrentThreadId()),
      m_dwSpMin(dwSpMin),
      m_currentFrameIndex(0),
-     m_fDone(FALSE),
-     m_fError(FALSE),
+     m_fDone(false),
+     m_fError(false),
      m_stackFramePrev(nullptr),
      m_scriptSite(_activeScriptSite),
      m_framePointers(nullptr)
@@ -2163,13 +2163,13 @@ HRESULT CEnumDebugStackFrames::NextImpl(ulong celt, Descriptor *frameDescriptors
         if (FAILED(hr))
         {
             Assert(nullptr == m_stackFramePrev);
-            m_fError = TRUE;
+            m_fError = true;
             break;
         }
         if (hr != NOERROR)
         {
             Assert(nullptr == m_stackFramePrev);
-            m_fDone = TRUE;
+            m_fDone = true;
             break;
         }
 
@@ -2326,8 +2326,8 @@ HRESULT CEnumDebugStackFrames::Reset(void)
         return HR(E_UNEXPECTED);
     }
 
-    m_fDone = FALSE;
-    m_fError = FALSE;
+    m_fDone = false;
+    m_fError = false;
     m_currentFrameIndex = 0;
     if (nullptr != m_stackFramePrev)
     {

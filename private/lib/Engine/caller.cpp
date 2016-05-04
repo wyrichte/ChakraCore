@@ -12,9 +12,9 @@ DispatchExCaller::DispatchExCaller(void)
     scriptSite(NULL),
     m_punkCaller(NULL),
     m_punkSite(NULL),
-    m_fQueriedCaller(FALSE),
-    m_fQueriedSite(FALSE),
-    m_pspCaller(FALSE),
+    m_fQueriedCaller(false),
+    m_fQueriedSite(false),
+    m_pspCaller(NULL),
     m_pspSite(NULL)
 {
 }
@@ -217,7 +217,7 @@ HRESULT DispatchExCaller::QSCaller(REFGUID guidService, REFIID riid, void **ppvO
             {
             m_pspCaller = NULL;
             }
-        m_fQueriedCaller = TRUE;
+        m_fQueriedCaller = true;
         }
 
     if (NULL != m_pspCaller)
@@ -241,7 +241,7 @@ HRESULT DispatchExCaller::QSSite(REFGUID guidService, REFIID riid, void **ppvObj
             {
             m_pspSite = NULL;
             }
-        m_fQueriedSite = TRUE;
+        m_fQueriedSite = true;
         }
 
     if (NULL != m_pspSite)

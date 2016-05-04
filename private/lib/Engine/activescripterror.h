@@ -117,10 +117,10 @@ private:
     LONG m_ichMin;
     LONG m_ichLim;
     BSTR m_bstrSourceLine;
-    BOOL m_fHasDispatchedToDebugger : 1;
-    BOOL m_fIsFirstChance : 1;
-    BOOL m_fIsExceptionCaughtInNonUserCode : 1;
-    BOOL m_wasRooted : 1;
+    bool m_fHasDispatchedToDebugger : 1;
+    bool m_fIsFirstChance : 1;
+    bool m_fIsExceptionCaughtInNonUserCode : 1;
+    bool m_wasRooted : 1;
 
     CComPtr<IDebugStackFrame> m_pStackFrame;
 };

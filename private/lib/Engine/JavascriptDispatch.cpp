@@ -128,12 +128,12 @@ JavascriptDispatch::JavascriptDispatch(
    scriptSite(inScriptSite),
    scriptObject(scriptObject),
    dispIdEnumerator(nullptr),
-   isGCTracked(FALSE),
-   isFinalized(FALSE),
-   isInCall(FALSE),
+   isGCTracked(false),
+   isFinalized(false),
+   isInCall(false),
    dispIdPropertyStringMap(nullptr)
 #if DBG
-   ,isFinishCreated(FALSE)
+   ,isFinishCreated(false)
 #endif
 {
     Assert(inScriptSite->IsClosed() || inScriptSite->GetScriptSiteContext() == scriptObject->GetScriptContext());
@@ -304,7 +304,7 @@ void JavascriptDispatch::Finalize(bool isShutdown)
 {
     Assert(isShutdown || refCount == 0);
     Assert(scriptSite != nullptr || (!isGCTracked && refCount == 0));
-    isFinalized = TRUE;
+    isFinalized = true;
     if (scriptSite != nullptr)
     {
         Assert(isGCTracked || isShutdown || !isFinishCreated);
@@ -2038,7 +2038,7 @@ void JavascriptDispatch::SetAsGCTracked()
 {
     if (!isGCTracked)
     {
-        isGCTracked = TRUE;
+        isGCTracked = true;
     }
 }
 
