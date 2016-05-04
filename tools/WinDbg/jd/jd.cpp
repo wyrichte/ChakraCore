@@ -460,8 +460,7 @@ JD_PRIVATE_COMMAND(prop,
     ExtRemoteTyped threadContext;
     if (pointer == 0)
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        threadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
+        threadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
     }
     else if (HasArg("t"))
     {
@@ -1199,17 +1198,21 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext,
                     {
                         for (ULONG i = 0; i < count; i++)
                         {
-                            ULONG64 strongRef = buffer[i].Field("strongRef").GetPtr();
-                            if (strongRef != 0)
+                            ExtRemoteTyped sourceInfoWeakRef = buffer[i];
+                            if ((sourceInfoWeakRef.GetPtr() & 1) == 0)
                             {
-                                ExtRemoteTyped utf8SourceInfo = ExtRemoteTyped("(Js::Utf8SourceInfo*)@$extin", strongRef);
-                                Out("Utf8SourceInfo : [%d]\n", i);
-                                utf8SourceInfo.OutFullValue();
-                                if (printSourceContextInfo)
+                                ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
+                                if (strongRef != 0)
                                 {
-                                    ExtRemoteTyped sourceContextInfo = utf8SourceInfo.Field("m_srcInfo").Field("sourceContextInfo");
-                                    Out("SourceContextInfo : \n");
-                                    sourceContextInfo.OutFullValue();
+                                    ExtRemoteTyped utf8SourceInfo = ExtRemoteTyped("(Js::Utf8SourceInfo*)@$extin", strongRef);
+                                    Out("Utf8SourceInfo : [%d]\n", i);
+                                    utf8SourceInfo.OutFullValue();
+                                    if (printSourceContextInfo)
+                                    {
+                                        ExtRemoteTyped sourceContextInfo = utf8SourceInfo.Field("m_srcInfo").Field("sourceContextInfo");
+                                        Out("SourceContextInfo : \n");
+                                        sourceContextInfo.OutFullValue();
+                                    }
                                 }
                             }
                         }
@@ -1239,8 +1242,7 @@ void EXT_CLASS_BASE::PrintAllSourceInfos(bool printOnlyCount, bool printSourceCo
     ULONG64 currentThreadContextPtr = 0;
     try
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
+        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
         currentThreadContextPtr = currentThreadContext.GetPtr();
     }
     catch (...)

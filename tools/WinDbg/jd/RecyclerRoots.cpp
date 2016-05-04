@@ -159,67 +159,55 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
 void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print)
 {
     ULONG64 stackBase = 0;
-    if (recycler.HasField("stackBase"))
+    if (recycler.HasField("stackBase") && recycler.Field("mainThreadHandle").GetPtr() != 0)
     {
         stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.Field("stackBase").GetUlong()
             : recycler.Field("stackBase").GetPtr());
     }
     else
-    {
-        ExtRemoteTyped tib("@$TEB->NtTib");
-        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? tib.Field("StackBase").GetUlong()
-            : tib.Field("StackBase").GetPtr());
+    {        
+        ExtRemoteTyped stackBaseField = ExtRemoteTypedUtil::GetTeb().Field("NtTib.StackBase");
+        stackBase = (ext->m_PtrSize == 4) ? stackBaseField.GetUlong() : stackBaseField.GetUlong64();
     }
 
     ULONG64 stackTop = GetStackTop(ext);
 
-    // memprotectheap recycler->stackBase is not set
-    ExtRemoteTyped tib("@$TEB->NtTib");
-    stackBase = tib.Field("StackBase").GetPtr();
-
     size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
-    void** stack = (void**)malloc(stackSizeInBytes);
+    byte * stack = (byte *)malloc(stackSizeInBytes);
     if (!stack)
     {
         ext->ThrowOutOfMemory();
     }
     ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
+    ExtRemoteData data(stackTop, stackSizeInBytesLong);
+    data.ReadBuffer(stack, stackSizeInBytesLong);
 
-#ifdef _M_X64
+    if (print)
+    {
+        ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
+    }
+
     if (ext->m_PtrSize == 4)
     {
         ULONG32* stack32 = (ULONG32*)stack;
-        ExtRemoteData data(stackTop, stackSizeInBytesLong);
-        data.ReadBuffer(stack32, stackSizeInBytesLong);
-
-        if (print)
-        {
-            ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
-        }
-
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            if (this->TryAdd((ULONG64)stack32[i], RootType::RootTypeStack) && print)
+            ULONG64 address = (ULONG64)stack32[i];
+            if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
                 ext->Out("0x%p", stack32[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
+                ext->DumpPossibleSymbol(address);
+                ext->Out("\n");
             }
         }
     }
     else
-#endif
     {
-        ExtRemoteData data(stackTop, stackSizeInBytesLong);
-        data.ReadBuffer(stack, stackSizeInBytesLong);
-
-        if (print)
-        {
-            ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
-        }
-
+        ULONG64* stack64 = (ULONG64*)stack;
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            ULONG64 address = (ULONG64)stack[i];
+            ULONG64 address = stack64[i];
             if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
                 ext->Out("0x%p", address);

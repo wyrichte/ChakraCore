@@ -11,6 +11,7 @@ public:
     static ULONG64 Count(ExtRemoteTyped head, PCSTR field);
     static ULONG64 TaggedCount(ExtRemoteTyped head, PCSTR field);
     static ULONG64 GetSizeT(ExtRemoteTyped data);
+    static ExtRemoteTyped GetTeb();
 
     template <bool tagged = false, typename Fn>
     static bool LinkListForEach(ExtRemoteTyped head, PCSTR field, Fn fn)
