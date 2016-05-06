@@ -2314,6 +2314,9 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
 
     hr = this->scriptContext->GetDebugContext()->RundownSourcesAndReparse(/*shouldPerformSourceRundown*/ true, /*shouldReparseFunctions*/ false);
 
+    // Debugger attach/detach failure is catastrophic, take down the process
+    DEBUGGER_ATTACHDETACH_FATAL_ERROR_IF_FAILED(hr);
+
     // Successful source rundown.
     return hr;
 }
