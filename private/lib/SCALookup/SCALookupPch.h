@@ -12,7 +12,10 @@
 #include "intsafe.h"
 #pragma push_macro("_DEBUG")
 #undef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
 #include "atlbase.h"
+#pragma warning(pop)
 #pragma pop_macro("_DEBUG")
 
 #include "atlsafe.h"

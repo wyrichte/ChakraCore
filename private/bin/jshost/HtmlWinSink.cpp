@@ -156,6 +156,4 @@ STDMETHODIMP CWinSink::Invoke(DISPID dispIdMember,
   default:
       return DISP_E_MEMBERNOTFOUND;
   }
-
-  return NOERROR;
 }

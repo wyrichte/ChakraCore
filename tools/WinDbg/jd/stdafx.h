@@ -24,7 +24,10 @@ class StackBackTrace;
 // TODO (doilij): remove JD's dependency on ATL
 #pragma push_macro("_DEBUG")
 #undef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
 #include <atlbase.h>
+#pragma warning(pop)
 #include <atlcoll.h>
 #include <atlcom.h>
 #pragma pop_macro("_DEBUG")

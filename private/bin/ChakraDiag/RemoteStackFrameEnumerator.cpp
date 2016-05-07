@@ -187,13 +187,15 @@ namespace JsDiag
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FrameChainBasedStackFrameEnumerator.
     
+#pragma warning(push)
+#pragma warning(disable: 4702)  // unreachable code caused by optimizations
     FrameChainBasedStackFrameEnumerator::FrameChainBasedStackFrameEnumerator(void* frameAddress, void* stackAddress, void* instructionPointer, IVirtualReader* reader)
         : m_reader(reader)
     {
 #ifdef _M_X64
         AssertMsg(FALSE, "FrameChainBasedStackFrameEnumerator is not supported for AMD64 (frame chains in general are not supported)");
         DiagException::Throw(E_INVALIDARG);
-#endif
+#else
         // Set up current frame so that when we call Next 1st time it will return this frame.
         m_currentFrame = new(oomthrow) InternalStackFrame(m_reader);
 
@@ -203,7 +205,10 @@ namespace JsDiag
         m_currentFrame->ReturnAddress = this->GetRetAddrFromFrameBase(m_currentFrame->EffectiveFrameBase);
         m_currentFrame->StackPointer = stackAddress;
         m_currentFrame->FrameId = (ULONG)-1;
+#endif
     }
+#pragma warning(pop)
+
 
     FrameChainBasedStackFrameEnumerator::~FrameChainBasedStackFrameEnumerator()
     {
