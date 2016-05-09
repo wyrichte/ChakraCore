@@ -19,9 +19,9 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
     m_pdocNext = NULL;
     m_ppdocPrev = NULL;
 
-    m_isManagedByHost = FALSE;
-    m_isScriptlet = FALSE;
-    m_isLineCountValid = FALSE;
+    m_isManagedByHost = false;
+    m_isScriptlet = false;
+    m_isLineCountValid = false;
     
     m_utf8SourceInfo = nullptr;
     m_ichMinDisplay = 0;
@@ -30,7 +30,7 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
 
     m_sourceTextAttirbutes = NULL;
 
-    m_fIsMarkedClosed = FALSE;
+    m_fIsMarkedClosed = false;
 }
 
 
@@ -170,7 +170,7 @@ HRESULT CScriptSourceDocumentText::MarkForClose()
     if (!m_fIsMarkedClosed)
     {
         CComAutoUnlockCS autoUnlock(&m_csForClose);
-        m_fIsMarkedClosed = TRUE;
+        m_fIsMarkedClosed = true;
     }
 
     return S_OK;
@@ -315,7 +315,7 @@ void CScriptSourceDocumentText::UpdateLineCount(void)
     Assert(lines < MAXLONG);
     m_cln = static_cast< charcount_t>(lines);
 
-    m_isLineCountValid = TRUE;
+    m_isLineCountValid = true;
 }
 
 

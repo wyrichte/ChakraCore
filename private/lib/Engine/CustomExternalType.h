@@ -46,7 +46,7 @@ namespace Js
       JS_ETW(EventWriteJSCRIPT_HOSTING_CEO_STOP(scriptContext, thisTypeId, (void*)propertyId, Operation)); \
     } \
 
-    typedef enum CustomExternalOperation {
+    enum CustomExternalOperation {
         CustomExternalObject_HasOwnProperty =0,
         CustomExternalObject_GetOwnProperty =1,
         CustomExternalObject_GetPropertyReference =2,

@@ -57,10 +57,10 @@ protected:
     CScriptSourceDocumentText **m_ppdocPrev;
 
     // Flags
-    BOOL m_isManagedByHost : 1;
-    BOOL m_isScriptlet : 1;
-    BOOL m_isLineCountValid : 1;
-    BOOL m_fIsMarkedClosed :1;
+    bool m_isManagedByHost : 1;
+    bool m_isScriptlet : 1;
+    bool m_isLineCountValid : 1;
+    bool m_fIsMarkedClosed :1;
 
     // Source code if we're not managed by the host. This is owned by m_pbody.
     Js::Utf8SourceInfo* m_utf8SourceInfo;

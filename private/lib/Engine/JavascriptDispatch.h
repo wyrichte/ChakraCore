@@ -82,11 +82,11 @@ protected:
 
 private:
     volatile ULONG refCount;
-    BOOL isGCTracked : 1;
-    BOOL isInCall : 1;
-    BOOL isFinalized: 1;
+    bool isGCTracked : 1;
+    bool isInCall : 1;
+    bool isFinalized: 1;
 #if DBG
-    BOOL isFinishCreated : 1;
+    bool isFinishCreated : 1;
 #endif
     Js::ForInObjectEnumerator* dispIdEnumerator;
     LIST_ENTRY linkList;
@@ -133,9 +133,9 @@ private:
 
     void RemoveFromDispatchMap();
 
-    void SetIsInCall() {Assert(!isInCall); isInCall = TRUE; }
-    void ResetIsInCall() { isInCall = FALSE; }
-    BOOL IsInCall() const { return isInCall; }
+    void SetIsInCall() {Assert(!isInCall); isInCall = true; }
+    void ResetIsInCall() { isInCall = false; }
+    bool IsInCall() const { return isInCall; }
     HRESULT VerifyOnEntry(bool isValidThreadScope);
 
     static const unsigned short k_dispAll = DISPATCH_METHOD | DISPATCH_PROPERTYGET | DISPATCH_PROPERTYPUT |

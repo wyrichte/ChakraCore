@@ -147,18 +147,16 @@ bool EXT_CLASS_BASE::HasMemoryNS()
         return false;
     }
 
-    char symRecyclerType[256];
-    ULONG symRecyclerTypeId = 0;
-    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    const char* moduleName = GetModuleName();
+
+    if (HasType(moduleName, "Memory::Recycler"))
     {
         m_hasMemoryNS = true;
         m_isCachedHasMemoryNS = true;
     }
     else
     {
-        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+        if (HasType(moduleName, "Recycler"))
         {
             m_hasMemoryNS = false;
             m_isCachedHasMemoryNS = true;
@@ -170,6 +168,14 @@ bool EXT_CLASS_BASE::HasMemoryNS()
     }
 
     return m_hasMemoryNS;
+}
+
+bool EXT_CLASS_BASE::HasType(const char* moduleName, const char* typeName)
+{
+    char symRecyclerType[256];
+    ULONG symRecyclerTypeId = 0;
+    sprintf_s(symRecyclerType, "%s!%s", moduleName, typeName);
+    return this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK;
 }
 
 PCSTR EXT_CLASS_BASE::GetMemoryNS()
@@ -582,45 +588,42 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
 
     ExtRemoteTyped obj(className.c_str(), var, true);
     ExtRemoteTyped typeId = obj.Field("type.typeId");
+
+    const char* typeIdStr = JDUtil::GetEnumString(typeId);
     if (depth == 0)
     {
         Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)\n", JDUtil::StripModuleName(className.c_str()),
-            className.c_str(), var, var, JDUtil::GetEnumString(typeId));
+            className.c_str(), var, var, typeIdStr);
     }       
 
-    switch (typeId.GetUlong())
-    {
-    case TypeIds_Undefined:
+    
+
+    if(strcmp(typeIdStr, "TypeIds_Undefined") == 0)
     {
         Out("undefined\n");
-    }
         return; // done
-
-    case TypeIds_Null:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_Null") == 0)
     {
         Out("null\n");
-    }
         return; // done
-
-    case TypeIds_Boolean:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_Boolean") == 0)
     {        
         Out(obj.Field("value").GetW32Bool() ? "true\n" : "false\n");
-    }
         return; // done
-
-    case TypeIds_Number:
+    }        
+    else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
     {        
         obj.Field("m_value").OutFullValue();
-    }
         return; // done
-
-    case TypeIds_String:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_String") == 0)
     {        
-        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());        
-    }
+        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());
         return; // done
-
-    case TypeIds_StringObject:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
     {        
         if (depth == 0)
         {            
@@ -632,9 +635,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-
-    case TypeIds_Function:
+    else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
     {        
         if (depth == 0)
         {           
@@ -666,9 +667,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-
-    case TypeIds_Array:
+    else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
     {        
         if (depth == 0)
         {
@@ -679,16 +678,12 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-        
-    default:
+    else
     {        
         if (depth != 0)
         {
             PrintSimpleVarValue(obj);
         }
-    }
-        break;
     }
 
     if (depth == 0)

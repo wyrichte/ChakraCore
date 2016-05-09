@@ -109,8 +109,8 @@ NamedEventHandler::NamedEventHandler(void)
     eventHandlerName = nullptr;
     scriptBody = nullptr;
     m_pdisp = nullptr;
-    shouldPersist = FALSE;
-    m_fTried = FALSE;
+    shouldPersist = false;
+    m_fTried = false;
 }
 
 
@@ -194,7 +194,7 @@ IDispatch* NamedEventHandler::GetDispatch(void)
     {
         return m_pdisp;
     }
-    m_fTried = TRUE;
+    m_fTried = true;
 
     if (FAILED(m_pos->GetObjectOfItem(&m_pdisp, m_pnid, m_pszSubItem)))
         m_pdisp = nullptr;
@@ -279,7 +279,7 @@ HRESULT NamedEventHandler::Clone(__in ScriptEngine *pos, __out BaseEventHandler 
         hr = HR(E_OUTOFMEMORY);
         goto LFail;
     }
-    eventHandlerNew->shouldPersist = TRUE;
+    eventHandlerNew->shouldPersist = true;
 
     *ppeh = eventHandlerNew;
     return NOERROR;

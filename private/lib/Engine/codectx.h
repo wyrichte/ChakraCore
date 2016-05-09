@@ -330,8 +330,8 @@ private:
 
 
     ulong m_currentFrameIndex;
-    BOOL m_fDone: 1;
-    BOOL m_fError: 1;
+    bool m_fDone: 1;
+    bool m_fError: 1;
     CDebugStackFrame *m_stackFramePrev;
     ScriptSite *m_scriptSite;
     Js::WeakDiagStack* m_framePointers;

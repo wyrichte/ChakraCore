@@ -2765,6 +2765,14 @@
   </test>
   <test>
     <default>
+      <files>setTimeout.html</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <baseline>settimeout.html.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>bug_551355.js</files>
       <command>jdtest.exe -targeted -dbgbaseline:bug_551355.js.dbg.baseline jshost</command>
       <compile-flags>-debuglaunch:hybrid -DeferLoadingAvailableSource</compile-flags>
@@ -3800,14 +3808,12 @@
       <compile-flags>-ES6RegExSymbols -ES6RegExPrototypeProperties -debuglaunch -targeted -dbgbaseline:regex-symbols.js.dbg.baseline</compile-flags>
     </default>
   </test>
-<!-- Disable debugger test. Fix after asmjs merge  
   <test>
     <default>
       <files>SIMDFloat32x4_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdfloat32x4_dbg_test.js.dbg.baseline</compile-flags>
     </default>
   </test>
-
   <test>
     <default>
       <files>SIMDFloat32x4_dbg_test.js</files>
@@ -3815,7 +3821,6 @@
       <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
-  -->
   <test>
     <default>
       <files>SIMDInt32x4_dbg_test.js</files>

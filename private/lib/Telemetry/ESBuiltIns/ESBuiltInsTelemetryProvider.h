@@ -6,6 +6,7 @@
 
 #include "ESBuiltInsOpcodeTelemetry.h"
 #include "ESBuiltInsDatabase.h"
+#include "telemetry.h"
 
 class ESBuiltInsTelemetryProvider :
     public IScriptContextTelemetryProvider
@@ -22,6 +23,8 @@ private:
     size_t count_GetBuiltInTypeNameFunction;
     size_t count_GetBuiltInTypeNameObject;
     size_t count_GetBuiltInTypeNameOther;
+
+    Throttle throttle;
 
 #ifdef TELEMETRY_ESB_STRINGS
     ESBuiltInPropertyId GetESBuiltInPropertyId(const Js::JavascriptString* typeName, const Js::PropertyId propertyId);

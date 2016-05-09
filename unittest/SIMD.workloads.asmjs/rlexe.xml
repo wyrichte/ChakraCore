@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-  <!-- Temporarily disabling test and tracking the failure as a simd asmjs bug.
   <test>
     <default>
          <files>mandelbrot.js</files>
@@ -24,7 +23,7 @@
          <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
          <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
-    
+    </test>
    <test>
     <default>
       <files>mandelbrot.js</files>
@@ -48,9 +47,8 @@
       <tags>exclude_dynapogo,exclude_nativeinmemoryserialized,exclude_ship</tags>
       <compile-flags>-testtrace:asmjs -on:asmjs -simdjs -AsmJsStopOnError -on:AsmJsInterpreter -off:fulljit -off:backend</compile-flags>
     </default>
-  </test>
-</test>-->
 
+</test>
 <test>
     <default>
          <files>skinning.js</files>

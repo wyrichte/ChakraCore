@@ -215,17 +215,17 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_dwAppAdviseID         = 0;
     m_dwSnifferCookie       = 0;
 
-    m_fDumbHost = TRUE;
-    fKeepEngineAlive = FALSE;
-    fSetThreadDescription = FALSE;
-    m_isHostInDebugMode = FALSE;
-    m_isFirstSourceCompile = TRUE;
+    m_fDumbHost = true;
+    fKeepEngineAlive = false;
+    fSetThreadDescription = false;
+    m_isHostInDebugMode = false;
+    m_isFirstSourceCompile = true;
     // End Debugger
 
-    m_isDiagnosticsOM = FALSE;
+    m_isDiagnosticsOM = false;
 
-    m_fIsPseudoDisconnected = FALSE;  // True if pretending to be disconnected
-    m_fClearingDebugDocuments = FALSE;
+    m_fIsPseudoDisconnected = false;  // True if pretending to be disconnected
+    m_fClearingDebugDocuments = false;
 
     m_pglbod                = nullptr;
     eventHandlers                = nullptr;
@@ -240,13 +240,13 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     //m_pvLastReportedScriptBody = nullptr;
 
     hostType = SCRIPTHOSTTYPE_DEFAULT;
-    fCanOptimizeGlobalLookup = FALSE;
-    fNonPrimaryEngine = FALSE;
+    fCanOptimizeGlobalLookup = false;
+    fNonPrimaryEngine = false;
     webWorkerID = Js::Constants::NonWebWorkerContextId;
 
     scriptContext = nullptr;
-    isCloned = FALSE;
-    wasScriptDirectEnabled = FALSE;
+    isCloned = false;
+    wasScriptDirectEnabled = false;
     scriptBodyMap = nullptr;
     debugStackFrame = nullptr;
 
@@ -360,7 +360,7 @@ ScriptEngine::EnsureScriptContext()
 
     // Initialize with WebWorker State
     newScriptContext->webWorkerId = webWorkerID;
-    newScriptContext->SetIsDiagnosticsScriptContext(!!m_isDiagnosticsOM);
+    newScriptContext->SetIsDiagnosticsScriptContext(m_isDiagnosticsOM);
 
     if (SCRIPTHOSTTYPE_DEFAULT != this->GetHostType())
     {
@@ -1655,7 +1655,7 @@ HRESULT ScriptEngine::GetDebugSiteCoreNoRef(IActiveScriptSiteDebug **pscriptSite
         HRESULT hr;
         if (FAILED(hr = m_pActiveScriptSite->QueryInterface(__uuidof(IActiveScriptSiteDebug),(void **)&m_scriptSiteDebug)))
         {
-            m_fDumbHost = TRUE;
+            m_fDumbHost = true;
             return hr;
         }
     }
@@ -2183,11 +2183,11 @@ void ScriptEngine::CheckHostInDebugMode()
         {
             Assert(false);
         }
-        if(m_isHostInDebugMode != isInDebugMode)
+        if(m_isHostInDebugMode != !!isInDebugMode)
         {
             OUTPUT_TRACE(Js::DebuggerPhase, _u("Host transitioned debug mode from %s to %s \n"), IsTrueOrFalse(m_isHostInDebugMode),  IsTrueOrFalse(isInDebugMode));
         }
-        m_isHostInDebugMode = isInDebugMode;
+        m_isHostInDebugMode = !!isInDebugMode;
     }
 }
 
@@ -2314,6 +2314,9 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
 
     hr = this->scriptContext->GetDebugContext()->RundownSourcesAndReparse(/*shouldPerformSourceRundown*/ true, /*shouldReparseFunctions*/ false);
 
+    // Debugger attach/detach failure is catastrophic, take down the process
+    DEBUGGER_ATTACHDETACH_FATAL_ERROR_IF_FAILED(hr);
+
     // Successful source rundown.
     return hr;
 }
@@ -2354,7 +2357,7 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
 {
     if (webWorkerID == Js::Constants::NonWebWorkerContextId)
     {
-        fSetThreadDescription = TRUE;
+        fSetThreadDescription = true;
 
         // Not a web worker
         return E_FAIL;
@@ -2370,7 +2373,7 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
         return S_OK; // We already set the thread description, this can happen if webworker have multiple eval codes and attach happens after webworker starts running.
     }
 
-    fSetThreadDescription = TRUE;
+    fSetThreadDescription = true;
 
     if (m_debugApplicationThread != nullptr)
     {
@@ -2447,12 +2450,12 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
             &m_dwSnifferCookie);
         if (SUCCEEDED(hr))
         {
-            m_fStackFrameSnifferAdded = TRUE;
+            m_fStackFrameSnifferAdded = true;
             hr = m_pda->AddGlobalExpressionContextProvider(
                 (IProvideExpressionContexts *)this,
                 &m_dwExprContextProviderCookie);
             if (SUCCEEDED(hr))
-                m_fExprContextProviderAdded = TRUE;
+                m_fExprContextProviderAdded = true;
         }
         Js::ScriptContext* scriptContext=GetScriptSiteHolder()->GetScriptSiteContext();
         scriptContext->GetDebugContext()->GetProbeContainer()->InitializeInlineBreakEngine(this);
@@ -2480,13 +2483,13 @@ void ScriptEngine::ResetDebugger(void)
         if (m_fStackFrameSnifferAdded)
         {
             m_pda->RemoveStackFrameSniffer(m_dwSnifferCookie);
-            m_fStackFrameSnifferAdded = FALSE;
+            m_fStackFrameSnifferAdded = false;
         }
 
         if (m_fExprContextProviderAdded)
         {
             m_pda->RemoveGlobalExpressionContextProvider(m_dwExprContextProviderCookie);
-            m_fExprContextProviderAdded = FALSE;
+            m_fExprContextProviderAdded = false;
         }
 
         RELEASEPTR(m_debugApplicationThread);
@@ -2502,7 +2505,7 @@ void ScriptEngine::ResetDebugger(void)
     Assert(nullptr == m_debugFormatter);
     UNADVISERELEASE(m_pcpAppEvents,m_dwAppAdviseID);
 
-    m_fDumbHost = TRUE;
+    m_fDumbHost = true;
     RELEASEPTR(m_scriptSiteDebug);
 }
 
@@ -2662,7 +2665,7 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
         {
             this->scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
         }
-        m_isFirstSourceCompile = FALSE;
+        m_isFirstSourceCompile = false;
 
         // Let's remove the transition function from script context - so that Eval call does not come all the way over here.
         this->scriptContext->SetTransitionToDebugModeIfFirstSourceFn(nullptr);
@@ -2789,7 +2792,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
     if (m_fPersistLoaded)
         ChangeScriptState(SCRIPTSTATE_INITIALIZED);
 
-    m_fDumbHost = FALSE;
+    m_fDumbHost = false;
 
     if (IsDebuggerEnvironmentAvailable(/*requery*/true))
     {
@@ -3917,7 +3920,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, 0, nullptr, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
+    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
@@ -5831,7 +5834,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
             {
@@ -6532,7 +6535,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         }
     case SCRIPTPROP_DIAGNOSTICS_OM:
         {
-            this->m_isDiagnosticsOM = TRUE;
+            this->m_isDiagnosticsOM = true;
             // This is called before SetScriptSite, so there won't be scriptcontext available.
             Assert(this->scriptContext == nullptr);
             return NOERROR;

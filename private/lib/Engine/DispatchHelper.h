@@ -14,9 +14,9 @@ public:
     {
         return (_pdp->cNamedArgs != 0 && _pdp->rgdispidNamedArgs[0] == DISPID_THIS);
     }
-    typedef enum VariantPropertyFlag 
+    enum VariantPropertyFlag 
     {
-        IsReturnValue = 0x1,        
+        IsReturnValue = 0x1,
         VariantPropertyNone = 0
     };
     static HRESULT MarshalVariantToJsVar(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext * scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);

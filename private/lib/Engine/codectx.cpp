@@ -1171,7 +1171,8 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     Js::ScriptContext* scriptContext = frame->GetScriptContext();
 
     ArenaAllocator *arena = scriptContext->GetThreadContext()->GetDebugManager()->GetDiagnosticArena()->Arena();
-    Js::LocalsWalker *localsWalker = Anew(arena, Js::LocalsWalker, frame, Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference);
+    Js::LocalsWalker *localsWalker = Anew(arena, Js::LocalsWalker, frame,
+        Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference | Js::FrameWalkerFlags::FW_DontAddGlobalsDirectly);
 
     // Store the diag address of a var to the map so that it will be used for editing the value.
     typedef JsUtil::BaseDictionary<Js::PropertyId, Js::IDiagObjectAddress*, ArenaAllocator, PrimeSizePolicy> PropIdToDiagAddressMap;
@@ -1204,7 +1205,7 @@ Js::Var CDebugEval::DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* 
     // Remove its prototype object so that those item will not be visible to the expression evaluation.
     dummyObject->SetPrototype(scriptContext->GetLibrary()->GetNull());
     Js::DebugManager* debugManager = scriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
-    Js::FrameDisplay* env = debugManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject, /* addGlobalThisAtScopeTwo = */ false);
+    Js::FrameDisplay* env = debugManager->GetFrameDisplay(scriptContext, dummyObject, activeScopeObject);
     pfuncScript->SetEnvironment(env);
 
     Js::Var varThis = GetThisFromFrame(frame, nullptr, localsWalker);
@@ -2045,8 +2046,8 @@ CEnumDebugStackFrames::CEnumDebugStackFrames(DWORD_PTR dwSpMin, ScriptSite* _act
      m_dwThread(GetCurrentThreadId()),
      m_dwSpMin(dwSpMin),
      m_currentFrameIndex(0),
-     m_fDone(FALSE),
-     m_fError(FALSE),
+     m_fDone(false),
+     m_fError(false),
      m_stackFramePrev(nullptr),
      m_scriptSite(_activeScriptSite),
      m_framePointers(nullptr)
@@ -2162,13 +2163,13 @@ HRESULT CEnumDebugStackFrames::NextImpl(ulong celt, Descriptor *frameDescriptors
         if (FAILED(hr))
         {
             Assert(nullptr == m_stackFramePrev);
-            m_fError = TRUE;
+            m_fError = true;
             break;
         }
         if (hr != NOERROR)
         {
             Assert(nullptr == m_stackFramePrev);
-            m_fDone = TRUE;
+            m_fDone = true;
             break;
         }
 
@@ -2325,8 +2326,8 @@ HRESULT CEnumDebugStackFrames::Reset(void)
         return HR(E_UNEXPECTED);
     }
 
-    m_fDone = FALSE;
-    m_fError = FALSE;
+    m_fDone = false;
+    m_fError = false;
     m_currentFrameIndex = 0;
     if (nullptr != m_stackFramePrev)
     {
