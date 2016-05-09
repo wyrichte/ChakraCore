@@ -948,7 +948,7 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfPropertiesWithScriptEnter(VARIANT* 
                     Js::PropertyRecord const * propertyRecord;
                     Js::JavascriptOperators::GetPropertyIdForInt(i, scriptContext, &propertyRecord);
                     propertyVar = Js::JavascriptOperators::GetProperty(scriptObject, propertyRecord->GetPropertyId(), scriptContext);
-                    hr = DispatchHelper::MarshalJsVarToVariant(propertyVar, &variants[i]);
+                    hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(propertyVar, &variants[i], scriptContext);
                     if (FAILED(hr))
                     {
                         break;
@@ -1224,7 +1224,7 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     }
 
     Js::Var thisPointer = Js::JavascriptOperators::RootToThisObject(this->scriptObject, scriptContext);
-    hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, scriptContext, builtInFunction, &arguments);
+    hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, scriptContext, builtInFunction, &arguments);
     if (SUCCEEDED(hr))
     {
         Js::Var varResult;
@@ -1400,7 +1400,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             Js::ScriptContext* scriptContext = GetScriptContext();
             Js::ScriptContext* targetScriptContext = targetScriptSite->GetScriptSiteContext();
             Js::Var thisPointer = Js::JavascriptOperators::RootToThisObject(this->scriptObject, targetScriptContext);
-            hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, targetScriptContext, obj, &arguments);
+            hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, targetScriptContext, obj, &arguments);
             if (wFlags & DISPATCH_CONSTRUCT)
             {
                 arguments.Info.Flags = (Js::CallFlags)(arguments.Info.Flags | Js::CallFlags_New);
@@ -1523,17 +1523,17 @@ HRESULT JavascriptDispatch::InvokeOnMember(
                 // be invoked, which would be wrong.
                 // So the only correct thing to do here is to just set the value.
 
-                hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pdp->rgvarg, &value, GetScriptContext());
+                hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pdp->rgvarg, &value, GetScriptContext());
             }
             else
             {
-                hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pVarValue, &value, GetScriptContext());
+                hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pVarValue, &value, GetScriptContext());
                 VariantClear(pVarValue);
             }
         }
         else
         {
-            hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pdp->rgvarg, &value, GetScriptContext());
+            hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pdp->rgvarg, &value, GetScriptContext());
         }
 
 
@@ -1611,7 +1611,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         Js::Var varResult;
         Js::Var thisPointer = this->GetScriptContext()->GetLibrary()->GetNull();
         Js::Arguments arguments(0, nullptr);
-        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
+        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
         if (wFlags & DISPATCH_CONSTRUCT)
         {
             arguments.Info.Flags = (Js::CallFlags)(arguments.Info.Flags | Js::CallFlags_New);
@@ -1952,7 +1952,7 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
     Js::ScriptContext* scriptContext = GetScriptContext();
 
     Js::Var instance;
-    hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(&varInstance, &instance, scriptContext);
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varInstance, &instance, scriptContext);
     if (SUCCEEDED(hr))
     {
         BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED

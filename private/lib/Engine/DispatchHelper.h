@@ -19,27 +19,28 @@ public:
         IsReturnValue = 0x1,
         VariantPropertyNone = 0
     };
-    static HRESULT MarshalVariantToJsVar(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext * scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
-    static HRESULT MarshalVariantToJsVarWithScriptEnter(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
-    static HRESULT MarshalVariantToJsVarNoThrowWithScriptEnter(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
-    static HRESULT MarshalJsVarsToVariants(Js::Var *pAtom, VARIANT *pVar, int count);
-    static HRESULT MarshalJsVarToVariant(Js::Var var, VARIANT *pVar);
-    static HRESULT MarshalFrameDisplayToVariant(Js::FrameDisplay *pDisplay, VARIANT *pVar);
+    static HRESULT MarshalVariantToJsVarNoThrowNoScript(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
+    static HRESULT MarshalJsVarsToVariantsNoThrow(Js::Var *pAtom, VARIANT *pVar, int count);
+    static HRESULT MarshalJsVarToVariantNoThrowWithLeaveScript(Js::Var var, VARIANT *pVar, Js::ScriptContext* scriptContext);
+    static HRESULT MarshalFrameDisplayToVariantNoScript(Js::FrameDisplay *pDisplay, VARIANT *pVar);
     static HRESULT MarshalJsVarToVariantNoThrow(Js::Var var, VARIANT *pVar, Js::ScriptContext * scriptContext);
-    static HRESULT MarshalJsVarToVariantWithScriptEnter(Js::Var var, VARIANT *pVar, Js::ScriptContext * scriptContext);
+    static HRESULT MarshalVariantToJsVarWithLeaveScript(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
     static HRESULT MarshalIDispatchToJsVarNoThrow(Js::ScriptContext * scriptContext, IDispatch * pdispVal, Js::Var * var);
-    static HRESULT MarshalDispParamToArgumentsNoThrowWithScriptEnter(
-        __in DISPPARAMS* dispParams,     
+    static HRESULT MarshalDispParamToArgumentsNoThrowNoScript(
+        __in DISPPARAMS* dispParams,
         __in Js::Var thisPointer, 
         __in Js::ScriptContext * scriptContext, 
         __in Js::RecyclableObject *callee,
         __out Js::Arguments* argument);
-    static HRESULT MarshalVariantToFrameDisplay(VARIANT *pVar, Js::FrameDisplay **ppDisplay, Js::ScriptContext *scriptContext);
 
     static HRESULT GetDispatchValue(ScriptSite* scriptSite, IDispatch* pdisp, DISPID id, VARIANT* pvarRes);
     static HRESULT JscriptChangeType(VARIANT* src, VARIANT* dst, VARTYPE vtNew, Js::ScriptContext *const scriptContext);
 
 private:
+    static HRESULT MarshalVariantToFrameDisplay(VARIANT *pVar, Js::FrameDisplay **ppDisplay, Js::ScriptContext *scriptContext);
+    static HRESULT MarshalJsVarsToVariants(Js::Var *pAtom, VARIANT *pVar, int count);
+    static HRESULT MarshalJsVarToVariant(Js::Var var, VARIANT *pVar);
+    static HRESULT MarshalVariantToJsVar(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext * scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
     static double JsLocalTimeFromVarDate(double dbl);
     static double BstrToDbl(BSTR bstr, Js::ScriptContext *const scriptContext /* can be 0 for standard behavior */);
     static double VarDateFromJsUtcTime(double dbl);
