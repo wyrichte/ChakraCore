@@ -362,8 +362,6 @@ HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * 
 {
     AUTO_NO_EXCEPTION_REGION;
 
-    Js::ScriptContext* scriptContext = this->GetScriptContext();
-
     HRESULT hr;
     HostVariant* pHostVariant = nullptr;
     IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
