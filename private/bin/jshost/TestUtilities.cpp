@@ -207,7 +207,7 @@ Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo,
     hr = JScript9Interface::GetRestrictedString(errorVar, &errorSz);
     if (nullptr != errorSz)
     {
-        HRESULT hr = scriptDirect->StringToVar(errorSz, SysStringLen(errorSz), &errorString);
+        hr = scriptDirect->StringToVar(errorSz, SysStringLen(errorSz), &errorString);
         SysFreeString(errorSz);
         if (FAILED(hr)) { return undefinedObject; }
         return errorString;
@@ -244,7 +244,7 @@ Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Va
     hr = JScript9Interface::GetCapabilitySid(errorVar, &capabilitySz);
     if (nullptr != capabilitySz)
     {
-        HRESULT hr = scriptDirect->StringToVar(capabilitySz, SysStringLen(capabilitySz), &capabilityString);
+        hr = scriptDirect->StringToVar(capabilitySz, SysStringLen(capabilitySz), &capabilityString);
         SysFreeString(capabilitySz);
         if (FAILED(hr)) { return undefinedObject; }
         return capabilityString;

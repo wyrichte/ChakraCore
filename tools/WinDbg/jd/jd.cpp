@@ -485,9 +485,9 @@ JD_PRIVATE_COMMAND(prop,
         Out("---------- ------------\n");
         for (ULONG i = 0; i < propertyNameReader.Count(); i++)
         {
-            ULONG propertyId = propertyNameReader.GetPropertyIdByIndex(i);
+            ULONG currentPropertyId = propertyNameReader.GetPropertyIdByIndex(i);
             ULONG64 pName = propertyNameReader.GetNameByIndex(i);
-            pName ? Out("    0n%-4d %mu\n", propertyId, pName) : Out("    0n%-4d\n", propertyId);
+            pName ? Out("    0n%-4d %mu\n", currentPropertyId, pName) : Out("    0n%-4d\n", currentPropertyId);
         }
     }
 }

@@ -233,9 +233,9 @@ void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
 
         buf = RecyclerNewArrayLeaf(threadContext->GetRecycler(), char16, (upto * MaxHashLength) + 1);
         uint counter = 0;
-        for (int i = 0; i < upto; i++)
+        for (int j = 0; j < upto; j++)
         {
-            const char16* stringToHash = this->NodePackageIncludeList->GetValueAt(i);
+            const char16* stringToHash = this->NodePackageIncludeList->GetValueAt(j);
             size_t strSize = wcslen(stringToHash);
             if (strSize > INT_MAX)
             {

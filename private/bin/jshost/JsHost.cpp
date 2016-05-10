@@ -356,7 +356,7 @@ HRESULT DoOneJsrtIteration(BSTR filename)
             // Time to attach the debugger to the host dynamically.
             HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
-            HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
+            hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
             if (hr != S_OK)
             {
                 goto Error;

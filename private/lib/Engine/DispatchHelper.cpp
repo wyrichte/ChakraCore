@@ -1499,7 +1499,6 @@ HRESULT DispatchHelper::ConvertToString(VARIANT *src, VARIANT* dst, Js::ScriptCo
     default:
         return JSERR_NeedString;
     }
-    return NOERROR;
 }
 
 

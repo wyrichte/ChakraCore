@@ -493,7 +493,6 @@ BOOL HostDispatch::GetDispIdForProperty(LPCWSTR psz, DISPID *pid)
     if (FAILED(hr = EnsureDispatch()))
     {
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
-        Assert(UNREACHED);
     }
 
     HostVariant* hostVariant = GetHostVariant();
@@ -1252,7 +1251,6 @@ BOOL HostDispatch::DeleteProperty(const char16 * psz)
     if (FAILED(hr = EnsureDispatch()))
     {
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
-        Assert(UNREACHED);
     }
 
     HostVariant* hostVariant = GetHostVariant();
@@ -1774,7 +1772,6 @@ BOOL HostDispatch::IsInstanceOf(Js::Var prototypeProxy)
     if (FAILED(hr = EnsureDispatch()))
     {
         HandleDispatchError(hr, nullptr);
-        Assert(UNREACHED);
     }
 
     Js::RecyclableObject* func = Js::RecyclableObject::FromVar(prototypeProxy);
@@ -1824,7 +1821,6 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
             FreeExcepInfo(exceptInfo);
 
             Js::JavascriptError::ThrowDispatchError(scriptContext, hCode, allocatedString);
-            Assert(false);
         }
         hr = exceptInfo->scode;
     }
@@ -1839,12 +1835,10 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
     {
         // Rethrow
         scriptContext->RethrowRecordedException(HostDispatch::CreateDispatchWrapper);
-        Assume(UNREACHED);
     }
 
     Assert(!scriptContext->HasRecordedException());
     Js::JavascriptError::MapAndThrowError(scriptContext, hr);
-    Assume(UNREACHED);
 }
 
 HRESULT HostDispatch::QueryObjectInterface(REFIID riid, void** ppvObj)
@@ -2276,7 +2270,6 @@ Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* req
     if (FAILED(hr))
     {
         HandleDispatchError(hr, NULL);
-        Assert(UNREACHED);
     }
 
     Recycler* recycler = requestContext->GetRecycler();

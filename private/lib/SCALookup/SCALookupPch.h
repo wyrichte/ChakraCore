@@ -14,6 +14,7 @@
 #undef _DEBUG
 #pragma warning(push)
 #pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
 #include "atlbase.h"
 #pragma warning(pop)
 #pragma pop_macro("_DEBUG")

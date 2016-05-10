@@ -648,8 +648,8 @@ HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchM
 
             for (ista = 0 ; ista < m_ichMinDisplay; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
-            long cch = static_cast<long>(m_utf8SourceInfo->GetCchLength());
-            for (ista = m_ichLimDisplay; ista < cch; ista++)
+            long cchSourceInfo = static_cast<long>(m_utf8SourceInfo->GetCchLength());
+            for (ista = m_ichLimDisplay; ista < cchSourceInfo; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
         }
         js_memcpy_s(sourceTextAttributes, cchMax, m_sourceTextAttirbutes + ich + m_ichMinDisplay,

@@ -33,7 +33,6 @@ const OLECHAR krgchHexMap[] =
 };
 
 static HRESULT GetHexLiteral(VARIANT *pvar, BSTR *pbstr);
-static HRESULT GetDecimalLiteral(VARIANT *pvar, BSTR *pbstr);
 static HRESULT GetStringLiteral(LPCOLESTR pstr, BSTR *pbstr);
 
 
@@ -390,53 +389,6 @@ static HRESULT GetHexLiteral(VARIANT *pvar, BSTR *pbstr)
     while (0 != *pstrFrom)
         *pstrT++ = *pstrFrom++;
     return NOERROR;
-}
-
-static HRESULT GetDecimalLiteral(VARIANT *pvar, BSTR *pbstr)
-{
-    AssertMem(pvar);
-    AssertMem(pbstr);
-
-    long lVal;
-    ULONG ulVal;
-    switch (pvar->vt)
-    {
-    case VT_I1:
-        lVal = pvar->cVal;
-        goto LSigned;
-    case VT_I2:
-        lVal = pvar->iVal;
-        goto LSigned;
-    case VT_I4:
-        lVal = pvar->lVal;
-        goto LSigned;
-    case VT_INT:
-        lVal = pvar->intVal;
-        goto LSigned;
-
-    case VT_UI1:
-        ulVal = pvar->bVal;
-        goto LUnsigned;
-    case VT_UI2:
-        ulVal = pvar->uiVal;
-        goto LUnsigned;
-    case VT_UI4:
-        ulVal = pvar->ulVal;
-        goto LUnsigned;
-    case VT_UINT:
-        ulVal = pvar->uintVal;
-        goto LUnsigned;
-
-    default:
-        AssertMsg(FALSE, "Which vt don't we handle?");
-        return HR(E_NOTIMPL);
-    }
-
-LSigned:
-    return VarBstrFromI4(lVal, LOCALE_ENGLISH, LOCALE_NOUSEROVERRIDE, pbstr);
-
-LUnsigned:
-    return VarBstrFromUI4(ulVal, LOCALE_ENGLISH, LOCALE_NOUSEROVERRIDE, pbstr);
 }
 
 static HRESULT GetStringLiteral(LPCOLESTR pstr, BSTR *pbstr)

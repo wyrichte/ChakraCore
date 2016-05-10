@@ -2298,8 +2298,6 @@ HRESULT CEnumDebugStackFrames::NextCommon()
     {
         return S_FALSE;
     }
-
-    return S_OK;
 }
 
 

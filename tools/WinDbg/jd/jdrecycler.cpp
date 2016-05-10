@@ -734,7 +734,7 @@ JD_PRIVATE_COMMAND(gcstats,
     "{summary;b,o;;Display only a summary}"
     "{filter;s,o;type;Filter the output to either alloc (PageAllocator) or buckets (Heap Buckets)}")
 {
-    ULONG64 arg = GetUnnamedArgU64(0);
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);
 
     PrintBucketStatsFilter filter = StatsFilterBuckets;
 
@@ -763,9 +763,9 @@ JD_PRIVATE_COMMAND(gcstats,
     }
 
     RemoteRecycler recycler;
-    if (arg != 0)
+    if (recyclerArg != 0)
     {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
+        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
     }
     else
     {
@@ -1772,7 +1772,7 @@ JD_PRIVATE_COMMAND(hbstats,
     "{noheader;b,o;no header;Do not display header}"
     )
 {
-    ULONG64 arg = GetUnnamedArgU64(0);
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);
     enum FilterType
     {
         ShowSmallBlock = 0x1,
@@ -1858,9 +1858,9 @@ JD_PRIVATE_COMMAND(hbstats,
     ULONG64 filterSize = this->GetArgU64("fs");
 
     ExtRemoteTyped recycler;
-    if (arg != 0)
+    if (recyclerArg != 0)
     {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
+        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
     }
     else
     {
@@ -2185,8 +2185,8 @@ JD_PRIVATE_COMMAND(memstats,
     ULONG64 totalUnusedBytes = 0;
     if (showThreadSummary || !threadContextAddress)
     {
-        ExtRemoteTyped totalUsedBytes(this->FillModule("%s!totalUsedBytes"));
-        this->Out("Page Allocator Total Used Bytes: %u\n", ExtRemoteTypedUtil::GetSizeT(totalUsedBytes));
+        ExtRemoteTyped remoteTotalUsedBytes(this->FillModule("%s!totalUsedBytes"));
+        this->Out("Page Allocator Total Used Bytes: %u\n", ExtRemoteTypedUtil::GetSizeT(remoteTotalUsedBytes));
     }
     if (showThreadSummary)
     {

@@ -199,7 +199,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_fIsValidCodePage      = TRUE;
     m_codepage              = GetACP();
 
-    m_cbMinStackHost        = Js::Constants::MinStackHost;
     m_excepinfoInterrupt    = NoException;       // If interrupt raised, exception information
     pendingCloneSource      = nullptr;
     // Debugger
@@ -691,7 +690,7 @@ STDMETHODIMP ScriptEngine::DumpHeap(const WCHAR* outputFile, HeapDumperObjectToD
     // if file already opened, don't set it here. Just ignore this one.
     if (! Output::GetOutputFile())
     {
-        HRESULT hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, _u("wt"));
+        hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, _u("wt"));
         if (FAILED(hr))
         {
             return hr;
@@ -6158,11 +6157,6 @@ LVersionInfo:
     case SCRIPTPROP_HOSTSTACKREQUIRED:
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (nullptr != pvarIndex)
-            return E_INVALIDARG;
-        pvarValue->vt   = VT_I4;
-        pvarValue->lVal = m_cbMinStackHost;
-        return NOERROR;
 
     case SCRIPTPROP_INTEGERMODE:
         AssertMsg(FALSE, "not tested");
@@ -6294,14 +6288,6 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
     case SCRIPTPROP_HOSTSTACKREQUIRED:
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (nullptr != pvarIndex)
-            return E_INVALIDARG;
-        if (VT_I4 != pvarValue->vt)
-            return E_INVALIDARG;
-        m_cbMinStackHost = (UINT)pvarValue->lVal;
-        if (m_cbMinStackHost < Js::Constants::MinStackHost)
-            m_cbMinStackHost = Js::Constants::MinStackHost;
-        return NOERROR;
 
         // locale conversion is used in vb, but not in jscript.
     case SCRIPTPROP_CONVERSIONLCID:
@@ -6321,27 +6307,6 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         // This flag can only be set if the engine is uninitialized.
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (SCRIPTSTATE_UNINITIALIZED != m_ssState)
-            return E_UNEXPECTED;
-        if (VT_UNKNOWN != pvarValue->vt)
-            return E_INVALIDARG;
-#if 0
-        IActiveScriptStringCompare* pActiveScriptStrComp;
-        pActiveScriptStrComp = nullptr;
-        if (pvarValue->punkVal)
-        {
-            HRESULT hr = pvarValue->punkVal->QueryInterface(IID_IActiveScriptStringCompare, (void **)&pActiveScriptStrComp);
-            if (FAILED(hr) || pActiveScriptStrComp == nullptr)
-                return E_INVALIDARG;
-        }
-        if (nullptr != m_pActiveScriptStrComp)
-        {
-            m_pActiveScriptStrComp->Release();
-            m_pActiveScriptStrComp = nullptr;
-        }
-        m_pActiveScriptStrComp = pActiveScriptStrComp;
-#endif
-        return NOERROR;
 
         // IIS is using this to catch a bunch of exceptions,
         // including some fatal exceptions. COM interfaces are

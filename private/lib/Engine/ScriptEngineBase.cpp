@@ -1680,8 +1680,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ReleaseAndRethrowException(__in HRES
             localScriptContext->RethrowRecordedException(nullptr);
         }
         END_ENTER_SCRIPT;
-
-        Assert(false);
     }
     return S_FALSE;
 }
@@ -3036,7 +3034,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToNativeArray(Var arrayObject,
             Assert(FALSE);
             return 0xffffffff;
         };
-        return 0xffffffff;
     };
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)

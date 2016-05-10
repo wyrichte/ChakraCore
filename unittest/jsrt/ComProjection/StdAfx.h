@@ -21,7 +21,10 @@
 #define JS_ATL_DEBUG
 #undef _DEBUG
 #endif
+#pragma warning(push)
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
 #include "atlbase.h"
+#pragma warning(pop)
 #ifdef JS_ATL_DEBUG
 #define _DEBUG
 #undef JS_ATL_DEBUG

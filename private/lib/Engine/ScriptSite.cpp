@@ -284,13 +284,13 @@ HRESULT ScriptSite::Init(
         // quietly.
 
         IActiveScriptProfilerCallback *pProfileCallback;
-        HRESULT hr = ScriptEngine::CheckForExternalProfiler(&pProfileCallback);
+        HRESULT hrT = ScriptEngine::CheckForExternalProfiler(&pProfileCallback);
 
-        if (SUCCEEDED(hr))
+        if (SUCCEEDED(hrT))
         {
-            hr = scriptEngine->StartProfilingInternal(pProfileCallback, PROFILER_EVENT_MASK_TRACE_ALL_WITH_DOM, 0);
+            hrT = scriptEngine->StartProfilingInternal(pProfileCallback, PROFILER_EVENT_MASK_TRACE_ALL_WITH_DOM, 0);
             pProfileCallback->Release();
-            AssertMsg(SUCCEEDED(hr), "Unable to create Profiler");
+            AssertMsg(SUCCEEDED(hrT), "Unable to create Profiler");
         }
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
@@ -880,8 +880,8 @@ HRESULT ScriptSite::AddGlobalDispatch(
     else
     {
         globalDispatches->Add(hostObject->GetHostDispatch());
-        HostObject* hostObject = static_cast<HostObject*>(globalObject->GetHostObject());
-        hostObject->SetNeedToCheckOtherItem();
+        HostObject* currentHostObject = static_cast<HostObject*>(globalObject->GetHostObject());
+        currentHostObject->SetNeedToCheckOtherItem();
     }
     return hr;
 }
