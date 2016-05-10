@@ -44,12 +44,7 @@ function testSIMDInt32x4_conversion() {
     equal(3, SIMD.Int32x4.extractLane(n, 2));
     equal(4, SIMD.Int32x4.extractLane(n, 3));
 
-    var a = SIMD.Float64x2(1.0, 2.2);
-    var b = SIMD.Int32x4.fromFloat64x2(a);
-    equal(1, SIMD.Int32x4.extractLane(b, 0));
-    equal(2, SIMD.Int32x4.extractLane(b, 1));
-    equal(0, SIMD.Int32x4.extractLane(b, 2));
-    equal(0, SIMD.Int32x4.extractLane(b, 3));
+    
 
     var c = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
     var d = SIMD.Int32x4.fromFloat32x4Bits(c);
@@ -58,12 +53,7 @@ function testSIMDInt32x4_conversion() {
     equal(0x40400000, SIMD.Int32x4.extractLane(d, 2));
     equal(0x40800000, SIMD.Int32x4.extractLane(d, 3));
 
-    var e = SIMD.Float64x2(1.0, 2.0);
-    var f = SIMD.Int32x4.fromFloat64x2Bits(e);
-    equal(0x00000000, SIMD.Int32x4.extractLane(f, 0));
-    equal(0x3FF00000, SIMD.Int32x4.extractLane(f, 1));
-    equal(0x00000000, SIMD.Int32x4.extractLane(f, 2));
-    equal(0x40000000, SIMD.Int32x4.extractLane(f, 3));
+    
 }
 
 

@@ -26,14 +26,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDFloat32x4 BinaryOp......
 Correct
 Correct
@@ -157,14 +149,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDFloat32x4 BinaryOp......
 Correct
 Correct
@@ -263,12 +247,12 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDFloat32x4, Line: 9, Column: 1, Character Position: 143
-[FunctionCompiled]: Function: testSIMDFloat32x4_BinaryOp, Line: 82, Column: 1, Character Position: 3255
-[FunctionCompiled]: Function: testSIMDFloat32x4_CompareOp, Line: 143, Column: 1, Character Position: 5804
-[FunctionCompiled]: Function: testSIMDFloat32x4_Select, Line: 236, Column: 1, Character Position: 10111
-[FunctionCompiled]: Function: testSIMDFloat32x4_Shuffle, Line: 215, Column: 1, Character Position: 9091
-[FunctionCompiled]: Function: testSIMDFloat32x4_Swizzle, Line: 185, Column: 1, Character Position: 7587
-[FunctionCompiled]: Function: testSIMDFloat32x4_UnaryOp, Line: 118, Column: 1, Character Position: 4783
+[FunctionCompiled]: Function: testSIMDFloat32x4_BinaryOp, Line: 68, Column: 1, Character Position: 2601
+[FunctionCompiled]: Function: testSIMDFloat32x4_CompareOp, Line: 129, Column: 1, Character Position: 5150
+[FunctionCompiled]: Function: testSIMDFloat32x4_Select, Line: 222, Column: 1, Character Position: 9457
+[FunctionCompiled]: Function: testSIMDFloat32x4_Shuffle, Line: 201, Column: 1, Character Position: 8437
+[FunctionCompiled]: Function: testSIMDFloat32x4_Swizzle, Line: 171, Column: 1, Character Position: 6933
+[FunctionCompiled]: Function: testSIMDFloat32x4_UnaryOp, Line: 104, Column: 1, Character Position: 4129
 [FunctionCompiled]: Function: testSIMDFloat32x4_conversion, Line: 50, Column: 1, Character Position: 1876
 Passed: Validation
 Script Profiler ends
