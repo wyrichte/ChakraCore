@@ -262,7 +262,20 @@ namespace Js
         {
             if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
             {
-                BOOL result = JavascriptOperators::GetProperty(originalInstance, this->GetPrototype(), propertyId, value, requestContext, info);
+                BOOL result;
+                if (info)
+                {
+                    // The recursive call to GetProperty will populate the cache as appropriate.
+                    // Capture with a local PropertyValueInfo so that the caller doesn't try to populate again with
+                    // inconsistent info.
+                    PropertyValueInfo localInfo = *info;
+                    result = JavascriptOperators::GetProperty(originalInstance, this->GetPrototype(), propertyId, value, requestContext, &localInfo);
+                }
+                else
+                {
+                    result = JavascriptOperators::GetProperty(originalInstance, this->GetPrototype(), propertyId, value, requestContext, nullptr);
+                }
+
                 if (result)
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
@@ -408,7 +421,19 @@ namespace Js
         {
             if (JavascriptOperators::HasProperty(this->GetPrototype(), propertyId))
             {
-                BOOL result = JavascriptOperators::GetPropertyReference(originalInstance, this->GetPrototype(), propertyId, value, requestContext, info);
+                BOOL result;
+                if (info)
+                {
+                    // The recursive call to GetPropertyReference will populate the cache as appropriate.
+                    // Capture with a local PropertyValueInfo so that the caller doesn't try to populate again with
+                    // inconsistent info.
+                    PropertyValueInfo localInfo = *info;
+                    result = JavascriptOperators::GetPropertyReference(originalInstance, this->GetPrototype(), propertyId, value, requestContext, &localInfo);
+                }
+                else
+                {
+                    result = JavascriptOperators::GetPropertyReference(originalInstance, this->GetPrototype(), propertyId, value, requestContext, nullptr);
+                }
                 if (result)
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
