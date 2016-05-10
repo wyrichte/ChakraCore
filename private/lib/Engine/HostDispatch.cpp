@@ -352,8 +352,7 @@ HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags,
         // ensure that there is no EH across this boundary, as that can lead to bad state (e.g. destructors not called)
         if (exceptionCode != 0 && !IsDebuggerPresent())
         {
-            exceptionInfo;
-            RaiseFailFastException(NULL, NULL, NULL);
+            UnexpectedExceptionHandling_fatal_error(&exceptionInfo);
         }
     }
     return hr;
@@ -361,69 +360,78 @@ HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags,
 
 HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
+    AUTO_NO_EXCEPTION_REGION;
+
     Js::ScriptContext* scriptContext = this->GetScriptContext();
 
     HRESULT hr;
     HostVariant* pHostVariant = nullptr;
     IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
-    
+
     IDispatchEx *pDispEx = (IDispatchEx*)GetDispatchNoRef();
     DispatchExCaller* pdc = nullptr;
     if (pDispEx == NULL)
     {
         return E_ACCESSDENIED;
-    }   
+    }
 
-    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    hr = this->scriptSite->GetDispatchExCaller(&pdc);
+    if (SUCCEEDED(hr))
     {
-        hr = this->scriptSite->GetDispatchExCaller(&pdc);
-        if (SUCCEEDED(hr))
-        {
-            ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
-            LCID lcid = scriptEngine->GetInvokeVersion();
+        ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
+        LCID lcid = scriptEngine->GetInvokeVersion();
         
-            pDispEx->AddRef();
+        pDispEx->AddRef();
             
-            // The custom marshaler in dispex.dll has a bug that causes the DISPATCH_CONSTRUCT flag
-            // to be lost. In IE10+ mode we use PrivateInvokeEx to work around that bug.
-            if (wFlags & DISPATCH_CONSTRUCT)
+        // The custom marshaler in dispex.dll has a bug that causes the DISPATCH_CONSTRUCT flag
+        // to be lost. In IE10+ mode we use PrivateInvokeEx to work around that bug.
+        if (wFlags & DISPATCH_CONSTRUCT)
+        {
+            IJavascriptDispatchRemoteProxy * remoteProxy = nullptr;
+            hr = pDispEx->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void **)&remoteProxy);
+            if (SUCCEEDED(hr))
             {
-                IJavascriptDispatchRemoteProxy * remoteProxy = nullptr;
-                hr = pDispEx->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void **)&remoteProxy);
-                if (SUCCEEDED(hr))
-                {
-                    hr = remoteProxy->PrivateInvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
-                    remoteProxy->Release();
-                }
-                else
-                {
-                    hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
-                }
+                hr = remoteProxy->PrivateInvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
+                remoteProxy->Release();
             }
             else
             {
                 hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
             }
-            
-            pDispEx->Release();
-
-            this->scriptSite->ReleaseDispatchExCaller(pdc);
         }
+        else
+        {
+            hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
+        }
+            
+        pDispEx->Release();
 
+        this->scriptSite->ReleaseDispatchExCaller(pdc);
     }
-    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
-    
+
     return hr;
 }
 
+#pragma strict_gs_check(push, on)
 HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
-    return CallInvokeHandler(&HostDispatch::CallInvokeExInternal, id, wFlags, pdp, pvarRes, pei);
-}
-
-HRESULT HostDispatch::CallInvokeInternal (DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
-{
     Js::ScriptContext* scriptContext = this->GetScriptContext();
+    HRESULT hr;
+
+    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    {
+        hr = CallInvokeHandler(&HostDispatch::CallInvokeExInternal, id, wFlags, pdp, pvarRes, pei);
+    }
+    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+
+    return hr;
+}
+#pragma strict_gs_check(pop)
+
+HRESULT HostDispatch::CallInvokeInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    AUTO_NO_EXCEPTION_REGION;
+
     HRESULT hr;
     UINT uArgErr;
     IDispatch* pdisp = GetDispatchNoRef();
@@ -431,23 +439,31 @@ HRESULT HostDispatch::CallInvokeInternal (DISPID id, WORD wFlags, DISPPARAMS * p
     {
         return E_ACCESSDENIED;
     }
-    
-    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
-    {
-        pdisp->AddRef();
 
-        hr = pdisp->Invoke(id, IID_NULL, 0x409/*lcid*/, wFlags, pdp, pvarRes, pei, &uArgErr);
+    pdisp->AddRef();
 
-        pdisp->Release();
-    }
-    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+    hr = pdisp->Invoke(id, IID_NULL, 0x409/*lcid*/, wFlags, pdp, pvarRes, pei, &uArgErr);
+
+    pdisp->Release();
+
     return hr;
 }
 
+#pragma strict_gs_check(push, on)
 HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
-    return CallInvokeHandler(&HostDispatch::CallInvokeInternal, id, wFlags, pdp, pvarRes, pei);
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
+    HRESULT hr;
+
+    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    {
+        hr = CallInvokeHandler(&HostDispatch::CallInvokeInternal, id, wFlags, pdp, pvarRes, pei);
+    }
+    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+
+    return hr;
 }
+#pragma strict_gs_check(pop)
 
 BOOL HostDispatch::IsGetDispIdCycle(const char16* name)
 {
