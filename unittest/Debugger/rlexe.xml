@@ -3969,4 +3969,11 @@
       <tags>fail_mutators,BugFix</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>promiseDisplay.js</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:promisedisplay.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
+    </default>
+  </test>
 </regress-exe>
