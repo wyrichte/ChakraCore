@@ -5,7 +5,7 @@ p1 = new Promise(
       p1.someOtherProp = "in fullfil";
       resolve("p1 resolved");
       /**bp:evaluate('p1', 2);**/
-    }, 100);
+    }, 1000);
   });
   
 p1.someOtherProp = "before";
@@ -30,14 +30,14 @@ p2 = new Promise(function (resolve, reject) {
     WScript.SetTimeout(function () {
       resolve(null);
       /**bp:evaluate('p2', 2);**/
-    }, 100);
+    }, 2000);
   });
 
 p3 = new Promise(function (resolve, reject) {
     WScript.SetTimeout(function () {
       reject(["p3", "rejected"]);
       /**bp:evaluate('p3', 2);**/
-    }, 200);
+    }, 3000);
   });
 
 Promise.all([p2, p3]).then(function (value) {
