@@ -287,7 +287,7 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
         {
             // assuming this is the exception object, and we need to create hostdispatch wrapper around it. 
             Js::Var errorObject;
-            hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pvar, &errorObject, scriptContext);
+            hr = DispatchHelper::MarshalVariantToJsVar(pvar, &errorObject, scriptContext);
             if (SUCCEEDED(hr))
             {
                 exceptionObject = RecyclerNew(scriptContext->GetRecycler(), Js::JavascriptExceptionObject, errorObject, scriptContext, NULL);

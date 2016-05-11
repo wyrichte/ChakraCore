@@ -2383,6 +2383,11 @@ namespace JsDiag
         Assert(data->pathLength <= Js::TypePath::MaxPathTypeHandlerLength);
         ULONG readSize = sizeof(Js::TinyDictionary) + data->pathLength;
         ULONG bytesRead;
+        if (readSize > sizeof(Js::TinyDictionary) + Js::TypePath::MaxPathTypeHandlerLength)
+        {
+            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_READ_PAST_SOURCE);
+        }
+        __analysis_assume(readSize <= sizeof(Js::TinyDictionary) + Js::TypePath::MaxPathTypeHandlerLength);
         HRESULT hr = m_reader->ReadVirtual((BYTE *)ToTargetPtr()->data + offsetof(Js::TypePath::Data, map), buffer, readSize, &bytesRead);
         CheckHR(hr, DiagErrorCode::READ_VIRTUAL);
         if (bytesRead != readSize)

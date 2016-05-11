@@ -10,6 +10,7 @@
 class DispatchHelper
 {
 public:
+    friend class DispatchExCaller; // this is for MarshalVariantToJsVar in CanHandleException.
     inline static bool DispParamsContainThis(DISPPARAMS *_pdp)
     {
         return (_pdp->cNamedArgs != 0 && _pdp->rgdispidNamedArgs[0] == DISPID_THIS);
