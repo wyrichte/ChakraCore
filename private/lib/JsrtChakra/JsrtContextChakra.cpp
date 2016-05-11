@@ -37,9 +37,9 @@ bool JsrtContext::Is(void * ref)
     return VirtualTableInfo<JsrtContextChakra>::HasVirtualTable(ref);
 }
 
-void JsrtContext::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo)
+void JsrtContext::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
 {
-    ((JsrtContextChakra *)this)->OnScriptLoad(scriptFunction, utf8SourceInfo);
+    ((JsrtContextChakra *)this)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);
 }
 
 class JsrtDummyScriptSite sealed : public IActiveScriptSite, public IActiveScriptSiteDebug, public IActiveScriptSiteDebugHelper
@@ -387,7 +387,7 @@ JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const char16* nameSp
 }
 
 
-void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo)
+void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
 {
     if (scriptFunction != NULL)
     {

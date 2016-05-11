@@ -838,35 +838,6 @@ bool ScriptEngine::CanHalt(Js::InterpreterHaltState* haltState)
     return map != nullptr && (!pCurrentFuncBody->GetIsGlobalFunc() || !Js::FunctionBody::IsDummyGlobalRetStatement(&map->sourceSpan));
 }
 
-class AutoSetDispatchHaltFlag
-{
-public:
-    AutoSetDispatchHaltFlag(Js::ScriptContext *scriptContext, ThreadContext *threadContext) : m_scriptContext(scriptContext), m_threadContext(threadContext)
-    {
-        Assert(m_scriptContext != nullptr);
-        Assert(m_threadContext != nullptr);
-
-        Assert(!m_threadContext->GetDebugManager()->IsAtDispatchHalt());
-        m_threadContext->GetDebugManager()->SetDispatchHalt(true);
-
-        Assert(!m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
-        m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(true);
-    }
-    ~AutoSetDispatchHaltFlag()
-    {
-        Assert(m_threadContext->GetDebugManager()->IsAtDispatchHalt());
-        m_threadContext->GetDebugManager()->SetDispatchHalt(false);
-
-        Assert(m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
-        m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(false);
-    }
-private:
-    // Primary reason for caching both because once we break to debugger our engine is open for re-entrancy. That means the 
-    // connection to scriptcontet to threadcontext can go away (imagine the GC is called when we are broken)
-    Js::ScriptContext * m_scriptContext;
-    ThreadContext * m_threadContext;
-};
-
 void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
 {
     BREAKRESUMEACTION resumeAction = BREAKRESUMEACTION_CONTINUE;
