@@ -25,7 +25,7 @@ $global:bbCoverExe          = "{0}\Magellan\BBCover.exe" -f $global:magellanDir
 $global:GumshoeSetupPath    = "\\ocentral\products\Gumshoe\latest\setup\x64\gumshoe.msi"
 $global:MagellanSetupPath   = "\\codecovfs01\Magellan_pre_Release\Latest\amd64fre"
 $global:copyShareBase       = "\\chakrafs01\CodeCoverageLogs"
-$global:fileFilterTemplate  = "\\bptserver1\users\tools\CodeCoverage\FilterFileTemplate.xml"
+$global:fileFilterTemplate  = "\\chakrafs\fs\Tools\CodeCoverage\FilterFileTemplate.xml"
 
 if (-not ($global:arch -eq "AMD64"))
 {
