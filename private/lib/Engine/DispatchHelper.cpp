@@ -667,8 +667,10 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 break;
             }
             CComPtr<IDispatch> dispatch;
-
-            hr = pVar->punkVal->QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
+            {
+                AUTO_NO_EXCEPTION_REGION;
+                hr = pVar->punkVal->QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
+            }
             if (SUCCEEDED(hr) && dispatch)
             {
                 *pAtom = HostDispatch::Create(scriptContext, (IDispatch*)dispatch);
@@ -692,13 +694,16 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
             CComPtr<ITracker> tracker;
             IDispatch* pdispVal = pVar->pdispVal;
             CComPtr<IDispatchEx> pDispEx;
-            if (SUCCEEDED(pdispVal->QueryInterface(IID_PPV_ARGS(&pDispEx))) && pDispEx)
             {
-                // We'll use the IDispatchEx implementation to ask for ITracker in case any proxies want to handle IDispatchEx/ITracker.
-                pdispVal = pDispEx;
-            }
+                AUTO_NO_EXCEPTION_REGION;
+                if (SUCCEEDED(pdispVal->QueryInterface(IID_PPV_ARGS(&pDispEx))) && pDispEx)
+                {
+                    // We'll use the IDispatchEx implementation to ask for ITracker in case any proxies want to handle IDispatchEx/ITracker.
+                    pdispVal = pDispEx;
+                }
 
-            hr = pdispVal->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
+                hr = pdispVal->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
+            }
 
             if (SUCCEEDED(hr) && tracker)
             {
