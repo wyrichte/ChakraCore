@@ -1722,8 +1722,6 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         ret = hr;
     }
 
-    // Terminate JIT Process
-    JitProcessManager::StopRpcServer();
     // Flush all I/O buffers
     _flushall();
 
