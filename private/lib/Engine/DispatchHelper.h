@@ -26,7 +26,7 @@ public:
     static HRESULT MarshalFrameDisplayToVariantNoScript(Js::FrameDisplay *pDisplay, VARIANT *pVar);
     static HRESULT MarshalJsVarToVariantNoThrow(Js::Var var, VARIANT *pVar, Js::ScriptContext * scriptContext);
     static HRESULT MarshalVariantToJsVarWithLeaveScript(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag = VariantPropertyNone);
-    static HRESULT MarshalIDispatchToJsVarNoThrow(Js::ScriptContext * scriptContext, IDispatch * pdispVal, Js::Var * var);
+    static HRESULT MarshalIDispatchToJsVar(Js::ScriptContext * scriptContext, IDispatch * pdispVal, Js::Var * var);
     static HRESULT MarshalDispParamToArgumentsNoThrowNoScript(
         __in DISPPARAMS* dispParams,
         __in Js::Var thisPointer, 

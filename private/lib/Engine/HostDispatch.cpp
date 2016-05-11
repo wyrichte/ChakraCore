@@ -40,6 +40,7 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL t
     {
         if (tryTracker)
         {
+            AUTO_NO_EXCEPTION_REGION;
             hr = pdisp->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
 
             if (SUCCEEDED(hr) && tracker)

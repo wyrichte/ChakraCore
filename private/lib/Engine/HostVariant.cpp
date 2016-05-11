@@ -15,6 +15,7 @@ HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
     AssertCanHandleOutOfMemory();
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
         Assert(!scriptContext->GetThreadContext()->IsScriptActive());
         hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
@@ -49,6 +50,7 @@ HostVariant::HostVariant(IDispatch *pdisp) :
 
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
         hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         
