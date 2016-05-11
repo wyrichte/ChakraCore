@@ -510,37 +510,36 @@ Js::Var DispatchHelper::MarshalBSTRToJsVar(Js::ScriptContext * scriptContext, BS
     return scriptContext->GetLibrary()->GetNullString();
 }
 
-HRESULT DispatchHelper::MarshalIDispatchToJsVarNoThrow(Js::ScriptContext* scriptContext, IDispatch * pdispVal, Js::Var * var)
+HRESULT DispatchHelper::MarshalIDispatchToJsVar(Js::ScriptContext* scriptContext, IDispatch * pdispVal, Js::Var * var)
 {
     CComPtr<IJavascriptDispatchLocalProxy> pProxy;
     HRESULT hr = NOERROR;
 
-    BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
+        AUTO_NO_EXCEPTION_REGION;
         hr = pdispVal->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy);
+    }
 
-        if (FAILED(hr) || !pProxy)
+    if (FAILED(hr) || !pProxy)
+    {
+        *var = HostDispatch::Create(scriptContext, pdispVal, FALSE);
+        hr = NOERROR;
+    }
+    else
+    {
+        JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>((IJavascriptDispatchLocalProxy*)pProxy);
+        Js::DynamicObject *obj = javascriptDispatch->GetObject();
+
+        if (NULL == obj)
         {
-            *var = HostDispatch::Create(scriptContext, pdispVal, FALSE);
-            hr = NOERROR;
+            hr = E_ACCESSDENIED;
         }
         else
         {
-            JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>((IJavascriptDispatchLocalProxy*)pProxy);
-            Js::DynamicObject *obj = javascriptDispatch->GetObject();
-
-            if (NULL == obj)
-            {
-                hr = E_ACCESSDENIED;
-            }
-            else
-            {
-                *var = Js::CrossSite::MarshalVar(scriptContext, obj);
-                hr = NOERROR;
-            }
+            *var = Js::CrossSite::MarshalVar(scriptContext, obj);
+            hr = NOERROR;
         }
     }
-    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -715,7 +714,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 hr = pdispVal->QueryInterface(__uuidof(IDispatch), (void**)&pDispatch);
                 if (SUCCEEDED(hr) && pDispatch)
                 {
-                    hr = MarshalIDispatchToJsVarNoThrow(scriptContext, pDispatch, pAtom);
+                    hr = MarshalIDispatchToJsVar(scriptContext, pDispatch, pAtom);
                     pDispatch->Release();
                 }
                 else

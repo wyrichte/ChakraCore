@@ -1371,7 +1371,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DispExToVar(
         result->Release();
     }
 #endif
-    hr = DispatchHelper::MarshalIDispatchToJsVarNoThrow(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        hr = DispatchHelper::MarshalIDispatchToJsVar(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
