@@ -1671,7 +1671,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{su;b,o;sortByUnknown;Sort by unknown}"
     "{vt;b,o;vtable;Vtable Only}"
     "{u;b,o;grouped;Show unknown count}"
-    "{k;b,o;known;Known objects only}"
+    "{g;b,o;group;Group unknown objects}"
     )
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
@@ -1683,7 +1683,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const bool sortByUnknown = HasArg("su");
     const bool infer = !HasArg("vt");
     const bool showUnknown = HasArg("u");
-    const bool knownOnly = HasArg("k");
+    const bool groupUnknown = HasArg("g");
 
     if (sortByCount && sortByName)
     {
@@ -1789,7 +1789,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         ObjectAllocStats& stats = sortedArray.get()[i].second;
         uint currCount = stats.count;
         uint currSize = stats.size;
-        if (knownOnly)
+        if (!groupUnknown)
         {
             currCount -= stats.unknownCount;
             currSize -= stats.unknownSize;
@@ -1801,7 +1801,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         }
         Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100,
             (float)currSize / (float)totalSize * 100,
-            stats.hasVtable ? (knownOnly ? "" : "[Group] ") : "[Field] ", typeName);
+            stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
 
         if (i > limit)
         {
