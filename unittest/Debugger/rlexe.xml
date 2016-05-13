@@ -3952,6 +3952,13 @@
   </test>
   <test>
     <default>
+      <files>default_attach.js</files>
+      <compile-flags>-targeted -dbgbaseline:default_attach.js.dbg.baseline</compile-flags>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>testmodule.js</files>
       <compile-flags>-debugLaunch -targeted -es6module -dbgbaseline:testmodule.js.dbg.baseline</compile-flags>
     </default>
