@@ -1561,12 +1561,13 @@ JD_PRIVATE_COMMAND(savegraph,
     "Saves the current recycler object graph into a file (js, python, csv, etc.)",
     "{;s;filename;Filename to output to}"
     "{;ed,o,d=0;recycler;Recycler address}"
-    "{;s,o,d=js;filetype;Save file type <js|python|csv|csvx>}")
+    "{;s,o,d=js;filetype;Save file type <js|python|csv>}"
+    "{vt;b,o;vtable;Vtable Only}")
 {
     PCSTR filename = GetUnnamedArgStr(0);
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
     PCSTR filetype = GetUnnamedArgStr(2);
-
+    const bool infer = !HasArg("vt");
     ExtRemoteTyped threadContext;
     ExtRemoteTyped recycler;
     if (recyclerArg != NULL)
@@ -1584,28 +1585,29 @@ JD_PRIVATE_COMMAND(savegraph,
     Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
-
-    Out("Saving object graph to %s\n", filename);
-    if (_stricmp(filetype, "js") == 0)
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, 
+        infer? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
+    
+    if (_stricmp(filetype, "csv") == 0)
     {
-        objectGraph.DumpForJs(filename);
-    }
-    else if (_stricmp(filetype, "python") == 0)
-    {
-        objectGraph.DumpForPython(filename);
-    }
-    else if (_stricmp(filetype, "csv") == 0)
-    {
+        Out("Saving object graph to %s.nodes.csv and %s.edges.csv\n", filename, filename);
         objectGraph.DumpForCsv(filename);
-    }
-    else if (_stricmp(filetype, "csvx") == 0)
-    {
-        objectGraph.DumpForCsvExtended(this, filename);
     }
     else
     {
-        Out("Unknown file type %s\n", filetype);
+        Out("Saving object graph to %s\n", filename);
+        if (_stricmp(filetype, "js") == 0)
+        {
+            objectGraph.DumpForJs(filename);
+        }
+        else if (_stricmp(filetype, "python") == 0)
+        {
+            objectGraph.DumpForPython(filename);
+        }
+        else
+        {
+            Out("Unknown file type %s\n", filetype);
+        }
     }
 }
 
@@ -1764,12 +1766,19 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     std::auto_ptr<std::pair<char const *, ObjectAllocStats>> sortedArray(new std::pair<char const *, ObjectAllocStats>[objectCounts.size()]);
     int c = 0;
     for (auto i = objectCounts.begin(); i != objectCounts.end(); i++)
-    {
-        sortedArray.get()[c++] = (*i);
+    {        
         ObjectAllocStats& stats = (*i).second;
         knownObjectCount += stats.count - stats.unknownCount;
         knownObjectSize += stats.size - stats.unknownSize;
         vtableCount += stats.hasVtable;
+
+        if (!groupUnknown)
+        {
+            stats.count -= stats.unknownCount;
+            stats.size -= stats.unknownSize;
+        }
+
+        sortedArray.get()[c++] = (*i);
     }
 
     qsort(sortedArray.get(), c, sizeof(std::pair<char const *, ObjectAllocStats>), sortComparer);
@@ -1782,11 +1791,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         ObjectAllocStats& stats = sortedArray.get()[i].second;
         uint currCount = stats.count;
         uint currSize = stats.size;
-        if (!groupUnknown)
-        {
-            currCount -= stats.unknownCount;
-            currSize -= stats.unknownSize;
-        }
+
         if (showUnknown)
         {
             Out("%7u %11u %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize,

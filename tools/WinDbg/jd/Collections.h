@@ -524,8 +524,12 @@ public:
 
     NodeType * FindNode(const TKey& key)
     {   
-        NodeType node = NodeType(key);
-        return _nodes.Get(&node);
+        if (NodeType::IsLegalAddress(key))
+        {
+            NodeType node = NodeType(key);
+            return _nodes.Get(&node);
+        }
+        return nullptr;
     }
 
     void AddEdges(NodeType * nodeFrom, Set<NodeType *> const& successors)
@@ -561,24 +565,17 @@ public:
         {
             fprintf(f, "import networkx as nx\n");
             fprintf(f, "G = nx.DiGraph()\n");
-
-            this->MapAllNodes([&](NodeType* node)
+            EmitEdges([=](char rootChar, ULONG64 fromPointer, ULONG64 toPointer)
             {
-                node->MapAllSuccessors([&](NodeType* toNode)
+                if (rootChar)
                 {
-                    ULONG64 fromPointer = node->Key();
-                    ULONG64 toPointer = toNode->Key();
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "G.add_edge('0x%016llX', '0x%016llX')\n", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "G.add_edge('0x%08llX', '0x%08llX')\n", fromPointer, toPointer);
-                    }
-                });
-            });
-
+                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge('0x%c', '0x%016llX')\n" : "G.add_edge('0x%c', '0x%08llX')\n", rootChar, fromPointer);
+                }
+                else
+                {
+                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge('0x%016llX', '0x%016llX')\n" : "G.add_edge(\"0x%08llX', '0x%08llX')\n", fromPointer, toPointer);
+                }
+            });          
             fclose(f);
         }
     }
@@ -590,110 +587,81 @@ public:
         FILE* f = fopen(filename, "w+");
         if (f != nullptr)
         {
-            this->MapAllNodes([&](NodeType* node)
+            EmitEdges([=](char rootChar, ULONG64 fromPointer, ULONG64 toPointer)
             {
-                node->MapAllSuccessors([&](NodeType* toNode)
+                if (rootChar)
                 {
-                    ULONG64 fromPointer = node->Key();
-                    ULONG64 toPointer = toNode->Key();
-
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "G.add_edge(\"0x%016llX\", \"0x%016llX\")\n", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "G.add_edge(\"0x%08llX\", \"0x%08llX\")\n", fromPointer, toPointer);
-                    }
-                });
+                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge(\"0x%c\", \"0x%016llX\")\n" : "G.add_edge(\"0x%c\", \"0x%08llX\")\n", rootChar, fromPointer);
+                }
+                else
+                {
+                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge(\"0x%016llX\", \"0x%016llX\")\n" : "G.add_edge(\"0x%08llX\", \"0x%08llX\")\n", fromPointer, toPointer);
+                }
             });
-
             fclose(f);
         }
-    }
-
-    // TODO (doilij) refactor all of these export commands (they share a common structure)
+    }    
+    
     // Export to CSV
     // sourcePointer, destPointer
-    void ExportToCsv(const char* filename)
-    {
-        FILE* f = fopen(filename, "w+");
-        if (f != nullptr)
+    bool ExportToCsv(const char* filename)
+    {        
+        char outputFileName[_MAX_PATH];
+        if (strcpy_s(outputFileName, filename) != 0)
         {
-            this->MapAllNodes([&](NodeType* node)
-            {
-                node->MapAllSuccessors([&](NodeType* toNode)
-                {
-                    ULONG64 fromPointer = node->Key();
-                    ULONG64 toPointer = toNode->Key();
-
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "0x%016llX,0x%016llX\n", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "0x%08llX,0x%08llX\n", fromPointer, toPointer);
-                    }
-                });
-            });
-
-            fclose(f);
+            return false;
         }
-    }
-
-    // Export to CSV Extended
-    void ExportToCsvExtended(EXT_CLASS_BASE *ext, const char* filename)
-    {
-        // display some info on the console about the data layout
-        ext->Out("CSVX column info:\n");
-        ext->Out("    sourcePointer, destPointer, sourceTypeId, destTypeId, sourceTypeName, destTypeName, sourceRootFlags, destRootFlags\n");
-
-        FILE* f = fopen(filename, "w+");
-        if (f != nullptr)
+        if (strcat_s(outputFileName, ".nodes.csv") != 0)
         {
-            this->MapAllNodes([&](NodeType* node)
-            {
-                node->MapAllSuccessors([&](NodeType* toNode)
-                {
-                    ULONG64 fromPointer = node->Key();
-                    ULONG64 toPointer = toNode->Key();
-
-                    if (g_Ext->m_PtrSize == 8)
-                    {
-                        fprintf(f, "0x%016llX,0x%016llX", fromPointer, toPointer);
-                    }
-                    else
-                    {
-                        fprintf(f, "0x%08llX,0x%08llX", fromPointer, toPointer);
-                    }
-
-                    fprintf(f, ","); // comma following the first two fields
-
-                    ULONG64 fromPointerVtable = GetPointerAtAddress(fromPointer);
-                    ULONG64 toPointerVtable = GetPointerAtAddress(toPointer);
-
-                    // TODO (doilij) implement fromAddrTypeId column
-                    fprintf(f, ",");
-
-                    // TODO (doilij) implement toAddrTypeId column
-                    fprintf(f, ",");
-
-                    fprintf(f, "\"%s\",", ext->GetTypeNameFromVTable(fromPointerVtable).c_str());
-                    fprintf(f, "\"%s\",", ext->GetTypeNameFromVTable(toPointerVtable).c_str());
-
-                    // print node flags information for node and toNode
-                    const uint flagsBufferLength = 8; // space for 7 flags plus NULL
-                    char flagsBuffer[flagsBufferLength];
-                    FormatPointerFlags(flagsBuffer, flagsBufferLength, node);
-                    fprintf(f, "\"%s\",", flagsBuffer);
-                    FormatPointerFlags(flagsBuffer, flagsBufferLength, toNode);
-                    fprintf(f, "\"%s\"\n", flagsBuffer);
-                });
-            });
-
-            fclose(f);
+            return false;
         }
+        FILE * f = fopen(outputFileName, "w+");
+        if (f == nullptr)
+        {
+            return false;
+        }
+
+        fprintf(f, "Addr,Size,HasVTbl,Type,TypeId\n");
+        this->MapAllNodes([=](NodeType * node)
+        {
+            fprintf(f, g_Ext->m_PtrSize == 8 ? "0x%016llX" : "0x%08llX", node->Key());
+            fprintf(f, ",%d", node->GetObjectSize());
+            fprintf(f, node->HasVtable() ? ",1" : ",0");
+            fprintf(f, ",\"%s\"", node->HasTypeInfo() && !node->IsPropagated()? node->GetTypeNameOrField() : "");
+            /* TODO: TypeId */
+            fprintf(f, ",");
+            fprintf(f, "\n");
+        });
+
+        fclose(f);
+
+        if (strcpy_s(outputFileName, filename) != 0)
+        {
+            return false;
+        }
+        if (strcat_s(outputFileName, ".edges.csv") != 0)
+        {
+            return false;
+        }
+
+        f = fopen(outputFileName, "w+");
+        if (f == nullptr)
+        {
+            return false;
+        }
+        EmitEdges([=](char rootChar, ULONG64 fromPointer, ULONG64 toPointer)
+        {
+            if (rootChar)
+            {
+                fprintf(f, g_Ext->m_PtrSize == 8? "%c,0x%016llX\n" : "%c,0x%08llX\n", rootChar, fromPointer);
+            }
+            else
+            {
+                fprintf(f, g_Ext->m_PtrSize == 8 ? "0x%016llX,0x%016llX\n": "0x%08llX,0x%08llX\n", fromPointer, toPointer);
+            }
+        });
+        fclose(f);
+        return true;
     }
 
     Graph() : edgeCount(0) {};
@@ -720,6 +688,42 @@ public:
 #endif
 
 private:
+    template <typename Fn>
+    void EmitEdges(Fn emitOneEdge)
+    {
+        this->MapAllNodes([&](NodeType* node)
+        {
+            ULONG64 fromPointer = node->Key();
+            RootType rootType = node->GetRootType();
+            if (RootTypeUtils::IsType(rootType, RootType::RootTypePinned))
+            {
+                emitOneEdge('P', fromPointer, 0);
+            }
+            if (RootTypeUtils::IsType(rootType, RootType::RootTypeStack))
+            {
+                emitOneEdge('S', fromPointer, 0);
+            }
+            if (RootTypeUtils::IsType(rootType, RootType::RootTypeRegister))
+            {
+                emitOneEdge('R', fromPointer, 0);
+            }
+            if (RootTypeUtils::IsType(rootType, RootType::RootTypeArena))
+            {
+                emitOneEdge('A', fromPointer, 0);
+            }
+            if (RootTypeUtils::IsType(rootType, RootType::RootTypeImplicit))
+            {
+                emitOneEdge('I', fromPointer, 0);
+            }
+
+            node->MapAllSuccessors([&](NodeType* toNode)
+            {
+                ULONG64 toPointer = toNode->Key();
+                emitOneEdge(0, fromPointer, toPointer);
+            });
+        });
+    }
+
     class HashCompare
     {
     public:
@@ -755,7 +759,7 @@ struct RecyclerGraphNodeData
       
         rootType(RootType::RootTypeNone)
     {
-        Assert((address & 0xFF00000000000000) == 0);
+        Assert(IsLegalAddress(address));
         ClearTypeInfo();
     }
 
@@ -776,6 +780,10 @@ struct RecyclerGraphNodeData
     RootType GetRootType() const { return rootType; }
     void AddRootType(RootType rootType) { this->rootType = RootTypeUtils::CombineTypes(this->rootType, rootType); }
 
+    static bool IsLegalAddress(ULONG64 address)
+    {
+        return (address & 0xFF00000000000000) == 0;
+    }
 private:
     RootType rootType : 8;
     const ULONG64 address : 56;
