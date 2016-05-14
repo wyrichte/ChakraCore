@@ -205,7 +205,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
 
     InitSite(runtime);
 
-    SetScriptContext(this->scriptEngine->GetScriptContext());
+    SetJavascriptLibrary(this->scriptEngine->GetScriptContext()->GetLibrary());
     Link();
     PinCurrentJsrtContext();
 
@@ -215,7 +215,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
 /* static */
 JsrtContextChakra *JsrtContextChakra::New(JsrtRuntime * runtime)
 {
-    return RecyclerNewFinalizedLeaf(runtime->GetThreadContext()->EnsureRecycler(), JsrtContextChakra, runtime);
+    return RecyclerNewFinalized(runtime->GetThreadContext()->EnsureRecycler(), JsrtContextChakra, runtime);
 }
 
 void JsrtContextChakra::InitSite(JsrtRuntime *runtime)
@@ -271,7 +271,7 @@ void JsrtContextChakra::Dispose(bool isShutdown)
             this->projectionDelegateWrapper->Release();
             this->projectionDelegateWrapper = nullptr;
         }
-        SetScriptContext(nullptr);
+        SetJavascriptLibrary(nullptr);
         Unlink();
     }
 }

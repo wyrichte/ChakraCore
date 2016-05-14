@@ -14,7 +14,6 @@ namespace JsrtUnitTests
             TEST_CLASS_PROPERTY(L"Description", L"memory policy test")
             TEST_CLASS_PROPERTY(L"Parallel", L"true")
         END_TEST_CLASS()
-
         TEST_METHOD(BasicTest)
         {
             WCHAR* fileNames[] = {L"UnboundedMemory.js", L"arrayTest.js", L"arraybuffer.js"};
@@ -177,6 +176,71 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
             VERIFY_IS_TRUE(JsDisposeRuntime(runtime) == JsNoError);
         }
+
+        TEST_METHOD(ContextLeak)
+        {
+            JsRuntimeHandle jsRuntime = JS_INVALID_RUNTIME_HANDLE;
+            this->totalAllocationSize = 0;
+            JsErrorCode errorCode = ::JsCreateRuntime(
+                (JsRuntimeAttributes)(JsRuntimeAttributeAllowScriptInterrupt | JsRuntimeAttributeDisableEval | JsRuntimeAttributeDisableNativeCodeGeneration),
+                nullptr,
+                &jsRuntime);
+            VERIFY_IS_TRUE(errorCode == JsNoError);
+            VERIFY_IS_TRUE(JsSetRuntimeMemoryAllocationCallback(jsRuntime, this, MemoryPolicyTest::MemoryAllocationCallback) == JsNoError);
+            for (ULONG i = 0; i < 1000; ++i)
+            {
+                JsContextRef jsContext = JS_INVALID_REFERENCE;
+                errorCode = ::JsCreateContext(jsRuntime, &jsContext);
+                VERIFY_IS_TRUE(errorCode == JsNoError);
+                errorCode = ::JsSetCurrentContext(jsContext);
+                VERIFY_IS_TRUE(errorCode == JsNoError);
+                errorCode = ::JsSetCurrentContext(JS_INVALID_REFERENCE);
+                VERIFY_IS_TRUE(errorCode == JsNoError);
+                if (((ULONG)(i % 100)) * 100 == 0)
+                {
+                    JsCollectGarbage(jsRuntime);
+                }
+            }
+            VERIFY_IS_TRUE(JsDisposeRuntime(jsRuntime) == JsNoError);
+        }
+
+        TEST_METHOD(ContextLeak1)
+        {
+            JsRuntimeHandle jsRuntime = JS_INVALID_RUNTIME_HANDLE;
+            this->totalAllocationSize = 0;
+            JsErrorCode errorCode = ::JsCreateRuntime(
+                (JsRuntimeAttributes)(JsRuntimeAttributeAllowScriptInterrupt | JsRuntimeAttributeDisableEval | JsRuntimeAttributeDisableNativeCodeGeneration),
+                nullptr,
+                &jsRuntime);
+            VERIFY_IS_TRUE(errorCode == JsNoError);
+            VERIFY_IS_TRUE(JsSetRuntimeMemoryAllocationCallback(jsRuntime, this, MemoryPolicyTest::MemoryAllocationCallback) == JsNoError);
+            for (ULONG i = 0; i < 1000; ++i)
+            {
+                JsContextRef jsContext = JS_INVALID_REFERENCE;
+                JsContextRef jsContext1 = JS_INVALID_REFERENCE;
+                JsValueRef jsVal1 = JS_INVALID_REFERENCE, jsGO2 = JS_INVALID_REFERENCE;
+                JsPropertyIdRef propertyId;
+                VERIFY_IS_TRUE(::JsCreateContext(jsRuntime, &jsContext) == JsNoError);
+                VERIFY_IS_TRUE(::JsSetCurrentContext(jsContext) == JsNoError);
+                VERIFY_IS_TRUE(::JsCreateObject(&jsVal1) == JsNoError);
+                VERIFY_IS_TRUE(::JsGetPropertyIdFromName(L"test", &propertyId) == JsNoError);
+                VERIFY_IS_TRUE(::JsCreateContext(jsRuntime, &jsContext1) == JsNoError);
+                VERIFY_IS_TRUE(::JsSetCurrentContext(jsContext1) == JsNoError);
+                VERIFY_IS_TRUE(::JsGetGlobalObject(&jsGO2) == JsNoError);
+                VERIFY_IS_TRUE(::JsSetProperty(jsGO2, propertyId, jsVal1, true) == JsNoError);
+                VERIFY_IS_TRUE(JsSetCurrentContext(JS_INVALID_REFERENCE) == JsNoError);
+                if (((ULONG)(i % 100)) * 100 == 0)
+                {
+                    jsVal1 = JS_INVALID_REFERENCE;
+                    jsGO2 = JS_INVALID_REFERENCE;
+                    jsContext = JS_INVALID_REFERENCE;
+                    jsContext1 = JS_INVALID_REFERENCE;
+                    JsCollectGarbage(jsRuntime);
+                }
+            }
+            VERIFY_IS_TRUE(JsDisposeRuntime(jsRuntime) == JsNoError);
+        }
+
 
         static const size_t MemoryLimit = 10 * 1024 * 1024;
         static bool __stdcall MemoryAllocationCallback(LPVOID context, JsMemoryEventType allocationEvent, size_t allocationSize)
