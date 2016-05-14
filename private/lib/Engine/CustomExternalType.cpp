@@ -1002,6 +1002,7 @@ namespace Js
                     {
                         *enumerator = requestContext->GetLibrary()->GetNullEnumerator();
                     }
+                    *enumerator = CrossSite::MarshalEnumerator(requestContext, *enumerator);
                     return TRUE;
                 }
             }

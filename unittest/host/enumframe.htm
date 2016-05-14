@@ -1,0 +1,13 @@
+<html>
+<body>
+<iframe id='foo' src='foo.htm'></iframe>
+<script>
+var a = document.getElementById('foo');
+var out = undefined;
+for (var i in a.contentWindow) {
+  out += i;
+}
+WScript.Echo("pass");
+</script>
+</body>
+</html>
