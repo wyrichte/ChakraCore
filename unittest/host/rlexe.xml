@@ -27,4 +27,9 @@
       <files>EventHandlerCall.htm</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>enumframe.htm</files>
+    </default>
+  </test>
 </regress-exe>
