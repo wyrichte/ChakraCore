@@ -1970,6 +1970,9 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
         delete[] argv;
     }
 
+    // Terminate JIT Process
+    JitProcessManager::StopRpcServer();
+
     return ret;
 }
 
