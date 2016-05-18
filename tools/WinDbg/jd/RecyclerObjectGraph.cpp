@@ -247,7 +247,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
                 {
                     // Aux slots might be use as a inline slot for object with small number of properties
                     char const * auxSlotTypeName;
-                    JDRemoteTyped remoteTyped = GetExtension()->CastWithVtable(objectAddress, &auxSlotTypeName);
+                    JDRemoteTyped remoteTypedAuxSlot = GetExtension()->CastWithVtable(objectAddress, &auxSlotTypeName);
                     if (auxSlotTypeName == nullptr)
                     {
                         addField(auxSlots, "Js::DynamicObject.auxSlots");

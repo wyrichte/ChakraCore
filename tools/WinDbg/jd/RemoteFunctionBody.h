@@ -75,7 +75,7 @@ public:
     }
     JDRemoteTyped GetAuxContextBlock()
     {
-        return this->GetAuxWrappedFieldRecyclerData("auxContextBlock");
+        return this->GetAuxWrappedFieldRecyclerData("auxContextBlock", "Js::ByteBlock");
     }
     JDRemoteTyped GetLoopHeaderArray()
     {

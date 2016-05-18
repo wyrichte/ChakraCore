@@ -377,7 +377,7 @@ namespace JsDiag
     };
 
     template <class T, class WalkerPolicy>
-    STDMETHODIMP JsDebugProperty<T, WalkerPolicy>::GetPropertyInfo(
+    inline STDMETHODIMP JsDebugProperty<T, WalkerPolicy>::GetPropertyInfo(
         /* [in] */ UINT nRadix,
         /* [out] */ __RPC__out JsDebugPropertyInfo *pPropertyInfo)
     {
@@ -421,7 +421,7 @@ namespace JsDiag
     }
 
     template <class T, class WalkerPolicy>
-    STDMETHODIMP JsDebugProperty<T, WalkerPolicy>::GetMembers(
+    inline STDMETHODIMP JsDebugProperty<T, WalkerPolicy>::GetMembers(
         /* [in] */ JS_PROPERTY_MEMBERS members,
         /* [out] */ __RPC__deref_out_opt IJsEnumDebugProperty **ppEnum)
     {

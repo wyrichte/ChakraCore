@@ -965,13 +965,13 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
         {
             Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
         }
-        Js::Var args[2];
-        args[0] = obj;
-        args[1] = value;
+        Js::Var outArgs[2];
+        outArgs[0] = obj;
+        outArgs[1] = value;
         Js::Arguments jsArguments(0, nullptr);
         jsArguments.Info.Count = callInfo.Count;
         jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
-        jsArguments.Values = (Js::Var*)args;
+        jsArguments.Values = (Js::Var*)outArgs;
 
         Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
     }

@@ -12,15 +12,13 @@ HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
     memset(&varDispatch, 0, sizeof(VARIANT));
     varDispatch.vt = VT_DISPATCH;
     supportIDispatchEx = FALSE;
-
+    AssertCanHandleOutOfMemory();
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
-        BEGIN_LEAVE_SCRIPT(scriptContext)
-        {
-            hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
-        }
-        END_LEAVE_SCRIPT(scriptContext);
+        Assert(!scriptContext->GetThreadContext()->IsScriptActive());
+        hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         
         if (hr == S_OK && this->varDispatch.pdispVal)
         {
@@ -48,9 +46,11 @@ HostVariant::HostVariant(IDispatch *pdisp) :
     memset(&varDispatch, 0, sizeof(VARIANT));
     varDispatch.vt = VT_DISPATCH;
     supportIDispatchEx = FALSE;
+    AssertCanHandleOutOfMemory();
 
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
         hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         

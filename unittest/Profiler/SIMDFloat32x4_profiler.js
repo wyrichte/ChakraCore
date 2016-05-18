@@ -50,20 +50,6 @@ function testSIMDFloat32x4() {
 function testSIMDFloat32x4_conversion() {
     WScript.Echo("test SIMDFloat32x4 conversions......");
 
-    var j = SIMD.Float64x2(1.0, 2.0);
-    var k = SIMD.Float32x4.fromFloat64x2(j);
-    equal(1.0, SIMD.Float32x4.extractLane(k, 0));
-    equal(2.0, SIMD.Float32x4.extractLane(k, 1));
-    equal(0.0, SIMD.Float32x4.extractLane(k, 2));
-    equal(0.0, SIMD.Float32x4.extractLane(k, 3));
-
-    var m = SIMD.Float64x2.fromInt32x4Bits(SIMD.Int32x4(0x3F800000, 0x40000000, 0x40400000, 0x40800000));
-    var n = SIMD.Float32x4.fromFloat64x2Bits(m);
-    equal(1.0, SIMD.Float32x4.extractLane(n, 0));
-    equal(2.0, SIMD.Float32x4.extractLane(n, 1));
-    equal(3.0, SIMD.Float32x4.extractLane(n, 2));
-    equal(4.0, SIMD.Float32x4.extractLane(n, 3));
-
     var o = SIMD.Int32x4(1, 2, 3, 4);
     var p = SIMD.Float32x4.fromInt32x4(o);
     equal(1.0, SIMD.Float32x4.extractLane(p, 0));

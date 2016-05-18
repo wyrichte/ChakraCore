@@ -383,8 +383,6 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
     }
 
     ExitProcess(exitCode);
-
-    return NULL;
 }
 
 Var WScriptFastDom::QuitHtmlHost(Var function, CallInfo callInfo, Var* args)

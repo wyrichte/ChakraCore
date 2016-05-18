@@ -50,19 +50,6 @@ function testSIMDUint8x16_binaryop() {
     f2; /**bp:evaluate('f2', 2);**/
 }
 
-function testSIMDUint8x16_minmaxop() {
-    // test SIMDUint8x16 minmaxOp
-    var m = SIMD.Uint8x16(100, 200, 100, 1, 10, 20, 30, 40, 100, 200, 300, 400, 1, 2, 3, 4);
-    m; /**bp:evaluate('m', 0, LOCALS_TYPE);locals(1);bp:evaluate('m', 1);**/
-    var n = SIMD.Uint8x16(200, 300, 1, 200, 400, 10, 22, 3, 1, 2, 3, 4, 100, 200, 300, 400);
-    n; /**bp:evaluate('n', 0, LOCALS_TYPE); evaluate('n', 2);**/
-    var cmp = SIMD.Uint8x16.min(m, n);  // min
-    cmp; /**bp:evaluate('cmp', 2);**/
-
-    var cmp2 = SIMD.Uint8x16.max(m, n);      // max
-    cmp2; /**bp:evaluate('cmp2', 2);**/
-}
-
 function testSIMDUint8x16_compareop() {
     // test SIMDUint8x16 compareOp
     var m = SIMD.Uint8x16(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
@@ -136,7 +123,7 @@ function testSIMDUint8x16_replaceLane() {
 
 testSIMDUint8x16_unaryop();
 testSIMDUint8x16_binaryop();
-testSIMDUint8x16_minmaxop();
+
 testSIMDUint8x16_compareop();
 testSIMDUint8x16_conversion();
 testSIMDUint8x16_replaceLane();

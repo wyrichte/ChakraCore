@@ -1,29 +1,36 @@
 param (
+    [Parameter(Mandatory=$True)]
     [ValidateSet("x86", "x64", "arm", "*")]
-    [string]$arch="",
+    [string]$arch,
 
+    [Parameter(Mandatory=$True)]
     [ValidateSet("debug", "release", "test", "codecoverage", "*")]
-    [string]$flavor = "",
+    [string]$flavor,
 
     [string]$srcpath = "",
     [string]$binpath = "",
     [string]$objpath = "",
     [string]$srcsrvcmdpath = "Build\script\srcsrv.bat",
     [string]$logFile = "",
-    [string[]]$pogo = @(),
+    [string[]]$pogo = @("x86","test","x64","test"),
     [switch]$noaction
 )
 
 $CoreScriptDir = "$PSScriptRoot\..\..\core\build\scripts"
 
-$OuterScriptRoot = $PSScriptRoot;
+$OuterScriptRoot = $PSScriptRoot
 . "$CoreScriptDir\pre_post_util.ps1"
-$bvtcmdpath = "$srcpath\tools\runcitests.cmd";
-$pogoscript = "$srcpath\tools\pogo.git.bat";
+$bvtcmdpath = "$srcpath\tools\runcitests.cmd"
+$pogoscript = "$srcpath\tools\pogo.git.bat"
 
+$noactionSwitchString = ""
 if ($noaction) {
-    & $CoreScriptDir\post_build.ps1 -repo "full" -arch $arch -flavor $flavor -srcpath $srcpath -binpath $binpath -objpath $objpath -srcsrvcmdpath $srcsrvcmdpath -bvtcmdpath $bvtcmdpath -noaction -logFile "$logFile" -pogo $pogo -pogoscript $pogoscript
-} else {
-    & $CoreScriptDir\post_build.ps1 -repo "full" -arch $arch -flavor $flavor -srcpath $srcpath -binpath $binpath -objpath $objpath -srcsrvcmdpath $srcsrvcmdpath -bvtcmdpath $bvtcmdpath -logFile "$logFile" -pogo $pogo -pogoscript $pogoscript
+    $noactionSwitchString = "-noaction"
 }
+
+$pogoList = $pogo -join ','
+$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -srcpath `"$srcpath`" -binpath `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
+
+iex $postBuildCommmand
+
 exit $LastExitCode

@@ -131,6 +131,7 @@ bool RemoteThreadContext::GetTlsSlot(ExtRemoteTyped& teb, ULONG tlsSlotIndex, UL
     else if (tlsSlotIndex < TLS_MINIMUM_AVAILABLE + TLS_EXPANSION_SLOTS) {
         ExtRemoteTyped tlsExpansionSlots = teb.Field("TlsExpansionSlots");
         if (tlsExpansionSlots.GetPtr()) {
+            tlsExpansionSlots = ExtRemoteTyped("(void **)@$extin", tlsExpansionSlots.GetPtr());
             *pValue = tlsExpansionSlots[tlsSlotIndex - TLS_MINIMUM_AVAILABLE].GetPtr();
             return true;
         }

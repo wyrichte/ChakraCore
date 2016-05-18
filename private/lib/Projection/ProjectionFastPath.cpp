@@ -725,6 +725,8 @@ namespace Projection
         return DynamicCall(dynamicCallSignature, method, args, callInfo);
     }
 
+#pragma warning(push)
+#pragma warning(disable:4702) // unreachable code
     template<typename T1>
     Var FastPathIn(Js::Var method, Js::CallInfo callInfo, ...)
     {
@@ -783,7 +785,7 @@ namespace Projection
         }
         Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, StringOfId(scriptContext, dynamicCallSignature->method->nameId));
     }
-
+#pragma warning(pop)
 
     template<typename T1>
     Var FastPathOut(Js::Var method, Js::CallInfo callInfo, ...)
@@ -1121,6 +1123,8 @@ namespace Projection
         return result;
     }
 
+#pragma warning(push)
+#pragma warning(disable:4702) // unreachable code
     template<typename T1>
     Var StaticFastPathIn(Js::Var method, Js::CallInfo callInfo, ...)
     {
@@ -1166,6 +1170,7 @@ namespace Projection
         }
         Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, StringOfId(scriptContext, signature->dynamicCallSignature->method->nameId));
     }
+#pragma warning(pop)
 
     template<typename T1, typename T2>
     Var StaticFastPathInIn(Js::Var method, Js::CallInfo callInfo, ...)

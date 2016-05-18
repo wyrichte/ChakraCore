@@ -328,7 +328,6 @@ namespace Projection
         , JSPUBLICERR_CantExecute
     )
     {
-        Js::ScriptContext * scriptContext = projectionContext->GetScriptContext();
 #ifdef ENABLE_JS_ETW
         if (eventInfo != nullptr)
         {

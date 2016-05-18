@@ -3952,6 +3952,13 @@
   </test>
   <test>
     <default>
+      <files>default_attach.js</files>
+      <compile-flags>-targeted -dbgbaseline:default_attach.js.dbg.baseline</compile-flags>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>testmodule.js</files>
       <compile-flags>-debugLaunch -targeted -es6module -dbgbaseline:testmodule.js.dbg.baseline</compile-flags>
     </default>
@@ -3967,6 +3974,13 @@
       <files>bug_vso5792108.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_vso5792108.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,BugFix</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>promiseDisplay.js</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:promisedisplay.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators</tags>
     </default>
   </test>
 </regress-exe>

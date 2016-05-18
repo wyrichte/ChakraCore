@@ -57,11 +57,11 @@ HRESULT ScriptEngine::SinkEventsOfNamedItems(long eventHandlerID)
     HRESULT hr = NOERROR;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        for (int i = eventHandlerID; i < eventHandlers->Count(); i++)
+        for (int j = eventHandlerID; j < eventHandlers->Count(); j++)
         {
             int currentSinkItem = 0;
             BOOL eventHandlerFound = FALSE;
-            BaseEventHandler* eventHandler = eventHandlers->Item(i);
+            BaseEventHandler* eventHandler = eventHandlers->Item(j);
             dispatch = eventHandler->GetDispatch();
             for (currentSinkItem = 0; currentSinkItem < eventSinks->Count(); currentSinkItem++)
             {

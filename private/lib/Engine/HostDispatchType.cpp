@@ -531,7 +531,7 @@ BOOL HostDispatch::HasInstance(Js::Var instance, Js::ScriptContext* scriptContex
         memset(&ei, 0, sizeof(ei));
 
         BOOL result = FALSE;
-        hr = DispatchHelper::MarshalJsVarToVariant(instance, &varInstance);
+        hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(instance, &varInstance, scriptContext);
         if (SUCCEEDED(hr))
         {
             BEGIN_LEAVE_SCRIPT(scriptContext)

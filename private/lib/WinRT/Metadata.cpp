@@ -187,7 +187,7 @@ namespace Metadata
                 mdTypeRef typeRef = refs[i];
                 
                 MDUTF8CSTR name;
-                auto hr = GetImport()->GetNameFromToken(typeRef, &name);
+                hr = GetImport()->GetNameFromToken(typeRef, &name);
                 Js::VerifyOkCatastrophic(hr);
                 
                 bool possible = false;
@@ -244,7 +244,7 @@ namespace Metadata
                     char16 referenceName[MaxRefSize + 1];
                     ULONG nameSize;
                     mdToken referenceScope;
-                    auto hr = GetImport()->GetTypeRefProps(typeRef, &referenceScope, referenceName, MaxRefSize, &nameSize);
+                    hr = GetImport()->GetTypeRefProps(typeRef, &referenceScope, referenceName, MaxRefSize, &nameSize);
                     Js::VerifyOkCatastrophic(hr);
                 
                     // nameSize includes the null terminator

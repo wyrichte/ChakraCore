@@ -83,7 +83,7 @@ STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
         *value = nullptr;
 
         Js::Var var;
-        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalVariantToJsVar(variant, &var, scriptContext));
+        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalVariantToJsVarWithLeaveScript(variant, &var, scriptContext));
         *value = var;
 
         return JsNoError;
@@ -97,7 +97,7 @@ STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
         PARAM_NOT_NULL(variant);
         ZeroMemory(variant, sizeof(VARIANT));
 
-        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalJsVarToVariant(object, variant));
+        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(object, variant, scriptContext));
 
         return JsNoError;
     });

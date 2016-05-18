@@ -1775,7 +1775,7 @@ namespace JsrtUnitTests
 
             JsSetCurrentContext(NULL); // Release current context
             VERIFY_IS_TRUE(JsPrivateCollectGarbageSkipStack(this->runtime) == JsNoError);
-            VERIFY_ARE_EQUAL(0, called);
+            VERIFY_ARE_EQUAL(1, called);
         }
 
         // Create a JS object and configure it.

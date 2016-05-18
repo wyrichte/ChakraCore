@@ -16,7 +16,7 @@ public:
     bool SetDebugApplication(IDebugApplication *debugApplication);
     void ReleaseDebugApplication();
 
-    void OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo);
+    void OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException);
     virtual void Dispose(bool isShutdown) override;
 private:
     DEFINE_VTABLE_CTOR(JsrtContextChakra, JsrtContext);

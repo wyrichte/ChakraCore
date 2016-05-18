@@ -1721,21 +1721,6 @@ STDMETHODIMP_(ULONG) JsHostActiveScriptSite::Release(void)
     return res;
 }
 
-static HRESULT GetActiveScript(IServiceProvider* pspCaller, IActiveScript** activeScript)
-{
-    IActiveScriptSite * scriptSite  = NULL;
-    HRESULT hr = pspCaller->QueryService(SID_GetScriptSite, &scriptSite);
-    if (SUCCEEDED(hr))
-    {
-        hr = ((JsHostActiveScriptSite*)scriptSite)->GetActiveScript(activeScript);
-    }
-    if (scriptSite)
-    {
-        scriptSite->Release();
-    }
-    return hr;
-}
-
 STDMETHODIMP JsHostActiveScriptSite::GetItemInfo(LPCOLESTR pstrName, DWORD dwReturnMask, IUnknown **ppiunkItem, ITypeInfo **ppti)
 {
     Assert(FALSE);

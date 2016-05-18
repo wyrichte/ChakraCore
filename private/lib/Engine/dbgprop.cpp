@@ -244,7 +244,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
         //
         // Attempt to get the value out of right hand side of the expression, if the value can be setable, ie. if the lhs has any address. 
 
-        Js::ScriptFunction* func = CDebugEval::TryGetFunctionForEval(scriptContext, pszValue, CDebugEval::IsStrictMode(frame), CDebugEval::IsThisAvailable(frame));
+        Js::ScriptFunction* func = frame->TryGetFunctionForEval(scriptContext, pszValue, wcslen(pszValue));
         if (!func)
         {
             // Clean this exception, as we are not going to report this error.
@@ -252,7 +252,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
         }
         else
         {
-            result = CDebugEval::DoEval(func, frame);
+            result = frame->DoEval(func);
             if (result != NULL)
             {
                 hr = S_OK;
@@ -282,10 +282,10 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
         if ((hr = bstrFullString.Append(_u(" = "))) == S_OK
             && (hr = bstrFullString.Append(pszValue)) == S_OK)
         {
-            Js::ScriptFunction* updatedFunc = CDebugEval::TryGetFunctionForEval(scriptContext, bstrFullString, CDebugEval::IsStrictMode(frame), CDebugEval::IsThisAvailable(frame));
+            Js::ScriptFunction* updatedFunc = frame->TryGetFunctionForEval(scriptContext, bstrFullString, bstrFullString.Length());
             if (updatedFunc != NULL)
             {
-                CDebugEval::DoEval(updatedFunc, frame);
+                frame->DoEval(updatedFunc);
                 hr = S_OK;
             }
         }
@@ -817,11 +817,11 @@ HRESULT DebugProperty::EnumMembers(
         }
 
         WeakArenaReference<Js::IDiagObjectModelWalkerBase>* pObjectModelWalker = nullptr;
-        BEGIN_TRANSLATE_OOM_TO_HRESULT
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_OOM_TO_HRESULT(pScriptEngine->scriptContext, /*doCleanup*/ false, /*hasCaller*/ false)
         {
             pObjectModelWalker = pModel->CreateWalker();
         }
-        END_TRANSLATE_OOM_TO_HRESULT(hr);
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_OOM_TO_HRESULT(hr);
         if (SUCCEEDED(hr))
         {
             if (pObjectModelWalker != nullptr)

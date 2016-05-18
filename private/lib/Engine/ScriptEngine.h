@@ -982,7 +982,6 @@ private:
     BOOL  m_fIsValidCodePage;
     UINT  m_codepage;              // Code page
 
-    UINT  m_cbMinStackHost;
     DWORD m_dwBaseThread;          // Win32 thread we were created in
     BOOL  m_fPersistLoaded;        // TRUE if IPersist*::Load() or InitNew() has completed
     BOOL  m_fIsPseudoDisconnected; // TRUE if we are in a pseudo-disconnected state

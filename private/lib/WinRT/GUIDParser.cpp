@@ -4,7 +4,12 @@
 #include "WinRTPch.h"
 #include "jscriptdllcommon.h"
 #include <Shlwapi.h>
-#include <ATLBase.h>
+
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
+#include <atlbase.h>
+#pragma warning(pop)
 #include "GUIDParser.h"
 
 using namespace Js;

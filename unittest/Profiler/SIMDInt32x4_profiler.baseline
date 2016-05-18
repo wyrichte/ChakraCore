@@ -18,14 +18,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDInt32x4 BinaryOp......
 Correct
 Correct
@@ -140,14 +132,6 @@ Correct
 Correct
 Correct
 Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
-Correct
 test SIMDInt32x4 BinaryOp......
 Correct
 Correct
@@ -245,12 +229,12 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: equal, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: testSIMDInt32x4, Line: 9, Column: 1, Character Position: 141
-[FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 71, Column: 1, Character Position: 2597
-[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 154, Column: 1, Character Position: 6545
-[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 223, Column: 1, Character Position: 9488
-[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 202, Column: 1, Character Position: 8546
-[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 182, Column: 1, Character Position: 7652
-[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 138, Column: 1, Character Position: 5917
+[FunctionCompiled]: Function: testSIMDInt32x4_BinaryOp, Line: 61, Column: 1, Character Position: 2027
+[FunctionCompiled]: Function: testSIMDInt32x4_CompareOp, Line: 144, Column: 1, Character Position: 5975
+[FunctionCompiled]: Function: testSIMDInt32x4_Select, Line: 213, Column: 1, Character Position: 8918
+[FunctionCompiled]: Function: testSIMDInt32x4_Shuffle, Line: 192, Column: 1, Character Position: 7976
+[FunctionCompiled]: Function: testSIMDInt32x4_Swizzle, Line: 172, Column: 1, Character Position: 7082
+[FunctionCompiled]: Function: testSIMDInt32x4_UnaryOp, Line: 128, Column: 1, Character Position: 5347
 [FunctionCompiled]: Function: testSIMDInt32x4_conversion, Line: 38, Column: 1, Character Position: 1301
 Passed: Validation
 Script Profiler ends
