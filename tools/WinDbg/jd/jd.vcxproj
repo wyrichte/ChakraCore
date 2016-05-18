@@ -27,7 +27,6 @@
       <DisableSpecificWarnings>
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
-        4457;     <!-- declaration of '' hides function parameter -->
         4458;     <!-- declaration of '' hides class memeber -->
         4474;     <!-- 'sprintf_s': too many arguments passed for format string -->
         4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->

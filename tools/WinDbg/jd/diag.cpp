@@ -500,19 +500,19 @@ static void JoinLines(BSTR& bstr)
     }
 }
 
-void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int depth, int maxDepth)
+void EXT_CLASS_BASE::Print(IJsDebugProperty* property, PCWSTR format, int radix, int depth, int maxDepth)
 {
     AutoJsDebugPropertyInfo info;
-    IfFailThrow(prop->GetPropertyInfo(radix, &info));
+    IfFailThrow(property->GetPropertyInfo(radix, &info));
     ValidateEvaluateFullName(info, radix);
 
     JoinLines(info.value); // Join Value lines
-    Out(fmt, _u(""), info.name, info.value, info.type);
+    Out(format, _u(""), info.name, info.value, info.type);
 
     if ((info.attr & JS_PROPERTY_ATTRIBUTES::JS_PROPERTY_HAS_CHILDREN) && depth++ < maxDepth)
     {
         CComPtr<IJsEnumDebugProperty> pEnum;
-        IfFailThrow(prop->GetMembers(JS_PROPERTY_MEMBERS::JS_PROPERTY_MEMBERS_ALL, &pEnum));
+        IfFailThrow(property->GetMembers(JS_PROPERTY_MEMBERS::JS_PROPERTY_MEMBERS_ALL, &pEnum));
 
         if (!pEnum)
         {

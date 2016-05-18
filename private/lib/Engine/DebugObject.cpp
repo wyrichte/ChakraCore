@@ -427,13 +427,13 @@ Js::Var DebugObject::EntryInvokeFunction(Js::RecyclableObject* function, Js::Cal
     {
         if(args.Info.Count >= 2)
         {
-            Js::JavascriptFunction* function = Js::JavascriptFunction::FromVar(args[1]);
+            Js::JavascriptFunction* invokeFunction = Js::JavascriptFunction::FromVar(args[1]);
             for (uint i=0; i<args.Info.Count-2; ++i)
             {
                 args.Values[i] = args.Values[i+2];
             }
             args.Info.Count  = args.Info.Count - 1;
-            InvokeFunc(function, args);
+            InvokeFunc(invokeFunction, args);
         }
     }
     END_LEAVE_SCRIPT(function->GetScriptContext())

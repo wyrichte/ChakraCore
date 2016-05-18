@@ -693,15 +693,15 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
                 for (int i = 0; i < list->Count(); i++)
                 {
                     const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
-                    Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                    if (propertyRecord == nullptr)
+                    Js::PropertyRecord const * currentPropertyRecord = currentPropertyStringWeakRef->Get();
+                    if (currentPropertyRecord == nullptr)
                     {
                         continue;
                     }
 
                     // If the property record found is the same as the case sensitive one,
                     // this item needs to move to the head of the list
-                    if (propertyRecord == caseSensitivePropertyRecord)
+                    if (currentPropertyRecord == caseSensitivePropertyRecord)
                     {
                         // Only swap if it's not already at the front
                         if (i != 0)
@@ -727,13 +727,13 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
             for (int i = 0; i < list->Count(); i++)
             {
                 const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
-                Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                if (propertyRecord == nullptr)
+                Js::PropertyRecord const * currentPropertyRecord = currentPropertyStringWeakRef->Get();
+                if (currentPropertyRecord == nullptr)
                 {
                     continue;
                 }
 
-                Js::PropertyId currentPropertyId = propertyRecord->GetPropertyId();
+                Js::PropertyId currentPropertyId = currentPropertyRecord->GetPropertyId();
                 Js::PropertyIndex currentIndex = scriptObject->GetPropertyIndex(currentPropertyId);
                 if (currentIndex >= 0 && currentIndex < bestIndex)
                 {
