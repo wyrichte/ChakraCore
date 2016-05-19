@@ -22,6 +22,7 @@ HANDLE shutdownEvent = NULL;
 LPWSTR dbgBaselineFilename = NULL;
 bool IsRunningUnderJdtest = 0;
 LPCWSTR alternateDllName = NULL;
+LPWSTR connectionUuidString = NULL;
 
 HINSTANCE nativeTestDll = NULL;
 NativeTestEntryPoint pfNativeTestEntryPoint = NULL;
@@ -1655,7 +1656,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     if (HostConfigFlags::flags.EnableOutOfProcJIT)
     {
         // TODO: Error checking
-        JitProcessManager::StartRpcServer();
+        JitProcessManager::StartRpcServer(argc, argv);
     }
 
 #ifdef CHECK_MEMORY_LEAK
@@ -1749,6 +1750,44 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 void __stdcall PrintUsage()
 {
     wprintf(L"\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] filename|[-nativetest:testdll [nativetestargs]]\n");   
+}
+
+bool HandleJITServerFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
+{
+    LPCWSTR flag = L"-jitserver:";
+    LPCWSTR flagWithoutColon = L"-jitserver";
+    size_t flagLen = wcslen(flag);
+
+    int i = 0;
+    for (i = 1; i < argc; ++i)
+    {
+        if (!_wcsicmp(argv[i], flagWithoutColon))
+        {
+            connectionUuidString = L"";
+            break;
+        }
+        else if (!_wcsnicmp(argv[i], flag, flagLen))
+        {
+            connectionUuidString = argv[i] + flagLen;
+            if (wcslen(connectionUuidString) == 0)
+            {
+                fwprintf(stdout, L"[FAILED]: must pass a UUID to -jitserver:\n");
+                return false;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    if (i == argc)
+        return false;
+
+    // remove this flag now
+    HostConfigFlags::RemoveArg(argc, argv, i);
+
+    return true;
 }
 
 int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
@@ -1901,8 +1940,42 @@ void PeekRuntimeFlag(int argc, _In_reads_(argc) LPWSTR argv[])
     }
 }
 
+typedef HRESULT(WINAPI *JsInitializeRpcServerPtr)(UUID* connectionUuid);
+
+int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
+{
+    BSTR filename = NULL;
+    JScript9Interface::ArgInfo argInfo = { argc, argv, ::PrintUsage, &filename };
+
+    jscriptLibrary = JScript9Interface::LoadDll(false, alternateDllName, argInfo);
+
+    if (!jscriptLibrary)
+    {
+        wprintf(L"\nDll load failed\n");
+        return ERROR_DLL_INIT_FAILED;
+    }
+
+    UUID connectionUuid;
+    DWORD status = UuidFromStringW((RPC_WSTR)connectionUuidString, &connectionUuid);
+    if (status != RPC_S_OK)
+    {
+        return status;
+    }
+
+    JsInitializeRpcServerPtr initRpcServer = (JsInitializeRpcServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeRpcServer");
+    HRESULT hr = initRpcServer(&connectionUuid);
+    if (FAILED(hr))
+    {
+        wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
+        return hr;
+    }
+
+    return 0;
+}
+
 int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 {
+    bool runJITServer = HandleJITServerFlag(argc, argv);
     HandleDebuggerBaselineFlag(argc, argv);
     bool useJsrt = HandleJsrtTestFlag(argc, argv);
     bool useHtml = HandleHtmlTestFlag(argc, argv);
@@ -1933,7 +2006,11 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
     int ret = 0;
 
-    if (useJsrt)
+    if (runJITServer)
+    {
+        ret = RunJITServer(argc, argv);
+    }
+    else if (useJsrt)
     {
         ret = ExecuteJsrtTests(argc, argv);
     }

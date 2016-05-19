@@ -7,14 +7,14 @@
 class JitProcessManager
 {
 public:
-    static HRESULT StartRpcServer();
+    static HRESULT StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[]);
     static void StopRpcServer();
 
     static DWORD GetRpcProccessId();
     static UUID GetRpcConnectionId();
 
 private:
-    static HRESULT CreateServerProcess();
+    static HRESULT CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[]);
 
     static HANDLE s_rpcServerProcessHandle;
     static UUID s_connectionId;

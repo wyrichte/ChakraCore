@@ -7,7 +7,7 @@
 HANDLE JitProcessManager::s_rpcServerProcessHandle = 0; // 0 is the "invalid handle" value for process handles
 UUID JitProcessManager::s_connectionId = GUID_NULL;
 
-HRESULT JitProcessManager::StartRpcServer()
+HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr = S_OK;
 
@@ -16,7 +16,7 @@ HRESULT JitProcessManager::StartRpcServer()
         RPC_STATUS status = UuidCreate(&s_connectionId);
         if (status == RPC_S_OK || status == RPC_S_UUID_LOCAL_ONLY)
         {
-            hr = CreateServerProcess();
+            hr = CreateServerProcess(argc, argv);
         }
         else
         {
@@ -28,7 +28,7 @@ HRESULT JitProcessManager::StartRpcServer()
 }
 
 
-HRESULT JitProcessManager::CreateServerProcess()
+HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr;
     PROCESS_INFORMATION processInfo = { 0 };
@@ -36,7 +36,7 @@ HRESULT JitProcessManager::CreateServerProcess()
     WCHAR cmdLine[MAX_PATH];
     WCHAR* connectionUuidString = NULL;
 
-    hr = StringCchCopyW(cmdLine, ARRAYSIZE(cmdLine), L"JsHostJIT.exe ");
+    hr = StringCchCopyW(cmdLine, ARRAYSIZE(cmdLine), L"JsHost.exe -jitserver:");
     if (FAILED(hr))
     {
         return hr;
@@ -52,6 +52,20 @@ HRESULT JitProcessManager::CreateServerProcess()
     if (FAILED(hr))
     {
         return hr;
+    }
+
+    for (int i = 1; i < argc; ++i)
+    {
+        hr = StringCchCatW(cmdLine, ARRAYSIZE(cmdLine), L" ");
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+        hr = StringCchCatW(cmdLine, ARRAYSIZE(cmdLine), argv[i]);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
     }
 
     if (!CreateProcessW(
