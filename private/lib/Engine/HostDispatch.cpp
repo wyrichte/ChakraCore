@@ -2128,7 +2128,6 @@ Var HostDispatch::CreateDispatchWrapper(Var object, Js::ScriptContext * sourceSc
     bool isScriptActive = sourceScriptContext->GetThreadContext()->IsScriptActive();
     if (isScriptActive)
     {
-
         hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(object, &vt, destScriptContext);
     }
     else

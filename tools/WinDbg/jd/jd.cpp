@@ -955,9 +955,9 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
         DetectFeatureBySymbol(m_usingPropertyRecordInTypeHandlers, FillModule("%s!Js::BuiltInPropertyRecords"));
         for (int i = 0; i < _countof(s_typeHandlers); i++)
         {
-            RemoteTypeHandler* typeHandler = s_typeHandlers[i];
+            RemoteTypeHandler* currTypeHandler = s_typeHandlers[i];
             // The list includes symbols on all builds. Some are not available.
-            m_typeHandlersByName[GetRemoteVTableName(typeHandler->GetName())] = typeHandler;
+            m_typeHandlersByName[GetRemoteVTableName(currTypeHandler->GetName())] = currTypeHandler;
         }
 
         // for 64 bit

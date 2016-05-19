@@ -128,9 +128,7 @@
       <!-- REVIEW: These are warning are introduced when moving to Dev12_LKG tools, may want to clean these up -->
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
-        4457;     <!-- declaration of '' hides function parameter -->
         4458;     <!-- declaration of '' hides class memeber -->
-
       </DisableSpecificWarnings>
       
       <!-- ======== For Code Covearge ======== -->

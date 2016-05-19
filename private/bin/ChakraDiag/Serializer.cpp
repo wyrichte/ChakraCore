@@ -271,11 +271,11 @@ namespace JsDiag
         //    so what we do is just skip to the end of the type.
         // Advance the stream and return the number of bytes advanced by. Ignore the value in the stream.
         //static
-        int ExtensibleBinarySerializer::DeserializeSkippedField(FieldType fieldType, int arrayItemCount, ISerializationStream* stream,  SerializationParameters* params)
+        int ExtensibleBinarySerializer::DeserializeSkippedField(FieldType skippedFieldType, int arrayItemCount, ISerializationStream* stream,  SerializationParameters* params)
         {
             int byteCount = 0;
             int advanceStreamByCount = 0;
-            switch (fieldType)
+            switch (skippedFieldType)
             {
             case FieldType::Byte:
                 byteCount = advanceStreamByCount = sizeof(BYTE);

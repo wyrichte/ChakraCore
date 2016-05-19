@@ -1075,7 +1075,7 @@ Error:
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** errorObject, bool isModuleCode)
+HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr;
     LPCOLESTR contents = NULL;
@@ -1085,10 +1085,10 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
     char16 * fullpath = nullptr;
 
-    hr = JsHostLoadScriptFromFile(filename, contents, &isUtf8, &contentsRaw, &lengthBytes);
+    hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
     IfFailGo(hr);
 
-    fullpath = _wfullpath(NULL, filename, 0);
+    fullpath = _wfullpath(NULL, scriptFilename, 0);
     if (fullpath == NULL)
     {
         fwprintf(stderr, _u("Out of memory"));
@@ -1125,11 +1125,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contentsRaw, lengthBytes, errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contentsRaw, lengthBytes, errorObject);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
         }
         goto Error;
     }

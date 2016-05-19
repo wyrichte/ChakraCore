@@ -5795,8 +5795,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
     if (!IsDebuggerEnvironmentAvailable() && CONFIG_FLAG(ForceSerialized))
     {
-        auto srcInfo = pRootFunc->GetHostSrcInfo();
-        if (srcInfo->moduleID == kmodGlobal)
+        auto hostSrcInfo = pRootFunc->GetHostSrcInfo();
+        if (hostSrcInfo->moduleID == kmodGlobal)
         {
             byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache guarantee is that the buffer lives as long as the process.
             DWORD dwByteCodeSize;
@@ -5804,7 +5804,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), hostSrcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
             {
@@ -5814,8 +5814,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     flags = fscrAllowFunctionProxy;
                 }
 
-                srcInfo->sourceContextInfo->nextLocalFunctionId = pRootFunc->GetLocalFunctionId();
-                hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, srcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
+                hostSrcInfo->sourceContextInfo->nextLocalFunctionId = pRootFunc->GetLocalFunctionId();
+                hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, hostSrcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
 
                 if (SUCCEEDED(hr))
                 {                    
