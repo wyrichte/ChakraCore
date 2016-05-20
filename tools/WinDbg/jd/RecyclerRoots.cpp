@@ -1421,6 +1421,11 @@ JD_PRIVATE_COMMAND(traceroots,
     // Pass 1: Traverse upwards to roots.
     //
 
+    // Continue traversing until ONE of the following conditions occurs:
+    // * nodeQueue is empty (nothing more to traverse)
+    // * Both of the following:
+    //   * numRootsArg != 0 (if it were 0, we should traverse all the way to the roots)
+    //   * currentRootHitCount >= numRootsArg
     while (!nodeQueue.empty())
     {
         auto current = nodeQueue.front(); // retrieve

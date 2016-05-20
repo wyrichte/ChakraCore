@@ -257,6 +257,9 @@
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Base\Chakra.Runtime.Base.vcxproj">
       <Project>{706083F7-6AA4-4558-A153-6352EF9110EE}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
+      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9110f7}</Project>
     </ProjectReference>
