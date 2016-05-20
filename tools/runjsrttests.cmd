@@ -111,7 +111,7 @@ goto :main
 
   if /i "%1" == "-binDir"           set _BinDirBase=%~f2&                                      goto :ArgOkShift2
 
-  if not "%1" == "" echo Unknown argument: %1 & set fShowGetHelp=1
+  if not "%1" == "" echo -- runjsrttests.cmd ^>^> Unknown argument: %1 & set fShowGetHelp=1
 
   goto :eof
 
@@ -129,13 +129,13 @@ goto :main
 :validateArgs
 
   if "%_BuildArch%" == "" (
-    echo Error missing required build architecture or build type switch
+    echo -- runjsrttests.cmd ^>^> Error missing required build architecture or build type switch
     set fShowGetHelp=1
     goto :eof
   )
 
   if "%_BuildType%" == "" (
-    echo Error missing required build architecture or build type switch
+    echo -- runjsrttests.cmd ^>^> Error missing required build architecture or build type switch
     set fShowGetHelp=1
   )
 
@@ -153,8 +153,8 @@ goto :main
   set _TestTempDir=%_BinDir%\jsrttest\
   if not exist %_TestTempDir% mkdir %_TestTempDir%
 
-  echo #### BinDir: %_BinDir%
-  echo #### TestTempDir: %_TestTempDir%
+  echo -- runjsrttests.cmd ^>^> #### BinDir: %_BinDir%
+  echo -- runjsrttests.cmd ^>^> #### TestTempDir: %_TestTempDir%
 
   goto :eof
 
@@ -164,7 +164,7 @@ goto :main
 :: ============================================================================
 :copyScriptsAndBinaries
 
-  echo copying scripts from '%_RootDir%\unittest\jsrt\scripts' to '%_TestTempDir%'
+  echo -- runjsrttests.cmd ^>^> copying scripts from '%_RootDir%\unittest\jsrt\scripts' to '%_TestTempDir%'
   copy /y %_RootDir%\unittest\jsrt\scripts\*.js %_TestTempDir%
 
   copy /y %_BinDir%Chakra.dll %_TestTempDir%
