@@ -23,6 +23,7 @@
 // =================
 #include "Runtime.h"
 #include "Base\EtwTrace.h"
+#include "Base\VTuneChakraProfile.h"
 #include "Base\ThreadContextTLSEntry.h"
 #include "Base\ThreadBoundThreadContextManager.h"
 #include "AsyncDebug.h"

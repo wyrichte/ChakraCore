@@ -82,10 +82,6 @@
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
-      <AdditionalDependencies Condition="'$(Configuration)'!='Release' AND '$(Platform)'!='ARM' AND '$(Platform)'!='Arm64'">
-        %(AdditionalDependencies);
-        $(ChakraRootDirectory)tools\External\lib\$(PlatformPathNameAlt)\jitprofiling.lib
-      </AdditionalDependencies>
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>

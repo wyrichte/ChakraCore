@@ -87,9 +87,6 @@ TARGETLIBS= \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif
-!IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
-    ..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
-!ENDIF
 
 
 # Delay load
