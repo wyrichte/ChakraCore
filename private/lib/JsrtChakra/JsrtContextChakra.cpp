@@ -206,6 +206,8 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
     InitSite(runtime);
 
     SetJavascriptLibrary(this->scriptEngine->GetScriptContext()->GetLibrary());
+    Js::GlobalObject* globalObject = this->scriptEngine->GetScriptContext()->GetGlobalObject();
+    threadContext->GetRecycler()->RootRelease(globalObject, nullptr);
     Link();
     PinCurrentJsrtContext();
 
