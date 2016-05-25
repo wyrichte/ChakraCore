@@ -30,6 +30,8 @@
 // - Naming: in this file proxy for runtime type 'Foo' is called using 'Remote' prefix, i.e. 'RemoteFoo'.
 //
 
+using namespace PlatformAgnostic; // DaylightHelper
+
 void DebugHeap_OOM_fatal_error();
 
 namespace JsDiag
@@ -959,7 +961,8 @@ namespace JsDiag
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId) const;
         ProbeContainer* GetProbeContainer() const;
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
-        DaylightTimeHelper* GetDaylightTimeHelper() const { return this->GetFieldAddr<DaylightTimeHelper>(offsetof(ScriptContext, daylightTimeHelper)); }
+        DateTime::DaylightTimeHelper* GetDaylightTimeHelper() const { return this->GetFieldAddr<DateTime::DaylightTimeHelper>(offsetof(ScriptContext, daylightTimeHelper)); }
+        DateTime::Utility* GetDateUtility() const { return this->GetFieldAddr<DateTime::Utility>(offsetof(ScriptContext, dateTimeUtility)); }
         DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
         bool IsInDebugMode() const
         {

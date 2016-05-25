@@ -16,6 +16,8 @@
 #include "Library\ES5Array.h"
 #include "ActiveScriptProfilerHeapEnum.h"
 
+using namespace PlatformAgnostic;
+
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "..\Telemetry\Telemetry.h"
 #include "..\Telemetry\ScriptContextTelemetry.h"
@@ -929,7 +931,7 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
 HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
 {
     Js::ScriptContext * scriptContext = function->GetScriptContext();
-    Js::HiResTimer timer;
+    DateTime::HiResTimer timer;
     double startTime;
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     scriptContext->GetHostScriptContext()->EnsureParentInfo();

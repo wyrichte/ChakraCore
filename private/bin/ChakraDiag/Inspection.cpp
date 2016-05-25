@@ -3,6 +3,8 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
+using namespace PlatformAgnostic; // DaylightHelper
+
 // REVIEW: I get unresolved externals without these declarations (which duplicate JavascriptArray.cpp).
 // Are they necessary, and is there another place where such things are collected in JscriptDiag?
 #if _M_X64
@@ -1038,24 +1040,30 @@ namespace JsDiag
     {
     private:
         RemoteData<ScriptConfiguration> m_config;               // remote scriptContext->config
-        RemoteData<DaylightTimeHelper> m_daylightTimeHelper;    // remote scriptContext->daylightTimeHelper
-        TIME_ZONE_INFORMATION m_timeZoneInfo;                   // local
+        RemoteData<DateTime::Utility> m_dateTimeUtility;
+        RemoteData<DateTime::DaylightTimeHelper> m_daylightTimeHelper;    // remote scriptContext->daylightTimeHelper
 
     public:
         FakeDateImplementationScriptContext(const RemoteScriptContext& scriptContext):
             m_config(scriptContext.GetReader(), scriptContext.GetConfig()),
+            m_dateTimeUtility(scriptContext.GetReader(), scriptContext.GetDateUtility()),
             m_daylightTimeHelper(scriptContext.GetReader(), scriptContext.GetDaylightTimeHelper())
         {
         }
 
         const ScriptConfiguration* GetConfig() const { return m_config.ToTargetPtr(); }
-        DaylightTimeHelper* GetDaylightTimeHelper() { return m_daylightTimeHelper.ToTargetPtr(); }
+        DateTime::DaylightTimeHelper* GetDaylightTimeHelper() { return m_daylightTimeHelper.ToTargetPtr(); }
 
-        TIME_ZONE_INFORMATION* GetTimeZoneInfo()
+        inline const WCHAR *const GetStandardName(size_t *nameLength)
         {
-            GetTimeZoneInformation(&m_timeZoneInfo);
-            return &m_timeZoneInfo;
+            return m_dateTimeUtility.ToTargetPtr()->GetStandardName(nameLength);
         }
+
+        inline const WCHAR *const GetDaylightName(size_t *nameLength)
+        {
+            return m_dateTimeUtility.ToTargetPtr()->GetDaylightName(nameLength);
+        }
+
     };
 
     void JavascriptDateProperty::GetValueBSTR(UINT nRadix, _Out_ BSTR* pValue)
@@ -2649,14 +2657,8 @@ namespace JsDiag
 // shared static data
 #include "DateImplementationData.h"
 
-// stubs
 namespace Js
 {
-    bool DaylightTimeHelper::ForceOldDateAPIFlag()
-    {
-        return false;
-    }
-
 #if DBG
     bool Throw::ReportAssert(LPSTR fileName, uint lineNumber, LPSTR error, LPSTR message)
     {

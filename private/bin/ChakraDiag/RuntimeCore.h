@@ -294,7 +294,6 @@ namespace Projection
 #include "StackTraceArguments.h"        // Used by JavascriptExceptionContext::argumentTypes. Note: we actually use this one in remote proxies
 #include "JavascriptExceptionContext.h" // Used by JavascriptExceptionObject::exceptionContext
 #include "JavascriptExceptionObject.h"  // Used by ThreadContext::RecyclableData::soErrorObject
-#include "HiResTimer.h"                 // Used by ThreadContext::hTimer
 #include "Entropy.h"                    // Used by ThreadContext::entropy
 #include "PropertyRecord.h"             // Used by TypePath.h has inline functions that use PropertyRecord, easy to pull
 #include "TypePath.h"                   // Used by ScriptContext::objectLiteralCount is using TypePath::MaxPathTypeHandlerLength, easy to pull
