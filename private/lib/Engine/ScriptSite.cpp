@@ -1706,7 +1706,7 @@ HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
             hostCallback = scriptSiteContext->GetLibrary()->GetThrowerFunction();
         }
 
-        hostCallback->GetEntryPoint()(
+        CALL_FUNCTION(
             hostCallback,
             Js::CallInfo(Js::CallFlags::CallFlags_Value, 3),
             scriptSiteContext->GetLibrary()->GetUndefined(),
