@@ -8,7 +8,7 @@
                 Disable on ARM because it is flaky on WOACHK PerCheckin run. &#x002D&#x002D>
 	  <files>test1.js</files>
       <baseline>test1.baseline</baseline>
-      <command>jdtest -q -c ".load ut_jsdiag; g;!echo &#x002D&#x002D&#x002D1st bp&#x002D&#x002D&#x002D;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo &#x002D&#x002D&#x002D2nd bp&#x002D&#x002D&#x002D;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest -q -c ".load ut_jsdiag; g;!echo &#x002D&#x002D&#x002D1st bp&#x002D&#x002D&#x002D;!ldsym;!testdump;g;    !echo;!echo &#x002D&#x002D&#x002D2nd bp&#x002D&#x002D&#x002D;!ldsym;!testdump;g" jshost</command>
       <compile-flags>-Off:Inline -Off:JITLoopBody -Intl- -dynamicprofilecache:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
@@ -20,7 +20,7 @@
                 Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
       <files>test1.js</files>
       <baseline />
-      <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;!verifyOM;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
       <compile-flags>-Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
@@ -30,7 +30,7 @@
       <!-- Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
       <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
@@ -41,7 +41,7 @@
                 Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
       <files>test1.js</files>
       <baseline />
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!jsstack;g;    !echo;!echo ---2nd bp---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
       <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
@@ -54,7 +54,7 @@
                 Disable on ARM because it is flaky on WOACHK PerCheckin run. &#x002D&#x002D>
 	  <files>test2.js</files>
       <baseline>test2.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo &#x002D&#x002D&#x002Dverifyall again&#x002D&#x002D&#x002D;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!testdump;    !echo;!echo &#x002D&#x002D&#x002Dverifyall again&#x002D&#x002D&#x002D;!ldsym;!testdump;g" jshost</command>
       <compile-flags>-Off:Inline -Intl-</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
@@ -66,7 +66,7 @@
                 Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
       <files>test2.js</files>
       <baseline />
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!jsstack;    !echo;!echo ---verifyall again---;!ldsym;!jsstack;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!testdump;    !echo;!echo ---verifyall again---;!ldsym;!testdump;g" jshost</command>
       <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -75,7 +75,7 @@
       <!-- Test with try-catch, mainly for EHFrame on amd64 -->
       <files>test_try.js</files>
       <baseline>test_try.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---try-catch bp; !jsstack; g; !echo; !echo ---try-finally bp; !jsstack; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---try-catch bp; !testdump; g; !echo; !echo ---try-finally bp; !testdump; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
       <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -84,7 +84,7 @@
       <!-- Test for for stack trace with inline frames -->
       <files>test_inline.js</files>
       <baseline>test_inline.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !jsstack; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
       <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -93,7 +93,7 @@
       <!-- Test for for stack trace with inline frames -->
       <files>test_inline_bailout.js</files>
       <baseline>test_inline_bailout.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !jsstack; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -102,7 +102,7 @@
       <!-- Test for for stack trace with deep recursion, mainly for DbgHelp stack walker on amd64 -->
       <files>test_deepRecursion.js</files>
       <baseline>test_deepRecursion.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---deep recursion; !jsstack; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---deep recursion; !testdump; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -113,16 +113,6 @@
       <tags>exclude_jsrt</tags>
     </default>
   </test>
-  <!--
-    <test>
-        <default>
-            <files>locals.js</files>
-            <command>jdtest.exe -targeted -InspectMaxStringLength:256 jshost</command>
-            <compile-flags>-debuglaunch:hybrid</compile-flags>
-            <tags>exclude_jsrt</tags>
-        </default>
-    </test>
-    Disabled for Arguments[Symbol.iterator] workItem -Falotfi -->
   <test>
     <default>
       <files>locals2.js</files>
@@ -130,28 +120,10 @@
       <tags>exclude_jsrt,Slow</tags>
     </default>
   </test>
-  <!--
-    <test>
-        <default>
-            <files>locals2.js</files>
-            <command>jdtest.exe -targeted -InspectMaxStringLength:256 jshost</command>
-            <compile-flags>-debuglaunch:hybrid</compile-flags>
-            <tags>exclude_jsrt</tags>
-        </default>
-    </test>
-    Disabled for Arguments[Symbol.iterator] workItem -Falotfi -->
   <test>
     <default>
       <files>locals3.js</files>
       <compile-flags>-targeted -debuglaunch -ES6TypedArrayExtensions- -ES6RegExSticky -ES6Species -dbgbaseline:locals3.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>locals3.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:locals3.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -ES6RegExSticky -ES6TypedArrayExtensions- -ES6Species</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
@@ -164,24 +136,8 @@
   </test>
   <test>
     <default>
-      <files>locals3.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:locals3_khronos.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -ES6RegExSticky -ES6TypedArrayExtensions -ES6Species</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>locals4.js</files>
       <compile-flags>-targeted -debuglaunch -ES6TypedArrayExtensions -InspectMaxStringLength:100</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>locals4.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:locals4.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -ES6TypedArrayExtensions</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
@@ -194,24 +150,8 @@
   </test>
   <test>
     <default>
-      <files>this.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:this.js.dbg.hybrid.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>exception.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:exception.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>exception.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:exception.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
@@ -224,14 +164,6 @@
   </test>
   <test>
     <default>
-      <files>args.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:256 jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>global.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:global.js.dbg.baseline -Intl-</compile-flags>
       <tags>exclude_jsrt</tags>
@@ -239,17 +171,9 @@
   </test>
   <test>
     <default>
-      <files>global.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:global.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>dump.js</files>
       <baseline>dump.baseline</baseline>
-      <command>jdtest -q -c ".load ut_jsdiag; g;!jsstack;!echo;!testdump; g;!jsstack;!echo;!testdump; q" jshost</command>
+      <command>jdtest -q -c ".load ut_jsdiag; g;!testdump;!echo;!testdump; g;!testdump;!echo;!testdump; q" jshost</command>
       <compile-flags>-maxinterpretcount:1 -off:simpleJit -force:inline -force:jitloopbody -DeferLoadingAvailableSource-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative,exclude_nonrazzle</tags>
     </default>
@@ -264,7 +188,7 @@
     <default>
       <files>dump.js</files>
       <baseline>dump.baseline</baseline>
-      <command>jdtest -q -c ".load ut_jsdiag; g;!jsstack;!echo;!testdump; g;!jsstack;!echo;!testdump; q" jshost</command>
+      <command>jdtest -q -c ".load ut_jsdiag; g;!testdump;!echo;!testdump; g;!testdump;!echo;!testdump; q" jshost</command>
       <compile-flags>-maxinterpretcount:1 -ForceSerialized -DeferLoadingAvailableSource -off:simpleJit -force:inline -force:jitloopbody</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonative,exclude_nonrazzle</tags>
     </default>
@@ -301,33 +225,9 @@
   </test>
   <test>
     <default>
-      <files>hybrid1.js</files>
-      <command>jdtest.exe -dbgbaseline:hybrid1.js.dbg.baseline -auto jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>hybrid2.js</files>
-      <command>jdtest.exe -dbgbaseline:hybrid2.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>interleavedStack.js</files>
-      <command>jdtest.exe -dbgbaseline:interleavedStack.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>inlineSameFunc.js</files>
       <baseline>inlineSameFunc.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !jsstack; g;" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
       <compile-flags>-maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
@@ -336,7 +236,7 @@
     <default>
       <files>PartInitStackFrame.js</files>
       <baseline>PartInitStackFrame.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !jsstack; g;" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
       <compile-flags>-nonative -InjectPartiallyInitializedInterpreterFrameError:3 -enableDebug -Intl-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>

@@ -6,7 +6,6 @@
 
 HostConfigFlags HostConfigFlags::flags;
 LPWSTR* HostConfigFlags::argsVal;
-PCWSTR HostConfigFlags::jdtestCmdLine = NULL;
 PCWSTR HostConfigFlags::jsEtwConsoleCmdLine = nullptr;
 int HostConfigFlags::argsCount;
 void (__stdcall *HostConfigFlags::pfnPrintUsage)();
@@ -177,11 +176,6 @@ int HostConfigFlags::PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[])
     }
 
     return version;
-}
-
-void HostConfigFlags::HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
-{
-    jdtestCmdLine = ExtractSwitch(argc, argv, _u("-jdtest:"));
 }
 
 void HostConfigFlags::HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])

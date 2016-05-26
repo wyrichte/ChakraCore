@@ -39,8 +39,6 @@ public:
     ULONG startChar;
     ULONG length;
     UINT64 docId;
-
-    // source identifier, same as documentId for !hybrid, for hybrid documentId is &documentText, whereas sourceId == index of source file
     UINT64 srcId;
 
     // line and column number
@@ -66,7 +64,7 @@ public:
     {
     }
 
-    LPCWSTR ToString(LocationToStringFlags flags = LTSF_None, bool isHybridDebugger = false);
+    LPCWSTR ToString(LocationToStringFlags flags = LTSF_None);
 };
 
 class SourceMap
@@ -102,11 +100,6 @@ struct ControllerConfig
     bool ShouldStepInto()
     {
         return (++globalBpHitCount) % 10 == 0;
-    }
-
-    ULONG HybridResumeActionOnBreak()
-    {
-        return ShouldStepInto() ? DEBUG_STATUS_STEP_INTO : DEBUG_STATUS_GO;
     }
 
     BREAKRESUMEACTION ResumeActionOnBreak()
@@ -223,9 +216,9 @@ public:
 
     HRESULT InstallHostCallback(LPCWSTR propName, JsNativeFunction function, void *data);
 
-    static UINT64 GetDocumentIdStartOffset(bool isHybrid);
+    static UINT64 GetDocumentIdStartOffset();
 
-    static void AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool isHybridDebugger, bool prefixSeparator = true);
+    static void AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool prefixSeparator = true);
 
     //
     // Dump one DebugProperty to JSON
@@ -315,7 +308,7 @@ public:
             if (flags & DebugPropertyFlags::LOCALS_ATTRIBUTES)
             {
                 json += _u(", \"") + encodedName + _u(" - [Attributes]\": {");
-                AppendDebugPropertyAttributesToString(json, info.Attr(), debugger.IsHybridDebugger(), /*prefixSeparator*/false);
+                AppendDebugPropertyAttributesToString(json, info.Attr(), /*prefixSeparator*/false);
                 json += _u("}");
             }
 

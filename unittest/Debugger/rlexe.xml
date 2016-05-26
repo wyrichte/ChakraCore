@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -72,15 +72,6 @@
   <test>
     <default>
       <files>testdynamicattach1.js</files>
-      <command>jdtest.exe -dbgbaseline:testdynamicattach1.js.dbg.baseline -auto -dynamicattach jshost</command>
-      <compile-flags>-Intl- -DeferLoadingAvailableSource</compile-flags>
-      <baseline>testdynamicattach1.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>testdynamicattach1.js</files>
       <compile-flags>-automaticsourcerundown -dbgbaseline:testdynamicattach1.js.dbg.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
       <baseline>testdynamicattach1.baseline</baseline>
       <tags>fail_mutators</tags>
@@ -131,22 +122,6 @@
       <files>protoTest2.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:protoTest2.js.dbg.baseline -Intl-</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>protoTest2.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:protoTest2.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>breakpoints.js</files>
-      <command>jdtest.exe -dbgbaseline:breakpoints.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_amd64</tags>
     </default>
   </test>
   <test>
@@ -215,25 +190,9 @@
   </test>
   <test>
     <default>
-      <files>catchInspection.js</files>
-      <command>jdtest.exe -dbgbaseline:catchInspection.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6functionnamefull -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>evaluate.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:evaluate.js.dbg.baseline -InspectMaxStringLength:100 -Intl-</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>evaluate.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:evaluate.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -254,15 +213,6 @@
   </test>
   <test>
     <default>
-      <files>intlib.js</files>
-      <baseline>intlib.hybrid.baseline</baseline>
-      <command>jdtest.exe -targeted -dbgbaseline:intlib.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl -LibraryStackFrame</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>bug_os_4032860.js</files>
       <tags>BugFix</tags>
     </default>
@@ -276,24 +226,8 @@
   </test>
   <test>
     <default>
-      <files>indexprop.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:indexprop.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>funcSource.js</files>
       <compile-flags>-targeted -Intl- -inspectmaxstringlength:100 -debuglaunch -dbgbaseline:funcSource.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>funcSource.js</files>
-      <command>jdtest.exe -targeted -inspectmaxstringlength:100 -dbgbaseline:funcSource.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -364,14 +298,6 @@
   </test>
   <test>
     <default>
-      <files>localsScopeChain.js</files>
-      <command>jdtest.exe -dbgbaseline:localsScopeChain.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>fullNameNonLiteralPropertyTest.js</files>
       <compile-flags>-dbgbaseline:fullNameNonLiteralPropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
@@ -403,14 +329,6 @@
       <files>fullNameMethodsTest.js</files>
       <compile-flags>-dbgbaseline:fullNameMethodsTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>fullNameMethodsTest.js</files>
-      <command>jdtest.exe -dbgbaseline:fullNameMethodsTest.js.dbg.baseline -InspectMaxStringLength:100 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -455,36 +373,10 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
-  <!-- issue with the hybrid debugger. Will fix in a subsequent change.
-  <test>
-    <default>
-      <files>blockScopeSlotArrayCapture.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags> -debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-   -->
-  <test>
-    <default>
-      <files>blockScopeActivationObjectCapture.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
   <test>
     <default>
       <files>blockScopeActivationObjectCapture.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeActivationObjectAsSlotArray.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:150 -dbgbaseline:blockScopeActivationObjectAsSlotArray.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -502,28 +394,10 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
-  <!--
-  <test>
-    <default>
-      <files>blockScopeBasicLetConstTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeBasicLetConstTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-Intl- -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-   Disabled for Arguments[Symbol.iterator] workItem -Falotfi -->
   <test>
     <default>
       <files>blockScopeBasicScopingTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeBasicScopingTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeBasicScopingTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeBasicScopingTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -536,24 +410,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeNestedFunctionTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeNestedFunctionTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeForTest.bug183991.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -dbgbaseline:blockScopeForTest.bug183991.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeForTest.bug183991.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeForTest.bug183991.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -566,14 +424,6 @@
   </test>
   <test>
     <default>
-      <files>blockScopeDeadZoneTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeDeadZoneTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeEvalTest.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -dbgbaseline:blockScopeEvalTest.js.dbg.baseline -Intl-</compile-flags>
       <tags>fail_mutators</tags>
@@ -581,24 +431,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeEvalTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeEvalTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeGlobalTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeGlobalTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeGlobalTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeGlobalTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -611,24 +445,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeForTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeForTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeWithTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeWithTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeWithTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeWithTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -641,24 +459,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeSwitchTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeSwitchTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeActivationObjectDeadZoneTest.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -dbgbaseline:blockScopeActivationObjectDeadZoneTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeActivationObjectDeadZoneTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeActivationObjectDeadZoneTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -671,24 +473,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeRegSlotDeadZoneTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeRegSlotDeadZoneTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeSlotArrayDeadZoneTest.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -dbgbaseline:blockScopeSlotArrayDeadZoneTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeSlotArrayDeadZoneTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeSlotArrayDeadZoneTest.js.dbg.baseline -targeted -InspectMaxStringLength:33 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -701,25 +487,9 @@
   </test>
   <test>
     <default>
-      <files>blockScopeGlobalDeadZoneTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeGlobalDeadZoneTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeGlobalBlockTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeGlobalBlockTest.js.dbg.baseline -Intl-</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeGlobalBlockTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeGlobalBlockTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -752,14 +522,6 @@
   </test>
   <test>
     <default>
-      <files>blockScopeGlobalSlotArrayTest.bug222631.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeGlobalSlotArrayTest.bug222631.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeSibling.bug263635.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSibling.bug263635.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
@@ -774,24 +536,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeSiblingScopeTrackedInNonDebugMode.bug321751.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeSiblingScopeTrackedInNonDebugMode.bug321751.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeFunctionDeclarationRegSlotTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeFunctionDeclarationRegSlotTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeFunctionDeclarationRegSlotTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeFunctionDeclarationRegSlotTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -804,24 +550,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeFunctionDeclarationSlotArrayTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeFunctionDeclarationSlotArrayTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeFunctionDeclarationActivationObjectTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeFunctionDeclarationActivationObjectTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeFunctionDeclarationActivationObjectTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeFunctionDeclarationActivationObjectTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -834,24 +564,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeFunctionDeclarationGlobalTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeFunctionDeclarationGlobalTest.js.dbg.baseline -InspectMaxStringLength:100 -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeFunctionDeclarationGlobalShadowingTest.bug305562.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeFunctionDeclarationGlobalShadowingTest.bug305562.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>blockScopeFunctionDeclarationGlobalShadowingTest.bug305562.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeFunctionDeclarationGlobalShadowingTest.bug305562.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -906,14 +620,6 @@
   </test>
   <test>
     <default>
-      <files>disablebp.js</files>
-      <command>jdtest.exe -dbgbaseline:disablebp.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>disablebp2.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:disablebp2.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
@@ -921,24 +627,8 @@
   </test>
   <test>
     <default>
-      <files>disablebp2.js</files>
-      <command>jdtest.exe -dbgbaseline:disablebp2.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>setframe.js</files>
       <compile-flags>-EnableJitInDiagMode -debuglaunch -targeted -dbgbaseline:setframe.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>setframe.js</files>
-      <command>jdtest.exe -dbgbaseline:setframe.js.dbg.baseline.hybrid -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -951,24 +641,9 @@
   </test>
   <test>
     <default>
-      <files>mapSetWeakmap.js</files>
-      <command>jdtest.exe -dbgbaseline:mapSetWeakmap.js.dbg.hybrid.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl- -es6classes</compile-flags>
-      <tags>fail_mutators,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>proxy.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:proxy.js.dbg.baseline -args summary -endargs</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>proxy.js</files>
-      <command>jdtest.exe -dbgbaseline:proxy.js.dbg.hybrid.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-  -args summary -endargs</compile-flags>
     </default>
   </test>
   <test>
@@ -1243,24 +918,8 @@
   </test>
   <test>
     <default>
-      <files>debuggerExceptionHandling.js</files>
-      <command>jdtest.exe -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>debuggerExceptionHandling2.js</files>
       <compile-flags>-debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>debuggerExceptionHandling2.js</files>
-      <command>jdtest.exe -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -1287,14 +946,6 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
-  <test>
-    <default>
-      <files>debuggerExceptionHandling3.js</files>
-      <command>jdtest.exe -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
   <!-- verify negzero representation in debugger -->
   <test>
     <default>
@@ -1303,27 +954,11 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
-  <test>
-    <default>
-      <files>negzerotest.js</files>
-      <command>jdtest.exe -dbgbaseline:negzerotest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
   <!-- verify ArrayBuffer representation in debugger -->
   <test>
     <default>
       <files>arraybuffer.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:arraybuffer.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>arraybuffer.js</files>
-      <command>jdtest.exe -dbgbaseline:arraybuffer.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -EnableJitInHybridDebugging</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -1345,22 +980,6 @@
   </test>
   <test>
     <default>
-      <files>try.js</files>
-      <command>jdtest.exe -dbgbaseline:try.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>try.js</files>
-      <command>jdtest.exe -dbgbaseline:try.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>catch.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:catch.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
@@ -1375,22 +994,6 @@
   </test>
   <test>
     <default>
-      <files>catch.js</files>
-      <command>jdtest.exe -dbgbaseline:catch.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>catch.js</files>
-      <command>jdtest.exe -dbgbaseline:catch.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>finally.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:finally.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
@@ -1400,22 +1003,6 @@
     <default>
       <files>finally.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:finally.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>finally.js</files>
-      <command>jdtest.exe -dbgbaseline:finally.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>finally.js</files>
-      <command>jdtest.exe -dbgbaseline:finally.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
@@ -1541,136 +1128,6 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
-  <!-- hybrid forced interpreted runs -->
-  <test>
-    <default>
-      <files>justMyCode.singleDocument.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.singleDocument.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.singleDocument.baseline</baseline>
-      <tags>exclude_dynapogo,fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.try.singleDocument.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.try.singleDocument.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.try.singleDocument.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.try.twoDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.try.twoDocuments.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.try.twoDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.simple.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.simple.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.simple.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.threeDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.threeDocuments.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.threeDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.eval.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.eval.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.eval.main.baseline</baseline>
-      <tags>fail_mutators,exclude_fre,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <!-- hybrid forced JIT mode - THIS IS NOT POSSIBLE AS PER TEST INFRA YET - to be enabled once possible -->
-  <!--
-  <test>
-    <default>
-      <files>justMyCode.singleDocument.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.singleDocument.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.singleDocument.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.try.singleDocument.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.try.singleDocument.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.try.singleDocument.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.try.twoDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.try.twoDocuments.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.try.twoDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.simple.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.simple.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.simple.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.threeDocuments.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.threeDocuments.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.threeDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>justMyCode.twoDocuments.eval.main.js</files>
-      <command>jdtest.exe -dbgbaseline:justMyCode.twoDocuments.eval.main.js.hybriddbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
-      <baseline>justMyCode.twoDocuments.eval.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_fre,exclude_nonative</tags>
-    </default>
-  </test>
--->
   <!-- /JUST MY CODE -->
   <test>
     <default>
@@ -1683,22 +1140,6 @@
     <default>
       <files>unicode_linecol.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:unicode_linecol.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>unicode_linecol.js</files>
-      <command>jdtest.exe -dbgbaseline:unicode_linecol.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-noNative -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>unicode_linecol.js</files>
-      <command>jdtest.exe -dbgbaseline:unicode_linecol.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
@@ -1790,15 +1231,6 @@
   </test>
   <test>
     <default>
-      <command>jdtest.exe -targeted jshost</command>
-      <compile-flags>-DebugLaunch:hybrid -forcenative -off:simpleJit -trace:bailout</compile-flags>
-      <files>jitStepping.js</files>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
-      <baseline>jitStepping.hybrid.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
       <compile-flags>-DebugLaunch -targeted -forcenative -off:simpleJit</compile-flags>
       <files>jitStepping1.js</files>
       <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
@@ -1847,16 +1279,6 @@
       <tags>fail_mutators</tags>
     </default>
   </test>
-  <!--
-  <test>
-    <default>
-      <files>stringkeyedtypehandler.js</files>
-      <command>jdtest.exe -dbgbaseline:stringkeyedtypehandler.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -DeletedPropertyReuseThreshold:1</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  Disabled for Arguments[Symbol.iterator] workItem -Falotfi -->
   <test>
     <default>
       <files>functionNameShowsInScopeGroupTest.bug157127.js</files>
@@ -1866,24 +1288,8 @@
   </test>
   <test>
     <default>
-      <files>functionNameShowsInScopeGroupTest.bug157127.js</files>
-      <command>jdtest.exe -dbgbaseline:functionNameShowsInScopeGroupTest.bug157127.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>functionNameShowsInNestedScopeGroupTest.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:functionNameShowsInNestedScopeGroupTest.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>functionNameShowsInNestedScopeGroupTest.js</files>
-      <command>jdtest.exe -dbgbaseline:functionNameShowsInNestedScopeGroupTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -2071,14 +1477,6 @@
   </test>
   <test>
     <default>
-      <files>blockScopeRegSlotShadowingExpressionEvaluationTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeRegSlotShadowingExpressionEvaluationTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeExpressionSimpleDeadZoneTest.js</files>
       <compile-flags>-InspectMaxStringLength:33 -debuglaunch -targeted -dbgbaseline:blockScopeExpressionSimpleDeadZoneTest.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
@@ -2100,14 +1498,6 @@
   </test>
   <test>
     <default>
-      <files>blockScopeTryCatchTest.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeTryCatchTest.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>blockScopeSibling.bug243560.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSibling.bug243560.js.dbg.baseline -Intl-</compile-flags>
       <tags>fail_mutators</tags>
@@ -2115,25 +1505,8 @@
   </test>
   <test>
     <default>
-      <files>blockScopeSibling.bug243560.js</files>
-      <command>jdtest.exe -dbgbaseline:blockScopeSibling.bug243560.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>nonEnumerableSpecialPropertiesTests.js</files>
       <compile-flags>-InspectMaxStringLength:100 -EnumerateSpecialPropertiesInDebugger -debuglaunch -targeted -dbgbaseline:nonEnumerableSpecialPropertiesTests.js.dbg.baseline -Intl- -ES6-</compile-flags>
-      <baseline>nonEnumerableSpecialPropertiesTests.baseline</baseline>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>nonEnumerableSpecialPropertiesTests.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:100 -dbgbaseline:nonEnumerableSpecialPropertiesTests.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -EnumerateSpecialPropertiesInDebugger -Intl- -ES6-</compile-flags>
       <baseline>nonEnumerableSpecialPropertiesTests.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -2147,14 +1520,6 @@
   </test>
   <test>
     <default>
-      <files>nonEnumerableSpecialPropertiesArgumentsTest.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:nonEnumerableSpecialPropertiesArgumentsTest.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -EnumerateSpecialPropertiesInDebugger -Intl- -ES6-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>nonEnumerableSpecialPropertiesFunctionTest.js</files>
       <compile-flags>-EnumerateSpecialPropertiesInDebugger -debuglaunch -targeted -dbgbaseline:nonEnumerableSpecialPropertiesFunctionTest.js.dbg.baseline -Intl-</compile-flags>
       <tags>fail_mutators</tags>
@@ -2162,24 +1527,8 @@
   </test>
   <test>
     <default>
-      <files>nonEnumerableSpecialPropertiesFunctionTest.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:nonEnumerableSpecialPropertiesFunctionTest.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -EnumerateSpecialPropertiesInDebugger -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>localsInspectionOnNonTopFrameInBlockTest.bug163347.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:localsInspectionOnNonTopFrameInBlockTest.bug163347.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>localsInspectionOnNonTopFrameInBlockTest.bug163347.js</files>
-      <command>jdtest.exe -dbgbaseline:localsInspectionOnNonTopFrameInBlockTest.bug163347.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -2359,14 +1708,6 @@
   </test>
   <test>
     <default>
-      <files>with_shadow.js</files>
-      <command>jdtest.exe -targeted -InspectMaxStringLength:100 -dbgbaseline:with_shadow.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl- </compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>var_shadow.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:var_shadow.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
@@ -2374,24 +1715,8 @@
   </test>
   <test>
     <default>
-      <files>var_shadow.js</files>
-      <command>jdtest.exe -dbgbaseline:var_shadow.js.dbg.baseline -targeted jshost </command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>arraytoes5array.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:arraytoes5array.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>arraytoes5array.js</files>
-      <command>jdtest.exe -dbgbaseline:arraytoes5array.js.hybrid.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2451,14 +1776,6 @@
   </test>
   <test>
     <default>
-      <files>bug_291582.js</files>
-      <command>jdtest.exe -dbgbaseline:bug_291582.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>cross_site_async_break_parent.js</files>
       <compile-flags>-debuglaunch -targeted -asyncbreak -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
     </default>
@@ -2486,14 +1803,6 @@
   </test>
   <test>
     <default>
-      <files>propertyEnumeration.bug241480.js</files>
-      <command>jdtest.exe -dbgbaseline:propertyEnumeration.bug241480.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>deferParse_210165.js</files>
       <compile-flags>-targeted -dbgbaseline:deferParse_210165.js.dbg.baseline</compile-flags>
       <baseline>deferParse_210165.baseline</baseline>
@@ -2509,25 +1818,9 @@
   </test>
   <test>
     <default>
-      <files>qualified_names1.js</files>
-      <command>jdtest.exe -dbgbaseline:qualified_names1.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>qualified_names2.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:qualified_names2.js.dbg.baseline -es6classes -Intl-</compile-flags>
       <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>qualified_names2.js</files>
-      <command>jdtest.exe -dbgbaseline:qualified_names2.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -es6classes -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -2542,15 +1835,6 @@
     <default>
       <files>qualified_names4.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:qualified_names4.js.dbg.baseline -Intl-</compile-flags>
-      <baseline>qualified_names4.baseline</baseline>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>qualified_names4.js</files>
-      <command>jdtest.exe -dbgbaseline:qualified_names4.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
       <baseline>qualified_names4.baseline</baseline>
       <tags>fail_mutators</tags>
     </default>
@@ -2606,24 +1890,6 @@
   </test>
   <test>
     <default>
-      <files>HybridArguments.js</files>
-      <command>jdtest.exe -dbgbaseline:HybridArguments.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid -forcenative</compile-flags>
-      <baseline>HybridArguments.baseline</baseline>
-      <tags>fail_mutators,,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>HybridStatementMaps.js</files>
-      <command>jdtest.exe -dbgbaseline:HybridStatementMaps.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <baseline>HybridArguments.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>stacktraceevent_1.js</files>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
       <baseline>stacktraceevent_1.baseline</baseline>
@@ -2639,24 +1905,8 @@
   </test>
   <test>
     <default>
-      <files>symbols.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:symbols.js.dbg.baseline jshost</command>
-      <compile-flags>-ES6Species -debuglaunch:hybrid -es6toprimitive -es6isConcatSpreadable -es6tostringtag</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>symbols1.js</files>
       <compile-flags>-debuglaunch -dbgbaseline:symbols1.js.dbg.baseline -targeted -InspectMaxStringLength:100</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>symbols1.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:symbols1.js.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2665,14 +1915,6 @@
       <files>qualified_names5.js</files>
       <compile-flags>-debuglaunch -dbgbaseline:qualified_names5.js.dbg.baseline -targeted</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>qualified_names5.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:qualified_names5.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2773,14 +2015,6 @@
   </test>
   <test>
     <default>
-      <files>bug_551355.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:bug_551355.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>bug_550210.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_550210.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
@@ -2805,14 +2039,6 @@
     <default>
       <files>bug_575634.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_575634.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>bug_575634.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:bug_575634.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -2898,26 +2124,10 @@
   </test>
   <test>
     <default>
-      <files>permanentArguments.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:permanentArguments.js.dbg.baseline jshost</command>
-      <compile-flags>-forcenative -debuglaunch:hybrid</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>shutdownInDispatchHalt.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
       <baseline>shutdownInDispatchHalt.baseline</baseline>
       <tags>fail_mutators,exclude_dynapogo</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>582505.js</files>
-      <command>jdtest.exe -targeted jshost</command>
-      <compile-flags> -debuglaunch:hybrid -off:inline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>
@@ -2932,14 +2142,6 @@
       <files>spread_debugging.js</files>
       <compile-flags>-ES6Spread -DebugLaunch -Targeted -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>spread_debugging.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:spread_debugging.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <tags>exclude_serialized</tags>
-      <compile-flags>-ES6Spread -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3256,14 +2458,6 @@
   </test>
   <test>
     <default>
-      <files>returnedvaluetests.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:returnedvaluetests.js.dbg.baseline jshost</command>
-      <compile-flags>-debugLaunch:hybrid </compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>returnedvaluetests1.js</files>
       <compile-flags>-targeted -dbgbaseline:returnedvaluetests1.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo,exclude_serialized</tags>
@@ -3273,14 +2467,6 @@
     <default>
       <files>returnedvaluetests2.js</files>
       <compile-flags>-debugLaunch -targeted -dbgbaseline:returnedvaluetests2.js.dbg.baseline</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>returnedvaluetests2.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:returnedvaluetests2.js.dbg.baseline jshost</command>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
       <tags>exclude_dynapogo,exclude_serialized</tags>
     </default>
   </test>
@@ -3308,14 +2494,6 @@
     <default>
       <files>returnedvaluetests3.js</files>
       <compile-flags>-debugLaunch -targeted -dbgbaseline:returnedvaluetests3.js.dbg.baseline</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>returnedvaluetests3.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:returnedvaluetests3.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
       <tags>exclude_dynapogo,exclude_serialized</tags>
     </default>
   </test>
@@ -3364,30 +2542,9 @@
   </test>
   <test>
     <default>
-      <files>bug_595466-1.js</files>
-      <command>jdtest.exe -dbgbaseline:bug_595466-1.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>bug_595466-2.js</files>
-      <command>jdtest.exe -dbgbaseline:bug_595466-2.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>setnext_timerbody_192067.js</files>
       <compile-flags> -debuglaunch -targeted -dbgbaseline:setnext_timerbody_192067.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ObjectHeaderInlining_hybridDebug.js</files>
-      <command>jdtest.exe -dbgbaseline:objectheaderinlining_hybriddebug.js.dbg.baseline -targeted jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3406,13 +2563,6 @@
     <default>
       <files>rest.js</files>
       <compile-flags>-targeted -dbgbaseline:rest_attach_detach.js.dbg.baseline -ES6Rest -ES6Classes -InspectMaxStringLength:100</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>rest_hybrid.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:rest_hybrid.js.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-ES6Rest -ES6Classes -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3537,61 +2687,8 @@
   </test>
   <test>
     <default>
-      <files>ObjLit_breakpoints.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:HybridDbgBaselines\ObjLit_breakpoints.js.dbg.baseline jshost</command>
-      <baseline>Baselines\ObjLit_breakpoints.js.hybrid.baseline</baseline>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized,Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ObjLit_exception.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:DbgBaselines\ObjLit_exception.js.dbg.baseline jshost</command>
-      <baseline>Baselines\ObjLit_exception.js.baseline</baseline>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ObjLit_step_into_more.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:DbgBaselines\ObjLit_step_into_more.js.dbg.baseline jshost</command>
-      <baseline>Baselines\ObjLit_step_into_more.js.baseline</baseline>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ObjLit_step_into_out.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:DbgBaselines\ObjLit_step_into_out.js.dbg.baseline jshost</command>
-      <baseline>Baselines\ObjLit_step_into_out.js.baseline</baseline>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ObjLit_step_over.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:DbgBaselines\ObjLit_step_over.js.dbg.baseline jshost</command>
-      <baseline>Baselines\ObjLit_step_over.js.baseline</baseline>
-      <compile-flags>-debugLaunch:hybrid</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>generators.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:generators.js.dbg.baseline -ES6Generators -InspectMaxStringLength:200</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>generators.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:generators.js.hybrid.dbg.baseline -InspectMaxStringLength:200 jshost</command>
-      <compile-flags>-debugLaunch:hybrid -ES6Generators</compile-flags>
-      <tags>exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
@@ -3608,35 +2705,14 @@
   </test>
   <test>
     <default>
-      <files>TypedArray.js</files>
-      <command>jdtest.exe -dbgbaseline:typedarray.js.dbg.hybrid.baseline -targeted -InspectMaxStringLength:200 jshost</command>
-      <compile-flags>-ES6Species -debuglaunch:hybrid -es6tostringtag</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>ComputedPropertyNames.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:computedpropertynames.js.dbg.baseline</compile-flags>
     </default>
   </test>
   <test>
     <default>
-      <files>ComputedPropertyNames.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:computedpropertynames.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>ComputedPropertyNamesExceptionIgnore.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:computedpropertynamesexceptionignore.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ComputedPropertyNamesExceptionIgnore.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:computedpropertynamesexceptionignore.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3705,14 +2781,6 @@
     <default>
       <files>cesuCharacters.js</files>
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:1000 -dbgbaseline:cesuCharacters.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>cesuCharacters.js</files>      
-      <command>jdtest.exe -targeted -dbgbaseline:cesuCharacters.js.hybrid.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo</tags>      
     </default>
   </test>
   <test>
@@ -3816,22 +2884,8 @@
   </test>
   <test>
     <default>
-      <files>SIMDFloat32x4_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdfloat32x4_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDInt32x4_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdint32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt32x4_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdint32x4_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3842,22 +2896,8 @@
   </test>
   <test>
     <default>
-      <files>SIMDInt8x16_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdint8x16_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDInt16x8_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdint16x8_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt16x8_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdint16x8_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3868,22 +2908,8 @@
   </test>
   <test>
     <default>
-        <files>SIMDBool32x4_dbg_test.js</files>
-        <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdbool32x4_dbg_test.js.dbg.baseline</command>
-        <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDBool8x16_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdbool8x16_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDBool8x16_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdbool8x16_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3894,22 +2920,8 @@
   </test>
   <test>
     <default>
-      <files>SIMDBool16x8_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simdbool16x8_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDUint32x4_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simduint32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDUint32x4_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simduint32x4_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>
@@ -3920,22 +2932,8 @@
   </test>
   <test>
     <default>
-      <files>SIMDUint8x16_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simduint8x16_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>SIMDUint16x8_dbg_test.js</files>
       <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simduint16x8_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDUint16x8_dbg_test.js</files>
-      <command>jdtest.exe -inspectmaxstringlength:200 -targeted jshost -dbgbaseline:simduint16x8_dbg_test.js.dbg.baseline</command>
-      <compile-flags>-simdjs -debuglaunch:hybrid</compile-flags>
     </default>
   </test>
   <test>

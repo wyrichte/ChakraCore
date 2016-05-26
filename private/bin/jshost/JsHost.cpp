@@ -20,7 +20,6 @@ HINSTANCE jscriptLibrary = NULL;
 IGlobalInterfaceTable * git = NULL;
 HANDLE shutdownEvent = NULL;
 LPWSTR dbgBaselineFilename = NULL;
-bool IsRunningUnderJdtest = 0;
 LPCWSTR alternateDllName = NULL;
 
 HINSTANCE nativeTestDll = NULL;
@@ -1341,54 +1340,6 @@ int JcExceptionFilter(int exceptionCode, _EXCEPTION_POINTERS *ep)
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
-void LaunchAndAttachDebugger()
-{
-    WCHAR buf[64];
-    WCHAR cmdLineBuf[1024] = { 0 };
-    std::wstring eventName = _u("jdtest");
-    std::wstring cmdLine;
-
-    // event name: jdtest1234
-    _itow_s(GetCurrentProcessId(), buf, 10);
-    eventName += buf;
-
-    // command line: ... -event:jdtest1234
-    cmdLine = _u("jdtest.exe ");
-    cmdLine += HostConfigFlags::jdtestCmdLine;
-    cmdLine += _u(" -event:");
-    cmdLine += eventName;
-    wcscpy_s(cmdLineBuf, cmdLine.c_str());
-
-    HANDLE hDebuggerEvt;
-    hDebuggerEvt = CreateEvent(NULL, TRUE, FALSE, eventName.c_str());
-
-    STARTUPINFO startupInfo = {0};
-    PROCESS_INFORMATION procInfo = {0};
-    startupInfo.cb = sizeof(STARTUPINFO);
-    if(CreateProcess(NULL, cmdLineBuf, NULL, NULL, FALSE, 0, NULL, NULL, &startupInfo, &procInfo) == FALSE)
-    {
-        wprintf(_u("ERROR: failed to attach debugger\n"));
-        exit(1);
-    }
-
-    CloseHandle(procInfo.hThread);
-    CloseHandle(procInfo.hProcess);
-
-    if(WaitForSingleObject(hDebuggerEvt, INFINITE) != WAIT_OBJECT_0)
-    {
-        wprintf(_u("ERROR: failed to attach debugger\n"));
-        exit(1);
-    }
-
-    if(!IsDebuggerPresent())
-    {
-        wprintf(_u("ERROR: failed to attach debugger\n"));
-        exit(1);
-    }
-
-    // out of proc debugger now attached
-}
-
 // Launch JsEtwConsole, wait for it to begin processing ETW events, then return.
 // This method opens JsEtwConsole via ShellExecute which will attempt to elevate if needed.
 // We wait for JsEtwConsole to indicate readiness via a named event returned from CreateEvent.
@@ -1648,17 +1599,6 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         return MemProtectHeapTest();        
     }
 
-    // Check if running in the out of proc debugger was requested
-    if (HostConfigFlags::jdtestCmdLine != nullptr)
-    {
-        if (HostConfigFlags::flags.DebugLaunch)
-        {
-            SysFreeString(HostConfigFlags::flags.DebugLaunch);
-        }
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u("hybrid"));
-        LaunchAndAttachDebugger();
-    }
-
 #ifdef CHECK_MEMORY_LEAK
     // Always check memory leak in jshost.exe, unless user specfied the flag already
     if (!JScript9Interface::IsEnabledCheckMemoryFlag())
@@ -1915,7 +1855,6 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
     HostConfigFlags::HandleArgsFlag(argc, argv);
-    HostConfigFlags::HandleJdTestFlag(argc, argv);
     HostConfigFlags::HandleJsEtwConsoleFlag(argc, argv);
 
     if (int ret = HandleNativeTestFlag(argc, argv) != 0)
@@ -1976,12 +1915,7 @@ int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
     SetupUnhandledExceptionFilter();
 
     HostConfigFlags::pfnPrintUsage = PrintUsage;
-    
-    char *jdtestVar = getenv("JDTEST");
-    if(jdtestVar && !strcmp(jdtestVar, "1"))
-    {
-        IsRunningUnderJdtest = true;
-    }
+
     ATOM lock = ::AddAtom(szChakraLock);
     AssertMsg(lock, "failed to lock chakra.dll");
     int ret = 0;

@@ -134,14 +134,6 @@
   </test>
   <test>
     <default>
-      <files>funcSource.js</files>
-      <command>jdtest.exe -targeted -inspectmaxstringlength:100 -dbgbaseline:funcSource.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
-      <tags>fail_mutators,exclude_winglob,exclude_serialized,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>scriptInLibrary.js</files>
       <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <tags>fail_mutators,exclude_winglob</tags>
@@ -158,15 +150,6 @@
     <default>
       <files>throwFromLibrary.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:throwFromLibrary.js.dbg.baseline -Intl</compile-flags>
-      <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
-    </default>
-  </test>
-  <test>  
-    <default>
-      <files>throwFromLibrary.js</files>
-      <baseline>throwFromLibrary.hybrid.baseline</baseline>
-      <command>jdtest.exe -targeted -dbgbaseline:throwFromLibrary.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl</compile-flags>
       <tags>fail_mutators,exclude_winglob,exclude_serialized</tags>
     </default>
   </test>

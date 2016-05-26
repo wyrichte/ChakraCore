@@ -89,7 +89,7 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
         scriptContext->EnsureDOMFastPathIRHelperMap()->Add(functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
     }
-    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }
 
 Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
@@ -101,5 +101,6 @@ Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetter
         typedObjectSlotSetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
 
     }
-    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }

@@ -72,7 +72,6 @@ namespace JsDiag
         this->LoadTargetAndExecute([&](IDiagHook* hook, ULONG64 moduleBaseAddr64) {
             this->GetGlobals(hook, moduleBaseAddr64);
             this->GetVTables(hook, moduleBaseAddr64, m_vtables, _countof(m_vtables));
-            this->GetErrorStrings(hook);
             m_hasTargetHooks = true;
         });
     }
@@ -167,24 +166,6 @@ namespace JsDiag
         for (ULONG i = 0; i < vtablesSize; i++)
         {
             vtables[i] = reinterpret_cast<VTABLE_PTR>(reinterpret_cast<const BYTE*>(vtables[i]) + moduleBaseAddr);
-        }
-    }
-
-    void DebugClient::GetErrorStrings(IDiagHook* diagHook)
-    {
-        static HRESULT errorCodes[] =
-        {
-            DIAGERR_FunctionCallNotSupported,
-            DIAGERR_EvaluateNotSupported,
-            JSERR_Property_CannotGet_NullOrUndefined,
-        };
-
-        for (int i = 0; i < _countof(errorCodes); i++)
-        {
-            HRESULT code = errorCodes[i];
-            CComBSTR bs;
-            CheckHR(diagHook->GetErrorString(code, &bs));
-            m_errorStrings[code] = bs;
         }
     }
 

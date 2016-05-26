@@ -900,7 +900,6 @@ namespace Projection
         Recycler * recycler = this->scriptContext->GetRecycler();
         auto functionInfo = RecyclerNew(recycler, Js::WinRTFunctionInfo, entryPoint);
         Js::JavascriptWinRTFunction *function = nullptr;
-        Js::JavascriptLibrary * library = this->scriptContext->GetLibrary();
         Js::DynamicType * type = this->scriptContext->GetLibrary()->CreateDeferredPrototypeFunctionType(entryPoint);
         if (fConstructor)
         {
@@ -910,7 +909,6 @@ namespace Projection
         {
             function = RecyclerNewEnumClass(recycler, Js::JavascriptLibrary::EnumFunctionClass, Js::JavascriptWinRTFunction, type, functionInfo, signature);
         }
-        function = library->EnsureReadyIfHybridDebugging(function);
 
         function->SetFunctionNameId(Js::TaggedInt::ToVarUnchecked(nameId));
         return function;

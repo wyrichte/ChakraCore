@@ -165,7 +165,6 @@ extern LPWSTR dbgBaselineFilename;
 extern HINSTANCE jscriptLibrary;
 extern IGlobalInterfaceTable * git;
 EXTERN_C CRITICAL_SECTION hostThreadMapCs;
-extern bool IsRunningUnderJdtest;
 
 HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent = 0);
 HRESULT CreateNewEngine(HANDLE thread, JsHostActiveScriptSite ** scriptSite, bool freeAtShutdown, bool actAsDiagnosticsHost, bool isPrimary, WORD domainId);
