@@ -30,8 +30,16 @@ char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, 
 }
 
 char * JDBackend::GetIntConstOpndDumpString(ExtRemoteTyped intConstOpnd, char * buffer, size_t len)
-{    
-    RETURNBUFFER("%d", intConstOpnd.Field("m_value").GetLong());
+{
+    if (g_Ext->m_PtrSize == 4)
+    {
+        RETURNBUFFER("%d", intConstOpnd.Field("m_value").GetLong());
+    }
+    else
+    {
+        Assert(g_Ext->m_PtrSize == 8);
+        RETURNBUFFER("%I64d", intConstOpnd.Field("m_value").GetLong64());
+    }
 }
 
 char * JDBackend::GetFloatConstOpndDumpString(ExtRemoteTyped floatConstOpnd, char * buffer, size_t len)

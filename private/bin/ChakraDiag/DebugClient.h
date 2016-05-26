@@ -23,7 +23,6 @@ namespace JsDiag
         UINT64 m_js9HighAddress;
         VTABLE_PTR m_vtables[Diag_MaxVTable];
         void* m_globals[Globals_Count];
-        CAtlMap<HRESULT, CComBSTR> m_errorStrings;
         bool m_hasTargetHooks;
 
         static const unsigned int c_pointerSize = sizeof(void*);
@@ -58,18 +57,6 @@ namespace JsDiag
             return m_vtables[vtableType];
         }
 
-        PCWSTR GetErrorString(HRESULT errorCode)
-        {
-            EnsureTargetHooks();
-            auto pair = m_errorStrings.Lookup(errorCode);
-            if (!pair)
-            {
-                Assert(false);
-                DiagException::Throw(E_UNEXPECTED, DiagErrorCode::ERRORSTRING_MISSING);
-            }
-            return pair->m_value;
-        }
-
         bool IsVTable(VTABLE_PTR vtable,
             _In_range_(0, Diag_MaxVTable - 1) Diag_VTableType first,
             _In_range_(0, Diag_MaxVTable - 1) Diag_VTableType last);
@@ -94,7 +81,6 @@ namespace JsDiag
         template <typename T> void LoadTargetAndExecute(T operation);
         void GetGlobals(IDiagHook* diagHook, ULONG64 moduleBaseAddr);
         void GetVTables(IDiagHook* diagHook, ULONG64 moduleBaseAddr, _Out_writes_all_(vtablesSize) VTABLE_PTR* vtables, ULONG vtablesSize);
-        void GetErrorStrings(IDiagHook* diagHook);
     };
 
     struct LibraryName

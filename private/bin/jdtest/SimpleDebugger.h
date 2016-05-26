@@ -3,21 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-struct BpInfo
-{
-    BpInfo() : documentId(0), charOffset(0), charCount(0), hitCount(0), id(0)
-    {
-    }
-
-    UINT64 documentId;
-    DWORD charOffset;
-    DWORD charCount;
-    ULONG hitCount;
-    ULONG id;
-
-    CComPtr<IJsDebugBreakPoint> pBreakpoint;
-};
-
 //
 // This implements a simple debugger that allows actions at break points.
 //
@@ -57,10 +42,7 @@ public:
     HRESULT Initialize(const string& initialCommand);
     void SetQuiet(bool quiet) { m_quiet = quiet; }
     void SetVerbose(bool verbose) { m_verbose = verbose; }
-    void SetInspectMaxStringLength(int inspectMaxStringLength) { Assert(inspectMaxStringLength > 0); m_config.maxStringLengthToDump = inspectMaxStringLength; }
     void DebugLaunch(_In_ LPTSTR pCmdLine);
-    void Attach(ULONG pid);
-
     static void Create(const string& initialCommand, _Out_ SimpleDebugger** dbg);
     IDebugDataSpaces4* GetReader() { return m_debugDataSpaces; }
 #pragma warning(disable:4100) //  unreferenced formal parameter
@@ -183,147 +165,8 @@ public:
     STDMETHOD(ChangeSymbolState)(
         _In_ ULONG Flags,
         _In_ ULONG64 Argument
-        ) { return E_NOTIMPL; } 
-
-    //
-    // Helpers to support DumpDebugProperty
-    //
-    typedef IJsDebugProperty* DebugProperty;
-    typedef AutoJsDebugPropertyInfo AutoDebugPropertyInfo;
-
-    const ControllerConfig& GetControllerConfig() const { return m_config; }
-    bool IsHybridDebugger() const { return true;  }
-
-    template <class Func>
-    HRESULT MapPropertyInfo(IJsDebugProperty* pDebugProperty, DebugPropertyFlags flags, const Func& func)
-    {
-        HRESULT hr = S_OK;
-        AutoDebugPropertyInfo info;
-
-        IfFailGo(EnsureFullNameEvaluationValueIsEquivalent(pDebugProperty, flags));
-        IfFailGo(pDebugProperty->GetPropertyInfo(DebuggerController::GetRadix(flags), &info));
-
-        // Skip projections pointer variables.
-        if (info.attr & JS_PROPERTY_NATIVE_WINRT_POINTER)
-        {
-            if (info.value == nullptr || wcslen(info.value) == 0)
-            {
-                DebuggerController::LogError(_u("WinRT pointer value missing"));
-            }
-            return S_OK;
-        }
-
-        IfFailGo(func(info));
-
-    Error:
-        return hr;
-    }
-
-    template <class Func>
-    HRESULT EnumDebugProperties(IJsDebugProperty* pDebugProperty, DebugPropertyFlags flags, const Func& func)
-    {
-        HRESULT hr = S_OK;
-
-        CComPtr<IJsEnumDebugProperty> pEnumDebugProperty;
-        IfFailGo(pDebugProperty->GetMembers(JS_PROPERTY_MEMBERS::JS_PROPERTY_MEMBERS_ALL, &pEnumDebugProperty));
-        if (pEnumDebugProperty == nullptr) return S_OK; // No properties.
-
-        for (;;)
-        {
-            CComPtr<IJsDebugProperty> pMember;
-            ULONG count = 0;
-            IfFailGo(pEnumDebugProperty->Next(1, &pMember, &count));
-            if (count == 0) break;
-
-            IfFailGo(func(pMember));
-        }
-
-    Error:
-        return hr;
-    }
+        ) { return E_NOTIMPL; }
 
 private:
     void RunDebugLoop();
-
-    static const ULONG INVALID_BREAKPOINT_ID = ULONG_MAX;
-
-    // Used for targeted and automatic test cases.
-    bool                            m_initialized;
-    DWORD                           m_procId;
-    DWORD                           m_threadId;
-    DebuggerController*             m_pController;
-    CComPtr<IJsDebug2>              m_pJsDebug;
-    CComPtr<IDebugSystemObjects>    m_pSystem;
-    CComPtr<IJsDebugProcess>        m_pDebugProcess;
-    ControllerConfig                m_config;
-    std::vector<BpInfo*>            m_breakpoints;
-    std::map<ULONG,UINT64>          m_docIdMap;
-    std::map<UINT64,SourceMap>      m_sourceMaps;
-    std::map<UINT64,std::wstring>   m_sourceText;
-    RemoteScriptDebugEvent*         m_currentEvent;
-    std::wstring                    m_filename;
-    CComPtr<IJsDebugFrame>          m_currentFrame;
-    ERRORRESUMEACTION               m_defaultErrorAction;
-    SCRIPT_DEBUGGER_OPTIONS         m_scriptDebuggerOptions;
-    BOOL                            m_scriptDebuggerOptionsValue;
-    ULONG                           m_projectionCallBreakPointId;
-    std::wstring                    m_projectionCallMessage;
-    
-    ULONG docIdCount;
-    ULONG bpCount;
-
-    // Implements a mapping from document ID's to source ID tokens
-    ULONG   CreateUniqueSrcId(UINT64 docId);
-    UINT64  GetDocIdForSrcId(ULONG srcId);
-    ULONG   GetSrcIdForDocId(UINT64 docId);
-
-    ULONG   CreateUniqueBreakpointId() { return bpCount++; }
-
-    HRESULT OnInsertText(UINT64 docId, _In_ LPWSTR url, _In_ LPWSTR filename, _In_ LPWSTR text);
-    HRESULT OnBreakpoint(RemoteScriptDebugEvent *evt);
-
-    HRESULT PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk);
-    HRESULT EnsureDebugInterfaces();
-    HRESULT GetCallstack(LocationToStringFlags flags = LTSF_None);
-    HRESULT AsyncBreak();
-    HRESULT InspectLocals();
-    HRESULT GetLocation(CComPtr<IJsDebugFrame> pFrame, Location& location);
-    HRESULT GetLocals(int expandLevel, DebugPropertyFlags flags);
-    HRESULT EvaluateExpression(PCWSTR expression, int expandLevel, DebugPropertyFlags flags);
-    HRESULT GetLocalsEnum(CComPtr<IJsDebugProperty>& pDebugProperty);
-    HRESULT DumpBreakpoint(RemoteScriptDebugEvent *evt);
-    HRESULT DumpSourceList();
-    HRESULT GetCurrentBreakpoint(BpInfo **bpInfo);
-    HRESULT LogJson(LPCWSTR logString);
-    HRESULT TrackProjectionCall(PCWSTR message);
-    
-    // Sets the current stack frame that is active for inspection and expression evaluation
-    HRESULT EnsureCurrentFrame();
-    void ClearCurrentFrame();
-    HRESULT SetCurrentFrame(ULONG depth);
-
-    HRESULT SetDebuggerOptions(SCRIPT_DEBUGGER_OPTIONS mask, BOOL value);
-
-    HRESULT ResumeFromBreakPoint(RemoteScriptDebugEvent *evt, BREAKRESUMEACTION breakResume, ERRORRESUMEACTION errorResume);
-    HRESULT RemoveBreakpoint(BpInfo *bpInfo);
-    HRESULT InsertBreakpoint(UINT64 docId, DWORD charOffset, DWORD charCount, BREAKPOINT_STATE bpState, _Outptr_ BpInfo **bpInfo);
-    HRESULT ModifyBreakpoint(ULONG bpId, BREAKPOINT_STATE state);
-    HRESULT HandleAutomaticBreakpointLogic(RemoteScriptDebugEvent *evt);
-
-    // Javascript callbacks
-    static JsValueRef CALLBACK JsInsertBreakpoint(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsResumeFromBreakpoint(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsDumpLocals(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsDumpCallstack(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsAsyncBreak(JsValueRef callee, bool isConstructCall,  JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsEvaluateExpression(JsValueRef callee, bool isConstructCall,  JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsModifyBreakpoint(JsValueRef callee, bool isConstructCall,  JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsSetFrame(JsValueRef callee, bool isConstructCall,  JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsLogJson(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsSetExceptionResume(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsSetDebuggerOptions(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    static JsValueRef CALLBACK JsTrackProjectionCall(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-
-    // Expression evaluation
-    HRESULT EnsureFullNameEvaluationValueIsEquivalent(IJsDebugProperty* debugPropertyInfo, DebugPropertyFlags flags);
 };

@@ -10,12 +10,10 @@ namespace JsDiag
     // Contains "disconnected" data rather than hooks to retrive names from remote process (which could be alrernarive impl).
     //
     class RemoteStackFrame :
-         public CComObjectRoot,
-         public IJsDebugFrame
+         public CComObjectRoot
     {
         DECLARE_NOT_AGGREGATABLE(RemoteStackFrame)
         BEGIN_COM_MAP(RemoteStackFrame)
-            COM_INTERFACE_ENTRY(IJsDebugFrame)
         END_COM_MAP()
 
         // Delay intialized class for row/column.
@@ -67,13 +65,9 @@ namespace JsDiag
         StatementStartEndOffsetInfo m_statementStartOffset;
 
         // locals inspection
-        CComPtr<InspectionContext> m_context; // Optional, used by locals inspection
         AutoPtr<RemoteInterpreterStackFrame> m_interpreterFrame;
         
-        // Valid only within lifetime of this RemoteStackFrame.
-        // Alternative solution could be to use RefCounted<RemoteDiagFrame>, encapsulate RemoteStackFrame in it 
-        // and have all inspection use RemoteDiagFrame. Seems to be a bit of overkill.
-        AutoPtr<RemoteDiagFrame> m_diagFrame;
+        
 
     public:
         RemoteStackFrame();
@@ -96,8 +90,6 @@ namespace JsDiag
         bool IsTopJavascriptFrame() const { return m_frameId == 1; }
         void SetFrameId(uint frameId) { m_frameId = frameId; }
 
-        void SetInspectionContext(InspectionContext* context) { m_context = context; }
-        InspectionContext* GetInspectionContext() const { return m_context; }
         RemoteFunctionBody* GetRemoteFunctionBody() const { return m_functionBody->Get(); }
         RemoteScriptContext* GetRemoteScriptContext() const { return m_scriptContext->Get(); }
         JavascriptFunction* GetFunction() const { return m_functionAddr; }
@@ -114,39 +106,7 @@ namespace JsDiag
          void Init(const RefCounted<RemoteFunctionBody>& functionBody, const RefCounted<RemoteScriptContext>& scriptContext, 
              JavascriptFunction* function, void** argvAddr, Js::CallInfo callInfo, const InternalStackFrame* frame);
 
-         // Returns an instance of RemoteDiagFrame that is valid only within lifetime of this RemoteStackFrame instance,
-         // that's why is has "temp" in the name.
-         // The instance is owned by RemoteStackFrame, so do not call destructor outside.
-         RemoteDiagFrame* GetTempDiagFrame();
-
-         /* === IJsDebugFrame  ===== */
-         virtual STDMETHODIMP GetStackRange(
-            /* [out] */ __RPC__out UINT64 *pStart,
-            /* [out] */ __RPC__out UINT64 *pEnd);
-
-        virtual STDMETHODIMP GetName(
-            /* [out] */ __RPC__deref_out_opt BSTR *pbstrName);
-
-        virtual STDMETHODIMP GetDocumentPositionWithId(
-            /* [out] */ __RPC__out UINT64 *pDocumentId,
-            /* [out] */ __RPC__out DWORD *pCharacterOffset,
-            /* [out] */ __RPC__out DWORD *pStatementCharCount);
-
-        virtual STDMETHODIMP GetDocumentPositionWithName(
-            /* [out] */ __RPC__deref_out_opt BSTR *pDocumentName,
-            /* [out] */ __RPC__out DWORD *pLine,
-            /* [out] */ __RPC__out DWORD *pColumn);
-
-        virtual STDMETHODIMP GetDebugProperty(
-            /* [out] */ __RPC__deref_out_opt IJsDebugProperty **ppDebugProperty);
-
-        virtual STDMETHODIMP GetReturnAddress(
-            /* [out] */ __RPC__out UINT64 *pReturnAddress);
-
-        virtual STDMETHODIMP Evaluate(
-            /* [in] */ __RPC__in LPCOLESTR pExpressionText,
-            /* [out] */ __RPC__deref_out_opt IJsDebugProperty **ppDebugProperty,
-            /* [out] */ __RPC__deref_out_opt BSTR *pError);
+       
 
     private:
         void SetByteCodeOffset(int byteCodeOffset);
@@ -166,58 +126,9 @@ namespace JsDiag
         void GetRowAndColumn(ULONG* pRow, ULONG* pColumn);
         void GetStatementStartAndEndOffset(ULONG* startOffset, ULONG* endOffset);
         static char16* WcsDup(_In_z_ const char16* src, size_t maxCharacterCount);
-        RemoteDiagFrame* CreateDiagFrame();
+        
 
-    private:
-        // Implementation of RemoteDiagFrame, for GetTempDiagFrame, private to this class to avoid mis-use.
-        class RemoteDiagInterpreterFrame : public RemoteDiagFrame
-        {
-        private:
-            RemoteStackFrame* m_actualFrame;    // Note: this class is always lives as part of RemoteStackFrame, thus no reference counting is needed.
-
-        public:
-            RemoteDiagInterpreterFrame(RemoteStackFrame* actualFrame);
-
-            virtual ScriptContext* GetScriptContext() override;
-            virtual FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister) override;
-            virtual Js::Var GetInnerScope(RegSlot scopeLocation) override;
-            virtual Js::Var GetRootObject() override;
-            virtual Js::Var GetArgumentsObject() override;
-            virtual Js::Var GetReg(RegSlot reg) override;
-            virtual Js::Var* GetInParams() override;
-            virtual int GetInParamCount() override;
-            virtual RemoteFunctionBody* GetRemoteFunctionBody() override;
-            virtual ScriptFunction* GetFunction() override;
-            virtual bool IsInterpreterFrame() override;
-            virtual UINT16 GetFlags();
-        };
-
-        class RemoteDiagNativeFrame : public RemoteDiagFrame
-        {
-        private:
-            RemoteStackFrame* m_actualFrame;    // Note: this class is always lives as part of RemoteStackFrame, thus no reference counting is needed.
-            int32 m_localVarSlotsOffset;
-
-        public:
-            RemoteStackFrame::RemoteDiagNativeFrame(RemoteStackFrame* actualFrame);
-
-            virtual ScriptContext* GetScriptContext() override;
-            virtual FrameDisplay* GetFrameDisplay(RegSlot frameDisplayRegister) override;
-            virtual Js::Var GetInnerScope(RegSlot scopeLocation) override;
-            virtual Js::Var GetRootObject() override;
-            virtual Js::Var GetArgumentsObject() override;
-            virtual Js::Var GetReg(RegSlot reg) override;
-            virtual Js::Var* GetInParams() override;
-            virtual int GetInParamCount() override;
-            virtual RemoteFunctionBody* GetRemoteFunctionBody() override;
-            virtual ScriptFunction* GetFunction() override;
-            virtual bool IsInterpreterFrame() override;
-            virtual UINT16 GetFlags();
-
-        private:
-            Js::Var* GetNonTempSlotOffsetLocation(RegSlot slotId);
-        };
-        // End of implementation of RemoteDiagFrame.
+   
 
     };
 } // namespace JsDiag.

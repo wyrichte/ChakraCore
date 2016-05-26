@@ -40,27 +40,6 @@ namespace JsDiag
         void AdvanceToNextFrame();
     };
 
-    // Stack frame enumerator based on stack unwinder provided by VS.
-    class VSStackFrameEnumerator : public RemoteStackFrameEnumerator
-    {
-        CComPtr<IJsDebugDataTarget> m_dataTarget;
-        CComPtr<IEnumJsStackFrames> m_enumerator;
-        JS_NATIVE_FRAME m_frames[2];    // Current frame and frame below it. We keep the frame below for EffectiveFrameBase on amd64.
-        ULONG m_currentFrameId;
-        bool m_canRequestProvider;      // Whether it's OK to ask provider for more frames. If false, m_frames[1] is N/A but current frame is valid.
-        bool m_noMoreFrames;
-
-    public:
-        VSStackFrameEnumerator(ULONG threadId, IJsDebugDataTarget* dataTarget);
-        virtual ~VSStackFrameEnumerator() override;
-
-        virtual bool Next() override;
-        virtual void Current(InternalStackFrame* frame) override;
-
-    private:
-        void AdvanceToNextFrame();
-    };
-
     //
     // Stack frame enumerator based on dbgeng.dll (IDebugControl::GetStackTrace).
     //

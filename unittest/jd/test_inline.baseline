@@ -1,6 +1,4 @@
 ---inlines
-
-Printing stacktrace..
 foo3 (test_inline.js:5,3)
 foo2 (test_inline.js:9,3)
 foo1 (test_inline.js:13,3)

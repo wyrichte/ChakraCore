@@ -66,15 +66,6 @@
       <baseline>classes_debugging.baseline</baseline>
     </default>
   </test>
-  <test>
-    <default>
-      <files>classes_debugging_hybrid.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:classes_debugging_hybrid.js.dbg.baseline -InspectMaxStringLength:200 jshost</command>
-      <baseline>classes_debugging_hybrid.baseline</baseline>
-      <tags>exclude_serialized</tags>
-      <compile-flags>-ES6Classes -debuglaunch:hybrid</compile-flags>
-    </default>
-  </test>
   <!--OS Bug:4806991
   <test>
     <default>
@@ -100,14 +91,6 @@
     <default>
       <files>objlit_debugging.js</files>
       <compile-flags> -ES6ObjectLiterals -debuglaunch -targeted</compile-flags>
-      <tags>exclude_serialized</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>objlit_debugging.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:objlit_debugging.js.hybrid.dbg.baseline jshost</command>
-      <compile-flags> -ES6ObjectLiterals -es6functionnamefull -debuglaunch:hybrid</compile-flags>
       <tags>exclude_serialized</tags>
     </default>
   </test>

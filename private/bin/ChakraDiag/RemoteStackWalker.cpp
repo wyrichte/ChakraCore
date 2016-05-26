@@ -625,29 +625,7 @@ bool RemoteStackWalker::IsEvalCaller()
     return IsEval(callinfo);
 }
 
-Js::Var RemoteStackWalker::GetPermanentArguments(const InspectionContext* context)
-{
-    // This method is in sync with JavascriptStackWalker::GetPermanentArguments() on the runtime side.
-    Assert(context);
-    CComPtr<RemoteStackFrame> currentFrame;
-    this->GetCurrentJavascriptFrame(&currentFrame);
 
-    if (currentFrame != nullptr)
-    {
-        // glob function doesn't allocate ArgumentsObject slot on stack
-        const uint32 paramCount = currentFrame->GetCallInfo().Count;
-        if (paramCount == 0)
-        {
-            return nullptr;
-        }
-
-        // Ensure the context is set on the frame.
-        currentFrame->SetInspectionContext(const_cast<InspectionContext*>(context));
-        return currentFrame->GetTempDiagFrame()->GetArgumentsObject();
-    }
-
-    return nullptr;
-}
 
 //
 // Advance enumerator and m_currentFrame to specific frame below.
@@ -899,3 +877,37 @@ void RemoteStackWalker::GetRefCountedRemoteScriptContext(const ScriptContext* ad
 }
 
 } // namespace JsDiag.
+
+  // shared static data
+#include "DateImplementationData.h"
+
+  // stubs
+namespace Js
+{
+#if DBG
+    bool Throw::ReportAssert(LPSTR fileName, uint lineNumber, LPSTR error, LPSTR message)
+    {
+        AssertMsg(false, "Runtime assertion");
+        return false;
+    }
+
+    void Throw::LogAssert()
+    {
+        AssertMsg(false, "Runtime assertion");
+    }
+#endif
+
+    void Throw::FatalInternalError()
+    {
+        AssertMsg(false, "Runtime fatal error");
+    }
+
+#if defined(PROFILE_RECYCLER_ALLOC) && defined(RECYCLER_DUMP_OBJECT_GRAPH)
+    bool RecyclableObject::DumpObjectFunction(type_info const * typeinfo, bool isArray, void * objectAddress) { return true; }
+    bool Type::DumpObjectFunction(type_info const * typeinfo, bool isArray, void * objectAddress) { return true; }
+#endif
+}
+
+#if defined(PROFILE_RECYCLER_ALLOC) && defined(RECYCLER_DUMP_OBJECT_GRAPH)
+void RecyclerObjectDumper::RegisterDumper(type_info const * typeinfo, DumpFunction dumperFunction) {}
+#endif

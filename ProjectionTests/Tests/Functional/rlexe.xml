@@ -1610,26 +1610,6 @@ Re-enable with new baseline
       <tags>exclude_win7</tags>
     </default>
   </test>
-
-  <test>
-    <default>
-      <files>InteropStepping.js</files>
-      <baseline>InteropStepping.baseline</baseline>
-      <command>jdtest.exe -targeted -dbgbaseline:InteropStepping.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_win7,exclude_dynapogo,exclude_snap</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>InteropStepping.js</files>
-      <baseline>InteropStepping.baseline</baseline>
-      <command>jdtest.exe -targeted -dbgbaseline:InteropStepping.js.dbg.baseline jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-  -NoWinRTFastSig</compile-flags>
-      <tags>exclude_win7,exclude_dynapogo,exclude_snap</tags>
-    </default>
-  </test>
-
   <test>
     <default>
       <files>IStringable.js</files>
