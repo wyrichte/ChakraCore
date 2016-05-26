@@ -186,7 +186,7 @@ public:
     }
 
     void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true);
+    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);

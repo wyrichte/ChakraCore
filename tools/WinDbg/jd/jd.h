@@ -89,6 +89,7 @@ public:
 
 };
 
+
 class EXT_CLASS_BASE : public ExtExtension
 #ifdef JD_PRIVATE
     , public DummyTestGroup
@@ -129,7 +130,8 @@ public:
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
     bool IsJScript9();
-    bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
+
+    bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
 
     class PropertyNameReader
     {
