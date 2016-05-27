@@ -19,9 +19,9 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
     m_pdocNext = NULL;
     m_ppdocPrev = NULL;
 
-    m_isManagedByHost = FALSE;
-    m_isScriptlet = FALSE;
-    m_isLineCountValid = FALSE;
+    m_isManagedByHost = false;
+    m_isScriptlet = false;
+    m_isLineCountValid = false;
     
     m_utf8SourceInfo = nullptr;
     m_ichMinDisplay = 0;
@@ -30,7 +30,7 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
 
     m_sourceTextAttirbutes = NULL;
 
-    m_fIsMarkedClosed = FALSE;
+    m_fIsMarkedClosed = false;
 }
 
 
@@ -170,7 +170,7 @@ HRESULT CScriptSourceDocumentText::MarkForClose()
     if (!m_fIsMarkedClosed)
     {
         CComAutoUnlockCS autoUnlock(&m_csForClose);
-        m_fIsMarkedClosed = TRUE;
+        m_fIsMarkedClosed = true;
     }
 
     return S_OK;
@@ -315,7 +315,7 @@ void CScriptSourceDocumentText::UpdateLineCount(void)
     Assert(lines < MAXLONG);
     m_cln = static_cast< charcount_t>(lines);
 
-    m_isLineCountValid = TRUE;
+    m_isLineCountValid = true;
 }
 
 
@@ -648,8 +648,8 @@ HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchM
 
             for (ista = 0 ; ista < m_ichMinDisplay; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
-            long cch = static_cast<long>(m_utf8SourceInfo->GetCchLength());
-            for (ista = m_ichLimDisplay; ista < cch; ista++)
+            long cchSourceInfo = static_cast<long>(m_utf8SourceInfo->GetCchLength());
+            for (ista = m_ichLimDisplay; ista < cchSourceInfo; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
         }
         js_memcpy_s(sourceTextAttributes, cchMax, m_sourceTextAttirbutes + ich + m_ichMinDisplay,

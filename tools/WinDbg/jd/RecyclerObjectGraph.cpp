@@ -4,6 +4,26 @@
 
 #ifdef JD_PRIVATE
 
+RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+{
+    RecyclerObjectGraph * recyclerObjectGraph = GetExtension()->recyclerCachedData.GetCachedRecyclerObjectGraph(recycler.GetPtr());
+    if (recyclerObjectGraph == nullptr)
+    {
+        Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext);
+        ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
+        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(GetExtension(), recycler));
+        newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
+
+        recyclerObjectGraph = newObjectGraph.Detach();
+        GetExtension()->recyclerCachedData.CacheRecyclerObjectGraph(recycler.GetPtr(), recyclerObjectGraph);
+    }
+
+    recyclerObjectGraph->EnsureTypeInfo(typeInfoFlags);
+
+    GetExtension()->recyclerCachedData.DisableCachedDebuggeeMemory();
+    return recyclerObjectGraph;
+}
+
 RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose) :
     _ext(extension),
     _alignmentUtility(recycler),
@@ -71,8 +91,6 @@ void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roo
         }
     }
 
-    GetExtension()->recyclerCachedData.DisableCachedDebuggeeMemory();    
-
     _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
         "\rObject graph construction completed - elapsed time: %us                                                    \n",
         (ULONG)(_time64(nullptr) - start));
@@ -86,8 +104,10 @@ void RecyclerObjectGraph::ClearTypeInfo()
     });
 }
 
-void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
+void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
+    bool infer = (typeInfoFlags & TypeInfoFlags::Infer) != 0;
+    bool trident = (typeInfoFlags & TypeInfoFlags::Trident) != 0;
     if (m_hasTypeName)
     {
         if (!trident && !infer)
@@ -119,61 +139,6 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
         ClearTypeInfo();
     }
 
-    ULONG moduleIndex = 0;
-    ULONG64 baseAddress = 0;
-    ULONG64 endAddress = 0;
-
-    if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(GetExtension()->GetModuleName(), 0, &moduleIndex, &baseAddress)))
-    {
-        g_Ext->Out("Unable to get range for module '%s'. Is Chakra loaded?\n", GetExtension()->GetModuleName());
-        return;
-    }
-
-    IMAGEHLP_MODULEW64 moduleInfo;
-    g_Ext->GetModuleImagehlpInfo(baseAddress, &moduleInfo);
-    endAddress = baseAddress + moduleInfo.ImageSize;
-    if (verbose)
-    {
-        g_Ext->Out("Chakra Vtables are in the range %p to %p\n", baseAddress, endAddress);
-    }
-
-    ULONG64 tridentBaseAddress = 0;
-    ULONG64 tridentEndAddress = 0;
-    if (trident)
-    {
-        if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName("mshtml", 0, &moduleIndex, &tridentBaseAddress)) &&
-            FAILED(g_Ext->m_Symbols3->GetModuleByModuleName("edgehtml", 0, &moduleIndex, &tridentBaseAddress)))
-        {
-            g_Ext->Out("Unable to get range for module 'mshtml' or 'edgehtml. Is Trident loaded?\n");
-            return;
-        }
-        g_Ext->GetModuleImagehlpInfo(tridentBaseAddress, &moduleInfo);
-        tridentEndAddress = tridentBaseAddress + moduleInfo.ImageSize;
-
-        if (verbose)
-        {
-            g_Ext->Out("Trident Vtables are in the range %p to %p\n", tridentBaseAddress, tridentEndAddress);
-        }
-    }
-    auto mayHaveVtable = [&](ULONG64 address, ULONG64 objectSize)
-    {
-        ExtRemoteData data(address, g_Ext->m_PtrSize);
-        data.Read();
-        ULONG64 vtable = data.GetPtr();
-
-        bool maybeVtable = vtable % 4 == 0 && vtable >= baseAddress && vtable < endAddress;
-
-        if (!maybeVtable && trident && objectSize >= 0x10)
-        {
-            // REVIEW: 0xc the start object offset?
-            ExtRemoteData tridentdata(address + 0xc, g_Ext->m_PtrSize);
-            tridentdata.Read();
-            vtable = tridentdata.GetPtr();
-            maybeVtable = vtable % 4 == 0 && vtable >= tridentBaseAddress && vtable < tridentEndAddress;
-        }
-        return maybeVtable;
-    };
-
     stdext::hash_set<char const *> noScanFieldVtable;
 
     auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, bool hasVtable, bool isPropagated)
@@ -186,6 +151,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
         auto i = noScanFieldVtable.find(typeName);
         return (i == noScanFieldVtable.end());
     };
+
+    GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
 
     ULONG numNodes = 0;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
@@ -203,11 +170,6 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
 
         char const * typeName = nullptr;
         ULONG64 objectAddress = node->Key();
-        if (!mayHaveVtable(objectAddress, node->GetObjectSize()))
-        {
-            return;
-        }
-
         JDRemoteTyped remoteTyped = GetExtension()->CastWithVtable(objectAddress, &typeName);
         if (typeName == nullptr)
         {
@@ -260,6 +222,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                 }
             };
 
+            auto addPathTypeBase = [&](JDRemoteTyped pathType, char const * typePathName)
+            {
+                JDRemoteTyped typePath = remoteTyped.Field("typePath");
+                addField(typePath, typePathName);
+                if (typePath.HasField("data"))
+                {
+                    addField(typePath.Field("data"), typePathName);
+                }
+                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+            };
+
             char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
 
             if (strcmp(simpleTypeName, "Js::RecyclableObject *") == 0)
@@ -274,7 +247,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                 {
                     // Aux slots might be use as a inline slot for object with small number of properties
                     char const * auxSlotTypeName;
-                    JDRemoteTyped remoteTyped = GetExtension()->CastWithVtable(objectAddress, &auxSlotTypeName);
+                    JDRemoteTyped remoteTypedAuxSlot = GetExtension()->CastWithVtable(objectAddress, &auxSlotTypeName);
                     if (auxSlotTypeName == nullptr)
                     {
                         addField(auxSlots, "Js::DynamicObject.auxSlots");
@@ -373,8 +346,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 }
 
-                addField(functionBody.GetWrappedField("loopHeaderArray"), "Js::FunctionBody.loopHeaderArray");
-                addField(functionBody.GetWrappedField("dynamicProfileInfo"), "Js::FunctionBody.dynamicProfileInfo");
+                addField(functionBody.GetLoopHeaderArray(), "Js::FunctionBody.loopHeaderArray");
+                addField(JDUtil::GetWrappedField(functionBody, "dynamicProfileInfo"), "Js::FunctionBody.dynamicProfileInfo");
 
                 std::list<JDRemoteTyped> functionCodeGenRuntimeDataArrayStack;
                 auto addFunctionCodeGenRuntimeDataArray = [&](JDRemoteTyped arr, uint count)
@@ -393,8 +366,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 };
 
-                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenRuntimeData"), functionBody.GetProfiledCallSiteCount());
-                addFunctionCodeGenRuntimeDataArray(functionBody.GetWrappedField("m_codeGenGetSetRuntimeData"), functionBody.GetInlineCacheCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenRuntiemData(), functionBody.GetProfiledCallSiteCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenGetSetRuntimeData(), functionBody.GetInlineCacheCount());
 
                 while (!functionCodeGenRuntimeDataArrayStack.empty())
                 {
@@ -415,25 +388,26 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
                     }
                 }
 
-                addField(functionBody.GetWrappedField("inlineCaches"), "Js::FunctionBody.<inlineCaches[]>");
-                addField(JDUtil::GetWrappedField(functionBody.Field("polymorphicInlineCaches"), "inlineCaches"), "Js::FunctionBody.<polymorphicInlineCaches[]>");
+                addField(functionBody.GetInlineCaches(), "Js::FunctionBody.<inlineCaches[]>");
+                addField(JDUtil::GetWrappedField(functionBody.GetPolymorphicInlineCaches(), "inlineCaches"), "Js::FunctionBody.<polymorphicInlineCaches[]>");
 
                 addField(functionBody.GetSourceInfo().Field("pSpanSequence"), "Js::FunctionBody.sourceInfo.pSpanSequence");
                 addField(functionBody.GetConstTable(), "Js::FunctionBody.m_constTable");
-                addField(functionBody.GetWrappedField("cacheIdToPropertyIdMap"), "Js::FunctionBody.cacheIdToPropertyIdMap");
-                addField(functionBody.GetWrappedField("referencedPropertyIdMap"), "Js::FunctionBody.referencedPropertyIdMap");
-                addField(functionBody.GetWrappedField("literalRegexes"), "Js::FunctionBody.literalRegexes");
-
-                addField(functionBody.GetWrappedField("m_boundPropertyRecords"), "Js::FunctionBody.m_boundPropertyRecords");
-                addField(functionBody.GetWrappedField("m_displayName"), "Js::FunctionBody.m_displayName");
-                addField(functionBody.GetWrappedField("m_scopeInfo"), "Js::FunctionBody.m_scopeInfo");
+                addField(functionBody.GetCacheIdToPropertyIdMap(), "Js::FunctionBody.cacheIdToPropertyIdMap");
+                addField(functionBody.GetReferencedPropertyIdMap(), "Js::FunctionBody.referencedPropertyIdMap");
+                addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");
+                addField(functionBody.GetPropertyIdsForScopeSlotArray(), "Js::FunctionBoredy.propertyIdsForScopeSlotArray");
+                addField(functionBody.GetBoundPropertyRecords(), "Js::FunctionBody.m_boundPropertyRecords");
+                addField(functionBody.GetDisplayName(), "Js::FunctionBody.m_displayName");
+                addField(functionBody.GetScopeInfo(), "Js::FunctionBody.m_scopeInfo");
 
             }
             else if (strcmp(simpleTypeName, "Js::ParseableFunctionInfo *") == 0)
             {
-                addField(JDUtil::GetWrappedField(remoteTyped, "m_boundPropertyRecords"), "Js::ParseableFunctionInfo.m_boundPropertyRecords");
-                addField(JDUtil::GetWrappedField(remoteTyped, "m_displayName"), "Js::ParseableFunctionInfo.m_displayName");
-                addField(RemoteParseableFunctionInfo(remoteTyped).GetScopeInfo(), "Js::ParseableFunctionInfo.m_scopeInfo");                
+                RemoteParseableFunctionInfo parseableFunctionInfo(remoteTyped);
+                addField(parseableFunctionInfo.GetBoundPropertyRecords(), "Js::ParseableFunctionInfo.m_boundPropertyRecords");
+                addField(parseableFunctionInfo.GetDisplayName(), "Js::ParseableFunctionInfo.m_displayName");
+                addField(parseableFunctionInfo.GetScopeInfo(), "Js::ParseableFunctionInfo.m_scopeInfo");
             }
             else if (strcmp(simpleTypeName, "Js::SimpleSourceHolder *") == 0)
             {
@@ -441,8 +415,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             }
             else if (strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0)
             {
-                addField(remoteTyped.Field("typePath"), "Js::SimplePathTypeHandler.typePath");
-                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+                addPathTypeBase(remoteTyped, "Js::SimplePathTypeHandler.typePath");
                 JDRemoteTyped successorTypeWeakRef = remoteTyped.Field("successorTypeWeakRef");
                 if (successorTypeWeakRef.GetPtr() != 0)
                 {
@@ -452,8 +425,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             }
             else if (strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0)
             {
-                addField(remoteTyped.Field("typePath"), "Js::PathTypeHandler.typePath");
-                addField(remoteTyped.Field("predecessorType"), "Js::DynamicType");
+                addPathTypeBase(remoteTyped, "Js::PathTypeHandler.typePath");
                 JDRemoteTyped propertySuccessors = remoteTyped.Field("propertySuccessors");
                 if (propertySuccessors.GetPtr() != 0)
                 {
@@ -477,20 +449,22 @@ void RecyclerObjectGraph::EnsureTypeInfo(bool infer, bool trident, bool verbose)
             }
             else if (strcmp(simpleTypeName, "Js::Utf8SourceInfo *") == 0)
             {
-                JDRemoteTyped lineOffsetCache = remoteTyped.Field("m_lineOffsetCache");
-                if (lineOffsetCache.GetPtr() != 0)
+                if (!GetExtension()->IsJScript9())
                 {
-                    addField(lineOffsetCache, "Js::Utf8SourceInfo.m_lineOffsetCache");
-                    JDRemoteTyped lineOffsetCacheList = lineOffsetCache.Field("lineOffsetCacheList");
-                    if (lineOffsetCacheList.GetPtr() != 0)
+                    JDRemoteTyped lineOffsetCache = remoteTyped.Field("m_lineOffsetCache");
+                    if (lineOffsetCache.GetPtr() != 0)
                     {
-                        addField(lineOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList");
-                        addField(lineOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList.buffer");
+                        addField(lineOffsetCache, "Js::Utf8SourceInfo.m_lineOffsetCache");
+                        JDRemoteTyped lineOffsetCacheList = lineOffsetCache.Field("lineOffsetCacheList");
+                        if (lineOffsetCacheList.GetPtr() != 0)
+                        {
+                            addField(lineOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList");
+                            addField(lineOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList.buffer");
+                        }
                     }
+                    addField(remoteTyped.Field("m_deferredFunctionsDictionary"), "Js::Utf8SourceInfo.m_deferredFunctionsDictionary");
                 }
-
                 addField(remoteTyped.Field("functionBodyDictionary"), "Js::Utf8SourceInfo.functionBodyDictionary");
-                addField(remoteTyped.Field("m_deferredFunctionsDictionary"), "Js::Utf8SourceInfo.m_deferredFunctionsDictionary");
             }
             else
             {

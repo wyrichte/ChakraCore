@@ -2823,8 +2823,8 @@ namespace Projection
         // looking for IReference and <T> combination, parsing the T to be type and then calling get_Value
         // But we can time it later
 
-        UINT32 length;
-        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &length);
+        UINT32 runtimeClassHStringLength;
+        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &runtimeClassHStringLength);
         JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();

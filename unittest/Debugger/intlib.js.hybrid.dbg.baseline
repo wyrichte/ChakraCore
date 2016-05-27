@@ -20,13 +20,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -44,7 +44,7 @@
         "frameDescription": "toString"
       },
       {
-        "start": 26546,
+        "start": 28040,
         "length": 37,
         "text": "",
         "frameDescription": "Intl.Collator.prototype.compare"
@@ -102,13 +102,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18999,
+        "start": 20431,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 25574,
+        "start": 27006,
         "length": 120,
         "text": "",
         "frameDescription": "Intl.Collator"
@@ -160,13 +160,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18999,
+        "start": 20431,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 25574,
+        "start": 27006,
         "length": 120,
         "text": "",
         "frameDescription": "Intl.Collator"
@@ -370,13 +370,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 65281,
+        "start": 66927,
         "length": 80,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -428,13 +428,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 65281,
+        "start": 66927,
         "length": 80,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat"
@@ -510,7 +510,7 @@
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14542,
+        "start": 15458,
         "length": 102,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.supportedLocalesOf"
@@ -574,7 +574,7 @@
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14542,
+        "start": 15458,
         "length": 102,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.supportedLocalesOf"
@@ -614,7 +614,7 @@
         "frameDescription": "bad_locale.toString"
       },
       {
-        "start": 66182,
+        "start": 67889,
         "length": 82,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -648,7 +648,7 @@
   {
     "callstack": [
       {
-        "start": 66265,
+        "start": 67972,
         "length": 80,
         "text": "",
         "frameDescription": "Intl.DateTimeFormat.prototype.format"
@@ -712,13 +712,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -770,13 +770,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -852,7 +852,7 @@
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14069,
+        "start": 14525,
         "length": 100,
         "text": "",
         "frameDescription": "Intl.NumberFormat.supportedLocalesOf"
@@ -916,7 +916,7 @@
         "frameDescription": "supportedLocalesOfWrapper"
       },
       {
-        "start": 14069,
+        "start": 14525,
         "length": 100,
         "text": "",
         "frameDescription": "Intl.NumberFormat.supportedLocalesOf"
@@ -962,7 +962,7 @@
         "frameDescription": "ToNumber"
       },
       {
-        "start": 38544,
+        "start": 40148,
         "length": 48,
         "text": "",
         "frameDescription": "Intl.NumberFormat.prototype.format"
@@ -1026,13 +1026,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 62284,
+        "start": 63930,
         "length": 116,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1090,13 +1090,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 62284,
+        "start": 63930,
         "length": 116,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleString"
@@ -1166,13 +1166,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63090,
+        "start": 64736,
         "length": 118,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1230,13 +1230,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63090,
+        "start": 64736,
         "length": 118,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleDateString"
@@ -1306,13 +1306,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63898,
+        "start": 65544,
         "length": 118,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"
@@ -1370,13 +1370,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 57607,
+        "start": 59253,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeDateTimeFormat"
       },
       {
-        "start": 63898,
+        "start": 65544,
         "length": 118,
         "text": "",
         "frameDescription": "Date.prototype.toLocaleTimeString"
@@ -1446,13 +1446,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 36708,
+        "start": 38251,
         "length": 87,
         "text": "",
         "frameDescription": "Number.prototype.toLocaleString"
@@ -1504,13 +1504,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 36708,
+        "start": 38251,
         "length": 87,
         "text": "",
         "frameDescription": "Number.prototype.toLocaleString"
@@ -1574,13 +1574,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18999,
+        "start": 20431,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 24145,
+        "start": 25577,
         "length": 81,
         "text": "",
         "frameDescription": "String.prototype.localeCompare"
@@ -1632,13 +1632,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 18999,
+        "start": 20431,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeCollator"
       },
       {
-        "start": 24145,
+        "start": 25577,
         "length": 81,
         "text": "",
         "frameDescription": "String.prototype.localeCompare"
@@ -1690,13 +1690,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1760,13 +1760,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1830,13 +1830,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1900,13 +1900,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -1970,13 +1970,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2040,13 +2040,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2110,13 +2110,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2180,13 +2180,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2244,13 +2244,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2308,13 +2308,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2378,13 +2378,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"
@@ -2448,13 +2448,13 @@
         "frameDescription": "CanonicalizeLocaleList"
       },
       {
-        "start": 32182,
+        "start": 33725,
         "length": 65,
         "text": "",
         "frameDescription": "InitializeNumberFormat"
       },
       {
-        "start": 38198,
+        "start": 39741,
         "length": 78,
         "text": "",
         "frameDescription": "Intl.NumberFormat"

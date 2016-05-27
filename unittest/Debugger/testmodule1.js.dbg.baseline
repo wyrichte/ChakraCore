@@ -1,0 +1,44 @@
+[
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "testmodule1.js"
+        },
+        {
+          "Name": "module_1.js"
+        },
+        {
+          "Name": "module_2.js"
+        },
+        {
+          "Name": "Unknown script code (1)",
+          "Text": "WScript.Attach(t"
+        },
+        {
+          "Name": "module_3.js"
+        },
+        {
+          "Name": "script block"
+        }
+      ]
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 24,
+        "length": 8,
+        "text": "return 3",
+        "frameDescription": "modF3"
+      },
+      {
+        "start": 73,
+        "length": 7,
+        "text": "modF3()",
+        "frameDescription": "module"
+      }
+    ]
+  }
+]

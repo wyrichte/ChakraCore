@@ -39,9 +39,7 @@ JDRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
 {
     EnsureCached();
 
-    JDRemoteTyped ret;
-    ret.Set(false, modBase, typeId, address);
-    return ret;
+    return JDRemoteTyped(modBase, typeId, address);
 }
 
 void CachedTypeInfo::EnsureTypeName()

@@ -653,7 +653,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
         }
         else
         {
-            customExternalTypeHandler = Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetRootPath(), 0, 0, 0, true, true);
+            customExternalTypeHandler = Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true);
         }
 
         Js::CustomExternalType * customExternalType =
@@ -668,7 +668,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
     {
         Js::ExternalType * externalType = RecyclerNew(recycler, Js::ExternalType,
             localScriptContext, (Js::TypeId)typeId, objPrototype, (Js::ExternalMethod)entryPoint,
-            Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
+            Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
         type = externalType;
     }
 
@@ -722,11 +722,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     hr = GetOPrototypeInformationForTypeCreation(varPrototype, nameId, &objPrototype);
     IfFailedReturn(hr);
 
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -1371,11 +1371,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DispExToVar(
         result->Release();
     }
 #endif
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        hr = DispatchHelper::MarshalIDispatchToJsVarNoThrow(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
+        hr = DispatchHelper::MarshalIDispatchToJsVar(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -1533,6 +1533,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
     __out Var* errorObject)
 {
     IfNullReturnError(errorObject, E_INVALIDARG);
+    IfNullReturnError(message, E_INVALIDARG);
     *errorObject = nullptr;
 
     ErrorTypeEnum errorTypeInternal;
@@ -1683,8 +1684,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ReleaseAndRethrowException(__in HRES
             localScriptContext->RethrowRecordedException(nullptr);
         }
         END_ENTER_SCRIPT;
-
-        Assert(false);
     }
     return S_FALSE;
 }
@@ -1758,14 +1757,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeToVar(
         return hr;
     }
 
-    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
-    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
-
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-    {
-        hr = DispatchHelper::MarshalVariantToJsVar(inVariant, instance, scriptContext);
-    }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(inVariant, instance, scriptContext);
     return hr;
 }
 
@@ -2659,9 +2651,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     }
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
-    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+    
+    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+        try
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
             Js::SCASerializationEngine::Serialize(context, instance, &writer, transferableVars, cTransferableVars);
@@ -2679,14 +2673,19 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 transferableHolder->DetachAll(transferableVars);
             }
         }
-        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
         catch (Js::JavascriptExceptionObject *exceptionObject)
         {
-            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
+            caughtExceptionObject = exceptionObject;
         }
-        CATCH_UNHANDLED_EXCEPTION(hr)
+        END_ENTER_SCRIPT
+
+        if (caughtExceptionObject != nullptr)
+        {
+            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
+        }
     }
-    END_ENTER_SCRIPT
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
+    CATCH_UNHANDLED_EXCEPTION(hr)   
 
     if (caughtExceptionObject != nullptr)
     {
@@ -2741,9 +2740,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
-    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+        try
+        {
             AutoLeaveScriptPtr<ISCAHost> pSCAHost(scriptContext);
             ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
 
@@ -2751,15 +2752,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
             Js::StreamReader reader(scriptContext, pInSteam);
             *pValue = Js::SCADeserializationEngine::Deserialize(pSCAHost, context, &reader, transferableHolder);
-        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
+        }
         catch (Js::JavascriptExceptionObject *  exceptionObject)
         {
-            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
+            caughtExceptionObject = exceptionObject;
         }
-        CATCH_UNHANDLED_EXCEPTION(hr)
-    }
-    END_ENTER_SCRIPT
+        END_ENTER_SCRIPT
 
+        if (caughtExceptionObject != nullptr)
+        {
+            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
+        }
+    }
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)    
+    CATCH_UNHANDLED_EXCEPTION(hr)
 
     if (caughtExceptionObject != nullptr)
     {
@@ -3032,7 +3038,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToNativeArray(Var arrayObject,
             Assert(FALSE);
             return 0xffffffff;
         };
-        return 0xffffffff;
     };
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
@@ -3190,7 +3195,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
-        hr = moduleRecord->ParseSource(sourceText, sourceLength, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
+        ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+        SourceContextInfo* sourceContextInfo = scriptEngine->GetSourceContextInfo((ULONG_PTR)sourceContext, (uint)sourceLength, FALSE, nullptr, nullptr);
+        SRCINFO si = {
+            /* sourceContextInfo   */ sourceContextInfo,
+            /* dlnHost             */ 0,
+            /* ulColumnHost        */ 0,
+            /* lnMinHost           */ 0,
+            /* ichMinHost          */ 0,
+            /* ichLimHost          */ 0,
+            /* ulCharOffset        */ 0,
+            /* mod                 */ 0,
+            /* grfsi               */ 0
+        };
+        hr = moduleRecord->ParseSource(sourceText, sourceLength, &si, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
     return hr;

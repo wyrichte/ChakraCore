@@ -27,12 +27,10 @@
       <DisableSpecificWarnings>
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
-        4456;     <!-- declaration of '' hides previous local declaration -->
-        4457;     <!-- declaration of '' hides function parameter -->
         4458;     <!-- declaration of '' hides class memeber -->
         4474;     <!-- 'sprintf_s': too many arguments passed for format string -->
         4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
-        4838;     <!-- conversion from 'unsigned int' to 'int requires a narrowing conversion --></DisableSpecificWarnings>
+      </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -70,6 +68,7 @@
     <ClCompile Include="FieldInfoCache.cpp" />
     <ClCompile Include="jdbackend.cpp" />
     <ClCompile Include="jdbytecode.cpp" />
+    <ClCompile Include="JDByteCodeCachedData.cpp" />
     <ClCompile Include="jdfunctionbody.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
@@ -103,6 +102,7 @@
     <ClInclude Include="..\..\..\Dll\JScriptDiag\Serializer.h" />
     <ClInclude Include="..\..\..\Dll\JScriptDiag\thrownew.h" />
     <ClInclude Include="CachedTypeInfo.h" />
+    <ClInclude Include="JDByteCodeCachedData.h" />
     <ClInclude Include="RecyclerObjectTypeInfo.h" />
     <ClInclude Include="Collections.h" />
     <ClInclude Include="ExtRemoteTypedUtil.h" />

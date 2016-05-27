@@ -158,8 +158,9 @@ namespace JsDiag
         {
 #ifdef _M_AMD64
             return !GetRemoteFunctionBody(); // This is the only frame type that doesn't have a functionBody.
-#endif
+#else
             return false;
+#endif
         }
 
         void GetRowAndColumn(ULONG* pRow, ULONG* pColumn);

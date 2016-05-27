@@ -500,19 +500,19 @@ static void JoinLines(BSTR& bstr)
     }
 }
 
-void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int depth, int maxDepth)
+void EXT_CLASS_BASE::Print(IJsDebugProperty* property, PCWSTR format, int radix, int depth, int maxDepth)
 {
     AutoJsDebugPropertyInfo info;
-    IfFailThrow(prop->GetPropertyInfo(radix, &info));
+    IfFailThrow(property->GetPropertyInfo(radix, &info));
     ValidateEvaluateFullName(info, radix);
 
     JoinLines(info.value); // Join Value lines
-    Out(fmt, _u(""), info.name, info.value, info.type);
+    Out(format, _u(""), info.name, info.value, info.type);
 
     if ((info.attr & JS_PROPERTY_ATTRIBUTES::JS_PROPERTY_HAS_CHILDREN) && depth++ < maxDepth)
     {
         CComPtr<IJsEnumDebugProperty> pEnum;
-        IfFailThrow(prop->GetMembers(JS_PROPERTY_MEMBERS::JS_PROPERTY_MEMBERS_ALL, &pEnum));
+        IfFailThrow(property->GetMembers(JS_PROPERTY_MEMBERS::JS_PROPERTY_MEMBERS_ALL, &pEnum));
 
         if (!pEnum)
         {
@@ -551,39 +551,119 @@ void EXT_CLASS_BASE::Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int de
     }
 }
 
-ExtRemoteTyped EXT_CLASS_BASE::Cast(LPCSTR typeName, ULONG64 original)
+JDRemoteTyped EXT_CLASS_BASE::Cast(LPCSTR typeName, ULONG64 original)
 {
-    CHAR typeNameBuffer[1024];
-    sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetModuleName(), typeName);
-    return ExtRemoteTyped(typeNameBuffer, original);
-}
-
-std::string EXT_CLASS_BASE::GetTypeName(ExtRemoteTyped& offset, bool includeModuleName)
-{
-    std::string symbol;
-    CHAR symbolName[1024];
-
-    if (!m_symbols5)
+    if (original == 0)
     {
-        IfFailThrow(m_Symbols3->QueryInterface(__uuidof(IDebugSymbols5), (void**)&m_symbols5));
+        return JDRemoteTyped("(void *)0");
+    }
+    auto i = cacheTypeInfoCache.find(typeName);
+
+    if (i == cacheTypeInfoCache.end())
+    {
+        CHAR typeNameBuffer[1024];
+        sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetModuleName(), typeName);
+        JDRemoteTyped result(typeNameBuffer, original);
+        ExtRemoteTyped deref = result.Dereference();
+        cacheTypeInfoCache.insert(std::make_pair(typeName, std::make_pair(deref.m_Typed.ModBase, deref.m_Typed.TypeId))).first;
+        return result;
     }
 
-    ULONG64 vtable = ExtRemoteTyped("(void**)@$extin", offset.GetPtr()).Dereference().GetPtr();
-    IfFailThrow(m_symbols5->GetNameByOffset(vtable, symbolName, _countof(symbolName), NULL, NULL));
-
-    //Example format: jc!IR::RegOpnd::`vftable'
-    char* startOfTypeName = symbolName;
-    if (!includeModuleName)
-    {
-        startOfTypeName = strchr(symbolName, '!');
-        Assert(startOfTypeName);
-    }
-    char* endOfTypeName = strchr(symbolName, '`');
-    Assert(strcmp(endOfTypeName, "`vftable'") == 0);
-
-    symbol.assign(startOfTypeName + 1, endOfTypeName - startOfTypeName - 3 /*2 for ::*/);
-    return symbol;
+    return JDRemoteTyped((*i).second.first, (*i).second.second, original, true);    
 }
+
+JDRemoteTyped EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, char const ** typeName)
+{
+    JDRemoteTyped result;
+    if (!CastWithVtable(objectAddress, result, typeName))
+    {
+        result = JDRemoteTyped("(void *)@$extin", objectAddress);
+    }
+    return result;
+}
+
+JDRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, char const** typeName)
+{
+    if (original.m_Typed.Tag != SymTagPointerType)
+    {
+        original = original.GetPointerTo();
+    }
+
+    JDRemoteTyped result;
+    if (CastWithVtable(original.GetPtr(), result, typeName))
+    {
+        return result;
+    }
+    return original;
+}
+
+bool EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, char const** typeName)
+{
+    if (typeName)
+    {
+        *typeName = nullptr;
+    }
+
+    ULONG64 vtbleAddr;
+    if (this->recyclerCachedData.IsCachedDebuggeeMemoryEnabled())
+    {
+        RemoteHeapBlock * heapBlock = this->recyclerCachedData.FindCachedHeapBlock(objectAddress);
+        if (heapBlock)
+        {
+            RemoteHeapBlock::AutoDebuggeeMemory data(heapBlock, objectAddress, this->m_PtrSize);
+            char const * rawData = data;
+            vtbleAddr = this->m_PtrSize == 8 ? *(ULONG64 const *)rawData : (ULONG64)*(ULONG const *)rawData;
+        }
+        else
+        {
+            vtbleAddr = ExtRemoteData(objectAddress, this->m_PtrSize).GetPtr();
+        }
+    }
+    else
+    {
+        vtbleAddr = ExtRemoteData(objectAddress, this->m_PtrSize).GetPtr();
+    }
+
+    if (!(vtbleAddr % 4 == 0 && GetExtension()->InChakraModule(vtbleAddr)))
+    {
+        // Not our vtable
+        return false;
+    }
+
+    if (vtableTypeIdMap.find(vtbleAddr) != vtableTypeIdMap.end())
+    {
+        std::pair<ULONG64, ULONG> vtableTypeId = vtableTypeIdMap[vtbleAddr];
+        result.Set(true, vtableTypeId.first, vtableTypeId.second, objectAddress);
+        if (typeName)
+        {
+            *typeName = GetTypeNameFromVTablePointer(vtbleAddr);
+        }
+
+        return true;
+    }
+
+    char const * localTypeName = GetTypeNameFromVTablePointer(vtbleAddr);
+    if (localTypeName != nullptr)
+    {
+        if (typeName)
+        {
+            *typeName = localTypeName;
+        }
+
+        ULONG64 modBase;
+        ULONG typeId;
+        if (SUCCEEDED(this->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
+            && SUCCEEDED(this->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
+        {
+            result.Set(true, modBase, typeId, objectAddress);
+            vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 ULONG64 EXT_CLASS_BASE::GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 default)
 {

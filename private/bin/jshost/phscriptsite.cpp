@@ -1075,7 +1075,7 @@ Error:
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** errorObject, bool isModuleCode)
+HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr;
     LPCOLESTR contents = NULL;
@@ -1085,10 +1085,10 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
     char16 * fullpath = nullptr;
 
-    hr = JsHostLoadScriptFromFile(filename, contents, &isUtf8, &contentsRaw, &lengthBytes);
+    hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
     IfFailGo(hr);
 
-    fullpath = _wfullpath(NULL, filename, 0);
+    fullpath = _wfullpath(NULL, scriptFilename, 0);
     if (fullpath == NULL)
     {
         fwprintf(stderr, _u("Out of memory"));
@@ -1125,11 +1125,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contentsRaw, lengthBytes, errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contentsRaw, lengthBytes, errorObject);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, filename, (UINT)wcslen(filename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
         }
         goto Error;
     }
@@ -1721,21 +1721,6 @@ STDMETHODIMP_(ULONG) JsHostActiveScriptSite::Release(void)
     return res;
 }
 
-static HRESULT GetActiveScript(IServiceProvider* pspCaller, IActiveScript** activeScript)
-{
-    IActiveScriptSite * scriptSite  = NULL;
-    HRESULT hr = pspCaller->QueryService(SID_GetScriptSite, &scriptSite);
-    if (SUCCEEDED(hr))
-    {
-        hr = ((JsHostActiveScriptSite*)scriptSite)->GetActiveScript(activeScript);
-    }
-    if (scriptSite)
-    {
-        scriptSite->Release();
-    }
-    return hr;
-}
-
 STDMETHODIMP JsHostActiveScriptSite::GetItemInfo(LPCOLESTR pstrName, DWORD dwReturnMask, IUnknown **ppiunkItem, ITypeInfo **ppti)
 {
     Assert(FALSE);
@@ -2260,6 +2245,13 @@ STDMETHODIMP JsHostActiveScriptSite::Exec(const GUID *pguidCmdGroup, DWORD nCmdI
     return E_NOTIMPL;
 }
 
+void __stdcall JsHostActiveScriptSite::EnqueuePromiseTask(Var task)
+{
+    // Push the callback
+    WScriptFastDom::CallbackMessage *msg = new WScriptFastDom::CallbackMessage(0, task);
+    WScriptFastDom::PushMessage(msg);
+}
+
 STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ __RPC__in ModuleRecord referencingModule,
     /* [in] */ __RPC__in LPCWSTR specifier,
@@ -2274,8 +2266,8 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     auto moduleEntry = moduleRecordMap.find(specifier);
     if (moduleEntry != moduleRecordMap.end())
     {
-        fwprintf(stderr, _u("ERROR: same module file was loaded multiple times %s\n"), specifier);
-        return E_INVALIDARG;
+        *dependentModuleRecord = moduleEntry->second;
+        return S_OK;
     }
     hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
     if (SUCCEEDED(hr))
@@ -2294,7 +2286,6 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     /* [in] */ __RPC__in Var exceptionVar)
 {
     HRESULT hr = NOERROR;
-    Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
     if (SUCCEEDED(hr))

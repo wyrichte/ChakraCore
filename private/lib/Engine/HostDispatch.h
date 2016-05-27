@@ -138,7 +138,9 @@ protected:
     __declspec(noreturn) void HandleDispatchError(HRESULT hr, EXCEPINFO* exceptInfo);
 
 
+    typedef HRESULT(HostDispatch::*InvokeFunc)(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
 private:
+
     ScriptSite * scriptSite;
     LIST_ENTRY linkList;
 
@@ -147,7 +149,10 @@ private:
 
     HRESULT GetHostVariantWrapper(__out HostVariant** ppHostVariant);
 
+    HRESULT CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
+    HRESULT CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
     HRESULT CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
+    HRESULT CallInvokeInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
     HRESULT CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei);
     HRESULT GetDispID(LPCWSTR psz, ULONG flags, DISPID *pid);
     HRESULT GetIDsOfNames(LPCWSTR psz, DISPID *pid);

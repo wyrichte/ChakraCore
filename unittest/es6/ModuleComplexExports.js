@@ -52,3 +52,6 @@ export { mutatingExportTarget as target, changeMutatingExportTarget as changeTar
 var exportedAsKeyword = 'ModuleComplexExports';
 export { exportedAsKeyword as export };
 export { exportedAsKeyword as function };
+
+var as = function() { return 'as'; };
+export { as as as };

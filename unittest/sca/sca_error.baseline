@@ -2,7 +2,7 @@ function (){}
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
-function anonymous() { 1 + 1 }
+function anonymous( ) {1 + 1 }
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
@@ -26,7 +26,7 @@ Error: 80041000
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
-{"abc":function anonymous() { 1 + 1 }}
+{"abc":function anonymous( ) {1 + 1 }}
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 

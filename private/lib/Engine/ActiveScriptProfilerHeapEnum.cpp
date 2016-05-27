@@ -1553,16 +1553,16 @@ void ActiveScriptProfilerHeapEnum::Visit(void* obj, ULONG flags, UINT numberOfEl
     flags |= (! heapObject.SetMemoryProfilerHasEnumerated() ? PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT : 0);
     if (IsRecyclableObject(flags))
     {
-        Js::RecyclableObject *obj = Js::RecyclableObject::FromVar(heapObject.GetObjectAddress());
-        flags |= obj->GetScriptContext()->IsClosed() ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0;
-        if (IsJavascriptString(obj))
+        Js::RecyclableObject * object= Js::RecyclableObject::FromVar(heapObject.GetObjectAddress());
+        flags |= object->GetScriptContext()->IsClosed() ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0;
+        if (IsJavascriptString(object))
         {
             flags |= PROFILER_HEAP_OBJECT_FLAGS_SIZE_APPROXIMATE;
         }
 #ifdef HEAP_ENUMERATION_VALIDATION
-        if ((Js::DynamicType::Is(obj->GetTypeId())))
+        if ((Js::DynamicType::Is(object->GetTypeId())))
         {
-            Js::DynamicObject::FromVar(obj)->SetHeapEnumValidationCookie(this->enumerationCount);
+            Js::DynamicObject::FromVar(object)->SetHeapEnumValidationCookie(this->enumerationCount);
         }
 #endif
     }
@@ -2124,9 +2124,9 @@ void ActiveScriptProfilerHeapEnum::VisitDependencies(T* obj, USHORT optionalInfo
             {
                 if (IsRelationshipInfoType(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT))
                 {
-                    ULONG flags = GetInternalPropertyFlags(&optionalInfo->internalProperty);
-                    UINT numberOfElements = IsBoundFunctionArgs(flags) ? ((Js::BoundFunction*)Js::JavascriptFunction::FromVar((Var)obj->objectId))->GetArgsCountForHeapEnum() : 0;
-                    Visit((void*)optionalInfo->internalProperty.objectId, flags, numberOfElements);
+                    ULONG internalPropertyFlags = GetInternalPropertyFlags(&optionalInfo->internalProperty);
+                    UINT numberOfElements = IsBoundFunctionArgs(internalPropertyFlags) ? ((Js::BoundFunction*)Js::JavascriptFunction::FromVar((Var)obj->objectId))->GetArgsCountForHeapEnum() : 0;
+                    Visit((void*)optionalInfo->internalProperty.objectId, internalPropertyFlags, numberOfElements);
                 }
                 break;
             }
@@ -2155,13 +2155,13 @@ void ActiveScriptProfilerHeapEnum::VisitDependencies(T* obj, USHORT optionalInfo
                     // the same inline slot from different FrameDisplays. It also maintains the proper reporting order in the
                     // breadth-first scan, although that is less of an concern.
                     INT_PTR v = *(INT_PTR *)scopeList.scopes[j];
-                    ULONG flags = 0;
+                    ULONG childFlags = 0;
                     if (!AutoSystemInfo::IsJscriptModulePointer(reinterpret_cast<void*>(v)))
                     {
-                        flags = PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY |
-                            (IsSiteClosed(flags) ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0);
+                        childFlags = PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_SCOPE_SLOT_ARRAY |
+                            (IsSiteClosed(childFlags) ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0);
                     }
-                    Visit((void*)scopeList.scopes[j], flags);
+                    Visit((void*)scopeList.scopes[j], childFlags);
                 }
                 break;
             }

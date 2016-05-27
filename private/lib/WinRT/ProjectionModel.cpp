@@ -4622,10 +4622,10 @@ namespace ProjectionModel
                 size_t count = typeIdToExpr->Count();
                 for (size_t offset=0; offset<count; offset++)
                 {
-                    const MetadataStringId typeId = typeIdToExpr->GetKeyAt((int)offset);
-                    Assert(typeId != MetadataStringIdNil);
+                    const MetadataStringId metadataStringId = typeIdToExpr->GetKeyAt((int)offset);
+                    Assert(metadataStringId != MetadataStringIdNil);
                     Output::Print(_u("typeIdToExpr[%d/%d]: %s (#%d)\n"), 
-                        offset, count, this->stringConverter->StringOfId(typeId), typeId);
+                        offset, count, this->stringConverter->StringOfId(metadataStringId), metadataStringId);
                 }
 
                 Output::Flush();

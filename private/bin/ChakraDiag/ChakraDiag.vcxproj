@@ -53,9 +53,9 @@
       </AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
-        4091;     <!-- '': ignore on lef of 'type' when no variable is declared -->
         4189;     <!-- local variable is initialized but not referenced -->
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
+        4456;     <!-- declaration of '' hides previous local declaration -->
         4459;     <!-- declaration of '' hides global declaration -->
         4475;     <!-- TODO(curtism): Invalid length modifier in format string on x64 -->
       </DisableSpecificWarnings>

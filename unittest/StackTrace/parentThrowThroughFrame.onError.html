@@ -4,7 +4,7 @@
 <script>
 window.onerror = function(msg, url, line)
 {
-    var relativeUrl = url.match(/^(.*)?inetcore\/(.*)\/unittest\/(.*)/i)[3];
+    var relativeUrl = url.match(/^(.*)?[\/\\](.*)[\/\\]unittest[\/\\](.*)/i)[3];
    
     var output = "[window.onerror] msg: " + msg;
     output += "\n                 relativeUrl: " + relativeUrl;

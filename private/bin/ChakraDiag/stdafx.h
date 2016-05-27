@@ -45,7 +45,10 @@
 #define JS_ATL_DEBUG
 #undef _DEBUG
 #endif
-#include <atlbase.h>
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#include "atlbase.h"
+#pragma warning(pop)
 #include <atlcoll.h>
 #include <atlcom.h>
 #include <atlstr.h>

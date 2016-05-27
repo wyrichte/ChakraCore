@@ -138,9 +138,6 @@ private:
     HRESULT CanDoSetNextStatement(__in IDebugStackFrame *stackFrame, __in IDebugCodeContext *pdcc, __in Js::FunctionBody *& _pFuncBody, __out int * pBytecodeAtNext);
     static bool IsJmpCrossInterpreterStackFrame(uint byteCodeOffsetA, uint byteCodeOffsetB, Js::FunctionBody* funcBody);
 
-    // This function will try to populate obj and address field of the ResolvedObject.
-    void TryFetchValueAndAddress(Js::DiagStackFrame * frame, LPCOLESTR pszSrc, charcount_t len, Js::ResolvedObject * pObj);
-
     bool CanDoBlockScopeSetNextStatement(Js::FunctionBody* pFuncBody, int startOffset, int endOffset);
     bool CanJumpWithinCurrentBlock(Js::DebuggerScope* debuggerScope, int startOffset, int endOffset);
     bool CanJumpIntoInnerBlock(
@@ -255,11 +252,6 @@ public:
 
 public:
     void SetAborted(bool set) { m_isAborted = set; }
-
-    static Js::ScriptFunction* TryGetFunctionForEval(Js::ScriptContext* scriptContext, LPCOLESTR pszSrc, BOOL isStrictMode, BOOL isThisAvailable, BOOL isLibraryCode = FALSE);
-    static Js::Var DoEval(Js::ScriptFunction* pfuncScript, Js::DiagStackFrame* frame);
-    static BOOL IsStrictMode(Js::DiagStackFrame* frame);
-    static BOOL IsThisAvailable(Js::DiagStackFrame* frame);
 };
 
 
@@ -330,8 +322,8 @@ private:
 
 
     ulong m_currentFrameIndex;
-    BOOL m_fDone: 1;
-    BOOL m_fError: 1;
+    bool m_fDone: 1;
+    bool m_fError: 1;
     CDebugStackFrame *m_stackFramePrev;
     ScriptSite *m_scriptSite;
     Js::WeakDiagStack* m_framePointers;

@@ -83,7 +83,11 @@
 #define _DEBUG_WAS_DEFINED
 #undef _DEBUG
 #endif
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
 #include <atlbase.h>
+#pragma warning(pop)
 #include <atlsafe.h>
 #ifdef _DEBUG_WAS_DEFINED
 #define _DEBUG

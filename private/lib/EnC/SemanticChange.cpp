@@ -72,7 +72,7 @@ namespace Js
 
                     if (editIndex < 0)
                     {
-                        int editIndex = m_functionEdits.Add(edit);
+                        editIndex = m_functionEdits.Add(edit);
                         m_functionIdToEditIndex.Add(functionId, editIndex);
                     }
                     else

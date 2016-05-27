@@ -101,10 +101,7 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
 
     pRegisters->GetNumberRegisters(&numRegisters);
 
-    if (print)
-    {
-        ext->Out("Number of registers: %d\n", numRegisters);
-    }
+    ULONG scannedRegisters = 0;
 
     for (ULONG i = 0; i < numRegisters; i++)
     {
@@ -113,86 +110,104 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
         ULONG nameSize = 0;
         pRegisters->GetDescription(i, buffer, 32, &nameSize, &registerDescription);
 
+        if ((registerDescription.Flags & DEBUG_REGISTER_SUB_REGISTER))
+        {
+            // Don't care about subregister
+            continue;
+        }
+
+        if (ext->m_PtrSize == 4)
+        {
+            if (registerDescription.Type != DEBUG_VALUE_INT32)
+            {
+                continue;
+            }
+        }
+        else
+        {
+            if (registerDescription.Type != DEBUG_VALUE_INT64)
+            {
+                continue;
+            }
+        }
+
+        // Don't scan debug registers
+        if (strncmp(buffer, "dr", 2) == 0)
+        {
+            continue;
+        }
+
+        scannedRegisters++;
         DEBUG_VALUE debugValue;
         pRegisters->GetValue(i, &debugValue);
 
-        ULONG64 value = debugValue.I64;
-        if (ext->m_PtrSize == 4)
-        {
-            value = debugValue.I32;
-        }
+        ULONG64 value = ext->m_PtrSize == 4? debugValue.I32 : debugValue.I64;
 
         if (this->TryAdd(value, RootType::RootTypeRegister) && print)
         {
             ext->Out("0x%p (Register %s)\n", value, buffer);
         }
     }
+
+    if (print)
+    {
+        ext->Out("Number of scanned registers: %d\n", scannedRegisters);
+        ext->Out("Number of total registers: %d\n", numRegisters);
+    }
 }
 
 void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print)
 {
     ULONG64 stackBase = 0;
-    if (recycler.HasField("stackBase"))
+    if (recycler.HasField("stackBase") && recycler.Field("mainThreadHandle").GetPtr() != 0)
     {
         stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.Field("stackBase").GetUlong()
             : recycler.Field("stackBase").GetPtr());
     }
     else
-    {
-        ExtRemoteTyped tib("@$TEB->NtTib");
-        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? tib.Field("StackBase").GetUlong()
-            : tib.Field("StackBase").GetPtr());
+    {        
+        ExtRemoteTyped stackBaseField = ExtRemoteTypedUtil::GetTeb().Field("NtTib.StackBase");
+        stackBase = (ext->m_PtrSize == 4) ? stackBaseField.GetUlong() : stackBaseField.GetUlong64();
     }
 
     ULONG64 stackTop = GetStackTop(ext);
 
-    // memprotectheap recycler->stackBase is not set
-    ExtRemoteTyped tib("@$TEB->NtTib");
-    stackBase = tib.Field("StackBase").GetPtr();
-
     size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
-    void** stack = (void**)malloc(stackSizeInBytes);
+    byte * stack = (byte *)malloc(stackSizeInBytes);
     if (!stack)
     {
         ext->ThrowOutOfMemory();
     }
     ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
+    ExtRemoteData data(stackTop, stackSizeInBytesLong);
+    data.ReadBuffer(stack, stackSizeInBytesLong);
 
-#ifdef _M_X64
+    if (print)
+    {
+        ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
+    }
+
     if (ext->m_PtrSize == 4)
     {
         ULONG32* stack32 = (ULONG32*)stack;
-        ExtRemoteData data(stackTop, stackSizeInBytesLong);
-        data.ReadBuffer(stack32, stackSizeInBytesLong);
-
-        if (print)
-        {
-            ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
-        }
-
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            if (this->TryAdd((ULONG64)stack32[i], RootType::RootTypeStack) && print)
+            ULONG64 address = (ULONG64)stack32[i];
+            if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
                 ext->Out("0x%p", stack32[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
+                ext->DumpPossibleSymbol(address);
+                ext->Out("\n");
             }
         }
     }
     else
-#endif
     {
-        ExtRemoteData data(stackTop, stackSizeInBytesLong);
-        data.ReadBuffer(stack, stackSizeInBytesLong);
-
-        if (print)
-        {
-            ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
-        }
-
+        ULONG64* stack64 = (ULONG64*)stack;
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
-            ULONG64 address = (ULONG64)stack[i];
+            ULONG64 address = stack64[i];
             if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
                 ext->Out("0x%p", address);
@@ -400,87 +415,77 @@ void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& ca
     }
 }
 
-void EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
+bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
 {
-    ULONG64 vtable = GetPointerAtAddress(address);
-    std::string symbol = GetSymbolForOffset(this, vtable);
-
-    if (!symbol.empty())
+    char const * typeName;
+    JDRemoteTyped object = GetExtension()->CastWithVtable(address, &typeName);
+    
+    if (typeName == nullptr)
     {
-        const char *type = this->GetTypeNameFromVTable(symbol.c_str()).c_str();
+        return false;
+    }
 
-        if (makeLink)
-        {
-            this->Out(" -- %s ", type);
-            this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", type, address);
+    if (makeLink)
+    {
+        this->Out(" = %s ", typeName);
+        this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", typeName, address);
 
-            // TODO (doilij) don't include link unless object has type.typeId
-            //this->CastWithVtable(address, "Js::RecyclableObject");
+        // TODO (doilij) don't include link unless object has type.typeId
+        //this->CastWithVtable(address, "Js::RecyclableObject");
 
-            this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
-        }
-        else
-        {
-            this->Out(" -- %s", type);
-        }
+        this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+    }
+    else
+    {
+        this->Out(" = %s", typeName);
+    }
 #undef SYMBOL_GUESS
 
-        if (symbol.rfind("ArrayObjectInstance") != std::string::npos ||
-            symbol.rfind("Js::CustomExternalObject") != std::string::npos)
-        {
-            ULONG64 offsetOfExternalObject = 0x18;
+    if (strstr(typeName, "ArrayObjectInstance") != 0 ||
+        strstr(typeName, "Js::CustomExternalObject") != 0)
+    {
+        ULONG64 offsetOfExternalObject = 0x18;
 
 #ifdef _M_AMD64
-            if (this->m_PtrSize == 8)
-            {
-                offsetOfExternalObject = 0x30;
-            }
-#endif
-            ULONG64 externalObject = (ULONG64)address + offsetOfExternalObject;
-            ULONG64 domObject = GetPointerAtAddress(externalObject);
-            if (domObject != NULL)
-            {
-                ULONG64 domVtable = GetPointerAtAddress(domObject);
-                std::string symbol = GetSymbolForOffset(this, domVtable);
-
-                if (!symbol.empty())
-                {
-                    this->Out("(maybe DOM item %s)", symbol.c_str());
-                }
-                else
-                {
-                    this->Out("(0x%p)", externalObject);
-                }
-            }
+        if (this->m_PtrSize == 8)
+        {
+            offsetOfExternalObject = 0x30;
         }
-        else if (symbol.rfind("JavascriptDispatch") != std::string::npos)
-        {
-            ULONG64 offsetOfDispatch = 0x14;
-
-#ifdef _M_AMD64
-            if (this->m_PtrSize == 8)
-            {
-                offsetOfDispatch = 0x28;
-            }
 #endif
-            ULONG64 externalObject = (ULONG64)address + offsetOfDispatch;
-            ULONG64 dispatchObject = GetPointerAtAddress(externalObject);
-            if (dispatchObject)
-            {
-                ULONG64 dispatchVTable = GetPointerAtAddress(dispatchObject);
-                std::string symbol = GetSymbolForOffset(this, dispatchVTable);
+        ULONG64 externalObject = address + offsetOfExternalObject;
+        ULONG64 domObject = GetPointerAtAddress(externalObject);
+        if (domObject != NULL)
+        {
+            ULONG64 domVtable = GetPointerAtAddress(domObject);
+            std::string symbol = GetSymbolForOffset(this, domVtable);
 
-                if (!symbol.empty())
-                {
-                    this->Out("(maybe script Object is %s)", symbol.c_str());
-                }
-                else
-                {
-                    this->Out("(0x%p)", externalObject);
-                }
+            if (!symbol.empty())
+            {
+                this->Out("(maybe DOM item %s)", symbol.c_str());
+            }
+            else
+            {
+                this->Out("(0x%p)", externalObject);
             }
         }
     }
+    else if (strstr(typeName, "JavascriptDispatch") != 0)
+    {
+        ExtRemoteTyped scriptObject = object.Field("scriptObject");
+        ULONG64 scriptObjectPointer = scriptObject.GetPtr();
+        // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
+        if (scriptObjectPointer)
+        {
+            this->Out("[ScriptObject");
+            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink))
+            {
+                this->Out(" = 0x%p", scriptObjectPointer);
+            }
+            this->Out("]");
+        }
+    }
+
+    return true;
 }
 
 void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry)
@@ -1221,7 +1226,7 @@ void PredSuccImpl(EXT_CLASS_BASE *ext)
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(ext->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
@@ -1246,22 +1251,20 @@ void DumpSuccessors(EXT_CLASS_BASE* ext, Node node, RecyclerObjectGraph &objectG
     DumpPredSucc<false, links>(ext, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
-// TODO (doilij) rename DML commands (desc->predecessors)
 JD_PRIVATE_COMMAND(predecessors,
     "Given a pointer in the graph, show all of its descendants.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show predecessors which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
     PredSuccImpl<true>(this);
 }
 
-// TODO doilij rename DML commands (succ->successors)
 JD_PRIVATE_COMMAND(successors,
     "Given a pointer in the graph, show all of its descendants.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show descendants which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
@@ -1320,9 +1323,9 @@ JD_PRIVATE_COMMAND(successors,
 //
 JD_PRIVATE_COMMAND(traceroots,
     "Given a pointer in the graph, perform a BFS traversal to find the shortest path to a root.",
-    "{;e,o,d=0;pointer;Address to trace}"
-    "{;e,o,d=0;recycler;Recycler address}"
-    "{roots;e,o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
+    "{;ed,o,d=0;pointer;Address to trace}"
+    "{;ed,o,d=0;recycler;Recycler address}"
+    "{roots;edn=(10),o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
     "{a;b,o;all;Shortest path to all roots}"
@@ -1366,7 +1369,7 @@ JD_PRIVATE_COMMAND(traceroots,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
 
     //
     // Data types and traversal state
@@ -1552,7 +1555,7 @@ JD_PRIVATE_COMMAND(traceroots,
 JD_PRIVATE_COMMAND(savegraph,
     "Saves the current recycler object graph into a file (js, python, csv, etc.)",
     "{;s;filename;Filename to output to}"
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;recycler;Recycler address}"
     "{;s,o,d=js;filetype;Save file type <js|python|csv|csvx>}")
 {
     PCSTR filename = GetUnnamedArgStr(0);
@@ -1576,7 +1579,7 @@ JD_PRIVATE_COMMAND(savegraph,
     Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
 
     Out("Saving object graph to %s\n", filename);
     if (_stricmp(filetype, "js") == 0)
@@ -1647,42 +1650,47 @@ int __cdecl ObjectAllocNameComparer(const void * a, const void * b)
 
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
-    "{;e,o,d=0;recycler;Recycler address}"
+    "{;ed,o,d=0;recycler;Recycler address}"
+    "{top;edn=(10),o,d=-1;count;Number of entries to display}"
     "{v;b,o;verbose;Display verbose tracing}"
     "{t;b,o;trident;Display trident symbols}"
     "{sc;b,o;sortByCount;Sort by count instead of bytes}"
     "{sn;b,o;sortByName;Sort by name instead of bytes}"
     "{su;b,o;sortByUnknown;Sort by unknown}"
-    "{top;en=(10),o,d=-1;count;Number of entries to display}"
     "{vt;b,o;vtable;Vtable Only}"
     "{u;b,o;grouped;Show unknown count}"
-    "{k;b,o;known;Known object only}"
+    "{g;b,o;group;Group unknown objects}"
     )
 {
-    const bool trident = HasArg("t");
+    const ULONG64 recyclerArg = GetUnnamedArgU64(0);
+    const ULONG64 limit = GetArgU64("top");
     const bool verbose = HasArg("v");
+    const bool trident = HasArg("t");
+    const bool sortByCount = HasArg("sc");
+    const bool sortByName = HasArg("sn");
+    const bool sortByUnknown = HasArg("su");
     const bool infer = !HasArg("vt");
     const bool showUnknown = HasArg("u");
-    const bool knownOnly = HasArg("k");
-    const ULONG64 limit = GetArgU64("top");
+    const bool groupUnknown = HasArg("g");
 
-    if (HasArg("sc") && HasArg("sn"))
+    if (sortByCount && sortByName)
     {
         throw ExtException(E_FAIL, "Can't specify both -sc and -sn");
     }
 
-    if (HasArg("su") && HasArg("sn"))
+    if (sortByUnknown && sortByName)
     {
         throw ExtException(E_FAIL, "Can't specify both -su and -sn");
     }
 
-    auto sortComparer = HasArg("sn") ? ObjectAllocNameComparer :
-        HasArg("su") ?
-        (HasArg("sc") ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
-        (HasArg("sc") ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
+    // Note: (sortByCount && sortByUnknown) is allowed -- see below
 
-    ULONG64 arg = GetUnnamedArgU64(0);
-    ExtRemoteTyped recycler = GetRecycler(arg);
+    auto sortComparer = sortByName ? ObjectAllocNameComparer :
+        sortByUnknown ?
+        (sortByCount ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
+        (sortByCount ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
+
+    ExtRemoteTyped recycler = GetRecycler(recyclerArg);
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
     if (verbose)
@@ -1691,8 +1699,16 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
     }
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
-    objectGraph.EnsureTypeInfo(infer, trident, verbose);
+    RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;
+    if (infer)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Infer);
+    }
+    if (trident)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
+    }
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
 
     stdext::hash_map<char const *, ObjectAllocStats> objectCounts;
     int numNodes = 0;
@@ -1761,7 +1777,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         ObjectAllocStats& stats = sortedArray.get()[i].second;
         uint currCount = stats.count;
         uint currSize = stats.size;
-        if (knownOnly)
+        if (!groupUnknown)
         {
             currCount -= stats.unknownCount;
             currSize -= stats.unknownSize;
@@ -1771,8 +1787,9 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out("%7u %11u %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize,
                 (float)stats.unknownCount / (float)numNodes * 100, (float)stats.unknownSize / (float)totalSize * 100);
         }
-        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100, (float)currSize / (float)totalSize * 100,
-            stats.hasVtable ? (knownOnly ? "" : "[Group] ") : "[Field] ", typeName);
+        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100,
+            (float)currSize / (float)totalSize * 100,
+            stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
 
         if (i > limit)
         {
@@ -1783,8 +1800,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     Out("----------------------------------------------------------------------------\n");
 
-    uint unknownTotalCount = numNodes - knownObjectCount;
-    uint unknownTotalSize = totalSize - knownObjectSize;
+    const uint unknownTotalCount = numNodes - knownObjectCount;
+    const uint unknownTotalSize = totalSize - knownObjectSize;
     Out("%7u %11u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
         (float)unknownTotalCount / (float)numNodes * 100, (float)unknownTotalSize / (float)totalSize * 100);
     Out(showUnknown ? " | " : " Unknown object summary\n");
@@ -1851,11 +1868,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
-    RecyclerObjectGraph &objectGraph = *(this->GetOrCreateRecyclerObjectGraph(recycler, &threadContext));
-    if (typeInfo)
-    {
-        objectGraph.EnsureTypeInfo(true, false, false);
-    }
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, RecyclerObjectGraph::TypeInfoFlags::Infer));
 
     this->Out("\n");
     this->Out("%22s ^     Run !jd.predecessors on this node\n", "");

@@ -5,6 +5,10 @@
 #pragma once
 #include "stdafx.h"
 
+ExtRemoteTyped ExtRemoteTypedUtil::GetTeb()
+{
+    return ExtRemoteTyped(g_Ext->Is32On64() ? "((ntdll!_TEB32 *)@$TEB->NtTib.ExceptionList)" : "@$TEB");
+}
 
 ULONG64 ExtRemoteTypedUtil::GetAsPointer(ExtRemoteTyped object)
 {

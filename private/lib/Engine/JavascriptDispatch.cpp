@@ -128,12 +128,12 @@ JavascriptDispatch::JavascriptDispatch(
    scriptSite(inScriptSite),
    scriptObject(scriptObject),
    dispIdEnumerator(nullptr),
-   isGCTracked(FALSE),
-   isFinalized(FALSE),
-   isInCall(FALSE),
+   isGCTracked(false),
+   isFinalized(false),
+   isInCall(false),
    dispIdPropertyStringMap(nullptr)
 #if DBG
-   ,isFinishCreated(FALSE)
+   ,isFinishCreated(false)
 #endif
 {
     Assert(inScriptSite->IsClosed() || inScriptSite->GetScriptSiteContext() == scriptObject->GetScriptContext());
@@ -304,7 +304,7 @@ void JavascriptDispatch::Finalize(bool isShutdown)
 {
     Assert(isShutdown || refCount == 0);
     Assert(scriptSite != nullptr || (!isGCTracked && refCount == 0));
-    isFinalized = TRUE;
+    isFinalized = true;
     if (scriptSite != nullptr)
     {
         Assert(isGCTracked || isShutdown || !isFinishCreated);
@@ -589,15 +589,12 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
                     BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
                     Js::JavascriptOperators::SetItem(scriptObject, scriptObject, indexVal, scriptContext->GetLibrary()->GetNull(), scriptContext);
                     END_JS_RUNTIME_CALL(scriptContext);
-
-                    Js::PropertyRecord const * propertyRecord;
                     scriptContext->GetOrAddPropertyRecord(bstr, nameLength, &propertyRecord);
                     CachePropertyId(propertyRecord);
                     propertyId = propertyRecord->GetPropertyId();
                 }
                 else
                 {
-                    Js::PropertyRecord const * propertyRecord = nullptr;
                     if (propertyId == Js::Constants::NoProperty)
                     {
                         // the type handler should keep the propertyid alive. We don't need to cache the property here.
@@ -696,15 +693,15 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
                 for (int i = 0; i < list->Count(); i++)
                 {
                     const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
-                    Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                    if (propertyRecord == nullptr)
+                    Js::PropertyRecord const * currentPropertyRecord = currentPropertyStringWeakRef->Get();
+                    if (currentPropertyRecord == nullptr)
                     {
                         continue;
                     }
 
                     // If the property record found is the same as the case sensitive one,
                     // this item needs to move to the head of the list
-                    if (propertyRecord == caseSensitivePropertyRecord)
+                    if (currentPropertyRecord == caseSensitivePropertyRecord)
                     {
                         // Only swap if it's not already at the front
                         if (i != 0)
@@ -730,13 +727,13 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
             for (int i = 0; i < list->Count(); i++)
             {
                 const RecyclerWeakReference<Js::PropertyRecord const>* currentPropertyStringWeakRef = list->Item(i);
-                Js::PropertyRecord const * propertyRecord = currentPropertyStringWeakRef->Get();
-                if (propertyRecord == nullptr)
+                Js::PropertyRecord const * currentPropertyRecord = currentPropertyStringWeakRef->Get();
+                if (currentPropertyRecord == nullptr)
                 {
                     continue;
                 }
 
-                Js::PropertyId currentPropertyId = propertyRecord->GetPropertyId();
+                Js::PropertyId currentPropertyId = currentPropertyRecord->GetPropertyId();
                 Js::PropertyIndex currentIndex = scriptObject->GetPropertyIndex(currentPropertyId);
                 if (currentIndex >= 0 && currentIndex < bestIndex)
                 {
@@ -948,7 +945,7 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfPropertiesWithScriptEnter(VARIANT* 
                     Js::PropertyRecord const * propertyRecord;
                     Js::JavascriptOperators::GetPropertyIdForInt(i, scriptContext, &propertyRecord);
                     propertyVar = Js::JavascriptOperators::GetProperty(scriptObject, propertyRecord->GetPropertyId(), scriptContext);
-                    hr = DispatchHelper::MarshalJsVarToVariant(propertyVar, &variants[i]);
+                    hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(propertyVar, &variants[i], scriptContext);
                     if (FAILED(hr))
                     {
                         break;
@@ -1224,7 +1221,7 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     }
 
     Js::Var thisPointer = Js::JavascriptOperators::RootToThisObject(this->scriptObject, scriptContext);
-    hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, scriptContext, builtInFunction, &arguments);
+    hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, scriptContext, builtInFunction, &arguments);
     if (SUCCEEDED(hr))
     {
         Js::Var varResult;
@@ -1400,7 +1397,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             Js::ScriptContext* scriptContext = GetScriptContext();
             Js::ScriptContext* targetScriptContext = targetScriptSite->GetScriptSiteContext();
             Js::Var thisPointer = Js::JavascriptOperators::RootToThisObject(this->scriptObject, targetScriptContext);
-            hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, targetScriptContext, obj, &arguments);
+            hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, targetScriptContext, obj, &arguments);
             if (wFlags & DISPATCH_CONSTRUCT)
             {
                 arguments.Info.Flags = (Js::CallFlags)(arguments.Info.Flags | Js::CallFlags_New);
@@ -1523,17 +1520,17 @@ HRESULT JavascriptDispatch::InvokeOnMember(
                 // be invoked, which would be wrong.
                 // So the only correct thing to do here is to just set the value.
 
-                hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pdp->rgvarg, &value, GetScriptContext());
+                hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pdp->rgvarg, &value, GetScriptContext());
             }
             else
             {
-                hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pVarValue, &value, GetScriptContext());
+                hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pVarValue, &value, GetScriptContext());
                 VariantClear(pVarValue);
             }
         }
         else
         {
-            hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pdp->rgvarg, &value, GetScriptContext());
+            hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(pdp->rgvarg, &value, GetScriptContext());
         }
 
 
@@ -1611,7 +1608,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         Js::Var varResult;
         Js::Var thisPointer = this->GetScriptContext()->GetLibrary()->GetNull();
         Js::Arguments arguments(0, nullptr);
-        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
+        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
         if (wFlags & DISPATCH_CONSTRUCT)
         {
             arguments.Info.Flags = (Js::CallFlags)(arguments.Info.Flags | Js::CallFlags_New);
@@ -1952,7 +1949,7 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
     Js::ScriptContext* scriptContext = GetScriptContext();
 
     Js::Var instance;
-    hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(&varInstance, &instance, scriptContext);
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varInstance, &instance, scriptContext);
     if (SUCCEEDED(hr))
     {
         BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
@@ -2038,7 +2035,7 @@ void JavascriptDispatch::SetAsGCTracked()
 {
     if (!isGCTracked)
     {
-        isGCTracked = TRUE;
+        isGCTracked = true;
     }
 }
 

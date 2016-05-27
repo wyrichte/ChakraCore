@@ -470,10 +470,10 @@ STDMETHODIMP EventSink::Invoke(DISPID id, REFIID riid, LCID lcid,
     VARIANT thisVariant;
     thisVariant.vt = VT_DISPATCH;
     thisVariant.pdispVal = this->GetDispatch();
-    hr = DispatchHelper::MarshalVariantToJsVarNoThrowWithScriptEnter(&thisVariant, &thisVar, scriptContext);
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&thisVariant, &thisVar, scriptContext);
     if (SUCCEEDED(hr))
     {
-        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(pdp, thisVar, scriptContext, eventInfo->scriptObject, &arguments);
+        hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisVar, scriptContext, eventInfo->scriptObject, &arguments);
 
         if (SUCCEEDED(hr))
         {

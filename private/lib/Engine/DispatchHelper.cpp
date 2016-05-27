@@ -116,6 +116,17 @@ HRESULT DispatchHelper::MarshalJsVarsToVariants(Js::Var *pAtom, VARIANT *pVar, i
     return hr;
 }
 
+HRESULT DispatchHelper::MarshalJsVarsToVariantsNoThrow(Js::Var *pAtom, VARIANT *pVar, int count)
+{
+    HRESULT hr = S_OK;
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        MarshalJsVarsToVariants(pAtom, pVar, count);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    return hr;
+}
+
 void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
 {
     //
@@ -125,48 +136,33 @@ void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
 
     JavascriptDispatch*   jsdisp;
     Js::DynamicObject  *obj = Js::DynamicObject::FromVar(var);
-    Js::ScriptContext* scriptContext = obj->GetScriptContext();
-    jsdisp = JavascriptDispatch::Create<true>(obj);
+    jsdisp = JavascriptDispatch::Create<false>(obj);
     AssertMsg(jsdisp->GetObject() == var, "Bad dispatch map entry");
     pVar->vt = VT_DISPATCH;
+    HRESULT hr = jsdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pVar->pdispVal);
+    Assert(hr == S_OK);
+}
+
+HRESULT DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(Js::Var var, VARIANT * pVar, Js::ScriptContext * scriptContext)
+{
+    HRESULT hr = S_OK;
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        HRESULT hr = jsdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pVar->pdispVal);
-        Assert(hr == S_OK);
+        MarshalJsVarToVariantNoThrow(var, pVar, scriptContext);
     }
     END_LEAVE_SCRIPT(scriptContext);
+    return hr;
 }
 
 HRESULT DispatchHelper::MarshalJsVarToVariantNoThrow(Js::Var var, VARIANT * pVar, Js::ScriptContext * scriptContext)
 {
     HRESULT hr = S_OK;
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
-    {
-        hr = MarshalJsVarToVariantWithScriptEnter(var, pVar, scriptContext);
-    }
-    END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
-    return hr;
-}
-
-HRESULT DispatchHelper::MarshalVariantToJsVarNoThrowWithScriptEnter(VARIANT *pVariant, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag variantPropertyFlag)
-{
-    HRESULT hr = S_OK;
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
-    {
-        hr = MarshalVariantToJsVarWithScriptEnter(pVariant, pAtom, scriptContext, variantPropertyFlag);
-    }
-    END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
-    return hr;
-}
-
-HRESULT DispatchHelper::MarshalJsVarToVariantWithScriptEnter(Js::Var var,VARIANT *pVar, Js::ScriptContext * scriptContext)
-{
-    HRESULT hr = S_OK;
-    BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         hr = MarshalJsVarToVariant(var, pVar);
     }
-    END_JS_RUNTIME_CALL(scriptContext);
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -400,13 +396,14 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
     return hr;
 }
 
-HRESULT DispatchHelper::MarshalFrameDisplayToVariant(Js::FrameDisplay *pDisplay, VARIANT *pVar)
+HRESULT DispatchHelper::MarshalFrameDisplayToVariantNoScript(Js::FrameDisplay *pDisplay, VARIANT *pVar)
 {
+    Assert(!ThreadContext::GetContextForCurrentThread()->IsScriptActive());
     Js::Var *pJsVar = (Js::Var*)((char*)pDisplay + Js::FrameDisplay::GetOffsetOfScopes());
     return MarshalJsVarsToVariants(pJsVar, pVar, pDisplay->GetLength());
 }
 
-HRESULT DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(
+HRESULT DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(
     __in DISPPARAMS* dispParams,
     __in Js::Var thisPointer,
     __in Js::ScriptContext * scriptContext,
@@ -422,7 +419,7 @@ HRESULT DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(
     {
         argument->Info.Count++;
     }
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         vars = RecyclerNewArrayZ(scriptContext->GetRecycler(), Js::Var, argument->Info.Count);
         argument->Values = vars;
@@ -472,7 +469,7 @@ HRESULT DispatchHelper::MarshalDispParamToArgumentsNoThrowWithScriptEnter(
             }
         }
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
 
     return hr;
 }
@@ -513,49 +510,43 @@ Js::Var DispatchHelper::MarshalBSTRToJsVar(Js::ScriptContext * scriptContext, BS
     return scriptContext->GetLibrary()->GetNullString();
 }
 
-HRESULT DispatchHelper::MarshalIDispatchToJsVarNoThrow(Js::ScriptContext* scriptContext, IDispatch * pdispVal, Js::Var * var)
+HRESULT DispatchHelper::MarshalIDispatchToJsVar(Js::ScriptContext* scriptContext, IDispatch * pdispVal, Js::Var * var)
 {
-    AutoLeaveScriptPtr<IJavascriptDispatchLocalProxy> pProxy(scriptContext);
+    CComPtr<IJavascriptDispatchLocalProxy> pProxy;
     HRESULT hr = NOERROR;
 
-    AssertInScript();
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
-        BEGIN_LEAVE_SCRIPT(scriptContext)
-        {
-            hr = pdispVal->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy);
-        }
-        END_LEAVE_SCRIPT(scriptContext);
+        AUTO_NO_EXCEPTION_REGION;
+        hr = pdispVal->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy);
+    }
 
-        if (FAILED(hr) || !pProxy)
+    if (FAILED(hr) || !pProxy)
+    {
+        *var = HostDispatch::Create(scriptContext, pdispVal, FALSE);
+        hr = NOERROR;
+    }
+    else
+    {
+        JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>((IJavascriptDispatchLocalProxy*)pProxy);
+        Js::DynamicObject *obj = javascriptDispatch->GetObject();
+
+        if (NULL == obj)
         {
-            *var = HostDispatch::Create(scriptContext, pdispVal, FALSE);
-            hr = NOERROR;
+            hr = E_ACCESSDENIED;
         }
         else
         {
-            JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>((IJavascriptDispatchLocalProxy*)pProxy);
-            Js::DynamicObject *obj = javascriptDispatch->GetObject();
-
-            if (NULL == obj)
-            {
-                hr = E_ACCESSDENIED;
-            }
-            else
-            {
-                *var = Js::CrossSite::MarshalVar(scriptContext, obj);
-                hr = NOERROR;
-            }
+            *var = Js::CrossSite::MarshalVar(scriptContext, obj);
+            hr = NOERROR;
         }
     }
-    END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_INSCRIPT(hr);
     return hr;
 }
 
 HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext* scriptContext)
 {
     HRESULT hr = S_OK;
-    Assert(scriptContext->GetThreadContext()->IsScriptActive());
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     switch (pVar->vt)
     {
         case VT_EMPTY:
@@ -674,13 +665,11 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 *pAtom = scriptContext->GetLibrary()->GetNull();
                 break;
             }
-            AutoLeaveScriptPtr<IDispatch> dispatch(scriptContext);
-
-            BEGIN_LEAVE_SCRIPT(scriptContext)
+            CComPtr<IDispatch> dispatch;
             {
+                AUTO_NO_EXCEPTION_REGION;
                 hr = pVar->punkVal->QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
             }
-            END_LEAVE_SCRIPT(scriptContext);
             if (SUCCEEDED(hr) && dispatch)
             {
                 *pAtom = HostDispatch::Create(scriptContext, (IDispatch*)dispatch);
@@ -701,11 +690,11 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 break;
             }
 
-            AutoLeaveScriptPtr<ITracker> tracker(scriptContext);
+            CComPtr<ITracker> tracker;
             IDispatch* pdispVal = pVar->pdispVal;
-            AutoLeaveScriptPtr<IDispatchEx> pDispEx(scriptContext);
-            BEGIN_LEAVE_SCRIPT(scriptContext)
+            CComPtr<IDispatchEx> pDispEx;
             {
+                AUTO_NO_EXCEPTION_REGION;
                 if (SUCCEEDED(pdispVal->QueryInterface(IID_PPV_ARGS(&pDispEx))) && pDispEx)
                 {
                     // We'll use the IDispatchEx implementation to ask for ITracker in case any proxies want to handle IDispatchEx/ITracker.
@@ -714,7 +703,6 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
 
                 hr = pdispVal->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
             }
-            END_LEAVE_SCRIPT(scriptContext);
 
             if (SUCCEEDED(hr) && tracker)
             {
@@ -726,7 +714,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 hr = pdispVal->QueryInterface(__uuidof(IDispatch), (void**)&pDispatch);
                 if (SUCCEEDED(hr) && pDispatch)
                 {
-                    hr = MarshalIDispatchToJsVarNoThrow(scriptContext, pDispatch, pAtom);
+                    hr = MarshalIDispatchToJsVar(scriptContext, pDispatch, pAtom);
                     pDispatch->Release();
                 }
                 else
@@ -786,22 +774,34 @@ LDefault:
 HRESULT DispatchHelper::MarshalVariantToJsVarDerefedNoThrow(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext* scriptContext)
 {
     HRESULT hr = S_OK;
-    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
+    BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
         hr = MarshalVariantToJsVarDerefed(pVar, pAtom, scriptContext);
     }
-    END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_INSCRIPT(hr);
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
-HRESULT DispatchHelper::MarshalVariantToJsVarWithScriptEnter(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag)
+HRESULT DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag)
+{
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
+    HRESULT hr = NOERROR;
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        hr = MarshalVariantToJsVar(pVarIn, pAtom, scriptContext);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr)
+    return hr;
+}
+
+HRESULT DispatchHelper::MarshalVariantToJsVarWithLeaveScript(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag VariantPropertyFlag)
 {
     HRESULT hr = NOERROR;
-    BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false)
+    BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        hr = MarshalVariantToJsVar(pVarIn, pAtom, scriptContext, VariantPropertyFlag);
+        hr = MarshalVariantToJsVarNoThrowNoScript(pVarIn, pAtom, scriptContext, VariantPropertyFlag);
     }
-    END_JS_RUNTIME_CALL(scriptContext);
+    END_LEAVE_SCRIPT(scriptContext);
     return hr;
 }
 
@@ -1503,7 +1503,6 @@ HRESULT DispatchHelper::ConvertToString(VARIANT *src, VARIANT* dst, Js::ScriptCo
     default:
         return JSERR_NeedString;
     }
-    return NOERROR;
 }
 
 

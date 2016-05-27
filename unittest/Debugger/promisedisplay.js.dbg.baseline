@@ -1,0 +1,118 @@
+[
+  {
+    "evaluate": {
+      "p1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "undefined"
+        },
+        "someOtherProp": "before"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "p1 resolved"
+        },
+        "someOtherProp": "in fullfil"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "p1 resolved"
+        },
+        "someOtherProp": "in then"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "null"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p3": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "rejected",
+          "[value]": "[p3,rejected]"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p1": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "p1 resolved"
+        },
+        "someOtherProp": "in then"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p2": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "resolved",
+          "[value]": "null"
+        }
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "p3": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "[Promise]": {
+          "[status]": "rejected",
+          "[value]": "[p3,rejected]"
+        }
+      }
+    }
+  }
+]

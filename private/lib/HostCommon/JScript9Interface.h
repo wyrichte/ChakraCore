@@ -51,7 +51,7 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtReleasePtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtAddRefPtr)(JsRef ref, unsigned int* count);
     typedef JsErrorCode (WINAPI *JsrtGetValueType)(JsValueRef value, JsValueType *type);
-    typedef JsErrorCode (WINAPI *JsrtParseScriptWithFlags)(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result);
+    typedef JsErrorCode (WINAPI *JsrtParseScriptWithAttributes)(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result);
 
     JsrtCreateRuntimePtr pfJsrtCreateRuntime;
     JsrtCreateContextPtr pfJsrtCreateContext;
@@ -93,7 +93,7 @@ struct JsrtTestHooks
     JsrtReleasePtr pfJsrtRelease;
     JsrtAddRefPtr pfJsrtAddRef;
     JsrtGetValueType pfJsrtGetValueType;
-    JsrtParseScriptWithFlags pfJsrtParseScriptWithFlags;
+    JsrtParseScriptWithAttributes pfJsrtParseScriptWithAttributes;
 };
 
 struct MemProtectTestHooks
@@ -150,9 +150,9 @@ public:
     static HINSTANCE LoadDll(bool useRetailDllName, LPCWSTR alternateDllName, ArgInfo& argInfo);
     static void SetArgInfo(ArgInfo& args);
     static HRESULT FinalGC();
-    static HRESULT DisplayRecyclerStats();
+    static void DisplayRecyclerStats();
 #ifdef ENABLE_INTL_OBJECT
-    static HRESULT ResetTimeZoneFactoryObjects();
+    static void ResetTimeZoneFactoryObjects();
 #endif
 
     static void UnloadDll(HINSTANCE jscriptLibrary);
@@ -228,6 +228,9 @@ public:
     static HRESULT SetCheckMemoryLeakFlag(bool flag) { return CHECKED_CALL(SetCheckMemoryLeakFlag,flag); }
     static HRESULT SetEnableCheckMemoryLeakOutput(bool flag) { return CHECKED_CALL(SetEnableCheckMemoryLeakOutput, flag); }
 #endif
+#ifdef DBG
+    static HRESULT SetCheckOpHelpersFlag(bool flag) { return CHECKED_CALL(SetCheckOpHelpersFlag,flag); }
+#endif
 
     static boolean SupportsDllGetClassObjectCallback() {return m_testHooks.pfDllGetClassObject != NULL; }
     static boolean SupportsPrintConfigFlagsUsageString() { return m_testHooksSetup && m_testHooks.pfPrintConfigFlagsUsageString != NULL; }
@@ -294,7 +297,7 @@ public:
     static JsErrorCode WINAPI JsrtRelease(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtRelease(ref, count); }
     static JsErrorCode WINAPI JsrtAddRef(JsRef ref, unsigned int* count) { return m_jsrtTestHooks.pfJsrtAddRef(ref, count); }
     static JsErrorCode WINAPI JsrtGetValueType(JsValueRef value, JsValueType *type) { return m_jsrtTestHooks.pfJsrtGetValueType(value, type); }
-    static JsErrorCode WINAPI JsrtParseScriptWithFlags(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtParseScriptWithFlags(script, sourceContext, sourceUrl, parseAttributes, result); }
+    static JsErrorCode WINAPI JsrtParseScriptWithAttributes(const char16 *script, JsSourceContext sourceContext, const char16 *sourceUrl, JsParseScriptAttributes parseAttributes, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtParseScriptWithAttributes(script, sourceContext, sourceUrl, parseAttributes, result); }
 
 
     static HRESULT MemProtectHeapCreate(void ** heapHandle, int flags) { return m_memProtectTestHooks.pfMemProtectHeapCreate(heapHandle, flags); }

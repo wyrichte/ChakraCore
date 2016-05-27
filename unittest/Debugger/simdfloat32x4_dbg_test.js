@@ -41,21 +41,6 @@ function testSIMDFloat32x4_binaryop() {
     c3; /**bp:evaluate('c3', 2);**/
 }
 
-function testSIMDFloat32x4_clamp() {
-    // test SIMDFloat32x4 clamp
-    var a = SIMD.Float32x4(-20.0, 10.0, 30.0, 0.5);
-    a; /**bp:locals();evaluate('a', 0, LOCALS_TYPE)**/
-
-    var lower = SIMD.Float32x4(2.0, 1.0, 50.0, 0.0);
-    lower; /**bp:evaluate('lower', 0, LOCALS_TYPE); evaluate('lower', 2);**/
-
-    var upper = SIMD.Float32x4(2.5, 5.0, 55.0, 1.0);
-    upper; /**bp:evaluate('upper', 0, LOCALS_TYPE); evaluate('upper', 2);**/
-
-    var c = SIMD.Float32x4.clamp(a, lower, upper);
-    c; /**bp:evaluate('c', 0, LOCALS_TYPE); evaluate('c', 2);**/
-}
-
 function testSIMDFloat32x4_compareop() {
     // test SIMDFloat32x4 compare ops
     var m = SIMD.Float32x4(1.0, 2.0, 0.1, 0.001);
@@ -117,7 +102,6 @@ function testSIMDFloat32x4_replaceLane() {
 
 testSIMDFloat32x4_unaryop();
 testSIMDFloat32x4_binaryop();
-
 testSIMDFloat32x4_compareop();
 testSIMDFloat32x4_conversion();
 testSIMDFloat32x4_replaceLane();

@@ -24,7 +24,10 @@ class StackBackTrace;
 // TODO (doilij): remove JD's dependency on ATL
 #pragma push_macro("_DEBUG")
 #undef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
 #include <atlbase.h>
+#pragma warning(pop)
 #include <atlcoll.h>
 #include <atlcom.h>
 #pragma pop_macro("_DEBUG")
@@ -93,6 +96,10 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #endif
 
 #define PropertyDeleted         0x08
+
+#if defined(_M_X64) || defined(_M_ARM64)
+#define _M_X64_OR_ARM64 1
+#endif
 
 #include "DataStructures\BitVector.h"
 #include "time.h"

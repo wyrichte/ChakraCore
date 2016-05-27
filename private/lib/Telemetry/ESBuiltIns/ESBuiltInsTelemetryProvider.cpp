@@ -310,7 +310,9 @@ void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD host
     // So the tracelogging call is instead populated by a C++-generation script, which the same effect as the preprocessor, except you need to remember to re-run the script whenever the database changes.
     // The generated file is TraceLogList.inc, and unfortunately the preprocessor puts it all on a single long line.
 
-    size_t idx;
+    if (!this->throttle.isThrottled())
+    {
+        size_t idx;
 
 #define Get(propertyId) \
     ( idx = ESBuiltInsDatabase::GetESBuiltInArrayIndex( propertyId ), idx != SIZE_MAX ? this->usageMap[ idx ] : 0 )
@@ -320,6 +322,7 @@ void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD host
 #include "TraceLogList.inc"
 
 #undef Get
+    }
 }
 
 void ESBuiltInsTelemetryProvider::OutputPrint()

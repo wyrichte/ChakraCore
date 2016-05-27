@@ -4,7 +4,9 @@ setlocal
 
 set arch=%1
 set flavor=%2
+set doCore=%3
 set builderror=
+set PogoConfig=True
 
 if "%arch%"=="" (
   goto:usage
@@ -13,30 +15,39 @@ if "%flavor%"=="" (
   goto:usage
 )
 for %%i in ("%~dp0..") do set "ChakraRoot=%%~fi"
+
 call %ChakraRoot%\tools\GitScripts\add-msbuild-path.cmd
 set _ChakraSolution=%ChakraRoot%\Build\Chakra.Full.sln
+if "%doCore%" EQU "core" (
+    set _ChakraSolution=%ChakraRoot%\core\Build\Chakra.Core.sln
+)
 set BIN_PATH=%ChakraRoot%\Build\VcBuild\bin\%arch%_%flavor%_pogo
+if "%doCore%" EQU "core" (
+    set BIN_PATH=%ChakraRoot%\core\Build\VcBuild\bin\%arch%_%flavor%_pogo
+)
 if "%TF_BUILD_BUILDDIRECTORY%" NEQ "" (
   set BIN_PATH=%TF_BUILD_BUILDDIRECTORY%\bin\bin\%arch%_%flavor%_pogo
 ) else if "%OutBaseDir%" NEQ "" (
   set BIN_PATH=%OutBaseDir%\Chakra.Full\bin\%arch%_%flavor%_pogo
+  if "%doCore%" EQU "core" (
+    set BIN_PATH=%OutBaseDir%\Chakra.Core\bin\%arch%_%flavor%_pogo
+  )
 )
 
-if not exist %BIN_PATH% (
-  md %BIN_PATH%
-) else (
-  if exist %BIN_PATH%\*.pgc ( del %BIN_PATH%\*.pgc )
+call %ChakraRoot%\core\Build\scripts\pgo\pre_pgi.cmd %arch% %flavor% "%BIN_PATH%"
+if "%errorlevel%" NEQ "0" (
+    exit /b %errorlevel%
 )
-
- REM Build with pgo instrumentation
-set POGO_TYPE=PGI
 call :build
 if /I "%builderror%" NEQ "" (
   echo %builderror%: An error occurred in the build instrumentation
   endlocal
   exit /b %builderror%
 )
-set POGO_TYPE=
+call %ChakraRoot%\core\Build\scripts\pgo\post_pgi.cmd
+if "%errorlevel%" NEQ "0" (
+    exit /b %errorlevel%
+)
 
 IF /I "%arch%" NEQ "x86" (
   IF /I "%arch%" NEQ "x64" (
@@ -46,25 +57,29 @@ IF /I "%arch%" NEQ "x86" (
   )
 )
 
+set pgi_bin=jshost.exe
+if "%doCore%" EQU "core" (
+    set pgi_bin=ch.exe
+)
  REM Do training
-for %%A in (%ChakraRoot%\core\test\benchmarks\SunSpider\*.js) do call %BIN_PATH%\jshost.exe %%A
-for %%A in (%ChakraRoot%\core\test\benchmarks\Kraken\*.js) do call %BIN_PATH%\jshost.exe %%A
-for %%A in (%ChakraRoot%\core\test\benchmarks\Octane\*.js) do call %BIN_PATH%\jshost.exe %%A
-
- REM Optimize build with pgo data
-set POGO_TYPE=PGO
+call powershell %ChakraRoot%\core\Build\Scripts\pgo\pogo_training.ps1 -scenarios %ChakraRoot%\core\test\benchmarks\SunSpider,%ChakraRoot%\core\test\benchmarks\Kraken,%ChakraRoot%\core\test\benchmarks\Octane -binary %BIN_PATH%\%pgi_bin% -arch %arch% -flavor %flavor%
+if "%errorlevel%" NEQ "0" (
+    exit /b %errorlevel%
+)
+call %ChakraRoot%\core\Build\scripts\pgo\pre_pgo.cmd
+if "%errorlevel%" NEQ "0" (
+    exit /b %errorlevel%
+)
 call :build
 if /I "%builderror%" NEQ "" (
   echo %builderror%: An error occurred in the build optimization
   endlocal
   exit /b %builderror%
 )
-set POGO_TYPE=
-
- REM Clean binaries we no longer need
-if exist %BIN_PATH%\*.pgc ( del %BIN_PATH%\*.pgc )
-if exist %BIN_PATH%\*.pgd ( del %BIN_PATH%\*.pgd )
-if exist %BIN_PATH%\pgort* ( del %BIN_PATH%\pgort* )
+call %ChakraRoot%\core\Build\scripts\pgo\post_pgo.cmd %BIN_PATH%
+if "%errorlevel%" NEQ "0" (
+    exit /b %errorlevel%
+)
 
 endlocal
 goto:eof
@@ -72,8 +87,12 @@ goto:eof
 :build
   set logFileName=%BIN_PATH%\build_%arch%%flavor%%POGO_TYPE%
   set _LoggingParams=/fl1 /flp1:logfile=%logFileName%.log;verbosity=normal /fl2 /flp2:logfile=%logFileName%.err;errorsonly /fl3 /flp3:logfile=%logFileName%.wrn;warningsonly
-  echo msbuild /m /p:Configuration=jshost-%flavor% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
-  call msbuild /m /p:Configuration=jshost-%flavor% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
+  set Configuration=jshost-%flavor%
+  if "%doCore%" EQU "core" (
+    set Configuration=%flavor%
+  )
+  echo msbuild /m /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
+  call msbuild /m /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
   if "%errorlevel%" NEQ "0" (
     set builderror=%errorlevel%
   )

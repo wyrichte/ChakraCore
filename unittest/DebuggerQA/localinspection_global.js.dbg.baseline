@@ -415,6 +415,7 @@
             "find": "<large string>",
             "findIndex": "<large string>",
             "forEach": "<large string>",
+            "includes": "<large string>",
             "indexOf": "<large string>",
             "join": "<large string>",
             "keys": "<large string>",
@@ -447,6 +448,7 @@
             "fill": "true",
             "find": "true",
             "findIndex": "true",
+            "includes": "true",
             "keys": "true",
             "values": "true"
           }
@@ -466,6 +468,7 @@
             "find": "<large string>",
             "findIndex": "<large string>",
             "forEach": "<large string>",
+            "includes": "<large string>",
             "indexOf": "<large string>",
             "join": "<large string>",
             "keys": "<large string>",
@@ -498,6 +501,7 @@
             "fill": "true",
             "find": "true",
             "findIndex": "true",
+            "includes": "true",
             "keys": "true",
             "values": "true"
           }

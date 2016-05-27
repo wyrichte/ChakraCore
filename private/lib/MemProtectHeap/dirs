@@ -1,3 +1,3 @@
 !include ..\..\..\jsstaticlibdirs.$(_BuildType)
 DIRS=$(DIRS) \
-    PerfTest{!NO_JS_TEST,!min_rt,!cs_xbox}
+    PerfTest{!NO_JS_TEST,!min_rt}

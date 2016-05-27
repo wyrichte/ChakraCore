@@ -57,8 +57,8 @@ protected:
     IUnknown *m_punkSite;
 
     // Cache ServiceProviders.
-    BOOL m_fQueriedCaller : 1;
-    BOOL m_fQueriedSite : 1;
+    bool m_fQueriedCaller : 1;
+    bool m_fQueriedSite : 1;
     IServiceProvider *m_pspCaller;
     IServiceProvider *m_pspSite;
 

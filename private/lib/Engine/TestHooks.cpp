@@ -318,7 +318,7 @@ HRESULT __stdcall SetAssertToConsoleFlag(bool flag)
     return S_OK;
 }
 
-void __stdcall FinalGC()
+HRESULT __stdcall FinalGC()
 {
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT) || defined(INTERNAL_MEM_PROTECT_HEAP_ALLOC)
     bool doFinalGC = false;
@@ -346,7 +346,7 @@ void __stdcall FinalGC()
 
     if (!doFinalGC)
     {
-        return;
+        return E_FAIL;
     }
 
 
@@ -356,7 +356,7 @@ void __stdcall FinalGC()
     // context- there wouldn't be anything interesting to collect anyway
     if (!threadContext || threadContext->WasAnyScriptContextEverRegistered() == false)
     {
-        return;
+        return E_FAIL;
     }
     Recycler * recycler = threadContext->GetRecycler();  
     // Recycler might not have initialized, check if it is null
@@ -367,6 +367,7 @@ void __stdcall FinalGC()
         Assert(!recycler->CollectionInProgress());
     }
 #endif
+    return S_OK;
 }
 
 HRESULT __stdcall GetThreadService(IActiveScriptGarbageCollector** threadService)

@@ -1297,7 +1297,6 @@ namespace JsDiag
 
     const uint32 RemoteFunctionBody::GetCounter(FunctionBody::CounterFields fieldEnum) const
     {
-        Assert(fieldEnum < FunctionBody::CounterFields::SignedFieldsStart);
 
         // for registers, it's using UINT32_MAX to represent NoRegister
         if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !this->ToTargetPtr()->m_hasLocalClosureRegister)
@@ -2378,7 +2377,24 @@ namespace JsDiag
 
     bool RemoteTypePath::TryLookup(Js::PropertyId propId, int typePathLength, PropertyIndex* index)
     {
-        return ToTargetPtr()->map.TryGetValue(propId, index, *this)
+        RemoteData<Js::TypePath::Data> data(this->m_reader, ToTargetPtr()->data);
+        BYTE buffer[sizeof(Js::TinyDictionary) + Js::TypePath::MaxPathTypeHandlerLength];
+        Assert(typePathLength <= Js::TypePath::MaxPathTypeHandlerLength);
+        Assert(data->pathLength <= Js::TypePath::MaxPathTypeHandlerLength);
+        ULONG readSize = sizeof(Js::TinyDictionary) + data->pathLength;
+        ULONG bytesRead;
+        if (readSize > sizeof(Js::TinyDictionary) + Js::TypePath::MaxPathTypeHandlerLength)
+        {
+            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_READ_PAST_SOURCE);
+        }
+        __analysis_assume(readSize <= sizeof(Js::TinyDictionary) + Js::TypePath::MaxPathTypeHandlerLength);
+        HRESULT hr = m_reader->ReadVirtual((BYTE *)ToTargetPtr()->data + offsetof(Js::TypePath::Data, map), buffer, readSize, &bytesRead);
+        CheckHR(hr, DiagErrorCode::READ_VIRTUAL);
+        if (bytesRead != readSize)
+        {
+            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::READ_VIRTUAL_MISMATCH);
+        }
+        return ((Js::TinyDictionary *)buffer)->TryGetValue(propId, index, *this)
             && *index < typePathLength;
     }
 

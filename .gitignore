@@ -8,7 +8,9 @@
 *.user
 Build/.vs/
 Build/VCBuild/
+Build/Chakra.Full.VC.db
 Build/ipch/
+Build/*.VC.db
 build_*.log
 build_*.wrn
 build_*.err
@@ -29,6 +31,7 @@ sd.ini
 *.pyc
 __pycache__/*
 *.orig
-initenv.cmd
 tools/Exprgen
 .project
+.cproject
+*.dmp

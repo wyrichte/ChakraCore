@@ -1,0 +1,12 @@
+[
+  {
+    "evaluate": {
+      "setTimeout(alert(), 0)": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "foo()": "PASS"
+    }
+  }
+]

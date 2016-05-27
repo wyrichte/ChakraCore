@@ -85,8 +85,6 @@ JsValueRef __stdcall WScriptJsrt::QuitCallback(JsValueRef callee, bool isConstru
     }
 
     ExitProcess(exitCode);
-
-    return NULL;
 }
 
 JsValueRef __stdcall WScriptJsrt::LoadScriptFileCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
@@ -444,7 +442,6 @@ JsValueRef __stdcall WScriptJsrt::LoadTextFileCallback(JsValueRef callee, bool i
 
         if (errorCode == JsNoError)
         {
-            HRESULT hr;
             UINT lengthBytes = 0;
             bool isUtf8 = false;
             LPCOLESTR contentsRaw = nullptr;
@@ -488,7 +485,6 @@ JsValueRef __stdcall WScriptJsrt::LoadBinaryFileCallback(JsValueRef callee, bool
 
         if (errorCode == JsNoError)
         {
-            HRESULT hr;
             UINT lengthBytes = 0;
 
             hr = JsHostLoadBinaryFile(fileName, fileContent, lengthBytes);
@@ -673,7 +669,14 @@ void WScriptJsrt::AddMessageQueue(MessageQueue *messageQueue)
 
 WScriptJsrt::CallbackMessage::CallbackMessage(unsigned int time, JsValueRef function) : MessageBase(time), m_function(function)
 {
-    JScript9Interface::JsrtAddRef(m_function, NULL);
+    JsErrorCode error = JScript9Interface::JsrtAddRef(m_function, NULL);
+    if (error != JsNoError)
+    {
+        // Simply report a fatal error and exit because continuing from this point would result in inconsistent state
+        // and FailFast telemetry would not be useful.
+        wprintf(_u("FATAL ERROR: JScript9Interface::JsrtAddRef failed in WScriptJsrt::CallbackMessage::`ctor`. error=0x%x\n"), error);
+        exit(1);
+    }
 }
 
 WScriptJsrt::CallbackMessage::~CallbackMessage()

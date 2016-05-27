@@ -10,8 +10,8 @@
 #include <strsafe.h>
 #include "GUIDParser.h"
 
-static const  char16 whitespace[] = {_u('\x0020'), _u('\x1680'), _u('\x180E'), _u('\x2000'), _u('\x2001'), _u('\x2002'), _u('\x2003'), _u('\x2004'), _u('\x2005'), _u('\x2006'), _u('\x2007'), _u('\x2008'), _u('\x2009'), _u('\x200A'), 
-    _u('\x202F'), _u('\x205F'), _u('\x3000'), _u('\x2028'), _u('\x2029'), _u('\x0009'), _u('\x000A'), _u('\x000B'), _u('\x000C'), _u('\x000D'), _u('\x0085'), _u('\x00A0'), _u('\0')};
+static const  wchar_t whitespace[] = {L'\x0020', L'\x1680', L'\x180E', L'\x2000', L'\x2001', L'\x2002', L'\x2003', L'\x2004', L'\x2005', L'\x2006', L'\x2007', L'\x2008', L'\x2009', L'\x200A', 
+    L'\x202F', L'\x205F', L'\x3000', L'\x2028', L'\x2029', L'\x0009', L'\x000A', L'\x000B', L'\x000C', L'\x000D', L'\x0085', L'\x00A0', L'\0'};
 
 
 // This code was copied and slightly modified from the support code for 
@@ -131,12 +131,12 @@ class GUIDParser
 {    
 public:
     static HRESULT TryParseGUID(_In_z_ PCWSTR g, _Out_ GUID* result);
-    static HRESULT TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) char16* result, size_t length);
+    static HRESULT TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) wchar_t* result, size_t length);
 
 private:
-    static bool IsWhitespace(char16 c);
-    static void EatAllWhitespace(_Inout_updates_z_(length) char16* string, size_t length);
-    static bool IsHexDigit(char16 c) { return (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))); }
+    static bool IsWhitespace(wchar_t c);
+    static void EatAllWhitespace(_Inout_updates_z_(length) wchar_t* string, size_t length);
+    static bool IsHexDigit(wchar_t c) { return (((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f')) || ((c >= 'A') && (c <= 'F'))); }
     static HRESULT TryParseHexValueExact(_In_z_ PCWSTR g, int length, _Out_ unsigned long* value);
     static HRESULT TryParseHexValue(_In_z_ PCWSTR g, int maxLength, _Out_ int* offset, _Out_ unsigned long* value);
     static HRESULT TryParseGUIDWithHexFormat(_In_z_ PCWSTR g, _Out_ GUID* result);
@@ -162,7 +162,7 @@ HRESULT TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) PWSTR result,
 // Returns: E_POINTER in case one of the arguments is NULL
 //			E_INVALIDARG in case an null guid was specified
 //			S_OK in case of success
-STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) char16* result, size_t length)
+STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) wchar_t* result, size_t length)
 {
     if (nullptr == result)
     {
@@ -184,10 +184,10 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
                          
     result[0] = '\0';
 
-    char16 tempStr[9];
+    wchar_t tempStr[9];
     tempStr[0] = '\0';
 
-    int numChar = swprintf_s(tempStr, 9, _u("%.8x"), (int)(g->Data1));
+    int numChar = swprintf_s(tempStr, 9, L"%.8x", (int)(g->Data1));
     if (numChar != 8)
     {
         return E_INVALIDARG;
@@ -197,13 +197,13 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, _u("-"));
+    error = wcscat_s(result, guidlen, L"-");
     if (error != 0)
     {
         return E_INVALIDARG;
     }
 
-    numChar = swprintf_s(tempStr, 9, _u("%.4x"), (int)(g->Data2));
+    numChar = swprintf_s(tempStr, 9, L"%.4x", (int)(g->Data2));
     if (numChar != 4)
     {
         return E_INVALIDARG;
@@ -213,13 +213,13 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, _u("-"));
+    error = wcscat_s(result, guidlen, L"-");
     if (error != 0)
     {
         return E_INVALIDARG;
     }
 
-    numChar = swprintf_s(tempStr, 9, _u("%.4x"), (int)(g->Data3));
+    numChar = swprintf_s(tempStr, 9, L"%.4x", (int)(g->Data3));
     if (numChar != 4)
     {
         return E_INVALIDARG;
@@ -229,7 +229,7 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, _u("-"));
+    error = wcscat_s(result, guidlen, L"-");
     if (error != 0)
     {
         return E_INVALIDARG;
@@ -237,7 +237,7 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
 
     for(int i = 0; i < 8; i++)
     {
-        numChar = swprintf_s(tempStr, 9, _u("%.2x"), (int)(g->Data4[i]));
+        numChar = swprintf_s(tempStr, 9, L"%.2x", (int)(g->Data4[i]));
         if (numChar != 2)
         {
             return E_INVALIDARG;
@@ -249,7 +249,7 @@ STDAPI GUIDParser::TryGUIDToString(_In_ const GUID* g, _Out_writes_z_(length) ch
         }
        if (i == 1)
         {
-            error = wcscat_s(result, guidlen, _u("-"));
+            error = wcscat_s(result, guidlen, L"-");
             if (error != 0)
             {
                 return E_INVALIDARG;
@@ -279,8 +279,8 @@ STDAPI GUIDParser::TryParseGUID(_In_z_ PCWSTR g, _Out_ GUID* result)
         return E_POINTER;
     }
 
-    CHeapPtr<char16> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
+    CHeapPtr<wchar_t> guidStr;
+    guidStr.Allocate((wcslen(g)+1) * sizeof(wchar_t));
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {
@@ -315,8 +315,8 @@ HRESULT GUIDParser::TryParseHexValueExact(_In_z_ PCWSTR g, int length, _Out_ uns
         }
     }
 
-    CHeapPtr<char16> destStr;
-    destStr.Allocate((length+1) * sizeof(char16));
+    CHeapPtr<wchar_t> destStr;
+    destStr.Allocate((length+1) * sizeof(wchar_t));
     destStr[0] = NULL;
     errno_t error = wcsncat_s(destStr, (length + 1), g, length);
     if (error != 0)
@@ -351,8 +351,8 @@ HRESULT GUIDParser::TryParseHexValue(_In_z_ PCWSTR g, int maxLength, _Out_ int* 
         return E_INVALIDARG;
     }
 
-    CHeapPtr<char16> destStr;
-    destStr.Allocate((index+1) * sizeof(char16));
+    CHeapPtr<wchar_t> destStr;
+    destStr.Allocate((index+1) * sizeof(wchar_t));
     destStr[0] = NULL;
     errno_t error = wcsncat_s(destStr, (index + 1), g, index);
     if (error != 0)
@@ -374,8 +374,8 @@ HRESULT GUIDParser::TryParseGUIDWithHexFormat(_In_z_ PCWSTR g, _Out_ GUID* resul
     int offset = 0;
 
     // Remove all whitespace from guid string
-    CHeapPtr<char16> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
+    CHeapPtr<wchar_t> guidStr;
+    guidStr.Allocate((wcslen(g)+1) * sizeof(wchar_t));
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {
@@ -481,14 +481,14 @@ HRESULT GUIDParser::TryParseGUIDWithDashes(_In_z_ PCWSTR g, _Out_ GUID* result)
     HRESULT hr;
     int pos = 0;
     unsigned long value;
-    char16 final = '\0';
+    wchar_t final = '\0';
 
-    if (g[pos] != _u('\0') && g[pos] == '{')
+    if (g[pos] != L'\0' && g[pos] == '{')
     {
         final = '}';
         pos++;
     }
-    else if (g[pos] != _u('\0') && g[pos] == '(')
+    else if (g[pos] != L'\0' && g[pos] == '(')
     {
         final = ')';
         pos++;
@@ -649,7 +649,7 @@ HRESULT GUIDParser::TryParseGUIDWithNoStyle(_In_z_ PCWSTR g, _Out_ GUID* result)
     return S_OK;
 }
 
-bool GUIDParser::IsWhitespace(char16 c)
+bool GUIDParser::IsWhitespace(wchar_t c)
 {
     size_t length = wcslen(whitespace);
     for (size_t i = 0; i < length; i++)
@@ -662,7 +662,7 @@ bool GUIDParser::IsWhitespace(char16 c)
     return false;
 }
 
-void GUIDParser::EatAllWhitespace(_Inout_updates_z_(length) char16* string, size_t length)
+void GUIDParser::EatAllWhitespace(_Inout_updates_z_(length) wchar_t* string, size_t length)
 {
     int pos = 0;
     for (unsigned int i = 0; i < (length-1); i++)

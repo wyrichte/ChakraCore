@@ -62,4 +62,5 @@ EXPORTS
     mpheap
     bv
     sourceInfos
+    jsdisp
 

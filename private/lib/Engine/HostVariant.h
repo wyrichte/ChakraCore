@@ -48,13 +48,8 @@ public:
 
     IDispatch* GetDispatchNoRef() 
     {
-#include <VerifyGlobalMSRCSettings.inl>
-#ifdef PRERELEASE_REL1602_MSRC31631_BUG5389083
         if (isUnknown || this->varDispatch.vt != VT_DISPATCH)
-#else
-        if (isUnknown)
-#endif
-    {
+        {
             return nullptr;
         }
         return this->varDispatch.pdispVal;
@@ -62,12 +57,7 @@ public:
 
     IDispatch* GetDispatch() 
     {
-#include <VerifyGlobalMSRCSettings.inl>
-#ifdef PRERELEASE_REL1602_MSRC31631_BUG5389083
         if (isUnknown || this->varDispatch.vt != VT_DISPATCH)
-#else
-        if (isUnknown)
-#endif
         {
             return nullptr;
         }
@@ -103,9 +93,9 @@ protected:
 
 private:
 
-    BOOL supportIDispatchEx : 1;
-    BOOL isUnknown: 1;
-    BOOL isTracked: 1;
+    bool supportIDispatchEx : 1;
+    bool isUnknown: 1;
+    bool isTracked: 1;
     VARIANT varDispatch;
 
     BOOL IsIDispatch() { return !(isUnknown || supportIDispatchEx); }

@@ -8,19 +8,13 @@
 #define MAX_LAYOUT_TYPE_NAME 255
 
 JDByteCode::JDByteCode(EXT_CLASS_BASE * ext, bool dumpProbeBackingBlock, bool verbose)
-    : ext(ext), layoutTable(ext->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts")),
-    extendedLayoutTable(ext->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts")),
-    attributesTable(ext->FillModule("%s!OpcodeAttributes")),
-    extendedAttributesTable(ext->FillModule("%s!ExtendedOpcodeAttributes")),
-    OpcodeAttr_OpHasMultiSizeLayout(ExtRemoteTyped(ext->FillModule("%s!OpHasMultiSizeLayout")).GetLong()),    
-    LayoutSize_SmallLayout(ExtRemoteTyped(ext->FillModule("%s!SmallLayout")).GetLong()),
-    LayoutSize_MediumLayout(ExtRemoteTyped(ext->FillModule("%s!MediumLayout")).GetLong()),
-    LayoutSize_LargeLayout(ExtRemoteTyped(ext->FillModule("%s!LargeLayout")).GetLong()),
-    
+    : ext(ext),
     readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
     RootObjectRegSlot(1),           // TODO: how do find this symbolically?    
-    CallIExtended_SpreadArgs(1)     // TODO: how do find this symbolically?    
-{        
+    CallIExtended_SpreadArgs(1),     // TODO: how do find this symbolically?    
+    cachedData(GetExtension()->GetByteCodeCachedData())
+{
+
 }
 
 JDByteCode::~JDByteCode()
@@ -30,7 +24,6 @@ JDByteCode::~JDByteCode()
         delete propertyNameReader;
     }
 }
-
 
 uint
 JDByteCode::GetUnsigned(ExtRemoteTyped unsignedField)
@@ -268,12 +261,29 @@ JDByteCode::GetPropertyNameFromCacheId(uint inlineCacheIndex, char16 * buffer, U
     if (this->propertyNameReader)
     {
         int32 propertyId = this->functionBody.GetCacheIdToPropertyIdMap()[(ULONG)inlineCacheIndex].GetLong();
-        ExtRemoteTyped propertyName("(char16 *)@$extin", this->propertyNameReader->GetNameByPropertyId(propertyId));
+        ExtRemoteTyped propertyName("(wchar_t *)@$extin", this->propertyNameReader->GetNameByPropertyId(propertyId));
         return (*propertyName).GetString(buffer, bufferSize, bufferSize);
     }
     return _u("???");
 }
 
+char16 *
+JDByteCode::
+JDByteCode::GetPropertyNameFromReferencedIndex(uint referencedIndex, char16 * buffer, ULONG bufferSize)
+{
+    if (this->propertyNameReader)
+    {
+        int32 propertyId = referencedIndex;
+        if (referencedIndex >= (uint)cachedData.TotalNumberOfBuiltInProperties)
+        {
+            propertyId = this->functionBody.GetReferencedPropertyIdMap()[(ULONG)(referencedIndex - cachedData.TotalNumberOfBuiltInProperties)].GetLong();
+        }
+        
+        ExtRemoteTyped propertyName("(wchar_t *)@$extin", this->propertyNameReader->GetNameByPropertyId(propertyId));
+        return (*propertyName).GetString(buffer, bufferSize, bufferSize);
+    }
+    return _u("???");
+}
 
 void
 JDByteCode::DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
@@ -300,6 +310,56 @@ JDByteCode::DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint next
     else
     {
         ext->Out("<ElementRootCP>");
+    }
+
+    if (ENUM_EQUAL(opcodeStr, Profiled))
+    {
+        ext->Out(" <%u>", inlineCacheIndex);
+    }
+}
+
+void
+JDByteCode::DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+
+    uint value = GetUnsigned(layout.Field("Value"));
+    uint inlineCacheIndex = GetUnsigned(layout.Field("inlineCacheIndex"));
+    char16 tempBuffer[1024];
+    char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
+    if (ENUM_EQUAL(opcodeStr, LdLocal) || ENUM_EQUAL(opcodeStr, ProfiledLdLocal))
+    {
+        ext->Out(" R%u = %S #%u",
+            value,
+            propertyName,
+            inlineCacheIndex);
+    }
+    else if (ENUM_EQUAL(opcodeStr, St) || ENUM_EQUAL(opcodeStr, Init)
+        || ENUM_EQUAL(opcodeStr, ProfiledSt) || ENUM_EQUAL(opcodeStr, ProfiledInit))
+    {
+        ext->Out(" %S = R%u #%u",
+            propertyName,
+            value,
+            inlineCacheIndex);
+    }
+    else if (ENUM_EQUAL(opcodeStr, ScopedLdFld))
+    {
+        ext->Out(" R%u = %S, R%u #%u",
+            value,
+            propertyName,
+            RootObjectRegSlot,
+            inlineCacheIndex);
+    }
+    else if (ENUM_EQUAL(opcodeStr, ScopedStFld) || ENUM_EQUAL(opcodeStr, ConsoleScopedStFld))
+    {
+        ext->Out(" %S = R%u, R%u #%u",
+            propertyName,
+            value,
+            RootObjectRegSlot,
+            inlineCacheIndex);
+    }
+    else
+    {
+        ext->Out("<ElementP>");
     }
 
     if (ENUM_EQUAL(opcodeStr, Profiled))
@@ -386,6 +446,63 @@ JDByteCode::DumpElementSlot(ExtRemoteTyped layout, char * opcodeStr, uint nextOf
             GetUnsigned(layout.Field("SlotIndex")));    
     }
 
+}
+
+void
+JDByteCode::DumpElementSlotI1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    if (ENUM_EQUAL(opcodeStr, St))
+    {
+        ext->Out(" [%u] = R%u", GetUnsigned(layout.Field("SlotIndex")),
+            GetUnsigned(layout.Field("Value")));
+    }
+    else if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd))
+    {
+        ext->Out(" R%u = [%u]", GetUnsigned(layout.Field("Value")),
+            GetUnsigned(layout.Field("SlotIndex")));
+    }
+    else if (ENUM_EQUAL(opcodeStr, New))
+    {
+        // TODO: Get the nested function name
+        uint slotIndex = GetUnsigned(layout.Field("SlotIndex"));
+        ext->Out(" R%u = <nested %d>()", GetUnsigned(layout.Field("Value")), slotIndex);
+    }
+    else
+    {
+        ext->Out("<ElementSlotI1>");
+    }
+}
+
+void
+JDByteCode::DumpElementSlotI2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    if (ENUM_EQUAL(opcodeStr, St))
+    {
+        ext->Out(" [%u][%u] = R%u", GetUnsigned(layout.Field("SlotIndex1")),
+            GetUnsigned(layout.Field("SlotIndex2")),
+            GetUnsigned(layout.Field("Value")));
+    }
+    else
+    {
+        ext->Out(" R%u = [%u][%u]", GetUnsigned(layout.Field("Value")),
+            GetUnsigned(layout.Field("SlotIndex1")),
+            GetUnsigned(layout.Field("SlotIndex2")));
+    }
+}
+
+void
+JDByteCode::DumpElementScopedC2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    uint value = GetUnsigned(layout.Field("Value"));
+    uint value2 = GetUnsigned(layout.Field("Value2"));
+    uint referencedIndex = GetUnsigned(layout.Field("PropertyIdIndex"));
+    char16 tempBuffer[1024];
+    char16 * propertyName = this->GetPropertyNameFromReferencedIndex(referencedIndex, tempBuffer, _countof(tempBuffer));
+
+    ext->Out(" R%u, R%u = %S",
+        value,
+        value2,
+        propertyName);
 }
 
 void
@@ -550,38 +667,38 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 
         // Process opcode prefix
         unsigned char opcodePrefix = 0;
-        int layoutSizeEnum = LayoutSize_SmallLayout;
-        bool isExtendOpcode = false;        
+        int layoutSizeEnum = cachedData.LayoutSize_SmallLayout;
+        bool isExtendOpcode = false;
         if (ENUM_EQUAL(opcodeStr, ExtendedOpcodePrefix))
         {            
-            opcodePrefix = opcodeByte;                    
+            opcodePrefix = opcodeByte;
             isExtendOpcode = true;
         }
         else if (ENUM_EQUAL(opcodeStr, MediumLayoutPrefix))
         {
-            layoutSizeEnum = LayoutSize_MediumLayout;
+            layoutSizeEnum = cachedData.LayoutSize_MediumLayout;
             opcodePrefix = opcodeByte;
         }
         else if (ENUM_EQUAL(opcodeStr, ExtendedMediumLayoutPrefix))
         {
-            layoutSizeEnum = LayoutSize_MediumLayout;
+            layoutSizeEnum = cachedData.LayoutSize_MediumLayout;
             opcodePrefix = opcodeByte;
             isExtendOpcode = true;
         }
         else if (ENUM_EQUAL(opcodeStr, LargeLayoutPrefix))
         {
-            layoutSizeEnum = LayoutSize_LargeLayout;
+            layoutSizeEnum = cachedData.LayoutSize_LargeLayout;
             opcodePrefix = opcodeByte;
         }
         else if (ENUM_EQUAL(opcodeStr, ExtendedLargeLayoutPrefix))
         {
-            layoutSizeEnum = LayoutSize_LargeLayout;
+            layoutSizeEnum = cachedData.LayoutSize_LargeLayout;
             opcodePrefix = opcodeByte;
             isExtendOpcode = true;
         }
 
-        ExtRemoteTyped opCodeLayoutTable;
-        ExtRemoteTyped opCodeAttrTable;
+        uint * opCodeLayoutTable;
+        int * opCodeAttrTable;
         if (opcodePrefix != 0)
         {
             // Read the opcode byte if there is a prefix
@@ -590,62 +707,65 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 
             if (isExtendOpcode)
             {
-                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte + (opcodePrefix << 8)));
-                opCodeLayoutTable = extendedLayoutTable;
-                opCodeAttrTable = extendedAttributesTable;
+                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte + (1 << 8)));
+                opCodeLayoutTable = cachedData.extendedLayoutTable;
+                opCodeAttrTable = cachedData.extendedAttributesTable;
             }
             else
             {
                 opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
-                opCodeLayoutTable = layoutTable;
-                opCodeAttrTable = attributesTable;
+                opCodeLayoutTable = cachedData.layoutTable;
+                opCodeAttrTable = cachedData.attributesTable;
             }
         }
         else
         {
-            opCodeLayoutTable = layoutTable;
-            opCodeAttrTable = attributesTable;
+            opCodeLayoutTable = cachedData.layoutTable;
+            opCodeAttrTable = cachedData.attributesTable;
         }
 
 
-        uint layoutType = opCodeLayoutTable[(ULONG)opcodeByte].Field("_value").GetUlong();
+        uint layoutType = opCodeLayoutTable[opcodeByte];
         ExtRemoteTyped layoutEnum(ext->FillModule("(%s!Js::OpLayoutType::_E)@$extin"), layoutType);
         char layoutTypeName[MAX_LAYOUT_TYPE_NAME];
-        int attribute = attributesTable[(ULONG)opcodeByte].GetLong();
+        int attribute = opCodeAttrTable[opcodeByte];
         char * layoutStr = GetEnumString(layoutEnum);
         char * plainLayoutStr = layoutStr;
-
+        char * layoutTypeStr;
+        char * multiSizeLayoutTypeStr;
         bool isProfiledLayout = (strncmp(layoutStr, "Profiled", _countof("Profiled") - 1) == 0);
         if (isProfiledLayout)
         {
             plainLayoutStr = layoutStr + _countof("Profiled") - 1;
-            if (attribute & OpcodeAttr_OpHasMultiSizeLayout)
+            if (plainLayoutStr[0] == '2')
             {
-                sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, "%%s!Js::OpLayoutDynamicProfile<Js::OpLayoutT_%s<Js::LayoutSizePolicy<%d> > >", plainLayoutStr, layoutSizeEnum);
+                plainLayoutStr = plainLayoutStr++;
+                multiSizeLayoutTypeStr = "%%s!Js::OpLayoutDynamicProfile2<Js::OpLayoutT_%s<Js::LayoutSizePolicy<%d> > >";
+                layoutTypeStr = "%%s!Js::OpLayoutDynamicProfile2<Js::OpLayout%s>";
             }
             else
             {
-                if (layoutSizeEnum != LayoutSize_SmallLayout)
-                {
-                    ext->ThrowLastError("Non-multisize layout opcode shouldn't have layout size prefix");
-                }
-                sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, "%%s!Js::OpLayoutDynamicProfile<Js::OpLayout%s>", plainLayoutStr);
+                multiSizeLayoutTypeStr = "%%s!Js::OpLayoutDynamicProfile<Js::OpLayoutT_%s<Js::LayoutSizePolicy<%d> > >";
+                layoutTypeStr = "%%s!Js::OpLayoutDynamicProfile<Js::OpLayout%s>";
             }
         }
         else
         {
-            if (attribute & OpcodeAttr_OpHasMultiSizeLayout)
+            multiSizeLayoutTypeStr = "%%s!Js::OpLayoutT_%s<Js::LayoutSizePolicy<%d> >";
+            layoutTypeStr = "%%s!Js::OpLayout%s";
+        }
+
+        if (attribute & cachedData.OpcodeAttr_OpHasMultiSizeLayout)
+        {
+            sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, multiSizeLayoutTypeStr, plainLayoutStr, layoutSizeEnum);
+        }
+        else
+        {
+            if (layoutSizeEnum != cachedData.LayoutSize_SmallLayout)
             {
-                sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, "%%s!Js::OpLayoutT_%s<Js::LayoutSizePolicy<%d> >", layoutStr, layoutSizeEnum);
+                ext->ThrowLastError("Non-multisize layout opcode shouldn't have layout size prefix");
             }
-            else
-            {
-                if (layoutSizeEnum != LayoutSize_SmallLayout)
-                {
-                    ext->ThrowLastError("Non-multisize layout opcode shouldn't have layout size prefix");
-                }
-                sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, "%%s!Js::OpLayout%s", layoutStr);
-            }
+            sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, layoutTypeStr, plainLayoutStr);
         }
 
         ExtRemoteTyped layout(ext->FillModule(layoutTypeName), bytes.GetPtr() + layoutStart, false);
@@ -709,15 +829,19 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         else PROCESS_LAYOUT(Reg3)
         else PROCESS_LAYOUT(Reg3B1)
         else PROCESS_LAYOUT(Reg4)
-        else PROCESS_LAYOUT(Reg5)        
+        else PROCESS_LAYOUT(Reg5)
         else PROCESS_LAYOUT(W1)
         else PROCESS_LAYOUT(Reg1Int2)
         else PROCESS_LAYOUT(Reg1Unsigned1)
         else PROCESS_LAYOUT(Reg2Int1)
         else PROCESS_LAYOUT(Unsigned1)
         else PROCESS_LAYOUT(ElementRootCP)
+        else PROCESS_LAYOUT(ElementP)
         else PROCESS_LAYOUT(ElementCP)
         else PROCESS_LAYOUT(ElementSlot)
+        else PROCESS_LAYOUT(ElementSlotI1)
+        else PROCESS_LAYOUT(ElementSlotI2)
+        else PROCESS_LAYOUT(ElementScopedC2)
         else PROCESS_LAYOUT(ElementI)
         else PROCESS_LAYOUT(BrLong)
         else PROCESS_LAYOUT(Br)

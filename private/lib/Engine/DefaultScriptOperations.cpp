@@ -366,16 +366,18 @@ namespace Js
         auto fn = [&] (Js::RecyclableObject* objInstance, Js::ScriptContext* scriptContext) -> HRESULT {
             Var internalEnum = nullptr;
             HRESULT hrLocal = NOERROR;
+            BOOL result;
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;
-                customExternalObject->ExternalObject::GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
+                result = customExternalObject->ExternalObject::GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
             }
             else
             {
-                objInstance->GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
+                result = objInstance->GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
             }
-            if (!VirtualTableInfo<Js::NullEnumerator>::HasVirtualTable(internalEnum))
+            Assert(!result || (internalEnum != nullptr));
+            if (result && !VirtualTableInfo<Js::NullEnumerator>::HasVirtualTable(internalEnum))
             {
                 CVarEnumerator * externalEnum = HeapNew(CVarEnumerator, internalEnum, scriptContext);
                 hrLocal = externalEnum->QueryInterface(__uuidof(IVarEnumerator), (void**)enumerator);

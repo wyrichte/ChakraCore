@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <psapi.h>
 #include <appmodel.h>
+#include "CommonTypedefs.h"
 
 #pragma warning(disable: 4512)  // private operator= are good to have
 
@@ -395,11 +396,11 @@ void UpdateInstances(bool printStatus = true)
     }
     if (printStatus)
     {
-        wprintf(_u("STATUS: Finish update instances. %d added. Total %d\n"), added, s_counterMap.size());
+        wprintf(_u("STATUS: Finish update instances. %Iu added. Total %Iu\n"), added, s_counterMap.size());
     }
     else if (added != 0)
     {
-        wprintf(_u("STATUS: Scanning instance found %d added. Total %d\n"), added, s_counterMap.size());
+        wprintf(_u("STATUS: Scanning instance found %Iu added. Total %Iu\n"), added, s_counterMap.size());
     }
     ::LeaveCriticalSection(&s_cs);
 }

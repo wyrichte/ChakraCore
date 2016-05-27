@@ -448,9 +448,8 @@
     <default>
       <files>pi.js</files>
       <baseline>pi.baseline</baseline>
-      <tags>exclude_amd64</tags>
       <compile-flags>-testtrace:asmjs -simdjs -on:asmjsjittemplate -off:fulljit</compile-flags>
-      <tags>Slow</tags>
+      <tags>Slow,exclude_amd64</tags>
     </default>
   </test>
   <test>

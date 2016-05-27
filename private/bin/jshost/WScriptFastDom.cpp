@@ -383,8 +383,6 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
     }
 
     ExitProcess(exitCode);
-
-    return NULL;
 }
 
 Var WScriptFastDom::QuitHtmlHost(Var function, CallInfo callInfo, Var* args)
@@ -1892,7 +1890,14 @@ LReturn:
 
 WScriptFastDom::CallbackMessage::CallbackMessage(unsigned int time, Var function) : MessageBase(time), m_function(function)
 {
-    ScriptDirect::JsVarAddRef(m_function);
+    HRESULT hr = ScriptDirect::JsVarAddRef(m_function);
+    if (FAILED(hr))
+    {
+        // Simply report a fatal error and exit because continuing from this point would result in inconsistent state
+        // and FailFast telemetry would not be useful.
+        wprintf(_u("FATAL ERROR: ScriptDirect::JsVarAddRef failed in WScriptFastDom::CallbackMessage::`ctor`. hr=0x%x\n"), hr);
+        exit(1);
+    }
 }
 
 WScriptFastDom::CallbackMessage::~CallbackMessage()

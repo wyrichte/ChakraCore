@@ -147,18 +147,16 @@ bool EXT_CLASS_BASE::HasMemoryNS()
         return false;
     }
 
-    char symRecyclerType[256];
-    ULONG symRecyclerTypeId = 0;
-    sprintf_s(symRecyclerType, "%s!Memory::Recycler", GetModuleName());
-    if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+    const char* moduleName = GetModuleName();
+
+    if (HasType(moduleName, "Memory::Recycler"))
     {
         m_hasMemoryNS = true;
         m_isCachedHasMemoryNS = true;
     }
     else
     {
-        sprintf_s(symRecyclerType, "%s!Recycler", GetModuleName());
-        if (this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK)
+        if (HasType(moduleName, "Recycler"))
         {
             m_hasMemoryNS = false;
             m_isCachedHasMemoryNS = true;
@@ -170,6 +168,14 @@ bool EXT_CLASS_BASE::HasMemoryNS()
     }
 
     return m_hasMemoryNS;
+}
+
+bool EXT_CLASS_BASE::HasType(const char* moduleName, const char* typeName)
+{
+    char symRecyclerType[256];
+    ULONG symRecyclerTypeId = 0;
+    sprintf_s(symRecyclerType, "%s!%s", moduleName, typeName);
+    return this->m_Symbols2->GetSymbolTypeId(symRecyclerType, &symRecyclerTypeId, NULL) == S_OK;
 }
 
 PCSTR EXT_CLASS_BASE::GetMemoryNS()
@@ -454,8 +460,7 @@ JD_PRIVATE_COMMAND(prop,
     ExtRemoteTyped threadContext;
     if (pointer == 0)
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        threadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
+        threadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
     }
     else if (HasArg("t"))
     {
@@ -479,9 +484,9 @@ JD_PRIVATE_COMMAND(prop,
         Out("---------- ------------\n");
         for (ULONG i = 0; i < propertyNameReader.Count(); i++)
         {
-            ULONG propertyId = propertyNameReader.GetPropertyIdByIndex(i);
+            ULONG currentPropertyId = propertyNameReader.GetPropertyIdByIndex(i);
             ULONG64 pName = propertyNameReader.GetNameByIndex(i);
-            pName ? Out("    0n%-4d %mu\n", propertyId, pName) : Out("    0n%-4d\n", propertyId);
+            pName ? Out("    0n%-4d %mu\n", currentPropertyId, pName) : Out("    0n%-4d\n", currentPropertyId);
         }
     }
 }
@@ -582,45 +587,42 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
 
     ExtRemoteTyped obj(className.c_str(), var, true);
     ExtRemoteTyped typeId = obj.Field("type.typeId");
+
+    const char* typeIdStr = JDUtil::GetEnumString(typeId);
     if (depth == 0)
     {
         Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)\n", JDUtil::StripModuleName(className.c_str()),
-            className.c_str(), var, var, JDUtil::GetEnumString(typeId));
+            className.c_str(), var, var, typeIdStr);
     }       
 
-    switch (typeId.GetUlong())
-    {
-    case TypeIds_Undefined:
+    
+
+    if(strcmp(typeIdStr, "TypeIds_Undefined") == 0)
     {
         Out("undefined\n");
-    }
         return; // done
-
-    case TypeIds_Null:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_Null") == 0)
     {
         Out("null\n");
-    }
         return; // done
-
-    case TypeIds_Boolean:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_Boolean") == 0)
     {        
         Out(obj.Field("value").GetW32Bool() ? "true\n" : "false\n");
-    }
         return; // done
-
-    case TypeIds_Number:
+    }        
+    else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
     {        
         obj.Field("m_value").OutFullValue();
-    }
         return; // done
-
-    case TypeIds_String:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_String") == 0)
     {        
-        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());        
-    }
+        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());
         return; // done
-
-    case TypeIds_StringObject:
+    }
+    else if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
     {        
         if (depth == 0)
         {            
@@ -632,9 +634,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-
-    case TypeIds_Function:
+    else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
     {        
         if (depth == 0)
         {           
@@ -666,9 +666,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-
-    case TypeIds_Array:
+    else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
     {        
         if (depth == 0)
         {
@@ -679,16 +677,12 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             PrintSimpleVarValue(obj);
         }
     }
-        break;
-        
-    default:
+    else
     {        
         if (depth != 0)
         {
             PrintSimpleVarValue(obj);
         }
-    }
-        break;
     }
 
     if (depth == 0)
@@ -821,6 +815,24 @@ bool EXT_CLASS_BASE::GetUsingInlineSlots(ExtRemoteTyped& typeHandler)
     return m_usingInlineSlots;
 }
 
+bool EXT_CLASS_BASE::InChakraModule(ULONG64 address)
+{
+    if (chakraModuleBaseAddress == 0)
+    {
+        ULONG moduleIndex = 0;
+        if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(GetExtension()->GetModuleName(), 0, &moduleIndex, &chakraModuleBaseAddress)))
+        {
+            g_Ext->Err("Unable to get range for module '%s'. Is Chakra loaded?\n", GetExtension()->GetModuleName());            
+        }
+
+        IMAGEHLP_MODULEW64 moduleInfo;
+        g_Ext->GetModuleImagehlpInfo(chakraModuleBaseAddress, &moduleInfo);
+        chakraModuleEndAddress = chakraModuleBaseAddress + moduleInfo.ImageSize;
+    }
+
+    return (address >= chakraModuleBaseAddress && address < chakraModuleEndAddress);
+}
+
 // Get VTable of a type
 std::string EXT_CLASS_BASE::GetRemoteVTableName(PCSTR type)
 {
@@ -848,21 +860,26 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     }
 
     ExtBuffer<char> vtableName;
-    if (this->GetOffsetSymbol(vtableAddr, &vtableName))
+    try
     {
-        int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
-        if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+        if (this->GetOffsetSymbol(vtableAddr, &vtableName))
         {
-            vtableName.GetBuffer()[len] = '\0';
+            int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
+            if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
+            {
+                vtableName.GetBuffer()[len] = '\0';
 
-            auto newString = new std::string(vtableName.GetBuffer());
-            // Actual type name in expression shouldn't have __ptr64 in them
-            JDUtil::ReplaceString(*newString, " __ptr64", "");
-            vtableTypeNameMap[vtableAddr] = newString;
-            return newString->c_str();;
+                auto newString = new std::string(vtableName.GetBuffer());
+                // Actual type name in expression shouldn't have __ptr64 in them
+                JDUtil::ReplaceString(*newString, " __ptr64", "");
+                vtableTypeNameMap[vtableAddr] = newString;
+                return newString->c_str();;
+            }
         }
     }
-
+    catch (...)
+    {
+    }
     return nullptr;
 }
 
@@ -938,9 +955,9 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
         DetectFeatureBySymbol(m_usingPropertyRecordInTypeHandlers, FillModule("%s!Js::BuiltInPropertyRecords"));
         for (int i = 0; i < _countof(s_typeHandlers); i++)
         {
-            RemoteTypeHandler* typeHandler = s_typeHandlers[i];
+            RemoteTypeHandler* currTypeHandler = s_typeHandlers[i];
             // The list includes symbols on all builds. Some are not available.
-            m_typeHandlersByName[GetRemoteVTableName(typeHandler->GetName())] = typeHandler;
+            m_typeHandlersByName[GetRemoteVTableName(currTypeHandler->GetName())] = currTypeHandler;
         }
 
         // for 64 bit
@@ -1181,17 +1198,21 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext,
                     {
                         for (ULONG i = 0; i < count; i++)
                         {
-                            ULONG64 strongRef = buffer[i].Field("strongRef").GetPtr();
-                            if (strongRef != 0)
+                            ExtRemoteTyped sourceInfoWeakRef = buffer[i];
+                            if ((sourceInfoWeakRef.GetPtr() & 1) == 0)
                             {
-                                ExtRemoteTyped utf8SourceInfo = ExtRemoteTyped("(Js::Utf8SourceInfo*)@$extin", strongRef);
-                                Out("Utf8SourceInfo : [%d]\n", i);
-                                utf8SourceInfo.OutFullValue();
-                                if (printSourceContextInfo)
+                                ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
+                                if (strongRef != 0)
                                 {
-                                    ExtRemoteTyped sourceContextInfo = utf8SourceInfo.Field("m_srcInfo").Field("sourceContextInfo");
-                                    Out("SourceContextInfo : \n");
-                                    sourceContextInfo.OutFullValue();
+                                    ExtRemoteTyped utf8SourceInfo = ExtRemoteTyped("(Js::Utf8SourceInfo*)@$extin", strongRef);
+                                    Out("Utf8SourceInfo : [%d]\n", i);
+                                    utf8SourceInfo.OutFullValue();
+                                    if (printSourceContextInfo)
+                                    {
+                                        ExtRemoteTyped sourceContextInfo = utf8SourceInfo.Field("m_srcInfo").Field("sourceContextInfo");
+                                        Out("SourceContextInfo : \n");
+                                        sourceContextInfo.OutFullValue();
+                                    }
                                 }
                             }
                         }
@@ -1221,8 +1242,7 @@ void EXT_CLASS_BASE::PrintAllSourceInfos(bool printOnlyCount, bool printSourceCo
     ULONG64 currentThreadContextPtr = 0;
     try
     {
-        ExtRemoteTyped teb("(ntdll!_TEB*)@$teb");
-        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(teb).GetExtRemoteTyped();
+        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
         currentThreadContextPtr = currentThreadContext.GetPtr();
     }
     catch (...)
@@ -1515,6 +1535,34 @@ JD_PRIVATE_COMMAND(bv,
         curr = curr.Field("next");
     }
     Out("]\n");
+}
+
+JD_PRIVATE_COMMAND(jsdisp,
+    "Dumps JavascriptDispatch",
+    "")
+{
+    RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
+    threadContext.ForEachScriptContext([this](ExtRemoteTyped scriptContext)
+    {
+
+        ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
+        if (hostScriptContextField.GetPtr())
+        {
+            ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
+            ExtRemoteTyped javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)0"));
+            ULONG64 offset = javascriptDispatch.GetFieldOffset("linkList");
+            ExtRemoteTyped head = hostScriptContext.Field("scriptSite").Field("javascriptDispatchListHead").GetPointerTo();
+            ExtRemoteTyped curr = head.Field("Flink");
+            
+            while (curr.GetPtr() != head.GetPtr())
+            {
+                javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)@$extin"), curr.GetPtr() - offset);
+                Out("%p %p %d\n", javascriptDispatch.GetPtr(), javascriptDispatch.Field("scriptObject").GetPtr(), javascriptDispatch.Field("isGCTracked").GetW32Bool());
+                curr = curr.Field("Flink");
+            }
+        }
+        return false;
+    });
 }
 
 #if ENABLE_UI_SERVER

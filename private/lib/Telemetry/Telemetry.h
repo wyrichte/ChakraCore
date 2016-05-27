@@ -36,6 +36,30 @@
 #endif
 #endif
 
+class Throttle
+{
+    const WORD MIN_GAP = 2; // minimum gap between two telemetry logging from the same code path
+    WORD lastEvent;
+public:
+    Throttle() { lastEvent = 0;  }
+    bool isThrottled()
+    {
+        SYSTEMTIME st;
+        GetSystemTime(&st);
+        WORD thisEvent = st.wSecond / MIN_GAP;
+
+        if (thisEvent != lastEvent)
+        {
+            lastEvent = thisEvent;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+};
+
 class Telemetry
 {
 public:
@@ -99,6 +123,9 @@ class TraceLoggingClient
     bool isPackageTelemetryFired;
     LARGE_INTEGER freq;
     HCRYPTPROV hProv;
+
+    Throttle throttle;
+
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();

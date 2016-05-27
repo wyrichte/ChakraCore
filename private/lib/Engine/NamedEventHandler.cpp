@@ -57,11 +57,11 @@ HRESULT ScriptEngine::SinkEventsOfNamedItems(long eventHandlerID)
     HRESULT hr = NOERROR;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        for (int i = eventHandlerID; i < eventHandlers->Count(); i++)
+        for (int j = eventHandlerID; j < eventHandlers->Count(); j++)
         {
             int currentSinkItem = 0;
             BOOL eventHandlerFound = FALSE;
-            BaseEventHandler* eventHandler = eventHandlers->Item(i);
+            BaseEventHandler* eventHandler = eventHandlers->Item(j);
             dispatch = eventHandler->GetDispatch();
             for (currentSinkItem = 0; currentSinkItem < eventSinks->Count(); currentSinkItem++)
             {
@@ -109,8 +109,8 @@ NamedEventHandler::NamedEventHandler(void)
     eventHandlerName = nullptr;
     scriptBody = nullptr;
     m_pdisp = nullptr;
-    shouldPersist = FALSE;
-    m_fTried = FALSE;
+    shouldPersist = false;
+    m_fTried = false;
 }
 
 
@@ -194,7 +194,7 @@ IDispatch* NamedEventHandler::GetDispatch(void)
     {
         return m_pdisp;
     }
-    m_fTried = TRUE;
+    m_fTried = true;
 
     if (FAILED(m_pos->GetObjectOfItem(&m_pdisp, m_pnid, m_pszSubItem)))
         m_pdisp = nullptr;
@@ -279,7 +279,7 @@ HRESULT NamedEventHandler::Clone(__in ScriptEngine *pos, __out BaseEventHandler 
         hr = HR(E_OUTOFMEMORY);
         goto LFail;
     }
-    eventHandlerNew->shouldPersist = TRUE;
+    eventHandlerNew->shouldPersist = true;
 
     *ppeh = eventHandlerNew;
     return NOERROR;

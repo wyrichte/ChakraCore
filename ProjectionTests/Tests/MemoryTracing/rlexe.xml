@@ -135,7 +135,6 @@
     </test>
 
 <!-- Array.js temporarily disabled on v5 AMD64 due to fluctuating baselines. See TFS Task 713351. -->
-<!-- TODO disabled to get IESNAP to pass. (Now also failing in x86.)
     <test>
         <default>
             <files>Array.js</files>
@@ -144,7 +143,6 @@
             <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
         </default>
     </test>
--->
 
     <test>
         <default>

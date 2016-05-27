@@ -176,7 +176,8 @@
   <!-- sign instruction -->
   <ItemGroup>
     <FilesToSign Include="$(OutDir)\$(TargetName).dll">
-      <Authenticode>MicrosoftSHA2</Authenticode>
+      <Authenticode Condition="'$(VSO_MICROBUILD_V2)'!='True'">MicrosoftSHA2</Authenticode>
+      <Authenticode Condition="'$(VSO_MICROBUILD_V2)'=='True'">Microsoft</Authenticode>
     </FilesToSign>
   </ItemGroup>
   <!-- Pogo Instrumentation -->

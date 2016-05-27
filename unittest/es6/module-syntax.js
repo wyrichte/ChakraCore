@@ -65,7 +65,6 @@ var tests = [
             testModuleScript('export class { }', 'Syntax error if class declaration is missing binding identifier', true);
             testModuleScript('function foo() { }; export [ foo ];', 'Syntax error if we use brackets instead of curly braces in export statement', true);
             testModuleScript('function foo() { export default function() { } }', 'Syntax error if export statement is in a nested function', true);
-//            testModuleScript("eval('export default function() { }');", 'Syntax error if export statement is in eval', true);
             testModuleScript('function foo() { }; export { , foo };', 'Syntax error if named export list contains an empty element', true);
             testModuleScript('function foo() { }; () => { export { foo }; }', 'Syntax error if export statement is in arrow function', true);
             testModuleScript('function foo() { }; try { export { foo }; } catch(e) { }', 'Syntax error if export statement is in try catch statement', true);
@@ -80,9 +79,12 @@ var tests = [
     {
         name: "Syntax error import statements",
         body: function () {
-//            testModuleScript(`eval('import foo from "ValidExportStatements.js";');`, 'Syntax error if import statement is in eval', true);
             testModuleScript('function foo() { import foo from "ValidExportStatements.js"; }', 'Syntax error if import statement is in nested function', true);
             testModuleScript('import foo, bar from "ValidExportStatements.js";', 'Syntax error if import statement has multiple default bindings', true);
+            testModuleScript('import { foo, foo } from "ValidExportStatements.js";', 'Redeclaration error if multiple imports have the same local name', true);
+            testModuleScript('import { foo, bar as foo } from "ValidExportStatements.js";', 'Redeclaration error if multiple imports have the same local name', true);
+            testModuleScript('const foo = 12; import { foo } from "ValidExportStatements.js";', 'Syntax error if module body has a const declaration bound to the same name as a module import', true);
+            testModuleScript('function foo() { }; import { foo } from "ValidExportStatements.js";', 'Syntax error if module body has a function declaration bound to the same name as a module import', true);
             testModuleScript('import foo;', 'Syntax error if import statement is missing from clause', true);
             testModuleScript('import * as foo, from "ValidExportStatements.js";', 'Syntax error if import statement has comma after namespace import', true);
             testModuleScript('import * as foo, bar from "ValidExportStatements.js";', 'Syntax error if import statement has default binding after namespace import', true);
@@ -95,13 +97,9 @@ var tests = [
             testModuleScript('import * foo from "ValidExportStatements.js";', 'Syntax error if namespace import is missing "as" keyword', true);
             testModuleScript('import * as "foo" from "ValidExportStatements.js";', 'Syntax error if namespace imported binding name is not identifier', true);
             testModuleScript('import { , foo } from "ValidExportStatements.js";', 'Syntax error if named import list contains an empty element', true);
-            testModuleScript('import foo from "ValidExportStatements.js"; foo = 12;', 'Imported default bindings are constant bindings', true);
             testModuleScript('import foo from "ValidExportStatements.js"; import foo from "ValidExportStatements.js";', 'Default import cannot be bound to the same symbol', true);
-            testModuleScript('import { foo } from "ValidExportStatements.js"; foo = 12;', 'Imported named bindings are constant bindings', true);
             testModuleScript('import { foo } from "ValidExportStatements.js"; import { foo } from "ValidExportStatements.js";', 'Multiple named imports cannot be bound to the same symbol', true);
-            testModuleScript('import * as foo from "ValidExportStatements.js"; foo = 12;', 'Namespace import bindings are constant bindings', true);
             testModuleScript('import * as foo from "ValidExportStatements.js"; import * as foo from "ValidExportStatements.js";', 'Multiple namespace imports cannot be bound to the same symbol', true);
-            testModuleScript('import { foo as foo22 } from "ValidExportStatements.js"; foo22 = 12;', 'Renamed import bindings are constant bindings', true);
             testModuleScript('import { foo as bar, bar } from "ValidExportStatements.js";', 'Named import clause may not contain multiple binding identifiers with the same name', true);
             testModuleScript('import foo from "ValidExportStatements.js"; import * as foo from "ValidExportStatements.js";', 'Imported bindings cannot be overwritten by later imports', true);
             testModuleScript('() => { import arrow from ""; }', 'Syntax error if import statement is in arrow function', true);
@@ -116,6 +114,18 @@ var tests = [
             testModuleScript('import { foo bar } from "module";', 'Named import clause missing "as" token', true);
             testModuleScript('import { foo as switch } from "module";', 'Named import clause with non-identifier token after "as"', true);
             testModuleScript('import { foo, , } from "module";', 'Named import clause with too many trailing commas', true);
+        }
+    },
+    {
+        name: "Runtime error import statements",
+        body: function () {
+            testModuleScript('import foo from "ValidExportStatements.js"; assert.throws(()=>{ foo =12; }, TypeError, "assignment to const");', 'Imported default bindings are constant bindings', false);
+            testModuleScript('import { foo } from "ValidExportStatements.js"; assert.throws(()=>{ foo = 12; }, TypeError, "assignment to const");', 'Imported named bindings are constant bindings', false);
+
+            // 'import *' is not yet implemented
+            //testModuleScript('import * as foo from "ValidExportStatements.js"; assert.throws(()=>{ foo = 12; }, TypeError, "assignment to const");', 'Namespace import bindings are constant bindings', false);
+
+            testModuleScript('import { foo as foo22 } from "ValidExportStatements.js"; assert.throws(()=>{ foo22 = 12; }, TypeError, "assignment to const");', 'Renamed import bindings are constant bindings', false);
         }
     },
     {

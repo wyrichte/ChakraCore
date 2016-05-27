@@ -41,7 +41,7 @@ set _NOTTAGS=
 set _DIRNOTTAGS=
 set _DIRTAGS=
 set _binaryRoot=%_nttree%\jscript
-set _toolsRoot=%sdxroot%\inetcore\jscript\tools
+set _toolsRoot=%sdxroot%\onecoreuap\inetcore\jscript\tools
 set _full=
 set _drt=
 set _snap=
@@ -406,7 +406,7 @@ if "%_runT262%"=="1" (
     if not exist %_BuildFlavorLogs% (
         mkdir %_BuildFlavorLogs%
     )
-    powershell %SDXROOT%\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %_BuildType% -l %SDXROOT%\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
+    powershell %SDXROOT%\onecoreuap\inetcore\jscript\tools\Test262\RunTest262Test.ps1 -b %_NTTREE%\jscript\jshost.exe -c "-es6all" -s 75 -f %_BuildType% -l %SDXROOT%\onecoreuap\inetcore\jscript\tools\Test262 -o %_BuildFlavorLogs%\Test262Results.log
     echo #################Done with Test262 tests#################
 )
 echo.

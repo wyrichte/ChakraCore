@@ -2,6 +2,7 @@
 #include "MemProtectHeap.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "Core\CommonTypedefs.h"
 
 class OSHeap
 {
