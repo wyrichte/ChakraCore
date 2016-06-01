@@ -73,9 +73,16 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 HashEntry entry;
                 remoteEntry.ReadBuffer(&entry, sizeof(HashEntry));
 
-                currentEntry.address = entry.key;
-                currentEntry.pinnedCount = entry.value;
-                fn(i, j++, current, currentEntry);
+                if (entry.value != 0)
+                {
+                    currentEntry.address = entry.key;
+                    currentEntry.pinnedCount = entry.value;
+                    fn(i, j++, current, currentEntry);
+                }
+                else
+                {
+                    Assert(this->_hasPendingUnpinnedObject);
+                }
                 current = (TPointerType)entry.next;
             }
             else
@@ -83,9 +90,16 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 DebugHashEntry entry;
                 remoteEntry.ReadBuffer(&entry, sizeof(DebugHashEntry));
 
-                currentEntry.address = entry.key;
-                currentEntry.pinnedCount = entry.value.refCount;
-                fn(i, j++, current, currentEntry);
+                if (entry.value.refCount != 0)
+                {
+                    currentEntry.address = entry.key;
+                    currentEntry.pinnedCount = entry.value.refCount;
+                    fn(i, j++, current, currentEntry);
+                }
+                else
+                {
+                    Assert(this->_hasPendingUnpinnedObject);
+                }
                 current = (TPointerType)entry.next;
             }
         }

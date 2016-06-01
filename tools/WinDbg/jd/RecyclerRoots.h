@@ -18,7 +18,7 @@ public:
     {
         ExtRemoteTyped transientPinnedObject = recycler.Field("transientPinnedObject");
         ExtRemoteTyped pinnedObjectMap = recycler.Field("pinnedObjectMap");
-
+        _hasPendingUnpinnedObject = recycler.Field("hasPendingUnpinnedObject").GetStdBool();
         _transientPinnedObject = transientPinnedObject.GetPtr();
         _pinnedObjectEntries = pinnedObjectMap.Field("table").GetPtr();
         _pinnedObjectTableSize = pinnedObjectMap.Field("size").GetUlong();
@@ -28,7 +28,7 @@ public:
     void Map(Fn fn);
 
 private:
-
+    bool _hasPendingUnpinnedObject;
     bool _pinRecordsWithStacks;
     int _currentIndex;
     ULONG64 _transientPinnedObject;
