@@ -16,7 +16,7 @@ if "%flavor%"=="" (
 )
 for %%i in ("%~dp0..") do set "ChakraRoot=%%~fi"
 
-call %ChakraRoot%\tools\GitScripts\add-msbuild-path.cmd
+call %ChakraRoot%\core\Build\scripts\add_msbuild_path.cmd
 set _ChakraSolution=%ChakraRoot%\Build\Chakra.Full.sln
 if "%doCore%" EQU "core" (
     set _ChakraSolution=%ChakraRoot%\core\Build\Chakra.Core.sln

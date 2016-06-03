@@ -3,7 +3,7 @@
 set _BuildArch=x86
 set _BuildType=chk
 for %%i in ("%~dp0..\..") do set "REPO_ROOT=%%~fi"
-call %~dp0\add-msbuild-path.cmd
+call %~dp0\..\..\core\Build\scripts\add_msbuild_path.cmd
 
 if "%PYTHON_PATH%" EQU "" (
    REM Hardcoded to the path that the enlistment script installs python to
