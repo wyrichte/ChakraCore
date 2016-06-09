@@ -87,6 +87,7 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
     if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
     {
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
+        // TODO: OOP JIT, RPC to add to list
         scriptContext->EnsureDOMFastPathIRHelperMap()->Add(functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
     }
     return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
