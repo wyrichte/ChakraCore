@@ -16,7 +16,6 @@ public:
 
     static HostConfigFlags flags;
     static LPWSTR* argsVal;
-    static PCWSTR jdtestCmdLine;
     static PCWSTR jsEtwConsoleCmdLine;
     static int argsCount;    
     static void (__stdcall *pfnPrintUsage)();
@@ -32,22 +31,11 @@ public:
     template <int LEN> static PCWSTR ExtractSwitch(int& argc, _Inout_updates_to_(argc, argc) PWSTR argv[], const char16 (&switchNameWithColon)[LEN]);
 
     static void HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
-    static void HandleJdTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
     static void HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
 
     virtual bool ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser) override;
     virtual void PrintUsage() override;
     static void PrintUsageString();
-
-    static bool IsHybridDebugging()
-    {
-        bool isHybridDebugging = _wcsicmp(HostConfigFlags::flags.DebugLaunch, _u("hybrid")) == 0;
-        if(isHybridDebugging)
-        {
-            Assert(IsDebuggerPresent());
-        }
-        return isHybridDebugging;
-    }
 private:
     int nDummy;
     HostConfigFlags();

@@ -999,32 +999,6 @@ Var WScriptFastDom::DebugDynamicAttach(Var function, CallInfo callInfo, Var* arg
 // Sets the debugger into a mode to perform dynamic detachment (no refresh detach).
 Var WScriptFastDom::DebugDynamicDetach(Var function, CallInfo callInfo, Var* args)
 {
-    HRESULT hr = S_OK;
-    if(IsRunningUnderJdtest)
-    {
-        // Detach unsupported in hybrid mode.
-        LPCWSTR errorMessage = _u("WScript.Detach not available in hybrid mode");
-        IActiveScriptDirect * activeScriptDirect = NULL;
-        IJavascriptOperations * operations = NULL;
-        hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
-        if (SUCCEEDED(hr))
-        {
-            hr = activeScriptDirect->GetJavascriptOperations(&operations);
-            Var errorObject = NULL;
-            if(SUCCEEDED(hr))
-            {
-                hr = activeScriptDirect->CreateErrorObject(JavascriptError, hr, errorMessage, &errorObject);
-                if(SUCCEEDED(hr))
-                {
-                    hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
-                }
-                operations->Release();
-            }
-            activeScriptDirect->Release();
-        }
-        return NULL;
-    }
-
     if (callInfo.Count > 1)
     {
         args = &args[1];

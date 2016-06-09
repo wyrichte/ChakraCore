@@ -704,7 +704,7 @@ LPCWSTR DebuggerController::GetBreakpointState(BREAKPOINT_STATE state)
     }
 }
 
-LPCWSTR Location::ToString(LocationToStringFlags flags, bool isHybridDebugger)
+LPCWSTR Location::ToString(LocationToStringFlags flags)
 {
     WCHAR buf[20];
 
@@ -739,7 +739,7 @@ LPCWSTR Location::ToString(LocationToStringFlags flags, bool isHybridDebugger)
 
     if ((flags & LTSF_IncludeDebugPropertyFlag) != 0)
     {
-        DebuggerController::AppendDebugPropertyAttributesToString(stringRep, this->debugPropertyAttributes, isHybridDebugger);
+        DebuggerController::AppendDebugPropertyAttributesToString(stringRep, this->debugPropertyAttributes);
     }
 
     if ((flags & LTSF_IncludeLineCol) != 0)
@@ -871,7 +871,7 @@ int SourceMap::GetNumLines()
 }
 
 /*static*/
-void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool isHybridDebugger, bool prefixSeparator /*= true*/)
+void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool prefixSeparator /*= true*/)
 {
     if (prefixSeparator)
     {
@@ -880,43 +880,28 @@ void DebuggerController::AppendDebugPropertyAttributesToString(std::wstring& str
 
     stringRep += _u("\"flags\" : [");
 
-    if (!isHybridDebugger)
-    {
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_INVALID) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_INVALID\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_FAKE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_FAKE\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_METHOD) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_METHOD\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EVENT) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EVENT\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_RAW_STRING) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_RAW_STRING\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_READONLY) ? _u("\"DBGPROP_ATTRIB_VALUE_READONLY\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PUBLIC) ? _u("\"DBGPROP_ATTRIB_ACCESS_PUBLIC\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PRIVATE) ? _u("\"DBGPROP_ATTRIB_ACCESS_PRIVATE\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PROTECTED) ? _u("\"DBGPROP_ATTRIB_ACCESS_PROTECTED\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_FINAL) ? _u("\"DBGPROP_ATTRIB_ACCESS_FINAL\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_GLOBAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_GLOBAL\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_STATIC) ? _u("\"DBGPROP_ATTRIB_STORAGE_STATIC\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_FIELD) ? _u("\"DBGPROP_ATTRIB_STORAGE_FIELD\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_VIRTUAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_VIRTUAL\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_CONSTANT) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_CONSTANT\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_VOLATILE) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_VOLATILE\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS) ? _u("\"DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INTRYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INTRYBLOCK\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INCATCHBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INCATCHBLOCK\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK\", ") : _u("");
-    }
-    else
-    {
-        // hybrid properties
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_HAS_CHILDREN) ? _u("\"JS_PROPERTY_HAS_CHILDREN\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FAKE) ? _u("\"JS_PROPERTY_FAKE\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_METHOD) ? _u("\"JS_PROPERTY_METHOD\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_READONLY) ? _u("\"JS_PROPERTY_READONLY\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_NATIVE_WINRT_POINTER) ? _u("\"JS_PROPERTY_NATIVE_WINRT_POINTER\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INTRYBLOCK) ? _u("\"JS_PROPERTY_FRAME_INTRYBLOCK\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INCATCHBLOCK) ? _u("\"JS_PROPERTY_FRAME_INCATCHBLOCK\", ") : _u("");
-        stringRep += IfFlagSet(debugPropertyAttributes, JS_PROPERTY_FRAME_INFINALLYBLOCK) ? _u("\"JS_PROPERTY_FRAME_INFINALLYBLOCK\", ") : _u("");
-    }
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_INVALID) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_INVALID\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_FAKE) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_FAKE\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_METHOD) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_METHOD\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_EVENT) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_EVENT\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_IS_RAW_STRING) ? _u("\"DBGPROP_ATTRIB_VALUE_IS_RAW_STRING\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_VALUE_READONLY) ? _u("\"DBGPROP_ATTRIB_VALUE_READONLY\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PUBLIC) ? _u("\"DBGPROP_ATTRIB_ACCESS_PUBLIC\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PRIVATE) ? _u("\"DBGPROP_ATTRIB_ACCESS_PRIVATE\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_PROTECTED) ? _u("\"DBGPROP_ATTRIB_ACCESS_PROTECTED\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_ACCESS_FINAL) ? _u("\"DBGPROP_ATTRIB_ACCESS_FINAL\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_GLOBAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_GLOBAL\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_STATIC) ? _u("\"DBGPROP_ATTRIB_STORAGE_STATIC\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_FIELD) ? _u("\"DBGPROP_ATTRIB_STORAGE_FIELD\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_STORAGE_VIRTUAL) ? _u("\"DBGPROP_ATTRIB_STORAGE_VIRTUAL\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_CONSTANT) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_CONSTANT\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_SYNCHRONIZED\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_TYPE_IS_VOLATILE) ? _u("\"DBGPROP_ATTRIB_TYPE_IS_VOLATILE\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS) ? _u("\"DBGPROP_ATTRIB_HAS_EXTENDED_ATTRIBS\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INTRYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INTRYBLOCK\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INCATCHBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INCATCHBLOCK\", ") : _u("");
+    stringRep += IfFlagSet(debugPropertyAttributes, DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK) ? _u("\"DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK\", ") : _u("");
 
     if (debugPropertyAttributes != 0)
     {

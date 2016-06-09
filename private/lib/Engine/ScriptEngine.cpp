@@ -879,7 +879,7 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
             isBreakpoint = true;
             break;
         case Js::STOP_BREAKPOINT:
-        case Js::STOP_ASYNCBREAK:  // We don't reach here except Hybrid debugging - in that case behave as if breakpoint.
+        case Js::STOP_ASYNCBREAK:
             br = BREAKREASON_BREAKPOINT;
             isBreakpoint = true;
             break;
@@ -2628,8 +2628,6 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
             {
                 utf8SourceInfo->SetInDebugMode(true);
             }
-
-            hr = this->scriptContext->GetLibrary()->EnsureReadyIfHybridDebugging(); // Prepare library if started hybrid debugging
         }
         else if (this->CanRegisterDebugSources())
         {
@@ -6964,7 +6962,7 @@ IActiveScriptDirectHost* ScriptEngine::GetActiveScriptDirectHostNoRef()
 
 const LPWSTR g_featureKeyName = _u("Software\\Microsoft\\Internet Explorer\\JScript9");
 
-LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
+LPCWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
     return g_featureKeyName;
 }

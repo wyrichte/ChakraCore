@@ -39,7 +39,7 @@ namespace Js
         {
             return scriptContext->GetLibrary()->GetUndefined();
         }
-        
+
         HRESULT hr = E_FAIL;
         BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         {
@@ -76,7 +76,12 @@ namespace Js
         HRESULT hr = E_FAIL;
         BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         {
-            hr = varEnumerator->MoveNext(&itemsAvailable, (::PropertyAttributes*)attributes);
+            ::PropertyAttributes externalAttributes = PropertyAttributes_Enumerable;
+            hr = varEnumerator->MoveNext(&itemsAvailable, &externalAttributes);
+            if (attributes != nullptr && externalAttributes & PropertyAttributes_Enumerable)
+            {
+                *attributes = PropertyEnumerable;
+            }
         }
         END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         if (SUCCEEDED(hr))

@@ -606,63 +606,6 @@ HRESULT Debugger::PerformOnBreak()
         return S_OK;
     }
 
-    if(HostConfigFlags::IsHybridDebugging())
-    {
-        EXCEPINFO exInfo = { 0 };
-        ScriptDebugEvent bpEvent  = { ET_Breakpoint, (UINT64)m_spDebugApp.p, s_scriptThreadId, SDO_NONE, FALSE };
-
-        memset(&bpEvent.Breakpoint, 0, sizeof(bpEvent.Breakpoint));
-
-        bpEvent.Breakpoint.reason = m_eCurrentBreakReason;
-
-        CComBSTR bstrRestrictedDescription;
-        CComBSTR bstrRestrictedReference;
-
-        if(m_eCurrentBreakReason == BREAKREASON_ERROR && m_spCurrentError)
-        {
-            bpEvent.Breakpoint.ExceptionKind = ETK_UNHANDLED;
-
-            CComPtr<IActiveScriptErrorDebug110> pScriptError110;
-            m_spCurrentError->QueryInterface(__uuidof(IActiveScriptErrorDebug110), (void**)&pScriptError110);
-            if(pScriptError110)
-            {
-                SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND exceptionKind;
-                hr = pScriptError110->GetExceptionThrownKind(&exceptionKind);
-                if(SUCCEEDED(hr))
-                {
-                    bpEvent.Breakpoint.ExceptionKind = exceptionKind;
-                }
-            }
-
-            hr = m_spCurrentError->GetExceptionInfo(&exInfo);
-            Assert(hr == S_OK);
-
-            bpEvent.Breakpoint.scode = exInfo.scode;
-
-            if(exInfo.bstrSource)
-            {
-                AssignTargetString(exInfo.bstrSource, &bpEvent.Breakpoint.ExceptionSource);
-            }
-
-            if(exInfo.bstrDescription)
-            {
-                AssignTargetString(exInfo.bstrDescription, &bpEvent.Breakpoint.ExceptionDescription);
-            }
-        }
-        bpEvent.Breakpoint.breakResumeAction = (BREAKRESUMEACTION)-1;
-        bpEvent.Breakpoint.errorResumeAction = (ERRORRESUMEACTION)-1;
-        RaiseScriptDebugEvent(bpEvent);
-
-        Assert(bpEvent.m_scriptDebuggerOptions == SDO_NONE);
-        Assert(bpEvent.Breakpoint.breakResumeAction != (BREAKRESUMEACTION)-1);
-        Assert(bpEvent.Breakpoint.errorResumeAction != (ERRORRESUMEACTION)-1);
-
-        IfFailGo(ResumeFromBreakPoint(bpEvent.Breakpoint.breakResumeAction, bpEvent.Breakpoint.errorResumeAction));
-
-        DebuggerController::Log(_u("/Debugger::PerformOnBreak(): hr = 0x%08X\n"), hr);
-        return hr;
-    }
-
     // Resume
     if(HostConfigFlags::flags.Targeted)
     {
@@ -945,9 +888,7 @@ HRESULT Debugger::GetLocals(int expandLevel, DebugPropertyFlags flags)
 
     IfFailGo(m_pController->DumpLocals(*this, info, expandLevel, flags, [&](std::wstring& json)
     {
-        // In IE/VS F12 debugger evaluates "this" and adds it to locals list but in hybrid debugging Chakra adds "this" to locals list, 
-        // because of this the in-proc test debugger doesn�t dump this value in locals whereas hybrid debugger shows this value in locals. 
-        // This changes enables evaluating this value and dump it with locals.
+        // In IE/VS F12 debugger evaluates "this" and adds it to locals list
         if (SUCCEEDED(EvaluateExpression(_u("this"), expandLevel, flags, json)))
         {
             json += _u(",");
@@ -1287,7 +1228,6 @@ HRESULT Debugger::GetLocation(IDebugCodeContext* codeContext, Location& location
     ScriptDebugNodeSource* debugNodeSource = Debugger::FindSourceNode(docText);
     Assert(debugNodeSource != nullptr);
 
-    // for !hybrid, both docId and srcId are the same
     location.docId = location.srcId = debugNodeSource->GetSourceId();
 
     IfFailGo( docText->GetPositionOfContext(docContext, &location.startChar, &location.length) );
@@ -1911,7 +1851,7 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
     HRESULT hr = S_OK;
 
     // Get the source code, line count, and total number of characters.
-    if(HostConfigFlags::flags.Auto || HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp || HostConfigFlags::IsHybridDebugging())
+    if(HostConfigFlags::flags.Auto || HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp)
     {
         if(pNode)
         {
@@ -1932,33 +1872,6 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
                 }
             }
         }
-    }
-
-    if(HostConfigFlags::IsHybridDebugging() && SUCCEEDED(hr))
-    {
-        if(pNode)
-        {
-            ScriptDebugEvent debugEvent = { ET_InsertDocumentText, (UINT64)m_spDebugApp.p, s_scriptThreadId, SDO_NONE, FALSE };
-            debugEvent.InsertDocumentText.DocumentId = (UINT64)pNode->GetDocumentText();
-            debugEvent.InsertDocumentText.Text.Address = (UINT64)pszSrcText;
-            debugEvent.InsertDocumentText.Text.Length = cNumChar;
-            debugEvent.InsertDocumentText.DocumentUrl.Address = (UINT64)pNode->GetUrl();
-            debugEvent.InsertDocumentText.DocumentUrl.Length = SysStringLen(pNode->GetUrl());
-            RaiseScriptDebugEvent(debugEvent);
-
-            // Check whether we've been requested to enable first chance breaks.
-            if(debugEvent.m_scriptDebuggerOptions != SDO_NONE)
-            {
-                Assert(debugEvent.m_scriptDebuggerOptions == SDO_ENABLE_FIRST_CHANCE_EXCEPTIONS);
-                IfFailGo(SetDebuggerOptions(debugEvent.m_scriptDebuggerOptions, debugEvent.m_scriptDebuggerOptionsValue));
-            }
-
-            if(pszSrcText)
-            {
-                CoTaskMemFree(pszSrcText);
-            }
-        }
-        return S_OK;
     }
 
     if(HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp)
@@ -2809,19 +2722,6 @@ Error:
     JScript9Interface::JsrtGetUndefinedValue(&undef);
 
     return undef;
-}
-
-void Debugger::RaiseScriptDebugEvent(ScriptDebugEvent& scriptDebugEvent)
-{
-    Assert(IsDebuggerPresent());
-    __try
-    {
-        ULONG_PTR arguments[] = { (ULONG_PTR)&scriptDebugEvent };
-        RaiseException(SCRIPT_DEBUGGER_EXCEPTION_CODE, /*Continuable exception */ 0, _countof(arguments), arguments);
-    } 
-    __except(true)
-    {
-    }
 }
 
 HRESULT Debugger::ArgToULONG(JsValueRef arg, ULONG* pValue)

@@ -1,3 +1,3 @@
-SyntaxError: Invalid character
+SyntaxError: JSON.parse Error: Invalid character at position:1
 	at f(number) (bug_113160.js:6:5)
 	at Global code (bug_113160.js:9:1)

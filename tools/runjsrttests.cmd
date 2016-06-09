@@ -64,9 +64,13 @@ goto :main
     goto :eof
   )
 
-  call :copyScripts
+  call :configureVars
+
+  call :copyScriptsAndBinaries
 
   call :runtest
+
+  call :cleanup
 
   exit /b %_HadFailures%
 
@@ -79,6 +83,7 @@ goto :main
   set _RootDir=%~dp0..
   set _BinDirBase=%_RootDir%\Build\VcBuild\Bin
   set _BinDir=
+  set _TestTempDir=
   set _BuildArch=
   set _BuildType=
   set _RazzleTools=RazzleTools.1.0.15
@@ -106,7 +111,7 @@ goto :main
 
   if /i "%1" == "-binDir"           set _BinDirBase=%~f2&                                      goto :ArgOkShift2
 
-  if not "%1" == "" echo Unknown argument: %1 & set fShowGetHelp=1
+  if not "%1" == "" echo -- runjsrttests.cmd ^>^> Unknown argument: %1 & set fShowGetHelp=1
 
   goto :eof
 
@@ -124,26 +129,52 @@ goto :main
 :validateArgs
 
   if "%_BuildArch%" == "" (
-    echo Error missing required build architecture or build type switch
+    echo -- runjsrttests.cmd ^>^> Error missing required build architecture or build type switch
     set fShowGetHelp=1
     goto :eof
   )
 
   if "%_BuildType%" == "" (
-    echo Error missing required build architecture or build type switch
+    echo -- runjsrttests.cmd ^>^> Error missing required build architecture or build type switch
     set fShowGetHelp=1
   )
 
   goto :eof
 
 :: ============================================================================
-:: Copying javascript files from source location to binary location
+:: Configure the script variables and environment based on parsed arguments
 :: ============================================================================
-:copyScripts
+:configureVars
 
   set _BinDir=%_BinDirBase%\%_BuildArch%_%_BuildType%\
-  echo copying scripts from : %_RootDir%\unittest\jsrt\scripts\ to : %_BinDir%
-  copy /y %_RootDir%\unittest\jsrt\scripts\*.js %_BinDir%
+  rem Use %_BinDir% as the root for %_TestTempDir% to ensure that running jsrt
+  rem tests from multiple repos simultaneously do not clobber each other.
+  rem This means we need to delete the temp directory afterwards to clean up.
+  set _TestTempDir=%_BinDir%\jsrttest\
+  if not exist %_TestTempDir% mkdir %_TestTempDir%
+
+  echo -- runjsrttests.cmd ^>^> #### BinDir: %_BinDir%
+  echo -- runjsrttests.cmd ^>^> #### TestTempDir: %_TestTempDir%
+
+  goto :eof
+
+:: ============================================================================
+:: Copying javascript files from source location to temp test location and test
+:: binaries from binary location to test temp location.
+:: ============================================================================
+:copyScriptsAndBinaries
+
+  echo -- runjsrttests.cmd ^>^> copying scripts from '%_RootDir%\unittest\jsrt\scripts' to '%_TestTempDir%'
+  copy /y %_RootDir%\unittest\jsrt\scripts\*.js %_TestTempDir%
+
+  copy /y %_BinDir%Chakra.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.API.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.ComProjection.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.MemoryPolicy.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.RentalThreading.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.ThreadService.dll %_TestTempDir%
+  copy /y %_BinDir%UnitTest.JsRT.WinRT.dll %_TestTempDir%
+
 
   goto :eof
 
@@ -153,12 +184,12 @@ goto :main
 :runtest
 
   set _AllTestBins=
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.API.dll
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.ComProjection.dll
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.MemoryPolicy.dll
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.RentalThreading.dll
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.ThreadService.dll
-  set _AllTestBins=%_AllTestBins% %_BinDir%UnitTest.JsRT.WinRT.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.API.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.ComProjection.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.MemoryPolicy.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.RentalThreading.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.ThreadService.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.WinRT.dll
 
   set _RazzleBuildArch=%_BuildArch%
   if "%_BuildArch%" == "x64" set _RazzleBuildArch=amd64
@@ -167,6 +198,13 @@ goto :main
   call :do %_TECommand% %_AllTestBins%  /select:"not(@Disabled='Yes')" /unicodeoutput:false /parallel:1 /logOutput:lowest
 
   if ERRORLEVEL 1 set _HadFailures=1
+
+  goto :eof
+
+:: Clean up after running tests
+:cleanup
+
+  call :do rd /s/q %_TestTempDir%
 
   goto :eof
 

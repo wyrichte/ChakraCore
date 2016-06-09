@@ -7,6 +7,9 @@ param (
     [ValidateSet("debug", "release", "test", "codecoverage", "*")]
     [string]$flavor,
 
+    [ValidateSet("default", "codecoverage", "pogo")]
+    [string]$subtype = "default",
+
     [string]$srcpath = "",
     [string]$binpath = "",
     [string]$objpath = "",
@@ -29,7 +32,7 @@ if ($noaction) {
 }
 
 $pogoList = $pogo -join ','
-$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -srcpath `"$srcpath`" -binpath `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
+$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -subtype $subtype -srcpath `"$srcpath`" -binpath `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
 
 iex $postBuildCommmand
 

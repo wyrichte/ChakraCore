@@ -1,9 +1,10 @@
-
-Printing stacktrace..
-foo (dump.js:7,9)
-bar (dump.js:12,5)
+--foo (dump.js:7,9)
+--bar (dump.js:12,5)
 bung (dump.js:16,5)
+Amd64EHFrame (JS Internal:1,1)
+Amd64EHFrame (JS Internal:1,1)
 f (dump.js:23,13)
+testLoop1 (dump.js:33,9)
 test (dump.js:33,9)
 Global code (dump.js:42,1)
 
@@ -16,12 +17,13 @@ f (dump.js:23,13)
 testLoop1 (dump.js:33,9)
 test (dump.js:33,9)
 Global code (dump.js:42,1)
-
-Printing stacktrace..
-foo (dump.js:7,9)
-bar (dump.js:12,5)
+--foo (dump.js:7,9)
+--bar (dump.js:12,5)
 bung (dump.js:16,5)
+Amd64EHFrame (JS Internal:1,1)
+Amd64EHFrame (JS Internal:1,1)
 f (dump.js:23,13)
+testLoop2 (dump.js:38,9)
 test (dump.js:38,9)
 Global code (dump.js:42,1)
 

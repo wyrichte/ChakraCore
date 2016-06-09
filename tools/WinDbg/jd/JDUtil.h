@@ -36,8 +36,8 @@ public:
             return value.Field("value");
         }
         return value;
-    }   
-    
+    }
+
     static PCSTR StripStructClass(PCSTR name)
     {
         if (strncmp(name, "struct ", 7) == 0)

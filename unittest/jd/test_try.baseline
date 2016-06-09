@@ -1,13 +1,9 @@
 ---try-catch bp
-
-Printing stacktrace..
 foo2 (test_try.js:4,3)
 foo1 (test_try.js:9,5)
 Global code (test_try.js:25,1)
 
 ---try-finally bp
-
-Printing stacktrace..
 bar2 (test_try.js:15,3)
 bar1 (test_try.js:20,5)
 Global code (test_try.js:26,1)

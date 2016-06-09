@@ -44,24 +44,4 @@ namespace JsDiag
         virtual HRESULT GetTlsValue(_In_ DWORD threadId, _In_ UINT32 tlsIndex, _Out_ UINT64 *pValue) override;
         virtual IVirtualReader* GetReader() override;
     };
-
-    //
-    // Diagnostics provider based on services provided by VS.
-    // Can be used inside VS only.
-    //
-    class VSDiagProvider : public DiagProvider
-    {
-        CComPtr<IJsDebugDataTarget> m_dataTarget;   // We don't own the data target.
-        AutoPtr<JsDebugVirtualReader> m_reader;     // We own the reader.
-        UINT64 m_js9BaseAddr;
-
-    public:
-        VSDiagProvider(IJsDebugDataTarget* dataTarget, UINT64 baseAddress);
-
-        virtual RemoteStackFrameEnumerator* CreateStackFrameEnumerator(DWORD threadId, void* advanceToAddr) override;
-        virtual void GetThreadContext(DWORD threadId, CONTEXT* context) override;
-        virtual bool TryGetTargetModuleBaseAddr(PCWSTR simpleModuleName, ULONG64* baseAddr) override;
-        virtual HRESULT GetTlsValue(_In_ DWORD threadId, _In_ UINT32 tlsIndex, _Out_ UINT64 *pValue) override;
-        virtual IVirtualReader* GetReader() override;
-    };
 }

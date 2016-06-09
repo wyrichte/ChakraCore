@@ -74,7 +74,7 @@ bool JsUtil::ExternalApi::RaiseOnIntOverflow()
     return false;
 }
 
-LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
+LPCWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
     return  _u("Software\\Microsoft\\Internet Explorer\\ChakraRecycler");
 }

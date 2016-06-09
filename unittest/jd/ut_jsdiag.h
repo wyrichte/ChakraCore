@@ -14,11 +14,7 @@ public:
     EXT_CLASS();
     EXT_COMMAND_METHOD(echo);
     EXT_COMMAND_METHOD(utmode);
-    EXT_COMMAND_METHOD(jsstack);
     EXT_COMMAND_METHOD(ldsym);
-    EXT_COMMAND_METHOD(verifyOM);
-    EXT_COMMAND_METHOD(bp);
-    EXT_COMMAND_METHOD(asyncBreak);
 
     // WER js stack dump
     EXT_COMMAND_METHOD(writedump);
@@ -31,8 +27,6 @@ public:
 private:
     static HRESULT PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk);
     void IfFailThrow(HRESULT hr, PCSTR msg = NULL);
-    void CreateJsDebug(IJsDebug2** debug);
-    void CreateDebugProcess(IJsDebugProcess** ppDebugProcess, bool debugMode = false);
     bool SetupSymbolPath();
 
     template <class Func>

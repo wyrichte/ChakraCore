@@ -261,6 +261,7 @@ namespace Projection
 #include "Common.h"
 #include "ParserCommon.h"
 #include "RuntimeCommon.h"
+#include "ChakraPlatform.h"
 #include "DelayLoadLibrary.h"             // Used by ThreadContext
 #include "WindowsGlobalizationAdapter.h"  // Used by ThreadContext::windowsGlobalizationAdapter
 #include "WindowsFoundationAdapter.h"     // Used by ThreadContext::windowsFoundationAdapter

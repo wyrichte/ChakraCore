@@ -39,6 +39,7 @@
         $(ChakraRootDirectory)core\Lib\Runtime\Debug;
         $(ChakraRootDirectory)core\Lib\Runtime\Language;
         $(ChakraRootDirectory)core\Lib\Runtime\Library;
+        $(ChakraRootDirectory)core\Lib\Runtime\PlatformAgnostic;
         $(ChakraRootDirectory)core\Lib\Runtime\Types;
         $(ChakraRootDirectory)core\Lib\Backend;
         $(ChakraRootDirectory)private\lib\Engine;
@@ -126,19 +127,9 @@
       <ForcedIncludeFiles></ForcedIncludeFiles>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)expression.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)guids.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Inspection.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebug.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)JsDebugBreakPoint.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebugProcess.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jsdebugStackWalker.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteAllocator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackFrameLocals.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteString.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteTypeHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptDump.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptDumpReader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp">
@@ -153,7 +144,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackWalker.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RemoteInlineFrameWalker.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RemoteStackFrame.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)RemoteDiagFrame.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Serializer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)thrownew.cpp" />
@@ -161,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DiagErrorCode.h" />
-    <ClInclude Include="expression.h" />
     <ClInclude Include="jscript9diagprivate.h" />
     <ClInclude Include="MockDataTarget.h" />
     <ClInclude Include="thrownew.h" />
@@ -169,23 +158,12 @@
     <ClInclude Include="DiagAutoPtr.h" />
     <ClInclude Include="DiagConstants.h" />
     <ClInclude Include="DiagException.h" />
-    <ClInclude Include="Inspection.h" />
     <ClInclude Include="InternalStackFrame.h" />
-    <ClInclude Include="JsDebugBreakPoint.h" />
-    <ClInclude Include="JsDebugProperty.h" />
     <ClInclude Include="jsdiag.h" />
-    <ClInclude Include="RemoteEnumerator.h" />
-    <ClInclude Include="RemoteAllocator.h" />
-    <ClInclude Include="RemoteStackFrameLocals.h" />
-    <ClInclude Include="RemoteString.h" />
-    <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="RuntimeCore.h" />
     <ClInclude Include="guids.h" />
     <!-- TODO: Remove this line entirely once using the VS solution from the git repo becomes the norm -->
     <Midl Include="..\..\..\..\published\sdk\inc\jscript9diag.idl" Condition="'$(BuildingWithBuildExe)'!='true' AND '$(BuildingGitRepo)'!='true' " />
-    <ClInclude Include="jsdebug.h" />
-    <ClInclude Include="jsdebugProcess.h" />
-    <ClInclude Include="jsdebugStackWalker.h" />
     <ClInclude Include="ScriptDump.h" />
     <ClInclude Include="ScriptDumpReader.h" />
     <ClInclude Include="stdafx.h" />
@@ -195,7 +173,6 @@
     <ClInclude Include="RemoteBuffer.inl" />
     <ClInclude Include="DebugClient.h" />
     <ClInclude Include="DiagProvider.h" />
-    <ClInclude Include="RemoteDiagFrame.h" />
     <ClInclude Include="RemoteStackFrame.h" />
     <ClInclude Include="RemoteStackFrameEnumerator.h" />
     <ClInclude Include="RemoteStackWalker.h" />

@@ -21,12 +21,4 @@
       <tags>exclude_serialized,fail_mutators</tags>
     </default>
   </test>
-  <test>
-    <default>
-      <files>concatmulti_517539.js</files>
-      <command>jdtest.exe -targeted -dbgbaseline:concatmulti_517539.js.dbg.baseline -InspectMaxStringLength:100 jshost</command>
-      <compile-flags>-debuglaunch:hybrid -Intl-</compile-flags>
-      <tags>exclude_serialized,exclude_jsrt,exclude_dynapogo</tags>
-    </default>
-  </test>
 </regress-exe>

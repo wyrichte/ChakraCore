@@ -333,14 +333,14 @@ HRESULT JsHostActiveScriptSite::CheckPerformSourceRundown()
 
     if (!this->m_didSourceRundown)
     {
-        if (!HostConfigFlags::flags.Targeted && !IsRunningUnderJdtest)
+        if (!HostConfigFlags::flags.Targeted)
         {
             // Without this, the automatic setting breakpoint will not work.
             HostConfigFlags::flags.Auto = true;
         }
 
         // Time to attach the debugger to the host dynamically.
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(IsRunningUnderJdtest ? _u("hybrid") : _u(""));
+        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
         hr = diagnosticsHelper->InitializeDebugging();
         IfFailedGo(hr);
@@ -496,14 +496,14 @@ HRESULT JsHostActiveScriptSite::CheckDynamicAttach()
     DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
 
     {
-        if (!HostConfigFlags::flags.Targeted && !IsRunningUnderJdtest)
+        if (!HostConfigFlags::flags.Targeted)
         {
             // Without this, the automatic setting breakpoint will not work.
             HostConfigFlags::flags.Auto = true;
         }
 
         // Time to attach the debugger to the host dynamically.
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(IsRunningUnderJdtest ? _u("hybrid") : _u(""));
+        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
         hr = diagnosticsHelper->InitializeDebugging();
         IfFailedGo(hr);

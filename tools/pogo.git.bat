@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 setlocal
 
@@ -16,7 +16,7 @@ if "%flavor%"=="" (
 )
 for %%i in ("%~dp0..") do set "ChakraRoot=%%~fi"
 
-call %ChakraRoot%\tools\GitScripts\add-msbuild-path.cmd
+call %ChakraRoot%\core\Build\scripts\add_msbuild_path.cmd
 set _ChakraSolution=%ChakraRoot%\Build\Chakra.Full.sln
 if "%doCore%" EQU "core" (
     set _ChakraSolution=%ChakraRoot%\core\Build\Chakra.Core.sln
@@ -85,14 +85,18 @@ endlocal
 goto:eof
 
 :build
-  set logFileName=%BIN_PATH%\build_%arch%%flavor%%POGO_TYPE%
+  set logsDirectory=%BIN_PATH%\..\..\buildlogs
+  IF NOT EXIST %logsDirectory% (
+    MD %logsDirectory%
+  )
+  set logFileName=%logsDirectory%\build_%arch%%flavor%%POGO_TYPE%
   set _LoggingParams=/fl1 /flp1:logfile=%logFileName%.log;verbosity=normal /fl2 /flp2:logfile=%logFileName%.err;errorsonly /fl3 /flp3:logfile=%logFileName%.wrn;warningsonly
   set Configuration=jshost-%flavor%
   if "%doCore%" EQU "core" (
     set Configuration=%flavor%
   )
-  echo msbuild /m /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
-  call msbuild /m /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
+  echo msbuild /m /nr:false /verbosity:minimal /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
+  call msbuild /m /nr:false /verbosity:minimal /p:Configuration=%Configuration% /p:Platform=%arch% "%_ChakraSolution%" %_LoggingParams%
   if "%errorlevel%" NEQ "0" (
     set builderror=%errorlevel%
   )
