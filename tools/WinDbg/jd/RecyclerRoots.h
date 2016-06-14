@@ -18,7 +18,7 @@ public:
     {
         ExtRemoteTyped transientPinnedObject = recycler.Field("transientPinnedObject");
         ExtRemoteTyped pinnedObjectMap = recycler.Field("pinnedObjectMap");
-
+        _hasPendingUnpinnedObject = recycler.Field("hasPendingUnpinnedObject").GetStdBool();
         _transientPinnedObject = transientPinnedObject.GetPtr();
         _pinnedObjectEntries = pinnedObjectMap.Field("table").GetPtr();
         _pinnedObjectTableSize = pinnedObjectMap.Field("size").GetUlong();
@@ -28,7 +28,7 @@ public:
     void Map(Fn fn);
 
 private:
-
+    bool _hasPendingUnpinnedObject;
     bool _pinRecordsWithStacks;
     int _currentIndex;
     ULONG64 _transientPinnedObject;
@@ -186,7 +186,7 @@ public:
     }
 
     void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true);
+    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);

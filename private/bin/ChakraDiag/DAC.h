@@ -927,7 +927,6 @@ namespace JsDiag
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId) const;
         ProbeContainer* GetProbeContainer() const;
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
-
         DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
         bool IsInDebugMode() const
         {

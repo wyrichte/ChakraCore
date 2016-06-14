@@ -885,7 +885,7 @@ void RemoteStackWalker::GetRefCountedRemoteScriptContext(const ScriptContext* ad
 namespace Js
 {
 #if DBG
-    bool Throw::ReportAssert(LPSTR fileName, uint lineNumber, LPSTR error, LPSTR message)
+    bool Throw::ReportAssert(LPCSTR fileName, uint lineNumber, LPCSTR error, LPCSTR message)
     {
         AssertMsg(false, "Runtime assertion");
         return false;

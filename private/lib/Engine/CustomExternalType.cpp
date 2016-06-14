@@ -1002,7 +1002,14 @@ namespace Js
                     {
                         *enumerator = requestContext->GetLibrary()->GetNullEnumerator();
                     }
-                    *enumerator = CrossSite::MarshalEnumerator(requestContext, *enumerator);
+
+                    // VSO 7871027 - RecyclableObjectWalker::GetChildrenCount can call in CustomExternalObject::GetEnumerator in which case
+                    // both the contexts can be same.
+                    if (scriptContext != requestContext)
+                    {
+                        *enumerator = CrossSite::MarshalEnumerator(requestContext, *enumerator);
+                    }
+
                     return TRUE;
                 }
             }

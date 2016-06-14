@@ -555,7 +555,7 @@ var float32x4 = {
   mulFn: binaryMul,
   fns: ["check", "splat", "replaceLane", "select",
         "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual",
-        "add", "sub", "mul", "div", "neg", "abs", "min", "max", "minNum", "maxNum",
+        "add", "sub", "mul", "div", "neg", "abs", "min", "max",
         "reciprocalApproximation", "reciprocalSqrtApproximation", "sqrt",
         "load", "load1", "load2", "load3", "store", "store1", "store2", "store3"],
 }
@@ -927,20 +927,6 @@ var simdFns = {
     function(type) {
       return function(a, b) {
         return simdBinaryOp(type, Math.max, a, b);
-      }
-    },
-
-  minNum:
-    function(type) {
-      return function(a, b) {
-        return simdBinaryOp(type, minNum, a, b);
-      }
-    },
-
-  maxNum:
-    function(type) {
-      return function(a, b) {
-        return simdBinaryOp(type, maxNum, a, b);
       }
     },
 

@@ -73,9 +73,16 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 HashEntry entry;
                 remoteEntry.ReadBuffer(&entry, sizeof(HashEntry));
 
-                currentEntry.address = entry.key;
-                currentEntry.pinnedCount = entry.value;
-                fn(i, j++, current, currentEntry);
+                if (entry.value != 0)
+                {
+                    currentEntry.address = entry.key;
+                    currentEntry.pinnedCount = entry.value;
+                    fn(i, j++, current, currentEntry);
+                }
+                else
+                {
+                    Assert(this->_hasPendingUnpinnedObject);
+                }
                 current = (TPointerType)entry.next;
             }
             else
@@ -83,9 +90,16 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 DebugHashEntry entry;
                 remoteEntry.ReadBuffer(&entry, sizeof(DebugHashEntry));
 
-                currentEntry.address = entry.key;
-                currentEntry.pinnedCount = entry.value.refCount;
-                fn(i, j++, current, currentEntry);
+                if (entry.value.refCount != 0)
+                {
+                    currentEntry.address = entry.key;
+                    currentEntry.pinnedCount = entry.value.refCount;
+                    fn(i, j++, current, currentEntry);
+                }
+                else
+                {
+                    Assert(this->_hasPendingUnpinnedObject);
+                }
                 current = (TPointerType)entry.next;
             }
         }
@@ -156,7 +170,7 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
     }
 }
 
-void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print)
+void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print, bool showScriptContext)
 {
     ULONG64 stackBase = 0;
     if (recycler.HasField("stackBase") && recycler.Field("mainThreadHandle").GetPtr() != 0)
@@ -197,7 +211,7 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
             {
                 ext->Out("0x%p", stack32[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
-                ext->DumpPossibleSymbol(address);
+                ext->DumpPossibleSymbol(address, true, showScriptContext);
                 ext->Out("\n");
             }
         }
@@ -212,7 +226,7 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
             {
                 ext->Out("0x%p", address);
                 ext->Out(" (+0x%x)", i * ext->m_PtrSize);
-                ext->DumpPossibleSymbol(address);
+                ext->DumpPossibleSymbol(address, true, showScriptContext);
                 ext->Out("\n");
             }
         }
@@ -415,7 +429,7 @@ void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& ca
     }
 }
 
-bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
+bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool showScriptContext)
 {
     char const * typeName;
     JDRemoteTyped object = GetExtension()->CastWithVtable(address, &typeName);
@@ -424,34 +438,37 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
     {
         return false;
     }
-
+    
+    this->Out(" = ");
     if (makeLink)
     {
-        this->Out(" = %s ", typeName);
         this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", typeName, address);
 
-        // TODO (doilij) don't include link unless object has type.typeId
-        //this->CastWithVtable(address, "Js::RecyclableObject");
-
-        this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+        if (object.HasField("type") && object.Field("type").HasField("typeId"))
+        {
+            this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+            if (showScriptContext)
+            {
+                this->Out("SC:0x%p ", object.Field("type").Field("javascriptLibrary").Field("scriptContext").GetPtr());
+            }
+        }
+        else
+        {
+            this->Out(showScriptContext? (this->m_PtrSize == 8 ? "%32s" : "%24s") : "%10s", "");
+        }
     }
-    else
-    {
-        this->Out(" = %s", typeName);
-    }
-#undef SYMBOL_GUESS
+    this->Out("%s", typeName);
 
     if (strstr(typeName, "ArrayObjectInstance") != 0 ||
         strstr(typeName, "Js::CustomExternalObject") != 0)
     {
         ULONG64 offsetOfExternalObject = 0x18;
 
-#ifdef _M_AMD64
         if (this->m_PtrSize == 8)
         {
             offsetOfExternalObject = 0x30;
         }
-#endif
+
         ULONG64 externalObject = address + offsetOfExternalObject;
         ULONG64 domObject = GetPointerAtAddress(externalObject);
         if (domObject != NULL)
@@ -461,11 +478,11 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
 
             if (!symbol.empty())
             {
-                this->Out("(maybe DOM item %s)", symbol.c_str());
+                this->Out(" (maybe DOM item %s)", symbol.c_str());
             }
             else
             {
-                this->Out("(0x%p)", externalObject);
+                this->Out(" (0x%p)", externalObject);
             }
         }
     }
@@ -476,8 +493,8 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
         // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
         if (scriptObjectPointer)
         {
-            this->Out("[ScriptObject");
-            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink))
+            this->Out(" [ScriptObject");
+            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink, showScriptContext))
             {
                 this->Out(" = 0x%p", scriptObjectPointer);
             }
@@ -488,15 +505,18 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink)
     return true;
 }
 
-void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry)
+void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry, bool showEntries, bool showScriptContext)
 {
-    ext->Out("Index: (0x%x, %d), Entry: 0x%p", i, j, entryPointer);
-    ext->Out(", Key: 0x%p ", entry.address);
-    ext->Out("(Ref count: %d)", entry.pinnedCount);
+    if (showEntries)
+    {
+        ext->Out("Index: (0x%x, %d), Entry: 0x%p, Address: ", i, j, entryPointer);
+    }
+    ext->Out("0x%p, ", entry.address);
+    ext->Out("Ref:%d", entry.pinnedCount);
     // There appears to be a bug in ext->Out where it doesn't deal with %d properly when
     // mixed with other types
 
-    ext->DumpPossibleSymbol(entry.address);
+    ext->DumpPossibleSymbol(entry.address, true, showScriptContext);
 
     ext->Out("\n");
 }
@@ -504,17 +524,22 @@ void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, c
 JD_PRIVATE_COMMAND(showpinned,
     "Show pinned object list",
     "{a;b,o;all;all thread context}"
-    "{;e,o,d=0;recycler;Recycler address}")
+    "{;e,o,d=0;recycler;Recycler address}"
+    "{e;b,o;Show Entry}"
+    "{sc;b,o;Show script context}"
+)
 {
     ULONG64 arg = GetUnnamedArgU64(0);
     const bool allThreadContext = HasArg("a");
+    const bool showScriptContext = HasArg("sc");
+    const bool showEntries = HasArg("e");
 
-    auto dumpPinnedObjectFromRecycler = [this](RemoteRecycler recycler)
+    auto dumpPinnedObjectFromRecycler = [this, showScriptContext, showEntries](RemoteRecycler recycler)
     {
         uint count = 0;
-        MapPinnedObjects(this, recycler.GetExtRemoteTyped(), [&count, this](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+        MapPinnedObjects(this, recycler.GetExtRemoteTyped(), [&count, this, showScriptContext, showEntries](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
         {
-            DumpPinnedObject(this, i, j, entryPointer, entry);
+            DumpPinnedObject(this, i, j, entryPointer, entry, showEntries, showScriptContext);
             count++;
         }, true);
 
@@ -766,11 +791,15 @@ JD_PRIVATE_COMMAND(oi,
 
 JD_PRIVATE_COMMAND(showroots,
     "Show the recycler roots",
-    "{;e,o,d=0;recycler;Recycler address}")
+    "{;e,o,d=0;recycler;Recycler address}"
+    "{e;b,o;Show pinned entry}"
+    "{sc;b,o;Show script context}")
 {
     ULONG64 recyclerArg = GetUnnamedArgU64(0);
     ExtRemoteTyped recycler;
     ExtRemoteTyped threadContext;
+    const bool showScriptContext = HasArg("sc");
+    const bool showEntries = HasArg("e");
 
     if (recyclerArg != NULL)
     {
@@ -822,9 +851,9 @@ JD_PRIVATE_COMMAND(showroots,
 
     Out("\nPinned objects\n");
     uint count = 0;
-    MapPinnedObjects(this, recycler, [&count, &rootPointerManager, this](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+    MapPinnedObjects(this, recycler, [&count, &rootPointerManager, this, showEntries, showScriptContext](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
     {
-        DumpPinnedObject(this, i, j, entryPointer, entry);
+        DumpPinnedObject(this, i, j, entryPointer, entry, showEntries, showScriptContext);
         count++;
         rootPointerManager.TryAdd((ULONG64)entry.address, RootType::RootTypePinned);
     }, true);
@@ -843,7 +872,7 @@ JD_PRIVATE_COMMAND(showroots,
 
     Out("\nStack\n");
     rootPointerManager.ScanRegisters(this);
-    rootPointerManager.ScanStack(this, recycler);
+    rootPointerManager.ScanStack(this, recycler, true, showScriptContext);
 
     PCSTR typeName = recycler.Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra", "..\private\bin\Chakra\Chakra.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -104,6 +104,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "powershell", "powershell", 
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GCHost", "..\private\bin\GCHost\GCHost.vcxproj", "{E8777566-A538-4F1F-AB1C-3925BC76DDED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{129AC184-877C-441F-AC49-A692CE700E62} = {129AC184-877C-441F-AC49-A692CE700E62}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptProjectionHostApi", "..\dep\ScriptProjectionHostApi.vcxproj", "{62154AB9-058D-4AA5-98E2-BC6D9AF71AF4}"
 EndProject
@@ -225,7 +228,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.PlatformAgno
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinRt2Ts", "..\private\bin\WinRt2Ts\WinRt2Ts.vcxproj", "{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09}"
 EndProject
-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		all-Debug|ARM = all-Debug|ARM
@@ -3122,7 +3124,6 @@ Global
 		{129AC184-877C-441F-AC49-A692CE700E62}.Test|x64.Build.0 = Test|x64
 		{129AC184-877C-441F-AC49-A692CE700E62}.Test|x86.ActiveCfg = Test|Win32
 		{129AC184-877C-441F-AC49-A692CE700E62}.Test|x86.Build.0 = Test|Win32
-
 		{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09}.all-Debug|ARM.ActiveCfg = Debug|ARM
 		{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09}.all-Debug|ARM.Build.0 = Debug|ARM
 		{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09}.all-Debug|x64.ActiveCfg = Debug|x64
@@ -3240,7 +3241,6 @@ Global
 		{706083F7-6AA4-4558-A153-6352EF9110EE} = {DDF436E7-0A8E-41AA-82B3-902B5D2D0809}
 		{73CE5C59-E0BA-413D-A73C-3EECE067891B} = {8BDD6441-D2D0-4CA5-AB86-1CC34E60BB1F}
 		{129AC184-877C-441F-AC49-A692CE700E62} = {DDF436E7-0A8E-41AA-82B3-902B5D2D0809}
-
 		{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09} = {E8E9631F-1620-4407-BE7C-59706961A5EC}
 	EndGlobalSection
 EndGlobal
