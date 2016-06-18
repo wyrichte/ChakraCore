@@ -2,40 +2,10 @@ Error: Security Error
 5
 Error: Security Error
 Error: Security Error
-10
+[object Object]
 Error: Security Error
 Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-Error: Security Error
-Test
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-Error: Security Error
-5
+[object Promise]
 Error: Security Error
 Error: Security Error
 10
@@ -70,9 +40,57 @@ Test
 7
 8
 9
+Error: Security Error
+5
+Error: Security Error
+Error: Security Error
+[object Object]
+Error: Security Error
+Error: Security Error
+[object Promise]
+Error: Security Error
+Error: Security Error
+10
+Error: Security Error
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+Error: Security Error
+Test
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 5
 5
 5
+[object Object]
+[object Object]
+[object Object]
+[object Promise]
+[object Promise]
+[object Promise]
 10
 10
 10

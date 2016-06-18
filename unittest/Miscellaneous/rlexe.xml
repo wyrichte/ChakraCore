@@ -33,7 +33,7 @@
     <default>
       <files>evalCSP.js</files>
       <baseline>evalCSP.baseline</baseline>
-      <compile-flags>-EvalRestriction -maxInterpretCount:1</compile-flags>
+      <compile-flags>-ES7AsyncAwait -EvalRestriction -maxInterpretCount:1</compile-flags>
     </default>
   </test>
   <test>

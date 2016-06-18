@@ -14,6 +14,22 @@ function testFuncConstructor(str) {
     }
 }
 
+function testGenFuncConstructor(str) {
+    try{
+        WScript.Echo((new (function* (){}).constructor(str)()).next());
+    } catch (e) {
+        WScript.Echo(e);
+    }
+}
+
+function testAsyncFuncConstructor(str) {
+    try{
+        WScript.Echo(new (async function (){}).constructor(str)());
+    } catch (e) {
+        WScript.Echo(e);
+    }
+}
+
 function performTest() {
     WScript.SetEvalEnabled(false);
     testFuncConstructor("return 5;");
@@ -23,6 +39,24 @@ function performTest() {
 
     WScript.SetEvalEnabled(false);
     testFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(false);
+    testGenFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(true);
+    testGenFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(false);
+    testGenFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(false);
+    testAsyncFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(true);
+    testAsyncFuncConstructor("return 5;");
+
+    WScript.SetEvalEnabled(false);
+    testAsyncFuncConstructor("return 5;");
 
     WScript.SetEvalEnabled(false);
     testEval("5 + 5;");
