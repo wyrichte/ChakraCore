@@ -2051,7 +2051,6 @@ STDMETHODIMP ScriptEngine::OnBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugAppl
             {
                 if (!GetScriptSiteHolder()->GetScriptSiteContext()->IsScriptContextInDebugMode())
                 {
-                    AssertMsg(false, "Why do we get this event when we are not in debug mode?");
                     return E_UNEXPECTED;
                 }
 
