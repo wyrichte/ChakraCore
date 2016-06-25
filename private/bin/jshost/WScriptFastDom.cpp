@@ -1689,10 +1689,20 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(_u("print"), activeScriptDirect, globalObject, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
+    // Create the read method of the global object
     hr = AddMethodToObject(_u("read"), activeScriptDirect, globalObject, WScriptFastDom::LoadTextFile);
     IfFailedGo(hr);
 
+    // Create the readbuffer method of the global object
     hr = AddMethodToObject(_u("readbuffer"), activeScriptDirect, globalObject, WScriptFastDom::LoadBinaryFile);
+    IfFailedGo(hr);
+
+    // Create the LoadTextFile method
+    hr = AddMethodToObject(_u("LoadTextFile"), activeScriptDirect, wscript, WScriptFastDom::LoadTextFile);
+    IfFailedGo(hr);
+
+    // Create the LoadBinaryFile method
+    hr = AddMethodToObject(_u("LoadBinaryFile"), activeScriptDirect, wscript, WScriptFastDom::LoadBinaryFile);
     IfFailedGo(hr);
 
     // Create the Echo method
