@@ -1,8 +1,12 @@
 Successfully compiled asm.js code
+Successfully compiled asm.js code
+Successfully compiled asm.js code
 import func, val 8
 2
 import func, val 16
 -1
+AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
+AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 debugCallback
 import2 func, val 8
@@ -34,6 +38,8 @@ import func, val 512
 true
 import func, val 1024
 0
+AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
+AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 debugCallback
 import2 func, val 512

@@ -37,6 +37,13 @@ bool JsrtContext::Is(void * ref)
     return VirtualTableInfo<JsrtContextChakra>::HasVirtualTable(ref);
 }
 
+#if ENABLE_TTD
+void JsrtContext::OnScriptLoad_TTDCallback(void* jsrtCtx, Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
+{
+    ((JsrtContext*)jsrtCtx)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);
+}
+#endif
+
 void JsrtContext::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
 {
     ((JsrtContextChakra *)this)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);

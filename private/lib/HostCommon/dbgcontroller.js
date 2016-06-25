@@ -151,7 +151,8 @@ var controllerObj = {
             "Wasm",
             "WeakMap",
             "WeakSet",
-            "WScript"
+            "WScript",
+            "telemetryLog"
         ].forEach(function (name) {
             filter[name] = 1;
             filter[name + " - [Type]"] = 1;         // Filter out LOCALS_TYPE
