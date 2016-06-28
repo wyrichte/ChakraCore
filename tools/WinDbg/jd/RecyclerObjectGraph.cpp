@@ -154,7 +154,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
         numNodes++;
         if (numNodes % 10000 == 0)
         {
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info - %11d/%11d", numNodes, this->GetNodeCount());
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info %s- %11d/%11d", infer? "" : "without infer ", numNodes, this->GetNodeCount());
         }
 
         if (node->HasTypeInfo())
@@ -274,6 +274,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
             {
                 addField(remoteTyped.Field("type"), "Js::StaticType");
                 addField(remoteTyped.Field("m_pszValue"), "Js::LiteralString.m_pszValue");
+            }
+            else if (strcmp(simpleTypeName, "Js::CompoundString *") == 0)
+            {
+                addField(remoteTyped.Field("type"), "Js::StaticType");
+                addField(remoteTyped.Field("m_pszValue"), "Js::CompoundString.m_pszValue");
+                JDRemoteTyped block = remoteTyped.Field("lastBlock");
+                while (block.GetPtr() != 0)
+                {
+                    addField(block, "Js::CompoundString::Block");
+                    block = block.Field("previous");
+                }
             }
             else if (IsTypeOrCrossSite("Js::DynamicObject")
                 || IsTypeOrCrossSite("Js::JavascriptStringObject")
@@ -555,6 +566,28 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
                 addField(unifiedRep.Field("matcher"), "UnifiedRegex::Matcher");
                 addField(unifiedRep.Field("trigramInfo"), "UnifiedRegex::TrigramInfo");
             }
+            else if (strcmp(simpleTypeName, "Js::Cache *") == 0)
+            {
+                JDRemoteTyped sourceContextInfoMap = remoteTyped.Field("sourceContextInfoMap");
+                if (addField(sourceContextInfoMap, "Js::Cache.sourceContextInfoMap"))
+                {
+                    addField(sourceContextInfoMap.Field("buckets"), "Js::Cache.sourceContextInfoMap.buckets");
+                    JDRemoteTyped sourceContextInfoMapEntries = sourceContextInfoMap.Field("entries");
+
+                    if (addField(sourceContextInfoMapEntries, "Js::Cache.sourceContextInfoMap.entries"))
+                    {
+                        int count = sourceContextInfoMap.Field("count").GetLong();
+                        for (int i = 0; i < count; i++)
+                        {
+                            JDRemoteTyped sourceContextInfo = sourceContextInfoMapEntries.ArrayElement(i).Field("value");
+                            if (addField(sourceContextInfo, "SourceContextInfo"))
+                            {
+                                addField(sourceContextInfo.Field("sourceDynamicProfileManager"), "SourceDynamicProfileManager");
+                            }
+                        }
+                    }
+                }
+            }
             else
             {
                 noScanFieldVtable.insert(typeName);
@@ -563,35 +596,59 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
 #undef IsTypeOrCrossSite
     });
 
-    bool missedRef = true;
-    while (missedRef)
+    numNodes = 0;
+    std::stack<RecyclerObjectGraph::GraphImplNodeType*> updated;
+    this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
-        missedRef = false;
-        this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
+        if (node->HasTypeInfo())
         {
-            if (node->HasTypeInfo())
+            return;
+        }
+
+        numNodes++;
+        if (numNodes % 10000 == 0)
+        {
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rPropagating objects for type info %s- %11d/%11d", infer? "" : "without infer", numNodes, this->GetNodeCount());
+        }
+
+        bool setInfo = false;
+        if (node->IsRoot())
+        {
+            setNodeData("<Root>", "<Root>", node, false, true);
+            setInfo = true;
+        }
+
+        node->MapPredecessors([&](RecyclerObjectGraph::GraphImplNodeType* pred)
+        {
+            if (!pred->HasTypeInfo())
+            {
+                return false;
+            }
+
+            setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, pred->HasVtable(), true);
+            setInfo = true;
+            return true;
+        });
+
+        if (setInfo)
+        {
+            updated.push(node);
+        }
+    });
+    
+    while (!updated.empty())
+    {
+        RecyclerObjectGraph::GraphImplNodeType* node = updated.top();
+        updated.pop();
+        node->MapAllSuccessors([&](RecyclerObjectGraph::GraphImplNodeType* succ)
+        {
+            if (succ->HasTypeInfo())
             {
                 return;
             }
 
-            if (node->IsRoot())
-            {
-                setNodeData("<Root>", "<Root>", node, false, true);
-            }
-
-            if (!node->MapPredecessors([&](RecyclerObjectGraph::GraphImplNodeType* pred)
-            {
-                if (!pred->HasTypeInfo())
-                {
-                    return false;
-                }
-
-                setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, pred->HasVtable(), true);
-                return true;
-            }))
-            {
-                missedRef = true;
-            }
+            setNodeData(node->GetTypeName(), node->GetTypeNameOrField(), succ, node->HasVtable(), true);
+            updated.push(succ);
         });
     }
 
@@ -599,8 +656,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
     m_trident = trident;
     m_hasTypeNameAndFields = infer;
     _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
-        "\rObject graph type info complete - elapsed time: %us                                                    \n",
-        (ULONG)(_time64(nullptr) - start));
+        "\rObject graph type info completed %s- elapsed time: %us                                                    \n",
+        infer? "" : "without infer ", (ULONG)(_time64(nullptr) - start));
 }
 
 #if ENABLE_MARK_OBJ

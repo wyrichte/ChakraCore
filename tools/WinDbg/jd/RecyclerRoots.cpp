@@ -1056,7 +1056,7 @@ void DumpPointerPropertiesHeader(EXT_CLASS_BASE* ext)
     ext->Out("                 A          | Arena Root\n");
     ext->Out("                  I         | Implicit Root\n");
     ext->Out("                    ^       | Click to execute `!jd.predecessors` on this node\n");
-    ext->Out("                      v     | Click to execute `!jd.predecessors` on this node\n");
+    ext->Out("                      v     | Click to execute `!jd.successors` on this node\n");
     ext->Out("                        >   | Click to execute `!jd.traceroots` on this node\n");
     ext->Out("  Pred   Succ Flags       * | Original input pointer\n");
     DumpPointerPropertiesSeparatorLine(ext);
