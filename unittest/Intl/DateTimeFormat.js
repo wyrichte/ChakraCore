@@ -104,6 +104,13 @@ try {
 } catch (e) {
 }
 
+try {
+    var test = new Intl.DateTimeFormat("en-US", { timeZone: "" });
+    WScript.Echo('Should have thrown exception.');
+    passed = false;
+} catch (e) {
+}
+
 //Round Tripping of Date and Time
 var originalDate = new Date();
 var roundTrippedDate = new Date(Date.parse(originalDate.toLocaleString("en-us")));

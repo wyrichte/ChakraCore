@@ -18,6 +18,8 @@ ENC: Update: FuncDecl function foo() {..    /**edit(t -> FuncDecl function foo()
 ENC: === Semantic Changes ===
 ENC: UpdateFunction: FuncDecl function foo() {..    /**edit(t -> FuncDecl function foo() {..     var foo 
 ENC:     Old functionBody: foo
+ENC: MoveFunction: FuncDecl function f() { return foo; } -> FuncDecl function f() { return foo; }
+ENC:     Old functionBody: f
 ENC: MoveFunction: FuncDecl function test() {..    WScript. -> FuncDecl function test() {..    WScript.
 ENC:     Old functionBody: test
 === After change ===

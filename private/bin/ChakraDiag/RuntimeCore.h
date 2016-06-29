@@ -261,6 +261,10 @@ namespace Projection
 #include "Common.h"
 #include "ParserCommon.h"
 #include "RuntimeCommon.h"
+
+#include "Debug/TTSupport.h"
+#include "Debug/TTSerialize.h"
+
 #include "ChakraPlatform.h"
 #include "DelayLoadLibrary.h"             // Used by ThreadContext
 #include "WindowsGlobalizationAdapter.h"  // Used by ThreadContext::windowsGlobalizationAdapter
