@@ -1963,12 +1963,28 @@ int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
     JsInitializeRpcServerPtr initRpcServer = (JsInitializeRpcServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeRpcServer");
-    HRESULT hr = initRpcServer(&connectionUuid);
-    if (FAILED(hr))
+
+    __try
     {
-        wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
-        return hr;
+        HRESULT hr = initRpcServer(&connectionUuid);
+        if (FAILED(hr))
+        {
+            wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
+            return hr;
+        }
     }
+    __except (JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
+    {
+        // Terminate JIT Process
+        JitProcessManager::StopRpcServer();
+        // Flush all I/O buffers
+        _flushall();
+
+        // Exception happened, so we probably didn't clean up properly, 
+        // Don't exit normally, just terminate
+        TerminateProcess(::GetCurrentProcess(), GetExceptionCode());
+    }
+
 
     return 0;
 }

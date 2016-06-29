@@ -33,10 +33,23 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     HRESULT hr;
     PROCESS_INFORMATION processInfo = { 0 };
     STARTUPINFOW si = { 0 };
-    WCHAR cmdLine[MAX_PATH];
+
+    // overallocate constant cmd line (jshost -jitserver:<guid>)
+    size_t cmdLineSize = (MAX_PATH + argc) * sizeof(WCHAR);
+    for (int i = 0; i < argc; ++i)
+    {
+        // calculate space requirement for each arg
+        cmdLineSize += wcslen(argv[i]) * sizeof(WCHAR);
+    }
+
+    WCHAR* cmdLine = (WCHAR*)malloc(cmdLineSize);
+    if (cmdLine == nullptr)
+    {
+        return E_OUTOFMEMORY;
+    }
     WCHAR* connectionUuidString = NULL;
 
-    hr = StringCchCopyW(cmdLine, ARRAYSIZE(cmdLine), L"JsHost.exe -jitserver:");
+    hr = StringCchCopyW(cmdLine, cmdLineSize, L"JsHost.exe -jitserver:");
     if (FAILED(hr))
     {
         return hr;
@@ -48,7 +61,7 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
         return HRESULT_FROM_WIN32(status);
     }
 
-    hr = StringCchCatW(cmdLine, ARRAYSIZE(cmdLine), connectionUuidString);
+    hr = StringCchCatW(cmdLine, cmdLineSize, connectionUuidString);
     if (FAILED(hr))
     {
         return hr;
@@ -56,12 +69,12 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
 
     for (int i = 1; i < argc; ++i)
     {
-        hr = StringCchCatW(cmdLine, ARRAYSIZE(cmdLine), L" ");
+        hr = StringCchCatW(cmdLine, cmdLineSize, L" ");
         if (FAILED(hr))
         {
             return hr;
         }
-        hr = StringCchCatW(cmdLine, ARRAYSIZE(cmdLine), argv[i]);
+        hr = StringCchCatW(cmdLine, cmdLineSize, argv[i]);
         if (FAILED(hr))
         {
             return hr;
@@ -82,6 +95,8 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     {
         return HRESULT_FROM_WIN32(GetLastError());
     }
+
+    free(cmdLine);
 
     if (ResumeThread(processInfo.hThread) == (DWORD)-1)
     {
