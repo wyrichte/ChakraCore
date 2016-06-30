@@ -29,6 +29,23 @@ public:
     void EmitTopLevelNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
 
 private:
+
+    enum class FullyQualifiedNameBehavior
+    {
+        EmitAsIs,
+        EmitAsOptional,
+        AlsoEmitUnqualifiedMember
+    };
+    
+    template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
+    void AddPropertyToMemberList(
+        TypeScriptTypeMemberList* memberList,
+        MetadataString propertyName,
+        FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
+        MakeMemberFunction makeMember,
+        MakeAnyMemberFunction makeAnyMember
+    );
+
     void EmitSpecialTypes();
     void EmitNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
     void EmitTypeDefinitions(RtPROPERTIESOBJECT properties);
@@ -44,11 +61,11 @@ private:
     std::auto_ptr<TypeScriptType> GetTypeScriptArrayTypeOrNull(RtSPECIALIZATION specialization);
     std::auto_ptr<TypeScriptParameterList> GetTypeScriptParameters(RtPARAMETERS params);
     std::auto_ptr<TypeScriptType> GetTypeScriptReturnType(RtPARAMETERS params);
-    std::auto_ptr<TypeScriptMethodSignature> GetTypeScriptMethodSignatureOrNull(MetadataString methodName, bool applyIndexOfSpecialization, RtMETHODSIGNATURE methodSignature);
+    std::auto_ptr<TypeScriptTypeMemberList> GetTypeScriptMethodSignatures(MetadataString methodName, bool applyIndexOfSpecialization, RtMETHODSIGNATURE methodSignature, FullyQualifiedNameBehavior fullyQualifiedNameBehavior);
     std::auto_ptr<TypeScriptIndexSignature> GetTypeScriptIndexSignatureOrNull(RtSPECIALIZATION mapSpecialization);
     std::auto_ptr<TypeScriptTypeList> GetExtendedTypeScriptTypeList(regex::ImmutableList<RtINTERFACECONSTRUCTOR>* extendsInterfaces, RtSPECIALIZATION specialization, RtTYPE promiseResultType);
     std::auto_ptr<TypeScriptTypeList> GetImplementedTypeScriptTypeList(regex::ImmutableList<RtINTERFACECONSTRUCTOR>* implementedInterfaces);
-    std::auto_ptr<TypeScriptTypeMemberList> GetPropertyAndMethodMembers(regex::ImmutableList<RtPROPERTY>* properties, bool applyIndexOfSpecialization);
+    std::auto_ptr<TypeScriptTypeMemberList> GetPropertyAndMethodMembers(regex::ImmutableList<RtPROPERTY>* properties, bool applyIndexOfSpecialization, FullyQualifiedNameBehavior fullyQualifiedNameBehavior);
     std::auto_ptr<TypeScriptTypeMemberList> GetInterfaceMethodAndPropertyMembers(bool extendsArray, regex::ImmutableList<MetadataStringId>* metadataNameFilter, regex::ImmutableList<RtPROPERTY>* properties);
     std::auto_ptr<TypeScriptConstructorOverloads> GetConstructorOverloads(RtMETHODSIGNATURE methodSignature);
     std::auto_ptr<TypeScriptMethodSignature> GetEventListenerMethodSignatureOrNull(MetadataStringId methodName, RtEVENT event);
