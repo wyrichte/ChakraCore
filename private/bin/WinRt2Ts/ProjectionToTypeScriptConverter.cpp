@@ -187,7 +187,7 @@ bool ProjectionToTypeScriptConverter::IsTypeVisible(RtTYPE type)
 {
     if (MissingNamedType::Is(type) || MissingGenericInstantiationType::Is(type))
     {
-        wcout << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
+        wcerr << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
 
         return false;
     }
