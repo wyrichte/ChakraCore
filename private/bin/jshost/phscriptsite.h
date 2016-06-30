@@ -82,6 +82,7 @@ private:
     DWORD nextDeleteSimpleSourceMappersOnShutDown;
     SimpleSourceMapper* deleteSimpleSourceMappersOnShutDown[freeOnShutdownCount];
     std::map<std::wstring, ModuleRecord> moduleRecordMap;
+    std::map<std::wstring, std::wstring> moduleSourceMap;
 
     Js::DelayLoadWinRtString * m_WinRTStringLibrary;
     DelayLoadWinRtTypeResolution * m_WinRTTypeResolutionLibrary;
@@ -162,6 +163,7 @@ public:
     STDMETHODIMP LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject);
     STDMETHODIMP LoadScript(LPCOLESTR script);
     STDMETHODIMP LoadModule(LPCOLESTR script, byte** errorObject);
+    STDMETHODIMP RegisterModuleSource(LPCOLESTR moduleIdentifier, LPCOLESTR script);
     STDMETHODIMP InitializeProjection();
     STDMETHODIMP RegisterCrossThreadInterface();
 
