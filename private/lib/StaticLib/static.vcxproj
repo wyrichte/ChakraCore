@@ -53,7 +53,7 @@
   <!-- Razzle binplace -->
   <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
     <PublishCompiled Include="$(ObjectPath)\$(ObjectDirectory)$(TargetName).lib">
-      <DestinationFile>$(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\$(TargetName).lib</DestinationFile>
+      <DestinationFile>$(PublicInternalPath)\onecoreuapinetcore\lib\$(PlatformPathNameAlt)\$(TargetName).lib</DestinationFile>
     </PublishCompiled>
   </ItemGroup>
   <ItemGroup>

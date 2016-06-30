@@ -119,12 +119,12 @@ public:
         return scriptSite->CreateWinRTError(perrinfo, proerrstr);
     }
 
-    Js::JavascriptFunction* InitializeHostPromiseContinuationFunction()
+    HRESULT EnqueuePromiseTask(Js::Var varTask) override
     {
-        return scriptSite->InitializeHostPromiseContinuationFunction();
+        return scriptSite->EnqueuePromiseTask(varTask);
     }
 
-    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord)
+    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
     {
         return scriptSite->FetchImportedModule(referencingModule, specifier, dependentModuleRecord);
     }

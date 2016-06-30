@@ -72,7 +72,7 @@ namespace Js
 
                     if (editIndex < 0)
                     {
-                        int editIndex = m_functionEdits.Add(edit);
+                        editIndex = m_functionEdits.Add(edit);
                         m_functionIdToEditIndex.Add(functionId, editIndex);
                     }
                     else
@@ -322,7 +322,7 @@ namespace Js
     void SemanticChange::Trace(const ScriptDiff& diff) const
     {
         // WARNING: Following names must be in sync with enum SemanticChangeKind
-        static PCWSTR s_changeKinds[] = { L"None", L"InsertFunction", L"DeleteFunction", L"UpdateFunction", L"MoveFunction" };
+        static PCWSTR s_changeKinds[] = { _u("None"), _u("InsertFunction"), _u("DeleteFunction"), _u("UpdateFunction"), _u("MoveFunction") };
 
         PCWSTR label = s_changeKinds[static_cast<int>(Kind())];
         LPCUTF8 oldSource = diff.OldTree().GetUtf8Source();
@@ -339,7 +339,7 @@ namespace Js
 
         if (OldFunctionBody())
         {
-            OUTPUT_TRACE(Phase::ENCPhase, L"    Old functionBody: %s\n", OldFunctionBody()->GetDisplayName());
+            OUTPUT_TRACE(Phase::ENCPhase, _u("    Old functionBody: %s\n"), OldFunctionBody()->GetDisplayName());
         }
     }
 #endif // ENABLE_DEBUG_CONFIG_OPTIONS

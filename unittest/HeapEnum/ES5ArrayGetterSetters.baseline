@@ -9,7 +9,7 @@
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject flags: (new) optional info records (1)
  |  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |  |    [Properties] count: 20
+ |  |  |    [Properties] count: 22
  |  |  |    | 0 length: value: 1.000000
  |  |  |    | 1 prototype: type: ObjectObject (seen)
  |  |  |    | 2 name: type: String flags: (new size_approximate) optional info records (2)
@@ -138,6 +138,20 @@
  |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    |    [Internal property] value: assign
  |  |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 20 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |  |    |    [Properties] count: 2
+ |  |  |    |    | 0 length: value: 1.000000
+ |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    |    [Internal property] value: values
+ |  |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 21 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: FunctionObject (seen)
+ |  |  |    |    [Properties] count: 2
+ |  |  |    |    | 0 length: value: 1.000000
+ |  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    |    [Internal property] value: entries
+ |  |  |    |    |    [Prototype] type: StringObject (seen)
  |  |  | 1 hasOwnProperty: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Properties] count: 2
@@ -230,28 +244,28 @@
  |  [Properties] count: 4
  |  | 0 testprop: rsFlags: getter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get testprop
+ |  |    [Function name] testprop.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 110.000000
  |  | 1 testprop: rsFlags: setter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] set testprop
+ |  |    [Function name] testprop.set
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 88.000000
  |  | 2 testprop2: rsFlags: getter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get testprop2
+ |  |    [Function name] testprop2.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 8.000000
  |  |    | 2 sourceCol: value: 111.000000
  |  | 3 testprop2: rsFlags: setter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] set testprop2
+ |  |    [Function name] testprop2.set
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 8.000000
@@ -259,14 +273,14 @@
  |  [Array elements] count: 11
  |  | 100: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get 100
+ |  |    [Function name] 100.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 4.000000
  |  |    | 2 sourceCol: value: 105.000000
  |  | 100: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] set 100
+ |  |    [Function name] 100.set
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 4.000000
@@ -276,21 +290,21 @@
  |  |    [Prototype] type: StringObject (seen)
  |  | 300: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get 300
+ |  |    [Function name] 300.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 6.000000
  |  |    | 2 sourceCol: value: 105.000000
  |  | 300: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] set 300
+ |  |    [Function name] 300.set
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 6.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 400: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get 400
+ |  |    [Function name] 400.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 7.000000
@@ -300,14 +314,14 @@
  |  | 500: type: FunctionObject (seen)
  |  | 500: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] set 500
+ |  |    [Function name] 500.set
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 9.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 600: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] get 600
+ |  |    [Function name] 600.get
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: es5arraygettersetters.js
  |  |    | 1 sourceRow: value: 10.000000

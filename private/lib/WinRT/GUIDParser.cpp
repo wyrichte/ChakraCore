@@ -4,13 +4,18 @@
 #include "WinRTPch.h"
 #include "jscriptdllcommon.h"
 #include <Shlwapi.h>
-#include <ATLBase.h>
+
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
+#include <atlbase.h>
+#pragma warning(pop)
 #include "GUIDParser.h"
 
 using namespace Js;
 
-static const  wchar_t whitespace[] = {L'\x0020', L'\x1680', L'\x180E', L'\x2000', L'\x2001', L'\x2002', L'\x2003', L'\x2004', L'\x2005', L'\x2006', L'\x2007', L'\x2008', L'\x2009', L'\x200A', 
-    L'\x202F', L'\x205F', L'\x3000', L'\x2028', L'\x2029', L'\x0009', L'\x000A', L'\x000B', L'\x000C', L'\x000D', L'\x0085', L'\x00A0', L'\0'};
+static const  char16 whitespace[] = {_u('\x0020'), _u('\x1680'), _u('\x180E'), _u('\x2000'), _u('\x2001'), _u('\x2002'), _u('\x2003'), _u('\x2004'), _u('\x2005'), _u('\x2006'), _u('\x2007'), _u('\x2008'), _u('\x2009'), _u('\x200A'), 
+    _u('\x202F'), _u('\x205F'), _u('\x3000'), _u('\x2028'), _u('\x2029'), _u('\x0009'), _u('\x000A'), _u('\x000B'), _u('\x000C'), _u('\x000D'), _u('\x0085'), _u('\x00A0'), _u('\0')};
 
 
 // Name: TryGUIDToString
@@ -20,7 +25,7 @@ static const  wchar_t whitespace[] = {L'\x0020', L'\x1680', L'\x180E', L'\x2000'
 // Returns: E_POINTER in case one of the arguments is NULL
 //			E_INVALIDARG in case an null guid was specified
 //			S_OK in case of success
-HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result, size_t length)
+HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) char16* result, size_t length)
 {
     IfNullReturnError(result, E_POINTER);
     IfNullReturnError(g, E_POINTER);
@@ -35,10 +40,10 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
                          
     result[0] = '\0';
 
-    wchar_t tempStr[9];
+    char16 tempStr[9];
     tempStr[0] = '\0';
 
-    int numChar = swprintf_s(tempStr, 9, L"%.8x", (int)(g->Data1));
+    int numChar = swprintf_s(tempStr, 9, _u("%.8x"), (int)(g->Data1));
     if (numChar != 8)
     {
         return E_INVALIDARG;
@@ -48,13 +53,13 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, L"-");
+    error = wcscat_s(result, guidlen, _u("-"));
     if (error != 0)
     {
         return E_INVALIDARG;
     }
 
-    numChar = swprintf_s(tempStr, 9, L"%.4x", (int)(g->Data2));
+    numChar = swprintf_s(tempStr, 9, _u("%.4x"), (int)(g->Data2));
     if (numChar != 4)
     {
         return E_INVALIDARG;
@@ -64,13 +69,13 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, L"-");
+    error = wcscat_s(result, guidlen, _u("-"));
     if (error != 0)
     {
         return E_INVALIDARG;
     }
 
-    numChar = swprintf_s(tempStr, 9, L"%.4x", (int)(g->Data3));
+    numChar = swprintf_s(tempStr, 9, _u("%.4x"), (int)(g->Data3));
     if (numChar != 4)
     {
         return E_INVALIDARG;
@@ -80,7 +85,7 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
     {
         return E_INVALIDARG;
     }
-    error = wcscat_s(result, guidlen, L"-");
+    error = wcscat_s(result, guidlen, _u("-"));
     if (error != 0)
     {
         return E_INVALIDARG;
@@ -88,7 +93,7 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
 
     for(int i = 0; i < 8; i++)
     {
-        numChar = swprintf_s(tempStr, 9, L"%.2x", (int)(g->Data4[i]));
+        numChar = swprintf_s(tempStr, 9, _u("%.2x"), (int)(g->Data4[i]));
         if (numChar != 2)
         {
             return E_INVALIDARG;
@@ -100,7 +105,7 @@ HRESULT GUIDParser::TryGUIDToString(GUID* g, __in_ecount(length) wchar_t* result
         }
        if (i == 1)
         {
-            error = wcscat_s(result, guidlen, L"-");
+            error = wcscat_s(result, guidlen, _u("-"));
             if (error != 0)
             {
                 return E_INVALIDARG;
@@ -123,8 +128,8 @@ HRESULT GUIDParser::TryParseGUID(LPCWSTR g, GUID* result)
     IfNullReturnError(result, E_POINTER);
     IfNullReturnError(g, E_POINTER);
 
-    CHeapPtr<wchar_t> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(wchar_t));
+    CHeapPtr<char16> guidStr;
+    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {
@@ -159,8 +164,8 @@ HRESULT GUIDParser::TryParseHexValueExact(LPCWSTR g, int length, unsigned long* 
         }
     }
 
-    CHeapPtr<wchar_t> destStr;
-    destStr.Allocate((length+1) * sizeof(wchar_t));
+    CHeapPtr<char16> destStr;
+    destStr.Allocate((length+1) * sizeof(char16));
     destStr[0] = 0;
     errno_t error = wcsncat_s(destStr, (length + 1), g, length);
     if (error != 0)
@@ -194,8 +199,8 @@ HRESULT GUIDParser::TryParseHexValue(LPCWSTR g, int maxLength, int* offset, unsi
         return E_INVALIDARG;
     }
 
-    CHeapPtr<wchar_t> destStr;
-    destStr.Allocate((index+1) * sizeof(wchar_t));
+    CHeapPtr<char16> destStr;
+    destStr.Allocate((index+1) * sizeof(char16));
     destStr[0] = 0;
     errno_t error = wcsncat_s(destStr, (index + 1), g, index);
     if (error != 0)
@@ -217,8 +222,8 @@ HRESULT GUIDParser::TryParseGUIDWithHexFormat(LPCWSTR g, GUID* result)
     int offset = 0;
 
     // Remove all whitespace from guid string
-    CHeapPtr<wchar_t> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(wchar_t));
+    CHeapPtr<char16> guidStr;
+    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {
@@ -312,7 +317,7 @@ HRESULT GUIDParser::TryParseGUIDWithDashes(LPCWSTR g, GUID* result)
     HRESULT hr;
     int pos = 0;
     unsigned long value;
-    wchar_t final = '\0';
+    char16 final = '\0';
 
     if (g[pos] == '{')
     {
@@ -453,7 +458,7 @@ HRESULT GUIDParser::TryParseGUIDWithNoStyle(LPCWSTR g, GUID* result)
     return S_OK;
 }
 
-bool GUIDParser::IsWhitespace(wchar_t c)
+bool GUIDParser::IsWhitespace(char16 c)
 {
     size_t length = wcslen(whitespace);
     for (size_t i = 0; i < length; i++)
@@ -466,7 +471,7 @@ bool GUIDParser::IsWhitespace(wchar_t c)
     return false;
 }
 
-void GUIDParser::EatAllWhitespace(__in_ecount(length) wchar_t* string, size_t length)
+void GUIDParser::EatAllWhitespace(__in_ecount(length) char16* string, size_t length)
 {
     int pos = 0;
     for (unsigned int i = 0; i < (length-1); i++)

@@ -87,8 +87,8 @@ LPWSTR __stdcall GetSystemStringFromHr(HRESULT hr)
 {
     LPWSTR returnStr = NULL;
 
-    DWORD_PTR pArgs[] = { (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", 
-        (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"", (DWORD_PTR)L"" };
+    DWORD_PTR pArgs[] = { (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), 
+        (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u("") };
 
     if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | 
         FORMAT_MESSAGE_ARGUMENT_ARRAY | 
@@ -155,14 +155,14 @@ void __stdcall DisplayMemStats()
 }
 
 #ifdef ENABLE_INTL_OBJECT
-void __stdcall ClearTimeZoneCalendars()
+void __stdcall ResetTimeZoneFactoryObjects()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
     if (!threadContext)
     {
         return;
     }
-    threadContext->GetWindowsGlobalizationAdapter()->ClearTimeZoneCalendars();
+    threadContext->GetWindowsGlobalizationAdapter()->ResetTimeZoneFactoryObjects();
 }
 #endif
 
@@ -176,19 +176,19 @@ BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect)
 void PreInitializePropertyIds(IActiveScriptDirect* scriptDirect)
 {
     static const LPWSTR WinRTHeapEnumPropertyNames[] = {
-        L"size",
-        L"new",
-        L"pinned",
-        L"object",
-        L"type",
-        L"gcPressure",
-        L"winrtType",
-        L"Instance",
-        L"RuntimeClass",
-        L"nativePtr",
-        L"eventCount",
-        L"eventNames",
-        L"eventHandlers" };
+        _u("size"),
+        _u("new"),
+        _u("pinned"),
+        _u("object"),
+        _u("type"),
+        _u("gcPressure"),
+        _u("winrtType"),
+        _u("Instance"),
+        _u("RuntimeClass"),
+        _u("nativePtr"),
+        _u("eventCount"),
+        _u("eventNames"),
+        _u("eventHandlers") };
     PropertyId propertyId;
     HRESULT hr = NOERROR;
     for (uint i = 0; i < _countof(WinRTHeapEnumPropertyNames) && SUCCEEDED(hr); i++)
@@ -318,7 +318,7 @@ HRESULT __stdcall SetAssertToConsoleFlag(bool flag)
     return S_OK;
 }
 
-void __stdcall FinalGC()
+HRESULT __stdcall FinalGC()
 {
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT) || defined(INTERNAL_MEM_PROTECT_HEAP_ALLOC)
     bool doFinalGC = false;
@@ -346,7 +346,7 @@ void __stdcall FinalGC()
 
     if (!doFinalGC)
     {
-        return;
+        return E_FAIL;
     }
 
 
@@ -356,7 +356,7 @@ void __stdcall FinalGC()
     // context- there wouldn't be anything interesting to collect anyway
     if (!threadContext || threadContext->WasAnyScriptContextEverRegistered() == false)
     {
-        return;
+        return E_FAIL;
     }
     Recycler * recycler = threadContext->GetRecycler();  
     // Recycler might not have initialized, check if it is null
@@ -367,6 +367,7 @@ void __stdcall FinalGC()
         Assert(!recycler->CollectionInProgress());
     }
 #endif
+    return S_OK;
 }
 
 HRESULT __stdcall GetThreadService(IActiveScriptGarbageCollector** threadService)
@@ -458,7 +459,7 @@ HRESULT OnJScript9Loaded()
         DisplayMemStats,
         FlushOutput,
 #ifdef ENABLE_INTL_OBJECT
-        ClearTimeZoneCalendars,
+        ResetTimeZoneFactoryObjects,
 #endif
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,

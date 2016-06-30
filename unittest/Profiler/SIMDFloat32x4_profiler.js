@@ -16,7 +16,7 @@ function testSIMDFloat32x4() {
     equal(SIMD.Float32x4.extractLane(c, 2), SIMD.Float32x4.extractLane(b, 2));
     equal(SIMD.Float32x4.extractLane(c, 3), SIMD.Float32x4.extractLane(b, 3));
 
-    var d = SIMD.Float32x4.zero();
+    var d = SIMD.Float32x4(0.0, 0.0, 0.0, 0.0);
     equal(SIMD.Float32x4.extractLane(d, 0), 0.0);
     equal(SIMD.Float32x4.extractLane(d, 1), 0.0);
     equal(SIMD.Float32x4.extractLane(d, 2), 0.0);
@@ -44,26 +44,11 @@ function testSIMDFloat32x4() {
     testSIMDFloat32x4_CompareOp();
     testSIMDFloat32x4_Swizzle();
     testSIMDFloat32x4_Shuffle();
-    testSIMDFloat32x4_Clamp();
     testSIMDFloat32x4_Select();
 }
 
 function testSIMDFloat32x4_conversion() {
     WScript.Echo("test SIMDFloat32x4 conversions......");
-
-    var j = SIMD.Float64x2(1.0, 2.0);
-    var k = SIMD.Float32x4.fromFloat64x2(j);
-    equal(1.0, SIMD.Float32x4.extractLane(k, 0));
-    equal(2.0, SIMD.Float32x4.extractLane(k, 1));
-    equal(0.0, SIMD.Float32x4.extractLane(k, 2));
-    equal(0.0, SIMD.Float32x4.extractLane(k, 3));
-
-    var m = SIMD.Float64x2.fromInt32x4Bits(SIMD.Int32x4(0x3F800000, 0x40000000, 0x40400000, 0x40800000));
-    var n = SIMD.Float32x4.fromFloat64x2Bits(m);
-    equal(1.0, SIMD.Float32x4.extractLane(n, 0));
-    equal(2.0, SIMD.Float32x4.extractLane(n, 1));
-    equal(3.0, SIMD.Float32x4.extractLane(n, 2));
-    equal(4.0, SIMD.Float32x4.extractLane(n, 3));
 
     var o = SIMD.Int32x4(1, 2, 3, 4);
     var p = SIMD.Float32x4.fromInt32x4(o);
@@ -114,13 +99,6 @@ function testSIMDFloat32x4_BinaryOp() {
     equal(3.0, SIMD.Float32x4.extractLane(c3, 1));
     equal(8.0, SIMD.Float32x4.extractLane(c3, 2));
     equal(2.0, SIMD.Float32x4.extractLane(c3, 3));
-
-    var a4 = SIMD.Float32x4(8.0, 4.0, 2.0, -2.0);
-    var c4 = SIMD.Float32x4.scale(a4, 0.5);
-    equal(4.0, SIMD.Float32x4.extractLane(c4, 0));
-    equal(2.0, SIMD.Float32x4.extractLane(c4, 1));
-    equal(1.0, SIMD.Float32x4.extractLane(c4, 2));
-    equal(-1.0, SIMD.Float32x4.extractLane(c4, 3));
 }
 
 function testSIMDFloat32x4_UnaryOp() {
@@ -239,18 +217,6 @@ function testSIMDFloat32x4_Shuffle() {
     equal(1.0, SIMD.Float32x4.extractLane(xxxx, 1));
     equal(5.0, SIMD.Float32x4.extractLane(xxxx, 2));
     equal(5.0, SIMD.Float32x4.extractLane(xxxx, 3));
-}
-
-function testSIMDFloat32x4_Clamp() {
-    WScript.Echo("test SIMDFloat32x4 Clamp......");
-    var a = SIMD.Float32x4(-20.0, 10.0, 30.0, 0.5);
-    var lower = SIMD.Float32x4(2.0, 1.0, 50.0, 0.0);
-    var upper = SIMD.Float32x4(2.5, 5.0, 55.0, 1.0);
-    var c = SIMD.Float32x4.clamp(a, lower, upper);
-    equal(2.0, SIMD.Float32x4.extractLane(c, 0));
-    equal(5.0, SIMD.Float32x4.extractLane(c, 1));
-    equal(50.0, SIMD.Float32x4.extractLane(c, 2));
-    equal(0.5, SIMD.Float32x4.extractLane(c, 3));
 }
 
 function testSIMDFloat32x4_Select() {

@@ -3,13 +3,13 @@
 Running ParseJson tests
 
 Test basic IActiveScriptDirect::ParseJson functionality...
-JSON Text:, HR:800a03ea, Var:<Var>
+JSON Text:, HR:800a1612, Var:<Var>
 Done.
 Test basic IActiveScriptDirect::ParseJson functionality...
 JSON Text:{"a":1}, HR:0, Var:<Var>
 Done.
 Test basic IActiveScriptDirect::ParseJson functionality...
-JSON Text:adsfa, HR:800a03f6, Var:<Var>
+JSON Text:adsfa, HR:800a1617, Var:<Var>
 Done.
 Test basic IActiveScriptDirect::ParseJson functionality...
 JSON Text:<nullptr>, HR:80070057, Var:<Var>

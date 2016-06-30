@@ -37,9 +37,16 @@ bool JsrtContext::Is(void * ref)
     return VirtualTableInfo<JsrtContextChakra>::HasVirtualTable(ref);
 }
 
-void JsrtContext::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo)
+#if ENABLE_TTD
+void JsrtContext::OnScriptLoad_TTDCallback(void* jsrtCtx, Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
 {
-    ((JsrtContextChakra *)this)->OnScriptLoad(scriptFunction, utf8SourceInfo);
+    ((JsrtContext*)jsrtCtx)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);
+}
+#endif
+
+void JsrtContext::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
+{
+    ((JsrtContextChakra *)this)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);
 }
 
 class JsrtDummyScriptSite sealed : public IActiveScriptSite, public IActiveScriptSiteDebug, public IActiveScriptSiteDebugHelper
@@ -188,7 +195,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
     // we dont need to force a GC at scriptsite close. it's relatively lightweight,
     // and we can let JsCollectGarbage called by user.
 
-    this->scriptEngine->SetNonPrimaryEngine(TRUE);
+    this->scriptEngine->SetNonPrimaryEngine(true);
 
     VARIANT variant;
     HRESULT hr;
@@ -205,7 +212,9 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
 
     InitSite(runtime);
 
-    SetScriptContext(this->scriptEngine->GetScriptContext());
+    SetJavascriptLibrary(this->scriptEngine->GetScriptContext()->GetLibrary());
+    Js::GlobalObject* globalObject = this->scriptEngine->GetScriptContext()->GetGlobalObject();
+    threadContext->GetRecycler()->RootRelease(globalObject, nullptr);
     Link();
     PinCurrentJsrtContext();
 
@@ -215,7 +224,7 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
 /* static */
 JsrtContextChakra *JsrtContextChakra::New(JsrtRuntime * runtime)
 {
-    return RecyclerNewFinalizedLeaf(runtime->GetThreadContext()->EnsureRecycler(), JsrtContextChakra, runtime);
+    return RecyclerNewFinalized(runtime->GetThreadContext()->EnsureRecycler(), JsrtContextChakra, runtime);
 }
 
 void JsrtContextChakra::InitSite(JsrtRuntime *runtime)
@@ -271,7 +280,7 @@ void JsrtContextChakra::Dispose(bool isShutdown)
             this->projectionDelegateWrapper->Release();
             this->projectionDelegateWrapper = nullptr;
         }
-        SetScriptContext(nullptr);
+        SetJavascriptLibrary(nullptr);
         Unlink();
     }
 }
@@ -353,7 +362,7 @@ HRESULT JsrtContextChakra::EnsureProjectionHost()
     return hr;
 }
 
-JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const wchar_t* nameSpace)
+JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const char16* nameSpace)
 {
     HRESULT hr = NOERROR;
     hr = EnsureProjectionHost();
@@ -387,7 +396,7 @@ JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const wchar_t* nameS
 }
 
 
-void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo)
+void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
 {
     if (scriptFunction != NULL)
     {
@@ -398,7 +407,7 @@ void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js
             JsrtRuntime* runtime = this->GetRuntime();
             if (runtime != nullptr)
             {
-                const wchar_t* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
+                const char16* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
                 g_TraceLoggingClient->TryLogNodePackage(runtime->GetThreadContext()->GetRecycler(), url);
             }
         }

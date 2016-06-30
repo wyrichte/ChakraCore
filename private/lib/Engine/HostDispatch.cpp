@@ -31,37 +31,34 @@ HostDispatch *
 HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL tryTracker /*=TRUE*/)
 {
     HRESULT hr;
-    Assert(scriptContext->GetThreadContext()->IsScriptActive());
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     ITracker* tracker = NULL;
     HostVariant* hostVariant = NULL;
     VARIANT* varDispatch;    
 
     if (pdisp != NULL)
-    {        
-        BEGIN_LEAVE_SCRIPT(scriptContext)
+    {
+        if (tryTracker)
         {
-            if (tryTracker)
-            {
-                hr = pdisp->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
+            AUTO_NO_EXCEPTION_REGION;
+            hr = pdisp->QueryInterface(IID_ITrackerJS9, (void**)&tracker);
 
-                if (SUCCEEDED(hr) && tracker)
+            if (SUCCEEDED(hr) && tracker)
+            {
+                tracker->GetTrackingAlias(&varDispatch);
+                if (varDispatch != NULL)
                 {
-                    tracker->GetTrackingAlias(&varDispatch);
-                    if (varDispatch != NULL)
-                    {
-                        // Note that one HostVariant can be reused in multiple ScriptContext's.
-                        // This is the reason for separating it from HostDispatch, which is a script object and
-                        // associated with a single ScriptSite/ScriptContext. (See Eze 1371, 1446.)
-                        Assert(varDispatch->punkVal != NULL);
-                        hostVariant = CONTAINING_RECORD(varDispatch, HostVariant, varDispatch);
-                        Assert(hostVariant->isTracked);
-                        tracker->Release();
-                        tracker = NULL;
-                    }                    
+                    // Note that one HostVariant can be reused in multiple ScriptContext's.
+                    // This is the reason for separating it from HostDispatch, which is a script object and
+                    // associated with a single ScriptSite/ScriptContext. (See Eze 1371, 1446.)
+                    Assert(varDispatch->punkVal != NULL);
+                    hostVariant = CONTAINING_RECORD(varDispatch, HostVariant, varDispatch);
+                    Assert(hostVariant->isTracked);
+                    tracker->Release();
+                    tracker = NULL;
                 }
-            }            
+            }
         }
-        END_LEAVE_SCRIPT(scriptContext);
     }
 
     Recycler* recycler = scriptContext->GetRecycler();
@@ -90,20 +87,16 @@ HostDispatch*
 HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
 {        
     Recycler* recycler = scriptContext->GetRecycler();
-    Assert(scriptContext->GetThreadContext()->IsScriptActive());
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
         
     HostVariant* hostVariant = RecyclerNewTrackedLeaf(recycler, HostVariant);
     
     HRESULT hr = S_OK;
-    BEGIN_LEAVE_SCRIPT(scriptContext)
-    {
-        hr = hostVariant->Initialize(variant);        
-    }
-    END_LEAVE_SCRIPT(scriptContext)
+    hr = hostVariant->Initialize(variant);
 
     if (FAILED(hr))
     {
-        Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: L"NEED MESSAGE" */);
+        Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: _u("NEED MESSAGE") */);
     } 
 
     ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
@@ -122,7 +115,7 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, ITracker 
     HostVariant* hostVariant;
     VARIANT* varDispatch;
     Recycler* recycler = scriptContext->GetRecycler();
-    Assert(scriptContext->GetThreadContext()->IsScriptActive());
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
 
     tracker->GetTrackingAlias(&varDispatch);
 
@@ -150,7 +143,7 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, ITracker 
 
 HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, LPCOLESTR itemName)
 {
-    Assert(scriptContext->GetThreadContext()->IsScriptActive());
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     Recycler* recycler = scriptContext->GetRecycler();
     ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
 
@@ -306,13 +299,13 @@ HRESULT HostDispatch::EnsureDispatch()
                         && FastGetDispatchNoRef(pHostVariant))
                     {
                         dispatch->Release();
-                        pHostVariant->supportIDispatchEx = TRUE;
-                        pHostVariant->isUnknown = FALSE;
+                        pHostVariant->supportIDispatchEx = true;
+                        pHostVariant->isUnknown = false;
                     }
                     else
                     {
-                        pHostVariant->supportIDispatchEx = FALSE;
-                        pHostVariant->isUnknown = FALSE;
+                        pHostVariant->supportIDispatchEx = false;
+                        pHostVariant->isUnknown = false;
                         pHostVariant->varDispatch.pdispVal = dispatch;
                     }
                 }
@@ -320,8 +313,8 @@ HRESULT HostDispatch::EnsureDispatch()
                 {
                     pHostVariant->varDispatch.vt = VT_UNKNOWN;
                     pHostVariant->varDispatch.punkVal = itemUnknown;
-                    pHostVariant->isUnknown = TRUE;
-                    pHostVariant->supportIDispatchEx = FALSE;
+                    pHostVariant->isUnknown = true;
+                    pHostVariant->supportIDispatchEx = false;
                 }
             }
         }
@@ -330,67 +323,114 @@ HRESULT HostDispatch::EnsureDispatch()
     return hr;
 }
 
-
-HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
-    Js::ScriptContext* scriptContext = this->GetScriptContext();
+#ifdef FAULT_INJECTION
+    if (Js::Configuration::Global.flags.FaultInjection >= 0)
+    {
+        return (this->*func)(id, wFlags, pdp, pvarRes, pei);
+    }
+#endif
+
+    HRESULT hr = 0;
+
+    // mark volatile, because otherwise VC will incorrectly optimize away load in the finally block
+    volatile ulong exceptionCode = 0;
+    EXCEPTION_POINTERS exceptionInfo = {0};
+    __try
+    {
+        __try
+        {
+            hr = (this->*func)(id, wFlags, pdp, pvarRes, pei);
+        }
+        __except (exceptionInfo = *GetExceptionInformation(), exceptionCode = GetExceptionCode(), EXCEPTION_CONTINUE_SEARCH)
+        {
+            Assert(UNREACHED);
+        }
+    }
+    __finally
+    {
+        // ensure that there is no EH across this boundary, as that can lead to bad state (e.g. destructors not called)
+        if (exceptionCode != 0 && !IsDebuggerPresent())
+        {
+            UnexpectedExceptionHandling_fatal_error(&exceptionInfo);
+        }
+    }
+    return hr;
+}
+
+HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    AUTO_NO_EXCEPTION_REGION;
 
     HRESULT hr;
     HostVariant* pHostVariant = nullptr;
     IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
-    
+
     IDispatchEx *pDispEx = (IDispatchEx*)GetDispatchNoRef();
     DispatchExCaller* pdc = nullptr;
     if (pDispEx == NULL)
     {
         return E_ACCESSDENIED;
-    }   
+    }
 
-    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    hr = this->scriptSite->GetDispatchExCaller(&pdc);
+    if (SUCCEEDED(hr))
     {
-        hr = this->scriptSite->GetDispatchExCaller(&pdc);
-        if (SUCCEEDED(hr))
-        {
-            ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
-            LCID lcid = scriptEngine->GetInvokeVersion();
+        ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
+        LCID lcid = scriptEngine->GetInvokeVersion();
         
-            pDispEx->AddRef();
+        pDispEx->AddRef();
             
-            // The custom marshaler in dispex.dll has a bug that causes the DISPATCH_CONSTRUCT flag
-            // to be lost. In IE10+ mode we use PrivateInvokeEx to work around that bug.
-            if (wFlags & DISPATCH_CONSTRUCT)
+        // The custom marshaler in dispex.dll has a bug that causes the DISPATCH_CONSTRUCT flag
+        // to be lost. In IE10+ mode we use PrivateInvokeEx to work around that bug.
+        if (wFlags & DISPATCH_CONSTRUCT)
+        {
+            IJavascriptDispatchRemoteProxy * remoteProxy = nullptr;
+            hr = pDispEx->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void **)&remoteProxy);
+            if (SUCCEEDED(hr))
             {
-                IJavascriptDispatchRemoteProxy * remoteProxy = nullptr;
-                hr = pDispEx->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void **)&remoteProxy);
-                if (SUCCEEDED(hr))
-                {
-                    hr = remoteProxy->PrivateInvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
-                    remoteProxy->Release();
-                }
-                else
-                {
-                    hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
-                }
+                hr = remoteProxy->PrivateInvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
+                remoteProxy->Release();
             }
             else
             {
                 hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
             }
-            
-            pDispEx->Release();
-
-            this->scriptSite->ReleaseDispatchExCaller(pdc);
         }
+        else
+        {
+            hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
+        }
+            
+        pDispEx->Release();
 
+        this->scriptSite->ReleaseDispatchExCaller(pdc);
     }
-    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
-    
+
     return hr;
 }
 
-HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+#pragma strict_gs_check(push, on)
+HRESULT HostDispatch::CallInvokeEx(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
 {
     Js::ScriptContext* scriptContext = this->GetScriptContext();
+    HRESULT hr;
+
+    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    {
+        hr = CallInvokeHandler(&HostDispatch::CallInvokeExInternal, id, wFlags, pdp, pvarRes, pei);
+    }
+    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+
+    return hr;
+}
+#pragma strict_gs_check(pop)
+
+HRESULT HostDispatch::CallInvokeInternal(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    AUTO_NO_EXCEPTION_REGION;
+
     HRESULT hr;
     UINT uArgErr;
     IDispatch* pdisp = GetDispatchNoRef();
@@ -398,20 +438,33 @@ HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIA
     {
         return E_ACCESSDENIED;
     }
-    
-    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
-    {
-        pdisp->AddRef();
 
-        hr = pdisp->Invoke(id, IID_NULL, 0x409/*lcid*/, wFlags, pdp, pvarRes, pei, &uArgErr);
+    pdisp->AddRef();
 
-        pdisp->Release();
-    }
-    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+    hr = pdisp->Invoke(id, IID_NULL, 0x409/*lcid*/, wFlags, pdp, pvarRes, pei, &uArgErr);
+
+    pdisp->Release();
+
     return hr;
 }
 
-BOOL HostDispatch::IsGetDispIdCycle(const wchar_t* name)
+#pragma strict_gs_check(push, on)
+HRESULT HostDispatch::CallInvoke(DISPID id, WORD wFlags, DISPPARAMS * pdp, VARIANT * pvarRes, EXCEPINFO * pei)
+{
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
+    HRESULT hr;
+
+    BEGIN_LEAVE_SCRIPT_SAVE_FPU_CONTROL(scriptContext)
+    {
+        hr = CallInvokeHandler(&HostDispatch::CallInvokeInternal, id, wFlags, pdp, pvarRes, pei);
+    }
+    END_LEAVE_SCRIPT_RESTORE_FPU_CONTROL(scriptContext);
+
+    return hr;
+}
+#pragma strict_gs_check(pop)
+
+BOOL HostDispatch::IsGetDispIdCycle(const char16* name)
 {
     StackNode* current = cycleStack;
     while(current)
@@ -455,7 +508,6 @@ BOOL HostDispatch::GetDispIdForProperty(LPCWSTR psz, DISPID *pid)
     if (FAILED(hr = EnsureDispatch()))
     {
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
-        Assert(UNREACHED);
     }
 
     HostVariant* hostVariant = GetHostVariant();
@@ -597,7 +649,7 @@ HRESULT HostDispatch::GetIDsOfNames(LPCWSTR psz, DISPID* pid)
     return hr;
 }
 
-BOOL HostDispatch::HasProperty(const wchar_t *psz)
+BOOL HostDispatch::HasProperty(const char16 *psz)
 {
     // See whether the instance has this property by trying to get its DISPID.
 
@@ -654,7 +706,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     {
         Js::Var var;
         DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
-        hr = DispatchHelper::MarshalVariantToJsVar(&varValue, &var, scriptContext, propertyFlag);
+        hr = DispatchHelper::MarshalVariantToJsVarWithLeaveScript(&varValue, &var, scriptContext, propertyFlag);
         VariantClear(&varValue);
         if (SUCCEEDED(hr))
         {
@@ -666,7 +718,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     HandleDispatchError(hr, &ei);
 }
 
-BOOL HostDispatch::GetValue(const wchar_t * psz, Js::Var *pValue)
+BOOL HostDispatch::GetValue(const char16 * psz, Js::Var *pValue)
 {
     DISPID       id = DISPID_UNKNOWN;
 
@@ -679,7 +731,7 @@ BOOL HostDispatch::GetValue(const wchar_t * psz, Js::Var *pValue)
     return this->GetValueByDispId(id, pValue);
 }
 
-void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_t *name)
+void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const char16 *name)
 {
     // Given an instance and a DISPID, create an lvalue reference (DispMemberProxy).
 
@@ -700,16 +752,15 @@ void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const wchar_
     ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
     DispMemberProxy* proxy = RecyclerNewFinalized(
         scriptContext->GetRecycler(),
-        DispMemberProxy,        
-        RecyclerNewTrackedLeaf(scriptContext->GetRecycler(), HostVariant, pDispatch, scriptContext),
+        DispMemberProxy,
+        RecyclerNewTrackedLeaf(scriptContext->GetRecycler(), HostVariant, pDispatch),
         id,
         scriptSite->GetActiveScriptExternalLibrary()->GetDispMemberProxyType(),
         name);
-
     *pValue = proxy;
 }
 
-BOOL HostDispatch::GetPropertyReference(const wchar_t * psz, Js::Var *pValue)
+BOOL HostDispatch::GetPropertyReference(const char16 * psz, Js::Var *pValue)
 {
     DISPID       id = DISPID_UNKNOWN;
     Js::ScriptContext* scriptContext = this->GetScriptContext();
@@ -742,7 +793,7 @@ BOOL HostDispatch::PutValueByDispId(DISPID id, Js::Var value)
     WORD         wFlags = DISPATCH_PROPERTYPUT | DISPATCH_PROPERTYPUTREF;
     VARIANT      varValue;
 
-    hr = DispatchHelper::MarshalJsVarToVariant(value, &varValue);
+    hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(value, &varValue, this->GetScriptContext());
     if (FAILED(hr))
     {
         return FALSE;
@@ -781,7 +832,7 @@ BOOL HostDispatch::PutValueByDispId(DISPID id, Js::Var value)
     HandleDispatchError(hr, &ei);
 }
 
-BOOL HostDispatch::PutValue(const wchar_t * psz, Js::Var value)
+BOOL HostDispatch::PutValue(const char16 * psz, Js::Var value)
 {
     DISPID       id = DISPID_UNKNOWN;
 
@@ -793,7 +844,7 @@ BOOL HostDispatch::PutValue(const wchar_t * psz, Js::Var value)
     return this->PutValueByDispId(id, value);
 }
 
-BOOL HostDispatch::GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext)
+BOOL HostDispatch::GetAccessors(const char16 * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext)
 {
     HRESULT hr = S_OK;
     BSTR propName = NULL;
@@ -841,7 +892,7 @@ BOOL HostDispatch::GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* 
                 hr = pDomConst->LookupGetter(propName, &varGetter);
                 if (SUCCEEDED(hr))
                 {
-                    hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(&varGetter, getter, requestContext);
+                    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varGetter, getter, requestContext);
                     VariantClear(&varGetter);
                     if (SUCCEEDED(hr))
                     {
@@ -860,7 +911,7 @@ BOOL HostDispatch::GetAccessors(const wchar_t * name, Js::Var* getter, Js::Var* 
                 hr = pDomConst->LookupSetter(propName, &varSetter);
                 if (SUCCEEDED(hr))
                 {
-                    hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(&varSetter, setter, requestContext);
+                    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varSetter, setter, requestContext);
                     VariantClear(&varSetter);
                     if (SUCCEEDED(hr))
                     {
@@ -911,11 +962,11 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::Proper
     {
         if (descriptor.ConfigurableSpecified() && !descriptor.IsConfigurable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"configurable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("configurable"));
         }
         if (descriptor.EnumerableSpecified() && descriptor.IsEnumerable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeTrue, L"enumerable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeTrue, _u("enumerable"));
         }
 
         Assert(!descriptor.WritableSpecified());  // Not allowed by JavascriptOperators::ToPropertyDescriptor
@@ -928,15 +979,15 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::Proper
         }
         if (descriptor.ConfigurableSpecified() && !descriptor.IsConfigurable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"configurable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("configurable"));
         }
         if (descriptor.EnumerableSpecified() && !descriptor.IsEnumerable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"enumerable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("enumerable"));
         }
         if (descriptor.WritableSpecified() && !descriptor.IsWritable())
         {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, L"writable");
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("writable"));
         }
     }
 }
@@ -962,7 +1013,7 @@ BOOL HostDispatch::GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descript
     return false;
 }
 
-BOOL HostDispatch::SetAccessors(const wchar_t * name, Js::Var getter, Js::Var setter)
+BOOL HostDispatch::SetAccessors(const char16 * name, Js::Var getter, Js::Var setter)
 {
     AssertInScript();
 
@@ -1061,9 +1112,9 @@ BOOL HostDispatch::HasItem(uint32 index)
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1080,9 +1131,9 @@ BOOL HostDispatch::GetItemReference(Js::Var originalInstance, __in uint32 index,
         *value = requestContext->GetLibrary()->GetNull();
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1099,9 +1150,9 @@ BOOL HostDispatch::GetItem(Js::Var originalInstance, __in uint32 index, __out Js
         *value = requestContext->GetLibrary()->GetNull();
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1117,9 +1168,9 @@ BOOL HostDispatch::SetItem(__in uint32 index, __in Js::Var value, __in Js::Prope
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1135,9 +1186,9 @@ BOOL HostDispatch::DeleteItem(uint32 index, Js::PropertyOperationFlags flags)
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    wchar_t buffer[22];
+    char16 buffer[22];
 
-    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(wchar_t), 10);
+    ::_i64tow_s(index, &buffer[2], (sizeof(buffer)-sizeof(DWORD))/sizeof(char16), 10);
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
@@ -1208,14 +1259,13 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
     HandleDispatchError(hr, nullptr);
 }
 
-BOOL HostDispatch::DeleteProperty(const wchar_t * psz)
+BOOL HostDispatch::DeleteProperty(const char16 * psz)
 {
     IDispatchEx *pDispEx = nullptr;    
     HRESULT hr;
     if (FAILED(hr = EnsureDispatch()))
     {
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
-        Assert(UNREACHED);
     }
 
     HostVariant* hostVariant = GetHostVariant();
@@ -1416,18 +1466,22 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             HostDispatch* hostDispatch = ((HostObject*)scriptContext->GetGlobalObject()->GetHostObject())->GetHostDispatch();
             thisArg = static_cast<RecyclableObject*>(hostDispatch);
         }
-        hr = DispatchHelper::MarshalJsVarToVariant(thisArg, dp.rgvarg);
-        if (SUCCEEDED(hr))
+        BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            if (dp.cArgs > 1)
+            hr = DispatchHelper::MarshalJsVarToVariantNoThrow(thisArg, dp.rgvarg, scriptContext);
+            if (SUCCEEDED(hr))
             {
-                hr = DispatchHelper::MarshalJsVarsToVariants(&args.Values[1], &dp.rgvarg[1], dp.cArgs -1);
-            }
-            if (FAILED(hr))
-            {
-                VariantClear(dp.rgvarg);
+                if (dp.cArgs > 1)
+                {
+                    hr = DispatchHelper::MarshalJsVarsToVariantsNoThrow(&args.Values[1], &dp.rgvarg[1], dp.cArgs - 1);
+                }
+                if (FAILED(hr))
+                {
+                    VariantClear(dp.rgvarg);
+                }
             }
         }
+        END_LEAVE_SCRIPT(scriptContext)
     }
     else
     {
@@ -1492,26 +1546,33 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             pvarDisplay->parray = &safeArray;
 
             // Marshal the scopes into the array data and make the following code ignore this arg.
-            hr = DispatchHelper::MarshalFrameDisplayToVariant(pDisplay, (VARIANT*)safeArray.pvData);
+            BEGIN_LEAVE_SCRIPT(scriptContext)
+            {
+                hr = DispatchHelper::MarshalFrameDisplayToVariantNoScript(pDisplay, (VARIANT*)safeArray.pvData);
+            }
+            END_LEAVE_SCRIPT(scriptContext)
             argCount--;
-            rgvarg++;           
+            rgvarg++;
         }
 
         if (SUCCEEDED(hr))
         {
-            if(keepThis)
+            BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                if (SUCCEEDED(hr = DispatchHelper::MarshalJsVarToVariant(args.Values[0], dp.rgvarg)))
+                if (keepThis)
                 {
-                    hr = DispatchHelper::MarshalJsVarsToVariants( &args.Values[1], &rgvarg[1], argCount-1);
+                    if (SUCCEEDED(hr = DispatchHelper::MarshalJsVarToVariantNoThrow(args.Values[0], dp.rgvarg, scriptContext)))
+                    {
+                        hr = DispatchHelper::MarshalJsVarsToVariantsNoThrow(&args.Values[1], &rgvarg[1], argCount - 1);
+                    }
+                }
+                else
+                {
+                    hr = DispatchHelper::MarshalJsVarsToVariantsNoThrow(&args.Values[1], rgvarg, argCount);
                 }
             }
-            else
-            {
-                hr = DispatchHelper::MarshalJsVarsToVariants( &args.Values[1], rgvarg, argCount);
-            }
+            END_LEAVE_SCRIPT(scriptContext)
         }
-
 
         if (fIsPut)
         {
@@ -1594,7 +1655,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             if (hasReturnValue)
             {
                 DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
-                hr = DispatchHelper::MarshalVariantToJsVar(&varRes, &result, scriptContext, propertyFlag);
+                hr = DispatchHelper::MarshalVariantToJsVarWithLeaveScript(&varRes, &result, scriptContext, propertyFlag);
                 VariantClear(&varRes);
 
                 if (FAILED(hr))
@@ -1694,7 +1755,7 @@ BOOL HostDispatch::GetDefaultValue(Js::JavascriptHint hint, Js::Var* value, BOOL
     if (SUCCEEDED(hr))
     {
         DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
-        hr = DispatchHelper::MarshalVariantToJsVar(&varValue, value, scriptContext, propertyFlag);
+        hr = DispatchHelper::MarshalVariantToJsVarWithLeaveScript(&varValue, value, scriptContext, propertyFlag);
         VariantClear(&varValue);
         if (SUCCEEDED(hr))
         {
@@ -1726,7 +1787,6 @@ BOOL HostDispatch::IsInstanceOf(Js::Var prototypeProxy)
     if (FAILED(hr = EnsureDispatch()))
     {
         HandleDispatchError(hr, nullptr);
-        Assert(UNREACHED);
     }
 
     Js::RecyclableObject* func = Js::RecyclableObject::FromVar(prototypeProxy);
@@ -1766,7 +1826,7 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
             // move the EXCEPINFO's description to a recycler allocation
             Assert(exceptInfo->bstrDescription);
             uint32 len = SysStringLen(exceptInfo->bstrDescription) + 1;
-            wchar_t * allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, len);
+            char16 * allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, len);
             wcscpy_s(allocatedString, len, exceptInfo->bstrDescription);
 
             // save hCode before we clear exceptInfo
@@ -1776,7 +1836,6 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
             FreeExcepInfo(exceptInfo);
 
             Js::JavascriptError::ThrowDispatchError(scriptContext, hCode, allocatedString);
-            Assert(false);
         }
         hr = exceptInfo->scode;
     }
@@ -1791,12 +1850,10 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
     {
         // Rethrow
         scriptContext->RethrowRecordedException(HostDispatch::CreateDispatchWrapper);
-        Assume(UNREACHED);
     }
 
     Assert(!scriptContext->HasRecordedException());
     Js::JavascriptError::MapAndThrowError(scriptContext, hr);
-    Assume(UNREACHED);
 }
 
 HRESULT HostDispatch::QueryObjectInterface(REFIID riid, void** ppvObj)
@@ -1962,12 +2019,15 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
         dp.cNamedArgs = 1;
         dp.rgdispidNamedArgs = &dispIdThis;
         dp.rgvarg = (VARIANT*)_alloca(sizeof(VARIANT)*dp.cArgs);
-
-        hr = DispatchHelper::MarshalJsVarToVariant(args.Values[0], dp.rgvarg);
-        if (SUCCEEDED(hr))
+        BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            hr = DispatchHelper::MarshalJsVarsToVariants(&args.Values[1], &dp.rgvarg[1], dp.cArgs - 1);
+            hr = DispatchHelper::MarshalJsVarToVariantNoThrow(args.Values[0], dp.rgvarg, scriptContext);
+            if (SUCCEEDED(hr))
+            {
+                hr = DispatchHelper::MarshalJsVarsToVariantsNoThrow(&args.Values[1], &dp.rgvarg[1], dp.cArgs - 1);
+            }
         }
+        END_LEAVE_SCRIPT(scriptContext)
     }
     
     EXCEPINFO ei;
@@ -1987,20 +2047,20 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
                 hr = dispatchProxy->InvokeBuiltInOperation(operation, 0, &dp, &varRes, &ei, pdc);
                 scriptSite->ReleaseDispatchExCaller(pdc);
             }
+
+            for (uint32 i = 0; i < dp.cArgs; ++i)
+            {
+                VariantClear(&dp.rgvarg[i]);
+            }
+
+            if (SUCCEEDED(hr) && result)
+            {
+                DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
+                hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varRes, result, scriptContext, propertyFlag);
+            }
         }
         END_LEAVE_SCRIPT(scriptContext)
 
-        for (uint32 i = 0; i < dp.cArgs; ++i)
-        {
-            VariantClear(&dp.rgvarg[i]);
-        }
-
-        if (SUCCEEDED(hr) && result)
-        {
-            DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
-            hr = DispatchHelper::MarshalVariantToJsVar(&varRes, result, scriptContext, propertyFlag);
-        }
-        
         VariantClear(&varRes);
     }
 
@@ -2061,18 +2121,18 @@ Js::DynamicObject* HostDispatch::GetRemoteObject()
 
 Var HostDispatch::CreateDispatchWrapper(Var object, Js::ScriptContext * sourceScriptContext, Js::ScriptContext * destScriptContext)
 {
-    Assert(sourceScriptContext != destScriptContext);        
+    Assert(sourceScriptContext != destScriptContext);
     VARIANT vt;
     VariantInit(&vt);
     HRESULT hr;
     bool isScriptActive = sourceScriptContext->GetThreadContext()->IsScriptActive();
     if (isScriptActive)
     {
-        hr = DispatchHelper::MarshalJsVarToVariant(object, &vt);
+        hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(object, &vt, destScriptContext);
     }
     else
     {
-        hr = DispatchHelper::MarshalJsVarToVariantWithScriptEnter(object, &vt, destScriptContext);
+        hr = DispatchHelper::MarshalJsVarToVariantNoThrow(object, &vt, destScriptContext);
     }
     
     if (SUCCEEDED(hr))
@@ -2080,11 +2140,11 @@ Var HostDispatch::CreateDispatchWrapper(Var object, Js::ScriptContext * sourceSc
         Var var;
         if (isScriptActive)
         {
-            hr = DispatchHelper::MarshalVariantToJsVar(&vt, &var, destScriptContext);
+            hr = DispatchHelper::MarshalVariantToJsVarWithLeaveScript(&vt, &var, destScriptContext);
         }
         else
         {
-            hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(&vt, &var, destScriptContext);
+            hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&vt, &var, destScriptContext);
         }
         
         if (SUCCEEDED(hr))
@@ -2225,7 +2285,6 @@ Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* req
     if (FAILED(hr))
     {
         HandleDispatchError(hr, NULL);
-        Assert(UNREACHED);
     }
 
     Recycler* recycler = requestContext->GetRecycler();

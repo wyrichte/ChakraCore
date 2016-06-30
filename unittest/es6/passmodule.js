@@ -1,1 +1,2 @@
-WScript.Echo("Pass");
+import { x } from 'exportmodule.js';
+WScript.Echo(x);

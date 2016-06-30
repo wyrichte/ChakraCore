@@ -6,13 +6,13 @@
 
 namespace Js
 {
-    const wchar_t Constants::AnonymousFunction[] = L"Anonymous function";
-    const wchar_t Constants::Anonymous[] = L"anonymous";
-    const wchar_t Constants::FunctionCode[] = L"Function code";
-    const wchar_t Constants::GlobalFunction[] = L"glo";
-    const wchar_t Constants::GlobalCode[] = L"Global code";
-    const wchar_t Constants::EvalCode[] = L"eval code";
-    const wchar_t Constants::UnknownScriptCode[] = L"Unknown script code";
+    const char16 Constants::AnonymousFunction[] = _u("Anonymous function");
+    const char16 Constants::Anonymous[] = _u("anonymous");
+    const char16 Constants::FunctionCode[] = _u("Function code");
+    const char16 Constants::GlobalFunction[] = _u("glo");
+    const char16 Constants::GlobalCode[] = _u("Global code");
+    const char16 Constants::EvalCode[] = _u("eval code");
+    const char16 Constants::UnknownScriptCode[] = _u("Unknown script code");
 }
 // --- Dummy definitions - to satisfy the linker ---
 __declspec(noinline) void DebugHeap_OOM_fatal_error()
@@ -91,7 +91,6 @@ namespace JsDiag
 
     template struct RemoteRecyclableObjectBase<RecyclableObject>;
     template struct RemoteRecyclableObjectBase<DynamicObject>;
-    template struct RemoteRecyclableObjectBase<JavascriptVariantDate>;
 
     RemoteJavascriptLibrary::RemoteJavascriptLibrary(IVirtualReader* reader, const ScriptContext* scriptContext):
         RemoteData(reader, RemoteScriptContext(reader, scriptContext)->GetLibrary())
@@ -226,221 +225,6 @@ namespace JsDiag
         return !!functionInfo->HasBody();
     }
 
-    bool RemoteJavascriptFunction::IsBoundFunction(const InspectionContext* inspectionContext) const
-    {
-        if (inspectionContext->IsVTable(ReadVTable(), Diag_BoundFunction, Diag_BoundFunction))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    RecyclableObject* RemoteJavascriptFunction::FindCaller(
-        const InspectionContext* inspectionContext,
-        JsDiag::RemoteThreadContext* remoteThreadContext,
-        JsDiag::RemoteScriptContext* remoteRequestContext,
-        JavascriptFunction* nullObject,
-        bool& foundThis)
-    {
-        Assert(inspectionContext);
-        Assert(nullObject);
-        Assert(remoteThreadContext);
-        Assert(remoteRequestContext);
-
-        JavascriptFunction* funcCaller = nullObject;
-
-        // This method is in sync with JavascriptFunction::FindCaller() on the runtime side.
-        auto reader = GetReader();
-        DebugClient* debugClient = inspectionContext->GetDebugClient();
-
-        RemoteStackWalker walker {
-            debugClient,
-            remoteThreadContext->ToTargetPtr()->currentThreadId,
-            nullptr,
-            false /*walkInternalFrame*/};
-
-        foundThis = false;
-        if (walker.WalkToTarget(this->GetRemoteAddr()))
-        {
-            foundThis = true;
-
-            RemoteScriptConfiguration scriptConfiguration = RemoteScriptConfiguration(m_reader, remoteRequestContext->GetConfig());
-            while (walker.WalkToNextJavascriptFrame())
-            {
-                funcCaller = walker.GetCurrentFunction();
-
-                if (walker.IsCallerGlobalFunction())
-                {
-                    funcCaller = nullObject;
-                }
-
-                break;
-            }
-
-            // Need this to be a RemoteRecyclableObject since it need not be a function
-            RemoteRecyclableObject remoteFunctionCaller = RemoteRecyclableObject(m_reader, funcCaller);
-            if (remoteFunctionCaller.GetScriptContext() != remoteRequestContext->GetRemoteAddr()
-             && inspectionContext->GetTypeId(funcCaller) == Js::TypeId::TypeIds_Null)
-            {
-                funcCaller = nullObject;
-            }
-        }
-
-        return funcCaller;
-    }
-
-    bool RemoteJavascriptFunction::GetCaller(const InspectionContext* context, Js::Var* value, CString& error)
-    {
-        Assert(context);
-        Assert(value);
-
-        // This method is in sync with JavascriptFunction::GetCallerProperty() on the runtime side.
-        auto reader = GetReader();
-
-        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
-        RemoteDynamicObject remoteFunctionPrototype(reader, library.GetFunctionPrototype());
-        Js::Type* typeAddr = remoteFunctionPrototype.ToTargetPtr()->type;
-        RemoteType remoteType(reader, typeAddr);
-        Js::JavascriptMethod entrypoint = remoteType.ToTargetPtr()->entryPoint;
-
-        if (this->IsStrictMode() || this->GetEntrypoint() == entrypoint)
-        {
-            error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
-            return false;
-        }
-
-        RecyclableObject* nullObject = library.GetNull();
-        if (IsLibraryCode()) // Hide .caller for builtins
-        {
-            *value = nullObject;
-            return true;
-        }
-
-        RemoteScriptContext scriptContext = RemoteScriptContext(reader, GetScriptContext());
-        RemoteThreadContext threadContext = RemoteThreadContext(reader, scriptContext->threadContext);
-
-        bool foundThis;
-        RecyclableObject* caller = FindCaller(context, &threadContext, &scriptContext, (JavascriptFunction*)nullObject, foundThis);
-
-        RemoteRecyclableObject remoteCaller = RemoteRecyclableObject(reader, caller);
-
-        RemoteScriptContext remoteCallerScriptContext(reader, remoteCaller.GetScriptContext());
-        if (foundThis && caller == nullObject && threadContext->HasUnhandledException())
-        {
-            Js::JavascriptExceptionObject* unhandledExceptionObject = threadContext.GetUnhandledExceptionObject();
-            if (unhandledExceptionObject)
-            {
-                RemoteJavascriptExceptionObject unhandledExceptionObject = RemoteJavascriptExceptionObject(reader, threadContext.GetUnhandledExceptionObject());
-                Js::JavascriptFunction* exceptionFunction = unhandledExceptionObject->GetFunction();
-                if (exceptionFunction)
-                {
-                    RemoteJavascriptFunction remoteExceptionFunction = RemoteJavascriptFunction(reader, exceptionFunction);
-                    if (scriptContext.GetRemoteAddr() == remoteExceptionFunction.GetScriptContext())
-                    {
-                        error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
-                        return false;
-                    }
-                }
-            }
-        }
-        else if (foundThis && scriptContext.GetRemoteAddr() != remoteCallerScriptContext.GetRemoteAddr())
-        {
-            // TODO: How do we do cross domain checking here?
-        }
-
-        if (caller != nullObject)
-        {
-            RemoteJavascriptFunction returnValueFunction = RemoteJavascriptFunction(reader, (Js::JavascriptFunction*)caller);
-            if (returnValueFunction.IsStrictMode())
-            {
-                if (!threadContext->IsDisableImplicitException())
-                {
-                    error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
-                    return false;
-                }
-            }
-        }
-
-        *value = caller;
-        return true;
-    }
-
-    bool RemoteJavascriptFunction::GetArguments(const InspectionContext* context, Js::Var* value, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty, CString& error)
-    {
-        Assert(context);
-        Assert(value);
-
-        // This method is in sync with JavascriptFunction::GetArgumentsProperty() on the runtime side.
-        auto reader = GetReader();
-        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(reader, GetLibrary());
-        RemoteDynamicObject remoteFunctionPrototype(reader, library.GetFunctionPrototype());
-        Js::Type* typeAddr = remoteFunctionPrototype.ToTargetPtr()->type;
-        RemoteType remoteType(reader, typeAddr);
-        Js::JavascriptMethod entrypoint = remoteType.ToTargetPtr()->entryPoint;
-
-        if (this->IsStrictMode() || this->GetEntrypoint() == entrypoint)
-        {
-            error = CString(context->GetDebugClient()->GetErrorString(DIAGERR_FunctionCallNotSupported));
-            return false;
-        }
-
-        RemoteScriptContext scriptContext = RemoteScriptContext(reader, GetScriptContext());
-        RemoteThreadContext threadContext = RemoteThreadContext(reader, scriptContext.GetThreadContext());
-        *value = library.GetNull();
-        *ppDebugProperty = nullptr;
-
-        DebugClient* debugClient = context->GetDebugClient();
-
-        RemoteStackWalker walker{
-            debugClient,
-            threadContext.GetCurrentThreadId(),
-            nullptr,
-            false /*walkInternalFrame*/};
-
-        if (walker.WalkToTarget(this->GetRemoteAddr()))
-        {
-            if (!walker.IsCallerGlobalFunction())
-            {
-                CComPtr<RemoteStackFrame> currentFrame;
-                walker.GetCurrentJavascriptFrame(&currentFrame);
-                currentFrame->SetInspectionContext(const_cast<InspectionContext*>(context));
-                LocalsWalker::GetArgumentsObjectProperty(currentFrame, /*isStrictMode*/false, /*opt argumentsObject*/value, ppDebugProperty);
-            }
-        }
-
-        return true;
-    }
-
-    uint16 RemoteBoundFunction::GetLength(InspectionContext* context, PROPERTY_INFO* propInfo) {
-        Assert(context);
-        auto reader = context->GetReader();
-
-        RecyclableObject* targetFunction = this->ToTargetPtr()->targetFunction;
-        Assert(targetFunction);
-
-        RemoteJavascriptFunction remoteTargetFunction = RemoteJavascriptFunction(reader, static_cast<const JavascriptFunction*>(targetFunction));
-
-        if (remoteTargetFunction.IsBoundFunction(context))
-        {
-            RemoteBoundFunction remoteBoundFunction = RemoteBoundFunction(reader, static_cast<const BoundFunction*>(targetFunction));
-            return remoteBoundFunction.GetLength(context, propInfo);
-        }
-        else if (remoteTargetFunction.IsScriptFunction())
-        {
-            return remoteTargetFunction.GetLength();
-        }
-        else
-        {
-            // It's a runtime function
-            if (!context->GetProperty((Js::Var)targetFunction, Js::PropertyIds::length, propInfo))
-            {
-                DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_GETPROPERTY);
-            }
-
-            return TARGETS_RUNTIME_FUNCTION;
-        }
-    }
-
     uint16 RemoteJavascriptFunction::GetLength()
     {
         FunctionBody* functionBodyAddr = GetFunction();
@@ -491,119 +275,6 @@ namespace JsDiag
         return functionInfo.GetFunction();
     }
 
-    bool RemoteArgumentsObject::AdvanceWalkerToArgsFrame(const InspectionContext* inspectionContext, RemoteStackWalker* walker)
-    {
-        Assert(inspectionContext);
-        Assert(walker);
-
-        // This method is in sync with JavascriptStackWalker::WalkToArgumentsFrame() on the runtime side.
-        while (walker->WalkToNextJavascriptFrame())
-        {
-            Js::Var currentArgs = walker->GetPermanentArguments(inspectionContext);
-            if (currentArgs == this->GetRemoteAddr())
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    Js::Var RemoteArgumentsObject::GetCaller(
-        const InspectionContext* inspectionContext,
-        RemoteScriptContext* scriptContext,
-        RemoteStackWalker* walker,
-        JavascriptFunction* nullObject,
-        bool skipGlobal)
-    {
-        Assert(inspectionContext);
-        Assert(scriptContext);
-        Assert(walker);
-        Assert(nullObject);
-
-        // This method is in sync with ArgumentsObject::GetCaller() on the runtime side.
-        Js::JavascriptFunction* currentFunction = nullptr;
-        RemoteScriptConfiguration scriptConfiguration = RemoteScriptConfiguration(m_reader, scriptContext->GetConfig());
-        while (walker->WalkToNextJavascriptFrame())
-        {
-            currentFunction = walker->GetCurrentFunction();
-            RemoteJavascriptFunction remoteCurrentFunction(GetReader(), currentFunction);
-            if (walker->IsCallerGlobalFunction())
-            {
-                // Caller is global/eval. If we're in IE9 mode, and the caller is eval,
-                // keep looking. Otherwise, caller is null.
-                if (skipGlobal || walker->IsEvalCaller())
-                {
-                    continue;
-                }
-
-                currentFunction = nullptr;
-            }
-            break;
-        }
-
-        if (currentFunction == nullptr
-         || inspectionContext->GetTypeId(currentFunction) == Js::TypeId::TypeIds_Null)
-        {
-            return nullObject;
-        }
-
-        Js::CallInfo callInfo = walker->GetCurrentCallInfo();
-        uint32 paramCount = callInfo.Count;
-        Js::CallFlags flags = callInfo.Flags;
-
-        if (paramCount == 0 || (flags & Js::CallFlags::CallFlags_Eval))
-        {
-            // The caller is the "global function" or eval, so we return "null".
-            return nullObject;
-        }
-
-        Js::Var args = walker->GetPermanentArguments(inspectionContext);
-        if (args == nullptr)
-        {
-            // TODO: How to load heap arguments?
-            args = nullObject;
-        }
-
-        return args;
-    }
-
-    Js::Var RemoteArgumentsObject::GetCaller(
-        const InspectionContext* inspectionContext,
-        JsDiag::RemoteThreadContext* threadContext,
-        JsDiag::RemoteScriptContext* scriptContext)
-    {
-        Assert(inspectionContext);
-        Assert(threadContext);
-        Assert(scriptContext);
-
-        RemoteType type(m_reader, ToTargetPtr()->GetType());
-        RemoteJavascriptLibrary library = RemoteJavascriptLibrary(m_reader, type->GetLibrary());
-        JavascriptFunction* nullObject = (JavascriptFunction*)library.GetNull();
-
-        // This method is in sync with ArgumentsObject::GetCaller() on the runtime side.
-        auto reader = GetReader();
-        DebugClient* debugClient = inspectionContext->GetDebugClient();
-
-        RemoteStackWalker walker{
-            debugClient,
-            threadContext->ToTargetPtr()->currentThreadId,
-            nullptr,
-            false /*walkInternalFrame*/};
-
-        if (!this->AdvanceWalkerToArgsFrame(inspectionContext, &walker))
-        {
-            return nullObject;
-        }
-
-        return this->GetCaller(
-            inspectionContext,
-            scriptContext,
-            &walker,
-            nullObject,
-            false /*skipGlobal*/);
-    }
-
     //static
     InlinedFrameLayout* RemoteInlinedFrameLayout::FromPhysicalFrame(
         IVirtualReader* reader, InternalStackFrame* physicalFrame, void* entry, Js::ScriptFunction* parent, FunctionEntryPointInfo* entryPoint)
@@ -646,67 +317,6 @@ namespace JsDiag
         return ReadField<FrameDisplay*>(offsetof(ScriptFunction, environment));
     }
 
-    bool_result RemoteJavascriptFunction::TryReadDisplayName(_Out_ CString* name)
-    {
-        FunctionBody* pFuncBody = GetFunction();
-        if (pFuncBody)
-        {
-            RemoteFunctionBody body(m_reader, pFuncBody);
-            return body.TryReadDisplayName(name);
-        }
-
-        return false;
-    }
-
-    bool_result RemoteJavascriptFunction::TryReadDisplayName(IVirtualReader* reader, Js::Var var, _Out_ CString* name)
-    {
-        RemoteJavascriptFunction func(reader, static_cast<JavascriptFunction*>(var));
-        return func.TryReadDisplayName(name);
-    }
-
-    Js::Var RemoteJavascriptFunction::GetSourceString(const InspectionContext* context) const
-    {
-        // NOTE: This is not equivalent to runtime GetSourceString. Only called when function body isn't available.
-
-        // JavascriptFunction and bound function don't have source strings
-        if (context->IsVTable(ReadVTable(), Diag_FirstNoSourceJavascriptFunction, Diag_LastNoSourceJavascriptFunction))
-        {
-            return nullptr;
-        }
-
-        RemoteRuntimeFunction runtimeFunc(GetReader(), (RuntimeFunction*)GetRemoteAddr());
-        return runtimeFunc->functionNameId;
-    }
-
-    CString RemoteJavascriptFunction::GetDisplayNameString(InspectionContext* context)
-    {
-        Assert(!IsScriptFunction());
-        CString name;
-        Js::Var sourceString = GetSourceString(context);
-        Assert(sourceString != nullptr); // We should be having the source string.
-        if (sourceString != nullptr)
-        {
-            Js::TypeId typeId = context->GetTypeId(sourceString);
-            if (typeId == Js::TypeIds_Integer)
-            {
-                auto reader = GetReader();
-                RemoteScriptContext scriptContext = RemoteScriptContext(reader, GetScriptContext());
-                Js::PropertyId nameId = TaggedInt::ToInt32(sourceString);
-                name = context->ReadPropertyName(scriptContext.GetPropertyName(nameId));
-            }
-            else if (typeId == Js::TypeIds_String)
-            {
-                name = context->ReadString((JavascriptString*)sourceString);
-            }
-            else
-            {
-                Assert(false);
-            }
-        }
-
-        return name;
-    }
-
     bool RemoteInterpreterStackFrame::IsCurrentLoopNativeAddr(void* addr)
     {
         return this->ToTargetPtr()->currentLoopNum != LoopHeader::NoLoop;
@@ -739,7 +349,7 @@ namespace JsDiag
     Js::Var RemoteInterpreterStackFrame::GetInnerScope(RegSlot scopeLocation)
     {
         RemoteFunctionBody functionBody(m_reader, ToTargetPtr()->GetFunctionBody());
-        uint32 index = scopeLocation - functionBody->FirstInnerScopeReg();
+        uint32 index = scopeLocation - functionBody.GetCounter(FunctionBody::CounterFields::FirstInnerScopeRegister);
         Js::Var* innerScopeArray = ReadField<Js::Var*>(offsetof(TargetType, innerScopeArray));
         return ReadVirtual<Js::Var>(innerScopeArray + index);
     }
@@ -760,11 +370,6 @@ namespace JsDiag
     CustomHeap::Heap* RemoteEmitBufferManager::GetAllocationHeap()
     {
         return this->GetFieldAddr<CustomHeap::Heap>(offsetof(EmitBufferManager<CriticalSection>, allocationHeap));
-    }
-
-    HeapPageAllocator<VirtualAllocWrapper>* RemoteHeap::GetHeapPageAllocator()
-    {
-        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::Heap, pageAllocator));
     }
 
     bool RemoteSegment::IsInSegment(void* addr)
@@ -805,7 +410,9 @@ namespace JsDiag
 
     HeapPageAllocator<PreReservedVirtualAllocWrapper>* RemoteHeap::GetPreReservedHeapPageAllocator()
     {
-        return this->GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::Heap, preReservedHeapPageAllocator));
+        CustomHeap::CodePageAllocators * codePageAllocators = this->ReadField<CustomHeap::CodePageAllocators *>(offsetof(CustomHeap::Heap, codePageAllocators));
+        RemoteData<CustomHeap::CodePageAllocators> remoteCodePageAllocators(this->m_reader, codePageAllocators);
+        return remoteCodePageAllocators.GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, preReservedHeapPageAllocator));
     }
 
     bool RemoteHeapPageAllocator::IsAddressFromAllocator(void* address)
@@ -895,13 +502,9 @@ namespace JsDiag
         return (address >= GetPreReservedStartAddress() && address < GetPreReservedEndAddress());
     }
 
-    bool RemoteCodeGenAllocators::IsInRange(void* address)
+    HeapPageAllocator<VirtualAllocWrapper> * RemoteCodePageAllocators::GetHeapPageAllocator()
     {
-        RemoteEmitBufferManager emitBufferManager(m_reader, this->GetEmitBufferManager());
-        RemoteHeap heap(m_reader, emitBufferManager.GetAllocationHeap());
-        RemoteHeapPageAllocator heapPageAllocator(m_reader, heap.GetHeapPageAllocator());
-        RemotePreReservedHeapPageAllocator preReservedHeapPageAllocator(m_reader, (HeapPageAllocator<PreReservedVirtualAllocWrapper>*)heap.GetPreReservedHeapPageAllocator());
-        return preReservedHeapPageAllocator.IsInRange(address) || heapPageAllocator.IsAddressFromAllocator(address);
+        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, pageAllocator));
     }
 
     // Check current script context and all contexts from its thread context.
@@ -925,72 +528,10 @@ namespace JsDiag
             }
         }
 
-        // ScriptContext::IsNativeAddress():
-        //     return IsNativeFunctionAddr(this, codeAddr) || this->threadContext->IsNativeAddress(codeAddr);
-        // 1) return scriptContext->GetNativeCodeGenerator()->IsNativeFunctionAddr(address);
-        //     NativeCodeGenerator::IsNativeFunctionAddr(void * address):
-        //         this->backgroundAllocators && this->backgroundAllocators->emitBufferManager.IsInRange(address) ||
-        //         this->foregroundAllocators && this->foregroundAllocators->emitBufferManager.IsInRange(address);
-        // 2) ThreadContext -- scan all scriptContexts in the list and ask them IsNativeCodeAddress.
+        RemoteCodePageAllocators codePageAllocators(this->m_reader, threadContext.GetCodePageAllocators());
+        RemoteHeapPageAllocator heapPageAllocator(this->m_reader, codePageAllocators.GetHeapPageAllocator());
 
-        // Get nativeCodeGen of ScriptContext (that being nullptr is a valid case).
-        if (this->IsNativeAddressCheckMeOnly(address))
-        {
-            return true;
-        }
-
-        // Now see in the thread context.
-        return this->IsNativeAddressCheckThreadContext(address);
-    }
-
-    // Check only current script context.
-    bool RemoteScriptContext::IsNativeAddressCheckMeOnly(void* address)
-    {
-        NativeCodeGenerator* nativeCodeGenAddr = this->ToTargetPtr()->nativeCodeGen;
-        if (nativeCodeGenAddr)
-        {
-            RemoteNativeCodeGenerator nativeCodeGen(m_reader, nativeCodeGenAddr);
-            if (this->IsNativeAddress(nativeCodeGen->backgroundAllocators, address) ||
-                this->IsNativeAddress(nativeCodeGen->foregroundAllocators, address))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool RemoteScriptContext::IsNativeAddressCheckThreadContext(void* address)
-    {
-        RemoteThreadContext threadContext(m_reader, this->ToTargetPtr()->threadContext);
-        ScriptContext* scriptContextAddr = threadContext.GetScriptContextList();
-        while (scriptContextAddr)
-        {
-            RemoteScriptContext scriptContext(m_reader, scriptContextAddr);
-            if (scriptContextAddr != m_remoteAddr)    // Prevent re-entrance.
-            {
-                if (scriptContext.IsNativeAddressCheckMeOnly(address))
-                {
-                    return true;
-                }
-            }
-            scriptContextAddr = scriptContext->next;
-        }
-
-        return false;
-    }
-
-
-    bool RemoteScriptContext::IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address)
-    {
-        if (codeGenAllocatorsAddr)
-        {
-            RemoteCodeGenAllocators codeGenAllocators(m_reader, codeGenAllocatorsAddr);
-            if (codeGenAllocators.IsInRange(address))
-            {
-                return true;
-            }
-        }
-        return false;
+        return heapPageAllocator.IsAddressFromAllocator(address);       
     }
 
     JavascriptLibrary* RemoteScriptContext::GetLibrary() const
@@ -1072,12 +613,6 @@ namespace JsDiag
         return entryPoint;
     }
 
-    bool RemoteDynamicObject::HasObjectArray(InspectionContext* context)
-    {
-        return ((ToTargetPtr()->objectArray != nullptr) && !ToTargetPtr()->UsesObjectArrayOrFlagsAsFlags() &&
-            !((RemoteDynamicTypeHandler(context, GetTypeHandler(), ToTargetPtr())).IsObjectHeaderInlinedTypeHandler()));
-    }
-
     uint32 RemoteFunctionBody::GetFrameHeight(FunctionEntryPointInfo* entryPointInfoAddr)
     {
         RemoteFunctionEntryPointInfo entryPointInfo(m_reader, entryPointInfoAddr);
@@ -1107,7 +642,7 @@ namespace JsDiag
     {
         auto loopHeaderArray = static_cast<const Js::LoopHeader*>(this->GetAuxPtrs(Js::FunctionProxy::AuxPointerType::LoopHeaderArray));
         Assert(loopHeaderArray != nullptr);
-        Assert(index < this->ToTargetPtr()->loopCount);
+        Assert(index < this->GetCounter(FunctionBody::CounterFields::LoopCount));
 
         return const_cast<LoopHeader*>(loopHeaderArray) + index;
     }
@@ -1193,76 +728,6 @@ namespace JsDiag
         }
 
         return statementIndex;
-    }
-
-    bool RemoteFunctionBody::InstallProbe(int offset, RemoteAllocator* allocator)
-    {
-        RemoteByteBlock remoteByteCodeBlock(m_reader, this->ToTargetPtr()->byteCodeBlock);
-        if (offset < 0 || ((uint)offset + 1) >= remoteByteCodeBlock->m_contentSize)
-        {
-            Assert(false);
-            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::PROBE_OFFSET_OUTOFBOUND);
-        }
-
-        RemoteFunctionBody_SourceInfo remoteSourceInfo(this->m_reader, this);
-        ByteBlock* probeBackingBlock = remoteSourceInfo.GetProbeBackingBlock();
-        HRESULT hr = S_OK;
-        BYTE* byteCodeBuffer = remoteByteCodeBlock->m_content;
-        if(!probeBackingBlock)
-        {
-            int bufferSize = remoteByteCodeBlock->m_contentSize;
-            BYTE* remoteProbeByteCodeBuffer = (BYTE*)allocator->Allocate(bufferSize);
-            AutoArrayPtr<BYTE> byteCodeCopy = VirtualReader::ReadBuffer(this->m_reader, byteCodeBuffer, bufferSize);
-            hr = m_reader->WriteMemory(remoteProbeByteCodeBuffer, byteCodeCopy, bufferSize);
-            CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-            probeBackingBlock = allocator->Allocate<ByteBlock>();
-
-            RemoteByteBlock remoteProbeBackingBlock(m_reader, probeBackingBlock);
-            remoteProbeBackingBlock->m_contentSize = remoteByteCodeBlock->m_contentSize;
-            remoteProbeBackingBlock->m_content = remoteProbeByteCodeBuffer;
-            remoteProbeBackingBlock.Flush();
-            remoteSourceInfo.SetProbeBackingBlock(probeBackingBlock);
-        }
-        uint8 opcode = (uint8)OpCode::Break;
-        uint8 currentOpCode = VirtualReader::ReadVirtual<uint8>(m_reader, byteCodeBuffer + offset);
-
-        // If a breakpoint is set on the debugger keyword, we still want to refrence count it.
-        remoteSourceInfo.IncrementProbeCount();
-        if (opcode == currentOpCode)
-        {
-            return false;
-        }
-        hr = m_reader->WriteMemory(byteCodeBuffer + offset, &opcode, sizeof(uint8));
-        CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-
-        return true;
-    }
-
-    void RemoteFunctionBody::UninstallProbe(int offset)
-    {
-        RemoteByteBlock remoteByteCodeBlock(m_reader, this->ToTargetPtr()->byteCodeBlock);
-        if (offset < 0 || ((uint)offset + 1) >= remoteByteCodeBlock->m_contentSize)
-        {
-            Assert(false);
-            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::PROBE_OFFSET_OUTOFBOUND);
-        }
-
-        RemoteFunctionBody_SourceInfo remoteSourceInfo(this->m_reader, this);
-        ByteBlock* probeBackingBlock = remoteSourceInfo.GetProbeBackingBlock();
-        Assert(probeBackingBlock);
-        RemoteByteBlock remoteProbeBackingBlock(m_reader, probeBackingBlock);
-
-        // Although some of the original opcode are two bytes, we only ever replace one of them
-        // so just restore the one byte
-        uint8 originalOpCodeByte = VirtualReader::ReadVirtual<uint8>(m_reader, remoteProbeBackingBlock->m_content + offset);
-
-        BYTE* byteCodeBuffer = remoteByteCodeBlock->m_content;
-
-        HRESULT hr = m_reader->WriteMemory(byteCodeBuffer + offset, &originalOpCodeByte, sizeof(uint8));
-        CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-
-
-        remoteSourceInfo.DecrementProbeCount();
     }
 
     void RemoteFunctionBody::FindClosestStatements(long characterOffset, StatementLocation *firstStatementLocation, StatementLocation *secondStatementLocation)
@@ -1353,6 +818,44 @@ namespace JsDiag
         return FALSE;
     }
 
+    const uint32 RemoteFunctionBody::GetCounter(FunctionBody::CounterFields fieldEnum) const
+    {
+
+        // for registers, it's using UINT32_MAX to represent NoRegister
+        if ((fieldEnum == FunctionBody::CounterFields::LocalClosureRegister && !this->ToTargetPtr()->m_hasLocalClosureRegister)
+            || (fieldEnum == FunctionBody::CounterFields::LocalFrameDisplayRegister && !this->ToTargetPtr()->m_hasLocalFrameDisplayRegister)
+            || (fieldEnum == FunctionBody::CounterFields::EnvRegister && !this->ToTargetPtr()->m_hasEnvRegister)
+            || (fieldEnum == FunctionBody::CounterFields::ThisRegisterForEventHandler && !this->ToTargetPtr()->m_hasThisRegisterForEventHandler)
+            || (fieldEnum == FunctionBody::CounterFields::FirstInnerScopeRegister && !this->ToTargetPtr()->m_hasFirstInnerScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FuncExprScopeRegister && !this->ToTargetPtr()->m_hasFuncExprScopeRegister)
+            || (fieldEnum == FunctionBody::CounterFields::FirstTmpRegister && !this->ToTargetPtr()->m_hasFirstTmpRegister)
+            )
+        {
+            return Constants::NoRegister;
+        }
+
+        uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
+        auto remoteCounters = this->ToTargetPtr()->counters;
+        uint8 fieldSize = remoteCounters.fieldSize;
+        
+        if (fieldSize == 1)
+        {
+            return ReadVirtual<uint8>(&remoteCounters.fields.ptr->u8Fields[fieldEnumVal]);
+        }
+        else if (fieldSize == 2)
+        {
+            return ReadVirtual<uint16>(&remoteCounters.fields.ptr->u16Fields[fieldEnumVal]);
+        }
+        else if (fieldSize == 4)
+        {
+            return ReadVirtual<uint32>(&remoteCounters.fields.ptr->u32Fields[fieldEnumVal]);
+        }
+        else
+        {
+            Assert(false);
+            return 0;
+        }
+    }
     const void* RemoteFunctionBody::GetAuxPtrs(FunctionProxy::AuxPointerType pointerType) const
     {
         void* auxPtrsRaw = static_cast<void*>(this->ToTargetPtr()->auxPtrs);
@@ -1406,7 +909,6 @@ namespace JsDiag
         RemoteData<uint32> item(m_reader, this->ToTargetPtr()->buffer + index);
         return *static_cast<uint32*>(item);
     }
-
 
     uint32 RemoteSmallSpanSequence::Count()
     {
@@ -1842,56 +1344,6 @@ namespace JsDiag
         return statementMaps.Count() - 1;
     }
 
-
-    bool RemoteFunctionBody_SourceInfo::HasLineBreak(charcount_t start, charcount_t end)
-    {
-        if (start > end)
-        {
-            return false;
-        }
-        charcount_t cchLength = end - start;
-        if (start < this->GetFunctionBody()->m_cchStartOffset || cchLength > this->GetFunctionBody()->m_cchLength)
-        {
-            return false;
-        }
-
-        size_t lengthInBytes = this->LengthInBytes();
-        RemoteUtf8SourceInfo funcUtf8SourceInfo(m_reader, this->GetFunctionBody()->m_utf8SourceInfo);
-        LPCUTF8 src = funcUtf8SourceInfo.GetDebugModeSource() + this->GetFunctionBody()->m_cbStartOffset;
-        size_t offset;
-
-        // TODO: PERF: Consider copying only part of this.
-        RemoteBuffer<utf8char_t> source(m_reader, const_cast<LPUTF8>(src), lengthInBytes, lengthInBytes);
-        if(lengthInBytes == this->GetFunctionBody()->m_cchLength)
-        {
-            offset = start - this->GetFunctionBody()->m_cchStartOffset;
-        }
-        else
-        {
-            offset = utf8::CharacterIndexToByteIndex(source.Ptr, lengthInBytes, start - this->GetFunctionBody()->m_cchStartOffset, utf8::doAllowThreeByteSurrogates);
-        }
-        src = source.Ptr + offset;
-        utf8::DecodeOptions options = utf8::doAllowThreeByteSurrogates;
-
-        // Note that "end" can belong to another function, so we have to make sure we don't go over length of current func.
-        // that we read into the buffer. In the inproc case there is no such issue, as we we have one utf8 source buffer for the whole file
-        // and don't read parts of it into another buffer.
-        LPCUTF8 last = min(src + cchLength, source.Ptr + lengthInBytes);
-        while (src < last)
-        {
-            switch (utf8::Decode(src, last, options))
-            {
-            case '\r':
-            case '\n':
-            case 0x2028:
-            case 0x2029:
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // For given bytecode gets offsets of row and column in (host buffer corresponsing to) the actual user file.
     bool RemoteFunctionBody_SourceInfo::GetLineCharOffset(int byteCodeOffset, ULONG* line, LONG* colOffset)
     {
@@ -1956,11 +1408,11 @@ namespace JsDiag
         for(size_t offsetCh = byteOrderMarkCharOffset; offsetCh < (size_t)startCharOfStatement;)
         {
             const ULONG availableBytes = allSource.EnsurePtr(4 * sizeof(CUTF8)); // Make sure that we have enough bytes copied locally.
-            wchar_t ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
+            char16 ch = utf8::Decode(allSource.Ptr, allSource.Ptr + availableBytes, options);
 
             switch (ch)
             {
-            case L'\r':
+            case _u('\r'):
                 if ((offsetCh + 1) < (size_t)startCharOfStatement)
                 {
                     allSource.EnsurePtr(sizeof(CUTF8));
@@ -1972,7 +1424,7 @@ namespace JsDiag
                     }
                 }
                 // Falls-through
-            case L'\n':
+            case _u('\n'):
                 extraLines++;
                 lastNewLine = offsetCh;
                 break;
@@ -2054,29 +1506,7 @@ namespace JsDiag
         return GetFunctionBody()->m_cbStartOffset;
     }
 
-    ByteBlock* RemoteFunctionBody_SourceInfo::GetProbeBackingBlock()
-    {
-        return this->ToTargetPtr()->m_probeBackingBlock;
-    }
-
-    void RemoteFunctionBody_SourceInfo::SetProbeBackingBlock(ByteBlock* block)
-    {
-        this->WriteField(offsetof(FunctionBody::SourceInfo, m_probeBackingBlock), block);
-    }
-
-    void RemoteFunctionBody_SourceInfo::IncrementProbeCount()
-    {
-        int32 currentCount = this->ToTargetPtr()->m_probeCount;
-        this->WriteField(offsetof(FunctionBody::SourceInfo, m_probeCount), currentCount + 1);
-    }
-
-    void RemoteFunctionBody_SourceInfo::DecrementProbeCount()
-    {
-        int32 currentCount = this->ToTargetPtr()->m_probeCount;
-        AssertMsg(currentCount > 0, "ProbeCount is already 0 or less, and we are about to decrement!");
-        this->WriteField(offsetof(FunctionBody::SourceInfo, m_probeCount), currentCount - 1);
-    }
-
+    
     size_t RemoteFunctionBody_SourceInfo::LengthInBytes()
     {
         return GetFunctionBody()->m_cbLength;
@@ -2158,42 +1588,6 @@ namespace JsDiag
         return ((Configuration*)this->m_data)->flags.On.phaseList[(int)phase].valid;
     }
 #endif
-    // Indicate to the target process that a hybrid debugger is attached.
-    void RemoteConfiguration::SetHybridDebugging(IVirtualReader* reader, const Configuration* addr)
-    {
-        HRESULT hr;
-
-        // Write the GUID -- important for launch scenario as Configuration::Global (static object) ctor hasn't run yet.
-        hr = reader->WriteMemory(((BYTE*)addr) + offsetof(Configuration, hybridDebuggingGuid), &HybridDebuggingGuid, sizeof(HybridDebuggingGuid));
-        CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-
-        // Write to isHybridDebugging directly -- important for attach, Configuration::Global (static object) ctor has already run.
-        bool trueConst = true;
-        hr = reader->WriteMemory(((BYTE*)addr) + offsetof(Configuration, isHybridDebugging), &trueConst, sizeof(trueConst));
-        CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-    }
-
-    bool RemoteFunctionBody::Is(InspectionContext* context, void* ptr)
-    {
-        if(ptr)
-        {
-            return context->MatchVTable(ptr, Diag_FunctionBody);
-        }
-        return false;
-    }
-
-    bool_result RemoteFunctionBody::TryReadDisplayName(_Out_ CString* name) const
-    {
-        Assert(name);
-        LPCWSTR displayName = (*this)->m_displayName;
-        if (displayName)
-        {
-            *name = InspectionContext::ReadString(m_reader, displayName, DiagConstants::MaxFunctionNameLength);
-            return true;
-        }
-
-        return false;
-    }
 
     void RemoteFunctionBody::GetFunctionName(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const
     {
@@ -2258,8 +1652,8 @@ namespace JsDiag
         }
     }
 
-    const wchar_t* RemoteFunctionBody::GetExternalDisplayName(
-        const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
+    const char16* RemoteFunctionBody::GetExternalDisplayName(
+        const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const
     {
         GetFunctionBodyNameData funcBody(*this, displayName, isDynamicScript, isGlobalFunc);
         return FunctionBody::GetExternalDisplayName(&funcBody);
@@ -2268,21 +1662,6 @@ namespace JsDiag
     Utf8SourceInfo* RemoteFunctionBody::GetUtf8SourceInfo() const
     {
         return ReadField<Utf8SourceInfo*>(offsetof(FunctionBody, m_utf8SourceInfo));
-    }
-
-    UINT64 RemoteFunctionBody::GetDocumentId() const
-    {
-        RemoteFunctionBody_SourceInfo sourceInfo(m_reader, this);
-
-        const Utf8SourceInfo* utf8SourceInfoPtr = (*this)->GetUtf8SourceInfo();
-        if(!utf8SourceInfoPtr)
-        {
-            DiagException::Throw(E_UNEXPECTED, DiagErrorCode::RUNTIME_NULL_UTF8SOURCEINFO);
-        }
-
-        RemoteUtf8SourceInfo remoteUtf8SourceInfo(m_reader, utf8SourceInfoPtr);
-        UINT64 documentId = (UINT64)remoteUtf8SourceInfo.GetDocumentId();
-        return documentId;
     }
 
     //
@@ -2329,18 +1708,19 @@ namespace JsDiag
 
     uint32 RemoteFunctionBody::GetFirstNonTempLocalIndex() const
     {
-        return this->ToTargetPtr()->m_constCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount);
     }
 
     uint32 RemoteFunctionBody::GetEndNonTempLocalIndex() const
     {
-        uint32 firstTempReg = this->ToTargetPtr()->m_firstTmpReg;
+        uint32 firstTempReg = this->GetCounter(FunctionBody::CounterFields::FirstTmpRegister);
         return firstTempReg != Constants::NoRegister ? firstTempReg : this->GetLocalsCount();
     }
 
     RegSlot RemoteFunctionBody::GetLocalsCount() const
     {
-        return this->ToTargetPtr()->m_constCount + this->ToTargetPtr()->m_varCount;
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount) 
+            + this->GetCounter(FunctionBody::CounterFields::VarCount);
     }
 
     RootObjectBase* RemoteFunctionBody::GetRootObject() const
@@ -2360,202 +1740,6 @@ namespace JsDiag
         return sourceInfo->frameDisplayRegister;
     }
 
-    void RemotePropertyIdOnRegSlotsContainer::FetchItemAt(uint index, RemoteFunctionBody* pFuncBody, _Out_ Js::PropertyId* pPropId, _Out_ RegSlot* pRegSlot) const
-    {
-        *pPropId = m_propertyIdsForRegSlots.Item(index);
-        *pRegSlot = pFuncBody->ToTargetPtr()->MapRegSlot(index);
-    }
-
-    void* RemoteFrameDisplay::GetItem(uint index) const
-    {
-        return m_scopes.Item(index);
-    }
-
-    bool RemoteTypePath::TryLookup(Js::PropertyId propId, int typePathLength, PropertyIndex* index)
-    {
-        return ToTargetPtr()->map.TryGetValue(propId, index, *this)
-            && *index < typePathLength;
-    }
-
-    RemotePropertyRecord RemoteTypePath::operator[](const int index) const
-    {
-        RemoteArray<const PropertyRecord *> assignments(m_reader, GetRemoteAddr()->GetPropertyAssignments());
-        return RemotePropertyRecord(m_reader, assignments[index]);
-    }
-
-    bool RemoteJavascriptBoolean::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-        RemoteJavascriptBoolean obj(reader, reinterpret_cast<const TargetType*>(var));
-        return obj->GetValue() ? true : false;
-    }
-
-    CString RemoteJavascriptSymbol::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-        RemoteJavascriptSymbol obj(reader, reinterpret_cast<const TargetType*>(var));
-        const PropertyRecord* propertyRecord = obj->GetValue();
-
-        CString name = L"Symbol(";
-        name += InspectionContext::ReadPropertyName(reader, propertyRecord);
-        name += L")";
-
-        return name;
-    }
-
-    double RemoteJavascriptNumber::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-#if FLOATVAR
-        return JavascriptNumber::GetValue(var);
-#else
-        RemoteJavascriptNumber number(reader, reinterpret_cast<TargetType*>(var));
-        return number->GetValue();
-#endif
-    }
-
-    bool RemoteJavascriptBooleanObject::GetValue()
-    {
-        JavascriptBoolean* value = ToTargetPtr()->value;
-        return value != nullptr ? RemoteJavascriptBoolean::GetValue(m_reader, value) : false;
-    }
-
-    bool RemoteJavascriptBooleanObject::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-        RemoteJavascriptBooleanObject obj(reader, reinterpret_cast<JavascriptBooleanObject*>(var));
-        return obj.GetValue();
-    }
-
-    CString RemoteJavascriptSymbolObject::GetValue()
-    {
-        JavascriptSymbol* value = ToTargetPtr()->value;
-
-        Assert(value != nullptr);
-
-        return RemoteJavascriptSymbol::GetValue(m_reader, value);
-    }
-
-    CString RemoteJavascriptSymbolObject::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-        RemoteJavascriptSymbolObject obj(reader, reinterpret_cast<JavascriptSymbolObject*>(var));
-        return obj.GetValue();
-    }
-
-    double RemoteJavascriptNumberObject::GetValue()
-    {
-        Js::Var value = ToTargetPtr()->value;
-        return TaggedInt::Is(value) ?
-            TaggedInt::ToDouble(value) : RemoteJavascriptNumber::GetValue(m_reader, value);
-    }
-
-    double RemoteJavascriptNumberObject::GetValue(IVirtualReader* reader, Js::Var var)
-    {
-        RemoteJavascriptNumberObject obj(reader, reinterpret_cast<JavascriptNumberObject*>(var));
-        return obj.GetValue();
-    }
-
-    CString RemoteJavascriptRegExp::GetSource()
-    {
-        PCWSTR source;
-        charcount_t sourceLength;
-        GetSource(&source, &sourceLength);
-
-        return InspectionContext::ReadStringLen(GetReader(), source, sourceLength);
-    }
-
-    void RemoteJavascriptRegExp::GetSource(PCWSTR* pSource, charcount_t* pLength)
-    {
-        // In sync with JavascriptRegExp::GetPropertyBuiltIns() on the in-proc side.
-        auto reader = GetReader();
-
-        RemoteData<UnifiedRegex::RegexPattern> pattern(reader, ToTargetPtr()->pattern);
-        RemoteData<UnifiedRegex::Program> program(reader, pattern->rep.unified.program);
-        *pSource = program->source;
-        *pLength = program->sourceLen;
-    }
-
-    bool RemoteRegexPattern::IsFlagSet(UnifiedRegex::RegexFlags flag) const
-    {
-        return (this->cachedFlags & flag) != 0;
-    }
-
-    bool RemoteRegexPattern::IsGlobal() const
-    {
-        // In sync with RegexPattern::IsGlobal() on the in-proc side.
-        return IsFlagSet(UnifiedRegex::GlobalRegexFlag);
-    }
-
-    bool RemoteRegexPattern::IsMultiline() const
-    {
-        // In sync with RegexPattern::IsMultiline() on the in-proc side.
-        return IsFlagSet(UnifiedRegex::MultilineRegexFlag);
-    }
-
-    bool RemoteRegexPattern::IsIgnoreCase() const
-    {
-        // In sync with RegexPattern::IsIgnoreCase() on the in-proc side.
-        return IsFlagSet(UnifiedRegex::IgnoreCaseRegexFlag);
-    }
-
-    bool RemoteRegexPattern::IsUnicode() const
-    {
-        // In sync with RegexPattern::IsUnicode() on the in-proc side.
-        return IsFlagSet(UnifiedRegex::UnicodeRegexFlag);
-    }
-
-    bool RemoteRegexPattern::IsSticky() const
-    {
-        // In sync with RegexPattern::IsSticky() on the in-proc side.
-        return IsFlagSet(UnifiedRegex::StickyRegexFlag);
-    }
-
-    CString RemoteJavascriptRegExp::GetOptions(bool IsES6UnicodeExtensionsEnabled /* = false */, bool isEs6RegExpStickyFlagEnabled /* = false */) const
-    {
-        CString options;
-
-        // In sync with JavascriptRegExp::GetPropertyBuiltIns() on the in-proc side.
-        auto reader = GetReader();
-        RemoteRegexPattern pattern(reader, ToTargetPtr()->pattern);
-
-        // The ordering of options display varies between compatibility modes.  See
-        // JavascriptRegExp::GetPropertyBuiltIns() for the matching details.
-        if (pattern.IsGlobal())
-        {
-            options.AppendChar(L'g');
-        }
-
-        if (pattern.IsIgnoreCase())
-        {
-            options.AppendChar(L'i');
-        }
-
-        if (pattern.IsMultiline())
-        {
-            options.AppendChar(L'm');
-        }
-        if (IsES6UnicodeExtensionsEnabled && pattern.IsUnicode())
-        {
-            options.AppendChar(L'u');
-        }
-        if (isEs6RegExpStickyFlagEnabled && pattern.IsSticky())
-        {
-            options.AppendChar(L'y');
-        }
-
-        return options;
-    }
-
-    const PropertyRecord* RemoteExternalObject::GetClassName()
-    {
-        RemoteExternalType type(m_reader, ToTargetPtr()->GetExternalType());
-        Js::PropertyId propertyId = type.GetNameId();
-
-        return RemoteScriptContext(m_reader, GetScriptContext()).GetPropertyName(propertyId);
-    }
-
-    bool RemoteExternalObject::IsProjectionObjectInstance(DebugClient* debugClient) const
-    {
-        const void* vtable = this->ReadVTable();
-        return vtable == debugClient->GetVTable(Diag_ProjectionObjectInstance) || vtable == debugClient->GetVTable(Diag_EventHandlingProjectionObjectInstance);
-    }
-
     Js::Var RemoteGlobalObject::ToThis()
     {
         Js::Var ret = ToTargetPtr()->secureDirectHostObject;
@@ -2569,65 +1753,4 @@ namespace JsDiag
 
         return GetRemoteAddr(); // this
     }
-
-    // Determines if the DebuggerScope contains a property with the passed in ID and
-    // location in the internal property list.
-    bool RemoteDebuggerScope::ContainsProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, DebuggerScopeProperty* outProperty /* nullptr*/)
-    {
-        Assert(frame);
-        InspectionContext* context = frame->GetInspectionContext();
-        IVirtualReader* reader = context->GetReader();
-        DebuggerScope* debuggerScope = ToTargetPtr();
-        if (debuggerScope->scopeProperties == nullptr)
-        {
-            return false;
-        }
-
-        RemoteDebuggerScopePropertyList scopeProperties = RemoteDebuggerScopePropertyList(reader, debuggerScope->scopeProperties);
-        bool foundPropertyMatch = scopeProperties.MapUntil(
-            [&](uint i, DebuggerScopeProperty& debuggerScopeProperty)
-        {
-            if (debuggerScopeProperty.propId == propertyId && debuggerScopeProperty.location == location)
-            {
-                if (outProperty != nullptr)
-                {
-                    *outProperty = debuggerScopeProperty;
-                }
-
-                return true;
-            }
-
-            return false;
-        });
-
-        return foundPropertyMatch;
-
-    }
-
-    bool RemoteDebuggerScope::ContainsValidProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, int offset, bool* isInDeadZone)
-    {
-        Assert(isInDeadZone);
-        if (propertyId == Js::PropertyIds::_lexicalThisSlotSymbol)
-        {
-            return false;
-        }
-
-        DebuggerScopeProperty scopeProperty;
-        if (ContainsProperty(frame, propertyId, location, &scopeProperty))
-        {
-            *isInDeadZone = scopeProperty.IsInDeadZone(offset);
-
-            // Validates the current scope is included.
-            return ToTargetPtr()->range.Includes(offset);
-        }
-
-        return false;
-    }
-
-    void RemoteDebuggingFlags::SetForceInterpreter(bool value)
-    {
-        size_t offset = offsetof(DebuggingFlags, m_forceInterpreter);
-        this->WriteField<bool>(offset, value);
-    }
-
 } // namespace JsDiag.

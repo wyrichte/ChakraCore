@@ -19,9 +19,9 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
     m_pdocNext = NULL;
     m_ppdocPrev = NULL;
 
-    m_isManagedByHost = FALSE;
-    m_isScriptlet = FALSE;
-    m_isLineCountValid = FALSE;
+    m_isManagedByHost = false;
+    m_isScriptlet = false;
+    m_isLineCountValid = false;
     
     m_utf8SourceInfo = nullptr;
     m_ichMinDisplay = 0;
@@ -30,7 +30,7 @@ CScriptSourceDocumentText::CScriptSourceDocumentText(void)
 
     m_sourceTextAttirbutes = NULL;
 
-    m_fIsMarkedClosed = FALSE;
+    m_fIsMarkedClosed = false;
 }
 
 
@@ -170,7 +170,7 @@ HRESULT CScriptSourceDocumentText::MarkForClose()
     if (!m_fIsMarkedClosed)
     {
         CComAutoUnlockCS autoUnlock(&m_csForClose);
-        m_fIsMarkedClosed = TRUE;
+        m_fIsMarkedClosed = true;
     }
 
     return S_OK;
@@ -236,7 +236,7 @@ void CScriptSourceDocumentText::SetScriptBody(CScriptBody *pbody)
         {
             GetIchMinHost(&m_ichMinDisplay);
             GetIchLimHost(&m_ichLimDisplay);
-            LPCUTF8 pchSrc = m_utf8SourceInfo->GetSource(L"CScriptSourceDocumentText::SetScriptBody");            
+            LPCUTF8 pchSrc = m_utf8SourceInfo->GetSource(_u("CScriptSourceDocumentText::SetScriptBody"));            
             LPCUTF8 pchMin = pchSrc + m_utf8SourceInfo->CharacterIndexToByteIndex(m_ichMinDisplay);
             LPCUTF8 pchLim = pchSrc + m_utf8SourceInfo->CharacterIndexToByteIndex(m_ichLimDisplay);
 
@@ -315,7 +315,7 @@ void CScriptSourceDocumentText::UpdateLineCount(void)
     Assert(lines < MAXLONG);
     m_cln = static_cast< charcount_t>(lines);
 
-    m_isLineCountValid = TRUE;
+    m_isLineCountValid = true;
 }
 
 
@@ -635,7 +635,7 @@ HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchM
                 return HR(E_OUTOFMEMORY);
             }
 
-            hr = m_scriptEngine->GetScriptTextAttributesUTF8(m_utf8SourceInfo->GetSource(L"ScpText::GetText"), static_cast< ULONG >(m_utf8SourceInfo->GetCbLength(L"ScpText::GetText")), 
+            hr = m_scriptEngine->GetScriptTextAttributesUTF8(m_utf8SourceInfo->GetSource(_u("ScpText::GetText")), static_cast< ULONG >(m_utf8SourceInfo->GetCbLength(_u("ScpText::GetText"))), 
                 NULL, static_cast< ULONG >(m_utf8SourceInfo->GetCchLength()), 0, m_sourceTextAttirbutes);
             if (FAILED(hr))
             {
@@ -648,8 +648,8 @@ HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchM
 
             for (ista = 0 ; ista < m_ichMinDisplay; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
-            long cch = static_cast<long>(m_utf8SourceInfo->GetCchLength());
-            for (ista = m_ichLimDisplay; ista < cch; ista++)
+            long cchSourceInfo = static_cast<long>(m_utf8SourceInfo->GetCchLength());
+            for (ista = m_ichLimDisplay; ista < cchSourceInfo; ista++)
                 m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
         }
         js_memcpy_s(sourceTextAttributes, cchMax, m_sourceTextAttirbutes + ich + m_ichMinDisplay,

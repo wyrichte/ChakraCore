@@ -54,17 +54,17 @@ IInspectable * TestUtilities::ActivateRuntimeClassInstance(const WCHAR * runtime
 
 IInspectable * TestUtilities::GetAnimalInstance()
 {
-    return ActivateRuntimeClassInstance(L"Animals.Animal");
+    return ActivateRuntimeClassInstance(_u("Animals.Animal"));
 }
 
 IInspectable * TestUtilities::GetRestrictedErrorAccessInstance()
 {
-    return ActivateRuntimeClassInstance(L"Winery.WinRTErrorTests.RestrictedErrorAccessInstance");
+    return ActivateRuntimeClassInstance(_u("Winery.WinRTErrorTests.RestrictedErrorAccessInstance"));
 }
 
 IInspectable * TestUtilities::GetRWineryInstance()
 {
-    static const WCHAR RuntimeClassName[] = L"Winery.RWinery";
+    static const WCHAR RuntimeClassName[] = _u("Winery.RWinery");
 
     if ((m_WinRTStringLibrary != nullptr) && (m_WinRTStringLibrary->IsAvailable())
         && (m_WinRTLibrary != nullptr) && (m_WinRTLibrary->IsAvailable()))
@@ -207,7 +207,7 @@ Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo,
     hr = JScript9Interface::GetRestrictedString(errorVar, &errorSz);
     if (nullptr != errorSz)
     {
-        HRESULT hr = scriptDirect->StringToVar(errorSz, SysStringLen(errorSz), &errorString);
+        hr = scriptDirect->StringToVar(errorSz, SysStringLen(errorSz), &errorString);
         SysFreeString(errorSz);
         if (FAILED(hr)) { return undefinedObject; }
         return errorString;
@@ -244,7 +244,7 @@ Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Va
     hr = JScript9Interface::GetCapabilitySid(errorVar, &capabilitySz);
     if (nullptr != capabilitySz)
     {
-        HRESULT hr = scriptDirect->StringToVar(capabilitySz, SysStringLen(capabilitySz), &capabilityString);
+        hr = scriptDirect->StringToVar(capabilitySz, SysStringLen(capabilitySz), &capabilityString);
         SysFreeString(capabilitySz);
         if (FAILED(hr)) { return undefinedObject; }
         return capabilityString;
@@ -357,7 +357,7 @@ DevTests::SimpleTestNamespace::ISimpleInterface * TestUtilities::GetAndUpdateSim
 
     HRESULT hr;
 
-    LPCWSTR strMessageSent = L"Goodbye";
+    LPCWSTR strMessageSent = _u("Goodbye");
     HSTRING hstrMessage = NULL;
     m_WinRTStringLibrary->WindowsCreateString(strMessageSent, static_cast<UINT32>(wcslen(strMessageSent)), &hstrMessage);
     hr = spSimple->SetMessage(hstrMessage);
@@ -502,15 +502,15 @@ Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var* args)
     LPCWSTR retMsg;
     if (E_INVALIDARG == hr)
     {
-        retMsg = L"Call failed with hr of E_INVALIDARG";
+        retMsg = _u("Call failed with hr of E_INVALIDARG");
     }
     else if (FAILED(hr))
     {
-        retMsg = L"Call failed with hr other than E_INVALIDARG";
+        retMsg = _u("Call failed with hr other than E_INVALIDARG");
     }
     else
     {
-        retMsg = L"Call succeeded";
+        retMsg = _u("Call succeeded");
         pdispex->Release();
     }
 
@@ -684,7 +684,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // add TestUtilities object to the root.
     PropertyId testUtilitiesPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"TestUtilities", &testUtilitiesPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("TestUtilities"), &testUtilitiesPropertyId);
     IfFailedGo(hr);
     Var testUtilitiesObject = NULL;
     hr = activeScriptDirect->CreateObject(&testUtilitiesObject);
@@ -694,10 +694,10 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add AnimalToVar function to TestUtilities
     PropertyId animalToVarPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"AnimalToVar", &animalToVarPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("AnimalToVar"), &animalToVarPropertyId);
     IfFailedGo(hr);
     PropertyId lengthPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var animalToVarFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::AnimalToVar, animalToVarPropertyId, -1, 0, &animalToVarFunction);
@@ -714,7 +714,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     // Add VectorIntToVar function to TestUtilities
     // function = NULL;
     // func = NULL;
-    // id = scriptContext->GetOrAddPropertyId(L"VectorIntToVar", (UINT32)wcslen(L"VectorIntToVar"));
+    // id = scriptContext->GetOrAddPropertyId(_u("VectorIntToVar"), (UINT32)wcslen(_u("VectorIntToVar")));
     // hr = scriptContext->GetActiveScriptDirect()->BuildDOMDirectFunction(nullptr, TestUtilities::VectorIntToVar, id, -1, 0, &func);
     // if (FAILED(hr)) { return; }
     // function = Js::JavascriptFunction::FromVar(func);
@@ -723,9 +723,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add GetRestrictedStringFromError function to TestUtilities
     PropertyId getRestrictedStringFromErrorPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"GetRestrictedStringFromError", &getRestrictedStringFromErrorPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("GetRestrictedStringFromError"), &getRestrictedStringFromErrorPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var getRestrictedStringFromErrorFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetRestrictedStringFromError, getRestrictedStringFromErrorPropertyId, -1, 0, &getRestrictedStringFromErrorFunction);
@@ -739,9 +739,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add GetCapabilitySidFromError function to TestUtilities
     PropertyId getCapabilitySidFromErrorPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"GetCapabilitySidFromError", &getCapabilitySidFromErrorPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("GetCapabilitySidFromError"), &getCapabilitySidFromErrorPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var getCapabilitySidFromErrorFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetCapabilitySidFromError, getCapabilitySidFromErrorPropertyId, -1, 0, &getCapabilitySidFromErrorFunction);
@@ -755,9 +755,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add GetMemoryFootprintOfRC function to TestUtilities
     PropertyId getMemoryFootprintOfRCPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"GetMemoryFootprintOfRC", &getMemoryFootprintOfRCPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("GetMemoryFootprintOfRC"), &getMemoryFootprintOfRCPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var getMemoryFootprintOfRCFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetMemoryFootprintOfRC, getMemoryFootprintOfRCPropertyId, -1, 0, &getMemoryFootprintOfRCFunction);
@@ -771,7 +771,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add DoNotSupportWeakDelegate function to TestUtilities
     PropertyId doNotSupportWeakDelegateId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"DoNotSupportWeakDelegate", &doNotSupportWeakDelegateId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("DoNotSupportWeakDelegate"), &doNotSupportWeakDelegateId);
     IfFailedGo(hr);
     Var doNotSupportWeakDelegateFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::DoNotSupportWeakDelegate, doNotSupportWeakDelegateId, -1, 0, &doNotSupportWeakDelegateFunction);
@@ -781,7 +781,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add SupportsWeakDelegate function to TestUtilities
     PropertyId supportsWeakDelegateId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"SupportsWeakDelegate", &supportsWeakDelegateId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("SupportsWeakDelegate"), &supportsWeakDelegateId);
     IfFailedGo(hr);
     Var supportsWeakDelegateFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::SupportsWeakDelegate, supportsWeakDelegateId, -1, 0, &supportsWeakDelegateFunction);
@@ -791,9 +791,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add GetSystemStringFromHr function to TestUtilities
     PropertyId getSystemStringFromHrPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"GetSystemStringFromHr", &getSystemStringFromHrPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("GetSystemStringFromHr"), &getSystemStringFromHrPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var getSystemStringFromHrFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetSystemStringFromHr, getSystemStringFromHrPropertyId, -1, 0, &getSystemStringFromHrFunction);
@@ -807,9 +807,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add UpdateSimpleClassAndReturnAsVar function to TestUtilities
     PropertyId updateSimpleClassAndReturnAsVarPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"UpdateSimpleClassAndReturnAsVar", &updateSimpleClassAndReturnAsVarPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("UpdateSimpleClassAndReturnAsVar"), &updateSimpleClassAndReturnAsVarPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var updateSimpleClassAndReturnAsVarFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVar, updateSimpleClassAndReturnAsVarPropertyId, -1, 0, &updateSimpleClassAndReturnAsVarFunction);
@@ -823,9 +823,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add UpdateSimpleClassAndReturnAsVarByAlternateInterface function to TestUtilities
     PropertyId updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"UpdateSimpleClassAndReturnAsVarByAlternateInterface", &updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("UpdateSimpleClassAndReturnAsVarByAlternateInterface"), &updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var updateSimpleClassAndReturnAsVarByAlternateInterfaceFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface, updateSimpleClassAndReturnAsVarByAlternateInterfacePropertyId, -1, 0, &updateSimpleClassAndReturnAsVarByAlternateInterfaceFunction);
@@ -839,9 +839,9 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add VarToDispExTest function to TestUtilities
     PropertyId varToDispExTestPropertyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"VarToDispExTest", &varToDispExTestPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("VarToDispExTest"), &varToDispExTestPropertyId);
     IfFailedGo(hr);
-    hr = activeScriptDirect->GetOrAddPropertyId(L"length", &lengthPropertyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("length"), &lengthPropertyId);
     IfFailedGo(hr);
     Var varToDispExTestFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::VarToDispExTest, varToDispExTestPropertyId, -1, 0, &varToDispExTestFunction);
@@ -855,7 +855,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add ClearAllProjectionCaches function to TestUtilities
     PropertyId clearAllProjectionCachesId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"ClearAllProjectionCaches", &clearAllProjectionCachesId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("ClearAllProjectionCaches"), &clearAllProjectionCachesId);
     IfFailedGo(hr);
     Var clearAllProjectionCachesFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::ClearAllProjectionCaches, clearAllProjectionCachesId, -1, 0, &clearAllProjectionCachesFunction);
@@ -869,7 +869,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add QueryPerformanceCounter function to TestUtilities
     PropertyId queryPerformanceCounterId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"QueryPerformanceCounter", &queryPerformanceCounterId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("QueryPerformanceCounter"), &queryPerformanceCounterId);
     IfFailedGo(hr);
     Var queryPerformanceCounterFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::QueryPerformanceCounter, queryPerformanceCounterId, -1, 0, &queryPerformanceCounterFunction);
@@ -883,7 +883,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add QueryPerformanceFrequency function to TestUtilities
     PropertyId queryPerformanceFrequencyId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"QueryPerformanceFrequency", &queryPerformanceFrequencyId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("QueryPerformanceFrequency"), &queryPerformanceFrequencyId);
     IfFailedGo(hr);
     Var queryPerformanceFrequencyFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::QueryPerformanceFrequency, queryPerformanceFrequencyId, -1, 0, &queryPerformanceFrequencyFunction);
@@ -897,7 +897,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add GetHostType function to TestUtilities
     PropertyId getHostTypeId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"GetHostType", &getHostTypeId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("GetHostType"), &getHostTypeId);
     IfFailedGo(hr);
     Var getHostTypeFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::GetHostType, getHostTypeId, -1, 0, &getHostTypeFunction);
@@ -911,7 +911,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add RestrictedErrorAccessInstanceToVar function to TestUtilities
     PropertyId restrictedErrorAccessInstanceToVarId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"RestrictedErrorAccessInstanceToVar", &restrictedErrorAccessInstanceToVarId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("RestrictedErrorAccessInstanceToVar"), &restrictedErrorAccessInstanceToVarId);
     IfFailedGo(hr);
     Var restrictedErrorAccessInstanceToVarFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::RestrictedErrorAccessInstanceToVar, restrictedErrorAccessInstanceToVarId, -1, 0, &restrictedErrorAccessInstanceToVarFunction);
@@ -925,7 +925,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
 
     // Add RWineryToVar function to TestUtilities
     PropertyId rwineryToVarId;
-    hr = activeScriptDirect->GetOrAddPropertyId(L"RWineryToVar", &rwineryToVarId);
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("RWineryToVar"), &rwineryToVarId);
     IfFailedGo(hr);
     Var rwineryToVarFunction;
     hr = activeScriptDirect->BuildDOMDirectFunction(nullptr, TestUtilities::RWineryToVar, rwineryToVarId, -1, 0, &rwineryToVarFunction);

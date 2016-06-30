@@ -12,15 +12,13 @@ HostVariant::HostVariant(IDispatch *pdisp, Js::ScriptContext* scriptContext) :
     memset(&varDispatch, 0, sizeof(VARIANT));
     varDispatch.vt = VT_DISPATCH;
     supportIDispatchEx = FALSE;
-
+    AssertCanHandleOutOfMemory();
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
-        BEGIN_LEAVE_SCRIPT(scriptContext)
-        {
-            hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
-        }
-        END_LEAVE_SCRIPT(scriptContext);
+        Assert(!scriptContext->GetThreadContext()->IsScriptActive());
+        hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         
         if (hr == S_OK && this->varDispatch.pdispVal)
         {
@@ -48,9 +46,11 @@ HostVariant::HostVariant(IDispatch *pdisp) :
     memset(&varDispatch, 0, sizeof(VARIANT));
     varDispatch.vt = VT_DISPATCH;
     supportIDispatchEx = FALSE;
+    AssertCanHandleOutOfMemory();
 
     if (pdisp)
     {
+        AUTO_NO_EXCEPTION_REGION;
         HRESULT hr;
         hr = pdisp->QueryInterface(__uuidof(IDispatchEx), (void**)&this->varDispatch.pdispVal);
         
@@ -198,8 +198,8 @@ void HostVariant::Dispose(bool isShutdown)
     }
     else
     {
-        LEAK_REPORT_PRINT(L"HostVariant %p: Finalize not called on shutdown (%s %p)\n", this,
-            isUnknown? L"IUnknown" : this->varDispatch.vt == VT_LPWSTR? L"LPWSTR" : L"IDispatch",
+        LEAK_REPORT_PRINT(_u("HostVariant %p: Finalize not called on shutdown (%s %p)\n"), this,
+            isUnknown? _u("IUnknown") : this->varDispatch.vt == VT_LPWSTR? _u("LPWSTR") : _u("IDispatch"),
             isUnknown? varDispatch.punkVal : this->varDispatch.vt == VT_LPWSTR? 0 :
                 this->varDispatch.pdispVal
             );

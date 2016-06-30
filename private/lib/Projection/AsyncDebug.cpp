@@ -145,13 +145,13 @@ HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptCo
 
     if (!operationName)
     {
-        operationName = L"";
+        operationName = _u("");
     }
 
 #ifdef ENABLE_JS_ETW
     // Walk the stack if debugger is attached and the listener is active for the ETW event or if we are tracing async calls.
     // Tracing should only be enabled for unit tests or manually troubleshooting and is easier to configure than an ETW consumer.
-    if (scriptContext->IsInDebugMode() && (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls)))
+    if (scriptContext->IsScriptContextInDebugMode() && (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls)))
     {
         EmitStackWalk(scriptContext, operationId);
     }
@@ -169,7 +169,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptCo
         int ret = StringFromGUID2(platformId, guidStr, ARRAYSIZE(guidStr));
         Assert(ret);
 
-        Output::Print(L"Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, operationName=%s, relatedContext=%llu)\n", logLevel, source, guidStr, operationId, operationName, relatedContext);
+        Output::Print(_u("Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, operationName=%s, relatedContext=%llu)\n"), logLevel, source, guidStr, operationId, operationName, relatedContext);
         Output::Flush();
     }
 
@@ -202,7 +202,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationCompletion(Js::ScriptContext* script
         int ret = StringFromGUID2(platformId, guidStr, ARRAYSIZE(guidStr));
         Assert(ret);
 
-        Output::Print(L"Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, status=%d)\n", logLevel, source, guidStr, operationId, status);
+        Output::Print(_u("Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, status=%d)\n"), logLevel, source, guidStr, operationId, status);
         Output::Flush();
     }
 
@@ -240,7 +240,7 @@ HRESULT AsyncDebug::WrapperForTraceSynchronousWorkStart(Js::ScriptContext* scrip
         int ret = StringFromGUID2(platformId, guidStr, ARRAYSIZE(guidStr));
         Assert(ret);
 
-        Output::Print(L"Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, work=%d)\n", logLevel, source, guidStr, operationId, workType);
+        Output::Print(_u("Calling AsyncCausalityTracer.TraceSynchronousWorkStart(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, work=%d)\n"), logLevel, source, guidStr, operationId, workType);
         Output::Flush();
     }
 
@@ -270,7 +270,7 @@ HRESULT AsyncDebug::WrapperForTraceSynchronousWorkCompletion(Js::ScriptContext* 
 
     if (CONFIG_FLAG(TraceAsyncDebugCalls))
     {
-        Output::Print(L"Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=%d, source=%d, work=%d)\n", logLevel, source, workType);
+        Output::Print(_u("Calling AsyncCausalityTracer.TraceSynchronousWorkCompletion(traceLevel=%d, source=%d, work=%d)\n"), logLevel, source, workType);
         Output::Flush();
     }
 
@@ -303,7 +303,7 @@ HRESULT AsyncDebug::WrapperForTraceOperationRelation(Js::ScriptContext* scriptCo
         int ret = StringFromGUID2(platformId, guidStr, ARRAYSIZE(guidStr));
         Assert(ret);
 
-        Output::Print(L"Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, relation=%d)\n", logLevel, source, guidStr, operationId, relation);
+        Output::Print(_u("Calling AsyncCausalityTracer.TraceOperationRelation(traceLevel=%d, source=%d, platformId=%s, operationId=%llu, relation=%d)\n"), logLevel, source, guidStr, operationId, relation);
         Output::Flush();
     }
     
@@ -608,7 +608,7 @@ AsyncDebug::AsyncOperationId AsyncDebug::BeginAsyncOperationForWinRTMethodCall(L
     
     try
     {
-        BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"AsyncDebug");
+        BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("AsyncDebug"));
         {
             Js::StringBuilder<ArenaAllocator> methodNameBuffer(tempAllocator);
 
@@ -653,7 +653,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
         return;
     }
 
-    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"AsyncDebug")
+    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("AsyncDebug"))
     {
         const ushort stackTraceLimit = (ushort)Js::JavascriptExceptionOperators::DefaultStackTraceLimit;
         unsigned short nameBufferLength = 0;
@@ -665,7 +665,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
 
         if (CONFIG_FLAG(TraceAsyncDebugCalls))
         {
-            Output::Print(L"Posting stack trace via ETW:\n");
+            Output::Print(_u("Posting stack trace via ETW:\n"));
         }
 
         ushort frameCount = walker.WalkUntil(stackTraceLimit, [&](Js::JavascriptFunction* function, ushort frameIndex) -> bool
@@ -719,7 +719,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
 
             if (CONFIG_FLAG(TraceAsyncDebugCalls))
             {
-                Output::Print(L"\tFrame %hu: Name=%hu (%s), SourceLocationLength=%u, SourceLocationStartIndex=%u\n", 
+                Output::Print(_u("\tFrame %hu: Name=%hu (%s), SourceLocationLength=%u, SourceLocationStartIndex=%u\n"), 
                     frameIndex, frames[frameIndex].nameIndex, name, frames[frameIndex].sourceLocationLength, frames[frameIndex].sourceLocationStartIndex);
             }
 
@@ -730,7 +730,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
 
         if (CONFIG_FLAG(TraceAsyncDebugCalls))
         {
-            Output::Print(L"NameBuffer = %s\n", nameBufferString);
+            Output::Print(_u("NameBuffer = %s\n"), nameBufferString);
         }
 
         // Account for the terminating null character.

@@ -227,7 +227,7 @@ HRESULT ScriptDebugDocument::ReParentToCaller()
 // 3. Insert the text using debug document helper.
 // 4. Attach the node to the hierearchy
 //
-HRESULT ScriptDebugDocument::Register(const wchar_t * title)
+HRESULT ScriptDebugDocument::Register(const char16 * title)
 {
     Assert(!m_isMarkedClosed);
     Assert(m_debugDocHelper == NULL);
@@ -267,19 +267,21 @@ HRESULT ScriptDebugDocument::Register(const wchar_t * title)
 
         if(!title)
         {
-            title = L"script block";
+            title = _u("script block");
         }
 
         if (isDynamic)
         {
-            shortName = const_cast<wchar_t*>(title);
+            shortName = const_cast<char16*>(title);
             longName = HeapNewNoThrowArray(WCHAR, nameSize);
+            IfNullReturnError(longName, E_OUTOFMEMORY);
             this->GetFormattedTitle(shortName, longName, nameSize);
         }
         else
         {
-            longName = const_cast<wchar_t*>(title);
+            longName = const_cast<char16*>(title);
             shortName = HeapNewNoThrowArray(WCHAR, nameSize);
+            IfNullReturnError(shortName, E_OUTOFMEMORY);
             Js::FunctionBody::GetShortNameFromUrl(longName, shortName, nameSize);
         }
 
@@ -292,7 +294,7 @@ HRESULT ScriptDebugDocument::Register(const wchar_t * title)
 
         IfFailGo(m_debugDocHelper->DefineScriptBlock(0, utfSourceInfo->GetCchLength(), scriptEngine, FALSE /*no scriptlet*/, &m_debugSourceCookie));
     } // !isHostManagedSource
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptDebugDocument::Register: Host managed source: %d, dwsourcecontext %p, Title: %s \n", isHostManagedSource, srcInfo->sourceContextInfo->dwHostSourceContext, title);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptDebugDocument::Register: Host managed source: %d, dwsourcecontext %p, Title: %s \n"), isHostManagedSource, srcInfo->sourceContextInfo->dwHostSourceContext, title);
     
     // Ensure Utf8SourceInfo has a reference to IDebugDocumentText before we add the text.
     if(SUCCEEDED(this->GetDocumentContext(srcInfo->ichMinHost, /*length*/ 1, &spDebugDocumentContext)))
@@ -493,7 +495,7 @@ HRESULT ScriptDebugDocument::AddText()
         {
             int32 cchLength = utf8SourceInfo->GetCchLength();
 
-            AutoArrayPtr<wchar_t> sourceContent(HeapNewNoThrowArray(wchar_t, cchLength + 1), cchLength + 1);
+            AutoArrayPtr<char16> sourceContent(HeapNewNoThrowArray(char16, cchLength + 1), cchLength + 1);
             if (sourceContent != nullptr)
             {
                 utf8::DecodeOptions options = utf8SourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;

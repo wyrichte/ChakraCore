@@ -15,11 +15,7 @@ EXPORTS
 
     echo
     utmode
-    jsstack
     ldsym
-    verifyOM
-    bp 
-    asyncBreak
     writedump
     readdump
     testdump

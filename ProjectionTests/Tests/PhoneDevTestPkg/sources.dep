@@ -6,4 +6,11 @@ BUILD_PASS2_CONSUMES= \
     inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\dllsrv\dll_mc|PASS2 \
     inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\idl\dll_mc|PASS2 \
     inetcore\jscript\projectiontests\abis\custom\winery\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\animal\winrt\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\devtests.camelcasing\winrt\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\devtests.repros\winrt\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\devtests\winrt\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\dllsrv\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\teachrt\winrt\idl\dll_mc|PASS2 \
+    onecoreuap\inetcore\jscript\projectiontests\abis\custom\winery\dllsrv\dll_mc|PASS2 \
 

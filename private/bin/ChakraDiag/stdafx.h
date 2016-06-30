@@ -45,7 +45,10 @@
 #define JS_ATL_DEBUG
 #undef _DEBUG
 #endif
-#include <atlbase.h>
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#include "atlbase.h"
+#pragma warning(pop)
 #include <atlcoll.h>
 #include <atlcom.h>
 #include <atlstr.h>
@@ -111,10 +114,8 @@
 // Forward reference
 namespace JsDiag
 {
-    class InspectionContext;
     class RemoteStackWalker;
     class DebugClient;
-    class RemoteAllocator;
     class RemoteStackFrame;
     enum Diag_VTableType
     {
@@ -152,28 +153,15 @@ namespace JsDiag
 
 #include "dllfunc.h"
 #include "jsdiag.h"
-#include "jsdebug.h"
-#include "JsDebugProperty.h"
 #include "DAC.h"
-#include "RemoteAllocator.h"
 #include "DiagProvider.h"
 #include "DebugClient.h"
-#include "jsdebugProcess.h"
-#include "JsDebugBreakPoint.h"
-#include "jsdebugStackWalker.h"
-#include "RemoteDiagFrame.h"
 #include "RemoteStackFrame.h"
 #include "InternalStackFrame.h"
 #include "RemoteStackFrameEnumerator.h"
 #include "RemoteInlineFrameWalker.h"
 #include "RemoteStackWalker.h"
 #include "RemoteBuffer.inl"
-#include "RemoteEnumerator.h"
-#include "RemoteTypeHandler.h"
-#include "RemoteString.h"
-#include "Inspection.h"
-#include "RemoteStackFrameLocals.h"
-#include "expression.h"
 #include "Serializer.h"
 #include "ScriptDump.h"
 #include "ScriptDumpReader.h"

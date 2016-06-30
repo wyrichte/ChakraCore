@@ -151,7 +151,7 @@ namespace Metadata
     inline bool EqualsLiteral(const char *name, const char (&w)[N]) { return ::strncmp(name, w, N) == 0; }
 
     template< size_t N >
-    inline bool EqualsLiteral(const wchar_t *name, const wchar_t (&w)[N]) { return ::wcsncmp(name, w, N) == 0; }
+    inline bool EqualsLiteral(const char16 *name, const char16 (&w)[N]) { return ::wcsncmp(name, w, N) == 0; }
 
     // Info:        Construct an assembly reader
     // Parameters:  import - The metadata importer
@@ -187,7 +187,7 @@ namespace Metadata
                 mdTypeRef typeRef = refs[i];
                 
                 MDUTF8CSTR name;
-                auto hr = GetImport()->GetNameFromToken(typeRef, &name);
+                hr = GetImport()->GetNameFromToken(typeRef, &name);
                 Js::VerifyOkCatastrophic(hr);
                 
                 bool possible = false;
@@ -241,10 +241,10 @@ namespace Metadata
                 if (possible)
                 {
                     const ULONG MaxRefSize = 50;
-                    wchar_t referenceName[MaxRefSize + 1];
+                    char16 referenceName[MaxRefSize + 1];
                     ULONG nameSize;
                     mdToken referenceScope;
-                    auto hr = GetImport()->GetTypeRefProps(typeRef, &referenceScope, referenceName, MaxRefSize, &nameSize);
+                    hr = GetImport()->GetTypeRefProps(typeRef, &referenceScope, referenceName, MaxRefSize, &nameSize);
                     Js::VerifyOkCatastrophic(hr);
                 
                     // nameSize includes the null terminator
@@ -254,18 +254,18 @@ namespace Metadata
                         switch (referenceName[7]) 
                         {
                         case 'E':
-                            if (EqualsLiteral(referenceName, L"System.Enum"))
+                            if (EqualsLiteral(referenceName, _u("System.Enum")))
                                 RecordReference(typeRef, systemEnum, a);
                             break;
                         case 'G':
-                            if (EqualsLiteral(referenceName, L"System.Guid")) 
+                            if (EqualsLiteral(referenceName, _u("System.Guid"))) 
                                 RecordReference(typeRef, systemGuid, a);
                             break;
                         }
                         break;
             
                     case 14:
-                        if (EqualsLiteral(referenceName, L"System.Object"))
+                        if (EqualsLiteral(referenceName, _u("System.Object")))
                             RecordReference(typeRef, systemObject, a);
                         break;
 
@@ -273,23 +273,23 @@ namespace Metadata
                         switch (referenceName[7])
                         {
                         case 'A':
-                            if (EqualsLiteral(referenceName, L"System.Attribute"))
+                            if (EqualsLiteral(referenceName, _u("System.Attribute")))
                                 RecordReference(typeRef, systemAttribute, a);
                             break;
                         case 'V':
-                            if (EqualsLiteral(referenceName, L"System.ValueType"))
+                            if (EqualsLiteral(referenceName, _u("System.ValueType")))
                                 RecordReference(typeRef, systemValueType, a);
                             break;
                         }
                         break;
 
                     case 25:
-                        if (EqualsLiteral(referenceName, L"System.MulticastDelegate"))
+                        if (EqualsLiteral(referenceName, _u("System.MulticastDelegate")))
                             RecordReference(typeRef, systemDelegate, a);
                         break;
 
                     case 27:
-                        if (EqualsLiteral(referenceName, L"Windows.Foundation.HResult"))
+                        if (EqualsLiteral(referenceName, _u("Windows.Foundation.HResult")))
                             RecordReference(typeRef, windowsFoundationHResult, a);
                         break;
 
@@ -297,23 +297,23 @@ namespace Metadata
                         switch (referenceName[19]) 
                         {
                         case 'D':
-                            if (EqualsLiteral(referenceName, L"Windows.Foundation.DateTime"))
+                            if (EqualsLiteral(referenceName, _u("Windows.Foundation.DateTime")))
                                 RecordReference(typeRef, windowsFoundationDateTime, a);
                             break;
                         case 'T':
-                            if (EqualsLiteral(referenceName, L"Windows.Foundation.TimeSpan"))
+                            if (EqualsLiteral(referenceName, _u("Windows.Foundation.TimeSpan")))
                                 RecordReference(typeRef, windowsFoundationTimeSpan, a);
                             break;
                         }
                         break;
             
                     case 42:
-                        if (EqualsLiteral(referenceName, L"Windows.Foundation.EventRegistrationToken"))
+                        if (EqualsLiteral(referenceName, _u("Windows.Foundation.EventRegistrationToken")))
                             RecordReference(typeRef, windowsFoundationEventRegistrationToken, a);
                         break;
 
                     case 49:
-                        if (EqualsLiteral(referenceName, L"Windows.Foundation.Metadata.ActivatableAttribute"))
+                        if (EqualsLiteral(referenceName, _u("Windows.Foundation.Metadata.ActivatableAttribute")))
                             RecordReference(typeRef, windowsFoundationActivatableAttribute, a);
                         break;
                     }
@@ -340,31 +340,31 @@ namespace Metadata
         auto referenceTokens = ReferenceTokens();
 
         referenceTokens->Iterate([&](mdToken assembly) {
-            verifyTypeRef(assembly, L"System.Guid", systemGuid);
-            verifyTypeRef(assembly, L"Windows.Foundation.DateTime", windowsFoundationDateTime);
-            verifyTypeRef(assembly, L"Windows.Foundation.TimeSpan", windowsFoundationTimeSpan);
-            verifyTypeRef(assembly, L"System.Enum", systemEnum);
-            verifyTypeRef(assembly, L"System.ValueType", systemValueType);
-            verifyTypeRef(assembly, L"System.MulticastDelegate", systemDelegate);
-            verifyTypeRef(assembly, L"System.Attribute", systemAttribute);
-            verifyTypeRef(assembly, L"System.Object", systemObject);
-            verifyTypeRef(assembly, L"Windows.Foundation.HResult", windowsFoundationHResult); 
-            verifyTypeRef(assembly, L"Windows.Foundation.Metadata.ActivatableAttribute", windowsFoundationActivatableAttribute); 
-            verifyTypeRef(assembly, L"Windows.Foundation.EventRegistrationToken", windowsFoundationEventRegistrationToken); 
+            verifyTypeRef(assembly, _u("System.Guid"), systemGuid);
+            verifyTypeRef(assembly, _u("Windows.Foundation.DateTime"), windowsFoundationDateTime);
+            verifyTypeRef(assembly, _u("Windows.Foundation.TimeSpan"), windowsFoundationTimeSpan);
+            verifyTypeRef(assembly, _u("System.Enum"), systemEnum);
+            verifyTypeRef(assembly, _u("System.ValueType"), systemValueType);
+            verifyTypeRef(assembly, _u("System.MulticastDelegate"), systemDelegate);
+            verifyTypeRef(assembly, _u("System.Attribute"), systemAttribute);
+            verifyTypeRef(assembly, _u("System.Object"), systemObject);
+            verifyTypeRef(assembly, _u("Windows.Foundation.HResult"), windowsFoundationHResult); 
+            verifyTypeRef(assembly, _u("Windows.Foundation.Metadata.ActivatableAttribute"), windowsFoundationActivatableAttribute); 
+            verifyTypeRef(assembly, _u("Windows.Foundation.EventRegistrationToken"), windowsFoundationEventRegistrationToken); 
         });
 #endif
 
         // Find type defs of concern
         typeDefWindowsFoundationHResult = mdTypeDefNil;
-        GetImport()->FindTypeDefByName(L"Windows.Foundation.HResult", NULL, &typeDefWindowsFoundationHResult);
+        GetImport()->FindTypeDefByName(_u("Windows.Foundation.HResult"), NULL, &typeDefWindowsFoundationHResult);
         typeDefWindowsFoundationEventRegistrationToken = mdTypeDefNil;
-        GetImport()->FindTypeDefByName(L"Windows.Foundation.EventRegistrationToken", NULL, &typeDefWindowsFoundationEventRegistrationToken);
+        GetImport()->FindTypeDefByName(_u("Windows.Foundation.EventRegistrationToken"), NULL, &typeDefWindowsFoundationEventRegistrationToken);
         typeDefWindowsFoundationIAsyncInfo = mdTypeDefNil;
-        GetImport()->FindTypeDefByName(L"Windows.Foundation.IAsyncInfo", NULL, &typeDefWindowsFoundationIAsyncInfo);
+        GetImport()->FindTypeDefByName(_u("Windows.Foundation.IAsyncInfo"), NULL, &typeDefWindowsFoundationIAsyncInfo);
         typeDefWindowsFoundationDateTime = mdTypeDefNil;
-        GetImport()->FindTypeDefByName(L"Windows.Foundation.DateTime", NULL, &typeDefWindowsFoundationDateTime);
+        GetImport()->FindTypeDefByName(_u("Windows.Foundation.DateTime"), NULL, &typeDefWindowsFoundationDateTime);
         typeDefWindowsFoundationTimeSpan = mdTypeDefNil;
-        GetImport()->FindTypeDefByName(L"Windows.Foundation.TimeSpan", NULL, &typeDefWindowsFoundationTimeSpan);
+        GetImport()->FindTypeDefByName(_u("Windows.Foundation.TimeSpan"), NULL, &typeDefWindowsFoundationTimeSpan);
     }
 
     // Info:        Release hed resources.
@@ -797,7 +797,7 @@ namespace Metadata
         Js::VerifyOkCatastrophic(hr);
         Js::VerifyCatastrophic(props->sizeName > 0);
         props->td = td;
-        props->name = AnewArrayZ(a, wchar_t, props->sizeName);
+        props->name = AnewArrayZ(a, char16, props->sizeName);
         hr = metadata->GetAssemblyProps(td, &props->publicKey, &props->sizePublicKey, &props->hashAlgorithmID, props->name, props->sizeName, &props->sizeName, nullptr, &props->flags);
         Js::VerifyOkCatastrophic(hr);
         return props;
@@ -823,7 +823,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"TypeDefinitionTokens(), result count: %d\n", result->Count());
+        TRACE_METADATA(_u("TypeDefinitionTokens(), result count: %d\n"), result->Count());
 
         return result;
     }
@@ -841,7 +841,7 @@ namespace Metadata
             auto props = (TypeDefProperties *)cachedItem;
             Assert(props->td == td);
             
-            TRACE_METADATA(L"Cached: GetTypeDefProperties(%d), result: %s\n", td, stringConverter->StringOfId(props->id));
+            TRACE_METADATA(_u("Cached: GetTypeDefProperties(%d), result: %s\n"), td, stringConverter->StringOfId(props->id));
 
             return props;
         }
@@ -865,7 +865,7 @@ namespace Metadata
 
         tokenCache->Item(td, props);
         
-        TRACE_METADATA(L"Fetched: GetTypeDefProperties(%d), result: %s\n", td, name.Get());
+        TRACE_METADATA(_u("Fetched: GetTypeDefProperties(%d), result: %s\n"), td, name.Get());
 
         return props;
     }
@@ -906,7 +906,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"MemberTokens(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("MemberTokens(%d), result count: %d\n"), td, result->Count());
 
         return result;
     }
@@ -929,7 +929,7 @@ namespace Metadata
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
-        TRACE_METADATA(L"GetMemberProperties(%d), result: %s\n", mt, name.Get());
+        TRACE_METADATA(_u("GetMemberProperties(%d), result: %s\n"), mt, name.Get());
         
         return props;
     }
@@ -972,7 +972,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"EventTokens(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("EventTokens(%d), result count: %d\n"), td, result->Count());
         
         return result;
     }
@@ -1004,7 +1004,7 @@ namespace Metadata
         props->removeOnMethod = type->GetMethodByToken(props->removeOn);
         Js::VerifyCatastrophic(props->addOnMethod && props->removeOnMethod);
         
-        TRACE_METADATA(L"GetEventProperties2(%d), result: %s\n", mt, name.Get());
+        TRACE_METADATA(_u("GetEventProperties2(%d), result: %s\n"), mt, name.Get());
         
         return props;
     }
@@ -1032,7 +1032,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"GenericParameterTokens(%d), result count: %d\n", token, result->Count());
+        TRACE_METADATA(_u("GenericParameterTokens(%d), result count: %d\n"), token, result->Count());
         
         return result;
     }
@@ -1056,7 +1056,7 @@ namespace Metadata
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
 
-        TRACE_METADATA(L"GetGenericParameterProperties(%d), result: %s\n", gp, name.Get());
+        TRACE_METADATA(_u("GetGenericParameterProperties(%d), result: %s\n"), gp, name.Get());
         
         return props;
     }
@@ -1094,7 +1094,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"MethodTokens(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("MethodTokens(%d), result count: %d\n"), td, result->Count());
         
         return result;
     }
@@ -1135,7 +1135,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"FieldTokens(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("FieldTokens(%d), result count: %d\n"), td, result->Count());
         
         return result;
     }
@@ -1150,12 +1150,12 @@ namespace Metadata
 
         if (SUCCEEDED(hr))
         {
-            TRACE_METADATA(L"FindTopLevelTypeDefByName(\"%s\") succeeded, result: %d\n", name, typeDefToken);
+            TRACE_METADATA(_u("FindTopLevelTypeDefByName(\"%s\") succeeded, result: %d\n"), name, typeDefToken);
             
             return GetTypeDefProperties(typeDefToken);
         }
 
-        TRACE_METADATA(L"FindTopLevelTypeDefByName(\"%s\") failed\n", name);
+        TRACE_METADATA(_u("FindTopLevelTypeDefByName(\"%s\") failed\n"), name);
         
         return nullptr;
     }
@@ -1196,9 +1196,9 @@ namespace Metadata
         }
         else
         {
-            props->isDefaultOverload = IsAttributePresent(mb, L"Windows.Foundation.Metadata.DefaultOverloadAttribute");
+            props->isDefaultOverload = IsAttributePresent(mb, _u("Windows.Foundation.Metadata.DefaultOverloadAttribute"));
             props->overloadNameId = MetadataStringIdNil;
-            LPCWSTR overloadName = GetStringAttribute(mb, L"Windows.Foundation.Metadata.OverloadAttribute");
+            LPCWSTR overloadName = GetStringAttribute(mb, _u("Windows.Foundation.Metadata.OverloadAttribute"));
             if (overloadName != NULL)
             {
                 props->overloadNameId = stringConverter->IdOfString(overloadName);
@@ -1208,7 +1208,7 @@ namespace Metadata
         // Note the method index is not filled in here.  It's filled in either by Assembly::Methods.
         props->methodIndex = -1;
         
-        TRACE_METADATA(L"GetMethodProperties(%d), result: %s\n", mb, name.Get());
+        TRACE_METADATA(_u("GetMethodProperties(%d), result: %s\n"), mb, name.Get());
         
         return props; 
     }
@@ -1230,7 +1230,7 @@ namespace Metadata
         // Now, find the method within the type.
         auto props = type->GetMethodByToken(mb);
 
-        TRACE_METADATA(L"GetMethodProperties2(%d), result: %s\n", mb, stringConverter->StringOfId(props != nullptr ? props->id : MetadataStringIdNil));
+        TRACE_METADATA(_u("GetMethodProperties2(%d), result: %s\n"), mb, stringConverter->StringOfId(props != nullptr ? props->id : MetadataStringIdNil));
         
         return props;
     }
@@ -1284,7 +1284,7 @@ namespace Metadata
         auto read = DecodeField(sizeSig, sigBlob, a, &props->type);
         Js::VerifyCatastrophic(read == sizeSig);
 
-        TRACE_METADATA(L"GetFieldProperties(%d), result: %s\n", fd, name.Get());
+        TRACE_METADATA(_u("GetFieldProperties(%d), result: %s\n"), fd, name.Get());
         
         return props; 
     }
@@ -1324,7 +1324,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
 
-        TRACE_METADATA(L"PropertyTokens(%d), result count: %d\n", td, result->Count());        
+        TRACE_METADATA(_u("PropertyTokens(%d), result count: %d\n"), td, result->Count());        
         
         return result;
     }
@@ -1358,7 +1358,7 @@ namespace Metadata
         props->setterMethod = type->GetMethodByToken(props->setter);
         Js::VerifyCatastrophic(props->getterMethod || props->setterMethod);
         
-        TRACE_METADATA(L"GetPropertyProperties2(%d), result: %s\n", pt, name.Get());
+        TRACE_METADATA(_u("GetPropertyProperties2(%d), result: %s\n"), pt, name.Get());
         
         return props; 
     }
@@ -1387,7 +1387,7 @@ namespace Metadata
         props->pvSig = sigBlob;
         props->sizeSig = sizeSig;
 
-        TRACE_METADATA(L"GetMemberRefProperties(%d), result: %s\n", mr, name.Get());
+        TRACE_METADATA(_u("GetMemberRefProperties(%d), result: %s\n"), mr, name.Get());
 
         return props; 
     }
@@ -1412,7 +1412,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"CustomAttributeTokens(%d, %d), result count: %d\n", td, typeOfInterest, result->Count());
+        TRACE_METADATA(_u("CustomAttributeTokens(%d, %d), result count: %d\n"), td, typeOfInterest, result->Count());
         
         return result;
     }
@@ -1428,7 +1428,7 @@ namespace Metadata
 
         Js::VerifyOkCatastrophic(hr);
 
-        TRACE_METADATA(L"GetCustomAttributeProperties(%d), result: %d\n", cv, props->attributeTypeToken);
+        TRACE_METADATA(_u("GetCustomAttributeProperties(%d), result: %d\n"), cv, props->attributeTypeToken);
             
         props->attributeToken = cv;
         props->isMemberRef = false;
@@ -1488,7 +1488,7 @@ namespace Metadata
             return GetCustomAttributeProperties(td);
         }, a);
 
-        TRACE_METADATA(L"CustomAttributes(%d, %d), result count: %d\n", td, typeOfInterest, result->Count());
+        TRACE_METADATA(_u("CustomAttributes(%d, %d), result count: %d\n"), td, typeOfInterest, result->Count());
 
         return result;
     }
@@ -1505,7 +1505,7 @@ namespace Metadata
             auto props = (TypeRefProperties *)cachedItem;
             Assert(props->referenceToken == tr);
             
-            TRACE_METADATA(L"Cached: GetTypeRefProperties(%d), result: %s\n", tr, stringConverter->StringOfId(props->id));
+            TRACE_METADATA(_u("Cached: GetTypeRefProperties(%d), result: %s\n"), tr, stringConverter->StringOfId(props->id));
 
             return props;
         }
@@ -1525,7 +1525,7 @@ namespace Metadata
 
         tokenCache->Item(tr, props);
 
-        TRACE_METADATA(L"Fetched: GetTypeRefProperties(%d), result: %s\n", tr, name.Get());
+        TRACE_METADATA(_u("Fetched: GetTypeRefProperties(%d), result: %s\n"), tr, name.Get());
 
         return props; 
     }
@@ -1552,7 +1552,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"InterfacesImplemented(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("InterfacesImplemented(%d), result count: %d\n"), td, result->Count());
         
         return result;
     }
@@ -1586,7 +1586,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"MethodImpls(%d), result count: %d\n", td, result->Count());
+        TRACE_METADATA(_u("MethodImpls(%d), result count: %d\n"), td, result->Count());
         
         return result;
     }
@@ -1601,7 +1601,7 @@ namespace Metadata
         Js::VerifyOkCatastrophic(hr);
         props->implToken = ii;
         
-        TRACE_METADATA(L"GetInterfaceImplProperties(%d), result: %d, %d\n", ii, props->classToken, props->interfaceToken);
+        TRACE_METADATA(_u("GetInterfaceImplProperties(%d), result: %d, %d\n"), ii, props->classToken, props->interfaceToken);
         
         return props;
     }		
@@ -1628,7 +1628,7 @@ namespace Metadata
 
         GetImport()->CloseEnum(he);
         
-        TRACE_METADATA(L"ParameterTokens(%d), result count: %d\n", mb, result->Count());
+        TRACE_METADATA(_u("ParameterTokens(%d), result count: %d\n"), mb, result->Count());
         
         return result;
     }
@@ -1651,7 +1651,7 @@ namespace Metadata
         Js::VerifyOkCatastrophic(hr);
         props->id = stringConverter->IdOfString(name.Get());
         
-        TRACE_METADATA(L"GetParameterProperties(%d), result: %s\n", pt, name.Get());
+        TRACE_METADATA(_u("GetParameterProperties(%d), result: %s\n"), pt, name.Get());
         
         return props; 
     }
@@ -1669,7 +1669,7 @@ namespace Metadata
         auto read = DecodeType(sizeSig, sigBlob, a, &type);
         Js::VerifyCatastrophic(read == sizeSig);
 
-        TRACE_METADATA(L"GetTypeSpec(%d)\n", ts);
+        TRACE_METADATA(_u("GetTypeSpec(%d)\n"), ts);
         
         return type;
     }
@@ -1700,7 +1700,7 @@ namespace Metadata
 
         HRESULT hr = GetImport()->GetCustomAttributeByName(token, attributeName, &pvData, &cbData);
 
-        TRACE_METADATA(L"GetGuidAttributeValue(%d, %s)\n", token, attributeName);
+        TRACE_METADATA(_u("GetGuidAttributeValue(%d, %s)\n"), token, attributeName);
         
         if (FAILED(hr) || (hr == S_FALSE))
         {
@@ -1725,7 +1725,7 @@ namespace Metadata
     {
         HRESULT hr = GetImport()->GetCustomAttributeByName(token, attributeName, nullptr, nullptr);
 
-        TRACE_METADATA(L"IsAttributePresent(%d, %s)\n", token, attributeName);
+        TRACE_METADATA(_u("IsAttributePresent(%d, %s)\n"), token, attributeName);
         
         if (FAILED(hr) || (hr == S_FALSE))
         {
@@ -1798,7 +1798,7 @@ namespace Metadata
 
         auto hr = GetImport()->GetCustomAttributeByName(token, attributeName, (const void**)&pbData, &cbData);
         
-        TRACE_METADATA(L"GetStringAttribute(%d, %s)\n", token, attributeName);
+        TRACE_METADATA(_u("GetStringAttribute(%d, %s)\n"), token, attributeName);
         
         if(SUCCEEDED(hr) && hr != S_FALSE)
         {
@@ -1809,7 +1809,7 @@ namespace Metadata
             verifiedBytes += VerifyAttributeString(cbData + verifiedBytes, &(pbData[verifiedBytes]), &strLen);
             auto stringArg = (char *)&(pbData[verifiedBytes-strLen]);
             auto nameLength = strLen + 1; // +1 to include space for the null terminator
-            auto sz = AnewArrayZ(a, wchar_t, nameLength);
+            auto sz = AnewArrayZ(a, char16, nameLength);
             int chName = MultiByteToWideChar(CP_UTF8, 0, stringArg, strLen, sz, nameLength);
             
             // chName should never be greater than strLen, but ensure we properly null-terminate regardless.
@@ -1819,7 +1819,7 @@ namespace Metadata
             {
                 chName = strLen;
             }
-            sz[chName] = L'\0';
+            sz[chName] = _u('\0');
             return sz;
         }
 
@@ -1839,7 +1839,7 @@ namespace Metadata
 
         auto hr = GetImport()->GetCustomAttributeByName(token, attributeName, (const void**)&pbData, &cbData);
 
-        TRACE_METADATA(L"GetInt32Attribute(%d, %s)\n", token, attributeName);
+        TRACE_METADATA(_u("GetInt32Attribute(%d, %s)\n"), token, attributeName);
         
         if (hr == S_OK)
         {
@@ -1860,7 +1860,7 @@ namespace Metadata
         const byte *pbData;
         ULONG cbData;
 
-        auto hr = GetImport()->GetCustomAttributeByName(token, L"Windows.Foundation.Metadata.ContractVersionAttribute", (const void**)&pbData, &cbData);
+        auto hr = GetImport()->GetCustomAttributeByName(token, _u("Windows.Foundation.Metadata.ContractVersionAttribute"), (const void**)&pbData, &cbData);
 
         if (hr == S_OK)
         {
@@ -1883,7 +1883,7 @@ namespace Metadata
 
         auto hr = GetImport()->GetCustomAttributeByName(token, attributeName, (const void**)&pbData, &cbData);
 
-        TRACE_METADATA(L"GetDWORDAttribute(%d, %s)\n", token, attributeName);
+        TRACE_METADATA(_u("GetDWORDAttribute(%d, %s)\n"), token, attributeName);
         
         if (hr == S_OK)
         {
@@ -1905,7 +1905,7 @@ namespace Metadata
         case ELEMENT_TYPE_VOID:
             return 0;
         case ELEMENT_TYPE_CHAR:
-            return sizeof(wchar_t);
+            return sizeof(char16);
         case ELEMENT_TYPE_BOOLEAN:
             return sizeof(bool);
         case ELEMENT_TYPE_U1:
@@ -1942,7 +1942,7 @@ namespace Metadata
         case ELEMENT_TYPE_VOID:
             return 0;
         case ELEMENT_TYPE_CHAR:
-            return __alignof(wchar_t);
+            return __alignof(char16);
         case ELEMENT_TYPE_BOOLEAN:
             return __alignof(bool);
         case ELEMENT_TYPE_U1:
@@ -1983,11 +1983,11 @@ namespace Metadata
             HRESULT hr = GetImport()->FindTypeDefByName(fullTypeName, mdTokenNil, &token);
             if (SUCCEEDED(hr))
             {
-                TRACE_METADATA(L"TryGetTypeDefByName(\"%s\") succeeded, result: %d\n", fullTypeName, token);
+                TRACE_METADATA(_u("TryGetTypeDefByName(\"%s\") succeeded, result: %d\n"), fullTypeName, token);
                 return token;
             }
 
-            TRACE_METADATA(L"TryGetTypeDefByName(\"%s\") failed\n", fullTypeName);            
+            TRACE_METADATA(_u("TryGetTypeDefByName(\"%s\") failed\n"), fullTypeName);            
         }
         
         return mdTokenNil;
@@ -2054,7 +2054,7 @@ namespace Metadata
         });
         
 #ifdef PROJECTION_METADATA_TRACE
-        assembly.Trace(L"GetMethodByName(%s, %s), result: %s\n", 
+        assembly.Trace(_u("GetMethodByName(%s, %s), result: %s\n"), 
             assembly.stringConverter->StringOfId(nameId), 
             assembly.stringConverter->StringOfId(overloadNameId), 
             assembly.stringConverter->StringOfId(result != nullptr ? result->id : MetadataStringIdNil));
@@ -2077,7 +2077,7 @@ namespace Metadata
         });
         
 #ifdef PROJECTION_METADATA_TRACE
-        assembly.Trace(L"GetMethodByToken(%d), result: %s\n", md, assembly.stringConverter->StringOfId(result != nullptr ? result->id : MetadataStringIdNil));
+        assembly.Trace(_u("GetMethodByToken(%d), result: %s\n"), md, assembly.stringConverter->StringOfId(result != nullptr ? result->id : MetadataStringIdNil));
 #endif
 
         return result;

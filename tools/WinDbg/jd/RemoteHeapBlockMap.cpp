@@ -10,7 +10,8 @@
 
 RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
 {
-    cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMap);
+    ULONG64 heapBlockMapAddr = heapBlockMap.GetPointerTo().GetPtr();
+    cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMapAddr);
     if (cachedHeapBlock == nullptr && cache)
     {
         auto start = _time64(nullptr);
@@ -29,7 +30,7 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
             }
             return false;
         });
-        GetExtension()->recyclerCachedData.SetHeapBlockMap(heapBlockMap, localCachedHeapBlock.get());
+        GetExtension()->recyclerCachedData.SetHeapBlockMap(heapBlockMapAddr, localCachedHeapBlock.get());
         cachedHeapBlock = localCachedHeapBlock.release();
 
         g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rHeap block map reading completed - elapsed time: %us\n", (ULONG)(_time64(nullptr) - start));

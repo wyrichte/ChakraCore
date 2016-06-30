@@ -12,7 +12,7 @@
 //#define REGEX_STATS
 #ifdef REGEX_STATS
 extern int _cacheHit;
-extern wchar_t* _regexSources[256];
+extern char16* _regexSources[256];
 extern int _regexIdCounts[256];
 extern double _regexIdTimes[256];
 extern int _regexIdStrLength[256];
@@ -93,7 +93,7 @@ int JcExceptionFilter(int exceptionCode, PEXCEPTION_POINTERS exceptionInfo)
     }
 #endif
 
-    fwprintf(stderr, L"FATAL ERROR: jnconsole.exe failed due to exception code %x\n", exceptionCode);
+    fwprintf(stderr, _u("FATAL ERROR: jnconsole.exe failed due to exception code %x\n"), exceptionCode);
 
 #ifdef SECURITY_TESTING
     if (exceptionCode == EXCEPTION_BREAKPOINT || (Js::Configuration::Global.flags.CrashOnException && exceptionCode != 0xE06D7363))
@@ -132,7 +132,7 @@ wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
     if (CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED) != S_OK)
     {
-        wprintf(L"FATAL ERROR: failed call to CoInitializeEx()\n");
+        wprintf(_u("FATAL ERROR: failed call to CoInitializeEx()\n"));
         exit(1);
     }
 
@@ -146,7 +146,7 @@ wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 #ifdef FAULT_INJECTION
         if(Js::Configuration::Global.flags.FaultInjection == Js::FaultInjection::Global.CountOnly)
         {
-            wprintf(L"FaultInjection - Total Allocation Count:%d\n",Js::FaultInjection::Global.countOfInjectionPoints);
+            wprintf(_u("FaultInjection - Total Allocation Count:%d\n"),Js::FaultInjection::Global.countOfInjectionPoints);
         }
 #endif
     }
@@ -163,7 +163,7 @@ wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
 void PrintUsage()
 {
-    wprintf(L"\n\nusage :jc.exe [flaglist] filename\n");
+    wprintf(_u("\n\nusage :jc.exe [flaglist] filename\n"));
     HostConfigFlags::PrintUsageString();
     Js::ConfigFlagsTable::PrintUsageString();
 }
@@ -182,7 +182,7 @@ wmain(int argc, __in_ecount(argc) LPWSTR argv[])
 
 #include <psapi.h>
 
-void DisplayMemStats(wchar_t const * message)
+void DisplayMemStats(char16 const * message)
 {
     PROCESS_MEMORY_COUNTERS_EX memCounters;
 
@@ -190,10 +190,10 @@ void DisplayMemStats(wchar_t const * message)
     {
         memCounters.cb=sizeof(memCounters);
         GetProcessMemoryInfo(GetCurrentProcess(),(PROCESS_MEMORY_COUNTERS*)&memCounters,memCounters.cb);
-        Output::Print(L"%s:\n", message);
-        Output::Print(L"  Peak working set %-7.2fM\n",memCounters.PeakWorkingSetSize/1000000.0);
-        Output::Print(L"  Working set      %-7.2fM\n",memCounters.WorkingSetSize/1000000.0);
-        Output::Print(L"  Private memory   %-7.2fM\n",memCounters.PrivateUsage/1000000.0);
+        Output::Print(_u("%s:\n"), message);
+        Output::Print(_u("  Peak working set %-7.2fM\n"),memCounters.PeakWorkingSetSize/1000000.0);
+        Output::Print(_u("  Working set      %-7.2fM\n"),memCounters.WorkingSetSize/1000000.0);
+        Output::Print(_u("  Private memory   %-7.2fM\n"),memCounters.PrivateUsage/1000000.0);
     }
 }
 
@@ -210,15 +210,15 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
     // etc.
     //
 
-    if(_wfopen_s(&file, filename, L"rb"))
+    if(_wfopen_s(&file, filename, _u("rb")))
     {
         fOpenFailed = TRUE;
     }
 
     if (fOpenFailed)
     {
-        wchar_t wszBuff[512];
-        fwprintf(stderr, L"_wfopen of %s failed", (LPCWSTR)filename);
+        char16 wszBuff[512];
+        fwprintf(stderr, _u("_wfopen of %s failed"), (LPCWSTR)filename);
         wszBuff[0] = 0;
         if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
                             NULL,
@@ -228,9 +228,9 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
                             _countof(wszBuff),
                             NULL))
         {
-            fwprintf(stderr, L": %s", wszBuff);
+            fwprintf(stderr, _u(": %s"), wszBuff);
         }
-        fwprintf(stderr, L"\n");
+        fwprintf(stderr, _u("\n"));
         return null;
     }
 
@@ -245,7 +245,7 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
     LPCOLESTR contentsRaw = (LPCOLESTR) calloc(lengthBytes + 2, 1);
 
     if (NULL == contentsRaw)
-        fwprintf(stderr, L"out of memory");
+        fwprintf(stderr, _u("out of memory"));
 
 
     //
@@ -272,7 +272,7 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
         0x0000 == *contentsRaw && 0xFEFF == *(contentsRaw+1) )
     {
         // UTF-16BE or UTF-32BE, both are unsupported
-        fwprintf(stderr, L"unsupported file encoding");
+        fwprintf(stderr, _u("unsupported file encoding"));
         return null;
     }
     else if (0xFEFF == *contentsRaw)
@@ -319,10 +319,10 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
     }
 #endif
 
-    wchar_t * fullpath = _wfullpath(NULL, filename, 0);
+    char16 * fullpath = _wfullpath(NULL, filename, 0);
     if (fullpath == null)
     {
-        fwprintf(stderr, L"Out of memory");
+        fwprintf(stderr, _u("Out of memory"));
         return null;
     }
 
@@ -345,7 +345,7 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     if(FAILED(hr))
     {
-        fwprintf(stderr, L"Out of memory");
+        fwprintf(stderr, _u("Out of memory"));
         return null;
     }
 
@@ -369,7 +369,7 @@ Js::JavascriptFunction* LoadFile(Js::ScriptContext * scriptContext, String& file
         LONG lCharacterPosition = 0;
         if (se.ichMin > se.ichMinLine)
             lCharacterPosition = se.ichMin - se.ichMinLine;
-        fwprintf(stderr, L"%s(%d, %d) %s: %s\n", (LPCWSTR)filename, se.line,
+        fwprintf(stderr, _u("%s(%d, %d) %s: %s\n"), (LPCWSTR)filename, se.line,
             lCharacterPosition, se.ei.bstrSource, se.ei.bstrDescription);
         // Reclaim strings allocated while processing any errors
         se.Free();
@@ -409,7 +409,7 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
     {
         AUTO_HANDLED_EXCEPTION_TYPE((ExceptionType)(ExceptionType_OutOfMemory | ExceptionType_StackOverflow));
         scriptContext = ScriptContext::New(threadContext);
-        DisplayMemStats(L"Script Context Created");
+        DisplayMemStats(_u("Script Context Created"));
 
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.ForceDiagnosticsMode)
@@ -426,7 +426,7 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         scriptContext->Initialize();
         WScript::Initialize(scriptContext);
 
-        DisplayMemStats(L"Script Context Initialized");
+        DisplayMemStats(_u("Script Context Initialized"));
     }
     catch (Js::OutOfMemoryException)
     {
@@ -434,7 +434,7 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         {
             HeapDelete(scriptContext);
         }
-        fwprintf(stderr, L"FATAL ERROR: Out of memory intializing script context\n");
+        fwprintf(stderr, _u("FATAL ERROR: Out of memory intializing script context\n"));
         return 1;
     }
     catch (Js::StackOverflowException)
@@ -443,7 +443,7 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         {
             HeapDelete(scriptContext);
         }
-        fwprintf(stderr, L"FATAL ERROR: Stack overflow intializing script context\n");
+        fwprintf(stderr, _u("FATAL ERROR: Stack overflow intializing script context\n"));
         return 1;
     }
 
@@ -478,7 +478,7 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         {
             LCID lcid = GetUserLocale();
             HRESULT hr = JSERR_UncaughtException;
-            wchar_t const * messageSz = null;
+            char16 const * messageSz = null;
             Js::Var errorObject = exceptionObject->GetThrownObject(null);
             if (errorObject != NULL && Js::JavascriptError::Is(errorObject))
             {
@@ -518,15 +518,15 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
                     col = 0;
                 }
 
-                wchar_t filename[_MAX_FNAME];
-                wchar_t ext[_MAX_EXT];
+                char16 filename[_MAX_FNAME];
+                char16 ext[_MAX_EXT];
                 _wsplitpath_s(Configuration::Global.flags.Filename, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
-                fwprintf(stderr, L"%s%s(%d, %d) %s: %s\n", filename, ext,
+                fwprintf(stderr, _u("%s%s(%d, %d) %s: %s\n"), filename, ext,
                     line + 1, col + 1, bstrSource, bstrError);
             }
             else
             {
-                fwprintf(stderr, L"%s %s: %s\n", (LPCWSTR)Configuration::Global.flags.Filename,
+                fwprintf(stderr, _u("%s %s: %s\n"), (LPCWSTR)Configuration::Global.flags.Filename,
                     bstrSource, bstrError);
             }
             SysFreeString(bstrSource);
@@ -539,18 +539,18 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         catch (Js::InternalErrorException)
         {
             Assert(false);
-            fwprintf(stderr, L"FATAL ERROR: Internal error exception in script execution\n");
+            fwprintf(stderr, _u("FATAL ERROR: Internal error exception in script execution\n"));
             error++;
         }
         catch (Js::OutOfMemoryException)
         {
-            fwprintf(stderr, L"FATAL ERROR: out of memory error in script execution\n");
+            fwprintf(stderr, _u("FATAL ERROR: out of memory error in script execution\n"));
             error++;
         }
         catch (Js::NotImplementedException)
         {
             Assert(false);
-            fwprintf(stderr, L"FATAL ERROR: Not implemented in script execution\n");
+            fwprintf(stderr, _u("FATAL ERROR: Not implemented in script execution\n"));
             error++;
         }
     }
@@ -560,18 +560,18 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
         Js::Tick tkStop = Js::Tick::Now();
         Js::TickDelta tdElapsedRun = tkStop - tkStart;
 
-        wprintf(L"TIME: %d ms (%d ms)\n", (tkStop - tkParse).ToMilliseconds(), (tkStop - tkStart).ToMilliseconds());
-        DisplayMemStats(L"After Execution");
+        wprintf(_u("TIME: %d ms (%d ms)\n"), (tkStop - tkParse).ToMilliseconds(), (tkStop - tkStart).ToMilliseconds());
+        DisplayMemStats(_u("After Execution"));
     }
 
     HeapDelete(scriptContext);
 
 #ifdef REGEX_STATS
-    wprintf(L"cache hits %d\n",_cacheHit);
+    wprintf(_u("cache hits %d\n"),_cacheHit);
     LARGE_INTEGER freq;
     QueryPerformanceFrequency(&freq);
     if (freq.QuadPart == 0) {
-        wprintf(L"Your computer does not support High Resolution Performance counter\n");
+        wprintf(_u("Your computer does not support High Resolution Performance counter\n"));
     }
 
     double totalTime=0.0;
@@ -592,56 +592,56 @@ int DoOneIteration(ThreadContext * threadContext, String& fileName)
             }
             rt->total=etime;
             rt->id=i;
-            wprintf(L"regex %d: %d %5.2fms per iteration %6.2fus\n",i,_regexIdCounts[i],etime,rt->perIter);
+            wprintf(_u("regex %d: %d %5.2fms per iteration %6.2fus\n"),i,_regexIdCounts[i],etime,rt->perIter);
             cacheMissCount+=_regexIdCounts[i];
         }
     }
-    wprintf(L"total ms accounted for %4.2f\n",totalTime);
-    wprintf(L"BY PER Iteration\n\n");
+    wprintf(_u("total ms accounted for %4.2f\n"),totalTime);
+    wprintf(_u("BY PER Iteration\n\n"));
     qsort_s(_regexTimings,timingCount,sizeof(RegexTiming),&SortByPerIter,NULL);
     for (int i=0;i<timingCount;i++) {
-        wprintf(L"Regex %3d: %6.2fus per iteration %5.2fms total\n",_regexTimings[i].id,
+        wprintf(_u("Regex %3d: %6.2fus per iteration %5.2fms total\n"),_regexTimings[i].id,
             _regexTimings[i].perIter,_regexTimings[i].total);
-        wprintf(L"Regex source %s\n",_regexSources[_regexTimings[i].id]);
+        wprintf(_u("Regex source %s\n"),_regexSources[_regexTimings[i].id]);
     }
 
-    wprintf(L"BY PER Character\n\n");
+    wprintf(_u("BY PER Character\n\n"));
     qsort_s(_regexTimings,timingCount,sizeof(RegexTiming),&SortByPerChar,NULL);
     for (int i=0;i<timingCount;i++) {
         double aveLen=(double)_regexIdStrLength[_regexTimings[i].id]/_regexIdCounts[_regexTimings[i].id];
         if (aveLen>20.0) {
-            wprintf(L"Regex %3d: %6.2fus per char %5.2fms total average string length %4.2f\n",_regexTimings[i].id,
+            wprintf(_u("Regex %3d: %6.2fus per char %5.2fms total average string length %4.2f\n"),_regexTimings[i].id,
                 _regexTimings[i].perChar,_regexTimings[i].total,aveLen);
-            wprintf(L"Regex source %s\n",_regexSources[_regexTimings[i].id]);
+            wprintf(_u("Regex source %s\n"),_regexSources[_regexTimings[i].id]);
         }
     }
 
-    wprintf(L"BY TOTAL\n\n");
+    wprintf(_u("BY TOTAL\n\n"));
     qsort_s(_regexTimings,timingCount,sizeof(RegexTiming),&SortByTotal,NULL);
     for (int i=0;i<timingCount;i++) {
         double aveLen=(double)_regexIdStrLength[_regexTimings[i].id]/_regexIdCounts[_regexTimings[i].id];
-        wprintf(L"Regex %3d: %5.2fms total %6.2fus per iter; count %4d ave len %4.2f\n",
+        wprintf(_u("Regex %3d: %5.2fms total %6.2fus per iter; count %4d ave len %4.2f\n"),
             _regexTimings[i].id,_regexTimings[i].total,
             _regexTimings[i].perIter,_regexIdCounts[_regexTimings[i].id],aveLen);
-        wprintf(L"Regex source %s\n",_regexSources[_regexTimings[i].id]);
+        wprintf(_u("Regex source %s\n"),_regexSources[_regexTimings[i].id]);
     }
-    wprintf(L"Total cache misses %d\n",cacheMissCount);
+    wprintf(_u("Total cache misses %d\n"),cacheMissCount);
     int bucketEntryCount=0;
     for (int j=0;j<1001;j++) {
         if (_bucketCounts[j]>0) {
-            wprintf(L"Bucket %4d: %4d\n",j,_bucketCounts[j]);
+            wprintf(_u("Bucket %4d: %4d\n"),j,_bucketCounts[j]);
             bucketEntryCount+=_bucketCounts[j];
         }
     }
-    wprintf(L"Total bucket entries %d\n",bucketEntryCount);
+    wprintf(_u("Total bucket entries %d\n"),bucketEntryCount);
 
     cacheMissCount=0;
     for (int k=0;k<_keyCount;k++) {
-        wprintf(L"Key %4d: misses %4d\n",k,_regexHashKeyMisses[k]);
+        wprintf(_u("Key %4d: misses %4d\n"),k,_regexHashKeyMisses[k]);
         PrintRegexKey(k);
         cacheMissCount+=_regexHashKeyMisses[k];
     }
-    wprintf(L"Total cache misses collected by key %d\n",cacheMissCount);
+    wprintf(_u("Total cache misses collected by key %d\n"),cacheMissCount);
 #endif
 
     if (HostConfigFlags::flags.IgnoreScriptErrorCode)
@@ -657,7 +657,7 @@ HRESULT SetOutputFile(const WCHAR* outputFile, const WCHAR* openMode)
     // If present, replace the {PID} token with the process ID
     const WCHAR* pidStr = nullptr;
     WCHAR buffer[_MAX_PATH];
-    if ((pidStr = wcsstr(outputFile, L"{PID}")) != nullptr)
+    if ((pidStr = wcsstr(outputFile, _u("{PID}"))) != nullptr)
     {
         size_t pidStartPosition = pidStr - outputFile;
 
@@ -681,23 +681,23 @@ HRESULT SetOutputFile(const WCHAR* outputFile, const WCHAR* openMode)
         outputFile = buffer;
     }
 
-    wchar_t fileName[_MAX_PATH];
-    wchar_t moduleName[_MAX_PATH];
+    char16 fileName[_MAX_PATH];
+    char16 moduleName[_MAX_PATH];
     GetModuleFileName(0, moduleName, _MAX_PATH);
     _wsplitpath_s(moduleName, nullptr, 0, nullptr, 0, fileName, _MAX_PATH, nullptr, 0);
-    if (_wcsicmp(fileName, L"WWAHost") == 0 ||
-        _wcsicmp(fileName, L"ByteCodeGenerator") == 0)
+    if (_wcsicmp(fileName, _u("WWAHost")) == 0 ||
+        _wcsicmp(fileName, _u("ByteCodeGenerator")) == 0)
     {
         // we need to output to %temp% directory in wwa. we don't have permission otherwise.
-        if (outputFile[1] == L':')
+        if (outputFile[1] == _u(':'))
         {
             // skip drive name
             outputFile += 2;
         }
 
-        if (GetEnvironmentVariable(L"temp", fileName, _MAX_PATH) != 0)
+        if (GetEnvironmentVariable(_u("temp"), fileName, _MAX_PATH) != 0)
         {
-            wcscat_s(fileName, _MAX_PATH, L"\\");
+            wcscat_s(fileName, _MAX_PATH, _u("\\"));
             wcscat_s(fileName, _MAX_PATH, outputFile);
         }
         else
@@ -732,7 +732,7 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
 
     if (!ThreadContextTLSEntry::InitializeProcess())
     {
-        fwprintf(stderr, L"FATAL ERROR: Failed to initialize ThreadContext");
+        fwprintf(stderr, _u("FATAL ERROR: Failed to initialize ThreadContext"));
         return(-1);
     }
 
@@ -833,7 +833,7 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
             // We will reenable it if there is no unhandled exceptions
             MemoryLeakCheck::SetEnableOutput(false);
 #endif
-            DisplayMemStats(L"Start");           
+            DisplayMemStats(_u("Start"));           
 
             ThreadContext * threadContext;
 
@@ -845,11 +845,11 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
             }
             catch (Js::OutOfMemoryException)
             {
-                fwprintf(stderr, L"FATAL ERROR: Out of memory initializing thread context\n");
+                fwprintf(stderr, _u("FATAL ERROR: Out of memory initializing thread context\n"));
                 return -1;
             }
 
-            DisplayMemStats(L"Thread Context Primed");
+            DisplayMemStats(_u("Thread Context Primed"));
 
             WCHAR drive[_MAX_DRIVE];
             WCHAR directory[_MAX_DIR];
@@ -867,11 +867,11 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
                 {
                     if(GetLastError() == ERROR_FILE_NOT_FOUND)
                     {
-                        fwprintf(stderr, L"File not found: %s", (LPCWSTR)Configuration::Global.flags.Filename);
+                        fwprintf(stderr, _u("File not found: %s"), (LPCWSTR)Configuration::Global.flags.Filename);
                     }
                     else
                     {
-                        fwprintf(stderr, L"Unknown error in finding files.");
+                        fwprintf(stderr, _u("Unknown error in finding files."));
                     }
                     return -1;
                 }
@@ -884,7 +884,7 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
                     String fileName(fullFileName);
                     if(!HostConfigFlags::flags.BVT)
                     {
-                        wprintf(L"Executing file: %s\n", (LPCWSTR)fileName);
+                        wprintf(_u("Executing file: %s\n"), (LPCWSTR)fileName);
                     }
                     int iterationError = DoOneIteration(threadContext, fileName);
 
@@ -896,7 +896,7 @@ int _cdecl wmain2(int argc, __in_ecount(argc) LPWSTR argv[])
 
                     if(!HostConfigFlags::flags.BVT)
                     {
-                        wprintf(L"\n");
+                        wprintf(_u("\n"));
                     }
                 } while(FindNextFile(findHandle, &findData));
 

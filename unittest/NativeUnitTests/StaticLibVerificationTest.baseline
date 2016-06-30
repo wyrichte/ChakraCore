@@ -2,19 +2,21 @@
 
 Running static library verification tests
 
+Please be careful when you change the baseline here as it will break edge browser unless edge is built with matching source in SD
+Please add yongqu to codereview when you change this file
 majorVersion: 11
 minorVersion: 0
 scriptEngineBaseSize: 28
 scriptEngineBaseOffset: 0
 scriptContextBaseSize: 16
 scriptContextBaseOffset: 0
-javascriptLibraryBaseSize: 492
+javascriptLibraryBaseSize: 540
 javascriptLibraryBaseOffset: 0
 customExternalObjectSize: 24
 typeOffset: 4
 typeIdOffset: 0
 taggedIntSize: 1
 javascriptNumberSize: 16
-TypeIdLimit: 74
+TypeIdLimit: 76
 numberUtilitiesBaseSize: 1
 numberUtilitiesBaseOffset: 0

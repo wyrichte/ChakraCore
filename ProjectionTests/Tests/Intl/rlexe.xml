@@ -137,14 +137,6 @@
     </test>
     <test>
         <default>
-            <files>funcSource.js</files>
-            <command>jdtest.exe -targeted -inspectmaxstringlength:100 -dbgbaseline:funcSource.js.hybrid.dbg.baseline jshost</command>
-            <compile-flags>-debuglaunch:hybrid</compile-flags>
-            <tags>exclude_win7,exclude_win8,exclude_arm,exclude_snap</tags>
-        </default>
-    </test>
-    <test>
-        <default>
             <files>scriptInLibrary.js</files>
             <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline</compile-flags>
             <tags>exclude_win7,exclude_win8,exclude_arm</tags>

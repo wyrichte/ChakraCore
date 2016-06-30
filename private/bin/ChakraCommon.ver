@@ -1,15 +1,5 @@
 // Copyright (C) Microsoft. All rights reserved. 
 
-#if CHAKRA_VERSION_BUILD_OFFICAL
-#define OFFICIAL_BUILD 1
-
-#if CHAKRA_VERSION_PRERELEASE
-#define BETA 0
-#else
-#define BETA 1
-#endif
-#endif
-
 // File description suffix
 #if DBG
 #define VER_FILEDESCRIPTION_SUFFIX1_STR L"Debug"
@@ -19,8 +9,6 @@
 
 #if !CHAKRA_VERSION_RELEASE
 #define VER_FILEDESCRIPTION_SUFFIX2_STR L"Private"
-#elif CHAKRA_VERSION_PRERELEASE
-#define VER_FILEDESCRIPTION_SUFFIX2_STR L"Pre-release"
 #endif
 
 #ifdef CHAKRA_VERSION_BUILD_COMMIT

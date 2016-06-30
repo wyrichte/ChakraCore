@@ -10,7 +10,7 @@
 //          len number of characters plus a NULL terminator and is owned by BSTRStringWalker.
 //          Caller can write to this buffer.
 //
-HRESULT BSTRStringWalker::EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) wchar_t** ppBuf)
+HRESULT BSTRStringWalker::EnsureSize(UINT len, _Outptr_result_buffer_(len + 1) char16** ppBuf)
 {
     BSTR bstr = ::SysAllocStringLen(NULL, len);
     IfNullReturnError(bstr, E_OUTOFMEMORY);

@@ -18,7 +18,7 @@ public:
     {
         ExtRemoteTyped transientPinnedObject = recycler.Field("transientPinnedObject");
         ExtRemoteTyped pinnedObjectMap = recycler.Field("pinnedObjectMap");
-
+        _hasPendingUnpinnedObject = recycler.Field("hasPendingUnpinnedObject").GetStdBool();
         _transientPinnedObject = transientPinnedObject.GetPtr();
         _pinnedObjectEntries = pinnedObjectMap.Field("table").GetPtr();
         _pinnedObjectTableSize = pinnedObjectMap.Field("size").GetUlong();
@@ -28,7 +28,7 @@ public:
     void Map(Fn fn);
 
 private:
-
+    bool _hasPendingUnpinnedObject;
     bool _pinRecordsWithStacks;
     int _currentIndex;
     ULONG64 _transientPinnedObject;
@@ -36,22 +36,98 @@ private:
     ULONG _pinnedObjectTableSize;
 };
 
+enum RootType : unsigned char
+{
+    RootTypeNone            = 0x00,
+    RootTypePinned          = 0x01,
+    RootTypeStack           = 0x02,
+    RootTypeRegister        = 0x04,
+    RootTypeArena           = 0x08,
+    RootTypeImplicit        = 0x10,
+
+    RootTypeTransient       = RootTypeStack | RootTypeRegister
+};
+
+class RootTypeUtils
+{
+public:
+    static inline bool IsAnyRootType(RootType type)
+    {
+        return static_cast<uint>(type) != 0;
+    }
+
+    static inline bool IsType(RootType type, RootType target)
+    {
+        RootType result = static_cast<RootType>(
+            static_cast<uint>(type) &
+            static_cast<uint>(target));
+        return result == target;
+    }
+
+    static inline bool IsOnlyType(RootType type, RootType target)
+    {
+        uint result =
+            static_cast<uint>(type) &
+            ~static_cast<uint>(target);
+        return result != 0;
+    }
+
+    static inline RootType CombineTypes(RootType a, RootType b)
+    {
+        RootType type = static_cast<RootType>(
+            static_cast<uint>(a) |
+            static_cast<uint>(b));
+        return type;
+    }
+
+    static inline bool IsNonTransientRootType(RootType type)
+    {
+        return (static_cast<uint>(type) & ~RootTypeTransient) != 0;
+    }
+};
 
 class RecyclerObjectGraph;
 class Addresses
 {
     friend class RootPointerReader;
+
 protected:
-    // TODO (doilij) add extra info here (pinned object flag, where you found it [what kind of root])
-    stdext::hash_set<ULONG64> _addresses;
-public :
+    stdext::hash_map<ULONG64, RootType> _addresses;
+
+public:
     template <typename Fn>
     void Map(const Fn& fn)
     {
-        for (auto it = _addresses.begin(); it != _addresses.end(); it++)
+        for (auto it = _addresses.begin(); it != _addresses.end(); ++it)
         {
-            fn(*it);
+            fn(it->first);
         }
+    }
+
+    void Insert(ULONG64 address, RootType rootType)
+    {
+        if (Contains(address))
+        {
+            auto found = _addresses.find(address);
+            RootType existingRootType = found->second;
+
+            rootType = RootTypeUtils::CombineTypes(rootType, existingRootType);
+        }
+
+        auto entry = std::pair<ULONG64, RootType>(address, rootType);
+        _addresses.insert(entry);
+    }
+
+    RootType GetRootType(ULONG64 address)
+    {
+        if (Contains(address))
+        {
+            auto found = _addresses.find(address);
+            RootType existingRootType = found->second;
+            return existingRootType;
+        }
+
+        return RootType::RootTypeNone;
     }
 
     bool Contains(ULONG64 address)
@@ -75,9 +151,9 @@ public:
     {
     }
 
-    bool TryAdd(ULONG64 address)
+    bool TryAdd(ULONG64 address, RootType rootType)
     {
-        if (address != 0 && _heapBlockHelper.IsAlignedAddress(address))
+        if (address != NULL && _heapBlockHelper.IsAlignedAddress(address))
         {
             RemoteHeapBlock * remoteHeapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler);
 
@@ -90,7 +166,7 @@ public:
                     Assert(address < MAXULONG32);
                 }
 #endif
-                Add(address);
+                Add(address, rootType);
                 return true;
             }
         }
@@ -98,10 +174,10 @@ public:
         return false;
     }
 
-    void Add(ULONG64 address)
+    void Add(ULONG64 address, RootType rootType)
     {
-        //Assert(_addresses.count(address) == 0);
-        m_addresses->_addresses.insert(address);
+        // Assert(_addresses.count(address) == 0);
+        m_addresses->Insert(address, rootType);
     }
 
     Addresses * DetachAddresses()
@@ -110,12 +186,12 @@ public:
     }
 
     void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true);
+    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
     void ScanArenaBigBlocks(ExtRemoteTyped blocks);
-    void ScanObject(ULONG64 object, ULONG64 bytes);
+    void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType);
     void ScanImplicitRoots(bool print = true);
 private:
     std::auto_ptr<Addresses> m_addresses;
@@ -125,5 +201,10 @@ private:
 
 template <typename Fn>
 void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback);
+
+// Use this template to get around the following nested type definition not being available in this file:
+// - RecyclerObjectGraph::GraphImplNodeType
+template <typename TNode>
+void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
 
 #endif

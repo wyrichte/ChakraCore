@@ -12,9 +12,6 @@ namespace JsDiag
     {
         virtual HRESULT ReadVirtual(_In_ const void* addr, _Out_writes_bytes_(bufferSize) void* buffer, _In_ ULONG bufferSize, _Out_ PULONG bytesRead) = 0;
         virtual HRESULT ReadString(_In_z_ const void* addr, _Out_writes_z_(bufferElementCount) LPWSTR buffer, ULONG bufferElementCount) = 0;
-        virtual HRESULT WriteMemory(_In_ const void* addr, _In_reads_bytes_(bufferSize) const void *buffer, ULONG bufferSize) = 0;
-        virtual HRESULT AllocateVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD allocationType, _In_ DWORD pageProtection, _Out_ UINT64 *pAllocatedAddress) = 0;
-        virtual HRESULT FreeVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD freeType) = 0;
         virtual ~IVirtualReader() {};
    };
 
@@ -35,11 +32,6 @@ namespace JsDiag
         // IVirtualReader::ReadString.
         // Read a NULL terminated string from the debugging target's memory.
         virtual HRESULT ReadString(_In_z_ const void* addr, _Out_writes_z_(bufferElementCount) LPWSTR buffer, ULONG bufferElementCount) override;
-
-        virtual HRESULT WriteMemory(_In_ const void* addr, _In_reads_bytes_(bufferSize) const void *buffer, ULONG bufferSize) override;
-
-        virtual HRESULT AllocateVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD allocationType, _In_ DWORD pageProtection, _Out_ UINT64 *pAllocatedAddress) override;
-        virtual HRESULT FreeVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD freeType) override;
 
         template <typename T> T ReadVirtual(const void* addr)
         {
@@ -98,7 +90,7 @@ namespace JsDiag
                 }
                 else if (charsRead == bufferElementCount)
                 {
-                    buffer[bufferElementCount - 1] = L'\0';
+                    buffer[bufferElementCount - 1] = _u('\0');
                     return S_FALSE;
                 }
 
@@ -111,23 +103,4 @@ namespace JsDiag
 
         static BYTE* ReadBuffer(IVirtualReader* reader, const void* remoteAddr, const ULONG size);
     };
-
-    class JsDebugVirtualReader sealed : public IVirtualReader
-    {
-        CComPtr<IJsDebugDataTarget> m_debugDataTarget;
-    public:
-        JsDebugVirtualReader(IJsDebugDataTarget* target) : m_debugDataTarget(target) {} 
-
-        // IVirtualReader::ReadVirtual
-        virtual HRESULT ReadVirtual(_In_ const void* addr, _Out_writes_bytes_(bufferSize) void* buffer, ULONG bufferSize, _Out_ PULONG bytesRead) override;
-
-        // IVirtualReader::ReadString.
-        // Read a NULL terminated string from the debugging target's memory.
-        virtual HRESULT ReadString(_In_z_ const void* addr, _Out_writes_z_(bufferElementCount) LPWSTR buffer, ULONG bufferElementCount) override;
-
-        virtual HRESULT WriteMemory(_In_ const void* addr, _In_reads_bytes_(bufferSize) const void *buffer, ULONG bufferSize) override;
-        virtual HRESULT AllocateVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD allocationType, _In_ DWORD pageProtection, _Out_ UINT64 *pAllocatedAddress) override;
-        virtual HRESULT FreeVirtualMemory(_In_ UINT64 address, _In_ DWORD size, _In_ DWORD freeType) override;
-    };
-
 } // namespace JsDiag.

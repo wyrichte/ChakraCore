@@ -116,6 +116,7 @@ namespace Js
     class JavascriptNumberObject;           // Used by JavascriptLibrary.h
 
     // SIMD
+    class JavascriptSIMDType;               // Used by JavascriptLibrary.h
     class SIMDFloat32x4Lib;                 // Used by JavascriptLibrary.h
     class JavascriptSIMDFloat32x4;          // Used by JavascriptLibrary.h
     class SIMDFloat64x2Lib;                 // Used by JavascriptLibrary.h
@@ -139,6 +140,7 @@ namespace Js
     class SIMDBool8x16Lib;                  // Used by JavascriptLibrary.h
     class JavascriptSIMDBool8x16;           // Used by JavascriptLibrary.h
 
+    class JavascriptSIMDObject;             // Used by JavascriptLibrary.h
     class JavascriptStringObject;           // Used by JavascriptLibrary.h
     class ObjectPrototypeObject;            // Used by JavascriptLibrary.h
     class JavascriptSymbol;                 // Used by JavascriptLibrary.h
@@ -259,6 +261,11 @@ namespace Projection
 #include "Common.h"
 #include "ParserCommon.h"
 #include "RuntimeCommon.h"
+
+#include "Debug/TTSupport.h"
+#include "Debug/TTSerialize.h"
+
+#include "ChakraPlatform.h"
 #include "DelayLoadLibrary.h"             // Used by ThreadContext
 #include "WindowsGlobalizationAdapter.h"  // Used by ThreadContext::windowsGlobalizationAdapter
 #include "WindowsFoundationAdapter.h"     // Used by ThreadContext::windowsFoundationAdapter
@@ -302,6 +309,7 @@ namespace Projection
 #include "JavascriptNumber.h"           // Used by LibraryCommon.h
 
 // SIMD types
+#include "JavascriptSimdType.h"
 #include "JavascriptSIMDFloat32x4.h"
 #include "JavascriptSIMDFloat64x2.h"
 #include "JavascriptSIMDInt32x4.h"
@@ -409,6 +417,7 @@ class ScriptContextTelemetry;
 #include "JavascriptTypedNumber.h"
 #include "JavascriptBooleanObject.h"
 #include "JavascriptNumberObject.h"
+#include "JavascriptSimdObject.h"
 
 #include "..\..\..\private\lib\staticlib\base\MockExternalObject.h"             // Needed by CustomExternalType.h
 #include "ExternalObject.h"

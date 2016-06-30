@@ -34,8 +34,8 @@ private:
     CScriptBody *scriptBody;
     RecyclerRootPtr<Js::DynamicObject> scriptObject;
     IDispatch *m_pdisp;
-    BOOL shouldPersist : 1;
-    BOOL m_fTried : 1;
+    bool shouldPersist : 1;
+    bool m_fTried : 1;
 
     NamedEventHandler(void);
     ~NamedEventHandler(void);

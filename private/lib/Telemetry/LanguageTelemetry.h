@@ -4,7 +4,7 @@
 #pragma once
 
 #define CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(builtin) LanguageStats* stats = scriptContext->GetThreadContext()->GetLanguageStats();stats->builtin.callCount++;\
-                                                      if(scriptContext->IsInDebugMode()){ stats->builtin.debugModeCallCount++;}
+                                                      if(scriptContext->IsScriptContextInDebugMode()){ stats->builtin.debugModeCallCount++;}
 
 #define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(feature,m_scriptContext) if(m_scriptContext != nullptr){Js::LanguageStats* stats = m_scriptContext->GetThreadContext()->GetLanguageStats();\
                                                           if(stats!=nullptr){stats->feature.parseCount++;}}

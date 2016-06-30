@@ -8,7 +8,7 @@ HINSTANCE g_hInst = NULL;
 BOOL __stdcall OnScriptStateChangedCallBack(IActiveScriptDirect* scriptDirectRef, SCRIPTSTATE ss, void** engineSpecificStorage);
 HRESULT __stdcall GetHeapObjectInfo(Var instance, HostProfilerHeapObject** heapObjOut, HeapObjectInfoReturnResult& returnResult);
 
-PCWSTR const CAppWindow::s_szWindowClass = L"JSMsHtmlHostClass";
+PCWSTR const CAppWindow::s_szWindowClass = _u("JSMsHtmlHostClass");
 
 INTERNET_SCHEME GetScheme(LPCTSTR szURL);
 
@@ -61,7 +61,7 @@ HRESULT DoOneHtmlIteration(BSTR filename)
     IfFailGo(g_pApp->Init(pAppWindow));
     g_pApp->Run();
 
-    ODS(L"Terminating html test ....\n");
+    ODS(_u("Terminating html test ....\n"));
 
 Error:
     if (pAppWindow)
@@ -86,7 +86,7 @@ int _cdecl ExecuteHtmlTests(int argc, __in_ecount(argc) LPWSTR argv[])
     hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
     if (FAILED(hr))
     {
-        wprintf(L"FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n", hr);
+        wprintf(_u("FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n"), hr);
         exit(1);
     }
 

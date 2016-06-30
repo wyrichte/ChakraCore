@@ -217,7 +217,7 @@ namespace Js
     }
 
     template <class Writer>
-    void SerializationCloner<Writer>::CloneProperties(SrcTypeId typeId, Src src, Dst dst)
+    void SerializationCloner<Writer>::CloneProperties(SrcTypeId srcTypeId, Src src, Dst dst)
     {
         ScriptContext* scriptContext = GetScriptContext();
 
@@ -247,7 +247,7 @@ namespace Js
             RecyclableObject* obj = RecyclableObject::FromVar(src);
             Var enumeratorVar = nullptr;
 
-            if (DynamicObject::IsAnyArrayTypeId(typeId))
+            if (DynamicObject::IsAnyArrayTypeId(srcTypeId))
             {
                 JavascriptArray* arr = JavascriptArray::FromAnyArray(src);
                 bool isSparseArray = IsSparseArray(arr);
@@ -322,9 +322,9 @@ namespace Js
     // Write layout: [byteLen] [string content] [padding]
     //
     template <class Writer>
-    void SerializationCloner<Writer>::Write(const wchar_t* str, charcount_t len) const
+    void SerializationCloner<Writer>::Write(const char16* str, charcount_t len) const
     {
-        uint32 byteLen = static_cast<uint32>(sizeof(wchar_t) * len);
+        uint32 byteLen = static_cast<uint32>(sizeof(char16) * len);
         m_writer->Write(byteLen);
         m_writer->Write(str, byteLen);
         uint32 unalignedLen = byteLen % sizeof(uint32);

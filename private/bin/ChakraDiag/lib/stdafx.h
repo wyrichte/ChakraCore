@@ -15,7 +15,10 @@
 #include <windows.h>
 
 #include "DiagAssertion.h"
-#include <atlbase.h>
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#include "atlbase.h"
+#pragma warning(pop)
 #include <atlcoll.h>
 #include <atlcom.h>
 #include <ntassert.h>
@@ -23,6 +26,7 @@
 #include "dbghelp.h"
 #include "DbgEng.h"
 
+#include "Core/CommonTypedefs.h"
 #include "thrownew.h"
 #include "BasePtr.h"
 #include "AutoPtr.h"

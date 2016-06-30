@@ -13,7 +13,7 @@ class RemoteFunctionProxy : public JDRemoteTyped
 {
 public:
     RemoteFunctionProxy() {}
-    RemoteFunctionProxy(ULONG64 pBody) : JDRemoteTyped("(Js::FunctionProxy*)@$extin", pBody) {}
+    RemoteFunctionProxy(ULONG64 pBody);
     RemoteFunctionProxy(const char* subType, ULONG64 pBody) : JDRemoteTyped(subType, pBody) {}
     RemoteFunctionProxy(ExtRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
 
@@ -31,36 +31,55 @@ class RemoteParseableFunctionInfo : public RemoteFunctionProxy
 {
 public:
     RemoteParseableFunctionInfo() {}
-    RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy("(Js::ParseableFunctionInfo*)@$extin", pBody) {}
-    RemoteParseableFunctionInfo(const char* subType, ULONG64 pBody) : RemoteFunctionProxy(subType, pBody) {}
+    RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy(pBody) {}
     RemoteParseableFunctionInfo(ExtRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
 
     JDRemoteTyped GetScopeInfo()
     {
-        return this->GetWrappedField("m_scopeInfo");
+        return this->GetAuxWrappedField("m_scopeInfo");
     }
     
-    JDRemoteTyped GetWrappedField(char* fieldName);
+    JDRemoteTyped GetBoundPropertyRecords()
+    {
+        return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
+    }
+
+    JDRemoteTyped GetDisplayName()
+    {
+        return JDUtil::GetWrappedField(*this, "m_displayName");
+    }
+
+    PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
+    {
+        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
+    }
+
+private:
+    JDRemoteTyped GetAuxWrappedField(char* fieldName);
 };
 
 class RemoteFunctionBody : public RemoteParseableFunctionInfo
 {
 public:
     RemoteFunctionBody() {}
-    RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo("(Js::FunctionBody*)@$extin", pBody) {}
+    RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo(pBody) {}
     RemoteFunctionBody(ExtRemoteTyped const& functionBody) : RemoteParseableFunctionInfo(functionBody) {}
 
     JDRemoteTyped GetByteCodeBlock()
     {
-        return JDUtil::GetWrappedField(*this, "byteCodeBlock");
+        return this->GetWrappedFieldRecyclerData("byteCodeBlock");
     }
     JDRemoteTyped GetAuxBlock()
     {
-        return this->GetWrappedField("auxBlock", "Js::ByteBlock");
+        return this->GetAuxWrappedFieldRecyclerData("auxBlock", "Js::ByteBlock");
     }
     JDRemoteTyped GetAuxContextBlock()
     {
-        return this->GetWrappedField("auxContextBlock");
+        return this->GetAuxWrappedFieldRecyclerData("auxContextBlock", "Js::ByteBlock");
+    }
+    JDRemoteTyped GetLoopHeaderArray()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("loopHeaderArray");
     }
     JDRemoteTyped GetProbeBackingStore()
     {
@@ -68,11 +87,13 @@ public:
     }
     JDRemoteTyped GetCacheIdToPropertyIdMap()
     {
-        return JDUtil::GetWrappedField(*this, "cacheIdToPropertyIdMap");
+        return this->GetWrappedFieldRecyclerData( "cacheIdToPropertyIdMap");
     }
+    JDRemoteTyped GetReferencedPropertyIdMap();
+
     uint GetConstCount()
     {
-        return this->Field("m_constCount").GetUlong();
+        return this->GetCounterField("m_constCount");
     }
     ushort GetParamCount()
     {
@@ -84,7 +105,7 @@ public:
     }
     JDRemoteTyped GetConstTable()
     {
-        return JDUtil::GetWrappedField(*this, "m_constTable");
+        return this->GetWrappedFieldRecyclerData("m_constTable");
     }
     JDRemoteTyped GetSourceInfo()
     {
@@ -99,11 +120,6 @@ public:
     {
         return GetScriptContext().Field("threadContext");
     }
-    PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
-    {
-        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
-    }
-
     ULONG GetSourceContextId()
     {
         return GetSourceContextInfo().Field("sourceContextId").GetUlong();
@@ -121,17 +137,17 @@ public:
 
     JDRemoteTyped GetStatementMaps()
     {
-        return this->GetWrappedField("StatementMaps", nullptr, "pStatementMaps");
+        return this->GetAuxWrappedFieldRecyclerData("StatementMaps", nullptr, "pStatementMaps");
     }
 
     JDRemoteTyped GetEntryPoints()
     {
-        return JDUtil::GetWrappedField(*this, "entryPoints");
+        return this->GetWrappedFieldRecyclerData("entryPoints");
     }
 
     ULONG GetInlineCacheCount()
     {
-        return JDUtil::GetWrappedField(*this, "inlineCacheCount").GetUlong();
+        return this->GetCounterField("inlineCacheCount", true);
     }
 
     USHORT GetProfiledCallSiteCount()
@@ -139,7 +155,40 @@ public:
         return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();        
     }
 
-    JDRemoteTyped GetWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    JDRemoteTyped GetCodeGenRuntiemData()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("m_codeGenRuntimeData", "Js::FunctionCodeGenRuntimeData *");
+    }
+    JDRemoteTyped GetCodeGenGetSetRuntimeData()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("m_codeGenGetSetRuntimeData", "Js::FunctionCodeGenRuntimeData *");
+    }
+
+    JDRemoteTyped GetInlineCaches()
+    {
+        return this->GetWrappedFieldRecyclerData("inlineCaches");
+    }
+
+    JDRemoteTyped GetPolymorphicInlineCaches()
+    {
+        return this->GetFieldRecyclerData("polymorphicInlineCaches");
+    }
+
+    JDRemoteTyped GetPropertyIdsForScopeSlotArray()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("propertyIdsForScopeSlotArray", "Js::PropertyId");
+    }
+
+    JDRemoteTyped GetLiteralRegexes()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("literalRegexes", "UnifiedRegex::RegexPattern *");
+    }
+
+    JDRemoteTyped GetFieldRecyclerData(char * fieldName);
+    JDRemoteTyped GetWrappedFieldRecyclerData(char* fieldName);
+    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
     void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);

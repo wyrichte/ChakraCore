@@ -86,12 +86,6 @@ passed
 ******* Float32x4 max *******
 passed
 
-******* Float32x4 minNum *******
-passed
-
-******* Float32x4 maxNum *******
-passed
-
 ******* Float32x4 sqrt *******
 passed
 

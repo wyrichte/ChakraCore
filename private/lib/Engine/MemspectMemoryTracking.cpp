@@ -40,7 +40,7 @@ public:
 
         if (!recyclerArena)
         {
-            recyclerArena = _ArenaCreate(nullptr, L"Recycler", 0);
+            recyclerArena = _ArenaCreate(nullptr, _u("Recycler"), 0);
         }
     }
 
@@ -130,7 +130,7 @@ public:
             if (!_loadTried)
             {
                 _loadTried = true;
-                HMODULE dll = ::GetModuleHandle(L"MEMSPECTDLL");
+                HMODULE dll = ::GetModuleHandle(_u("MEMSPECTDLL"));
                 if (dll)
                 {
                     _ArenaCreate = (TArenaCreate) GetProcAddress(dll, "_ArenaCreated@12");
@@ -327,7 +327,7 @@ void PageTracking::PageAllocatorCreated(PageAllocator *pageAllocator)
         {
             if (!pageTrackerMap)
                 pageTrackerMap = new PageTrackerMap(&HeapAllocator::Instance, 1);
-            auto tracker = MemspectMemoryTracker::ArenaCreate(L"PageAllocator");
+            auto tracker = MemspectMemoryTracker::ArenaCreate(_u("PageAllocator"));
             pageTrackerMap->Item(pageAllocator, tracker);
         }
     }

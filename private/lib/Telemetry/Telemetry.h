@@ -36,6 +36,30 @@
 #endif
 #endif
 
+class Throttle
+{
+    const WORD MIN_GAP = 2; // minimum gap between two telemetry logging from the same code path
+    WORD lastEvent;
+public:
+    Throttle() { lastEvent = 0;  }
+    bool isThrottled()
+    {
+        SYSTEMTIME st;
+        GetSystemTime(&st);
+        WORD thisEvent = st.wSecond / MIN_GAP;
+
+        if (thisEvent != lastEvent)
+        {
+            lastEvent = thisEvent;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+};
+
 class Telemetry
 {
 public:
@@ -93,18 +117,21 @@ class TraceLoggingClient
     bool shouldLogTelemetry;	
     bool isHighResAvail;
     //Code for node telemetry purposes
-    typedef JsUtil::BaseHashSet<const wchar_t*, Recycler, PrimeSizePolicy> NodePackageSet;
+    typedef JsUtil::BaseHashSet<const char16*, Recycler, PrimeSizePolicy> NodePackageSet;
     NodePackageSet *NodePackageIncludeList;
     bool hasNodeModules;
     bool isPackageTelemetryFired;
     LARGE_INTEGER freq;
     HCRYPTPROV hProv;
+
+    Throttle throttle;
+
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
     void SetIsHighResPerfCounterAvailable();
-    void FireSiteNavigation(const wchar_t *url, GUID activityId, DWORD host, bool isJSRT);
+    void FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
@@ -119,11 +146,11 @@ public:
     void CreateHashAndFirePackageTelemetry();
     void InitializeNodePackageList();
     void ReleaseNodePackageList();
-    void AddPackageName(const wchar_t* packageName);
+    void AddPackageName(const char16* packageName);
     bool IsPackageTelemetryFired(){ return isPackageTelemetryFired; }
     void SetIsPackageTelemetryFired(bool value){ isPackageTelemetryFired = value; }
     // For node telemetry purposes
-    void TryLogNodePackage(Recycler*, const wchar_t*url);
+    void TryLogNodePackage(Recycler*, const char16*url);
     HCRYPTPROV EnsureCryptoContext();
     void FirePackageTelemetryHelper();
 };

@@ -52,19 +52,19 @@ public:
 
     // IDispatch method
     STDMETHOD(GetTypeInfoCount)(UINT* pctinfo)
-            { ODS(L"GetTypeInfoCount\n"); return E_NOTIMPL; }
+            { ODS(_u("GetTypeInfoCount\n")); return E_NOTIMPL; }
 
     STDMETHOD(GetTypeInfo)(UINT iTInfo,
             LCID lcid,
             ITypeInfo** ppTInfo)
-            { ODS(L"GetTypeInfo\n"); return E_NOTIMPL; }
+            { ODS(_u("GetTypeInfo\n")); return E_NOTIMPL; }
 
     STDMETHOD(GetIDsOfNames)(REFIID riid, 
             __in_ecount(cNames) LPOLESTR * rgszNames,
             UINT cNames,
             LCID lcid,
             DISPID* rgDispId)
-            { ODS(L"GetIDsOfNames\n"); return E_NOTIMPL; }
+            { ODS(_u("GetIDsOfNames\n")); return E_NOTIMPL; }
         
     STDMETHOD(Invoke)(DISPID dispIdMember,
             REFIID riid,

@@ -18,20 +18,20 @@ typedef struct
 
 int result1[] = { 1,2,3,4 };
 float result2[] = { 1, 2, 3, 4 };
-LPCWSTR result3[] = { L"a", L"b", L"c" };
+LPCWSTR result3[] = { _u("a"), _u("b"), _u("c") };
 int result4[] = { 0, 0, 0, 0 };
 
 NativeArrayTestData testdata[] = {
-    {L"(function() {return [1,2,3,4]})();", JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1},
-    { L"(function() {return [1,2,3,4]})();", JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
-    { L"(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 4; return a})();", JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1 },
-    { L"(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 4; return a})();", JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
-    {L"(function() {return ['a', 'b', 'c' ]})();", JsNativeStringType, S_OK, 3, sizeof(JsNativeString), nullptr, (void*)&result3},
-    { L"(function() {return ['1', '2', '3', '4' ]})();", JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1 },
-    { L"(function() {return ['1', '2', '3', '4' ]})();", JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
-    { L"(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 2147483647; return a})();", JsInt32Type, E_INVALIDARG, 4, 4, nullptr, (void*)&result1 },
-    { L"(function() {var a = ['a', 'b', 'c' ]; a.length = 2147483647; return a})();", JsInt32Type, E_INVALIDARG, 4, 4, nullptr, (void*)&result1 },
-    { L"(function() {var a = ['a', 'b', 'c' ]; return a})();", JsInt32Type, S_OK, 3, 4, nullptr, (void*)&result4 },
+    {_u("(function() {return [1,2,3,4]})();"), JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1},
+    { _u("(function() {return [1,2,3,4]})();"), JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
+    { _u("(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 4; return a})();"), JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1 },
+    { _u("(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 4; return a})();"), JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
+    {_u("(function() {return ['a', 'b', 'c' ]})();"), JsNativeStringType, S_OK, 3, sizeof(JsNativeString), nullptr, (void*)&result3},
+    { _u("(function() {return ['1', '2', '3', '4' ]})();"), JsInt32Type, S_OK, 4, 4, nullptr, (void*)&result1 },
+    { _u("(function() {return ['1', '2', '3', '4' ]})();"), JsFloatType, S_OK, 4, 4, nullptr, (void*)&result2 },
+    { _u("(function() {var a = {'0':1,'1':2,'2':3,'3':4}; a.length = 2147483647; return a})();"), JsInt32Type, E_INVALIDARG, 4, 4, nullptr, (void*)&result1 },
+    { _u("(function() {var a = ['a', 'b', 'c' ]; a.length = 2147483647; return a})();"), JsInt32Type, E_INVALIDARG, 4, 4, nullptr, (void*)&result1 },
+    { _u("(function() {var a = ['a', 'b', 'c' ]; return a})();"), JsInt32Type, S_OK, 3, 4, nullptr, (void*)&result4 },
 };
 #define delta(left,right) (left > right? left-right: right-left)
 HRESULT TestBasicActiveScriptDirectVarToNativeArray(MyScriptDirectTests* myTests)

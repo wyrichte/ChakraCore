@@ -917,12 +917,6 @@ simdTypes.filter(isFloatType).forEach(function(type) {
   test(type.name + ' max', function() {
     testBinaryOp(type, 'max', Math.max);
   });
-  test(type.name + ' minNum', function() {
-    testBinaryOp(type, 'minNum', minNum);
-  });
-  test(type.name + ' maxNum', function() {
-    testBinaryOp(type, 'maxNum', maxNum);
-  });
   test(type.name + ' sqrt', function() {
     testUnaryOp(type, 'sqrt', function(a) { return Math.sqrt(a); });
   });
@@ -938,9 +932,9 @@ simdTypes.filter(isIntType).forEach(function(type) {
   test(type.name + ' not', function() {
     testUnaryOp(type, 'not', function(a) { return ~a; });
   });
-  test(type.name + ' shiftLeftByScalar', function() {
+ test(type.name + ' shiftLeftByScalar', function() {
     function shift(a, bits) {
-      if (bits>>>0 >= type.laneSize * 8) return 0;
+      bits &= type.laneSize * 8 - 1;
       return a << bits;
     }
     testShiftOp(type, 'shiftLeftByScalar', shift);
@@ -950,8 +944,7 @@ simdTypes.filter(isIntType).forEach(function(type) {
 simdTypes.filter(isSignedIntType).forEach(function(type) {
   test(type.name + ' shiftRightByScalar', function() {
     function shift(a, bits) {
-      if (bits>>>0 >= type.laneSize * 8)
-        bits = type.laneSize * 8 - 1;
+      bits &= type.laneSize * 8 - 1;
       return a >> bits;
     }
     testShiftOp(type, 'shiftRightByScalar', shift);
@@ -961,7 +954,7 @@ simdTypes.filter(isSignedIntType).forEach(function(type) {
 simdTypes.filter(isUnsignedIntType).forEach(function(type) {
   test(type.name + ' shiftRightByScalar', function() {
     function shift(a, bits) {
-      if (bits>>>0 >= type.laneSize * 8) return 0;
+      bits &= type.laneSize * 8 - 1;
       if (type.laneMask)
         a &= type.laneMask;
       return a >>> bits;
@@ -969,6 +962,7 @@ simdTypes.filter(isUnsignedIntType).forEach(function(type) {
     testShiftOp(type, 'shiftRightByScalar', shift);
   });
 });
+
 
 simdTypes.filter(isSmallIntType).forEach(function(type) {
   function saturate(type, a) {

@@ -13,10 +13,6 @@
       },
       "tt": "undefined",
       "[Scope]1": {
-        "d2": "<large string>",
-        "d3": "<large string>",
-        "i": "true",
-        "f": "body",
         "m": "{...}",
         "g": "0",
         "a": "0",
@@ -25,7 +21,6 @@
         "n": "0",
         "h": "0",
         "o": "true",
-        "k": "undefined",
         "c": "0",
         "q": "true",
         "p": "false"

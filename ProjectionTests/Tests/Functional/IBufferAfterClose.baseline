@@ -8,7 +8,7 @@ Pass: IBuffer length property fails after close returned (TypeError: Permission 
 Pass: IBuffer capacity property fails after close returned (TypeError: Permission denied)
       Actual: true
 
-Pass: IBuffer cannot be used as a TypedArray after close returned (TypeError: Typed array constructor argument is invalid)
+Pass: IBuffer cannot be used as a TypedArray after close returned (TypeError: Permission denied)
       Actual: true
 
 PASS [Test 0: BLUE 178101: IBuffer use after ScriptSite closed]

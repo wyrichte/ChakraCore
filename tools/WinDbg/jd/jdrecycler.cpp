@@ -432,7 +432,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
         }
     }
 
-    // After CL#1149965, heap block in the allocator are also in the heap block list
+    // After C_u(#1149965), heap block in the allocator are also in the heap block list
     // But the allocator has the more up to date information. so subtract the heap block information
     // to counteract when we count the same block in the heap block list
 
@@ -440,7 +440,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
     bool newHeapBlockLayout = heapBlock.HasField("needOOMRescan");
     if (isAllocator)
     {
-        // After CL#1149965, heap block in the allocator are also in the heap block list
+        // After C_u(#1149965), heap block in the allocator are also in the heap block list
         // But the allocator has the more up to date information. so subtract the heap block information
         // to counteract when we count the same block in the heap block list
 
@@ -457,7 +457,7 @@ RecyclerPrintBucketStats::ProcessHeapBlock(ExtRemoteTyped heapBlock, bool isAllo
 
     if (!newHeapBlockLayout || !isAllocator)
     {
-        // After CL#1139848, not all heap block has finalize count
+        // After C_u(#1139848), not all heap block has finalize count
         if (heapBlock.HasField("finalizeCount"))
         {
             unsigned short finalizeCount = heapBlock.Field("finalizeCount").GetUshort();
@@ -662,7 +662,7 @@ JD_PRIVATE_COMMAND(markmap,
 
     if (!recycler.HasField("markMap"))
     {
-        Out(L"Recycler doesn't have mark map field. Please rebuild jscript9 with RECYCLER_MARK_TRACK enabled.\n");
+        Out(_u("Recycler doesn't have mark map field. Please rebuild jscript9 with RECYCLER_MARK_TRACK enabled.\n"));
         return;
     }
 
@@ -734,7 +734,7 @@ JD_PRIVATE_COMMAND(gcstats,
     "{summary;b,o;;Display only a summary}"
     "{filter;s,o;type;Filter the output to either alloc (PageAllocator) or buckets (Heap Buckets)}")
 {
-    ULONG64 arg = GetUnnamedArgU64(0);
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);
 
     PrintBucketStatsFilter filter = StatsFilterBuckets;
 
@@ -763,9 +763,9 @@ JD_PRIVATE_COMMAND(gcstats,
     }
 
     RemoteRecycler recycler;
-    if (arg != 0)
+    if (recyclerArg != 0)
     {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
+        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
     }
     else
     {
@@ -818,7 +818,7 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
 {
     info = info & ObjectInfoBits::InternalObjectInfoBitMask;
 
-    ext->Out(L"Info: 0x%x (", info);
+    ext->Out(_u("Info: 0x%x ("), info);
 
     if (info & ObjectInfoBits::FinalizeBit) ext->Out(" Finalize ");
     if (info & ObjectInfoBits::LeafBit) ext->Out(" Leaf ");
@@ -829,61 +829,55 @@ void HeapBlockHelper::DumpObjectInfoBits(unsigned char info)
     if (info & ObjectInfoBits::ClientTrackedBit) ext->Out(" ClientTrackedBit ");
     if (info & ObjectInfoBits::TraceBit) ext->Out(" TraceBit ");
 
-    ext->Out(L")");
+    ext->Out(_u(")"));
 }
 
-uint HeapBlockAlignmentUtility::GetObjectAlignmentMask(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+HeapBlockAlignmentUtility::HeapBlockAlignmentUtility(ExtRemoteTyped recycler)
 {
-    return this->GetObjectGranularity(ext, recycler) - 1;
+    auto firstSizeCat = GetExtension()->GetNumberValue<ULONG64>(recycler.Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
+    int i = 0;
+    while (firstSizeCat > ((ULONG64)1 << (++i)));
+    objectAllocationShift = i;
 }
 
-uint HeapBlockAlignmentUtility::GetObjectGranularity(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+uint HeapBlockAlignmentUtility::GetObjectAlignmentMask()
 {
-    return 1u << this->GetObjectAllocationShift(ext, recycler);
+    return this->GetObjectGranularity() - 1;
 }
 
-uint HeapBlockAlignmentUtility::GetObjectAllocationShift(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler)
+uint HeapBlockAlignmentUtility::GetObjectGranularity()
 {
-    if (this->objectAllocationShift == 0)
-    {
-        try
-        {
-            auto firstSizeCat = ext->GetNumberValue<ULONG64>(recycler->Field("autoHeap.heapBuckets").ArrayElement(0).Field("heapBucket.sizeCat"));
-            int i = 0;
-            while (firstSizeCat > ((ULONG64)1 << (++i)));
-            this->objectAllocationShift = i;
-        }
-        catch (ExtException&)
-        {
-            return 4;
-        }
-    }
-    return this->objectAllocationShift;
+    return 1u << this->GetObjectAllocationShift();
 }
 
-bool HeapBlockAlignmentUtility::IsAlignedAddress(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler, ULONG64 address)
+uint HeapBlockAlignmentUtility::GetObjectAllocationShift()
 {
-    return (0 == (((size_t)address) & this->GetObjectAlignmentMask(ext, recycler)));
+    return objectAllocationShift;
+}
+
+bool HeapBlockAlignmentUtility::IsAlignedAddress(ULONG64 address)
+{
+    return (0 == (((size_t)address) & this->GetObjectAlignmentMask()));
 }
 
 uint HeapBlockHelper::GetObjectAlignmentMask()
 {
-    return this->alignmentUtility.GetObjectAlignmentMask(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectAlignmentMask();
 }
 
 uint HeapBlockHelper::GetObjectGranularity()
 {
-    return this->alignmentUtility.GetObjectGranularity(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectGranularity();
 }
 
 uint HeapBlockHelper::GetObjectAllocationShift()
 {
-    return this->alignmentUtility.GetObjectAllocationShift(this->ext, &(this->recycler));
+    return this->alignmentUtility.GetObjectAllocationShift();
 }
 
 bool HeapBlockHelper::IsAlignedAddress(ULONG64 address)
 {
-    return this->alignmentUtility.IsAlignedAddress(this->ext, &(this->recycler), address);
+    return this->alignmentUtility.IsAlignedAddress(address);
 }
 
 // Same logic as SmallHeapBlock::GetAddressBitIndex
@@ -1019,7 +1013,7 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 {
     // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);
 
-    ext->Out(L"Object: ");
+    ext->Out(_u("Object: "));
     std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);
 
     if (!className.empty())
@@ -1028,15 +1022,15 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
     }
     else
     {
-        ext->Out(L"0x%p ", heapObject.address);
+        ext->Out(_u("0x%p "), heapObject.address);
     }
 
-    ext->Out(L" (Symbol @ 0x%p: ", heapObject.vtable);
+    ext->Out(_u(" (Symbol @ 0x%p: "), heapObject.vtable);
     ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable);
     ext->Out(")");
 
     ext->Out("\n");
-    ext->Out(L"Object size: 0x%x\n", heapObject.objectSize);
+    ext->Out(_u("Object size: 0x%x\n"), heapObject.objectSize);
 
     DumpObjectInfoBits(heapObject.objectInfoBits);
     ext->Out(" @0x%p\n", heapObject.objectInfoAddress);
@@ -1050,7 +1044,7 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 #endif
         )
     {
-        ext->Out(L"Address bit index: %d\n", heapObject.addressBitIndex);
+        ext->Out(_u("Address bit index: %d\n"), heapObject.addressBitIndex);
     }
 
     if (verbose)
@@ -1077,13 +1071,11 @@ void HeapBlockHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose)
 
 void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, ULONG64 objectAddress, bool verbose)
 {
-    ULONG64 heapBlock = heapBlockObject.GetPtr();
+    ULONG64 heapBlock = heapBlockObject.GetPointerTo().GetPtr();
 
     HeapObject heapObject;
     heapObject.heapBlock = heapBlock;
     heapObject.heapBlockType = heapBlockObject.Field("heapBlockType").GetChar();
-
-    ULONG64 sizeOfHeapBlock = ext->EvalExprU64("@@c++(sizeof(SmallHeapBlock))");
     heapObject.objectSize = heapBlockObject.Field("objectSize").GetUshort();
 
     uint objectCount = (uint)heapBlockObject.Field("objectCount").m_Typed.Data; // Assume objectCount is 32 bit
@@ -1098,12 +1090,38 @@ void HeapBlockHelper::DumpSmallHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
         heapObject.addressBitIndex = GetAddressSmallHeapBlockBitIndex(heapObject.address);
 
         ExtRemoteTyped freeBitWord;
-        ULONG64 freeBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize) + ext->GetBVFixedAllocSize(objectCount));
+        ULONG64 freeBitVector;
+        if (heapBlockObject.HasField("freeBits"))
+        {
+            freeBitVector = heapBlockObject.Field("freeBits").GetPointerTo().GetPtr();
+        }
+        else
+        {
+            // Before CL#884601 on 2011/09/09, pre-win8.1
+            ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+            freeBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize) + ext->GetBVFixedAllocSize(objectCount));
+        }
         heapObject.isFreeSet = ext->TestFixed(freeBitVector, heapObject.addressBitIndex, freeBitWord);
         heapObject.freeBitWord = freeBitWord.GetPointerTo().GetPtr();
 
         ExtRemoteTyped markBitWord;
-        ULONG64 markBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize));
+        ULONG64 markBitVector;
+        if (heapBlockObject.HasField("markBits"))
+        {
+            ExtRemoteTyped markBits = heapBlockObject.Field("markBits");
+            if (markBits.GetTypeSize() > ext->m_PtrSize)
+            {
+                markBits = markBits.GetPointerTo();
+            }
+            markBitVector = markBits.GetPtr();
+        }
+        else
+        {
+            // Before CL#884601 on 2011/09/09, pre-win8.1
+            ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+            markBitVector = (heapBlock + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* objectCount, ext->m_PtrSize));
+        }
+
         heapObject.isMarkSet = ext->TestFixed(markBitVector, heapObject.addressBitIndex, markBitWord);
         heapObject.markBitWord = markBitWord.GetPointerTo().GetPtr();
         heapObject.objectInfoAddress = heapBlock - heapObject.index - 1;
@@ -1754,7 +1772,7 @@ JD_PRIVATE_COMMAND(hbstats,
     "{noheader;b,o;no header;Do not display header}"
     )
 {
-    ULONG64 arg = GetUnnamedArgU64(0);
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);
     enum FilterType
     {
         ShowSmallBlock = 0x1,
@@ -1840,9 +1858,9 @@ JD_PRIVATE_COMMAND(hbstats,
     ULONG64 filterSize = this->GetArgU64("fs");
 
     ExtRemoteTyped recycler;
-    if (arg != 0)
+    if (recyclerArg != 0)
     {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
+        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
     }
     else
     {
@@ -2164,16 +2182,17 @@ JD_PRIVATE_COMMAND(memstats,
     ULONG64 totalReservedBytes = 0;
     ULONG64 totalCommittedBytes = 0;
     ULONG64 totalUsedBytes = 0;
+    ULONG64 totalUnusedBytes = 0;
     if (showThreadSummary || !threadContextAddress)
     {
-        ExtRemoteTyped totalUsedBytes(this->FillModule("%s!totalUsedBytes"));
-        this->Out("Page Allocator Total Used Bytes: %u\n", ExtRemoteTypedUtil::GetSizeT(totalUsedBytes));
+        ExtRemoteTyped remoteTotalUsedBytes(this->FillModule("%s!totalUsedBytes"));
+        this->Out("Page Allocator Total Used Bytes: %u\n", ExtRemoteTypedUtil::GetSizeT(remoteTotalUsedBytes));
     }
     if (showThreadSummary)
     {
         RemotePageAllocator::DisplayDataHeader("Thread Context");
     }
-    RemoteThreadContext::ForEach([=, &numThreads, &totalReservedBytes, &totalCommittedBytes, &totalUsedBytes](RemoteThreadContext threadContext)
+    RemoteThreadContext::ForEach([=, &numThreads, &totalReservedBytes, &totalCommittedBytes, &totalUsedBytes, &totalUnusedBytes](RemoteThreadContext threadContext)
     {
         numThreads++;
 
@@ -2208,11 +2227,13 @@ JD_PRIVATE_COMMAND(memstats,
         ULONG64 reservedBytes = 0;
         ULONG64 committedBytes = 0;
         ULONG64 usedBytes = 0;
-        threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes](PCSTR name, RemotePageAllocator pageAllocator)
+        ULONG64 unusedBytes = 0;
+        threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes, &unusedBytes](PCSTR name, RemotePageAllocator pageAllocator)
         {
             reservedBytes += pageAllocator.GetReservedBytes();
             committedBytes += pageAllocator.GetCommittedBytes();
             usedBytes += pageAllocator.GetUsedBytes();
+            unusedBytes += pageAllocator.GetUnusedBytes();
 
             if (showPageAllocator)
             {
@@ -2224,6 +2245,7 @@ JD_PRIVATE_COMMAND(memstats,
         totalReservedBytes += reservedBytes;
         totalCommittedBytes += committedBytes;
         totalUsedBytes += usedBytes;
+        totalUnusedBytes += unusedBytes;
 
         if (showPageAllocator && !showThreadSummary)
         {
@@ -2232,7 +2254,7 @@ JD_PRIVATE_COMMAND(memstats,
         if (showPageAllocator || showThreadSummary)
         {
             g_Ext->Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
-            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes);
+            RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes, unusedBytes);
         }
 
         if (showArenaAllocator)
@@ -2297,61 +2319,8 @@ JD_PRIVATE_COMMAND(memstats,
     {
         RemotePageAllocator::DisplayDataLine();
         this->Out("Total");
-        RemotePageAllocator::DisplayData(_countof("Total") - 1, totalUsedBytes, totalReservedBytes, totalCommittedBytes);
+        RemotePageAllocator::DisplayData(_countof("Total") - 1, totalUsedBytes, totalReservedBytes, totalCommittedBytes, totalUnusedBytes);
     }
-}
-
-ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ULONG64 objectAddress, char const ** typeName)
-{
-    return CastWithVtable(ExtRemoteTyped("(void *)@$extin", objectAddress), typeName);
-}
-
-ExtRemoteTyped EXT_CLASS_BASE::CastWithVtable(ExtRemoteTyped original, char const** typeName)
-{
-    if (original.m_Typed.Tag != SymTagPointerType)
-    {
-        original = original.GetPointerTo();
-    }
-
-    ULONG64 vtbleAddr = ExtRemoteData(original.GetPtr(), this->m_PtrSize).GetPtr();
-    if (vtbleAddr == 0)
-    {
-        return original;
-    }
-    ExtRemoteTyped result = original;
-
-    if (vtableTypeIdMap.find(vtbleAddr) != vtableTypeIdMap.end())
-    {
-        std::pair<ULONG64, ULONG> vtableTypeId = vtableTypeIdMap[vtbleAddr];
-        result.Set(true, vtableTypeId.first, vtableTypeId.second, original.GetPtr());
-
-        if (typeName)
-        {
-            *typeName = GetTypeNameFromVTablePointer(vtbleAddr);
-        }
-
-        return result;
-    }
-
-    char const * localTypeName = GetTypeNameFromVTablePointer(vtbleAddr);
-    if (localTypeName != nullptr)
-    {
-        if (typeName)
-        {
-            *typeName = localTypeName;
-        }
-        ULONG64 modBase;
-        ULONG typeId;
-        if (SUCCEEDED(this->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
-            && SUCCEEDED(this->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
-        {
-            result.Set(true, modBase, typeId, original.GetPtr());
-            vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
-            return result;
-        }
-    }
-
-    return original;
 }
 
 typedef struct _OBJECTINFO
@@ -2523,17 +2492,32 @@ MPH_COMMAND(mpheap,
     bool verbose = HasArg("v");
     char buffer[1024];
 
-    ExtRemoteTyped g_pHeapHandle(FillModuleV("%s!g_pHeapHandle", tridentModule));
-    if (verbose)
+    char* gpHeapHandle;
+    if (HasType(tridentModule, "MemoryProtection::g_pHeapHandle")) 
     {
-        this->Out("%s!g_pHeapHandle: %x\n", tridentModule, g_pHeapHandle.GetPtr());
+        gpHeapHandle = "MemoryProtection::g_pHeapHandle";
+    }
+    else if(HasType(tridentModule, "g_pHeapHandle"))
+    {
+        gpHeapHandle = "g_pHeapHandle";
+    }
+    else
+    {
+        this->Err("Can't find either %s!MemoryProtection::g_pHeapHandle or %s!:g_pHeapHandle", tridentModule, tridentModule);
+        return;
     }
 
-    ExtRemoteTyped heapInstance(FillModuleV("(%s!MemProtectHeap*)(%s!g_pHeapHandle)", memGCModule, tridentModule));
+    ExtRemoteTyped g_pHeapHandle(FillModuleV("%s!%s", tridentModule, gpHeapHandle));
     if (verbose)
     {
-        this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!g_pHeapHandle)", memGCModule, tridentModule), heapInstance.GetPtr());
-        this->Out("threadContextTlsIndex: %x\n", heapInstance.Field("threadContextTlsIndex").GetUlong());
+        this->Out("%s!%s: %x\n", tridentModule, gpHeapHandle, g_pHeapHandle.GetPtr());
+    }
+
+    ExtRemoteTyped heapInstance(FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule, gpHeapHandle));
+    if (verbose)
+    {
+        this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule), heapInstance.GetPtr());
+        this->Out("threadContextTlsIndex: %x\n", heapInstance.Field("threadContextTlsIndex").GetUlong(), gpHeapHandle);
     }
 
     // list of thread contexts:
@@ -2675,14 +2659,14 @@ MPH_COMMAND(mpheap,
                 //!list -t chakra!HeapBlockMap64::Node.next -x ".if(poi(@$extret)==(%x>>0n32)){?? ((chakra!HeapBlockMap64::Node*)@$extret)->map}" @@c++(((chakra!MemProtectHeap*)(edgehtml!g_pHeapHandle))->recycler.heapBlockMap.list)
                 sprintf_s(buffer, "!list -t %s!%sHeapBlockMap64::Node.next -x "
                     "\".if(poi(@$extret)==(0x%I64x>>0n32)){ ?? @@c++((((%s!%sHeapBlockMap64::Node*)@$extret)->map.map[(0x%I64x&0xffffffff)>>0x14]->map[(0x%I64x&0x000FF000)>>0xc]))}\""
-                    " @@c++(((%s!MemProtectHeap*)(edgehtml!g_pHeapHandle))->recycler.heapBlockMap.list)",
-                    memGCModule, this->GetMemoryNS(), address, memGCModule, this->GetMemoryNS(), address, address, memGCModule, tridentModule);
+                    " @@c++(((%s!MemProtectHeap*)(%s!%s))->recycler.heapBlockMap.list)",
+                    memGCModule, this->GetMemoryNS(), address, memGCModule, this->GetMemoryNS(), address, address, memGCModule, tridentModule, gpHeapHandle);
             }
             else
             {
                 //?? ((mshtml!MemProtectHeap*)(mshtml!g_pHeapHandle))->recycler.heapBlockMap.map[0x051e8130>>0x14]->map[(0x051e8130&0x000FF000)>>0xc]
-                sprintf_s(buffer, "?? @@c++(((%s!MemProtectHeap*)(%s!g_pHeapHandle))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
-                    memGCModule, tridentModule, address, address);
+                sprintf_s(buffer, "?? @@c++(((%s!MemProtectHeap*)(%s!%s))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
+                    memGCModule, tridentModule, gpHeapHandle, address, address);
             }
             this->Out("Command to show block: %s\n", buffer);
         }
@@ -2695,21 +2679,22 @@ MPH_COMMAND(mpheap,
             return;
         }
 
-        ExtRemoteTyped heapBlock = info.heapBlock;
-        ULONG64 x64MapAddr = info.x64MapAddr;
+        ExtRemoteTyped heapBlock = this->CastWithVtable(info.heapBlock);
+        //ULONG64 x64MapAddr = info.x64MapAddr;
         std::string typeName = info.typeName;
-        PageHeapMode pageHeapMode = (PageHeapMode)heapBlock.Field("pageHeapMode").GetLong();
+        PageHeapMode pageHeapMode = PageHeapMode::PageHeapModeOff;
+        if (heapBlock.HasField("pageHeapMode"))
+        {
+            pageHeapMode = (PageHeapMode)heapBlock.Field("pageHeapMode").GetLong();
+        }
 
         if (m_PtrSize == 8)
         {
-            // DML does not support the command containing double quote, so use the already found block map
-            sprintf_s(buffer, "?? @@c++((%s*)(((%s!%sHeapBlockMap64::Node*)0x%I64x)->map.map[(0x%I64x&0xffffffff)>>0x14]->map[(0x%I64x&0x000FF000)>>0xc]))",
-                typeName.c_str(), memGCModule, this->GetMemoryNS(), x64MapAddr, address, address);
+            sprintf_s(buffer, "dx (%s!Memory::HeapBlock*)0x%I64x", memGCModule, heapBlock.GetPtr());
         }
         else
         {
-            sprintf_s(buffer, "?? @@c++((%s*)((%s!MemProtectHeap*)(%s!g_pHeapHandle))->recycler.heapBlockMap.map[0x%llx>>0x14]->map[(0x%llx&0x000FF000)>>0xc])",
-                typeName.c_str(), memGCModule, tridentModule, address, address);
+            sprintf_s(buffer, "dx (%s!Memory::HeapBlock*)0x%llx", memGCModule, heapBlock.GetPtr());
         }
 
         this->Dml("\taddress %p found in\n", address);

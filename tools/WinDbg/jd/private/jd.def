@@ -35,6 +35,8 @@ EXPORTS
     showpinned
     markmap
 ;    markobj
+    predecessors
+    successors
     traceroots
     savegraph
     slist
@@ -49,6 +51,7 @@ EXPORTS
     irfunc
     bc
     jsobjectstats
+    jsobjectnodes
     stst
     pagealloc
     hbm
@@ -59,4 +62,5 @@ EXPORTS
     mpheap
     bv
     sourceInfos
+    jsdisp
 

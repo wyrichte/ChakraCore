@@ -65,7 +65,7 @@ public:
     static void RunMultithreaded(PfnTest pfnTest, int numThreads, int count, int runScript, int *args, int argCount);
 
     // Returns the test function pointer for a given string.
-    static PfnTest GetTestFunction(wchar_t *str);
+    static PfnTest GetTestFunction(char16 *str);
 
     // Dumps the list of available tests
     static void DumpTestList()
@@ -78,7 +78,7 @@ private:
     static DWORD WINAPI PerfTestThreadProc(LPVOID param);
 
     struct TestCase { 
-        const wchar_t* Name;
+        const char16* Name;
         PfnTest Function;
     };
     static const int NumTestCases = 4;
@@ -90,14 +90,14 @@ struct TestContext
 {
     TestContext() : 
         testName(NULL), pfnTest(NULL), numThreads(1), numIterations(0), testKind(Engine::Kind::Chakra),
-            workingSetSampleRate(5), script(L"function max(x,y) { return x > y ? x : y; }; output=max(3,5);"), resultsXMLFileName(NULL)
+            workingSetSampleRate(5), script(_u("function max(x,y) { return x > y ? x : y; }; output=max(3,5);")), resultsXMLFileName(NULL)
         { 
         }
 
-    void LoadScriptFile(wchar_t *filename);
+    void LoadScriptFile(char16 *filename);
 
     // Name of the test to run.
-    wchar_t *testName;
+    char16 *testName;
 
     // Pointer to the test function
     PerfTest::PfnTest pfnTest;
@@ -118,12 +118,12 @@ struct TestContext
     int workingSetSampleRate;
 
     // Script to execute.  Hack: must set the property "z" on the global object.
-    wchar_t *script;
+    char16 *script;
 
     // Initial working set information
     PROCESS_MEMORY_COUNTERS initialMemoryCounters;
 
-    wchar_t *resultsXMLFileName;
+    char16 *resultsXMLFileName;
 };
 
 extern TestContext g_testContext;

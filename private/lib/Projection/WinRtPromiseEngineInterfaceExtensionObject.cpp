@@ -15,6 +15,7 @@
 
 #pragma warning(push)
 #pragma warning(disable:4309) // truncation of constant value
+#pragma warning(disable:4838) // conversion from 'int' to 'const char' requires a narrowing conversion	
 #if _M_AMD64 
 #include "InJavascript\Promise.js.bc.64b.h"
 #else
@@ -115,7 +116,7 @@ namespace Projection
 #if DBG
     void WinRTPromiseEngineInterfaceExtensionObject::DumpByteCode()
     {
-        Output::Print(L"Dumping Promise Byte Code:");
+        Output::Print(_u("Dumping Promise Byte Code:"));
         this->EnsurePromiseByteCode(GetScriptContext());
         Js::ByteCodeDumper::DumpRecursively(promiseByteCode);
     }

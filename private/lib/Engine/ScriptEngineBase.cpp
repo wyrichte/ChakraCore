@@ -103,7 +103,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
         binaryVerificationData->javascriptLibraryBaseSize != sizeof(Js::JavascriptLibraryBase) ||
         binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
         binaryVerificationData->customExternalObjectSize != sizeof(Js::CustomExternalObject) ||
-        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset() ||
+        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType() ||
         binaryVerificationData->typeIdOffset != (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
         binaryVerificationData->taggedIntSize != sizeof(Js::TaggedInt) ||
         binaryVerificationData->typeIdLimit != TypeIds_Limit ||
@@ -120,7 +120,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
             (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)), binaryVerificationData->scriptEngineBaseOffset,
             (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase(), binaryVerificationData->scriptContextBaseOffset,
             (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase(), binaryVerificationData->javascriptLibraryBaseOffset,
-            (DWORD)((Js::RecyclableObject*)(0x0))->GetTypeOffset(), binaryVerificationData->typeOffset,
+            (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType(), binaryVerificationData->typeOffset,
             (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset(), binaryVerificationData->typeIdOffset,
             sizeof(Js::TaggedInt), binaryVerificationData->taggedIntSize,
             sizeof(Js::JavascriptNumber), binaryVerificationData->javascriptNumberSize,
@@ -653,7 +653,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
         }
         else
         {
-            customExternalTypeHandler = Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetRootPath(), 0, 0, 0, true, true);
+            customExternalTypeHandler = Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true);
         }
 
         Js::CustomExternalType * customExternalType =
@@ -668,7 +668,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
     {
         Js::ExternalType * externalType = RecyclerNew(recycler, Js::ExternalType,
             localScriptContext, (Js::TypeId)typeId, objPrototype, (Js::ExternalMethod)entryPoint,
-            Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
+            Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
         type = externalType;
     }
 
@@ -722,11 +722,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     hr = GetOPrototypeInformationForTypeCreation(varPrototype, nameId, &objPrototype);
     IfFailedReturn(hr);
 
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -1371,11 +1371,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DispExToVar(
         result->Release();
     }
 #endif
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        hr = DispatchHelper::MarshalIDispatchToJsVarNoThrow(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
+        hr = DispatchHelper::MarshalIDispatchToJsVar(GetScriptSiteHolder()->GetScriptSiteContext(), pdispex,  instance);
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
 }
 
@@ -1533,6 +1533,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
     __out Var* errorObject)
 {
     IfNullReturnError(errorObject, E_INVALIDARG);
+    IfNullReturnError(message, E_INVALIDARG);
     *errorObject = nullptr;
 
     ErrorTypeEnum errorTypeInternal;
@@ -1557,9 +1558,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateErrorObject(
         Js::JavascriptError *pError = scriptContext->GetLibrary()->CreateExternalError(errorTypeInternal);
 
         size_t length = wcslen(message);
-        wchar_t* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, length + 1);
+        char16* allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, length + 1);
         wmemcpy_s(allocatedString, length + 1, message, length);
-        allocatedString[length] = L'\0';
+        allocatedString[length] = _u('\0');
 
         Js::JavascriptError::SetErrorMessageProperties(pError, hCode, allocatedString, scriptContext);
         *errorObject = pError;
@@ -1683,8 +1684,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ReleaseAndRethrowException(__in HRES
             localScriptContext->RethrowRecordedException(nullptr);
         }
         END_ENTER_SCRIPT;
-
-        Assert(false);
     }
     return S_FALSE;
 }
@@ -1758,14 +1757,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeToVar(
         return hr;
     }
 
-    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
-    DisableNoScriptScope disableNoScriptScope(scriptContext->GetThreadContext());
-
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-    {
-        hr = DispatchHelper::MarshalVariantToJsVar(inVariant, instance, scriptContext);
-    }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(inVariant, instance, scriptContext);
     return hr;
 }
 
@@ -2659,9 +2651,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     }
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
-    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+    
+    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+        try
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
             Js::SCASerializationEngine::Serialize(context, instance, &writer, transferableVars, cTransferableVars);
@@ -2679,14 +2673,19 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 transferableHolder->DetachAll(transferableVars);
             }
         }
-        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
         catch (Js::JavascriptExceptionObject *exceptionObject)
         {
-            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
+            caughtExceptionObject = exceptionObject;
         }
-        CATCH_UNHANDLED_EXCEPTION(hr)
+        END_ENTER_SCRIPT
+
+        if (caughtExceptionObject != nullptr)
+        {
+            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
+        }
     }
-    END_ENTER_SCRIPT
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
+    CATCH_UNHANDLED_EXCEPTION(hr)   
 
     if (caughtExceptionObject != nullptr)
     {
@@ -2741,9 +2740,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
-    BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
+        BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
+        try
+        {
             AutoLeaveScriptPtr<ISCAHost> pSCAHost(scriptContext);
             ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
 
@@ -2751,15 +2752,20 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
 
             Js::StreamReader reader(scriptContext, pInSteam);
             *pValue = Js::SCADeserializationEngine::Deserialize(pSCAHost, context, &reader, transferableHolder);
-        END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
+        }
         catch (Js::JavascriptExceptionObject *  exceptionObject)
         {
-            caughtExceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
+            caughtExceptionObject = exceptionObject;
         }
-        CATCH_UNHANDLED_EXCEPTION(hr)
-    }
-    END_ENTER_SCRIPT
+        END_ENTER_SCRIPT
 
+        if (caughtExceptionObject != nullptr)
+        {
+            caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
+        }
+    }
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)    
+    CATCH_UNHANDLED_EXCEPTION(hr)
 
     if (caughtExceptionObject != nullptr)
     {
@@ -3032,7 +3038,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToNativeArray(Var arrayObject,
             Assert(FALSE);
             return 0xffffffff;
         };
-        return 0xffffffff;
     };
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
@@ -3178,14 +3183,34 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
         // TODO: investigate the possibility of using bytecode cache.
         return E_INVALIDARG;
     }
+
+    SmartFPUControl smartFpuControl;
+    if (smartFpuControl.HasErr())
+    {
+        return smartFpuControl.GetErr();
+    }
+
     *exceptionVar = nullptr;
     
     Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
-        hr = moduleRecord->ParseSource(sourceText, sourceLength, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
+        ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+        SourceContextInfo* sourceContextInfo = scriptEngine->GetSourceContextInfo((ULONG_PTR)sourceContext, (uint)sourceLength, FALSE, nullptr, nullptr);
+        SRCINFO si = {
+            /* sourceContextInfo   */ sourceContextInfo,
+            /* dlnHost             */ 0,
+            /* ulColumnHost        */ 0,
+            /* lnMinHost           */ 0,
+            /* ichMinHost          */ 0,
+            /* ichLimHost          */ 0,
+            /* ulCharOffset        */ 0,
+            /* mod                 */ 0,
+            /* grfsi               */ 0
+        };
+        hr = moduleRecord->ParseSource(sourceText, sourceLength, &si, exceptionVar, sourceFlag == ParseModuleSourceFlags_DataIsUTF8 ? true : false);
     }
-    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
     return hr;
 }
 
@@ -3194,28 +3219,67 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
     /* [out] */ __RPC__deref_out_opt Var *varResult)
 {
     HRESULT hr = NOERROR;
-    Js::JavascriptExceptionObject* exceptionObject = nullptr;
     hr = VerifyOnEntry(TRUE);
     if (FAILED(hr))
     {
         return hr;
     }
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
+    if (moduleRecord->GetScriptContext() != GetScriptContext())
     {
-        Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
-        *varResult = moduleRecord->ModuleEvaluation();
+        Assert(false);
+        return E_INVALIDARG;
     }
+    SmartFPUControl smartFpuControl;
+    if (smartFpuControl.HasErr())
+    {
+        return smartFpuControl.GetErr();
     }
-    END_ENTER_SCRIPT \
-    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-    END_GET_ERROROBJECT(hr, scriptContext, exceptionObject) \
-    CATCH_UNHANDLED_EXCEPTION(hr)
 
-    if (exceptionObject != nullptr)
+    BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
-        // return exception up if there is any failure.
-        *varResult = exceptionObject->GetThrownObject(scriptContext);
-        hr = SCRIPT_E_RECORDED;
+        BEGIN_ENTER_SCRIPT(scriptContext, true /*cleanup*/, true /*isRoot*/, false /*hasCaller*/)
+        {
+            *varResult = moduleRecord->ModuleEvaluation();
+        }
+        END_ENTER_SCRIPT
+    }
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+    {
+        *varResult = scriptContext->GetLibrary()->GetUndefined();
+
+        hr = GetScriptSiteHolder()->HandleJavascriptException(exceptionObject, scriptContext);
+    }
+    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateScriptErrorFromVar(Var errorObject, IActiveScriptError** scriptError)
+{
+    HRESULT hr = NOERROR;
+    hr = VerifyOnEntry(TRUE);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    Js::JavascriptExceptionObject* exceptionObject = nullptr;
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        exceptionObject = RecyclerNew(scriptContext->GetRecycler(), Js::JavascriptExceptionObject, errorObject, scriptContext, nullptr);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    ActiveScriptError* activeScriptError = nullptr;
+    if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(exceptionObject, &hr, nullptr, scriptContext, &activeScriptError)))
+    {
+        hr = activeScriptError->QueryInterface(__uuidof(IActiveScriptError), (void**)scriptError);
+        activeScriptError->Release();
     }
     return hr;
 }

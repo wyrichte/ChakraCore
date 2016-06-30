@@ -7,7 +7,7 @@
 
 const GUID IID_ISetNextStatement = { 0x51973C03, 0xCB0C, 0x11D0, { 0xB5, 0xC9, 0x00, 0xA0, 0x24, 0x4A, 0x0E, 0x7A } };
 
-const CComBSTR AutoDebugPropertyInfo::s_emptyBSTR(L"");
+const CComBSTR AutoDebugPropertyInfo::s_emptyBSTR(_u(""));
 
 DWORD Debugger::s_scriptThreadId = 0;
 
@@ -66,7 +66,7 @@ HRESULT Debugger::StartDebuggerThread(Debugger **ppDebugger, IRemoteDebugApplica
         DWORD code;
         if (!GetExitCodeThread(hThread, &code) || code != STILL_ACTIVE)
         {
-            DebuggerController::LogError(L"failed Debugger::StartDebuggerThread");
+            DebuggerController::LogError(_u("failed Debugger::StartDebuggerThread"));
             CloseHandle(hThread);
             return E_FAIL;
         }
@@ -81,7 +81,7 @@ HRESULT Debugger::StartDebuggerThread(Debugger **ppDebugger, IRemoteDebugApplica
     (*ppDebugger)->SetDebugApp(pRemoteDebugApp);
     if (pRemoteDebugApp->ConnectDebugger(*ppDebugger) == S_OK)
     {
-        DebuggerController::Log(L"Debugger connected : IRemoteDebugApplication::ConnectDebugger Succeeded");
+        DebuggerController::Log(_u("Debugger connected : IRemoteDebugApplication::ConnectDebugger Succeeded"));
         (*ppDebugger)->FetchSources();
     }
 
@@ -192,23 +192,23 @@ Debugger::Debugger(void)
         m_pController = new DebuggerController(dbgBaselineFilename);
 
         // Install the callbacks for the controller.
-        IfFailGo(m_pController->InstallHostCallback(L"InsertBreakpoint", &Debugger::JsInsertBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"ModifyBreakpoint", &Debugger::JsModifyBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"ResumeFromBreakpoint", &Debugger::JsResumeFromBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpLocals", &Debugger::JsDumpLocals, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpCallstack", &Debugger::JsDumpCallstack, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetNextStatement", &Debugger::JsSetNextStatement, this));
-        IfFailGo(m_pController->InstallHostCallback(L"EvaluateExpression", &Debugger::JsEvaluateExpression, this));
-        IfFailGo(m_pController->InstallHostCallback(L"EvaluateExpressionAsync", &Debugger::JsEvaluateExpressionAsync, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetFrame", &Debugger::JsSetFrame, this));
-        IfFailGo(m_pController->InstallHostCallback(L"LogJson", &Debugger::JsLogJson, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetExceptionResume", &Debugger::JsSetExceptionResume, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetDebuggerOptions", &Debugger::JsSetDebuggerOptions, this));
-        IfFailGo(m_pController->InstallHostCallback(L"RecordEdit", &Debugger::JsRecordEdit, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpBreakpoint", &Debugger::JsDumpBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"SetMutationBreakpoint", &Debugger::JsSetMutationBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DeleteMutationBreakpoint", &Debugger::JsDeleteMutationBreakpoint, this));
-        IfFailGo(m_pController->InstallHostCallback(L"DumpSourceList", &Debugger::JsDumpSourceList, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("InsertBreakpoint"), &Debugger::JsInsertBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("ModifyBreakpoint"), &Debugger::JsModifyBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("ResumeFromBreakpoint"), &Debugger::JsResumeFromBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpLocals"), &Debugger::JsDumpLocals, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpCallstack"), &Debugger::JsDumpCallstack, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetNextStatement"), &Debugger::JsSetNextStatement, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("EvaluateExpression"), &Debugger::JsEvaluateExpression, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("EvaluateExpressionAsync"), &Debugger::JsEvaluateExpressionAsync, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetFrame"), &Debugger::JsSetFrame, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("LogJson"), &Debugger::JsLogJson, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetExceptionResume"), &Debugger::JsSetExceptionResume, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetDebuggerOptions"), &Debugger::JsSetDebuggerOptions, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("RecordEdit"), &Debugger::JsRecordEdit, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpBreakpoint"), &Debugger::JsDumpBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("SetMutationBreakpoint"), &Debugger::JsSetMutationBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DeleteMutationBreakpoint"), &Debugger::JsDeleteMutationBreakpoint, this));
+        IfFailGo(m_pController->InstallHostCallback(_u("DumpSourceList"), &Debugger::JsDumpSourceList, this));
     }
 
     if (HostConfigFlags::flags.InspectMaxStringLengthIsEnabled)
@@ -220,7 +220,7 @@ Debugger::Debugger(void)
 Error:
     if(FAILED(hr))
     {
-        m_pController->LogError(L"host callback initialization failed");
+        m_pController->LogError(_u("host callback initialization failed"));
     }
 }
 
@@ -310,11 +310,11 @@ HRESULT Debugger::onHandleBreakPoint(
     __in BREAKREASON br,
     __in IActiveScriptErrorDebug __RPC_FAR *pError)
 {
-    DebuggerController::Log(L"Debugger::onHandleBreakPoint(): BREAKREASON = %s\n", DebuggerController::GetBreakpointReason(br));
+    DebuggerController::Log(_u("Debugger::onHandleBreakPoint(): BREAKREASON = %s\n"), DebuggerController::GetBreakpointReason(br));
 
     if (!IsAttached())
     {
-        DebuggerController::LogError(L"should be attached at Debugger::onHandleBreakPoint");
+        DebuggerController::LogError(_u("should be attached at Debugger::onHandleBreakPoint"));
         return E_FAIL;
     }
 
@@ -327,7 +327,7 @@ HRESULT Debugger::onHandleBreakPoint(
     if (m_spScriptThread.p != NULL)
     {
         // Already broken before
-        DebuggerController::LogError(L"not resumed from previous break Debugger::onHandleBreakPoint");
+        DebuggerController::LogError(_u("not resumed from previous break Debugger::onHandleBreakPoint"));
     }
 
     // Rule of thumb : if you cache some variables which are supposed to live during this debugger break then
@@ -339,7 +339,7 @@ HRESULT Debugger::onHandleBreakPoint(
     m_spCurrentError = pError;
     PerformOnBreak();
 
-    DebuggerController::Log(L"/Debugger::onHandleBreakPoint(): BREAKREASON = %s\n", DebuggerController::GetBreakpointReason(br));
+    DebuggerController::Log(_u("/Debugger::onHandleBreakPoint(): BREAKREASON = %s\n"), DebuggerController::GetBreakpointReason(br));
 
     return S_OK;
 }
@@ -415,11 +415,11 @@ HRESULT Debugger::onDebuggerEvent(
                     if (url.m_str != nullptr)
                     {
                         GetShortNameFromUrl(url.m_str, szShortName, 255);
-                        fwprintf(stdout, L"%ls [@ %ls]\n", bstrMessage.m_str, szShortName);
+                        fwprintf(stdout, _u("%ls [@ %ls]\n"), bstrMessage.m_str, szShortName);
                     }
                     else
                     {
-                        fwprintf(stdout, L"%ls\n", bstrMessage.m_str);
+                        fwprintf(stdout, _u("%ls\n"), bstrMessage.m_str);
                     }
 
                 }
@@ -446,7 +446,7 @@ HRESULT Debugger::SetDebugApp(IRemoteDebugApplication * pDebugApp)
     if (IsAttached())
     {
         // Do we want allow attach again??
-        DebuggerController::LogError(L"multiple attach at Debugger::SetDebugApp");
+        DebuggerController::LogError(_u("multiple attach at Debugger::SetDebugApp"));
 
         //if (m_spDebugApp.p == pDebugApp)
         //{
@@ -476,7 +476,7 @@ HRESULT Debugger::DetachFromTarget()
 {
     if (!IsAttached())
     {
-        DebuggerController::LogError(L"detach without attach at Debugger::DetachFromTarget");
+        DebuggerController::LogError(_u("detach without attach at Debugger::DetachFromTarget"));
         return  E_FAIL;
     }
 
@@ -492,7 +492,7 @@ HRESULT Debugger::DetachFromTarget()
 
     if (hr == S_OK)
     {
-        DebuggerController::Log(L"Debugger disconnected : IRemoteDebugApplication::DisconnectDebugger Succeeded");
+        DebuggerController::Log(_u("Debugger disconnected : IRemoteDebugApplication::DisconnectDebugger Succeeded"));
     }
 
     // Resume from any breakpoint if that happens
@@ -508,11 +508,11 @@ HRESULT Debugger::ResumeFromBreakPoint(BREAKRESUMEACTION resumeAction, ERRORRESU
 {
     HRESULT hr = E_FAIL;
 
-    DebuggerController::Log(L"Debugger::ResumeFromBreakPoint(): BREAKRESUMEACTION = %s, ERRORRESUMEACTION = %s\n", DebuggerController::GetBreakResumeAction(resumeAction), DebuggerController::GetErrorResumeAction(errorAction));
+    DebuggerController::Log(_u("Debugger::ResumeFromBreakPoint(): BREAKRESUMEACTION = %s, ERRORRESUMEACTION = %s\n"), DebuggerController::GetBreakResumeAction(resumeAction), DebuggerController::GetErrorResumeAction(errorAction));
 
     if(!IsAttached() || !IsAtBreak())
     {
-        DebuggerController::LogError(L"Debugger::ResumeFromBreakPoint(): did not break - returning E_FAIL");
+        DebuggerController::LogError(_u("Debugger::ResumeFromBreakPoint(): did not break - returning E_FAIL"));
         return E_FAIL;
     }
 
@@ -536,7 +536,7 @@ HRESULT Debugger::ResumeFromBreakPoint(BREAKRESUMEACTION resumeAction, ERRORRESU
 
     pScriptThread->Release();
 
-    DebuggerController::Log(L"/Debugger::ResumeFromBreakPoint(): BREAKRESUMEACTION = %s, ERRORRESUMEACTION = %s, hr = 0x%08X\n", DebuggerController::GetBreakResumeAction(resumeAction), DebuggerController::GetErrorResumeAction(errorAction), hr);
+    DebuggerController::Log(_u("/Debugger::ResumeFromBreakPoint(): BREAKRESUMEACTION = %s, ERRORRESUMEACTION = %s, hr = 0x%08X\n"), DebuggerController::GetBreakResumeAction(resumeAction), DebuggerController::GetErrorResumeAction(errorAction), hr);
 
     return hr;
 }
@@ -595,7 +595,7 @@ HRESULT Debugger::PerformOnBreak()
 {
     // The handling of PerformOnBreak needs to be done on the debugger thread.
 
-    DebuggerController::Log(L"Debugger::PerformOnBreak()\n");
+    DebuggerController::Log(_u("Debugger::PerformOnBreak()\n"));
 
     // TODO : if you need to store the exception detail, we need to store here in the pdm's thread.
     HRESULT hr = S_OK;
@@ -604,63 +604,6 @@ HRESULT Debugger::PerformOnBreak()
     {
         // We dont' have to wait.
         return S_OK;
-    }
-
-    if(HostConfigFlags::IsHybridDebugging())
-    {
-        EXCEPINFO exInfo = { 0 };
-        ScriptDebugEvent bpEvent  = { ET_Breakpoint, (UINT64)m_spDebugApp.p, s_scriptThreadId, SDO_NONE, FALSE };
-
-        memset(&bpEvent.Breakpoint, 0, sizeof(bpEvent.Breakpoint));
-
-        bpEvent.Breakpoint.reason = m_eCurrentBreakReason;
-
-        CComBSTR bstrRestrictedDescription;
-        CComBSTR bstrRestrictedReference;
-
-        if(m_eCurrentBreakReason == BREAKREASON_ERROR && m_spCurrentError)
-        {
-            bpEvent.Breakpoint.ExceptionKind = ETK_UNHANDLED;
-
-            CComPtr<IActiveScriptErrorDebug110> pScriptError110;
-            m_spCurrentError->QueryInterface(__uuidof(IActiveScriptErrorDebug110), (void**)&pScriptError110);
-            if(pScriptError110)
-            {
-                SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND exceptionKind;
-                hr = pScriptError110->GetExceptionThrownKind(&exceptionKind);
-                if(SUCCEEDED(hr))
-                {
-                    bpEvent.Breakpoint.ExceptionKind = exceptionKind;
-                }
-            }
-
-            hr = m_spCurrentError->GetExceptionInfo(&exInfo);
-            Assert(hr == S_OK);
-
-            bpEvent.Breakpoint.scode = exInfo.scode;
-
-            if(exInfo.bstrSource)
-            {
-                AssignTargetString(exInfo.bstrSource, &bpEvent.Breakpoint.ExceptionSource);
-            }
-
-            if(exInfo.bstrDescription)
-            {
-                AssignTargetString(exInfo.bstrDescription, &bpEvent.Breakpoint.ExceptionDescription);
-            }
-        }
-        bpEvent.Breakpoint.breakResumeAction = (BREAKRESUMEACTION)-1;
-        bpEvent.Breakpoint.errorResumeAction = (ERRORRESUMEACTION)-1;
-        RaiseScriptDebugEvent(bpEvent);
-
-        Assert(bpEvent.m_scriptDebuggerOptions == SDO_NONE);
-        Assert(bpEvent.Breakpoint.breakResumeAction != (BREAKRESUMEACTION)-1);
-        Assert(bpEvent.Breakpoint.errorResumeAction != (ERRORRESUMEACTION)-1);
-
-        IfFailGo(ResumeFromBreakPoint(bpEvent.Breakpoint.breakResumeAction, bpEvent.Breakpoint.errorResumeAction));
-
-        DebuggerController::Log(L"/Debugger::PerformOnBreak(): hr = 0x%08X\n", hr);
-        return hr;
     }
 
     // Resume
@@ -720,7 +663,7 @@ HRESULT Debugger::PerformOnBreak()
     }
 
 Error:
-    DebuggerController::Log(L"/Debugger::PerformOnBreak(): hr = 0x%08X\n", hr);
+    DebuggerController::Log(_u("/Debugger::PerformOnBreak(): hr = 0x%08X\n"), hr);
     return hr;
 }
 
@@ -740,12 +683,12 @@ HRESULT Debugger::DumpBreakpoint()
     IfFailGo(enumFrames->Next(1, &frameDescriptor, &ct));
     IfFailGo(GetLocation(frameDescriptor, location));
 
-    breakpoint += L"{\"breakpoint\": {\"reason\": \"";
+    breakpoint += _u("{\"breakpoint\": {\"reason\": \"");
     breakpoint += reason;
-    breakpoint += L"\"";
-    breakpoint += L", \"location\": ";
+    breakpoint += _u("\"");
+    breakpoint += _u(", \"location\": ");
     breakpoint += location.ToString();
-    breakpoint += L"}}";
+    breakpoint += _u("}}");
 
     IfFailGo(m_pController->LogBreakpoint(breakpoint.c_str()));
 
@@ -800,14 +743,14 @@ std::wstring Debugger::DumpSourceListInternal(CComPtr<IDebugApplicationNode> pRo
         m_spUrlBstr = "Root";
     }
 
-    sourceString += L"{\"Name\": \"";
+    sourceString += _u("{\"Name\": \"");
     sourceString += m_spUrlBstr;
     if (!encodedText.empty())
     {
-        sourceString += L"\",";
-        sourceString += L"\"Text\": \"" + encodedText;
+        sourceString += _u("\",");
+        sourceString += _u("\"Text\": \"") + encodedText;
     }
-    sourceString += L"\"";
+    sourceString += _u("\"");
     
     CComPtr<IEnumDebugApplicationNodes> spEnumDebugApp;
     HRESULT hr = pRootNode->EnumChildren(&spEnumDebugApp);
@@ -817,22 +760,22 @@ std::wstring Debugger::DumpSourceListInternal(CComPtr<IDebugApplicationNode> pRo
         IDebugApplicationNode * pChildNode;
         ULONG nFetched;
         ULONG numChildren = 0;
-        childrenString += L"\"Children\": [";
+        childrenString += _u("\"Children\": [");
         while (SUCCEEDED(spEnumDebugApp->Next(1, &pChildNode, &nFetched)) && (nFetched == 1))
         {
             if (numChildren++ > 0) 
             {
-                childrenString += L",";
+                childrenString += _u(",");
             }
             childrenString += DumpSourceListInternal(pChildNode);
             pChildNode->Release();
         }
         if (numChildren > 0) 
         {
-            sourceString += L"," + childrenString + L"]";
+            sourceString += _u(",") + childrenString + _u("]");
         }
     }
-    sourceString += L"}";
+    sourceString += _u("}");
     return sourceString;
 }
 
@@ -843,9 +786,9 @@ HRESULT Debugger::DumpSourceList()
     std::wstring sourceString;
 
     IfFailGo(m_spDebugApp->GetRootNode(&pRootNode));
-    sourceString += L"{\"SourceList\":";
+    sourceString += _u("{\"SourceList\":");
     sourceString += DumpSourceListInternal(pRootNode, true);
-    sourceString += L"}";
+    sourceString += _u("}");
     IfFailGo(m_pController->LogMessage(sourceString.c_str()));
     
 Error:
@@ -895,7 +838,7 @@ HRESULT Debugger::HandleAutomaticBreakpointLogic()
         // Remove the breakpoint if it exceed the hitcount
         if (bpInfo->hitCount > m_config.maxHitCountForABreakpoint)
         {
-            //fwprintf(stdout, L"Breakpoint hitcount has crossed the limit %d, the breakpoint removed\n", m_config.maxHitCountForABreakpoint);
+            //fwprintf(stdout, _u("Breakpoint hitcount has crossed the limit %d, the breakpoint removed\n"), m_config.maxHitCountForABreakpoint);
             IfFailGo(RemoveBreakpoint(bpInfo->breakpointId));
         }
 
@@ -945,12 +888,10 @@ HRESULT Debugger::GetLocals(int expandLevel, DebugPropertyFlags flags)
 
     IfFailGo(m_pController->DumpLocals(*this, info, expandLevel, flags, [&](std::wstring& json)
     {
-        // In IE/VS F12 debugger evaluates "this" and adds it to locals list but in hybrid debugging Chakra adds "this" to locals list, 
-        // because of this the in-proc test debugger doesn’t dump this value in locals whereas hybrid debugger shows this value in locals. 
-        // This changes enables evaluating this value and dump it with locals.
-        if (SUCCEEDED(EvaluateExpression(L"this", expandLevel, flags, json)))
+        // In IE/VS F12 debugger evaluates "this" and adds it to locals list
+        if (SUCCEEDED(EvaluateExpression(_u("this"), expandLevel, flags, json)))
         {
-            json += L",";
+            json += _u(",");
         }
 
         return S_OK;
@@ -988,7 +929,7 @@ JsValueRef CALLBACK Debugger::JsEvaluateExpressionCompletion(JsValueRef callee, 
     CComPtr<CExprCallback> exprCallback;
     exprCallback.Attach(static_cast<CExprCallback*>(callbackState));    
 
-    DebuggerController::Log(L"Completing async expression eval...");
+    DebuggerController::Log(_u("Completing async expression eval..."));
     exprCallback->Complete();
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -1003,7 +944,7 @@ HRESULT Debugger::EvaluateExpressionAsync(std::wstring expression, int expandLev
 
     ExpressionEvalRequest request = { this, expandLevel, flags, json };
     exprCallback->SetExpressionEvalRequest(request);
-    DebuggerController::Log(L"Evaluating expression async ...");
+    DebuggerController::Log(_u("Evaluating expression async ..."));
     IfFailGo(EvaluateExpressionAsync(expression, exprCallback));
     JsrtCheckError(JScript9Interface::JsrtCreateFunction(Debugger::JsEvaluateExpressionCompletion, exprCallback.Detach(), completion));
 Error:
@@ -1028,18 +969,18 @@ HRESULT Debugger::EnsureFullNameEvaluationValueIsEquivalent(const DebugPropertyI
 
             // Exclude maps, sets, and weakmaps because any child properties are automatically resolved
             // to the map/set/weakmap variable's full name.
-            bool isCollection = wcsstr(fullNameDebugPropertyInfo.m_bstrType, L"Map") != nullptr
-                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, L"Set") != nullptr
-                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, L"WeakMap") != nullptr
-                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, L"WeakSet") != nullptr;
+            bool isCollection = wcsstr(fullNameDebugPropertyInfo.m_bstrType, _u("Map")) != nullptr
+                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, _u("Set")) != nullptr
+                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, _u("WeakMap")) != nullptr
+                             || wcsstr(fullNameDebugPropertyInfo.m_bstrType, _u("WeakSet")) != nullptr;
 
             // Exclude {error} and {exception} properties.
-            bool isError = wcsstr(fullNameDebugPropertyInfo.m_bstrFullName, L"{error}") != nullptr
-                        || wcsstr(fullNameDebugPropertyInfo.m_bstrFullName, L"{exception}") != nullptr;
+            bool isError = wcsstr(fullNameDebugPropertyInfo.m_bstrFullName, _u("{error}")) != nullptr
+                        || wcsstr(fullNameDebugPropertyInfo.m_bstrFullName, _u("{exception}")) != nullptr;
 
             // When the error happens, during locals enumeration we populate the value as an Error object. But accessing that property as an eval, generates the error itself
             // instead of an Error object. So both comparison will not match.
-            bool isErrorType = wcscmp(fullNameDebugPropertyInfo.m_bstrType, L"Error") == 0;
+            bool isErrorType = wcscmp(fullNameDebugPropertyInfo.m_bstrType, _u("Error")) == 0;
 
             if (bothPropertiesAreReal && !isCollection && !isError && !isErrorType)
             {
@@ -1075,7 +1016,7 @@ HRESULT Debugger::EvaluateExpressionAsDebugProperty(const std::wstring& expressi
     IfFailGo(debugExpressionContext->ParseLanguageText(
         expression.c_str(),         // Expression
         10,                         // Radix
-        L"",                        // Text delimiter
+        _u(""),                        // Text delimiter
         DEBUG_TEXT_RETURNVALUE |    // Need return
         DEBUG_TEXT_ISEXPRESSION,
         &debugExpression            // Expression result
@@ -1113,12 +1054,12 @@ void OnCompleteExpressionEval(IDebugExpression* debugExpression, ExpressionEvalR
     IfFailGo(debugProperty->GetPropertyInfo(DBGPROP_INFO_ALL, 10, &debugPropertyInfo));
     IfFailGo(expressionEvalRequest.debugger->GetController()->DumpProperty(
         *expressionEvalRequest.debugger, debugPropertyInfo, expressionEvalRequest.expandLevel, expressionEvalRequest.flags, expressionEvalRequest.json));
-    expressionEvalRequest.json += L"}}";
+    expressionEvalRequest.json += _u("}}");
     IfFailGo(expressionEvalRequest.debugger->GetController()->LogEvaluateExpression(expressionEvalRequest.json.c_str()));
 Error:
     if (FAILED(hr))
     {
-        DebuggerController::LogError(L"OnCompleteExpressionEval");
+        DebuggerController::LogError(_u("OnCompleteExpressionEval"));
     }
 
 }
@@ -1141,7 +1082,7 @@ HRESULT Debugger::EvaluateExpressionAsync(const std::wstring& expression, CExprC
     IfFailGo(debugExpressionContext->ParseLanguageText(
         expression.c_str(),         // Expression
         10,                         // Radix
-        L"",                        // Text delimiter
+        _u(""),                        // Text delimiter
         DEBUG_TEXT_RETURNVALUE |    // Need return
         DEBUG_TEXT_ISEXPRESSION,
         &debugExpression            // Expression result
@@ -1191,25 +1132,25 @@ HRESULT Debugger::SetNextStatement(ULONG line, ULONG column)
             {
                 // Update the nextlocation info.
                 PopulateSourceLocationInfo(nextCodeContext, &nextLocation);
-                std::wstring json = L"{\"setnextstatement\" : { ";
+                std::wstring json = _u("{\"setnextstatement\" : { ");
 
-                json += L"\"from\" : ";
+                json += _u("\"from\" : ");
 
                 WCHAR buf[20];
                 _itow_s(currentLocation.charPosition,buf,20,10);
                 json += buf;
 
-                json += L", \"to\" : ";
+                json += _u(", \"to\" : ");
                 _itow_s(nextLocation.charPosition,buf,20,10);
                 json += buf;
 
-                json += L", \"IsAllowed\" : ";
+                json += _u(", \"IsAllowed\" : ");
 
                 CComPtr<ISetNextStatement> spNextStatement;
                 hr = frameDescriptor.pdsf->QueryInterface(IID_ISetNextStatement, reinterpret_cast<void**>(&spNextStatement));
                 if (hr != S_OK)
                 {
-                    json += L"\"Not supported\"";
+                    json += _u("\"Not supported\"");
                 }
                 else
                 {
@@ -1217,11 +1158,11 @@ HRESULT Debugger::SetNextStatement(ULONG line, ULONG column)
 
                     if (hr == S_OK)
                     {
-                        json += L"\"Yes\"";
+                        json += _u("\"Yes\"");
                     }
                     else
                     {
-                        json += L"\"No\"";
+                        json += _u("\"No\"");
                     }
                 }
                 if (hr == S_OK)
@@ -1234,7 +1175,7 @@ HRESULT Debugger::SetNextStatement(ULONG line, ULONG column)
                     
                     hr = ResumeFromBreakPoint(BREAKRESUMEACTION_STEP_OVER, ERRORRESUMEACTION_SkipErrorStatement);
                 }
-                json += L"}}";
+                json += _u("}}");
                 m_pController->LogSetNextStatement(json.c_str());
             }
         }
@@ -1287,7 +1228,6 @@ HRESULT Debugger::GetLocation(IDebugCodeContext* codeContext, Location& location
     ScriptDebugNodeSource* debugNodeSource = Debugger::FindSourceNode(docText);
     Assert(debugNodeSource != nullptr);
 
-    // for !hybrid, both docId and srcId are the same
     location.docId = location.srcId = debugNodeSource->GetSourceId();
 
     IfFailGo( docText->GetPositionOfContext(docContext, &location.startChar, &location.length) );
@@ -1339,8 +1279,8 @@ HRESULT Debugger::GetCallstack(LocationToStringFlags flags)
 {
     HRESULT hr = S_OK;
     CComPtr<IEnumDebugStackFrames> enumFrames;
-    std::wstring callstackEvent = L"{\"callstack\" : [";
-    std::wstring separator = L"";
+    std::wstring callstackEvent = _u("{\"callstack\" : [");
+    std::wstring separator = _u("");
 
     IfFailGo( m_spScriptThread->EnumStackFrames(&enumFrames) );
 
@@ -1352,12 +1292,12 @@ HRESULT Debugger::GetCallstack(LocationToStringFlags flags)
         {
             callstackEvent += separator;
             callstackEvent += loc.ToString(flags);
-            separator = L",";
+            separator = _u(",");
         }
     } 
     while (hr == S_OK);
 
-    callstackEvent += L"]}";
+    callstackEvent += _u("]}");
     IfFailGo(m_pController->LogCallstack(callstackEvent.c_str()));
 
 Error:
@@ -1439,14 +1379,14 @@ Error:
     return hr;
 }
 
-HRESULT Debugger::LogJson(__in __nullterminated wchar_t *msg, ...)
+HRESULT Debugger::LogJson(__in __nullterminated char16 *msg, ...)
 {
     HRESULT hr = S_OK;
     va_list args;
     va_start(args, msg);
-    wchar_t buf[2048];
+    char16 buf[2048];
     _vsnwprintf_s(buf, _countof(buf) - 1, _TRUNCATE, msg, args);
-    StringCchCatW(buf, _countof(buf), L"\0");
+    StringCchCatW(buf, _countof(buf), _u("\0"));
     va_end(args);
     IfFailGo(m_pController->LogJson(buf));
 
@@ -1458,7 +1398,7 @@ HRESULT Debugger::AddNode(__in IDebugApplicationNode *pRootNode, ULONG ulContain
 {
     if (pRootNode == NULL || !IsAttached())
     {
-        DebuggerController::LogError(L"failed at Debugger::AddNode");
+        DebuggerController::LogError(_u("failed at Debugger::AddNode"));
         return E_FAIL;
     }
 
@@ -1490,7 +1430,7 @@ HRESULT Debugger::AddNode(__in IDebugApplicationNode *pRootNode, ULONG ulContain
     {
         TCHAR szShortName[255];
         GetShortNameFromUrl(pSourceNode->GetUrl(), szShortName, 255);
-        DebuggerController::Log(L"Debugger: Source added (AddNode) { url : %s, sourceId : %d }\n", szShortName, pSourceNode->GetSourceId());
+        DebuggerController::Log(_u("Debugger: Source added (AddNode) { url : %s, sourceId : %d }\n"), szShortName, pSourceNode->GetSourceId());
     }
 
     CComPtr<IEnumDebugApplicationNodes> spEnumDebugApp;
@@ -1737,18 +1677,18 @@ HRESULT Debugger::InsertBreakpoint(ScriptDebugNodeSource * pNode, ULONG ulLineNu
                 m_listBps.push_back(pBreakpoint);
 
                 // Log the bp
-                DebuggerController::Log(L"InsertBreakpoint : breakpointId : %d, breakpoint state : %s,\n\t\tlocation : {\n\t\t\tsourceId : %d,\n\t\t\tlinenumber : %d,\n\t\t\tcolumnnumber : %d,\n\t\t\tactualPos : %d,\n\t\t\tcontextlength : %d\n\t\t}\n",
+                DebuggerController::Log(_u("InsertBreakpoint : breakpointId : %d, breakpoint state : %s,\n\t\tlocation : {\n\t\t\tsourceId : %d,\n\t\t\tlinenumber : %d,\n\t\t\tcolumnnumber : %d,\n\t\t\tactualPos : %d,\n\t\t\tcontextlength : %d\n\t\t}\n"),
                     pBreakpoint->breakpointId, DebuggerController::GetBreakpointState(bpState), bpSrcContext.scriptId, bpSrcContext.lineNumber, bpSrcContext.columnNumber, bpSrcContext.charPosition, bpSrcContext.contextCount);
 
                 if (bpSrcContext.scriptId != pNode->GetSourceId())
                 {
                     // The bp asked doc and resultant doc should be same.
-                    DebuggerController::LogError(L"ERROR : InsertBreakpoint asked and resultant source difference");
+                    DebuggerController::LogError(_u("ERROR : InsertBreakpoint asked and resultant source difference"));
                 }
             }
             else 
             {
-                DebuggerController::LogError(L"ERROR : InsertBreakpoint failed hr = 0x%08X", hr);
+                DebuggerController::LogError(_u("ERROR : InsertBreakpoint failed hr = 0x%08X"), hr);
             }
         }
 
@@ -1785,18 +1725,18 @@ HRESULT Debugger::ModifyBreakpoint(ULONG bpId, BREAKPOINT_STATE state)
             hr = spDebugCodeContext->SetBreakPoint(state);
             if (hr == S_OK)
             {
-                DebuggerController::Log(L"ModifyBreakpoint Succeeded : breakpointId : %d, breakpoint state : %s\n", bpId, DebuggerController::GetBreakpointState(state));
+                DebuggerController::Log(_u("ModifyBreakpoint Succeeded : breakpointId : %d, breakpoint state : %s\n"), bpId, DebuggerController::GetBreakpointState(state));
                 (*it)->bpState = state;
             }
             else
             {
-                DebuggerController::LogError(L"ModifyBreakpoint, no breakpoint found : %d\n", bpId);
+                DebuggerController::LogError(_u("ModifyBreakpoint, no breakpoint found : %d\n"), bpId);
             }
         }
     }
     else 
     {
-        DebuggerController::Log(L"ModifyBreakpoint breakpointId : %d state is already set to %s, not modifying breakpoint\n", (*it)->breakpointId, DebuggerController::GetBreakpointState(state));
+        DebuggerController::Log(_u("ModifyBreakpoint breakpointId : %d state is already set to %s, not modifying breakpoint\n"), (*it)->breakpointId, DebuggerController::GetBreakpointState(state));
     }
 
     return hr;
@@ -1868,7 +1808,7 @@ bool Debugger::IsTestHarnessFile(ScriptDebugNodeSource *pNode)
     LPWSTR url = pNode->GetUrl();
     if(url)
     {
-        LPWSTR searchStrs[] = { L"newGlue.js", L"loggerglue.js" };
+        LPWSTR searchStrs[] = { _u("newGlue.js"), _u("loggerglue.js") };
         for(int i = 0; i < _countof(searchStrs); ++i)
         {
             LPWSTR ptr = StrStrI(url, searchStrs[i]);
@@ -1911,7 +1851,7 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
     HRESULT hr = S_OK;
 
     // Get the source code, line count, and total number of characters.
-    if(HostConfigFlags::flags.Auto || HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp || HostConfigFlags::IsHybridDebugging())
+    if(HostConfigFlags::flags.Auto || HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp)
     {
         if(pNode)
         {
@@ -1934,33 +1874,6 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
         }
     }
 
-    if(HostConfigFlags::IsHybridDebugging() && SUCCEEDED(hr))
-    {
-        if(pNode)
-        {
-            ScriptDebugEvent debugEvent = { ET_InsertDocumentText, (UINT64)m_spDebugApp.p, s_scriptThreadId, SDO_NONE, FALSE };
-            debugEvent.InsertDocumentText.DocumentId = (UINT64)pNode->GetDocumentText();
-            debugEvent.InsertDocumentText.Text.Address = (UINT64)pszSrcText;
-            debugEvent.InsertDocumentText.Text.Length = cNumChar;
-            debugEvent.InsertDocumentText.DocumentUrl.Address = (UINT64)pNode->GetUrl();
-            debugEvent.InsertDocumentText.DocumentUrl.Length = SysStringLen(pNode->GetUrl());
-            RaiseScriptDebugEvent(debugEvent);
-
-            // Check whether we've been requested to enable first chance breaks.
-            if(debugEvent.m_scriptDebuggerOptions != SDO_NONE)
-            {
-                Assert(debugEvent.m_scriptDebuggerOptions == SDO_ENABLE_FIRST_CHANCE_EXCEPTIONS);
-                IfFailGo(SetDebuggerOptions(debugEvent.m_scriptDebuggerOptions, debugEvent.m_scriptDebuggerOptionsValue));
-            }
-
-            if(pszSrcText)
-            {
-                CoTaskMemFree(pszSrcText);
-            }
-        }
-        return S_OK;
-    }
-
     if(HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp)
     {
         if(pNode)
@@ -1969,13 +1882,13 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
             {
                 // Call the controller to add the desired breakpoints.
                 IfFailGo(m_pController->AddSourceFile(pszSrcText, pNode->GetSourceId()));
-                DebuggerController::Log(L"Inserted targeted breakpoint.\n");
+                DebuggerController::Log(_u("Inserted targeted breakpoint.\n"));
             }
             else
             {
                 // We need to track the breakpoint and defer setting until attach has occurred.
                 pNode->SetParticipateInInsertBp(true);
-                DebuggerController::Log(L"Deferring target breakpoint set until after attach.\n");
+                DebuggerController::Log(_u("Deferring target breakpoint set until after attach.\n"));
             }
         }
     }
@@ -1990,7 +1903,7 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
                 BpInfo bpInfo;
                 if (InsertBreakpoint(pNode, i, 1, BREAKPOINT_ENABLED, &bpInfo)== S_OK)
                 {
-                    DebuggerController::Log(L"Inserted automatic breakpoint.\n");
+                    DebuggerController::Log(_u("Inserted automatic breakpoint.\n"));
 
                     // Adjust for the next bp position.
                     if (bpInfo.sourceLocation.lineNumber > i)
@@ -2000,7 +1913,7 @@ HRESULT Debugger::OnInsertText(ScriptDebugNodeSource * pNode)
                 }
                 else
                 {
-                    DebuggerController::Log(L"Deferring auto breakpoint set until after attach.\n");
+                    DebuggerController::Log(_u("Deferring auto breakpoint set until after attach.\n"));
                     pNode->SetParticipateInInsertBp(true);
                     break;
                 }
@@ -2021,7 +1934,7 @@ Error:
 // to ensure that the debug document information has been parsed.
 void Debugger::InsertAutoBreakpoints()
 {
-    DebuggerController::Log(L"Inserting auto breakpoints.\n");
+    DebuggerController::Log(_u("Inserting auto breakpoints.\n"));
     Assert(this->m_canSetBreakpoints);
 
     for (ULONG i = 0; i < this->m_listScriptNodes.size(); ++i)
@@ -2138,7 +2051,7 @@ void Debugger::AddSourceForBreakpoint(ScriptDebugNodeSource *node)
 
     if (FAILED(hr))
     {
-        DebuggerController::Log(L"Failed to insert breakpoint after deferring setting after attach (couldn't get the source document text from the node).\n");
+        DebuggerController::Log(_u("Failed to insert breakpoint after deferring setting after attach (couldn't get the source document text from the node).\n"));
         if (sourceText)
         {
             CoTaskMemFree(sourceText);
@@ -2155,7 +2068,7 @@ void Debugger::AddSourceForBreakpoint(ScriptDebugNodeSource *node)
 
     if (FAILED(hr))
     {
-        DebuggerController::Log(L"Failed to insert breakpoint after deferring setting after attach (couldn't add the source file to the controller).\n");
+        DebuggerController::Log(_u("Failed to insert breakpoint after deferring setting after attach (couldn't add the source file to the controller).\n"));
     }
 }
 
@@ -2171,7 +2084,7 @@ HRESULT Debugger::InsertTargetedBreakpoints()
         return result.BlockOnResult(INFINITE);
     }
 
-    DebuggerController::Log(L"Inserting deferred breakpoints.\n");
+    DebuggerController::Log(_u("Inserting deferred breakpoints.\n"));
     Assert(this->m_canSetBreakpoints);
 
     // 0th index for 'JShost Application' which is just parent nothing in it.
@@ -2299,7 +2212,7 @@ JsValueRef CALLBACK Debugger::JsModifyBreakpoint(JsValueRef callee, bool isConst
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsModifyBreakpoint");
+        DebuggerController::LogError(_u("JsModifyBreakpoint"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2346,7 +2259,7 @@ JsValueRef CALLBACK Debugger::JsDumpLocals(JsValueRef callee, bool isConstructCa
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpLocals");
+        DebuggerController::LogError(_u("JsDumpLocals"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2389,7 +2302,7 @@ JsValueRef CALLBACK Debugger::JsSetFrame(JsValueRef callee, bool isConstructCall
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetFrame");
+        DebuggerController::LogError(_u("JsSetFrame"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2431,7 +2344,7 @@ JsValueRef CALLBACK Debugger::JsDumpCallstack(JsValueRef callee, bool isConstruc
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpCallstack");
+        DebuggerController::LogError(_u("JsDumpCallstack"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2510,7 +2423,7 @@ JsValueRef CALLBACK Debugger::JsEvaluateExpression_Internal(JsValueRef callee, b
     std::wstring expression;
     LPCWSTR expressionTmp;
     size_t length;
-    std::wstring json = L"{\"evaluate\" : {";
+    std::wstring json = _u("{\"evaluate\" : {");
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
     IfFailGo(ScriptEngineWrapper::GetExternalData(callee, &data));
@@ -2545,7 +2458,7 @@ JsValueRef CALLBACK Debugger::JsEvaluateExpression_Internal(JsValueRef callee, b
     if (!isAsync)
     {
         IfFailGo(pDebugger->EvaluateExpression(expression, expandLevel, flags, json));
-        json += L"}}";
+        json += _u("}}");
         IfFailGo(pDebugger->m_pController->LogEvaluateExpression(json.c_str()));
     }
     else
@@ -2556,7 +2469,7 @@ JsValueRef CALLBACK Debugger::JsEvaluateExpression_Internal(JsValueRef callee, b
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsEvaluateExpression_Internal");
+        DebuggerController::LogError(_u("JsEvaluateExpression_Internal"));
     }
 
     return retVal;
@@ -2575,7 +2488,7 @@ JsValueRef CALLBACK Debugger::JsDumpBreakpoint(JsValueRef callee, bool isConstru
 Error:
     if (FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpBreakpoint");
+        DebuggerController::LogError(_u("JsDumpBreakpoint"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2595,7 +2508,7 @@ JsValueRef CALLBACK Debugger::JsDumpSourceList(JsValueRef callee, bool isConstru
 Error:
     if (FAILED(hr))
     {
-        DebuggerController::LogError(L"JsDumpSourceList");
+        DebuggerController::LogError(_u("JsDumpSourceList"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2634,19 +2547,19 @@ JsValueRef CALLBACK Debugger::JsResumeFromBreakpoint(JsValueRef callee, bool isC
 
     BREAKRESUMEACTION action = BREAKRESUMEACTION_ABORT;
 
-    if(!wcscmp(resumeAction, L"continue"))
+    if(!wcscmp(resumeAction, _u("continue")))
         action = BREAKRESUMEACTION_CONTINUE;
-    else if(!wcscmp(resumeAction, L"step_into"))
+    else if(!wcscmp(resumeAction, _u("step_into")))
         action = BREAKRESUMEACTION_STEP_INTO;
-    else if(!wcscmp(resumeAction, L"step_over"))
+    else if(!wcscmp(resumeAction, _u("step_over")))
         action = BREAKRESUMEACTION_STEP_OVER;
-    else if(!wcscmp(resumeAction, L"step_out"))
+    else if(!wcscmp(resumeAction, _u("step_out")))
         action = BREAKRESUMEACTION_STEP_OUT;
-    else if(!wcscmp(resumeAction, L"step_document"))
+    else if(!wcscmp(resumeAction, _u("step_document")))
         action = BREAKRESUMEACTION_STEP_DOCUMENT;
     else
     {
-        DebuggerController::LogError(L"invalid BREAKRESUMEACTION: \"%s\"", resumeAction);
+        DebuggerController::LogError(_u("invalid BREAKRESUMEACTION: \"%s\""), resumeAction);
         IfFailGo(E_FAIL);
     }
 
@@ -2657,7 +2570,7 @@ JsValueRef CALLBACK Debugger::JsResumeFromBreakpoint(JsValueRef callee, bool isC
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsInsertBreakpoint");
+        DebuggerController::LogError(_u("JsInsertBreakpoint"));
     }
 
     JsValueRef undef;
@@ -2701,7 +2614,7 @@ JsValueRef CALLBACK Debugger::JsLogJson(JsValueRef callee, bool isConstructCall,
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsLogJson");
+        DebuggerController::LogError(_u("JsLogJson"));
     }
 
     JScript9Interface::JsrtGetUndefinedValue(&retVal);
@@ -2738,13 +2651,13 @@ JsValueRef CALLBACK Debugger::JsSetExceptionResume(JsValueRef callee, bool isCon
     Assert(length == wcslen(resumeAction));
 
     ERRORRESUMEACTION action = ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller;
-    if(!wcscmp(resumeAction, L"ignore"))
+    if(!wcscmp(resumeAction, _u("ignore")))
         action = ERRORRESUMEACTION_SkipErrorStatement;
-    else if(!wcscmp(resumeAction, L"break"))
+    else if(!wcscmp(resumeAction, _u("break")))
         action = ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller;
     else
     {
-        DebuggerController::LogError(L"invalid ERRORRESUMEACTION");
+        DebuggerController::LogError(_u("invalid ERRORRESUMEACTION"));
         IfFailGo(E_FAIL);
     }
 
@@ -2754,7 +2667,7 @@ JsValueRef CALLBACK Debugger::JsSetExceptionResume(JsValueRef callee, bool isCon
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetExceptionResume");
+        DebuggerController::LogError(_u("JsSetExceptionResume"));
     }
 
     JsValueRef undef;
@@ -2802,26 +2715,13 @@ JsValueRef CALLBACK Debugger::JsSetDebuggerOptions(JsValueRef callee, bool isCon
 Error:
     if(FAILED(hr))
     {
-        DebuggerController::LogError(L"JsSetDebuggerOptions");
+        DebuggerController::LogError(_u("JsSetDebuggerOptions"));
     }
 
     JsValueRef undef;
     JScript9Interface::JsrtGetUndefinedValue(&undef);
 
     return undef;
-}
-
-void Debugger::RaiseScriptDebugEvent(ScriptDebugEvent& scriptDebugEvent)
-{
-    Assert(IsDebuggerPresent());
-    __try
-    {
-        ULONG_PTR arguments[] = { (ULONG_PTR)&scriptDebugEvent };
-        RaiseException(SCRIPT_DEBUGGER_EXCEPTION_CODE, /*Continuable exception */ 0, _countof(arguments), arguments);
-    } 
-    __except(true)
-    {
-    }
 }
 
 HRESULT Debugger::ArgToULONG(JsValueRef arg, ULONG* pValue)
@@ -2860,8 +2760,8 @@ JsValueRef CALLBACK Debugger::JsRecordEdit(JsValueRef callee, bool isConstructCa
     JsValueRef retVal = nullptr;
     BpInfo bp;
     void *data;
-    const wchar_t* editLabel;
-    const wchar_t* editContent;
+    const char16* editLabel;
+    const char16* editContent;
     size_t length;
     CComPtr<IDebugDocumentText> spDebugDocumentText;
 
@@ -2903,7 +2803,7 @@ JsValueRef CALLBACK Debugger::JsRecordEdit(JsValueRef callee, bool isConstructCa
     bool addSucceed = DiagnosticsHelper::GetDiagnosticsHelper()->AddEditRangeAndContent(editLabel, spDebugDocumentText, args[0], args[1], editContent, static_cast<ULONG>(length));
     if (!addSucceed)
     {
-        DebuggerController::LogError(L"JsRecordEdit");
+        DebuggerController::LogError(_u("JsRecordEdit"));
     }
 
 Error:
@@ -2920,7 +2820,7 @@ HRESULT Debugger::InsertMutationBreakpoint(wstring strId, IMutationBreakpoint *m
 {
     if (HasMutationBreakpointWithId(strId))
     {
-        DebuggerController::LogError(L"InsertMutationBreakpoint: duplicate breakpoint id.");
+        DebuggerController::LogError(_u("InsertMutationBreakpoint: duplicate breakpoint id."));
         return E_FAIL;
     }
 
@@ -2955,7 +2855,7 @@ HRESULT Debugger::DeleteMutationBreakpoint(wstring strId)
         }
         return S_OK;
     }
-    DebuggerController::LogError(L"DeleteMutationBreakpoint: unable to find property");
+    DebuggerController::LogError(_u("DeleteMutationBreakpoint: unable to find property"));
     return E_FAIL;
 }
 
@@ -2971,35 +2871,35 @@ void Debugger::RemoveAllMutationBreakpoint()
 
 static bool IsGlobalsPropertyInfo(const AutoDebugPropertyInfo& info)
 {
-    const wchar_t *name = info.m_bstrName;
-    return wcscmp(name, L"[Globals]") == 0;
+    const char16 *name = info.m_bstrName;
+    return wcscmp(name, _u("[Globals]")) == 0;
 }
 
 static bool IsScopePropertyInfo(const AutoDebugPropertyInfo& info)
 {
-    const wchar_t *name = info.m_bstrName;
-    return wcsncmp(name, L"[Scope]", 7) == 0;
+    const char16 *name = info.m_bstrName;
+    return wcsncmp(name, _u("[Scope]"), 7) == 0;
 }
 
 static MutationType MutationTypeFromString(wstring typeStr)
 {
-    if (typeStr == L"update")
+    if (typeStr == _u("update"))
     {
         return MutationTypeUpdate;
     }
-    else if (typeStr == L"delete")
+    else if (typeStr == _u("delete"))
     {
         return MutationTypeDelete;
     }
-    else if (typeStr == L"add")
+    else if (typeStr == _u("add"))
     {
         return MutationTypeAdd;
     }
-    else if (typeStr == L"all")
+    else if (typeStr == _u("all"))
     {
         return MutationTypeAll;
     }
-    else if (typeStr == L"none")
+    else if (typeStr == _u("none"))
     {
         return MutationTypeNone;
     }
@@ -3007,10 +2907,10 @@ static MutationType MutationTypeFromString(wstring typeStr)
     return MutationTypeNone;
 }
 
-static void tokenizeNames(__in_z wchar_t *name, __in_z const wchar_t * delim, vector<wstring>& names)
+static void tokenizeNames(__in_z char16 *name, __in_z const char16 * delim, vector<wstring>& names)
 {
-    wchar_t *tok = nullptr;
-    wchar_t *context = nullptr;
+    char16 *tok = nullptr;
+    char16 *context = nullptr;
     
     tok = wcstok_s(name, delim, &context);
     while (tok != nullptr)
@@ -3041,7 +2941,7 @@ IDebugProperty * Debugger::FindDebugProperty(IEnumDebugPropertyInfo *enumLocals,
         // Enumerate over every info
         enumLocals->Next(1, &info, &ct);
 
-        std::wstring strName((const wchar_t*)info.m_bstrName);
+        std::wstring strName((const char16*)info.m_bstrName);
 
         // Name matches
         if (strName == names[pos])
@@ -3120,7 +3020,7 @@ HRESULT Debugger::SetMutationBreakpoint(const vector<wstring>& names, bool setOn
     {
         IfFailGo(dbgPropertyOM->SetMutationBreakpoint(setOnObject, type, &bp));
 
-        DebuggerController::Log(L"Debugger SetMutationBreakpoint : Set mutation breakpoint setOnObject %d, type %d, ID %s", setOnObject, type, strId.c_str());
+        DebuggerController::Log(_u("Debugger SetMutationBreakpoint : Set mutation breakpoint setOnObject %d, type %d, ID %s"), setOnObject, type, strId.c_str());
 
         // Add bp to debugger->m_mutationBreakpointList
         if (!HasMutationBreakpointWithId(strId))
@@ -3130,8 +3030,8 @@ HRESULT Debugger::SetMutationBreakpoint(const vector<wstring>& names, bool setOn
     }
     else 
     {
-        LogJson(L"Cannot set mutation breakpoint setOnObject %d, type %d, ID %s", setOnObject, type, strId.c_str());
-        DebuggerController::Log(L"Debugger SetMutationBreakpoint : Can't set mutation breakpoint setOnObject %d, type %d, ID %s", setOnObject, type, strId.c_str());
+        LogJson(_u("Cannot set mutation breakpoint setOnObject %d, type %d, ID %s"), setOnObject, type, strId.c_str());
+        DebuggerController::Log(_u("Debugger SetMutationBreakpoint : Can't set mutation breakpoint setOnObject %d, type %d, ID %s"), setOnObject, type, strId.c_str());
     }
 
     // list of breakpoints on debugger out of sync with runtime
@@ -3147,22 +3047,22 @@ JsValueRef CALLBACK Debugger::JsSetMutationBreakpoint(JsValueRef callee, bool is
     void * data = nullptr;
 
     // name: fully qualified name to object/property
-    const wchar_t *name = nullptr;
+    const char16 *name = nullptr;
     size_t nameLen = 0;
     
     // setOnObject: whether setting on whole object (setOnObject == true) or individual property
     bool setOnObject = false;
     // type: mutation type string
-    const wchar_t *propertiesOrValue = nullptr;
+    const char16 *propertiesOrValue = nullptr;
     size_t propertiesOrValueLen = 0;
     
     
     // type: mutation type string
-    const wchar_t *type = nullptr;
+    const char16 *type = nullptr;
     size_t typeLen = 0;
     
     // strId: (unique) string id for user to reference a breakpoint
-    const wchar_t *strId = nullptr;
+    const char16 *strId = nullptr;
     size_t strIdLen = 0;
 
     vector<wstring> names;
@@ -3174,21 +3074,21 @@ JsValueRef CALLBACK Debugger::JsSetMutationBreakpoint(JsValueRef callee, bool is
     IfFailGo(ArgToString(arguments[3], &type, &typeLen));
     IfFailGo(ArgToString(arguments[4], &strId, &strIdLen));
 
-    if (0 == _wcsicmp(propertiesOrValue, L"properties")) 
+    if (0 == _wcsicmp(propertiesOrValue, _u("properties"))) 
     {
         setOnObject = true;
     }
-    else if (0 == _wcsicmp(propertiesOrValue, L"value"))
+    else if (0 == _wcsicmp(propertiesOrValue, _u("value")))
     {
         setOnObject = false;
     }
     else 
     {
-        DebuggerController::LogError(L"Invalid 2nd argument passed to mbp. Valid values are 'properties' and 'value'. Passed value %s", propertiesOrValue);
+        DebuggerController::LogError(_u("Invalid 2nd argument passed to mbp. Valid values are 'properties' and 'value'. Passed value %s"), propertiesOrValue);
     }
 
     // Tokenize names; split by '.', then fill into vector
-    tokenizeNames(const_cast<wchar_t *>(name), L".", names);
+    tokenizeNames(const_cast<char16 *>(name), _u("."), names);
     
     mutationType = MutationTypeFromString(wstring(type));
 
@@ -3213,7 +3113,7 @@ JsValueRef CALLBACK Debugger::JsDeleteMutationBreakpoint(JsValueRef callee, bool
     Debugger *debugger = (Debugger*)data;
 
     // Get strId
-    const wchar_t *strId = nullptr;
+    const char16 *strId = nullptr;
     size_t strIdLen = 0;
     IfFailGo(ArgToString(arguments[1], &strId, &strIdLen));
     

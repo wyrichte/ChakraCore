@@ -78,16 +78,11 @@ struct HeapObject
 class HeapBlockAlignmentUtility
 {
 public:
-    HeapBlockAlignmentUtility()
-        : objectAllocationShift(0)
-    {
-    }
-
-    uint GetObjectAlignmentMask(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    uint GetObjectGranularity(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    uint GetObjectAllocationShift(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler);
-    bool IsAlignedAddress(EXT_CLASS_BASE *ext, ExtRemoteTyped *recycler, ULONG64 address);
-
+    HeapBlockAlignmentUtility(ExtRemoteTyped recycler);
+    bool IsAlignedAddress(ULONG64 address);
+    uint GetObjectAlignmentMask();
+    uint GetObjectGranularity();
+    uint GetObjectAllocationShift();
 private:
     ULONG objectAllocationShift;
 };
@@ -96,7 +91,7 @@ class HeapBlockHelper
 {
 public:
     HeapBlockHelper(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler)
-        : ext(extension), recycler(recycler), alignmentUtility()
+        : ext(extension), recycler(recycler), alignmentUtility(recycler)
     {
     }
 
@@ -111,6 +106,7 @@ public:
     ULONG64 GetHeapBlockType(ExtRemoteTyped& heapBlock);
     ushort GetAddressSmallHeapBlockBitIndex(ULONG64 objectAddress);
 
+    // TODO (doilij) remove these methods entirely as they just defer to the HeapBlockAlignmentUtility.
     uint GetObjectAlignmentMask();
     uint GetObjectGranularity();
     uint GetObjectAllocationShift();
@@ -121,7 +117,9 @@ public:
 
 private:
     EXT_CLASS_BASE* ext;
+    // TODO (doilij) refactor the recycler field out of this class. Persisting an ExtRemoteTyped causes problems.
     ExtRemoteTyped recycler;
+    // TODO (doilij) when the methods that defer to this have been removed, remove the HeapBlockAlignmentUtility from this class.
     HeapBlockAlignmentUtility alignmentUtility;
 };
 
@@ -314,4 +312,21 @@ private:
     void* _ptr;
 };
 
+template <typename T>
+class AutoDelete
+{
+public:
+    AutoDelete(T * t) : _ptr(t) {};
+    ~AutoDelete() { if (_ptr) delete _ptr; }
+    operator T*() const { return _ptr; }
+    T *operator->() const { return _ptr; }
+    T * Detach() 
+    { 
+        T * t = _ptr;
+        _ptr = nullptr;
+        return t;  
+    }
+private:
+    T * _ptr;
+};
 #endif

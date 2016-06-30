@@ -59,6 +59,21 @@ function outer()
     return foo;
 }
 var moduleFunc = outer();
+
+
+var m1 = function namedExpr() {
+    "use asm";
+    function o() {}
+    return o;
+};
+var m1i = m1();
+var m2 = function () {
+    "use asm";
+    function o() {}
+    return o;
+};
+var m2i = m2();
+
 this['byteLength'] = Function.prototype.call.bind(Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, 'byteLength').get);
 var buffer = new ArrayBuffer(1<<24);
 var module1 = moduleFunc(this, {bar: function f(c){print("import func, val " + c)}, c: 4.5, d: 12}, buffer);

@@ -5,9 +5,9 @@ set _Error=0
 set _drt=
 set _snap=
 set _binaryRoot=%_nttree%\jscript
-set _toolsRoot=%sdxroot%\inetcore\jscript\tools
+set _toolsRoot=%sdxroot%\onecoreuap\inetcore\jscript\tools
 set _logFile=
-set _unittestRoot=%sdxroot%\inetcore\jscript\unittest
+set _unittestRoot=%sdxroot%\onecoreuap\inetcore\jscript\unittest
 set _buildType=%build.type%
 set _buildArch=%build.arch%
 

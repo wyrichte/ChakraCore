@@ -14,7 +14,10 @@
 #define JS_ATL_DEBUG
 #undef _DEBUG
 #endif
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
 #include <atlbase.h>
+#pragma warning(pop)
 #include <atlcom.h>
 #ifdef JS_ATL_DEBUG
 #define _DEBUG
@@ -35,6 +38,7 @@ typedef std::string string;
 #define DEBUG_UNICODE_MACROS
 #include "dbghelp.h"
 #include "dbgeng.h"
+#include "Core/CommonTypedefs.h"
 #include "DiagException.h"
 
 extern bool g_autoBreakpoints;

@@ -343,14 +343,14 @@ HRESULT JsHostActiveScriptSite::CheckPerformSourceRundown()
 
     if (!this->m_didSourceRundown)
     {
-        if (!HostConfigFlags::flags.Targeted && !IsRunningUnderJdtest)
+        if (!HostConfigFlags::flags.Targeted)
         {
             // Without this, the automatic setting breakpoint will not work.
             HostConfigFlags::flags.Auto = true;
         }
 
         // Time to attach the debugger to the host dynamically.
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(IsRunningUnderJdtest ? L"hybrid" : L"");
+        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
         hr = diagnosticsHelper->InitializeDebugging();
         IfFailedGo(hr);
@@ -384,7 +384,7 @@ HRESULT JsHostActiveScriptSite::CheckPerformSourceRundown()
             SourceContextPair * pairs = new SourceContextPair[ulCookiePairs];
             this->UpdateFileMapTable(cookiePairs, pairs);
 
-            DebuggerController::Log(L"Performing source rundown with %d cookie pairs.\n", ulCookiePairs);
+            DebuggerController::Log(_u("Performing source rundown with %d cookie pairs.\n"), ulCookiePairs);
             hr = scriptDynamicAttach->PerformSourceRundown(ulCookiePairs, pairs);
 
             // Now remove the cookie pairs 
@@ -392,7 +392,7 @@ HRESULT JsHostActiveScriptSite::CheckPerformSourceRundown()
         }
         else
         {
-            DebuggerController::Log(L"Performing source rundown with no cookie pairs.\n");
+            DebuggerController::Log(_u("Performing source rundown with no cookie pairs.\n"));
             hr = scriptDynamicAttach->PerformSourceRundown(0, NULL);
         }
 
@@ -425,7 +425,7 @@ HRESULT JsHostActiveScriptSite::HostExceptionFromHRESULT(HRESULT hrParam, Var *o
         hr = activeScript->QueryInterface(__uuidof(IActiveScriptDirect), (void **)&activeScriptDirect);
         IfFailedGo(hr);
 
-        return activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptError, E_ACCESSDENIED, L"Security Error", outError);
+        return activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptError, E_ACCESSDENIED, _u("Security Error"), outError);
     }
 
 LReturn:
@@ -506,14 +506,14 @@ HRESULT JsHostActiveScriptSite::CheckDynamicAttach()
     DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
 
     {
-        if (!HostConfigFlags::flags.Targeted && !IsRunningUnderJdtest)
+        if (!HostConfigFlags::flags.Targeted)
         {
             // Without this, the automatic setting breakpoint will not work.
             HostConfigFlags::flags.Auto = true;
         }
 
         // Time to attach the debugger to the host dynamically.
-        HostConfigFlags::flags.DebugLaunch = SysAllocString(IsRunningUnderJdtest ? L"hybrid" : L"");
+        HostConfigFlags::flags.DebugLaunch = SysAllocString(_u(""));
 
         hr = diagnosticsHelper->InitializeDebugging();
         IfFailedGo(hr);
@@ -546,7 +546,7 @@ HRESULT JsHostActiveScriptSite::CheckDynamicAttach()
                 SourceContextPair * pairs = new SourceContextPair[ulCookiePairs];
                 this->UpdateFileMapTable(cookiePairs, pairs);
 
-                DebuggerController::Log(L"Attaching the debugger with %d cookie pairs.\n", ulCookiePairs);
+                DebuggerController::Log(_u("Attaching the debugger with %d cookie pairs.\n"), ulCookiePairs);
                 hr = scriptDynamicAttach->OnDebuggerAttached(ulCookiePairs, pairs);
                 m_didSourceRundown = true;
 
@@ -555,7 +555,7 @@ HRESULT JsHostActiveScriptSite::CheckDynamicAttach()
             }
             else
             {
-                DebuggerController::Log(L"Performing attach with no cookie pairs.\n");
+                DebuggerController::Log(_u("Performing attach with no cookie pairs.\n"));
                 hr = scriptDynamicAttach->OnDebuggerAttached(0, NULL);
             }
 
@@ -595,7 +595,7 @@ HRESULT JsHostActiveScriptSite::CheckDynamicDetach()
         IfFailedGo(hr);
 
         // Detach the debugger.
-        DebuggerController::Log(L"Detaching the debugger.\n");
+        DebuggerController::Log(_u("Detaching the debugger.\n"));
         hr = scriptDynamicAttach->OnDebuggerDetached();
         IfFailedGo_NoLog(hr);
 
@@ -702,7 +702,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     projectionHostSet = true;
 
     // Reserve the namespaces that we know about
-    hr = activeScriptProjection->ReserveNamespace(L"JSTest", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("JSTest"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -710,7 +710,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"Windows.Devices.Printers", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("Windows.Devices.Printers"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -718,7 +718,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"Animal", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("Animal"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -726,7 +726,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"Animals", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("Animals"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -734,7 +734,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"Fabrikam.Kitchen", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("Fabrikam.Kitchen"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -742,7 +742,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"BPTTest", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("BPTTest"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -750,7 +750,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"Winery", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("Winery"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -758,7 +758,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"DevTests", true);
+    hr = activeScriptProjection->ReserveNamespace(_u("DevTests"), true);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -766,7 +766,7 @@ HRESULT JsHostActiveScriptSite::InitializeProjection()
     }
     IfFailedGo(hr);
 
-    hr = activeScriptProjection->ReserveNamespace(L"MetadataError", false);
+    hr = activeScriptProjection->ReserveNamespace(_u("MetadataError"), false);
     if (hr == E_INVALIDARG) 
     {
         // dup reserve namespace registration override - can happen when multiple WScript.LoadScriptFile present
@@ -1085,7 +1085,7 @@ Error:
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** errorObject, bool isModuleCode)
+HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr;
     LPCOLESTR contents = NULL;
@@ -1093,15 +1093,15 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     LPCOLESTR contentsRaw = NULL;
     UINT lengthBytes = 0;
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
-    wchar_t * fullpath = nullptr;
+    char16 * fullpath = nullptr;
 
-    hr = JsHostLoadScriptFromFile(filename, contents, &isUtf8, &contentsRaw, &lengthBytes);
+    hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
     IfFailGo(hr);
 
-    fullpath = _wfullpath(NULL, filename, 0);
+    fullpath = _wfullpath(NULL, scriptFilename, 0);
     if (fullpath == NULL)
     {
-        fwprintf(stderr, L"Out of memory");
+        fwprintf(stderr, _u("Out of memory"));
         IfFailGo(E_OUTOFMEMORY);
     }
 
@@ -1135,11 +1135,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contentsRaw, lengthBytes, errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contentsRaw, lengthBytes, errorObject);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, fullpath, len, contents, (UINT)wcslen(contents)*sizeof(wchar_t), errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
         }
         goto Error;
     }
@@ -1151,23 +1151,23 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     }
     else if (isUtf8 && HostConfigFlags::flags.GenerateLibraryByteCodeHeaderIsEnabled)
     {
-        wchar_t * bcFullPath = NULL;
+        char16 * bcFullPath = NULL;
         WCHAR filename[_MAX_PATH];
         WCHAR ext[_MAX_EXT];
         _wsplitpath_s(fullpath, NULL, 0, NULL, 0, filename, _countof(filename), ext, _countof(ext));
-        if (HostConfigFlags::flags.GenerateLibraryByteCodeHeader != NULL && *HostConfigFlags::flags.GenerateLibraryByteCodeHeader != L'\0')
+        if (HostConfigFlags::flags.GenerateLibraryByteCodeHeader != NULL && *HostConfigFlags::flags.GenerateLibraryByteCodeHeader != _u('\0'))
         {
             bcFullPath = HostConfigFlags::flags.GenerateLibraryByteCodeHeader;
         }
         else
         {
 #if _M_AMD64
-            auto fnAppend = L".bc.64b.h";
+            auto fnAppend = _u(".bc.64b.h");
 #else
-            auto fnAppend = L".bc.32b.h";
+            auto fnAppend = _u(".bc.32b.h");
 #endif
             auto bcFilenameLength = wcslen(fullpath) + wcslen(fnAppend); 
-            bcFullPath = new wchar_t[bcFilenameLength + 1];
+            bcFullPath = new char16[bcFilenameLength + 1];
             wcscpy_s(bcFullPath, bcFilenameLength + 1, fullpath);
             wcscat_s(bcFullPath, bcFilenameLength + 1, fnAppend); 
         }
@@ -1181,17 +1181,17 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
     else if (isUtf8 && HostConfigFlags::flags.SerializedIsEnabled)
     {        
         // Byte code creation and consumption
-        wchar_t bcFullPath[MAX_PATH];
-        wchar_t filename[MAX_PATH];
-        wchar_t combinedName[MAX_PATH];
+        char16 bcFullPath[MAX_PATH];
+        char16 filename[MAX_PATH];
+        char16 combinedName[MAX_PATH];
         _wsplitpath_s(fullpath, nullptr, 0, nullptr, 0, filename, MAX_PATH, nullptr, 0);
         wcscpy_s(combinedName, MAX_PATH, HostConfigFlags::flags.Serialized);
         if (HostConfigFlags::flags.Serialized[0] != '\0')
         {
-            wcscat_s(combinedName, MAX_PATH, L".");
+            wcscat_s(combinedName, MAX_PATH, _u("."));
         }
         wcscat_s(combinedName, MAX_PATH, filename);
-        _wmakepath_s(bcFullPath, MAX_PATH, nullptr, nullptr, combinedName, L"bc");
+        _wmakepath_s(bcFullPath, MAX_PATH, nullptr, nullptr, combinedName, _u("bc"));
 
         auto byteCodeMapEntry = byteCodeFileMap.find(bcFullPath);
         byte *byteCodes = nullptr;
@@ -1235,7 +1235,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
         
         if (hr == SCRIPT_E_CANT_GENERATE)
         {
-            fwprintf(stderr, L"WARNING: Unable to generate byte code cache for %s\n", filename);
+            fwprintf(stderr, _u("WARNING: Unable to generate byte code cache for %s\n"), filename);
             fflush(stderr);
             hr = LoadScriptFromString(contents, isUtf8 ? (BYTE*)contentsRaw : nullptr, lengthBytes, &usedUtf8);
         }
@@ -1260,7 +1260,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
                     auto handle = CreateFile(bcFullPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
                     if (handle == INVALID_HANDLE_VALUE)
                     {
-                        fwprintf(stderr, L"ERROR: Unable to open byte code cache file %s\n", bcFullPath);
+                        fwprintf(stderr, _u("ERROR: Unable to open byte code cache file %s\n"), bcFullPath);
                         fflush(stderr);
                     }
                     else
@@ -1269,7 +1269,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
                         auto mapping = CreateFileMapping(handle, nullptr, PAGE_READONLY, 0, 0, nullptr);
                         if (mapping == NULL)
                         {
-                            fwprintf(stderr, L"ERROR: Unable to create file mapping for byte code cache file %s\n", bcFullPath);
+                            fwprintf(stderr, _u("ERROR: Unable to create file mapping for byte code cache file %s\n"), bcFullPath);
                             fflush(stderr);
                         }
                         else
@@ -1289,7 +1289,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
 
                 if (byteCodes == nullptr)
                 {
-                    fwprintf(stderr, L"ERROR: Unable to map byte code cache file %s\n", bcFullPath);
+                    fwprintf(stderr, _u("ERROR: Unable to map byte code cache file %s\n"), bcFullPath);
                     fflush(stderr);
                 }
                 else
@@ -1308,7 +1308,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR filename, void** erro
         }
         else if (hr != SCRIPT_E_REPORTED)
         {
-            fwprintf(stderr, L"ERROR: Unexpected error: 0x%x\n", hr);
+            fwprintf(stderr, _u("ERROR: Unexpected error: 0x%x\n"), hr);
             fflush(stderr);
         }
     }
@@ -1349,7 +1349,7 @@ DWORD_PTR JsHostActiveScriptSite::AddUrl(_In_z_ LPCWSTR url)
 
 // TODO: make source code heapalloc.
 HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, 
-    LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
+    LPCWSTR filename, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
 {
     HRESULT hr = S_OK;
     CComPtr<IActiveScript> activeScript;
@@ -1364,18 +1364,33 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
         DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
     // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
         ModuleRecord requestModule = nullptr;
-        hr = activeScriptDirect->InitializeModuleRecord(nullptr, fileName, fileNameLength, &requestModule);
-        if (SUCCEEDED(hr))
+        auto moduleRecordEntry = moduleRecordMap.find(filename);
+        if (moduleRecordEntry == moduleRecordMap.end())
         {
-            if (isUtf8)
-            {
-                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
-            }
-            else
-            {
-                hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
-                 ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
-            }
+            fwprintf(stderr, _u("module record for %s should have been created \n"), filename);
+            return E_INVALIDARG;
+        }
+        requestModule = moduleRecordEntry->second;
+        if (isUtf8)
+        {
+            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
+        }
+        else
+        {
+            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
+                ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
+        }
+        if (FAILED(hr) && *errorObject != nullptr)
+        {
+            // This is alternative way to report error coming from ParseModuleSource. However here the call
+            // comes from an external function call, and we want to just throw back out, from the caller.
+            //IActiveScriptError* scriptError = nullptr;
+            //hr = activeScriptDirect->CreateScriptErrorFromVar(*errorObject, &scriptError);
+            //if (SUCCEEDED(hr))
+            //{
+            //    hr = OnScriptError(scriptError);
+            //    scriptError->Release();
+            //}
         }
     }
     return hr;
@@ -1574,10 +1589,38 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
 }
 
 
-STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, byte** errorObject)
+STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject)
 {
     HRESULT hr = S_OK;
 
+    auto moduleEntry = moduleRecordMap.find(filename);
+    if (useExistingModuleRecord)
+    {
+        if (moduleEntry == moduleRecordMap.end())
+        {
+            fwprintf(stderr, _u("missing module record for %s\n"), filename);
+            return E_INVALIDARG;
+        }
+    }
+    else
+    {
+        if (moduleEntry != moduleRecordMap.end())
+        {
+            fwprintf(stderr, _u("ERROR: same module file was loaded multiple times %s\n"), filename);
+            return E_INVALIDARG;
+        }
+        CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
+        ModuleRecord moduleRecord = nullptr;
+        hr = GetActiveScriptDirect(&scriptDirect);
+        if (SUCCEEDED(hr))
+        {
+            hr = scriptDirect->InitializeModuleRecord(nullptr, filename, (UINT)wcslen(filename), &moduleRecord);
+        }
+        if (SUCCEEDED(hr))
+        {
+            moduleRecordMap[filename] = moduleRecord;
+        }
+    }
     hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
 
     return hr;
@@ -1620,7 +1663,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorOb
 {
     HRESULT hr = S_OK;
 
-    IJsHostScriptSite * scriptSite = NULL;
+    CComPtr<IJsHostScriptSite> scriptSite = NULL;
     hr = git->GetInterfaceFromGlobal(jsHostScriptSiteCookie, IID_IJsHostScriptSite, (void**)&scriptSite);
     if (SUCCEEDED(hr))
     {
@@ -1630,10 +1673,24 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModule(LPCOLESTR script, byte** errorOb
         }
         else
         {
-            hr = LoadModuleFromString(false, L"", 0, script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
+            ModuleRecord requestModuleRecord = nullptr;
+            CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
+            hr = GetActiveScriptDirect(&scriptDirect);
+            if (moduleRecordMap.find(script) != moduleRecordMap.end())
+            {
+                fwprintf(stderr, _u("same script got loaded as module more than once\n"));
+                hr = E_INVALIDARG;
+            }
+            if (SUCCEEDED(hr))
+            {
+                hr = scriptDirect->InitializeModuleRecord(nullptr, script, (UINT)wcslen(script), &requestModuleRecord);
+            }
+            if (SUCCEEDED(hr))
+            {
+                moduleRecordMap[script] = requestModuleRecord;
+                hr = LoadModuleFromString(false, script, (UINT)wcslen(script), script, (UINT)wcslen(script)*sizeof(WCHAR), (Var*)errorObject);
+            }
         }
-
-        scriptSite->Release();
     }
 
     return hr;
@@ -1674,21 +1731,6 @@ STDMETHODIMP_(ULONG) JsHostActiveScriptSite::Release(void)
     return res;
 }
 
-static HRESULT GetActiveScript(IServiceProvider* pspCaller, IActiveScript** activeScript)
-{
-    IActiveScriptSite * scriptSite  = NULL;
-    HRESULT hr = pspCaller->QueryService(SID_GetScriptSite, &scriptSite);
-    if (SUCCEEDED(hr))
-    {
-        hr = ((JsHostActiveScriptSite*)scriptSite)->GetActiveScript(activeScript);
-    }
-    if (scriptSite)
-    {
-        scriptSite->Release();
-    }
-    return hr;
-}
-
 STDMETHODIMP JsHostActiveScriptSite::GetItemInfo(LPCOLESTR pstrName, DWORD dwReturnMask, IUnknown **ppiunkItem, ITypeInfo **ppti)
 {
     Assert(FALSE);
@@ -1723,8 +1765,8 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
 
     // <HACK>
     // To allow verification of the ActiveScriptError object for ScriptErrorTests
-    wchar_t filename[_MAX_FNAME];
-    wchar_t ext[_MAX_EXT];
+    char16 filename[_MAX_FNAME];
+    char16 ext[_MAX_EXT];
     BSTR filenameFlag = NULL;
     hr = JScript9Interface::GetFileNameFlag(&filenameFlag);
     if (filenameFlag != NULL)
@@ -1732,7 +1774,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
         _wsplitpath_s(filenameFlag, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
         // Check if file name begins with specified ActiveScriptError test prefix
         if (!HostSystemInfo::SupportsOnlyMultiThreadedCOM()
-            && wcsncmp(filename, L"ActiveScriptError_", wcslen(L"ActiveScriptError_")) == 0)
+            && wcsncmp(filename, _u("ActiveScriptError_"), wcslen(_u("ActiveScriptError_"))) == 0)
         {    
             IActiveScriptWinRTErrorDebug* debugEx = NULL;
             hr = error->QueryInterface(__uuidof(IActiveScriptWinRTErrorDebug), (void**)&debugEx);
@@ -1747,38 +1789,38 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                 hr = debugEx->GetRestrictedErrorString(&autoReleaseRestrictedString);
                 if (FAILED(hr))
                 {
-                    fwprintf(stderr, L"An unknown error occured in call to GetRestrictedErrorString");
+                    fwprintf(stderr, _u("An unknown error occured in call to GetRestrictedErrorString"));
                     fflush(stderr);
                     return hr;
                 }
-                wprintf(L"Restricted Error String: %s\n", (wchar_t*)autoReleaseRestrictedString);
+                wprintf(_u("Restricted Error String: %s\n"), (char16*)autoReleaseRestrictedString);
 
                 // Get and print restricted error reference
                 hr = debugEx->GetRestrictedErrorReference(&autoReleaseRestrictedReference);
                 if (FAILED(hr))
                 {
-                    fwprintf(stderr, L"An unknown error occured in call to GetRestrictedErrorReference");
+                    fwprintf(stderr, _u("An unknown error occured in call to GetRestrictedErrorReference"));
                     fflush(stderr);
                     return hr;
                 }
                 if (autoReleaseRestrictedReference)
                 {
-                    wprintf(L"Non-null Restricted Error Reference\n");
+                    wprintf(_u("Non-null Restricted Error Reference\n"));
                 }
                 else
                 {
-                    wprintf(L"Null Restricted Error Reference\n");
+                    wprintf(_u("Null Restricted Error Reference\n"));
                 }
 
                 // Get and print capability SID
                 hr = debugEx->GetCapabilitySid(&autoReleaseCapabilitySid);
                 if (FAILED(hr))
                 {
-                    fwprintf(stderr, L"An unknown error occured in call to GetCapabilitySid");
+                    fwprintf(stderr, _u("An unknown error occured in call to GetCapabilitySid"));
                     fflush(stderr);
                     return hr;
                 }
-                wprintf(L"Capability SID: %s\n", (wchar_t *)autoReleaseCapabilitySid);
+                wprintf(_u("Capability SID: %s\n"), (char16 *)autoReleaseCapabilitySid);
             }
 
             IActiveScriptErrorEx* errorEx = NULL;
@@ -1795,13 +1837,13 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
 
                 if (FAILED(hr))
                 {
-                    fwprintf(stderr, L"An unknown error occured in call to GetExtendedExceptionInfo");
+                    fwprintf(stderr, _u("An unknown error occured in call to GetExtendedExceptionInfo"));
                     fflush(stderr);
                     return hr;
                 }
 
-                wprintf(L"EXCEPINFO scode: 0x%X\n", excepInfo.exceptionInfo.scode);
-                wprintf(L"Error Type: %s\n", excepInfo.errorType.typeText);
+                wprintf(_u("EXCEPINFO scode: 0x%X\n"), excepInfo.exceptionInfo.scode);
+                wprintf(_u("Error Type: %s\n"), excepInfo.errorType.typeText);
 
                 // Clean up Extended Exception Info
                 if (excepInfo.exceptionInfo.bstrSource)
@@ -1812,10 +1854,10 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                     SysFreeString(excepInfo.exceptionInfo.bstrHelpFile);
                 memset(&excepInfo.exceptionInfo, 0, sizeof(excepInfo.exceptionInfo));
 
-                wprintf(L"Stack info:\n");
+                wprintf(_u("Stack info:\n"));
                 for (unsigned int i=0; i < excepInfo.callStack.frameCount; i++)
                 {
-                    wprintf(L"frame %d: %s, line: %d, characterPosition: %d\n", i, excepInfo.callStack.frames[i].functionName, 
+                    wprintf(_u("frame %d: %s, line: %d, characterPosition: %d\n"), i, excepInfo.callStack.frames[i].functionName, 
                         excepInfo.callStack.frames[i].lineNumber, excepInfo.callStack.frames[i].characterPosition);
                     CoTaskMemFree((LPVOID)(excepInfo.callStack.frames[i].functionName));
 
@@ -1855,17 +1897,17 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
 
             if (FAILED(hr))
             {
-                fwprintf(stderr, L"An unknown error occured in call to GetExtendedExceptionInfo");
+                fwprintf(stderr, _u("An unknown error occured in call to GetExtendedExceptionInfo"));
                 fflush(stderr);
                 return hr;
             }
 
             // Catch the originating file error message and don't display it
             if (!(excepInfo.callStack.frameCount == 1 && excepInfo.errorType.typeNumber == JsErrorType::JavascriptError && 
-                !wcscmp(excepInfo.exceptionInfo.bstrSource, L"JavaScript runtime error") && !wcscmp(excepInfo.exceptionInfo.bstrDescription, L""))
+                !wcscmp(excepInfo.exceptionInfo.bstrSource, _u("JavaScript runtime error")) && !wcscmp(excepInfo.exceptionInfo.bstrDescription, _u("")))
                 && !this->delegateErrorHandling)
             {
-                fwprintf(stderr, L"%s: %s\n", MapExternalToES6ErrorText((JsErrorType)excepInfo.errorType.typeNumber), excepInfo.exceptionInfo.bstrDescription);
+                fwprintf(stderr, _u("%s: %s\n"), MapExternalToES6ErrorText((JsErrorType)excepInfo.errorType.typeNumber), excepInfo.exceptionInfo.bstrDescription);
             }
 
             // Save it if it needs to be used by the host APIs later
@@ -1873,7 +1915,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
             {
                 this->lastException->errorType = (JsErrorType)excepInfo.errorType.typeNumber;
                 UINT length = SysStringLen(excepInfo.exceptionInfo.bstrDescription);
-                this->lastException->description = new wchar_t[length + 1];
+                this->lastException->description = new char16[length + 1];
                 wcscpy_s(this->lastException->description, length + 1, excepInfo.exceptionInfo.bstrDescription);
                 errorEx->GetThrownObject(&(this->lastException->thrownObject));
             }
@@ -1903,17 +1945,17 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                     {
                         if (HostConfigFlags::flags.BVT)
                         {
-                            fwprintf(stderr, L"\tat code (%s%s:%d:%d)\n", filename, ext, lineNumber + 1, charPosition + 1);
+                            fwprintf(stderr, _u("\tat code (%s%s:%d:%d)\n"), filename, ext, lineNumber + 1, charPosition + 1);
                         }
                         else
                         {
-                            fwprintf(stderr, L"\tat code (%s:%d:%d)\n", filenameFlag, lineNumber + 1, charPosition + 1);
+                            fwprintf(stderr, _u("\tat code (%s:%d:%d)\n"), filenameFlag, lineNumber + 1, charPosition + 1);
                         }
                     }
                 }
                 if (FAILED(hr))
                 {
-                    fwprintf(stderr, L"An unknown error occured.");
+                    fwprintf(stderr, _u("An unknown error occured."));
                     fflush(stderr);
                     return hr;
                 }
@@ -1931,12 +1973,12 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                 {
                     if (HostConfigFlags::flags.BVT)
                     {
-                        fwprintf(stderr, L"\tat %s (%s%s:%d:%d)\n", excepInfo.callStack.frames[i].functionName, filename, ext,
+                        fwprintf(stderr, _u("\tat %s (%s%s:%d:%d)\n"), excepInfo.callStack.frames[i].functionName, filename, ext,
                             excepInfo.callStack.frames[i].lineNumber + 1, excepInfo.callStack.frames[i].characterPosition + 1);
                     }
                     else
                     {
-                        fwprintf(stderr, L"\tat %s (%s:%d:%d)\n", excepInfo.callStack.frames[i].functionName, filenameFlag,
+                        fwprintf(stderr, _u("\tat %s (%s:%d:%d)\n"), excepInfo.callStack.frames[i].functionName, filenameFlag,
                             excepInfo.callStack.frames[i].lineNumber + 1, excepInfo.callStack.frames[i].characterPosition + 1);
                     }
                 }
@@ -1959,7 +2001,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
         }
         if (FAILED(hr))
         {
-            fwprintf(stderr, L"An unknown error occured.");
+            fwprintf(stderr, _u("An unknown error occured."));
             fflush(stderr);
             return hr;
         }
@@ -1979,7 +2021,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
         }
         if (FAILED(hr))
         {
-            fwprintf(stderr, L"An unknown error occured.");
+            fwprintf(stderr, _u("An unknown error occured."));
             fflush(stderr);
             return hr;
         }
@@ -1987,14 +2029,14 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
         {
             if (HostConfigFlags::flags.BVT)
             {
-                fwprintf(stderr, L"%s%s(%i, %i) ", filename, ext, lineNumber + 1, charPosition + 1);
+                fwprintf(stderr, _u("%s%s(%i, %i) "), filename, ext, lineNumber + 1, charPosition + 1);
             }
             else
             {
-                fwprintf(stderr, L"%s(%i, %i) ", filenameFlag, lineNumber + 1, charPosition + 1);
+                fwprintf(stderr, _u("%s(%i, %i) "), filenameFlag, lineNumber + 1, charPosition + 1);
             }
         }
-        fwprintf(stderr, L"%s: %s\n", exceptionInfo.bstrSource, exceptionInfo.bstrDescription);
+        fwprintf(stderr, _u("%s: %s\n"), exceptionInfo.bstrSource, exceptionInfo.bstrDescription);
         fflush(stderr);
         return S_OK;
     }
@@ -2006,28 +2048,28 @@ LPCWSTR JsHostActiveScriptSite::MapExternalToES6ErrorText(JsErrorType externalEr
     {
     case (JsErrorType::CustomError) :
         // Not a valid ES6 Error type
-        return L"CustomError";
+        return _u("CustomError");
     case (JsErrorType::JavascriptError) :
         // Not a valid ES6 Error type
-        return L"JavascriptError";
+        return _u("JavascriptError");
     case (JsErrorType::JavascriptEvalError) :
-        return L"EvalError";
+        return _u("EvalError");
     case (JsErrorType::JavascriptParseError) :
         // Technically this is a SyntaxError in ES6 language
-        return L"SyntaxError";
+        return _u("SyntaxError");
     case (JsErrorType::JavascriptRangeError) :
-        return L"RangeError";
+        return _u("RangeError");
     case (JsErrorType::JavascriptReferenceError) :
-        return L"ReferenceError";
+        return _u("ReferenceError");
     case (JsErrorType::JavascriptSyntaxError) :
-        return L"SyntaxError";
+        return _u("SyntaxError");
     case (JsErrorType::JavascriptTypeError) :
-        return L"TypeError";
+        return _u("TypeError");
     case (JsErrorType::JavascriptURIError) :
-        return L"URIError";
+        return _u("URIError");
     case (JsErrorType::WinRTError) :
         // Not a valid ES6 Error type
-        return L"WinRTError";
+        return _u("WinRTError");
     default:
         AssertMsg(false, "Unexpected JsErrorType");
         return NULL;
@@ -2213,13 +2255,40 @@ STDMETHODIMP JsHostActiveScriptSite::Exec(const GUID *pguidCmdGroup, DWORD nCmdI
     return E_NOTIMPL;
 }
 
+void __stdcall JsHostActiveScriptSite::EnqueuePromiseTask(Var task)
+{
+    // Push the callback
+    WScriptFastDom::CallbackMessage *msg = new WScriptFastDom::CallbackMessage(0, task);
+    WScriptFastDom::PushMessage(msg);
+}
+
 STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ __RPC__in ModuleRecord referencingModule,
     /* [in] */ __RPC__in LPCWSTR specifier,
     /* [in] */ unsigned long specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
 {
-    return E_NOTIMPL;
+    HRESULT hr;
+    // TODO: implement the dictionary
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = GetActiveScriptDirect(&activeScriptDirect);
+    ModuleRecord moduleRecord = nullptr;
+    auto moduleEntry = moduleRecordMap.find(specifier);
+    if (moduleEntry != moduleRecordMap.end())
+    {
+        *dependentModuleRecord = moduleEntry->second;
+        return S_OK;
+    }
+    hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
+    if (SUCCEEDED(hr))
+    {
+        moduleRecordMap[specifier] = moduleRecord;
+        WScriptFastDom::ModuleMessage* moduleMessage =
+            WScriptFastDom::ModuleMessage::Create(referencingModule, specifier, activeScriptDirect);
+        WScriptFastDom::PushMessage(moduleMessage);
+        *dependentModuleRecord = moduleRecord;
+    }
+    return hr;
 }
 
 STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
@@ -2227,16 +2296,25 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     /* [in] */ __RPC__in Var exceptionVar)
 {
     HRESULT hr = NOERROR;
-    Assert(exceptionVar == nullptr); // TODO: handle error case.
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
     if (SUCCEEDED(hr))
     {
-        // TODO: promise/enqueue
-        hr = activeScriptDirect->ModuleEvaluation(referencingModule, &exceptionVar);
-        if (FAILED(hr))
+        if (exceptionVar != nullptr)
         {
-            // TODO: OnScriptError style error reporting??
+            IActiveScriptError* scriptError = nullptr;
+            hr = activeScriptDirect->CreateScriptErrorFromVar(exceptionVar, &scriptError);
+            if (SUCCEEDED(hr))
+            {
+                OnScriptError(scriptError);
+                scriptError->Release();
+            }
+        }
+        else
+        {
+            WScriptFastDom::ModuleMessage* moduleMessage =
+                WScriptFastDom::ModuleMessage::Create(referencingModule, nullptr, activeScriptDirect);
+            WScriptFastDom::PushMessage(moduleMessage);
         }
     }
 
@@ -2578,40 +2656,40 @@ STDMETHODIMP ActiveScriptDirectHost::GetTypeMetaDataInformation(LPCWSTR typeName
     }
     else
     {
-        wprintf(L"ERROR: m_WinRTStringLibrary not available -- returning E_FAIL!\n");
+        wprintf(_u("ERROR: m_WinRTStringLibrary not available -- returning E_FAIL!\n"));
         return E_FAIL;
     }
 
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-    *isVersioned = (wcsncmp(typeName, L"Windows.", wcslen(L"Windows.")) == 0 || wcsncmp(typeName, L"DevTests.ContractVersioned.", wcslen(L"DevTests.ContractVersioned.")) == 0);
+    *isVersioned = (wcsncmp(typeName, _u("Windows."), wcslen(_u("Windows."))) == 0 || wcsncmp(typeName, _u("DevTests.ContractVersioned."), wcslen(_u("DevTests.ContractVersioned."))) == 0);
 #else
-    *isVersioned = (wcsncmp(typeName, L"Windows.", wcslen(L"Windows.")) == 0);
+    *isVersioned = (wcsncmp(typeName, _u("Windows."), wcslen(_u("Windows."))) == 0);
 #endif
 
     // Test cases for bad metadata
     if (RO_E_METADATA_NAME_NOT_FOUND == hr)
     {
-        if (0 == wcscmp(typeName, L"MetadataError.InvalidMetadataFile"))
+        if (0 == wcscmp(typeName, _u("MetadataError.InvalidMetadataFile")))
         {
             return RO_E_INVALID_METADATA_FILE;
         }
-        else if (0 == wcscmp(typeName, L"MetadataError.BadMetadata"))
+        else if (0 == wcscmp(typeName, _u("MetadataError.BadMetadata")))
         {
             return META_E_BADMETADATA;
         }
-        else if (0 == wcscmp(typeName, L"MetadataError.BadSignature"))
+        else if (0 == wcscmp(typeName, _u("MetadataError.BadSignature")))
         {
             return META_E_BAD_SIGNATURE;
         }
-        else if (0 == wcscmp(typeName, L"MetadataError.InternalError"))
+        else if (0 == wcscmp(typeName, _u("MetadataError.InternalError")))
         {
             return CLDB_E_INTERNALERROR;
         }
-        else if (0 == wcscmp(typeName, L"MetadataError.OutOfMemory"))
+        else if (0 == wcscmp(typeName, _u("MetadataError.OutOfMemory")))
         {
             return E_OUTOFMEMORY;
         }
-        else if (0 == wcscmp(typeName, L"MetadataError.Fail"))
+        else if (0 == wcscmp(typeName, _u("MetadataError.Fail")))
         {
             return E_FAIL;
         }
@@ -2665,9 +2743,9 @@ STDMETHODIMP ActiveScriptDirectHost::CreateTypeFactoryInstance(LPCWSTR typeName,
 
         // The ABI type factories that we are aware of:
         // Animal.Animal
-        if (0 == wcscmp(typeName, L"Animal.Animal"))
+        if (0 == wcscmp(typeName, _u("Animal.Animal")))
         {
-            wcscat_s(pszFilePath, MAX_PATH, L"\\Animal.dll");
+            wcscat_s(pszFilePath, MAX_PATH, _u("\\Animal.dll"));
 
             // Try to load the dll
             const CLSID CLSID_AnimalFactory = {0xA88BF705,0x491F,0x4FB1,0xB4,0xC4,0x00,0xA3,0x32,0x13,0x5B,0x05};
@@ -2698,9 +2776,9 @@ STDMETHODIMP ActiveScriptDirectHost::CreateTypeFactoryInstance(LPCWSTR typeName,
         }
 
         // Animals.Animal
-        else if (0 == wcscmp(typeName, L"Animals.Animal"))
+        else if (0 == wcscmp(typeName, _u("Animals.Animal")))
         {
-            wcscat_s(pszFilePath, MAX_PATH, L"\\animalserver.dll");
+            wcscat_s(pszFilePath, MAX_PATH, _u("\\animalserver.dll"));
 
             // Try to load the dll
             const CLSID CLSID_AnimalFactory = {0xA88BF705,0x491F,0x4FB1,0xB4,0xC4,0x00,0xA3,0x32,0x13,0x5B,0x05};
@@ -2803,7 +2881,7 @@ STDMETHODIMP ActiveScriptDirectHost::GetNamespaceChildren(
     for (DWORD i=0; i<cRetrievedSubNamespaces; i++)
     {
         LPCWSTR name = m_WinRTStringLibrary.WindowsGetStringRawBuffer(phstrRetrievedSubNamespaces[i], nullptr);
-        LPWSTR subNamespaceCopy = (LPWSTR)CoTaskMemAlloc((wcslen(name)+1)*sizeof(wchar_t));
+        LPWSTR subNamespaceCopy = (LPWSTR)CoTaskMemAlloc((wcslen(name)+1)*sizeof(char16));
         wcscpy_s(subNamespaceCopy, (wcslen(name)+1), name);
         (*childrenNamespaces)[i] = subNamespaceCopy;
         m_WinRTStringLibrary.WindowsDeleteString(phstrRetrievedSubNamespaces[i]);
@@ -2837,7 +2915,7 @@ STDMETHODIMP ActiveScriptDirectHost::GetNamespaceChildren(
     }
 
     BOOL isVersioned = FALSE;
-    isVersioned = (wcsncmp(fullNamespace, L"Windows", wcslen(L"Windows")) == 0);
+    isVersioned = (wcsncmp(fullNamespace, _u("Windows"), wcslen(_u("Windows"))) == 0);
     *metaDataImportIsVersioned = (BOOL *)CoTaskMemAlloc((*metaDataImportCount)*sizeof(BOOL));
     for (DWORD metaDataImportIdx = 0; metaDataImportIdx < *metaDataImportCount; ++metaDataImportIdx)
     {

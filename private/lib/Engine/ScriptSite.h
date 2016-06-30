@@ -103,7 +103,7 @@ private:
     };
 
     APPBREAKFLAGS m_grfbrk;
-    BOOL m_fAllowBreakpoints;    
+    BOOL m_fAllowBreakpoints;
     void * m_pvMinorSession;
 
     ThreadContext* threadContext;
@@ -111,7 +111,7 @@ private:
 #if DBG_DUMP
     uint allocId;
     uint parentAllocId;
-    wchar_t const * wszLocation;
+    char16 const * wszLocation;
 #endif
 #if DBG_DUMP || defined(PROFILE_EXEC)
 #ifdef PROFILE_EXEC
@@ -160,9 +160,11 @@ public:
     HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
         __out Js::ArrayBuffer **ppArrayBuffer);
     Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
-    Js::JavascriptFunction* InitializeHostPromiseContinuationFunction();
-    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, Js::JavascriptString* specifier, Js::ModuleRecordBase** dependentModuleRecord);
+    HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord);
     HRESULT NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar);
+
+    // This function can either return an error and the caller will throw or it can throw itself in the case of WScript
+    HRESULT EnqueuePromiseTask(__in Js::Var task);
 
     // Reference Counting
     void AddRef(void) { InterlockedIncrement(&refCount); }
@@ -392,7 +394,7 @@ private:
 
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
-    void DumpSiteInfo(wchar_t const * message, wchar_t const * message2 = nullptr);
+    void DumpSiteInfo(char16 const * message, char16 const * message2 = nullptr);
     friend class ProfileOnLoadCallBack;
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS

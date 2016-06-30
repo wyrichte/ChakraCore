@@ -1,0 +1,72 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 96,
+        "length": 17,
+        "text": "modVar1 = modVar2",
+        "frameDescription": "module"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 31,
+        "length": 8,
+        "text": "return 2",
+        "frameDescription": "modF2"
+      },
+      {
+        "start": 72,
+        "length": 7,
+        "text": "modF2()",
+        "frameDescription": "modF1"
+      },
+      {
+        "start": 134,
+        "length": 7,
+        "text": "modF1()",
+        "frameDescription": "module"
+      }
+    ]
+  },
+  {
+    "SourceList": {
+      "Name": "Root",
+      "Children": [
+        {
+          "Name": "testmodule.js"
+        },
+        {
+          "Name": "module_2.js"
+        },
+        {
+          "Name": "module_1.js"
+        },
+        {
+          "Name": "module_3.js"
+        },
+        {
+          "Name": "script block"
+        }
+      ]
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 24,
+        "length": 8,
+        "text": "return 3",
+        "frameDescription": "modF3"
+      },
+      {
+        "start": 73,
+        "length": 7,
+        "text": "modF3()",
+        "frameDescription": "module"
+      }
+    ]
+  }
+]

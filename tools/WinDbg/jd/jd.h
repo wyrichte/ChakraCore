@@ -6,7 +6,6 @@
 #ifdef JD_PRIVATE
 #define ENABLE_MARK_OBJ 0
 #define ENABLE_UI_SERVER 0
-#define ENABLE_DEBUG_OUTPUT 0
 class RootPointers;
 #include <guiddef.h>
 #include "RecyclerObjectGraph.h"
@@ -21,6 +20,10 @@ class RootPointers;
 
 #include <map>
 #include "FieldInfoCache.h"
+#include "RecyclerObjectTypeInfo.h"
+#ifdef JD_PRIVATE
+#include "JDByteCodeCachedData.h"
+#endif
 
 enum CommandOutputType
 {
@@ -86,6 +89,7 @@ public:
 
 };
 
+
 class EXT_CLASS_BASE : public ExtExtension
 #ifdef JD_PRIVATE
     , public DummyTestGroup
@@ -125,8 +129,9 @@ public:
     void Dbg(_In_ PCSTR fmt, ...);
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
+    bool IsJScript9();
 
-    void DumpPossibleSymbol(ULONG64 address, bool makeLink = true);
+    bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
 
     class PropertyNameReader
     {
@@ -159,51 +164,52 @@ public:
     PCSTR GetPageSegmentType();
 
     ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);
-    ExtRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
-    ExtRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
-    ExtRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);
+    JDRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
+    JDRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
+    JDRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);    
     char const * GetTypeNameFromVTablePointer(ULONG64 vtableAddr);
 
-    // TODO: Remove this and use CastWithVtable instead
-    std::string GetTypeName(ExtRemoteTyped& offset, bool includeModuleName = false);
+    ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
-    ULONG64 GetEnumValue(const char* enumName, ULONG64 default = -1);
+    bool InChakraModule(ULONG64 address);
 
-#define ENUM(name)\
-    ULONG64 enum_##name(){ \
-        if (this->inMPHCmd){ \
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        } else {\
-            static ULONG64 s##name = this->GetEnumValue(#name); \
-            return(s##name); \
-        }\
+#define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
+    ULONG64 enum_##name() \
+    { \
+        return (this->inMPHCmd)? \
+            this->recyclerCachedData.GetMPHBlockTypeEnum##name() : \
+            this->recyclerCachedData.GetBlockTypeEnum##name(); \
     }
 
-    // dynamic read HeapBlock enums
-    ENUM(SmallNormalBlockType);
-    ENUM(SmallLeafBlockType);
-    ENUM(SmallFinalizableBlockType);
-    ENUM(SmallNormalBlockWithBarrierType);
-    ENUM(SmallFinalizableBlockWithBarrierType);
-    ENUM(MediumNormalBlockType);
-    ENUM(MediumLeafBlockType);
-    ENUM(MediumFinalizableBlockType);
-    ENUM(MediumNormalBlockWithBarrierType);
-    ENUM(MediumFinalizableBlockWithBarrierType);
-    ENUM(LargeBlockType);
-    ENUM(SmallBlockTypeCount);
-    ENUM(BlockTypeCount);
+    BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
+#undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
+    stdext::hash_map<LPCSTR, std::pair<ULONG64, ULONG>> cacheTypeInfoCache;
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
+    RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;    
+    CachedTypeInfo m_AuxPtrsFix16;
+    CachedTypeInfo m_AuxPtrsFix32;
     RemoteThreadContext::Info remoteThreadContextInfo;
+    ULONG64 chakraModuleBaseAddress;
+    ULONG64 chakraModuleEndAddress;
+
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
 
+#ifdef JD_PRIVATE
+    JDByteCodeCachedData const& GetByteCodeCachedData()
+    {
+        byteCodeCachedData.Ensure();
+        return byteCodeCachedData;
+    }
+#endif
 private:
-    // TODO (doilij) add check for recycler pointer used to construct this cached graph -- invalidate if different
-    RecyclerObjectGraph *cachedObjectGraph;
+    bool CastWithVtable(ULONG64 address, JDRemoteTyped& result, char const ** typeName = nullptr);
+
+#ifdef JD_PRIVATE
+    JDByteCodeCachedData byteCodeCachedData;
+#endif
 
 protected:
     size_t GetBVFixedAllocSize(int length);
@@ -214,12 +220,11 @@ protected:
     void DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, CommandOutputType outputType = NormalOutputType);
     void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
+    bool HasType(const char* moduleName, const char* typeName);
     PCSTR GetModuleName();
     bool HasMemoryNS();
     PCSTR GetMemoryNS();
-
-    ExtRemoteTyped GetTlsEntryList();
-  
+ 
     ExtRemoteTyped GetRecycler(ULONG64 optionalRecyclerAddress);
     ExtRemoteTyped GetInternalStringBuffer(ExtRemoteTyped internalString);
     ExtRemoteTyped GetPropertyName(ExtRemoteTyped propertyNameListEntry);
@@ -250,7 +255,7 @@ protected:
     ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
-    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<wchar_t>& buf);
+    void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
 
     // jscript9diag
     void EnsureJsDebug(PCWSTR jscript9diagPath = nullptr);
@@ -273,23 +278,10 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
-    RecyclerObjectGraph * GetOrCreateRecyclerObjectGraph(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
-    {
-        if (this->cachedObjectGraph)
-        {
-            return this->cachedObjectGraph;
-        }
-
-        Addresses *rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, threadContext);
-        ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
-        cachedObjectGraph = new RecyclerObjectGraph(this, recycler);
-        cachedObjectGraph->Construct(heapBlockMap, *rootPointerManager);
-
-        return cachedObjectGraph;
-    }
-
+protected:
     void ClearCache()
     {
+        this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
         this->vtableTypeIdMap.clear();
         for (auto i = this->vtableTypeNameMap.begin(); i != this->vtableTypeNameMap.end(); i++)
@@ -297,12 +289,8 @@ protected:
             delete (*i).second;
         }
         this->vtableTypeNameMap.clear();
-
-        if (this->cachedObjectGraph != nullptr)
-        {
-            delete this->cachedObjectGraph;
-            this->cachedObjectGraph = nullptr;
-        }
+        this->chakraModuleBaseAddress = 0;
+        this->chakraModuleEndAddress = 0;
     }
 
 public:
@@ -312,6 +300,7 @@ public:
         Assert(var.GetTypeSize() <= m_PtrSize);
         return (T)var.GetData(var.GetTypeSize());
     }
+
 
 protected:
     char m_moduleName[16]; // jc or jscript9, access through GetModuleName()
@@ -394,6 +383,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(gcstats);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
+    JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);
     JD_PRIVATE_COMMAND_METHOD(pagealloc);
     JD_PRIVATE_COMMAND_METHOD(hbm);
     JD_PRIVATE_COMMAND_METHOD(swb);
@@ -408,6 +398,8 @@ public:
 #if ENABLE_MARK_OBJ
     JD_PRIVATE_COMMAND_METHOD(markobj);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(predecessors);
+    JD_PRIVATE_COMMAND_METHOD(successors);
     JD_PRIVATE_COMMAND_METHOD(traceroots);
     JD_PRIVATE_COMMAND_METHOD(savegraph);
     JD_PRIVATE_COMMAND_METHOD(slist);
@@ -420,6 +412,7 @@ public:
 #if ENABLE_UI_SERVER
     EXT_COMMAND_METHOD(uiserver);
 #endif
+    JD_PRIVATE_COMMAND_METHOD(jsdisp);
     JD_PRIVATE_COMMAND_METHOD(arrseg);
     JD_PRIVATE_COMMAND_METHOD(memstats);
     JD_PRIVATE_COMMAND_METHOD(findpage);
@@ -436,7 +429,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(diagframe);
     JD_PRIVATE_COMMAND_METHOD(diageval);
     JD_PRIVATE_COMMAND_METHOD(utmode);
-    JD_PRIVATE_COMMAND_METHOD(jsstream);   
+    JD_PRIVATE_COMMAND_METHOD(jsstream);
 
     MPH_COMMAND_METHOD(mpheap);
 };

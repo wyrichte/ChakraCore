@@ -135,7 +135,7 @@ namespace Projection
 
                     AutoHeapString heapString;
                     heapString.CreateNew(wcslen(m_pszFullName) + wcslen(propertyName) + 2); // +2, 1 for the '.', 1 for '\0'
-                    swprintf_s(heapString.Get(), heapString.GetLength(), L"%s%c%s", m_pszFullName, L'.', propertyName);
+                    swprintf_s(heapString.Get(), heapString.GetLength(), _u("%s%c%s"), m_pszFullName, _u('.'), propertyName);
 
                     projectionContext->DeleteSubNamespace(heapString.Get());
 
@@ -507,7 +507,7 @@ namespace Projection
                 {
                     AutoHeapString heapString;
                     heapString.CreateNew(wcslen(m_pszFullName) + wcslen(propertyName) + 2); // +2, 1 for the '.', 1 for '\0'
-                    swprintf_s(heapString.Get(), heapString.GetLength(), L"%s%c%s", m_pszFullName, L'.', propertyName);
+                    swprintf_s(heapString.Get(), heapString.GetLength(), _u("%s%c%s"), m_pszFullName, _u('.'), propertyName);
 
                     RtEXPR expr = nullptr;
                     hr = projectionContext->GetExpr(MetadataStringIdNil, IdOfString(scriptContext, heapString.Get()), heapString.Get(), nullptr, &expr);
@@ -529,7 +529,7 @@ namespace Projection
                             doProject = !IsAlreadyFullyProjectedProperty(propertyName);
                         }
 
-                        TRACE_METADATA(L"EnsureHasProperty(%s (%s#%d)) - doProject = %d\n", heapString.Get(), propertyName, propertyId, doProject);
+                        TRACE_METADATA(_u("EnsureHasProperty(%s (%s#%d)) - doProject = %d\n"), heapString.Get(), propertyName, propertyId, doProject);
 
                         if (doProject)
                         {
@@ -553,7 +553,7 @@ namespace Projection
                                 // An unexpected error has occured in obtaining the metadata information for this type. Throw an error.
                                 AutoHeapString errorString;
                                 errorString.CreateNew(heapString.GetLength() + /*" (0x)"*/ 5 + /*HRESULT length*/ 8);
-                                swprintf_s(errorString.Get(), errorString.GetLength(), L"%s (0x%X)", heapString.Get(), hr);
+                                swprintf_s(errorString.Get(), errorString.GetLength(), _u("%s (0x%X)"), heapString.Get(), hr);
                                 Js::JavascriptError::ThrowError(scriptContext, JSERR_UnexpectedMetadataFailure, errorString.Get());
                             }
                         }
@@ -630,7 +630,7 @@ namespace Projection
 
             // Otherwise return true if type is a class (and also enforce the AllowForWeb attribute if it is a class)
             return typeDef->IsClass() &&
-                   (!projectionContext->EnforceAllowForWeb() || typeDef->assembly.IsAttributePresent(typeDef->td, L"Windows.Foundation.Metadata.AllowForWebAttribute"));
+                   (!projectionContext->EnforceAllowForWeb() || typeDef->assembly.IsAttributePresent(typeDef->td, _u("Windows.Foundation.Metadata.AllowForWebAttribute")));
         };
 
         // Get all type definitions contained in the metadata file
@@ -642,7 +642,7 @@ namespace Projection
 
             auto projectionAllocator = ProjectionAllocator();
             auto nextSegment = ProjectionModel::GetToDot(childName, [projectionAllocator](int strLength)->LPWSTR {
-                return AnewArray(projectionAllocator, wchar_t, strLength);
+                return AnewArray(projectionAllocator, char16, strLength);
             });
             
             if (!nextSegment.HasValue())
@@ -650,7 +650,7 @@ namespace Projection
                 // If the type is a direct child type, is a public WinRT type, is not WebHostHidden, is within the target version, and is either a runtimeclass or an enum,
                 // add the child name to the list of direct children
                 if (typeDef->IsWindowsRuntime() &&
-                    (!typeDef->assembly.IsAttributePresent(typeDef->td, L"Windows.Foundation.Metadata.WebHostHiddenAttribute") || projectionContext->IgnoreWebHidden()) &&
+                    (!typeDef->assembly.IsAttributePresent(typeDef->td, _u("Windows.Foundation.Metadata.WebHostHiddenAttribute")) || projectionContext->IgnoreWebHidden()) &&
                     (projectionContext->GetProjectionBuilder()->IsWithinTargetVersion(typeDef->td, typeDef->assembly))&&
                     isRuntimeClassOrEnum(typeDef))
                 {
@@ -703,7 +703,7 @@ namespace Projection
             {
                 LPWSTR childNamespace = childNamespaces[i];
                 size_t currentNameLength = wcslen(childNamespace) + 1;
-                LPWSTR childNamespaceCopy = AnewArray(ProjectionAllocator(), wchar_t, currentNameLength);
+                LPWSTR childNamespaceCopy = AnewArray(ProjectionAllocator(), char16, currentNameLength);
                 wcscpy_s(childNamespaceCopy, currentNameLength, childNamespace);
                 m_directChildren = m_directChildren->Prepend(childNamespaceCopy, ProjectionAllocator());
                 CoTaskMemFree(childNamespace);

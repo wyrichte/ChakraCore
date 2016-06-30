@@ -83,7 +83,7 @@ STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
         *value = nullptr;
 
         Js::Var var;
-        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalVariantToJsVar(variant, &var, scriptContext));
+        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalVariantToJsVarWithLeaveScript(variant, &var, scriptContext));
         *value = var;
 
         return JsNoError;
@@ -97,7 +97,7 @@ STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
         PARAM_NOT_NULL(variant);
         ZeroMemory(variant, sizeof(VARIANT));
 
-        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalJsVarToVariant(object, variant));
+        JsrtComException::ThrowIfFailed(DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(object, variant, scriptContext));
 
         return JsNoError;
     });
@@ -186,7 +186,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (context->GetScriptContext()->IsInDebugMode())
+            if (context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorAlreadyDebuggingContext;
             }
@@ -227,7 +227,7 @@ STDAPI_(JsErrorCode) JsStopDebugging()
                 return JsErrorRuntimeInUse;
             }
 
-            if (!context->GetScriptContext()->IsInDebugMode())
+            if (!context->GetScriptContext()->IsScriptContextInDebugMode())
             {
                 return JsErrorNotDebuggingContext;
             }
@@ -274,7 +274,7 @@ STDAPI_(JsErrorCode) JsSetProjectionEnqueueCallback(_In_ JsProjectionEnqueueCall
     });
 }
 
-STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const wchar_t *nameSpace)
+STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const char16 *nameSpace)
 {
     return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
         JsErrorCode errorCode;

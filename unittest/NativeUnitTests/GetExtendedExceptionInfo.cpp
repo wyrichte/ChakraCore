@@ -41,14 +41,14 @@ void FreeExcepInfo(ExtendedExceptionInfo *pei)
 void TestCreateErrorObjectSucceedsWithValidErrorType(MyScriptDirectTests* mytest)
 {
     Var errorObject;
-    HRESULT hr = mytest->CreateErrorObject(JavascriptError, 0, L"An error occured", &errorObject);
+    HRESULT hr = mytest->CreateErrorObject(JavascriptError, 0, _u("An error occured"), &errorObject);
     SUCCEEDED(hr) ? Print("PASS: TestCreateErrorObjectSucceedsWithValidErrorType\n", true) : Print("FAILED: TestCreateErrorObjectSucceedsWithValidErrorType\n", false);
 }
 
 void TestCreateErrorObjectFailsWithInvalidErrorType(MyScriptDirectTests* mytest)
 {
     Var errorObject;
-    HRESULT hr = mytest->CreateErrorObject(JsErrorType(-1), 0, L"An error occured", &errorObject);
+    HRESULT hr = mytest->CreateErrorObject(JsErrorType(-1), 0, _u("An error occured"), &errorObject);
     FAILED(hr) ? Print("PASS: TestCreateErrorObjectFailsWithInvalidErrorType\n", true) : Print("FAILED: TestCreateErrorObjectFailsWithInvalidErrorType\n", false);
 }
 
@@ -259,14 +259,14 @@ HRESULT STDMETHODCALLTYPE TestOnScriptErrorCompileError_Callback(IActiveScriptEr
 
 HRESULT STDMETHODCALLTYPE VerifyThrownObject(IActiveScriptErrorEx* errorInfoEx, void* context)
 {
-    const LPWSTR codeToRun = L"WScript.Echo('unhandled exception info'); if (typeof _testResult == 'object' && _testResult.number == -2146828260) { WScript.Echo(_testResult.description); } else { for (i in _testResult) WScript.Echo('result.' + i + '=' + _testResult[i]); WScript.Echo('result.description=' + _testResult.description); WScript.Echo('result.number=' + _testResult.number); WScript.Echo('result.stack=' + _testResult.stack);}";
+    const LPWSTR codeToRun = _u("WScript.Echo('unhandled exception info'); if (typeof _testResult == 'object' && _testResult.number == -2146828260) { WScript.Echo(_testResult.description); } else { for (i in _testResult) WScript.Echo('result.' + i + '=' + _testResult[i]); WScript.Echo('result.description=' + _testResult.description); WScript.Echo('result.number=' + _testResult.number); WScript.Echo('result.stack=' + _testResult.stack);}");
     Var thrownObject;
     HRESULT hr;
     hr = errorInfoEx->GetThrownObject(&thrownObject);
     if (SUCCEEDED(hr) && thrownObject != nullptr)
     {
         MyScriptDirectTests* myTest = static_cast<MyScriptDirectTests*>(context);
-        myTest->SetProperty(myTest->GetGlobalObject(), L"_testResult", thrownObject);
+        myTest->SetProperty(myTest->GetGlobalObject(), _u("_testResult"), thrownObject);
         myTest->ParseAndExecute(codeToRun, NOERROR);
     }
     return hr;
@@ -427,21 +427,21 @@ HRESULT STDMETHODCALLTYPE TestOnScriptErrorGetsExpectedLineCol_Callback(IActiveS
 
 void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
 {
-    WCHAR* simpleThrow = L"throw new Error";
-    WCHAR* nestedThrow = L"function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    foo3(); \n}\nfunction foo3() \n{\n    baz(); \n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();";
-    WCHAR* nestedThrowWithFinally = L"function foo() \n{\n    foo2(); \n}\n\nfunction foo2() \n{\n    \n    try\n    {\n        foo3();\n    }\n    finally\n    {\n        var a=5;\n    }\n}\n\nfunction foo3() \n{\n    baz(); \n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();";
-    WCHAR* nestedReThrow = L"function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    foo3(); \n}\nfunction foo3() \n{\n    try\n    {\n        baz();\n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();";
-    WCHAR* nestedReThrowOnly = L"function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    try\n    {\n    foo3(); \n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\nfunction foo3() \n{\n    try\n    {\n        baz();\n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\n function baz() \n{\n    var tttt;  throw new Error('reThrown from baz');\n}\nfoo();";
-    WCHAR* nestedEvalThrow = L"function foo() \n{ \n    baz(); \n}\nfunction baz() \n{ \n    eval('function evalbar() { throw new RangeError(); } function evalfoo() { evalbar(); } evalfoo();');\n}\nfoo();";
-    WCHAR* throwOOM =  L"var a = new Array(); \na[0] = 'string'; \na[1] = 'aaa'; \nfor (var i=2; ; i++ ) \n{ \n    a[i] = a[i-1] + a[i-2];\n}";
-    WCHAR* throwSO = L"function foo() \n{\n    foo(); \n}\nfoo();";
-    WCHAR* throwSO2 = L"function foobaz()\n{\n    foo();\n}\nfunction baz()\n{\n    foobaz();\n}\nfunction foo()\n{\n    baz();\n}\nfoo();";
-    WCHAR* throwSO3 = L"function bigStack()\n{\n    var i = 0;\n    function inner()\n    {\n        if (i == 30) return\n        ++i;\n        inner();\n    }\n    inner();\n}\nfunction foobaz()\n{\n    bigStack();\n    foo();\n}\nfunction baz()\n{\n    foobaz();\n}\nfunction foo()\n{\n    baz();\n}\nfoo();";
-    WCHAR* reThrowSO = L"try {\n function foo() \n{\n    foo(); \n}\nfoo(); } \n catch(e) {\n throw e};\n ";
-    WCHAR* throwOOMSO1 = L"var OOM = (function() {\n    var a = new Array();\n    a[0] = 'string';\n    a[1] = 'aaa';\n    var i = 2;\n    return function() {\n        for (;;i++) {\n            a[i] = a[i-1] + a[i-2];\n        }\n    };\n})();\n\nfunction foo() \n{\n    try \n    {\n        foo(); \n    }\n    finally\n    {\n        OOM();\n    }\n}\nfoo();";
-    WCHAR* throwOOMSO2 = L"var callCount = 0;\nvar unwindCount = 0;\nvar throwOOM = true;\nfunction OOM()\n{\n    unwindCount++;\n    if (!throwOOM || (callCount - unwindCount > 30 && unwindCount < 500))\n        return;\n    throwOOM = false;\n    var a = new Array(); \n    a[0] = 'string'; \n    a[1] = 'aaa'; \n    for (var i=2; ; i++ ) \n    { \n        a[i] = a[i-1] + a[i-2];\n    }\n}\nfunction foo() \n{\n    try \n    {\n        callCount++;\n        foo(); \n    }\n    finally\n    {\n        OOM();\n    }\n}\nfoo();";
-    WCHAR* nestedThrowWithArguments = L"function g(x) {\n    f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);\n}\nfunction f(x) {\n    throw Error('mm');\n}\nfunction h() {\n    g();\n}\nvar s = new String('qqq');\neval('h(s, 123);');\n";
-    WCHAR* nestedThrowWithArguments2 = L"function a() {\n    b(1);\n}\nfunction b(x, y, z) {\n    c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n}\nfunction c() {\n    d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);\n}\nfunction d() {\n    e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);\n}\nfunction e() {\n    f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);\n}\nfunction f() {\n    g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);\n}\nfunction g() {\n    h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);\n}\nfunction h(a,b,c,d,e,f,g,h,i,j,k,l) {\n    throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');\n}\na();\n";
+    WCHAR* simpleThrow = _u("throw new Error");
+    WCHAR* nestedThrow = _u("function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    foo3(); \n}\nfunction foo3() \n{\n    baz(); \n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();");
+    WCHAR* nestedThrowWithFinally = _u("function foo() \n{\n    foo2(); \n}\n\nfunction foo2() \n{\n    \n    try\n    {\n        foo3();\n    }\n    finally\n    {\n        var a=5;\n    }\n}\n\nfunction foo3() \n{\n    baz(); \n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();");
+    WCHAR* nestedReThrow = _u("function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    foo3(); \n}\nfunction foo3() \n{\n    try\n    {\n        baz();\n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\n function baz() \n{\n    var tttt;  throw new Error('Thrown from baz');\n}\nfoo();");
+    WCHAR* nestedReThrowOnly = _u("function foo() \n{\n    foo2(); \n}\nfunction foo2() \n{\n    try\n    {\n    foo3(); \n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\nfunction foo3() \n{\n    try\n    {\n        baz();\n    }\n        catch(e)\n    {\n        throw e;\n    }\n}\n function baz() \n{\n    var tttt;  throw new Error('reThrown from baz');\n}\nfoo();");
+    WCHAR* nestedEvalThrow = _u("function foo() \n{ \n    baz(); \n}\nfunction baz() \n{ \n    eval('function evalbar() { throw new RangeError(); } function evalfoo() { evalbar(); } evalfoo();');\n}\nfoo();");
+    WCHAR* throwOOM =  _u("var a = new Array(); \na[0] = 'string'; \na[1] = 'aaa'; \nfor (var i=2; ; i++ ) \n{ \n    a[i] = a[i-1] + a[i-2];\n}");
+    WCHAR* throwSO = _u("function foo() \n{\n    foo(); \n}\nfoo();");
+    WCHAR* throwSO2 = _u("function foobaz()\n{\n    foo();\n}\nfunction baz()\n{\n    foobaz();\n}\nfunction foo()\n{\n    baz();\n}\nfoo();");
+    WCHAR* throwSO3 = _u("function bigStack()\n{\n    var i = 0;\n    function inner()\n    {\n        if (i == 30) return\n        ++i;\n        inner();\n    }\n    inner();\n}\nfunction foobaz()\n{\n    bigStack();\n    foo();\n}\nfunction baz()\n{\n    foobaz();\n}\nfunction foo()\n{\n    baz();\n}\nfoo();");
+    WCHAR* reThrowSO = _u("try {\n function foo() \n{\n    foo(); \n}\nfoo(); } \n catch(e) {\n throw e};\n ");
+    WCHAR* throwOOMSO1 = _u("var OOM = (function() {\n    var a = new Array();\n    a[0] = 'string';\n    a[1] = 'aaa';\n    var i = 2;\n    return function() {\n        for (;;i++) {\n            a[i] = a[i-1] + a[i-2];\n        }\n    };\n})();\n\nfunction foo() \n{\n    try \n    {\n        foo(); \n    }\n    finally\n    {\n        OOM();\n    }\n}\nfoo();");
+    WCHAR* throwOOMSO2 = _u("var callCount = 0;\nvar unwindCount = 0;\nvar throwOOM = true;\nfunction OOM()\n{\n    unwindCount++;\n    if (!throwOOM || (callCount - unwindCount > 30 && unwindCount < 500))\n        return;\n    throwOOM = false;\n    var a = new Array(); \n    a[0] = 'string'; \n    a[1] = 'aaa'; \n    for (var i=2; ; i++ ) \n    { \n        a[i] = a[i-1] + a[i-2];\n    }\n}\nfunction foo() \n{\n    try \n    {\n        callCount++;\n        foo(); \n    }\n    finally\n    {\n        OOM();\n    }\n}\nfoo();");
+    WCHAR* nestedThrowWithArguments = _u("function g(x) {\n    f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);\n}\nfunction f(x) {\n    throw Error('mm');\n}\nfunction h() {\n    g();\n}\nvar s = new String('qqq');\neval('h(s, 123);');\n");
+    WCHAR* nestedThrowWithArguments2 = _u("function a() {\n    b(1);\n}\nfunction b(x, y, z) {\n    c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n}\nfunction c() {\n    d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);\n}\nfunction d() {\n    e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);\n}\nfunction e() {\n    f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);\n}\nfunction f() {\n    g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);\n}\nfunction g() {\n    h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);\n}\nfunction h(a,b,c,d,e,f,g,h,i,j,k,l) {\n    throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');\n}\na();\n");
 
     TestCreateErrorObjectSucceedsWithValidErrorType(mytest);
     TestCreateErrorObjectFailsWithInvalidErrorType(mytest);
@@ -453,8 +453,8 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 5, exactMatch, dumpStack, true>, nestedThrowWithArguments);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments2", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 9, exactMatch, dumpStack, true>, nestedThrowWithArguments2);
 
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetNoExceptionInfoOnCompileError", TestOnScriptErrorCompileError_Callback<false>, L"var e = 'string;");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetNoExceptionInfoOnCompileError", TestOnScriptErrorCompileError_Callback<true>, L"var e = 'string;");
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetNoExceptionInfoOnCompileError", TestOnScriptErrorCompileError_Callback<false>, _u("var e = 'string;"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetNoExceptionInfoOnCompileError", TestOnScriptErrorCompileError_Callback<true>, _u("var e = 'string;"));
 
     //Test error types
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnOOM", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, false>, throwOOM);
@@ -462,29 +462,29 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnOOM", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, true>, throwOOM);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnStackOverflow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, true>, throwSO);
 
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, false>, L"throw new Error");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptEvalError, false>, L"throw new EvalError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, false>, L"throw new RangeError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, false>, L"var a = new Array(); a.length = -1;");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptReferenceError, false>, L"throw new ReferenceError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, false>, L"throw new SyntaxError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, false>, L"eval('var function a=1');");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptTypeError, false>, L"throw new TypeError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptURIError, false>, L"throw new URIError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, false>, L"throw 'Custom error'");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, false>, L"throw {a: 'aaa', b: 'bbb'}");
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, false>, _u("throw new Error"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptEvalError, false>, _u("throw new EvalError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, false>, _u("throw new RangeError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, false>, _u("var a = new Array(); a.length = -1;"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptReferenceError, false>, _u("throw new ReferenceError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, false>, _u("throw new SyntaxError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, false>, _u("eval('var function a=1');"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptTypeError, false>, _u("throw new TypeError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptURIError, false>, _u("throw new URIError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, false>, _u("throw 'Custom error'"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, false>, _u("throw {a: 'aaa', b: 'bbb'}"));
 
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, true>, L"throw new Error");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptEvalError, true>, L"throw new EvalError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, true>, L"throw new RangeError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, true>, L"var a = new Array(); a.length = -1;");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptReferenceError, true>, L"throw new ReferenceError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, true>, L"throw new SyntaxError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, true>, L"eval('var function a=1');");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptTypeError, true>, L"throw new TypeError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptURIError, true>, L"throw new URIError");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, true>, L"throw 'Custom error'");
-    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, true>, L"throw {a: 'aaa', b: 'bbb'}");
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, true>, _u("throw new Error"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedEvalErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptEvalError, true>, _u("throw new EvalError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, true>, _u("throw new RangeError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedRangeErrorOnArrayLengthSetNegative", TestOnScriptErrorGetsExpectedError_Callback<JavascriptRangeError, true>, _u("var a = new Array(); a.length = -1;"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedReferenceErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptReferenceError, true>, _u("throw new ReferenceError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, true>, _u("throw new SyntaxError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedSyntaxErrorOnBadInput", TestOnScriptErrorGetsExpectedError_Callback<JavascriptSyntaxError, true>, _u("eval('var function a=1');"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedTypeErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptTypeError, true>, _u("throw new TypeError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow", TestOnScriptErrorGetsExpectedError_Callback<JavascriptURIError, true>, _u("throw new URIError"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, true>, _u("throw 'Custom error'"));
+    RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedCustomErrorOnThrowString", TestOnScriptErrorGetsExpectedError_Callback<CustomError, true>, _u("throw {a: 'aaa', b: 'bbb'}"));
 
     //Test stack traces
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedStackTraceOnNestedThrow", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 5, exactMatch, dumpStack, false>, nestedThrow);
@@ -522,17 +522,17 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
     //Run these to check manually that don't generate a stack trace.
     // JenH TODO: Figure out a way to test automagically
     RunOneOnScriptErrorTest(mytest, "TestOnScriptNoErrorWithCatchInPlaceSimple", TestOnScriptErrorCalled_Callback,
-        L"try \n{\n    foo(); \n} \ncatch(e) \n{\n    \n}", false);
+        _u("try \n{\n    foo(); \n} \ncatch(e) \n{\n    \n}"), false);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptNoErrorWithCatchInPlaceNested", TestOnScriptErrorCalled_Callback,
-        L"try \n{ \n    foo();\n} \ncatch(e) \n{\n   \n}\nfunction foo() \n{\n    try\n    { \n        throw new Error;\n    }\n    catch(e) \n    {\n   \n    }\n    throw new Error;\n}", false);
+        _u("try \n{ \n    foo();\n} \ncatch(e) \n{\n   \n}\nfunction foo() \n{\n    try\n    { \n        throw new Error;\n    }\n    catch(e) \n    {\n   \n    }\n    throw new Error;\n}"), false);
 
 
     // Regression tests
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnSimpleThrow", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 0, 0>, simpleThrow);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnSimpleThrowPrecedingNL", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 1, 1>,
-        L"\n throw Error");
+        _u("\n throw Error"));
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnSimpleThrowWithNLs", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 2, 7>,
-        L"\n\n var a;throw new Error");
+        _u("\n\n var a;throw new Error"));
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnNestedThrow", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 14, 15>, nestedThrow);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnThrowFromEval", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 0, 21>, nestedEvalThrow);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedLineColOnStackOverflow", TestOnScriptErrorGetsExpectedLineCol_Callback<T, 2, 4>, throwSO);
@@ -541,9 +541,9 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
 
 void RunStackTraceInlineTests(MyScriptDirectTests* mytest) 
 {
-    WCHAR* nestedThrowWithArguments = L"function g(x) {\n    f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);\n}\nfunction f(x) {\n    throw Error('mm');\n}\nfunction h() {\n    g();\n}\nvar s = new String('qqq');\neval('h(s, 123);');\n";
-    WCHAR* nestedThrowWithArguments2 = L"function a() {\n    b(1);\n}\nfunction b(x, y, z) {\n    c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n}\nfunction c() {\n    d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);\n}\nfunction d() {\n    e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);\n}\nfunction e() {\n    f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);\n}\nfunction f() {\n    g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);\n}\nfunction g() {\n    h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);\n}\nfunction h(a,b,c,d,e,f,g,h,i,j,k,l) {\n    throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');\n}\na();\n";
-    WCHAR* nestedThrowWithArguments3 = L"function f(x) {\n    throw new Error('x'); \n}\nf(3);";
+    WCHAR* nestedThrowWithArguments = _u("function g(x) {\n    f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);\n}\nfunction f(x) {\n    throw Error('mm');\n}\nfunction h() {\n    g();\n}\nvar s = new String('qqq');\neval('h(s, 123);');\n");
+    WCHAR* nestedThrowWithArguments2 = _u("function a() {\n    b(1);\n}\nfunction b(x, y, z) {\n    c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n}\nfunction c() {\n    d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);\n}\nfunction d() {\n    e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);\n}\nfunction e() {\n    f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);\n}\nfunction f() {\n    g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);\n}\nfunction g() {\n    h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);\n}\nfunction h(a,b,c,d,e,f,g,h,i,j,k,l) {\n    throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');\n}\na();\n");
+    WCHAR* nestedThrowWithArguments3 = _u("function f(x) {\n    throw new Error('x'); \n}\nf(3);");
     
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 5, exactMatch, dumpStack, false>, nestedThrowWithArguments);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments2", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 9, exactMatch, dumpStack, false>, nestedThrowWithArguments2);

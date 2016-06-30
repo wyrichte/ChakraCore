@@ -2,6 +2,13 @@
 
 #ifdef JD_PRIVATE
 #include "Collections.h"
+
+void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated)
+{
+    typeInfo = GetExtension()->recyclerObjectTypeInfoCache.GetRecyclerObjectTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated);
+}
+
+#if ENABLE_MARK_OBJ
 #include <queue>
 
 #define Infinity 0x7fffffff
@@ -11,6 +18,7 @@
 #else
 #define GraphTrace(...)
 #endif
+
 
 template <typename TKey, typename TAux>
 struct QueueElement
@@ -24,7 +32,7 @@ struct QueueElement
     }
 };
 
-#if ENABLE_MARK_OBJ
+
 // Implements Dijkstra's algorithm to find shortest path
 template <typename TKey, typename TAux>
 std::vector<TKey> 
@@ -130,7 +138,7 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
 }
 
 // Instantiate templates
-template Graph<ULONG64, RecyclerGraphNodeAux>;
+template Graph<ULONG64, RecyclerGraphNodeData>;
 #endif
 
 #endif

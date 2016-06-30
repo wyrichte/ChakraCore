@@ -12,13 +12,18 @@
 #include "intsafe.h"
 #pragma push_macro("_DEBUG")
 #undef _DEBUG
+#pragma warning(push)
+#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
 #include "atlbase.h"
+#pragma warning(pop)
 #pragma pop_macro("_DEBUG")
 
 #include "atlsafe.h"
 
 #include "scaformat.h"
 #include "scalookup.h"
+#include "Core/CommonTypedefs.h"
 
 #define IfFalseReturnError(expr, hr) do { if (!(expr)) { return (hr); } } while(FALSE)
 #define IfNullReturnError(expr, hr) IfFalseReturnError(expr, hr)

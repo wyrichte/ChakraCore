@@ -32,7 +32,10 @@
 #include <io.h>
 #include <assert.h>
 #include <strsafe.h>
+#pragma warning(push)
+#pragma warning(disable:4456) // declaration of '' hides previous local declaration
 #include <atlbase.h>
+#pragma warning(pop)
 #include <Psapi.h>
 
 #include <roapi.h>
@@ -46,6 +49,7 @@
 #include "activscp_private.h"
 #include "activdbg.h"
 #include "edgescriptdirect.h"
+#include "Core/CommonTypedefs.h"
 #include "HostConfigFlags.h"
 #ifndef USE_EDGEMODE_JSRT
 #define USE_EDGEMODE_JSRT

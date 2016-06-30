@@ -14,14 +14,14 @@ namespace Projection
     template<typename T>
     void ListForMemoryInfoNode<T>::Dump()
     {
-        Output::Print(L"%lu\t\t", id);
+        Output::Print(_u("%lu\t\t"), id);
         if (object == 0)
         {
-            Output::Print(L"Destroyed\t");
+            Output::Print(_u("Destroyed\t"));
         }
         else 
         {
-            Output::Print(L"Alive\t\t");
+            Output::Print(_u("Alive\t\t"));
         }
                 
         if (details != nullptr)
@@ -29,7 +29,7 @@ namespace Projection
             details->Dump();
         }
 
-        Output::Print(L"\n");
+        Output::Print(_u("\n"));
     }
 
 #define SortAddToListForMemoryInfo(typeOfList, nodeToAdd)                       \
@@ -59,7 +59,7 @@ namespace Projection
 #define DumpSortedListForMemoryInfo(typeOfList, headerMsg)                      \
     if (Js::Configuration::Global.flags.TraceWin8Allocations)                   \
     {                                                                           \
-        Output::Print(L"%s %s : ", headerMsg, L#typeOfList);                    \
+        Output::Print(_u("%s %s : "), headerMsg, _u(#typeOfList));                    \
     }                                                                           \
                                                                                 \
     while (typeOfList##Head != nullptr)                                         \
@@ -67,7 +67,7 @@ namespace Projection
         ListForMemoryInfoNode<T> * objectToDelete = typeOfList##Head;           \
         if (Js::Configuration::Global.flags.TraceWin8Allocations)               \
         {                                                                       \
-            Output::Print(L"%lu  ", objectToDelete->id);                        \
+            Output::Print(_u("%lu  "), objectToDelete->id);                        \
         }                                                                       \
         typeOfList##Head = typeOfList##Head->typeOfList##Next;                  \
         objectToDelete->typeOfList##Next = nullptr;                             \
@@ -75,7 +75,7 @@ namespace Projection
                                                                                 \
     if (Js::Configuration::Global.flags.TraceWin8Allocations)                   \
     {                                                                           \
-        Output::Print(L"\n");                                                   \
+        Output::Print(_u("\n"));                                                   \
         Output::Flush();                                                        \
     }
 
@@ -167,22 +167,22 @@ namespace Projection
                 current = current->next;
             }
 
-            Output::Print(L"\nAlive: %lu\t\tDead: %lu\n", createdObjects, deletedObjects);
+            Output::Print(_u("\nAlive: %lu\t\tDead: %lu\n"), createdObjects, deletedObjects);
             Output::Flush();
         }
     }
 
     void ProjectionObjectDetails::Dump()
     {
-        Output::Print(L"%lu\t\t\t\t", creationUnkRef);
+        Output::Print(_u("%lu\t\t\t\t"), creationUnkRef);
 
         //if (disposeUnkRef == (ULONG)(-1))
         //{
-        //    Output::Print(L"-", creationUnkRef);
+        //    Output::Print(_u("-"), creationUnkRef);
         //}
         //else
         //{
-        //    Output::Print(L"%lu", disposeUnkRef);
+        //    Output::Print(_u("%lu"), disposeUnkRef);
         //}
     }
 
@@ -191,54 +191,54 @@ namespace Projection
         switch(unknownImplType)
         {
         case delegateWrapper:
-            Output::Print(L"Delegate");
+            Output::Print(_u("Delegate"));
             break;
 
         case vectorWrapper:
-            Output::Print(L"IVector");
+            Output::Print(_u("IVector"));
             break;
 
         case vectorViewWrapper:
-            Output::Print(L"IVectorView");
+            Output::Print(_u("IVectorView"));
             break;
 
         case iteratorWrapper:
-            Output::Print(L"IIterator");
+            Output::Print(_u("IIterator"));
             break;
 
         case iterableWrapper:
-            Output::Print(L"IIterable");
+            Output::Print(_u("IIterable"));
             break;
 
         case propertyValueWrapper:
-            Output::Print(L"IPropertyValue");
+            Output::Print(_u("IPropertyValue"));
             break;
 
         case referenceWrapper:
-            Output::Print(L"IReference");
+            Output::Print(_u("IReference"));
             break;
 
         case referenceArrayWrapper:
-            Output::Print(L"IReferenceArray");
+            Output::Print(_u("IReferenceArray"));
             break;
         }
     }
 
     void FinalizableArrayContentsDetails::Dump()
     {
-        Output::Print(L"%u\t\t\t\t%s", numberOfElements, (releaseBufferType == releaseBufferUsingCoTaskMemFree) ? L"CoTaskMemAlloc" : L"new[]");
+        Output::Print(_u("%u\t\t\t\t%s"), numberOfElements, (releaseBufferType == releaseBufferUsingCoTaskMemFree) ? _u("CoTaskMemAlloc") : _u("new[]"));
     }
 
     void ProjectionMemoryInformation::DumpCurrentStats(LPCWSTR headerMsg, bool forceDetailed)
     {
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"\nMemoryTrace: %s\n", headerMsg);
+            Output::Print(_u("\nMemoryTrace: %s\n"), headerMsg);
         }
 
-        projectionObjects.Dump(L"ProjectionObjects ");
-        unknownObjects.Dump(L"Unknowns ");
-        finalizableArrayContents.Dump(L"FinalizableArrayBuffer");
+        projectionObjects.Dump(_u("ProjectionObjects "));
+        unknownObjects.Dump(_u("Unknowns "));
+        finalizableArrayContents.Dump(_u("FinalizableArrayBuffer"));
 
         if (Js::Configuration::Global.flags.PrintWin8StatsDetailed || forceDetailed)
         {
@@ -250,10 +250,10 @@ namespace Projection
     {
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            //projectionObjects.DumpDetails(L"\n\nProjectionObjects status:\n\nId\t\tStatus\t\tCreationUnkRef\t\tDisposeUnkRef\n");
-            projectionObjects.DumpDetails(L"\n\nProjectionObjects status:\n\nId\t\tStatus\t\tCreationUnkRef\n");
-            unknownObjects.DumpDetails(L"\n\n\nUnknowns status:\n\nId\t\tStatus\t\tType\n");
-            finalizableArrayContents.DumpDetails(L"\n\n\nFinalizableArrayBuffer status:\n\nId\t\tStatus\t\tNumberOfElements\t\tBufferAllocatedUsing\n");
+            //projectionObjects.DumpDetails(_u("\n\nProjectionObjects status:\n\nId\t\tStatus\t\tCreationUnkRef\t\tDisposeUnkRef\n"));
+            projectionObjects.DumpDetails(_u("\n\nProjectionObjects status:\n\nId\t\tStatus\t\tCreationUnkRef\n"));
+            unknownObjects.DumpDetails(_u("\n\n\nUnknowns status:\n\nId\t\tStatus\t\tType\n"));
+            finalizableArrayContents.DumpDetails(_u("\n\n\nFinalizableArrayBuffer status:\n\nId\t\tStatus\t\tNumberOfElements\t\tBufferAllocatedUsing\n"));
         }
     }
 
@@ -263,7 +263,7 @@ namespace Projection
         ListForMemoryInfoNode<ProjectionObjectInstance *> *addedObject = projectionObjects.Add(projectionObject, details);
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"MemoryTrace: Created Projection Object: %lu    UnknownRefCount = %lu\n", addedObject->id, creationUnkRef);
+            Output::Print(_u("MemoryTrace: Created Projection Object: %lu    UnknownRefCount = %lu\n"), addedObject->id, creationUnkRef);
             Output::Flush();
         }
     }
@@ -293,7 +293,7 @@ namespace Projection
 
         if (Js::Configuration::Global.flags.TraceWin8DeallocationsImmediate)
         {
-            Output::Print(L"MemoryTrace: %s Projection Object: %lu    UnknownRefCount = %lu    isZombied = %s\n", isDispose ? L"Collected" : L"Zombied", removedObject->id, details->disposeUnkRef, (details->isZombied)? L"true" : L"false");
+            Output::Print(_u("MemoryTrace: %s Projection Object: %lu    UnknownRefCount = %lu    isZombied = %s\n"), isDispose ? _u("Collected") : _u("Zombied"), removedObject->id, details->disposeUnkRef, (details->isZombied)? _u("true") : _u("false"));
             Output::Flush();
         }
     }
@@ -304,9 +304,9 @@ namespace Projection
         ListForMemoryInfoNode<CUnknownImpl *> *addedObject = unknownObjects.Add(unknownObject, details);
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"MemoryTrace: Created Unknown Object: %lu    Type = ", addedObject->id);
+            Output::Print(_u("MemoryTrace: Created Unknown Object: %lu    Type = "), addedObject->id);
             details->Dump();
-            Output::Print(L"\n");
+            Output::Print(_u("\n"));
             Output::Flush();
         }
     }
@@ -316,9 +316,9 @@ namespace Projection
         ListForMemoryInfoNode<CUnknownImpl *> *removedObject = unknownObjects.Remove(unknownObject);
         if (Js::Configuration::Global.flags.TraceWin8DeallocationsImmediate)
         {
-            Output::Print(L"MemoryTrace: Destroying Unknown Object: %lu    Type = ", removedObject->id);
+            Output::Print(_u("MemoryTrace: Destroying Unknown Object: %lu    Type = "), removedObject->id);
             removedObject->details->Dump();
-            Output::Print(L"\n");
+            Output::Print(_u("\n"));
             Output::Flush();
         }
     }
@@ -329,8 +329,8 @@ namespace Projection
         ListForMemoryInfoNode<FinalizableTypedArrayContents *> *addedObject = finalizableArrayContents.Add(finalizableArrayBuffer, details);
         if (Js::Configuration::Global.flags.TraceWin8Allocations)
         {
-            Output::Print(L"MemoryTrace: Created FinalizableArrayBuffer Object: %lu    Number of Elements = %u    Buffer Created Using = %s\n", 
-                addedObject->id, details->numberOfElements, (details->releaseBufferType == releaseBufferUsingCoTaskMemFree) ? L"CoTaskMemAlloc" : L"new[]");
+            Output::Print(_u("MemoryTrace: Created FinalizableArrayBuffer Object: %lu    Number of Elements = %u    Buffer Created Using = %s\n"), 
+                addedObject->id, details->numberOfElements, (details->releaseBufferType == releaseBufferUsingCoTaskMemFree) ? _u("CoTaskMemAlloc") : _u("new[]"));
             Output::Flush();
         }
     }
@@ -341,8 +341,8 @@ namespace Projection
         FinalizableArrayContentsDetails *details = (FinalizableArrayContentsDetails *)removedObject->details;
         if (Js::Configuration::Global.flags.TraceWin8DeallocationsImmediate)
         {
-            Output::Print(L"MemoryTrace: Disposing FinalizableArrayBuffer Object: %lu    Number of Elements = %u    Buffer Created Using = %s\n", 
-                removedObject->id, details->numberOfElements, (details->releaseBufferType == releaseBufferUsingCoTaskMemFree) ? L"CoTaskMemAlloc" : L"new[]");
+            Output::Print(_u("MemoryTrace: Disposing FinalizableArrayBuffer Object: %lu    Number of Elements = %u    Buffer Created Using = %s\n"), 
+                removedObject->id, details->numberOfElements, (details->releaseBufferType == releaseBufferUsingCoTaskMemFree) ? _u("CoTaskMemAlloc") : _u("new[]"));
             Output::Flush();
         }
     }

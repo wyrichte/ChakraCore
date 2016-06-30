@@ -10,12 +10,19 @@
 class RecyclerObjectGraph
 {
 public:
-    typedef Graph<ULONG64, RecyclerGraphNodeAux> GraphImplType;
+    enum TypeInfoFlags
+    {
+        None,
+        Infer,
+        Trident
+    };
+    typedef Graph<ULONG64, RecyclerGraphNodeData> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
 
-    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
+    static RecyclerObjectGraph * New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext,
+        RecyclerObjectGraph::TypeInfoFlags typeInfoFlags = RecyclerObjectGraph::TypeInfoFlags::None);
+
     ~RecyclerObjectGraph();
-    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
 
     void DumpForPython(const char* filename);
     void DumpForJs(const char* filename);
@@ -42,25 +49,50 @@ public:
         return _objectGraph.FindNode(address);
     }
 
-    ULONG64 NumNodes()
+    uint GetNodeCount()
     {
-        return _objectGraph.Count();
+        return (uint)_objectGraph.GetNodeCount();
     }
 
-    void EnsureTypeInfo(bool infer, bool trident, bool verbose);
+    int GetEdgeCount()
+    {
+        return _objectGraph.GetEdgeCount();
+    }
 
+
+    template <typename Sort, typename Fn>
+    bool MapSorted(Fn fn)
+    {
+        std::set<GraphImplNodeType*, Sort> sortedNodes;
+        MapAllNodes([&](GraphImplNodeType* node)
+        {
+            sortedNodes.insert(node);
+        });
+
+        for (auto i = sortedNodes.begin(); i != sortedNodes.end(); i++)
+        {
+            if (fn((*i)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 protected:
-    void ClearTypeInfo();
-    void MarkObject(ULONG64 address, ULONG64 prev);
-    void ScanBytes(RemoteHeapBlock * remoteHeapBlock, HeapObjectInfo const& info);
+    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
+    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
+    void EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);
 
-    typedef std::pair<RemoteHeapBlock *, HeapObjectInfo> MarkStackEntry;
+    void ClearTypeInfo();
+    void MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
+    void ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
+
+    typedef std::pair<RemoteHeapBlock *, GraphImplNodeType *> MarkStackEntry;
 
     std::stack<MarkStackEntry> _markStack;
     GraphImplType _objectGraph;
 
     RemoteHeapBlockMap m_hbm;
-    JDRemoteTyped _recycler;
     EXT_CLASS_BASE* _ext;
     HeapBlockAlignmentUtility _alignmentUtility;
     bool _verbose;

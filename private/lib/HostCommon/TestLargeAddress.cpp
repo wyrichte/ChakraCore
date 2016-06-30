@@ -30,14 +30,14 @@ bool UseLargeAddresses(int& argc, __in_ecount(argc) LPWSTR argv[])
     for (int i = 0; i < argc;)
     {
         bool foundSwitch = false;
-        if ((argv[i][0] == L'-' || argv[i][0] == L'/'))
+        if ((argv[i][0] == _u('-') || argv[i][0] == _u('/')))
         {            
-            if (_wcsicmp(&argv[i][1], L"largeaddress") == 0)
+            if (_wcsicmp(&argv[i][1], _u("largeaddress")) == 0)
             {
                 useLargeAddress = true;
                 foundSwitch = true;
             }
-            else if (_wcsicmp(&argv[i][1], L"largeaddress-") == 0)
+            else if (_wcsicmp(&argv[i][1], _u("largeaddress-")) == 0)
             {
                 useLargeAddress = false;
                 foundSwitch = true;
@@ -123,14 +123,14 @@ TestLargeAddress(int argc, __in_ecount(argc) LPWSTR argv[], MainFunc pfunc)
     HANDLE threadHandle = reinterpret_cast<HANDLE>(_beginthreadex(NULL, 0, LargeAddressThreadProc, &threadParam, 0, NULL));
     if (threadHandle == NULL)
     {
-        wprintf(L"FATAL ERROR: Large address thread create failed\n");
+        wprintf(_u("FATAL ERROR: Large address thread create failed\n"));
         exit(1);
     }
 
     // Wait until the test is finished.
     if (WaitForSingleObject(threadHandle, INFINITE) != WAIT_OBJECT_0)
     {
-        wprintf(L"FATAL ERROR: WaitForSingleObject on large address thread failed\n");
+        wprintf(_u("FATAL ERROR: WaitForSingleObject on large address thread failed\n"));
         exit(1);
     }
 
@@ -138,7 +138,7 @@ TestLargeAddress(int argc, __in_ecount(argc) LPWSTR argv[], MainFunc pfunc)
     DWORD exitCode;
     if (!::GetExitCodeThread(threadHandle, &exitCode))
     {
-        wprintf(L"FATAL ERROR: GetExitCodeThread on large address thread failed\n");
+        wprintf(_u("FATAL ERROR: GetExitCodeThread on large address thread failed\n"));
         exit(1);
     }
     return exitCode;

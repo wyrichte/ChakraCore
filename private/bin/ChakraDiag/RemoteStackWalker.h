@@ -95,7 +95,6 @@ namespace JsDiag
         Js::JavascriptFunction* GetCurrentFunction(bool includeInlineFrames = true);
         bool IsCallerGlobalFunction();
         bool IsEvalCaller();
-        Js::Var GetPermanentArguments(const InspectionContext* context);
         Js::CallInfo GetCurrentCallInfo(bool includeInlineFrames = true);
 
     private:

@@ -17,6 +17,7 @@
 #include "core\ConfigParser.h"
 #include "ByteCode\ByteCodeSerializer.h"
 #include "Library\BoundFunction.h"
+#include "Library\JavascriptGeneratorFunction.h"
 #include "ByteCode\ByteCodeAPI.h"
 
 #include "Library\ES5Array.h"
@@ -201,7 +202,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_fIsValidCodePage      = TRUE;
     m_codepage              = GetACP();
 
-    m_cbMinStackHost        = Js::Constants::MinStackHost;
     m_excepinfoInterrupt    = NoException;       // If interrupt raised, exception information
     pendingCloneSource      = nullptr;
     // Debugger
@@ -217,17 +217,17 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_dwAppAdviseID         = 0;
     m_dwSnifferCookie       = 0;
 
-    m_fDumbHost = TRUE;
-    fKeepEngineAlive = FALSE;
-    fSetThreadDescription = FALSE;
-    m_isHostInDebugMode = FALSE;
-    m_isFirstSourceCompile = TRUE;
+    m_fDumbHost = true;
+    fKeepEngineAlive = false;
+    fSetThreadDescription = false;
+    m_isHostInDebugMode = false;
+    m_isFirstSourceCompile = true;
     // End Debugger
 
-    m_isDiagnosticsOM = FALSE;
+    m_isDiagnosticsOM = false;
 
-    m_fIsPseudoDisconnected = FALSE;  // True if pretending to be disconnected
-    m_fClearingDebugDocuments = FALSE;
+    m_fIsPseudoDisconnected = false;  // True if pretending to be disconnected
+    m_fClearingDebugDocuments = false;
 
     m_pglbod                = nullptr;
     eventHandlers                = nullptr;
@@ -242,13 +242,13 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     //m_pvLastReportedScriptBody = nullptr;
 
     hostType = SCRIPTHOSTTYPE_DEFAULT;
-    fCanOptimizeGlobalLookup = FALSE;
-    fNonPrimaryEngine = FALSE;
+    fCanOptimizeGlobalLookup = false;
+    fNonPrimaryEngine = false;
     webWorkerID = Js::Constants::NonWebWorkerContextId;
 
     scriptContext = nullptr;
-    isCloned = FALSE;
-    wasScriptDirectEnabled = FALSE;
+    isCloned = false;
+    wasScriptDirectEnabled = false;
     scriptBodyMap = nullptr;
     debugStackFrame = nullptr;
 
@@ -317,7 +317,7 @@ HRESULT ScriptEngine::Initialize(ThreadContext * threadContext)
     this->threadContext = threadContext;
     m_dwSafetyOptions = INTERFACE_USES_DISPEX;
 
-    scriptAllocator = HeapNew(ArenaAllocator, L"ScriptEngine", this->threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
+    scriptAllocator = HeapNew(ArenaAllocator, _u("ScriptEngine"), this->threadContext->GetPageAllocator(), Js::Throw::OutOfMemory);
     eventHandlers = JsUtil::List<BaseEventHandler*, ArenaAllocator>::New(scriptAllocator);
     eventSinks = JsUtil::List<EventSink*, ArenaAllocator>::New(scriptAllocator);
     return hr;
@@ -352,17 +352,17 @@ ScriptEngine::EnsureScriptContext()
             newScriptContext->ForceNoNative();
         }
 
-        newScriptContext->GetDebugContext()->SetInDebugMode();
+        newScriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::Debugging);
     }
     else if (this->CanRegisterDebugSources())
     {
         // We're in source rundown mode.
-        newScriptContext->GetDebugContext()->SetInSourceRundownMode();
+        newScriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
     }
 
     // Initialize with WebWorker State
     newScriptContext->webWorkerId = webWorkerID;
-    newScriptContext->SetIsDiagnosticsScriptContext(!!m_isDiagnosticsOM);
+    newScriptContext->SetIsDiagnosticsScriptContext(m_isDiagnosticsOM);
 
     if (SCRIPTHOSTTYPE_DEFAULT != this->GetHostType())
     {
@@ -390,6 +390,14 @@ ScriptEngine::EnsureScriptContext()
 
     library->GetEvalFunctionObject()->SetEntryPoint(m_fIsEvalRestrict ? &Js::GlobalObject::EntryEvalRestrictedMode : &Js::GlobalObject::EntryEval);
     library->GetFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewInstanceRestrictedMode : &Js::JavascriptFunction::NewInstance);
+    if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
+    {
+        library->GetGeneratorFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode : &Js::JavascriptGeneratorFunction::NewInstance);
+    }
+    if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
+    {
+        library->GetAsyncFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode : &Js::JavascriptFunction::NewAsyncFunctionInstance);
+    }
 
     return this->scriptContext;
 }
@@ -541,7 +549,7 @@ HRESULT ScriptEngine::CheckForExternalProfiler(IActiveScriptProfilerCallback **p
     CLSID clsid = {0};
     HRESULT hr = E_FAIL;
 
-    DWORD dwResult = GetEnvironmentVariableW(L"JS_PROFILER", guid, 39);
+    DWORD dwResult = GetEnvironmentVariableW(_u("JS_PROFILER"), guid, 39);
     if (0 != dwResult)
     {
         AssertMsg(dwResult <= 39, "Environment variable JS_PROFILER should be of the format '{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}' (braces should also be present)");
@@ -572,7 +580,7 @@ HRESULT ScriptEngine::StartProfilingInternal(
 {
 #ifdef ENABLE_NATIVE_CODEGEN
 
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::StartProfilingInternal\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::StartProfilingInternal\n"));
 
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
@@ -599,7 +607,7 @@ HRESULT ScriptEngine::StartProfilingInternal(
 STDMETHODIMP ScriptEngine::SetProfilerEventMask(
     __in DWORD dwEventMask)
 {
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::SetProfilerEventMask\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::SetProfilerEventMask\n"));
 
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
@@ -614,7 +622,7 @@ STDMETHODIMP ScriptEngine::StopProfiling(
     __in HRESULT hrShutdownReason)
 {
 #ifdef ENABLE_NATIVE_CODEGEN
-    OUTPUT_TRACE(Js::ScriptProfilerPhase, L"ScriptEngine::StopProfiling\n");
+    OUTPUT_TRACE(Js::ScriptProfilerPhase, _u("ScriptEngine::StopProfiling\n"));
     // Profiler only from the script engine thread
     if (GetCurrentThreadId() != m_dwBaseThread)
     {
@@ -693,7 +701,7 @@ STDMETHODIMP ScriptEngine::DumpHeap(const WCHAR* outputFile, HeapDumperObjectToD
     // if file already opened, don't set it here. Just ignore this one.
     if (! Output::GetOutputFile())
     {
-        HRESULT hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, L"wt");
+        hr = ConfigParser::s_moduleConfigParser.SetOutputFile(outputFile, _u("wt"));
         if (FAILED(hr))
         {
             return hr;
@@ -775,7 +783,7 @@ STDMETHODIMP ScriptEngine::EnumHeap2(PROFILER_HEAP_ENUM_FLAGS enumFlags, IActive
     return hr;
 }
 
-const wchar_t *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext)
+const char16 *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext)
 {
     DispMemberProxy* pDispMemberProxy = (DispMemberProxy*)pFunction;
 
@@ -841,35 +849,6 @@ bool ScriptEngine::CanHalt(Js::InterpreterHaltState* haltState)
     return map != nullptr && (!pCurrentFuncBody->GetIsGlobalFunc() || !Js::FunctionBody::IsDummyGlobalRetStatement(&map->sourceSpan));
 }
 
-class AutoSetDispatchHaltFlag
-{
-public:
-    AutoSetDispatchHaltFlag(Js::ScriptContext *scriptContext, ThreadContext *threadContext) : m_scriptContext(scriptContext), m_threadContext(threadContext)
-    {
-        Assert(m_scriptContext != nullptr);
-        Assert(m_threadContext != nullptr);
-
-        Assert(!m_threadContext->GetDebugManager()->IsAtDispatchHalt());
-        m_threadContext->GetDebugManager()->SetDispatchHalt(true);
-
-        Assert(!m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
-        m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(true);
-    }
-    ~AutoSetDispatchHaltFlag()
-    {
-        Assert(m_threadContext->GetDebugManager()->IsAtDispatchHalt());
-        m_threadContext->GetDebugManager()->SetDispatchHalt(false);
-
-        Assert(m_scriptContext->GetDebugContext()->GetProbeContainer()->IsPrimaryBrokenToDebuggerContext());
-        m_scriptContext->GetDebugContext()->GetProbeContainer()->SetIsPrimaryBrokenToDebuggerContext(false);
-    }
-private:
-    // Primary reason for caching both because once we break to debugger our engine is open for re-entrancy. That means the 
-    // connection to scriptcontet to threadcontext can go away (imagine the GC is called when we are broken)
-    Js::ScriptContext * m_scriptContext;
-    ThreadContext * m_threadContext;
-};
-
 void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
 {
     BREAKRESUMEACTION resumeAction = BREAKRESUMEACTION_CONTINUE;
@@ -911,7 +890,7 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
             isBreakpoint = true;
             break;
         case Js::STOP_BREAKPOINT:
-        case Js::STOP_ASYNCBREAK:  // We don't reach here except Hybrid debugging - in that case behave as if breakpoint.
+        case Js::STOP_ASYNCBREAK:
             br = BREAKREASON_BREAKPOINT;
             isBreakpoint = true;
             break;
@@ -1116,7 +1095,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionName(_In_ Var instance, _Out_
     Js::FunctionProxy *pFBody = jsFunction->GetFunctionProxy();
     if (pFBody != nullptr)
     {
-        const wchar_t * pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
+        const char16 * pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
         if (pwzName != nullptr)
         {
             *pBstrName = ::SysAllocString(pwzName);
@@ -1311,7 +1290,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionInfo(
         if (pBstrName != nullptr)
         {
             *pBstrName = nullptr;
-            const wchar_t * pwzName = pFBody->GetExternalDisplayName();
+            const char16 * pwzName = pFBody->GetExternalDisplayName();
             if (pwzName != nullptr)
             {
                 *pBstrName = ::SysAllocString(pwzName);
@@ -1657,7 +1636,7 @@ HRESULT ScriptEngine::GetDebugSiteCoreNoRef(IActiveScriptSiteDebug **pscriptSite
         HRESULT hr;
         if (FAILED(hr = m_pActiveScriptSite->QueryInterface(__uuidof(IActiveScriptSiteDebug),(void **)&m_scriptSiteDebug)))
         {
-            m_fDumbHost = TRUE;
+            m_fDumbHost = true;
             return hr;
         }
     }
@@ -1681,7 +1660,7 @@ HRESULT ScriptEngine::NonDbgGetSourceDocumentFromHostContext(
 {
     AssertMem(ppdoc);
     Assert(pFunctionBody != nullptr);
-    Assert(!pFunctionBody->GetScriptContext()->IsInDebugMode() || pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode());
+    Assert(!pFunctionBody->GetScriptContext()->IsScriptContextInDebugMode() || pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode());
 
     Assert(pFunctionBody->IsDynamicScript() || pFunctionBody->GetSecondaryHostSourceContext() == Js::Constants::NoHostSourceContext);
 
@@ -1740,7 +1719,7 @@ ScriptDebugDocument * ScriptEngine::FindDebugDocument(SourceContextInfo * pInfo)
     return pDebugDocument;
 }
 
-void ScriptEngine::RegisterDebugDocument(CScriptBody *pBody, const wchar_t * title, DWORD_PTR dwDebugSourceContext)
+void ScriptEngine::RegisterDebugDocument(CScriptBody *pBody, const char16 * title, DWORD_PTR dwDebugSourceContext)
 {
     Assert(this->CanRegisterDebugSources());
 
@@ -1781,7 +1760,7 @@ HRESULT ScriptEngine::GetDebugDocumentContextFromHostPosition(
     IDebugDocumentContext       **ppDebugDocumentContext)
 {
     // The library code should not be register to the PDM, as they will not be shown to the user.
-    if (pContext->IsInDebugOrSourceRundownMode() && !pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode())
+    if (pContext->IsScriptContextInSourceRundownOrDebugMode() && !pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode())
     {
         Js::Utf8SourceInfo *pUtf8SourceInfo = pFunctionBody->GetUtf8SourceInfo();
         ScriptDebugDocument *pDebugDocument = nullptr;
@@ -1876,8 +1855,8 @@ static BOOL FUserWantsDebugger(void)
     DWORD dwType;
     DWORD dwDebug   = 0;
     DWORD dwSize    = sizeof(DWORD);
-    LPCWSTR pszKey = L"Software\\Microsoft\\Windows Script\\Settings";
-    LPCWSTR pszVal = L"JITDebug";
+    LPCWSTR pszKey = _u("Software\\Microsoft\\Windows Script\\Settings");
+    LPCWSTR pszVal = _u("JITDebug");
 
     lErr = RegOpenKeyExW(HKEY_CURRENT_USER, pszKey, 0, KEY_READ, &hk);
     if (NOERROR != lErr)
@@ -1994,7 +1973,7 @@ STDMETHODIMP ScriptEngine::OnDestroyThread(IRemoteDebugApplicationThread *prdat)
 
 HRESULT ScriptEngine::SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicationThread* prdatSteppingThread, bool fDuringSetupDebugApp)
 {
-    Assert(GetScriptSiteHolder() != nullptr && GetScriptSiteHolder()->GetScriptSiteContext() != nullptr && !GetScriptSiteHolder()->IsClosed());
+    Assert(GetScriptSiteHolder() != nullptr && !GetScriptSiteHolder()->IsClosed());
 
     BOOL fIsOurThread = FALSE;
     m_remoteDbgThreadId = NOBASETHREAD;
@@ -2007,38 +1986,54 @@ HRESULT ScriptEngine::SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicat
     }
     GetScriptSiteHolder()->SetAppBreakFlags(abf, fIsOurThread);
 
-    Js::ScriptContext* scriptContext=GetScriptSiteHolder()->GetScriptSiteContext();
+    Js::ScriptContext* scriptContext = GetScriptSiteHolder()->GetScriptSiteContext();
 
-    if (APPBREAKFLAG_DEBUGGER_HALT&abf && !threadContext->GetDebugManager()->IsAtDispatchHalt())
+    // None of the functions call below go out of the engine, so it is ok take the critical section
+    if (scriptContext != nullptr && !scriptContext->IsActuallyClosed() &&
+        scriptContext->GetDebugContextCloseCS()->TryEnter())
     {
-        scriptContext->GetDebugContext()->GetProbeContainer()->AsyncActivate(this);
-        if (Js::Configuration::Global.EnableJitInDebugMode())
+        Js::DebugContext* debugContext = scriptContext->GetDebugContext();
+        if (debugContext != nullptr)
         {
-            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(true);
-        }
-    }
-    else if (!fDuringSetupDebugApp)
-    {
-        if (Js::Configuration::Global.EnableJitInDebugMode())
-        {
-            threadContext->GetDebugManager()->GetDebuggingFlags()->SetForceInterpreter(false);
-        }
-        scriptContext->GetDebugContext()->GetProbeContainer()->AsyncDeactivate();
-    }
+            Js::ProbeContainer* probeContainer = debugContext->GetProbeContainer();
+            Js::DebugManager* debugManager = threadContext->GetDebugManager();
 
-    if (fIsOurThread && (abf & APPBREAKFLAG_STEP))
-    {
-        // This is to mention that the last action was stepping, hence update the state of the diagnostics accordingly.
-        Assert(scriptContext);
-        scriptContext->GetDebugContext()->GetProbeContainer()->UpdateStep(fDuringSetupDebugApp);
-    }
-    else if (!fDuringSetupDebugApp)
-    {
-        Assert(scriptContext);
-        scriptContext->GetDebugContext()->GetProbeContainer()->DeactivateStep();
-    }
+            if (APPBREAKFLAG_DEBUGGER_HALT&abf && !debugManager->IsAtDispatchHalt())
+            {
+                probeContainer->AsyncActivate(this);
+                if (Js::Configuration::Global.EnableJitInDebugMode())
+                {
+                    debugManager->GetDebuggingFlags()->SetForceInterpreter(true);
+                }
+            }
+            else if (!fDuringSetupDebugApp)
+            {
+                if (Js::Configuration::Global.EnableJitInDebugMode())
+                {
+                    debugManager->GetDebuggingFlags()->SetForceInterpreter(false);
+                }
+                probeContainer->AsyncDeactivate();
+            }
 
-    return NOERROR;
+            if (fIsOurThread && (abf & APPBREAKFLAG_STEP))
+            {
+                // This is to mention that the last action was stepping, hence update the state of the diagnostics accordingly.
+                probeContainer->UpdateStep(fDuringSetupDebugApp);
+            }
+            else if (!fDuringSetupDebugApp)
+            {
+                probeContainer->DeactivateStep();
+            }
+        }
+
+        scriptContext->GetDebugContextCloseCS()->Leave();
+
+        return NOERROR;
+    }
+    else
+    {
+        return E_UNEXPECTED;
+    }
 }
 
 // === IRemoteDebugApplicationEvents ===
@@ -2056,9 +2051,8 @@ STDMETHODIMP ScriptEngine::OnBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugAppl
 
             if (GetScriptSiteHolder()->GetScriptSiteContext() != nullptr && !GetScriptSiteHolder()->IsClosed())
             {
-                if (!GetScriptSiteHolder()->GetScriptSiteContext()->IsInDebugMode())
+                if (!GetScriptSiteHolder()->GetScriptSiteContext()->IsScriptContextInDebugMode())
                 {
-                    AssertMsg(false, "Why do we get this event when we are not in debug mode?");
                     return E_UNEXPECTED;
                 }
 
@@ -2169,27 +2163,27 @@ void ScriptEngine::CheckHostInDebugMode()
         {
             Assert(false);
         }
-        if(m_isHostInDebugMode != isInDebugMode)
+        if(m_isHostInDebugMode != !!isInDebugMode)
         {
-            OUTPUT_TRACE(Js::DebuggerPhase, L"Host transitioned debug mode from %s to %s \n", IsTrueOrFalse(m_isHostInDebugMode),  IsTrueOrFalse(isInDebugMode));
+            OUTPUT_TRACE(Js::DebuggerPhase, _u("Host transitioned debug mode from %s to %s \n"), IsTrueOrFalse(m_isHostInDebugMode),  IsTrueOrFalse(isInDebugMode));
         }
-        m_isHostInDebugMode = isInDebugMode;
+        m_isHostInDebugMode = !!isInDebugMode;
     }
 }
 
 STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is][in] */__RPC__in_ecount_full(pairCount) SourceContextPair *pSourceContextPairs)
 {
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n", this, pairCount);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n"), this, pairCount);
 
     if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
     {
         return E_FAIL;
     }
 
-    if (this->scriptContext->IsInDebugMode())
+    if (this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the non-debug mode to perform dynamic attach, o/w we assume that we have done the attach for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerAttached already in the debug mode\n");
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached already in the debug mode\n"));
         return S_OK;
     }
 
@@ -2210,7 +2204,7 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
 
 STDMETHODIMP ScriptEngine::OnDebuggerDetached()
 {
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerDetached: start 0x%p\n", this);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached: start 0x%p\n"), this);
 
     if (m_pda == nullptr)
     {
@@ -2225,10 +2219,10 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
         return E_FAIL;
     }
 
-    if (!this->scriptContext->IsInDebugMode())
+    if (!this->scriptContext->IsScriptContextInDebugMode())
     {
         // We should be in the debug mode to perform dynamic detach, o/w we assume that we have done the detach for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::OnDebuggerDetached already in the non-debug mode\n");
+        OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached already in the non-debug mode\n"));
         return S_OK;
     }
 
@@ -2270,16 +2264,15 @@ STDMETHODIMP ScriptEngine::PopInvocationContext(__in DWORD cookie)
 // Returns S_OK upon success (currently returns E_NOTIMPL).
 STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_is][in] */__RPC__in_ecount_full(pairCount) SourceContextPair *pSourceContextPairs)
 {
-    //wprintf(L"Performing Source Rundown\n");
+    //wprintf(_u("Performing Source Rundown\n"));
     if (IsInClosedState() || this->scriptContext == nullptr)
     {
         return E_FAIL;
     }
 
-    if (!this->scriptContext->IsInNonDebugMode())
+    if (this->scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         // We should be in the non-debug mode to perform source rundown, o/w we assume that we have done the rundown for this engine already.
-        OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::PerformSourceRundown already in the %s mode\n", this->scriptContext->IsInSourceRundownMode() ? L"SourceRundown" : L"Debug");
         return S_OK;
     }
 
@@ -2293,13 +2286,21 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
     }
 
     // Move the debugger into source rundown mode.
-    scriptContext->GetDebugContext()->SetInSourceRundownMode();
+    scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
 
     // Save the pairCount and pSourceContextPairs so that scriptContext can query for dwDebugHostSourceContext
     AutoRestoreValue<ULONG> sourceContextPairCount(&this->pairCount, pairCount);
     AutoRestoreValue<SourceContextPair *> sourceContextPairs(&this->pSourceContextPairs, pSourceContextPairs);
 
     hr = this->scriptContext->GetDebugContext()->RundownSourcesAndReparse(/*shouldPerformSourceRundown*/ true, /*shouldReparseFunctions*/ false);
+
+    if (this->IsInClosedState())
+    {
+        return hr;
+    }
+
+    // Debugger attach/detach failure is catastrophic, take down the process
+    DEBUGGER_ATTACHDETACH_FATAL_ERROR_IF_FAILED(hr);
 
     // Successful source rundown.
     return hr;
@@ -2341,13 +2342,13 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
 {
     if (webWorkerID == Js::Constants::NonWebWorkerContextId)
     {
-        fSetThreadDescription = TRUE;
+        fSetThreadDescription = true;
 
         // Not a web worker
         return E_FAIL;
     }
 
-    if (scriptContext->IsInNonDebugMode())
+    if (scriptContext->IsScriptContextInNonDebugMode())
     {
         return E_UNEXPECTED;
     }
@@ -2357,7 +2358,7 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
         return S_OK; // We already set the thread description, this can happen if webworker have multiple eval codes and attach happens after webworker starts running.
     }
 
-    fSetThreadDescription = TRUE;
+    fSetThreadDescription = true;
 
     if (m_debugApplicationThread != nullptr)
     {
@@ -2434,12 +2435,12 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
             &m_dwSnifferCookie);
         if (SUCCEEDED(hr))
         {
-            m_fStackFrameSnifferAdded = TRUE;
+            m_fStackFrameSnifferAdded = true;
             hr = m_pda->AddGlobalExpressionContextProvider(
                 (IProvideExpressionContexts *)this,
                 &m_dwExprContextProviderCookie);
             if (SUCCEEDED(hr))
-                m_fExprContextProviderAdded = TRUE;
+                m_fExprContextProviderAdded = true;
         }
         Js::ScriptContext* scriptContext=GetScriptSiteHolder()->GetScriptSiteContext();
         scriptContext->GetDebugContext()->GetProbeContainer()->InitializeInlineBreakEngine(this);
@@ -2467,13 +2468,13 @@ void ScriptEngine::ResetDebugger(void)
         if (m_fStackFrameSnifferAdded)
         {
             m_pda->RemoveStackFrameSniffer(m_dwSnifferCookie);
-            m_fStackFrameSnifferAdded = FALSE;
+            m_fStackFrameSnifferAdded = false;
         }
 
         if (m_fExprContextProviderAdded)
         {
             m_pda->RemoveGlobalExpressionContextProvider(m_dwExprContextProviderCookie);
-            m_fExprContextProviderAdded = FALSE;
+            m_fExprContextProviderAdded = false;
         }
 
         RELEASEPTR(m_debugApplicationThread);
@@ -2489,7 +2490,7 @@ void ScriptEngine::ResetDebugger(void)
     Assert(nullptr == m_debugFormatter);
     UNADVISERELEASE(m_pcpAppEvents,m_dwAppAdviseID);
 
-    m_fDumbHost = TRUE;
+    m_fDumbHost = true;
     RELEASEPTR(m_scriptSiteDebug);
 }
 
@@ -2629,7 +2630,7 @@ BOOL ScriptEngine::IsDebuggerEnvironmentAvailable(bool requery)
 HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
 {
     HRESULT hr = S_OK;
-    OUTPUT_TRACE(Js::DebuggerPhase, L"ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n", this, scriptContext, m_isFirstSourceCompile);
+    OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n"), this, scriptContext, m_isFirstSourceCompile);
     if (m_isFirstSourceCompile)
     {
         // We will not transition the state if we have failed to attach or detach.
@@ -2638,18 +2639,16 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
             scriptContext->InitializeDebugging();
 
             //Utf8SourceInfo is not part of scriptContext by this point, need to manually put it into debug mode if it's not
-            if (utf8SourceInfo && !utf8SourceInfo->IsInDebugMode())
+            if (utf8SourceInfo && !utf8SourceInfo->GetIsLibraryCode() && !utf8SourceInfo->IsInDebugMode())
             {
                 utf8SourceInfo->SetInDebugMode(true);
             }
-
-            hr = this->scriptContext->GetLibrary()->EnsureReadyIfHybridDebugging(); // Prepare library if started hybrid debugging
         }
         else if (this->CanRegisterDebugSources())
         {
-            this->scriptContext->GetDebugContext()->SetInSourceRundownMode();
+            this->scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
         }
-        m_isFirstSourceCompile = FALSE;
+        m_isFirstSourceCompile = false;
 
         // Let's remove the transition function from script context - so that Eval call does not come all the way over here.
         this->scriptContext->SetTransitionToDebugModeIfFirstSourceFn(nullptr);
@@ -2710,7 +2709,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
             if ((Js::Configuration::Global.flags.PrintRunTimeDataCollectionTrace) && (false == fNonPrimaryEngine))
             {
                 // Primary engine is created for top level Page, if start page is set to about:blank/about:Tabs, first primary engine AllocId is 1.
-                Output::Print(L"ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n", scriptContext->allocId, bstrUrl);
+                Output::Print(_u("ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n"), scriptContext->allocId, bstrUrl);
             }
 #endif
 #if DBG_DUMP
@@ -2729,11 +2728,11 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
         if (activeScriptSite->GetLCID(&lcidTemp) == E_NOTIMPL)
         {
             threadContext->SetRootTrackerScriptContext(scriptContext);
-            scriptContext->urlRecord = LeakReport::LogUrl(L"<CRootTracker?>", scriptContext->GetGlobalObject());
+            scriptContext->urlRecord = LeakReport::LogUrl(_u("<CRootTracker?>"), scriptContext->GetGlobalObject());
         }
         else
         {
-            scriptContext->urlRecord = LeakReport::LogUrl(L"<unknown>", scriptContext->GetGlobalObject());
+            scriptContext->urlRecord = LeakReport::LogUrl(_u("<unknown>"), scriptContext->GetGlobalObject());
         }
     }
 
@@ -2776,18 +2775,18 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
     if (m_fPersistLoaded)
         ChangeScriptState(SCRIPTSTATE_INITIALIZED);
 
-    m_fDumbHost = FALSE;
+    m_fDumbHost = false;
 
     if (IsDebuggerEnvironmentAvailable(/*requery*/true))
     {
-        if (scriptContext->IsInDebugMode() && (!Js::Configuration::Global.EnableJitInDebugMode()))
+        if (scriptContext->IsScriptContextInDebugMode() && (!Js::Configuration::Global.EnableJitInDebugMode()))
         {
             scriptContext->ForceNoNative();
         }
         scriptContext->InitializeDebugging();
     }
 
-    if (scriptContext->IsInDebugOrSourceRundownMode())
+    if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         // Register all script blocks
         DisableInterrupts();
@@ -3229,7 +3228,7 @@ HRESULT ScriptEngine::CloseInternal()
 
 STDMETHODIMP ScriptEngine::Close(void)
 {
-    if (this->scriptContext != nullptr && this->scriptContext->IsInDebugMode())
+    if (this->scriptContext != nullptr && this->scriptContext->IsScriptContextInDebugMode())
     {
         // Lock since enumeration of code contexts (via ScriptEngine::EnumCodeContextsOfPosition()) occurs
         // on a different thread and we don't want enumeration to proceed as the engine is being closed.
@@ -3393,14 +3392,14 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
     // Figure out what module this goes in. Assume global module if directHostObject is set
     // and "window" named item is not.
-    if (pcszItemName && pcszItemName[0] != L'\0')
+    if (pcszItemName && pcszItemName[0] != _u('\0'))
     {
         pnid = m_NamedItemList.Find(pcszItemName);
         if (!pnid)
         {
             if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
             {
-                DebugPrintf((L"Unable to find named item for script\n"));
+                DebugPrintf((_u("Unable to find named item for script\n")));
                 return E_INVALIDARG;
             }
         }
@@ -3731,7 +3730,7 @@ HRESULT ScriptEngine::AddScriptletCore(
     pnid = m_NamedItemList.Find(pcszItemName);
     if (!pnid)
     {
-        DebugPrintf((L"Unable to find named item for event source\n"));
+        DebugPrintf((_u("Unable to find named item for event source\n")));
         FAILGO(E_INVALIDARG);
     }
     bs.AppendSz(OLESTR("function "));
@@ -3903,8 +3902,8 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
     Js::FunctionBody *function = body->pbody->GetRootFunction()->GetFunctionBody();
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
-    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
-    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, 0, nullptr, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
+    BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
+    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
@@ -3920,7 +3919,7 @@ HRESULT ScriptEngine::DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode,
     // Byte code execution not allowed under debugger.
     if (IsDebuggerEnvironmentAvailable(/*requery*/ true))
     {
-        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::DeserializeByteCodes: Failed because under debugger.\n");
+        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::DeserializeByteCodes: Failed because under debugger.\n"));
         return E_FAIL;
     }
 
@@ -3945,7 +3944,7 @@ HRESULT ScriptEngine::DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode,
             pexcepinfo
             );
 
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::DeserializeByteCodes: HR=0x%08X.\n", hr);
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::DeserializeByteCodes: HR=0x%08X.\n"), hr);
     return hr;
 }
 
@@ -3964,7 +3963,7 @@ HRESULT ScriptEngine::GenerateByteCodeBuffer(
     /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*pdwByteCodeSize) BYTE **byteCode,
     /* [out] */ __RPC__out DWORD *pdwByteCodeSize)
 {
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::GenerateByteCodeBuffer\n");
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::GenerateByteCodeBuffer\n"));
 
     CHECK_POINTER(byteCode);
     *byteCode = nullptr;
@@ -3992,7 +3991,7 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
     /* [in] */ DWORD_PTR dwSourceContext,
     /* [out] */ __RPC__out EXCEPINFO *pexcepinfo)
 {
-    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::ExecuteByteCodeBuffer\n");
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer\n"));
 
     if (pexcepinfo != nullptr)
     {
@@ -4002,7 +4001,7 @@ HRESULT ScriptEngine::ExecuteByteCodeBuffer(
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     if (Js::Configuration::Global.flags.ExecuteByteCodeBufferReturnsInvalidByteCode)
     {
-        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::ExecuteByteCodeBuffer: Forced failure.\n");
+        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer: Forced failure.\n"));
         return SCRIPT_E_INVALID_BYTECODE;
     }
 #endif
@@ -4318,14 +4317,14 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     else
     {
         // Figure out what module this goes in
-        if (pcszItemName && pcszItemName[0] != L'\0')
+        if (pcszItemName && pcszItemName[0] != _u('\0'))
         {
             pnid = m_NamedItemList.Find(pcszItemName);
             if (!pnid)
             {
                 if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
                 {
-                    DebugPrintf((L"Unable to find named item for script\n"));
+                    DebugPrintf((_u("Unable to find named item for script\n")));
                     FAILGO(E_INVALIDARG);
                 }
             }
@@ -4337,15 +4336,15 @@ HRESULT ScriptEngine::ParseScriptTextCore(
 
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            if (nullptr != pcszItemName && wcscmp(pcszItemName, L"window") != 0)
+            if (nullptr != pcszItemName && wcscmp(pcszItemName, _u("window")) != 0)
             {
                 ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
                 Recycler* recycler = threadContext->GetRecycler();
                 Js::StringBuilder<Recycler>* stringBuilder = Js::StringBuilder<Recycler>::New(recycler, 32);
 
                 stringBuilder->AppendSz(pcszItemName);
-                stringBuilder->Append(L' ');
-                stringBuilder->AppendCppLiteral(L"script block");
+                stringBuilder->Append(_u(' '));
+                stringBuilder->AppendCppLiteral(_u("script block"));
                 pszTitle = stringBuilder->Detach();
             }
             else
@@ -4550,7 +4549,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         {
             if (scriptContext->GetGlobalObject()->GetDirectHostObject() == nullptr)
             {
-                DebugPrintf((L"Unable to find named item for script\n"));
+                DebugPrintf((_u("Unable to find named item for script\n")));
                 FAILGO(E_INVALIDARG);
             }
         }
@@ -5582,11 +5581,11 @@ HRESULT ScriptEngine::CompileUTF16(
 #if DBG_DUMP
     if (Js::Configuration::Global.flags.TraceMemory.IsEnabled(Js::ParsePhase) && Js::Configuration::Global.flags.Verbose)
     {
-        Output::Print(L"Default Compile\n"
-            L"  Tile:                   %s\n"
-            L"  Unicode size (in bytes) %u\n"
-            L"  UTF-8 size (in bytes)   %u\n"
-            L"  Expected savings        %d\n", pszTitle != nullptr ? pszTitle : L"", stringLength * sizeof(wchar_t), cbLength, stringLength * sizeof(wchar_t) - cbLength);
+        Output::Print(_u("Default Compile\n")
+            _u("  Tile:                   %s\n")
+            _u("  Unicode size (in bytes) %u\n")
+            _u("  UTF-8 size (in bytes)   %u\n")
+            _u("  Expected savings        %d\n"), pszTitle != nullptr ? pszTitle : _u(""), stringLength * sizeof(char16), cbLength, stringLength * sizeof(char16) - cbLength);
     }
 #endif
 
@@ -5594,11 +5593,7 @@ HRESULT ScriptEngine::CompileUTF16(
     // Don't need to handle OOM here since this is currently always called from a try-catch block
 
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
-    sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo);
-    if ((grfscr & fscrIsLibraryCode) != 0)
-    {
-        sourceInfo->SetIsLibraryCode();
-    }
+    sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo, ((grfscr & fscrIsLibraryCode) != 0));
 
     Assert(utf8::CharsAreEqual(pszSrc, pchUtf8Code, stringLength, utf8::doAllowThreeByteSurrogates));
 
@@ -5645,11 +5640,8 @@ HRESULT ScriptEngine::CompileUTF8(
     // Currently always called from a try-catch
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
 
-    sourceInfo = Js::Utf8SourceInfo::NewWithNoCopy(scriptContext, (LPUTF8) pSrc, stringLength, stringLength, srcInfo);
-    if ((grfscr & fscrIsLibraryCode) != 0)
-    {
-        sourceInfo->SetIsLibraryCode();
-    }
+    sourceInfo = Js::Utf8SourceInfo::NewWithNoCopy(scriptContext, (LPUTF8) pSrc, stringLength, stringLength, srcInfo, ((grfscr & fscrIsLibraryCode) != 0));
+
     SETRETVAL(ppSourceInfo, sourceInfo);
 
     hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
@@ -5715,7 +5707,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     functionInfo = functionInfo->GetFunctionProxy()->GetParseableFunctionInfo();
 
                     CScriptBody *newBody = HeapNew(CScriptBody, functionInfo, this, utf8SourceInfo);
-                    Assert(!scriptContext->IsInDebugOrSourceRundownMode());
+                    Assert(scriptContext->IsScriptContextInNonDebugMode());
 
                     scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, ppbody);
                     (*ppbody)->Release();                   
@@ -5741,8 +5733,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
     Js::ParseableFunctionInfo* pRootFunc = nullptr;
 
     uint sourceIndex = 0;
-    LPCUTF8 pszSrc = utf8SourceInfo->GetSource(L"ScriptEngine::CompileUTF8Core");
-    size_t cbLength = utf8SourceInfo->GetCbLength(L"ScriptEngine::CompileUTF8Core");
+    LPCUTF8 pszSrc = utf8SourceInfo->GetSource(_u("ScriptEngine::CompileUTF8Core"));
+    size_t cbLength = utf8SourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core"));
     // BLOCK
     {
         Parser ps(this->scriptContext);
@@ -5775,16 +5767,10 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 hr = GenerateByteCode(parseTree, grfscr, scriptContext, &func, sourceIndex, scriptContext->IsForceNoNative(), &ps, pse);
                 utf8SourceInfo->SetByteCodeGenerationFlags(grfscr);
             }
-            else
+            else if (scriptContext->IsScriptContextInDebugMode() && !utf8SourceInfo->GetIsLibraryCode() && !utf8SourceInfo->IsInDebugMode())
             {
                 // In case of syntax error, if we are in debug mode, put the utf8SourceInfo into debug mode.
-                if (scriptContext->IsInDebugMode())
-                {
-                    if (!utf8SourceInfo->IsInDebugMode())
-                    {
-                        utf8SourceInfo->SetInDebugMode(true);
-                    }
-                }
+                utf8SourceInfo->SetInDebugMode(true);
             }
         }
 
@@ -5797,7 +5783,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 if (SUCCEEDED(HR(pse->ei.scode)))
                     pse->ei.scode = E_FAIL;
             }
-            if (scriptContext->IsInDebugOrSourceRundownMode())
+            if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
             {
                 // Register the document with PDM to ensure critical errors like syntax errors are correctly reported
                 // in the debugger
@@ -5822,16 +5808,16 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
     if (!IsDebuggerEnvironmentAvailable() && CONFIG_FLAG(ForceSerialized))
     {
-        auto srcInfo = pRootFunc->GetHostSrcInfo();
-        if (srcInfo->moduleID == kmodGlobal)
+        auto hostSrcInfo = pRootFunc->GetHostSrcInfo();
+        if (hostSrcInfo->moduleID == kmodGlobal)
         {
             byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache guarantee is that the buffer lives as long as the process.
             DWORD dwByteCodeSize;
             Js::FunctionBody* deserializedFunction = nullptr;
 
-            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forcing serialization.\n");
-            BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, L"ByteCodeSerializer");
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, 0, nullptr, pRootFunc->GetFunctionBody(), srcInfo, true, &byteCode, &dwByteCodeSize);
+            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
+            BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), hostSrcInfo, true, &byteCode, &dwByteCodeSize);
 
             if (SUCCEEDED(hr))
             {
@@ -5841,25 +5827,25 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     flags = fscrAllowFunctionProxy;
                 }
 
-                srcInfo->sourceContextInfo->nextLocalFunctionId = pRootFunc->GetLocalFunctionId();
-                hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, srcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
+                hostSrcInfo->sourceContextInfo->nextLocalFunctionId = pRootFunc->GetLocalFunctionId();
+                hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, hostSrcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
 
                 if (SUCCEEDED(hr))
                 {                    
-                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization succeeded.\n");
+                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization succeeded.\n"));
                     pRootFunc = deserializedFunction;
                 }
                 else
                 {
-                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization failed.\n");
+                    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization failed.\n"));
                 }
             }
             else
             {
-                OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Serialization failed.\n");
+                OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization failed.\n"));
             }
             END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
-            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, L"ScriptEngine::CompileUTF8Core: Forced serialization done.\n");
+            OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forced serialization done.\n"));
         }
     }
 
@@ -5879,7 +5865,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     *ppbody = HeapNew(CScriptBody, pRootFunc, this, utf8SourceInfo);
 
     // Register it.
-    if (scriptContext->IsInDebugOrSourceRundownMode())
+    if (scriptContext->IsScriptContextInSourceRundownOrDebugMode())
     {
         if (FAILED(hr = DbgRegisterScriptBlock(*ppbody)))
         {
@@ -5891,7 +5877,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     if ((grfscr & fscrImplicitThis) != 0)
     {
         Js::Utf8SourceInfo *sourceInfo = this->scriptContext->GetSource(sourceIndex);
-        Assert(sourceInfo->GetCbLength(L"ScriptEngine::CompileUTF8Core") == cbLength);
+        Assert(sourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core")) == cbLength);
         CScriptBody* oldBody;
         if (scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, &oldBody))
         {
@@ -6155,11 +6141,6 @@ LVersionInfo:
     case SCRIPTPROP_HOSTSTACKREQUIRED:
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (nullptr != pvarIndex)
-            return E_INVALIDARG;
-        pvarValue->vt   = VT_I4;
-        pvarValue->lVal = m_cbMinStackHost;
-        return NOERROR;
 
     case SCRIPTPROP_INTEGERMODE:
         AssertMsg(FALSE, "not tested");
@@ -6291,14 +6272,6 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
     case SCRIPTPROP_HOSTSTACKREQUIRED:
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (nullptr != pvarIndex)
-            return E_INVALIDARG;
-        if (VT_I4 != pvarValue->vt)
-            return E_INVALIDARG;
-        m_cbMinStackHost = (UINT)pvarValue->lVal;
-        if (m_cbMinStackHost < Js::Constants::MinStackHost)
-            m_cbMinStackHost = Js::Constants::MinStackHost;
-        return NOERROR;
 
         // locale conversion is used in vb, but not in jscript.
     case SCRIPTPROP_CONVERSIONLCID:
@@ -6318,27 +6291,6 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         // This flag can only be set if the engine is uninitialized.
         AssertMsg(FALSE, "not tested");
         return E_NOTIMPL;
-        if (SCRIPTSTATE_UNINITIALIZED != m_ssState)
-            return E_UNEXPECTED;
-        if (VT_UNKNOWN != pvarValue->vt)
-            return E_INVALIDARG;
-#if 0
-        IActiveScriptStringCompare* pActiveScriptStrComp;
-        pActiveScriptStrComp = nullptr;
-        if (pvarValue->punkVal)
-        {
-            HRESULT hr = pvarValue->punkVal->QueryInterface(IID_IActiveScriptStringCompare, (void **)&pActiveScriptStrComp);
-            if (FAILED(hr) || pActiveScriptStrComp == nullptr)
-                return E_INVALIDARG;
-        }
-        if (nullptr != m_pActiveScriptStrComp)
-        {
-            m_pActiveScriptStrComp->Release();
-            m_pActiveScriptStrComp = nullptr;
-        }
-        m_pActiveScriptStrComp = pActiveScriptStrComp;
-#endif
-        return NOERROR;
 
         // IIS is using this to catch a bunch of exceptions,
         // including some fatal exceptions. COM interfaces are
@@ -6532,7 +6484,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         }
     case SCRIPTPROP_DIAGNOSTICS_OM:
         {
-            this->m_isDiagnosticsOM = TRUE;
+            this->m_isDiagnosticsOM = true;
             // This is called before SetScriptSite, so there won't be scriptcontext available.
             Assert(this->scriptContext == nullptr);
             return NOERROR;
@@ -6551,11 +6503,15 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             this->m_fIsEvalRestrict = (pvarValue->boolVal != VARIANT_FALSE);
 
             Js::JavascriptMethod newFunctionFunc = &Js::JavascriptFunction::NewInstance;
+            Js::JavascriptMethod newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstance;
+            Js::JavascriptMethod newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstance;
             Js::JavascriptMethod evalFunc = &Js::GlobalObject::EntryEval;
             
             if (this->m_fIsEvalRestrict)
             {
                 newFunctionFunc = &Js::JavascriptFunction::NewInstanceRestrictedMode;
+                newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode;
+                newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode;
                 evalFunc = &Js::GlobalObject::EntryEvalRestrictedMode;
             }
             
@@ -6566,6 +6522,14 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
 
                 library->GetEvalFunctionObject()->SetEntryPoint(evalFunc);
                 library->GetFunctionConstructor()->SetEntryPoint(newFunctionFunc);
+                if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
+                {
+                    library->GetGeneratorFunctionConstructor()->SetEntryPoint(newGeneratorFunctionFunc);
+                }
+                if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
+                {
+                    library->GetAsyncFunctionConstructor()->SetEntryPoint(newAsyncFunctionFunc);
+                }
             }
             return NOERROR;
         }
@@ -6839,7 +6803,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
     LoadScriptFlag loadScriptFlag = LoadScriptFlag_Expression;
-    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(wchar_t), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
+    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)
     {
@@ -7023,16 +6987,16 @@ IActiveScriptDirectHost* ScriptEngine::GetActiveScriptDirectHostNoRef()
     return nullptr;
 }
 
-const LPWSTR g_featureKeyName = L"Software\\Microsoft\\Internet Explorer\\JScript9";
+const LPWSTR g_featureKeyName = _u("Software\\Microsoft\\Internet Explorer\\JScript9");
 
-LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
+LPCWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
     return g_featureKeyName;
 }
 
 bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, __in LPWSTR moduleName)
 {
-    swprintf_s(buffer, cchBufferSize, L"PID: %d - %s - %d.%d.%4d.%d", GetCurrentProcessId(), moduleName,
+    swprintf_s(buffer, cchBufferSize, _u("PID: %d - %s - %d.%d.%4d.%d"), GetCurrentProcessId(), moduleName,
         SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
 
     return true;
@@ -7052,9 +7016,9 @@ bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, si
 
 void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
 {
-    Output::Print(L"INIT: PID        : %d\n", GetCurrentProcessId());
-    Output::Print(L"INIT: DLL Path   : %s\n", moduleName);
-    Output::Print(L"INIT: Build      : %d.%d.%4d.%d", SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
+    Output::Print(_u("INIT: PID        : %d\n"), GetCurrentProcessId());
+    Output::Print(_u("INIT: DLL Path   : %s\n"), moduleName);
+    Output::Print(_u("INIT: Build      : %d.%d.%4d.%d"), SCRIPT_ENGINE_MAJOR_VERSION, SCRIPT_ENGINE_MINOR_VERSION, SCRIPT_ENGINE_PRODUCTBUILD, SCRIPT_ENGINE_BUILDNUMBER);
 #if defined(__BUILDMACHINE__)
 #if defined(__BUILDDATE__)
 #define B2(x,y) " (" #x "." #y ")"
@@ -7065,7 +7029,7 @@ void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
 #define B1(x) B2(x)
 #define BUILD_MACHINE_TAG B1(__BUILDMACHINE__)
 #endif
-    Output::Print(L"%S", BUILD_MACHINE_TAG);
+    Output::Print(_u("%S"), BUILD_MACHINE_TAG);
 #endif
 }
 
@@ -7398,7 +7362,7 @@ IsOs_OneCoreUAP()
 
     if (!s_fInitialized)
     {
-        HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+        HMODULE hModNtDll = GetModuleHandle(_u("ntdll.dll"));
         if (hModNtDll == nullptr)
         {
             RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);

@@ -42,3 +42,7 @@ FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect he
 FLAG(bool, EnableOutOfProcJIT,				"JIT jobs should be run in a separate process", true)
 #undef FLAG
 #endif
+#ifdef FLAGA2
+FLAGA2(DT, DebugLaunch, BSTR, Targeted, bool, "Combining DebugLaunch and Targeted flags")
+#undef FLAGA2
+#endif

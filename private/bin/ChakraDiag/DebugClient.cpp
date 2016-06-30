@@ -7,10 +7,10 @@ extern HANDLE g_hInstance;
 
 namespace JsDiag
 {
-    const wchar_t* DebugClient::c_js9ModuleName = JS9_MODULE_NAME;
-    const wchar_t* DebugClient::c_js9FileName = JS9_MODULE_NAME L".dll";
-    const wchar_t* DebugClient::c_js9TestModuleName = JS9_MODULE_NAME L"test";
-    const wchar_t* DebugClient::c_js9TestFileName = JS9_MODULE_NAME L"test.dll";
+    const char16* DebugClient::c_js9ModuleName = JS9_MODULE_NAME;
+    const char16* DebugClient::c_js9FileName = JS9_MODULE_NAME _u(".dll");
+    const char16* DebugClient::c_js9TestModuleName = JS9_MODULE_NAME _u("test");
+    const char16* DebugClient::c_js9TestFileName = JS9_MODULE_NAME _u("test.dll");
 
     const LibraryName DebugClient::c_librariesToTry[] = {
         { DebugClient::c_js9ModuleName, DebugClient::c_js9FileName }, 
@@ -72,7 +72,6 @@ namespace JsDiag
         this->LoadTargetAndExecute([&](IDiagHook* hook, ULONG64 moduleBaseAddr64) {
             this->GetGlobals(hook, moduleBaseAddr64);
             this->GetVTables(hook, moduleBaseAddr64, m_vtables, _countof(m_vtables));
-            this->GetErrorStrings(hook);
             m_hasTargetHooks = true;
         });
     }
@@ -167,24 +166,6 @@ namespace JsDiag
         for (ULONG i = 0; i < vtablesSize; i++)
         {
             vtables[i] = reinterpret_cast<VTABLE_PTR>(reinterpret_cast<const BYTE*>(vtables[i]) + moduleBaseAddr);
-        }
-    }
-
-    void DebugClient::GetErrorStrings(IDiagHook* diagHook)
-    {
-        static HRESULT errorCodes[] =
-        {
-            DIAGERR_FunctionCallNotSupported,
-            DIAGERR_EvaluateNotSupported,
-            JSERR_Property_CannotGet_NullOrUndefined,
-        };
-
-        for (int i = 0; i < _countof(errorCodes); i++)
-        {
-            HRESULT code = errorCodes[i];
-            CComBSTR bs;
-            CheckHR(diagHook->GetErrorString(code, &bs));
-            m_errorStrings[code] = bs;
         }
     }
 

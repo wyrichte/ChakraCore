@@ -89,7 +89,7 @@ public:
 
     static HRESULT CreateCompileError(const SRCINFO * psi, CompileScriptException * pcse, Js::Utf8SourceInfo* sourceInfo, ActiveScriptError **ppase);
     static HRESULT CreateRuntimeError(Js::JavascriptExceptionObject *pError, HRESULT * pHrError, IDebugStackFrame* pStackFrame, Js::ScriptContext* requestContext, ActiveScriptError **ppase);
-    static void FillExcepInfo(HRESULT hr, wchar_t const * messageSz, EXCEPINFO *pei);
+    static void FillExcepInfo(HRESULT hr, char16 const * messageSz, EXCEPINFO *pei);
     static void FillParseErrorInfo(ExtendedExceptionInfo &exInfo);
     static HRESULT CanHandleException(Js::ScriptContext * scriptContext, Js::JavascriptExceptionObject * exceptionObject, IServiceProvider * pspCaller);
     HRESULT GetCompileErrorInfo(_Out_ BSTR* description, _Out_ ULONG* line, _Out_ ULONG* column);
@@ -117,10 +117,10 @@ private:
     LONG m_ichMin;
     LONG m_ichLim;
     BSTR m_bstrSourceLine;
-    BOOL m_fHasDispatchedToDebugger : 1;
-    BOOL m_fIsFirstChance : 1;
-    BOOL m_fIsExceptionCaughtInNonUserCode : 1;
-    BOOL m_wasRooted : 1;
+    bool m_fHasDispatchedToDebugger : 1;
+    bool m_fIsFirstChance : 1;
+    bool m_fIsExceptionCaughtInNonUserCode : 1;
+    bool m_wasRooted : 1;
 
     CComPtr<IDebugStackFrame> m_pStackFrame;
 };

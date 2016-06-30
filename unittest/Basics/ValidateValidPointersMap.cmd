@@ -3,16 +3,16 @@ setlocal
 
 :NextArgument
 if "%1" == "-?" (
-	echo "Usage: %0 -relbasepath <path>"
-	exit /b 0
+    echo "Usage: %0 -relbasepath <path>"
+    exit /b 0
 )
 if "%1" == "-relbasepath" (
-	set relBasePath=%2
-	shift
-	goto ArgLoop
+    set relBasePath=%2
+    shift
+    goto ArgLoop
 )
 if "%1" == "" (
-	goto StartScript
+    goto StartScript
 )
 
 :ArgLoop
@@ -22,7 +22,7 @@ goto :NextArgument
 :StartScript
 
 IF "%JSCRIPT_ROOT%" == "" (
-    set JSCRIPT_ROOT=%sdxroot%\inetcore\jscript
+    set JSCRIPT_ROOT=%sdxroot%\onecoreuap\inetcore\jscript
 )
 
 set _BASEPATH=%JSCRIPT_ROOT%\%relBasePath%

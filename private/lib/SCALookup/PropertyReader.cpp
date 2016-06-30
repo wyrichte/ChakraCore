@@ -4,11 +4,11 @@
 #include "SCALookupPch.h"
 
 // Known internal property names
-static const WCHAR PROPERTYNAME_LENGTH[]        = L"length";
-static const WCHAR PROPERTYNAME_SOURCE[]        = L"source";
-static const WCHAR PROPERTYNAME_GLOBAL[]        = L"global";
-static const WCHAR PROPERTYNAME_IGNORECASE[]    = L"ignoreCase";
-static const WCHAR PROPERTYNAME_MULTILINE[]     = L"multiline";
+static const WCHAR PROPERTYNAME_LENGTH[]        = _u("length");
+static const WCHAR PROPERTYNAME_SOURCE[]        = _u("source");
+static const WCHAR PROPERTYNAME_GLOBAL[]        = _u("global");
+static const WCHAR PROPERTYNAME_IGNORECASE[]    = _u("ignoreCase");
+static const WCHAR PROPERTYNAME_MULTILINE[]     = _u("multiline");
 
 //
 // Test if a given name equals a known string exactly.

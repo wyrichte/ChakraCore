@@ -164,21 +164,6 @@ namespace JsDiag
         const void* ReadVTable() const { return ReadField<const void*>(0); }
         IVirtualReader* GetReader() const { return m_reader; }
         T* GetRemoteAddr() const { return const_cast<T*>(m_remoteAddr); }
-
-        void Flush()
-        {
-            Assert(m_isInitialized);
-            HRESULT hr = m_reader->WriteMemory(m_remoteAddr, m_data.GetBuffer(), m_data.GetBufferSize());
-            CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-        }
-
-        template<typename TFieldType>
-        void WriteField(size_t offset, TFieldType data) const
-        {
-            TFieldType* remoteFieldAddr = GetFieldAddr<TFieldType>(offset);
-            HRESULT hr = m_reader->WriteMemory(remoteFieldAddr, &data, sizeof(TFieldType));
-            CheckHR(hr, DiagErrorCode::WRITE_VIRTUAL);
-        }
     private:
         // Returns a pointer to m_data (which is in local address space) interpreted as T*,
         // with data pointed to containing an instance of T read from target process.
@@ -603,16 +588,11 @@ namespace JsDiag
         EntryPointInfo::State GetState();
     };
 
-    typedef RemoteList<DebuggerScopeProperty> RemoteDebuggerScopePropertyList;
     typedef RemoteList<RecyclerWeakReference<Utf8SourceInfo>*, ScriptContext::SourceList> RemoteSourceList;
     typedef RemoteData<ScriptEntryExitRecord> RemoteScriptEntryExitRecord;
     typedef RemoteData<Type> RemoteType;
     typedef RemoteData<DynamicType> RemoteDynamicType;
-    typedef RemoteData<AsyncBreakController> RemoteAsyncBreakController;
-    typedef RemoteList<ReturnedValue*, JsUtil::List<ReturnedValue*>> RemoteReturnedValueList;
-    typedef RemoteData<ReturnedValue> RemoteReturnedValue;
     typedef RemoteData<InterpreterHaltState> RemoteInterpreterHaltState;
-    typedef RemoteData<StepController> RemoteStepController;
 
     struct RemoteJavascriptLibrary: public RemoteData<JavascriptLibrary>
     {
@@ -667,6 +647,7 @@ namespace JsDiag
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
+        CustomHeap::CodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::CodePageAllocators>(offsetof(TargetType, codePageAllocators));}
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
@@ -769,27 +750,12 @@ namespace JsDiag
     struct RemoteJavascriptFunction : public RemoteRecyclableObjectBase<JavascriptFunction>
     {
         RemoteJavascriptFunction(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase<TargetType>(reader, addr) {}
+
         JavascriptLibrary* GetLibrary();
         FunctionBody* GetFunction() const;
-        bool_result TryReadDisplayName(_Out_ CString* name);
-        static bool_result TryReadDisplayName(IVirtualReader* reader, Js::Var var, _Out_ CString* name);
-        Js::Var GetSourceString(const InspectionContext* context) const;
-        CString GetDisplayNameString(InspectionContext* context);
-
-        bool GetCaller(const InspectionContext* context, Js::Var* value, CString& error);
-        bool GetArguments(const InspectionContext* context, Js::Var* value, _Outptr_ IJsDebugPropertyInternal** ppDebugProperty, CString& error);
         uint16 GetLength();
-
-        RecyclableObject* FindCaller(
-            const InspectionContext* inspectionContext,
-            RemoteThreadContext* remoteThreadContext,
-            RemoteScriptContext* remoteRequestContext,
-            JavascriptFunction* nullObject,
-            bool& foundThis);
-
         bool IsLibraryCode() const;
         bool IsScriptFunction() const;
-        bool IsBoundFunction(const InspectionContext* inspectionContext) const;
         bool IsStrictMode() const;
         bool HasRestrictedProperties() const;
     };
@@ -797,7 +763,7 @@ namespace JsDiag
     struct RemoteBoundFunction : public RemoteRecyclableObjectBase<BoundFunction>
     {
         RemoteBoundFunction(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase<TargetType>(reader, addr) {}
-        uint16 GetLength(InspectionContext* inspectionContext, PROPERTY_INFO* propInfo);
+
         static const uint16 TARGETS_RUNTIME_FUNCTION = 0xffff;
     };
 
@@ -806,16 +772,10 @@ namespace JsDiag
         RemoteRuntimeFunction(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
     };
 
-    struct RemoteJavascriptRegExpConstructor : public RemoteData<JavascriptRegExpConstructor>
-    {
-        RemoteJavascriptRegExpConstructor(IVirtualReader* reader, const TargetType* addr)
-            : RemoteData<TargetType>(reader, addr)
-        {}
-    };
-
     struct RemoteScriptFunction : public RemoteData<ScriptFunction>
     {
         RemoteScriptFunction(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         FunctionBody* GetFunction();
         uint32 GetFrameHeight(FunctionEntryPointInfo* entryPoint);
         FrameDisplay* GetEnvironment();
@@ -825,6 +785,7 @@ namespace JsDiag
     struct RemoteInlinedFrameLayout : public RemoteData<InlinedFrameLayout>
     {
         RemoteInlinedFrameLayout(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         InlinedFrameLayout* Next();
         static InlinedFrameLayout* FromPhysicalFrame(
             IVirtualReader* reader, InternalStackFrame* physicalFrame, void* entry, Js::ScriptFunction* parent, FunctionEntryPointInfo* entryPoint);
@@ -833,6 +794,7 @@ namespace JsDiag
     struct RemoteInterpreterStackFrame : public RemoteData<InterpreterStackFrame>
     {
         RemoteInterpreterStackFrame(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         bool IsCurrentLoopNativeAddr(void* addr);
         ByteCodeReader* GetReader();
         Js::Var GetReg(RegSlot reg);
@@ -844,25 +806,29 @@ namespace JsDiag
     struct RemoteByteCodeReader : public RemoteData<ByteCodeReader>
     {
         RemoteByteCodeReader(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         int GetCurrentOffset();
     };
 
     struct RemoteDynamicObject: public RemoteRecyclableObjectBase<DynamicObject>
     {
         RemoteDynamicObject(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase(reader, addr) {}
+
         DynamicTypeHandler* GetTypeHandler() { return RemoteDynamicType(m_reader, ToTargetPtr()->GetDynamicType())->GetTypeHandler(); }
-        bool HasObjectArray(InspectionContext* context);
+        
     };
 
     struct RemoteEmitBufferManager : public RemoteData<EmitBufferManager<CriticalSection>>
     {
         RemoteEmitBufferManager(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         CustomHeap::Heap* GetAllocationHeap();
     };
 
     struct RemoteHeap : public RemoteData<CustomHeap::Heap>
     {
         RemoteHeap(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         HeapPageAllocator<VirtualAllocWrapper>* GetHeapPageAllocator();
         HeapPageAllocator<PreReservedVirtualAllocWrapper>* GetPreReservedHeapPageAllocator();
     };
@@ -870,6 +836,7 @@ namespace JsDiag
     struct RemoteSegment : public RemoteData<Segment>
     {
         RemoteSegment(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
         bool IsInSegment(void* addr);
 
     private:
@@ -920,12 +887,17 @@ namespace JsDiag
         static void GetSegmentOffsets(size_t* segments, size_t* fullSegments, size_t* decommitSegments, size_t* largeSegments);
     };
 
+    struct RemoteCodePageAllocators : public RemoteData<CustomHeap::CodePageAllocators>
+    {
+        RemoteCodePageAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        HeapPageAllocator<VirtualAllocWrapper> * GetHeapPageAllocator();
+    };
     struct RemoteCodeGenAllocators : public RemoteData<CodeGenAllocators>
     {
         RemoteCodeGenAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
         EmitBufferManager<CriticalSection>* GetEmitBufferManager();
-        bool IsInRange(void* address);
     };
 
     struct RemoteDebugContext : public RemoteData<DebugContext>
@@ -953,7 +925,6 @@ namespace JsDiag
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId) const;
         ProbeContainer* GetProbeContainer() const;
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
-        DaylightTimeHelper* GetDaylightTimeHelper() const { return this->GetFieldAddr<DaylightTimeHelper>(offsetof(ScriptContext, daylightTimeHelper)); }
         DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
         bool IsInDebugMode() const
         {
@@ -964,10 +935,6 @@ namespace JsDiag
             }
             return false;
         }
-    private:
-        bool IsNativeAddressCheckMeOnly(void* address);    // Check only current script context.
-        bool IsNativeAddressCheckThreadContext(void* address);
-        bool IsNativeAddress(CodeGenAllocators* codeGenAllocatorsAddr, void* address);
     };
 
     struct RemoteProbeContainer: public RemoteData<ProbeContainer>
@@ -1020,13 +987,8 @@ namespace JsDiag
     {
         RemoteFunctionBody_SourceInfo(IVirtualReader* reader, const RemoteFunctionBody* functionBody);
 
-        ByteBlock* GetProbeBackingBlock();
-        void SetProbeBackingBlock(ByteBlock* block);
-        void IncrementProbeCount();
-        void DecrementProbeCount();
         bool GetLineCharOffset(int byteCodeOffset, ULONG* _line, LONG* _colOffset);
         void GetStatementOffsets(int byteCodeOffset, ULONG* startOffset, ULONG* endOffset);
-        bool HasLineBreak(charcount_t start, charcount_t end);
         LineOffsetCache* GetLineOffsetCache();
         FunctionBody::StatementMap* GetEnclosingStatementMapFromByteCode(int byteCodeOffset);
         int GetEnclosingStatementIndexFromByteCode(int byteCodeOffset);
@@ -1059,17 +1021,17 @@ namespace JsDiag
         {
         private:
             const RemoteFunctionBody& m_funcBody;
-            const wchar_t* m_displayName;
+            const char16* m_displayName;
             BOOL m_isDynamicScript;
             BOOL m_isGlobalFunc;
 
         public:
-            GetFunctionBodyNameData(const RemoteFunctionBody& funcBody, const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc)
+            GetFunctionBodyNameData(const RemoteFunctionBody& funcBody, const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc)
                 : m_funcBody(funcBody), m_displayName(displayName),  m_isDynamicScript(isDynamicScript), m_isGlobalFunc(isGlobalFunc)
             {
             }
 
-            const wchar_t* GetDisplayName() const { return m_displayName; }
+            const char16* GetDisplayName() const { return m_displayName; }
             BOOL IsDynamicScript() const { return m_isDynamicScript; }
             uint GetScriptId() const { return m_funcBody->m_uScriptId; }
             uint GetFunctionNumber() const { return m_funcBody->m_functionNumber; }
@@ -1084,12 +1046,11 @@ namespace JsDiag
         CAtlMap<int, RowColumn> m_rowColumnMap; // bytecode offset -> row/column
 
     public:
-        bool_result TryReadDisplayName(_Out_ CString* name) const;
+        
         void GetFunctionName(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const;
         void GetUri(_Out_writes_z_(nameBufferElementCount) LPWSTR nameBuffer, ULONG nameBufferElementCount) const;
 
         Utf8SourceInfo* GetUtf8SourceInfo() const;
-        UINT64 GetDocumentId() const;
         FunctionBody::SourceInfo* GetSourceInfo() const;
         FunctionEntryPointInfo* GetEntryPointFromNativeAddress(DWORD_PTR codeAddress);
         LoopEntryPointInfo* GetLoopEntryPointFromNativeAddress(DWORD_PTR codeAddress, uint loopNum);
@@ -1099,17 +1060,14 @@ namespace JsDiag
         template <typename Fn> void MapEntryPoints(Fn fn);
         BOOL GetMatchingStatementMapFromNativeOffset(StatementData* statementMap, DWORD_PTR codeAddress, uint32 offset, uint loopNum, FunctionBody* inlinee = NULL);
         void FindClosestStatements(long characterOffset, StatementLocation *firstStatementLocation, StatementLocation *secondStatementLocation);
-        bool InstallProbe(int offset, RemoteAllocator* allocator);
-        void UninstallProbe(int offset);
-        static bool Is(InspectionContext* context, void* ptr);
         void GetRowColumn(int byteCodeOffset, ULONG* pRow, ULONG* pColumn);
         RegSlot GetFrameDisplayRegister();
         Js::RootObjectBase* GetRootObject() const;
         bool GetNonTempSlotOffset(RegSlot slotId, __out int32 * slotOffset) const;
 
     private:
-        static const wchar_t* GetExternalDisplayName(const GetFunctionBodyNameData* funcBody);
-        const wchar_t* GetExternalDisplayName(const wchar_t* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const;
+        static const char16* GetExternalDisplayName(const GetFunctionBodyNameData* funcBody);
+        const char16* GetExternalDisplayName(const char16* displayName, BOOL isDynamicScript, BOOL isGlobalFunc) const;
         template <typename Fn> void GetFunctionBodyInfo(Fn fn) const;
         BOOL GetMatchingStatementMapFromNativeAddress(StatementData* statementMap, DWORD_PTR codeAddress, uint loopNum, FunctionBody* inlinee = NULL);
         BOOL GetMatchingStatementMapFromNativeOffset(StatementData* statementMap, DWORD_PTR codeAddress, uint32 offset, FunctionBody* inlinee = NULL);
@@ -1123,13 +1081,8 @@ namespace JsDiag
 
     public:
         const void* GetAuxPtrs(FunctionProxy::AuxPointerType e) const;
+        const uint32 GetCounter(FunctionBody::CounterFields e) const;
     }; // RemoteFunctionBody.
-
-    struct RemoteScriptDebugDocument : public RemoteData<ScriptDebugDocument>
-    {
-        RemoteScriptDebugDocument(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        void* GetDocumentId() const { return this->ReadField<void*>(offsetof(TargetType, m_documentText)); }
-    };
 
     struct RemoteUtf8SourceInfo : RemoteData<Utf8SourceInfo>
     {
@@ -1158,18 +1111,6 @@ namespace JsDiag
             });
         }
 
-        UINT64 GetDocumentId() const
-        {
-            DebugDocument* debugDocument = this->ToTargetPtr()->m_debugDocument;
-
-            if (debugDocument != nullptr)
-            {
-                RemoteScriptDebugDocument remoteScriptDebugDocument(m_reader, (ScriptDebugDocument*)debugDocument);
-                return (UINT64)remoteScriptDebugDocument.GetDocumentId();
-            }
-            return 0;
-        }
-
         bool Contains(DWORD offset) const
         {
             RemoteSRCINFO srcInfo(this->m_reader, this->ToTargetPtr()->m_srcInfo);
@@ -1179,288 +1120,13 @@ namespace JsDiag
         }
     };
 
-    struct RemotePropertyIdOnRegSlotsContainer:
-        public RemoteData<PropertyIdOnRegSlotsContainer>
-    {
-    private:
-        RemoteArray<Js::PropertyId> m_propertyIdsForRegSlots;
-
-    public:
-        RemotePropertyIdOnRegSlotsContainer(IVirtualReader* reader, const TargetType* addr):
-            RemoteData<TargetType>(reader, addr),
-            m_propertyIdsForRegSlots(reader, ToTargetPtr()->propertyIdsForRegSlots)
-        {}
-
-        void FetchItemAt(uint index, RemoteFunctionBody* pFuncBody, _Out_ Js::PropertyId* pPropId, _Out_ RegSlot* pRegSlot) const;
-    };
-
-    struct RemoteFrameDisplay: public RemoteData<FrameDisplay>
-    {
-    private:
-        RemoteArray<Js::Var> m_scopes;
-
-    public:
-        RemoteFrameDisplay(IVirtualReader* reader, const TargetType* addr):
-            RemoteData<TargetType>(reader, addr),
-            m_scopes(reader, GetFieldAddr<const Js::Var>(FrameDisplay::GetOffsetOfScopes()))
-        {
-        }
-
-        void* GetItem(uint index) const;
-    };
-
-    struct RemoteTypePath: public RemoteData<TypePath, DynamicDataBuffer>
-    {
-        RemoteTypePath(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType, DynamicDataBuffer>(reader, addr) {}
-        bool TryLookup(Js::PropertyId propId, int typePathLength, PropertyIndex* index);
-        RemotePropertyRecord operator[] (const int index) const;
-    };
-
-    struct RemoteJavascriptBoolean:
-        public RemoteData<JavascriptBoolean>
-    {
-        RemoteJavascriptBoolean(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        static bool GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptSymbol:
-        public RemoteData<JavascriptSymbol>
-    {
-        RemoteJavascriptSymbol(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        static CString GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptNumber
-#if !FLOATVAR
-        : public RemoteData<JavascriptNumber>
-#endif
-    {
-#if !FLOATVAR
-        RemoteJavascriptNumber(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-#endif
-        static double GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptBooleanObject: public RemoteData<JavascriptBooleanObject>
-    {
-        RemoteJavascriptBooleanObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        bool GetValue();
-        static bool GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptSymbolObject : public RemoteData<JavascriptSymbolObject>
-    {
-        RemoteJavascriptSymbolObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        CString GetValue();
-        static CString GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptNumberObject: public RemoteData<JavascriptNumberObject>
-    {
-        RemoteJavascriptNumberObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        double GetValue();
-        static double GetValue(IVirtualReader* reader, Js::Var var);
-    };
-
-    struct RemoteJavascriptStringObject: public RemoteData<JavascriptStringObject>
-    {
-        RemoteJavascriptStringObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        JavascriptString* GetValue() { return ReadField<JavascriptString*>(offsetof(TargetType, value)); }
-    };
-
-    struct RemoteArgumentsObject: public RemoteData<ArgumentsObject>
-    {
-        RemoteArgumentsObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        Js::Var GetCaller(
-            const InspectionContext* inspectionContext,
-            RemoteThreadContext* threadContext,
-            RemoteScriptContext* scriptContext);
-
-    private:
-        bool AdvanceWalkerToArgsFrame(const InspectionContext* inspectionContext, RemoteStackWalker* walker);
-
-        Js::Var GetCaller(
-            const InspectionContext* inspectionContext,
-            RemoteScriptContext* scriptContext,
-            RemoteStackWalker* walker,
-            JavascriptFunction* nullObject,
-            bool skipGlobal);
-    };
-
-    typedef RemoteData<Js::JavascriptError> RemoteJavascriptError;
     typedef RemoteData<Js::JavascriptExceptionObject> RemoteJavascriptExceptionObject;
     typedef RemoteData<ThreadContext::RecyclableData> RemoteRecyclableData;
-    typedef RemoteData<JavascriptDate> RemoteJavascriptDate;
-    typedef RemoteRecyclableObjectBase<JavascriptVariantDate> RemoteJavascriptVariantDate;
-
-    struct RemoteRegexPattern: public RemoteData<UnifiedRegex::RegexPattern>
-    {
-        RemoteRegexPattern(IVirtualReader* reader, const TargetType* addr)
-            : RemoteData<TargetType>(reader, addr)
-        {
-            // Cache the flags for the regex pattern so we don't have to read them
-            // from the remote process multiple times when checking if they're set.
-
-            RemoteData<UnifiedRegex::Program> program(GetReader(), ToTargetPtr()->rep.unified.program);
-            this->cachedFlags = program->flags;
-        }
-
-        bool IsGlobal() const;
-        bool IsMultiline() const;
-        bool IsIgnoreCase() const;
-        bool IsUnicode() const;
-        bool IsSticky() const;
-
-    private:
-        bool IsFlagSet(UnifiedRegex::RegexFlags flag) const;
-
-        UnifiedRegex::RegexFlags cachedFlags;
-    };
-
-    struct RemoteJavascriptRegExp: public RemoteData<JavascriptRegExp>
-    {
-        RemoteJavascriptRegExp(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        void GetSource(PCWSTR* pSource, charcount_t* pLength);
-        CString GetSource();
-        CString GetOptions(bool IsES6UnicodeExtensionsEnabled = false, bool isEs6RegExpStickyFlagEnabled = false) const;
-
-        Js::Var GetLastIndex() const
-        {
-            return ToTargetPtr()->lastIndexVar;
-        }
-
-        bool IsGlobal() const
-        {
-            RemoteRegexPattern pattern = RemoteRegexPattern(GetReader(), ToTargetPtr()->pattern);
-            return pattern.IsGlobal();
-        }
-
-        bool IsMultiline() const
-        {
-            RemoteRegexPattern pattern = RemoteRegexPattern(GetReader(), ToTargetPtr()->pattern);
-            return pattern.IsMultiline();
-        }
-
-        bool IsIgnoreCase() const
-        {
-            RemoteRegexPattern pattern = RemoteRegexPattern(GetReader(), ToTargetPtr()->pattern);
-            return pattern.IsIgnoreCase();
-        }
-
-        bool IsUnicode() const
-        {
-            RemoteRegexPattern pattern = RemoteRegexPattern(GetReader(), ToTargetPtr()->pattern);
-            return pattern.IsUnicode();
-        }
-
-        bool IsSticky() const
-        {
-            RemoteRegexPattern pattern = RemoteRegexPattern(GetReader(), ToTargetPtr()->pattern);
-            return pattern.IsSticky();
-        }
-    };
-
-    struct RemoteExternalType: public RemoteData<ExternalType>
-    {
-        RemoteExternalType(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        Js::PropertyId GetNameId() { return ReadField<Js::PropertyId>(offsetof(TargetType, nameId)); }
-    };
-
-    struct RemoteExternalObject: public RemoteRecyclableObjectBase<ExternalObject>
-    {
-        RemoteExternalObject(IVirtualReader* reader, const TargetType* addr) : RemoteRecyclableObjectBase(reader, addr) {}
-        const PropertyRecord* GetClassName();
-        bool IsProjectionObjectInstance(DebugClient* debugClient) const;
-    };
-
-    typedef RemoteData<Projection::ProjectionObjectInstance> RemoteProjectionObjectInstance;
-
-    struct RemoteCustomExternalObject: public RemoteData<CustomExternalObject>
-    {
-        RemoteCustomExternalObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
-        void* ReadExtensionObject() { return ReadField<void*>(sizeof(TargetType)); }
-    };
-
-    template<typename T>
-    struct RemoteSparseArraySegment: public RemoteData<SparseArraySegment<T>>
-    {
-    private:
-        RemoteArray<T> m_items;
-
-    public:
-        RemoteSparseArraySegment(IVirtualReader* reader, const TargetType* addr):
-            RemoteData<TargetType>(reader, addr),
-            m_items(reader, GetFieldAddr<T>(offsetof(TargetType, elements)))
-        {}
-
-        T Item(uint i) const
-        {
-            return m_items[i];
-        }
-    };
-
-    typedef RemoteData<JavascriptArray> RemoteJavascriptArray;
-    typedef RemoteData<JavascriptNativeIntArray> RemoteJavascriptNativeIntArray;
-    typedef RemoteData<JavascriptNativeFloatArray> RemoteJavascriptNativeFloatArray;
-    typedef RemoteData<ES5Array> RemoteES5Array;
-
-    template <class T, bool clamped, class Target>
-    struct RemoteBufferArray: RemoteData<Target>
-    {
-    private:
-        RemoteArray<T> m_buffer;
-
-    public:
-        RemoteBufferArray(IVirtualReader* reader, const TargetType* addr):
-            RemoteData<TargetType>(reader, addr),
-            m_buffer(reader, reinterpret_cast<T*>(ToTargetPtr()->buffer))
-        {}
-
-        T Item(uint i) const
-        {
-            return m_buffer[i];
-        }
-    };
-
-    template <class T, bool clamped = false, class Target = TypedArray<T, clamped>>
-    struct RemoteTypedArray: public RemoteBufferArray<T, clamped, Target>
-    {
-    public:
-        RemoteTypedArray(IVirtualReader* reader, const TargetType* addr):
-            RemoteBufferArray<T, clamped, Target>(reader, addr)
-        {}
-
-        uint GetLength()
-        {
-            return ToTargetPtr()->length;
-        }
-    };
-
-    struct RemoteArrayBuffer: public RemoteData<ArrayBuffer>
-    {
-        RemoteArrayBuffer(IVirtualReader* reader, const TargetType* addr)
-            : RemoteData<ArrayBuffer>(reader, addr) {}
-    };
 
     struct RemoteGlobalObject: public RemoteData<GlobalObject>
     {
         RemoteGlobalObject(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
         Js::Var ToThis();
-    };
-
-    struct RemoteDebuggerScope: public RemoteData<DebuggerScope>
-    {
-        RemoteDebuggerScope(IVirtualReader* reader, const TargetType* addr) : RemoteData<DebuggerScope>(reader, addr) {}
-
-        // Check if the property is there in the scope
-        bool ContainsProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, DebuggerScopeProperty* outProperty = nullptr);
-        bool ContainsValidProperty(RemoteStackFrame* frame, Js::PropertyId propertyId, Js::RegSlot location, int offset, bool* isInDeadZone);
-    };
-
-    struct RemoteDebuggingFlags : public RemoteData<DebuggingFlags>
-    {
-        RemoteDebuggingFlags(IVirtualReader* reader, const TargetType* addr) : RemoteData<DebuggingFlags>(reader, addr) {}
-        void SetForceInterpreter(bool value);
     };
 
     //
@@ -1483,8 +1149,6 @@ namespace JsDiag
         bool PhaseOff1(Phase phase);
         bool PhaseOn1(Phase phase);
 #endif ENABLE_DEBUG_CONFIG_OPTIONS
-    public:
-        static void SetHybridDebugging(IVirtualReader* reader, const Configuration* addr);
     };
 
 } // namespace JsDiag.

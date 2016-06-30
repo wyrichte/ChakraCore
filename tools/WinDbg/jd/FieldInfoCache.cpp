@@ -4,7 +4,22 @@
 
 #include "stdafx.h"
 
-JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped object, char const * fieldName)
+bool FieldInfoCache::HasField(ExtRemoteTyped& object, char const * fieldName)
+{
+    Assert(strchr(fieldName, '.') == nullptr);
+    FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;
+    ExtRemoteTyped derefObject = object.m_Typed.Tag == SymTagPointerType ? object.Dereference() : object;
+    Key key = { object.m_Typed.ModBase, object.m_Typed.TypeId, fieldName };
+    auto i = fieldInfoCache.cache.find(key);
+    if (i != fieldInfoCache.cache.end())
+    {
+        return true;
+    }
+
+    return object.HasField(fieldName);
+}
+
+JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * fieldName)
 {
     Assert(strchr(fieldName, '.') == nullptr);
     FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;
@@ -16,8 +31,8 @@ JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped object, char const * fieldN
         return JDRemoteTyped((*i).second.m_ModBase, (*i).second.m_TypeId, derefObject.m_Offset + (*i).second.m_fieldOffset);
     }
 
-    ExtRemoteTyped field = derefObject.Field(fieldName);
-    ExtRemoteTyped pointerToField = field.GetPointerTo();
+    JDRemoteTyped field = derefObject.Field(fieldName);
+    ExtRemoteTyped pointerToField = field.GetPointerTo();       // Forces "field" to be populate correctly.
 
     Value value;
     value.m_fieldOffset = (ULONG)(field.m_Offset - derefObject.m_Offset);

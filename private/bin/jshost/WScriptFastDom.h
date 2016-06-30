@@ -32,6 +32,26 @@ public:
         }
     };
 
+    class ModuleMessage : public MessageBase
+    {
+    private:
+        ModuleRecord moduleRecord;
+        LPCWSTR specifier;
+        CComPtr<IActiveScriptDirect> scriptDirect;
+
+        ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect);
+
+    public:
+        ~ModuleMessage();
+
+        virtual HRESULT Call() override;
+
+        static ModuleMessage* Create(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect)
+        {
+            return new ModuleMessage(module, specifier, activeScriptDirect);
+        }
+    };
+
     class RunInfo
     {
     public:
@@ -52,21 +72,21 @@ public:
         WORD domainId;
 
         RunInfo()
-            : source(nullptr), context(ContextType::self), isDiagnosticHost(false), isPrimary(false), hr(S_OK), errorMessage(L""), domainId(0)
+            : source(nullptr), context(ContextType::self), isDiagnosticHost(false), isPrimary(false), hr(S_OK), errorMessage(_u("")), domainId(0)
         {
         }
 
         void SetContext(BSTR context)
         {
-            if (wcscmp(context, L"samethread") == 0)
+            if (wcscmp(context, _u("samethread")) == 0)
             {
                 this->context = ContextType::sameThread;
             }
-            else if (wcscmp(context, L"crossthread") == 0)
+            else if (wcscmp(context, _u("crossthread")) == 0)
             {
                 this->context = ContextType::crossThread;
             }
-            else if (wcscmp(context, L"module") == 0)
+            else if (wcscmp(context, _u("module")) == 0)
             {
                 this->context = ContextType::module;
             }

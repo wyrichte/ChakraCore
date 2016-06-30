@@ -29,21 +29,21 @@ public:
     STDMETHOD(OnRequestEdit)(DISPID dispID);
 
     // IOleClientSite methods
-    STDMETHOD(SaveObject)(void) { ODS(L"SaveObject\n"); return E_NOTIMPL; }
+    STDMETHOD(SaveObject)(void) { ODS(_u("SaveObject\n")); return E_NOTIMPL; }
 
-    STDMETHOD(GetMoniker)(DWORD dwAssign, DWORD dwWhichMoniker, IMoniker** ppmk) { ODS(L"GetMoniker\n"); return E_NOTIMPL; }
+    STDMETHOD(GetMoniker)(DWORD dwAssign, DWORD dwWhichMoniker, IMoniker** ppmk) { ODS(_u("GetMoniker\n")); return E_NOTIMPL; }
 
     STDMETHOD(GetContainer)(IOleContainer** ppContainer)
-            { ODS(L"GetContainer\n"); return E_NOTIMPL; }
+            { ODS(_u("GetContainer\n")); return E_NOTIMPL; }
 
     STDMETHOD(ShowObject)(void)
-            { ODS(L"ShowObject\n"); return E_NOTIMPL; }
+            { ODS(_u("ShowObject\n")); return E_NOTIMPL; }
 
     STDMETHOD(OnShowWindow)(BOOL fShow)
-            { ODS(L"OnShowWindow\n"); return E_NOTIMPL; }
+            { ODS(_u("OnShowWindow\n")); return E_NOTIMPL; }
 
     STDMETHOD(RequestNewObjectLayout)(void)
-            { ODS(L"RequestNewObjectLayout\n"); return E_NOTIMPL; }
+            { ODS(_u("RequestNewObjectLayout\n")); return E_NOTIMPL; }
 
     // IOleWindow
     STDMETHOD(GetWindow)(
@@ -75,43 +75,43 @@ public:
     STDMETHOD(ShowContextMenu)(DWORD dwID,
             POINT *ppt,
             IUnknown *pcmdtReserved,
-            IDispatch *pdispReserved) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            IDispatch *pdispReserved) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(GetHostInfo)(
-            DOCHOSTUIINFO *pInfo) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            DOCHOSTUIINFO *pInfo) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(ShowUI)(
             DWORD dwID,
             IOleInPlaceActiveObject *pActiveObject,
             IOleCommandTarget *pCommandTarget,
             IOleInPlaceFrame *pFrame,
-            IOleInPlaceUIWindow *pDoc) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
-    STDMETHOD(HideUI)(void) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
-    STDMETHOD(UpdateUI)(void) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
-    STDMETHOD(EnableModeless)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
-    STDMETHOD(OnDocWindowActivate)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
-    STDMETHOD(OnFrameWindowActivate)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(L"\n"); return S_OK; }
+            IOleInPlaceUIWindow *pDoc) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
+    STDMETHOD(HideUI)(void) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
+    STDMETHOD(UpdateUI)(void) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
+    STDMETHOD(EnableModeless)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
+    STDMETHOD(OnDocWindowActivate)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
+    STDMETHOD(OnFrameWindowActivate)(BOOL fEnable) { ODS(__WFUNCTION__); ODS(_u("\n")); return S_OK; }
     STDMETHOD(ResizeBorder)(
             LPCRECT prcBorder,
             IOleInPlaceUIWindow *pUIWindow,
-            BOOL fRameWindow) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            BOOL fRameWindow) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(TranslateAccelerator)(
             LPMSG lpMsg,
             const GUID *pguidCmdGroup,
-            DWORD nCmdID) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            DWORD nCmdID) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(GetOptionKeyPath)(
             __deref_out LPOLESTR *pchKey,
-            DWORD dw) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            DWORD dw) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(GetDropTarget)(
             IDropTarget *pDropTarget,
-            IDropTarget **ppDropTarget) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            IDropTarget **ppDropTarget) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(GetExternal)( 
-            IDispatch **ppDispatch) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOINTERFACE; } // window.external
+            IDispatch **ppDispatch) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOINTERFACE; } // window.external
     STDMETHOD(TranslateUrl)(
             DWORD dwTranslate,
             __in_opt OLECHAR *pchURLIn,
-            __deref_out OLECHAR **ppchURLOut) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            __deref_out OLECHAR **ppchURLOut) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
     STDMETHOD(FilterDataObject)( 
             IDataObject *pDO,
-            IDataObject **ppDORet) { ODS(__WFUNCTION__); ODS(L"\n"); return E_NOTIMPL; }
+            IDataObject **ppDORet) { ODS(__WFUNCTION__); ODS(_u("\n")); return E_NOTIMPL; }
 
     // IOleCommandTarget
     STDMETHOD(QueryStatus)(
@@ -131,19 +131,19 @@ public:
 
     // IDispatch method
     STDMETHOD(GetTypeInfoCount)(UINT* pctinfo)
-            { ODS(L"GetTypeInfoCount\n"); return E_NOTIMPL; }
+            { ODS(_u("GetTypeInfoCount\n")); return E_NOTIMPL; }
 
     STDMETHOD(GetTypeInfo)(UINT iTInfo,
             LCID lcid,
             ITypeInfo** ppTInfo)
-            { ODS(L"GetTypeInfo\n"); return E_NOTIMPL; }
+            { ODS(_u("GetTypeInfo\n")); return E_NOTIMPL; }
 
     STDMETHOD(GetIDsOfNames)(REFIID riid,
             __in_ecount(cNames) LPOLESTR *rgszNames,
             UINT cNames,
             LCID lcid,
             DISPID* rgDispId)
-            { ODS(L"GetIDsOfNames\n"); return E_NOTIMPL; }
+            { ODS(_u("GetIDsOfNames\n")); return E_NOTIMPL; }
 
     STDMETHOD(Invoke)(DISPID dispIdMember,
             REFIID riid,

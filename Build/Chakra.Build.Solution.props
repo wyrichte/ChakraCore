@@ -44,7 +44,7 @@
       <!-- MIDL generate code uses this define -->
       <PreprocessorDefinitions Condition="'$(Platform)'=='ARM'">%(PreprocessorDefinitions);_ARM_</PreprocessorDefinitions>
             
-      <ForcedIncludeFiles>$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles);$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
 
       <!-- ====== Microsoft.Build.Cpp.props ====== -->

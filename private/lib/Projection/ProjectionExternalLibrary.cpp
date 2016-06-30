@@ -21,7 +21,7 @@ void ProjectionExternalLibrary::Initialize(Js::JavascriptLibrary* library)
     Js::JavascriptFunction* nativeErrorPrototype = nullptr;
 
     winrtDateType = Js::DynamicType::New(scriptContext, Js::TypeIds_WinRTDate, library->GetDatePrototype(), nullptr,
-        Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
+        Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 
     if (scriptContext->GetConfig()->IsES6PrototypeChain())
     {
@@ -37,11 +37,11 @@ void ProjectionExternalLibrary::Initialize(Js::JavascriptLibrary* library)
 
         winrtErrorPrototype = RecyclerNew(library->GetRecycler(), Js::JavascriptError,
             Js::DynamicType::New(scriptContext, Js::TypeIds_Error, library->GetErrorPrototype(), nullptr,
-                Js::DeferredTypeHandler<InitializeWinRTErrorPrototype>::GetDefaultInstance()),
+                Js::DeferredTypeHandler<InitializeWinRTErrorPrototype, Js::DefaultDeferredTypeFilter, true>::GetDefaultInstance()),
             /*isExternalError*/FALSE, /*isPrototype*/TRUE);
 
         winrtErrorType = Js::DynamicType::New(scriptContext, Js::TypeIds_Error, winrtErrorPrototype, nullptr,
-            Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
+            Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 
         winRTPromiseExtension = RecyclerNew(library->GetRecycler(), WinRTPromiseEngineInterfaceExtensionObject, scriptContext);
         library->GetEngineInterfaceObject()->SetEngineExtension(Js::EngineInterfaceExtensionKind::EngineInterfaceExtensionKind_WinRTPromise, winRTPromiseExtension);
@@ -101,7 +101,7 @@ void ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObjec
     if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
     {
         Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable;
-        library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(L"WinRTError"), prototypeNameMessageAttributes);
+        library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
     }
     constructor->SetHasNoEnumerableProperties(true);
 }
@@ -117,7 +117,7 @@ void ProjectionExternalLibrary::InitializeWinRTErrorPrototype(Js::DynamicObject*
     library->AddMember(prototype, Js::PropertyIds::constructor, projectionContext->GetProjectionExternalLibrary()->GetWinRTErrorConstructor());
     bool hasNoEnumerableProperties = true;
     Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable | PropertyWritable;
-    library->AddMember(prototype, Js::PropertyIds::name, library->CreateStringFromCppLiteral(L"WinRTError"), prototypeNameMessageAttributes);
+    library->AddMember(prototype, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
     library->AddMember(prototype, Js::PropertyIds::message, library->GetEmptyString(), prototypeNameMessageAttributes);
     library->AddFunctionToLibraryObject(prototype, Js::PropertyIds::toString, &Js::JavascriptError::EntryInfo::ToString, 0);
     prototype->SetHasNoEnumerableProperties(hasNoEnumerableProperties);

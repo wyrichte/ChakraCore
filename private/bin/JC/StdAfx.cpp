@@ -13,7 +13,7 @@
 // Stub external APIs
 LPWSTR JsUtil::ExternalApi::GetFeatureKeyName()
 {
-    return L"";
+    return _u("");
 }
 
 bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, __in LPWSTR moduleName)

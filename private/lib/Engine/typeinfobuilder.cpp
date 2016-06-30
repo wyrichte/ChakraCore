@@ -182,7 +182,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
                     ErrHandler err;
                     h = HashTbl::Create(256, NULL);
                     scan = UTF8Scanner::Create(NULL, h, &tok, &err, scriptContext);
-                    scan->SetText(pFuncBody->GetSource(L"TypeInfoBuilder::AddFunction"), 0, pFuncBody->LengthInBytes(), 0, 0);
+                    scan->SetText(pFuncBody->GetSource(_u("TypeInfoBuilder::AddFunction")), 0, pFuncBody->LengthInBytes(), 0, 0);
                     int params = 0;
                     scan->Scan();
                     while (tok.tk != tkEOF)

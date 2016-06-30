@@ -51,6 +51,31 @@ BUILD_PASS1_CONSUMES= \
     inetcore\jscript\private\lib\sca\release|PASS1 \
     inetcore\jscript\private\lib\telemetry\release|PASS1 \
     inetcore\jscript\private\lib\winrt\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\backend\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\codex|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\common\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\core\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\datastructures\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\exceptions\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\memory\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\common\util\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\jsrt\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\parser\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\base\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\bytecode\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\debug\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\language\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\library\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\math\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\types\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\enc\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\engine\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\jsrtchakra\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\projection\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\sca\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\telemetry\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\winrt\release|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
     com\ole32\dll\daytona|PASS1 \

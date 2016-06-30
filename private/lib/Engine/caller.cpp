@@ -12,9 +12,9 @@ DispatchExCaller::DispatchExCaller(void)
     scriptSite(NULL),
     m_punkCaller(NULL),
     m_punkSite(NULL),
-    m_fQueriedCaller(FALSE),
-    m_fQueriedSite(FALSE),
-    m_pspCaller(FALSE),
+    m_fQueriedCaller(false),
+    m_fQueriedSite(false),
+    m_pspCaller(NULL),
     m_pspSite(NULL)
 {
 }
@@ -217,7 +217,7 @@ HRESULT DispatchExCaller::QSCaller(REFGUID guidService, REFIID riid, void **ppvO
             {
             m_pspCaller = NULL;
             }
-        m_fQueriedCaller = TRUE;
+        m_fQueriedCaller = true;
         }
 
     if (NULL != m_pspCaller)
@@ -241,7 +241,7 @@ HRESULT DispatchExCaller::QSSite(REFGUID guidService, REFIID riid, void **ppvObj
             {
             m_pspSite = NULL;
             }
-        m_fQueriedSite = TRUE;
+        m_fQueriedSite = true;
         }
 
     if (NULL != m_pspSite)
@@ -287,7 +287,7 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
         {
             // assuming this is the exception object, and we need to create hostdispatch wrapper around it. 
             Js::Var errorObject;
-            hr = DispatchHelper::MarshalVariantToJsVarWithScriptEnter(pvar, &errorObject, scriptContext);
+            hr = DispatchHelper::MarshalVariantToJsVar(pvar, &errorObject, scriptContext);
             if (SUCCEEDED(hr))
             {
                 exceptionObject = RecyclerNew(scriptContext->GetRecycler(), Js::JavascriptExceptionObject, errorObject, scriptContext, NULL);
@@ -295,11 +295,11 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
         }
         else
         {
-            wchar_t * allocatedString = NULL;
+            char16 * allocatedString = NULL;
             if (pExcepInfo->bstrDescription != NULL)
             {
                 uint32 len = SysStringLen(pExcepInfo->bstrDescription) + 1;
-                allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), wchar_t, len);
+                allocatedString = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), char16, len);
                 wcscpy_s(allocatedString, len, pExcepInfo->bstrDescription);
             }
 

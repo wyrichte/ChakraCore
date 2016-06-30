@@ -36,7 +36,7 @@ struct TestHooks
     typedef HRESULT (__stdcall *SetAssertToConsoleFlagPtr)(bool flag);    
     typedef HRESULT (__stdcall *SetEnableCheckMemoryLeakOutputPtr)(bool flag);
     typedef HRESULT(__stdcall *FlushOutputPtr)();
-    typedef void (__stdcall * FinalGCPtr)();
+    typedef HRESULT (__stdcall * FinalGCPtr)();
     typedef void (__stdcall *SetGetHeapObjectInfoPtr)(GetHeapObjectInfoPtr);
     typedef HRESULT (__stdcall *GetThreadServicePtr)(IActiveScriptGarbageCollector** threadService);
     typedef void (__stdcall * NotifyUnhandledExceptionPtr)(PEXCEPTION_POINTERS exceptionInfo);
@@ -76,7 +76,7 @@ struct TestHooks
     DisplayMemStatsPtr pfDisplayMemStats;
     FlushOutputPtr pfFlushOutput;
 #ifdef ENABLE_INTL_OBJECT
-    ClearTimeZoneCalendarsPtr pfClearTimeZoneCalendars;
+    ClearTimeZoneCalendarsPtr pfResetTimeZoneFactoryObjects;
 #endif
 #ifdef FAULT_INJECTION
     GetCurrentFaultInjectionCountPtr pfGetCurrentFaultInjectionCount;

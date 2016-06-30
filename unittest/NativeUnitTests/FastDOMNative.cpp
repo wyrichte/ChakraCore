@@ -11,10 +11,10 @@ void FastDomTestCase1(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
 {
     try
     {
-        std::wstring someprop=L"someprop";
+        std::wstring someprop=_u("someprop");
         PropertyId pid=mytest->GetOrAddPropertyId(someprop.c_str());
         std::wstring retprop=mytest->GetPropertyName(pid);
-        std::string retprop_str(retprop.length(),L'\0');
+        std::string retprop_str(retprop.length(),_u('\0'));
 
         // TODO: following was failing in snap, disabling temporarily
         /*
@@ -89,7 +89,7 @@ void FastDomTestCase3(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         {
             pid=-i;
             std::wstring retprop=mytest->GetPropertyName(pid);
-            if(retprop.compare(L"")==0)
+            if(retprop.compare(_u(""))==0)
             {
                 std::stringstream str;
                 str<<"PASS: The Add Property For Negative PID's "<<pid<<endl;
@@ -122,8 +122,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
     {
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o1");
-        mytest->SetPropertyOnTypedObject(L"o1",L"p1",L"10","int","10");
+        mytest->CreateTypeObject(_u("o1"));
+        mytest->SetPropertyOnTypedObject(_u("o1"),_u("p1"),_u("10"),"int","10");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -136,8 +136,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         mytest->ClearData();
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o2");
-        mytest->SetPropertyOnTypedObject(L"o2",L"p2",L"2147483648","double","2147483648");
+        mytest->CreateTypeObject(_u("o2"));
+        mytest->SetPropertyOnTypedObject(_u("o2"),_u("p2"),_u("2147483648"),"double","2147483648");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -151,8 +151,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
 
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o3");
-        mytest->SetPropertyOnTypedObject(L"o3",L"p3",L"2147483649","double","2147483649");
+        mytest->CreateTypeObject(_u("o3"));
+        mytest->SetPropertyOnTypedObject(_u("o3"),_u("p3"),_u("2147483649"),"double","2147483649");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -165,8 +165,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         mytest->ClearData();
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o4");
-        mytest->SetPropertyOnTypedObject(L"o4",L"p4",L"429496725","double","429496725");
+        mytest->CreateTypeObject(_u("o4"));
+        mytest->SetPropertyOnTypedObject(_u("o4"),_u("p4"),_u("429496725"),"double","429496725");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -179,8 +179,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         mytest->ClearData();
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o5");
-        mytest->SetPropertyOnTypedObject(L"o5",L"p5",L"429496726","double","429496726");
+        mytest->CreateTypeObject(_u("o5"));
+        mytest->SetPropertyOnTypedObject(_u("o5"),_u("p5"),_u("429496726"),"double","429496726");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -193,8 +193,8 @@ void FastDomTestCase4(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
         mytest->ClearData();
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o6");
-        mytest->SetPropertyOnTypedObject(L"o6",L"p6",L"429496724","double","429496724");
+        mytest->CreateTypeObject(_u("o6"));
+        mytest->SetPropertyOnTypedObject(_u("o6"),_u("p6"),_u("429496724"),"double","429496724");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -226,8 +226,8 @@ void FastDomTestCase5(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
     {
 
         mytest->Start();
-        mytest->CreateTypeObject(L"o");
-        mytest->SetPropertyOnTypedObject(L"o",L"propertypropertypropertypropertypropertypropertypropertypropertypropertypropertyproperty1",L"'Chakra'","string","Chakra");
+        mytest->CreateTypeObject(_u("o"));
+        mytest->SetPropertyOnTypedObject(_u("o"),_u("propertypropertypropertypropertypropertypropertypropertypropertypropertypropertyproperty1"),_u("'Chakra'"),"string","Chakra");
         mytest->End();
        if(verify->CheckNative())
 	   {
@@ -306,12 +306,12 @@ void FastDomTestCase7(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
     try
     {
         mytest->Start();
-		std::wstring ctorname=L"ctorname";
-		std::wstring tname=L"tname7";
-        mytest->CreateFunction(L"Chakra_Foo",L"default",L"default",ctorname);
-        mytest->CreateTypedObjectWithPrototype(L"Chakra_Foo",L"Chakra_foo_obj",tname);
-        mytest->SetPropertyOnTypedObject(L"Chakra_foo_obj",L"protoprop1",L"2147483648","double","2147483648");
-        mytest->SetPropertyOnPrototypeInstance(L"Chakra_Foo",L"myfooprop",L"'eze'","string","eze");
+		std::wstring ctorname=_u("ctorname");
+		std::wstring tname=_u("tname7");
+        mytest->CreateFunction(_u("Chakra_Foo"),_u("default"),_u("default"),ctorname);
+        mytest->CreateTypedObjectWithPrototype(_u("Chakra_Foo"),_u("Chakra_foo_obj"),tname);
+        mytest->SetPropertyOnTypedObject(_u("Chakra_foo_obj"),_u("protoprop1"),_u("2147483648"),"double","2147483648");
+        mytest->SetPropertyOnPrototypeInstance(_u("Chakra_Foo"),_u("myfooprop"),_u("'eze'"),"string","eze");
         mytest->End();
 		if(verify->CheckNative())
 		{
@@ -350,21 +350,21 @@ void FastDomTestCase8(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
     try
     {
         mytest->Start();
-		std::wstring cname=L"ctroname1";
-        mytest->CreateFunction(L"JScript_Foo",L"default",L"default",cname);
-		std::wstring tname=L"tname8";
-        mytest->CreateTypedObjectWithPrototype(L"JScript_Foo",L"foo0",tname);
-        mytest->SetPropertyOnTypedObject(L"foo0",L"oo0",L"111","int","111");
-        mytest->SetPropertyOnPrototypeInstance(L"JScript_Foo",L"p0",L"'v1'","string","v1");
+		std::wstring cname=_u("ctroname1");
+        mytest->CreateFunction(_u("JScript_Foo"),_u("default"),_u("default"),cname);
+		std::wstring tname=_u("tname8");
+        mytest->CreateTypedObjectWithPrototype(_u("JScript_Foo"),_u("foo0"),tname);
+        mytest->SetPropertyOnTypedObject(_u("foo0"),_u("oo0"),_u("111"),"int","111");
+        mytest->SetPropertyOnPrototypeInstance(_u("JScript_Foo"),_u("p0"),_u("'v1'"),"string","v1");
         mytest->End();
 
         mytest->Start();
-		cname=L"ctroname2";
-		tname=L"tname81";
-        mytest->CreateFunction(L"JScript_Bar",L"foo0",L"default",cname);
-        mytest->CreateTypedObjectWithPrototype(L"JScript_Bar",L"foo1",tname);
-        mytest->SetPropertyOnTypedObject(L"foo1",L"oo1",L"222","int","222");
-        mytest->SetPropertyOnPrototypeInstance(L"JScript_Bar",L"p1",L"'v1'","string","v1");
+		cname=_u("ctroname2");
+		tname=_u("tname81");
+        mytest->CreateFunction(_u("JScript_Bar"),_u("foo0"),_u("default"),cname);
+        mytest->CreateTypedObjectWithPrototype(_u("JScript_Bar"),_u("foo1"),tname);
+        mytest->SetPropertyOnTypedObject(_u("foo1"),_u("oo1"),_u("222"),"int","222");
+        mytest->SetPropertyOnPrototypeInstance(_u("JScript_Bar"),_u("p1"),_u("'v1'"),"string","v1");
         mytest->End();
 
         for(int i=0;i<10;i++)
@@ -394,11 +394,11 @@ void FastDomTestCase8(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
             std::wstring obj_prop=StringToWString(str4.str());
             std::wstring obj_value=StringToWString(str6.str());
             std::wstring proto_prop=StringToWString(str5.str());
-            std::wstring proto_value=L"'v1'";
+            std::wstring proto_value=_u("'v1'");
 
             mytest->Start();
-			std::wstring ctrname=L"ctroname"+i;
-			tname=L"tname"+i;
+			std::wstring ctrname=_u("ctroname")+i;
+			tname=_u("tname")+i;
             mytest->CreateFunction(ctor_name,prototype,proto_proto,ctrname);
             mytest->CreateTypedObjectWithPrototype(ctor_name,object,tname);
             mytest->SetPropertyOnTypedObject(object,obj_prop,obj_value,"int",str6.str());
@@ -478,14 +478,14 @@ void FastDomTestCase10(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests
     {
         for (int i = 0; i < sizeof(intValue)/sizeof(__int64); i++)
         {
-            mytest->FAIL_hr(activeScriptDirect->DoubleToVar(*((double*)&intValue[i]), &dbVar), L"DoubleToVar");
+            mytest->FAIL_hr(activeScriptDirect->DoubleToVar(*((double*)&intValue[i]), &dbVar), _u("DoubleToVar"));
 
             double dbValue;
-            mytest->FAIL_hr(activeScriptDirect->VarToDouble(dbVar, &dbValue), L"VarToDouble");
+            mytest->FAIL_hr(activeScriptDirect->VarToDouble(dbVar, &dbValue), _u("VarToDouble"));
             if (((*((__int64*)&dbValue) == intValue[i]) && !shouldEqual[i]) ||
                 ((*((__int64*)&dbValue) != intValue[i]) && shouldEqual[i]))
             {
-                mytest->FAIL_hr(E_FAIL, L"invalid NaN value");
+                mytest->FAIL_hr(E_FAIL, _u("invalid NaN value"));
             }
         }
         Print("FastDomTestCase 10 SUCCEEDED");

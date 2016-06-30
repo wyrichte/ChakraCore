@@ -48,7 +48,7 @@
         }                                                                                                                                                       \
         ZeroMemory(value, sizeof(Windows::Foundation::typeName));                                                                                              \
                                                                                                                                                                 \
-        if (!this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation." L#typeName) == 0)              \
+        if (!this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.") _u(#typeName)) == 0)              \
         {                                                                                                                                                       \
             hr = this->objectIReference->get_Value(sizeof(Windows::Foundation::typeName), (byte *)value);                                                     \
         }                                                                                                                                                       \
@@ -130,7 +130,7 @@
             *value = nullptr;                                                                                                                                   \
         }                                                                                                                                                       \
                                                                                                                                                                 \
-        if (this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation." L#typeName) == 0)               \
+        if (this->objectIReference->IsArray() && wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.") _u(#typeName)) == 0)               \
         {                                                                                                                                                       \
             uint32 numberOfElements = this->objectIReference->GetNumberOfElements();                                                                            \
             *value = (Windows::Foundation::##typeName *)CoTaskMemAlloc(sizeof(Windows::Foundation::##typeName) * numberOfElements);                             \
@@ -282,23 +282,23 @@ namespace Projection
         IfNullReturnError(value, E_POINTER);
         *value = Windows::Foundation::PropertyType_Empty;
 
-        if (wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation.DateTime") == 0)
+        if (wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.DateTime")) == 0)
         {
             *value = (this->objectIReference->IsArray() ? Windows::Foundation::PropertyType_DateTimeArray : Windows::Foundation::PropertyType_DateTime);
         }
-        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation.TimeSpan") == 0)
+        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.TimeSpan")) == 0)
         {
             *value = (this->objectIReference->IsArray() ? Windows::Foundation::PropertyType_TimeSpanArray : Windows::Foundation::PropertyType_TimeSpan);
         }
-        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation.Point") == 0)
+        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.Point")) == 0)
         {
             *value = (this->objectIReference->IsArray() ? Windows::Foundation::PropertyType_PointArray : Windows::Foundation::PropertyType_Point);
         }
-        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation.Size") == 0)
+        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.Size")) == 0)
         {
             *value = (this->objectIReference->IsArray() ? Windows::Foundation::PropertyType_SizeArray : Windows::Foundation::PropertyType_Size);
         }
-        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), L"Windows.Foundation.Rect") == 0)
+        else if (wcscmp(this->objectIReference->GetFullElementTypeName(), _u("Windows.Foundation.Rect")) == 0)
         {
             *value = (this->objectIReference->IsArray() ? Windows::Foundation::PropertyType_RectArray : Windows::Foundation::PropertyType_Rect);
         }

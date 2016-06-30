@@ -40,7 +40,7 @@ void ActiveScriptExternalLibrary::InitializeTypes()
         Js::SimpleDictionaryTypeHandler::New(scriptContext->GetRecycler(), 0, 0, 0, true, true), true, true);
 
     hostObjectType = Js::DynamicType::New(scriptContext, Js::TypeIds_HostObject, library->GetNull(), nullptr,
-        Js::SimplePathTypeHandler::New(scriptContext, scriptContext->GetRootPath(), 0, 0, 0, true, true), true, true);
+        Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 }
 
 void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()
@@ -49,13 +49,13 @@ void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()
 
     diagnosticsScriptObject = Js::DiagnosticsScriptObject::New(scriptContext->GetRecycler(), library->GetObjectType());
     library->AddMember(javascriptLibrary->GetGlobalObject(),
-        scriptContext->GetOrAddPropertyIdTracked(L"diagnosticsScript"),
+        scriptContext->GetOrAddPropertyIdTracked(_u("diagnosticsScript")),
         this->diagnosticsScriptObject);
 
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"getStackTrace", &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"debugEval", &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("getStackTrace"), &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("debugEval"), &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
 #ifdef EDIT_AND_CONTINUE
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, L"editSource", &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("editSource"), &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
 #endif
 }
 
@@ -90,7 +90,7 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
         // TODO: OOP JIT, RPC to add to list
         scriptContext->EnsureDOMFastPathIRHelperMap()->Add(functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
     }
-    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }
 
 Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
@@ -102,5 +102,6 @@ Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetter
         typedObjectSlotSetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
 
     }
-    return library->EnsureReadyIfHybridDebugging(RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId));
+
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }

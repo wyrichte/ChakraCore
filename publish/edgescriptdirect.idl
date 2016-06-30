@@ -1122,7 +1122,7 @@ interface IActiveScriptDirect : IUnknown
     /// At this time, chakra have notify the host that the module and all its dependent are ready to be executed. 
     /// requestModule           : The module to be executed.
     /// varResult               : return value of the function. If the execution failed, it's the exception.
-    /// return value            : S_OK if succeeded; unhandled execption saved in varResult if error code.
+    /// return value            : S_OK if succeeded; unhandled exception will be reported to the host similar to IActiveScript
     HRESULT ModuleEvaluation([in] ModuleRecord requestModule, [out] Var* varResult);
 
     /// Set the host info for the specified module. 
@@ -1130,6 +1130,9 @@ interface IActiveScriptDirect : IUnknown
 
     /// Retrieve the host information for the specified module.
     HRESULT GetModuleHostInfo([in] ModuleRecord requestModule, [in] ModuleHostInfoKind moduleHostState, [out] void** hostInfo);
+
+    /// Create an IActiveScriptError wrapper around an error object.
+    HRESULT CreateScriptErrorFromVar([in] Var errorObject, [out] IActiveScriptError** scriptError);
 
     /// Set the OOP Jit information
     ///   processId         : The processId of the JIT process
@@ -1399,6 +1402,14 @@ interface IActiveScriptDirectHost : IUnknown
     // S_OK if the call can go through.
     // E_ACCESSDENIED otherise.
     HRESULT ValidateCall([in] IActiveScriptSite* src, [in] IActiveScriptSite* dest, [in] Var instance);
+
+    // Registers a Promise Callback - Not yet generalized for other forms of tasks, but can take an enumeration to select the appropriate task queue.
+    //  When we generalize we'll also change the name to EnqueueTask or EnqueueJob.
+    //
+    // Params :
+    //      task            : The var of the task to be queued and execute on the micro-task queue.
+    //
+    void EnqueuePromiseTask([in] Var task);
 
     /// Notify the host of the dependent module, the "import" part before HostREsolveImportedModule.
     /// This notify the host that the refererncing module has the specified module dependency, and the host need to retrieve the module back

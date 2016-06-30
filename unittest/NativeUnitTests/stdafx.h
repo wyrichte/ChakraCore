@@ -43,7 +43,7 @@ typedef unsigned __int16 uint16;
 #include <assert.h>
 #include "time.h"
 #include <float.h>
-
+#include "CommonTypedefs.h"
 
 class AutoCriticalSection 
 {

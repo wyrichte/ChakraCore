@@ -50,7 +50,7 @@ STDMETHODIMP ScriptSite::GetItemInfo(LPCOLESTR pstrName, DWORD dwReturnMask, IUn
         *ppti = NULL;
     }
 
-    //if (wcscmp(pstrName, L"WScript") == 0)
+    //if (wcscmp(pstrName, _u("WScript")) == 0)
     //{
     //    if (!wscriptDispatch)
     //    {
@@ -86,10 +86,10 @@ STDMETHODIMP ScriptSite::OnScriptError(IActiveScriptError * error)
     }
     if (FAILED(hr))
     {
-        fwprintf(stderr, L"An unknown error occured.");
+        fwprintf(stderr, _u("An unknown error occured."));
         return hr;
     }
-    fwprintf(stderr, L"%s: %s\n", exceptionInfo.bstrSource, exceptionInfo.bstrDescription);
+    fwprintf(stderr, _u("%s: %s\n"), exceptionInfo.bstrSource, exceptionInfo.bstrDescription);
 
     return S_OK;
 }

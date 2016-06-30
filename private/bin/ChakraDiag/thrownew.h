@@ -53,6 +53,11 @@ inline void* __cdecl operator new[](size_t size, const JsDiag::_nothrow_t& alloc
     return alloc.allocate_array(size);
 }
 
+inline void __cdecl operator delete[](void * pointer, const JsDiag::_oomthrow_t&) throw()
+{
+    ::operator delete[](pointer);
+}
+
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
 #define JSDIAG_INJECT_ALLOC_FAIL if (JsDiag::_ShouldAllocFail())
 #else

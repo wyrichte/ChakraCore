@@ -215,7 +215,7 @@ public:
     void ClearCurrentFrame();
     HRESULT SetCurrentFrame(ULONG depth);
     HRESULT LogJson(LPCWSTR logString);
-    HRESULT LogJson(__in __nullterminated wchar_t *msg, ...);
+    HRESULT LogJson(__in __nullterminated char16 *msg, ...);
 
     HRESULT AddNode(__in IDebugApplicationNode *pRootNode, ULONG ulContainerId);
     HRESULT RemoveNode(__in IDebugApplicationNode *pRootNode);
@@ -274,7 +274,6 @@ public:
     typedef ::AutoDebugPropertyInfo AutoDebugPropertyInfo;
 
     const ControllerConfig& GetControllerConfig() const { return m_config; }
-    bool IsHybridDebugger() const { return false; }
 
     template <class Func>
     HRESULT MapPropertyInfo(const DebugProperty& debugProperty, DebugPropertyFlags flags, const Func& func)
@@ -365,19 +364,6 @@ private:
     static JsValueRef CALLBACK JsDumpSourceList(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     
     static JsValueRef JsEvaluateExpression_Internal(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, bool isAsync = false);
-
-    // Hybrid debugging support
-    static void RaiseScriptDebugEvent(ScriptDebugEvent& scriptDebugEvent);
-
-    inline void AssignTargetString(LPCOLESTR szString, TARGET_STRING* pTargetString)
-    {
-        Assert(pTargetString);
-        pTargetString->Address = (UINT64)(szString);
-        if (szString == NULL)
-            pTargetString->Length = 0;
-        else
-            pTargetString->Length = (DWORD)wcslen(szString);
-    }
 
     static HRESULT ArgToULONG(JsValueRef arg, ULONG* pValue);
     static HRESULT ArgToString(JsValueRef arg, PCWSTR* pValue, size_t* pLength);

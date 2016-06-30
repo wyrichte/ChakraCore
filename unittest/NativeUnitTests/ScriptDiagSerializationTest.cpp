@@ -70,7 +70,7 @@ namespace JsDiag
         {
             // m_pos points to the position after last written byte.
             char* result = new char[2 * (m_pos + 1)];
-            result[m_pos] = L'\0';
+            result[m_pos] = _u('\0');
 
             BYTE* src = m_buffer;
             char* dst = result;
@@ -94,7 +94,7 @@ namespace JsDiag
         }
     }; // MemoryStream.
 
-    // Helper class, main purpose it to isolate wchar_t* from integers so that SerialiableOneValue can compile with both.
+    // Helper class, main purpose it to isolate char16* from integers so that SerialiableOneValue can compile with both.
     template <typename T>
     struct SerializeHelper
     {
@@ -241,7 +241,7 @@ namespace JsDiag
     void TestString()
     {
         MemoryStream stream(32);
-        LPCWSTR str = L"hello";
+        LPCWSTR str = _u("hello");
         SerializableOneValue<LPCWSTR> data(_wcsdup(str));
         Serializer::Serialize(&data, &stream, NULL);
         AutoArrayPtr<char> serializedBytes = stream.ToByteString();
@@ -395,7 +395,7 @@ namespace JsDiag
         length = Serializer::Serialize(&data1, &stream, NULL);
         bool isPass1 = length == 0;
 
-        SerializableOneValue<LPCWSTR> data2(_wcsdup(L""));
+        SerializableOneValue<LPCWSTR> data2(_wcsdup(_u("")));
         length = Serializer::Serialize(&data2, &stream, NULL);
         bool isPass2 = length == 0;
 
@@ -681,7 +681,7 @@ namespace JsDiag
                 free((void*)this->Uri);
                 free((void*)this->FunctionName);
             }
-            void Initialize(__int64 effBP, __int64 ip, __int64 retAddr, int row, int col, wchar_t* func, wchar_t* uri, bool isInline)
+            void Initialize(__int64 effBP, __int64 ip, __int64 retAddr, int row, int col, char16* func, char16* uri, bool isInline)
             {
                 this->EffectiveFrameBase = effBP; 
                 this->InstructionPointer = ip;
@@ -755,7 +755,7 @@ namespace JsDiag
             WerFrame* Frames;   // Consequitive array of frames.
 
             Message() : MagicCookie(0xADBE), Version(NULL), Frames(NULL) {}
-            Message(unsigned short magic, wchar_t* version, int frameCount, WerFrame* frames) : 
+            Message(unsigned short magic, char16* version, int frameCount, WerFrame* frames) : 
                 MagicCookie(magic), Version(version), FrameCount(frameCount), Frames(frames) {}
             ~Message() 
             { 
@@ -799,9 +799,9 @@ namespace JsDiag
         MemoryStream stream(256);
         int frameCount = 2;
         WerFrame* frames = new WerFrame[frameCount];
-        frames[0].Initialize(0xACBDCF, 0xACBDC0, 0xACBDC1, 256, 5, _wcsdup(L"foo"), _wcsdup(L"http://some"), false);
-        frames[1].Initialize(0xCBDCAF, 0xCBDCA0, 0, 2048, 1, _wcsdup(L"bar"), _wcsdup(L"http://another"), true);
-        Message message(0xACBE, _wcsdup(L"1.0"), 2, frames);
+        frames[0].Initialize(0xACBDCF, 0xACBDC0, 0xACBDC1, 256, 5, _wcsdup(_u("foo")), _wcsdup(_u("http://some")), false);
+        frames[1].Initialize(0xCBDCAF, 0xCBDCA0, 0, 2048, 1, _wcsdup(_u("bar")), _wcsdup(_u("http://another")), true);
+        Message message(0xACBE, _wcsdup(_u("1.0")), 2, frames);
         Serializer::Serialize(&message, &stream, NULL);
 
         stream.ResetPos();

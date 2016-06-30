@@ -1,6 +1,4 @@
 ---deep recursion
-
-Printing stacktrace..
 foo (test_deeprecursion.js:3,15)
 foo (test_deeprecursion.js:4,3)
 foo (test_deeprecursion.js:4,3)

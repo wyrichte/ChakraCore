@@ -651,7 +651,7 @@ public:
 
     // We don't do Collect at ScriptSite close time for non primary Engines. This is set from host for engines like frames
     // that does not require full cleanup at close time.
-    void SetNonPrimaryEngine(BOOL nonPrimaryEngine) {fNonPrimaryEngine = nonPrimaryEngine; }
+    void SetNonPrimaryEngine(bool nonPrimaryEngine) {fNonPrimaryEngine = nonPrimaryEngine; }
 
     DWORD GetHostType() { return hostType; }
     HRESULT GetHostContextUrl(__in DWORD_PTR hostSourceContext, __out BSTR* pUrl);
@@ -711,7 +711,7 @@ public:
     };
 
     static const unsigned int ScriptBodyMRUSize = 128;
-    static const wchar_t *GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext);
+    static const char16 *GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext);
     typedef JsUtil::Cache<Js::Utf8SourceInfo *, CScriptBody *, RecyclerNonLeafAllocator, PrimeSizePolicy, JsUtil::MRURetentionPolicy<Js::Utf8SourceInfo *, ScriptBodyMRUSize>, DefaultComparer, JsUtil::DictionaryEntry> ScriptBodyDictionary;
 
 protected:
@@ -951,8 +951,6 @@ private:
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting);
 
-    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
-
     HRESULT GetUrl(__out BSTR *pUrl);
 
 
@@ -984,7 +982,6 @@ private:
     BOOL  m_fIsValidCodePage;
     UINT  m_codepage;              // Code page
 
-    UINT  m_cbMinStackHost;
     DWORD m_dwBaseThread;          // Win32 thread we were created in
     BOOL  m_fPersistLoaded;        // TRUE if IPersist*::Load() or InitNew() has completed
     BOOL  m_fIsPseudoDisconnected; // TRUE if we are in a pseudo-disconnected state
@@ -1074,7 +1071,7 @@ public:
         return m_pda;
     }
 
-    void RegisterDebugDocument(CScriptBody *pBody, const wchar_t * title, DWORD_PTR dwDebugSourceContext);
+    void RegisterDebugDocument(CScriptBody *pBody, const char16 * title, DWORD_PTR dwDebugSourceContext);
     ScriptDebugDocument * FindDebugDocument(SourceContextInfo * pInfo);
 
     HRESULT CleanupDocumentContextListInternal(Js::ScriptContext *pScriptContext);
@@ -1087,6 +1084,8 @@ public:
 
     BOOL NamedBPEnter(void) { return m_NBPmutx.Enter(); }
     void NamedBPLeave(void) { m_NBPmutx.Leave(); }
+
+    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
 
     DWORD DwResetGeneration (void) { return m_dwResetGeneration; }
     HRESULT DbgCreateBrowserFromCodeContext (
@@ -1147,17 +1146,17 @@ private:
     DWORD                           m_dwSnifferCookie;
     DWORD_PTR                       m_dwExprContextProviderCookie;
 
-    BOOL m_fDumbHost                 : 1;
-    BOOL m_fStackFrameSnifferAdded   : 1;
+    bool m_fDumbHost                 : 1;
+    bool m_fStackFrameSnifferAdded   : 1;
 
-    BOOL m_fExprContextProviderAdded : 1;
-    BOOL m_isHostInDebugMode         : 1;   // Exepcted to be true if host returns IActiveSscriptSiteDebugHelper::IsInDebugMode to be true
+    bool m_fExprContextProviderAdded : 1;
+    bool m_isHostInDebugMode         : 1;   // Exepcted to be true if host returns IActiveSscriptSiteDebugHelper::IsInDebugMode to be true
 
     // This will be used to track the first call to CompileUTF8Core as we can only transition to debugger state on first call and not in between
-    BOOL m_isFirstSourceCompile      : 1;
+    bool m_isFirstSourceCompile      : 1;
 
     // Set to true when the Diagnostics holder mentions that current engine belongs to Diagnostics OM.
-    BOOL m_isDiagnosticsOM : 1;
+    bool m_isDiagnosticsOM : 1;
 
     // This mutex guards the member variables of ScriptEngine that may be
     // accessed from both the app thread and the debugger thread. Currently
@@ -1226,10 +1225,10 @@ private:
     // flags and values pased by the host via  IActiveScriptProperty
     DWORD                       hostType;       // One of enum SCRIPTHOSTTYPE values.
     DWORD                       webWorkerID;
-    BOOL                        fCanOptimizeGlobalLookup : 1; //free to optimize globals when true
-    BOOL                        fNonPrimaryEngine : 1; //is this engine an iframe or non-top level navigation engine
-    BOOL                        fKeepEngineAlive: 1;  // keep the host alive if there is outstanding reference to IDispatch.
-    BOOL                        fSetThreadDescription: 1;  // Used for setting the thread description once.
+    bool                        fCanOptimizeGlobalLookup : 1; //free to optimize globals when true
+    bool                        fNonPrimaryEngine : 1; //is this engine an iframe or non-top level navigation engine
+    bool                        fKeepEngineAlive: 1;  // keep the host alive if there is outstanding reference to IDispatch.
+    bool                        fSetThreadDescription: 1;  // Used for setting the thread description once.
 
     // ToDo (SaAgarwa): Temporarily holds the pairCount and pSourceContextPairs passed to ScriptEngine::OnDebuggerAttached, Move to a seperate debug class specific to ScriptEngine
     ULONG pairCount;

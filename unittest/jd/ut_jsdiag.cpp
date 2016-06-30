@@ -6,25 +6,6 @@
 #include <initguid.h>
 #include "guids.h"
 
-void EXT_CLASS::CreateDebugProcess(IJsDebugProcess** ppDebugProcess, bool debugMode) 
-{
-    HRESULT hr = S_OK;
-    CComPtr<IJsDebug2> jsDebug;
-    CreateJsDebug(&jsDebug);
-
-    CComPtr<DbgEngDataTarget> dataTarget;
-    IfFailedAssertReturn(CreateComObject(&dataTarget));
-    IfFailedAssertReturn(dataTarget->Init(m_Client));
-
-    DWORD processId;
-    IfFailThrow(m_System->GetCurrentProcessSystemId(&processId));
-
-    UINT64 baseAddress; ULONG index;
-    IfFailedAssertReturn(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &baseAddress));
-
-    IfFailedAssertReturn(jsDebug->OpenVirtualProcess(dataTarget, /*debugMode*/ debugMode, processId, baseAddress, NULL, ppDebugProcess));
-}
-
 // EXT_DECLARE_GLOBALS must be used to instantiate
 // the framework's assumed globals.
 EXT_DECLARE_GLOBALS();
@@ -32,20 +13,6 @@ EXT_DECLARE_GLOBALS();
 EXT_CLASS::EXT_CLASS():
     m_unitTestMode(true)
 {
-}
-
-void EXT_CLASS::CreateJsDebug(IJsDebug2** ppDebug)
-{
-    CComPtr<IJsDebug2> jsDebug;
-
-    //TODO: better logic to determine which dll to use
-    HRESULT hr = PrivateCoCreate(L"chakradiagtest.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&jsDebug));
-    if (FAILED(hr))
-    {
-        IfFailedAssertReturn(PrivateCoCreate(L"chakradiag.dll", CLSID_ChakraDiag, IID_PPV_ARGS(&jsDebug)));
-    }
-
-    *ppDebug = jsDebug.Detach();
 }
 
 void EXT_CLASS::Out(_In_ PCSTR fmt, ...)
@@ -73,7 +40,7 @@ void EXT_CLASS::Out(_In_ PCWSTR fmt, ...)
     std::wstring s;
     if (m_unitTestMode)
     {
-        s = std::wstring(L"$ut$") + fmt;
+        s = std::wstring(_u("$ut$")) + fmt;
         fmt = s.c_str();
     }
 
@@ -98,57 +65,6 @@ EXT_COMMAND(utmode,
     m_unitTestMode = GetUnnamedArgU64(0) != 0;
 }
 
-EXT_COMMAND(jsstack,
-    "Test JavaScript stack walking",
-    "")
-{
-    
-    Out(L"\nPrinting stacktrace..\n");
-
-    DWORD threadId;
-    IfFailThrow(m_System->GetCurrentThreadSystemId(&threadId));
-
-    HRESULT hr = S_OK;
-
-    CComPtr<IJsDebugProcess> debugProcess;
-    CreateDebugProcess(&debugProcess);
-    CComPtr<IJsDebugStackWalker> stackWalker;
-    IfFailedAssertReturn(debugProcess->CreateStackWalker(threadId, &stackWalker));
-    CComPtr<IJsDebugFrame> debugFrame;
-    while( (hr = stackWalker->GetNext(&debugFrame)) != E_JsDEBUG_OUTSIDE_OF_VM)
-    {
-        IfFailThrow(hr);
-        CComBSTR name;
-        IfFailThrow(debugFrame->GetName(&name));
-        CComBSTR url;
-        DWORD line, column;
-
-        UINT64 start, end;
-        IfFailedAssertReturn(debugFrame->GetStackRange(&start, &end));
-        this->Verb(L"%08I64x, %08I64x ", start, end);
-        IfFalseAssertReturn(end <= start);
-        IfFalseAssertReturn(end != 0 && start != 0);
-
-        UINT64 returnAddress;
-        IfFailedAssertReturn(debugFrame->GetReturnAddress(&returnAddress));
-        this->Verb(L"%08I64x ", returnAddress);
-        IfFalseAssertReturn(returnAddress != 0);
-
-        IfFailedAssertReturn(debugFrame->GetDocumentPositionWithName(&url, &line, &column));
-
-        UINT64 documentId; DWORD characterOffset; DWORD statementLength;
-        IfFailedAssertReturn(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
-
-        wchar_t filename[_MAX_FNAME];
-        wchar_t ext[_MAX_EXT];
-        _wsplitpath_s(url, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
-
-        Out(L"%s (%s%s:%u,%u)\n", name, filename, ext, line, column);
-
-        debugFrame.Release();
-    }
-}
-
 EXT_COMMAND(ldsym,
     "Test load JavaScript symbols",
     "")
@@ -168,7 +84,7 @@ EXT_COMMAND(ldsym,
         "Failed to find chakra module name");
     IfFailThrow(m_Symbols3->GetModuleNameStringT(DEBUG_MODNAME_IMAGE, index, base, imageName, _countof(imageName), NULL),
         "Failed to find chakra module path");
-    Verb(L"Use %s\n", imageName);
+    Verb(_u("Use %s\n"), imageName);
     HRESULT hr = S_OK;
     // .reload jscript9.dll, if sympath has changed. Without this FindSymbol will still fail if there was a previous failure (e.g., k) with missing symbols.
     if (sympathChanged)
@@ -177,7 +93,7 @@ EXT_COMMAND(ldsym,
         IfFailedAssertReturn(m_Symbols3->ReloadT(module));
     }
 
-    const CLSID CLSID_JScript9DAC = {0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c};
+    const CLSID CLSID_JScript9DAC = { 0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c };
     CComPtr<IScriptDAC> pDAC;
     CComPtr<SinkDebugSite> pSinkDebugSite;
 
@@ -192,92 +108,6 @@ EXT_COMMAND(ldsym,
     pSinkDebugSite->PrintSymbolNames();
 }
 
-
-EXT_COMMAND(verifyOM,
-    "Test OM error handling",
-    "")
-{
-    CComPtr<IJsDebugProcess> debugProcess; 
-    CreateDebugProcess(&debugProcess);
-    
-    ULONG count;
-    IfFailThrow(m_System->GetNumberThreads(&count));
-    IfFalseAssertMsgReturn(count > 1, "Count should be greater than 1 to validate");
-    ULONG currentThreadId;
-    IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
-    CAutoVectorPtr<ULONG> threads(new ULONG[count]);
-    IfFailThrow(m_System->GetThreadIdsByIndex(0, count, NULL, threads));
-    ULONG otherThreadId = (ULONG)-1;
-    for(ULONG i=0; i < count; i++)
-    {
-        if(threads[i] != currentThreadId)
-        {
-            otherThreadId = threads[i];
-            break;
-        }
-    }
-    IfFalseAssertReturn(otherThreadId != (ULONG)-1);
-    
-    CComPtr<IJsDebugStackWalker> stackWalker;
-    ReturnIfHRNotEqual(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->CreateStackWalker(otherThreadId, &stackWalker));
-    ReturnIfHRNotEqual(E_JsDEBUG_UNKNOWN_THREAD, debugProcess->PerformAsyncBreak(otherThreadId));
-    ULONG threadIdAfterStackWalkerCreation;
-    IfFailThrow(m_System->GetCurrentThreadSystemId(&threadIdAfterStackWalkerCreation));
-
-    IfFalseAssertReturn(threadIdAfterStackWalkerCreation == currentThreadId);
-}
-
-EXT_COMMAND(asyncBreak,
-    "Put runtime into async break mode",
-    "")
-{
-    CComPtr<IJsDebugProcess> debugProcess; 
-    CreateDebugProcess(&debugProcess);
-    ULONG currentThreadId;
-    HRESULT hr = S_OK;
-    IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
-    IfFailedAssertReturn(debugProcess->PerformAsyncBreak(currentThreadId));
-}
-
-EXT_COMMAND(bp,
-    "Set breakpoint",
-    "{;e,o,d=0;characterOffset;The character offset where to set the breakpoint}")
-{
-    HRESULT hr = S_OK;
-    ULONG offset = static_cast<ULONG>(GetUnnamedArgU64(0));
-
-    CComPtr<IJsDebugProcess> debugProcess; 
-    CreateDebugProcess(&debugProcess, /*debugMode*/ true);
-
-    ULONG currentThreadId;
-    IfFailThrow(m_System->GetCurrentThreadSystemId(&currentThreadId));
-
-    CComPtr<IJsDebugStackWalker> stackWalker;
-    IfFailedAssertReturn(debugProcess->CreateStackWalker(currentThreadId, &stackWalker));
-    CComPtr<IJsDebugFrame> debugFrame;
-    IfFailedAssertReturn(stackWalker->GetNext(&debugFrame));
-    UINT64 documentId; DWORD characterOffset; DWORD statementLength;
-    IfFailedAssertReturn(debugFrame->GetDocumentPositionWithId(&documentId, &characterOffset, &statementLength));
-    IfFalseAssertReturn(documentId != 0);
-    CComPtr<IJsDebugBreakPoint> debugBreakPoint;
-    IfFailedAssertReturn(debugProcess->CreateBreakPoint(documentId, offset, 10, /*isEnabled*/ true, &debugBreakPoint));
-    UINT64 breakPointDocumentId;
-    IfFailedAssertReturn(debugBreakPoint->GetDocumentPosition(&breakPointDocumentId, &characterOffset, &statementLength));
-    IfFalseAssertReturn(documentId == breakPointDocumentId);
-    wprintf_s(L"Bp position: (%u, %u) \n", characterOffset, statementLength);
-    BOOL isEnabled;
-    IfFailedAssertReturn(debugBreakPoint->IsEnabled(&isEnabled));
-    IfFalseAssertReturn(isEnabled == TRUE);
-    
-    //  Testing the interface
-    IfFailedAssertReturn(debugBreakPoint->Disable());
-    IfFailedAssertReturn(debugBreakPoint->IsEnabled(&isEnabled));
-    IfFalseAssertReturn(isEnabled == FALSE);
-
-    IfFailedAssertReturn(debugBreakPoint->Enable());
-    IfFalseAssertReturn(debugBreakPoint->Enable() == S_FALSE);
-}
-
 USE_DbgEngDataTarget(); // Use DbgEngDataTarget implementation
 
 //
@@ -288,10 +118,10 @@ void EXT_CLASS::TestGetDump(Func func)
 {
     HRESULT hr = S_OK;
     //TODO: better logic to determine which dll to use
-    HINSTANCE hInstance = LoadLibraryEx(L"chakradiagtest.dll", NULL, 0);
+    HINSTANCE hInstance = LoadLibraryEx(_u("chakradiagtest.dll"), NULL, 0);
     if (!hInstance)
     {
-        hInstance = LoadLibraryEx(L"chakradiag.dll", NULL, 0);
+        hInstance = LoadLibraryEx(_u("chakradiag.dll"), NULL, 0);
     }
     IfFalseAssertReturn(hInstance);
 
@@ -330,7 +160,7 @@ void EXT_CLASS::TestGetDump(Func func)
 // Get filename part of a path for baseline comparison
 static string GetFileName(PCWSTR pPath)
 {
-    string path(pPath ? pPath : L"");
+    string path(pPath ? pPath : _u(""));
     string::size_type split = path.rfind(_T('\\'));
     return split != string::npos ? path.substr(split + 1) : path;
 }
@@ -341,7 +171,7 @@ static string GetFileName(PCWSTR pPath)
 void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const DbgEngDataTarget::MemoryRegionsType* memoryRegions, const ULONG maxFrames)
 {
     HRESULT hr = S_OK;
-    HINSTANCE hInstance = LoadLibraryEx(L"jscript9diagdump.dll", NULL, 0);
+    HINSTANCE hInstance = LoadLibraryEx(_u("jscript9diagdump.dll"), NULL, 0);
     IfFalseAssertReturn(hInstance);
 
     PDEBUG_STACK_PROVIDER_BEGINTHREADSTACKRECONSTRUCTION BeginThreadStackReconstruction = (PDEBUG_STACK_PROVIDER_BEGINTHREADSTACKRECONSTRUCTION)GetProcAddress(hInstance, "BeginThreadStackReconstruction");
@@ -385,11 +215,11 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
 
             if (!m_unitTestMode)
             {
-                Out(L"Thread: 0x%x\n", threadId);
+                Out(_u("Thread: 0x%x\n"), threadId);
 #ifdef _M_X64
-                Out(L"%-17s %-17s %-17s\n", L"Child-SP", L"RetAddr", L"Inst");
+                Out(_u("%-17s %-17s %-17s\n"), _u("Child-SP"), _u("RetAddr"), _u("Inst"));
 #else
-                Out(L"%-8s %-8s %-8s\n",    L"ChildEBP", L"RetAddr", L"Inst");
+                Out(_u("%-8s %-8s %-8s\n"),    _u("ChildEBP"), _u("RetAddr"), _u("Inst"));
 #endif
             }
 
@@ -413,17 +243,17 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
                 {
                     Out(
 #ifdef _M_X64
-                        L"%08x`%08x %08x`%08x %08x`%08x %s%s (%s:%d,%d)\n",
+                        _u("%08x`%08x %08x`%08x %08x`%08x %s%s (%s:%d,%d)\n"),
                         HILONG(f.StackFrameEx.StackOffset), LOLONG(f.StackFrameEx.StackOffset),
                         HILONG(f.StackFrameEx.ReturnOffset), LOLONG(f.StackFrameEx.ReturnOffset),
                         HILONG(f.StackFrameEx.InstructionOffset), LOLONG(f.StackFrameEx.InstructionOffset),
 #else
-                        L"%08x %08x %08x %s%s (%s:%d,%d)\n",
+                        _u("%08x %08x %08x %s%s (%s:%d,%d)\n"),
                         (ULONG)f.StackFrameEx.FrameOffset,
                         (ULONG)f.StackFrameEx.ReturnOffset,
                         (ULONG)f.StackFrameEx.InstructionOffset,
 #endif
-                        isInlineFrame ? L"--" : L"",
+                        isInlineFrame ? _u("--") : _u(""),
                         f.SrcInfo.Function,
                         f.SrcInfo.ImagePath,
                         f.SrcInfo.Row,
@@ -431,7 +261,7 @@ void EXT_CLASS::TestReadDump(LPVOID buffer, ULONG bufferSize, _In_opt_ const Dbg
                 }
                 else
                 {
-                    Out(L"%s%s (%s:%d,%d)\n", isInlineFrame ? L"--" : L"", f.SrcInfo.Function, GetFileName(f.SrcInfo.ImagePath).c_str(), f.SrcInfo.Row, f.SrcInfo.Column);
+                    Out(_u("%s%s (%s:%d,%d)\n"), isInlineFrame ? _u("--") : _u(""), f.SrcInfo.Function, GetFileName(f.SrcInfo.ImagePath).c_str(), f.SrcInfo.Row, f.SrcInfo.Column);
                     if (memoryRegions)
                     {
                         ULONG64 ip = f.StackFrameEx.InstructionOffset;
@@ -518,9 +348,10 @@ EXT_COMMAND(testdump,
     });
 }
 
+
 HRESULT EXT_CLASS::PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk)
 {
-    typedef HRESULT (STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
+    typedef HRESULT(STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
 
     HRESULT hr = NOERROR;
     CComPtr <IClassFactory> pClassFactory;
@@ -528,7 +359,7 @@ HRESULT EXT_CLASS::PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID ii
 
     HINSTANCE hInstance = LoadLibraryEx(strModule, NULL, 0);
     IfNullGo(hInstance, E_FAIL);
-    IfNullGo(pProc = (FN_DllGetClassObject) GetProcAddress(hInstance, "DllGetClassObject"), E_FAIL);
+    IfNullGo(pProc = (FN_DllGetClassObject)GetProcAddress(hInstance, "DllGetClassObject"), E_FAIL);
     IfFailGo(pProc(rclsid, __uuidof(IClassFactory), (LPVOID*)&pClassFactory));
     IfFailGo(pClassFactory->CreateInstance(NULL, iid, ppunk));
 Error:

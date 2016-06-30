@@ -63,8 +63,8 @@ namespace JsDiag
 #ifdef _M_X64
         ulong cacheSize = 16;
 #if defined(DBG) || defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-        wchar_t envBuf[16];
-        DWORD storedCharCount = GetEnvironmentVariableW(L"FrameCacheSize", envBuf, sizeof(envBuf) / sizeof(wchar_t));
+        char16 envBuf[16];
+        DWORD storedCharCount = GetEnvironmentVariableW(_u("FrameCacheSize"), envBuf, sizeof(envBuf) / sizeof(char16));
         if (storedCharCount > 0)
         {
             cacheSize = _wtoi(envBuf);
@@ -138,54 +138,6 @@ namespace JsDiag
     }
 
     IVirtualReader* DbgEngDiagProvider::GetReader()
-    {
-        return m_reader;
-    }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// VSDiagProvider.
-    VSDiagProvider::VSDiagProvider(IJsDebugDataTarget* dataTarget, UINT64 baseAddress) : m_dataTarget(dataTarget), m_js9BaseAddr(baseAddress)
-    {
-        m_reader = new(oomthrow) JsDebugVirtualReader(dataTarget);
-    }
-
-    RemoteStackFrameEnumerator* VSDiagProvider::CreateStackFrameEnumerator(DWORD threadId, void* advanceToAddr)
-    {
-        AutoPtr<RemoteStackFrameEnumerator> enu;
-#if defined(_M_X64)
-        enu = new(oomthrow) VSStackFrameEnumerator(threadId, m_dataTarget);
-        if (advanceToAddr)
-        {
-            enu->AdvanceToFrame(advanceToAddr);
-        }
-#else _M_IX86 || _M_ARM
-        // TODO: consider using enumerator provided by VS but it should support jumping over non-JS frames.
-        enu = this->CreateFrameChainBasedEnumerator(threadId, advanceToAddr, m_reader);
-#endif
-        return enu.Detach();
-    }
-
-    void VSDiagProvider::GetThreadContext(DWORD threadId, CONTEXT* context)
-    {
-        SecureZeroMemory(context, sizeof(CONTEXT));
-        HRESULT hr = m_dataTarget->GetThreadContext(threadId, CONTEXT_ALL, sizeof(CONTEXT), context);
-        CheckHR(hr, DiagErrorCode::DIAGPROVIDER_GETTHREADCONTEXT);
-    }
-
-    bool VSDiagProvider::TryGetTargetModuleBaseAddr(PCWSTR simpleModuleName, ULONG64* baseAddr)
-    {
-        AssertMsg(_wcsicmp(simpleModuleName, JS9_MODULE_NAME) == 0, "Only jscript9 is supported inside VS.");
-
-        *baseAddr = m_js9BaseAddr;
-        return true;
-    }
-
-    HRESULT VSDiagProvider::GetTlsValue(_In_ DWORD threadId, _In_ UINT32 tlsIndex, _Out_ UINT64 *pValue)
-    {
-        return m_dataTarget->GetTlsValue(threadId, tlsIndex, pValue);
-    }
-
-    IVirtualReader* VSDiagProvider::GetReader()
     {
         return m_reader;
     }

@@ -16,13 +16,13 @@
                 },
                 {
                   "Name": "Function code (1)",
-                  "Text": "function anonymous() {\n\n}"
+                  "Text": "function anonymous(\n) {\n}"
                 }
               ]
             },
             {
               "Name": "Function code (2)",
-              "Text": "function anonymous() {\neval('var x2 = 1;');\n}",
+              "Text": "function anonymous(\n) {eval('var x2 = 1;');\n}",
               "Children": [
                 {
                   "Name": "eval code (3)",
@@ -32,7 +32,7 @@
             },
             {
               "Name": "Function code (3)",
-              "Text": "function anonymous() {\neval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
+              "Text": "function anonymous(\n) {eval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
               "Children": [
                 {
                   "Name": "eval code (6)",
@@ -40,7 +40,7 @@
                 },
                 {
                   "Name": "Function code (4)",
-                  "Text": "function anonymous() {\nvar x4 = 1;\n}"
+                  "Text": "function anonymous(\n) {var x4 = 1;\n}"
                 }
               ]
             },
@@ -76,13 +76,13 @@
                 },
                 {
                   "Name": "Function code (1)",
-                  "Text": "function anonymous() {\n\n}"
+                  "Text": "function anonymous(\n) {\n}"
                 }
               ]
             },
             {
               "Name": "Function code (2)",
-              "Text": "function anonymous() {\neval('var x2 = 1;');\n}",
+              "Text": "function anonymous(\n) {eval('var x2 = 1;');\n}",
               "Children": [
                 {
                   "Name": "eval code (3)",
@@ -92,7 +92,7 @@
             },
             {
               "Name": "Function code (3)",
-              "Text": "function anonymous() {\neval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
+              "Text": "function anonymous(\n) {eval('var x3 = 1;');var f4 = new Function('var x4 = 1;'); f4();\n}",
               "Children": [
                 {
                   "Name": "eval code (6)",
@@ -100,7 +100,7 @@
                 },
                 {
                   "Name": "Function code (4)",
-                  "Text": "function anonymous() {\nvar x4 = 1;\n}"
+                  "Text": "function anonymous(\n) {var x4 = 1;\n}"
                 }
               ]
             },

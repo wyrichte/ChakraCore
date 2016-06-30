@@ -5,7 +5,7 @@
         "start": 326,
         "length": 8,
         "text": "return a",
-        "frameDescription": "get bar"
+        "frameDescription": "bar.get"
       },
       {
         "start": 660,
@@ -21,7 +21,7 @@
         "start": 505,
         "length": 3,
         "text": "a++",
-        "frameDescription": "set bar"
+        "frameDescription": "bar.set"
       },
       {
         "start": 675,

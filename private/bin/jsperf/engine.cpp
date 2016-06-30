@@ -42,13 +42,13 @@ ChakraEngine::~ChakraEngine()
     m_pChakraSite->Release();
 }
 
-int ChakraEngine::ParseScript(wchar_t *str)
+int ChakraEngine::ParseScript(char16 *str)
 {
     int val;
     HRESULT hr = m_pChakraSite->ParseScript(str);
     if(FAILED(hr))
         Fail("Chakra script execution failed");
-    hr = m_pChakraSite->GetGlobalValue(L"output", &val);
+    hr = m_pChakraSite->GetGlobalValue(_u("output"), &val);
     if(FAILED(hr))
         Fail("Chakra value retrieval failed");
     return val;
@@ -56,7 +56,7 @@ int ChakraEngine::ParseScript(wchar_t *str)
 
 void ChakraEngine::SetupTest()
 {
-    if(FAILED(m_pChakraSite->InvokeGlobalFunction(L"setup")))
+    if(FAILED(m_pChakraSite->InvokeGlobalFunction(_u("setup"))))
     {
         Fail("Chakra setup() call failed");
     }
@@ -64,7 +64,7 @@ void ChakraEngine::SetupTest()
 
 void ChakraEngine::RunTest()
 {
-    if(FAILED(m_pChakraSite->InvokeGlobalFunction(L"runTest")))
+    if(FAILED(m_pChakraSite->InvokeGlobalFunction(_u("runTest"))))
     {
         Fail("Chakra runTest() call failed");
     }
@@ -131,7 +131,7 @@ JsRTEngine::~JsRTEngine()
     }
 }
 
-int JsRTEngine::ParseScript(wchar_t *str)
+int JsRTEngine::ParseScript(char16 *str)
 {
     if(JsSetCurrentContext(m_Context) != JsNoError)
         Fail("Failed to set current context");
@@ -154,7 +154,7 @@ int JsRTEngine::ParseScript(wchar_t *str)
     return (int)val;
 }
 
-void JsRTEngine::CallFunction(wchar_t *funcName)
+void JsRTEngine::CallFunction(char16 *funcName)
 {
     if(JsSetCurrentContext(m_Context) != JsNoError)
         Fail("Failed to set current context");
@@ -183,12 +183,12 @@ void JsRTEngine::CallFunction(wchar_t *funcName)
 
 void JsRTEngine::SetupTest()
 {
-    CallFunction(L"setup");
+    CallFunction(_u("setup"));
 }
 
 void JsRTEngine::RunTest()
 {
-    CallFunction(L"runTest");
+    CallFunction(_u("runTest"));
 }
 
 #ifdef ALLOW_V8
@@ -227,7 +227,7 @@ V8Engine::~V8Engine()
     }
 }
 
-int V8Engine::ParseScript(wchar_t *str)
+int V8Engine::ParseScript(char16 *str)
 {
     if(m_pIsolate)
     {

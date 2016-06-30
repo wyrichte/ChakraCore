@@ -1,0 +1,51 @@
+Tests for promise handlers throwing error
+
+=================================================
+Starting [Test 1: Promise handler throws non-object]
+Comment: Error handler 2 got argument of type string: some string
+PASS [Test 1: Promise handler throws non-object]
+=================================================
+
+=================================================
+Starting [Test 2: Promise success handler throws object]
+Comment: Error handler 2 got argument of type object (error instanceof Error == false): [object Object]
+Comment: error.originatedFromHandler = true
+Comment: error.asyncOpType = Winery.CustomAsyncInfo
+Comment: error.asyncOpSource = undefined
+Comment: error.asyncOpCausalityId = 2
+PASS [Test 2: Promise success handler throws object]
+=================================================
+
+=================================================
+Starting [Test 3: Promise error handler throws object]
+Comment: Error handler 2 got argument of type object (error instanceof Error == false): [object Object]
+Comment: error.originatedFromHandler = true
+Comment: error.asyncOpType = Winery.CustomAsyncInfo
+Comment: error.asyncOpSource = undefined
+Comment: error.asyncOpCausalityId = 3
+PASS [Test 3: Promise error handler throws object]
+=================================================
+
+=================================================
+Starting [Test 4: Promise error handler throws pathological object]
+Comment: Error handler 2 got argument of type object (error instanceof Error == false): [object Object]
+Comment: error.originatedFromHandler = undefined
+Comment: error.asyncOpSource = undefined
+Comment: error.asyncOpCausalityId = undefined
+Comment: error.foo = foo
+PASS [Test 4: Promise error handler throws pathological object]
+=================================================
+
+=================================================
+Starting [Test 5: Promise error handler throws frozen object]
+Comment: Error handler 2 got argument of type object (error instanceof Error == false): [object Object]
+Comment: error.originatedFromHandler = undefined
+Comment: error.asyncOpType = undefined
+Comment: error.asyncOpSource = undefined
+Comment: error.asyncOpCausalityId = undefined
+Comment: error.foo = foo
+PASS [Test 5: Promise error handler throws frozen object]
+=================================================
+
+Passed: 5
+Failed: 0

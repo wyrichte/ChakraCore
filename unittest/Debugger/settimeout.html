@@ -1,0 +1,13 @@
+<html>
+<body>
+<script>
+function foo() {
+ WScript.Echo("PASS");
+ return "PASS";
+}
+var a = 42; /**bp:evaluate('setTimeout(alert(), 0)') **/
+var b = 42; /**bp:evaluate('foo()') **/
+
+</script>
+</body>
+</html>

@@ -155,7 +155,7 @@ public:
             this->EnsureFromSystemDirOnly();
         }
 
-        LPCTSTR GetLibraryName() const { return L"psapi.dll"; } 
+        LPCTSTR GetLibraryName() const { return _u("psapi.dll"); } 
 
         BOOL GetProcessMemoryInfo(
                 HANDLE Process,

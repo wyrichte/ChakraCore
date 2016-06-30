@@ -2,7 +2,7 @@
 
 #ifdef TELEMETRY_DateParse
 
-typedef JsUtil::BaseDictionary<const wchar_t*, uint32, ArenaAllocator, PowerOf2SizePolicy> StringHitCount;
+typedef JsUtil::BaseDictionary<const char16*, uint32, ArenaAllocator, PowerOf2SizePolicy> StringHitCount;
 
 class DateParseTelemetryProvider :
     public IScriptContextTelemetryProvider

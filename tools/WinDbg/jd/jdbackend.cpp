@@ -30,8 +30,16 @@ char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, 
 }
 
 char * JDBackend::GetIntConstOpndDumpString(ExtRemoteTyped intConstOpnd, char * buffer, size_t len)
-{    
-    RETURNBUFFER("%d", intConstOpnd.Field("m_value").GetLong());
+{
+    if (g_Ext->m_PtrSize == 4)
+    {
+        RETURNBUFFER("%d", intConstOpnd.Field("m_value").GetLong());
+    }
+    else
+    {
+        Assert(g_Ext->m_PtrSize == 8);
+        RETURNBUFFER("%I64d", intConstOpnd.Field("m_value").GetLong64());
+    }
 }
 
 char * JDBackend::GetFloatConstOpndDumpString(ExtRemoteTyped floatConstOpnd, char * buffer, size_t len)
@@ -54,7 +62,7 @@ char * JDBackend::GetPropertySymDumpString(ExtRemoteTyped propertySym, char* buf
     if (ENUM_EQUAL(fieldKind, PropertyKindData))
     {
         
-        ExtRemoteTyped fieldName = ExtRemoteTyped("(wchar_t *)@$extin", propertyNameReader.GetNameByPropertyId(propertyId));
+        ExtRemoteTyped fieldName = ExtRemoteTyped("(char16 *)@$extin", propertyNameReader.GetNameByPropertyId(propertyId));
         wchar tempBuffer2[TEMP_BUFFER_SIZE];
         RETURNBUFFER("%s->%S", stackSymDumpStr,
             (*fieldName).GetString(tempBuffer2, _countof(tempBuffer2), _countof(tempBuffer2)));        
@@ -181,47 +189,47 @@ char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 
 char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {        
-    std::string typeName = ext->GetTypeName(opnd);
+    char const * typeName;
+    ExtRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
+    typeName = JDUtil::StripModuleName(typeName);
 
-    ExtRemoteTyped typedOpnd = ext->Cast(typeName.c_str(), opnd.GetPtr());
-
-    if (typeName == "IR::IntConstOpnd")
+    if (strcmp(typeName, "IR::IntConstOpnd") == 0)
     {
         return GetIntConstOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::FloatConstOpnd")
+    if (strcmp(typeName, "IR::FloatConstOpnd") == 0)
     {
         return GetFloatConstOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::HelperCallOpnd")
+    if (strcmp(typeName, "IR::HelperCallOpnd") == 0)
     {
         return GetHelperCallOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::SymOpnd" || typeName == "IR::PropertySymOpnd")
+    if (strcmp(typeName, "IR::SymOpnd") == 0 || strcmp(typeName, "IR::PropertySymOpnd") == 0)
     {
         return GetSymOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::RegOpnd")
+    if (strcmp(typeName, "IR::RegOpnd") == 0)
     {
         return GetRegOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::AddrOpnd")
+    if (strcmp(typeName, "IR::AddrOpnd") == 0)
     {
         return GetAddrOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::IndirOpnd")
+    if (strcmp(typeName, "IR::IndirOpnd") == 0)
     {
         return GetIndirOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::LabelOpnd")
+    if (strcmp(typeName, "IR::LabelOpnd") == 0)
     {
         return GetLabelOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::MemRefOpnd")
+    if (strcmp(typeName, "IR::MemRefOpnd") == 0)
     {
         return GetMemRefOpndDumpString(typedOpnd, buffer, len);
     }
-    if (typeName == "IR::RegBVOpnd")
+    if (strcmp(typeName, "IR::RegBVOpnd") == 0)
     {
         return GetRegBVOpndDumpString(typedOpnd, buffer, len);
     }
@@ -309,7 +317,7 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
         ExtRemoteTyped opcode = ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
         if (ENUM_EQUAL(opcode.GetSimpleValue(), StatementBoundary))
         {
-            ext->Out(L"%20s StatementBoundary #%d", "", ExtRemoteTyped(ext->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
+            ext->Out(_u("%20s StatementBoundary #%d"), "", ExtRemoteTyped(ext->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
         }
         else
         {

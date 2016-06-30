@@ -10,7 +10,5 @@ DIRS = \
     MemProtectHeap \
     StaticLib  \
     WinRT      \
-    HostCommon{!cs_xbox} \
+    HostCommon \
     Telemetry  \
-
-    

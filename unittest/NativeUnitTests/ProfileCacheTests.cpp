@@ -14,15 +14,15 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
     LPCOLESTR contents = NULL;
     BOOL fOpenFailed = FALSE;
 
-    if(_wfopen_s(&file, filename, L"rb"))
+    if(_wfopen_s(&file, filename, _u("rb")))
     {
         fOpenFailed = TRUE;
     }
 
     if (fOpenFailed)
     {
-        wchar_t wszBuff[512];
-        fwprintf(stderr, L"_wfopen of %s failed", filename);
+        char16 wszBuff[512];
+        fwprintf(stderr, _u("_wfopen of %s failed"), filename);
         wszBuff[0] = 0;
         if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
             NULL,
@@ -32,9 +32,9 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
             _countof(wszBuff),
             NULL))
         {
-            fwprintf(stderr, L": %s", wszBuff);
+            fwprintf(stderr, _u(": %s"), wszBuff);
         }
-        fwprintf(stderr, L"\n");
+        fwprintf(stderr, _u("\n"));
         return E_FAIL;
     }
 
@@ -47,7 +47,7 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
     LPCOLESTR contentsRaw = (LPCOLESTR) calloc(lengthBytes + 2, 1);
     if (NULL == contentsRaw)
     {
-        fwprintf(stderr, L"out of memory");
+        fwprintf(stderr, _u("out of memory"));
         return E_OUTOFMEMORY;
     }
     //
@@ -67,7 +67,7 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
     else if (0xFFFE == *contentsRaw || 0x0000 == *contentsRaw && 0xFEFF == *(contentsRaw+1))
     {
         // unicode unsupported
-        fwprintf(stderr, L"unsupported file encoding");
+        fwprintf(stderr, _u("unsupported file encoding"));
         return E_UNEXPECTED;
     }
     else if (0xFEFF == *contentsRaw)
@@ -84,10 +84,10 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
     if (isUtf8)
     {
         UINT cAnsiChars = lengthBytes + 1;
-        *script = (LPWSTR) calloc(cAnsiChars, sizeof(wchar_t));
+        *script = (LPWSTR) calloc(cAnsiChars, sizeof(char16));
         if (NULL == script)
         {
-            fwprintf(stderr, L"out of memory");
+            fwprintf(stderr, _u("out of memory"));
             return E_OUTOFMEMORY;
         }
 
@@ -97,7 +97,7 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
         {
             free((void*)*script);
 
-            fwprintf(stderr, L"failed MultiByteToWideChar conversion");
+            fwprintf(stderr, _u("failed MultiByteToWideChar conversion"));
 
             return HRESULT_FROM_WIN32(GetLastError());
         }
@@ -189,7 +189,7 @@ HRESULT RunTestcase1()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: Basic Test\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest1.js", NULL, L"profilecachetest1.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest1.js"), NULL, _u("profilecachetest1.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -214,7 +214,7 @@ HRESULT RunTestcase2()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: JS with less than 5 functions\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest2.js", NULL, L"profilecachetest2.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest2.js"), NULL, _u("profilecachetest2.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -235,7 +235,7 @@ HRESULT RunTestcase3()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: Execute js file with 5 functions\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest3.js", NULL, L"profilecachetest3.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest3.js"), NULL, _u("profilecachetest3.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -256,7 +256,7 @@ HRESULT RunTestcase4()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: Call OnEvent with VARIANT\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest4.js", NULL, L"profilecachetest4.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest4.js"), NULL, _u("profilecachetest4.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -277,7 +277,7 @@ HRESULT RunTestcase5()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: Invalid Profile Data\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest5.js", NULL, L"profilecachetest5.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), NULL, _u("profilecachetest5.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -298,7 +298,7 @@ HRESULT RunTestcase6()
     HRESULT hr = NOERROR;
 
     printf("ProfileCacheTests: Profile Data Less than 15 percents change\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest5.js", L"profilecachetest5.out", L"profilecachetest5.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), _u("profilecachetest5.out"), _u("profilecachetest5.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -320,7 +320,7 @@ HRESULT RunTestcase7()
 
     printf("ProfileCacheTests: Profile Data Mismatched Version\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest7.js", L"profilecachetest7.in", L"profilecachetest7.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest7.js"), _u("profilecachetest7.in"), _u("profilecachetest7.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -338,7 +338,7 @@ HRESULT RunTestcase8()
 
     printf("ProfileCacheTests: Fail HRESULT from GetWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest8.js", NULL, L"profilecachetest8.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest8.js"), NULL, _u("profilecachetest8.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     test->mptr_fakeMSTHML->SetFailGetWriteDataStream(TRUE);
@@ -357,7 +357,7 @@ HRESULT RunTestcase9()
 
     printf("ProfileCacheTests: Fail HRESULT from SaveWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest9.js", NULL, L"profilecachetest9.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest9.js"), NULL, _u("profilecachetest9.out"));
     test->CreateNewEngine();
     test->ParseScriptText();
     test->mptr_fakeMSTHML->SetFailSaveWriteDataStream(TRUE);
@@ -376,7 +376,7 @@ HRESULT RunTestcase10()
 
     printf("ProfileCacheTests: NULL IStream for GetReadDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest10.js", NULL, L"profilecachetest10.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest10.js"), NULL, _u("profilecachetest10.out"));
     test->mptr_fakeMSTHML->SetNullGetReadDataStream(TRUE);
     test->CreateNewEngine();
     test->ParseScriptText();
@@ -395,7 +395,7 @@ HRESULT RunTestcase11()
 
     printf("ProfileCacheTests: NULL IStream for GetWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, L"profilecachetest11.js", NULL, L"profilecachetest11.out");
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest11.js"), NULL, _u("profilecachetest11.out"));
     test->mptr_fakeMSTHML->SetNullGetWriteDataStream(TRUE);
     test->CreateNewEngine();
     test->ParseScriptText();

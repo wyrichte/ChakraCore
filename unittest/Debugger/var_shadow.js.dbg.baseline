@@ -23,12 +23,12 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "e": "throw 1",
       "foo": "<large string>",
+      "e": "throw 1",
       "foo#1": "<large string>",
-      "x2": "undefined",
-      "x": "throw 1",
       "e#1": "outer",
+      "x": "throw 1",
+      "x2": "undefined",
       "[Globals]": ""
     }
   },
@@ -42,12 +42,12 @@
       "this": "{...}",
       "arguments": "{...}",
       "e": "throw 2",
-      "e#1": "throw 1",
       "foo": "<large string>",
+      "e#1": "throw 1",
       "foo#1": "<large string>",
-      "x2": "throw 2",
-      "x": "throw 1",
       "e#2": "outer",
+      "x": "throw 1",
+      "x2": "throw 2",
       "[Globals]": ""
     }
   },
@@ -79,7 +79,6 @@
       "this": "{...}",
       "arguments": "{...}",
       "e": "throw 2",
-      "e#1": "outer",
       "x": "throw 1",
       "foo": "<large string>",
       "m": "throw 2",

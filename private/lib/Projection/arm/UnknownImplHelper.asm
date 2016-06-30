@@ -88,6 +88,10 @@
 ;              +48h xxxx        callLayout->FloatRegisters[15] -- for s0-s15.
 ;       r11    +58h ebp-frame
 ;       lr     +5Ch xxxx
+; #if defined(_CONTROL_FLOW_GUARD)    // we need two additional registers for guard check. All address are offset by 8
+;              +60h callLayout->GeneralRegisters[4]   -- r4 (home)
+;              +60h callLayout->GeneralRegisters[5]   -- r5 (home)
+; #endif
 ;              +60h callLayout->GeneralRegisters[0]   -- r0 (home)
 ;              +64h callLayout->GeneralRegisters[1]   -- r1 (home)
 ;              +68h callLayout->GeneralRegisters[2]   -- r2 (home)
@@ -100,10 +104,9 @@
 ;--
         NESTED_ENTRY IndirectMethodInvoker
 
-#if defined(_CONTROL_FLOW_GUARD)
-        PROLOG_PUSH {r0-r5}             ; extra register pair r4/r5 used to save info across icall check
-#else
         PROLOG_PUSH {r0-r3}             ; home r0-r3 -- right above the [potential] stack args to make nice continuos array of regs + stack args.
+#if defined(_CONTROL_FLOW_GUARD)
+        PROLOG_PUSH {r4-r5}             ; extra register pair r4/r5 used to save info across icall check
 #endif
         PROLOG_PUSH r11, lr
         PROLOG_STACK_SAVE r11           ; mov r11, sp -- stack frame needed for ETW.
@@ -123,10 +126,19 @@
         str     r1, [sp, #0x14]         ; callLayout.StackSize = 0 -- unused, Note that we don't know the size of the stack at this point.
         add     r1, sp,  #0x18
         str     r1, [sp, #0x08]         ; callLayout.FloatRegisters.
+// when CFG is enabled, we push 6 registers instead of 4 so the stack offset is off by 8. We need to compsensate the difference when we setup
+// the stack. Our c++ side of code handles the stack reading correctly, ie. first 4 slots from general registers and from stack afterwards. 
+#if defined(_CONTROL_FLOW_GUARD)
+        add     r1, sp,  #0x68
+        str     r1, [sp, #0x0C]         ; callLayout.GeneralRegisters.
+        add     r1, sp,  #0x78
+        str     r1, [sp, #0x10]         ; callLayout.Stack.
+#else
         add     r1, sp,  #0x60
         str     r1, [sp, #0x0C]         ; callLayout.GeneralRegisters.
         add     r1, sp,  #0x70
         str     r1, [sp, #0x10]         ; callLayout.Stack.
+#endif
 
 #if defined(_CONTROL_FLOW_GUARD)
         ; Get address of target function and verify that the call target is valid
@@ -161,8 +173,10 @@
         EPILOG_POP r11, lr
 #if defined(_CONTROL_FLOW_GUARD)
         EPILOG_POP {r4-r5}
-#endif
+        EPILOG_POP {r0-r3}
+#else
         EPILOG_STACK_FREE 16
+#endif
         EPILOG_RETURN
 
         NESTED_END IndirectMethodInvoker

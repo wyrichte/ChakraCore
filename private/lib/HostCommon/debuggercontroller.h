@@ -9,7 +9,7 @@
         goto Error;       \
     } \
 
-#define EXTERNAL_DATA_PROP L"#callback#"
+#define EXTERNAL_DATA_PROP _u("#callback#")
 
 enum LocationToStringFlags : ULONG
 {
@@ -39,8 +39,6 @@ public:
     ULONG startChar;
     ULONG length;
     UINT64 docId;
-
-    // source identifier, same as documentId for !hybrid, for hybrid documentId is &documentText, whereas sourceId == index of source file
     UINT64 srcId;
 
     // line and column number
@@ -58,15 +56,15 @@ public:
         srcId(0),
         lineNumber(0),
         columnNumber(0),
-        text(L""),
-        frameDescription(L""),
+        text(_u("")),
+        frameDescription(_u("")),
         debugPropertyAttributes(0),
-        stringRep(L""),
-        encodedText(L"")
+        stringRep(_u("")),
+        encodedText(_u(""))
     {
     }
 
-    LPCWSTR ToString(LocationToStringFlags flags = LTSF_None, bool isHybridDebugger = false);
+    LPCWSTR ToString(LocationToStringFlags flags = LTSF_None);
 };
 
 class SourceMap
@@ -102,11 +100,6 @@ struct ControllerConfig
     bool ShouldStepInto()
     {
         return (++globalBpHitCount) % 10 == 0;
-    }
-
-    ULONG HybridResumeActionOnBreak()
-    {
-        return ShouldStepInto() ? DEBUG_STATUS_STEP_INTO : DEBUG_STATUS_GO;
     }
 
     BREAKRESUMEACTION ResumeActionOnBreak()
@@ -208,8 +201,8 @@ public:
     static JsValueRef GetJavascriptUndefined();
     static JsValueRef ConvertDoubleToNumber(double val);
 
-    static void Log(__in __nullterminated wchar_t *msg, ...);
-    static void LogError(__in __nullterminated wchar_t *msg, ...);
+    static void Log(__in __nullterminated char16 *msg, ...);
+    static void LogError(__in __nullterminated char16 *msg, ...);
     static LPCWSTR EncodeString(_In_reads_z_(len) LPCWSTR str, _In_ size_t len, std::wstring& encodedStr);
     static LPCWSTR EncodeString(const std::wstring& str, std::wstring& encodedStr);
     static LPCWSTR EncodeString(BSTR str, std::wstring& encodedStr);
@@ -223,9 +216,9 @@ public:
 
     HRESULT InstallHostCallback(LPCWSTR propName, JsNativeFunction function, void *data);
 
-    static UINT64 GetDocumentIdStartOffset(bool isHybrid);
+    static UINT64 GetDocumentIdStartOffset();
 
-    static void AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool isHybridDebugger, bool prefixSeparator = true);
+    static void AppendDebugPropertyAttributesToString(std::wstring& stringRep, DWORD debugPropertyAttributes, bool prefixSeparator = true);
 
     //
     // Dump one DebugProperty to JSON
@@ -246,7 +239,7 @@ public:
             {
                 std::wstring nameSuffix;
                 int id = -1;
-                if (pScopeId && encodedName == L"[Scope]")
+                if (pScopeId && encodedName == _u("[Scope]"))
                 {
                     id = (*pScopeId)++;
                 }
@@ -256,13 +249,13 @@ public:
                     if (!pair.second)
                     {
                         id = pair.first->second++; // Found it in map take the count and append 1 to it
-                        nameSuffix += L"#";
+                        nameSuffix += _u("#");
                     }
                 }
 
                 if (id >= 0)
                 {
-                    wchar_t buf[10];
+                    char16 buf[10];
                     _itow_s(id, buf, 10);
                     nameSuffix += buf;
                     encodedName += nameSuffix; // After this point encodedName includes suffix!
@@ -271,22 +264,22 @@ public:
 
             if (!first)
             {
-                json += L",";
+                json += _u(",");
             }
 
             if ((flags & DebugPropertyFlags::LOCALS_TYPE) && ::SysStringLen(info.Type()) > 0) // Skip if no Type (e.g. [Methods], [Scope]...) to reduce noise
             {
                 std::wstring encodedType;
                 EncodeString(info.Type(), encodedType);
-                json += L"\"" + encodedName + L" - [Type]\": \"" + encodedType + L"\", ";
+                json += _u("\"") + encodedName + _u(" - [Type]\": \"") + encodedType + _u("\", ");
             }
 
-            json += L"\"" + encodedName + L"\": ";
+            json += _u("\"") + encodedName + _u("\": ");
             if (expandLevel > 0 && info.IsExpandable())
             {
-                json += L"{";
+                json += _u("{");
                 IfFailGo(DumpAllProperties(debugger, debugProperty, expandLevel - 1, flags, json));
-                json += L"}";
+                json += _u("}");
             }
             else
             {
@@ -294,7 +287,7 @@ public:
                 if (len < debugger.GetControllerConfig().maxStringLengthToDump)
                 {
                     UINT begin = 0;
-                    if (_wcsicmp(info.Type(), L"String") == 0)
+                    if (_wcsicmp(info.Type(), _u("String")) == 0)
                     {
                         // We have to escape the contents of this string.  This requires
                         // removing the initial and terminating double-quote first.
@@ -304,7 +297,7 @@ public:
 
                     std::wstring encodedValue;
                     EncodeString(info.Value() + begin, len, encodedValue);
-                    json += L"\"" + encodedValue + L"\"";
+                    json += _u("\"") + encodedValue + _u("\"");
                 }
                 else
                 {                        
@@ -314,9 +307,9 @@ public:
 
             if (flags & DebugPropertyFlags::LOCALS_ATTRIBUTES)
             {
-                json += L", \"" + encodedName + L" - [Attributes]\": {";
-                AppendDebugPropertyAttributesToString(json, info.Attr(), debugger.IsHybridDebugger(), /*prefixSeparator*/false);
-                json += L"}";
+                json += _u(", \"") + encodedName + _u(" - [Attributes]\": {");
+                AppendDebugPropertyAttributesToString(json, info.Attr(), /*prefixSeparator*/false);
+                json += _u("}");
             }
 
         Error:
@@ -347,10 +340,10 @@ public:
     {
         HRESULT hr = S_OK;
 
-        std::wstring json = L"{\"locals\" : {";
+        std::wstring json = _u("{\"locals\" : {");
         IfFailGo(preDump(json));
         IfFailGo(DumpAllProperties(debugger, root, expandLevel, flags, json));
-        json += L"}}";
+        json += _u("}}");
 
         IfFailGo(LogLocals(json.c_str()));
 

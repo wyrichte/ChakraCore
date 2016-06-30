@@ -28,8 +28,8 @@ CClassFactory* (*pfCreateJscript9ClassFactory)(void) = CreateJscript9ClassFactor
 typedef CClassFactory* (PFNCreateClassFactory)(void);
 PFNCreateClassFactory* const classFactories[] = {CreateJscript9ClassFactory, CreateJScript9ThreadServiceClassFactory};
 
-static const WCHAR * threadModelBoth        = L"Both";
-static const WCHAR * threadModelApartment   = L"Apartment";
+static const WCHAR * threadModelBoth        = _u("Both");
+static const WCHAR * threadModelApartment   = _u("Apartment");
 static ATOM  lockedDll = 0;
 static long s_cLibRef   = 0;
 static CriticalSection s_csDllCanUnloadNow;
@@ -70,7 +70,7 @@ static BOOL AttachProcess(HANDLE hmod)
     JS_ETW(EtwTrace::Register());
     ValueType::Initialize();
 
-    wchar_t *engine = szChakraLock;
+    char16 *engine = szChakraLock;
 
 #if DEBUG
 
@@ -157,7 +157,7 @@ void DetachProcess()
 
         FlushConsoleInputBuffer(handle);
 
-        Output::Print(L"Press any key to exit...\n");
+        Output::Print(_u("Press any key to exit...\n"));
         Output::Flush();
 
         WaitForSingleObject(handle, INFINITE);
@@ -250,7 +250,7 @@ STDAPIEXPORT DllGetClassObject (REFCLSID rclsid, REFIID riid, LPVOID *ppv)
     HRESULT hr;
     CClassFactory * pCF = NULL;
 
-    // Don’t check for null as per Win8 495205. This will never validly be null. When it is, an AV is appropriate
+    // Donï¿½t check for null as per Win8 495205. This will never validly be null. When it is, an AV is appropriate
 
     // Call DllGetClassObject implementation for the the proxy/stub objects for JscriptInfo.idl
     if ((hr = JscriptInfoPrxDllGetClassObject(rclsid, riid, ppv)) == S_OK)
@@ -421,7 +421,7 @@ static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
 {
     bool deviceInfoRetrieved = false;
 
-    HMODULE hModNtDll = GetModuleHandle(L"ntdll.dll");
+    HMODULE hModNtDll = GetModuleHandle(_u("ntdll.dll"));
     if (hModNtDll == nullptr)
     {
         RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);
@@ -469,10 +469,10 @@ void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
 
     if (buildTimestamp.Success)
     {
-        autoSystemInfo->buildDateHash = JsUtil::CharacterBuffer<wchar_t>::StaticGetHashCode(
+        autoSystemInfo->buildDateHash = JsUtil::CharacterBuffer<char16>::StaticGetHashCode(
             buildTimestamp.StringFileInfo.FileVersion.__Date__,
             _countof(buildTimestamp.StringFileInfo.FileVersion.__Date__));
-        autoSystemInfo->buildTimeHash = JsUtil::CharacterBuffer<wchar_t>::StaticGetHashCode(
+        autoSystemInfo->buildTimeHash = JsUtil::CharacterBuffer<char16>::StaticGetHashCode(
             buildTimestamp.StringFileInfo.FileVersion.__Time__,
             _countof(buildTimestamp.StringFileInfo.FileVersion.__Time__));
     }

@@ -76,7 +76,7 @@ STDMETHODIMP CWinSink::QueryInterface(REFIID riid, LPVOID* ppv)
     OLECHAR wszBuff[39];
     int i = StringFromGUID2(riid, wszBuff, 39);
     Assert(i != 0);
-    ODS(L"CWinSink QI: "); ODS(wszBuff); ODS(L"\n");
+    ODS(_u("CWinSink QI: ")); ODS(wszBuff); ODS(_u("\n"));
     return E_NOTIMPL;
   }
 }
@@ -84,7 +84,7 @@ STDMETHODIMP CWinSink::QueryInterface(REFIID riid, LPVOID* ppv)
 STDMETHODIMP_(ULONG) CWinSink::AddRef()
 {
   WCHAR szBuff[255];
-  swprintf_s(szBuff, 255, L"CWinSink refcount increased to %d\n", m_dwRef+1);
+  swprintf_s(szBuff, 255, _u("CWinSink refcount increased to %d\n"), m_dwRef+1);
   ODS(szBuff);
   return ++m_dwRef;
 }
@@ -95,12 +95,12 @@ STDMETHODIMP_(ULONG) CWinSink::Release()
 
   if (--m_dwRef == 0)
   {
-    ODS(L"Deleting CWinSink\n");
+    ODS(_u("Deleting CWinSink\n"));
     delete this;
     return 0;
   }
 
-  swprintf_s(szBuff, 255, L"CWinSink refcount reduced to %d\n", m_dwRef);
+  swprintf_s(szBuff, 255, _u("CWinSink refcount reduced to %d\n"), m_dwRef);
   ODS(szBuff);
   return m_dwRef;
 }
@@ -127,7 +127,7 @@ STDMETHODIMP CWinSink::Invoke(DISPID dispIdMember,
   switch (dispIdMember)
   {
   case DISPID_HTMLSCRIPTEVENTS2_ONERROR:
-      ODS(L"HTMLScriptEvents2::onerror fired\n");
+      ODS(_u("HTMLScriptEvents2::onerror fired\n"));
 
       // In IE mode 10+ we are returned 4 arguments, shifting everything right by one.
       // pDispParams->rgvarg[0] is now the column number for the script error.
@@ -147,7 +147,7 @@ STDMETHODIMP CWinSink::Invoke(DISPID dispIdMember,
       }
 
       // TODO: Add the column number for the error to the output here.
-      fwprintf(stderr, L"Script error at %s(%d): %s\n",
+      fwprintf(stderr, _u("Script error at %s(%d): %s\n"),
           PathFindFileName(pDispParams->rgvarg[filenameIndex].bstrVal),
           pDispParams->rgvarg[lineNumberIndex].lVal,
           pDispParams->rgvarg[errorDescriptionIndex].bstrVal);
@@ -156,6 +156,4 @@ STDMETHODIMP CWinSink::Invoke(DISPID dispIdMember,
   default:
       return DISP_E_MEMBERNOTFOUND;
   }
-
-  return NOERROR;
 }

@@ -72,7 +72,33 @@ public:
         }
     }
 
+    void SortMembersList(JsUtil::List<Js::DebuggerPropertyDisplayInfo *, ArenaAllocator> * pMembersList, Js::ScriptContext* scriptContext)
+    {
+        pMembersList->Sort(ElementsComparer, scriptContext);
+    }
+
     ScriptSite * GetScriptSite() { return scriptSite; }
 private:
     ScriptSite * scriptSite;
+
+    static int __cdecl ElementsComparer(__in void* context, __in const void* item1, __in const void* item2)
+    {
+        Js::ScriptContext *scriptContext = (Js::ScriptContext *)context;
+        Assert(scriptContext);
+
+        const DWORD_PTR *p1 = reinterpret_cast<const DWORD_PTR*>(item1);
+        const DWORD_PTR *p2 = reinterpret_cast<const DWORD_PTR*>(item2);
+
+        Js::DebuggerPropertyDisplayInfo * pPVItem1 = (Js::DebuggerPropertyDisplayInfo *)(*p1);
+        Js::DebuggerPropertyDisplayInfo * pPVItem2 = (Js::DebuggerPropertyDisplayInfo *)(*p2);
+
+        const Js::PropertyRecord *propertyRecord1 = scriptContext->GetPropertyName(pPVItem1->propId);
+        const Js::PropertyRecord *propertyRecord2 = scriptContext->GetPropertyName(pPVItem2->propId);
+
+        const char16 *str1 = propertyRecord1->GetBuffer();
+        const char16 *str2 = propertyRecord2->GetBuffer();
+
+        // Do the natural comparison, for example test2 comes before test11.
+        return StrCmpLogicalW(str1, str2);
+    }
 };

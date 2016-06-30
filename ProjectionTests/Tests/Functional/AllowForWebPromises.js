@@ -1158,20 +1158,20 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
     });
 
 
-    runner.addTest({
-        id: 18,
-        desc: 'ErrorAfterDoneWithNoErrorHandler',
-        pri: '0',
-        test: function () {
-            var originalSetTimeOutCalls = setTimeOutCalls;
-            var promise = getAsyncOperation();
-            promise.done();
-            promise.operation.moveToError(); // Simulate asynchronous error
-            if (setTimeOutCalls != originalSetTimeOutCalls + 1) {
-                fail("Expected setTimeOut to be called");
-            }
-        }
-    });
+    // runner.addTest({
+        // id: 18,
+        // desc: 'ErrorAfterDoneWithNoErrorHandler',
+        // pri: '0',
+        // test: function () {
+            // var originalSetTimeOutCalls = setTimeOutCalls;
+            // var promise = getAsyncOperation();
+            // promise.done();
+            // promise.operation.moveToError(); // Simulate asynchronous error
+            // if (setTimeOutCalls != originalSetTimeOutCalls + 1) {
+                // fail("Expected setTimeOut to be called");
+            // }
+        // }
+    // });
 
     var errorMessages = {};
     errorMessages.e_outofmemory = "Not enough storage is available to complete this operation.\r\n";

@@ -102,98 +102,17 @@ namespace JsDiag
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// VSStackFrameEnumerator.
-        
-    VSStackFrameEnumerator::VSStackFrameEnumerator(ULONG threadId, IJsDebugDataTarget* dataTarget) : 
-        m_dataTarget(dataTarget), m_currentFrameId(c_initialFrameId), m_canRequestProvider(true), m_noMoreFrames(false)
-    {
-        HRESULT hr = m_dataTarget->CreateStackFrameEnumerator(threadId, &m_enumerator);
-        CheckHR(hr, DiagErrorCode::STACKFRAMEENUMERATOR_CREATE);
-
-        // Note: according to contract with VS, the enumerator doesn't need to be reset.
-        //       It's fine to call Reset but that would just re-initialize to the same pos consuming perf.
-
-        SecureZeroMemory(m_frames + 1, sizeof(JS_NATIVE_FRAME));
-        this->AdvanceToNextFrame();
-    }
-
-    VSStackFrameEnumerator::~VSStackFrameEnumerator()
-    {
-    }
-
-    bool VSStackFrameEnumerator::Next()
-    {
-        this->AdvanceToNextFrame();
-        if (m_noMoreFrames)
-        {
-            return false;
-        }
-
-        return ++m_currentFrameId < MAX_STACKFRAMES;
-    }
-
-    void VSStackFrameEnumerator::Current(InternalStackFrame* frame)
-    {
-        if (m_noMoreFrames || m_currentFrameId == c_initialFrameId)
-        {
-            DiagException::Throw(E_INVALIDARG, DiagErrorCode::STACKFRAMEENUMERATOR_NO_MORE_FRAME);
-        }
-
-        JS_NATIVE_FRAME* currentFrame = &m_frames[0];
-#ifdef _M_X64
-        // We always have one extra frame beyond current frame.
-        frame->EffectiveFrameBase = reinterpret_cast<void*>(m_frames[1].StackOffset);
-#elif defined (_M_ARM)
-        // The FrameBase that underlying enumerator returns is exactly parent callsite SP/start of argv.
-        // Adjust it to our representation (subtract space for R11 and RET).
-        frame->EffectiveFrameBase = reinterpret_cast<void*>(m_frames[1].StackOffset - 2 * sizeof(void*));
-#else
-        frame->EffectiveFrameBase = reinterpret_cast<void*>(currentFrame->FrameOffset);
-#endif
-        frame->FrameBase = reinterpret_cast<void*>(currentFrame->FrameOffset);
-        frame->InstructionPointer = reinterpret_cast<void*>(currentFrame->InstructionOffset);
-        frame->ReturnAddress = reinterpret_cast<void*>(currentFrame->ReturnOffset);
-        frame->StackPointer = reinterpret_cast<void*>(currentFrame->StackOffset);
-        frame->FrameId = m_currentFrameId;
-    }
-
-    void VSStackFrameEnumerator::AdvanceToNextFrame()
-    {
-        if (!m_noMoreFrames)
-        {
-            if (!m_canRequestProvider)
-            {
-                m_noMoreFrames = true;
-            }
-            else
-            {
-                // Shift m_frames.
-                *m_frames = *(m_frames + 1);
-
-                ULONG filledCount;
-                HRESULT hr = m_enumerator->Next(1, m_frames + 1, &filledCount);
-                CheckHR(hr, DiagErrorCode::STACKFRAMEENUMERATOR_NEXT);
-                AssertMsg(hr == S_FALSE && filledCount == 0 || hr == S_OK && filledCount == 1, "Wrong filledCount.");
-
-                if (hr == S_FALSE)
-                {
-                    SecureZeroMemory(m_frames + 1, sizeof(JS_NATIVE_FRAME));
-                    m_canRequestProvider = false;
-                }
-            }
-        }
-    }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 // FrameChainBasedStackFrameEnumerator.
     
+#pragma warning(push)
+#pragma warning(disable: 4702)  // unreachable code caused by optimizations
     FrameChainBasedStackFrameEnumerator::FrameChainBasedStackFrameEnumerator(void* frameAddress, void* stackAddress, void* instructionPointer, IVirtualReader* reader)
         : m_reader(reader)
     {
 #ifdef _M_X64
         AssertMsg(FALSE, "FrameChainBasedStackFrameEnumerator is not supported for AMD64 (frame chains in general are not supported)");
         DiagException::Throw(E_INVALIDARG);
-#endif
+#else
         // Set up current frame so that when we call Next 1st time it will return this frame.
         m_currentFrame = new(oomthrow) InternalStackFrame(m_reader);
 
@@ -203,7 +122,10 @@ namespace JsDiag
         m_currentFrame->ReturnAddress = this->GetRetAddrFromFrameBase(m_currentFrame->EffectiveFrameBase);
         m_currentFrame->StackPointer = stackAddress;
         m_currentFrame->FrameId = (ULONG)-1;
+#endif
     }
+#pragma warning(pop)
+
 
     FrameChainBasedStackFrameEnumerator::~FrameChainBasedStackFrameEnumerator()
     {

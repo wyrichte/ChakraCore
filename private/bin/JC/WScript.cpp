@@ -84,10 +84,10 @@ void WScript::Write(Js::Var aValue, Js::ScriptContext* scriptContext, FILE* file
     default:
     {
         Js::JavascriptString* pstDisplay = Js::JavascriptConversion::ToString(aValue, scriptContext);
-        const wchar_t *pstDisplayStr = pstDisplay->GetString();
+        const char16 *pstDisplayStr = pstDisplay->GetString();
         charcount_t charsToGo = pstDisplay->GetLength();
 
-        wchar_t buf[1024];
+        char16 buf[1024];
         while (charsToGo != 0)
         {
             charcount_t count = min(static_cast<charcount_t>(_countof(buf) - 1), charsToGo);
@@ -111,30 +111,30 @@ void WScript::Initialize(Js::ScriptContext* scriptContext)
     // add WScript object to the root.
     Js::DynamicObject* wscriptObject = scriptContext->GetLibrary()->CreateObject();
     Js::PropertyRecord const * propRecord;
-    scriptContext->GetOrAddPropertyRecord(L"WScript", 7, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("WScript"), 7, &propRecord);
     Js::JavascriptOperators::InitProperty(scriptContext->GetGlobalObject(), propRecord->GetPropertyId(), wscriptObject);
 
     // Add Echo function to WScript
     Js::JavascriptFunction* function = scriptContext->GetLibrary()->CreateNonProfiledFunction(&WScript::EntryInfo::Echo);
     Js::JavascriptOperators::InitProperty(function, Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(1));
-    scriptContext->GetOrAddPropertyRecord(L"Echo", 4, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("Echo"), 4, &propRecord);
     Js::JavascriptOperators::InitProperty(wscriptObject, propRecord->GetPropertyId(), function);
 
     //Javascript output from Emscripten relies on print being on global object.
     //This makes easy to run the Asmjs code generated from C++ source code through emscripten without any hand modification.
-    scriptContext->GetOrAddPropertyRecord(L"print", 5, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("print"), 5, &propRecord);
     Js::JavascriptOperators::InitProperty(scriptContext->GetGlobalObject(), propRecord->GetPropertyId(), function);
 
     // Add Quit function to WScript
     function = scriptContext->GetLibrary()->CreateNonProfiledFunction(&WScript::EntryInfo::Quit);
-    scriptContext->GetOrAddPropertyRecord(L"Quit", 4, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("Quit"), 4, &propRecord);
     Js::JavascriptOperators::InitProperty(wscriptObject, propRecord->GetPropertyId(), function);
 
     // Add StdError.WriteLine to WScript
     Js::DynamicObject* stderrObject = scriptContext->GetLibrary()->CreateObject();
-    scriptContext->GetOrAddPropertyRecord(L"StdErr", 6, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("StdErr"), 6, &propRecord);
     Js::JavascriptOperators::InitProperty(wscriptObject, propRecord->GetPropertyId(), stderrObject);
     function = scriptContext->GetLibrary()->CreateNonProfiledFunction(&WScript::EntryInfo::StdErrWriteLine);
-    scriptContext->GetOrAddPropertyRecord(L"WriteLine", 9, &propRecord);
+    scriptContext->GetOrAddPropertyRecord(_u("WriteLine"), 9, &propRecord);
     Js::JavascriptOperators::InitProperty(stderrObject, propRecord->GetPropertyId(), function);
 }
