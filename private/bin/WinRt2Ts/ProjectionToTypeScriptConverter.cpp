@@ -309,7 +309,7 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
             break;
         case specPromiseSpecialization:
             rtClassConstructor->allInterfaces->IterateWhile([&](RtINTERFACECONSTRUCTOR rtInterface) {
-                if (promiseResultType == nullptr)
+                if (promiseResultType == nullptr && rtInterface->interfaceType == ifRuntimeInterfaceConstructor)
                 {
                     promiseResultType = GetPromiseResultType(RuntimeInterfaceConstructor::From(rtInterface));
                 }
@@ -321,7 +321,7 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
 
     auto isActivatable = (rtClassConstructor->signature->signatureType == mstAbiMethodSignature || rtClassConstructor->signature->signatureType == mstOverloadedMethodSignature);
 
-    Assert(isActivatable || rtClassConstructor->signature->signatureType == mstUncallableMethodSignature);
+    Assert(isActivatable || rtClassConstructor->signature->signatureType == mstUncallableMethodSignature || rtClassConstructor->signature->signatureType == mstMissingTypeConstructorMethodSignature);
 
     // Static members
     auto staticMembers = GetPropertyAndMethodMembers(rtClassConstructor->properties->fields, false, FullyQualifiedNameBehavior::EmitAsIs);
@@ -373,6 +373,44 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
     return classDeclaration;
 }
 
+static MetadataStringId GetMetadataNameOfProperty(RtPROPERTY property) {
+    MetadataStringId metadataNameOfThisProperty = MetadataStringIdNil;
+    switch (property->propertyType)
+    {
+    case ptAbiMethodProperty:
+    {
+        metadataNameOfThisProperty = AbiMethod::From(AbiMethodProperty::From(property)->body)->signature->metadataNameId;
+    }
+    break;
+    case ptAbiPropertyProperty:
+    {
+        metadataNameOfThisProperty = AbiPropertyProperty::From(property)->metadataNameId;
+    }
+    break;
+    case ptAbiEventHandlerProperty:
+    {
+        auto eventHandlerProperty = AbiEventHandlerProperty::From(property);
+        metadataNameOfThisProperty = eventHandlerProperty->abiEvent->metadataNameId;
+    }
+    break;
+    case ptOverloadParentProperty:
+    {
+        auto overloadParent = OverloadParentProperty::From(property);
+        // Expand the overloads
+        auto overloads = OverloadGroupConstructor::From(overloadParent->overloadConstructor)->signature->overloads;
+        Assert(overloads->id == property->identifier);
+
+        overloads->overloads->Iterate([&](RtMETHODSIGNATURE methodSig) {
+            Assert(methodSig->signatureType == mstAbiMethodSignature);
+            metadataNameOfThisProperty = AbiMethodSignature::From(methodSig)->metadataNameId;
+        });
+    }
+    break;
+    }
+
+    return metadataNameOfThisProperty;
+}
+
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForInterface(MetadataString interfaceName, RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
 {
     bool extendsArray = false;
@@ -400,7 +438,7 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
         }
     }
 
-    ImmutableList<MetadataStringId>* ownPropertyNames = interfaceConstructor->ownProperties->Select<MetadataStringId>([](RtPROPERTY prop) { return prop->identifier; }, m_alloc);
+    ImmutableList<MetadataStringId>* ownPropertyNames = interfaceConstructor->ownProperties->Select<MetadataStringId>([](RtPROPERTY prop) { return GetMetadataNameOfProperty(prop); }, m_alloc);
 
     auto typeMembers = GetInterfaceMethodAndPropertyMembers(extendsArray, ownPropertyNames, interfaceConstructor->prototype->fields);
 
@@ -909,37 +947,11 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
 auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetInterfaceMethodAndPropertyMembers(bool extendsArray, ImmutableList<MetadataStringId>* metadataNameFilter, ImmutableList<RtPROPERTY>* properties)
 {
     auto filteredProperties = properties->Where([&](RtPROPERTY property) {
+        auto nameId = GetMetadataNameOfProperty(property);
         MetadataString metadataNameOfThisProperty;
-        switch (property->propertyType)
+        if (nameId != MetadataStringIdNil)
         {
-        case ptAbiMethodProperty:
-        {
-            metadataNameOfThisProperty = AbiMethod::From(AbiMethodProperty::From(property)->body)->signature->metadataNameId;
-        }
-        break;
-        case ptAbiPropertyProperty:
-        {
-            metadataNameOfThisProperty = AbiPropertyProperty::From(property)->metadataNameId;
-        }
-        break;
-        case ptAbiEventHandlerProperty:
-        {
-            metadataNameOfThisProperty = AbiEventHandlerProperty::From(property)->identifier;
-        }
-        break;
-        case ptOverloadParentProperty:
-        {
-            auto overloadParent = OverloadParentProperty::From(property);
-            // Expand the overloads
-            auto overloads = OverloadGroupConstructor::From(overloadParent->overloadConstructor)->signature->overloads;
-            Assert(overloads->id == property->identifier);
-
-            overloads->overloads->Iterate([&](RtMETHODSIGNATURE methodSig) {
-                Assert(methodSig->signatureType == mstAbiMethodSignature);
-                metadataNameOfThisProperty = AbiMethodSignature::From(methodSig)->metadataNameId;
-            });
-        }
-        break;
+            metadataNameOfThisProperty = nameId;
         }
 
         // Only include properties that are the interface's own
@@ -950,6 +962,7 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetInterface
         }
 
         return true;
+
     }, m_alloc);
 
     // A fully qualified type member name in an interface indicates that this interface has inherited a member with the same name from a parent interface.
