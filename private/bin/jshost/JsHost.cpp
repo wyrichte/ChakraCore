@@ -1921,14 +1921,7 @@ int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
     }
     __except (JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
     {
-        // Terminate JIT Process
-        JitProcessManager::StopRpcServer();
-        // Flush all I/O buffers
-        _flushall();
-
-        // Exception happened, so we probably didn't clean up properly, 
-        // Don't exit normally, just terminate
-        TerminateProcess(::GetCurrentProcess(), GetExceptionCode());
+        Assert(false);
     }
 
 
