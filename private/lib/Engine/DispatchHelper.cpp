@@ -9,6 +9,8 @@
 #include "Library\JavascriptSymbol.h"
 #include "Library\JavascriptVariantDate.h"
 
+using namespace PlatformAgnostic;
+
 const long kcchMaxConstBstr = 15;
 struct ConstBstr
 {
@@ -79,7 +81,7 @@ BOOL FNumber(VARIANT *pvar){return (pvar->vt == VT_I4 || pvar->vt == VT_R8);}
 class DispatchHelperInternal
 {
 public:
-    static HRESULT GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext);
+    static HRESULT GetDateDefaultStringBstr(VARIANT *pvarRes, DateTime::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext);
 };
 
 //-----------------------------------------------------------------------------------
@@ -1336,7 +1338,7 @@ HRESULT DispatchHelper::GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OL
     return hr;
 }
 
-HRESULT DispatchHelperInternal::GetDateDefaultStringBstr(VARIANT *pvarRes, Js::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext)
+HRESULT DispatchHelperInternal::GetDateDefaultStringBstr(VARIANT *pvarRes, DateTime::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext)
 {
     AssertMem(pvarRes);
     AssertMem(pymd);
@@ -1434,7 +1436,7 @@ HRESULT DispatchHelper::ConvertVarDateToStr(double dbl, VARIANT *dst, Js::Script
     Assert(scriptContext);
 
     Js::DateImplementation::TZD tzd;
-    Js::YMD ymd;
+    DateTime::YMD ymd;
     double tv = Js::DateImplementation::GetTvUtc(Js::DateImplementation::JsLocalTimeFromVarDate(dbl), scriptContext);
 
     tv = Js::DateImplementation::GetTvLcl(tv, scriptContext, &tzd);

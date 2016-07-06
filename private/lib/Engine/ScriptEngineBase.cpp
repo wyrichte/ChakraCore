@@ -28,6 +28,8 @@
 #include "SCASerialization.h"
 #include "SCADeserialization.h"
 
+using namespace PlatformAgnostic;
+
 // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
 class DisableNoScriptScope
 {
@@ -1066,9 +1068,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToSYSTEMTIME(
 
     AUTO_NO_EXCEPTION_REGION;
     Js::JavascriptDate* date = Js::JavascriptDate::FromVar(instance);
-    Js::YMD ymdDate;
+    DateTime::YMD ymdDate;
     Js::DateImplementation::GetYmdFromTv(date->GetTime(), &ymdDate);
-    Js::DaylightTimeHelper::YmdToSystemTime(&ymdDate, result);
+    ymdDate.ToSystemTime(result);
     return hr;
 }
 

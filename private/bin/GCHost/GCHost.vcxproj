@@ -48,6 +48,12 @@
     <ProjectReference Include="..\..\lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj">
       <Project>{cc4153ff-ac3e-4734-b562-ee23812df31b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Lib\Common\common\Chakra.Common.Common.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
+      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
