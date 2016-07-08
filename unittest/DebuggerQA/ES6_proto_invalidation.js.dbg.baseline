@@ -25,6 +25,8 @@
             "localeCompare": "<large string>",
             "match": "<large string>",
             "normalize": "<large string>",
+            "padEnd": "<large string>",
+            "padStart": "<large string>",
             "repeat": "<large string>",
             "replace": "<large string>",
             "search": "<large string>",
