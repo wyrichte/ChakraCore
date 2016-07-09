@@ -68,7 +68,7 @@
   {
     "evaluate": {
       "arrow_a": {
-        "arrow_a.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "arrow_a.__proto__": "function() {\n    [native code]\n}",
         "arrow_a.length": "0",
         "arrow_a.name": "arrow_a"
       }
@@ -108,7 +108,7 @@
     "evaluate": {
       "constructor": {
         "[Methods]": "{...}",
-        "constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "constructor.__proto__": "function() {\n    [native code]\n}",
         "constructor.arguments": "null",
         "constructor.caller": "null",
         "constructor.length": "1",
@@ -129,7 +129,7 @@
     "evaluate": {
       "constructor": {
         "[Methods]": "{...}",
-        "constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "constructor.__proto__": "function() {\n    [native code]\n}",
         "constructor.arguments": "null",
         "constructor.caller": "null",
         "constructor.length": "1",

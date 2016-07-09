@@ -155,32 +155,32 @@
   },
   {
     "evaluate": {
-      "coll.compare.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+      "coll.compare.toString() == 'function() {\\n    [native code]\\n}'": "true"
     }
   },
   {
     "evaluate": {
-      "coll.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+      "coll.resolvedOptions.toString() == 'function() {\\n    [native code]\\n}'": "false"
     }
   },
   {
     "evaluate": {
-      "numFormat.format.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+      "numFormat.format.toString() == 'function() {\\n    [native code]\\n}'": "true"
     }
   },
   {
     "evaluate": {
-      "numFormat.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+      "numFormat.resolvedOptions.toString() == 'function() {\\n    [native code]\\n}'": "false"
     }
   },
   {
     "evaluate": {
-      "dttmFormat.format.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "true"
+      "dttmFormat.format.toString() == 'function() {\\n    [native code]\\n}'": "true"
     }
   },
   {
     "evaluate": {
-      "dttmFormat.resolvedOptions.toString() == '\\nfunction() {\\n    [native code]\\n}\\n'": "false"
+      "dttmFormat.resolvedOptions.toString() == 'function() {\\n    [native code]\\n}'": "false"
     }
   }
 ]

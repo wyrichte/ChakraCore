@@ -156,28 +156,28 @@
           "set.__proto__.__proto__": {
             "[Methods]": {
               "set.__proto__.__proto__.__defineGetter__": {
-                "set.__proto__.__proto__.__defineGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__defineGetter__.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.__defineGetter__.arguments": "null",
                 "set.__proto__.__proto__.__defineGetter__.caller": "null",
                 "set.__proto__.__proto__.__defineGetter__.length": "2",
                 "set.__proto__.__proto__.__defineGetter__.name": "__defineGetter__"
               },
               "set.__proto__.__proto__.__defineSetter__": {
-                "set.__proto__.__proto__.__defineSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__defineSetter__.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.__defineSetter__.arguments": "null",
                 "set.__proto__.__proto__.__defineSetter__.caller": "null",
                 "set.__proto__.__proto__.__defineSetter__.length": "2",
                 "set.__proto__.__proto__.__defineSetter__.name": "__defineSetter__"
               },
               "set.__proto__.__proto__.__lookupGetter__": {
-                "set.__proto__.__proto__.__lookupGetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__lookupGetter__.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.__lookupGetter__.arguments": "null",
                 "set.__proto__.__proto__.__lookupGetter__.caller": "null",
                 "set.__proto__.__proto__.__lookupGetter__.length": "1",
                 "set.__proto__.__proto__.__lookupGetter__.name": "__lookupGetter__"
               },
               "set.__proto__.__proto__.__lookupSetter__": {
-                "set.__proto__.__proto__.__lookupSetter__.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.__lookupSetter__.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.__lookupSetter__.arguments": "null",
                 "set.__proto__.__proto__.__lookupSetter__.caller": "null",
                 "set.__proto__.__proto__.__lookupSetter__.length": "1",
@@ -185,7 +185,7 @@
               },
               "set.__proto__.__proto__.constructor": {
                 "[Methods]": "{...}",
-                "set.__proto__.__proto__.constructor.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.constructor.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.constructor.arguments": "null",
                 "set.__proto__.__proto__.constructor.caller": "null",
                 "set.__proto__.__proto__.constructor.length": "1",
@@ -193,42 +193,42 @@
                 "set.__proto__.__proto__.constructor.prototype": "{...}"
               },
               "set.__proto__.__proto__.hasOwnProperty": {
-                "set.__proto__.__proto__.hasOwnProperty.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.hasOwnProperty.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.hasOwnProperty.arguments": "null",
                 "set.__proto__.__proto__.hasOwnProperty.caller": "null",
                 "set.__proto__.__proto__.hasOwnProperty.length": "1",
                 "set.__proto__.__proto__.hasOwnProperty.name": "hasOwnProperty"
               },
               "set.__proto__.__proto__.isPrototypeOf": {
-                "set.__proto__.__proto__.isPrototypeOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.isPrototypeOf.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.isPrototypeOf.arguments": "null",
                 "set.__proto__.__proto__.isPrototypeOf.caller": "null",
                 "set.__proto__.__proto__.isPrototypeOf.length": "1",
                 "set.__proto__.__proto__.isPrototypeOf.name": "isPrototypeOf"
               },
               "set.__proto__.__proto__.propertyIsEnumerable": {
-                "set.__proto__.__proto__.propertyIsEnumerable.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.propertyIsEnumerable.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.propertyIsEnumerable.arguments": "null",
                 "set.__proto__.__proto__.propertyIsEnumerable.caller": "null",
                 "set.__proto__.__proto__.propertyIsEnumerable.length": "1",
                 "set.__proto__.__proto__.propertyIsEnumerable.name": "propertyIsEnumerable"
               },
               "set.__proto__.__proto__.toLocaleString": {
-                "set.__proto__.__proto__.toLocaleString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.toLocaleString.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.toLocaleString.arguments": "null",
                 "set.__proto__.__proto__.toLocaleString.caller": "null",
                 "set.__proto__.__proto__.toLocaleString.length": "0",
                 "set.__proto__.__proto__.toLocaleString.name": "toLocaleString"
               },
               "set.__proto__.__proto__.toString": {
-                "set.__proto__.__proto__.toString.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.toString.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.toString.arguments": "null",
                 "set.__proto__.__proto__.toString.caller": "null",
                 "set.__proto__.__proto__.toString.length": "0",
                 "set.__proto__.__proto__.toString.name": "toString"
               },
               "set.__proto__.__proto__.valueOf": {
-                "set.__proto__.__proto__.valueOf.__proto__": "\nfunction() {\n    [native code]\n}\n",
+                "set.__proto__.__proto__.valueOf.__proto__": "function() {\n    [native code]\n}",
                 "set.__proto__.__proto__.valueOf.arguments": "null",
                 "set.__proto__.__proto__.valueOf.caller": "null",
                 "set.__proto__.__proto__.valueOf.length": "0",

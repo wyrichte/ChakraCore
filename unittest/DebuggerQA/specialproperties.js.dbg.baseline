@@ -157,7 +157,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -173,7 +173,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -237,7 +237,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -254,7 +254,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -272,7 +272,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "EPSILON": "2.220446049250313e-16",
@@ -298,7 +298,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -315,7 +315,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "BYTES_PER_ELEMENT": "1",
         "caller": "null",
@@ -333,7 +333,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -352,7 +352,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "7",
@@ -370,7 +370,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -388,7 +388,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -406,7 +406,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -572,7 +572,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -589,7 +589,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -624,7 +624,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "{...}",
         "length": "1",
         "prototype": "{...}"
@@ -639,7 +639,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
