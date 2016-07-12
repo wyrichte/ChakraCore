@@ -198,21 +198,35 @@ static bool BeginsWith(const wstring& string, LPCWSTR substring)
 
 bool Winrt2TsUnitTest::ClassSetup()
 {
+	Configuration config;
+
+	WEX::Common::String testDeploymentDir;
     WEX::Common::String testMetadataWinmdPath;
-    if (FAILED(RuntimeParameters::TryGetValue(L"TestMetadataWinmd", testMetadataWinmdPath)))
+    if (RuntimeParameters::TryGetValue(L"TestMetadataWinmd", testMetadataWinmdPath) == S_OK)
     {
-        return false;
+		config.winmds.push_back(testMetadataWinmdPath.GetBuffer());
     }
+	else
+	{
+		RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
+		wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"TestMetadata.winmd");
+		config.winmds.push_back(defaultPath);
+	}
 
     WEX::Common::String windowsFoundationWinmdPath;
-    if (FAILED(RuntimeParameters::TryGetValue(L"WindowsFoundationWinmd", windowsFoundationWinmdPath)))
+    if (RuntimeParameters::TryGetValue(L"WindowsFoundationWinmd", windowsFoundationWinmdPath) == S_OK)
     {
-        return false;
+		config.winmds.push_back(windowsFoundationWinmdPath.GetBuffer());
     }
-
-    Configuration config;
-    config.winmds.push_back(testMetadataWinmdPath.GetBuffer());
-    config.winmds.push_back(windowsFoundationWinmdPath.GetBuffer());
+	else
+	{
+		if (testDeploymentDir.IsEmpty())
+		{
+			RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
+		}
+		wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"Windows.Foundation.winmd");
+		config.winmds.push_back(defaultPath);
+	}
 
     // Redirect stdout to a string buffer
     wstringstream outStream;
