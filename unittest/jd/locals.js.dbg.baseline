@@ -111,7 +111,7 @@
         "f3 - [Type]": "Object, (Function)",
         "f3": {
           "__proto__ - [Type]": "Object, (Function)",
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments - [Type]": "Object, (Arguments)",
           "arguments": "{...}",
           "caller - [Type]": "Null",

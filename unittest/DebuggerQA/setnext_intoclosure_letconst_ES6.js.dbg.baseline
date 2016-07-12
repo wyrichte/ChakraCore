@@ -20,7 +20,7 @@
       "a": "1",
       "b": "[Uninitialized block variable]",
       "foo": {
-        "__proto__": "<large string>",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",

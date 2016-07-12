@@ -2,7 +2,7 @@
   {
     "evaluate": {
       "sample": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "length": "0",
         "name": "sample",
         "prototype": "{...}"
@@ -63,7 +63,7 @@
   {
     "evaluate": {
       "baz": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",

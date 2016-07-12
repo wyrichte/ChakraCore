@@ -30,6 +30,8 @@
 // - Naming: in this file proxy for runtime type 'Foo' is called using 'Remote' prefix, i.e. 'RemoteFoo'.
 //
 
+using namespace PlatformAgnostic; // DaylightHelper
+
 void DebugHeap_OOM_fatal_error();
 
 namespace JsDiag

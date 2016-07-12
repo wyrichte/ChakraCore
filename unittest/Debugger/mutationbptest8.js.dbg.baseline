@@ -13,7 +13,7 @@
         "[Property container obj1]": "{...}"
       },
       "foo1": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -21,7 +21,7 @@
         "prototype": "{...}"
       },
       "foo2": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -61,7 +61,7 @@
         "[Property container obj2]": "{...}"
       },
       "foo1": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",
@@ -69,7 +69,7 @@
         "prototype": "{...}"
       },
       "foo2": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "0",

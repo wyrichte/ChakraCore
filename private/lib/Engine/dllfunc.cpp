@@ -68,6 +68,10 @@ static BOOL AttachProcess(HANDLE hmod)
     }
 
     JS_ETW(EtwTrace::Register());
+#ifdef VTUNE_PROFILING
+    VTuneChakraProfile::Register();
+#endif
+
     ValueType::Initialize();
 
     char16 *engine = szChakraLock;
@@ -218,6 +222,9 @@ EXTERN_C BOOL WINAPI ChakraDllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReser
 #endif
         // Do this before DetachProcess() so that we won't have ETW rundown callbacks while destroying threadContexts.
         JS_ETW(EtwTrace::UnRegister());
+#ifdef VTUNE_PROFILING
+        VTuneChakraProfile::UnRegister();
+#endif
 
         // don't do anything if we are in forceful shutdown
         // try to clean up handles in graceful shutdown

@@ -55,7 +55,7 @@
     "evaluate": {
       "b": {
         "__proto__": {
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "null",
           "caller": "null",
           "length": "0",

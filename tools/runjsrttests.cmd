@@ -170,9 +170,7 @@ goto :main
   copy /y %_BinDir%Chakra.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.API.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.ComProjection.dll %_TestTempDir%
-  copy /y %_BinDir%UnitTest.JsRT.MemoryPolicy.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.RentalThreading.dll %_TestTempDir%
-  copy /y %_BinDir%UnitTest.JsRT.ThreadService.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.WinRT.dll %_TestTempDir%
 
 
@@ -186,9 +184,7 @@ goto :main
   set _AllTestBins=
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.API.dll
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.ComProjection.dll
-  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.MemoryPolicy.dll
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.RentalThreading.dll
-  set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.ThreadService.dll
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.WinRT.dll
 
   set _RazzleBuildArch=%_BuildArch%

@@ -754,6 +754,42 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
     return returnValue;
 }
 
+Var WScriptFastDom::RegisterModuleSource(Var function, CallInfo callInfo, Var* args)
+{
+    HRESULT hr = S_OK;
+
+    ScriptDirect scriptDirect;
+    CComPtr<IActiveScriptDirect> activeScriptDirect = nullptr;
+    CComPtr<IActiveScript> activeScript = nullptr;
+    CComPtr<IJsHostScriptSite> jsHostScriptSite = nullptr;
+    CComBSTR moduleIdentiferBstr;
+    CComBSTR moduleSource;
+    Var returnValue = nullptr;
+
+    IfFailGo(scriptDirect.From(function));
+    returnValue = scriptDirect.GetUndefined();
+
+    IfFailGo(JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect));
+    IfFailGo(activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript));
+    IfFailGo(activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite));
+
+    if (callInfo.Count < 3)
+    {
+        scriptDirect.ThrowIfFailed(E_INVALIDARG, _u("Too few arguments."));
+        return returnValue;
+    }
+    
+    IfFailGo(activeScriptDirect->VarToString(args[1], &moduleIdentiferBstr));
+    IfFailGo(activeScriptDirect->VarToString(args[2], &moduleSource));
+
+    hr = jsHostScriptSite->RegisterModuleSource(moduleIdentiferBstr, moduleSource);
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+
+    return returnValue;
+}
+
 Var WScriptFastDom::LoadModule(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
@@ -1760,6 +1796,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
         // Create the InitializeProjection method
         hr = AddMethodToObject(_u("InitializeProjection"), activeScriptDirect, wscript, WScriptFastDom::InitializeProjection);
+        IfFailedGo(hr);
+
+        // Create the RegisterModuleSource method
+        hr = AddMethodToObject(_u("RegisterModuleSource"), activeScriptDirect, wscript, WScriptFastDom::RegisterModuleSource);
         IfFailedGo(hr);
     }
 
