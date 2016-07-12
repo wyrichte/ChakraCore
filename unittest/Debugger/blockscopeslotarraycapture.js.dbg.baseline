@@ -10,7 +10,7 @@
         "length": "0"
       },
       "level2Func": {
-        "__proto__": "<large string>",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -21,7 +21,7 @@
       "level_1_identifier_0": "level1_0",
       "level_1_identifier_2": "[Uninitialized block variable]",
       "level2Func#1": {
-        "__proto__": "<large string>",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "1",
@@ -30,7 +30,7 @@
       },
       "level_0_identifier_0": "level0",
       "verify": {
-        "__proto__": "<large string>",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
         "caller": "null",
         "length": "3",

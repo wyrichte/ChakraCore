@@ -1,8 +1,0 @@
-PUBLIC_PASS0_CONSUMES= \
-    redist\mspartners\netfx45\core\binary_release|PASS0 \
-
-PUBLIC_PASS1_CONSUMES= \
-    com\ole32\dll\daytona|PASS1 \
-    minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
-    minkernel\crts\libw32\lib\extdlllib|PASS1 \
-

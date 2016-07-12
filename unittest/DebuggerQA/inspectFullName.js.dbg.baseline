@@ -36,7 +36,7 @@
   {
     "evaluate": {
       "foo": {
-        "foo.__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "foo.__proto__": "function() {\n    [native code]\n}",
         "foo.arguments": "null",
         "foo.caller": "null",
         "foo.length": "0",
