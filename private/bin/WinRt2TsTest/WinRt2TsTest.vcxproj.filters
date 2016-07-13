@@ -53,4 +53,7 @@
       <Filter>Source Files</Filter>
     </Midl>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(PublicInternalPath)\sdk\winmetadata\windows.foundation.winmd" />
+  </ItemGroup>
 </Project>

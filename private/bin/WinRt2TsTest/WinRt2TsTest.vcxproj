@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemDefinitionGroup>
     <Midl>
+      <OutputDirectory>$(OutDir)</OutputDirectory>
       <EnableWindowsRuntime>true</EnableWindowsRuntime>
       <GenerateClientFiles>None</GenerateClientFiles>
       <GenerateStublessProxies>false</GenerateStublessProxies>
@@ -129,6 +130,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Midl Include="TestMetadata.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(PublicInternalPath)\sdk\winmetadata\windows.foundation.winmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

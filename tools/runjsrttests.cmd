@@ -83,13 +83,10 @@ goto :main
   set _RootDir=%~dp0..
   set _BinDirBase=%_RootDir%\Build\VcBuild\Bin
   set _BinDir=
-  set _ObjDirBase=%_RootDir%\Build\VcBuild\Obj
-  set _ObjDir=
   set _TestTempDir=
   set _BuildArch=
   set _BuildType=
   set _RazzleTools=RazzleTools.1.0.15
-  set _WinMetadataDir=%_RootDir%\External\SDPublics.1.0.15\internal\sdk\winmetadata\
   goto :eof
 
 :: ============================================================================
@@ -113,7 +110,6 @@ goto :main
   if /i "%1" == "-x64test"          set _BuildArch=x64&set _BuildType=test&                     goto :ArgOk
 
   if /i "%1" == "-binDir"           set _BinDirBase=%~f2&                                      goto :ArgOkShift2
-  if /i "%1" == "-objDir"           set _ObjDirBase=%~f2&                                      goto :ArgOkShift2
 
   if not "%1" == "" echo -- runjsrttests.cmd ^>^> Unknown argument: %1 & set fShowGetHelp=1
 
@@ -151,7 +147,6 @@ goto :main
 :configureVars
 
   set _BinDir=%_BinDirBase%\%_BuildArch%_%_BuildType%\
-  set _ObjDir=%_ObjDirBase%\%_BuildArch%_%_BuildType%\
   rem Use %_BinDir% as the root for %_TestTempDir% to ensure that running jsrt
   rem tests from multiple repos simultaneously do not clobber each other.
   rem This means we need to delete the temp directory afterwards to clean up.
@@ -159,7 +154,6 @@ goto :main
   if not exist %_TestTempDir% mkdir %_TestTempDir%
 
   echo -- runjsrttests.cmd ^>^> #### BinDir: %_BinDir%
-  echo -- runjsrttests.cmd ^>^> #### ObjDir: %_ObjDir%
   echo -- runjsrttests.cmd ^>^> #### TestTempDir: %_TestTempDir%
 
   goto :eof
@@ -174,8 +168,7 @@ goto :main
   copy /y %_RootDir%\unittest\jsrt\scripts\*.js %_TestTempDir%
 
   echo -- runjsrttests.cmd ^>^> copying winmd files to '%_TestTempDir%'
-  copy /y %_ObjDir%winrt2tstest\*.winmd %_TestTempDir%
-  copy /y %_WinMetadataDir%windows.foundation.winmd %_TestTempDir%
+  copy /y %_BinDir%*.winmd %_TestTempDir%
 
   copy /y %_BinDir%Chakra.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.API.dll %_TestTempDir%
