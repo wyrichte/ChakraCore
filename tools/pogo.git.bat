@@ -25,8 +25,8 @@ set BIN_PATH=%ChakraRoot%\Build\VcBuild\bin\%arch%_%flavor%_pogo
 if "%doCore%" EQU "core" (
     set BIN_PATH=%ChakraRoot%\core\Build\VcBuild\bin\%arch%_%flavor%_pogo
 )
-if "%TF_BUILD_BUILDDIRECTORY%" NEQ "" (
-  set BIN_PATH=%TF_BUILD_BUILDDIRECTORY%\bin\bin\%arch%_%flavor%_pogo
+if "%TF_BUILD_BINARIESDIRECTORY%" NEQ "" (
+  set BIN_PATH=%TF_BUILD_BINARIESDIRECTORY%\bin\%arch%_%flavor%_pogo
 ) else if "%OutBaseDir%" NEQ "" (
   set BIN_PATH=%OutBaseDir%\Chakra.Full\bin\%arch%_%flavor%_pogo
   if "%doCore%" EQU "core" (
