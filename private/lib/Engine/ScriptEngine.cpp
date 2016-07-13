@@ -796,41 +796,36 @@ const char16 *ScriptEngine::GetDispatchFunctionNameAndContext(Js::JavascriptFunc
 // === IActiveScriptDebug ===
 #include "AttrParser.h"
 STDMETHODIMP ScriptEngine::GetScriptTextAttributes(__RPC__in_ecount_full(uNumCodeChars) LPCOLESTR pstrCode, ULONG uNumCodeChars,
-                                                   __RPC__in LPCOLESTR pstrDelimiter, DWORD dwFlags,
-                                                   __RPC__inout_ecount_full(uNumCodeChars) SOURCE_TEXT_ATTR *prgsta)
+    __RPC__in LPCOLESTR pstrDelimiter, DWORD dwFlags,
+    __RPC__inout_ecount_full(uNumCodeChars) SOURCE_TEXT_ATTR *prgsta)
 {
-    // Can be called even when no debugger
-    if (GetScriptSiteHolder())
-    {
-        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
-        return ps.GetTextAttribs(pstrCode, uNumCodeChars, prgsta, uNumCodeChars, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
-    }
-    return E_FAIL;
+    //EDMAURER Start returning an error in the event that someone requests attributes.
+    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers, 
+    //see if it is time to remove AttrParser.
+
+    return E_NOTIMPL;
 }
 
 HRESULT ScriptEngine::GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb,
-                                                  LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags,
-                                                  SOURCE_TEXT_ATTR *prgsta)
+    LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags,
+    SOURCE_TEXT_ATTR *prgsta)
 {
-    if (GetScriptSiteHolder())
-    {
-        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
-        return ps.GetTextAttribsUTF8(pchCode, cb, prgsta, cch, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
-    }
+    //EDMAURER This is used by an implementation of IDebugDocumentText::GetText that returns the source attributes.
+    //If nobody complains that it is not returning good values, then this method should be removed and AttrParser
+    //should be checked if it is used.
+
     return E_FAIL;
 }
 
 STDMETHODIMP ScriptEngine::GetScriptletTextAttributes(__RPC__in_ecount_full(cch) LPCOLESTR pstrCode, ULONG cch,
-                                                      __RPC__in LPCOLESTR pstrDelimiter, DWORD dwFlags,
-                                                      __RPC__inout_ecount_full(cch) SOURCE_TEXT_ATTR *prgsta)
+    __RPC__in LPCOLESTR pstrDelimiter, DWORD dwFlags,
+    __RPC__inout_ecount_full(cch) SOURCE_TEXT_ATTR *prgsta)
 {
-    // Can be called even when no debugger
-    if (GetScriptSiteHolder())
-    {
-        AttrParser ps(GetScriptSiteHolder()->GetScriptSiteContext());
-        return ps.GetTextAttribs(pstrCode, cch, prgsta, cch, dwFlags, ComputeGrfscrUTF16(pstrDelimiter));
-    }
-    return E_FAIL;
+    //EDMAURER Start returning an error in the event that someone requests attributes.
+    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers, 
+    //see if it is time to remove AttrParser.
+
+    return E_NOTIMPL;
 }
 
 bool ScriptEngine::CanHalt(Js::InterpreterHaltState* haltState)
