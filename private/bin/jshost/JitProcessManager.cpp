@@ -109,6 +109,29 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     CloseHandle(processInfo.hThread);
     s_rpcServerProcessHandle = processInfo.hProcess;
 
+    // create job object so if parent jshost gets killed, server is killed as well
+    HANDLE jobObject = CreateJobObject(nullptr, nullptr);
+    if (jobObject == nullptr)
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+    if (!AssignProcessToJobObject(jobObject, GetCurrentProcess()))
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+    if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+
+    JOBOBJECT_BASIC_LIMIT_INFORMATION jobInfo = {0};
+    jobInfo.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+
+    if (!SetInformationJobObject(jobObject, JobObjectBasicLimitInformation, &jobInfo, sizeof(JOBOBJECT_BASIC_LIMIT_INFORMATION)))
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+
     return NOERROR;
 }
 
