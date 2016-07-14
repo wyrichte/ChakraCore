@@ -87,8 +87,10 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
     if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
     {
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
-        // TODO: OOP JIT, RPC to add to list
-        scriptContext->EnsureDOMFastPathIRHelperMap()->Add(functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+        scriptContext->GetThreadContext()->m_codeGenManager.AddDOMFastPathHelper(
+            scriptContext->GetRemoteScriptAddr(),
+            (intptr_t)functionInfo,
+            (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
     }
     return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }
