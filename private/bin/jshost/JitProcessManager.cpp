@@ -27,12 +27,20 @@ HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR arg
     return hr;
 }
 
-
 HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr;
     PROCESS_INFORMATION processInfo = { 0 };
     STARTUPINFOW si = { 0 };
+
+    // remove dynamicprofilecache flag
+    LPCWSTR flag = _u("-dynamicprofilecache:");
+    size_t flagLen = wcslen(flag);
+    int flagIndex = HostConfigFlags::FindArg(argc, argv, flag, flagLen);
+    if (flagIndex >= 0)
+    {
+        HostConfigFlags::RemoveArg(argc, argv, flagIndex);
+    }
 
     // overallocate constant cmd line (jshost -jitserver:<guid>)
     size_t cmdLineSize = (MAX_PATH + argc) * sizeof(WCHAR);
@@ -115,19 +123,15 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     {
         return HRESULT_FROM_WIN32(GetLastError());
     }
-    if (!AssignProcessToJobObject(jobObject, GetCurrentProcess()))
-    {
-        return HRESULT_FROM_WIN32(GetLastError());
-    }
     if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
     {
         return HRESULT_FROM_WIN32(GetLastError());
     }
 
-    JOBOBJECT_BASIC_LIMIT_INFORMATION jobInfo = {0};
-    jobInfo.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+    JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo = {0};
+    jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
 
-    if (!SetInformationJobObject(jobObject, JobObjectBasicLimitInformation, &jobInfo, sizeof(JOBOBJECT_BASIC_LIMIT_INFORMATION)))
+    if (!SetInformationJobObject(jobObject, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)))
     {
         return HRESULT_FROM_WIN32(GetLastError());
     }
