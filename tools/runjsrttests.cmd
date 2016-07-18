@@ -167,12 +167,15 @@ goto :main
   echo -- runjsrttests.cmd ^>^> copying scripts from '%_RootDir%\unittest\jsrt\scripts' to '%_TestTempDir%'
   copy /y %_RootDir%\unittest\jsrt\scripts\*.js %_TestTempDir%
 
+  echo -- runjsrttests.cmd ^>^> copying winmd files to '%_TestTempDir%'
+  copy /y %_BinDir%*.winmd %_TestTempDir%
+
   copy /y %_BinDir%Chakra.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.API.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.ComProjection.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.RentalThreading.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.WinRT.dll %_TestTempDir%
-
+  copy /y %_BinDir%WinRt2TsTest.dll %_TestTempDir%
 
   goto :eof
 
@@ -186,6 +189,7 @@ goto :main
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.ComProjection.dll
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.RentalThreading.dll
   set _AllTestBins=%_AllTestBins% %_TestTempDir%UnitTest.JsRT.WinRT.dll
+  set _AllTestBins=%_AllTestBins% %_TestTempDir%WinRt2TsTest.dll
 
   set _RazzleBuildArch=%_BuildArch%
   if "%_BuildArch%" == "x64" set _RazzleBuildArch=amd64

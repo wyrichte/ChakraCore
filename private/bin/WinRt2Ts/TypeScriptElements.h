@@ -54,15 +54,17 @@ class TypeScriptPropertySignature
 public:
     const MetadataString& GetName() const;
     const TypeScriptType& GetType() const;
+    bool IsOptional() const;
 
-    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type);
+    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type, bool optional);
 
 private:
     const MetadataString m_name;
     const std::auto_ptr<TypeScriptType> m_type;
+    const bool m_optional;
 
 private:
-    TypeScriptPropertySignature(MetadataString name, std::auto_ptr<TypeScriptType> type);
+    TypeScriptPropertySignature(MetadataString name, std::auto_ptr<TypeScriptType> type, bool optional);
 };
 
 class TypeScriptIndexSignature
@@ -156,17 +158,19 @@ public:
     const MetadataString& GetMethodName() const;
     const TypeScriptCallSignature& GetCallSignature() const;
     const TypeScriptType* GetOriginalReturnTypeCommentOrNull() const;
+    bool IsOptional() const;
 
-    static std::auto_ptr<TypeScriptMethodSignature> Make(MetadataString methodName, std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType);
+    static std::auto_ptr<TypeScriptMethodSignature> Make(MetadataString methodName, std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType, bool optional);
     static std::auto_ptr<TypeScriptMethodSignature> Make(MetadataString methodName, std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType, std::auto_ptr<TypeScriptType>&& originalReturnTypeComment);
 
 private:
     const MetadataString m_methodName;
+    const bool m_optional;
     const std::auto_ptr<TypeScriptCallSignature> m_callSignature;
     const std::auto_ptr<TypeScriptType> m_originalReturnTypeComment;
 
 private:
-    TypeScriptMethodSignature(MetadataString methodName, std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType, std::auto_ptr<TypeScriptType>&& originalReturnTypeComment);
+    TypeScriptMethodSignature(MetadataString methodName, std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType, std::auto_ptr<TypeScriptType>&& originalReturnTypeComment, bool optional);
 };
 
 class TypeScriptTypeList
@@ -198,6 +202,8 @@ public:
     void AddMember(std::auto_ptr<TypeScriptMethodSignature>&& member);
     void AddMember(std::auto_ptr<TypeScriptCallSignature>&& member);
     void AddMember(std::auto_ptr<TypeScriptIndexSignature>&& member);
+    bool ContainsMember(const TypeScriptPropertySignature& member);
+    bool ContainsMember(const TypeScriptMethodSignature& member);
 
 private:
     auto_ptr_vector<TypeScriptPropertySignature> m_propertySignatures;

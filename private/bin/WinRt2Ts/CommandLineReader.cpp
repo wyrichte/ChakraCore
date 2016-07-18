@@ -42,7 +42,7 @@ Configuration CommandLineReader::Read(int argc, wchar_t* argv[])
         }
     }
 
-    if (config.outFilePath.empty() || config.winmds.empty())
+    if (config.winmds.empty())
     {
         throw MalformedCommandLineError();
     }
