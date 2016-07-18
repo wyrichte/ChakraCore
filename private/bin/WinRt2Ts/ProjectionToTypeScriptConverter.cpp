@@ -309,7 +309,7 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
             break;
         case specPromiseSpecialization:
             rtClassConstructor->allInterfaces->IterateWhile([&](RtINTERFACECONSTRUCTOR rtInterface) {
-                if (promiseResultType == nullptr && rtInterface->interfaceType == ifRuntimeInterfaceConstructor)
+                if (rtInterface->interfaceType == ifRuntimeInterfaceConstructor)
                 {
                     promiseResultType = GetPromiseResultType(RuntimeInterfaceConstructor::From(rtInterface));
                 }
