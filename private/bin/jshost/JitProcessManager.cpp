@@ -27,20 +27,26 @@ HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR arg
     return hr;
 }
 
+/* static */
+void
+JitProcessManager::RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[])
+{
+    size_t flagLen = wcslen(flag);
+    int flagIndex;
+    while ((flagIndex = HostConfigFlags::FindArg(*argc, *argv, flag, flagLen)) >= 0)
+    {
+        HostConfigFlags::RemoveArg(*argc, *argv, flagIndex);
+    }
+}
+
 HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr;
     PROCESS_INFORMATION processInfo = { 0 };
     STARTUPINFOW si = { 0 };
 
-    // remove dynamicprofilecache flag
-    LPCWSTR flag = _u("-dynamicprofilecache:");
-    size_t flagLen = wcslen(flag);
-    int flagIndex = HostConfigFlags::FindArg(argc, argv, flag, flagLen);
-    if (flagIndex >= 0)
-    {
-        HostConfigFlags::RemoveArg(argc, argv, flagIndex);
-    }
+    RemoveArg(_u("-dynamicprofilecache:"), &argc, &argv);
+    RemoveArg(_u("-dynamicprofileinput:"), &argc, &argv);
 
     // overallocate constant cmd line (jshost -jitserver:<guid>)
     size_t cmdLineSize = (MAX_PATH + argc) * sizeof(WCHAR);

@@ -1909,21 +1909,12 @@ int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
     }
 
     JsInitializeRpcServerPtr initRpcServer = (JsInitializeRpcServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeRpcServer");
-
-    __try
+    HRESULT hr = initRpcServer(&connectionUuid);
+    if (FAILED(hr))
     {
-        HRESULT hr = initRpcServer(&connectionUuid);
-        if (FAILED(hr))
-        {
-            wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
-            return hr;
-        }
+        wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
+        return hr;
     }
-    __except (JcExceptionFilter(GetExceptionCode(), GetExceptionInformation()))
-    {
-        Assert(false);
-    }
-
 
     return 0;
 }

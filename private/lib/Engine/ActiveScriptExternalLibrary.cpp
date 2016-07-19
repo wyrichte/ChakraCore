@@ -87,7 +87,7 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
     if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
     {
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
-        scriptContext->GetThreadContext()->m_codeGenManager.AddDOMFastPathHelper(
+        JITManager::GetJITManager()->AddDOMFastPathHelper(
             scriptContext->GetRemoteScriptAddr(),
             (intptr_t)functionInfo,
             (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
