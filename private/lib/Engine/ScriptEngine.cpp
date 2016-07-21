@@ -5971,7 +5971,7 @@ void ScriptEngine::CleanScriptBodyMap()
     {
         scriptBodyMap->Clean([](Js::Utf8SourceInfo * info, CScriptBody * scriptBody)
         {
-            scriptBody->Release();            
+            scriptBody->Release();
         });
     }
 }

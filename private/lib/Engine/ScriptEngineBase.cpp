@@ -3250,6 +3250,10 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
     {
         *varResult = scriptContext->GetLibrary()->GetUndefined();
 
+        if (exceptionObject != nullptr)
+        {
+            exceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);
+        }
         hr = GetScriptSiteHolder()->HandleJavascriptException(exceptionObject, scriptContext);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
