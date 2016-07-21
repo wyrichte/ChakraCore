@@ -115,7 +115,7 @@
       <GenerateServerFiles>None</GenerateServerFiles>
       <HeaderFileName>
       </HeaderFileName>
-      <WarningLevel>4</WarningLevel>
+      <WarningLevel>1</WarningLevel>
       <MetadataFileName>%(Filename).winmd</MetadataFileName>
       <AdditionalIncludeDirectories>
         $(InternalSdkIncPath);
