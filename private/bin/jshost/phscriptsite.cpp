@@ -248,11 +248,14 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     hr = GetActiveScriptDirect(&activeScriptDirect);
     IfFailedGo(hr);
 
-    hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessId(), JitProcessManager::GetRpcConnectionId());
-    IfFailedGo(hr);
+    if (HostConfigFlags::flags.EnableOutOfProcJIT)
+    {
+        hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessId(), JitProcessManager::GetRpcConnectionId());
+        IfFailedGo(hr);
 
-    hr = activeScriptDirect->SetJITInfoForScript();
-    IfFailedGo(hr);
+        hr = activeScriptDirect->SetJITInfoForScript();
+        IfFailedGo(hr);
+    }
 
 LReturn:
     if (FAILED(hr))

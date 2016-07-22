@@ -7196,6 +7196,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetTridentLoadAddress(__in void* loadAdd
 
 STDMETHODIMP STDMETHODCALLTYPE ScriptEngine::SetJITInfoForScript()
 {
+    Assert(JITManager::GetJITManager()->IsOOPJITEnabled());
     // TODO: michhol OOP JIT, how do i get ScriptSiteHolder w/o this?
     this->GetScriptSiteHolder()->GetScriptSiteContext()->InitializeRemoteScriptContext();
     return NOERROR;
@@ -7203,6 +7204,7 @@ STDMETHODIMP STDMETHODCALLTYPE ScriptEngine::SetJITInfoForScript()
 
 HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in DWORD processId, __in UUID connectionId)
 {
+    JITManager::GetJITManager()->EnableOOPJIT();
     ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(processId, connectionId);
     return S_OK;
 }

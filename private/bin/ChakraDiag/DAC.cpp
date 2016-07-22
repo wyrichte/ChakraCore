@@ -119,7 +119,7 @@ namespace JsDiag
         if (!m_propertyMap)
         {
             const ThreadContext::PropertyMap * addr = ReadVirtual<ThreadContext::PropertyMap *>(
-                GetFieldAddr<ThreadContext::PropertyMap *>(offsetof(ThreadContext, propertyMap)));
+                GetFieldAddr<ThreadContext::PropertyMap *>(offsetof(ThreadContext, m_propertyMap)));
             m_propertyMap = new(oomthrow) RemoteDictionary<ThreadContext::PropertyMap>(m_reader, addr);
         }
 

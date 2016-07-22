@@ -645,7 +645,7 @@ namespace JsDiag
         BOOL TestThreadContextFlag(ThreadContextFlags contextFlag);
         DebugManager* GetDebugManager() const { return this->ReadField<DebugManager*>(offsetof(TargetType, debugManager)); }
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
-        bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, isAllJITCodeInPreReservedRegion)); }
+        bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, m_isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
         CustomHeap::CodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::CodePageAllocators>(offsetof(TargetType, codePageAllocators));}
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }

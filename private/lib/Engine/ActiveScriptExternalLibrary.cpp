@@ -87,10 +87,17 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
     if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
     {
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
-        JITManager::GetJITManager()->AddDOMFastPathHelper(
-            scriptContext->GetRemoteScriptAddr(),
-            (intptr_t)functionInfo,
-            (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+        if (JITManager::GetJITManager()->IsOOPJITEnabled())
+        {
+            JITManager::GetJITManager()->AddDOMFastPathHelper(
+                scriptContext->GetRemoteScriptAddr(),
+                (intptr_t)functionInfo,
+                (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+        }
+        else
+        {
+            scriptContext->AddToDOMFastPathHelperMap((intptr_t)functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+        }
     }
     return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
 }
