@@ -20,7 +20,6 @@
           "Reflect": "{...}",
           "SCA": "{...}",
           "undefined": "undefined",
-          "Wasm": "{...}",
           "WScript": "{...}"
         }
       },
@@ -81,11 +80,6 @@
           "__proto__": "{...}"
         },
         "undefined": "undefined",
-        "Wasm": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "experimentalVersion": "11"
-        },
         "WScript": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

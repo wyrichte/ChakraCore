@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 63
+ |  [Properties] count: 62
  |  | 0 NaN: type: Number flags: (new) optional info records (1)
  |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject (seen)
@@ -273,9 +273,7 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  | 51 URIError: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 52 Wasm: type: ObjectObject flags: (new) optional info records (1)
- |  |    [Prototype] type: ObjectObject (seen)
- |  | 53 Debug: type: ObjectObject flags: (new) optional info records (2)
+ |  | 52 Debug: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 9
  |  |    | 0 EngineInterface: type: ObjectObject flags: (new) optional info records (1)
@@ -337,7 +335,7 @@
  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |    [Internal property] value: getProfileDataObject
  |  |    |    |    [Prototype] type: StringObject (seen)
- |  | 54 WScript: type: ObjectObject flags: (new) optional info records (2)
+ |  | 53 WScript: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 28
  |  |    | 0 LoadTextFile: type: FunctionObject flags: (new) optional info records (1)
@@ -412,13 +410,13 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 27 TestConstructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 55 print: type: FunctionObject flags: (new) optional info records (1)
+ |  | 54 print: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 56 read: type: FunctionObject flags: (new) optional info records (1)
+ |  | 55 read: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 57 readbuffer: type: FunctionObject flags: (new) optional info records (1)
+ |  | 56 readbuffer: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 58 SCA: type: ObjectObject flags: (new) optional info records (2)
+ |  | 57 SCA: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 7
  |  |    | 0 serialize: type: FunctionObject flags: (new) optional info records (1)
@@ -435,7 +433,7 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 6 makeUint64: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 59 ImageData: type: FunctionObject flags: (new) optional info records (2)
+ |  | 58 ImageData: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 2
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
@@ -445,13 +443,13 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: ImageData
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 60 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
+ |  | 59 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testScopeSlotArray
- |  | 61 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
+ |  | 60 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testActivationObject
- |  | 62 func: type: FunctionObject flags: (new) optional info records (3)
+ |  | 61 func: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] func
  |  |    [Scopes] count: 1

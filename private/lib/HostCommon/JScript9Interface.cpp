@@ -127,7 +127,7 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
     m_jsrtTestHooks.pfJsrtCreateArray = (JsrtTestHooks::JsrtCreateArrayPtr)GetProcAddress(chakraLibrary, "JsCreateArray");
     m_jsrtTestHooks.pfJsrtCreateArrayBuffer = (JsrtTestHooks::JsrtCreateArrayBufferPtr)GetProcAddress(chakraLibrary, "JsCreateArrayBuffer");
     m_jsrtTestHooks.pfJsrtGetArrayBufferStorage = (JsrtTestHooks::JsrtGetArrayBufferStoragePtr)GetProcAddress(chakraLibrary, "JsGetArrayBufferStorage");
-    m_jsrtTestHooks.pfJsrtSetIndexedProperty = (JsrtTestHooks::JsrtSetIndexedPropertyPtr)GetProcAddress(chakraLibrary, "JsGetIndexedProperty");
+    m_jsrtTestHooks.pfJsrtSetIndexedProperty = (JsrtTestHooks::JsrtSetIndexedPropertyPtr)GetProcAddress(chakraLibrary, "JsSetIndexedProperty");
     m_jsrtTestHooks.pfJsrtSetException = (JsrtTestHooks::JsrtSetExceptionPtr)GetProcAddress(chakraLibrary, "JsSetException");
     m_jsrtTestHooks.pfJsrtGetAndClearException = (JsrtTestHooks::JsrtGetAndClearExceptiopnPtr)GetProcAddress(chakraLibrary, "JsGetAndClearException");
     m_jsrtTestHooks.pfJsrtCreateError = (JsrtTestHooks::JsrtCreateErrorPtr)GetProcAddress(chakraLibrary, "JsCreateError");

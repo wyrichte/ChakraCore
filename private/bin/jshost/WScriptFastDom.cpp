@@ -524,7 +524,7 @@ Var WScriptFastDom::LoadTextFile(Var function, CallInfo callInfo, Var* args)
     const char16 *fileName;
     uint fileNameLength;
 
-    runInfo.hr = activeScriptDirect->VarToRawString(args[0], &fileName, &fileNameLength);
+    runInfo.hr = activeScriptDirect->VarToRawString(args[1], &fileName, &fileNameLength);
     if (FAILED(runInfo.hr))
     {
         goto Cleanup;
@@ -539,7 +539,7 @@ Var WScriptFastDom::LoadTextFile(Var function, CallInfo callInfo, Var* args)
     {
         goto Cleanup;
     }
-    scriptDirect.StringToVar(fileContent, &returnVar);
+    activeScriptDirect->StringToVar(fileContent, lengthBytes, &returnVar);
 
 Cleanup:
     activeScriptDirect->Release();
@@ -778,7 +778,7 @@ Var WScriptFastDom::RegisterModuleSource(Var function, CallInfo callInfo, Var* a
         scriptDirect.ThrowIfFailed(E_INVALIDARG, _u("Too few arguments."));
         return returnValue;
     }
-    
+
     IfFailGo(activeScriptDirect->VarToString(args[1], &moduleIdentiferBstr));
     IfFailGo(activeScriptDirect->VarToString(args[2], &moduleSource));
 
