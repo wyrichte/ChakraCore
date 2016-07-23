@@ -16,6 +16,8 @@
 #include "Library\ES5Array.h"
 #include "ActiveScriptProfilerHeapEnum.h"
 
+using namespace PlatformAgnostic;
+
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "..\Telemetry\Telemetry.h"
 #include "..\Telemetry\ScriptContextTelemetry.h"
@@ -929,8 +931,7 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
 HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
 {
     Js::ScriptContext * scriptContext = function->GetScriptContext();
-    Js::HiResTimer timer;
-    double startTime;
+    ULONGLONG startTime, elapsedTime; // in milliseconds
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     scriptContext->GetHostScriptContext()->EnsureParentInfo();
 #endif
@@ -942,7 +943,7 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
         return E_UNEXPECTED;
     }
 
-    startTime = timer.Now();
+    startTime = GetTickCount64();
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
@@ -956,7 +957,9 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
 
-    scriptContext->GetThreadContext()->maxGlobalFunctionExecTime = max(scriptContext->GetThreadContext()->maxGlobalFunctionExecTime, timer.Now() - startTime);
+    elapsedTime = GetTickCount64() - startTime;
+
+    scriptContext->GetThreadContext()->maxGlobalFunctionExecTime = max(scriptContext->GetThreadContext()->maxGlobalFunctionExecTime, (double)elapsedTime);
 
     if (FAILED(hr))
     {

@@ -36,9 +36,19 @@ void GenerateTsFromWinmds(IMetaDataDispenserEx* dispenser, const Configuration& 
     {
         currentAssignmentSpace = SortAssignmentSpace(currentAssignmentSpace.GetValue(), &alloc, &MetadataString::s_stringConverter);
 
-        wofstream outFileStream(config.outFilePath.c_str(), ios::out);
+        wostream* outputStream = nullptr;
+        auto_ptr<wofstream> fileStream;
+        if (!config.outFilePath.empty())
+        {
+            fileStream.reset(new wofstream(config.outFilePath.c_str(), ios::out));
+            outputStream = fileStream.get();
+        }
+        else
+        {
+            outputStream = &wcout;
+        }
 
-        IndentingWriter writer(outFileStream);
+        IndentingWriter writer(*outputStream);
         TypeScriptEmitter tsEmitter(writer, MetadataString::s_stringConverter);
         ProjectionToTypeScriptConverter emitter(&alloc, tsEmitter, writer, MetadataString::s_stringConverter, config.emitAnyForUnresolvedTypes);
 
@@ -95,7 +105,7 @@ int __cdecl wmain(int argc, wchar_t* argv[])
     }
     catch (ErrorBase& e)
     {
-        wcout << L"error " << e.Code() << L": " << e.Description() << endl;
+        wcerr << L"error " << e.Code() << L": " << e.Description() << endl;
         return 0 - e.Code();
     }
 

@@ -1090,16 +1090,29 @@ Error:
 
 HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void** errorObject, bool isModuleCode)
 {
-    HRESULT hr;
+    HRESULT hr = S_OK;
     LPCOLESTR contents = NULL;
     bool isUtf8 = false;
     LPCOLESTR contentsRaw = NULL;
     UINT lengthBytes = 0;
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
     char16 * fullpath = nullptr;
+    bool contentsFromModuleSourceMap = false;
 
-    hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
-    IfFailGo(hr);
+    auto moduleFromSourceMap = moduleSourceMap.find(scriptFilename);
+    if (isModuleCode && moduleFromSourceMap != moduleSourceMap.end())
+    {
+        // This is our string and it's not UTF8
+        // Leave isUtf8 false, contentsRaw nullptr, and lengthBytes 0
+        // TODO: Support different encodings?
+        contents = moduleFromSourceMap->second.c_str();
+        contentsFromModuleSourceMap = true;
+    }
+    else
+    {
+        hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
+        IfFailGo(hr);
+    }
 
     fullpath = _wfullpath(NULL, scriptFilename, 0);
     if (fullpath == NULL)
@@ -1326,7 +1339,7 @@ Error:
         HeapFree(GetProcessHeap(), 0, (void*)contentsRaw);
     }
 
-    if (contents && (contents != contentsRaw))
+    if (!contentsFromModuleSourceMap && contents && (contents != contentsRaw))
     {
         HeapFree(GetProcessHeap(), 0, (void*)contents);
     }
@@ -1591,7 +1604,6 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
     return hr;
 }
 
-
 STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject)
 {
     HRESULT hr = S_OK;
@@ -1627,6 +1639,21 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
     hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
 
     return hr;
+}
+
+STDMETHODIMP JsHostActiveScriptSite::RegisterModuleSource(LPCOLESTR moduleIdentifier, LPCOLESTR script)
+{
+    auto existingModuleSource = moduleSourceMap.find(moduleIdentifier);
+    
+    if (existingModuleSource != moduleSourceMap.end())
+    {
+        fwprintf(stderr, _u("Source for module identifier \"%s\" already registered.\n"), moduleIdentifier);
+        return E_INVALIDARG;
+    }
+
+    moduleSourceMap[moduleIdentifier] = script;
+
+    return S_OK;
 }
 
 STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)

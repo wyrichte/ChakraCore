@@ -152,7 +152,7 @@
   {
     "evaluate": {
       "regex.constructor": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "__proto__ - [Attributes]": {
           "flags": [
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",

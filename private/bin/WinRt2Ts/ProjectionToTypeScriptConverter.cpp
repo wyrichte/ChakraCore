@@ -187,7 +187,7 @@ bool ProjectionToTypeScriptConverter::IsTypeVisible(RtTYPE type)
 {
     if (MissingNamedType::Is(type) || MissingGenericInstantiationType::Is(type))
     {
-        wcout << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
+        wcerr << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
 
         return false;
     }
@@ -309,7 +309,7 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
             break;
         case specPromiseSpecialization:
             rtClassConstructor->allInterfaces->IterateWhile([&](RtINTERFACECONSTRUCTOR rtInterface) {
-                if (promiseResultType == nullptr)
+                if (rtInterface->interfaceType == ifRuntimeInterfaceConstructor)
                 {
                     promiseResultType = GetPromiseResultType(RuntimeInterfaceConstructor::From(rtInterface));
                 }
@@ -321,16 +321,36 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
 
     auto isActivatable = (rtClassConstructor->signature->signatureType == mstAbiMethodSignature || rtClassConstructor->signature->signatureType == mstOverloadedMethodSignature);
 
-    Assert(isActivatable || rtClassConstructor->signature->signatureType == mstUncallableMethodSignature);
+    Assert(isActivatable || rtClassConstructor->signature->signatureType == mstUncallableMethodSignature || rtClassConstructor->signature->signatureType == mstMissingTypeConstructorMethodSignature);
 
     // Static members
-    auto staticMembers = TypeScriptTypeMemberList::Make();
-    rtClassConstructor->staticInterfaces->Iterate([&](RtINTERFACECONSTRUCTOR staticInterface) {
-        staticMembers->AddMembers(GetPropertyAndMethodMembers(staticInterface->ownProperties, false));
-    });
+    auto staticMembers = GetPropertyAndMethodMembers(rtClassConstructor->properties->fields, false, FullyQualifiedNameBehavior::EmitAsIs);
 
     // Instance members
-    auto instanceMembers = GetPropertyAndMethodMembers(PropertiesObject::From(rtClassConstructor->prototype)->fields, extendsArray);
+    auto implements = GetImplementedTypeScriptTypeList(rtClassConstructor->allInterfaces);
+
+    // A fully qualified instance member name in a class indicates that multiple members with the same name have been inherited from different interfaces.
+    // The name has then been disambiguated at either the WinMD or projection stage by qualifying it with the full namespace and interface name.
+    // Emitting only this fully qualified name would produce a buggy TypeScript file, where the class incorrectly implements its parent interfaces
+    // because it's missing the unqualified member name defined in the interfaces.
+    //
+    // Example (broken TypeScript):
+    // 
+    // interface Foo { conflictName: number; }
+    // interface Bar { conflictName: number; }
+    // class Baz implements Foo, Bar { "Foo.conflictName": number; "Bar.conflictName": number; }
+    // 
+    // To work around this problem, after emitting a fully qualified instance member name in a class, we will also emit the unqualified name, 
+    // satisfying the interface definition. Because the parent interfaces may define multiple types for the property, the property type will be 
+    // defined as "any". At runtime this property will actually be undefined.
+    // 
+    // The example above will become (correct TypeScript):
+    // 
+    // interface Foo { conflictName: number; }
+    // interface Bar { conflictName: number; }
+    // class Baz implements Foo, Bar { "Foo.conflictName": number; "Bar.conflictName": number; conflictName: any; }
+
+    auto instanceMembers = GetPropertyAndMethodMembers(PropertiesObject::From(rtClassConstructor->prototype)->fields, extendsArray, implements->GetTypes().empty()? FullyQualifiedNameBehavior::EmitAsIs : FullyQualifiedNameBehavior::AlsoEmitUnqualifiedMember);
 
     // Index signatures, if any
     auto indexSignature = GetTypeScriptIndexSignatureOrNull(extendsMap ? specialization : nullptr);
@@ -344,13 +364,51 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
         GetTypeScriptTypeDefinitionType(runtimeClassName, nullptr),
         !isActivatable,
         GetExtendedTypeScriptTypeList(nullptr, specialization, promiseResultType),
-        GetImplementedTypeScriptTypeList(rtClassConstructor->allInterfaces),
+        move(implements),
         isActivatable ? GetConstructorOverloads(rtClassConstructor->signature) : TypeScriptConstructorOverloads::Make(),
         move(staticMembers),
         move(instanceMembers)
         );
 
     return classDeclaration;
+}
+
+static MetadataStringId GetMetadataNameOfProperty(RtPROPERTY property) {
+    MetadataStringId metadataNameOfThisProperty = MetadataStringIdNil;
+    switch (property->propertyType)
+    {
+    case ptAbiMethodProperty:
+    {
+        metadataNameOfThisProperty = AbiMethod::From(AbiMethodProperty::From(property)->body)->signature->metadataNameId;
+    }
+    break;
+    case ptAbiPropertyProperty:
+    {
+        metadataNameOfThisProperty = AbiPropertyProperty::From(property)->metadataNameId;
+    }
+    break;
+    case ptAbiEventHandlerProperty:
+    {
+        auto eventHandlerProperty = AbiEventHandlerProperty::From(property);
+        metadataNameOfThisProperty = eventHandlerProperty->abiEvent->metadataNameId;
+    }
+    break;
+    case ptOverloadParentProperty:
+    {
+        auto overloadParent = OverloadParentProperty::From(property);
+        // Expand the overloads
+        auto overloads = OverloadGroupConstructor::From(overloadParent->overloadConstructor)->signature->overloads;
+        Assert(overloads->id == property->identifier);
+
+        overloads->overloads->Iterate([&](RtMETHODSIGNATURE methodSig) {
+            Assert(methodSig->signatureType == mstAbiMethodSignature);
+            metadataNameOfThisProperty = AbiMethodSignature::From(methodSig)->metadataNameId;
+        });
+    }
+    break;
+    }
+
+    return metadataNameOfThisProperty;
 }
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForInterface(MetadataString interfaceName, RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
@@ -380,7 +438,7 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
         }
     }
 
-    ImmutableList<MetadataStringId>* ownPropertyNames = interfaceConstructor->ownProperties->Select<MetadataStringId>([](RtPROPERTY prop) { return prop->identifier; }, m_alloc);
+    ImmutableList<MetadataStringId>* ownPropertyNames = interfaceConstructor->ownProperties->Select<MetadataStringId>([](RtPROPERTY prop) { return GetMetadataNameOfProperty(prop); }, m_alloc);
 
     auto typeMembers = GetInterfaceMethodAndPropertyMembers(extendsArray, ownPropertyNames, interfaceConstructor->prototype->fields);
 
@@ -408,7 +466,7 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
         auto fieldType = AbiFieldProperty::From(field)->type;
         if (m_emitAnyForUnresolvedTypes || IsTypeVisible(fieldType))
         {
-            structDeclaration->AddMember(TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType)));
+            structDeclaration->AddMember(TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType), false /* optional */));
         }
     });
 
@@ -617,40 +675,44 @@ auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptReturnTyp
 
         for (auto param : outParams)
         {
-            objectTypeMembers.push_back(TypeScriptPropertySignature::Make(param->id, GetTypeScriptType(param->type)).release());
+            objectTypeMembers.push_back(TypeScriptPropertySignature::Make(param->id, GetTypeScriptType(param->type), false /* optional */).release());
         }
 
         return TypeScriptType::MakeObjectType(move(objectTypeMembers));
     }
 }
 
-auto_ptr<TypeScriptMethodSignature> ProjectionToTypeScriptConverter::GetTypeScriptMethodSignatureOrNull(MetadataString methodName, bool applyIndexOfSpecialization, RtMETHODSIGNATURE methodSignature)
+auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetTypeScriptMethodSignatures(MetadataString methodName, bool applyIndexOfSpecialization, RtMETHODSIGNATURE methodSignature, FullyQualifiedNameBehavior fullyQualifiedNameBehavior)
 {
+    auto methods = TypeScriptTypeMemberList::Make();
+
     auto params = methodSignature->GetParameters();
 
     if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(params))
     {
-        auto nameStr = GetLastPartIfFullyQualified(methodName.ToString());
+        auto methodNameStr = methodName.ToString();
 
         // If this is the "indexOf" method of an Array specialization we need to define the
         // return type as "any" to avoid conflict between the IVector.indexOf and Array.indexOf properties
-        bool forceReturnTypeToAny = applyIndexOfSpecialization && (wcscmp(nameStr, L"indexOf") == 0);
+        bool forceReturnTypeToAny = applyIndexOfSpecialization && (wcscmp(methodNameStr, L"indexOf") == 0);
 
         if (forceReturnTypeToAny)
         {
-            return TypeScriptMethodSignature::Make(nameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params));
+            methods->AddMember(TypeScriptMethodSignature::Make(methodNameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params)));
         }
         else
         {
-            return TypeScriptMethodSignature::Make(nameStr, GetTypeScriptParameters(params), GetTypeScriptReturnType(params));
+            AddPropertyToMemberList(
+                methods.get(),
+                methodNameStr,
+                fullyQualifiedNameBehavior,
+                [&](MetadataString name, bool optional) {return TypeScriptMethodSignature::Make(name, GetTypeScriptParameters(params), GetTypeScriptReturnType(params), optional); },
+                [&](MetadataString name, bool optional) {return TypeScriptMethodSignature::Make(name, GetTypeScriptParameters(params), GetTypeScriptReturnType(params), optional); }
+            );            
         }
     }
-    else
-    {
-        // Couldn't resolve all the parameter and return types, and we aren't allowed to emit any. 
-        // Return null for this method
-        return auto_ptr<TypeScriptMethodSignature>();
-    }
+
+    return methods;
 }
 
 auto_ptr<TypeScriptIndexSignature> ProjectionToTypeScriptConverter::GetTypeScriptIndexSignatureOrNull(RtSPECIALIZATION mapSpecialization)
@@ -753,7 +815,38 @@ auto_ptr<TypeScriptTypeList> ProjectionToTypeScriptConverter::GetImplementedType
     return TypeScriptTypeList::Make(move(implementedTypes));
 }
 
-auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyAndMethodMembers(ImmutableList<RtPROPERTY>* properties, bool applyIndexOfSpecialization)
+template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
+void ProjectionToTypeScriptConverter::AddPropertyToMemberList(
+    TypeScriptTypeMemberList* memberList, 
+    MetadataString propertyName, 
+    FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
+    MakeMemberFunction makeMember,
+    MakeAnyMemberFunction makeAnyMember
+    )
+{
+    auto propertyNameString = propertyName.ToString();
+    auto shortName = GetLastPartIfFullyQualified(propertyNameString);
+    if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::EmitAsOptional)
+    {
+        memberList->AddMember(makeMember(propertyName, true));
+    }
+    else
+    {
+        memberList->AddMember(makeMember(propertyName, false));
+
+        if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::AlsoEmitUnqualifiedMember)
+        {
+            auto unqualifiedAny = makeAnyMember(shortName, false);
+
+            if (!memberList->ContainsMember(*unqualifiedAny))
+            {
+                memberList->AddMember(move(unqualifiedAny));
+            }
+        }
+    }
+}
+
+auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyAndMethodMembers(ImmutableList<RtPROPERTY>* properties, bool applyIndexOfSpecialization, FullyQualifiedNameBehavior fullyQualifiedNameBehavior)
 {
     auto memberList = TypeScriptTypeMemberList::Make();
 
@@ -767,12 +860,9 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             auto overloads = OverloadGroupConstructor::From(overloadParent->overloadConstructor)->signature->overloads;
 
             overloads->overloads->Iterate([&](RtMETHODSIGNATURE methodSig) {
-                auto typeScriptMethodSig = GetTypeScriptMethodSignatureOrNull(overloads->id, applyIndexOfSpecialization, methodSig);
+                auto typeScriptMethodSigs = GetTypeScriptMethodSignatures(overloads->id, applyIndexOfSpecialization, methodSig, fullyQualifiedNameBehavior);
 
-                if (typeScriptMethodSig.get() != nullptr)
-                {
-                    memberList->AddMember(move(typeScriptMethodSig));
-                }
+                memberList->AddMembers(move(typeScriptMethodSigs));
             });
         }
         break;
@@ -804,11 +894,9 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
         break;
         case ptAbiMethodProperty:
         {
-            auto typeScriptMethodSig = GetTypeScriptMethodSignatureOrNull(property->identifier, applyIndexOfSpecialization, AbiMethod::From(AbiMethodProperty::From(property)->body)->signature);
-            if (typeScriptMethodSig.get() != nullptr)
-            {
-                memberList->AddMember(move(typeScriptMethodSig));
-            }
+            auto typeScriptMethodSigs = GetTypeScriptMethodSignatures(property->identifier, applyIndexOfSpecialization, AbiMethod::From(AbiMethodProperty::From(property)->body)->signature, fullyQualifiedNameBehavior);
+            
+            memberList->AddMembers(move(typeScriptMethodSigs));
         }
         break;
         case ptAbiPropertyProperty:
@@ -816,8 +904,13 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             auto propertyType = AbiPropertyProperty::From(property)->GetPropertyType();
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(propertyType))
             {
-                auto propertyName = GetLastPartIfFullyQualified(MetadataString(property->identifier).ToString());
-                memberList->AddMember(TypeScriptPropertySignature::Make(propertyName, GetTypeScriptType(propertyType)));
+                AddPropertyToMemberList(
+                    memberList.get(), 
+                    property->identifier,
+                    fullyQualifiedNameBehavior, 
+                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, GetTypeScriptType(propertyType), optional); },
+                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, TypeScriptType::Make(L"any"), false); }
+                    );
             }
         }
         break;
@@ -830,10 +923,18 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
 
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(eventHandlerType))
             {
-                auto propertyName = GetLastPartIfFullyQualified(MetadataString(property->identifier).ToString());
-                memberList->AddMember(TypeScriptPropertySignature::Make(propertyName, GetTypeScriptType(eventHandlerType)));
+                AddPropertyToMemberList(
+                    memberList.get(),
+                    property->identifier,
+                    fullyQualifiedNameBehavior,
+                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, GetTypeScriptType(eventHandlerType), optional); },
+                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, TypeScriptType::MakeFunctionType(TypeScriptParameterList::Make(L"args"), TypeScriptType::Make(L"any")), optional); }
+                );
             }
         }
+        break;
+        case ptFunctionLengthProperty:
+        case ptNone:
         break;
         default:
             throw UnexpectedPropertyError(property->identifier, property->propertyType);
@@ -846,37 +947,11 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
 auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetInterfaceMethodAndPropertyMembers(bool extendsArray, ImmutableList<MetadataStringId>* metadataNameFilter, ImmutableList<RtPROPERTY>* properties)
 {
     auto filteredProperties = properties->Where([&](RtPROPERTY property) {
+        auto nameId = GetMetadataNameOfProperty(property);
         MetadataString metadataNameOfThisProperty;
-        switch (property->propertyType)
+        if (nameId != MetadataStringIdNil)
         {
-        case ptAbiMethodProperty:
-        {
-            metadataNameOfThisProperty = AbiMethod::From(AbiMethodProperty::From(property)->body)->signature->metadataNameId;
-        }
-        break;
-        case ptAbiPropertyProperty:
-        {
-            metadataNameOfThisProperty = AbiPropertyProperty::From(property)->metadataNameId;
-        }
-        break;
-        case ptAbiEventHandlerProperty:
-        {
-            metadataNameOfThisProperty = AbiEventHandlerProperty::From(property)->identifier;
-        }
-        break;
-        case ptOverloadParentProperty:
-        {
-            auto overloadParent = OverloadParentProperty::From(property);
-            // Expand the overloads
-            auto overloads = OverloadGroupConstructor::From(overloadParent->overloadConstructor)->signature->overloads;
-            Assert(overloads->id == property->identifier);
-
-            overloads->overloads->Iterate([&](RtMETHODSIGNATURE methodSig) {
-                Assert(methodSig->signatureType == mstAbiMethodSignature);
-                metadataNameOfThisProperty = AbiMethodSignature::From(methodSig)->metadataNameId;
-            });
-        }
-        break;
+            metadataNameOfThisProperty = nameId;
         }
 
         // Only include properties that are the interface's own
@@ -887,9 +962,34 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetInterface
         }
 
         return true;
+
     }, m_alloc);
 
-    return GetPropertyAndMethodMembers(filteredProperties, extendsArray);
+    // A fully qualified type member name in an interface indicates that this interface has inherited a member with the same name from a parent interface.
+    // The name has then been disambiguated at either the WinMD or projection stage by qualifying it with the full namespace and interface name.
+    //
+    // For some method overloads, at the interface level the same name is considered a conflict, but at the class level it becomes
+    // a simple method overload (this may be a bug in the WinRT projection layer).
+    // 
+    // Then emitting the fully qualified name within the interface may produce a buggy TypeScript file, where the class incorrectly implements its parent interface
+    // because it's missing the fully member name defined in the interface. 
+    //
+    // Example (broken TypeScript):
+    // 
+    // interface Foo { conflictName(param: number): void; }
+    // interface Bar extends Foo { "Foo.conflictName"(param: number): void; "Bar.conflictName"(param1: number, param2: string): void; }
+    // class Baz implements Foo, Bar { conflictName(param: number): void; conflictName(param1: number, param2: string): void; }
+    // 
+    // To work around this problem, fully qualified members of an interface will always be defined as optional. 
+    // A runtime class that implements this interface then may or may not define them.
+    // 
+    // The example above will become (correct TypeScript):
+    // 
+    // interface Foo { conflictName(param: number): void; }
+    // interface Bar extends Foo { "Foo.conflictName"?(param: number): void; "Bar.conflictName"?(param1: number, param2: string): void; }
+    // class Baz implements Foo, Bar { conflictName(param: number): void; conflictName(param1: number, param2: string): void; }
+
+    return GetPropertyAndMethodMembers(filteredProperties, extendsArray, FullyQualifiedNameBehavior::EmitAsOptional);
 }
 
 auto_ptr<TypeScriptConstructorOverloads> ProjectionToTypeScriptConverter::GetConstructorOverloads(RtMETHODSIGNATURE methodSignature)
@@ -933,7 +1033,7 @@ auto_ptr<TypeScriptMethodSignature> ProjectionToTypeScriptConverter::GetEventLis
         parameterList.push_back(TypeScriptParameter::Make(L"type", event->nameId));
         parameterList.push_back(TypeScriptParameter::Make(L"listener", GetTypeScriptType(listenerType)));
 
-        return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"));
+        return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"), false /* optional */);
     }
 
     return auto_ptr<TypeScriptMethodSignature>();
@@ -949,7 +1049,7 @@ auto_ptr<TypeScriptMethodSignature> ProjectionToTypeScriptConverter::GetGeneralE
     parameterList.push_back(TypeScriptParameter::Make(L"type", TypeScriptType::Make(L"string")));
     parameterList.push_back(TypeScriptParameter::Make(L"listener", move(listenerType)));
 
-    return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"));
+    return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"), false /* optional */);
 }
 
 RtTYPE ProjectionToTypeScriptConverter::GetPromiseResultType(RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)

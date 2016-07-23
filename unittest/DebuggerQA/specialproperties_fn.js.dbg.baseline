@@ -15,7 +15,7 @@
     "evaluate": {
       "arguments.callee": {
         "[Methods]": "{...}",
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "{...}",
         "length": "3",
         "name": "test",
@@ -26,7 +26,7 @@
   {
     "evaluate": {
       "arguments.callee.caller": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "arguments": "{...}",
         "caller": "null",
         "length": "0",
@@ -38,7 +38,7 @@
   {
     "evaluate": {
       "arrow": {
-        "__proto__": "\nfunction() {\n    [native code]\n}\n",
+        "__proto__": "function() {\n    [native code]\n}",
         "length": "0",
         "name": "arrow"
       }

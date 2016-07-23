@@ -187,7 +187,7 @@
         "[4] - [Type]": "Object, (Function)",
         "[4]": {
           "__proto__ - [Type]": "Object, (Function)",
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments - [Type]": "Null",
           "arguments": "null",
           "caller - [Type]": "Null",
@@ -723,7 +723,7 @@
         "Animal - [Type]": "Object, (Function)",
         "Animal": {
           "__proto__ - [Type]": "Object, (Function)",
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments - [Type]": "Null",
           "arguments": "null",
           "caller - [Type]": "Null",

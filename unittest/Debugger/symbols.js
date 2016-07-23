@@ -1,6 +1,6 @@
 function test() {
-    var o = {};
-    
+    var o = Object.create(null);
+
     o[Symbol.iterator] = '[@@iterator]';
     o['string'] = '["string"]';
     o[Symbol('my symbol')] = Symbol('my value');

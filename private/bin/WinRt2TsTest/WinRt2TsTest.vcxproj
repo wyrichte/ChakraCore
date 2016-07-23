@@ -3,13 +3,13 @@
   <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6B7A02E7-7CD6-4659-A638-CC3AA6BACE09}</ProjectGuid>
-    <RootNamespace>WinRt2Ts</RootNamespace>
+    <ProjectGuid>{42BE023E-03CE-4B42-A464-58C9818BFE59}</ProjectGuid>
+    <RootNamespace>WinRt2TsTest</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>WinRt2Ts</ProjectName>
+    <ProjectName>WinRt2TsTest</ProjectName>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
   </PropertyGroup>
@@ -28,18 +28,20 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
+        ..\WinRt2Ts;
         $(IntDir);
         $(ComIncPath)\midlrt;
         $(ChakraCoreRootDirectory)Lib\Parser;
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)Private\lib\winrt;
+        $(SdkToolsIncPath)\WexTest\Cue;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
@@ -49,39 +51,27 @@
         $(SdkLibPath)\user32.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\ole32.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Common.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Logger.lib;
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Te.Common.lib;
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <!-- sign instruction -->
   <ItemGroup>
-    <FilesToSign Include="$(OutDir)$(TargetName)$(TargetExt)">
-      <Authenticode>MicrosoftSHA2</Authenticode>
-    </FilesToSign>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CommandLineReader.cpp" />
-    <ClCompile Include="MetadataResolver.cpp" />
-    <ClCompile Include="ProjectionToTypeScriptConverter.cpp" />
+    <ClCompile Include="..\WinRt2Ts\CommandLineReader.cpp" />
+    <ClCompile Include="..\WinRt2Ts\MetadataResolver.cpp" />
+    <ClCompile Include="..\WinRt2Ts\Stubs.cpp" />
+    <ClCompile Include="..\WinRt2Ts\TypeScriptElements.cpp" />
+    <ClCompile Include="..\WinRt2Ts\TypeScriptEmitter.cpp" />
+    <ClCompile Include="..\WinRt2Ts\WinRt2Ts.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Stubs.cpp" />
-    <ClCompile Include="WinRt2Ts.cpp" />
-    <ClCompile Include="TypeScriptElements.cpp" />
-    <ClCompile Include="TypeScriptEmitter.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CommandLineError.h" />
-    <ClInclude Include="CommandLineReader.h" />
-    <ClInclude Include="Errors.h" />
-    <ClInclude Include="MetadataResolver.h" />
-    <ClInclude Include="MetadataString.h" />
-    <ClInclude Include="ProjectionToTypeScriptConverter.h" />
-    <ClInclude Include="ProjectionToTypeScriptError.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TypeScriptElements.h" />
-    <ClInclude Include="TypeScriptEmitter.h" />
-    <ClInclude Include="WinRt2TsErrors.h" />
+    <ClCompile Include="Winrt2TsUnitTest.cpp" />
+    <ClCompile Include="..\WinRt2Ts\ProjectionToTypeScriptConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\lib\Common\codex\Chakra.Common.Codex.vcxproj">
@@ -105,9 +95,6 @@
     <ProjectReference Include="..\..\lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj">
       <Project>{cc4153ff-ac3e-4734-b562-ee23812df31b}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\core\Lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
-      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj">
       <Project>{706083f7-6aa4-4558-a153-6352ef9110f7}</Project>
     </ProjectReference>
@@ -117,6 +104,37 @@
     <ProjectReference Include="..\..\..\private\Lib\WinRT\Chakra.WinRT.vcxproj">
       <Project>{37871403-9cd8-434c-8904-dbdd95b69d81}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <Midl>
+      <OutputDirectory>$(OutDir)</OutputDirectory>
+      <EnableWindowsRuntime>true</EnableWindowsRuntime>
+      <GenerateClientFiles>None</GenerateClientFiles>
+      <GenerateStublessProxies>false</GenerateStublessProxies>
+      <GenerateTypeLibrary>false</GenerateTypeLibrary>
+      <GenerateServerFiles>None</GenerateServerFiles>
+      <HeaderFileName>
+      </HeaderFileName>
+      <WarningLevel>1</WarningLevel>
+      <MetadataFileName>%(Filename).winmd</MetadataFileName>
+      <AdditionalIncludeDirectories>
+        $(InternalSdkIncPath);
+        $(SdkIncPath);
+        $(SdkIncPath)\abi;
+        $(PUBLIC_ROOT)\sdk\winmetadata;
+        $(PUBLIC_ROOT)\shared\inc;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+      <AdditionalMetadataDirectories>$(PUBLIC_ROOT)\sdk\winmetadata</AdditionalMetadataDirectories>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Midl Include="TestMetadata.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(PublicInternalPath)\sdk\winmetadata\windows.foundation.winmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

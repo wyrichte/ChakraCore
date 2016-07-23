@@ -18,12 +18,12 @@ function Run() {
 	evaluate('coll',4);
 	evaluate('numFormat',4);
 	evaluate('dttmFormat',4);
-	evaluate('coll.compare.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
-    evaluate('coll.resolvedOptions.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
-    evaluate('numFormat.format.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
-    evaluate('numFormat.resolvedOptions.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
-    evaluate('dttmFormat.format.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
-    evaluate('dttmFormat.resolvedOptions.toString() == \'\\nfunction() {\\n    [native code]\\n}\\n\'');
+	evaluate('coll.compare.toString() == \'function() {\\n    [native code]\\n}\'');
+    evaluate('coll.resolvedOptions.toString() == \'function() {\\n    [native code]\\n}\'');
+    evaluate('numFormat.format.toString() == \'function() {\\n    [native code]\\n}\'');
+    evaluate('numFormat.resolvedOptions.toString() == \'function() {\\n    [native code]\\n}\'');
+    evaluate('dttmFormat.format.toString() == \'function() {\\n    [native code]\\n}\'');
+    evaluate('dttmFormat.resolvedOptions.toString() == \'function() {\\n    [native code]\\n}\'');
 	**/
 }
 

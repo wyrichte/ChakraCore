@@ -18,14 +18,20 @@ const TypeScriptType& TypeScriptPropertySignature::GetType() const
     return *m_type;
 }
 
-auto_ptr<TypeScriptPropertySignature> TypeScriptPropertySignature::Make(MetadataString name, auto_ptr<TypeScriptType>&& type)
+bool TypeScriptPropertySignature::IsOptional() const
 {
-    return auto_ptr<TypeScriptPropertySignature>(new TypeScriptPropertySignature(name, type));
+    return m_optional;
 }
 
-TypeScriptPropertySignature::TypeScriptPropertySignature(MetadataString name, auto_ptr<TypeScriptType> type) :
+auto_ptr<TypeScriptPropertySignature> TypeScriptPropertySignature::Make(MetadataString name, auto_ptr<TypeScriptType>&& type, bool optional)
+{
+    return auto_ptr<TypeScriptPropertySignature>(new TypeScriptPropertySignature(name, type, optional));
+}
+
+TypeScriptPropertySignature::TypeScriptPropertySignature(MetadataString name, auto_ptr<TypeScriptType> type, bool optional) :
     m_name(name),
-    m_type(type.release())
+    m_type(type.release()),
+    m_optional(optional)
 {
 }
 
@@ -264,20 +270,26 @@ const TypeScriptType* TypeScriptMethodSignature::GetOriginalReturnTypeCommentOrN
     return m_originalReturnTypeComment.get();
 }
 
-auto_ptr<TypeScriptMethodSignature> TypeScriptMethodSignature::Make(MetadataString methodName, auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType)
+bool TypeScriptMethodSignature::IsOptional() const
 {
-    return auto_ptr<TypeScriptMethodSignature>(new TypeScriptMethodSignature(methodName, move(parameters), move(returnType), auto_ptr<TypeScriptType>()));
+    return m_optional;
+}
+
+auto_ptr<TypeScriptMethodSignature> TypeScriptMethodSignature::Make(MetadataString methodName, auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType, bool optional)
+{
+    return auto_ptr<TypeScriptMethodSignature>(new TypeScriptMethodSignature(methodName, move(parameters), move(returnType), auto_ptr<TypeScriptType>(), optional));
 }
 
 auto_ptr<TypeScriptMethodSignature> TypeScriptMethodSignature::Make(MetadataString methodName, auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType, auto_ptr<TypeScriptType>&& originalReturnTypeComment)
 {
-    return auto_ptr<TypeScriptMethodSignature>(new TypeScriptMethodSignature(methodName, move(parameters), move(returnType), move(originalReturnTypeComment)));
+    return auto_ptr<TypeScriptMethodSignature>(new TypeScriptMethodSignature(methodName, move(parameters), move(returnType), move(originalReturnTypeComment), false));
 }
 
-TypeScriptMethodSignature::TypeScriptMethodSignature(MetadataString methodName, auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType, auto_ptr<TypeScriptType>&& originalReturnTypeComment) :
+TypeScriptMethodSignature::TypeScriptMethodSignature(MetadataString methodName, auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType, auto_ptr<TypeScriptType>&& originalReturnTypeComment, bool optional) :
     m_methodName(methodName),
     m_callSignature(TypeScriptCallSignature::Make(move(parameters), move(returnType))),
-    m_originalReturnTypeComment(originalReturnTypeComment.release())
+    m_originalReturnTypeComment(originalReturnTypeComment.release()),
+    m_optional(optional)
 {
 }
 
@@ -348,6 +360,24 @@ void TypeScriptTypeMemberList::AddMember(auto_ptr<TypeScriptCallSignature>&& mem
 void TypeScriptTypeMemberList::AddMember(auto_ptr<TypeScriptIndexSignature>&& member)
 {
     m_indexSignatures.push_back(member.release());
+}
+
+bool TypeScriptTypeMemberList::ContainsMember(const TypeScriptPropertySignature& member)
+{
+    for (auto& property : m_propertySignatures)
+    {
+        if (property->GetName().ToId() == member.GetName().ToId())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool TypeScriptTypeMemberList::ContainsMember(const TypeScriptMethodSignature& member)
+{
+    return false;
 }
 
 const MetadataString& TypeScriptEnumDeclaration::GetIdentifier() const
