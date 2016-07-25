@@ -288,6 +288,7 @@ wstring TypeScriptEmitter::FormatParameterList(const TypeScriptParameterList& pa
 
         out += L"...";
         out += parameters.GetRestParameterNameOrNull()->ToString();
+        out += L": any[]";
     }
 
     out += L")";
@@ -297,12 +298,18 @@ wstring TypeScriptEmitter::FormatParameterList(const TypeScriptParameterList& pa
 
 wstring TypeScriptEmitter::FormatPropertyDeclaration(bool isStatic, const TypeScriptPropertySignature& signature)
 {
-    return (isStatic ? L"static " : L"") + FormatPropertyName(signature.GetName()) + L": " + FormatType(signature.GetType()) + L";";
+    return (isStatic ? L"static " : L"") + 
+        FormatPropertyName(signature.GetName()) + 
+        (signature.IsOptional()? L"?" : L"") + 
+        L": " + FormatType(signature.GetType()) + L";";
 }
 
 wstring TypeScriptEmitter::FormatMethodDeclaration(bool isStatic, const TypeScriptMethodSignature& method)
 {
-    auto outString = (isStatic ? L"static " : L"") + FormatPropertyName(method.GetMethodName()) + FormatCallSignature(method.GetCallSignature()) + L";";
+    auto outString = (isStatic ? L"static " : L"") + 
+        FormatPropertyName(method.GetMethodName()) + 
+        (method.IsOptional() ? L"?" : L"") +
+        FormatCallSignature(method.GetCallSignature()) + L";";
 
     if (method.GetOriginalReturnTypeCommentOrNull() != nullptr)
     {

@@ -365,7 +365,6 @@ namespace Js
                 // It is basically access denied.
                 if (*value == nullptr)
                 {
-                    AssertMsg(false, "site closed half way during ITypeOperation calls?");
                     Js::JavascriptError::MapAndThrowError(scriptContext, E_ACCESSDENIED);
                 }
                 *value = CrossSite::MarshalVar(requestContext, *value, fXDomainMarshal);
@@ -521,7 +520,6 @@ namespace Js
                 // It is basically access denied.
                 if (*value == nullptr)
                 {
-                    AssertMsg(false, "site closed half way during ITypeOperation calls?");
                     Js::JavascriptError::MapAndThrowError(scriptContext, E_ACCESSDENIED);
                 }
                 *value = CrossSite::MarshalVar(requestContext, *value, fXDomainMarshal);
@@ -882,7 +880,6 @@ namespace Js
                 // It is basically access denied.
                 if (*value == nullptr)
                 {
-                    AssertMsg(false, "site closed half way during ITypeOperation calls?");
                     Js::JavascriptError::MapAndThrowError(scriptContext, E_ACCESSDENIED);
                 }
                 *value = Js::CrossSite::MarshalVar(requestContext, *value);
@@ -987,7 +984,6 @@ namespace Js
             // It is basically access denied.
             if (varEnumerator == nullptr)
             {
-                AssertMsg(false, "site closed half way during ITypeOperation calls?");
                 Js::JavascriptError::MapAndThrowError(scriptContext, E_ACCESSDENIED);
             }
             IVarEnumerator2 * varEnumerator2 = NULL;

@@ -131,6 +131,11 @@
         4458;     <!-- declaration of '' hides class memeber -->
       </DisableSpecificWarnings>
       
+      <PreprocessorDefinitions Condition="'$(ENABLE_CODECOVERAGE)'=='true'">
+        %(PreprocessorDefinitions);
+        BYTECODE_TESTING=1
+      </PreprocessorDefinitions>
+      
       <!-- ======== For Code Covearge ======== -->
       <Optimization Condition="'$(ENABLE_CODECOVERAGE)'=='true'">Disabled</Optimization>
 

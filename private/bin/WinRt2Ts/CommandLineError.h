@@ -58,6 +58,6 @@ public:
 
     std::wstring Description() override
     {
-        return L"Must specify an -outFilePath and at least one input .winmd file";
+        return L"Must specify at least one input .winmd file";
     }
 };
