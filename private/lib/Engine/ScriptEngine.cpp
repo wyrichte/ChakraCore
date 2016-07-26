@@ -2168,8 +2168,14 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n"), this, pairCount);
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsRunningScript())
+    {
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
@@ -2199,16 +2205,19 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached: start 0x%p\n"), this);
 
-    if (m_pda == nullptr)
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
-        // Debug mode should have been enabled.
-        Assert(false);
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsScriptContextInNonDebugMode())
+    {
         return E_UNEXPECTED;
     }
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (this->scriptContext->IsRunningScript())
     {
-        Assert(false);
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
