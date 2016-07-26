@@ -58,6 +58,7 @@
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(RazzleJscriptObjectRoot)\private\lib\InternalIDL\$(ObjectDirectory)</ChakraInternalIDLIntDir>
+    <ChakraJITIDLIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\jitidl\$(RazzleJscriptObjectDirectory)</ChakraJITIDLIntDir>
     <ChakraPublishIntDir>$(RazzleJscriptObjectRoot)\publish\$(ObjectDirectory)</ChakraPublishIntDir>
 
     <!-- Libraries -->

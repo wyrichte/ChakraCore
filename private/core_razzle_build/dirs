@@ -3,6 +3,9 @@ DIRS = \
     parser \
     runtime \
     backend \
+    JITServer \
+    JITClient \
+    JITIDL \
     jsrt \
     rl{noncrit} \
     

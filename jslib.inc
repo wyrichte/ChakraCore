@@ -50,12 +50,17 @@ JS_LIBS_RUNTIME = \
 JS_LIBS_BACKEND = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\backend\$(JS_LIBTYPE)\$(O)\chakra.backend.lib \
 
+JS_LIBS_JITSERVER = \
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\JITClient\$(JS_LIBTYPE)\$(O)\chakra.JITClient.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\JITServer\$(JS_LIBTYPE)\$(O)\chakra.JITServer.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\JITIDL\$(JS_LIBTYPE)\$(O)\chakra.JITIDL.lib \
 
 JS_LINK_LIBS = \
     $(JS_LIBS_COMMON) \
     $(JS_LIBS_MEMPROTECTHEAP) \
     $(JS_LIBS_PARSER) \
     $(JS_LIBS_RUNTIME) \
+    $(JS_LIBS_JITSERVER) \
 !ifndef EXCLUDE_BACKEND
     $(JS_LIBS_BACKEND) \
 !endif
