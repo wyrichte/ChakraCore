@@ -44,7 +44,6 @@
         $(MSBuildThisFileDirectory)..;
 
         $(ChakraInternalIDLIntDir);
-        $(ChakraJITIDLIntDir);
 
         <!-- For EdgeJsStatic.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)publish;
