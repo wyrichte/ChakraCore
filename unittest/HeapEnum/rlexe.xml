@@ -435,7 +435,6 @@
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
       <files>dataview_546996.js</files>
       <baseline>dataview_546996.baseline</baseline>
-      <compile-flags>-ES6TypedArrayExtensions</compile-flags>
     </default>
   </test>
   <test>

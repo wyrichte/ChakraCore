@@ -82,7 +82,6 @@
     <default>
       <files>sca_uint8clampedarray.js</files>
       <baseline>sca_uint8clampedarray.baseline</baseline>
-      <compile-flags>-ES6TypedArrayExtensions</compile-flags>
     </default>
   </test>
   <test>

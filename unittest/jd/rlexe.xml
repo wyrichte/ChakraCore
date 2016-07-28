@@ -123,21 +123,14 @@
   <test>
     <default>
       <files>locals3.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6TypedArrayExtensions- -ES6RegExSticky -ES6Species -dbgbaseline:locals3.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
-      <tags>exclude_jsrt</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>locals3.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6TypedArrayExtensions -ES6RegExSticky -ES6Species -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6RegExSticky -ES6Species -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>locals4.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6TypedArrayExtensions -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:100</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>
