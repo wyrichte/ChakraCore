@@ -34,7 +34,7 @@ var tests = [
     {
         name: "All valid (non-default) export statements",
         body: function () {
-            assert.doesNotThrow(function () { WScript.LoadModuleFile('ValidExportStatements.js', 'samethread'); }, "Valid export statements");
+            assert.doesNotThrow(function () { WScript.LoadScriptFile('ValidExportStatements.js', 'module'); }, "Valid export statements");
         }
     },
     {
@@ -121,17 +121,16 @@ var tests = [
         body: function () {
             testModuleScript('import foo from "ValidExportStatements.js"; assert.throws(()=>{ foo =12; }, TypeError, "assignment to const");', 'Imported default bindings are constant bindings', false);
             testModuleScript('import { foo } from "ValidExportStatements.js"; assert.throws(()=>{ foo = 12; }, TypeError, "assignment to const");', 'Imported named bindings are constant bindings', false);
-
-            // 'import *' is not yet implemented
-            //testModuleScript('import * as foo from "ValidExportStatements.js"; assert.throws(()=>{ foo = 12; }, TypeError, "assignment to const");', 'Namespace import bindings are constant bindings', false);
-
             testModuleScript('import { foo as foo22 } from "ValidExportStatements.js"; assert.throws(()=>{ foo22 = 12; }, TypeError, "assignment to const");', 'Renamed import bindings are constant bindings', false);
+            
+            // 'import *' is not yet implemented
+            //testModuleScript('import * as foo from "ValidExportStatements.js"; assert.throws(()=>{ foo22 = 12; }, TypeError, "assignment to const");', 'Renamed import bindings are constant bindings', false);
         }
     },
     {
         name: "All valid re-export statements",
         body: function () {
-            assert.doesNotThrow(function () { WScript.LoadModuleFile('ValidReExportStatements.js', 'samethread'); }, "Valid re-export statements");
+            assert.doesNotThrow(function () { WScript.LoadScriptFile('ValidReExportStatements.js', 'module'); }, "Valid re-export statements");
         }
     },
     {

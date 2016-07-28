@@ -266,13 +266,13 @@ var tests = [
     {
         name: "Circular module dependency",
         body: function () {
-            let functionBody = 
+            let src = 
                 `import { circular_foo } from 'ModuleCircularFoo.js';
                 assert.areEqual(2, circular_foo(), 'This function calls between both modules in the circular dependency incrementing a counter in each');
                 import { circular_bar } from 'ModuleCircularBar.js';
                 assert.areEqual(4, circular_bar(), 'Second call originates in the other module but still increments the counter twice');`;
                 
-            WScript.LoadModule(functionBody, 'samethread');
+            WScript.LoadModule(src, 'samethread');
         }
     },
     {
@@ -289,6 +289,36 @@ var tests = [
                 assert.areEqual('foo', bar3(), 'Renamed export renamed as import renamed during implicit re-export and renamed in final import');`;
                 
             WScript.LoadModule(functionBody, 'samethread');
+        }
+    },
+    {
+        name: "Module which attempts to pollute scope of the importing module",
+        body: function () {
+            let src = 
+                `import _default from 'ModulePollution.js';
+                assert.areEqual('undefined', typeof pollution, 'Exporting module cannot pollute our namespace');`;
+                
+            WScript.LoadModule(src, 'samethread');
+        }
+    },
+    {
+        name: "Importing a block-scoped export under the same binding doesn't issue a let/const redecl error",
+        body: function () {
+            let export_name = 'export_module_name';
+            let export_body = 
+                `class Rectangle {
+                    foo() { return 1234; }
+                };
+                export default Rectangle;
+                `;
+            
+            let import_body = 
+                `import Rectangle from '${export_name}';
+                const r = new Rectangle();
+                assert.areEqual(1234, r.foo(), 'imported class can be instantiated');
+                `;
+            WScript.RegisterModuleSource(export_name, export_body);
+            testModuleScript(import_body, "Test importing a variety of exports", false);
         }
     },
 ];
