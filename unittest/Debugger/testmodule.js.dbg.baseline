@@ -5,6 +5,12 @@
         "start": 96,
         "length": 17,
         "text": "modVar1 = modVar2",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 144,
+        "text": "import { modF2, modVar2} from 'module_2.js';\n\nfunction modF1() {\n    modF2();\n}\nexport var modVar1 = modVar2; /**bp:stack();**/\nmodF1();\n",
         "frameDescription": "module"
       }
     ]
@@ -27,6 +33,12 @@
         "start": 134,
         "length": 7,
         "text": "modF1()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 144,
+        "text": "import { modF2, modVar2} from 'module_2.js';\n\nfunction modF1() {\n    modF2();\n}\nexport var modVar1 = modVar2; /**bp:stack();**/\nmodF1();\n",
         "frameDescription": "module"
       }
     ]
@@ -65,6 +77,12 @@
         "start": 73,
         "length": 7,
         "text": "modF3()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 114,
+        "text": "function modF3() {\n    return 3; /**bp:dumpSourceList();stack();**/\n}\nmodF3();\nexport var modVar3 = 'Pass'; \n",
         "frameDescription": "module"
       }
     ]

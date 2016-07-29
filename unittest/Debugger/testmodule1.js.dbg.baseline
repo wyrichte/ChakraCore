@@ -37,6 +37,12 @@
         "start": 73,
         "length": 7,
         "text": "modF3()",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 114,
+        "text": "function modF3() {\n    return 3; /**bp:dumpSourceList();stack();**/\n}\nmodF3();\nexport var modVar3 = 'Pass'; \n",
         "frameDescription": "module"
       }
     ]
