@@ -84,7 +84,6 @@ TARGETLIBS= \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\ole32.lib \
 !if (!$(FREEBUILD))
-    $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif
 
@@ -100,9 +99,6 @@ DELAYLOAD = \
     api-ms-win-core-com-l1-1-0.dll; \
     api-ms-win-ro-typeresolution-l1; \
     ext-ms-win-rometadata-dispenser-l1-1-0.dll; \
-!IF (!$(FREEBUILD))
-    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
-!ENDIF
 !endif
 
 ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1

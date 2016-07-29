@@ -154,14 +154,9 @@ void JitProcessManager::StopRpcServer()
     s_rpcServerProcessHandle = NULL;
 }
 
-DWORD JitProcessManager::GetRpcProccessId()
+HANDLE JitProcessManager::GetRpcProccessHandle()
 {
-    if (s_rpcServerProcessHandle != NULL)
-    {
-        return GetProcessId(s_rpcServerProcessHandle);
-    }
-
-    return 0; // Invalid process handle
+    return s_rpcServerProcessHandle;
 }
 
 UUID JitProcessManager::GetRpcConnectionId()

@@ -1135,9 +1135,10 @@ interface IActiveScriptDirect : IUnknown
     HRESULT CreateScriptErrorFromVar([in] Var errorObject, [out] IActiveScriptError** scriptError);
 
     /// Set the OOP Jit information
-    ///   processId         : The processId of the JIT process
-    ///   connectionId      : The RPC connectionId used by the JIT process to establish an RPC server
-    HRESULT SetJITConnectionInfo([in] DWORD processId, [in] UUID connectionId);
+    ///   jitProcHandle             : Handle for the JIT process, must have DUPLICATE access
+    ///   serverSecurityDescriptor  : Security descriptor for the AC the JIT process is in
+    ///   connectionId              : The RPC connectionId used by the JIT process to establish an RPC server
+    HRESULT SetJITConnectionInfo([in] HANDLE jitProcHandle, [in] void* serverSecurityDescriptor, [in] UUID connectionId);
     
     /// Initialize OOP JIT for the current ScriptContext
     HRESULT SetJITInfoForScript();

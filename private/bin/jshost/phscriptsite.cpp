@@ -250,7 +250,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
 
     if (HostConfigFlags::flags.EnableOutOfProcJIT)
     {
-        hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessId(), JitProcessManager::GetRpcConnectionId());
+        //hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessHandle(), JitProcessManager::GetRpcConnectionId());
         IfFailedGo(hr);
 
         hr = activeScriptDirect->SetJITInfoForScript();

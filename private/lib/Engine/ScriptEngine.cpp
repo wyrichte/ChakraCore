@@ -7197,10 +7197,10 @@ STDMETHODIMP STDMETHODCALLTYPE ScriptEngine::SetJITInfoForScript()
     return NOERROR;
 }
 
-HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in DWORD processId, __in UUID connectionId)
+HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in HANDLE jitProcHandle, __in void* serverSecurityDescriptor, __in UUID connectionId)
 {
     JITManager::GetJITManager()->EnableOOPJIT();
-    ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(processId, connectionId);
+    ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(jitProcHandle, serverSecurityDescriptor, connectionId);
     return S_OK;
 }
 
