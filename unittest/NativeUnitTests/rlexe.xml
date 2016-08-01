@@ -75,7 +75,7 @@
   <test>
     <default>
       <tags>exclude_jsrt,Slow</tags>
-      <compile-flags>-ES6TypedArrayExtensions -nativetest:NativeUnitTests.dll TypedArrayES6</compile-flags>
+      <compile-flags>-nativetest:NativeUnitTests.dll TypedArrayES6</compile-flags>
       <files>dummy.js</files>
       <baseline>TypedArray.ES6.baseline</baseline>
     </default>
