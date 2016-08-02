@@ -347,6 +347,7 @@ BOOL HostDispatch::GetEnumerator(__in BOOL enumNonEnumerable, __out Js::Var* enu
 {    
     if (!this->CanSupportIDispatchEx())
     {
+        *enumerator = nullptr;
         return FALSE;
     }
     if (GetScriptContext() != requestContext)
@@ -362,7 +363,7 @@ BOOL HostDispatch::GetEnumerator(__in BOOL enumNonEnumerable, __out Js::Var* enu
     return true;
 }
 
-BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {
     if (this == other)
     {
@@ -382,6 +383,7 @@ BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requ
         }
         else
         {
+            *value = FALSE;
             return FALSE;
         }
     }
@@ -399,7 +401,7 @@ BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requ
     return HostDispatch::EqualsHelper(this, right, value, TRUE);
 }
 
-BOOL HostDispatch::Equals(Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {
     if (this == other)
     {
@@ -429,10 +431,12 @@ BOOL HostDispatch::Equals(Var other, BOOL* value, Js::ScriptContext * requestCon
                 HostDispatch* pGlobalHostDispatch = ((HostObject*)globalObject->GetHostObject())->GetHostDispatch();
                 return this->Equals(pGlobalHostDispatch, value, requestContext);
             }
+            *value = FALSE;
             return FALSE;
         }
     case Js::TypeIds_WithScopeObject:
         AssertMsg(false, "WithScopeObjects should not be exposed");
+        *value = FALSE;
         break;
 
     case Js::TypeIds_Object:

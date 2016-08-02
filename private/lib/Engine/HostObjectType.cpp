@@ -249,12 +249,12 @@ BOOL HostObject::ToPrimitive(Js::JavascriptHint hint, Js::Var* value, Js::Script
     return this->hostDispatch->HostDispatch::GetDefaultValue(hint, value);
 }
 
-BOOL HostObject::StrictEquals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostObject::StrictEquals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {        
     return this->hostDispatch->HostDispatch::StrictEquals(other, value, requestContext);
 }
 
-BOOL HostObject::Equals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostObject::Equals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {        
     return this->hostDispatch->HostDispatch::Equals(other, value, requestContext);
 }

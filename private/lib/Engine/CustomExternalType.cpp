@@ -1740,10 +1740,11 @@ namespace Js
     }
 
     // We should be able to get rid of Equals and StrictEquals post rs1.
-    BOOL CustomExternalObject::Equals(Var other, BOOL* returnResult, ScriptContext * requestContext)
+    BOOL CustomExternalObject::Equals(__in Var other, __out BOOL* returnResult, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive())
         {
+            *returnResult = FALSE;
             return FALSE;
         }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -1758,6 +1759,7 @@ namespace Js
             if (threadContext->IsDisableImplicitCall())
             {
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+                *returnResult = FALSE;
                 return TRUE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(requestContext, Js::JavascriptOperators::GetTypeId(this), Js::JavascriptOperators::GetTypeId(other), CustomExternalObject_Equals)
@@ -1770,10 +1772,11 @@ namespace Js
         return ExternalObject::Equals(other, returnResult, requestContext);
     }
 
-    BOOL CustomExternalObject::StrictEquals(Var other, BOOL* returnResult, ScriptContext * requestContext)
+    BOOL CustomExternalObject::StrictEquals(__in Var other, __out BOOL* returnResult, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive())
         {
+            *returnResult = FALSE;
             return FALSE;
         }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -1788,6 +1791,7 @@ namespace Js
             if (threadContext->IsDisableImplicitCall())
             {
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+                *returnResult = FALSE;
                 return TRUE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(requestContext, Js::JavascriptOperators::GetTypeId(this), Js::JavascriptOperators::GetTypeId(other), CustomExternalObject_StrictEquals)

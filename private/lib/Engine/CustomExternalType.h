@@ -146,8 +146,8 @@ namespace Js
 
         virtual HRESULT QueryObjectInterface(REFIID riid, void **ppvObj) override sealed;
 
-        virtual BOOL Equals(Var other, BOOL* value, ScriptContext * requestContext) override;
-        virtual BOOL StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
 
         virtual DynamicType* DuplicateType() override;
         virtual BOOL HasInstance(Var instance, ScriptContext* scriptContext, IsInstInlineCache* inlineCache = NULL) override;
