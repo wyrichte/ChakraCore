@@ -899,21 +899,6 @@ namespace Js
         return hr;
     }
 
-    STDMETHODIMP CVarEnumerator::GetCurrentValue( /*[out]*/ Var* item )
-    {
-        IfNullReturnError(item, E_INVALIDARG);
-        *item = nullptr;
-
-        HRESULT hr = NOERROR;
-        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-        {
-            *item = internalEnum->GetCurrentValue();
-        }
-        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
-        VERIFYHRESULTBEFORERETURN(hr, scriptContext);
-        return hr;
-    }
-
     STDMETHODIMP CVarEnumerator::GetCurrentName( /*[out]*/ Var* item )
     {
         IfNullReturnError(item, E_INVALIDARG);

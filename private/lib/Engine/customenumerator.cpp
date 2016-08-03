@@ -54,11 +54,6 @@ namespace Js
         return scriptContext->GetLibrary()->GetUndefined();
     }
 
-    Var CustomEnumerator::GetCurrentValue()
-    {
-        return GetScriptContext()->GetLibrary()->GetUndefined();
-    }
-
     BOOL CustomEnumerator::MoveNext(Js::PropertyAttributes* attributes)
     {
         BOOL itemsAvailable = FALSE;

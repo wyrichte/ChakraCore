@@ -16,7 +16,6 @@ namespace Js
         virtual void Finalize(bool isShutdown) override {};
         virtual void Dispose(bool isShutdown) override;
         virtual Var GetCurrentIndex() override;
-        virtual Var GetCurrentValue() override;
         virtual BOOL MoveNext(Js::PropertyAttributes* attributes = nullptr) override;
         virtual void Reset() override;
     protected:

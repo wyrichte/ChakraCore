@@ -73,11 +73,6 @@ namespace Js
             return NOERROR; 
         }
 
-        STDMETHODIMP GetCurrentValue(/*[out]*/ Var* item)
-        {
-            return E_FAIL;
-        }
-
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item)
         {
             return E_FAIL;
@@ -132,8 +127,6 @@ namespace Js
         }
 
         STDMETHODIMP MoveNext(/*[out]*/ BOOL* itemsAvailable, /*[out,optional]*/ ::PropertyAttributes* attributes);
-
-        STDMETHODIMP GetCurrentValue(/*[out]*/ Var* item);
 
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item);
 

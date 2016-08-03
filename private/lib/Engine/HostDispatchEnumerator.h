@@ -18,7 +18,6 @@ protected:
 public:
     HostDispatchEnumerator(HostDispatch*);
     virtual Var GetCurrentIndex() override;
-    virtual Var GetCurrentValue() override { Js::Throw::NotImplemented(); }
     virtual BOOL MoveNext(Js::PropertyAttributes* attributes = nullptr) override;
     virtual void Reset() override;
 };
