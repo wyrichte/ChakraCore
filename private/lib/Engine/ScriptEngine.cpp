@@ -6827,7 +6827,8 @@ STDMETHODIMP ScriptEngine::CollectGarbage(SCRIPTGCTYPE scriptgctype)
 
 HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     __in LPWSTR scriptText,
-    __out Var *scriptFunc)
+    __out Var *scriptFunc,
+    __in_opt LoadScriptFlag *pLoadScriptFlag)
 {
     HRESULT hr = NOERROR;
     IfNullReturnError(scriptText, E_INVALIDARG);
@@ -6843,7 +6844,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    LoadScriptFlag loadScriptFlag = LoadScriptFlag_Expression;
+    LoadScriptFlag loadScriptFlag = (pLoadScriptFlag == nullptr) ? LoadScriptFlag_Expression : (*pLoadScriptFlag);
     Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)

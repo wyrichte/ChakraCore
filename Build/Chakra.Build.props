@@ -5,8 +5,8 @@
     <!-- location of the nothrownew lib -->
     <NoThrowNewLib>$(InternalSdkLibPath)\nothrownew.lib</NoThrowNewLib>
 
-    <!-- CFG is turned off for ARM for now -->
-    <CFG Condition="'$(CFG)'=='' AND '$(Platform)'!='ARM'">true</CFG>
+    <!-- CFG is enabled for all architectures -->
+    <CFG Condition="'$(CFG)'==''">true</CFG>
 
     <!-- ========= From tools\makefile.def ========= -->
     <!-- DLOAD handler -->
@@ -182,13 +182,13 @@
     </ImpLib>
   </ItemDefinitionGroup>
 
-  <!-- CFG - From tools\makefile.def -->
+  <!-- CFG - From tools\managed\Customizations\Razzle\Microsoft.Build.CFG.props -->
   <ItemDefinitionGroup Condition="'$(CFG)'=='true'">
     <ClCompile>
+      <AdditionalOptions>%(AdditionalOptions) /guard:cf</AdditionalOptions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
-      <AdditionalOptions>%(AdditionalOptions) /d2guard4 /d2nocfgrngchk /d2guardcfgfuncptr</AdditionalOptions>
 
-      <!-- Razzle turn on /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
+      <!-- /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
       <AdditionalOptions>%(AdditionalOptions) /d2guardgsforcfg-</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">/d2guardcheckesp2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'!='ARM' and '$(Platform)'!='Arm64'">%(AdditionalOptions) /d2psvcallopt150000</AdditionalOptions>
@@ -199,9 +199,12 @@
     <MASM>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
     </MASM>
+    <ARMASM>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD=1;_CONTROL_FLOW_GUARD_SVCTAB=1</PreprocessorDefinitions>
+    </ARMASM>
     <Link>
-      <AdditionalOptions>%(AdditionalOptions) /guard:export /guard:mixed /d2:-guardcfgfuncptr</AdditionalOptions>
-      <!-- Razzle turn on /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
+      <AdditionalOptions>%(AdditionalOptions) /guard:cf</AdditionalOptions>
+      <!-- /guard:cf also turns on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
       <AdditionalOptions>%(AdditionalOptions) /d2:-guardgsforcfg-</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

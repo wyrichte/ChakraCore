@@ -4,12 +4,6 @@
     <PlatformToolset>v110</PlatformToolset>
     <ConfigurationType>Utility</ConfigurationType>
   </PropertyGroup>
-  <ItemGroup>
-    <LocItem Include="chakra.dll.mui">
-        <TargetDestination>retail</TargetDestination>
-        <LocType>MonoLocalization</LocType>
-    </LocItem>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Label="FirstImport" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

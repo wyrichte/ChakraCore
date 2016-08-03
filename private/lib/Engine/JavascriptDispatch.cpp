@@ -480,14 +480,21 @@ HRESULT JavascriptDispatch::GetIDsOfNames(REFIID riid, __in_ecount(cpsz) LPOLEST
     // compatibility, we have chosen to implement it as case sensitive for all non-external
     // javascript objects.
     // See WOOB 1125860 for more details.
-    if(!scriptObject->IsExternal())
+    BSTR bstrName = ::SysAllocString(prgpsz[0]);
+    hr = (bstrName != nullptr) ? S_OK : E_OUTOFMEMORY;
+    IfFailedReturn(hr);
+
+    if (!scriptObject->IsExternal())
     {
-        return GetDispID(prgpsz[0], fdexNameCaseSensitive, &prgid[0]);
+        hr = GetDispID(bstrName, fdexNameCaseSensitive, &prgid[0]);
     }
     else
     {
-        return GetDispID(prgpsz[0], fdexNameCaseInsensitive, &prgid[0]);
+        hr = GetDispID(bstrName, fdexNameCaseInsensitive, &prgid[0]);
     }
+
+    ::SysFreeString(bstrName);
+    return hr;
 }
 
 //----------------------------------------------------------------------------------

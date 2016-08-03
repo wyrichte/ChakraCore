@@ -992,6 +992,12 @@ HRESULT ScriptSite::ReportError(Js::JavascriptExceptionObject * pError, Js::Scri
             threadContext->ResetHasUnhandledException();
             pError->ClearStackTrace();
         }
+        else
+        {
+            // The errorScriptContext could be anyone and since they have closed we don't have anyone to report the error to.
+            // However, we can say to the caller that an error WAS reported and they can handle this appropriately.
+            hr = SCRIPT_E_REPORTED;
+        }
         pase->Release();
     }
     return hr;
@@ -2336,7 +2342,7 @@ HRESULT ScriptSite::VerifyDOMSecurity(Js::ScriptContext* targetContext, Js::Var 
     HRESULT hr = NOERROR;
     ScriptSite* targetSite = ScriptSite::FromScriptContext(targetContext);
     IActiveScriptSite* srcIActiveScriptSite = NULL, *destIActiveScriptSite = NULL;
-    if (IsClosed() || targetContext->IsClosed())
+    if (IsClosed() || targetContext->IsClosed() || targetContext->IsInvalidatedForHostObjects())
     {
         return E_ACCESSDENIED;
     }

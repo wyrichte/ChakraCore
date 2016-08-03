@@ -269,7 +269,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Parse(
     *scriptFunc = nullptr;
 
     ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
-    HRESULT result = scriptEngine->ParseInternal(scriptText, scriptFunc);
+    HRESULT result = scriptEngine->ParseInternal(scriptText, scriptFunc, nullptr);
     if (result == NO_ERROR)
     {
         Assert(Js::ScriptFunction::Is(*scriptFunc));

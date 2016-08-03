@@ -9,3 +9,6 @@ PUBLIC_PASS0_CONSUMES= \
     onecore\com\published\idlole\publish|PASS0 \
     onecore\com\winrt\buildtools\winmetadata|PASS0 \
 
+BUILD_PASS2_CONSUMES= \
+    base\splat\test\cbsdata\multi-branch\packages_amd64|PASS2 \
+

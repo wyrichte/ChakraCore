@@ -1534,7 +1534,6 @@ runtimeclass RCIDoubleObservable
 
 declare
 {
-    interface IVector<GUID>;
     interface Windows.Foundation.IReferenceArray<Phylum>;
     interface Windows.Foundation.IReferenceArray<Dimensions>;
     interface Windows.Foundation.IReferenceArray<DelegateWithOutParam_HSTRING *>;

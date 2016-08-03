@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>IELibs</id>
-    <version>1.0.15</version>
+    <version>1.0.19</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>IE Libs Package</description>
     <releaseNotes>IE-owned libs that Chakra depends on to build</releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2016</copyright>
     <tags>Chakra IE Libs</tags>
   </metadata>
   <files>
