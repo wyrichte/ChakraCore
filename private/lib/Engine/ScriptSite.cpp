@@ -119,25 +119,6 @@ HRESULT ScriptSite::HostExceptionFromHRESULT(HRESULT hr, Var* outError) const
     return this->m_IASDSite->HostExceptionFromHRESULT(hr, outError);
 }
 
-HRESULT ScriptSite::GetExternalJitData(ExternalJitData id, void *data) const
-{
-    switch (id)
-    {
-    case ExternalJitData_CustomExternalObjectOperations:
-    {
-        CustomExternalObjectOperations *ceoData = (CustomExternalObjectOperations*)data;
-
-        ceoData->offsetOfOperationsUsage = Js::CustomExternalType::GetOffsetOfUsage();
-        ceoData->operationFlagEquals = OperationFlag_Equals;
-        ceoData->operationFlagStrictEquals = OperationFlag_StrictEquals;
-        return S_OK;
-    }
-
-    default:
-        return E_NOTIMPL;
-    }
-}
-
 HRESULT ScriptSite::SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke)
 {
     GetActiveScriptExternalLibrary()->SetDispatchInvoke(dispatchInvoke);
