@@ -4,52 +4,6 @@
 
 #include "MemProtectHeapPch.h"
 
-// TODO: REMOVE
-__forceinline void js_memcpy_s(__bcount(sizeInBytes) void *dst, size_t sizeInBytes, __in_bcount(count) const void *src, size_t count)
-{
-    Assert((count) <= (sizeInBytes));
-    if ((count) <= (sizeInBytes))
-        memcpy((dst), (src), (count));
-    else                              
-        ReportFatalException(NULL, E_FAIL, Fatal_Internal_Error, 2);
-}
-
-__forceinline void js_wmemcpy_s(__ecount(sizeInWords) char16 *dst, size_t sizeInWords, __in_ecount(count) const char16 *src, size_t count)
-{
-    //Multiplication Overflow check
-    Assert(count <= sizeInWords && count <= SIZE_MAX/sizeof(char16));
-    if(!(count <= sizeInWords && count <= SIZE_MAX/sizeof(char16)))
-    {
-        ReportFatalException(NULL, E_FAIL, Fatal_Internal_Error, 2);
-    }
-    else
-    {
-        memcpy(dst, src, count * sizeof(char16));
-    }
-}
-
-#if defined(_M_IX86) || defined(_M_X64)
-
-__forceinline void __stdcall js_memset_zero_nontemporal(__bcount(sizeInBytes) void *dst, size_t sizeInBytes)
-{
-    if ((sizeInBytes % sizeof(__m128i)) == 0)
-    {
-        size_t writeBytes = 0;
-        __m128i simdZero = _mm_setzero_si128();
-        for (__m128i * p = (__m128i *)dst; writeBytes < sizeInBytes; p += 1, writeBytes += sizeof(__m128i))
-        {
-            _mm_stream_si128(p, simdZero);
-        }
-    }
-    // cannot do non-temporal store directly if set size is not multiple of sizeof(__m128i)
-    else
-    {
-        memset(dst, 0, sizeInBytes);
-    }
-}
-
-#endif
-
 bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, __in LPWSTR moduleName)
 {
     swprintf_s(buffer, cchBufferSize, _u("Chakra GC: %d - %s"), GetCurrentProcessId(), moduleName);
