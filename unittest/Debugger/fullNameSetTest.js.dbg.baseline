@@ -51,7 +51,8 @@
               "set.__proto__.constructor.prototype": {
                 "[Methods]": "{...}",
                 "set.__proto__.constructor.prototype.__proto__": "{...}",
-                "set.__proto__.constructor.prototype.size": "Set.prototype.size: 'this' is not a Set object"
+                "set.__proto__.constructor.prototype.size": "Set.prototype.size: 'this' is not a Set object",
+                "Symbol.toStringTag": "Set"
               }
             },
             "set.__proto__.delete": {
@@ -237,7 +238,8 @@
             },
             "set.__proto__.__proto__.__proto__": "null"
           },
-          "set.__proto__.size": "3"
+          "set.__proto__.size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "set": {
           "0": "1",

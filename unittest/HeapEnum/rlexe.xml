@@ -455,7 +455,6 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
-      <compile-flags>-es6tostringtag</compile-flags>
       <files>iterators.js</files>
       <baseline>iterators.baseline</baseline>
     </default>

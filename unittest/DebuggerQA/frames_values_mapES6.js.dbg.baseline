@@ -20,7 +20,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "1"
+          "size": "1",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -37,7 +38,8 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "size": "1"
+          "size": "1",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": "<large string>"
@@ -98,7 +100,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": "size = 0"
       }
@@ -125,7 +128,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "1"
+          "size": "1",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -142,7 +146,8 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
-          "size": "1"
+          "size": "1",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": "<large string>"
@@ -203,7 +208,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": "size = 0"
       }

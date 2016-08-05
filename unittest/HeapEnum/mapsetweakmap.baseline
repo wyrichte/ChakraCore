@@ -106,7 +106,7 @@
  |  | 0 m: type: MapObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 13
+ |  |    |  [Properties] count: 14
  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  | 1 clear: type: FunctionObject flags: (new) optional info records (2)
@@ -181,6 +181,9 @@
  |  |    |  |    |    [Internal property] value: values
  |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  | 12 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |  | 13 Symbol.toStringTag: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |  |    [Internal property] value: Map
+ |  |    |  |    [Prototype] type: StringObject (seen)
  |  |    [Map key-value pairs] count: 8
  |  |    | 0: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: ObjectObject (seen)
@@ -212,7 +215,7 @@
  |  | 1 s: type: SetObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 12
+ |  |    |  [Properties] count: 13
  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  | 1 add: type: FunctionObject flags: (new) optional info records (2)
@@ -261,6 +264,9 @@
  |  |    |  |    | 1 name: type: String (seen)
  |  |    |  | 10 keys: type: FunctionObject (seen)
  |  |    |  | 11 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |  | 12 Symbol.toStringTag: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |  |    [Internal property] value: Set
+ |  |    |  |    [Prototype] type: StringObject (seen)
  |  |    [Set values] count: 4
  |  |    | 0: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: ObjectObject (seen)

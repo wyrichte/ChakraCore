@@ -1899,7 +1899,7 @@
   <test>
     <default>
       <files>symbols.js</files>
-      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -2700,7 +2700,7 @@
   <test>
     <default>
       <files>TypedArray.js</files>
-      <compile-flags>-ES6Species -debuglaunch -targeted -es6tostringtag -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -targeted -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
     </default>
   </test>
   <test>

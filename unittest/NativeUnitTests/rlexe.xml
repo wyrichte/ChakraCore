@@ -2,7 +2,7 @@
 <regress-exe>
   <test>
     <default>
-      <!-- 
+      <!--
          KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
          EH blocks.
      -->
@@ -15,7 +15,7 @@
   </test>
   <test>
     <default>
-      <!-- 
+      <!--
          KaushiS [5/2]: Excluding this on AMD64 until we produce correct line number for functions with
          EH blocks.
      -->
@@ -204,9 +204,9 @@
       <baseline>TestParseJson.baseline</baseline>
     </default>
   </test>
-  <!-- This test is disabled because we hit OS::2314105 when ran on fre. On chk, we would fail the ASSERT present in restore FPU 
-because in ExternalFunctionThunk we don't restore the FPCW because of performance reason. Enable this test when we decide to 
-restore the FPCW in ExternalFunctionThunk code path.  
+  <!-- This test is disabled because we hit OS::2314105 when ran on fre. On chk, we would fail the ASSERT present in restore FPU
+because in ExternalFunctionThunk we don't restore the FPCW because of performance reason. Enable this test when we decide to
+restore the FPCW in ExternalFunctionThunk code path.
 <test>
   <default>
     <tags>exclude_jsrt,exclude_chk</tags>

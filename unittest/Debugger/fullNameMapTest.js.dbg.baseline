@@ -37,7 +37,8 @@
               "map.__proto__.constructor.prototype": {
                 "[Methods]": "{...}",
                 "map.__proto__.constructor.prototype.__proto__": "{...}",
-                "map.__proto__.constructor.prototype.size": "Map.prototype.size: 'this' is not a Map object"
+                "map.__proto__.constructor.prototype.size": "Map.prototype.size: 'this' is not a Map object",
+                "Symbol.toStringTag": "Map"
               }
             },
             "map.__proto__.delete": {
@@ -251,7 +252,8 @@
             },
             "map.__proto__.__proto__.__proto__": "null"
           },
-          "map.__proto__.size": "2"
+          "map.__proto__.size": "2",
+          "Symbol.toStringTag": "Map"
         },
         "map": {
           "0": {

@@ -104,7 +104,8 @@
       "f": {
         "[Methods]": "{...}",
         "f.__proto__": "{...}",
-        "f.size": "Map.prototype.size: 'this' is not a Map object"
+        "f.size": "Map.prototype.size: 'this' is not a Map object",
+        "Symbol.toStringTag": "Map"
       }
     }
   },
@@ -184,7 +185,8 @@
         "f.LOG10E": "0.4342944819032518",
         "f.PI": "3.141592653589793",
         "f.SQRT1_2": "0.7071067811865476",
-        "f.SQRT2": "1.4142135623730951"
+        "f.SQRT2": "1.4142135623730951",
+        "Symbol.toStringTag": "Math"
       }
     }
   },
@@ -439,7 +441,8 @@
       "f": {
         "[Methods]": "{...}",
         "f.__proto__": "{...}",
-        "f.size": "Map.prototype.size: 'this' is not a Map object"
+        "f.size": "Map.prototype.size: 'this' is not a Map object",
+        "Symbol.toStringTag": "Map"
       }
     }
   },
