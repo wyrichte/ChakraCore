@@ -1,4 +1,5 @@
 BUILD_PASS2_CONSUMES= \
+    base\splat\test\cbsdata\multi-branch\packages_amd64|PASS2 \
     inetcore\jscript\projectiontests\abis\custom\animal\winrt\dllsrv\dll|PASS2 \
     inetcore\jscript\projectiontests\abis\custom\devtests.camelcasing\winrt\dllsrv\dll|PASS2 \
     inetcore\jscript\projectiontests\abis\custom\devtests.repros\winrt\dllsrv\dll|PASS2 \

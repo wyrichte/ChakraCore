@@ -73,9 +73,9 @@ namespace Js
         {
             ::PropertyAttributes externalAttributes = PropertyAttributes_Enumerable;
             hr = varEnumerator->MoveNext(&itemsAvailable, &externalAttributes);
-            if (attributes != nullptr && externalAttributes & PropertyAttributes_Enumerable)
+            if (attributes != nullptr)
             {
-                *attributes = PropertyEnumerable;
+                *attributes = (Js::PropertyAttributes)externalAttributes;
             }
         }
         END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)

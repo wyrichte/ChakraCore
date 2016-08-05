@@ -33,6 +33,7 @@
     <file src="amd64chk\FabrikamKitchenServer.ProxyStub.dll" target="x64_debug\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="amd64chk\JsEtwConsole.exe" target="x64_debug\JsEtwConsole.exe" />
     <file src="amd64chk\projectionsglue.js" target="x64_debug\projectionsglue.js" />
+    <file src="amd64chk\TakeRegistryAdminOwnership.exe" target="x64_debug\TakeRegistryAdminOwnership.exe" />
 
     <file src="amd64fre\Animals.dll" target="x64_test\Animals.dll" />
     <file src="amd64fre\Animals.man" target="x64_test\Animals.man" />
@@ -55,6 +56,7 @@
     <file src="amd64fre\FabrikamKitchenServer.ProxyStub.dll" target="x64_test\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="amd64fre\JsEtwConsole.exe" target="x64_test\JsEtwConsole.exe" />
     <file src="amd64fre\projectionsglue.js" target="x64_test\projectionsglue.js" />
+    <file src="amd64fre\TakeRegistryAdminOwnership.exe" target="x64_test\TakeRegistryAdminOwnership.exe" />
 
     <file src="x86chk\Animals.dll" target="x86_debug\Animals.dll" />
     <file src="x86chk\Animals.man" target="x86_debug\Animals.man" />
@@ -77,6 +79,7 @@
     <file src="x86chk\FabrikamKitchenServer.ProxyStub.dll" target="x86_debug\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="x86chk\JsEtwConsole.exe" target="x86_debug\JsEtwConsole.exe" />
     <file src="x86chk\projectionsglue.js" target="x86_debug\projectionsglue.js" />
+    <file src="x86chk\TakeRegistryAdminOwnership.exe" target="x86_debug\TakeRegistryAdminOwnership.exe" />
 
     <file src="x86fre\Animals.dll" target="x86_test\Animals.dll" />
     <file src="x86fre\Animals.man" target="x86_test\Animals.man" />
@@ -99,6 +102,7 @@
     <file src="x86fre\FabrikamKitchenServer.ProxyStub.dll" target="x86_test\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="x86fre\JsEtwConsole.exe" target="x86_test\JsEtwConsole.exe" />
     <file src="x86fre\projectionsglue.js" target="x86_test\projectionsglue.js" />
+    <file src="x86fre\TakeRegistryAdminOwnership.exe" target="x86_test\TakeRegistryAdminOwnership.exe" />
 
     <file src="armfre\Animals.dll" target="arm_test\Animals.dll" />
     <file src="armfre\Animals.man" target="arm_test\Animals.man" />
@@ -120,6 +124,7 @@
     <file src="armfre\FabrikamKitchenServer.dll" target="arm_test\FabrikamKitchenServer.dll" />
     <file src="armfre\FabrikamKitchenServer.ProxyStub.dll" target="arm_test\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="armfre\projectionsglue.js" target="arm_test\projectionsglue.js" />
+    <file src="armfre\TakeRegistryAdminOwnership.exe" target="arm_test\TakeRegistryAdminOwnership.exe" />
 
     <file src="armchk\Animals.dll" target="arm_debug\Animals.dll" />
     <file src="armchk\Animals.man" target="arm_debug\Animals.man" />
@@ -141,7 +146,6 @@
     <file src="armchk\FabrikamKitchenServer.dll" target="arm_debug\FabrikamKitchenServer.dll" />
     <file src="armchk\FabrikamKitchenServer.ProxyStub.dll" target="arm_debug\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="armchk\projectionsglue.js" target="arm_debug\projectionsglue.js" />
-    
-    <file src="TakeRegistryAdminOwnership.exe" target="TakeRegistryAdminOwnership.exe" />
+    <file src="armchk\TakeRegistryAdminOwnership.exe" target="arm_debug\TakeRegistryAdminOwnership.exe" />
   </files>
 </package>

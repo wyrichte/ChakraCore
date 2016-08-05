@@ -78,12 +78,7 @@ protected:
         }
         else
         {
-#include <VerifyGlobalMSRCSettings.inl>
-#ifdef PRERELEASE_REL1602_MSRC31630_BUG5389099
             if (this->varDispatch.vt == VT_DISPATCH && this->varDispatch.pdispVal)
-#else
-            if (this->varDispatch.pdispVal)
-#endif
             {
                 this->varDispatch.pdispVal->Release();
                 this->varDispatch.pdispVal = nullptr;
