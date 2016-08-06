@@ -2198,6 +2198,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
     AutoRestoreValue<ULONG> sourceContextPairCount(&this->pairCount, pairCount);
     AutoRestoreValue<SourceContextPair *> sourceContextPairs(&this->pSourceContextPairs, pSourceContextPairs);
 
+    // Prevent non-debug-mode byte code in the script body map from being re-used in debug mode.
+    this->RemoveScriptBodyMap();
+
     return this->scriptContext->OnDebuggerAttached();
 }
 
@@ -2235,6 +2238,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
     // in debug mode, but when m_isHostInDebugMode == true, we won't check host and at least keep script
     // engine in debug mode consistently. See ScriptEngine::IsDebuggerEnvironmentAvailable)
     m_isHostInDebugMode = false;
+
+    // Prevent debug-mode byte code in the script body map from being re-used in non-debug mode.
+    this->RemoveScriptBodyMap();
 
     return this->scriptContext->OnDebuggerDetached();
 }
