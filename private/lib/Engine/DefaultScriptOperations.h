@@ -85,11 +85,12 @@ namespace Js
         }
     };
 
+    class JavascriptEnumeratorWrapper;
     class CVarEnumerator sealed : public IVarEnumerator2
     {
         unsigned long refCount;
         Js::ScriptContext* scriptContext;
-        RecyclerRootPtr<Js::JavascriptEnumerator> internalEnum;
+        RecyclerRootPtr<JavascriptEnumeratorWrapper> internalEnum;
     public:
         CVarEnumerator(Js::Var internalEnum, Js::ScriptContext* scriptContext);
         ~CVarEnumerator();

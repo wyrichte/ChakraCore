@@ -559,7 +559,7 @@ namespace Js
             Var propertyName;
             PropertyId propertyId;
 
-            while ((propertyName = m_innerEnumerator->GetCurrentAndMoveNext(propertyId)) != NULL)
+            while ((propertyName = m_innerEnumerator->MoveAndGetNext(propertyId)) != NULL)
             {
                 if (propertyName != undefined) //There are some code paths in which GetCurrentIndex can return undefined
                 {

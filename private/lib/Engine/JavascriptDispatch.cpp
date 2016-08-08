@@ -1766,7 +1766,7 @@ Js::PropertyId JavascriptDispatch::GetEnumeratorCurrentPropertyId()
     }
     Var stringIndex = dispIdEnumerator->GetCurrentIndex();
     Js::ScriptContext * scriptContext = this->GetScriptContext();
-    if (stringIndex != scriptContext->GetLibrary()->GetUndefined())
+    if (stringIndex != nullptr)
     {
         Js::JavascriptString* name = Js::JavascriptString::FromVar(stringIndex);
         Js::PropertyRecord const * propertyRecord;

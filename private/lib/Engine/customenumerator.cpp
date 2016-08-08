@@ -31,59 +31,42 @@ namespace Js
         }
     }
 
-    Var CustomEnumerator::GetCurrentIndex()
-    {
-        Var currentName = NULL;
-        ScriptContext* scriptContext = GetScriptContext();
-        if (varEnumerator == nullptr)
-        {
-            return scriptContext->GetLibrary()->GetUndefined();
-        }
-
-        HRESULT hr = E_FAIL;
-        BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
-        {
-            hr = varEnumerator->GetCurrentName(&currentName);
-        }
-        END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext);
-
-        if (SUCCEEDED(hr))
-        {
-            return CrossSite::MarshalVar(GetScriptContext(), currentName);
-        }
-        return scriptContext->GetLibrary()->GetUndefined();
-    }
-
-    BOOL CustomEnumerator::MoveNext(Js::PropertyAttributes* attributes)
+    Var CustomEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes)    
     {
         BOOL itemsAvailable = FALSE;
         ScriptContext* scriptContext = GetScriptContext();
         if (varEnumerator == nullptr)
         {
-            return FALSE;
+            return nullptr;
         }
 
         if (attributes != nullptr)
         {
-            *attributes = PropertyEnumerable;
+            *attributes = PropertyNone;
         }
 
         HRESULT hr = E_FAIL;
+        Var currentName = NULL;
+        ::PropertyAttributes externalAttributes = PropertyAttributes_Enumerable;
         BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         {
-            ::PropertyAttributes externalAttributes = PropertyAttributes_Enumerable;
             hr = varEnumerator->MoveNext(&itemsAvailable, &externalAttributes);
-            if (attributes != nullptr)
+            if (SUCCEEDED(hr) && itemsAvailable)
             {
-                *attributes = (Js::PropertyAttributes)externalAttributes;
+                hr = varEnumerator->GetCurrentName(&currentName);
             }
         }
         END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
-        if (SUCCEEDED(hr))
+
+        if (attributes != nullptr)
         {
-            return itemsAvailable;
+            *attributes = (Js::PropertyAttributes)externalAttributes;
         }
-        return FALSE;
+        if (SUCCEEDED(hr) && currentName)
+        {
+            return CrossSite::MarshalVar(GetScriptContext(), currentName);
+        }
+        return nullptr;
     }
 
     void CustomEnumerator::Reset()
