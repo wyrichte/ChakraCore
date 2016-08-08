@@ -64,17 +64,31 @@ GenerateFastExternalEqTest(
     }
 }
 
+HRESULT GetExternalJitData(ExternalJitData id, void *data)
+{
+    switch (id)
+    {
+    case ExternalJitData_CustomExternalObjectOperations:
+    {
+        CustomExternalObjectOperations *ceoData = (CustomExternalObjectOperations*)data;
+
+        ceoData->offsetOfOperationsUsage = Js::CustomExternalType::GetOffsetOfUsage();
+        ceoData->operationFlagEquals = OperationFlag_Equals;
+        ceoData->operationFlagStrictEquals = OperationFlag_StrictEquals;
+        return S_OK;
+    }
+
+    default:
+        return E_NOTIMPL;
+    }
+}
+
 bool
 ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2, IR::BranchInstr * instrBranch, IR::LabelInstr * labelHelper, 
     IR::LabelInstr * labelBooleanCmp, Lowerer * lowerer, bool isStrictBr)
 {
     CustomExternalObjectOperations data;
-    HRESULT hr = S_FALSE;    
-    HostScriptContext *hsc = lowerer->GetScriptContext()->GetHostScriptContext();
-    if (hsc)
-    {
-        hr = hsc->GetExternalJitData(ExternalJitData_CustomExternalObjectOperations, &data);
-    }
+    HRESULT hr = GetExternalJitData(ExternalJitData_CustomExternalObjectOperations, &data);
     if (hr == S_OK)
     {
         if (!isStrictBr)

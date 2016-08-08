@@ -155,7 +155,6 @@ public:
 
     HRESULT CheckEvalRestriction() const;
     HRESULT HostExceptionFromHRESULT(HRESULT hr, Var* outError) const;
-    HRESULT GetExternalJitData(ExternalJitData id, void *data) const;
     HRESULT SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke);
     HRESULT ArrayBufferFromExternalObject(__in Js::RecyclableObject *obj,
         __out Js::ArrayBuffer **ppArrayBuffer);
