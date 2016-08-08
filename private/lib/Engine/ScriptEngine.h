@@ -1218,7 +1218,7 @@ public:
     GUID GetActivityId() const { return m_activityID; }
     HRESULT STDMETHODCALLTYPE SetActivityId(__in const GUID* activityId);
     HRESULT STDMETHODCALLTYPE SetTridentLoadAddress(__in void* loadAddress);
-    HRESULT STDMETHODCALLTYPE SetJITConnectionInfo(__in HANDLE jitProcHandle, __in void* serverSecurityDescriptor, __in UUID connectionId);
+    HRESULT STDMETHODCALLTYPE SetJITConnectionInfo(__in HANDLE jitProcHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionId);
     HRESULT STDMETHODCALLTYPE SetJITInfoForScript();
 
 private:
