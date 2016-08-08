@@ -555,8 +555,10 @@
  |  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Function name] func
  |  [Scopes] count: 1
- |  | scope[0]: type: Scope flags: (new) optional info records (1)
+ |  | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |  [Prototype] type: Null (seen)
+ |  |  [Properties] count: 1
+ |  |  | 0 new.target: type: Undefined (seen)
 
 ==========>End Heap Dump<===============
 

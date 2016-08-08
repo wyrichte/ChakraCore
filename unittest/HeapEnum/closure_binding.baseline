@@ -183,7 +183,7 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 4
  |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (3)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
  |  |    |  |    [Scopes] count: 1
@@ -198,8 +198,9 @@
  |  |    |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    |    |    [Internal property] value: values
  |  |    |  |    |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 1 f3: type: FunctionObject (seen)
- |  |    |  | 2 a3: value: 3.000000
+ |  |    |  | 1 new.target: type: Undefined (seen)
+ |  |    |  | 2 f3: type: FunctionObject (seen)
+ |  |    |  | 3 a3: value: 3.000000
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_binding.js
  |  |    | 1 sourceRow: value: 77.000000
@@ -217,7 +218,7 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 4
  |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (3)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
  |  |    |  |    [Scopes] count: 1
@@ -226,8 +227,9 @@
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 callee: type: FunctionObject (seen)
  |  |    |  |    | 2 Symbol.iterator: type: FunctionObject (seen)
- |  |    |  | 1 f4: type: FunctionObject (seen)
- |  |    |  | 2 a4: value: 2.000000
+ |  |    |  | 1 new.target: type: Undefined (seen)
+ |  |    |  | 2 f4: type: FunctionObject (seen)
+ |  |    |  | 3 a4: value: 2.000000
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_binding.js
  |  |    | 1 sourceRow: value: 87.000000
