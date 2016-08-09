@@ -86,7 +86,8 @@ goto :main
   set _TestTempDir=
   set _BuildArch=
   set _BuildType=
-  set _RazzleTools=RazzleTools.1.0.19
+  REM Auto read the RazzleTools package version from the packages.config
+  for /f tokens^=4^ delims^=^" %%i in ('findstr /R "RazzleTools.*[0-9]\.[0-9]\.[0-9]" %_RootDir%\packages.config') do set _RazzleTools=RazzleTools.%%i
   goto :eof
 
 :: ============================================================================
