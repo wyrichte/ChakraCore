@@ -36,14 +36,14 @@ Var HostDispatchEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::Prope
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
         hr = dispatch->GetNextDispID(fdexEnumAll | scriptEngine->GetInvokeVersion() << 28 , idCurrent, &idCurrent);
-        if (SUCCEEDED(hr))
+        if (hr == S_OK)
         {
             hr = dispatch->GetMemberName(idCurrent, &name);
         }
     }
     END_LEAVE_SCRIPT(scriptContext);
 
-    if (FAILED(hr) || name == NULL)
+    if (FAILED(hr) || name == nullptr)
     {
         return nullptr;
     }
