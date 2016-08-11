@@ -64,6 +64,7 @@ namespace Js
         }
         if (SUCCEEDED(hr) && currentName)
         {
+            propertyId = Js::Constants::NoProfileId;
             return CrossSite::MarshalVar(GetScriptContext(), currentName);
         }
         return nullptr;
