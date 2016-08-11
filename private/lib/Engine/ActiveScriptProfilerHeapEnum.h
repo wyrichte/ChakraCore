@@ -60,8 +60,10 @@ public:
         HeapObjectType_SIMD                        =0x29,
         HeapObjectType_SIMDObject                  =0x2a,
         HeapObjectType_JsrtExternalObject          =0x2b,
+        HeapObjectType_ModuleNamespace             =0x2c,
+        HeapObjectType_ListIterator                =0x2d,
 
-        HeapObjectType_Last                        =HeapObjectType_JsrtExternalObject,
+        HeapObjectType_Last                        = HeapObjectType_ListIterator,
         HeapObjectType_Invalid                     =0xff
     };
 
