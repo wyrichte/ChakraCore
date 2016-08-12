@@ -201,7 +201,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_codepage              = GetACP();
 
     m_excepinfoInterrupt    = NoException;       // If interrupt raised, exception information
-    pendingCloneSource      = nullptr;
     // Debugger
     m_scriptSiteDebug       = nullptr;
     m_pNonDebugDocFirst     = nullptr;
@@ -245,7 +244,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     webWorkerID = Js::Constants::NonWebWorkerContextId;
 
     scriptContext = nullptr;
-    isCloned = false;
     wasScriptDirectEnabled = false;
     scriptBodyMap = nullptr;
     debugStackFrame = nullptr;
@@ -2763,22 +2761,9 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
         }
     }
 
-    // If we are a clone or are recovering from reset then now is the time to
+    // If we are recovering from reset then now is the time to
     // register our named items:
     RegisterNamedItems();
-
-    if (this->pendingCloneSource)
-    {
-        // Clone the script bodies that have been waiting for named items to be registered
-        // in the cloned engine.
-        Assert(this->IsCloned());
-        hr = this->pendingCloneSource->CloneScriptBodies(this);
-        this->pendingCloneSource = nullptr;
-        if (FAILED(hr))
-        {
-            return hr;
-        }
-    }
 
     if (m_fPersistLoaded)
         ChangeScriptState(SCRIPTSTATE_INITIALIZED);
@@ -3482,144 +3467,7 @@ STDMETHODIMP ScriptEngine::InterruptScriptThread(SCRIPTTHREADID stidThread, cons
 
 STDMETHODIMP ScriptEngine::Clone(IActiveScript **ppscript)
 {
-    HRESULT         hr = NOERROR;
-    ScriptEngine *  oleScriptNew;
-
-    CHECK_POINTER(ppscript);
-    *ppscript = nullptr;
-
-    if (m_ssState == SCRIPTSTATE_CLOSED)
-        return E_UNEXPECTED;
-
-    // Create a new script instance:
-    oleScriptNew = HeapNewNoThrow(ScriptEngine, m_riidLanguage, m_pszLanguageName);
-    IFNULLMEMRET(oleScriptNew);
-    if (FAILED(oleScriptNew->InitializeThreadBound()))
-    {
-        delete oleScriptNew;
-        return E_OUTOFMEMORY;
-    }
-
-    DisableInterrupts();
-
-    // If we're loaded, so is our child.  That way, all he has to do is
-    // set his site to become initialized.
-    oleScriptNew->m_fPersistLoaded = m_fPersistLoaded;
-
-    IFFAILGO(m_NamedItemList.Clone(&oleScriptNew->m_NamedItemList));
-    oleScriptNew->m_moduleIDNext = 1 + oleScriptNew->m_NamedItemList.FindHighestModuleID();
-
-    Js::ScriptContext * newScriptContext = nullptr;
-    BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
-    {
-
-        newScriptContext = oleScriptNew->EnsureScriptContext();
-#ifdef PROFILE_EXEC
-        // Use the profiler that we cloned from
-        newScriptContext->SetProfilerFromScriptContext(this->scriptContext);
-#endif
-#ifdef PROFILE_MEM
-        newScriptContext->DisableProfileMemoryDumpOnDelete();
-#endif
-        newScriptContext->CloneSources(this->scriptContext);
-    }
-    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
-
-    if (FAILED(hr))
-    {
-        goto LReturn;
-    }
-
-    hr = NOERROR;
-
-LReturn:
-    EnableInterrupts();
-    if (FAILED(hr))
-    {
-        oleScriptNew->Release();
-    }
-    else
-    {
-        oleScriptNew->SetIsCloned(this);
-#ifdef PROFILE_EXEC
-        oleScriptNew->originalScriptSite = this->GetScriptSiteHolder();
-#endif
-        *ppscript = (IActiveScript *)oleScriptNew;
-    }
-    return hr;
-}
-
-HRESULT
-    ScriptEngine::CloneScriptBodies(ScriptEngine *oleScriptNew)
-{
-    HRESULT         hr = NOERROR;
-    long            ibod, cbod;
-    BOD             bod;
-
-    // Clone the code blocks
-    if (nullptr != m_pglbod && 0 < (cbod = m_pglbod->Cv()))
-    {
-        if (nullptr == oleScriptNew->m_pglbod &&
-            nullptr == (oleScriptNew->m_pglbod = HeapNewNoThrow(GL,sizeof(BOD))))
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-
-        try
-        {
-            AUTO_HANDLED_EXCEPTION_TYPE((ExceptionType)(ExceptionType_OutOfMemory | ExceptionType_StackOverflow));
-            for (ibod = 0; ibod < cbod; ++ibod)
-            {
-                m_pglbod->Get(ibod, &bod);
-                if (!(bod.grfbod & fbodPersist))
-                    continue;
-                bod.grfbod = fbodPersist | fbodRun;
-                bod.pbody  = bod.pbody->Clone(oleScriptNew);
-                IFNULLMEMGO(bod.pbody);
-                if (!oleScriptNew->m_pglbod->FAdd(&bod))
-                {
-                    bod.pbody->Release();
-                    bod.pbody = nullptr;
-                    FAILGO(E_OUTOFMEMORY);
-                }
-            }
-        }
-        catch(Js::OutOfMemoryException)
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-        catch (Js::StackOverflowException)
-        {
-            FAILGO(HRESULT_FROM_WIN32(ERROR_STACK_OVERFLOW));
-        }
-    }
-
-    // Clone persistent event handlers.
-    if (eventHandlers->Count() > 0)
-    {
-        try
-        {
-            AUTO_HANDLED_EXCEPTION_TYPE(ExceptionType_OutOfMemory);
-            BaseEventHandler * eventHandler;
-            BaseEventHandler * eventHandlerNew;
-            for (int i  = 0; i < eventHandlers->Count(); i++)
-            {
-                eventHandler = eventHandlers->Item(i);
-
-                if (!eventHandler->ShouldPersist())
-                    continue;
-                IFFAILGO(eventHandler->Clone(oleScriptNew, &eventHandlerNew));
-                oleScriptNew->eventHandlers->Add(eventHandlerNew);
-            }
-        }
-        catch(Js::OutOfMemoryException)
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-    }
-
-LReturn:
-    return hr;
+    Js::Throw::NotImplemented();
 }
 
 // *** IActiveScriptParse Methods ***

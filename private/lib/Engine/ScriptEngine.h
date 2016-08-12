@@ -684,12 +684,6 @@ public:
 
     Js::ScriptContext* EnsureScriptContext();
     BOOL ShouldKeepAlive() const { return fKeepEngineAlive; }        
-    void SetIsCloned(ScriptEngine *pendingCloneSource)
-    {
-        isCloned = TRUE;
-        this->pendingCloneSource = pendingCloneSource;
-    }
-    BOOL IsCloned() { return isCloned; }
 
     HRESULT GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb, LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags, SOURCE_TEXT_ATTR *prgsta);
 
@@ -782,7 +776,6 @@ private:
     // Call ChangeScriptState ONLY in the base thread
     void ChangeScriptState (SCRIPTSTATE ss);
 
-    HRESULT CloneScriptBodies (ScriptEngine *oleScriptNew);
     HRESULT RegisterNamedItems (void);
     HRESULT RegisterNamedItem        (NamedItem* pnid);
     HRESULT RegisterNamedItemHasCode (NamedItem* pnid);
@@ -1004,11 +997,6 @@ private:
 #if defined(USED_IN_STATIC_LIB)
     public:
 #endif
-    BOOL                isCloned;
-#ifdef PROFILE_EXEC
-    ScriptSite *        originalScriptSite;
-#endif
-    ScriptEngine *      pendingCloneSource;
     struct BOD
     {
         ulong           grfbod;

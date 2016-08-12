@@ -27,7 +27,6 @@ private:
     ~CScriptBody(void);
 public:
     CScriptBody(Js::ParseableFunctionInfo* functionInfo, ScriptEngine *scriptEngine, Js::Utf8SourceInfo* sourceInfo);
-    CScriptBody * Clone(ScriptEngine *pos);
 
     // reference count stuff
     void AddRef(void) { InterlockedIncrement(&m_refCount); }

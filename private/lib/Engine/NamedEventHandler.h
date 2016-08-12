@@ -17,7 +17,6 @@ public:
     virtual Js::DynamicObject *GetScriptObject(void) = 0;
     virtual BOOL ShouldPersist(void) = 0;
     virtual HRESULT Reset(void) = 0;
-    virtual HRESULT Clone(__in ScriptEngine *pos, __deref_out BaseEventHandler **ppeh) = 0;
     virtual CScriptBody * GetUnderlyingScript(){ return NULL; }
 };
 
@@ -60,7 +59,6 @@ public:
     virtual Js::DynamicObject *GetScriptObject(void) override;
     virtual BOOL ShouldPersist(void)   { return shouldPersist; }
     virtual HRESULT Reset(void);
-    virtual HRESULT Clone(__in ScriptEngine *pos, __deref_out BaseEventHandler **ppeh);
 
     virtual CScriptBody * GetUnderlyingScript(){ return scriptBody; }
 };
