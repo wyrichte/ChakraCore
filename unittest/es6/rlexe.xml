@@ -266,4 +266,10 @@
         <compile-flags>-ES6Module -force:deferparse -args summary -endargs</compile-flags>
     </default>
 </test>
+<test>
+    <default>
+        <files>moduleassert.js</files>
+        <compile-flags>-ES6Module -force:deferparse -args summary -endargs</compile-flags>
+    </default>
+</test>
 </regress-exe>
