@@ -2291,6 +2291,9 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
         return E_FAIL;
     }
 
+    // Prevent non-debug-mode byte code in the script body map from being re-used in debug mode.
+    this->RemoveScriptBodyMap();
+
     // Move the debugger into source rundown mode.
     scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
 
