@@ -57,8 +57,8 @@ public:
     virtual BOOL SetItem(__in uint32 index, __in Js::Var value, __in Js::PropertyOperationFlags flags) override;
     virtual BOOL DeleteItem(uint32 index, Js::PropertyOperationFlags flags) override;
     virtual BOOL ToPrimitive(Js::JavascriptHint hint, Js::Var* value, Js::ScriptContext * requestContext) override;
-    virtual BOOL Equals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext) override;
-    virtual BOOL StrictEquals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext) override sealed;
+    virtual BOOL Equals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override;
+    virtual BOOL StrictEquals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override sealed;
     virtual BOOL GetEnumerator(__in BOOL enumNonEnumerable, __out Js::Var* enumerator, Js::ScriptContext * requestContext, __in bool preferSnapshotSemantics = true, __in bool enumSymbols = false) override;
     virtual BOOL SetAccessors(Js::PropertyId propertyId, Js::Var getter, Js::Var setter, Js::PropertyOperationFlags flags = Js::PropertyOperation_None) override;
     virtual BOOL GetAccessors(Js::PropertyId propertyId, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext) override;

@@ -2223,6 +2223,7 @@ BOOL HostDispatch::EqualsHelper(HostDispatch *left, HostDispatch *right, BOOL *v
 {
     if (FAILED(left->EnsureDispatch()) || FAILED(right->EnsureDispatch()))
     {
+        *value = FALSE;
         return FALSE;
     }
 

@@ -35,9 +35,9 @@
       <compile-flags>-Force:Deferparse</compile-flags>
     </default>
   </test>
-  <test>
+  <!--<test>
     <default>
       <files>externalthunk_taggedint_this.html</files>
     </default>
-  </test>
+  </test>-->
 </regress-exe>

@@ -117,7 +117,8 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "size": "Map.prototype.size: 'this' is not a Map object"
+        "size": "Map.prototype.size: 'this' is not a Map object",
+        "Symbol.toStringTag": "Map"
       }
     }
   },
@@ -131,7 +132,8 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "size": "Set.prototype.size: 'this' is not a Set object"
+        "size": "Set.prototype.size: 'this' is not a Set object",
+        "Symbol.toStringTag": "Set"
       }
     }
   },
@@ -203,7 +205,8 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "JSON"
       }
     }
   },
@@ -224,7 +227,8 @@
         "LOG10E": "0.4342944819032518",
         "PI": "3.141592653589793",
         "SQRT1_2": "0.7071067811865476",
-        "SQRT2": "1.4142135623730951"
+        "SQRT2": "1.4142135623730951",
+        "Symbol.toStringTag": "Math"
       }
     }
   },
@@ -560,7 +564,8 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "size": "Map.prototype.size: 'this' is not a Map object"
+        "size": "Map.prototype.size: 'this' is not a Map object",
+        "Symbol.toStringTag": "Map"
       }
     }
   },

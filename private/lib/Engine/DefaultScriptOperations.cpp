@@ -884,6 +884,46 @@ namespace Js
         return scriptContext;
     }
 
+    class JavascriptEnumeratorWrapper
+    {
+    public:
+        JavascriptEnumeratorWrapper(JavascriptEnumerator * enumerator)
+        {
+            ResetEnumerator(enumerator);
+        }
+        void ResetEnumerator(JavascriptEnumerator * enumerator)
+        {
+            this->enumerator = enumerator;
+            this->currentIndex = enumerator->GetLibrary()->GetUndefined();
+            this->currentPropertyId = Js::Constants::NoProperty;
+        }
+        JavascriptEnumerator * GetEnumerator() const { return enumerator; }
+        BOOL MoveNext(PropertyAttributes * attributes = nullptr)
+        {
+            Assert(enumerator);
+            currentIndex = enumerator->MoveAndGetNext(currentPropertyId, attributes);
+            if (currentIndex == nullptr)
+            {
+                currentPropertyId = Constants::NoProperty;
+                return FALSE;
+            }
+            return true;
+        }
+        Var GetCurrentIndex()
+        {
+            return currentIndex;
+        }
+        bool GetCurrentPropertyId(PropertyId * propertyId)
+        {
+            *propertyId = currentPropertyId;
+            return currentPropertyId != Constants::NoProperty;
+        }
+    private:
+        JavascriptEnumerator * enumerator;
+        Var currentIndex;
+        PropertyId currentPropertyId;
+    };
+
     STDMETHODIMP CVarEnumerator::MoveNext( /*[out]*/ BOOL* itemsAvailable, /*[out,optional]*/ ::PropertyAttributes* attributes)
     {
         IfNullReturnError(itemsAvailable, E_INVALIDARG);
@@ -893,21 +933,6 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
             *itemsAvailable = internalEnum->MoveNext((Js::PropertyAttributes*)attributes);
-        }
-        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
-        VERIFYHRESULTBEFORERETURN(hr, scriptContext);
-        return hr;
-    }
-
-    STDMETHODIMP CVarEnumerator::GetCurrentValue( /*[out]*/ Var* item )
-    {
-        IfNullReturnError(item, E_INVALIDARG);
-        *item = nullptr;
-
-        HRESULT hr = NOERROR;
-        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
-        {
-            *item = internalEnum->GetCurrentValue();
         }
         END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
         VERIFYHRESULTBEFORERETURN(hr, scriptContext);
@@ -933,19 +958,20 @@ namespace Js
     {
         IfNullReturnError(enumerator, E_INVALIDARG);
 
-        *enumerator = this->internalEnum;
+        *enumerator = this->internalEnum->GetEnumerator();
         return S_OK;
     }
 
     CVarEnumerator::CVarEnumerator( Js::Var internalEnum, Js::ScriptContext* scriptContext ) :
         scriptContext(scriptContext), refCount(0)
     {
-        this->internalEnum.Root((Js::JavascriptEnumerator*)internalEnum, scriptContext->GetRecycler());        
+        Recycler * recycler = scriptContext->GetRecycler();
+        this->internalEnum.Root(RecyclerNew(recycler, Js::JavascriptEnumeratorWrapper, (Js::JavascriptEnumerator*)internalEnum), recycler);
     }
 
     CVarEnumerator::~CVarEnumerator()
     {
-        this->internalEnum.Unroot(scriptContext->GetRecycler());             
+        this->internalEnum.Unroot(scriptContext->GetRecycler());
     }
 
     CVarNullEnumerator CVarNullEnumerator::Instance;

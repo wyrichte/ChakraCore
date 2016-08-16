@@ -26,8 +26,8 @@ public:
     virtual BOOL GetItem(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, __in Js::ScriptContext * requestContext) override;
     virtual BOOL SetItem(__in uint32 index, __in Js::Var value, __in Js::PropertyOperationFlags flags) override;
     virtual BOOL ToPrimitive(Js::JavascriptHint hint, Js::Var* value, Js::ScriptContext * requestContext) override;
-    virtual BOOL Equals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext) override;
-    virtual BOOL StrictEquals(Js::Var other, BOOL* value, Js::ScriptContext * requestContext) override;
+    virtual BOOL Equals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override;
+    virtual BOOL StrictEquals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override;
     virtual Js::Var GetTypeOfString(Js::ScriptContext * requestContext) override;
     virtual Js::ModuleRoot * GetModuleRoot(Js::ModuleID) override;
     virtual Js::Var GetHostDispatchVar() override;

@@ -17,6 +17,6 @@ typeOffset: 8
 typeIdOffset: 0
 taggedIntSize: 1
 javascriptNumberSize: 8
-TypeIdLimit: 76
+TypeIdLimit: 77
 numberUtilitiesBaseSize: 1
 numberUtilitiesBaseOffset: 0

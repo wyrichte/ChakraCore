@@ -889,7 +889,7 @@
       },
       "[Scope]1": {
         "s1": {
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "null",
           "caller": "null",
           "length": "0",
@@ -909,7 +909,7 @@
       },
       "[Scope]3": {
         "s2": {
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "null",
           "caller": "null",
           "length": "0",
@@ -920,7 +920,7 @@
       "[Scope]4": {
         "x": {
           "[Methods]": "{...}",
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "{...}",
           "length": "2",
           "name": "s0",
@@ -929,7 +929,7 @@
       },
       "[Scope]5": {
         "f": {
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "{...}",
           "caller": "null",
           "length": "0",
@@ -939,7 +939,7 @@
       },
       "[Globals]": {
         "Animal": {
-          "__proto__": "\nfunction() {\n    [native code]\n}\n",
+          "__proto__": "function() {\n    [native code]\n}",
           "arguments": "null",
           "caller": "null",
           "length": "0",

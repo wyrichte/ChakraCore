@@ -152,6 +152,7 @@ namespace Js
     class JavascriptSetIterator;            // Used by JavascriptLibrary.h
     enum class JavascriptSetIteratorKind;   // Used by JavascriptLibrary.h
     class JavascriptStringIterator;         // Used by JavascriptLibrary.h
+    class JavascriptListIterator;           // Used by JavascriptLibrary.h
     class JavascriptPromise;                // Used by JavascriptLibrary.h
     class JavascriptPromiseCapability;      // Used by JavascriptLibrary.h
     class JavascriptPromiseReaction;        // Used by JavascriptLibrary.h

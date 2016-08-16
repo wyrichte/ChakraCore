@@ -143,8 +143,8 @@ namespace Js
         virtual DescriptorFlags GetSetter(JavascriptString* propertyNameString, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext) override;
         virtual HRESULT QueryObjectInterface(REFIID riid, void **ppvObj) override;
 
-        virtual BOOL Equals(Var other, BOOL* value, ScriptContext * requestContext) override;
-        virtual BOOL StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
         
         // Used only in JsVarToExtension where it may be during dispose and the type is not availible
         virtual BOOL IsExternalVirtual() const override { return TRUE; }

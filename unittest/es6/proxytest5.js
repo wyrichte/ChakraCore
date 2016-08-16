@@ -59,18 +59,6 @@ tests = [
         }
     },
     {
-        name: "proxy toString for builtins",
-        body: function () {
-            BuiltinTypes = [Object, Array, Int8Array, Int16Array, Int32Array, Uint8Array, Uint16Array, Uint32Array,
-                Float32Array, Float64Array, ArrayBuffer, Map, Set, Error, String, Date, Function, Number, Boolean];
-            for (i = 0; i < BuiltinTypes.length; i++) {
-                var obj = new BuiltinTypes[i]();
-                var pro = new Proxy(obj, {});
-                assert.areEqual(Object.prototype.toString.call(pro), "[object Object]", "test" + i);
-            }
-        }
-    },
-     {
          name: "proxy toLocaleString for builtins",
          body: function () {
              BuiltinTypes = [Object];
@@ -80,7 +68,7 @@ tests = [
                  assert.areEqual(Object.prototype.toLocaleString.call(pro), "[object Object]", "test" + i);
              }
          }
-     },
+    },
     {
         name: "Reflect.Get #1",
         body: function () {

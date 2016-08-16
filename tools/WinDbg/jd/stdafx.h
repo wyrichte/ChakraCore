@@ -14,6 +14,8 @@
 
 #define _NO_CVCONST_H
 
+#define DECLSPEC_GUARD_OVERFLOW __declspec(guard(overflow))
+
 namespace Memory{};
 using namespace Memory;
 

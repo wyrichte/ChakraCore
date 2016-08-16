@@ -1180,7 +1180,8 @@ public:
 
     HRESULT STDMETHODCALLTYPE ParseInternal(
         __in LPWSTR scriptText,
-        __out Var *scriptFunc);
+        __out Var *scriptFunc,
+        __in_opt LoadScriptFlag* pLoadScriptFlag);
 
     HRESULT STDMETHODCALLTYPE GetJavascriptOperationsInternal(
         __out IJavascriptOperations **operations);

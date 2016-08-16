@@ -23,4 +23,10 @@
       <tags>exclude_ship,Slow</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>toString.html</files>
+      <baseline>toString.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

@@ -1271,11 +1271,25 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
             OUTPUT_VERBOSE_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: script site is closed: this=%p\n"));
             return hr;
         }
- 
-        VALIDATE_LEGIT_DEBUGSESSION();
 
         Js::ScriptContext* scriptContext = m_scriptSite->GetScriptSiteContext();
+
+        if (!scriptContext->GetThreadContext()->GetDebugManager()->IsAtDispatchHalt())
+        {
+            // EvaluateImmediate should only be called when we are at break
+            return E_UNEXPECTED;
+        }
+
         Js::DiagStack* stack = m_framePointers->GetStrongReference();
+
+        if (stack == nullptr)
+        {
+            AssertMsg(m_debugSessionNumber != scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber(),
+                "Stack frame not found for valid debug session");
+            return E_UNEXPECTED;
+        }
+
+        AssertMsg(m_debugSessionNumber == scriptContext->GetThreadContext()->GetDebugManager()->GetDebugSessionNumber(), "EvaluateImmediate on outdated stack frame");
 
         Js::DiagStackFrame* frame = stack->Peek(m_frameIndex);
 

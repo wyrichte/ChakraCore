@@ -129,7 +129,8 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_HostObject, HeapObjectType_HostObject},
     { Js::TypeIds_ActivationObject, HeapObjectType_Scope},
     { Js::TypeIds_SpreadArgument, HeapObjectType_ObjectObject },
-    { Js::TypeIds_ModuleNamespace, HeapObjectType_ObjectObject },
+    { Js::TypeIds_ModuleNamespace, HeapObjectType_ModuleNamespace },
+    { Js::TypeIds_ListIterator, HeapObjectType_ListIterator },
 };
 
 #if DBG
@@ -194,11 +195,13 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_MapIterator].typeNameId = GetPropertyId(_u("MapIterator"));
     typeNameIdMap[HeapObjectType_SetIterator].typeNameId = GetPropertyId(_u("SetIterator"));
     typeNameIdMap[HeapObjectType_StringIterator].typeNameId = GetPropertyId(_u("StringIterator"));
+    typeNameIdMap[HeapObjectType_ListIterator].typeNameId = GetPropertyId(_u("ListIterator"));
     typeNameIdMap[HeapObjectType_Generator].typeNameId = GetPropertyId(_u("Generator"));
     typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(_u("Promise"));
     typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(_u("ReflectIterator"));
     typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(_u("SIMD"));
     typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(_u("SIMDObject"));
+    typeNameIdMap[HeapObjectType_ModuleNamespace].typeNameId = GetPropertyId(_u("ModuleNamespace"));
 }
 
 PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(ProfilerHeapObjectType objectType)

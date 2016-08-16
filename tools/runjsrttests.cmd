@@ -86,7 +86,7 @@ goto :main
   set _TestTempDir=
   set _BuildArch=
   set _BuildType=
-  set _RazzleTools=RazzleTools.1.0.15
+  set _RazzleTools=RazzleTools.1.0.19
   goto :eof
 
 :: ============================================================================

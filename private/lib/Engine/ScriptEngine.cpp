@@ -2168,8 +2168,14 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n"), this, pairCount);
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsRunningScript())
+    {
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
@@ -2192,6 +2198,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
     AutoRestoreValue<ULONG> sourceContextPairCount(&this->pairCount, pairCount);
     AutoRestoreValue<SourceContextPair *> sourceContextPairs(&this->pSourceContextPairs, pSourceContextPairs);
 
+    // Prevent non-debug-mode byte code in the script body map from being re-used in debug mode.
+    this->RemoveScriptBodyMap();
+
     return this->scriptContext->OnDebuggerAttached();
 }
 
@@ -2199,16 +2208,19 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached: start 0x%p\n"), this);
 
-    if (m_pda == nullptr)
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
-        // Debug mode should have been enabled.
-        Assert(false);
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsScriptContextInNonDebugMode())
+    {
         return E_UNEXPECTED;
     }
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (this->scriptContext->IsRunningScript())
     {
-        Assert(false);
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
@@ -2226,6 +2238,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
     // in debug mode, but when m_isHostInDebugMode == true, we won't check host and at least keep script
     // engine in debug mode consistently. See ScriptEngine::IsDebuggerEnvironmentAvailable)
     m_isHostInDebugMode = false;
+
+    // Prevent debug-mode byte code in the script body map from being re-used in non-debug mode.
+    this->RemoveScriptBodyMap();
 
     return this->scriptContext->OnDebuggerDetached();
 }
@@ -6779,7 +6794,8 @@ STDMETHODIMP ScriptEngine::CollectGarbage(SCRIPTGCTYPE scriptgctype)
 
 HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     __in LPWSTR scriptText,
-    __out Var *scriptFunc)
+    __out Var *scriptFunc,
+    __in_opt LoadScriptFlag *pLoadScriptFlag)
 {
     HRESULT hr = NOERROR;
     IfNullReturnError(scriptText, E_INVALIDARG);
@@ -6795,7 +6811,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    LoadScriptFlag loadScriptFlag = LoadScriptFlag_Expression;
+    LoadScriptFlag loadScriptFlag = (pLoadScriptFlag == nullptr) ? LoadScriptFlag_Expression : (*pLoadScriptFlag);
     Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)

@@ -460,7 +460,9 @@
           "__proto__ - [Type]": "Object",
           "__proto__": "{...}",
           "byteLength - [Type]": "Number",
-          "byteLength": "8"
+          "byteLength": "8",
+          "Symbol.toStringTag - [Type]": "String",
+          "Symbol.toStringTag": "ArrayBuffer"
         },
         "n - [Type]": "String",
         "n": "ArrayBuffer"

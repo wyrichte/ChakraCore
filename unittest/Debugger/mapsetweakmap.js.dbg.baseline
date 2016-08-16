@@ -57,7 +57,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": "size = 0"
       },
@@ -79,7 +80,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": "size = 0"
       },
@@ -95,7 +97,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": "size = 0"
       },
@@ -110,7 +113,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": "size = 0"
       },
@@ -387,7 +391,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -509,7 +514,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -517,7 +523,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "size": "3"
+              "size": "3",
+              "Symbol.toStringTag": "Set"
             },
             "[Set]": {
               "0": "5",
@@ -583,7 +590,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": {
           "0": {
@@ -643,14 +651,16 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": {
           "0": {
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "size": "3"
+              "size": "3",
+              "Symbol.toStringTag": "Map"
             },
             "[Map]": {
               "0": "[5, {...}]",
@@ -991,7 +1001,8 @@
             },
             "__proto__": "null"
           },
-          "size": "2"
+          "size": "2",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -1103,7 +1114,8 @@
             },
             "__proto__": "null"
           },
-          "size": "2"
+          "size": "2",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -1165,7 +1177,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": "size = 0"
       },
@@ -1217,7 +1230,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": "size = 0"
       },
@@ -1552,7 +1566,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -1668,7 +1683,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -1731,7 +1747,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": {
           "0": {
@@ -1793,7 +1810,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": {
           "0": {

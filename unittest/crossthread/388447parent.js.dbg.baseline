@@ -52,7 +52,8 @@
         },
         "JSON": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "JSON"
         },
         "Math": {
           "[Methods]": "{...}",
@@ -64,7 +65,8 @@
           "LOG10E": "<large string>",
           "PI": "<large string>",
           "SQRT1_2": "<large string>",
-          "SQRT2": "<large string>"
+          "SQRT2": "<large string>",
+          "Symbol.toStringTag": "Math"
         },
         "NaN": "NaN",
         "obj": {

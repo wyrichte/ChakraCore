@@ -25,7 +25,8 @@
           "message": "Map.prototype.size: 'this' is not a Map object",
           "number": "-2146823172",
           "stack": "<large string>"
-        }
+        },
+        "Symbol.toStringTag": "Map"
       }
     }
   },

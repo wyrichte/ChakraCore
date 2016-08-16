@@ -77,6 +77,7 @@
           "[Methods]": "{...}",
           "__proto__": "{...}",
           "size": "<large string>",
+          "Symbol.toStringTag": "Set",
           "[108]": "108"
         }
       },

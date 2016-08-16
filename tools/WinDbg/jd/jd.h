@@ -230,9 +230,9 @@ protected:
     ExtRemoteTyped GetPropertyName(ExtRemoteTyped propertyNameListEntry);
     ULONG GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer);
 
-    void PrintScriptContextUrl(ExtRemoteTyped scriptContext);
-    void PrintThreadContextUrl(ExtRemoteTyped threadContext, bool isCurrentThreadContext = false);
-    void PrintAllUrl();
+    void PrintScriptContextUrl(ExtRemoteTyped scriptContext, bool showAll, bool showLink);
+    void PrintThreadContextUrl(ExtRemoteTyped threadContext, bool showAll, bool showLink, bool isCurrentThreadContext = false);
+    void PrintAllUrl(bool showAll, bool showLink);
 
     void PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext, bool printOnlyCount, bool printSourceContextInfo);
     void PrintThreadContextSourceInfos(ExtRemoteTyped threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);

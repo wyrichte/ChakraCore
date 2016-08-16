@@ -4,7 +4,8 @@
       "p1": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -19,7 +20,8 @@
       "p1": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -34,7 +36,8 @@
       "p1": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -49,7 +52,8 @@
       "p2": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -63,7 +67,8 @@
       "p3": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "rejected",
@@ -77,7 +82,8 @@
       "p1": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -92,7 +98,8 @@
       "p2": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "resolved",
@@ -106,7 +113,8 @@
       "p3": {
         "__proto__": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
           "[status]": "rejected",
