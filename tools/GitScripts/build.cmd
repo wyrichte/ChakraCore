@@ -7,15 +7,13 @@ if "%_LoggingParams%" EQU "" (
     set _LoggingParams=/fl1 /flp1:logfile=build_%_BuildArch%%_BuildType%.log;verbosity=normal /fl2 /flp2:logfile=build_%_BuildArch%%_BuildType%.err;errorsonly /fl3 /flp3:logfile=build_%_BuildArch%%_BuildType%.wrn;warningsonly
 )
 
-set _ChakraBuildConfig=
+set _ChakraBuildConfig=%_BuildType%
 if "%_BuildType%" EQU "chk" (
     set _ChakraBuildConfig=Debug
 ) else if "%_BuildType%" EQU "fre" (
     set _ChakraBuildConfig=Release
 ) else if "%_BuildType%" EQU "test" (
     set _ChakraBuildConfig=Test
-) else (
-    echo WARNING: Unknown build type '%_BuildType%'
 )
 
 set "_msbuildArgs="

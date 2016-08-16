@@ -78,8 +78,13 @@ goto :main
   set ChakraBuildArch=x64
   set ChakraBuildType=debug
 
-  rem TODO (attempt to) add msbuild to path if not found with where.exe.
-  rem Perhaps call VS's built-in script for setting up msbuild?
+  rem Set legacy build config vars to work with existing scripts
+  set _BuildArch=%ChakraBuildArch%
+  set _BuildType=%ChakraBuildType%
+  set REPO_ROOT=%ChakraFullRepoRoot%
+
+  rem Add msbuild to path
+  call %ChakraCoreRepoRoot%\Build\scripts\add_msbuild_path.cmd
 
   goto :eof
 
@@ -146,6 +151,12 @@ goto :main
   doskey armtest=       %%ChakraFullRepoRoot%%\initenv.cmd -arm -test
   doskey armrelease=    %%ChakraFullRepoRoot%%\initenv.cmd -arm -release
 
+  doskey buildfull=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd $*
+  doskey buildcore=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd /core $*
+
+  doskey testfull=      %%ChakraFullRepoRoot%%\tools\rununittests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*
+  doskey testcore=      %%ChakraFullRepoRoot%%\tools\runcoretests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*
+
   goto :eof
 
 :: ============================================================================
@@ -198,6 +209,10 @@ goto :main
 
   set "ChakraFullBinDir=%ChakraFullRepoRoot%\Build\VcBuild\bin\%ChakraBuildArch%_%ChakraBuildType%"
   set "ChakraCoreBinDir=%ChakraCoreRepoRoot%\Build\VcBuild\bin\%ChakraBuildArch%_%ChakraBuildType%"
+
+  rem Set legacy build config vars to work with existing scripts
+  set _BuildArch=%ChakraBuildArch%
+  set _BuildType=%ChakraBuildType%
 
   rem Change prompt to show current repo root and build config.
   rem The doskey macros are relative to these values.
