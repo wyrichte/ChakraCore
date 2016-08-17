@@ -89,6 +89,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "ret": "22"
       },
       "arguments": {
@@ -98,6 +99,7 @@
       },
       "input": "11",
       "[Globals]": {
+        "console": "{...}",
         "f": "<large string>",
         "f2": "<large string>",
         "f3": "<large string>",
@@ -111,6 +113,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "ret": "22"
       },
       "arguments": {
@@ -120,6 +123,7 @@
       },
       "input": "11",
       "[Globals]": {
+        "console": "{...}",
         "f": "<large string>",
         "f2": "<large string>",
         "f3": "<large string>",

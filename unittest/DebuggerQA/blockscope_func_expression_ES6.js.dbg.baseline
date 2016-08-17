@@ -5,7 +5,12 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "bar": "undefined",
+        "console": "{...}",
         "x": "undefined"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "x": "undefined",
       "bar": "undefined"
@@ -16,7 +21,12 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "x": "1"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "x": "1",
       "bar": {

@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "3"
+        "callcount": "3",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -14,6 +15,7 @@
       "z": "2",
       "z#1": "1",
       "[Globals]": {
+        "console": "{...}",
         "Call": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>",
@@ -26,7 +28,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "3"
+        "callcount": "3",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -41,6 +44,7 @@
       },
       "z": "2",
       "[Globals]": {
+        "console": "{...}",
         "Call": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>",

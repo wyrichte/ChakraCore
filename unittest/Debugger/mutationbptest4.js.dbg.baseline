@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "console": "{...}"
       },
       "[Pending Mutation]": {
         "a [Changing]": "0",
@@ -20,6 +21,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "noop": "<large string>",
         "test4": "<large string>",
         "a": "undefined"
@@ -31,7 +33,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "console": "{...}"
       },
       "[Pending Mutation]": {
         "a [Changing]": "x",
@@ -47,6 +50,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "noop": "<large string>",
         "test4": "<large string>",
         "a": "undefined"
@@ -58,7 +62,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "console": "{...}"
       },
       "[Pending Mutation]": {
         "b [Changing]": "{...}",
@@ -74,6 +79,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "noop": "<large string>",
         "test4": "<large string>",
         "a": "undefined"

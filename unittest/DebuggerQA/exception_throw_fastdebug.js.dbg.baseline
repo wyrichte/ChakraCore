@@ -38,7 +38,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "3"
+        "callcount": "3",
+        "console": "{...}"
       },
       "{exception}": {
         "__proto__": "",
@@ -52,6 +53,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

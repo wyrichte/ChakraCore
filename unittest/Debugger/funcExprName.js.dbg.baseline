@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -21,6 +22,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -30,7 +32,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -56,6 +59,7 @@
       },
       "a": "false",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -65,7 +69,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -77,6 +82,7 @@
         "a": "false"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -86,7 +92,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -104,6 +111,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -113,7 +121,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -131,6 +140,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }

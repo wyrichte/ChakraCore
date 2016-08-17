@@ -1616,7 +1616,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = activeScriptDirect->GetOrAddPropertyId(_u("WScript"), &wscriptPropertyId);
     IfFailedGo(hr);
     Var wscript;
-    hr =  activeScriptDirect->CreateObject(&wscript);
+    hr = activeScriptDirect->CreateObject(&wscript);
     IfFailedGo(hr);
     hr = operations->SetProperty(activeScriptDirect, globalObject, wscriptPropertyId, wscript, &result);
     IfFailedGo(hr);
@@ -1627,6 +1627,19 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the Echo method
     hr = AddMethodToObject(_u("Echo"), activeScriptDirect, wscript, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    // Create the console object
+    PropertyId consolePropertyId;
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("console"), &consolePropertyId);
+    IfFailedGo(hr);
+    Var console;
+    hr = activeScriptDirect->CreateObject(&console);
+    IfFailedGo(hr);
+    hr = operations->SetProperty(activeScriptDirect, globalObject, consolePropertyId, console, &result);
+
+    // Create the console.log method
+    hr = AddMethodToObject(_u("log"), activeScriptDirect, console, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
     if (!isHTMLHost)

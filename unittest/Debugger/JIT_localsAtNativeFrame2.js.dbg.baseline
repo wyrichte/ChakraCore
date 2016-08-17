@@ -169,6 +169,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -430,6 +431,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -691,6 +693,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -952,6 +955,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",

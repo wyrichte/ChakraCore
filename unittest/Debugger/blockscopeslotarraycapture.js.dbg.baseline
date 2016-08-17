@@ -38,6 +38,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"
@@ -58,7 +59,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -76,6 +78,7 @@
         "verify": "<large string>"
       },
       "[Globals]": {
+        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"

@@ -32,6 +32,10 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
         }
       },
       "[Date returned]": {
@@ -69,6 +73,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "[Methods]": "{...}",
           "__proto__": "<large string>",

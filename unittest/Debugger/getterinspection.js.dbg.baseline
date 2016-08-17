@@ -28,6 +28,7 @@
       },
       "nothrow": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "test": "<large string>"
       }
     }
@@ -66,6 +67,7 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "test": "<large string>"
       }
     }

@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "[1,2,check]"
+        "a": "[1,2,check]",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -18,6 +19,7 @@
       "y": "2",
       "z": "check",
       "[Globals]": {
+        "console": "{...}",
         "bar": "<large string>",
         "foo": "<large string>",
         "a": "[1,2,check]"

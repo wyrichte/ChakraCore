@@ -43,6 +43,10 @@
         "cp4": "9"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "blockScopeBasicLetConstTestFunc": {
           "__proto__": "<large string>",
           "arguments": "{...}",

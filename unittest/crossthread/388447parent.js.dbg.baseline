@@ -7,9 +7,14 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "e": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
+          "console": "{...}",
           "Debug": "{...}",
           "Infinity": "Infinity",
           "Intl": "{...}",
@@ -23,11 +28,24 @@
           "WScript": "{...}"
         }
       },
+      "console": {
+        "[Methods]": {
+          "log": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
       "e": {
         "[Methods]": {},
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
         },
         "Debug": {
           "[Methods]": "{...}",

@@ -25,7 +25,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -41,6 +42,7 @@
         "__proto__": "Invalid Date"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"

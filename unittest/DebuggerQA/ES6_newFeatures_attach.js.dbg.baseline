@@ -51,6 +51,7 @@
         "arrow_a": "<large string>"
       },
       "[Globals]": {
+        "console": "{...}",
         "Run": "<large string>"
       }
     }

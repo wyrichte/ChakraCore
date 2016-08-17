@@ -25,6 +25,10 @@
           "[Methods]": "{...}",
           "__proto__": "{...}"
         },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "helpers": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
@@ -90,6 +94,10 @@
         "c": "3"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "tests": {
           "__proto__": "[]",
           "length": "3",
@@ -191,6 +199,10 @@
         "C": "3"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "tests": {
           "__proto__": "[]",
           "length": "3",

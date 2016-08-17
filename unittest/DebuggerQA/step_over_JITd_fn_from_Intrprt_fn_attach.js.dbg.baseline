@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "5"
+        "callcount": "5",
+        "console": "{...}"
       },
       "[baz returned]": "undefined",
       "arguments": {
@@ -17,6 +18,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

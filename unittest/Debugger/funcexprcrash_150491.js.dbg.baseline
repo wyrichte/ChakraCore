@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -26,6 +27,7 @@
         "p": "false"
       },
       "[Globals]": {
+        "console": "{...}",
         "Pass": "<large string>",
         "test": "<large string>",
         "top": "{...}"

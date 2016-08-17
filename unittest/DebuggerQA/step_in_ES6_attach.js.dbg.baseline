@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "[Return value]": "undefined",
       "arguments": {
@@ -13,6 +14,7 @@
       },
       "x": "2",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -24,7 +26,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "[baz returned]": "undefined",
       "[Return value]": "undefined",
@@ -37,6 +40,7 @@
       "__a": "bar_const",
       "a": "bar",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -48,7 +52,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "[bar returned]": "undefined",
       "[Return value]": "undefined",
@@ -61,6 +66,7 @@
       "__a": "foo_const",
       "a": "foo",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

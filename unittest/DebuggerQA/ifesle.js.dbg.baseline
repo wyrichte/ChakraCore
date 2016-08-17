@@ -9,6 +9,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
@@ -25,6 +26,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
@@ -41,6 +43,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
@@ -58,6 +61,7 @@
     "locals": {
       "this": "{...}",
       "b1": "1",
+      "console": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
@@ -74,6 +78,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",

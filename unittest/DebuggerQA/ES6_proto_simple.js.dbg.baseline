@@ -14,6 +14,19 @@
         "b": {
           "__proto__": "{...}",
           "y": "2"
+        },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "console": {
+        "[Methods]": {
+          "log": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
         }
       },
       "a": {

@@ -39,7 +39,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -47,6 +48,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "val": "function val(){\n\treturn 2;\n}",
         "Run": "<large string>"
       }

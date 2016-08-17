@@ -18,6 +18,10 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
         }
       },
       "arguments": {
@@ -50,6 +54,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "fooCaller": {
           "__proto__": "<large string>",
           "arguments": "null",

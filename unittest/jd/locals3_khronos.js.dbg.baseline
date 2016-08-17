@@ -617,6 +617,12 @@
         }
       },
       "[Globals]": {
+        "console - [Type]": "Object",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}"
+        },
         "Animal - [Type]": "Object, (Function)",
         "Animal": {
           "__proto__ - [Type]": "Object, (Function)",

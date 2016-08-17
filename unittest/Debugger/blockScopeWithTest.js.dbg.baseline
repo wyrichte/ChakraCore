@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -20,6 +21,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "console": "{...}",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -28,7 +30,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -43,6 +46,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "console": "{...}",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -51,7 +55,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -65,6 +70,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "console": "{...}",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -73,7 +79,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -86,6 +93,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "console": "{...}",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
