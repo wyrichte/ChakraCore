@@ -529,6 +529,10 @@ HRESULT CApp::Init(CAppWindow* pAppWindow)
     CComPtr<IOleControl> pOleControl;
     CComPtr<IConnectionPointContainer> pCPC;
 
+    // copied from htmlpad to make it work. Will investigate 
+    // webplatformhelper.lib.
+    IEConfiguration_SetBool(IEPS_EdgeContentHost, true);
+
     if (FAILED(hr = PrivateCoCreateForEdgeHtml(__uuidof(HTMLDocument), NULL,
         CLSCTX_INPROC_SERVER, __uuidof(IHTMLDocument2),
         (LPVOID*)&g_pApp->m_pMSHTML)))
@@ -546,10 +550,6 @@ HRESULT CApp::Init(CAppWindow* pAppWindow)
     {
         SetHostToDebugMode();
     }
-
-    // copied from htmlpad to make it work. Will investigate 
-    // webplatformhelper.lib.
-    IEConfiguration_SetBool(IEPS_EdgeContentHost, true);
 
      {// scope
         CComPtr<IHTMLWindow2> pWin;
