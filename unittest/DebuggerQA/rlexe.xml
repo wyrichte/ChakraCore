@@ -888,14 +888,14 @@
   <test>
     <default>
       <files>specialproperties.js</files>
-      <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -inspectmaxstringlength:100 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -inspectmaxstringlength:110 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>specialproperties_attach.js</files>
-      <compile-flags>-targeted -inspectmaxstringlength:100 -ES6Species -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -inspectmaxstringlength:256 -ES6Species -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -909,7 +909,7 @@
   <test>
     <default>
       <files>ES6_specialproperties.js</files>
-      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_specialproperties.js.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:ES6_specialproperties.js.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -944,21 +944,21 @@
   <test>
     <default>
       <files>specialproperties_level2.js</files>
-      <compile-flags>-debuglaunch -es6functionnamefull -targeted -inspectmaxstringlength:100 -dbgbaseline:specialproperties_level2.js.debuglaunch.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -es6functionnamefull -targeted -inspectmaxstringlength:256 -dbgbaseline:specialproperties_level2.js.debuglaunch.dbg.baseline</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_newFeatures.js</files>
-      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:ES6_newFeatures.js.dbg.baseline -es6classes </compile-flags>
+      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:ES6_newFeatures.js.dbg.baseline -es6classes </compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_newFeatures_attach.js</files>
-      <compile-flags>-targeted -inspectmaxstringlength:100 -es6classes -dbgbaseline:ES6_newFeatures_attach.js.dbg.baseline</compile-flags>
+      <compile-flags>-targeted -inspectmaxstringlength:256 -es6classes -dbgbaseline:ES6_newFeatures_attach.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
