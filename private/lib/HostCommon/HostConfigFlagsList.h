@@ -8,6 +8,7 @@ FLAG(bool, HtmlKeepAlive,                   "Keep alive after page loaded. Exit 
 FLAG(int,  HtmlOnScriptError,               "Set OnSriptError host action: 1 - Continue script (default). 0 - Stop script. Other: Trident handles it", 1)
 FLAG(bool, HtmlVersion,                     "Let Trident decide script version based on html page. Don't use default latest version. Used with -html only", false)
 FLAG(bool, HtmlVisible,                     "Show jshost html window. Implies -HtmlKeepAlive.", false)
+FLAG(bool, HtmlUseShdocvw,                  "Use Shdocvw.", false)
 FLAG(bool, IgnoreScriptErrorCode,           "Don't return error code on script error", false)
 FLAG(bool, EnableDebug,                     "Run in debug mode, allowing attach", false)
 FLAG(bool, Break,                           "Stop in JS debugger on initial script execution. Requires EnableDebug.", false)

@@ -212,7 +212,7 @@ public:
     STDMETHOD(IsErrorUrl)(__in LPCWSTR lpszUrl, __out BOOL* pfIsError) { return E_NOTIMPL; }
 
     // Additional class methods
-    HRESULT Init(CAppWindow* pAppWindow);
+    HRESULT Init(CAppWindow* pAppWindow, bool fUseShdocvw);
     HRESULT InitAfterLoad();
     HRESULT ProcessArgs(__in_ecount(urlLen) LPCWSTR url, size_t urlLen);
     HRESULT OnPageLoaded();
@@ -220,11 +220,13 @@ public:
     HRESULT Term();
     void    SetKeepAlive(bool keepAlive) { m_keepAlive = keepAlive; }
     HRESULT PrivateCoCreateForEdgeHtml(REFCLSID rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, REFIID iid, LPVOID* ppunk);
-    
+    HRESULT PrivateCoCreateForIEFrame(REFCLSID rclsid, LPUNKNOWN pUnkOuter, DWORD dwClsContext, REFIID iid, LPVOID* ppunk);
+
 private:
     // Persistence helpers
     HRESULT LoadURLFromFile();
     HRESULT LoadURLFromMoniker();
+    HRESULT LoadURLFromWebBrowser(wchar_t * szURL);
     HRESULT SimulateShowMessage(VARIANT* pvarIn, VARIANT* pvaOut);
     HRESULT  GetParamsFromEvent(  
     __in IHTMLEventObj         * pEventObj,  
@@ -234,7 +236,6 @@ private:
     __in_ecount(cExpandos)  const SExpandoInfo      aExpandos []);
     void SetHostToDebugMode();
 
-    IHTMLDocument2* m_pMSHTML;
     DWORD m_dwRef;
     DWORD m_dwCookie;
     LPCONNECTIONPOINT m_pCP;
@@ -242,25 +243,31 @@ private:
     LPTSTR m_szURL;
     INTERNET_SCHEME m_nScheme;
     READYSTATE m_lReadyState;
-    HINSTANCE hInstance;
+    HINSTANCE hInstanceEdgeHtml;
+    HINSTANCE hInstanceIEFrame;
 
     CAppWindow* m_pAppWindow;
-    CAppWebBrowser *m_pWebBrowser;
-
+    IWebBrowser2 *m_pWebBrowser;
     CWinSink* m_pWinSink;
     bool m_keepAlive;
+    bool m_fUseShdocvw;
 };
 typedef CApp* LPAPP;
 
 // This dummy implementation is required to make mshtml happy.
 // (One assert in the mshtml gets fired in the code path to enable debugging if it doesn't find the IWebBrower2)
 
-class CAppWebBrowser : IWebBrowser2
+class CAppWebBrowser : public IWebBrowser2
 {
 public:
-    CAppWebBrowser()
-    : m_refCount(1)
+    CAppWebBrowser(IHTMLDocument2 * pMSHTML)
+        : m_refCount(1), m_pMSHTML(pMSHTML)
     {
+        pMSHTML->AddRef();
+    }
+    ~CAppWebBrowser()
+    {
+        Passivate();
     }
 
     // IUnknown methods
@@ -301,7 +308,7 @@ public:
 
     // IWebBrowser2/IWebBrowser methods 
     //------------------------------------
-    STDMETHOD(get_Document)(IDispatch * * Document) { return E_NOTIMPL; }
+    STDMETHOD(get_Document)(IDispatch * * Document);
     STDMETHOD(Navigate)(BSTR URL, VARIANT* Flags, VARIANT* TargetFrameName, VARIANT* PostData, VARIANT* Headers) { return E_NOTIMPL; }
     STDMETHOD(Refresh)(void) { return E_NOTIMPL; }
     STDMETHOD(Refresh2)(VARIANT* Level) { return E_NOTIMPL; }
@@ -329,7 +336,7 @@ public:
     STDMETHOD(get_Height)(__out long* pl) { return E_NOTIMPL; }
     STDMETHOD(put_Height)(long Height) { return E_NOTIMPL; }
     STDMETHOD(get_Busy)(VARIANT_BOOL* pBool) { return E_NOTIMPL; }
-    STDMETHOD(Quit)(void) { return E_NOTIMPL; }
+    STDMETHOD(Quit)(void);
     STDMETHOD(ClientToWindow)(int* pcx, int* pcy) { return E_NOTIMPL; }
     STDMETHOD(PutProperty)(BSTR szProperty, VARIANT vtValue) { return E_NOTIMPL; }
     STDMETHOD(GetProperty)(BSTR szProperty, VARIANT* pvtValue) { return E_NOTIMPL; }
@@ -351,7 +358,7 @@ public:
     STDMETHOD(ShowBrowserBar)(VARIANT* pvaClsid, VARIANT* pvaShow, VARIANT* pvaSize) { return E_NOTIMPL; }
     STDMETHOD(QueryStatusWB)(OLECMDID cmdID, OLECMDF* pcmdf) { return E_NOTIMPL; }
     STDMETHOD(ExecWB)(OLECMDID cmdID, OLECMDEXECOPT cmdexecopt, VARIANT* pvaIn, VARIANT* pvaOut) { return E_NOTIMPL; }
-    STDMETHOD(get_ReadyState)(READYSTATE* plReadyState) { return E_NOTIMPL; }
+    STDMETHOD(get_ReadyState)(READYSTATE* plReadyState);
     STDMETHOD(get_Offline)(VARIANT_BOOL* pbOffline) { return E_NOTIMPL; }
     STDMETHOD(put_Offline)(VARIANT_BOOL bOffline) { return E_NOTIMPL; }
     STDMETHOD(get_Silent)(VARIANT_BOOL* pbSilent) { return E_NOTIMPL; }
@@ -367,5 +374,8 @@ public:
     STDMETHOD(put_Resizable)(VARIANT_BOOL Value) { return E_NOTIMPL; }
 
 private:
+    void Passivate();
+
+    IHTMLDocument2 * m_pMSHTML;
     long m_refCount;
 };

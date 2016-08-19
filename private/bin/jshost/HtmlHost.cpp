@@ -58,8 +58,8 @@ HRESULT DoOneHtmlIteration(BSTR filename)
     ShowWindow(pAppWindow->GetWindow(), HostConfigFlags::flags.HtmlVisible ? SW_SHOW : SW_HIDE);
     UpdateWindow(pAppWindow->GetWindow());
 
-    IfFailGo(g_pApp->Init(pAppWindow));
-    g_pApp->Run();
+    IfFailGo(g_pApp->Init(pAppWindow, HostConfigFlags::flags.HtmlUseShdocvw));
+    IfFailGo(g_pApp->Run());
 
     ODS(_u("Terminating html test ....\n"));
 
