@@ -16,7 +16,7 @@ Pass: myTypedArray[2]
 
  type: TypedArrayObject flags: (new) optional info records (2)
  |  [Internal property] type: ArrayBuffer flags: (new) optional info records (1)
- |  |    [Prototype] type: ArrayBuffer flags: (new) optional info records (1)
+ |  |    [Prototype] type: ObjectObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  |  [Prototype] type: Null flags: (new) optional info records (0)
  |  |    |  |  [Properties] count: 13
@@ -99,21 +99,138 @@ Pass: myTypedArray[2]
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 1
  |  |    |  |  |    | 0 length: value: 1.000000
- |  [Prototype] type: TypedArrayObject flags: (new) optional info records (3)
- |  |  [Internal property] type: ArrayBuffer flags: (new) optional info records (1)
- |  |  |    [Prototype] type: ArrayBuffer (seen)
- |  |  [Prototype] type: ObjectObject (seen)
- |  |  [Properties] count: 3
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  |  [Prototype] type: ObjectObject (seen)
+ |  |  |  [Properties] count: 35
+ |  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  | 1 set: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 2 subarray: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 3 copyWithin: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 4 every: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 5 fill: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 6 filter: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 7 find: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 8 findIndex: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 9 forEach: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 10 indexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 11 join: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 12 lastIndexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 13 map: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 14 reduce: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 15 reduceRight: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 16 reverse: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 17 slice: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 2.000000
+ |  |  |  | 18 some: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 19 sort: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 20 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 21 keys: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 22 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 23 Symbol.iterator: type: FunctionObject (seen)
+ |  |  |  | 24 includes: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 1.000000
+ |  |  |  | 25 buffer: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 26 buffer: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  | 27 byteLength: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 28 byteLength: rsFlags: setter type: FunctionObject (seen)
+ |  |  |  | 29 byteOffset: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 30 byteOffset: rsFlags: setter type: FunctionObject (seen)
+ |  |  |  | 31 length: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 32 length: rsFlags: setter type: FunctionObject (seen)
+ |  |  |  | 33 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  |  | 34 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |  |    [Properties] count: 1
+ |  |  |  |    | 0 length: value: 0.000000
+ |  |  [Properties] count: 2
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  | 1 set: type: FunctionObject flags: (new) optional info records (2)
- |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |    [Properties] count: 1
- |  |  |    | 0 length: value: 2.000000
- |  |  | 2 subarray: type: FunctionObject flags: (new) optional info records (2)
- |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |    [Properties] count: 1
- |  |  |    | 0 length: value: 2.000000
+ |  |  | 1 BYTES_PER_ELEMENT: value: 4.000000
 
 ==========>End Heap Dump<===============
 
