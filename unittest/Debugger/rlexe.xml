@@ -1968,13 +1968,14 @@
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  <!-- Bug: OS: 8555166
   <test>
     <default>
       <files>test_iframe1.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:test_iframe1.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
-  </test>
+  </test> -->
   <test>
     <default>
       <files>html_workertest.html</files>
