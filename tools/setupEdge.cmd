@@ -148,9 +148,9 @@ call :EnsureDirectory "%_DEST%\mshtmpad.exe.local\en-us"
 call :EnsureDirectory "%_DEST%\wpaxhost.exe.local" 
 call :EnsureDirectory "%_DEST%\wpaxhost.exe.local\en-us" 
 
-set BINSRC=%WINBUILDBASE%\%BUILDVER%\%_BuildArch%fre\bin
-set SYMSRC=%WINBUILDBASE%\%BUILDVER%\%_BuildArch%fre\symbols.pri
-set MUISRC=%WINBUILDBASE%\%BUILDVER%\%_BuildArch%fre\en-us\bin_segmented\onecoreuap
+set BINSRC=%WINBUILDBASE%\%BUILDVER%\%COPYARCH%fre\bin
+set SYMSRC=%WINBUILDBASE%\%BUILDVER%\%COPYARCH%fre\symbols.pri
+set MUISRC=%WINBUILDBASE%\%BUILDVER%\%COPYARCH%fre\en-us\bin_segmented\onecoreuap
 
 echo FROM : %BINSRC%
 echo TO   : %_DEST%\jshost.exe.local
