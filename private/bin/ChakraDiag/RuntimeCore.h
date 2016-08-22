@@ -40,6 +40,7 @@ namespace Js
     class JavascriptStackWalker;            // Used by StackTraceArguments.h
     class JavascriptFunction;               // Used by JavascriptExceptionObject.h
     class JavascriptGeneratorFunction;      // Used by JavascriptLibrary.h
+    class JavascriptAsyncFunction;          // Used by JavascriptLibrary.h
     class ScriptFunctionType;               // used by FunctionBody.h
     class ScriptFunction;                   // Used by InterpreterStackFrame.h
     class GeneratorVirtualScriptFunction;   // Used by JavascriptLibrary.h
