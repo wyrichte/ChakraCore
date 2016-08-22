@@ -50,7 +50,7 @@ MetadataString NamespaceContext::GetNameIdRelativeToCurrentContext(MetadataStrin
     return fullyQualifiedName;
 }
 
-ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, IStringConverter& converter, bool emitAnyForUnresolvedTypes) :
+ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, IStringConverter& converter, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes) :
     m_alloc(alloc),
     m_emitter(emitter),
     m_writer(writer),
@@ -59,7 +59,8 @@ ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator*
     m_exclusiveToAttributeStringId(converter.IdOfString(L"Windows.Foundation.Metadata.ExclusiveToAttribute")),
     m_voidStringId(converter.IdOfString(L"Void")),
     m_namespaceContext(converter),
-    m_emitAnyForUnresolvedTypes(emitAnyForUnresolvedTypes)
+    m_emitAnyForUnresolvedTypes(emitAnyForUnresolvedTypes),
+    m_suppressWarningsForUnresolvedWindowsTypes(suppressWarningsForUnresolvedWindowsTypes)
 {
     EmitSpecialTypes();
 }
@@ -187,7 +188,12 @@ bool ProjectionToTypeScriptConverter::IsTypeVisible(RtTYPE type)
 {
     if (MissingNamedType::Is(type) || MissingGenericInstantiationType::Is(type))
     {
-        wcerr << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
+        wstring typeName = MetadataString(type->fullTypeNameId).ToString();
+
+        if (!m_suppressWarningsForUnresolvedWindowsTypes || typeName.compare(0, 8, L"Windows.", 8) != 0)
+        {
+            wcerr << L"warning: Reference to missing type: " << typeName << endl;
+        }
 
         return false;
     }

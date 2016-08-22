@@ -76,6 +76,10 @@ void CommandLineReader::ApplyParameter(Configuration& config, const wstring& par
             {
                 config.emitAnyForUnresolvedTypes = true;
             }
+            else if (lowercaseParam.compare(1, lowercaseParam.size() - 1, L"suppresswarningsforunresolvedwindowstypes") == 0)
+            {
+                config.suppressWarningsForUnresolvedWindowsTypes = true;
+            }
             else
             {
                 throw CommandLineArgumentError(parameter);

@@ -13,6 +13,7 @@ struct Configuration
     bool enableVersioningAllAssemblies = false;
     bool enableVersioningWindowsAssemblies = false;
     bool emitAnyForUnresolvedTypes = false;
+    bool suppressWarningsForUnresolvedWindowsTypes = false;
 };
 
 class CommandLineReader

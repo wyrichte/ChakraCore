@@ -50,7 +50,7 @@ void GenerateTsFromWinmds(IMetaDataDispenserEx* dispenser, const Configuration& 
 
         IndentingWriter writer(*outputStream);
         TypeScriptEmitter tsEmitter(writer, MetadataString::s_stringConverter);
-        ProjectionToTypeScriptConverter emitter(&alloc, tsEmitter, writer, MetadataString::s_stringConverter, config.emitAnyForUnresolvedTypes);
+        ProjectionToTypeScriptConverter emitter(&alloc, tsEmitter, writer, MetadataString::s_stringConverter, config.emitAnyForUnresolvedTypes, config.suppressWarningsForUnresolvedWindowsTypes);
 
         currentAssignmentSpace.GetValue()->vars->Iterate([&](RtASSIGNMENT var) {
             emitter.EmitTopLevelNamespace(MetadataString::s_stringConverter.IdOfString(var->identifier), PropertiesObject::From(var->expr));

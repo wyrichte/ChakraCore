@@ -25,7 +25,7 @@ private:
 class ProjectionToTypeScriptConverter
 {
 public:
-    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, bool emitAnyForUnresolvedTypes);
+    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes);
     void EmitTopLevelNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
 
 private:
@@ -83,4 +83,5 @@ private:
     MetadataStringId m_exclusiveToAttributeStringId;
     NamespaceContext m_namespaceContext;
     bool m_emitAnyForUnresolvedTypes;
+    bool m_suppressWarningsForUnresolvedWindowsTypes;
 };
