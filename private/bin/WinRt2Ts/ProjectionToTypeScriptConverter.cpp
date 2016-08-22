@@ -5,6 +5,7 @@
 #include "stdafx.h"
 
 #include "ProjectionToTypeScriptConverter.h"
+#include "XmlDocReferenceBuilder.h"
 
 using namespace Metadata;
 using namespace ProjectionModel;
@@ -50,7 +51,14 @@ MetadataString NamespaceContext::GetNameIdRelativeToCurrentContext(MetadataStrin
     return fullyQualifiedName;
 }
 
-ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, IStringConverter& converter, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes) :
+ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(
+    ArenaAllocator* alloc,
+    TypeScriptEmitter& emitter,
+    IndentingWriter& writer,
+    IStringConverter& converter,
+    XmlDocReferenceBuilder& docBuilder,
+    bool emitAnyForUnresolvedTypes,
+    bool suppressWarningsForUnresolvedWindowsTypes) :
     m_alloc(alloc),
     m_emitter(emitter),
     m_writer(writer),
@@ -59,6 +67,7 @@ ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator*
     m_exclusiveToAttributeStringId(converter.IdOfString(L"Windows.Foundation.Metadata.ExclusiveToAttribute")),
     m_voidStringId(converter.IdOfString(L"Void")),
     m_namespaceContext(converter),
+    m_docBuilder(docBuilder),
     m_emitAnyForUnresolvedTypes(emitAnyForUnresolvedTypes),
     m_suppressWarningsForUnresolvedWindowsTypes(suppressWarningsForUnresolvedWindowsTypes)
 {
@@ -190,7 +199,7 @@ bool ProjectionToTypeScriptConverter::IsTypeVisible(RtTYPE type)
     {
         wstring typeName = MetadataString(type->fullTypeNameId).ToString();
 
-        if (!m_suppressWarningsForUnresolvedWindowsTypes || typeName.compare(0, 8, L"Windows.", 8) != 0)
+        if (!m_suppressWarningsForUnresolvedWindowsTypes || typeName.compare(0, _ARRAYSIZE(L"Windows.") - 1, L"Windows.") != 0)
         {
             wcerr << L"warning: Reference to missing type: " << typeName << endl;
         }
@@ -283,17 +292,23 @@ bool ProjectionToTypeScriptConverter::AreAllParameterTypesVisible(RtPARAMETERS p
 
 auto_ptr<TypeScriptEnumDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForEnum(MetadataString enumName, RtENUM enumDefinition)
 {
+    m_docBuilder.SetCurrentType(enumDefinition->typeDef);
+
     auto enumDeclaration = TypeScriptEnumDeclaration::Make(enumName);
 
     enumDefinition->properties->fields->Iterate([&](RtPROPERTY enumField) {
-        enumDeclaration->AppendMember(enumField->identifier);
+        enumDeclaration->AppendMember(enumField->identifier, m_docBuilder.MakeForField(AbiFieldProperty::From(enumField)->fieldProperties->id));
     });
+
+    enumDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return enumDeclaration;
 }
 
 auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForRuntimeClass(MetadataString runtimeClassName, RtRUNTIMECLASSCONSTRUCTOR rtClassConstructor)
 {
+    m_docBuilder.SetCurrentType(rtClassConstructor->typeDef);
+
     bool extendsArray = false;
     bool extendsMap = false;
 
@@ -376,6 +391,8 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
         move(instanceMembers)
         );
 
+    classDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
+
     return classDeclaration;
 }
 
@@ -419,6 +436,8 @@ static MetadataStringId GetMetadataNameOfProperty(RtPROPERTY property) {
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForInterface(MetadataString interfaceName, RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
 {
+    m_docBuilder.SetCurrentType(interfaceConstructor->typeDef);
+
     bool extendsArray = false;
     bool extendsMap = false;
 
@@ -462,25 +481,36 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
         move(typeMembers)
         );
 
+    interfaceDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
+
     return interfaceDeclaration;
 }
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForStruct(MetadataString structName, RtSTRUCTCONSTRUCTOR structConstructor)
 {
+    m_docBuilder.SetCurrentType(structConstructor->structType->typeDef);
+
     auto structDeclaration = TypeScriptInterfaceDeclaration::Make(structName);
     structConstructor->structType->fields->Iterate([&](RtPROPERTY field) {
         auto fieldType = AbiFieldProperty::From(field)->type;
         if (m_emitAnyForUnresolvedTypes || IsTypeVisible(fieldType))
         {
-            structDeclaration->AddMember(TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType), false /* optional */));
+            auto member = TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType), false /* optional */);
+            member->AttachDocumentation(m_docBuilder.MakeForField(AbiFieldProperty::From(field)->fieldProperties->id));
+            structDeclaration->AddMember(move(member));
         }
     });
+
+    structDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return structDeclaration;
 }
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForDelegate(MetadataString delegateName, RtDELEGATECONSTRUCTOR delegateConstructor)
 {
+    m_docBuilder.SetCurrentType(delegateConstructor->invokeInterface->typeDef);
+    auto doc = m_docBuilder.MakeForCurrentType();
+
     Assert(delegateConstructor->invokeInterface->interfaceType == ifRuntimeInterfaceConstructor);
     auto invokeInterfaceConstructor = RuntimeInterfaceConstructor::From(delegateConstructor->invokeInterface);
 
@@ -491,8 +521,12 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
 
     if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(params))
     {
-        interfaceDeclaration->AddMember(TypeScriptCallSignature::Make(GetTypeScriptParameters(params), GetTypeScriptReturnType(params)));
+        auto member = TypeScriptCallSignature::Make(GetTypeScriptParameters(params), GetTypeScriptReturnType(params));
+        member->AttachDocumentation(doc);
+        interfaceDeclaration->AddMember(move(member));
     }
+
+    interfaceDeclaration->AttachDocumentation(doc);
 
     return interfaceDeclaration;
 }
@@ -704,11 +738,14 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetTypeScrip
 
         if (forceReturnTypeToAny)
         {
-            methods->AddMember(TypeScriptMethodSignature::Make(methodNameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params)));
+            auto member = TypeScriptMethodSignature::Make(methodNameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params));
+            member->AttachDocumentation(m_docBuilder.MakeForMethod(methodSignature));
+            methods->AddMember(move(member));
         }
         else
         {
             AddPropertyToMemberList(
+                m_docBuilder.MakeForMethod(methodSignature),
                 methods.get(),
                 methodNameStr,
                 fullyQualifiedNameBehavior,
@@ -823,6 +860,7 @@ auto_ptr<TypeScriptTypeList> ProjectionToTypeScriptConverter::GetImplementedType
 
 template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
 void ProjectionToTypeScriptConverter::AddPropertyToMemberList(
+    XmlDocReference doc,
     TypeScriptTypeMemberList* memberList, 
     MetadataString propertyName, 
     FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
@@ -834,11 +872,15 @@ void ProjectionToTypeScriptConverter::AddPropertyToMemberList(
     auto shortName = GetLastPartIfFullyQualified(propertyNameString);
     if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::EmitAsOptional)
     {
-        memberList->AddMember(makeMember(propertyName, true));
+        auto member = makeMember(propertyName, true);
+        member->AttachDocumentation(doc);
+        memberList->AddMember(move(member));
     }
     else
     {
-        memberList->AddMember(makeMember(propertyName, false));
+        auto member = makeMember(propertyName, false);
+        member->AttachDocumentation(doc);
+        memberList->AddMember(move(member));
 
         if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::AlsoEmitUnqualifiedMember)
         {
@@ -911,6 +953,7 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(propertyType))
             {
                 AddPropertyToMemberList(
+                    m_docBuilder.MakeForProperty(GetMetadataNameOfProperty(property)),
                     memberList.get(), 
                     property->identifier,
                     fullyQualifiedNameBehavior, 
@@ -930,6 +973,7 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(eventHandlerType))
             {
                 AddPropertyToMemberList(
+                    m_docBuilder.MakeForEventHandler(GetMetadataNameOfProperty(property)),
                     memberList.get(),
                     property->identifier,
                     fullyQualifiedNameBehavior,
@@ -1009,7 +1053,9 @@ auto_ptr<TypeScriptConstructorOverloads> ProjectionToTypeScriptConverter::GetCon
 
         if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(parameters))
         {
-            overloads.push_back(GetTypeScriptParameters(parameters));
+            auto overload = GetTypeScriptParameters(parameters);
+            overload->AttachDocumentation(m_docBuilder.MakeForMethod(methodSignature));
+            overloads.push_back(move(overload));
         }
     }
     break;

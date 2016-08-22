@@ -6,6 +6,7 @@
 
 #include "TypeScriptEmitter.h"
 #include "ProjectionToTypeScriptError.h"
+#include "XmlDocReferenceBuilder.h"
 
 class NamespaceContext
 {
@@ -25,7 +26,7 @@ private:
 class ProjectionToTypeScriptConverter
 {
 public:
-    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes);
+    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, XmlDocReferenceBuilder& docBuilder, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes);
     void EmitTopLevelNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
 
 private:
@@ -39,6 +40,7 @@ private:
     
     template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
     void AddPropertyToMemberList(
+        XmlDocReference doc,
         TypeScriptTypeMemberList* memberList,
         MetadataString propertyName,
         FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
@@ -82,6 +84,7 @@ private:
     MetadataStringId m_indexOfStringId;
     MetadataStringId m_exclusiveToAttributeStringId;
     NamespaceContext m_namespaceContext;
+    XmlDocReferenceBuilder& m_docBuilder;
     bool m_emitAnyForUnresolvedTypes;
     bool m_suppressWarningsForUnresolvedWindowsTypes;
 };

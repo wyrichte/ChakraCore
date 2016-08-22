@@ -27,11 +27,13 @@ private:
 class TypeScriptEmitter
 {
 public:
-    TypeScriptEmitter(IndentingWriter& writer, Metadata::IStringConverter& converter);
+    TypeScriptEmitter(IndentingWriter& writer, Metadata::IStringConverter& converter, bool emitDocumentation);
 
     void OpenAmbientNamespace(const MetadataString namespaceName);
     void OpenNamespace(const MetadataString namespaceName);
     void CloseNamespace();
+
+    void EmitJsDocComment(const XmlDocReference& doc);
 
     void EmitInterfaceDeclaration(const TypeScriptInterfaceDeclaration& interfaceDeclaration);
     void EmitEnumDeclaration(const TypeScriptEnumDeclaration& enumDeclaration);
@@ -55,4 +57,5 @@ private:
     IndentingWriter& m_writer;
     Metadata::IStringConverter& m_converter;
     std::vector<std::wstring> m_disallowedIdentifierNames;
+    bool m_emitDocumentation;
 };

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "MetadataString.h"
+#include "XmlDocReference.h"
 
 template <typename T>
 class auto_ptr_vector : public std::vector<const T*>
@@ -49,7 +50,24 @@ auto_ptr_vector<T>&& move(auto_ptr_vector<T>& lValue)
 
 class TypeScriptType;
 
-class TypeScriptPropertySignature
+class Documentable
+{
+public:
+    const XmlDocReference& GetDocumentation() const
+    {
+        return m_documentation;
+    }
+
+    void AttachDocumentation(XmlDocReference doc)
+    {
+        m_documentation = doc;
+    }
+
+private:
+    XmlDocReference m_documentation;
+};
+
+class TypeScriptPropertySignature : public Documentable
 {
 public:
     const MetadataString& GetName() const;
@@ -102,7 +120,7 @@ private:
     TypeScriptParameter(MetadataString name, MetadataString* literal, TypeScriptType* type);
 };
 
-class TypeScriptParameterList
+class TypeScriptParameterList : public Documentable
 {
 public:
     const auto_ptr_vector<TypeScriptParameter>& GetParameters() const;
@@ -136,7 +154,7 @@ private:
     TypeScriptConstructorOverloads(auto_ptr_vector<TypeScriptParameterList>&& overloadParameterLists);
 };
 
-class TypeScriptCallSignature
+class TypeScriptCallSignature : public Documentable
 {
 public:
     const TypeScriptParameterList& GetParameters() const;
@@ -152,7 +170,7 @@ private:
     TypeScriptCallSignature(std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType);
 };
 
-class TypeScriptMethodSignature
+class TypeScriptMethodSignature : public Documentable
 {
 public:
     const MetadataString& GetMethodName() const;
@@ -215,25 +233,39 @@ private:
     TypeScriptTypeMemberList() {}
 };
 
-class TypeScriptEnumDeclaration
+class TypeScriptEnumMember : public Documentable
 {
 public:
     const MetadataString& GetIdentifier() const;
-    const std::vector<MetadataString>& GetMemberNames() const;
 
-    void AppendMember(MetadataString memberName);
+    static std::auto_ptr<TypeScriptEnumMember> Make(MetadataString memberName);
+
+private: 
+    const MetadataString m_identifier;
+
+private:
+    TypeScriptEnumMember(MetadataString memberName);
+};
+
+class TypeScriptEnumDeclaration : public Documentable
+{
+public:
+    const MetadataString& GetIdentifier() const;
+    const auto_ptr_vector<TypeScriptEnumMember>& GetMembers() const;
+
+    void AppendMember(MetadataString memberName, XmlDocReference doc);
 
     static std::auto_ptr<TypeScriptEnumDeclaration> Make(MetadataString identifier);
 
 private:
     const MetadataString m_identifier;
-    std::vector<MetadataString> m_memberNames;
+    auto_ptr_vector<TypeScriptEnumMember> m_members;
 
 private:
     TypeScriptEnumDeclaration(MetadataString identifier);
 };
 
-class TypeScriptInterfaceDeclaration
+class TypeScriptInterfaceDeclaration : public Documentable
 {
 public:
     const TypeScriptType& GetTypeReference() const;
@@ -259,7 +291,7 @@ private:
     TypeScriptInterfaceDeclaration();
 };
 
-class TypeScriptClassDeclaration
+class TypeScriptClassDeclaration : public Documentable
 {
 public:
     const TypeScriptType& GetTypeReference() const;

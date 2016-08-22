@@ -40,9 +40,10 @@ IndentingWriter::IndentingWriter(wostream& stream, int indent) :
 {
 }
 
-TypeScriptEmitter::TypeScriptEmitter(IndentingWriter& writer, IStringConverter& converter) :
+TypeScriptEmitter::TypeScriptEmitter(IndentingWriter& writer, IStringConverter& converter, bool emitDocumentation) :
     m_converter(converter),
-    m_writer(writer)
+    m_writer(writer),
+    m_emitDocumentation(emitDocumentation)
 {
     m_disallowedIdentifierNames.push_back(L"arguments");
     m_disallowedIdentifierNames.push_back(L"function");
@@ -66,18 +67,36 @@ void TypeScriptEmitter::CloseNamespace()
     m_writer.WriteLine(L"}");
 }
 
+void TypeScriptEmitter::EmitJsDocComment(const XmlDocReference& doc)
+{
+    if (m_emitDocumentation)
+    {
+        auto xmlDocId = wstring(doc.xmlDocId.ToString());
+        auto xmlDocFile = wstring(doc.xmlDocFile.ToString());
+        if (!xmlDocId.empty() && !xmlDocFile.empty())
+        {
+            m_writer.WriteLine(L"/**");
+            m_writer.WriteLine(L" * @xmldoc " + xmlDocFile + L" " + xmlDocId);
+            m_writer.WriteLine(L" */");
+        }
+    }
+}
+
 void TypeScriptEmitter::EmitInterfaceDeclaration(const TypeScriptInterfaceDeclaration& interfaceDeclaration)
 {
+    EmitJsDocComment(interfaceDeclaration.GetDocumentation());
     m_writer.WriteLine(L"interface " + FormatType(interfaceDeclaration.GetTypeReference()) + FormatExtendsClause(interfaceDeclaration.GetExtends()) + L" {");
     m_writer.Indent();
 
     for (auto member : interfaceDeclaration.GetMembers().GetPropertySignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatPropertyDeclaration(false, *member));
     }
 
     for (auto member : interfaceDeclaration.GetMembers().GetMethodSignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatMethodDeclaration(false, *member));
     }
 
@@ -97,12 +116,14 @@ void TypeScriptEmitter::EmitInterfaceDeclaration(const TypeScriptInterfaceDeclar
 
 void TypeScriptEmitter::EmitEnumDeclaration(const TypeScriptEnumDeclaration& enumDeclaration)
 {
+    EmitJsDocComment(enumDeclaration.GetDocumentation());
     m_writer.WriteLine(wstring(L"enum ") + FormatIdentifier(enumDeclaration.GetIdentifier()) + L" {");
 
-    for (auto member : enumDeclaration.GetMemberNames())
+    for (auto member : enumDeclaration.GetMembers())
     {
         m_writer.Indent();
-        m_writer.WriteLine(FormatPropertyName(member) + L",");
+        EmitJsDocComment(member->GetDocumentation());
+        m_writer.WriteLine(FormatPropertyName(member->GetIdentifier()) + L",");
         m_writer.Unindent();
     }
 
@@ -111,6 +132,7 @@ void TypeScriptEmitter::EmitEnumDeclaration(const TypeScriptEnumDeclaration& enu
 
 void TypeScriptEmitter::EmitClassDeclaration(const TypeScriptClassDeclaration& classDeclaration)
 {
+    EmitJsDocComment(classDeclaration.GetDocumentation());
     wstring line = (classDeclaration.IsAbstract() ? wstring(L"abstract ") : L"") + L"class " + FormatType(classDeclaration.GetTypeReference());
 
     line += FormatExtendsClause(classDeclaration.GetExtends()) + FormatImplementsClause(classDeclaration.GetImplements()) + L" {";
@@ -122,17 +144,20 @@ void TypeScriptEmitter::EmitClassDeclaration(const TypeScriptClassDeclaration& c
     // Constructor overloads
     for (auto overload : classDeclaration.GetConstructorOverloads().GetOverloadParameterLists())
     {
+        EmitJsDocComment(overload->GetDocumentation());
         m_writer.WriteLine(FormatConstructorDeclaration(*overload));
     }
 
     // Static members
     for (auto member : classDeclaration.GetStaticMembers().GetPropertySignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatPropertyDeclaration(true, *member));
     }
 
     for (auto member : classDeclaration.GetStaticMembers().GetMethodSignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatMethodDeclaration(true, *member));
     }
 
@@ -149,11 +174,13 @@ void TypeScriptEmitter::EmitClassDeclaration(const TypeScriptClassDeclaration& c
     // Instance members
     for (auto member : classDeclaration.GetInstanceMembers().GetPropertySignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatPropertyDeclaration(false, *member));
     }
 
     for (auto member : classDeclaration.GetInstanceMembers().GetMethodSignatures())
     {
+        EmitJsDocComment(member->GetDocumentation());
         m_writer.WriteLine(FormatMethodDeclaration(false, *member));
     }
 

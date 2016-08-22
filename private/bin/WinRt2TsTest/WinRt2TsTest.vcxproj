@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\WinRt2Ts\CommandLineReader.cpp" />
+    <ClCompile Include="..\WinRt2Ts\XmlDocReferenceBuilder.cpp" />
     <ClCompile Include="..\WinRt2Ts\MetadataResolver.cpp" />
     <ClCompile Include="..\WinRt2Ts\Stubs.cpp" />
     <ClCompile Include="..\WinRt2Ts\TypeScriptElements.cpp" />

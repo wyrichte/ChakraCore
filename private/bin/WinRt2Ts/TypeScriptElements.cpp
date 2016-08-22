@@ -380,14 +380,29 @@ bool TypeScriptTypeMemberList::ContainsMember(const TypeScriptMethodSignature& m
     return false;
 }
 
+const MetadataString& TypeScriptEnumMember::GetIdentifier() const
+{
+    return m_identifier;
+}
+
+std::auto_ptr<TypeScriptEnumMember> TypeScriptEnumMember::Make(MetadataString memberName)
+{
+    return auto_ptr<TypeScriptEnumMember>(new TypeScriptEnumMember(memberName));
+}
+
+TypeScriptEnumMember::TypeScriptEnumMember(MetadataString memberName) :
+    m_identifier(memberName)
+{
+}
+
 const MetadataString& TypeScriptEnumDeclaration::GetIdentifier() const
 {
     return m_identifier;
 }
 
-const vector<MetadataString>& TypeScriptEnumDeclaration::GetMemberNames() const
+const auto_ptr_vector<TypeScriptEnumMember>& TypeScriptEnumDeclaration::GetMembers() const
 {
-    return m_memberNames;
+    return m_members;
 }
 
 auto_ptr<TypeScriptEnumDeclaration> TypeScriptEnumDeclaration::Make(MetadataString identifier)
@@ -395,9 +410,11 @@ auto_ptr<TypeScriptEnumDeclaration> TypeScriptEnumDeclaration::Make(MetadataStri
     return auto_ptr<TypeScriptEnumDeclaration>(new TypeScriptEnumDeclaration(identifier));
 }
 
-void TypeScriptEnumDeclaration::AppendMember(MetadataString memberName)
+void TypeScriptEnumDeclaration::AppendMember(MetadataString memberName, XmlDocReference doc)
 {
-    m_memberNames.push_back(memberName);
+    auto member = TypeScriptEnumMember::Make(memberName);
+    member->AttachDocumentation(doc);
+    m_members.push_back(move(member));
 }
 
 TypeScriptEnumDeclaration::TypeScriptEnumDeclaration(MetadataString identifier) :

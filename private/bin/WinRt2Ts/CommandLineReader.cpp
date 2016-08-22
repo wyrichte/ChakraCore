@@ -80,6 +80,10 @@ void CommandLineReader::ApplyParameter(Configuration& config, const wstring& par
             {
                 config.suppressWarningsForUnresolvedWindowsTypes = true;
             }
+            else if (lowercaseParam.compare(1, lowercaseParam.size() - 1, L"emitdocumentation") == 0)
+            {
+                config.emitDocumentation = true;
+            }
             else
             {
                 throw CommandLineArgumentError(parameter);
