@@ -120,6 +120,15 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": "{...}",
@@ -672,6 +681,33 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -689,7 +725,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -743,7 +779,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1237,6 +1273,33 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -1254,7 +1317,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1308,7 +1371,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1915,6 +1978,33 @@
         "z": "object"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -1932,7 +2022,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1986,7 +2076,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
