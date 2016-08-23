@@ -10,7 +10,7 @@ public:
     static HRESULT StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[]);
     static void StopRpcServer();
 
-    static DWORD GetRpcProccessId();
+    static HANDLE GetRpcProccessHandle();
     static UUID GetRpcConnectionId();
     static void RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[]);
 
