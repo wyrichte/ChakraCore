@@ -6,7 +6,7 @@
 #include "recyclerroots.h"
 #include "RemoteHeapBlockMap.h"
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump);
+Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, ULONG64 stackTop, bool dump);
 
 static char const * StaticGetSmallHeapBlockTypeName()
 {
@@ -61,7 +61,7 @@ void RecyclerCachedData::CacheRecyclerObjectGraph(ULONG64 recyclerAddress, Recyc
     cachedObjectGraph = graph;
 }
 
-Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext)
+Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop)
 {
     ExtRemoteTyped externalRootMarker = recycler.Field("externalRootMarker");
 
@@ -77,7 +77,7 @@ Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemo
     }
 
     // TODO: external weak ref support may be missing once it is implemented
-    Addresses * rootPointers = ComputeRoots(_ext, recycler, threadContext, false);
+    Addresses * rootPointers = ComputeRoots(_ext, recycler, threadContext, stackTop, false);
     rootPointersCache[recycler.GetPtr()] = rootPointers;
     return rootPointers;
 }
@@ -220,6 +220,12 @@ void RecyclerCachedData::EnsureBlockTypeEnum()
 
     if (GetExtension()->IsJScript9())
     {
+#define INIT_UNDEFINED(name) \
+        m_blockTypeEnumValue##name = (ULONG64) -1;
+
+        BLOCKTYPELIST(INIT_UNDEFINED);
+#undef INIT_BLOCKTYPE_ENUM
+
 #define INIT_BLOCKTYPE_ENUM(name) \
         m_blockTypeEnumValue##name##Type = GetExtension()->GetEnumValue(#name, false); \
         if (m_blockTypeEnumValue##name##Type == (ULONG64)-1) \

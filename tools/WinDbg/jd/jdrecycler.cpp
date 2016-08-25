@@ -899,7 +899,7 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
         cookie = recycler.Field("Cookie").GetUlong();
     }
 
-    ULONG64 heapBlock = heapBlockObject.GetPtr();
+    ULONG64 heapBlock = heapBlockObject.m_Offset;
     ULONG64 blockAddress = heapBlockObject.Field("address").GetPtr();
 
     ULONG64 sizeOfHeapBlock = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
@@ -1395,7 +1395,10 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
 {
     ULONG64 segmentListAddress = segmentList.GetPointerTo().GetPtr();
     PCSTR segmentType = (pageSegment ? GetPageSegmentType() : GetSegmentType());
-    RemoteListIterator<false> pageSegmentListIterator(segmentType, segmentListAddress);
+
+    char qualifiedSegmentType[512];
+    sprintf_s(qualifiedSegmentType, "%s%s", GetMemoryNS(), segmentType);
+    RemoteListIterator<false> pageSegmentListIterator(qualifiedSegmentType, segmentListAddress);
 
     ULONG64 totalSize = 0;
     ULONG64 count = 0;
@@ -1419,15 +1422,14 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
         if (outputType == CommandOutputType::NormalOutputType ||
             outputType == CommandOutputType::VerboseOutputType)
         {
+            PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s", GetModuleName(), qualifiedSegmentType);
             if (pageSegment)
             {
-                PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s", GetModuleName(), GetPageSegmentType());
                 Dml("<link cmd=\"?? (%s*) 0x%p\">PageSegment</link>: ",
                     fullyQualifiedSegmentType, addressOfSegment);
             }
             else
             {
-                PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s", GetModuleName(), GetSegmentType());
                 Dml("<link cmd=\"?? (%s*) 0x%p\">Segment</link>: ",
                     fullyQualifiedSegmentType, addressOfSegment);
             }
@@ -1539,26 +1541,9 @@ JD_PRIVATE_COMMAND(pagealloc,
 
     ExtRemoteTyped pageAllocator;
 
-    if (HasArg("recycler"))
-    {
-        ExtRemoteTyped recycler;
-        if (!HasUnnamedArg(0) && GetUnnamedArgU64(0) != 0)
-        {
-            Out("Recycler is 0x%p\n", GetUnnamedArgU64(0));
-            recycler = ExtRemoteTyped(FillModuleV("(%s!%s*)@$extin", this->GetModuleName(), this->GetPageAllocatorType()), GetUnnamedArgU64(0));
-        }
-        else
-        {
-            recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
-        }
-        pageAllocator = recycler.Field("recyclerPageAllocator");
-    }
-    else
-    {
-        Out("Allocator is 0x%p\n", GetUnnamedArgU64(0));
+    char pageAllocatorFormatString[128];
 
-        pageAllocator = ExtRemoteTyped(FillModuleV("(%s!%s*)@$extin", this->GetModuleName(), this->GetPageAllocatorType()), GetUnnamedArgU64(0));
-    }
+    sprintf_s(pageAllocatorFormatString, "(%%s!%%s%s*)@$extin", this->GetPageAllocatorType());
 
     CommandOutputType outputType = NormalOutputType;
 
@@ -1575,7 +1560,38 @@ JD_PRIVATE_COMMAND(pagealloc,
         outputType = VerboseOutputType;
     }
 
-    DisplayPageAllocatorInfo(pageAllocator, outputType);
+    if (HasArg("recycler"))
+    {
+        ExtRemoteTyped recycler;
+        if (HasUnnamedArg(0) && GetUnnamedArgU64(0) != 0)
+        {
+            Out("Recycler is 0x%p\n", GetUnnamedArgU64(0));
+            recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), GetUnnamedArgU64(0));
+        }
+        else
+        {
+            recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
+        }
+
+        char* allocators[] = {
+            "recyclerPageAllocator",
+            "recyclerWithBarrierPageAllocator",
+            "recyclerLargeBlockPageAllocator"
+        };
+
+        for (int i = 0; i < _countof(allocators); i++)
+        {
+            Out("\n\nType: %s\n", allocators[i]);
+            DisplayPageAllocatorInfo(recycler.Field(allocators[i]), outputType);
+        }
+    }
+    else
+    {
+        Out("Allocator is 0x%p\n", GetUnnamedArgU64(0));
+
+        pageAllocator = ExtRemoteTyped(FillModuleAndMemoryNS(pageAllocatorFormatString), GetUnnamedArgU64(0));
+        DisplayPageAllocatorInfo(pageAllocator, outputType);
+    }
 }
 
 #pragma region("Heap Block Map Walker")
@@ -2712,7 +2728,7 @@ MPH_COMMAND(mpheap,
                 return;
             }
 
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr);
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr, GetStackTop(this));
             rootPointers->Map([this, &recycler, &verbose, &address](ULONG64 rootAddress)
             {
                 this->ThrowInterrupt();

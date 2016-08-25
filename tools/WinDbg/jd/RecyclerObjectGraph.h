@@ -20,6 +20,7 @@ public:
     typedef GraphImplType::NodeType GraphImplNodeType;
 
     static RecyclerObjectGraph * New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext,
+        ULONG64 stackTop,
         RecyclerObjectGraph::TypeInfoFlags typeInfoFlags = RecyclerObjectGraph::TypeInfoFlags::None);
 
     ~RecyclerObjectGraph();

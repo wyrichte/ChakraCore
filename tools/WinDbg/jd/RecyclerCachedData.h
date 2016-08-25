@@ -41,7 +41,7 @@ class RecyclerCachedData
 public:
     RecyclerCachedData(EXT_CLASS_BASE * ext);
     
-    Addresses * GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext);
+    Addresses * GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop);
 
     RemoteHeapBlockMap::Cache * GetHeapBlockMap(ULONG64 heapBlockMapAddr);
     void SetHeapBlockMap(ULONG64 heapBlockMapAddr, RemoteHeapBlockMap::Cache * cache);

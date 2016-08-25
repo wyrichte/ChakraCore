@@ -144,14 +144,22 @@ public:
 class RootPointerReader
 {
 public:
-    RootPointerReader(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler) :
-        _heapBlockHelper(extension, recycler),
-        _recycler(recycler),
-        m_addresses(new Addresses())
+    typedef void(*RootAddedCallback)(EXT_CLASS_BASE*, ULONG64, void*);
+
+    static void DefaultRootAddedCallback(EXT_CLASS_BASE*, ULONG64, void* context)
     {
     }
 
-    bool TryAdd(ULONG64 address, RootType rootType)
+    RootPointerReader(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, RootAddedCallback callback = DefaultRootAddedCallback) :
+        _heapBlockHelper(extension, recycler),
+        _recycler(recycler),
+        m_addresses(new Addresses()),
+        m_rootAddedCallback(callback),
+        m_extension(extension)
+    {
+    }
+
+    bool TryAdd(ULONG64 address, RootType rootType, void* context = nullptr)
     {
         if (address != NULL && _heapBlockHelper.IsAlignedAddress(address))
         {
@@ -167,6 +175,9 @@ public:
                 }
 #endif
                 Add(address, rootType);
+
+                m_rootAddedCallback(m_extension, address, context);
+
                 return true;
             }
         }
@@ -186,7 +197,7 @@ public:
     }
 
     void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print = true, bool showScriptContext = false);
+    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
@@ -194,6 +205,9 @@ public:
     void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType);
     void ScanImplicitRoots(bool print = true);
 private:
+
+    EXT_CLASS_BASE* m_extension;
+    RootAddedCallback m_rootAddedCallback;
     std::auto_ptr<Addresses> m_addresses;
     ExtRemoteTyped _recycler;
     HeapBlockHelper _heapBlockHelper;
@@ -207,4 +221,5 @@ void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& ca
 template <typename TNode>
 void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
 
+ULONG64 GetStackTop(EXT_CLASS_BASE* ext);
 #endif

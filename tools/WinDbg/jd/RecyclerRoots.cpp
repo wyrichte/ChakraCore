@@ -170,7 +170,7 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
     }
 }
 
-void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, bool print, bool showScriptContext)
+void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, ULONG64 stackTop, bool print, bool showScriptContext)
 {
     ULONG64 stackBase = 0;
     if (recycler.HasField("stackBase") && recycler.Field("mainThreadHandle").GetPtr() != 0)
@@ -184,8 +184,6 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
         stackBase = (ext->m_PtrSize == 4) ? stackBaseField.GetUlong() : stackBaseField.GetUlong64();
     }
 
-    ULONG64 stackTop = GetStackTop(ext);
-
     size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
     byte * stack = (byte *)malloc(stackSizeInBytes);
     if (!stack)
@@ -193,6 +191,8 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
         ext->ThrowOutOfMemory();
     }
     ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
+    ext->Out("Scanning %x bytes starting from 0x%p\n", stackSizeInBytes, stackTop);
+
     ExtRemoteData data(stackTop, stackSizeInBytesLong);
     data.ReadBuffer(stack, stackSizeInBytesLong);
 
@@ -207,7 +207,7 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
         for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
         {
             ULONG64 address = (ULONG64)stack32[i];
-            if (this->TryAdd(address, RootType::RootTypeStack) && print)
+            if (this->TryAdd(address, RootType::RootTypeStack))
             {
                 ext->Out("0x%p", stack32[i]);
                 ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
@@ -237,6 +237,14 @@ void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler,
 
 void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType)
 {
+    struct Context
+    {
+        ULONG64 start;
+        ULONG64 current;
+    } context;
+
+    context.start = object;
+
     EXT_CLASS_BASE* ext = GetExtension();
     ULONG64 remainingBytes = bytes;
     ULONG64 curr = object;
@@ -250,7 +258,9 @@ void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootT
         byte * currBuffer = buffer;
         for (uint i = 0; i < numPointers; i++)
         {
-            this->TryAdd(ext->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer, rootType);
+            context.current = curr;
+
+            this->TryAdd(ext->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer, rootType, &context);
             currBuffer += ext->m_PtrSize;
         }
 
@@ -696,7 +706,7 @@ JD_PRIVATE_COMMAND(findref,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
     RecyclerFindReference findRef(this, address, rootPointers, recycler);
     Out("Referring objects:\n");
 
@@ -772,7 +782,7 @@ JD_PRIVATE_COMMAND(oi,
 
         if (verbose)
         {
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
             if (rootPointers->Contains(objectAddress))
             {
                 Out("Is Root: true\n");
@@ -878,7 +888,7 @@ JD_PRIVATE_COMMAND(showroots,
     Out("Heap block map type is %s\n", typeName);
 }
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, bool dump)
+Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, ULONG64 stackTop, bool dump)
 {
     RootPointerReader rootPointerManager(ext, recycler);
 
@@ -972,7 +982,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
     //
 
     rootPointerManager.ScanRegisters(ext, dump);
-    rootPointerManager.ScanStack(ext, recycler, dump);
+    rootPointerManager.ScanStack(ext, recycler, stackTop, dump);
 
     return rootPointerManager.DetachAddresses();
 }
@@ -1255,7 +1265,7 @@ void PredSuccImpl(EXT_CLASS_BASE *ext)
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(ext)));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
@@ -1354,6 +1364,7 @@ JD_PRIVATE_COMMAND(traceroots,
     "Given a pointer in the graph, perform a BFS traversal to find the shortest path to a root.",
     "{;ed,o,d=0;pointer;Address to trace}"
     "{;ed,o,d=0;recycler;Recycler address}"
+    "{sp;edn=(10),o,d=0;sp;Stack Pointer to use for scanning}"
     "{roots;edn=(10),o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
@@ -1362,6 +1373,7 @@ JD_PRIVATE_COMMAND(traceroots,
 {
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
+    ULONG64 stackPointerArg = GetArgU64("sp");
     const ULONG64 numRootsArg = GetArgU64("roots");
     const ULONG64 limitArg = GetArgU64("limit");
     const bool transientRoots = HasArg("t");
@@ -1377,6 +1389,11 @@ JD_PRIVATE_COMMAND(traceroots,
             "    !jd.showroots\n"
             "    !jd.jsobjectnodes\n");
         return;
+    }
+
+    if (stackPointerArg == NULL)
+    {
+        stackPointerArg = GetStackTop(this);
     }
 
     //
@@ -1398,7 +1415,7 @@ JD_PRIVATE_COMMAND(traceroots,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg));
 
     //
     // Data types and traversal state
@@ -1586,17 +1603,107 @@ JD_PRIVATE_COMMAND(traceroots,
     });
 }
 
+void OnArenaRootScanned(EXT_CLASS_BASE* ext, ULONG64 root, void* context)
+{
+    struct Context
+    {
+        ULONG64 start;
+        ULONG64 current;
+    };
+
+    Context* ctx = (Context*)context;
+    ext->Out("  [0x%p, 0x%p] => 0x%p\n", ctx->start, ctx->current, root);
+}
+
+JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.", 
+    "{;ed,o,d=0;recycler;Recycler address}")
+{
+    const ULONG64 recyclerArg = GetUnnamedArgU64(0);
+
+    ExtRemoteTyped threadContext;
+    ExtRemoteTyped recycler;
+    if (recyclerArg != NULL)
+    {
+        this->Out("Manually provided Recycler pointer: 0x%p\n", recyclerArg);
+        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
+        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
+    }
+    else
+    {
+        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
+        threadContext = remoteThreadContext.GetExtRemoteTyped();
+        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
+    }
+
+    RootPointerReader rootPointerManager(this, recycler, OnArenaRootScanned);
+    ULONG64 recyclerAddress = recycler.m_Data; // TODO: recycler needs to be a pointer to make this work
+    ULONG64 guestArenaList = recyclerAddress + recycler.GetFieldOffset("guestArenaList");
+
+    RemoteListIterator<false> guestArenaIterator("Recycler::GuestArenaAllocator", guestArenaList);
+    while (guestArenaIterator.Next())
+    {
+        ULONG64 data = guestArenaIterator.GetDataPtr();
+        ExtRemoteTyped guestArena(this->FillModuleAndMemoryNS("(%s!%sRecycler::GuestArenaAllocator*)@$extin"), data);
+
+        ExtRemoteTyped isPendingDelete = guestArena.Dereference().Field("pendingDelete");
+        if (!isPendingDelete.GetBoolean())
+        {
+            rootPointerManager.ScanArena(data, true);
+        }
+    }
+
+    //
+    // Scan external guest arena
+    //
+
+    ExtRemoteTyped egal = recycler.Field("externalGuestArenaList");
+    ULONG64 externalGuestArenaList = egal.GetPointerTo().GetPtr();
+    RemoteListIterator<false> externalGuestArenaIterator("ArenaData *", externalGuestArenaList);
+    while (externalGuestArenaIterator.Next())
+    {
+        ULONG64 dataPtr = externalGuestArenaIterator.GetDataPtr();
+        Out("Scanning 0x%p\n", dataPtr);
+        rootPointerManager.ScanArenaData(GetPointerAtAddress(dataPtr));
+    }
+}
+
 JD_PRIVATE_COMMAND(savegraph,
     "Saves the current recycler object graph into a file (js, python, csv, etc.)",
     "{;s;filename;Filename to output to}"
     "{;ed,o,d=0;recycler;Recycler address}"
     "{;s,o,d=js;filetype;Save file type <js|python|csv>}"
+    "{;ed,o,d=0;sp;Stack Pointer to use for scanning}"
     "{vt;b,o;vtable;Vtable Only}")
 {
     PCSTR filename = GetUnnamedArgStr(0);
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
-    PCSTR filetype = GetUnnamedArgStr(2);
-    const bool infer = !HasArg("vt");
+    PCSTR strFiletype = GetUnnamedArgStr(2);
+    ULONG64 stackPointerArg = GetUnnamedArgU64(3);
+    bool infer = !HasArg("vt");
+
+    enum OutputFileType
+    {
+        CSV,
+        JavaScript,
+        Python
+    };
+
+    OutputFileType filetype = CSV;
+    if (_stricmp(strFiletype, "python") == 0)
+    {
+        filetype = Python;
+    }
+    else if (_stricmp(strFiletype, "js") == 0)
+    {
+        filetype = JavaScript;
+    }
+
+    if (filetype != CSV)
+    {
+        // type information is needed only for CSV files
+        infer = false;
+    }
+
     ExtRemoteTyped threadContext;
     ExtRemoteTyped recycler;
     if (recyclerArg != NULL)
@@ -1611,13 +1718,18 @@ JD_PRIVATE_COMMAND(savegraph,
         recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
     }
 
-    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+    if (stackPointerArg == NULL)
+    {
+        stackPointerArg = GetStackTop(this);
+    }
+
+    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, stackPointerArg);
     Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, 
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg,
         infer? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
     
-    if (_stricmp(filetype, "csv") == 0)
+    if (filetype == CSV)
     {
         Out("Saving object graph to %s.nodes.csv and %s.edges.csv\n", filename, filename);
         objectGraph.DumpForCsv(filename);
@@ -1625,11 +1737,11 @@ JD_PRIVATE_COMMAND(savegraph,
     else
     {
         Out("Saving object graph to %s\n", filename);
-        if (_stricmp(filetype, "js") == 0)
+        if (filetype == JavaScript)
         {
             objectGraph.DumpForJs(filename);
         }
-        else if (_stricmp(filetype, "python") == 0)
+        else if (filetype == Python)
         {
             objectGraph.DumpForPython(filename);
         }
@@ -1727,11 +1839,11 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         (sortByCount ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
 
     ExtRemoteTyped recycler = GetRecycler(recyclerArg);
-    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
+    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext(recyclerArg).GetExtRemoteTyped();
 
     if (verbose)
     {
-        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
+        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
     }
 
@@ -1744,7 +1856,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     {
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
     }
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), flags));
 
     stdext::hash_map<char const *, ObjectAllocStats> objectCounts;
     int numNodes = 0;
@@ -1907,7 +2019,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, RecyclerObjectGraph::TypeInfoFlags::Infer));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), RecyclerObjectGraph::TypeInfoFlags::Infer));
 
     this->Out("\n");
     this->Out("%22s ^     Run !jd.predecessors on this node\n", "");

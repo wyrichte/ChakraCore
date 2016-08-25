@@ -4,12 +4,12 @@
 
 #ifdef JD_PRIVATE
 
-RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     RecyclerObjectGraph * recyclerObjectGraph = GetExtension()->recyclerCachedData.GetCachedRecyclerObjectGraph(recycler.GetPtr());
     if (recyclerObjectGraph == nullptr)
     {
-        Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext);
+        Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext, stackTop);
         ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
         AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(GetExtension(), recycler));
         newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
@@ -346,7 +346,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
                     JDRemoteTyped loadMethodInlineCacheMap = remoteTyped.Field("loadMethodInlineCacheMap");
                     AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
                 }
-                
+
                 JDRemoteTyped storeInlineCacheMap = remoteTyped.Field("storeInlineCacheMap");
                 AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
                 

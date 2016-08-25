@@ -573,7 +573,7 @@ public:
                 }
                 else
                 {
-                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge('0x%016llX', '0x%016llX')\n" : "G.add_edge(\"0x%08llX', '0x%08llX')\n", fromPointer, toPointer);
+                    fprintf(f, g_Ext->m_PtrSize == 8 ? "G.add_edge('0x%016llX', '0x%016llX')\n" : "G.add_edge(\'0x%08llX', '0x%08llX')\n", fromPointer, toPointer);
                 }
             });          
             fclose(f);

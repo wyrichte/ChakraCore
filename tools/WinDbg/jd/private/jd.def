@@ -19,6 +19,7 @@ EXPORTS
     url
     ldsym
     jsstream
+    arenaroots
     findblock
     gcstats
     jstack

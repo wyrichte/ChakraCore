@@ -401,6 +401,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(predecessors);
     JD_PRIVATE_COMMAND_METHOD(successors);
     JD_PRIVATE_COMMAND_METHOD(traceroots);
+    JD_PRIVATE_COMMAND_METHOD(arenaroots);
     JD_PRIVATE_COMMAND_METHOD(savegraph);
     JD_PRIVATE_COMMAND_METHOD(slist);
     JD_PRIVATE_COMMAND_METHOD(dlist);

@@ -29,7 +29,7 @@ public:
     };
     static Info * GetInfo();    
     static RemoteThreadContext GetThreadContextFromTeb(ExtRemoteTyped teb);
-    static RemoteThreadContext GetCurrentThreadContext();
+    static RemoteThreadContext GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress = 0);
     static bool TryGetCurrentThreadContext(RemoteThreadContext& remoteThreadContext);
     template <typename Fn>
     static bool ForEach(Fn fn)
