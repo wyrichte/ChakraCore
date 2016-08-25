@@ -10,7 +10,7 @@
 #include <atlbase.h>
 #pragma warning(pop)
 // atlbase.h 3.0 leak a warning(push) under _DEBUG
-#ifdef _DEBUG   
+#ifdef _DEBUG
 #pragma warning(pop)
 #endif
 
@@ -30,7 +30,6 @@
 // =================
 // Common Includes
 // =================
-#include "DataStructures\QuickSort.h"
 #include "DataStructures\Option.h"
 #include "DataStructures\ImmutableList.h"
 #include "DataStructures\BufferBuilder.h"
