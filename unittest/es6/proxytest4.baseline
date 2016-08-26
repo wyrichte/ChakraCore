@@ -49,80 +49,51 @@ ownKey trap
 Symbol(hello)
 Symbol(hello)
 PASSED
-*** Running test #10 (9): enumerate with no property
-enumerate trap
-0
-iterator array length 0
-getPrototypeOf trap
-PASSED
-*** Running test #11 (10): enumerate
-enumerate trap
-1
-iterator array length 1
-getPrototypeOf trap
-get trap bar on function receiver function
-has trap function.bar
-PASSED
-*** Running test #12 (11): enumerate with prototype property
-enumerate trap
-2
-iterator array length 2
-getPrototypeOf trap
-in bar
-has trap function.bar
-get trap bar on function receiver function
-in protoObject
-has trap function.protoObject
-get trap protoObject on function receiver function
-PASSED
-*** Running test #13 (12): enumerate with null
-enumerate trap
-PASSED
-*** Running test #14 (13): Call function
+*** Running test #10 (9): Call function
 call trap0
 target func
 PASSED
-*** Running test #15 (14): Call function arguments
+*** Running test #11 (10): Call function arguments
 call trap4
 PASSED
-*** Running test #16 (15): Call non-callable object
+*** Running test #12 (11): Call non-callable object
 PASSED
-*** Running test #17 (16): Call builtin function
+*** Running test #13 (12): Call builtin function
 call trap1
 PASSED
-*** Running test #18 (17): Call non-callable function
+*** Running test #14 (13): Call non-callable function
 call trap2
 PASSED
-*** Running test #19 (18): construct
+*** Running test #15 (14): construct
 construct trap
 target func
 PASSED
-*** Running test #20 (19): construct with argument
+*** Running test #16 (15): construct with argument
 construct trap
 PASSED
-*** Running test #21 (20): new on non-constructable function
+*** Running test #17 (16): new on non-constructable function
 construct trap
 PASSED
-*** Running test #22 (21): new on builtin
+*** Running test #18 (17): new on builtin
 construct trap
 PASSED
-*** Running test #23 (22): new return undefined
+*** Running test #19 (18): new return undefined
 construct trap
 PASSED
-Summary of tests: total executed: 23; passed: 23; failed: 0
-*** Running test #24 (0): isExtensible trap
+Summary of tests: total executed: 19; passed: 19; failed: 0
+*** Running test #20 (0): isExtensible trap
 isExtensible trap
 PASSED
-*** Running test #25 (1): isExtensible trap on nonextensible object
+*** Running test #21 (1): isExtensible trap on nonextensible object
 isExtensible trap
 PASSED
-*** Running test #26 (2): change isExtensible
+*** Running test #22 (2): change isExtensible
 isExtensible trap
 PASSED
-*** Running test #27 (3): change isExtensible
+*** Running test #23 (3): change isExtensible
 isExtensible trap
 PASSED
-*** Running test #28 (4): preventExtensions
+*** Running test #24 (4): preventExtensions
 preventExtensions trap
 isExtensible trap
 preventExtensions trap
@@ -133,7 +104,7 @@ getOwnPropertyDescriptor trap nonExtObj
 defineProperty trap nonExtObj
 get trap nonExtObj on object receiver object
 PASSED
-*** Running test #29 (5): object.keys
+*** Running test #25 (5): object.keys
 ownKey trap
 getOwnPropertyDescriptor trap prototype
 getOwnPropertyDescriptor trap name
@@ -141,10 +112,10 @@ getOwnPropertyDescriptor trap caller
 getOwnPropertyDescriptor trap arguments
 getOwnPropertyDescriptor trap length
 PASSED
-*** Running test #30 (6): object.keys return undefined
+*** Running test #26 (6): object.keys return undefined
 ownKey trap
 PASSED
-*** Running test #31 (7): object.getOwnPropertyNames
+*** Running test #27 (7): object.getOwnPropertyNames
 ownKey trap
 from proxy
 prototype
@@ -159,66 +130,43 @@ caller
 arguments
 length
 PASSED
-*** Running test #32 (8): object.getOwnPropertySymbols
+*** Running test #28 (8): object.getOwnPropertySymbols
 ownKey trap
 Symbol(hello)
 Symbol(hello)
 PASSED
-*** Running test #33 (9): enumerate with no property
-enumerate trap
-getPrototypeOf trap
-PASSED
-*** Running test #34 (10): enumerate
-enumerate trap
-getPrototypeOf trap
-get trap bar on function receiver function
-has trap function.bar
-PASSED
-*** Running test #35 (11): enumerate with prototype property
-enumerate trap
-getPrototypeOf trap
-in bar
-has trap function.bar
-get trap bar on function receiver function
-in protoObject
-has trap function.protoObject
-get trap protoObject on function receiver function
-PASSED
-*** Running test #36 (12): enumerate with null
-enumerate trap
-PASSED
-*** Running test #37 (13): Call function
+*** Running test #29 (9): Call function
 call trap0
 target func
 PASSED
-*** Running test #38 (14): Call function arguments
+*** Running test #30 (10): Call function arguments
 call trap4
 PASSED
-*** Running test #39 (15): Call non-callable object
+*** Running test #31 (11): Call non-callable object
 PASSED
-*** Running test #40 (16): Call builtin function
+*** Running test #32 (12): Call builtin function
 call trap1
 PASSED
-*** Running test #41 (17): Call non-callable function
+*** Running test #33 (13): Call non-callable function
 call trap2
 PASSED
-*** Running test #42 (18): construct
+*** Running test #34 (14): construct
 construct trap
 get trap prototype on function receiver function
 target func
 PASSED
-*** Running test #43 (19): construct with argument
+*** Running test #35 (15): construct with argument
 construct trap
 PASSED
-*** Running test #44 (20): new on non-constructable function
+*** Running test #36 (16): new on non-constructable function
 construct trap
 PASSED
-*** Running test #45 (21): new on builtin
+*** Running test #37 (17): new on builtin
 construct trap
 get trap prototype on function receiver function
 get trap prototype on function receiver function
 PASSED
-*** Running test #46 (22): new return undefined
+*** Running test #38 (18): new return undefined
 construct trap
 PASSED
-Summary of tests: total executed: 46; passed: 46; failed: 0
+Summary of tests: total executed: 38; passed: 38; failed: 0
