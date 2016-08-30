@@ -1,0 +1,146 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 209,
+        "length": 20,
+        "text": "return await af1(10)",
+        "frameDescription": "af2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 237,
+        "length": 13,
+        "text": "var p = af2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 99,
+        "length": 7,
+        "text": "await a",
+        "frameDescription": "af1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 209,
+        "length": 20,
+        "text": "return await af1(10)",
+        "frameDescription": "af2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 237,
+        "length": 13,
+        "text": "var p = af2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 209,
+        "length": 20,
+        "text": "return await af1(10)",
+        "frameDescription": "af2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 237,
+        "length": 13,
+        "text": "var p = af2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "10",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 113,
+        "length": 34,
+        "text": "return await foo.call({ x : 100 })",
+        "frameDescription": "af1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "__proto__": "{...}",
+        "x": "100"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "af1": "<large string>",
+        "af2": "<large string>",
+        "p": "[...]"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 22,
+        "length": 13,
+        "text": "return this.x",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 113,
+        "length": 34,
+        "text": "return await foo.call({ x : 100 })",
+        "frameDescription": "af1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      }
+    ]
+  }
+]
