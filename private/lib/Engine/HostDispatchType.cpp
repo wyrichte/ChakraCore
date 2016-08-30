@@ -343,24 +343,24 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
     return result;
 }
 
-BOOL HostDispatch::GetEnumerator(__in BOOL enumNonEnumerable, __out Js::Var* enumerator, __in Js::ScriptContext * requestContext, __in bool preferSnapshotSemantics, __in bool enumSymbols)
+BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext)
 {    
     if (!this->CanSupportIDispatchEx())
     {
-        *enumerator = nullptr;
+        enumerator->Clear();
         return FALSE;
-    }
+    }    
+    HostDispatch * currentHostDispatch;
     if (GetScriptContext() != requestContext)
     {
-        HostDispatch* currentHostDispatch;
         currentHostDispatch = HostDispatch::Create(requestContext, this->GetDispatchNoRef());
-        *enumerator = RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch);
     }
     else
     {
-        *enumerator = RecyclerNew(GetScriptContext()->GetRecycler(), HostDispatchEnumerator, this);
+        currentHostDispatch = this;
     }
-    return true;
+    return enumerator->Initialize(RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch),
+        nullptr, nullptr, flags, requestContext);
 }
 
 BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)

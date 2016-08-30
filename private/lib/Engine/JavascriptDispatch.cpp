@@ -13,9 +13,6 @@
 #include "Library\JSON.h"
 #include "Library\ArgumentsObject.h"
 
-#include "Types\DynamicObjectEnumerator.h"
-#include "Types\DynamicObjectSnapshotEnumerator.h"
-#include "Types\DynamicObjectSnapshotEnumeratorWPCache.h"
 #include "Library\ForInObjectEnumerator.h"
 
 // Initialization order

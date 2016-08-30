@@ -111,6 +111,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{03D583
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{48F771CB-6E65-4F4D-986B-23A538D01324}"
 	ProjectSection(SolutionItems) = preProject
+		..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj = ..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj
 		..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj = ..\core\Lib\Runtime\ByteCode\Chakra.Runtime.ByteCode.vcxproj
 		..\core\Lib\Runtime\Debug\Chakra.Runtime.Debug.vcxproj = ..\core\Lib\Runtime\Debug\Chakra.Runtime.Debug.vcxproj
 		..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj

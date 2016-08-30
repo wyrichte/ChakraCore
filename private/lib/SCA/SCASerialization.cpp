@@ -16,8 +16,8 @@
 #include "Types\DictionaryPropertyDescriptor.h"
 #include "Types\DictionaryTypeHandler.h"
 #include "Types\ES5ArrayTypeHandler.h"
-#include "Library\JavascriptArrayIndexEnumerator.h"
-#include "Library\ES5ArrayIndexEnumerator.h"
+#include "Library\JavascriptArrayIndexStaticEnumerator.h"
+#include "Library\ES5ArrayIndexStaticEnumerator.h"
 
 namespace Js
 {
@@ -217,67 +217,78 @@ namespace Js
     }
 
     template <class Writer>
+    void SerializationCloner<Writer>::ClonePropertiesWithSCASerializable(SrcTypeId srcTypeId, Src src, Dst dst)
+    {
+        CComPtr<ISCASerializable> pSCASerializable = m_pSCASerializable;
+        Assert(pSCASerializable != NULL);
+        m_pSCASerializable = NULL; // Clear temp
+
+        SCATypeId typeId;
+        CComPtr<SCAPropBag> pPropBag;
+        SCAPropBag::CreateInstance(GetScriptContext(), &pPropBag);
+
+        ScriptContext* scriptContext = GetScriptContext();
+        HRESULT hr = S_OK;
+        BEGIN_LEAVE_SCRIPT(scriptContext)
+        {
+            hr = pSCASerializable->GetObjectData(m_pSCAContext, &typeId, pPropBag);
+        }
+        END_LEAVE_SCRIPT(scriptContext);
+        ThrowIfFailed(hr);
+
+        SCAPropBag::PropBagEnumerator propBagEnumerator(pPropBag);
+        WriteTypeId(typeId);
+        WriteObjectProperties(&propBagEnumerator);
+    }
+
+    template <class Writer>
+    void SerializationCloner<Writer>::ClonePropertiesWithoutSCASerializable(SrcTypeId srcTypeId, Src src, Dst dst)
+    {
+        RecyclableObject* obj = RecyclableObject::FromVar(src);
+        // allocate the JavascriptStaticEnumerator on the heap to avoid blowing the stack
+        JavascriptStaticEnumerator enumerator;
+        ScriptContext* scriptContext = GetScriptContext();
+        if (DynamicObject::IsAnyArrayTypeId(srcTypeId))
+        {
+            JavascriptArray* arr = JavascriptArray::FromAnyArray(src);
+            bool isSparseArray = IsSparseArray(arr);
+
+            WriteTypeId(isSparseArray ? SCA_SparseArray : SCA_DenseArray);
+            Write(arr->GetLength());
+
+            if (isSparseArray)
+            {
+                WriteSparseArrayIndexProperties(arr);
+            }
+            else
+            {
+                WriteDenseArrayIndexProperties(arr);
+            }
+
+            // Now we only need to write remaining non-index properties
+            arr->GetNonIndexEnumerator(&enumerator, scriptContext);
+        }
+        else if (!obj->GetEnumerator(&enumerator, EnumeratorFlags::SnapShotSemantics, scriptContext))
+        {
+            // Mark property end if we don't have enumerator
+            m_writer->Write(static_cast<uint32>(SCA_PROPERTY_TERMINATOR));
+            return;
+        }
+
+        ObjectPropertyEnumerator propEnumerator(scriptContext, obj, &enumerator);
+        WriteObjectProperties(&propEnumerator);
+    }
+
+    template <class Writer>
     void SerializationCloner<Writer>::CloneProperties(SrcTypeId srcTypeId, Src src, Dst dst)
     {
-        ScriptContext* scriptContext = GetScriptContext();
-
         if (m_pSCASerializable)
         {
-            CComPtr<ISCASerializable> pSCASerializable = m_pSCASerializable;
-            m_pSCASerializable = NULL; // Clear temp
-
-            SCATypeId typeId;
-            CComPtr<SCAPropBag> pPropBag;
-            SCAPropBag::CreateInstance(GetScriptContext(), &pPropBag);
-
-            HRESULT hr = S_OK;
-            BEGIN_LEAVE_SCRIPT(scriptContext)
-            {
-                hr = pSCASerializable->GetObjectData(m_pSCAContext, &typeId, pPropBag);
-            }
-            END_LEAVE_SCRIPT(scriptContext);
-            ThrowIfFailed(hr);
-
-            SCAPropBag::PropBagEnumerator propBagEnumerator(pPropBag);
-            WriteTypeId(typeId);
-            WriteObjectProperties(&propBagEnumerator);
+            ClonePropertiesWithSCASerializable(srcTypeId, src, dst);
         }
         else
         {
-            RecyclableObject* obj = RecyclableObject::FromVar(src);
-            Var enumeratorVar = nullptr;
-
-            if (DynamicObject::IsAnyArrayTypeId(srcTypeId))
-            {
-                JavascriptArray* arr = JavascriptArray::FromAnyArray(src);
-                bool isSparseArray = IsSparseArray(arr);
-
-                WriteTypeId(isSparseArray ? SCA_SparseArray : SCA_DenseArray);
-                Write(arr->GetLength());
-
-                if (isSparseArray)
-                {
-                    WriteSparseArrayIndexProperties(arr);
-                }
-                else
-                {
-                    WriteDenseArrayIndexProperties(arr);
-                }
-
-                // Now we only need to write remaining non-index properties
-                arr->GetNonIndexEnumerator(&enumeratorVar, scriptContext);
-                Assert(enumeratorVar);
-            }
-
-            if (!enumeratorVar && !obj->GetEnumerator(FALSE, &enumeratorVar, scriptContext))
-            {
-                // Mark property end if we don't have enumerator
-                m_writer->Write(static_cast<uint32>(SCA_PROPERTY_TERMINATOR));
-                return;
-            }
-
-            ObjectPropertyEnumerator propEnumerator(scriptContext, obj, JavascriptEnumerator::FromVar(enumeratorVar));
-            WriteObjectProperties(&propEnumerator);
+            ClonePropertiesWithoutSCASerializable(srcTypeId, src, dst);
         }
     }
 
@@ -530,12 +541,12 @@ namespace Js
             if (!arr->IsCrossSiteObject())
             {
                 WriteSparseArrayIndexProperties<
-                    JavascriptArrayIndexEnumerator, JavascriptArrayDirectItemAccessor>(arr);
+                    JavascriptArrayIndexStaticEnumerator, JavascriptArrayDirectItemAccessor>(arr);
             }
             else
             {
                 WriteSparseArrayIndexProperties<
-                    JavascriptArrayIndexEnumerator, JavascriptArrayItemAccessor>(arr);
+                    JavascriptArrayIndexStaticEnumerator, JavascriptArrayItemAccessor>(arr);
             }
         }
         else
@@ -544,7 +555,7 @@ namespace Js
             // enumerate enumerable index named properties through ES5ArrayIndexEnumerator. Just use
             // JavascriptArrayItemAccessor.
             WriteSparseArrayIndexProperties<
-                ES5ArrayIndexEnumerator<>, JavascriptArrayItemAccessor>(ES5Array::FromVar(arr));
+                ES5ArrayIndexStaticEnumerator<>, JavascriptArrayItemAccessor>(ES5Array::FromVar(arr));
         }
     }
 

@@ -6,7 +6,6 @@
 #include <EnginePch.h>
 
 #include "RegexFlags.h"
-#include "Library\NullEnumerator.h"
 
 namespace Js
 {
@@ -350,6 +349,35 @@ namespace Js
         return DefaultOperationsWrapper(scriptDirect, instance, fn, NOERROR);
     }
 
+    class JavascriptEnumeratorWrapper : public Js::JavascriptStaticEnumerator
+    {
+    public:
+        JavascriptEnumeratorWrapper() {};
+
+        BOOL MoveNext(PropertyAttributes * attributes = nullptr)
+        {
+            currentIndex = this->MoveAndGetNext(currentPropertyId, attributes);
+            if (currentIndex == nullptr)
+            {
+                currentPropertyId = Constants::NoProperty;
+                return FALSE;
+            }
+            return true;
+        }
+        Var GetCurrentIndex()
+        {
+            return currentIndex;
+        }
+        bool GetCurrentPropertyId(PropertyId * propertyId)
+        {
+            *propertyId = currentPropertyId;
+            return currentPropertyId != Constants::NoProperty;
+        }
+    private:
+        Var currentIndex;
+        PropertyId currentPropertyId;
+    };
+
     // To avoid circularity, this returns an enumerator of only the internal properties of an object, even if the object has
     // an external type.  The IVarEnumerator must be released by its consumer.
 
@@ -364,20 +392,29 @@ namespace Js
         *enumerator = nullptr;
 
         auto fn = [&] (Js::RecyclableObject* objInstance, Js::ScriptContext* scriptContext) -> HRESULT {
-            Var internalEnum = nullptr;
             HRESULT hrLocal = NOERROR;
             BOOL result;
+            EnumeratorFlags flags = EnumeratorFlags::SnapShotSemantics;
+            if (enumNonEnumerable)
+            {
+                flags |= EnumeratorFlags::EnumNonEnumerable;
+            }
+            if (enumSymbols)
+            {
+                flags |= EnumeratorFlags::EnumSymbols;
+            }
+            JavascriptEnumeratorWrapper * internalEnum = RecyclerNew(scriptContext->GetRecycler(), JavascriptEnumeratorWrapper);
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;
-                result = customExternalObject->ExternalObject::GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
+                result = customExternalObject->ExternalObject::GetEnumerator(internalEnum, flags, scriptContext);
             }
             else
             {
-                result = objInstance->GetEnumerator(enumNonEnumerable, &internalEnum, scriptContext, true, !!enumSymbols);
+                result = objInstance->GetEnumerator(internalEnum, flags, scriptContext);
             }
             Assert(!result || (internalEnum != nullptr));
-            if (result && !VirtualTableInfo<Js::NullEnumerator>::HasVirtualTable(internalEnum))
+            if (result && !internalEnum->IsNullEnumerator())
             {
                 CVarEnumerator * externalEnum = HeapNew(CVarEnumerator, internalEnum, scriptContext);
                 hrLocal = externalEnum->QueryInterface(__uuidof(IVarEnumerator), (void**)enumerator);
@@ -884,46 +921,6 @@ namespace Js
         return scriptContext;
     }
 
-    class JavascriptEnumeratorWrapper
-    {
-    public:
-        JavascriptEnumeratorWrapper(JavascriptEnumerator * enumerator)
-        {
-            ResetEnumerator(enumerator);
-        }
-        void ResetEnumerator(JavascriptEnumerator * enumerator)
-        {
-            this->enumerator = enumerator;
-            this->currentIndex = enumerator->GetLibrary()->GetUndefined();
-            this->currentPropertyId = Js::Constants::NoProperty;
-        }
-        JavascriptEnumerator * GetEnumerator() const { return enumerator; }
-        BOOL MoveNext(PropertyAttributes * attributes = nullptr)
-        {
-            Assert(enumerator);
-            currentIndex = enumerator->MoveAndGetNext(currentPropertyId, attributes);
-            if (currentIndex == nullptr)
-            {
-                currentPropertyId = Constants::NoProperty;
-                return FALSE;
-            }
-            return true;
-        }
-        Var GetCurrentIndex()
-        {
-            return currentIndex;
-        }
-        bool GetCurrentPropertyId(PropertyId * propertyId)
-        {
-            *propertyId = currentPropertyId;
-            return currentPropertyId != Constants::NoProperty;
-        }
-    private:
-        JavascriptEnumerator * enumerator;
-        Var currentIndex;
-        PropertyId currentPropertyId;
-    };
-
     STDMETHODIMP CVarEnumerator::MoveNext( /*[out]*/ BOOL* itemsAvailable, /*[out,optional]*/ ::PropertyAttributes* attributes)
     {
         IfNullReturnError(itemsAvailable, E_INVALIDARG);
@@ -958,15 +955,15 @@ namespace Js
     {
         IfNullReturnError(enumerator, E_INVALIDARG);
 
-        *enumerator = this->internalEnum->GetEnumerator();
+        *enumerator = this->internalEnum;
         return S_OK;
     }
 
-    CVarEnumerator::CVarEnumerator( Js::Var internalEnum, Js::ScriptContext* scriptContext ) :
+    CVarEnumerator::CVarEnumerator(Js::JavascriptEnumeratorWrapper * internalEnum, Js::ScriptContext* scriptContext) :
         scriptContext(scriptContext), refCount(0)
     {
         Recycler * recycler = scriptContext->GetRecycler();
-        this->internalEnum.Root(RecyclerNew(recycler, Js::JavascriptEnumeratorWrapper, (Js::JavascriptEnumerator*)internalEnum), recycler);
+        this->internalEnum.Root(internalEnum, recycler);
     }
 
     CVarEnumerator::~CVarEnumerator()

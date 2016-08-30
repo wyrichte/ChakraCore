@@ -90,9 +90,9 @@ namespace Js
     {
         unsigned long refCount;
         Js::ScriptContext* scriptContext;
-        RecyclerRootPtr<JavascriptEnumeratorWrapper> internalEnum;
+        RecyclerRootPtr<Js::JavascriptEnumeratorWrapper> internalEnum;
     public:
-        CVarEnumerator(Js::Var internalEnum, Js::ScriptContext* scriptContext);
+        CVarEnumerator(Js::JavascriptEnumeratorWrapper * internalEnum, Js::ScriptContext* scriptContext);
         ~CVarEnumerator();
 
         STDMETHODIMP QueryInterface(REFIID riid,void **ppv)
@@ -131,7 +131,7 @@ namespace Js
 
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item);
 
-        STDMETHODIMP GetJavascriptEnumerator(/*[out*/ Var * enumerator);
+        STDMETHODIMP GetJavascriptEnumerator(/*[out]*/ Var * enumerator);
 
     };
 

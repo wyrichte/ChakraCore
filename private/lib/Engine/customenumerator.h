@@ -18,11 +18,7 @@ namespace Js
         virtual Var MoveAndGetNext(PropertyId& propertyId, PropertyAttributes* attributes = nullptr) override;
         virtual void Reset() override;
     protected:
-        DEFINE_VTABLE_CTOR(CustomEnumerator, JavascriptEnumerator);        
-        virtual void MarshalToScriptContext(Js::ScriptContext * scriptContext) override
-        {
-            AssertMsg(false, "CustomEnumerator should never get marshaled"); 
-        }  
+        DEFINE_VTABLE_CTOR(CustomEnumerator, JavascriptEnumerator);
     private:
         CustomExternalObject* customObject;
         IVarEnumerator* varEnumerator;
