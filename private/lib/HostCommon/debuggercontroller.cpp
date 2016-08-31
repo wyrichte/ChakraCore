@@ -231,9 +231,10 @@ Error:
     return hr;
 }
 
-DebuggerController::DebuggerController(LPCWSTR baselineFilename)
-    : m_scriptWrapper(new ScriptEngineWrapper), 
-    m_baselineFilename(baselineFilename ? baselineFilename : _u(""))
+DebuggerController::DebuggerController(LPCWSTR baselineFilename, LPCWSTR baselinePath)
+    : m_scriptWrapper(new ScriptEngineWrapper),
+    m_baselineFilename(baselineFilename ? baselineFilename : _u("")),
+    m_baselinePath(baselinePath ? baselinePath : _u(""))
 {
 }
 
@@ -292,7 +293,7 @@ HRESULT DebuggerController::LogJson(__in __nullterminated WCHAR const* logString
     return hr;
 }
 
-HRESULT DebuggerController::SetBaseline()
+HRESULT DebuggerController::SetBaseline(std::wstring const& fullPath)
 {
     LPSTR script = NULL;
     FILE *file = NULL;
@@ -300,9 +301,9 @@ HRESULT DebuggerController::SetBaseline()
     LPWSTR wideScript = NULL;
     HRESULT hr = S_OK;
 
-    if(_wfopen_s(&file, m_baselineFilename.c_str(), _u("rb")) != 0)
+    if(_wfopen_s(&file, fullPath.c_str(), _u("rb")) != 0)
     {
-        DebuggerController::LogError(_u("opening baseline file '%s'"), m_baselineFilename.c_str());
+        DebuggerController::LogError(_u("opening baseline file '%s'"), fullPath.c_str());
     }
     else
     {
@@ -365,15 +366,23 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
 
     // If a baseline file was passed in, use that; otherwise, use the filename of
     // the script file as the baseline;
+
+    if (!m_baselinePath.empty())
+    {
+        baselineFilename.append(m_baselinePath);
+        baselineFilename.append(_u("\\"));
+    }
+
     if (m_baselineFilename.empty())
     {
         // test.js.baseline
-        baselineFilename = filename + _u(".dbg.baseline");
+        baselineFilename.append(filename);
+        baselineFilename.append(_u(".dbg.baseline"));
+
         // Check if we have read permission, if succeed then treat this as baseline file to compare against
         if (_waccess_s(baselineFilename.c_str(), 4) == 0)
         {
-            m_baselineFilename = baselineFilename;
-            SetBaseline();
+            SetBaseline(baselineFilename);
         }
         else
         {
@@ -382,8 +391,8 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     }
     else
     {
-        baselineFilename = m_baselineFilename;
-        SetBaseline();
+        baselineFilename.append(m_baselineFilename);
+        SetBaseline(baselineFilename);
     }
 
 
@@ -416,10 +425,11 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
             DebuggerController::LogError(_u("WideCharToMultiByte"));
             goto Error;
         }
+
         std::wstring newFile = baselineFilename;
         if (!passed && !m_baselineFilename.empty())
         {
-            newFile = m_baselineFilename + _u(".rebase");
+            newFile = baselineFilename + _u(".rebase");
         }
         if (_wfopen_s(&file, newFile.c_str(), _u("wt")) != 0)
         {
