@@ -1862,15 +1862,10 @@ LError:
     return fRet;
 }
 
-// === IDebugStackFrameSnifferEx ===
+// === IDebugStackFrameSniffer ===
 STDMETHODIMP ScriptEngine::EnumStackFrames(IEnumDebugStackFrames **ppedsf)
 {
-    return EnumStackFramesEx32(0, ppedsf);
-}
-
-STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFrames **ppedsf)
-{
-    return DebugApiWrapper( [=] {
+    return DebugApiWrapper([=] {
         if (!ppedsf)
         {
             return E_INVALIDARG;
@@ -1898,7 +1893,7 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
         threadContext->GetDebugManager()->ValidateDebugAPICall();
 #endif 
 
-        CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(dwSpMin, this->GetScriptSiteHolder());
+        CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(this->GetScriptSiteHolder());
 
         if (pedsf == nullptr)
         {
@@ -1915,14 +1910,6 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
         return S_OK;
     });
 }
-
-#if _WIN64 || USE_32_OR_64_BIT
-STDMETHODIMP ScriptEngine::EnumStackFramesEx64(DWORDLONG dwSpMin, IEnumDebugStackFrames64 **ppedsf)
-{
-    Assert(false);
-    return E_NOTIMPL;
-}
-#endif // _WIN64 || USE_32_OR_64_BIT
 
 STDMETHODIMP ScriptEngine::OnConnectDebugger(IApplicationDebugger *pad)
 {
@@ -2435,13 +2422,8 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
         if (nullptr != prdatSteppingThread)
             prdatSteppingThread->Release();
 
-        hr = m_pda->AddStackFrameSniffer(
-#if _WIN64
-            static_cast<IDebugStackFrameSniffer *>(static_cast<IDebugStackFrameSnifferEx64 *>(this)),
-#else // _WIN64
-            static_cast<IDebugStackFrameSniffer *>(static_cast<IDebugStackFrameSnifferEx32 *>(this)),
-#endif // _WIN64
-            &m_dwSnifferCookie);
+        hr = m_pda->AddStackFrameSniffer(static_cast<IDebugStackFrameSniffer *>(this), &m_dwSnifferCookie);
+
         if (SUCCEEDED(hr))
         {
             m_fStackFrameSnifferAdded = true;
