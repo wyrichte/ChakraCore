@@ -252,9 +252,6 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     {
         hr = activeScriptDirect->SetJITConnectionInfo(JitProcessManager::GetRpcProccessHandle(), nullptr /*serverSecurityDescriptor*/, JitProcessManager::GetRpcConnectionId());
         IfFailedGo(hr);
-
-        hr = activeScriptDirect->SetJITInfoForScript();
-        IfFailedGo(hr);
     }
 
 LReturn:

@@ -89,6 +89,10 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
         if (JITManager::GetJITManager()->IsOOPJITEnabled())
         {
+            if (!scriptContext->GetRemoteScriptAddr())
+            {
+                scriptContext->InitializeRemoteScriptContext();
+            }
             JITManager::GetJITManager()->AddDOMFastPathHelper(
                 scriptContext->GetRemoteScriptAddr(),
                 (intptr_t)functionInfo,

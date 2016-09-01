@@ -1139,9 +1139,6 @@ interface IActiveScriptDirect : IUnknown
     ///   serverSecurityDescriptor  : Security descriptor for the AC the JIT process is in
     ///   connectionId              : The RPC connectionId used by the JIT process to establish an RPC server
     HRESULT SetJITConnectionInfo([in] HANDLE jitProcHandle, [in] void* serverSecurityDescriptor, [in] UUID connectionId);
-    
-    /// Initialize OOP JIT for the current ScriptContext
-    HRESULT SetJITInfoForScript();
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.
