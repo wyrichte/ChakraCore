@@ -10,6 +10,9 @@ set WINBUILDBASE=
 set BUILDVER=
 set COPYARCH=
 set COPYTARGETARCH=
+set DEFAULT_WINBUILDBASE=%WINBUILD%\%BRANCH_PREFIX%_DEV3
+set CACHEPAD=1
+set CACHEPADPATH=\\chakrafs\fs\tools\mshtmpad
 
 REM ---------------------
 REM ParseArg
@@ -38,7 +41,12 @@ IF /i "%1" == "amd64" (
     goto :ParseOne
 )
 
-IF EXIST "%_DEST%\" (
+IF /i "%1" == "nocachepad" (
+    set CACHEPAD=0
+    goto :ParseOne
+)
+
+IF EXIST "%1\" (
     set _DEST=%1
     goto :ParseOne
 )
@@ -63,13 +71,20 @@ IF EXIST "%WINBUILD%\%1" (
 
 :SkipParseArgWinBuildBase
 
-FOR /F "usebackq" %%i IN (`dir/b/on %WINBUILDBASE%\*%1*`) DO ( 
+set _TESTWINBUILDBASE=%WINBUILDBASE%
+IF "%_TESTWINBUILDBASE%" == "" (
+    set _TESTWINBUILDBASE=%DEFAULT_WINBUILDBASE%
+)
+
+FOR /F "usebackq" %%i IN (`dir/b/on %_TESTWINBUILDBASE%\*%1*`) DO ( 
     set BUILDVER=%%i
 )
 
 IF NOT "%BUILDVER%" == "" (
     goto :ParseOne
 )
+
+set WINBUILDBASE=%_TESTWINBUILDBASE%
 
 :SkipParseArgBuildVer
 
@@ -101,7 +116,7 @@ IF "%COPYTARGETARCH%" == "x86" (
 )
 
 IF "%WINBUILDBASE%" == "" (
-    set WINBUILDBASE=\\winbuilds\release\RS_ONECORE_WEBPLAT_STAGE_DEV3
+    set WINBUILDBASE=%DEFAULT_WINBUILDBASE%
 )
 
 IF NOT "%BUILDVER%" == "" (
@@ -138,7 +153,8 @@ IF "%_DEST%" == "" (
 
 
 IF NOT EXIST "%_DEST%\" (
-    echo ERROR: Directory %_DEST% does not exist
+    echo ERROR: Directory %_DEST% doesn't exist
+    exit /B 0
 )
 
 call :EnsureDirectory "%_DEST%\jshost.exe.local" 
@@ -153,7 +169,7 @@ set SYMSRC=%WINBUILDBASE%\%BUILDVER%\%COPYARCH%fre\symbols.pri
 set MUISRC=%WINBUILDBASE%\%BUILDVER%\%COPYARCH%fre\en-us\bin_segmented\onecoreuap
 
 echo FROM : %BINSRC%
-echo TO   : %_DEST%\jshost.exe.local
+echo TO   : %_DEST%
 echo .
 
 REM Core set
@@ -179,9 +195,15 @@ call :CopyBinFilePadOnly F12AppFrame.dll
 call :CopyBinFilePadOnly F12Platform.dll
 call :CopyBinFilePadOnly F12Script.dll
 call :CopyBinFileExPadOnly Spartan\omega.dll Spartan 
-call :CopyBinFileExPadOnly Spartan\htmlpad.dll Spartan 
 call :CopyBinFileExPadOnly TouchInjector\TouchInjector.dll TouchInjector
-call :CopyBinFileEx Spartan\mshtmpad.exe Spartan %_DEST%
+
+IF "%CACHEPAD%" == "1" (
+    call :CopyCachedBinFile htmlpad.dll %_DEST%\mshtmpad.exe.local
+    call :CopyCachedBinFile mshtmpad.exe %_DEST%
+) ELSE (
+    call :CopyBinFileExPadOnly Spartan\htmlpad.dll Spartan 
+    call :CopyBinFileEx Spartan\mshtmpad.exe Spartan %_DEST%
+)
 
 call :CopyBinFileEx wpaxhost.exe retail %_DEST%
 call :CopyBinFileEx wpaxholder.dll retail %_DEST%\wpaxhost.exe.local
@@ -204,6 +226,10 @@ exit /B 0
 call :CopyBinFileEx %1 %2 %_DEST%\mshtmpad.exe.local
 exit /B 0
 
+:CopyCachedBinFile
+call :CopyFile %CACHEPADPATH%\%COPYTARGETARCH%\%1 %2
+call :CopyFile %CACHEPADPATH%\%COPYTARGETARCH%\%~n1.pdb %2
+exit /B 0
 
 :CopyBinFileEx
 echo Copying %1
