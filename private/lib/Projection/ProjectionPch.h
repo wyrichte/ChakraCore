@@ -25,7 +25,6 @@
 #include "Runtime.h"
 #include "AsyncDebug.h"
 #include "Debug\DiagProbe.h"
-#include "Library\JavascriptErrorDebug.h"
 
 // =================
 // Common Includes
@@ -37,6 +36,7 @@
 //====================================
 // Engine includes
 //====================================
+#include "JavascriptErrorDebug.h"
 #include <objsafe.h>
 #include "activscp_private.h"
 #include "edgescriptDirect.h"

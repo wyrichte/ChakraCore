@@ -53,14 +53,17 @@
 
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <!-- For mscorlib.tlb used in JavascriptErrorDebug.cpp -->
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(SdkLibPath)\clr45
+      </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
         4510;     <!-- default constructor could not be generated -->
-        4610;     <!-- can never be instantiated - user defined constructor required -->
-        
-        <!-- TODO: Should clean this up -->
+        4610;     <!-- can never be instantiated - user defined constructor required --><!-- TODO: Should clean this up -->
         4267;     <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
         4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
         4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
@@ -69,7 +72,7 @@
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
-      </DisableSpecificWarnings>
+    </DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -145,6 +148,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptErrorDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
@@ -208,6 +212,7 @@
     <ClInclude Include="IDebugBitCorrectApplicationThread.h" />
     <ClInclude Include="IHTMLDOMConstructor.h" />
     <ClInclude Include="JavascriptDispatch.h" />
+    <ClInclude Include="JavascriptErrorDebug.h" />
     <ClInclude Include="JavascriptExternalOperators.h" />
     <ClInclude Include="javascriptpixelarraydispatch.h" />
     <ClInclude Include="javascriptThreadService.h" />
