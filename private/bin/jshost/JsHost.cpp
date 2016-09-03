@@ -1887,7 +1887,7 @@ void PeekRuntimeFlag(int argc, _In_reads_(argc) LPWSTR argv[])
     }
 }
 
-typedef HRESULT(WINAPI *JsInitializeRpcServerPtr)(UUID* connectionUuid, void* securityDescriptor, void* alpcSecurityDescriptor);
+typedef HRESULT(WINAPI *JsInitializeJITServerPtr)(UUID* connectionUuid, void* securityDescriptor, void* alpcSecurityDescriptor);
 
 int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
 {
@@ -1909,7 +1909,7 @@ int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
         return status;
     }
 
-    JsInitializeRpcServerPtr initRpcServer = (JsInitializeRpcServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeRpcServer");
+    JsInitializeJITServerPtr initRpcServer = (JsInitializeJITServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeJITServer");
     HRESULT hr = initRpcServer(&connectionUuid, nullptr, nullptr);
     if (FAILED(hr))
     {
