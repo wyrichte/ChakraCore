@@ -38,7 +38,9 @@ public:
     void EmitInterfaceDeclaration(const TypeScriptInterfaceDeclaration& interfaceDeclaration);
     void EmitEnumDeclaration(const TypeScriptEnumDeclaration& enumDeclaration);
     void EmitClassDeclaration(const TypeScriptClassDeclaration& classDeclaration);
+    void EmitTypeAliasDeclaration(const TypeScriptTypeAliasDeclaration& classDeclaration);
 
+private:
     std::wstring FormatTypeName(const MetadataString name);
     std::wstring FormatIdentifier(const MetadataString name);
     std::wstring FormatPropertyName(const MetadataString name);

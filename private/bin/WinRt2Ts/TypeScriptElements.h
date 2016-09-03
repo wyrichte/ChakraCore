@@ -74,7 +74,7 @@ public:
     const TypeScriptType& GetType() const;
     bool IsOptional() const;
 
-    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type, bool optional);
+    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type, bool optional = false);
 
 private:
     const MetadataString m_name;
@@ -325,6 +325,22 @@ private:
     TypeScriptClassDeclaration() {}
 };
 
+class TypeScriptTypeAliasDeclaration
+{
+public:
+    const TypeScriptType& GetTypeReference() const;
+    const TypeScriptType& GetRightHandTypeReference() const;
+
+    static std::auto_ptr<TypeScriptTypeAliasDeclaration> Make(std::auto_ptr<TypeScriptType>&& typeReference, std::auto_ptr<TypeScriptType>&& rightHandTypeReference);
+
+private:
+    const std::auto_ptr<TypeScriptType> m_typeReference;
+    const std::auto_ptr<TypeScriptType> m_rightHandTypeReference;
+
+private:
+    TypeScriptTypeAliasDeclaration(std::auto_ptr<TypeScriptType>&& typeReference, std::auto_ptr<TypeScriptType>&& rightHandTypeReference);
+};
+
 class TypeScriptType
 {
 public:
@@ -332,17 +348,22 @@ public:
     bool IsArray() const;
     bool IsObject() const;
     bool IsFunction() const;
+    bool IsTuple() const;
     const auto_ptr_vector<TypeScriptType>& GetTypeArguments() const;
     const auto_ptr_vector<TypeScriptPropertySignature>& GetObjectTypeMembers() const;
     const TypeScriptParameterList& GetFunctionParameters() const;
     const TypeScriptType& GetFunctionReturnType() const;
+    const TypeScriptType* GetIntersectionTypeOrNull() const;
 
     static std::auto_ptr<TypeScriptType> Make(MetadataString name);
     static std::auto_ptr<TypeScriptType> MakeTypeReference(MetadataString name, auto_ptr_vector<TypeScriptType>&& typeArguments);
     static std::auto_ptr<TypeScriptType> MakeTypeReference(MetadataString name, std::auto_ptr<TypeScriptType>&& typeArgument);
     static std::auto_ptr<TypeScriptType> MakeObjectType(auto_ptr_vector<TypeScriptPropertySignature>&& objectTypeMembers);
     static std::auto_ptr<TypeScriptType> MakeArrayType(std::auto_ptr<TypeScriptType>&& type);
+    static std::auto_ptr<TypeScriptType> RenameType(std::auto_ptr<TypeScriptType>&& type, MetadataString newName);
+    static std::auto_ptr<TypeScriptType> IntersectTypes(std::auto_ptr<TypeScriptType>&& type, std::auto_ptr<TypeScriptType>&& intersectionType);
     static std::auto_ptr<TypeScriptType> MakeFunctionType(std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType);
+    static std::auto_ptr<TypeScriptType> MakeTupleType(auto_ptr_vector<TypeScriptType>&& typeArguments);
 
 private:
     enum class Type
@@ -350,7 +371,8 @@ private:
         PredefinedOrReference,
         Array,
         Object,
-        Function
+        Function,
+        Tuple
     };
 
     const MetadataString m_name;
@@ -359,6 +381,7 @@ private:
     const std::auto_ptr<TypeScriptType> m_functionReturnType;
     const auto_ptr_vector<TypeScriptType> m_typeArguments;
     const auto_ptr_vector<TypeScriptPropertySignature> m_objectTypeMembers;
+    std::auto_ptr<TypeScriptType> m_intersection;
 
 private:
     TypeScriptType(MetadataString name, Type type, auto_ptr_vector<TypeScriptType>&& typeArguments, auto_ptr_vector<TypeScriptPropertySignature>&& objectTypeMembers, std::auto_ptr<TypeScriptParameterList>&& functionParameterList, std::auto_ptr<TypeScriptType>&& returnType);

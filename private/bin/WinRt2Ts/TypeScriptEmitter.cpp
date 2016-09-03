@@ -194,6 +194,17 @@ void TypeScriptEmitter::EmitClassDeclaration(const TypeScriptClassDeclaration& c
     m_writer.WriteLine(L"}");
 }
 
+void TypeScriptEmitter::EmitTypeAliasDeclaration(const TypeScriptTypeAliasDeclaration& classDeclaration)
+{
+    wstring line = L"type ";
+    line += FormatType(classDeclaration.GetTypeReference());
+    line += L" = ";
+    line += FormatType(classDeclaration.GetRightHandTypeReference());
+    line += L";";
+
+    m_writer.WriteLine(line);
+}
+
 wstring TypeScriptEmitter::FormatTypeName(const MetadataString name)
 {
     return name.ToString();
@@ -243,6 +254,26 @@ wstring TypeScriptEmitter::FormatType(const TypeScriptType& type)
         out += L" => ";
         out += FormatType(type.GetFunctionReturnType());
     }
+    else if (type.IsTuple())
+    {
+        out += L"[";
+        bool firstElement = true;
+        for (auto param : type.GetTypeArguments())
+        {
+            if (firstElement)
+            {
+                firstElement = false;
+            }
+            else
+            {
+                out += L", ";
+            }
+
+            out += FormatType(*param);
+        }
+
+        out += L"]";
+    }
     else
     {
         out += FormatTypeName(type.GetName());
@@ -272,6 +303,13 @@ wstring TypeScriptEmitter::FormatType(const TypeScriptType& type)
         {
             out += L"[]";
         }
+    }
+
+    auto intersection = type.GetIntersectionTypeOrNull();
+
+    if (intersection != nullptr)
+    {
+        out += L" & " + FormatType(*intersection);
     }
 
     return out;
