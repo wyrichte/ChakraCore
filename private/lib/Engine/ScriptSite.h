@@ -123,7 +123,6 @@ private:
     ScriptSite * parentScriptSite;
     Js::RecyclableObject * windowHost;
     bool hasParentInfo;
-    bool isCloned;
     StackBackTrace * setHostObjectStackBackTrace;
     StackBackTrace * reinitHostObjectStackBackTrace;
     static const int StackToSkip = 2;

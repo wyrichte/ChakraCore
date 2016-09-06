@@ -734,7 +734,6 @@ namespace JsDiag
         {
         }
 
-        bool IsES6TypedArrayExtensionsEnabled() { return m_threadConfig->IsES6TypedArrayExtensionsEnabled(); }
         bool IsES6UnicodeExtensionsEnabled() { return m_threadConfig->IsES6UnicodeExtensionsEnabled(); }
         bool IsES6RegExStickyEnabled() { return m_threadConfig->IsES6RegExStickyEnabled(); }
 

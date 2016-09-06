@@ -190,7 +190,6 @@ ScriptSite::ScriptSite()
     this->parentScriptSite = nullptr;
     this->windowHost = nullptr;
     this->hasParentInfo = false;
-    this->isCloned = false;
     this->setHostObjectStackBackTrace = nullptr;
     this->reinitHostObjectStackBackTrace = nullptr;
 #endif
@@ -421,7 +420,6 @@ void ScriptSite::Close()
     this->windowHost = nullptr;
 #endif
 
-    BOOL isCloned = scriptEngine->IsCloned();
     BOOL isNonPrimaryEngine = scriptEngine->fNonPrimaryEngine;
     size_t sourceSize = GetScriptSiteContext()->GetSourceSize();
     Recycler* recycler =  this->GetRecycler();
@@ -591,25 +589,22 @@ void ScriptSite::Close()
     // ScriptContext might have been freed during MarkForClose, null it out.
     scriptSiteContext = nullptr;
 
-    if (!isCloned)
+    if (isNonPrimaryEngine)
     {
-        if (isNonPrimaryEngine)
+        // Only collect if we have some script associated with the engine
+        // Otherwise, the memory used by this script context should be small
+        // Just let other heuristic to activate the GC to clean it up.
+        // we don't even need to collect if idle GC is enabled. Just let the
+        // orphan markup count & idle GC take of the collection.
+        if (sourceSize != 0 && (GetThreadContext()->GetThreadServiceWrapper() == nullptr))
         {
-            // Only collect if we have some script associated with the engine
-            // Otherwise, the memory used by this script context should be small
-            // Just let other heuristic to activate the GC to clean it up.
-            // we don't even need to collect if idle GC is enabled. Just let the
-            // orphan markup count & idle GC take of the collection.
-            if (sourceSize != 0 && (GetThreadContext()->GetThreadServiceWrapper() == nullptr))
-            {
-                recycler->CollectNow<CollectOnScriptCloseNonPrimary>();
-            }
+            recycler->CollectNow<CollectOnScriptCloseNonPrimary>();
         }
-        else
-        {
-            CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) // for telemetry purposes
-            recycler->CollectNow<CollectNowExhaustive>();
-        }
+    }
+    else
+    {
+        CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) // for telemetry purposes
+        recycler->CollectNow<CollectNowExhaustive>();
     }
 
 #ifdef ENABLE_PROJECTION
@@ -975,6 +970,12 @@ HRESULT ScriptSite::ReportError(Js::JavascriptExceptionObject * pError, Js::Scri
             threadContext->SetUnhandledExceptionObject(nullptr);
             threadContext->ResetHasUnhandledException();
             pError->ClearStackTrace();
+        }
+        else
+        {
+            // The errorScriptContext could be anyone and since they have closed we don't have anyone to report the error to.
+            // However, we can say to the caller that an error WAS reported and they can handle this appropriately.
+            hr = SCRIPT_E_REPORTED;
         }
         pase->Release();
     }
@@ -1901,8 +1902,7 @@ ScriptSite::DumpSiteInfo(char16 const * message, char16 const * message2)
 
     if (this->parentScriptSite != nullptr)
     {
-        Output::Print(_u("%s ScriptSite %d(%p)"),
-            this->isCloned? _u("Cloned") : _u("Parent"), this->parentAllocId, parentScriptSite);
+        Output::Print(_u("%s ScriptSite %d(%p)"), _u("Parent"), this->parentAllocId, parentScriptSite);
     }
     else if (this->nextTopLevelScriptSite != nullptr)
     {
@@ -2178,28 +2178,12 @@ ScriptSite::SetupWindowHost(Js::RecyclableObject * hostObj)
 
     Assert(windowHost == nullptr);
     Assert(!hasParentInfo);
-    Assert(!isCloned);
 
     windowHost = hostObj;
 
-    if (scriptEngine->IsCloned())
-    {
-        this->parentScriptSite = scriptEngine->originalScriptSite;
-#if DBG_DUMP
-        // We didn't take a ref count of the script site, so it may be deleted
-        // before the child script engine.  Copy the allocId as well
-        this->parentAllocId = this->parentScriptSite->allocId;
-#endif
-        this->isCloned = true;
-        this->hasParentInfo = true;
-        // The profiler has be set up to use the original script site's already in ScriptEngine::Clone
-    }
-    else
-    {
-        // delay getting the parent information from top.
-        // SetupWindowHost is called during script engine set up, and it may not be fully initialize
-        // on the Trident side. Calling back to the DOM may confuse it and create another script enginee
-    }
+    // delay getting the parent information from top.
+    // SetupWindowHost is called during script engine set up, and it may not be fully initialize
+    // on the Trident side. Calling back to the DOM may confuse it and create another script enginee
 
 #if DBG_DUMP
     if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::HostPhase))
@@ -2320,7 +2304,7 @@ HRESULT ScriptSite::VerifyDOMSecurity(Js::ScriptContext* targetContext, Js::Var 
     HRESULT hr = NOERROR;
     ScriptSite* targetSite = ScriptSite::FromScriptContext(targetContext);
     IActiveScriptSite* srcIActiveScriptSite = NULL, *destIActiveScriptSite = NULL;
-    if (IsClosed() || targetContext->IsClosed())
+    if (IsClosed() || targetContext->IsClosed() || targetContext->IsInvalidatedForHostObjects())
     {
         return E_ACCESSDENIED;
     }

@@ -170,19 +170,10 @@ namespace Js
         return DynamicObject::DeleteItem(index, flags);
     }
 
-    BOOL ExternalObject::GetEnumerator(BOOL enumNonEnumerable, Var* enumerator, ScriptContext * requestContext, bool preferSnapshotSemantics, bool enumSymbols)
+    BOOL ExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
-        BOOL result = DynamicObject::GetEnumerator(enumNonEnumerable, enumerator, requestContext, preferSnapshotSemantics, enumSymbols);
-        if (result)
-        {
-            JavascriptEnumerator* jsEnumerator = JavascriptEnumerator::FromVar(*enumerator);
-            if (requestContext != GetScriptContext())
-            {
-                jsEnumerator->MarshalToScriptContext(requestContext);
-            }
-        }
-        return result;
+        return __super::GetEnumerator(enumerator, flags, requestContext);
     }
 
     BOOL ExternalObject::IsWritable(PropertyId propertyId)
@@ -303,9 +294,13 @@ namespace Js
         return DynamicObject::QueryObjectInterface(riid, ppvObj);
     }
 
-    BOOL ExternalObject::Equals(Var other, BOOL* value, ScriptContext * requestContext) 
+    BOOL ExternalObject::Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive())
+        {
+            *value = FALSE;
+            return FALSE;
+        }
         return DynamicObject::Equals(other, value, requestContext);
     }
 
@@ -348,10 +343,16 @@ namespace Js
         return DynamicObject::SetPrototype(newPrototype);
     }
 
-    BOOL ExternalObject::StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) 
+    BOOL ExternalObject::StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext)
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
-        return this == other;
+        if (!this->VerifyObjectAlive())
+        {
+            *value = FALSE;
+            return FALSE;
+        }
+
+        *value = (this == other);
+        return *value;
     }
 
     void ExternalType::Initialize(ExternalMethod entryPoint)

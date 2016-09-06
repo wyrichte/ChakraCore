@@ -56,6 +56,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -125,6 +126,7 @@
       },
       "d": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDInt16x8_unaryop": "<large string>",
         "testSIMDInt16x8_binaryop": "<large string>",
         "testSIMDInt16x8_compareop": "<large string>",
@@ -144,6 +146,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -222,6 +225,7 @@
         "[7]": "-2"
       },
       "[Globals]": {
+        "console": "{...}",
         "testSIMDInt16x8_unaryop": "<large string>",
         "testSIMDInt16x8_binaryop": "<large string>",
         "testSIMDInt16x8_compareop": "<large string>",
@@ -241,6 +245,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -290,6 +295,7 @@
       "e2": "undefined",
       "f2": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDInt16x8_unaryop": "<large string>",
         "testSIMDInt16x8_binaryop": "<large string>",
         "testSIMDInt16x8_compareop": "<large string>",
@@ -385,6 +391,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -405,6 +412,7 @@
       "n": "undefined",
       "cmp": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDInt16x8_unaryop": "<large string>",
         "testSIMDInt16x8_binaryop": "<large string>",
         "testSIMDInt16x8_compareop": "<large string>",
@@ -529,6 +537,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "SIMD.Int32x4(1, 2, 3, 4)",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -551,6 +560,7 @@
       "d": "undefined",
       "e": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDInt16x8_unaryop": "<large string>",
         "testSIMDInt16x8_binaryop": "<large string>",
         "testSIMDInt16x8_compareop": "<large string>",

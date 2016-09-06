@@ -1927,7 +1927,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     bool useJsrt = HandleJsrtTestFlag(argc, argv);
     bool useHtml = HandleHtmlTestFlag(argc, argv);
     HandleAlternateDllFlag(argc, argv);
-    
+
     PeekRuntimeFlag(argc, argv);
 
     if (argc < 2)
@@ -1938,6 +1938,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
     HostConfigFlags::HandleArgsFlag(argc, argv);
     HostConfigFlags::HandleJsEtwConsoleFlag(argc, argv);
+    HostConfigFlags::HandleBaselinePathFlag(argc, argv);
 
     if (int ret = HandleNativeTestFlag(argc, argv) != 0)
     {

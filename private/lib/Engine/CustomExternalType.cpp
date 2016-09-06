@@ -950,7 +950,7 @@ namespace Js
         return ExternalObject::SetItem(index, value, flags);
     }
 
-    BOOL CustomExternalObject::GetEnumerator(BOOL enumNonEnumerable, Var* enumerator, ScriptContext * requestContext, bool preferSnapshotSemantics, bool enumSymbols)
+    BOOL CustomExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext)
     {
         HRESULT hr = FALSE;
         if (!this->VerifyObjectAlive())
@@ -960,7 +960,7 @@ namespace Js
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::GetEnumerator(enumNonEnumerable, enumerator, requestContext, preferSnapshotSemantics, enumSymbols);
+            return ExternalObject::GetEnumerator(enumerator, flags, requestContext);
         }
         if (this->GetOperationUsage().useAlways & OperationFlag_getEnumerator)
         {
@@ -970,13 +970,14 @@ namespace Js
             ThreadContext * threadContext = scriptContext->GetThreadContext();
             if (threadContext->IsDisableImplicitCall())
             {
-                *enumerator = requestContext->GetLibrary()->GetNullEnumerator();
+                enumerator->Clear();
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
                 return TRUE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), 0, CustomExternalObject_GetEnumerator)
             {
-                hr = this->GetTypeOperations()->GetEnumerator(requestContext->GetActiveScriptDirect(), this, enumNonEnumerable, enumSymbols, &varEnumerator);
+                hr = this->GetTypeOperations()->GetEnumerator(requestContext->GetActiveScriptDirect(), this, 
+                    !!(flags & EnumeratorFlags::EnumNonEnumerable), !!(flags & EnumeratorFlags::EnumSymbols), &varEnumerator);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), 0, CustomExternalObject_GetEnumerator);
             IGNORE_HR(hr)
@@ -989,31 +990,29 @@ namespace Js
             IVarEnumerator2 * varEnumerator2 = NULL;
             if (SUCCEEDED(varEnumerator->QueryInterface(__uuidof(IVarEnumerator2), (void **)&varEnumerator2)))
             {
-                hr = varEnumerator2->GetJavascriptEnumerator(enumerator);
+                Js::JavascriptStaticEnumerator * externalEnumerator;
+                hr = varEnumerator2->GetJavascriptEnumerator((Var *)&externalEnumerator);
                 varEnumerator2->Release();
                 if (SUCCEEDED(hr))
                 {
                     varEnumerator->Release();
-                    if (*enumerator == nullptr)
+                    if (externalEnumerator == nullptr)
                     {
-                        *enumerator = requestContext->GetLibrary()->GetNullEnumerator();
+                        enumerator->Clear();
                     }
-
-                    // VSO 7871027 - RecyclableObjectWalker::GetChildrenCount can call in CustomExternalObject::GetEnumerator in which case
-                    // both the contexts can be same.
-                    if (scriptContext != requestContext)
+                    else
                     {
-                        *enumerator = CrossSite::MarshalEnumerator(requestContext, *enumerator);
+                        *enumerator = *externalEnumerator;
                     }
 
                     return TRUE;
                 }
             }
-            *enumerator = CreateEnumerator(requestContext, varEnumerator);
+            enumerator->Initialize(CreateEnumerator(requestContext, varEnumerator), nullptr, nullptr, flags, requestContext);
             varEnumerator->Release();
             return TRUE;
         }
-        return ExternalObject::GetEnumerator(enumNonEnumerable, enumerator, requestContext, preferSnapshotSemantics, enumSymbols);
+        return ExternalObject::GetEnumerator(enumerator, flags, requestContext);
     }
 
     // just to allow try_finally in caller function
@@ -1740,10 +1739,11 @@ namespace Js
     }
 
     // We should be able to get rid of Equals and StrictEquals post rs1.
-    BOOL CustomExternalObject::Equals(Var other, BOOL* returnResult, ScriptContext * requestContext)
+    BOOL CustomExternalObject::Equals(__in Var other, __out BOOL* returnResult, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive())
         {
+            *returnResult = FALSE;
             return FALSE;
         }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -1758,6 +1758,7 @@ namespace Js
             if (threadContext->IsDisableImplicitCall())
             {
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+                *returnResult = FALSE;
                 return TRUE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(requestContext, Js::JavascriptOperators::GetTypeId(this), Js::JavascriptOperators::GetTypeId(other), CustomExternalObject_Equals)
@@ -1770,10 +1771,11 @@ namespace Js
         return ExternalObject::Equals(other, returnResult, requestContext);
     }
 
-    BOOL CustomExternalObject::StrictEquals(Var other, BOOL* returnResult, ScriptContext * requestContext)
+    BOOL CustomExternalObject::StrictEquals(__in Var other, __out BOOL* returnResult, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive())
         {
+            *returnResult = FALSE;
             return FALSE;
         }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
@@ -1788,6 +1790,7 @@ namespace Js
             if (threadContext->IsDisableImplicitCall())
             {
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+                *returnResult = FALSE;
                 return TRUE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(requestContext, Js::JavascriptOperators::GetTypeId(this), Js::JavascriptOperators::GetTypeId(other), CustomExternalObject_StrictEquals)

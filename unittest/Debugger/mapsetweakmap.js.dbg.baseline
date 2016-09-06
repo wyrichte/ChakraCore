@@ -57,7 +57,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": "size = 0"
       },
@@ -79,7 +80,8 @@
             "[Methods]": "{...}",
             "__proto__": "null"
           },
-          "size": "0"
+          "size": "0",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": "size = 0"
       },
@@ -95,7 +97,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": "size = 0"
       },
@@ -110,12 +113,22 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": "size = 0"
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": "<large string>"
+          },
+          "__proto__": {
+            "[Methods]": "{...}",
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": "{...}",
@@ -387,7 +400,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -509,7 +523,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -517,7 +532,8 @@
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "size": "3"
+              "size": "3",
+              "Symbol.toStringTag": "Set"
             },
             "[Set]": {
               "0": "5",
@@ -583,7 +599,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": {
           "0": {
@@ -643,14 +660,16 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": {
           "0": {
             "__proto__": {
               "[Methods]": "{...}",
               "__proto__": "{...}",
-              "size": "3"
+              "size": "3",
+              "Symbol.toStringTag": "Map"
             },
             "[Map]": {
               "0": "[5, {...}]",
@@ -662,6 +681,33 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -679,7 +725,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -733,7 +779,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -991,7 +1037,8 @@
             },
             "__proto__": "null"
           },
-          "size": "2"
+          "size": "2",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -1103,7 +1150,8 @@
             },
             "__proto__": "null"
           },
-          "size": "2"
+          "size": "2",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -1165,7 +1213,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": "size = 0"
       },
@@ -1217,12 +1266,40 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": "size = 0"
       },
       "p": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -1240,7 +1317,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1294,7 +1371,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1552,7 +1629,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Map"
         },
         "[Map]": {
           "0": {
@@ -1668,7 +1746,8 @@
             },
             "__proto__": "null"
           },
-          "size": "3"
+          "size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "[Set]": {
           "0": "5",
@@ -1731,7 +1810,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakMap"
         },
         "[WeakMap]": {
           "0": {
@@ -1793,7 +1873,8 @@
               "valueOf": "<large string>"
             },
             "__proto__": "null"
-          }
+          },
+          "Symbol.toStringTag": "WeakSet"
         },
         "[WeakSet]": {
           "0": {
@@ -1897,6 +1978,33 @@
         "z": "object"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": {
+            "log": {
+              "__proto__": "<large string>",
+              "arguments": "null",
+              "caller": "null",
+              "name": "log",
+              "prototype": "{...}"
+            }
+          },
+          "__proto__": {
+            "[Methods]": {
+              "__defineGetter__": "<large string>",
+              "__defineSetter__": "<large string>",
+              "__lookupGetter__": "<large string>",
+              "__lookupSetter__": "<large string>",
+              "constructor": "<large string>",
+              "hasOwnProperty": "<large string>",
+              "isPrototypeOf": "<large string>",
+              "propertyIsEnumerable": "<large string>",
+              "toLocaleString": "<large string>",
+              "toString": "<large string>",
+              "valueOf": "<large string>"
+            },
+            "__proto__": "null"
+          }
+        },
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -1914,7 +2022,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {
@@ -1968,7 +2076,7 @@
               "__proto__": "",
               "description": "<large string>",
               "message": "<large string>",
-              "number": "-2146823193",
+              "number": "-2146823245",
               "stack": "<large string>"
             },
             "caller": {

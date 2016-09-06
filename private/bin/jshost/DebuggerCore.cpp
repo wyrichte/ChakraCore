@@ -189,7 +189,7 @@ Debugger::Debugger(void)
     // Set up the controller
     if(HostConfigFlags::flags.Auto || HostConfigFlags::flags.Targeted || HostConfigFlags::flags.DumpLocalsOnDebuggerBp)
     {
-        m_pController = new DebuggerController(dbgBaselineFilename);
+        m_pController = new DebuggerController(dbgBaselineFilename, HostConfigFlags::baselinePath);
 
         // Install the callbacks for the controller.
         IfFailGo(m_pController->InstallHostCallback(_u("InsertBreakpoint"), &Debugger::JsInsertBreakpoint, this));

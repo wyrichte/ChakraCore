@@ -203,7 +203,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_codepage              = GetACP();
 
     m_excepinfoInterrupt    = NoException;       // If interrupt raised, exception information
-    pendingCloneSource      = nullptr;
     // Debugger
     m_scriptSiteDebug       = nullptr;
     m_pNonDebugDocFirst     = nullptr;
@@ -247,7 +246,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     webWorkerID = Js::Constants::NonWebWorkerContextId;
 
     scriptContext = nullptr;
-    isCloned = false;
     wasScriptDirectEnabled = false;
     scriptBodyMap = nullptr;
     debugStackFrame = nullptr;
@@ -1866,15 +1864,10 @@ LError:
     return fRet;
 }
 
-// === IDebugStackFrameSnifferEx ===
+// === IDebugStackFrameSniffer ===
 STDMETHODIMP ScriptEngine::EnumStackFrames(IEnumDebugStackFrames **ppedsf)
 {
-    return EnumStackFramesEx32(0, ppedsf);
-}
-
-STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFrames **ppedsf)
-{
-    return DebugApiWrapper( [=] {
+    return DebugApiWrapper([=] {
         if (!ppedsf)
         {
             return E_INVALIDARG;
@@ -1902,7 +1895,7 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
         threadContext->GetDebugManager()->ValidateDebugAPICall();
 #endif 
 
-        CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(dwSpMin, this->GetScriptSiteHolder());
+        CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(this->GetScriptSiteHolder());
 
         if (pedsf == nullptr)
         {
@@ -1919,14 +1912,6 @@ STDMETHODIMP ScriptEngine::EnumStackFramesEx32(DWORD dwSpMin, IEnumDebugStackFra
         return S_OK;
     });
 }
-
-#if _WIN64 || USE_32_OR_64_BIT
-STDMETHODIMP ScriptEngine::EnumStackFramesEx64(DWORDLONG dwSpMin, IEnumDebugStackFrames64 **ppedsf)
-{
-    Assert(false);
-    return E_NOTIMPL;
-}
-#endif // _WIN64 || USE_32_OR_64_BIT
 
 STDMETHODIMP ScriptEngine::OnConnectDebugger(IApplicationDebugger *pad)
 {
@@ -2170,8 +2155,14 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerAttached: start on scriptengine 0x%p, pairCount %lu\n"), this, pairCount);
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsRunningScript())
+    {
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
@@ -2194,6 +2185,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerAttached(__in ULONG pairCount, /* [size_is]
     AutoRestoreValue<ULONG> sourceContextPairCount(&this->pairCount, pairCount);
     AutoRestoreValue<SourceContextPair *> sourceContextPairs(&this->pSourceContextPairs, pSourceContextPairs);
 
+    // Prevent non-debug-mode byte code in the script body map from being re-used in debug mode.
+    this->RemoveScriptBodyMap();
+
     return this->scriptContext->OnDebuggerAttached();
 }
 
@@ -2201,16 +2195,19 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
 {
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::OnDebuggerDetached: start 0x%p\n"), this);
 
-    if (m_pda == nullptr)
+    if (IsInClosedState() || this->scriptContext == nullptr)
     {
-        // Debug mode should have been enabled.
-        Assert(false);
+        return E_FAIL;
+    }
+
+    if (this->scriptContext->IsScriptContextInNonDebugMode())
+    {
         return E_UNEXPECTED;
     }
 
-    if (IsInClosedState() || this->scriptContext == nullptr || this->scriptContext->IsRunningScript())
+    if (this->scriptContext->IsRunningScript())
     {
-        Assert(false);
+        AssertMsg(false, "Attach/Detach is not supported when script is running");
         return E_FAIL;
     }
 
@@ -2228,6 +2225,9 @@ STDMETHODIMP ScriptEngine::OnDebuggerDetached()
     // in debug mode, but when m_isHostInDebugMode == true, we won't check host and at least keep script
     // engine in debug mode consistently. See ScriptEngine::IsDebuggerEnvironmentAvailable)
     m_isHostInDebugMode = false;
+
+    // Prevent debug-mode byte code in the script body map from being re-used in non-debug mode.
+    this->RemoveScriptBodyMap();
 
     return this->scriptContext->OnDebuggerDetached();
 }
@@ -2279,6 +2279,9 @@ STDMETHODIMP ScriptEngine::PerformSourceRundown(__in ULONG pairCount, /* [size_i
         Assert(FALSE);
         return E_FAIL;
     }
+
+    // Prevent non-debug-mode byte code in the script body map from being re-used in debug mode.
+    this->RemoveScriptBodyMap();
 
     // Move the debugger into source rundown mode.
     scriptContext->GetDebugContext()->SetDebuggerMode(Js::DebuggerMode::SourceRundown);
@@ -2421,13 +2424,8 @@ HRESULT ScriptEngine::SetupNewDebugApplication(void)
         if (nullptr != prdatSteppingThread)
             prdatSteppingThread->Release();
 
-        hr = m_pda->AddStackFrameSniffer(
-#if _WIN64
-            static_cast<IDebugStackFrameSniffer *>(static_cast<IDebugStackFrameSnifferEx64 *>(this)),
-#else // _WIN64
-            static_cast<IDebugStackFrameSniffer *>(static_cast<IDebugStackFrameSnifferEx32 *>(this)),
-#endif // _WIN64
-            &m_dwSnifferCookie);
+        hr = m_pda->AddStackFrameSniffer(static_cast<IDebugStackFrameSniffer *>(this), &m_dwSnifferCookie);
+
         if (SUCCEEDED(hr))
         {
             m_fStackFrameSnifferAdded = true;
@@ -2750,22 +2748,9 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
         }
     }
 
-    // If we are a clone or are recovering from reset then now is the time to
+    // If we are recovering from reset then now is the time to
     // register our named items:
     RegisterNamedItems();
-
-    if (this->pendingCloneSource)
-    {
-        // Clone the script bodies that have been waiting for named items to be registered
-        // in the cloned engine.
-        Assert(this->IsCloned());
-        hr = this->pendingCloneSource->CloneScriptBodies(this);
-        this->pendingCloneSource = nullptr;
-        if (FAILED(hr))
-        {
-            return hr;
-        }
-    }
 
     if (m_fPersistLoaded)
         ChangeScriptState(SCRIPTSTATE_INITIALIZED);
@@ -3469,144 +3454,7 @@ STDMETHODIMP ScriptEngine::InterruptScriptThread(SCRIPTTHREADID stidThread, cons
 
 STDMETHODIMP ScriptEngine::Clone(IActiveScript **ppscript)
 {
-    HRESULT         hr = NOERROR;
-    ScriptEngine *  oleScriptNew;
-
-    CHECK_POINTER(ppscript);
-    *ppscript = nullptr;
-
-    if (m_ssState == SCRIPTSTATE_CLOSED)
-        return E_UNEXPECTED;
-
-    // Create a new script instance:
-    oleScriptNew = HeapNewNoThrow(ScriptEngine, m_riidLanguage, m_pszLanguageName);
-    IFNULLMEMRET(oleScriptNew);
-    if (FAILED(oleScriptNew->InitializeThreadBound()))
-    {
-        delete oleScriptNew;
-        return E_OUTOFMEMORY;
-    }
-
-    DisableInterrupts();
-
-    // If we're loaded, so is our child.  That way, all he has to do is
-    // set his site to become initialized.
-    oleScriptNew->m_fPersistLoaded = m_fPersistLoaded;
-
-    IFFAILGO(m_NamedItemList.Clone(&oleScriptNew->m_NamedItemList));
-    oleScriptNew->m_moduleIDNext = 1 + oleScriptNew->m_NamedItemList.FindHighestModuleID();
-
-    Js::ScriptContext * newScriptContext = nullptr;
-    BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
-    {
-
-        newScriptContext = oleScriptNew->EnsureScriptContext();
-#ifdef PROFILE_EXEC
-        // Use the profiler that we cloned from
-        newScriptContext->SetProfilerFromScriptContext(this->scriptContext);
-#endif
-#ifdef PROFILE_MEM
-        newScriptContext->DisableProfileMemoryDumpOnDelete();
-#endif
-        newScriptContext->CloneSources(this->scriptContext);
-    }
-    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
-
-    if (FAILED(hr))
-    {
-        goto LReturn;
-    }
-
-    hr = NOERROR;
-
-LReturn:
-    EnableInterrupts();
-    if (FAILED(hr))
-    {
-        oleScriptNew->Release();
-    }
-    else
-    {
-        oleScriptNew->SetIsCloned(this);
-#ifdef PROFILE_EXEC
-        oleScriptNew->originalScriptSite = this->GetScriptSiteHolder();
-#endif
-        *ppscript = (IActiveScript *)oleScriptNew;
-    }
-    return hr;
-}
-
-HRESULT
-    ScriptEngine::CloneScriptBodies(ScriptEngine *oleScriptNew)
-{
-    HRESULT         hr = NOERROR;
-    long            ibod, cbod;
-    BOD             bod;
-
-    // Clone the code blocks
-    if (nullptr != m_pglbod && 0 < (cbod = m_pglbod->Cv()))
-    {
-        if (nullptr == oleScriptNew->m_pglbod &&
-            nullptr == (oleScriptNew->m_pglbod = HeapNewNoThrow(GL,sizeof(BOD))))
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-
-        try
-        {
-            AUTO_HANDLED_EXCEPTION_TYPE((ExceptionType)(ExceptionType_OutOfMemory | ExceptionType_StackOverflow));
-            for (ibod = 0; ibod < cbod; ++ibod)
-            {
-                m_pglbod->Get(ibod, &bod);
-                if (!(bod.grfbod & fbodPersist))
-                    continue;
-                bod.grfbod = fbodPersist | fbodRun;
-                bod.pbody  = bod.pbody->Clone(oleScriptNew);
-                IFNULLMEMGO(bod.pbody);
-                if (!oleScriptNew->m_pglbod->FAdd(&bod))
-                {
-                    bod.pbody->Release();
-                    bod.pbody = nullptr;
-                    FAILGO(E_OUTOFMEMORY);
-                }
-            }
-        }
-        catch(Js::OutOfMemoryException)
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-        catch (Js::StackOverflowException)
-        {
-            FAILGO(HRESULT_FROM_WIN32(ERROR_STACK_OVERFLOW));
-        }
-    }
-
-    // Clone persistent event handlers.
-    if (eventHandlers->Count() > 0)
-    {
-        try
-        {
-            AUTO_HANDLED_EXCEPTION_TYPE(ExceptionType_OutOfMemory);
-            BaseEventHandler * eventHandler;
-            BaseEventHandler * eventHandlerNew;
-            for (int i  = 0; i < eventHandlers->Count(); i++)
-            {
-                eventHandler = eventHandlers->Item(i);
-
-                if (!eventHandler->ShouldPersist())
-                    continue;
-                IFFAILGO(eventHandler->Clone(oleScriptNew, &eventHandlerNew));
-                oleScriptNew->eventHandlers->Add(eventHandlerNew);
-            }
-        }
-        catch(Js::OutOfMemoryException)
-        {
-            FAILGO(E_OUTOFMEMORY);
-        }
-    }
-
-LReturn:
-    return hr;
+    Js::Throw::NotImplemented();
 }
 
 // *** IActiveScriptParse Methods ***
@@ -6781,7 +6629,8 @@ STDMETHODIMP ScriptEngine::CollectGarbage(SCRIPTGCTYPE scriptgctype)
 
 HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     __in LPWSTR scriptText,
-    __out Var *scriptFunc)
+    __out Var *scriptFunc,
+    __in_opt LoadScriptFlag *pLoadScriptFlag)
 {
     HRESULT hr = NOERROR;
     IfNullReturnError(scriptText, E_INVALIDARG);
@@ -6797,7 +6646,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    LoadScriptFlag loadScriptFlag = LoadScriptFlag_Expression;
+    LoadScriptFlag loadScriptFlag = (pLoadScriptFlag == nullptr) ? LoadScriptFlag_Expression : (*pLoadScriptFlag);
     Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)

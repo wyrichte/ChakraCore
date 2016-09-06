@@ -79,6 +79,7 @@
         "foo1": "foo1"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>"
       }
     }

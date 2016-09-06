@@ -23,7 +23,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10"
+        "a1": "10",
+        "console": "{...}"
       },
       "{exception}": {
         "__proto__": "",
@@ -39,6 +40,7 @@
       },
       "obj": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",
         "sub_expression_exception": "<large string>",
@@ -103,7 +105,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10"
+        "a1": "10",
+        "console": "{...}"
       },
       "{exception}": "Foo Error",
       "arguments": {
@@ -112,6 +115,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",
         "sub_expression_exception": "<large string>",

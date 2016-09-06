@@ -103,18 +103,13 @@
  |  |  |    |    [Internal property] value: __lookupSetter__
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Properties] count: 2
- |  | 0 asyncMethod: type: FunctionObject flags: (new) optional info records (3)
+ |  | 0 asyncMethod: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: FunctionObject (seen)
- |  |    [Function name] asyncFactorial
- |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: asyncawait.js
- |  |    | 1 sourceRow: value: 1.000000
- |  |    | 2 sourceCol: value: 7.000000
  |  | 1 asyncMethodPromise: type: Promise flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 3
+ |  |    |  [Properties] count: 4
  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 9
@@ -159,14 +154,17 @@
  |  |    |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    |    |    [Internal property] value: resolve
  |  |    |  |    |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 1 catch: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  | 1 Symbol.toStringTag: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |  |    [Internal property] value: Promise
+ |  |    |  |    [Prototype] type: StringObject (seen)
+ |  |    |  | 2 catch: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 1.000000
  |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    |    [Internal property] value: catch
  |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 2 then: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  | 3 then: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 2.000000

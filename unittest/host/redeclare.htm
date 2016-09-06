@@ -6,6 +6,7 @@
 </head>
 <body>
 <script>
+
 function print(result)
 {
 WScript.Echo(result);
@@ -15,8 +16,20 @@ if (!window) {
   window = new Object();
 }
 
-var cannotOverrideKeywords = ['document', 'window', 'navigator', 'sessionStorage', 'localStorage'];
-var cannotOverrideProperties = [document, window, navigator, sessionStorage, localStorage];
+var cannotOverrideKeywords = [
+'document',
+'window',
+'navigator',
+//'sessionStorage',
+//'localStorage'
+];
+var cannotOverrideProperties = [
+document,
+window,
+navigator,
+//sessionStorage,
+//localStorage,
+];
 
 var tests = [];
 function test1(propertyName) {
@@ -42,7 +55,7 @@ print(window[propertyName]);
 }
 tests.push(test4);
 
-for (var i in cannotOverrideKeywords) 
+for (var i in cannotOverrideKeywords)
     for (var j in tests)
 {
     print('test'+j+' with ' + cannotOverrideKeywords[i]);
@@ -65,13 +78,12 @@ print(property);
 }
 tests.push(test6);
 
-for (var i in cannotOverrideProperties) 
+for (var i in cannotOverrideProperties)
     for (var j in tests)
 {
     print('test'+j+' with ' + cannotOverrideProperties[i]);
     tests[j](cannotOverrideProperties[i]);
 }
-
 
 "use strict";
 document = function() {}

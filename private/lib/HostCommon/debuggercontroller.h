@@ -177,10 +177,10 @@ private:
 class DebuggerController
 {
 public:
-    DebuggerController(LPCWSTR baselineFilename);
+    DebuggerController(LPCWSTR baselineFilename, LPCWSTR baselinePath);
     ~DebuggerController();
 
-    HRESULT SetBaseline();
+    HRESULT SetBaseline(std::wstring const& fullPath);
     HRESULT LogBreakpoint(__in __nullterminated WCHAR const* reason);
     HRESULT LogLocals(__in __nullterminated WCHAR const* locals);
     HRESULT LogCallstack(__in __nullterminated WCHAR const* callstack);
@@ -359,5 +359,6 @@ public:
 
 private:
     std::wstring            m_baselineFilename;
+    std::wstring            m_baselinePath;
     ScriptEngineWrapper*    m_scriptWrapper;
 };

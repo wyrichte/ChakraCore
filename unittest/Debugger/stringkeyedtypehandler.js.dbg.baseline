@@ -28,6 +28,10 @@
         "constructor": "undefined"
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "{...}",

@@ -13,7 +13,7 @@ obj1.method0 = function () {
       test0,
       sc0_cctx()
     ]) {
-    while (!sc0_cctx()) {
+    while (sc0_cctx()) {
     }
   }
 };

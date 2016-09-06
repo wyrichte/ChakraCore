@@ -343,26 +343,27 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
     return result;
 }
 
-BOOL HostDispatch::GetEnumerator(__in BOOL enumNonEnumerable, __out Js::Var* enumerator, __in Js::ScriptContext * requestContext, __in bool preferSnapshotSemantics, __in bool enumSymbols)
+BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext)
 {    
     if (!this->CanSupportIDispatchEx())
     {
+        enumerator->Clear();
         return FALSE;
-    }
+    }    
+    HostDispatch * currentHostDispatch;
     if (GetScriptContext() != requestContext)
     {
-        HostDispatch* currentHostDispatch;
         currentHostDispatch = HostDispatch::Create(requestContext, this->GetDispatchNoRef());
-        *enumerator = RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch);
     }
     else
     {
-        *enumerator = RecyclerNew(GetScriptContext()->GetRecycler(), HostDispatchEnumerator, this);
+        currentHostDispatch = this;
     }
-    return true;
+    return enumerator->Initialize(RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch),
+        nullptr, nullptr, flags, requestContext);
 }
 
-BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {
     if (this == other)
     {
@@ -382,6 +383,7 @@ BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requ
         }
         else
         {
+            *value = FALSE;
             return FALSE;
         }
     }
@@ -399,7 +401,7 @@ BOOL HostDispatch::StrictEquals(Var other, BOOL* value, Js::ScriptContext * requ
     return HostDispatch::EqualsHelper(this, right, value, TRUE);
 }
 
-BOOL HostDispatch::Equals(Var other, BOOL* value, Js::ScriptContext * requestContext)
+BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)
 {
     if (this == other)
     {
@@ -429,10 +431,12 @@ BOOL HostDispatch::Equals(Var other, BOOL* value, Js::ScriptContext * requestCon
                 HostDispatch* pGlobalHostDispatch = ((HostObject*)globalObject->GetHostObject())->GetHostDispatch();
                 return this->Equals(pGlobalHostDispatch, value, requestContext);
             }
+            *value = FALSE;
             return FALSE;
         }
     case Js::TypeIds_WithScopeObject:
         AssertMsg(false, "WithScopeObjects should not be exposed");
+        *value = FALSE;
         break;
 
     case Js::TypeIds_Object:

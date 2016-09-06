@@ -22,7 +22,7 @@ namespace Js
                 if (typeId != TypeIds_ModuleRoot && typeId != TypeIds_GlobalObject)
                 {
                     // the id here is dispid coming from JavascriptDispatch call, for id in external object, the id could be totally external
-                    //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
+                    //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid.
                     if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                     {
                         AssertMsg(FALSE, "invalid propertyid");
@@ -65,7 +65,7 @@ namespace Js
                 if (typeId != TypeIds_ModuleRoot && typeId != TypeIds_GlobalObject)
                 {
                     // the id here is dispid coming from JavascriptDispatch call, for id in external object, the id could be totally external
-                    //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
+                    //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid.
                     if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                     {
                         AssertMsg(FALSE, "invalid propertyid");
@@ -106,7 +106,7 @@ namespace Js
             else
             {
                 // the id here is dispid coming from JavascriptDispatch call, for id in external object, the id could be totally external
-                //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
+                //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid.
                 if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                 {
                     AssertMsg(FALSE, "invalid propertyid");
@@ -136,7 +136,7 @@ namespace Js
             else
             {
                 // the id here is dispid coming from JavascriptDispatch call, for id in external object, the id could be totally external
-                //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid. 
+                //  and not in javascript land. directly go to the external object if the dispid is not valid propertyid.
                 if (!scriptContext->GetThreadContext()->IsActivePropertyId(id))
                 {
                     AssertMsg(FALSE, "invalid propertyid");
@@ -218,8 +218,8 @@ namespace Js
 
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
-            rc = JavascriptConversion::ToInt64(instance, scriptContext);            
-        } 
+            rc = JavascriptConversion::ToInt64(instance, scriptContext);
+        }
         END_JS_RUNTIME_CALL(scriptContext);
 
         return rc;
@@ -231,8 +231,8 @@ namespace Js
 
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
-            rc = JavascriptConversion::ToUInt64(instance, scriptContext);            
-        } 
+            rc = JavascriptConversion::ToUInt64(instance, scriptContext);
+        }
         END_JS_RUNTIME_CALL(scriptContext);
 
         return rc;

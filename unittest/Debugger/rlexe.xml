@@ -320,7 +320,7 @@
   <test>
     <default>
       <files>fullNameMapTest.js</files>
-      <compile-flags>-ES6Species -dbgbaseline:fullNameMapTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
+      <compile-flags>-ES6Species -dbgbaseline:fullNameMapTest.js.dbg.baseline -InspectMaxStringLength:256 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -341,7 +341,7 @@
   <test>
     <default>
       <files>fullNameSetTest.js</files>
-      <compile-flags>-ES6Species -dbgbaseline:fullNameSetTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
+      <compile-flags>-ES6Species -dbgbaseline:fullNameSetTest.js.dbg.baseline -InspectMaxStringLength:256 -Intl- -debuglaunch -targeted</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -1877,7 +1877,7 @@
   <test>
     <default>
       <files>bug_543550.js</files>
-      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:100 -dbgbaseline:bug_543550.js.dbg.baseline</compile-flags>
+      <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:110 -dbgbaseline:bug_543550.js.dbg.baseline</compile-flags>
       <tags>fail_mutators</tags>
     </default>
   </test>
@@ -1899,7 +1899,7 @@
   <test>
     <default>
       <files>symbols.js</files>
-      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable -es6tostringtag</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -dbgbaseline:symbols.js.dbg.baseline -targeted -es6toprimitive -es6isConcatSpreadable</compile-flags>
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
@@ -1968,13 +1968,14 @@
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  <!-- Bug: OS: 8555166
   <test>
     <default>
       <files>test_iframe1.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:test_iframe1.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
       <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
     </default>
-  </test>
+  </test> -->
   <test>
     <default>
       <files>html_workertest.html</files>
@@ -2700,7 +2701,7 @@
   <test>
     <default>
       <files>TypedArray.js</files>
-      <compile-flags>-ES6Species -debuglaunch -targeted -es6tostringtag -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
+      <compile-flags>-ES6Species -debuglaunch -targeted -dbgbaseline:typedarray.js.dbg.baseline -InspectMaxStringLength:200</compile-flags>
     </default>
   </test>
   <test>

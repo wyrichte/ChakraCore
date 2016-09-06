@@ -11,8 +11,8 @@
           "__proto__": {
             "[Methods]": "{...}",
             "__proto__": "{...}",
-            "arguments": "Accessing the 'arguments' property is restricted in this context",
-            "caller": "Accessing the 'caller' property is restricted in this context",
+            "arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+            "caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
             "length": "0",
             "name": ""
           },
@@ -27,7 +27,7 @@
             "byteLength": "'this' is not a typed array object",
             "byteOffset": "'this' is not a typed array object",
             "length": "'this' is not a typed array object",
-            "Symbol.toStringTag": "'this' is not a typed array object"
+            "Symbol.toStringTag": "undefined"
           }
         },
         "arguments": "null",
@@ -46,7 +46,7 @@
             "byteLength": "'this' is not a typed array object",
             "byteOffset": "'this' is not a typed array object",
             "length": "'this' is not a typed array object",
-            "Symbol.toStringTag": "'this' is not a typed array object"
+            "Symbol.toStringTag": "undefined"
           },
           "BYTES_PER_ELEMENT": "1"
         }

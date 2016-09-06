@@ -1,0 +1,170 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 613,
+        "length": 1,
+        "text": "c",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 513,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "bar",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "c": {
+        "__proto__": "Invalid Date"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "Run": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 524,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "[bar returned]": "undefined",
+      "[Return value]": "undefined",
+      "a": "foo",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "Run": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 613,
+        "length": 1,
+        "text": "c",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 513,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "bar",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "c": {
+        "__proto__": "Invalid Date"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "Run": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 524,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "[bar returned]": "undefined",
+      "[Return value]": "undefined",
+      "a": "foo",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "Run": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  }
+]

@@ -8,9 +8,6 @@
 #include "DispIdHelper.h"
 #include "typeinfobuilder.h"
 
-#include "Types\DynamicObjectEnumerator.h"
-#include "Types\DynamicObjectSnapshotEnumerator.h"
-#include "Types\DynamicObjectSnapshotEnumeratorWPCache.h"
 #include "Library\ForInObjectEnumerator.h"
 
 // Useful constants:
@@ -328,13 +325,22 @@ HRESULT TypeInfoBuilder::AddJavascriptObject(Js::DynamicObject* dynamicObject)
 
     Js::ScriptContext* scriptContext = dynamicObject->GetScriptContext();
     Js::ForInObjectEnumerator forinEnumerator(dynamicObject, scriptContext);
-    while (forinEnumerator.MoveNext())
+   
+    while (true)
     {
-        Js::Var propertyIndex = forinEnumerator.GetCurrentIndex();
+        Js::PropertyId propId = Js::Constants::NoProperty;
+        Js::Var propertyIndex = forinEnumerator.MoveAndGetNext(propId);
+        if (propertyIndex == nullptr)
+        {
+            break;
+        }
         Js::JavascriptString *propertyName = Js::JavascriptString::FromVar(propertyIndex);
         Js::PropertyRecord const * propRecord;
-        scriptContext->GetOrAddPropertyRecord(propertyName->GetString(), propertyName->GetLength(), &propRecord);
-        Js::PropertyId propId = propRecord->GetPropertyId();
+        if (propId == Js::Constants::NoProperty)
+        {
+            scriptContext->GetOrAddPropertyRecord(propertyName->GetString(), propertyName->GetLength(), &propRecord);
+            propId = propRecord->GetPropertyId();
+        }
 
         if (dynamicObject->IsEnumerable(propId))
         {

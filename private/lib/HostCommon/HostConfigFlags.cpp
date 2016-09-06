@@ -7,6 +7,7 @@
 HostConfigFlags HostConfigFlags::flags;
 LPWSTR* HostConfigFlags::argsVal;
 PCWSTR HostConfigFlags::jsEtwConsoleCmdLine = nullptr;
+PCWSTR HostConfigFlags::baselinePath = nullptr;
 int HostConfigFlags::argsCount;
 void (__stdcall *HostConfigFlags::pfnPrintUsage)();
 
@@ -181,6 +182,11 @@ int HostConfigFlags::PeekVersionSwitch(int argc, _In_reads_(argc) PWSTR argv[])
 void HostConfigFlags::HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     jsEtwConsoleCmdLine = ExtractSwitch(argc, argv, _u("-JsEtwConsole:"));
+}
+
+void HostConfigFlags::HandleBaselinePathFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
+{
+    baselinePath = ExtractSwitch(argc, argv, _u("-baselinePath:"));
 }
 
 void HostConfigFlags::HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])

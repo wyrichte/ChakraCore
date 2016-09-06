@@ -1,0 +1,22 @@
+[
+  {
+    "evaluate": {
+      "let a = 1": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "a": "100",
+      "b": "200",
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      }
+    }
+  }
+]

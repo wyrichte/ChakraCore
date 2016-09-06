@@ -8,8 +8,8 @@
               "set.__proto__.add.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.add.__proto__.__proto__": "{...}",
-                "set.__proto__.add.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.add.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.add.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.add.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.add.__proto__.length": "0",
                 "set.__proto__.add.__proto__.name": ""
               },
@@ -22,8 +22,8 @@
               "set.__proto__.clear.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.clear.__proto__.__proto__": "{...}",
-                "set.__proto__.clear.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.clear.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.clear.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.clear.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.clear.__proto__.length": "0",
                 "set.__proto__.clear.__proto__.name": ""
               },
@@ -39,8 +39,8 @@
               "set.__proto__.constructor.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.constructor.__proto__.__proto__": "{...}",
-                "set.__proto__.constructor.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.constructor.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.constructor.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.constructor.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.constructor.__proto__.length": "0",
                 "set.__proto__.constructor.__proto__.name": ""
               },
@@ -51,15 +51,16 @@
               "set.__proto__.constructor.prototype": {
                 "[Methods]": "{...}",
                 "set.__proto__.constructor.prototype.__proto__": "{...}",
-                "set.__proto__.constructor.prototype.size": "Set.prototype.size: 'this' is not a Set object"
+                "set.__proto__.constructor.prototype.size": "Set.prototype.size: 'this' is not a Set object",
+                "Symbol.toStringTag": "Set"
               }
             },
             "set.__proto__.delete": {
               "set.__proto__.delete.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.delete.__proto__.__proto__": "{...}",
-                "set.__proto__.delete.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.delete.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.delete.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.delete.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.delete.__proto__.length": "0",
                 "set.__proto__.delete.__proto__.name": ""
               },
@@ -72,8 +73,8 @@
               "set.__proto__.entries.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.entries.__proto__.__proto__": "{...}",
-                "set.__proto__.entries.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.entries.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.entries.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.entries.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.entries.__proto__.length": "0",
                 "set.__proto__.entries.__proto__.name": ""
               },
@@ -86,8 +87,8 @@
               "set.__proto__.forEach.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.forEach.__proto__.__proto__": "{...}",
-                "set.__proto__.forEach.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.forEach.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.forEach.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.forEach.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.forEach.__proto__.length": "0",
                 "set.__proto__.forEach.__proto__.name": ""
               },
@@ -100,8 +101,8 @@
               "set.__proto__.has.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.has.__proto__.__proto__": "{...}",
-                "set.__proto__.has.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.has.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.has.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.has.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.has.__proto__.length": "0",
                 "set.__proto__.has.__proto__.name": ""
               },
@@ -114,8 +115,8 @@
               "set.__proto__.keys.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.keys.__proto__.__proto__": "{...}",
-                "set.__proto__.keys.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.keys.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.keys.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.keys.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.keys.__proto__.length": "0",
                 "set.__proto__.keys.__proto__.name": ""
               },
@@ -128,8 +129,8 @@
               "__proto__": {
                 "[Methods]": "{...}",
                 "__proto__": "{...}",
-                "arguments": "Accessing the 'arguments' property is restricted in this context",
-                "caller": "Accessing the 'caller' property is restricted in this context",
+                "arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "length": "0",
                 "name": ""
               },
@@ -142,8 +143,8 @@
               "set.__proto__.values.__proto__": {
                 "[Methods]": "{...}",
                 "set.__proto__.values.__proto__.__proto__": "{...}",
-                "set.__proto__.values.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-                "set.__proto__.values.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+                "set.__proto__.values.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+                "set.__proto__.values.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
                 "set.__proto__.values.__proto__.length": "0",
                 "set.__proto__.values.__proto__.name": ""
               },
@@ -237,7 +238,8 @@
             },
             "set.__proto__.__proto__.__proto__": "null"
           },
-          "set.__proto__.size": "3"
+          "set.__proto__.size": "3",
+          "Symbol.toStringTag": "Set"
         },
         "set": {
           "0": "1",

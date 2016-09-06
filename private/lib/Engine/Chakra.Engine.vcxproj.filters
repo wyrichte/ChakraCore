@@ -63,6 +63,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)ExternalLowerer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptTypedObjectSlotAccessorFunction.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptErrorDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activescripterror.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="DOMFastpathinfolist.h" />
     <ClInclude Include="ExternalObject.h" />
     <ClInclude Include="JavascriptTypedObjectSlotAccessorFunction.h" />
+    <ClInclude Include="JavascriptErrorDebug.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />

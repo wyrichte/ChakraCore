@@ -2,198 +2,230 @@
   {
     "locals": {
       "this": "{...}",
-      "forletin": "[Uninitialized block variable]"
+      "forletin": "[Uninitialized block variable]",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "a"
+      "forletin": "a",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "b"
+      "forletin": "b",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "c"
+      "forletin": "c",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "[Uninitialized block variable]"
+      "forconstin": "[Uninitialized block variable]",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "a"
+      "forconstin": "a",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "b"
+      "forconstin": "b",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "c"
+      "forconstin": "c",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "[Uninitialized block variable]"
+      "forletof": "[Uninitialized block variable]",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "1"
+      "forletof": "1",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "2"
+      "forletof": "2",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "3"
+      "forletof": "3",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "[Uninitialized block variable]"
+      "forconstof": "[Uninitialized block variable]",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "1"
+      "forconstof": "1",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "2"
+      "forconstof": "2",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "3"
+      "forconstof": "3",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "[Uninitialized block variable]"
+      "forlet": "[Uninitialized block variable]",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "3"
+      "forlet": "3",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "[Uninitialized block variable]",
-      "forconsti": "0"
+      "forconsti": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "console": "{...}"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "1"
+      "forconsti": "1",
+      "console": "{...}"
     }
   }
 ]

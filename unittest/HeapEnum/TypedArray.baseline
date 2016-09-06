@@ -111,7 +111,7 @@ Pass
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  |  [Prototype] type: ObjectObject (seen)
- |  |    |  |  [Properties] count: 35
+ |  |    |  |  [Properties] count: 37
  |  |    |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  | 1 set: type: FunctionObject flags: (new) optional info records (2)
@@ -305,12 +305,19 @@ Pass
  |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |  | 32 length: rsFlags: setter type: FunctionObject (seen)
- |  |    |  |  | 33 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |  | 33 Symbol.toStringTag: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |  |    [Properties] count: 2
+ |  |    |  |  |    | 0 length: value: 0.000000
+ |  |    |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
+ |  |    |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |  |  | 34 Symbol.toStringTag: rsFlags: setter type: FunctionObject (seen)
+ |  |    |  |  | 35 toLocaleString: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000
  |  |    |  |  |    | 1 name: type: String (seen)
- |  |    |  |  | 34 toString: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |  | 36 toString: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 2
  |  |    |  |  |    | 0 length: value: 0.000000

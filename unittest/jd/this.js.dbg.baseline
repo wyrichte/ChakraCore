@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -12,6 +13,7 @@
         "[0]": "null"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -30,6 +32,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -39,7 +42,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -48,6 +52,7 @@
         "[0]": "undefined"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -66,6 +71,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -83,6 +89,7 @@
         "[0]": "true"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -101,6 +108,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -118,6 +126,7 @@
         "[0]": "123"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -136,6 +145,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -154,6 +164,7 @@
         "[0]": "String Value"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -172,6 +183,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -189,6 +201,7 @@
         "[0]": "false"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -209,6 +222,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -226,6 +240,7 @@
         "[0]": "45"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -246,6 +261,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -264,6 +280,7 @@
         "[0]": "String Object"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -285,6 +302,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -305,6 +323,7 @@
         "[0]": "[0,1]"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -328,6 +347,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -346,6 +366,7 @@
         "[0]": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -367,6 +388,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -376,7 +398,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -385,6 +408,7 @@
         "[0]": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -394,7 +418,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -406,6 +431,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -422,6 +448,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -440,6 +467,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "f1": "<large string>",
         "f2": "<large string>"
       }

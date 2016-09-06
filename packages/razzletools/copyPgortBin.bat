@@ -23,7 +23,8 @@ echo Linker Build: %linker_build%
 echo Linker Version: %linker_version%
 
 
-set linker_sharepath=\\cpvsbuild\drops\dev14\%linker_build%\raw
+REM set linker_sharepath=\\cpvsbuild\drops\dev14\%linker_build%\raw
+set linker_sharepath=\\cpvsbuild\drops\dev14\VCToolsRel\raw
 
 set shareroot=%linker_sharepath%
 set buildFolder=!shareroot!\%minorVersion%.00

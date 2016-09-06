@@ -10,7 +10,7 @@ void
 GenerateFastExternalEqTest(
     CustomExternalObjectOperations *pData,
     IR::RegOpnd *typeRegOpnd,
-    IR::BranchInstr *instrBranch,
+    IR::Instr *instrBranch,
     IR::LabelInstr *labelHelper,
     IR::LabelInstr *labelSuccess,
     bool isStrictBr,
@@ -84,7 +84,7 @@ HRESULT GetExternalJitData(ExternalJitData id, void *data)
 }
 
 bool
-ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2, IR::BranchInstr * instrBranch, IR::LabelInstr * labelHelper, 
+ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2, IR::Instr * instrBranch, IR::LabelInstr * labelHelper, 
     IR::LabelInstr * labelBooleanCmp, Lowerer * lowerer, bool isStrictBr)
 {
     CustomExternalObjectOperations data;

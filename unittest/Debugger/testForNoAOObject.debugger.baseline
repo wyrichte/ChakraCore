@@ -15,7 +15,12 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "undefined"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "F1": {
         "__proto__": "<large string>",
@@ -94,6 +99,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -105,6 +111,7 @@
       "b": "20",
       "c": "30",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -147,6 +154,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -161,6 +169,7 @@
       "a": "2",
       "b": "54",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -203,6 +212,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -214,6 +224,7 @@
       "b": "undefined",
       "c": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -256,6 +267,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -267,6 +279,7 @@
       "b": "20",
       "c": "30",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -309,6 +322,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -328,6 +342,7 @@
       "f5": "undefined",
       "a1": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -370,6 +385,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -382,6 +398,7 @@
         "a1": "11"
       },
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -430,6 +447,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -449,6 +467,7 @@
       "f5": "undefined",
       "a1": "11",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -491,6 +510,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -507,6 +527,7 @@
         "a1": "11"
       },
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -555,6 +576,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -581,6 +603,7 @@
       },
       "a1": "11",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -623,6 +646,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "[Return value]": "11",
@@ -650,6 +674,7 @@
       },
       "a1": "11",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -692,7 +717,12 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "F1": {
         "__proto__": "<large string>",
@@ -773,6 +803,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -790,6 +821,7 @@
       "a1": "undefined",
       "f6": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -832,6 +864,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -841,6 +874,7 @@
       },
       "b1": "10",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -889,6 +923,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -909,6 +944,7 @@
         "i": "10"
       },
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -957,6 +993,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -969,6 +1006,7 @@
         "i": "11"
       },
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -1023,6 +1061,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -1035,6 +1074,7 @@
         "i": "11"
       },
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",
@@ -1089,6 +1129,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -1109,6 +1150,7 @@
       "j": "20",
       "i": "11",
       "[Globals]": {
+        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
         "F3": "<large string>",

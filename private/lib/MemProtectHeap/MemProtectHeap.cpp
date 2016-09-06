@@ -1569,6 +1569,18 @@ MemProtectThreadContext::ScanStack(RecyclerScanMemoryCallback& scanMemory)
 #error Architecture not supported
 #endif
 
+#ifdef _NTBUILD
+#include <VerifyGlobalMSRCSettings.inl>
+#endif
+#if defined(PRERELEASE_REL1607_MSRC33694_BUG7773849) || defined(_CHAKRACOREBUILD)
+            // The protected thread could be in the middle of an operation that has
+            // left it's stack not aligned to the pointer size. So round it to the next
+            // highest aligned pointer value
+            // An example of a case where this could happen is VC++'s implementation of
+            // __libm_sse2_exp in VS2015.
+            sp = (void*)Math::Align<uintptr_t>((uintptr_t)sp, sizeof(void*));
+#endif
+
             // Use the stack top to discover the stack allocation.
             MEMORY_BASIC_INFORMATION memoryInfo;
             if (VirtualQuery(this->stackTop, &memoryInfo, sizeof(MEMORY_BASIC_INFORMATION)) == 0)

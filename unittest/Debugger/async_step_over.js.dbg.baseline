@@ -1,0 +1,34 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 123,
+        "length": 20,
+        "text": "return await af1(10)",
+        "frameDescription": "af2"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 151,
+        "length": 13,
+        "text": "var p = af2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 478,
+        "length": 160,
+        "text": "p.then(result => {\n        if (result === 100) {\n            print(\"PASS\");\n        }\n    },\n    error => {\n        print(\"Failed : \" + error);\n    } \n)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

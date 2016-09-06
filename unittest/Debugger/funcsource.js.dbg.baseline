@@ -18,7 +18,12 @@
           "__proto__": "null"
         }
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
     }
   }
 ]

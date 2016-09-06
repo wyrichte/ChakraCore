@@ -51,80 +51,51 @@ ownKey trap
 Symbol(hello)
 Symbol(hello)
 PASSED
-*** Running test #10 (9): enumerate with no property
-enumerate trap
-0
-iterator array length 0
-getPrototypeOf trap
-PASSED
-*** Running test #11 (10): enumerate
-enumerate trap
-1
-iterator array length 1
-getPrototypeOf trap
-get trap bar on function receiver function
-has trap function.bar
-PASSED
-*** Running test #12 (11): enumerate with prototype property
-enumerate trap
-2
-iterator array length 2
-getPrototypeOf trap
-in bar
-has trap function.bar
-get trap bar on function receiver function
-in protoObject
-has trap function.protoObject
-get trap protoObject on function receiver function
-PASSED
-*** Running test #13 (12): enumerate with null
-enumerate trap
-PASSED
-*** Running test #14 (13): Call function
+*** Running test #10 (9): Call function
 call trap0
 target func
 PASSED
-*** Running test #15 (14): Call function arguments
+*** Running test #11 (10): Call function arguments
 call trap4
 PASSED
-*** Running test #16 (15): Call non-callable object
+*** Running test #12 (11): Call non-callable object
 PASSED
-*** Running test #17 (16): Call builtin function
+*** Running test #13 (12): Call builtin function
 call trap1
 PASSED
-*** Running test #18 (17): Call non-callable function
+*** Running test #14 (13): Call non-callable function
 call trap2
 PASSED
-*** Running test #19 (18): construct
+*** Running test #15 (14): construct
 construct trap
 target func
 PASSED
-*** Running test #20 (19): construct with argument
+*** Running test #16 (15): construct with argument
 construct trap
 PASSED
-*** Running test #21 (20): new on non-constructable function
+*** Running test #17 (16): new on non-constructable function
 construct trap
 PASSED
-*** Running test #22 (21): new on builtin
+*** Running test #18 (17): new on builtin
 construct trap
 PASSED
-*** Running test #23 (22): new return undefined
+*** Running test #19 (18): new return undefined
 construct trap
 PASSED
-Summary of tests: total executed: 23; passed: 23; failed: 0
-*** Running test #24 (0): isExtensible trap
+Summary of tests: total executed: 19; passed: 19; failed: 0
+*** Running test #20 (0): isExtensible trap
 isExtensible trap
 PASSED
-*** Running test #25 (1): isExtensible trap on nonextensible object
+*** Running test #21 (1): isExtensible trap on nonextensible object
 isExtensible trap
 PASSED
-*** Running test #26 (2): change isExtensible
+*** Running test #22 (2): change isExtensible
 isExtensible trap
 PASSED
-*** Running test #27 (3): change isExtensible
+*** Running test #23 (3): change isExtensible
 isExtensible trap
 PASSED
-*** Running test #28 (4): preventExtensions
+*** Running test #24 (4): preventExtensions
 preventExtensions trap
 isExtensible trap
 preventExtensions trap
@@ -135,7 +106,7 @@ getOwnPropertyDescriptor trap nonExtObj
 defineProperty trap nonExtObj
 get trap nonExtObj on object receiver object
 PASSED
-*** Running test #29 (5): object.keys
+*** Running test #25 (5): object.keys
 ownKey trap
 getOwnPropertyDescriptor trap prototype
 getOwnPropertyDescriptor trap name
@@ -143,10 +114,10 @@ getOwnPropertyDescriptor trap caller
 getOwnPropertyDescriptor trap arguments
 getOwnPropertyDescriptor trap length
 PASSED
-*** Running test #30 (6): object.keys return undefined
+*** Running test #26 (6): object.keys return undefined
 ownKey trap
 PASSED
-*** Running test #31 (7): object.getOwnPropertyNames
+*** Running test #27 (7): object.getOwnPropertyNames
 ownKey trap
 from proxy
 prototype
@@ -161,76 +132,53 @@ caller
 arguments
 length
 PASSED
-*** Running test #32 (8): object.getOwnPropertySymbols
+*** Running test #28 (8): object.getOwnPropertySymbols
 ownKey trap
 Symbol(hello)
 Symbol(hello)
 PASSED
-*** Running test #33 (9): enumerate with no property
-enumerate trap
-getPrototypeOf trap
-PASSED
-*** Running test #34 (10): enumerate
-enumerate trap
-getPrototypeOf trap
-get trap bar on function receiver function
-has trap function.bar
-PASSED
-*** Running test #35 (11): enumerate with prototype property
-enumerate trap
-getPrototypeOf trap
-in bar
-has trap function.bar
-get trap bar on function receiver function
-in protoObject
-has trap function.protoObject
-get trap protoObject on function receiver function
-PASSED
-*** Running test #36 (12): enumerate with null
-enumerate trap
-PASSED
-*** Running test #37 (13): Call function
+*** Running test #29 (9): Call function
 call trap0
 target func
 PASSED
-*** Running test #38 (14): Call function arguments
+*** Running test #30 (10): Call function arguments
 call trap4
 PASSED
-*** Running test #39 (15): Call non-callable object
+*** Running test #31 (11): Call non-callable object
 PASSED
-*** Running test #40 (16): Call builtin function
+*** Running test #32 (12): Call builtin function
 call trap1
 PASSED
-*** Running test #41 (17): Call non-callable function
+*** Running test #33 (13): Call non-callable function
 call trap2
 PASSED
-*** Running test #42 (18): construct
+*** Running test #34 (14): construct
 construct trap
 get trap prototype on function receiver function
 target func
 PASSED
-*** Running test #43 (19): construct with argument
+*** Running test #35 (15): construct with argument
 construct trap
 PASSED
-*** Running test #44 (20): new on non-constructable function
+*** Running test #36 (16): new on non-constructable function
 construct trap
 PASSED
-*** Running test #45 (21): new on builtin
+*** Running test #37 (17): new on builtin
 construct trap
 get trap prototype on function receiver function
 get trap prototype on function receiver function
 PASSED
-*** Running test #46 (22): new return undefined
+*** Running test #38 (18): new return undefined
 construct trap
 PASSED
-Summary of tests: total executed: 46; passed: 46; failed: 0
+Summary of tests: total executed: 38; passed: 38; failed: 0
 Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function, Line: 114, Column: 27, Character Position: 4729
+[FunctionCompiled]: Function: Anonymous function, Line: 180, Column: 27, Character Position: 7375
+[FunctionCompiled]: Function: Anonymous function, Line: 198, Column: 27, Character Position: 8033
 [FunctionCompiled]: Function: Anonymous function, Line: 205, Column: 20, Character Position: 7911
-[FunctionCompiled]: Function: Anonymous function, Line: 258, Column: 27, Character Position: 10315
-[FunctionCompiled]: Function: Anonymous function, Line: 276, Column: 27, Character Position: 10973
-[FunctionCompiled]: Function: Anonymous function, Line: 317, Column: 27, Character Position: 12863
-[FunctionCompiled]: Function: Anonymous function, Line: 345, Column: 27, Character Position: 13899
+[FunctionCompiled]: Function: Anonymous function, Line: 239, Column: 27, Character Position: 9923
+[FunctionCompiled]: Function: Anonymous function, Line: 267, Column: 27, Character Position: 10959
 [FunctionCompiled]: Function: Anonymous function, Line: 59, Column: 27, Character Position: 2197
 [FunctionCompiled]: Function: Anonymous function, Line: 74, Column: 27, Character Position: 2848
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
@@ -239,7 +187,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 32, Column: 1, Character Position: 1768
 [FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
-[FunctionCompiled]: Function: VerifyReflectThis, Line: 189, Column: 1, Character Position: 5150
+[FunctionCompiled]: Function: VerifyReflectThis, Line: 174, Column: 1, Character Position: 4772
 [FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
 [FunctionCompiled]: Function: WScript.LoadModuleFile, Line: 37, Column: 34, Character Position: 1968
 [FunctionCompiled]: Function: areEqual, Line: 248, Column: 19, Character Position: 9366
@@ -247,21 +195,17 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 109, Column: 15, Character Position: 4561
 [FunctionCompiled]: Function: body, Line: 120, Column: 15, Character Position: 4960
 [FunctionCompiled]: Function: body, Line: 134, Column: 15, Character Position: 5541
-[FunctionCompiled]: Function: body, Line: 152, Column: 15, Character Position: 6269
-[FunctionCompiled]: Function: body, Line: 171, Column: 15, Character Position: 6992
-[FunctionCompiled]: Function: body, Line: 189, Column: 15, Character Position: 7667
-[FunctionCompiled]: Function: body, Line: 209, Column: 15, Character Position: 8440
-[FunctionCompiled]: Function: body, Line: 230, Column: 15, Character Position: 9196
-[FunctionCompiled]: Function: body, Line: 238, Column: 15, Character Position: 9427
-[FunctionCompiled]: Function: body, Line: 254, Column: 15, Character Position: 10166
-[FunctionCompiled]: Function: body, Line: 264, Column: 15, Character Position: 10518
-[FunctionCompiled]: Function: body, Line: 273, Column: 15, Character Position: 10850
-[FunctionCompiled]: Function: body, Line: 282, Column: 15, Character Position: 11171
-[FunctionCompiled]: Function: body, Line: 296, Column: 15, Character Position: 11837
-[FunctionCompiled]: Function: body, Line: 314, Column: 15, Character Position: 12737
+[FunctionCompiled]: Function: body, Line: 152, Column: 15, Character Position: 6256
+[FunctionCompiled]: Function: body, Line: 160, Column: 15, Character Position: 6487
+[FunctionCompiled]: Function: body, Line: 176, Column: 15, Character Position: 7226
+[FunctionCompiled]: Function: body, Line: 186, Column: 15, Character Position: 7578
+[FunctionCompiled]: Function: body, Line: 195, Column: 15, Character Position: 7910
+[FunctionCompiled]: Function: body, Line: 204, Column: 15, Character Position: 8231
+[FunctionCompiled]: Function: body, Line: 218, Column: 15, Character Position: 8897
+[FunctionCompiled]: Function: body, Line: 236, Column: 15, Character Position: 9797
+[FunctionCompiled]: Function: body, Line: 245, Column: 15, Character Position: 10134
+[FunctionCompiled]: Function: body, Line: 262, Column: 15, Character Position: 10789
 [FunctionCompiled]: Function: body, Line: 32, Column: 15, Character Position: 1054
-[FunctionCompiled]: Function: body, Line: 323, Column: 15, Character Position: 13074
-[FunctionCompiled]: Function: body, Line: 340, Column: 15, Character Position: 13729
 [FunctionCompiled]: Function: body, Line: 41, Column: 15, Character Position: 1418
 [FunctionCompiled]: Function: body, Line: 54, Column: 15, Character Position: 2005
 [FunctionCompiled]: Function: body, Line: 66, Column: 15, Character Position: 2493
@@ -271,49 +215,39 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: compare, Line: 180, Column: 19, Character Position: 6883
 [FunctionCompiled]: Function: get isCompatVersion9, Line: 48, Column: 13, Character Position: 2336
 [FunctionCompiled]: Function: get isVersion10OrLater, Line: 51, Column: 13, Character Position: 2447
-[FunctionCompiled]: Function: handler.trapApply, Line: 240, Column: 33, Character Position: 9496
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 298, Column: 37, Character Position: 11906
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 342, Column: 37, Character Position: 13798
-[FunctionCompiled]: Function: handler.trapEnumerate, Line: 223, Column: 37, Character Position: 8956
+[FunctionCompiled]: Function: handler.trapApply, Line: 162, Column: 33, Character Position: 6556
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 220, Column: 37, Character Position: 8966
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 264, Column: 37, Character Position: 10858
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 56, Column: 40, Character Position: 2074
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 71, Column: 40, Character Position: 2725
 [FunctionCompiled]: Function: handler.trapOwnKeys, Line: 111, Column: 35, Character Position: 4630
 [FunctionCompiled]: Function: helpers, Line: 32, Column: 15, Character Position: 1768
-[FunctionCompiled]: Function: initialize, Line: 324, Column: 1, Character Position: 9162
+[FunctionCompiled]: Function: initialize, Line: 300, Column: 1, Character Position: 8555
 [FunctionCompiled]: Function: isInBrowser, Line: 43, Column: 22, Character Position: 2115
 [FunctionCompiled]: Function: isObject, Line: 171, Column: 20, Character Position: 6632
 [FunctionCompiled]: Function: logTestNameIf, Line: 138, Column: 13, Character Position: 5663
-[FunctionCompiled]: Function: observeHandler.apply, Line: 171, Column: 24, Character Position: 4643
-[FunctionCompiled]: Function: observeHandler.construct, Line: 180, Column: 28, Character Position: 4897
-[FunctionCompiled]: Function: observeHandler.enumerate, Line: 122, Column: 28, Character Position: 3319
+[FunctionCompiled]: Function: observeHandler.apply, Line: 156, Column: 24, Character Position: 4265
+[FunctionCompiled]: Function: observeHandler.construct, Line: 165, Column: 28, Character Position: 4519
 [FunctionCompiled]: Function: observeHandler.get, Line: 94, Column: 22, Character Position: 2484
 [FunctionCompiled]: Function: observeHandler.getOwnPropertyDescriptor, Line: 31, Column: 43, Character Position: 621
-[FunctionCompiled]: Function: observeHandler.getPrototypeOf, Line: 49, Column: 33, Character Position: 1183
-[FunctionCompiled]: Function: observeHandler.has, Line: 40, Column: 22, Character Position: 950
 [FunctionCompiled]: Function: observeHandler.isExtensible, Line: 67, Column: 31, Character Position: 1677
-[FunctionCompiled]: Function: observeHandler.iteratorFromArray, Line: 137, Column: 36, Character Position: 3697
-[FunctionCompiled]: Function: observeHandler.ownKeys, Line: 156, Column: 26, Character Position: 4276
+[FunctionCompiled]: Function: observeHandler.ownKeys, Line: 141, Column: 26, Character Position: 3898
 [FunctionCompiled]: Function: observeHandler.preventExtensions, Line: 76, Column: 36, Character Position: 1913
 [FunctionCompiled]: Function: observeHandler.set, Line: 103, Column: 22, Character Position: 2775
-[FunctionCompiled]: Function: reflectHandler.apply, Line: 303, Column: 24, Character Position: 8574
-[FunctionCompiled]: Function: reflectHandler.construct, Line: 312, Column: 28, Character Position: 8844
-[FunctionCompiled]: Function: reflectHandler.defineProperty, Line: 249, Column: 33, Character Position: 6918
-[FunctionCompiled]: Function: reflectHandler.enumerate, Line: 285, Column: 28, Character Position: 8127
-[FunctionCompiled]: Function: reflectHandler.get, Line: 258, Column: 22, Character Position: 7236
-[FunctionCompiled]: Function: reflectHandler.getOwnPropertyDescriptor, Line: 195, Column: 43, Character Position: 5295
-[FunctionCompiled]: Function: reflectHandler.getPrototypeOf, Line: 213, Column: 33, Character Position: 5884
-[FunctionCompiled]: Function: reflectHandler.has, Line: 204, Column: 22, Character Position: 5632
-[FunctionCompiled]: Function: reflectHandler.isExtensible, Line: 231, Column: 31, Character Position: 6405
-[FunctionCompiled]: Function: reflectHandler.ownKeys, Line: 294, Column: 26, Character Position: 8356
-[FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 240, Column: 36, Character Position: 6649
-[FunctionCompiled]: Function: reflectHandler.set, Line: 267, Column: 22, Character Position: 7557
-[FunctionCompiled]: Function: retVal.next, Line: 142, Column: 19, Character Position: 3899
+[FunctionCompiled]: Function: reflectHandler.apply, Line: 279, Column: 24, Character Position: 7967
+[FunctionCompiled]: Function: reflectHandler.construct, Line: 288, Column: 28, Character Position: 8237
+[FunctionCompiled]: Function: reflectHandler.defineProperty, Line: 234, Column: 33, Character Position: 6540
+[FunctionCompiled]: Function: reflectHandler.get, Line: 243, Column: 22, Character Position: 6858
+[FunctionCompiled]: Function: reflectHandler.getOwnPropertyDescriptor, Line: 180, Column: 43, Character Position: 4917
+[FunctionCompiled]: Function: reflectHandler.isExtensible, Line: 216, Column: 31, Character Position: 6027
+[FunctionCompiled]: Function: reflectHandler.ownKeys, Line: 270, Column: 26, Character Position: 7749
+[FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 225, Column: 36, Character Position: 6271
+[FunctionCompiled]: Function: reflectHandler.set, Line: 252, Column: 22, Character Position: 7179
 [FunctionCompiled]: Function: runTest, Line: 134, Column: 18, Character Position: 5437
-[FunctionCompiled]: Function: runTestPass, Line: 351, Column: 1, Character Position: 14093
-[FunctionCompiled]: Function: runTestPasses, Line: 357, Column: 1, Character Position: 14214
+[FunctionCompiled]: Function: runTestPass, Line: 273, Column: 1, Character Position: 11153
+[FunctionCompiled]: Function: runTestPasses, Line: 279, Column: 1, Character Position: 11274
 [FunctionCompiled]: Function: runTests, Line: 105, Column: 19, Character Position: 4285
-[FunctionCompiled]: Function: target, Line: 326, Column: 14, Character Position: 9193
-[FunctionCompiled]: Function: test, Line: 213, Column: 13, Character Position: 8567
+[FunctionCompiled]: Function: target, Line: 302, Column: 14, Character Position: 8586
 [FunctionCompiled]: Function: testRunner, Line: 98, Column: 18, Character Position: 4028
 [FunctionCompiled]: Function: throws, Line: 290, Column: 17, Character Position: 11224
 [FunctionCompiled]: Function: validate, Line: 232, Column: 20, Character Position: 8859
@@ -729,201 +663,6 @@ Dumping sorted function compiled events
                 isObject
                 isObject
                 compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            observeHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Echo
-              observeHandler.iteratorFromArray
-                Echo
-            observeHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Object.getPrototypeOf
-            retVal.next
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            observeHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Echo
-              observeHandler.iteratorFromArray
-                Echo
-            observeHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Object.getPrototypeOf
-            retVal.next
-            observeHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            areEqual
-              compare
-              validate
-            observeHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            retVal.next
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            observeHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Echo
-              observeHandler.iteratorFromArray
-                Echo
-            observeHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-              Object.getPrototypeOf
-            retVal.next
-            Echo
-            observeHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            observeHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            areEqual
-              compare
-              validate
-            retVal.next
-            Echo
-            observeHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            observeHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyThis
-            areEqual
-              compare
-              validate
-            retVal.next
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            throws
-              test
-                observeHandler.enumerate
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyThis
-                  handler.trapEnumerate
-            areEqual
-              compare
               validate
           writeln
             String.concat
@@ -1674,183 +1413,6 @@ Dumping sorted function compiled events
                 isObject
                 isObject
                 compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            reflectHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            reflectHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            areEqual
-              compare
-              validate
-            reflectHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            reflectHandler.enumerate
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.getPrototypeOf
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            Echo
-            reflectHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            areEqual
-              compare
-              validate
-            Echo
-            reflectHandler.has
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            reflectHandler.get
-              String.toString
-              LogResult
-                Array.push
-                Echo
-              VerifyReflectThis
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-            areEqual
-              compare
-              validate
-          writeln
-            String.concat
-            isInBrowser
-            Echo
-        runTest
-          logTestNameIf
-            writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              isInBrowser
-              Echo
-          body
-            cleanupBeforeTestStarts
-            throws
-              test
-                reflectHandler.enumerate
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyReflectThis
-                  handler.trapEnumerate
-            areEqual
-              compare
               validate
           writeln
             String.concat

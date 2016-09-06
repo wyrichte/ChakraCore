@@ -130,7 +130,10 @@
         "i - [Type]": "Number",
         "i": "65"
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "console - [Type]": "Object",
+        "console": "{...}"
+      }
     }
   }
 ]

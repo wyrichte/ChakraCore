@@ -73,11 +73,6 @@ namespace Js
             return NOERROR; 
         }
 
-        STDMETHODIMP GetCurrentValue(/*[out]*/ Var* item)
-        {
-            return E_FAIL;
-        }
-
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item)
         {
             return E_FAIL;
@@ -90,13 +85,14 @@ namespace Js
         }
     };
 
+    class JavascriptEnumeratorWrapper;
     class CVarEnumerator sealed : public IVarEnumerator2
     {
         unsigned long refCount;
         Js::ScriptContext* scriptContext;
-        RecyclerRootPtr<Js::JavascriptEnumerator> internalEnum;
+        RecyclerRootPtr<Js::JavascriptEnumeratorWrapper> internalEnum;
     public:
-        CVarEnumerator(Js::Var internalEnum, Js::ScriptContext* scriptContext);
+        CVarEnumerator(Js::JavascriptEnumeratorWrapper * internalEnum, Js::ScriptContext* scriptContext);
         ~CVarEnumerator();
 
         STDMETHODIMP QueryInterface(REFIID riid,void **ppv)
@@ -133,11 +129,9 @@ namespace Js
 
         STDMETHODIMP MoveNext(/*[out]*/ BOOL* itemsAvailable, /*[out,optional]*/ ::PropertyAttributes* attributes);
 
-        STDMETHODIMP GetCurrentValue(/*[out]*/ Var* item);
-
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item);
 
-        STDMETHODIMP GetJavascriptEnumerator(/*[out*/ Var * enumerator);
+        STDMETHODIMP GetJavascriptEnumerator(/*[out]*/ Var * enumerator);
 
     };
 

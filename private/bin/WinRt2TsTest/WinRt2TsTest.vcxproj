@@ -89,6 +89,9 @@
     <ProjectReference Include="..\..\..\core\Lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj">
       <Project>{fd8eec40-4141-448a-bf4b-1589fbe4f60d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\core\Lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
+      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Common\Memory\Chakra.Common.Memory.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-ff23812df31b}</Project>
     </ProjectReference>

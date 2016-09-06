@@ -77,11 +77,17 @@
           "[Methods]": "{...}",
           "__proto__": "{...}",
           "size": "<large string>",
+          "Symbol.toStringTag": "Set",
           "[108]": "108"
         }
       },
       "i": "109",
-      "[Globals]": {}
+      "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      }
     }
   },
   {
@@ -89,7 +95,12 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "[200]": "200"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       }
     }
   }

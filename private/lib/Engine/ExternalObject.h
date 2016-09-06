@@ -126,7 +126,7 @@ namespace Js
         virtual BOOL SetItem(uint32 index, Var value, PropertyOperationFlags flags) override;
         virtual BOOL DeleteItem(uint32 index, PropertyOperationFlags flags) override;
 
-        virtual BOOL GetEnumerator(BOOL enumNonEnumerable, Var* enumerator, ScriptContext* scriptContxt, bool preferSnapshotSemantics = true, bool enumSymbols = false) override;
+        virtual BOOL GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext) override;
 
         virtual BOOL IsWritable(PropertyId propertyId) override;
         virtual BOOL IsConfigurable(PropertyId propertyId) override;
@@ -143,8 +143,8 @@ namespace Js
         virtual DescriptorFlags GetSetter(JavascriptString* propertyNameString, Var *setterValue, PropertyValueInfo* info, ScriptContext* requestContext) override;
         virtual HRESULT QueryObjectInterface(REFIID riid, void **ppvObj) override;
 
-        virtual BOOL Equals(Var other, BOOL* value, ScriptContext * requestContext) override;
-        virtual BOOL StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
         
         // Used only in JsVarToExtension where it may be during dispose and the type is not availible
         virtual BOOL IsExternalVirtual() const override { return TRUE; }

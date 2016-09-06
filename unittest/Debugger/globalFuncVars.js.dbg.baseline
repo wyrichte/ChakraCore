@@ -5,17 +5,19 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "console": "{...}",
         "obj": "undefined"
       },
       "[Scope]1": {
         "arguments": "{...}",
         "mm": "[22,33]",
+        "f1": "<large string>",
         "a": "10",
         "b": "{...}",
-        "c1": "undefined",
-        "f1": "<large string>"
+        "c1": "undefined"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "obj": "undefined",
@@ -56,6 +58,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "console": "{...}",
         "obj": "undefined"
       },
       "ex1": {
@@ -68,12 +71,13 @@
       "[Scope]1": {
         "arguments": "{...}",
         "mm": "[22,33]",
+        "f1": "<large string>",
         "a": "10",
         "b": "{...}",
-        "c1": "[1]",
-        "f1": "<large string>"
+        "c1": "[1]"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "obj": "undefined",
@@ -97,7 +101,12 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "console": "{...}",
         "obj": "undefined"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -125,6 +134,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "console": "{...}",
         "obj": "undefined"
       },
       "ex2": {
@@ -133,6 +143,10 @@
         "message": "<large string>",
         "number": "-2146823279",
         "stack": "<large string>"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -160,7 +174,12 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "10",
+        "console": "{...}",
         "obj": "{...}"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "foo": {
         "__proto__": "<large string>",

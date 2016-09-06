@@ -81,6 +81,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "ccc": "x => x + 1",
       "k": "11"

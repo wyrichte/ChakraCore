@@ -126,7 +126,7 @@ namespace Js
         virtual BOOL SetItem(uint32 index, Var value, PropertyOperationFlags flags) override;
         virtual BOOL DeleteItem(uint32 index, PropertyOperationFlags flags) override;
 
-        virtual BOOL GetEnumerator(BOOL enumNonEnumerable, Var* enumerator, ScriptContext * requestContext, bool preferSnapshotSemantics = true, bool enumSymbols = false) override;
+        virtual BOOL GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext) override;
 
         virtual BOOL IsWritable(PropertyId propertyId) override;
         virtual BOOL IsConfigurable(PropertyId propertyId) override;
@@ -146,8 +146,8 @@ namespace Js
 
         virtual HRESULT QueryObjectInterface(REFIID riid, void **ppvObj) override sealed;
 
-        virtual BOOL Equals(Var other, BOOL* value, ScriptContext * requestContext) override;
-        virtual BOOL StrictEquals(Var other, BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
+        virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
 
         virtual DynamicType* DuplicateType() override;
         virtual BOOL HasInstance(Var instance, ScriptContext* scriptContext, IsInstInlineCache* inlineCache = NULL) override;

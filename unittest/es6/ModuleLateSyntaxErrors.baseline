@@ -1,10 +1,14 @@
 SyntaxError: Module import fakebinding cannot be resolved
 	at code (ModuleLateSyntaxErrors.js:1:1)
-SyntaxError: Module import fakebinding cannot be resolved
+SyntaxError: Module import fakebinding2 cannot be resolved
 	at code (ModuleLateSyntaxErrors.js:1:1)
 SyntaxError: Module import default cannot be resolved
 	at code (ModuleLateSyntaxErrors.js:1:1)
 SyntaxError: Syntax error
+	at Anonymous function() (modulelatesyntaxerrors.js:1:1)
 	at module (modulelatesyntaxerrors.js:1:1)
 SyntaxError: Syntax error
+	at Anonymous function() (modulelatesyntaxerrors.js:1:1)
 	at module (modulelatesyntaxerrors.js:1:1)
+SyntaxError: Module import default cannot be resolved
+	at code (ModuleLateSyntaxErrors.js:1:1)

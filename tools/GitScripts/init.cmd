@@ -32,10 +32,16 @@ if not "%1"=="" (
     if "%1"=="fre" (
         set _BuildType=fre
     )
+    if "%1"=="release" (
+        set _BuildType=fre
+    )
     if "%1"=="test" (
         set _BuildType=test
     )
     if "%1"=="chk" (
+        set _BuildType=chk
+    )
+    if "%1"=="debug" (
         set _BuildType=chk
     )
     shift

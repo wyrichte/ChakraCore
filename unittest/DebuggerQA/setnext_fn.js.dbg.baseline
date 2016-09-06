@@ -9,6 +9,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "b": "2"
     }

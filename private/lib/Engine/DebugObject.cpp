@@ -1046,7 +1046,14 @@ Js::Var DebugObject::EntryParseFunction(Js::RecyclableObject* function, Js::Call
     Var resultFunc;
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        hr = scriptContext->GetActiveScriptDirect()->Parse((LPWSTR)sourceString, &resultFunc);
+        LoadScriptFlag loadScriptFlag = LoadScriptFlag_isFunction;
+        ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(scriptContext->GetActiveScriptDirect());
+        hr = scriptEngine->ParseInternal((LPWSTR)sourceString, &resultFunc, &loadScriptFlag);
+        if (hr == NO_ERROR)
+        {
+            Assert(Js::ScriptFunction::Is(resultFunc));
+            Js::ScriptFunction::FromVar(resultFunc)->SetIsActiveScript(true);
+        }
     }
     END_LEAVE_SCRIPT(scriptContext);
     if (FAILED(hr))

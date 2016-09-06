@@ -4,7 +4,6 @@
 #include "WinRTPch.h"
 #include "SortProjection.h"
 #include "Visitor.h"
-#include "DataStructures\QuickSort.h"
 
 
 namespace ProjectionModel
@@ -33,18 +32,18 @@ namespace ProjectionModel
 
     CompareRefAssignments CompareRefAssignments::Instance;
 
-    struct Sorter : Visitor 
+    struct Sorter : Visitor
     {
         Metadata::IStringConverter * stringConverter;
         Sorter(ArenaAllocator * a, Metadata::IStringConverter * stringConverter) : Visitor(a), stringConverter(stringConverter) { }
-        virtual RtEXPR VisitAssignmentSpace(RtASSIGNMENTSPACE expr) 
+        virtual RtEXPR VisitAssignmentSpace(RtASSIGNMENTSPACE expr)
         {
             auto varspace = AssignmentSpace::From(Visitor::VisitAssignmentSpace(expr));
             auto vars = varspace->vars->SortCurrentList(&CompareRefAssignments::Instance);
             return Anew(a,AssignmentSpace,vars);
         }
 
-        virtual RtEXPR VisitPropertiesObject(RtPROPERTIESOBJECT expr) 
+        virtual RtEXPR VisitPropertiesObject(RtPROPERTIESOBJECT expr)
         {
             auto propertiesObject = PropertiesObject::From(Visitor::VisitPropertiesObject(expr));
             CompareRefProperties comparer(stringConverter);

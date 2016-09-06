@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 61
+ |  [Properties] count: 62
  |  | 0 NaN: type: Number flags: (new) optional info records (1)
  |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject (seen)
@@ -408,7 +408,12 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  | 54 print: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
- |  | 55 SCA: type: ObjectObject flags: (new) optional info records (2)
+ |  | 55 console: type: ObjectObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: ObjectObject (seen)
+ |  |    [Properties] count: 1
+ |  |    | 0 log: type: FunctionObject flags: (new) optional info records (1)
+ |  |    |    [Prototype] type: FunctionObject (seen)
+ |  | 56 SCA: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 7
  |  |    | 0 serialize: type: FunctionObject flags: (new) optional info records (1)
@@ -425,7 +430,7 @@
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    | 6 makeUint64: type: FunctionObject flags: (new) optional info records (1)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  | 56 ImageData: type: FunctionObject flags: (new) optional info records (2)
+ |  | 57 ImageData: type: FunctionObject flags: (new) optional info records (2)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 2
  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
@@ -435,14 +440,14 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: ImageData
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 57 z: type: String flags: (new size_approximate) optional info records (2)
+ |  | 58 z: type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: zero
  |  |    [Prototype] type: StringObject (seen)
- |  | 58 x: rsFlags: let value: 123.000000
- |  | 59 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
+ |  | 59 x: rsFlags: let value: 123.000000
+ |  | 60 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: abc
  |  |    [Prototype] type: StringObject (seen)
- |  | 60 z: rsFlags: let value: 0.000000
+ |  | 61 z: rsFlags: let value: 0.000000
 
 ==========>End Heap Dump<===============
 

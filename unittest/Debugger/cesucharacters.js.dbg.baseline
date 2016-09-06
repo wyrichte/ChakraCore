@@ -8,6 +8,10 @@
           "this.__proto__.__proto__": "null"
         },
         "this.abc": "1",
+        "this.console": {
+          "[Methods]": "{...}",
+          "this.console.__proto__": "{...}"
+        },
         "this.obj": {
           "[Methods]": "{...}",
           "this.obj.__proto__": "{...}"
@@ -27,6 +31,10 @@
       "x": "���������",
       "y": "undefined",
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "console.__proto__": "{...}"
+        },
         "obj": {
           "[Methods]": "{...}",
           "obj.__proto__": "{...}"

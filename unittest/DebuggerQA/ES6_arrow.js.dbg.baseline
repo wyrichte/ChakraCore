@@ -57,6 +57,7 @@
     "locals": {
       "this": "{...}",
       "[arrow_concisebody returned]": "undefined",
+      "console": "{...}",
       "arrow_expression": "() => this",
       "arrow_concisebody": "() => { this; }",
       "deepfunction": "undefined",

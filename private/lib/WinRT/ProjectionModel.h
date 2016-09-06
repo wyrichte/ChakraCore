@@ -675,7 +675,8 @@ namespace ProjectionModel
         {
             Impl(MetadataStringId guidTypeNameId)
                 : ConcreteType(tcSystemGuidType, guidTypeNameId,
-#if defined(_M_IX86_OR_ARM32)
+    #if !defined(_M_X64)
+                // x64 marshals GUID by ref, all other architectures marshal by value.
                 sizeof(IID), sizeof(GUID), __alignof(GUID)
     #else
                 sizeof(LPVOID), sizeof(IID), __alignof(LPVOID)

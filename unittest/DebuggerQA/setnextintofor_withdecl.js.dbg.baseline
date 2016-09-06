@@ -9,6 +9,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "m": "0",
       "m1": "0",
       "i1": "undefined"

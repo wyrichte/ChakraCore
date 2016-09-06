@@ -1008,7 +1008,7 @@ ExtRemoteTyped EXT_CLASS_BASE::GetThreadContextFromObject(ExtRemoteTyped& obj)
         type.Field("javascriptLibrary.scriptContext.threadContext") : type.Field("globalObject.scriptContext.threadContext");
 }
 
-void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
+void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext, bool showAll, bool showLink)
 {
     if (scriptContext.Field("isScriptContextActuallyClosed").GetStdBool())
     {
@@ -1043,8 +1043,56 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
     }
 
     Out(" ");
-    scriptContext.OutSimpleValue();
+    if (showLink)
+    {
+        Dml("<link cmd=\"?? (Js::ScriptContext*)0x%p\">0x%p</link>", scriptContext.GetPtr(), scriptContext.GetPtr());
+    }
+    else
+    {
+        scriptContext.OutSimpleValue();
+    }
     Out(" ");
+
+    if (showAll)
+    {
+        ExtRemoteTyped javascriptLibrary = scriptContext.Field("javascriptLibrary");
+        ExtRemoteTyped globalObject = javascriptLibrary.Field("globalObject");
+        if (showLink)
+        {
+            ULONG64 javascriptLibraryPtr = javascriptLibrary.GetPtr();
+            Dml("<link cmd=\"?? (Js::JavascriptLibrary*)0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">></link>", javascriptLibraryPtr, javascriptLibraryPtr, javascriptLibraryPtr);
+        }
+        else
+        {
+            javascriptLibrary.OutSimpleValue();
+        }
+        Out(" ");
+        ULONG64 globalObjectPtr = globalObject.GetPtr();
+        if (globalObjectPtr != 0)
+        {
+            if (showLink)
+            {
+                Dml("<link cmd=\"!jd.var 0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">></link>", globalObjectPtr, globalObjectPtr, globalObjectPtr);
+            }
+            else
+            {
+                globalObject.OutSimpleValue();
+            }
+        }
+        else
+        {
+            Out("          ");
+            if (g_Ext->m_PtrSize != 4)
+            {
+                Out("        ");
+            }
+            if (showLink)
+            {
+                Out("  ");
+            }
+        }
+        Out(" ");
+    }
 
     if (scriptContext.HasField("url"))
     {
@@ -1083,7 +1131,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext)
     Out("\n");
 }
 
-void EXT_CLASS_BASE::PrintThreadContextUrl(ExtRemoteTyped threadContext, bool isCurrentThreadContext)
+void EXT_CLASS_BASE::PrintThreadContextUrl(ExtRemoteTyped threadContext, bool showAll, bool showLink, bool isCurrentThreadContext)
 {
     bool found = false;
     
@@ -1114,21 +1162,21 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(ExtRemoteTyped threadContext, bool is
             if (scriptContext.GetTypeSize() == 4)
             {
                 // 32-bit
-                Out("  ScrContext URL\n");
+                Out(showAll? (showLink? "  ScrContext %-12s %-12s URL\n" : "  ScrContext %-10s %-10s URL\n") :"  ScrContext URL\n", "Library", "GlobalObj");
             }
             else
             {
                 // 64-bit
-                Out("  ScriptContext       URL\n");
+                Out(showAll ? (showLink ? "  ScrContext %-20s %-20s URL\n" : "  ScrContext %-18s %-18s URL\n") : "  ScrContext URL\n", "Library", "GlobalObj");
             }
 
         }
-        PrintScriptContextUrl(scriptContext);
+        PrintScriptContextUrl(scriptContext, showAll, showLink);
         scriptContext = scriptContext.Field("next");
     }
 }
 
-void EXT_CLASS_BASE::PrintAllUrl()
+void EXT_CLASS_BASE::PrintAllUrl(bool showAll, bool showLink)
 {
 
     ULONG64 currentThreadContextPtr = 0;
@@ -1138,10 +1186,10 @@ void EXT_CLASS_BASE::PrintAllUrl()
         currentThreadContextPtr = remoteThreadContext.GetExtRemoteTyped().GetPtr();
     }
     
-    RemoteThreadContext::ForEach([this, currentThreadContextPtr](RemoteThreadContext threadContext)
+    RemoteThreadContext::ForEach([this, currentThreadContextPtr, showAll, showLink](RemoteThreadContext threadContext)
     {
         ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
-        PrintThreadContextUrl(threadContextExtRemoteTyped, threadContextExtRemoteTyped.GetPtr() == currentThreadContextPtr);
+        PrintThreadContextUrl(threadContextExtRemoteTyped, showAll, showLink, threadContextExtRemoteTyped.GetPtr() == currentThreadContextPtr);
         Out("--------------------------------------------------------------------\n");
         return false;
     });
@@ -1150,21 +1198,26 @@ void EXT_CLASS_BASE::PrintAllUrl()
 
 JD_PRIVATE_COMMAND(url,
     "Print URLs",
-    "{t;b;;Pointer is a thread context}{;e,o,d=0;pointer;Script or Thread context to print url}")
+    "{t;b;;Pointer is a thread context}"
+    "{;e,o,d=0;pointer;Script or Thread context to print url}"
+    "{a;b,o;Show associated pointers}"
+    "{l;b,o;Show link}")
 {
     ULONG64 pointer = GetUnnamedArgU64(0);
+    const bool showAll = HasArg("a");
+    const bool showLink = HasArg("l");
 
     if (pointer == 0)
     {
-        PrintAllUrl();
+        PrintAllUrl(showAll, showLink);
     }
     else if (HasArg("t"))
     {
-        PrintThreadContextUrl(ExtRemoteTyped("(ThreadContext *)@$extin", pointer));
+        PrintThreadContextUrl(ExtRemoteTyped("(ThreadContext *)@$extin", pointer), showAll, showLink);
     }
     else
     {
-        PrintScriptContextUrl(ExtRemoteTyped("(Js::ScriptContext *)@$extin", pointer));
+        PrintScriptContextUrl(ExtRemoteTyped("(Js::ScriptContext *)@$extin", pointer), showAll, showLink);
     }
 }
 
