@@ -318,9 +318,6 @@ class CEnumDebugStackFrames sealed : public IEnumDebugStackFrames64
 private:
     long m_refCount;
     DWORD m_dwThread;
-    DWORD_PTR m_dwSpMin;
-
-
     ulong m_currentFrameIndex;
     bool m_fDone: 1;
     bool m_fError: 1;
@@ -335,7 +332,7 @@ private:
     HRESULT NextImpl(ulong celt, Descriptor *prgdsfd, ulong *pceltFetched);
 
 public:
-    CEnumDebugStackFrames(DWORD_PTR dwSpMin, ScriptSite *psess);
+    CEnumDebugStackFrames(ScriptSite *psess);
     HRESULT Init();
 
     /****************************************

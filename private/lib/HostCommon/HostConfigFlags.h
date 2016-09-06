@@ -17,6 +17,7 @@ public:
     static HostConfigFlags flags;
     static LPWSTR* argsVal;
     static PCWSTR jsEtwConsoleCmdLine;
+    static PCWSTR baselinePath;
     static int argsCount;    
     static void (__stdcall *pfnPrintUsage)();
 
@@ -32,6 +33,7 @@ public:
 
     static void HandleArgsFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
     static void HandleJsEtwConsoleFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
+    static void HandleBaselinePathFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]);
 
     virtual bool ParseFlag(LPCWSTR flagsString, ICmdLineArgsParser * parser) override;
     virtual void PrintUsage() override;

@@ -593,6 +593,7 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     {
         return false;
     }
+
     JsPropertyIdRef argsName;
     IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"Arguments", &argsName), false);
     IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, argsName, argsObject, true), false);
@@ -656,6 +657,17 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     JsPropertyIdRef readbufferName;
     IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"readbuffer", &readbufferName), false);
     IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, readbufferName, loadBinaryFile, true), false);
+
+    JsValueRef console;
+    IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&console), false);
+
+    JsPropertyIdRef logName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"log", &logName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(console, logName, echo, true), false);
+
+    JsPropertyIdRef consoleName;
+    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"console", &consoleName), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, consoleName, console, true), false);
 
     return true;
 }

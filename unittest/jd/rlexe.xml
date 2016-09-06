@@ -123,7 +123,7 @@
   <test>
     <default>
       <files>locals3.js</files>
-      <compile-flags>-targeted -debuglaunch -ES6RegExSticky -ES6Species -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:100</compile-flags>
+      <compile-flags>-targeted -debuglaunch -ES6RegExSticky -ES6Species -dbgbaseline:locals3_khronos.js.dbg.baseline -InspectMaxStringLength:256</compile-flags>
       <tags>exclude_jsrt</tags>
     </default>
   </test>

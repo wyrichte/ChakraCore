@@ -12,7 +12,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -31,6 +32,7 @@
         "x": "20"
       },
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -62,7 +64,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -84,6 +87,7 @@
       },
       "x": "20",
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -129,7 +133,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -148,6 +153,7 @@
         "x": "20"
       },
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -179,7 +185,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -201,6 +208,7 @@
       },
       "x": "20",
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -251,7 +259,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "x": "2",
       "arguments": {
@@ -260,6 +269,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -287,7 +297,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "x": "2",
       "arguments": {
@@ -298,6 +309,7 @@
         "[1]": "4"
       },
       "[Globals]": {
+        "console": "{...}",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",

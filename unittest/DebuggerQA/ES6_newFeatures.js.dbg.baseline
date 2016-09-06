@@ -5,8 +5,8 @@
         "arrow_b.__proto__": {
           "[Methods]": "{...}",
           "arrow_b.__proto__.__proto__": "{...}",
-          "arrow_b.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "arrow_b.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "arrow_b.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+          "arrow_b.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
           "arrow_b.__proto__.length": "0",
           "arrow_b.__proto__.name": ""
         },
@@ -47,6 +47,7 @@
       },
       "arrow_c": "1",
       "[Globals]": {
+        "console": "{...}",
         "placeHolder": "1",
         "arrow_a": "<large string>",
         "_class2": "undefined"

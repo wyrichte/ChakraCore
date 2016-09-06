@@ -595,8 +595,8 @@ Cleanup:
 Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
-    IActiveScriptDirect * activeScriptDirect = NULL;
-    IJavascriptOperations * operations = NULL;
+    CComPtr<IActiveScriptDirect> activeScriptDirect = NULL;
+    CComPtr<IJavascriptOperations>  operations = NULL;
     runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
     if (SUCCEEDED(runInfo.hr))
     {
@@ -614,7 +614,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
     {
         if (runInfo.context == RunInfo::ContextType::self)
         {
-            IActiveScript * activeScript;
+            CComPtr<IActiveScript> activeScript;
             runInfo.hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScript), (void**)&activeScript);
             if (SUCCEEDED(runInfo.hr))
             {
@@ -633,8 +633,6 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                     }
                     jsHostScriptSite->Release();
                 }
-
-                activeScript->Release();
             }
         }
         else if (runInfo.context == RunInfo::ContextType::sameThread)
@@ -646,7 +644,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 runInfo.hr = scriptSite->LoadScriptFile(runInfo.source);
                 if (SUCCEEDED(runInfo.hr))
                 {
-                    IActiveScript * newActiveScript = NULL;
+                    CComPtr<IActiveScript> newActiveScript = NULL;
                     runInfo.hr = scriptSite->GetActiveScript(&newActiveScript);
                     if (SUCCEEDED(runInfo.hr))
                     {
@@ -667,7 +665,6 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                                 }
                             }
                         }
-                        newActiveScript->Release();
                     }
                 }
                 scriptSite->Release();
@@ -693,26 +690,23 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                         runInfo.hr = scriptSite->LoadScriptFile(runInfo.source);
                         if (SUCCEEDED(runInfo.hr))
                         {
-                            IDispatchEx * globalObjectDispatchEx = NULL;
+                            CComPtr<IDispatchEx> globalObjectDispatchEx = nullptr;
                             runInfo.hr = scriptSite->GetGlobalObjectDispatchEx(&globalObjectDispatchEx);
                             if (SUCCEEDED(runInfo.hr))
                             {
                                 runInfo.hr = activeScriptDirect->DispExToVar(globalObjectDispatchEx, &returnValue);
-                                globalObjectDispatchEx->Release();
                                 if (SUCCEEDED(runInfo.hr))
                                 {
-                                    IActiveScript * newActiveScript = NULL;
+                                    CComPtr<IActiveScript> newActiveScript = NULL;
                                     runInfo.hr = scriptSite->GetActiveScript(&newActiveScript);
                                     if (SUCCEEDED(runInfo.hr))
                                     {
-                                        IJsHostScriptSite * jsHostScriptSite;
+                                        CComPtr<IJsHostScriptSite> jsHostScriptSite;
                                         runInfo.hr = newActiveScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
                                         if (SUCCEEDED(runInfo.hr))
                                         {
                                             runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
-                                            jsHostScriptSite->Release();
                                         }
-                                        newActiveScript->Release();
                                     }
                                 }
                                 if (runInfo.hr == SCRIPT_E_RECORDED)
@@ -747,9 +741,6 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
             }
         }
     }
-
-    operations->Release();
-    activeScriptDirect->Release();
 
     return returnValue;
 }
@@ -1716,7 +1707,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = activeScriptDirect->GetOrAddPropertyId(_u("WScript"), &wscriptPropertyId);
     IfFailedGo(hr);
     Var wscript;
-    hr =  activeScriptDirect->CreateObject(&wscript);
+    hr = activeScriptDirect->CreateObject(&wscript);
     IfFailedGo(hr);
     hr = operations->SetProperty(activeScriptDirect, globalObject, wscriptPropertyId, wscript, &result);
     IfFailedGo(hr);
@@ -1743,6 +1734,19 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the Echo method
     hr = AddMethodToObject(_u("Echo"), activeScriptDirect, wscript, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    // Create the console object
+    PropertyId consolePropertyId;
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("console"), &consolePropertyId);
+    IfFailedGo(hr);
+    Var console;
+    hr = activeScriptDirect->CreateObject(&console);
+    IfFailedGo(hr);
+    hr = operations->SetProperty(activeScriptDirect, globalObject, consolePropertyId, console, &result);
+
+    // Create the console.log method
+    hr = AddMethodToObject(_u("log"), activeScriptDirect, console, WScriptFastDom::Echo);
     IfFailedGo(hr);
 
     if (!isHTMLHost)

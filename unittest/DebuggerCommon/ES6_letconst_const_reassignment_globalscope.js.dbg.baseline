@@ -1,0 +1,22 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "a": "1",
+      "b": "2",
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "b++": "<large string>"
+    }
+  }
+]

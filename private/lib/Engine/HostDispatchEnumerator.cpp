@@ -29,7 +29,7 @@ Var HostDispatchEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::Prope
     {
         return nullptr;
     }
-    Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
     BSTR name = nullptr;
 
     /* REVIEW: Do we need to handle exception here? */

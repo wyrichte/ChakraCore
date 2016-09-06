@@ -1,8 +1,9 @@
 @echo off
 setlocal
 
+set NUGET_PACKAGE_NAME=ProjectionABIs
 set PACKAGE_PATH=%SDXROOT%\onecoreuap\inetcore\jscript\packages
-set NUGET_PACKAGE_SOURCE_DIR=%PACKAGE_PATH%\projectionabis
+set NUGET_PACKAGE_SOURCE_DIR=%PACKAGE_PATH%\%NUGET_PACKAGE_NAME%
 set NUGET_BASE_PATH=%NUGET_PACKAGE_SOURCE_DIR%\stage
 
 for %%a in (x86 amd64 arm) do (

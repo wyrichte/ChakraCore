@@ -103,14 +103,9 @@
  |  |  |    |    [Internal property] value: __lookupSetter__
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Properties] count: 2
- |  | 0 asyncMethod: type: FunctionObject flags: (new) optional info records (3)
+ |  | 0 asyncMethod: type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: FunctionObject (seen)
- |  |    [Function name] asyncFactorial
- |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: asyncawait.js
- |  |    | 1 sourceRow: value: 1.000000
- |  |    | 2 sourceCol: value: 7.000000
  |  | 1 asyncMethodPromise: type: Promise flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)

@@ -10,7 +10,7 @@
 #include <atlbase.h>
 #pragma warning(pop)
 // atlbase.h 3.0 leak a warning(push) under _DEBUG
-#ifdef _DEBUG   
+#ifdef _DEBUG
 #pragma warning(pop)
 #endif
 
@@ -25,12 +25,10 @@
 #include "Runtime.h"
 #include "AsyncDebug.h"
 #include "Debug\DiagProbe.h"
-#include "Library\JavascriptErrorDebug.h"
 
 // =================
 // Common Includes
 // =================
-#include "DataStructures\QuickSort.h"
 #include "DataStructures\Option.h"
 #include "DataStructures\ImmutableList.h"
 #include "DataStructures\BufferBuilder.h"
@@ -38,6 +36,7 @@
 //====================================
 // Engine includes
 //====================================
+#include "JavascriptErrorDebug.h"
 #include <objsafe.h>
 #include "activscp_private.h"
 #include "edgescriptDirect.h"

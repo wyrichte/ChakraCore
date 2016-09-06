@@ -119,21 +119,6 @@ observeHandler.deleteProperty = function (obj, name) {
     return delete obj[name];
 }
 
-observeHandler.enumerate = function (obj) {
-    LogResult('enumerate trap');
-    VerifyThis(this);
-    if (this.trapEnumerate) {
-        return this.trapEnumerate(obj);
-    }
-    var arrayItems = [];
-    var count = 0;
-    for (var j in obj) {
-        arrayItems[count++] = j;
-    }
-    print(arrayItems.length);
-    return this.iteratorFromArray(arrayItems);
-}
-
 observeHandler.iteratorFromArray = function (arrayList) {
     var retVal = {};
     retVal._arrayItems = arrayList;
@@ -280,15 +265,6 @@ reflectHandler.deleteProperty = function (obj, name) {
         return this.trapDeleteProperty(obj, name);
     }
     return Reflect.deleteProperty(obj, name);
-}
-
-reflectHandler.enumerate = function (obj) {
-    LogResult('enumerate trap');
-    VerifyReflectThis(this);
-    if (this.trapEnumerate) {
-        return this.trapEnumerate(obj);
-    }
-    return Reflect.enumerate(obj);
 }
 
 reflectHandler.ownKeys = function (obj) {

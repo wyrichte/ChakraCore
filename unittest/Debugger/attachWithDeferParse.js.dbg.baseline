@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -17,6 +18,7 @@
         "s": "undefined"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }
@@ -26,7 +28,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -52,6 +55,7 @@
       "a": "10",
       "s": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }
@@ -61,7 +65,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -101,6 +106,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }

@@ -119,6 +119,13 @@
 </dir>
 <dir>
   <default>
+    <files>DebuggerCommon</files>
+    <tags>exclude_serialized</tags>
+    <sourcepath>..\core\test\DebuggerCommon</sourcepath>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>DebuggerQA</files>
     <tags>exclude_serialized</tags>
   </default>

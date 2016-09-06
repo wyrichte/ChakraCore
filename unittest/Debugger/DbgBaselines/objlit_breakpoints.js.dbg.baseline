@@ -119,6 +119,10 @@
         },
         "a1": "33",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": "undefined"
       },
       "arguments": {
@@ -147,6 +151,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -201,6 +209,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -231,6 +240,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -274,6 +284,10 @@
         },
         "a1": "22",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": "undefined"
       },
       "arguments": {
@@ -308,6 +322,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -362,6 +380,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -392,6 +411,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -429,11 +449,24 @@
         },
         "a1": "11",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
           "b": "31",
           "c": "{...}"
+        }
+      },
+      "console": {
+        "[Methods]": {
+          "log": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
         }
       },
       "foo": {
@@ -646,6 +679,10 @@
         },
         "a1": "44",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
@@ -679,6 +716,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -817,6 +858,10 @@
         },
         "a1": "55",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
@@ -851,6 +896,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -987,6 +1036,10 @@
         },
         "a1": "66",
         "arr": "undefined",
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
@@ -1020,6 +1073,10 @@
         }
       },
       "[Globals]": {
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -1079,6 +1136,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -1109,6 +1167,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -1134,6 +1193,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -1174,6 +1234,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "foo": "<large string>",
       "breaking_on_sub_expression": "<large string>",
       "breaking_on_sub_expression_arguments": "<large string>",
@@ -1216,11 +1277,24 @@
           "[0]": "{...}",
           "[1]": "{...}"
         },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
           "b": "31",
           "c": "{...}"
+        }
+      },
+      "console": {
+        "[Methods]": {
+          "log": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
         }
       },
       "foo": {
@@ -1366,11 +1440,24 @@
           "[0]": "{...}",
           "[1]": "{...}"
         },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "obj2": {
           "__proto__": "{...}",
           "a": "11",
           "b": "31",
           "c": "{...}"
+        }
+      },
+      "console": {
+        "[Methods]": {
+          "log": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
         }
       },
       "foo": {

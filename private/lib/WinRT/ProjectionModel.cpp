@@ -2,7 +2,6 @@
 // Copyright (C) 1995 - 2010 by Microsoft Corporation.  All rights reserved.
 //---------------------------------------------------------------------------
 #include "WinRTPch.h"
-#include "DataStructures\QuickSort.h"
 
 #ifdef PROJECTION_METADATA_TRACE
 #define TRACE_METADATA(...) { Trace(__VA_ARGS__); }
@@ -407,7 +406,7 @@ namespace ProjectionModel
             if (retValue)
             {
                 OUTPUT_TRACE(
-                    ProjectionMetadataPhase, 
+                    ProjectionMetadataPhase,
                     _u("CheckForDuplicateTypeId::AddTypeId - Duplicate %s present and re-added\n"),
                     typeString);
             }
@@ -715,7 +714,7 @@ namespace ProjectionModel
 
             MetadataLocator locator(*builder);
             auto hr = builder->GetResolver()->GetRoParameterizedIIDDelayLoad()->RoGetParameterizedTypeInstanceIID(
-                (uint)typeNameCount,            
+                (uint)typeNameCount,
                 typeNames,
                 locator,
                 instantiatedIID);
@@ -1346,11 +1345,11 @@ namespace ProjectionModel
                 // If we have deprecated attribute in the method, goes up to interface to see if it has excluesiveto attribute, if yes,
                 // find the rtcName, and later on we'll print out rtcName instead of interface name.
                 auto rtcNameId = AnalyzeInterfaceCustomAttributes(parentType->td, parentType->assembly);
-                // TODO: The iterator takes the object instead of reference. we should change the iterator to take/pass & vnext. 
+                // TODO: The iterator takes the object instead of reference. we should change the iterator to take/pass & vnext.
                 if (rtcNameId != MetadataStringIdNil)
                 {
                     TRACE_METADATA(_u("found exclusiveto %s"), stringConverter->StringOfId(rtcNameId));
-                    deprecatedAttributes->Iterate([&](DeprecatedAttribute& deprecatedAttribute) 
+                    deprecatedAttributes->Iterate([&](DeprecatedAttribute& deprecatedAttribute)
                     {
                         deprecatedAttribute.rtcNameId = rtcNameId;
                     });
@@ -1610,7 +1609,7 @@ namespace ProjectionModel
             auto typeSignature = MethodSignatureOfType(typeDef, nullptr);
             auto structType = StructType::From(type);
             auto structConstructor = Anew(allocator, StructConstructor, structType->typeId, typeSignature, emptyPropertiesObject, structType);
-            
+
             if (CanMarshalExpr(structConstructor, true))
             {
                 return structConstructor;
@@ -1788,7 +1787,7 @@ namespace ProjectionModel
                     interfacesImplemented->SelectNotNull<RtINTERFACECONSTRUCTOR>([&](mdInterfaceImpl ii)->RtINTERFACECONSTRUCTOR {
                         if (!IsWithinTargetVersion(ii, assembly))
                         {
-                            OUTPUT_TRACE(Js::ProjectionMetadataPhase, 
+                            OUTPUT_TRACE(Js::ProjectionMetadataPhase,
                                 _u("IsWithinTargetVersion(%s (#%d), mdInterfaceImpl=0x%04X) == false\n"),
                                 this->stringConverter->StringOfId(type->id),
                                 type->id,
@@ -2801,7 +2800,7 @@ namespace ProjectionModel
                 bool isContractVersioned = (type & AttributeConstructorType::ContractVersioned) != 0;
 
                 if (type == AttributeConstructorType::PlatformVersioned || type == AttributeConstructorType::ContractVersioned)
-                {                    
+                {
                     if (isContractVersioned || (!assembly.isVersioned || (TryGetDWORDValueFromAttribute(attr) <= targetVersion)))
                     {
                         TRACE_METADATA(_u("isSimpleActivatable = true\n"));
@@ -3472,11 +3471,11 @@ namespace ProjectionModel
 
         CustomAttributeInfo customAttributeInfo ;
         AnalyzeRuntimeClassCustomAttributes(type->td, type->id, &factoryInterfaceTypeDefs, &staticInterfaceTypeDefs, &customAttributeInfo, type->assembly);
-        bool isHidden = customAttributeInfo.isWebHostHidden || 
-                        !type->IsWindowsRuntime() || 
+        bool isHidden = customAttributeInfo.isWebHostHidden ||
+                        !type->IsWindowsRuntime() ||
                         (EnforceAllowForWeb() && !customAttributeInfo.isAllowForWeb) ||
-                        (!customAttributeInfo.isContractVersioned && 
-                            type->assembly.isVersioned && 
+                        (!customAttributeInfo.isContractVersioned &&
+                            type->assembly.isVersioned &&
                             customAttributeInfo.version > targetVersion);
 
         RtMETHODSIGNATURE signature;
@@ -3678,7 +3677,7 @@ namespace ProjectionModel
                 allInterfaces, staticInterfaces);
         }
 
-        // cleared bookmark the current RTC being constructed 
+        // cleared bookmark the current RTC being constructed
         Assert(IsCurrentImplementedRuntimeClassInterfaceConstructorsContains(type->id) == false);
         Assert(result != nullptr);
 
@@ -3688,7 +3687,7 @@ namespace ProjectionModel
         {
             if (deferredCtorExpr->IsPass1())
             {
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for RTC %s (#%d) - deferredType = %d\n"), 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for RTC %s (#%d) - deferredType = %d\n"),
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 Assert(deferredCtorExpr->deferredType == dpcetRuntimeClass);
                 // store the 'low-fi' RtEXPR, and restart the ConstructorOfInterface logic
@@ -3705,7 +3704,7 @@ namespace ProjectionModel
             {
                 Assert(deferredCtorExpr->IsPass2());
                 Assert(deferredCtorExpr->deferredType == dpcetRuntimeClass);
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for RTC %s (#%d) - deferredType = %d\n"), 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for RTC %s (#%d) - deferredType = %d\n"),
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 // deferred ctor initialization completed - clean up
                 DeleteFromDeferredConstructorMap(type->id);
@@ -4028,11 +4027,11 @@ namespace ProjectionModel
                     ->Select<const MetadataArityGroup *>([&](ImmutableList<const Metadata::MethodProperties *> * group) {
                         return Anew(allocator, MetadataArityGroup, group);
                     }, allocator);
-                    
+
                 auto newGroup = Anew(allocator, MetadataOverloadGroup, overloadGroup->id, groupByArity);
                 return prior->Prepend(newGroup,allocator);
             });
-        
+
         TRACE_METADATA(_u("MethodsOfInterface(%s, %s), result count: %d\n"), interfaceDef->typeName_Debug, stringConverter->StringOfId(invokeId), overloadsByNameThenArity->Count());
 
         return overloadsByNameThenArity;
@@ -4062,10 +4061,10 @@ namespace ProjectionModel
         WCHAR guidStr[MaxGuidLength];
         StringFromGUID2(iid->piid, guidStr, ARRAYSIZE(guidStr));
 
-        TRACE_METADATA(_u("PropertyOfPropertyProperties(%s, %s, count=%d), result: %d\n"), 
-            guidStr, 
-            stringConverter->StringOfId(propertyProperties->id), 
-            genericParameters->Count(), 
+        TRACE_METADATA(_u("PropertyOfPropertyProperties(%s, %s, count=%d), result: %d\n"),
+            guidStr,
+            stringConverter->StringOfId(propertyProperties->id),
+            genericParameters->Count(),
             stringConverter->StringOfId(result->metadataNameId));
 #endif
 
@@ -4257,7 +4256,7 @@ namespace ProjectionModel
                 DeferredProjectionConstructorExpr* deferredExpr = GetFromDeferredConstructorMap(genericInstantiationType->fullTypeNameId);
                 if (deferredExpr != nullptr)
                 {
-                    OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, 
+                    OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase,
                         _u("ConstructorOfInterface %s (#%d) using deferred type as generic instantiation type %s (#%d) currently deferred initialized\n"),
                         type->typeName_Debug, type->id,
                         this->stringConverter->StringOfId(genericInstantiationType->fullTypeNameId), genericInstantiationType->fullTypeNameId);
@@ -4355,7 +4354,7 @@ namespace ProjectionModel
         {
             if (deferredCtorExpr->IsPass1())
             {
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for %s (#%d) - deferredType = %d\n"), 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 1 (w/o cycles) completed for %s (#%d) - deferredType = %d\n"),
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
                 Assert(deferredCtorExpr->deferredType == dpcetInterface);
                 // store the 'low-fi' RtEXPR, and restart the ConstructorOfInterface logic
@@ -4372,7 +4371,7 @@ namespace ProjectionModel
             {
                 Assert(deferredCtorExpr->IsPass2());
                 Assert(deferredCtorExpr->deferredType == dpcetInterface);
-                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for %s (#%d) - deferredType = %d\n"), 
+                OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("DeferredCTOR - PASS 2 completed for %s (#%d) - deferredType = %d\n"),
                     this->stringConverter->StringOfId(deferredCtorExpr->typeId), deferredCtorExpr->typeId, deferredCtorExpr->deferredType);
 
                 // make sure we add it to the cache
@@ -4624,7 +4623,7 @@ namespace ProjectionModel
                 {
                     const MetadataStringId metadataStringId = typeIdToExpr->GetKeyAt((int)offset);
                     Assert(metadataStringId != MetadataStringIdNil);
-                    Output::Print(_u("typeIdToExpr[%d/%d]: %s (#%d)\n"), 
+                    Output::Print(_u("typeIdToExpr[%d/%d]: %s (#%d)\n"),
                         offset, count, this->stringConverter->StringOfId(metadataStringId), metadataStringId);
                 }
 
@@ -4655,8 +4654,8 @@ namespace ProjectionModel
             if (deferredCtor == nullptr)
             {
                 // no hit yet - this is PASS 1 - bookmark the type information and break the cyclic dependency in type projection
-                DeferredProjectionConstructorExprType deferredCtorType = 
-                    IsCurrentImplementedRuntimeClassInterfaceConstructorsContains(typeId) ? dpcetRuntimeClass : dpcetInterface; 
+                DeferredProjectionConstructorExprType deferredCtorType =
+                    IsCurrentImplementedRuntimeClassInterfaceConstructorsContains(typeId) ? dpcetRuntimeClass : dpcetInterface;
                 OUTPUT_TRACE_DEBUGONLY(Js::ProjectionMetadataPhase, _u("ExprOfPossiblyGenericTypename(%s (#%d)) - deferredCTOR PASS 1 - returning low-fi RtEXPR - deferredCtorType = %d\n"), typeName, typeId, deferredCtorType);
                 deferredCtor = Anew(allocator, DeferredProjectionConstructorExpr, deferredCtorType, typeId);
                 Assert(deferredCtor != nullptr);
@@ -4851,7 +4850,7 @@ namespace ProjectionModel
                 auto prop =  PropertyOfFieldProperties(field, fieldOffset, nullptr);
                 if (type->naturalAlignment > structAlignment)
                 {
-                    structAlignment = (uint)type->naturalAlignment; // We always provide naturalAlignment and is 0...8 
+                    structAlignment = (uint)type->naturalAlignment; // We always provide naturalAlignment and is 0...8
                 }
 
                 fieldOffset = fieldOffset + type->storageSize;
@@ -5378,7 +5377,7 @@ namespace ProjectionModel
         }
         return currentSpace;
     }
-    
+
     // Info:        Apply the given remaining assembly into the given (optional) basis assignment space.
     // Parameters:  basisAssignmentSpace - prior assignment space
     //              fileName - the file name to apply
@@ -5480,7 +5479,7 @@ namespace ProjectionModel
             fields->Select<NamedProperty>([&](RtPROPERTY prop) {
                         return NamedProperty(CamelCaseString(prop->identifier, allocator, stringConverter, idToCamelCasedId), prop);
                     }, allocator);
-        
+
         auto propertiesGroupedByIdentifier = propertiesWithCamelCase->GroupBy(areSamePropertyIdentifier, allocator);
         propertiesWithCamelCase->FreeList(allocator);
         propertiesWithCamelCase = nullptr;
@@ -5491,10 +5490,10 @@ namespace ProjectionModel
             {
                 auto camelCasedId = g->ToSingle().First();
                 auto oldProp = g->ToSingle().Second();
-                
+
                 g->FreeList(allocator);
                 g = nullptr;
-                
+
                 if (isEventField(oldProp) || ((reservedNames != nullptr) && conflictsWithReservedName(oldProp)))
                 {
                     return prior->Prepend(oldProp, allocator);
@@ -5504,7 +5503,7 @@ namespace ProjectionModel
             }
 
             // Assert Here after the midlrt changes reach the branch
-            // Note, AppendListToCurrentList does not copy the appended list, 
+            // Note, AppendListToCurrentList does not copy the appended list,
             // so don't need to free the result of the Select
             auto result = g->Select<RtPROPERTY>([](NamedProperty namedProp) { return namedProp.Second(); }, allocator)
                     ->AppendListToCurrentList(prior); // Two or more properties that conflict only by camelCase
@@ -5517,7 +5516,7 @@ namespace ProjectionModel
 
         propertiesGroupedByIdentifier->FreeList(allocator);
         propertiesGroupedByIdentifier = nullptr;
-        
+
         return newProperties;
     }
 
@@ -5621,7 +5620,7 @@ namespace ProjectionModel
 
     inline BOOL ProjectionBuilder::IsTypeWebHidden(const Metadata::TypeDefProperties * type)
     {
-        return type->assembly.IsAttributePresent(type->td, _u("Windows.Foundation.Metadata.WebHostHiddenAttribute")) && !IgnoreWebHidden(); 
+        return type->assembly.IsAttributePresent(type->td, _u("Windows.Foundation.Metadata.WebHostHiddenAttribute")) && !IgnoreWebHidden();
     }
 
     bool ProjectionBuilder::TypePartiallyResolved(const Metadata::TypeDefProperties * type)

@@ -1,0 +1,52 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "bar": "undefined",
+        "console": "{...}",
+        "foo": "undefined",
+        "x": "undefined"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "x": "undefined",
+      "foo": "undefined",
+      "bar": "undefined"
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "x": "1"
+      },
+      "console": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "x": "1",
+      "foo": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo",
+        "prototype": "{...}"
+      },
+      "bar": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar",
+        "prototype": "{...}"
+      }
+    }
+  }
+]

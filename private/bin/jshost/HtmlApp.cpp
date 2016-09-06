@@ -21,21 +21,28 @@ typedef HRESULT(*PFN_IEEnableScriptDebugging)();
 INTERNET_SCHEME GetScheme(LPCTSTR szURL);
 
 CApp::CApp() :
-    m_dwRef(1), m_pCP(NULL), m_pWinSink(NULL), m_pAppWindow(NULL), m_pWebBrowser(NULL), m_pMSHTML(NULL),
+    m_dwRef(1), m_pCP(NULL), m_pWinSink(NULL), m_pAppWindow(NULL), m_pWebBrowser(NULL),
     m_hrConnected(CONNECT_E_CANNOTCONNECT),
     m_dwCookie(0), m_szURL(NULL), m_nScheme(INTERNET_SCHEME_UNKNOWN),
     m_lReadyState(READYSTATE_UNINITIALIZED),
-    m_keepAlive(false),
-    hInstance(nullptr)
+    m_keepAlive(false), m_fUseShdocvw(false),
+    hInstanceEdgeHtml(nullptr),
+    hInstanceIEFrame(nullptr)
 {
 }
 
 CApp::~CApp()
 {
-    if (hInstance != nullptr)
+    if (hInstanceEdgeHtml != nullptr)
     {
-        FreeLibrary(hInstance);
-        hInstance = nullptr;
+        FreeLibrary(hInstanceEdgeHtml);
+        hInstanceEdgeHtml = nullptr;
+    }
+
+    if (hInstanceIEFrame != nullptr)
+    {
+        FreeLibrary(hInstanceIEFrame);
+        hInstanceIEFrame = nullptr;
     }
 }
 
@@ -59,6 +66,7 @@ HRESULT CApp::Passivate()
 
     if (m_pWebBrowser)
     {
+        m_pWebBrowser->Quit();
         m_pWebBrowser->Release();
         m_pWebBrowser = NULL;
     }
@@ -74,12 +82,6 @@ HRESULT CApp::Passivate()
     {
         m_pAppWindow->Release();
         m_pAppWindow = nullptr;
-    }
-
-    if (m_pMSHTML)
-    {
-        m_pMSHTML->Release();
-        m_pMSHTML = NULL;
     }
 
     return NOERROR;
@@ -190,20 +192,10 @@ STDMETHODIMP CApp::OnChanged(DISPID dispID)
     if (DISPID_READYSTATE == dispID)
     {
         // check the value of the readystate property
-        assert(m_pMSHTML);
-
-        VARIANT vResult = {0};
-        EXCEPINFO excepInfo;
-        UINT uArgErr;
-
-        DISPPARAMS dp = {NULL, NULL, 0, 0};
-        if (SUCCEEDED(hr = m_pMSHTML->Invoke(DISPID_READYSTATE, IID_NULL, LOCALE_SYSTEM_DEFAULT,
-            DISPATCH_PROPERTYGET, &dp, &vResult, &excepInfo, &uArgErr)))
+        if (SUCCEEDED(hr = m_pWebBrowser->get_ReadyState(&m_lReadyState)))
         {
       #define RSLENGTH 20
             WCHAR szReadyState[RSLENGTH];
-            assert(VT_I4 == V_VT(&vResult));
-            m_lReadyState = (READYSTATE)V_I4(&vResult);
             switch (m_lReadyState)
             {    
               case READYSTATE_UNINITIALIZED:    //= 0,
@@ -230,7 +222,6 @@ STDMETHODIMP CApp::OnChanged(DISPID dispID)
             }
 
             swprintf_s(szBuff, 255, _u("OnChanged: readyState = %s\n"), szReadyState);
-            VariantClear(&vResult);
         }
         else
         {
@@ -292,10 +283,10 @@ STDMETHODIMP CApp::OnPosRectChange(
 {
     HRESULT hr = S_OK;
 
-    if (m_pMSHTML)
+    if (m_pWebBrowser)
     {
         CComPtr<IOleInPlaceObject> pOleInPlaceObject;
-        IfFailGo(m_pMSHTML->QueryInterface(&pOleInPlaceObject));
+        IfFailGo(m_pWebBrowser->QueryInterface(&pOleInPlaceObject));
         IfFailGo(pOleInPlaceObject->SetObjectRects(lprcPosRect, lprcPosRect));
     }
 
@@ -522,59 +513,84 @@ void CApp::SetHostToDebugMode()
     }
 }
 
-HRESULT CApp::Init(CAppWindow* pAppWindow)
+HRESULT CApp::Init(CAppWindow* pAppWindow, bool fUseShdocvw)
 {
     HRESULT hr;
     CComPtr<IOleObject> pOleObject;
     CComPtr<IOleControl> pOleControl;
     CComPtr<IConnectionPointContainer> pCPC;
 
+    // copied from htmlpad to make it work. Will investigate 
+    // webplatformhelper.lib.
+    IEConfiguration_SetBool(IEPS_EdgeContentHost, true);
+
+    this->m_fUseShdocvw = fUseShdocvw;
+
+    // Even in Shdocvw mode, we still want to create an HTMLDocument from edgehtml to ensure ieframe will use Edge
+    CComPtr<IHTMLDocument2> pMSHTML;
     if (FAILED(hr = PrivateCoCreateForEdgeHtml(__uuidof(HTMLDocument), NULL,
         CLSCTX_INPROC_SERVER, __uuidof(IHTMLDocument2),
-        (LPVOID*)&g_pApp->m_pMSHTML)))
+        (LPVOID*)&pMSHTML)))
     {
         ODS(_u("FATAL ERROR: PrivateCoCreateForEdgeHtml failed\n"));
         return hr;
     }
 
-    m_pAppWindow = pAppWindow;
-    m_pAppWindow->AddRef();
-
-    m_pWebBrowser = new CAppWebBrowser();
-
-    if (HostConfigFlags::flags.DebugLaunch)
+    if (fUseShdocvw)
     {
-        SetHostToDebugMode();
-    }
-
-    // copied from htmlpad to make it work. Will investigate 
-    // webplatformhelper.lib.
-    IEConfiguration_SetBool(IEPS_EdgeContentHost, true);
-
-     {// scope
-        CComPtr<IHTMLWindow2> pWin;
-        if (SUCCEEDED(hr = m_pMSHTML->get_parentWindow(&pWin)))
+        IEConfiguration_SetBool(SPPS_PadProcess, true);
+        if (FAILED(hr = PrivateCoCreateForIEFrame(__uuidof(WebBrowser), NULL,
+            CLSCTX_INPROC_SERVER, __uuidof(IWebBrowser2),
+            (LPVOID*)&m_pWebBrowser)))
         {
-            m_pWinSink = new CWinSink();
-            if (!m_pWinSink)
+            ODS(_u("FATAL ERROR: PrivateCoCreateForIEFrame failed\n"));
+            return hr;
+        }
+    }
+    else
+    {
+        m_pWebBrowser = new CAppWebBrowser(pMSHTML);
+
+        {// scope
+            CComPtr<IHTMLWindow2> pWin;
+            if (SUCCEEDED(hr = pMSHTML->get_parentWindow(&pWin)))
             {
-                goto Error;
-            }
-            if (FAILED(m_pWinSink->Init(pWin)))
-            {
-                goto Error;
+                m_pWinSink = new CWinSink();
+                if (!m_pWinSink)
+                {
+                    goto Error;
+                }
+                if (FAILED(m_pWinSink->Init(pWin)))
+                {
+                    goto Error;
+                }
             }
         }
     }
-    IfFailGo(m_pMSHTML->QueryInterface(&pOleObject));
+
+    m_pAppWindow = pAppWindow;
+    m_pAppWindow->AddRef();
+
+    if (HostConfigFlags::flags.DebugLaunch)
+    {
+        if (fUseShdocvw)
+        {
+            wprintf(_u("[FAILED] Can't debug with Shdocvw\n"));
+            return E_FAIL;
+        }
+        SetHostToDebugMode();
+    }
+
+
+    IfFailGo(m_pWebBrowser->QueryInterface(&pOleObject));
     IfFailGo(pOleObject->SetClientSite((IOleClientSite*)this));
     IfFailGo(pOleObject->DoVerb(OLEIVERB_SHOW, NULL, this, 0, NULL, NULL)); // Puts mshtml in OS_RUNNING state right away, needed by CMarkup::EnsureFormatCacheChange
 
-    IfFailGo(m_pMSHTML->QueryInterface(__uuidof(IOleControl), (LPVOID*)&pOleControl));
+    IfFailGo(m_pWebBrowser->QueryInterface(&pOleControl));
     IfFailGo(pOleControl->OnAmbientPropertyChange(DISPID_AMBIENT_USERMODE));
 
     // Hook up sink to catch ready state property change
-    IfFailGo(m_pMSHTML->QueryInterface(&pCPC));
+    IfFailGo(m_pWebBrowser->QueryInterface(&pCPC));
     IfFailGo(pCPC->FindConnectionPoint(__uuidof(IPropertyNotifySink), &m_pCP));
 
     m_hrConnected = m_pCP->Advise((LPUNKNOWN)(IPropertyNotifySink*)this, &m_dwCookie);
@@ -585,14 +601,30 @@ Error:
 
 HRESULT CApp::InitAfterLoad()
 {
-    HRESULT hr = NOERROR;
-    DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
-    diagnosticsHelper->SetHtmlDocument(m_pMSHTML);
-    if (HostConfigFlags::flags.DebugLaunch)
+    if (!this->m_fUseShdocvw)
     {
-        hr = diagnosticsHelper->InitializeDebugging(/*canSetBreakpoints*/true);
+        HRESULT hr = NOERROR;
+
+        CComPtr<IHTMLDocument2> pMSHTML;
+        CComPtr<IDispatch> pDispatch;
+        if (FAILED(hr = m_pWebBrowser->get_Document(&pDispatch)))
+        {
+            return hr;
+        }
+        if (FAILED(hr = pDispatch->QueryInterface(&pMSHTML)))
+        {
+            return hr;
+        }
+
+        DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
+        diagnosticsHelper->SetHtmlDocument(pMSHTML);
+        if (HostConfigFlags::flags.DebugLaunch)
+        {
+            hr = diagnosticsHelper->InitializeDebugging(/*canSetBreakpoints*/true);
+        }
+        return hr;
     }
-    return hr;
+    return S_OK;
 }
 
 STDMETHODIMP CApp::QueryService(REFGUID sid, REFIID iid, LPVOID * ppv)
@@ -637,7 +669,7 @@ HRESULT CApp::Run()
     HRESULT hr;
     MSG msg;
 
-    switch(m_nScheme)
+    switch (m_nScheme)
     {
     case INTERNET_SCHEME_HTTP:
     case INTERNET_SCHEME_FTP:
@@ -678,11 +710,11 @@ HRESULT CApp::Run()
             }
             else if (WM_USER_QUIT == msg.message && NULL == msg.hwnd)
             {
-                if (m_pMSHTML) // We can have multiple quit messages posted to the queue. Prev message might have cleared m_pMSHTML.
+                if (m_pWebBrowser) // We can have multiple quit messages posted to the queue. Prev message might have cleared m_pWebBrowser.
                 {
                     //Scope (ensure temporary interfaces released before Term() call).
                     CComPtr<IOleObject> pOleObject;
-                    IfFailGo(m_pMSHTML->QueryInterface(&pOleObject));
+                    IfFailGo(m_pWebBrowser->QueryInterface(&pOleObject));
                     pOleObject->DoVerb(OLEIVERB_HIDE, NULL, this, 0, NULL, NULL); // Send hide verb for better cleanup before releasing mshtml.
                 }
 
@@ -699,9 +731,24 @@ Error:
     return hr;
 }
 
+HRESULT CApp::LoadURLFromWebBrowser(wchar_t * szURL)
+{
+    VARIANT vEmpty;
+    VariantInit(&vEmpty);
+    return m_pWebBrowser->Navigate(szURL, &vEmpty, &vEmpty, &vEmpty, &vEmpty);
+}
+
 // Use an asynchronous Moniker to load the specified resource
 HRESULT CApp::LoadURLFromMoniker()
 {
+    assert(m_pWebBrowser);
+    if (this->m_fUseShdocvw)
+    {
+        return LoadURLFromWebBrowser(m_szURL);
+    }
+
+    CComPtr<IDispatch> pDisp;
+
     HRESULT hr;
 
     // Ask the system for a URL Moniker
@@ -719,8 +766,13 @@ HRESULT CApp::LoadURLFromMoniker()
         goto Error;
     }
 
-    // Use MSHTML moniker services to load the specified document
-    if (SUCCEEDED(hr = m_pMSHTML->QueryInterface(__uuidof(IPersistMoniker),
+    // Use MSHTML moniker services to load the specified document   
+    if (FAILED(hr = m_pWebBrowser->get_Document(&pDisp)))
+    {
+        goto Error;
+    }
+
+    if (SUCCEEDED(hr = pDisp->QueryInterface(__uuidof(IPersistMoniker),
                                 (LPVOID*)&pPMk)))
     {
         // Call Load on the IPersistMoniker
@@ -747,6 +799,8 @@ Error:
 // MSHTML performs this asynchronously as well.
 HRESULT CApp::LoadURLFromFile()
 {
+    assert(m_pWebBrowser);
+
     LPPERSISTFILE  pPF;
     HRESULT hr;
 
@@ -758,20 +812,31 @@ HRESULT CApp::LoadURLFromFile()
     }
     fclose(htmlFile);
 
-    // MSHTML supports file persistence for ordinary files.
-    if ( SUCCEEDED(hr = m_pMSHTML->QueryInterface(__uuidof(IPersistFile), (LPVOID*) &pPF)))
+    TCHAR szBuff[MAX_PATH];
+    swprintf_s(szBuff, MAX_PATH, _u("Loading %s...\n"), m_szURL);
+    ODS(szBuff);
+
+    DWORD result = GetFullPathName(m_szURL, _countof(szBuff), szBuff, NULL);
+    if (result == 0)
     {
-        TCHAR szBuff[MAX_PATH];
-        swprintf_s(szBuff, MAX_PATH, _u("Loading %s...\n"), m_szURL);
-        ODS(szBuff);
+        wprintf(_u("FATAL ERROR: GetFullPathName failed on %s, GLE: %d\n"), m_szURL, GetLastError());
+        return E_FAIL;
+    }
 
-        DWORD result = GetFullPathName(m_szURL, _countof(szBuff), szBuff, NULL);
-        if (result == 0)
-        {
-            wprintf(_u("FATAL ERROR: GetFullPathName failed on %s, GLE: %d\n"), m_szURL, GetLastError());
-            return E_FAIL;
-        }
+    if (this->m_fUseShdocvw)
+    {
+        return LoadURLFromWebBrowser(szBuff);
+    }
 
+    // MSHTML supports file persistence for ordinary files.
+    CComPtr<IDispatch> pDisp;
+    if (FAILED(hr = m_pWebBrowser->get_Document(&pDisp)))
+    {
+        return hr;
+    }
+
+    if ( SUCCEEDED(hr = pDisp->QueryInterface(__uuidof(IPersistFile), (LPVOID*) &pPF)))
+    {
         hr = pPF->Load(szBuff, 0);
         pPF->Release();
     }
@@ -921,6 +986,14 @@ STDMETHODIMP CAppWebBrowser::QueryInterface(REFIID riid, LPVOID* ppv)
         AddRef();
         return NOERROR;
     }
+    else if (m_pMSHTML && 
+        (__uuidof(IOleInPlaceObject) == riid
+        || __uuidof(IOleObject) == riid 
+        || __uuidof(IOleControl) == riid 
+        || __uuidof(IConnectionPointContainer) == riid))
+    {
+        return m_pMSHTML->QueryInterface(riid, ppv);
+    }
     else
     {
         return E_NOINTERFACE;
@@ -942,6 +1015,49 @@ STDMETHODIMP_(ULONG) CAppWebBrowser::Release()
     return currentCount;
 }
 
+STDMETHODIMP CAppWebBrowser::get_Document(IDispatch ** Document)
+{
+    if (m_pMSHTML)
+    {
+        return m_pMSHTML->QueryInterface(Document);
+    }
+    return E_FAIL;
+}
+
+STDMETHODIMP CAppWebBrowser::get_ReadyState(READYSTATE *plReadyState)
+{
+    HRESULT hr = E_FAIL;
+    VARIANT vResult = { 0 };
+    EXCEPINFO excepInfo;
+    UINT uArgErr;
+
+    DISPPARAMS dp = { NULL, NULL, 0, 0 };
+    if (m_pMSHTML && SUCCEEDED(hr = m_pMSHTML->Invoke(DISPID_READYSTATE, IID_NULL, LOCALE_SYSTEM_DEFAULT,
+        DISPATCH_PROPERTYGET, &dp, &vResult, &excepInfo, &uArgErr)))
+    {
+        assert(VT_I4 == V_VT(&vResult));
+        *plReadyState = (READYSTATE)V_I4(&vResult);
+        VariantClear(&vResult);
+    }
+    return hr;
+}
+
+STDMETHODIMP CAppWebBrowser::Quit()
+{
+    Passivate();
+    return S_OK;
+}
+
+void
+CAppWebBrowser::Passivate()
+{
+    if (m_pMSHTML)
+    {
+        m_pMSHTML->Release();
+        m_pMSHTML = NULL;
+    }
+}
+
 typedef HRESULT(STDAPICALLTYPE* FN_InitializeLocalHtmlEngine)();
 HRESULT CApp::PrivateCoCreateForEdgeHtml(
     REFCLSID rclsid,
@@ -955,20 +1071,49 @@ HRESULT CApp::PrivateCoCreateForEdgeHtml(
     CComPtr <IClassFactory> pClassFactory;
     FN_DllGetClassObject pProc = NULL;
     FN_InitializeLocalHtmlEngine pProcEdgeHtml = NULL;
-    if (hInstance == nullptr)
+    if (hInstanceEdgeHtml == nullptr)
     {
-        hInstance = LoadLibraryEx(_u("edgehtml.dll"), nullptr, 0);
-        if (hInstance == NULL)
+        hInstanceEdgeHtml = LoadLibraryEx(_u("edgehtml.dll"), nullptr, 0);
+        if (hInstanceEdgeHtml == NULL)
         {
             return E_FAIL;
         }
     }
 
-    pProcEdgeHtml = (FN_InitializeLocalHtmlEngine)GetProcAddress(hInstance, "InitializeLocalHtmlEngine");
+    pProcEdgeHtml = (FN_InitializeLocalHtmlEngine)GetProcAddress(hInstanceEdgeHtml, "InitializeLocalHtmlEngine");
     if (pProcEdgeHtml == NULL) return E_FAIL;
     IfFailGo(pProcEdgeHtml());
 
-    pProc = (FN_DllGetClassObject)GetProcAddress(hInstance, "DllGetClassObject");
+    pProc = (FN_DllGetClassObject)GetProcAddress(hInstanceEdgeHtml, "DllGetClassObject");
+    if (pProc == NULL) return E_FAIL;
+
+    IfFailGo(pProc(rclsid, __uuidof(IClassFactory), (LPVOID*)&pClassFactory));
+    IfFailGo(pClassFactory->CreateInstance(pUnkOuter, iid, ppunk));
+Error:
+    return hr;
+}
+
+HRESULT CApp::PrivateCoCreateForIEFrame(
+    REFCLSID rclsid,
+    LPUNKNOWN pUnkOuter,
+    DWORD dwClsContext,
+    REFIID iid,
+    LPVOID* ppunk
+)
+{
+    HRESULT hr = NOERROR;
+    CComPtr <IClassFactory> pClassFactory;
+    FN_DllGetClassObject pProc = NULL;
+    if (hInstanceIEFrame == nullptr)
+    {
+        hInstanceIEFrame = LoadLibraryEx(_u("ieframe.dll"), nullptr, 0);
+        if (hInstanceIEFrame == NULL)
+        {
+            return E_FAIL;
+        }
+    }
+
+    pProc = (FN_DllGetClassObject)GetProcAddress(hInstanceIEFrame, "DllGetClassObject");
     if (pProc == NULL) return E_FAIL;
 
     IfFailGo(pProc(rclsid, __uuidof(IClassFactory), (LPVOID*)&pClassFactory));

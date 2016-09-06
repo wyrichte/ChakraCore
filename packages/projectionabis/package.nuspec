@@ -147,5 +147,7 @@
     <file src="armchk\FabrikamKitchenServer.ProxyStub.dll" target="arm_debug\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="armchk\projectionsglue.js" target="arm_debug\projectionsglue.js" />
     <file src="armchk\TakeRegistryAdminOwnership.exe" target="arm_debug\TakeRegistryAdminOwnership.exe" />
+
+    <file src="windows.winmd" />
   </files>
 </package>

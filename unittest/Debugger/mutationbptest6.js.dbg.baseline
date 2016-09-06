@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "[Pending Mutation]": {
         "a [Deleting]": ":)",
@@ -18,7 +19,9 @@
         "__proto__": "{...}",
         "a": ":)"
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "console": "{...}"
+      }
     }
   }
 ]

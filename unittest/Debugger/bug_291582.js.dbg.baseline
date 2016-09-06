@@ -2,6 +2,7 @@
   {
     "locals": {
       "this": "{...}",
+      "console": "{...}",
       "a": "1",
       "x": "undefined"
     }

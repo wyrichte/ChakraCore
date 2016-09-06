@@ -1,0 +1,61 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 999,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "baz"
+      },
+      {
+        "start": 616,
+        "length": 8,
+        "text": "baz(a,b)",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 510,
+        "length": 6,
+        "text": "bar(a)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 1008,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      },
+      {
+        "start": 1050,
+        "length": 5,
+        "text": "Run()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "b = 'b1'": "b1"
+    }
+  },
+  {
+    "evaluate": {
+      "a = 'a1'": "a1"
+    }
+  },
+  {
+    "evaluate": {
+      "a + b + c": "abbazab"
+    }
+  },
+  {
+    "evaluate": {
+      "b": "b1"
+    }
+  },
+  {
+    "evaluate": {
+      "a": "a1"
+    }
+  }
+]

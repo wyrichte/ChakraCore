@@ -40,6 +40,7 @@ namespace Js
     class JavascriptStackWalker;            // Used by StackTraceArguments.h
     class JavascriptFunction;               // Used by JavascriptExceptionObject.h
     class JavascriptGeneratorFunction;      // Used by JavascriptLibrary.h
+    class JavascriptAsyncFunction;          // Used by JavascriptLibrary.h
     class ScriptFunctionType;               // used by FunctionBody.h
     class ScriptFunction;                   // Used by InterpreterStackFrame.h
     class GeneratorVirtualScriptFunction;   // Used by JavascriptLibrary.h
@@ -99,7 +100,6 @@ namespace Js
     class JavascriptRegExpConstructor;      // Used by JavascriptLibrary.h
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
     class JavascriptEnumerator;             // Used by JavascriptLibrary.h
-    class NullEnumerator;                   // Used by JavascriptLibrary.h
     class PropertyStringCacheMap;           // Used by JavascriptLibrary.h
     class JavascriptExternalFunction;       // Used by JavascriptLibrary.h        
     class HeapArgumentsObject;              // Used by JavascriptLibrary.h
@@ -175,6 +175,8 @@ namespace Js
     class Lowerer;                          // Used by JavascriptString.h
     class ActivationObject;                 // Used by ArgumentsObject.h
     class ES5ArgumentsObjectEnumerator;     // Used by ArgumentsObject.h
+    class JavascriptStaticEnumerator;       // Used by RecyclableObject.h
+    enum class EnumeratorFlags : byte;      // Used by RecyclableObject.h
     template <typename Key> struct SameValueZeroComparer;   // Used by JavascriptSet.h and JavascriptMap.h
     struct IsInstInlineCache;
     class FunctionInfo;

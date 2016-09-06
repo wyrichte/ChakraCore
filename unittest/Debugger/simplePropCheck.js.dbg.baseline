@@ -14,13 +14,16 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
       },
+      "a1": "undefined",
+      "b1": "undefined",
       "bar": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -30,9 +33,8 @@
         "prototype": "{...}"
       },
       "c": "undefined",
-      "a1": "undefined",
-      "b1": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>"
       }
     }
@@ -62,13 +64,16 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
       },
+      "a1": "undefined",
+      "b1": "undefined",
       "bar": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -81,9 +86,8 @@
         "__proto__": "[x]",
         "[0]": "20"
       },
-      "a1": "undefined",
-      "b1": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "foo": "<large string>"
       }
     }

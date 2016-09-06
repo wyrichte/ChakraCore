@@ -102,13 +102,12 @@ class ScriptEngine :
     //
     // Active Script debugging interfaces (activdbg.idl)
     //
+    public IDebugStackFrameSniffer,
 #if !_WIN64 || USE_32_OR_64_BIT
     public IActiveScriptDebug32,
-    public IDebugStackFrameSnifferEx32,
 #endif // !_WIN64 || USE_32_OR_64_BIT
 #if _WIN64 || USE_32_OR_64_BIT
     public IActiveScriptDebug64,
-    public IDebugStackFrameSnifferEx64,
 #endif // _WIN64 || USE_32_OR_64_BIT
     public IRemoteDebugApplicationEvents,
 
@@ -542,15 +541,6 @@ public:
     STDMETHOD(EnumStackFrames)(IEnumDebugStackFrames** ppedsf);
 
     //
-    // IDebugStackFrameSnifferEx
-    //
-
-    STDMETHOD(EnumStackFramesEx32)(DWORD dwSpMin, IEnumDebugStackFrames** ppedsf) sealed;
-#if _WIN64 || USE_32_OR_64_BIT
-    STDMETHOD(EnumStackFramesEx64)(DWORDLONG dwSpMin, IEnumDebugStackFrames64** ppedsf);
-#endif // _WIN64 || USE_32_OR_64_BIT
-
-    //
     // IRemoteDebugApplicationEvents
     //
 
@@ -684,12 +674,6 @@ public:
 
     Js::ScriptContext* EnsureScriptContext();
     BOOL ShouldKeepAlive() const { return fKeepEngineAlive; }        
-    void SetIsCloned(ScriptEngine *pendingCloneSource)
-    {
-        isCloned = TRUE;
-        this->pendingCloneSource = pendingCloneSource;
-    }
-    BOOL IsCloned() { return isCloned; }
 
     HRESULT GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb, LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags, SOURCE_TEXT_ATTR *prgsta);
 
@@ -782,7 +766,6 @@ private:
     // Call ChangeScriptState ONLY in the base thread
     void ChangeScriptState (SCRIPTSTATE ss);
 
-    HRESULT CloneScriptBodies (ScriptEngine *oleScriptNew);
     HRESULT RegisterNamedItems (void);
     HRESULT RegisterNamedItem        (NamedItem* pnid);
     HRESULT RegisterNamedItemHasCode (NamedItem* pnid);
@@ -1004,11 +987,6 @@ private:
 #if defined(USED_IN_STATIC_LIB)
     public:
 #endif
-    BOOL                isCloned;
-#ifdef PROFILE_EXEC
-    ScriptSite *        originalScriptSite;
-#endif
-    ScriptEngine *      pendingCloneSource;
     struct BOD
     {
         ulong           grfbod;

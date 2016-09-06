@@ -1751,10 +1751,9 @@ HRESULT CDebugExpression::GetResultAsDebugProperty(HRESULT *phrRes,
 /***************************************************************************
 CEnumDebugStackFrames
 ***************************************************************************/
-CEnumDebugStackFrames::CEnumDebugStackFrames(DWORD_PTR dwSpMin, ScriptSite* _activeScriptSite)
+CEnumDebugStackFrames::CEnumDebugStackFrames(ScriptSite* _activeScriptSite)
     : m_refCount(1),
      m_dwThread(GetCurrentThreadId()),
-     m_dwSpMin(dwSpMin),
      m_currentFrameIndex(0),
      m_fDone(false),
      m_fError(false),
@@ -2061,7 +2060,7 @@ HRESULT CEnumDebugStackFrames::Clone(IEnumDebugStackFrames **ppStackFrames)
         return E_UNEXPECTED;
     }
 
-    stackFramesEnumerator = new CEnumDebugStackFrames(m_dwSpMin, m_scriptSite);
+    stackFramesEnumerator = new CEnumDebugStackFrames(m_scriptSite);
     if (nullptr == stackFramesEnumerator)
     {
         return E_OUTOFMEMORY;

@@ -20,8 +20,8 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "l1.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "l1.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+          "l1.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
@@ -46,8 +46,8 @@
         "l1.__proto__": {
           "[Methods]": "{...}",
           "l1.__proto__.__proto__": "{...}",
-          "l1.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "l1.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "l1.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+          "l1.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
           "l1.__proto__.length": "0",
           "l1.__proto__.name": ""
         },
@@ -62,8 +62,8 @@
         "A.__proto__": {
           "[Methods]": "{...}",
           "A.__proto__.__proto__": "{...}",
-          "A.__proto__.arguments": "Accessing the 'arguments' property is restricted in this context",
-          "A.__proto__.caller": "Accessing the 'caller' property is restricted in this context",
+          "A.__proto__.arguments": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
+          "A.__proto__.caller": "'arguments', 'callee' and 'caller' are restricted function properties and cannot be accessed in this context",
           "A.__proto__.length": "0",
           "A.__proto__.name": ""
         },

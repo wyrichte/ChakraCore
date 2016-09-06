@@ -466,7 +466,7 @@
   },
   {
     "evaluate": {
-      "super.method()": "'super' can only be accessed from a subclass method"
+      "super.method()": "Missing or invalid 'super' binding"
     }
   },
   {

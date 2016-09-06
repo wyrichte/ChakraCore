@@ -20,19 +20,6 @@ CScriptBody::CScriptBody(Js::ParseableFunctionInfo* functionInfo, ScriptEngine *
     }
 }
 
-CScriptBody* CScriptBody::Clone(ScriptEngine * pos)
-{
-    Assert(pos->GetScriptContext() != nullptr);
-
-    Js::ScriptContext* newScriptContext = pos->GetScriptContext();
-
-    Js::ParseableFunctionInfo* newFunctionInfo = GetRootFunction()->Clone(newScriptContext);
-
-    // Finally, create the new script body, point it to the new global function, and pass it back to the caller.
-    // This is called by ScriptEngine::CloneScriptBodies which handles OOMs so it is ok to throw here
-    return HeapNew(CScriptBody, newFunctionInfo, pos, newFunctionInfo->GetUtf8SourceInfo()); 
-}
-
 CScriptBody::~CScriptBody()
 {
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();

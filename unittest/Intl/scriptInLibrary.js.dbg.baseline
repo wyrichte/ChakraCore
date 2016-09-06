@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "console": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -34,6 +35,7 @@
         "[WeakMap]": "size = 1"
       },
       "[Globals]": {
+        "console": "{...}",
         "top": "<large string>",
         "anotherExample": "<large string>"
       }

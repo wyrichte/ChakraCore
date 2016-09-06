@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "obj": "{...}",
         "sneakers": "{...}"
       },
@@ -19,6 +20,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "console": "{...}",
         "Product": "<large string>",
         "attach": "<large string>",
         "sneakers": "{...}",
@@ -41,6 +43,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "obj": "{...}",
         "sneakers": "{...}"
       },
@@ -55,6 +58,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "console": "{...}",
         "Product": "<large string>",
         "attach": "<large string>",
         "sneakers": "{...}",
@@ -77,6 +81,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "obj": "{...}",
         "sneakers": "{...}"
       },
@@ -92,6 +97,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "console": "{...}",
         "Product": "<large string>",
         "attach": "<large string>",
         "sneakers": "{...}",

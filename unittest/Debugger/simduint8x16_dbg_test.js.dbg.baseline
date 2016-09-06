@@ -44,6 +44,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -143,6 +144,7 @@
       },
       "d": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDUint8x16_unaryop": "<large string>",
         "testSIMDUint8x16_binaryop": "<large string>",
         "testSIMDUint8x16_compareop": "<large string>",
@@ -184,6 +186,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -257,6 +260,7 @@
       "e2": "undefined",
       "f2": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDUint8x16_unaryop": "<large string>",
         "testSIMDUint8x16_binaryop": "<large string>",
         "testSIMDUint8x16_compareop": "<large string>",
@@ -398,6 +402,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -426,6 +431,7 @@
       "n": "undefined",
       "cmp": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDUint8x16_unaryop": "<large string>",
         "testSIMDUint8x16_binaryop": "<large string>",
         "testSIMDUint8x16_compareop": "<large string>",
@@ -566,6 +572,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -600,6 +607,7 @@
       "c": "undefined",
       "d": "undefined",
       "[Globals]": {
+        "console": "{...}",
         "testSIMDUint8x16_unaryop": "<large string>",
         "testSIMDUint8x16_binaryop": "<large string>",
         "testSIMDUint8x16_compareop": "<large string>",

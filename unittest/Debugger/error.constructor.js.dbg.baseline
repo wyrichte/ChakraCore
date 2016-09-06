@@ -24,6 +24,7 @@
         "stack": "<large string>"
       },
       "[Globals]": {
+        "console": "{...}",
         "navigator": "{...}",
         "testcase": "{...}",
         "runsExecuted": "0",

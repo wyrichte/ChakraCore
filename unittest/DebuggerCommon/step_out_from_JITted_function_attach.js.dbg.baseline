@@ -1,0 +1,52 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 625,
+        "length": 1,
+        "text": "c",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 528,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 872,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Run"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a": "bar",
+      "b": {
+        "__proto__": "[]",
+        "length": "0"
+      },
+      "c": {
+        "__proto__": "Invalid Date"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>",
+        "Run": "<large string>"
+      }
+    }
+  }
+]

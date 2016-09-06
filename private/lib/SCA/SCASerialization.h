@@ -172,6 +172,8 @@ namespace Js
         bool TryClonePrimitive(SrcTypeId typeId, Src src, Dst* dst);
         bool TryCloneObject(SrcTypeId typeId, Src src, Dst* dst, SCADeepCloneType* deepClone);
         void CloneProperties(SrcTypeId typeId, Src src, Dst dst);
+        void ClonePropertiesWithSCASerializable(SrcTypeId typeId, Src src, Dst dst);
+        void ClonePropertiesWithoutSCASerializable(SrcTypeId typeId, Src src, Dst dst);
         void CloneMap(Src src, Dst dst);
         void CloneSet(Src src, Dst dst);
         void CloneObjectReference(Src src, Dst dst);
@@ -185,12 +187,12 @@ namespace Js
     {
     private:
         RecyclableObject* m_obj;
-        JavascriptEnumerator* m_innerEnumerator;
+        JavascriptStaticEnumerator* m_innerEnumerator;
         JavascriptString* m_name;
         Var m_value;
 
     public:
-        ObjectPropertyEnumerator(ScriptContext* scriptContext, RecyclableObject* obj, JavascriptEnumerator* enumerator)
+        ObjectPropertyEnumerator(ScriptContext* scriptContext, RecyclableObject* obj, JavascriptStaticEnumerator* enumerator)
             : ScriptContextHolder(scriptContext),
             m_obj(obj),
             m_innerEnumerator(enumerator),
