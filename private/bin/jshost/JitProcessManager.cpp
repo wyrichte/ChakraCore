@@ -11,6 +11,9 @@ HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR arg
 {
     HRESULT hr = S_OK;
 
+    JitProcessManager::RemoveArg(_u("-dynamicprofilecache:"), &argc, &argv);
+    JitProcessManager::RemoveArg(_u("-dynamicprofileinput:"), &argc, &argv);
+
     if (IsEqualGUID(s_connectionId, GUID_NULL))
     {
         RPC_STATUS status = UuidCreate(&s_connectionId);

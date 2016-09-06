@@ -1574,12 +1574,6 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     HRESULT hr = S_OK;
     BSTR filename = NULL;
 
-    if (HostConfigFlags::flags.EnableOutOfProcJIT)
-    {
-        JitProcessManager::RemoveArg(_u("-dynamicprofilecache:"), &argc, &argv);
-        JitProcessManager::RemoveArg(_u("-dynamicprofileinput:"), &argc, &argv);
-    }
-
     JScript9Interface::ArgInfo argInfo = { argc, argv, ::PrintUsage, pfNativeTestEntryPoint ? NULL : &filename };        // Call the real entrypoint.
 
     // Spin-up the ETW console listener, if needed.
