@@ -5,6 +5,7 @@
 #include "stdafx.h"
 
 #include "ProjectionToTypeScriptConverter.h"
+#include "XmlDocReferenceBuilder.h"
 
 using namespace Metadata;
 using namespace ProjectionModel;
@@ -50,7 +51,14 @@ MetadataString NamespaceContext::GetNameIdRelativeToCurrentContext(MetadataStrin
     return fullyQualifiedName;
 }
 
-ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, IStringConverter& converter, bool emitAnyForUnresolvedTypes) :
+ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(
+    ArenaAllocator* alloc,
+    TypeScriptEmitter& emitter,
+    IndentingWriter& writer,
+    IStringConverter& converter,
+    XmlDocReferenceBuilder& docBuilder,
+    bool emitAnyForUnresolvedTypes,
+    bool suppressWarningsForUnresolvedWindowsTypes) :
     m_alloc(alloc),
     m_emitter(emitter),
     m_writer(writer),
@@ -59,7 +67,9 @@ ProjectionToTypeScriptConverter::ProjectionToTypeScriptConverter(ArenaAllocator*
     m_exclusiveToAttributeStringId(converter.IdOfString(L"Windows.Foundation.Metadata.ExclusiveToAttribute")),
     m_voidStringId(converter.IdOfString(L"Void")),
     m_namespaceContext(converter),
-    m_emitAnyForUnresolvedTypes(emitAnyForUnresolvedTypes)
+    m_docBuilder(docBuilder),
+    m_emitAnyForUnresolvedTypes(emitAnyForUnresolvedTypes),
+    m_suppressWarningsForUnresolvedWindowsTypes(suppressWarningsForUnresolvedWindowsTypes)
 {
     EmitSpecialTypes();
 }
@@ -166,8 +176,10 @@ void ProjectionToTypeScriptConverter::EmitTypeDefinitions(RtPROPERTIESOBJECT pro
                 break;
                 case functionDelegateConstructor:
                 {
-                    auto declaration = GetTypeScriptDeclarationForDelegate(prop->identifier, DelegateConstructor::From(prop->expr));
-                    m_emitter.EmitInterfaceDeclaration(*declaration);
+                    auto declarations = GetTypeScriptDeclarationForDelegate(prop->identifier, DelegateConstructor::From(prop->expr));
+                    m_emitter.EmitInterfaceDeclaration(*declarations.interfaceDeclaration);
+                    m_emitter.EmitTypeAliasDeclaration(*declarations.eventHandlerArgumentTypeAlias);
+                    m_emitter.EmitTypeAliasDeclaration(*declarations.eventHandlerReturnTypeAlias);
                 }
                 break;
                 case functionMissingTypeConstructor:
@@ -187,7 +199,12 @@ bool ProjectionToTypeScriptConverter::IsTypeVisible(RtTYPE type)
 {
     if (MissingNamedType::Is(type) || MissingGenericInstantiationType::Is(type))
     {
-        wcerr << L"warning: Reference to missing type: " << m_converter.StringOfId(type->fullTypeNameId) << endl;
+        wstring typeName = MetadataString(type->fullTypeNameId).ToString();
+
+        if (!m_suppressWarningsForUnresolvedWindowsTypes || typeName.compare(0, _ARRAYSIZE(L"Windows.") - 1, L"Windows.") != 0)
+        {
+            wcerr << L"warning: Reference to missing type: " << typeName << endl;
+        }
 
         return false;
     }
@@ -277,17 +294,23 @@ bool ProjectionToTypeScriptConverter::AreAllParameterTypesVisible(RtPARAMETERS p
 
 auto_ptr<TypeScriptEnumDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForEnum(MetadataString enumName, RtENUM enumDefinition)
 {
+    m_docBuilder.SetCurrentType(enumDefinition->typeDef);
+
     auto enumDeclaration = TypeScriptEnumDeclaration::Make(enumName);
 
     enumDefinition->properties->fields->Iterate([&](RtPROPERTY enumField) {
-        enumDeclaration->AppendMember(enumField->identifier);
+        enumDeclaration->AppendMember(enumField->identifier, m_docBuilder.MakeForField(AbiFieldProperty::From(enumField)->fieldProperties->id));
     });
+
+    enumDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return enumDeclaration;
 }
 
 auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForRuntimeClass(MetadataString runtimeClassName, RtRUNTIMECLASSCONSTRUCTOR rtClassConstructor)
 {
+    m_docBuilder.SetCurrentType(rtClassConstructor->typeDef);
+
     bool extendsArray = false;
     bool extendsMap = false;
 
@@ -368,7 +391,9 @@ auto_ptr<TypeScriptClassDeclaration> ProjectionToTypeScriptConverter::GetTypeScr
         isActivatable ? GetConstructorOverloads(rtClassConstructor->signature) : TypeScriptConstructorOverloads::Make(),
         move(staticMembers),
         move(instanceMembers)
-        );
+    );
+
+    classDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return classDeclaration;
 }
@@ -413,6 +438,8 @@ static MetadataStringId GetMetadataNameOfProperty(RtPROPERTY property) {
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForInterface(MetadataString interfaceName, RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
 {
+    m_docBuilder.SetCurrentType(interfaceConstructor->typeDef);
+
     bool extendsArray = false;
     bool extendsMap = false;
 
@@ -454,41 +481,76 @@ auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTyp
         GetTypeScriptTypeDefinitionType(interfaceName, interfaceConstructor->genericParameters),
         GetExtendedTypeScriptTypeList(interfaceConstructor->requiredInterfaces, specialization, promiseResultType),
         move(typeMembers)
-        );
+    );
+
+    interfaceDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return interfaceDeclaration;
 }
 
 auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForStruct(MetadataString structName, RtSTRUCTCONSTRUCTOR structConstructor)
 {
+    m_docBuilder.SetCurrentType(structConstructor->structType->typeDef);
+
     auto structDeclaration = TypeScriptInterfaceDeclaration::Make(structName);
     structConstructor->structType->fields->Iterate([&](RtPROPERTY field) {
         auto fieldType = AbiFieldProperty::From(field)->type;
         if (m_emitAnyForUnresolvedTypes || IsTypeVisible(fieldType))
         {
-            structDeclaration->AddMember(TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType), false /* optional */));
+            auto member = TypeScriptPropertySignature::Make(field->identifier, GetTypeScriptType(fieldType), false /* optional */);
+            member->AttachDocumentation(m_docBuilder.MakeForField(AbiFieldProperty::From(field)->fieldProperties->id));
+            structDeclaration->AddMember(move(member));
         }
     });
+
+    structDeclaration->AttachDocumentation(m_docBuilder.MakeForCurrentType());
 
     return structDeclaration;
 }
 
-auto_ptr<TypeScriptInterfaceDeclaration> ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForDelegate(MetadataString delegateName, RtDELEGATECONSTRUCTOR delegateConstructor)
+ProjectionToTypeScriptConverter::DelegateDeclarations ProjectionToTypeScriptConverter::GetTypeScriptDeclarationForDelegate(MetadataString delegateName, RtDELEGATECONSTRUCTOR delegateConstructor)
 {
+    m_docBuilder.SetCurrentType(delegateConstructor->invokeInterface->typeDef);
+    auto doc = m_docBuilder.MakeForCurrentType();
+
     Assert(delegateConstructor->invokeInterface->interfaceType == ifRuntimeInterfaceConstructor);
     auto invokeInterfaceConstructor = RuntimeInterfaceConstructor::From(delegateConstructor->invokeInterface);
-
+    
     auto interfaceDeclaration = TypeScriptInterfaceDeclaration::Make(GetTypeScriptTypeDefinitionType(delegateName, invokeInterfaceConstructor->genericParameters));
 
     auto invokeMethod = AbiMethodProperty::From(invokeInterfaceConstructor->ownProperties->ToSingle());
     auto params = invokeMethod->body->signature->GetParameters();
 
-    if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(params))
+    auto allInvokeParametersVisible = AreAllParameterTypesVisible(params);
+
+    if (m_emitAnyForUnresolvedTypes || allInvokeParametersVisible)
     {
-        interfaceDeclaration->AddMember(TypeScriptCallSignature::Make(GetTypeScriptParameters(params), GetTypeScriptReturnType(params)));
+        auto member = TypeScriptCallSignature::Make(GetTypeScriptParameters(params), GetTypeScriptReturnType(params));
+        member->AttachDocumentation(doc);
+        interfaceDeclaration->AddMember(move(member));
     }
 
-    return interfaceDeclaration;
+    MetadataString argumentType;
+    auto fullTypeName = wstring(m_converter.StringOfId(invokeInterfaceConstructor->typeId));
+
+    // When used as an event handler, a WinRT delegate that is of the type
+    // ReturnType Function(SenderType, EventArgType, OtherArgTypes...)
+    // is actually projected into JavaScript as an object of the type
+    // (arg: { type: "EventName"; detail: [EventArgType, OtherArgTypes...]; target: SenderType} & EventArgType) => ReturnType
+    // 
+    // We will emit type aliases here for this complicated type, so that they can simply be referenced in event handlers later.
+
+    auto argumentTypeAlias = TypeScriptTypeAliasDeclaration::Make(
+        AppendToTypeName(GetTypeScriptTypeDefinitionType(delegateName, invokeInterfaceConstructor->genericParameters), L"ArgumentType"),
+        GetProjectedEventHandlerArgumentTypeBase(params));
+    
+    auto returnTypeAlias = TypeScriptTypeAliasDeclaration::Make(
+        AppendToTypeName(GetTypeScriptTypeDefinitionType(delegateName, invokeInterfaceConstructor->genericParameters), L"ReturnType"),
+        GetTypeScriptReturnType(params));
+
+    interfaceDeclaration->AttachDocumentation(doc);
+
+    return { move(interfaceDeclaration), move(argumentTypeAlias), move(returnTypeAlias) };
 }
 
 auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptTypeDefinitionType(MetadataString name, ImmutableList<RtTYPE>* parameters)
@@ -590,7 +652,7 @@ auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptType(RtTY
             break;
         case ELEMENT_TYPE_OBJECT:
         case ELEMENT_TYPE_VAR:
-            typeName = L"any";
+            typeName = L"Object";
             break;
         default:
             throw UnrecognizedTypeError(type->fullTypeNameId);
@@ -654,6 +716,52 @@ auto_ptr<TypeScriptParameterList> ProjectionToTypeScriptConverter::GetTypeScript
     return TypeScriptParameterList::Make(move(typeScriptParams));
 }
 
+auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptParameterTypeOrNull(RtPARAMETERS params, size_t argIndex)
+{
+    auto_ptr_vector<TypeScriptParameter> typeScriptParams;
+
+    auto inParameters = params->allParameters->Where([&](RtPARAMETER param) { return param->isIn; }, m_alloc);
+
+    if (inParameters->Count() > argIndex)
+    {
+        auto param = inParameters->Nth(argIndex);
+
+        if (m_emitAnyForUnresolvedTypes || IsTypeVisible(param->type))
+        {
+            return GetTypeScriptType(param->type);
+        }
+    };
+
+    return auto_ptr<TypeScriptType>();
+}
+
+auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptTupleTypeFromArguments(RtPARAMETERS params, size_t startIndex)
+{
+    auto_ptr_vector<TypeScriptType> types;
+
+    if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(params))
+    {
+        size_t index = 0;
+        params->allParameters->Iterate([&](RtPARAMETER param) {
+            if (param->isIn)
+            {
+                if (index >= startIndex)
+                {
+                    types.push_back(GetTypeScriptType(param->type));
+                }
+                index++;
+            }
+        });
+    }
+
+    if (types.empty())
+    {
+        return TypeScriptType::MakeArrayType(TypeScriptType::Make(L"any"));
+    }
+
+    return TypeScriptType::MakeTupleType(move(types));
+}
+
 auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetTypeScriptReturnType(RtPARAMETERS params)
 {
     std::vector<RtPARAMETER> outParams;
@@ -698,17 +806,20 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetTypeScrip
 
         if (forceReturnTypeToAny)
         {
-            methods->AddMember(TypeScriptMethodSignature::Make(methodNameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params)));
+            auto member = TypeScriptMethodSignature::Make(methodNameStr, GetTypeScriptParameters(params), TypeScriptType::Make(L"any"), GetTypeScriptReturnType(params));
+            member->AttachDocumentation(m_docBuilder.MakeForMethod(methodSignature));
+            methods->AddMember(move(member));
         }
         else
         {
             AddPropertyToMemberList(
+                m_docBuilder.MakeForMethod(methodSignature),
                 methods.get(),
                 methodNameStr,
                 fullyQualifiedNameBehavior,
                 [&](MetadataString name, bool optional) {return TypeScriptMethodSignature::Make(name, GetTypeScriptParameters(params), GetTypeScriptReturnType(params), optional); },
                 [&](MetadataString name, bool optional) {return TypeScriptMethodSignature::Make(name, GetTypeScriptParameters(params), GetTypeScriptReturnType(params), optional); }
-            );            
+            );
         }
     }
 
@@ -817,22 +928,27 @@ auto_ptr<TypeScriptTypeList> ProjectionToTypeScriptConverter::GetImplementedType
 
 template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
 void ProjectionToTypeScriptConverter::AddPropertyToMemberList(
-    TypeScriptTypeMemberList* memberList, 
-    MetadataString propertyName, 
+    XmlDocReference doc,
+    TypeScriptTypeMemberList* memberList,
+    MetadataString propertyName,
     FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
     MakeMemberFunction makeMember,
     MakeAnyMemberFunction makeAnyMember
-    )
+)
 {
     auto propertyNameString = propertyName.ToString();
     auto shortName = GetLastPartIfFullyQualified(propertyNameString);
     if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::EmitAsOptional)
     {
-        memberList->AddMember(makeMember(propertyName, true));
+        auto member = makeMember(propertyName, true);
+        member->AttachDocumentation(doc);
+        memberList->AddMember(move(member));
     }
     else
     {
-        memberList->AddMember(makeMember(propertyName, false));
+        auto member = makeMember(propertyName, false);
+        member->AttachDocumentation(doc);
+        memberList->AddMember(move(member));
 
         if (shortName != propertyNameString && fullyQualifiedNameBehavior == FullyQualifiedNameBehavior::AlsoEmitUnqualifiedMember)
         {
@@ -895,7 +1011,7 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
         case ptAbiMethodProperty:
         {
             auto typeScriptMethodSigs = GetTypeScriptMethodSignatures(property->identifier, applyIndexOfSpecialization, AbiMethod::From(AbiMethodProperty::From(property)->body)->signature, fullyQualifiedNameBehavior);
-            
+
             memberList->AddMembers(move(typeScriptMethodSigs));
         }
         break;
@@ -905,12 +1021,13 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(propertyType))
             {
                 AddPropertyToMemberList(
-                    memberList.get(), 
+                    m_docBuilder.MakeForProperty(GetMetadataNameOfProperty(property)),
+                    memberList.get(),
                     property->identifier,
-                    fullyQualifiedNameBehavior, 
+                    fullyQualifiedNameBehavior,
                     [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, GetTypeScriptType(propertyType), optional); },
                     [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, TypeScriptType::Make(L"any"), false); }
-                    );
+                );
             }
         }
         break;
@@ -924,10 +1041,11 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
             if (m_emitAnyForUnresolvedTypes || IsTypeVisible(eventHandlerType))
             {
                 AddPropertyToMemberList(
+                    m_docBuilder.MakeForEventHandler(GetMetadataNameOfProperty(property)),
                     memberList.get(),
                     property->identifier,
                     fullyQualifiedNameBehavior,
-                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, GetTypeScriptType(eventHandlerType), optional); },
+                    [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, GetProjectedEventHandlerType(eventHandlerType, eventHandlerProperty->abiEvent->nameId), optional); },
                     [&](MetadataString name, bool optional) { return TypeScriptPropertySignature::Make(name, TypeScriptType::MakeFunctionType(TypeScriptParameterList::Make(L"args"), TypeScriptType::Make(L"any")), optional); }
                 );
             }
@@ -935,7 +1053,7 @@ auto_ptr<TypeScriptTypeMemberList> ProjectionToTypeScriptConverter::GetPropertyA
         break;
         case ptFunctionLengthProperty:
         case ptNone:
-        break;
+            break;
         default:
             throw UnexpectedPropertyError(property->identifier, property->propertyType);
         }
@@ -1003,7 +1121,9 @@ auto_ptr<TypeScriptConstructorOverloads> ProjectionToTypeScriptConverter::GetCon
 
         if (m_emitAnyForUnresolvedTypes || AreAllParameterTypesVisible(parameters))
         {
-            overloads.push_back(GetTypeScriptParameters(parameters));
+            auto overload = GetTypeScriptParameters(parameters);
+            overload->AttachDocumentation(m_docBuilder.MakeForMethod(methodSignature));
+            overloads.push_back(move(overload));
         }
     }
     break;
@@ -1023,15 +1143,24 @@ auto_ptr<TypeScriptConstructorOverloads> ProjectionToTypeScriptConverter::GetCon
 
 auto_ptr<TypeScriptMethodSignature> ProjectionToTypeScriptConverter::GetEventListenerMethodSignatureOrNull(MetadataStringId methodName, RtEVENT event)
 {
-    auto listenerType = event->addOn->GetParameters()->allParameters->WhereSingle([](RtPARAMETER param) {
+    auto allParams = event->addOn->GetParameters()->allParameters;
+
+    allParams->Iterate([](RtPARAMETER p) {
+        auto name = MetadataString::s_stringConverter.StringOfId(p->id);
+        Assert(name != nullptr);
+    });
+
+    auto listenerType = allParams->WhereSingle([](RtPARAMETER param) {
         return param->isIn;
     })->type;
 
     if (m_emitAnyForUnresolvedTypes || IsTypeVisible(listenerType))
     {
+        MetadataString eventName(event->nameId);
+
         auto_ptr_vector<TypeScriptParameter> parameterList;
-        parameterList.push_back(TypeScriptParameter::Make(L"type", event->nameId));
-        parameterList.push_back(TypeScriptParameter::Make(L"listener", GetTypeScriptType(listenerType)));
+        parameterList.push_back(TypeScriptParameter::Make(L"type", eventName));
+        parameterList.push_back(TypeScriptParameter::Make(L"listener", GetProjectedEventHandlerType(listenerType, eventName)));
 
         return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"), false /* optional */);
     }
@@ -1050,6 +1179,82 @@ auto_ptr<TypeScriptMethodSignature> ProjectionToTypeScriptConverter::GetGeneralE
     parameterList.push_back(TypeScriptParameter::Make(L"listener", move(listenerType)));
 
     return TypeScriptMethodSignature::Make(methodName, TypeScriptParameterList::Make(move(parameterList)), TypeScriptType::Make(L"void"), false /* optional */);
+}
+
+auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetProjectedEventHandlerArgumentTypeBase(RtPARAMETERS params)
+{
+    // When used as an event handler, a WinRT delegate that is of the type
+    // ReturnType Function(SenderType, EventArgType, OtherArgTypes...)
+    // is actually projected into JavaScript as an object of the type
+    // (arg: { type: "EventName"; detail: [EventArgType, OtherArgTypes...]; target: SenderType} & EventArgType) => ReturnType
+    // 
+    // Since we don't know the event name at this point, we'll include everything but the "type" property here
+
+    auto_ptr_vector<TypeScriptPropertySignature> members;
+
+    members.push_back(TypeScriptPropertySignature::Make(L"detail", GetTypeScriptTupleTypeFromArguments(params, 1)));
+
+    auto senderType = GetTypeScriptParameterTypeOrNull(params, 0);
+    if (senderType.get() != nullptr)
+    {
+        members.push_back(TypeScriptPropertySignature::Make(L"target", move(senderType)));
+    }
+    else
+    {
+        // If there's no sender (i.e. the WinRT delegate has no arguments) the sender is projected as null.
+        members.push_back(TypeScriptPropertySignature::Make(L"target", TypeScriptType::Make(L"null")));
+    }
+
+    auto eventArgType = GetTypeScriptParameterTypeOrNull(params, 1);
+    if (eventArgType.get() != nullptr)
+    {
+        return TypeScriptType::IntersectTypes(TypeScriptType::MakeObjectType(move(members)), move(eventArgType));
+    }
+
+    return TypeScriptType::MakeObjectType(move(members));
+}
+
+auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetProjectedEventHandlerType(RtTYPE listenerType, MetadataString eventName)
+{
+    auto_ptr<TypeScriptType> projectedEventHandlerArgument;
+    auto_ptr<TypeScriptType> projectedEventHandlerReturnType;
+
+    if (IsTypeVisible(listenerType))
+    {
+        projectedEventHandlerReturnType = AppendToTypeName(GetTypeScriptType(listenerType), L"ReturnType");
+        auto argumentTypeAlias = AppendToTypeName(GetTypeScriptType(listenerType), L"ArgumentType");
+
+        // Intersect the predefined argument type with the event-specific object { type: "EventName" }
+
+        auto_ptr_vector<TypeScriptPropertySignature> typeMember;
+        typeMember.push_back(TypeScriptPropertySignature::Make(L"type", TypeScriptType::Make(MetadataString((wstring(L"\"") + eventName.ToString() + L"\"").c_str()))));
+
+        projectedEventHandlerArgument = TypeScriptType::IntersectTypes(TypeScriptType::MakeObjectType(move(typeMember)), move(argumentTypeAlias));
+    }
+    else
+    {
+        Assert(m_emitAnyForUnresolvedTypes);
+
+        // The argument types aren't known, just return
+        // { detail: any[]; target: any; type: "EventName" }
+
+        auto_ptr_vector<TypeScriptPropertySignature> typeMembers;
+        typeMembers.push_back(TypeScriptPropertySignature::Make(L"detail", TypeScriptType::MakeArrayType(TypeScriptType::Make(L"any"))));
+        typeMembers.push_back(TypeScriptPropertySignature::Make(L"target", TypeScriptType::Make(L"any")));
+        typeMembers.push_back(TypeScriptPropertySignature::Make(L"type", TypeScriptType::Make(MetadataString((wstring(L"\"") + eventName.ToString() + L"\"").c_str()))));
+
+        projectedEventHandlerArgument = TypeScriptType::MakeObjectType(move(typeMembers));
+        projectedEventHandlerReturnType = TypeScriptType::Make(L"any");
+    }
+
+    // Event handler type should now be
+    // (arg: { type: "EventName" } & EventHandlerArgumentType) => EventHandlerReturnType
+
+    auto_ptr_vector<TypeScriptParameter> listenerParameters;
+    listenerParameters.push_back(TypeScriptParameter::Make(L"arg", move(projectedEventHandlerArgument)));
+    auto projectedEventHandlerType = TypeScriptType::MakeFunctionType(TypeScriptParameterList::Make(move(listenerParameters)), move(projectedEventHandlerReturnType));
+
+    return projectedEventHandlerType;
 }
 
 RtTYPE ProjectionToTypeScriptConverter::GetPromiseResultType(RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
@@ -1086,4 +1291,11 @@ LPCWSTR ProjectionToTypeScriptConverter::GetLastPartIfFullyQualified(LPCWSTR pro
     {
         return propertyName;
     }
+}
+
+auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::AppendToTypeName(auto_ptr<TypeScriptType>&& delegateType, LPCWSTR suffix)
+{
+    auto renamed = wstring(delegateType->GetName().ToString()) + suffix;
+
+    return TypeScriptType::RenameType(move(delegateType), renamed.c_str());
 }

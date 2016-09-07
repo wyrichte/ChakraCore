@@ -45,7 +45,8 @@ MetadataResolver::MetadataResolver(
     IMetaDataDispenser* dispenser,
     vector<wstring> winmds,
     bool enableVersioningAllAssemblies,
-    bool enableVersioningWindowsAssemblies
+    bool enableVersioningWindowsAssemblies,
+    map<Assembly*, wstring>& assemblyToFullPath
     ) :
     dispenser(dispenser),
     converter(converter)
@@ -66,6 +67,8 @@ MetadataResolver::MetadataResolver(
             auto assembly = Anew(allocator, Assembly, import.Get(), converter, allocator, enableVersioningAllAssemblies || enableVersioningWindowsAssemblies && IsWindowsAssembly(winmd.c_str()));
 
             assemblies.push_back(assembly);
+
+            assemblyToFullPath[assembly] = winmd;
         }
     }
 }

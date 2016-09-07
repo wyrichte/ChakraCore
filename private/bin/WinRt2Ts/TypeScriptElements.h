@@ -5,6 +5,7 @@
 #pragma once
 
 #include "MetadataString.h"
+#include "XmlDocReference.h"
 
 template <typename T>
 class auto_ptr_vector : public std::vector<const T*>
@@ -49,14 +50,31 @@ auto_ptr_vector<T>&& move(auto_ptr_vector<T>& lValue)
 
 class TypeScriptType;
 
-class TypeScriptPropertySignature
+class Documentable
+{
+public:
+    const XmlDocReference& GetDocumentation() const
+    {
+        return m_documentation;
+    }
+
+    void AttachDocumentation(XmlDocReference doc)
+    {
+        m_documentation = doc;
+    }
+
+private:
+    XmlDocReference m_documentation;
+};
+
+class TypeScriptPropertySignature : public Documentable
 {
 public:
     const MetadataString& GetName() const;
     const TypeScriptType& GetType() const;
     bool IsOptional() const;
 
-    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type, bool optional);
+    static std::auto_ptr<TypeScriptPropertySignature> Make(MetadataString name, std::auto_ptr<TypeScriptType>&& type, bool optional = false);
 
 private:
     const MetadataString m_name;
@@ -102,7 +120,7 @@ private:
     TypeScriptParameter(MetadataString name, MetadataString* literal, TypeScriptType* type);
 };
 
-class TypeScriptParameterList
+class TypeScriptParameterList : public Documentable
 {
 public:
     const auto_ptr_vector<TypeScriptParameter>& GetParameters() const;
@@ -136,7 +154,7 @@ private:
     TypeScriptConstructorOverloads(auto_ptr_vector<TypeScriptParameterList>&& overloadParameterLists);
 };
 
-class TypeScriptCallSignature
+class TypeScriptCallSignature : public Documentable
 {
 public:
     const TypeScriptParameterList& GetParameters() const;
@@ -152,7 +170,7 @@ private:
     TypeScriptCallSignature(std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType);
 };
 
-class TypeScriptMethodSignature
+class TypeScriptMethodSignature : public Documentable
 {
 public:
     const MetadataString& GetMethodName() const;
@@ -215,25 +233,39 @@ private:
     TypeScriptTypeMemberList() {}
 };
 
-class TypeScriptEnumDeclaration
+class TypeScriptEnumMember : public Documentable
 {
 public:
     const MetadataString& GetIdentifier() const;
-    const std::vector<MetadataString>& GetMemberNames() const;
 
-    void AppendMember(MetadataString memberName);
+    static std::auto_ptr<TypeScriptEnumMember> Make(MetadataString memberName);
+
+private: 
+    const MetadataString m_identifier;
+
+private:
+    TypeScriptEnumMember(MetadataString memberName);
+};
+
+class TypeScriptEnumDeclaration : public Documentable
+{
+public:
+    const MetadataString& GetIdentifier() const;
+    const auto_ptr_vector<TypeScriptEnumMember>& GetMembers() const;
+
+    void AppendMember(MetadataString memberName, XmlDocReference doc);
 
     static std::auto_ptr<TypeScriptEnumDeclaration> Make(MetadataString identifier);
 
 private:
     const MetadataString m_identifier;
-    std::vector<MetadataString> m_memberNames;
+    auto_ptr_vector<TypeScriptEnumMember> m_members;
 
 private:
     TypeScriptEnumDeclaration(MetadataString identifier);
 };
 
-class TypeScriptInterfaceDeclaration
+class TypeScriptInterfaceDeclaration : public Documentable
 {
 public:
     const TypeScriptType& GetTypeReference() const;
@@ -259,7 +291,7 @@ private:
     TypeScriptInterfaceDeclaration();
 };
 
-class TypeScriptClassDeclaration
+class TypeScriptClassDeclaration : public Documentable
 {
 public:
     const TypeScriptType& GetTypeReference() const;
@@ -293,6 +325,22 @@ private:
     TypeScriptClassDeclaration() {}
 };
 
+class TypeScriptTypeAliasDeclaration
+{
+public:
+    const TypeScriptType& GetTypeReference() const;
+    const TypeScriptType& GetRightHandTypeReference() const;
+
+    static std::auto_ptr<TypeScriptTypeAliasDeclaration> Make(std::auto_ptr<TypeScriptType>&& typeReference, std::auto_ptr<TypeScriptType>&& rightHandTypeReference);
+
+private:
+    const std::auto_ptr<TypeScriptType> m_typeReference;
+    const std::auto_ptr<TypeScriptType> m_rightHandTypeReference;
+
+private:
+    TypeScriptTypeAliasDeclaration(std::auto_ptr<TypeScriptType>&& typeReference, std::auto_ptr<TypeScriptType>&& rightHandTypeReference);
+};
+
 class TypeScriptType
 {
 public:
@@ -300,17 +348,22 @@ public:
     bool IsArray() const;
     bool IsObject() const;
     bool IsFunction() const;
+    bool IsTuple() const;
     const auto_ptr_vector<TypeScriptType>& GetTypeArguments() const;
     const auto_ptr_vector<TypeScriptPropertySignature>& GetObjectTypeMembers() const;
     const TypeScriptParameterList& GetFunctionParameters() const;
     const TypeScriptType& GetFunctionReturnType() const;
+    const TypeScriptType* GetIntersectionTypeOrNull() const;
 
     static std::auto_ptr<TypeScriptType> Make(MetadataString name);
     static std::auto_ptr<TypeScriptType> MakeTypeReference(MetadataString name, auto_ptr_vector<TypeScriptType>&& typeArguments);
     static std::auto_ptr<TypeScriptType> MakeTypeReference(MetadataString name, std::auto_ptr<TypeScriptType>&& typeArgument);
     static std::auto_ptr<TypeScriptType> MakeObjectType(auto_ptr_vector<TypeScriptPropertySignature>&& objectTypeMembers);
     static std::auto_ptr<TypeScriptType> MakeArrayType(std::auto_ptr<TypeScriptType>&& type);
+    static std::auto_ptr<TypeScriptType> RenameType(std::auto_ptr<TypeScriptType>&& type, MetadataString newName);
+    static std::auto_ptr<TypeScriptType> IntersectTypes(std::auto_ptr<TypeScriptType>&& type, std::auto_ptr<TypeScriptType>&& intersectionType);
     static std::auto_ptr<TypeScriptType> MakeFunctionType(std::auto_ptr<TypeScriptParameterList>&& parameters, std::auto_ptr<TypeScriptType>&& returnType);
+    static std::auto_ptr<TypeScriptType> MakeTupleType(auto_ptr_vector<TypeScriptType>&& typeArguments);
 
 private:
     enum class Type
@@ -318,7 +371,8 @@ private:
         PredefinedOrReference,
         Array,
         Object,
-        Function
+        Function,
+        Tuple
     };
 
     const MetadataString m_name;
@@ -327,6 +381,7 @@ private:
     const std::auto_ptr<TypeScriptType> m_functionReturnType;
     const auto_ptr_vector<TypeScriptType> m_typeArguments;
     const auto_ptr_vector<TypeScriptPropertySignature> m_objectTypeMembers;
+    std::auto_ptr<TypeScriptType> m_intersection;
 
 private:
     TypeScriptType(MetadataString name, Type type, auto_ptr_vector<TypeScriptType>&& typeArguments, auto_ptr_vector<TypeScriptPropertySignature>&& objectTypeMembers, std::auto_ptr<TypeScriptParameterList>&& functionParameterList, std::auto_ptr<TypeScriptType>&& returnType);
