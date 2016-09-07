@@ -23,6 +23,7 @@ class Winrt2TsUnitTest
     // Winrt2Ts is run once in ClassSetup, then each test case validates the result for its corresponding input.
 
     BEGIN_TEST_CLASS(Winrt2TsUnitTest)
+		TEST_CLASS_PROPERTY(L"Ignore", L"true")
     END_TEST_CLASS()
 
     TEST_CLASS_SETUP(ClassSetup);
