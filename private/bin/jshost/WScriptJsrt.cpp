@@ -446,7 +446,6 @@ JsValueRef __stdcall WScriptJsrt::LoadTextFileCallback(JsValueRef callee, bool i
             bool isUtf8 = false;
             LPCOLESTR contentsRaw = nullptr;
             hr = JsHostLoadScriptFromFile(fileName, fileContent, &isUtf8, &contentsRaw, &lengthBytes);
-            fileContent; // Unused for now.
 
             if (FAILED(hr))
             {
