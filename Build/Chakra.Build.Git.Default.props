@@ -15,7 +15,7 @@
 
   <!-- Common build settings -->
   <PropertyGroup>
-    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
+    <NtTargetVersion>$(NtTargetVersion_Win10)</NtTargetVersion>
   </PropertyGroup>
 
   <ItemDefinitionGroup>

@@ -83,7 +83,8 @@
         $(SdkLibPath)\mincore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCoreSdkLibPath)\mincore_obsolete.lib;
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        <!-- temporarily hardcore to use 8.1 lib until we have nuget package updated for win10 version -->
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\6.3\api-ms-win-shcore-stream-l1.lib;
 
         <!-- _DoNotUseDirectly_CULprintf in codex -->
         <!-- TODO: Clean this up -->
