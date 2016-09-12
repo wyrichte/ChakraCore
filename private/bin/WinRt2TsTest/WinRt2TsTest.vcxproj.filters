@@ -47,6 +47,9 @@
     <ClCompile Include="..\WinRt2Ts\CommandLineReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\WinRt2Ts\XmlDocBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="TestMetadata.idl">

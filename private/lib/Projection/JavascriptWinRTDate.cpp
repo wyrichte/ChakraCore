@@ -16,7 +16,7 @@ namespace Js
 
         double es5date;
         
-        DateUtilities::WinRTDateToES5Date(this->m_dateValue, &es5date);
+        WinRTDateToES5Date(this->m_dateValue, &es5date);
 
         m_date.SetTvUtc(es5date);
     }
@@ -43,4 +43,29 @@ namespace Js
         return RecyclerNew(scriptContext->GetRecycler(), Js::JavascriptWinRTDate, rtDate,
             projectionContext->GetProjectionExternalLibrary()->GetWinRTDateType());
     }
+
+    //
+    // Convert a WinRT DateTime date (in 100ns precision ticks) to an ES5 date
+    //
+    // We convert ticks to milliseconds and shift by JS epoch to get the double date
+    // We go in that order to skip doing underflow checks
+    //
+    HRESULT JavascriptWinRTDate::WinRTDateToES5Date(INT64 ticks, __out double* pRet)
+    {
+        Assert(pRet != NULL);
+
+        if (pRet == NULL)
+        {
+            return E_INVALIDARG;
+        }
+
+        // Divide as INT64 to ensure truncation of all decimal digits,
+        // since any remaining after conversion will be truncated as a Date value.
+        INT64 milliseconds = ticks / Js::DateUtilities::ticksPerMillisecond;
+
+        (*pRet) = (double)(milliseconds - Js::DateUtilities::jsEpochMilliseconds);
+
+        return S_OK;
+    }
+
 }

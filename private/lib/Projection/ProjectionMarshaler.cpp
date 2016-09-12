@@ -1624,6 +1624,59 @@ namespace Projection
         return mem + sizeOfDateTime;
     }
 
+    //
+    // Version 6 Change:
+    // Previously we would round the TimeSpan to ms precision in order to avoid having the double contain decimal digits.
+    // Now we allow for the timespan to be represented with integers and digits (no truncation).
+    //
+    HRESULT ProjectionMarshaler::WinRTTimeSpanToNumberV6(INT64 ticks, __out double* pRet)
+    {
+        Assert(pRet != NULL);
+
+        if (pRet == NULL)
+        {
+            return E_INVALIDARG;
+        }
+
+        // We want to preserve precision as best we could, and for low enough timespan values
+        // Hence perform a division of doubles, to convert from ticks to milliseconds.
+        double result = (double)ticks / Js::DateUtilities::ticksPerMillisecondDouble;
+        *pRet = result;
+
+        return S_OK;
+    }
+
+    //
+    // Version 6 Change:
+    // Same as for WinRTTimeSpanToNumberV6, remove truncation when converting between Number and WinRT TimeSpan.
+    //
+    HRESULT ProjectionMarshaler::NumberToWinRTTimeSpanV6(double span, __out INT64* pRet)
+    {
+        Assert(pRet != NULL);
+
+        if (pRet == NULL)
+        {
+            return E_INVALIDARG;
+        }
+
+        //Otherwise the double multiplication might overflow
+        if (span > INT64_MAX / Js::DateUtilities::ticksPerMillisecond)
+        {
+            return INTSAFE_E_ARITHMETIC_OVERFLOW;
+        }
+
+        //Multiply before converting to Int64, in order to get the 100-nanosecond precision which will get truncated
+        INT64 spanAsInt64 = Js::NumberUtilities::TryToInt64(span * Js::DateUtilities::ticksPerMillisecondDouble);
+
+        if (!Js::NumberUtilities::IsValidTryToInt64(spanAsInt64))
+        {
+            return INTSAFE_E_ARITHMETIC_OVERFLOW;
+        }
+
+        (*pRet) = spanAsInt64;
+        return S_OK;
+    }
+
     // Info:        Write a TimeSpan out
     // Parameters:  varInput - holds the number to write
     //              mem - pointer to the target memory
@@ -1645,7 +1698,7 @@ namespace Projection
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedNumber);
         }
         INT64 ticks;
-        HRESULT hr = Js::DateUtilities::NumberToWinRTTimeSpanV6(span, &ticks);       
+        HRESULT hr = NumberToWinRTTimeSpanV6(span, &ticks);       
         if (FAILED(hr))
         {
             // If conversion failed, double value is outside the range of WinRT TimeSpan
@@ -4161,7 +4214,7 @@ namespace Projection
         double span;
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-        IfFailedMapAndThrowHr(scriptContext, Js::DateUtilities::WinRTTimeSpanToNumberV6(rtSpan, &span));        
+        IfFailedMapAndThrowHr(scriptContext, WinRTTimeSpanToNumberV6(rtSpan, &span));        
 
         return Js::JavascriptNumber::ToVarNoCheck(span, scriptContext);
     }

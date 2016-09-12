@@ -1,0 +1,220 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 990,
+        "length": 47,
+        "text": "var o = {\n    [f()]: 1,\n    [f() + g()]: 2\n}",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 393,
+        "length": 10,
+        "text": "return \"f\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1006,
+        "length": 7,
+        "text": "f()]: 1",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1021,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 393,
+        "length": 10,
+        "text": "return \"f\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1021,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1021,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 431,
+        "length": 10,
+        "text": "return \"g\"",
+        "frameDescription": "g"
+      },
+      {
+        "start": 1021,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1021,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1478,
+        "length": 59,
+        "text": "var o = {\n        [f()]: 1,\n        [f() + g()]: 2\n    }",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 393,
+        "length": 10,
+        "text": "return \"f\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1498,
+        "length": 7,
+        "text": "f()]: 1",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1517,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 393,
+        "length": 10,
+        "text": "return \"f\"",
+        "frameDescription": "f"
+      },
+      {
+        "start": 1517,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1517,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 431,
+        "length": 10,
+        "text": "return \"g\"",
+        "frameDescription": "g"
+      },
+      {
+        "start": 1517,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 1517,
+        "length": 13,
+        "text": "f() + g()]: 2",
+        "frameDescription": "test"
+      },
+      {
+        "start": 1544,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

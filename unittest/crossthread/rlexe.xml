@@ -255,6 +255,12 @@
   </test>
   <test>
     <default>
+      <files>cctxProxyBug.js</files>
+      <tags>exclude_fre,exclude_apollo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>objectcall.js</files>
       <compile-flags>-enableMiscWScriptFunctions</compile-flags>
       <tags>exclude_fre,exclude_apollo</tags>

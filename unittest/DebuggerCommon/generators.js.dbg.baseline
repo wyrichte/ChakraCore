@@ -1,0 +1,846 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 1016,
+        "length": 13,
+        "text": "let g = gf1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2061,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 397,
+        "length": 8,
+        "text": "yield 10",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2061,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2073,
+        "length": 9,
+        "text": "g.next(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 397,
+        "length": 8,
+        "text": "yield 10",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2073,
+        "length": 9,
+        "text": "g.next(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 412,
+        "length": 8,
+        "text": "yield 20",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2073,
+        "length": 9,
+        "text": "g.next(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2085,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 412,
+        "length": 8,
+        "text": "yield 20",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2085,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 427,
+        "length": 8,
+        "text": "yield 30",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2085,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2097,
+        "length": 9,
+        "text": "g.next(4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 427,
+        "length": 8,
+        "text": "yield 30",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2097,
+        "length": 9,
+        "text": "g.next(4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 512,
+        "length": 9,
+        "text": "yield a()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2097,
+        "length": 9,
+        "text": "g.next(4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 459,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "a"
+      },
+      {
+        "start": 512,
+        "length": 9,
+        "text": "yield a()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2097,
+        "length": 9,
+        "text": "g.next(4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 512,
+        "length": 9,
+        "text": "yield a()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2097,
+        "length": 9,
+        "text": "g.next(4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 512,
+        "length": 9,
+        "text": "yield a()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 530,
+        "length": 22,
+        "text": "yield b() + (yield c()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 481,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "b"
+      },
+      {
+        "start": 530,
+        "length": 22,
+        "text": "yield b() + (yield c()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 530,
+        "length": 22,
+        "text": "yield b() + (yield c()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 503,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "c"
+      },
+      {
+        "start": 530,
+        "length": 22,
+        "text": "yield b() + (yield c()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 530,
+        "length": 22,
+        "text": "yield b() + (yield c()",
+        "frameDescription": "gf1"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2109,
+        "length": 9,
+        "text": "g.next(5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2121,
+        "length": 9,
+        "text": "g.next(6)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "[Uninitialized block variable]",
+      "p": "10",
+      "q": "20",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "b": "2",
+      "p": "10",
+      "q": "20",
+      "a": "1",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 2429,
+        "length": 9,
+        "text": "g = gf4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2999,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2999,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2345,
+        "length": 7,
+        "text": "yield 1",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2999,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2999,
+        "length": 9,
+        "text": "g.next(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3011,
+        "length": 9,
+        "text": "g.next(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 3011,
+        "length": 9,
+        "text": "g.next(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3023,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 3023,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2359,
+        "length": 7,
+        "text": "yield 2",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 3023,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.next"
+      },
+      {
+        "start": 3023,
+        "length": 9,
+        "text": "g.next(3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3037,
+        "length": 9,
+        "text": "g = gf3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3284,
+        "length": 11,
+        "text": "g.return(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2345,
+        "length": 7,
+        "text": "yield 1",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3284,
+        "length": 11,
+        "text": "g.return(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2359,
+        "length": 7,
+        "text": "yield 2",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3284,
+        "length": 11,
+        "text": "g.return(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3658,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3658,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2345,
+        "length": 7,
+        "text": "yield 1",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3658,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2359,
+        "length": 7,
+        "text": "yield 2",
+        "frameDescription": "gf3"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3658,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3658,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

@@ -23,6 +23,8 @@ namespace Js
         DEFINE_VTABLE_CTOR(JavascriptWinRTDate, JavascriptDate);
         DEFINE_MARSHAL_OBJECT_TO_SCRIPT_CONTEXT(JavascriptWinRTDate); 
 
+        static HRESULT WinRTDateToES5Date(INT64 winrtDate, __out double* pResult);
+
     public:
         JavascriptWinRTDate(int64 dateValue, DynamicType* type);
         static bool Is(Var aValue);
