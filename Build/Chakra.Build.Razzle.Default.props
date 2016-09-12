@@ -9,6 +9,10 @@
   <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
   <Import Project="$(EnlistmentRoot)\data\msrc\Prerelease.Build.Settings" />
 
+  <!-- Common build settings -->
+  <PropertyGroup>
+    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
+  </PropertyGroup>
   <!-- Override Configuration from Microsoft.Build.Settings -->
   <PropertyGroup>
     <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">Release</Configuration>
@@ -19,12 +23,6 @@
   <PropertyGroup Condition="'$(AllowChkTest)' == 'true' and '$(_BuildType)' == 'chk' and '$(FreTest)' == 'true'">
     <Configuration>Debug</Configuration>
     <FreTest />
-  </PropertyGroup>
-  <PropertyGroup>
-    <OptimizedBuild />
-    <OptimizedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimizedBuild>
-    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
-    <WindowsSDKDesktopARMSupport Condition="'$(Platform)'=='ARM'">true</WindowsSDKDesktopARMSupport>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>

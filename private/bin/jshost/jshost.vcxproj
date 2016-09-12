@@ -71,8 +71,7 @@
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
         $(SdkLibPath)\ole32.lib;
-        <!-- temporarily hardcore to use 8.1 lib until we have nuget package updated for win10 version -->
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\6.3\api-ms-win-shcore-stream-l1.lib;
+        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-windowclass-l1-1-0.lib;

@@ -1550,7 +1550,7 @@
     <default>
       <files>promise_deferNestedAttach.js</files>
       <compile-flags>-es6functionnamefull</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>fail_mutators,exclude_dynapogo,Slow</tags>
     </default>
   </test>
   <test>

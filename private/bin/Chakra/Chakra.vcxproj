@@ -16,6 +16,11 @@
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup>
+    <!-- Overrides the default Win7 (Win8 for Arm) targeting for fre build to Win10
+        Needs to be after Chakra.Build.Default.props but before Chakra.Build.props -->
+    <NtTargetVersion Condition="'$(Configuration)'=='Release'">$(NtTargetVersion_Win10)</NtTargetVersion>
+  </PropertyGroup>
   <!-- Localization related stuff for build.exe
       TODO: How do we do localization when we do binary injection? -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'=='true'">

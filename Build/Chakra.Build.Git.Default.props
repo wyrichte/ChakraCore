@@ -12,10 +12,9 @@
 
     <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
   </PropertyGroup>
-
   <!-- Common build settings -->
   <PropertyGroup>
-    <NtTargetVersion>$(NtTargetVersion_Win10)</NtTargetVersion>
+    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
