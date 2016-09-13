@@ -144,6 +144,12 @@
   </test>
   <test>
     <default>
+      <files>sharableBuffer.js</files>
+      <compile-flags>-ESSharedArrayBuffer -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>Pwn2OwnBug.js</files>
     </default>
   </test>

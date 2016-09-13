@@ -178,6 +178,7 @@ namespace Js
         void CloneSet(Src src, Dst dst);
         void CloneObjectReference(Src src, Dst dst);
         bool CanBeTransferred(SrcTypeId typeId) { return typeId == TypeIds_ArrayBuffer; }
+        bool CanBeShared(SrcTypeId typeId) { return typeId == TypeIds_SharedArrayBuffer; }
     };
 
     //
@@ -231,7 +232,7 @@ namespace Js
     template <class T, bool clamped = false, bool isVirtual = false> struct TypedArrayTraceBase
     {
         typedef TypedArray<T,clamped, isVirtual> TypedArrayType;
-        static Var CreateTypedArray(ArrayBuffer* arrayBuffer, uint32 byteOffset, uint32 length,
+        static Var CreateTypedArray(ArrayBufferBase* arrayBuffer, uint32 byteOffset, uint32 length,
             ScriptContext* scriptContext)
         {
             JavascriptLibrary* lib = scriptContext->GetLibrary();
@@ -313,7 +314,7 @@ namespace Js
     template<> struct TypedArrayTrace<DataView>
     {
         typedef DataView TypedArrayType;
-        static Var CreateTypedArray(ArrayBuffer* arrayBuffer, uint32 byteOffset, uint32 length,
+        static Var CreateTypedArray(ArrayBufferBase* arrayBuffer, uint32 byteOffset, uint32 length,
             ScriptContext* scriptContext)
         {
             JavascriptLibrary* lib = scriptContext->GetLibrary();

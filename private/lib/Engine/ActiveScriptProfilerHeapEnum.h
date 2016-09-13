@@ -62,8 +62,9 @@ public:
         HeapObjectType_JsrtExternalObject          =0x2b,
         HeapObjectType_ModuleNamespace             =0x2c,
         HeapObjectType_ListIterator                =0x2d,
+        HeapObjectType_SharedArrayBuffer           =0x2e,
 
-        HeapObjectType_Last                        = HeapObjectType_ListIterator,
+        HeapObjectType_Last                        = HeapObjectType_SharedArrayBuffer,
         HeapObjectType_Invalid                     =0xff
     };
 
