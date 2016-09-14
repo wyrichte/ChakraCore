@@ -51,8 +51,7 @@
       <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
-        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
-      </DisableSpecificWarnings>
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -147,7 +146,7 @@
     <ClCompile Include="HtmlHeapEnum.cpp" />
     <ClCompile Include="HtmlHost.cpp" />
     <ClCompile Include="HtmlWinSink.cpp" />
-    <ClCompile Include="JitProcessManager.cpp" />
+    <ClCompile Include="JITProcessManager.cpp" />
     <ClCompile Include="JsHost.cpp" />
     <ClCompile Include="MockImageData.cpp" />
     <ClCompile Include="MockSCAContext.cpp" />
@@ -178,7 +177,7 @@
     <ClInclude Include="HtmlApp.h" />
     <ClInclude Include="HtmlAppWindow.h" />
     <ClInclude Include="HtmlWinSink.h" />
-    <ClInclude Include="JitProcessManager.h" />
+    <ClInclude Include="JITProcessManager.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="MockImageData.h" />
     <ClInclude Include="MockSCAContext.h" />

@@ -4,11 +4,12 @@
 
 #pragma once
 
-class JitProcessManager
+class JITProcessManager
 {
 public:
     static HRESULT StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[]);
     static void StopRpcServer();
+    static void TerminateJITServer();
 
     static HANDLE GetRpcProccessHandle();
     static UUID GetRpcConnectionId();

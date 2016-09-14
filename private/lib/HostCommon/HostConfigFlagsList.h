@@ -41,6 +41,7 @@ FLAG(bool, EvalRestriction,                 "Puts the script engine into Eval re
 FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specified, this flag is used to determine the default value of 'IsEvalAllowed' API call that will be done on the host.", false)
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
 FLAG(bool, EnableOutOfProcJIT,				"JIT jobs should be run in a separate process", false)
+FLAG(bool, EnsureCloseJITServer,			"JIT server process will be force closed when host process is terminated", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2

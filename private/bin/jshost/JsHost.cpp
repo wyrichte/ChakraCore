@@ -1320,7 +1320,7 @@ void SetupUnhandledExceptionFilter()
 int JcExceptionFilter(int exceptionCode, _EXCEPTION_POINTERS *ep)
 {
     // Terminate JIT Process
-    JitProcessManager::StopRpcServer();
+    JITProcessManager::TerminateJITServer();
     JScript9Interface::NotifyUnhandledException(ep);
 
     bool crashOnException = false;
@@ -1606,7 +1606,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     if (HostConfigFlags::flags.EnableOutOfProcJIT)
     {
         // TODO: Error checking
-        JitProcessManager::StartRpcServer(argc, argv);
+        JITProcessManager::StartRpcServer(argc, argv);
     }
 
 #ifdef CHECK_MEMORY_LEAK
@@ -1985,7 +1985,12 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     // is called after all the COM stuff is released.
     if (jscriptLibrary)
     {
+        JITProcessManager::StopRpcServer();
         JScript9Interface::UnloadDll(jscriptLibrary);
+    }
+    else
+    {
+        JITProcessManager::TerminateJITServer();
     }
 
     // Free up the memmory used because of extended err msg
@@ -1994,8 +1999,6 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
         delete[] argv;
     }
 
-    // Terminate JIT Process
-    JitProcessManager::StopRpcServer();
 
     return ret;
 }

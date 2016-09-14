@@ -27,7 +27,7 @@
     <ClCompile Include="WScriptFastDom.cpp" />
     <ClCompile Include="WScriptJsrt.cpp" />
     <ClCompile Include="CodexAssert.cpp" />
-    <ClCompile Include="JitProcessManager.cpp" />
+    <ClCompile Include="JITProcessManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />
@@ -57,7 +57,7 @@
     <ClInclude Include="WScriptFastDom.h" />
     <ClInclude Include="WScriptJsrt.h" />
     <ClInclude Include="ThreadMessage.h" />
-    <ClInclude Include="JitProcessManager.h" />
+    <ClInclude Include="JITProcessManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

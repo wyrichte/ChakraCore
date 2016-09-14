@@ -141,7 +141,7 @@
 #include "TestUtilities.h"
 #include "Helpers.h"
 #include "HostConfigFlags.h"
-#include "JitProcessManager.h"
+#include "JITProcessManager.h"
 #include "Jscript9Interface.h"
 #include "delegatewrapper.h"
 #include "HtmlWinSink.h"

@@ -4,16 +4,16 @@
 
 #include "stdafx.h"
 
-HANDLE JitProcessManager::s_rpcServerProcessHandle = 0; // 0 is the "invalid handle" value for process handles
-UUID JitProcessManager::s_connectionId = GUID_NULL;
+HANDLE JITProcessManager::s_rpcServerProcessHandle = 0; // 0 is the "invalid handle" value for process handles
+UUID JITProcessManager::s_connectionId = GUID_NULL;
 
-HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[])
+HRESULT JITProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr = S_OK;
 
-    JitProcessManager::RemoveArg(_u("-dynamicprofilecache:"), &argc, &argv);
-    JitProcessManager::RemoveArg(_u("-dpc:"), &argc, &argv);
-    JitProcessManager::RemoveArg(_u("-dynamicprofileinput:"), &argc, &argv);
+    JITProcessManager::RemoveArg(_u("-dynamicprofilecache:"), &argc, &argv);
+    JITProcessManager::RemoveArg(_u("-dpc:"), &argc, &argv);
+    JITProcessManager::RemoveArg(_u("-dynamicprofileinput:"), &argc, &argv);
 
     if (IsEqualGUID(s_connectionId, GUID_NULL))
     {
@@ -33,7 +33,7 @@ HRESULT JitProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR arg
 
 /* static */
 void
-JitProcessManager::RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[])
+JITProcessManager::RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[])
 {
     size_t flagLen = wcslen(flag);
     int flagIndex;
@@ -43,7 +43,7 @@ JitProcessManager::RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR
     }
 }
 
-HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[])
+HRESULT JITProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     HRESULT hr;
     PROCESS_INFORMATION processInfo = { 0 };
@@ -124,43 +124,63 @@ HRESULT JitProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     CloseHandle(processInfo.hThread);
     s_rpcServerProcessHandle = processInfo.hProcess;
 
-    // create job object so if parent jshost gets killed, server is killed as well
-    HANDLE jobObject = CreateJobObject(nullptr, nullptr);
-    if (jobObject == nullptr)
+    if (HostConfigFlags::flags.EnsureCloseJITServer)
     {
-        return HRESULT_FROM_WIN32(GetLastError());
-    }
-    if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
-    {
-        return HRESULT_FROM_WIN32(GetLastError());
-    }
+        // create job object so if parent ch gets killed, server is killed as well
+        // under a flag because it's preferable to let server close naturally
+        // only useful in scenarios where ch is expected to be force terminated
+        HANDLE jobObject = CreateJobObject(nullptr, nullptr);
+        if (jobObject == nullptr)
+        {
+            return HRESULT_FROM_WIN32(GetLastError());
+        }
+        if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
+        {
+            return HRESULT_FROM_WIN32(GetLastError());
+        }
 
-    JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo = {0};
-    jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+        JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo = { 0 };
+        jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
 
-    if (!SetInformationJobObject(jobObject, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)))
-    {
-        return HRESULT_FROM_WIN32(GetLastError());
+        if (!SetInformationJobObject(jobObject, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)))
+        {
+            return HRESULT_FROM_WIN32(GetLastError());
+        }
     }
 
     return NOERROR;
 }
 
-void JitProcessManager::StopRpcServer()
-{
-    // For now we just kill the process
-    TerminateProcess(s_rpcServerProcessHandle, 1);
+typedef HRESULT(WINAPI *JsShutdownJITServerPtr)();
 
-    CloseHandle(s_rpcServerProcessHandle);
+void JITProcessManager::StopRpcServer()
+{
+    if (s_rpcServerProcessHandle)
+    {
+        JsShutdownJITServerPtr shutdownJITServer = (JsShutdownJITServerPtr)GetProcAddress(jscriptLibrary, "JsShutdownJITServer");
+        shutdownJITServer();
+    }
     s_rpcServerProcessHandle = NULL;
 }
 
-HANDLE JitProcessManager::GetRpcProccessHandle()
+void
+JITProcessManager::TerminateJITServer()
+{
+    if (s_rpcServerProcessHandle)
+    {
+        TerminateProcess(s_rpcServerProcessHandle, 1);
+
+        CloseHandle(s_rpcServerProcessHandle);
+        s_rpcServerProcessHandle = NULL;
+    }
+}
+
+HANDLE JITProcessManager::GetRpcProccessHandle()
 {
     return s_rpcServerProcessHandle;
 }
 
-UUID JitProcessManager::GetRpcConnectionId()
+UUID JITProcessManager::GetRpcConnectionId()
 {
     return s_connectionId;
 }
