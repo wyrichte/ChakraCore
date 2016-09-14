@@ -180,7 +180,7 @@ HRESULT SkipWalker::WalkObject(_In_ const StreamReader& reader, _In_ SCATypeId t
         break;
 
     case SCA_ArrayBuffer:
-    case SCA_SharedArrayBuffer:             // REVIEW??
+    //case SCA_SharedArrayBuffer:
         hr = WalkByteArrayData(reader);
         break;
 

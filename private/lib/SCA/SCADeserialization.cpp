@@ -97,7 +97,7 @@ namespace Js
         *deepClone = SCADeepCloneType::None;
         bool isObject = true;
 
-        if (typeId == SCA_Transferable || typeId == SCA_Sharable)
+        if (typeId == SCA_Transferable/* || typeId == SCA_Sharable*/)
         {
             scaposition_t pos;
             m_reader->Read(&pos);
@@ -229,15 +229,15 @@ namespace Js
             }
             break;
 
-        case SCA_SharedArrayBuffer:
-            {
-                uint32 len;
-                m_reader->Read(&len);
-                SharedArrayBuffer* arrayBuffer = lib->CreateSharedArrayBuffer(len);
-                Read(arrayBuffer->GetBuffer(), arrayBuffer->GetByteLength());
-                *dst = arrayBuffer;
-            }
-            break;
+        //case SCA_SharedArrayBuffer:
+        //    {
+        //        uint32 len;
+        //        m_reader->Read(&len);
+        //        SharedArrayBuffer* arrayBuffer = lib->CreateSharedArrayBuffer(len);
+        //        Read(arrayBuffer->GetBuffer(), arrayBuffer->GetByteLength());
+        //        *dst = arrayBuffer;
+        //    }
+        //    break;
 
         case SCA_Uint8ClampedArray:
             // If Khronos Interop is not enabled, we don't have Uint8ClampedArray available.
