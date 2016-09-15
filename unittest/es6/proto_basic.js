@@ -190,9 +190,6 @@ if (helpers.isVersion10OrLater) { // TODO: Change to _11_OrLater
                     proto.__proto__ = {}; // This is ok
                     __proto__setter.apply(proto, [{}]); // This is ok
                 }
-                assert.throws__proto__ArgNotObject(function () {
-                    Object.setPrototypeOf(proto, {}); // But this throws
-                });
             });
         }
     },
