@@ -1,0 +1,34 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 424,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 515,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 493,
+        "length": 8,
+        "text": "return 0",
+        "frameDescription": "o.bar"
+      },
+      {
+        "start": 523,
+        "length": 7,
+        "text": "o.bar()",
+        "frameDescription": "Global code"
+      }
+    ]
+  }
+]

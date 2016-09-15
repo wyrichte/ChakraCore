@@ -103,7 +103,7 @@ namespace Js
             return m_clonedObjects->TryGetValue(src, dst);
         }
 
-        bool TryGetTransferred(Var source, size_t* outDestination)
+        bool TryGetTransferredOrShared(Var source, size_t* outDestination)
         {
             if (m_transferableVars == nullptr)
             {
@@ -230,8 +230,8 @@ namespace Js
     public:
         TransferablesHolder(size_t transferableCount)
             : refCount(0),
-            transferableCount(transferableCount),
-            detachedStates(nullptr)
+            detachedStates(nullptr),
+            transferableCount(transferableCount)
         {
         }
 
@@ -273,7 +273,7 @@ namespace Js
 
                     HeapDeleteArray(transferableCount, detachedStates);
                 }
-                                
+
                 transferableCount = 0;
 
                 HeapDelete(this);
@@ -284,19 +284,18 @@ namespace Js
 
         void DetachAll(Var *transferableVars)
         {
-            //We assume here that each of the vars is of correct type, that check will be done at a different point
-#if DBG
-            for (size_t i = 0; i < transferableCount; i++)
-            {
-                AssertMsg(transferableVars[i] != nullptr, "We should not have null transferables in the list of vars.");
-            }
-#endif
-
             AutoArrayAndItemsPtr<DetachedStateBase*> detachedStatesToSet(HeapNewArrayZ(DetachedStateBase*, transferableCount), transferableCount);
 
             for (size_t i = 0; i < transferableCount; i++)
             {
-                detachedStatesToSet[i] = JavascriptOperators::DetachVarAndGetState(transferableVars[i]);
+                if (JavascriptOperators::GetTypeId(transferableVars[i]) == TypeIds_ArrayBuffer)
+                {
+                    detachedStatesToSet[i] = JavascriptOperators::DetachVarAndGetState(transferableVars[i]);
+                }
+                else
+                {
+                    detachedStatesToSet[i] = SharedArrayBuffer::GetSharableState(transferableVars[i]);
+                }
             }
 
             this->detachedStates = detachedStatesToSet.Detach();

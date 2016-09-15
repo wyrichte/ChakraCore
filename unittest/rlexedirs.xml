@@ -126,12 +126,6 @@
 </dir>
 <dir>
   <default>
-    <files>DebuggerQA</files>
-    <tags>exclude_serialized</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>Bugs</files>
   </default>
 </dir>

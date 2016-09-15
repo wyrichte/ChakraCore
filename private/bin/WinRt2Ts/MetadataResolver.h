@@ -33,7 +33,8 @@ public:
         IMetaDataDispenser* dispenser,
         std::vector<std::wstring> winmds,
         bool enableVersioningAllAssemblies,
-        bool enableVersioningWindowsAssemblies
+        bool enableVersioningWindowsAssemblies,
+        std::map<Metadata::Assembly*, std::wstring>& assemblyToFullPath
         );
 
     HRESULT ResolveTypeName(MetadataStringId typeId, LPCWSTR typeName, Metadata::TypeDefProperties ** typeDef) override;

@@ -1,0 +1,128 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 595,
+        "length": 9,
+        "text": "local = 0",
+        "frameDescription": "f"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "i": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "formal": "undefined",
+      "local": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 595,
+        "length": 9,
+        "text": "local = 0",
+        "frameDescription": "f"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 699,
+        "length": 27,
+        "text": "if (i !== 1 || local !== 1)",
+        "frameDescription": "f"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "i": "1",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "formal": "undefined",
+      "local": "1",
+      "[Globals]": {
+        "console": "{...}",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 699,
+        "length": 27,
+        "text": "if (i !== 1 || local !== 1)",
+        "frameDescription": "f"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 837,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "f"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "i": "1",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "formal": "undefined",
+      "local": "1",
+      "[Globals]": {
+        "console": "{...}",
+        "f": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 837,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "f"
+      }
+    ]
+  }
+]

@@ -6,6 +6,7 @@
 
 #include "TypeScriptEmitter.h"
 #include "ProjectionToTypeScriptError.h"
+#include "XmlDocReferenceBuilder.h"
 
 class NamespaceContext
 {
@@ -25,7 +26,7 @@ private:
 class ProjectionToTypeScriptConverter
 {
 public:
-    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, bool emitAnyForUnresolvedTypes);
+    ProjectionToTypeScriptConverter(ArenaAllocator* alloc, TypeScriptEmitter& emitter, IndentingWriter& writer, Metadata::IStringConverter& converter, XmlDocReferenceBuilder& docBuilder, bool emitAnyForUnresolvedTypes, bool suppressWarningsForUnresolvedWindowsTypes);
     void EmitTopLevelNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
 
 private:
@@ -39,12 +40,20 @@ private:
     
     template <typename MakeMemberFunction, typename MakeAnyMemberFunction>
     void AddPropertyToMemberList(
+        XmlDocReference doc,
         TypeScriptTypeMemberList* memberList,
         MetadataString propertyName,
         FullyQualifiedNameBehavior fullyQualifiedNameBehavior,
         MakeMemberFunction makeMember,
         MakeAnyMemberFunction makeAnyMember
     );
+
+    struct DelegateDeclarations
+    {
+        std::auto_ptr<TypeScriptInterfaceDeclaration> interfaceDeclaration;
+        std::auto_ptr<TypeScriptTypeAliasDeclaration> eventHandlerArgumentTypeAlias;
+        std::auto_ptr<TypeScriptTypeAliasDeclaration> eventHandlerReturnTypeAlias;
+    };
 
     void EmitSpecialTypes();
     void EmitNamespace(MetadataStringId namespaceNameId, RtPROPERTIESOBJECT childProperties);
@@ -55,11 +64,13 @@ private:
     std::auto_ptr<TypeScriptClassDeclaration> GetTypeScriptDeclarationForRuntimeClass(MetadataString runtimeClassName, RtRUNTIMECLASSCONSTRUCTOR rtClassConstructor);
     std::auto_ptr<TypeScriptInterfaceDeclaration> GetTypeScriptDeclarationForInterface(MetadataString interfaceName, RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor);
     std::auto_ptr<TypeScriptInterfaceDeclaration> GetTypeScriptDeclarationForStruct(MetadataString structName, RtSTRUCTCONSTRUCTOR structConstructor);
-    std::auto_ptr<TypeScriptInterfaceDeclaration> GetTypeScriptDeclarationForDelegate(MetadataString delegateName, RtDELEGATECONSTRUCTOR delegateConstructor);
+    DelegateDeclarations GetTypeScriptDeclarationForDelegate(MetadataString delegateName, RtDELEGATECONSTRUCTOR delegateConstructor);
     std::auto_ptr<TypeScriptType> GetTypeScriptTypeDefinitionType(MetadataString name, regex::ImmutableList<RtTYPE>* parameters);
     std::auto_ptr<TypeScriptType> GetTypeScriptType(RtTYPE type);
     std::auto_ptr<TypeScriptType> GetTypeScriptArrayTypeOrNull(RtSPECIALIZATION specialization);
     std::auto_ptr<TypeScriptParameterList> GetTypeScriptParameters(RtPARAMETERS params);
+    std::auto_ptr<TypeScriptType> GetTypeScriptParameterTypeOrNull(RtPARAMETERS params, size_t argIndex);
+    std::auto_ptr<TypeScriptType> GetTypeScriptTupleTypeFromArguments(RtPARAMETERS params, size_t startIndex);
     std::auto_ptr<TypeScriptType> GetTypeScriptReturnType(RtPARAMETERS params);
     std::auto_ptr<TypeScriptTypeMemberList> GetTypeScriptMethodSignatures(MetadataString methodName, bool applyIndexOfSpecialization, RtMETHODSIGNATURE methodSignature, FullyQualifiedNameBehavior fullyQualifiedNameBehavior);
     std::auto_ptr<TypeScriptIndexSignature> GetTypeScriptIndexSignatureOrNull(RtSPECIALIZATION mapSpecialization);
@@ -70,8 +81,11 @@ private:
     std::auto_ptr<TypeScriptConstructorOverloads> GetConstructorOverloads(RtMETHODSIGNATURE methodSignature);
     std::auto_ptr<TypeScriptMethodSignature> GetEventListenerMethodSignatureOrNull(MetadataStringId methodName, RtEVENT event);
     std::auto_ptr<TypeScriptMethodSignature> GetGeneralEventListenerMethodSignature(const MetadataStringId methodName);
+    std::auto_ptr<TypeScriptType> GetProjectedEventHandlerArgumentTypeBase(RtPARAMETERS params);
+    std::auto_ptr<TypeScriptType> GetProjectedEventHandlerType(RtTYPE listenerType, MetadataString eventName);
     RtTYPE GetPromiseResultType(RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor);
     LPCWSTR GetLastPartIfFullyQualified(LPCWSTR propertyName);
+    std::auto_ptr<TypeScriptType> AppendToTypeName(std::auto_ptr<TypeScriptType>&& delegateType, LPCWSTR suffix);
 
 private:
     ArenaAllocator* m_alloc;
@@ -82,5 +96,7 @@ private:
     MetadataStringId m_indexOfStringId;
     MetadataStringId m_exclusiveToAttributeStringId;
     NamespaceContext m_namespaceContext;
+    XmlDocReferenceBuilder& m_docBuilder;
     bool m_emitAnyForUnresolvedTypes;
+    bool m_suppressWarningsForUnresolvedWindowsTypes;
 };

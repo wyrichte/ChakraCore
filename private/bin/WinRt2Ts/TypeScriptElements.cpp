@@ -55,6 +55,11 @@ bool TypeScriptType::IsFunction() const
     return m_type == Type::Function;
 }
 
+bool TypeScriptType::IsTuple() const
+{
+    return m_type == Type::Tuple;
+}
+
 const auto_ptr_vector<TypeScriptType>& TypeScriptType::GetTypeArguments() const
 {
     return m_typeArguments;
@@ -73,6 +78,11 @@ const TypeScriptParameterList& TypeScriptType::GetFunctionParameters() const
 const TypeScriptType& TypeScriptType::GetFunctionReturnType() const
 {
     return *m_functionReturnType;
+}
+
+const TypeScriptType* TypeScriptType::GetIntersectionTypeOrNull() const
+{
+    return m_intersection.get();
 }
 
 auto_ptr<TypeScriptType> TypeScriptType::Make(MetadataString name)
@@ -104,9 +114,28 @@ auto_ptr<TypeScriptType> TypeScriptType::MakeArrayType(auto_ptr<TypeScriptType>&
     return newType;
 }
 
+auto_ptr<TypeScriptType> TypeScriptType::RenameType(auto_ptr<TypeScriptType>&& type, MetadataString newName)
+{
+    auto newType = type;
+    const_cast<MetadataString&>(newType->m_name) = newName;
+    return newType;
+}
+
+auto_ptr<TypeScriptType> TypeScriptType::IntersectTypes(auto_ptr<TypeScriptType>&& type, auto_ptr<TypeScriptType>&& intersectionType)
+{
+    auto newType = type;
+    const_cast<auto_ptr<TypeScriptType>&>(newType->m_intersection) = intersectionType;
+    return newType;
+}
+
 auto_ptr<TypeScriptType> TypeScriptType::MakeFunctionType(auto_ptr<TypeScriptParameterList>&& parameters, auto_ptr<TypeScriptType>&& returnType)
 {
     return auto_ptr<TypeScriptType>(new TypeScriptType(MetadataString(), Type::Function, auto_ptr_vector<TypeScriptType>(), auto_ptr_vector<TypeScriptPropertySignature>(), move(parameters), move(returnType)));
+}
+
+auto_ptr<TypeScriptType> TypeScriptType::MakeTupleType(auto_ptr_vector<TypeScriptType>&& typeArguments)
+{
+    return auto_ptr<TypeScriptType>(new TypeScriptType(MetadataString(), Type::Tuple, move(typeArguments), auto_ptr_vector<TypeScriptPropertySignature>(), auto_ptr<TypeScriptParameterList>(), std::auto_ptr<TypeScriptType>()));
 }
 
 TypeScriptType::TypeScriptType(
@@ -380,14 +409,29 @@ bool TypeScriptTypeMemberList::ContainsMember(const TypeScriptMethodSignature& m
     return false;
 }
 
+const MetadataString& TypeScriptEnumMember::GetIdentifier() const
+{
+    return m_identifier;
+}
+
+std::auto_ptr<TypeScriptEnumMember> TypeScriptEnumMember::Make(MetadataString memberName)
+{
+    return auto_ptr<TypeScriptEnumMember>(new TypeScriptEnumMember(memberName));
+}
+
+TypeScriptEnumMember::TypeScriptEnumMember(MetadataString memberName) :
+    m_identifier(memberName)
+{
+}
+
 const MetadataString& TypeScriptEnumDeclaration::GetIdentifier() const
 {
     return m_identifier;
 }
 
-const vector<MetadataString>& TypeScriptEnumDeclaration::GetMemberNames() const
+const auto_ptr_vector<TypeScriptEnumMember>& TypeScriptEnumDeclaration::GetMembers() const
 {
-    return m_memberNames;
+    return m_members;
 }
 
 auto_ptr<TypeScriptEnumDeclaration> TypeScriptEnumDeclaration::Make(MetadataString identifier)
@@ -395,9 +439,11 @@ auto_ptr<TypeScriptEnumDeclaration> TypeScriptEnumDeclaration::Make(MetadataStri
     return auto_ptr<TypeScriptEnumDeclaration>(new TypeScriptEnumDeclaration(identifier));
 }
 
-void TypeScriptEnumDeclaration::AppendMember(MetadataString memberName)
+void TypeScriptEnumDeclaration::AppendMember(MetadataString memberName, XmlDocReference doc)
 {
-    m_memberNames.push_back(memberName);
+    auto member = TypeScriptEnumMember::Make(memberName);
+    member->AttachDocumentation(doc);
+    m_members.push_back(move(member));
 }
 
 TypeScriptEnumDeclaration::TypeScriptEnumDeclaration(MetadataString identifier) :
@@ -504,4 +550,24 @@ auto_ptr<TypeScriptClassDeclaration> TypeScriptClassDeclaration::Make(
     object->m_instanceMembers = instanceMembers;
 
     return object;
+}
+
+const TypeScriptType& TypeScriptTypeAliasDeclaration::GetTypeReference() const
+{
+    return *m_typeReference;
+}
+const TypeScriptType& TypeScriptTypeAliasDeclaration::GetRightHandTypeReference() const
+{
+    return *m_rightHandTypeReference;
+}
+
+auto_ptr<TypeScriptTypeAliasDeclaration> TypeScriptTypeAliasDeclaration::Make(auto_ptr<TypeScriptType>&& typeReference, auto_ptr<TypeScriptType>&& rightHandTypeReference)
+{
+    return auto_ptr<TypeScriptTypeAliasDeclaration>(new TypeScriptTypeAliasDeclaration(move(typeReference), move(rightHandTypeReference)));
+}
+
+TypeScriptTypeAliasDeclaration::TypeScriptTypeAliasDeclaration(auto_ptr<TypeScriptType>&& typeReference, auto_ptr<TypeScriptType>&& rightHandTypeReference) :
+    m_typeReference(typeReference),
+    m_rightHandTypeReference(rightHandTypeReference)
+{
 }

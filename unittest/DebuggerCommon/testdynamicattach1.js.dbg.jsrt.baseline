@@ -1,0 +1,221 @@
+[
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 395,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 395,
+        "length": 31,
+        "text": "WScript.Echo(\"In function foo\")",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 430,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 430,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 490,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": {
+        "__proto__": "[]",
+        "length": "10",
+        "[0]": "{...}"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 490,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "breakpoint",
+      "location": {
+        "start": 0,
+        "length": 15,
+        "text": "var inEval = 10",
+        "frameDescription": "eval code"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "[Scope]1": {
+        "arguments": "{...}",
+        "a1": "[...]",
+        "inEval": "undefined"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 0,
+        "length": 15,
+        "text": "var inEval = 10",
+        "frameDescription": "eval code"
+      },
+      {
+        "start": 490,
+        "length": 38,
+        "text": "eval('var inEval = 10;\\n inEval++;\\n')",
+        "frameDescription": "foo"
+      }
+    ]
+  },
+  {
+    "breakpoint": {
+      "reason": "language_initiated",
+      "location": {
+        "start": 532,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "a1": {
+        "__proto__": "[]",
+        "length": "10",
+        "[0]": "{...}"
+      },
+      "inEval": "11",
+      "[Globals]": {
+        "console": "{...}",
+        "foo": "<large string>",
+        "bar": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 532,
+        "length": 8,
+        "text": "debugger",
+        "frameDescription": "foo"
+      }
+    ]
+  }
+]
