@@ -82,8 +82,9 @@ namespace Js
         *deepClone = SCADeepCloneType::None;
 
         size_t transferredIndex = 0;
-        if (this->CanBeTransferred(typeId) && GetEngine()->TryGetTransferred(src, &transferredIndex))
+        if ((this->CanBeTransferred(typeId) || this->CanBeShared(typeId)) && GetEngine()->TryGetTransferredOrShared(src, &transferredIndex))
         {
+            //WriteTypeId(this->CanBeTransferred(typeId) ? SCA_Transferable : SCA_Sharable);
             WriteTypeId(SCA_Transferable);
             m_writer->Write((uint32)transferredIndex);
         }
@@ -173,6 +174,14 @@ namespace Js
                     Write(buf->GetBuffer(), buf->GetByteLength());
                 }
                 break;
+
+            //case TypeIds_SharedArrayBuffer:
+            //    {
+            //        SharedArrayBuffer* buf = SharedArrayBuffer::FromVar(src);
+            //        WriteTypeId(SCA_SharedArrayBuffer);
+            //        Write(buf->GetBuffer(), buf->GetByteLength());
+            //    }
+            //    break;
 
             case TypeIds_Map:
                 {

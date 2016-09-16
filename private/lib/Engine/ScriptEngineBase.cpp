@@ -2314,7 +2314,7 @@ void GetArrayTypeAndElementSize(__in Var instance, __out_opt TypedArrayType* typ
         arrayType = (TypedArrayType)-1;
         tmpElementSize = -1;
         dView = Js::DataView::FromVar(instance);
-        tmpBuffer = dView->GetArrayBuffer();
+        tmpBuffer = dView->GetArrayBuffer()->GetAsArrayBuffer();
         isTypedArray = false;
         break;
     default:
@@ -2334,7 +2334,7 @@ void GetArrayTypeAndElementSize(__in Var instance, __out_opt TypedArrayType* typ
     }
     if (buffer)
     {
-        *buffer = isTypedArray ? Js::TypedArrayBase::FromVar(instance)->GetArrayBuffer() : tmpBuffer;
+        *buffer = isTypedArray ? Js::TypedArrayBase::FromVar(instance)->GetArrayBuffer()->GetAsArrayBuffer() : tmpBuffer;
     }
 }
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedArrayBuffer(
@@ -2625,6 +2625,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
             switch (typeId)
             {
             case TypeIds_ArrayBuffer:
+            case TypeIds_SharedArrayBuffer:
                 break;
 
             default:
