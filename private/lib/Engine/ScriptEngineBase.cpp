@@ -228,11 +228,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetOrAddPropertyId(
         }
         return hr;
     }
-    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
         *id = scriptContext->GetOrAddPropertyIdTracked(name, Js::JavascriptString::GetBufferLength(name));
     }
-    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    END_TRANSLATE_OOM_TO_HRESULT(hr)
     return hr;
 }
 
