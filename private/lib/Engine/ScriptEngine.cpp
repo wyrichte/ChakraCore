@@ -31,6 +31,8 @@
 #include "..\Telemetry\ScriptEngineTelemetry.h"
 #endif
 
+#include "JITClient.h"
+
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
 #define Compile (this->*(CompileFunction))
@@ -7033,6 +7035,13 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetActivityId(__in const GUID* pActivity
 HRESULT STDMETHODCALLTYPE ScriptEngine::SetTridentLoadAddress(__in void* loadAddress)
 {
     ThreadContext::GetContextForCurrentThread()->SetTridentLoadAddress(loadAddress);
+    return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in HANDLE jitProcHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionId)
+{
+    JITManager::GetJITManager()->EnableOOPJIT();
+    ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(jitProcHandle, serverSecurityDescriptor, connectionId);
     return S_OK;
 }
 

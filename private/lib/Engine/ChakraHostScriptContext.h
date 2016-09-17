@@ -99,7 +99,21 @@ public:
 
     HRESULT GetExternalJitData(ExternalJitData id, void *data) override
     {
-        return scriptSite->GetExternalJitData(id, data);
+        switch (id)
+        {
+        case ExternalJitData_CustomExternalObjectOperations:
+        {
+            CustomExternalObjectOperations *ceoData = (CustomExternalObjectOperations*)data;
+
+            ceoData->offsetOfOperationsUsage = Js::CustomExternalType::GetOffsetOfUsage();
+            ceoData->operationFlagEquals = OperationFlag_Equals;
+            ceoData->operationFlagStrictEquals = OperationFlag_StrictEquals;
+            return S_OK;
+        }
+
+        default:
+            return E_NOTIMPL;
+        }
     }
 
     HRESULT SetDispatchInvoke(Js::JavascriptMethod dispatchInvoke) override

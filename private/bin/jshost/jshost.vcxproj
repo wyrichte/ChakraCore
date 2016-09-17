@@ -51,8 +51,7 @@
       <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
-        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
-      </DisableSpecificWarnings>
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -116,7 +115,6 @@
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
         $(SdkLibPath)\advapi32.lib
       </AdditionalDependencies>
-
       <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
@@ -148,6 +146,7 @@
     <ClCompile Include="HtmlHeapEnum.cpp" />
     <ClCompile Include="HtmlHost.cpp" />
     <ClCompile Include="HtmlWinSink.cpp" />
+    <ClCompile Include="JITProcessManager.cpp" />
     <ClCompile Include="JsHost.cpp" />
     <ClCompile Include="MockImageData.cpp" />
     <ClCompile Include="MockSCAContext.cpp" />
@@ -178,6 +177,7 @@
     <ClInclude Include="HtmlApp.h" />
     <ClInclude Include="HtmlAppWindow.h" />
     <ClInclude Include="HtmlWinSink.h" />
+    <ClInclude Include="JITProcessManager.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="MockImageData.h" />
     <ClInclude Include="MockSCAContext.h" />
@@ -229,6 +229,6 @@
   <ItemGroup>
     <None Include="jshost.def" />
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

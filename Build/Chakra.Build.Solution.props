@@ -7,43 +7,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
 
-    <Midl>
-      <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
-      <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
-      <StructMemberAlignment Condition="'%(Midl.StructMemberAlignment)' == ''">8</StructMemberAlignment>
-      <DefaultCharType>Unsigned</DefaultCharType>
-
-      <IdlType>Ole</IdlType>
-      <!-- Default Idl type -->
-
-      <!-- Force all MIDL compiles to be treated as English unless otherwise specified -->
-      <LocaleID>1033</LocaleID>
-
-      <!-- Disable the settings comment to make the headers more diff-able.  Only available in midl 8 -->
-      <AdditionalOptions>%(AdditionalOptions) /no_settings_comment</AdditionalOptions>
-
-      <!--Disable midl timestamps wherever possible-->
-      <AdditionalOptions>%(AdditionalOptions) /no_stamp</AdditionalOptions>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-
-      <!-- Other defaults -->
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <OutputDirectory>$(IntDir)</OutputDirectory>
-
-      <!-- ======== makefiledef ======== -->
-      <AdditionalOptions>%(AdditionalOptions) -sal</AdditionalOptions>
-      
-      <!-- ======== sources.inc ======== -->
-      <!-- generates SAL annotations for our interface -->
-      <AdditionalOptions>%(AdditionalOptions) -sal_local</AdditionalOptions>
-    </Midl>
     <ClCompile>
       <PreprocessorDefinitions>_WIN32_WINNT=$(Win32_WinNTVersion);WINVER=$(Win32_WinNTVersion);_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(NotLeanAndMean)' == ''">%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN=1</PreprocessorDefinitions>
-      
-      <!-- MIDL generate code uses this define -->
-      <PreprocessorDefinitions Condition="'$(Platform)'=='ARM'">%(PreprocessorDefinitions);_ARM_</PreprocessorDefinitions>
-            
+
       <ForcedIncludeFiles>%(ForcedIncludeFiles);$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
 

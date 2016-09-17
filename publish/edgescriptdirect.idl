@@ -25,6 +25,7 @@ interface IActiveScriptByteCodeSource;
 typedef int StringId;
 typedef int PropertyId;
 typedef void* HTYPE;
+typedef GUID UUID;
 
 const JavascriptTypeId TypeId_Unspecified = (JavascriptTypeId)-1;
 
@@ -1132,6 +1133,12 @@ interface IActiveScriptDirect : IUnknown
 
     /// Create an IActiveScriptError wrapper around an error object.
     HRESULT CreateScriptErrorFromVar([in] Var errorObject, [out] IActiveScriptError** scriptError);
+
+    /// Set the OOP Jit information
+    ///   jitProcHandle             : Handle for the JIT process, must have DUPLICATE access
+    ///   serverSecurityDescriptor  : Security descriptor for the AC the JIT process is in
+    ///   connectionId              : The RPC connectionId used by the JIT process to establish an RPC server
+    HRESULT SetJITConnectionInfo([in] HANDLE jitProcHandle, [in] void* serverSecurityDescriptor, [in] UUID connectionId);
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.

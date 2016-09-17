@@ -30,6 +30,8 @@
         $(ChakraCoreRootDirectory)Lib\Runtime;
         $(ChakraCoreRootDirectory)Lib\Runtime\ByteCode;
         $(ChakraCoreRootDirectory)Lib\Runtime\Math;
+        $(ChakraCoreRootDirectory)Lib\JITClient;
+        $(ChakraJITIDLIntDir);
         $(ChakraCoreRootDirectory)Lib\Backend;
         $(ChakraCoreRootDirectory)Lib\Backend\$(PlatformPathNameAlt);
         $(ChakraCoreRootDirectory)Lib\Jsrt;
@@ -242,6 +244,9 @@
     <ClInclude Include="var.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\core\lib\JITIDL\Chakra.JITIDL.vcxproj">
+      <Project>{0db5ecbc-9385-4a65-be2c-4ef7c65cb719}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\InternalIDL\Chakra.InternalIDL.vcxproj">
       <Project>{fd37f38b-cce6-4bd2-a3ad-2f93d25467f4}</Project>
     </ProjectReference>

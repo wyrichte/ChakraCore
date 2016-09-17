@@ -120,6 +120,9 @@ COREINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\parser; \
     $(JSCRIPT_ROOT)\core\lib\runtime; \
     $(JSCRIPT_ROOT)\core\lib\backend; \
+    $(JSCRIPT_ROOT)\core\lib\JITClient; \
+    $(JSCRIPT_ROOT)\core\lib\JITIDL; \
+    $(JSCRIPT_ROOT)\core\lib\JITServer; \
     $(JSCRIPT_ROOT)\private\lib\memprotectheap; \
     $(JSCRIPT_ROOT)\publish; \
     $(SHELL_INC_PATH); \
@@ -135,6 +138,9 @@ SITEINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\parser; \
     $(JSCRIPT_ROOT)\core\lib\runtime; \
     $(JSCRIPT_ROOT)\core\lib\backend; \
+    $(JSCRIPT_ROOT)\core\lib\JITClient; \
+    $(JSCRIPT_ROOT)\core\lib\JITIDL; \
+    $(JSCRIPT_ROOT)\core\lib\JITServer; \
     $(SHELL_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
 

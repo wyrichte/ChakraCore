@@ -35,6 +35,7 @@
         $(ChakraRootDirectory)private\Lib;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
+        $(ChakraRootDirectory)core\lib\CodeGenClient;
         
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);

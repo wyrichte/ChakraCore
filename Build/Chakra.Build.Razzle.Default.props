@@ -9,6 +9,10 @@
   <Import Project="$(NTMAKEENV)\Microsoft.Build.Settings" />
   <Import Project="$(EnlistmentRoot)\data\msrc\Prerelease.Build.Settings" />
 
+  <!-- Common build settings -->
+  <PropertyGroup>
+    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
+  </PropertyGroup>
   <!-- Override Configuration from Microsoft.Build.Settings -->
   <PropertyGroup>
     <Configuration Condition="'$(_BuildType)' == 'fre' and '$(FreTest)' != 'true'">Release</Configuration>
@@ -19,18 +23,6 @@
   <PropertyGroup Condition="'$(AllowChkTest)' == 'true' and '$(_BuildType)' == 'chk' and '$(FreTest)' == 'true'">
     <Configuration>Debug</Configuration>
     <FreTest />
-  </PropertyGroup>
-  <PropertyGroup>
-    <OptimizedBuild />
-    <OptimizedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimizedBuild>
-    <NtTargetVersion>$(NtTargetVersion_Win7)</NtTargetVersion>
-
-    <!-- On ARM we depend an API that was added in Win8 timeframe, specifically GetCurrentThreadLimits.
-         Note that for ARM we don't need to support running on Win7, so it's fine to require Win8 as minimum,
-         but for x86/amd64 we may need to ship IE10 for Win7, thus it's not OK in general to require Win8 as minimum. -->
-    <NtTargetVersion Condition="'$(Platform)'=='ARM' or '$(Platform)'=='Arm64'">$(NtTargetVersion_Win8)</NtTargetVersion>
-
-    <WindowsSDKDesktopARMSupport Condition="'$(Platform)'=='ARM'">true</WindowsSDKDesktopARMSupport>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>
@@ -58,6 +50,7 @@
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)</JscriptInfoIntDir>
     <ChakraInternalIDLIntDir>$(RazzleJscriptObjectRoot)\private\lib\InternalIDL\$(ObjectDirectory)</ChakraInternalIDLIntDir>
+    <ChakraJITIDLIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\jitidl\$(RazzleJscriptObjectDirectory)</ChakraJITIDLIntDir>
     <ChakraPublishIntDir>$(RazzleJscriptObjectRoot)\publish\$(ObjectDirectory)</ChakraPublishIntDir>
 
     <!-- Libraries -->
@@ -68,6 +61,9 @@
     <ChakraCommonMemoryLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
     <ChakraRuntimeLanguageLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\language\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Language.lib</ChakraRuntimeLanguageLib>
     <ChakraRuntimeBaseLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\base\$(RazzleJscriptObjectDirectory)Chakra.Runtime.base.lib</ChakraRuntimeBaseLib>
+    <ChakraRuntimeJitServerLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\JITServer\$(RazzleJscriptObjectDirectory)Chakra.JITServer.lib</ChakraRuntimeJitServerLib>
+    <ChakraRuntimeJitClientLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\JITClient\$(RazzleJscriptObjectDirectory)Chakra.JITClient.lib</ChakraRuntimeJitClientLib>
+    <ChakraRuntimePlatformAgnosticLib>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\PlatformAgnostic\$(RazzleJscriptObjectDirectory)Chakra.Runtime.PlatformAgnostic.lib</ChakraRuntimePlatformAgnosticLib>
 
     <ChakraCommonMinLibs>$(ChakraCommonMemoryLib)</ChakraCommonMinLibs>
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(ChakraCommonCoreLib)</ChakraCommonMinLibs>
@@ -82,6 +78,9 @@
     <ChakraRuntimeLibs>$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\bytecode\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Bytecode.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeLanguageLib)</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeBaseLib)</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeJitServerLib)</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimeJitClientLib)</ChakraRuntimeLibs>
+    <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(ChakraRuntimePlatformAgnosticLib)</ChakraRuntimeLibs>
 
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\debug\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Debug.lib</ChakraRuntimeLibs>
     <ChakraRuntimeLibs>$(ChakraRuntimeLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\library\$(RazzleJscriptObjectDirectory)Chakra.Runtime.Library.lib</ChakraRuntimeLibs>
