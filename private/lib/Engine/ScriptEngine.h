@@ -673,7 +673,7 @@ public:
 #endif
 
     Js::ScriptContext* EnsureScriptContext();
-    BOOL ShouldKeepAlive() const { return fKeepEngineAlive; }        
+    BOOL ShouldKeepAlive() const { return fKeepEngineAlive; }
 
     HRESULT GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb, LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags, SOURCE_TEXT_ATTR *prgsta);
 
@@ -1044,7 +1044,7 @@ public:
         IDebugDocumentContext**     ppsc
         );
 
-    IDebugApplication * GetDebugApplication() const 
+    IDebugApplication * GetDebugApplication() const
     {
         return m_pda;
     }
@@ -1177,7 +1177,7 @@ protected:
     HRESULT GetHostSecurityManager(IInternetHostSecurityManager** ppsecman);
     HRESULT GetINETSecurityManagerNoRef(IInternetSecurityManager** ppsecman);
     BOOL IsObjectSafeForScripting(REFCLSID clsid, IUnknown *punk);
-    
+
 //
 private:
      DWORD                           m_dwSafetyOptions;
@@ -1189,7 +1189,7 @@ private:
 //
 //
 
-    // This is used for telemetry purposes so that we can Join the data using below 
+    // This is used for telemetry purposes so that we can Join the data using below
     // activity ID and get more info like URL etc.
     GUID                            m_activityID;
 
@@ -1198,6 +1198,7 @@ public:
     HRESULT STDMETHODCALLTYPE SetActivityId(__in const GUID* activityId);
     HRESULT STDMETHODCALLTYPE SetTridentLoadAddress(__in void* loadAddress);
     HRESULT STDMETHODCALLTYPE SetJITConnectionInfo(__in HANDLE jitProcHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionId);
+    HRESULT STDMETHODCALLTYPE SetJITInfoForScript();
 
 private:
     // flags and values pased by the host via  IActiveScriptProperty
@@ -1238,7 +1239,7 @@ public:
 
     }
 
-    virtual HRESULT STDMETHODCALLTYPE MapSourceCode( 
+    virtual HRESULT STDMETHODCALLTYPE MapSourceCode(
             /* [size_is][size_is][out] */ BYTE **sourceCode,
             /* [out] */ DWORD *pdwSourceCodeSize) override
     {
@@ -1246,12 +1247,12 @@ public:
          *pdwSourceCodeSize = this->sourceCodeSize;
          return S_OK;
     }
-        
+
     virtual void STDMETHODCALLTYPE UnmapSourceCode( void) override
     {
     }
 
-    virtual HRESULT STDMETHODCALLTYPE QueryInterface( 
+    virtual HRESULT STDMETHODCALLTYPE QueryInterface(
         REFIID riid,
         _COM_Outptr_ void __RPC_FAR *__RPC_FAR *ppvObject) override
     {
