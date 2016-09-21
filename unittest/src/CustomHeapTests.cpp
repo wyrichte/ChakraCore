@@ -32,8 +32,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Basic)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         for(int i = 100; i < 2000000; i += 100)
         {
@@ -50,8 +50,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
@@ -74,8 +74,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 160;
         Allocation** allocations = new Allocation*[count];
@@ -96,14 +96,14 @@ UTEST_GROUP(CustomHeapTests)
                 VerifyFreed(allocations[i]);
             }
         }
-        
+
         delete[] allocations;
     }
 
     UTEST_CASE(Alloc_NoFree_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
@@ -125,8 +125,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Large_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 400;
         Allocation** allocations = new Allocation*[count];
@@ -155,20 +155,20 @@ UTEST_GROUP(CustomHeapTests)
                 VerifyFreed(allocations[i+1]);
             }
         }
-        
+
         delete[] allocations;
     }
 
     UTEST_CASE(Alloc_Free_Alloc_Realistic)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr);
-        Heap heap(arena, &codePageAllocators);
+        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint sizes[] = { 200, 130, 400, 800, 230, 210, 100, 150, 180, 400, 900, 4096, 8192, 323, 421, 123, 432, 543, 543, 1232, 123, 22, 2345, 2343, 53, 4232, 231, 12, 123 , 214, 2354, 543, 2312 };
         ushort xdataSizes[] = { 20, 13, 40, 55, 0, 21, 0, 28, 18, 40, 50, 40, 72, 32, 42, 12, 43, 54, 54, 12, 12, 22, 23, 23, 53, 42, 23, 12, 12 , 21, 23, 54, 23 };
         ushort pdataCounts[] = { 2, 1, 4, 2, 5, 8, 3, 1, 1, 2, 2, 3, 1, 250, 2, 2, 3, 1, 5, 2, 2, 3, 6, 1, 2, 2, 3, 1, 1, 2, 2, 6, 8 };
         uint count = _countof(sizes);
-        
+
         std::list<Allocation*> allocations;
         for(uint i = 0; i < count; i++)
         {
@@ -180,7 +180,7 @@ UTEST_GROUP(CustomHeapTests)
 #endif
             VerifyAllocation(allocation, sizes[i], GET_PDATA_COUNT(pdataCounts[i]), GET_XDATA_SIZE(xdataSizes[i]));
         }
-        
+
         heap.DecommitAll();
 
         for(auto it = allocations.begin(); it != allocations.end(); it++)
@@ -207,7 +207,7 @@ UTEST_GROUP(CustomHeapTests)
         if(allocXdata && xdataSize > 0)
         {
             UT_ASSERT(allocation->xdata.address != nullptr);
-            
+
             MEMORY_BASIC_INFORMATION xdataInfo;
             VirtualQuery(allocation->xdata.address, &xdataInfo, sizeof(xdataInfo));
             UT_ASSERT(xdataInfo.Protect == PAGE_READWRITE);
@@ -222,7 +222,7 @@ UTEST_GROUP(CustomHeapTests)
             UT_ASSERT(runtimeFunction->BeginAddress == ((ULONG64)allocation->address) - imageBase);
             UT_ASSERT_SZ(allocation->xdata.address >= (BYTE*)(allocation->address + allocation->size), "There should be no overlap in xdata and code allocation");
 #endif
-           
+
         }
 #if defined(_M_ARM) || defined(_M_ARM64)
         UT_ASSERT(allocation->xdata.pdataCount == pdataCount);

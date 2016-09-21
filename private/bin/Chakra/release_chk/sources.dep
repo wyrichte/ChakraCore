@@ -59,6 +59,8 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\exceptions\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\memory\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\util\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\jitclient\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\jitserver\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\jsrt\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\parser\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\base\release|PASS1 \
@@ -67,6 +69,7 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\language\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\library\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\math\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\platformagnostic\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\types\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\enc\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\engine\release|PASS1 \

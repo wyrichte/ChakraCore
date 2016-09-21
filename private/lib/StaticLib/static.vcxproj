@@ -23,6 +23,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
+        $(ChakraRootDirectory)core\lib\JITClient;
+        $(ChakraJITIDLIntDir);
         $(ChakraRootDirectory)core\lib\Runtime;
         $(ChakraRootDirectory)core\lib\Runtime\ByteCode;
         $(ChakraRootDirectory)core\lib\Runtime\Math;

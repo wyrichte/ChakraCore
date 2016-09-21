@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SDPublics</id>
-    <version>1.0.20</version>
+    <version>1.0.26</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -636,18 +636,22 @@
     <file src="internal\shell\lib\amd64\commonutilitylibrary.lib"                                               target="internal\shell\lib\amd64" />
     <file src="internal\shell\lib\amd64\6.2\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\amd64\6.2" />
     <file src="internal\shell\lib\amd64\6.3\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\amd64\6.3" />
+    <file src="internal\shell\lib\amd64\10.0\api-ms-win-shcore-stream-l1.lib"                                   target="internal\shell\lib\amd64\10.0" />
     <file src="internal\shell\lib\arm\api-ms-win-shcore-stream-l1-1-0.lib"                                      target="internal\shell\lib\arm" />
     <file src="internal\shell\lib\arm\commonutilitylibrary.lib"                                                 target="internal\shell\lib\arm" />
     <file src="internal\shell\lib\arm\6.2\api-ms-win-shcore-stream-l1.lib"                                      target="internal\shell\lib\arm\6.2" />
     <file src="internal\shell\lib\arm\6.3\api-ms-win-shcore-stream-l1.lib"                                      target="internal\shell\lib\arm\6.3" />
+    <file src="internal\shell\lib\arm\10.0\api-ms-win-shcore-stream-l1.lib"                                     target="internal\shell\lib\arm\10.0" />
     <file src="internal\shell\lib\arm64\api-ms-win-shcore-stream-l1-1-0.lib"                                    target="internal\shell\lib\arm64" />
     <file src="internal\shell\lib\arm64\commonutilitylibrary.lib"                                               target="internal\shell\lib\arm64" />
     <file src="internal\shell\lib\arm64\6.2\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\arm64\6.2" />
     <file src="internal\shell\lib\arm64\6.3\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\arm64\6.3" />
+    <file src="internal\shell\lib\arm64\10.0\api-ms-win-shcore-stream-l1.lib"                                   target="internal\shell\lib\arm64\10.0" />
     <file src="internal\shell\lib\i386\api-ms-win-shcore-stream-l1-1-0.lib"                                     target="internal\shell\lib\i386" />
     <file src="internal\shell\lib\i386\commonutilitylibrary.lib"                                                target="internal\shell\lib\i386" />
     <file src="internal\shell\lib\i386\6.2\api-ms-win-shcore-stream-l1.lib"                                     target="internal\shell\lib\i386\6.2" />
     <file src="internal\shell\lib\i386\6.3\api-ms-win-shcore-stream-l1.lib"                                     target="internal\shell\lib\i386\6.3" />
+    <file src="internal\shell\lib\i386\10.0\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\i386\10.0" />
     <file src="internal\shell\private\inc\shreghelpers.h"                                                       target="internal\shell\private\inc" />
     <file src="sdk\amovie\inc\evcode.h"                                                                         target="sdk\amovie\inc" />
     <file src="sdk\inc\accctrl.h"                                                                               target="sdk\inc" />
@@ -3811,6 +3815,8 @@
     <file src="sdk\lib\mincore\amd64\1.0\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\amd64\1.0" />
     <file src="sdk\lib\mincore\amd64\1.0\api-ms-win-core-winrt-string-l1.lib"                                   target="sdk\lib\mincore\amd64\1.0" />
     <file src="sdk\lib\mincore\amd64\1.0\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\amd64\1.0" />
+    <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-core-winrt-string-l1.lib"                                   target="sdk\lib\mincore\amd64\1.3" />
+    <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-core-winrt-error-l1.lib"                                    target="sdk\lib\mincore\amd64\1.3" />
     <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\amd64\1.3" />
     <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\amd64\1.3" />
     <file src="sdk\lib\mincore\arm\mincore_fw.lib"                                                              target="sdk\lib\mincore\arm" />
@@ -3821,6 +3827,8 @@
     <file src="sdk\lib\mincore\arm\1.0\api-ms-win-core-winrt-l1.lib"                                            target="sdk\lib\mincore\arm\1.0" />
     <file src="sdk\lib\mincore\arm\1.0\api-ms-win-core-winrt-string-l1.lib"                                     target="sdk\lib\mincore\arm\1.0" />
     <file src="sdk\lib\mincore\arm\1.0\api-ms-win-ro-typeresolution-l1.lib"                                     target="sdk\lib\mincore\arm\1.0" />
+    <file src="sdk\lib\mincore\arm\1.3\api-ms-win-core-winrt-string-l1.lib"                                     target="sdk\lib\mincore\arm\1.3" />
+    <file src="sdk\lib\mincore\arm\1.3\api-ms-win-core-winrt-error-l1.lib"                                      target="sdk\lib\mincore\arm\1.3" />
     <file src="sdk\lib\mincore\arm\1.3\api-ms-win-core-winrt-l1.lib"                                            target="sdk\lib\mincore\arm\1.3" />
     <file src="sdk\lib\mincore\arm\1.3\api-ms-win-ro-typeresolution-l1.lib"                                     target="sdk\lib\mincore\arm\1.3" />
     <file src="sdk\lib\mincore\arm64\mincore_fw.lib"                                                            target="sdk\lib\mincore\arm64" />
@@ -3831,6 +3839,8 @@
     <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\arm64\1.0" />
     <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-core-winrt-string-l1.lib"                                   target="sdk\lib\mincore\arm64\1.0" />
     <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\arm64\1.0" />
+    <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-core-winrt-string-l1.lib"                                   target="sdk\lib\mincore\arm64\1.3" />
+    <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-core-winrt-error-l1.lib"                                    target="sdk\lib\mincore\arm64\1.3" />
     <file src="sdk\lib\mincore\arm64\1.3\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\arm64\1.3" />
     <file src="sdk\lib\mincore\arm64\1.3\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\arm64\1.3" />
     <file src="sdk\lib\mincore\i386\mincore_fw.lib"                                                             target="sdk\lib\mincore\i386" />
@@ -3841,6 +3851,8 @@
     <file src="sdk\lib\mincore\i386\1.0\api-ms-win-core-winrt-l1.lib"                                           target="sdk\lib\mincore\i386\1.0" />
     <file src="sdk\lib\mincore\i386\1.0\api-ms-win-core-winrt-string-l1.lib"                                    target="sdk\lib\mincore\i386\1.0" />
     <file src="sdk\lib\mincore\i386\1.0\api-ms-win-ro-typeresolution-l1.lib"                                    target="sdk\lib\mincore\i386\1.0" />
+    <file src="sdk\lib\mincore\i386\1.0\api-ms-win-core-winrt-string-l1.lib"                                    target="sdk\lib\mincore\i386\1.3" />
+    <file src="sdk\lib\mincore\i386\1.0\api-ms-win-core-winrt-error-l1.lib"                                     target="sdk\lib\mincore\i386\1.3" />
     <file src="sdk\lib\mincore\i386\1.3\api-ms-win-core-winrt-l1.lib"                                           target="sdk\lib\mincore\i386\1.3" />
     <file src="sdk\lib\mincore\i386\1.3\api-ms-win-ro-typeresolution-l1.lib"                                    target="sdk\lib\mincore\i386\1.3" />
     <file src="sdk\lib\minwin\amd64\ntdllp.lib"                                                                 target="sdk\lib\minwin\amd64" />

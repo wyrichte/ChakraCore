@@ -388,6 +388,7 @@ namespace Projection
 #define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(feature, m_scriptContext)
 #endif
 
+#include "ThreadContextInfo.h"
 #include "ThreadContext.h"
 #include "ThreadContextTLSEntry.h"
 #include "evalmaprecord.h"
@@ -395,6 +396,7 @@ namespace Projection
 #include "JavascriptError.h"
 #include "ScriptContextBase.h"
 class ScriptContextTelemetry;
+#include "ScriptContextInfo.h"
 #include "ScriptContext.h"
 #include "InterpreterStackFrame.h"
 #include "CodeGenAllocators.h"
