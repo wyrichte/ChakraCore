@@ -6208,12 +6208,6 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         }
 
         this->hostType = pvarValue->lVal;
-
-        if (this->hostType == SCRIPTHOSTTYPE_APPLICATION || this->hostType == SCRIPTHOSTTYPE_WEBVIEW)
-        {
-            // The host is WinRT enabled, so enable WER exception support
-            Js::Configuration::Global.flags.WERExceptionSupport = TRUE;
-        }
         return NOERROR;
 
     case SCRIPTPROP_NONPRIMARYENGINE:

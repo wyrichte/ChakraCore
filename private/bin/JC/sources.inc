@@ -26,7 +26,7 @@ TARGETLIBS=     \
     $(OBJECT_JSCRIPT_DIR)\exe\common\$(O)\jscript.exe.common.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(COM_LIB_PATH)\combasep.lib \
-    $(SDK_LIB_PATH)\Uuid.lib \
+    $(INTERNAL_SDK_LIB_PATH)\onecoreuapuuid.lib \
 !IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
     ..\..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF

@@ -38,8 +38,7 @@
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(InternalSdkLibPath)\nothrownew.lib;
-        $(SdkLibPath)\kernel32.lib;
-        $(SdkLibPath)\advapi32.lib;
+        $(SdkLibPath)\onecore_downlevel.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Common.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Logger.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Te.Common.lib;

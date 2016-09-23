@@ -52,11 +52,11 @@ LINKLIBS = $(DBGLIB_LIB_PATH)\engextcpp.lib
 
 TARGETLIBS = \
         $(ATL_LIBS) \
-        $(SDK_LIB_PATH)\advapi32.lib \
-        $(SDK_LIB_PATH)\kernel32.lib \
-        $(SDK_LIB_PATH)\ole32.lib \
+         \
+        $(SDK_LIB_PATH)\onecore_downlevel.lib \
+        $(SDK_LIB_PATH)\onecore_downlevel.lib \
         $(SDK_LIB_PATH)\oleaut32.lib \
-        $(SDK_LIB_PATH)\user32.lib \
+         \
         $(DBGSDK_LIB_PATH)\dbghelp.lib \
         $(DBGSDK_LIB_PATH)\dbgeng.lib \
         $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\release\$(O)\guids.obj \

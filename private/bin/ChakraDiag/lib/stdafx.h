@@ -10,7 +10,7 @@
 #pragma once
 
 // This is supposed to exclude rarely-used .h files from windows.h and thus make build faster.
-// See http://windows/winbuilddocs/Wiki%20Pages/NOT_LEAN_AND_MEAN.aspx for details.
+// See https://osgwiki.com/wiki/NOT_LEAN_AND_MEAN for details.
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 

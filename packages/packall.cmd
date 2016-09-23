@@ -2,8 +2,13 @@
 setlocal enableextensions
 
 set JS_ROOT=%SDXROOT%\onecoreuap\inetcore\jscript
+
+set BUILD_DEP_DIRS=^
+%JS_ROOT%;^
+%SDXROOT%\inetcore\onecoreuap\inetcore\jscript;
+
 set NUGET_PACKAGE_OUT=%JS_ROOT%\packages\package_output
-set NUGET_PACKAGE_DEPLOY=\\chakrafs01\Nuget\packages
+set NUGET_PACKAGE_DEPLOY=\\chakrafs\fs\Misc\NuGet
 
 if EXIST %NUGET_PACKAGE_OUT% (
     echo Warning: Deleting everything in %NUGET_PACKAGE_OUT%
@@ -17,7 +22,7 @@ pushd %JS_ROOT%
 for %%a in (x86 amd64 arm) do (
     for %%f in (chk fre) do (
         echo Building dependencies for %%a%%f..
-        cmd /c %SDXROOT%\tools\razzle.cmd %%a%%f sharepublic no_oacr no_certcheck exec build -parent -c "%JS_ROOT%" 1>NUL
+        cmd /c %SDXROOT%\tools\razzle.cmd %%a%%f sharepublic no_oacr no_certcheck exec build -parent -c "%BUILD_DEP_DIRS%" 1>NUL
     )
 )
 

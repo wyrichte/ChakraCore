@@ -52,6 +52,10 @@
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4467; <!-- warning C4467: "usage of ATL attributes is deprecated" (in IELibs IWebWorkerLifetime.hpp) -->
+      </DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -69,7 +73,6 @@
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
-        $(SdkLibPath)\ole32.lib;
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
@@ -80,7 +83,7 @@
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-draw-l1-1-2.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-misc-l1-1-0.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-gui-l1-1-0.lib;
-
+        $(SdkLibPath)\onecore_downlevel.lib;
         <!-- For InternetCrackURl and CreateURLMoniker for HtmlApp.cpp -->
         $(SdkLibPath)\urlmon.lib;
         $(SdkLibPath)\wininet.lib;
@@ -113,7 +116,7 @@
         $(ChakraCommonCodexLib);
         $(RazzleJscriptObjectRoot)\private\lib\scalookup\$(ObjectDirectory)\SCALookup_iel3.lib;
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
-        $(SdkLibPath)\advapi32.lib
+        $(SdkLibPath)\onecore_downlevel.lib
       </AdditionalDependencies>
       <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>

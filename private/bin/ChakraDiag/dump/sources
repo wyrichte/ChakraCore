@@ -19,11 +19,8 @@ DLLDEF = $(OBJ_PATH)\$(O)\JScript9diagdump.def
 RESOURCE_FILE = jscript9diagdump.rc
 
 TARGETLIBS = \
-    $(SDK_LIB_PATH)\kernel32.lib \
-    $(SDK_LIB_PATH)\advapi32.lib \
-    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \
-    $(SDK_LIB_PATH)\user32.lib \
     $(ATL_LIBS) \
 
 SOURCES = \

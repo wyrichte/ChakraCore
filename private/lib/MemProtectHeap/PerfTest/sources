@@ -19,6 +19,8 @@ INCLUDES= $(COREINCLUDES);
 CRTLIBS= \
     $(OBJECT_JSCRIPT_DIR)\private\lib\MemProtectHeap\static\$(JS_LIBTYPE)\$(O)\JScript.MemProtectHeap.static.lib
 
+LINKLIBS= \
+   $(JS_LIBS_COMMON)
 
 # Libs needed
 # oleaut32: Needed for SysAllocString used by CmdParser

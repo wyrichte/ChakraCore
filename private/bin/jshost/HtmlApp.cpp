@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include <ExDisp.h>
 #include <ExDispID.h>
-#include <ShObjIdl.h>
+#include <shobjidl_core.h>
 #include <ShlGuid.h>
 #include "helpers.h"
 #include <ieconfig.h>

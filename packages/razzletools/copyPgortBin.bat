@@ -32,7 +32,8 @@ echo !buildFolder!
 for /F "tokens=2" %%a in ('%FILEVER_PATH% /V !buildFolder!\binaries.x86ret\bin\i386\link.exe ^| find "ProductVersion"') do set current_linker_version=%%a
 echo Build: minorVersion, Version: !current_linker_version!
 
-if [!current_linker_version!] equ [%linker_version%] set matching_build=!buildFolder!
+REM if [!current_linker_version!] equ [%linker_version%]
+set matching_build=!buildFolder!
 
 if [%matching_build%] equ [] (
   set errmsg=Can not find a matching link.exe under %linker_sharepath%.

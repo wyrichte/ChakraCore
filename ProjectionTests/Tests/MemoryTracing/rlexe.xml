@@ -155,6 +155,7 @@
         </default>
     </test>
 
+    <!-- Disable EventsClosure.NoWeakDelegate.js because the output is flaky
     <test>
         <default>
             <files>EventsClosure.NoWeakDelegate.js</files>
@@ -181,4 +182,5 @@
             <tags>exclude_win7,exclude_fre,exclude_snap,exclude_amd64,exclude_nostress</tags>
         </default>
     </test>
+    -->
 </regress-exe>

@@ -3,6 +3,8 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\bin\microsoft.javascript|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
+    onecore\redist\mspartners\taef\ref|PASS1 \
+    onecore\redist\mspartners\vs2010\vsts\binary_release\msil|PASS1 \
     redist\mspartners\vs2010\vsts\binary_release\msil|PASS1 \
     sdktools\wextest\sparta\runtime\taef\managed\netfx4.5|PASS1 \
     sdktools\wextest\sparta\runtime\wex.common\managed\netfx4.5|PASS1 \

@@ -74,7 +74,7 @@
 
       <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ChakraRootDirectory)private\lib\placeholder</AdditionalIncludeDirectories>
-      
+
       <!-- ========= From inetcore\project.mk =========-->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
@@ -130,12 +130,12 @@
         %(DisableSpecificWarnings);
         4458;     <!-- declaration of '' hides class memeber -->
       </DisableSpecificWarnings>
-      
+
       <PreprocessorDefinitions Condition="'$(ENABLE_CODECOVERAGE)'=='true'">
         %(PreprocessorDefinitions);
         BYTECODE_TESTING=1
       </PreprocessorDefinitions>
-      
+
       <!-- ======== For Code Covearge ======== -->
       <Optimization Condition="'$(ENABLE_CODECOVERAGE)'=='true'">Disabled</Optimization>
 
@@ -245,6 +245,9 @@
         <!-- For FindAtom/AddAtom/DeleteAttom, and in non-fre build perf counters and Crypt* and IsMessageBoxWPresent dependency -->
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
     </ChakraCommonLinkDependencies>
+    <RLCommonLinkDependencies>
+      $(SdkLibPath)\onecore_downlevel.lib
+    </RLCommonLinkDependencies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(OptimizedBuild)'!='true'">
     <ChakraCommonLinkDependencies>

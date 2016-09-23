@@ -229,6 +229,7 @@ set FRETEST=1
 ::
 :: If running on chk or FRETEST, use dynamic profile cache and undef tag exclude_ship.
 ::
+set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -BaselineMode
 set _dynamicprofilecache=-dynamicprofilecache:profile.dpl
 set _dynamicprofileinput=-dynamicprofileinput:profile.dpl
 set _exclude_ship=
