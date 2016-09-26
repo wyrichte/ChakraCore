@@ -157,6 +157,9 @@ goto :main
   doskey testfull=      %%ChakraFullRepoRoot%%\tools\rununittests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*
   doskey testcore=      %%ChakraFullRepoRoot%%\tools\runcoretests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*
 
+  doskey corebuild=     %%ChakraFullRepoRoot%%\core\jenkins\buildone.cmd %%ChakraBuildArch%% %%ChakraBuildType%% $*
+  doskey coretests=     %%ChakraFullRepoRoot%%\core\jenkins\testone.cmd %%ChakraBuildArch%% %%ChakraBuildType%% $*
+
   goto :eof
 
 :: ============================================================================
