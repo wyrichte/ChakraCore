@@ -288,13 +288,13 @@ namespace Js
 
             for (size_t i = 0; i < transferableCount; i++)
             {
-                if (JavascriptOperators::GetTypeId(transferableVars[i]) == TypeIds_ArrayBuffer)
+                if (JavascriptOperators::GetTypeId(transferableVars[i]) == TypeIds_SharedArrayBuffer)
                 {
-                    detachedStatesToSet[i] = JavascriptOperators::DetachVarAndGetState(transferableVars[i]);
+                    detachedStatesToSet[i] = SharedArrayBuffer::GetSharableState(transferableVars[i]);
                 }
                 else
                 {
-                    detachedStatesToSet[i] = SharedArrayBuffer::GetSharableState(transferableVars[i]);
+                    detachedStatesToSet[i] = JavascriptOperators::DetachVarAndGetState(transferableVars[i]);
                 }
             }
 
