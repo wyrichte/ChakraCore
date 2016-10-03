@@ -33,11 +33,11 @@
 
 #define ATLASSERT DiagAssert
 
-// NOTE: This is a workaround to account for the fact that atlsd.lib cannot be linked to in  
-// OneCoreUAP builds because OpenFileMappingA doesn't exist in any APISet. To get around this,  
-// we undefine _DEBUG so that we don't need to link against atlsd.lib  
-// TODO: Remove this workaround when OpenFileMappingA is exposed through an APISet  
-// TODO: More: OpenFileMappingA is marked as legacy, will eventually be removed in next windows release. 
+// NOTE: This is a workaround to account for the fact that atlsd.lib cannot be linked to in
+// OneCoreUAP builds because OpenFileMappingA doesn't exist in any APISet. To get around this,
+// we undefine _DEBUG so that we don't need to link against atlsd.lib
+// TODO: Remove this workaround when OpenFileMappingA is exposed through an APISet
+// TODO: More: OpenFileMappingA is marked as legacy, will eventually be removed in next windows release.
 // OpenFileMappingW is kept normal, need to wait for the onecore decision on ATL
 // we can take the dependency on OpenFileMappingA for this release, but we will have a dependency on api-ms-win-core-kernel32-legacy-l1-1-2.dll
 // which makes unittest painful. so still not link to atlsd.lib
@@ -74,7 +74,6 @@
 #define protected public
 
 #include "EdgeScriptDirect.h"
-#include "JITClient.h"
 #include "RuntimeCore.h"
 
 #undef private
@@ -89,7 +88,7 @@
 
 #ifndef VALIDATE_RUNTIME_VERSION
 #define VALIDATE_RUNTIME_VERSION (0) // Enable before release
-#endif   
+#endif
 
 #define IfFailRet(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
 
@@ -126,7 +125,7 @@ namespace JsDiag
         Diag_MaxVTable
     };
 
-    enum Globals : unsigned 
+    enum Globals : unsigned
     {
 #define ENTRY(field, name) Globals_##name##,
 #include "DiagGlobalList.h"

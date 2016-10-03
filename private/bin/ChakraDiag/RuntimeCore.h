@@ -59,10 +59,10 @@ namespace Js
     class JavascriptString;                 // Used by ThreadContext.h
     class StringCopyInfo;
     class ProbeManager;                     // Used by ThreadContext.h
-    class ProbeContainer;    
+    class ProbeContainer;
     class PropertyString;                   // Used by ScriptContext.h
     class TypePath;                         // Used by ScriptContext.h
-    class RegexPatternMruMap;               // Used by ScriptContext.h    
+    class RegexPatternMruMap;               // Used by ScriptContext.h
     struct IDebugDocumentContext;           // Used by ScriptContext.h
     enum SideEffects;                       // Used by ScriptContext.h
     class StaticType;                       // Used by JavascriptNumber.h
@@ -70,7 +70,7 @@ namespace Js
     class RootObjectBase;                   // Used by FunctionBody.h
     class GlobalObject;                     // Used by ScriptContext.h
     class ModuleRoot;                       // Used by ScriptContext.h
-    class SourceMutator;                    // Used by ScriptContext.h    
+    class SourceMutator;                    // Used by ScriptContext.h
     class ScriptContext;                    // Used by ProbeContainer.h
     struct NativeModule;
     struct HaltCallback;                    // Used by ProbeContainer.h
@@ -101,7 +101,7 @@ namespace Js
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
     class JavascriptEnumerator;             // Used by JavascriptLibrary.h
     class PropertyStringCacheMap;           // Used by JavascriptLibrary.h
-    class JavascriptExternalFunction;       // Used by JavascriptLibrary.h        
+    class JavascriptExternalFunction;       // Used by JavascriptLibrary.h
     class HeapArgumentsObject;              // Used by JavascriptLibrary.h
     class ArrayBuffer;                      // Used by JavascriptLibrary.h
     class DataView;                         // Used by JavascriptLibrary.h
@@ -276,6 +276,7 @@ namespace Projection
 #include "activdbg100.h"
 #include "SourceHolder.h"
 #include "Utf8SourceInfo.h"
+#include "JITClient.h"
 #include "Constants.h"                  // Used by FunctionInfo::FunctionInfo
 #include "CallInfo.h"                   // Used by Arguments.h
 #include "ExecutionMode.h"              // Used by FunctionBody.h
