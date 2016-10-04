@@ -16,7 +16,7 @@
 
       <!-- ====== Microsoft.Build.Cpp.props ====== -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CrtIncPath)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(InternalSdkIncPath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(InternalSdkIncPath);$(PublicInternalPath)\onecoreuapinetcore\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>

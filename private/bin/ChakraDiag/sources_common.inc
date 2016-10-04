@@ -5,8 +5,8 @@ USE_DEFAULT_WIN32_LIBS = 0
 USE_UMBRELLA_LIBS = 1
 USE_IDLBASED_DLLDATA = 1
 
-# This is supposed to exclude lots of .h files from windows.h, which we most likely don’t need anyway, during build.
-# See http://windows/winbuilddocs/Wiki%20Pages/NOT_LEAN_AND_MEAN.aspx for details.
+# This is supposed to exclude lots of .h files from windows.h, which we most likely donï¿½t need anyway, during build.
+# See https://osgwiki.com/wiki/NOT_LEAN_AND_MEAN for details.
 WIN32_LEAN_AND_MEAN=1
 
 INCLUDES= \

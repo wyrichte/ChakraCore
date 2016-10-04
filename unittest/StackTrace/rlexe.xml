@@ -4,7 +4,6 @@
     <default>
       <tags>GetExtendedExceptionInfo</tags>
       <files>parentThrowThroughFrame.onError.html</files>
-      <compile-flags>-WERExceptionSupport</compile-flags>
       <baseline>parentThrowThroughFrame.onError.win8.baseline</baseline>
     </default>
     <condition order="1" type="include">
@@ -18,7 +17,7 @@
     <default>
       <tags>GetExtendedExceptionInfo</tags>
       <files>parentThrowThroughFrame.WER.html</files>
-      <compile-flags>-WERExceptionSupport -Dump:ExceptionStackTrace</compile-flags>
+      <compile-flags>-Dump:ExceptionStackTrace</compile-flags>
       <baseline>parentThrowThroughFrame.WER.win8.baseline</baseline>
     </default>
     <condition order="1" type="include">
@@ -32,7 +31,6 @@
     <default>
       <tags>GetExtendedExceptionInfo</tags>
       <files>libraryCodeParentThrowThroughFrame.onError.html</files>
-      <compile-flags>-WERExceptionSupport</compile-flags>
       <baseline>libraryCodeParentThrowThroughFrame.onError.win8.baseline</baseline>
     </default>
     <condition order="1" type="include">
@@ -46,7 +44,7 @@
     <default>
       <tags>GetExtendedExceptionInfo</tags>
       <files>libraryCodeParentThrowThroughFrame.WER.html</files>
-      <compile-flags>-WERExceptionSupport -Dump:ExceptionStackTrace</compile-flags>
+      <compile-flags>-Dump:ExceptionStackTrace</compile-flags>
       <baseline>libraryCodeParentThrowThroughFrame.WER.win8.baseline</baseline>
     </default>
     <condition order="1" type="include">
@@ -81,7 +79,7 @@
     <default>
       <tags>StackTrace</tags>
       <files>LongCallStackThrow.WER.html</files>
-      <compile-flags>-WERExceptionSupport -Dump:ExceptionStackTrace</compile-flags>
+      <compile-flags>-Dump:ExceptionStackTrace</compile-flags>
       <baseline>LongCallStackThrow.WER.html.baseline</baseline>
     </default>
   </test>
@@ -116,6 +114,7 @@
       <baseline>OOS.html.baseline</baseline>
     </default>
   </test>
+<!-- BUG #7964904
   <test>
     <default>
       <tags>StackTrace</tags>
@@ -130,6 +129,7 @@
       <baseline>FunctionName.html.baseline</baseline>
     </default>
   </test>
+-->
   <test>
     <default>
       <files>getStackTraceTest1.js</files>

@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <activscp.h>
+#include "IWebWorkerLifetime.hpp"
 #include "ScriptProjectionHost.hxx"
 
 HRESULT CreateScriptProjectionHost(
@@ -8,7 +9,10 @@ HRESULT CreateScriptProjectionHost(
   __in_opt IScriptHostContextEvent *hostEventCallback,
   __in_opt IWebPlatformPriorityContext *priorityContext,
   __in_opt Windows::UI::Core::ICoreDispatcher *coreDispatcher,
+  __in_opt IWebWorkerLifetime *webWorkerLifetime,
   __in BOOL fIsWinRTEnabled,
+  __in BOOL isConfigurable,
+  __in DWORD projectionVersion,
   __in_ecount_opt(applicationObjectsToExposeCount) NativeObjectEntry* applicationObjectsToExpose,
   __in size_t applicationObjectsToExposeCount)
 {

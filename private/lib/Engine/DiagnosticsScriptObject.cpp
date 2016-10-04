@@ -342,12 +342,13 @@ namespace Js
                     {
                         if (interpreterFrame)
                         {
-                            frm = Anew(diagArena, DiagInterpreterStackFrame, interpreterFrame, 0);
+                            frm = Anew(diagArena, DiagInterpreterStackFrame, interpreterFrame);
+                            
                         }
                         else if (func->IsScriptFunction())
                         {
                             frm = Anew(diagArena, DiagNativeStackFrame,
-                                ScriptFunction::FromVar(walker.GetCurrentFunction()), walker.GetByteCodeOffset(), walker.GetCurrentArgv(), walker.GetCurrentCodeAddr(), 0);
+                                ScriptFunction::FromVar(walker.GetCurrentFunction()), walker.GetByteCodeOffset(), walker.GetCurrentArgv(), walker.GetCurrentCodeAddr());
                         }
                     }
                 }
@@ -355,7 +356,13 @@ namespace Js
                 if (frm)
                 {
                     *isStrictMode = !!func->IsStrictMode();
+
+                    if (targetScriptContext->GetThreadContext()->GetDebugManager()->IsMatchTopFrameStackAddress(frm))
+                    {
+                        frm->SetIsTopFrame();
+                    }
                 }
+
                 return frm != nullptr;
             });
 

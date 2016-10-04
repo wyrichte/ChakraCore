@@ -24,8 +24,8 @@ PRECOMPILED_CXX                 =   1
 SOURCES                         =   EngineTest.cpp                                         \
 
 TARGETLIBS                      =   $(TARGETLIBS)                                                             \
-                                    $(SDK_LIB_PATH)\kernel32.lib                                              \
-                                    $(SDK_LIB_PATH)\advapi32.lib                                              \
+                                    $(SDK_LIB_PATH)\onecore_downlevel.lib                                              \
+                                                                                  \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Common.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Wex.Logger.lib                           \
                                     $(SDKTOOLS_LIB_PATH)\WexTest\CuE\Te.Common.lib                            \

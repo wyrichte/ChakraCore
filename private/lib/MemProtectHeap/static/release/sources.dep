@@ -1,4 +1,5 @@
 PUBLIC_PASS0_CONSUMES= \
+    onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \
     redist\mspartners\netfx45\core\binary_release|PASS0 \
 
 BUILD_PASS1_CONSUMES= \
@@ -19,5 +20,6 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\datastructures\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\exceptions\release|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\memory\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\core_razzle_build\runtime\platformagnostic\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
 

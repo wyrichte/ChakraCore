@@ -5,7 +5,8 @@
         "map.__proto__": {
           "[Methods]": "{...}",
           "map.__proto__.__proto__": "{...}",
-          "map.__proto__.size": "2"
+          "map.__proto__.size": "2",
+          "Symbol.toStringTag": "Map"
         },
         "map": {
           "0": "[1, 2]",

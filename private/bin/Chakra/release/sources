@@ -83,7 +83,7 @@ TARGETLIBS= \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-ro-typeresolution-l1.lib \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(SDK_LIB_PATH)\muiload.lib \
-    $(SDK_LIB_PATH)\ole32.lib \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
 !if (!$(FREEBUILD))
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif

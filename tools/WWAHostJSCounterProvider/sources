@@ -12,3 +12,8 @@ USER_INCLUDES=$(OBJ_PATH)\..\..\private\Manifests\$(O);$(JSCRIPT_ROOT)\core\lib\
 C_DEFINES = $(C_DEFINES) -DUNICODE -D_UNICODE
 UMENTRY = wmain
 UMTYPE = console
+
+TARGETLIBS= \
+    $(TARGETLIBS) \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
+     \

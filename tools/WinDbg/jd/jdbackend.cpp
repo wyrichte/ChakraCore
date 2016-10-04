@@ -5,16 +5,33 @@
 
 #ifdef JD_PRIVATE
 #include "jdbackend.h"
+#include "jdbackendutil.h"
 #define TEMP_BUFFER_SIZE 1024
 static char s_tempBuffer[TEMP_BUFFER_SIZE];
 #define RETURNBUFFER(fmt, ...) if (buffer == nullptr) { buffer = s_tempBuffer; len = sizeof(s_tempBuffer); }; sprintf_s(buffer, len, fmt, __VA_ARGS__); return buffer
 
 char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, size_t len)
 {
-    ushort paramSlotNum = stackSym.Field("m_paramSlotNum").GetUshort();
-    if (paramSlotNum != (ushort)-1)
+    ushort slotNum;
+    if (stackSym.HasField("m_slotNum"))
     {
-        RETURNBUFFER("prm%u", paramSlotNum);
+        // after commit b627afff0a244f45d0f5be4de9d6cce2e3eb3c5e
+        slotNum = stackSym.Field("m_slotNum").GetUshort();
+        if (stackSym.Field("m_isParamSym").GetChar())
+        {
+            RETURNBUFFER("prm%u", slotNum);
+        }
+    }
+    else
+    {
+        // before commit b627afff0a244f45d0f5be4de9d6cce2e3eb3c5e
+        ushort paramSlotNum = stackSym.Field("m_paramSlotNum").GetUshort();
+        if (paramSlotNum != (ushort)-1)
+        {
+            RETURNBUFFER("prm%u", paramSlotNum);
+        }
+
+        slotNum = stackSym.Field("m_argSlotNum").GetUshort();
     }
 
     ulong symId = stackSym.Field("m_id").GetUlong();
@@ -22,9 +39,9 @@ char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, 
     {
         if (stackSym.Field("m_isInlinedArgSlot").GetChar())
         {
-            RETURNBUFFER("iarg%d(s%d)", stackSym.Field("m_argSlotNum").GetUshort(), symId);
+            RETURNBUFFER("iarg%d(s%d)", slotNum, symId);
         }
-        RETURNBUFFER("arg%d(s%d)", stackSym.Field("m_argSlotNum").GetUshort(), symId);
+        RETURNBUFFER("arg%d(s%d)", slotNum, symId);
     }
     RETURNBUFFER("s%d", symId);
 }
@@ -359,7 +376,7 @@ JD_PRIVATE_COMMAND(irinstr,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped instr("(IR::Instr *)@$extin", pointer);
-    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(instr.Field("m_func").Field("m_jnFunction")).GetThreadContext());
+    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(instr.Field("m_func"))).GetThreadContext());
     JDBackend jdbackend(this, propertyNameReader);
     ULONG64 count = GetUnnamedArgU64(1);
     ULONG64 halfCount = count / 2;
@@ -394,7 +411,7 @@ JD_PRIVATE_COMMAND(irinstr,
     }
 }
 
-ExtRemoteTyped GetTopFunc(ExtRemoteTyped func)
+static ExtRemoteTyped GetTopFunc(ExtRemoteTyped func)
 {
   ExtRemoteTyped parent = func.Field("parentFunc");
   while (parent.GetPtr() != 0)
@@ -412,7 +429,7 @@ JD_PRIVATE_COMMAND(irfunc,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped("(Func*)@$extin", pointer));
-    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(func.Field("m_jnFunction")).GetThreadContext());
+    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());
     JDBackend jdbackend(this, propertyNameReader);
     jdbackend.DumpFunc(func);
 }

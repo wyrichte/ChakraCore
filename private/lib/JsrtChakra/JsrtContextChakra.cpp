@@ -7,6 +7,7 @@
 #include "JsrtComException.h"
 #include "JsrtContext.h"
 #include "jsrtprivate.h"
+#include "IWebWorkerLifetime.hpp"
 #include "ScriptProjectionHost.hxx"
 #include "JsrtContextChakra.h"
 #include <guids.h>

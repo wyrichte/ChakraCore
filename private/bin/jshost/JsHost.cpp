@@ -1255,6 +1255,8 @@ LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
         (lpep->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) &&
         lpep->ExceptionRecord->NumberParameters == 2)
     {
+        // Terminate JIT Process
+        JITProcessManager::TerminateJITServer();
         JScript9Interface::NotifyUnhandledException(lpep);
 
         bool crashOnException = false;
@@ -1603,7 +1605,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         return MemProtectHeapTest();        
     }
 
-    if (HostConfigFlags::flags.EnableOutOfProcJIT)
+    if (HostConfigFlags::flags.EnableOutOfProcJIT && pfDoOneIteration == DoOneIASIteration)
     {
         // TODO: Error checking
         JITProcessManager::StartRpcServer(argc, argv);

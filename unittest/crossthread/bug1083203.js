@@ -1,7 +1,7 @@
 //Configuration: cctx.xml
 //Testcase Number: 14744
-//Switches: -PrintSystemException  -CheckMemoryLeak-   -maxinterpretcount:1 -maxsimplejitruncount:2 -werexceptionsupport  -force:fieldhoist -forcejitloopbody -force:fieldcopyprop -MinSwitchJumpTableSize:3 -MaxLinearStringCaseCount:2 -MaxLinearIntCaseCount:2 -force:polymorphicinlinecache -forcedeferparse -force:inline -off:ArrayCheckHoist -force:atom -off:checkthis -off:NativeArray -force:rejit -off:aggressiveinttypespec -force:fixdataprops -force:ScriptFunctionWithInlineCache -off:fefixedmethods -ForceArrayBTree -off:lossyinttypespec -off:trackintusage -ValidateInlineStack -off:ParallelParse -off:DelayCapture -off:BoundCheckElimination -off:LoopCountBasedBoundCheckHoist -off:BoundCheckHoist -off:ArrayLengthHoist -off:bailonnoprofile -off:floattypespec -off:TypedArrayTypeSpec -off:EliminateArrayAccessHelperCall
-//Baseline Switches: -nonative -werexceptionsupport  -PrintSystemException  -CheckMemoryLeak-
+//Switches: -PrintSystemException  -CheckMemoryLeak-   -maxinterpretcount:1 -maxsimplejitruncount:2 -force:fieldhoist -forcejitloopbody -force:fieldcopyprop -MinSwitchJumpTableSize:3 -MaxLinearStringCaseCount:2 -MaxLinearIntCaseCount:2 -force:polymorphicinlinecache -forcedeferparse -force:inline -off:ArrayCheckHoist -force:atom -off:checkthis -off:NativeArray -force:rejit -off:aggressiveinttypespec -force:fixdataprops -force:ScriptFunctionWithInlineCache -off:fefixedmethods -ForceArrayBTree -off:lossyinttypespec -off:trackintusage -ValidateInlineStack -off:ParallelParse -off:DelayCapture -off:BoundCheckElimination -off:LoopCountBasedBoundCheckHoist -off:BoundCheckHoist -off:ArrayLengthHoist -off:bailonnoprofile -off:floattypespec -off:TypedArrayTypeSpec -off:EliminateArrayAccessHelperCall
+//Baseline Switches: -nonative -PrintSystemException  -CheckMemoryLeak-
 //Arch: AMD64
 //Flavor: chk
 //Branch: fbl_ie_stage_dev3

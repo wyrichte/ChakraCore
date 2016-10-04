@@ -136,7 +136,7 @@ public:
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
     void FirePeriodicDomTelemetry(GUID activityId);
-    void FireFinalDomTelemetry(GUID activityId);
+    void FireDomTelemetry(GUID activityId);
 #endif
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY_STATS

@@ -64,7 +64,6 @@
     <file src="internal\com\lib\arm\combasep.lib"                                                               target="internal\com\lib\arm" />
     <file src="internal\com\lib\arm64\combasep.lib"                                                             target="internal\com\lib\arm64" />
     <file src="internal\com\lib\i386\combasep.lib"                                                              target="internal\com\lib\i386" />
-    <file src="internal\enduser\inc\wsverp.h"                                                                   target="internal\enduser\inc" />
     <file src="internal\inetcore\inc\activdbg_private.h"                                                        target="internal\inetcore\inc" />
     <file src="internal\inetcore\inc\activscp_private.h"                                                        target="internal\inetcore\inc" />
     <file src="internal\inetcore\inc\corewebviewprivate.h"                                                      target="internal\inetcore\inc" />
@@ -288,8 +287,13 @@
     <file src="internal\minwin\priv_sdk\lib\i386\1.1\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.1" />
     <file src="internal\minwin\priv_sdk\lib\i386\1.3\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.3" />
     <file src="internal\minwin\priv_sdk\lib\i386\1.4\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.4" />
+    <file src="internal\onecore\priv_sdk\lib\amd64\onecore_forwarder_shlwapi.lib"                               target="internal\onecore\priv_sdk\lib\amd64\" />
+    <file src="internal\onecore\priv_sdk\lib\arm\onecore_forwarder_shlwapi.lib"                                 target="internal\onecore\priv_sdk\lib\arm\" />
+    <file src="internal\onecore\priv_sdk\lib\arm64\onecore_forwarder_shlwapi.lib"                               target="internal\onecore\priv_sdk\lib\arm64\" />
+    <file src="internal\onecore\priv_sdk\lib\i386\onecore_forwarder_shlwapi.lib"                                target="internal\onecore\priv_sdk\lib\i386\" />
     <file src="internal\onecorenet\inc\winnetp.h"                                                               target="internal\onecorenet\inc" />
     <file src="internal\onecoreshell\private\inc\shreghelpers.h"                                                target="internal\onecoreshell\private\inc" />
+    <file src="internal\onecoreuap\internal\buildmetadata\internal\windows.foundation.winmd"                    target="internal\sdk\winmetadata" />
     <file src="internal\onecoreuapinetcore\inc\activdbg_private.h"                                              target="internal\onecoreuapinetcore\inc" />
     <file src="internal\onecoreuapinetcore\inc\activscp_private.h"                                              target="internal\onecoreuapinetcore\inc" />
     <file src="internal\onecoreuapinetcore\inc\browsermode.h"                                                   target="internal\onecoreuapinetcore\inc" />
@@ -331,7 +335,6 @@
     <file src="internal\onecoreuapinetcore\inc\webplatform.h"                                                   target="internal\onecoreuapinetcore\inc" />
     <file src="internal\onecoreuapinetcore\inc\webplatformtypes.h"                                              target="internal\onecoreuapinetcore\inc" />
     <file src="internal\onecoreuapinetcore\inc\wininetcache.h"                                                  target="internal\onecoreuapinetcore\inc" />
-    <file src="internal\onecoreuapinetcore\inc\bpt\edgeprojectionsglue.js"                                      target="internal\onecoreuapinetcore\inc\bpt" />
     <file src="internal\onecoreuapinetcore\lib\amd64\edgejsstatic.lib"                                          target="internal\onecoreuapinetcore\lib\amd64" />
     <file src="internal\onecoreuapinetcore\lib\amd64\iertutilp.lib"                                             target="internal\onecoreuapinetcore\lib\amd64" />
     <file src="internal\onecoreuapinetcore\lib\amd64\iesettingsapi.lib"                                         target="internal\onecoreuapinetcore\lib\amd64" />
@@ -511,7 +514,6 @@
     <file src="internal\sdk\lib\i386\ucrt\legacy_stdio_wide_specifiers.lib"                                     target="internal\sdk\lib\i386\ucrt" />
     <file src="internal\sdk\lib\i386\ucrt\msvcrt.lib"                                                           target="internal\sdk\lib\i386\ucrt" />
     <file src="internal\sdk\lib\i386\ucrt\osmode_function_map.obj"                                              target="internal\sdk\lib\i386\ucrt" />
-    <file src="internal\sdk\winmetadata\windows.foundation.winmd"                                               target="internal\sdk\winmetadata" />
     <file src="internal\sdktools\inc\engextcpp.hpp"                                                             target="internal\sdktools\inc" />
     <file src="internal\sdktools\inc\stackprovdatatarget.h"                                                     target="internal\sdktools\inc" />
     <file src="internal\sdktools\inc\testcode.h"                                                                target="internal\sdktools\inc" />
@@ -710,8 +712,6 @@
     <file src="sdk\inc\anchorsyncdeviceservice.h"                                                               target="sdk\inc" />
     <file src="sdk\inc\animationcoordinator.h"                                                                  target="sdk\inc" />
     <file src="sdk\inc\animationcoordinator.idl"                                                                target="sdk\inc" />
-    <file src="sdk\inc\aowappruntime.h"                                                                         target="sdk\inc" />
-    <file src="sdk\inc\aowappruntime.idl"                                                                       target="sdk\inc" />
     <file src="sdk\inc\appcompatapi.h"                                                                          target="sdk\inc" />
     <file src="sdk\inc\appmgmt.h"                                                                               target="sdk\inc" />
     <file src="sdk\inc\appmodel.h"                                                                              target="sdk\inc" />
@@ -2610,8 +2610,6 @@
     <file src="sdk\inc\abi\windows.applicationmodel.calls.background.idl"                                       target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.applicationmodel.calls.h"                                                    target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.applicationmodel.calls.idl"                                                  target="sdk\inc\abi" />
-    <file src="sdk\inc\abi\windows.applicationmodel.calls.provider.h"                                           target="sdk\inc\abi" />
-    <file src="sdk\inc\abi\windows.applicationmodel.calls.provider.idl"                                         target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.applicationmodel.chat.h"                                                     target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.applicationmodel.chat.idl"                                                   target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.applicationmodel.contacts.dataprovider.h"                                    target="sdk\inc\abi" />
@@ -3253,190 +3251,7 @@
     <file src="sdk\inc\clientcore\apiset\api-ms-win-mm-joystick-l1.src"                                         target="sdk\inc\clientcore\apiset" />
     <file src="sdk\inc\clientcore\apiset\api-ms-win-mm-mci-l1.src"                                              target="sdk\inc\clientcore\apiset" />
     <file src="sdk\inc\clientcore\apiset\api-ms-win-mm-mme-l1.src"                                              target="sdk\inc\clientcore\apiset" />
-    <file src="sdk\inc\crt\agile.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\ammintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\arm64intr.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\arm64_neon.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\armintr.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\arm_neon.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\assert.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\cancellation_token.h"                                                                target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\collection.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\conio.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\corecrt_io.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\crtdbg.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\crtdefs.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\crtwrn.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\cstddef"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\ctype.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\direct.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\dos.h"                                                                               target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\dvec.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\eh.h"                                                                                target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\emmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\errno.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\exception"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\excpt.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\fcntl.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\float.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\fpieee.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\fvec.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\guardcfw.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\immintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\intrin.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\invkprxy.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\io.h"                                                                                target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\io.inl"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\ivec.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\limits.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\locale.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\malloc.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\math.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\mbctype.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\mbstring.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\memory.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\minmax.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\mm3dnow.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\mmintrin.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\new"                                                                                 target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\new.h"                                                                               target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\nmmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pmmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\ppl.h"                                                                               target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplcustom.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplinterface.h"                                                                      target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\ppltasks.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplx.cpp"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplx.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplxatomics.h"                                                                       target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplxdefs.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\pplxwin.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\process.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\rtcapi.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\search.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\setjmp.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\setjmpex.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\share.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\signal.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\smmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stdarg.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stddef.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stdexcpt.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stdint.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stdio.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stdlib.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stlshared.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\string.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\swprintf.inl"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\tchar.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\time.h"                                                                              target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\time.inl"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\tmmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\typeinfo.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\use_ansi.h"                                                                          target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\vadefs.h"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\varargs.h"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\wchar.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\wio.inl"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\wmmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\wtime.inl"                                                                           target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\xmmintrin.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\xstddef"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\yvals.h"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_100_exception"                                                                      target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_100_new"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_100_xstddef"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_100_yvals.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_110_exception"                                                                      target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_110_new"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_110_xstddef"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_110_yvals.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_70_exception"                                                                       target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_70_new"                                                                             target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_70_xstddef"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_70_yvals.h"                                                                         target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_fkg_exception"                                                                      target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_fkg_new"                                                                            target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_fkg_xstddef"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\_fkg_yvals.h"                                                                        target="sdk\inc\crt" />
-    <file src="sdk\inc\crt\stl70\algorithm"                                                                     target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\bitset"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cassert"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cctype"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cerrno"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cfloat"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\ciso646"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\climits"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\clocale"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cmath"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\complex"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\csetjmp"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\csignal"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cstdarg"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cstdio"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cstdlib"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cstring"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\ctime"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cwchar"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\cwctype"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\deque"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\fstream"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\functional"                                                                    target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\hash_map"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\hash_set"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\iomanip"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\ios"                                                                           target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\iosfwd"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\iostream"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\iso646.h"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\istream"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\iterator"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\limits"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\list"                                                                          target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\locale"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\map"                                                                           target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\memory"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\numeric"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\ostream"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\queue"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\set"                                                                           target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\sstream"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\stack"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\stdexcept"                                                                     target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\stl.h"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\streambuf"                                                                     target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\string"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\strstream"                                                                     target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\typeinfo"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\utility"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\valarray"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\vector"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\wctype.h"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xcomplex"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xdebug"                                                                        target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xhash"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xiosbase"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocale"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocinfo"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocinfo.h"                                                                    target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocmes"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocmon"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xlocnum"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xloctime"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xmemory"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xstring"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xtree"                                                                         target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\xutility"                                                                      target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\stl70\ymath.h"                                                                       target="sdk\inc\crt\stl70" />
-    <file src="sdk\inc\crt\sys\locking.h"                                                                       target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\stat.h"                                                                          target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\stat.inl"                                                                        target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\timeb.h"                                                                         target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\timeb.inl"                                                                       target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\types.h"                                                                         target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\utime.h"                                                                         target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\utime.inl"                                                                       target="sdk\inc\crt\sys" />
-    <file src="sdk\inc\crt\sys\wstat.inl"                                                                       target="sdk\inc\crt\sys" />
+    <file src="sdk\inc\crt\**"                                                                                  target="sdk\inc\crt" />
     <file src="sdk\inc\mincore\dsparse.h"                                                                       target="sdk\inc\mincore" />
     <file src="sdk\inc\mincore\jobapi2.h"                                                                       target="sdk\inc\mincore" />
     <file src="sdk\inc\mincore\namespaceapi.h"                                                                  target="sdk\inc\mincore" />
@@ -3701,6 +3516,7 @@
     <file src="sdk\lib\amd64\version.lib"                                                                       target="sdk\lib\amd64" />
     <file src="sdk\lib\amd64\wininet.lib"                                                                       target="sdk\lib\amd64" />
     <file src="sdk\lib\amd64\xmllite.lib"                                                                       target="sdk\lib\amd64" />
+    <file src="sdk\lib\amd64\onecore_downlevel.lib"                                                             target="sdk\lib\amd64" />
     <file src="sdk\lib\amd64\clr45\mscorlib.tlb"                                                                target="sdk\lib\amd64\clr45" />
     <file src="sdk\lib\amd64\clr45\system.enterpriseservices.tlb"                                               target="sdk\lib\amd64\clr45" />
     <file src="sdk\lib\arm\advapi32.lib"                                                                        target="sdk\lib\arm" />
@@ -3736,6 +3552,7 @@
     <file src="sdk\lib\arm\version.lib"                                                                         target="sdk\lib\arm" />
     <file src="sdk\lib\arm\wininet.lib"                                                                         target="sdk\lib\arm" />
     <file src="sdk\lib\arm\xmllite.lib"                                                                         target="sdk\lib\arm" />
+    <file src="sdk\lib\arm\onecore_downlevel.lib"                                                               target="sdk\lib\arm" />
     <file src="sdk\lib\arm\clr45\mscorlib.tlb"                                                                  target="sdk\lib\arm\clr45" />
     <file src="sdk\lib\arm\clr45\system.enterpriseservices.tlb"                                                 target="sdk\lib\arm\clr45" />
     <file src="sdk\lib\arm64\advapi32.lib"                                                                      target="sdk\lib\arm64" />
@@ -3770,6 +3587,7 @@
     <file src="sdk\lib\arm64\version.lib"                                                                       target="sdk\lib\arm64" />
     <file src="sdk\lib\arm64\wininet.lib"                                                                       target="sdk\lib\arm64" />
     <file src="sdk\lib\arm64\xmllite.lib"                                                                       target="sdk\lib\arm64" />
+    <file src="sdk\lib\arm64\onecore_downlevel.lib"                                                             target="sdk\lib\arm64" />
     <file src="sdk\lib\arm64\clr45\mscorlib.tlb"                                                                target="sdk\lib\arm64\clr45" />
     <file src="sdk\lib\arm64\clr45\system.enterpriseservices.tlb"                                               target="sdk\lib\arm64\clr45" />
     <file src="sdk\lib\i386\advapi32.lib"                                                                       target="sdk\lib\i386" />
@@ -3805,6 +3623,7 @@
     <file src="sdk\lib\i386\version.lib"                                                                        target="sdk\lib\i386" />
     <file src="sdk\lib\i386\wininet.lib"                                                                        target="sdk\lib\i386" />
     <file src="sdk\lib\i386\xmllite.lib"                                                                        target="sdk\lib\i386" />
+    <file src="sdk\lib\i386\onecore_downlevel.lib"                                                              target="sdk\lib\i386" />
     <file src="sdk\lib\i386\clr45\mscorlib.tlb"                                                                 target="sdk\lib\i386\clr45" />
     <file src="sdk\lib\i386\clr45\system.enterpriseservices.tlb"                                                target="sdk\lib\i386\clr45" />
     <file src="sdk\lib\mincore\amd64\mincore_fw.lib"                                                            target="sdk\lib\mincore\amd64" />
@@ -3944,6 +3763,8 @@
     <file src="shared\inc\dxgi1_4.idl"                                                                          target="shared\inc" />
     <file src="shared\inc\dxgi1_5.h"                                                                            target="shared\inc" />
     <file src="shared\inc\dxgi1_5.idl"                                                                          target="shared\inc" />
+    <file src="shared\inc\dxgicommon.h"                                                                         target="shared\inc" />
+    <file src="shared\inc\dxgicommon.idl"                                                                       target="shared\inc" />
     <file src="shared\inc\dxgiformat.h"                                                                         target="shared\inc" />
     <file src="shared\inc\dxgiformat.idl"                                                                       target="shared\inc" />
     <file src="shared\inc\dxgitype.h"                                                                           target="shared\inc" />

@@ -5,6 +5,7 @@
 
 #ifdef JD_PRIVATE
 #include "jdbytecode.h"
+#include "JDBackendUtil.h"
 #define MAX_LAYOUT_TYPE_NAME 255
 
 JDByteCode::JDByteCode(EXT_CLASS_BASE * ext, bool dumpProbeBackingBlock, bool verbose)
@@ -920,7 +921,7 @@ JDByteCode::DumpForRecyclableObject(ExtRemoteTyped recyclableObject)
 void
 JDByteCode::DumpForFunc(ExtRemoteTyped func)
 {
-    DumpForFunctionBody(func.Field("m_jnFunction"));    
+    DumpForFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func));
 }
 
 void

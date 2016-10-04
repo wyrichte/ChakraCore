@@ -352,7 +352,10 @@ namespace Js
     class JavascriptEnumeratorWrapper : public Js::JavascriptStaticEnumerator
     {
     public:
-        JavascriptEnumeratorWrapper() {};
+        JavascriptEnumeratorWrapper(Js::ScriptContext* scriptContext)
+        {
+            currentIndex = scriptContext->GetLibrary()->GetUndefined();
+        }
 
         BOOL MoveNext(PropertyAttributes * attributes = nullptr)
         {
@@ -403,7 +406,7 @@ namespace Js
             {
                 flags |= EnumeratorFlags::EnumSymbols;
             }
-            JavascriptEnumeratorWrapper * internalEnum = RecyclerNew(scriptContext->GetRecycler(), JavascriptEnumeratorWrapper);
+            JavascriptEnumeratorWrapper * internalEnum = RecyclerNew(scriptContext->GetRecycler(), JavascriptEnumeratorWrapper, scriptContext);
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;

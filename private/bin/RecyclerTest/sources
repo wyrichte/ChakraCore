@@ -49,15 +49,12 @@ TARGETLIBS=     \
     $(PROJECT_LIB_PATH)\IESettingsId.lib \
     $(PROJECT_LIB_PATH)\IESettingsApi.lib \
     $(JS_LIBS_COMMON) \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \
-    $(SDK_LIB_PATH)\ole32.lib \
-    $(SDK_LIB_PATH)\Shlwapi.lib \
-    $(SDK_LIB_PATH)\Uuid.lib \
-    $(SDK_LIB_PATH)\version.lib \
+    $(INTERNAL_SDK_LIB_PATH)\onecoreuapuuid.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
-    $(SDK_LIB_PATH)\user32.lib \
 !endif
 
 
