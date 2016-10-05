@@ -1930,8 +1930,11 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
             }
 
             // Catch the originating file error message and don't display it
-            if (!(excepInfo.callStack.frameCount == 1 && excepInfo.errorType.typeNumber == JsErrorType::JavascriptError && 
-                !wcscmp(excepInfo.exceptionInfo.bstrSource, _u("JavaScript runtime error")) && !wcscmp(excepInfo.exceptionInfo.bstrDescription, _u("")))
+            if (excepInfo.exceptionInfo.bstrDescription != nullptr
+                && !(excepInfo.callStack.frameCount == 1
+                    && excepInfo.errorType.typeNumber == JsErrorType::JavascriptError
+                    && !wcscmp(excepInfo.exceptionInfo.bstrSource, _u("JavaScript runtime error"))
+                    && !wcscmp(excepInfo.exceptionInfo.bstrDescription, _u("")))
                 && !this->delegateErrorHandling)
             {
                 fwprintf(stderr, _u("%s: %s\n"), MapExternalToES6ErrorText((JsErrorType)excepInfo.errorType.typeNumber), excepInfo.exceptionInfo.bstrDescription);
