@@ -99,7 +99,6 @@ TYPENAME_MAP( TypeIds_SymbolObject, Symbol )
 /*TYPENAME_MAP( TypeIds_MapIterator,  )*/
 /*TYPENAME_MAP( TypeIds_SetIterator,  )*/
 TYPENAME_MAP( TypeIds_StringIterator, StringIterator )
-/*TYPENAME_MAP( TypeIds_JavascriptEnumeratorIterator,  )*/
 TYPENAME_MAP( TypeIds_Generator, Generator )
 TYPENAME_MAP( TypeIds_Promise, Promise )
 TYPENAME_MAP( TypeIds_GlobalObject, Global )

@@ -950,7 +950,7 @@ namespace Js
         return ExternalObject::SetItem(index, value, flags);
     }
 
-    BOOL CustomExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext)
+    BOOL CustomExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext, ForInCache * forInCache)
     {
         HRESULT hr = FALSE;
         if (!this->VerifyObjectAlive())
@@ -970,9 +970,8 @@ namespace Js
             ThreadContext * threadContext = scriptContext->GetThreadContext();
             if (threadContext->IsDisableImplicitCall())
             {
-                enumerator->Clear();
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                return TRUE;
+                return FALSE;
             }
             BEGIN_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), 0, CustomExternalObject_GetEnumerator)
             {
@@ -998,7 +997,7 @@ namespace Js
                     varEnumerator->Release();
                     if (externalEnumerator == nullptr)
                     {
-                        enumerator->Clear();
+                        enumerator->Clear(flags, requestContext);
                     }
                     else
                     {
@@ -1008,11 +1007,11 @@ namespace Js
                     return TRUE;
                 }
             }
-            enumerator->Initialize(CreateEnumerator(requestContext, varEnumerator), nullptr, nullptr, flags, requestContext);
+            enumerator->Initialize(CreateEnumerator(requestContext, varEnumerator), nullptr, nullptr, flags, requestContext, nullptr);
             varEnumerator->Release();
             return TRUE;
         }
-        return ExternalObject::GetEnumerator(enumerator, flags, requestContext);
+        return ExternalObject::GetEnumerator(enumerator, flags, requestContext, forInCache);
     }
 
     // just to allow try_finally in caller function

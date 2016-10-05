@@ -231,6 +231,14 @@ JDByteCode::DumpBrReg1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 }
 
 void
+JDByteCode::DumpBrReg1Unsigned1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    DumpBr(layout, opcodeStr, nextOffset);
+    DumpReg(layout.Field("R1"));
+    DumpU4(layout.Field("C2"));
+}
+
+void
 JDByteCode::DumpBrReg2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpBr(layout, opcodeStr, nextOffset);
@@ -848,6 +856,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         else PROCESS_LAYOUT(Br)
         else PROCESS_LAYOUT(BrS)
         else PROCESS_LAYOUT(BrReg1)
+        else PROCESS_LAYOUT(BrReg1Unsigned1)
         else PROCESS_LAYOUT(BrReg2)
         else PROCESS_LAYOUT(StartCall)
         else PROCESS_LAYOUT(Arg)

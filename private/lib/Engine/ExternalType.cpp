@@ -170,10 +170,10 @@ namespace Js
         return DynamicObject::DeleteItem(index, flags);
     }
 
-    BOOL ExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext)
+    BOOL ExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext, ForInCache * forInCache)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
-        return __super::GetEnumerator(enumerator, flags, requestContext);
+        return __super::GetEnumerator(enumerator, flags, requestContext, forInCache);
     }
 
     BOOL ExternalObject::IsWritable(PropertyId propertyId)

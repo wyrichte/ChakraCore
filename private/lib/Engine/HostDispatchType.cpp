@@ -343,11 +343,11 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
     return result;
 }
 
-BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext)
+BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::ForInCache * forInCache)
 {    
     if (!this->CanSupportIDispatchEx())
     {
-        enumerator->Clear();
+        enumerator->Clear(flags, requestContext);
         return FALSE;
     }    
     HostDispatch * currentHostDispatch;
@@ -360,7 +360,7 @@ BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js
         currentHostDispatch = this;
     }
     return enumerator->Initialize(RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch),
-        nullptr, nullptr, flags, requestContext);
+        nullptr, nullptr, flags, requestContext, nullptr);
 }
 
 BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)

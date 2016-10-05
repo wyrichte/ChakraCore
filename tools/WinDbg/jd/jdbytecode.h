@@ -70,6 +70,7 @@ private:
     void DumpBr(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpBrS(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpBrReg1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpBrReg1Unsigned1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpBrReg2(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
 
     void DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
