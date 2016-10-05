@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 209,
+        "start": 582,
         "length": 20,
         "text": "return await af1(10)",
         "frameDescription": "af2"
@@ -14,7 +14,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 237,
+        "start": 610,
         "length": 13,
         "text": "var p = af2()",
         "frameDescription": "Global code"
@@ -24,7 +24,7 @@
   {
     "callstack": [
       {
-        "start": 99,
+        "start": 472,
         "length": 7,
         "text": "await a",
         "frameDescription": "af1"
@@ -36,7 +36,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 209,
+        "start": 582,
         "length": 20,
         "text": "return await af1(10)",
         "frameDescription": "af2"
@@ -48,7 +48,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 237,
+        "start": 610,
         "length": 13,
         "text": "var p = af2()",
         "frameDescription": "Global code"
@@ -58,7 +58,7 @@
   {
     "callstack": [
       {
-        "start": 209,
+        "start": 582,
         "length": 20,
         "text": "return await af1(10)",
         "frameDescription": "af2"
@@ -70,7 +70,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 237,
+        "start": 610,
         "length": 13,
         "text": "var p = af2()",
         "frameDescription": "Global code"
@@ -88,7 +88,7 @@
   {
     "callstack": [
       {
-        "start": 113,
+        "start": 486,
         "length": 34,
         "text": "return await foo.call({ x : 100 })",
         "frameDescription": "af1"
@@ -124,13 +124,13 @@
   {
     "callstack": [
       {
-        "start": 22,
+        "start": 395,
         "length": 13,
         "text": "return this.x",
         "frameDescription": "foo"
       },
       {
-        "start": 113,
+        "start": 486,
         "length": 34,
         "text": "return await foo.call({ x : 100 })",
         "frameDescription": "af1"
