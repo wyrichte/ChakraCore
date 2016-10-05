@@ -37,6 +37,7 @@
       <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</AdditionalDependencies>
       <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\memory\$(RazzleJscriptObjectDirectory)Chakra.Common.Memory.lib</AdditionalDependencies>
       <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\lib\MemProtectHeap\$(RazzleJscriptObjectDirectory)Chakra.MemProtectHeap.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(RazzleJscriptObjectRoot)\private\core_razzle_build\runtime\platformagnostic\$(RazzleJscriptObjectDirectory)Chakra.Runtime.PlatformAgnostic.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -68,6 +69,10 @@
     </ProjectReference>
     <ProjectReference Include="..\Chakra.MemProtectHeap.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-ee23812df31b}</Project>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\core\lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
+      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemGroup>

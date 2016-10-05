@@ -23,6 +23,7 @@ class Winrt2TsUnitTest
     // Winrt2Ts is run once in ClassSetup, then each test case validates the result for its corresponding input.
 
     BEGIN_TEST_CLASS(Winrt2TsUnitTest)
+		TEST_CLASS_PROPERTY(L"Ignore", L"true")
     END_TEST_CLASS()
 
     TEST_CLASS_SETUP(ClassSetup);
@@ -100,6 +101,9 @@ class Winrt2TsUnitTest
     TEST_METHOD(ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes);
     TEST_METHOD(InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent);
     TEST_METHOD(StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent);
+
+    // Special event handler projection
+    TEST_METHOD(EventHandlersHaveAugmentedPropertiesButPropertiesDont);
 
     bool FindInResult(LPCWSTR content);
 
@@ -198,35 +202,35 @@ static bool BeginsWith(const wstring& string, LPCWSTR substring)
 
 bool Winrt2TsUnitTest::ClassSetup()
 {
-	Configuration config;
+    Configuration config;
 
-	WEX::Common::String testDeploymentDir;
+    WEX::Common::String testDeploymentDir;
     WEX::Common::String testMetadataWinmdPath;
     if (RuntimeParameters::TryGetValue(L"TestMetadataWinmd", testMetadataWinmdPath) == S_OK)
     {
-		config.winmds.push_back(testMetadataWinmdPath.GetBuffer());
+        config.winmds.push_back(testMetadataWinmdPath.GetBuffer());
     }
-	else
-	{
-		RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
-		wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"TestMetadata.winmd");
-		config.winmds.push_back(defaultPath);
-	}
+    else
+    {
+        RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
+        wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"TestMetadata.winmd");
+        config.winmds.push_back(defaultPath);
+    }
 
     WEX::Common::String windowsFoundationWinmdPath;
     if (RuntimeParameters::TryGetValue(L"WindowsFoundationWinmd", windowsFoundationWinmdPath) == S_OK)
     {
-		config.winmds.push_back(windowsFoundationWinmdPath.GetBuffer());
+        config.winmds.push_back(windowsFoundationWinmdPath.GetBuffer());
     }
-	else
-	{
-		if (testDeploymentDir.IsEmpty())
-		{
-			RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
-		}
-		wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"Windows.Foundation.winmd");
-		config.winmds.push_back(defaultPath);
-	}
+    else
+    {
+        if (testDeploymentDir.IsEmpty())
+        {
+            RuntimeParameters::TryGetValue(L"TestDeploymentDir", testDeploymentDir);
+        }
+        wstring defaultPath = testDeploymentDir.GetBuffer() + wstring(L"Windows.Foundation.winmd");
+        config.winmds.push_back(defaultPath);
+    }
 
     // Redirect stdout to a string buffer
     wstringstream outStream;
@@ -502,10 +506,10 @@ void Winrt2TsUnitTest::InterfaceOwnAndInheritedMembers()
     // An interface that extends another interface should not include members from its parent in the TS definition.
 
     VERIFY_IS_TRUE(FindInResult(L"interface IChildInterface extends IParentInterface { "
-        L"addEventListener(type: \"baseevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"addEventListener(type: \"baseevent\", listener: (arg: { type: \"baseevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"method(): void; "
-        L"removeEventListener(type: \"baseevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"removeEventListener(type: \"baseevent\", listener: (arg: { type: \"baseevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"} "));
 }
@@ -640,7 +644,7 @@ void Winrt2TsUnitTest::ObjectType()
     // The IInspectable* WinRT type should be defined as any.
 
     VERIFY_IS_TRUE(FindInResult(L"interface IInterface { "
-        "iinspectableMethod(param: any): any; "
+        "iinspectableMethod(param: Object): Object; "
         "}"));
 }
 
@@ -721,14 +725,14 @@ void Winrt2TsUnitTest::PropertiesAndMethodsVisibility()
     // An event or property that references a [webhosthidden] or otherwise missing type in its parameters or return type should itself be hidden.
 
     VERIFY_IS_TRUE(FindInResult(L"interface IInterface { "
-        L"oneventvisibletype: Windows.Foundation.EventHandler<any>; "
+        L"oneventvisibletype: (arg: { type: \"eventvisibletype\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>; "
         L"propertyVisibleType: number; "
-        L"addEventListener(type: \"eventvisibletype\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"addEventListener(type: \"eventvisibletype\", listener: (arg: { type: \"eventvisibletype\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"overloadedMethod(param: number, param2: string): void; "
         L"overloadedMethod(param: number): void; "
         L"overloadedMethodWithInvisibleOverload(param: number): void; "
-        L"removeEventListener(type: \"eventvisibletype\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"removeEventListener(type: \"eventvisibletype\", listener: (arg: { type: \"eventvisibletype\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 }
@@ -779,21 +783,21 @@ void Winrt2TsUnitTest::InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClas
 
     VERIFY_IS_TRUE(FindInResult(L"interface IInterface { "
         L"conflictProperty: number; "
-        L"onconflictevent: Windows.Foundation.EventHandler<string>; "
-        L"addEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"onconflictevent: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
+        L"addEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"conflictMethod(myString: string): void; "
-        L"removeEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
     VERIFY_IS_TRUE(FindInResult(L"interface IOtherInterface { "
         L"conflictProperty: string; "
-        L"onconflictevent: Windows.Foundation.EventHandler<any>; "
-        L"addEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"onconflictevent: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>; "
+        L"addEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"conflictMethod(myInt: number): void; "
-        L"removeEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"removeEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
@@ -801,19 +805,19 @@ void Winrt2TsUnitTest::InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClas
         L"constructor(); "
         L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictProperty\": number; "
         L"conflictProperty: any; "
-        L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.onconflictevent\": (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"onconflictevent: (...args: any[]) => any; "
         L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictProperty\": string; "
-        L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.onconflictevent\": Windows.Foundation.EventHandler<any>; "
+        L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.onconflictevent\": (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>; "
         L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictMethod\"(myString: string): void; "
         L"conflictMethod(myString: string): void; "
         L"\"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictMethod\"(myInt: number): void; "
         L"conflictMethod(myInt: number): void; "
-        L"addEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
-        L"addEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"addEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
+        L"addEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"removeEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
-        L"removeEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
+        L"removeEventListener(type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: (arg: { type: \"InterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 }
@@ -826,26 +830,26 @@ void Winrt2TsUnitTest::InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent()
 
     VERIFY_IS_TRUE(FindInResult(L"interface IChildInterface extends IParentInterface { "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictProperty\"?: number; "
-        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\"?: Windows.Foundation.EventHandler<string>; "
+        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\"?: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictProperty\"?: number; "
-        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\"?: Windows.Foundation.EventHandler<string>; "
+        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\"?: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictMethod\"?(myString: string): void; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictMethod\"?(myString: string): void; "
-        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
     VERIFY_IS_TRUE(FindInResult(L"interface IParentInterface { "
         L"conflictProperty: number; "
-        L"onconflictevent: Windows.Foundation.EventHandler<string>; "
-        L"addEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"onconflictevent: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
+        L"addEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"conflictMethod(myString: string): void; "
-        L"removeEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
@@ -853,19 +857,19 @@ void Winrt2TsUnitTest::InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent()
         L"constructor(); "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictProperty\": number; "
         L"conflictProperty: any; "
-        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\": (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"onconflictevent: (...args: any[]) => any; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictProperty\": number; "
-        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\": (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictMethod\"(myString: string): void; "
         L"conflictMethod(myString: string): void; "
         L"\"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictMethod\"(myString: string): void; "
         L"conflictMethod(myString: string): void; "
-        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"addEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"removeEventListener(type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"InterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 }
@@ -875,44 +879,44 @@ void Winrt2TsUnitTest::StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEv
     // Fully qualified members of an interface should be defined as optional.
     // If a fully qualified member name appears in a runtime class as a static member, 
     // there is no need to emit the unqualified name as there is no inheritance relationship between the class and its static interface.
-
+    
     VERIFY_IS_TRUE(FindInResult(L"interface IChildInterface extends IParentInterface { "
         L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictProperty\"?: number; "
-        L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\"?: Windows.Foundation.EventHandler<string>; "
+        L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\"?: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictProperty\"?: number; "
-        L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\"?: Windows.Foundation.EventHandler<string>; "
+        L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\"?: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictMethod\"?(myInt: number): void; "
         L"\"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictMethod\"?(myString: string): void; "
-        L"addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
     VERIFY_IS_TRUE(FindInResult(L"interface IParentInterface { "
         L"conflictProperty: number; "
-        L"onconflictevent: Windows.Foundation.EventHandler<string>; "
-        L"addEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"onconflictevent: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
+        L"addEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"conflictMethod(myString: string): void; "
-        L"removeEventListener(type: \"conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"removeEventListener(type: \"conflictevent\", listener: (arg: { type: \"conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 
     VERIFY_IS_TRUE(FindInResult(L"abstract class StaticImplementsIChildInterface { "
         L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictProperty\": number; "
-        L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.onconflictevent\": (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictProperty\": number; "
-        L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.onconflictevent\": (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictMethod\"(myInt: number): void; "
         L"static \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictMethod\"(myString: string): void; "
-        L"static addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"static addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"static addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"static addEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"static addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"static removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"static removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
+        L"static removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IChildInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"static removeEventListener(type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\", listener: (arg: { type: \"StaticInterfaceAndClassHaveFullyQualifiedPropertyMethodEvent.IParentInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
         L"static removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
 }
@@ -926,16 +930,65 @@ void Winrt2TsUnitTest::ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethod
     VERIFY_IS_TRUE(FindInResult(L"class ImplementsConflictingInterfaces { "
         L"constructor(); "
         L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictProperty\": number; "
-        L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.onconflictevent\": Windows.Foundation.EventHandler<string>; "
+        L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.onconflictevent\": (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>; "
         L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictProperty\": string; "
-        L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.onconflictevent\": Windows.Foundation.EventHandler<any>; "
+        L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.onconflictevent\": (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>; "
         L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictMethod\"(myString: string): void; "
         L"\"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictMethod\"(myInt: number): void; "
-        L"addEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"addEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"addEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"addEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"addEventListener(type: string, listener: (...args: any[]) => any): void; "
-        L"removeEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: Windows.Foundation.EventHandler<string>): void; "
-        L"removeEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: Windows.Foundation.EventHandler<any>): void; "
+        L"removeEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\", listener: (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<string>) => Windows.Foundation.EventHandlerReturnType<string>): void; "
+        L"removeEventListener(type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\", listener: (arg: { type: \"ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoes.IOtherInterface.conflictevent\"; } & Windows.Foundation.EventHandlerArgumentType<Object>) => Windows.Foundation.EventHandlerReturnType<Object>): void; "
         L"removeEventListener(type: string, listener: (...args: any[]) => any): void; "
         L"}"));
+}
+
+void Winrt2TsUnitTest::EventHandlersHaveAugmentedPropertiesButPropertiesDont()
+{
+    VERIFY_IS_TRUE(FindInResult(L"interface HasSenderHasArgumentReturnsNumber { (sender: IEventSender, arg: IEventArguments): number }"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentReturnsNumberArgumentType = { detail: [IEventArguments]; target: IEventSender; } & IEventArguments;"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentReturnsNumberReturnType = number;"));
+    VERIFY_IS_TRUE(FindInResult(L"oneventfour: (arg: { type: \"eventfour\"; } & HasSenderHasArgumentReturnsNumberArgumentType) => HasSenderHasArgumentReturnsNumberReturnType;"));
+    VERIFY_IS_TRUE(FindInResult(L"addEventListener(type: \"eventfour\", listener: (arg: { type: \"eventfour\"; } & HasSenderHasArgumentReturnsNumberArgumentType) => HasSenderHasArgumentReturnsNumberReturnType): void;"));
+    VERIFY_IS_TRUE(FindInResult(L"removeEventListener(type: \"eventfour\", listener: (arg: { type: \"eventfour\"; } & HasSenderHasArgumentReturnsNumberArgumentType) => HasSenderHasArgumentReturnsNumberReturnType): void;"));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface HasSenderHasArguments { (sender: IEventSender, arg1: IEventArguments, arg2: IEventArguments): void } "));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentsArgumentType = { detail: [IEventArguments, IEventArguments]; target: IEventSender; } & IEventArguments; "));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentsReturnType = void; "));
+    VERIFY_IS_TRUE(FindInResult(L"oneventtwo: (arg: { type: \"eventtwo\"; } & HasSenderHasArgumentsArgumentType) => HasSenderHasArgumentsReturnType; "));
+    VERIFY_IS_TRUE(FindInResult(L"addEventListener(type: \"eventtwo\", listener: (arg: { type: \"eventtwo\"; } & HasSenderHasArgumentsArgumentType) => HasSenderHasArgumentsReturnType): void; "));
+    VERIFY_IS_TRUE(FindInResult(L"removeEventListener(type: \"eventtwo\", listener: (arg: { type: \"eventtwo\"; } & HasSenderHasArgumentsArgumentType) => HasSenderHasArgumentsReturnType): void; "));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface HasSenderHasArgumentsReturnsNumber { (sender: IEventSender, arg1: IEventArguments, arg2: IEventArguments): number }"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentsReturnsNumberArgumentType = { detail: [IEventArguments, IEventArguments]; target: IEventSender; } & IEventArguments;"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArgumentsReturnsNumberReturnType = number;"));
+    VERIFY_IS_TRUE(FindInResult(L"propertyTwo: HasSenderHasArgumentsReturnsNumber;"));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface HasSenderHasArrayArgument { (sender: IEventSender, value: number[]): void }"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArrayArgumentArgumentType = { detail: [number[]]; target: IEventSender; } & number[];"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderHasArrayArgumentReturnType = void;"));
+    VERIFY_IS_TRUE(FindInResult(L"oneventfive: (arg: { type: \"eventfive\"; } & HasSenderHasArrayArgumentArgumentType) => HasSenderHasArrayArgumentReturnType;"));
+    VERIFY_IS_TRUE(FindInResult(L"propertyOne: HasSenderHasArrayArgument;"));
+    VERIFY_IS_TRUE(FindInResult(L"addEventListener(type: \"eventfive\", listener: (arg: { type: \"eventfive\"; } & HasSenderHasArrayArgumentArgumentType) => HasSenderHasArrayArgumentReturnType): void;"));
+    VERIFY_IS_TRUE(FindInResult(L"removeEventListener(type: \"eventfive\", listener: (arg: { type: \"eventfive\"; } & HasSenderHasArrayArgumentArgumentType) => HasSenderHasArrayArgumentReturnType): void;"));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface HasSenderReturnsNumber { (sender: IEventSender): number }"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderReturnsNumberArgumentType = { detail: any[]; target: IEventSender; };"));
+    VERIFY_IS_TRUE(FindInResult(L"type HasSenderReturnsNumberReturnType = number;"));
+    VERIFY_IS_TRUE(FindInResult(L"oneventone: (arg: { type: \"eventone\"; } & HasSenderReturnsNumberArgumentType) => HasSenderReturnsNumberReturnType;"));
+    VERIFY_IS_TRUE(FindInResult(L"addEventListener(type: \"eventone\", listener: (arg: { type: \"eventone\"; } & HasSenderReturnsNumberArgumentType) => HasSenderReturnsNumberReturnType): void;"));
+    VERIFY_IS_TRUE(FindInResult(L"removeEventListener(type: \"eventone\", listener: (arg: { type: \"eventone\"; } & HasSenderReturnsNumberArgumentType) => HasSenderReturnsNumberReturnType): void;"));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface NoParams { (): void }"));
+    VERIFY_IS_TRUE(FindInResult(L"type NoParamsArgumentType = { detail: any[]; target: null; };"));
+    VERIFY_IS_TRUE(FindInResult(L"type NoParamsReturnType = void;"));
+    VERIFY_IS_TRUE(FindInResult(L"oneventthree: (arg: { type: \"eventthree\"; } & NoParamsArgumentType) => NoParamsReturnType;"));
+    VERIFY_IS_TRUE(FindInResult(L"addEventListener(type: \"eventthree\", listener: (arg: { type: \"eventthree\"; } & NoParamsArgumentType) => NoParamsReturnType): void;"));
+    VERIFY_IS_TRUE(FindInResult(L"removeEventListener(type: \"eventthree\", listener: (arg: { type: \"eventthree\"; } & NoParamsArgumentType) => NoParamsReturnType): void;"));
+
+    VERIFY_IS_TRUE(FindInResult(L"interface NoParamsReturnsNumber { (): number }"));
+    VERIFY_IS_TRUE(FindInResult(L"type NoParamsReturnsNumberArgumentType = { detail: any[]; target: null; };"));
+    VERIFY_IS_TRUE(FindInResult(L"type NoParamsReturnsNumberReturnType = number;"));
+    VERIFY_IS_TRUE(FindInResult(L"propertyThree: NoParamsReturnsNumber;"));
 }

@@ -4,6 +4,9 @@ DIRS = \
     wasmreader \
     runtime \
     backend \
+    JITServer \
+    JITClient \
+    JITIDL \
     jsrt \
     rl{noncrit} \
     

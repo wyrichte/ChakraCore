@@ -1,0 +1,25 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 574,
+        "length": 12,
+        "text": "abc.def = 10",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 676,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "bar"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

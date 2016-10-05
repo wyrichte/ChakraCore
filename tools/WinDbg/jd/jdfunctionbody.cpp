@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 #ifdef JD_PRIVATE
+#include "JDBackendUtil.h"
 
 void PrintFunctionBody(EXT_CLASS_BASE *ext, RemoteFunctionBody& functionBody)
 {
@@ -77,11 +78,11 @@ EXT_COMMAND(fb,
         }
         else if (strcmp(inputType, "Func") == 0 || strcmp(inputType, "Func *") == 0)
         {
-            functionBody = input.Field("m_jnFunction");
+            functionBody = JDBackendUtil::GetFunctionBodyFromFunc(input);
         }
         else if (strcmp(inputType, "IRBuilder") == 0 || strcmp(inputType, "IRBuilder *") == 0)
         {
-            functionBody = input.Field("m_functionBody");            
+            functionBody = input.Field("m_functionBody");
         }
         else
         {

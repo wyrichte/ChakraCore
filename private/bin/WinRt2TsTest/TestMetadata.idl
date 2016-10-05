@@ -835,4 +835,72 @@ namespace ExclusiveInterfaceDoesNotHaveFullyQualifiedPropertyMethodEventClassDoe
     }
 }
 
+namespace EventHandlersHaveAugmentedPropertiesButPropertiesDont
+{
+    [uuid("9C687674-A8F9-4C4D-AF90-55863A92935F")]
+    [version(0x0A000000)]
+    interface IEventArguments : IInspectable
+    {
+    }
 
+    [uuid("DCE9D944-012D-4E59-9CAA-4CF4F5C7E57A")]
+    [version(0x0A000000)]
+    interface IEventSender : IInspectable
+    {
+    }
+
+    [uuid("CF0C694D-B09C-4303-AF4C-5F6138D47FC3")]
+    [version(0x0A000000)]
+    delegate HRESULT HasSenderHasArrayArgument([in] IEventSender* sender, [in] UINT32 valueSize, [out][size_is(valueSize)] int* value);
+
+    [uuid("C3CDDFE9-3846-4372-AC25-09F8F0058336")]
+    [version(0x0A000000)]
+    delegate HRESULT HasSenderReturnsNumber([in] IEventSender* sender, [out][retval] int* retVal);
+
+    [uuid("D7F4898B-25C3-4FB6-B5F5-EA862024D194")]
+    [version(0x0A000000)]
+    delegate HRESULT HasSenderHasArgumentsReturnsNumber([in] IEventSender* sender, [in] IEventArguments* arg1, [in] IEventArguments* arg2, [out][retval] int* outParam);
+
+    [uuid("FE7865E9-2B65-409D-8433-ADE3BE538824")]
+    [version(0x0A000000)]
+    delegate HRESULT HasSenderHasArguments([in] IEventSender* sender, [in] IEventArguments* arg1, [in] IEventArguments* arg2);
+    
+    [uuid("B0157EB3-E522-4D54-8D67-267267A7D8D1")]
+    [version(0x0A000000)]
+    delegate HRESULT NoParams();
+
+    [uuid("6C08EE4C-9673-4D9E-9E54-A6A4B2CF4CB2")]
+    [version(0x0A000000)]
+    delegate HRESULT NoParamsReturnsNumber([out][retval] int* outParam);
+
+    [uuid("424A5CEC-90A9-4936-9460-32E6DD3F6E81")]
+    [version(0x0A000000)]
+    delegate HRESULT HasSenderHasArgumentReturnsNumber([in] IEventSender* sender, [in] IEventArguments* arg, [out][retval] int* outParam);
+    
+    [uuid("5E8A6C25-19BF-40D3-9C08-9D12BA3E0F35")]
+    [version(0x0A000000)]
+    interface IContainerInterface : IInspectable
+    {
+        [eventadd] HRESULT EventOne([in] HasSenderReturnsNumber* handler, [out][retval] EventRegistrationToken* token);
+        [eventremove] HRESULT EventOne([in] EventRegistrationToken token);
+
+        [eventadd] HRESULT EventTwo([in] HasSenderHasArguments* handler, [out][retval] EventRegistrationToken* token);
+        [eventremove] HRESULT EventTwo([in] EventRegistrationToken token);
+
+        [eventadd] HRESULT EventThree([in] NoParams* handler, [out][retval] EventRegistrationToken* token);
+        [eventremove] HRESULT EventThree([in] EventRegistrationToken token);
+
+        [eventadd] HRESULT EventFour([in] HasSenderHasArgumentReturnsNumber* handler, [out][retval] EventRegistrationToken* token);
+        [eventremove] HRESULT EventFour([in] EventRegistrationToken token);
+
+        [eventadd] HRESULT EventFive([in] HasSenderHasArrayArgument* handler, [out][retval] EventRegistrationToken* token);
+        [eventremove] HRESULT EventFive([in] EventRegistrationToken token);
+
+        [propget] HRESULT PropertyOne([out][retval] HasSenderHasArrayArgument** value);
+
+        [propget] HRESULT PropertyTwo([out][retval] HasSenderHasArgumentsReturnsNumber** value);
+
+        [propget] HRESULT PropertyThree([out][retval] NoParamsReturnsNumber** value);
+    }
+
+}

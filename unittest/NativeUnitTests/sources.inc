@@ -1,14 +1,14 @@
 TARGETLIBS=     \
-    $(SDK_LIB_PATH)\Uuid.lib \
+    $(INTERNAL_SDK_LIB_PATH)\onecoreuapuuid.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \
-    $(SDK_LIB_PATH)\ole32.lib \
-    $(SDK_LIB_PATH)\advapi32.lib \
-    $(SDK_LIB_PATH)\kernel32.lib \
-    $(SDK_LIB_PATH)\shell32.lib \
-    $(SDK_LIB_PATH)\version.lib \
-    $(SDK_LIB_PATH)\shlwapi.lib \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
+     \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
+     \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
+     \
     $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
 !if !$(FREEBUILD)
-    $(SDK_LIB_PATH)\user32.lib \
+     \
 !endif

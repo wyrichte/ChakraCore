@@ -373,6 +373,8 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
         baselineFilename.append(_u("\\"));
     }
 
+    bool createNewBaseline = false;
+
     if (m_baselineFilename.empty())
     {
         // test.js.baseline
@@ -387,6 +389,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
         else
         {
             DebuggerController::LogError(_u("Failed opening baseline file, baseline will be created at '%s'"), baselineFilename.c_str());
+            createNewBaseline = true;
         }
     }
     else
@@ -411,7 +414,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
     passed = (val == 0);
 
     // If the test failed, or a new baseline was requested, write out a baseline
-    if (!passed || m_baselineFilename.empty())
+    if (!passed || createNewBaseline)
     {
         JsrtCheckError(m_scriptWrapper->CallGlobalFunction(_u("GetOutputJson"), &result));
         IfFailGo(JScript9Interface::JsrtStringToPointer(result, &baselineData, &baselineDataLength));
@@ -427,7 +430,7 @@ HRESULT DebuggerController::VerifyAndWriteNewBaselineFile(std::wstring const& fi
         }
 
         std::wstring newFile = baselineFilename;
-        if (!passed && !m_baselineFilename.empty())
+        if (!passed && !createNewBaseline)
         {
             newFile = baselineFilename + _u(".rebase");
         }

@@ -97,7 +97,7 @@ namespace Js
         *deepClone = SCADeepCloneType::None;
         bool isObject = true;
 
-        if (typeId == SCA_Transferable)
+        if (typeId == SCA_Transferable || typeId == SCA_Sharable)
         {
             scaposition_t pos;
             m_reader->Read(&pos);
@@ -224,6 +224,16 @@ namespace Js
                 uint32 len;
                 m_reader->Read(&len);
                 ArrayBuffer* arrayBuffer = lib->CreateArrayBuffer(len);
+                Read(arrayBuffer->GetBuffer(), arrayBuffer->GetByteLength());
+                *dst = arrayBuffer;
+            }
+            break;
+
+        case SCA_SharedArrayBuffer:
+            {
+                uint32 len;
+                m_reader->Read(&len);
+                SharedArrayBuffer* arrayBuffer = lib->CreateSharedArrayBuffer(len);
                 Read(arrayBuffer->GetBuffer(), arrayBuffer->GetByteLength());
                 *dst = arrayBuffer;
             }

@@ -21,14 +21,12 @@
       <tags>exclude_serialized,exclude_dynapogo</tags>
     </default>
   </test>
-<!--
   <test>
     <default>
       <files>proto_basic.html</files>
       <baseline>proto_basic.baseline</baseline>
     </default>
   </test>
--->
   <test>
     <default>
       <files>weakmap_DOMkey.html</files>

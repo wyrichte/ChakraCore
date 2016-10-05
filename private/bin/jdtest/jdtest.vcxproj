@@ -35,6 +35,7 @@
         $(ChakraRootDirectory)private\Lib;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
+        $(ChakraRootDirectory)core\lib\CodeGenClient;
         
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
@@ -48,14 +49,10 @@
     <Link>
       <AdditionalDependencies>
         %(AdditionalDependencies);
-        $(SdkLibPath)\kernel32.lib;
-        $(SdkLibPath)\user32.lib;        
-        $(SdkLibPath)\ole32.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\dbgeng.lib;
-        $(SdkLibPath)\shlwapi.lib;
         $(SdkLibPath)\oleaut32.lib;
-        $(SdkLibPath)\advapi32.lib
+        $(SdkLibPath)\onecore_downlevel.lib
       </AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <!-- Always use LTCG since atls_nouser32.lib contain /GL objects -->

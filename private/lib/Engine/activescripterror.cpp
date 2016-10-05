@@ -219,11 +219,6 @@ STDMETHODIMP ActiveScriptError::GetStackFrame(IDebugStackFrame **ppStackFrame)
 
 HRESULT ActiveScriptError::GetExtendedExceptionInfo(ExtendedExceptionInfo *excepInfo)
 {
-    if (!Js::Configuration::Global.flags.WERExceptionSupport)
-    {
-        return E_NOTIMPL;
-    }
-
     CHECK_POINTER(excepInfo);
     memset(excepInfo, 0, sizeof(ExtendedExceptionInfo));
     HRESULT hr = FillText(excepInfo->errorType.typeText, m_ei.errorType.typeText);

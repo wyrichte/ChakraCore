@@ -31,6 +31,8 @@
 #include "..\Telemetry\ScriptEngineTelemetry.h"
 #endif
 
+#include "JITClient.h"
+
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
 #define Compile (this->*(CompileFunction))
@@ -798,7 +800,7 @@ STDMETHODIMP ScriptEngine::GetScriptTextAttributes(__RPC__in_ecount_full(uNumCod
     __RPC__inout_ecount_full(uNumCodeChars) SOURCE_TEXT_ATTR *prgsta)
 {
     //EDMAURER Start returning an error in the event that someone requests attributes.
-    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers, 
+    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers,
     //see if it is time to remove AttrParser.
 
     return E_NOTIMPL;
@@ -820,7 +822,7 @@ STDMETHODIMP ScriptEngine::GetScriptletTextAttributes(__RPC__in_ecount_full(cch)
     __RPC__inout_ecount_full(cch) SOURCE_TEXT_ATTR *prgsta)
 {
     //EDMAURER Start returning an error in the event that someone requests attributes.
-    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers, 
+    //I don't think that anyone using Chakra.dll is using this. In the event that nobody hollers,
     //see if it is time to remove AttrParser.
 
     return E_NOTIMPL;
@@ -867,8 +869,8 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
     }
 
     // Stop on exception should take higher precedence over any other break.
-    if (Js::STOP_EXCEPTIONTHROW == haltState->stopType 
-        || Js::STOP_INLINEBREAKPOINT == haltState->stopType 
+    if (Js::STOP_EXCEPTIONTHROW == haltState->stopType
+        || Js::STOP_INLINEBREAKPOINT == haltState->stopType
         || Js::STOP_BREAKPOINT == haltState->stopType
         || Js::STOP_MUTATIONBREAKPOINT == haltState->stopType
         || !GetScriptSiteHolder()->FOneTimeBreak(&br))
@@ -1542,7 +1544,7 @@ HRESULT ScriptEngine::DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBr
         // An extra addref to the site so that they won't get deleted while on the debugger thread.
         // Also, keep a local variable for the site as that might be null if script engine is closed
         AutoCOMPtr<ScriptSite> spScriptSite(this->GetScriptSiteHolder());
-        
+
         hr = m_pda->HandleBreakPoint(br, pBra);
 
         DbgSetAllowUserToRecoverTab(spActiveScriptSite, true);
@@ -1561,7 +1563,7 @@ void ScriptEngine::DbgSetAllowUserToRecoverTab(IActiveScriptSite* scriptSite, bo
         varIn.vt = VT_BOOL;
         varIn.boolVal = (fAllowUserToRecoverTab ? VARIANT_TRUE : VARIANT_FALSE);
 
-        const GUID cgidScriptSite = CGID_ScriptSite;        
+        const GUID cgidScriptSite = CGID_ScriptSite;
         HRESULT hr = pOleCommandTarget->Exec(&cgidScriptSite, CMDID_SCRIPTSITE_ALLOWRECOVERY, 0, &varIn, nullptr);
         Unused(hr);     // Good to leave around for debugging
         pOleCommandTarget->Release();
@@ -1760,7 +1762,7 @@ HRESULT ScriptEngine::GetDebugDocumentContextFromHostPosition(
             pDebugDocument = static_cast<ScriptDebugDocument*>(pUtf8SourceInfo->GetDebugDocument());
         }
         else if (pUtf8SourceInfo->IsDynamic())  // This could be the case when current dynamic document is not registered to the PDM.
-        { 
+        {
             // Register this document at this point.
             pFunctionBody->CheckAndRegisterFuncToDiag(pContext);
             if (pUtf8SourceInfo->HasDebugDocument())
@@ -1891,7 +1893,7 @@ STDMETHODIMP ScriptEngine::EnumStackFrames(IEnumDebugStackFrames **ppedsf)
 #if DBG
         // Validates if there are no javascript frame after we have broken to the debugger.
         threadContext->GetDebugManager()->ValidateDebugAPICall();
-#endif 
+#endif
 
         CEnumDebugStackFrames * pedsf = new CEnumDebugStackFrames(this->GetScriptSiteHolder());
 
@@ -2528,7 +2530,7 @@ HRESULT ScriptEngine::GetDefaultDebugApplication(IDebugApplication **ppda)
     HRESULT hr;
     IProcessDebugManager *ppdm;
     IDebugApplication *pda = nullptr;
-    
+
     if (ShouldUseLocalPDM())
     {
         if (FAILED(hr = LoadLatestPDM(__uuidof(ProcessDebugManager), __uuidof(IProcessDebugManager), (void**)&ppdm)))
@@ -2983,7 +2985,7 @@ STDMETHODIMP ScriptEngine::Reset(BOOL fFull)
     }
 
     this->RemoveScriptBodyMap();
-    
+
     this->CleanupHalt();    // Release alll the debug stack frames in the list before null out the list.
     this->debugStackFrame = nullptr; // Memory for debugStackFrame will be reclaimed when we release the script site and the script context below
 
@@ -4132,7 +4134,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     AutoIdleDecommit autoIdleDecommit(scriptContext->GetRecycler());
 
     // SCRIPTTEXT_ISXDOMAINSTRING is a private flag, not part of SCRIPTTEXT_ALL_FLAGS
-    // defined in activscp.idl, and it should not be available in other IAS methods. 
+    // defined in activscp.idl, and it should not be available in other IAS methods.
     dwFlags &= (SCRIPTTEXT_ALL_FLAGS | SCRIPTTEXT_ISXDOMAINSTRING);
 
     // If they ask for a result or we are started, force immediate execution
@@ -4223,7 +4225,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
                 hRes = spActiveScriptContext->IsDynamicDocument(&isDynamicDocument);
                 Assert(SUCCEEDED(hRes));
 
-                // If there is no map, for script elements it returns S_OK and BSTR param receives null/empty, 
+                // If there is no map, for script elements it returns S_OK and BSTR param receives null/empty,
                 // for non-script elements it returns E_NOTIMPL.
                 hRes = spActiveScriptContext->GetSourceMapUrl(&sourceMapUrl);
                 Assert(SUCCEEDED(hRes) || hRes == E_NOTIMPL);
@@ -4418,7 +4420,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
             hRes = spActiveScriptContext->IsDynamicDocument(&isDynamicDocument);
             Assert(SUCCEEDED(hRes));
 
-            // If there is no map, for script elements it returns S_OK and BSTR param receives null/empty, 
+            // If there is no map, for script elements it returns S_OK and BSTR param receives null/empty,
             // for non-script elements it returns E_NOTIMPL.
             hRes = spActiveScriptContext->GetSourceMapUrl(&sourceMapUrl);
             Assert(SUCCEEDED(hRes) || hRes == E_NOTIMPL);
@@ -5360,7 +5362,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     auto unpack = (BYTE**)bytesAndSourceAndModule;
     auto byteCode = unpack[0];
 
-    auto sourceMapper = (IActiveScriptByteCodeSource *)unpack[1];   
+    auto sourceMapper = (IActiveScriptByteCodeSource *)unpack[1];
     Js::ISourceHolder* sourceHolder = (Js::DynamicSourceHolder *)RecyclerNewFinalized(scriptContext->GetRecycler(), Js::DynamicSourceHolder, sourceMapper);
     Js::NativeModule * nativeModule = nullptr;
     hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, grfscr, sourceHolder, scriptContext->AddHostSrcInfo(srcInfo), (byte*) byteCode, nativeModule, &rootFunction);
@@ -5514,7 +5516,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     HRESULT hr = S_OK;
     Assert(this->scriptContext == GetScriptSiteHolder()->GetScriptSiteContext());
 
-    // Normally we should transition to debug mode through attach call but if debugging is allowed in IE settings 
+    // Normally we should transition to debug mode through attach call but if debugging is allowed in IE settings
     // or page is refreshed when F12 is opened attach won't be called and we will directly go into debug mode.
     // EnsureScriptContext should take care of it but there are few cases when host is not in debug mode when we call EnsureScriptContext
     // so we will only transition to debug mode when first source is compiled. m_isFirstSourceCompile takes care of it
@@ -5551,7 +5553,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     Assert(scriptContext->IsScriptContextInNonDebugMode());
 
                     scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, ppbody);
-                    (*ppbody)->Release();                   
+                    (*ppbody)->Release();
                     scriptBodyMap->Add(utf8SourceInfo, newBody);
                     *ppbody = newBody;
                 }
@@ -5630,8 +5632,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 // in the debugger
                 CScriptBody* scriptBody = HeapNewNoThrow(CScriptBody, /*functionBody*/ nullptr, this, utf8SourceInfo);
                 if(scriptBody)
-                {                    
-                    DbgRegisterScriptBlock(scriptBody);       
+                {
+                    DbgRegisterScriptBlock(scriptBody);
                     // Always need to release the ref count of script body.  If DbgRegisterScriptBlock is successful, it will do its own AddRef
                     RELEASEPTR(scriptBody);
                 }
@@ -5672,7 +5674,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, hostSrcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
 
                 if (SUCCEEDED(hr))
-                {                    
+                {
                     OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Serialization succeeded.\n"));
                     pRootFunc = deserializedFunction;
                 }
@@ -6077,7 +6079,7 @@ LVersionInfo:
             pvarValue->boolVal = this->m_fIsEvalRestrict ? VARIANT_TRUE : VARIANT_FALSE;
             return NOERROR;
         }
-    
+
     case SCRIPTPROP_ALLOW_WINRT_CONSTRUCTOR:
         {
             pvarValue->vt = VT_BOOL;
@@ -6188,7 +6190,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
         {
             Version_Inconsistency_fatal_error();
         }
-                
+
         return NOERROR;
 
         // Set the host type: Browser(IE)/Application(WWA).
@@ -6203,15 +6205,9 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             // Note: SCRIPTHOSTTYPE_DEFAULT is used to detect engines that didn't set the host type,
             // but it's not valid for real engine to set it, that's why '<='.
             return E_INVALIDARG;
-        }       
+        }
 
         this->hostType = pvarValue->lVal;
-
-        if (this->hostType == SCRIPTHOSTTYPE_APPLICATION || this->hostType == SCRIPTHOSTTYPE_WEBVIEW)
-        {
-            // The host is WinRT enabled, so enable WER exception support
-            Js::Configuration::Global.flags.WERExceptionSupport = TRUE;
-        }
         return NOERROR;
 
     case SCRIPTPROP_NONPRIMARYENGINE:
@@ -6303,7 +6299,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             {
                 return E_INVALIDARG;
             }
-            // Ignore web platform version, we don't use it currently.        
+            // Ignore web platform version, we don't use it currently.
             return NOERROR;
         }
     case SCRIPTPROP_EMIE:
@@ -6320,7 +6316,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             {
                 // EMIE not supported, Fail Fast?
                 Version_Inconsistency_fatal_error();
-            }            
+            }
             return NOERROR;
         }
     case SCRIPTPROP_DIAGNOSTICS_OM:
@@ -6340,14 +6336,14 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             {
                 return E_INVALIDARG;
             }
-            
+
             this->m_fIsEvalRestrict = (pvarValue->boolVal != VARIANT_FALSE);
 
             Js::JavascriptMethod newFunctionFunc = &Js::JavascriptFunction::NewInstance;
             Js::JavascriptMethod newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstance;
             Js::JavascriptMethod newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstance;
             Js::JavascriptMethod evalFunc = &Js::GlobalObject::EntryEval;
-            
+
             if (this->m_fIsEvalRestrict)
             {
                 newFunctionFunc = &Js::JavascriptFunction::NewInstanceRestrictedMode;
@@ -6355,7 +6351,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
                 newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode;
                 evalFunc = &Js::GlobalObject::EntryEvalRestrictedMode;
             }
-            
+
             if (scriptContext != nullptr)
             {
                 Js::JavascriptLibrary *library = scriptContext->GetLibrary();
@@ -7036,6 +7032,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetTridentLoadAddress(__in void* loadAdd
     return S_OK;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITConnectionInfo(__in HANDLE jitProcHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionId)
+{
+    JITManager::GetJITManager()->EnableOOPJIT();
+    ThreadContext::GetContextForCurrentThread()->SetJITConnectionInfo(jitProcHandle, serverSecurityDescriptor, connectionId);
+    return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngine::SetJITInfoForScript()
+{
+    return S_OK;
+}
+
 /*static*/
 void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::ScriptContext *scriptContext, Js::Utf8SourceInfo *sourceInfo)
 {
@@ -7086,7 +7094,7 @@ void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DEBU
         {
             IDebugApplication *debugApplication = scriptEngine->GetDebugApplication();
             if (debugApplication != nullptr)
-            {                
+            {
                 CComPtr<RemoteDebugInfoEvent> remoteDebugInfo(HeapNewNoThrow(RemoteDebugInfoEvent, messageType, message, url));
                 debugApplication->FireDebuggerEvent(__uuidof(IRemoteDebugInfoEvent110),
                     static_cast<IUnknown *>(static_cast<IRemoteDebugInfoEvent110 *>(remoteDebugInfo)));
@@ -7212,7 +7220,7 @@ IsOs_OneCoreUAP()
                 ulPlatform == 6 || /* DEVICEFAMILYINFOENUM_TEAM    */
                 ulPlatform == 9)   /* DEVICEFAMILYINFOENUM_SERVER  */
             {
-                // The only exceptions are desktop, team, and server which still have the legacy Win32 
+                // The only exceptions are desktop, team, and server which still have the legacy Win32
                 // binaries to support the desktop configuration.
                 s_fIsOsOneCoreUAP = false;
             }

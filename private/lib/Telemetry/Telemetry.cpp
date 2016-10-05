@@ -883,7 +883,10 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
                 );
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
-            FireFinalDomTelemetry(activityId);
+            // This is called inside a block that just checked whether we should
+            // throttle or not - no need to check again in the callee so call the function
+            // that just directly logs instead.
+            FireDomTelemetry(activityId);
 #endif
 
             ResetTelemetryStats(threadContext);
@@ -894,26 +897,26 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
 void TraceLoggingClient::FirePeriodicDomTelemetry(GUID activityId)
 {
+    if (!this->throttle.isThrottled())
+    {
+        FireDomTelemetry(activityId);
+    }
+}
+
+void TraceLoggingClient::FireDomTelemetry(GUID activityId)
+{
     void *data;
     uint16 dataSize;
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
     threadContext->directCallTelemetry.GetBinaryData(&data, &dataSize);
 
-    if (!this->throttle.isThrottled())
-    {
-        TraceLogChakra(
-            TL_DIRECTCALLRAW,
-            TraceLoggingGuid(activityId, "activityId"),
-            TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),
-            TraceLoggingUInt64(reinterpret_cast<uint64>(threadContext->GetTridentLoadAddress()), "TridentLoadAddress"),
-            TraceLoggingBinary(data, dataSize, "Data")
-            );
-    }
-}
-
-void TraceLoggingClient::FireFinalDomTelemetry(GUID activityId)
-{
-    FirePeriodicDomTelemetry(activityId);
+    TraceLogChakra(
+        TL_DIRECTCALLRAW,
+        TraceLoggingGuid(activityId, "activityId"),
+        TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),
+        TraceLoggingUInt64(reinterpret_cast<uint64>(threadContext->GetTridentLoadAddress()), "TridentLoadAddress"),
+        TraceLoggingBinary(data, dataSize, "Data")
+        );
 }
 #endif
 

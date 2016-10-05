@@ -209,7 +209,7 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
                         JavascriptTypeId typeId;
                         IfFailGo(pScriptDirect.GetItem(transferVars, index, &value));
                         IfFailGo(pScriptDirect->GetTypeIdForVar(value, &typeId));                        
-                        if (typeId != TypeIds_ArrayBuffer)
+                        if (typeId != TypeIds_ArrayBuffer && typeId != TypeIds_SharedArrayBuffer)
                         {
                             continue;
                         }

@@ -1,0 +1,1026 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "justRest"
+      },
+      {
+        "start": 449,
+        "length": 10,
+        "text": "justRest()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "justRest"
+      },
+      {
+        "start": 462,
+        "length": 17,
+        "text": "justRest(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[1,2,3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 632,
+        "length": 12,
+        "text": "someParams()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 647,
+        "length": 13,
+        "text": "someParams(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 663,
+        "length": 16,
+        "text": "someParams(1, 2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 682,
+        "length": 19,
+        "text": "someParams(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 704,
+        "length": 22,
+        "text": "someParams(1, 2, 3, 4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      },
+      {
+        "start": 729,
+        "length": 25,
+        "text": "someParams(1, 2, 3, 4, 5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4,5]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4,5]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 898,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.justRest"
+      },
+      {
+        "start": 1018,
+        "length": 17,
+        "text": "classC.justRest()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 898,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.justRest"
+      },
+      {
+        "start": 1038,
+        "length": 24,
+        "text": "classC.justRest(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[1,2,3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1067,
+        "length": 19,
+        "text": "classC.someParams()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1089,
+        "length": 20,
+        "text": "classC.someParams(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1112,
+        "length": 23,
+        "text": "classC.someParams(1, 2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1138,
+        "length": 26,
+        "text": "classC.someParams(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1167,
+        "length": 29,
+        "text": "classC.someParams(1, 2, 3, 4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 985,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "C.prototype.someParams"
+      },
+      {
+        "start": 1199,
+        "length": 32,
+        "text": "classC.someParams(1, 2, 3, 4, 5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4,5]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4,5]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1315,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowJustRest"
+      },
+      {
+        "start": 1320,
+        "length": 15,
+        "text": "arrowJustRest()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1315,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowJustRest"
+      },
+      {
+        "start": 1338,
+        "length": 22,
+        "text": "arrowJustRest(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "[1,2,3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1463,
+        "length": 17,
+        "text": "arrowSomeParams()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1483,
+        "length": 18,
+        "text": "arrowSomeParams(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1504,
+        "length": 21,
+        "text": "arrowSomeParams(1, 2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1528,
+        "length": 24,
+        "text": "arrowSomeParams(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1555,
+        "length": 27,
+        "text": "arrowSomeParams(1, 2, 3, 4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1458,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "arrowSomeParams"
+      },
+      {
+        "start": 1585,
+        "length": 30,
+        "text": "arrowSomeParams(1, 2, 3, 4, 5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "null",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4,5]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4,5]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1701,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.justRest"
+      },
+      {
+        "start": 1797,
+        "length": 14,
+        "text": "obj.justRest()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1701,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.justRest"
+      },
+      {
+        "start": 1814,
+        "length": 21,
+        "text": "obj.justRest(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[1,2,3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1840,
+        "length": 16,
+        "text": "obj.someParams()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1859,
+        "length": 17,
+        "text": "obj.someParams(1)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1879,
+        "length": 20,
+        "text": "obj.someParams(1, 2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1902,
+        "length": 23,
+        "text": "obj.someParams(1, 2, 3)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1928,
+        "length": 26,
+        "text": "obj.someParams(1, 2, 3, 4)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 1789,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "obj.someParams"
+      },
+      {
+        "start": 1957,
+        "length": 29,
+        "text": "obj.someParams(1, 2, 3, 4, 5)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "1",
+      "b": "2",
+      "c": "[3,4,5]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[1,2,3,4,5]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 444,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "justRest"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "a": "[]"
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 627,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "someParams"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "a": "undefined",
+      "b": "undefined",
+      "c": "[]",
+      "[Globals]": ""
+    }
+  },
+  {
+    "evaluate": {
+      "[a, b, c]": "[,,]"
+    }
+  }
+]

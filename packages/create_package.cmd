@@ -27,7 +27,7 @@ if not exist %NUGET_PACKAGE_OUT% (
 )
 
 if "%NUGET_PATH%" EQU "" (
-    set NUGET_PATH=\\chakrafs01\Nuget\support
+    set NUGET_PATH=\\chakrafs\fs\Misc\NuGet\Support
 )
 
 if "%NUGET_BASE_PATH%" EQU "" (

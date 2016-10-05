@@ -384,7 +384,6 @@ STDAPIEXPORT DllCanUnloadNow(void)
     {
         return hr;
     }
-
     if (_Module.GetLockCount() == 0)
     {
         // Since DestoryAllContexts will wait for thread finish, we can't have THREAD_DETACH

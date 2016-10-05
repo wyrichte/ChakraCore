@@ -19,4 +19,12 @@
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4467; <!-- warning C4467: "usage of ATL attributes is deprecated" (in IELibs IWebWorkerLifetime.hpp) -->
+      </DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
 </Project>

@@ -162,6 +162,7 @@
       <tags>exclude_jsrt</tags>
     </default>
   </test>
+<!-- Temporarly disabling test BUG#7981418
   <test>
     <default>
       <files>dump.js</files>
@@ -207,6 +208,7 @@
       </override>
     </condition>
   </test>
+-->
   <test>
     <default>
       <files>dump3.js</files>

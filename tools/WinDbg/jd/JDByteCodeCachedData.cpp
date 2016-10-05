@@ -27,11 +27,21 @@ JDByteCodeCachedData::Ensure()
         TotalNumberOfBuiltInProperties = ExtRemoteTyped(ext->FillModule("(int)%s!_countJSOnlyProperty")).GetLong();
     }
 
+    bool fSearchEnumOpHasMultiSizeLayout = false;
+    if (ext->CanResolveSymbol(ext->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")))
+    {
+        OpcodeAttr_OpHasMultiSizeLayout = ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")).GetLong();
+    }
+    else
+    {
+        fSearchEnumOpHasMultiSizeLayout = true;
+    }
+
     if (ext->CanResolveSymbol(ext->FillModule("%s!OpcodeAttr::OpcodeAttributes")))
     {
         attributesTable = ReadTable<int>(ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::OpcodeAttributes")));
         extendedAttributesTable = ReadTable<int>(ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::ExtendedOpcodeAttributes")));
-        OpcodeAttr_OpHasMultiSizeLayout = ExtRemoteTyped(ext->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")).GetLong();
+        
         LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!Js::SmallLayout")).GetLong();
         LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!Js::MediumLayout")).GetLong();
         LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!Js::LargeLayout")).GetLong();
@@ -43,6 +53,15 @@ JDByteCodeCachedData::Ensure()
         extendedAttributesTable = ReadTable<int>(ext->FillModule("%s!ExtendedOpcodeAttributes"));
 
         // There are two enum of the same name OpCodeAttr and OpCodeAttrAsmJs versions.  Need to go thru them to find the one we want
+        fSearchEnumOpHasMultiSizeLayout = true;
+
+        LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!SmallLayout")).GetLong();
+        LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!MediumLayout")).GetLong();
+        LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!LargeLayout")).GetLong();
+    }
+
+    if (fSearchEnumOpHasMultiSizeLayout)
+    {
         OpcodeAttr_OpHasMultiSizeLayout = 0;
         for (uint i = 0; i < 32; i++)
         {
@@ -53,9 +72,6 @@ JDByteCodeCachedData::Ensure()
                 break;
             }
         }
-        LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!SmallLayout")).GetLong();
-        LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!MediumLayout")).GetLong();
-        LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!LargeLayout")).GetLong();
     }
 
     initialized = true;

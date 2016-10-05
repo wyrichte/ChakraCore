@@ -70,7 +70,7 @@
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
-        $(SdkLibPath)\shlwapi.lib;
+        $(OneCorePrivSdkLibPath)\OneCore_Forwarder_shlwapi.lib;
       </AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -83,7 +83,7 @@
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
         $(RazzleJscriptObjectRoot)\private\lib\StaticLib\$(ObjectDirectory)\edgejsstatic.lib;
         $(RazzleJscriptObjectRoot)\private\bin\ChakraDiag\Lib\$(ObjectDirectory)\ChakraDiagLib.lib;
-        $(SdkLibPath)\advapi32.lib
+        $(SdkLibPath)\onecore_downlevel.lib
       </AdditionalDependencies>
     </Link>
   <!-- Razzle binplace -->

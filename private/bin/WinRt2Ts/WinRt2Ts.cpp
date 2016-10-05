@@ -23,7 +23,8 @@ void GenerateTsFromWinmds(IMetaDataDispenserEx* dispenser, const Configuration& 
     PageAllocator pageAllocator(NULL, Js::Configuration::Global.flags);
     ArenaAllocator alloc(L"WinRt2Ts", &pageAllocator, Js::Throw::OutOfMemory);
 
-    MetadataResolver resolver(&alloc, &MetadataString::s_stringConverter, dispenser, config.winmds, config.enableVersioningAllAssemblies, config.enableVersioningWindowsAssemblies);
+    map<Assembly*, wstring> assemblyToFullPath;
+    MetadataResolver resolver(&alloc, &MetadataString::s_stringConverter, dispenser, config.winmds, config.enableVersioningAllAssemblies, config.enableVersioningWindowsAssemblies, assemblyToFullPath);
     ProjectionBuilder builder(&resolver, &MetadataString::s_stringConverter, &alloc, NTDDI_WINTHRESHOLD, false);
 
     Option<AssignmentSpace> currentAssignmentSpace;
@@ -49,8 +50,9 @@ void GenerateTsFromWinmds(IMetaDataDispenserEx* dispenser, const Configuration& 
         }
 
         IndentingWriter writer(*outputStream);
-        TypeScriptEmitter tsEmitter(writer, MetadataString::s_stringConverter);
-        ProjectionToTypeScriptConverter emitter(&alloc, tsEmitter, writer, MetadataString::s_stringConverter, config.emitAnyForUnresolvedTypes);
+        TypeScriptEmitter tsEmitter(writer, MetadataString::s_stringConverter, config.emitDocumentation);
+        XmlDocReferenceBuilder docBuilder(&alloc, assemblyToFullPath);
+        ProjectionToTypeScriptConverter emitter(&alloc, tsEmitter, writer, MetadataString::s_stringConverter, docBuilder, config.emitAnyForUnresolvedTypes, config.suppressWarningsForUnresolvedWindowsTypes);
 
         currentAssignmentSpace.GetValue()->vars->Iterate([&](RtASSIGNMENT var) {
             emitter.EmitTopLevelNamespace(MetadataString::s_stringConverter.IdOfString(var->identifier), PropertiesObject::From(var->expr));

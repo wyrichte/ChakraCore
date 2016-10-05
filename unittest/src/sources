@@ -41,15 +41,16 @@ LINKLIBS= \
     $(JS_LIBS_COMMON) \
 
 TARGETLIBS=     \
-    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
-    $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_kernel32.lib \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_advapi32.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
+    $(SDK_LIB_PATH)\oleaut32.lib \
     $(SDK_LIB_PATH)\muiload.lib \
-    $(SDK_LIB_PATH)\ole32.lib \
-    $(SDK_LIB_PATH)\version.lib \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_ole32.lib \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_version.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
-    $(SDK_LIB_PATH)\user32.lib \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_user32.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
 !endif
     $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Common.lib \

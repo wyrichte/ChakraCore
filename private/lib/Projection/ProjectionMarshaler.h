@@ -464,6 +464,9 @@ namespace Projection
             return Projection::StringOfId(projectionContext->GetScriptContext(), id);
         }
 
+        static HRESULT NumberToWinRTTimeSpanV6(double span, __out INT64* pResult);
+        static HRESULT WinRTTimeSpanToNumberV6(INT64 span, __out double* pResult);
+
     public:
         ProjectionMarshaler(ResourceCleanup resourceCleanup, ProjectionContext *projectionContext, bool fReleaseExistingResource);
         ~ProjectionMarshaler();

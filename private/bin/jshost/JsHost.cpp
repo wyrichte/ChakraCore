@@ -21,6 +21,7 @@ IGlobalInterfaceTable * git = NULL;
 HANDLE shutdownEvent = NULL;
 LPWSTR dbgBaselineFilename = NULL;
 LPCWSTR alternateDllName = NULL;
+LPWSTR connectionUuidString = NULL;
 
 HINSTANCE nativeTestDll = NULL;
 NativeTestEntryPoint pfNativeTestEntryPoint = NULL;
@@ -1254,6 +1255,8 @@ LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
         (lpep->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) &&
         lpep->ExceptionRecord->NumberParameters == 2)
     {
+        // Terminate JIT Process
+        JITProcessManager::TerminateJITServer();
         JScript9Interface::NotifyUnhandledException(lpep);
 
         bool crashOnException = false;
@@ -1318,6 +1321,8 @@ void SetupUnhandledExceptionFilter()
 // The SEH exception filter
 int JcExceptionFilter(int exceptionCode, _EXCEPTION_POINTERS *ep)
 {
+    // Terminate JIT Process
+    JITProcessManager::TerminateJITServer();
     JScript9Interface::NotifyUnhandledException(ep);
 
     bool crashOnException = false;
@@ -1570,6 +1575,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     int ret = 0;
     HRESULT hr = S_OK;
     BSTR filename = NULL;
+
     JScript9Interface::ArgInfo argInfo = { argc, argv, ::PrintUsage, pfNativeTestEntryPoint ? NULL : &filename };        // Call the real entrypoint.
 
     // Spin-up the ETW console listener, if needed.
@@ -1597,6 +1603,12 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
     if (HostConfigFlags::flags.MemProtectHeapTest)
     {
         return MemProtectHeapTest();        
+    }
+
+    if (HostConfigFlags::flags.EnableOutOfProcJIT && pfDoOneIteration == DoOneIASIteration)
+    {
+        // TODO: Error checking
+        JITProcessManager::StartRpcServer(argc, argv);
     }
 
 #ifdef CHECK_MEMORY_LEAK
@@ -1687,6 +1699,44 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 void __stdcall PrintUsage()
 {
     wprintf(_u("\n\nUsage: jshost.exe [-ls] [-jsrt[:JsRuntimeAttributes]] [-html] [flaglist] filename|[-nativetest:testdll [nativetestargs]]\n"));   
+}
+
+bool HandleJITServerFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
+{
+    LPCWSTR flag = L"-jitserver:";
+    LPCWSTR flagWithoutColon = L"-jitserver";
+    size_t flagLen = wcslen(flag);
+
+    int i = 0;
+    for (i = 1; i < argc; ++i)
+    {
+        if (!_wcsicmp(argv[i], flagWithoutColon))
+        {
+            connectionUuidString = L"";
+            break;
+        }
+        else if (!_wcsnicmp(argv[i], flag, flagLen))
+        {
+            connectionUuidString = argv[i] + flagLen;
+            if (wcslen(connectionUuidString) == 0)
+            {
+                fwprintf(stdout, L"[FAILED]: must pass a UUID to -jitserver:\n");
+                return false;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    if (i == argc)
+        return false;
+
+    // remove this flag now
+    HostConfigFlags::RemoveArg(argc, argv, i);
+
+    return true;
 }
 
 int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
@@ -1839,8 +1889,42 @@ void PeekRuntimeFlag(int argc, _In_reads_(argc) LPWSTR argv[])
     }
 }
 
+typedef HRESULT(WINAPI *JsInitializeJITServerPtr)(UUID* connectionUuid, void* securityDescriptor, void* alpcSecurityDescriptor);
+
+int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
+{
+    BSTR filename = NULL;
+    JScript9Interface::ArgInfo argInfo = { argc, argv, ::PrintUsage, &filename };
+
+    jscriptLibrary = JScript9Interface::LoadDll(false, alternateDllName, argInfo);
+
+    if (!jscriptLibrary)
+    {
+        wprintf(L"\nDll load failed\n");
+        return ERROR_DLL_INIT_FAILED;
+    }
+
+    UUID connectionUuid;
+    DWORD status = UuidFromStringW((RPC_WSTR)connectionUuidString, &connectionUuid);
+    if (status != RPC_S_OK)
+    {
+        return status;
+    }
+
+    JsInitializeJITServerPtr initRpcServer = (JsInitializeJITServerPtr)GetProcAddress(jscriptLibrary, "JsInitializeJITServer");
+    HRESULT hr = initRpcServer(&connectionUuid, nullptr, nullptr);
+    if (FAILED(hr))
+    {
+        wprintf(L"InitializeRpcServer failed by 0x%x\n", hr);
+        return hr;
+    }
+
+    return 0;
+}
+
 int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 {
+    bool runJITServer = HandleJITServerFlag(argc, argv);
     HandleDebuggerBaselineFlag(argc, argv);
     bool useJsrt = HandleJsrtTestFlag(argc, argv);
     bool useHtml = HandleHtmlTestFlag(argc, argv);
@@ -1871,7 +1955,11 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
     int ret = 0;
 
-    if (useJsrt)
+    if (runJITServer)
+    {
+        ret = RunJITServer(argc, argv);
+    }
+    else if (useJsrt)
     {
         ret = ExecuteJsrtTests(argc, argv);
     }
@@ -1899,7 +1987,12 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     // is called after all the COM stuff is released.
     if (jscriptLibrary)
     {
+        JITProcessManager::StopRpcServer();
         JScript9Interface::UnloadDll(jscriptLibrary);
+    }
+    else
+    {
+        JITProcessManager::TerminateJITServer();
     }
 
     // Free up the memmory used because of extended err msg
@@ -1907,6 +2000,7 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     {
         delete[] argv;
     }
+
 
     return ret;
 }
