@@ -733,7 +733,19 @@ namespace Js
             return result;
         }
         return ExternalObject::DeleteProperty(propertyId, flags);
-}
+    }
+
+    BOOL CustomExternalObject::DeleteProperty(JavascriptString *propertyNameString, PropertyOperationFlags flags)
+    {
+        PropertyRecord const *propertyRecord = nullptr;
+        if (JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+        {
+            Assert(propertyRecord);
+            return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+        }
+
+        return TRUE;
+    }
 
     BOOL CustomExternalObject::HasItem(uint32 index)
     {

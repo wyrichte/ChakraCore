@@ -47,6 +47,7 @@ public:
     virtual BOOL SetProperty(Js::JavascriptString* propertyNameString, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
     virtual BOOL InitProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags = Js::PropertyOperation_None, Js::PropertyValueInfo* info = NULL) override;
     virtual BOOL DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperationFlags flags) override;
+    virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
     virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::PropertyDescriptor descriptor);
     virtual void ThrowIfCannotGetOwnPropertyDescriptor(Js::PropertyId propId);
     virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor);

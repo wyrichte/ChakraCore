@@ -62,6 +62,12 @@ BOOL DispMemberProxy::DeleteProperty(Js::PropertyId propertyId, Js::PropertyOper
     return false;
 }
 
+BOOL DispMemberProxy::DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags)
+{
+    AssertMsg(false, "DispMemberProxy::DeleteProperty should never be called");
+    return false;
+}
+
 // Have to override this, otherwise we get 'function'.
 Var DispMemberProxy::GetTypeOfString(Js::ScriptContext * requestContext)
 {

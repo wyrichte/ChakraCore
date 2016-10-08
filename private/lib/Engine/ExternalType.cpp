@@ -112,6 +112,19 @@ namespace Js
         return DynamicObject::DeleteProperty(propertyId, flags);
     }
 
+    BOOL ExternalObject::DeleteProperty(JavascriptString *propertyNameString, PropertyOperationFlags flags)
+    {
+        if (!this->VerifyObjectAlive()) return FALSE;
+        PropertyRecord const *propertyRecord = nullptr;
+        if (JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+        {
+            Assert(propertyRecord);
+            return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+        }
+
+        return TRUE;
+    }
+
     BOOL ExternalObject::HasItem(uint32 index)
     {
         // we don't throw in hasItem, but possibly throw in GetItem

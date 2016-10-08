@@ -323,6 +323,22 @@ BOOL HostDispatch::DeleteProperty(PropertyId propertyId, Js::PropertyOperationFl
     return this->DeleteProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
 }
 
+BOOL HostDispatch::DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags)
+{
+    if (GetScriptContext()->GetThreadContext()->IsDisableImplicitCall())
+    {
+        GetScriptContext()->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
+        return TRUE;
+    }
+    Js::PropertyRecord const *propertyRecord = nullptr;
+    if (Js::JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+    {
+        Assert(propertyRecord);
+        return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+    }
+
+    return TRUE;
+}
 
 BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptContext * requestContext)
 {    

@@ -216,6 +216,18 @@ BOOL HostObject::DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperation
     return this->hostDispatch->DeleteProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
 }
 
+BOOL HostObject::DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags)
+{
+    Js::PropertyRecord const *propertyRecord = nullptr;
+    if (Js::JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+    {
+        Assert(propertyRecord);
+        return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+    }
+
+    return TRUE;
+}
+
 BOOL HostObject::HasItem(uint32 index)
 {
     return this->hostDispatch->HostDispatch::HasItem(index);
