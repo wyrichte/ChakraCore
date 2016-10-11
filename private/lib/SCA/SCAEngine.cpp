@@ -16,23 +16,17 @@ namespace Js
         {
             if (GetScriptContext()->IsScriptContextInDebugMode())
             {
-                JavascriptExceptionObject *exception = nullptr;
                 try
                 {
                     GetScriptContext()->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(true);
                     HostDispatch::HandleDispatchError(GetScriptContext(), hr, nullptr);
                 }
-                catch (JavascriptExceptionObject *exception_)
+                catch (const Js::JavascriptException&)
                 {
-                    Assert(exception_);
                     GetScriptContext()->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(false);
-                    exception = exception_;
-                }
 
-                if (exception)
-                {
                     // Rethrow the exception again.
-                    throw exception;
+                    throw;
                 }
             }
             else

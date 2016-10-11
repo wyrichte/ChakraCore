@@ -2676,9 +2676,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 transferableHolder->DetachAll(transferableVars);
             }
         }
-        catch (Js::JavascriptExceptionObject *exceptionObject)
+        catch (const Js::JavascriptException& err)
         {
-            caughtExceptionObject = exceptionObject;
+            caughtExceptionObject = err.GetAndClear();
         }
         END_ENTER_SCRIPT
 
@@ -2756,9 +2756,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
             Js::StreamReader reader(scriptContext, pInSteam);
             *pValue = Js::SCADeserializationEngine::Deserialize(pSCAHost, context, &reader, transferableHolder);
         }
-        catch (Js::JavascriptExceptionObject *  exceptionObject)
+        catch (const Js::JavascriptException& err)
         {
-            caughtExceptionObject = exceptionObject;
+            caughtExceptionObject = err.GetAndClear();
         }
         END_ENTER_SCRIPT
 
@@ -3247,10 +3247,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ModuleEvaluation(
         }
         END_ENTER_SCRIPT
     }
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
         *varResult = scriptContext->GetLibrary()->GetUndefined();
 
+        Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();
         if (exceptionObject != nullptr)
         {
             exceptionObject = exceptionObject->CloneIfStaticExceptionObject(scriptContext);

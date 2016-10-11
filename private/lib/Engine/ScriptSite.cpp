@@ -726,16 +726,18 @@ Js::ModuleRoot * ScriptSite::GetModuleRoot(
 
 #define END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT(hr, scriptContext, pspCaller) \
 END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-catch (Js::JavascriptExceptionObject* pError) \
+catch (const Js::JavascriptException& err) \
 { \
+    Js::JavascriptExceptionObject* pError = err.GetAndClear(); \
     hr = HandleJavascriptException(pError, scriptContext, static_cast<IServiceProvider *>(pspCaller)); \
 } \
 CATCH_UNHANDLED_EXCEPTION(hr)
 
 #define END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext) \
 END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-catch (Js::JavascriptExceptionObject* pError) \
+catch (const Js::JavascriptException& err) \
 { \
+    Js::JavascriptExceptionObject* pError = err.GetAndClear(); \
     if (this->GetThreadContext()->HasPreviousHostScriptContext()) \
     { \
         DispatchExCaller* pspCaller = nullptr; \
@@ -925,10 +927,11 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
     {
         *result = function->CallRootFunction(args, scriptContext, false);
     }
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
         *result = scriptContext->GetLibrary()->GetUndefined();
 
+        Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();
         hr = HandleJavascriptException(exceptionObject, scriptContext, pspCaller);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);

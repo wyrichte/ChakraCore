@@ -307,8 +307,9 @@ Js::Var  TypeInfoBuilder::GetPropertyNoThrow(Js::DynamicObject* dynamicObject, J
     {
         prop = Js::JavascriptOperators::OP_GetProperty(dynamicObject, propertyId, scriptContext);
     }
-    catch(Js::JavascriptExceptionObject *)
+    catch(const Js::JavascriptException& err)
     {
+        err.GetAndClear();  // discard exception object
         return NULL;
     }
     return prop;

@@ -871,9 +871,10 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfProperties(__out VARIANT* pvarRes)
     {
         hr = CreateSafeArrayOfPropertiesWithScriptEnter(pvarRes);
     }
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject *  pError)
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
-        ActiveScriptError * pase;
+        ActiveScriptError * pase = nullptr;
+        Js::JavascriptExceptionObject * pError = err.GetAndClear();
         Js::ScriptContext * errorScriptContext = pError->GetScriptContext() ? pError->GetScriptContext() : this->GetScriptContext();
         if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, nullptr, errorScriptContext, &pase)))
         {
@@ -1990,8 +1991,9 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
         {
             *result = HasInstanceWithScriptEnter(instance);
         }
-        TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+        TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
         {
+            Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();
             hr = scriptSite->HandleJavascriptException(exceptionObject, scriptContext, pspCaller);
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);

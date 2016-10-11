@@ -335,8 +335,9 @@ Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments a
                 }
                 END_LEAVE_SCRIPT(scriptContext)
             }
-            catch (Js::JavascriptExceptionObject *)
+            catch (const Js::JavascriptException& err)
             {
+                err.GetAndClear();  // discard exception object
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
                     pda->DebugOutput(_u("[error]"));
