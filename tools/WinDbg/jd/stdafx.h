@@ -15,6 +15,11 @@
 #define _NO_CVCONST_H
 
 #define DECLSPEC_GUARD_OVERFLOW __declspec(guard(overflow))
+#if defined(_MSC_VER) && _MSC_VER <= 1800 // VS2013?
+#define THREAD_LOCAL __declspec(thread)
+#else // VS2015+, linux Clang etc.
+#define THREAD_LOCAL thread_local
+#endif // VS2013?
 
 namespace Memory{};
 using namespace Memory;
