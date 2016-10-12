@@ -43,7 +43,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GCTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)OpcodeTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
@@ -61,7 +60,6 @@
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
-    <ClInclude Include="GCTelemetry.h" />
     <ClInclude Include="IOpcodeTelemetry.h" />
     <ClInclude Include="IScriptContextTelemetryProvider.h" />
     <ClInclude Include="LangTelFields.h" />

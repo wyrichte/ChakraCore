@@ -74,8 +74,6 @@ using namespace PlatformAgnostic;
     REG_GLOBAL_LIB_FUNC(functionPropertyId, Js::JavascriptError::New##functionPropertyId##Instance)\
     REG_LIB_FUNC(_u(#functionPropertyId), toString, Js::JavascriptError::EntryToString)\
 
-#define CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) recycler->SetIsScriptSiteCloseGC(true);
-
 HRESULT ScriptSite::Create(
         __in ScriptEngine *activeScript,
         __in IActiveScriptSite *iActiveScriptSite,
@@ -603,7 +601,6 @@ void ScriptSite::Close()
     }
     else
     {
-        CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) // for telemetry purposes
         recycler->CollectNow<CollectNowExhaustive>();
     }
 
@@ -909,7 +906,6 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
 HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
 {
     Js::ScriptContext * scriptContext = function->GetScriptContext();
-    ULONGLONG startTime, elapsedTime; // in milliseconds
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     scriptContext->GetHostScriptContext()->EnsureParentInfo();
 #endif
@@ -920,8 +916,6 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
         AssertMsg(false, "shouldn't call function while in heap enumeration");
         return E_UNEXPECTED;
     }
-
-    startTime = GetTickCount64();
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
@@ -935,10 +929,6 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
         hr = HandleJavascriptException(exceptionObject, scriptContext, pspCaller);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
-
-    elapsedTime = GetTickCount64() - startTime;
-
-    scriptContext->GetThreadContext()->maxGlobalFunctionExecTime = max(scriptContext->GetThreadContext()->maxGlobalFunctionExecTime, (double)elapsedTime);
 
     if (FAILED(hr))
     {
