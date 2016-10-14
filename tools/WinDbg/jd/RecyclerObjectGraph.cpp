@@ -340,8 +340,12 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
                 JDRemoteTyped loadInlineCacheMap = remoteTyped.Field("loadInlineCacheMap");
                 AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
 
-                JDRemoteTyped loadMethodInlineCacheMap = remoteTyped.Field("loadMethodInlineCacheMap");
-                AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
+                // IE11 doesn't separate loadMethodInlineCaches
+                if (remoteTyped.HasField("loadMethodInlineCacheMap"))
+                {
+                    JDRemoteTyped loadMethodInlineCacheMap = remoteTyped.Field("loadMethodInlineCacheMap");
+                    AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
+                }
                 
                 JDRemoteTyped storeInlineCacheMap = remoteTyped.Field("storeInlineCacheMap");
                 AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");

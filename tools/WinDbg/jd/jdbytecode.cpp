@@ -128,6 +128,15 @@ JDByteCode::DumpReg3B1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 }
 
 void
+JDByteCode::DumpReg3C(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    DumpReg(layout.Field("R0"));
+    DumpReg(layout.Field("R1"));
+    DumpReg(layout.Field("R2"));
+    ext->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
+}
+
+void
 JDByteCode::DumpReg4(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpReg(layout.Field("R0"));
@@ -850,6 +859,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         else PROCESS_LAYOUT(Reg2WithICIndex)
         else PROCESS_LAYOUT(Reg3)
         else PROCESS_LAYOUT(Reg3B1)
+        else PROCESS_LAYOUT(Reg3C)
         else PROCESS_LAYOUT(Reg4)
         else PROCESS_LAYOUT(Reg5)
         else PROCESS_LAYOUT(W1)
