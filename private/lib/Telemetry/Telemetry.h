@@ -10,16 +10,18 @@
 #include <TraceLoggingProvider.h>
 
 // List of all telemetry data points.
-#define TL_GCPAUSESTATS "GCPauseStats.V2"
 #define TL_ES5BUILTINS "ES5Builtins"
 #define TL_ES6BUILTINS "ES6Builtins"
 #define TL_TABUILTINS "TABuiltins"
 #define TL_ES6CTORS "ES6Ctors"
-#define TL_JITTIMESTATS "JITTime.V2"
 #define TL_ES6LANGFEATURES "ES6LanguageFeatures"
+
+#define TL_GCPAUSESTATS "GCPauseStats.V2"
+#define TL_JITTIMESTATS "JITTime.V2"
 #define TL_GLOBALSTATS "GlobalStats.V2"
 #define TL_MEMSTATS "MemStats.V2"
 #define TL_PARSERSTATS "Parser"
+
 #define TL_CHAKRAINIT "ChakraInit"
 #define TL_DIRECTCALLRAW "DirectCallRaw.PerfStats"
 #define TL_DIRECTCALLTIME "DirectCallRaw.LogTime"

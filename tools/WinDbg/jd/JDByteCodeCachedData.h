@@ -24,6 +24,7 @@ public:
     int TotalNumberOfBuiltInProperties;
 
     bool initialized;
+    bool extendedOpCodesWith2Bytes;
 
 private:
     template <typename T>

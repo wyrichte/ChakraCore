@@ -92,8 +92,8 @@ if ($installTools) {
     } else {
         $gitVersion = git --version
         $versionFields = [regex]::match($gitVersion, 'git version (\d+)\.(\d+)\..*').Groups
-        $major = $versionFields[1].Value
-        $minor = $versionFields[2].Value
+        $major = [int]($versionFields[1].Value)
+        $minor = [int]($versionFields[2].Value)
         $gitVersionOK = $True
 
         if ($major -ge 2) {
@@ -137,7 +137,17 @@ if ($gitCommand -eq $null) {
     $gitInstallDirectory = (Get-ItemProperty $gitRegKey)."Inno Setup: App Path"
     $Env:Path += ";$(Join-Path $gitInstallDirectory `"bin`")"
 } else {
-    $gitInstallDirectory = Split-Path (Split-Path $gitCommand.Source)
+    $gitExePath = $gitCommand.Definition
+
+    if ($gitExePath -eq $null) {
+        $gitExePath = $gitCommand.Source
+    }
+
+    if ($gitExePath -eq $null) {
+        throw "Path to git.exe not found in result of Get-Command"
+    }
+
+    $gitInstallDirectory = Split-Path (Split-Path $gitExePath)
 }
 
 $Env:Path += ";$(Join-Path $gitInstallDirectory `"libexec\git-core`")"
@@ -183,4 +193,39 @@ Pop-Location
 Pop-Location
 Pop-Location
 
+$BC4InstallPath = "\\chakrafs01\RepoTools\BC4\BC4.exe"
+$BC4KeyPath = "\\chakrafs01\RepoTools\BC4\BC4Key.txt"
+$BC4InstallFolder = Join-Path $Env:ProgramFiles "\Beyond Compare 4"
+$BC4BinaryPath = Join-Path $BC4InstallFolder "\BComp.exe"
+
+function ConfigGitForBC4 {
+    Write-Host "Configuring Git for Beyond Compare 4"
+    git config --global diff.tool bc
+    git config --global difftool.bc.path $BC4BinaryPath
+    git config --global merge.tool bc
+    git config --global mergetool.bc.path $BC4BinaryPath
+    Write-Host
+    Write-Host "Use 'git mergetool' or 'git difftool' to use Beyond Compare from the command line"
+}
+
+if (-not (Test-Path $BC4BinaryPath) -and (Get-Command "git.exe" -ErrorAction SilentlyContinue)) {
+    $installBC4 = Read-Host 'Would you like to install Beyond Compare 4 and use it as the default diff/merge tool in Git? [Y/n]'
+    if ($installBC4 -eq "" -or $installBC4 -eq "Y") {
+        Write-Host "Installing Beyond Compare 4"
+        Start-Process -FilePath $BC4InstallPath -ArgumentList "/VerySilent" -Wait -NoNewWindow
+        Write-Host "Registering Beyond Compare 4 with site license"
+        Copy-Item $BC4KeyPath $BC4InstallFolder
+
+        ConfigGitForBC4
+    }
+} elseif (Test-Path $BC4BinaryPath) {
+    Write-Host "Found Beyond Compare 4"
+    $useBC4 = Read-Host 'Would you like to use Beyond Compare 4 as the default diff/merge tool in Git? [Y/n]'
+
+    if ($useBC4 -eq "" -or $useBC4 -eq "Y") {
+        ConfigGitForBC4
+    }
+}
+
+Write-Host
 Write-Host "`nEnvironment setup completed- run $repoRoot\tools\GitScripts\init.cmd to launch environment"

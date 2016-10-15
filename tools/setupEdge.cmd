@@ -178,6 +178,7 @@ call :CopyBinFile ieproxy.dll
 call :CopyBinFile iertutil.dll
 call :CopyBinFile urlmon.dll
 call :CopyBinFile wininet.dll
+call :CopyBinFile ieframe.dll
 
 REM Debug related
 call :CopyBinFile msdbg2.dll

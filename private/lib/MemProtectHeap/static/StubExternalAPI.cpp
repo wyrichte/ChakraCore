@@ -105,9 +105,3 @@ Math::Rand()
 
     return newRand;
 }
-
-namespace Js
-{
-    void GCTelemetry::LogGCPauseStartTime() {};
-    void GCTelemetry::LogGCPauseEndTime() {};
-};

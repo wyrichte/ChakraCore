@@ -6,8 +6,9 @@
 
 #define END_TRANSLATE_EXCEPTION_AND_DBG_HANDLE_ERROBJECT(hr) \
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-    catch(Js::JavascriptExceptionObject *) \
+    catch(const Js::JavascriptException& err) \
     { \
+        err.GetAndClear(); \
         hr = E_FAIL; \
     } \
     CATCH_UNHANDLED_EXCEPTION(hr)
@@ -1315,8 +1316,9 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
             }
             END_JS_RUNTIME_CALL(scriptContext)
         }
-        catch(Js::JavascriptExceptionObject* exception)
+        catch(const Js::JavascriptException& err)
         {
+            Js::JavascriptExceptionObject* exception = err.GetAndClear();
             Var error = exception->GetThrownObject(scriptContext);
             resolvedObj.obj = error;
             resolvedObj.address = NULL;

@@ -352,10 +352,7 @@ namespace Js
     class JavascriptEnumeratorWrapper : public Js::JavascriptStaticEnumerator
     {
     public:
-        JavascriptEnumeratorWrapper(Js::ScriptContext* scriptContext)
-        {
-            currentIndex = scriptContext->GetLibrary()->GetUndefined();
-        }
+        JavascriptEnumeratorWrapper() : currentIndex(nullptr), currentPropertyId(Constants::NoProperty) {};
 
         BOOL MoveNext(PropertyAttributes * attributes = nullptr)
         {
@@ -406,7 +403,7 @@ namespace Js
             {
                 flags |= EnumeratorFlags::EnumSymbols;
             }
-            JavascriptEnumeratorWrapper * internalEnum = RecyclerNew(scriptContext->GetRecycler(), JavascriptEnumeratorWrapper, scriptContext);
+            JavascriptEnumeratorWrapper * internalEnum = RecyclerNew(scriptContext->GetRecycler(), JavascriptEnumeratorWrapper);
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;
@@ -948,6 +945,10 @@ namespace Js
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
             *item = internalEnum->GetCurrentIndex();
+            if ((*item) == nullptr)
+            {
+                hr = S_FALSE;
+            }
         }
         END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
         VERIFYHRESULTBEFORERETURN(hr, scriptContext);

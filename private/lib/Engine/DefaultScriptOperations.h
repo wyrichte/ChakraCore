@@ -14,8 +14,9 @@ namespace Js
 #define END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_CURRENT_CALLER(hr, scriptContext, hostScriptContext) \
     END_JS_RUNTIME_CALL(scriptContext); \
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-    catch (Js::JavascriptExceptionObject *  pError) \
+    catch (const Js::JavascriptException& err) \
     { \
+        Js::JavascriptExceptionObject * pError = err.GetAndClear(); \
         DispatchExCaller * pdc = nullptr; \
         if (hostScriptContext) \
         { \

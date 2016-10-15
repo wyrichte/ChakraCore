@@ -36,6 +36,7 @@ SOURCES = \
         ..\RemoteHeapBlockMap.cpp \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
+        ..\JDBackendUtil.cpp \
         ..\util.cpp \
         ..\collections.cpp \
         ..\JDByteCodeCachedData.cpp\

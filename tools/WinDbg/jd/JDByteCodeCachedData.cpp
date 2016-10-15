@@ -15,7 +15,7 @@ JDByteCodeCachedData::Ensure()
     }
 
     EXT_CLASS_BASE * ext = GetExtension();
-    
+
     layoutTable = ReadTable<uint>(ExtRemoteTyped(ext->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts")));
     extendedLayoutTable = ReadTable<uint>(ExtRemoteTyped(ext->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts")));
     if (ext->CanResolveSymbol(ext->FillModule("%s!TotalNumberOfBuiltInProperties")))
@@ -45,6 +45,7 @@ JDByteCodeCachedData::Ensure()
         LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!Js::SmallLayout")).GetLong();
         LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!Js::MediumLayout")).GetLong();
         LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!Js::LargeLayout")).GetLong();
+        extendedOpCodesWith2Bytes = ext->CanResolveSymbol(ext->FillModule("%s!Js::LayoutCount"));
     }
     else
     {

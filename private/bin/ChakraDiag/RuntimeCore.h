@@ -177,6 +177,7 @@ namespace Js
     class ES5ArgumentsObjectEnumerator;     // Used by ArgumentsObject.h
     class JavascriptStaticEnumerator;       // Used by RecyclableObject.h
     enum class EnumeratorFlags : byte;      // Used by RecyclableObject.h
+    struct ForInCache;                      // Used by RecyclableObject.h
     template <typename Key> struct SameValueZeroComparer;   // Used by JavascriptSet.h and JavascriptMap.h
     struct IsInstInlineCache;
     class FunctionInfo;

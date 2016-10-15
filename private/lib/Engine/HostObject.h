@@ -19,6 +19,7 @@ public:
     virtual BOOL SetProperty(Js::JavascriptString* propertyNameString, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
     virtual BOOL InitProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags = Js::PropertyOperation_None, Js::PropertyValueInfo* info = NULL) override;
     virtual BOOL DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperationFlags flags) override;
+    virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
     virtual BOOL GetItemReference(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, __in Js::ScriptContext * requestContext) override;
     virtual BOOL GetAccessors(PropertyId propertyId, Var* getter, Var* setter, Js::ScriptContext * requestContext) override;
     virtual BOOL SetAccessors(PropertyId propertyId, Var getter, Var setter, Js::PropertyOperationFlags flags = Js::PropertyOperation_None) override;

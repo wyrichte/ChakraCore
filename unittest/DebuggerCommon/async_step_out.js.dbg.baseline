@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 123,
+        "start": 496,
         "length": 20,
         "text": "return await af1(10)",
         "frameDescription": "af2"
@@ -14,7 +14,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 523,
+        "start": 905,
         "length": 9,
         "text": "p = af2()",
         "frameDescription": "Global code"
@@ -24,7 +24,7 @@
   {
     "callstack": [
       {
-        "start": 523,
+        "start": 905,
         "length": 9,
         "text": "p = af2()",
         "frameDescription": "Global code"

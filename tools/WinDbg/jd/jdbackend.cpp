@@ -208,6 +208,10 @@ char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t l
 {        
     char const * typeName;
     ExtRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
+    if (!typeName)
+    {
+        return "<No Vtable>";
+    }
     typeName = JDUtil::StripModuleName(typeName);
 
     if (strcmp(typeName, "IR::IntConstOpnd") == 0)

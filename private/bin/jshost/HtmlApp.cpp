@@ -731,7 +731,7 @@ Error:
     return hr;
 }
 
-HRESULT CApp::LoadURLFromWebBrowser(wchar_t * szURL)
+HRESULT CApp::LoadURLFromWebBrowser(__in_z wchar_t * szURL)
 {
     VARIANT vEmpty;
     VariantInit(&vEmpty);

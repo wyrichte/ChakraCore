@@ -112,6 +112,19 @@ namespace Js
         return DynamicObject::DeleteProperty(propertyId, flags);
     }
 
+    BOOL ExternalObject::DeleteProperty(JavascriptString *propertyNameString, PropertyOperationFlags flags)
+    {
+        if (!this->VerifyObjectAlive()) return FALSE;
+        PropertyRecord const *propertyRecord = nullptr;
+        if (JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+        {
+            Assert(propertyRecord);
+            return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+        }
+
+        return TRUE;
+    }
+
     BOOL ExternalObject::HasItem(uint32 index)
     {
         // we don't throw in hasItem, but possibly throw in GetItem
@@ -170,10 +183,10 @@ namespace Js
         return DynamicObject::DeleteItem(index, flags);
     }
 
-    BOOL ExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext)
+    BOOL ExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext, ForInCache * forInCache)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
-        return __super::GetEnumerator(enumerator, flags, requestContext);
+        return __super::GetEnumerator(enumerator, flags, requestContext, forInCache);
     }
 
     BOOL ExternalObject::IsWritable(PropertyId propertyId)
