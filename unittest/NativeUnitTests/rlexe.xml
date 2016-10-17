@@ -7,7 +7,7 @@
          EH blocks.
      -->
       <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
-      <compile-flags>-nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+      <compile-flags>-WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
       <timeout>300</timeout>
@@ -20,7 +20,7 @@
          EH blocks.
      -->
       <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
-      <compile-flags>-bgJit- -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+      <compile-flags>-bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
       <timeout>300</timeout>
@@ -45,7 +45,7 @@
   <test>
     <default>
       <tags>StackTraceInline,fail,exclude_arm,exclude_jsrt</tags>
-      <compile-flags>-force:inline -nativetest:NativeUnitTests.dll StackTraceInline</compile-flags>
+      <compile-flags>-force:inline -WERExceptionSupport -nativetest:NativeUnitTests.dll StackTraceInline</compile-flags>
       <files>dummy.js</files>
       <baseline>StackTraceInline.baseline</baseline>
     </default>

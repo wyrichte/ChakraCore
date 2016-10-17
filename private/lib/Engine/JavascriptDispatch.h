@@ -88,7 +88,8 @@ private:
 #if DBG
     bool isFinishCreated : 1;
 #endif
-    Js::ForInObjectEnumerator* dispIdEnumerator;
+    class DispIdEnumerator * dispIdEnumerator;
+
     LIST_ENTRY linkList;
 
 

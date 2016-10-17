@@ -35,7 +35,7 @@ public:
         HeapObjectType_NumberObject                =0x10,
         HeapObjectType_ObjectObject                =0x11,
         HeapObjectType_RegexObject                 =0x12,
-        HeapObjectType_EnumeratorIterator          =0x13,
+        HeapObjectType_EnumeratorIterator          =0x13,           /* Unused */
         HeapObjectType_StringObject                =0x14,
         HeapObjectType_TypedArrayObject            =0x15,
         HeapObjectType_GlobalObject                =0x16,

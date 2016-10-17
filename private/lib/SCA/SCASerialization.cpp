@@ -413,7 +413,7 @@ namespace Js
         case TypeIds_Uint8ClampedArray:
             if (VirtualTableInfo<Uint8ClampedVirtualArray>::HasVirtualTable(src))
             {
-                WriteTypedArray<uint8, false, true>(src);
+                WriteTypedArray<uint8, true, true>(src);
             }
             else
             {

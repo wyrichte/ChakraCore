@@ -74,8 +74,6 @@ using namespace PlatformAgnostic;
     REG_GLOBAL_LIB_FUNC(functionPropertyId, Js::JavascriptError::New##functionPropertyId##Instance)\
     REG_LIB_FUNC(_u(#functionPropertyId), toString, Js::JavascriptError::EntryToString)\
 
-#define CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) recycler->SetIsScriptSiteCloseGC(true);
-
 HRESULT ScriptSite::Create(
         __in ScriptEngine *activeScript,
         __in IActiveScriptSite *iActiveScriptSite,
@@ -603,7 +601,6 @@ void ScriptSite::Close()
     }
     else
     {
-        CHAKRATEL_GCPAUSE_SET_SCRIPTSITECLOSE(recycler) // for telemetry purposes
         recycler->CollectNow<CollectNowExhaustive>();
     }
 
@@ -726,16 +723,18 @@ Js::ModuleRoot * ScriptSite::GetModuleRoot(
 
 #define END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT(hr, scriptContext, pspCaller) \
 END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-catch (Js::JavascriptExceptionObject* pError) \
+catch (const Js::JavascriptException& err) \
 { \
+    Js::JavascriptExceptionObject* pError = err.GetAndClear(); \
     hr = HandleJavascriptException(pError, scriptContext, static_cast<IServiceProvider *>(pspCaller)); \
 } \
 CATCH_UNHANDLED_EXCEPTION(hr)
 
 #define END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT_NO_SP(hr, scriptContext) \
 END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr) \
-catch (Js::JavascriptExceptionObject* pError) \
+catch (const Js::JavascriptException& err) \
 { \
+    Js::JavascriptExceptionObject* pError = err.GetAndClear(); \
     if (this->GetThreadContext()->HasPreviousHostScriptContext()) \
     { \
         DispatchExCaller* pspCaller = nullptr; \
@@ -907,7 +906,6 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
 HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
 {
     Js::ScriptContext * scriptContext = function->GetScriptContext();
-    ULONGLONG startTime, elapsedTime; // in milliseconds
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     scriptContext->GetHostScriptContext()->EnsureParentInfo();
 #endif
@@ -919,23 +917,18 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
         return E_UNEXPECTED;
     }
 
-    startTime = GetTickCount64();
-
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
         *result = function->CallRootFunction(args, scriptContext, false);
     }
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
         *result = scriptContext->GetLibrary()->GetUndefined();
 
+        Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();
         hr = HandleJavascriptException(exceptionObject, scriptContext, pspCaller);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
-
-    elapsedTime = GetTickCount64() - startTime;
-
-    scriptContext->GetThreadContext()->maxGlobalFunctionExecTime = max(scriptContext->GetThreadContext()->maxGlobalFunctionExecTime, (double)elapsedTime);
 
     if (FAILED(hr))
     {

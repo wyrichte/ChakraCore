@@ -871,9 +871,10 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfProperties(__out VARIANT* pvarRes)
     {
         hr = CreateSafeArrayOfPropertiesWithScriptEnter(pvarRes);
     }
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject *  pError)
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
-        ActiveScriptError * pase;
+        ActiveScriptError * pase = nullptr;
+        Js::JavascriptExceptionObject * pError = err.GetAndClear();
         Js::ScriptContext * errorScriptContext = pError->GetScriptContext() ? pError->GetScriptContext() : this->GetScriptContext();
         if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(pError, &hr, nullptr, errorScriptContext, &pase)))
         {
@@ -1755,6 +1756,36 @@ HRESULT JavascriptDispatch::GetMemberName(DISPID id, BSTR *pbstr)
     return NOERROR;
 }
 
+class DispIdEnumerator
+{
+private:
+    Js::ForInObjectEnumerator enumerator;
+    Js::Var currentIndex;
+public:
+    DispIdEnumerator(Js::RecyclableObject * scriptObject, Js::ScriptContext * scriptContext)
+        : enumerator(scriptObject, scriptContext), currentIndex(nullptr)
+    {
+    }
+    void Clear() 
+    { 
+        this->currentIndex = nullptr;
+        enumerator.Clear(); 
+    }
+    void Initialize(Js::RecyclableObject * scriptObject, Js::ScriptContext * scriptContext)
+    {
+        this->currentIndex = nullptr;
+        enumerator.Initialize(scriptObject, scriptContext);
+    }    
+    bool MoveNext()
+    {
+        Js::PropertyId propertyId;
+        currentIndex = enumerator.MoveAndGetNext(propertyId);
+        return currentIndex != nullptr;
+    }
+    Js::ScriptContext * GetScriptContext() const { return enumerator.GetScriptContext(); }
+    Var GetCurrentIndex() const { return currentIndex; }
+};
+
 Js::PropertyId JavascriptDispatch::GetEnumeratorCurrentPropertyId()
 {
     if (!dispIdEnumerator)
@@ -1781,7 +1812,7 @@ Js::PropertyId JavascriptDispatch::GetEnumeratorCurrentPropertyId()
 
 void JavascriptDispatch::CreateDispIdEnumerator()
 {
-    dispIdEnumerator = RecyclerNew(scriptSite->GetRecycler(), Js::ForInObjectEnumerator, scriptObject, this->GetScriptContext());
+    dispIdEnumerator = RecyclerNew(scriptSite->GetRecycler(), DispIdEnumerator, scriptObject, this->GetScriptContext());
 }
 
 HRESULT JavascriptDispatch::GetNextDispID(DWORD grfdex, DISPID id, DISPID *pid)
@@ -1834,7 +1865,7 @@ HRESULT JavascriptDispatch::GetNextDispIDWithScriptEnter(DWORD grfdex, DISPID id
                 dispIdEnumerator->Initialize(scriptObject, scriptContext);
 
                 BOOL found = false;
-                while(dispIdEnumerator->MoveNext())
+                while (dispIdEnumerator->MoveNext())
                 {
                     currentPropertyId = GetEnumeratorCurrentPropertyId();
                     if (Js::Constants::NoProperty != currentPropertyId && currentPropertyId == propId  &&
@@ -1854,7 +1885,7 @@ HRESULT JavascriptDispatch::GetNextDispIDWithScriptEnter(DWORD grfdex, DISPID id
         if (NOERROR == hr)
         {
             hr = S_FALSE;
-            while(dispIdEnumerator->MoveNext())
+            while (dispIdEnumerator->MoveNext())
             {
                 currentPropertyId = GetEnumeratorCurrentPropertyId();
                 if (Js::Constants::NoProperty != currentPropertyId &&
@@ -1960,8 +1991,9 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
         {
             *result = HasInstanceWithScriptEnter(instance);
         }
-        TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject * exceptionObject)
+        TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
         {
+            Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();
             hr = scriptSite->HandleJavascriptException(exceptionObject, scriptContext, pspCaller);
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);

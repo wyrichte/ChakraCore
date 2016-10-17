@@ -66,3 +66,12 @@ for (var i = 0; i < testObjects.length; i++)
 
     testSCA(root, true, true);
 }
+
+// Validating that we are able to Serialize/Deserialize Virtual array correctly.
+[Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array].forEach(
+    function (type) {
+        var view = new type(2**16); // 2**16 to create virtual array
+        var blob = SCA.serialize(view);
+        return SCA.deserialize(blob);
+    }
+);

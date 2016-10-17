@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 123,
+        "start": 496,
         "length": 20,
         "text": "return await af1(10)",
         "frameDescription": "af2"
@@ -14,7 +14,7 @@
         "frameDescription": "Generator.prototype.next"
       },
       {
-        "start": 151,
+        "start": 524,
         "length": 13,
         "text": "var p = af2()",
         "frameDescription": "Global code"
@@ -24,7 +24,7 @@
   {
     "callstack": [
       {
-        "start": 478,
+        "start": 851,
         "length": 160,
         "text": "p.then(result => {\n        if (result === 100) {\n            print(\"PASS\");\n        }\n    },\n    error => {\n        print(\"Failed : \" + error);\n    } \n)",
         "frameDescription": "Global code"

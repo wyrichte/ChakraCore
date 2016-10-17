@@ -219,6 +219,11 @@ STDMETHODIMP ActiveScriptError::GetStackFrame(IDebugStackFrame **ppStackFrame)
 
 HRESULT ActiveScriptError::GetExtendedExceptionInfo(ExtendedExceptionInfo *excepInfo)
 {
+    if (!Js::Configuration::Global.flags.WERExceptionSupport)
+    {
+        return E_NOTIMPL;
+    }
+
     CHECK_POINTER(excepInfo);
     memset(excepInfo, 0, sizeof(ExtendedExceptionInfo));
     HRESULT hr = FillText(excepInfo->errorType.typeText, m_ei.errorType.typeText);
@@ -603,8 +608,9 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
         }
     }
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(exceptionHR)
-    catch(Js::JavascriptExceptionObject *)
+    catch(const Js::JavascriptException& err)
     {
+        err.GetAndClear();  // discard exception object
         exceptionHR = E_FAIL; // don't recursively get error code
 
         // Technically cleanup below isn't necessary because of order of potential failures

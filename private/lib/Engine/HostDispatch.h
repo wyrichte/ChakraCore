@@ -47,6 +47,7 @@ public:
     virtual BOOL SetProperty(Js::JavascriptString* propertyNameString, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
     virtual BOOL InitProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags = Js::PropertyOperation_None, Js::PropertyValueInfo* info = NULL) override;
     virtual BOOL DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperationFlags flags) override;
+    virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
     virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::PropertyDescriptor descriptor);
     virtual void ThrowIfCannotGetOwnPropertyDescriptor(Js::PropertyId propId);
     virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor);
@@ -59,7 +60,7 @@ public:
     virtual BOOL ToPrimitive(Js::JavascriptHint hint, Js::Var* value, Js::ScriptContext * requestContext) override;
     virtual BOOL Equals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override;
     virtual BOOL StrictEquals(__in Js::Var other, __out BOOL* value, Js::ScriptContext * requestContext) override sealed;
-    virtual BOOL GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext) override;
+    virtual BOOL GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::ForInCache * forInCache = nullptr) override;
     virtual BOOL SetAccessors(Js::PropertyId propertyId, Js::Var getter, Js::Var setter, Js::PropertyOperationFlags flags = Js::PropertyOperation_None) override;
     virtual BOOL GetAccessors(Js::PropertyId propertyId, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext) override;
     virtual Js::DescriptorFlags GetSetter(PropertyId propertyId, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;

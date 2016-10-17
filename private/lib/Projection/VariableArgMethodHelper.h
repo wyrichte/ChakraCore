@@ -82,7 +82,7 @@ namespace Projection
         return HRESULT_FROM_WIN32(ERROR_STACK_OVERFLOW);                                                                                                                    \
     }                                                                                                                                                                       \
     AddRef();                                                                                                                                                               \
-    AutoCallerPointer callerPointer(scriptSite, nullptr);                                                                                                                      \
+    AutoCallerPointer callerPointer(scriptSite, nullptr);                                                                                                                   \
     HRESULT hr = S_OK;                                                                                                                                                      \
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT                                                                                                                    \
     BEGIN_JS_RUNTIME_CALLROOT_EX(scriptContext, false)                                                                                                                      \
@@ -93,12 +93,13 @@ namespace Projection
 #define CUnknown_EndScriptEnter(reportError)                                                                                                                                \
     }                                                                                                                                                                       \
     END_JS_RUNTIME_CALL(scriptContext);                                                                                                                                     \
-    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(Js::JavascriptExceptionObject *  exceptionObject)                                                                                  \
+    TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)                                                                                                \
     {                                                                                                                                                                       \
-        Var errorObject = exceptionObject->GetThrownObject(nullptr);                                                                                                           \
-        if (errorObject != nullptr && (Js::JavascriptError::Is(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                               \
+        Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();                                                                                                \
+        Var errorObject = exceptionObject->GetThrownObject(nullptr);                                                                                                        \
+        if (errorObject != nullptr && (Js::JavascriptError::Is(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                            \
         {                                                                                                                                                                   \
-            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), nullptr);                                                     \
+            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), nullptr);                                                  \
                                                                                                                                                                             \
             if (Js::JavascriptErrorDebug::Is(errorObject))                                                                                                                  \
             {                                                                                                                                                               \
@@ -112,7 +113,7 @@ namespace Projection
                                                                                                                                                                             \
         if (reportError)                                                                                                                                                    \
         {                                                                                                                                                                   \
-            ScriptSite::HandleJavascriptException(exceptionObject, scriptContext, nullptr);                                                                                    \
+            ScriptSite::HandleJavascriptException(exceptionObject, scriptContext, nullptr);                                                                                 \
         }                                                                                                                                                                   \
     }                                                                                                                                                                       \
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)                                                                                                                                  \

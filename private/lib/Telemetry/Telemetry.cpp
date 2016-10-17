@@ -113,10 +113,7 @@ void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
 {
     if (threadContext != NULL)
     {
-        threadContext->GetRecycler()->ResetGCPauseStats();
         threadContext->ResetLangStats();
-        threadContext->ResetJITStats();
-        threadContext->ResetParserStats();
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
         threadContext->directCallTelemetry.Reset();
 #endif
@@ -394,58 +391,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
     // printing GC Pause stats
     if (threadContext != NULL)
     {
-        Js::GCPauseStats stats = threadContext->GetRecycler()->GetGCPauseStats();
-        Js::LanguageStats* langStats = threadContext->GetLanguageStats();
-        uint scriptContextCount = threadContext->GetUnreleasedScriptContextCount(); // No need to reset it as its managed by Chakra
-        size_t maxPAUB = 0;
-        maxPAUB = PageAllocator::GetAndResetMaxUsedBytes(); // No need for a separate Reset Function as its just one scalar value
-        ThreadBoundThreadContextManager::ResetMaxNumberActiveThreadContexts();
-        double maxGlobalExecTime = threadContext->GetAndResetMaxGlobalFunctionExecTime(); // Just like above
-        JITStats JITstats = threadContext->GetJITStats();
-        ParserStats parserStats = threadContext->GetParserStats();
-
-        bool isAnyScriptCtxtInDebugMode = false;
-
-        Js::ScriptContext* contextList = threadContext->GetScriptContextList();
-        while (contextList != NULL)
-        {
-            if (contextList->IsScriptContextInDebugMode())
-            {
-                isAnyScriptCtxtInDebugMode = true;
-                break;
-            }
-            contextList = contextList->next;
-        }
-
-
-        if (CONFIG_ISENABLED(Js::GCPauseTelFlag))
-        {
-            Output::Print(_u("Max GC pause time is: %f ms\n"), stats.maxGCPauseTime);
-            Output::Print(_u("Mean GC pause time is: %f ms\n"), stats.meanGCPauseTime);
-            Output::Print(_u("GC Pauses < 3 MS :%d\n"), stats.lessThan3MS);
-            Output::Print(_u("3ms < GC Pauses < 7ms :%d\n"), stats.within3And7MS);
-            Output::Print(_u("7ms < GC Pauses < 10ms :%d\n"), stats.within7And10MS);
-            Output::Print(_u("10ms < GC Pauses < 20ms :%d\n"), stats.within10And20MS);
-            Output::Print(_u("20ms < GC Pauses < 50ms :%d\n"), stats.within20And50MS);
-            Output::Print(_u("50ms < GC Pauses < 100ms :%d\n"), stats.within50And100MS);
-            Output::Print(_u("100ms < GC Pauses < 300ms :%d\n"), stats.within100And300MS);
-            Output::Print(_u("GC Pauses > 300ms :%d\n"), stats.greaterThan300MS);
-            Output::Print(_u("Total GC pauseTime :%f ms\n"), stats.totalGCPauseTime);
-            Output::Print(_u("Scriptsite close GC pauseTime :%f ms\n"), stats.scriptSiteCloseGCTime);
-            Output::Print(_u("Unreleased Script Contexts from this URL:%d\n"), scriptContextCount);
-            Output::Print(_u("Max PageAllocator Used Bytes Count:%d\n"), maxPAUB);
-
-            Output::Print(_u("ParserStats\n"));
-            Output::Print(_u("lessThan1ms: %I64d\n"), parserStats.lessThan1ms);
-            Output::Print(_u("within1And3ms: %I64d\n"), parserStats.within1And3ms);
-            Output::Print(_u("within3And10ms: %I64d\n"), parserStats.within3And10ms);
-            Output::Print(_u("within10And20ms: %I64d\n"), parserStats.within10And20ms);
-            Output::Print(_u("within20And50ms: %I64d\n"), parserStats.within20And50ms);
-            Output::Print(_u("within50And100ms: %I64d\n"), parserStats.within50And100ms);
-            Output::Print(_u("within100And300ms: %I64d\n"), parserStats.within100And300ms);
-            Output::Print(_u("greaterThan300ms: %I64d\n"), parserStats.greaterThan300ms);
-        }
-
+        Js::LanguageStats* langStats = threadContext->GetLanguageStats();   
 
         if (langStats != NULL && CONFIG_ISENABLED(Js::ES5LangTelFlag))
         {
@@ -571,7 +517,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
 
         }
 
-        if (url != NULL && (CONFIG_ISENABLED(Js::ES6LangTelFlag) || CONFIG_ISENABLED(Js::ES5LangTelFlag) || CONFIG_ISENABLED(Js::GCPauseTelFlag)))
+        if (url != NULL && (CONFIG_ISENABLED(Js::ES6LangTelFlag) || CONFIG_ISENABLED(Js::ES5LangTelFlag)))
         {
             Output::Print(_u("Navigated from site: %s\n"), url);
         }
@@ -792,93 +738,6 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
                 TraceLoggingUInt32(langStats->DefaultArgFunctionCount.parseCount, "DefaultArgFunctionCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
-
-
-
-            // Note: must be thread-safe.
-            TraceLogChakra(
-                TL_GCPAUSESTATS,
-                TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingFloat64(stats.maxGCPauseTime, "maxGCPauseTime"),
-                TraceLoggingFloat64(stats.totalGCPauseTime, "totalGCPauseTime"),
-                TraceLoggingFloat64(stats.meanGCPauseTime, "meanGCPauseTime"),
-                TraceLoggingFloat64(stats.scriptSiteCloseGCTime, "scriptSiteCloseGCPauseTime"),
-                TraceLoggingUInt32(stats.lessThan3MS, "lessThan3ms"),
-                TraceLoggingUInt32(stats.within3And7MS, "within3And7ms"),
-                TraceLoggingUInt32(stats.within7And10MS, "within7And10ms"),
-                TraceLoggingUInt32(stats.within10And20MS, "within10And20ms"),
-                TraceLoggingUInt32(stats.within20And50MS, "within20And50ms"),
-                TraceLoggingUInt32(stats.greaterThan50MS, "greaterThan50ms"),
-                TraceLoggingUInt32(stats.within50And100MS, "within50And100ms"),
-                TraceLoggingUInt32(stats.within100And300MS, "within100And300ms"),
-                TraceLoggingUInt32(stats.greaterThan300MS, "greaterThan300ms"),
-                TraceLoggingUInt32(scriptContextCount, "unreleasedScriptContextCount"),
-                TraceLoggingUInt32(host, "HostingInterface"),
-                TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingBool(isAnyScriptCtxtInDebugMode, "isAnyScriptContextInDebugMode"),
-                TraceLoggingBool(isHighResAvail, "isHighResPerfCounterAvailable"),
-                TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
-
-                // Note: must be thread-safe.
-            TraceLogChakra(
-                TL_JITTIMESTATS,
-                TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(JITstats.lessThan5ms, "lessThan5ms"),
-                TraceLoggingUInt32(JITstats.within5And10ms, "within5And10ms"),
-                TraceLoggingUInt32(JITstats.within10And20ms, "within10And20ms"),
-                TraceLoggingUInt32(JITstats.within20And50ms, "within20And50ms"),
-                TraceLoggingUInt32(JITstats.within50And100ms, "within50And100ms"),
-                TraceLoggingUInt32(JITstats.within100And300ms, "within100And300ms"),
-                TraceLoggingUInt32(JITstats.greaterThan300ms, "greaterThan300ms"),
-                TraceLoggingUInt32(host, "HostingInterface"),
-                TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingBool(isAnyScriptCtxtInDebugMode, "isAnyScriptContextInDebugMode"),
-                TraceLoggingBool(isHighResAvail, "isHighResPerfCounterAvailable"),
-                TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
-
-            TraceLogChakra(
-                TL_GLOBALSTATS,
-                TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingFloat64(maxGlobalExecTime, "maxGlobalFunctionExecTime"),
-                TraceLoggingUInt32(host, "HostingInterface"),
-                TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingBool(isAnyScriptCtxtInDebugMode, "isAnyScriptContextInDebugMode"),
-                TraceLoggingBool(isHighResAvail, "isHighResPerfCounterAvailable"),
-                TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
-
-
-            TraceLogChakra(
-                TL_PARSERSTATS,
-                TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt64(parserStats.lessThan1ms, "lessThan1ms"),
-                TraceLoggingUInt64(parserStats.within1And3ms, "within1And3ms"),
-                TraceLoggingUInt64(parserStats.within3And10ms, "within3And10ms"),
-                TraceLoggingUInt64(parserStats.within10And20ms, "within10And20ms"),
-                TraceLoggingUInt64(parserStats.within20And50ms, "within20And50ms"),
-                TraceLoggingUInt64(parserStats.within50And100ms, "within50And100ms"),
-                TraceLoggingUInt64(parserStats.within100And300ms, "within100And300ms"),
-                TraceLoggingUInt64(parserStats.greaterThan300ms, "greaterThan300ms"),
-                TraceLoggingUInt32(host, "HostingInterface"),
-                TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingBool(isAnyScriptCtxtInDebugMode, "isAnyScriptContextInDebugMode"),
-                TraceLoggingBool(isHighResAvail, "isHighResPerfCounterAvailable"),
-                TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
-
-            TraceLogChakra(
-                TL_MEMSTATS,
-                TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt64(maxPAUB, "maxPAUB"),
-                TraceLoggingUInt32(ThreadBoundThreadContextManager::s_maxNumberActiveThreadContexts, "maxActiveThreadContexts"),
-                TraceLoggingUInt32(host, "HostingInterface"),
-                TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingBool(isAnyScriptCtxtInDebugMode, "isAnyScriptContextInDebugMode"),
-                TraceLoggingBool(isHighResAvail, "isHighResPerfCounterAvailable"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
                 );
 

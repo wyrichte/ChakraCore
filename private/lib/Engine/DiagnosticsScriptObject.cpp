@@ -267,10 +267,10 @@ namespace Js
             debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
             return value;
         }
-        catch (JavascriptExceptionObject* thrownObject)
+        catch (const Js::JavascriptException& err)
         {
             // Rethrowing inside catch will blow the stack up since the stack is not unwound while in the C++ catch. Save the exception and rethrow outside the catch block.
-            reThrownEx = thrownObject;   
+            reThrownEx = err.GetAndClear();
         }
 
         AssertMsg(reThrownEx, "How come we don't have an exception object here?");
@@ -304,7 +304,7 @@ namespace Js
             }
         }
         debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
-        throw reThrownEx;
+        JavascriptExceptionOperators::DoThrow(reThrownEx, targetScriptContext);
     }
 
     // When in break state, uses debugger scopes to populate locals from stack frames.

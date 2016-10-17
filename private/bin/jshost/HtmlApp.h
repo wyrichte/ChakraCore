@@ -226,7 +226,7 @@ private:
     // Persistence helpers
     HRESULT LoadURLFromFile();
     HRESULT LoadURLFromMoniker();
-    HRESULT LoadURLFromWebBrowser(wchar_t * szURL);
+    HRESULT LoadURLFromWebBrowser(__in_z wchar_t * szURL);
     HRESULT SimulateShowMessage(VARIANT* pvarIn, VARIANT* pvaOut);
     HRESULT  GetParamsFromEvent(  
     __in IHTMLEventObj         * pEventObj,  

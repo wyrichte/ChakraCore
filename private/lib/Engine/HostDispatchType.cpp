@@ -323,6 +323,22 @@ BOOL HostDispatch::DeleteProperty(PropertyId propertyId, Js::PropertyOperationFl
     return this->DeleteProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
 }
 
+BOOL HostDispatch::DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags)
+{
+    if (GetScriptContext()->GetThreadContext()->IsDisableImplicitCall())
+    {
+        GetScriptContext()->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
+        return TRUE;
+    }
+    Js::PropertyRecord const *propertyRecord = nullptr;
+    if (Js::JavascriptOperators::ShouldTryDeleteProperty(this, propertyNameString, &propertyRecord))
+    {
+        Assert(propertyRecord);
+        return DeleteProperty(propertyRecord->GetPropertyId(), flags);
+    }
+
+    return TRUE;
+}
 
 BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptContext * requestContext)
 {    
@@ -343,11 +359,11 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
     return result;
 }
 
-BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext)
+BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::ForInCache * forInCache)
 {    
     if (!this->CanSupportIDispatchEx())
     {
-        enumerator->Clear();
+        enumerator->Clear(flags, requestContext);
         return FALSE;
     }    
     HostDispatch * currentHostDispatch;
@@ -360,7 +376,7 @@ BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js
         currentHostDispatch = this;
     }
     return enumerator->Initialize(RecyclerNew(requestContext->GetRecycler(), HostDispatchEnumerator, currentHostDispatch),
-        nullptr, nullptr, flags, requestContext);
+        nullptr, nullptr, flags, requestContext, nullptr);
 }
 
 BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptContext * requestContext)

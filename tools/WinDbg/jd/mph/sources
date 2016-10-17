@@ -18,6 +18,7 @@ SOURCES = \
         ..\jdbackend.cpp \
         ..\jdbytecode.cpp \
         ..\JDRemoteTyped.cpp \
+        ..\JDBackendUtil.cpp \
         ..\RecyclerCachedData.cpp \
         ..\RecyclerList.cpp \
         ..\RecyclerRoots.cpp \
