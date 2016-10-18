@@ -15,7 +15,7 @@ PASS [Test 1: Basic]
 Starting [Test 2: Calling Delegate on wrong thread]
 Comment: Fabrikam.Kitchen.Toaster created successfully
 Comment: Calling toaster.preheatInBackgroundWithSmuggledDelegate
-Pass: Calling Delegate on wrong thread should throw exception returned (WinRTError: The application called an interface that was marshalled for a different thread.
+Pass: Calling Delegate on wrong thread should throw exception returned (WinRTError: The application called an interface that was marshalled for a different thread.
 )
       Actual: true
 

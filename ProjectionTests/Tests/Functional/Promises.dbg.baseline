@@ -528,7 +528,7 @@ Comment: Error: my throw
    at run (projectionsglue.js:850:13)
    at Global code (promises.js:1723:112)
 Pass: Expected E_OUTOFMEMORY error
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough storage is available to complete this operation.
 
 
 Comment: Error: my throw

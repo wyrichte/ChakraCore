@@ -4984,11 +4984,11 @@ Pass: number of members of ev.detail[0]
       Actual: 0
 
 Pass: ev.detail[0]
-      Actual: function myDelegateCallback(inValue) {
-                logger.comment("*** myDelegateCallback : Invoke");
-                verify(inValue, myValue, "inValue");
-                myValue++;
-                logger.comment("*** myDelegateCallback : Exit");
+      Actual: function myDelegateCallback(inValue) {
+                logger.comment("*** myDelegateCallback : Invoke");
+                verify(inValue, myValue, "inValue");
+                myValue++;
+                logger.comment("*** myDelegateCallback : Exit");
             }
 
 Comment: *** myDelegateCallback : Invoke
@@ -6432,35 +6432,35 @@ Pass: myChef.onmultipletoastcompletecollection
 
 Comment: Add event handler for multiple toast complete
 Pass: myChef.onmultipletoastcompletecollection
-      Actual: function multipleToastCompleteCollectionCallback(ev) {
-                logger.comment("*** multipleToastCompleteCollectionCallback : Invoke");
-                eventInvokeCount++;
-
-                // Verify Ev
-                verifyMembers("ev", ev, evToastList5Members);
-
-                // Verify target
-                verifyMembers("ev.target", ev.target, chefWithEventHandlerMembers);
-                assert(ev.target === myChef, "ev.target === myChef");
-                verifyEvObjectPropertyDescriptor("ev", ev, "target");
-
-                // Verify Detail
-                assert(Array.isArray(ev.detail), "Array.isArray(ev.detail)");
-                verify(ev.detail.length, 1, "ev.detail.length");
-                verifyMembers("ev.detail[0]", ev.detail[0], toastList5Members);
-                assert(ev !== ev.detail[0], "ev !== ev.detail[0]");
-                assert(ev != ev.detail[0], "ev != ev.detail[0]");
-                var detail0 = ev.detail[0];
-                for (i = 0; i < 5; i++) {
-                    verify(detail0[i].message, ev[i].message, "ev.detail[0][" + i + "].message");
-                }
-                verifyEvObjectPropertyDescriptor("ev", ev, "detail");
-
-                // verify type
-                verify(ev.type, "multipletoastcompletecollection", "ev.type");
-                verifyEvObjectPropertyDescriptor("ev", ev, "type");
-
-                logger.comment("*** multipleToastCompleteCollectionCallback : Exit");
+      Actual: function multipleToastCompleteCollectionCallback(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback : Invoke");
+                eventInvokeCount++;
+
+                // Verify Ev
+                verifyMembers("ev", ev, evToastList5Members);
+
+                // Verify target
+                verifyMembers("ev.target", ev.target, chefWithEventHandlerMembers);
+                assert(ev.target === myChef, "ev.target === myChef");
+                verifyEvObjectPropertyDescriptor("ev", ev, "target");
+
+                // Verify Detail
+                assert(Array.isArray(ev.detail), "Array.isArray(ev.detail)");
+                verify(ev.detail.length, 1, "ev.detail.length");
+                verifyMembers("ev.detail[0]", ev.detail[0], toastList5Members);
+                assert(ev !== ev.detail[0], "ev !== ev.detail[0]");
+                assert(ev != ev.detail[0], "ev != ev.detail[0]");
+                var detail0 = ev.detail[0];
+                for (i = 0; i < 5; i++) {
+                    verify(detail0[i].message, ev[i].message, "ev.detail[0][" + i + "].message");
+                }
+                verifyEvObjectPropertyDescriptor("ev", ev, "detail");
+
+                // verify type
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+                verifyEvObjectPropertyDescriptor("ev", ev, "type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback : Exit");
             }
 
 Comment: *** multipleToastCompleteCollectionCallback : Invoke
@@ -7290,15 +7290,15 @@ Pass: myChef.onmultipletoastcompletecollection
 
 Comment: Add event handler for multiple toast complete - callback1
 Pass: myChef.onmultipletoastcompletecollection
-      Actual: function multipleToastCompleteCollectionCallback1(ev) {
-                logger.comment("*** multipleToastCompleteCollectionCallback1 : Invoke");
-                eventInvokeCount++;
-                eventInvokeCount1++;
-
-                // Verify that event handler is being invoked correctly
-                verify(ev.type, "multipletoastcompletecollection", "ev.type");
-
-                logger.comment("*** multipleToastCompleteCollectionCallback1 : Exit");
+      Actual: function multipleToastCompleteCollectionCallback1(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount1++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback1 : Exit");
             }
 
 Comment: *** multipleToastCompleteCollectionCallback1 : Invoke
@@ -7317,15 +7317,15 @@ Pass: eventInvokeCount2
 
 Comment: Set event handler to callback2
 Pass: myChef.onmultipletoastcompletecollection
-      Actual: function multipleToastCompleteCollectionCallback2(ev) {
-                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
-                eventInvokeCount++;
-                eventInvokeCount2++;
-
-                // Verify that event handler is being invoked correctly
-                verify(ev.type, "multipletoastcompletecollection", "ev.type");
-
-                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
             }
 
 Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
@@ -7357,15 +7357,15 @@ Pass: eventInvokeCount2
 
 Comment: Set event handler to callback 2
 Pass: myChef.onmultipletoastcompletecollection
-      Actual: function multipleToastCompleteCollectionCallback2(ev) {
-                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
-                eventInvokeCount++;
-                eventInvokeCount2++;
-
-                // Verify that event handler is being invoked correctly
-                verify(ev.type, "multipletoastcompletecollection", "ev.type");
-
-                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
+      Actual: function multipleToastCompleteCollectionCallback2(ev) {
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Invoke");
+                eventInvokeCount++;
+                eventInvokeCount2++;
+
+                // Verify that event handler is being invoked correctly
+                verify(ev.type, "multipletoastcompletecollection", "ev.type");
+
+                logger.comment("*** multipleToastCompleteCollectionCallback2 : Exit");
             }
 
 Comment: *** multipleToastCompleteCollectionCallback2 : Invoke
@@ -7402,39 +7402,39 @@ Pass: myRC1WithEvent.onevent3
 
 Comment: Set the callbacks
 Pass: myRC1WithEvent["onevent1"]
-      Actual: function interface1Callback1(ev) {
-                logger.comment("*** interface1Callback1: Invoke");
-                i1e1Count++;
-                verify(ev.type, "event1", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback1: Exit");
+      Actual: function interface1Callback1(ev) {
+                logger.comment("*** interface1Callback1: Invoke");
+                i1e1Count++;
+                verify(ev.type, "event1", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback1: Exit");
             }
 
 Pass: myRC1WithEvent.onevent2
-      Actual: function interface1Callback2(ev) {
-                logger.comment("*** interface1Callback2: Invoke");
-                i1e2Count++;
-                verify(ev.type, "event2", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback2: Exit");
+      Actual: function interface1Callback2(ev) {
+                logger.comment("*** interface1Callback2: Invoke");
+                i1e2Count++;
+                verify(ev.type, "event2", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback2: Exit");
             }
 
 Pass: myRC1WithEvent["onevent21"]
-      Actual: function interface2Callback1(ev) {
-                logger.comment("*** interface2Callback1: Invoke");
-                i2e1Count++;
-                verify(ev.type, "event21", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface2Callback1: Exit");
+      Actual: function interface2Callback1(ev) {
+                logger.comment("*** interface2Callback1: Invoke");
+                i2e1Count++;
+                verify(ev.type, "event21", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback1: Exit");
             }
 
 Pass: myRC1WithEvent.onevent3
-      Actual: function interface2Callback3(ev) {
-                logger.comment("*** interface2Callback3: Invoke");
-                i2e3Count++;
-                verify(ev.type, "event3", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface2Callback3: Exit");
+      Actual: function interface2Callback3(ev) {
+                logger.comment("*** interface2Callback3: Invoke");
+                i2e3Count++;
+                verify(ev.type, "event3", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback3: Exit");
             }
 
 Comment: Invoke events and methods
@@ -7545,57 +7545,57 @@ Pass: myRC6WithEvent.onevent5
 
 Comment: Set the callbacks
 Pass: myRC6WithEvent["Animals.IInterface1WithEvent.onevent1"]
-      Actual: function interface1Callback1(ev) {
-                logger.comment("*** interface1Callback1: Invoke");
-                i1e1Count++;
-                verify(ev.type, "Animals.IInterface1WithEvent.event1", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback1: Exit");
+      Actual: function interface1Callback1(ev) {
+                logger.comment("*** interface1Callback1: Invoke");
+                i1e1Count++;
+                verify(ev.type, "Animals.IInterface1WithEvent.event1", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback1: Exit");
             }
 
 Pass: myRC6WithEvent.onevent2
-      Actual: function interface1Callback2(ev) {
-                logger.comment("*** interface1Callback2: Invoke");
-                i1e2Count++;
-                verify(ev.type, "event2", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback2: Exit");
+      Actual: function interface1Callback2(ev) {
+                logger.comment("*** interface1Callback2: Invoke");
+                i1e2Count++;
+                verify(ev.type, "event2", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback2: Exit");
             }
 
 Pass: myRC6WithEvent["onevent21"]
-      Actual: function interface2Callback1(ev) {
-                logger.comment("*** interface2Callback1: Invoke");
-                i2e1Count++;
-                verify(ev.type, "event21", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface2Callback1: Exit");
+      Actual: function interface2Callback1(ev) {
+                logger.comment("*** interface2Callback1: Invoke");
+                i2e1Count++;
+                verify(ev.type, "event21", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback1: Exit");
             }
 
 Pass: myRC6WithEvent.onevent3
-      Actual: function interface2Callback3(ev) {
-                logger.comment("*** interface2Callback3: Invoke");
-                i2e3Count++;
-                verify(ev.type, "event3", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface2Callback3: Exit");
+      Actual: function interface2Callback3(ev) {
+                logger.comment("*** interface2Callback3: Invoke");
+                i2e3Count++;
+                verify(ev.type, "event3", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface2Callback3: Exit");
             }
 
 Pass: myRC6WithEvent["onevent31"]
-      Actual: function interface3Callback1(ev) {
-                logger.comment("*** interface3Callback1: Invoke");
-                i3e1Count++;
-                verify(ev.type, "event31", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface3Callback1: Exit");
+      Actual: function interface3Callback1(ev) {
+                logger.comment("*** interface3Callback1: Invoke");
+                i3e1Count++;
+                verify(ev.type, "event31", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface3Callback1: Exit");
             }
 
 Pass: myRC6WithEvent.onevent5
-      Actual: function interface3Callback5(ev) {
-                logger.comment("*** interface3Callback5: Invoke");
-                i3e5Count++;
-                verify(ev.type, "event5", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface3Callback5: Exit");
+      Actual: function interface3Callback5(ev) {
+                logger.comment("*** interface3Callback5: Invoke");
+                i3e5Count++;
+                verify(ev.type, "event5", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface3Callback5: Exit");
             }
 
 Comment: Invoke events and methods
@@ -7831,21 +7831,21 @@ Pass: myRC7WithEvent.onevent2
 
 Comment: Set the callbacks
 Pass: myRC7WithEvent.onevent1
-      Actual: function interface1Callback1(ev) {
-                logger.comment("*** interface1Callback1: Invoke");
-                event1Count++;
-                verify(ev.type, "event1", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback1: Exit");
+      Actual: function interface1Callback1(ev) {
+                logger.comment("*** interface1Callback1: Invoke");
+                event1Count++;
+                verify(ev.type, "event1", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback1: Exit");
             }
 
 Pass: myRC7WithEvent.onevent2
-      Actual: function interface1Callback2(ev) {
-                logger.comment("*** interface1Callback2: Invoke");
-                event2Count++;
-                verify(ev.type, "event2", "ev.type");
-                verify(ev.detail[0], ev.type, "ev.detail[0]");
-                logger.comment("*** interface1Callback2: Exit");
+      Actual: function interface1Callback2(ev) {
+                logger.comment("*** interface1Callback2: Invoke");
+                event2Count++;
+                verify(ev.type, "event2", "ev.type");
+                verify(ev.detail[0], ev.type, "ev.detail[0]");
+                logger.comment("*** interface1Callback2: Exit");
             }
 
 Comment: Invoke events and methods
@@ -7940,12 +7940,12 @@ Pass: native Delegate Invoked
 
 Comment: myRC2WithEvent.onevent1 = callback1
 Pass: myRC2WithEvent.onevent21
-      Actual: function callback1(ev) {
-                logger.comment("*** Event Start : Interface2::Event1");
-                eventCount++;
-                verify(ev.target, myRC2WithEvent, "ev.target");
-                verify(ev, myString, "ev");
-                logger.comment("*** Event Complete : Interface2::Event1");
+      Actual: function callback1(ev) {
+                logger.comment("*** Event Start : Interface2::Event1");
+                eventCount++;
+                verify(ev.target, myRC2WithEvent, "ev.target");
+                verify(ev, myString, "ev");
+                logger.comment("*** Event Complete : Interface2::Event1");
             }
 
 Comment: myRC2WithEvent.invokeEvent_I2E1(myString);
@@ -7968,21 +7968,21 @@ Starting [Test 34: Calling event handler as delegate]
 Comment: var myRC2WithEvent = new Animals.RC2WithEvent();
 Comment: myRC2WithEvent.onevent21 = callback1
 Pass: myRC2WithEvent.onevent21
-      Actual: function callback1(ev, param2) {
-                if (useAsEvent == true) {
-                    logger.comment("*** Event : Invoke");
-                    eventCount++;
-                    verify(ev.target, myRC2WithEvent, "ev.target");
-                    verify(ev, myString, "ev");
-                    logger.comment("*** Event : Exit");
-                }
-                else {
-                    logger.comment("*** Delegate : Invoke");
-                    delegateCount++;
-                    verify(ev, myRC2WithEvent, "sender");
-                    verify(param2, myString, "hString");
-                    logger.comment("*** Delegate : Exit");
-                }
+      Actual: function callback1(ev, param2) {
+                if (useAsEvent == true) {
+                    logger.comment("*** Event : Invoke");
+                    eventCount++;
+                    verify(ev.target, myRC2WithEvent, "ev.target");
+                    verify(ev, myString, "ev");
+                    logger.comment("*** Event : Exit");
+                }
+                else {
+                    logger.comment("*** Delegate : Invoke");
+                    delegateCount++;
+                    verify(ev, myRC2WithEvent, "sender");
+                    verify(param2, myString, "hString");
+                    logger.comment("*** Delegate : Exit");
+                }
             }
 
 Comment: myRC2WithEvent.invokeEvent_I2E1(myString);
