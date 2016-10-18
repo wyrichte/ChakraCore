@@ -188,8 +188,6 @@ ScriptSite::ScriptSite()
     this->parentScriptSite = nullptr;
     this->windowHost = nullptr;
     this->hasParentInfo = false;
-    this->setHostObjectStackBackTrace = nullptr;
-    this->reinitHostObjectStackBackTrace = nullptr;
 #endif
 #if DBG_DUMP
     this->wszLocation = nullptr;
@@ -339,13 +337,11 @@ ScriptSite::~ScriptSite()
     }
     if (setHostObjectStackBackTrace)
     {
-        recycler->RootRelease(setHostObjectStackBackTrace);
-        setHostObjectStackBackTrace = nullptr;
+        setHostObjectStackBackTrace.Unroot(recycler);
     }
     if (reinitHostObjectStackBackTrace)
     {
-        recycler->RootRelease(reinitHostObjectStackBackTrace);
-        reinitHostObjectStackBackTrace = nullptr;
+        reinitHostObjectStackBackTrace.Unroot(recycler);
     }
 #endif
 #endif
@@ -2201,10 +2197,9 @@ void ScriptSite::CaptureSetHostObjectTrace()
     {
         if (this->setHostObjectStackBackTrace)
         {
-            recycler->RootRelease(setHostObjectStackBackTrace);
+            setHostObjectStackBackTrace.Unroot(recycler);
         }
-        this->setHostObjectStackBackTrace = StackBackTrace::Capture(recycler, ScriptSite::StackToSkip, ScriptSite::StackTraceDepth);
-        recycler->RootAddRef(setHostObjectStackBackTrace);
+        this->setHostObjectStackBackTrace.Root(StackBackTrace::Capture(recycler, ScriptSite::StackToSkip, ScriptSite::StackTraceDepth), recycler);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 }
@@ -2216,10 +2211,9 @@ void ScriptSite::CaptureReinitHostObjectTrace()
     {
         if (this->reinitHostObjectStackBackTrace)
         {
-            recycler->RootRelease(reinitHostObjectStackBackTrace);
+            this->reinitHostObjectStackBackTrace.Unroot(recycler);
         }
-        this->reinitHostObjectStackBackTrace = StackBackTrace::Capture(recycler, ScriptSite::StackToSkip, ScriptSite::StackTraceDepth);
-        recycler->RootAddRef(reinitHostObjectStackBackTrace);
+        this->reinitHostObjectStackBackTrace.Root(StackBackTrace::Capture(recycler, ScriptSite::StackToSkip, ScriptSite::StackTraceDepth), recycler);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 }
