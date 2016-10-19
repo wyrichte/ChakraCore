@@ -231,6 +231,9 @@ public:
 #ifdef DBG
     static HRESULT SetCheckOpHelpersFlag(bool flag) { return CHECKED_CALL(SetCheckOpHelpersFlag,flag); }
 #endif
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    static HRESULT SetOOPCFGRegistrationFlag(bool flag) { return CHECKED_CALL(SetOOPCFGRegistrationFlag, flag); }
+#endif
 
     static boolean SupportsDllGetClassObjectCallback() {return m_testHooks.pfDllGetClassObject != NULL; }
     static boolean SupportsPrintConfigFlagsUsageString() { return m_testHooksSetup && m_testHooks.pfPrintConfigFlagsUsageString != NULL; }
