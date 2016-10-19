@@ -1605,7 +1605,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         return MemProtectHeapTest();        
     }
 
-    if (HostConfigFlags::flags.EnableOutOfProcJIT && pfDoOneIteration == DoOneIASIteration)
+    if (HostConfigFlags::flags.OOPJIT && pfDoOneIteration == DoOneIASIteration)
     {
         // TODO: Error checking
         JITProcessManager::StartRpcServer(argc, argv);
