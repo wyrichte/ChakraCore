@@ -123,8 +123,8 @@ private:
     ScriptSite * parentScriptSite;
     Js::RecyclableObject * windowHost;
     bool hasParentInfo;
-    StackBackTrace * setHostObjectStackBackTrace;
-    StackBackTrace * reinitHostObjectStackBackTrace;
+    RecyclerRootPtr<StackBackTrace> setHostObjectStackBackTrace;
+    RecyclerRootPtr<StackBackTrace> reinitHostObjectStackBackTrace;
     static const int StackToSkip = 2;
     static const int StackTraceDepth = 40;
 #endif

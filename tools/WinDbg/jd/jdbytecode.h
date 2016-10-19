@@ -52,6 +52,7 @@ private:
     void DumpReg2B1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpReg3(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpReg3B1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpReg3C(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpReg4(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpReg5(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpReg1Unsigned1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);

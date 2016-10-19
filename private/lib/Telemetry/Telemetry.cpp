@@ -64,7 +64,7 @@ void Telemetry::OnJSRTThreadContextClose()
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), hasNodeModules(false), isPackageTelemetryFired(false), NodePackageIncludeList(nullptr), freq({ 0 }), hProv(NULL)
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), hasNodeModules(false), isPackageTelemetryFired(false), freq({ 0 }), hProv(NULL)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -337,8 +337,8 @@ void TraceLoggingClient::InitializeNodePackageList()
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
     if (threadContext != nullptr && threadContext->GetRecycler() != nullptr)
     {
-        NodePackageIncludeList = RecyclerNew(threadContext->GetRecycler(), NodePackageSet, threadContext->GetRecycler());
-        threadContext->GetRecycler()->RootAddRef(NodePackageIncludeList);
+        Recycler * recycler = threadContext->GetRecycler();
+        NodePackageIncludeList.Root(RecyclerNew(recycler, NodePackageSet, recycler), recycler);
         this->hasNodeModules = true;
     }
 }
@@ -362,8 +362,7 @@ void TraceLoggingClient::ReleaseNodePackageList()
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
     if (threadContext != nullptr && this->NodePackageIncludeList != nullptr)
     {
-        threadContext->GetRecycler()->RootRelease(this->NodePackageIncludeList);
-        this->NodePackageIncludeList = nullptr;
+        this->NodePackageIncludeList.Unroot(threadContext->GetRecycler());
     }
 }
 

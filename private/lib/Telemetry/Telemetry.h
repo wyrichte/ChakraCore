@@ -120,7 +120,7 @@ class TraceLoggingClient
     bool isHighResAvail;
     //Code for node telemetry purposes
     typedef JsUtil::BaseHashSet<const char16*, Recycler, PrimeSizePolicy> NodePackageSet;
-    NodePackageSet *NodePackageIncludeList;
+    RecyclerRootPtr<NodePackageSet> NodePackageIncludeList;
     bool hasNodeModules;
     bool isPackageTelemetryFired;
     LARGE_INTEGER freq;

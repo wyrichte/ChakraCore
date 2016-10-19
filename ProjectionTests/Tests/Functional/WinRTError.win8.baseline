@@ -5745,4 +5745,417 @@ PASS [Test 9: Stale IErrorInfo left over from previous call]
 =================================================
 Starting [Test 10: Originate and catch error with capability SID -- verify error object var and restricted values]
 Comment: Testing Capability: winCapabilityInternetClientSid
-FATAL ERROR: jshost.exe failed due to exception code 505
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-1'
+Pass: Found property with value 'S-1-15-3-1'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-1
+
+Comment: Testing Capability: winCapabilityInternetClientServerSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-2'
+Pass: Found property with value 'S-1-15-3-2'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityInternetClientServerSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-2
+
+Comment: Testing Capability: winCapabilityPrivateNetworkClientServerSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-3'
+Pass: Found property with value 'S-1-15-3-3'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityPrivateNetworkClientServerSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-3
+
+Comment: Testing Capability: winCapabilityPicturesLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-4'
+Pass: Found property with value 'S-1-15-3-4'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityPicturesLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-4
+
+Comment: Testing Capability: winCapabilityVideosLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-5'
+Pass: Found property with value 'S-1-15-3-5'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityVideosLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-5
+
+Comment: Testing Capability: winCapabilityMusicLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-6'
+Pass: Found property with value 'S-1-15-3-6'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityMusicLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-6
+
+Comment: Testing Capability: winCapabilityDocumentsLibrarySid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-7'
+Pass: Found property with value 'S-1-15-3-7'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityDocumentsLibrarySid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-7
+
+Comment: Testing Capability: winCapabilitySharedUserCertificatesSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-9'
+Pass: Found property with value 'S-1-15-3-9'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilitySharedUserCertificatesSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-9
+
+Comment: Testing Capability: winCapabilityDefaultWindowsCredentialsSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-8'
+Pass: Found property with value 'S-1-15-3-8'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityDefaultWindowsCredentialsSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-8
+
+Comment: Testing Capability: winCapabilityRemovableStorageSid
+Pass: e.number
+      Actual: -2147024891
+
+Comment: Verifying members of e
+Pass: description should be defined
+      Actual: string
+
+Pass: typeof Access is denied.
+
+      Actual: string
+
+Pass: number should be defined
+      Actual: number
+
+Pass: typeof -2147024891
+      Actual: number
+
+Pass: stack should be defined
+      Actual: string
+
+Pass: typeof WinRTError: Access is denied.
+
+   at test (winrterror.js:341:21)
+   at test (projectionsglue.js:1037:25)
+   at states.running (projectionsglue.js:683:21)
+   at runTasks (projectionsglue.js:788:13)
+   at run (projectionsglue.js:850:13)
+   at Global code (winrterror.js:357:112)
+      Actual: string
+
+Comment: Verifying e does not contain property with value 'S-1-15-3-10'
+Pass: Found property with value 'S-1-15-3-10'
+      Actual: false
+
+Pass: TestUtilities.GetRestrictedStringFromError(e)
+      Actual: Originate E_ACCESSDENIED with Capability SID: winCapabilityRemovableStorageSid
+
+Pass: TestUtilities.GetCapabilitySidFromError(e)
+      Actual: S-1-15-3-10
+
+PASS [Test 10: Originate and catch error with capability SID -- verify error object var and restricted values]
+=================================================
+
+Passed: 8
+Failed: 2

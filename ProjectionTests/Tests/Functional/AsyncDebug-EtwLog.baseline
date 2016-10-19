@@ -191,7 +191,7 @@ Posting stack trace via ETW:
 	Frame 0: Name=0 (Anonymous function), SourceLocationLength=402, SourceLocationStartIndex=9960
 NameBuffer = "Anonymous function";
 Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=15, operationName=Winery.RWinery.asyncOperationOutAfterExecuteDelegateWithAsyncInParameterUseSameAsyncObject, relatedContext=0)
-WinRTError: Unspecified error
+WinRTError: Unspecified error
 
 	at Anonymous function (AsyncDebug.js:296:21)
 Calling AsyncCausalityTracer.TraceOperationCompletion(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=14, status=1)

@@ -835,13 +835,13 @@ Pass: testDelegateArray_IPropertyValueIn(myArray).outValue.length
       Actual: 2
 
 Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[0]
-      Actual: function delegate1() {
-                return "delegate1";
+      Actual: function delegate1() {
+                return "delegate1";
             }
 
 Pass: testDelegateArray_IPropertyValueIn(myArray).outValue[1]
-      Actual: function delegate2() {
-                return "delegate2";
+      Actual: function delegate2() {
+                return "delegate2";
             }
 
 PASS [Test 39: IPropertyValue_In: Js Delegate Array from winrt]
@@ -1710,13 +1710,13 @@ Pass: testInspectable_IPropertyValueOut(myArray).length
       Actual: 2
 
 Pass: testInspectable_IPropertyValueOut(myArray)[0]
-      Actual: function delegate1() {
-                return "delegate1";
+      Actual: function delegate1() {
+                return "delegate1";
             }
 
 Pass: testInspectable_IPropertyValueOut(myArray)[1]
-      Actual: function delegate2() {
-                return "delegate2";
+      Actual: function delegate2() {
+                return "delegate2";
             }
 
 PASS [Test 92: IPropertyValue_Out: Js Delegate Arrays from winrt]
