@@ -1120,6 +1120,7 @@ Js::Var DebugObject::EntryIsAsmJSModule(Js::RecyclableObject* function, Js::Call
     {
         Js::JavascriptError::ThrowError(scriptContext, VBSERR_IllegalFuncCall);
     }
+#ifdef ASMJS_PLAT
     Var asmFuncVar = args[1] ;
     if (Js::ScriptFunction::Is(asmFuncVar))
     {
@@ -1131,6 +1132,7 @@ Js::Var DebugObject::EntryIsAsmJSModule(Js::RecyclableObject* function, Js::Call
             return scriptContext->GetLibrary()->GetTrue();
         }
     }
+#endif
     return scriptContext->GetLibrary()->GetFalse();
 }
 

@@ -309,4 +309,16 @@
       </ArrayItems>
     </Expand>
   </Type>
+  <Type Name="JsUtil::Stack&lt;*&gt;">
+    <DisplayString Condition="list.count > 0">Top = {list.buffer[list.count - 1]}</DisplayString>
+    <DisplayString Condition="list.count == 0">Empty</DisplayString>
+    <Expand>
+      <Item Name="[size]">list.count</Item>
+      <Item Name="[top]">list.buffer[list.count - 1]</Item>
+      <ArrayItems>
+        <Size>list.count</Size>
+        <ValuePointer>list.buffer</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
 </AutoVisualizer>

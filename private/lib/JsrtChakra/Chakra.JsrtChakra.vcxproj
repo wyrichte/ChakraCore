@@ -31,6 +31,7 @@
         $(ChakraCoreRootDirectory)Lib\JITClient;
         $(ChakraJITIDLIntDir);
         $(ChakraCoreRootDirectory)Lib\Backend;
+        $(ChakraCoreRootDirectory)Lib\WasmReader;
         $(ChakraCoreRootDirectory)Lib\Jsrt;
         $(MSBuildThisFileDirectory)..\Engine;
         $(MSBuildThisFileDirectory)..\Projection;
