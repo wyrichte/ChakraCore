@@ -155,6 +155,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeErrorCaseTest</compile-flags>
       <files>dummy.js</files>
       <baseline>DirectAPINoScriptScopeErrorCaseTest.baseline</baseline>
+      <!-- exclude_chk because we expect this test to hit an assert in Debug mode, and this is intended to test the behavior in release mode -->
       <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
@@ -163,6 +164,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeFailfastTest</compile-flags>
       <files>dummy.js</files>
       <baseline>DirectAPINoScriptScopeFailfastTest.baseline</baseline>
+      <!-- exclude_chk because we expect this test to FailFast and the message printed is different in debug versus test -->
       <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>

@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "stdafx.h"
@@ -23,7 +23,7 @@ HRESULT VerifyTypeId(Var obj, JavascriptTypeId typeId)
 
 HRESULT VerifyVarToInt(MyScriptDirectTests* myTest)
 {
-    double tests[][2] = 
+    double tests[][2] =
     {
         // input, expected output
         { 18446744075857035279.545, INT_MIN }, //  > (2^64)
@@ -184,6 +184,43 @@ void RunJsDirectTest(MyScriptDirectTests* myTests)
         ? "SUCCESS: " #which " " message "\n" \
         : "FAILURE: " #which " not " message "\n");
 
+interface ITracker : public IDispatchEx
+{
+    STDMETHOD(EnumerateTrackedObjects) (void *pgc) = 0;
+    STDMETHOD(SetTrackingAlias)   (VARIANT * pvar) = 0;
+    STDMETHOD(GetTrackingAlias)   (VARIANT ** ppvar) = 0;
+};
+
+// 0x8f88fd19, 0x5d42, 0x477b, {0xbd, 0x45, 0xf6, 0xa4, 0xa9, 0x77, 0xed, 0x05}
+interface ITrackingService : public IUnknown
+{
+public:
+    STDMETHOD(RegisterTrackingClient) (ITracker* pTracker) = 0;
+    STDMETHOD(UnregisterTrackingClient) (ITracker* pTracker) = 0;
+    STDMETHOD(EnumerateTrackingClient) (void* pv, IUnknown* punk, BOOL fTracker) = 0;
+    STDMETHOD(IsTrackedObject) (IUnknown* pUnk, IDispatchEx** ppDispTracked, BOOL* pfTracker) = 0;
+};
+
+DEFINE_GUID(IID_ITrackingService, 0x8f88fd19, 0x5d42, 0x477b, 0xbd, 0x45, 0xf6, 0xa4, 0xa9, 0x77, 0xed, 0x05);
+
+ITrackingService * GetTrackingService(MyScriptDirectTests* myTests)
+{
+    IJavascriptThreadProperty *threadService = myTests->GetThreadService();
+    ITrackingService *pThreadProperty = nullptr;
+    HRESULT hresult = threadService->QueryInterface(IID_ITrackingService, /* out */ reinterpret_cast<void **>(&pThreadProperty));
+
+    if (S_OK == hresult)
+    {
+        ITrackingService *trackingService = static_cast<ITrackingService *>(pThreadProperty);
+        pThreadProperty->Release();
+
+        return trackingService;
+    }
+
+    // The tests will fail when a nullptr is used so we'll see the problem show up right away.
+    return nullptr;
+}
+
 void RunNoFailFastScopeTest(MyScriptDirectTests* myTests)
 {
     HRESULT hr = S_OK;
@@ -191,9 +228,11 @@ void RunNoFailFastScopeTest(MyScriptDirectTests* myTests)
     // noScriptScope == false, so this call should not fail
     myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
 
+    ITrackingService *trackingService = GetTrackingService(myTests);
+
     // ensure set and reset works
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false), S_OK);
     myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
 
     printf("RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.\n");
@@ -204,23 +243,21 @@ void RunJsDirectNoScriptScopeTests(MyScriptDirectTests* myTests)
     myTests->InitThreadService();
 
     bool noScriptScope = false;
-    HRESULT hr = S_OK;
+    HRESULT hr = S_OK; // for NOSCRIPTSCOPE_CHECK_* macros
 
-    //
-    // using myTests->GetThreadService()
-    //
+    ITrackingService *trackingService = GetTrackingService(myTests);
 
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(trackingService, &noScriptScope), S_OK);
     NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, false, "initialized to false");
 
     // set and query noScriptScope
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(trackingService, &noScriptScope), S_OK);
     NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true");
 
     // reset and query noScriptScope
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(myTests->GetThreadService(), &noScriptScope), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(trackingService, &noScriptScope), S_OK);
     NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, false, "reset to false");
 
     RunNoFailFastScopeTest(myTests);
@@ -230,38 +267,27 @@ void RunJsDirectNoScriptScopeErrorCaseTests(MyScriptDirectTests* myTests)
 {
     myTests->InitThreadService();
 
+    ITrackingService *trackingService = GetTrackingService(myTests);
+
     bool noScriptScope = false;
     HRESULT hr = S_OK;
-
-    // some arbitrary pointer which is the wrong kind of IUnknown
-    IUnknown *pWrongKind = static_cast<IUnknown *>(myTests->GetScriptDirectNoRef());
 
     //
     // using nullptr
     //
+
+    JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false);
 
     // set and query noScriptScope
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, true), E_INVALIDARG);
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope), E_INVALIDARG);
     NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
 
+    JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false);
+
     // reset and query noScriptScope
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(nullptr, false), E_INVALIDARG);
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(nullptr, &noScriptScope), E_INVALIDARG);
-    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
-
-    //
-    // using pWrongKind
-    //
-
-    // set and query noScriptScope
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, true), E_INVALIDARG);
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope), E_INVALIDARG);
-    NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
-
-    // reset and query noScriptScope
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(pWrongKind, false), E_INVALIDARG);
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::IsNoScriptScope(pWrongKind, &noScriptScope), E_INVALIDARG);
     NOSCRIPTSCOPE_CHECK_BOOL(noScriptScope, true, "set to true when passed an invalid argument");
 }
 
@@ -269,7 +295,9 @@ void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
 {
     myTests->InitThreadService();
 
-    JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true);
+    ITrackingService *trackingService = GetTrackingService(myTests);
+
+    JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true);
     myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
     printf("This should not be printed out as the EnterScript earlier should have failed fast.\n");
 }
@@ -289,13 +317,15 @@ void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
     variant.vt = VT_R8;
     variant.dblVal = 3.14;
 
+    ITrackingService *trackingService = GetTrackingService(myTests);
+
     // NoScriptScope == false
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), false), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false), S_OK);
     x->ChangeTypeToVar(&variant, &var); // should pass even before fix
     printf("When NoScriptScope==false, this should pass.\n");
 
     // NoScriptScope == true
-    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(myTests->GetThreadService(), true), S_OK);
+    NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true), S_OK);
     x->ChangeTypeToVar(&variant, &var); // would fail before fix, expect to pass now
     printf("When NoScriptScope==true, and DisableNoScriptScope workaround is in place, this should pass.\n");
 }

@@ -1,4 +1,10 @@
+//----------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
+
 #include "edgescriptDirect.h"
+
+typedef interface ITrackingService ITrackingService;
 
 namespace JsStaticAPI
 {
@@ -47,8 +53,8 @@ namespace JsStaticAPI
         static Var __stdcall GetFalse(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetGlobalObject(IActiveScriptDirect* activeScriptDirect);
 
-        static HRESULT __stdcall SetNoScriptScope(__in IUnknown *threadService, bool noScriptScope);
-        static HRESULT __stdcall IsNoScriptScope(__in IUnknown *threadService, __out bool *isNoScriptScope);
+        static HRESULT __stdcall SetNoScriptScope(__in ITrackingService *threadService, bool noScriptScope);
+        static HRESULT __stdcall IsNoScriptScope(__in ITrackingService *threadService, __out bool *isNoScriptScope);
     };
 
     class DataConversion

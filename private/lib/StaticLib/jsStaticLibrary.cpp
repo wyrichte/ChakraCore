@@ -72,7 +72,7 @@ namespace JsStaticAPI
         });
     }
 
-    HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ IUnknown *threadService, bool noScriptScope)
+    HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ ITrackingService *threadService, bool noScriptScope)
     {
         if (threadService == nullptr)
         {
@@ -82,30 +82,12 @@ namespace JsStaticAPI
             return E_INVALIDARG;
         }
 
-        IJavascriptThreadProperty *pThreadProperty = nullptr;
-
-        HRESULT hresult = threadService->QueryInterface(__uuidof(IJavascriptThreadProperty), /* out */ reinterpret_cast<void **>(&pThreadProperty));
-        AssertMsg(S_OK == hresult, "threadService did not QI to IJavascriptThreadProperty; the parameter was incorrect");
-
-        if (S_OK == hresult)
-        {
-            JavascriptThreadService *jsThreadService = static_cast<JavascriptThreadService *>(pThreadProperty);
-            ThreadContext *threadContext = jsThreadService->GetThreadContext();
-
-            pThreadProperty->Release();
-
-            threadContext->SetNoScriptScope(noScriptScope);
-
-            return S_OK;
-        }
-        else
-        {
-            // If QI failed and we skipped the Assert (in Release build), return an error code.
-            return E_INVALIDARG;
-        }
+        JavascriptThreadService *jsThreadService = static_cast<JavascriptThreadService *>(threadService);
+        jsThreadService->GetThreadContext()->SetNoScriptScope(noScriptScope);
+        return S_OK;
     }
 
-    HRESULT JavascriptLibrary::IsNoScriptScope(/* in */ IUnknown *threadService, /* out */ bool *isNoScriptScope)
+    HRESULT JavascriptLibrary::IsNoScriptScope(/* in */ ITrackingService *threadService, /* out */ bool *isNoScriptScope)
     {
         if (threadService == nullptr)
         {
@@ -119,29 +101,8 @@ namespace JsStaticAPI
             return E_INVALIDARG;
         }
 
-        IJavascriptThreadProperty *pThreadProperty = nullptr;
-
-        HRESULT hresult = threadService->QueryInterface(__uuidof(IJavascriptThreadProperty), /* out */ reinterpret_cast<void **>(&pThreadProperty));
-        AssertMsg(S_OK == hresult, "threadService did not QI to IJavascriptThreadProperty; the parameter was incorrect");
-
-        if (S_OK == hresult)
-        {
-            JavascriptThreadService *jsThreadService = static_cast<JavascriptThreadService *>(pThreadProperty);
-            ThreadContext *threadContext = jsThreadService->GetThreadContext();
-
-            pThreadProperty->Release();
-
-            *isNoScriptScope = threadContext->IsNoScriptScope();
-            return S_OK;
-        }
-        else
-        {
-            // If the QI failed and we skipped the Assert (in Release build):
-            // - Fail by returning an error code.
-            // - If error is not handled, we should behave as if this is a NoScriptScope and fail fast on script entry
-            //   i.e. the case where IsNoScriptScope() == true.
-            *isNoScriptScope = true;
-            return E_INVALIDARG;
-        }
+        JavascriptThreadService *jsThreadService = static_cast<JavascriptThreadService *>(threadService);
+        *isNoScriptScope = jsThreadService->GetThreadContext()->IsNoScriptScope();
+        return S_OK;
     }
 }
