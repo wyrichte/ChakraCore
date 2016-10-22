@@ -64,7 +64,11 @@ HRESULT JITProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     }
     WCHAR* connectionUuidString = NULL;
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    hr = StringCchCopyW(cmdLine, cmdLineSize, L"JsHost.exe -OOPCFGRegistration- -CheckOpHelpers -jitserver:");
+#else
     hr = StringCchCopyW(cmdLine, cmdLineSize, L"JsHost.exe -jitserver:");
+#endif
     if (FAILED(hr))
     {
         return hr;

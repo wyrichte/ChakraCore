@@ -1605,7 +1605,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
         return MemProtectHeapTest();        
     }
 
-    if (HostConfigFlags::flags.EnableOutOfProcJIT && pfDoOneIteration == DoOneIASIteration)
+    if (HostConfigFlags::flags.OOPJIT && pfDoOneIteration == DoOneIASIteration)
     {
         // TODO: Error checking
         JITProcessManager::StartRpcServer(argc, argv);
@@ -1632,6 +1632,9 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 #ifdef DBG
     // Always enable this in console CHK builds
     JScript9Interface::SetCheckOpHelpersFlag(true);
+#endif
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    JScript9Interface::SetOOPCFGRegistrationFlag(false);
 #endif
 
     __try

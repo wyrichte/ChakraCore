@@ -21,7 +21,7 @@
       <files>test1.js</files>
       <baseline />
       <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
+      <compile-flags>-oopjit- -Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -31,7 +31,7 @@
       <files>test1.js</files>
       <baseline>test1.jitloop.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
+      <compile-flags>-oopjit- -Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -42,7 +42,7 @@
       <files>test1.js</files>
       <baseline />
       <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
+      <compile-flags>-oopjit- -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
       <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -76,6 +76,7 @@
       <files>test_try.js</files>
       <baseline>test_try.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---try-catch bp; !testdump; g; !echo; !echo ---try-finally bp; !testdump; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -85,6 +86,7 @@
       <files>test_inline.js</files>
       <baseline>test_inline.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -94,6 +96,7 @@
       <files>test_inline_bailout.js</files>
       <baseline>test_inline_bailout.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -103,6 +106,7 @@
       <files>test_deepRecursion.js</files>
       <baseline>test_deepRecursion.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---deep recursion; !testdump; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -214,7 +218,7 @@
       <files>dump3.js</files>
       <baseline>dump3.baseline</baseline>
       <command>jdtest -q -c ".load ut_jsdiag;sxe eh;g; !testdump; q" jshost</command>
-      <compile-flags>-forceNative -off:simpleJit -enableDebug</compile-flags>
+      <compile-flags>-oopjit- -forceNative -off:simpleJit -enableDebug</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
@@ -223,7 +227,7 @@
       <files>inlineSameFunc.js</files>
       <baseline>inlineSameFunc.baseline</baseline>
       <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
-      <compile-flags>-maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
+      <compile-flags>-oopjit- -maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>

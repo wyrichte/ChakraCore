@@ -248,7 +248,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     hr = GetActiveScriptDirect(&activeScriptDirect);
     IfFailedGo(hr);
 
-    if (HostConfigFlags::flags.EnableOutOfProcJIT)
+    if (HostConfigFlags::flags.OOPJIT)
     {
         hr = activeScriptDirect->SetJITConnectionInfo(JITProcessManager::GetRpcProccessHandle(), nullptr /*serverSecurityDescriptor*/, JITProcessManager::GetRpcConnectionId());
         IfFailedGo(hr);
