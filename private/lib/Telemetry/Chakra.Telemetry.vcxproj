@@ -52,11 +52,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DateParse\DateParseTelemetryProvider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)KnownMethodTelemetry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DateParse\DateParseTelemetryProvider.h" />
     <ClInclude Include="DirectCall.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
@@ -81,8 +79,6 @@
     <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js" />
     <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.inc" />
     <None Include="ESBuiltIns\sources.inc" />
-    <None Include="ESBuiltIns\TraceLogList.Generator.js" />
-    <None Include="ESBuiltIns\TraceLogList.inc" />
     <None Include="KnownMethodTelemetryList.inc" />
     <None Include="sources.inc" />
   </ItemGroup>

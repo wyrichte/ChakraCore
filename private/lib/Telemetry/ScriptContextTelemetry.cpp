@@ -2,7 +2,6 @@
 #include "ScriptContextTelemetry.h"
 
 #include "ESBuiltIns\ESBuiltInsTelemetryProvider.h"
-#include "DateParse\DateParseTelemetryProvider.h"
 
 #ifdef ENABLE_BASIC_TELEMETRY
 
@@ -18,9 +17,6 @@ ScriptContextTelemetry::ScriptContextTelemetry( ScriptContext& scriptContext ) :
     // Register each Telemetry provider here.
 #ifdef TELEMETRY_ESB
        this->telemetryProviders.Add( Anew( scriptContext.TelemetryAllocator(), ESBuiltInsTelemetryProvider, *this ) );
-#endif
-#ifdef TELEMETRY_DateParse
-       this->telemetryProviders.Add( Anew( scriptContext.TelemetryAllocator(), DateParseTelemetryProvider, *this ) );
 #endif
 }
 

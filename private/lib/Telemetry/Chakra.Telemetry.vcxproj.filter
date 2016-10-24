@@ -36,8 +36,6 @@
   <ItemGroup>
     <None Include="dirs" />
     <None Include="ESBuiltIns\sources.inc" />
-    <None Include="ESBuiltIns\TraceLogList.Generator.js" />
-    <None Include="ESBuiltIns\TraceLogList.inc" />
     <None Include="sources.inc" />
     <None Include="TelemetryList.inc" />
     <None Include="ESBuiltIns\ESBuiltInsDatabase.inc">

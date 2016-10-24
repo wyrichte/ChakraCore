@@ -299,16 +299,6 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId( const V
 
 void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
 {
-    // Unfortunately we cannot #include a file directly within a macro usage.
-    // i.e. this doesn't work:
-    // 
-    // #define BUILTIN(yada) TraceLoggingInt32( yada, #yada )
-    // TraceLogChakra( /*snip*/
-    // #include "ESBuiltInsDatabase.inc"
-    // );
-    //
-    // So the tracelogging call is instead populated by a C++-generation script, which the same effect as the preprocessor, except you need to remember to re-run the script whenever the database changes.
-    // The generated file is TraceLogList.inc, and unfortunately the preprocessor puts it all on a single long line.
 
     if (!this->throttle.isThrottled())
     {
@@ -317,9 +307,41 @@ void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD host
 #define Get(propertyId) \
     ( idx = ESBuiltInsDatabase::GetESBuiltInArrayIndex( propertyId ), idx != SIZE_MAX ? this->usageMap[ idx ] : 0 )
 
-// If the compiler complains about running out of heap-space, re-run TraceLogList.Generator.js with a modified entriesPerBlock value (line 39).
-
-#include "TraceLogList.inc"
+        TraceLogChakra("ESBuiltIns" /* #0 */,
+            TraceLoggingGuid(activityId, "activityId"),
+            TraceLoggingUInt32(hostType, "HostingInterface"),
+            TraceLoggingBool(isJSRT, "isJSRT"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Prototype_contains), "Array_Prototype_contains"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Prototype_includes), "Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Constructor_observe), "Array_Constructor_observe"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Constructor_unobserve), "Array_Constructor_unobserve"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::ArrayBuffer_Constructor_transfer), "ArrayBuffer_Constructor_transfer"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Float32Array_Prototype_includes), "Float32Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Float64Array_Prototype_includes), "Float64Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int16Array_Prototype_includes), "Int16Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int32Array_Prototype_includes), "Int32Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int8Array_Prototype_includes), "Int8Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Map_Prototype_toJSON), "Map_Prototype_toJSON"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_getOwnPropertyDescriptors), "Object_Constructor_getOwnPropertyDescriptors"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_observe), "Object_Constructor_observe"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_unobserve), "Object_Constructor_unobserve"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::RegExp_Constructor_escape), "RegExp_Constructor_escape"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Set_Prototype_toJSON), "Set_Prototype_toJSON"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_at), "String_Prototype_at"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_leftPad), "String_Prototype_leftPad"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_lPad), "String_Prototype_lPad"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_padLeft), "String_Prototype_padLeft"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_padRight), "String_Prototype_padRight"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_rightPad), "String_Prototype_rightPad"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_rPad), "String_Prototype_rPad"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_substr), "String_Prototype_substr"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_trimLeft), "String_Prototype_trimLeft"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_trimRight), "String_Prototype_trimRight"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint16Array_Prototype_includes), "Uint16Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint32Array_Prototype_includes), "Uint32Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint8Array_Prototype_includes), "Uint8Array_Prototype_includes"),
+            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint8ClampedArray_Prototype_includes), "Uint8ClampedArray_Prototype_includes")
+        );
 
 #undef Get
     }

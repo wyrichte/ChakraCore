@@ -15,11 +15,4 @@ KnownMethodTelemetry::~KnownMethodTelemetry()
 {
 }
 
-void KnownMethodTelemetry::JavascriptDate_ParseHelper(ScriptContext* scriptContext, JavascriptString* str, double returnValue, bool exceptionRaised)
-{
-#ifdef TELEMETRY_DateParse
-    dateParseTelemetryProvider->JavascriptDate_ParseHelper( scriptContext, str, returnValue, exceptionRaised );
-#endif
-}
-
 #endif
