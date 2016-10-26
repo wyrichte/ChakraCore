@@ -521,14 +521,14 @@
     <default>
       <files>testBasic.js</files>
       <baseline>testBasic.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
+      <compile-flags>-testtrace:asmjs -simdjs -maic:0 -nodeferparse</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>testBasic.js</files>
       <baseline>testBasic.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
+      <compile-flags>-testtrace:asmjs -simdjs -nonative -nodeferparse</compile-flags>
     </default>
   </test>
   <test>
@@ -536,7 +536,7 @@
       <files>testBasic.js</files>
       <baseline>testBasic.baseline</baseline>
       <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
+      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit -nodeferparse</compile-flags>
     </default>
   </test>
 </regress-exe>
