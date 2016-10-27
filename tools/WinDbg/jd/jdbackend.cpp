@@ -432,7 +432,7 @@ JD_PRIVATE_COMMAND(irfunc,
 {
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
-    ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped("(Func*)@$extin", pointer));
+    ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped(GetExtension()->FillModule("(%s!Func*)@$extin"), pointer));
     PropertyNameReader propertyNameReader(this, RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());
     JDBackend jdbackend(this, propertyNameReader);
     jdbackend.DumpFunc(func);
