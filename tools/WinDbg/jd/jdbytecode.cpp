@@ -609,6 +609,13 @@ JDByteCode::DumpStartCall(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
 }
 
 void
+JDByteCode::DumpAuxiliary(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
+{
+    DumpReg(layout.Field("R0"));
+    ext->Out(" = AuxOffset: %u C1: %d", GetUnsigned(layout.Field("Offset")), GetSigned(layout.Field("C1")));
+}
+
+void
 JDByteCode::DumpConstantTable()
 {
     if (!this->hasFunctionBody)
@@ -883,6 +890,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         else PROCESS_LAYOUT(BrReg2)
         else PROCESS_LAYOUT(StartCall)
         else PROCESS_LAYOUT(Arg)
+        else PROCESS_LAYOUT(Auxiliary)
         else
         {
             ext->Out(" <%s>", plainLayoutStr);

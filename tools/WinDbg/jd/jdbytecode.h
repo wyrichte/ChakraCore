@@ -85,6 +85,7 @@ private:
 
     void DumpStartCall(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
     void DumpArg(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpAuxiliary(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset);
 
     void DumpConstantTable();
     void DumpImplicitArgIns();
