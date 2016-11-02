@@ -63,8 +63,12 @@ public:
         HeapObjectType_ModuleNamespace             =0x2c,
         HeapObjectType_ListIterator                =0x2d,
         HeapObjectType_SharedArrayBuffer           =0x2e,
+        HeapObjectType_WebAssemblyModule           =0x2f,
+        HeapObjectType_WebAssemblyInstance         =0x30,
+        HeapObjectType_WebAssemblyMemory           =0x31,
+        HeapObjectType_WebAssemblyTable            =0x32,
 
-        HeapObjectType_Last                        = HeapObjectType_SharedArrayBuffer,
+        HeapObjectType_Last                        = HeapObjectType_WebAssemblyTable,
         HeapObjectType_Invalid                     =0xff
     };
 

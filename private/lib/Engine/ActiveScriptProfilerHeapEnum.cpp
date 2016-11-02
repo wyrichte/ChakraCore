@@ -125,6 +125,10 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_Generator, HeapObjectType_Generator },
     { Js::TypeIds_Promise, HeapObjectType_Promise },
     { Js::TypeIds_SharedArrayBuffer, HeapObjectType_SharedArrayBuffer },
+    { Js::TypeIds_WebAssemblyModule, HeapObjectType_WebAssemblyModule },
+    { Js::TypeIds_WebAssemblyInstance, HeapObjectType_WebAssemblyInstance },
+    { Js::TypeIds_WebAssemblyMemory, HeapObjectType_WebAssemblyMemory },
+    { Js::TypeIds_WebAssemblyTable, HeapObjectType_WebAssemblyTable },
     { Js::TypeIds_GlobalObject, HeapObjectType_GlobalObject},
     { Js::TypeIds_ModuleRoot, HeapObjectType_FormObject},
     { Js::TypeIds_HostObject, HeapObjectType_HostObject},
@@ -200,6 +204,10 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_Generator].typeNameId = GetPropertyId(_u("Generator"));
     typeNameIdMap[HeapObjectType_Promise].typeNameId = GetPropertyId(_u("Promise"));
     typeNameIdMap[HeapObjectType_SharedArrayBuffer].typeNameId = GetPropertyId(_u("SharedArrayBuffer"));
+    typeNameIdMap[HeapObjectType_WebAssemblyModule].typeNameId = GetPropertyId(_u("WebAssemblyModule"));
+    typeNameIdMap[HeapObjectType_WebAssemblyInstance].typeNameId = GetPropertyId(_u("WebAssemblyInstance"));
+    typeNameIdMap[HeapObjectType_WebAssemblyMemory].typeNameId = GetPropertyId(_u("WebAssemblyMemory"));
+    typeNameIdMap[HeapObjectType_WebAssemblyTable].typeNameId = GetPropertyId(_u("WebAssemblyTable"));
     typeNameIdMap[HeapObjectType_EnumeratorIterator].typeNameId = GetPropertyId(_u("ReflectIterator"));
     typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(_u("SIMD"));
     typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(_u("SIMDObject"));
