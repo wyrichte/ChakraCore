@@ -36,11 +36,11 @@ WCHAR *g_ProcessExclusionList[] = {
 // Creating wrapper for atExit Scenario as we want to tackle OOM and other exceptions.
 void __cdecl firePackageTelemetryAtExit() 
 {
-  if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
+  if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->GetNodeTelemetryProvider()->IsPackageTelemetryFired()))
   {
     HRESULT hr = NOERROR;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
-      g_TraceLoggingClient->FirePackageTelemetryHelper();
+      g_TraceLoggingClient->GetNodeTelemetryProvider()->FirePackageTelemetryHelper();
     END_TRANSLATE_OOM_TO_HRESULT(hr);
   }
 }
@@ -56,15 +56,15 @@ void Telemetry::EnsureInitializeForJSRT()
 
 void Telemetry::OnJSRTThreadContextClose()
 {
-    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->IsPackageTelemetryFired()))
+    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->GetNodeTelemetryProvider()->IsPackageTelemetryFired()))
     {
-        g_TraceLoggingClient->FirePackageTelemetryHelper();
+        g_TraceLoggingClient->GetNodeTelemetryProvider()->FirePackageTelemetryHelper();
     }
 }
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), hasNodeModules(false), isPackageTelemetryFired(false), freq({ 0 }), hProv(NULL)
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -87,8 +87,6 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), hasNodeModu
         }
     }
 
-    SetIsHighResPerfCounterAvailable(); // Used as a telemetry point
-
     TraceLoggingRegister(g_hTraceLoggingProv);
 }
 
@@ -97,16 +95,9 @@ TraceLoggingClient::~TraceLoggingClient()
     TraceLoggingUnregister(g_hTraceLoggingProv);
 }
 
-void TraceLoggingClient::SetIsHighResPerfCounterAvailable()
+NodeTelemetryProvider* TraceLoggingClient::GetNodeTelemetryProvider()
 {
-    if (!QueryPerformanceFrequency(&freq))
-    {
-        this->isHighResAvail = false;
-    }
-    else
-    {
-        this->isHighResAvail = true;
-    }
+    return &node;
 }
 
 void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
@@ -125,6 +116,7 @@ void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
 {
     if (!this->throttle.isThrottled())
     {
+        // TODO: add experimental flag detection to this event
         TraceLogChakra(
             TL_CHAKRAINIT,
             TraceLoggingUInt32(host, "HostingInterface"),
@@ -133,240 +125,7 @@ void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
     }
 }
 
-void TraceLoggingClient::FirePackageTelemetryHelper() 
-{
-  Assert(!(this->IsPackageTelemetryFired()));
-  this->CreateHashAndFirePackageTelemetry();
-  this->ReleaseNodePackageList();
-  this->SetIsPackageTelemetryFired(true);
-}
-
-
-void TraceLoggingClient::TryLogNodePackage(Recycler* recycler, const char16* packageName)
-{
-    char16* name = nullptr;
-    const char16* nodeModule = _u("node_modules");
-    bool isNodeModule = packageName && wcswcs(packageName, nodeModule);
-    if (isNodeModule)
-    {
-        const char16 NODE_MODULES[] = _u("node_modules\\");
-        char16* startPos = wcswcs(packageName, NODE_MODULES);
-        char16* curr = startPos;
-
-        // Find the last node_modules in the path
-        while (curr != nullptr)
-        {
-            curr = curr + _countof(NODE_MODULES);
-            startPos = curr - 1;
-            curr = wcswcs(curr, NODE_MODULES);
-        }
-        // now startPos is at the package name
-        char16 ch = _u('\\');
-        char16* endPos = wcschr(startPos, ch);
-        size_t len = 0;
-        if (endPos == nullptr) // for cases like node_modules\\foo.js i.e. which doesn't have sub-directory
-        {
-           len = wcslen(startPos);
-        }
-        else
-        {
-            len = (size_t)(endPos - startPos);
-        }
-
-        if (len>0)
-        {
-            name = RecyclerNewArrayLeaf(recycler, char16, len + 1);
-            js_wmemcpy_s(name, len, startPos, len);
-            name[len] = _u('\0');
-            this->AddPackageName(name);
-        }
-    }
-}
-
-HCRYPTPROV TraceLoggingClient::EnsureCryptoContext()
-{
-    if (NULL == hProv)
-    {
-        if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_AES, CRYPT_VERIFYCONTEXT))
-        {
-            Assert(hProv == NULL);
-            return NULL;
-        }
-    }
-    return hProv;
-}
-
-
-void TraceLoggingClient::CreateHashAndFirePackageTelemetry()
-{
-    // Fire Hashed Package Counts and Hashed Packages
-    int packageCount = 0;
-    int upto = 0;
-    char16* buf = _u('\0');
-    double hashTime = 0.0;
-
-    ThreadContext* threadContext = ThreadContext::GetThreadContextList();
-    if (threadContext != nullptr && this->hasNodeModules)
-    {
-        LARGE_INTEGER hiResHashStartTime = { 0 };
-        ULONGLONG hashStartTime = 0;
-        if (this->isHighResAvail)
-        {
-            QueryPerformanceCounter(&(hiResHashStartTime));
-        }
-        else
-        {
-            hashStartTime = GetTickCount64();
-        }
-        HCRYPTPROV hProv = NULL;
-        HCRYPTHASH hHash = NULL;
-        hProv = this->EnsureCryptoContext();
-        static const DWORD MaxHashLength = 128;
-        static const DWORD MaxTraceLogLength = 65536;
-        static const DWORD MaxNumberPackages = MaxTraceLogLength / MaxHashLength;
-
-        packageCount = this->NodePackageIncludeList->Count();
-        upto = packageCount < MaxNumberPackages ? packageCount : MaxNumberPackages;
-
-        buf = RecyclerNewArrayLeaf(threadContext->GetRecycler(), char16, (upto * MaxHashLength) + 1);
-        uint counter = 0;
-        for (int j = 0; j < upto; j++)
-        {
-            const char16* stringToHash = this->NodePackageIncludeList->GetValueAt(j);
-            size_t strSize = wcslen(stringToHash);
-            if (strSize > INT_MAX)
-            {
-                return;
-            }
-
-            if (hProv &&
-                CryptCreateHash(hProv, CALG_SHA1, 0, 0, &hHash))
-            {
-                if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(stringToHash), static_cast<DWORD>(strSize)*sizeof(char16), 0))
-                {
-                    return;
-                }
-
-                DWORD hashLength;
-                DWORD dwSize = sizeof(hashLength);
-                if (!CryptGetHashParam(hHash, HP_HASHSIZE, reinterpret_cast<BYTE*>(&hashLength), &dwSize, 0))
-                {
-                    return;
-                }
-
-                if (hashLength > MaxHashLength)
-                {
-                    return;
-                }
-
-                BYTE* hashedData = RecyclerNewArrayLeaf(threadContext->GetRecycler(), BYTE, hashLength + 1);
-
-                if (hashedData == nullptr)
-                {
-                    return;
-                }
-
-                if (!CryptGetHashParam(hHash, HP_HASHVAL, reinterpret_cast<BYTE*>(hashedData), &hashLength, 0))
-                {
-                    return;
-                }
-
-                if (hHash != NULL)
-                {
-                    CryptDestroyHash(hHash);
-                }
-
-                for (DWORD i = 0; i < hashLength && counter + 1 < (upto * MaxHashLength) + 1; ++i)
-                {
-                    char16 tmp[3];
-                    swprintf_s(tmp, _u("%02X"), hashedData[i]);
-                    buf[counter] = tmp[0];
-                    buf[counter + 1] = tmp[1];
-                    counter += 2;
-                }
-
-                if (counter >= (upto * MaxHashLength) + 1)
-                {
-                    AssertMsg(false, "Buffer overflow");
-                    return;
-                }
-                buf[counter] = _u(';');
-                counter++;
-            }
-            else
-            {
-                return;
-            }
-        }
-        if (counter >= (upto * MaxHashLength) + 1)
-        {
-            AssertMsg(false, "Buffer overflow");
-            return;
-        }
-        buf[counter] = _u('\0');
-
-        if (this->isHighResAvail)
-        {
-            LARGE_INTEGER hiResHashStopTime = { 0 };
-            QueryPerformanceCounter(&hiResHashStopTime);
-            hashTime = ((hiResHashStopTime.QuadPart - hiResHashStartTime.QuadPart)* 1000.00 / freq.QuadPart);
-        }
-        else
-        {
-            hashTime = (double)(GetTickCount64() - hashStartTime);
-        }
-    }
-    // we want to see telemetry even if package count is 0, this will give a good sense of ratio. Obvious down side is that we will get telemetry from ALL jsrt apps not just Node but we can
-    // easily filter that.
-    TraceLogChakra(
-        TL_CHAKRANODEPACK,
-        TraceLoggingUInt32(packageCount, "PackageCount"),
-        TraceLoggingUInt32(upto, "HashedPackageCount"),
-        TraceLoggingFloat64(hashTime, "HashTime"),
-        TraceLoggingWideString(buf, "PackageHash")
-        );
-    if (hProv != NULL)
-    {
-        CryptReleaseContext(hProv, 0);
-        hProv = NULL;
-    }
-}
-
-void TraceLoggingClient::InitializeNodePackageList()
-{
-    ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
-    if (threadContext != nullptr && threadContext->GetRecycler() != nullptr)
-    {
-        Recycler * recycler = threadContext->GetRecycler();
-        NodePackageIncludeList.Root(RecyclerNew(recycler, NodePackageSet, recycler), recycler);
-        this->hasNodeModules = true;
-    }
-}
-
-void TraceLoggingClient::AddPackageName(const char16* packageName)
-{
-    if (this->NodePackageIncludeList == nullptr)
-    {
-        this->InitializeNodePackageList();
-    }
-
-    if (this->NodePackageIncludeList != nullptr)
-    {
-        this->NodePackageIncludeList->AddNew(packageName);
-    }
-}
-
-
-void TraceLoggingClient::ReleaseNodePackageList()
-{
-    ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
-    if (threadContext != nullptr && this->NodePackageIncludeList != nullptr)
-    {
-        this->NodePackageIncludeList.Unroot(threadContext->GetRecycler());
-    }
-}
-
-
+// Fired whenever we close a page by navigating away
 void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT)
 {
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
@@ -394,125 +153,125 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
 
         if (langStats != NULL && CONFIG_ISENABLED(Js::ES5LangTelFlag))
         {
-            Output::Print(_u("Array.isArray count: %d\n"), langStats->ArrayisArrayCount.callCount);
-            Output::Print(_u("Array.prototype.indexOf count: %d\n"), langStats->ArrayIndexOfCount.callCount);
-            Output::Print(_u("Array.prototype.every count: %d\n"), langStats->ArrayEveryCount.callCount);
-            Output::Print(_u("Array.prototype.filter count: %d\n"), langStats->ArrayFilterCount.callCount);
-            Output::Print(_u("Array.prototype.forEach count: %d\n"), langStats->ArrayForEachCount.callCount);
-            Output::Print(_u("Array.prototype.lastIndexOf count: %d\n"), langStats->ArrayLastIndexOfCount.callCount);
-            Output::Print(_u("Array.prototype.map count: %d\n"), langStats->ArrayMapCount.callCount);
-            Output::Print(_u("Array.prototype.reduce count: %d\n"), langStats->ArrayReduceCount.callCount);
-            Output::Print(_u("Array.prototype.reduceRight count: %d\n"), langStats->ArrayReduceRightCount.callCount);
-            Output::Print(_u("Array.prototype.some count: %d\n"), langStats->ArraySomeCount.callCount);
-            Output::Print(_u("Object.keys count: %d\n"), langStats->ObjectKeysCount.callCount);
-            Output::Print(_u("Object.getOwnPropertyNames count: %d\n"), langStats->ObjectGetOwnPropertyNamesCount.callCount);
-            Output::Print(_u("Object.create count: %d\n"), langStats->ObjectCreateCount.callCount);
-            Output::Print(_u("Object.defineProperties count: %d\n"), langStats->ObjectDefinePropertiesCount.callCount);
-            Output::Print(_u("Object.freeze count: %d\n"), langStats->ObjectFreezeCount.callCount);
-            Output::Print(_u("Object.seal count: %d\n"), langStats->ObjectSealCount.callCount);
-            Output::Print(_u("Object.getPrototypeOf count: %d\n"), langStats->ObjectGetPrototypeOfCount.callCount);
-            Output::Print(_u("Object.isFrozen count: %d\n"), langStats->ObjectIsFrozenCount.callCount);
-            Output::Print(_u("Object.isSealed count: %d\n"), langStats->ObjectIsSealedCount.callCount);
-            Output::Print(_u("Object.isExtensible count: %d\n"), langStats->ObjectIsExtensibleCount.callCount);
-            Output::Print(_u("Object.preventExtensions count: %d\n"), langStats->ObjectPreventExtensionCount.callCount);
-            Output::Print(_u("Date.prototype.toISOString count: %d\n"), langStats->DateToISOStringCount.callCount);
-            Output::Print(_u("Function.prototype.bind count: %d\n"), langStats->FunctionBindCount.callCount);
+            Output::Print(_u("Array.isArray count: %d\n"), langStats->ArrayisArray.callCount);
+            Output::Print(_u("Array.prototype.indexOf count: %d\n"), langStats->ArrayIndexOf.callCount);
+            Output::Print(_u("Array.prototype.every count: %d\n"), langStats->ArrayEvery.callCount);
+            Output::Print(_u("Array.prototype.filter count: %d\n"), langStats->ArrayFilter.callCount);
+            Output::Print(_u("Array.prototype.forEach count: %d\n"), langStats->ArrayForEach.callCount);
+            Output::Print(_u("Array.prototype.lastIndexOf count: %d\n"), langStats->ArrayLastIndexOf.callCount);
+            Output::Print(_u("Array.prototype.map count: %d\n"), langStats->ArrayMap.callCount);
+            Output::Print(_u("Array.prototype.reduce count: %d\n"), langStats->ArrayReduce.callCount);
+            Output::Print(_u("Array.prototype.reduceRight count: %d\n"), langStats->ArrayReduceRight.callCount);
+            Output::Print(_u("Array.prototype.some count: %d\n"), langStats->ArraySome.callCount);
+            Output::Print(_u("Object.keys count: %d\n"), langStats->ObjectKeys.callCount);
+            Output::Print(_u("Object.getOwnPropertyNames count: %d\n"), langStats->ObjectGetOwnPropertyNames.callCount);
+            Output::Print(_u("Object.create count: %d\n"), langStats->ObjectCreate.callCount);
+            Output::Print(_u("Object.defineProperties count: %d\n"), langStats->ObjectDefineProperties.callCount);
+            Output::Print(_u("Object.freeze count: %d\n"), langStats->ObjectFreeze.callCount);
+            Output::Print(_u("Object.seal count: %d\n"), langStats->ObjectSeal.callCount);
+            Output::Print(_u("Object.getPrototypeOf count: %d\n"), langStats->ObjectGetPrototypeOf.callCount);
+            Output::Print(_u("Object.isFrozen count: %d\n"), langStats->ObjectIsFrozen.callCount);
+            Output::Print(_u("Object.isSealed count: %d\n"), langStats->ObjectIsSealed.callCount);
+            Output::Print(_u("Object.isExtensible count: %d\n"), langStats->ObjectIsExtensible.callCount);
+            Output::Print(_u("Object.preventExtensions count: %d\n"), langStats->ObjectPreventExtension.callCount);
+            Output::Print(_u("Date.prototype.toISOString count: %d\n"), langStats->DateToISOString.callCount);
+            Output::Print(_u("Function.prototype.bind count: %d\n"), langStats->FunctionBind.callCount);
             // Debug Mode call count
-            Output::Print(_u("Array.isArray debug mode call count: %d\n"), langStats->ArrayisArrayCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.indexOf debug mode call count: %d\n"), langStats->ArrayIndexOfCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.every debug mode call count: %d\n"), langStats->ArrayEveryCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.filter debug mode call count: %d\n"), langStats->ArrayFilterCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.forEach debug mode call count: %d\n"), langStats->ArrayForEachCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.lastIndexOf debug mode call count: %d\n"), langStats->ArrayLastIndexOfCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.map debug mode call count: %d\n"), langStats->ArrayMapCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.reduce debug mode call count: %d\n"), langStats->ArrayReduceCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.reduceRight debug mode call count: %d\n"), langStats->ArrayReduceRightCount.debugModeCallCount);
-            Output::Print(_u("Array.prototype.some debug mode call count: %d\n"), langStats->ArraySomeCount.debugModeCallCount);
-            Output::Print(_u("Object.keys debug mode call count: %d\n"), langStats->ObjectKeysCount.debugModeCallCount);
-            Output::Print(_u("Object.getOwnPropertyNames debug mode call count: %d\n"), langStats->ObjectGetOwnPropertyNamesCount.debugModeCallCount);
-            Output::Print(_u("Object.create debug mode call count: %d\n"), langStats->ObjectCreateCount.debugModeCallCount);
-            Output::Print(_u("Object.defineProperties debug mode call count: %d\n"), langStats->ObjectDefinePropertiesCount.debugModeCallCount);
-            Output::Print(_u("Object.freeze debug mode call count: %d\n"), langStats->ObjectFreezeCount.debugModeCallCount);
-            Output::Print(_u("Object.seal debug mode call count: %d\n"), langStats->ObjectSealCount.debugModeCallCount);
-            Output::Print(_u("Object.getPrototypeOf debug mode call count: %d\n"), langStats->ObjectGetPrototypeOfCount.debugModeCallCount);
-            Output::Print(_u("Object.isFrozen debug mode call count: %d\n"), langStats->ObjectIsFrozenCount.debugModeCallCount);
-            Output::Print(_u("Object.isSealed debug mode call count: %d\n"), langStats->ObjectIsSealedCount.debugModeCallCount);
-            Output::Print(_u("Object.isExtensible debug mode call count: %d\n"), langStats->ObjectIsExtensibleCount.debugModeCallCount);
-            Output::Print(_u("Object.preventExtensions debug mode call count: %d\n"), langStats->ObjectPreventExtensionCount.debugModeCallCount);
-            Output::Print(_u("Date.prototype.toISOString debug mode call count: %d\n"), langStats->DateToISOStringCount.debugModeCallCount);
-            Output::Print(_u("Function.prototype.bind debug mode call count: %d\n"), langStats->FunctionBindCount.debugModeCallCount);
+            Output::Print(_u("Array.isArray debug mode call count: %d\n"), langStats->ArrayisArray.debugModeCallCount);
+            Output::Print(_u("Array.prototype.indexOf debug mode call count: %d\n"), langStats->ArrayIndexOf.debugModeCallCount);
+            Output::Print(_u("Array.prototype.every debug mode call count: %d\n"), langStats->ArrayEvery.debugModeCallCount);
+            Output::Print(_u("Array.prototype.filter debug mode call count: %d\n"), langStats->ArrayFilter.debugModeCallCount);
+            Output::Print(_u("Array.prototype.forEach debug mode call count: %d\n"), langStats->ArrayForEach.debugModeCallCount);
+            Output::Print(_u("Array.prototype.lastIndexOf debug mode call count: %d\n"), langStats->ArrayLastIndexOf.debugModeCallCount);
+            Output::Print(_u("Array.prototype.map debug mode call count: %d\n"), langStats->ArrayMap.debugModeCallCount);
+            Output::Print(_u("Array.prototype.reduce debug mode call count: %d\n"), langStats->ArrayReduce.debugModeCallCount);
+            Output::Print(_u("Array.prototype.reduceRight debug mode call count: %d\n"), langStats->ArrayReduceRight.debugModeCallCount);
+            Output::Print(_u("Array.prototype.some debug mode call count: %d\n"), langStats->ArraySome.debugModeCallCount);
+            Output::Print(_u("Object.keys debug mode call count: %d\n"), langStats->ObjectKeys.debugModeCallCount);
+            Output::Print(_u("Object.getOwnPropertyNames debug mode call count: %d\n"), langStats->ObjectGetOwnPropertyNames.debugModeCallCount);
+            Output::Print(_u("Object.create debug mode call count: %d\n"), langStats->ObjectCreate.debugModeCallCount);
+            Output::Print(_u("Object.defineProperties debug mode call count: %d\n"), langStats->ObjectDefineProperties.debugModeCallCount);
+            Output::Print(_u("Object.freeze debug mode call count: %d\n"), langStats->ObjectFreeze.debugModeCallCount);
+            Output::Print(_u("Object.seal debug mode call count: %d\n"), langStats->ObjectSeal.debugModeCallCount);
+            Output::Print(_u("Object.getPrototypeOf debug mode call count: %d\n"), langStats->ObjectGetPrototypeOf.debugModeCallCount);
+            Output::Print(_u("Object.isFrozen debug mode call count: %d\n"), langStats->ObjectIsFrozen.debugModeCallCount);
+            Output::Print(_u("Object.isSealed debug mode call count: %d\n"), langStats->ObjectIsSealed.debugModeCallCount);
+            Output::Print(_u("Object.isExtensible debug mode call count: %d\n"), langStats->ObjectIsExtensible.debugModeCallCount);
+            Output::Print(_u("Object.preventExtensions debug mode call count: %d\n"), langStats->ObjectPreventExtension.debugModeCallCount);
+            Output::Print(_u("Date.prototype.toISOString debug mode call count: %d\n"), langStats->DateToISOString.debugModeCallCount);
+            Output::Print(_u("Function.prototype.bind debug mode call count: %d\n"), langStats->FunctionBind.debugModeCallCount);
         }
 
         if (langStats != NULL && CONFIG_ISENABLED(Js::ES6LangTelFlag))
         {
-            Output::Print(_u("GetOwnPropertySymbolsCount %d\n"), langStats->GetOwnPropertySymbolsCount.callCount);
-            Output::Print(_u("GetOwnPropertySymbolsDebugModeCallCount %d\n"), langStats->GetOwnPropertySymbolsCount.debugModeCallCount);
-            Output::Print(_u("Log10Count %d\n"), langStats->Log10Count.callCount);
-            Output::Print(_u("Log10DebugModeCount %d\n"), langStats->Log10Count.debugModeCallCount);
-            Output::Print(_u("Log1pCountCount %d\n"), langStats->Log1pCount.callCount);
-            Output::Print(_u("Log1pDebugModeCallCount %d\n"), langStats->Log1pCount.debugModeCallCount);
-            Output::Print(_u("Log2Count %d\n"), langStats->Log2Count.callCount);
-            Output::Print(_u("Log2DebugModeCallCount %d\n"), langStats->Log2Count.debugModeCallCount);
-            Output::Print(_u("SinhCount %d\n"), langStats->SinhCount.callCount);
-            Output::Print(_u("SinhDebugModeCallCount %d\n"), langStats->SinhCount.debugModeCallCount);
-            Output::Print(_u("CoshCount %d\n"), langStats->CoshCount.callCount);
-            Output::Print(_u("CoshDebugModeCallCount %d\n"), langStats->CoshCount.debugModeCallCount);
-            Output::Print(_u("tanhCountCount %d\n"), langStats->TanhCount.callCount);
-            Output::Print(_u("tanhDebugModeCallCount %d\n"), langStats->TanhCount.debugModeCallCount);
-            Output::Print(_u("AsinhCount %d\n"), langStats->AsinhCount.callCount);
-            Output::Print(_u("AsinhDebugModeCallCount %d\n"), langStats->AsinhCount.debugModeCallCount);
-            Output::Print(_u("AcoshCount %d\n"), langStats->AcoshCount.callCount);
-            Output::Print(_u("AcoshDebugModeCallCount %d\n"), langStats->AcoshCount.debugModeCallCount);
-            Output::Print(_u("AtanhCount %d\n"), langStats->AtanhCount.callCount);
-            Output::Print(_u("AtanhDebugModeCallCount %d\n"), langStats->AtanhCount.debugModeCallCount);
-            Output::Print(_u("HypotCount %d\n"), langStats->HypotCount.callCount);
-            Output::Print(_u("HypotDebugModeCallCount %d\n"), langStats->HypotCount.debugModeCallCount);
-            Output::Print(_u("CbrtCount %d\n"), langStats->CbrtCount.callCount);
-            Output::Print(_u("CbrtDebugModeCallCount %d\n"), langStats->CbrtCount.debugModeCallCount);
-            Output::Print(_u("TruncCount %d\n"), langStats->TruncCount.callCount);
-            Output::Print(_u("TruncDebugModeCallCount %d\n"), langStats->TruncCount.debugModeCallCount);
-            Output::Print(_u("SignCount %d\n"), langStats->SignCount.callCount);
-            Output::Print(_u("SignDebugModeCallCount %d\n"), langStats->SignCount.debugModeCallCount);
-            Output::Print(_u("ImulCount %d\n"), langStats->ImulCount.callCount);
-            Output::Print(_u("ImulDebugModeCallCount %d\n"), langStats->ImulCount.debugModeCallCount);
-            Output::Print(_u("Clz32Count %d\n"), langStats->Clz32Count.callCount);
-            Output::Print(_u("Clz32DebugModeCallCount %d\n"), langStats->Clz32Count.debugModeCallCount);
-            Output::Print(_u("FroundCount %d\n"), langStats->FroundCount.callCount);
-            Output::Print(_u("FroundDebugModeCallCount %d\n"), langStats->FroundCount.debugModeCallCount);
-            Output::Print(_u("IsNaNCount %d\n"), langStats->IsNaNCount.callCount);
-            Output::Print(_u("IsNaNDebugModeCallCount %d\n"), langStats->IsNaNCount.debugModeCallCount);
-            Output::Print(_u("IsFiniteCount %d\n"), langStats->IsFiniteCount.callCount);
-            Output::Print(_u("IsFiniteDebugModeCallCount %d\n"), langStats->IsFiniteCount.debugModeCallCount);
-            Output::Print(_u("IsIntegerCount %d\n"), langStats->IsIntegerCount.callCount);
-            Output::Print(_u("IsIntegerDebugModeCallCount %d\n"), langStats->IsIntegerCount.debugModeCallCount);
-            Output::Print(_u("IsSafeIntegerCount %d\n"), langStats->IsSafeIntegerCount.callCount);
-            Output::Print(_u("IsSafeIntegerDebugModeCallCount %d\n"), langStats->IsSafeIntegerCount.debugModeCallCount);
-            Output::Print(_u("StartsWithCount %d\n"), langStats->StartsWithCount.callCount);
-            Output::Print(_u("StartsWithDebugModeCallCount %d\n"), langStats->StartsWithCount.debugModeCallCount);
-            Output::Print(_u("EndsWithCount %d\n"), langStats->EndsWithCount.callCount);
-            Output::Print(_u("EndsWithDebugModeCallCount %d\n"), langStats->EndsWithCount.debugModeCallCount);
-            Output::Print(_u("ContainsCount %d\n"), langStats->ContainsCount.callCount);
-            Output::Print(_u("ContainsDebugModeCallCount %d\n"), langStats->ContainsCount.debugModeCallCount);
-            Output::Print(_u("RepeatCount %d\n"), langStats->RepeatCount.callCount);
-            Output::Print(_u("RepeatDebugModeCallCount %d\n"), langStats->RepeatCount.debugModeCallCount);
-            Output::Print(_u("PromiseCount %d\n"), langStats->PromiseCount.callCount);
-            Output::Print(_u("PromiseDebugModeCallCount %d\n"), langStats->PromiseCount.debugModeCallCount);
-            Output::Print(_u("LetCount %d\n"), langStats->LetCount.parseCount);
-            Output::Print(_u("LambdaCount %d\n"), langStats->LambdaCount.parseCount);
-            Output::Print(_u("ConstCount %d\n"), langStats->ConstCount.parseCount);
-            Output::Print(_u("SuperCount %d\n"), langStats->SuperCount.parseCount);
-            Output::Print(_u("AsmJSFunctionCount %d\n"), langStats->AsmJSFunctionCount.parseCount);
-            Output::Print(_u("StrictModeFunctionCount %d\n"), langStats->StrictModeFunctionCount.parseCount);
-            Output::Print(_u("ClassCount %d\n"), langStats->ClassCount.parseCount);
-            Output::Print(_u("StringTemplatesCount %d\n"), langStats->StringTemplatesCount.parseCount);
-            Output::Print(_u("GeneratorsCount %d\n"), langStats->GeneratorCount.parseCount);
-            Output::Print(_u("RestCount %d\n"), langStats->RestCount.parseCount);
-            Output::Print(_u("SpreadCount %d\n"), langStats->SpreadFeatureCount.parseCount);
-            Output::Print(_u("DefaultCount %d\n"), langStats->DefaultArgFunctionCount.parseCount);
-            Output::Print(_u("StickyRegexFlagCount %d\n"), langStats->StickyRegexFlagCount.parseCount);
-            Output::Print(_u("UnicodeRegexFlagCount %d\n"), langStats->UnicodeRegexFlagCount.parseCount);
-            Output::Print(_u("Array.prototype.includes count: %d\n"), langStats->ArrayIncludesCount.callCount);
-            Output::Print(_u("Array.prototype.includes debug mode call count: %d\n"), langStats->ArrayIncludesCount.debugModeCallCount);
+            Output::Print(_u("GetOwnPropertySymbolsCount %d\n"), langStats->GetOwnPropertySymbols.callCount);
+            Output::Print(_u("GetOwnPropertySymbolsDebugModeCallCount %d\n"), langStats->GetOwnPropertySymbols.debugModeCallCount);
+            Output::Print(_u("Log10Count %d\n"), langStats->Log10.callCount);
+            Output::Print(_u("Log10DebugModeCount %d\n"), langStats->Log10.debugModeCallCount);
+            Output::Print(_u("Log1pCount %d\n"), langStats->Log1p.callCount);
+            Output::Print(_u("Log1pDebugModeCallCount %d\n"), langStats->Log1p.debugModeCallCount);
+            Output::Print(_u("Log2Count %d\n"), langStats->Log2.callCount);
+            Output::Print(_u("Log2DebugModeCallCount %d\n"), langStats->Log2.debugModeCallCount);
+            Output::Print(_u("SinhCount %d\n"), langStats->Sinh.callCount);
+            Output::Print(_u("SinhDebugModeCallCount %d\n"), langStats->Sinh.debugModeCallCount);
+            Output::Print(_u("CoshCount %d\n"), langStats->Cosh.callCount);
+            Output::Print(_u("CoshDebugModeCallCount %d\n"), langStats->Cosh.debugModeCallCount);
+            Output::Print(_u("tanhCountCount %d\n"), langStats->Tanh.callCount);
+            Output::Print(_u("tanhDebugModeCallCount %d\n"), langStats->Tanh.debugModeCallCount);
+            Output::Print(_u("AsinhCount %d\n"), langStats->Asinh.callCount);
+            Output::Print(_u("AsinhDebugModeCallCount %d\n"), langStats->Asinh.debugModeCallCount);
+            Output::Print(_u("AcoshCount %d\n"), langStats->Acosh.callCount);
+            Output::Print(_u("AcoshDebugModeCallCount %d\n"), langStats->Acosh.debugModeCallCount);
+            Output::Print(_u("AtanhCount %d\n"), langStats->Atanh.callCount);
+            Output::Print(_u("AtanhDebugModeCallCount %d\n"), langStats->Atanh.debugModeCallCount);
+            Output::Print(_u("HypotCount %d\n"), langStats->Hypot.callCount);
+            Output::Print(_u("HypotDebugModeCallCount %d\n"), langStats->Hypot.debugModeCallCount);
+            Output::Print(_u("CbrtCount %d\n"), langStats->Cbrt.callCount);
+            Output::Print(_u("CbrtDebugModeCallCount %d\n"), langStats->Cbrt.debugModeCallCount);
+            Output::Print(_u("TruncCount %d\n"), langStats->Trunc.callCount);
+            Output::Print(_u("TruncDebugModeCallCount %d\n"), langStats->Trunc.debugModeCallCount);
+            Output::Print(_u("SignCount %d\n"), langStats->Sign.callCount);
+            Output::Print(_u("SignDebugModeCallCount %d\n"), langStats->Sign.debugModeCallCount);
+            Output::Print(_u("ImulCount %d\n"), langStats->Imul.callCount);
+            Output::Print(_u("ImulDebugModeCallCount %d\n"), langStats->Imul.debugModeCallCount);
+            Output::Print(_u("Clz32Count %d\n"), langStats->Clz32.callCount);
+            Output::Print(_u("Clz32DebugModeCallCount %d\n"), langStats->Clz32.debugModeCallCount);
+            Output::Print(_u("FroundCount %d\n"), langStats->Fround.callCount);
+            Output::Print(_u("FroundDebugModeCallCount %d\n"), langStats->Fround.debugModeCallCount);
+            Output::Print(_u("IsNaNCount %d\n"), langStats->IsNaN.callCount);
+            Output::Print(_u("IsNaNDebugModeCallCount %d\n"), langStats->IsNaN.debugModeCallCount);
+            Output::Print(_u("IsFiniteCount %d\n"), langStats->IsFinite.callCount);
+            Output::Print(_u("IsFiniteDebugModeCallCount %d\n"), langStats->IsFinite.debugModeCallCount);
+            Output::Print(_u("IsIntegerCount %d\n"), langStats->IsInteger.callCount);
+            Output::Print(_u("IsIntegerDebugModeCallCount %d\n"), langStats->IsInteger.debugModeCallCount);
+            Output::Print(_u("IsSafeIntegerCount %d\n"), langStats->IsSafeInteger.callCount);
+            Output::Print(_u("IsSafeIntegerDebugModeCallCount %d\n"), langStats->IsSafeInteger.debugModeCallCount);
+            Output::Print(_u("StartsWithCount %d\n"), langStats->StartsWith.callCount);
+            Output::Print(_u("StartsWithDebugModeCallCount %d\n"), langStats->StartsWith.debugModeCallCount);
+            Output::Print(_u("EndsWithCount %d\n"), langStats->EndsWith.callCount);
+            Output::Print(_u("EndsWithDebugModeCallCount %d\n"), langStats->EndsWith.debugModeCallCount);
+            Output::Print(_u("ContainsCount %d\n"), langStats->Contains.callCount);
+            Output::Print(_u("ContainsDebugModeCallCount %d\n"), langStats->Contains.debugModeCallCount);
+            Output::Print(_u("RepeatCount %d\n"), langStats->Repeat.callCount);
+            Output::Print(_u("RepeatDebugModeCallCount %d\n"), langStats->Repeat.debugModeCallCount);
+            Output::Print(_u("PromiseCount %d\n"), langStats->Promise.callCount);
+            Output::Print(_u("PromiseDebugModeCallCount %d\n"), langStats->Promise.debugModeCallCount);
+            Output::Print(_u("LetCount %d\n"), langStats->Let.parseCount);
+            Output::Print(_u("LambdaCount %d\n"), langStats->Lambda.parseCount);
+            Output::Print(_u("ConstCount %d\n"), langStats->Const.parseCount);
+            Output::Print(_u("SuperCount %d\n"), langStats->Super.parseCount);
+            Output::Print(_u("AsmJSFunctionCount %d\n"), langStats->AsmJSFunction.parseCount);
+            Output::Print(_u("StrictModeFunctionCount %d\n"), langStats->StrictModeFunction.parseCount);
+            Output::Print(_u("ClassCount %d\n"), langStats->Class.parseCount);
+            Output::Print(_u("StringTemplatesCount %d\n"), langStats->StringTemplates.parseCount);
+            Output::Print(_u("GeneratorsCount %d\n"), langStats->Generator.parseCount);
+            Output::Print(_u("RestCount %d\n"), langStats->Rest.parseCount);
+            Output::Print(_u("SpreadCount %d\n"), langStats->SpreadFeature.parseCount);
+            Output::Print(_u("DefaultCount %d\n"), langStats->DefaultArgFunction.parseCount);
+            Output::Print(_u("StickyRegexFlagCount %d\n"), langStats->StickyRegexFlag.parseCount);
+            Output::Print(_u("UnicodeRegexFlagCount %d\n"), langStats->UnicodeRegexFlag.parseCount);
+            Output::Print(_u("Array.prototype.includes count: %d\n"), langStats->ArrayIncludes.callCount);
+            Output::Print(_u("Array.prototype.includes debug mode call count: %d\n"), langStats->ArrayIncludes.debugModeCallCount);
 
         }
 
@@ -529,54 +288,54 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_ES5BUILTINS,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->ArrayisArrayCount.callCount, "arrayisArrayCount"),
-                TraceLoggingUInt32(langStats->ArrayIndexOfCount.callCount, "arrayIndexOfCount"),
-                TraceLoggingUInt32(langStats->ArrayEveryCount.callCount, "arrayEveryCount"),
-                TraceLoggingUInt32(langStats->ArrayFilterCount.callCount, "arrayFilterCount"),
-                TraceLoggingUInt32(langStats->ArrayForEachCount.callCount, "arrayForEachCount"),
-                TraceLoggingUInt32(langStats->ArrayLastIndexOfCount.callCount, "arrayLastIndexOfCount"),
-                TraceLoggingUInt32(langStats->ArrayMapCount.callCount, "arrayMapCount"),
-                TraceLoggingUInt32(langStats->ArrayReduceCount.callCount, "arrayReduceCount"),
-                TraceLoggingUInt32(langStats->ArrayReduceRightCount.callCount, "arrayReduceRightCount"),
-                TraceLoggingUInt32(langStats->ArraySomeCount.callCount, "arraySomeCount"),
-                TraceLoggingUInt32(langStats->ObjectCreateCount.callCount, "objectCreateCount"),
-                TraceLoggingUInt32(langStats->ObjectDefinePropertiesCount.callCount, "objectDefinePropertiesCount"),
-                TraceLoggingUInt32(langStats->ObjectFreezeCount.callCount, "objectFreezeCount"),
-                TraceLoggingUInt32(langStats->ObjectSealCount.callCount, "objectSealCount"),
-                TraceLoggingUInt32(langStats->ObjectGetOwnPropertyNamesCount.callCount, "objectGetOwnPropertyNamesCount"),
-                TraceLoggingUInt32(langStats->ObjectGetPrototypeOfCount.callCount, "objectGetPrototypeOfCount"),
-                TraceLoggingUInt32(langStats->ObjectIsExtensibleCount.callCount, "objectIsExtensibleCount"),
-                TraceLoggingUInt32(langStats->ObjectIsFrozenCount.callCount, "objectIsFrozenCount"),
-                TraceLoggingUInt32(langStats->ObjectIsSealedCount.callCount, "objectIsSealedCount"),
-                TraceLoggingUInt32(langStats->ObjectKeysCount.callCount, "objectKeysCount"),
-                TraceLoggingUInt32(langStats->ObjectPreventExtensionCount.callCount, "objectPreventExtensionCount"),
-                TraceLoggingUInt32(langStats->DateToISOStringCount.callCount, "dateToISOStringCount"),
-                TraceLoggingUInt32(langStats->FunctionBindCount.callCount, "functionBindCount"),
-                TraceLoggingUInt32(langStats->StringTrimCount.callCount, "stringTrimCount"),
-                TraceLoggingUInt32(langStats->ArrayisArrayCount.debugModeCallCount, "arrayisArrayDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayIndexOfCount.debugModeCallCount, "arrayIndexOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayEveryCount.debugModeCallCount, "arrayEveryDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayFilterCount.debugModeCallCount, "arrayFilterDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayForEachCount.debugModeCallCount, "arrayForEachDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayLastIndexOfCount.debugModeCallCount, "arrayLastIndexOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayMapCount.debugModeCallCount, "arrayMapDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayReduceCount.debugModeCallCount, "arrayReduceDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayReduceRightCount.debugModeCallCount, "arrayReduceRightDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArraySomeCount.debugModeCallCount, "arraySomeDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectCreateCount.debugModeCallCount, "objectCreateDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectDefinePropertiesCount.debugModeCallCount, "objectDefinePropertiesDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectFreezeCount.debugModeCallCount, "objectFreezeDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectSealCount.debugModeCallCount, "objectSealDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectGetOwnPropertyNamesCount.debugModeCallCount, "objectGetOwnPropertyNamesDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectGetPrototypeOfCount.debugModeCallCount, "objectGetPrototypeOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectIsExtensibleCount.debugModeCallCount, "objectIsExtensibleDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectIsFrozenCount.debugModeCallCount, "objectIsFrozenDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectIsSealedCount.debugModeCallCount, "objectIsSealedDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectKeysCount.debugModeCallCount, "objectKeysDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ObjectPreventExtensionCount.debugModeCallCount, "objectPreventExtensionDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->DateToISOStringCount.debugModeCallCount, "dateToISOStringDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->FunctionBindCount.debugModeCallCount, "functionBindDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->StringTrimCount.debugModeCallCount, "stringTrimDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayisArray.callCount, "arrayisArrayCount"),
+                TraceLoggingUInt32(langStats->ArrayIndexOf.callCount, "arrayIndexOfCount"),
+                TraceLoggingUInt32(langStats->ArrayEvery.callCount, "arrayEveryCount"),
+                TraceLoggingUInt32(langStats->ArrayFilter.callCount, "arrayFilterCount"),
+                TraceLoggingUInt32(langStats->ArrayForEach.callCount, "arrayForEachCount"),
+                TraceLoggingUInt32(langStats->ArrayLastIndexOf.callCount, "arrayLastIndexOfCount"),
+                TraceLoggingUInt32(langStats->ArrayMap.callCount, "arrayMapCount"),
+                TraceLoggingUInt32(langStats->ArrayReduce.callCount, "arrayReduceCount"),
+                TraceLoggingUInt32(langStats->ArrayReduceRight.callCount, "arrayReduceRightCount"),
+                TraceLoggingUInt32(langStats->ArraySome.callCount, "arraySomeCount"),
+                TraceLoggingUInt32(langStats->ObjectCreate.callCount, "objectCreateCount"),
+                TraceLoggingUInt32(langStats->ObjectDefineProperties.callCount, "objectDefinePropertiesCount"),
+                TraceLoggingUInt32(langStats->ObjectFreeze.callCount, "objectFreezeCount"),
+                TraceLoggingUInt32(langStats->ObjectSeal.callCount, "objectSealCount"),
+                TraceLoggingUInt32(langStats->ObjectGetOwnPropertyNames.callCount, "objectGetOwnPropertyNamesCount"),
+                TraceLoggingUInt32(langStats->ObjectGetPrototypeOf.callCount, "objectGetPrototypeOfCount"),
+                TraceLoggingUInt32(langStats->ObjectIsExtensible.callCount, "objectIsExtensibleCount"),
+                TraceLoggingUInt32(langStats->ObjectIsFrozen.callCount, "objectIsFrozenCount"),
+                TraceLoggingUInt32(langStats->ObjectIsSealed.callCount, "objectIsSealedCount"),
+                TraceLoggingUInt32(langStats->ObjectKeys.callCount, "objectKeysCount"),
+                TraceLoggingUInt32(langStats->ObjectPreventExtension.callCount, "objectPreventExtensionCount"),
+                TraceLoggingUInt32(langStats->DateToISOString.callCount, "dateToISOStringCount"),
+                TraceLoggingUInt32(langStats->FunctionBind.callCount, "functionBindCount"),
+                TraceLoggingUInt32(langStats->StringTrim.callCount, "stringTrimCount"),
+                TraceLoggingUInt32(langStats->ArrayisArray.debugModeCallCount, "arrayisArrayDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayIndexOf.debugModeCallCount, "arrayIndexOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayEvery.debugModeCallCount, "arrayEveryDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayFilter.debugModeCallCount, "arrayFilterDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayForEach.debugModeCallCount, "arrayForEachDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayLastIndexOf.debugModeCallCount, "arrayLastIndexOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayMap.debugModeCallCount, "arrayMapDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayReduce.debugModeCallCount, "arrayReduceDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayReduceRight.debugModeCallCount, "arrayReduceRightDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArraySome.debugModeCallCount, "arraySomeDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectCreate.debugModeCallCount, "objectCreateDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectDefineProperties.debugModeCallCount, "objectDefinePropertiesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectFreeze.debugModeCallCount, "objectFreezeDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectSeal.debugModeCallCount, "objectSealDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectGetOwnPropertyNames.debugModeCallCount, "objectGetOwnPropertyNamesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectGetPrototypeOf.debugModeCallCount, "objectGetPrototypeOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectIsExtensible.debugModeCallCount, "objectIsExtensibleDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectIsFrozen.debugModeCallCount, "objectIsFrozenDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectIsSealed.debugModeCallCount, "objectIsSealedDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectKeys.debugModeCallCount, "objectKeysDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ObjectPreventExtension.debugModeCallCount, "objectPreventExtensionDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->DateToISOString.debugModeCallCount, "dateToISOStringDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->FunctionBind.debugModeCallCount, "functionBindDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->StringTrim.debugModeCallCount, "stringTrimDebugModeCallCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -586,58 +345,58 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_ES6BUILTINS,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->GetOwnPropertySymbolsCount.callCount, "GetOwnPropertySymbolsCount"),
-                TraceLoggingUInt32(langStats->GetOwnPropertySymbolsCount.debugModeCallCount, "GetOwnPropertySymbolsDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->Log10Count.callCount, "Log10Count"),
-                TraceLoggingUInt32(langStats->Log10Count.debugModeCallCount, "Log10DebugModeCount"),
-                TraceLoggingUInt32(langStats->Log1pCount.callCount, "Log1pCountCount"),
-                TraceLoggingUInt32(langStats->Log1pCount.debugModeCallCount, "Log1pDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->Log2Count.callCount, "Log2Count"),
-                TraceLoggingUInt32(langStats->Log2Count.debugModeCallCount, "Log2DebugModeCallCount"),
-                TraceLoggingUInt32(langStats->SinhCount.callCount, "SinhCount"),
-                TraceLoggingUInt32(langStats->SinhCount.debugModeCallCount, "SinhDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->CoshCount.callCount, "CoshCount"),
-                TraceLoggingUInt32(langStats->CoshCount.debugModeCallCount, "CoshDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TanhCount.callCount, "TanhCountCount"),
-                TraceLoggingUInt32(langStats->TanhCount.debugModeCallCount, "TanhDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->AsinhCount.callCount, "AsinhCount"),
-                TraceLoggingUInt32(langStats->AsinhCount.debugModeCallCount, "AsinhDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->AcoshCount.callCount, "AcoshCount"),
-                TraceLoggingUInt32(langStats->AcoshCount.debugModeCallCount, "AcoshDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->AtanhCount.callCount, "AtanhCount"),
-                TraceLoggingUInt32(langStats->AtanhCount.debugModeCallCount, "AtanhDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->HypotCount.callCount, "HypotCount"),
-                TraceLoggingUInt32(langStats->HypotCount.debugModeCallCount, "HypotDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->CbrtCount.callCount, "CbrtCount"),
-                TraceLoggingUInt32(langStats->CbrtCount.debugModeCallCount, "CbrtDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TruncCount.callCount, "TruncCount"),
-                TraceLoggingUInt32(langStats->TruncCount.debugModeCallCount, "TruncDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->SignCount.callCount, "SignCount"),
-                TraceLoggingUInt32(langStats->SignCount.debugModeCallCount, "SignDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ImulCount.callCount, "ImulCount"),
-                TraceLoggingUInt32(langStats->ImulCount.debugModeCallCount, "ImulDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->Clz32Count.callCount, "Clz32Count"),
-                TraceLoggingUInt32(langStats->Clz32Count.debugModeCallCount, "Clz32DebugModeCallCount"),
-                TraceLoggingUInt32(langStats->FroundCount.callCount, "FroundCount"),
-                TraceLoggingUInt32(langStats->FroundCount.debugModeCallCount, "FroundDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->IsNaNCount.callCount, "IsNaNCount"),
-                TraceLoggingUInt32(langStats->IsNaNCount.debugModeCallCount, "IsNaNDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->IsFiniteCount.callCount, "IsFiniteCount"),
-                TraceLoggingUInt32(langStats->IsFiniteCount.debugModeCallCount, "IsFiniteDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->IsIntegerCount.callCount, "IsIntegerCount"),
-                TraceLoggingUInt32(langStats->IsIntegerCount.debugModeCallCount, "IsIntegerDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->IsSafeIntegerCount.callCount, "IsSafeIntegerCount"),
-                TraceLoggingUInt32(langStats->IsSafeIntegerCount.debugModeCallCount, "IsSafeIntegerDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->StartsWithCount.callCount, "StartsWithCount"),
-                TraceLoggingUInt32(langStats->StartsWithCount.debugModeCallCount, "StartsWithDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->EndsWithCount.callCount, "EndsWithCount"),
-                TraceLoggingUInt32(langStats->EndsWithCount.debugModeCallCount, "EndsWithDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ContainsCount.callCount, "ContainsCount"),
-                TraceLoggingUInt32(langStats->ContainsCount.debugModeCallCount, "ContainsDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->RepeatCount.callCount, "RepeatCount"),
-                TraceLoggingUInt32(langStats->RepeatCount.debugModeCallCount, "RepeatDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ArrayIncludesCount.callCount, "arrayIncludesCount"),
-                TraceLoggingUInt32(langStats->ArrayIncludesCount.debugModeCallCount, "arrayIncludesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->GetOwnPropertySymbols.callCount, "GetOwnPropertySymbolsCount"),
+                TraceLoggingUInt32(langStats->GetOwnPropertySymbols.debugModeCallCount, "GetOwnPropertySymbolsDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Log10.callCount, "Log10Count"),
+                TraceLoggingUInt32(langStats->Log10.debugModeCallCount, "Log10DebugModeCount"),
+                TraceLoggingUInt32(langStats->Log1p.callCount, "Log1pCountCount"),
+                TraceLoggingUInt32(langStats->Log1p.debugModeCallCount, "Log1pDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Log2.callCount, "Log2Count"),
+                TraceLoggingUInt32(langStats->Log2.debugModeCallCount, "Log2DebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Sinh.callCount, "SinhCount"),
+                TraceLoggingUInt32(langStats->Sinh.debugModeCallCount, "SinhDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Cosh.callCount, "CoshCount"),
+                TraceLoggingUInt32(langStats->Cosh.debugModeCallCount, "CoshDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Tanh.callCount, "TanhCountCount"),
+                TraceLoggingUInt32(langStats->Tanh.debugModeCallCount, "TanhDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Asinh.callCount, "AsinhCount"),
+                TraceLoggingUInt32(langStats->Asinh.debugModeCallCount, "AsinhDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Acosh.callCount, "AcoshCount"),
+                TraceLoggingUInt32(langStats->Acosh.debugModeCallCount, "AcoshDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Atanh.callCount, "AtanhCount"),
+                TraceLoggingUInt32(langStats->Atanh.debugModeCallCount, "AtanhDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Hypot.callCount, "HypotCount"),
+                TraceLoggingUInt32(langStats->Hypot.debugModeCallCount, "HypotDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Cbrt.callCount, "CbrtCount"),
+                TraceLoggingUInt32(langStats->Cbrt.debugModeCallCount, "CbrtDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Trunc.callCount, "TruncCount"),
+                TraceLoggingUInt32(langStats->Trunc.debugModeCallCount, "TruncDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Sign.callCount, "SignCount"),
+                TraceLoggingUInt32(langStats->Sign.debugModeCallCount, "SignDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Imul.callCount, "ImulCount"),
+                TraceLoggingUInt32(langStats->Imul.debugModeCallCount, "ImulDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Clz32.callCount, "Clz32Count"),
+                TraceLoggingUInt32(langStats->Clz32.debugModeCallCount, "Clz32DebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Fround.callCount, "FroundCount"),
+                TraceLoggingUInt32(langStats->Fround.debugModeCallCount, "FroundDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->IsNaN.callCount, "IsNaNCount"),
+                TraceLoggingUInt32(langStats->IsNaN.debugModeCallCount, "IsNaNDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->IsFinite.callCount, "IsFiniteCount"),
+                TraceLoggingUInt32(langStats->IsFinite.debugModeCallCount, "IsFiniteDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->IsInteger.callCount, "IsIntegerCount"),
+                TraceLoggingUInt32(langStats->IsInteger.debugModeCallCount, "IsIntegerDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->IsSafeInteger.callCount, "IsSafeIntegerCount"),
+                TraceLoggingUInt32(langStats->IsSafeInteger.debugModeCallCount, "IsSafeIntegerDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->StartsWith.callCount, "StartsWithCount"),
+                TraceLoggingUInt32(langStats->StartsWith.debugModeCallCount, "StartsWithDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->EndsWith.callCount, "EndsWithCount"),
+                TraceLoggingUInt32(langStats->EndsWith.debugModeCallCount, "EndsWithDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Contains.callCount, "ContainsCount"),
+                TraceLoggingUInt32(langStats->Contains.debugModeCallCount, "ContainsDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Repeat.callCount, "RepeatCount"),
+                TraceLoggingUInt32(langStats->Repeat.debugModeCallCount, "RepeatDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->ArrayIncludes.callCount, "arrayIncludesCount"),
+                TraceLoggingUInt32(langStats->ArrayIncludes.debugModeCallCount, "arrayIncludesDebugModeCallCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -647,18 +406,18 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_ES6CTORS,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->WeakMapCount.callCount, "WeakMapCount"),
-                TraceLoggingUInt32(langStats->WeakMapCount.debugModeCallCount, "WeakMapDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->WeakSetCount.callCount, "WeakSetCount"),
-                TraceLoggingUInt32(langStats->WeakSetCount.debugModeCallCount, "WeakSetDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->SetCount.callCount, "SetCount"),
-                TraceLoggingUInt32(langStats->SetCount.debugModeCallCount, "SetDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->ProxyCount.callCount, "ProxyCount"),
-                TraceLoggingUInt32(langStats->ProxyCount.debugModeCallCount, "ProxyDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->SymbolCount.callCount, "SymbolCount"),
-                TraceLoggingUInt32(langStats->SymbolCount.debugModeCallCount, "SymbolDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->MapCount.callCount, "MapCount"),
-                TraceLoggingUInt32(langStats->MapCount.debugModeCallCount, "MapDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->WeakMap.callCount, "WeakMapCount"),
+                TraceLoggingUInt32(langStats->WeakMap.debugModeCallCount, "WeakMapDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->WeakSet.callCount, "WeakSetCount"),
+                TraceLoggingUInt32(langStats->WeakSet.debugModeCallCount, "WeakSetDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Set.callCount, "SetCount"),
+                TraceLoggingUInt32(langStats->Set.debugModeCallCount, "SetDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Proxy.callCount, "ProxyCount"),
+                TraceLoggingUInt32(langStats->Proxy.debugModeCallCount, "ProxyDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Symbol.callCount, "SymbolCount"),
+                TraceLoggingUInt32(langStats->Symbol.debugModeCallCount, "SymbolDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->Map.callCount, "MapCount"),
+                TraceLoggingUInt32(langStats->Map.debugModeCallCount, "MapDebugModeCallCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -667,52 +426,52 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_TABUILTINS,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->TAFromCount.callCount, "TAFromCount"),
-                TraceLoggingUInt32(langStats->TAFromCount.debugModeCallCount, "TAFromDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAOfCount.callCount, "TAOfCount"),
-                TraceLoggingUInt32(langStats->TAOfCount.debugModeCallCount, "TAOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TACopyWithinCount.callCount, "TACopyWithinCount"),
-                TraceLoggingUInt32(langStats->TACopyWithinCount.debugModeCallCount, "TACopyWithinDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAEntriesCount.callCount, "TAEntriesCount"),
-                TraceLoggingUInt32(langStats->TAEntriesCount.debugModeCallCount, "TAEntriesDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAEveryCount.callCount, "TAEveryCount"),
-                TraceLoggingUInt32(langStats->TAEveryCount.debugModeCallCount, "TAEveryDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAFilterCount.callCount, "TAFilterCount"),
-                TraceLoggingUInt32(langStats->TAFilterCount.debugModeCallCount, "TAFilterDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAFillCount.callCount, "TAFillCount"),
-                TraceLoggingUInt32(langStats->TAFillCount.debugModeCallCount, "TAFillDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAFindCount.callCount, "TAFindCount"),
-                TraceLoggingUInt32(langStats->TAFindCount.debugModeCallCount, "TAFindDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAFindIndexCount.callCount, "TAFindIndexCount"),
-                TraceLoggingUInt32(langStats->TAFindIndexCount.debugModeCallCount, "TAFindIndexDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAForEachCount.callCount, "TAForEachCount"),
-                TraceLoggingUInt32(langStats->TAForEachCount.debugModeCallCount, "TAForEachDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAIndexOfCount.callCount, "TAIndexOfCount"),
-                TraceLoggingUInt32(langStats->TAIndexOfCount.debugModeCallCount, "TAIndexOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAIncludesCount.callCount, "TAIncludesCount"),
-                TraceLoggingUInt32(langStats->TAIncludesCount.debugModeCallCount, "TAIncludesDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAJoinCount.callCount, "TAJoinCount"),
-                TraceLoggingUInt32(langStats->TAJoinCount.debugModeCallCount, "TAJoinDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAKeysCount.callCount, "TAKeysCount"),
-                TraceLoggingUInt32(langStats->TAKeysCount.debugModeCallCount, "TAKeysDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TALastIndexOfCount.callCount, "TALastIndexOfCount"),
-                TraceLoggingUInt32(langStats->TALastIndexOfCount.debugModeCallCount, "TALastIndexOfDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAMapCount.callCount, "TAMapCount"),
-                TraceLoggingUInt32(langStats->TAMapCount.debugModeCallCount, "TAMapDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAReduceCount.callCount, "TAReduceCount"),
-                TraceLoggingUInt32(langStats->TAReduceCount.debugModeCallCount, "TAReduceDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAReduceRightCount.callCount, "TAReduceRightCount"),
-                TraceLoggingUInt32(langStats->TAReduceRightCount.debugModeCallCount, "TAReduceRightDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAReverseCount.callCount, "TAReverseCount"),
-                TraceLoggingUInt32(langStats->TAReverseCount.debugModeCallCount, "TAReverseDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TASomeCount.callCount, "TASomeCount"),
-                TraceLoggingUInt32(langStats->TASomeCount.debugModeCallCount, "TASomeDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TASortCount.callCount, "TASortCount"),
-                TraceLoggingUInt32(langStats->TASortCount.debugModeCallCount, "TASortDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TASubArrayCount.callCount, "TASubArrayCount"),
-                TraceLoggingUInt32(langStats->TASubArrayCount.debugModeCallCount, "TASubArrayDebugModeCallCount"),
-                TraceLoggingUInt32(langStats->TAValuesCount.callCount, "TAValuesCount"),
-                TraceLoggingUInt32(langStats->TAValuesCount.debugModeCallCount, "TAValuesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAFrom.callCount, "TAFromCount"),
+                TraceLoggingUInt32(langStats->TAFrom.debugModeCallCount, "TAFromDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAOf.callCount, "TAOfCount"),
+                TraceLoggingUInt32(langStats->TAOf.debugModeCallCount, "TAOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TACopyWithin.callCount, "TACopyWithinCount"),
+                TraceLoggingUInt32(langStats->TACopyWithin.debugModeCallCount, "TACopyWithinDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAEntries.callCount, "TAEntriesCount"),
+                TraceLoggingUInt32(langStats->TAEntries.debugModeCallCount, "TAEntriesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAEvery.callCount, "TAEveryCount"),
+                TraceLoggingUInt32(langStats->TAEvery.debugModeCallCount, "TAEveryDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAFilter.callCount, "TAFilterCount"),
+                TraceLoggingUInt32(langStats->TAFilter.debugModeCallCount, "TAFilterDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAFill.callCount, "TAFillCount"),
+                TraceLoggingUInt32(langStats->TAFill.debugModeCallCount, "TAFillDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAFind.callCount, "TAFindCount"),
+                TraceLoggingUInt32(langStats->TAFind.debugModeCallCount, "TAFindDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAFindIndex.callCount, "TAFindIndexCount"),
+                TraceLoggingUInt32(langStats->TAFindIndex.debugModeCallCount, "TAFindIndexDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAForEach.callCount, "TAForEachCount"),
+                TraceLoggingUInt32(langStats->TAForEach.debugModeCallCount, "TAForEachDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAIndexOf.callCount, "TAIndexOfCount"),
+                TraceLoggingUInt32(langStats->TAIndexOf.debugModeCallCount, "TAIndexOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAIncludes.callCount, "TAIncludesCount"),
+                TraceLoggingUInt32(langStats->TAIncludes.debugModeCallCount, "TAIncludesDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAJoin.callCount, "TAJoinCount"),
+                TraceLoggingUInt32(langStats->TAJoin.debugModeCallCount, "TAJoinDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAKeys.callCount, "TAKeysCount"),
+                TraceLoggingUInt32(langStats->TAKeys.debugModeCallCount, "TAKeysDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TALastIndexOf.callCount, "TALastIndexOfCount"),
+                TraceLoggingUInt32(langStats->TALastIndexOf.debugModeCallCount, "TALastIndexOfDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAMap.callCount, "TAMapCount"),
+                TraceLoggingUInt32(langStats->TAMap.debugModeCallCount, "TAMapDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAReduce.callCount, "TAReduceCount"),
+                TraceLoggingUInt32(langStats->TAReduce.debugModeCallCount, "TAReduceDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAReduceRight.callCount, "TAReduceRightCount"),
+                TraceLoggingUInt32(langStats->TAReduceRight.debugModeCallCount, "TAReduceRightDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAReverse.callCount, "TAReverseCount"),
+                TraceLoggingUInt32(langStats->TAReverse.debugModeCallCount, "TAReverseDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TASome.callCount, "TASomeCount"),
+                TraceLoggingUInt32(langStats->TASome.debugModeCallCount, "TASomeDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TASort.callCount, "TASortCount"),
+                TraceLoggingUInt32(langStats->TASort.debugModeCallCount, "TASortDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TASubArray.callCount, "TASubArrayCount"),
+                TraceLoggingUInt32(langStats->TASubArray.debugModeCallCount, "TASubArrayDebugModeCallCount"),
+                TraceLoggingUInt32(langStats->TAValues.callCount, "TAValuesCount"),
+                TraceLoggingUInt32(langStats->TAValues.debugModeCallCount, "TAValuesDebugModeCallCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -721,20 +480,20 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_ES6LANGFEATURES,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->LetCount.parseCount, "LetCount"),
-                TraceLoggingUInt32(langStats->LambdaCount.parseCount, "LambdaCount"),
-                TraceLoggingUInt32(langStats->StrictModeFunctionCount.parseCount, "StrictModeFunctionCount"),
-                TraceLoggingUInt32(langStats->SuperCount.parseCount, "SuperCount"),
-                TraceLoggingUInt32(langStats->ClassCount.parseCount, "ClassCount"),
-                TraceLoggingUInt32(langStats->AsmJSFunctionCount.parseCount, "AsmJSFunctionCount"),
-                TraceLoggingUInt32(langStats->StringTemplatesCount.parseCount, "StringTemplatesCount"),
-                TraceLoggingUInt32(langStats->ConstCount.parseCount, "ConstCount"),
-                TraceLoggingUInt32(langStats->RestCount.parseCount, "RestCount"),
-                TraceLoggingUInt32(langStats->SpreadFeatureCount.parseCount, "SpreadCount"),
-                TraceLoggingUInt32(langStats->GeneratorCount.parseCount, "GeneratorsCount"),
-                TraceLoggingUInt32(langStats->UnicodeRegexFlagCount.parseCount, "UnicodeRegexFlagCount"),
-                TraceLoggingUInt32(langStats->StickyRegexFlagCount.parseCount, "StickyRegexFlagCount"),
-                TraceLoggingUInt32(langStats->DefaultArgFunctionCount.parseCount, "DefaultArgFunctionCount"),
+                TraceLoggingUInt32(langStats->Let.parseCount, "LetCount"),
+                TraceLoggingUInt32(langStats->Lambda.parseCount, "LambdaCount"),
+                TraceLoggingUInt32(langStats->StrictModeFunction.parseCount, "StrictModeFunctionCount"),
+                TraceLoggingUInt32(langStats->Super.parseCount, "SuperCount"),
+                TraceLoggingUInt32(langStats->Class.parseCount, "ClassCount"),
+                TraceLoggingUInt32(langStats->AsmJSFunction.parseCount, "AsmJSFunctionCount"),
+                TraceLoggingUInt32(langStats->StringTemplates.parseCount, "StringTemplatesCount"),
+                TraceLoggingUInt32(langStats->Const.parseCount, "ConstCount"),
+                TraceLoggingUInt32(langStats->Rest.parseCount, "RestCount"),
+                TraceLoggingUInt32(langStats->SpreadFeature.parseCount, "SpreadCount"),
+                TraceLoggingUInt32(langStats->Generator.parseCount, "GeneratorsCount"),
+                TraceLoggingUInt32(langStats->UnicodeRegexFlag.parseCount, "UnicodeRegexFlagCount"),
+                TraceLoggingUInt32(langStats->StickyRegexFlag.parseCount, "StickyRegexFlagCount"),
+                TraceLoggingUInt32(langStats->DefaultArgFunction.parseCount, "DefaultArgFunctionCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
@@ -744,6 +503,8 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             // This is called inside a block that just checked whether we should
             // throttle or not - no need to check again in the callee so call the function
             // that just directly logs instead.
+
+            // Note: the IE perf team uses this heavily, so don't touch it
             FireDomTelemetry(activityId);
 #endif
 

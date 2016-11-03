@@ -11,11 +11,21 @@
 
 namespace Js
 {
+    struct props
+    {
+        uint callCount;
+        uint debugModeCallCount;
+    };
+
+    struct langFeature
+    {
+        uint parseCount;
+    };
     // Anything that needs to be logged as part of Language Stats should be a part of this structure
     struct LanguageStats
     {
-     #define ENTRY_BUILTIN(n) props n;
-     #define ENTRY_LANGFEATURE(n) langFeature n;
+     #define ENTRY_BUILTIN(ver, n) Js::props n;
+     #define ENTRY_LANGFEATURE(ver, n) Js::langFeature n;
      #include "LangTelFields.h"
     };
 

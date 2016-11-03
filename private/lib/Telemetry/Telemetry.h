@@ -8,6 +8,8 @@
 #include <winmeta.h>
 #include <evntrace.h>
 #include <TraceLoggingProvider.h>
+#include "TelemetryProvider.h"
+#include "Node.h"
 
 // List of all telemetry data points.
 #define TL_ES5BUILTINS "ES5Builtins"
@@ -15,12 +17,6 @@
 #define TL_TABUILTINS "TABuiltins"
 #define TL_ES6CTORS "ES6Ctors"
 #define TL_ES6LANGFEATURES "ES6LanguageFeatures"
-
-#define TL_GCPAUSESTATS "GCPauseStats.V2"
-#define TL_JITTIMESTATS "JITTime.V2"
-#define TL_GLOBALSTATS "GlobalStats.V2"
-#define TL_MEMSTATS "MemStats.V2"
-#define TL_PARSERSTATS "Parser"
 
 #define TL_CHAKRAINIT "ChakraInit"
 #define TL_DIRECTCALLRAW "DirectCallRaw.PerfStats"
@@ -116,15 +112,8 @@ private:
 class TraceLoggingClient
 {
     CEtwSession *session;
-    bool shouldLogTelemetry;	
-    bool isHighResAvail;
-    //Code for node telemetry purposes
-    typedef JsUtil::BaseHashSet<const char16*, Recycler, PrimeSizePolicy> NodePackageSet;
-    RecyclerRootPtr<NodePackageSet> NodePackageIncludeList;
-    bool hasNodeModules;
-    bool isPackageTelemetryFired;
-    LARGE_INTEGER freq;
-    HCRYPTPROV hProv;
+    bool shouldLogTelemetry;
+    NodeTelemetryProvider node;
 
     Throttle throttle;
 
@@ -132,10 +121,9 @@ public:
     TraceLoggingClient();
     ~TraceLoggingClient();
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
-    void SetIsHighResPerfCounterAvailable();
     void FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
-
+    NodeTelemetryProvider* GetNodeTelemetryProvider();
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
     void FirePeriodicDomTelemetry(GUID activityId);
     void FireDomTelemetry(GUID activityId);
@@ -145,16 +133,6 @@ public:
     void FireDomTelemetryStats(double tracelogTimeMs, double logTimeMs);
 #endif
     void ResetTelemetryStats(ThreadContext* threadContext);
-    void CreateHashAndFirePackageTelemetry();
-    void InitializeNodePackageList();
-    void ReleaseNodePackageList();
-    void AddPackageName(const char16* packageName);
-    bool IsPackageTelemetryFired(){ return isPackageTelemetryFired; }
-    void SetIsPackageTelemetryFired(bool value){ isPackageTelemetryFired = value; }
-    // For node telemetry purposes
-    void TryLogNodePackage(Recycler*, const char16*url);
-    HCRYPTPROV EnsureCryptoContext();
-    void FirePackageTelemetryHelper();
 };
 
 extern TraceLoggingClient *g_TraceLoggingClient;

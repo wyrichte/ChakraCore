@@ -124,14 +124,6 @@ ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByTypeId( const J
     }
 }
 
-ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByString( Js::JavascriptString* typeName )
-{
-    const char16* value       = typeName->GetString();
-    size_t         valueLength = typeName->GetLength();
-
-#include "ESBuiltInsTypeNames.trie.inc"
-}
-
 ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByPointer( const ScriptContext& scriptContext, const JavascriptFunction* constructorFunction )
 {
     JavascriptLibrary* lib = scriptContext.GetLibrary();

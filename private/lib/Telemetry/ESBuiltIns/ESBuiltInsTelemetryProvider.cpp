@@ -159,19 +159,8 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Function
 
     isConstructorProperty = true;
 
-#ifdef TELEMETRY_ESB_STRINGS
-    {
-        JavascriptString* functionName = instanceAsFunction->GetDisplayName( true );
-
-        ESBuiltInTypeNameId ret = ESBuiltInsDatabase::GetESBuiltInTypeNameId( functionName );
-        return ret;
-    }
-#else
-    {
-        ESBuiltInTypeNameId ret = ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByPointer( this->scriptContextTelemetry.GetScriptContext(), instanceAsFunction );
-        return ret;
-    }
-#endif
+    ESBuiltInTypeNameId ret = ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByPointer( this->scriptContextTelemetry.GetScriptContext(), instanceAsFunction );
+    return ret;
 }
 
 ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Object( const Var instance, const PropertyId propertyId, _Out_ bool& isConstructorProperty, _Out_ ESBuiltInPropertyId& shortcutPropertyFound )
@@ -207,33 +196,10 @@ ESBuiltInTypeNameId ESBuiltInsTelemetryProvider::GetESBuiltInTypeNameId_Object( 
         if( ok && JavascriptFunction::Is( value ) )
         {
             JavascriptFunction* constructorFunction = JavascriptFunction::FromVar( value );
-
-#   ifdef TELEMETRY_ESB_STRINGS
-            {
-                JavascriptString* constructorName;
-                FunctionProxy* constructorFunctionProxy = constructorFunction->GetFunctionProxy();
-                if( constructorFunctionProxy != nullptr )
-                {
-                    const char16* constructorNameCStr = constructorFunctionProxy->GetDisplayName();
-                    constructorName = JavascriptString::NewCopySz( constructorNameCStr, scriptContextPtr );
-                }
-                else
-                {
-                    constructorName = constructorFunction->GetDisplayName( true );
-                }
-
-                if( constructorName == nullptr ) return ESBuiltInTypeNameId::_None;
-        
-                // Look up the constructor name in the type list.
-                ESBuiltInTypeNameId ret = ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByString( constructorName );
-                return ret;
-            }
-#   else
             {
                 ESBuiltInTypeNameId ret = ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByPointer( this->scriptContextTelemetry.GetScriptContext(), constructorFunction );
                 return ret;
             }
-#   endif
         }
         else
         {

@@ -409,7 +409,7 @@ void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js
             if (runtime != nullptr)
             {
                 const char16* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
-                g_TraceLoggingClient->TryLogNodePackage(runtime->GetThreadContext()->GetRecycler(), url);
+                g_TraceLoggingClient->GetNodeTelemetryProvider()->TryLogNodePackage(runtime->GetThreadContext()->GetRecycler(), url);
             }
         }
 #endif

@@ -111,8 +111,6 @@ public:
 
     static ESBuiltInPropertyId GetESBuiltInPropertyId(ESBuiltInTypeNameId typeNameId, bool isConstructorProperty, Js::PropertyId propertyId);
 
-    static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByString(Js::JavascriptString* typeName);
-
     static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByTypeId(const Js::TypeId typeId);
 
     static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByPointer(const Js::ScriptContext& scriptContext, const Js::JavascriptFunction* constructorFunction);
