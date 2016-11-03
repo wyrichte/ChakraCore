@@ -79,11 +79,11 @@ var tests = [
             v[s[2]] = '4';
             v[s[3]] = '6';
             
-            // First case: Object is already hashtable before we add any symbol properties
+            // First case: Object is PathType because last property is delete before we add any symbol properties
             var h = getHashtable();
 
             if (typeof Debug.getTypeHandlerName === 'function') {
-                assert.areEqual(hashtableTypeHandlerName, Debug.getTypeHandlerName(h), "Object is a string-keyed type handler");
+                assert.areEqual("class Js::PathTypeHandler const *", Debug.getTypeHandlerName(h), "Object is a string-keyed type handler");
             }
 
             h['s'] = '0';

@@ -1,4 +1,4 @@
-class Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,class Js::JavascriptString * __ptr64,0> const * __ptr64
+class Js::SimplePathTypeHandler const * __ptr64
 
 
 ===========>Starting Heap Dump for specific object<===============

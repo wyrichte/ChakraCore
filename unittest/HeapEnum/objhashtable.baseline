@@ -1,4 +1,4 @@
-class Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,class Js::JavascriptString *,0> const *
+class Js::SimplePathTypeHandler const *
 
 
 ===========>Starting Heap Dump for specific object<===============
