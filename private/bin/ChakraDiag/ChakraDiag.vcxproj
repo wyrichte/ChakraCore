@@ -121,7 +121,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)chakradiag.def">
       <PreprocessToFile>true</PreprocessToFile>
       <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
-      <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraDiagTest'">%(PreprecessorDefinitions);CHAKRADIAGTEST=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraDiagTest'">%(PreprocessorDefinitions);CHAKRADIAGTEST=1</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)chakradiag.def</ObjectFileName>
       <LinkCompiled>false</LinkCompiled>
       <ImpLibCompiled>false</ImpLibCompiled>

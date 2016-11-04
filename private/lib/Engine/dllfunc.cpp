@@ -38,9 +38,7 @@ extern HANDLE g_hInstance;
 
 static BOOL AttachProcess(HANDLE hmod)
 {    
-    if (!ThreadContextTLSEntry::InitializeProcess()
-      || !JsrtContext::Initialize()
-      )
+    if (!ThreadContextTLSEntry::InitializeProcess())
     {
         return FALSE;
     }
@@ -146,7 +144,6 @@ void DetachProcess()
     // other dlls.
 
     JsrtRuntime::Uninitialize();
-    JsrtContext::Uninitialize();
 
     // threadbound entrypoint should be able to get cleanup correctly, however tlsentry
     // for current thread might be left behind if this thread was initialized.
