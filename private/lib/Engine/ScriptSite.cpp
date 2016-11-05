@@ -415,7 +415,6 @@ void ScriptSite::Close()
 #endif
 
     BOOL isNonPrimaryEngine = scriptEngine->fNonPrimaryEngine;
-    size_t sourceSize = GetScriptSiteContext()->GetSourceSize();
     Recycler* recycler =  this->GetRecycler();
 
 #ifdef ENABLE_BASIC_TELEMETRY
