@@ -1087,6 +1087,7 @@ HRESULT DoOneIASIteration(BSTR filename)
     
     delete messageQueue;
 
+    DWORD dwStart = ::GetTickCount();
     std::set<HANDLE> threads;
     {
         AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
@@ -1125,6 +1126,13 @@ HRESULT DoOneIASIteration(BSTR filename)
             Unused(e); // Good to leave around for debugging
         }
         hostThreadMap.clear();
+    }
+
+    DWORD dwEnd = ::GetTickCount();
+
+    if (HostConfigFlags::flags.DumpSiteShutdownTime)
+    {
+        wprintf(_u("%d ms elapsed during ScriptSite release sequence\n"), (dwEnd - dwStart));
     }
 
     DiagnosticsHelper::DisposeHelper();

@@ -27,6 +27,7 @@ FLAG(bool, EnableDelegateWrapper,           "Support IDelegateWrapper in host", 
 FLAG(bool, HostManagedSource,               "Sources passed to script engine are host managed.", false)
 FLAG(bool, DebugDumpText,                   "Dump logs on the command prompt.", false)
 FLAG(bool, DumpRecyclerStats,               "Dump the memory and recycler stats after the final GC", false)
+FLAG(bool, DumpSiteShutdownTime,            "Dump the time taken for script site shutdown", false)
 FLAG(bool, AutomaticSourceRundown,          "Does a PerformSourceRundown call prior to calling Attach (without needing to use WScript.PerformSourceRundown).", false)
 FLAG(bool, LogProfilerVerbose,              "Log verbose script profiler events", true)
 FLAG(bool, LogLineColumnProfileInfo,        "Logs line/column information for each function when running with the profiler attached.", true)

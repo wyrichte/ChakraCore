@@ -583,22 +583,7 @@ void ScriptSite::Close()
     // ScriptContext might have been freed during MarkForClose, null it out.
     scriptSiteContext = nullptr;
 
-    if (isNonPrimaryEngine)
-    {
-        // Only collect if we have some script associated with the engine
-        // Otherwise, the memory used by this script context should be small
-        // Just let other heuristic to activate the GC to clean it up.
-        // we don't even need to collect if idle GC is enabled. Just let the
-        // orphan markup count & idle GC take of the collection.
-        if (sourceSize != 0 && (GetThreadContext()->GetThreadServiceWrapper() == nullptr))
-        {
-            recycler->CollectNow<CollectOnScriptCloseNonPrimary>();
-        }
-    }
-    else
-    {
-        recycler->CollectNow<CollectNowExhaustive>();
-    }
+    threadContext->SetIsScriptContextCloseGCPending();
 
 #ifdef ENABLE_PROJECTION
 #if DBG_DUMP
