@@ -11,6 +11,7 @@
                 "__proto__": "<large string>",
                 "arguments": "null",
                 "caller": "null",
+                "hasInstance": "<large string>",
                 "isConcatSpreadable": "<large string>",
                 "iterator": "<large string>",
                 "length": "0",
