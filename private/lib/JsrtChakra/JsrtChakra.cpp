@@ -21,7 +21,7 @@
 
 STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakContainerRef)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
         VALIDATE_JSREF(ref);
         PARAM_NOT_NULL(weakContainerRef);
         *weakContainerRef = JS_INVALID_REFERENCE;
@@ -34,7 +34,7 @@ STDAPI_(JsErrorCode) JsCreateWeakContainer(JsRef ref, JsWeakContainerRef *weakCo
 
 STDAPI_(JsErrorCode) JsIsReferenceValid(JsWeakContainerRef weakContainerRef, bool *isValid)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
         PARAM_NOT_NULL(weakContainerRef);
         PARAM_NOT_NULL(isValid);
         *isValid = false;
@@ -47,7 +47,7 @@ STDAPI_(JsErrorCode) JsIsReferenceValid(JsWeakContainerRef weakContainerRef, boo
 
 STDAPI_(JsErrorCode) JsGetReference(JsWeakContainerRef weakContainerRef, JsRef *ref)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
         PARAM_NOT_NULL(weakContainerRef);
         PARAM_NOT_NULL(ref);
         *ref = JS_INVALID_REFERENCE;
@@ -60,7 +60,7 @@ STDAPI_(JsErrorCode) JsGetReference(JsWeakContainerRef weakContainerRef, JsRef *
 
 STDAPI_(JsErrorCode) JsGetArrayLength(JsValueRef value, size_t *length)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext *scriptContext) -> JsErrorCode {
         VALIDATE_INCOMING_REFERENCE(value, scriptContext);
         PARAM_NOT_NULL(length);
         *length = 0;
@@ -77,7 +77,7 @@ STDAPI_(JsErrorCode) JsGetArrayLength(JsValueRef value, size_t *length)
 
 STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         PARAM_NOT_NULL(variant);
         PARAM_NOT_NULL(value);
         *value = nullptr;
@@ -92,7 +92,7 @@ STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
 
 STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         VALIDATE_INCOMING_REFERENCE(object, scriptContext);
         PARAM_NOT_NULL(variant);
         ZeroMemory(variant, sizeof(VARIANT));
@@ -105,7 +105,7 @@ STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
 
 STDAPI_(JsErrorCode) JsStartProfiling(IActiveScriptProfilerCallback *callback, PROFILER_EVENT_MASK eventMask, unsigned long contextValue)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         PARAM_NOT_NULL(callback);
 
         if (!scriptContext->IsProfiling())
@@ -120,7 +120,7 @@ STDAPI_(JsErrorCode) JsStartProfiling(IActiveScriptProfilerCallback *callback, P
 
 STDAPI_(JsErrorCode) JsStopProfiling(HRESULT reason)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         JsErrorCode result = JsNoError;
 
         if (scriptContext->IsProfiling())
@@ -176,7 +176,7 @@ STDAPI_(JsErrorCode) JsIsEnumeratingHeap(bool *isEnumeratingHeap)
 
 STDAPI_(JsErrorCode) JsStartDebugging()
 {
-    return ContextAPINoScriptWrapper(
+    return ContextAPINoScriptWrapper_NoRecord(
         [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
 
             JsrtContextChakra* context = (JsrtContextChakra *)JsrtContext::GetCurrent();
@@ -218,7 +218,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
 
 STDAPI_(JsErrorCode) JsStopDebugging()
 {
-    return ContextAPINoScriptWrapper(
+    return ContextAPINoScriptWrapper_NoRecord(
         [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
             JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
 
@@ -249,7 +249,7 @@ STDAPI_(JsErrorCode) JsStopDebugging()
 
 STDAPI_(JsErrorCode) JsSetProjectionEnqueueCallback(_In_ JsProjectionEnqueueCallback projectionEnqueueCallback, _In_opt_ void *projectionEnqueueContext)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
         HRESULT hr = NOERROR;
 
         if (projectionEnqueueCallback == nullptr)
@@ -276,7 +276,7 @@ STDAPI_(JsErrorCode) JsSetProjectionEnqueueCallback(_In_ JsProjectionEnqueueCall
 
 STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const char16 *nameSpace)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         JsErrorCode errorCode;
         JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
         errorCode = context->ReserveWinRTNamespace(nameSpace);
@@ -286,7 +286,7 @@ STDAPI_(JsErrorCode) JsProjectWinRTNamespace(_In_z_ const char16 *nameSpace)
 
 STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out_ JsValueRef *value)
 {
-    return ContextAPIWrapper<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode { 
+    return ContextAPIWrapper_NoRecord<true>([&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
         PARAM_NOT_NULL(inspectable);
         PARAM_NOT_NULL(value);
 #if DBG
@@ -318,7 +318,7 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
 
 STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspectable **inspectable)
 {
-    return ContextAPIWrapper<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
+    return ContextAPIWrapper_NoRecord<true>([&](Js::ScriptContext * scriptContext) -> JsErrorCode {
         VALIDATE_JSREF(value);
         PARAM_NOT_NULL(inspectable);
         *inspectable = nullptr;
