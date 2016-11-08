@@ -1026,14 +1026,17 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(ExtRemoteTyped scriptContext, bool sh
             ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
             try
             {
-                if (strcmp(hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine").GetSimpleValue(), "0n0") == 0)
+                bool fPrimaryEngine;
+                ExtRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine");
+                if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
                 {
-                    Out("P");
+                    fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
                 }
                 else
                 {
-                    Out("N");
+                    fPrimaryEngine = fNonPrimaryEngine.GetStdBool() == false;
                 }
+                Out(fPrimaryEngine? "P" : "N");
             }
             catch (...)
             {
