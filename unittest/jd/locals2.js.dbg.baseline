@@ -868,7 +868,7 @@
         "s1": "hello world",
         "s2": "ell",
         "s3": "a",
-        "s4": "Echo",
+        "s4": "LoadTextFile",
         "s5": "/regex/",
         "s6": "blah20lala",
         "s7": "blah20lala20",
