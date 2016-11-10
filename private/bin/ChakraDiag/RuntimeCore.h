@@ -260,6 +260,11 @@ namespace Projection
     class ProjectionMemoryInformation;
 }
 
+namespace Wasm
+{
+    class WasmSignature;
+}
+
 // Indicate that we compile Runtime #include's under DAC
 // Pull runtinme header dependencies
 #include "Common.h"
