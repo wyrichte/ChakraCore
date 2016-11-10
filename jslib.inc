@@ -38,7 +38,8 @@ JS_LIBS_PARSER_INC = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)
 
 JS_LIBS_PARSER = \
-    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\parser\$(JS_LIBTYPE_LS)\$(O)\chakra.parser.lib\
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\WasmReader\$(JS_LIBTYPE_LS)\$(O)\chakra.WasmReader.lib\
 
 JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\language\$(JS_LIBTYPE)\$(O)\chakra.runtime.language.lib \
