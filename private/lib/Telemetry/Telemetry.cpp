@@ -87,6 +87,10 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
         }
     }
 
+    // Considering adding a check here to set "shouldLogTelemetry = false" some part of
+    // the time - that would throttle back our telemetry in general. A 0.5x multiplier,
+    // although it would take out a 
+
     TraceLoggingRegister(g_hTraceLoggingProv);
 }
 
@@ -153,7 +157,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
 
         if (langStats != NULL && CONFIG_ISENABLED(Js::ES5LangTelFlag))
         {
-            Output::Print(_u("Array.isArray count: %d\n"), langStats->ArrayisArray.callCount);
+            /*Output::Print(_u("Array.isArray count: %d\n"), langStats->ArrayisArray.callCount);
             Output::Print(_u("Array.prototype.indexOf count: %d\n"), langStats->ArrayIndexOf.callCount);
             Output::Print(_u("Array.prototype.every count: %d\n"), langStats->ArrayEvery.callCount);
             Output::Print(_u("Array.prototype.filter count: %d\n"), langStats->ArrayFilter.callCount);
@@ -271,7 +275,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             Output::Print(_u("StickyRegexFlagCount %d\n"), langStats->StickyRegexFlag.parseCount);
             Output::Print(_u("UnicodeRegexFlagCount %d\n"), langStats->UnicodeRegexFlag.parseCount);
             Output::Print(_u("Array.prototype.includes count: %d\n"), langStats->ArrayIncludes.callCount);
-            Output::Print(_u("Array.prototype.includes debug mode call count: %d\n"), langStats->ArrayIncludes.debugModeCallCount);
+            Output::Print(_u("Array.prototype.includes debug mode call count: %d\n"), langStats->ArrayIncludes.debugModeCallCount);*/
 
         }
 
@@ -288,7 +292,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
             TraceLogChakra(
                 TL_ES5BUILTINS,
                 TraceLoggingGuid(activityId, "activityId"),
-                TraceLoggingUInt32(langStats->ArrayisArray.callCount, "arrayisArrayCount"),
+                /*TraceLoggingUInt32(langStats->ArrayisArray.callCount, "arrayisArrayCount"),
                 TraceLoggingUInt32(langStats->ArrayIndexOf.callCount, "arrayIndexOfCount"),
                 TraceLoggingUInt32(langStats->ArrayEvery.callCount, "arrayEveryCount"),
                 TraceLoggingUInt32(langStats->ArrayFilter.callCount, "arrayFilterCount"),
@@ -493,7 +497,7 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
                 TraceLoggingUInt32(langStats->Generator.parseCount, "GeneratorsCount"),
                 TraceLoggingUInt32(langStats->UnicodeRegexFlag.parseCount, "UnicodeRegexFlagCount"),
                 TraceLoggingUInt32(langStats->StickyRegexFlag.parseCount, "StickyRegexFlagCount"),
-                TraceLoggingUInt32(langStats->DefaultArgFunction.parseCount, "DefaultArgFunctionCount"),
+                TraceLoggingUInt32(langStats->DefaultArgFunction.parseCount, "DefaultArgFunctionCount"),*/
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")

@@ -81,10 +81,14 @@ size_t ESBuiltInsDatabase::GetESBuiltInArrayIndex(ESBuiltInPropertyId propertyId
 {
     switch(propertyId)
     {
-#define BUILTIN(typeName,location,propertyName,propertyKind,esVersion)      case ESBuiltInPropertyId:: ## typeName ## _ ## location ## _ ## propertyName: \
+#define ENTRY_BUILTIN(esVersion, typeName, location, propertyName)      case ESBuiltInPropertyId:: ## typeName ## _ ## location ## _ ## propertyName: \
         return static_cast<size_t>( ESBuiltInPropertyIdIdx:: ## typeName ## _ ## location ## _ ## propertyName );
-#include "ESBuiltInsDatabase.inc"
-#undef BUILTIN
+#define ENTRY_LANGFEATURE(esVersion, propertyName) {}
+#define ENTRY_TELPOINT(name) {}
+#include "LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
     }
     return SIZE_MAX;
 }

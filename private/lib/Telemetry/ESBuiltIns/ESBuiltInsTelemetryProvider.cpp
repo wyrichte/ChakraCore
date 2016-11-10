@@ -270,46 +270,66 @@ void ESBuiltInsTelemetryProvider::OutputTraceLogging(GUID activityId, DWORD host
     {
         size_t idx;
 
+        // The following is a bunch of preprocessor shenanigans to get around a few limits,
+        // among the telemetry framework, the compiler, and the language. It's not the most
+        // readable code that you'll ever see, but I'll try to give a quick explanation:
+        //
+        // We have a bunch of telemetry data points described in LangTelFields. Since these
+        // are all things we'd want to send back in one go when a user finishes with a page
+        // or scriptcontext, we should send them back in one event (reducing overhead). The
+        // telemetry framework requires that we define and fill a constant struct in a very
+        // special page used by the telemetry framework to determine what events any binary
+        // can produce, which saves the overhead of sending the event tag names every time.
+        // Once we produce that from our data with a few macros and includes, sending event
+        // data is just a matter of two last passes over the data definitions; one to count
+        // up fields, and one to get the data from them correctly and put it in the buffer.
+#define STRINGOF(n) #n
+#define FIELDNAMESTRING(type, base, name) STRINGOF(type ## _ ## base ## _ ## name)
+
+        TELPROLOGUE("ESBuiltins")
+#define TOKENJOIN2(x, y) x ## y
+#define TOKENJOIN(x, y) TOKENJOIN2(x, y)
+#define UNIQNAME(prefix) TOKENJOIN(prefix, __LINE__)
+#define ENTRY_BUILTIN(ver, type, base, name) char UNIQNAME(_TlgName) [sizeof(FIELDNAMESTRING(type, base, name))]; UINT8 UNIQNAME(_TlgIn);
+#define ENTRY_LANGFEATURE(ver, name) char UNIQNAME(_TlgName) [sizeof(#name)]; UINT8 UNIQNAME(_TlgIn);
+#define ENTRY_TELPOINT(name) char UNIQNAME(_TlgName) [sizeof(#name)]; UINT8 UNIQNAME(_TlgIn);
+#include "../LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
+#undef UNIQNAME
+#undef TOKENJOIN
+#undef TOKENJOIN2
+        TELMIDLOGUEPART1("ESBuiltins")
+#define ENTRY_BUILTIN(ver, type, base, name) , (FIELDNAMESTRING(type, base, name)), TlgInUINT32
+#define ENTRY_LANGFEATURE(ver, name) , ( # name ), TlgInUINT32
+#define ENTRY_TELPOINT(name) , ( # name ), TlgInUINT32
+#include "../LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
+        TELMIDLOGUEPART2()
+#define ENTRY_BUILTIN(ver, type, base, name) +1
+#define ENTRY_LANGFEATURE(ver, name) +1
+#define ENTRY_TELPOINT(name) +1
+#include "../LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
+        TELMIDLOGUEPART3()
 #define Get(propertyId) \
     ( idx = ESBuiltInsDatabase::GetESBuiltInArrayIndex( propertyId ), idx != SIZE_MAX ? this->usageMap[ idx ] : 0 )
-
-        TraceLogChakra("ESBuiltIns" /* #0 */,
-            TraceLoggingGuid(activityId, "activityId"),
-            TraceLoggingUInt32(hostType, "HostingInterface"),
-            TraceLoggingBool(isJSRT, "isJSRT"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Prototype_contains), "Array_Prototype_contains"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Prototype_includes), "Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Constructor_observe), "Array_Constructor_observe"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Array_Constructor_unobserve), "Array_Constructor_unobserve"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::ArrayBuffer_Constructor_transfer), "ArrayBuffer_Constructor_transfer"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Float32Array_Prototype_includes), "Float32Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Float64Array_Prototype_includes), "Float64Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int16Array_Prototype_includes), "Int16Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int32Array_Prototype_includes), "Int32Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Int8Array_Prototype_includes), "Int8Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Map_Prototype_toJSON), "Map_Prototype_toJSON"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_getOwnPropertyDescriptors), "Object_Constructor_getOwnPropertyDescriptors"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_observe), "Object_Constructor_observe"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Object_Constructor_unobserve), "Object_Constructor_unobserve"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::RegExp_Constructor_escape), "RegExp_Constructor_escape"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Set_Prototype_toJSON), "Set_Prototype_toJSON"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_at), "String_Prototype_at"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_leftPad), "String_Prototype_leftPad"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_lPad), "String_Prototype_lPad"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_padLeft), "String_Prototype_padLeft"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_padRight), "String_Prototype_padRight"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_rightPad), "String_Prototype_rightPad"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_rPad), "String_Prototype_rPad"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_substr), "String_Prototype_substr"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_trimLeft), "String_Prototype_trimLeft"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::String_Prototype_trimRight), "String_Prototype_trimRight"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint16Array_Prototype_includes), "Uint16Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint32Array_Prototype_includes), "Uint32Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint8Array_Prototype_includes), "Uint8Array_Prototype_includes"),
-            TraceLoggingInt32(Get(ESBuiltInPropertyId::Uint8ClampedArray_Prototype_includes), "Uint8ClampedArray_Prototype_includes")
-        );
-
+#define ENTRY_BUILTIN(ver, type, base, name) _TlgCreateDesc<UINT32>(&_TlgData[_TlgIdx], (Get(ESBuiltInPropertyId:: ## type ## _ ## base ## _ ## name))), _TlgIdx += 1,
+#define ENTRY_LANGFEATURE(ver, name) _TlgCreateDesc<UINT32>(&_TlgData[_TlgIdx], (0)), _TlgIdx += 1,
+#define ENTRY_TELPOINT(name) _TlgCreateDesc<UINT32>(&_TlgData[_TlgIdx], (0)), _TlgIdx += 1,
+#include "../LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
 #undef Get
+        TELEPILOGUE()
+#undef FIELDNAMESTRING
+#undef STRINGOF
     }
 }
 

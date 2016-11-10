@@ -38,6 +38,7 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TelemetryPch.h</PrecompiledHeaderFile>
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</PreprocessToFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -60,6 +61,7 @@
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
+    <ClInclude Include="LangTelFields_log.h" />
     <ClInclude Include="TelemetryProvider.h" />
     <ClInclude Include="IOpcodeTelemetry.h" />
     <ClInclude Include="IScriptContextTelemetryProvider.h" />
@@ -77,10 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />
-    <None Include="ESBuiltIns\ESBuiltInsDatabase.inc" />
     <None Include="ESBuiltIns\ESBuiltInsTypeNames.inc" />
     <None Include="ESBuiltIns\sources.inc" />
-    <None Include="KnownMethodTelemetryList.inc" />
     <None Include="sources.inc" />
   </ItemGroup>
   <ItemGroup>
