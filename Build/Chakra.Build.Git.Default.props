@@ -10,7 +10,7 @@
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
 
-    <ManifestsInboxIncludeDirectory>$(IELibPath)\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
+    <InstrumentationManifestIncludeDirectory>$(IntDir)..\CoreManifests</InstrumentationManifestIncludeDirectory>
   </PropertyGroup>
   <!-- Common build settings -->
   <PropertyGroup>

@@ -57,7 +57,7 @@
     <!-- This one is missing from Microsoft.Build.Paths.props -->
     <OneCoreSdkLibPath>$(SdkLibDest)\OneCore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
 
-    <ManifestsInboxIncludeDirectory>$(ObjectRoot)\onecoreuap\inetcore\manifests\inbox\$(ObjectDirectory)</ManifestsInboxIncludeDirectory>
+    <InstrumentationManifestIncludeDirectory>$(RazzleJscriptObjectRoot)\private\core_razzle_build\manifests\$(ObjectDirectory)</InstrumentationManifestIncludeDirectory>
     <ChakraManifestsIncludeDirectory>$(RazzleJscriptObjectRoot)\private\manifests\$(ObjectDirectory)</ChakraManifestsIncludeDirectory>
     <ChakraParserIntDir>$(RazzleJscriptObjectRoot)\private\core_razzle_build\parser\$(RazzleJscriptObjectDirectory)</ChakraParserIntDir>
     <JscriptInfoIntDir>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)</JscriptInfoIntDir>

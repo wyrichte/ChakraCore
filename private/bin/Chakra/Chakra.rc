@@ -11,6 +11,6 @@
 #include "..\ChakraCommon.ver"
 #include "jserr.rc2"
 
-#include "Microsoft-Scripting-chakraEvents.rc"
+#include "Microsoft-Scripting-chakra-InstrumentationEvents.rc"
 
 

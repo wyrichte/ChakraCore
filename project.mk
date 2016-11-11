@@ -131,7 +131,7 @@ COREINCLUDES=\
     $(MINWIN_PRIV_SDK_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
     $(OBJECT_JSCRIPT_DIR)\private\manifests\$(O); \
-
+    $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\manifests\$(O); \
 
 SITEINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\common; \
