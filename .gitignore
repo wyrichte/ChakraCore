@@ -36,3 +36,6 @@ tools/Exprgen
 .cproject
 *.dmp
 /packages/*/stage
+
+# Visual Studio Extensions
+*.vadbg
