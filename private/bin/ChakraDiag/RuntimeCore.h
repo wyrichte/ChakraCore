@@ -261,6 +261,7 @@ namespace Projection
     class ProjectionMemoryInformation;
 }
 
+class WebAssemblyMemory;
 namespace Wasm
 {
     class WasmSignature;
