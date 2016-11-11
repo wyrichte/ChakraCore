@@ -11,6 +11,10 @@
 #include "Base\ThreadContextTLSEntry.h"
 #include "Base\ThreadBoundThreadContextManager.h"
 
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+#include <iesettings.h>
+#endif
+
 // GUID for "ChakraProvider_V0.1": {FC7BA620-EB50-483D-97A0-72D8268A14B5}
 
 TRACELOGGING_DEFINE_PROVIDER(g_hTraceLoggingProv,
@@ -115,6 +119,17 @@ void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
     }
 }
 
+bool TraceLoggingClient::isExperimentalFlagEnabled()
+{
+#ifdef ENABLE_EXPERIMENTAL_FLAGS
+    BOOL regValue;
+    if (SUCCEEDED(SettingStore::GetBOOL(SettingStore::IEVALUE_ExperimentalFeatures_ExperimentalJS, &regValue)))
+    {
+        return regValue != FALSE;
+    }
+#endif
+    return false;
+}
 
 void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
 {
@@ -124,7 +139,8 @@ void TraceLoggingClient::FireChakraInitTelemetry(DWORD host, bool isJSRT)
         TraceLogChakra(
             TL_CHAKRAINIT,
             TraceLoggingUInt32(host, "HostingInterface"),
-            TraceLoggingBool(isJSRT, "isJSRT")
+            TraceLoggingBool(isJSRT, "isJSRT"),
+            TraceLoggingBool(this->isExperimentalFlagEnabled(), "experimentalFlagEnabled")
             );
     }
 }
@@ -289,10 +305,10 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
 
             // Note: must be thread-safe.
             
-            TraceLogChakra(
+            /*TraceLogChakra(
                 TL_ES5BUILTINS,
                 TraceLoggingGuid(activityId, "activityId"),
-                /*TraceLoggingUInt32(langStats->ArrayisArray.callCount, "arrayisArrayCount"),
+                TraceLoggingUInt32(langStats->ArrayisArray.callCount, "arrayisArrayCount"),
                 TraceLoggingUInt32(langStats->ArrayIndexOf.callCount, "arrayIndexOfCount"),
                 TraceLoggingUInt32(langStats->ArrayEvery.callCount, "arrayEveryCount"),
                 TraceLoggingUInt32(langStats->ArrayFilter.callCount, "arrayFilterCount"),
@@ -497,11 +513,11 @@ void TraceLoggingClient::FireSiteNavigation(const char16 *url, GUID activityId, 
                 TraceLoggingUInt32(langStats->Generator.parseCount, "GeneratorsCount"),
                 TraceLoggingUInt32(langStats->UnicodeRegexFlag.parseCount, "UnicodeRegexFlagCount"),
                 TraceLoggingUInt32(langStats->StickyRegexFlag.parseCount, "StickyRegexFlagCount"),
-                TraceLoggingUInt32(langStats->DefaultArgFunction.parseCount, "DefaultArgFunctionCount"),*/
+                TraceLoggingUInt32(langStats->DefaultArgFunction.parseCount, "DefaultArgFunctionCount"),
                 TraceLoggingUInt32(host, "HostingInterface"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingPointer(threadContext->GetJSRTRuntime(), "JsrtRuntime")
-                );
+                );*/
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
             // This is called inside a block that just checked whether we should

@@ -117,6 +117,7 @@ class TraceLoggingClient
 
     Throttle throttle;
 
+    bool isExperimentalFlagEnabled();
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
