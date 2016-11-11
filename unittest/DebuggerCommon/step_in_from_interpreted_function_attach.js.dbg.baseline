@@ -38,12 +38,6 @@
           "__proto__": "{...}"
         }
       },
-      "[Date returned]": {
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        }
-      },
       "[Return value]": "undefined",
       "arguments": {
         "[Methods]": {

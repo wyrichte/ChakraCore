@@ -52,7 +52,6 @@ void CScriptBody::Release(void)
 Js::DynamicObject* CScriptBody::CreateEntryPoint(ScriptSite* scriptSite)
 {
     Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
-    Assert(functionInfo->HasBody());
     return scriptContext->GetLibrary()->CreateScriptFunction(functionInfo);
 }
 

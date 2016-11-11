@@ -926,7 +926,7 @@ namespace Js
             ScriptFunction* scriptFunction = ScriptFunction::FromVar(function);
             FunctionEntryPointInfo* newEntryPointInfo = newBody->GetDefaultFunctionEntryPointInfo();
             scriptFunction->UpdateThunkEntryPoint(newEntryPointInfo, newBody->GetDirectEntryPoint(newEntryPointInfo));
-            function->SetFunctionInfo(newBody);
+            function->SetFunctionInfo(newBody->GetFunctionInfo());
 
             if (ScriptFunctionWithInlineCache::Is(function))
             {

@@ -13,6 +13,7 @@ namespace Js
 {
     // TODO: consider extracting and pulling enums (instead of forward), as changing their underlying type may break us.
     class DebugDocument;                    // Used by Utf8SourceInfo.h
+    class FunctionProxy;
     class ParseableFunctionInfo;            // Used by Utf8SourceInfo.h
     class FunctionBody;                     // Used by Utf8SourceInfo.h
     struct Utf8SourceInfo;                  // Used by FunctionBody.h
@@ -96,7 +97,7 @@ namespace Js
     class ES5Array;                         // Used by TypeHandler.h
     class DeferredTypeHandlerBase;          // Used by TypeHandler.h
     class IndexPropertyDescriptor;          // Used by SimpleTypeHandler.h
-    class JavascriptRegExp;	                // Used by JavascriptLibrary.h
+    class JavascriptRegExp;                     // Used by JavascriptLibrary.h
     class JavascriptRegExpConstructor;      // Used by JavascriptLibrary.h
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
     class JavascriptEnumerator;             // Used by JavascriptLibrary.h

@@ -177,7 +177,7 @@ void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame
         int byteCodeOffset = this->GetByteCodeOffset(&loopNumber); // Make sure we call this before detaching the interpreter frame.
 
         RefCounted<RemoteFunctionBody> functionBody;
-        GetRefCountedRemoteFunctionBody(static_cast<Js::FunctionBody*>(functionInfoAddr), &functionBody);
+        GetRefCountedRemoteFunctionBody(static_cast<Js::FunctionBody*>(functionInfoAddr->GetFunctionProxy()), &functionBody);
 
         CComPtr<RemoteStackFrame> frame;
         CreateComObject(functionBody, m_scriptContext, functionAddr, 

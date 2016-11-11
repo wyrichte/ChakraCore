@@ -76,7 +76,7 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
 
     Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(dynamicObject);
     Js::FunctionInfo* funcInfo = simpleAccessorFunction->GetFunctionInfo();
-    Assert((funcInfo->GetAttributes() & Js::FunctionBody::Attributes::NeedCrossSiteSecurityCheck) != 0);
+    Assert((funcInfo->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
     HostScriptContext* requestContext = ThreadContext::GetContextForCurrentThread()->GetPreviousHostScriptContext();
     targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), requestContext);
     simpleAccessorFunction->ValidateThisInstance(args[0]);

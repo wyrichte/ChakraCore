@@ -5540,16 +5540,17 @@ HRESULT ScriptEngine::CompileUTF8Core(
             void* cachedSrcInfo = (*ppbody)->PvGetData(&srcLength);
             if (srcLength == sizeof(SRCINFO) && (memcmp(srcInfo, cachedSrcInfo, sizeof(SRCINFO)) ==0))
             {
-                Js::ParseableFunctionInfo *functionInfo = (*ppbody)->GetRootFunction();
-                if (functionInfo != functionInfo->GetFunctionProxy())
+                Js::FunctionProxy *functionProxy = (*ppbody)->GetRootFunction();
+                if (functionProxy != functionProxy->GetFunctionInfo()->GetFunctionProxy())
                 {
                     // The function was originally deferred and has been compiled since the CScriptBody was
                     // created. Make a new CScriptBody pointing to the full FunctionBody and let it replace
                     // the current entry in the map.
-                    Assert(functionInfo->GetFunctionProxy() && functionInfo->GetFunctionProxy()->IsFunctionBody());
-                    functionInfo = functionInfo->GetFunctionProxy()->GetParseableFunctionInfo();
+                    Assert(functionProxy->GetFunctionInfo()->GetFunctionProxy() && 
+                           functionProxy->GetFunctionInfo()->GetFunctionProxy()->IsFunctionBody());
+                    functionProxy = functionProxy->GetFunctionInfo()->GetFunctionProxy();
 
-                    CScriptBody *newBody = HeapNew(CScriptBody, functionInfo, this, utf8SourceInfo);
+                    CScriptBody *newBody = HeapNew(CScriptBody, functionProxy->GetParseableFunctionInfo(), this, utf8SourceInfo);
                     Assert(scriptContext->IsScriptContextInNonDebugMode());
 
                     scriptBodyMap->TryGetValueAndRemove(utf8SourceInfo, ppbody);

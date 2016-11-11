@@ -671,6 +671,11 @@ namespace JsDiag
         FunctionBody* GetFunction();
     };
 
+    struct RemoteFunctionProxy : public RemoteData<FunctionProxy>
+    {
+        RemoteFunctionProxy(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+    };
+
     struct RemoteParseableFunctionInfo : public RemoteData<ParseableFunctionInfo>
     {
         RemoteParseableFunctionInfo(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}

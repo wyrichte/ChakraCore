@@ -259,7 +259,7 @@ namespace JsDiag
         RemoteFunctionInfo functionInfo(m_reader, functionInfoAddr);
         if (functionInfo->HasBody())
         {
-            RemoteParseableFunctionInfo parseableFunctionInfo = RemoteParseableFunctionInfo(m_reader, functionInfo.GetFunction());
+            RemoteFunctionProxy parseableFunctionInfo = RemoteFunctionProxy(m_reader, functionInfo.GetFunction());
             return !(parseableFunctionInfo->IsClassMethod() || parseableFunctionInfo->IsClassConstructor() || parseableFunctionInfo->IsLambda());
         }
 

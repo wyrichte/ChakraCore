@@ -134,7 +134,7 @@ namespace Projection
 
         Assert(promiseByteCode != nullptr);
 
-        Js::ScriptFunction* function = library->CreateScriptFunction(promiseByteCode->GetNestedFunc(0)->EnsureDeserialized());
+        Js::ScriptFunction* function = library->CreateScriptFunction(promiseByteCode->GetNestedFunctionForExecution(0));
 
         // If we are profiling, we need to register the script to the profiler callback, so the script compiled event will be sent.
         if (scriptContext->IsProfiling())
