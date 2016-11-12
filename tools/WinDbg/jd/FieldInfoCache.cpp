@@ -27,7 +27,7 @@ JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * field
     Key key = { object.m_Typed.ModBase, object.m_Typed.TypeId, fieldName };
     auto i = fieldInfoCache.cache.find(key);
     if (i != fieldInfoCache.cache.end())
-    {        
+    {
         return JDRemoteTyped((*i).second.m_ModBase, (*i).second.m_TypeId, derefObject.m_Offset + (*i).second.m_fieldOffset);
     }
 

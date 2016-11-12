@@ -82,7 +82,7 @@ public:
 protected:
     RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
     void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
-    void EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);
+    void EnsureTypeInfo(ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);
 
     void ClearTypeInfo();
     void MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
