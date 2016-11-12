@@ -79,12 +79,19 @@ void ESBuiltInsDatabase::Cleanup()
 
 size_t ESBuiltInsDatabase::GetESBuiltInArrayIndex(ESBuiltInPropertyId propertyId)
 {
-    switch(propertyId)
-    {
-#define BUILTIN(typeName,location,propertyName,propertyKind,esVersion)      case ESBuiltInPropertyId:: ## typeName ## _ ## location ## _ ## propertyName: \
+    switch (propertyId) {
+#define BLOCK_START(blockname, count)
+#define BLOCK_END()
+#define ENTRY_BUILTIN(esVersion, typeName, location, propertyName)      case ESBuiltInPropertyId:: ## typeName ## _ ## location ## _ ## propertyName : \
         return static_cast<size_t>( ESBuiltInPropertyIdIdx:: ## typeName ## _ ## location ## _ ## propertyName );
-#include "ESBuiltInsDatabase.inc"
-#undef BUILTIN
+#define ENTRY_LANGFEATURE(esVersion, propertyName)
+#define ENTRY_TELPOINT(name)
+#include "LangTelFields.h"
+#undef ENTRY_TELPOINT
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_BUILTIN
+#undef BLOCK_END
+#undef BLOCK_START
     }
     return SIZE_MAX;
 }
@@ -122,14 +129,6 @@ ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByTypeId( const J
         default:
             return ESBuiltInTypeNameId::_None;
     }
-}
-
-ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByString( Js::JavascriptString* typeName )
-{
-    const char16* value       = typeName->GetString();
-    size_t         valueLength = typeName->GetLength();
-
-#include "ESBuiltInsTypeNames.trie.inc"
 }
 
 ESBuiltInTypeNameId ESBuiltInsDatabase::GetESBuiltInTypeNameId_ByPointer( const ScriptContext& scriptContext, const JavascriptFunction* constructorFunction )

@@ -22,9 +22,17 @@ enum class ESBuiltInPropertyId : uint32
 #define Constructor 0x8000 // set the 15th bit high
 #define Instance    0
 #define Prototype   0
-#define BUILTIN(typeName,location,propertyName,propertyKind,esVersion) typeName ## _ ## location ## _ ## propertyName ## = COMPUTE_KEY_ESBuiltInPropertyId(typeName,location,propertyName),
-#include "ESBuiltInsDatabase.inc"
-#undef BUILTIN
+#define BLOCK_START(blockname, count)
+#define BLOCK_END()
+#define ENTRY_BUILTIN(esVersion, typeName,location,propertyName) typeName ## _ ## location ## _ ## propertyName ## = COMPUTE_KEY_ESBuiltInPropertyId(typeName,location,propertyName),
+#define ENTRY_TELPOINT(n)
+#define ENTRY_LANGFEATURE(v,n)
+#include "LangTelFields.h"
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_TELPOINT
+#undef ENTRY_BUILTIN
+#undef BLOCK_END
+#undef BLOCK_START
 #undef Constructor
 #undef Instance
 #undef Prototype
@@ -60,9 +68,17 @@ private:
 enum class ESBuiltInPropertyIdIdx : size_t
 {
     _None,
-#define BUILTIN(typeName,location,propertyName,propertyKind,esVersion) typeName ## _ ## location ## _ ## propertyName,
-#include "ESBuiltInsDatabase.inc"
-#undef BUILTIN
+#define BLOCK_START(blockname, count)
+#define BLOCK_END()
+#define ENTRY_BUILTIN(esVersion,typeName,location,propertyName) typeName ## _ ## location ## _ ## propertyName,
+#define ENTRY_TELPOINT(n)
+#define ENTRY_LANGFEATURE(v,n)
+#include "LangTelFields.h"
+#undef ENTRY_LANGFEATURE
+#undef ENTRY_TELPOINT
+#undef ENTRY_BUILTIN
+#undef BLOCK_END
+#undef BLOCK_START
     _Max
 };
 
@@ -110,8 +126,6 @@ public:
 #endif
 
     static ESBuiltInPropertyId GetESBuiltInPropertyId(ESBuiltInTypeNameId typeNameId, bool isConstructorProperty, Js::PropertyId propertyId);
-
-    static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByString(Js::JavascriptString* typeName);
 
     static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByTypeId(const Js::TypeId typeId);
 

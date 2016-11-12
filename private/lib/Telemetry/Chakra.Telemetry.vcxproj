@@ -38,6 +38,7 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings);4702</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>TelemetryPch.h</PrecompiledHeaderFile>
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</PreprocessToFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -53,17 +54,20 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KnownMethodTelemetry.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectCall.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
+    <ClInclude Include="TelemetryProvider.h" />
     <ClInclude Include="IOpcodeTelemetry.h" />
     <ClInclude Include="IScriptContextTelemetryProvider.h" />
     <ClInclude Include="LangTelFields.h" />
     <ClInclude Include="LanguageTelemetry.h" />
     <ClInclude Include="KnownMethodTelemetry.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="OpcodeTelemetry.h" />
     <ClInclude Include="ScriptContextTelemetry.h" />
     <ClInclude Include="ScriptEngineTelemetry.h" />
@@ -74,12 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />
-    <None Include="ESBuiltIns\ESBuiltInsDatabase.inc" />
     <None Include="ESBuiltIns\ESBuiltInsTypeNames.inc" />
-    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.Generator.js" />
-    <None Include="ESBuiltIns\ESBuiltInsTypeNames.trie.inc" />
     <None Include="ESBuiltIns\sources.inc" />
-    <None Include="KnownMethodTelemetryList.inc" />
     <None Include="sources.inc" />
   </ItemGroup>
   <ItemGroup>

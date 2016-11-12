@@ -9,14 +9,39 @@
 #define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(feature,m_scriptContext) if(m_scriptContext != nullptr){Js::LanguageStats* stats = m_scriptContext->GetThreadContext()->GetLanguageStats();\
                                                           if(stats!=nullptr){stats->feature.parseCount++;}}
 
+#define CHAKRATEL_LANGSTATS_INC_DATACOUNT(feature) scriptContext->GetThreadContext()->GetLanguageStats()->feature.count++;
+
 namespace Js
 {
+    struct props
+    {
+        UINT32 callCount;
+        UINT32 debugModeCallCount;
+    };
+
+    struct langFeature
+    {
+        uint parseCount;
+    };
+
+    struct telPoint
+    {
+        uint count;
+    };
     // Anything that needs to be logged as part of Language Stats should be a part of this structure
     struct LanguageStats
     {
-     #define ENTRY_BUILTIN(n) props n;
-     #define ENTRY_LANGFEATURE(n) langFeature n;
+     #define BLOCK_START(blockname, count)
+     #define BLOCK_END()
+     #define ENTRY_BUILTIN(ver, base, type, n) Js::props base ## _ ## type ## _ ## n;
+     #define ENTRY_LANGFEATURE(ver, n) Js::langFeature n;
+     #define ENTRY_TELPOINT(n) Js::telPoint n;
      #include "LangTelFields.h"
+     #undef ENTRY_TELPOINT
+     #undef ENTRY_LANGFEATURE
+     #undef ENTRY_BUILTIN
+     #undef BLOCK_END
+     #undef BLOCK_START
     };
 
     class LanguageTelemetry
