@@ -30,6 +30,7 @@
 // Array builtins
 // We're especially concerned about these, due to the prevalence of arrays in perf-
 // important scenarios
+BLOCK_START(Array, 14)
 ENTRY_BUILTIN(ES5, Array, Constructor, isArray)
 ENTRY_BUILTIN(ES5, Array, Prototype, indexOf)
 ENTRY_BUILTIN(ES5, Array, Prototype, includes)
@@ -44,11 +45,16 @@ ENTRY_BUILTIN(ES5, Array, Prototype, some)
 ENTRY_BUILTIN(ES7, Array, Prototype, contains)
 ENTRY_BUILTIN(ES7, Array, Constructor, observe)
 ENTRY_BUILTIN(ES7, Array, Constructor, unobserve)
+BLOCK_END()
 
 // ArrayBuffer builtins
+BLOCK_START(ArrayBuffer, 1)
 ENTRY_BUILTIN(ES6, ArrayBuffer, Constructor, transfer)
+BLOCK_END()
 
 // Object builtins
+BLOCK_START(Object, 18)
+ENTRY_BUILTIN(ES5, Object, Constructor, defineProperty)
 ENTRY_BUILTIN(ES5, Object, Constructor, defineProperties)
 ENTRY_BUILTIN(ES5, Object, Constructor, create)
 ENTRY_BUILTIN(ES5, Object, Constructor, seal)
@@ -66,15 +72,21 @@ ENTRY_BUILTIN(ES7, Object, Constructor, entries)
 ENTRY_BUILTIN(ES7, Object, Constructor, getOwnPropertyDescriptors)
 ENTRY_BUILTIN(ES7, Object, Constructor, observe)
 ENTRY_BUILTIN(ES7, Object, Constructor, unobserve)
+BLOCK_END()
 
 // Date builtins
+BLOCK_START(Date, 1)
 ENTRY_BUILTIN(ES5, Date, Prototype, toISOString)
+BLOCK_END()
 
 // Function builtins
+BLOCK_START(Function, 1)
 ENTRY_BUILTIN(ES5, Function, Prototype, bind)
+BLOCK_END()
 
 // String builtins
 // Also very important for some perf scenarios
+BLOCK_START(String, 11)
 ENTRY_BUILTIN(ES5, String, Prototype, trim)
 ENTRY_BUILTIN(ES6, String, Prototype, startsWith)
 ENTRY_BUILTIN(ES6, String, Prototype, endsWith)
@@ -92,9 +104,11 @@ ENTRY_BUILTIN(ES7, String, Prototype, at)
 ENTRY_BUILTIN(ES7, String, Prototype, substr)
 ENTRY_BUILTIN(ES7, String, Prototype, trimLeft)
 ENTRY_BUILTIN(ES7, String, Prototype, trimRight)
+BLOCK_END()
 
 //ES6 builtins
 //Math builtins
+BLOCK_START(Math, 17)
 ENTRY_BUILTIN(ES6, Math, Constructor, log10)
 ENTRY_BUILTIN(ES6, Math, Constructor, log1p)
 ENTRY_BUILTIN(ES6, Math, Constructor, log2)
@@ -112,12 +126,15 @@ ENTRY_BUILTIN(ES6, Math, Constructor, sign)
 ENTRY_BUILTIN(ES6, Math, Constructor, imul)
 ENTRY_BUILTIN(ES6, Math, Constructor, clz32)
 ENTRY_BUILTIN(ES6, Math, Constructor, fround)
+BLOCK_END()
 
 // Number builtins
+BLOCK_START(Number, 4)
 ENTRY_BUILTIN(ES6, Number, Constructor, isNaN)
 ENTRY_BUILTIN(ES6, Number, Constructor, isFinite)
 ENTRY_BUILTIN(ES6, Number, Constructor, isInteger)
 ENTRY_BUILTIN(ES6, Number, Constructor, isSafeInteger)
+BLOCK_END()
 
 // RegEx builtins
 ENTRY_TELPOINT(ES6_RegexSymbolMatch)
@@ -135,6 +152,7 @@ ENTRY_TELPOINT(ES6_Set)
 ENTRY_TELPOINT(ES6_Promise)
 
 //TypedArray Methods
+BLOCK_START(TypedArray, 23)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, from)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, of)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, copyWithin)
@@ -158,6 +176,7 @@ ENTRY_BUILTIN(ES6, TypedArray, Prototype, some)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, sort)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, subarray)
 ENTRY_BUILTIN(ES6, TypedArray, Prototype, values)
+BLOCK_END()
 
 // Language Features
 ENTRY_LANGFEATURE(ES6, Let)
@@ -176,6 +195,7 @@ ENTRY_LANGFEATURE(ES6, StickyRegexFlag)
 ENTRY_LANGFEATURE(ES6, DefaultArgFunction)
 
 // ES7 stuff, formerly in BuiltinsDatabase.inc
+BLOCK_START(Other, 12)
 ENTRY_BUILTIN(ES7, Float32Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Float64Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Int16Array, Prototype, includes)
@@ -188,3 +208,4 @@ ENTRY_BUILTIN(ES7, Uint16Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Uint32Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Uint8Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Uint8ClampedArray, Prototype, includes)
+BLOCK_END()

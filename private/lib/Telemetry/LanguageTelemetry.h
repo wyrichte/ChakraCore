@@ -15,8 +15,8 @@ namespace Js
 {
     struct props
     {
-        uint callCount;
-        uint debugModeCallCount;
+        UINT32 callCount;
+        UINT32 debugModeCallCount;
     };
 
     struct langFeature
@@ -31,6 +31,8 @@ namespace Js
     // Anything that needs to be logged as part of Language Stats should be a part of this structure
     struct LanguageStats
     {
+     #define BLOCK_START(blockname, count)
+     #define BLOCK_END()
      #define ENTRY_BUILTIN(ver, base, type, n) Js::props base ## _ ## type ## _ ## n;
      #define ENTRY_LANGFEATURE(ver, n) Js::langFeature n;
      #define ENTRY_TELPOINT(n) Js::telPoint n;
@@ -38,6 +40,8 @@ namespace Js
      #undef ENTRY_TELPOINT
      #undef ENTRY_LANGFEATURE
      #undef ENTRY_BUILTIN
+     #undef BLOCK_END
+     #undef BLOCK_START
     };
 
     class LanguageTelemetry

@@ -61,7 +61,6 @@
     <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
     <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
-    <ClInclude Include="LangTelFields_log.h" />
     <ClInclude Include="TelemetryProvider.h" />
     <ClInclude Include="IOpcodeTelemetry.h" />
     <ClInclude Include="IScriptContextTelemetryProvider.h" />
