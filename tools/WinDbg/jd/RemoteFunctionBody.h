@@ -127,7 +127,14 @@ public:
 
     ULONG GetLocalFunctionId()
     {
-        return JDUtil::GetWrappedField(*this, "functionId").GetUlong();
+        if (HasField("functionId"))
+        {
+            return JDUtil::GetWrappedField(*this, "functionId").GetUlong();
+        }
+        else
+        {
+            return JDUtil::GetWrappedField(*this, "functionInfo").Field("functionId").GetUlong();
+        }
     }
 
     ULONG GetFunctionNumber()
