@@ -5544,10 +5544,9 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 if (functionProxy != functionProxy->GetFunctionInfo()->GetFunctionProxy())
                 {
                     // The function was originally deferred and has been compiled since the CScriptBody was
-                    // created. Make a new CScriptBody pointing to the full FunctionBody and let it replace
-                    // the current entry in the map.
-                    Assert(functionProxy->GetFunctionInfo()->GetFunctionProxy() && 
-                           functionProxy->GetFunctionInfo()->GetFunctionProxy()->IsFunctionBody());
+                    // created. Make a new CScriptBody pointing to the new FunctionProxy and let it replace
+                    // the current entry in the map. (Consider letting CScriptBody point to FunctionInfo instead
+                    // if this happens a lot.)
                     functionProxy = functionProxy->GetFunctionInfo()->GetFunctionProxy();
 
                     CScriptBody *newBody = HeapNew(CScriptBody, functionProxy->GetParseableFunctionInfo(), this, utf8SourceInfo);
