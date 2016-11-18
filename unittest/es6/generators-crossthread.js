@@ -8,7 +8,15 @@ var csObj_cctx = csObj.Debug.parseFunction(`
         flag ? yield func() : yield (value * value);
     }
     var gen = gf(true).next().value;
-    print(gf === gen, "Generator function returned through the caller property should be the same as the original generator function");
-    print(100 === gen(false, 10).next().value, "Generator function returned through the caller property should behave the same way as the original generator function");
+    if (gf === gen) {
+        print("PASSED");
+    } else {
+        print("FAILED");
+    }
+    if (100 === gen(false, 10).next().value) {
+        print("PASSED");
+    } else {
+        print("FAILED");
+    }
 `);
 csObj_cctx();

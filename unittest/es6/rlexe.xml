@@ -275,7 +275,6 @@
 <test>
     <default>
         <files>generators-crossthread.js</files>
-        <baseline>generators-crossthread.baseline</baseline>
     </default>
 </test>
 </regress-exe>

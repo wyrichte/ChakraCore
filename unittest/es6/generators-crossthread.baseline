@@ -1,2 +1,0 @@
-true Generator function returned through the caller property should be the same as the original generator function
-true Generator function returned through the caller property should behave the same way as the original generator function
