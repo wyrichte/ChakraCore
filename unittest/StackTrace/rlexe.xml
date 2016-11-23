@@ -116,7 +116,6 @@
       <baseline>OOS.html.baseline</baseline>
     </default>
   </test>
-<!-- BUG #7964904
   <test>
     <default>
       <tags>StackTrace</tags>
@@ -131,7 +130,6 @@
       <baseline>FunctionName.html.baseline</baseline>
     </default>
   </test>
--->
   <test>
     <default>
       <files>getStackTraceTest1.js</files>
