@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Adding compiler and linker flags for guard SS instrumentation of projects build through vcxproj and msbuild.exe -->
+  <!-- this is copied from %SDXROOT%\tools\managed\Customizations\Razzle\Microsoft.Build.GuardSS.props with some minor env change for chakra VSO build -->
+
+  <ItemDefinitionGroup Condition="'$(GuardShadowStack)'!='false' AND '$(Platform)'=='x64' AND '$(UseFkgToolsetOnly)' != 'true'">
+      <ClCompile>
+          <AdditionalOptions Condition="'$(GuardShadowStackChecks)'!='inline'">/d2guardss2 %(AdditionalOptions) </AdditionalOptions>
+          <AdditionalOptions Condition="'$(GuardShadowStackChecks)'=='inline'">/d2guardss1 %(AdditionalOptions)</AdditionalOptions>
+
+          <AdditionalOptions Condition="'$(GuardShadowStackNoGS)'=='true'">/d2guardssnogs %(AdditionalOptions)</AdditionalOptions>
+
+          <PreprocessorDefinitions>%(PreprocessorDefinitions);_CONTROL_FLOW_GUARD_SHADOW_STACK=1</PreprocessorDefinitions>
+      </ClCompile>
+      <Link>
+          <AdditionalOptions Condition="'$(GuardShadowStackChecks)'!='inline'">%(AdditionalOptions) /d2:-guardss2 /guard:rfinstr</AdditionalOptions>
+          <AdditionalOptions Condition="'$(GuardShadowStackChecks)'=='inline'">%(AdditionalOptions) /d2:-guardss1</AdditionalOptions>
+
+          <AdditionalOptions Condition="'$(GuardShadowStackEnforce)'=='true'">%(AdditionalOptions) /guard:rf</AdditionalOptions>
+          <AdditionalOptions Condition="'$(GuardShadowStackStrict)'=='true'">%(AdditionalOptions) /guard:rfstrict</AdditionalOptions>
+          <AdditionalOptions Condition="'$(GuardShadowStackNoGS)'=='true'">%(AdditionalOptions) /d2:-guardssnogs</AdditionalOptions>
+      </Link>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+      <!-- Explicitly link against guard_support.lib to handle scenarios where
+           apps are built using the FKG CRT (which doesn't include
+           guard_support.lib) -->
+      <LibcLib>$(LibcLib);$(PublicInternalPath)\sdk\lib\amd64\guard_support.lib</LibcLib>
+  </PropertyGroup>
+</Project>
+

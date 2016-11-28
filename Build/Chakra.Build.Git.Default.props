@@ -43,4 +43,6 @@
       <Project>{F4CEA127-8D10-4C02-BF29-41F0643C11BB}</Project>
     </ProjectReference>
   </ItemGroup>
+
+  <Import Project = "Chakra.Build.GuardSS.props" />
 </Project>
