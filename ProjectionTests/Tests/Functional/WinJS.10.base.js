@@ -5,7 +5,7 @@
   This library is supported for use in Windows Store apps only.
 
   Build: 1.0.8514.0.win8_rtm.120711-1900
-  
+
   Version: Microsoft.WinJS.1.0
 */
 /// <reference path="ms-appx://Microsoft.WinJS.1.0/js/base.js" />
@@ -6924,7 +6924,7 @@ return false;
         // has an exception occur that is not handled (via an error handler passed to then() or a call to done()).
         //
         // To see the original exception stack, look at data.stack.
-        // For more information on debugging and exception handling go to http://go.microsoft.com/fwlink/p/?LinkId=253583.
+        // For more information on debugging and exception handling go to https://go.microsoft.com/fwlink/p/?LinkId=253583.
         debugger;
         MSApp.terminateApp(data);
     };
