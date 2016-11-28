@@ -68,7 +68,7 @@ void Telemetry::OnJSRTThreadContextClose()
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), telemetryThrottledByChance(false)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -95,6 +95,7 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
     if (shouldLogTelemetry)
     {
         shouldLogTelemetry = GetCurrentTime() % 4 == 1;
+        telemetryThrottledByChance = !shouldLogTelemetry;
     }
 
     TraceLoggingRegister(g_hTraceLoggingProv);
@@ -208,7 +209,7 @@ void TraceLoggingClient::FireDomTelemetry(GUID activityId)
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
     threadContext->directCallTelemetry.GetBinaryData(&data, &dataSize);
 
-    TraceLogChakra(
+    TraceLogChakraNoProbThrottle(
         TL_DIRECTCALLRAW,
         TraceLoggingGuid(activityId, "activityId"),
         TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),

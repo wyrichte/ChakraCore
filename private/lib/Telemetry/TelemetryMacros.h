@@ -37,6 +37,19 @@
         ); \
     }
 
+#define TraceLogChakraNoProbThrottle(name, ...) \
+    if (g_TraceLoggingClient != nullptr && (g_TraceLoggingClient->GetShouldLogTelemetry() == true  || g_TraceLoggingClient->GetTelemetryThrottledByChance() == true)) { \
+        TraceLoggingWrite( \
+        g_hTraceLoggingProv, \
+        name, \
+        TraceLoggingKeyword(MICROSOFT_KEYWORD_MEASURES), \
+        TraceLoggingString(VER_IEVERSION_STR, "binaryVersion"), \
+        TraceLoggingString(TL_BINARYFLAVOR, "binaryFlavor"), \
+        TraceLoggingString(TL_BINARYARCH, "binaryArch"), \
+        __VA_ARGS__ \
+        ); \
+    }
+
 // Because directly using the telemetry macros has proved to be convoluted, here we
 // unwrap the macros into a few separate macros, which allow us to keep supporting/
 // fixing fewer files.

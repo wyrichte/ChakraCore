@@ -113,6 +113,7 @@ class TraceLoggingClient
 {
     CEtwSession *session;
     bool shouldLogTelemetry;
+    bool telemetryThrottledByChance;
     NodeTelemetryProvider node;
 
     Throttle throttle;
@@ -122,6 +123,7 @@ public:
     TraceLoggingClient();
     ~TraceLoggingClient();
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
+    bool GetTelemetryThrottledByChance() { return telemetryThrottledByChance; }
     void FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
     NodeTelemetryProvider* GetNodeTelemetryProvider();
