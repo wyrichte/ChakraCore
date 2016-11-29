@@ -3142,9 +3142,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
         {
             childModuleRecord->SetIsRootModule();
         }
-    #if DBG
-        childModuleRecord->AddParent(referencingModuleRecord, normalizedSpecifier, specifierLength);
-    #endif
+        else
+        {
+            Assert(normalizedSpecifier != nullptr);
+            if (normalizedSpecifier != nullptr)
+            {
+                childModuleRecord->SetParent(referencingModuleRecord, normalizedSpecifier);
+            }
+        }
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     if (SUCCEEDED(hr))
