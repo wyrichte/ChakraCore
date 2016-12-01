@@ -52,13 +52,5 @@ Pass: new Int8Array(ibuf); returned (TypeError: Typed array constructor argument
 PASS [Test 4: Blue Bug 176611: Use of ArrayBufferFromIBuffer after IBuffer release]
 =================================================
 
-=================================================
-Starting [Test 5: graceful failed if input buffer is not IBuffer]
-Pass: new Int8Array(ibuf); returned (TypeError: Typed array constructor argument is invalid)
-      Actual: true
-
-PASS [Test 5: graceful failed if input buffer is not IBuffer]
-=================================================
-
-Passed: 6
+Passed: 5
 Failed: 0
