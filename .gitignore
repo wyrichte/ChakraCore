@@ -39,3 +39,4 @@ tools/Exprgen
 
 # Visual Studio Extensions
 *.vadbg
+*.args.json
