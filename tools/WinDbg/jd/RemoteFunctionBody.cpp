@@ -7,19 +7,22 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
-void InitEnums(char* enumType, std::map<std::string, uint8>& nameValMap, std::vector<std::string>& names)
+void InitEnums(_In_ const char* enumType, std::map<std::string, uint8>& nameValMap, std::vector<std::string>& names)
 {
     if (nameValMap.empty())
     {
         char buf[MAX_PATH];
         for (uint8 i = 0; i < 255; i++)
         {
-            sprintf_s(buf, "@@c++((%s!%s)%d)", GetExtension()->FillModule("%s"), enumType, i);
+            buf[0] = '\0'; // guarantee that the buffer will be null-terminated in case sprintf_s fails.
+            int len = sprintf_s(buf, "@@c++((%s!%s)%d)", GetExtension()->FillModule("%s"), enumType, i);
+
             auto enumName = JDRemoteTyped(buf).GetSimpleValue();
             if (strstr(enumName, "No matching enumerant"))
             {
                 break;
             }
+
             *strchr(enumName, ' ') = '\0';
             nameValMap[enumName] = i;
             names.push_back(enumName);
