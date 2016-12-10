@@ -15,7 +15,7 @@ void InitEnums(_In_ const char* enumType, std::map<std::string, uint8>& nameValM
         for (uint8 i = 0; i < 255; i++)
         {
             buf[0] = '\0'; // guarantee that the buffer will be null-terminated in case sprintf_s fails.
-            int len = sprintf_s(buf, "@@c++((%s!%s)%d)", GetExtension()->FillModule("%s"), enumType, i);
+            sprintf_s(buf, "@@c++((%s!%s)%d)", GetExtension()->FillModule("%s"), enumType, i);
 
             auto enumName = JDRemoteTyped(buf).GetSimpleValue();
             if (strstr(enumName, "No matching enumerant"))
@@ -32,7 +32,7 @@ void InitEnums(_In_ const char* enumType, std::map<std::string, uint8>& nameValM
 
 static std::map<std::string, uint8> auxPtrsEnum;
 static std::vector<std::string> vecAuxPtrsEnum;
-void EnsureAuxPtrsEnums() 
+void EnsureAuxPtrsEnums()
 {
     InitEnums("Js::FunctionProxy::AuxPointerType", auxPtrsEnum, vecAuxPtrsEnum);
 }
