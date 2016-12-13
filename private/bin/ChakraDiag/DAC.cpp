@@ -146,7 +146,8 @@ namespace JsDiag
 
     FunctionBody* RemoteFunctionInfo::GetFunction()
     {
-        return (FunctionBody *)this->ToTargetPtr()->functionBodyImpl;
+        FunctionProxy *proxy = this->ToTargetPtr()->functionBodyImpl;
+        return (FunctionBody *)proxy;
     }
 
     template <typename TTargetType>
