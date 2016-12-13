@@ -264,6 +264,7 @@ public:
     virtual BOOL ExecuteRecyclerCollectionFunction(Recycler* recycler, CollectionFunction function, CollectionFlags flags) override;
     virtual uint GetRandomNumber() override { return 0; }
     virtual bool DoSpecialMarkOnScanStack() override { return false; }
+    virtual void PostSweepRedeferralCallBack() override {}
 #ifdef FAULT_INJECTION
     virtual void DisposeScriptContextByFaultInjectionCallBack() override {};
 #endif
