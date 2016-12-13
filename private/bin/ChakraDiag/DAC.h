@@ -649,7 +649,7 @@ namespace JsDiag
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, m_isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
-        CustomHeap::CodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::CodePageAllocators>(offsetof(TargetType, codePageAllocators));}
+        CustomHeap::InProcCodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::InProcCodePageAllocators>(offsetof(TargetType, codePageAllocators));}
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
@@ -824,14 +824,14 @@ namespace JsDiag
         
     };
 
-    struct RemoteEmitBufferManager : public RemoteData<EmitBufferManager<CriticalSection>>
+    struct RemoteEmitBufferManager : public RemoteData<InProcEmitBufferManagerWithlock>
     {
         RemoteEmitBufferManager(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
-        CustomHeap::Heap* GetAllocationHeap();
+        CustomHeap::InProcHeap* GetAllocationHeap();
     };
 
-    struct RemoteHeap : public RemoteData<CustomHeap::Heap>
+    struct RemoteHeap : public RemoteData<CustomHeap::InProcHeap>
     {
         RemoteHeap(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
@@ -893,17 +893,17 @@ namespace JsDiag
         static void GetSegmentOffsets(size_t* segments, size_t* fullSegments, size_t* decommitSegments, size_t* largeSegments);
     };
 
-    struct RemoteCodePageAllocators : public RemoteData<CustomHeap::CodePageAllocators>
+    struct RemoteCodePageAllocators : public RemoteData<CustomHeap::InProcCodePageAllocators>
     {
         RemoteCodePageAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
         HeapPageAllocator<VirtualAllocWrapper> * GetHeapPageAllocator();
     };
-    struct RemoteCodeGenAllocators : public RemoteData<CodeGenAllocators>
+    struct RemoteCodeGenAllocators : public RemoteData<InProcCodeGenAllocators>
     {
         RemoteCodeGenAllocators(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
 
-        EmitBufferManager<CriticalSection>* GetEmitBufferManager();
+        InProcEmitBufferManagerWithlock* GetEmitBufferManager();
     };
 
     struct RemoteDebugContext : public RemoteData<DebugContext>

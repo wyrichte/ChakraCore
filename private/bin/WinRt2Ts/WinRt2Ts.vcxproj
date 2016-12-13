@@ -45,6 +45,7 @@
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(SdkLibPath)\advapi32.lib;
         $(SdkLibPath)\kernel32.lib;
+        $(SdkLibPath)\ntdll.lib;
         $(SdkLibPath)\mincore.lib;
         $(SdkLibPath)\user32.lib;
         $(SdkLibPath)\dbghelp.lib;

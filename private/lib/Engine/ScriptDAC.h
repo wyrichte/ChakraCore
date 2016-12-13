@@ -251,7 +251,7 @@ Error:
     {
     private:
         HRESULT ReadEmitBufferAllocations(IScriptDebugSite* debugSite);
-        static HRESULT AddSyntheticModules(IScriptDebugSite* debugSite, const EmitBufferAllocation* allocation);
+        static HRESULT AddSyntheticModules(IScriptDebugSite* debugSite, const EmitBufferAllocation<VirtualAllocWrapper,PreReservedVirtualAllocWrapper>* allocation);
         template <typename TMapFunction>
         HRESULT MapFunctions(IScriptDebugSite* debugSite, TMapFunction mapper)
         {

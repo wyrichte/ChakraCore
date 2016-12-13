@@ -48,6 +48,7 @@
         $(SdkLibPath)\advapi32.lib;
         $(SdkLibPath)\kernel32.lib;
         $(SdkLibPath)\mincore.lib;
+        $(SdkLibPath)\ntdll.lib;
         $(SdkLibPath)\user32.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\ole32.lib;

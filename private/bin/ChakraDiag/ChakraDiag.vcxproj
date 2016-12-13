@@ -81,6 +81,7 @@
         %(AdditionalDependencies);
         $(InternalSdkLibPath)\nothrownew.lib;
         $(SdkLibPath)\mincore.lib;
+        $(SdkLibPath)\ntdll.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCoreSdkLibPath)\mincore_obsolete.lib;
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
