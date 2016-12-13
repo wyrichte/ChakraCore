@@ -368,9 +368,9 @@ namespace JsDiag
         return currentOffset;
     }
 
-    CustomHeap::Heap* RemoteEmitBufferManager::GetAllocationHeap()
+    CustomHeap::InProcHeap* RemoteEmitBufferManager::GetAllocationHeap()
     {
-        return this->GetFieldAddr<CustomHeap::Heap>(offsetof(EmitBufferManager<CriticalSection>, allocationHeap));
+        return this->GetFieldAddr<CustomHeap::InProcHeap>(offsetof(InProcEmitBufferManagerWithlock, allocationHeap));
     }
 
     bool RemoteSegment::IsInSegment(void* addr)
@@ -411,9 +411,9 @@ namespace JsDiag
 
     HeapPageAllocator<PreReservedVirtualAllocWrapper>* RemoteHeap::GetPreReservedHeapPageAllocator()
     {
-        CustomHeap::CodePageAllocators * codePageAllocators = this->ReadField<CustomHeap::CodePageAllocators *>(offsetof(CustomHeap::Heap, codePageAllocators));
-        RemoteData<CustomHeap::CodePageAllocators> remoteCodePageAllocators(this->m_reader, codePageAllocators);
-        return remoteCodePageAllocators.GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, preReservedHeapPageAllocator));
+        CustomHeap::InProcCodePageAllocators * codePageAllocators = this->ReadField<CustomHeap::InProcCodePageAllocators *>(offsetof(CustomHeap::InProcHeap, codePageAllocators));
+        RemoteData<CustomHeap::InProcCodePageAllocators> remoteCodePageAllocators(this->m_reader, codePageAllocators);
+        return remoteCodePageAllocators.GetFieldAddr<HeapPageAllocator<PreReservedVirtualAllocWrapper>>(offsetof(CustomHeap::InProcCodePageAllocators, preReservedHeapAllocator));
     }
 
     bool RemoteHeapPageAllocator::IsAddressFromAllocator(void* address)
@@ -473,9 +473,9 @@ namespace JsDiag
         *largeSegments = offsetof(PageAllocator, largeSegments);
     }
 
-    EmitBufferManager<CriticalSection>* RemoteCodeGenAllocators::GetEmitBufferManager()
+    InProcEmitBufferManagerWithlock* RemoteCodeGenAllocators::GetEmitBufferManager()
     {
-        return this->GetFieldAddr<EmitBufferManager<CriticalSection>>(offsetof(CodeGenAllocators, emitBufferManager));
+        return this->GetFieldAddr<InProcEmitBufferManagerWithlock>(offsetof(InProcCodeGenAllocators, emitBufferManager));
     }
 
     bool RemotePreReservedVirtualAllocWrapper::IsPreReservedRegionPresent()
@@ -505,7 +505,7 @@ namespace JsDiag
 
     HeapPageAllocator<VirtualAllocWrapper> * RemoteCodePageAllocators::GetHeapPageAllocator()
     {
-        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::CodePageAllocators, pageAllocator));
+        return this->GetFieldAddr<HeapPageAllocator<VirtualAllocWrapper>>(offsetof(CustomHeap::InProcCodePageAllocators, pageAllocator));
     }
 
     // Check current script context and all contexts from its thread context.

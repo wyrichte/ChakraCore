@@ -125,14 +125,14 @@ Error:
 
             if (nativeCodeGen->foregroundAllocators)
             {
-                RemoteData<CodeGenAllocators> foregroundAllocators;
+                RemoteData<InProcCodeGenAllocators> foregroundAllocators;
                 IfFailGo(foregroundAllocators.Read(debugSite, nativeCodeGen->foregroundAllocators));
                 IfFailGo(AddSyntheticModules(debugSite, foregroundAllocators->emitBufferManager.allocations));
             }
 
             if (nativeCodeGen->backgroundAllocators)
             {
-                RemoteData<CodeGenAllocators> backgroundAllocators;
+                RemoteData<InProcCodeGenAllocators> backgroundAllocators;
                 IfFailGo(backgroundAllocators.Read(debugSite, nativeCodeGen->backgroundAllocators));
                 IfFailGo(AddSyntheticModules(debugSite, backgroundAllocators->emitBufferManager.allocations));
             }
@@ -146,10 +146,10 @@ Error:
     //
     // Add synthetic modules for emit buffer allocations (for holding synthetic symbols).
     //
-    HRESULT RemoteScriptContext::AddSyntheticModules(IScriptDebugSite* debugSite, const EmitBufferAllocation* allocation)
+    HRESULT RemoteScriptContext::AddSyntheticModules(IScriptDebugSite* debugSite, const EmitBufferAllocation<VirtualAllocWrapper, PreReservedVirtualAllocWrapper>* allocation)
     {
         return MapLinkedList(debugSite, allocation,
-            [&](const RemoteData<EmitBufferAllocation>& emitBufferAllocation, const EmitBufferAllocation** addr) -> HRESULT
+            [&](const RemoteData<EmitBufferAllocation<VirtualAllocWrapper, PreReservedVirtualAllocWrapper>>& emitBufferAllocation, const EmitBufferAllocation<VirtualAllocWrapper, PreReservedVirtualAllocWrapper>** addr) -> HRESULT
         {
             HRESULT hr = S_OK;
 

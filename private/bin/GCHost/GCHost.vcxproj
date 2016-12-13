@@ -24,6 +24,7 @@
         %(AdditionalDependencies);
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
+        $(SdkLibPath)\ntdll.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
       </AdditionalDependencies>

@@ -31,7 +31,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.SCAlookup", "..\priv
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dtbhost", "..\dep\dtbhost.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC37}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Codex", "..\core\lib\common\codex\Chakra.Common.Codex.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC38}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Codex", "..\core\lib\Common\Codex\Chakra.Common.Codex.vcxproj", "{1876E800-AD77-48C4-A2F7-E5265F24AC38}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HostCommon", "..\private\lib\HostCommon\HostCommon.vcxproj", "{F2E998AA-FB27-4F65-A6F7-4142BE64294F}"
 EndProject
@@ -149,7 +149,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Types", "..\
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Common", "..\core\lib\common\common\Chakra.Common.Common.vcxproj", "{BB4153FF-AC3E-4734-B562-CC23812DF31B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Common", "..\core\lib\Common\Common\Chakra.Common.Common.vcxproj", "{BB4153FF-AC3E-4734-B562-CC23812DF31B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
@@ -158,19 +158,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{DDF4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{546172B2-F084-4363-BE35-06010663D319}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Core", "..\core\lib\common\core\Chakra.Common.Core.vcxproj", "{CC4153FF-AC3E-4734-B562-CC23812DF31B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Core", "..\core\lib\Common\Core\Chakra.Common.Core.vcxproj", "{CC4153FF-AC3E-4734-B562-CC23812DF31B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.DataStructures", "..\core\lib\common\DataStructures\Chakra.Common.DataStructures.vcxproj", "{5643D42A-C38D-4D82-9662-58470B3AC9F7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.DataStructures", "..\core\lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj", "{5643D42A-C38D-4D82-9662-58470B3AC9F7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Exceptions", "..\core\lib\common\Exceptions\Chakra.Common.Exceptions.vcxproj", "{FD8EEC40-4141-448A-BF4B-1589FBE4F60D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Exceptions", "..\core\lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj", "{FD8EEC40-4141-448A-BF4B-1589FBE4F60D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Memory", "..\core\lib\common\Memory\Chakra.Common.Memory.vcxproj", "{BB4153FF-AC3E-4734-B562-FF23812DF31B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Memory", "..\core\lib\Common\Memory\Chakra.Common.Memory.vcxproj", "{BB4153FF-AC3E-4734-B562-FF23812DF31B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
@@ -186,7 +186,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Parser", "..\core\li
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Jsrt", "..\core\lib\jsrt\Chakra.Jsrt.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9220F5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Jsrt", "..\core\lib\Jsrt\Chakra.Jsrt.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9220F5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BCC5C029-2F2C-4EAA-8E60-664D72766936} = {BCC5C029-2F2C-4EAA-8E60-664D72766936}
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
@@ -210,7 +210,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.MemProtectHeap", "..
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.MemProtectHeap.Static", "..\private\lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj", "{CC4153FF-AC3E-4734-B562-EE23812DF31B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Util", "..\core\lib\common\util\Chakra.Common.Util.vcxproj", "{6979EC58-7A28-465C-A694-F3323A1F5401}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Common.Util", "..\core\lib\Common\Util\Chakra.Common.Util.vcxproj", "{6979EC58-7A28-465C-A694-F3323A1F5401}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{81351E13-CF8D-465F-B134-E813430A4AAA}"
 EndProject
@@ -268,7 +268,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest.JsRT.RentalThreadi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest.JsRT.ComProjection", "..\unittest\jsrt\ComProjection\UnitTest.JsRT.ComProjection.vcxproj", "{5D82DAC3-17B8-48CA-84F4-64DB2E5BD63C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Base", "..\core\lib\Runtime\base\Chakra.Runtime.Base.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110EE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra.Runtime.Base", "..\core\lib\Runtime\Base\Chakra.Runtime.Base.vcxproj", "{706083F7-6AA4-4558-A153-6352EF9110EE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2F6A1847-BFAF-4B8A-9463-AC39FB46B96A} = {2F6A1847-BFAF-4B8A-9463-AC39FB46B96A}
 	EndProjectSection

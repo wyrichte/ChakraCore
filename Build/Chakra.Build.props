@@ -239,6 +239,7 @@
     <ChakraCommonLinkDependencies>
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
+        $(SdkLibPath)\ntdll.lib;
         <!-- For FindAtom/AddAtom/DeleteAttom, and in non-fre build perf counters and Crypt* and IsMessageBoxWPresent dependency -->
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
     </ChakraCommonLinkDependencies>
