@@ -46,6 +46,7 @@ TARGETLIBS=     \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
     $(SDK_LIB_PATH)\oleaut32.lib \
     $(SDK_LIB_PATH)\muiload.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_ole32.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_version.lib \
 !if !$(FREEBUILD)
@@ -55,7 +56,7 @@ TARGETLIBS=     \
 !endif
     $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Common.lib \
     $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Logger.lib \
-    
+
 DELAYLOAD = $(DELAYLOAD) \
 !IF (!$(FREEBUILD))
     ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \

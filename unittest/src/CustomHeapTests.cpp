@@ -4,7 +4,8 @@
 *                                                       *
 ********************************************************/
 #include "stdafx.h"
-
+typedef CustomHeap::Heap<VirtualAllocWrapper, PreReservedVirtualAllocWrapper> DefaultHeap;
+typedef CustomHeap::CodePageAllocators<VirtualAllocWrapper, PreReservedVirtualAllocWrapper> DefaultCodePageAllocators;
 
 static void OutOfMemory1()
 {
@@ -32,8 +33,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Basic)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         for(int i = 100; i < 2000000; i += 100)
         {
@@ -50,8 +51,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
@@ -74,8 +75,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 160;
         Allocation** allocations = new Allocation*[count];
@@ -102,8 +103,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_NoFree_Small_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 1000;
         Allocation** allocations = new Allocation*[count];
@@ -125,8 +126,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Large_Functions)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint count = 400;
         Allocation** allocations = new Allocation*[count];
@@ -161,8 +162,8 @@ UTEST_GROUP(CustomHeapTests)
 
     UTEST_CASE(Alloc_Free_Alloc_Realistic)
     {
-        CodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
-        Heap heap(arena, &codePageAllocators, ::GetCurrentProcess());
+        DefaultCodePageAllocators codePageAllocators(nullptr, allocXdata, nullptr, ::GetCurrentProcess());
+        DefaultHeap heap(arena, &codePageAllocators, ::GetCurrentProcess());
 
         uint sizes[] = { 200, 130, 400, 800, 230, 210, 100, 150, 180, 400, 900, 4096, 8192, 323, 421, 123, 432, 543, 543, 1232, 123, 22, 2345, 2343, 53, 4232, 231, 12, 123 , 214, 2354, 543, 2312 };
         ushort xdataSizes[] = { 20, 13, 40, 55, 0, 21, 0, 28, 18, 40, 50, 40, 72, 32, 42, 12, 43, 54, 54, 12, 12, 22, 23, 23, 53, 42, 23, 12, 12 , 21, 23, 54, 23 };
@@ -241,7 +242,7 @@ UTEST_GROUP(CustomHeapTests)
     }
 
 
-    void Free(Heap* heap, Allocation* allocation)
+    void Free(DefaultHeap* heap, Allocation* allocation)
     {
         // It is requirement to free only executable memory
         UT_ASSERT(heap->ProtectAllocation(allocation, PAGE_EXECUTE, PAGE_EXECUTE));
