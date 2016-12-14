@@ -84,6 +84,7 @@ TARGETLIBS= \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\onecore_downlevel.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
 !if (!$(FREEBUILD))
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif
@@ -117,7 +118,7 @@ _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINTHRESHOLD)
 
 SOURCES = \
     ..\chakra.rc \
-    ..\ChakraDllFunc.cpp 
+    ..\ChakraDllFunc.cpp
 
 RESOURCE_FILE=..\chakra.rc
 

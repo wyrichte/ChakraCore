@@ -32,6 +32,7 @@ LINKLIBS= \
 TARGETLIBS=     \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
+    $(SDK_LIB_PATH)\ntdll.lib    \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
