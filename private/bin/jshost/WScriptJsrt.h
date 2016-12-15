@@ -15,6 +15,8 @@ class WScriptJsrt
 public:
     typedef void (*OnAttachCallback)(JsValueRef function);
     static bool Initialize(OnAttachCallback onAttach);
+    static JsErrorCode InstallFunctionOnObject(JsValueRef object, const char16* name, JsNativeFunction nativeFunction, JsValueRef* outFunc = nullptr);
+    static JsErrorCode InstallPropOnObject(JsValueRef object, const char16* name, JsValueRef var);
 
     class CallbackMessage : public MessageBase
     {
@@ -69,6 +71,7 @@ private:
     static JsValueRef __stdcall ClearTimeoutCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef __stdcall LoadTextFileCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef __stdcall LoadBinaryFileCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
+    static JsValueRef __stdcall FlagCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
 
     static MessageQueue *s_messageQueue;
 };

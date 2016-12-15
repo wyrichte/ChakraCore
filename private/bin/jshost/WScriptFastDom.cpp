@@ -592,6 +592,40 @@ Cleanup:
     return returnVar;
 }
 
+Var WScriptFastDom::Flag(Var function, CallInfo callInfo, Var* args)
+{
+    ScriptDirect scriptDirect;
+    RunInfo runInfo;
+    IActiveScriptDirect * activeScriptDirect = NULL;
+    Var returnVar = NULL;
+    runInfo.errorMessage = _u("Flag call failed.");
+    runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+    runInfo.hr = activeScriptDirect->GetUndefined(&returnVar);
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (callInfo.Count > 1)
+    {
+        const char16 *cmd;
+        uint cmdLength;
+
+        runInfo.hr = activeScriptDirect->VarToRawString(args[1], &cmd, &cmdLength);
+        if (FAILED(runInfo.hr))
+        {
+            goto Cleanup;
+        }
+
+        const char16* argv[] = { nullptr, cmd };
+        JScript9Interface::SetConfigFlags(2, (char16**)argv, nullptr);
+    }
+#endif
+
+Cleanup:
+    activeScriptDirect->Release();
+    scriptDirect.ThrowIfFailed(runInfo.hr, runInfo.errorMessage);
+    return returnVar;
+}
+
 Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
 {
     RunInfo runInfo;
@@ -1730,6 +1764,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the LoadBinaryFile method
     hr = AddMethodToObject(_u("LoadBinaryFile"), activeScriptDirect, wscript, WScriptFastDom::LoadBinaryFile);
+    IfFailedGo(hr);
+
+    // Create the LoadBinaryFile method
+    hr = AddMethodToObject(_u("Flag"), activeScriptDirect, wscript, WScriptFastDom::Flag);
     IfFailedGo(hr);
 
     // Create the Echo method
