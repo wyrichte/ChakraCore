@@ -216,7 +216,7 @@ tests = [
                 assert.areEqual(arguments.length, 0, "no arguments");
                 return 42;
             }
-            assert.areEqual(42, Reflect.apply(testFunc, objThis), "return value match");
+            assert.areEqual(42, Reflect.apply(testFunc, objThis, []), "return value match");
         }
     },
     {
@@ -232,7 +232,7 @@ tests = [
                 }
                 return 42;
             }
-            assert.areEqual(42, Reflect.apply(testFunc, objThis,args), "return value match");
+            assert.areEqual(42, Reflect.apply(testFunc, objThis, args), "return value match");
         }
     },
     {
@@ -246,7 +246,7 @@ tests = [
                 assert.areEqual(arguments.length, 0, "no arguments");
                 return 42;
             }
-            assert.areEqual(42, Reflect.apply(testFunc, objThis), "return value match");
+            assert.areEqual(42, Reflect.apply(testFunc, objThis, []), "return value match");
             Function.prototype.apply = oldApply;
         }
     },
@@ -259,8 +259,8 @@ tests = [
                 this.foo = 20;
                 return this;
             }
-            assert.areEqual(true, Reflect.construct(testFunc) instanceof testFunc, "return value match");
-            assert.areEqual(20, Reflect.construct(testFunc).foo, "new instance of testFunc")
+            assert.areEqual(true, Reflect.construct(testFunc, []) instanceof testFunc, "return value match");
+            assert.areEqual(20, Reflect.construct(testFunc, []).foo, "new instance of testFunc")
         }
     },
     {
