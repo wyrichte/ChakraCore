@@ -517,6 +517,30 @@ Error:
     return returnValue;
 }
 
+JsValueRef __stdcall WScriptJsrt::FlagCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+{
+    HRESULT hr = E_FAIL;
+    JsValueRef returnValue = JS_INVALID_REFERENCE;
+    JsErrorCode errorCode = JsNoError;
+
+    IfJsrtErrorSetGo(JScript9Interface::JsrtGetUndefinedValue(&returnValue));
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (argumentCount > 1)
+    {
+        const char16 *cmd;
+        size_t cmdLength;
+
+        IfJsrtErrorSetGo(JScript9Interface::JsrtStringToPointer(arguments[1], &cmd, &cmdLength));
+        const char16* argv[] = { nullptr, cmd };
+        JScript9Interface::SetConfigFlags(2, (char16**)argv, nullptr);
+    }
+#endif
+
+Error:
+    return returnValue;
+}
+
 JsValueRef WScriptJsrt::ClearTimeoutCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
 {
     LPWSTR errorMessage = L"invalid call to WScript.ClearTimeout";
@@ -565,110 +589,72 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
 {
     WScriptJsrt::onAttach = onAttach;
 
-    JsValueRef wscript;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&wscript), false);
-
-    JsValueRef loadBinaryFile;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadBinaryFileCallback, nullptr, &loadBinaryFile), false);
-    JsPropertyIdRef loadBinaryFileName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(_u("LoadBinaryFile"), &loadBinaryFileName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadBinaryFileName, loadBinaryFile, true), false);
-
-    JsValueRef loadTextFile;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadTextFileCallback, nullptr, &loadTextFile), false);
-    JsPropertyIdRef loadTextFileName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(_u("LoadTextFile"), &loadTextFileName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadTextFileName, loadTextFile, true), false);
-
-    JsValueRef echo;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(EchoCallback, nullptr, &echo), false);
-    JsPropertyIdRef echoName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"Echo", &echoName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, echoName, echo, true), false);
-
-    JsValueRef argsObject;
-
-    if (!CreateArgsObject(&argsObject))
-    {
-        return false;
-    }
-
-    JsPropertyIdRef argsName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"Arguments", &argsName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, argsName, argsObject, true), false);
-
-    JsValueRef quit;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(QuitCallback, nullptr, &quit), false);
-    JsPropertyIdRef quitName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"Quit", &quitName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, quitName, quit, true), false);
-
-    JsValueRef loadScriptFile;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadScriptFileCallback, nullptr, &loadScriptFile), false);
-    JsPropertyIdRef loadScriptFileName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"LoadScriptFile", &loadScriptFileName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadScriptFileName, loadScriptFile, true), false);
-
-    JsValueRef loadScript;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(LoadScriptCallback, nullptr, &loadScript), false);
-    JsPropertyIdRef loadScriptName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"LoadScript", &loadScriptName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, loadScriptName, loadScript, true), false);
-
-    JsValueRef getWorkingSet;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(GetWorkingSetCallback, nullptr, &getWorkingSet), false);
-    JsPropertyIdRef getWorkingSetName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"GetWorkingSet", &getWorkingSetName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, getWorkingSetName, getWorkingSet, true), false);
-
-    JsValueRef attach;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(AttachCallback, nullptr, &attach), false);
-    JsPropertyIdRef attachName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"Attach", &attachName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, attachName, attach, true), false);
-
-    JsValueRef setTimeout;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(SetTimeoutCallback, nullptr, &setTimeout), false);
-    JsPropertyIdRef setTimeoutName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"SetTimeout", &setTimeoutName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, setTimeoutName, setTimeout, true), false);
-
-    JsValueRef clearTimeout;
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateFunction(ClearTimeoutCallback, nullptr, &clearTimeout), false);
-    JsPropertyIdRef clearTimeoutName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"ClearTimeout", &clearTimeoutName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(wscript, clearTimeoutName, clearTimeout, true), false);
-
-    JsPropertyIdRef wscriptName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"WScript", &wscriptName), false);
-    JsValueRef global;
+    JsValueRef global, wscript, argsObject, echo, loadTextFile, loadBinaryFile, console;
     IfJsrtErrorFail(JScript9Interface::JsrtGetGlobalObject(&global), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, wscriptName, wscript, true), false);
-
-    JsPropertyIdRef printName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"print", &printName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, printName, echo, true), false);
-
-    JsPropertyIdRef readName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"read", &readName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, readName, loadTextFile, true), false);
-
-    JsPropertyIdRef readbufferName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"readbuffer", &readbufferName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, readbufferName, loadBinaryFile, true), false);
-
-    JsValueRef console;
+    IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&wscript), false);
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&console), false);
+    if (!CreateArgsObject(&argsObject)) return false;
 
-    JsPropertyIdRef logName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"log", &logName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(console, logName, echo, true), false);
+    // WScript functions
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Echo"), EchoCallback, &echo), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Quit"), QuitCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("LoadScriptFile"), LoadScriptFileCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("LoadScript"), LoadScriptCallback), false);
+    //IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("LoadModule"), LoadModuleCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("SetTimeout"), SetTimeoutCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("ClearTimeout"), ClearTimeoutCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Attach"), AttachCallback), false);
+    //IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Detach"), DetachCallback), false);
+    //IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("DumpFunctionPosition"), DumpFunctionPositionCallback), false);
+    //IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("RequestAsyncBreak"), RequestAsyncBreakCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("LoadBinaryFile"), LoadBinaryFileCallback, &loadBinaryFile), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("LoadTextFile"), LoadTextFileCallback, &loadTextFile), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("GetWorkingSet"), GetWorkingSetCallback), false);
+    IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Flag"), FlagCallback), false);
+    IfJsrtErrorFail(InstallPropOnObject(wscript, _u("Arguments"), argsObject), false);
 
-    JsPropertyIdRef consoleName;
-    IfJsrtErrorFail(JScript9Interface::JsrtGetPropertyIdFromName(L"console", &consoleName), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtSetProperty(global, consoleName, console, true), false);
+    // console functions
+    IfJsrtErrorFail(InstallPropOnObject(console, _u("log"), echo), false);
+
+    // Global properties
+    IfJsrtErrorFail(InstallPropOnObject(global, _u("WScript"), wscript), false);
+    IfJsrtErrorFail(InstallPropOnObject(global, _u("print"), echo), false);
+    IfJsrtErrorFail(InstallPropOnObject(global, _u("read"), loadTextFile), false);
+    IfJsrtErrorFail(InstallPropOnObject(global, _u("readbuffer"), loadBinaryFile), false);
+    IfJsrtErrorFail(InstallPropOnObject(global, _u("console"), console), false);
 
     return true;
+}
+
+JsErrorCode WScriptJsrt::InstallFunctionOnObject(JsValueRef object, const char16* name, JsNativeFunction nativeFunction, JsValueRef* outFunc)
+{
+    JsErrorCode ret;
+    JsValueRef func;
+    ret = JScript9Interface::JsrtCreateFunction(nativeFunction, nullptr, &func);
+    if (ret != JsNoError) return ret;
+    if (outFunc)
+    {
+        *outFunc = func;
+    }
+
+    JsPropertyIdRef funcName;
+    ret = JScript9Interface::JsrtGetPropertyIdFromName(name, &funcName);
+    if (ret != JsNoError) return ret;
+    ret = JScript9Interface::JsrtSetProperty(object, funcName, func, true);
+
+    return ret;
+}
+
+JsErrorCode WScriptJsrt::InstallPropOnObject(JsValueRef object, const char16* name, JsValueRef var)
+{
+    JsErrorCode ret;
+
+    JsPropertyIdRef propName;
+    ret = JScript9Interface::JsrtGetPropertyIdFromName(name, &propName);
+    if (ret != JsNoError) return ret;
+    ret = JScript9Interface::JsrtSetProperty(object, propName, var, true);
+
+    return ret;
 }
 
 void WScriptJsrt::AddMessageQueue(MessageQueue *messageQueue)

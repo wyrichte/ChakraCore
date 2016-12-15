@@ -15,7 +15,7 @@ public:
     {
     private:
         Var m_function;
-        
+
     public:
         CallbackMessage(unsigned int time, Var function);
         ~CallbackMessage();
@@ -108,6 +108,7 @@ public:
     static Var StdInEOF(Var function, CallInfo callInfo, Var* args);
     static Var LoadTextFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadBinaryFile(Var function, CallInfo callInfo, Var* args);
+    static Var Flag(Var function, CallInfo callInfo, Var* args);
     static Var LoadScriptFile(Var function, CallInfo callInfo, Var* args);
     static Var LoadScript(Var function, CallInfo callInfo, Var* args);
     static Var LoadModule(Var function, CallInfo callInfo, Var* args);
@@ -115,7 +116,7 @@ public:
     static bool ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScriptDirect, CallInfo callInfo, Var* args, RunInfo& scriptArgs, bool isSourceRaw = false);
     static Var InitializeProjection(Var function, CallInfo callInfo, Var* args);
     static Var RegisterCrossThreadInterfacePS(Var function, CallInfo callInfo, Var* args);
-    static Var GetWorkingSet(Var function, CallInfo callInfo, Var* args);    
+    static Var GetWorkingSet(Var function, CallInfo callInfo, Var* args);
     static Var CreateCanvasPixelArray(Var function, CallInfo callInfo, Var* args);
     static Var Shutdown(Var function, CallInfo callInfo, Var* args);
     static Var PerformSourceRundown(Var function, CallInfo callInfo, Var* args);
@@ -131,7 +132,7 @@ public:
     static Var ClearTimeout(Var function, CallInfo callInfo, Var* args);
     static Var EmitStackTraceEvent(Var function, CallInfo callInfo, Var* args);
     static Var CallFunction(Var function, CallInfo callInfo, Var* args);
-    static Var SetEvalEnabled(Var function, CallInfo callInfo, Var* args); 
+    static Var SetEvalEnabled(Var function, CallInfo callInfo, Var* args);
     static Var SetRestrictedMode(Var function, CallInfo callInfo, Var* args);
     static Var TestConstructor(Var function, CallInfo callInfo, Var* args);
     static Var SetKeepAlive(Var function, CallInfo callInfo, Var* args);
