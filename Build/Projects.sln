@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
 		Chakra.Build.Default.props = Chakra.Build.Default.props
 		Chakra.Build.Git.Default.props = Chakra.Build.Git.Default.props
+		Chakra.Build.GuardSS.props = Chakra.Build.GuardSS.props
 		Chakra.Build.Paths.props = Chakra.Build.Paths.props
 		Chakra.Build.ProjectConfiguration.props = Chakra.Build.ProjectConfiguration.props
 		Chakra.Build.props = Chakra.Build.props
@@ -33,7 +34,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{02C8DAB2-62BA-4F5A-9A8D-29DE40AE2584}"
 	ProjectSection(SolutionItems) = preProject
 		..\core\Lib\Backend\Chakra.Backend.vcxproj = ..\core\Lib\Backend\Chakra.Backend.vcxproj
+		..\core\lib\JITClient\Chakra.JITClient.vcxproj = ..\core\lib\JITClient\Chakra.JITClient.vcxproj
+		..\core\lib\JITIDL\Chakra.JITIDL.vcxproj = ..\core\lib\JITIDL\Chakra.JITIDL.vcxproj
+		..\core\lib\JITServer\Chakra.JITServer.vcxproj = ..\core\lib\JITServer\Chakra.JITServer.vcxproj
 		..\core\Lib\Parser\Chakra.Parser.vcxproj = ..\core\Lib\Parser\Chakra.Parser.vcxproj
+		..\core\lib\WasmReader\Chakra.WasmReader.vcxproj = ..\core\lib\WasmReader\Chakra.WasmReader.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3FBCBF4C-1083-4A70-8929-E89CAA82E781}"
@@ -78,6 +83,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{2D98823A-DF4
 		..\private\Bin\jdtest\jdtest.vcxproj = ..\private\Bin\jdtest\jdtest.vcxproj
 		..\private\Bin\jshost\jshost.vcxproj = ..\private\Bin\jshost\jshost.vcxproj
 		..\private\bin\RecyclerTest\RecyclerTest.vcxproj = ..\private\bin\RecyclerTest\RecyclerTest.vcxproj
+		..\private\bin\WinRt2Ts\WinRt2Ts.vcxproj = ..\private\bin\WinRt2Ts\WinRt2Ts.vcxproj
+		..\private\bin\WinRt2TsTest\WinRt2TsTest.vcxproj = ..\private\bin\WinRt2TsTest\WinRt2TsTest.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{9E844FF8-5EBB-4145-A688-9BF1C2402AB8}"
@@ -135,6 +142,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreBuild", "CoreBuild", "{
 		..\core\Build\Common.Build.Default.props = ..\core\Build\Common.Build.Default.props
 		..\core\Build\Common.Build.ProjectConfiguration.props = ..\core\Build\Common.Build.ProjectConfiguration.props
 		..\core\Build\Common.Build.props = ..\core\Build\Common.Build.props
+		..\core\Build\MicroBuildv2.Build.ProjectConfiguration.props = ..\core\Build\MicroBuildv2.Build.ProjectConfiguration.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{6DD17557-3A68-4A94-B436-DB674203B642}"
