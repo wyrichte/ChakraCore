@@ -62,7 +62,7 @@ if "%doCore%" EQU "core" (
     set pgi_bin=ch.exe
 )
  REM Do training
-call powershell %ChakraRoot%\core\Build\Scripts\pgo\pogo_training.ps1 -scenarios %ChakraRoot%\core\test\benchmarks\SunSpider,%ChakraRoot%\core\test\benchmarks\Kraken,%ChakraRoot%\core\test\benchmarks\Octane -binary %BIN_PATH%\%pgi_bin% -arch %arch% -flavor %flavor%
+call powershell %ChakraRoot%\core\Build\Scripts\pgo\pogo_training.ps1 -scenarios %ChakraRoot%\core\test\benchmarks\SunSpider,%ChakraRoot%\core\test\benchmarks\Kraken,%ChakraRoot%\core\test\benchmarks\Octane -binary %BIN_PATH%\%pgi_bin% -arch %arch% -flavor %flavor% -pogoArgs "-oopjit-"
 if "%errorlevel%" NEQ "0" (
     exit /b %errorlevel%
 )
