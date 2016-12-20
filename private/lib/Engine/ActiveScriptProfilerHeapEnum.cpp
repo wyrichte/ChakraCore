@@ -693,7 +693,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     UINT propertyCount = 0;
     if (slotArray.IsFunctionScopeSlotArray())
     {
-        Js::FunctionBody* functionBody = slotArray.GetFunctionBody();
+        Js::FunctionBody* functionBody = slotArray.GetFunctionInfo()->GetFunctionBody();
         Assert(functionBody);
 
         propertyCount = slotArray.GetCount();
