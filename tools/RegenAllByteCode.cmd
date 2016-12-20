@@ -15,47 +15,74 @@
 :: NOTE: It may be possible to build regular Intl bytecodes from jshost.exe and thus only build NoJIT ch.exe
 :: NOTE: but we decided against this for now because of minor differences in the output.
 
+@echo off
 setlocal
 
-:: [Full]   jshost.exe    x64_debug
-call tools\GitScripts\init.cmd x64 debug
-call build /verbosity:minimal
-:: [Full]   jshost.exe    x86_debug
-call tools\GitScripts\init.cmd x86 debug
-call build /verbosity:minimal
+set DoFull=1
+set DoCore=1
 
-:: Generate Promise Bytecodes
-pushd private\lib\Projection\InJavascript
-call GenByteCode.cmd
+:ContinueArgParse
+if not "%1"=="" (
+  if "%1"=="--no-full" (
+    set DoFull=0
+  )
+  if "%1"=="--no-core" (
+    set DoCore=0
+  )
+  if "%1"=="/?" (
+    goto:showHelp
+  )
+  if "%1"=="-h" (
+    goto:showHelp
+  )
+  if "%1"=="--help" (
+    goto:showHelp
+  )
+  shift
+  goto :ContinueArgParse
+)
+
+pushd %~dp0..
+
+if %DoFull%==1 (
+  :: [Full]   jshost.exe    x64_debug
+  call tools\GitScripts\init.cmd x64 debug
+  call build /verbosity:minimal
+  if %errorlevel% neq 0 (
+    echo There was a build error for x64 debug. Stopping bytecode generation.
+    exit /b 1
+  )
+  :: [Full]   jshost.exe    x86_debug
+  call tools\GitScripts\init.cmd x86 debug
+  call build /verbosity:minimal
+  if %errorlevel% neq 0 (
+    echo There was a build error for x64 debug. Stopping bytecode generation.
+    exit /b 1
+  )
+
+  :: Generate Promise Bytecodes
+  pushd private\lib\Projection\InJavascript
+  call GenByteCode.cmd
+  if %errorlevel% neq 0 (
+    echo There was an error when regenerating bytecode headers.
+    exit /b 1
+  )
+  popd
+)
+
+
+if %DoCore%==1 (
+  call core/RegenAllByteCode.cmd
+)
+
 popd
 
-:: NOTE: For now, we will not generate Intl Bytecodes using jshost.exe because of minor differences in the output.
-:: NOTE: If we decide to generate Intl Bytecodes with jshost.exe later, uncomment this block.
-REM :: Generate Intl Bytecodes using jshost.exe
-REM pushd core\lib\Runtime\Library\InJavascript
-REM call GenByteCode.cmd -binary jshost.exe -bindir ..\..\..\..\..\Build\VcBuild\bin
-REM popd
+endlocal
+goto:eof
 
-pushd core
-
-:: NOTE: If we decide to generate Intl Bytecodes with jshost.exe later, comment this block.
-:: [Core]   ch.exe        x64_debug
-:: [Core]   ch.exe        x86_debug
-call jenkins\buildone.cmd x64 debug
-call jenkins\buildone.cmd x86 debug
-pushd lib\Runtime\Library\InJavascript
-call GenByteCode.cmd
-popd
-
-:: [Core]   ch.exe        x64_debug (NoJIT)
-:: [Core]   ch.exe        x86_debug (NoJIT)
-call jenkins\buildone.cmd x64 debug "/p:BuildJIT=false"
-call jenkins\buildone.cmd x86 debug "/p:BuildJIT=false"
-:: Generate Intl NoJIT Bytecodes using ch.exe (NoJIT)
-pushd lib\Runtime\Library\InJavascript
-call GenByteCode.cmd -nojit
-popd
-
-popd
-
+:showHelp
+echo usage RegenAllByteCode.cmd
+echo --no-full   Will not regenerate bytecode header for ChakraFull
+echo --no-core   Will not regenerate bytecode header for ChakraCore
+echo -h, --help, /? Show this help message
 endlocal
