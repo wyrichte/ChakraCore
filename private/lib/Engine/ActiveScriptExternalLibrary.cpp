@@ -89,14 +89,14 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
         typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
         if (JITManager::GetJITManager()->IsOOPJITEnabled())
         {
-            if (!scriptContext->GetRemoteScriptAddr())
+            if (scriptContext->GetRemoteScriptAddr())
             {
-                scriptContext->InitializeRemoteScriptContext();
+                HRESULT hr = JITManager::GetJITManager()->AddDOMFastPathHelper(
+                    scriptContext->GetRemoteScriptAddr(),
+                    (intptr_t)functionInfo,
+                    (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+                JITManager::HandleServerCallResult(hr, RemoteCallType::StateUpdate);
             }
-            JITManager::GetJITManager()->AddDOMFastPathHelper(
-                scriptContext->GetRemoteScriptAddr(),
-                (intptr_t)functionInfo,
-                (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
         }
         else
         {
