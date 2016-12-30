@@ -277,4 +277,9 @@
         <files>generators-crossthread.js</files>
     </default>
 </test>
+<test>
+  <default>
+    <files>proxybug3.js</files>
+  </default>
+</test>
 </regress-exe>
