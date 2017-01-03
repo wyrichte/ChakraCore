@@ -122,7 +122,7 @@ void NodeTelemetryProvider::CreateHashAndFirePackageTelemetry()
             }
 
             if (hProv &&
-                CryptCreateHash(hProv, CALG_SHA1, 0, 0, &hHash))
+                CryptCreateHash(hProv, CALG_SHA_256, 0, 0, &hHash))
             {
                 if (!CryptHashData(hHash, reinterpret_cast<const BYTE*>(stringToHash), static_cast<DWORD>(strSize) * sizeof(char16), 0))
                 {
