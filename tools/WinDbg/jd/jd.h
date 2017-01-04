@@ -131,6 +131,7 @@ public:
     void PrintFrameNumberWithLink(uint frameNumber);
     bool IsJScript9();
 
+    bool DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink = true, bool showScriptContext = false);
     bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
 
     class PropertyNameReader

@@ -18,7 +18,7 @@ RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemot
         GetExtension()->recyclerCachedData.CacheRecyclerObjectGraph(recycler.GetPtr(), recyclerObjectGraph);
     }
 
-    recyclerObjectGraph->EnsureTypeInfo(typeInfoFlags);
+    recyclerObjectGraph->EnsureTypeInfo(threadContext, typeInfoFlags);
 
     GetExtension()->recyclerCachedData.DisableCachedDebuggeeMemory();
     return recyclerObjectGraph;
@@ -98,7 +98,7 @@ void RecyclerObjectGraph::ClearTypeInfo()
     });
 }
 
-void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     bool infer = (typeInfoFlags & TypeInfoFlags::Infer) != 0;
     bool trident = (typeInfoFlags & TypeInfoFlags::Trident) != 0;
@@ -147,6 +147,21 @@ void RecyclerObjectGraph::EnsureTypeInfo(RecyclerObjectGraph::TypeInfoFlags type
     };
 
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
+
+    auto setAddressData = [&](char const * typeName, JDRemoteTyped object)
+    {
+        if (object.GetPtr())
+        {
+            RecyclerObjectGraph::GraphImplNodeType* node = this->FindNode(object.GetPtr());
+            setNodeData(typeName, typeName, node, false, false);
+        }
+    };
+
+    JDRemoteTyped threadRecyclableData = threadContext->Field("recyclableData.ptr");
+    setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
+    JDRemoteTyped typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
+    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.bucket", typesWithProtoPropertyCache.Field("buckets"));
+    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.Field("entries"));
 
     ULONG numNodes = 0;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)

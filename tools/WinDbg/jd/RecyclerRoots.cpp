@@ -439,6 +439,16 @@ void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& ca
     }
 }
 
+bool EXT_CLASS_BASE::DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink, bool showScriptContext)
+{
+    if (!node->HasVtable() && node->GetTypeNameOrField() && !node->IsPropagated())
+    {
+        this->Out(" %s%s", node->IsPropagated() ? "[RefBy] " : "", node->GetTypeNameOrField());
+        return true;
+    }
+    return DumpPossibleSymbol(node->Key(), makeLink, showScriptContext);    
+}
+
 bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool showScriptContext)
 {
     char const * typeName;
@@ -1157,7 +1167,7 @@ void DumpPointerProperties(EXT_CLASS_BASE* ext, RecyclerObjectGraph &objectGraph
     // print the address and symbol
     ext->Out("0x%p ", address);
     ext->Out("(level %c%-8d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
-    ext->DumpPossibleSymbol(address);
+    ext->DumpPossibleSymbol(node);
     ext->Out("\n");
 }
 
@@ -2019,7 +2029,8 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), RecyclerObjectGraph::TypeInfoFlags::Infer));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), 
+        typeInfo? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
 
     this->Out("\n");
     this->Out("%22s ^     Run !jd.predecessors on this node\n", "");
@@ -2039,15 +2050,8 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
         this->Out("0x%p", node->Key());
 
-        if (typeInfo)
-        {
-            this->Out(" %s%s", node->Key(), node->IsPropagated() ? "[RefBy] " : "", node->GetTypeName());
-        }
-        else
-        {
-            DumpPossibleSymbol(node->Key());
-        }
-
+        DumpPossibleSymbol(node);
+      
         this->Out("\n");
 
         // limit == 0 means show all nodes
