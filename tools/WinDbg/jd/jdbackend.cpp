@@ -207,12 +207,69 @@ char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {        
     char const * typeName;
-    ExtRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
+    JDRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
     if (!typeName)
     {
-        return "<No Vtable>";
+        // Opnd doesn't have vtable on retail build.  Use the kind to infer the type.
+        const char * opndKindStr = JDUtil::GetEnumString(opnd.Field("m_kind"));
+        if (strcmp(opndKindStr, "OpndKindIntConst") == 0)
+        {
+            typeName = "IR::IntConstOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindInt64Const") == 0)
+        {
+            typeName = "IR::Int64ConstOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindFloatConst") == 0)
+        {
+            typeName = "IR::FloatConstOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindSimd128Const") == 0)
+        {
+            typeName = "IR::Simd128ConstOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindHelperCall") == 0)
+        {
+            typeName = "IR::HelperCallOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindSym") == 0)
+        {
+            typeName = "IR::SymOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindReg") == 0)
+        {
+            typeName = "IR::RegOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindAddr") == 0)
+        {
+            typeName = "IR::AddrOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindIndir") == 0)
+        {
+            typeName = "IR::IndirOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindLabel") == 0)
+        {
+            typeName = "IR::LabelOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindMemRef") == 0)
+        {
+            typeName = "IR::MemRefOpnd";
+        }
+        else if (strcmp(opndKindStr, "OpndKindRegBV") == 0)
+        {
+            typeName = "IR::RegBVOpnd";
+        }
+        else
+        {
+            return "<No Vtable>";
+        } 
+        typedOpnd = ext->Cast(typeName, opnd.GetPtr());
     }
-    typeName = JDUtil::StripModuleName(typeName);
+    else
+    {
+        typeName = JDUtil::StripModuleName(typeName);
+    }
 
     if (strcmp(typeName, "IR::IntConstOpnd") == 0)
     {
@@ -380,7 +437,7 @@ JD_PRIVATE_COMMAND(irinstr,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped instr("(IR::Instr *)@$extin", pointer);
-    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(instr.Field("m_func"))).GetThreadContext());
+    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(this, instr.Field("m_func"));
     JDBackend jdbackend(this, propertyNameReader);
     ULONG64 count = GetUnnamedArgU64(1);
     ULONG64 halfCount = count / 2;
@@ -433,7 +490,7 @@ JD_PRIVATE_COMMAND(irfunc,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped(GetExtension()->FillModule("(%s!Func*)@$extin"), pointer));
-    PropertyNameReader propertyNameReader(this, RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());
+    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(this, func);
     JDBackend jdbackend(this, propertyNameReader);
     jdbackend.DumpFunc(func);
 }

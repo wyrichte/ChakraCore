@@ -449,6 +449,55 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* 
     return DumpPossibleSymbol(node->Key(), makeLink, showScriptContext);    
 }
 
+bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const * typeName, bool makeLink, bool showScriptContext)
+{
+    if (strstr(typeName, "ArrayObjectInstance") != 0 ||
+        strstr(typeName, "Js::CustomExternalObject") != 0)
+    {
+        ULONG64 offsetOfExternalObject = 0x18;
+
+        if (this->m_PtrSize == 8)
+        {
+            offsetOfExternalObject = 0x30;
+        }
+
+        ULONG64 externalObject = object.GetPtr() + offsetOfExternalObject;
+        ULONG64 domObject = GetPointerAtAddress(externalObject);
+        if (domObject != NULL)
+        {
+            ULONG64 domVtable = GetPointerAtAddress(domObject);
+            std::string symbol = GetSymbolForOffset(this, domVtable);
+
+            if (!symbol.empty())
+            {
+                this->Out(" (maybe DOM item %s)", symbol.c_str());
+            }
+            else
+            {
+                this->Out(" (0x%p)", externalObject);
+            }
+        }
+        return true;
+    }
+    if (strstr(typeName, "JavascriptDispatch") != 0)
+    {
+        ExtRemoteTyped scriptObject = object.Field("scriptObject");
+        ULONG64 scriptObjectPointer = scriptObject.GetPtr();
+        // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
+        if (scriptObjectPointer)
+        {
+            this->Out(" [ScriptObject");
+            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink, showScriptContext))
+            {
+                this->Out(" = 0x%p", scriptObjectPointer);
+            }
+            this->Out("]");
+        }
+        return true;
+    }
+    return false;
+}
+
 bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool showScriptContext)
 {
     char const * typeName;
@@ -462,7 +511,8 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     this->Out(" = ");
     if (makeLink)
     {
-        this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", typeName, address);
+        std::string encodedTypeName = JDUtil::EncodeDml(typeName);
+        this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", encodedTypeName.c_str(), address);
 
         if (object.HasField("type") && object.Field("type").HasField("typeId"))
         {
@@ -479,48 +529,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     }
     this->Out("%s", typeName);
 
-    if (strstr(typeName, "ArrayObjectInstance") != 0 ||
-        strstr(typeName, "Js::CustomExternalObject") != 0)
-    {
-        ULONG64 offsetOfExternalObject = 0x18;
-
-        if (this->m_PtrSize == 8)
-        {
-            offsetOfExternalObject = 0x30;
-        }
-
-        ULONG64 externalObject = address + offsetOfExternalObject;
-        ULONG64 domObject = GetPointerAtAddress(externalObject);
-        if (domObject != NULL)
-        {
-            ULONG64 domVtable = GetPointerAtAddress(domObject);
-            std::string symbol = GetSymbolForOffset(this, domVtable);
-
-            if (!symbol.empty())
-            {
-                this->Out(" (maybe DOM item %s)", symbol.c_str());
-            }
-            else
-            {
-                this->Out(" (0x%p)", externalObject);
-            }
-        }
-    }
-    else if (strstr(typeName, "JavascriptDispatch") != 0)
-    {
-        ExtRemoteTyped scriptObject = object.Field("scriptObject");
-        ULONG64 scriptObjectPointer = scriptObject.GetPtr();
-        // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
-        if (scriptObjectPointer)
-        {
-            this->Out(" [ScriptObject");
-            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink, showScriptContext))
-            {
-                this->Out(" = 0x%p", scriptObjectPointer);
-            }
-            this->Out("]");
-        }
-    }
+    DumpPossibleExternalSymbol(object, typeName, makeLink, showScriptContext);    
 
     return true;
 }
