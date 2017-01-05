@@ -21,8 +21,12 @@ param (
 
 $CoreScriptDir = "$PSScriptRoot\..\..\core\build\scripts"
 
-$OuterScriptRoot = $PSScriptRoot
 . "$CoreScriptDir\pre_post_util.ps1"
+$srcpath, $buildRoot, $objpath, $_ = `
+    ComputePaths `
+        -arch $arch -flavor $flavor -subtype $subtype -OuterScriptRoot $PSScriptRoot `
+        -srcpath $srcpath -buildRoot $binpath -objpath $objpath
+
 $bvtcmdpath = "$srcpath\tools\runcitests.cmd"
 $pogoscript = "$srcpath\tools\pogo.git.bat"
 
@@ -32,7 +36,7 @@ if ($noaction) {
 }
 
 $pogoList = $pogo -join ','
-$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -subtype $subtype -srcpath `"$srcpath`" -binpath `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
+$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -subtype $subtype -srcpath `"$srcpath`" -buildRoot `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
 
 iex $postBuildCommmand
 
