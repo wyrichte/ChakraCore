@@ -4494,7 +4494,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         grfscr |= fscrImplicitParents;
     }
 
-    if (!PHASE_OFF1(Js::DeferEventHandlersPhase))
+    if (!PHASE_OFF1(Js::DeferEventHandlersPhase) && !(CONFIG_FLAG(ForceSerialized)))
     {
         grfscr |= fscrDeferFncParse;
     }
