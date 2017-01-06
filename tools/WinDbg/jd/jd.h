@@ -130,9 +130,10 @@ public:
     void Dbg(_In_ PCWSTR fmt, ...);
     void PrintFrameNumberWithLink(uint frameNumber);
     bool IsJScript9();
-
+    
     bool DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink = true, bool showScriptContext = false);
     bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
+    bool DumpPossibleExternalSymbol(JDRemoteTyped object, char const * typeName, bool makeLink = true, bool showScriptContext = false);
 
     class PropertyNameReader
     {
@@ -141,8 +142,9 @@ public:
         ExtRemoteTyped m_buffer;
         ULONG m_count;
         ULONG _none;
-
+        
     public:
+        
         PropertyNameReader(EXT_CLASS_BASE* ext, ExtRemoteTyped threadContext);
 
         ULONG Count() const { return m_count; }
@@ -197,6 +199,8 @@ public:
 
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
+
+    bool IsJITServer();
 
 #ifdef JD_PRIVATE
     JDByteCodeCachedData const& GetByteCodeCachedData()
@@ -320,6 +324,7 @@ protected:
     Nullable<bool> m_usingLibraryInType;            // If the build uses javascriptLibrary in Type (older builds use globalObject)
     Nullable<bool> m_usingPropertyRecordInTypeHandlers;   // If the build uses PropertyRecord* in type handlers
     Nullable<bool> m_pageAllocatorHasExtendedCounters; // If the build has extended counter for page allocators
+    Nullable<bool> m_isJITServer;
 
     enum TaggedIntUsage {
         TaggedInt_Int31,    // IE9 uses Int31

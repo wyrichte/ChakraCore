@@ -260,6 +260,17 @@ bool EXT_CLASS_BASE::PageAllocatorHasExtendedCounters()
     return false;
 }
 
+bool EXT_CLASS_BASE::IsJITServer()
+{
+    if (!m_isJITServer.HasValue())
+    {
+        ExtRemoteTyped isJITServer(this->FillModule("%s!JITManager::s_jitManager.m_isJITServer"));
+        m_isJITServer = isJITServer.GetStdBool();
+    }    
+
+    return m_isJITServer;
+}
+
 // Detect a feature (code change) by checking a symbol
 void EXT_CLASS_BASE::DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol)
 {
@@ -403,31 +414,39 @@ ULONG EXT_CLASS_BASE::GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer)
     return m_propertyIdNone;
 }
 
+
 EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, ExtRemoteTyped threadContext)
 {
     m_ext = ext;
 
-    if (!ext->m_newPropertyMap.HasValue())
+    if (threadContext.GetPtr() != 0)
     {
+        if (!ext->m_newPropertyMap.HasValue())
+        {
 
-        // We're using the new property map logic if the propertyNameList isn't there.
+            // We're using the new property map logic if the propertyNameList isn't there.
 
-        ext->m_newPropertyMap = !threadContext.HasField("propertyNameList");
-    }
+            ext->m_newPropertyMap = !threadContext.HasField("propertyNameList");
+        }
 
-    if (ext->m_newPropertyMap)
-    {
-        ExtRemoteTyped propertyMap = threadContext.Field("propertyMap");
-        m_buffer = propertyMap.Field("entries");
-        m_count = propertyMap.Field("count").GetUlong();
-        _none = m_ext->GetPropertyIdNone(m_buffer);
+        if (ext->m_newPropertyMap)
+        {
+            ExtRemoteTyped propertyMap = threadContext.Field("propertyMap");
+            m_buffer = propertyMap.Field("entries");
+            m_count = propertyMap.Field("count").GetUlong();
+            _none = m_ext->GetPropertyIdNone(m_buffer);
+        }
+        else
+        {
+            ExtRemoteTyped propertyNameList = threadContext.Field("propertyNameList");
+            m_buffer = propertyNameList.Field("buffer");
+            m_count = propertyNameList.Field("count").GetUlong();
+            _none = m_ext->GetPropertyIdNone(m_buffer);
+        }
     }
     else
     {
-        ExtRemoteTyped propertyNameList = threadContext.Field("propertyNameList");
-        m_buffer = propertyNameList.Field("buffer");
-        m_count = propertyNameList.Field("count").GetUlong();
-        _none = m_ext->GetPropertyIdNone(m_buffer);
+        m_count = 0;
     }
 }
 
@@ -591,11 +610,12 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
     const char* typeIdStr = JDUtil::GetEnumString(typeId);
     if (depth == 0)
     {
-        Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)\n", JDUtil::StripModuleName(className.c_str()),
-            className.c_str(), var, var, typeIdStr);
+        std::string encodedClassName = JDUtil::EncodeDml(className.c_str());
+        Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)", JDUtil::StripModuleName(encodedClassName.c_str()),
+            encodedClassName.c_str(), var, var, typeIdStr);
+        DumpPossibleExternalSymbol(obj, className.c_str());
+        Out("\n");
     }       
-
-    
 
     if(strcmp(typeIdStr, "TypeIds_Undefined") == 0)
     {
@@ -707,7 +727,8 @@ void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
     {
         typeNameString = obj.GetTypeName();
     }    
-    Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), typeNameString, obj.GetPtr(),
+    std::string encodedTypeName = JDUtil::EncodeDml(typeNameString);
+    Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), encodedTypeName.c_str(), obj.GetPtr(),
         JDUtil::GetEnumString(obj.Field("type.typeId")));
 }
 
