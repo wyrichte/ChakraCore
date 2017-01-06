@@ -26,6 +26,7 @@ using namespace Memory;
 
 class StackBackTrace;
 
+#include "Assertions.h"
 #include "DiagAssertion.h"
 
 // TODO (doilij): remove JD's dependency on ATL
