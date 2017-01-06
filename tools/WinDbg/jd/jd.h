@@ -142,6 +142,7 @@ public:
         ExtRemoteTyped m_buffer;
         ULONG m_count;
         ULONG _none;
+        ULONG _maxBuiltIn;
         
     public:
         
@@ -151,6 +152,8 @@ public:
         ULONG GetPropertyIdByIndex(ULONG i) const { return _none + i; }
         ULONG64 GetNameByIndex(ULONG i);
         ULONG64 GetNameByPropertyId(ULONG propertyId);
+
+        std::string GetNameStringByPropertyId(ULONG propertyId);
     };
 
     PCSTR FillModule(PCSTR fmt); // results share one buffer

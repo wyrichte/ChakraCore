@@ -418,7 +418,7 @@ ULONG EXT_CLASS_BASE::GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer)
 EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, ExtRemoteTyped threadContext)
 {
     m_ext = ext;
-
+    _maxBuiltIn = 0;
     if (threadContext.GetPtr() != 0)
     {
         if (!ext->m_newPropertyMap.HasValue())
@@ -447,6 +447,46 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, ExtR
     else
     {
         m_count = 0;
+        _none = 0;
+
+        // Try to infer some info the slow way
+        for (int i = 0; i < 20; i++)
+        {
+            ExtRemoteTyped prop(ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), i);
+            if (strcmp(JDUtil::GetEnumString(prop), "_none") == 0)
+            {
+                _none = i;
+                break;
+            }
+        }
+
+        if (_none != 0)
+        {
+            // Binary search the Js::PropertyIds::_countJSOnlyProperty
+            int maxCountJSOnlyProperty = 2000;
+            int minCountJSOnlyProperty = _none + 1;
+            while (maxCountJSOnlyProperty >= minCountJSOnlyProperty)
+            {
+                int midCountJSOnlyProperty = (maxCountJSOnlyProperty - minCountJSOnlyProperty) / 2 + minCountJSOnlyProperty;
+                ExtRemoteTyped prop(ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
+
+                char const * name = JDUtil::GetEnumString(prop);                
+                if (strcmp(name, "_countJSOnlyProperty") == 0)
+                {
+                    _maxBuiltIn = midCountJSOnlyProperty;
+                    break;
+                }
+
+                if (strncmp(name, "0n", 2) == 0)
+                {
+                    maxCountJSOnlyProperty = midCountJSOnlyProperty - 1;
+                }
+                else
+                {
+                    minCountJSOnlyProperty = midCountJSOnlyProperty + 1;
+                }
+            }
+        }
     }
 }
 
@@ -467,6 +507,36 @@ ULONG64 EXT_CLASS_BASE::PropertyNameReader::GetNameByPropertyId(ULONG propertyId
     }
 
     return 0;
+}
+
+std::string EXT_CLASS_BASE::PropertyNameReader::GetNameStringByPropertyId(ULONG propertyId)
+{
+    ULONG64 propertyNameAddress = this->GetNameByPropertyId(propertyId);
+    if (propertyNameAddress == 0)
+    {
+        char buffer[30];
+
+        // Either this is a JIT server or it is an invalid property id
+        if (m_ext->IsJITServer())
+        {
+            if (propertyId < _maxBuiltIn)
+            {
+                return JDUtil::GetEnumString(ExtRemoteTyped(m_ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), propertyId));
+            }            
+            sprintf_s(buffer, "<PropId %d>", propertyId);            
+        }
+        else
+        {
+            sprintf_s(buffer, "<INVALID PropId %d>", propertyId);            
+        }
+        return buffer;
+    }
+
+    ExtRemoteTyped fieldName = ExtRemoteTyped("(char16 *)@$extin", propertyNameAddress);
+    wchar tempBuffer2[1024];
+    char tempBuffer[1024];
+    sprintf_s(tempBuffer, "%S", tempBuffer2);
+    return tempBuffer;
 }
 
 JD_PRIVATE_COMMAND(prop,

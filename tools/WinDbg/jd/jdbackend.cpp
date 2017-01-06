@@ -78,11 +78,7 @@ char * JDBackend::GetPropertySymDumpString(ExtRemoteTyped propertySym, char* buf
     int32 propertyId = propertySym.Field("m_propertyId").GetLong();
     if (ENUM_EQUAL(fieldKind, PropertyKindData))
     {
-        
-        ExtRemoteTyped fieldName = ExtRemoteTyped("(char16 *)@$extin", propertyNameReader.GetNameByPropertyId(propertyId));
-        wchar tempBuffer2[TEMP_BUFFER_SIZE];
-        RETURNBUFFER("%s->%S", stackSymDumpStr,
-            (*fieldName).GetString(tempBuffer2, _countof(tempBuffer2), _countof(tempBuffer2)));        
+        RETURNBUFFER("%s->%s", stackSymDumpStr, propertyNameReader.GetNameStringByPropertyId(propertyId).c_str());        
     }
     else if (ENUM_EQUAL(fieldKind, PropertyKindSlots)
         || ENUM_EQUAL(fieldKind, PropertyKindSlotArray))
@@ -334,10 +330,19 @@ void JDBackend::DumpBranchInstr(ExtRemoteTyped branchInstr)
     DumpInstrBase(branchInstr);
     ext->Out(" => ");
     ExtRemoteTyped branchTarget = branchInstr.Field("m_branchTarget");
-    ext->Out(GetLabelInstrDumpString(branchTarget));
-    if (branchTarget.Field("m_isLoopTop").GetStdBool())
+    if (branchTarget.GetPtr() != 0)
     {
-      ext->Out("<<<<<<<<<<<<<  Loop Tail >>>>>>>>>>>>>");     
+        ext->Out(GetLabelInstrDumpString(branchTarget));
+        if (branchTarget.Field("m_isLoopTop").GetStdBool())
+        {
+            ext->Out("<<<<<<<<<<<<<  Loop Tail >>>>>>>>>>>>>");
+        }
+    }
+    else
+    {
+        // This may happen when haven't finish filling the label in, such as in IRBuilder
+        ext->Out("<NO TARGET LABEL>");
+
     }
 }
 
