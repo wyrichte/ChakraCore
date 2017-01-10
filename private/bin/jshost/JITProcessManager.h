@@ -13,7 +13,7 @@ public:
 
     static HANDLE GetRpcProccessHandle();
     static UUID GetRpcConnectionId();
-    static void RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[]);
+    static void RemoveArg(LPCWSTR flag, int * argc, _In_reads_(*argc) LPWSTR * argv[]);
 
 private:
     static HRESULT CreateServerProcess(int argc, __in_ecount(argc) LPWSTR argv[]);    

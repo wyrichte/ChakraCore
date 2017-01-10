@@ -33,7 +33,7 @@ HRESULT JITProcessManager::StartRpcServer(int argc, __in_ecount(argc) LPWSTR arg
 
 /* static */
 void
-JITProcessManager::RemoveArg(LPCWSTR flag, int * argc, __in_ecount(*argc) LPWSTR * argv[])
+JITProcessManager::RemoveArg(LPCWSTR flag, int * argc, _In_reads_(*argc) LPWSTR * argv[])
 {
     size_t flagLen = wcslen(flag);
     int flagIndex;
