@@ -2,7 +2,7 @@
 
 setlocal
 
-echo powershell -Command "& '%~dpn0'" -ExecutionPolicy bypass %*
-powershell -Command "& '%~dpn0'" -ExecutionPolicy bypass %*
+echo powershell -ExecutionPolicy bypass -Command "& '%~dpn0'" %*
+powershell -ExecutionPolicy bypass -Command "& '%~dpn0'" %*
 
 endlocal

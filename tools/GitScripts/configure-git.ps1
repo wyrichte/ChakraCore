@@ -6,7 +6,7 @@ param (
     $gitPath = $null
 )
 
-$gitRemoteHelperPath = "\\ms\GIT\Release\git.remote-helper\git.remote-helper_20150331.01\Release"
+$gitRemoteHelperPath = "\\chakrafs01\RepoTools\GCM\Setup.exe"
 
 if ($gitPath -ne $null) {
     $env:Path += ";$gitPath"
@@ -34,8 +34,8 @@ if (-not (Test-Path $targetPath)) {
     }
 }
 
-Write-Host "Deploying MSFT Git Remote helper module"
-Copy-Item -Force $gitRemoteHelperPath\* $targetPath
+Write-Host "Deploying MSFT Git Credential Manager module"
+Start-Process -FilePath $gitRemoteHelperPath -ArgumentList "/VerySilent" -Wait -NoNewWindow
 
 $adUser = ([adsi] "LDAP://$(whoami /fqdn)")
 
@@ -55,13 +55,6 @@ if (!$s) {
     git config --global user.email $adUser.Mail
 }
 
-Write-Host "Configuring use of mshttps protocol"
-
-git config --global --add url.mshttps://mseng.visualstudio.com/.insteadOf https://mseng.visualstudio.com/
-git config --global --add url.mshttps://microsoft.visualstudio.com/.insteadOf https://microsoft.visualstudio.com/
-git config --global --add url.mshttps://devdiv.visualstudio.com/.insteadOf https://devdiv.visualstudio.com/
-git config --global credential.helper wincred
-
 Write-Host "Configuring smart git defaults"
 
 # Does index comparison to FS data in parallel
@@ -70,17 +63,45 @@ git config --global core.preloadindex true
 # Undocumented but recommended to be set on Windows machines
 git config --global core.fscache true
 
-# Set to false because some unit test repros need CRLF instead of LF
-git config core.safecrlf false
+$BC4InstallPath = "\\chakrafs01\RepoTools\BC4\BC4.exe"
+$BC4KeyPath = "\\chakrafs01\RepoTools\BC4\BC4Key.txt"
+$BC4InstallFolder = Join-Path $Env:ProgramFiles "\Beyond Compare 4"
+$BC4BinaryPath = Join-Path $BC4InstallFolder "\BComp.exe"
 
-# Rebase preserving merges by default on pulls
-git config pull.rebase preserve
+function ConfigGitForBC4 {
+    Write-Host "Configuring Git for Beyond Compare 4"
+    git config --global diff.tool bc
+    git config --global difftool.bc.path $BC4BinaryPath
+    git config --global merge.tool bc
+    git config --global mergetool.bc.path $BC4BinaryPath
+    Write-Host
+    Write-Host "Use 'git mergetool' or 'git difftool' to use Beyond Compare from the command line"
+}
 
+if (-not (Test-Path $BC4BinaryPath) -and (Get-Command "git.exe" -ErrorAction SilentlyContinue)) {
+    $installBC4 = Read-Host 'Would you like to install Beyond Compare 4 and use it as the default diff/merge tool in Git? [Y/n]'
+    if ($installBC4 -eq "" -or $installBC4 -eq "Y") {
+        Write-Host "Installing Beyond Compare 4"
+        Start-Process -FilePath $BC4InstallPath -ArgumentList "/VerySilent" -Wait -NoNewWindow
+        Write-Host "Registering Beyond Compare 4 with site license"
+        Copy-Item $BC4KeyPath $BC4InstallFolder
+
+        ConfigGitForBC4
+    }
+} elseif (Test-Path $BC4BinaryPath) {
+    Write-Host "Found Beyond Compare 4"
+    $useBC4 = Read-Host 'Would you like to use Beyond Compare 4 as the default diff/merge tool in Git? [Y/n]'
+
+    if ($useBC4 -eq "" -or $useBC4 -eq "Y") {
+        ConfigGitForBC4
+    }
+}
+
+Write-Host
 Write-Host @"
 Following git config values set:
 - Name/email (global- set if it's not already set)
-- Credential helper: wincred
-- Using mshttps protocol on certain VSO instances
+- Credential helper: manager
 - PreLoadIndex = true (global)
 - SafeCrlf = false (local)
 - FSCache = true (global)
