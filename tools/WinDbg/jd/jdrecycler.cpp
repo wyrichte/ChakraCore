@@ -2287,43 +2287,12 @@ JD_PRIVATE_COMMAND(memstats,
             }
             DisplayArenaAllocatorData("TC-ProtoChain", threadContextExtRemoteTyped.Field("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"), showZeroEntries);
 
-            threadContext.ForEachScriptContext([showZeroEntries](ExtRemoteTyped scriptContext)
+            threadContext.ForEachScriptContext([showZeroEntries](RemoteScriptContext scriptContext)
             {
-                DisplayArenaAllocatorData("SC", scriptContext.Field("generalAllocator"), showZeroEntries);
-                DisplayArenaAllocatorData("SC-DynamicProfile", scriptContext.Field("dynamicProfileInfoAllocator"), showZeroEntries);
-                DisplayArenaAllocatorData("SC-InlineCache", scriptContext.Field("inlineCacheAllocator"), showZeroEntries);
-                if (scriptContext.HasField("isInstInlineCacheAllocator"))
+                scriptContext.ForEachArenaAllocator([showZeroEntries](char const * name, ExtRemoteTyped arenaAllocator)
                 {
-                    // IE11 don't have this arena allocator
-                    DisplayArenaAllocatorData("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator"), showZeroEntries);
-                }
-                DisplayArenaAllocatorPtrData("SC-Interpreter", scriptContext.Field("interpreterArena"), showZeroEntries);
-                DisplayArenaAllocatorPtrData("SC-Guest", scriptContext.Field("guestArena"), showZeroEntries);
-                DisplayArenaAllocatorPtrData("SC-Diag", scriptContext.Field("diagnosticArena"), showZeroEntries);
-
-                if (scriptContext.HasField("sourceCodeAllocator"))
-                {
-                    DisplayArenaAllocatorData("SC-SourceCode", scriptContext.Field("sourceCodeAllocator"), showZeroEntries);
-                }
-                if (scriptContext.HasField("regexAllocator"))
-                {
-                    DisplayArenaAllocatorData("SC-Regex", scriptContext.Field("regexAllocator"), showZeroEntries);
-                }
-                if (scriptContext.HasField("miscAllocator"))
-                {
-                    DisplayArenaAllocatorData("SC-Misc", scriptContext.Field("miscAllocator"), showZeroEntries);
-                }
-
-                ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
-
-                auto forEachCodeGenAllocatorArenaAllocator = [showZeroEntries](ExtRemoteTyped codeGenAllocators)
-                {
-                    if (codeGenAllocators.GetPtr() == 0) { return; }
-
-                    DisplayArenaAllocatorData("SC-BGJIT", codeGenAllocators.Field("allocator"), showZeroEntries);
-                };
-                forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("foregroundAllocators"));
-                forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
+                    DisplayArenaAllocatorData(name, arenaAllocator, showZeroEntries);
+                });               
                 return false;
             });
         }

@@ -415,30 +415,30 @@ ULONG EXT_CLASS_BASE::GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer)
 }
 
 
-EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, ExtRemoteTyped threadContext)
+EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, RemoteThreadContext threadContext)
 {
     m_ext = ext;
     _maxBuiltIn = 0;
-    if (threadContext.GetPtr() != 0)
+    if (threadContext.GetExtRemoteTyped().GetPtr() != 0)
     {
         if (!ext->m_newPropertyMap.HasValue())
         {
 
             // We're using the new property map logic if the propertyNameList isn't there.
 
-            ext->m_newPropertyMap = !threadContext.HasField("propertyNameList");
+            ext->m_newPropertyMap = !threadContext.GetExtRemoteTyped().HasField("propertyNameList");
         }
 
         if (ext->m_newPropertyMap)
         {
-            ExtRemoteTyped propertyMap = threadContext.Field("propertyMap");
+            ExtRemoteTyped propertyMap = threadContext.GetExtRemoteTyped().Field("propertyMap");
             m_buffer = propertyMap.Field("entries");
             m_count = propertyMap.Field("count").GetUlong();
             _none = m_ext->GetPropertyIdNone(m_buffer);
         }
         else
         {
-            ExtRemoteTyped propertyNameList = threadContext.Field("propertyNameList");
+            ExtRemoteTyped propertyNameList = threadContext.GetExtRemoteTyped().Field("propertyNameList");
             m_buffer = propertyNameList.Field("buffer");
             m_count = propertyNameList.Field("count").GetUlong();
             _none = m_ext->GetPropertyIdNone(m_buffer);
@@ -1447,25 +1447,40 @@ JD_PRIVATE_COMMAND(count,
     Out("%I64u\n", ExtRemoteTypedUtil::Count(object, nextstr));
 }
 
-void EXT_CLASS_BASE::PrintFrameNumberWithLink(uint frameNumber)
-{
-    Dml("<link cmd=\".frame %x\">%02x</link>", frameNumber, frameNumber);
-}
 
 JD_PRIVATE_COMMAND(jstack,
     "Print JS Stack. This is untested, and works only if all modules in the stack have FPO turned off",
     "{v;b,o;verbose;Dump ChildEBP and RetAddr information}"
-    "{all;b,o;all;Dump full mixed mode stack- useful if stack has JITted functions}")
+    "{all;b,o;all;Dump full mixed mode stack- useful if stack has JITted functions}"
+    "{;e,o,d=0;rbp;starting rbp}")
 {
     const bool verbose = HasArg("v");
     const bool dumpFull = HasArg("all");
 
-    ULONG64 ebp = 0;
-    ULONG64 eip = 0;
-    HRESULT hr = this->m_Registers->GetFrameOffset(&ebp); // do something with hr?
-    hr = this->m_Registers->GetInstructionOffset(&eip);
+    ULONG64 rsp = 0;
+    ULONG64 rbp = this->GetUnnamedArgU64(0);
+    ULONG64 rip = 0;
+    HRESULT hr;
 
-    const int psize = this->m_PtrSize;
+    if (rbp == 0)
+    {
+        hr = this->m_Registers->GetStackOffset(&rsp);
+        if (FAILED(hr))
+        {
+            ThrowLastError("Unable to load rsp\n");
+        }
+        hr = this->m_Registers->GetFrameOffset(&rbp);
+        if (FAILED(hr))
+        {
+            ThrowLastError("Unable to load rbp\n");
+        }
+        hr = this->m_Registers->GetInstructionOffset(&rip);
+        if (FAILED(hr))
+        {
+            ThrowLastError("Unable to load rip\n");
+        }
+    }
+
     RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
     if (threadContext.GetCallRootLevel() == 0)
     {
@@ -1473,97 +1488,215 @@ JD_PRIVATE_COMMAND(jstack,
     }
     RemoteInterpreterStackFrame interpreterStackFrame = threadContext.GetLeafInterpreterStackFrame();
 
-    int frameNumber = 0;
-
     Out(" #");
+    const int ptrSize = this->m_PtrSize;
     if (verbose)
     {
-        Out(" ChildEBP RetAddr");
+        if (ptrSize == 8)
+        {
+            Out(" ChildESP         RetAddr");
+        }
+        else
+        {
+            Out(" ChildESP RetAddr");
+        }
     }
     Out("\n");
-    while (ebp != 0)
+    ULONG frameNumber = 0;
+    while (rbp != 0)
     {
-        ExtRemoteData childEbp(ebp, psize);
-        ExtRemoteData returnAddress(ebp + 4, psize);
-
-        if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == eip)
+        if (rip != 0)
         {
-            PrintFrameNumberWithLink(frameNumber);
-            if (verbose)
-            {                
-                Out(" %08x", ebp);
-                Out(" %08x", eip);
+            CHAR nameBuffer[1024];
+            ULONG nameSize;
+            ULONG64 offset = 0;
+
+            hr = m_Symbols->GetNearNameByOffset(
+                rip,
+                0,
+                nameBuffer,
+                sizeof(nameBuffer),
+                &nameSize,
+                &offset);
+
+            if (SUCCEEDED(hr))
+            {
+                DEBUG_STACK_FRAME frames[100];
+                ULONG filled;
+                hr = this->m_Control5->GetStackTrace(rbp, rsp, rip, frames, _countof(frames), &filled);
+                if (FAILED(hr))
+                {
+                    ThrowLastError("Unable to get stack frame");
+                }
+
+                ULONG i = 0;
+                ULONG64 lastBailoutLayoutX64 = 0;
+                bool lastWasBailoutOnX64 = false;
+                bool hasSeenBailoutOnX64 = false;
+                bool firstBailoutOnX64 = false;
+                while (i < filled)
+                {
+                    rsp = frames[i].StackOffset;
+                    rbp = frames[i].FrameOffset;
+                    rip = frames[i].InstructionOffset;
+                    ULONG64 ripRet = frames[i].ReturnOffset;
+
+                    hr = m_Symbols->GetNearNameByOffset(
+                        rip,
+                        0,
+                        nameBuffer,
+                        sizeof(nameBuffer),
+                        &nameSize,
+                        &offset);
+
+                    if (FAILED(hr))
+                    {
+                        // HEURITICS fixing up unwinding to JIT Frame from BailOutRecord::Bailout
+                        if (lastWasBailoutOnX64)
+                        {
+                            if (lastBailoutLayoutX64 != 0)
+                            {
+                                rbp = lastBailoutLayoutX64 - 2 * ptrSize;
+                            }
+                            else if (firstBailoutOnX64)
+                            {
+                                ExtRemoteTyped bailOutRecord = *ExtRemoteTyped(this->FillModule("(%s!BailOutRecord **)@$extin"), rsp);
+                                rbp = bailOutRecord.Field("globalBailOutRecordTable.registerSaveSpace").ArrayElement(5).GetPtr();  // 6 is RBP reg number
+                            }
+                        }
+                        break;
+                    }
+
+                    if (ptrSize == 8)
+                    {
+                        lastWasBailoutOnX64 = false;
+                        if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOutHelper")) == 0 && i + 1 < filled)
+                        {                            
+                            lastBailoutLayoutX64 = ExtRemoteData(frames[i + 1].StackOffset, ptrSize).GetPtr();
+                        }
+                        else if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOut")) == 0)
+                        {
+                            lastWasBailoutOnX64 = true;
+                            firstBailoutOnX64 = !hasSeenBailoutOnX64;
+                            hasSeenBailoutOnX64 = true;
+                        }
+                    }
+
+
+                    Out("%02x", frameNumber);
+                    if (verbose)
+                    {
+                        Out(" %p", rsp);
+                        Out(" %p", ripRet);
+                    }
+                    Out(" %s+0x%x\n", nameBuffer, offset);
+
+                    frameNumber++;
+                    i++;
+                }
+                if (i == filled)
+                {
+                    break;
+                }
             }
+        }
+
+
+        ULONG64 ripRet;
+        if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == rip)
+        {
+            // If the interpreterStackFrame is from bailout, assume the stackwalker is right.
+            bool isFromBailout = interpreterStackFrame.IsFromBailout();
+            if (!isFromBailout)
+            {
+                // This is an interpreter thunk frame
+                if (ptrSize == 8)
+                {
+                    // AMD64 stack size is InterpreterThunkEmitter::StackAllocSize = 0x28 
+                    // So return address is at 0x28 and we will just fake rbp as 0x28 - 0x8;
+                    rbp = rsp + 0x20;
+                }
+                else if (rbp <= rsp)
+                {
+                    // HEURSTIC: Assume the callee save rbp if we dn't have a valid rbp
+                    ExtRemoteData childEbp(rsp - 2 * ptrSize, ptrSize);
+                    rbp = childEbp.GetPtr();
+                }
+            }
+
+            ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
+            ripRet = returnAddress.GetPtr();
+
+            Out("%02x", frameNumber);
+            if (verbose)
+            {
+                Out(" %p", rsp);
+                Out(" %p", ripRet);
+            }
+
             Out(" js!");
             interpreterStackFrame.GetScriptFunction().PrintNameAndNumberWithLink(this);
+            Out(" [");
+            if (isFromBailout)
+            {
+                Out("JIT, Bailout ");
+            }
+           
+            Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link>]", this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress());
             Out("\n");
 
             interpreterStackFrame = interpreterStackFrame.GetPreviousFrame();
         }
         else
         {
-            ExtRemoteData firstArg(ebp + 8, psize);
-            // TODO: JIT'ed code
-            if (dumpFull)
+            if (rbp <= rsp)
             {
-                PrintFrameNumberWithLink(frameNumber);
-                if (verbose)
-                {                    
-                    Out(" %08x", ebp);
-                    Out(" %08x", eip);
+                // HEURSTIC: Assume the callee save rbp if we dn't have a valid rbp
+                ExtRemoteData previousChildFramePointer(rsp - 2 * ptrSize, ptrSize);
+                rbp = previousChildFramePointer.GetPtr();
+            }
+
+            ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
+            ripRet = returnAddress.GetPtr();
+            
+            Out("%02x", frameNumber);
+            if (verbose)
+            {
+                Out(" %p", rsp);
+                Out(" %p", ripRet);
+            }
+
+            
+            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);
+            char const * typeName;
+            JDRemoteTyped firstArgCasted = this->CastWithVtable(firstArg.GetPtr(), &typeName);
+            bool isFunctionObject = false;
+            if (typeName != nullptr && firstArgCasted.HasField("type"))
+            {
+                JDRemoteTyped type = firstArgCasted.Field("type");
+                if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
+                {
+                    isFunctionObject = true;
+                    Out(" js!");
+                    RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink(this);
+                    Out(" [JIT]\n");
                 }
-
-                CHAR nameBuffer[1024];
-                ULONG nameSize;
-                ULONG64 offset;
-
-                hr = m_Symbols->GetNearNameByOffset(
-                    eip,
-                    0,
-                    nameBuffer,
-                    sizeof(nameBuffer),
-                    &nameSize,
-                    &offset);
-                
-                Out(" %s\n", SUCCEEDED(hr)? nameBuffer: "<unknown>");
+            }
+            if (!isFunctionObject)
+            {
+                Out(" <unknown>\n");
             }
         }
-        eip = returnAddress.GetPtr();
-        ebp = childEbp.GetPtr();
+
+        ExtRemoteData childEbp(rbp, ptrSize);
+        rsp = rbp + 2 * ptrSize;
+        rbp = childEbp.GetPtr();
+        rip = ripRet;
         frameNumber++;
     }
     if (!interpreterStackFrame.IsNull())
     {
         Out("WARNING: Interpreter stack frame unmatched");
-    }
-}
-
-void EXT_CLASS_BASE::PrintReferencedPids(ExtRemoteTyped scriptContext, ExtRemoteTyped threadContext)
-{
-    scriptContext.OutTypeName();
-    Out(" ");
-    scriptContext.OutSimpleValue();
-    Out("\n");
-
-    bool isReferencedPropertyRecords = !scriptContext.HasField("referencedPropertyIds");    
-    ExtRemoteTyped referencedPidDictionary = isReferencedPropertyRecords? 
-        scriptContext.Field("javascriptLibrary.referencedPropertyRecords") :
-        scriptContext.Field("referencedPropertyIds");
-    ExtRemoteTyped referencedPidDictionaryCount = referencedPidDictionary.Field("count");
-    ExtRemoteTyped referencedPidDictionaryEntries = referencedPidDictionary.Field("entries");
-    long pidCount = referencedPidDictionaryCount.GetLong();
-
-    Out("Number of pids on scriptContext: %d\n", pidCount);
-
-    PropertyNameReader propertyNameReader(this, threadContext);
-    for (int i = 0; i < pidCount; i++)
-    {
-        ExtRemoteTyped entry = referencedPidDictionaryEntries.ArrayElement(i);
-        long pid = entry.Field(isReferencedPropertyRecords ? "value.pid" : "value").GetLong();
-        ExtRemoteTyped propertyName("(char16 *)@$extin", propertyNameReader.GetNameByPropertyId(pid));
-        Out(_u("Pid: %d "), pid);
-        propertyName.OutSimpleValue();
-        Out(_u("\n"));
     }
 }
 
@@ -1578,9 +1711,9 @@ JD_PRIVATE_COMMAND(drpids,
         threadContext.GetExtRemoteTyped().OutSimpleValue();
         Out("\n");
 
-        threadContext.ForEachScriptContext([this, &threadContext](ExtRemoteTyped scriptContext)
+        threadContext.ForEachScriptContext([this, &threadContext](RemoteScriptContext scriptContext)
         {
-            PrintReferencedPids(scriptContext, threadContext.GetExtRemoteTyped());
+            scriptContext.PrintReferencedPids();
             return false;
         });            
         Out("\n");
@@ -1689,10 +1822,10 @@ JD_PRIVATE_COMMAND(jsdisp,
     "")
 {
     RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
-    threadContext.ForEachScriptContext([this](ExtRemoteTyped scriptContext)
+    threadContext.ForEachScriptContext([this](RemoteScriptContext scriptContext)
     {
 
-        ExtRemoteTyped hostScriptContextField = scriptContext.Field("hostScriptContext");
+        ExtRemoteTyped hostScriptContextField = scriptContext.GetHostScriptContext();
         if (hostScriptContextField.GetPtr())
         {
             ExtRemoteTyped hostScriptContext = this->CastWithVtable(hostScriptContextField);
@@ -1704,7 +1837,7 @@ JD_PRIVATE_COMMAND(jsdisp,
             while (curr.GetPtr() != head.GetPtr())
             {
                 javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)@$extin"), curr.GetPtr() - offset);
-                Out("%p %p %d\n", javascriptDispatch.GetPtr(), javascriptDispatch.Field("scriptObject").GetPtr(), javascriptDispatch.Field("isGCTracked").GetW32Bool());
+                Out("%p %p %d\n", javascriptDispatch.GetPtr(), javascriptDispatch.Field("scriptObject").GetPtr(), javascriptDispatch.Field("isGCTracked").GetBoolean());
                 curr = curr.Field("Flink");
             }
         }

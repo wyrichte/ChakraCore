@@ -83,10 +83,12 @@
     <ClCompile Include="RemotePageAllocator.cpp" />
     <ClCompile Include="RemoteRecyclableObject.cpp" />
     <ClCompile Include="RemoteRecycler.cpp" />
+    <ClCompile Include="RemoteScriptContext.cpp" />
     <ClCompile Include="RemoteScriptFunction.cpp" />
     <ClCompile Include="RemoteThreadContext.cpp" />
     <ClCompile Include="JDRemoteTyped.cpp" />
     <ClCompile Include="RemoteTypeHandler.cpp" />
+    <ClCompile Include="RemoteUtf8SourceInfo.cpp" />
     <ClCompile Include="ScriptDebugSite.cpp" />
     <ClCompile Include="jd.cpp" />
     <ClCompile Include="jdrecycler.cpp" />
@@ -126,10 +128,12 @@
     <ClInclude Include="RemoteRecyclableObject.h" />
     <ClInclude Include="RemoteRecycler.h" />
     <ClInclude Include="RemoteRecyclerList.h" />
+    <ClInclude Include="RemoteScriptContext.h" />
     <ClInclude Include="RemoteScriptFunction.h" />
     <ClInclude Include="RemoteThreadContext.h" />
     <ClInclude Include="JDRemoteTyped.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
+    <ClInclude Include="RemoteUtf8SourceInfo.h" />
     <ClInclude Include="ScriptDebugSite.h" />
     <ClInclude Include="jd.h" />
     <ClInclude Include="stdafx.h" />

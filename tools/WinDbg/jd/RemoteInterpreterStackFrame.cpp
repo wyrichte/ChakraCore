@@ -19,6 +19,11 @@ RemoteInterpreterStackFrame::IsNull()
     return interpreterStackFrame.GetPtr() == 0;
 }
 
+ULONG64 RemoteInterpreterStackFrame::GetAddress()
+{
+    return interpreterStackFrame.GetPtr();
+}
+
 RemoteInterpreterStackFrame 
 RemoteInterpreterStackFrame::GetPreviousFrame()
 {
@@ -42,5 +47,13 @@ RemoteScriptFunction
 RemoteInterpreterStackFrame::GetScriptFunction()
 {
     return interpreterStackFrame.Field("function");
+}
+
+bool 
+RemoteInterpreterStackFrame::IsFromBailout()
+{
+    ExtRemoteTyped fromBailoutEnum("Js::InterpreterStackFrameFlags_FromBailOut");
+    return interpreterStackFrame.Field("m_flags").GetShort() & fromBailoutEnum.GetShort();
+
 }
 #endif

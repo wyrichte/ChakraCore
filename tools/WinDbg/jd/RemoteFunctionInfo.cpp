@@ -9,7 +9,7 @@ RemoteFunctionInfo::HasBody()
 {
     if (functionInfo.HasField("functionBodyImpl"))
     {
-        return functionInfo.Field("functionBodyImpl").GetPtr() != 0;
+        return JDUtil::GetWrappedField(functionInfo, "functionBodyImpl").GetPtr() != 0;
     }
     return functionInfo.Field("hasBody").GetUchar() != 0; // older version
 }
@@ -24,7 +24,7 @@ RemoteFunctionInfo::GetFunctionBody()
     // TODO: Proxy check?
     if (functionInfo.HasField("functionBodyImpl"))
     {
-        return functionInfo.Field("functionBodyImpl").GetPtr();
+        return JDUtil::GetWrappedField(functionInfo, "functionBodyImpl").GetPtr();
     }
     return functionInfo.GetPtr();
 }

@@ -24,7 +24,8 @@ RemoteScriptFunction::RemoteScriptFunction(ULONG64 ptr) :
 RemoteFunctionBody
 RemoteScriptFunction::GetFunctionBody()
 {
-    return object.Field("functionInfo").GetPtr();
+    RemoteFunctionInfo functionInfo(object.Field("functionInfo"));
+    return functionInfo.GetFunctionBody();
 }
 
 void

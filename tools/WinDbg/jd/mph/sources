@@ -32,7 +32,9 @@ SOURCES = \
         ..\RemoteFunctionBody.cpp \
         ..\RemoteRecyclableObject.cpp \
         ..\RemoteJavascriptFunction.cpp \
+        ..\RemoteScriptContext.cpp \
         ..\RemoteScriptFunction.cpp \
+        ..\RemoteUtf8SourceInfo.cpp \
         ..\RemoteRecycler.cpp \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \

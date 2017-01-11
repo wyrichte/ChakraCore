@@ -7,21 +7,15 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
-class RemoteInterpreterStackFrame
+class RemoteUtf8SourceInfo
 {
 public:
-    RemoteInterpreterStackFrame();
-    RemoteInterpreterStackFrame(ExtRemoteTyped const& interpreterStackFrame);
+    RemoteUtf8SourceInfo(ExtRemoteTyped const& utf8SourceInfo) : utf8SourceInfo(utf8SourceInfo) {};
 
-    RemoteInterpreterStackFrame GetPreviousFrame();
-    ULONG64 GetReturnAddress();
-    RemoteFunctionBody GetFunctionBody();
-    RemoteScriptFunction GetScriptFunction();
-    bool IsFromBailout();
-    bool IsNull();
-    ULONG64 GetAddress();
 private:
-    ExtRemoteTyped interpreterStackFrame;
+    ExtRemoteTyped utf8SourceInfo;
 };
 
-#endif
+// ---- End jd private commands implementation ----------------------------------------------------
+#endif //JD_PRIVATE
+// ------------------------------------------------------------------------------------------------

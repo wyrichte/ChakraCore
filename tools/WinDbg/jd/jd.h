@@ -10,11 +10,13 @@ class RootPointers;
 #include <guiddef.h>
 #include "RecyclerObjectGraph.h"
 #include "RemoteRecyclableObject.h"
+#include "RemoteUtf8SourceInfo.h"
 #include "RemoteFunctionInfo.h"
 #include "RemoteFunctionBody.h"
 #include "RemoteJavascriptFunction.h"
 #include "RemoteScriptFunction.h"
 #include "RemoteInterpreterStackFrame.h"
+#include "RemoteScriptContext.h"
 #include "RemoteThreadContext.h"
 #endif
 
@@ -128,7 +130,6 @@ public:
     void Out(_In_ PCWSTR fmt, ...);
     void Dbg(_In_ PCSTR fmt, ...);
     void Dbg(_In_ PCWSTR fmt, ...);
-    void PrintFrameNumberWithLink(uint frameNumber);
     bool IsJScript9();
     
     bool DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink = true, bool showScriptContext = false);
@@ -146,7 +147,7 @@ public:
         
     public:
         
-        PropertyNameReader(EXT_CLASS_BASE* ext, ExtRemoteTyped threadContext);
+        PropertyNameReader(EXT_CLASS_BASE* ext, RemoteThreadContext threadContext);
 
         ULONG Count() const { return m_count; }
         ULONG GetPropertyIdByIndex(ULONG i) const { return _none + i; }
@@ -245,7 +246,6 @@ protected:
     void PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext, bool printOnlyCount, bool printSourceContextInfo);
     void PrintThreadContextSourceInfos(ExtRemoteTyped threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
     void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
-    void PrintReferencedPids(ExtRemoteTyped scriptContext, ExtRemoteTyped threadContext);    
 
     bool IsInt31Var(ULONG64 var, int* value);
     bool IsTaggedIntVar(ULONG64 var, int* value);

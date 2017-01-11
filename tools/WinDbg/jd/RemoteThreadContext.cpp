@@ -231,6 +231,11 @@ RemoteRecycler RemoteThreadContext::GetRecycler()
     return RemoteRecycler(threadContext.Field("recycler"));
 }
 
+bool RemoteThreadContext::UseCodePageAllocator()
+{
+    return threadContext.HasField("codePageAllocators");
+}
+
 // ---- End jd private commands implementation ----------------------------------------------------
 #endif //JD_PRIVATE
 // ------------------------------------------------------------------------------------------------

@@ -31,7 +31,9 @@ SOURCES = \
         ..\RemoteFunctionBody.cpp \
         ..\RemoteRecyclableObject.cpp \
         ..\RemoteJavascriptFunction.cpp \
+        ..\RemoteScriptContext.cpp \
         ..\RemoteScriptFunction.cpp \
+        ..\RemoteUtf8SourceInfo.cpp \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \
         ..\jdfunctionbody.cpp \

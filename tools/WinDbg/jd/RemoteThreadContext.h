@@ -58,6 +58,7 @@ public:
     RemoteThreadContext(ExtRemoteTyped const& threadContext) : threadContext(threadContext) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
     ULONG GetThreadId();
+    bool UseCodePageAllocator();
     RemoteRecycler GetRecycler();
 
     template <typename Fn>
@@ -65,7 +66,10 @@ public:
     {
         if (threadContext.HasField("scriptContextList"))
         {
-            return ExtRemoteTypedUtil::LinkListForEach(threadContext.Field("scriptContextList"), "next", fn);
+            return ExtRemoteTypedUtil::LinkListForEach(threadContext.Field("scriptContextList"), "next", [&](ExtRemoteTyped& scriptContext)
+            {
+                return fn(RemoteScriptContext(scriptContext));
+            });
         }
         else
         {
@@ -129,82 +133,37 @@ public:
         }        
 
         // Switch to per thread code page allocators in RS1
-        bool useCodePageAllocators = false;
-        if (threadContext.HasField("codePageAllocators"))
+        bool useCodePageAllocators = this->UseCodePageAllocator();
+        if (useCodePageAllocators)
         {
-            useCodePageAllocators = true;
             ExtRemoteTyped codePageAllocators = threadContext.Field("codePageAllocators");
-            if (codePageAllocators.HasField("preReservedHeapPageAllocator"))
+            
+            if (codePageAllocators.HasField("preReservedHeapAllocator"))
+            {
+                // Renamed in commit ac56bc05618bf964cce48213d2d503e88d5f4536: Use Sections for OOP JIT
+                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapAllocator")));
+            }
+            else
             {
                 fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator")));
             }
-            else if (codePageAllocators.HasField("preReservedHeapAllocator"))
-            {
-                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapAllocator")));
-            }
-            fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator")));            
+            fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator")));
 
             ExtRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
-            if (thunkPageAllocators.HasField("preReservedHeapPageAllocator"))
-            {
-                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
-            }
-            else if (thunkPageAllocators.HasField("preReservedHeapAllocator"))
+            if (thunkPageAllocators.HasField("preReservedHeapAllocator"))
             {
                 fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapAllocator")));
+            }
+            else
+            {
+                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
             }
             fn("CodeThunk", RemotePageAllocator(thunkPageAllocators.Field("pageAllocator")));
         }
 
-        auto forEachCodeGenAllocatorPageAllocator = [fn](ExtRemoteTyped codeGenAllocators, bool foreground, bool useCodePageAllocators)
+        this->ForEachScriptContext([fn](RemoteScriptContext scriptContext)
         {
-            if (codeGenAllocators.GetPtr() == 0) { return; }
-
-            // IE11 don't have parallel JIT thread added by CL# 1364258
-            // So it doesn't have separate page allocator
-            if (codeGenAllocators.HasField("pageAllocator"))
-            {
-                fn(foreground? "FG-CodeGen" : "BG-CodeGen", RemotePageAllocator(codeGenAllocators.Field("pageAllocator")));
-            }
-
-            // Page allocators for code no longer in the custom heap after we switch to use the per thread code page allocators in RS1
-            if (!useCodePageAllocators)
-            {
-                ExtRemoteTyped customHeap = codeGenAllocators.Field("emitBufferManager.allocationHeap");
-                if (customHeap.HasField("preReservedHeapPageAllocator"))
-                {
-                    fn(foreground ? "FG-CodePreRes" : "BG-CodePreRes", RemotePageAllocator(customHeap.Field("preReservedHeapPageAllocator")));
-                }
-                fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
-            }
-        };
-        this->ForEachScriptContext([fn, forEachCodeGenAllocatorPageAllocator, useCodePageAllocators](ExtRemoteTyped scriptContext)
-        {
-            // Page allocators for code no longer in the custom heap after we switch to use the per thread code page allocators in RS1
-            if (!useCodePageAllocators)
-            {
-                ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
-                if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
-                {
-                    fn("CodeThunkPreRes", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
-                }
-                fn("CodeThunk", RemotePageAllocator(thunkCustomHeap.Field("pageAllocator")));
-
-                if (scriptContext.HasField("asmJsInterpreterThunkEmitter"))
-                {
-                    ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
-                    if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
-                    {
-                        fn("CodeAsmJSThunkPreRes", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
-                    }
-                    fn("CodeAsmJSThunk", RemotePageAllocator(asmJsThunkCustomHeap.Field("pageAllocator")));
-                }
-            }
-
-            ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
-            
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"), true, useCodePageAllocators);
-            forEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"), false, useCodePageAllocators);
+            scriptContext.ForEachPageAllocator(fn);
             return false;
         });
     }
@@ -234,4 +193,3 @@ private:
 
 // ---- End jd private commands implementation ----------------------------------------------------
 #endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
