@@ -310,7 +310,7 @@ namespace Js
         JavascriptMap::MapDataList::Iterator iter = map->GetIterator();
         while (iter.Next())
         {
-            JavascriptMap::MapDataKeyValuePair& entry = iter.Current();
+            const JavascriptMap::MapDataKeyValuePair& entry = iter.Current();
             GetEngine()->Clone(entry.Key());
             GetEngine()->Clone(entry.Value());
         }

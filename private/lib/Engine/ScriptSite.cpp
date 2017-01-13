@@ -1897,7 +1897,7 @@ ScriptSite::DumpSiteInfo(char16 const * message, char16 const * message2)
 }
 
 #if defined(PROFILE_EXEC) || defined(PROFILE_MEM)
-Js::FunctionInfo ProfileOnLoadCallBack::functionInfo(ProfileOnLoadCallBack::EntryProfileOnLoadCallBack, Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo ProfileOnLoadCallBack::functionInfo(FORCE_NO_WRITE_BARRIER_TAG(ProfileOnLoadCallBack::EntryProfileOnLoadCallBack), Js::FunctionInfo::DoNotProfile);
 ProfileOnLoadCallBack::ProfileOnLoadCallBack(ScriptSite * scriptSite)
     : Js::JavascriptFunction(
         scriptSite->GetScriptSiteContext()->GetLibrary()->CreateFunctionType(functionInfo.GetOriginalEntryPoint()),

@@ -22,7 +22,7 @@ namespace NatVis
     NATVIS_API HRESULT NatVis_ValueType(const DWORD address, DEBUGHELPER *const debugHelper, const int base, const BOOL uniStrings, char *const str, const size_t strSize, const DWORD /* reserved */);
 
     #pragma prefast(suppress: 28718, "Unannotated buffer - Intentional, annotation is not a requirement")
-    NATVIS_API HRESULT NatVis_BVSparseNode(const DWORD address, DEBUGHELPER *const debugHelper, const int base, const BOOL uniStrings, char *const str, const size_t strSize, const DWORD /* reserved */);
+    NATVIS_API HRESULT NatVis_BVSparseNode_JitArenaAllocator(const DWORD address, DEBUGHELPER *const debugHelper, const int base, const BOOL uniStrings, char *const str, const size_t strSize, const DWORD /* reserved */);
 
     #pragma prefast(suppress: 28718, "Unannotated buffer - Intentional, annotation is not a requirement")
     NATVIS_API HRESULT NatVis_BVSparse_JitArenaAllocator(const DWORD address, DEBUGHELPER *const debugHelper, const int base, const BOOL uniStrings, char *const str, const size_t strSize, const DWORD /* reserved */);

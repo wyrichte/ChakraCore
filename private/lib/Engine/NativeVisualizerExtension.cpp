@@ -34,7 +34,7 @@ namespace NatVis
     }
 
     #pragma prefast(suppress: 28718, "Unannotated buffer - Intentional, annotation is not a requirement")
-    NATVIS_API HRESULT NatVis_BVSparseNode(
+    NATVIS_API HRESULT NatVis_BVSparseNode_JitArenaAllocator(
         const DWORD address,            // low 32-bits of address
         DEBUGHELPER *const debugHelper, // callback pointer to access helper functions
         const int base,                 // decimal or hex
@@ -43,6 +43,8 @@ namespace NatVis
         const size_t strSize,           // how large the above buffer is
         const DWORD /* reserved */)     // always pass zero
     {
+        typedef BVSparseNode<JitArenaAllocator> BVSparseNode;
+
         byte nodeData[sizeof(BVSparseNode)];
         BVSparseNode *const node = reinterpret_cast<BVSparseNode *>(nodeData);
         if(!Read(debugHelper, debugHelper->GetRealAddress(debugHelper), node))
@@ -62,6 +64,8 @@ namespace NatVis
         const size_t strSize,           // how large the above buffer is
         const DWORD /* reserved */)     // always pass zero
     {
+        typedef BVSparseNode<JitArenaAllocator> BVSparseNode;
+
         byte bvData[sizeof(BVSparse<JitArenaAllocator>)];
         BVSparse<JitArenaAllocator> *const bv = reinterpret_cast<BVSparse<JitArenaAllocator> *>(bvData);
         if(!Read(debugHelper, debugHelper->GetRealAddress(debugHelper), bv))

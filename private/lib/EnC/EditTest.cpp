@@ -8,10 +8,10 @@
 
 namespace Js
 {
-    FunctionInfo EditTest::EntryInfo::LoadTextFile(EditTest::LoadTextFile);
-    FunctionInfo EditTest::EntryInfo::LCS(EditTest::LCS);
-    FunctionInfo EditTest::EntryInfo::Ast(EditTest::Ast);
-    FunctionInfo EditTest::EntryInfo::AstDiff(EditTest::AstDiff);
+    FunctionInfo EditTest::EntryInfo::LoadTextFile(FORCE_NO_WRITE_BARRIER_TAG(EditTest::LoadTextFile));
+    FunctionInfo EditTest::EntryInfo::LCS(FORCE_NO_WRITE_BARRIER_TAG(EditTest::LCS));
+    FunctionInfo EditTest::EntryInfo::Ast(FORCE_NO_WRITE_BARRIER_TAG(EditTest::Ast));
+    FunctionInfo EditTest::EntryInfo::AstDiff(FORCE_NO_WRITE_BARRIER_TAG(EditTest::AstDiff));
 
     //
     // Test LCS (Longest Common Subsequence) on 2 strings. Return an edit script string of deletes/inserts/matches.

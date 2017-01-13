@@ -109,7 +109,67 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #define _M_X64_OR_ARM64 1
 #endif
 
+// ----------------------------------------------------------------------------
+// Runtime headers using "Field" macro go here
+#include "WriteBarrierMacros.h"
 #include "DataStructures\BitVector.h"
+
+#ifdef JD_PRIVATE
+// include headers that recycler needs
+#include "core\api.h"
+#include "common\MathUtil.h"
+#include "core\CriticalSection.h"
+#include "DataStructures\Comparer.h"
+#include "DataStructures\SizePolicy.h"
+#include "core\SysInfo.h"
+#include "core\AllocSizeMath.h"
+
+// Include recycler headers
+#include "Exceptions\Throw.h"
+#include "Memory\AllocationPolicyManager.h"
+#include "Memory\Allocator.h"
+#include "DataStructures\SList.h"
+#include "DataStructures\DList.h"
+#include "DataStructures\DoublyLinkedListElement.h"
+#include "Memory\VirtualAllocWrapper.h"
+#include "Memory\MemoryTracking.h"
+#include "Memory\PageAllocator.h"
+#include "Memory\IdleDecommitPageAllocator.h"
+#include "Memory\FreeObject.h"
+#include "Memory\HeapConstants.h"
+#include "Memory\HeapBlock.h"
+#include "Memory\SmallHeapBlockAllocator.h"
+#include "Memory\SmallNormalHeapBlock.h"
+#include "Memory\SmallLeafHeapBlock.h"
+#include "Memory\SmallFinalizableHeapBlock.h"
+
+#if DBG
+class HeapAllocator {}; // LargeHeapBlock use BVSparse<HeapAllocator>
+#endif
+
+#include "Memory\LargeHeapBlock.h"
+#include "Memory\HeapBucket.h"
+#include "Memory\SmallLeafHeapBucket.h"
+#include "Memory\SmallNormalHeapBucket.h"
+#include "Memory\SmallFinalizableHeapBucket.h"
+#include "Memory\LargeHeapBucket.h"
+#include <Memory\heapinfo.h>
+
+#ifndef _M_X64
+#define _M_X64  // force x64 so we get HeapBlockMap64
+#include "Memory\HeapBlockMap.h"
+#undef _M_X64
+#else
+#include "Memory\HeapBlockMap.h"
+#endif
+
+#endif  // JD_PRIVATE
+
+#undef Field
+#undef FieldNoBarrier
+// undef "Field" to avoid conflicting with dbgeng function name
+// ----------------------------------------------------------------------------
+
 #include "time.h"
 #include "UTestHelper.h"
 #include "ComObject.h"

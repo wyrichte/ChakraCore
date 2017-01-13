@@ -102,9 +102,9 @@ void WScript::Write(Js::Var aValue, Js::ScriptContext* scriptContext, FILE* file
     }
 }
 
-Js::FunctionInfo WScript::EntryInfo::Echo(WScript::Echo, Js::FunctionInfo::DoNotProfile);
-Js::FunctionInfo WScript::EntryInfo::Quit(WScript::Quit, Js::FunctionInfo::DoNotProfile);
-Js::FunctionInfo WScript::EntryInfo::StdErrWriteLine(WScript::StdErrWriteLine, Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo WScript::EntryInfo::Echo(FORCE_NO_WRITE_BARRIER_TAG(WScript::Echo), Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo WScript::EntryInfo::Quit(FORCE_NO_WRITE_BARRIER_TAG(WScript::Quit), Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo WScript::EntryInfo::StdErrWriteLine(FORCE_NO_WRITE_BARRIER_TAG(WScript::StdErrWriteLine), Js::FunctionInfo::DoNotProfile);
 
 void WScript::Initialize(Js::ScriptContext* scriptContext)
 {

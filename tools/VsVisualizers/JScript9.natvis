@@ -115,9 +115,9 @@
     <DisplayString LegacyAddin="chakratest.dll"
                    Export="NatVis_ValueType"/>
   </Type>
-  <Type Name="BVSparseNode">
+  <Type Name="BVSparseNode&lt;JitArenaAllocator&gt;">
     <DisplayString LegacyAddin="chakratest.dll"
-                   Export="NatVis_BVSparseNode"/>
+                   Export="NatVis_BVSparseNode_JitArenaAllocator"/>
   </Type>
   <Type Name="BVSparse&lt;JitArenaAllocator&gt;">
     <DisplayString LegacyAddin="chakratest.dll"

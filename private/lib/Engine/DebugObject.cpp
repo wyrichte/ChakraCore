@@ -7,45 +7,45 @@
 #include "Library\ES5Array.h"
 #include "ActiveScriptProfilerHeapEnum.h"
 
-Js::FunctionInfo DebugObject::EntryInfo::Write(DebugObject::EntryWrite);
-Js::FunctionInfo DebugObject::EntryInfo::WriteLine(DebugObject::EntryWriteLine);
-Js::FunctionInfo DebugObject::EntryInfo::GetterSetNonUserCodeExceptions(DebugObject::EntryGetterSetNonUserCodeExceptions, Js::FunctionInfo::DoNotProfile);
-Js::FunctionInfo DebugObject::EntryInfo::SetterSetNonUserCodeExceptions(DebugObject::EntrySetterSetNonUserCodeExceptions, Js::FunctionInfo::DoNotProfile);
-Js::FunctionInfo DebugObject::EntryInfo::GetterDebuggerEnabled(DebugObject::EntryGetterDebuggerEnabled, Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo DebugObject::EntryInfo::Write(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryWrite));
+Js::FunctionInfo DebugObject::EntryInfo::WriteLine(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryWriteLine));
+Js::FunctionInfo DebugObject::EntryInfo::GetterSetNonUserCodeExceptions(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetterSetNonUserCodeExceptions), Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo DebugObject::EntryInfo::SetterSetNonUserCodeExceptions(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntrySetterSetNonUserCodeExceptions), Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo DebugObject::EntryInfo::GetterDebuggerEnabled(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetterDebuggerEnabled), Js::FunctionInfo::DoNotProfile);
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-Js::FunctionInfo DebugObject::EntryInfo::GetWorkingSet(DebugObject::EntryGetWorkingSet);
-Js::FunctionInfo DebugObject::EntryInfo::SourceDebugBreak(DebugObject::EntrySourceDebugBreak);
-Js::FunctionInfo DebugObject::EntryInfo::InvokeFunction(DebugObject::EntryInvokeFunction);
-Js::FunctionInfo DebugObject::EntryInfo::GetHostInfo(DebugObject::EntryGetHostInfo);
-Js::FunctionInfo DebugObject::EntryInfo::GetMemoryInfo(DebugObject::EntryGetMemoryInfo);
-Js::FunctionInfo DebugObject::EntryInfo::GetTypeHandlerName(DebugObject::EntryGetTypeHandlerName);
-Js::FunctionInfo DebugObject::EntryInfo::GetArrayType(DebugObject::EntryGetArrayType);
-Js::FunctionInfo DebugObject::EntryInfo::DumpHeap(DebugObject::DumpHeapInternal);
-Js::FunctionInfo DebugObject::EntryInfo::CreateDebugDisposableObject(DebugObject::EntryCreateDebugDisposableObject);
-Js::FunctionInfo DebugObject::EntryInfo::IsInJit(DebugObject::EntryIsInJit);
-Js::FunctionInfo DebugObject::EntryInfo::GetCurrentSourceInfo(DebugObject::EntryGetCurrentSourceInfo);
-Js::FunctionInfo DebugObject::EntryInfo::GetLineOfPosition(DebugObject::EntryGetLineOfPosition);
-Js::FunctionInfo DebugObject::EntryInfo::GetPositionOfLine(DebugObject::EntryGetPositionOfLine);
-Js::FunctionInfo DebugObject::EntryInfo::AddFTLProperty(DebugObject::EntryAddFTLProperty);
-Js::FunctionInfo DebugObject::EntryInfo::CreateTypedObject(DebugObject::EntryCreateTypedObject);
-Js::FunctionInfo DebugObject::EntryInfo::CreateProjectionArrayBuffer(DebugObject::EntryCreateProjectionArrayBuffer);
-Js::FunctionInfo DebugObject::EntryInfo::EmitStackTraceEvent(DebugObject::EntryEmitStackTraceEvent);
-Js::FunctionInfo DebugObject::EntryInfo::GetTypeInfo(DebugObject::EntryGetTypeInfo);
-Js::FunctionInfo DebugObject::EntryInfo::ParseFunction(DebugObject::EntryParseFunction);
-Js::FunctionInfo DebugObject::EntryInfo::SetAutoProxyName(DebugObject::EntrySetAutoProxyName);
-Js::FunctionInfo DebugObject::EntryInfo::DisableAutoProxy(DebugObject::EntryDisableAutoProxy);
-Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(DebugObject::EntryCreateDebugFuncExecutorInDisposeObject); 
-Js::FunctionInfo DebugObject::EntryInfo::DetachAndFreeObject(DebugObject::DetachAndFreeObject);
-Js::FunctionInfo DebugObject::EntryInfo::IsAsmJSModule(DebugObject::EntryIsAsmJSModule);
-Js::FunctionInfo DebugObject::EntryInfo::Enable(DebugObject::EntryEnable);
+Js::FunctionInfo DebugObject::EntryInfo::GetWorkingSet(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetWorkingSet));
+Js::FunctionInfo DebugObject::EntryInfo::SourceDebugBreak(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntrySourceDebugBreak));
+Js::FunctionInfo DebugObject::EntryInfo::InvokeFunction(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryInvokeFunction));
+Js::FunctionInfo DebugObject::EntryInfo::GetHostInfo(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetHostInfo));
+Js::FunctionInfo DebugObject::EntryInfo::GetMemoryInfo(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetMemoryInfo));
+Js::FunctionInfo DebugObject::EntryInfo::GetTypeHandlerName(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetTypeHandlerName));
+Js::FunctionInfo DebugObject::EntryInfo::GetArrayType(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetArrayType));
+Js::FunctionInfo DebugObject::EntryInfo::DumpHeap(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::DumpHeapInternal));
+Js::FunctionInfo DebugObject::EntryInfo::CreateDebugDisposableObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateDebugDisposableObject));
+Js::FunctionInfo DebugObject::EntryInfo::IsInJit(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryIsInJit));
+Js::FunctionInfo DebugObject::EntryInfo::GetCurrentSourceInfo(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetCurrentSourceInfo));
+Js::FunctionInfo DebugObject::EntryInfo::GetLineOfPosition(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetLineOfPosition));
+Js::FunctionInfo DebugObject::EntryInfo::GetPositionOfLine(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetPositionOfLine));
+Js::FunctionInfo DebugObject::EntryInfo::AddFTLProperty(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryAddFTLProperty));
+Js::FunctionInfo DebugObject::EntryInfo::CreateTypedObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateTypedObject));
+Js::FunctionInfo DebugObject::EntryInfo::CreateProjectionArrayBuffer(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateProjectionArrayBuffer));
+Js::FunctionInfo DebugObject::EntryInfo::EmitStackTraceEvent(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEmitStackTraceEvent));
+Js::FunctionInfo DebugObject::EntryInfo::GetTypeInfo(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetTypeInfo));
+Js::FunctionInfo DebugObject::EntryInfo::ParseFunction(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryParseFunction));
+Js::FunctionInfo DebugObject::EntryInfo::SetAutoProxyName(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntrySetAutoProxyName));
+Js::FunctionInfo DebugObject::EntryInfo::DisableAutoProxy(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryDisableAutoProxy));
+Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateDebugFuncExecutorInDisposeObject)); 
+Js::FunctionInfo DebugObject::EntryInfo::DetachAndFreeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::DetachAndFreeObject));
+Js::FunctionInfo DebugObject::EntryInfo::IsAsmJSModule(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryIsAsmJSModule));
+Js::FunctionInfo DebugObject::EntryInfo::Enable(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEnable));
 
 #else
 #ifdef ENABLE_HEAP_DUMPER
-Js::FunctionInfo DebugObject::EntryInfo::DumpHeap(DebugObject::DumpHeap);
+Js::FunctionInfo DebugObject::EntryInfo::DumpHeap(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::DumpHeap));
 #endif
 #endif
 #if JS_PROFILE_DATA_INTERFACE
-Js::FunctionInfo DebugObject::EntryInfo::GetProfileDataObject(DebugObject::EntryGetProfileDataObject);
+Js::FunctionInfo DebugObject::EntryInfo::GetProfileDataObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetProfileDataObject));
 #endif
 
 #if ENABLE_DEBUG_CONFIG_OPTIONS
@@ -89,7 +89,7 @@ void DebugDisposableObject::Dispose(bool isShutdown)
                     else
                     {
                         bytes = (byte*) RecyclerNewFinalizedPlus(recycler, this->bytesToAllocateOnDispose, DebugDisposableObject,
-                            (Js::DynamicType*) this->type, this->GetScriptContext(), false, false, false, 0);
+                            (Js::DynamicType*)PointerValue(this->type), this->GetScriptContext(), false, false, false, 0);
                     }
 
                     // Free it out right now, it'll get collected in the next cycle
@@ -158,8 +158,8 @@ void DebugFuncExecutorInDisposeObject::Dispose(bool isShutdown)
 #endif
 
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-Js::FunctionInfo DebugObject::EntryInfo::GetterFaultInjectionCookie(DebugObject::EntryGetterFaultInjectionCookie, Js::FunctionInfo::DoNotProfile);
-Js::FunctionInfo DebugObject::EntryInfo::SetterFaultInjectionCookie(DebugObject::EntrySetterFaultInjectionCookie, Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo DebugObject::EntryInfo::GetterFaultInjectionCookie(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetterFaultInjectionCookie), Js::FunctionInfo::DoNotProfile);
+Js::FunctionInfo DebugObject::EntryInfo::SetterFaultInjectionCookie(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntrySetterFaultInjectionCookie), Js::FunctionInfo::DoNotProfile);
 #endif
 
 

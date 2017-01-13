@@ -21,6 +21,13 @@ __declspec(noinline) void DebugHeap_OOM_fatal_error()
 };
 NoCheckHeapAllocator NoCheckHeapAllocator::Instance;
 HANDLE NoCheckHeapAllocator::processHeap;
+
+#if defined(RECYCLER_WRITE_BARRIER) && ENABLE_DEBUG_CONFIG_OPTIONS
+namespace Memory
+{
+    FN_VerifyIsNotBarrierAddress* g_verifyIsNotBarrierAddress = nullptr;
+}
+#endif
 // -- end of dummy definitions ----
 
 namespace JsDiag
@@ -146,8 +153,7 @@ namespace JsDiag
 
     FunctionBody* RemoteFunctionInfo::GetFunction()
     {
-        FunctionProxy *proxy = this->ToTargetPtr()->functionBodyImpl;
-        return (FunctionBody *)proxy;
+        return (FunctionBody *)PointerValue(this->ToTargetPtr()->functionBodyImpl);
     }
 
     template <typename TTargetType>
@@ -532,7 +538,7 @@ namespace JsDiag
         RemoteCodePageAllocators codePageAllocators(this->m_reader, threadContext.GetCodePageAllocators());
         RemoteHeapPageAllocator heapPageAllocator(this->m_reader, codePageAllocators.GetHeapPageAllocator());
 
-        return heapPageAllocator.IsAddressFromAllocator(address);       
+        return heapPageAllocator.IsAddressFromAllocator(address);
     }
 
     JavascriptLibrary* RemoteScriptContext::GetLibrary() const
@@ -836,9 +842,9 @@ namespace JsDiag
         }
 
         uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
-        auto remoteCounters = this->ToTargetPtr()->counters;
+        const auto& remoteCounters = this->ToTargetPtr()->counters;
         uint8 fieldSize = remoteCounters.fieldSize;
-        
+
         if (fieldSize == 1)
         {
             return ReadVirtual<uint8>(&remoteCounters.fields.ptr->u8Fields[fieldEnumVal]);
@@ -1507,7 +1513,7 @@ namespace JsDiag
         return GetFunctionBody()->m_cbStartOffset;
     }
 
-    
+
     size_t RemoteFunctionBody_SourceInfo::LengthInBytes()
     {
         return GetFunctionBody()->m_cbLength;
@@ -1720,7 +1726,7 @@ namespace JsDiag
 
     RegSlot RemoteFunctionBody::GetLocalsCount() const
     {
-        return this->GetCounter(FunctionBody::CounterFields::ConstantCount) 
+        return this->GetCounter(FunctionBody::CounterFields::ConstantCount)
             + this->GetCounter(FunctionBody::CounterFields::VarCount);
     }
 

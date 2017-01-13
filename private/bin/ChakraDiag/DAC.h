@@ -222,7 +222,7 @@ namespace JsDiag
                 DiagException::Throw(E_INVALIDARG, DiagErrorCode::LIST_INDEX_OUTOFBOUND);
             }
 #endif
-            T* bufferAddr = this->ToTargetPtr()->buffer;
+            const T* bufferAddr = AddressOf(this->ToTargetPtr()->buffer[0]);
             RemoteData<T> val(m_reader, bufferAddr + index);
             return *val.ToTargetPtr();
         }
@@ -523,11 +523,11 @@ namespace JsDiag
         }
     };
 
-    typedef RemoteData<BVSparseNode> RemoteBVSparseNode;
-
     template <class TAllocator>
     class RemoteBVSparse: RemoteData<BVSparse<TAllocator>>
     {
+        typedef RemoteData<BVSparseNode<TAllocator>> RemoteBVSparseNode;
+
     private:
         BVIndex m_prevFloor;
         RemoteBVSparseNode m_cur;

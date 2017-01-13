@@ -36,7 +36,7 @@ EXPORTS
     JsPrivateCollectGarbageSkipStack
 
     NatVis_ValueType
-    NatVis_BVSparseNode
+    NatVis_BVSparseNode_JitArenaAllocator
     NatVis_BVSparse_JitArenaAllocator
 #endif
 

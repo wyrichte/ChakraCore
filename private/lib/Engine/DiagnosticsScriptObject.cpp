@@ -6,11 +6,11 @@
 
 namespace Js
 {
-    FunctionInfo DiagnosticsScriptObject::EntryInfo::GetStackTrace(DiagnosticsScriptObject::EntryGetStackTrace, FunctionInfo::ErrorOnNew);
-    FunctionInfo DiagnosticsScriptObject::EntryInfo::DebugEval(DiagnosticsScriptObject::EntryDebugEval, FunctionInfo::ErrorOnNew);
+    FunctionInfo DiagnosticsScriptObject::EntryInfo::GetStackTrace(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryGetStackTrace), FunctionInfo::ErrorOnNew);
+    FunctionInfo DiagnosticsScriptObject::EntryInfo::DebugEval(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryDebugEval), FunctionInfo::ErrorOnNew);
 
 #ifdef EDIT_AND_CONTINUE
-    FunctionInfo DiagnosticsScriptObject::EntryInfo::EditSource(DiagnosticsScriptObject::EntryEditSource, FunctionInfo::ErrorOnNew);
+    FunctionInfo DiagnosticsScriptObject::EntryInfo::EditSource(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryEditSource), FunctionInfo::ErrorOnNew);
 #endif
 
     DiagnosticsScriptObject::DiagnosticsScriptObject(DynamicType * type)

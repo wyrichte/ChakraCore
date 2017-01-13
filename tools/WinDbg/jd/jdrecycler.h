@@ -4,50 +4,7 @@
 #pragma once
 
 #ifdef JD_PRIVATE
-
-// include headers that recycler needs
-#include "core\api.h"
-#include "common\MathUtil.h"
-#include "core\CriticalSection.h"
-#include "DataStructures\Comparer.h"
 #include <math.h>
-#include "DataStructures\SizePolicy.h"
-#include "core\SysInfo.h"
-#include "core\AllocSizeMath.h"
-
-// Include recycler headers
-#include "Exceptions\Throw.h"
-#include "Memory\AllocationPolicyManager.h"
-#include "Memory\Allocator.h"
-#include "DataStructures\SList.h"
-#include "DataStructures\DList.h"
-#include "DataStructures\DoublyLinkedListElement.h"
-#include "Memory\VirtualAllocWrapper.h"
-#include "Memory\MemoryTracking.h"
-#include "Memory\PageAllocator.h"
-#include "Memory\IdleDecommitPageAllocator.h"
-#include "Memory\FreeObject.h"
-#include "Memory\HeapConstants.h"
-#include "Memory\HeapBlock.h"
-#include "Memory\SmallHeapBlockAllocator.h"
-#include "Memory\SmallNormalHeapBlock.h"
-#include "Memory\SmallLeafHeapBlock.h"
-#include "Memory\SmallFinalizableHeapBlock.h"
-#include "Memory\LargeHeapBlock.h"
-#include "Memory\HeapBucket.h"
-#include "Memory\SmallLeafHeapBucket.h"
-#include "Memory\SmallNormalHeapBucket.h"
-#include "Memory\SmallFinalizableHeapBucket.h"
-#include "Memory\LargeHeapBucket.h"
-#include <Memory\heapinfo.h>
-#ifndef _M_X64
-#define _M_X64  // force x64 so we get HeapBlockMap64
-#include "Memory\HeapBlockMap.h"
-#undef _M_X64
-#else
-#include "Memory\HeapBlockMap.h"
-#endif
-
 #include "RemoteHeapBlock.h"
 
 // STL headers
@@ -320,11 +277,11 @@ public:
     ~AutoDelete() { if (_ptr) delete _ptr; }
     operator T*() const { return _ptr; }
     T *operator->() const { return _ptr; }
-    T * Detach() 
-    { 
+    T * Detach()
+    {
         T * t = _ptr;
         _ptr = nullptr;
-        return t;  
+        return t;
     }
 private:
     T * _ptr;

@@ -11,11 +11,11 @@
 
 #define MAX_PROGID_LENGTH 39
 
-Js::FunctionInfo AsyncDebug::EntryInfo::BeginAsyncOperation(AsyncDebug::BeginAsyncOperation, Js::FunctionInfo::None);
-Js::FunctionInfo AsyncDebug::EntryInfo::BeginAsyncCallback(AsyncDebug::BeginAsyncCallback, Js::FunctionInfo::None);
-Js::FunctionInfo AsyncDebug::EntryInfo::CompleteAsyncCallback(AsyncDebug::CompleteAsyncCallback, Js::FunctionInfo::None);
-Js::FunctionInfo AsyncDebug::EntryInfo::CompleteAsyncOperation(AsyncDebug::CompleteAsyncOperation, Js::FunctionInfo::None);
-Js::FunctionInfo AsyncDebug::EntryInfo::UpdateAsyncCallbackStatus(AsyncDebug::UpdateAsyncCallbackStatus, Js::FunctionInfo::None);
+Js::FunctionInfo AsyncDebug::EntryInfo::BeginAsyncOperation(FORCE_NO_WRITE_BARRIER_TAG(AsyncDebug::BeginAsyncOperation), Js::FunctionInfo::None);
+Js::FunctionInfo AsyncDebug::EntryInfo::BeginAsyncCallback(FORCE_NO_WRITE_BARRIER_TAG(AsyncDebug::BeginAsyncCallback), Js::FunctionInfo::None);
+Js::FunctionInfo AsyncDebug::EntryInfo::CompleteAsyncCallback(FORCE_NO_WRITE_BARRIER_TAG(AsyncDebug::CompleteAsyncCallback), Js::FunctionInfo::None);
+Js::FunctionInfo AsyncDebug::EntryInfo::CompleteAsyncOperation(FORCE_NO_WRITE_BARRIER_TAG(AsyncDebug::CompleteAsyncOperation), Js::FunctionInfo::None);
+Js::FunctionInfo AsyncDebug::EntryInfo::UpdateAsyncCallbackStatus(FORCE_NO_WRITE_BARRIER_TAG(AsyncDebug::UpdateAsyncCallbackStatus), Js::FunctionInfo::None);
 
 const GUID AsyncDebug::ChakraPlatformGUID = { 0x3ceff62f, 0xe251, 0x4588, { 0xae, 0x37, 0x9d, 0x6d, 0x74, 0x8a, 0xcd, 0x49 } };
 const AsyncDebug::AsyncSource AsyncDebug::ChakraAsyncSource = AsyncDebug::AsyncSource_Library;

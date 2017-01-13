@@ -5357,7 +5357,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
 {
     Assert(!IsDebuggerEnvironmentAvailable());
     fUsedExisting = FALSE;
-    Js::FunctionBody *rootFunction;
+    Field(Js::FunctionBody*) rootFunction;
     HRESULT hr = S_OK;
     auto unpack = (BYTE**)bytesAndSourceAndModule;
     auto byteCode = unpack[0];
@@ -5656,7 +5656,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
         {
             byte * byteCode; // Note. DEBUG-Only, this buffer gets leaked. The current byte code cache guarantee is that the buffer lives as long as the process.
             DWORD dwByteCodeSize;
-            Js::FunctionBody* deserializedFunction = nullptr;
+            Field(Js::FunctionBody*) deserializedFunction = nullptr;
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));

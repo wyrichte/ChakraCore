@@ -24,7 +24,7 @@ namespace Projection
 
     private:
         Js::DynamicObject* promiseNativeInterfaces;
-        Js::FunctionBody* promiseByteCode;
+        Field(Js::FunctionBody*) promiseByteCode;
         void EnsurePromiseByteCode(_In_ Js::ScriptContext * scriptContext);
     };
 }

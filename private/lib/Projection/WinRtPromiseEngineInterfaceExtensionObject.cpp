@@ -31,7 +31,7 @@
 
 namespace Projection
 {
-    Js::NoProfileFunctionInfo WinRTPromiseEngineInterfaceExtensionObject::EntryInfo::Promise_EnqueueTask(WinRTPromiseEngineInterfaceExtensionObject::EntryPromise_EnqueueTask);
+    Js::NoProfileFunctionInfo WinRTPromiseEngineInterfaceExtensionObject::EntryInfo::Promise_EnqueueTask(FORCE_NO_WRITE_BARRIER_TAG(WinRTPromiseEngineInterfaceExtensionObject::EntryPromise_EnqueueTask));
 
     WinRTPromiseEngineInterfaceExtensionObject::WinRTPromiseEngineInterfaceExtensionObject(Js::ScriptContext* scriptContext) :
         Js::EngineExtensionObjectBase(Js::EngineInterfaceExtensionKind::EngineInterfaceExtensionKind_WinRTPromise, scriptContext),

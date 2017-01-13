@@ -28,11 +28,11 @@ namespace Js
         // Create arrays wrapping the profile data.
         CompileAssert(sizeof(ImplicitCallFlags) == sizeof(uint8));
         AddWrappedArray<uint8>(loopImplicitCallFlags, 
-            (byte*)funcBody->GetAnyDynamicProfileInfo()->loopImplicitCallFlags, funcBody->GetLoopCount());
+            (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->loopImplicitCallFlags), funcBody->GetLoopCount());
         AddWrappedArray<ValueType::TSize>(returnTypeInfo, 
-            (byte*)funcBody->GetAnyDynamicProfileInfo()->returnTypeInfo, funcBody->GetProfiledReturnTypeCount());
+            (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->returnTypeInfo), funcBody->GetProfiledReturnTypeCount());
         AddWrappedArray<ValueType::TSize>(parameterInfo, 
-            (byte*)funcBody->GetAnyDynamicProfileInfo()->parameterInfo, funcBody->GetProfiledInParamsCount());
+            (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->parameterInfo), funcBody->GetProfiledInParamsCount());
 
         // Build the constants
         BuildConstants();

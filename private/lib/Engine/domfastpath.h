@@ -5,11 +5,11 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-#define DECLARE_SIMPLEGETTER_INFO(x) Js::FunctionInfo DOMFastPath<x>::EntryInfo::SimpleSlotGetter(DOMFastPath<x>::EntrySimpleSlotGetter,  \
+#define DECLARE_SIMPLEGETTER_INFO(x) Js::FunctionInfo DOMFastPath<x>::EntryInfo::SimpleSlotGetter(FORCE_NO_WRITE_BARRIER_TAG(DOMFastPath<x>::EntrySimpleSlotGetter),  \
         (Js::FunctionInfo::Attributes)(Js::FunctionInfo::NeedCrossSiteSecurityCheck | Js::FunctionInfo::HasNoSideEffect | Js::FunctionInfo::CanBeHoisted | Js::FunctionInfo::BuiltInInlinableAsLdFldInlinee), \
         Js::JavascriptBuiltInFunction::DOMFastPathGetter);
 
-#define DECLARE_SIMPLESETTER_INFO(x) Js::FunctionInfo DOMFastPath<x>::EntryInfo::SimpleSlotSetter(DOMFastPath<x>::EntrySimpleSlotSetter,  \
+#define DECLARE_SIMPLESETTER_INFO(x) Js::FunctionInfo DOMFastPath<x>::EntryInfo::SimpleSlotSetter(FORCE_NO_WRITE_BARRIER_TAG(DOMFastPath<x>::EntrySimpleSlotSetter),  \
         (Js::FunctionInfo::Attributes)(Js::FunctionInfo::NeedCrossSiteSecurityCheck | Js::FunctionInfo::BuiltInInlinableAsLdFldInlinee), Js::JavascriptBuiltInFunction::DOMFastPathSetter);
 
 #define DECLARE_SIMPLEACCESSOR_INFO(x) \

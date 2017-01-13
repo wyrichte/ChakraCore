@@ -373,7 +373,7 @@ Error:
         }
 
         uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
-        auto remoteCounters = (*this)->counters;
+        const auto& remoteCounters = (*this)->counters;
         uint8 fieldSize = remoteCounters.fieldSize;
         ulong bytesRead;
         HRESULT hr;
