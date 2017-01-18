@@ -20,6 +20,7 @@ setlocal
 
 set DoFull=1
 set DoCore=1
+set __ScriptDirectory=%~dp0
 
 :ContinueArgParse
 if not "%1"=="" (
@@ -42,7 +43,7 @@ if not "%1"=="" (
   goto :ContinueArgParse
 )
 
-pushd %~dp0..
+pushd %__ScriptDirectory%..
 
 if %DoFull%==1 (
   :: [Full]   jshost.exe    x64_debug
