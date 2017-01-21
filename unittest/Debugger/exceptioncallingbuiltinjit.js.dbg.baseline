@@ -1,0 +1,26 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 228,
+        "length": 34,
+        "text": "abc.sort(a > 1 ? null : undefined)",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 132,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "bar"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "{exception}": "Array.prototype.sort: argument is not a JavaScript object",
+      "arguments": "{...}",
+      "[Globals]": ""
+    }
+  }
+]

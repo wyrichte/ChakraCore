@@ -378,24 +378,13 @@ ScriptEngine::EnsureScriptContext()
     newScriptContext->SetCanOptimizeGlobalLookupFlag(fCanOptimizeGlobalLookup);
 
     newScriptContext->Initialize();
+    newScriptContext->SetEvalRestriction(this->m_fIsEvalRestrict);
 
     this->scriptContext = newScriptContext.Detach();
     this->scriptContext->GetDocumentContext = ScriptEngine::GetDebugDocumentContextFromHostPosition;
     this->scriptContext->CleanupDocumentContext = ScriptEngine::CleanupDocumentContextList;
 
-    Js::JavascriptLibrary *library = scriptContext->GetLibrary();
-    Assert(library != nullptr);
-
-    library->GetEvalFunctionObject()->SetEntryPoint(m_fIsEvalRestrict ? &Js::GlobalObject::EntryEvalRestrictedMode : &Js::GlobalObject::EntryEval);
-    library->GetFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewInstanceRestrictedMode : &Js::JavascriptFunction::NewInstance);
-    if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
-    {
-        library->GetGeneratorFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode : &Js::JavascriptGeneratorFunction::NewInstance);
-    }
-    if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
-    {
-        library->GetAsyncFunctionConstructor()->SetEntryPoint(m_fIsEvalRestrict ? &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode : &Js::JavascriptFunction::NewAsyncFunctionInstance);
-    }
+    this->SetEntryPointsForRestrictedEval();
 
     return this->scriptContext;
 }
@@ -6094,6 +6083,46 @@ LVersionInfo:
     return E_NOTIMPL;
 }
 
+void ScriptEngine::SetEntryPointsForRestrictedEval()
+{
+    Assert(this->scriptContext != nullptr);
+    Js::JavascriptLibrary *library = scriptContext->GetLibrary();
+    Assert(library != nullptr);
+
+    // Note: Any change here should have corresponding change in ScriptContext::DebugProfileProbeThunk
+    // for debugging scenario
+    Js::JavascriptMethod newFunctionFunc = &Js::JavascriptFunction::NewInstance;
+    Js::JavascriptMethod newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstance;
+    Js::JavascriptMethod newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstance;
+    Js::JavascriptMethod evalFunc = &Js::GlobalObject::EntryEval;
+
+    if (this->m_fIsEvalRestrict)
+    {
+        newFunctionFunc = &Js::JavascriptFunction::NewInstanceRestrictedMode;
+        newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode;
+        newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode;
+        evalFunc = &Js::GlobalObject::EntryEvalRestrictedMode;
+    }
+
+    // Replace Eval entrypoints
+    library->GetEvalFunctionObject()->SetEntryPoint(evalFunc);
+
+    // Replace new Function entrypoints
+    library->GetFunctionConstructor()->SetEntryPoint(newFunctionFunc);
+
+    // Replace generator entrypoints
+    if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
+    {
+        library->GetGeneratorFunctionConstructor()->SetEntryPoint(newGeneratorFunctionFunc);
+    }
+
+    // Replace async entrypoints
+    if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
+    {
+        library->GetAsyncFunctionConstructor()->SetEntryPoint(newAsyncFunctionFunc);
+    }
+}
+
 STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VARIANT *pvarValue)
 {
     // we don't expect to have value for SCRIPTPROP_DIAGNOSTICS_OM
@@ -6345,35 +6374,12 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
 
             this->m_fIsEvalRestrict = (pvarValue->boolVal != VARIANT_FALSE);
 
-            Js::JavascriptMethod newFunctionFunc = &Js::JavascriptFunction::NewInstance;
-            Js::JavascriptMethod newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstance;
-            Js::JavascriptMethod newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstance;
-            Js::JavascriptMethod evalFunc = &Js::GlobalObject::EntryEval;
-
-            if (this->m_fIsEvalRestrict)
+            if (this->scriptContext != nullptr)
             {
-                newFunctionFunc = &Js::JavascriptFunction::NewInstanceRestrictedMode;
-                newGeneratorFunctionFunc = &Js::JavascriptGeneratorFunction::NewInstanceRestrictedMode;
-                newAsyncFunctionFunc = &Js::JavascriptFunction::NewAsyncFunctionInstanceRestrictedMode;
-                evalFunc = &Js::GlobalObject::EntryEvalRestrictedMode;
+                this->scriptContext->SetEvalRestriction(this->m_fIsEvalRestrict);
+                this->SetEntryPointsForRestrictedEval();
             }
 
-            if (scriptContext != nullptr)
-            {
-                Js::JavascriptLibrary *library = scriptContext->GetLibrary();
-                Assert(library != nullptr);
-
-                library->GetEvalFunctionObject()->SetEntryPoint(evalFunc);
-                library->GetFunctionConstructor()->SetEntryPoint(newFunctionFunc);
-                if (scriptContext->GetConfig()->IsES6GeneratorsEnabled())
-                {
-                    library->GetGeneratorFunctionConstructor()->SetEntryPoint(newGeneratorFunctionFunc);
-                }
-                if (scriptContext->GetConfig()->IsES7AsyncAndAwaitEnabled())
-                {
-                    library->GetAsyncFunctionConstructor()->SetEntryPoint(newAsyncFunctionFunc);
-                }
-            }
             return NOERROR;
         }
     case SCRIPTPROP_ALLOW_WINRT_CONSTRUCTOR:

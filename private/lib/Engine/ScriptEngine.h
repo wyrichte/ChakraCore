@@ -814,6 +814,8 @@ private:
         });
     }
 
+    void SetEntryPointsForRestrictedEval();
+
 #ifdef EDIT_AND_CONTINUE
 public:
     template <class Fn>
