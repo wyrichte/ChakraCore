@@ -498,8 +498,11 @@ HRESULT ScriptDebugDocument::AddText()
             AutoArrayPtr<char16> sourceContent(HeapNewNoThrowArray(char16, cchLength + 1), cchLength + 1);
             if (sourceContent != nullptr)
             {
+                size_t cbLength = utf8SourceInfo->GetCbLength();
                 utf8::DecodeOptions options = utf8SourceInfo->IsCesu8() ? utf8::doAllowThreeByteSurrogates : utf8::doDefault;
-                utf8::DecodeIntoAndNullTerminate(sourceContent, utf8SourceInfo->GetSource(), cchLength, options);
+                LPCUTF8 source = utf8SourceInfo->GetSource();
+                LPCUTF8 end = source + utf8::CharacterIndexToByteIndex(source, cbLength, cchLength, options);
+                utf8::DecodeUnitsIntoAndNullTerminate(sourceContent, source, end, options);
                 HRESULT hr = S_OK;
                 // AddUnicodeText goes to PDM (outside of scriptengine), and it is possible that during that time, the debugger execute the scripts
                 // Guard that by saying that we are leaving script. However in some instances we are not in the script at all.

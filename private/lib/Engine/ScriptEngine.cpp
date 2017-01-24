@@ -5438,7 +5438,7 @@ HRESULT ScriptEngine::CompileUTF16(
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
     sourceInfo = Js::Utf8SourceInfo::New(scriptContext, pchUtf8Code, stringLength, cbLength, srcInfo, ((grfscr & fscrIsLibraryCode) != 0));
 
-    Assert(utf8::CharsAreEqual(pszSrc, pchUtf8Code, stringLength, utf8::doAllowThreeByteSurrogates));
+    Assert(utf8::CharsAreEqual(pszSrc, pchUtf8Code, pchUtf8Code + cbLength, utf8::doAllowThreeByteSurrogates));
 
     // Compile the UTF8 source
     SETRETVAL(ppSourceInfo, sourceInfo);
