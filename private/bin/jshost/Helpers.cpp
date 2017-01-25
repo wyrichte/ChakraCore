@@ -73,7 +73,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
     // It is not a complete read of the encoding. Some encodings like UTF7, UTF1, EBCDIC, SCSU, BOCU could be
     // wrongly classified as ANSI
     //
-    byte * pRawBytes = (byte*)contentsRaw;
+    LPCUTF8 pRawBytes = (byte*)contentsRaw;
     if( (0xEF == *pRawBytes && 0xBB == *(pRawBytes+1) && 0xBF == *(pRawBytes+2)))
     {
         isUtf8 = true;
@@ -108,7 +108,7 @@ HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUt
             IfFailGo(E_OUTOFMEMORY);
         }
 
-        utf8::DecodeIntoAndNullTerminate((char16*) contents, pRawBytes, cUtf16Chars, decodeOptions);
+        utf8::DecodeUnitsIntoAndNullTerminateNoAdvance((char16*)contents, pRawBytes, pRawBytes + lengthBytes, decodeOptions);
     }
 
 Error:
