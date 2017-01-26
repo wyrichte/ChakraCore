@@ -1998,13 +1998,9 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     // is called after all the COM stuff is released.
     if (jscriptLibrary)
     {
-        JITProcessManager::StopRpcServer();
         JScript9Interface::UnloadDll(jscriptLibrary);
     }
-    else
-    {
-        JITProcessManager::TerminateJITServer();
-    }
+    JITProcessManager::TerminateJITServer();
 
     // Free up the memmory used because of extended err msg
     if (HostConfigFlags::flags.EnableExtendedErrorMessages)
