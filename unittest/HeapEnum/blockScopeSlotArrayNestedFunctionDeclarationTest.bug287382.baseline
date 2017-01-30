@@ -144,7 +144,8 @@
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Function name] inner
  |  [Scopes] count: 1
- |  | scope[0]: type: Scope flags: (new) optional info records (1)
+ |  | scope[0]: type: Scope flags: (new) optional info records (2)
+ |  |  [Function name] test
  |  |  [Properties] count: 1
  |  |  | 0 outer: type: FunctionObject flags: (new) optional info records (4)
  |  |  |    [Prototype] type: FunctionObject (seen)
