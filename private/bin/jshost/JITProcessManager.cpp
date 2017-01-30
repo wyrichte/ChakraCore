@@ -120,43 +120,28 @@ HRESULT JITProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
     CloseHandle(processInfo.hThread);
     s_rpcServerProcessHandle = processInfo.hProcess;
 
-    if (HostConfigFlags::flags.EnsureCloseJITServer)
+    // create job object so if parent ch gets killed, server is killed as well
+    // under a flag because it's preferable to let server close naturally
+    // only useful in scenarios where ch is expected to be force terminated
+    HANDLE jobObject = CreateJobObject(nullptr, nullptr);
+    if (jobObject == nullptr)
     {
-        // create job object so if parent ch gets killed, server is killed as well
-        // under a flag because it's preferable to let server close naturally
-        // only useful in scenarios where ch is expected to be force terminated
-        HANDLE jobObject = CreateJobObject(nullptr, nullptr);
-        if (jobObject == nullptr)
-        {
-            return HRESULT_FROM_WIN32(GetLastError());
-        }
-        if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
-        {
-            return HRESULT_FROM_WIN32(GetLastError());
-        }
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
+    if (!AssignProcessToJobObject(jobObject, s_rpcServerProcessHandle))
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
 
-        JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo = { 0 };
-        jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+    JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobInfo = { 0 };
+    jobInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
 
-        if (!SetInformationJobObject(jobObject, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)))
-        {
-            return HRESULT_FROM_WIN32(GetLastError());
-        }
+    if (!SetInformationJobObject(jobObject, JobObjectExtendedLimitInformation, &jobInfo, sizeof(jobInfo)))
+    {
+        return HRESULT_FROM_WIN32(GetLastError());
     }
 
     return NOERROR;
-}
-
-typedef HRESULT(WINAPI *JsShutdownJITServerPtr)();
-
-void JITProcessManager::StopRpcServer()
-{
-    if (s_rpcServerProcessHandle)
-    {
-        JsShutdownJITServerPtr shutdownJITServer = (JsShutdownJITServerPtr)GetProcAddress(jscriptLibrary, "JsShutdownJITServer");
-        shutdownJITServer();
-    }
-    s_rpcServerProcessHandle = NULL;
 }
 
 void
