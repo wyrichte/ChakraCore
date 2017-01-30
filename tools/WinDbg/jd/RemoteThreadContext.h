@@ -134,11 +134,25 @@ public:
         {
             useCodePageAllocators = true;
             ExtRemoteTyped codePageAllocators = threadContext.Field("codePageAllocators");
-            fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator")));
+            if (codePageAllocators.HasField("preReservedHeapPageAllocator"))
+            {
+                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator")));
+            }
+            else if (codePageAllocators.HasField("preReservedHeapAllocator"))
+            {
+                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapAllocator")));
+            }
             fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator")));            
 
             ExtRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
-            fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
+            if (thunkPageAllocators.HasField("preReservedHeapPageAllocator"))
+            {
+                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
+            }
+            else if (thunkPageAllocators.HasField("preReservedHeapAllocator"))
+            {
+                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapAllocator")));
+            }
             fn("CodeThunk", RemotePageAllocator(thunkPageAllocators.Field("pageAllocator")));
         }
 

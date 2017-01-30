@@ -465,16 +465,23 @@ bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const
         ULONG64 domObject = GetPointerAtAddress(externalObject);
         if (domObject != NULL)
         {
-            ULONG64 domVtable = GetPointerAtAddress(domObject);
-            std::string symbol = GetSymbolForOffset(this, domVtable);
+            try
+            {
+                ULONG64 domVtable = GetPointerAtAddress(domObject);
+                std::string symbol = GetSymbolForOffset(this, domVtable);
 
-            if (!symbol.empty())
-            {
-                this->Out(" (maybe DOM item %s)", symbol.c_str());
+                if (!symbol.empty())
+                {
+                    this->Out(" (maybe DOM item %s)", symbol.c_str());
+                }
+                else
+                {
+                    this->Out(" (0x%p)", externalObject);
+                }
             }
-            else
+            catch (ExtException ex)
             {
-                this->Out(" (0x%p)", externalObject);
+                this->Out(" (fail to deref 0x%p, Error: %s)", domObject, ex.GetMessageW());
             }
         }
         return true;
@@ -901,7 +908,7 @@ JD_PRIVATE_COMMAND(showroots,
 
     Out("\nStack\n");
     rootPointerManager.ScanRegisters(this);
-    rootPointerManager.ScanStack(this, recycler, true, showScriptContext);
+    rootPointerManager.ScanStack(this, recycler, GetStackTop(GetExtension()), true, showScriptContext);
 
     PCSTR typeName = recycler.Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
