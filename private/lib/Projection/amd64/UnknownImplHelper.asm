@@ -20,6 +20,7 @@ include ksamd64.inc
 
 ifdef _CONTROL_FLOW_GUARD
         extrn __guard_check_icall_fptr:QWORD
+        extrn __guard_dispatch_icall_fptr:QWORD
         extrn amd64_CheckICall:proc
 endif
 
@@ -139,14 +140,6 @@ FrameForCallIndirect ends
 
         sub     rcx, 8d                                         ; set the *this* pointer Rcx
 
-ifdef _CONTROL_FLOW_GUARD
-        mov     FrameForCallIndirect.P1Home[rsp], rcx           ; save the *this* pointer
-        mov     rcx, [rcx]                                      ; set the vtable pointer
-        mov     rcx, [rcx]                                      ; set the call target
-        call    amd64_CheckICall                                ; verify call target is valid
-        mov     rcx, FrameForCallIndirect.P1Home[rsp]           ; restore *this* pointer Rcx
-endif
-
         xor     eax, eax                                        ; init memory that we are passing ptr to
         mov     FrameForCallIndirect.cbArgs[rsp], eax
 
@@ -169,7 +162,12 @@ endif
 
         mov     rax, [rcx]                                      ; set the vtable pointer
 
+ifdef _CONTROL_FLOW_GUARD
+        mov     rax, [rax]                                      ; move the call target
+        call    [__guard_dispatch_icall_fptr]                   ; check cfg and dispatch call
+else
         call    qword ptr [rax]                                 ; make the call to Interceptor::CallIndirect(methodId, pvArgs, pcbArgs)
+endif
 
         add     rsp, (sizeof FrameForCallIndirect)              ; deallocate stack frame
         ret                                                     ; return
