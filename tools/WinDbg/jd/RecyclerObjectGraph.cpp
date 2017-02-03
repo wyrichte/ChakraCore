@@ -204,7 +204,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
             auto addDynamicTypeField = [&](JDRemoteTyped obj, char const * dynamicTypeName)
             {
                 JDRemoteTyped type = obj.Field("type");
-                addField(type, dynamicTypeName == nullptr? "Js::DynamicType" : dynamicTypeName);
+                addField(type, dynamicTypeName == nullptr ? "Js::DynamicType" : dynamicTypeName);
                 addField(type.Field("propertyCache"), "Js::DynamicType.propertyCache");
             };
 
@@ -290,6 +290,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                 addField(remoteTyped.Field("type"), "Js::StaticType");
                 addField(remoteTyped.Field("m_pszValue"), "Js::LiteralString.m_pszValue");
             }
+            else if (strcmp(simpleTypeName, "Js::BufferStringBuilder::WritableString *") == 0)
+            {
+                addField(remoteTyped.Field("type"), "Js::StaticType");
+                addField(remoteTyped.Field("m_pszValue"), "Js::BufferStringBuilder::WritableString.m_pszValue");
+            }
             else if (strcmp(simpleTypeName, "Js::CompoundString *") == 0)
             {
                 addField(remoteTyped.Field("type"), "Js::StaticType");
@@ -300,6 +305,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                     addField(block, "Js::CompoundString::Block");
                     block = block.Field("previous");
                 }
+
+                addField(remoteTyped.Field("lastBlockInfo").Field("buffer"), "Js::CompoundString::lastBlockInfo.buffer");
             }
             else if (IsTypeOrCrossSite("Js::DynamicObject")
                 || IsTypeOrCrossSite("Js::JavascriptStringObject")
