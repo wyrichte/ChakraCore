@@ -953,7 +953,8 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     ExtBuffer<char> vtableName;
     try
     {
-        if (this->GetOffsetSymbol(vtableAddr, &vtableName))
+        ULONG64 displacement;
+        if (this->GetOffsetSymbol(vtableAddr, &vtableName, &displacement) && displacement == 0)
         {
             int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
             if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)

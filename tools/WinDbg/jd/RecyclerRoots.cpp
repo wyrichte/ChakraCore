@@ -1470,6 +1470,8 @@ JD_PRIVATE_COMMAND(traceroots,
     NodeQueue nodeQueue;
     // Populate roots as we come to them, so we can start at each of these roots for the output phase
     NodeQueue rootQueue;
+    // If transient roots is being ignore, still keep track of them in case there are no non-transient roots
+    NodeQueue transientRootQueue;
 
     //
     // Pass 0: Seed the traversal.
@@ -1509,20 +1511,27 @@ JD_PRIVATE_COMMAND(traceroots,
 
         RootType rootType = currentNode->GetRootType();
         Assert(currentNode->GetPredecessorCount() != 0 || RootTypeUtils::IsAnyRootType(rootType));
-        bool allowedRoot = (transientRoots || RootTypeUtils::IsNonTransientRootType(rootType));
 
         // If this is an allowed root, record it as a root pointer.
         // Make sure the pointer is not the one we started with because
         // it is not useful to consider the node we started at as a root of the traversal.
-        if (allowedRoot && RootTypeUtils::IsAnyRootType(rootType)
+        if (RootTypeUtils::IsAnyRootType(rootType)
             && pointerArg != currentNode->Key())
         {
-            currentRootHitCount++;
-            rootQueue.push(current);
-            if (!allShortestPath)
+            bool allowedRoot = (transientRoots || RootTypeUtils::IsNonTransientRootType(rootType));
+            if (allowedRoot)
             {
-                // we found the root corresponding to the shortest path (by the properties of BFS), so stop traversing
-                break;
+                currentRootHitCount++;
+                rootQueue.push(current);
+                if (!allShortestPath)
+                {
+                    // we found the root corresponding to the shortest path (by the properties of BFS), so stop traversing
+                    break;
+                }
+            }
+            else
+            {
+                transientRootQueue.push(current);
             }
         }
 
@@ -1588,6 +1597,20 @@ JD_PRIVATE_COMMAND(traceroots,
     }
 
     DumpPointerPropertiesHeader(this);
+
+    if (rootQueue.empty() && !transientRootQueue.empty())
+    {
+        this->Out("                            | NOTE: No non-transient root found. Showing transient roots\n");
+
+        if (allShortestPath)
+        {
+            rootQueue = transientRootQueue;
+        }
+        else
+        {
+            rootQueue.push(transientRootQueue.front());
+        }
+    }
 
     while (!rootQueue.empty())
     {
@@ -1780,10 +1803,10 @@ JD_PRIVATE_COMMAND(savegraph,
 
 struct ObjectAllocStats
 {
-    uint count;
-    uint size;
-    uint unknownCount;
-    uint unknownSize;
+    ULONG64 count;
+    ULONG64 size;
+    ULONG64 unknownCount;
+    ULONG64 unknownSize;
     bool hasVtable;
 };
 
@@ -1791,28 +1814,28 @@ int __cdecl ObjectAllocCountComparer(const void * a, const void * b)
 {
     auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
     auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
-    return ptrB->second.count - ptrA->second.count;
+    return (int)(ptrB->second.count - ptrA->second.count);
 }
 
 int __cdecl ObjectAllocSizeComparer(const void * a, const void * b)
 {
     auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
     auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
-    return ptrB->second.size - ptrA->second.size;
+    return (int)(ptrB->second.size - ptrA->second.size);
 }
 
 int __cdecl ObjectAllocUnknownCountComparer(const void * a, const void * b)
 {
     auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
     auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
-    return ptrB->second.unknownCount - ptrA->second.unknownCount;
+    return (int)(ptrB->second.unknownCount - ptrA->second.unknownCount);
 }
 
 int __cdecl ObjectAllocUnknownSizeComparer(const void * a, const void * b)
 {
     auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
     auto ptrB = (std::pair<char const *, ObjectAllocStats> *)b;
-    return ptrB->second.unknownSize - ptrA->second.unknownSize;
+    return (int)(ptrB->second.unknownSize - ptrA->second.unknownSize);
 }
 
 int __cdecl ObjectAllocNameComparer(const void * a, const void * b)
@@ -1885,8 +1908,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), flags));
 
     stdext::hash_map<char const *, ObjectAllocStats> objectCounts;
-    int numNodes = 0;
-    int totalSize = 0;
+    ULONG64 numNodes = 0;
+    ULONG64 totalSize = 0;
 
     auto addStats = [&](RecyclerObjectGraph::GraphImplNodeType * node)
     {
@@ -1927,8 +1950,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     Out("  Count       Bytes %%Count %%Bytes Symbol                \n");
 
-    uint knownObjectCount = 0;
-    uint knownObjectSize = 0;
+    ULONG64 knownObjectCount = 0;
+    ULONG64 knownObjectSize = 0;
     uint vtableCount = 0;
     std::auto_ptr<std::pair<char const *, ObjectAllocStats>> sortedArray(new std::pair<char const *, ObjectAllocStats>[objectCounts.size()]);
     int c = 0;
@@ -1956,16 +1979,16 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     {
         char const * typeName = sortedArray.get()[i].first;
         ObjectAllocStats& stats = sortedArray.get()[i].second;
-        uint currCount = stats.count;
-        uint currSize = stats.size;
+        ULONG64 currCount = stats.count;
+        ULONG64 currSize = stats.size;
 
         if (showUnknown)
         {
-            Out("%7u %11u %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize,
-                (float)stats.unknownCount / (float)numNodes * 100, (float)stats.unknownSize / (float)totalSize * 100);
+            Out("%7llu %11llu %5.1f%% %5.1f%% | ", stats.unknownCount, stats.unknownSize,
+                (double)stats.unknownCount / (double)numNodes * 100, (double)stats.unknownSize / (double)totalSize * 100);
         }
-        Out("%7u %11u %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (float)currCount / (float)numNodes * 100,
-            (float)currSize / (float)totalSize * 100,
+        Out("%7llu %11llu %5.1f%% %5.1f%% %s%s\n", currCount, currSize, (double)currCount / (double)numNodes * 100,
+            (double)currSize / (double)totalSize * 100,
             stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
 
         if (i > limit)
@@ -1977,21 +2000,21 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     Out("----------------------------------------------------------------------------\n");
 
-    const uint unknownTotalCount = numNodes - knownObjectCount;
-    const uint unknownTotalSize = totalSize - knownObjectSize;
-    Out("%7u %11u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
-        (float)unknownTotalCount / (float)numNodes * 100, (float)unknownTotalSize / (float)totalSize * 100);
+    const ULONG64 unknownTotalCount = numNodes - knownObjectCount;
+    const ULONG64 unknownTotalSize = totalSize - knownObjectSize;
+    Out("%7llu %11llu %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
+        (double)unknownTotalCount / (double)numNodes * 100, (double)unknownTotalSize / (double)totalSize * 100);
     Out(showUnknown ? " | " : " Unknown object summary\n");
 
-    Out("%7u %11u %5.1f%% %5.1f%% Known object summary\n", knownObjectCount, knownObjectSize,
-        (float)knownObjectCount / (float)numNodes * 100, (float)knownObjectSize / (float)totalSize * 100);
+    Out("%7llu %11llu %5.1f%% %5.1f%% Known object summary\n", knownObjectCount, knownObjectSize,
+        (double)knownObjectCount / (double)numNodes * 100, (double)knownObjectSize / (double)totalSize * 100);
 
     if (showUnknown)
     {
         Out("                                  | ");
     }
 
-    Out("%7u %11u               Total object summary\n", numNodes, totalSize);
+    Out("%7llu %11llu               Total object summary\n", numNodes, totalSize);
     Out("Found %d (%d vtable, %d field)\n", objectCounts.size(), vtableCount, objectCounts.size() - vtableCount);
 }
 
