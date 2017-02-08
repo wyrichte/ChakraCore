@@ -332,10 +332,15 @@ HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags,
     }
 #endif
 
+    if (this->scriptSite->GetScriptSiteContext()->GetThreadContext()->GetAbnormalExceptionCode() != 0)
+    {
+        UnexpectedExceptionHandling_fatal_error();
+    }
+
     HRESULT hr = 0;
 
     // mark volatile, because otherwise VC will incorrectly optimize away load in the finally block
-    volatile ulong exceptionCode = 0;
+    volatile uint32 exceptionCode = 0;
     EXCEPTION_POINTERS exceptionInfo = {0};
     __try
     {
@@ -351,9 +356,10 @@ HRESULT HostDispatch::CallInvokeHandler(InvokeFunc func, DISPID id, WORD wFlags,
     __finally
     {
         // ensure that there is no EH across this boundary, as that can lead to bad state (e.g. destructors not called)
-        if (exceptionCode != 0 && !IsDebuggerPresent())
+        if (exceptionCode != 0 && AbnormalTermination() && !IsDebuggerPresent())
         {
-            UnexpectedExceptionHandling_fatal_error(&exceptionInfo);
+            this->scriptSite->GetScriptSiteContext()->GetThreadContext()->SetAbnormalExceptionCode(exceptionCode);
+            this->scriptSite->GetScriptSiteContext()->GetThreadContext()->SetAbnormalExceptionRecord(&exceptionInfo);
         }
     }
     return hr;
