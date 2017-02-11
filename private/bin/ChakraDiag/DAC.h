@@ -468,11 +468,11 @@ namespace JsDiag
         }
 
         template<typename Fn>
-        void MapUntil(Fn fn)
+        bool MapUntil(Fn fn)
         {
-            MapEntryUntil([fn](EntryType const& entry) -> bool
+            return MapEntryUntil([fn](EntryType const& entry) -> bool
             {
-                return fn(entry.Value());
+                return fn(entry.Key(), entry.Value());
             });
         }
 
@@ -505,7 +505,7 @@ namespace JsDiag
         }
 
         template<typename Fn>
-        void MapEntryUntil(Fn fn) const
+        bool MapEntryUntil(Fn fn) const
         {
             for (uint i=0; i < ToTargetPtr()->bucketCount; i++)
             {
@@ -515,11 +515,12 @@ namespace JsDiag
                     {
                         if (fn(m_entries[currentIndex]))
                         {
-                            return;
+                            return true; // fn condition succeeds
                         }
                     }
                 }
             }
+            return false;
         }
     };
 
@@ -649,7 +650,9 @@ namespace JsDiag
         ScriptContext* GetScriptContextList() const { return this->ReadField<ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         bool IsAllJITCodeInPreReservedRegion() const{ return this->ReadField<bool>(offsetof(TargetType, m_isAllJITCodeInPreReservedRegion)); }
         PreReservedVirtualAllocWrapper * GetPreReservedVirtualAllocator() { return (this->GetFieldAddr<PreReservedVirtualAllocWrapper>(offsetof(TargetType, preReservedVirtualAllocator))); }
+        intptr_t GetPreReservedRegionAddr() { return (this->ReadField<intptr_t>(offsetof(TargetType, m_prereservedRegionAddr))); }
         CustomHeap::InProcCodePageAllocators * GetCodePageAllocators() { return this->GetFieldAddr<CustomHeap::InProcCodePageAllocators>(offsetof(TargetType, codePageAllocators));}
+        Js::ScriptContext * GetScriptContextList() { return this->ReadField<Js::ScriptContext*>(offsetof(TargetType, scriptContextList)); }
         DWORD GetCurrentThreadId() const { return this->ReadField<DWORD>(offsetof(TargetType, currentThreadId)); }
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId);
         Js::JavascriptExceptionObject* GetUnhandledExceptionObject() const;
@@ -861,10 +864,20 @@ namespace JsDiag
         uint GetBitRangeBase(void* addr);
     };
 
+    struct RemoteJITPageAddrToFuncRangeCacheWrapper : public RemoteData<JITPageAddrToFuncRangeCache>
+    {
+        RemoteJITPageAddrToFuncRangeCacheWrapper(IVirtualReader* reader, const TargetType* addr) : RemoteData<TargetType>(reader, addr) {}
+
+        JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap * GetJitPageAddrToFuncCountMap() { return this->ReadField<JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap*>(offsetof(TargetType, jitPageAddrToFuncRangeMap)); }
+        JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap * GetLargeJitFuncAddrToSizeMap() { return this->ReadField<JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap*>(offsetof(TargetType, largeJitFuncToSizeMap)); }
+    };
+
     struct RemotePreReservedVirtualAllocWrapper : public RemoteData<PreReservedVirtualAllocWrapper>
     {
         RemotePreReservedVirtualAllocWrapper(IVirtualReader * reader, const TargetType * addr) : RemoteData<TargetType>(reader, addr) {}
 
+        static bool IsInRange(void * regionStart, void * address);
+        static LPVOID GetPreReservedEndAddress(void * regionStart);
         bool IsInRange(void * address);
         bool IsPreReservedRegionPresent();
         LPVOID GetPreReservedStartAddress();
@@ -926,12 +939,15 @@ namespace JsDiag
             RemoteData<TargetType, DynamicDataBuffer>(reader, RemoteRecyclableObject(reader, instance).GetScriptContext()) {}
 
         bool IsNativeAddress(void* address);    // Check current script context and all contexts from its thread context.s
+        JITPageAddrToFuncRangeCache * GetJitPageAddrMapWrapper() { return (this->ReadField<JITPageAddrToFuncRangeCache*>(offsetof(TargetType, jitFuncRangeCache))); }
         JavascriptLibrary* GetLibrary() const;
         ThreadContext* GetThreadContext() const;
         const PropertyRecord* GetPropertyName(Js::PropertyId propertyId) const;
         ProbeContainer* GetProbeContainer() const;
         ScriptConfiguration* GetConfig() const { return this->GetFieldAddr<ScriptConfiguration>(offsetof(ScriptContext, config)); }
         DebugContext* GetDebugContext() const { return this->ReadField<DebugContext*>(offsetof(ScriptContext, debugContext)); }
+        ScriptContext * GetNextScriptContext() const { return this->ReadField<ScriptContext *>(offsetof(ScriptContext, next)); }
+
         bool IsInDebugMode() const
         {
             if (this->GetDebugContext() != nullptr)
