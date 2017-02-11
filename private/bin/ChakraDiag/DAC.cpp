@@ -488,9 +488,33 @@ namespace JsDiag
         return this->ReadField<LPVOID>(offsetof(TargetType, preReservedStartAddress));
     }
 
+    uint GetPreReservedRegionSize()
+    {
+        return (PreReservedVirtualAllocWrapper::PreReservedAllocationSegmentCount * AutoSystemInfo::Data.GetAllocationGranularityPageCount() * AutoSystemInfo::PageSize);
+    }
+
     LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress()
     {
-        return (char*) GetPreReservedStartAddress() + (PreReservedVirtualAllocWrapper::PreReservedAllocationSegmentCount * AutoSystemInfo::Data.GetAllocationGranularityPageCount() * AutoSystemInfo::PageSize);
+        return (char*) GetPreReservedStartAddress() + GetPreReservedRegionSize();
+    }
+
+    LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress(void *regionStart)
+    {
+        return (char*)regionStart + GetPreReservedRegionSize();
+    }
+
+    bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * regionStart, void * address)
+    {
+        if (!regionStart)
+        {
+            return false;
+        }
+        if (address >= regionStart && address < GetPreReservedEndAddress(regionStart))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * address)
@@ -514,10 +538,18 @@ namespace JsDiag
         RemoteThreadContext threadContext(m_reader, this->ToTargetPtr()->threadContext);
 
         PreReservedVirtualAllocWrapper * preReservedVirtualAllocator = threadContext.GetPreReservedVirtualAllocator();
+        intptr_t preReservedRegionAddr = threadContext.GetPreReservedRegionAddr();
 
         RemotePreReservedVirtualAllocWrapper preReservedVirtualAllocWrapper(m_reader, preReservedVirtualAllocator);
 
-        if (preReservedVirtualAllocWrapper.IsPreReservedRegionPresent())
+        if (preReservedRegionAddr != 0)
+        {
+            if (RemotePreReservedVirtualAllocWrapper::IsInRange((void*)preReservedRegionAddr, address))
+            {
+                return true;
+            }
+        }
+        else if (preReservedVirtualAllocWrapper.IsPreReservedRegionPresent())
         {
             if (preReservedVirtualAllocWrapper.IsInRange(address))
             {
@@ -528,11 +560,58 @@ namespace JsDiag
                 return false;
             }
         }
+        ScriptContext * scriptContext = threadContext.GetScriptContextList();
+        
+        bool isNativeAddr = false;
+        
+        while (scriptContext != nullptr && !isNativeAddr)
+        {
+            RemoteScriptContext scriptContextWrapper(m_reader, scriptContext);
 
-        RemoteCodePageAllocators codePageAllocators(this->m_reader, threadContext.GetCodePageAllocators());
-        RemoteHeapPageAllocator heapPageAllocator(this->m_reader, codePageAllocators.GetHeapPageAllocator());
+            RemoteJITPageAddrToFuncRangeCacheWrapper jitPageAddrMapWrapper(this->m_reader, scriptContextWrapper.GetJitPageAddrMapWrapper());
 
-        return heapPageAllocator.IsAddressFromAllocator(address);       
+            if (jitPageAddrMapWrapper.GetRemoteAddr() != nullptr)
+            {
+                AutoPtr<RemoteDictionary<JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap>> jitPageAddrToFuncRangeMap = nullptr;
+                AutoPtr<RemoteDictionary<JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap>> jitLargePageAddrMap = nullptr;
+
+                if (jitPageAddrMapWrapper.GetJitPageAddrToFuncCountMap() != nullptr)
+                {
+                    jitPageAddrToFuncRangeMap = new(oomthrow) RemoteDictionary<JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap>(m_reader, jitPageAddrMapWrapper.GetJitPageAddrToFuncCountMap());
+                }
+
+                if (jitPageAddrMapWrapper.GetLargeJitFuncAddrToSizeMap() != nullptr)
+                {
+                    jitLargePageAddrMap = new(oomthrow) RemoteDictionary<JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap>(m_reader, jitPageAddrMapWrapper.GetLargeJitFuncAddrToSizeMap());
+                }
+
+                void * pageAddr = (void*)((uintptr_t)address & ~(AutoSystemInfo::PageSize - 1));
+
+                AutoPtr<RemoteDictionary<JITPageAddrToFuncRangeCache::RangeMap>> remoteRangeMap = nullptr;
+                JITPageAddrToFuncRangeCache::RangeMap * rangeMap = nullptr;
+                if (jitPageAddrToFuncRangeMap && jitPageAddrToFuncRangeMap->GetRemoteAddr() != nullptr && jitPageAddrToFuncRangeMap->TryGetValue(pageAddr, &rangeMap))
+                {
+                    remoteRangeMap = new(oomthrow) RemoteDictionary<JITPageAddrToFuncRangeCache::RangeMap>(jitPageAddrToFuncRangeMap->GetReader(), rangeMap);
+
+                    if (remoteRangeMap->MapUntil(
+                        [&](void* key, uint value) {
+                        return (key <= address && (uintptr_t)address < ((uintptr_t)key + value));
+                    }))
+                    {
+                        return true;
+                    }
+                }
+
+                isNativeAddr = jitLargePageAddrMap && jitLargePageAddrMap->GetRemoteAddr() != nullptr && jitLargePageAddrMap->MapUntil(
+                    [&](void* key, uint value) {
+                    return (key <= address && (uintptr_t)address < ((uintptr_t)key + value));
+                });
+            }
+
+            scriptContext = scriptContextWrapper.GetNextScriptContext();
+        }
+
+        return isNativeAddr;
     }
 
     JavascriptLibrary* RemoteScriptContext::GetLibrary() const
