@@ -1750,6 +1750,44 @@ bool HandleJITServerFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
     return true;
 }
 
+void HandleChakraImageBaseFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
+{
+    LPCWSTR flag = L"-chakrabase:";
+    size_t flagLen = wcslen(flag);
+    LPWSTR imagebaseString = NULL;
+    intptr_t imagebase = 0;
+    int i = 0;
+    for (i = 1; i < argc; ++i)
+    {
+        if (!_wcsnicmp(argv[i], flag, flagLen))
+        {
+            imagebaseString = argv[i] + flagLen;
+            if (wcslen(imagebaseString) == 0)
+            {
+                fwprintf(stdout, L"[FAILED]: must pass a pointer to -chakrabase:\n");
+            }
+            else
+            {
+#if TARGET_32
+                imagebase = _wtoi(imagebaseString);
+
+#elif TARGET_64
+                imagebase = _wtoi64(imagebaseString);
+#endif
+                // allocate memory at the address chakra was loaded in runtime process so it gets rebased
+                VirtualAlloc((void*)imagebase, 0x1000, MEM_RESERVE, PAGE_NOACCESS);
+            }
+            break;
+        }
+    }
+
+    // remove this flag now
+    if (i != argc)
+    {
+        HostConfigFlags::RemoveArg(argc, argv, i);
+    }
+}
+
 int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     LPCWSTR nativeTestFlag = _u("-nativetest:");
@@ -1936,6 +1974,7 @@ int _cdecl RunJITServer(int argc, __in_ecount(argc) LPWSTR argv[])
 int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 {
     bool runJITServer = HandleJITServerFlag(argc, argv);
+    HandleChakraImageBaseFlag(argc, argv);
     HandleDebuggerBaselineFlag(argc, argv);
     bool useJsrt = HandleJsrtTestFlag(argc, argv);
     bool useHtml = HandleHtmlTestFlag(argc, argv);

@@ -86,6 +86,32 @@ HRESULT JITProcessManager::CreateServerProcess(int argc, __in_ecount(argc) LPWST
         return hr;
     }
 
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    if (HostConfigFlags::flags.ForceOOPImageRebase)
+    {
+        hr = StringCchCatW(cmdLine, cmdLineSize, L" -chakrabase:");
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+        WCHAR libAddrStr[50];
+#if TARGET_32
+        errno_t err = _itow_s((intptr_t)jscriptLibrary, libAddrStr, sizeof(libAddrStr), 10);
+#elif TARGET_64
+        errno_t err = _i64tow_s((intptr_t)jscriptLibrary, libAddrStr, sizeof(libAddrStr), 10);
+#endif
+        if (err != 0)
+        {
+            return E_FAIL;
+        }
+        hr = StringCchCatW(cmdLine, cmdLineSize, libAddrStr);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+    }
+#endif
+
     for (int i = 1; i < argc; ++i)
     {
         hr = StringCchCatW(cmdLine, cmdLineSize, L" ");

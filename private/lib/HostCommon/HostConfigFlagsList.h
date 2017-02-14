@@ -42,6 +42,7 @@ FLAG(bool, EvalRestriction,                 "Puts the script engine into Eval re
 FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specified, this flag is used to determine the default value of 'IsEvalAllowed' API call that will be done on the host.", false)
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
 FLAG(bool, OOPJIT,                          "JIT jobs should be run in a separate process", false) // SWB-TODO: turn back on by default
+FLAG(bool, ForceOOPImageRebase,             "Ensure JIT process will have to rebase dlls", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2
