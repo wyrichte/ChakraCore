@@ -368,7 +368,7 @@ HRESULT Debugger::onDebuggerEvent(
     {
         CComPtr<IRemoteDebugCriticalErrorEvent110> pCriticalErrorInfo;
         HRESULT hr = punk->QueryInterface(__uuidof(IRemoteDebugCriticalErrorEvent110), (void**)&pCriticalErrorInfo);
-        Assert(SUCCEEDED(hr));
+        AssertMsg(SUCCEEDED(hr), "Failed: QueryInterface IRemoteDebugCriticalErrorEvent110");
         if (pCriticalErrorInfo == nullptr)
         {
             Assert(false);
@@ -378,19 +378,19 @@ HRESULT Debugger::onDebuggerEvent(
         CComBSTR bstrSource, bstrMessage; int messageId;
         CComPtr<IDebugDocumentContext> pDocumentContext;
         hr = pCriticalErrorInfo->GetErrorInfo(&bstrSource, &messageId, &bstrMessage, &pDocumentContext);
-        CComPtr<IDebugDocumentText> pDebugDocumentText;
-        Assert(SUCCEEDED(hr));
+        AssertMsg(SUCCEEDED(hr), "Failed IRemoteDebugCriticalErrorEvent110 GetErrorInfo");
 
         CComPtr<IDebugDocument> pDebugDocument;
         hr = pDocumentContext->GetDocument(&pDebugDocument);
-        Assert(SUCCEEDED(hr));
+        AssertMsg(SUCCEEDED(hr), "Failed: IDebugDocumentContext GetDocument");
 
+        CComPtr<IDebugDocumentText> pDebugDocumentText;
         hr = pDebugDocument->QueryInterface(__uuidof(IDebugDocumentText), (void**)&pDebugDocumentText);
-        Assert(SUCCEEDED(hr));
+        AssertMsg(SUCCEEDED(hr), "Failed: QueryInterface IDebugDocumentText");
 
         ULONG startIndex, length;
         hr = pDebugDocumentText->GetPositionOfContext(pDocumentContext, &startIndex, &length);
-        Assert(SUCCEEDED(hr));
+        AssertMsg(SUCCEEDED(hr), "Failed: IDebugDocumentText GetPositionOfContext");
         return S_OK;
     }
     else if (riid == __uuidof(IRemoteDebugInfoEvent110))
@@ -2855,8 +2855,11 @@ HRESULT Debugger::DeleteMutationBreakpoint(wstring strId)
         }
         return S_OK;
     }
+
     DebuggerController::LogError(_u("DeleteMutationBreakpoint: unable to find property"));
-    return E_FAIL;
+
+    // No runtime call return failed HR, not finding a bp is user error, just log it and return ok.
+    return S_OK;
 }
 
 void Debugger::RemoveAllMutationBreakpoint()
@@ -3034,8 +3037,7 @@ HRESULT Debugger::SetMutationBreakpoint(const vector<wstring>& names, bool setOn
         DebuggerController::Log(_u("Debugger SetMutationBreakpoint : Can't set mutation breakpoint setOnObject %d, type %d, ID %s"), setOnObject, type, strId.c_str());
     }
 
-    // list of breakpoints on debugger out of sync with runtime
-    Assert(SUCCEEDED(hr));
+    AssertMsg(SUCCEEDED(hr), "SetMutationBreakpoint: List of breakpoints on debugger out of sync with runtime");
 Error:
     return hr;
 }
@@ -3116,12 +3118,11 @@ JsValueRef CALLBACK Debugger::JsDeleteMutationBreakpoint(JsValueRef callee, bool
     const char16 *strId = nullptr;
     size_t strIdLen = 0;
     IfFailGo(ArgToString(arguments[1], &strId, &strIdLen));
-    
-    // Remvoe mutation breakpoint
+
+    // Remove mutation breakpoint
     hr = debugger->DeleteMutationBreakpoint(wstring(strId));
-    
-    // List of breakpoints on debugger out of sync with runtime
-    Assert(SUCCEEDED(hr));
+
+    AssertMsg(SUCCEEDED(hr), "JsDeleteMutationBreakpoint: List of breakpoints on debugger out of sync with runtime");
 Error:
     return retVal;
 }
