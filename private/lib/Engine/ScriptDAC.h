@@ -239,13 +239,13 @@ Error:
         {
             HRESULT hr = S_OK;
             SListNode<ListNode> * currNode = nullptr;
-            currNode = (SListNode<ThunkBlock> *)((SListNode<ListNode>*)(metaNode))->Next();
+            currNode = (SListNode<ListNode> *)((SListNode<ListNode>*)(metaNode))->Next();
 
-            SListNode<ThunkBlock> * head = currNode;
+            SListNode<ListNode> * head = currNode;
 
             while (currNode != nullptr)
             {
-                RemoteData<SListNode<ThunkBlock>> remoteCurrNode;
+                RemoteData<SListNode<ListNode>> remoteCurrNode;
                 remoteCurrNode.Read(debugSite, currNode);
 
                 if (remoteCurrNode->Next() == head)
@@ -254,7 +254,7 @@ Error:
                 }
 
                 IfFailGo(mapFunction(remoteCurrNode->GetData()));
-                currNode = (SListNode<ThunkBlock> *)remoteCurrNode->Next();
+                currNode = (SListNode<ListNode> *)remoteCurrNode->Next();
             }
 
         Error:
