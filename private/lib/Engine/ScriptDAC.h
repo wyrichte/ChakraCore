@@ -217,12 +217,49 @@ Error:
             IfFailGo(entries.Read(debugSite, (*this)->entries));
 
             entries.Map([debugSite, mapFunction] (int entryIndex, Dictionary::EntryType entry) {
-                mapFunction(entry.Value());
+                mapFunction(entry.Key(), entry.Value());
             });
 Error:
             return hr;
         }
 
+    };
+
+    template<typename ListNode>
+    class RemoteList : public RemoteData<SListNode<ListNode>>
+    {
+        SListNode<ListNode> * metaNode;
+    public:
+        RemoteList(SListNode<ListNode> * node)
+        {
+            metaNode = node;
+        }
+        template<class TMapFunction>
+        HRESULT Map(IScriptDebugSite* debugSite, TMapFunction mapFunction)
+        {
+            HRESULT hr = S_OK;
+            SListNode<ListNode> * currNode = nullptr;
+            currNode = (SListNode<ThunkBlock> *)((SListNode<ListNode>*)(metaNode))->Next();
+
+            SListNode<ThunkBlock> * head = currNode;
+
+            while (currNode != nullptr)
+            {
+                RemoteData<SListNode<ThunkBlock>> remoteCurrNode;
+                remoteCurrNode.Read(debugSite, currNode);
+
+                if (remoteCurrNode->Next() == head)
+                {
+                    break;
+                }
+
+                IfFailGo(mapFunction(remoteCurrNode->GetData()));
+                currNode = (SListNode<ThunkBlock> *)remoteCurrNode->Next();
+            }
+
+        Error:
+            return hr;
+        }
     };
 
     //
