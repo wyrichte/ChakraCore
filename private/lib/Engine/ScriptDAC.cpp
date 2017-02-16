@@ -116,7 +116,7 @@ Error:
         }
         else
         {
-            RemoteList<ThunkBlock> remoteList((SListNode<ThunkBlock> *)interpreterThunkEmitter->GetThunkBlocksList());
+            RemoteList<ThunkBlock, ArenaAllocator> remoteList((SListNode<ThunkBlock, ArenaAllocator> *)interpreterThunkEmitter->GetThunkBlocksList());
 
             IfFailGo(remoteList.Map(debugSite, [&](ThunkBlock * data) 
             {

@@ -225,12 +225,12 @@ Error:
 
     };
 
-    template<typename ListNode>
-    class RemoteList : public RemoteData<SListNode<ListNode>>
+    template<typename ListNode, typename TAllocator = ArenaAllocator>
+    class RemoteList : public RemoteData<SListNode<ListNode, TAllocator>>
     {
-        SListNode<ListNode> * metaNode;
+        SListNode<ListNode, TAllocator> * metaNode;
     public:
-        RemoteList(SListNode<ListNode> * node)
+        RemoteList(SListNode<ListNode, TAllocator> * node)
         {
             metaNode = node;
         }
@@ -238,14 +238,14 @@ Error:
         HRESULT Map(IScriptDebugSite* debugSite, TMapFunction mapFunction)
         {
             HRESULT hr = S_OK;
-            SListNode<ListNode> * currNode = nullptr;
-            currNode = (SListNode<ThunkBlock> *)((SListNode<ListNode>*)(metaNode))->Next();
+            SListNode<ListNode, TAllocator> * currNode = nullptr;
+            currNode = (SListNode<ListNode, TAllocator> *)((SListNode<ListNode, TAllocator>*)(metaNode))->Next();
 
-            SListNode<ThunkBlock> * head = currNode;
+            SListNode<ListNode, TAllocator> * head = currNode;
 
             while (currNode != nullptr)
             {
-                RemoteData<SListNode<ThunkBlock>> remoteCurrNode;
+                RemoteData<SListNode<ListNode, TAllocator>> remoteCurrNode;
                 remoteCurrNode.Read(debugSite, currNode);
 
                 if (remoteCurrNode->Next() == head)
@@ -254,7 +254,7 @@ Error:
                 }
 
                 IfFailGo(mapFunction(remoteCurrNode->GetData()));
-                currNode = (SListNode<ThunkBlock> *)remoteCurrNode->Next();
+                currNode = (SListNode<ListNode, TAllocator> *)remoteCurrNode->Next();
             }
 
         Error:
