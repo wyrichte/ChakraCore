@@ -558,6 +558,8 @@ private:
         // We have to initialize this earlier to get defaults correctly.
         static Js::Configuration s_userConfig;
 
+        static ConfigurationLoader configurationLoader;
+
         // This constructor loads the configuration when the singleton is first used.
         ConfigurationLoader();
 
@@ -639,7 +641,6 @@ MemProtectHeap::ConfigurationLoader::ConfigurationLoader()
 Js::ConfigFlagsTable&
 MemProtectHeap::ConfigurationLoader::Flags()
 {
-    static ConfigurationLoader configurationLoader;
     return s_userConfig.flags;
 }
 

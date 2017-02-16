@@ -7,12 +7,12 @@ namespace JsDiag
 {
     const _oomthrow_t oomthrow;
     const _nothrow_t nothrow;
+    static const std::bad_alloc oom;
 
     void* _oomthrow_t::check_alloc(void* p) throw(std::bad_alloc)
     {
         if (p == nullptr)
         {
-            static const std::bad_alloc oom;
             throw oom;
         }
 

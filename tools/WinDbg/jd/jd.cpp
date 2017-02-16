@@ -63,6 +63,37 @@ EXT_COMMAND(ldsym,
     IfFailThrow(pDAC->LoadScriptSymbols(pScriptDebugSite));
 }
 
+static RemoteNullTypeHandler s_nullTypeHandler;
+static RemoteSimpleTypeHandler s_simpleTypeHandler;
+static RemoteSimplePathTypeHandler s_simplePathTypeHandler;
+static RemotePathTypeHandler s_pathTypeHandler;
+
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,0>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,1>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge0_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,0>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge1_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,1>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0("Js::SimpleDictionaryTypeHandlerBase<unsigned short,0>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1("Js::SimpleDictionaryTypeHandlerBase<unsigned short,1>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler9("Js::SimpleDictionaryTypeHandlerBase<unsigned short>"); // IE9
+static RemoteDictionaryTypeHandler<USHORT> s_dictionaryTypeHandler0("Js::DictionaryTypeHandlerBase<unsigned short>");
+
+static RemoteTypeHandler* s_typeHandlers[] =
+{
+    &s_nullTypeHandler,
+    &s_simpleTypeHandler,
+    &s_simplePathTypeHandler,
+    &s_pathTypeHandler,
+
+    &s_simpleDictionaryTypeHandler0_11,
+    &s_simpleDictionaryTypeHandler1_11,
+    &s_simpleDictionaryTypeHandlerLarge0_11,
+    &s_simpleDictionaryTypeHandlerLarge1_11,
+    &s_simpleDictionaryTypeHandler0,
+    &s_simpleDictionaryTypeHandler1,
+    &s_simpleDictionaryTypeHandler9, // IE9
+    &s_dictionaryTypeHandler0
+};
+
 HRESULT EXT_CLASS_BASE::PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk)
 {
     typedef HRESULT(STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
@@ -861,7 +892,7 @@ void EXT_CLASS_BASE::PrintProperties(ULONG64 var, int depth)
     {
         if (m_usingPropertyRecordInTypeHandlers)
         {
-            static TypeHandlerPropertyRecordNameReader reader;
+            TypeHandlerPropertyRecordNameReader reader;
             ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, this, depth);
         }
         else
@@ -1012,37 +1043,6 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
         //
         // PERF: m_Symbols->GetOffsetByName is expensive, use GetNameByOffset and string search instead
         //
-
-        static RemoteNullTypeHandler s_nullTypeHandler;
-        static RemoteSimpleTypeHandler s_simpleTypeHandler;
-        static RemoteSimplePathTypeHandler s_simplePathTypeHandler;
-        static RemotePathTypeHandler s_pathTypeHandler;
-
-        static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,0>");
-        static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,1>");
-        static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge0_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,0>");
-        static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge1_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,1>");
-        static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0("Js::SimpleDictionaryTypeHandlerBase<unsigned short,0>");
-        static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1("Js::SimpleDictionaryTypeHandlerBase<unsigned short,1>");
-        static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler9("Js::SimpleDictionaryTypeHandlerBase<unsigned short>"); // IE9
-        static RemoteDictionaryTypeHandler<USHORT> s_dictionaryTypeHandler0("Js::DictionaryTypeHandlerBase<unsigned short>");
-
-        static RemoteTypeHandler* s_typeHandlers[] =
-        {
-            &s_nullTypeHandler,
-            &s_simpleTypeHandler,
-            &s_simplePathTypeHandler,
-            &s_pathTypeHandler,
-
-            &s_simpleDictionaryTypeHandler0_11,
-            &s_simpleDictionaryTypeHandler1_11,
-            &s_simpleDictionaryTypeHandlerLarge0_11,
-            &s_simpleDictionaryTypeHandlerLarge1_11,
-            &s_simpleDictionaryTypeHandler0,
-            &s_simpleDictionaryTypeHandler1,
-            &s_simpleDictionaryTypeHandler9, // IE9
-            &s_dictionaryTypeHandler0
-        };
 
         DetectFeatureBySymbol(m_usingPropertyRecordInTypeHandlers, FillModule("%s!Js::BuiltInPropertyRecords"));
         for (int i = 0; i < _countof(s_typeHandlers); i++)

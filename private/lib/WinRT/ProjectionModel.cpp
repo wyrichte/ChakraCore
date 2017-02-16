@@ -4320,7 +4320,6 @@ namespace ProjectionModel
             }));
 
             // Un-rename any IBuffer byteLength properties that were conflicted.
-            static MetadataStringId conflictediBufferId = stringConverter->IdOfString(_u("Windows.Storage.Streams.IBuffer.byteLength"));
             allProperties->SelectInPlace([&](RtPROPERTY property)->RtPROPERTY {
                if (property->identifier == conflictediBufferId) {
                    TRACE_METADATA(_u("IBuffer byteLength injection: Fully qualified IBuffer byteLength property detected; renaming back to 'byteLength'\n"));

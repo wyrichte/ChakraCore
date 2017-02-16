@@ -20,7 +20,7 @@
     </ClCompile>
     <Lib>
       <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>      
+      <AdditionalOptions>/IGNORE:4078,4221,4198 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <!-- Stl -->
@@ -36,6 +36,9 @@
   <!-- Atl -->
   <ItemDefinitionGroup Condition="'$(UseStaticAtl)'=='true'">
     <ClCompile>
+      <!-- The ATL header ATLCONV.h has a static definition in a function which will cause an error if we remove the threadSafeInit flag.
+           So keeping the flag for now until it is fixed in ATL. -->
+      <AdditionalOptions>-Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_ATL_STATIC_REGISTRY</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '21'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl21</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '30'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl30</AdditionalIncludeDirectories>

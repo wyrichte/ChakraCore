@@ -79,8 +79,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->
-      <!-- Also remove -Wv:17 -->
-      <AdditionalOptions>%(AdditionalOptions) -Zc:implicitNoexcept- -Zc:threadSafeInit- -Zc:sizedDealloc- -d1vc7dname -d1NTcompat -d1NonStandardNewDelete</AdditionalOptions>
+      <!-- Removing the flag implicitNoexcept causes unreferenced error on __std_terminate.
+      As per the wiki https://osgwiki.com/wiki/Windows_C%2B%2B_Toolset_Status#The_-Zc:implicitNoexcept-_Compiler_Switch
+      we have to wait until the fix for it to come to our branch to remove that flag -->
+      <AdditionalOptions>%(AdditionalOptions) -Zc:sizedDealloc- -Zc:implicitNoexcept-</AdditionalOptions>
       <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
       <AdditionalOptions Condition="'$(OptimizedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>

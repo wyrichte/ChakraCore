@@ -2251,6 +2251,7 @@ namespace ProjectionModel
 
             uncallableMethodSignature = Anew(allocator, UncallableMethodSignature, uncallableMethodSignatureId, voidParameters);
 
+            conflictediBufferId = stringConverter->IdOfString(_u("Windows.Storage.Streams.IBuffer.byteLength"));
         }
 
         void ClearCaches()
@@ -2486,6 +2487,8 @@ namespace ProjectionModel
         ImmutableList<MetadataStringId> * builtInInstanceProperties;
         AssignmentSpace * emptyAssignmentSpace;
         RtPROPERTIESOBJECT emptyPropertiesObject;
+
+        MetadataStringId conflictediBufferId;
 
         TypeDefInstantiation InstantiateTypeDefinition(const Metadata::TypeDefProperties * type, ImmutableList<RtTYPE> * genericParameters);
         RtFUNCTION ConstructorOfCorElementType(CorElementType typeCode, const Metadata::Assembly & assembly);

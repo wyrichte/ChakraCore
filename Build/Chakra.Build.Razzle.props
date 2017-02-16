@@ -53,11 +53,15 @@
         /nologo
         /TP                 - compile all files as .cpp
         /FC                 - Use full file name in messages
-        /Zl                 - Omit default lib (/nodefaultlib) is alwasy used in the link command anyways
+        /Zl                 - Omit default lib (/nodefaultlib) is always used in the link command anyways
         /Gm-                - No minimal rebuild (default)
         /Gd                  - __cdecl calling convention (default)
         /fp:precise         - (default)
     -->
+    </ClCompile>
+    <!-- The ATL header ATLCONV.h has a static definition in a function which will cause an error if we remove the threadSafeInit flag. So keeping the flag for now until it is fixed in ATL. -->
+    <ClCompile Condition="'$(UseStaticAtl)'=='true'">
+      <AdditionalOptions>-Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <!-- Add back any STL libs that is cleared in Chakra.Build.props  -->
     <Link Condition="'$(UseStl)'=='true'">

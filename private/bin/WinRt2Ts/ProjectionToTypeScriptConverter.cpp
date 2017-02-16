@@ -11,6 +11,11 @@ using namespace Metadata;
 using namespace ProjectionModel;
 using namespace std;
 
+static const wstring iAsyncAction = L"Windows.Foundation.IAsyncAction";
+static const wstring iAsyncActionWithProgressPrefix = L"Windows.Foundation.IAsyncActionWithProgress`1";
+static const wstring iAsyncOperationPrefix = L"Windows.Foundation.IAsyncOperation`1<";
+static const wstring iAsyncOperationWithProgressPrefix = L"Windows.Foundation.IAsyncOperationWithProgress`2<";
+
 NamespaceContext::NamespaceContext(IStringConverter& converter) :
     m_converter(converter)
 {
@@ -1260,11 +1265,6 @@ auto_ptr<TypeScriptType> ProjectionToTypeScriptConverter::GetProjectedEventHandl
 RtTYPE ProjectionToTypeScriptConverter::GetPromiseResultType(RtRUNTIMEINTERFACECONSTRUCTOR interfaceConstructor)
 {
     wstring interfaceName = m_converter.StringOfId(interfaceConstructor->typeId);
-
-    static const wstring iAsyncAction = L"Windows.Foundation.IAsyncAction";
-    static const wstring iAsyncActionWithProgressPrefix = L"Windows.Foundation.IAsyncActionWithProgress`1";
-    static const wstring iAsyncOperationPrefix = L"Windows.Foundation.IAsyncOperation`1<";
-    static const wstring iAsyncOperationWithProgressPrefix = L"Windows.Foundation.IAsyncOperationWithProgress`2<";
 
     if (interfaceName.compare(0, iAsyncAction.size(), iAsyncAction) == 0 ||
         interfaceName.compare(0, iAsyncActionWithProgressPrefix.size(), iAsyncActionWithProgressPrefix) == 0)
