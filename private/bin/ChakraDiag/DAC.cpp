@@ -511,16 +511,7 @@ namespace JsDiag
 
     bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * regionStart, void * address)
     {
-        if (!regionStart)
-        {
-            return false;
-        }
-        if (address >= regionStart && address < GetPreReservedEndAddress(regionStart))
-        {
-            return true;
-        }
-
-        return false;
+        return regionStart && (address >= regionStart && address < GetPreReservedEndAddress(regionStart));
     }
 
     bool RemotePreReservedVirtualAllocWrapper::IsInRange(void * address)

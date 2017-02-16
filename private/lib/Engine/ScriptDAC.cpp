@@ -82,7 +82,7 @@ Error:
         // Read remote interpreter and jit emit buffer allocations and add synthetic modules
         IfFailGo(ReadEmitBufferAllocations(debugSite));
 
-        MapFunctions(debugSite, [&debugSite, this] (FunctionBody* funcBody)
+        MapFunctions(debugSite, [&debugSite, this] (Js::LocalFunctionId functionId, FunctionBody* funcBody)
         {
             RemoteFunctionBody functionBody;
             if (SUCCEEDED(functionBody.Read(debugSite, funcBody)))
@@ -109,7 +109,24 @@ Error:
         RemoteData<InterpreterThunkEmitter> asmJsInterpreterThunkEmitter;
 #endif
         IfFailGo(interpreterThunkEmitter.Read(debugSite, (*this)->interpreterThunkEmitter));
-        IfFailGo(AddSyntheticModules(debugSite, interpreterThunkEmitter->GetEmitBufferManager()->allocations));
+
+        if (interpreterThunkEmitter->GetEmitBufferManager()->allocations != nullptr)
+        {
+            IfFailGo(AddSyntheticModules(debugSite, interpreterThunkEmitter->GetEmitBufferManager()->allocations));
+        }
+        else
+        {
+            RemoteList<ThunkBlock> remoteList((SListNode<ThunkBlock> *)interpreterThunkEmitter->GetThunkBlocksList());
+
+            IfFailGo(remoteList.Map(debugSite, [&](ThunkBlock * data) 
+            {
+                HRESULT hr = S_OK;
+                void * address = data->GetStart();
+                IfFailGo(debugSite->AddSyntheticModule(address, InterpreterThunkEmitter::BlockSize));
+            Error:
+                return hr;
+            }));
+        }
 #ifdef ASMJS_PLAT
         IfFailGo(asmJsInterpreterThunkEmitter.Read(debugSite, (*this)->asmJsInterpreterThunkEmitter));
         IfFailGo(AddSyntheticModules(debugSite, asmJsInterpreterThunkEmitter->GetEmitBufferManager()->allocations));
@@ -123,18 +140,87 @@ Error:
             RemoteData<NativeCodeGenerator> nativeCodeGen;
             IfFailGo(nativeCodeGen.Read(debugSite, nativeCodeGenPtr));
 
+            /*
+                For OOPJIT -> allocations will be nullptr and hence we add the address range by walking through the cache.
+                For InProcJIT -> either one of the allocators will not be null and will add the address range - we don't have to walk through the cache in this case.
+            */
+            bool modulesAdded = false;
+
             if (nativeCodeGen->foregroundAllocators)
             {
                 RemoteData<InProcCodeGenAllocators> foregroundAllocators;
                 IfFailGo(foregroundAllocators.Read(debugSite, nativeCodeGen->foregroundAllocators));
-                IfFailGo(AddSyntheticModules(debugSite, foregroundAllocators->emitBufferManager.allocations));
+                if (foregroundAllocators->emitBufferManager.allocations != nullptr)
+                {
+                    IfFailGo(AddSyntheticModules(debugSite, foregroundAllocators->emitBufferManager.allocations));
+                    modulesAdded = true;
+                }
             }
 
             if (nativeCodeGen->backgroundAllocators)
             {
                 RemoteData<InProcCodeGenAllocators> backgroundAllocators;
                 IfFailGo(backgroundAllocators.Read(debugSite, nativeCodeGen->backgroundAllocators));
-                IfFailGo(AddSyntheticModules(debugSite, backgroundAllocators->emitBufferManager.allocations));
+                if (backgroundAllocators->emitBufferManager.allocations != nullptr)
+                {
+                    IfFailGo(AddSyntheticModules(debugSite, backgroundAllocators->emitBufferManager.allocations));
+                    modulesAdded = true;
+                }
+            }
+
+            if (!modulesAdded)
+            {
+                RemoteData<ThreadContext> threadContext;
+                IfFailGo(threadContext.Read(debugSite, (*this)->GetThreadContext()));
+                uintptr_t preReservedRegionStartAddr = threadContext->GetPreReservedRegionAddr();
+
+                if (preReservedRegionStartAddr != 0)
+                {
+                    uintptr_t preReservedRegionEndAddr = (uintptr_t)PreReservedVirtualAllocWrapper::GetPreReservedEndAddress((void*)preReservedRegionStartAddr);
+                    IfFailGo(debugSite->AddSyntheticModule((void*)preReservedRegionStartAddr, (ULONG)(preReservedRegionEndAddr - preReservedRegionStartAddr)));
+                }
+
+                RemoteData<JITPageAddrToFuncRangeCache> jitPageAddrToFuncRangeCache;
+                IfFailGo(jitPageAddrToFuncRangeCache.Read(debugSite, (*this)->GetJitFuncRangeCache()));
+                if (jitPageAddrToFuncRangeCache.GetRemoteAddress() != nullptr)
+                {
+                    if (jitPageAddrToFuncRangeCache->GetJITPageAddrToFuncRangeMap() != nullptr)
+                    {
+                        RemoteDictionary<JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap> jitPageAddrToFuncRangeMap;
+                        IfFailGo(jitPageAddrToFuncRangeMap.Read(debugSite, jitPageAddrToFuncRangeCache->GetJITPageAddrToFuncRangeMap()));
+
+                        if (jitPageAddrToFuncRangeMap.GetRemoteAddress() != nullptr)
+                        {
+                            jitPageAddrToFuncRangeMap.Map(debugSite, [&](void * pageAddr, JITPageAddrToFuncRangeCache::RangeMap * rangeMap)
+                            {
+                                RemoteDictionary<JITPageAddrToFuncRangeCache::RangeMap> remoteRangeMap;
+                                IfFailGo(remoteRangeMap.Read(debugSite, rangeMap));
+                                Assert(remoteRangeMap != nullptr);
+
+                                remoteRangeMap.Map(debugSite, [&](void * address, uint bytes)
+                                {
+                                    IfFailGo(debugSite->AddSyntheticModule(address, bytes));
+                                Error:
+                                    return;
+                                });
+                            Error:
+                                return;
+                            });
+                        }
+                    }
+
+                    if (jitPageAddrToFuncRangeCache->GetLargeJITFuncAddrToSizeMap() != nullptr)
+                    {
+                        RemoteDictionary<JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap> jitLargePageAddrMap;
+                        IfFailGo(jitLargePageAddrMap.Read(debugSite, jitPageAddrToFuncRangeCache->GetLargeJITFuncAddrToSizeMap()));
+                        jitLargePageAddrMap.Map(debugSite, [&](void * pageAddr, uint bytes)
+                        {
+                            IfFailGo(debugSite->AddSyntheticModule(pageAddr, bytes));
+                        Error:
+                            return;
+                        });
+                    }
+                }
             }
         }
 #endif
