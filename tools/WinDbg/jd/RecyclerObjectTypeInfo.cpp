@@ -13,9 +13,9 @@ RecyclerObjectTypeInfo::Cache::~Cache()
     });
 }
 
-RecyclerObjectTypeInfo * RecyclerObjectTypeInfo::Cache::GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated)
+RecyclerObjectTypeInfo * RecyclerObjectTypeInfo::Cache::GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
 {
-    RecyclerObjectTypeInfo tempTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated);
+    RecyclerObjectTypeInfo tempTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated, javascriptLibrary);
     RecyclerObjectTypeInfo * typeInfo = typeInfoSet.Get(&tempTypeInfo);
     if (typeInfo == nullptr)
     {

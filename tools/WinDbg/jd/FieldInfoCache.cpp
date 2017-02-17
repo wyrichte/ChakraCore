@@ -7,38 +7,43 @@
 bool FieldInfoCache::HasField(ExtRemoteTyped& object, char const * fieldName)
 {
     Assert(strchr(fieldName, '.') == nullptr);
-    FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;
-    ExtRemoteTyped derefObject = object.m_Typed.Tag == SymTagPointerType ? object.Dereference() : object;
+    FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;    
     Key key = { object.m_Typed.ModBase, object.m_Typed.TypeId, fieldName };
     auto i = fieldInfoCache.cache.find(key);
     if (i != fieldInfoCache.cache.end())
     {
-        return true;
+        return i->second.IsValid();
     }
 
-    return object.HasField(fieldName);
+    if (!object.HasField(fieldName))
+    {
+        fieldInfoCache.cache[key] = Value();
+        return false;
+    }
+    return true;
 }
 
 JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * fieldName)
 {
     Assert(strchr(fieldName, '.') == nullptr);
     FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;
-    ExtRemoteTyped derefObject = object.m_Typed.Tag == SymTagPointerType ? object.Dereference() : object;
+    
     Key key = { object.m_Typed.ModBase, object.m_Typed.TypeId, fieldName };
     auto i = fieldInfoCache.cache.find(key);
-    if (i != fieldInfoCache.cache.end())
+    if (i != fieldInfoCache.cache.end() && i->second.IsValid())
     {
-        return JDRemoteTyped((*i).second.m_ModBase, (*i).second.m_TypeId, derefObject.m_Offset + (*i).second.m_fieldOffset);
+        return JDRemoteTyped(i->second.GetModBase(), i->second.GetTypeId(), 
+            (object.m_Typed.Tag == SymTagPointerType? object.GetPtr() : object.m_Offset) + i->second.GetFieldOffset());
     }
 
+    ExtRemoteTyped derefObject = object.m_Typed.Tag == SymTagPointerType ? object.Dereference() : object;
     JDRemoteTyped field = derefObject.Field(fieldName);
     ExtRemoteTyped pointerToField = field.GetPointerTo();       // Forces "field" to be populate correctly.
 
-    Value value;
-    value.m_fieldOffset = (ULONG)(field.m_Offset - derefObject.m_Offset);
-    value.m_ModBase = field.m_Typed.ModBase;
-    value.m_TypeId = field.m_Typed.TypeId;
-
-    fieldInfoCache.cache[key] = value;
+    Value value(field.m_Typed.ModBase, field.m_Typed.TypeId, (ULONG)(field.m_Offset - derefObject.m_Offset));
+    if (value.IsValid())
+    {
+        fieldInfoCache.cache[key] = value;
+    }
     return field;
 }

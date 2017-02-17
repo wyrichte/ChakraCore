@@ -768,14 +768,14 @@ struct RecyclerGraphNodeData
     void SetObjectSize(uint size) { objectSize = size; }
 
     bool HasTypeInfo() const { return GetTypeName() != nullptr; }
-    void SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated);
+    void SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary);
     void ClearTypeInfo() { typeInfo = nullptr; }
     
     bool HasVtable() const { return typeInfo ? typeInfo->HasVtable() : false; }
     bool IsPropagated() const { return typeInfo? typeInfo->IsPropagated() : false; }
     const char * GetTypeName() const { return typeInfo? typeInfo->GetTypeName() : nullptr; }
     const char * GetTypeNameOrField() const { return typeInfo? typeInfo->GetTypeNameOrField() : nullptr; }
-
+    ULONG64 GetAssociatedJavascriptLibrary() const { return typeInfo ? typeInfo->GetAssociatedJavascriptLibrary() : 0; }
     bool IsRoot() const { return RootTypeUtils::IsAnyRootType(rootType); }
     RootType GetRootType() const { return rootType; }
     void AddRootType(RootType rootType) { this->rootType = RootTypeUtils::CombineTypes(this->rootType, rootType); }

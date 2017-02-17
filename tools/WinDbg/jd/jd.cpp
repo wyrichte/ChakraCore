@@ -23,6 +23,7 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_gcNS[0] = '\1';
     m_isCachedHasMemoryNS = false;
     m_hasMemoryNS = false;
+    m_isLiteralStringAddedToVtableTypeNameMap = false;
 #endif
 }
 
@@ -501,7 +502,7 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, Remo
                 int midCountJSOnlyProperty = (maxCountJSOnlyProperty - minCountJSOnlyProperty) / 2 + minCountJSOnlyProperty;
                 ExtRemoteTyped prop(ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
 
-                char const * name = JDUtil::GetEnumString(prop);                
+                char const * name = JDUtil::GetEnumString(prop);
                 if (strcmp(name, "_countJSOnlyProperty") == 0)
                 {
                     _maxBuiltIn = midCountJSOnlyProperty;
@@ -975,6 +976,20 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
 
 char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
 {
+    if (!m_isLiteralStringAddedToVtableTypeNameMap)
+    {
+        // In release build, Js::LiteralString vtable may be ICF'ed with Js::BufferStringBuilder::WritableString or Js::SingleCharString.
+        // It is preferable to always report Js::LiteralString on all 3.  Enter the offset into the vtableTypeNameMap
+        m_isLiteralStringAddedToVtableTypeNameMap = true;
+        std::string literalStringVtableSymbolName = this->GetRemoteVTableName("Js::LiteralString");
+        ULONG64 offset;
+        if (this->GetSymbolOffset(literalStringVtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(m_moduleName) + "!Js::LiteralString");
+            vtableTypeNameMap[offset] = newString;
+        }
+    }
+
     auto i = vtableTypeNameMap.find(vtableAddr);
     if (i != vtableTypeNameMap.end())
     {
@@ -996,7 +1011,7 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
                 // Actual type name in expression shouldn't have __ptr64 in them
                 JDUtil::ReplaceString(*newString, " __ptr64", "");
                 vtableTypeNameMap[vtableAddr] = newString;
-                return newString->c_str();;
+                return newString->c_str();
             }
         }
     }

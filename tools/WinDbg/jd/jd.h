@@ -351,6 +351,8 @@ protected:
 
     std::map<ULONG64, std::pair<ULONG64, ULONG>> vtableTypeIdMap;
     std::map<ULONG64, std::string *> vtableTypeNameMap;
+
+    bool m_isLiteralStringAddedToVtableTypeNameMap;
     
 #endif //JD_PRIVATE
 };

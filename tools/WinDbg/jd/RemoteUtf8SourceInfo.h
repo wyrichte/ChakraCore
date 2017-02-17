@@ -7,13 +7,18 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
+class RemoteScriptContext;
 class RemoteUtf8SourceInfo
 {
 public:
     RemoteUtf8SourceInfo(ExtRemoteTyped const& utf8SourceInfo) : utf8SourceInfo(utf8SourceInfo) {};
-
+    
+    JDRemoteTyped GetLineOffsetCache();
+    JDRemoteTyped GetDeferredFunctionsDictionary();
+    JDRemoteTyped GetFunctionBodyDictionary();
+    RemoteScriptContext GetScriptContext();
 private:
-    ExtRemoteTyped utf8SourceInfo;
+    JDRemoteTyped utf8SourceInfo;
 };
 
 // ---- End jd private commands implementation ----------------------------------------------------

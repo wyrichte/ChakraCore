@@ -92,4 +92,5 @@ public:
     }
 };
 
-#define ENUM_EQUAL(e, n) (strncmp(e, #n, _countof(#n) - 1) == 0)
+#define STR_START_WITH(str, prefix) (strncmp(str, prefix, _countof(prefix) - 1) == 0)
+#define ENUM_EQUAL(e, n) STR_START_WITH(e, #n)

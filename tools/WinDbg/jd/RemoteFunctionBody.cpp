@@ -136,6 +136,10 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* 
     {
         ret = GetExtension()->Cast(castType, ret.GetPtr());
     }
+    else if (ret.GetPtr() != 0)
+    {
+        ret = GetExtension()->CastWithVtable(ret);
+    }
 
     return ret;
 }
@@ -149,16 +153,15 @@ void RemoteFunctionProxy::PrintAuxPtrs(EXT_CLASS_BASE *ext)
     });
 }
 
-JDRemoteTyped RemoteParseableFunctionInfo::GetAuxWrappedField(char* fieldName)
+JDRemoteTyped RemoteFunctionProxy::GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName)
 {
     if (this->HasField("auxPtrs"))
     {
-        return GetAuxPtrsField(fieldName);
+        return GetAuxPtrsField(fieldName, castType);
     }
 
-    return JDUtil::GetWrappedField(*this, fieldName);
+    return JDUtil::GetWrappedField(*this, oldFieldName ? oldFieldName : fieldName);
 }
-
 
 JDRemoteTyped RemoteFunctionBody::GetReferencedPropertyIdMap()
 {
@@ -185,15 +188,6 @@ JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char * fieldName)
     }
     return JDUtil::GetWrappedField(*this, fieldName);
 }
-JDRemoteTyped RemoteFunctionBody::GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName)
-{
-    if (this->HasField("auxPtrs"))
-    {
-        return GetAuxPtrsField(fieldName, castType);
-    }
-
-    return JDUtil::GetWrappedField(*this, oldFieldName ? oldFieldName : fieldName);
-}
 
 JDRemoteTyped RemoteFunctionBody::GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType, char* oldFieldName)
 {
@@ -216,6 +210,7 @@ void EnsureCountersEnums()
     {
         counterFieldNameMap["m_constCount"] = "ConstantCount";
         counterFieldNameMap["inlineCacheCount"] = "InlineCacheCount";
+        counterFieldNameMap["loopCount"] = "LoopCount";
     }
 }
 

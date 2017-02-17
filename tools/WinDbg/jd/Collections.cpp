@@ -3,9 +3,9 @@
 #ifdef JD_PRIVATE
 #include "Collections.h"
 
-void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated)
+void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
 {
-    typeInfo = GetExtension()->recyclerObjectTypeInfoCache.GetRecyclerObjectTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated);
+    typeInfo = GetExtension()->recyclerObjectTypeInfoCache.GetRecyclerObjectTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated, javascriptLibrary);
 }
 
 #if ENABLE_MARK_OBJ

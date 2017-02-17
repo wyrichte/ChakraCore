@@ -6,25 +6,27 @@
 class RecyclerObjectTypeInfo
 {
 public:
-    RecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated)
+    RecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
     {
         memset(this, 0, sizeof(RecyclerObjectTypeInfo));
         this->typeName = typeName;
         this->typeNameOrField = typeNameOrField;
         this->hasVtable = hasVtable;
         this->isPropagated = isPropagated;
+        this->javascriptLibrary = javascriptLibrary;
     }
 
     bool HasVtable() const { return hasVtable; }
     bool IsPropagated() const { return isPropagated; }
     const char * GetTypeName() const { return typeName; }
     const char * GetTypeNameOrField() const { return typeNameOrField; }   
+    ULONG64 GetAssociatedJavascriptLibrary() const { return javascriptLibrary; }
 
     class Cache
     {
     public:
         ~Cache();
-        RecyclerObjectTypeInfo * GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated);
+        RecyclerObjectTypeInfo * GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary);
     private:
         class HashCompare
         {
@@ -49,6 +51,7 @@ public:
 private:
     const char * typeName;
     const char * typeNameOrField;
+    ULONG64 javascriptLibrary;
     bool hasVtable;
     bool isPropagated;
 };

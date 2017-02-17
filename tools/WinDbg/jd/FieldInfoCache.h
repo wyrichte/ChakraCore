@@ -27,9 +27,27 @@ private:
     friend bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b);
     struct Value
     {
-        ULONG m_fieldOffset;
+        Value(ULONG64 modBase = 0, ULONG typeId = 0, ULONG fieldOffset = (ULONG)-1)
+            : m_ModBase(modBase), m_TypeId(typeId), m_fieldOffset(fieldOffset)
+        {
+
+        }
+        
+        bool IsValid() const
+        {
+            return this->m_fieldOffset != (ULONG)-1 && this->m_ModBase != 0 && this->m_TypeId != 0 && this->m_fieldOffset != -1;
+        }
+
+        ULONG64 GetModBase() const { return m_ModBase; }
+        ULONG GetTypeId() const { return m_TypeId; }
+        ULONG GetFieldOffset() const { return m_fieldOffset;  }
+    private:
+
         ULONG64 m_ModBase;
         ULONG m_TypeId;
+        ULONG m_fieldOffset;
+
+
     };
 
     stdext::hash_map<Key, Value> cache;

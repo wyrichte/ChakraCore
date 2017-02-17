@@ -14,6 +14,11 @@ public:
     RemoteScriptContext();
     RemoteScriptContext(ExtRemoteTyped const& scriptContext);
     
+    JDRemoteTyped GetJavascriptLibrary()
+    {
+        return scriptContext.Field("javascriptLibrary");
+    }
+
     RemoteThreadContext GetThreadContext();
     ExtRemoteTyped GetHostScriptContext();
     void PrintReferencedPids();

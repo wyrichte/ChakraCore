@@ -17,10 +17,19 @@ public:
     RemoteFunctionProxy(const char* subType, ULONG64 pBody) : JDRemoteTyped(subType, pBody) {}
     RemoteFunctionProxy(ExtRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
 
+    JDRemoteTyped GetFunctionObjectTypeList()
+    {
+        return this->GetAuxWrappedField("functionObjectTypeList", nullptr /* vtable cast */, "m_functionObjectTypeList");
+    }
+
     // Get the auxiliary pointer on the function body by the field name
-    JDRemoteTyped GetAuxPtrsField(const char* fieldName, char* castType = nullptr);
+    JDRemoteTyped GetAuxPtrsField(const char* fieldName, char* castType);
     // Print all instantiated auxiliary pointers
     void PrintAuxPtrs(EXT_CLASS_BASE *ext);
+
+protected:
+    JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName = nullptr);
+
 private:
     template<typename Fn>
     void WalkAuxPtrs(Fn fn);
@@ -36,7 +45,7 @@ public:
 
     JDRemoteTyped GetScopeInfo()
     {
-        return this->GetAuxWrappedField("m_scopeInfo");
+        return this->GetAuxWrappedField("m_scopeInfo", "Js::ScopeInfo");
     }
     
     JDRemoteTyped GetBoundPropertyRecords()
@@ -53,9 +62,6 @@ public:
     {
         return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
     }
-
-private:
-    JDRemoteTyped GetAuxWrappedField(char* fieldName);
 };
 
 class RemoteFunctionBody : public RemoteParseableFunctionInfo
@@ -79,7 +85,7 @@ public:
     }
     JDRemoteTyped GetLoopHeaderArray()
     {
-        return this->GetAuxWrappedFieldRecyclerData("loopHeaderArray");
+        return this->GetAuxWrappedFieldRecyclerData("loopHeaderArray", "Js::LoopHeader");
     }
     JDRemoteTyped GetProbeBackingStore()
     {
@@ -87,7 +93,7 @@ public:
     }
     JDRemoteTyped GetCacheIdToPropertyIdMap()
     {
-        return this->GetWrappedFieldRecyclerData( "cacheIdToPropertyIdMap");
+        return this->GetWrappedFieldRecyclerData("cacheIdToPropertyIdMap");
     }
     JDRemoteTyped GetReferencedPropertyIdMap();
 
@@ -98,6 +104,10 @@ public:
     ushort GetParamCount()
     {
         return this->Field("m_inParamCount").GetUshort();
+    }
+    uint GetLoopCount()
+    {
+        return this->GetCounterField("loopCount");
     }
     bool HasImplicitArgIns()
     {
@@ -193,8 +203,8 @@ public:
 
     JDRemoteTyped GetFieldRecyclerData(char * fieldName);
     JDRemoteTyped GetWrappedFieldRecyclerData(char* fieldName);
-    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
-    JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType = nullptr, char* oldFieldName = nullptr);
+    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType, char* oldFieldName = nullptr);
+
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
     void PrintNameAndNumber(EXT_CLASS_BASE * ext);
