@@ -454,7 +454,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::RegisterWellKnownTypeId(
         return E_INVALIDARG;
     }
 
-    scriptContext->SetWellKnownHostTypeId((WellKnownHostType)wellKnownType, (Js::TypeId)typeId);
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        scriptContext->SetWellKnownHostTypeId((WellKnownHostType)wellKnownType, (Js::TypeId)typeId);
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
 
     return hr;
 }
