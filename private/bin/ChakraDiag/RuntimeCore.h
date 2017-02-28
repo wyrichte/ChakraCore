@@ -191,6 +191,10 @@ namespace Js
     {
         enum Source;
     }
+    namespace ArrayBufferView
+    {
+        enum ViewType : unsigned char;
+    }
     class AsmJsArrayView;
     class AsmJsType;
     class AsmJsRetType;
