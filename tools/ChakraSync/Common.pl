@@ -67,7 +67,7 @@ sub sendMail {
     sendmsg($OPTIONS{'ServiceAccountEmail'},
             $args{subject},
             $args{body},
-            'tcare@microsoft.com');#, 'cc:curtism@microsoft.com', 'cc:hiteshk@microsoft.com', 'cc:doilij@microsoft.com', 'cc:chakrahot@microsoft.com');
+            'tcare@microsoft.com');
     msg("Email sent");
 }
 1;

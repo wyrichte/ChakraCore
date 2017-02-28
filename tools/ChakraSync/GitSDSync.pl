@@ -3,6 +3,10 @@
 # TODO:
 # - Auto push build branch
 # - Cleanup OPTIONS case convention
+# - Bare repo init for core
+# - Fetch only target branches unless in debug mode
+# - Repo cache when possible, be very paranoid
+# - Quick check for Git changes using diff
 
 use strict;
 use warnings;
@@ -13,7 +17,8 @@ my @ARGVSave = @ARGV; # Save ARGV since Getopt will destroy it. We need it to pr
 use Getopt::Long qw(GetOptions);
 use IPC::Cmd qw(can_run run);
 $IPC::Cmd::USE_IPC_OPEN3 = 1;
-$IPC::Cmd::WARN = 0; # Suppress noisy warning about IPC::Run missing. We don't end up using this module.use Pod::Usage qw(pod2usage);
+$IPC::Cmd::WARN = 0; # Suppress noisy warning about IPC::Run missing. We don't end up using this module.
+use Pod::Usage qw(pod2usage);
 use Cwd 'abs_path';
 use File::Temp qw(tempfile);
 use Storable;
@@ -65,11 +70,15 @@ Commands:
         SDToGitMsg      Generates the commit message used in Git to convey SD changes.
         GitToSdMsg      Generates the changelist description used in SD to convey Git changes.
         StageSD         Stages all changes that are currently not in SD, including added/deleted files.
+        StopAutoSync    Stop the Git to SD Automatic sync.
+        StartAutoSync   Start the Git to SD Automatic sync.
+        InitEnlistment  Create a superimposed Git respository on top of a SD enlistment.
+                        Removes all existing state, and resets to the last sync point.
 END
 
 my $usage = $shortUsage . <<"END";
 
-Mandatory parameters:
+Mandatory parameters (excluding StopAutoSync/StartAutoSync):
     --SDChange CL#      The last synced SD change that had a corresponding Git commit.
     --GitHash hash      The last synced Git full hash that had a corresponding SD commit.
 
@@ -77,11 +86,11 @@ Optional parameters:
     Debugging:
         -v --verbose    Show status info. Use flag twice for more verbosity.
                         Default verbosity is currently: $OPTIONS{'Verbose'}
-           --no-email   Don't send error or summary emails
+           --email      Send error and summary emails
            --no-cleanup Don't delete temporary branch
-           --no-snap    Don't submit a SNAP job
         -d --dry-run    Don't make any changes that could result in breakage and angry people
-                        (Implies --no-email and --no-snap)
+                        (Implies --no-email, default for FullSync)
+           --cache-repo Don't blow away Git state during initialization (DO NOT USE OUTSIDE DEVELOPMENT)
 
     Locations:
         --sdEnlistment location     Root of the SD enlistment to use (jscript folder)
@@ -147,7 +156,7 @@ sub readSyncPoint {
     msg("Read sync point from $SYNC_DATA_LOCATION: Git Hash $syncPointDataRef->{'gitHash'}, SD Change $syncPointDataRef->{'sdChange'}", 1);
 
     $OPTIONS{'fullStartHash'} = $syncPointDataRef->{'gitHash'};
-    $OPTIONS{'startSDChange'}      = $syncPointDataRef->{'sdChange'};
+    $OPTIONS{'startSDChange'} = $syncPointDataRef->{'sdChange'};
 }
 
 sub parseCmd {
@@ -156,14 +165,17 @@ sub parseCmd {
     #TODO Fold this into the main switch
     use feature qw/switch/;
     given ($OPTIONS{'Command'}) {
-        when (/FullSync/i) {}
-        when (/SDToGit/i) {}
-        when (/GitToSD/i) {}
-        when (/SDToGitMsg/i) {}
-        when (/GitToSDMsg/i) {}
-        when (/StageSD/i) {}
-        when (/WriteSyncPoint/i) {}
-        default { die $usage };
+        when (/^FullSync$/i) {}
+        when (/^SDToGit$/i) {}
+        when (/^GitToSD$/i) {}
+        when (/^SDToGitMsg$/i) {}
+        when (/^GitToSDMsg$/i) {}
+        when (/^StageSD$/i) {}
+        when (/^WriteSyncPoint$/i) {}
+        when (/^StartAutoSync$/i) {}
+        when (/^StopAutoSync$/i) {}
+        when (/^InitEnlistment$/i) {}
+        default { die $usage; };
     }
 }
 
@@ -180,32 +192,28 @@ sub checkAndParseArgs {
     $OPTIONS{'fullEndHash'} = '';
 
     my $help = 0;
-    GetOptions('auto'          => \$OPTIONS{'Auto'},
-               'cleanup!'      => \$OPTIONS{'Cleanup'},
-               'coreBranch=s'  => \$OPTIONS{'CoreBranch'},
-               'dry-run|d'     => \$OPTIONS{'DryRun'},
-               'email!'        => \$OPTIONS{'Email'},
-               'endGitHash=s'  => \$OPTIONS{'fullEndHash'},
-               'endSdChange=s' => \$OPTIONS{'endSDChange'},
-               'fullBranch=s'  => \$OPTIONS{'FullBranch'},
-               'gitHash=s'     => \$OPTIONS{'fullStartHash'},
-               'repo=s'        => \$OPTIONS{'Repo'},
-               'resume'        => \$OPTIONS{'Resume'},
-               'sdChange=s'    => \$OPTIONS{'startSDChange'},
-               'sdEnlistment'  => \$OPTIONS{'SDEnlistment'},
-               'snap!'         => \$OPTIONS{'SNAP'},
-               'verbose|v+'    => \$OPTIONS{'Verbose'},
-               'help|?'        => \$help)
+    GetOptions('auto'           => \$OPTIONS{'Auto'},
+               'cleanup!'       => \$OPTIONS{'Cleanup'},
+               'coreBranch=s'   => \$OPTIONS{'CoreBranch'},
+               'dry-run|d'      => \$OPTIONS{'DryRun'},
+               'email!'         => \$OPTIONS{'Email'},
+               'endGitHash=s'   => \$OPTIONS{'fullEndHash'},
+               'endSdChange=s'  => \$OPTIONS{'endSDChange'},
+               'fullBranch=s'   => \$OPTIONS{'FullBranch'},
+               'gitHash=s'      => \$OPTIONS{'fullStartHash'},
+               'repo=s'         => \$OPTIONS{'Repo'},
+               'resume'         => \$OPTIONS{'Resume'},
+               'sdChange=s'     => \$OPTIONS{'startSDChange'},
+               'sdEnlistment=s' => \$OPTIONS{'SDEnlistment'},
+               'verbose|v+'     => \$OPTIONS{'Verbose'},
+               'cache-repo'     => \$OPTIONS{'CacheRepo'},
+               'help|?'         => \$help)
         or die $usage;
     $help |= $OPTIONS{'SDEnlistment'} eq '';
-
-    # Disable email for now since most errors will be on cmd line.
-    $OPTIONS{'Email'} = 0;# if $help;
     die $usage if $help;
 
     if ($OPTIONS{'DryRun'}) {
         $OPTIONS{'Email'} = 0;
-        $OPTIONS{'SNAP'} = 0;
     }
 
     if ($OPTIONS{'Repo'} ne '' && $OPTIONS{'Resume'} eq '') {
@@ -245,7 +253,7 @@ sub mergeConflictMessage {
     }
 
     #my $resumePath = abs_path($0);
-    my $resumeCmd = "cd $OPTIONS{'SDEnlistment'} & perl c:\\rs2_synctools\\GitSDSync.pl @ARGVSave --repo $OPTIONS{'Repo'} --resume";
+    my $resumeCmd = "cd $OPTIONS{'SDEnlistment'} & perl c:\\rs3_synctools\\GitSDSync.pl @ARGVSave --repo $OPTIONS{'Repo'} --resume";
 
     my $mergeCmd = "cd $OPTIONS{'SDEnlistment'}";
     $mergeCmd .= "\\core" if $OPTIONS{'Repo'} =~ /core/i;
@@ -303,11 +311,11 @@ sub canRunGit {
             }
         }
     };
-    can_run 'git.exe'        or die "Unable to find Git executable on %PATH%. Ensure Git for Windows is installed and on %PATH% before Razzle tools.\n";
+    can_run 'git.exe' or die "Unable to find Git executable on %PATH%. Ensure Git for Windows is installed and on %PATH% before Razzle tools.\n";
 }
 
 canRunGit();
-can_run 'SD.exe'             or die "Unable to find SD executable on %PATH%. This script needs to be run inside Razzle.\n";
+can_run 'SD.exe' or die "Unable to find SD executable on %PATH%. This script needs to be run inside Razzle.\n";
 
 my $sd_old_revision;
 my $sd_new_revision;
@@ -317,25 +325,13 @@ sub cleanUp {
     # Clean up
     if ($OPTIONS{'Cleanup'}) {
         msg("Removing temporary Git repository in $OPTIONS{'Repo'}\n", $OPTIONS{'Verbose'});
-        execCmd("rmdir /q /s .git");
-        execCmd("rmdir /q /s core") if $OPTIONS{'Repo'} !~ /core/i;
+        execCmd("rmdir /q /s .git") or die ".git directory is in use in $OPTIONS{'Repo'}. Is there a duplicate instance of the script running, or a git tool e.g. SourceTree?";
+        if ($OPTIONS{'Repo'} !~ /core/i) {
+            execCmd("rmdir /q /s core") or die "Core submodule is in use. Is there an instance of explorer, SourceTree, or cmd open in $OPTIONS{'Repo'}\\core?";
+        }
     } else {
         msg("Skipping cleanup of $OPTIONS{'Repo'}\n", $OPTIONS{'Verbose'});
     }
-}
-
-sub submitToSNAP {
-    return if !$OPTIONS{'SNAP'};
-    logHeader("Submitting stability job to SNAP");
-
-    # Generate a DPK and submit to SNAP.
-    chdirFull();
-    execCmd('sd edit dummy.txt');
-    open FH, '>>', 'dummy.txt' or die "Couldn't open dummy.txt for appending: $@";
-    print FH ".\n";
-    close FH;
-    execCmd('snap submit -win8fi');
-    print "\n";
 }
 
 sub parseHashes {
@@ -362,8 +358,20 @@ sub parseHashes {
 
 sub initGitEnlistment {
     msg('Initializing temporary working Git repository', $OPTIONS{'Verbose'});
-    execCmd("rmdir /q /s .git") if -e '.git';
-    execCmd("rmdir /q /s core") if -e 'core';
+
+    if (-e '.git') {
+        msg("Removing existing Git repository in $OPTIONS{'SDEnlistment'}\n", $OPTIONS{'Verbose'});
+        if (execCmd("rmdir /q /s .git") =~ /The process cannot access the file because it is being used by another process./) {
+            die ".git directory is in use in $OPTIONS{'Repo'}. Is there a duplicate instance of the script running, a git tool, or a hung git process?";
+        }
+    }
+    if (-e 'core') {
+        msg("Removing existing core submodule in $OPTIONS{'SDEnlistment'}\n", $OPTIONS{'Verbose'});
+        if (execCmd("rmdir /q /s core") =~ /The process cannot access the file because it is being used by another process./) {
+            die "Core submodule is in use. Is there an instance of explorer or cmd open in $OPTIONS{'Repo'}\\core?";
+        }
+    }
+
     execCmd('git init');
     execCmd('git remote add origin '. $OPTIONS{'RemoteGitURL'});
     execCmd("git fetch origin", Noisy => 1); # Fetch all refs; the last synced revision may not be in the current synced branch! (e.g. branch migration)
@@ -411,10 +419,13 @@ sub generateSDSummary {
     # TODO: Surely SD CLI has a nicer way to do this..
     my @changes = reverse split("\n", execCmd("sd changes -r ...@" . $OPTIONS{'startSDChange'} . ','));
     my $startChange = (scalar @changes == 1) ? $changes[0] : $changes[1];
+    print $startChange;
     $startChange =~ s/^Change (\d+).*$/$1/ or die "Couldn't extract starting change number for the SD change log.";
     $startChange =~ s/\s//sg;
 
-    my $log = "Add SD changes from CL#$startChange to CL#$newestChange.\n\n" . execCmd('sd changes -l ...@' . $startChange . ',', (Noisy => 1));
+    my $log = "Add SD changes from CL#$startChange";
+    $log .= " to CL#$newestChange" if $startChange ne $newestChange;
+    $log .= ".\n\n" . execCmd('sd changes -l ...@' . $startChange . ',', (Noisy => 1));
     return $log;
 }
 
@@ -441,16 +452,9 @@ sub generateAndCommitGitLog {
     File::Temp::cleanup() if $OPTIONS{'Cleanup'}; # We no longer need the tempFile and don't need to wait until process completion.
 }
 
-sub stageSDToGit {
-    logHeader('Staging SD changes as a Git commit in local branch SDToGit');
-
-    # Checkout LKG revision
+sub resetToLastSyncPoint {
     chdirFull();
-    execCmd("git checkout $OPTIONS{'FullBranch'} --force");
-    execCmd('git branch -D SDToGit', (SurviveError => 1));
-    execCmd('git checkout -b SDToGit');
-
-    # Restore previous sync state.
+    # Restore previous sync state. Assumes we are in full directory.
     execCmd("sd revert ...", Noisy => 1);
     execCmd("sd sync -f ...@" . $OPTIONS{'startSDChange'}, Noisy => 1);
     # Strange hack for a weird state that happens after the previous SD command.
@@ -463,6 +467,19 @@ sub stageSDToGit {
     execCmd("git reset --hard");
     chdirFull();
     execCmd("git submodule update --force");
+}
+
+sub stageSDToGit {
+    logHeader('Staging SD changes as a Git commit in local branch SDToGit');
+
+    # Checkout LKG revision
+    chdirFull();
+    execCmd("git checkout $OPTIONS{'FullBranch'} --force");
+    execCmd('git branch -D SDToGit', (SurviveError => 1));
+    execCmd('git checkout -b SDToGit');
+
+    # Restore previous sync state.
+    resetToLastSyncPoint();
 
     # Clear non-staged core changes before submodule update.
     chdirCore();
@@ -478,9 +495,10 @@ sub stageSDToGit {
     chdirCore();
     my $latestCoreChange = getLatestSDChangeForDir();
     my $coreChanges = 0;
-    if ($latestCoreChange == $OPTIONS{'startSDChange'}) {
+    if ($latestCoreChange <= $OPTIONS{'startSDChange'}) {
         # No changes to core. We can use the existing commit as the submodule.
         $OPTIONS{'coreStartHash'} = getHeadCommitHash();
+
         msg("No core changes, using $OPTIONS{'coreStartHash'}", $OPTIONS{'Verbose'});
     } else {
         msg('Staging Core changes...', $OPTIONS{'Verbose'});
@@ -495,9 +513,10 @@ sub stageSDToGit {
     msg('Staging Full changes...', $OPTIONS{'Verbose'});
     my $fullChanges = 0;
     my $latestFullChange = getLatestSDChangeForDir();
-    if ($latestFullChange == $OPTIONS{'startSDChange'} && !$coreChanges) {
+    if ($latestFullChange <= $OPTIONS{'startSDChange'} && !$coreChanges) {
         # No changes to full.
         msg('No core or full changes. Skipping full commit.');
+        return 1;
     } else {
         $fullChanges = 1;
         generateAndCommitGitLog($latestFullChange);
@@ -522,7 +541,7 @@ sub resumeRebase {
                 execCmd('git rebase --continue', (SurviveError => 1));
             }
     } else {
-        execCmd('git rebase --preserve-merges --keep-empty SDToGit', (SurviveError => 1));
+        execCmd('git rebase --preserve-merges SDToGit', (SurviveError => 1));
     }
     $OPTIONS{'Resume'} = '';
 
@@ -562,6 +581,7 @@ sub resumeRebase {
 
     # At the end of the rebase, we need to take the effective changes that are resolved and put them back onto the original branch.
     my $origBranch = ($OPTIONS{'Repo'} =~ /core/i)? $OPTIONS{'CoreBranch'} : $OPTIONS{'FullBranch'};
+
     # We must have effective changes before creating a sync commit.
     if (execCmd("git diff --quiet $origBranch", (ReturnExitCode => 1))) {
         msg("Squashing resolved changes back onto $origBranch", $OPTIONS{'Verbose'});
@@ -578,6 +598,10 @@ sub resumeRebase {
         }
 
         generateAndCommitGitLog(getLatestSDChangeForDir());
+    } else {
+        # Check out the original branch for consistency even if we don't have changes.
+        # This is useful if we need to manually commit anything else on top e.g. build fixes.
+        execCmd("git checkout $origBranch");
     }
 }
 
@@ -587,8 +611,7 @@ sub cleanSDDescription {
     # Disarm triggers
     $desc =~ s/(FW|BUILD|MSFT|OS|NIB)/\($1\)/;
 
-    # Remove SD sync Git commits
-
+    # TODO: Remove SD sync Git commits
     return $desc;
 }
 
@@ -637,7 +660,12 @@ sub submitGitChangesToSD {
 
     my $openedFiles = execCmd("sd opened ...", (Noisy => 1));
     if ($openedFiles =~ /\.\.\. - file\(s\) not opened on this client\./) {
+        if ($OPTIONS{'Auto'}) {
+            # If there were no effective changes, they were most likely already in SD. Update the sync point anyway.
+            $OPTIONS{'endSDChange'} = $OPTIONS{'startSDChange'};
+        }
         msg("Skipping empty commit (no effective changes)", $OPTIONS{'Verbose'});
+        return;
     }
 
     my $log = generateGitChangesLog();
@@ -702,6 +730,7 @@ sub submitGitChangesToSD {
 
 sub checkoutAndCleanGit {
     # Checkout the commit and set up the staging branch
+    chdirFull();
     execCmd("git checkout $OPTIONS{'FullBranch'} --force");
     execCmd('git clean -x -d --force');
     execCmd("git reset --hard $OPTIONS{'fullEndHash'}");
@@ -726,10 +755,20 @@ sub gitToSDBoth {
 
     # 1. Init repos for rebasing
     if($OPTIONS{'Repo'} eq '') {
-        checkoutAndCleanGit(0);
+        checkoutAndCleanGit();
 
-        # Start processing core repo
-        $OPTIONS{'Repo'} = 'core';
+		# TODO: Need a more reliable way of detecting changes
+        # If we can detect there are no SD changes in core, we can skip the rebase/squash-merge.
+        # In this case we just use the latest hash for core, which was just checked out in checkoutAndCleanGit.
+        #chdirCore();
+        #if (execCmd("git diff --quiet sdtogit..$OPTIONS{'coreStartHash'}", (ReturnExitCode => 1))) {
+            # Start processing core repo
+            $OPTIONS{'Repo'} = 'core';
+        #} else {
+        #    msg('No SD core changes detected, simulating fast forward and continuing with full..', $OPTIONS{'Verbose'});
+        #    execCmd("git checkout $OPTIONS{'CoreBranch'} --force");
+        #    $OPTIONS{'Repo'} = 'full';
+        #}
     }
 
     # TODO: Refactor into states
@@ -756,17 +795,14 @@ sub haveIncomingGitChanges {
 
 chdirFull();
 
-my $result = 0;
-
 use feature qw/switch/;
 given ($OPTIONS{'Command'}) {
     when (/^FullSync$/i) {
+        $OPTIONS{'DryRun'} = 1;
         if (!$OPTIONS{'Resume'}) {
             execCmd('sdx sync -w');
             initGitEnlistment();
-            my $result = eval {
-                stageSDToGit();
-            };
+            stageSDToGit();
         } else {
             parseHashes();
         }
@@ -784,13 +820,13 @@ given ($OPTIONS{'Command'}) {
     when (/^GitToSD$/i) {
         readSyncPoint() if $OPTIONS{'Auto'};
         execCmd("sd revert ...", Noisy => 1);
-        initGitEnlistment();
         # Verify no changes
         if (haveIncomingSDChanges()) {
             # We can't sync automatically.
-            sendErrorEmail() if $OPTIONS{'Auto'};
+            execCmd("schtasks /Change /TN \"$OPTIONS{AutoTaskName}\" /Disable");
             die "Incoming SD changes detected after CL#$OPTIONS{'startSDChange'} - unable to continue automatically. Please use FullSync.";
         }
+        initGitEnlistment();
         if (!haveIncomingGitChanges()) {
             my $noChangesMsg = "No incoming git changes detected. Nothing to do.";
             if ($OPTIONS{'Auto'}) {
@@ -823,11 +859,25 @@ given ($OPTIONS{'Command'}) {
         stageSDChanges();
         break;
     }
-    when (/^WriteSyncPoint/i) {
+    when (/^WriteSyncPoint$/i) {
         $OPTIONS{'Auto'} = 1;
         $OPTIONS{'fullEndHash'} = $OPTIONS{'fullStartHash'};
         $OPTIONS{'endSDChange'} = $OPTIONS{'startSDChange'};
         writeSyncPoint();
+        break;
+    }
+    when (/^StopAutoSync$/i) {
+        execCmd("schtasks /End /TN \"$OPTIONS{AutoTaskName}\"");
+        execCmd("schtasks /Change /TN \"$OPTIONS{AutoTaskName}\" /Disable");
+        break;
+    }
+    when (/^StartAutoSync$/i) {
+        execCmd("schtasks /Change /TN \"$OPTIONS{AutoTaskName}\" /Enable");
+        break;
+    }
+    when (/^InitEnlistment$/i) {
+        initGitEnlistment();
+        resetToLastSyncPoint();
         break;
     }
 }

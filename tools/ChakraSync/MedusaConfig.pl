@@ -3,18 +3,10 @@
 
 our $PROJECT = 'ChakraCore';
 
-our $PROJECT_OWNERS = ['chakrahot@microsoft.com'];
-
-our $EMAIL_AUTH = {
-    Host     => 'smtphost.redmond.corp.microsoft.com',
-    From     => 'chakratt@microsoft.com',
-    Domain   => 'REDMOND',
-    Username => 'chakratt',
-    Password => '<censored>'
-};
+our $PROJECT_OWNERS = 'chakrahot@microsoft.com';
 
 # Interval between reminder, specified in number of attempts. Keep in mind the time between runs of the script when deciding on this number.
-our $REMINDER_INTERVAL = '1';
+our $REMINDER_INTERVAL = '480';
 
 # List of remotes. These must be implicitly able to authenticate, either using a URL embedded username/password or NTLM auth.
 our $REMOTES = [
@@ -29,8 +21,11 @@ our $BRANCH_DATA =  [
     { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/1.1', ToBranch => 'release/1.1', Owners => ['chakrahot@microsoft.com'] },
     { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/1.2', ToBranch => 'release/1.2', Owners => ['chakrahot@microsoft.com'] },
     { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/1.3', ToBranch => 'release/1.3', Owners => ['chakrahot@microsoft.com'] },
+    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/1.4', ToBranch => 'release/1.4', Owners => ['chakrahot@microsoft.com'] },
+    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/2.0', ToBranch => 'release/2.0', Owners => ['chakrahot@microsoft.com'] },
 
     # Common branches that desire mirroring
-    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'linux',       ToBranch => 'linux',       Owners => ['hiteshk@microsoft.com'] },
-    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'WebAssembly', ToBranch => 'WebAssembly', Owners => ['michhol@microsoft.com'] }
+    #{ FromRemote => 'vso', ToRemote => 'github', FromBranch => 'WebAssembly', ToBranch => 'WebAssembly', Owners => ['michhol@microsoft.com'] }
+    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'release/2.0-pre',  ToBranch => 'release/2.0-pre',  Owners => ['chakrahot@microsoft.com'] },
+    { FromRemote => 'vso', ToRemote => 'github', FromBranch => 'type-annotations', ToBranch => 'type-annotations', Owners => ['michhol@microsoft.com', 't-frca@microsoft.com'] },
 ];
