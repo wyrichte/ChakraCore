@@ -514,7 +514,11 @@ void ScriptSite::Close()
     // Same with debug stack frame
     this->scriptEngine->RemoveScriptBodyMap();
     this->scriptEngine->CleanupHalt();
-    this->scriptEngine->debugStackFrame = nullptr;
+    if (this->scriptEngine->debugStackFrame)
+    {
+        HeapDelete(this->scriptEngine->debugStackFrame);
+        this->scriptEngine->debugStackFrame = nullptr;
+    }
     this->scriptEngine->scriptContext = nullptr;
     this->scriptEngine = nullptr;
     ReleasePointer(m_ppoll);

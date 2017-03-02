@@ -1010,7 +1010,7 @@ private:
 
     // This will contain the list of CDebugStackFrame. The items will be populated during
     // halt break by CEnumDebugStackFrame.
-    JsUtil::List<CDebugStackFrame *, ArenaAllocator> * debugStackFrame;
+    JsUtil::List<CDebugStackFrame *, HeapAllocator> * debugStackFrame;
 
 #ifdef EDIT_AND_CONTINUE
     CComPtr<IActiveScriptEdit> m_scriptEdit; // Edit and Continue service. Only one instance used per script engine. Created lazily.
@@ -1153,7 +1153,7 @@ private:
     // end debugger fields
 public:
 
-    HRESULT GetDebugStackFrame(JsUtil::List<CDebugStackFrame *, ArenaAllocator> ** ppdbgFrame);
+    HRESULT GetDebugStackFrame(JsUtil::List<CDebugStackFrame *, HeapAllocator> ** ppdbgFrame);
 public:
     HRESULT GetApplicationThread(IDebugApplicationThread** ppdat);
     HRESULT GetBitCorrectApplicationThread(IDebugBitCorrectApplicationThread** ppdat);

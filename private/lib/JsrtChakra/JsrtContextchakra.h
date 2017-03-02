@@ -18,6 +18,7 @@ public:
 
     void OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException);
     virtual void Dispose(bool isShutdown) override;
+    virtual void Finalize(bool isShutdown) override {};
 private:
     DEFINE_VTABLE_CTOR(JsrtContextChakra, JsrtContext);
     JsrtContextChakra(JsrtRuntime * runtime);

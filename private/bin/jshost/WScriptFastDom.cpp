@@ -475,7 +475,6 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
                 {
                     runInfo.isDiagnosticHost = true;
                 }
-                SysFreeString(diagnostics);
             }
             else
             {
@@ -484,12 +483,11 @@ bool WScriptFastDom::ParseRunInfoFromArgs(CComPtr<IActiveScriptDirect> activeScr
             }
         }
 
-        BSTR context;
+        CComBSTR context;
         runInfo.hr = activeScriptDirect->VarToString(args[1], &context);
         if (SUCCEEDED(runInfo.hr))
         {
             runInfo.SetContext(context);
-            SysFreeString(context);
         }
         else
         {
