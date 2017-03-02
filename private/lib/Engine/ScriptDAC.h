@@ -294,7 +294,7 @@ Error:
         {
             HRESULT hr = S_OK;
 
-            if ((*this)->cache)
+            if ((*this)->Cache())
             {
                 auto processUtf8SourceContextInfo = [debugSite, mapper] (int, RecyclerWeakReference<Utf8SourceInfo>* entry) -> HRESULT
                 {

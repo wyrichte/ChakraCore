@@ -1945,7 +1945,7 @@ HRESULT CEnumDebugStackFrames::NextCommon()
     m_framePointers->ReleaseStrongReference();
 
     
-    JsUtil::List<CDebugStackFrame *, ArenaAllocator> * stackFrames = nullptr;
+    JsUtil::List<CDebugStackFrame *, HeapAllocator> * stackFrames = nullptr;
     hr = m_scriptSite->GetScriptEngine()->GetDebugStackFrame(&stackFrames);
     if (FAILED(hr))
     {

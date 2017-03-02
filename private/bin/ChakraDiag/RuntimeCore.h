@@ -220,6 +220,9 @@ namespace Js
     class PolymorphicInlineCacheInfo;
     class PropertyGuard;
     enum class OpCode : unsigned short;
+    template <class TKey, class TValue, class SecondaryDictionary, class NestedKey>  class TwoLevelHashRecord;
+    template <class T> struct FastEvalMapStringComparer;
+    template <class Key, class Value, class EntryRecord, class TopLevelDictionary, class NestedKey> class TwoLevelHashDictionary;
 } // namespace Js.
 namespace UnifiedRegex
 {

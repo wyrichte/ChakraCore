@@ -222,7 +222,6 @@ JsrtContextChakra::JsrtContextChakra(JsrtRuntime * runtime) :
     Js::GlobalObject* globalObject = this->scriptEngine->GetScriptContext()->GetGlobalObject();
     threadContext->GetRecycler()->RootRelease(globalObject, nullptr);
     Link();
-    PinCurrentJsrtContext();
 
     this->projectionDelegateWrapper = nullptr;
 }

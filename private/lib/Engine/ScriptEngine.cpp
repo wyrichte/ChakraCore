@@ -1431,14 +1431,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::TraceAsyncOperationCompleted(
     }
 }
 
-HRESULT ScriptEngine::GetDebugStackFrame(JsUtil::List<CDebugStackFrame *, ArenaAllocator> ** ppdbgFrame)
+HRESULT ScriptEngine::GetDebugStackFrame(JsUtil::List<CDebugStackFrame *, HeapAllocator> ** ppdbgFrame)
 {
     HRESULT hr = S_OK;
     if (this->debugStackFrame == nullptr)
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            this->debugStackFrame = JsUtil::List<CDebugStackFrame *, ArenaAllocator>::New(this->scriptContext->AllocatorForDiagnostics());
+            this->debugStackFrame = JsUtil::List<CDebugStackFrame *, HeapAllocator>::New(&HeapAllocator::Instance);
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr);
     }
@@ -2976,7 +2976,11 @@ STDMETHODIMP ScriptEngine::Reset(BOOL fFull)
     this->RemoveScriptBodyMap();
 
     this->CleanupHalt();    // Release alll the debug stack frames in the list before null out the list.
-    this->debugStackFrame = nullptr; // Memory for debugStackFrame will be reclaimed when we release the script site and the script context below
+    if (this->debugStackFrame)
+    {
+        HeapDelete(this->debugStackFrame);
+        this->debugStackFrame = nullptr; // Memory for debugStackFrame will be reclaimed when we release the script site and the script context below
+    }
 
     // Forget external references, and delete non-persistent named items:
     hr = ResetNamedItems();
@@ -3085,14 +3089,6 @@ HRESULT ScriptEngine::CloseInternal()
         hr = ResetNamedItems();
         Assert(SUCCEEDED(hr)); // ResetNamedItems never fails.
 
-        if (nullptr != this->scriptContext)
-        {
-            m_fClearingDebugDocuments = TRUE;
-            this->scriptContext->EnsureClearDebugDocument();
-            this->scriptContext->GetDebugContext()->GetProbeContainer()->UninstallInlineBreakpointProbe(this); // ScriptEngine closed, uninstall probe
-            this->scriptContext->GetDebugContext()->GetProbeContainer()->UninstallDebuggerScriptOptionCallback();
-        }
-
         if (nullptr != GetScriptSiteHolder())
         {
             GetScriptSiteHolder()->Close();
@@ -3197,7 +3193,7 @@ HRESULT ScriptEngine::CloseInternal()
 
 STDMETHODIMP ScriptEngine::Close(void)
 {
-    if (this->scriptContext != nullptr && this->scriptContext->IsScriptContextInDebugMode())
+    if (this->scriptContext != nullptr && !this->scriptContext->IsClosed() && this->scriptContext->IsScriptContextInDebugMode())
     {
         // Lock since enumeration of code contexts (via ScriptEngine::EnumCodeContextsOfPosition()) occurs
         // on a different thread and we don't want enumeration to proceed as the engine is being closed.
