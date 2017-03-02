@@ -45,7 +45,9 @@ JDByteCodeCachedData::Ensure()
         LayoutSize_SmallLayout = ExtRemoteTyped(ext->FillModule("%s!Js::SmallLayout")).GetLong();
         LayoutSize_MediumLayout = ExtRemoteTyped(ext->FillModule("%s!Js::MediumLayout")).GetLong();
         LayoutSize_LargeLayout = ExtRemoteTyped(ext->FillModule("%s!Js::LargeLayout")).GetLong();
-        extendedOpCodesWith2Bytes = ext->CanResolveSymbol(ext->FillModule("%s!Js::LayoutCount"));
+        // CanResolveSymbol doesn't work on enum. Need to guess that it is 3 here.
+        char * name = JDUtil::GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::LayoutSize)3")));
+        extendedOpCodesWith2Bytes = ENUM_EQUAL(name, LayoutCount);
     }
     else
     {
