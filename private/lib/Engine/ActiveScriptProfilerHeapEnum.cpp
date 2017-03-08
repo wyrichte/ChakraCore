@@ -693,14 +693,14 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     UINT propertyCount = 0;
     if (slotArray.IsFunctionScopeSlotArray())
     {
-        Js::FunctionBody* functionBody = slotArray.GetFunctionInfo()->GetFunctionBody();
-        Assert(functionBody);
+        Js::ParseableFunctionInfo* pfi = slotArray.GetFunctionInfo()->GetParseableFunctionInfo();
+        Assert(pfi);
 
         propertyCount = slotArray.GetCount();
         propertiesAllocSize = offsetof(ProfilerHeapObjectOptionalInfo, namePropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(propertyCount);
 
-        functionName = functionBody->GetExternalDisplayName();
-        propertyIds = functionBody->GetPropertyIdsForScopeSlotArray();
+        functionName = pfi->GetExternalDisplayName();
+        propertyIds = pfi->GetPropertyIdsForScopeSlotArray();
     }
     else
     {
