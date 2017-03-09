@@ -955,27 +955,38 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
         hr = scriptDirect->GetTypedObjectSlotAccessor(Js::JavascriptOperators::GetTypeId(obj), propertyId, index, &getter, &setter);
     }
     END_LEAVE_SCRIPT(scriptContext);
-    if (SUCCEEDED(hr))
-    {
-        Js::RecyclableObject* protoObj = Js::JavascriptOperators::GetPrototype(obj);
-        if (!Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(protoObj)))
-        {
-            Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
-        }
-        else
-        {
-            Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
-        }
-        Js::Var outArgs[2];
-        outArgs[0] = obj;
-        outArgs[1] = value;
-        Js::Arguments jsArguments(0, nullptr);
-        jsArguments.Info.Count = callInfo.Count;
-        jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
-        jsArguments.Values = (Js::Var*)outArgs;
 
-        Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+    switch (hr)
+    {
+    case S_OK:
+        break;
+    case E_OUTOFMEMORY:
+        Js::JavascriptError::ThrowOutOfMemoryError(scriptContext);
+    case E_INVALIDARG:
+        return scriptContext->GetLibrary()->GetUndefined();
+    default:
+        AssertMsg(UNREACHED, "GetTypedObjectSlotAccessor returned unexpected HRESULT");
+        return scriptContext->GetLibrary()->GetUndefined();
     }
+
+    Js::RecyclableObject* protoObj = Js::JavascriptOperators::GetPrototype(obj);
+    if (!Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(protoObj)))
+    {
+        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
+    }
+    else
+    {
+        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
+    }
+    Js::Var outArgs[2];
+    outArgs[0] = obj;
+    outArgs[1] = value;
+    Js::Arguments jsArguments(0, nullptr);
+    jsArguments.Info.Count = callInfo.Count;
+    jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
+    jsArguments.Values = (Js::Var*)outArgs;
+
+    Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
 
     return getter;
 }
