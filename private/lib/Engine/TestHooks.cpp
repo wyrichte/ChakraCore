@@ -248,6 +248,7 @@ void PreInitializePropertyIds(IActiveScriptDirect* scriptDirect)
 #define FLAG_Phases(name)
 #define FLAG_NumberSet(name)
 #define FLAG_NumberPairSet(name)
+#define FLAG_NumberTrioSet(name)
 #define FLAG_NumberRange(name)
 #include "ConfigFlagsList.h"
 #undef FLAG
@@ -257,6 +258,7 @@ void PreInitializePropertyIds(IActiveScriptDirect* scriptDirect)
 #undef FLAG_Phases
 #undef FLAG_NumberSet
 #undef FLAG_NumberPairSet
+#undef FLAG_NumberTrioSet
 #undef FLAG_NumberRange
 
 typedef BOOL (__stdcall * NotifyOnScriptStateChangedCallBackFuncPtr)(IActiveScriptDirect* scriptDirectRef, SCRIPTSTATE ss, void** engineSpecificStorage);
@@ -476,6 +478,7 @@ HRESULT OnJScript9Loaded()
 #define FLAG_Phases(name)
 #define FLAG_NumberSet(name)
 #define FLAG_NumberPairSet(name)
+#define FLAG_NumberTrioSet(name)
 #define FLAG_NumberRange(name)
 #include "ConfigFlagsList.h"
 #undef FLAG
@@ -485,6 +488,7 @@ HRESULT OnJScript9Loaded()
 #undef FLAG_Phases
 #undef FLAG_NumberSet
 #undef FLAG_NumberPairSet
+#undef FLAG_NumberTrioSet
 #undef FLAG_NumberRange
 
         NotifyUnhandledException
