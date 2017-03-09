@@ -18,7 +18,7 @@
   {
     "locals": {
       "this": "{...}",
-      "{exception}": "Array.prototype.sort: argument is not a JavaScript object",
+      "{exception}": "Array.prototype.sort: argument is not a Function object",
       "arguments": "{...}",
       "[Globals]": ""
     }
