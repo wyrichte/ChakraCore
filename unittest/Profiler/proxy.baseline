@@ -189,7 +189,6 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
 [FunctionCompiled]: Function: VerifyReflectThis, Line: 174, Column: 1, Character Position: 4772
 [FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
-[FunctionCompiled]: Function: WScript.LoadModuleFile, Line: 37, Column: 34, Character Position: 1968
 [FunctionCompiled]: Function: areEqual, Line: 253, Column: 19, Character Position: 9498
 [FunctionCompiled]: Function: assert, Line: 174, Column: 14, Character Position: 6714
 [FunctionCompiled]: Function: body, Line: 109, Column: 15, Character Position: 4561

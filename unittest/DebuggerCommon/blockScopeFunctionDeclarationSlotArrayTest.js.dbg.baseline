@@ -4,9 +4,10 @@
       "this": "{...}",
       "arguments": "{...}",
       "g": "<large string>",
+      "f": "<large string>",
+      "f#1": "<large string>",
       "g#1": "<large string>",
       "a": "1",
-      "f": "<large string>",
       "[Globals]": ""
     }
   },
@@ -15,9 +16,10 @@
       "this": "{...}",
       "arguments": "{...}",
       "g": "<large string>",
+      "f": "<large string>",
+      "f#1": "<large string>",
       "g#1": "<large string>",
       "a": "1",
-      "f": "<large string>",
       "[Globals]": ""
     }
   },
@@ -25,6 +27,7 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "f": "<large string>",
       "g": "<large string>",
       "a": "1",
       "[Globals]": ""
