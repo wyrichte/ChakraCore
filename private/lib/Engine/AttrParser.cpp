@@ -52,18 +52,17 @@ HRESULT AttrParser::GetTextAttribsImpl(typename EncodingPolicy::EncodedCharPtr p
     }
     memset(prgsta, 0, sizeof(prgsta[0]) * cch);
 
-    DebugOnly(m_err.fInited = TRUE; )
-
     Scanner<EncodingPolicy> *scanner = nullptr;
+    HRESULT hr = NOERROR;
     try
     {
         // Create the hash table.
-        if (NULL == (m_phtbl = HashTbl::Create(HASH_TABLE_SIZE, &m_err)))
+        if (NULL == (m_phtbl = HashTbl::Create(HASH_TABLE_SIZE)))
             Error(ERRnoMemory);
 
         // Create the scanner.
 
-        if (NULL == (scanner = Scanner<EncodingPolicy>::Create(this, m_phtbl, &m_token, &m_err, m_scriptContext)))
+        if (NULL == (scanner = Scanner<EncodingPolicy>::Create(this, m_phtbl, &m_token, m_scriptContext)))
             Error(ERRnoMemory);
 
         // Give the scanner the source.
@@ -78,17 +77,18 @@ HRESULT AttrParser::GetTextAttribsImpl(typename EncodingPolicy::EncodedCharPtr p
     }
     catch (ParseExceptionObject& e)
     {
-        m_err.m_hr = e.GetError();
+        hr = e.GetError();
     }
     RELEASEPTR(scanner);
     FREEPTR(psz);
-    return m_err.m_hr;
+    return hr;
 }
 
 template <typename EncodingPolicy>
 void AttrParser::GetTextAttribsImpl(Scanner< EncodingPolicy > *scanner, typename EncodingPolicy::EncodedCharPtr pstr, DWORD dwFlags,
     __ecount(cch) SOURCE_TEXT_ATTR *prgsta, ulong cch)
 {
+    HRESULT hr = NOERROR;
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
         switch (dwFlags & 0xFF)
@@ -103,9 +103,8 @@ void AttrParser::GetTextAttribsImpl(Scanner< EncodingPolicy > *scanner, typename
             // Don't understand flags -> no attributes assigned.
             break;
         }
-        m_err.m_hr = NOERROR;
     }
-    END_TRANSLATE_EXCEPTION_TO_HRESULT(m_err.m_hr);
+    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
 }
 
 template <typename EncodingPolicy>
