@@ -138,7 +138,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
         memset(paramNames, 0, allocSize);
         paramNames[0] = functionName;
         HashTbl *h = NULL;
-        UTF8Scanner *scan = NULL;
+        Scanner<NotNullTerminatedUTF8EncodingPolicy> *scan = NULL;
         if (paramCount > 0)
         {
             // The parameter list in AST is not available after bytecode generator
@@ -180,7 +180,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
                     {
                         return E_OUTOFMEMORY;
                     }
-                    scan = UTF8Scanner::Create(NULL, h, &tok, scriptContext);
+                    scan = Scanner<NotNullTerminatedUTF8EncodingPolicy>::Create(NULL, h, &tok, scriptContext);
                     scan->SetText(pFuncBody->GetSource(_u("TypeInfoBuilder::AddFunction")), 0, pFuncBody->LengthInBytes(), 0, 0);
                     int params = 0;
                     scan->Scan();

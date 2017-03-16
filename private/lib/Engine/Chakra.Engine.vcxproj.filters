@@ -53,7 +53,6 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)scrpting.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)TestHooks.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
-    <ClCompile Include="$(MsBuildThisFileDirectory)AttrParser.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)scrutil.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)guids.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)EnginePch.cpp" />
@@ -123,7 +122,6 @@
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
     <ClInclude Include="ChakraVersion.h" />
-    <ClInclude Include="AttrParser.h" />
     <ClInclude Include="var.h" />
     <ClInclude Include="scrutil.h" />
     <ClInclude Include="AutoCallerPointer.h" />

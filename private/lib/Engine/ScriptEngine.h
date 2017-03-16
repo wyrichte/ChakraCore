@@ -675,8 +675,6 @@ public:
     Js::ScriptContext* EnsureScriptContext();
     BOOL ShouldKeepAlive() const { return fKeepEngineAlive; }
 
-    HRESULT GetScriptTextAttributesUTF8(LPCUTF8 pchCode, ULONG cb, LPCOLESTR pstrDelimiter, ULONG cch, DWORD dwFlags, SOURCE_TEXT_ATTR *prgsta);
-
     CJavascriptOperations* jsOps;
 
     // code bodies that should be persisted or run

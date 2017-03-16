@@ -596,74 +596,8 @@ HRESULT CScriptSourceDocumentText::GetPositionOfLine(ULONG ln, ULONG *outCharPos
 HRESULT CScriptSourceDocumentText::GetText(ULONG ich, __out_ecount_part_opt(cchMax,*pcch) OLECHAR *prgch,
                                            SOURCE_TEXT_ATTR *sourceTextAttributes, ULONG *pcch, ULONG cchMax)
 {
-    long cch, cchDisp;
-    HRESULT hr;
-
-    CHECK_POINTER(pcch);
-
-    CComAutoUnlockCS autoUnlock(&m_csForClose);
-
-    if (m_fIsMarkedClosed)
-    {
-        return E_FAIL;
-    }
-
-    cchDisp = CchDisplay();
-    if (*pcch != 0 || ich > (ulong)cchDisp)
-        return HR(E_INVALIDARG);
-
-    cch = cchMax;
-    if (cch > cchDisp - (long)ich)
-        cch = cchDisp - (long)ich;
-    Assert(cch >= 0 && cch <= cchDisp - (long)ich);
-
-    if (cch == 0)
-    {
-        *pcch = 0;
-        return NOERROR;
-    }
-
-    if (NULL != sourceTextAttributes)
-    {
-        if (NULL == m_sourceTextAttirbutes)
-        {
-            if (NULL == m_scriptEngine)
-                return HR(E_NOINTERFACE);
-            if (NULL == (m_sourceTextAttirbutes = (SOURCE_TEXT_ATTR *)malloc(
-                m_utf8SourceInfo->GetCchLength() * sizeof(SOURCE_TEXT_ATTR))))
-            {
-                return HR(E_OUTOFMEMORY);
-            }
-
-            hr = m_scriptEngine->GetScriptTextAttributesUTF8(m_utf8SourceInfo->GetSource(_u("ScpText::GetText")), static_cast< ULONG >(m_utf8SourceInfo->GetCbLength(_u("ScpText::GetText"))), 
-                NULL, static_cast< ULONG >(m_utf8SourceInfo->GetCchLength()), 0, m_sourceTextAttirbutes);
-            if (FAILED(hr))
-            {
-                free(m_sourceTextAttirbutes);
-                m_sourceTextAttirbutes = NULL;
-                return hr;
-            }
-
-            long ista;
-
-            for (ista = 0 ; ista < m_ichMinDisplay; ista++)
-                m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
-            long cchSourceInfo = static_cast<long>(m_utf8SourceInfo->GetCchLength());
-            for (ista = m_ichLimDisplay; ista < cchSourceInfo; ista++)
-                m_sourceTextAttirbutes[ista] |= SOURCETEXT_ATTR_NONSOURCE;
-        }
-        js_memcpy_s(sourceTextAttributes, cchMax, m_sourceTextAttirbutes + ich + m_ichMinDisplay,
-            cch * sizeof(SOURCE_TEXT_ATTR));
-    }
-
-    if (NULL != prgch)
-    {
-        m_utf8SourceInfo->RetrieveSourceText(prgch, ich, ich + cch);
-    }
-
-    *pcch = cch;
-
-    return NOERROR;
+    // Don't support source text attributes
+    return E_NOTIMPL;
 }
 
 
