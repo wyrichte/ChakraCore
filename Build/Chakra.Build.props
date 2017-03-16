@@ -210,6 +210,16 @@
     </Link>
   </ItemDefinitionGroup>
 
+  <ItemDefinitionGroup Condition="'$(ProjectName)' == 'wabt'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(SolutionDir)\..\private\lib\wabt;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>wabt_chakrafull_shim.h</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
   <!-- Manifest dependency -->
   <ItemDefinitionGroup Condition="'$(ProjectName)' != 'Manifests'">
     <ClCompile>
