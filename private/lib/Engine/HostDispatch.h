@@ -39,10 +39,10 @@ public:
 
     virtual RecyclableObject* GetPrototypeSpecial() override;
     virtual BOOL HasOwnProperty(PropertyId propertyId) override;
-    virtual BOOL HasProperty(Js::PropertyId propertyId) override;
-    virtual BOOL GetProperty(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
-    virtual BOOL GetProperty(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
-    virtual BOOL GetPropertyReference(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
+    virtual Js::PropertyQueryFlags HasPropertyQuery(Js::PropertyId propertyId) override;
+    virtual Js::PropertyQueryFlags GetPropertyQuery(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
+    virtual Js::PropertyQueryFlags GetPropertyQuery(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
+    virtual Js::PropertyQueryFlags GetPropertyReferenceQuery(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
     virtual BOOL SetProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
     virtual BOOL SetProperty(Js::JavascriptString* propertyNameString, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
     virtual BOOL InitProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags = Js::PropertyOperation_None, Js::PropertyValueInfo* info = NULL) override;
@@ -51,9 +51,9 @@ public:
     virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::PropertyDescriptor descriptor);
     virtual void ThrowIfCannotGetOwnPropertyDescriptor(Js::PropertyId propId);
     virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor);
-    virtual BOOL HasItem(uint32 index) override;
-    virtual BOOL GetItemReference(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
-    virtual BOOL GetItem(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
+    virtual Js::PropertyQueryFlags HasItemQuery(uint32 index) override;
+    virtual Js::PropertyQueryFlags GetItemReferenceQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
+    virtual Js::PropertyQueryFlags GetItemQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
     virtual Js::DescriptorFlags GetItemSetter(uint32 index, Var* setterValue, Js::ScriptContext* requestContext) override;
     virtual BOOL SetItem(__in uint32 index, __in Js::Var value, __in Js::PropertyOperationFlags flags) override;
     virtual BOOL DeleteItem(uint32 index, Js::PropertyOperationFlags flags) override;

@@ -143,40 +143,40 @@ namespace Js
         return DynamicObject::IsEnumerable(propertyId);
     }
 
-    BOOL ProfileDataObject::HasProperty(PropertyId propertyId)
+    PropertyQueryFlags ProfileDataObject::HasPropertyQuery(PropertyId propertyId)
     {
         if(propertyId == loopCount)
-            return TRUE;
+            return Property_Found;
         if(propertyId == implicitCallFlags)
-            return TRUE;
+            return Property_Found;
 
-        return DynamicObject::HasProperty(propertyId);
+        return DynamicObject::HasPropertyQuery(propertyId);
     }
 
-    BOOL ProfileDataObject::GetPropertyReference(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags ProfileDataObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
-        return ProfileDataObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+        return ProfileDataObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
     }
-    BOOL ProfileDataObject::GetProperty(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags ProfileDataObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
         if(propertyId == loopCount)
         {
             *value = Js::JavascriptNumber::ToVar(funcBody->GetLoopCount(), requestContext);
-            return TRUE;
+            return Property_Found;
         }
         if(propertyId == implicitCallFlags)
         {
             *value = Js::JavascriptNumber::ToVar(funcBody->GetAnyDynamicProfileInfo()->GetImplicitCallFlags(), requestContext);
-            return TRUE;
+            return Property_Found;
         }
-        return DynamicObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+        return DynamicObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
     }
 
-    BOOL ProfileDataObject::GetProperty(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags ProfileDataObject::GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
         PropertyRecord const * propertyRecord;
         this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
-        return ProfileDataObject::GetProperty(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
+        return ProfileDataObject::GetPropertyQuery(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
     }
 
     BOOL ProfileDataObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)

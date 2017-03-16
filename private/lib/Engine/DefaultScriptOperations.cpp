@@ -97,7 +97,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)objInstance;
-                *result = customExternalObject->ExternalObject::HasProperty(propertyId);
+                *result = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::HasPropertyQuery(propertyId));
             }
             else
             {
@@ -127,7 +127,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)objInstance;
-                *propertyPresent = customExternalObject->ExternalObject::GetProperty(instance, propertyId, value, NULL, scriptContext);
+                *propertyPresent = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::GetPropertyQuery(instance, propertyId, value, NULL, scriptContext));
             }
             else
             {
@@ -154,7 +154,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject* customExternalObject = (Js::CustomExternalObject*)instance;
-                *propertyPresent = customExternalObject->ExternalObject::GetPropertyReference(instance, propertyId, value, NULL, objInstance->GetScriptContext());
+                *propertyPresent = customExternalObject->ExternalObject::GetPropertyReferenceQuery(instance, propertyId, value, NULL, objInstance->GetScriptContext());
             }
             else
             {
@@ -260,7 +260,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;
-                *result = customExternalObject->ExternalObject::HasItem(JavascriptConversion::ToUInt32(index, scriptContext));
+                *result = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::HasItemQuery(JavascriptConversion::ToUInt32(index, scriptContext)));
             }
             else
             {
@@ -288,7 +288,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)instance;
-                *itemPresent = customExternalObject->ExternalObject::GetItem(instance, JavascriptConversion::ToUInt32(index, scriptContext), value, scriptContext);
+                *itemPresent = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::GetItemQuery(instance, JavascriptConversion::ToUInt32(index, scriptContext), value, scriptContext));
             }
             else
             {

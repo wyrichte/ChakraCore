@@ -170,25 +170,25 @@ namespace Js
     }
 
 
-    BOOL CustomExternalObject::HasProperty(PropertyId propertyId)
+    PropertyQueryFlags CustomExternalObject::HasPropertyQuery(PropertyId propertyId)
     {
         BOOL notPresent=false;
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::HasProperty(propertyId);
+            return ExternalObject::HasPropertyQuery(propertyId);
         }
         // we don't throw in hasProperty, but possibly throw in GetProperty
         // this is consistent with HostDispatch code path as well.
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_hasOwnProperty)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (ExternalObject::HasPropertyQuery(propertyId))
             {
-                return true;
+                return Property_Found;
             }
             else
             {
@@ -207,7 +207,7 @@ namespace Js
             GlobalObject* globalObject = scriptContext->GetGlobalObject();
             if (this == globalObject->GetSecureDirectHostObject())
             {
-                return globalObject->HasOwnProperty(propertyId);
+                return JavascriptConversion::BooleanToPropertyQueryFlags(globalObject->HasOwnProperty(propertyId));
             }
             else
             {
@@ -216,7 +216,7 @@ namespace Js
                 if (threadContext->IsDisableImplicitCall())
                 {
                     threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                    return TRUE;
+                    return Property_Found;
                 }
 
                 HRESULT hr;
@@ -227,30 +227,30 @@ namespace Js
                 END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), propertyId, CustomExternalObject_HasOwnProperty);
                 IGNORE_HR(hr)
             }
-            return result;
+            return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::HasProperty(propertyId);
+        return ExternalObject::HasPropertyQuery(propertyId);
     }
 
-    BOOL CustomExternalObject::GetProperty(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags CustomExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+            return ExternalObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getOwnProperty)
         {
-            if  (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
-                return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+                return ExternalObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
             }
             else
             {
@@ -280,7 +280,7 @@ namespace Js
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
                 }
-                return result;
+                return JavascriptConversion::BooleanToPropertyQueryFlags(result);
             }
             else
             {
@@ -291,7 +291,7 @@ namespace Js
             }
             if (!this->VerifyObjectAlive())
             {
-                return FALSE;
+                return Property_NotFound;
             }
         }
         else
@@ -309,11 +309,11 @@ namespace Js
                 if (globalObject->GetProperty(originalInstance, propertyId, value, info, requestContext))
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
-                    return TRUE;
+                    return Property_Found;
                 }
                 else
                 {
-                    return FALSE;
+                    return Property_NotFound;
                 }
             }
 
@@ -325,7 +325,7 @@ namespace Js
             {
                 *value = requestContext->GetLibrary()->GetNull();
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                return TRUE;
+                return Property_Found;
             }
 
             BOOL result = false;
@@ -342,7 +342,7 @@ namespace Js
                     // The site might have been closed during the GetOwnProperty call.
                     if (!this->VerifyObjectAlive())
                     {
-                        return FALSE;
+                        return Property_NotFound;
                     }
                     if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
                     {
@@ -377,38 +377,38 @@ namespace Js
                 // We might get property from current object instead of prototype object without any change in jscript code.
                 PropertyValueInfo::DisablePrototypeCache(info, this); // We can't cache the property
             }
-            return result;
+            return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+        return ExternalObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
     }
 
-    BOOL CustomExternalObject::GetProperty(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags CustomExternalObject::GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {
         PropertyRecord const * propertyRecord;
         this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
-        return CustomExternalObject::GetProperty(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
+        return CustomExternalObject::GetPropertyQuery(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
     }
 
-    BOOL CustomExternalObject::GetPropertyReference(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info,
+    PropertyQueryFlags CustomExternalObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info,
         ScriptContext* requestContext)
     {
         BOOL notPresent=false;
         BOOL dontCachePrototype = false;
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
         Assert(GetScriptContext()->GetThreadContext()->IsActivePropertyId(propertyId));
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
+            return ExternalObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getPropertyReference)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
-                return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
+                return ExternalObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
             }
             else
             {
@@ -437,7 +437,7 @@ namespace Js
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
                 }
-                return result;
+                return JavascriptConversion::BooleanToPropertyQueryFlags(result);
             }
             else
             {
@@ -446,7 +446,7 @@ namespace Js
             }
             if (!this->VerifyObjectAlive())
             {
-                return FALSE;
+                return Property_NotFound;
             }
         }
         else
@@ -464,11 +464,11 @@ namespace Js
                 if (globalObject->GetPropertyReference(originalInstance, propertyId, value, info, requestContext))
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
-                    return TRUE;
+                    return Property_Found;
                 }
                 else
                 {
-                    return FALSE;
+                    return Property_NotFound;
                 }
             }
 
@@ -480,7 +480,7 @@ namespace Js
             {
                 *value = requestContext->GetLibrary()->GetNull();
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                return TRUE;
+                return Property_Found;
             }
 
             BOOL result = FALSE;
@@ -496,7 +496,7 @@ namespace Js
             {
                 if (!this->VerifyObjectAlive())
                 {
-                    return FALSE;
+                    return Property_NotFound;
                 }
                 if ((this->GetOperationUsage().useAlways & OperationFlag_crossDomainCheck) == OperationFlag_crossDomainCheck)
                 {
@@ -533,9 +533,9 @@ namespace Js
                 PropertyValueInfo::DisablePrototypeCache(info, this); // We can't cache the property
             }
 
-            return result;
+            return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
+        return ExternalObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
     }
 
     BOOL CustomExternalObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
@@ -553,7 +553,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setProperty)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetProperty(propertyId, value, flags, info);
             }
@@ -617,7 +617,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setPropertyWithAttributes)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetPropertyWithAttributes(propertyId, value, attributes, info, flags, possibleSideEffects);
             }
@@ -692,7 +692,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_deleteProperty)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::DeleteProperty(propertyId, flags);
             }
@@ -747,16 +747,16 @@ namespace Js
         return TRUE;
     }
 
-    BOOL CustomExternalObject::HasItem(uint32 index)
+    PropertyQueryFlags CustomExternalObject::HasItemQuery(uint32 index)
     {
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::HasItem(index);
+            return ExternalObject::HasItemQuery(index);
         }
 
         BOOL notPresent=false;
@@ -765,9 +765,9 @@ namespace Js
         // this is consistent with HostDispatch code path as well.
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_hasOwnItem)
         {
-            if (ExternalObject::HasItem(index))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasItemQuery(index)))
             {
-                return true;
+                return Property_Found;
             }
             else
             {
@@ -786,7 +786,7 @@ namespace Js
             GlobalObject* globalObject = scriptContext->GetGlobalObject();
             if (this == globalObject->GetSecureDirectHostObject())
             {
-                return globalObject->HasOwnItem(index);
+                return JavascriptConversion::BooleanToPropertyQueryFlags(globalObject->HasOwnItem(index));
             }
             else
             {
@@ -795,7 +795,7 @@ namespace Js
                 if (threadContext->IsDisableImplicitCall())
                 {
                     threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                    return TRUE;
+                    return Property_Found;
                 }
 
                 Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
@@ -807,27 +807,27 @@ namespace Js
                 END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), index, CustomExternalObject_HasOwnItem);
                 IGNORE_HR(hr)
             }
-            return result;
+            return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::HasItem(index);
+        return ExternalObject::HasItemQuery(index);
     }
 
-    BOOL CustomExternalObject::GetItem(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
+    PropertyQueryFlags CustomExternalObject::GetItemQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
     {
         BOOL notPresent=false;
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::GetItem(originalInstance, index, value, requestContext);
+            return ExternalObject::GetItemQuery(originalInstance, index, value, requestContext);
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getOwnItem)
         {
-            if (ExternalObject::GetItem(originalInstance, index, value, requestContext))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::GetItemQuery(originalInstance, index, value, requestContext)))
             {
-                return true;
+                return Property_Found;
             }
             else
             {
@@ -844,7 +844,7 @@ namespace Js
                 {
                     *value = CrossSite::MarshalVar(requestContext, *value);
                 }
-                return result;
+                return JavascriptConversion::BooleanToPropertyQueryFlags(result);
             }
             else
             {
@@ -852,7 +852,7 @@ namespace Js
             }
             if (!this->VerifyObjectAlive())
             {
-                return FALSE;
+                return Property_NotFound;
             }
         }
 
@@ -868,7 +868,7 @@ namespace Js
                 {
                     *value = Js::CrossSite::MarshalVar(requestContext, *value);
                 }
-                return result;
+                return JavascriptConversion::BooleanToPropertyQueryFlags(result);
             }
             // Reject implicit call
             ThreadContext * threadContext = scriptContext->GetThreadContext();
@@ -876,7 +876,7 @@ namespace Js
             {
                 *value = requestContext->GetLibrary()->GetNull();
                 threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-                return TRUE;
+                return Property_Found;
             }
             Var varIndex = JavascriptNumber::ToVar(index, GetScriptContext());
             HRESULT hr;
@@ -896,18 +896,18 @@ namespace Js
                 }
                 *value = Js::CrossSite::MarshalVar(requestContext, *value);
             }
-            return result;
+            return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::GetItem(originalInstance, index, value, requestContext);
+        return ExternalObject::GetItemQuery(originalInstance, index, value, requestContext);
     }
 
-    BOOL CustomExternalObject::GetItemReference(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
+    PropertyQueryFlags CustomExternalObject::GetItemReferenceQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive())
         {
-            return FALSE;
+            return Property_NotFound;
         }
-        return GetItem(originalInstance, index, value, requestContext);
+        return GetItemQuery(originalInstance, index, value, requestContext);
     }
 
     BOOL CustomExternalObject::SetItem(uint32 index, Var value, PropertyOperationFlags flags)
@@ -923,7 +923,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setItem)
         {
-            if (ExternalObject::HasItem(index))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasItemQuery(index)))
             {
                 return ExternalObject::SetItem(index, value, flags);
             }
@@ -1048,7 +1048,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_deleteItem)
         {
-            if (ExternalObject::HasItem(index))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasItemQuery(index)))
             {
                 return ExternalObject::DeleteItem(index, flags);
             }
@@ -1100,7 +1100,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isEnumerable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsEnumerable(propertyId);
             }
@@ -1156,7 +1156,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isWritable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsWritable(propertyId);
             }
@@ -1211,7 +1211,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isConfigurable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsConfigurable(propertyId);
             }
@@ -1266,7 +1266,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setEnumerable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetEnumerable(propertyId, value);
             }
@@ -1321,7 +1321,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setWritable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetWritable(propertyId, value);
             }
@@ -1376,7 +1376,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setConfigurable)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetConfigurable(propertyId, value);
             }
@@ -1443,7 +1443,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setAccessors)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetAccessors(propertyId, getter, setter, flags);
             }
@@ -1507,7 +1507,7 @@ namespace Js
 
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getAccessors)
         {
-            if (ExternalObject::HasProperty(propertyId))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
             }

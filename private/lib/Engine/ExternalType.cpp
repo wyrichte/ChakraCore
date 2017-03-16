@@ -11,41 +11,41 @@ namespace Js
         return requestContext->GetPropertyString(GetNameId());
     }
 
-    BOOL ExternalObject::HasProperty(PropertyId propertyId)
+    PropertyQueryFlags ExternalObject::HasPropertyQuery(PropertyId propertyId)
     {
         // we don't throw in hasProperty, but possibly throw in GetProperty
         // this is consistent with HostDispatch code path as well.
-        return DynamicObject::HasProperty(propertyId);
+        return DynamicObject::HasPropertyQuery(propertyId);
     }
 
-    BOOL ExternalObject::GetProperty(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {        
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive()) return Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
-        BOOL result = DynamicObject::GetProperty(originalInstance, propertyId, value, info, requestContext);
+        BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext)));
         if (result)
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
         }
-        return result;
+        return JavascriptConversion::BooleanToPropertyQueryFlags(result);
     }
 
-    BOOL ExternalObject::GetProperty(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {        
-        if (!this->VerifyObjectAlive()) return FALSE;
-        BOOL result = DynamicObject::GetProperty(originalInstance, propertyNameString, value, info, requestContext);
+        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyNameString, value, info, requestContext)));
         if (result)
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
         }
-        return result;
+        return JavascriptConversion::BooleanToPropertyQueryFlags(result);
     }
 
-    BOOL ExternalObject::GetPropertyReference(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) 
+    PropertyQueryFlags ExternalObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) 
     {        
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive()) return Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
-        BOOL result = DynamicObject::GetPropertyReference(originalInstance, propertyId, value, info, requestContext);
+        PropertyQueryFlags result = DynamicObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
         if (result)
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
@@ -125,31 +125,31 @@ namespace Js
         return TRUE;
     }
 
-    BOOL ExternalObject::HasItem(uint32 index)
+    PropertyQueryFlags ExternalObject::HasItemQuery(uint32 index)
     {
         // we don't throw in hasItem, but possibly throw in GetItem
         // this is consistent with HostDispatch code path as well.
-        return DynamicObject::HasItem(index);
+        return DynamicObject::HasItemQuery(index);
     }
 
-    BOOL ExternalObject::GetItem(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
+    PropertyQueryFlags ExternalObject::GetItemQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
     {     
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive()) return Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
-        BOOL result = DynamicObject::GetItem(originalInstance, index, value, requestContext);
-        if (result)
+        PropertyQueryFlags result = DynamicObject::GetItemQuery(originalInstance, index, value, requestContext);
+        if (JavascriptConversion::PropertyQueryFlagsToBoolean(result))
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
         }
         return result;
     }
 
-    BOOL ExternalObject::GetItemReference(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
+    PropertyQueryFlags ExternalObject::GetItemReferenceQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
     {
-        if (!this->VerifyObjectAlive()) return FALSE;
+        if (!this->VerifyObjectAlive()) return Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
-        BOOL result = DynamicObject::GetItemReference(originalInstance, index, value, requestContext);
-        if (result)
+        PropertyQueryFlags result = DynamicObject::GetItemReferenceQuery(originalInstance, index, value, requestContext);
+        if (JavascriptConversion::PropertyQueryFlagsToBoolean(result))
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
         }

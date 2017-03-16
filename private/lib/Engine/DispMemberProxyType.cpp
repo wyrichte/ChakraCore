@@ -5,31 +5,31 @@
 ********************************************************/
 #include "EnginePch.h"
 
-BOOL DispMemberProxy::HasProperty(Js::PropertyId propertyId)
+Js::PropertyQueryFlags DispMemberProxy::HasPropertyQuery(Js::PropertyId propertyId)
 {
-    AssertMsg(false, "DispMemberProxy::HasProperty should never be called");
-    return false;
+    AssertMsg(false, "DispMemberProxy::HasPropertyQuery should never be called");
+    return Js::Property_NotFound;
 }
 
-BOOL DispMemberProxy::GetProperty(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags DispMemberProxy::GetPropertyQuery(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
-    AssertMsg(false, "DispMemberProxy::GetProperty should never be called");
-    return false;
+    AssertMsg(false, "DispMemberProxy::GetPropertyQuery should never be called");
+    return Js::Property_NotFound;
 }
 
-BOOL DispMemberProxy::GetProperty(Js::Var originalInstance,Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags DispMemberProxy::GetPropertyQuery(Js::Var originalInstance,Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
-    AssertMsg(false, "DispMemberProxy::GetProperty should never be called");
-    return false;
+    AssertMsg(false, "DispMemberProxy::GetPropertyQuery should never be called");
+    return Js::Property_NotFound;
 }
 
-BOOL DispMemberProxy::GetPropertyReference(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags DispMemberProxy::GetPropertyReferenceQuery(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
     AssertMsg(false, "DispMemberProxy::GetRefProperty should never be called");
-    return false;
+    return Js::Property_NotFound;
 }
 
 BOOL DispMemberProxy::SetProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)

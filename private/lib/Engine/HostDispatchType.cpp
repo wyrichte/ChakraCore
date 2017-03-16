@@ -22,17 +22,17 @@ Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
     return GetType()->GetPrototype();
 }
 
-BOOL HostDispatch::HasProperty(PropertyId propertyId)
+Js::PropertyQueryFlags HostDispatch::HasPropertyQuery(PropertyId propertyId)
 {
     // Reject implicit call
     ThreadContext * threadContext = GetScriptContext()->GetThreadContext();
     if (threadContext->IsDisableImplicitCall())
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return FALSE;
+        return Js::PropertyQueryFlags::Property_NotFound;
     }
 
-    return this->HasProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
+    return this->HasProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer()) ? Js::PropertyQueryFlags::Property_Found : Js::PropertyQueryFlags::Property_NotFound;
 }
 
 BOOL HostDispatch::HasOwnProperty(PropertyId propertyId)
@@ -100,7 +100,7 @@ BOOL HostDispatch::GetPropertyReferenceFromRootObject(Var originalInstance, Prop
 }
 
 
-BOOL HostDispatch::GetProperty(Var originalInstance, PropertyId propertyId, Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
+Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
 {    
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     BOOL result, wasGetAttempted = FALSE;
@@ -110,11 +110,11 @@ BOOL HostDispatch::GetProperty(Var originalInstance, PropertyId propertyId, Var*
         {
             Assert(wasGetAttempted);
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
-            return TRUE;
+            return Js::Property_Found;
         }
         if (wasGetAttempted)
         {
-            return FALSE;
+            return Js::Property_NotFound;
         }
     }
 
@@ -125,7 +125,7 @@ BOOL HostDispatch::GetProperty(Var originalInstance, PropertyId propertyId, Var*
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
+        return Js::Property_Found;
     }
 
     result = this->GetValue(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer(), value);
@@ -133,20 +133,20 @@ BOOL HostDispatch::GetProperty(Var originalInstance, PropertyId propertyId, Var*
     {
         *value = Js::CrossSite::MarshalVar(requestContext, *value);
     }
-    return result;
+    return Js::JavascriptConversion::BooleanToPropertyQueryFlags(result);
 }
 
-BOOL HostDispatch::GetProperty(Var originalInstance, Js::JavascriptString* propertyNameString, Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
+Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Js::JavascriptString* propertyNameString, Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
 {
     // TODO: Consider flowing string propertyNameString through logic for GetProperty instead of obtaining
     // or creating a PropertyRecord here. Would require extending GetPropertyFromRootObject and HasOwnProperty
     // to accept JavascriptString instead of PropertyId.
     Js::PropertyRecord const * propertyRecord;
     this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
-    return HostDispatch::GetProperty(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
+    return HostDispatch::GetPropertyQuery(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
 }
 
-BOOL HostDispatch::GetPropertyReference(Js::Var originalInstance,PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags HostDispatch::GetPropertyReferenceQuery(Js::Var originalInstance,PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {    
     Js::ScriptContext * scriptContext = GetScriptContext();
@@ -157,11 +157,11 @@ BOOL HostDispatch::GetPropertyReference(Js::Var originalInstance,PropertyId prop
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
             Assert(wasGetAttempted);
-            return TRUE;
+            return Js::Property_Found;
         }
         if (wasGetAttempted)
         {
-            return FALSE;
+            return Js::Property_NotFound;
         }
     }    
     ThreadContext * threadContext = scriptContext->GetThreadContext();
@@ -171,7 +171,7 @@ BOOL HostDispatch::GetPropertyReference(Js::Var originalInstance,PropertyId prop
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
+        return Js::Property_Found;
     }
 
     result = this->GetPropertyReference(scriptContext->GetPropertyName(propertyId)->GetBuffer(), value);
@@ -179,7 +179,7 @@ BOOL HostDispatch::GetPropertyReference(Js::Var originalInstance,PropertyId prop
     {
         *value = Js::CrossSite::MarshalVar(requestContext, *value);
     }
-    return result;
+    return Js::JavascriptConversion::BooleanToPropertyQueryFlags(result);
 }
 
 BOOL HostDispatch::SetProperty(PropertyId propertyId, Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)

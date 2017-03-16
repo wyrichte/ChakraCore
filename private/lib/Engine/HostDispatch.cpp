@@ -1109,14 +1109,14 @@ BOOL HostDispatch::SetAccessors(const char16 * name, Js::Var getter, Js::Var set
     return S_OK == hr;
 }
 
-BOOL HostDispatch::HasItem(uint32 index)
+Js::PropertyQueryFlags HostDispatch::HasItemQuery(uint32 index)
 {
     // Reject implicit call
     ThreadContext * threadContext = GetScriptContext()->GetThreadContext();
     if (threadContext->IsDisableImplicitCall())
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return FALSE;
+        return Js::Property_Found;
     }
     char16 buffer[22];
 
@@ -1124,10 +1124,10 @@ BOOL HostDispatch::HasItem(uint32 index)
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
-    return HasProperty(&buffer[2]);
+    return Js::JavascriptConversion::BooleanToPropertyQueryFlags(HasProperty(&buffer[2]));
 }
 
-BOOL HostDispatch::GetItemReference(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext* requestContext)
+Js::PropertyQueryFlags HostDispatch::GetItemReferenceQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext* requestContext)
 {
     // Reject implicit call
     ThreadContext * threadContext = GetScriptContext()->GetThreadContext();
@@ -1135,7 +1135,7 @@ BOOL HostDispatch::GetItemReference(Js::Var originalInstance, __in uint32 index,
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         *value = requestContext->GetLibrary()->GetNull();
-        return FALSE;
+        return Js::Property_NotFound;
     }
     char16 buffer[22];
 
@@ -1143,10 +1143,10 @@ BOOL HostDispatch::GetItemReference(Js::Var originalInstance, __in uint32 index,
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
-    return GetPropertyReference(&buffer[2], value);
+    return Js::JavascriptConversion::BooleanToPropertyQueryFlags(GetPropertyReference(&buffer[2], value));
 }
 
-BOOL HostDispatch::GetItem(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext* requestContext)
+Js::PropertyQueryFlags HostDispatch::GetItemQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext* requestContext)
 {
     // Reject implicit call
     ThreadContext * threadContext = GetScriptContext()->GetThreadContext();
@@ -1154,7 +1154,7 @@ BOOL HostDispatch::GetItem(Js::Var originalInstance, __in uint32 index, __out Js
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         *value = requestContext->GetLibrary()->GetNull();
-        return FALSE;
+        return Js::Property_NotFound;
     }
     char16 buffer[22];
 
@@ -1162,7 +1162,7 @@ BOOL HostDispatch::GetItem(Js::Var originalInstance, __in uint32 index, __out Js
 
     ((DWORD*)buffer)[0] = (DWORD)wcslen(&buffer[2]) * sizeof(WCHAR);
 
-    return GetValue(&buffer[2], value);
+    return Js::JavascriptConversion::BooleanToPropertyQueryFlags(GetValue(&buffer[2], value));
 }
 
 BOOL HostDispatch::SetItem(__in uint32 index, __in Js::Var value, __in Js::PropertyOperationFlags flags)

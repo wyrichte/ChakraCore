@@ -5,7 +5,7 @@
 ********************************************************/
 #include "EnginePch.h"
 
-BOOL HostObject::HasProperty(Js::PropertyId propertyId)
+Js::PropertyQueryFlags HostObject::HasPropertyQuery(Js::PropertyId propertyId)
 {        
     DISPID dispId;
     BOOL fCached;
@@ -23,18 +23,18 @@ BOOL HostObject::HasProperty(Js::PropertyId propertyId)
                 {
                     if (globalDispatches->Item(i)->GetDispIdForProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer(), &dispId))
                     {
-                        return TRUE;
+                        return Js::PropertyQueryFlags::Property_Found;
                     }
                 }
             }
-            return FALSE;
+            return Js::PropertyQueryFlags::Property_NotFound;
         }
         this->CacheDispId(propertyId, dispId);
     }
-    return TRUE;
+    return Js::PropertyQueryFlags::Property_Found;
 }
 
-BOOL HostObject::GetProperty(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {    
     ThreadContext * threadContext = requestContext->GetThreadContext();
@@ -44,7 +44,7 @@ BOOL HostObject::GetProperty(Js::Var originalInstance, Js::PropertyId propertyId
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
+        return Js::Property_Found;
     }
 
     DISPID dispId;
@@ -63,12 +63,12 @@ BOOL HostObject::GetProperty(Js::Var originalInstance, Js::PropertyId propertyId
                 {
                     if (globalDispatches->Item(i)->GetDispIdForProperty(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer(), &dispId))
                     {
-                        return globalDispatches->Item(i)->GetValueByDispId(dispId, value);
+                        return Js::JavascriptConversion::BooleanToPropertyQueryFlags(globalDispatches->Item(i)->GetValueByDispId(dispId, value));
                     }
                 }
 
             }
-            return FALSE;
+            return Js::Property_NotFound;
         }
     }
     if (this->hostDispatch->GetValueByDispId(dispId, value))
@@ -77,12 +77,12 @@ BOOL HostObject::GetProperty(Js::Var originalInstance, Js::PropertyId propertyId
         {
             this->CacheDispId(propertyId, dispId);
         }
-        return TRUE;
+        return Js::Property_Found;
     }
-    return FALSE;
+    return Js::Property_NotFound;
 }
 
-BOOL HostObject::GetProperty(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {    
     // TODO: Consider flowing string propertyNameString through logic for GetProperty instead of obtaining
@@ -94,7 +94,7 @@ BOOL HostObject::GetProperty(Js::Var originalInstance, Js::JavascriptString* pro
     // Same goes for SetProperty.
     Js::PropertyRecord const * propertyRecord;
     this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
-    return HostObject::GetProperty(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
+    return HostObject::GetPropertyQuery(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
 }
 
 BOOL HostObject::GetAccessors(PropertyId propertyId, Var* getter, Var* setter, Js::ScriptContext * requestContext)
@@ -108,7 +108,7 @@ BOOL HostObject::SetAccessors(PropertyId propertyId, Var getter, Var setter, Js:
 
 }
 
-BOOL HostObject::GetPropertyReference(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
+Js::PropertyQueryFlags HostObject::GetPropertyReferenceQuery(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
     ThreadContext * threadContext = requestContext->GetThreadContext();
@@ -118,7 +118,7 @@ BOOL HostObject::GetPropertyReference(Js::Var originalInstance,Js::PropertyId pr
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
+        return Js::Property_Found;
     }
 
     HostDispatch* hostDispatch = this->GetHostDispatch();
@@ -140,11 +140,11 @@ BOOL HostObject::GetPropertyReference(Js::Var originalInstance,Js::PropertyId pr
                     {
                         hostDispatch = globalDispatches->Item(i);
                         hostDispatch->GetReferenceByDispId(dispId, value, GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
-                        return TRUE;
+                        return Js::Property_Found;
                     }
                 }
             }
-            return FALSE;
+            return Js::Property_NotFound;
         }
     }
 
@@ -153,7 +153,7 @@ BOOL HostObject::GetPropertyReference(Js::Var originalInstance,Js::PropertyId pr
         this->CacheDispId(propertyId, dispId);
     }
     hostDispatch->GetReferenceByDispId(dispId, value, GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
-    return TRUE;
+    return Js::Property_Found;
 }
 
 BOOL HostObject::SetProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)
@@ -228,18 +228,18 @@ BOOL HostObject::DeleteProperty(Js::JavascriptString *propertyNameString, Js::Pr
     return TRUE;
 }
 
-BOOL HostObject::HasItem(uint32 index)
+Js::PropertyQueryFlags HostObject::HasItemQuery(uint32 index)
 {
-    return this->hostDispatch->HostDispatch::HasItem(index);
+    return this->hostDispatch->HostDispatch::HasItemQuery(index);
 }
 
-BOOL HostObject::GetItem(
+Js::PropertyQueryFlags HostObject::GetItemQuery(
         Js::Var originalInstance,
         __in uint32 index, 
         __out Js::Var* value,
         __in Js::ScriptContext* requestContext)
 {    
-    return this->hostDispatch->HostDispatch::GetItem(originalInstance, index, value, requestContext);
+    return this->hostDispatch->HostDispatch::GetItemQuery(originalInstance, index, value, requestContext);
 }
 
 BOOL HostObject::SetItem(
@@ -251,9 +251,9 @@ BOOL HostObject::SetItem(
     return this->hostDispatch->HostDispatch::SetItem(index, value, flags);
 }
 
-BOOL HostObject::GetItemReference(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, __in Js::ScriptContext * requestContext)
+Js::PropertyQueryFlags HostObject::GetItemReferenceQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, __in Js::ScriptContext * requestContext)
 {    
-    return this->hostDispatch->HostDispatch::GetItemReference(originalInstance, index, value, requestContext);
+    return this->hostDispatch->HostDispatch::GetItemReferenceQuery(originalInstance, index, value, requestContext);
 }
 
 BOOL HostObject::ToPrimitive(Js::JavascriptHint hint, Js::Var* value, Js::ScriptContext * requestContext)
