@@ -69,7 +69,7 @@ public:
         Js::Var* externalVars = (Js::Var*)((byte*)obj + sizeof(Js::ExternalObject));
         Js::Var retVal = externalVars[slotIndex];
         Assert(retVal != nullptr);
-        return retVal;
+        return Js::CrossSite::MarshalVar(function->GetScriptContext(), retVal);
     }
 
     static Js::Var EntrySimpleSlotSetter(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
@@ -96,7 +96,7 @@ public:
         Assert(DOMFastPathInfo::VerifyObjectSize(obj, sizeof(Js::ExternalObject) + (slotIndex+1) * sizeof(PVOID)));
 #endif
         Js::Var* externalVars = (Js::Var*)((byte*)obj + sizeof(Js::ExternalObject));
-        externalVars[slotIndex] = args[1];
+        externalVars[slotIndex] = Js::CrossSite::MarshalVar(obj->GetScriptContext(), args[1]);
         return nullptr;
     }
 };
