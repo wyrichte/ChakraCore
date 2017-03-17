@@ -24,9 +24,15 @@
 @echo off
 setlocal
 
+if "%TF_BUILD_BINARIESDIRECTORY%" == "" (
+  echo TF_BUILD_BINARIESDIRECTORY is required for this script to work correctly.
+  exit /b 1
+)
+
 set _RootDir=%~dp0..
 set _ToolsDir=%~dp0
 set _StagingDir=%TF_BUILD_BINARIESDIRECTORY%
+REM %TF_BUILD_DROPLOCATION% is not required -- used only for an informational message
 set _DropRootDir=%TF_BUILD_DROPLOCATION%
 set _HadFailures=0
 
@@ -81,8 +87,8 @@ set _HadFailures=0
 
     call :summarizeLogs .log
   ) else (
-    call :runTests core %_BuildArch% %_BuildType%
-    call :runTests unit %_BuildArch% %_BuildType%
+    call :runTests core %_BuildArch% %_BuildType% %_ExtraArgs%
+    call :runTests unit %_BuildArch% %_BuildType% %_ExtraArgs%
     call :runJsRTTests %_BuildArch% %_BuildType%
 
     call :summarizeLogs .%_BuildArch%%_BuildType%.log
@@ -113,7 +119,7 @@ set _HadFailures=0
 :: ============================================================================
 :runTests
 
-  call :do %_ToolsDir%run%1tests.cmd -%2%3 -quiet -cleanupall -binDir %_StagingDir%\bin
+  call :do %_ToolsDir%run%1tests.cmd -%2%3 %4 -quiet -cleanupall -binDir %_StagingDir%\bin
 
   if ERRORLEVEL 1 set _HadFailures=1
 
@@ -236,7 +242,7 @@ set _HadFailures=0
 
   if /i "%1" == "-all"              set _RunAll=1&                                              goto :ArgOk
 
-  if not "%1" == "" echo Unknown argument: %1 & set fShowGetHelp=1
+  if not "%1" == ""                 set _ExtraArgs=%_ExtraArgs% %1&                             goto :ArgOk
 
   goto :eof
 

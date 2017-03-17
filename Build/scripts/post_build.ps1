@@ -10,6 +10,8 @@ param (
     [ValidateSet("default", "codecoverage", "pogo")]
     [string]$subtype = "default",
 
+    [string]$testparams = "",
+
     [string]$srcpath = "",
     [string]$binpath = "",
     [string]$objpath = "",
@@ -36,7 +38,7 @@ if ($noaction) {
 }
 
 $pogoList = $pogo -join ','
-$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -subtype $subtype -srcpath `"$srcpath`" -buildRoot `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
+$postBuildCommmand = "$CoreScriptDir\post_build.ps1 -repo full -arch $arch -flavor $flavor -subtype $subtype -srcpath `"$srcpath`" -buildRoot `"$binpath`" -objpath `"$objpath`" -srcsrvcmdpath `"$srcsrvcmdpath`" -bvtcmdpath `"$bvtcmdpath`" -testparams `"$testparams`" $noactionSwitchString -logFile `"$logFile`" -pogo $pogoList -pogoscript `"$pogoscript`""
 
 iex $postBuildCommmand
 
