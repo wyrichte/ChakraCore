@@ -1,0 +1,2 @@
+DIRS = \
+    test{!NO_JS_TEST} \

@@ -1,1 +1,1 @@
-!include dirs.$(_BuildType)
+!include dirs.$(_BuildArch)$(_BuildType)

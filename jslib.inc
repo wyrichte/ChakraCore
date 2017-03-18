@@ -51,7 +51,7 @@ JS_LIBS_RUNTIME = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\Math\$(JS_LIBTYPE)\$(O)\chakra.runtime.Math.lib \
     $(OBJECT_JSCRIPT_DIR)\private\lib\Telemetry\$(JS_LIBTYPE)\$(O)\chakra.Telemetry.lib \
 
-!if !$(FREEBUILD) || defined(FRETEST)
+!if (!$(FREEBUILD) || defined(FRETEST)) && ("$(_BUILDARCH)" == "amd64" || "$(_BUILDARCH)" == "x86")
 JS_LIBS_RUNTIME = $(JS_LIBS_RUNTIME)\
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\wabt\$(JS_LIBTYPE)\$(O)\wabt.lib \
 !endif
