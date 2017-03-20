@@ -32,4 +32,12 @@
       <files>enumframe.htm</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>leaveScriptThrow.js</files>
+      <baseline>leaveScriptThrow.baseline</baseline>
+      <compile-flags>-enableOnLeaveScript</compile-flags>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
 </regress-exe>

@@ -1778,6 +1778,15 @@ STDMETHODIMP JsHostActiveScriptSite::OnEnterScript()
     return S_OK;
 }
 
+STDMETHODIMP JsHostActiveScriptSite::OnLeaveScript()
+{
+    if (HostConfigFlags::flags.EnableOnLeaveScript)
+    {
+        LoadScript(_u("__onLeaveScript()"));
+    }
+    return S_OK;
+}
+
 STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
 {
     HRESULT hr = S_OK;

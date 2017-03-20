@@ -143,8 +143,8 @@ public:
     STDMETHODIMP OnScriptTerminate(const VARIANT *pvarResult, const EXCEPINFO *pexcepinfo) { return E_NOTIMPL; }
     STDMETHODIMP OnStateChange(SCRIPTSTATE ssScriptState) { return E_NOTIMPL; }
     STDMETHODIMP OnScriptError(IActiveScriptError *pscripterror);
-    STDMETHODIMP OnEnterScript( void);
-    STDMETHODIMP OnLeaveScript( void) { return E_NOTIMPL; }
+    STDMETHODIMP OnEnterScript();
+    STDMETHODIMP OnLeaveScript();
 
     // IActiveScriptSiteDebug interfaces
     STDMETHODIMP GetDocumentContextFromPosition(DWORD_PTR dwSourceContext, ULONG uCharacterOffset,

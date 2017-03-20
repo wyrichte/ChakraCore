@@ -43,6 +43,7 @@ FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specifie
 FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect heap", false)
 FLAG(bool, OOPJIT,                          "JIT jobs should be run in a separate process", true)
 FLAG(bool, ForceOOPImageRebase,             "Ensure JIT process will have to rebase dlls", false)
+FLAG(bool, EnableOnLeaveScript,             "Execute __onLeaveScript() when leave script", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2
