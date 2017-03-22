@@ -75,8 +75,10 @@
         "length": "0"
       },
       "[Scope]1": {
-        "foo": "<large string>",
         "foo1": "foo1"
+      },
+      "[Scope]2": {
+        "foo": "<large string>"
       },
       "[Globals]": {
         "console": "{...}",
