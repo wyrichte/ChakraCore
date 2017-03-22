@@ -2596,16 +2596,33 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     IfNullReturnError(context, E_INVALIDARG);
     IfNullReturnError(pOutSteam, E_INVALIDARG);
 
+    // Effective transferableVars to be passed to SCA
+    Var* effectiveTransferableVars = nullptr;
+    UINT cEffectiveTransferableVars = 0;
+
     if (cTransferableVars > 0)
     {
         IfNullReturnError(transferableVars, E_INVALIDARG);
 
         SCAContextType contextType;
         IfFailedReturn(context->GetContext(&contextType));
-        if (contextType == SCAContext_CrossProcess || contextType == SCAContext_Persist)
+
+        switch (contextType)
         {
-            cTransferableVars = 0;
-            transferableVars = nullptr;
+            case SCAContext_SameThread:
+            case SCAContext_CrossThread:
+                effectiveTransferableVars = transferableVars;
+                cEffectiveTransferableVars = cTransferableVars;
+                break;
+
+            case SCAContext_CrossProcess:
+                break;  // no transfer, but will neuter
+
+            default:  // otherwise ignore the list (no transfer, no neuter)
+                Assert(contextType == SCAContext_Persist);
+                transferableVars = nullptr;
+                cTransferableVars = 0;
+                break;
         }
     }
 
@@ -2619,7 +2636,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     // pulled out underneath us
     Js::ScriptContext* scriptContext = this->scriptContext;
 
-    CComPtr<Js::TransferablesHolder> transferableHolder(nullptr);
+    CComPtr<Js::TransferablesHolder> transferableHolder;
 
     if (cTransferableVars > 0)
     {
@@ -2650,7 +2667,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         }
 
         transferableHolder = HeapNewNoThrow(Js::TransferablesHolder, cTransferableVars);
-
         if (transferableHolder == nullptr)
         {
             return E_OUTOFMEMORY;
@@ -2658,26 +2674,34 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     }
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
-    
+
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
         BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
         try
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
-            Js::SCASerializationEngine::Serialize(context, instance, &writer, transferableVars, cTransferableVars);
+            Js::SCASerializationEngine::Serialize(context, instance, &writer,
+                effectiveTransferableVars, cEffectiveTransferableVars); // Use effective transferableVars
             writer.Flush(); // Flush bufferred content to output stream
 
-            if (transferableHolder != nullptr)
+            // Always detach all supplied transferable vars
+            if (transferableHolder)
+            {
+                transferableHolder->DetachAll(transferableVars);
+            }
+
+            if (cEffectiveTransferableVars > 0)  // Transferred
             {
                 hr = context->SetDependentObject(transferableHolder);
                 if (FAILED(hr))
                 {
                     return hr;
                 }
-
-                // If this operation fails, it will throw an error, and the context will clean up the dependent object
-                transferableHolder->DetachAll(transferableVars);
+            }
+            else  // We did not transfer any vars, manually cleanup
+            {
+                transferableHolder.Release();
             }
         }
         catch (const Js::JavascriptException& err)
@@ -2692,7 +2716,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         }
     }
     END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
-    CATCH_UNHANDLED_EXCEPTION(hr)   
+    CATCH_UNHANDLED_EXCEPTION(hr)
 
     if (caughtExceptionObject != nullptr)
     {
@@ -2771,7 +2795,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
             caughtExceptionObject = caughtExceptionObject->CloneIfStaticExceptionObject(scriptContext);
         }
     }
-    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)    
+    END_TRANSLATE_KNOWN_EXCEPTION_TO_HRESULT(hr)
     CATCH_UNHANDLED_EXCEPTION(hr)
 
     if (caughtExceptionObject != nullptr)
@@ -3163,7 +3187,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
     return hr;
 }
 
-// Theoretically this method can be called from different thread. We'll need to move out the 
+// Theoretically this method can be called from different thread. We'll need to move out the
 // moduledeclarationInitialization (for GC allocation) part. ModuleEvaluation should be out by default, called from host.
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     /* [in] */ __RPC__in ModuleRecord requestModule,
@@ -3203,7 +3227,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     }
 
     *exceptionVar = nullptr;
-    
+
     Js::SourceTextModuleRecord* moduleRecord = Js::SourceTextModuleRecord::FromHost(requestModule);
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {

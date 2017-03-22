@@ -150,6 +150,13 @@
   </test>
   <test>
     <default>
+      <files>transferCrossProcess.js</files>
+      <!-- ignore output, only check exit code (no UTF asserts) -->
+      <baseline/>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>Pwn2OwnBug.js</files>
     </default>
   </test>
