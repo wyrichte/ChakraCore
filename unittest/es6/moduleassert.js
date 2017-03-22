@@ -12,6 +12,10 @@
 //MachineName: BPT15921
 //InstructionSet: 
 //reduced switches: -es6module -maxinterpretcount:5 -maxsimplejitruncount:3 -bgjit- -loopinterpretcount:1
+var shouldBailout = false;
+var __counter = 0;
+WScript.Echo = function() {};
+
 WScript.RegisterModuleSource('module0_af60f209-dff4-41e2-8a11-0206e428c198.js', `
 var module0_localbinding_0 = Infinity;
 export { module0_localbinding_0 as default };
@@ -1722,7 +1726,7 @@ WScript.Echo('sumOfVarArr0 = ' +  VarArr0.slice(0, 23).reduce(function(prev, cur
   WScript.Echo('subset_of_VarArr0 = ' +  VarArr0.slice(0, 11));;
 `);
 WScript.LoadScriptFile('module4_e548fb48-aed8-443c-8b33-45dee06705f5.js', 'module');
-WScript.Echo("PASS");
+console.log("PASS");
 // === Output ===
 // command: \\chakrafs\fs\Builds\ChakraFull\unreleased\rs2\1607\00005.64965_160711.1740_akroshg_c0a01d67f725b8942f0413ebac9f0b6f9297ec2a\bin\x86_test\JsHost.exe -es6module -maxinterpretcount:5 -maxsimplejitruncount:3 -bgjit- -loopinterpretcount:1 step151.js
 // exitcode: C0000005
