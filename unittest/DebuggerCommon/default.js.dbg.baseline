@@ -61,9 +61,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "undefined",
       "b": "undefined",
       "c": "undefined",
-      "a": "undefined",
       "[Globals]": ""
     }
   },
@@ -82,9 +82,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "1",
       "b": "undefined",
       "c": "undefined",
-      "a": "1",
       "[Globals]": ""
     }
   },
@@ -115,10 +115,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -137,10 +137,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -265,10 +265,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -304,9 +304,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "undefined",
       "b": "undefined",
       "c": "undefined",
-      "a": "undefined",
       "[Globals]": ""
     }
   },
@@ -325,9 +325,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "a": "1",
       "[Globals]": ""
     }
   },
@@ -371,9 +371,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "a": "1",
       "[Globals]": ""
     }
   },
@@ -482,30 +482,28 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
-      "a": "1",
-      "b": "<large string>",
-      "c": "<large string>",
       "m": "undefined",
       "n": "undefined",
       "o": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "a": "1",
+      "b": "<large string>",
+      "c": "<large string>",
+      "arguments": "{...}",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
-      "a": "1",
-      "b": "<large string>",
-      "c": "<large string>",
       "m": "3",
       "n": "undefined",
       "o": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "a": "1",
+      "b": "<large string>",
+      "c": "<large string>",
+      "arguments": "{...}",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -530,15 +528,14 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
-      "a": "1",
-      "b": "<large string>",
-      "c": "<large string>",
       "m": "3",
       "n": "1",
       "o": "2",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "a": "1",
+      "b": "<large string>",
+      "c": "<large string>",
+      "arguments": "{...}",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -588,13 +585,12 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
+      "m": "undefined",
       "a": "10",
       "b": "<large string>",
       "c": "<large string>",
-      "m": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "arguments": "{...}",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -605,9 +601,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "undefined",
       "b": "undefined",
       "c": "undefined",
-      "a": "undefined",
       "[Globals]": ""
     }
   },
@@ -626,11 +622,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
+      "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "a": "1",
-      "m": "undefined",
-      "[Scope]1": "f1",
       "[Globals]": ""
     }
   },
@@ -651,10 +646,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -673,13 +668,12 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "m": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "arguments": "{...}",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -723,12 +717,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "m": "undefined",
       "[Scope]1": "",
-      "[Scope]2": "",
       "[Globals]": ""
     }
   },
@@ -744,7 +737,7 @@
     }
   },
   {
-    "log": "Stepping on default params - Split scope with eval in param"
+    "log": "Default params - Split scope with eval in param"
   },
   {
     "locals": {
@@ -761,12 +754,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "1",
-      "m": "undefined",
       "[Scope]1": "",
-      "[Scope]2": "",
       "[Globals]": ""
     }
   },
@@ -774,13 +766,654 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "1",
       "a": "1",
       "b": "<large string>",
       "c": "1",
-      "m": "1",
       "[Scope]1": "",
-      "[Scope]2": "",
       "[Globals]": ""
+    }
+  },
+  {
+    "log": "Default params - Arguments usage in the param scope"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments usage in the param scope of a split scoped function"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "c"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "d": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments usage in the body"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": "11",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments usage in the body of a split scoped function"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments usage in the body when one of the formal is in slot"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "a": "1",
+      "b": "11",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "c": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": "11",
+      "arguments": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "arguments",
+        "prototype": "{...}"
+      },
+      "d": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments symbol is overwritten"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "arguments": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "arguments",
+        "prototype": "{...}"
+      },
+      "c": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Arguments symbol is overwritten in a split scoped function"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": "undefined",
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "a": "1",
+      "b": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "c": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "c"
+      },
+      "arguments": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "arguments",
+        "prototype": "{...}"
+      },
+      "d": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "evaluate": {
+      "arguments": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "arguments",
+        "prototype": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - One of the formal is duplicated in the body"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "d": "undefined",
+      "c": "11",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "d": "1",
+      "c": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "c"
+      },
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - One of the formal is duplicated in the body by a function definition"
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "c": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "c": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "c",
+        "prototype": "{...}"
+      },
+      "d": "undefined",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "console": "{...}",
+        "glob": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "1",
+        "[0]": "1"
+      },
+      "a": "1",
+      "b": {
+        "__proto__": "<large string>",
+        "length": "0",
+        "name": "b"
+      },
+      "c": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "c",
+        "prototype": "{...}"
+      },
+      "d": "1",
+      "[Globals]": {
+        "console": "{...}",
+        "glob": "{...}"
+      }
+    }
+  },
+  {
+    "log": "Default params - Evaluate one of the formal which is in regslot is duplicated in the body"
+  },
+  {
+    "evaluate": {
+      "c": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "c": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "c",
+        "prototype": "{...}"
+      }
     }
   }
 ]

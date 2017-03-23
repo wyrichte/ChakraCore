@@ -63,9 +63,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "undefined",
       "b": "undefined",
       "c": "undefined",
-      "a": "undefined",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -85,9 +85,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "1",
       "b": "undefined",
       "c": "undefined",
-      "a": "1",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -119,10 +119,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -142,10 +142,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -275,10 +275,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -408,12 +408,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
+      "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "a": "1",
-      "m": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -434,10 +433,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -457,14 +456,13 @@
   {
     "locals": {
       "this": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
       "arguments": "{...}",
-      "m": "undefined",
-      "[Scope]1": "f1",
+      "[Scope]1": "",
       "[Scope]2": "",
-      "[Scope]3": "",
       "[Globals]": ""
     }
   },
@@ -509,13 +507,12 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "m": "undefined",
       "[Scope]1": "",
       "[Scope]2": "",
-      "[Scope]3": "",
       "[Globals]": ""
     }
   },
@@ -594,9 +591,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "undefined",
       "b": "undefined",
       "c": "undefined",
-      "a": "undefined",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -616,9 +613,9 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "a": "1",
       "b": "undefined",
       "c": "undefined",
-      "a": "1",
       "[Scope]1": "",
       "[Globals]": ""
     }
@@ -650,10 +647,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -673,10 +670,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -806,10 +803,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -939,12 +936,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
+      "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "a": "1",
-      "m": "undefined",
-      "[Scope]1": "f1",
-      "[Scope]2": "",
+      "[Scope]1": "",
       "[Globals]": ""
     }
   },
@@ -965,10 +961,10 @@
   {
     "locals": {
       "this": "{...}",
-      "arguments": "{...}",
       "a": "undefined",
       "b": "undefined",
       "c": "undefined",
+      "arguments": "{...}",
       "[Scope]1": "",
       "[Scope]2": "",
       "[Globals]": ""
@@ -988,14 +984,13 @@
   {
     "locals": {
       "this": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
       "arguments": "{...}",
-      "m": "undefined",
-      "[Scope]1": "f1",
+      "[Scope]1": "",
       "[Scope]2": "",
-      "[Scope]3": "",
       "[Globals]": ""
     }
   },
@@ -1040,13 +1035,12 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "m": "undefined",
       "a": "1",
       "b": "<large string>",
       "c": "undefined",
-      "m": "undefined",
       "[Scope]1": "",
       "[Scope]2": "",
-      "[Scope]3": "",
       "[Globals]": ""
     }
   },

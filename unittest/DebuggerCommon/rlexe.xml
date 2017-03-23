@@ -1572,8 +1572,7 @@
       <compile-flags>-ES6RegExSymbols -ES6RegExPrototypeProperties -debuglaunch -targeted -dbgbaseline:regex-symbols.js.dbg.baseline</compile-flags>
     </default>
   </test>
-  <!--[aneeshd] Reenable this test case once the debugger update is done-->
-  <!--<test>
+  <test>
     <default>
       <files>default.js</files>
       <compile-flags>-debugLaunch -targeted -dbgbaseline:default.js.dbg.baseline</compile-flags>
@@ -1585,7 +1584,7 @@
       <compile-flags>-targeted -dbgbaseline:default_attach.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo</tags>
     </default>
-  </test>-->
+  </test>
   <test>
     <default>
       <files>bug_vso5792108.js</files>
