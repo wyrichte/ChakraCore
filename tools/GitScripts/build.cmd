@@ -51,6 +51,16 @@ if "%_arg%" EQU "jshost" (
     goto :parseArgs
 )
 
+if "%_arg%" EQU "/cc" (
+    set _msbuildArgs=%_msbuildArgs% /p:ENABLE_CODECOVERAGE=true
+    goto :parseArgs
+)
+
+if "%_arg%" EQU "/CC" (
+    set _msbuildArgs=%_msbuildArgs% /p:ENABLE_CODECOVERAGE=true
+    goto :parseArgs
+)
+
 if "%_arg%" NEQ "" (
     set _msbuildArgs=%_msbuildArgs% %_arg%
     goto :parseArgs
