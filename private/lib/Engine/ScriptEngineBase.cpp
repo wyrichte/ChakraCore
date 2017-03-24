@@ -2228,6 +2228,32 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreatePromise(
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
     return hr;
 }
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureArrayPrototypeForEachFunction(__out Var* func)
+{
+    return EnsureFunctionValidation(func, [] (Js::ScriptContext *scriptContext) -> Var {
+        return scriptContext->GetLibrary()->EnsureArrayPrototypeForEachFunction();
+    });
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureArrayPrototypeKeysFunction(__out Var* func)
+{
+    return EnsureFunctionValidation(func, [](Js::ScriptContext *scriptContext) -> Var {
+        return scriptContext->GetLibrary()->EnsureArrayPrototypeKeysFunction();
+    });
+}
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureArrayPrototypeEntriesFunction(__out Var* func)
+{
+    return EnsureFunctionValidation(func, [](Js::ScriptContext *scriptContext) -> Var {
+        return scriptContext->GetLibrary()->EnsureArrayPrototypeEntriesFunction();
+    });
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureArrayPrototypeValuesFunction(__out Var* func)
+{
+    return EnsureFunctionValidation(func, [](Js::ScriptContext *scriptContext) -> Var {
+        return scriptContext->GetLibrary()->EnsureArrayPrototypeValuesFunction();
+    });
+}
 
 #include "Library\JSONParser.h"
 

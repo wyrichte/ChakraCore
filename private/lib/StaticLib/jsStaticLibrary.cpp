@@ -105,4 +105,80 @@ namespace JsStaticAPI
         *isNoScriptScope = jsThreadService->GetThreadContext()->IsNoScriptScope();
         return S_OK;
     }
+
+    Var JavascriptLibrary::GetArrayForEachFunction(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+
+        Var func = scriptContextBase->GetLibrary()->GetArrayPrototypeForEachFunction();
+        if (func == nullptr)
+        {
+            HRESULT hr = scriptEngineBase->EnsureArrayPrototypeForEachFunction(&func);
+            if (hr != S_OK)
+            {
+                func = nullptr;
+            }
+        }
+        return func;
+    }
+
+    Var JavascriptLibrary::GetArrayKeysFunction(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+
+        Var func = scriptContextBase->GetLibrary()->GetArrayPrototypeKeysFunction();
+        if (func == nullptr)
+        {
+            HRESULT hr = scriptEngineBase->EnsureArrayPrototypeKeysFunction(&func);
+            if (hr != S_OK)
+            {
+                func = nullptr;
+            }
+        }
+        return func;
+    }
+
+    Var JavascriptLibrary::GetArrayValuesFunction(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+
+        Var func = scriptContextBase->GetLibrary()->GetArrayPrototypeValuesFunction();
+        if (func == nullptr)
+        {
+            HRESULT hr = scriptEngineBase->EnsureArrayPrototypeValuesFunction(&func);
+            if (hr != S_OK)
+            {
+                func = nullptr;
+            }
+        }
+        return func;
+    }
+
+    Var JavascriptLibrary::GetArrayEntriesFunction(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+
+        Var func = scriptContextBase->GetLibrary()->GetArrayPrototypeEntriesFunction();
+        if (func == nullptr)
+        {
+            HRESULT hr = scriptEngineBase->EnsureArrayPrototypeEntriesFunction(&func);
+            if (hr != S_OK)
+            {
+                func = nullptr;
+            }
+        }
+        return func;
+    }
+
+    PropertyId JavascriptLibrary::GetPropertyIdSymbolIterator(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+        return scriptContextBase->GetLibrary()->GetPropertyIdSymbolIterator();
+    }
+
 }

@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 60
+ |  [Properties] count: 61
  |  | 0 NaN: type: Number flags: (new) optional info records (1)
  |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject (seen)
@@ -443,7 +443,17 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: ImageData
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 59 test: type: FunctionObject flags: (new) optional info records (3)
+ |  | 59 CreateDomArrayObject: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Properties] count: 1
+ |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CreateDomArrayObject
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 60 test: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] test
  |  |    [Relationships] count: 3

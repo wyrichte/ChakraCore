@@ -63,6 +63,7 @@
 #include "ChakraInternalInterface.h"
 #include "scrutil.h"
 #include "NamedItemList.h"
+#include "jscriptdllcommon.h"
 #include "..\StaticLib\base\ScriptEngineBase.h"
 #include "IDebugBitCorrectApplicationThread.h"
 #include "ScriptEngine.h"
@@ -74,7 +75,6 @@
 #endif
 #include "jscriptinfo.h"
 #include "DynamicSourceHolder.h"
-#include "jscriptdllcommon.h"
 #include "customEnumerator.h"
 #include "ErrorTypeHelper.h"
 

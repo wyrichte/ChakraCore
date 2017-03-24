@@ -28,6 +28,7 @@
     <ClCompile Include="WScriptJsrt.cpp" />
     <ClCompile Include="CodexAssert.cpp" />
     <ClCompile Include="JITProcessManager.cpp" />
+    <ClCompile Include="MockDomObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="WScriptJsrt.h" />
     <ClInclude Include="ThreadMessage.h" />
     <ClInclude Include="JITProcessManager.h" />
+    <ClInclude Include="MockDomObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

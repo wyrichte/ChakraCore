@@ -55,6 +55,12 @@ namespace JsStaticAPI
 
         static HRESULT __stdcall SetNoScriptScope(__in ITrackingService *threadService, bool noScriptScope);
         static HRESULT __stdcall IsNoScriptScope(__in ITrackingService *threadService, __out bool *isNoScriptScope);
+
+        static Var __stdcall GetArrayForEachFunction(IActiveScriptDirect* activeScriptDirect);
+        static Var __stdcall GetArrayKeysFunction(IActiveScriptDirect* activeScriptDirect);
+        static Var __stdcall GetArrayValuesFunction(IActiveScriptDirect* activeScriptDirect);
+        static Var __stdcall GetArrayEntriesFunction(IActiveScriptDirect* activeScriptDirect);
+        static PropertyId __stdcall GetPropertyIdSymbolIterator(IActiveScriptDirect* activeScriptDirect);
     };
 
     class DataConversion

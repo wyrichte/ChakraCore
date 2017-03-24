@@ -94,6 +94,7 @@ var controllerObj = {
             "Boolean",
             "CanvasPixelArray",
             "CollectGarbage",
+            "CreateDomArrayObject",
             "DataView",
             "Date",
             "Debug",

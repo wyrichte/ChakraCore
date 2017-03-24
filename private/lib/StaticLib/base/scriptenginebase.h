@@ -463,6 +463,33 @@ public:
     HRESULT CreateServiceProvider(bool asCaller, IServiceProvider** serviceProvider);
     static HRESULT HandleSCAException(Js::JavascriptExceptionObject* exceptionObject, Js::ScriptContext* scriptContext, IServiceProvider* pspCaller);
 
+    template <class EnsureFunc>
+    HRESULT EnsureFunctionValidation(__out Var* func, EnsureFunc ensure)
+    {
+        IfNullReturnError(func, E_INVALIDARG);
+
+        HRESULT hr = S_OK;
+        hr = VerifyOnEntry();
+
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            *func = ensure(scriptContext);
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+        return hr;
+    }
+
+    virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeForEachFunction(__out Var* func);
+    virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeKeysFunction(__out Var* func);
+    virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeEntriesFunction(__out Var* func);
+    virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeValuesFunction(__out Var* func);
+
 public:
     Js::ScriptContext*  scriptContext;
 

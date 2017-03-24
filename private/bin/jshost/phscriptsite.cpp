@@ -1483,7 +1483,11 @@ HRESULT JsHostActiveScriptSite::Create(JsHostActiveScriptSite ** scriptSiteOut, 
                 if (SUCCEEDED(hr))
                 {
                     hr = SCA::Initialize(activeScript);
-                }                
+                    if (SUCCEEDED(hr))
+                    {
+                        hr = MockDomObjectManager::Initialize(activeScript);
+                    }
+                }
                 activeScript->Release();
             }
         }

@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 63
+ |  [Properties] count: 64
  |  | 0 NaN: type: Number flags: (new) optional info records (1)
  |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  [Prototype] type: ObjectObject (seen)
@@ -443,14 +443,24 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: ImageData
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 59 z: type: String flags: (new size_approximate) optional info records (2)
+ |  | 59 CreateDomArrayObject: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Properties] count: 1
+ |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CreateDomArrayObject
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 60 z: type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: zero
  |  |    [Prototype] type: StringObject (seen)
- |  | 60 x: rsFlags: let value: 123.000000
- |  | 61 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
+ |  | 61 x: rsFlags: let value: 123.000000
+ |  | 62 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: abc
  |  |    [Prototype] type: StringObject (seen)
- |  | 62 z: rsFlags: let value: 0.000000
+ |  | 63 z: rsFlags: let value: 0.000000
 
 ==========>End Heap Dump<===============
 

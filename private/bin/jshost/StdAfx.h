@@ -135,7 +135,8 @@
 #include "DiagnosticsHelper.h"
 #include <shdeprecated.h>  
 #include <DocObjectService.h>
-      
+#include "MockDomObject.h"
+
 #include "TestHooks.h"
 #include "TestUtilitiesReferences.h"
 #include "TestUtilities.h"
