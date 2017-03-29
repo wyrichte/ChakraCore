@@ -23,6 +23,9 @@
     <Import Project="Chakra.Build.Solution.Default.props" />
   </ImportGroup>
   <PropertyGroup>
+    <!-- Disable building Wabt in ChakraFull until issues are resolved -->
+    <BuildWabt>false</BuildWabt>
+
     <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the
          manifest xmls in the expanded NuGet package -->
     <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
