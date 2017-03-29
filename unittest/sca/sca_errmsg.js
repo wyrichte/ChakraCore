@@ -1,3 +1,5 @@
+WScript.LoadScriptFile("../../core/test/UnitTestFramework/TrimStackTracePath.js");
+
 var tests = {
     // msg from host (private hr)
     "Property type is unsupported by SCA": {
@@ -27,8 +29,4 @@ for (var t in tests) {
         WScript.Echo(TrimStackTracePath(e.stack));
     }
     WScript.Echo();
-}
-
-function TrimStackTracePath(line) {
-    return line && line.replace(/\(.+unittest.sca./ig, "(");
 }

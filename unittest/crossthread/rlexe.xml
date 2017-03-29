@@ -266,5 +266,5 @@
       <tags>exclude_fre,exclude_apollo</tags>
     </default>
   </test>
-  <!-- WHEN ADDING A NEW TEST: for cross-thread test, make sure you add exclude_apollo tag fot it -->
+  <!-- WHEN ADDING A NEW TEST: for cross-thread test, make sure you add exclude_apollo tag for it -->
 </regress-exe>

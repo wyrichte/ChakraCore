@@ -1,7 +1,7 @@
 //
 // Test host throw stack
 //
-WScript.LoadScriptFile("TrimStackTracePath.js");
+WScript.LoadScriptFile("../../core/test/UnitTestFramework/TrimStackTracePath.js");
 
 try {
     (function foo() {

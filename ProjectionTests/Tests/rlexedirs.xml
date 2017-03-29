@@ -44,11 +44,6 @@
   </dir>
   <dir>
     <default>
-      <files>Intl</files>
-    </default>
-  </dir>
-  <dir>
-    <default>
       <files>MetaDataParsing</files>
     </default>
   </dir>

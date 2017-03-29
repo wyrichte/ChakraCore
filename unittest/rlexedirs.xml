@@ -113,6 +113,11 @@
 </dir>
 <dir>
   <default>
+    <files>IntlCore</files>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>Debugger</files>
     <tags>exclude_serialized</tags>
   </default>

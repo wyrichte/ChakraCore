@@ -51,7 +51,7 @@ function runtest(max, catchException)
     that["function" + (max-1)](max-1);
 }
 
-if (this.WScript && this.WScript.Arguments && this.WScript.LoadScriptFile("TrimStackTracePath.js"))
+if (this.WScript && this.WScript.Arguments && this.WScript.LoadScriptFile("../../core/test/UnitTestFramework/TrimStackTracePath.js"))
 {
     if (this.WScript.Arguments[0] == "runTest")
     {

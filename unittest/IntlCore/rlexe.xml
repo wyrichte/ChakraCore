@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+  <!-- TODO (doilij) core: fails in core with mysterious exception -->
+  <test>
+    <default>
+      <compile-flags>-Intl</compile-flags>
+      <files>DateTimeFormat.js</files>
+      <tags>Intl,exclude_winglob</tags>
+    </default>
+  </test>
+
+  <!-- TODO (doilij) core: 'Debug' is undefined -->
+  <test>
+    <default>
+      <compile-flags>-IntlBuiltIns -Intl</compile-flags>
+      <files>IntlPlatformTests.js</files>
+      <tags>Intl,exclude_winglob,exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-IntlBuiltIns -Intl -off:NativeArray -ForceES5Array</compile-flags>
+      <files>ES5ArrayTest.js</files>
+      <tags>Intl,exclude_winglob,exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -Intl</compile-flags>
+      <files>StackWithScriptInLibrary.js</files>
+      <baseline>StackWithScriptInLibrary.baseline</baseline>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,exclude_win7,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+
+  <!-- TODO (doilij) core: Mysteriously doesn't print pass. -->
+  <test>
+    <default>
+      <compile-flags>-Intl</compile-flags>
+      <files>BluePlusTests.js</files>
+      <tags>Intl,exclude_winglob,exclude_win8,exclude_win7</tags>
+    </default>
+  </test>
+
+  <!-- TODO (doilij) core: deal with missing -targeted flag in ch -->
+  <!-- TODO (doilij) core: differences between core and full debugger baselines -->
+  <!-- TODO (doilij) core: delete rebase files when complete -->
+  <test>
+    <default>
+      <compile-flags>-maxinterpretCount:1 -off:simpleJit -targeted -dbgbaseline:intlAttach.js.dbg.baseline -Intl</compile-flags>
+      <files>intlAttach.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerTest.js.dbg.baseline -Intl</compile-flags>
+      <files>IntlInternalsHiddenFromDebuggerTest.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerInterlacedTest.js.dbg.baseline -Intl</compile-flags>
+      <files>IntlInternalsHiddenFromDebuggerInterlacedTest.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+
+  <test>
+    <default>
+      <compile-flags>-targeted -Intl -inspectmaxstringlength:100 -debuglaunch -dbgbaseline:funcSource.js.dbg.baseline</compile-flags>
+      <files>funcSource.js</files>
+      <tags>Intl,fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <!-- TODO (doilij) merge scriptInLibrary.js with scriptInLibrary_alt.js -->
+  <test>
+    <default>
+      <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
+      <files>scriptInLibrary.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-targeted -automaticsourcerundown -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
+      <files>scriptInLibrary.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+    </default>
+  </test>
+  <!-- TODO (doilij) merge scriptInLibrary.js with scriptInLibrary_alt.js -->
+  <!--
+  <test>
+    <default>
+      <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
+      <files>scriptInLibrary_alt.js</files>
+      TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue
+      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+    </default>
+  </test>
+  -->
+  <test>
+    <default>
+      <compile-flags>-targeted -debuglaunch -dbgbaseline:throwFromLibrary.js.dbg.baseline -Intl</compile-flags>
+      <files>throwFromLibrary.js</files>
+      <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
+      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-targeted -LogLineColumnProfileInfo- -LogProfilerVerbose- -dbgbaseline:intlProfileAttach_emptyJson.dbg.baseline</compile-flags>
+      <files>intlProfileAttach.js</files>
+      <tags>Intl,fail_mutators,exclude_winglob,exclude_serialized</tags>
+    </default>
+  </test>
+</regress-exe>
