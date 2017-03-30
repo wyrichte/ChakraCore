@@ -1457,7 +1457,7 @@ STDMETHODIMP ScriptEngine::EnumCodeContextsOfPosition(
 
         // The script engine can be closed on a separate thread so we need to lock to ensure the
         // debug document stays around.
-        AutoCriticalSection autoCriticalSection(this->threadContext->GetEtwRundownCriticalSection());
+        AutoCriticalSection autoCriticalSection(this->threadContext->GetFunctionBodyLock());
 
         if (IsInClosedState() || this->scriptContext == nullptr)
         {
@@ -3183,7 +3183,7 @@ STDMETHODIMP ScriptEngine::Close(void)
     {
         // Lock since enumeration of code contexts (via ScriptEngine::EnumCodeContextsOfPosition()) occurs
         // on a different thread and we don't want enumeration to proceed as the engine is being closed.
-        AutoCriticalSection autoCriticalSection(this->threadContext->GetEtwRundownCriticalSection());
+        AutoCriticalSection autoCriticalSection(this->threadContext->GetFunctionBodyLock());
         return this->CloseInternal();
     }
     else
