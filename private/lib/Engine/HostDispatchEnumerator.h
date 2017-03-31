@@ -13,6 +13,6 @@ protected:
     DEFINE_VTABLE_CTOR(HostDispatchEnumerator, Js::JavascriptEnumerator);
 public:
     HostDispatchEnumerator(HostDispatch*);
-    virtual Var MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes = nullptr) override;
+    virtual Js::JavascriptString* MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes = nullptr) override;
     virtual void Reset() override;
 };

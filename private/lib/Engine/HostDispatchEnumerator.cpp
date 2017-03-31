@@ -14,7 +14,7 @@ HostDispatchEnumerator::HostDispatchEnumerator(HostDispatch* inHostDispatch) :
 }
 
 
-Var HostDispatchEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes)
+Js::JavascriptString* HostDispatchEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes)
 {
     propertyId = Js::Constants::NoProperty;
     HRESULT hr;
@@ -55,7 +55,7 @@ Var HostDispatchEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::Prope
 
     // Copy the host's bstr into a recyclable buffer and free the bstr.
     UINT len = SysStringLen(name);
-    Js::Var str = Js::JavascriptString::NewCopyBuffer(name, len, scriptContext);
+    Js::JavascriptString* str = Js::JavascriptString::NewCopyBuffer(name, len, scriptContext);
     SysFreeString(name);
     return str;
 }

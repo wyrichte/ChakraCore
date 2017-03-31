@@ -31,7 +31,7 @@ namespace Js
         }
     }
 
-    Var CustomEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes)    
+    JavascriptString* CustomEnumerator::MoveAndGetNext(Js::PropertyId& propertyId, Js::PropertyAttributes* attributes)    
     {
         BOOL itemsAvailable = FALSE;
         ScriptContext* scriptContext = GetScriptContext();
@@ -65,7 +65,7 @@ namespace Js
         if (SUCCEEDED(hr) && currentName)
         {
             propertyId = Js::Constants::NoProperty;
-            return CrossSite::MarshalVar(GetScriptContext(), currentName);
+            return (JavascriptString*)CrossSite::MarshalVar(GetScriptContext(), currentName);
         }
         return nullptr;
     }
