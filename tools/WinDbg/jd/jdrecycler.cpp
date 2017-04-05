@@ -2218,14 +2218,10 @@ JD_PRIVATE_COMMAND(memstats,
             return false;  // continue iterating
         }
 
-        ulong threadContextSystemThreadId = threadContext.GetThreadId();
-        ulong threadContextThreadId = 0;
-
-        HRESULT hr = this->m_System4->GetThreadIdBySystemId(threadContextSystemThreadId, &threadContextThreadId);
-
         if (showPageAllocator || showArenaAllocator)
         {
-            if (SUCCEEDED(hr))
+            ulong threadContextThreadId = 0;
+            if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
             {
                 this->Dml("Thread context: %p <link cmd=\"~%us\">(Switch To Thread)</link>\n", threadContextPtr, threadContextThreadId);
             }

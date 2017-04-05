@@ -140,8 +140,9 @@ bool RemoteThreadContext::GetTlsSlot(ExtRemoteTyped& teb, ULONG tlsSlotIndex, UL
     return false;
 }
 // Get JS threadContext, ThreadContext::GetContextForCurrentThread()
-RemoteThreadContext RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTyped teb)
+bool RemoteThreadContext::TryGetThreadContextFromTeb(RemoteThreadContext& remoteThreadContext)
 {
+    ExtRemoteTyped teb = ExtRemoteTypedUtil::GetTeb();
     EXT_CLASS_BASE * ext = GetExtension();
     ExtRemoteTyped tlsSlot(ext->FillModule(IsUsingThreadContextTLSSlot() ?
         "%s!ThreadContextTLSEntry::s_tlsSlot" : "%s!ThreadContext::s_tlsSlot"));
@@ -155,38 +156,43 @@ RemoteThreadContext RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTyped 
         
         if (IsUsingThreadContextBase())
         {
-            return ExtRemoteTyped(ext->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
+            remoteThreadContext = ExtRemoteTyped(ext->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
         }
-
-        return threadContextId;
-    }
-    else
-    {
-        // If we are on a different thread, try the thread context list
-        ExtRemoteTyped container = GetFirstThreadContextContainer();
-
-        if (container.GetPtr())
+        else
         {
-            RemoteThreadContext threadContext = GetThreadContextFromContainer(container);
+            remoteThreadContext = threadContextId;
+        }
+        return true;
+    }
+   
+    // If we are on a different thread, try the thread context list
+    ExtRemoteTyped container = GetFirstThreadContextContainer();
 
-            if (threadContext.GetExtRemoteTyped().GetPtr())
+    if (container.GetPtr())
+    {
+        RemoteThreadContext threadContext = GetThreadContextFromContainer(container);
+
+        if (threadContext.GetExtRemoteTyped().GetPtr())
+        {
+            container = GetNextThreadContextContainer(container);
+
+            if (!container.GetPtr())
             {
-                container = GetNextThreadContextContainer(container);
-
-                if (!container.GetPtr())
-                {
-                    return GetThreadContextFromContainer(container);
-                }
+                remoteThreadContext = GetThreadContextFromContainer(container);
+                return true;
             }
         }
     }
-
-    ext->ThrowLastError("Sorry, can't determine which threadContext to use. Please specify threadContext or scriptContext.");
+    return false;
 }
 
 bool 
 RemoteThreadContext::TryGetCurrentThreadContext(RemoteThreadContext& remoteThreadContext)
-{
+{    
+    if (!HasThreadId())
+    {
+        return RemoteThreadContext::TryGetThreadContextFromTeb(remoteThreadContext);
+    }
     ULONG threadId = 0;
     GetExtension()->m_System4->GetCurrentThreadSystemId(&threadId);
     bool found = RemoteThreadContext::ForEach([threadId, &remoteThreadContext](RemoteThreadContext threadContext)
@@ -221,9 +227,33 @@ RemoteThreadContext::GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress)
     return foundThreadContext;
 }
 
+bool RemoteThreadContext::HasThreadId()
+{
+    return RemoteThreadContext(ExtRemoteTyped("(ThreadContext *)0")).HasThreadIdField();
+}
+
+bool RemoteThreadContext::HasThreadIdField()
+{
+    // Win7/8 doesn't have currentThreadId
+    return threadContext.HasField("currentThreadId");
+}
+
 ULONG RemoteThreadContext::GetThreadId()
 {
     return threadContext.Field("currentThreadId").GetUlong();
+}
+
+bool RemoteThreadContext::TryGetDebuggerThreadId(ULONG * pDebuggerThreadId)
+{
+    if (!HasThreadIdField())
+    {
+        return false;
+    }
+
+    ulong threadContextSystemThreadId = this->GetThreadId();
+    
+    HRESULT hr = g_Ext->m_System4->GetThreadIdBySystemId(threadContextSystemThreadId, pDebuggerThreadId);
+    return SUCCEEDED(hr);
 }
 
 RemoteRecycler RemoteThreadContext::GetRecycler()

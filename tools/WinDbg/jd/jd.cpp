@@ -581,7 +581,7 @@ JD_PRIVATE_COMMAND(prop,
     ExtRemoteTyped threadContext;
     if (pointer == 0)
     {
-        threadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
+        threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
     }
     else if (HasArg("t"))
     {
@@ -1245,18 +1245,22 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(ExtRemoteTyped threadContext, bool sh
 {
     bool found = false;
     
-    ULONG threadId = threadContext.Field("currentThreadId").GetUlong();
-    ULONG id;
-    if (FAILED(this->m_System4->GetThreadIdBySystemId(threadId, &id)))
+    if (threadContext.HasField("currentThreadId"))
     {
-        Out("xx ");
+        ULONG threadId = threadContext.Field("currentThreadId").GetUlong();
+        ULONG id;
+        if (FAILED(this->m_System4->GetThreadIdBySystemId(threadId, &id)))
+        {
+            Out("xx");
+        }
+        else
+        {
+            Out("%2x", id);
+        }
+        Out(" ThreadId: %04x ", threadId);
     }
-    else
-    {
-        Out("%2x", id);
-    }
-    Out(" ThreadId: %04x ThreadContext: 0x%p Recycler: 0x%p", threadId, threadContext.GetPtr(), 
-        threadContext.Field("recycler").GetPtr());    
+    Out("ThreadContext: 0x%p Recycler : 0x%p", threadContext.GetPtr(), threadContext.Field("recycler").GetPtr());
+
     if (isCurrentThreadContext)
     {
         Out(" (current)");
@@ -1403,16 +1407,13 @@ void EXT_CLASS_BASE::PrintThreadContextSourceInfos(ExtRemoteTyped threadContext,
 void EXT_CLASS_BASE::PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo)
 {
     ULONG64 currentThreadContextPtr = 0;
-    try
-    {
-        ExtRemoteTyped currentThreadContext = RemoteThreadContext::GetThreadContextFromTeb(ExtRemoteTypedUtil::GetTeb()).GetExtRemoteTyped();
-        currentThreadContextPtr = currentThreadContext.GetPtr();
-    }
-    catch (...)
+    RemoteThreadContext currentThreadContext;
+    if (!RemoteThreadContext::TryGetCurrentThreadContext(currentThreadContext))
     {
         Out("Cannot find current thread context\n");
     }
 
+    currentThreadContextPtr = currentThreadContext.GetExtRemoteTyped().GetPtr();
     RemoteThreadContext::ForEach([this, currentThreadContextPtr, printOnlyCount, printSourceContextInfo](RemoteThreadContext threadContext)
     {
         ExtRemoteTyped threadContextExtRemoteTyped = threadContext.GetExtRemoteTyped();
@@ -1741,27 +1742,29 @@ JD_PRIVATE_COMMAND(stst,
     "Switch to script thread- if there's only one script thread, it switches to it. If there are multiple, it dumps them all",
     "")
 {
+    if (!RemoteThreadContext::HasThreadId())
+    {
+        ThrowLastError("ERROR: this command not supported in Win7/Win8");
+    }
+
     int numThreadContexts = 0;
     ulong scriptThreadId = 0;
     RemoteThreadContext::ForEach([&scriptThreadId, &numThreadContexts, this](RemoteThreadContext threadContext)
     {
-        ulong threadContextSystemThreadId = threadContext.GetThreadId();
         ulong threadContextThreadId = 0;
 
-        HRESULT hr = this->m_System4->GetThreadIdBySystemId(threadContextSystemThreadId, &threadContextThreadId);
-
-        if (SUCCEEDED(hr))
+        ULONG64 threadContextAddress = threadContext.GetExtRemoteTyped().GetPtr();
+        if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
         {
-            ULONG64 threadContextAddress = threadContext.GetExtRemoteTyped().GetPtr();
-
             this->Dml("<link cmd=\"~%us\">Thread context: <b>%p</b></link>\n", threadContextThreadId, threadContextAddress);
-            numThreadContexts++;
-            if (numThreadContexts == 1)
-            {
-                scriptThreadId = threadContextThreadId;
-            }
+        }
+        else
+        {
+            this->Out("Thread context: %p\n", threadContextAddress);
         }
 
+        numThreadContexts++;
+        scriptThreadId = threadContextThreadId;
         return false;
     });
 
@@ -1771,7 +1774,14 @@ JD_PRIVATE_COMMAND(stst,
     }
     else if (numThreadContexts == 1)
     {
-        this->Execute("~%us", scriptThreadId);
+        if (scriptThreadId != 0)
+        {
+            this->Execute("~%us", scriptThreadId);
+        }
+        else
+        {
+            this->Out("Unable to get debugger thread Id");
+        }
     }
 
 }

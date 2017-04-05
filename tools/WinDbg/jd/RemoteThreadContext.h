@@ -27,8 +27,7 @@ public:
         Nullable<bool> m_usingThreadContextBase;        // If the build uses ThreadContextBase class. Casting to ThreadContext* involves a bit more work because of multiple inheritence.
         Nullable<bool> m_usingTemplatedLinkedList;
     };
-    static Info * GetInfo();    
-    static RemoteThreadContext GetThreadContextFromTeb(ExtRemoteTyped teb);
+    static Info * GetInfo();
     static RemoteThreadContext GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress = 0);
     static bool TryGetCurrentThreadContext(RemoteThreadContext& remoteThreadContext);
     template <typename Fn>
@@ -57,7 +56,7 @@ public:
     RemoteThreadContext() {}
     RemoteThreadContext(ExtRemoteTyped const& threadContext) : threadContext(threadContext) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
-    ULONG GetThreadId();
+    bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId);
     bool UseCodePageAllocator();
     RemoteRecycler GetRecycler();
 
@@ -173,9 +172,16 @@ public:
     }    
     RemoteInterpreterStackFrame GetLeafInterpreterStackFrame()
     {
-        return threadContext.Field("leafInterpreterFrame");        
+        return threadContext.Field("leafInterpreterFrame");
     }
+
+    static bool HasThreadId();
+
 private:
+    bool HasThreadIdField();
+    ULONG GetThreadId();
+    static bool TryGetThreadContextFromTeb(RemoteThreadContext& remoteThreadContext);
+
     ExtRemoteTyped threadContext;
 
     static bool IsUsingGlobalListFirst();
