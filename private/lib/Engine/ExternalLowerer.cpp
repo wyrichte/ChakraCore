@@ -85,7 +85,7 @@ HRESULT GetExternalJitData(ExternalJitData id, void *data)
 
 bool
 ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2, IR::Instr * instrBranch, IR::LabelInstr * labelHelper, 
-    IR::LabelInstr * labelBooleanCmp, Lowerer * lowerer, bool isStrictBr)
+    IR::LabelInstr * labelBooleanCmp, Lowerer * lowerer, bool isStrictBr, bool isInHelper)
 {
     CustomExternalObjectOperations data;
     HRESULT hr = GetExternalJitData(ExternalJitData_CustomExternalObjectOperations, &data);
@@ -93,16 +93,16 @@ ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2,
     {
         if (!isStrictBr)
         {
-            IR::LabelInstr *labelContinue = IR::LabelInstr::New(Js::OpCode::Label, lowerer->m_func);
-            IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src1->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelContinue);
+            IR::LabelInstr *labelContinue = IR::LabelInstr::New(Js::OpCode::Label, lowerer->m_func, isInHelper);
+            IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src1->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelContinue, isInHelper);
             GenerateFastExternalEqTest(&data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, false, false, lowerer->m_func);
 
             instrBranch->InsertBefore(labelContinue);
-            lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/);
+            lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, nullptr, isInHelper);
         }
         else
         {
-            IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelBooleanCmp);
+            IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelBooleanCmp, isInHelper);
             GenerateFastExternalEqTest(&data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, true, true, lowerer->m_func);
         }
         return true;
