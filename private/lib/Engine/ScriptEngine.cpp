@@ -5463,7 +5463,7 @@ HRESULT ScriptEngine::CompileUTF8(
     {
         // recompile if we have asm.js parse error
         grfscr |= fscrNoAsmJs;
-        pse->Clear();
+        pse->Free();
         hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
     }
     LEAVE_PINNED_SCOPE();
