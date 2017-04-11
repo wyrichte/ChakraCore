@@ -67,8 +67,9 @@ public:
         HeapObjectType_WebAssemblyInstance         =0x30,
         HeapObjectType_WebAssemblyMemory           =0x31,
         HeapObjectType_WebAssemblyTable            =0x32,
+        HeapObjectType_ExternalIterator            =0x33,
 
-        HeapObjectType_Last                        = HeapObjectType_WebAssemblyTable,
+        HeapObjectType_Last                        = HeapObjectType_ExternalIterator,
         HeapObjectType_Invalid                     =0xff
     };
 

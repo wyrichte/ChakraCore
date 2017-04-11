@@ -2528,6 +2528,97 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapDelete(Var mapInstance, Var k
     return hr;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorCreatorFunction(
+    JavascriptTypeId typeId,
+    Js::JavascriptMethod entryPoint,
+    uint byteCount,
+    Var prototypeForIterator,
+    InitIteratorFunction initFunction,
+    NextFunction nextFunction,
+    __out Var* func)
+{
+    HRESULT hr = NOERROR;
+    IfNullReturnError(func, E_INVALIDARG);
+    IfNullReturnError(prototypeForIterator, E_INVALIDARG);
+    IfNullReturnError(initFunction, E_INVALIDARG);
+    IfNullReturnError(nextFunction, E_INVALIDARG);
+    *func = nullptr;
+    if (byteCount < sizeof(void*))
+    {
+        hr = E_INVALIDARG;
+    }
+    else
+    {
+        hr = VerifyOnEntry();
+        if (SUCCEEDED(hr))
+        {
+            BEGIN_TRANSLATE_OOM_TO_HRESULT
+            {
+                *func = Js::ExternalIteratorCreatorFunction::CreateFunction(scriptContext->GetLibrary(), typeId,
+                entryPoint, byteCount, prototypeForIterator, initFunction, nextFunction);
+            }
+            END_TRANSLATE_OOM_TO_HRESULT(hr);
+        }
+    }
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorEntriesFunction(JavascriptTypeId typeId,
+    uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func)
+{
+    return CreateIteratorCreatorFunction(typeId,
+        Js::ExternalIteratorCreatorFunction::EntryExternalEntries,
+        byteCount,
+        prototypeForIterator,
+        initFunction,
+        nextFunction,
+        func);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorKeysFunction(JavascriptTypeId typeId,
+    uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func)
+{
+    return CreateIteratorCreatorFunction(typeId,
+        Js::ExternalIteratorCreatorFunction::EntryExternalKeys,
+        byteCount,
+        prototypeForIterator,
+        initFunction,
+        nextFunction,
+        func);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorValuesFunction(JavascriptTypeId typeId,
+    uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func)
+{
+    return CreateIteratorCreatorFunction(typeId,
+        Js::ExternalIteratorCreatorFunction::EntryExternalValues,
+        byteCount,
+        prototypeForIterator,
+        initFunction,
+        nextFunction,
+        func);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorNextFunction(JavascriptTypeId typeId, __out Var* func)
+{
+    HRESULT hr = NOERROR;
+    IfNullReturnError(func, E_INVALIDARG);
+
+    *func = nullptr;
+    hr = VerifyOnEntry();
+    if (SUCCEEDED(hr))
+    {
+        BEGIN_TRANSLATE_OOM_TO_HRESULT
+        {
+            *func = Js::CustomExternalIterator::CreateNextFunction(scriptContext->GetLibrary(), typeId);
+        }
+        END_TRANSLATE_OOM_TO_HRESULT(hr);
+    }
+
+    return hr;
+}
+
 #include "Library\JSONParser.h"
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseJson(

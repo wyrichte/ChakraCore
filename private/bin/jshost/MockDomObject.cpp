@@ -9,6 +9,8 @@
 #define ReturnUndefOnFailed(expr, undef) do { if (FAILED(expr)) { return undef; }} while(FALSE)
 
 MockDomObjectManager g_domObjectManager;
+const int MockMapDomObject::TypdID_DOMMap = 4000;
+const int MockSetDomObject::TypdID_DOMSet = 5000;
 
 MockPassTypeOperations::MockPassTypeOperations(ITypeOperations* defaultScriptOperations)
     : m_defaultScriptOperations(defaultScriptOperations)
@@ -187,7 +189,7 @@ STDMETHODIMP ArrayCollectionTypeOperations::GetOwnProperty(__in IActiveScriptDir
     *propertyPresent = FALSE;
     HRESULT hr = E_FAIL;
 
-    MockArrayDomObject *mydomObj = g_domObjectManager.GetDomObjectFromVar(instance);
+    MockArrayDomObject *mydomObj = static_cast<MockArrayDomObject*>(g_domObjectManager.GetDomObjectFromVar(instance));
     if (mydomObj != nullptr)
     {
         PCWSTR propName = nullptr;
@@ -214,7 +216,7 @@ STDMETHODIMP ArrayCollectionTypeOperations::HasOwnItem(__in IActiveScriptDirect*
 
 STDMETHODIMP ArrayCollectionTypeOperations::GetOwnItem(__in IActiveScriptDirect* pActiveScriptDirect, __in Var instance, __in Var index, __out Var* value, __out BOOL* itemPresent)
 {
-    MockArrayDomObject *mydomObj = g_domObjectManager.GetDomObjectFromVar(instance);
+    MockArrayDomObject *mydomObj = static_cast<MockArrayDomObject*>(g_domObjectManager.GetDomObjectFromVar(instance));
     if (mydomObj != nullptr)
     {
         *value = mydomObj->FetchGetObject(index, itemPresent);
@@ -223,13 +225,13 @@ STDMETHODIMP ArrayCollectionTypeOperations::GetOwnItem(__in IActiveScriptDirect*
     return E_FAIL;
 }
 
-MockArrayDomObject::MockArrayDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
+MockObject::MockObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
     : m_myDomVar(domVar), m_activeScriptDirect(activeScriptDirect), m_typeOperation(operations)
 {
     m_activeScriptDirect->GetTypeIdForVar(domVar, &m_typeId);
 }
 
-MockArrayDomObject::~MockArrayDomObject()
+MockObject::~MockObject()
 {
     if (m_typeOperation)
     {
@@ -237,9 +239,44 @@ MockArrayDomObject::~MockArrayDomObject()
     }
 }
 
+Var MockObject::GetUndefined()
+{
+    Var undefined = nullptr;
+    m_activeScriptDirect->GetUndefined(&undefined);
+    return undefined;
+}
+
+HRESULT MockObject::ThrowException(IActiveScriptDirect* activeScriptDirect, LPCWSTR text, HRESULT hr)
+{
+    if (activeScriptDirect)
+    {
+        Var exceptionObject;
+        if (activeScriptDirect->CreateErrorObject(JavascriptTypeError, hr, text, &exceptionObject) == S_OK)
+        {
+            return activeScriptDirect->ThrowException(exceptionObject);
+        }
+    }
+    return E_FAIL;
+}
+
+HRESULT MockObject::ThrowException(Var function, LPCWSTR text, HRESULT hr)
+{
+    return MockObject::ThrowException(JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function), text, hr);
+}
+
+HRESULT MockObject::ThrowException(LPCWSTR text, HRESULT hr)
+{
+    return MockObject::ThrowException(m_activeScriptDirect, text, hr);
+}
+
+MockArrayDomObject::MockArrayDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
+    : MockObject(activeScriptDirect, domVar, operations)
+{
+}
+
 Var MockArrayDomObject::EntryAddObject(Var function, CallInfo callInfo, Var* args)
 {
-    MockArrayDomObject *domObj = g_domObjectManager.GetDomObjectFromVar(args[0]);
+    MockArrayDomObject *domObj = static_cast<MockArrayDomObject*>(g_domObjectManager.GetDomObjectFromVar(args[0]));
 
     if (domObj != nullptr && callInfo.Count >= 2)
     {
@@ -253,7 +290,7 @@ Var MockArrayDomObject::EntryAddObject(Var function, CallInfo callInfo, Var* arg
 
 Var MockArrayDomObject::EntryGetObject(Var function, CallInfo callInfo, Var* args)
 {
-    MockArrayDomObject *domObj = g_domObjectManager.GetDomObjectFromVar(args[0]);
+    MockArrayDomObject *domObj = static_cast<MockArrayDomObject*>(g_domObjectManager.GetDomObjectFromVar(args[0]));
     if (domObj && callInfo.Count >= 2)
     {
         BOOL itemPresent;
@@ -327,13 +364,6 @@ Var MockArrayDomObject::EntryEntries(Var function, CallInfo callInfo, Var* args)
     return JsStaticAPI::JavascriptLibrary::GetUndefined(scriptDirect);
 }
 
-Var MockArrayDomObject::GetUndefined()
-{
-    Var undefined = nullptr;
-    m_activeScriptDirect->GetUndefined(&undefined);
-    return undefined;
-}
-
 void MockArrayDomObject::AddObject(Var obj)
 {
     m_objectVars.push_back(obj);
@@ -352,33 +382,31 @@ Var MockArrayDomObject::FetchGetObject(Var varIndex, BOOL *itemPresent)
     return GetUndefined();
 }
 
-MockArrayDomObject* MockDomObjectManager::GetDomObjectFromVar(Var obj)
+MockObject* MockDomObjectManager::GetDomObjectFromVar(Var obj)
 {
-    if (obj == nullptr || varToDomArrayObject.size() == 0)
+    if (obj == nullptr || varToDomObject.size() == 0)
     {
         return nullptr;
     }
-    auto it = varToDomArrayObject.find(obj);
-    if (it == varToDomArrayObject.end())
+    auto it = varToDomObject.find(obj);
+    if (it == varToDomObject.end())
     {
-        nullptr;
+        return nullptr;
     }
 
-    MockArrayDomObject * domObj = it->second;
+    MockObject * domObj = it->second;
     if (!domObj || domObj->m_myDomVar != obj)
     {
         return nullptr;
     }
 
-    // TODO : typeId safety
-
     return domObj;
 }
 
-void MockDomObjectManager::AddVarToObject(Var obj, IActiveScriptDirect *scriptDirect, ITypeOperations* operation)
+
+void MockDomObjectManager::AddVarToObject(Var obj, MockObject * domObject)
 {
-    MockArrayDomObject *domObj = new MockArrayDomObject(scriptDirect, obj, operation);
-    varToDomArrayObject.insert(std::pair<Var, MockArrayDomObject*>(obj, domObj));
+    varToDomObject.insert(std::pair<Var, MockObject*>(obj, domObject));
 }
 
 Var MockDomObjectManager::GetUndefined(Var obj)
@@ -390,6 +418,263 @@ Var MockDomObjectManager::GetUndefined(Var obj)
     }
 
     return nullptr;
+}
+
+MockPairDomObject::MockPairDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
+    : MockObject(activeScriptDirect, domVar, operations)
+{
+}
+
+Var MockPairDomObject::Set(Var function, int typeIdToValidate, LPCWSTR errorMessage, CallInfo callInfo, Var* args)
+{
+    MockObject *obj = g_domObjectManager.GetDomObjectFromVar(args[0]);
+    if (obj == nullptr || ((int)obj->m_typeId) != typeIdToValidate)
+    {
+        MockObject::ThrowException(function, errorMessage);
+        return MockDomObjectManager::GetUndefined(function);
+    }
+
+    MockPairDomObject *domObj = static_cast<MockPairDomObject*>(obj);
+
+    if (callInfo.Count >= 3)
+    {
+        Var key = args[1];
+        Var value = args[2];
+
+        if (domObj->m_objectMap.size() == 0)
+        {
+            domObj->m_objectMap.insert(std::pair<Var, Var>(key, value));
+        }
+        else
+        {
+            auto it = domObj->m_objectMap.find(key);
+            if (it != domObj->m_objectMap.end())
+            {
+                it->second = value;
+            }
+            else
+            {
+                domObj->m_objectMap.insert(std::pair<Var, Var>(key, value));
+            }
+        }
+    }
+    return MockDomObjectManager::GetUndefined(function);
+}
+
+Var MockPairDomObject::Get(Var function, int typeIdToValidate, LPCWSTR errorMessage, CallInfo callInfo, Var* args)
+{
+    MockObject *obj = g_domObjectManager.GetDomObjectFromVar(args[0]);
+    if (obj == nullptr || ((int)obj->m_typeId) != typeIdToValidate)
+    {
+        MockObject::ThrowException(function, errorMessage);
+        return MockDomObjectManager::GetUndefined(function);
+    }
+
+    MockPairDomObject *domObj = static_cast<MockPairDomObject*>(obj);
+
+    if (callInfo.Count >= 2)
+    {
+        Var key = args[1];
+        if (key && domObj->m_objectMap.size() > 0)
+        {
+            auto it = domObj->m_objectMap.find(key);
+            if (it != domObj->m_objectMap.end())
+            {
+                return it->second;
+            }
+        }
+    }
+    return MockDomObjectManager::GetUndefined(function);
+}
+
+void MockPairDomObject::InitIterator(Var instance, int typeIdToValidate, Var iterator, LPCWSTR errorMessage)
+{
+    MockObject *obj = g_domObjectManager.GetDomObjectFromVar(instance);
+    if (obj == nullptr || ((int)obj->m_typeId) != typeIdToValidate)
+    {
+        MockObject::ThrowException(instance, errorMessage);
+        return;
+    }
+
+    MockPairDomObject *domObj = static_cast<MockPairDomObject*>(obj);
+    DomPairIterator *mapIterator = new DomPairIterator(domObj); // This iterator will be deleted in the Next function.
+
+    Assert(iterator);
+    void **buffer = (void **)JsStaticAPI::JavascriptLibrary::CustomIteratorToExtension(iterator);
+    buffer[0] = (void *)mapIterator;
+}
+
+bool MockPairDomObject::Next(Var iterator, Var *key, Var *value)
+{
+    Assert(iterator != nullptr);
+    void **buffer = (void **)JsStaticAPI::JavascriptLibrary::CustomIteratorToExtension(iterator);
+    bool ret = false;
+    if (buffer[0] != nullptr)
+    {
+        DomPairIterator *mapIterator = static_cast<DomPairIterator*>(buffer[0]);
+        ret = mapIterator->Next(key, value);
+        if (!ret)
+        {
+            // Done with the iterator, delete it.
+            delete buffer[0];
+            buffer[0] = nullptr;
+        }
+    }
+    return ret;
+}
+
+HRESULT MockPairDomObject::CreateBaseIteratorPrototype(IActiveScriptDirect *activeScriptDirect, int typeIdToValidate, LPCWSTR propName, LPCWSTR stringTag, Var *proto)
+{
+    HRESULT hr = S_OK;
+
+    PropertyId objectPropId;
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(propName, &objectPropId));
+
+    HTYPE externalType;
+    Var domVarObject = nullptr;
+    CComPtr<ITypeOperations> defaultScriptOperations;
+
+    IfFailedReturn(activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations));
+
+    IfFailedReturn(activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, nullptr, NULL, defaultScriptOperations, FALSE, objectPropId, false, &externalType));
+    IfFailedReturn(activeScriptDirect->CreateTypedObject(externalType, 0, TRUE, &domVarObject));
+
+    Var nextFunction = JsStaticAPI::JavascriptLibrary::CreateIteratorNextFunction(activeScriptDirect, typeIdToValidate);
+    Assert(nextFunction != nullptr);
+
+    IfFailedReturn(MockDomObjectManager::AddMemberFunction(activeScriptDirect, defaultScriptOperations, _u("next"), nextFunction, domVarObject));
+
+    PropertyId symbolToStringTagId = JsStaticAPI::JavascriptLibrary::GetPropertyIdSymbolToStringTag(activeScriptDirect);
+    Var toStringTagValue;
+    IfFailedReturn(activeScriptDirect->StringToVar(stringTag, static_cast<int>(wcslen(stringTag)), &toStringTagValue));
+    BOOL result = false;
+    IfFailedReturn(defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, domVarObject, symbolToStringTagId, toStringTagValue, PropertyAttributes_Configurable, SideEffects_None, &result));
+
+    *proto = domVarObject;
+
+    return hr;
+}
+
+MockSetDomObject::MockSetDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
+    : MockPairDomObject(activeScriptDirect, domVar, operations)
+{
+}
+
+Var MockSetDomObject::EntrySet(Var function, CallInfo callInfo, Var* args)
+{
+    return MockPairDomObject::Set(function, MockSetDomObject::TypdID_DOMSet, _u("Current object is not a DOMSetObject"), callInfo, args);
+}
+
+Var MockSetDomObject::EntryGet(Var function, CallInfo callInfo, Var* args)
+{
+    return MockPairDomObject::Get(function, MockSetDomObject::TypdID_DOMSet, _u("Current object is not a DOMSetObject"), callInfo, args);
+}
+
+void MockSetDomObject::InitIterator(Var instance, Var iterator)
+{
+    MockPairDomObject::InitIterator(instance, MockSetDomObject::TypdID_DOMSet, iterator, _u("Current object is not a DOMSetObject"));
+}
+
+bool MockSetDomObject::Next(Var iterator, Var *key, Var *value)
+{
+    return MockPairDomObject::Next(iterator, key, value);
+}
+
+HRESULT MockSetDomObject::CreateSetIteratorPrototype(IActiveScriptDirect *activeScriptDirect, Var *proto)
+{
+    return MockPairDomObject::CreateBaseIteratorPrototype(activeScriptDirect, MockSetDomObject::TypdID_DOMSet, _u("SetIteratorPrototype"), _u("SetIterator"), proto);
+}
+
+HRESULT MockSetDomObject::CreateSetPrototypeObject(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, Var *prototype)
+{
+    HRESULT hr = S_OK;
+    Var protoypeExternalVar = g_domObjectManager.GetSetPrototypeObject();
+    if (protoypeExternalVar == nullptr)
+    {
+        HTYPE externalType;
+
+        PropertyId objectProtoPropId;
+        IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(_u("DOMSetObjPrototype"), &objectProtoPropId));
+        IfFailedReturn(activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, nullptr, NULL, defaultScriptOperations, FALSE, objectProtoPropId, false, &externalType));
+        IfFailedReturn(activeScriptDirect->CreateTypedObject(externalType, 0, TRUE, &protoypeExternalVar));
+
+
+        IfFailedReturn(MockDomObjectManager::AddMemberVar(activeScriptDirect, defaultScriptOperations, _u("Set"), MockSetDomObject::EntrySet, protoypeExternalVar));
+        IfFailedReturn(MockDomObjectManager::AddMemberVar(activeScriptDirect, defaultScriptOperations, _u("Get"), MockSetDomObject::EntryGet, protoypeExternalVar));
+
+        Var setIteratorPrototype;
+        IfFailedReturn(CreateSetIteratorPrototype(activeScriptDirect, &setIteratorPrototype));
+
+        IfFailedReturn(MockPairDomObject::AddIteratorProperties(activeScriptDirect, defaultScriptOperations, MockSetDomObject::TypdID_DOMSet, protoypeExternalVar, setIteratorPrototype,
+            &MockSetDomObject::InitIterator, &MockSetDomObject::Next));
+
+        g_domObjectManager.SetSetPrototypeObject(protoypeExternalVar);
+    }
+
+    *prototype = protoypeExternalVar;
+    return hr;
+}
+
+MockMapDomObject::MockMapDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations)
+    : MockPairDomObject(activeScriptDirect, domVar, operations)
+{
+}
+
+Var MockMapDomObject::EntrySet(Var function, CallInfo callInfo, Var* args)
+{
+    return MockPairDomObject::Set(function, MockMapDomObject::TypdID_DOMMap, _u("Current object is not a DOMMapObject"), callInfo, args);
+}
+
+Var MockMapDomObject::EntryGet(Var function, CallInfo callInfo, Var* args)
+{
+    return MockPairDomObject::Get(function, MockMapDomObject::TypdID_DOMMap, _u("Current object is not a DOMMapObject"), callInfo, args);
+}
+
+void MockMapDomObject::InitIterator(Var instance, Var iterator)
+{
+    MockPairDomObject::InitIterator(instance, MockMapDomObject::TypdID_DOMMap, iterator, _u("Current object is not a DOMMapObject"));
+}
+
+bool MockMapDomObject::Next(Var iterator, Var *key, Var *value)
+{
+    return MockPairDomObject::Next(iterator, key, value);
+}
+
+DomPairIterator::DomPairIterator(MockPairDomObject *map)
+    : m_pairObject(map)
+{
+    m_iter = m_pairObject->m_objectMap.begin();
+}
+
+bool DomPairIterator::Next(Var *key, Var *value)
+{
+    if (value)
+    {
+        *value = nullptr;
+    }
+    if (key)
+    {
+        *key = nullptr;
+    }
+
+    if (m_pairObject->m_objectMap.size() == 0 || m_iter == m_pairObject->m_objectMap.end())
+    {
+        return false;
+    }
+
+    if (key)
+    {
+        *key = m_iter->first;
+    }
+
+    if (value)
+    {
+        *value = m_iter->second;
+    }
+
+    ++m_iter;
+
+    return true;
 }
 
 HRESULT MockDomObjectManager::AddMemberVar(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, LPCWSTR prop, ScriptFunctionObj fn, Var obj, PropertyId secondPropId)
@@ -409,35 +694,172 @@ HRESULT MockDomObjectManager::AddMemberVar(IActiveScriptDirect *activeScriptDire
     return hr;
 }
 
+HRESULT MockDomObjectManager::AddMemberFunction(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, LPCWSTR prop, Var function, Var obj)
+{
+    HRESULT hr = S_OK;
+    PropertyId propertyId;
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(prop, &propertyId));
+
+    BOOL result = false;
+    return defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, obj, propertyId, function, PropertyAttributes_Enumerable, SideEffects_None, &result);
+}
+
+HRESULT MockDomObjectManager::CreateDomCtor(IActiveScriptDirect *activeScriptDirect, LPCWSTR name, ScriptFunctionObj entrypoint, Var *ctor)
+{
+    HRESULT hr = S_OK;
+    CComPtr<ITypeOperations> defaultScriptOperations;
+    Var globalObject = nullptr;
+
+    IfFailedReturn(activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations));
+    IfFailedReturn(activeScriptDirect->GetGlobalObject(&globalObject));
+
+    PropertyId ctorPropId;
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(name, &ctorPropId));
+
+    Var domConstructor;
+    IfFailedReturn(activeScriptDirect->CreateConstructor(NULL, entrypoint, ctorPropId, TRUE, &domConstructor));
+
+    BOOL result = FALSE;
+    hr = defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, globalObject, ctorPropId, domConstructor, static_cast<PropertyAttributes>(PropertyAttributes_Writable | PropertyAttributes_Configurable), SideEffects_None, &result);
+    *ctor = domConstructor;
+    return hr;
+}
+
+template <typename T>
+HRESULT MockObject::CreateObject(IActiveScriptDirect *activeScriptDirect, Var prototype, LPCWSTR name, JavascriptTypeId typeId, MockPassTypeOperations* operations, Var *varObject)
+{
+    Assert(activeScriptDirect != nullptr);
+    Assert(prototype != nullptr);
+    Assert(name != nullptr);
+    Assert(operations != nullptr);
+    Assert(varObject != nullptr);
+
+    *varObject = nullptr;
+    HRESULT hr = S_OK;
+
+    PropertyId objectPropId;
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(name, &objectPropId));
+
+    HTYPE externalType;
+    Var domVarObject = nullptr;
+    IfFailedReturn(activeScriptDirect->CreateType(typeId, nullptr, 0, prototype, NULL, operations, FALSE, objectPropId, false, &externalType));
+    IfFailedReturn(activeScriptDirect->CreateTypedObject(externalType, 0, TRUE, &domVarObject));
+
+    MockObject *domObj = new T(activeScriptDirect, domVarObject, operations);
+
+    g_domObjectManager.AddVarToObject(domVarObject, domObj);
+    *varObject = domVarObject;
+    return hr;
+}
+
+HRESULT MockArrayDomObject::CreateArrayObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject)
+{
+    Assert(defaultOperations != nullptr);
+    ArrayCollectionTypeOperations * operations = new ArrayCollectionTypeOperations(defaultOperations);
+    return MockObject::CreateObject<MockArrayDomObject>(activeScriptDirect, prototype, _u("DOMArrayObj"), TypeId_Unspecified, operations, varObject);
+}
+
+HRESULT MockMapDomObject::CreateMapObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject)
+{
+    Assert(defaultOperations != nullptr);
+    MockPassTypeOperations * operations = new MockPassTypeOperations(defaultOperations);
+    return MockObject::CreateObject<MockMapDomObject>(activeScriptDirect, prototype, _u("DOMMapObj"), MockMapDomObject::TypdID_DOMMap, operations, varObject);
+}
+
+HRESULT MockSetDomObject::CreateSetObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject)
+{
+    Assert(defaultOperations != nullptr);
+    MockPassTypeOperations * operations = new MockPassTypeOperations(defaultOperations);
+    return MockObject::CreateObject<MockSetDomObject>(activeScriptDirect, prototype, _u("DOMSetObj"), MockSetDomObject::TypdID_DOMSet, operations, varObject);
+}
+
+HRESULT MockPairDomObject::AddIteratorProperties(IActiveScriptDirect *activeScriptDirect,
+    ITypeOperations* defaultScriptOperations,
+    int typeIdToValidate, Var instance, Var iteratorPrototype,
+    InitIteratorFunction initFn, NextFunction nextFn)
+{
+    HRESULT hr = S_OK;
+    Var entriesFunction = JsStaticAPI::JavascriptLibrary::CreateExternalEntriesFunction(
+        activeScriptDirect,
+        typeIdToValidate,
+        sizeof(void*),
+        iteratorPrototype, initFn, nextFn);
+
+    PropertyId symbolIterator = JsStaticAPI::JavascriptLibrary::GetPropertyIdSymbolIterator(activeScriptDirect);
+    IfFailedReturn(MockDomObjectManager::AddMemberFunction(activeScriptDirect, defaultScriptOperations, _u("entries"), entriesFunction, instance));
+
+    BOOL result = FALSE;
+    IfFailedReturn(defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect,
+        instance, symbolIterator, entriesFunction, PropertyAttributes_Enumerable, SideEffects_None, &result));
+
+    Var keysFunction = JsStaticAPI::JavascriptLibrary::CreateExternalKeysFunction(
+        activeScriptDirect,
+        typeIdToValidate,
+        sizeof(void*),
+        iteratorPrototype, initFn, nextFn);
+
+    IfFailedReturn(MockDomObjectManager::AddMemberFunction(activeScriptDirect, defaultScriptOperations, _u("keys"), keysFunction, instance));
+
+    Var valuesFunction = JsStaticAPI::JavascriptLibrary::CreateExternalValuesFunction(
+        activeScriptDirect,
+        typeIdToValidate,
+        sizeof(void*),
+        iteratorPrototype, initFn, nextFn);
+    IfFailedReturn(MockDomObjectManager::AddMemberFunction(activeScriptDirect, defaultScriptOperations, _u("values"), valuesFunction, instance));
+
+    return hr;
+}
+
+HRESULT MockMapDomObject::CreateMapPrototypeObject(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, Var *prototype)
+{
+    HRESULT hr = S_OK;
+    Var protoypeExternalVar = g_domObjectManager.GetMapPrototypeObject();
+    if (protoypeExternalVar == nullptr)
+    {
+        HTYPE externalType;
+        PropertyId objectProtoPropId;
+        IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(_u("DOMMapObjPrototype"), &objectProtoPropId));
+        IfFailedReturn(activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, nullptr, NULL, defaultScriptOperations, FALSE, objectProtoPropId, false, &externalType));
+        IfFailedReturn(activeScriptDirect->CreateTypedObject(externalType, 0, TRUE, &protoypeExternalVar));
+
+
+        IfFailedReturn(MockDomObjectManager::AddMemberVar(activeScriptDirect, defaultScriptOperations, _u("Set"), MockMapDomObject::EntrySet, protoypeExternalVar));
+        IfFailedReturn(MockDomObjectManager::AddMemberVar(activeScriptDirect, defaultScriptOperations, _u("Get"), MockMapDomObject::EntryGet, protoypeExternalVar));
+
+        Var mapIteratorPrototype;
+        IfFailedReturn(CreateMapIteratorPrototype(activeScriptDirect, &mapIteratorPrototype));
+
+        IfFailedReturn(MockPairDomObject::AddIteratorProperties(activeScriptDirect, defaultScriptOperations, MockMapDomObject::TypdID_DOMMap, protoypeExternalVar, mapIteratorPrototype,
+            &MockMapDomObject::InitIterator, &MockMapDomObject::Next));
+
+        g_domObjectManager.SetMapPrototypeObject(protoypeExternalVar);
+    }
+    *prototype = protoypeExternalVar;
+    return hr;
+}
+
+HRESULT MockMapDomObject::CreateMapIteratorPrototype(IActiveScriptDirect *activeScriptDirect, Var *proto)
+{
+    return MockPairDomObject::CreateBaseIteratorPrototype(activeScriptDirect, MockMapDomObject::TypdID_DOMMap, _u("MapIteratorPrototype"), _u("MapIterator"), proto);
+}
+
 Var MockDomObjectManager::CreateDomArrayObject(Var function, CallInfo callInfo, Var* args)
 {
     IActiveScriptDirect *activeScriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function);
     Var undef = JsStaticAPI::JavascriptLibrary::GetUndefined(activeScriptDirect);
 
-    CComPtr<IJavascriptOperations> jsOps;
     HRESULT hr = S_OK;
     CComPtr<ITypeOperations> defaultScriptOperations;
 
     hr = activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations);
     ReturnUndefOnFailed(hr, undef);
 
-    hr = activeScriptDirect->GetJavascriptOperations(&jsOps);
-    ReturnUndefOnFailed(hr, undef);
-
     Var globalObject;
     hr = activeScriptDirect->GetGlobalObject(&globalObject);
     ReturnUndefOnFailed(hr, undef);
 
-    PropertyId ctorPropId;
-    hr = activeScriptDirect->GetOrAddPropertyId(_u("DOMArrayCtor"), &ctorPropId);
-    ReturnUndefOnFailed(hr, undef);
-
     Var domConstructor;
-    hr = activeScriptDirect->CreateConstructor(NULL, TempDomArrayConstructor, ctorPropId, TRUE, &domConstructor);
-    ReturnUndefOnFailed(hr, undef);
-
-    BOOL result = FALSE;
-    hr = defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, globalObject, ctorPropId, domConstructor, static_cast<PropertyAttributes>(PropertyAttributes_Writable | PropertyAttributes_Configurable), SideEffects_None, &result);
+    hr = CreateDomCtor(activeScriptDirect, _u("DOMArrayCtor"), TempDomConstructor, &domConstructor);
     ReturnUndefOnFailed(hr, undef);
 
     HTYPE externalType;
@@ -477,26 +899,84 @@ Var MockDomObjectManager::CreateDomArrayObject(Var function, CallInfo callInfo, 
     hr = activeScriptDirect->GetOrAddPropertyId(_u("constructor"), &ctorId);
     ReturnUndefOnFailed(hr, undef);
 
+    BOOL result = FALSE;
     // Adding constructor property
     hr = defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, protoypeExternalVar, ctorId, domConstructor, PropertyAttributes_None, SideEffects_None, &result);
     ReturnUndefOnFailed(hr, undef);
 
-    PropertyId objectPropId;
-    hr = activeScriptDirect->GetOrAddPropertyId(_u("DOMArrayObj"), &objectPropId);
+    Var domVarObject;
+    hr = MockArrayDomObject::CreateArrayObject(activeScriptDirect, protoypeExternalVar, defaultScriptOperations, &domVarObject);
+    ReturnUndefOnFailed(hr, undef);
+    return domVarObject;
+}
+
+Var MockDomObjectManager::CreateDomMapObject(Var function, CallInfo callInfo, Var* args)
+{
+    IActiveScriptDirect *activeScriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function);
+    Var undef = JsStaticAPI::JavascriptLibrary::GetUndefined(activeScriptDirect);
+
+    HRESULT hr = S_OK;
+    CComPtr<ITypeOperations> defaultScriptOperations;
+
+    hr = activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations);
     ReturnUndefOnFailed(hr, undef);
 
-    ArrayCollectionTypeOperations * operations = new ArrayCollectionTypeOperations(defaultScriptOperations);
-    operations;
-
-    HTYPE externalType1;
-    Var domVarObject = nullptr;
-    hr = activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, protoypeExternalVar, NULL, operations, FALSE, objectPropId, false, &externalType1);
+    Var domConstructor;
+    hr = CreateDomCtor(activeScriptDirect, _u("DOMMapCtor"), TempDomConstructor, &domConstructor);
     ReturnUndefOnFailed(hr, undef);
 
-    hr = activeScriptDirect->CreateTypedObject(externalType1, 0, TRUE, &domVarObject);
+    Var protoypeExternalVar = nullptr;
+
+    hr = MockMapDomObject::CreateMapPrototypeObject(activeScriptDirect, defaultScriptOperations, &protoypeExternalVar);
     ReturnUndefOnFailed(hr, undef);
 
-    g_domObjectManager.AddVarToObject(domVarObject, activeScriptDirect, operations);
+    PropertyId ctorId;
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("constructor"), &ctorId);
+    ReturnUndefOnFailed(hr, undef);
+
+    BOOL result = FALSE;
+    // Adding constructor property
+    hr = defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, protoypeExternalVar, ctorId, domConstructor, PropertyAttributes_None, SideEffects_None, &result);
+    ReturnUndefOnFailed(hr, undef);
+
+    Var domVarObject;
+    hr = MockMapDomObject::CreateMapObject(activeScriptDirect, protoypeExternalVar, defaultScriptOperations, &domVarObject);
+    ReturnUndefOnFailed(hr, undef);
+    return domVarObject;
+}
+
+Var MockDomObjectManager::CreateDomSetObject(Var function, CallInfo callInfo, Var* args)
+{
+    IActiveScriptDirect *activeScriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function);
+    Var undef = JsStaticAPI::JavascriptLibrary::GetUndefined(activeScriptDirect);
+
+    HRESULT hr = S_OK;
+    CComPtr<ITypeOperations> defaultScriptOperations;
+
+    hr = activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations);
+    ReturnUndefOnFailed(hr, undef);
+
+    Var domConstructor;
+    hr = CreateDomCtor(activeScriptDirect, _u("DOMSetCtor"), TempDomConstructor, &domConstructor);
+    ReturnUndefOnFailed(hr, undef);
+
+    Var protoypeExternalVar = nullptr;
+
+    hr = MockSetDomObject::CreateSetPrototypeObject(activeScriptDirect, defaultScriptOperations, &protoypeExternalVar);
+    ReturnUndefOnFailed(hr, undef);
+
+    PropertyId ctorId;
+    hr = activeScriptDirect->GetOrAddPropertyId(_u("constructor"), &ctorId);
+    ReturnUndefOnFailed(hr, undef);
+
+    BOOL result = FALSE;
+    // Adding constructor property
+    hr = defaultScriptOperations->SetPropertyWithAttributes(activeScriptDirect, protoypeExternalVar, ctorId, domConstructor, PropertyAttributes_None, SideEffects_None, &result);
+    ReturnUndefOnFailed(hr, undef);
+
+    Var domVarObject;
+    hr = MockSetDomObject::CreateSetObject(activeScriptDirect, protoypeExternalVar, defaultScriptOperations, &domVarObject);
+    ReturnUndefOnFailed(hr, undef);
     return domVarObject;
 }
 
@@ -506,10 +986,12 @@ HRESULT MockDomObjectManager::Initialize(IActiveScript *activeScript)
     CComPtr<IActiveScriptDirect> activeScriptDirect = nullptr;
     IfFailedReturn(activeScript->QueryInterface(&activeScriptDirect));
 
-    return AddDomArrayObjectCreatorFunction(activeScriptDirect);
+    IfFailedReturn(AddDomArrayObjectCreatorFunction(activeScriptDirect));
+    IfFailedReturn(AddDomMapObjectCreatorFunction(activeScriptDirect));
+    return AddDomSetObjectCreatorFunction(activeScriptDirect);
 }
 
-HRESULT MockDomObjectManager::AddDomArrayObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect)
+HRESULT MockDomObjectManager::DomCreatorFunction(IActiveScriptDirect *activeScriptDirect, LPCWSTR name, ScriptFunctionObj entrypoint)
 {
     HRESULT hr = S_OK;
     CComPtr<ITypeOperations> defaultScriptOperations;
@@ -519,10 +1001,10 @@ HRESULT MockDomObjectManager::AddDomArrayObjectCreatorFunction(IActiveScriptDire
     IfFailedReturn(activeScriptDirect->GetGlobalObject(&globalObject));
 
     PropertyId ctorPropId;
-    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(_u("CreateDomArrayObject"), &ctorPropId));
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(name, &ctorPropId));
 
     Var domConstructor = nullptr;
-    hr = activeScriptDirect->CreateConstructor(nullptr, MockDomObjectManager::CreateDomArrayObject, ctorPropId, TRUE, &domConstructor);
+    hr = activeScriptDirect->CreateConstructor(nullptr, entrypoint, ctorPropId, TRUE, &domConstructor);
     IfFailedReturn(hr);
 
     BOOL result = FALSE;
@@ -531,11 +1013,25 @@ HRESULT MockDomObjectManager::AddDomArrayObjectCreatorFunction(IActiveScriptDire
     return hr;
 }
 
+HRESULT MockDomObjectManager::AddDomArrayObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect)
+{
+    return MockDomObjectManager::DomCreatorFunction(activeScriptDirect, _u("CreateDomArrayObject"), MockDomObjectManager::CreateDomArrayObject);
+}
+
+HRESULT MockDomObjectManager::AddDomMapObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect)
+{
+    return MockDomObjectManager::DomCreatorFunction(activeScriptDirect, _u("CreateDomMapObject"), MockDomObjectManager::CreateDomMapObject);
+}
+
+HRESULT MockDomObjectManager::AddDomSetObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect)
+{
+    return MockDomObjectManager::DomCreatorFunction(activeScriptDirect, _u("CreateDomSetObject"), MockDomObjectManager::CreateDomSetObject);
+}
+
 MockDomObjectManager::~MockDomObjectManager()
 {
-    for (auto iterator = varToDomArrayObject.begin(); iterator != varToDomArrayObject.end(); iterator++)
+    for (auto iterator = varToDomObject.begin(); iterator != varToDomObject.end(); iterator++)
     {
         delete iterator->second;
     }
 }
-

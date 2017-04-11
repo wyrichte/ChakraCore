@@ -9,6 +9,9 @@ typedef interface ITrackingService ITrackingService;
 namespace JsStaticAPI
 {
     typedef HRESULT (__stdcall ScriptCallbackMethod)(int numArg, void** arguments);
+    typedef void(*InitIteratorFunction)(Var, Var);
+    typedef bool (*NextFunction)(Var, Var *, Var *);
+
     struct BinaryVerificationData
     {
         DWORD majorVersion;
@@ -82,6 +85,22 @@ namespace JsStaticAPI
         static HRESULT __stdcall WeakMapSet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, Var value);
         static HRESULT __stdcall WeakMapGet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out Var *value, __out bool* result);
         static HRESULT __stdcall WeakMapDelete(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* result);
+		
+        static PropertyId __stdcall GetPropertyIdSymbolToStringTag(IActiveScriptDirect* activeScriptDirect);
+
+        static Var __stdcall CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
+            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+
+        static Var __stdcall CreateExternalKeysFunction(IActiveScriptDirect* activeScriptDirect,
+            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+
+        static Var __stdcall CreateExternalValuesFunction(IActiveScriptDirect* activeScriptDirect,
+            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+
+
+        static void * CustomIteratorToExtension(Var iterator);
+
+        static Var __stdcall CreateIteratorNextFunction(IActiveScriptDirect* activeScriptDirect, JavascriptTypeId type);
     };
 
     class DataConversion

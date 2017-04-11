@@ -136,6 +136,7 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_SpreadArgument, HeapObjectType_ObjectObject },
     { Js::TypeIds_ModuleNamespace, HeapObjectType_ModuleNamespace },
     { Js::TypeIds_ListIterator, HeapObjectType_ListIterator },
+    { Js::TypeIds_ExternalIterator, HeapObjectType_ExternalIterator },
 };
 
 #if DBG
@@ -212,6 +213,7 @@ void ActiveScriptProfilerHeapEnum::CreateTypeNameIds()
     typeNameIdMap[HeapObjectType_SIMD].typeNameId = GetPropertyId(_u("SIMD"));
     typeNameIdMap[HeapObjectType_SIMDObject].typeNameId = GetPropertyId(_u("SIMDObject"));
     typeNameIdMap[HeapObjectType_ModuleNamespace].typeNameId = GetPropertyId(_u("ModuleNamespace"));
+    typeNameIdMap[HeapObjectType_ExternalIterator].typeNameId = GetPropertyId(_u("ExternalIterator"));
 }
 
 PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(ProfilerHeapObjectType objectType)

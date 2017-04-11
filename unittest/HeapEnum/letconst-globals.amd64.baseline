@@ -104,7 +104,7 @@
  |  |    |  |  |    |    [Internal property] value: __lookupSetter__
  |  |    |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Prototype] type: ObjectObject (seen)
- |  [Properties] count: 64
+ |  [Properties] count: 66
  |  | 0 NaN: value: -1.#IND00
  |  | 1 Infinity: value: 1.#INF00
  |  | 2 undefined: type: Undefined (seen)
@@ -450,14 +450,34 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: CreateDomArrayObject
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 60 z: type: String flags: (new size_approximate) optional info records (2)
+ |  | 60 CreateDomMapObject: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Properties] count: 1
+ |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CreateDomMapObject
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 61 CreateDomSetObject: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Properties] count: 2
+ |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Properties] count: 1
+ |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Internal property] value: CreateDomSetObject
+ |  |    |    [Prototype] type: StringObject (seen)
+ |  | 62 z: type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: zero
  |  |    [Prototype] type: StringObject (seen)
- |  | 61 x: rsFlags: let value: 123.000000
- |  | 62 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
+ |  | 63 x: rsFlags: let value: 123.000000
+ |  | 64 y: rsFlags: const type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: abc
  |  |    [Prototype] type: StringObject (seen)
- |  | 63 z: rsFlags: let value: 0.000000
+ |  | 65 z: rsFlags: let value: 0.000000
 
 ==========>End Heap Dump<===============
 

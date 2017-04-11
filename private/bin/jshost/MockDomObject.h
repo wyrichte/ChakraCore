@@ -73,11 +73,31 @@ public:
     STDMETHODIMP GetOwnItem(__in IActiveScriptDirect* pActiveScriptDirect, __in Var instance, __in Var index, __out Var* value, __out BOOL* itemPresent) override;
 };
 
-class MockArrayDomObject
+class MockObject
+{
+public:
+    MockObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations);
+    virtual ~MockObject();
+    Var GetUndefined();
+
+    template <typename T>
+    static HRESULT CreateObject(IActiveScriptDirect *activeScriptDirect, Var prototype, LPCWSTR name, JavascriptTypeId typeId, MockPassTypeOperations* operations, Var *varObject);
+
+    HRESULT ThrowException(LPCWSTR text, HRESULT hr = E_INVALIDARG);
+    static HRESULT ThrowException(Var function, LPCWSTR text, HRESULT hr = E_INVALIDARG);
+    static HRESULT ThrowException(IActiveScriptDirect* activeScriptDirect, LPCWSTR text, HRESULT hr = E_INVALIDARG);
+
+    Var m_myDomVar;
+    IActiveScriptDirect* m_activeScriptDirect;
+    JavascriptTypeId m_typeId;
+    ITypeOperations* m_typeOperation;
+};
+
+class MockArrayDomObject : public MockObject
 {
 public:
     MockArrayDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations);
-    ~MockArrayDomObject();
+    ~MockArrayDomObject() {};
 
     static Var EntryAddObject(Var function, CallInfo callInfo, Var* args);
     static Var EntryGetObject(Var function, CallInfo callInfo, Var* args);
@@ -86,26 +106,100 @@ public:
     static Var EntryValues(Var function, CallInfo callInfo, Var* args);
     static Var EntryEntries(Var function, CallInfo callInfo, Var* args);
 
-    Var GetUndefined();
     void AddObject(Var obj);
     Var FetchGetObject(Var index, BOOL *itemPresent);
 
-    Var m_myDomVar;
+    static HRESULT CreateArrayObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject);
     std::vector<Var> m_objectVars;
-    IActiveScriptDirect* m_activeScriptDirect;
-    JavascriptTypeId m_typeId;
-    ITypeOperations* m_typeOperation;
+};
+
+typedef void(*InitIteratorFunction)(Var, Var);
+typedef bool (*NextFunction)(Var, Var *, Var *);
+
+class MockPairDomObject : public  MockObject
+{
+public:
+    MockPairDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations);
+    ~MockPairDomObject() {}
+
+    static Var Get(Var function, int typeIdToValidate, LPCWSTR errorMessage, CallInfo callInfo, Var* args);
+    static Var Set(Var function, int typeIdToValidate, LPCWSTR errorMessage, CallInfo callInfo, Var* args);
+
+    static void InitIterator(Var instance, int typeIdToValidate, Var iterator, LPCWSTR errorMessage);
+    static bool Next(Var iterator, Var *key, Var *value);
+    static HRESULT CreateBaseIteratorPrototype(IActiveScriptDirect *activeScriptDirect, int typeIdToValidate, LPCWSTR propName, LPCWSTR stringTag, Var *proto);
+    static HRESULT AddIteratorProperties(IActiveScriptDirect *activeScriptDirect,
+        ITypeOperations* defaultScriptOperations,
+        int typeIdToValidate, Var instance, Var iteratorPrototype,
+        InitIteratorFunction initFn, NextFunction nextFn);
+
+    std::map<Var, Var> m_objectMap;
+};
+
+class MockMapDomObject : public MockPairDomObject
+{
+public:
+    MockMapDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations);
+
+    static Var EntrySet(Var function, CallInfo callInfo, Var* args);
+    static Var EntryGet(Var function, CallInfo callInfo, Var* args);
+
+    static HRESULT CreateMapObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject);
+    static HRESULT CreateMapPrototypeObject(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultOperations, Var *prototype);
+    static HRESULT CreateMapIteratorPrototype(IActiveScriptDirect *activeScriptDirect, Var *proto);
+
+    static void InitIterator(Var instance, Var iterator);
+    static bool Next(Var iterator, Var *key, Var *value);
+
+    static const int TypdID_DOMMap;
+};
+
+class MockSetDomObject : public MockPairDomObject
+{
+public:
+    MockSetDomObject(IActiveScriptDirect *activeScriptDirect, Var domVar, ITypeOperations *operations);
+
+    static Var EntrySet(Var function, CallInfo callInfo, Var* args);
+    static Var EntryGet(Var function, CallInfo callInfo, Var* args);
+
+    static HRESULT CreateSetObject(IActiveScriptDirect *activeScriptDirect, Var prototype, ITypeOperations* defaultOperations, Var *varObject);
+    static HRESULT CreateSetPrototypeObject(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultOperations, Var *prototype);
+    static HRESULT CreateSetIteratorPrototype(IActiveScriptDirect *activeScriptDirect, Var *proto);
+
+    static void InitIterator(Var instance, Var iterator);
+    static bool Next(Var iterator, Var *key, Var *value);
+
+    static const int TypdID_DOMSet;
+};
+
+class DomPairIterator
+{
+public:
+    DomPairIterator(MockPairDomObject *map);
+
+    bool Next(Var *key, Var *value);
+    MockPairDomObject *m_pairObject;
+    std::map<Var, Var>::iterator m_iter;
 };
 
 class MockDomObjectManager
 {
 public :
+    MockDomObjectManager()
+        : m_mapPrototypeObject(nullptr), m_setPrototypeObject(nullptr)
+    { }
+
     ~MockDomObjectManager();
 
-    MockArrayDomObject* GetDomObjectFromVar(Var obj);
-    void AddVarToObject(Var obj, IActiveScriptDirect *scriptDirect, ITypeOperations* operation);
+    MockObject* GetDomObjectFromVar(Var obj);
+    void AddVarToObject(Var obj, MockObject * domObject);
 
-    static Var TempDomArrayConstructor(Var function, CallInfo callInfo, Var* args)
+    Var GetMapPrototypeObject() { return m_mapPrototypeObject;  }
+    void SetMapPrototypeObject(Var o) { m_mapPrototypeObject = o; }
+    Var GetSetPrototypeObject() { return m_setPrototypeObject; }
+    void SetSetPrototypeObject(Var o) { m_setPrototypeObject = o; }
+
+    static Var TempDomConstructor(Var function, CallInfo callInfo, Var* args)
     {
         return args[0];
     }
@@ -114,13 +208,24 @@ public :
 
     static HRESULT Initialize(IActiveScript *activeScript);
     static Var CreateDomArrayObject(Var function, CallInfo callInfo, Var* args);
+    static Var CreateDomMapObject(Var function, CallInfo callInfo, Var* args);
+    static Var CreateDomSetObject(Var function, CallInfo callInfo, Var* args);
 
     static Var GetUndefined(Var obj);
 
-private:
-    static HRESULT AddDomArrayObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect);
     static HRESULT AddMemberVar(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, LPCWSTR prop, ScriptFunctionObj fn, Var obj, PropertyId secondPropId = 0);
+    static HRESULT AddMemberFunction(IActiveScriptDirect *activeScriptDirect, ITypeOperations* defaultScriptOperations, LPCWSTR prop, Var function, Var obj);
 
-    std::map<Var, MockArrayDomObject *> varToDomArrayObject;
+private:
+    static HRESULT CreateDomCtor(IActiveScriptDirect *activeScriptDirect, LPCWSTR name, ScriptFunctionObj entrypoint, Var *ctor);
+
+    static HRESULT DomCreatorFunction(IActiveScriptDirect *activeScriptDirect, LPCWSTR name, ScriptFunctionObj entrypoint);
+    static HRESULT AddDomArrayObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect);
+    static HRESULT AddDomMapObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect);
+    static HRESULT AddDomSetObjectCreatorFunction(IActiveScriptDirect *activeScriptDirect);
+
+    std::map<Var, MockObject *> varToDomObject;
+    Var m_mapPrototypeObject;
+    Var m_setPrototypeObject;
 };
 

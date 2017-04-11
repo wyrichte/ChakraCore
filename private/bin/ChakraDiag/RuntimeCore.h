@@ -376,6 +376,7 @@ namespace Wasm
 #include "RuntimeFunction.h"
 #include "BoundFunction.h"
 #include "JavascriptExternalFunction.h" // Not really using this one, needed for JavascriptLibrary and is using JavascriptFunction which is using DynamicObject.
+#include "CustomExternalIterator.h"
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "CharStringCache.h"
 #include "ExternalLibraryBase.h"

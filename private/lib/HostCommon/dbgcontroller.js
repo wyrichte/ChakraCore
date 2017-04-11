@@ -95,6 +95,8 @@ var controllerObj = {
             "CanvasPixelArray",
             "CollectGarbage",
             "CreateDomArrayObject",
+            "CreateDomMapObject",
+            "CreateDomSetObject",
             "DataView",
             "Date",
             "Debug",

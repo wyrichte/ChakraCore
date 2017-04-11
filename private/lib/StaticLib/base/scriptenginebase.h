@@ -23,6 +23,9 @@ namespace Js
 class ScriptSite;
 class ThreadContext;
 
+typedef void (*InitIteratorFunction)(Var, Var);
+typedef bool (*NextFunction)(Var, Var *, Var *);
+
 class ScriptEngineBase : public IActiveScriptDirect
 {
 public:
@@ -528,6 +531,19 @@ public:
     virtual HRESULT STDMETHODCALLTYPE WeakMapGet(Var mapInstance, Var key, __out Var *value, __out bool *found);
     virtual HRESULT STDMETHODCALLTYPE WeakMapDelete(Var mapInstance, Var key, __out bool *has);
 
+    virtual HRESULT STDMETHODCALLTYPE CreateIteratorEntriesFunction(JavascriptTypeId typeId,
+        uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func);
+
+    virtual HRESULT STDMETHODCALLTYPE CreateIteratorKeysFunction(JavascriptTypeId typeId,
+        uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func);
+
+    virtual HRESULT STDMETHODCALLTYPE CreateIteratorValuesFunction(JavascriptTypeId typeId,
+        uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction, __out Var* func);
+
+    HRESULT STDMETHODCALLTYPE CreateIteratorValuesFunction(JavascriptTypeId typeId, __out Var* func);
+
+    virtual HRESULT STDMETHODCALLTYPE CreateIteratorNextFunction(JavascriptTypeId typeId, __out Var* func);
+
 public:
     Js::ScriptContext*  scriptContext;
 
@@ -575,5 +591,14 @@ protected:
         __out Js::RecyclableObject** objPrototype);
 
     HRESULT ValidateBaseThread(void);
+
+    HRESULT STDMETHODCALLTYPE CreateIteratorCreatorFunction(
+        JavascriptTypeId typeId,
+        Js::JavascriptMethod entryPoint,
+        uint byteCount,
+        Var prototypeForIterator, 
+        InitIteratorFunction initFunction,
+        NextFunction nextFunction,
+        __out Var* func);
 
 };

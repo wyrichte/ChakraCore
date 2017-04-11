@@ -6,6 +6,52 @@
 
 namespace JsStaticAPI
 {
+    inline LONG FatalExceptionFilter(__in LPEXCEPTION_POINTERS lpep)
+    {
+        LONG rc = UnhandledExceptionFilter(lpep);
+
+        // re == EXCEPTION_EXECUTE_HANDLER means there is no debugger attached, let's terminate
+        // the process. Otherwise give control to the debugger.
+        // Note: in case when postmortem debugger is registered but no actual debugger attached,
+        //       rc will be 0 (and EXCEPTION_EXECUTE_HANDLER is 1), so it acts as if there is debugger attached.
+        if (rc == EXCEPTION_EXECUTE_HANDLER)
+        {
+            TerminateProcess(GetCurrentProcess(), (UINT)DBG_TERMINATE_PROCESS);
+        }
+        else
+        {
+            // However, if debugger was not attached for some reason, terminate the process.
+            if (!IsDebuggerPresent())
+            {
+                TerminateProcess(GetCurrentProcess(), (UINT)DBG_TERMINATE_PROCESS);
+            }
+            DebugBreak();
+        }
+
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    void ReportFatalException(__in HRESULT exceptionCode, __in ErrorReason reasonCode)
+    {
+        if (IsDebuggerPresent())
+        {
+            DebugBreak();
+        }
+
+        __try
+        {
+            ULONG_PTR ExceptionInformation[2];
+            ExceptionInformation[0] = (ULONG_PTR)reasonCode;
+            ExceptionInformation[1] = NULL;
+            RaiseException(exceptionCode, EXCEPTION_NONCONTINUABLE, 2, (ULONG_PTR*)ExceptionInformation);
+        }
+        __except (JsStaticAPI::FatalExceptionFilter(GetExceptionInformation()))
+        {
+        }
+    }
+
+#define FATAL_ON_FAILED_API_RESULT(hr) if (FAILED(hr)) { JsStaticAPI::ReportFatalException(hr, Fatal_Failed_API_Result); }
+
     //============================================================================================================
     // Helpers
     //============================================================================================================
@@ -294,5 +340,61 @@ namespace JsStaticAPI
     {
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
         return scriptEngineBase->WeakMapDelete(instance, key, result);
+    }
+	
+    PropertyId JavascriptLibrary::GetPropertyIdSymbolToStringTag(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+        return scriptContextBase->GetLibrary()->GetPropertyIdSymbolToStringTag();
+    }
+
+    Var JavascriptLibrary::CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
+        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        Var func = nullptr;
+        HRESULT hr = scriptEngineBase->CreateIteratorEntriesFunction(type, byteCount, prototypeForIterator, initFunction, nextFunction, &func);
+        FATAL_ON_FAILED_API_RESULT(hr)
+
+        return func;
+    }
+
+    Var JavascriptLibrary::CreateExternalKeysFunction(IActiveScriptDirect* activeScriptDirect,
+        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        Var func = nullptr;
+        HRESULT hr = scriptEngineBase->CreateIteratorKeysFunction(type, byteCount, prototypeForIterator, initFunction, nextFunction, &func);
+        FATAL_ON_FAILED_API_RESULT(hr)
+
+        return func;
+    }
+
+    Var JavascriptLibrary::CreateExternalValuesFunction(IActiveScriptDirect* activeScriptDirect,
+        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        Var func = nullptr;
+        HRESULT hr = scriptEngineBase->CreateIteratorValuesFunction(type, byteCount, prototypeForIterator, initFunction, nextFunction, &func);
+        FATAL_ON_FAILED_API_RESULT(hr)
+
+        return func;
+    }
+
+    Var JavascriptLibrary::CreateIteratorNextFunction(IActiveScriptDirect* activeScriptDirect, JavascriptTypeId type)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        Var func = nullptr;
+        HRESULT hr = scriptEngineBase->CreateIteratorNextFunction(type, &func);
+        FATAL_ON_FAILED_API_RESULT(hr)
+
+        return func;
+    }
+
+    void * JavascriptLibrary::CustomIteratorToExtension(Var iterator)
+    {
+        Assert(iterator != nullptr);
+        return (void*)(((char*)iterator) + sizeof(Js::CustomExternalIterator));
     }
 }
