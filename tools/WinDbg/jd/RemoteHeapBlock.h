@@ -119,15 +119,16 @@ private:
 
     ULONG64 heapBlockAddress;
     ULONG64 address;
-    char type;
     ULONG64 size;
 
+    char type;
     bool hasCachedTotalObjectCountAndSize;
+    bool hasCachedAllocatedObjectCountAndSize;
+
     ULONG bucketObjectSize;
     ULONG totalObjectCount;
     ULONG64 totalObjectSize;
 
-    bool hasCachedAllocatedObjectCountAndSize;
     ULONG allocatedObjectCount;
     ULONG64 allocatedObjectSize;
     std::vector<bool> freeObject;

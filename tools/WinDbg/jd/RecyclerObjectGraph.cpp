@@ -6,13 +6,16 @@
 
 RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
+    if (!ENUM_EQUAL(recycler.Field("collectionState").GetSimpleValue(), "CollectionStateNotCollecting"))
+    {
+        g_Ext->Out("WARNING: Recycler is in collection state.  Object graph may be inaccurate\n");
+    }
     RecyclerObjectGraph * recyclerObjectGraph = GetExtension()->recyclerCachedData.GetCachedRecyclerObjectGraph(recycler.GetPtr());
     if (recyclerObjectGraph == nullptr)
     {
         Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext, stackTop);
-        ExtRemoteTyped heapBlockMap = recycler.Field("heapBlockMap");
         AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(GetExtension(), recycler));
-        newObjectGraph->Construct(heapBlockMap, *rootPointerManager);
+        newObjectGraph->Construct(*rootPointerManager);
 
         recyclerObjectGraph = newObjectGraph.Detach();
         GetExtension()->recyclerCachedData.CacheRecyclerObjectGraph(recycler.GetPtr(), recyclerObjectGraph);
@@ -58,30 +61,32 @@ void RecyclerObjectGraph::DumpForCsv(const char* outfile)
     _objectGraph.ExportToCsv(outfile);
 }
 
-void RecyclerObjectGraph::Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots)
+void RecyclerObjectGraph::Construct(Addresses& roots)
 {
     auto start = _time64(nullptr);
+
+    std::stack<MarkStackEntry> markStack;
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
     roots.Map([&](ULONG64 root)
     {
-        MarkObject(root, 0, roots.GetRootType(root));
+        MarkObject(markStack, root, 0, roots.GetRootType(root));
     });
 
     int iters = 0;
 
-    while (_markStack.size() != 0)
+    while (markStack.size() != 0)
     {
-        const MarkStackEntry object = _markStack.top();
-        _markStack.pop();
+        const MarkStackEntry object = markStack.top();
+        markStack.pop();
 
-        ScanBytes(object.first, object.second);
+        ScanBytes(markStack, object.first, object.second);
 
         iters++;
         if (iters % 0x10000 == 0)
         {
             _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
                 "\rTraversing object graph, object count - stack: %6d, visited: %d",
-                _markStack.size(), _objectGraph.GetNodeCount());
+                markStack.size(), _objectGraph.GetNodeCount());
         }
     }
 
@@ -205,33 +210,12 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
         }
     }
 
-    if (strcmp(simpleTypeName, "Js::Cache *") == 0)
-    {
-        node->MapPredecessors([&](RecyclerObjectGraph::GraphImplNodeType* pred)
-        {
-            if (pred->HasTypeInfo() && strcmp(JDUtil::StripModuleName(pred->GetTypeName()), "Js::JavascriptLibrary") == 0)
-            {
-                library = pred->Key();
-                return true;
-            }
-
-            char const * typeName;
-            JDRemoteTyped predRemoteTyped = GetExtension()->CastWithVtable(pred->Key(), &typeName);
-            if (typeName != nullptr && strcmp(JDUtil::StripModuleName(typeName), "Js::JavascriptLibrary") == 0)
-            {
-                library = pred->Key();
-                return true;
-            }
-            return false;
-        });
-
-        return library;
-    }
-
     if (strcmp(simpleTypeName, "Js::PolymorphicInlineCache *") == 0)
     {
-        // Get the library info from the functionBody
-        remoteTyped = remoteTyped.Field("functionBody");
+        // Even though PolymorphicInlineCache has a functionBody, the data is leaf
+        // So the pointer may not be valid memory if the PolymorphicInlineCache has a false reference to it
+        // We will override the information in the main loop instead of infering the library here.
+        return 0;
     }
 
     if (strcmp(simpleTypeName, "Js::IntlEngineInterfaceExtensionObject *") == 0)
@@ -405,13 +389,27 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
 
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
 
-    auto setAddressData = [&](char const * typeName, JDRemoteTyped object)
+    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, bool hasVtable = false, ULONG64 library = 0)
     {
         if (object.GetPtr())
         {
             RecyclerObjectGraph::GraphImplNodeType* node = this->FindNode(object.GetPtr());
-            setNodeData(typeName, typeName, node, false, false, 0);
+            setNodeData(typeName, typeName, node, hasVtable, false, library);
         }
+    };
+
+    auto addFieldData = [&](JDRemoteTyped field, char const * typeName, char const * fieldTypeName, bool overwriteVtable, ULONG64 library)
+    {
+        if (field.GetPtr() != 0)
+        {
+            auto fieldNode = this->FindNode(field.GetPtr());
+            if (fieldNode && (!fieldNode->HasTypeInfo() || (fieldNode->HasVtable() && overwriteVtable)))
+            {
+                setNodeData(typeName, fieldTypeName, fieldNode, false, false, library);
+                return true;
+            }
+        }
+        return false;
     };
 
     JDRemoteTyped threadRecyclableData = threadContext->Field("recyclableData.ptr");
@@ -420,9 +418,80 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
     setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.bucket", typesWithProtoPropertyCache.Field("buckets"));
     setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.Field("entries"));
 
+    // For RS2 and below Js::Cache has a vtable, but may be ICF with other type.  Process them first.
+    RemoteThreadContext remoteThreadContext(*threadContext);
+    remoteThreadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
+    {
+        JDRemoteTyped library = scriptContext.GetJavascriptLibrary();
+        JDRemoteTyped cache;
+        if (library.HasField("scriptContextCache"))
+        {
+            cache = GetExtension()->Cast("Js::Cache", library.Field("scriptContextCache").GetPtr());
+        }
+        else if (library.HasField("cache"))
+        {
+            cache = library.Field("cache");
+        }
+        else
+        {
+            return false;
+        }
+        
+        if (cache.GetPtr() != 0)
+        {
+            ULONG64 javascriptLibrary = library.GetPtr();
+            JDRemoteTyped sourceContextInfoMap = cache.Field("sourceContextInfoMap");
+            if (addFieldData(sourceContextInfoMap, "Js::Cache", "Js::Cache.sourceContextInfoMap", false, javascriptLibrary))
+            {
+                addFieldData(sourceContextInfoMap.Field("buckets"), "Js::Cache", "Js::Cache.sourceContextInfoMap.buckets", false, javascriptLibrary);
+                JDRemoteTyped sourceContextInfoMapEntries = sourceContextInfoMap.Field("entries");
+
+                if (addFieldData(sourceContextInfoMapEntries, "Js::Cache", "Js::Cache.sourceContextInfoMap.entries", false, javascriptLibrary))
+                {
+                    int count = sourceContextInfoMap.Field("count").GetLong();
+                    for (int i = 0; i < count; i++)
+                    {
+                        JDRemoteTyped sourceContextInfo = sourceContextInfoMapEntries.ArrayElement(i).Field("value");
+                        if (addFieldData(sourceContextInfo, "Js::Cache", "SourceContextInfo", false, javascriptLibrary))
+                        {
+                            addFieldData(sourceContextInfo.Field("sourceDynamicProfileManager"), "Js::Cache", "SourceDynamicProfileManager", false, javascriptLibrary);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    });
+
+    class AutoError
+    {
+    public:        
+        ~AutoError()
+        {
+            if (objectAddress != 0)
+            {
+                g_Ext->Err("ERROR: exception throw when processing %p with type %s\n", objectAddress, typeName);
+            }
+        }
+        void Start(ULONG64 objectAddress, char const * typeName)
+        {
+            this->objectAddress = objectAddress;
+            this->typeName = typeName;
+        }
+        void Clear()
+        {
+            this->objectAddress = 0;
+        }
+    private:
+        ULONG64 objectAddress;
+        char const * typeName;
+    } autoError;
+
     ULONG numNodes = 0;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
-    {        
+    {
+        autoError.Clear();
+
         numNodes++;
         if (numNodes % 10000 == 0)
         {
@@ -442,6 +511,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
             return;
         }
         
+        autoError.Start(objectAddress, typeName);
+
         char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
         ULONG64 javascriptLibrary = InferJavascriptLibrary(node, remoteTyped, simpleTypeName);
 
@@ -453,17 +524,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                 {
                     library = javascriptLibrary;
                 }
-
-                if (field.GetPtr() != 0)
-                {
-                    auto fieldNode = this->FindNode(field.GetPtr());
-                    if (fieldNode && (!fieldNode->HasTypeInfo() || (fieldNode->HasVtable() && overwriteVtable)))
-                    {
-                        setNodeData(typeName, fieldTypeName, fieldNode, false, false, library);
-                        return true;
-                    }
-                }
-                return false;
+                return addFieldData(field, typeName, fieldTypeName, overwriteVtable, library);
             };
 
             auto addDynamicTypeField = [&](JDRemoteTyped type, char const * dynamicTypeName = nullptr)
@@ -833,6 +894,24 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                 addField(functionBody.GetInlineCaches(), "Js::FunctionBody.<inlineCaches[]>");
                 addField(JDUtil::GetWrappedField(functionBody.GetPolymorphicInlineCaches(), "inlineCaches"), "Js::FunctionBody.{PolymorphicInlineCaches[]}");
 
+                JDRemoteTyped polymorphicInlineCachesHead = functionBody.GetPolymorphicInlineCachesHead();
+                
+                char const * polymorphicInlineCachesTypeName = nullptr;
+                while (polymorphicInlineCachesHead.GetPtr())
+                {
+                    // polymorphicInlineCache has a vtable, but it is a leaf, so if we have false reference to it, 
+                    // the data that it points to may be invalid. So better to override the vtable inferred info here.
+
+                    if (!polymorphicInlineCachesTypeName)
+                    {
+                        // Get the type name from CastWithVtable so it will be the same as other vtable inferred typename
+                        GetExtension()->CastWithVtable(polymorphicInlineCachesHead.GetPtr(), &polymorphicInlineCachesTypeName);
+                    }
+
+                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, true, javascriptLibrary);
+                    polymorphicInlineCachesHead = JDUtil::GetWrappedField(polymorphicInlineCachesHead, "next");
+                }
+
                 addField(functionBody.GetConstTable(), "Js::FunctionBody.m_constTable");
                 addField(functionBody.GetCacheIdToPropertyIdMap(), "Js::FunctionBody.cacheIdToPropertyIdMap");
                 addField(functionBody.GetReferencedPropertyIdMap(), "Js::FunctionBody.referencedPropertyIdMap");
@@ -938,28 +1017,6 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                 addField(unifiedRep.Field("matcher"), "UnifiedRegex::Matcher");
                 addField(unifiedRep.Field("trigramInfo"), "UnifiedRegex::TrigramInfo");
             }
-            else if (strcmp(simpleTypeName, "Js::Cache *") == 0)
-            {
-                JDRemoteTyped sourceContextInfoMap = remoteTyped.Field("sourceContextInfoMap");
-                if (addField(sourceContextInfoMap, "Js::Cache.sourceContextInfoMap"))
-                {
-                    addField(sourceContextInfoMap.Field("buckets"), "Js::Cache.sourceContextInfoMap.buckets");
-                    JDRemoteTyped sourceContextInfoMapEntries = sourceContextInfoMap.Field("entries");
-
-                    if (addField(sourceContextInfoMapEntries, "Js::Cache.sourceContextInfoMap.entries"))
-                    {
-                        int count = sourceContextInfoMap.Field("count").GetLong();
-                        for (int i = 0; i < count; i++)
-                        {
-                            JDRemoteTyped sourceContextInfo = sourceContextInfoMapEntries.ArrayElement(i).Field("value");
-                            if (addField(sourceContextInfo, "SourceContextInfo"))
-                            {
-                                addField(sourceContextInfo.Field("sourceDynamicProfileManager"), "SourceDynamicProfileManager");
-                            }
-                        }
-                    }
-                }
-            }
             else if (strcmp(simpleTypeName, "Js::JavascriptPromise *") == 0)
             {
                 auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
@@ -1014,6 +1071,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
 #undef IsTypeOrCrossSite
     });
 
+    autoError.Clear();
     numNodes = 0;
     std::stack<RecyclerObjectGraph::GraphImplNodeType*> updated;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
@@ -1121,7 +1179,7 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 }
 #endif
 
-void RecyclerObjectGraph::MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
+void RecyclerObjectGraph::MarkObject(std::stack<MarkStackEntry>& markStack,  ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
 {
     if (address == NULL ||
         !this->_alignmentUtility.IsAlignedAddress(address))
@@ -1165,11 +1223,11 @@ void RecyclerObjectGraph::MarkObject(ULONG64 address, Set<GraphImplNodeType *> *
         MarkStackEntry entry;
         entry.first = remoteHeapBlock;
         entry.second = node;
-        _markStack.push(entry);
+        markStack.push(entry);
     }
 }
 
-void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node)
+void RecyclerObjectGraph::ScanBytes(std::stack<MarkStackEntry>& markStack, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node)
 {
     ULONG64 objectAddress = node->Key();
     Assert(objectAddress != 0);
@@ -1185,7 +1243,7 @@ void RecyclerObjectGraph::ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImpl
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
         if (value != objectAddress)
         {
-            MarkObject(value, &successors, RootType::RootTypeNone);
+            MarkObject(markStack, value, &successors, RootType::RootTypeNone);
         }
         current += ptrSize;
     }

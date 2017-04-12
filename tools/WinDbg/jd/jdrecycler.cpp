@@ -953,10 +953,19 @@ void HeapBlockHelper::DumpLargeHeapBlockObject(ExtRemoteTyped& heapBlockObject, 
     heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < ExtRemoteTypedUtil::GetSizeT(heapBlockObject.Field("allocCount")) && headerData.m_Data == NULL);
     heapObject.freeBitWord = NULL;
 
-    ExtRemoteTyped markBitWord;
-    ULONG64 markBitVector = (heapBlock + sizeOfHeapBlock + largeObjectHeaderPtrSize * objectCount);
-    heapObject.isMarkSet = ext->TestFixed(markBitVector, heapObject.addressBitIndex, markBitWord);
-    heapObject.markBitWord = markBitWord.GetPointerTo().GetPtr();
+    if (heapBlockObject.HasField("markCount"))
+    {
+        // Before CL #1362395
+        ExtRemoteTyped markBitWord;
+        ULONG64 markBitVector = (heapBlock + sizeOfHeapBlock + largeObjectHeaderPtrSize * objectCount);
+        heapObject.isMarkSet = ext->TestFixed(markBitVector, heapObject.addressBitIndex, markBitWord);
+        heapObject.markBitWord = markBitWord.GetPointerTo().GetPtr();
+    }
+    else
+    {
+        // TODO: CL# 1362395 moved to heap block map based marking
+    }
+
 
     ExtRemoteData heapObjectData(heapObject.address, this->ext->m_PtrSize);
     heapObject.vtable = heapObjectData.GetPtr();

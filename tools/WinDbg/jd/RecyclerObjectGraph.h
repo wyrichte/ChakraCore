@@ -81,7 +81,7 @@ public:
     }
 protected:
     RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
-    void Construct(ExtRemoteTyped& heapBlockMap, Addresses& roots);
+    void Construct(Addresses& roots);
     void EnsureTypeInfo(ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);    
     static ULONG64 InferJavascriptLibrary(RecyclerObjectGraph::GraphImplNodeType* node, JDRemoteTyped remoteTyped, char const * simpleTypeName);
 
@@ -89,13 +89,12 @@ protected:
     static ULONG64 TryInferFunctionProxyJavascriptLibrary(JDRemoteTyped& remoteTyped);
     static ULONG64 TryInferVarJavascriptLibrary(JDRemoteTyped& remoteTyped);
 
-    void ClearTypeInfo();
-    void MarkObject(ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
-    void ScanBytes(RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
-
     typedef std::pair<RemoteHeapBlock *, GraphImplNodeType *> MarkStackEntry;
 
-    std::stack<MarkStackEntry> _markStack;
+    void ClearTypeInfo();
+    void MarkObject(std::stack<MarkStackEntry>& markStack, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
+    void ScanBytes(std::stack<MarkStackEntry>& markStack, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
+
     GraphImplType _objectGraph;
 
     RemoteHeapBlockMap m_hbm;

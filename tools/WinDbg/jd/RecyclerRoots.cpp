@@ -1598,6 +1598,23 @@ JD_PRIVATE_COMMAND(traceroots,
 
     DumpPointerPropertiesHeader(this);
 
+    // Print itself if no other roots found and itself is a root
+    if (rootQueue.empty() && transientRootQueue.empty())
+    {
+        RootType rootType = node->GetRootType();
+        if (transientRootQueue.empty() && RootTypeUtils::IsAnyRootType(rootType))
+        {
+            if (RootTypeUtils::IsNonTransientRootType(rootType))
+            {
+                rootQueue.push(std::make_pair(node, data));
+            }
+            else
+            {
+                transientRootQueue.push(std::make_pair(node, data));
+            }
+        }
+    }
+
     if (rootQueue.empty() && !transientRootQueue.empty())
     {
         this->Out("                            | NOTE: No non-transient root found. Showing transient roots\n");

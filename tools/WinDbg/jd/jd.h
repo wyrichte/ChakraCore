@@ -215,6 +215,7 @@ public:
 #endif
 private:
     bool CastWithVtable(ULONG64 address, JDRemoteTyped& result, char const ** typeName = nullptr);
+    bool HasMultipleSymbol(ULONG64 address);
 
 #ifdef JD_PRIVATE
     JDByteCodeCachedData byteCodeCachedData;
@@ -352,7 +353,7 @@ protected:
     std::map<ULONG64, std::pair<ULONG64, ULONG>> vtableTypeIdMap;
     std::map<ULONG64, std::string *> vtableTypeNameMap;
 
-    bool m_isLiteralStringAddedToVtableTypeNameMap;
+    bool m_isOverrideAddedToVtableTypeNameMap;
     
 #endif //JD_PRIVATE
 };

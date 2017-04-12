@@ -8,6 +8,7 @@
 
 // TODO: Get this from the PDB
 #define LeafBit 0x20
+#define PendingDisposeBit 0x40
 
 bool HeapObjectInfo::IsLeaf()
 {
@@ -505,21 +506,35 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         return false;
     }
 
-    info.originalAddress = originalAddress;
-    info.objectAddress = objectAddress;
-    info.objectSize = this->GetBucketObjectSize();
+    UCHAR attributes;
     if (this->IsLeafHeapBlock())
     {
-        info.attributes = LeafBit;
+        attributes = LeafBit;
     }
     else if (!this->IsFinalizableHeapBlock())
     {
-        info.attributes = 0;
+        attributes = 0;
     }
     else
     {
-        info.attributes = this->attributes[totalObjectCount - objectIndex - 1];
+        attributes = this->attributes[totalObjectCount - objectIndex - 1];
     }
+
+
+    if (attributes & PendingDisposeBit)
+    {
+        if (verbose)
+        {
+            g_Ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
+            g_Ext->Out("Pending dispose object at index: %d, 0x%p\n", objectIndex, objectAddress);
+        }
+        return false;
+    }
+
+    info.originalAddress = originalAddress;
+    info.objectAddress = objectAddress;
+    info.objectSize = this->GetBucketObjectSize();
+    info.attributes = attributes;
     return true;
 }
 

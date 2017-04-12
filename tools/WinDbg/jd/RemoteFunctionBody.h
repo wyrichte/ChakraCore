@@ -169,7 +169,7 @@ public:
 
     USHORT GetProfiledCallSiteCount()
     {
-        return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();        
+        return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();
     }
 
     JDRemoteTyped GetCodeGenRuntiemData()
@@ -189,6 +189,11 @@ public:
     JDRemoteTyped GetPolymorphicInlineCaches()
     {
         return this->GetFieldRecyclerData("polymorphicInlineCaches");
+    }
+
+    JDRemoteTyped GetPolymorphicInlineCachesHead()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("m_polymorphicInlineCachesHead", "Js::PolymorphicInlineCache");
     }
 
     JDRemoteTyped GetPropertyIdsForScopeSlotArray()

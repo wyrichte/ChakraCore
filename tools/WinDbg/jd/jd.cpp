@@ -23,7 +23,7 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_gcNS[0] = '\1';
     m_isCachedHasMemoryNS = false;
     m_hasMemoryNS = false;
-    m_isLiteralStringAddedToVtableTypeNameMap = false;
+    m_isOverrideAddedToVtableTypeNameMap = false;
 #endif
 }
 
@@ -974,18 +974,58 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
     return std::string();
 }
 
+static BOOL HasMultipleSymbolCallback(PSYMBOL_INFO pSymInfo, ULONG SymbolSize, PVOID UserContext)
+{
+    (*(uint *)UserContext)++;
+    return TRUE;
+}
+
+bool EXT_CLASS_BASE::HasMultipleSymbol(ULONG64 address)
+{
+    uint count = 0;
+    ULONG64 handle;
+    HRESULT hr = this->m_System4->GetCurrentProcessHandle(&handle);
+    if (SUCCEEDED(hr))
+    {
+        SymEnumSymbolsForAddr((HANDLE)handle, address, HasMultipleSymbolCallback, &count);
+        return count != 1;
+    }
+    return false;
+}
+
 char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
 {
-    if (!m_isLiteralStringAddedToVtableTypeNameMap)
+    if (!m_isOverrideAddedToVtableTypeNameMap)
     {
-        // In release build, Js::LiteralString vtable may be ICF'ed with Js::BufferStringBuilder::WritableString or Js::SingleCharString.
-        // It is preferable to always report Js::LiteralString on all 3.  Enter the offset into the vtableTypeNameMap
-        m_isLiteralStringAddedToVtableTypeNameMap = true;
-        std::string literalStringVtableSymbolName = this->GetRemoteVTableName("Js::LiteralString");
+        m_isOverrideAddedToVtableTypeNameMap = true;
+
+        // In release build, various vtable is ICF'ed.  Here are the overrides
+
+        // Js::LiteralString vtable may be ICF'ed with Js::BufferStringBuilder::WritableString or Js::SingleCharString.
+        // It is preferable to always report Js::LiteralString for all 3.  Enter the offset into the vtableTypeNameMap
+        std::string vtableSymbolName = this->GetRemoteVTableName("Js::LiteralString");
         ULONG64 offset;
-        if (this->GetSymbolOffset(literalStringVtableSymbolName.c_str(), true, &offset))
+        if (this->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
         {
-            auto newString = new std::string(std::string(m_moduleName) + "!Js::LiteralString");
+            auto newString = new std::string(std::string(m_moduleName) + "!Js::LiteralString"); 
+            vtableTypeNameMap[offset] = newString;
+        }
+
+        // Js::DynamicObject vtable may be ICF'ed with Js::WebAssemlbyInstance
+        // It is preferable to always report Js::DynamicObject for both.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = this->GetRemoteVTableName("Js::DynamicObject");
+        if (this->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(m_moduleName) + "!Js::DynamicObject");
+            vtableTypeNameMap[offset] = newString;
+        }
+
+        // Js::JavascriptDate vtable may be ICF'ed with Js::JavascriptDateWinRTDate
+        // It is preferable to always report Js::JavascriptDate for both.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = this->GetRemoteVTableName("Js::JavascriptDate");
+        if (this->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(m_moduleName) + "!Js::JavascriptDate"); 
             vtableTypeNameMap[offset] = newString;
         }
     }
@@ -993,7 +1033,11 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     auto i = vtableTypeNameMap.find(vtableAddr);
     if (i != vtableTypeNameMap.end())
     {
-        return (*i).second->c_str();
+        if ((*i).second)
+        {
+            return (*i).second->c_str();
+        }
+        return nullptr;
     }
 
     ExtBuffer<char> vtableName;
@@ -1005,6 +1049,11 @@ char const * EXT_CLASS_BASE::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
             if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
             {
+                if (HasMultipleSymbol(vtableAddr))
+                {
+                    Warn("\rWARNING: ICF vtable used: %p %s                                          \n", vtableAddr, vtableName.GetBuffer());
+                }
+
                 vtableName.GetBuffer()[len] = '\0';
 
                 auto newString = new std::string(vtableName.GetBuffer());
