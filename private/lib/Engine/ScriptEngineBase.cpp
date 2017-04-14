@@ -3191,7 +3191,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::InitializeModuleRecord(
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        childModuleRecord = Js::SourceTextModuleRecord::Create(GetScriptContext());
+        Js::ScriptContext *scriptContext = GetScriptContext();
+        childModuleRecord = Js::SourceTextModuleRecord::Create(scriptContext);
+
+        if (normalizedSpecifier != nullptr)
+        {
+            childModuleRecord->SetSpecifier(Js::JavascriptString::NewCopyBuffer(normalizedSpecifier, specifierLength, scriptContext));
+        }
+        else
+        {
+            childModuleRecord->SetSpecifier(scriptContext->GetLibrary()->GetNullString());
+        }
+
         if (referencingModule == nullptr)
         {
             childModuleRecord->SetIsRootModule();

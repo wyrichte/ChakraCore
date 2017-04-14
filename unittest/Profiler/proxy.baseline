@@ -176,21 +176,21 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function, Line: 114, Column: 27, Character Position: 4729
 [FunctionCompiled]: Function: Anonymous function, Line: 180, Column: 27, Character Position: 7375
 [FunctionCompiled]: Function: Anonymous function, Line: 198, Column: 27, Character Position: 8033
-[FunctionCompiled]: Function: Anonymous function, Line: 210, Column: 20, Character Position: 8043
 [FunctionCompiled]: Function: Anonymous function, Line: 239, Column: 27, Character Position: 9923
 [FunctionCompiled]: Function: Anonymous function, Line: 267, Column: 27, Character Position: 10959
+[FunctionCompiled]: Function: Anonymous function, Line: 338, Column: 20, Character Position: 13410
 [FunctionCompiled]: Function: Anonymous function, Line: 59, Column: 27, Character Position: 2197
 [FunctionCompiled]: Function: Anonymous function, Line: 74, Column: 27, Character Position: 2848
 [FunctionCompiled]: Function: Global code, Line: 1, Column: 1, Character Position: 0
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
 [FunctionCompiled]: Function: Global code, Line: 2, Column: 1, Character Position: 27
-[FunctionCompiled]: Function: Global code, Line: 32, Column: 1, Character Position: 1768
+[FunctionCompiled]: Function: Global code, Line: 39, Column: 1, Character Position: 1944
 [FunctionCompiled]: Function: LogResult, Line: 13, Column: 1, Character Position: 228
 [FunctionCompiled]: Function: VerifyReflectThis, Line: 174, Column: 1, Character Position: 4772
 [FunctionCompiled]: Function: VerifyThis, Line: 18, Column: 1, Character Position: 311
-[FunctionCompiled]: Function: areEqual, Line: 253, Column: 19, Character Position: 9498
-[FunctionCompiled]: Function: assert, Line: 174, Column: 14, Character Position: 6714
+[FunctionCompiled]: Function: areEqual, Line: 381, Column: 19, Character Position: 14873
+[FunctionCompiled]: Function: assert, Line: 293, Column: 14, Character Position: 11763
 [FunctionCompiled]: Function: body, Line: 109, Column: 15, Character Position: 4561
 [FunctionCompiled]: Function: body, Line: 120, Column: 15, Character Position: 4960
 [FunctionCompiled]: Function: body, Line: 134, Column: 15, Character Position: 5541
@@ -211,20 +211,20 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 81, Column: 15, Character Position: 3150
 [FunctionCompiled]: Function: body, Line: 99, Column: 15, Character Position: 4226
 [FunctionCompiled]: Function: cleanupBeforeTestStarts, Line: 14, Column: 1, Character Position: 538
-[FunctionCompiled]: Function: compare, Line: 185, Column: 19, Character Position: 7015
-[FunctionCompiled]: Function: get isCompatVersion9, Line: 48, Column: 13, Character Position: 2336
-[FunctionCompiled]: Function: get isVersion10OrLater, Line: 51, Column: 13, Character Position: 2447
+[FunctionCompiled]: Function: compare, Line: 313, Column: 19, Character Position: 12382
+[FunctionCompiled]: Function: get isCompatVersion9, Line: 55, Column: 13, Character Position: 2512
+[FunctionCompiled]: Function: get isVersion10OrLater, Line: 58, Column: 13, Character Position: 2623
 [FunctionCompiled]: Function: handler.trapApply, Line: 162, Column: 33, Character Position: 6556
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 220, Column: 37, Character Position: 8966
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 264, Column: 37, Character Position: 10858
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 56, Column: 40, Character Position: 2074
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 71, Column: 40, Character Position: 2725
 [FunctionCompiled]: Function: handler.trapOwnKeys, Line: 111, Column: 35, Character Position: 4630
-[FunctionCompiled]: Function: helpers, Line: 32, Column: 15, Character Position: 1768
+[FunctionCompiled]: Function: helpers, Line: 39, Column: 15, Character Position: 1944
 [FunctionCompiled]: Function: initialize, Line: 300, Column: 1, Character Position: 8555
-[FunctionCompiled]: Function: isInBrowser, Line: 43, Column: 22, Character Position: 2115
-[FunctionCompiled]: Function: isObject, Line: 176, Column: 20, Character Position: 6764
-[FunctionCompiled]: Function: logTestNameIf, Line: 143, Column: 13, Character Position: 5795
+[FunctionCompiled]: Function: isInBrowser, Line: 50, Column: 22, Character Position: 2291
+[FunctionCompiled]: Function: isObject, Line: 295, Column: 20, Character Position: 11813
+[FunctionCompiled]: Function: logTestNameIf, Line: 228, Column: 13, Character Position: 9349
 [FunctionCompiled]: Function: observeHandler.apply, Line: 156, Column: 24, Character Position: 4265
 [FunctionCompiled]: Function: observeHandler.construct, Line: 165, Column: 28, Character Position: 4519
 [FunctionCompiled]: Function: observeHandler.get, Line: 94, Column: 22, Character Position: 2484
@@ -242,28 +242,25 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: reflectHandler.ownKeys, Line: 270, Column: 26, Character Position: 7749
 [FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 225, Column: 36, Character Position: 6271
 [FunctionCompiled]: Function: reflectHandler.set, Line: 252, Column: 22, Character Position: 7179
-[FunctionCompiled]: Function: runTest, Line: 139, Column: 18, Character Position: 5569
+[FunctionCompiled]: Function: runTest, Line: 224, Column: 18, Character Position: 9123
 [FunctionCompiled]: Function: runTestPass, Line: 273, Column: 1, Character Position: 11153
 [FunctionCompiled]: Function: runTestPasses, Line: 279, Column: 1, Character Position: 11274
-[FunctionCompiled]: Function: runTests, Line: 110, Column: 19, Character Position: 4417
+[FunctionCompiled]: Function: runTests, Line: 149, Column: 19, Character Position: 5571
 [FunctionCompiled]: Function: target, Line: 302, Column: 14, Character Position: 8586
-[FunctionCompiled]: Function: testRunner, Line: 103, Column: 18, Character Position: 4160
-[FunctionCompiled]: Function: throws, Line: 295, Column: 17, Character Position: 11356
-[FunctionCompiled]: Function: validate, Line: 237, Column: 20, Character Position: 8991
-[FunctionCompiled]: Function: writeln, Line: 66, Column: 18, Character Position: 2940
+[FunctionCompiled]: Function: testRunner, Line: 110, Column: 18, Character Position: 4336
+[FunctionCompiled]: Function: throws, Line: 423, Column: 17, Character Position: 16731
+[FunctionCompiled]: Function: validate, Line: 365, Column: 20, Character Position: 14358
+[FunctionCompiled]: Function: writeln, Line: 73, Column: 18, Character Position: 3116
   runTestPasses
     runTestPass
       initialize
         Proxy
       runTests
+        Array.fill
+        Array.fill
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -290,11 +287,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -327,11 +319,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -360,11 +347,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -396,11 +378,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -478,11 +455,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -546,11 +518,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -576,11 +543,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -626,11 +588,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -671,11 +628,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -698,11 +650,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -743,11 +690,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -765,11 +707,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -796,11 +733,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -825,11 +757,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -853,11 +780,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -907,11 +829,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -936,11 +853,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -969,11 +881,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -995,25 +902,17 @@ Dumping sorted function compiled events
             Echo
         writeln
           String.concat
-          String.concat
-          String.concat
-          String.concat
-          String.concat
-          String.concat
           isInBrowser
           Echo
     runTestPass
       initialize
         Proxy
       runTests
+        Array.fill
+        Array.fill
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1039,11 +938,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1075,11 +969,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1108,11 +997,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1144,11 +1028,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1240,11 +1119,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1301,11 +1175,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1331,11 +1200,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1379,11 +1243,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1421,11 +1280,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1447,11 +1301,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1492,11 +1341,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1514,11 +1358,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1545,11 +1384,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1573,11 +1407,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1606,11 +1435,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1660,11 +1484,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1687,11 +1506,6 @@ Dumping sorted function compiled events
         runTest
           logTestNameIf
             writeln
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               String.concat
               isInBrowser
               Echo
@@ -1730,11 +1544,6 @@ Dumping sorted function compiled events
           logTestNameIf
             writeln
               String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
-              String.concat
               isInBrowser
               Echo
           body
@@ -1755,11 +1564,6 @@ Dumping sorted function compiled events
             isInBrowser
             Echo
         writeln
-          String.concat
-          String.concat
-          String.concat
-          String.concat
-          String.concat
           String.concat
           isInBrowser
           Echo
