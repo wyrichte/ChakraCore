@@ -269,7 +269,7 @@ public:
     virtual void DisposeScriptContextByFaultInjectionCallBack() override {};
 #endif
     virtual void DisposeObjects(Recycler* recycler) override;
-
+    virtual void PreDisposeObjectsCallBack() = 0;
 #ifdef ENABLE_PROJECTION
     virtual void MarkExternalWeakReferencedObjects(bool inPartialCollect) override {};
     virtual void ResolveExternalWeakReferencedObjects() override {};
