@@ -366,10 +366,8 @@ HRESULT ActiveScriptDirectHost::RoGetMetaDataFile(
             // will create an instance of the metadata reader to dispense metadata files.
             if (metaDataDispenser == nullptr)
             {
-                hr = CoCreateInstance(
+                hr = MetaDataGetDispenser(
                     CLSID_CorMetaDataDispenser,
-                    nullptr,
-                    CLSCTX_INPROC_SERVER,
                     IID_IMetaDataDispenserEx,
                     reinterpret_cast<void **>(&pMetaDataDispenser));
             }

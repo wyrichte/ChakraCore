@@ -2935,10 +2935,8 @@ STDMETHODIMP ActiveScriptDirectHost::GetNamespaceChildren(
 
     CComPtr<IMetaDataDispenserEx> pMetaDataDispenser = nullptr;
 
-    hr = CoCreateInstance(
+    hr = MetaDataGetDispenser(
         CLSID_CorMetaDataDispenser,
-        nullptr,
-        CLSCTX_INPROC_SERVER,
         IID_IMetaDataDispenserEx,
         reinterpret_cast<void **>(&pMetaDataDispenser));
 

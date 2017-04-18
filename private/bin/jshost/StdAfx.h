@@ -148,6 +148,7 @@
 #include "HtmlWinSink.h"
 #include "HtmlAppWindow.h"
 #include "HtmlApp.h"
+#include <Rometadata.h>
 
 typedef HRESULT (*DoOneIterationPtr)(BSTR filename);
 void __stdcall PrintUsage();

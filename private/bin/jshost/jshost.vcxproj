@@ -73,6 +73,7 @@
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
+        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
