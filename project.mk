@@ -193,12 +193,8 @@ PERFLIBS=$(ROOT)\external\lib\icecap.lib
 
 USE_PDB_TO_COMPILE=1
 
-# On ARM we depend on API that was added in Win8 timeframe, specifically GetCurrentThreadLimits.
-# Note that for ARM we don't need to support running on Win7, so it's fine to require Win8 as minimum,
-# but for x86/amd64 we may need to ship IE10 for Win7, thus it's not OK in general to require Win8 as minimum.
-!if "$(_BUILDARCH)" == "arm" || "$(_BUILDARCH)" == "arm64"
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
-!else
-_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN7)
-!endif
 
+!if $(FREEBUILD)
+_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN10_RS2)
+!endif

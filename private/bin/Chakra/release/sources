@@ -114,8 +114,6 @@ GENERATE_MUI=1
 
 DLLDEF=$(OBJ_PATH)\$(O)\Chakra.def
 
-_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINTHRESHOLD)
-
 SOURCES = \
     ..\chakra.rc \
     ..\ChakraDllFunc.cpp

@@ -35,4 +35,14 @@
   <PropertyGroup Condition="'$(ChakraVersionBuildCommit)'==''" >
     <ChakraVersionBuildCommit>$(COMPUTERNAME)($(UserName))</ChakraVersionBuildCommit>
   </PropertyGroup>
+  <!-- Common build settings -->
+  <PropertyGroup>
+    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
+  </PropertyGroup>
+  <!-- Release builds should target RS2 -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <NtTargetVersion >$(NtTargetVersion_Win10)</NtTargetVersion>
+    <NTDDIVersion>0x0A000003</NTDDIVersion>
+  </PropertyGroup>
+
 </Project>

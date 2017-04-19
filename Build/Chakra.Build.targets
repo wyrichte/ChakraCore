@@ -9,4 +9,13 @@
       SignTool
     </AfterBuildLinked>
   </PropertyGroup>
+  <Target Name="SetObjectRootEnvironmentVariables">
+    <SetEnvironmentVariable EnvValue="$(IELibPath)" EnvKey="OBJECT_ROOT" />
+  </Target>
+  <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true' AND '$(OBJECT_ROOT)'==''">
+    <BuildLinkTargets>
+      SetObjectRootEnvironmentVariables;
+      $(BuildLinkTargets)
+    </BuildLinkTargets>
+  </PropertyGroup>
 </Project>
