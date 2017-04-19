@@ -762,6 +762,21 @@ namespace Animals
             return S_OK;
         }
 
+        IFACEMETHOD(TestBug8327782_StackArguments)(HSTRING str1, HSTRING str2, HSTRING str3, HSTRING str4, HSTRING str5, HSTRING str6, HSTRING str7, HSTRING str8, HSTRING str9 HSTRING* result)
+        {
+            // Do non-trivial work to ensure that the stack/registers are touched
+            WindowsConcatString(str1, str2, result);
+            WindowsConcatString(*result, str3, result);
+            WindowsConcatString(*result, str4, result);
+            WindowsConcatString(*result, str5, result);
+            WindowsConcatString(*result, str6, result);
+            WindowsConcatString(*result, str7, result);
+            WindowsConcatString(*result, str8, result);
+            WindowsConcatString(*result, str9, result);
+
+            return S_OK;
+        }
+
 #define CallDelegateWithOutParamDeclare(typeName) \
     IFACEMETHOD(CallDelegateWithOutParam_##typeName)( \
     IDelegateWithOutParam_##typeName* onDelegateWithOut##typeName, \

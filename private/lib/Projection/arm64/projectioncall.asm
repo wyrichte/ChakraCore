@@ -117,6 +117,7 @@ floatArgsDone
     blr     x16                      ; Call the entryPoint.
     ; Return value will auto-be in r0, so we don't have to take special care about it.
 
+    mov     sp, fp                              ; explicitly restore sp
     EPILOG_RESTORE_REG_PAIR fp, lr, #16!
     EPILOG_RETURN
 

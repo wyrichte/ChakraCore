@@ -860,6 +860,10 @@ interface IAnimal : IInspectable
     HRESULT TestBug202724_GetInt64([out, retval] long long * _out);
     HRESULT TestBug202724_GetUInt64([out, retval] unsigned long long * _out);
     // Bug 202724
+
+    // OS #8327782 - If arguments overflowed onto the stack in ARM64, lr & fp would get corrupted and crash
+    HRESULT TestBug8327782_StackArguments([in] HSTRING str1, [in] HSTRING str2, [in] HSTRING str3, [in] HSTRING str4, [in] HSTRING str5, [in] HSTRING str6, [in] HSTRING str7, [in] HSTRING str8, [in] HSTRING str9, [out, retval] HSTRING * result);
+    // OS #8327782
 };
 
 [uuid(29B71D47-634C-4819-92A8-1E57148B177C), version(NTDDI_WIN8)]

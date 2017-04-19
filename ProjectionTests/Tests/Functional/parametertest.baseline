@@ -970,5 +970,16 @@ Pass: outValue.field7 === inValue.field7
 PASS [Test 58: Marshal in and out big complex struct]
 =================================================
 
-Passed: 56
+=================================================
+Starting [Test 59: OS #8327782 - Pass in many integral arguments to stress calling conventions]
+Pass: typeof actual
+      Actual: string
+
+Pass: actual
+      Actual: thequickbrownfoxjumpsoverthelazydog
+
+PASS [Test 59: OS #8327782 - Pass in many integral arguments to stress calling conventions]
+=================================================
+
+Passed: 57
 Failed: 0

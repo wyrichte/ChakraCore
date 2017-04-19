@@ -784,6 +784,17 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         }
     });
 
+    runner.addTest({
+        id: 59,
+        desc: 'OS #8327782 - Pass in many integral arguments to stress calling conventions',
+        pri: '0',
+        test: function() {
+            var actual = myAnimal.testBug8327782_StackArguments('the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog');
+            
+            verify(typeof actual, 'string', 'typeof actual');
+            verify(actual, 'thequickbrownfoxjumpsoverthelazydog', 'actual');
+        }
+    });
 
     Loader42_FileName = "Parameter tests";
 
