@@ -26,43 +26,6 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
 #endif
 }
 
-EXT_COMMAND(ldsym,
-    "Load JavaScript symbols",
-    "{p;x;path;Path to jscript9 debugger helper}")
-{
-    // Find jscript9 module
-    ULONG index = DEBUG_ANY_ID;
-    ULONG64 base;
-    IfFailThrow(FindJScriptModuleByName<JD_IS_PUBLIC>(m_Symbols, &index, &base),
-        "Failed to find jscript9 module in the process");
-
-    WCHAR moduleName[MAX_PATH], imageName[MAX_PATH];
-    IfFailThrow(m_Symbols3->GetModuleNameStringWide(DEBUG_MODNAME_MODULE, index, base, moduleName, _countof(moduleName), NULL),
-        "Failed to find jscript9 module name");
-    if (HasArg("p"))
-    {
-        CA2W path = GetArgStr("p", false);
-        wcscpy_s(imageName, path);
-    }
-    else
-    {
-        IfFailThrow(m_Symbols3->GetModuleNameStringWide(DEBUG_MODNAME_IMAGE, index, base, imageName, _countof(imageName), NULL),
-            "Failed to find jscript9 module path");
-    }
-    Out(_u("Use %s\n"), imageName);
-
-    const CLSID CLSID_JScript9DAC = { 0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c };
-    CComPtr<IScriptDAC> pDAC;
-    IfFailThrow(PrivateCoCreate(imageName, CLSID_JScript9DAC, IID_PPV_ARGS(&pDAC)),
-        "Failed to create jscript9 debug helper object; ensure the platform architecture of the debugger and jsd matches that of the process being debugged, and the version and path of jscript9 being loaded by jsd is correct.");
-
-    CComPtr<ScriptDebugSite> pScriptDebugSite;
-    IfFailThrow(ComObject<ScriptDebugSite>::CreateInstance(&pScriptDebugSite));
-    IfFailThrow(pScriptDebugSite->Init(moduleName, this, m_Symbols, m_Symbols3, m_Data, m_Data4));
-
-    IfFailThrow(pDAC->LoadScriptSymbols(pScriptDebugSite));
-}
-
 static RemoteNullTypeHandler s_nullTypeHandler;
 static RemoteSimpleTypeHandler s_simpleTypeHandler;
 static RemoteSimplePathTypeHandler s_simplePathTypeHandler;

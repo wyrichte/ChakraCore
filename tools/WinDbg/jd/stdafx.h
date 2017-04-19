@@ -19,7 +19,6 @@
 #include <atlcom.h>
 #pragma pop_macro("_DEBUG")
 
-#include <objbase.h>
 #include "edgescriptDirect.h"
 #include "jscript9diag.h"
 #include "jscript9diagprivate.h"
@@ -102,5 +101,4 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "dbghelp.h"
 #endif
 
-#include "ComObject.h"
-#include "ScriptDebugSite.h"
+
