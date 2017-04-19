@@ -14,6 +14,9 @@ const ErrorTypeHelper::MapArrayElem ErrorTypeHelper::mapArray[] =
     { kjstSyntaxError, JavascriptSyntaxError, _u("Syntax error") },
     { kjstTypeError, JavascriptTypeError, _u("Type error") },
     { kjstURIError, JavascriptURIError, _u("URI error") },
+    { kjstWebAssemblyCompileError, WebAssemblyCompileError, _u("WebAssembly compile error") },
+    { kjstWebAssemblyRuntimeError, WebAssemblyRuntimeError, _u("WebAssembly runtime error") },
+    { kjstWebAssemblyLinkError, WebAssemblyLinkError, _u("WebAssembly link error") },
     { kjstCustomError, CustomError, _u("Custom error") },
     { kjstWinRTError, WinRTError, _u("WinRT error") },
 };
@@ -29,6 +32,9 @@ void ErrorTypeHelper::ValidateMapArray()
     Assert(mapArray[JavascriptSyntaxError].internalType == kjstSyntaxError);
     Assert(mapArray[JavascriptTypeError].internalType == kjstTypeError);
     Assert(mapArray[JavascriptURIError].internalType == kjstURIError);
+    Assert(mapArray[WebAssemblyCompileError].internalType == kjstWebAssemblyCompileError);
+    Assert(mapArray[WebAssemblyRuntimeError].internalType == kjstWebAssemblyRuntimeError);
+    Assert(mapArray[WebAssemblyLinkError].internalType == kjstWebAssemblyLinkError);
     Assert(mapArray[CustomError].internalType == kjstCustomError);
     Assert(mapArray[WinRTError].internalType == kjstWinRTError);
     Assert(_countof(mapArray) == LastError + 1);
