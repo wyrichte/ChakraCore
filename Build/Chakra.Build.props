@@ -26,6 +26,7 @@
 
     <OneCoreTargetVersion_1_0>0x0100</OneCoreTargetVersion_1_0>
     <OneCoreTargetVersion_1_3>0x0103</OneCoreTargetVersion_1_3>
+    <OneCoreTargetVersion_1_6>0x0106</OneCoreTargetVersion_1_6>
 
 
     <!-- ========= From tools\makefile.api ========= -->
@@ -48,10 +49,11 @@
     <MinCoreTargetVersionStr Condition="'$(MinCoreTargetVersion)'=='$(MinCoreTargetVersion_1_3)'">1.3</MinCoreTargetVersionStr>
 
     <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(OneCoreTargetVersion_1_0)</OneCoreTargetVersion>
-    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_3)</OneCoreTargetVersion>
+    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_6)</OneCoreTargetVersion>
 
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">1.0</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_3)'">1.3</OneCoreTargetVersionStr>
+    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">1.6</OneCoreTargetVersionStr>
 
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">6.2</WindowsVersionStr>
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">10.0</WindowsVersionStr>
