@@ -5,18 +5,13 @@
     <!-- !! Keep version number in sync with packages.config !! -->
     <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.1.0.26</IELibPath>
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.1.0.26</RazzleToolPath>
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.26</PUBLIC_ROOT>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.1.0.37</PUBLIC_ROOT>
 
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
 
     <InstrumentationManifestIncludeDirectory>$(IntDir)..\CoreManifests</InstrumentationManifestIncludeDirectory>
   </PropertyGroup>
-  <!-- Common build settings -->
-  <PropertyGroup>
-    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
-  </PropertyGroup>
-
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>

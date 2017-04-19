@@ -159,6 +159,9 @@
     <file src="internal\mincore\priv_sdk\lib\amd64\1.3\mincore_private.lib"                                     target="internal\mincore\priv_sdk\lib\amd64\1.3" />
     <file src="internal\mincore\priv_sdk\lib\amd64\1.4\ext-ms-win-com-ole32-l1.lib"                             target="internal\mincore\priv_sdk\lib\amd64\1.4" />
     <file src="internal\mincore\priv_sdk\lib\amd64\1.5\ext-ms-win-com-ole32-l1.lib"                             target="internal\mincore\priv_sdk\lib\amd64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\ext-ms-win-ntuser-dialogbox-l1.lib"                      target="internal\mincore\priv_sdk\lib\amd64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\ext-ms-win-rometadata-dispenser-l1.lib"                  target="internal\mincore\priv_sdk\lib\amd64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\mincore_private.lib"                                     target="internal\mincore\priv_sdk\lib\amd64\1.5" />
     <file src="internal\mincore\priv_sdk\lib\arm\api-ms-win-core-winrt-errorprivate-l1-1-1.lib"                 target="internal\mincore\priv_sdk\lib\arm" />
     <file src="internal\mincore\priv_sdk\lib\arm\api-ms-win-ntuser-rectangle-l1-1-0.lib"                        target="internal\mincore\priv_sdk\lib\arm" />
     <file src="internal\mincore\priv_sdk\lib\arm\ext-ms-win-ntuser-draw-l1-1-2.lib"                             target="internal\mincore\priv_sdk\lib\arm" />
@@ -189,6 +192,9 @@
     <file src="internal\mincore\priv_sdk\lib\arm\1.3\mincore_private.lib"                                       target="internal\mincore\priv_sdk\lib\arm\1.3" />
     <file src="internal\mincore\priv_sdk\lib\arm\1.4\ext-ms-win-com-ole32-l1.lib"                               target="internal\mincore\priv_sdk\lib\arm\1.4" />
     <file src="internal\mincore\priv_sdk\lib\arm\1.5\ext-ms-win-com-ole32-l1.lib"                               target="internal\mincore\priv_sdk\lib\arm\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\ext-ms-win-ntuser-dialogbox-l1.lib"                      target="internal\mincore\priv_sdk\lib\amd64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\ext-ms-win-rometadata-dispenser-l1.lib"                  target="internal\mincore\priv_sdk\lib\amd64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\amd64\1.5\mincore_private.lib"                                     target="internal\mincore\priv_sdk\lib\amd64\1.5" />
     <file src="internal\mincore\priv_sdk\lib\arm64\api-ms-win-core-winrt-errorprivate-l1-1-1.lib"               target="internal\mincore\priv_sdk\lib\arm64" />
     <file src="internal\mincore\priv_sdk\lib\arm64\api-ms-win-ntuser-rectangle-l1-1-0.lib"                      target="internal\mincore\priv_sdk\lib\arm64" />
     <file src="internal\mincore\priv_sdk\lib\arm64\ext-ms-win-ntuser-draw-l1-1-2.lib"                           target="internal\mincore\priv_sdk\lib\arm64" />
@@ -219,6 +225,9 @@
     <file src="internal\mincore\priv_sdk\lib\arm64\1.3\mincore_private.lib"                                     target="internal\mincore\priv_sdk\lib\arm64\1.3" />
     <file src="internal\mincore\priv_sdk\lib\arm64\1.4\ext-ms-win-com-ole32-l1.lib"                             target="internal\mincore\priv_sdk\lib\arm64\1.4" />
     <file src="internal\mincore\priv_sdk\lib\arm64\1.5\ext-ms-win-com-ole32-l1.lib"                             target="internal\mincore\priv_sdk\lib\arm64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\arm64\1.5\ext-ms-win-ntuser-dialogbox-l1.lib"                      target="internal\mincore\priv_sdk\lib\arm64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\arm64\1.5\ext-ms-win-rometadata-dispenser-l1.lib"                  target="internal\mincore\priv_sdk\lib\arm64\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\arm64\1.5\mincore_private.lib"                                     target="internal\mincore\priv_sdk\lib\arm64\1.5" />
     <file src="internal\mincore\priv_sdk\lib\i386\api-ms-win-core-winrt-errorprivate-l1-1-1.lib"                target="internal\mincore\priv_sdk\lib\i386" />
     <file src="internal\mincore\priv_sdk\lib\i386\api-ms-win-ntuser-rectangle-l1-1-0.lib"                       target="internal\mincore\priv_sdk\lib\i386" />
     <file src="internal\mincore\priv_sdk\lib\i386\ext-ms-win-ntuser-draw-l1-1-2.lib"                            target="internal\mincore\priv_sdk\lib\i386" />
@@ -249,6 +258,9 @@
     <file src="internal\mincore\priv_sdk\lib\i386\1.3\mincore_private.lib"                                      target="internal\mincore\priv_sdk\lib\i386\1.3" />
     <file src="internal\mincore\priv_sdk\lib\i386\1.4\ext-ms-win-com-ole32-l1.lib"                              target="internal\mincore\priv_sdk\lib\i386\1.4" />
     <file src="internal\mincore\priv_sdk\lib\i386\1.5\ext-ms-win-com-ole32-l1.lib"                              target="internal\mincore\priv_sdk\lib\i386\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\i386\1.5\ext-ms-win-ntuser-dialogbox-l1.lib"                       target="internal\mincore\priv_sdk\lib\i386\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\i386\1.5\ext-ms-win-rometadata-dispenser-l1.lib"                   target="internal\mincore\priv_sdk\lib\i386\1.5" />
+    <file src="internal\mincore\priv_sdk\lib\i386\1.5\mincore_private.lib"                                      target="internal\mincore\priv_sdk\lib\i386\1.5" />
     <file src="internal\minwin\priv_sdk\inc\dloaddef.h"                                                         target="internal\minwin\priv_sdk\inc" />
     <file src="internal\minwin\priv_sdk\inc\dloadexcept.h"                                                      target="internal\minwin\priv_sdk\inc" />
     <file src="internal\minwin\priv_sdk\inc\hvgdk_ext.h"                                                        target="internal\minwin\priv_sdk\inc" />
@@ -266,6 +278,7 @@
     <file src="internal\minwin\priv_sdk\lib\amd64\1.1\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\amd64\1.1" />
     <file src="internal\minwin\priv_sdk\lib\amd64\1.3\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\amd64\1.3" />
     <file src="internal\minwin\priv_sdk\lib\amd64\1.4\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\amd64\1.4" />
+    <file src="internal\minwin\priv_sdk\lib\amd64\1.5\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\amd64\1.5" />
     <file src="internal\minwin\priv_sdk\lib\arm\dload.dload"                                                    target="internal\minwin\priv_sdk\lib\arm" />
     <file src="internal\minwin\priv_sdk\lib\arm\dloadwin7helper.lib"                                            target="internal\minwin\priv_sdk\lib\arm" />
     <file src="internal\minwin\priv_sdk\lib\arm\pgortstatic.lib"                                                target="internal\minwin\priv_sdk\lib\arm" />
@@ -273,6 +286,7 @@
     <file src="internal\minwin\priv_sdk\lib\arm\1.1\api-ms-win-core-delayload-l1.lib"                           target="internal\minwin\priv_sdk\lib\arm\1.1" />
     <file src="internal\minwin\priv_sdk\lib\arm\1.3\api-ms-win-core-delayload-l1.lib"                           target="internal\minwin\priv_sdk\lib\arm\1.3" />
     <file src="internal\minwin\priv_sdk\lib\arm\1.4\api-ms-win-core-delayload-l1.lib"                           target="internal\minwin\priv_sdk\lib\arm\1.4" />
+    <file src="internal\minwin\priv_sdk\lib\arm\1.5\api-ms-win-core-delayload-l1.lib"                           target="internal\minwin\priv_sdk\lib\arm\1.5" />
     <file src="internal\minwin\priv_sdk\lib\arm64\dload.dload"                                                  target="internal\minwin\priv_sdk\lib\arm64" />
     <file src="internal\minwin\priv_sdk\lib\arm64\dloadwin7helper.lib"                                          target="internal\minwin\priv_sdk\lib\arm64" />
     <file src="internal\minwin\priv_sdk\lib\arm64\pgortstatic.lib"                                              target="internal\minwin\priv_sdk\lib\arm64" />
@@ -280,6 +294,7 @@
     <file src="internal\minwin\priv_sdk\lib\arm64\1.1\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\arm64\1.1" />
     <file src="internal\minwin\priv_sdk\lib\arm64\1.3\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\arm64\1.3" />
     <file src="internal\minwin\priv_sdk\lib\arm64\1.4\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\arm64\1.4" />
+    <file src="internal\minwin\priv_sdk\lib\arm64\1.5\api-ms-win-core-delayload-l1.lib"                         target="internal\minwin\priv_sdk\lib\arm64\1.5" />
     <file src="internal\minwin\priv_sdk\lib\i386\dload.dload"                                                   target="internal\minwin\priv_sdk\lib\i386" />
     <file src="internal\minwin\priv_sdk\lib\i386\dloadwin7helper.lib"                                           target="internal\minwin\priv_sdk\lib\i386" />
     <file src="internal\minwin\priv_sdk\lib\i386\pgortstatic.lib"                                               target="internal\minwin\priv_sdk\lib\i386" />
@@ -287,6 +302,7 @@
     <file src="internal\minwin\priv_sdk\lib\i386\1.1\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.1" />
     <file src="internal\minwin\priv_sdk\lib\i386\1.3\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.3" />
     <file src="internal\minwin\priv_sdk\lib\i386\1.4\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.4" />
+    <file src="internal\minwin\priv_sdk\lib\i386\1.5\api-ms-win-core-delayload-l1.lib"                          target="internal\minwin\priv_sdk\lib\i386\1.5" />
     <file src="internal\onecore\priv_sdk\lib\amd64\onecore_forwarder_shlwapi.lib"                               target="internal\onecore\priv_sdk\lib\amd64\" />
     <file src="internal\onecore\priv_sdk\lib\arm\onecore_forwarder_shlwapi.lib"                                 target="internal\onecore\priv_sdk\lib\arm\" />
     <file src="internal\onecore\priv_sdk\lib\arm64\onecore_forwarder_shlwapi.lib"                               target="internal\onecore\priv_sdk\lib\arm64\" />
@@ -3638,6 +3654,8 @@
     <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-core-winrt-error-l1.lib"                                    target="sdk\lib\mincore\amd64\1.3" />
     <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\amd64\1.3" />
     <file src="sdk\lib\mincore\amd64\1.3\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\amd64\1.3" />
+    <file src="sdk\lib\mincore\amd64\1.5\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\amd64\1.5" />
+    <file src="sdk\lib\mincore\amd64\1.5\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\amd64\1.5" />
     <file src="sdk\lib\mincore\arm\mincore_fw.lib"                                                              target="sdk\lib\mincore\arm" />
     <file src="sdk\lib\mincore\arm\mincore_legacy.lib"                                                          target="sdk\lib\mincore\arm" />
     <file src="sdk\lib\mincore\arm\mincore_obsolete.lib"                                                        target="sdk\lib\mincore\arm" />
@@ -3650,6 +3668,8 @@
     <file src="sdk\lib\mincore\arm\1.3\api-ms-win-core-winrt-error-l1.lib"                                      target="sdk\lib\mincore\arm\1.3" />
     <file src="sdk\lib\mincore\arm\1.3\api-ms-win-core-winrt-l1.lib"                                            target="sdk\lib\mincore\arm\1.3" />
     <file src="sdk\lib\mincore\arm\1.3\api-ms-win-ro-typeresolution-l1.lib"                                     target="sdk\lib\mincore\arm\1.3" />
+    <file src="sdk\lib\mincore\arm\1.5\api-ms-win-core-winrt-l1.lib"                                            target="sdk\lib\mincore\arm\1.5" />
+    <file src="sdk\lib\mincore\arm\1.5\api-ms-win-ro-typeresolution-l1.lib"                                     target="sdk\lib\mincore\arm\1.5" />
     <file src="sdk\lib\mincore\arm64\mincore_fw.lib"                                                            target="sdk\lib\mincore\arm64" />
     <file src="sdk\lib\mincore\arm64\mincore_legacy.lib"                                                        target="sdk\lib\mincore\arm64" />
     <file src="sdk\lib\mincore\arm64\mincore_obsolete.lib"                                                      target="sdk\lib\mincore\arm64" />
@@ -3662,6 +3682,8 @@
     <file src="sdk\lib\mincore\arm64\1.0\api-ms-win-core-winrt-error-l1.lib"                                    target="sdk\lib\mincore\arm64\1.3" />
     <file src="sdk\lib\mincore\arm64\1.3\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\arm64\1.3" />
     <file src="sdk\lib\mincore\arm64\1.3\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\arm64\1.3" />
+    <file src="sdk\lib\mincore\arm64\1.5\api-ms-win-core-winrt-l1.lib"                                          target="sdk\lib\mincore\arm64\1.5" />
+    <file src="sdk\lib\mincore\arm64\1.5\api-ms-win-ro-typeresolution-l1.lib"                                   target="sdk\lib\mincore\arm64\1.5" />
     <file src="sdk\lib\mincore\i386\mincore_fw.lib"                                                             target="sdk\lib\mincore\i386" />
     <file src="sdk\lib\mincore\i386\mincore_legacy.lib"                                                         target="sdk\lib\mincore\i386" />
     <file src="sdk\lib\mincore\i386\mincore_obsolete.lib"                                                       target="sdk\lib\mincore\i386" />
@@ -3674,6 +3696,8 @@
     <file src="sdk\lib\mincore\i386\1.0\api-ms-win-core-winrt-error-l1.lib"                                     target="sdk\lib\mincore\i386\1.3" />
     <file src="sdk\lib\mincore\i386\1.3\api-ms-win-core-winrt-l1.lib"                                           target="sdk\lib\mincore\i386\1.3" />
     <file src="sdk\lib\mincore\i386\1.3\api-ms-win-ro-typeresolution-l1.lib"                                    target="sdk\lib\mincore\i386\1.3" />
+    <file src="sdk\lib\mincore\i386\1.5\api-ms-win-core-winrt-l1.lib"                                           target="sdk\lib\mincore\i386\1.5" />
+    <file src="sdk\lib\mincore\i386\1.5\api-ms-win-ro-typeresolution-l1.lib"                                    target="sdk\lib\mincore\i386\1.5" />
     <file src="sdk\lib\minwin\amd64\ntdllp.lib"                                                                 target="sdk\lib\minwin\amd64" />
     <file src="sdk\lib\minwin\amd64\1.0\api-ms-win-core-memory-l1.lib"                                          target="sdk\lib\minwin\amd64\1.0" />
     <file src="sdk\lib\minwin\amd64\1.0\api-ms-win-crt-private-l1.lib"                                          target="sdk\lib\minwin\amd64\1.0" />
@@ -3693,12 +3717,20 @@
     <file src="sdk\lib\minwin\i386\1.1\api-ms-win-security-sddl-l1.lib"                                         target="sdk\lib\minwin\i386\1.1" />
     <file src="sdk\lib\onecore\amd64\1.0\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.0" />
     <file src="sdk\lib\onecore\amd64\1.3\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.3" />
+    <file src="sdk\lib\onecore\amd64\1.5\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.5" />
+    <file src="sdk\lib\onecore\amd64\1.6\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.6" />
     <file src="sdk\lib\onecore\arm\1.0\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.0" />
     <file src="sdk\lib\onecore\arm\1.3\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.3" />
+    <file src="sdk\lib\onecore\arm\1.5\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.5" />
+    <file src="sdk\lib\onecore\arm\1.6\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.6" />
     <file src="sdk\lib\onecore\arm64\1.0\onecore.lib"                                                           target="sdk\lib\onecore\arm64\1.0" />
     <file src="sdk\lib\onecore\arm64\1.3\onecore.lib"                                                           target="sdk\lib\onecore\arm64\1.3" />
+    <file src="sdk\lib\onecore\arm64\1.5\onecore.lib"                                                           target="sdk\lib\onecore\arm64\1.5" />
+    <file src="sdk\lib\onecore\arm64\1.6\onecore.lib"                                                           target="sdk\lib\onecore\arm64\1.6" />
     <file src="sdk\lib\onecore\i386\1.0\onecore.lib"                                                            target="sdk\lib\onecore\i386\1.0" />
     <file src="sdk\lib\onecore\i386\1.3\onecore.lib"                                                            target="sdk\lib\onecore\i386\1.3" />
+    <file src="sdk\lib\onecore\i386\1.5\onecore.lib"                                                            target="sdk\lib\onecore\i386\1.5" />
+    <file src="sdk\lib\onecore\i386\1.6\onecore.lib"                                                            target="sdk\lib\onecore\i386\1.6" />
     <file src="sdk\ref\clr45\microsoft.csharp.metadata_dll"                                                     target="sdk\ref\clr45" />
     <file src="sdk\ref\clr45\mscorlib.dll"                                                                      target="sdk\ref\clr45" />
     <file src="sdk\ref\clr45\system.core.metadata_dll"                                                          target="sdk\ref\clr45" />
