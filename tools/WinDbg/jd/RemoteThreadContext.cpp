@@ -172,7 +172,7 @@ bool RemoteThreadContext::TryGetThreadContextFromTeb(RemoteThreadContext& remote
     {
         RemoteThreadContext threadContext = GetThreadContextFromContainer(container);
 
-        if (threadContext.GetExtRemoteTyped().GetPtr())
+        if (threadContext.GetPtr())
         {
             container = GetNextThreadContextContainer(container);
 
@@ -243,7 +243,7 @@ ULONG RemoteThreadContext::GetThreadId()
     return threadContext.Field("currentThreadId").GetUlong();
 }
 
-bool RemoteThreadContext::TryGetDebuggerThreadId(ULONG * pDebuggerThreadId)
+bool RemoteThreadContext::TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * threadId)
 {
     if (!HasThreadIdField())
     {
@@ -253,7 +253,15 @@ bool RemoteThreadContext::TryGetDebuggerThreadId(ULONG * pDebuggerThreadId)
     ulong threadContextSystemThreadId = this->GetThreadId();
     
     HRESULT hr = g_Ext->m_System4->GetThreadIdBySystemId(threadContextSystemThreadId, pDebuggerThreadId);
-    return SUCCEEDED(hr);
+    if (SUCCEEDED(hr))
+    {
+        if (threadId)
+        {
+            *threadId = threadContextSystemThreadId;
+        }
+        return true;
+    }
+    return false;
 }
 
 RemoteRecycler RemoteThreadContext::GetRecycler()
@@ -261,9 +269,51 @@ RemoteRecycler RemoteThreadContext::GetRecycler()
     return RemoteRecycler(threadContext.Field("recycler"));
 }
 
+ULONG64 RemoteThreadContext::GetPtr()
+{
+    return threadContext.GetPtr();
+}
+
 bool RemoteThreadContext::UseCodePageAllocator()
 {
     return threadContext.HasField("codePageAllocators");
+}
+
+bool
+RemoteThreadContext::TryGetThreadContextFromAnyContextPointer(ULONG64 contextPointer, RemoteThreadContext& remoteThreadContext)
+{
+    return ForEach([&](RemoteThreadContext threadContext)
+    {
+        if (threadContext.GetPtr() == contextPointer)
+        {
+            remoteThreadContext = threadContext;
+            return true;
+        }
+
+        return threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
+        {
+            if (scriptContext.GetPtr() == contextPointer)
+            {
+                remoteThreadContext = scriptContext.GetThreadContext();
+                return true;
+            }
+            return false;
+        });
+    });
+}
+
+bool
+RemoteThreadContext::TryGetThreadContextFromPointer(ULONG64 contextPointer, RemoteThreadContext& remoteThreadContext)
+{
+    return ForEach([&](RemoteThreadContext threadContext)
+    {
+        if (threadContext.GetPtr() == contextPointer)
+        {
+            remoteThreadContext = threadContext;
+            return true;
+        }
+        return false;
+    });
 }
 
 // ---- End jd private commands implementation ----------------------------------------------------

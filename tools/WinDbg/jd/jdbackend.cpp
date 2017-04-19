@@ -200,10 +200,10 @@ char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
     return "<RegBV>";
 }
 
-char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {        
     char const * typeName;
-    JDRemoteTyped typedOpnd = ext->CastWithVtable(opnd, &typeName);
+    JDRemoteTyped typedOpnd = opnd.CastWithVtable(&typeName);
     if (!typeName)
     {
         // Opnd doesn't have vtable on retail build.  Use the kind to infer the type.
@@ -260,7 +260,7 @@ char * JDBackend::GetOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t l
         {
             return "<No Vtable>";
         } 
-        typedOpnd = ext->Cast(typeName, opnd.GetPtr());
+        typedOpnd = opnd.Cast(typeName);
     }
     else
     {

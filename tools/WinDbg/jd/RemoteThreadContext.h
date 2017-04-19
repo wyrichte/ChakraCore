@@ -38,7 +38,7 @@ public:
         {
             RemoteThreadContext threadContext = GetThreadContextFromContainer(container);
 
-            ULONG64 ptr = threadContext.GetExtRemoteTyped().GetPtr();
+            ULONG64 ptr = threadContext.GetPtr();
             if (ptr != 0 && ptr != -1)
             {
                 if (fn(threadContext))
@@ -52,13 +52,13 @@ public:
         return false;     
     }
 
-    
     RemoteThreadContext() {}
     RemoteThreadContext(ExtRemoteTyped const& threadContext) : threadContext(threadContext) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
-    bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId);
+    bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * pThreadId = NULL);
     bool UseCodePageAllocator();
     RemoteRecycler GetRecycler();
+    ULONG64 GetPtr();
 
     template <typename Fn>
     bool ForEachScriptContext(Fn fn)
@@ -80,7 +80,7 @@ public:
     void ForEachPageAllocator(Fn fn)
     {        
         RemoteRecycler recycler = this->GetRecycler();
-        if (recycler.GetExtRemoteTyped().GetPtr() == 0)
+        if (recycler.GetPtr() == 0)
         {
             // Recycler not initialized?  Just print the thread one
             fn("Thread", RemotePageAllocator(threadContext.Field("pageAllocator")));            
@@ -176,7 +176,8 @@ public:
     }
 
     static bool HasThreadId();
-
+    static bool TryGetThreadContextFromAnyContextPointer(ULONG64 contextPointer, RemoteThreadContext& remoteThreadContext);
+    static bool TryGetThreadContextFromPointer(ULONG64 pointer, RemoteThreadContext& remoteThreadContext);
 private:
     bool HasThreadIdField();
     ULONG GetThreadId();

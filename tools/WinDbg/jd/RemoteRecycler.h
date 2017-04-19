@@ -7,18 +7,41 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 #include "RemotePageAllocator.h"
-
+class RemoteThreadContext;
 class RemoteRecycler
 {
 public:
-    RemoteRecycler() {}
-    RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler) {};    
-    ExtRemoteTyped GetExtRemoteTyped() { return recycler; }
+    RemoteRecycler(ULONG64 recycler);
+    RemoteRecycler(ExtRemoteTyped recycler);
+
+    // TODO: avoid using this
+    ExtRemoteTyped GetExtRemoteTyped();
 
     template <typename Fn>
     void ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn);
+
+    ULONG64 GetExternalRootMarker();
+    ULONG64 GetPtr();
+
+    bool EnableScanImplicitRoots();
+    bool EnableScanInteriorPointers();
+
+    RemoteThreadContext GetThreadContext();
+    RemoteHeapBlockMap GetHeapBlockMap();
+
+    ULONG GetCookie();
+
+    bool CollectionInProgress();
+
+    bool IsAlignedAddress(ULONG64 address);
+    uint GetObjectAlignmentMask();
+    uint GetObjectGranularity();
+    uint GetObjectAllocationShift();
 private:
-    ExtRemoteTyped recycler;
+    void InitializeObjectAllocationShift();
+
+    JDRemoteTyped recycler;
+    ULONG objectAllocationShift;
 };
 
 template <typename Fn>
@@ -41,10 +64,10 @@ void RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
     else
     {
         // MarkContext
-        fn("MarkCxt", RemotePageAllocator(recycler.Field("markContext.pagePool.pageAllocator")));
-        fn("ParaMarkCxt1", RemotePageAllocator(recycler.Field("parallelMarkContext1.pagePool.pageAllocator")));
-        fn("ParaMarkCxt2", RemotePageAllocator(recycler.Field("parallelMarkContext2.pagePool.pageAllocator")));
-        fn("ParaMarkCxt3", RemotePageAllocator(recycler.Field("parallelMarkContext3.pagePool.pageAllocator")));
+        fn("MarkCxt", RemotePageAllocator(recycler.Field("markContext").Field("pagePool").Field("pageAllocator")));
+        fn("ParaMarkCxt1", RemotePageAllocator(recycler.Field("parallelMarkContext1").Field("pagePool").Field("pageAllocator")));
+        fn("ParaMarkCxt2", RemotePageAllocator(recycler.Field("parallelMarkContext2").Field("pagePool").Field("pageAllocator")));
+        fn("ParaMarkCxt3", RemotePageAllocator(recycler.Field("parallelMarkContext3").Field("pagePool").Field("pageAllocator")));
     }  
 
     if (recycler.HasField("backgroundProfilerPageAllocator"))

@@ -13,7 +13,7 @@ ExtRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
 
     // After OOP JIT
     ExtRemoteTyped functionBodyAddr = func.Field("m_workItem.m_jitBody.m_bodyData.functionBodyAddr");
-    return GetExtension()->CastWithVtable(functionBodyAddr.GetPtr());
+    return JDRemoteTyped::FromPtrWithVtable(functionBodyAddr.GetPtr());
 }
 
 EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(EXT_CLASS_BASE * ext, ExtRemoteTyped func)

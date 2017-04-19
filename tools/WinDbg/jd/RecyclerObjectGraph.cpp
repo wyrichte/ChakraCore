@@ -4,9 +4,9 @@
 
 #ifdef JD_PRIVATE
 
-RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
-    if (!ENUM_EQUAL(recycler.Field("collectionState").GetSimpleValue(), "CollectionStateNotCollecting"))
+    if (recycler.CollectionInProgress())
     {
         g_Ext->Out("WARNING: Recycler is in collection state.  Object graph may be inaccurate\n");
     }
@@ -14,8 +14,8 @@ RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemot
     if (recyclerObjectGraph == nullptr)
     {
         Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext, stackTop);
-        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(GetExtension(), recycler));
-        newObjectGraph->Construct(*rootPointerManager);
+        AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(recycler));
+        newObjectGraph->Construct(recycler, *rootPointerManager);
 
         recyclerObjectGraph = newObjectGraph.Detach();
         GetExtension()->recyclerCachedData.CacheRecyclerObjectGraph(recycler.GetPtr(), recyclerObjectGraph);
@@ -27,15 +27,12 @@ RecyclerObjectGraph * RecyclerObjectGraph::New(ExtRemoteTyped recycler, ExtRemot
     return recyclerObjectGraph;
 }
 
-RecyclerObjectGraph::RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose) :
-    _ext(extension),
-    _alignmentUtility(recycler),
+RecyclerObjectGraph::RecyclerObjectGraph(RemoteRecycler recycler, bool verbose) :
     _verbose(verbose),
-    m_hbm(recycler.Field("heapBlockMap")),
     m_hasTypeName(false),
     m_hasTypeNameAndFields(false),
     m_trident(false),
-    m_interior(recycler.HasField("enableScanInteriorPointers") && recycler.Field("enableScanInteriorPointers").GetStdBool())
+    m_interior(recycler.EnableScanInteriorPointers())
 {
 }
 
@@ -61,36 +58,36 @@ void RecyclerObjectGraph::DumpForCsv(const char* outfile)
     _objectGraph.ExportToCsv(outfile);
 }
 
-void RecyclerObjectGraph::Construct(Addresses& roots)
+void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
 {
     auto start = _time64(nullptr);
 
-    std::stack<MarkStackEntry> markStack;
+    ConstructData constructData(recycler);
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
     roots.Map([&](ULONG64 root)
     {
-        MarkObject(markStack, root, 0, roots.GetRootType(root));
+        MarkObject(constructData, root, 0, roots.GetRootType(root));
     });
 
     int iters = 0;
 
-    while (markStack.size() != 0)
+    while (constructData.markStack.size() != 0)
     {
-        const MarkStackEntry object = markStack.top();
-        markStack.pop();
+        const MarkStackEntry object = constructData.markStack.top();
+        constructData.markStack.pop();
 
-        ScanBytes(markStack, object.first, object.second);
+        ScanBytes(constructData, object.first, object.second);
 
         iters++;
         if (iters % 0x10000 == 0)
         {
-            _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
                 "\rTraversing object graph, object count - stack: %6d, visited: %d",
-                markStack.size(), _objectGraph.GetNodeCount());
+                constructData.markStack.size(), _objectGraph.GetNodeCount());
         }
     }
 
-    _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
+    g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
         "\rObject graph construction completed - elapsed time: %us                                                    \n",
         (ULONG)(_time64(nullptr) - start));
 }
@@ -181,7 +178,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             }
 
             char const * typeName;
-            JDRemoteTyped predRemoteTyped = GetExtension()->CastWithVtable(pred->Key(), &typeName);
+            JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
             if (typeName != nullptr)
             {
                 if (strcmp(JDUtil::StripModuleName(typeName), "Js::JavascriptLibrary") == 0)
@@ -193,7 +190,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             }
 
             // Pretend that this is a dynamic type and see if typeHandler and javascriptLibrary looks correct
-            predRemoteTyped = GetExtension()->Cast("Js::DynamicType", pred->Key());
+            predRemoteTyped = JDRemoteTyped::FromPtrWithType(pred->Key(), "Js::DynamicType");
             library = TryMatchDynamicType("Js::DynamicType", pred, "typeHandler", node);
             return library != 0;
         });
@@ -263,7 +260,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             }
 
             char const * typeName;
-            JDRemoteTyped predRemoteTyped = GetExtension()->CastWithVtable(pred->Key(), &typeName);
+            JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
             if (typeName != nullptr)
             {
                 library = TryInferFunctionProxyJavascriptLibrary(predRemoteTyped);
@@ -302,7 +299,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             }
 
             char const * typeName;
-            JDRemoteTyped predRemoteTyped = GetExtension()->CastWithVtable(pred->Key(), &typeName);
+            JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
             if (typeName != nullptr && strcmp(JDUtil::StripModuleName(typeName), "Js::Utf8SourceInfo") == 0)
             {
                 RemoteUtf8SourceInfo utf8SourceInfo(predRemoteTyped);
@@ -319,7 +316,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
 
 ULONG64 RecyclerObjectGraph::TryMatchDynamicType(char const * type, RecyclerObjectGraph::GraphImplNodeType* pred, char const * field, RecyclerObjectGraph::GraphImplNodeType* node)
 {
-    JDRemoteTyped remoteTyped = GetExtension()->Cast(type, pred->Key());
+    JDRemoteTyped remoteTyped = JDRemoteTyped::FromPtrWithType(pred->Key(), type);
     ULONG64 typeSize = remoteTyped.Dereference().GetTypeSize();
     if (pred->GetObjectSize() < typeSize)
     {
@@ -331,7 +328,7 @@ ULONG64 RecyclerObjectGraph::TryMatchDynamicType(char const * type, RecyclerObje
     }
     ULONG64 library = remoteTyped.Field("javascriptLibrary").GetPtr();
     char const * typeName;
-    GetExtension()->CastWithVtable(library, &typeName);
+    JDRemoteTyped::FromPtrWithVtable(library, &typeName);
     if (typeName == nullptr || strcmp(JDUtil::StripModuleName(typeName), "Js::JavascriptLibrary") != 0)
     {
         return 0;
@@ -339,7 +336,7 @@ ULONG64 RecyclerObjectGraph::TryMatchDynamicType(char const * type, RecyclerObje
     return library;
 }
 
-void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     bool infer = (typeInfoFlags & TypeInfoFlags::Infer) != 0;
     bool trident = (typeInfoFlags & TypeInfoFlags::Trident) != 0;
@@ -389,12 +386,15 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
 
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
 
-    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, bool hasVtable = false, ULONG64 library = 0)
+    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, bool hasVtable = false, ULONG64 library = 0, bool requireLivePointer = true)
     {
         if (object.GetPtr())
         {
             RecyclerObjectGraph::GraphImplNodeType* node = this->FindNode(object.GetPtr());
-            setNodeData(typeName, typeName, node, hasVtable, false, library);
+            if (requireLivePointer || node)
+            {
+                setNodeData(typeName, typeName, node, hasVtable, false, library);
+            }
         }
     };
 
@@ -412,7 +412,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
         return false;
     };
 
-    JDRemoteTyped threadRecyclableData = threadContext->Field("recyclableData.ptr");
+    JDRemoteTyped threadRecyclableData = threadContext->GetExtRemoteTyped().Field("recyclableData.ptr");
     setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
     JDRemoteTyped typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
     setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.bucket", typesWithProtoPropertyCache.Field("buckets"));
@@ -426,11 +426,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
         JDRemoteTyped cache;
         if (library.HasField("scriptContextCache"))
         {
-            cache = GetExtension()->Cast("Js::Cache", library.Field("scriptContextCache").GetPtr());
+            cache = library.Field("scriptContextCache").Cast("Js::Cache");
         }
         else if (library.HasField("cache"))
         {
-            cache = library.Field("cache");
+            cache = library.Field("cache").GetPointerTo();
         }
         else
         {
@@ -505,7 +505,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
 
         char const * typeName = nullptr;
         ULONG64 objectAddress = node->Key();
-        JDRemoteTyped remoteTyped = GetExtension()->CastWithVtable(objectAddress, &typeName);
+        JDRemoteTyped remoteTyped = JDRemoteTyped::FromPtrWithVtable(objectAddress, &typeName);
         if (typeName == nullptr)
         {
             return;
@@ -548,7 +548,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                     {
                         // Aux slots might be use as a inline slot for object with small number of properties
                         char const * auxSlotTypeName;
-                        JDRemoteTyped remoteTypedAuxSlot = GetExtension()->CastWithVtable(auxSlots.GetPtr(), &auxSlotTypeName);
+                        JDRemoteTyped remoteTypedAuxSlot = JDRemoteTyped::FromPtrWithVtable(auxSlots.GetPtr(), &auxSlotTypeName);
                         if (auxSlotTypeName == nullptr)
                         {
                             setNodeData(typeName, "Js::DynamicObject.auxSlots[]", fieldNode, false, false, javascriptLibrary);
@@ -905,10 +905,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                     if (!polymorphicInlineCachesTypeName)
                     {
                         // Get the type name from CastWithVtable so it will be the same as other vtable inferred typename
-                        GetExtension()->CastWithVtable(polymorphicInlineCachesHead.GetPtr(), &polymorphicInlineCachesTypeName);
+                        JDRemoteTyped::FromPtrWithVtable(polymorphicInlineCachesHead.GetPtr(), &polymorphicInlineCachesTypeName);
                     }
 
-                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, true, javascriptLibrary);
+                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, true, javascriptLibrary, false);
                     polymorphicInlineCachesHead = JDUtil::GetWrappedField(polymorphicInlineCachesHead, "next");
                 }
 
@@ -957,7 +957,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                     ULONG64 successorTypePtr = successorTypeWeakRef.Field("strongRef").GetPtr();
                     if (successorTypePtr != 0)
                     {
-                        addDynamicTypeField(GetExtension()->Cast("Js::DynamicType", successorTypePtr));
+                        addDynamicTypeField(JDRemoteTyped::FromPtrWithType(successorTypePtr, "Js::DynamicType"));
                     }
                 }
             }
@@ -981,7 +981,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
                                 ULONG64 successorTypePtr = successorTypeWeakRef.Field("strongRef").GetPtr();
                                 if (successorTypePtr != 0)
                                 {
-                                    addDynamicTypeField(GetExtension()->Cast("Js::DynamicType", successorTypePtr));
+                                    addDynamicTypeField(JDRemoteTyped::FromPtrWithType(successorTypePtr, "Js::DynamicType"));
                                 }
                             }
                         }
@@ -1131,7 +1131,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(ExtRemoteTyped * threadContext, Recycle
     m_hasTypeName = true;
     m_trident = trident;
     m_hasTypeNameAndFields = infer;
-    _ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
+    g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
         "\rObject graph type info completed %s- elapsed time: %us                                                    \n",
         infer? "" : "without infer ", (ULONG)(_time64(nullptr) - start));
 }
@@ -1152,42 +1152,42 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
         {
             roots.Map([&](ULONG64 rootAddress)
             {
-                _ext->Out("Finding path from 0x%P\n", rootAddress);
+                g_Ext->Out("Finding path from 0x%P\n", rootAddress);
                 std::vector<ULONG64> path = _objectGraph.FindPath(rootAddress, address);
 
                 if (shortestPath.size() == 0 || shortestPath.size() > path.size())
                 {
                     shortestPath = path;
                     if (shortestPath.size() != 0) {
-                        _ext->Out("Shortest path so far is from 0x%P\n", rootAddress);
+                        g_Ext->Out("Shortest path so far is from 0x%P\n", rootAddress);
                         pathsFound++;
                     }
                 }
             });
         }
 
-        _ext->Out("Shortest path has %d nodes\n", shortestPath.size());
+        g_Ext->Out("Shortest path has %d nodes\n", shortestPath.size());
         for (auto it = shortestPath.begin(); it != shortestPath.end(); it++)
         {
-            _ext->Out("0x%P\n", (*it));
+            g_Ext->Out("0x%P\n", (*it));
         }
     }
     else
     {
-        _ext->Out("Object not found\n");
+        g_Ext->Out("Object not found\n");
     }
 }
 #endif
 
-void RecyclerObjectGraph::MarkObject(std::stack<MarkStackEntry>& markStack,  ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
+void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
 {
     if (address == NULL ||
-        !this->_alignmentUtility.IsAlignedAddress(address))
+        !constructData.recycler.IsAlignedAddress(address))
     {
         return;
     }
 
-    RemoteHeapBlock *remoteHeapBlock = m_hbm.FindHeapBlock(address);
+    RemoteHeapBlock *remoteHeapBlock = constructData.hbm.FindHeapBlock(address);
     if (remoteHeapBlock == nullptr)
     {
         return;
@@ -1223,11 +1223,11 @@ void RecyclerObjectGraph::MarkObject(std::stack<MarkStackEntry>& markStack,  ULO
         MarkStackEntry entry;
         entry.first = remoteHeapBlock;
         entry.second = node;
-        markStack.push(entry);
+        constructData.markStack.push(entry);
     }
 }
 
-void RecyclerObjectGraph::ScanBytes(std::stack<MarkStackEntry>& markStack, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node)
+void RecyclerObjectGraph::ScanBytes(ConstructData& constructData, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node)
 {
     ULONG64 objectAddress = node->Key();
     Assert(objectAddress != 0);
@@ -1236,14 +1236,14 @@ void RecyclerObjectGraph::ScanBytes(std::stack<MarkStackEntry>& markStack, Remot
     RemoteHeapBlock::AutoDebuggeeMemory object(remoteHeapBlock, objectAddress, objectSize);   
     char* current = (char *)object;
     char* end = current + objectSize;
-    ulong ptrSize = this->_ext->m_PtrSize;
+    ulong ptrSize = g_Ext->m_PtrSize;
     Set<GraphImplNodeType *> successors;
     while (current < end)
     {
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
         if (value != objectAddress)
         {
-            MarkObject(markStack, value, &successors, RootType::RootTypeNone);
+            MarkObject(constructData, value, &successors, RootType::RootTypeNone);
         }
         current += ptrSize;
     }

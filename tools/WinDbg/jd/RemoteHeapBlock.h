@@ -4,6 +4,9 @@
 
 #pragma once
 
+class RemoteRecycler;
+class RemoteBitVector;
+
 struct HeapObjectInfo
 {
     ULONG64 originalAddress;
@@ -26,6 +29,10 @@ public:
 
     char GetType();
 
+    bool IsSmallNormalHeapBlock();
+    bool IsMediumNormalHeapBlock();
+    bool IsSmallNormalWithBarrierHeapBlock();
+    bool IsMediumNormalWithBarrierHeapBlock();
     bool IsSmallLeafHeapBlock();
     bool IsMediumLeafHeapBlock();
     bool IsSmallFinalizableHeapBlock();
@@ -51,6 +58,11 @@ public:
     ULONG GetAllocatedObjectCount();
 
     ULONG GetBucketObjectSize() { return bucketObjectSize; }
+
+    USHORT GetAddressBitIndex(ULONG64 objectAddress);
+
+    RemoteBitVector GetMarkBits();
+    RemoteBitVector GetFreeBits();
 
     ExtRemoteTyped GetExtRemoteTyped();
 
@@ -104,10 +116,10 @@ public:
         char * debuggeeMemory;
         bool cached;
     };
-    
 
-    static RemoteHeapBlock NullHeapBlock;
 private:
+    RemoteRecycler GetRecycler();
+
     char * GetDebuggeeMemory(ULONG64 address, ULONG size, bool * cached);
     ULONG GetObjectIndex(ULONG64 objectAddress);
     ULONG64 GetObjectAddressFromIndex(ULONG objectIndex);

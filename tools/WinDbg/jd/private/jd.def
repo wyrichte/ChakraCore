@@ -21,7 +21,6 @@ EXPORTS
     jsstream
     arenaroots
     findblock
-    gcstats
     jstack
     drpids
     oi

@@ -2,6 +2,7 @@
 
 #ifdef JD_PRIVATE
 #include "Collections.h"
+#include "RemoteRecycler.h"
 
 struct PinnedObjectEntry
 {
@@ -13,12 +14,12 @@ template <typename TPointerType>
 class PinnedObjectMap
 {
 public:
-    PinnedObjectMap(ExtRemoteTyped recycler, bool pinRecordWithStacks):
+    PinnedObjectMap(RemoteRecycler recycler, bool pinRecordWithStacks):
         _pinRecordsWithStacks(pinRecordWithStacks)
     {
-        ExtRemoteTyped transientPinnedObject = recycler.Field("transientPinnedObject");
-        ExtRemoteTyped pinnedObjectMap = recycler.Field("pinnedObjectMap");
-        _hasPendingUnpinnedObject = recycler.Field("hasPendingUnpinnedObject").GetStdBool();
+        ExtRemoteTyped transientPinnedObject = recycler.GetExtRemoteTyped().Field("transientPinnedObject");
+        ExtRemoteTyped pinnedObjectMap = recycler.GetExtRemoteTyped().Field("pinnedObjectMap");
+        _hasPendingUnpinnedObject = recycler.GetExtRemoteTyped().Field("hasPendingUnpinnedObject").GetStdBool();
         _transientPinnedObject = transientPinnedObject.GetPtr();
         _pinnedObjectEntries = pinnedObjectMap.Field("table").GetPtr();
         _pinnedObjectTableSize = pinnedObjectMap.Field("size").GetUlong();
@@ -150,8 +151,7 @@ public:
     {
     }
 
-    RootPointerReader(EXT_CLASS_BASE* extension, ExtRemoteTyped recycler, RootAddedCallback callback = DefaultRootAddedCallback) :
-        _heapBlockHelper(extension, recycler),
+    RootPointerReader(EXT_CLASS_BASE* extension, RemoteRecycler recycler, RootAddedCallback callback = DefaultRootAddedCallback) :
         _recycler(recycler),
         m_addresses(new Addresses()),
         m_rootAddedCallback(callback),
@@ -161,9 +161,9 @@ public:
 
     bool TryAdd(ULONG64 address, RootType rootType, void* context = nullptr)
     {
-        if (address != NULL && _heapBlockHelper.IsAlignedAddress(address))
+        if (address != NULL && _recycler.IsAlignedAddress(address))
         {
-            RemoteHeapBlock * remoteHeapBlock = _heapBlockHelper.FindHeapBlock(address, _recycler);
+            RemoteHeapBlock * remoteHeapBlock = _recycler.GetHeapBlockMap().FindHeapBlock(address);
 
             // TODO: Validate it is a valid object pointer?
             if (remoteHeapBlock && m_addresses->_addresses.count(address) == 0)
@@ -197,7 +197,7 @@ public:
     }
 
     void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
+    void ScanStack(EXT_CLASS_BASE* ext, RemoteRecycler& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
@@ -209,8 +209,7 @@ private:
     EXT_CLASS_BASE* m_extension;
     RootAddedCallback m_rootAddedCallback;
     std::auto_ptr<Addresses> m_addresses;
-    ExtRemoteTyped _recycler;
-    HeapBlockHelper _heapBlockHelper;
+    RemoteRecycler _recycler;
 };
 
 template <typename Fn>

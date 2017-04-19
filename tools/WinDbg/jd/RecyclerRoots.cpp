@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+
 // Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
 #include "stdafx.h"
@@ -11,6 +11,7 @@
 #include <queue>
 #include "RecyclerObjectGraph.h"
 #include "RemoteHeapBlockMap.h"
+#include "RemoteObjectInfoBits.h"
 
 #ifdef JD_PRIVATE
 
@@ -170,13 +171,13 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
     }
 }
 
-void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, ExtRemoteTyped& recycler, ULONG64 stackTop, bool print, bool showScriptContext)
+void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, RemoteRecycler& recycler, ULONG64 stackTop, bool print, bool showScriptContext)
 {
     ULONG64 stackBase = 0;
-    if (recycler.HasField("stackBase") && recycler.Field("mainThreadHandle").GetPtr() != 0)
+    if (recycler.GetExtRemoteTyped().HasField("stackBase") && recycler.GetExtRemoteTyped().Field("mainThreadHandle").GetPtr() != 0)
     {
-        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.Field("stackBase").GetUlong()
-            : recycler.Field("stackBase").GetPtr());
+        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.GetExtRemoteTyped().Field("stackBase").GetUlong()
+            : recycler.GetExtRemoteTyped().Field("stackBase").GetPtr());
     }
     else
     {        
@@ -327,10 +328,9 @@ void RootPointerReader::ScanImplicitRoots(bool print)
     ULONG64 implicitRootCount;
     ULONG64 implicitRootSize;
 
-    RemoteHeapBlockMap hbm(_recycler.Field("heapBlockMap"));
-    ExtRemoteTyped heapBlockMap = _recycler.Field("heapBlockMap");
+    RemoteHeapBlockMap hbm = _recycler.GetHeapBlockMap();
 
-    hbm.ForEachHeapBlock(heapBlockMap, [&](RemoteHeapBlock& remoteHeapBlock)
+    hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
     {
         if (remoteHeapBlock.IsLargeHeapBlock())
         {
@@ -341,7 +341,7 @@ void RootPointerReader::ScanImplicitRoots(bool print)
 
                 if (header.HasField("attributesAndChecksum"))
                 {
-                    attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ _recycler.Field("Cookie").GetUlong() >> 8);
+                    attribute = (UCHAR)(header.Field("attributesAndChecksum").GetUshort() ^ _recycler.GetCookie() >> 8);
                 }
                 else if (header.HasField("attributes"))
                 {
@@ -353,7 +353,7 @@ void RootPointerReader::ScanImplicitRoots(bool print)
                     return true;
                 }
 
-                if (attribute & ObjectInfoBits::ImplicitRootBit)
+                if (attribute & RemoteObjectInfoBits::ImplicitRootBit)
                 {
                     this->Add(header.GetPtr() + sizeOfObjectHeader, RootType::RootTypeImplicit);
                     if (print)
@@ -379,8 +379,8 @@ void RootPointerReader::ScanImplicitRoots(bool print)
             ULONG64 objectSize = remoteHeapBlock.GetBucketObjectSize();
             for (ULONG i = 0; i < objectCount; i++)
             {
-                if ((attributes[objectCount - i - 1] & ObjectInfoBits::ImplicitRootBit)
-                    && (attributes[objectCount - i - 1] & ObjectInfoBits::PendingDisposeBit) == 0)
+                if ((attributes[objectCount - i - 1] & RemoteObjectInfoBits::ImplicitRootBit)
+                    && (attributes[objectCount - i - 1] & RemoteObjectInfoBits::PendingDisposeBit) == 0)
                 {
                     this->Add(heapBlockAddress + objectSize * i, RootType::RootTypeImplicit);
                     if (print)
@@ -423,7 +423,7 @@ bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext, bool verbose)
 }
 
 template <typename Fn>
-void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback, bool verbose)
+void MapPinnedObjects(EXT_CLASS_BASE* ext, RemoteRecycler recycler, const Fn& callback, bool verbose)
 {
     bool isUsingDebugPinnedRecord = IsUsingDebugPinRecord(ext, verbose);
     // ext->Out(_u("Possible symbol for %p: "), heapObject.vtable); ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); ext->Out("\n");
@@ -508,7 +508,7 @@ bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const
 bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool showScriptContext)
 {
     char const * typeName;
-    JDRemoteTyped object = GetExtension()->CastWithVtable(address, &typeName);
+    JDRemoteTyped object = JDRemoteTyped::FromPtrWithVtable(address, &typeName);
     
     if (typeName == nullptr)
     {
@@ -573,7 +573,7 @@ JD_PRIVATE_COMMAND(showpinned,
     auto dumpPinnedObjectFromRecycler = [this, showScriptContext, showEntries](RemoteRecycler recycler)
     {
         uint count = 0;
-        MapPinnedObjects(this, recycler.GetExtRemoteTyped(), [&count, this, showScriptContext, showEntries](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+        MapPinnedObjects(this, recycler, [&count, this, showScriptContext, showEntries](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
         {
             DumpPinnedObject(this, i, j, entryPointer, entry, showEntries, showScriptContext);
             count++;
@@ -587,14 +587,14 @@ JD_PRIVATE_COMMAND(showpinned,
         RemoteThreadContext::ForEach([this, dumpPinnedObjectFromRecycler](RemoteThreadContext threadContext)
         {
             Out("===========================================================\n");
-            Out("ThreadContext %p\n", threadContext.GetExtRemoteTyped().GetPtr());
+            Out("ThreadContext %p\n", threadContext.GetPtr());
             dumpPinnedObjectFromRecycler(threadContext.GetRecycler());
             return false;
         });
     }
     else
     {
-        ExtRemoteTyped recycler = GetRecycler(arg);
+        RemoteRecycler recycler = GetRecycler(arg);
         dumpPinnedObjectFromRecycler(recycler);
     }
 
@@ -648,66 +648,24 @@ void SearchRange(ULONG64 startAddress, uint numBytes, ExtExtension* ext, ULONG64
     }
 }
 
-bool
-RecyclerFindReference::ProcessHeapBlock(ExtRemoteTyped block, bool isAllocator, ExtRemoteTyped freeObjectList, bool isBumpAllocator)
+RemoteRecycler EXT_CLASS_BASE::GetRecycler(ULONG64 recyclerPtr, RemoteThreadContext * threadContext)
 {
-    ULONG64 startAddress = block.Field("address").GetPtr();
-    USHORT objectSize = block.Field("objectSize").GetUshort();
-    USHORT objectCount = block.Field("objectCount").GetUshort();
-
-    Addresses * rootPointers = this->rootPointerManager;
-    SearchRange(startAddress, objectSize*objectCount, this->ext, this->referencedObject, [&](ULONG64 addr)
+    if (recyclerPtr != 0)
     {
-        bool isRoot = rootPointers->Contains(addr);
-        ULONG64 offset = (addr - startAddress);
-        USHORT objectIndex = (USHORT)(offset / objectSize);
-        ULONG64 objectAddress = (objectSize * objectIndex) + startAddress;
-        offset = (addr - objectAddress);
-
-        FindRefData result;
-        result.address = objectAddress;
-        result.offset = offset;
-        result.isRoot = isRoot;
-        result.isLarge = false;
-        results.push_back(result);
-    });
-
-    return false;
-}
-
-bool
-RecyclerFindReference::ProcessLargeHeapBlock(ExtRemoteTyped block)
-{
-    Addresses * rootPointers = this->rootPointerManager;
-    unsigned int allocCount = (uint)ExtRemoteTypedUtil::GetSizeT(block.Field("allocCount"));
-    ExtRemoteTyped headerList =
-        ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), block.GetPtr() + block.Dereference().GetTypeSize());
-
-    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-
-    for (unsigned int i = 0; i < allocCount; i++)
-    {
-        ExtRemoteTyped header = headerList.ArrayElement(i);
-        if (header.GetPtr() == 0)
+        RemoteRecycler recycler = recyclerPtr;
+        if (threadContext)
         {
-            continue;
+            *threadContext = recycler.GetThreadContext();
         }
-        ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
-
-        ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
-
-        SearchRange(startAddress, (uint)objectSize, ext, this->referencedObject, [&](ULONG64 addr) {
-            bool isRoot = rootPointers->Contains(addr);
-
-            FindRefData result;
-            result.address = addr;
-            result.offset = 0;
-            result.isRoot = isRoot;
-            result.isLarge = true;
-            results.push_back(result);
-        });
+        return recycler;
     }
-    return false;
+
+    RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
+    if (threadContext)
+    {
+        *threadContext = remoteThreadContext;
+    }
+    return remoteThreadContext.GetRecycler();
 }
 
 JD_PRIVATE_COMMAND(findref,
@@ -715,113 +673,77 @@ JD_PRIVATE_COMMAND(findref,
     "{;e,r;address;Address whose referrers to find}"
     "{;e,o,d=0;recycler;Recycler address}")
 {
-    ULONG64 address = GetUnnamedArgU64(0);
+    ULONG64 referencedObject = GetUnnamedArgU64(0);
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-
-    if (recyclerArg != NULL)
-    {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
-    RecyclerFindReference findRef(this, address, rootPointers, recycler);
-    Out("Referring objects:\n");
-
-    findRef.Run();
-    std::for_each(findRef.results.begin(), findRef.results.end(), [&](decltype(findRef.results[0])& result) {
-        if (result.isLarge)
+    RemoteHeapBlockMap hbm = recycler.GetHeapBlockMap();
+    struct FindRefData
+    {
+        ULONG64 address;
+        ULONG64 offset;
+        bool isRoot;
+    };
+    std::vector<FindRefData> results;
+    hbm.ForEachHeapBlock([this, rootPointers, referencedObject, &results](RemoteHeapBlock heapBlock)
+    {
+        if (heapBlock.IsLargeHeapBlock())
         {
-            this->Dml("\t<link cmd=\"!oi 0x%p%s\">0x%p</link> (Object) %s\n",
-                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address, (result.isRoot ? "(root)" : ""));
+            ULONG64 sizeOfObjectHeader = this->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            heapBlock.ForEachLargeObjectHeader([this, referencedObject, sizeOfObjectHeader, rootPointers, &results](JDRemoteTyped header)
+            {
+                ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
+
+                ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
+
+                SearchRange(startAddress, (uint)objectSize, this, referencedObject, [&](ULONG64 addr) {
+                    FindRefData result;
+                    result.address = startAddress;
+                    result.offset = addr - startAddress;
+                    result.isRoot = rootPointers->Contains(startAddress);
+                    results.push_back(result);
+                });
+                return false;
+            });
         }
         else
         {
-            this->Dml("\t<link cmd = \"!findref 0x%p%s\">+</link> ",
-                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg));
-            this->Dml("<link cmd=\"!oi 0x%p%s\">0x%p</link>",
-                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address);
-            this->Dml("+0x%02x", result.offset);
-            this->Dml(" %s\n", (result.isRoot ? "(root)" : ""));
+            ULONG64 startAddress = heapBlock.GetAddress();
+            ULONG objectSize = heapBlock.GetBucketObjectSize();
+
+            SearchRange(startAddress, (uint)heapBlock.GetTotalObjectSize(), this, referencedObject, [&](ULONG64 addr)
+            {
+                ULONG64 offset = (addr - startAddress);
+                ULONG objectIndex = (ULONG)(offset / objectSize);
+                ULONG64 objectAddress = (objectSize * objectIndex) + startAddress;
+                offset = (addr - objectAddress);
+
+                FindRefData result;
+                result.address = objectAddress;
+                result.offset = offset;
+                result.isRoot = rootPointers->Contains(objectAddress);
+                results.push_back(result);
+            });
         }
+        return false;
     });
 
-    if (findRef.FoundNoReferences())
+    Out("Referring objects:\n");
+
+    std::for_each(results.begin(), results.end(), [&](decltype(results[0])& result) {
+        this->Dml("\t<link cmd = \"!findref 0x%p%s\">+</link> ",
+            result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg));
+        this->Dml("<link cmd=\"!oi 0x%p%s\">0x%p</link>",
+            result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address);
+        this->Dml("+0x%02x", result.offset);
+        this->Dml(" %s\n", (result.isRoot ? "(root)" : ""));
+    });
+
+    if (results.size() == 0)
     {
         Out("\tNo referencing objects\n");
-    }
-
-    if (findRef.SkippedSomeAddresses())
-    {
-        Out("\tWARNING: Some memory was inaccessible and not scanned so some references might be missed\n");
-    }
-}
-
-JD_PRIVATE_COMMAND(oi,
-    "Display object's recycler state",
-    "{v;b,o;verbose;dump verbose information}"
-    "{;e,r;address;Address of object to dump}{;e,o,d=0;recycler;Recycler address}")
-{
-    const bool verbose = HasArg("v");
-    ULONG64 objectAddress = GetUnnamedArgU64(0);
-    ULONG64 recyclerArg = GetUnnamedArgU64(1);
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-
-    if (recyclerArg != NULL)
-    {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
-
-    HeapBlockHelper heapBlockHelper(this, recycler);
-    RemoteHeapBlock * remoteHeapBlock = heapBlockHelper.FindHeapBlock(objectAddress, recycler);
-    if (remoteHeapBlock != NULL)
-    {
-        ULONG64 heapBlockType = remoteHeapBlock->GetType();
-
-        heapBlockHelper.DumpHeapBlockLink(heapBlockType, remoteHeapBlock->GetHeapBlockAddress());
-
-        ExtRemoteTyped heapBlock = remoteHeapBlock->GetExtRemoteTyped();
-        if (heapBlockType == this->enum_LargeBlockType())
-        {
-            heapBlockHelper.DumpLargeHeapBlockObject(heapBlock, objectAddress, verbose);
-        }
-        else
-        {
-            heapBlockHelper.DumpSmallHeapBlockObject(heapBlock, objectAddress, verbose);
-        }
-
-        if (verbose)
-        {
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
-            if (rootPointers->Contains(objectAddress))
-            {
-                Out("Is Root: true\n");
-            }
-            else
-            {
-                Out("Is Root: false\n");
-            }
-        }
-    }
-    else
-    {
-        Out("Object not found (no heap block)\n");
     }
 }
 
@@ -832,21 +754,11 @@ JD_PRIVATE_COMMAND(showroots,
     "{sc;b,o;Show script context}")
 {
     ULONG64 recyclerArg = GetUnnamedArgU64(0);
-    ExtRemoteTyped recycler;
-    ExtRemoteTyped threadContext;
     const bool showScriptContext = HasArg("sc");
     const bool showEntries = HasArg("e");
 
-    if (recyclerArg != NULL)
-    {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
-        recycler = threadContext.Field("recycler");
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     RootPointerReader rootPointerManager(this, recycler);
 
@@ -863,14 +775,14 @@ JD_PRIVATE_COMMAND(showroots,
      * - Scan stack
      */
 
-    if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
+    if (recycler.EnableScanImplicitRoots())
     {
         rootPointerManager.ScanImplicitRoots();
     }
 
-    if (threadContext.GetPtr() != NULL && threadContext.HasField("externalWeakReferenceCacheList"))
+    if (threadContext.GetPtr() != NULL && threadContext.GetExtRemoteTyped().HasField("externalWeakReferenceCacheList"))
     {
-        ExtRemoteTyped externalWeakReferenceCache = threadContext.Field("externalWeakReferenceCacheList");
+        ExtRemoteTyped externalWeakReferenceCache = threadContext.GetExtRemoteTyped().Field("externalWeakReferenceCacheList");
         ULONG64 externalWeakReferenceList = externalWeakReferenceCache.GetPointerTo().GetPtr();
         if (externalWeakReferenceList != NULL)
         {
@@ -879,10 +791,10 @@ JD_PRIVATE_COMMAND(showroots,
         }
     }
 
-    ExtRemoteTyped externalRootMarker = recycler.Field("externalRootMarker");
-    if (externalRootMarker.GetPtr() != NULL)
+    ULONG64 externalRootMarker = recycler.GetExternalRootMarker();
+    if (externalRootMarker != NULL)
     {
-        Out("External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker.GetUlongPtr());
+        Out("External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker);
     }
 
     Out("\nPinned objects\n");
@@ -897,12 +809,12 @@ JD_PRIVATE_COMMAND(showroots,
     Out("Count is %d\n", count);
 
     Out("\nGuest arenas\n");
-    ULONG64 guestArenaList = recycler.Field("guestArenaList").GetPointerTo().GetPtr();
+    ULONG64 guestArenaList = recycler.GetExtRemoteTyped().Field("guestArenaList").GetPointerTo().GetPtr();
     DumpList<false>(this, guestArenaList, FillModuleAndMemoryNS("%s!%sRecycler::GuestArenaAllocator"));
 
     Out("\nExternal guest arenas\n");
 
-    ExtRemoteTyped egal = recycler.Field("externalGuestArenaList");
+    ExtRemoteTyped egal = recycler.GetExtRemoteTyped().Field("externalGuestArenaList");
     ULONG64 externalGuestArenaList = egal.GetPointerTo().GetPtr();
     DumpList<false>(this, externalGuestArenaList, "ArenaData *");
 
@@ -910,11 +822,11 @@ JD_PRIVATE_COMMAND(showroots,
     rootPointerManager.ScanRegisters(this);
     rootPointerManager.ScanStack(this, recycler, GetStackTop(GetExtension()), true, showScriptContext);
 
-    PCSTR typeName = recycler.Field("heapBlockMap").GetTypeName();
+    PCSTR typeName = recycler.GetExtRemoteTyped().Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
 }
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, ULONG64 stackTop, bool dump)
+Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop, bool dump)
 {
     RootPointerReader rootPointerManager(ext, recycler);
 
@@ -935,7 +847,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
     // Find Implicit roots
     //
 
-    if (recycler.HasField("enableScanImplicitRoots") && recycler.Field("enableScanImplicitRoots").GetStdBool())
+    if (recycler.EnableScanImplicitRoots())
     {
         rootPointerManager.ScanImplicitRoots(dump);
     }
@@ -944,9 +856,9 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
     // Find external weak referenced roots
     //
 
-    if (threadContext && threadContext->HasField("externalWeakReferenceCacheList"))
+    if (threadContext && threadContext->GetExtRemoteTyped().HasField("externalWeakReferenceCacheList"))
     {
-        ExtRemoteTyped externalWeakReferenceCache = threadContext->Field("externalWeakReferenceCacheList");
+        ExtRemoteTyped externalWeakReferenceCache = threadContext->GetExtRemoteTyped().Field("externalWeakReferenceCacheList");
         ULONG64 externalWeakReferenceList = externalWeakReferenceCache.GetPointerTo().GetPtr();
         if (externalWeakReferenceList != NULL)
         {
@@ -974,8 +886,9 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
     // Scan guest arena (if it's not pending delete)
     //
 
-    ULONG64 recyclerAddress = recycler.m_Data; // TODO: recycler needs to be a pointer to make this work
-    ULONG64 guestArenaList = recyclerAddress + recycler.GetFieldOffset("guestArenaList");
+    ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
+    ULONG64 recyclerAddress = recyclerExtRemoteTyped.m_Data; // TODO: recycler needs to be a pointer to make this work
+    ULONG64 guestArenaList = recyclerAddress + recyclerExtRemoteTyped.GetFieldOffset("guestArenaList");
 
     RemoteListIterator<false> guestArenaIterator("Recycler::GuestArenaAllocator", guestArenaList);
     while (guestArenaIterator.Next())
@@ -994,7 +907,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemote
     // Scan external guest arena
     //
 
-    ExtRemoteTyped egal = recycler.Field("externalGuestArenaList");
+    ExtRemoteTyped egal = recyclerExtRemoteTyped.Field("externalGuestArenaList");
     ULONG64 externalGuestArenaList = egal.GetPointerTo().GetPtr();
     RemoteListIterator<false> externalGuestArenaIterator("ArenaData *", externalGuestArenaList);
     while (externalGuestArenaIterator.Next())
@@ -1252,8 +1165,8 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
     }
 }
 
-template <bool predecessorsMode = false>
-void PredSuccImpl(EXT_CLASS_BASE *ext)
+template <bool predecessorsMode>
+void EXT_CLASS_BASE::PredSuccImpl()
 {
     auto predSuccFn = &DumpSuccessors<true>;
     if (predecessorsMode)
@@ -1261,14 +1174,14 @@ void PredSuccImpl(EXT_CLASS_BASE *ext)
         predSuccFn = &DumpPredecessors<true>;
     }
 
-    const ULONG64 pointerArg = ext->GetUnnamedArgU64(0);
-    const ULONG64 recyclerArg = ext->GetUnnamedArgU64(1);
-    const ULONG64 limitArg = ext->GetArgU64("limit");
-    const bool showOnlyRoots = ext->HasArg("r");
+    const ULONG64 pointerArg = GetUnnamedArgU64(0);
+    const ULONG64 recyclerArg = GetUnnamedArgU64(1);
+    const ULONG64 limitArg = GetArgU64("limit");
+    const bool showOnlyRoots = HasArg("r");
 
     if (pointerArg == NULL)
     {
-        ext->Out("Please specify a non-null object pointer.\n");
+        Out("Please specify a non-null object pointer.\n");
         return;
     }
 
@@ -1276,30 +1189,18 @@ void PredSuccImpl(EXT_CLASS_BASE *ext)
     // Perform necessary setup.
     //
 
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-    if (recyclerArg != NULL)
-    {
-        ext->Out("Manually provided Recycler pointer: 0x%p\n", recyclerArg);
-        recycler = ExtRemoteTyped(ext->FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = ext->CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(ext)));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this)));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
     // Actually dump the pointers.
     //
 
-    DumpPointerPropertiesHeader(ext);
-    predSuccFn(ext, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPointerPropertiesHeader(this);
+    predSuccFn(this, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
 template <bool links = true>
@@ -1323,7 +1224,7 @@ JD_PRIVATE_COMMAND(predecessors,
     "{r;b,o;onlyRoots;Only show predecessors which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
-    PredSuccImpl<true>(this);
+    PredSuccImpl<true>();
 }
 
 JD_PRIVATE_COMMAND(successors,
@@ -1333,7 +1234,7 @@ JD_PRIVATE_COMMAND(successors,
     "{r;b,o;onlyRoots;Only show descendants which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
-    PredSuccImpl<false>(this);
+    PredSuccImpl<false>();
 }
 
 // TODO (doilij) revise documentation for !jd.traceroots
@@ -1426,20 +1327,8 @@ JD_PRIVATE_COMMAND(traceroots,
     // Perform necessary setup.
     //
 
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-    if (recyclerArg != NULL)
-    {
-        this->Out("Manually provided Recycler pointer: 0x%p\n", recyclerArg);
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg));
 
@@ -1686,24 +1575,13 @@ JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.",
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
 
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-    if (recyclerArg != NULL)
-    {
-        this->Out("Manually provided Recycler pointer: 0x%p\n", recyclerArg);
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     RootPointerReader rootPointerManager(this, recycler, OnArenaRootScanned);
-    ULONG64 recyclerAddress = recycler.m_Data; // TODO: recycler needs to be a pointer to make this work
-    ULONG64 guestArenaList = recyclerAddress + recycler.GetFieldOffset("guestArenaList");
+    ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
+    ULONG64 recyclerAddress = recyclerExtRemoteTyped.m_Data; // TODO: recycler needs to be a pointer to make this work
+    ULONG64 guestArenaList = recyclerAddress + recyclerExtRemoteTyped.GetFieldOffset("guestArenaList");
 
     RemoteListIterator<false> guestArenaIterator("Recycler::GuestArenaAllocator", guestArenaList);
     while (guestArenaIterator.Next())
@@ -1722,7 +1600,7 @@ JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.",
     // Scan external guest arena
     //
 
-    ExtRemoteTyped egal = recycler.Field("externalGuestArenaList");
+    ExtRemoteTyped egal = recyclerExtRemoteTyped.Field("externalGuestArenaList");
     ULONG64 externalGuestArenaList = egal.GetPointerTo().GetPtr();
     RemoteListIterator<false> externalGuestArenaIterator("ArenaData *", externalGuestArenaList);
     while (externalGuestArenaIterator.Next())
@@ -1770,19 +1648,8 @@ JD_PRIVATE_COMMAND(savegraph,
         infer = false;
     }
 
-    ExtRemoteTyped threadContext;
-    ExtRemoteTyped recycler;
-    if (recyclerArg != NULL)
-    {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recyclerArg);
-        threadContext = CastWithVtable(recycler.Field("collectionWrapper"));
-    }
-    else
-    {
-        RemoteThreadContext remoteThreadContext = RemoteThreadContext::GetCurrentThreadContext();
-        threadContext = remoteThreadContext.GetExtRemoteTyped();
-        recycler = remoteThreadContext.GetRecycler().GetExtRemoteTyped();
-    }
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     if (stackPointerArg == NULL)
     {
@@ -1910,8 +1777,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         (sortByCount ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
         (sortByCount ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
 
-    ExtRemoteTyped recycler = GetRecycler(recyclerArg);
-    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext(recyclerArg).GetExtRemoteTyped();
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);    
 
     if (verbose)
     {
@@ -2099,14 +1966,14 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         const ULONG64 unknownTotalSize = totalSize - knownObjectSize;
         Out("%7I64u %11I64u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
             (double)unknownTotalCount / (double)numNodes * 100, (double)unknownTotalSize / (double)totalSize * 100);
-        Out(showUnknown ? "        | " : " Unknown object summary\n");
+        Out(showUnknown ? "         | " : " Unknown object summary\n");
 
         Out("%7I64u %11I64u %5.1f%% %5.1f%% Known object summary\n", knownObjectCount, knownObjectSize,
             (double)knownObjectCount / (double)numNodes * 100, (double)knownObjectSize / (double)totalSize * 100);
 
         if (showUnknown)
         {
-            Out("                                  | ");
+            Out("                                          | ");
         }
 
         Out("%7I64u %11I64u               Total object summary\n", numNodes, totalSize);
@@ -2126,7 +1993,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out("============================================================================================\n");
             if (javascriptLibrary != 0)
             {
-                JDRemoteTyped scriptContext = this->CastWithVtable(javascriptLibrary).Field("scriptContext");
+                JDRemoteTyped scriptContext = JDRemoteTyped::FromPtrWithVtable(javascriptLibrary).Field("scriptContext");
 
 
                 Out("Associated Library %p, ScriptContext %p", i->first, scriptContext.GetPtr());
@@ -2205,8 +2072,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     "{fu;b,o;filterUnknownType;Filter to unknown}"
     "{ft;x,o;filterType;Filter to type}")
 {
-    ULONG64 arg = GetUnnamedArgU64(0);
-    ExtRemoteTyped recycler = GetRecycler(arg);
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);    
     ULONG64 limit = GetArgU64("limit");
     ULONG64 skip = GetArgU64("skip");
 
@@ -2227,7 +2093,8 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
         return;
     }
 
-    ExtRemoteTyped threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this),
         typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));

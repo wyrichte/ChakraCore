@@ -18,6 +18,7 @@ SOURCES = \
         ..\jdbackend.cpp \
         ..\jdbytecode.cpp \
         ..\JDRemoteTyped.cpp \
+        ..\JDTypeCache.cpp \
         ..\JDBackendUtil.cpp \
         ..\RecyclerCachedData.cpp \
         ..\RecyclerList.cpp \
@@ -38,6 +39,7 @@ SOURCES = \
         ..\RemoteRecycler.cpp \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \
+        ..\RemoteBitVector.cpp \
         ..\util.cpp \
         ..\collections.cpp \
         ..\JDByteCodeCachedData.cpp\

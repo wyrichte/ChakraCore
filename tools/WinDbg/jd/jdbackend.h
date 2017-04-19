@@ -16,7 +16,7 @@ private:
     void DumpBranchInstr(ExtRemoteTyped branchInstr);
     void DumpInstrBase(ExtRemoteTyped instr);
 
-    char * GetOpndDumpString(ExtRemoteTyped opnd, char * buffer = nullptr, size_t len = 0);
+    char * GetOpndDumpString(JDRemoteTyped opnd, char * buffer = nullptr, size_t len = 0);
 
     char * GetIntConstOpndDumpString(ExtRemoteTyped opnd, char * buffer = nullptr, size_t len = 0);
     char * GetFloatConstOpndDumpString(ExtRemoteTyped opnd, char * buffer = nullptr, size_t len = 0);

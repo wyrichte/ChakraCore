@@ -103,7 +103,7 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
 }
 
 RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) : 
-    JDRemoteTyped(GetExtension()->CastWithVtable(pBody)) 
+    JDRemoteTyped(JDRemoteTyped::FromPtrWithVtable(pBody))
 {}
  
 JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* castType)
@@ -134,11 +134,11 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* 
 
     if (castType)
     {
-        ret = GetExtension()->Cast(castType, ret.GetPtr());
+        ret = ret.Cast(castType);
     }
     else if (ret.GetPtr() != 0)
     {
-        ret = GetExtension()->CastWithVtable(ret);
+        ret = ret.CastWithVtable();
     }
 
     return ret;

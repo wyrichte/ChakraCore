@@ -2,6 +2,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
+#include <comdef.h>
 
 ScriptDebugSite::ScriptDebugSite(void)
 {

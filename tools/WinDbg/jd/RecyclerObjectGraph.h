@@ -19,7 +19,7 @@ public:
     typedef Graph<ULONG64, RecyclerGraphNodeData> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
 
-    static RecyclerObjectGraph * New(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext,
+    static RecyclerObjectGraph * New(RemoteRecycler recycler, RemoteThreadContext * threadContext,
         ULONG64 stackTop,
         RecyclerObjectGraph::TypeInfoFlags typeInfoFlags = RecyclerObjectGraph::TypeInfoFlags::None);
 
@@ -28,7 +28,6 @@ public:
     void DumpForPython(const char* filename);
     void DumpForJs(const char* filename);
     void DumpForCsv(const char* filename);
-    void DumpForCsvExtended(EXT_CLASS_BASE *ext, const char* filename);
 #if ENABLE_MARK_OBJ
     void FindPathTo(RootPointers& roots, ULONG64 address, ULONG64 root);
 #endif
@@ -80,9 +79,9 @@ public:
         return false;
     }
 protected:
-    RecyclerObjectGraph(EXT_CLASS_BASE* extension, JDRemoteTyped recycler, bool verbose = false);
-    void Construct(Addresses& roots);
-    void EnsureTypeInfo(ExtRemoteTyped * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);    
+    RecyclerObjectGraph(RemoteRecycler recycler, bool verbose = false);
+    void Construct(RemoteRecycler recycler, Addresses& roots);
+    void EnsureTypeInfo(RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);    
     static ULONG64 InferJavascriptLibrary(RecyclerObjectGraph::GraphImplNodeType* node, JDRemoteTyped remoteTyped, char const * simpleTypeName);
 
     static ULONG64 TryMatchDynamicType(char const * type, RecyclerObjectGraph::GraphImplNodeType* pred, char const * field, RecyclerObjectGraph::GraphImplNodeType* node);
@@ -90,16 +89,18 @@ protected:
     static ULONG64 TryInferVarJavascriptLibrary(JDRemoteTyped& remoteTyped);
 
     typedef std::pair<RemoteHeapBlock *, GraphImplNodeType *> MarkStackEntry;
-
+    struct ConstructData
+    {
+        ConstructData(RemoteRecycler recycler) : recycler(recycler), hbm(recycler.GetHeapBlockMap()) {};
+        RemoteRecycler recycler;
+        RemoteHeapBlockMap hbm;
+        std::stack<MarkStackEntry> markStack;
+    };
     void ClearTypeInfo();
-    void MarkObject(std::stack<MarkStackEntry>& markStack, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
-    void ScanBytes(std::stack<MarkStackEntry>& markStack, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
+    void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
+    void ScanBytes(ConstructData& constructData, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
 
     GraphImplType _objectGraph;
-
-    RemoteHeapBlockMap m_hbm;
-    EXT_CLASS_BASE* _ext;
-    HeapBlockAlignmentUtility _alignmentUtility;
     bool _verbose;
     bool m_trident;
     bool m_hasTypeName;

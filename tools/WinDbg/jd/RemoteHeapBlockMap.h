@@ -13,10 +13,10 @@ class RemoteHeapBlockMap
 {
 public:
     typedef stdext::hash_map<ULONG64, RemoteHeapBlock> Cache;
-    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache = true);
+    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap);
 
     template <typename Fn>
-    bool ForEachHeapBlock(ExtRemoteTyped& heapBlockMap, Fn fn);
+    bool ForEachHeapBlock(Fn fn);
 
     template <typename Fn>
     bool ForEachHeapBlockDirect(ExtRemoteTyped& heapBlockMap, Fn processFunction);
@@ -32,37 +32,31 @@ private:
     template <typename Fn>
     bool ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& l2ChunkArray, Fn processFunction);
 
-protected:
+protected:    
     Cache * cachedHeapBlock;
     ULONG64 l1ChunkSize;
     ULONG64 l2ChunkSize;
 };
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlock(ExtRemoteTyped& heapBlockMap, Fn fn)
+bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
 {
-    if (cachedHeapBlock)
+    for (auto i = cachedHeapBlock->begin(); i != cachedHeapBlock->end(); i++)
     {
-        for (auto i = cachedHeapBlock->begin(); i != cachedHeapBlock->end(); i++)
+        RemoteHeapBlock& remoteHeapBlock = (*i).second;
+        if ((*i).first != remoteHeapBlock.GetAddress())
         {
-            RemoteHeapBlock& remoteHeapBlock = (*i).second;
-            if ((*i).first != remoteHeapBlock.GetAddress())
-            {
-                // Skip heap block that are not at the beginning of the address, to avoid repeats
-                continue;
-            }
-
-            if (fn((*i).second))
-            {
-                return true;
-            }
+            // Skip heap block that are not at the beginning of the address, to avoid repeats
+            continue;
         }
 
-        return false;
+        if (fn((*i).second))
+        {
+            return true;
+        }
     }
 
-    return ForEachHeapBlockDirect(heapBlockMap,
-        [&](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock) { return fn(heapBlock); });
+    return false;
 }
 
 template <typename Fn>

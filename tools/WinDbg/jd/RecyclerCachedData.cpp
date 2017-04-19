@@ -6,17 +6,39 @@
 #include "recyclerroots.h"
 #include "RemoteHeapBlockMap.h"
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, ExtRemoteTyped* threadContext, ULONG64 stackTop, bool dump);
+Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, bool dump);
 
 static char const * StaticGetSmallHeapBlockTypeName()
 {
-    return GetExtension()->GetSmallHeapBlockTypeName();
+    auto ext = GetExtension();
+    if (ext->HasMemoryNS())
+    {
+        return ext->FillModule("%s!Memory::SmallHeapBlockT<SmallAllocationBlockAttributes>");
+    }
+    else
+    {
+        return ext->FillModule("%s!SmallHeapBlock");
+    }
+}
+
+static char const * StaticGetSmallFinalizableHeapBlockTypeName()
+{
+    auto ext = GetExtension();
+    if (ext->HasMemoryNS())
+    {
+        return ext->FillModule("%s!Memory::SmallFinalizableHeapBlockT<SmallAllocationBlockAttributes>");
+    }
+    else
+    {
+        return ext->FillModule("%s!SmallFinalizableHeapBlock");
+    }
 }
 
 RecyclerCachedData::RecyclerCachedData(EXT_CLASS_BASE * ext) :
     _ext(ext),
     m_heapBlockTypeInfo("HeapBlock", true),
     m_smallHeapBlockTypeInfo(StaticGetSmallHeapBlockTypeName),
+    m_smallFinalizableHeapBlockTypeInfo(StaticGetSmallFinalizableHeapBlockTypeName),
     m_largeHeapBlockTypeInfo("LargeHeapBlock", true),
     m_blockTypeEnumInitialized(false),
     m_mphblockTypeEnumInitialized(false),
@@ -61,13 +83,13 @@ void RecyclerCachedData::CacheRecyclerObjectGraph(ULONG64 recyclerAddress, Recyc
     cachedObjectGraph = graph;
 }
 
-Addresses * RecyclerCachedData::GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop)
+Addresses * RecyclerCachedData::GetRootPointers(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop)
 {
-    ExtRemoteTyped externalRootMarker = recycler.Field("externalRootMarker");
+    ULONG64 externalRootMarker = recycler.GetExternalRootMarker();
 
-    if (externalRootMarker.GetPtr() != 0)
+    if (externalRootMarker != 0)
     {
-        _ext->Out("WARNING: External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker.GetPtr());
+        _ext->Out("WARNING: External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker);
     }
 
     auto i = rootPointersCache.find(recycler.GetPtr());
@@ -131,6 +153,11 @@ ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)
 ExtRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
 {
     return m_smallHeapBlockTypeInfo.Cast(address);
+}
+
+ExtRemoteTyped RecyclerCachedData::GetAsSmallFinalizableHeapBlock(ULONG64 address)
+{
+    return m_smallFinalizableHeapBlockTypeInfo.Cast(address);
 }
 
 bool RecyclerCachedData::GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory)

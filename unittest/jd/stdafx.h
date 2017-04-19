@@ -28,7 +28,6 @@
 #include <set>
 #include <string>
 #include <hash_map>
-#include <comdef.h>
 #include <strsafe.h>
 
 #include "edgescriptDirect.h"

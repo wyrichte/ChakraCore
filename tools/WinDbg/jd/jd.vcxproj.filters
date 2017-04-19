@@ -36,6 +36,8 @@
     <ClCompile Include="JDBackendUtil.cpp" />
     <ClCompile Include="RemoteUtf8SourceInfo.cpp" />
     <ClCompile Include="RemoteScriptContext.cpp" />
+    <ClCompile Include="JDTypeCache.cpp" />
+    <ClCompile Include="RemoteBitVector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -78,6 +80,9 @@
     <ClInclude Include="JDBackendUtil.h" />
     <ClInclude Include="RemoteUtf8SourceInfo.h" />
     <ClInclude Include="RemoteScriptContext.h" />
+    <ClInclude Include="JDTypeCache.h" />
+    <ClInclude Include="RemoteObjectInfoBits.h" />
+    <ClInclude Include="RemoteBitVector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

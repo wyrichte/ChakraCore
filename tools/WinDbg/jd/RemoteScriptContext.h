@@ -12,15 +12,24 @@ class RemoteScriptContext
 {
 public:
     RemoteScriptContext();
+    RemoteScriptContext(ULONG64 address);
     RemoteScriptContext(ExtRemoteTyped const& scriptContext);
     
+    ULONG64 GetPtr();
+
     JDRemoteTyped GetJavascriptLibrary()
     {
         return scriptContext.Field("javascriptLibrary");
     }
 
+    bool IsClosed();
+    bool IsScriptContextActuallyClosed();
+
     RemoteThreadContext GetThreadContext();
-    ExtRemoteTyped GetHostScriptContext();
+    JDRemoteTyped GetHostScriptContext();
+    JDRemoteTyped GetSourceList();
+    JDRemoteTyped GetUrl();
+
     void PrintReferencedPids();
 
     template <class Fn>
@@ -107,6 +116,8 @@ public:
         forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("foregroundAllocators"));
         forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
     }
+
+    static bool TryGetScriptContextFromPointer(ULONG64 pointer, RemoteScriptContext& remoteScriptContext);
 private:
     template <class Fn>
     void ForEachCodeGenAllocatorPageAllocator(ExtRemoteTyped codeGenAllocators, bool foreground, bool useCodePageAllocators, Fn fn)
@@ -131,7 +142,7 @@ private:
             fn(foreground ? "FG-Code" : "BG-Code", RemotePageAllocator(customHeap.Field("pageAllocator")));
         }
     };
-    ExtRemoteTyped scriptContext;
+    JDRemoteTyped scriptContext;
 };
 
 // ---- End jd private commands implementation ----------------------------------------------------

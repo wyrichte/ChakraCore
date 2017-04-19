@@ -27,6 +27,8 @@ class RootPointers;
 #include "JDByteCodeCachedData.h"
 #endif
 
+#include "JDTypeCache.h"
+
 enum CommandOutputType
 {
     NormalOutputType,
@@ -113,7 +115,7 @@ public:
 // ------------------------------------------------------------------------------------------------
 #ifdef JD_PRIVATE
 public:
-    friend class HeapBlockHelper;
+    friend class ObjectInfoHelper;
     friend class RecyclerObjectGraph;
 
     template <bool slist> 
@@ -157,6 +159,7 @@ public:
         std::string GetNameStringByPropertyId(ULONG propertyId);
     };
 
+    bool HasMemoryNS();
     PCSTR FillModule(PCSTR fmt); // results share one buffer
     PCSTR FillModule2(PCSTR fmt); // results share one buffer
     PCSTR FillModuleV(PCSTR fmt, ...);
@@ -171,10 +174,6 @@ public:
     PCSTR GetPageSegmentType();
 
     ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);
-    JDRemoteTyped Cast(LPCSTR typeName, ULONG64 original);
-    JDRemoteTyped CastWithVtable(ULONG64 address, char const ** typeName = nullptr);
-    JDRemoteTyped CastWithVtable(ExtRemoteTyped original, char const ** typeName = nullptr);    
-    char const * GetTypeNameFromVTablePointer(ULONG64 vtableAddr);
 
     ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
@@ -191,7 +190,7 @@ public:
     BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
 #undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
-    stdext::hash_map<LPCSTR, std::pair<ULONG64, ULONG>> cacheTypeInfoCache;
+    
     FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
     RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;    
@@ -214,38 +213,32 @@ public:
     }
 #endif
 private:
-    bool CastWithVtable(ULONG64 address, JDRemoteTyped& result, char const ** typeName = nullptr);
-    bool HasMultipleSymbol(ULONG64 address);
 
 #ifdef JD_PRIVATE
     JDByteCodeCachedData byteCodeCachedData;
 #endif
 
 protected:
-    size_t GetBVFixedAllocSize(int length);
     void DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeField, int index);
-    bool TestFixed(ULONG64 bitVector, int index, ExtRemoteTyped& bvUnit);
     void DisplayLargeHeapBlockInfo(ExtRemoteTyped& largeHeapBlock);
-    void DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, ExtRemoteTyped recycler);
-    void DisplayPageAllocatorInfo(ExtRemoteTyped pageAllocator, CommandOutputType outputType = NormalOutputType);
+    void DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, RemoteRecycler recycler);
+    void DisplayPageAllocatorInfo(JDRemoteTyped pageAllocator, CommandOutputType outputType = NormalOutputType);
     void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
     bool HasType(const char* moduleName, const char* typeName);
     PCSTR GetModuleName();
-    bool HasMemoryNS();
     PCSTR GetMemoryNS();
  
-    ExtRemoteTyped GetRecycler(ULONG64 optionalRecyclerAddress);
     ExtRemoteTyped GetInternalStringBuffer(ExtRemoteTyped internalString);
     ExtRemoteTyped GetPropertyName(ExtRemoteTyped propertyNameListEntry);
     ULONG GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer);
 
-    void PrintScriptContextUrl(ExtRemoteTyped scriptContext, bool showAll, bool showLink);
-    void PrintThreadContextUrl(ExtRemoteTyped threadContext, bool showAll, bool showLink, bool isCurrentThreadContext = false);
+    void PrintScriptContextUrl(RemoteScriptContext scriptContext, bool showAll, bool showLink);
+    void PrintThreadContextUrl(RemoteThreadContext threadContext, bool showAll, bool showLink, bool isCurrentThreadContext = false);
     void PrintAllUrl(bool showAll, bool showLink);
 
-    void PrintScriptContextSourceInfos(ExtRemoteTyped scriptContext, bool printOnlyCount, bool printSourceContextInfo);
-    void PrintThreadContextSourceInfos(ExtRemoteTyped threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
+    void PrintScriptContextSourceInfos(RemoteScriptContext scriptContext, bool printOnlyCount, bool printSourceContextInfo);
+    void PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
     void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
 
     bool IsInt31Var(ULONG64 var, int* value);
@@ -273,7 +266,6 @@ protected:
     void EnsureStackFrame(int frame = -1);
     void Print(IJsDebugProperty* prop, int radix, int maxDepth = 3);
     void Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int depth, int maxDepth);
-    void ValidateEvaluateFullName(const JsDebugPropertyInfo& info, int radix);
     
     bool DoInt32Var() const { return this->m_PtrSize == 8; };  // 64-bit use int32 var
     bool DoFloatVar() const { return this->m_PtrSize == 8; };  // 64-bit use float var
@@ -287,21 +279,19 @@ protected:
             || (Qualifier & DEBUG_USER_WINDOWS_SMALL_DUMP);
     }
 
-protected:
     void ClearCache()
     {
         this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
-        this->vtableTypeIdMap.clear();
-        for (auto i = this->vtableTypeNameMap.begin(); i != this->vtableTypeNameMap.end(); i++)
-        {
-            delete (*i).second;
-        }
-        this->vtableTypeNameMap.clear();
+        this->typeCache.Clear();
         this->chakraModuleBaseAddress = 0;
         this->chakraModuleEndAddress = 0;
     }
 
+    static RemoteRecycler GetRecycler(ULONG64 recyclerPtr, RemoteThreadContext * threadContext = nullptr);
+
+    template <bool predecessorsMode = false>
+    void PredSuccImpl();
 public:
     template<typename T>
     T GetNumberValue(ExtRemoteTyped var)
@@ -350,10 +340,8 @@ protected:
     bool m_isCachedHasMemoryNS;
     bool m_hasMemoryNS;
 
-    std::map<ULONG64, std::pair<ULONG64, ULONG>> vtableTypeIdMap;
-    std::map<ULONG64, std::string *> vtableTypeNameMap;
-
-    bool m_isOverrideAddedToVtableTypeNameMap;
+    friend class JDTypeCache;
+    JDTypeCache typeCache;    
     
 #endif //JD_PRIVATE
 };
@@ -392,7 +380,6 @@ public:
     JD_PRIVATE_COMMAND_METHOD(url);
     JD_PRIVATE_COMMAND_METHOD(sourceInfos);
     JD_PRIVATE_COMMAND_METHOD(jstack);
-    JD_PRIVATE_COMMAND_METHOD(gcstats);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);

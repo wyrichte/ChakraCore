@@ -36,8 +36,10 @@ SOURCES = \
         ..\RemoteUtf8SourceInfo.cpp \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \
+        ..\RemoteBitVector.cpp \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
+        ..\JDTypeCache.cpp \
         ..\JDBackendUtil.cpp \
         ..\util.cpp \
         ..\collections.cpp \

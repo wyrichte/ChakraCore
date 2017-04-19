@@ -8,11 +8,11 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
-RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap, bool cache)
+RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
 {
     ULONG64 heapBlockMapAddr = heapBlockMap.GetPointerTo().GetPtr();
     cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMapAddr);
-    if (cachedHeapBlock == nullptr && cache)
+    if (cachedHeapBlock == nullptr)
     {
         auto start = _time64(nullptr);
         std::auto_ptr<Cache> localCachedHeapBlock(new Cache());

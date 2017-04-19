@@ -13,6 +13,8 @@ class EXT_CLASS_BASE;
 class Addresses;
 class RootPointers;
 class RecyclerObjectGraph;
+class RemoteRecycler;
+class RemoteThreadContext;
 
 #define BLOCKTYPELIST(MACRO) \
     MACRO(SmallNormalBlockType) \
@@ -41,7 +43,7 @@ class RecyclerCachedData
 public:
     RecyclerCachedData(EXT_CLASS_BASE * ext);
     
-    Addresses * GetRootPointers(ExtRemoteTyped recycler, ExtRemoteTyped * threadContext, ULONG64 stackTop);
+    Addresses * GetRootPointers(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop);
 
     RemoteHeapBlockMap::Cache * GetHeapBlockMap(ULONG64 heapBlockMapAddr);
     void SetHeapBlockMap(ULONG64 heapBlockMapAddr, RemoteHeapBlockMap::Cache * cache);
@@ -51,6 +53,7 @@ public:
     ExtRemoteTyped GetAsHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
+    ExtRemoteTyped GetAsSmallFinalizableHeapBlock(ULONG64 address);
 
     RemoteHeapBlock * FindCachedHeapBlock(ULONG64 address);
 
@@ -88,6 +91,7 @@ private:
 
     CachedTypeInfo m_heapBlockTypeInfo;
     CachedTypeInfo m_smallHeapBlockTypeInfo;
+    CachedTypeInfo m_smallFinalizableHeapBlockTypeInfo;
     CachedTypeInfo m_largeHeapBlockTypeInfo;
     EXT_CLASS_BASE * _ext;
     bool m_blockTypeEnumInitialized;

@@ -5,17 +5,13 @@
 #pragma once
 #include "stdafx.h"
 #include "RemoteHeapBlock.h"
-
-// TODO: Get this from the PDB
-#define LeafBit 0x20
-#define PendingDisposeBit 0x40
+#include "RemoteObjectInfoBits.h"
+#include "RemoteBitVector.h"
 
 bool HeapObjectInfo::IsLeaf()
 {
-    return (attributes & LeafBit) != 0;
+    return (attributes & RemoteObjectInfoBits::LeafBit) != 0;
 }
-
-RemoteHeapBlock RemoteHeapBlock::NullHeapBlock;
 
 RemoteHeapBlock::RemoteHeapBlock()
     : heapBlockAddress(0), hasCachedTotalObjectCountAndSize(true), bucketObjectSize((ULONG)-1),
@@ -89,6 +85,10 @@ RemoteHeapBlock::GetExtRemoteTyped()
     {
         return GetExtension()->recyclerCachedData.GetAsLargeHeapBlock(heapBlockAddress);
     }
+    if (IsFinalizableHeapBlock())
+    {
+        return GetExtension()->recyclerCachedData.GetAsSmallFinalizableHeapBlock(heapBlockAddress);
+    }
     return GetExtension()->recyclerCachedData.GetAsSmallHeapBlock(heapBlockAddress);
 }
 
@@ -96,6 +96,30 @@ char
 RemoteHeapBlock::GetType()
 {
     return type;
+}
+
+bool
+RemoteHeapBlock::IsSmallNormalHeapBlock()
+{
+    return type == GetExtension()->enum_SmallNormalBlockType();
+}
+
+bool
+RemoteHeapBlock::IsMediumNormalHeapBlock()
+{
+    return type == GetExtension()->enum_MediumNormalBlockType();
+}
+
+bool
+RemoteHeapBlock::IsSmallNormalWithBarrierHeapBlock()
+{
+    return type == GetExtension()->enum_SmallNormalBlockWithBarrierType();
+}
+
+bool
+RemoteHeapBlock::IsMediumNormalWithBarrierHeapBlock()
+{
+    return type == GetExtension()->enum_MediumNormalBlockWithBarrierType();
 }
 
 bool
@@ -239,6 +263,47 @@ ULONG64 RemoteHeapBlock::GetObjectAddressFromIndex(ULONG objectIndex)
     return objectIndex * this->GetBucketObjectSize() + this->GetAddress();
 }
 
+// Similar logic as SmallHeapBlock::GetAddressBitIndex
+USHORT RemoteHeapBlock::GetAddressBitIndex(ULONG64 objectAddress)
+{
+    Assert(!this->IsLargeHeapBlock());
+    ULONG numBits = ((GetExtRemoteTyped().Field("freeBits").GetTypeSize() * 8));
+    return (USHORT)((objectAddress >> this->GetRecycler().GetObjectAllocationShift()) % numBits);
+}
+
+RemoteBitVector RemoteHeapBlock::GetMarkBits()
+{
+    Assert(!this->IsLargeHeapBlock());  // TODO
+
+    JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
+    if (heapBlockObject.HasField("markBits"))
+    {
+        return heapBlockObject.Field("markBits");
+    }
+
+    // Before CL#884601 on 2011/09/09, pre-win8.1
+    ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+    ULONG64 markBitVectorAddress = (heapBlockAddress + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* GetTotalObjectCount(), g_Ext->m_PtrSize));
+    return RemoteBitVector::FromBVFixedPointer(markBitVectorAddress);
+}
+
+RemoteBitVector RemoteHeapBlock::GetFreeBits()
+{
+    Assert(!this->IsLargeHeapBlock());  // Large heap block don't have free bit vectors
+
+    JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
+    if (heapBlockObject.HasField("freeBits"))
+    {
+        return heapBlockObject.Field("freeBits");
+    }
+
+    // Before CL#884601 on 2011/09/09, pre-win8.1
+    ULONG64 sizeOfHeapBlock = heapBlockObject.GetTypeSize();
+    ULONG64 freeBitVectorAddress = (heapBlockAddress + sizeOfHeapBlock + Math::Align<ULONG>(sizeof(unsigned char)* GetTotalObjectCount(), g_Ext->m_PtrSize) +
+        RemoteBitVector::GetBVFixedAllocSize(GetTotalObjectCount()));
+    return RemoteBitVector::FromBVFixedPointer(freeBitVectorAddress);
+}
+
 void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
 {
     if (hasCachedAllocatedObjectCountAndSize)
@@ -364,13 +429,18 @@ ULONG RemoteHeapBlock::GetLargeHeapBlockHeaderList(JDRemoteTyped& headerList)
     return heapBlock.Field("allocCount").GetUlong();
 }
 
-ULONG RemoteHeapBlock::GetRecyclerCookie()
+RemoteRecycler RemoteHeapBlock::GetRecycler()
 {
     if (IsLargeHeapBlock())
     {
-        return GetExtRemoteTyped().Field("heapInfo").Field("recycler").Field("Cookie").GetUlong();
+        return RemoteRecycler(GetExtRemoteTyped().Field("heapInfo").Field("recycler"));
     }
-    return GetExtRemoteTyped().Field("bucket").Field("heapInfo").Field("recycler").Field("Cookie").GetUlong();
+    return RemoteRecycler(GetExtRemoteTyped().Field("heapBucket").Field("heapInfo").Field("recycler"));
+}
+
+ULONG RemoteHeapBlock::GetRecyclerCookie()
+{
+    return GetRecycler().GetCookie();
 }
 
 bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObjectInfo& info, bool interior, bool verbose)
@@ -521,7 +591,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
     }
 
 
-    if (attributes & PendingDisposeBit)
+    if (attributes & RemoteObjectInfoBits::PendingDisposeBit)
     {
         if (verbose)
         {
