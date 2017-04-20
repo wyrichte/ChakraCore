@@ -35,6 +35,9 @@ Test callable object
 we are in the object entry
 
 Test non-callable object
+Test WeakMap
+function foobar() { return 10; }
+WeakMap tests succeeded
 Total Test Cases  0
 Passed:  0
 Failed   0

@@ -13,6 +13,7 @@
 
 #include "Library\JavascriptRegularExpression.h"
 #include "Library\JavascriptPromise.h"
+#include "Library\JavascriptWeakMap.h"
 
 #include "RegexCommon.h"
 #include "Library\RegexHelper.h"
@@ -2367,6 +2368,163 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureObjectFreezeFunction(
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
 
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateWeakMap(__out Var *mapInstance)
+{
+    IfNullReturnError(mapInstance, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (SUCCEEDED(hr))
+    {
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            *mapInstance = scriptContext->GetLibrary()->CreateWeakMap();
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapHas(Var mapInstance, Var key, __out bool *has)
+{
+    IfNullReturnError(mapInstance, E_INVALIDARG);
+    IfNullReturnError(key, E_INVALIDARG);
+    IfNullReturnError(has, E_INVALIDARG);
+    *has = false;
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    
+    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+    {
+        return E_INVALIDARG;
+    }
+
+    if (Js::JavascriptOperators::IsObject(key) && Js::JavascriptOperators::GetTypeId(key) != TypeIds_HostDispatch)
+    {
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
+            *has = map->Has(Js::DynamicObject::FromVar(key1));
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapSet(Var mapInstance, Var key, Var value)
+{
+    IfNullReturnError(mapInstance, E_INVALIDARG);
+    IfNullReturnError(key, E_INVALIDARG);
+    IfNullReturnError(value, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    if (!Js::JavascriptWeakMap::Is(mapInstance)
+        || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext
+        || !Js::JavascriptOperators::IsObject(key)
+        || Js::JavascriptOperators::GetTypeId(key) == TypeIds_HostDispatch)
+    {
+        return E_INVALIDARG;
+    }
+
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+        Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
+        map->Set(Js::DynamicObject::FromVar(key1), Js::CrossSite::MarshalVar(scriptContext, value));
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapGet(Var mapInstance, Var key, __out Var *value, __out bool *found)
+{
+    IfNullReturnError(mapInstance, E_INVALIDARG);
+    IfNullReturnError(key, E_INVALIDARG);
+    IfNullReturnError(value, E_INVALIDARG);
+    IfNullReturnError(found, E_INVALIDARG);
+    *value = nullptr;
+    *found = false;
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+    {
+        return E_INVALIDARG;
+    }
+
+    if (Js::JavascriptOperators::IsObject(key) && Js::JavascriptOperators::GetTypeId(key) != TypeIds_HostDispatch)
+    {
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Var value1 = nullptr;
+            *found = map->Get(Js::DynamicObject::FromVar(key), &value1);
+            if (*found)
+            {
+                *value = Js::CrossSite::MarshalVar(scriptContext, value1);
+            }
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapDelete(Var mapInstance, Var key, __out bool *result)
+{
+    IfNullReturnError(mapInstance, E_INVALIDARG);
+    IfNullReturnError(key, E_INVALIDARG);
+    IfNullReturnError(result, E_INVALIDARG);
+    *result = false;
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+    {
+        return E_INVALIDARG;
+    }
+
+    if (Js::JavascriptOperators::IsObject(key) && Js::JavascriptOperators::GetTypeId(key) != TypeIds_HostDispatch)
+    {
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
+            *result = map->Delete(Js::DynamicObject::FromVar(key1));
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
     return hr;
 }
 

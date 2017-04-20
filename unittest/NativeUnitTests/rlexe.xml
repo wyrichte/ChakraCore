@@ -94,7 +94,6 @@
       <baseline>Int64.baseline</baseline>
     </default>
   </test>
-  <!-- 10/6/2016:suwc:REL1611_MSRC34883_BUG8714013:disabled due to baseline change;re-enable after REL1611
   <test>
     <default>
       <tags>exclude_jsrt</tags>
@@ -102,7 +101,7 @@
       <files>dummy.js</files>
       <baseline>BasicTest.baseline</baseline>
     </default>
-  </test> -->
+  </test>
   <test>
     <default>
       <tags>exclude_jsrt</tags>

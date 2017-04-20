@@ -261,4 +261,38 @@ namespace JsStaticAPI
         return scriptContextBase->GetLibrary()->GetPropertyIdSymbolIterator();
     }
 
+    Var  JavascriptLibrary::CreateWeakMap(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        Var mapInstance = nullptr;
+        if (scriptEngineBase->CreateWeakMap(&mapInstance) != S_OK)
+        {
+            mapInstance = nullptr;
+        }
+        return mapInstance;
+    }
+
+    HRESULT JavascriptLibrary::WeakMapHas(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* has)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->WeakMapHas(instance, key, has);
+    }
+
+    HRESULT JavascriptLibrary::WeakMapSet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, Var value)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->WeakMapSet(instance, key, value);
+    }
+
+    HRESULT JavascriptLibrary::WeakMapGet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out Var *value, __out bool* result)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->WeakMapGet(instance, key, value, result);
+    }
+
+    HRESULT JavascriptLibrary::WeakMapDelete(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* result)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->WeakMapDelete(instance, key, result);
+    }
 }

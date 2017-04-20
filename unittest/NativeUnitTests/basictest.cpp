@@ -1,6 +1,10 @@
 
 #include "stdafx.h"
 #include "ScriptDirectUnitTests.h"
+#include "edgejsStatic.h"
+#ifdef _NTBUILD
+#include <VerifyGlobalMSRCSettings.inl>
+#endif
 
 Var MyObjectConstructor(Var function, CallInfo callInfo, Var* args)
 {
@@ -727,6 +731,132 @@ static HRESULT TestCallable(IActiveScriptDirect* activeScriptDirect)
     return hr;
 }
 
+static HRESULT TestWeakMap(IActiveScriptDirect* activeScriptDirect)
+{
+    HRESULT hr = S_OK;
+    Print("Test WeakMap");
+
+    // First create three objects (keys) and three values.
+
+    Var key1, key2;
+    Var value1, value2, value3;
+
+    CallInfo callInfo = { 0, CallFlags_None };
+    Var topFunc;
+    IfFailedReturn(activeScriptDirect->Parse(_u("function foobar() { return 10; }"), &topFunc));
+    Var varResult;
+    IfFailedReturn(activeScriptDirect->Execute(topFunc, callInfo, NULL, /*servicerProvider*/ NULL, &varResult));
+
+    Var globalObject;
+    IfFailedReturn(activeScriptDirect->GetGlobalObject((Var*)&globalObject));
+
+    CComPtr<IJavascriptOperations> jsOps;
+    IfFailedReturn(activeScriptDirect->GetJavascriptOperations(&jsOps));
+
+    PropertyId foolBarId;
+    IfFailedReturn(activeScriptDirect->GetOrAddPropertyId(_u("foobar"), &foolBarId));
+    Var foobarObject;
+    IfFailedReturn(jsOps->GetProperty(activeScriptDirect, globalObject, foolBarId, &foobarObject));
+    PrintVar(activeScriptDirect, foobarObject);
+
+    IfFailedReturn(activeScriptDirect->CreateObject(&key1));
+    IfFailedReturn(activeScriptDirect->CreateArrayObject(2, &key2));
+
+    LPWSTR funName = _u("value1");
+    IfFailedReturn(activeScriptDirect->StringToVar(funName, static_cast<int>(wcslen(funName)), &value1));
+    IfFailedReturn(activeScriptDirect->CreateArrayObject(1, &value2));
+    IfFailedReturn(activeScriptDirect->IntToVar(100, &value3));
+
+    // Now add those three objects and values to the map.
+
+    Var map = JsStaticAPI::JavascriptLibrary::CreateWeakMap(activeScriptDirect);
+
+    if (map == nullptr)
+    {
+        Print("Failed - weakmap not created");
+        return E_FAIL;
+    }
+
+    IfFailedReturn(JsStaticAPI::JavascriptLibrary::WeakMapSet(activeScriptDirect, map, key1, value1));
+    IfFailedReturn(JsStaticAPI::JavascriptLibrary::WeakMapSet(activeScriptDirect, map, key2, value2));
+    IfFailedReturn(JsStaticAPI::JavascriptLibrary::WeakMapSet(activeScriptDirect, map, foobarObject, value3));
+
+    bool has = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapHas(activeScriptDirect, map, key1, &has) != S_OK || !has)
+    {
+        Print("Failed - WeakMapHas has failed for key1");
+        return E_FAIL;
+    }
+
+    has = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapHas(activeScriptDirect, map, key2, &has) != S_OK || !has)
+    {
+        Print("Failed - WeakMapHas has failed for key2");
+        return E_FAIL;
+    }
+
+    has = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapHas(activeScriptDirect, map, foobarObject, &has) != S_OK || !has)
+    {
+        Print("Failed - WeakMapHas has failed for foobarObject");
+        return E_FAIL;
+    }
+
+    // This should fail as there is no value1 as a key
+    has = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapHas(activeScriptDirect, map, value1, &has) != S_OK || has)
+    {
+        Print("Failed - WeakMapHas should not have value1");
+        return E_FAIL;
+    }
+
+    Var result;
+    bool found = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapGet(activeScriptDirect, map, key1, &result, &found) != S_OK || !found || result != value1)
+    {
+        Print("Failed - unable to get value for key1");
+        return E_FAIL;
+    }
+
+    found = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapGet(activeScriptDirect, map, key2, &result, &found) != S_OK || !found || result != value2)
+    {
+        Print("Failed - unable to get value for key2");
+        return E_FAIL;
+    }
+
+    found = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapGet(activeScriptDirect, map, foobarObject, &result, &found) != S_OK || !found || result != value3)
+    {
+        Print("Failed - unable to get value for foobarObject");
+        return E_FAIL;
+    }
+
+    found = false;
+    if (JsStaticAPI::JavascriptLibrary::WeakMapDelete(activeScriptDirect, map, key1, &found) != S_OK || !found)
+    {
+        Print("Failed - unable to delete value for key1");
+        return E_FAIL;
+    }
+
+    if (JsStaticAPI::JavascriptLibrary::WeakMapHas(activeScriptDirect, map, key1, &has) != S_OK || has)
+    {
+        Print("Failed - key1 should have been deleted");
+        return E_FAIL;
+    }
+
+    // Some error conditions
+    if (JsStaticAPI::JavascriptLibrary::WeakMapSet(activeScriptDirect, key1, key1, value1) != E_INVALIDARG)
+    {
+        Print("Failed - no map instances provided");
+        return E_FAIL;
+    }
+
+    Print("WeakMap tests succeeded");
+
+    return hr;
+}
+
 void RunBasicTests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests>* verify)
 {
     HRESULT hr;
@@ -766,6 +896,10 @@ void RunBasicTests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests>* v
             hr = TestCallable(mytest->GetScriptDirectNoRef());
         }
 
+        if (SUCCEEDED(hr))
+        {
+            hr = TestWeakMap(mytest->GetScriptDirectNoRef());
+        }
 
         if (FAILED(hr))
         {

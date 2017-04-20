@@ -76,6 +76,12 @@ namespace JsStaticAPI
         static Var __stdcall GetArrayValuesFunction(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetArrayEntriesFunction(IActiveScriptDirect* activeScriptDirect);
         static PropertyId __stdcall GetPropertyIdSymbolIterator(IActiveScriptDirect* activeScriptDirect);
+
+        static Var __stdcall CreateWeakMap(IActiveScriptDirect* activeScriptDirect);
+        static HRESULT __stdcall WeakMapHas(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* has);
+        static HRESULT __stdcall WeakMapSet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, Var value);
+        static HRESULT __stdcall WeakMapGet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out Var *value, __out bool* result);
+        static HRESULT __stdcall WeakMapDelete(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* result);
     };
 
     class DataConversion

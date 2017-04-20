@@ -522,6 +522,12 @@ public:
     virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeEntriesFunction(__out Var* func);
     virtual HRESULT STDMETHODCALLTYPE EnsureArrayPrototypeValuesFunction(__out Var* func);
 
+    virtual HRESULT STDMETHODCALLTYPE CreateWeakMap(__out Var *mapInstance);
+    virtual HRESULT STDMETHODCALLTYPE WeakMapHas(Var mapInstance, Var key, __out bool *has);
+    virtual HRESULT STDMETHODCALLTYPE WeakMapSet(Var mapInstance, Var key, Var value);
+    virtual HRESULT STDMETHODCALLTYPE WeakMapGet(Var mapInstance, Var key, __out Var *value, __out bool *found);
+    virtual HRESULT STDMETHODCALLTYPE WeakMapDelete(Var mapInstance, Var key, __out bool *has);
+
 public:
     Js::ScriptContext*  scriptContext;
 
