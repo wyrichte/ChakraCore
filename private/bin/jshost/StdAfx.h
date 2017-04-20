@@ -153,12 +153,10 @@
 typedef HRESULT (*DoOneIterationPtr)(BSTR filename);
 void __stdcall PrintUsage();
 int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pfDoOneIteration, bool useChakra = false);
-int ExecuteLSTests(int argc, __in_ecount(argc) LPWSTR argv[]);
 int _cdecl ExecuteHtmlTests(int argc, __in_ecount(argc) LPWSTR argv[]);
 
 //--- BEGIN HtmlHost
 void PrintDISPID(DISPID dispidMember);
-void PrintBSTR(BSTR bstr);
 void QuitHtmlHost();
 extern HINSTANCE g_hInst;
 extern LPAPP g_pApp;

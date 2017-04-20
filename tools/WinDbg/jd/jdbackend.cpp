@@ -157,7 +157,7 @@ char * JDBackend::GetAddrOpndDumpString(ExtRemoteTyped opnd, char * buffer, size
     }
     else
     {
-        RETURNBUFFER("0x%p", opnd.Field("m_address").GetPtr());
+        RETURNBUFFER("0x%X", (ULONG)opnd.Field("m_address").GetPtr());
     }
 }
 
@@ -193,7 +193,14 @@ char * JDBackend::GetLabelOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 }
 char * JDBackend::GetMemRefOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {
-    RETURNBUFFER("[0x%p]", opnd.Field("m_memLoc").GetPtr());
+    if (ext->IsCurMachine64())
+    {
+        RETURNBUFFER("[0x%I64X]", opnd.Field("m_memLoc").GetPtr());
+    }
+    else
+    {
+        RETURNBUFFER("[0x%X]", (ULONG)opnd.Field("m_memLoc").GetPtr());
+    }
 }
 char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {

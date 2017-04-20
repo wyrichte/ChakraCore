@@ -1433,7 +1433,7 @@ void LaunchEtwListenerAndWaitForReady()
     }
 
     // Launch JsEtwConsole and elevate if needed (but run as minimized)
-    int success = (int)ShellExecute(NULL, _u("runas"), modulePath, cmdLineBuf, NULL, SW_SHOWMINNOACTIVE);
+    int success = (int)(intptr_t)ShellExecute(NULL, _u("runas"), modulePath, cmdLineBuf, NULL, SW_SHOWMINNOACTIVE);
     if (success <= 32)
     {
         wprintf(_u("ERROR: failed to launch JsEtwConsole with code=%d\n"), success);

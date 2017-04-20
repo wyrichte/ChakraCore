@@ -8,12 +8,15 @@
 #include "..\..\Lib\Common\Core\BasePtr.h"
 #include "..\..\Lib\Common\Memory\AutoPtr.h"
 
+#pragma warning(push)
+#pragma warning(disable:4467) // usage of ATL attributes is deprecated
 [uuid("63109BE8-1A17-4abc-9F19-AF4A3AA7AC1B")]
 class IWineryFactory : public IInspectable
 {
 public:
     STDMETHOD(CreateWinery)(__in int val, __deref_out IInspectable **ppWinery);
 };
+#pragma warning(pop)
 
 DelayLoadWinRt * TestUtilities::m_WinRTLibrary = NULL;
 Js::DelayLoadWinRtString * TestUtilities::m_WinRTStringLibrary = NULL;

@@ -37,25 +37,16 @@
         $(ChakraRootDirectory)private\lib\SCALookup;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
-        $(ChakraRootDirectory)Private\lib\winrt;
+
         $(ChakraInternalIDLIntDir);
 
         <!-- For EdgeJsHostNativeTest.h, EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)publish;
         $(ChakraPublishIntDir);
-        $(ChakraCoreRootDirectory)lib\runtime\types;
 
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
-        %(DisableSpecificWarnings);
-        4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
-        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>
-      <DisableSpecificWarnings>
-        %(DisableSpecificWarnings);
-        4467; <!-- warning C4467: "usage of ATL attributes is deprecated" (in IELibs IWebWorkerLifetime.hpp) -->
-      </DisableSpecificWarnings>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">

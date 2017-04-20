@@ -32,15 +32,9 @@
         $(ChakraRootDirectory)private\bin\jshost;
         $(ChakraRootDirectory)private\bin\ChakraDiag;
         $(ChakraRootDirectory)private\lib\HostCommon;
-        $(ChakraRootDirectory)private\Lib;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
-        $(ChakraRootDirectory)core\lib\CodeGenClient;
         
-        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
-        $(ChakraPublishIntDir);
-        $(ChakraCoreRootDirectory)lib\runtime\types;
-
         $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

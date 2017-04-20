@@ -31,11 +31,9 @@
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
         $(ChakraRootDirectory)private\lib\engine;
-        $(ChakraRootDirectory)private\lib\;
 
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
-        $(ChakraCoreRootDirectory)lib\runtime\types;
 
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

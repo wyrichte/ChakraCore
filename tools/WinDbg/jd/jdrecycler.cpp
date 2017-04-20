@@ -135,9 +135,9 @@ JD_PRIVATE_COMMAND(markmap,
 
                     fprintf(f, "# Item %d\n", currentIndex);
                     fprintf(f, "G.add_edge(");
-                    fprintf(f, "'0x%p'", value);
+                    fprintf(f, "'0x%I64X'", value);
                     fprintf(f, ", ");
-                    fprintf(f, "'0x%p'", key);
+                    fprintf(f, "'0x%I64X'", key);
                     fprintf(f, ")\n");
 
                 }
