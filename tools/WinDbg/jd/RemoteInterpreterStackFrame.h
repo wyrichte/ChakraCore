@@ -20,6 +20,7 @@ public:
     bool IsFromBailout();
     bool IsNull();
     ULONG64 GetAddress();
+    ULONG GetCurrentLoopNum();
 private:
     ExtRemoteTyped interpreterStackFrame;
 };

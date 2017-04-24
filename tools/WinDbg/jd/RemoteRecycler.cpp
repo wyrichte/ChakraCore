@@ -93,6 +93,11 @@ bool RemoteRecycler::CollectionInProgress()
     return (!ENUM_EQUAL(recycler.Field("collectionState").GetSimpleValue(), CollectionStateNotCollecting));
 }
 
+bool RemoteRecycler::IsPageHeapEnabled()
+{
+    return recycler.Field("isPageHeapEnabled").GetStdBool();
+}
+
 // ---- End jd private commands implementation ----------------------------------------------------
 #endif //JD_PRIVATE
 // ------------------------------------------------------------------------------------------------

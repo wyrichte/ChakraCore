@@ -188,11 +188,6 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             int len = (int)(strlen(vtableName.GetBuffer()) - strlen("::`vftable'"));
             if (len > 0 && strcmp(vtableName.GetBuffer() + len, "::`vftable'") == 0)
             {
-                if (HasMultipleSymbol(vtableAddr))
-                {
-                    ExtWarn("\rWARNING: ICF vtable used: %p %s                                          \n", vtableAddr, vtableName.GetBuffer());
-                }
-
                 vtableName.GetBuffer()[len] = '\0';
 
                 auto newString = new std::string(vtableName.GetBuffer());
@@ -207,4 +202,21 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     {
     }
     return nullptr;
+}
+
+void JDTypeCache::WarnICF()
+{
+    bool warned = false;
+    for (auto i = vtableTypeNameMap.begin(); i != vtableTypeNameMap.end(); i++)
+    {
+        if (HasMultipleSymbol(i->first))
+        {
+            warned = true;
+            ExtWarn("WARNING: ICF vtable used: %p %s\n", i->first, i->second->c_str());
+        }
+    }
+    if (!warned)
+    {
+        ExtOut("No ICF vtable detected");
+    }
 }

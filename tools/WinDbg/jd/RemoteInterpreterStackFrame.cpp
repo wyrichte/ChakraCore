@@ -24,6 +24,11 @@ ULONG64 RemoteInterpreterStackFrame::GetAddress()
     return interpreterStackFrame.GetPtr();
 }
 
+ULONG RemoteInterpreterStackFrame::GetCurrentLoopNum()
+{
+    return interpreterStackFrame.Field("currentLoopNum").GetUlong();
+}
+
 RemoteInterpreterStackFrame 
 RemoteInterpreterStackFrame::GetPreviousFrame()
 {

@@ -10,6 +10,8 @@ class JDTypeCache
 public:
     JDTypeCache();
     void Clear();
+
+    void WarnICF();
 private:
     friend class JDRemoteTyped;
 

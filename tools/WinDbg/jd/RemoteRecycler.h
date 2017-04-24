@@ -37,6 +37,8 @@ public:
     uint GetObjectAlignmentMask();
     uint GetObjectGranularity();
     uint GetObjectAllocationShift();
+
+    bool IsPageHeapEnabled();
 private:
     void InitializeObjectAllocationShift();
 

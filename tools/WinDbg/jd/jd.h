@@ -413,6 +413,7 @@ public:
     EXT_COMMAND_METHOD(uiserver);
 #endif
     JD_PRIVATE_COMMAND_METHOD(jsdisp);
+    JD_PRIVATE_COMMAND_METHOD(warnicf);
     JD_PRIVATE_COMMAND_METHOD(arrseg);
     JD_PRIVATE_COMMAND_METHOD(memstats);
     JD_PRIVATE_COMMAND_METHOD(findpage);

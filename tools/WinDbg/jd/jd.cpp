@@ -1126,7 +1126,7 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
         Out("xx");
     }
     Out(" ThreadId: %04x ", threadId);
-    Out("ThreadContext: 0x%p Recycler : 0x%p", threadContext.GetPtr(), threadContext.GetRecycler().GetPtr());
+    Out("ThreadContext: 0x%p Recycler: 0x%p", threadContext.GetPtr(), threadContext.GetRecycler().GetPtr());
 
     if (isCurrentThreadContext)
     {
@@ -1475,14 +1475,16 @@ JD_PRIVATE_COMMAND(jstack,
                         }
                     }
 
-
-                    Out("%02x", frameNumber);
-                    if (verbose)
+                    if (dumpFull)
                     {
-                        Out(" %p", rsp);
-                        Out(" %p", ripRet);
+                        Out("%02x", frameNumber);
+                        if (verbose)
+                        {
+                            Out(" %p", rsp);
+                            Out(" %p", ripRet);
+                        }
+                        Out(" %s+0x%x\n", nameBuffer, offset);
                     }
-                    Out(" %s+0x%x\n", nameBuffer, offset);
 
                     frameNumber++;
                     i++;
@@ -1552,6 +1554,7 @@ JD_PRIVATE_COMMAND(jstack,
             ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
             ripRet = returnAddress.GetPtr();
             
+
             Out("%02x", frameNumber);
             if (verbose)
             {
@@ -1559,8 +1562,7 @@ JD_PRIVATE_COMMAND(jstack,
                 Out(" %p", ripRet);
             }
 
-            
-            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);
+            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);            
             char const * typeName;
             JDRemoteTyped firstArgCasted = JDRemoteTyped::FromPtrWithVtable(firstArg.GetPtr(), &typeName);
             bool isFunctionObject = false;
@@ -1572,7 +1574,17 @@ JD_PRIVATE_COMMAND(jstack,
                     isFunctionObject = true;
                     Out(" js!");
                     RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink(this);
-                    Out(" [JIT]\n");
+
+                    ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), rbp + ptrSize * 3);
+                    ULONG callFlags = callInfo.Field("Flags").GetUlong();
+                    if (callFlags & ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong())
+                    {
+                        Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
+                    }
+                    else
+                    {
+                        Out(" [JIT]\n");
+                    }
                 }
             }
             if (!isFunctionObject)
@@ -1744,6 +1756,13 @@ JD_PRIVATE_COMMAND(jsdisp,
         }
         return false;
     });
+}
+
+JD_PRIVATE_COMMAND(warnicf,
+    "Check and warn about ICF for vtable we have used",
+    "")
+{
+    this->typeCache.WarnICF();
 }
 
 #if ENABLE_UI_SERVER

@@ -1286,7 +1286,12 @@ JD_PRIVATE_COMMAND(hbstats,
 
     if (!this->HasArg("noheader"))
     {
-        this->Out("Recycler Bucket stats\n");
+        this->Out("Bucket stats Recycler: %p", recycler.GetPtr());
+        if (recycler.IsPageHeapEnabled())
+        {
+            this->Out(" (Page Heap Enabled)");
+        }
+        this->Out("\n");
         this->Out("---------------------------------------------------------------------------------------\n");
         this->Out("                  #Blk   #Objs    #Fin      PgBytes   FreeBytes  TotalBytes UsedPercent\n");
         this->Out("---------------------------------------------------------------------------------------\n");
