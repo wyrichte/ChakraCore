@@ -4,6 +4,10 @@
 
 #include "edgescriptDirect.h"
 
+enum ErrorReason;
+
+#define FATAL_ON_FAILED_API_RESULT(hr) if (FAILED(hr)) { JsStaticAPI::Error::ReportFatalException(hr, Fatal_Failed_API_Result); }
+
 typedef interface ITrackingService ITrackingService;
 
 namespace JsStaticAPI
@@ -145,6 +149,36 @@ namespace JsStaticAPI
         static HTYPE GetTypeFromVar(Var instance);          // Requires CustomExternalObject
     };
 
+    class FastDOM
+    {
+    public:
+        static HRESULT GetObjectSlotAccessor(
+            __in IActiveScriptDirect* activeScriptDirect,
+            __in JavascriptTypeId typeId,
+            __in PropertyId nameId,
+            __in unsigned int slotIndex,
+            __in_opt ScriptMethod getterFallBackEntryPoint,
+            __in_opt ScriptMethod setterFallBackEntryPoint,
+            __out_opt Var* getter,
+            __out_opt Var* setter);
+
+        static HRESULT GetTypeSlotAccessor(
+            __in IActiveScriptDirect* activeScriptDirect,
+            __in JavascriptTypeId typeId,
+            __in PropertyId nameId,
+            __in unsigned int slotIndex,
+            __in_opt ScriptMethod getterFallBackEntryPoint,
+            __in_opt ScriptMethod setterFallBackEntryPoint,
+            __out_opt Var* getter,
+            __out_opt Var* setter);
+    };
+
     static HRESULT __stdcall EnterScriptCall(IActiveScriptDirect* activeScriptdirect, ScriptCallbackMethod callback);
     static HRESULT __stdcall LeaveScriptCall(IActiveScriptDirect* activeScriptdirect, ScriptCallbackMethod callback);
+
+    class Error {
+    public:
+        static inline LONG FatalExceptionFilter(__in LPEXCEPTION_POINTERS lpep);
+        static void ReportFatalException(__in HRESULT exceptionCode, __in ErrorReason reasonCode);
+    };
 };

@@ -10,9 +10,10 @@
 
 namespace Js
 {
-    JavascriptTypedObjectSlotAccessorFunction::JavascriptTypedObjectSlotAccessorFunction(DynamicType* type, FunctionInfo* functionInfo, int allowedTypeId, PropertyId nameId) :
+    JavascriptTypedObjectSlotAccessorFunction::JavascriptTypedObjectSlotAccessorFunction(DynamicType* type, FunctionInfo* functionInfo, int allowedTypeId, PropertyId nameId, ScriptMethod fallBackTrampoline) :
         RuntimeFunction(type, functionInfo),
-        allowedTypeId(allowedTypeId)
+        allowedTypeId(allowedTypeId),
+        fallBackTrampoline(fallBackTrampoline)
     {
         DebugOnly(VerifyEntryPoint());
         SetFunctionNameId(Js::TaggedInt::ToVarUnchecked(nameId));
@@ -28,7 +29,6 @@ namespace Js
         }
         return false;
     }
-
 
     bool JavascriptTypedObjectSlotAccessorFunction::ValidateThisInstance(Js::Var thisObj)
     {
@@ -58,7 +58,10 @@ namespace Js
             // the object is not an instance with CBase associated. This is using the internal information about DOM's type system
             // but it is probably not worthy to do another interface/vtable call back to DOM just to call CBaseToVar which is basically
             // what we are doing here.
-            if (FAILED(JsVarToExtension(thisObj, &extension)) || (*(void**)extension == nullptr))
+            // Note that if we are using a fallback trampoline for lazy FTL slots, it is OK to have a null slot. In this case the trampoline will be called.
+            if (fallBackTrampoline == nullptr
+                && ((JsVarToExtension(thisObj, &extension))
+                    || (*(void**)extension == nullptr)))
             {
                 return false;
             }
@@ -73,6 +76,5 @@ namespace Js
         Assert((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
         return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);
     }
-
 }
 #endif

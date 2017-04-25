@@ -9,57 +9,94 @@
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "ActiveScriptExternalLibrary.h"
 
+DECLARE_ONEHUNDRED_SIMPLEACCESSOR_INFO(Object)
+DECLARE_ONEHUNDRED_SIMPLEACCESSOR_INFO(Type)
 
-DECLARE_SIMPLEACCESSOR_INFO(0)
-DECLARE_SIMPLEACCESSOR_INFO(1)
-DECLARE_SIMPLEACCESSOR_INFO(2)
-DECLARE_SIMPLEACCESSOR_INFO(3)
-DECLARE_SIMPLEACCESSOR_INFO(4)
-DECLARE_SIMPLEACCESSOR_INFO(5)
-DECLARE_SIMPLEACCESSOR_INFO(6)
-DECLARE_SIMPLEACCESSOR_INFO(7)
-DECLARE_SIMPLEACCESSOR_INFO(8)
-DECLARE_SIMPLEACCESSOR_INFO(9)
-DECLARE_TEN_SIMPLEACCESS_INFO(1)
-DECLARE_TEN_SIMPLEACCESS_INFO(2)
-DECLARE_TEN_SIMPLEACCESS_INFO(3)
-DECLARE_TEN_SIMPLEACCESS_INFO(4)
-DECLARE_TEN_SIMPLEACCESS_INFO(5)
-DECLARE_TEN_SIMPLEACCESS_INFO(6)
-DECLARE_TEN_SIMPLEACCESS_INFO(7)
-DECLARE_TEN_SIMPLEACCESS_INFO(8)
-DECLARE_TEN_SIMPLEACCESS_INFO(9)
-
-Js::FunctionInfo DOMFastPathInfo::getterTable[] = {
+Js::FunctionInfo DOMFastPathInfo::objectGetterTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attributeGetter, attributeSetter) funcInfoGetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
 };
 
-Js::FunctionInfo DOMFastPathInfo::setterTable[] = {
+Js::FunctionInfo DOMFastPathInfo::objectSetterTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) funcInfoSetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
 };
 
-IR::JnHelperMethod const DOMFastPathInfo::getterHelperIDTable [] = {
+IR::JnHelperMethod const DOMFastPathInfo::objectGetterHelperIDTable [] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameGetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
 };
 
-IR::JnHelperMethod const DOMFastPathInfo::setterHelperIDTable [] = {
+IR::JnHelperMethod const DOMFastPathInfo::objectSetterHelperIDTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameSetter,
 #include "DOMFastPathInfolist.h"
 #undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
 };
 
-C_ASSERT(_countof(DOMFastPathInfo::setterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_SLOT_COUNT);
-C_ASSERT(_countof(DOMFastPathInfo::getterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_SLOT_COUNT);
+C_ASSERT(_countof(DOMFastPathInfo::objectSetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT);
+C_ASSERT(_countof(DOMFastPathInfo::objectGetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT);
+
+Js::FunctionInfo DOMFastPathInfo::typeGetterTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Type
+#undef _ONE_SIMPLESLOT_RECORD
+#define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attributeGetter, attributeSetter) funcInfoGetter,
+#include "DOMFastPathInfolist.h"
+#undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
+};
+
+Js::FunctionInfo DOMFastPathInfo::typeSetterTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Type
+#undef _ONE_SIMPLESLOT_RECORD
+#define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) funcInfoSetter,
+#include "DOMFastPathInfolist.h"
+#undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
+};
+
+IR::JnHelperMethod const DOMFastPathInfo::typeGetterHelperIDTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Type
+#undef _ONE_SIMPLESLOT_RECORD
+#define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameGetter,
+#include "DOMFastPathInfolist.h"
+#undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
+};
+
+IR::JnHelperMethod const DOMFastPathInfo::typeSetterHelperIDTable[] = {
+#undef SIMPLESLOT_RECORD_KIND
+#define SIMPLESLOT_RECORD_KIND Type
+#undef _ONE_SIMPLESLOT_RECORD
+#define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameSetter,
+#include "DOMFastPathInfolist.h"
+#undef _ONE_SIMPLESLOT_RECORD
+#undef SIMPLESLOT_RECORD_KIND
+};
+
+C_ASSERT(_countof(DOMFastPathInfo::typeSetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_TYPE_SLOT_COUNT);
+C_ASSERT(_countof(DOMFastPathInfo::typeGetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_TYPE_SLOT_COUNT);
 
 Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::RecyclableObject* recyclableObject, Js::CallInfo callInfo, ...)
 {
@@ -114,3 +151,184 @@ bool DOMFastPathInfo::VerifyObjectSize(Js::RecyclableObject* obj, size_t objectS
 }
 #endif
 #endif
+
+template <unsigned int slotIndex>
+Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    Assert(!(callInfo.Flags & Js::CallFlags_New));
+
+    if (args.Info.Count == 0)
+    {
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        // Don't error if we disabled implicit calls
+        if (scriptContext->GetThreadContext()->RecordImplicitException())
+        {
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedObject);
+        }
+        else
+        {
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+    }
+
+    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
+
+    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+#if DBG_EXTRAFIELD
+    Assert(DOMFastPathInfo::VerifyObjectSize(obj, sizeof(Js::ExternalObject) + (slotIndex + 1) * sizeof(PVOID)));
+#endif
+
+    Js::Var* externalVars = (Js::Var*)((byte*)obj + sizeof(Js::ExternalObject));
+
+    Js::Var retVal = externalVars[slotIndex];
+
+    // It's possible that the slot is null if the DOM decided to lazily initialize it.
+    // In this case we need to use their trampoline.
+    ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
+    if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
+    {
+        CallInfo scriptMethodCallInfo;
+        scriptMethodCallInfo.Count = callInfo.Count;
+        scriptMethodCallInfo.Flags = callInfo.Flags;
+        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+    }
+
+    return Js::CrossSite::MarshalVar(function->GetScriptContext(), retVal);
+}
+
+template <unsigned int slotIndex>
+Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    if (args.Info.Count == 0)
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject);
+    }
+
+    if (!Js::ExternalObject::Is(args[0]))
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
+    }
+    if (args.Info.Count == 1)
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_Invalid);
+    }
+
+    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
+
+    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+#if DBG_EXTRAFIELD
+    Assert(DOMFastPathInfo::VerifyObjectSize(obj, sizeof(Js::ExternalObject) + (slotIndex + 1) * sizeof(PVOID)));
+#endif
+    Js::Var* externalVars = (Js::Var*)((byte*)obj + sizeof(Js::ExternalObject));
+
+    // It's possible that the slot is null if the DOM decided to lazily initialize it.
+    // In this case we need to use their trampoline.
+    ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
+    if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
+    {
+        CallInfo scriptMethodCallInfo;
+        scriptMethodCallInfo.Count = callInfo.Count;
+        scriptMethodCallInfo.Flags = callInfo.Flags;
+        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+    }
+
+    externalVars[slotIndex] = Js::CrossSite::MarshalVar(obj->GetScriptContext(), args[1]);
+    return nullptr;
+}
+
+template <unsigned int slotIndex>
+Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    Assert(!(callInfo.Flags & Js::CallFlags_New));
+
+    if (args.Info.Count == 0)
+    {
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        // Don't error if we disabled implicit calls
+        if (scriptContext->GetThreadContext()->RecordImplicitException())
+        {
+            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedObject);
+        }
+        else
+        {
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+    }
+
+    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
+
+    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::Type *type = obj->GetType();
+    Assert(Js::CustomExternalType::Is(type));
+    Js::CustomExternalType *externalType = static_cast<Js::CustomExternalType*>(type);
+
+    Js::Var* externalVars = (Js::Var*)((byte*)externalType + sizeof(Js::CustomExternalType));
+
+    Js::Var retVal = externalVars[slotIndex];
+
+    // It's possible that the slot is null if the DOM decided to lazily initialize it.
+    // In this case we need to use their trampoline.
+    ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
+    if (retVal == nullptr && fallBackTrampoline != nullptr)
+    {
+        CallInfo scriptMethodCallInfo;
+        scriptMethodCallInfo.Count = callInfo.Count;
+        scriptMethodCallInfo.Flags = callInfo.Flags;
+        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+    }
+
+    return Js::CrossSite::MarshalVar(function->GetScriptContext(), retVal);
+}
+
+template <unsigned int slotIndex>
+Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    if (args.Info.Count == 0)
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject);
+    }
+
+    if (!Js::ExternalObject::Is(args[0]))
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
+    }
+    if (args.Info.Count == 1)
+    {
+        Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_Invalid);
+    }
+
+    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
+
+    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::Type *type = obj->GetType();
+    Assert(Js::CustomExternalType::Is(type));
+    Js::CustomExternalType *externalType = static_cast<Js::CustomExternalType*>(type);
+
+    Js::Var* externalVars = (Js::Var*)((byte*)externalType + sizeof(Js::CustomExternalType));
+
+    // It's possible that the slot is null if the DOM decided to lazily initialize it.
+    // In this case we need to use their trampoline.
+    ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
+    if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
+    {
+        CallInfo scriptMethodCallInfo;
+        scriptMethodCallInfo.Count = callInfo.Count;
+        scriptMethodCallInfo.Flags = callInfo.Flags;
+        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+    }
+
+    externalVars[slotIndex] = Js::CrossSite::MarshalVar(obj->GetScriptContext(), args[1]);
+    return externalVars[slotIndex];
+}

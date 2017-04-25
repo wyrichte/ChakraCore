@@ -41,6 +41,44 @@ void PrintVar(IActiveScriptDirect* activeScriptDirect, Var varToPrint)
     }
 }
 
+bool getterTrampolineCalled = false, setterTrampolineCalled = false;
+Var getterTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    getterTrampolineCalled = true;
+    return nullptr;
+}
+Var setterTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    setterTrampolineCalled = true;
+    return (Var)0x1234;
+}
+
+Var getterTypeTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    getterTrampolineCalled = true;
+
+    HTYPE type = JsStaticAPI::ExternalObject::GetTypeFromVar(args[0]);
+    Var *slots = JsStaticAPI::ExternalObject::TypeToExtension(type);
+    IActiveScriptDirect *activeScriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function);
+
+    slots[1] = JsStaticAPI::JavascriptLibrary::GetNull(activeScriptDirect);
+
+    return nullptr;
+}
+
+Var setterTypeTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    setterTrampolineCalled = true;
+
+    HTYPE type = JsStaticAPI::ExternalObject::GetTypeFromVar(args[0]);
+    Var *slots = JsStaticAPI::ExternalObject::TypeToExtension(type);
+    IActiveScriptDirect *activeScriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(function);
+
+    slots[1] = JsStaticAPI::JavascriptLibrary::GetNull(activeScriptDirect);
+
+    return slots[1];
+}
+
 HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
 {
     HRESULT hr;
@@ -241,12 +279,12 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     SysFreeString(functionBSTRName);
 
 
-    // test for FTL inherited typeId for instanceOf type validation
-
+    // Test for FTL inherited typeId for instanceOf type validation using object slots
     {
         uint slot_idx = 1;
         PropertyId propId = 0x456;
         const int inheritedIds[] = { 0x2000, 0x3000, 0x4000 };
+        // 3000 and 4000 are the compatible types
         hr = activeScriptDirect->CreateType(0x2000, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, &externalType);
         IfFailedReturn(hr);
 
@@ -255,27 +293,42 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
 
         void* slotAddr = nullptr;
         JavascriptTypeId typeId;
+        // Direct slot access
         hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
         IfFailedReturn(hr);
 
-        ((void**)slotAddr)[slot_idx] = jsFunction;
-
-        Var getter, setter;
-        hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3000, propId, slot_idx, &getter, &setter);
+        // Create the JS getter/setter to access slot
+        Var objectGetter, objectSetter;
+        getterTrampolineCalled = false;
+        setterTrampolineCalled = false;
+        hr = JsStaticAPI::FastDOM::GetObjectSlotAccessor(activeScriptDirect, 0x3000, propId, slot_idx, &getterTrampoline, &setterTrampoline, &objectGetter, &objectSetter);
         IfFailedReturn(hr);
 
-        hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, getter, setter);
+        // Add to prototype
+        hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, objectGetter, objectSetter);
         IfFailedReturn(hr);
 
-        Var value;
+        Var value = nullptr;
         BOOL exist = FALSE;
+
+        // Test fallback when slot is null
         hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
-        if (SUCCEEDED(hr))
+        IfFailedReturn(hr);
+        if (!getterTrampolineCalled)
         {
             return E_FAIL;
         }
+        getterTrampolineCalled = false;
 
-        exist = FALSE;
+        hr = defaultScriptOperations->SetProperty(activeScriptDirect, externalVar, propId, value, &exist);
+        IfFailedReturn(hr);
+        if (!setterTrampolineCalled)
+        {
+            return E_FAIL;
+        }
+        setterTrampolineCalled = false;
+
+        ((void**)slotAddr)[slot_idx] = jsFunction;
         ((void**)slotAddr)[0] = externalVar;
         hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
         IfFailedReturn(hr);
@@ -297,15 +350,16 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
         IfFailedReturn(hr);
 
-
         void* slotAddr = nullptr;
-        JavascriptTypeId typeId;
-        hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
+        slotAddr = JsStaticAPI::ExternalObject::VarToExtension(externalVar) + slot_idx;
         IfFailedReturn(hr);
         ((void**)slotAddr)[0] = externalVar;
         ((void**)slotAddr)[slot_idx] = jsFunction;
+
         Var getter, setter;
-        hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3001, propId, slot_idx, &getter, &setter);
+        getterTrampolineCalled = false;
+        setterTrampolineCalled = false;
+        hr = JsStaticAPI::FastDOM::GetObjectSlotAccessor(activeScriptDirect, 0x3001, propId, slot_idx, &getterTrampoline, &setterTrampoline, &getter, &setter);
         IfFailedReturn(hr);
 
         hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, getter, setter);
@@ -320,6 +374,71 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
             return E_FAIL;
         }
         printf("inherited typeid test passed 2\n");
+    }
+
+    {
+        uint slot_idx = 1;
+        PropertyId propId = 0x789;
+        const int inheritedIds[] = { 0x5000, 0x6000, 0x7000 };
+        // 3000 and 4000 are the compatible types
+        hr = activeScriptDirect->CreateTypeWithExtraSlots(0x5000, inheritedIds, 3, prototype, NULL, defaultScriptOperations, FALSE, propId, false, 2, &externalType);
+        IfFailedReturn(hr);
+
+        hr = activeScriptDirect->CreateTypedObject(externalType, sizeof(void*)*(slot_idx + 1), FALSE, &externalVar);
+        IfFailedReturn(hr);
+
+        // Create the JS getter/setter to access slot
+        Var typeGetter, typeSetter;
+        getterTrampolineCalled = false;
+        setterTrampolineCalled = false;
+        hr = JsStaticAPI::FastDOM::GetTypeSlotAccessor(activeScriptDirect, 0x6000, propId, slot_idx, &getterTypeTrampoline, &setterTypeTrampoline, &typeGetter, &typeSetter);
+        IfFailedReturn(hr);
+
+        // Add to prototype
+        hr = defaultScriptOperations->SetAccessors(activeScriptDirect, externalVar, propId, typeGetter, typeSetter);
+        IfFailedReturn(hr);
+
+        Var value = nullptr;
+        BOOL exist = FALSE;
+
+        // Test fallback when slot is null
+        hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
+        IfFailedReturn(hr);
+        if (!getterTrampolineCalled)
+        {
+            return E_FAIL;
+        }
+        getterTrampolineCalled = false;
+
+        // Reset the slot to null to test the setter.
+        HTYPE type = JsStaticAPI::ExternalObject::GetTypeFromVar(externalVar);
+        Var *slotAddr = JsStaticAPI::ExternalObject::TypeToExtension(type);
+        slotAddr[slot_idx] = nullptr;
+
+        value = JsStaticAPI::JavascriptLibrary::GetNull(activeScriptDirect);
+        hr = defaultScriptOperations->SetProperty(activeScriptDirect, externalVar, propId, value, &exist);
+        IfFailedReturn(hr);
+        if (!setterTrampolineCalled)
+        {
+            return E_FAIL;
+        }
+        setterTrampolineCalled = false;
+
+        // Check getter trampoline does not get called when slot is non-null
+        hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
+        if (getterTrampolineCalled)
+        {
+            return E_FAIL;
+        }
+
+        // Check setter trampoline does not get called when slot is non-null
+        hr = defaultScriptOperations->SetProperty(activeScriptDirect, externalVar, propId, value, &exist);
+        if (setterTrampolineCalled)
+        {
+            return E_FAIL;
+        }
+
+        printf("Type slot test passed\n");
     }
 
     return NOERROR;

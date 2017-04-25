@@ -47,8 +47,7 @@
       <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
-        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
-      </DisableSpecificWarnings>
+        4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>
       <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
       <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -61,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsStaticDataConversion.cpp" />
+    <ClCompile Include="jsStaticError.cpp" />
     <ClCompile Include="jsStaticExternalObject.cpp" />
+    <ClCompile Include="jsStaticFastDOM.cpp" />
     <ClCompile Include="jsStaticLibrary.cpp" />
     <ClCompile Include="jsStaticNumber.cpp" />
     <ClCompile Include="jsStaticTaggedInt.cpp" />
@@ -82,6 +83,6 @@
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

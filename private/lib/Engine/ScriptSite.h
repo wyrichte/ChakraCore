@@ -227,8 +227,8 @@ public:
     void AddToJavascriptDispatchList(LIST_ENTRY* newEntry) {InsertHeadList(&javascriptDispatchListHead, newEntry); }
     HRESULT CheckCrossDomainScriptContext(__in Js::ScriptContext* scriptContext);
 
-    Js::JavascriptFunction* GetDefaultGetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex);
-    Js::JavascriptFunction* GetDefaultSetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex);
+    Js::JavascriptFunction* GetDefaultSlotGetter(bool isObject, JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex, ScriptMethod fallBack);
+    Js::JavascriptFunction* GetDefaultSlotSetter(bool isObject, JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex, ScriptMethod fallBack);
     HRESULT VerifyDOMSecurity(Js::ScriptContext* targetScriptContext, Js::Var obj);
 
     template <typename Fn>

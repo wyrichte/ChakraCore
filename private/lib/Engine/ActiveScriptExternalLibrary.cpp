@@ -85,14 +85,17 @@ void ActiveScriptExternalLibrary::SetDispatchInvoke(Js::JavascriptMethod dispatc
     }
 }
 
-Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
+Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateSlotGetterFunction(bool isObject, unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId, ScriptMethod fallBack)
 {
     Js::JavascriptLibrary* library = scriptContext->GetLibrary();
 
+    Js::DynamicType **slotGetterFunctionTypes = isObject ? objectSlotGetterFunctionTypes : typeSlotGetterFunctionTypes;
+    IR::JnHelperMethod getterIRHelper = isObject ? DOMFastPathInfo::GetObjectGetterIRHelper(slotIndex) : DOMFastPathInfo::GetTypeGetterIRHelper(slotIndex);
+
     // GC should zero out the whole library; we shouldn't need to explicitly zero out
-    if (typedObjectSlotGetterFunctionTypes[slotIndex] == nullptr)
+    if (slotGetterFunctionTypes[slotIndex] == nullptr)
     {
-        typedObjectSlotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
+        slotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
         if (JITManager::GetJITManager()->IsOOPJITEnabled())
         {
             if (scriptContext->GetRemoteScriptAddr())
@@ -100,27 +103,27 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateTypedObjectSlotGette
                 HRESULT hr = JITManager::GetJITManager()->AddDOMFastPathHelper(
                     scriptContext->GetRemoteScriptAddr(),
                     (intptr_t)functionInfo,
-                    (int)DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+                    (int)getterIRHelper);
                 JITManager::HandleServerCallResult(hr, RemoteCallType::StateUpdate);
             }
         }
         else
         {
-            scriptContext->AddToDOMFastPathHelperMap((intptr_t)functionInfo, DOMFastPathInfo::GetGetterIRHelper(slotIndex));
+            scriptContext->AddToDOMFastPathHelperMap((intptr_t)functionInfo, getterIRHelper);
         }
     }
-    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, slotGetterFunctionTypes[slotIndex], functionInfo, typeId, nameId, fallBack);
 }
 
-Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateTypedObjectSlotSetterFunction(unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId)
+Js::JavascriptFunction* ActiveScriptExternalLibrary::CreateSlotSetterFunction(bool isObject, unsigned int slotIndex, Js::FunctionInfo* functionInfo, int typeId, PropertyId nameId, ScriptMethod fallBack)
 {
     Js::JavascriptLibrary* library = scriptContext->GetLibrary();
+    Js::DynamicType **slotSetterFunctionTypes = isObject ? objectSlotSetterFunctionTypes : typeSlotSetterFunctionTypes;
     // GC should zero out the whole library; we shouldn't need to explicitly zero out
-    if (typedObjectSlotSetterFunctionTypes[slotIndex] == nullptr)
+    if (slotSetterFunctionTypes[slotIndex] == nullptr)
     {
-        typedObjectSlotSetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
-
+        slotSetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
     }
 
-    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, typedObjectSlotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId);
+    return RecyclerNewEnumClass(library->GetRecycler(), EnumClass_1_Bit, Js::JavascriptTypedObjectSlotAccessorFunction, slotSetterFunctionTypes[slotIndex], functionInfo, typeId, nameId, fallBack);
 }

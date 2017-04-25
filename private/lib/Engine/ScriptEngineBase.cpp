@@ -1527,6 +1527,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedObjectSlotAccessor(
     __out_opt Var* getter,
     __out_opt Var* setter)
 {
+    return GetObjectSlotAccessor(typeId, nameId, slotIndex, nullptr, nullptr, getter, setter);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetObjectSlotAccessor(
+    __in JavascriptTypeId typeId,
+    __in PropertyId nameId,
+    __in unsigned int slotIndex,
+    __in ScriptMethod getterFallBackEntryPoint,
+    __in ScriptMethod setterFallBackEntryPoint,
+    __out_opt Var* getter,
+    __out_opt Var* setter)
+{
     if (getter != nullptr)
     {
         *getter = nullptr;
@@ -1537,7 +1549,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedObjectSlotAccessor(
     }
 
     HRESULT hr = NOERROR;
-    if (slotIndex >= ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_SLOT_COUNT)
+    if (slotIndex >= ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT)
     {
         return E_INVALIDARG;
     }
@@ -1545,11 +1557,49 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedObjectSlotAccessor(
     {
         if (getter)
         {
-            *getter = GetScriptSiteHolder()->GetDefaultGetter(typeId, nameId, slotIndex);
+            *getter = GetScriptSiteHolder()->GetDefaultSlotGetter(/* isObject */ true, typeId, nameId, slotIndex, getterFallBackEntryPoint);
         }
         if (setter)
         {
-            *setter = GetScriptSiteHolder()->GetDefaultSetter(typeId, nameId, slotIndex);
+            *setter = GetScriptSiteHolder()->GetDefaultSlotSetter(/* isObject */ true, typeId, nameId, slotIndex, setterFallBackEntryPoint);
+        }
+    }
+    END_TRANSLATE_OOM_TO_HRESULT(hr);
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypeSlotAccessor(
+    __in JavascriptTypeId typeId,
+    __in PropertyId nameId,
+    __in unsigned int slotIndex,
+    __in ScriptMethod getterFallBackEntryPoint,
+    __in ScriptMethod setterFallBackEntryPoint,
+    __out_opt Var* getter,
+    __out_opt Var* setter)
+{
+    if (getter != nullptr)
+    {
+        *getter = nullptr;
+    }
+    if (setter != nullptr)
+    {
+        *setter = nullptr;
+    }
+
+    HRESULT hr = NOERROR;
+    if (slotIndex >= ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_TYPE_SLOT_COUNT)
+    {
+        return E_INVALIDARG;
+    }
+    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    {
+        if (getter)
+        {
+            *getter = GetScriptSiteHolder()->GetDefaultSlotGetter(/* isObject */ false, typeId, nameId, slotIndex, getterFallBackEntryPoint);
+        }
+        if (setter)
+        {
+            *setter = GetScriptSiteHolder()->GetDefaultSlotSetter(/* isObject */ false, typeId, nameId, slotIndex, setterFallBackEntryPoint);
         }
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);

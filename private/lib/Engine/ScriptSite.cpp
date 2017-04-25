@@ -2429,19 +2429,19 @@ IDispatch* ScriptSite::GetGlobalObjectDispatch()
     return globalDispatch->GetThis();
 }
 
-Js::JavascriptFunction* ScriptSite::GetDefaultGetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex)
+Js::JavascriptFunction* ScriptSite::GetDefaultSlotGetter(bool isObject, JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex, ScriptMethod fallBack)
 {
-    Js::FunctionInfo* functionInfo = ::DOMFastPathInfo::GetGetterInfo(slotIndex);
-    Js::JavascriptFunction* getterFunction = GetActiveScriptExternalLibrary()->CreateTypedObjectSlotGetterFunction(slotIndex, functionInfo, typeId, nameId);
+    Js::FunctionInfo* functionInfo = isObject ? ::DOMFastPathInfo::GetObjectGetterInfo(slotIndex) : ::DOMFastPathInfo::GetTypeGetterInfo(slotIndex);
+    Js::JavascriptFunction* getterFunction = GetActiveScriptExternalLibrary()->CreateSlotGetterFunction(isObject, slotIndex, functionInfo, typeId, nameId, fallBack);
     getterFunction->SetPropertyWithAttributes(Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(0), PropertyNone, NULL);
 
     return getterFunction;
 }
 
-Js::JavascriptFunction* ScriptSite::GetDefaultSetter(JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex)
+Js::JavascriptFunction* ScriptSite::GetDefaultSlotSetter(bool isObject, JavascriptTypeId typeId, PropertyId nameId, unsigned int slotIndex, ScriptMethod fallBack)
 {
-    Js::FunctionInfo* functionInfo = ::DOMFastPathInfo::GetSetterInfo(slotIndex);
-    Js::JavascriptFunction* setterFunction = GetActiveScriptExternalLibrary()->CreateTypedObjectSlotSetterFunction(slotIndex, functionInfo, typeId, nameId);
+    Js::FunctionInfo* functionInfo = isObject ? ::DOMFastPathInfo::GetObjectSetterInfo(slotIndex) : ::DOMFastPathInfo::GetTypeSetterInfo(slotIndex);
+    Js::JavascriptFunction* setterFunction = GetActiveScriptExternalLibrary()->CreateSlotSetterFunction(isObject, slotIndex, functionInfo, typeId, nameId, fallBack);
     setterFunction->SetPropertyWithAttributes(Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(1), PropertyNone, NULL);
 
     return setterFunction;

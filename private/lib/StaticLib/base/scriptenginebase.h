@@ -299,6 +299,24 @@ public:
         __out_opt Var* getter,
         __out_opt Var* setter);
 
+    virtual HRESULT STDMETHODCALLTYPE GetObjectSlotAccessor(
+        __in JavascriptTypeId typeId,
+        __in PropertyId nameId,
+        __in unsigned int slotIndex,
+        __in ScriptMethod getterFallBackEntryPoint,
+        __in ScriptMethod setterFallBackEntryPoint,
+        __out_opt Var* getter,
+        __out_opt Var* setter);
+
+    virtual HRESULT STDMETHODCALLTYPE GetTypeSlotAccessor(
+        __in JavascriptTypeId typeId,
+        __in PropertyId nameId,
+        __in unsigned int slotIndex,
+        __in ScriptMethod getterFallBackEntryPoint,
+        __in ScriptMethod setterFallBackEntryPoint,
+        __out_opt Var* getter,
+        __out_opt Var* setter);
+
     HRESULT STDMETHODCALLTYPE CreateErrorObject(
         __in JsErrorType errorType,
         __in HRESULT errorCode,
