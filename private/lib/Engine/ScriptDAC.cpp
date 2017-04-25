@@ -460,25 +460,25 @@ Error:
 
         uint8 fieldEnumVal = static_cast<uint8>(fieldEnum);
         const auto& remoteCounters = (*this)->counters;
-        uint8 fieldSize = remoteCounters.fieldSize;
+        uint8 fieldSize = remoteCounters.GetFieldSize();
         ulong bytesRead;
         HRESULT hr;
         if (fieldSize == 1)
         {
             uint8 result;
-            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u8Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.GetFields()->u8Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
             return result;
         }
         else if (fieldSize == 2)
         {
             uint16 result;
-            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u16Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.GetFields()->u16Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
             return result;
         }
         else if (fieldSize == 4)
         {
             uint32 result;
-            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.fields->u32Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
+            IFFAILGO(debugSite->ReadVirtual(&remoteCounters.GetFields()->u32Fields[fieldEnumVal], &result, sizeof(result), &bytesRead));
             return result;
         }
         else if (fieldSize == 0) // in case OOM while initializing
