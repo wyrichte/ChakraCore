@@ -24,7 +24,9 @@
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
         %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>      
+      </AdditionalIncludeDirectories>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>   
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

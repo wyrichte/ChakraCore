@@ -2389,4 +2389,18 @@
       <tags>fail_mutators,exclude_dynapogo</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>exceptionCallingBuiltinJit.js</files>
+      <compile-flags>-targeted -mic:1 -off:simplejit -inspectmaxstringlength:100 -dbgbaseline:exceptioncallingbuiltinjit.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>restrictedEval.js</files>
+      <compile-flags>-targeted -mic:1 -off:simplejit -EvalRestriction -inspectmaxstringlength:100 -dbgbaseline:restrictedeval.js.dbg.baseline</compile-flags>
+      <tags>fail_mutators,exclude_dynapogo</tags>
+    </default>
+  </test>
 </regress-exe>

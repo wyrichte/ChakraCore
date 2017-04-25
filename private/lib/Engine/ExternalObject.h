@@ -49,7 +49,7 @@ namespace Js
         ExternalTypeWithInheritedTypeIds(ExternalType * type);
         ExternalTypeWithInheritedTypeIds(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint,
             DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount);
-        bool InstanceOf();
+        bool InstanceOf(TypeId typeId);
         static bool Is(Type* type){ return type->IsExternal() && ((ExternalType*)type)->HasInheritedTypeIds(); }
     protected:
         UINT           inheritedTypeIdsCount;

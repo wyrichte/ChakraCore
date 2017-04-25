@@ -58,9 +58,10 @@
         4474;     <!-- 'printf': too many arguments passed for format string-->
         4476;     <!-- 'printf': unknown type field charactor '' in format specifier -->
         4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
-        4838;     <!-- conversion from 'unsigned int' to 'int requires a narrowing conversion -->
-      </DisableSpecificWarnings>
+        4838;     <!-- conversion from 'unsigned int' to 'int requires a narrowing conversion --></DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -86,7 +87,7 @@
         $(SdkLibPath)\onecore_downlevel.lib
       </AdditionalDependencies>
     </Link>
-  <!-- Razzle binplace -->
+    <!-- Razzle binplace -->
   </ItemDefinitionGroup>
   <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true'">
     <BinplaceLinked Include="$(ObjectPath)\$(ObjectDirectory)$(TargetFileName)">
@@ -103,7 +104,9 @@
     <ClCompile Include="HeapEnum.cpp" />
     <ClCompile Include="int64test.cpp" />
     <ClCompile Include="jsdirecttest.cpp" />
+    <ClCompile Include="JSON.cpp" />
     <ClCompile Include="MyScriptDirectNative.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ParseJson.cpp" />
     <ClCompile Include="Regex.cpp" />
     <ClCompile Include="ScriptDiagSerializationTest.cpp" />
@@ -142,6 +145,6 @@
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

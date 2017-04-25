@@ -78,7 +78,7 @@ HRESULT STDMETHODCALLTYPE ScriptErrorTestsCallback(IActiveScriptError *errorInfo
 
     for (;;)
     {
-        const OnScriptErrorTest& test = va_arg(g_onScriptErrorTests, OnScriptErrorTest);
+        const OnScriptErrorTest& test = *va_arg(g_onScriptErrorTests, OnScriptErrorTest*);
         if (test.IsEmpty()) // END of test list
         {
             break;
@@ -113,7 +113,7 @@ HRESULT STDMETHODCALLTYPE ScriptErrorTestsCallback(IActiveScriptError *errorInfo
     return hr;
 }
 
-void RunOnScriptErrorTests(MyScriptDirectTests* mytest, LPCWSTR codeToRun, .../*OnScriptErrorTest..., END_TEST*/)
+void RunOnScriptErrorTests(MyScriptDirectTests* mytest, LPCWSTR codeToRun, OnScriptErrorTest* ... /* OnScriptErrorTest *testN, ..., OnScriptErrorTest *END_TEST */)
 {
     va_start(g_onScriptErrorTests, codeToRun);
 
@@ -514,10 +514,13 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetsExpectedStackTraceOnOOMSO2", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 20, greaterThan, noDumpStack, true>, throwOOMSO2);
 
     //This one runs very slow. Run the script once and apply multiple tests to save time.
-    RunOnScriptErrorTests(mytest, throwOOMSO1,
-        OnScriptErrorTest("TestOnScriptErrorGetsExpectedErrorOnOOMSO1", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, false>),
-        OnScriptErrorTest("TestOnScriptErrorGetsExpectedStackTraceOnOOMSO1", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 3, exactMatch, noDumpStack, false>),
-        END_TEST);
+    OnScriptErrorTest OOMTest1 = OnScriptErrorTest("TestOnScriptErrorGetsExpectedErrorOnOOMSO1", TestOnScriptErrorGetsExpectedError_Callback<JavascriptError, false>);
+    OnScriptErrorTest OOMTest2 = OnScriptErrorTest("TestOnScriptErrorGetsExpectedStackTraceOnOOMSO1", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 3, exactMatch, noDumpStack, false>);
+    RunOnScriptErrorTests(mytest,
+        throwOOMSO1,
+        &OOMTest1, 
+        &OOMTest2, 
+        &END_TEST);
 
     //Run these to check manually that don't generate a stack trace.
     // JenH TODO: Figure out a way to test automagically

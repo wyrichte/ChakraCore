@@ -9,6 +9,9 @@ USE_IDLBASED_DLLDATA = 1
 # See https://osgwiki.com/wiki/NOT_LEAN_AND_MEAN for details.
 WIN32_LEAN_AND_MEAN=1
 
+# Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept-
+USER_C_FLAGS=$(USER_C_FLAGS) -Zc:implicitNoexcept-
+
 INCLUDES= \
    $(INCLUDES) \
    $(COREINCLUDES); \

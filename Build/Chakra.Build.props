@@ -81,11 +81,13 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->
-      <!-- Also remove -Wv:17 -->
-      <AdditionalOptions>%(AdditionalOptions) -Zc:implicitNoexcept- -Zc:threadSafeInit- -Zc:sizedDealloc- -d1vc7dname -d1NTcompat -d1NonStandardNewDelete</AdditionalOptions>
+      <!-- Also remove -Wv:17. Razzle defines this in %SDXROOT%\tools\Microsoft.Build.Cpp.Common.targets by default. -->
+      <AdditionalOptions>%(AdditionalOptions) -Zc:implicitNoexcept- -Zc:threadSafeInit- -Zc:sizedDealloc- -d1vc7dname -d1NonStandardNewDelete</AdditionalOptions>
       <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
       <AdditionalOptions Condition="'$(OptimizedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>
+      <!-- Fix amd64chk build break error C1128: number of sections exceeded object file format limit: compile with /bigobj -->
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalOptions) /bigobj</AdditionalOptions>
 
       <!-- this is the default in the headers anyways, here just to be explicit -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_USE_DECLSPECS_FOR_SAL=1</PreprocessorDefinitions>

@@ -6,6 +6,9 @@ JD_PRIVATE = 1
 
 C_DEFINES = $(C_DEFINES) /DMPH_CMDS
 
+# Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept-
+USER_C_FLAGS=$(USER_C_FLAGS) -Zc:implicitNoexcept-
+
 SOURCES = \
         ..\jd.cpp \
         ..\jd.rc \

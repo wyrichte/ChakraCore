@@ -215,6 +215,21 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
         Print("\n\nRunning CreatePromise tests\n");
         RunCreatePromiseTest(&test);
     }
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("JsonTest")) == 0)
+    {
+        Print("\n\nRunning JsonTest tests\n");
+        RunJSONTest(&test);
+    }
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("ObjectTest")) == 0)
+    {
+        Print("\n\nRunning ObjectTest tests\n");
+        RunObjectTest(&test);
+    }
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("PromiseResolveAndThenTest")) == 0)
+    {
+        Print("\n\nRunning PromiseResolveAndThen tests\n");
+        RunPromiseResolveAndThenTest(&test);
+    }
     else if (_wcsicmp(jsHostArgs->flags[0], _u("ParseJsonTest")) == 0)
     {
         Print("\n\nRunning ParseJson tests\n");

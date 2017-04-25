@@ -1,6 +1,7 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //-------------------------------------------------------------------------------------------------------
+
 namespace Js
 {
     class JavascriptTypedObjectSlotAccessorFunction : public RuntimeFunction
@@ -13,12 +14,11 @@ namespace Js
         JavascriptTypedObjectSlotAccessorFunction(DynamicType* type, FunctionInfo* functionInfo, int allowedTypeId, PropertyId nameId);
 
         int GetAllowedTypeId() const {return allowedTypeId; }
-        void ValidateThisInstance(Var thisObject);
+        bool ValidateThisInstance(Var thisObject);
         bool InstanceOf(Var thisObj);
 
         static JavascriptTypedObjectSlotAccessorFunction* FromVar(Var instance);
         static bool Is(Var instance);
-        static void ValidateThis(Js::JavascriptTypedObjectSlotAccessorFunction* func, Var thisObject);
 
     private:
         int allowedTypeId;

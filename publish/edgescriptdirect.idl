@@ -747,6 +747,18 @@ interface IActiveScriptDirect : IUnknown
     ///   typeRef         : The type handle to be use in calls to CreateTypedObject
     HRESULT CreateType([in] JavascriptTypeId typeId, [in, size_is(inheritedTypeIdsCount)] const JavascriptTypeId* inheritedTypeIds, [in] UINT inheritedTypeIdsCount, [in, unique] Var prototype, [in, unique] ScriptMethod entryPoint, [in, unique] ITypeOperations* operations, [in] BOOL fDeferred, [in] PropertyId nameId, [in] BOOL bindReference, [out] HTYPE* typeRef);
 
+    /// Creates a static type with extra slots
+    ///   typeId          : A TypeID previously reserved using ReserveStaticTypeIds or ReserveTypeIds.
+    ///   prototype       : the prototype value used to populate the internal [[prototype]] property of the object; may be null
+    ///   entryPoint      : the function called on call or new; may be null
+    ///   operations      : the set of custom operations to call in place of the default object behavior; may be null
+    ///   fDeferred       : Determines if the type operations contains a deferred initializer which should be called to populate the type on first access.
+    ///   nameId          : the proprtyId of name to be return in toString call for objects created from this type. Output format is "[object <name>]"
+    ///   bindReference   : The returned instance will live for the lifetime of the script engine (until Close()) and does not have to be managed using VarAddRef/VarRelease
+    ///   extraslot       : Extra slots to allocate at the end of the type.
+    ///   typeRef         : The type handle to be use in calls to CreateTypedObject
+    HRESULT CreateTypeWithExtraSlots([in] JavascriptTypeId typeId, [in, size_is(inheritedTypeIdsCount)] const JavascriptTypeId* inheritedTypeIds, [in] UINT inheritedTypeIdsCount, [in, unique] Var prototype, [in, unique] ScriptMethod entryPoint, [in, unique] ITypeOperations* operations, [in] BOOL fDeferred, [in] PropertyId nameId, [in] BOOL bindReference, [in] UINT extraSlotsCount, [out] HTYPE* typeRef);
+
     /// Creates a constructor object (eg. jscript:function Foo() { (native) })
     ///   type            : a handle to the type of object to create; required
     ///   byteCount       : the size of the additional bytes to be allocated; will be adjusted to be 8 byte aligned in length.
@@ -1109,13 +1121,19 @@ interface IActiveScriptDirect : IUnknown
     /// sourceLength            : The source length of sourceText. The input could have nested null character in it.
     /// sourceFlag              : The type of the source code passed in. It could be UNICODE or utf8, with potentially
     ///                           bytecode cache support.
+    /// startingLine            : The starting line number in the source host document.
+    /// startingColumn          : The starting column number in the source host document.
+    /// startingOffset          : The starting offset in the source host document.
     /// return value            : If there are parse error, onError will be called to report the error back. 
-    HRESULT ParseModuleSource([in] ModuleRecord requestModule, 
-        [in] IUnknown* punkContext, 
-        [in] void* sourceContext, 
-        [in, size_is(sourceLength)] byte* sourceText, 
-        [in] unsigned long sourceLength, 
+    HRESULT ParseModuleSource([in] ModuleRecord requestModule,
+        [in] IUnknown* punkContext,
+        [in] void* sourceContext,
+        [in, size_is(sourceLength)] byte* sourceText,
+        [in] unsigned long sourceLength,
         [in] ParseModuleSourceFlags sourceFlag,
+        [in] unsigned long startingLine,
+        [in] unsigned long startingColumn,
+        [in] unsigned long startingOffset,
         [out] Var* exceptionVar);
 
     /// Execute module code. Implements 15.2.1.1.6.5
@@ -1139,9 +1157,6 @@ interface IActiveScriptDirect : IUnknown
     ///   serverSecurityDescriptor  : Security descriptor for the AC the JIT process is in
     ///   connectionId              : The RPC connectionId used by the JIT process to establish an RPC server
     HRESULT SetJITConnectionInfo([in] HANDLE jitProcHandle, [in] void* serverSecurityDescriptor, [in] UUID connectionId);
-
-    /// Initialize OOP JIT for the current ScriptContext
-    HRESULT SetJITInfoForScript();
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.

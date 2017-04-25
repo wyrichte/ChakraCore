@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Signing -->
   <Target Name="SignTool" Condition="'@(BinplaceLinked)' != ''">
     <Exec Command="signtool sign /v $(SIGNTOOL_SIGN) @(BinplaceLinked)" />
   </Target>
@@ -9,6 +10,27 @@
       SignTool
     </AfterBuildLinked>
   </PropertyGroup>
+
+  <!-- OBJECT ROOT environment, needed by linking with ScriptProjectHost.lib to find the PCH-->
+  <UsingTask
+    TaskName="SetEnvironmentVariableTask"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v$(MSBuildToolsVersion).dll">
+
+    <ParameterGroup>
+      <Name ParameterType="System.String" Required="true" />
+      <Value ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+
+    <Task>
+      <Using Namespace="System" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        Environment.SetEnvironmentVariable(Name, Value);
+      ]]>
+      </Code>
+    </Task>
+  </UsingTask> 
   <Target Name="SetObjectRootEnvironmentVariables">
     <SetEnvironmentVariable EnvValue="$(IELibPath)" EnvKey="OBJECT_ROOT" />
   </Target>

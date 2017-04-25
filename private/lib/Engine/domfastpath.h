@@ -3,6 +3,7 @@
 //-------------------------------------------------------------------------------------------------------
 //  Implements simple, fast property getter/setter for DOM object.
 //----------------------------------------------------------------------------
+
 #pragma once
 
 #define DECLARE_SIMPLEGETTER_INFO(x) Js::FunctionInfo DOMFastPath<x>::EntryInfo::SimpleSlotGetter(DOMFastPath<x>::EntrySimpleSlotGetter,  \
@@ -59,7 +60,10 @@ public:
         }
 
         Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
-        typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
+        if (!typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]))
+        {
+            return nullptr;
+        }
 
         Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
 #if DBG_EXTRAFIELD

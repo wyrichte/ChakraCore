@@ -15,6 +15,31 @@ namespace Js
 {
     DEFINE_RECYCLER_TRACKER_PERF_COUNTER(CustomExternalObject);
 
+    CustomExternalType * CustomExternalType::New(CustomExternalType * type)
+    {
+        uint8 extraSlotsCount = type->GetExtraSlotsCount();
+        if (extraSlotsCount != 0)
+        {
+            size_t extraSlotsSize = sizeof(void *) * extraSlotsCount;
+            CustomExternalType * newType = RecyclerNewPlus(type->GetLibrary()->GetRecycler(), extraSlotsSize, CustomExternalType, type);            
+            js_memcpy_s((void *)(newType + 1), extraSlotsSize, (void *)(type + 1), extraSlotsSize);
+        }
+        return RecyclerNew(type->GetLibrary()->GetRecycler(), CustomExternalType, type);
+    }
+
+    CustomExternalType * CustomExternalType::New(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, 
+        DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, 
+        UINT inheritedTypeIdsCount, uint8 extraSlotsCount)
+    {
+        if (extraSlotsCount)
+        {
+            return RecyclerNewPlus(scriptContext->GetRecycler(), sizeof(void *) * extraSlotsCount, CustomExternalType, scriptContext, typeId, prototype, entryPoint,
+                typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount, extraSlotsCount);
+        }
+        return RecyclerNew(scriptContext->GetRecycler(), CustomExternalType, scriptContext, typeId, prototype, entryPoint,
+            typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount, extraSlotsCount);
+    }
+
     // while this interface is defined with HRESULT return value, we don't really use the hr as trident will
     // throw if there is something wrong. Add explicit statement to ignore those return hr;
 #define IGNORE_HR(hr) hr; 
@@ -1816,8 +1841,7 @@ namespace Js
 
     DynamicType* CustomExternalObject::DuplicateType()
     {
-        return RecyclerNew(this->GetScriptContext()->GetRecycler(), CustomExternalType,
-            this->GetCustomExternalType());
+        return CustomExternalType::New(this->GetCustomExternalType());
     }
 
     BOOL CustomExternalObject::HasInstance(Var instance, ScriptContext* scriptContext, IsInstInlineCache* inlineCache)

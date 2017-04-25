@@ -669,7 +669,7 @@ JD_PRIVATE_COMMAND(markmap,
     FILE* f = fopen(filename, "w+");
     if (f != nullptr)
     {
-        Out("Recycler is 0x%p\n", recycler);
+        Out("Recycler is 0x%p\n", recycler.GetPtr());
         ExtRemoteTyped map = recycler.Field("markMap");
         uint bucketCount = map.Field("bucketCount").GetUlong();
         ExtRemoteTyped buckets = map.Field("buckets");

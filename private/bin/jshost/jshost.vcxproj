@@ -56,6 +56,8 @@
         %(DisableSpecificWarnings);
         4467; <!-- warning C4467: "usage of ATL attributes is deprecated" (in IELibs IWebWorkerLifetime.hpp) -->
       </DisableSpecificWarnings>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
