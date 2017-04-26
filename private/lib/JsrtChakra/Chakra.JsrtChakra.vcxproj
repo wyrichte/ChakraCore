@@ -55,6 +55,8 @@
         4467; <!-- warning C4467: "usage of ATL attributes is deprecated" (in IELibs IWebWorkerLifetime.hpp) -->
       </DisableSpecificWarnings>
       <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</PreprocessToFile>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->

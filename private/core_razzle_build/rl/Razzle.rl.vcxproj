@@ -14,6 +14,12 @@
       <DestinationFolder>jscript</DestinationFolder>
     </BinplaceLinked>
   </ItemGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <Import Project="..\..\..\core\bin\rl\rl.vcxproj" />
 </Project>
 

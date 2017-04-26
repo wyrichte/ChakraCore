@@ -1,5 +1,3 @@
 BUILD_PASS1_CONSUMES= \
-    inetcore\jscript\core\lib\common\codex|PASS1 \
-    onecoreuap\inetcore\jscript\core\lib\common\codex|PASS1 \
     onecoreuap\inetcore\jscript\private\core_razzle_build\common\codex|PASS1 \
 

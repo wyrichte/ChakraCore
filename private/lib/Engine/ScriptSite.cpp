@@ -1669,6 +1669,7 @@ HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
         }
 
         CALL_FUNCTION(
+            scriptSiteContext->GetThreadContext(),
             hostCallback,
             Js::CallInfo(Js::CallFlags::CallFlags_Value, 3),
             scriptSiteContext->GetLibrary()->GetUndefined(),

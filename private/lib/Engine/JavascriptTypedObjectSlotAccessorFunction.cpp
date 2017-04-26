@@ -30,12 +30,15 @@ namespace Js
     }
 
 
-    void JavascriptTypedObjectSlotAccessorFunction::ValidateThisInstance(Js::Var thisObj)
+    bool JavascriptTypedObjectSlotAccessorFunction::ValidateThisInstance(Js::Var thisObj)
     {
         if (!InstanceOf(thisObj))
         {
-            Js::JavascriptError::ThrowTypeError(GetType()->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
+            ScriptContext* scriptContext = GetType()->GetScriptContext();
+            Js::JavascriptError::TryThrowTypeError(scriptContext, scriptContext, JSERR_FunctionArgument_NeedObject, _u("DOM object"));
+            return false;
         }
+        return true;
     }
 
     bool JavascriptTypedObjectSlotAccessorFunction::InstanceOf(Var thisObj)
@@ -49,7 +52,17 @@ namespace Js
         Type* type = RecyclableObject::FromVar(thisObj)->GetType();
         if (ExternalTypeWithInheritedTypeIds::Is(type))
         {
-            return ((Js::ExternalTypeWithInheritedTypeIds*)type)->InstanceOf();
+            void* extension;
+            // When we are in this code path, we know that the object is a DOM CEO and they are trying to use FTL. 
+            // FTL is only setup for object instance, but for prototypes (document.__proto__) they are using the same type, though
+            // the object is not an instance with CBase associated. This is using the internal information about DOM's type system
+            // but it is probably not worthy to do another interface/vtable call back to DOM just to call CBaseToVar which is basically
+            // what we are doing here.
+            if (FAILED(JsVarToExtension(thisObj, &extension)) || (*(void**)extension == nullptr))
+            {
+                return false;
+            }
+            return ((Js::ExternalTypeWithInheritedTypeIds*)type)->InstanceOf((TypeId)allowedTypeId);
         }
         return false;
     }
@@ -59,11 +72,6 @@ namespace Js
         Assert(Js::JavascriptTypedObjectSlotAccessorFunction::Is(instance));
         Assert((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
         return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);
-    }
-
-    void JavascriptTypedObjectSlotAccessorFunction::ValidateThis(Js::JavascriptTypedObjectSlotAccessorFunction* func, Var thisObject)
-    {
-        func->ValidateThisInstance(thisObject);
     }
 
 }

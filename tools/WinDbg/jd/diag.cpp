@@ -102,11 +102,11 @@ JD_PRIVATE_COMMAND(diagstack,
 
         if (printFrameNo)
         {
-            Out(_u("%2x %s (%s%s:%u,%u)\n"), frameNo++, name, filename, ext, line, column);
+            Out(_u("%2x %s (%s%s:%u,%u)\n"), frameNo++, (BSTR)name, filename, ext, line, column);
         }
         else
         {
-            Out(_u("%s (%s%s:%u,%u)\n"), name, filename, ext, line, column);
+            Out(_u("%s (%s%s:%u,%u)\n"), (BSTR)name, filename, ext, line, column);
         }
 
         UINT64 start, end;
@@ -307,7 +307,7 @@ JD_PRIVATE_COMMAND(diageval,
 
         if (bstrError)
         {
-            Out(_u("ERROR: %s\n"), bstrError);
+            Out(_u("ERROR: %s\n"), (BSTR)bstrError);
         }
         else
         {

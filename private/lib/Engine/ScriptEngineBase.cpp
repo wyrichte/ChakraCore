@@ -623,7 +623,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototype(
     __in BOOL bindReference,
     __out HTYPE* typeRef)
 {
-    return CreateTypeFromPrototypeInternal(inTypeId, nullptr, 0, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
+    return CreateTypeFromPrototypeInternal(inTypeId, nullptr, 0, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, 0, typeRef);
 }
 
 HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
@@ -636,6 +636,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
     __in BOOL fDeferred,
     __in PropertyId nameId,
     __in BOOL bindReference,
+    __in UINT extraSlotCount,
     __out HTYPE* typeRef)
 {
     HRESULT hr = S_OK;
@@ -652,6 +653,11 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
     Js::Type * type;
     if (operations != nullptr)
     {
+        if (extraSlotCount > UCHAR_MAX)
+        {
+            // Too many slots
+            return E_INVALIDARG;
+        }
         Js::DynamicTypeHandler* customExternalTypeHandler;
         if ( fDeferred )
         {
@@ -663,15 +669,20 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
         }
 
         Js::CustomExternalType * customExternalType =
-            RecyclerNew(recycler, Js::CustomExternalType,
+            Js::CustomExternalType::New(
             localScriptContext, (Js::TypeId)typeId,
                 objPrototype, (Js::ExternalMethod)entryPoint,
-                customExternalTypeHandler, true, true, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount);
+                customExternalTypeHandler, true, true, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount, (uint8)extraSlotCount);
         IfFailedReturn(customExternalType->Initialize());
         type = customExternalType;
     }
     else
     {
+        if (extraSlotCount != 0)
+        {
+            // Only type with ITypeOperation can have extra slots
+            return E_INVALIDARG;
+        }
         Js::ExternalType * externalType = RecyclerNew(recycler, Js::ExternalType,
             localScriptContext, (Js::TypeId)typeId, objPrototype, (Js::ExternalMethod)entryPoint,
             Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
@@ -715,6 +726,22 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
     __in BOOL bindReference,
     __out HTYPE* typeRef)
 {
+    return ScriptEngineBase::CreateTypeWithExtraSlots(typeId, inheritedTypeIds, inheritedTypeIdsCount, varPrototype, entryPoint, operations, fDeferred, nameId, bindReference, 0, typeRef);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypeWithExtraSlots(
+    __in JavascriptTypeId typeId,
+    __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+    __in UINT inheritedTypeIdsCount,
+    __in Var varPrototype,
+    __in ScriptMethod entryPoint,
+    __in ITypeOperations* operations,
+    __in BOOL fDeferred,
+    __in PropertyId nameId,
+    __in BOOL bindReference,
+    __in UINT extraSlotsCount,
+    __out HTYPE* typeRef)
+{
     IfNullReturnError(typeRef, E_INVALIDARG);
     *typeRef = nullptr;
 
@@ -730,7 +757,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateType(
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
+        hr = CreateTypeFromPrototypeInternal((TypeId)typeId, inheritedTypeIds, inheritedTypeIdsCount, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, extraSlotsCount, typeRef);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;
@@ -2255,6 +2282,94 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureArrayPrototypeValuesFunction(_
     });
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsurePromiseResolveFunction(
+    __out Var* resolveFunc)
+{
+    IfNullReturnError(resolveFunc, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        *resolveFunc = scriptContext->GetLibrary()->EnsurePromiseResolveFunction();
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+    return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsurePromiseThenFunction(
+    __out Var* thenFunc)
+{
+    IfNullReturnError(thenFunc, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        *thenFunc = scriptContext->GetLibrary()->EnsurePromiseThenFunction();
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+        return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureJSONStringifyFunction(
+    __out Var* jsonStringifyFunc)
+{
+    IfNullReturnError(jsonStringifyFunc, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        *jsonStringifyFunc = scriptContext->GetLibrary()->EnsureJSONStringifyFunction();
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+        return hr;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::EnsureObjectFreezeFunction(
+    __out Var* objFreezeFunc)
+{
+    IfNullReturnError(objFreezeFunc, E_INVALIDARG);
+
+    HRESULT hr = S_OK;
+    hr = VerifyOnEntry();
+
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        *objFreezeFunc = scriptContext->GetLibrary()->EnsureObjectFreezeFunction();
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+
+    return hr;
+}
+
 #include "Library\JSONParser.h"
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseJson(
@@ -3233,6 +3348,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
     /* [size_is][in] */ __RPC__in_ecount_full(sourceLength) byte *sourceText,
     /* [in] */ unsigned long sourceLength,
     /* [in] */ ParseModuleSourceFlags sourceFlag,
+    /* [in] */ unsigned long startingLine,
+    /* [in] */ unsigned long startingColumn,
+    /* [in] */ unsigned long startingOffset,
     /* [out] */ __RPC__deref_out_opt Var *exceptionVar)
 {
     HRESULT hr = NOERROR;
@@ -3272,12 +3390,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseModuleSource(
         SourceContextInfo* sourceContextInfo = scriptEngine->GetSourceContextInfo((ULONG_PTR)sourceContext, (uint)sourceLength, FALSE, nullptr, nullptr);
         SRCINFO si = {
             /* sourceContextInfo   */ sourceContextInfo,
-            /* dlnHost             */ 0,
-            /* ulColumnHost        */ 0,
+            /* dlnHost             */ startingLine,
+            /* ulColumnHost        */ startingColumn,
             /* lnMinHost           */ 0,
             /* ichMinHost          */ 0,
-            /* ichLimHost          */ 0,
-            /* ulCharOffset        */ 0,
+            /* ichLimHost          */ sourceLength,
+            /* ulCharOffset        */ startingOffset,
             /* mod                 */ 0,
             /* grfsi               */ 0
         };

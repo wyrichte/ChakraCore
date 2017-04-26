@@ -16,50 +16,13 @@
     <file src="..\..\..\..\inc\devtbhost.h" target="devtbhost.h" />
     <file src="..\..\..\..\inc\IWebWorkerLifetime.hpp" target="IWebWorkerLifetime.hpp" />
     <file src="..\..\..\..\..\..\data\MSRC\GlobalMSRCSettings.h" target="GlobalMSRCSettings.h" />
-	<file src="..\..\..\..\..\..\data\MSRC\VerifyGlobalMSRCSettings.inl" target="VerifyGlobalMSRCSettings.inl" />
+    <file src="..\..\..\..\..\..\data\MSRC\VerifyGlobalMSRCSettings.inl" target="VerifyGlobalMSRCSettings.inl" />
     <file src="..\..\..\..\inc\ScriptProjectionHost.hxx" target="ScriptProjectionHost.hxx" />
 
     <!-- pdm files needed for debugger tests (these files are also relative to \stage) -->
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\x86\*" target="pdm\x86" />
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\amd64\*" target="pdm\x64" />
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\arm\*" target="pdm\arm" />
-
-    <!-- Copy the various flavors of Chakra's manifests -->
-    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
-
-    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\amd64\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
-
-    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\i386\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
-
-    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\i386\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\i386\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
-
-    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objchk\arm\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objchk\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
-
-    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-Chakra.man" target="manifests\inbox\objfre\arm\Microsoft-Scripting-Chakra.man" />
-    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.h" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.h" />
-    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.rc" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents.rc" />
-    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEvents_MSG00001.bin" />
-    <file src="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" target="manifests\inbox\objfre\arm\Microsoft-Scripting-ChakraEventsTEMP.BIN" />
 
     <!-- These entire directory needs to be copied -->
     <file src="lib\**" />

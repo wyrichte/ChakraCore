@@ -52,6 +52,21 @@ namespace JsStaticAPI
         static Var __stdcall GetTrue(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetFalse(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetGlobalObject(IActiveScriptDirect* activeScriptDirect);
+        // Get the Promise constructor function
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetPromiseConstructor(IActiveScriptDirect* activeScriptDirect);
+        // Get the Promise.resolve function
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetPromiseResolve(IActiveScriptDirect* activeScriptDirect);
+        // Get the Promise.prototype.then function
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetPromiseThen(IActiveScriptDirect* activeScriptDirect);
+        // Get the JSON.stringify function
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetJSONStringify(IActiveScriptDirect* activeScriptDirect);
+        // Get the Object.freeze function
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetObjectFreeze(IActiveScriptDirect* activeScriptDirect);
 
         static HRESULT __stdcall SetNoScriptScope(__in ITrackingService *threadService, bool noScriptScope);
         static HRESULT __stdcall IsNoScriptScope(__in ITrackingService *threadService, __out bool *isNoScriptScope);
@@ -81,6 +96,14 @@ namespace JsStaticAPI
             return JavascriptLibrary::GetFalse(activeScriptDirect);
         }
         static void __stdcall FillInBinaryVerificationData(BinaryVerificationData* binaryVerificationData);
+    };
+
+    class ExternalObject
+    {
+    public:
+        static void ** TypeToExtension(HTYPE instance);     // Requires CustomExteranlType
+        static void ** VarToExtension(Var obj);             // Requires CustomExternalObject
+        static HTYPE GetTypeFromVar(Var instance);          // Requires CustomExternalObject
     };
 
     static HRESULT __stdcall EnterScriptCall(IActiveScriptDirect* activeScriptdirect, ScriptCallbackMethod callback);

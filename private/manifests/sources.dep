@@ -1,4 +1,3 @@
 PUBLIC_PASS0_CONSUMES= \
-    base\published|PASS0 \
     onecore\base\published|PASS0 \
 

@@ -10,23 +10,28 @@ namespace Js
     class CustomExternalType : public ExternalTypeWithInheritedTypeIds
     {
     public:
-        CustomExternalType(CustomExternalType * type) : ExternalTypeWithInheritedTypeIds(type), finalizer(type->finalizer), usage(type->usage), isSimpleWrapper(type->isSimpleWrapper) {}
-        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount) :
-            ExternalTypeWithInheritedTypeIds(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount), isSimpleWrapper(false){}
+        static CustomExternalType * New(CustomExternalType * type);
+        static CustomExternalType * New(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount, uint8 extraSlotCount);
         HRESULT Initialize();
 
         FinalizeMethod GetFinalizer() const { return finalizer; }
         OperationUsage GetOperationUsage() const { return usage; }
-        BOOL IsSimpleWrapper() const { return isSimpleWrapper; }
+        bool IsSimpleWrapper() const { return isSimpleWrapper; }
 
         static void __cdecl DeferredInitializer(DynamicObject * instance, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode);
 
         static size_t GetOffsetOfUsage() { return offsetof(CustomExternalType, usage); }
 
     private:
+        CustomExternalType(CustomExternalType * type) : ExternalTypeWithInheritedTypeIds(type), finalizer(type->finalizer), usage(type->usage), isSimpleWrapper(type->isSimpleWrapper), extraSlotsCount(type->extraSlotsCount) {}
+        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount, uint8 extraSlotCount) :
+            ExternalTypeWithInheritedTypeIds(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount), isSimpleWrapper(false), extraSlotsCount(extraSlotsCount) {}
+        uint8 GetExtraSlotsCount() const { return extraSlotsCount; }
+
         FinalizeMethod finalizer;
         OperationUsage usage;
-        BOOL           isSimpleWrapper;
+        bool           isSimpleWrapper;
+        uint8          extraSlotsCount;
     };
     AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(CustomExternalType, &Type::DumpObjectFunction);
 

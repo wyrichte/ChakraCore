@@ -308,7 +308,7 @@
     <file src="internal\onecore\priv_sdk\lib\arm64\onecore_forwarder_shlwapi.lib"                               target="internal\onecore\priv_sdk\lib\arm64\" />
     <file src="internal\onecore\priv_sdk\lib\i386\onecore_forwarder_shlwapi.lib"                                target="internal\onecore\priv_sdk\lib\i386\" />
     <file src="internal\onecorenet\inc\winnetp.h"                                                               target="internal\onecorenet\inc" />
-    <file src="internal\onecoreshell\private\inc\shreghelpers.h"                                                target="internal\onecoreshell\private\inc" />
+    <file src="internal\onecoreshell\inc\shreghelpers.h"                                                        target="internal\onecoreshell\inc" />
     <file src="internal\onecoreuap\internal\buildmetadata\internal\windows.foundation.winmd"                    target="internal\sdk\winmetadata" />
     <file src="internal\onecoreuapinetcore\inc\activdbg_private.h"                                              target="internal\onecoreuapinetcore\inc" />
     <file src="internal\onecoreuapinetcore\inc\activscp_private.h"                                              target="internal\onecoreuapinetcore\inc" />
@@ -546,7 +546,6 @@
     <file src="internal\sdktools\inc\wextest\common\ssimmetric.h"                                               target="internal\sdktools\inc\wextest\common" />
     <file src="internal\sdktools\inc\wextest\cue\comtestmodeinterfaces.h"                                       target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\corpus.h"                                                      target="internal\sdktools\inc\wextest\cue" />
-    <file src="internal\sdktools\inc\wextest\cue\functor.h"                                                     target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\idatasource.h"                                                 target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\interruption.h"                                                target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\itestresource.h"                                               target="internal\sdktools\inc\wextest\cue" />
@@ -555,7 +554,6 @@
     <file src="internal\sdktools\inc\wextest\cue\logcontroller.h"                                               target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\logtestresults.h"                                              target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\mock.h"                                                        target="internal\sdktools\inc\wextest\cue" />
-    <file src="internal\sdktools\inc\wextest\cue\parametertypes.h"                                              target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\preservelasterror.h"                                           target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\resourcelist.h"                                                target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\runasextension.h"                                              target="internal\sdktools\inc\wextest\cue" />
@@ -582,9 +580,9 @@
     <file src="internal\sdktools\inc\wextest\cue\wexfuzzingframework.h"                                         target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\wexfuzzingguids.h"                                             target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\wexfuzzinghistorymgrapis.h"                                    target="internal\sdktools\inc\wextest\cue" />
+    <file src="internal\sdktools\inc\wextest\cue\wexlogtrace.h"                                                 target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\wexstring.h"                                                   target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\wextestclass.h"                                                target="internal\sdktools\inc\wextest\cue" />
-    <file src="internal\sdktools\inc\wextest\cue\wextypelist.h"                                                 target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\wextypes.h"                                                    target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\windows.securitytest.h"                                        target="internal\sdktools\inc\wextest\cue" />
     <file src="internal\sdktools\inc\wextest\cue\windows.securitytest.winmd"                                    target="internal\sdktools\inc\wextest\cue" />
@@ -598,6 +596,7 @@
     <file src="internal\sdktools\inc\wextest\cue\mock10\externalmockfunction.h"                                 target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\externalmockmethod.h"                                   target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\externalmocktarget.h"                                   target="internal\sdktools\inc\wextest\cue\mock10" />
+    <file src="internal\sdktools\inc\wextest\cue\mock10\functor.h"                                              target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\mock10.h"                                               target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\mockassert.h"                                           target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\mockexception.h"                                        target="internal\sdktools\inc\wextest\cue\mock10" />
@@ -605,6 +604,7 @@
     <file src="internal\sdktools\inc\wextest\cue\mock10\mockmethod.h"                                           target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\mockstatus.h"                                           target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\mockvariable.h"                                         target="internal\sdktools\inc\wextest\cue\mock10" />
+    <file src="internal\sdktools\inc\wextest\cue\mock10\parametertypes.h"                                       target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\parametervalue.h"                                       target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\cue\mock10\parametervaluetraits.h"                                 target="internal\sdktools\inc\wextest\cue\mock10" />
     <file src="internal\sdktools\inc\wextest\external\newt\datastructures.h"                                    target="internal\sdktools\inc\wextest\external\newt" />
@@ -623,7 +623,6 @@
     <file src="internal\sdktools\inc\wextest\tools\ietwparser.h"                                                target="internal\sdktools\inc\wextest\tools" />
     <file src="internal\sdktools\inc\wextest\tools\ietwparser.idl"                                              target="internal\sdktools\inc\wextest\tools" />
     <file src="internal\sdktools\inc\wextest\tools\sqmparser.h"                                                 target="internal\sdktools\inc\wextest\tools" />
-    <file src="internal\sdktools\inc\wextest\tools\watchdog_ipc.h"                                              target="internal\sdktools\inc\wextest\tools" />
     <file src="internal\sdktools\lib\amd64\engextcpp.lib"                                                       target="internal\sdktools\lib\amd64" />
     <file src="internal\sdktools\lib\amd64\wextest\cue\te.common.lib"                                           target="internal\sdktools\lib\amd64\wextest\cue" />
     <file src="internal\sdktools\lib\amd64\wextest\cue\wex.common.lib"                                          target="internal\sdktools\lib\amd64\wextest\cue" />
@@ -670,7 +669,7 @@
     <file src="internal\shell\lib\i386\6.2\api-ms-win-shcore-stream-l1.lib"                                     target="internal\shell\lib\i386\6.2" />
     <file src="internal\shell\lib\i386\6.3\api-ms-win-shcore-stream-l1.lib"                                     target="internal\shell\lib\i386\6.3" />
     <file src="internal\shell\lib\i386\10.0\api-ms-win-shcore-stream-l1.lib"                                    target="internal\shell\lib\i386\10.0" />
-    <file src="internal\shell\private\inc\shreghelpers.h"                                                       target="internal\shell\private\inc" />
+    <file src="internal\shell\inc\shreghelpers.h"                                                               target="internal\shell\inc" />
     <file src="sdk\amovie\inc\evcode.h"                                                                         target="sdk\amovie\inc" />
     <file src="sdk\inc\accctrl.h"                                                                               target="sdk\inc" />
     <file src="sdk\inc\access.idl"                                                                              target="sdk\inc" />
@@ -1869,6 +1868,7 @@
     <file src="sdk\inc\prsht.inl"                                                                               target="sdk\inc" />
     <file src="sdk\inc\prvmon.idl"                                                                              target="sdk\inc" />
     <file src="sdk\inc\qedit.idl"                                                                               target="sdk\inc" />
+    <file src="sdk\inc\qfenump.h"                                                                               target="sdk\inc" />
     <file src="sdk\inc\qmgr.h"                                                                                  target="sdk\inc" />
     <file src="sdk\inc\qmgr.idl"                                                                                target="sdk\inc" />
     <file src="sdk\inc\qos2.h"                                                                                  target="sdk\inc" />
@@ -2833,8 +2833,10 @@
     <file src="sdk\inc\abi\windows.graphics.effects.h"                                                          target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.effects.idl"                                                        target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.effects.interop.h"                                                  target="sdk\inc\abi" />
+    <file src="sdk\inc\abi\windows.graphics.h"                                                                  target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.holographic.h"                                                      target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.holographic.idl"                                                    target="sdk\inc\abi" />
+    <file src="sdk\inc\abi\windows.graphics.idl"                                                                target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.imaging.h"                                                          target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.imaging.idl"                                                        target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.graphics.printing.h"                                                         target="sdk\inc\abi" />
@@ -2849,8 +2851,6 @@
     <file src="sdk\inc\abi\windows.management.deployment.idl"                                                   target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.management.deployment.preview.h"                                             target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.management.deployment.preview.idl"                                           target="sdk\inc\abi" />
-    <file src="sdk\inc\abi\windows.management.orchestration.h"                                                  target="sdk\inc\abi" />
-    <file src="sdk\inc\abi\windows.management.orchestration.idl"                                                target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.management.workplace.h"                                                      target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.management.workplace.idl"                                                    target="sdk\inc\abi" />
     <file src="sdk\inc\abi\windows.media.audio.h"                                                               target="sdk\inc\abi" />

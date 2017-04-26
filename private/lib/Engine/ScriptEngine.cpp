@@ -2677,7 +2677,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
             if ((Js::Configuration::Global.flags.PrintRunTimeDataCollectionTrace) && (false == fNonPrimaryEngine))
             {
                 // Primary engine is created for top level Page, if start page is set to about:blank/about:Tabs, first primary engine AllocId is 1.
-                Output::Print(_u("ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n"), scriptContext->allocId, bstrUrl);
+                Output::Print(_u("ScriptEngine::SetScriptSite - Navigation Started [ScriptContext AllocId=%d] [Url=%s]\n"), scriptContext->allocId, (BSTR)bstrUrl);
             }
 #endif
 #if DBG_DUMP
@@ -4084,6 +4084,8 @@ HRESULT ScriptEngine::ParseScriptTextCore(
     /* [out] */ Js::Utf8SourceInfo** ppSourceInfo
     )
 {
+    EventWriteJSCRIPT_PARSE_SCRIPT(this, len);
+
     HRESULT     hr;
     Js::ModuleID       moduleID       = kmodGlobal;
     LPCOLESTR    pszTitle = nullptr;
