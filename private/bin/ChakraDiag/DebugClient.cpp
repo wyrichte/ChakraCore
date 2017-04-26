@@ -114,8 +114,10 @@ namespace JsDiag
     // Returns address of Js::Congfiguration::Global, in target process address space.
     void DebugClient::GetGlobals(IDiagHook* diagHook, ULONG64 moduleBaseAddr)
     {
+        void** globals = reinterpret_cast<void**>(&m_globals);
+        Assert(globals != nullptr);
         size_t globalsSize = _countof(m_globals);
-        HRESULT hr = diagHook->GetGlobals(reinterpret_cast<void**>(&m_globals), globalsSize);
+        HRESULT hr = diagHook->GetGlobals(globals, globalsSize);
         CheckHR(hr, DiagErrorCode::DIAGHOOK_GETGLOBALS);
 
         for (ULONG i = 0; i < globalsSize; i++)

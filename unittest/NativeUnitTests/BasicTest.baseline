@@ -13,6 +13,7 @@ isnumerable =1
 direct function name is function MyCallerTest() { [native code] }
 constrctor function name is function constructor() { [native code] }
 createtypedobject function name is [object constructor]
+TypeError: DOM object: argument is not an Object
 inherited typeid test passed 1
 TypeError: DOM object: argument is not an Object
 inherited typeid test passed 2

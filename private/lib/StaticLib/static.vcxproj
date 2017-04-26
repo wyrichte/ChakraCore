@@ -49,6 +49,8 @@
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
       </DisableSpecificWarnings>
+      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
+      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
@@ -59,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jsStaticDataConversion.cpp" />
+    <ClCompile Include="jsStaticExternalObject.cpp" />
     <ClCompile Include="jsStaticLibrary.cpp" />
     <ClCompile Include="jsStaticNumber.cpp" />
     <ClCompile Include="jsStaticTaggedInt.cpp" />

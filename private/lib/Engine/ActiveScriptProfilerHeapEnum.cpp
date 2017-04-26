@@ -1296,6 +1296,13 @@ uint16 ActiveScriptProfilerHeapEnum::GetScopeCount(Js::RecyclableObject* obj)
     {
         return 0;
     }
+
+    if (Js::AsmJsScriptFunction::Is(obj))
+    {
+        // AsmJs function doesn't have ScopeSlots in framedisplay scopes instead it have custom AsmJsModuleMemory pointer
+        return 0;
+    }
+
     Js::ScriptFunction* fcn = Js::ScriptFunction::FromVar(obj);
     Js::FrameDisplay* environment = fcn->GetEnvironment();
     return (! environment) ? 0 : environment->GetLength();

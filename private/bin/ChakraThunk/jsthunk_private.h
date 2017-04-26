@@ -102,7 +102,14 @@ decltype(&JScriptThunkInstrumentation) pJScriptThunkInstrumentation;
     THUNKS256(0x0) THUNKS256(0x1) THUNKS256(0x2) THUNKS256(0x3) \
 
 #define NAME(n) JsThunk_##n
+#if _CONTROL_FLOW_GUARD_SHADOW_STACK
+#define DECL(n) \
+    __declspec(guard(nossepi)) \
+    __declspec(guard(nosspro)) \
+    void*/*Js::Var*/ __cdecl NAME(n)(void* /* Js::ScriptFunction* */ function, ...)
+#else
 #define DECL(n) void*/*Js::Var*/ __cdecl NAME(n)(void* /* Js::ScriptFunction* */ function, ...)
+#endif
 
 // Relocations might not get applied in the repeat mappings.
 // So the thunks must be position independent.

@@ -475,14 +475,14 @@ namespace Js
         this->hasInheritedTypeIds = true;
     }
 
-    bool ExternalTypeWithInheritedTypeIds::InstanceOf()
+    bool ExternalTypeWithInheritedTypeIds::InstanceOf(TypeId allowedTypeId)
     {
         if (inheritedTypeIds && ExternalTypeWithInheritedTypeIds::Is(this))
         {
             //TODO: check the strategy to get best perf, like binary search, reverse direction search?
             for (UINT i = 0; i < inheritedTypeIdsCount; i++)
             {
-                if (inheritedTypeIds[i] == typeId)
+                if (inheritedTypeIds[i] == allowedTypeId)
                 {
                     return true;
                 }

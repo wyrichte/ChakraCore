@@ -131,6 +131,19 @@ public:
         __in BOOL bindReference,
         __out HTYPE* typeRef);
 
+    HRESULT STDMETHODCALLTYPE CreateTypeWithExtraSlots(
+        __in JavascriptTypeId typeId,
+        __in __RPC__in_ecount_full(inheritedTypeIdsCount) const JavascriptTypeId* inheritedTypeIds,
+        __in UINT inheritedTypeIdsCount,
+        __in Var varPrototype,
+        __in ScriptMethod entryPoint,
+        __in ITypeOperations* operations,
+        __in BOOL fDeferred,
+        __in PropertyId nameId,
+        __in BOOL bindReference,
+        __in UINT extraSlotsCount,
+        __out HTYPE* typeRef) sealed;
+
     HRESULT STDMETHODCALLTYPE CreateTypedObject(
         __in HTYPE type,
         __in int byteCount,
@@ -324,6 +337,22 @@ public:
         __deref_out Var* resolveFunc,
         __deref_out Var* rejectFunc);
 
+    virtual HRESULT STDMETHODCALLTYPE EnsurePromiseResolveFunction(
+        __out Var* resolveFunc
+    );
+
+    virtual HRESULT STDMETHODCALLTYPE EnsurePromiseThenFunction(
+        __out Var* thenFunc
+    );
+
+    virtual HRESULT STDMETHODCALLTYPE EnsureJSONStringifyFunction(
+        __out Var* jsonStringifyFunc
+    );
+
+    virtual HRESULT STDMETHODCALLTYPE EnsureObjectFreezeFunction(
+        __out Var* objectFreezeFunc
+    );
+
     HRESULT STDMETHODCALLTYPE ParseJson(
         __in LPCWSTR str,
         __in UINT length,
@@ -430,6 +459,9 @@ public:
         /* [size_is][in] */ __RPC__in_ecount_full(sourceLength) byte *sourceText,
         /* [in] */ unsigned long sourceLength,
         /* [in] */ ParseModuleSourceFlags sourceFlag,
+        /* [in] */ unsigned long startingLine,
+        /* [in] */ unsigned long startingColumn,
+        /* [in] */ unsigned long startingOffset,
         /* [out] */ __RPC__deref_out_opt Var *exceptionVar) override;
 
     HRESULT STDMETHODCALLTYPE ModuleEvaluation(
@@ -495,6 +527,7 @@ protected:
         __in BOOL fDeferred,
         __in PropertyId nameId,
         __in BOOL bindReference,
+        __in UINT extraSlotCount,
         __out HTYPE* typeRef);
 
     HRESULT STDMETHODCALLTYPE CreateTypedObjectFromScript(

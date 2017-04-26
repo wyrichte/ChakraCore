@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+<!-- Bug #9894839
   <test>
     <default>
       <files>stackoverflow.js</files>
@@ -8,4 +9,6 @@
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
+  -->
 </regress-exe>
+

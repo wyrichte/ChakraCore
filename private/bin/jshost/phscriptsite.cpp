@@ -1384,15 +1384,9 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
             return E_INVALIDARG;
         }
         requestModule = moduleRecordEntry->second;
-        if (isUtf8)
-        {
-            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, ParseModuleSourceFlags_DataIsUTF8, errorObject);
-        }
-        else
-        {
-            hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength,
-                ParseModuleSourceFlags_DataIsUTF16LE, errorObject);
-        }
+        ParseModuleSourceFlags flags = (isUtf8 ? ParseModuleSourceFlags_DataIsUTF8 : ParseModuleSourceFlags_DataIsUTF16LE);
+        hr = activeScriptDirect->ParseModuleSource(requestModule, nullptr, (void*)dwSourceCookie, (LPBYTE)contentRaw, byteLength, flags, 0, 0, 0, errorObject);
+
         if (FAILED(hr) && *errorObject != nullptr)
         {
             // This is alternative way to report error coming from ParseModuleSource. However here the call

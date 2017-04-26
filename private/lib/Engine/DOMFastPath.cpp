@@ -9,6 +9,7 @@
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "ActiveScriptExternalLibrary.h"
 
+
 DECLARE_SIMPLEACCESSOR_INFO(0)
 DECLARE_SIMPLEACCESSOR_INFO(1)
 DECLARE_SIMPLEACCESSOR_INFO(2)
@@ -66,9 +67,12 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
 
     Js::DynamicObject * dynamicObject = Js::DynamicObject::FromVar(recyclableObject);
     Js::ScriptContext * targetScriptContext = dynamicObject->GetScriptContext();
+    HostScriptContext* requestHostContext = ThreadContext::GetContextForCurrentThread()->GetPreviousHostScriptContext();
+    Js::ScriptContext* requestContext = requestHostContext->GetScriptContext();
     if (!Js::JavascriptFunction::Is(dynamicObject))
     {
-        Js::JavascriptError::ThrowTypeError(targetScriptContext, JSERR_NeedFunction);
+        Js::JavascriptError::TryThrowTypeError(targetScriptContext, requestContext, JSERR_NeedFunction);
+        return nullptr;
     }
 
     Assert(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(recyclableObject));
@@ -77,14 +81,20 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
     Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(dynamicObject);
     Js::FunctionInfo* funcInfo = simpleAccessorFunction->GetFunctionInfo();
     Assert((funcInfo->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
-    HostScriptContext* requestContext = ThreadContext::GetContextForCurrentThread()->GetPreviousHostScriptContext();
-    targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), requestContext);
-    simpleAccessorFunction->ValidateThisInstance(args[0]);
+    targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), requestHostContext);
+    if (!simpleAccessorFunction->ValidateThisInstance(args[0]))
+    {
+        return nullptr;
+    }
 
-    HRESULT hr = requestContext->VerifyDOMSecurity(targetScriptContext, args.Values[0]);
+    HRESULT hr = requestHostContext->VerifyDOMSecurity(targetScriptContext, args.Values[0]);
     if (FAILED(hr))
     {
-        Js::JavascriptError::MapAndThrowError(targetScriptContext, hr);
+        if (targetScriptContext->GetThreadContext()->RecordImplicitException())
+        {
+            Js::JavascriptError::MapAndThrowError(requestContext, hr);
+        }
+        return nullptr;
     }
 
     return Js::CrossSite::CommonThunk(recyclableObject, funcInfo->GetOriginalEntryPoint(), args);

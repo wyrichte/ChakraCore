@@ -292,7 +292,7 @@ RemoteFunctionBody::PrintSourceUrl(EXT_CLASS_BASE *ext)
     JDRemoteTyped sourceContextInfo = GetSourceContextInfo();
     if (sourceContextInfo.Field("isHostDynamicDocument").GetStdBool())
     {
-        ext->Out("[dynamic script #%d]", sourceContextInfo.Field("hash"));
+        ext->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetPtr());
     }
     else
     {

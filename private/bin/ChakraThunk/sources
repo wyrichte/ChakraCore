@@ -23,6 +23,9 @@ C_DEFINES=\
  $(C_DEFINES) \
  /DTARGET=\"$(TARGETNAME).$(TARGETEXT)\" \
 
+# Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept-
+USER_C_FLAGS=$(USER_C_FLAGS) -Zc:implicitNoexcept-
+
 TARGET_DESTINATION=retail
 
 TARGETLIBS=\

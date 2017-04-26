@@ -14,38 +14,6 @@
     </default>
   </test>
   -->
-  <test>
-    <default>
-      <!--Run again without -Off:Inline, remove baseline as well.
-                Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test1.js</files>
-      <baseline />
-      <command>jdtest -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-oopjit- -Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <!-- Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test1.js</files>
-      <baseline>test1.jitloop.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-oopjit- -Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <!--Run again without -Off:Inline, remove baseline as well.
-                Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
-      <files>test1.js</files>
-      <baseline />
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo ---1st bp---;!ldsym;!testdump;g;    !echo;!echo ---2nd bp---;!ldsym;!testdump;g" jshost</command>
-      <compile-flags>-oopjit- -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
-      <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
-    </default>
-  </test>
   <!-- Bug #
        Replace "&#x002D"s below with "-" when the test is reenabled. Two consecutive "-"s aren't allowed in XML comments.
   <test>
@@ -60,56 +28,115 @@
     </default>
   </test>
   -->
+  <!-- Bug #9894839
   <test>
     <default>
-      <!--Run again without -Off:Inline, remove baseline as well.
-                Disable on ARM because it is flaky on WOACHK PerCheckin run.-->
+      Disable on ARM because it is flaky on WOACHK PerCheckin run.
+  <files>test1.js</files>
+  <baseline>test1.jitloop.baseline</baseline>
+  <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo - - -1st bp- - -;!ldsym;!testdump;g;    !echo;!echo - - -2nd bp- - -;!ldsym;!testdump;g" jshost</command>
+  <compile-flags>-oopjit- -Off:Inline -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.1</compile-flags>
+  <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
+  </default>
+  </test>
+  <test>
+    <default>
+      Run again without -Off:Inline, remove baseline as well.
+                Disable on ARM because it is flaky on WOACHK PerCheckin run.
+      <files>test1.js</files>
+      <baseline />
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!echo - - -1st bp- - -;!ldsym;!testdump;g;    !echo;!echo - - -2nd bp- - -;!ldsym;!testdump;g" jshost</command>
+      <compile-flags>-oopjit- -Force:DeferParse -ForceJITLoopBody -Intl- -dynamicprofileinput:profile.dpl.test1.js.2</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_interpreted,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>test1.js</files>
+      <baseline />
+      <command>jdtest -q -c ".load ut_jsdiag; g;!echo - - -1st bp- - -;!ldsym;!testdump;g;    !echo;!echo - - -2nd bp- - -;!ldsym;!testdump;g" jshost</command>
+      <compile-flags>-oopjit- -Intl- -dynamicprofilecache:profile.dpl.test1.js.2</compile-flags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      Test with try-catch, mainly for EHFrame on amd64
+      <files>test_try.js</files>
+      <baseline>test_try.baseline</baseline>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo - - -try-catch bp; !testdump; g; !echo; !echo - - -try-finally bp; !testdump; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
+      <tags>exclude_jsrt,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      Test for for stack trace with inline frames
+      <files>test_inline.js</files>
+      <baseline>test_inline.baseline</baseline>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo - - -inlines; !testdump; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <compile-flags>-oopjit-</compile-flags>
+      <tags>exclude_jsrt,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      Run again without -Off:Inline, remove baseline as well.
+                Disable on ARM because it is flaky on WOACHK PerCheckin run.
       <files>test2.js</files>
       <baseline />
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!testdump;    !echo;!echo ---verifyall again---;!ldsym;!testdump;g" jshost</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g;!ldsym;!testdump;    !echo;!echo - - -verifyall again- - -;!ldsym;!testdump;g" jshost</command>
       <tags>exclude_arm,exclude_jsrt,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
     <default>
-      <!-- Test with try-catch, mainly for EHFrame on amd64 -->
-      <files>test_try.js</files>
-      <baseline>test_try.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---try-catch bp; !testdump; g; !echo; !echo ---try-finally bp; !testdump; g;" jshost -enableDebug -DeferLoadingAvailableSource</command>
-      <compile-flags>-oopjit-</compile-flags>
-      <tags>exclude_jsrt,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <!-- Test for for stack trace with inline frames -->
-      <files>test_inline.js</files>
-      <baseline>test_inline.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -force:inline -enableDebug -DeferLoadingAvailableSource</command>
-      <compile-flags>-oopjit-</compile-flags>
-      <tags>exclude_jsrt,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <!-- Test for for stack trace with inline frames -->
+      Test for for stack trace with inline frames
       <files>test_inline_bailout.js</files>
       <baseline>test_inline_bailout.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---inlines; !testdump; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo - - -inlines; !testdump; g;" jshost -maxinterpretcount:1 -off:simpleJit -force:inline -enableDebug -DeferLoadingAvailableSource</command>
       <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
     <default>
-      <!-- Test for for stack trace with deep recursion, mainly for DbgHelp stack walker on amd64 -->
+      Test for for stack trace with deep recursion, mainly for DbgHelp stack walker on amd64
       <files>test_deepRecursion.js</files>
       <baseline>test_deepRecursion.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo ---deep recursion; !testdump; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !echo - - -deep recursion; !testdump; g;" jshost -off:simpleJit -enableDebug -DeferLoadingAvailableSource</command>
       <compile-flags>-oopjit-</compile-flags>
       <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>dump3.js</files>
+      <baseline>dump3.baseline</baseline>
+      <command>jdtest -q -c ".load ut_jsdiag;sxe eh;g; !testdump; q" jshost</command>
+      <compile-flags>-oopjit- -forceNative -off:simpleJit -enableDebug</compile-flags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>inlineSameFunc.js</files>
+      <baseline>inlineSameFunc.baseline</baseline>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
+      <compile-flags>-oopjit- -maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>PartInitStackFrame.js</files>
+      <baseline>PartInitStackFrame.baseline</baseline>
+      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
+      <compile-flags>-nonative -InjectPartiallyInitializedInterpreterFrameError:3 -enableDebug -Intl-</compile-flags>
+      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
+    </default>
+  </test>
+  -->
   <test>
     <default>
       <files>locals.js</files>
@@ -213,31 +240,4 @@
     </condition>
   </test>
 -->
-  <test>
-    <default>
-      <files>dump3.js</files>
-      <baseline>dump3.baseline</baseline>
-      <command>jdtest -q -c ".load ut_jsdiag;sxe eh;g; !testdump; q" jshost</command>
-      <compile-flags>-oopjit- -forceNative -off:simpleJit -enableDebug</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>inlineSameFunc.js</files>
-      <baseline>inlineSameFunc.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
-      <compile-flags>-oopjit- -maxinterpretcount:1 -off:simplejit -enableDebug</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>PartInitStackFrame.js</files>
-      <baseline>PartInitStackFrame.baseline</baseline>
-      <command>jdtest.exe -q -c ".load ut_jsdiag; g; !testdump; g;" jshost</command>
-      <compile-flags>-nonative -InjectPartiallyInitializedInterpreterFrameError:3 -enableDebug -Intl-</compile-flags>
-      <tags>exclude_jsrt,exclude_dynapogo,exclude_nonrazzle</tags>
-    </default>
-  </test>
 </regress-exe>

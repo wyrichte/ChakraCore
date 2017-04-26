@@ -68,6 +68,7 @@ namespace Js
     enum SideEffects;                       // Used by ScriptContext.h
     class StaticType;                       // Used by JavascriptNumber.h
     class CodeGenNumberAllocator;           // Used by JavascriptNumber.h
+    class JavascriptNumber;                 // Used by CodeGenNumberallocator.h
     class RootObjectBase;                   // Used by FunctionBody.h
     class GlobalObject;                     // Used by ScriptContext.h
     class ModuleRoot;                       // Used by ScriptContext.h
@@ -298,6 +299,7 @@ namespace Wasm
 #include "Type.h"
 #include "CrossSite.h"                  // Used by CrossSiteObject.h -- can be worked around using extract to .inl, but is easy to pull
 #include "CrossSiteObject.h"            // Used by DynamicObject: DEFINE_MARSHAL_OBJECT_TO_SCRIPT_CONTEXT
+#include "BackEndAPI.h"                 // Used by NativeCodeGenerator.h
 #include "DynamicObject.h"
 #include "ArrayObject.h"
 #include "TypeHandler.h"
@@ -345,7 +347,6 @@ namespace Wasm
 #include "Debug\DebugContext.h"         // Used by ScriptContext::debugContext
 #include "StackProber.h"                // Used by ThreadContextTLSEntry::prober
 #include "ByteCodeReader.h"             // Used by InterpreterStackFrame::m_reader
-#include "BackEndAPI.h"                 // Used by NativeCodeGenerator.h
 #ifdef _M_X64
 #include "amd64\stackframe.h"           // Used by InterpreterStackFrame::amd64ContextsManager
 #endif

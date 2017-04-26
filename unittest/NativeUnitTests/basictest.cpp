@@ -266,6 +266,14 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         Var value;
         BOOL exist = FALSE;
         hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
+        if (SUCCEEDED(hr))
+        {
+            return E_FAIL;
+        }
+
+        exist = FALSE;
+        ((void**)slotAddr)[0] = externalVar;
+        hr = defaultScriptOperations->GetPropertyReference(activeScriptDirect, externalVar, propId, &value, &exist);
         IfFailedReturn(hr);
 
         if (value != jsFunction)
@@ -290,7 +298,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         JavascriptTypeId typeId;
         hr = activeScriptDirect->VarToExtension(externalVar, &slotAddr, &typeId);
         IfFailedReturn(hr);
-
+        ((void**)slotAddr)[0] = externalVar;
         ((void**)slotAddr)[slot_idx] = jsFunction;
         Var getter, setter;
         hr = activeScriptDirect->GetTypedObjectSlotAccessor(0x3001, propId, slot_idx, &getter, &setter);
