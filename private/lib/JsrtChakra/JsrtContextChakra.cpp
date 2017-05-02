@@ -39,9 +39,15 @@ bool JsrtContext::Is(void * ref)
 }
 
 #if ENABLE_TTD
-void JsrtContext::OnScriptLoad_TTDCallback(FinalizableObject* jsrtCtx, Js::JavascriptFunction * scriptFunction, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException)
+void JsrtContext::OnScriptLoad_TTDCallback(Js::FunctionBody* body, Js::Utf8SourceInfo* utf8SourceInfo, CompileScriptException* compileException, bool notify)
 {
-    ((JsrtContext*)jsrtCtx)->OnScriptLoad(scriptFunction, utf8SourceInfo, compileException);
+    JsrtContext* rcvr = ((JsrtContext*)this);
+
+    JsrtDebugManager* jsrtDebugManager = rcvr->GetRuntime()->GetJsrtDebugManager();
+    if(jsrtDebugManager != nullptr)
+    {
+        jsrtDebugManager->ReportScriptCompile_TTD(body, utf8SourceInfo, compileException, notify);
+    }
 }
 
 void JsrtContext::OnReplayDisposeContext_TTDCallback(FinalizableObject* jsrtCtx)
