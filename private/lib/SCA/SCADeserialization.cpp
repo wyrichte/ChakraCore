@@ -3,6 +3,9 @@
 //----------------------------------------------------------------------------
 
 #include "SCAPch.h"
+#ifdef ENABLE_WASM
+#include "Language\WebAssemblySource.h"
+#endif
 
 namespace Js
 {
@@ -238,6 +241,19 @@ namespace Js
                 *dst = arrayBuffer;
             }
             break;
+
+#ifdef ENABLE_WASM
+        case SCA_WebAssemblyModule:
+        {
+            uint32 len;
+            m_reader->Read(&len);
+            byte* buffer = RecyclerNewArrayLeaf(scriptContext->GetRecycler(), byte, len);
+            Read(buffer, len);
+            WebAssemblySource wasmSrc(buffer, len, true, scriptContext);
+            *dst = WebAssemblyModule::CreateModule(scriptContext, &wasmSrc);
+            break;
+        }
+#endif
 
         case SCA_Uint8ClampedArray:
             // If Khronos Interop is not enabled, we don't have Uint8ClampedArray available.

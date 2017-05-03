@@ -196,6 +196,16 @@ namespace Js
                 }
                 break;
 
+#ifdef ENABLE_WASM
+            case TypeIds_WebAssemblyModule:
+                {
+                    WebAssemblyModule* wasmModule = WebAssemblyModule::FromVar(src);
+                    WriteTypeId(SCA_WebAssemblyModule);
+                    Write(wasmModule->GetBinaryBuffer(), wasmModule->GetBinaryBufferLength());
+                }
+                break;
+#endif
+
             case TypeIds_CopyOnAccessNativeIntArray:
                 Assert(false);
                 // fall-through
