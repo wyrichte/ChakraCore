@@ -85,7 +85,9 @@ namespace JsStaticAPI
         static HRESULT __stdcall WeakMapSet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, Var value);
         static HRESULT __stdcall WeakMapGet(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out Var *value, __out bool* result);
         static HRESULT __stdcall WeakMapDelete(IActiveScriptDirect* activeScriptDirect, Var instance, Var key, __out bool* result);
-		
+
+        static Var __stdcall GetIteratorPrototype(IActiveScriptDirect* activeScriptDirect);
+
         static PropertyId __stdcall GetPropertyIdSymbolToStringTag(IActiveScriptDirect* activeScriptDirect);
 
         static Var __stdcall CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,

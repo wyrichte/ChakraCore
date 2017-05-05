@@ -536,7 +536,10 @@ HRESULT MockPairDomObject::CreateBaseIteratorPrototype(IActiveScriptDirect *acti
 
     IfFailedReturn(activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations));
 
-    IfFailedReturn(activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, nullptr, NULL, defaultScriptOperations, FALSE, objectPropId, false, &externalType));
+    Var iteratorPrototype = JsStaticAPI::JavascriptLibrary::GetIteratorPrototype(activeScriptDirect);
+    Assert(iteratorPrototype != nullptr);
+
+    IfFailedReturn(activeScriptDirect->CreateType(TypeId_Unspecified, nullptr, 0, iteratorPrototype, NULL, defaultScriptOperations, FALSE, objectPropId, false, &externalType));
     IfFailedReturn(activeScriptDirect->CreateTypedObject(externalType, 0, TRUE, &domVarObject));
 
     Var nextFunction = JsStaticAPI::JavascriptLibrary::CreateIteratorNextFunction(activeScriptDirect, typeIdToValidate);

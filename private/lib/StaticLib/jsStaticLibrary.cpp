@@ -397,4 +397,18 @@ namespace JsStaticAPI
         Assert(iterator != nullptr);
         return (void*)(((char*)iterator) + sizeof(Js::CustomExternalIterator));
     }
+
+    Var JavascriptLibrary::GetIteratorPrototype(IActiveScriptDirect* activeScriptDirect)
+    {
+        return GetLibraryObject(activeScriptDirect,
+            [&](const Js::ScriptContextBase* ScriptContextBase)-> Var {
+            Var object = ScriptContextBase->GetLibrary()->GetIteratorPrototype();
+            if (object == nullptr)
+            {
+                FATAL_ON_FAILED_API_RESULT(E_FAIL);
+            }
+            return object;
+        });
+    }
+
 }

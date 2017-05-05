@@ -209,6 +209,17 @@ var tests = [
         areEqual(['k1', 'k2'], actual, "validation after mutation happened in for..of loop");
      }
   },
+  {
+    name: "Mock object's iterator prototype validation",
+    body: function () {
+        var map = CreateDomMapObject();
+        map.Set('k1', 'v1');
+        
+        var keys = map.keys();
+        var fn = keys.__proto__.__proto__[Symbol.iterator];
+        assert.areEqual("function [Symbol.iterator]() { [native code] }", fn.toString(), "Validating that dom iterator has %IteratorPrototype% in the chain");
+     }
+  },
   
 ];
 
