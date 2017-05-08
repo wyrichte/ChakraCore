@@ -6637,7 +6637,35 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
     LoadScriptFlag loadScriptFlag = (pLoadScriptFlag == nullptr) ? LoadScriptFlag_Expression : (*pLoadScriptFlag);
-    Js::JavascriptFunction* jsFunc = scriptContext->LoadScript((const byte*)scriptText, wcslen(scriptText) * sizeof(char16), nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
+    size_t length = wcslen(scriptText) * sizeof(char16);
+
+    Js::JavascriptFunction * jsFunc = nullptr;
+
+    if (loadScriptFlag == LoadScriptFlag_Expression)
+    {
+        Js::ScriptContext * scriptContext = GetScriptContext();
+        Js::FastEvalMapString key(scriptText, length, 0, false, false);
+        if (scriptContext->IsInEvalMap(key, true, (Js::ScriptFunction**)&jsFunc))
+        {
+            Assert(jsFunc != nullptr);
+        }
+        else
+        {
+            jsFunc = scriptContext->LoadScript((const byte*)scriptText, length, nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
+            if (jsFunc != nullptr)
+            {
+                BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
+                {
+                    scriptContext->AddToEvalMap(key, true, Js::ScriptFunction::FromVar(jsFunc));
+                }
+                END_TRANSLATE_OOM_TO_HRESULT(hr);
+            }
+        }
+    }
+    else
+    {
+        jsFunc = scriptContext->LoadScript((const byte*)scriptText, length, nullptr, &se, &sourceInfo, Js::Constants::UnknownScriptCode, loadScriptFlag);
+    }
     // TODO: is this the right way to handle these parse error?
     if (jsFunc == nullptr)
     {
