@@ -489,13 +489,16 @@ void DebuggerController::Log(__in __nullterminated char16 *msg, ...)
 
 void DebuggerController::LogError(__in __nullterminated char16 *msg, ...)
 {
-    va_list args;
-    va_start(args, msg);
-    wprintf(_u("ERROR: "));
-    vwprintf(msg, args);
-    wprintf(_u("\n"));
-    fflush(stdout);
-    va_end(args);
+    if (!HostConfigFlags::flags.AsyncModuleLoadIsEnabled)
+    {
+        va_list args;
+        va_start(args, msg);
+        wprintf(_u("ERROR: "));
+        vwprintf(msg, args);
+        wprintf(_u("\n"));
+        fflush(stdout);
+        va_end(args);
+    }
 }
 
 HRESULT DebuggerController::InstallHostCallback(LPCWSTR propName, JsNativeFunction function, void* data)

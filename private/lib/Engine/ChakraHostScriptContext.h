@@ -143,6 +143,11 @@ public:
         return scriptSite->FetchImportedModule(referencingModule, specifier, dependentModuleRecord);
     }
 
+    HRESULT FetchImportedModuleFromScript(DWORD_PTR dwReferencingSourceContext, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
+    {
+        return scriptSite->FetchImportedModuleFromScript(dwReferencingSourceContext, specifier, dependentModuleRecord);
+    }
+
     HRESULT NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar)
     {
         return scriptSite->NotifyHostAboutModuleReady(referencingModule, exceptionVar);

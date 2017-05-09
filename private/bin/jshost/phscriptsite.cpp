@@ -1095,6 +1095,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
     char16 * fullpath = nullptr;
     bool contentsFromModuleSourceMap = false;
+    bool printFileOpenError = !HostConfigFlags::flags.AsyncModuleLoadIsEnabled;
 
     auto moduleFromSourceMap = moduleSourceMap.find(scriptFilename);
     if (isModuleCode && moduleFromSourceMap != moduleSourceMap.end())
@@ -1107,7 +1108,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     }
     else
     {
-        hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes);
+        hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
         IfFailGo(hr);
     }
 
@@ -1604,12 +1605,23 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
     HRESULT hr = S_OK;
 
     auto moduleEntry = moduleRecordMap.find(filename);
+    CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
+    ModuleRecord moduleRecord = nullptr;
+
     if (useExistingModuleRecord)
     {
         if (moduleEntry == moduleRecordMap.end())
         {
-            fwprintf(stderr, _u("missing module record for %s\n"), filename);
-            return E_INVALIDARG;
+            fwprintf(stderr, _u("missing module record for \'%s\'\n"), filename);
+            hr = E_INVALIDARG;
+        }
+        else
+        {
+            hr = GetActiveScriptDirect(&scriptDirect);
+            if (SUCCEEDED(hr))
+            {
+                moduleRecord = moduleEntry->second;
+            }
         }
     }
     else
@@ -1617,21 +1629,33 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
         if (moduleEntry != moduleRecordMap.end())
         {
             fwprintf(stderr, _u("ERROR: same module file was loaded multiple times %s\n"), filename);
-            return E_INVALIDARG;
+            hr = E_INVALIDARG;
         }
-        CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
-        ModuleRecord moduleRecord = nullptr;
-        hr = GetActiveScriptDirect(&scriptDirect);
-        if (SUCCEEDED(hr))
+        else
         {
-            hr = scriptDirect->InitializeModuleRecord(nullptr, filename, (UINT)wcslen(filename), &moduleRecord);
-        }
-        if (SUCCEEDED(hr))
-        {
-            moduleRecordMap[filename] = moduleRecord;
+            hr = GetActiveScriptDirect(&scriptDirect);
+            if (SUCCEEDED(hr))
+            {
+                hr = scriptDirect->InitializeModuleRecord(nullptr, filename, (UINT)wcslen(filename), &moduleRecord);
+
+                if (SUCCEEDED(hr))
+                {
+                    moduleRecordMap[filename] = moduleRecord;
+                }
+            }
         }
     }
-    hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
+
+    if (SUCCEEDED(hr))
+    {
+        hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
+    }
+
+    if (FAILED(hr) && moduleRecord != nullptr)
+    {
+        Var exceptionVar = nullptr;
+        scriptDirect->ParseModuleSource(moduleRecord, nullptr, nullptr, nullptr, 0, ParseModuleSourceFlags_DataIsUTF8, 0, 0, 0, &exceptionVar);
+    }
 
     return hr;
 }
@@ -2322,6 +2346,35 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
         moduleRecordMap[specifier] = moduleRecord;
         WScriptFastDom::ModuleMessage* moduleMessage =
             WScriptFastDom::ModuleMessage::Create(referencingModule, specifier, activeScriptDirect);
+        WScriptFastDom::PushMessage(moduleMessage);
+        *dependentModuleRecord = moduleRecord;
+    }
+    return hr;
+}
+
+STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleFromScript(
+    /* [in] */ __RPC__in DWORD_PTR dwReferencingSourceContext,
+    /* [in] */ __RPC__in LPCWSTR specifier,
+    /* [in] */ unsigned long specifierLength,
+    /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
+{
+    HRESULT hr;
+    // TODO: implement the dictionary
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    hr = GetActiveScriptDirect(&activeScriptDirect);
+    ModuleRecord moduleRecord = nullptr;
+    auto moduleEntry = moduleRecordMap.find(specifier);
+    if (moduleEntry != moduleRecordMap.end())
+    {
+        *dependentModuleRecord = moduleEntry->second;
+        return S_OK;
+    }
+    hr = activeScriptDirect->InitializeModuleRecord(nullptr, specifier, specifierLength, &moduleRecord);
+    if (SUCCEEDED(hr))
+    {
+        moduleRecordMap[specifier] = moduleRecord;
+        WScriptFastDom::ModuleMessage* moduleMessage =
+            WScriptFastDom::ModuleMessage::Create(nullptr, specifier, activeScriptDirect);
         WScriptFastDom::PushMessage(moduleMessage);
         *dependentModuleRecord = moduleRecord;
     }

@@ -194,6 +194,12 @@ public:
         /* [in] */ unsigned long specifierLength,
         /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord);
 
+    STDMETHODIMP FetchImportedModuleFromScript(
+        /* [in] */ __RPC__in DWORD_PTR dwReferencingSourceContext,
+        /* [in] */ __RPC__in LPCWSTR specifier,
+        /* [in] */ unsigned long specifierLength,
+        /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord);
+
     STDMETHODIMP NotifyModuleReady(
         /* [in] */ __RPC__in ModuleRecord referencingModule,
         /* [in] */ __RPC__in Var exceptionVar);

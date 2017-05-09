@@ -1697,6 +1697,26 @@ HRESULT ScriptSite::FetchImportedModule(Js::ModuleRecordBase* referencingModule,
     return hr;
 }
 
+HRESULT ScriptSite::FetchImportedModuleFromScript(DWORD_PTR dwReferencingSourceContext, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
+{
+    HRESULT hr = NOERROR;
+    IActiveScriptDirectHost* scriptHost = GetScriptEngine()->GetActiveScriptDirectHostNoRef();
+    if (scriptHost == nullptr)
+    {
+        hr = E_ACCESSDENIED;
+    }
+    else
+    {
+        Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
+        BEGIN_NO_EXCEPTION
+        // TODO(suwc): switch to FetchImportedModuleFromScript once idl update is completed
+        //hr = scriptHost->FetchImportedModuleFromScript(dwReferencingSourceContext, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
+        hr = scriptHost->FetchImportedModule(nullptr, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
+        END_NO_EXCEPTION
+    }
+    return hr;
+}
+
 HRESULT ScriptSite::NotifyHostAboutModuleReady(Js::ModuleRecordBase* referencingModule, Js::Var exceptionVar)
 {
     HRESULT hr = NOERROR;

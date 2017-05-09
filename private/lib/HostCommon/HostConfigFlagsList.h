@@ -44,6 +44,7 @@ FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect he
 FLAG(bool, OOPJIT,                          "JIT jobs should be run in a separate process", true)
 FLAG(bool, ForceOOPImageRebase,             "Ensure JIT process will have to rebase dlls", false)
 FLAG(bool, EnableOnLeaveScript,             "Execute __onLeaveScript() when leave script", false)
+FLAG(bool, AsyncModuleLoad,                 "Silence host error output for module load failures to enable promise testing", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2
