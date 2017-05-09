@@ -4,7 +4,6 @@
     <default>
       <files>detach.js</files>
       <baseline>detach.baseline</baseline>
-      <tags></tags>
       <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
     </default>
   </test>
@@ -378,7 +377,6 @@
     <default>
       <files>Matrix.js</files>
       <baseline>Matrix.baseline</baseline>
-      <tags></tags>
       <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
     </default>
   </test>

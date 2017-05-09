@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <!-- TODO (doilij) core: fails in core with mysterious exception -->
   <test>
@@ -75,7 +75,7 @@
     <default>
       <compile-flags>-targeted -Intl -inspectmaxstringlength:100 -debuglaunch -dbgbaseline:funcSource.js.dbg.baseline</compile-flags>
       <files>funcSource.js</files>
-      <tags>Intl,fail_mutators,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winglob,exclude_serialized</tags>
     </default>
   </test>
   <!-- TODO (doilij) merge scriptInLibrary.js with scriptInLibrary_alt.js -->
@@ -84,7 +84,7 @@
       <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
     </default>
   </test>
   <test>
@@ -92,7 +92,7 @@
       <compile-flags>-targeted -automaticsourcerundown -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
     </default>
   </test>
   <!-- TODO (doilij) merge scriptInLibrary.js with scriptInLibrary_alt.js -->
@@ -102,7 +102,7 @@
       <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary_alt.js</files>
       TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue
-      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
     </default>
   </test>
   -->
@@ -111,14 +111,14 @@
       <compile-flags>-targeted -debuglaunch -dbgbaseline:throwFromLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>throwFromLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,fail_mutators,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
     </default>
   </test>
   <test>
     <default>
       <compile-flags>-targeted -LogLineColumnProfileInfo- -LogProfilerVerbose- -dbgbaseline:intlProfileAttach_emptyJson.dbg.baseline</compile-flags>
       <files>intlProfileAttach.js</files>
-      <tags>Intl,fail_mutators,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winglob,exclude_serialized</tags>
     </default>
   </test>
 </regress-exe>

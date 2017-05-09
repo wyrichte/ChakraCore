@@ -18,7 +18,7 @@
       <files>simpletest.js</files>
       <compile-flags>-debuglaunch -auto -dbgbaseline:simpletest.debugger.baseline -Intl-  -DeferLoadingAvailableSource</compile-flags>
       <baseline>simpletest.baseline</baseline>
-      <tags>fail_mutators,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -26,7 +26,7 @@
       <files>simpletest.js</files>
       <compile-flags>-jsrt -debuglaunch -auto -dbgbaseline:simpletest.debugger.jsrt.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
       <baseline>simpletest.baseline</baseline>
-      <tags>fail_mutators,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -34,7 +34,6 @@
       <files>testForNoAOObject.js</files>
       <compile-flags>-debuglaunch -auto -es6functionnamefull -dbgbaseline:testForNoAOObject.debugger.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
       <baseline>testForNoAOObject.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -42,7 +41,6 @@
       <files>testForNoAOObject.js</files>
       <compile-flags>-jsrt -debuglaunch -es6functionnamefull -auto -dbgbaseline:testForNoAOObject.debugger.jsrt.baseline -DeferLoadingAvailableSource</compile-flags>
       <baseline>testForNoAOObject.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -50,21 +48,19 @@
       <files>protoTest.js</files>
       <compile-flags>-debuglaunch -auto -Intl- -dbgbaseline:protoTest.js.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
       <baseline>protoTest.baseline</baseline>
-      <tags>fail_mutators,exclude_arm</tags>
+      <tags>exclude_arm</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnextstatement.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextstatement.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnextstatement2.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextstatement2.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -72,7 +68,6 @@
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:intlib.js.dbg.baseline -Intl -LibraryStackFrame</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -80,7 +75,6 @@
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:intlib.js.legacy_debugger.dbg.baseline -Intl -LibraryStackFrame -NoLibraryStackFrameDebugger</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -93,7 +87,6 @@
     <default>
       <files>simplePropCheck.js</files>
       <compile-flags>-automaticsourcerundown -dbgbaseline:simplePropCheck.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -101,7 +94,6 @@
       <files>Error.Constructor.js</files>
       <compile-flags>-force:deferparse -targeted -dbgbaseline:Error.Constructor.js.dbg.baseline</compile-flags>
       <baseline>Error.Constructor.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -109,126 +101,111 @@
       <files>Error.Constructor.js</files>
       <compile-flags>-force:deferparse -targeted -automaticsourcerundown -dbgbaseline:Error.Constructor.js.dbg.baseline</compile-flags>
       <baseline>Error.Constructor.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameNonLiteralPropertyTest.js</files>
       <compile-flags>-dbgbaseline:fullNameNonLiteralPropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameNegativePropertyTest.js</files>
       <compile-flags>-dbgbaseline:fullNameNegativePropertyTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameGlobalsTest.js</files>
       <compile-flags>-dbgbaseline:fullNameGlobalsTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameMapTest.js</files>
       <compile-flags>-ES6Species -dbgbaseline:fullNameMapTest.js.dbg.baseline -InspectMaxStringLength:256 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameMethodsTest.js</files>
       <compile-flags>-dbgbaseline:fullNameMethodsTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameScopeTest.js</files>
       <compile-flags>-dbgbaseline:fullNameScopeTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameSetTest.js</files>
       <compile-flags>-ES6Species -dbgbaseline:fullNameSetTest.js.dbg.baseline -InspectMaxStringLength:256 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameWeakMapTest.js</files>
       <compile-flags>-dbgbaseline:fullNameWeakMapTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullNameWeakSetTest.js</files>
       <compile-flags>-dbgbaseline:fullNameWeakSetTest.js.dbg.baseline -InspectMaxStringLength:100 -Intl- -debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeConstAttributesAreReadOnlyInExpressionEval.bug411503.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeConstAttributesAreReadOnlyInExpressionEval.bug411503.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeConstAttributesAreReadOnlyInLocals.bug411503.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeConstAttributesAreReadOnlyInLocals.bug411503.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeNonDebugMetadataTracking.bug463066.js</files>
       <compile-flags>-Debug -dbgbaseline:blockScopeNonDebugMetadataTracking.bug463066.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>mapSetWeakmap.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:mapSetWeakmap.js.dbg.baseline -Intl- -es6classes</compile-flags>
-      <tags>fail_mutators,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>proxy.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:proxy.js.dbg.baseline -args summary -endargs</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>proxy1.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:proxy1.js.dbg.baseline -args summary -endargs</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>JIT_locals_1.js</files>
       <compile-flags>-EnableJitInDiagMode -es6functionnamefull -debuglaunch -DumpLocalsOnDebuggerBp -bailout:14 -bailout:23 -bailout:34 -dbgbaseline:JIT_locals_1.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_arm,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_arm,exclude_nonative</tags>
     </default>
   </test>
   <test>
     <default>
       <files>JIT_locals_1.js</files>
       <compile-flags>-debuglaunch -es6functionnamefull -forceNative -off:simpleJit -DumpLocalsOnDebuggerBp -bailout:14 -bailout:23 -bailout:34 -dbgbaseline:JIT_locals_1.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_arm,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_arm,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -236,7 +213,7 @@
       <files>syntaxError.js</files>
       <compile-flags>-debuglaunch</compile-flags>
       <baseline>syntaxError.baseline</baseline>
-      <tags>exclude_dynapogo,fail_mutators</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -244,7 +221,7 @@
       <files>FastF12_AsyncBreak.js</files>
       <compile-flags>-DebugLaunch -break -forceNative -off:simpleJit -EnableJitInDiagMode -trace:bailout -Intl-</compile-flags>
       <baseline>FastF12_AsyncBreak.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -252,7 +229,7 @@
       <files>FastF12_Breakpoint.js</files>
       <compile-flags>-targeted -forceNative -off:simpleJit -EnableJitInDiagMode -trace:bailout -Intl-</compile-flags>
       <baseline>FastF12_Breakpoint.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -260,7 +237,7 @@
       <files>FastF12_Breakpoint.js</files>
       <compile-flags>-targeted -forceNative -off:simpleJit -EnableJitInDiagMode -automaticsourcerundown -trace:bailout -Intl-</compile-flags>
       <baseline>FastF12_Breakpoint.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -268,7 +245,7 @@
       <files>FastF12_debuggerStmt.js</files>
       <compile-flags>-ForceDiagnosticsMode -forceNative -off:simpleJit -EnableJitInDiagMode -trace:bailout -Intl-</compile-flags>
       <baseline>FastF12_debuggerStmt.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -276,7 +253,7 @@
       <files>FastF12_IgnoreException.js</files>
       <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode -trace:bailout -Intl</compile-flags>
       <baseline>FastF12_IgnoreException.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators,exclude_winglob</tags>
+      <tags>exclude_dynapogo,exclude_nonative,exclude_winglob</tags>
     </default>
   </test>
   <test>
@@ -284,7 +261,7 @@
       <files>FastF12_IgnoreException_Attach.js</files>
       <compile-flags>-targeted -forceNative -off:simpleJit</compile-flags>
       <baseline>FastF12_IgnoreException_Attach.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -292,35 +269,31 @@
       <files>FastF12_FirstChanceException_SetNext.js</files>
       <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode</compile-flags>
       <baseline>FastF12_FirstChanceException_SetNext.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,fail_mutators,exclude_winglob</tags>
+      <tags>exclude_dynapogo,exclude_nonative,exclude_winglob</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_ForIn.js</files>
       <compile-flags>-DebugLaunch -targeted -dbgbaseline:IgnoreException_ForIn.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_SetNext_ForIn.js</files>
       <compile-flags>-DebugLaunch -targeted -dbgbaseline:IgnoreException_SetNext_ForIn.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_ForOf.js</files>
       <compile-flags>-DebugLaunch -targeted -dbgbaseline:IgnoreException_ForOf.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_SetNext_ForOf.js</files>
       <compile-flags>-DebugLaunch -targeted -dbgbaseline:IgnoreException_SetNext_ForOf.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -328,7 +301,6 @@
       <files>IgnoreException_SetNext_IfElse.js</files>
       <compile-flags>-DebugLaunch -targeted</compile-flags>
       <baseline>IgnoreException_SetNext_IfElse.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -336,7 +308,7 @@
       <files>IgnorException_Resume.js</files>
       <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit</compile-flags>
       <baseline>IgnorException_Resume.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -344,21 +316,19 @@
       <files>IgnorException_Resume_MaxInterpret.js</files>
       <compile-flags>-DebugLaunch -targeted -MaxInterpretCount:1 -off:simpleJit</compile-flags>
       <baseline>IgnorException_Resume_MaxInterpret.baseline</baseline>
-      <tags>exclude_dynapogo,fail_mutators</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_CallNonFunc.js</files>
       <compile-flags>-DebugLaunch -targeted -dbgbaseline:IgnoreException_CallNonFunc.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>IgnoreException_CallNonFunc.js</files>
       <baseline>IgnoreException_CallNonFunc.nonDebugger.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <!--<test>
@@ -366,7 +336,6 @@
       <files>SetNextStatement4.js</files>
       <compile-flags>-DebugLaunch -targeted</compile-flags>
       <baseline>SetNextStatement4.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>-->
   <test>
@@ -374,35 +343,30 @@
       <files>SetNextStatement5.js</files>
       <compile-flags>-DebugLaunch -targeted</compile-flags>
       <baseline>SetNextStatement5.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>sourceRundownBasicTest.js</files>
       <compile-flags>-dbgbaseline:sourceRundownBasicTest.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>sourceRundownAttachDetachTest.js</files>
       <compile-flags>-targeted -dbgbaseline:sourceRundownAttachDetachTest.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>debuggerExceptionHandling.js</files>
       <compile-flags>-debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>debuggerExceptionHandling2.js</files>
       <compile-flags>-debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -410,7 +374,6 @@
       <files>settimeout.js</files>
       <compile-flags>-targeted -Intl-</compile-flags>
       <baseline>settimeout.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -418,7 +381,6 @@
       <files>settimeout.js</files>
       <compile-flags>-targeted -jsrt -dbgbaseline:settimeout.js.jsrt.dbg.baseline -Intl-</compile-flags>
       <baseline>settimeout.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <!-- verify ArrayBuffer representation in debugger -->
@@ -426,7 +388,7 @@
     <default>
       <files>arraybuffer.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:arraybuffer.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <!-- JUST MY CODE -->
@@ -435,42 +397,42 @@
     <default>
       <files>try.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:try.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>try.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:try.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
     <default>
       <files>catch.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:catch.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>catch.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:catch.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
     <default>
       <files>finally.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:finally.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>finally.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:finally.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <!-- forced interpreted runs -->
@@ -479,7 +441,7 @@
       <files>justMyCode.singleDocument.js</files>
       <compile-flags>-noNative -targeted -dbgbaseline:justMyCode.singleDocument.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.singleDocument.baseline</baseline>
-      <tags>exclude_dynapogo,fail_mutators</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -487,7 +449,7 @@
       <files>justMyCode.twoDocuments.main.js</files>
       <compile-flags>-noNative -targeted -dbgbaseline:justMyCode.twoDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -495,7 +457,7 @@
       <files>justMyCode.try.singleDocument.js</files>
       <compile-flags>-noNative -targeted -dbgbaseline:justMyCode.try.singleDocument.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.try.singleDocument.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -503,7 +465,7 @@
       <files>justMyCode.try.twoDocuments.main.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:justMyCode.try.twoDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.try.twoDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -511,7 +473,7 @@
       <files>justMyCode.twoDocuments.simple.main.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:justMyCode.twoDocuments.simple.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.simple.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -519,7 +481,7 @@
       <files>justMyCode.threeDocuments.main.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:justMyCode.threeDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.threeDocuments.main.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -527,7 +489,7 @@
       <files>justMyCode.twoDocuments.eval.main.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:justMyCode.twoDocuments.eval.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.eval.main.baseline</baseline>
-      <tags>fail_mutators,exclude_fre,exclude_dynapogo</tags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
     </default>
   </test>
   <!-- forced JIT mode -->
@@ -536,7 +498,7 @@
       <files>justMyCode.singleDocument.js</files>
       <compile-flags>-forceNative -off:simpleJit -targeted -dbgbaseline:justMyCode.singleDocument.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.singleDocument.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
+      <tags>exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -544,7 +506,7 @@
       <files>justMyCode.twoDocuments.main.js</files>
       <compile-flags>-forceNative -off:simpleJit -targeted -dbgbaseline:justMyCode.twoDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
+      <tags>exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -552,7 +514,7 @@
       <files>justMyCode.try.singleDocument.js</files>
       <compile-flags>-forceNative -off:simpleJit -targeted -dbgbaseline:justMyCode.try.singleDocument.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.try.singleDocument.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
+      <tags>exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -560,7 +522,7 @@
       <files>justMyCode.try.twoDocuments.main.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:justMyCode.try.twoDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.try.twoDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
+      <tags>exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -568,7 +530,7 @@
       <files>justMyCode.twoDocuments.simple.main.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:justMyCode.twoDocuments.simple.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.simple.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative</tags>
+      <tags>exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -576,7 +538,7 @@
       <files>justMyCode.threeDocuments.main.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -trace:bailout -targeted -dbgbaseline:justMyCode.threeDocuments.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.threeDocuments.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_nonative,exclude_dynapogo</tags>
+      <tags>exclude_nonative,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -584,7 +546,7 @@
       <files>justMyCode.twoDocuments.eval.main.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:justMyCode.twoDocuments.eval.main.js.dbg.baseline</compile-flags>
       <baseline>justMyCode.twoDocuments.eval.main.jit.baseline</baseline>
-      <tags>fail_mutators,exclude_fre,exclude_nonative</tags>
+      <tags>exclude_fre,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -592,7 +554,7 @@
       <files>jmc_bug624298_first.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:jmc_bug624298_first.js.dbg.baseline</compile-flags>
       <baseline>jmc_bug624298_first.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <!-- /JUST MY CODE -->
@@ -600,21 +562,21 @@
     <default>
       <files>unicode_linecol.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:unicode_linecol.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>unicode_linecol.js</files>
       <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:unicode_linecol.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-Intl-</compile-flags>
-      <tags>fail_mutators,Slow</tags>
+      <tags>Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -622,7 +584,7 @@
     <default>
       <files>detachAttachBasicTest.js</files>
       <compile-flags>-automaticsourcerundown -Intl-</compile-flags>
-      <tags>fail_mutators,Slow</tags>
+      <tags>Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -631,7 +593,6 @@
       <files>testdynamicdetach2.js</files>
       <compile-flags>-es6functionnamefull -dbgbaseline:testdynamicdetach2.js.dbg.baseline -Intl-</compile-flags>
       <baseline>testdynamicdetach2.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -639,14 +600,13 @@
       <files>testdynamicdetach2.js</files>
       <compile-flags>-es6functionnamefull -automaticsourcerundown -dbgbaseline:testdynamicdetach2.js.dbg.baseline -Intl-</compile-flags>
       <baseline>testdynamicdetach2.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <compile-flags>-DebugLaunch -EnableJitInDiagMode -forceNative -off:simpleJit -targeted -trace:bailout</compile-flags>
       <files>jitStepping.js</files>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
       <baseline>jitStepping.baseline</baseline>
     </default>
   </test>
@@ -654,7 +614,7 @@
     <default>
       <compile-flags>-DebugLaunch -targeted -forcenative -off:simpleJit</compile-flags>
       <files>jitStepping1.js</files>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
       <baseline>jitStepping1.baseline</baseline>
     </default>
   </test>
@@ -662,175 +622,150 @@
     <default>
       <files>blockScopeSetNextStatmentTDZToNonTDZAllowed.bug154071.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatmentTDZToNonTDZAllowed.bug154071.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatmentNonTDZToTDZNotAllowed.bug154071.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatmentNonTDZToTDZNotAllowed.bug154071.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpInBlockAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpInBlockAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpInBlockNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpInBlockNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpInNestedBlockAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpInNestedBlockAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpInNestedBlockNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpInNestedBlockNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpInNestedBlockNotAllowed2.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpInNestedBlockNotAllowed2.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpOutBlockAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpOutBlockAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpOutBlockBackwardAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpOutBlockBackwardAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpOutBlockNestedAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpOutBlockNestedAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpOutBlockNestedNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpOutBlockNestedNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpOutBlockNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpOutBlockNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToGrandchildAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToGrandchildAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToGrandchildNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToGrandchildNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToGrandchildWithDeepSourceNestingAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToGrandchildWithDeepSourceNestingAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToGrandchildWithDeepTargetNestingAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToGrandchildWithDeepTargetNestingAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToSiblingAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToSiblingAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementJumpToSiblingNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementJumpToSiblingNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementSameBlockAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementSameBlockAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementSameBlockNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementSameBlockNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementGlobalJump.bug261958.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementGlobalJump.bug261958.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementGlobalJumpInAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementGlobalJumpInAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementGlobalJumpInNotAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementGlobalJumpInNotAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSetNextStatementGlobalJumpOutAllowed.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSetNextStatementGlobalJumpOutAllowed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockScopeSibling.bug243560.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockScopeSibling.bug243560.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -838,21 +773,18 @@
       <files>nonEnumerableSpecialPropertiesTests.js</files>
       <compile-flags>-InspectMaxStringLength:100 -EnumerateSpecialPropertiesInDebugger -debuglaunch -targeted -dbgbaseline:nonEnumerableSpecialPropertiesTests.js.dbg.baseline -Intl- -ES6-</compile-flags>
       <baseline>nonEnumerableSpecialPropertiesTests.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>nonEnumerableSpecialPropertiesArgumentsTest.js</files>
       <compile-flags>-EnumerateSpecialPropertiesInDebugger -debuglaunch -targeted -dbgbaseline:nonEnumerableSpecialPropertiesArgumentsTest.js.dbg.baseline -Intl- -ES6-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>nonEnumerableSpecialPropertiesFunctionTest.js</files>
       <compile-flags>-EnumerateSpecialPropertiesInDebugger -debuglaunch -targeted -dbgbaseline:nonEnumerableSpecialPropertiesFunctionTest.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -860,7 +792,7 @@
       <files>setnextstatement3.js</files>
       <compile-flags> -forceNative -off:simpleJit -EnableJitInDiagMode -debuglaunch -targeted -dbgbaseline:setnextstatement3.js.dbg.baseline</compile-flags>
       <baseline>setnextstatement3.js.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -868,7 +800,7 @@
       <files>setnext_onexception1.js</files>
       <compile-flags> -forceNative -off:simpleJit -EnableJitInDiagMode -debuglaunch -targeted -dbgbaseline:setnext_onexception1.js.dbg.baseline</compile-flags>
       <baseline>setnext_onexception1.js.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -876,7 +808,7 @@
       <files>setnext_onexception2.js</files>
       <compile-flags> -forceNative -off:simpleJit -EnableJitInDiagMode -debuglaunch -targeted -dbgbaseline:setnext_onexception2.js.dbg.baseline</compile-flags>
       <baseline>setnext_onexception2.js.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -884,28 +816,27 @@
       <files>setnext_onexception3.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnext_onexception3.js.dbg.baseline</compile-flags>
       <baseline>setnext_onexception3.js.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnext_fromInsideCall.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnext_fromInsideCall.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_170722.js</files>
       <compile-flags>-ForceDiagnosticsMode -MaxInterpretCount:1 -off:simpleJit -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_247744.js</files>
       <compile-flags> -debuglaunch -targeted -forceNative -off:simpleJit -dbgbaseline:bug_247744.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -913,28 +844,28 @@
       <files>bug_281479.js</files>
       <compile-flags> -debuglaunch -targeted -MaxInterpretCount:1 -off:simpleJit</compile-flags>
       <baseline>bug_281479.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_272569.js</files>
       <compile-flags>-targeted -forcenative</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_847082_bytecode_corrupt.js</files>
       <compile-flags>-targeted -dbgbaseline:bug_847082_bytecode_corrupt.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>rethrowInCatch.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:rethrowInCatch.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <!-- Disabled, due to fatal error in the Attach/Detach code path added. WI: 935011 to enable this.
@@ -943,7 +874,7 @@
       <files>longExpression_jshost.js</files>
        <compile-flags>-Intl-</compile-flags>
       <baseline>longExpression_jshost.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonative</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   -->
@@ -957,21 +888,21 @@
     <default>
       <files>crosscontext1.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:crosscontext1.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>crosscontext2.js</files>
       <compile-flags>-targeted -dbgbaseline:crosscontext2.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>crosscontext3_exception.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:crosscontext3_exception.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -979,7 +910,6 @@
       <files>qualified_names3.js</files>
       <compile-flags>-targeted -dbgbaseline:qualified_names3.js.dbg.baseline -Intl-</compile-flags>
       <baseline>qualified_names3.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -987,21 +917,20 @@
       <files>qualified_names4.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:qualified_names4.js.dbg.baseline -Intl-</compile-flags>
       <baseline>qualified_names4.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>nonusercodeexception_jshost.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:nonusercodeexception_jshost.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_483733.js</files>
       <baseline>bug_483733.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1015,28 +944,28 @@
       <files>stacktraceevent_1.js</files>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
       <baseline>stacktraceevent_1.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>symbols1.js</files>
       <compile-flags>-debuglaunch -dbgbaseline:symbols1.js.dbg.baseline -targeted -InspectMaxStringLength:100</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_528564.js</files>
       <compile-flags>-debuglaunch -targeted -maxinterpretcount:2 -dbgbaseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>RestoreValuesOnBailout.js</files>
       <compile-flags>-forcediagnosticsmode -maxInterpretCount:1</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <!--<test>
@@ -1044,14 +973,13 @@
       <files>bug_553748.html</files>
       <compile-flags>-trace:StackFramesEvent -DeferLoadingAvailableSource</compile-flags>
       <baseline>bug_553748.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>-->
   <test>
     <default>
       <files>basichtmltest1.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:basichtmltest1.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <!-- Temporarily disabling for FI
@@ -1059,28 +987,28 @@
     <default>
       <files>basichtmltest_Attach.html</files>
       <compile-flags>-targeted -dbgbaseline:basichtmltest_Attach.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test> -->
   <test>
     <default>
       <files>basichtmltest_Attach2.html</files>
       <compile-flags>-targeted -dbgbaseline:basichtmltest_Attach2.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>basichtmltest_Main.htm</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:basichtmltest_Main.htm.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
     <default>
       <files>test_iframe1.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:test_iframe1.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
@@ -1088,7 +1016,7 @@
       <files>html_workertest.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:html_workertest.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
       <baseline>html_workertest.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
@@ -1096,28 +1024,28 @@
       <files>html_workertest_Attach.html</files>
       <compile-flags>-targeted -dbgbaseline:html_workertest_Attach.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
       <baseline>html_workertest.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_541996.html</files>
       <compile-flags>-forceserialized -targeted -dbgbaseline:emptyJson.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>event_break_107724.html</files>
       <compile-flags>-targeted -dbgbaseline:event_break_107724.html.dbg.baseline -DeferLoadingAvailableSource</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setTimeout.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
       <baseline>settimeout.html.baseline</baseline>
     </default>
   </test>
@@ -1125,28 +1053,26 @@
     <default>
       <files>bug_550210.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_550210.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>scriptContextClosed.js</files>
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:20 -dbgbaseline:scriptContextClosed.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_winglob</tags>
+      <tags>exclude_winglob</tags>
     </default>
   </test>
   <test>
     <default>
       <files>domInClosedContext.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:domInClosedContext.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_113160.js</files>
       <compile-flags>-forcenative -targeted -debuglaunch -dbgbaseline:bug_113160.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
       <baseline>bug_113160.baseline</baseline>
     </default>
   </test>
@@ -1154,21 +1080,20 @@
     <default>
       <files>setTimeoutThis.js</files>
       <compile-flags>-targeted -debuglaunch -forcenative -dbgbaseline:setTimeoutThis.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_507150.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:bug_507150.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_263453.js</files>
       <compile-flags>-debuglaunch -targeted -forcenative -force:fieldcopyprop -dbgbaseline:bug_263453.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1176,14 +1101,14 @@
       <files>brlong_issue.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:brlong_issue.js.dbg.baseline</compile-flags>
       <baseline>brlong_issue.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>needMarshal.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:needMarshal.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1640,21 +1565,18 @@
     <default>
       <files>parentedDynamicCode1.js</files>
       <compile-flags>-debuglaunch -targeted -InspectMaxStringLength:1000 -dbgbaseline:parenteddynamiccode1.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>parentedDynamicCode1.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:1000 -dbgbaseline:parenteddynamiccode1.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>externaldeferredconstructor.js</files>
       <compile-flags>-targeted -debuglaunch -InspectMaxStringLength:1000</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1686,14 +1608,14 @@
     <default>
       <files>bug_OS_2628934.html</files>
       <compile-flags>-debuglaunch</compile-flags>
-      <tags>BugFix,fail_mutators,exclude_dynapogo</tags>
+      <tags>BugFix,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_OS_2744135_debugEvalSite.js</files>
       <compile-flags>-debuglaunch</compile-flags>
-      <tags>BugFix,fail_mutators,exclude_serialized</tags>
+      <tags>BugFix,exclude_serialized</tags>
     </default>
   </test>
   <test>
@@ -1701,7 +1623,6 @@
       <files>ConsoleScopeCrossContext.js</files>
       <baseline>ConsoleScopeCrossContext.js.baseline</baseline>
       <compile-flags>-targeted -InspectMaxStringLength:100 -dbgbaseline:ConsoleScopeCrossContext.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1709,7 +1630,6 @@
       <files>commaexpression_span.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:commaexpression_span.js.dbg.baseline</compile-flags>
       <baseline>commaexpression_span.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1795,7 +1715,7 @@
       <files>shutdownInDispatchHalt.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
       <baseline>shutdownInDispatchHalt.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1803,14 +1723,13 @@
       <files>WinBlue_625203.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:winblue_625203.js.dbg.baseline</compile-flags>
       <baseline>WinBlue_625203.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>debuggerExceptionHandling3.js</files>
       <compile-flags>-debuglaunch -targeted</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1818,7 +1737,7 @@
       <files>bug_592563.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:bug_592563.js.dbg.baseline</compile-flags>
       <baseline>bug_592563.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1826,7 +1745,7 @@
       <files>bug_594824.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
       <baseline>bug_594824.baseline</baseline>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -1854,7 +1773,6 @@
     <default>
       <files>async1.js</files>
       <compile-flags>-targeted -dbgbaseline:async1.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1862,7 +1780,6 @@
       <files>attach_detach.js</files>
       <compile-flags>-targeted -dbgbaseline:attach_detach.js.dbg.baseline</compile-flags>
       <baseline>attach_detach.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1870,7 +1787,6 @@
       <files>attach_exception_fastdebug.js</files>
       <compile-flags>-targeted -dbgbaseline:attach_exception_fastdebug.js.dbg.baseline</compile-flags>
       <baseline>attach_exception_fastdebug.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1878,7 +1794,6 @@
       <files>attach_inspectframes.js</files>
       <compile-flags>-targeted -dbgbaseline:attach_inspectframes.js.dbg.baseline -Intl-</compile-flags>
       <baseline>attach_inspectframes.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1886,7 +1801,6 @@
       <files>blockscope_func_expression_ES5.js</files>
       <compile-flags>-targeted -es6functionnamefull -dbgbaseline:blockscope_func_expression_ES5.js.dbg.baseline -Intl-</compile-flags>
       <baseline>blockscope_func_expression_ES5.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1894,14 +1808,13 @@
       <files>ES6_intl_collator_exception.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_intl_collator_exception.js.dbg.baseline -Intl</compile-flags>
       <baseline>ES6_intl_collator_exception.js.baseline</baseline>
-      <tags>fail_mutators,exclude_winglob</tags>
+      <tags>exclude_winglob</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_letconst_shadow.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_letconst_shadow.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1909,7 +1822,6 @@
       <files>ES6_letconst_shadowing_function.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_letconst_shadowing_function.js.dbg.baseline -Intl-</compile-flags>
       <baseline>ES6_letconst_shadowing_function.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1917,7 +1829,6 @@
       <files>ES6_letconst_shadowing_function_blockscope.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_letconst_shadowing_function_blockscope.js.dbg.baseline -Intl-</compile-flags>
       <baseline>ES6_letconst_shadowing_function_blockscope.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1925,7 +1836,6 @@
       <files>ES6_letconst_var.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_letconst_var.js.dbg.baseline</compile-flags>
       <baseline>ES6_letconst_var.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1933,7 +1843,6 @@
       <files>es6_forof_setnextintofor.js</files>
       <compile-flags>-targeted -ES6 -dbgbaseline:es6_forof_setnextintofor.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_setnextintofor.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1941,7 +1850,6 @@
       <files>es6_forof_setnextintofor_withdecl.js</files>
       <compile-flags>-targeted -debuglaunch -ES6 -dbgbaseline:es6_forof_setnextintofor_withdecl.js.dbg.baseline</compile-flags>
       <baseline>es6_forof_setnextintofor_withdecl.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1949,7 +1857,6 @@
       <files>exception_getter.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_getter.js.dbg.baseline</compile-flags>
       <baseline>exception_getter.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1957,7 +1864,6 @@
       <files>exception_implicitthrow_fromJITted_arrayES5.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_implicitthrow_fromJITted_arrayES5.js.dbg.baseline</compile-flags>
       <baseline>exception_implicitthrow_fromJITted_arrayES5.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1965,7 +1871,6 @@
       <files>exception_in_func_array_ES5.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_in_func_array_ES5.js.dbg.baseline</compile-flags>
       <baseline>exception_in_func_array_ES5.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1973,7 +1878,6 @@
       <files>exception_setter.js</files>
       <compile-flags>-targeted -maxinterpretcount:1 -off:simpleJit -dbgbaseline:exception_setter.js.dbg.baseline</compile-flags>
       <baseline>exception_setter.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1981,7 +1885,6 @@
       <files>exception_throwfrom_JITted.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_throwfrom_JITted.js.dbg.baseline</compile-flags>
       <baseline>exception_throwfrom_JITted.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1989,7 +1892,6 @@
       <files>exception_throw_closure_JITted.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_throw_closure_JITted.js.dbg.baseline</compile-flags>
       <baseline>exception_throw_closure_JITted.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -1997,14 +1899,12 @@
       <files>exception_throw_fastdebug.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_throw_fastdebug.js.dbg.baseline -Intl-</compile-flags>
       <baseline>exception_throw_fastdebug.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>exception_trycatch.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_trycatch.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2012,7 +1912,6 @@
       <files>exception_with.js</files>
       <compile-flags>-targeted -dbgbaseline:exception_with.js.dbg.baseline</compile-flags>
       <baseline>exception_with.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2020,7 +1919,6 @@
       <files>frames_blockscopes.js</files>
       <compile-flags>-targeted -dbgbaseline:frames_blockscopes.js.dbg.baseline</compile-flags>
       <baseline>frames_blockscopes.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2028,7 +1926,6 @@
       <files>frames_inspection_mapES6.js</files>
       <compile-flags>-targeted -dbgbaseline:frames_inspection_mapES6.js.dbg.baseline</compile-flags>
       <baseline>frames_inspection_mapES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2036,7 +1933,6 @@
       <files>refError_exception_if.js</files>
       <compile-flags>-targeted -dbgbaseline:refError_exception_if.js.dbg.baseline</compile-flags>
       <baseline>refError_exception_if.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2044,7 +1940,6 @@
       <files>setnext_backwards_ES5.js</files>
       <compile-flags>-targeted -dbgbaseline:setnext_backwards_ES5.js.dbg.baseline</compile-flags>
       <baseline>setnext_backwards_ES5.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2052,7 +1947,6 @@
       <files>setnext_blockscope.js</files>
       <compile-flags>-targeted -dbgbaseline:setnext_blockscope.js.dbg.baseline -Intl-</compile-flags>
       <baseline>setnext_blockscope.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2060,7 +1954,6 @@
       <files>setnext_blockscope_jumpacrosscope_ES5.js</files>
       <compile-flags>-targeted -dbgbaseline:setnext_blockscope_jumpacrosscope_ES5.js.dbg.baseline -Intl-</compile-flags>
       <baseline>setnext_blockscope_jumpacrosscope_ES5.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2068,14 +1961,12 @@
       <files>setnext_blockscope_letconst_cannotsetnexttodifferentscope_ES6.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:setnext_blockscope_letconst_cannotsetnexttodifferentscope_ES6.js.dbg.baseline -Intl-</compile-flags>
       <baseline>setnext_blockscope_letconst_cannotsetnexttodifferentscope_ES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnext_es6backwardsnegative.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:setnext_es6backwardsnegative.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2083,21 +1974,18 @@
       <files>setnext_intoclosure_letconst_ES6.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:setnext_intoclosure_letconst_ES6.js.dbg.baseline -Intl-</compile-flags>
       <baseline>setnext_intoclosure_letconst_ES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnext_switchES5.js</files>
       <compile-flags>-targeted -dbgbaseline:setnext_switchES5.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnext_switchES6.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:setnext_switchES6.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2105,21 +1993,18 @@
       <files>stepinto_stepout_letconst_ES6_attach.js</files>
       <compile-flags>-targeted -InspectMaxStringLength:33 -dbgbaseline:stepinto_stepout_letconst_ES6_attach.js.dbg.baseline -Intl-</compile-flags>
       <baseline>stepinto_stepout_letconst_ES6_attach.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>step_out_ES6_attach.js</files>
       <compile-flags>-targeted -dbgbaseline:step_out_ES6_attach.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>step_over_JITd_fn_from_JITd_fn_attach.js</files>
       <compile-flags>-targeted -dbgbaseline:step_over_JITd_fn_from_JITd_fn_attach.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2127,7 +2012,6 @@
       <files>switch_refError-2.js</files>
       <compile-flags>-targeted -dbgbaseline:switch_refError-2.js.dbg.baseline</compile-flags>
       <baseline>switch_refError-2.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2135,7 +2019,6 @@
       <files>switch_refError.js</files>
       <compile-flags>-targeted -dbgbaseline:switch_refError.js.dbg.baseline</compile-flags>
       <baseline>switch_refError.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2143,7 +2026,6 @@
       <files>TempStrExprFuncExc.js</files>
       <compile-flags>-debuglaunch -targeted -ES6 -MaxInterpretCount:1 -MaxSimpleJITRunCount:1 -dbgbaseline:TempStrExprFuncExc.js.dbg.baseline</compile-flags>
       <baseline>TempStrExprFuncExc.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2151,7 +2033,6 @@
       <files>throw_from_if.js</files>
       <compile-flags>-targeted -dbgbaseline:throw_from_if.js.dbg.baseline</compile-flags>
       <baseline>throw_from_if.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2159,14 +2040,12 @@
       <files>throw_if_exception.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:throw_if_exception.js.dbg.baseline -Intl</compile-flags>
       <baseline>throw_if_exception.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>blockscope_butonlyES5code.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:blockscope_butonlyES5code.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2174,7 +2053,7 @@
       <files>async_exception_fromgetter.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:async_exception_fromgetter.js.dbg.baseline -Intl</compile-flags>
       <baseline>async_exception_fromgetter.js.baseline</baseline>
-      <tags>fail_mutators,exclude_winglob</tags>
+      <tags>exclude_winglob</tags>
     </default>
   </test>
   <test>
@@ -2182,7 +2061,6 @@
       <files>blockscope_func_letexpression_ES6.js</files>
       <compile-flags>-debuglaunch -es6functionnamefull -targeted -dbgbaseline:blockscope_func_letexpression_ES6.js.dbg.baseline -Intl-</compile-flags>
       <baseline>blockscope_func_letexpression_ES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <!-- 325604
@@ -2190,7 +2068,6 @@
   <default>
     <files>ES6_intl_breakonexception.js</files>
     <compile-flags>-debuglaunch -targeted -dbgbaseline:ES6_intl_breakonexception.js.dbg.baseline</compile-flags>
-    <tags>fail_mutators</tags>
   </default>
 </test> -->
   <test>
@@ -2198,7 +2075,6 @@
       <files>ES6_letconst-indirect-eval.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:ES6_letconst-indirect-eval.js.dbg.baseline -Intl-</compile-flags>
       <baseline>ES6_letconst-indirect-eval.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2206,7 +2082,6 @@
       <files>exception_implicitthrow_fromJITted_mapES6.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:exception_implicitthrow_fromJITted_mapES6.js.dbg.baseline</compile-flags>
       <baseline>exception_implicitthrow_fromJITted_mapES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2214,7 +2089,6 @@
       <files>exception_in_func_mapES6.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:exception_in_func_mapES6.js.dbg.baseline</compile-flags>
       <baseline>exception_in_func_mapES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2222,7 +2096,6 @@
       <files>frames_inspection_mapES6.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:frames_inspection_mapES6.js.dbg.baseline</compile-flags>
       <baseline>frames_inspection_mapES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2230,7 +2103,6 @@
       <files>frames_letconst_ES6.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:frames_letconst_ES6.js.dbg.baseline -Intl-</compile-flags>
       <baseline>frames_letconst_ES6.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>  
   <test>
@@ -2238,14 +2110,12 @@
       <files>ES6_letconst_basic.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:ES6_letconst_basic.js.dbg.baseline -Intl-</compile-flags>
       <baseline>ES6_letconst_basic.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>frames_letconst_reassignvalues_ES6.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:frames_letconst_reassignvalues_ES6.js.dbg.baseline -Intl-</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2253,7 +2123,6 @@
       <files>ifesle.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:ifesle.js.dbg.baseline</compile-flags>
       <baseline>ifesle.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2261,7 +2130,6 @@
       <files>setnextfrominnerfn.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextfrominnerfn.js.dbg.baseline</compile-flags>
       <baseline>setnextfrominnerfn.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <!--344416
@@ -2269,7 +2137,6 @@
   <default>
     <files>setnextintofor.js</files>
     <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextintofor.js.dbg.baseline</compile-flags>
-    <tags>fail_mutators</tags>
   </default>
 </test>
 -->
@@ -2277,14 +2144,12 @@
     <default>
       <files>setnextintoforeach.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextintoforeach.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setnextintofor_withdecl.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextintofor_withdecl.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2292,14 +2157,12 @@
       <files>setnextintoswitch.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextintoswitch.js.dbg.baseline</compile-flags>
       <baseline>setnextintoswitch.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>setNextsamepoint.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setNextsamepoint.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2307,7 +2170,6 @@
       <files>setnext_acrossfn.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnext_acrossfn.js.dbg.baseline</compile-flags>
       <baseline>setnext_acrossfn.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2315,7 +2177,6 @@
       <files>setnext_fn.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnext_fn.js.dbg.baseline</compile-flags>
       <baseline>setnext_fn.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
@@ -2323,84 +2184,80 @@
       <files>setnext_trycatch.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnext_trycatch.js.dbg.baseline</compile-flags>
       <baseline>setnext_trycatch.js.baseline</baseline>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>specialproperties.js</files>
       <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -inspectmaxstringlength:110 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>specialproperties_attach.js</files>
       <compile-flags>-targeted -inspectmaxstringlength:256 -ES6Species -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_specialproperties.js</files>
       <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:ES6_specialproperties.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_newFeatures.js</files>
       <compile-flags>-debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:ES6_newFeatures.js.dbg.baseline -es6classes </compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_newFeatures_attach.js</files>
       <compile-flags>-targeted -inspectmaxstringlength:256 -es6classes -dbgbaseline:ES6_newFeatures_attach.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>inspectFullName.js</files>
       <compile-flags>-ES6Species -debuglaunch -targeted -inspectmaxstringlength:256 -dbgbaseline:inspectFullName.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>inspectFullName_attach.js</files>
       <compile-flags>-targeted -inspectmaxstringlength:100 -dbgbaseline:inspectFullName_attach.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators</tags>
     </default>
   </test>
   <test>
     <default>
       <files>fullName_all.js</files>
       <compile-flags>-targeted -debuglaunch -inspectmaxstringlength:256 -es6classes -dbgbaseline:fullName_all.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo,exclude_nonrazzle</tags>
+      <tags>exclude_dynapogo,exclude_nonrazzle</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_arrow.js</files>
       <compile-flags>-targeted -debuglaunch -inspectmaxstringlength:100 -dbgbaseline:ES6_arrow.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>exceptionCallingBuiltinJit.js</files>
       <compile-flags>-targeted -mic:1 -off:simplejit -inspectmaxstringlength:100 -dbgbaseline:exceptioncallingbuiltinjit.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>restrictedEval.js</files>
       <compile-flags>-targeted -mic:1 -off:simplejit -EvalRestriction -inspectmaxstringlength:100 -dbgbaseline:restrictedeval.js.dbg.baseline</compile-flags>
-      <tags>fail_mutators,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
 </regress-exe>

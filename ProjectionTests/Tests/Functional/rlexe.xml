@@ -60,7 +60,7 @@
       <files>PromisesDebug.js</files>
       <baseline>PromisesDebug.baseline</baseline>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:PromisesDebug.js.dbg.baseline -TraceAsyncDebugCalls</compile-flags>
-      <tags>exclude_win7,exclude_fre,fail_mutators,exclude_dynapogo,exclude_snap</tags>
+      <tags>exclude_win7,exclude_fre,exclude_dynapogo,exclude_snap</tags>
     </default>
   </test>
   <test>

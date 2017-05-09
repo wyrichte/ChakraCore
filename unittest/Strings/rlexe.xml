@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -18,7 +18,7 @@
     <default>
       <files>concatmulti_517539.js</files>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:concatmulti_517539.js.dbg.baseline -InspectMaxStringLength:100 -Intl-</compile-flags>
-      <tags>exclude_serialized,fail_mutators</tags>
+      <tags>exclude_serialized</tags>
     </default>
   </test>
 </regress-exe>
