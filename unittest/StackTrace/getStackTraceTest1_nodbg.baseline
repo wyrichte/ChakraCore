@@ -1,5 +1,5 @@
-ReferenceError: 'getStackTrace' is undefined
-ReferenceError: 'diagnosticsScript' is undefined
+ReferenceError: 'getStackTrace' is not defined
+ReferenceError: 'diagnosticsScript' is not defined
 for getStackTrace(0)
 for getStackTrace(1)
 foo [getstacktracetest1.js, 18, 4]

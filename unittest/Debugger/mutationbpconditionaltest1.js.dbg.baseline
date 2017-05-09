@@ -1,17 +1,17 @@
 [
   {
     "evaluate": {
-      "$newValue$": "'$newValue$' is undefined"
+      "$newValue$": "'$newValue$' is not defined"
     }
   },
   {
     "evaluate": {
-      "$propertyName$": "'$propertyName$' is undefined"
+      "$propertyName$": "'$propertyName$' is not defined"
     }
   },
   {
     "evaluate": {
-      "$mutationType$": "'$mutationType$' is undefined"
+      "$mutationType$": "'$mutationType$' is not defined"
     }
   },
   {

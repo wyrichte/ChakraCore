@@ -61,7 +61,7 @@
   },
   {
     "evaluate": {
-      "arrow_b": "'arrow_b' is undefined"
+      "arrow_b": "'arrow_b' is not defined"
     }
   },
   {
@@ -153,7 +153,7 @@
   },
   {
     "evaluate": {
-      "sample1": "'sample1' is undefined"
+      "sample1": "'sample1' is not defined"
     }
   },
   {
@@ -174,7 +174,7 @@
   },
   {
     "evaluate": {
-      "sample2": "'sample2' is undefined"
+      "sample2": "'sample2' is not defined"
     }
   }
 ]

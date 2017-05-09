@@ -41,7 +41,7 @@
   },
   {
     "evaluate": {
-      "WScript.Echo(cc1Var2);": "'cc1Var2' is undefined"
+      "WScript.Echo(cc1Var2);": "'cc1Var2' is not defined"
     }
   },
   {
