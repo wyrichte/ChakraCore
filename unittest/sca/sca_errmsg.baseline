@@ -5,7 +5,7 @@ Error: 80041000
 
 getter throws exception
 ERROR: hr = (hr) Hr:0x86664004
-ReferenceError: 'no_such_var' is undefined
+ReferenceError: 'no_such_var' is not defined
    at get tests[getter throws exception].foo (sca_errmsg.js:12:13)
    at Global code (sca_errmsg.js:27:9)
 

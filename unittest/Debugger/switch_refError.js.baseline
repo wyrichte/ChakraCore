@@ -1,2 +1,2 @@
-ReferenceError: 'x' is undefined
+ReferenceError: 'x' is not defined
 	at Run() (switch_referror.js:5:2)

@@ -1,4 +1,4 @@
-ReferenceError: 'abc' is undefined
+ReferenceError: 'abc' is not defined
 	at ConsoleLog1() (bug_760904_main.js:5:5)
 	at foo1() (bug_760904_main.js:6:5)
 TypeError: Array.prototype.forEach: argument is not a Function object

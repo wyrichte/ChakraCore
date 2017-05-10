@@ -1,12 +1,12 @@
 [
   {
     "evaluate": {
-      "f": "'f' is undefined"
+      "f": "'f' is not defined"
     }
   },
   {
     "evaluate": {
-      "e": "'f' is undefined"
+      "e": "'f' is not defined"
     }
   },
   {
@@ -16,12 +16,12 @@
   },
   {
     "evaluate": {
-      "f": "'f' is undefined"
+      "f": "'f' is not defined"
     }
   },
   {
     "evaluate": {
-      "e": "'f' is undefined"
+      "e": "'f' is not defined"
     }
   }
 ]

@@ -1,5 +1,5 @@
-'runningJITtedCode' is undefined
-'__polyobj' is undefined
+'runningJITtedCode' is not defined
+'__polyobj' is not defined
 undefined 3.14159265358979 undefined
 0 1 undefined
 arrObj0[13] = 879933668
@@ -33,8 +33,8 @@ sumOfFloatArr0 = 964618104
 subset_of_FloatArr0 = -1379500857,-2,1,65535,,-256,-944039356,1646863524,175,0,1
 sumOfVarArr0 = -1270135167
 subset_of_VarArr0 = -90622820,-783794961,-714110957,-1829090061
-'runningJITtedCode' is undefined
-'__polyobj' is undefined
+'runningJITtedCode' is not defined
+'__polyobj' is not defined
 undefined 3.14159265358979 undefined
 0 1 undefined
 arrObj0[13] = 879933668

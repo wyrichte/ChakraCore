@@ -1,4 +1,4 @@
-Error: 'y' is undefined
+Error: 'y' is not defined
 true
 Error: The use of a keyword for an identifier is invalid
 true
@@ -12,5 +12,5 @@ Error: Out of stack space
 true
 true
 true
-Error: 'y' is undefined
+Error: 'y' is not defined
 true

@@ -143,7 +143,7 @@
  |  |  |    | 1 name: type: String (seen)
  |  [Properties] count: 5
  |  | 0 message: type: String flags: (new size_approximate) optional info records (2)
- |  |    [Internal property] value: 'someUndefinedFunction' is undefined
+ |  |    [Internal property] value: 'someUndefinedFunction' is not defined
  |  |    [Prototype] type: StringObject (seen)
  |  | 1 description: type: String (seen)
  |  | 2 number: value: -2146823279.000000
