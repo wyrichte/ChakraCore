@@ -450,7 +450,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::RegisterWellKnownTypeId(
     HRESULT hr = NOERROR;
     IFFAILRET(VerifyOnEntry());
 
-    if (wellKnownType != WellKnownType_HTMLAllCollection || typeId == TypeId_Unspecified)
+    if (wellKnownType > WellKnownType_Last || typeId == TypeId_Unspecified)
     {
         return E_INVALIDARG;
     }
@@ -702,13 +702,9 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
     }
 
     // See if the host has registered typeId as a well known type.
-    auto wellKnownType = localScriptContext->GetWellKnownHostType(typeId);
-
-    switch (wellKnownType)
+    if (localScriptContext->IsWellKnownHostType<WellKnownHostType_HTMLAllCollection>(typeId))
     {
-    case WellKnownHostType_HTMLAllCollection:
         type->SetIsFalsy(true);
-        break;
     }
 
     *typeRef = type;

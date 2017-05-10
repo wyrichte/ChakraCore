@@ -86,7 +86,8 @@ typedef[v1_enum] enum TypedArrayType
 typedef[v1_enum] enum WellKnownType
 {
     WellKnownType_HTMLAllCollection     = 0,
-    WellKnownType_Last                  = WellKnownType_HTMLAllCollection,
+    WellKnownType_Response              = 1,
+    WellKnownType_Last                  = WellKnownType_Response,
     WellKnownType_Invalid               = WellKnownType_Last+1
 } WellKnownType;
 
