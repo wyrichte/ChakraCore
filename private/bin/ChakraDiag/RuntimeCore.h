@@ -20,7 +20,7 @@ namespace Js
     class RecyclableObject;                 // Used by RuntimeCommon.h
     struct CallInfo;                        // Used by RuntimeCommon.h
     struct InlineCache;                     // Used by RecyclableObject.h
-    struct PolymorphicInlineCache;
+    class PolymorphicInlineCache;
     class PropertyRecord;                   // Used by ThreadContext.h
     class CodeGenNumberChunk;               // Used by FunctionBody.h
     class JavascriptLibrary;                // Used by FunctionBody.h
