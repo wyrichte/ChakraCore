@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 780,
+        "start": 798,
         "length": 12,
         "text": "return 'bar'",
         "frameDescription": "toString"
@@ -20,7 +20,7 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 979,
+        "start": 1004,
         "length": 23,
         "text": "array2.sort(c2.compare)",
         "frameDescription": "toString"
@@ -38,13 +38,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 1113,
+        "start": 1146,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 1139,
+        "start": 1175,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"
@@ -54,7 +54,7 @@
   {
     "callstack": [
       {
-        "start": 780,
+        "start": 798,
         "length": 12,
         "text": "return 'bar'",
         "frameDescription": "toString"
@@ -72,7 +72,7 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 979,
+        "start": 1004,
         "length": 23,
         "text": "array2.sort(c2.compare)",
         "frameDescription": "toString"
@@ -90,13 +90,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 1113,
+        "start": 1146,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 1139,
+        "start": 1175,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"
@@ -106,7 +106,7 @@
   {
     "callstack": [
       {
-        "start": 780,
+        "start": 798,
         "length": 12,
         "text": "return 'bar'",
         "frameDescription": "toString"
@@ -124,7 +124,7 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 979,
+        "start": 1004,
         "length": 23,
         "text": "array2.sort(c2.compare)",
         "frameDescription": "toString"
@@ -142,13 +142,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 1113,
+        "start": 1146,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 1139,
+        "start": 1175,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"
@@ -158,7 +158,7 @@
   {
     "callstack": [
       {
-        "start": 780,
+        "start": 798,
         "length": 12,
         "text": "return 'bar'",
         "frameDescription": "toString"
@@ -176,7 +176,7 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 979,
+        "start": 1004,
         "length": 23,
         "text": "array2.sort(c2.compare)",
         "frameDescription": "toString"
@@ -194,13 +194,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 1113,
+        "start": 1146,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 1139,
+        "start": 1175,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"

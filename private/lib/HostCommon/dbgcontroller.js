@@ -94,6 +94,7 @@ var controllerObj = {
             "Boolean",
             "CanvasPixelArray",
             "CollectGarbage",
+            "console",
             "CreateDomArrayObject",
             "CreateDomMapObject",
             "CreateDomSetObject",
@@ -142,6 +143,7 @@ var controllerObj = {
             "String",
             "Symbol",
             "SyntaxError",
+            "telemetryLog",
             "TypeError",
             "Uint16Array",
             "Uint32Array",
@@ -151,11 +153,10 @@ var controllerObj = {
             "unescape",
             "URIError",
             "VBArray",
-            "WebAssembly",
             "WeakMap",
             "WeakSet",
+            "WebAssembly",
             "WScript",
-            "telemetryLog"
         ].forEach(function (name) {
             filter[name] = 1;
             filter[name + " - [Type]"] = 1;         // Filter out LOCALS_TYPE
@@ -243,7 +244,7 @@ var controllerObj = {
 
     addSourceFile: function (text, srcId) {
         try {
-            // Split the text into lines.  Note this doesn't take into account block comments, 
+            // Split the text into lines.  Note this doesn't take into account block comments,
             // but that's probably okay.  TODO: handle CR.
             var lines = text.split(/\n/);
             var lineBeginningOffsets = [0];
@@ -262,7 +263,7 @@ var controllerObj = {
             var editStack = new Array();
 
             // Iterate through each source line, setting any breakpoints.
-            
+
             for (var i = 0; i < lines.length; ++i) {
                 var line = lines[i];
                 var lineTrimmed = line.replace(/^\s+|\s+$/g, '');
@@ -314,11 +315,11 @@ var controllerObj = {
 
                         var bpStrStartIdx = startIdx + bpStart.length;
                         var bpStr = currBpLineString.substring(bpStrStartIdx, endIdx);
-                                                
+
                         var bpFullStr = currBpLineString.substring(startIdx, endIdx);
                         var isEdit = bpFullStr.indexOf("edit") == bpStartTokenLength;
                         var isEndEdit = bpFullStr.indexOf("endedit") == bpStartTokenLength;
-                        
+
                         if (isEdit)
                         {
                             var editLabel = bpStr.substring(1, bpStr.length - 1);
@@ -340,7 +341,7 @@ var controllerObj = {
                                 return;
                             }
                             pendingEdit.endLine = bpLine;
-                            pendingEdit.endColumn = endIdx + bpEnd.length;                                                       
+                            pendingEdit.endColumn = endIdx + bpEnd.length;
 
                             var startOffset = lineBeginningOffsets[pendingEdit.startLine] + pendingEdit.startColumn;
                             var endOffset = lineBeginningOffsets[pendingEdit.endLine] + pendingEdit.endColumn;
@@ -350,7 +351,7 @@ var controllerObj = {
                             continue;
                         }
 
-                        // Quick check to make sure the breakpoint is not within a 
+                        // Quick check to make sure the breakpoint is not within a
                         // quoted string (such as an eval).  If it is within an eval, the
                         // eval will cause a separate call to have its breakpoints parsed.
                         // This check can be defeated, but it should cover the useful scenarios.
@@ -379,7 +380,7 @@ var controllerObj = {
                         // Only support strings like:
                         //  /**bp**/
                         //  /**bp(name)**/
-                        //  /**bp(columnoffset)**/         takes an integer 
+                        //  /**bp(columnoffset)**/         takes an integer
                         //  /**bp:locals();stack()**/
                         //  /**bp(name):locals();stack()**/
                         //

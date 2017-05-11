@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -18,7 +17,6 @@
         "e": "level1"
       },
       "[Globals]": {
-        "console": "{...}",
         "c": "<large string>"
       }
     }
@@ -27,16 +25,11 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "b": "level2",
       "a": "level2level3",
       "e": "level1",
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
-      },
       "c": {
         "__proto__": "<large string>",
         "arguments": "null",

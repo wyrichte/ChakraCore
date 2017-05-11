@@ -169,7 +169,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -228,13 +227,13 @@
   {
     "locals": {
       "this": "{...}",
+      "b21": "26.8",
+      "b22": "undefined",
       "f3": "<large string>",
       "f32": "<large string>",
       "arguments": "{...}",
       "j2": "1",
       "k2": "10",
-      "b21": "26.8",
-      "b22": "undefined",
       "[Scope]1": "F7",
       "[Globals]": ""
     }
@@ -243,11 +242,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "j": "10",
       "a1": "112",
       "f2": "<large string>",
       "k": "26.8",
       "m": "132",
-      "j": "10",
       "[Globals]": ""
     }
   },
@@ -431,7 +430,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -490,13 +488,13 @@
   {
     "locals": {
       "this": "{...}",
+      "b21": "26.8",
+      "b22": "undefined",
       "f3": "<large string>",
       "f32": "<large string>",
       "arguments": "{...}",
       "j2": "1",
       "k2": "10",
-      "b21": "26.8",
-      "b22": "undefined",
       "[Scope]1": "F7",
       "[Globals]": ""
     }
@@ -505,11 +503,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "j": "10",
       "a1": "21",
       "f2": "<large string>",
       "k": "26.8",
       "m": "41",
-      "j": "10",
       "[Globals]": ""
     }
   },
@@ -693,7 +691,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -752,13 +749,13 @@
   {
     "locals": {
       "this": "{...}",
+      "b21": "26.8",
+      "b22": "undefined",
       "f3": "<large string>",
       "f32": "<large string>",
       "arguments": "{...}",
       "j2": "1",
       "k2": "10",
-      "b21": "26.8",
-      "b22": "undefined",
       "[Scope]1": "F7",
       "[Globals]": ""
     }
@@ -767,11 +764,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "j": "10",
       "a1": "112",
       "f2": "<large string>",
       "k": "26.8",
       "m": "132",
-      "j": "10",
       "[Globals]": ""
     }
   },
@@ -955,7 +952,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -1014,13 +1010,13 @@
   {
     "locals": {
       "this": "{...}",
+      "b21": "26.8",
+      "b22": "undefined",
       "f3": "<large string>",
       "f32": "<large string>",
       "arguments": "{...}",
       "j2": "1",
       "k2": "10",
-      "b21": "26.8",
-      "b22": "undefined",
       "[Scope]1": "F7",
       "[Globals]": ""
     }
@@ -1029,11 +1025,11 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
+      "j": "10",
       "a1": "21",
       "f2": "<large string>",
       "k": "26.8",
       "m": "41",
-      "j": "10",
       "[Globals]": ""
     }
   },

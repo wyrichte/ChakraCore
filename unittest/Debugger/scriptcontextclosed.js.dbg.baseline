@@ -53,6 +53,10 @@
           "__proto__": "{...}"
         },
         "undefined": "undefined",
+        "WebAssembly": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "WScript": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -24,7 +23,6 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"
@@ -68,8 +66,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -86,7 +83,6 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"
@@ -102,8 +98,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -115,7 +110,6 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"

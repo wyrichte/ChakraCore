@@ -92,12 +92,6 @@
         }
       },
       "[Globals]": {
-        "console - [Type]": "Object",
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}"
-        },
         "g - [Type]": "Object",
         "g": {
           "[Methods]": "{...}",

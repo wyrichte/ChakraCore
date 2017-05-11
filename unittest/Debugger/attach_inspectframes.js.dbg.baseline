@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -13,7 +12,6 @@
       },
       "z": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -25,8 +23,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -35,7 +32,6 @@
       },
       "y": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -75,8 +71,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -85,7 +80,6 @@
       },
       "x": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -130,8 +124,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -140,7 +133,6 @@
       },
       "x": "2",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -157,8 +149,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -167,7 +158,6 @@
       },
       "y": "2",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

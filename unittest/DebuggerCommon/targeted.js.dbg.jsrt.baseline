@@ -53,10 +53,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "d": "7",
         "i": "0"
       },
@@ -85,10 +81,6 @@
         "y": "3"
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "g": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -176,10 +168,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "d": "7",
         "i": "1"
       },
@@ -208,10 +196,6 @@
         "y": "3"
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "g": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -299,10 +283,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "d": "7",
         "i": "2"
       },
@@ -331,10 +311,6 @@
         "y": "3"
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "g": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -422,10 +398,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "d": "7",
         "i": "3"
       },
@@ -454,10 +426,6 @@
         "y": "3"
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "g": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -545,10 +513,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "d": "7",
         "i": "4"
       },
@@ -577,10 +541,6 @@
         "y": "3"
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "g": {
           "__proto__": "<large string>",
           "arguments": "null",
@@ -619,7 +579,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "d": "7",
         "i": "5"
       },
@@ -631,7 +590,6 @@
         "[0]": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "g": "<large string>",
         "f": "<large string>",
         "g1": "<large string>",
@@ -646,7 +604,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "d": "7",
         "i": "5"
       },
@@ -658,7 +615,6 @@
         "[0]": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "g": "<large string>",
         "f": "<large string>",
         "g1": "<large string>",

@@ -14,8 +14,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -24,7 +23,6 @@
       },
       "a1": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>"
       }
@@ -55,8 +53,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -65,7 +62,6 @@
       },
       "a1": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>"
       }
@@ -96,8 +92,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -110,7 +105,6 @@
         "[0]": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>"
       }
@@ -141,8 +135,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[Scope]1": {
         "arguments": "{...}",
@@ -150,7 +143,6 @@
         "inEval": "undefined"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>"
       }
@@ -187,8 +179,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -202,7 +193,6 @@
       },
       "inEval": "11",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>"
       }

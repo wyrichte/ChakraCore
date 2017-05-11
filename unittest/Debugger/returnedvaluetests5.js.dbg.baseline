@@ -25,7 +25,6 @@
     "locals": {
       "this": "{...}",
       "[test1 returned]": "undefined",
-      "console": "{...}",
       "Print": "<large string>",
       "callback": "<large string>",
       "test1": "<large string>",
@@ -70,7 +69,6 @@
     "locals": {
       "this": "{...}",
       "[test2 returned]": "undefined",
-      "console": "{...}",
       "Print": "<large string>",
       "callback": "<large string>",
       "test1": "<large string>",

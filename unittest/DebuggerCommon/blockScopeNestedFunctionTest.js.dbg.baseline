@@ -3,10 +3,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "innerFunc": "<large string>",
-      "x": "undefined",
       "a": "[Uninitialized block variable]",
       "aConst": "[Uninitialized block variable]",
+      "innerFunc": "<large string>",
+      "x": "undefined",
       "[Globals]": ""
     }
   },
@@ -14,10 +14,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "innerFunc": "<large string>",
-      "x": "-1",
       "a": "0",
       "aConst": "1",
+      "innerFunc": "<large string>",
+      "x": "-1",
       "[Globals]": ""
     }
   },
@@ -25,46 +25,15 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
-      },
-      "innerInnerFunc": {
-        "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "innerInnerFunc",
-        "prototype": "{...}"
       },
       "bConst": "[Uninitialized block variable]",
       "b": "[Uninitialized block variable]",
-      "[Scope]1": {
-        "a": "0",
-        "aConst": "1"
-      },
-      "[Globals]": {
-        "console": "{...}",
-        "blockScopeNestedFunctionTestFunc": "<large string>"
-      }
-    }
-  },
-  {
-    "locals": {
-      "this": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
-      },
-      "arguments": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "length": "0"
-      },
       "innerInnerFunc": {
         "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
@@ -73,14 +42,11 @@
         "name": "innerInnerFunc",
         "prototype": "{...}"
       },
-      "bConst": "2",
-      "b": "3",
       "[Scope]1": {
         "a": "0",
         "aConst": "1"
       },
       "[Globals]": {
-        "console": "{...}",
         "blockScopeNestedFunctionTestFunc": "<large string>"
       }
     }
@@ -89,8 +55,37 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
+        "__proto__": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}"
+        "length": "0"
+      },
+      "bConst": "2",
+      "b": "3",
+      "innerInnerFunc": {
+        "__proto__": "function() {\n    [native code]\n}",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "innerInnerFunc",
+        "prototype": "{...}"
+      },
+      "[Scope]1": {
+        "a": "0",
+        "aConst": "1"
+      },
+      "[Globals]": {
+        "blockScopeNestedFunctionTestFunc": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -108,7 +103,6 @@
         "aConst": "1"
       },
       "[Globals]": {
-        "console": "{...}",
         "blockScopeNestedFunctionTestFunc": "<large string>"
       }
     }
@@ -117,8 +111,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -136,7 +129,6 @@
         "aConst": "1"
       },
       "[Globals]": {
-        "console": "{...}",
         "blockScopeNestedFunctionTestFunc": "<large string>"
       }
     }
@@ -145,14 +137,15 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
       },
+      "bConst": "2",
+      "b": "3",
       "innerInnerFunc": {
         "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
@@ -161,14 +154,11 @@
         "name": "innerInnerFunc",
         "prototype": "{...}"
       },
-      "bConst": "2",
-      "b": "3",
       "[Scope]1": {
         "a": "0",
         "aConst": "1"
       },
       "[Globals]": {
-        "console": "{...}",
         "blockScopeNestedFunctionTestFunc": "<large string>"
       }
     }
@@ -177,10 +167,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "innerFunc": "<large string>",
-      "x": "-1",
       "a": "0",
       "aConst": "1",
+      "innerFunc": "<large string>",
+      "x": "-1",
       "[Globals]": ""
     }
   }

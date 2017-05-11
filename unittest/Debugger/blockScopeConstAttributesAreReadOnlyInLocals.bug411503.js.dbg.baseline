@@ -60,13 +60,6 @@
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
           ],
           "flagsAsValue": 16
-        },
-        "console": "{...}",
-        "console - [Attributes]": {
-          "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
-          ],
-          "flagsAsValue": 16
         }
       },
       "this - [Attributes]": {
@@ -154,13 +147,6 @@
         "flagsAsValue": 0
       },
       "[Globals]": {
-        "console": "{...}",
-        "console - [Attributes]": {
-          "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
-          ],
-          "flagsAsValue": 16
-        },
         "test": "<large string>",
         "test - [Attributes]": {
           "flags": [
@@ -195,13 +181,6 @@
         },
         "__proto__": "{...}",
         "__proto__ - [Attributes]": {
-          "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
-          ],
-          "flagsAsValue": 16
-        },
-        "console": "{...}",
-        "console - [Attributes]": {
           "flags": [
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
           ],
@@ -319,13 +298,6 @@
         "flagsAsValue": 0
       },
       "[Globals]": {
-        "console": "{...}",
-        "console - [Attributes]": {
-          "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
-          ],
-          "flagsAsValue": 16
-        },
         "test": "<large string>",
         "test - [Attributes]": {
           "flags": [

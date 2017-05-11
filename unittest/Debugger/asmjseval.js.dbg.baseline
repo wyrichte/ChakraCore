@@ -34,7 +34,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",
@@ -104,7 +103,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",
@@ -175,7 +173,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",
@@ -242,7 +239,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",
@@ -312,7 +308,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",
@@ -383,7 +378,6 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "console": "{...}",
         "debugCallback": "<large string>",
         "a": "undefined",
         "outer": "<large string>",

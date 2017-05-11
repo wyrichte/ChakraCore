@@ -4,12 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "x": "undefined"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "x": "undefined"
     }
@@ -19,7 +14,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "x": "1"
       },
       "baz": {
@@ -30,10 +24,6 @@
         "name": "baz",
         "prototype": "{...}"
       },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
-      },
       "x": "1"
     }
   },
@@ -42,12 +32,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "x": "1"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "x": "1"
     }

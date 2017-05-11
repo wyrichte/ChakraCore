@@ -4,7 +4,6 @@
       "this": {
         "[Methods]": "{...}",
         "this.__proto__": "{...}",
-        "this.console": "{...}",
         "this.g": "{...}"
       },
       "arguments": {
@@ -13,7 +12,6 @@
         "arguments.length": "0"
       },
       "[Globals]": {
-        "console": "{...}",
         "test": "function test() {\n    /**bp:locals(1, LOCALS_FULLNAME)**/\n}",
         "g": "{...}"
       }

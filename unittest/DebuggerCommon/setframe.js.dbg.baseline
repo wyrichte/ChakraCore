@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -15,7 +14,6 @@
       "HHH_B": "0",
       "HHH_C": "0",
       "[Globals]": {
-        "console": "{...}",
         "FFF": "<large string>",
         "HHH": "<large string>",
         "GGG": "<large string>"
@@ -26,8 +24,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -48,7 +45,6 @@
         "GGG_closure": "1"
       },
       "[Globals]": {
-        "console": "{...}",
         "FFF": "<large string>",
         "HHH": "<large string>",
         "GGG": "<large string>"
@@ -59,8 +55,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -71,7 +66,6 @@
       "FFF_B": "0",
       "FFF_C": "0",
       "[Globals]": {
-        "console": "{...}",
         "FFF": "<large string>",
         "HHH": "<large string>",
         "GGG": "<large string>"
@@ -120,8 +114,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -142,7 +135,6 @@
         "GGG_closure": "3"
       },
       "[Globals]": {
-        "console": "{...}",
         "FFF": "<large string>",
         "HHH": "<large string>",
         "GGG": "<large string>"
@@ -153,8 +145,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -165,7 +156,6 @@
       "FFF_B": "1",
       "FFF_C": "0",
       "[Globals]": {
-        "console": "{...}",
         "FFF": "<large string>",
         "HHH": "<large string>",
         "GGG": "<large string>"

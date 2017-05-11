@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -22,6 +21,14 @@
       "level_1_identifier_1": "level1_1",
       "level_1_identifier_0": "level1_0",
       "level_1_identifier_2": "[Uninitialized block variable]",
+      "verify": {
+        "__proto__": "function() {\n    [native code]\n}",
+        "arguments": "null",
+        "caller": "null",
+        "length": "3",
+        "name": "verify",
+        "prototype": "{...}"
+      },
       "level2Func#1": {
         "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
@@ -31,16 +38,7 @@
         "prototype": "{...}"
       },
       "level_0_identifier_0": "level0",
-      "verify": {
-        "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
-        "length": "3",
-        "name": "verify",
-        "prototype": "{...}"
-      },
       "[Globals]": {
-        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"
@@ -61,8 +59,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -80,7 +77,6 @@
         "verify": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"

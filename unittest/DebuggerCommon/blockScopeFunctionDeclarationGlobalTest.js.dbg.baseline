@@ -2,7 +2,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "f": "undefined"
     }
   },
@@ -10,14 +9,12 @@
     "locals": {
       "this": "{...}",
       "f": "function f() { }",
-      "console": "{...}",
       "f#1": "function f() { }"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "f": "function f() { }"
     }
   }

@@ -36,7 +36,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -96,7 +95,6 @@
       },
       "d": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDUint16x8_unaryop": "<large string>",
         "testSIMDUint16x8_binaryop": "<large string>",
         "testSIMDUint16x8_compareop": "<large string>",
@@ -116,7 +114,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -185,7 +182,6 @@
         "[7]": "4"
       },
       "[Globals]": {
-        "console": "{...}",
         "testSIMDUint16x8_unaryop": "<large string>",
         "testSIMDUint16x8_binaryop": "<large string>",
         "testSIMDUint16x8_compareop": "<large string>",
@@ -205,7 +201,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -255,7 +250,6 @@
       "e2": "undefined",
       "f2": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDUint16x8_unaryop": "<large string>",
         "testSIMDUint16x8_binaryop": "<large string>",
         "testSIMDUint16x8_compareop": "<large string>",
@@ -351,7 +345,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -372,7 +365,6 @@
       "n": "undefined",
       "cmp": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDUint16x8_unaryop": "<large string>",
         "testSIMDUint16x8_binaryop": "<large string>",
         "testSIMDUint16x8_compareop": "<large string>",
@@ -485,7 +477,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -514,7 +505,6 @@
       "d": "undefined",
       "e": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDUint16x8_unaryop": "<large string>",
         "testSIMDUint16x8_binaryop": "<large string>",
         "testSIMDUint16x8_compareop": "<large string>",

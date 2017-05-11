@@ -4,7 +4,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}",
         "obj2": "undefined",
         "x": "1"
@@ -12,10 +11,6 @@
       "[Pending Mutation]": {
         "bar [Adding]": "{...}",
         "[Property container obj1]": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "foo1": {
         "__proto__": "function() {\n    [native code]\n}",
@@ -56,7 +51,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}",
         "obj2": "{...}",
         "x": "1"
@@ -65,10 +59,6 @@
         "foo [Changing]": "{...}",
         "[New Value]": "1",
         "[Property container obj2]": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "foo1": {
         "__proto__": "function() {\n    [native code]\n}",
@@ -113,7 +103,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}",
         "obj2": "{...}",
         "obj3": "{...}",
@@ -130,7 +119,6 @@
       },
       "x": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "x": "1",
@@ -161,7 +149,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}",
         "obj2": "{...}",
         "obj3": "{...}",
@@ -183,7 +170,6 @@
       },
       "x": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "x": "1",

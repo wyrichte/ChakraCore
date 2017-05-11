@@ -4,12 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "g0": "10"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "g0": "10"
     }
@@ -19,7 +14,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "g0": "10"
       },
       "[Scope]1": {
@@ -30,7 +24,6 @@
         "foo": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "g0": "10"
       }
     }
@@ -46,7 +39,6 @@
         "foo": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "g0": "10"
       }
     }

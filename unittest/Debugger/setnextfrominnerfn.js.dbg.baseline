@@ -24,7 +24,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "foo": "<large string>",
       "Run": "<large string>",
       "a": "1",

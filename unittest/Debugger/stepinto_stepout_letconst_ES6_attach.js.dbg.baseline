@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -13,7 +12,6 @@
       },
       "a": "[Uninitialized block variable]",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"
@@ -46,8 +44,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[foo returned]": "undefined",
       "arguments": {
@@ -58,7 +55,6 @@
       "y": "10",
       "z": "10",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"
@@ -69,8 +65,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -80,7 +75,6 @@
       "y": "10",
       "z": "10",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"

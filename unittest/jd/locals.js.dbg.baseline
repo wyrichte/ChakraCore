@@ -33,14 +33,7 @@
       "u": "undefined",
       "a - [Type]": "Undefined",
       "a": "undefined",
-      "[Globals]": {
-        "console - [Type]": "Object",
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}"
-        }
-      }
+      "[Globals]": {}
     }
   },
   {
@@ -71,22 +64,15 @@
         "length - [Type]": "Number",
         "length": "0"
       },
-      "n1 - [Type]": "Null",
-      "n1": "null",
-      "n2 - [Type]": "Undefined",
-      "n2": "undefined",
       "n - [Type]": "Null",
       "n": "null",
       "u - [Type]": "Undefined",
       "u": "undefined",
-      "[Globals]": {
-        "console - [Type]": "Object",
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}"
-        }
-      }
+      "n1 - [Type]": "Null",
+      "n1": "null",
+      "n2 - [Type]": "Undefined",
+      "n2": "undefined",
+      "[Globals]": {}
     }
   },
   {
@@ -138,14 +124,7 @@
           "prototype": "{...}"
         }
       },
-      "[Globals]": {
-        "console - [Type]": "Object",
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}"
-        }
-      }
+      "[Globals]": {}
     }
   }
 ]

@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[Pending Mutation]": {
         "x [Adding]": "1",
@@ -22,7 +21,6 @@
         "obj": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "f1": "<large string>"
       }
     }

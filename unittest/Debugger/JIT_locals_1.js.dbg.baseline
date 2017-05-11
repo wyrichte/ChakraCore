@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -34,7 +33,6 @@
         "j": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>"
       }
     }
@@ -43,8 +41,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -53,6 +50,7 @@
         "[0]": "8",
         "[1]": "2"
       },
+      "j": "<large string>",
       "a": "8",
       "b": "2",
       "bar1": {
@@ -79,9 +77,7 @@
         "__proto__": "Invalid Date"
       },
       "y": "10",
-      "j": "<large string>",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>"
       }
     }
@@ -90,9 +86,10 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
+      "a": "16",
+      "b": "4",
       "z1": "20",
       "arguments": {
         "[Methods]": "{...}",
@@ -103,13 +100,10 @@
       },
       "z3": "2",
       "z2": "31",
-      "a": "16",
-      "b": "4",
       "[Scope]1": {
         "j": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>"
       }
     }

@@ -58,7 +58,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F1": "<large string>",
       "F2": "<large string>",
       "Run": "<large string>"
@@ -123,7 +122,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F1": "<large string>",
       "F2": "<large string>",
       "Run": "<large string>"
@@ -188,7 +186,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F1": "<large string>",
       "F2": "<large string>",
       "Run": "<large string>"
@@ -253,7 +250,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "F1": "<large string>",
       "F2": "<large string>",
       "Run": "<large string>"

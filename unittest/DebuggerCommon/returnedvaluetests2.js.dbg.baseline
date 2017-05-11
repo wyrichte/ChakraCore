@@ -21,7 +21,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}"
       },
       "[A returned]": {
@@ -42,7 +41,6 @@
         "x": "x"
       },
       "[Globals]": {
-        "console": "{...}",
         "A": "<large string>",
         "test1": "<large string>",
         "f1": "<large string>",
@@ -57,7 +55,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "obj1": "{...}"
       },
       "[Return value]": {
@@ -74,7 +71,6 @@
         "x": "x"
       },
       "[Globals]": {
-        "console": "{...}",
         "A": "<large string>",
         "test1": "<large string>",
         "f1": "<large string>",

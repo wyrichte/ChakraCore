@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -14,7 +13,6 @@
       },
       "a": "Hello",
       "[Globals]": {
-        "console": "{...}",
         "F1": "<large string>",
         "F2": "<large string>"
       }

@@ -18,8 +18,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -28,7 +27,6 @@
       },
       "x": "2",
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>"
       }
     }

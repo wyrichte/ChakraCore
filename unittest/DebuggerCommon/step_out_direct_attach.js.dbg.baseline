@@ -19,8 +19,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -36,7 +35,6 @@
         "__proto__": "Invalid Date"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>"
       }
@@ -56,8 +54,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[bar returned]": "undefined",
       "[Return value]": "undefined",
@@ -77,7 +74,6 @@
         "length": "0"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>"
       }
@@ -103,8 +99,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -120,7 +115,6 @@
         "__proto__": "Invalid Date"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>"
       }
@@ -140,8 +134,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[bar returned]": "undefined",
       "[Return value]": "undefined",
@@ -161,7 +154,6 @@
         "length": "0"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "bar": "<large string>"
       }

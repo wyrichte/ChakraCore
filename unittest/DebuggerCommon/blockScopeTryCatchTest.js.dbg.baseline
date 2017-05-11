@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -15,7 +14,6 @@
       "bConst": "2",
       "ex": "Exception!",
       "[Globals]": {
-        "console": "{...}",
         "blockScopeTryCatchTestFunc": "<large string>"
       }
     }
@@ -24,8 +22,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -38,7 +35,6 @@
       "bConst": "2",
       "ex": "Exception!",
       "[Globals]": {
-        "console": "{...}",
         "blockScopeTryCatchTestFunc": "<large string>"
       }
     }

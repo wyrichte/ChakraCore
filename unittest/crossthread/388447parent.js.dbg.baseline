@@ -7,10 +7,6 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "e": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
@@ -25,16 +21,8 @@
           "Reflect": "{...}",
           "SCA": "{...}",
           "undefined": "undefined",
+          "WebAssembly": "{...}",
           "WScript": "{...}"
-        }
-      },
-      "console": {
-        "[Methods]": {
-          "log": "<large string>"
-        },
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "null"
         }
       },
       "e": {
@@ -100,6 +88,10 @@
           "__proto__": "{...}"
         },
         "undefined": "undefined",
+        "WebAssembly": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "WScript": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

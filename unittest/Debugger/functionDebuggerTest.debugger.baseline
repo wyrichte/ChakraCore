@@ -17,14 +17,9 @@
         "__proto__": "{...}",
         "a": "undefined",
         "b": "undefined",
-        "console": "{...}",
         "obj": "undefined",
         "obj2": "undefined",
         "obj3": "undefined"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "f": {
         "__proto__": "<large string>",
@@ -69,14 +64,9 @@
         "__proto__": "{...}",
         "a": "undefined",
         "b": "undefined",
-        "console": "{...}",
         "obj": "{...}",
         "obj2": "undefined",
         "obj3": "undefined"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "f": {
         "__proto__": "<large string>",
@@ -124,14 +114,9 @@
         "__proto__": "{...}",
         "a": "undefined",
         "b": "undefined",
-        "console": "{...}",
         "obj": "{...}",
         "obj2": "{...}",
         "obj3": "undefined"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "f": {
         "__proto__": "<large string>",
@@ -183,7 +168,6 @@
         "__proto__": "{...}",
         "a": "undefined",
         "b": "undefined",
-        "console": "{...}",
         "obj": "{...}",
         "obj2": "{...}",
         "obj3": "{...}"
@@ -194,7 +178,6 @@
         "length": "0"
       },
       "[Globals]": {
-        "console": "{...}",
         "f": "function f(){}",
         "obj": "{...}",
         "obj2": "{...}",
@@ -237,14 +220,9 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "undefined",
-        "console": "{...}",
         "obj": "{...}",
         "obj2": "{...}",
         "obj3": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "f": {
         "__proto__": "<large string>",

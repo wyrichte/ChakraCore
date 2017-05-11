@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -14,7 +13,6 @@
       "[Globals]": {
         "gA": "1",
         "gConstB": "2",
-        "console": "{...}",
         "blockScopeGlobalTestFunc": "<large string>"
       }
     }
@@ -24,7 +22,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "gC": "3",
         "gD": "4"
       },
@@ -38,7 +35,6 @@
         "gConstB": "2",
         "gC": "5",
         "gD": "6",
-        "console": "{...}",
         "gC#1": "3",
         "gD#1": "4",
         "blockScopeGlobalTestFunc": "<large string>"

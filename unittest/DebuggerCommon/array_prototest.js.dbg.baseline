@@ -10,10 +10,6 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
-        },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
         }
       },
       "arguments": {
@@ -72,10 +68,6 @@
       },
       "dummy": "undefined",
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "{...}",
@@ -114,10 +106,6 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
-        },
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
         }
       },
       "arguments": {
@@ -189,10 +177,6 @@
         }
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "{...}",
@@ -224,8 +208,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "obj": {
         "__proto__": "{...}",
@@ -238,7 +221,6 @@
         "[0]": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "foo1": "<large string>",
         "foo2": "<large string>"
@@ -249,8 +231,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "obj": {
         "__proto__": "{...}",
@@ -264,7 +245,6 @@
         "[0]": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "foo1": "<large string>",
         "foo2": "<large string>"
@@ -275,8 +255,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "obj": {
         "__proto__": "{...}",
@@ -291,7 +270,6 @@
         "[1]": "22"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "foo1": "<large string>",
         "foo2": "<large string>"
@@ -302,8 +280,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -322,7 +299,6 @@
         "[0]": "13"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "foo1": "<large string>",
         "foo2": "<large string>"

@@ -109,7 +109,6 @@
       "  this  ": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "not_used": "0"
       }
     }
@@ -164,7 +163,6 @@
       "  this  ": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "not_used": "0"
       }
     }

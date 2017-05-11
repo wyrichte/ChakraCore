@@ -56,7 +56,6 @@
       },
       "err": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>"
       }
     }
@@ -117,7 +116,6 @@
         "length": "0"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>"
       }
     }
@@ -126,8 +124,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -148,7 +145,6 @@
       },
       "res": "-1",
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>"
       }
     }

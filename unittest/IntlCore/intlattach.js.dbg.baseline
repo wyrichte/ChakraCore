@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 431,
+        "start": 439,
         "length": 30,
         "text": "var t = d.toLocaleTimeString()",
         "frameDescription": "dateToString"

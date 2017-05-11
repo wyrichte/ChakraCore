@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "this.__proto__": "{...}",
-        "this.console": "{...}"
+        "this.__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -23,7 +22,6 @@
         "arr[3]": "4"
       },
       "[Globals]": {
-        "console": "{...}",
         "test": "<large string>"
       }
     }

@@ -6,8 +6,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[Pending Mutation]": {
         "b [Adding]": "1",
@@ -25,7 +24,6 @@
       },
       "x": "1",
       "[Globals]": {
-        "console": "{...}",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "foo3": "<large string>",
@@ -56,12 +54,16 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "[Pending Mutation]": {
         "b [Deleting]": "{...}",
         "[Property container obj]": "{...}"
+      },
+      "obj": {
+        "__proto__": "{...}",
+        "a": "1",
+        "b": "{...}"
       },
       "x": "1",
       "arguments": {
@@ -70,13 +72,7 @@
         "length": "1",
         "[0]": "{...}"
       },
-      "obj": {
-        "__proto__": "{...}",
-        "a": "1",
-        "b": "{...}"
-      },
       "[Globals]": {
-        "console": "{...}",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "foo3": "<large string>",

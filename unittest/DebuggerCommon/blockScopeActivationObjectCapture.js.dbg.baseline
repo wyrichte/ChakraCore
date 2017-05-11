@@ -38,7 +38,6 @@
         "prototype": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>"
       }
@@ -58,8 +57,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "level_2_identifier_0": "level2",
       "arguments": {
@@ -81,7 +79,6 @@
         "level2Func": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "verify": "function verify(){}",
         "Run": "<large string>"
       }

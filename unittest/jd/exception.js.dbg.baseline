@@ -34,8 +34,6 @@
       "z - [Type]": "Number",
       "z": "1",
       "[Globals]": {
-        "console - [Type]": "Object",
-        "console": "{...}",
         "f - [Type]": "Object, (Function)",
         "f": "<large string>"
       }

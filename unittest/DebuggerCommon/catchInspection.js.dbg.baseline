@@ -4,7 +4,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "startTest": "undefined",
         "top": "{...}"
       },
@@ -25,7 +24,6 @@
         "e": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -47,7 +45,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "startTest": "undefined",
         "top": "{...}"
       },
@@ -68,7 +65,6 @@
         "e": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -90,7 +86,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -114,7 +109,6 @@
         "prototype": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -136,7 +130,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -148,7 +141,6 @@
         "e": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -170,7 +162,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -189,7 +180,6 @@
         "k": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -211,7 +201,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -231,7 +220,6 @@
         "k": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -253,7 +241,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -273,7 +260,6 @@
         "k": "10"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -295,7 +281,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -311,7 +296,6 @@
         "stack": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -333,7 +317,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -349,7 +332,6 @@
         "stack": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -371,7 +353,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -387,7 +368,6 @@
         "stack": "<large string>"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -409,7 +389,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -426,7 +405,6 @@
       },
       "m1": "10",
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -448,7 +426,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "ex": {
@@ -457,10 +434,6 @@
         "message": "<large string>",
         "number": "-2146823279",
         "stack": "<large string>"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "bar": {
         "__proto__": "<large string>",
@@ -632,7 +605,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -648,7 +620,6 @@
         "fa": "123"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -692,7 +663,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -704,7 +674,6 @@
         "e1": "-1"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",
@@ -754,7 +723,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "top": "{...}"
       },
       "arguments": {
@@ -769,7 +737,6 @@
         "foo0": "12"
       },
       "[Globals]": {
-        "console": "{...}",
         "bar": "<large string>",
         "bar2": "<large string>",
         "foo": "<large string>",

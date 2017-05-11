@@ -6,6 +6,22 @@
         "__proto__ - [Type]": "Object",
         "__proto__": "{...}"
       },
+      "x0 - [Type]": "Number",
+      "x0": "0",
+      "x1 - [Type]": "Number",
+      "x1": "1",
+      "x2 - [Type]": "Number",
+      "x2": "2",
+      "x3 - [Type]": "Number",
+      "x3": "3",
+      "x4 - [Type]": "Number",
+      "x4": "4",
+      "x5 - [Type]": "Number",
+      "x5": "5",
+      "x6 - [Type]": "Number",
+      "x6": "6",
+      "x7 - [Type]": "Number",
+      "x7": "7",
       "i - [Type]": "Number",
       "i": "66",
       "arguments - [Type]": "Object, (Arguments)",
@@ -104,22 +120,6 @@
         "[65] - [Type]": "Number",
         "[65]": "65"
       },
-      "x0 - [Type]": "Number",
-      "x0": "0",
-      "x1 - [Type]": "Number",
-      "x1": "1",
-      "x2 - [Type]": "Number",
-      "x2": "2",
-      "x3 - [Type]": "Number",
-      "x3": "3",
-      "x4 - [Type]": "Number",
-      "x4": "4",
-      "x5 - [Type]": "Number",
-      "x5": "5",
-      "x6 - [Type]": "Number",
-      "x6": "6",
-      "x7 - [Type]": "Number",
-      "x7": "7",
       "[Scope]1": {
         "arguments - [Type]": "Object, (Arguments)",
         "arguments": "{...}",
@@ -130,10 +130,7 @@
         "i - [Type]": "Number",
         "i": "65"
       },
-      "[Globals]": {
-        "console - [Type]": "Object",
-        "console": "{...}"
-      }
+      "[Globals]": {}
     }
   }
 ]

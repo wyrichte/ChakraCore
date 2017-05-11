@@ -105,8 +105,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10",
-        "console": "{...}"
+        "a1": "10"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -120,7 +119,6 @@
         "c": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "sub_expression_step_into": "<large string>",
         "a1": "10"

@@ -134,10 +134,6 @@
           "this.c1.b": "[]",
           "this.c1.e": "undefined"
         },
-        "this.console": {
-          "[Methods]": "{...}",
-          "this.console.__proto__": "{...}"
-        },
         "this.null": {
           "this.null.__proto__": "{...}",
           "this.null.null": "1"

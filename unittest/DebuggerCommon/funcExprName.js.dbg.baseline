@@ -3,8 +3,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -22,7 +21,6 @@
         "prototype": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -32,8 +30,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -41,6 +38,15 @@
         "length": "1",
         "[0]": "false"
       },
+      "closureFoo": {
+        "__proto__": "<large string>",
+        "arguments": "{...}",
+        "caller": "null",
+        "length": "1",
+        "name": "closureFoo",
+        "prototype": "{...}"
+      },
+      "a": "false",
       "inner": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -49,17 +55,7 @@
         "name": "inner",
         "prototype": "{...}"
       },
-      "closureFoo": {
-        "__proto__": "<large string>",
-        "arguments": "{...}",
-        "caller": "null",
-        "length": "1",
-        "name": "closureFoo",
-        "prototype": "{...}"
-      },
-      "a": "false",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -69,8 +65,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -82,7 +77,6 @@
         "a": "false"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -92,8 +86,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -111,7 +104,6 @@
         "prototype": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }
@@ -121,8 +113,7 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "console": "{...}"
+        "__proto__": "{...}"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -140,7 +131,6 @@
         "prototype": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "outer": "<large string>"
       }

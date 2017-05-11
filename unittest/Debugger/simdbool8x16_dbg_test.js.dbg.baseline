@@ -72,7 +72,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -169,7 +168,6 @@
       "t14": "undefined",
       "t15": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDBool8x16": "<large string>",
         "testSIMDBool8x16_splat": "<large string>",
         "testSIMDBool8x16_not": "<large string>",
@@ -285,7 +283,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -314,7 +311,6 @@
       "b": "undefined",
       "c": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDBool8x16": "<large string>",
         "testSIMDBool8x16_splat": "<large string>",
         "testSIMDBool8x16_not": "<large string>",
@@ -468,7 +464,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "SIMD": "{...}"
       },
       "arguments": {
@@ -500,7 +495,6 @@
       "u": "undefined",
       "w": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "testSIMDBool8x16": "<large string>",
         "testSIMDBool8x16_splat": "<large string>",
         "testSIMDBool8x16_not": "<large string>",

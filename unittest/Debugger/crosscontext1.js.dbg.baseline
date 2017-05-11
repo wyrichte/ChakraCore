@@ -2,7 +2,6 @@
   {
     "locals": {
       "this": "{...}",
-      "console": "{...}",
       "testFunction": "<large string>",
       "TestObject": "<large string>",
       "testFoo": "test foo",
@@ -26,12 +25,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "x": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "test": {
         "__proto__": "<large string>",
@@ -68,6 +62,7 @@
         "testNumber1": "3.14",
         "testObject": "{...}",
         "undefined": "undefined",
+        "WebAssembly": "{...}",
         "WScript": "{...}"
       }
     }

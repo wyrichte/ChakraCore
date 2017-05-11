@@ -4,7 +4,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "x": "undefined"
       },
       "arguments": {
@@ -22,7 +21,6 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
-        "console": "{...}",
         "Run": "<large string>",
         "x": "undefined"
       }
