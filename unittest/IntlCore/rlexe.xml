@@ -51,7 +51,8 @@
       <compile-flags>-maxinterpretCount:1 -off:simpleJit -targeted -dbgbaseline:intlAttach.js.dbg.baseline -Intl</compile-flags>
       <files>intlAttach.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
+      <!-- TODO (doilij): Determine why this doesn't run on Win10 and possibly create a new baseline for Win10 -->
+      <tags>Intl,exclude_winBlue,exclude_win10,exclude_winglob</tags>
     </default>
   </test>
   <test>
