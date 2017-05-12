@@ -1089,6 +1089,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionContext(_In_ Var instance, _O
         return E_ACCESSDENIED;
     }
 
+    if (scriptContext->IsClosed())
+    {
+        return E_FAIL;
+    }
+
     // Only function object supported
     if (!Js::JavascriptFunction::Is(instance))
     {
@@ -1098,6 +1103,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionContext(_In_ Var instance, _O
     HRESULT hr = E_FAIL;
 
     Js::JavascriptFunction * jsFunction = Js::JavascriptFunction::FromVar(instance);
+
+    if (jsFunction->GetScriptContext()->IsClosed())
+    {
+        return E_FAIL;
+    }
 
     // For the bound function type, get the actual function.
     if (jsFunction->IsBoundFunction())
