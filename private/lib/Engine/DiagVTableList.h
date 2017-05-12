@@ -107,9 +107,10 @@ STRING_ENTRY(ConcatStringMulti)
 STRING_ENTRY(CompoundString)
 STRING_ENTRY(BufferStringBuilderWritableString)
 STRING_ENTRY(SubString)
+STRING_ENTRY(LiteralStringWithPropertyStringPtr)
 
 MARK_ENTRY(FirstString,         LiteralString)
-MARK_ENTRY(LastString,          SubString)
+MARK_ENTRY(LastString,          LiteralStringWithPropertyStringPtr)
 #undef STRING_ENTRY
 #undef STRING_ENTRY_TEMPLATE
 
