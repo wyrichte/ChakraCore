@@ -47,7 +47,7 @@
 ::    to switch to any of your ChakraFull repo clones by using ch1, ch2, etc.
 ::
 :: ============================================================================
-@echo off
+@if "%_echo%"=="" (echo off) else (echo on)
 
 rem Do not call setlocal here since we want to expose the variables
 rem set by this script to the calling environment.

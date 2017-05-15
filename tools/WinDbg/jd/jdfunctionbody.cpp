@@ -10,7 +10,7 @@ void PrintFunctionBody(EXT_CLASS_BASE *ext, RemoteFunctionBody& functionBody)
 {
     functionBody.PrintNameAndNumberWithRawLink(ext);
     ext->Out(" ");
-    functionBody.PrintByteCodeLink(ext);    
+    functionBody.PrintByteCodeLink(ext);
     ext->Out("\nSource Url: ");
     functionBody.PrintSourceUrl(ext);
     ext->Out("\n");

@@ -166,8 +166,16 @@ JD_PRIVATE_COMMAND(jsstream,
 
             if (FAILED(message.ErrorHr))
             {
-                Dml("HRESULT <link cmd=\"!error 0x%x\">0x%x</link>, DiagErrorCode: %s (%d)\n",
-                    message.ErrorHr, message.ErrorHr, GetDiagErrorCodeName(message.ErrorCode), message.ErrorCode);
+                if (PreferDML())
+                {
+                    Dml("HRESULT <link cmd=\"!err 0x%x\">0x%x</link>, DiagErrorCode: %s (%d)\n",
+                        message.ErrorHr, message.ErrorHr, GetDiagErrorCodeName(message.ErrorCode), message.ErrorCode);
+                }
+                else
+                {
+                    Out("HRESULT 0x%x /*\"!err 0x%x\" to lookup*/, DiagErrorCode: %s (%d)\n",
+                        message.ErrorHr, message.ErrorHr, GetDiagErrorCodeName(message.ErrorCode), message.ErrorCode);
+                }
             }
             else
             {

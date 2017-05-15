@@ -6,7 +6,6 @@
 *.opensdf
 *.opendb
 *.user
-Build/.vs/
 Build/VCBuild/
 Build/Chakra.Full.VC.db
 Build/ipch/
@@ -36,7 +35,11 @@ tools/Exprgen
 .cproject
 *.dmp
 /packages/*/stage
+CoreCompileInputs.cache
 
 # Visual Studio Extensions
 *.vadbg
 *.args.json
+
+# Visual Studio 2015 cache/options directory
+.vs/

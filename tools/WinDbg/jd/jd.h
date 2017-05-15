@@ -109,6 +109,7 @@ protected:
 public:
     EXT_CLASS_BASE();
     ~EXT_CLASS_BASE() { ClearCache(); }
+    bool PreferDML();
 
 // ------------------------------------------------------------------------------------------------
 // jd private commands: Wrap anything not meant to be published under JD_PRIVATE.

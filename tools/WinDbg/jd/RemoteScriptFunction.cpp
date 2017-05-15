@@ -33,11 +33,23 @@ RemoteScriptFunction::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
 {
     RemoteFunctionBody functionBody = this->GetFunctionBody();
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)"), object.GetPtr(),
-        functionBody.GetDisplayName(&displayNameBuffer), 
-        functionBody.GetSourceContextId(), 
-        functionBody.GetLocalFunctionId(), 
-        functionBody.GetFunctionNumber());
+    if (ext->PreferDML())
+    {
+        ext->Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)"), object.GetPtr(),
+            functionBody.GetDisplayName(&displayNameBuffer),
+            functionBody.GetSourceContextId(),
+            functionBody.GetLocalFunctionId(),
+            functionBody.GetFunctionNumber());
+    }
+    else
+    {
+        ext->Out(_u("%s (#%d.%d, #%d) /*\"!jd.var 0x%p\" to display*/"),
+            functionBody.GetDisplayName(&displayNameBuffer),
+            functionBody.GetSourceContextId(),
+            functionBody.GetLocalFunctionId(),
+            functionBody.GetFunctionNumber(),
+            object.GetPtr());
+    }
 }
 
 // ---- End jd private commands implementation ----------------------------------------------------

@@ -481,7 +481,7 @@ bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const
             }
             catch (ExtException ex)
             {
-                this->Out(" (fail to deref 0x%p, Error: %s)", domObject, ex.GetMessageW());
+                this->Err(" (fail to deref 0x%p, Error: %s)", domObject, ex.GetMessageW());
             }
         }
         return true;
@@ -519,11 +519,25 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     if (makeLink)
     {
         std::string encodedTypeName = JDUtil::EncodeDml(typeName);
-        this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", encodedTypeName.c_str(), address);
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"?? (%s *)0x%p\">(??)</link> ", encodedTypeName.c_str(), address);
+        }
+        else
+        {
+            this->Out("(\"?? (%s *)0x%p\" to display)</link> ", encodedTypeName.c_str(), address);
+        }
 
         if (object.HasField("type") && object.Field("type").HasField("typeId"))
         {
-            this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+            if (PreferDML())
+            {
+                this->Dml("<link cmd=\"!jd.var 0x%p\">(!jd.var)</link> ", address);
+            }
+            else
+            {
+                this->Out("(\"!jd.var 0x%p\" to display) ", encodedTypeName.c_str(), address);
+            }
             if (showScriptContext)
             {
                 this->Out("SC:0x%p ", object.Field("type").Field("javascriptLibrary").Field("scriptContext").GetPtr());
@@ -733,12 +747,22 @@ JD_PRIVATE_COMMAND(findref,
     Out("Referring objects:\n");
 
     std::for_each(results.begin(), results.end(), [&](decltype(results[0])& result) {
-        this->Dml("\t<link cmd = \"!findref 0x%p%s\">+</link> ",
-            result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg));
-        this->Dml("<link cmd=\"!oi 0x%p%s\">0x%p</link>",
-            result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address);
-        this->Dml("+0x%02x", result.offset);
-        this->Dml(" %s\n", (result.isRoot ? "(root)" : ""));
+        if (PreferDML())
+        {
+            this->Dml("\t<link cmd=\"!findref 0x%p%s\">+</link> ",
+                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg));
+            this->Dml("<link cmd=\"!oi 0x%p%s\">0x%p</link>",
+                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address);
+        }
+        else
+        {
+            this->Out("\t+ /*\"!findref 0x%p%s\" to expand*/ ",
+                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg));
+            this->Out("0x%p /*\"!oi 0x%p%s\" to display*/",
+                result.address, recyclerArg == 0 ? "" : FillModuleV(" 0x%p", recyclerArg), result.address);
+        }
+        this->Out("+0x%02x", result.offset);
+        this->Out(" %s\n", (result.isRoot ? "(root)" : ""));
     });
 
     if (results.size() == 0)
@@ -1076,19 +1100,43 @@ void DumpPointerProperties(EXT_CLASS_BASE* ext, RecyclerObjectGraph &objectGraph
     FormatPointerFlags(buffer, bufferLength, node);
     ext->Out("%s ", buffer);
 
-    ext->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", address);
-    ext->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", address);
-
-    bool isInput = (pointerArg == address); // display * or > with link as appropriate
-    if (isInput)
+    if (ext->PreferDML())
     {
-        ext->Out("  "); // spacer for >
-        ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">*</link>", address);
+        ext->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", address);
+        ext->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", address);
     }
     else
     {
-        ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", address);
-        ext->Out("  "); // spacer for *
+        ext->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/", address);
+        ext->Out("v /*\"!jd.successors -limit 0 0x%p\"*/", address);
+    }
+
+    bool isInput = (pointerArg == address); // display * or > with link as appropriate
+    if (ext->PreferDML())
+    {
+        if (isInput)
+        {
+            ext->Out("  "); // spacer for >
+            ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">*</link>", address);
+        }
+        else
+        {
+            ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", address);
+            ext->Out("  "); // spacer for *
+        }
+    }
+    else
+    {
+        if (isInput)
+        {
+            ext->Out("  "); // spacer for >
+            ext->Out("* /*\"!jd.traceroots 0x%p\"*/", address);
+        }
+        else
+        {
+            ext->Out("> /*\"!jd.traceroots 0x%p\"*/", address);
+            ext->Out("  "); // spacer for *
+        }
     }
 
     ext->Out(" | ");
@@ -1135,7 +1183,14 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
             DumpPointerPropertiesHorizontalSpacer(ext);
             uint nodeCount = (currentNode->*countFunction)();
             ext->Out("Limit Reached. %d more not displayed.", nodeCount - count);
-            ext->Dml(" <link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+            if (ext->PreferDML())
+            {
+                ext->Dml(" <link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+            }
+            else
+            {
+                ext->Out(" (\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
+            }
             return true;
         }
 
@@ -1154,13 +1209,27 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
     if (limitArg == 0 && links)
     {
         ext->Out("\n");
-        if (showOnlyRoots)
+        if (ext->PreferDML())
         {
-            ext->Dml("<link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+            if (showOnlyRoots)
+            {
+                ext->Dml("<link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+            }
+            else
+            {
+                ext->Dml("<link cmd=\"!jd.%s /r /limit 0 0x%p\">(Display only roots.)</link>\n", command, pointerArg);
+            }
         }
         else
         {
-            ext->Dml("<link cmd=\"!jd.%s /r /limit 0 0x%p\">(Display only roots.)</link>\n", command, pointerArg);
+            if (showOnlyRoots)
+            {
+                ext->Out("(\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
+            }
+            else
+            {
+                ext->Out("(\"!jd.%s /r /limit 0 0x%p\" to display only roots.)\n", command, pointerArg);
+            }
         }
     }
 }
@@ -1218,10 +1287,10 @@ void DumpSuccessors(EXT_CLASS_BASE* ext, Node node, RecyclerObjectGraph &objectG
 }
 
 JD_PRIVATE_COMMAND(predecessors,
-    "Given a pointer in the graph, show all of its descendants.",
+    "Given a pointer in the graph, show all of its ancestors.",
     "{;ed,o,d=0;pointer;Address to trace}"
     "{;ed,o,d=0;recycler;Recycler address}"
-    "{r;b,o;onlyRoots;Only show predecessors which are also roots}"
+    "{r;b,o;onlyRoots;Only show ancestors which are also roots}"
     "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
 {
     PredSuccImpl<true>();
@@ -1462,27 +1531,61 @@ JD_PRIVATE_COMMAND(traceroots,
 
     if (transientRoots)
     {
-        this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Ignore transient recycler roots for traversal root limit.)</link>\n",
-            numRootsArg, pointerArg, recyclerArg);
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Ignore transient recycler roots for traversal root limit.)</link>\n",
+                numRootsArg, pointerArg, recyclerArg);
+        }
+        else
+        {
+            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to ignore transient recycler roots for traversal root limit.)\n",
+                numRootsArg, pointerArg, recyclerArg);
+        }
     }
     else
     {
-        this->Dml("<link cmd=\"!jd.traceroots /t /roots %d 0x%p 0x%p\">(Use transient recycler roots for traversal root limit.)</link>\n",
-            numRootsArg, pointerArg, recyclerArg);
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"!jd.traceroots /t /roots %d 0x%p 0x%p\">(Use transient recycler roots for traversal root limit.)</link>\n",
+                numRootsArg, pointerArg, recyclerArg);
+        }
+        else
+        {
+            this->Out("(\"!jd.traceroots /t /roots %d 0x%p 0x%p\" to use transient recycler roots for traversal root limit.)\n",
+                numRootsArg, pointerArg, recyclerArg);
+        }
     }
 
     if (numRootsArg == 0)
     {
         this->Out("Traversing as far as possible.\n");
-        this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through just one recycler root.)</link>\n",
-            1, pointerArg, recyclerArg);
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through just one recycler root.)</link>\n",
+                1, pointerArg, recyclerArg);
+        }
+        else
+        {
+            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through just one recycler root.)\n",
+                1, pointerArg, recyclerArg);
+        }
     }
     else
     {
-        this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse as far as possible.)</link>\n",
-            0, pointerArg, recyclerArg);
-        this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through %d recycler roots.)</link>\n",
-            numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse as far as possible.)</link>\n",
+                0, pointerArg, recyclerArg);
+            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through %d recycler roots.)</link>\n",
+                numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
+        }
+        else
+        {
+            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse as far as possible.)\n",
+                0, pointerArg, recyclerArg);
+            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through %d recycler roots.)\n",
+                numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
+        }
     }
 
     DumpPointerPropertiesHeader(this);
@@ -1664,12 +1767,12 @@ JD_PRIVATE_COMMAND(savegraph,
     
     if (filetype == CSV)
     {
-        Out("Saving object graph to %s.nodes.csv and %s.edges.csv\n", filename, filename);
+        Out("Saving object graph to '%s.nodes.csv' and '%s.edges.csv\n'", filename, filename);
         objectGraph.DumpForCsv(filename);
     }
     else
     {
-        Out("Saving object graph to %s\n", filename);
+        Out("Saving object graph to '%s'\n", filename);
         if (filetype == JavaScript)
         {
             objectGraph.DumpForJs(filename);
@@ -1680,7 +1783,7 @@ JD_PRIVATE_COMMAND(savegraph,
         }
         else
         {
-            Out("Unknown file type %s\n", filetype);
+            Err("Unknown file type '%s'\n", filetype);
         }
     }
 }
@@ -1929,13 +2032,27 @@ JD_PRIVATE_COMMAND(jsobjectstats,
                 Out("%7I64u %11I64u %5.1f%% %5.1f%% ", stats.unknownCount, stats.unknownSize,
                     (double)stats.unknownCount / (double)numNodes * 100, (double)stats.unknownSize / (double)totalSize * 100);
 
-                if (data->javascriptLibrary != (ULONG64)-1)
+                if (PreferDML())
                 {
-                    Dml("<link cmd=\"!jd.jsobjectnodes -fu -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
+                    if (data->javascriptLibrary != (ULONG64)-1)
+                    {
+                        Dml("<link cmd=\"!jd.jsobjectnodes -fu -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
+                    }
+                    else
+                    {
+                        Dml("<link cmd=\"!jd.jsobjectnodes -fu -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
+                    }
                 }
                 else
                 {
-                    Dml("<link cmd=\"!jd.jsobjectnodes -fu -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
+                    if (data->javascriptLibrary != (ULONG64)-1)
+                    {
+                        Out("(nodes) /*\"!jd.jsobjectnodes -fu -fl %p -ft %s\"*/ ", data->javascriptLibrary, encodedTypeName.c_str());
+                    }
+                    else
+                    {
+                        Out("(nodes) /*\"!jd.jsobjectnodes -fu -ft %s\"*/ ", encodedTypeName.c_str());
+                    }
                 }
 
                 Out("| ");
@@ -1943,13 +2060,27 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out("%7I64u %11I64u %5.1f%% %5.1f%% ", currCount, currSize, (double)currCount / (double)numNodes * 100,
                 (double)currSize / (double)totalSize * 100);
 
-            if (data->javascriptLibrary != (ULONG64)-1)
+            if (PreferDML())
             {
-                Dml("<link cmd=\"!jd.jsobjectnodes -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
+                if (data->javascriptLibrary != (ULONG64)-1)
+                {
+                    Dml("<link cmd=\"!jd.jsobjectnodes -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
+                }
+                else
+                {
+                    Dml("<link cmd=\"!jd.jsobjectnodes -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
+                }
             }
             else
             {
-                Dml("<link cmd=\"!jd.jsobjectnodes -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
+                if (data->javascriptLibrary != (ULONG64)-1)
+                {
+                    Out("(nodes) /*\"!jd.jsobjectnodes -fl %p -ft %s\"*/ ", data->javascriptLibrary, encodedTypeName.c_str());
+                }
+                else
+                {
+                    Out("(nodes) /*\"!jd.jsobjectnodes -ft %s\"*/ ", encodedTypeName.c_str());
+                }
             }
             Out("%s%s\n", stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
 
@@ -2151,9 +2282,18 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
         {
             this->Out("%6d %6d %8d ", node->GetPredecessorCount(), node->GetSuccessorCount(), node->GetObjectSize());
 
+        if (PreferDML())
+        {
             this->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", node->Key());
             this->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", node->Key());
             this->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link> ", node->Key());
+        }
+        else
+        {
+            this->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/ ", node->Key());
+            this->Out("v /*\"!jd.successors -limit 0 0x%p\"*/ ", node->Key());
+            this->Out("> /*\"!jd.traceroots 0x%p\"*/ ", node->Key());
+        }
 
             this->Out("0x%p", node->Key());
 
@@ -2193,8 +2333,16 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
                 options += buffer;
             }
             if (hasFilterType) { options += " -ft " + JDUtil::EncodeDml(typeFilter); }
-            this->Dml(" <link cmd=\"!jd.jsobjectnodes -skip %I64d -limit %I64d%s\">(Display next %d)</link>", skip + limit, limit, options.c_str(), limit);
-            this->Dml(" <link cmd=\"!jd.jsobjectnodes -limit 0%s\">(Display all)</link>", options.c_str());
+            if (PreferDML())
+            {
+                this->Dml(" <link cmd=\"!jd.jsobjectnodes -skip %I64d -limit %I64d%s\">(Display next %d)</link>", skip + limit, limit, options.c_str(), limit);
+                this->Dml(" <link cmd=\"!jd.jsobjectnodes -limit 0%s\">(Display all)</link>", options.c_str());
+            }
+            else
+            {
+                this->Out(" (\"!jd.jsobjectnodes -skip %I64d -limit %I64d%s\" to display next %d)", skip + limit, limit, options.c_str(), limit);
+                this->Out(" (\"!jd.jsobjectnodes -limit 0%s\" to display all)", options.c_str());
+            }
             this->Out("\n");
             return true;
         }

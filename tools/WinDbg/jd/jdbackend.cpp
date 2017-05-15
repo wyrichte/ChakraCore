@@ -107,7 +107,7 @@ char * JDBackend::GetSymOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_
     int32 stackSymOffset = stackSym.Field("m_offset").GetLong();
     bool hasOffset = stackSym.Field("m_isArgSlotSym").GetChar() ?
         stackSymOffset != -1 || !stackSym.Field("m_isInlinedArgSlot").GetChar() : stackSymOffset != 0;
-        
+
     if (!hasOffset)
     {
         return GetStackSymDumpString(stackSym, buffer, len);
@@ -116,7 +116,7 @@ char * JDBackend::GetSymOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_
     char * stackSymDumpStr = GetStackSymDumpString(stackSym, tempBuffer, _countof(tempBuffer));
 
     int32 opndOffset = opnd.Field("m_offset").GetLong();
-    
+
     RETURNBUFFER("%s<%d>", stackSymDumpStr, stackSymOffset + opndOffset);    
 }
 
@@ -163,7 +163,7 @@ char * JDBackend::GetAddrOpndDumpString(ExtRemoteTyped opnd, char * buffer, size
 
 char * JDBackend::GetIndirOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {
-    char tempBuffer[TEMP_BUFFER_SIZE];    
+    char tempBuffer[TEMP_BUFFER_SIZE];
     char * stackSymDumpStr = GetRegOpndDumpString(opnd.Field("m_baseOpnd"), tempBuffer, _countof(tempBuffer));
 
     ExtRemoteTyped indexOpnd = opnd.Field("m_indexOpnd");
@@ -183,7 +183,7 @@ char * JDBackend::GetIndirOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
     if (offset)
     {
         RETURNBUFFER(offset >= 0 ? "[%s+%d]" : "[%s%d]", stackSymDumpStr, offset);
-    }    
+    }
 
     RETURNBUFFER("[%s]", stackSymDumpStr);
 }
@@ -349,7 +349,6 @@ void JDBackend::DumpBranchInstr(ExtRemoteTyped branchInstr)
     {
         // This may happen when haven't finish filling the label in, such as in IRBuilder
         ext->Out("<NO TARGET LABEL>");
-
     }
 }
 
@@ -369,7 +368,7 @@ void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
         ext->Out("%18s", "");
     }
 
-    // Trim out the enum numeric value    
+    // Trim out the enum numeric value
     ext->Out("%-20s", GetEnumString(opcode));
 
     if (src1.GetPtr() != NULL)
@@ -396,12 +395,12 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
     if (ENUM_EQUAL(v, InstrKindLabel) || ENUM_EQUAL(v, InstrKindProfiledLabel))
     {
         DumpLabelInstr(ExtRemoteTyped(ext->FillModule("(%s!IR::LabelInstr *)@$extin"), instr.GetPtr()));
-        ext->Out(":");        
+        ext->Out(":");
     }
     else if (ENUM_EQUAL(v, InstrKindBranch))
     {
-        DumpBranchInstr(ExtRemoteTyped(ext->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));        
-    }  
+        DumpBranchInstr(ExtRemoteTyped(ext->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));
+    }
     else if (ENUM_EQUAL(v, InstrKindPragma))
     {
         ExtRemoteTyped opcode = ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
@@ -417,9 +416,8 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
     else
     {
         DumpInstrBase(instr);
-        
     }
-   
+
     ext->Out("\n");
 }
 
@@ -430,7 +428,14 @@ JDBackend::DumpFunc(ExtRemoteTyped func)
 
     while (curr.GetPtr())
     {
-        ext->Dml("<link cmd=\"dt IR::Instr 0x%p\">0x%p</link>:", curr.GetPtr(), curr.GetPtr());
+        if (ext->PreferDML())
+        {
+            ext->Dml("<link cmd=\"dt IR::Instr 0x%p\">0x%p</link>:", curr.GetPtr(), curr.GetPtr());
+        }
+        else
+        {
+            ext->Out("0x%p /*\"dt IR::Instr 0x%p\" to display*/:", curr.GetPtr(), curr.GetPtr());
+        }
         DumpInstr(curr);
         curr = curr.Field("m_next");
     }

@@ -162,7 +162,14 @@ void EXT_CLASS_BASE::DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeFie
     ULONG64 length = block.Field(sizeField).GetUlong64();
 
     Out("%s %d: ", desc, index);
-    Dml("<link cmd=\"db 0x%p l0x%x\">0x%p</link>", ptrBlock + sizeOfBigBlock, length, ptrBlock); // Hack- since ArenaMemoryData and BigBlock have the same size
+    if (PreferDML())
+    {
+        Dml("<link cmd=\"db 0x%p l0x%x\">0x%p</link>", ptrBlock + sizeOfBigBlock, length, ptrBlock); // Hack- since ArenaMemoryData and BigBlock have the same size
+    }
+    else
+    {
+        Out("0x%p /*\"db 0x%p l0x%x\" to display*/", ptrBlock, ptrBlock + sizeOfBigBlock, length); // Hack- since ArenaMemoryData and BigBlock have the same size
+    }
     Out(" (");
 
     Out("0x%x", length);
@@ -304,7 +311,14 @@ void ObjectInfoHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBloc
     if (heapBlockType == ext->enum_LargeBlockType())
     {
         PCSTR heapblockSymbol = ext->FillModuleAndMemoryNS("%s!%sLargeHeapBlock");
-        ext->Dml("Large Heap Block: <link cmd=\"dt %s 0x%p\">0x%p</link>\n", heapblockSymbol, heapBlock, heapBlock);
+        if (ext->PreferDML())
+        {
+            ext->Dml("Large Heap Block: <link cmd=\"dt %s 0x%p\">0x%p</link>\n", heapblockSymbol, heapBlock, heapBlock);
+        }
+        else
+        {
+            ext->Out("Large Heap Block: 0x%p /*\"dt %s 0x%p\" to display*/\n", heapBlock, heapblockSymbol, heapBlock);
+        }
     }
     else
     {
@@ -335,11 +349,25 @@ void ObjectInfoHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBloc
 
         if (recycler.GetPtr())
         {
-            ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, recycler.GetPtr(), heapBlock);
+            if (ext->PreferDML())
+            {
+                ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, recycler.GetPtr(), heapBlock);
+            }
+            else
+            {
+                ext->Out("%s: 0x%p /*\"!showblockinfo 0x%p 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock, recycler.GetPtr());
+            }
         }
         else
         {
-            ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, heapBlock);
+            if (ext->PreferDML())
+            {
+                ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, heapBlock);
+            }
+            else
+            {
+                ext->Out("%s: 0x%p /*\"!showblockinfo 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock);
+            }
         }
     }
 }
@@ -353,7 +381,14 @@ void ObjectInfoHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose
 
     if (!className.empty())
     {
-        ext->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
+        if (ext->PreferDML())
+        {
+            ext->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
+        }
+        else
+        {
+            ext->Out("0x%p /*\"dt %s 0x%p\" to display*/", heapObject.address, className.c_str(), heapObject.address);
+        }
     }
     else
     {
@@ -388,7 +423,14 @@ void ObjectInfoHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose
         if (!ext->IsMinidumpDebugging())
         {
             ext->Out(" (");
-            ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
+            if (ext->PreferDML())
+            {
+                ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
+            }
+            else
+            {
+                ext->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.freeBitWord);
+            }
             ext->Out(")");
         }
         ext->Out("\n");
@@ -397,7 +439,14 @@ void ObjectInfoHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose
         if (!ext->IsMinidumpDebugging())
         {
             ext->Out(" (");
-            ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
+            if (ext->PreferDML())
+            {
+                ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
+            }
+            else
+            {
+                ext->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.markBitWord);
+            }
             ext->Out(")");
         }
         ext->Out("\n");
@@ -712,15 +761,16 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
             outputType == CommandOutputType::VerboseOutputType)
         {
             PCSTR fullyQualifiedSegmentType = FillModuleV("%s!%s", GetModuleName(), qualifiedSegmentType);
-            if (pageSegment)
+            PCSTR segmentStr = pageSegment ? "PageSegment" : "Segment";
+            if (PreferDML())
             {
-                Dml("<link cmd=\"?? (%s*) 0x%p\">PageSegment</link>: ",
-                    fullyQualifiedSegmentType, addressOfSegment);
+                Dml("<link cmd=\"?? (%s*) 0x%p\">%s</link>: ",
+                    fullyQualifiedSegmentType, addressOfSegment, segmentStr);
             }
             else
             {
-                Dml("<link cmd=\"?? (%s*) 0x%p\">Segment</link>: ",
-                    fullyQualifiedSegmentType, addressOfSegment);
+                Out("%s /*\"?? (%s*) 0x%p\" to display*/: ",
+                    segmentStr, fullyQualifiedSegmentType, addressOfSegment);
             }
             Out("(%p - %p)\n", address, address + segmentSize);
         }
@@ -1504,16 +1554,23 @@ JD_PRIVATE_COMMAND(memstats,
             ulong threadContextThreadId = 0;
             if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
             {
-                this->Dml("Thread context: %p <link cmd=\"~%us\">(Switch To Thread)</link>\n", threadContextPtr, threadContextThreadId);
+                if (PreferDML())
+                {
+                    Dml("Thread context: %p <link cmd=\"~%us\">(switch to thread)</link>\n", threadContextPtr, threadContextThreadId);
+                }
+                else
+                {
+                    Out("Thread context: %p (switch to thread: \"~%us\")\n", threadContextPtr, threadContextThreadId);
+                }
             }
             else
             {
-                this->Out("Thread context: %p\n", threadContextPtr);
+                Out("Thread context: %p\n", threadContextPtr);
             }
         }
         if (showPageAllocator)
         {
-            this->Out("Page Allocators:\n");
+            Out("Page Allocators:\n");
             RemotePageAllocator::DisplayDataHeader("Allocator");
         }
 
@@ -1530,7 +1587,7 @@ JD_PRIVATE_COMMAND(memstats,
 
             if (showPageAllocator)
             {
-                pageAllocator.DisplayData(name, showZeroEntries);
+                pageAllocator.DisplayData(this, name, showZeroEntries);
             }
             return false;
         });
@@ -1546,7 +1603,15 @@ JD_PRIVATE_COMMAND(memstats,
         }
         if (showPageAllocator || showThreadSummary)
         {
-            g_Ext->Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
+            if (PreferDML())
+            {
+                Dml("<link cmd=\"!jd.memstats -t %p\">%016p</link>", threadContextPtr, threadContextPtr);
+            }
+            else
+            {
+                Out("/*\"!jd.memstats -t %p\" to display*/\n", threadContextPtr);
+                Out("%016p", threadContextPtr);
+            }
             RemotePageAllocator::DisplayData(16, usedBytes, reservedBytes, committedBytes, unusedBytes);
         }
 
@@ -1726,7 +1791,14 @@ void ShowStack(ExtRemoteTyped heapBlock, PCSTR stackType, EXT_CLASS_BASE* ext)
     {
         sprintf_s(buffer, "%s", ext->FillModuleV("dps @@c++(((%s*)(0x%llx))->%s->stackBackTrace) L@@c++(((%s*)(0x%llx))->%s->framesCount)",
             HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str(), HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str()));
-        ext->Dml("\t<b>%s</b> <link cmd=\"%s\">stack</link>:\n", stackType, buffer);
+        if (ext->PreferDML())
+        {
+            ext->Dml("\t<b>%s</b> <link cmd=\"%s\">stack</link>:\n", stackType, buffer);
+        }
+        else
+        {
+            ext->Out("\t%s stack /*\"%s\" to display*/:\n", stackType, buffer);
+        }
 
         ExtBuffer<char> symbol;
         ULONG64 displacement;
@@ -1776,7 +1848,14 @@ MPH_COMMAND(mpheap,
     ExtRemoteTyped heapInstance(FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule, gpHeapHandle));
     if (verbose)
     {
-        this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule), heapInstance.GetPtr());
+        if (PreferDML())
+        {
+            this->Dml("<link cmd=\"?? %s\">g_pHeapHandle</link>: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule), heapInstance.GetPtr());
+        }
+        else
+        {
+            this->Out("g_pHeapHandle /*\"?? %s\" to display*/: %x\n", FillModuleV("(%s!MemProtectHeap*)(%s!%s)", memGCModule, tridentModule), heapInstance.GetPtr());
+        }
         this->Out("threadContextTlsIndex: %x\n", heapInstance.Field("threadContextTlsIndex").GetUlong(), gpHeapHandle);
     }
 
@@ -1813,9 +1892,9 @@ MPH_COMMAND(mpheap,
     {
         bool showZeroEntries = true;
         RemotePageAllocator::DisplayDataHeader("Allocator");
-        remoteRecycler.ForEachPageAllocator("Thread", [showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
+        remoteRecycler.ForEachPageAllocator("Thread", [this, showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            pageAllocator.DisplayData(name, showZeroEntries);
+            pageAllocator.DisplayData(this, name, showZeroEntries);
             return false;
         });
         return;
@@ -1867,7 +1946,7 @@ MPH_COMMAND(mpheap,
                 ULONG leadingGuardPageCount = pageSegment.Field("leadingGuardPageCount").GetUlong();
                 ULONG trailingGuardPageCount = pageSegment.Field("trailingGuardPageCount").GetUlong();
                 ULONG validPageCount = pageCount - leadingGuardPageCount - trailingGuardPageCount;
-                ULONG64 validAddress = address + leadingGuardPageCount * g_Ext->m_PageSize;
+                ULONG64 validAddress = address + leadingGuardPageCount * m_PageSize;
 
                 if (validAddresses.find(validAddress) != validAddresses.end())
                 {
@@ -1876,10 +1955,17 @@ MPH_COMMAND(mpheap,
                 }
 
                 PCSTR searchcmd = FillModuleV(this->m_PtrSize == 8 ? "s -%c 0x%016I64x L?0x%x 0x%016I64x" : "s -%c 0x%08I64x L?0x%x 0x%08I64x",
-                    type, validAddress, validPageCount * g_Ext->m_PageSize, pattern);
+                    type, validAddress, validPageCount * m_PageSize, pattern);
                 if (verbose)
                 {
-                    this->Dml("\nSegment: %p+<link cmd=\"%s\">%x</link>:\n", validAddress, searchcmd, validPageCount * g_Ext->m_PageSize);
+                    if (PreferDML())
+                    {
+                        this->Dml("\nSegment: %p+<link cmd=\"%s\">%x</link>:\n", validAddress, searchcmd, validPageCount * m_PageSize);
+                    }
+                    else
+                    {
+                        this->Out("\nSegment: %p+%x /*\"%s\" to search*/:\n", validAddress, validPageCount * m_PageSize, searchcmd);
+                    }
                 }
                 this->Execute(searchcmd);
                 return false;
@@ -1956,9 +2042,16 @@ MPH_COMMAND(mpheap,
             sprintf_s(buffer, "dx (%s!Memory::HeapBlock*)0x%llx", memGCModule, heapBlock.GetPtr());
         }
 
-        this->Dml("\taddress %p found in\n", address);
-        this->Dml("\tHeapBlock @ <link cmd=\"%s\">%p</link> (page heap is %senabled)\n", buffer, heapBlock.GetPtr(),
-            !pageHeapOn ? "not " : "");
+        this->Out("\taddress %p found in\n", address);
+        if (PreferDML())
+        {
+            this->Dml("\tHeapBlock @ <link cmd=\"%s\">%p</link>", buffer, heapBlock.GetPtr());
+        }
+        else
+        {
+            this->Out("\tHeapBlock @ %p /*\"%s\" to display*/", heapBlock.GetPtr(), buffer);
+        }
+        this->Out(" (page heap is %senabled)\n", !pageHeapOn ? "not " : "");
 
         const char* states[3] = { "freed", "rooted", "unrooted" };
         this->Out("\t   HEAP_ENTRY Attributes     UserPtr UserSize - State\n");
@@ -1976,14 +2069,32 @@ MPH_COMMAND(mpheap,
             {
                 this->ThrowInterrupt();
                 auto info = GetObjectInfo(rootAddress, recycler, this);
+                char buffer[1024];
+                sprintf_s(buffer, this->m_PtrSize == 8 ? "0x%016I64x" : "0x%08I64x", rootAddress);
                 if (verbose)
                 {
-                    this->Dml(this->m_PtrSize == 8 ? "\tRoot:  <link cmd=\"!mpheap -p -a 0x%016I64x\">0x%016I64x</link>" : "\tRoot:  <link cmd=\"!mpheap -p -a 0x%08I64x\">0x%08I64x</link>",
-                        rootAddress, rootAddress);
+                    if (PreferDML())
+                    {
+                        this->Dml("\tRoot:  <link cmd=\"!mpheap -p -a %s\">%s</link>",
+                            buffer, buffer);
+                    }
+                    else
+                    {
+                        this->Out("\tRoot:  %s /*\"!mpheap -p -a %s\" to display*/",
+                            buffer, buffer);
+                    }
                     if (info.succeeded)
                     {
-                        this->Dml(this->m_PtrSize == 8 ? "  +<link cmd=\"dp 0x%016I64x L0x%x\">0x%x</link>\n" : "  +<link cmd=\"dp 0x%08I64x L0x%x\">0x%x</link>\n",
-                            rootAddress, info.userSize / this->m_PtrSize, info.userSize);
+                        if (PreferDML())
+                        {
+                            this->Dml("  +<link cmd=\"dp %s L0x%x\">0x%x</link>\n",
+                                buffer, info.userSize / this->m_PtrSize, info.userSize);
+                        }
+                        else
+                        {
+                            this->Out("  +0x%x /*\"dp %s L0x%x\" to display*/\n",
+                                info.userSize, buffer, info.userSize / this->m_PtrSize);
+                        }
                     }
                     else
                     {
@@ -1999,8 +2110,8 @@ MPH_COMMAND(mpheap,
                         auto data = rootMem.ArrayElement(i).GetPtr();
                         if ((ULONG64)data == address)
                         {
-                            this->Dml(this->m_PtrSize == 8 ? "\t      Ref: 0x%016I64x +0x%x\n" : "\t      Ref: 0x%08I64x +0x%x\n",
-                                rootAddress, i*this->m_PtrSize);
+                            this->Out("\t      Ref: %s +0x%x\n",
+                                buffer, i*this->m_PtrSize);
                         }
                     }
                 }

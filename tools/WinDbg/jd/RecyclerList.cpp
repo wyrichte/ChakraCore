@@ -12,7 +12,14 @@ void DumpList(EXT_CLASS_BASE* ext, ULONG64 address, PCSTR type)
     while (iterator.Next())
     {
         ULONG64 data = iterator.GetDataPtr();
-        ext->Dml("<link cmd=\"?? (%s*) 0x%p\">0x%p</link>\n", type, data, data);
+        if (ext->PreferDML())
+        {
+            ext->Dml("<link cmd=\"?? (%s*) 0x%p\">0x%p</link>\n", type, data, data);
+        }
+        else
+        {
+            ext->Out("0x%p /*\"?? (%s*) 0x%p\" to display*/\n", data, type, data);
+        }
         count++;
     }
 

@@ -577,6 +577,11 @@ public:
                 }
             });          
             fclose(f);
+            g_Ext->Out("Finished saving to '%s'\n", filename);
+        }
+        else
+        {
+            g_Ext->Err("Could not open '%s'\n", filename);
         }
     }
 
@@ -599,25 +604,35 @@ public:
                 }
             });
             fclose(f);
+            g_Ext->Out("Finished saving to '%s'\n", filename);
+        }
+        else
+        {
+            g_Ext->Err("Could not open '%s'\n", filename);
         }
     }    
     
     // Export to CSV
-    // sourcePointer, destPointer
+    // nodes and edges in separate .csv files
+    // nodes: Addr,Size,HasVTbl,Type,TypeId
+    // edges: source, destPointer
     bool ExportToCsv(const char* filename)
     {        
         char outputFileName[_MAX_PATH];
         if (strcpy_s(outputFileName, filename) != 0)
         {
+            g_Ext->Err("Could not copy '%s'\n", filename);
             return false;
         }
         if (strcat_s(outputFileName, ".nodes.csv") != 0)
         {
+            g_Ext->Err("Could not append '%s' to '%s'\n", ".nodes.csv", outputFileName);
             return false;
         }
         FILE * f = fopen(outputFileName, "w+");
         if (f == nullptr)
         {
+            g_Ext->Err("Could not open '%s'\n", outputFileName);
             return false;
         }
 
@@ -637,16 +652,19 @@ public:
 
         if (strcpy_s(outputFileName, filename) != 0)
         {
+            g_Ext->Err("Could not copy '%s'\n", filename);
             return false;
         }
         if (strcat_s(outputFileName, ".edges.csv") != 0)
         {
+            g_Ext->Err("Could not append '%s' to '%s'\n", ".edges.csv", outputFileName);
             return false;
         }
 
         f = fopen(outputFileName, "w+");
         if (f == nullptr)
         {
+            g_Ext->Err("Could not open '%s'\n", outputFileName);
             return false;
         }
         EmitEdges([=](char rootChar, ULONG64 fromPointer, ULONG64 toPointer)
@@ -661,6 +679,7 @@ public:
             }
         });
         fclose(f);
+        g_Ext->Out("Finished saving to '%s'\n", filename);
         return true;
     }
 

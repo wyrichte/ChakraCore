@@ -8,7 +8,7 @@
 EXT_DECLARE_GLOBALS();
 
 EXT_CLASS_BASE::EXT_CLASS_BASE() :
-    m_AuxPtrsFix16("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,3>", 
+    m_AuxPtrsFix16("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,3>",
         "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,1>", false),
     m_AuxPtrsFix32("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,6>",
         "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,3>", false),
@@ -22,7 +22,7 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_uiServerString[0] = '\0';
     m_gcNS[0] = '\1';
     m_isCachedHasMemoryNS = false;
-    m_hasMemoryNS = false;    
+    m_hasMemoryNS = false;
 #endif
 }
 
@@ -83,6 +83,12 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
     }
 }
 
+bool EXT_CLASS_BASE::PreferDML()
+{
+    ULONG ulOptions = 0;
+    return SUCCEEDED(m_Control->GetEngineOptions(&ulOptions)) && ((ulOptions & DEBUG_ENGOPT_PREFER_DML) != 0);
+}
+
 // ---- Begin jd private commands implementation --------------------------------------------------
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
@@ -105,7 +111,7 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
     {
         return this->memGCModule;
     }
-#endif 
+#endif
 
     if (m_moduleName[0] == '\0') {
         ULONG index = DEBUG_ANY_ID;
@@ -248,7 +254,7 @@ bool EXT_CLASS_BASE::IsJITServer()
     {
         ExtRemoteTyped isJITServer(this->FillModule("%s!JITManager::s_jitManager.m_isJITServer"));
         m_isJITServer = isJITServer.GetStdBool();
-    }    
+    }
 
     return m_isJITServer;
 }
@@ -534,11 +540,11 @@ JD_PRIVATE_COMMAND(prop,
         threadContext = RemoteThreadContext::GetCurrentThreadContext();
     }
     else if (!RemoteThreadContext::TryGetThreadContextFromAnyContextPointer(pointer, threadContext))
-    {       
+    {
         Err("ERROR: Pointer %p is not a ThreadContext or a ScriptContext\n", pointer);
         ThrowCommandHelp();
     }
-    
+
     PropertyNameReader propertyNameReader(this, threadContext);
     if (propertyId)
     {
@@ -659,12 +665,20 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
     const char* typeIdStr = JDUtil::GetEnumString(typeId);
     if (depth == 0)
     {
-        std::string encodedClassName = JDUtil::EncodeDml(className.c_str());
-        Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)", JDUtil::StripModuleName(encodedClassName.c_str()),
-            encodedClassName.c_str(), var, var, typeIdStr);
+        if (PreferDML())
+        {
+            std::string encodedClassName = JDUtil::EncodeDml(className.c_str());
+            Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)", JDUtil::StripModuleName(encodedClassName.c_str()),
+                encodedClassName.c_str(), var, var, typeIdStr);
+        }
+        else
+        {
+            Out("%s * 0x%p (%s) /*\"dt %s 0x%p\" to display*/", JDUtil::StripModuleName(className.c_str()),
+                var, typeIdStr, className.c_str(), var);
+        }
         DumpPossibleExternalSymbol(obj, className.c_str());
         Out("\n");
-    }       
+    }
 
     if(strcmp(typeIdStr, "TypeIds_Undefined") == 0)
     {
@@ -677,24 +691,24 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_Boolean") == 0)
-    {        
+    {
         Out(obj.Field("value").GetW32Bool() ? "true\n" : "false\n");
         return; // done
-    }        
+    }
     else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
-    {        
+    {
         obj.Field("m_value").OutFullValue();
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_String") == 0)
-    {        
+    {
         Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
-    {        
+    {
         if (depth == 0)
-        {            
+        {
             ExtRemoteTyped value = obj.Field("value");
             PrintSimpleVarValue(value);
         }
@@ -704,9 +718,9 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         }
     }
     else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
-    {        
+    {
         if (depth == 0)
-        {           
+        {
             RemoteFunctionInfo functionInfo(obj.Field("functionInfo"));
             if (functionInfo.HasBody())
             {
@@ -736,7 +750,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         }
     }
     else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
-    {        
+    {
         if (depth == 0)
         {
             obj.Field("head").OutFullValue();
@@ -747,7 +761,7 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
         }
     }
     else
-    {        
+    {
         if (depth != 0)
         {
             PrintSimpleVarValue(obj);
@@ -775,10 +789,18 @@ void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
     else
     {
         typeNameString = obj.GetTypeName();
-    }    
-    std::string encodedTypeName = JDUtil::EncodeDml(typeNameString);
-    Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), encodedTypeName.c_str(), obj.GetPtr(),
-        JDUtil::GetEnumString(obj.Field("type.typeId")));
+    }
+    if (PreferDML())
+    {
+        std::string encodedTypeName = JDUtil::EncodeDml(typeNameString);
+        Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), encodedTypeName.c_str(), obj.GetPtr(),
+            JDUtil::GetEnumString(obj.Field("type.typeId")));
+    }
+    else
+    {
+        Out("%s * 0x%p</link> (%s) /*\"!jd.var 0x%p\" to display*/\n", typeNameString, obj.GetPtr(),
+            JDUtil::GetEnumString(obj.Field("type.typeId")), obj.GetPtr());
+    }
 }
 
 class ObjectPropertyDumper : public ObjectPropertyListener
@@ -892,7 +914,7 @@ bool EXT_CLASS_BASE::InChakraModule(ULONG64 address)
         ULONG moduleIndex = 0;
         if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(GetExtension()->GetModuleName(), 0, &moduleIndex, &chakraModuleBaseAddress)))
         {
-            g_Ext->Err("Unable to get range for module '%s'. Is Chakra loaded?\n", GetExtension()->GetModuleName());            
+            g_Ext->Err("Unable to get range for module '%s'. Is Chakra loaded?\n", GetExtension()->GetModuleName());
         }
 
         IMAGEHLP_MODULEW64 moduleInfo;
@@ -1054,7 +1076,14 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
     Out(" ");
     if (showLink)
     {
-        Dml("<link cmd=\"?? (Js::ScriptContext*)0x%p\">0x%p</link>", scriptContext.GetPtr(), scriptContext.GetPtr());
+        if (PreferDML())
+        {
+            Dml("<link cmd=\"?? (Js::ScriptContext*)0x%p\">0x%p</link>", scriptContext.GetPtr(), scriptContext.GetPtr());
+        }
+        else
+        {
+            Out("0x%p /*\"?? (Js::ScriptContext*)0x%p\" to display*/", scriptContext.GetPtr(), scriptContext.GetPtr());
+        }
     }
     else
     {
@@ -1069,10 +1098,17 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
         ULONG64 javascriptLibraryPtr = javascriptLibrary.GetPtr();
         if (showLink)
         {
-            Dml("<link cmd=\"?? (Js::JavascriptLibrary*)0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">></link>", javascriptLibraryPtr, javascriptLibraryPtr, javascriptLibraryPtr);
+            if (PreferDML())
+            {
+                Dml("<link cmd=\"?? (Js::JavascriptLibrary*)0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", javascriptLibraryPtr, javascriptLibraryPtr, javascriptLibraryPtr);
+            }
+            else
+            {
+                Out("0x%p /*\"?? (Js::JavascriptLibrary*)0x%p\" to display*/ > /*\"!jd.traceroots 0x%p\"to display*/", javascriptLibraryPtr, javascriptLibraryPtr, javascriptLibraryPtr);
+            }
         }
         else
-        {            
+        {
             Out("0x%p", javascriptLibraryPtr);
         }
         Out(" ");
@@ -1081,7 +1117,14 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
         {
             if (showLink)
             {
-                Dml("<link cmd=\"!jd.var 0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">></link>", globalObjectPtr, globalObjectPtr, globalObjectPtr);
+                if (PreferDML())
+                {
+                    Dml("<link cmd=\"!jd.var 0x%p\">0x%p</link> <link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", globalObjectPtr, globalObjectPtr, globalObjectPtr);
+                }
+                else
+                {
+                    Out("0x%p /*\"!jd.var 0x%p\" to display*/ > /*\"!jd.traceroots 0x%p\" to display*/", globalObjectPtr, globalObjectPtr, globalObjectPtr);
+                }
             }
             else
             {
@@ -1107,14 +1150,14 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
     if (url.GetPtr() != NULL)
     {
         Out("%mu", url.GetPtr());
-    }  
+    }
     Out("\n");
 }
 
 void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bool showAll, bool showLink, bool isCurrentThreadContext)
 {
     bool found = false;
-    
+
     ULONG threadId = (ULONG)-1;
     ULONG id;
     if (threadContext.TryGetDebuggerThreadId(&id, &threadId))
@@ -1167,7 +1210,7 @@ void EXT_CLASS_BASE::PrintAllUrl(bool showAll, bool showLink)
     {
         currentThreadContextPtr = remoteThreadContext.GetPtr();
     }
-    
+
     RemoteThreadContext::ForEach([this, currentThreadContextPtr, showAll, showLink](RemoteThreadContext threadContext)
     {
         PrintThreadContextUrl(threadContext, showAll, showLink, threadContext.GetPtr() == currentThreadContextPtr);
@@ -1464,7 +1507,7 @@ JD_PRIVATE_COMMAND(jstack,
                     {
                         lastWasBailoutOnX64 = false;
                         if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOutHelper")) == 0 && i + 1 < filled)
-                        {                            
+                        {
                             lastBailoutLayoutX64 = ExtRemoteData(frames[i + 1].StackOffset, ptrSize).GetPtr();
                         }
                         else if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOut")) == 0)
@@ -1507,7 +1550,7 @@ JD_PRIVATE_COMMAND(jstack,
                 // This is an interpreter thunk frame
                 if (ptrSize == 8)
                 {
-                    // AMD64 stack size is InterpreterThunkEmitter::StackAllocSize = 0x28 
+                    // AMD64 stack size is InterpreterThunkEmitter::StackAllocSize = 0x28
                     // So return address is at 0x28 and we will just fake rbp as 0x28 - 0x8;
                     rbp = rsp + 0x20;
                 }
@@ -1536,8 +1579,15 @@ JD_PRIVATE_COMMAND(jstack,
             {
                 Out("JIT, Bailout ");
             }
-           
-            Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link>]", this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress());
+
+            if (PreferDML())
+            {
+                Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link>]", this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress());
+            }
+            else
+            {
+                Dml("Interpreter 0x%p /*\"?? (%s!Js::InterpreterStackFrame *)0x%p\" to display*/]", interpreterStackFrame.GetAddress(), this->GetModuleName(), interpreterStackFrame.GetAddress());
+            }
             Out("\n");
 
             interpreterStackFrame = interpreterStackFrame.GetPreviousFrame();
@@ -1553,7 +1603,7 @@ JD_PRIVATE_COMMAND(jstack,
 
             ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
             ripRet = returnAddress.GetPtr();
-            
+
 
             Out("%02x", frameNumber);
             if (verbose)
@@ -1562,7 +1612,7 @@ JD_PRIVATE_COMMAND(jstack,
                 Out(" %p", ripRet);
             }
 
-            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);            
+            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);
             char const * typeName;
             JDRemoteTyped firstArgCasted = JDRemoteTyped::FromPtrWithVtable(firstArg.GetPtr(), &typeName);
             bool isFunctionObject = false;
@@ -1620,7 +1670,7 @@ JD_PRIVATE_COMMAND(drpids,
         {
             scriptContext.PrintReferencedPids();
             return false;
-        });            
+        });
         Out("\n");
         return false;
     });
@@ -1644,7 +1694,14 @@ JD_PRIVATE_COMMAND(stst,
         ULONG64 threadContextAddress = threadContext.GetPtr();
         if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
         {
-            this->Dml("<link cmd=\"~%us\">Thread context: <b>%p</b></link>\n", threadContextThreadId, threadContextAddress);
+            if (PreferDML())
+            {
+                Dml("<link cmd=\"~%us\">Thread context: <b>%p</b></link>\n", threadContextThreadId, threadContextAddress);
+            }
+            else
+            {
+                Out("Thread context: %p /*\"~%us\" to switch*/\n", threadContextAddress, threadContextThreadId);
+            }
         }
         else
         {
@@ -1687,7 +1744,14 @@ JD_PRIVATE_COMMAND(arrseg,
         uint32 left = seg.Field("left").GetUlong();
         uint32 length = seg.Field("length").GetUlong();
         void * segPtr = (void *)seg.GetPtr();
-        Dml("<link cmd=\"dt Js::SparseArraySegmentBase 0x%p\">%p</link>", segPtr, segPtr, segPtr);		// I don't know why I need to pass it in 3 times, but it works :(
+        if (PreferDML())
+        {
+            Dml("<link cmd=\"dt Js::SparseArraySegmentBase 0x%p\">%p</link>", segPtr, segPtr);
+        }
+        else
+        {
+            Out("%p /*\"dt Js::SparseArraySegmentBase 0x%p\" to display*/", segPtr, segPtr);
+        }
         Out(": %08x - %08x\n", left, left + length - 1);
         seg = seg.Field("next");
     }
@@ -1707,16 +1771,16 @@ JD_PRIVATE_COMMAND(bv,
     while (curr.GetPtr() != 0)
     {
         ExtRemoteTyped word = curr.Field("data.word");
-        
+
         ULONG size = word.GetTypeSize();
-        ULONG64 wordValue = (size == 4) ? word.GetUlong() : word.GetUlong64();        
+        ULONG64 wordValue = (size == 4) ? word.GetUlong() : word.GetUlong64();
         LONG offset = curr.Field("startIndex").GetLong();
         for (ULONG64 i = 0; i < size * 8; i++)
         {
             if (wordValue & ((ULONG64)1 << i))
             {
                 if (!seen)
-                {                    
+                {
                     seen = true;
                 }
                 else
@@ -1724,7 +1788,7 @@ JD_PRIVATE_COMMAND(bv,
                     Out(",");
                 }
                 Out("%d", offset + i);
-            }                    
+            }
         }
         curr = curr.Field("next");
     }
@@ -1746,7 +1810,7 @@ JD_PRIVATE_COMMAND(jsdisp,
             ULONG64 offset = javascriptDispatch.GetFieldOffset("linkList");
             ExtRemoteTyped head = hostScriptContext.Field("scriptSite").Field("javascriptDispatchListHead").GetPointerTo();
             ExtRemoteTyped curr = head.Field("Flink");
-            
+
             while (curr.GetPtr() != head.GetPtr())
             {
                 javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)@$extin"), curr.GetPtr() - offset);
@@ -1769,7 +1833,7 @@ JD_PRIVATE_COMMAND(warnicf,
 JD_PRIVATE_COMMAND(uiserver,
     "Starts the UI Server that can by connected to through the browser  (INCOMPLETE)",
     "")
-{    
+{
     if (m_uiServerString[0] == '\0')
     {
         GUID guid;
