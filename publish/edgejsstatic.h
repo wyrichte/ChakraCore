@@ -103,6 +103,18 @@ namespace JsStaticAPI
         static void * CustomIteratorToExtension(Var iterator);
 
         static Var __stdcall CreateIteratorNextFunction(IActiveScriptDirect* activeScriptDirect, JavascriptTypeId type);
+
+        // Get the DebugEval function from diagnostics object
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetDebugEval(IActiveScriptDirect* activeScriptDirect);
+        // Get the GetStackTrace function from diagnostics object
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetStackTraceFunction(IActiveScriptDirect* activeScriptDirect);
+#ifdef EDIT_AND_CONTINUE
+        // Get the EditSource function from diagnostics object
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static Var __stdcall GetEditSource(IActiveScriptDirect* activeScriptDirect);
+#endif
     };
 
     class DataConversion

@@ -52,10 +52,16 @@ void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()
         scriptContext->GetOrAddPropertyIdTracked(_u("diagnosticsScript")),
         this->diagnosticsScriptObject);
 
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("getStackTrace"), &Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 1);
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("debugEval"), &Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 3);
+    PropertyId getStackTracePropId = scriptContext->GetOrAddPropertyIdTracked(_u("getStackTrace"));
+    library->getStackTrace = library->DefaultCreateFunction(&Js::DiagnosticsScriptObject::EntryInfo::GetStackTrace, 0, nullptr, nullptr, getStackTracePropId);
+    library->AddMember(diagnosticsScriptObject, getStackTracePropId, library->GetStackTraceFunction());
+    PropertyId debugEvalPropId = scriptContext->GetOrAddPropertyIdTracked(_u("debugEval"));
+    library->debugEval = library->DefaultCreateFunction(&Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 2, nullptr, nullptr, debugEvalPropId);
+    library->AddMember(diagnosticsScriptObject, debugEvalPropId, library->GetDebugEval());
 #ifdef EDIT_AND_CONTINUE
-    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("editSource"), &Js::DiagnosticsScriptObject::EntryInfo::EditSource, 2);
+    PropertyId editSourcePropId = scriptContext->GetOrAddPropertyIdTracked(_u("editSource"));
+    library->editSource = library->DefaultCreateFunction(&Js::DiagnosticsScriptObject::EntryInfo::EditSource, 3, nullptr, nullptr, editSourcePropId);
+    library->AddMember(diagnosticsScriptObject, editSourcePropId, library->GetEditSource());
 #endif
 }
 

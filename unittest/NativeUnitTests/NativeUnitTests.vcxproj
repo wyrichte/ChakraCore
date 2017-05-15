@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="AsyncDebug.cpp" />
     <ClCompile Include="basictest.cpp" />
+    <ClCompile Include="DiagnosticsEngine.cpp" />
     <ClCompile Include="ExternalFuncThunkFpcw.cpp" />
     <ClCompile Include="CreatePromise.cpp" />
     <ClCompile Include="FastDOMNative.cpp" />

@@ -235,6 +235,11 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
         Print("\n\nRunning ParseJson tests\n");
         RunParseJsonTest(&test);
     }
+    else if (_wcsicmp(jsHostArgs->flags[0], _u("DiagnosticsEngineTest")) == 0)
+    {
+        Print("\n\nRunning DiagnosticsEngine tests\n");
+        RunDiagnosticsEngineTest(&test);
+    }
     else if (_wcsicmp(jsHostArgs->flags[0], _u("StaticLibVerificationTest")) == 0)
     {
         Print("\n\nRunning static library verification tests\n");

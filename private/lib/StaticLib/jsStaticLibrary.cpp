@@ -198,6 +198,32 @@ namespace JsStaticAPI
         return objFreezeFunc;
     }
 
+    Var JavascriptLibrary::GetDebugEval(IActiveScriptDirect* activeScriptDirect)
+    {
+        return GetLibraryObject(activeScriptDirect,
+            [&](const Js::ScriptContextBase* ScriptContextBase)-> Var {
+            return ScriptContextBase->GetLibrary()->GetDebugEval();
+        });
+    }
+
+    Var JavascriptLibrary::GetStackTraceFunction(IActiveScriptDirect* activeScriptDirect)
+    {
+        return GetLibraryObject(activeScriptDirect,
+            [&](const Js::ScriptContextBase* ScriptContextBase)-> Var {
+            return ScriptContextBase->GetLibrary()->GetStackTraceFunction();
+        });
+    }
+
+#ifdef EDIT_AND_CONTINUE
+    Var JavascriptLibrary::GetEditSource(IActiveScriptDirect* activeScriptDirect)
+    {
+        return GetLibraryObject(activeScriptDirect,
+            [&](const Js::ScriptContextBase* ScriptContextBase)-> Var {
+            return ScriptContextBase->GetLibrary()->GetEditSource();
+        });
+    }
+#endif
+
     HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ ITrackingService *threadService, bool noScriptScope)
     {
         if (threadService == nullptr)

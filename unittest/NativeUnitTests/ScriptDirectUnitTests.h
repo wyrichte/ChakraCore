@@ -46,6 +46,7 @@ void RunPromiseResolveAndThenTest(MyScriptDirectTests* myTests);
 void RunJSONTest(MyScriptDirectTests* myTests);
 void RunObjectTest(MyScriptDirectTests* myTests);
 void RunParseJsonTest(MyScriptDirectTests* myTests);
+void RunDiagnosticsEngineTest(MyScriptDirectTests* myTests);
 void RunVarToNativeArrayTest(MyScriptDirectTests* myTests);
 void RunExternalFuncFpcwTest(MyScriptDirectTests* mytest);
 void StartTest(MyScriptDirectTests* myTests, std::string message);
