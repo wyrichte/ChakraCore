@@ -145,7 +145,8 @@
   <test>
     <default>
       <files>sharableBuffer.js</files>
-      <compile-flags>-ESSharedArrayBuffer -args summary -endargs</compile-flags>
+      <compile-flags>-ESSharedArrayBuffer</compile-flags>
+      <baseline>sharableBuffer.baseline</baseline>
     </default>
   </test>
   <test>

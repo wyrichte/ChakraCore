@@ -208,8 +208,14 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
                         Var value = nullptr;
                         JavascriptTypeId typeId;
                         IfFailGo(pScriptDirect.GetItem(transferVars, index, &value));
-                        IfFailGo(pScriptDirect->GetTypeIdForVar(value, &typeId));                        
-                        if (typeId != TypeIds_ArrayBuffer && typeId != TypeIds_SharedArrayBuffer)
+                        IfFailGo(pScriptDirect->GetTypeIdForVar(value, &typeId));  
+
+                        if (typeId == TypeIds_SharedArrayBuffer)
+                        {
+                            IfFailGo(hr = E_INVALIDARG);// it's DataCloneError DOMException in Edge
+                        }
+
+                        if (typeId != TypeIds_ArrayBuffer)
                         {
                             continue;
                         }

@@ -22,11 +22,19 @@ function postMessage(rootObject, transferArgs) {
 
 var tests = [
     {
+        name: "Validate that SharedArrayBuffer should not be in transfer list",
+        body: function () {
+            var view1 = new Int8Array(new SharedArrayBuffer(4));
+            try { postMessage(view1.buffer, [view1.buffer]); }
+            catch (e) { print(e.number)}
+        }
+    },
+    {
         name: "Validate that SharedArrayBuffer sharing functionality",
         body: function() {
               var view1 = new Int8Array(new SharedArrayBuffer(4));
               assert.areEqual(view1.byteLength, 4, "Ensuring that the view's length is 4 before postMessage");
-              var buff = postMessage(view1.buffer, [view1.buffer]);
+              var buff = postMessage(view1.buffer, []);
               assert.isTrue(buff instanceof SharedArrayBuffer, "The SharedArrayBuffer will be received");
               var view2 = new Int8Array(buff);
               assert.areEqual(view1.byteLength, view2.byteLength, "The buffer is shared so both views length should be same");
@@ -36,29 +44,15 @@ var tests = [
         }
     },
     {
-        name: "Validate SharedArrayBuffer can be cloned",
-        body: function() {
-              var view1 = new Int8Array(new SharedArrayBuffer(4));
-
-              // We are not passing the buffer in the transferArgs so the buffer will be cloned
-              var buff = postMessage(view1.buffer, []);
-              assert.isTrue(buff instanceof SharedArrayBuffer, "The SharedArrayBuffer will be received");
-              var view2 = new Int8Array(buff);
-              assert.isTrue(view1.buffer !== view2.buffer, "The buffer is cloned so both views have their own buffer");
-              Atomics.store(view1, 1, 20);
-              assert.areEqual(Atomics.load(view2, 1), 0, "Changing value in one view will not reflect on other one");
-        }
-    },
-    {
         name: "Mix bag of transferring and sharing buffer",
         body: function() {
               var a1 = new Int8Array(new SharedArrayBuffer(4));
               var a2 = new Int8Array(new ArrayBuffer(4));
               var a3 = new Int8Array(new SharedArrayBuffer(4));
               var a4 = new Int32Array(a3.buffer);
-              a1[0] = 10;
+              a1[0] = 10; 
               a3[0] = 20;
-              var buffArray = postMessage([a1.buffer, a2.buffer, a3.buffer], [a1.buffer, a2.buffer, a3.buffer]);
+              var buffArray = postMessage([a1.buffer, a2.buffer, a3.buffer], [a2.buffer]);
 
               var b1 = new Int8Array(buffArray[0]);
               var b2 = new Int8Array(buffArray[1]);

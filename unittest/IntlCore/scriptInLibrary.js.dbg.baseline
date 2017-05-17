@@ -42,7 +42,7 @@
   {
     "callstack": [
       {
-        "start": 877,
+        "start": 910,
         "length": 1,
         "text": "a",
         "frameDescription": "Anonymous function"
@@ -54,13 +54,13 @@
         "frameDescription": "Array.prototype.forEach"
       },
       {
-        "start": 849,
-        "length": 50,
+        "start": 881,
+        "length": 52,
         "text": "a.forEach(function () {\n    a; /**bp:stack()**/\n})",
         "frameDescription": "anotherExample"
       },
       {
-        "start": 777,
+        "start": 802,
         "length": 16,
         "text": "anotherExample()",
         "frameDescription": "top"
@@ -70,7 +70,7 @@
   {
     "callstack": [
       {
-        "start": 976,
+        "start": 1015,
         "length": 10,
         "text": "return \"a\"",
         "frameDescription": "a.toString"
@@ -82,13 +82,13 @@
         "frameDescription": "Intl.Collator.prototype.compare"
       },
       {
-        "start": 1013,
+        "start": 1055,
         "length": 20,
         "text": "coll.compare(a, \"b\")",
         "frameDescription": "anotherExample"
       },
       {
-        "start": 777,
+        "start": 802,
         "length": 16,
         "text": "anotherExample()",
         "frameDescription": "top"

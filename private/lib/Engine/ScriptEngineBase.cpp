@@ -3079,19 +3079,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         for (uint i = 0; i < cTransferableVars; i++)
         {
             Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(transferableVars[i]);
-            switch (typeId)
+            if(typeId != TypeIds_ArrayBuffer && !Js::CustomExternalObject::Is(transferableVars[i]))
             {
-            case TypeIds_ArrayBuffer:
-            case TypeIds_SharedArrayBuffer:
-                break;
-
-            default:
-                if (Js::CustomExternalObject::Is(transferableVars[i]))
-                {
-                    // The host must ensure that each HostObject passed in is a MessagePort (only transferrable object at this time, this might change later but will most likely involve change from JS to handle other host objects)
-                    break;
-                }
-                //else
                 AssertMsg(false, "These should have been filtered out by the host.");
                 return E_SCA_TRANSFERABLE_UNSUPPORTED;
             }
@@ -3111,6 +3100,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
 
+    JsUtil::List<Js::SharedContents*, HeapAllocator> sharedContentsList(&HeapAllocator::Instance);
+
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
         BEGIN_ENTER_SCRIPT(scriptContext, true, /*isCallRoot*/ false, /*hasCaller*/serviceProvider != nullptr)
@@ -3118,7 +3109,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
             Js::SCASerializationEngine::Serialize(context, instance, &writer,
-                effectiveTransferableVars, cEffectiveTransferableVars); // Use effective transferableVars
+                effectiveTransferableVars, cEffectiveTransferableVars, &sharedContentsList); // Use effective transferableVars
             writer.Flush(); // Flush bufferred content to output stream
 
             // Always detach all supplied transferable vars
@@ -3132,7 +3123,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 hr = context->SetDependentObject(transferableHolder);
                 if (FAILED(hr))
                 {
-                    return hr;
+                    goto LReturn;
                 }
             }
             else  // We did not transfer any vars, manually cleanup
@@ -3158,6 +3149,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     {
         hr = HandleSCAException(caughtExceptionObject, scriptContext, serviceProvider);
     }
+
+LReturn:
+
+    if (FAILED(hr))
+    {
+        // if serialize failed for any reason, we should reduce the refcount which we added
+        sharedContentsList.Map([](int, Js::SharedContents* contents) 
+        {
+            contents->Release();
+        });
+    }
+
     return hr;
 }
 

@@ -82,9 +82,9 @@ namespace Js
         *deepClone = SCADeepCloneType::None;
 
         size_t transferredIndex = 0;
-        if ((this->CanBeTransferred(typeId) || this->CanBeShared(typeId)) && GetEngine()->TryGetTransferredOrShared(src, &transferredIndex))
+        if (this->CanBeTransferred(typeId) && GetEngine()->TryGetTransferredOrShared(src, &transferredIndex))
         {
-            WriteTypeId(this->CanBeShared(typeId) ? SCA_Sharable : SCA_Transferable);
+            WriteTypeId(SCA_Transferable);
             m_writer->Write((uint32)transferredIndex);
         }
         else if (JavascriptOperators::IsObjectDetached(src))
@@ -176,9 +176,21 @@ namespace Js
 
             case TypeIds_SharedArrayBuffer:
                 {
+                    SCAContextType contextType;
+                    if (FAILED(this->m_pSCAContext->GetContext(&contextType)))
+                    {
+                        return false;
+                    }
+
+                    AssertOrFailFastMsg(!(contextType == SCAContext_CrossProcess || contextType == SCAContext_Persist),
+                        "SharedArrayBuffer can't be passed cross process or be Persisted");
+            
                     SharedArrayBuffer* buf = SharedArrayBuffer::FromVar(src);
+                    SharedContents* sharedContents = buf->GetSharedContents();
+                    sharedContents->AddRef();
+                    this->m_sharedContentsrList->Add(sharedContents);
                     WriteTypeId(SCA_SharedArrayBuffer);
-                    Write(buf->GetBuffer(), buf->GetByteLength());
+                    m_writer->Write((intptr_t)sharedContents);
                 }
                 break;
 
@@ -614,14 +626,15 @@ namespace Js
         return false;
     }
 
-    void SCASerializationEngine::Serialize(ISCAContext* pSCAContext, Var root, StreamWriter* writer, Var* transferableVars, size_t cTransferableVars)
+    void SCASerializationEngine::Serialize(ISCAContext* pSCAContext, Var root, StreamWriter* writer, Var* transferableVars, size_t cTransferableVars,
+        JsUtil::List<Js::SharedContents*, HeapAllocator>* sharedContentsList)
     {
         ScriptContext* scriptContext = writer->GetScriptContext();
 
         // Write version
         writer->Write(static_cast<uint32>(SCA_FORMAT_VERSION));
 
-        StreamSerializationCloner cloner(scriptContext, pSCAContext, writer);
+        StreamSerializationCloner cloner(scriptContext, pSCAContext, writer, sharedContentsList);
         SCAEngine<Var, scaposition_t, StreamSerializationCloner>::Clone(root, &cloner, nullptr, transferableVars, cTransferableVars);
     }
 }

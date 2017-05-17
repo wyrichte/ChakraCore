@@ -1,0 +1,9 @@
+*** Running test #1 (0): Validate that SharedArrayBuffer should not be in transfer list
+ERROR: hr = (hr = ((HRESULT)0x80070057L)) Hr:0x80070057
+-2147024809
+PASSED
+*** Running test #2 (1): Validate that SharedArrayBuffer sharing functionality
+PASSED
+*** Running test #3 (2): Mix bag of transferring and sharing buffer
+PASSED
+Summary of tests: total executed: 3; passed: 3; failed: 0

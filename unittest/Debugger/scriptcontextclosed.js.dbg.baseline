@@ -3,6 +3,10 @@
     "evaluate": {
       "e": {
         "[Methods]": {},
+        "Atomics": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
         "console": {
           "[Methods]": "{...}",
           "__proto__": "{...}"

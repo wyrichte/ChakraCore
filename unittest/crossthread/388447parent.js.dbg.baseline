@@ -10,6 +10,7 @@
         "e": {
           "[Methods]": "{...}",
           "__proto__": "{...}",
+          "Atomics": "{...}",
           "console": "{...}",
           "Debug": "{...}",
           "Infinity": "Infinity",
@@ -30,6 +31,10 @@
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "Atomics": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
         },
         "console": {
           "[Methods]": "{...}",

@@ -16,6 +16,7 @@ namespace Js
         CComPtr<ISCAContext> m_pSCAContext;
         Writer* m_writer;
         CComPtr<ISCASerializable> m_pSCASerializable; // Temporary, QI from a host object
+        JsUtil::List<SharedContents*, HeapAllocator>* m_sharedContentsrList;
 
     private:
         void WriteTypeId(SCATypeId typeId) const
@@ -153,8 +154,8 @@ namespace Js
         };
 
     public:
-        SerializationCloner(ScriptContext* scriptContext, ISCAContext* pSCAContext, Writer* writer)
-            : ClonerBase(scriptContext), m_pSCAContext(pSCAContext), m_writer(writer)
+        SerializationCloner(ScriptContext* scriptContext, ISCAContext* pSCAContext, Writer* writer, JsUtil::List<SharedContents*, HeapAllocator>* sharedContentsrList)
+            : ClonerBase(scriptContext), m_pSCAContext(pSCAContext), m_writer(writer), m_sharedContentsrList(sharedContentsrList)
         {
         }
 
@@ -178,7 +179,6 @@ namespace Js
         void CloneSet(Src src, Dst dst);
         void CloneObjectReference(Src src, Dst dst);
         bool CanBeTransferred(SrcTypeId typeId) { return typeId == TypeIds_ArrayBuffer; }
-        bool CanBeShared(SrcTypeId typeId) { return typeId == TypeIds_SharedArrayBuffer; }
     };
 
     //
@@ -328,6 +328,7 @@ namespace Js
         typedef SerializationCloner<StreamWriter> StreamSerializationCloner;
 
     public:
-        static void Serialize(ISCAContext* pSCAContext, Var root, StreamWriter* writer, Var* transferableVars, size_t cTransferableVars);
+        static void Serialize(ISCAContext* pSCAContext, Var root, StreamWriter* writer, Var* transferableVars, size_t cTransferableVars,
+            JsUtil::List<Js::SharedContents*, HeapAllocator>* sharedContentsList);
     };
 }
