@@ -626,6 +626,7 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 
 Js::Configuration MemProtectHeap::ConfigurationLoader::s_userConfig;
+MemProtectHeap::ConfigurationLoader MemProtectHeap::ConfigurationLoader::configurationLoader;
 
 MemProtectHeap::ConfigurationLoader::ConfigurationLoader()
 {
@@ -1501,6 +1502,11 @@ MemProtectThreadContext::NotifyUnroot(RecyclerHeapObjectInfo const& heapObjectIn
     if (this->localUnrootSize >= LocalUnrootReportFrequency)
     {
         this->Collect(MemProtectHeap_CollectOnUnrootWithHeuristic);
+    }
+
+    if (heapObjectInfo.IsPageHeapAlloc())
+    {
+        heapObjectInfo.PageHeapLockPages();
     }
 }
 
