@@ -120,7 +120,7 @@ RemotePageAllocator::DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserve
 }
 
 void
-RemotePageAllocator::DisplayData(EXT_CLASS_BASE * ext, PCSTR name, bool showZeroEntries)
+RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries)
 {
     ULONG64 used = this->GetUsedBytes();
     ULONG64 reserved = this->GetReservedBytes();
@@ -130,15 +130,15 @@ RemotePageAllocator::DisplayData(EXT_CLASS_BASE * ext, PCSTR name, bool showZero
     if (showZeroEntries || used != 0 || reserved != 0 || committed != 0 || unused != 0)
     {
         PCSTR typeName = pageAllocator.GetTypeName();
-        if (ext->PreferDML())
+        if (GetExtension()->PreferDML())
         {
             std::string encodedTypeName = JDUtil::EncodeDml(JDUtil::StripStructClass(typeName));
-            ext->Dml("<link cmd=\"dt %s!%s %p\">%s</link>", ext->FillModule("%s"), encodedTypeName.c_str(), JDUtil::IsPointerType(typeName) ? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr(), name);
+            GetExtension()->Dml("<link cmd=\"dt %s!%s %p\">%s</link>", GetExtension()->FillModule("%s"), encodedTypeName.c_str(), JDUtil::IsPointerType(typeName) ? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr(), name);
         }
         else
         {
-            ext->Out("/*\"dt %s!%s %p\" to display*/\n", ext->FillModule("%s"), JDUtil::StripStructClass(typeName), JDUtil::IsPointerType(typeName) ? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr());
-            ext->Out("%s", name);
+            GetExtension()->Out("/*\"dt %s!%s %p\" to display*/\n", GetExtension()->FillModule("%s"), JDUtil::StripStructClass(typeName), JDUtil::IsPointerType(typeName) ? pageAllocator.GetPtr() : pageAllocator.GetPointerTo().GetPtr());
+            GetExtension()->Out("%s", name);
         }
         DisplayData((ULONG)strlen(name), used, reserved, committed, unused);
     }

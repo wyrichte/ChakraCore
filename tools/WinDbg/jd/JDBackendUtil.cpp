@@ -16,8 +16,8 @@ ExtRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
     return JDRemoteTyped::FromPtrWithVtable(functionBodyAddr.GetPtr());
 }
 
-EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(EXT_CLASS_BASE * ext, ExtRemoteTyped func)
+EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(ExtRemoteTyped func)
 {
-    return EXT_CLASS_BASE::PropertyNameReader(ext, ext->IsJITServer() ? ExtRemoteTyped("(void *)0") :
+    return EXT_CLASS_BASE::PropertyNameReader(GetExtension()->IsJITServer() ? ExtRemoteTyped("(void *)0") :
         RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());
 }

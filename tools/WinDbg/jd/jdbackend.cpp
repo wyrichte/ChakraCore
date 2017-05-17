@@ -101,9 +101,9 @@ char * JDBackend::GetSymOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_
     char * kind = sym.Field("m_kind").GetSimpleValue();
     if (ENUM_EQUAL(kind, SymKindProperty))
     {
-        return GetPropertySymDumpString(ExtRemoteTyped(ext->FillModule("(%s!PropertySym *)@$extin"), sym.GetPtr()), buffer, len);
+        return GetPropertySymDumpString(ExtRemoteTyped(GetExtension()->FillModule("(%s!PropertySym *)@$extin"), sym.GetPtr()), buffer, len);
     }
-    ExtRemoteTyped stackSym = ExtRemoteTyped(ext->FillModule("(%s!StackSym *)@$extin"), sym.GetPtr());
+    ExtRemoteTyped stackSym = ExtRemoteTyped(GetExtension()->FillModule("(%s!StackSym *)@$extin"), sym.GetPtr());
     int32 stackSymOffset = stackSym.Field("m_offset").GetLong();
     bool hasOffset = stackSym.Field("m_isArgSlotSym").GetChar() ?
         stackSymOffset != -1 || !stackSym.Field("m_isInlinedArgSlot").GetChar() : stackSymOffset != 0;
@@ -151,7 +151,7 @@ char * JDBackend::GetRegOpndDumpString(ExtRemoteTyped regOpnd, char * buffer, si
 
 char * JDBackend::GetAddrOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {
-    if (ext->IsCurMachine64())
+    if (GetExtension()->IsCurMachine64())
     {
         RETURNBUFFER("0x%I64X", opnd.Field("m_address").GetPtr());
     }
@@ -193,7 +193,7 @@ char * JDBackend::GetLabelOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 }
 char * JDBackend::GetMemRefOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
 {
-    if (ext->IsCurMachine64())
+    if (GetExtension()->IsCurMachine64())
     {
         RETURNBUFFER("[0x%I64X]", opnd.Field("m_memLoc").GetPtr());
     }
@@ -325,67 +325,67 @@ char * JDBackend::GetLabelInstrDumpString(ExtRemoteTyped labelInstr, char * buff
 
 void JDBackend::DumpLabelInstr(ExtRemoteTyped labelInstr)
 {
-    ext->Out(GetLabelInstrDumpString(labelInstr));
+    GetExtension()->Out(GetLabelInstrDumpString(labelInstr));
     if (labelInstr.Field("m_isLoopTop").GetStdBool())
     {
-      ext->Out(">>>>>>>>>>>>>  LOOP TOP  >>>>>>>>>>>>>");
+      GetExtension()->Out(">>>>>>>>>>>>>  LOOP TOP  >>>>>>>>>>>>>");
     }
 }
 
 void JDBackend::DumpBranchInstr(ExtRemoteTyped branchInstr)
 {
     DumpInstrBase(branchInstr);
-    ext->Out(" => ");
+    GetExtension()->Out(" => ");
     ExtRemoteTyped branchTarget = branchInstr.Field("m_branchTarget");
     if (branchTarget.GetPtr() != 0)
     {
-        ext->Out(GetLabelInstrDumpString(branchTarget));
+        GetExtension()->Out(GetLabelInstrDumpString(branchTarget));
         if (branchTarget.Field("m_isLoopTop").GetStdBool())
         {
-            ext->Out("<<<<<<<<<<<<<  Loop Tail >>>>>>>>>>>>>");
+            GetExtension()->Out("<<<<<<<<<<<<<  Loop Tail >>>>>>>>>>>>>");
         }
     }
     else
     {
         // This may happen when haven't finish filling the label in, such as in IRBuilder
-        ext->Out("<NO TARGET LABEL>");
+        GetExtension()->Out("<NO TARGET LABEL>");
     }
 }
 
 void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
 {
     ExtRemoteTyped dst = instr.Field("m_dst");
-    ExtRemoteTyped opcode = ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
+    ExtRemoteTyped opcode = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
     ExtRemoteTyped src1 = instr.Field("m_src1");
     ExtRemoteTyped src2 = instr.Field("m_src2");
 
     if (dst.GetPtr() != NULL)
     {
-        ext->Out("%15s = ", GetOpndDumpString(dst));
+        GetExtension()->Out("%15s = ", GetOpndDumpString(dst));
     }
     else
     {
-        ext->Out("%18s", "");
+        GetExtension()->Out("%18s", "");
     }
 
     // Trim out the enum numeric value
-    ext->Out("%-20s", GetEnumString(opcode));
+    GetExtension()->Out("%-20s", GetEnumString(opcode));
 
     if (src1.GetPtr() != NULL)
     {
-        ext->Out(" %-8s", GetOpndDumpString(src1));
+        GetExtension()->Out(" %-8s", GetOpndDumpString(src1));
         if (src2.GetPtr() != NULL)
         {
-            ext->Out(", %-15s", GetOpndDumpString(src2));
+            GetExtension()->Out(", %-15s", GetOpndDumpString(src2));
         }
         else
         {
-            ext->Out("%18s", "");
+            GetExtension()->Out("%18s", "");
         }
     }
     else
     {
-        ext->Out("%19s", "");
+        GetExtension()->Out("%19s", "");
     }
 }
 
@@ -394,19 +394,19 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
     char * v = instr.Field("m_kind").GetSimpleValue();
     if (ENUM_EQUAL(v, InstrKindLabel) || ENUM_EQUAL(v, InstrKindProfiledLabel))
     {
-        DumpLabelInstr(ExtRemoteTyped(ext->FillModule("(%s!IR::LabelInstr *)@$extin"), instr.GetPtr()));
-        ext->Out(":");
+        DumpLabelInstr(ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::LabelInstr *)@$extin"), instr.GetPtr()));
+        GetExtension()->Out(":");
     }
     else if (ENUM_EQUAL(v, InstrKindBranch))
     {
-        DumpBranchInstr(ExtRemoteTyped(ext->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));
+        DumpBranchInstr(ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));
     }
     else if (ENUM_EQUAL(v, InstrKindPragma))
     {
-        ExtRemoteTyped opcode = ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
+        ExtRemoteTyped opcode = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
         if (ENUM_EQUAL(opcode.GetSimpleValue(), StatementBoundary))
         {
-            ext->Out(_u("%20s StatementBoundary #%d"), "", ExtRemoteTyped(ext->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
+            GetExtension()->Out(_u("%20s StatementBoundary #%d"), "", ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
         }
         else
         {
@@ -418,7 +418,7 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
         DumpInstrBase(instr);
     }
 
-    ext->Out("\n");
+    GetExtension()->Out("\n");
 }
 
 void
@@ -428,21 +428,21 @@ JDBackend::DumpFunc(ExtRemoteTyped func)
 
     while (curr.GetPtr())
     {
-        if (ext->PreferDML())
+        if (GetExtension()->PreferDML())
         {
-            ext->Dml("<link cmd=\"dt IR::Instr 0x%p\">0x%p</link>:", curr.GetPtr(), curr.GetPtr());
+            GetExtension()->Dml("<link cmd=\"dt IR::Instr 0x%p\">0x%p</link>:", curr.GetPtr(), curr.GetPtr());
         }
         else
         {
-            ext->Out("0x%p /*\"dt IR::Instr 0x%p\" to display*/:", curr.GetPtr(), curr.GetPtr());
+            GetExtension()->Out("0x%p /*\"dt IR::Instr 0x%p\" to display*/:", curr.GetPtr(), curr.GetPtr());
         }
         DumpInstr(curr);
         curr = curr.Field("m_next");
     }
 }
 
-JDBackend::JDBackend(EXT_CLASS_BASE * ext, EXT_CLASS_BASE::PropertyNameReader& propertyNameReader) :
-    ext(ext), propertyNameReader(propertyNameReader)
+JDBackend::JDBackend(EXT_CLASS_BASE::PropertyNameReader& propertyNameReader) :
+    propertyNameReader(propertyNameReader)
 {}
 
 
@@ -454,8 +454,8 @@ JD_PRIVATE_COMMAND(irinstr,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped instr("(IR::Instr *)@$extin", pointer);
-    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(this, instr.Field("m_func"));
-    JDBackend jdbackend(this, propertyNameReader);
+    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(instr.Field("m_func"));
+    JDBackend jdbackend(propertyNameReader);
     ULONG64 count = GetUnnamedArgU64(1);
     ULONG64 halfCount = count / 2;
     ULONG64 i = 0;
@@ -507,8 +507,8 @@ JD_PRIVATE_COMMAND(irfunc,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
     ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped(GetExtension()->FillModule("(%s!Func*)@$extin"), pointer));
-    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(this, func);
-    JDBackend jdbackend(this, propertyNameReader);
+    PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(func);
+    JDBackend jdbackend(propertyNameReader);
     jdbackend.DumpFunc(func);
 }
 

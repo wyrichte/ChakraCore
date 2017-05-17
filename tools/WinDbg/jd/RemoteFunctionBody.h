@@ -25,7 +25,7 @@ public:
     // Get the auxiliary pointer on the function body by the field name
     JDRemoteTyped GetAuxPtrsField(const char* fieldName, char* castType);
     // Print all instantiated auxiliary pointers
-    void PrintAuxPtrs(EXT_CLASS_BASE *ext);
+    void PrintAuxPtrs();
 
 protected:
     JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName = nullptr);
@@ -212,12 +212,12 @@ public:
 
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
-    void PrintNameAndNumber(EXT_CLASS_BASE * ext);
-    void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);
-    void PrintNameAndNumberWithRawLink(EXT_CLASS_BASE * ext);
-    void PrintByteCodeLink(EXT_CLASS_BASE *ext);
-    void PrintSourceUrl(EXT_CLASS_BASE *ext);
-    void PrintSource(EXT_CLASS_BASE *ext);
+    void PrintNameAndNumber();
+    void PrintNameAndNumberWithLink();
+    void PrintNameAndNumberWithRawLink();
+    void PrintByteCodeLink();
+    void PrintSourceUrl();
+    void PrintSource();
 private:
     JDRemoteTyped GetUtf8SourceInfo();
     JDRemoteTyped GetSourceContextInfo();

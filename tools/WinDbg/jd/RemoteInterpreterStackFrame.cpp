@@ -57,8 +57,10 @@ RemoteInterpreterStackFrame::GetScriptFunction()
 bool 
 RemoteInterpreterStackFrame::IsFromBailout()
 {
-    ExtRemoteTyped fromBailoutEnum("Js::InterpreterStackFrameFlags_FromBailOut");
-    return interpreterStackFrame.Field("m_flags").GetShort() & fromBailoutEnum.GetShort();
-
+    ULONG64 Ret;
+    // legacy jscript implementation does not have this flag
+    if (FAILED(GetExtension()->CppEvalExprU64NoThrow(GetExtension()->FillModule("%s!Js::InterpreterStackFrameFlags_FromBailOut"), Ret)))
+        return false;
+    return interpreterStackFrame.Field("m_flags").GetShort() & Ret;
 }
 #endif

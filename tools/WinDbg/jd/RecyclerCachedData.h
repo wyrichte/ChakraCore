@@ -41,7 +41,7 @@ class RemoteThreadContext;
 class RecyclerCachedData
 {
 public:
-    RecyclerCachedData(EXT_CLASS_BASE * ext);
+    RecyclerCachedData();
     
     Addresses * GetRootPointers(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop);
 
@@ -93,7 +93,6 @@ private:
     CachedTypeInfo m_smallHeapBlockTypeInfo;
     CachedTypeInfo m_smallFinalizableHeapBlockTypeInfo;
     CachedTypeInfo m_largeHeapBlockTypeInfo;
-    EXT_CLASS_BASE * _ext;
     bool m_blockTypeEnumInitialized;
     bool m_mphblockTypeEnumInitialized;
 

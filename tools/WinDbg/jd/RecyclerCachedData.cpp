@@ -6,7 +6,7 @@
 #include "recyclerroots.h"
 #include "RemoteHeapBlockMap.h"
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, bool dump);
+Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, bool dump);
 
 static char const * StaticGetSmallHeapBlockTypeName()
 {
@@ -34,8 +34,7 @@ static char const * StaticGetSmallFinalizableHeapBlockTypeName()
     }
 }
 
-RecyclerCachedData::RecyclerCachedData(EXT_CLASS_BASE * ext) :
-    _ext(ext),
+RecyclerCachedData::RecyclerCachedData() :
     m_heapBlockTypeInfo("HeapBlock", true),
     m_smallHeapBlockTypeInfo(StaticGetSmallHeapBlockTypeName),
     m_smallFinalizableHeapBlockTypeInfo(StaticGetSmallFinalizableHeapBlockTypeName),
@@ -89,7 +88,7 @@ Addresses * RecyclerCachedData::GetRootPointers(RemoteRecycler recycler, RemoteT
 
     if (externalRootMarker != 0)
     {
-        _ext->Out("WARNING: External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker);
+        GetExtension()->Out("WARNING: External root marker installed (Address: 0x%p), some roots might be missed\n", externalRootMarker);
     }
 
     auto i = rootPointersCache.find(recycler.GetPtr());
@@ -99,7 +98,7 @@ Addresses * RecyclerCachedData::GetRootPointers(RemoteRecycler recycler, RemoteT
     }
 
     // TODO: external weak ref support may be missing once it is implemented
-    Addresses * rootPointers = ComputeRoots(_ext, recycler, threadContext, stackTop, false);
+    Addresses * rootPointers = ComputeRoots(recycler, threadContext, stackTop, false);
     rootPointersCache[recycler.GetPtr()] = rootPointers;
     return rootPointers;
 }

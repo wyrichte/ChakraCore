@@ -111,7 +111,7 @@ public:
 };
 
 //
-// Helper for finding jscript9 module in the debuggee process
+// Helper for finding the jscript module in the debuggee process
 //
 template <bool IsPublic>
 struct JsModuleList

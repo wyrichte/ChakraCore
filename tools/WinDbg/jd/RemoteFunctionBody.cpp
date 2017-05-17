@@ -144,11 +144,11 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* 
     return ret;
 }
 
-void RemoteFunctionProxy::PrintAuxPtrs(EXT_CLASS_BASE *ext)
+void RemoteFunctionProxy::PrintAuxPtrs()
 {
     WalkAuxPtrs([](uint8 type, const char* name, ExtRemoteTyped auxPtr) ->bool
     {
-        g_Ext->Out("\t%s:\t\t\t0x%I64X\n", name, auxPtr.GetPtr());
+        GetExtension()->Out("\t%s:\t\t\t0x%I64X\n", name, auxPtr.GetPtr());
         return false;
     });
 }
@@ -260,69 +260,80 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
 
 
 void
-RemoteFunctionBody::PrintNameAndNumber(EXT_CLASS_BASE * ext)
+RemoteFunctionBody::PrintNameAndNumber()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    ext->Out(_u("%s (#%d.%d, #%d)"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+    GetExtension()->Out(_u("%s (#%d.%d, #%d)"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
 }
 
 void
-RemoteFunctionBody::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
+RemoteFunctionBody::PrintNameAndNumberWithLink()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
-        ext->Dml(_u("<link cmd=\"!jd.fb (%s *)0x%p\">%s</link> (#%d.%d, #%d)"), ext->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%s *)0x%p\">%s</link> (#%d.%d, #%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
     }
     else
     {
-        ext->Out(_u("%s (#%d.%d, #%d) /*\"!jd.fb (%s *)0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), ext->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Out(_u("%s (#%d.%d, #%d) /*\"!jd.fb (%s *)0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
     }
 }
 
 void
-RemoteFunctionBody::PrintNameAndNumberWithRawLink(EXT_CLASS_BASE * ext)
+RemoteFunctionBody::PrintNameAndNumberWithRawLink()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
-        ext->Dml(_u("%s (#%d.%d, #%d) @ <link cmd=\"dt %s 0x%p\">0x%p</link>"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), ext->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
+        GetExtension()->Dml(_u("%s (#%d.%d, #%d) @ <link cmd=\"dt %s 0x%p\">0x%p</link>"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
     }
     else
     {
-        ext->Out(_u("%s (#%d.%d, #%d) @ 0x%p /*\"dt %s 0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), ext->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
+        GetExtension()->Out(_u("%s (#%d.%d, #%d) @ 0x%p /*\"dt %s 0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
     }
 }
 
 void
-RemoteFunctionBody::PrintByteCodeLink(EXT_CLASS_BASE * ext)
+RemoteFunctionBody::PrintByteCodeLink()
 {
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
-        ext->Dml("<link cmd=\"!jd.bc (%s *)0x%p\">Byte Code</link>", ext->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Dml("<link cmd=\"!jd.bc (%s *)0x%p\">Byte Code</link>", GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
     }
     else
     {
-        ext->Out("Byte Code /*\"!jd.bc (%s *)0x%p\" to display*/", ext->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Out("Byte Code /*\"!jd.bc (%s *)0x%p\" to display*/", GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
     }
 }
 
 void
-RemoteFunctionBody::PrintSourceUrl(EXT_CLASS_BASE *ext)
+RemoteFunctionBody::PrintSourceUrl()
 {
     JDRemoteTyped sourceContextInfo = GetSourceContextInfo();
-    if (sourceContextInfo.Field("isHostDynamicDocument").GetStdBool())
+    bool isDynamic;
+    if (sourceContextInfo.HasField("isHostDynamicDocument"))
     {
-        ext->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetPtr());
+        isDynamic = sourceContextInfo.Field("isHostDynamicDocument").GetStdBool();
     }
     else
     {
-        ext->Out("%mu", sourceContextInfo.Field("url").GetPtr());
+        // //depot/rs2_release_svc_sec/onecoreuap/inetcore/jscriptlegacy/Lib/Runtime/Language/SourceContextInfo.h#1:
+        // bool IsDynamic() const { return dwHostSourceContext == Js::Constants::NoHostSourceContext; }
+        isDynamic = sourceContextInfo.Field("dwHostSourceContext").GetLong() == -1;
+    }
+    if (isDynamic)
+    {
+        GetExtension()->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetPtr());
+    }
+    else
+    {
+        GetExtension()->Out("%mu", sourceContextInfo.Field("url").GetPtr());
     }
 }
 
 void
-RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
+RemoteFunctionBody::PrintSource()
 {
     
     JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
@@ -332,7 +343,7 @@ RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
         buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();
         if (buffer == 0)
         {
-            ext->Out("Unable to find source buffer");
+            GetExtension()->Out("Unable to find source buffer");
             return;
         }
     }
@@ -343,7 +354,7 @@ RemoteFunctionBody::PrintSource(EXT_CLASS_BASE * ext)
     sourceBuffer.Require(length + 1);    
     source.ReadBuffer(sourceBuffer.GetBuffer(), length);
     sourceBuffer.GetBuffer()[length] = 0;
-    ext->Out("%s", sourceBuffer.GetBuffer());
+    GetExtension()->Out("%s", sourceBuffer.GetBuffer());
 }
 
 JDRemoteTyped

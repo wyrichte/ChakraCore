@@ -15,7 +15,6 @@ class TypeHandlerPropertyNameReader;
 class RemoteTypeHandler
 {
 protected:
-    EXT_CLASS_BASE* m_ext;
     std::string m_name;
 
     // NOTE: Keeping ExtRemoteTyped instances around can easily cause extension to fail/AV at debugger
@@ -28,11 +27,10 @@ public:
     {
     }
 
-    EXT_CLASS_BASE* GetExt() const { return m_ext; }
     PCSTR GetName() const { return m_name.c_str(); }
     ExtRemoteTyped* GetTypeHandlerData() const { return m_typeHandler; }
 
-    void Set(EXT_CLASS_BASE* ext, const std::string& module, ExtRemoteTyped& typeHandler);
+    void Set(const std::string& module, ExtRemoteTyped& typeHandler);
 
     virtual void EnumerateProperties(ExtRemoteTyped& obj, const ObjectPropertyListener& listener) = 0;
 };

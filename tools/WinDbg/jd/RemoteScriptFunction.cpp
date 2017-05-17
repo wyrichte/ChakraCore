@@ -29,13 +29,13 @@ RemoteScriptFunction::GetFunctionBody()
 }
 
 void
-RemoteScriptFunction::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
+RemoteScriptFunction::PrintNameAndNumberWithLink()
 {
     RemoteFunctionBody functionBody = this->GetFunctionBody();
     ExtBuffer<WCHAR> displayNameBuffer;
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
-        ext->Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)"), object.GetPtr(),
+        GetExtension()->Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link> (#%d.%d, #%d)"), object.GetPtr(),
             functionBody.GetDisplayName(&displayNameBuffer),
             functionBody.GetSourceContextId(),
             functionBody.GetLocalFunctionId(),
@@ -43,7 +43,7 @@ RemoteScriptFunction::PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext)
     }
     else
     {
-        ext->Out(_u("%s (#%d.%d, #%d) /*\"!jd.var 0x%p\" to display*/"),
+        GetExtension()->Out(_u("%s (#%d.%d, #%d) /*\"!jd.var 0x%p\" to display*/"),
             functionBody.GetDisplayName(&displayNameBuffer),
             functionBody.GetSourceContextId(),
             functionBody.GetLocalFunctionId(),

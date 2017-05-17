@@ -9,13 +9,12 @@ public:
         _list(0),
         _current(0)
     {
-        EXT_CLASS_BASE* ext = GetExtension();
         char typeTemplate[] = "(%%s!%s*)@$extin";
         size_t count = sizeof(typeTemplate) / sizeof(char)+strlen(type) + 1;
         _typeString = (char*)malloc(count);
         if (!_typeString)
         {
-            ext->ThrowOutOfMemory();
+            GetExtension()->ThrowOutOfMemory();
         }
         sprintf_s(_typeString, count, typeTemplate, type);
         _list = listPtr;
@@ -55,9 +54,7 @@ public:
 
     ExtRemoteTyped Data()
     {
-        EXT_CLASS_BASE* ext = GetExtension();
-
-        ExtRemoteTyped node(ext->FillModule(_typeString), GetDataPtr());
+        ExtRemoteTyped node(GetExtension()->FillModule(_typeString), GetDataPtr());
         return node;
     }
 
@@ -77,5 +74,5 @@ private:
 };
 
 template <bool isSlist>
-void DumpList(EXT_CLASS_BASE* ext, ULONG64 address, PCSTR type);
+void DumpList(ULONG64 address, PCSTR type);
 #endif

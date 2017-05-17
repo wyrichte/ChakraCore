@@ -115,7 +115,7 @@ void RemoteScriptContext::PrintReferencedPids()
 
     g_Ext->Out("Number of pids on scriptContext: %d\n", pidCount);
 
-    EXT_CLASS_BASE::PropertyNameReader propertyNameReader(GetExtension(), this->GetThreadContext());
+    EXT_CLASS_BASE::PropertyNameReader propertyNameReader(this->GetThreadContext());
     for (int i = 0; i < pidCount; i++)
     {
         ExtRemoteTyped entry = referencedPidDictionaryEntries.ArrayElement(i);
