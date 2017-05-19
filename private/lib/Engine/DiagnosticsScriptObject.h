@@ -24,6 +24,7 @@ namespace Js
         public:
             static FunctionInfo GetStackTrace;
             static FunctionInfo DebugEval;
+            static FunctionInfo GetConsoleScopeObject;
 
 #ifdef EDIT_AND_CONTINUE
             static FunctionInfo EditSource;
@@ -32,6 +33,7 @@ namespace Js
 
         static Var EntryGetStackTrace(RecyclableObject* function, CallInfo callInfo, ...);
         static Var EntryDebugEval(RecyclableObject* function, CallInfo callInfo, ...);
+        static Var EntryGetConsoleScopeObject(RecyclableObject* function, CallInfo callInfo, ...);
 
 #ifdef EDIT_AND_CONTINUE
         static Var EntryEditSource(RecyclableObject* function, CallInfo callInfo, ...);

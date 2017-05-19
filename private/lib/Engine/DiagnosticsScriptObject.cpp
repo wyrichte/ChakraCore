@@ -8,6 +8,7 @@ namespace Js
 {
     FunctionInfo DiagnosticsScriptObject::EntryInfo::GetStackTrace(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryGetStackTrace), FunctionInfo::ErrorOnNew);
     FunctionInfo DiagnosticsScriptObject::EntryInfo::DebugEval(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryDebugEval), FunctionInfo::ErrorOnNew);
+    FunctionInfo DiagnosticsScriptObject::EntryInfo::GetConsoleScopeObject(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryGetConsoleScopeObject), FunctionInfo::ErrorOnNew);
 
 #ifdef EDIT_AND_CONTINUE
     FunctionInfo DiagnosticsScriptObject::EntryInfo::EditSource(FORCE_NO_WRITE_BARRIER_TAG(DiagnosticsScriptObject::EntryEditSource), FunctionInfo::ErrorOnNew);
@@ -159,6 +160,29 @@ namespace Js
         }
         Assert(frameCount == (ushort)arrayObject->GetLength());
         return arrayObject;
+    }
+
+    Var DiagnosticsScriptObject::EntryGetConsoleScopeObject(RecyclableObject* function, CallInfo callInfo, ...)
+    {
+        ScriptContext* diagnosticScriptContext = function->GetScriptContext();
+        PROBE_STACK(diagnosticScriptContext, Js::Constants::MinStackDefault);
+        Assert(!(callInfo.Flags & CallFlags_New));
+
+        RUNTIME_ARGUMENTS(args, callInfo);
+
+        Var consoleScopeObj = function->GetLibrary()->GetUndefined();
+        if (diagnosticScriptContext->IsDiagnosticsScriptContext() && RecyclableObject::Is(args[0]))
+        {
+            // Use args[0] as the this object
+            ScriptContext* targetScriptContext = RecyclableObject::FromVar(args[0])->GetScriptContext();
+            if (!targetScriptContext->IsClosed())
+            {
+                DebugManager* debugManager = targetScriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
+                consoleScopeObj = debugManager->GetConsoleScope(targetScriptContext);
+            }
+        }
+
+        return consoleScopeObj;
     }
 
     // 
