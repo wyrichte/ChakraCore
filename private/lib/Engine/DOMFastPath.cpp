@@ -158,9 +158,9 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject
     ARGUMENTS(args, callInfo);
     Assert(!(callInfo.Flags & Js::CallFlags_New));
 
+    Js::ScriptContext* scriptContext = function->GetScriptContext();
     if (args.Info.Count == 0)
     {
-        Js::ScriptContext* scriptContext = function->GetScriptContext();
         // Don't error if we disabled implicit calls
         if (scriptContext->GetThreadContext()->RecordImplicitException())
         {
@@ -193,7 +193,14 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
-        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+
+        Var result = nullptr;
+        BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        {
+            result = fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+        }
+        END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        return result;
     }
 
     return Js::CrossSite::MarshalVar(function->GetScriptContext(), retVal);
@@ -235,7 +242,15 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
-        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        Var result = nullptr;
+        BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        {
+            result = fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+        }
+        END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        return result;
     }
 
     externalVars[slotIndex] = Js::CrossSite::MarshalVar(obj->GetScriptContext(), args[1]);
@@ -248,9 +263,9 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* 
     ARGUMENTS(args, callInfo);
     Assert(!(callInfo.Flags & Js::CallFlags_New));
 
+    Js::ScriptContext* scriptContext = function->GetScriptContext();
     if (args.Info.Count == 0)
     {
-        Js::ScriptContext* scriptContext = function->GetScriptContext();
         // Don't error if we disabled implicit calls
         if (scriptContext->GetThreadContext()->RecordImplicitException())
         {
@@ -283,7 +298,14 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* 
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
-        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+
+        Var result = nullptr;
+        BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        {
+            result = fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+        }
+        END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        return result;
     }
 
     return Js::CrossSite::MarshalVar(function->GetScriptContext(), retVal);
@@ -326,7 +348,15 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* 
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
-        return fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        Var result = nullptr;
+        BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        {
+            result = fallBackTrampoline(static_cast<Js::Var>(function), scriptMethodCallInfo, args.Values);
+        }
+        END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
+        return result;
     }
 
     externalVars[slotIndex] = Js::CrossSite::MarshalVar(obj->GetScriptContext(), args[1]);
