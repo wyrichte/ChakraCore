@@ -1261,42 +1261,19 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
     }
     else
     {
-        Out("ScriptContext : ");
-        //scriptContext.GetExtRemoteTyped().OutSimpleValue();
-        Out("\n");
-        JDRemoteTyped sourceList = scriptContext.GetSourceList();
-        if (sourceList.GetPtr() != 0)
+        Out("ScriptContext : %p\n", scriptContext.GetPtr());
+        scriptContext.ForEachUtf8SourceInfo([&](ULONG i, RemoteUtf8SourceInfo remoteUtf8SourceInfo)
         {
-            ExtRemoteTyped buffer = sourceList.Field("buffer");
-            if (buffer.GetPtr() != 0)
+            Out("Utf8SourceInfo : [%d]\n", i);
+            remoteUtf8SourceInfo.GetExtRemoteTyped().OutFullValue();
+            if (printSourceContextInfo)
             {
-                ULONG count = sourceList.Field("count").GetUlong();
-                Out("Total sourceInfos : %d\n", count);
-                if (!printOnlyCount)
-                {
-                    for (ULONG i = 0; i < count; i++)
-                    {
-                        ExtRemoteTyped sourceInfoWeakRef = buffer[i];
-                        if ((sourceInfoWeakRef.GetPtr() & 1) == 0)
-                        {
-                            ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
-                            if (strongRef != 0)
-                            {
-                                ExtRemoteTyped utf8SourceInfo = ExtRemoteTyped("(Js::Utf8SourceInfo*)@$extin", strongRef);
-                                Out("Utf8SourceInfo : [%d]\n", i);
-                                utf8SourceInfo.OutFullValue();
-                                if (printSourceContextInfo)
-                                {
-                                    ExtRemoteTyped sourceContextInfo = utf8SourceInfo.Field("m_srcInfo").Field("sourceContextInfo");
-                                    Out("SourceContextInfo : \n");
-                                    sourceContextInfo.OutFullValue();
-                                }
-                            }
-                        }
-                    }
-                }
+                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo");
+                Out("SourceContextInfo : \n");
+                sourceContextInfo.OutFullValue();
             }
-        }
+            return false;
+        });       
     }
     Out("\n");
 }
@@ -1434,7 +1411,7 @@ JD_PRIVATE_COMMAND(jstack,
     }
     Out("\n");
     ULONG frameNumber = 0;
-    while (rbp != 0)
+    do
     {
         if (rip != 0)
         {
@@ -1599,23 +1576,23 @@ JD_PRIVATE_COMMAND(jstack,
             ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
             ripRet = returnAddress.GetPtr();
 
-
-            Out("%02x", frameNumber);
-            if (verbose)
-            {
-                Out(" %p", rsp);
-                Out(" %p", ripRet);
-            }
-
             ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);
             char const * typeName;
             JDRemoteTyped firstArgCasted = JDRemoteTyped::FromPtrWithVtable(firstArg.GetPtr(), &typeName);
             bool isFunctionObject = false;
             if (typeName != nullptr && firstArgCasted.HasField("type"))
             {
+
                 JDRemoteTyped type = firstArgCasted.Field("type");
                 if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
                 {
+                    Out("%02x", frameNumber);
+                    if (verbose)
+                    {
+                        Out(" %p", rsp);
+                        Out(" %p", ripRet);
+                    }
+
                     isFunctionObject = true;
                     Out(" js!");
                     RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink();
@@ -1632,9 +1609,15 @@ JD_PRIVATE_COMMAND(jstack,
                     }
                 }
             }
-            if (!isFunctionObject)
+            if (!isFunctionObject && dumpFull)
             {
-                Out(" <unknown>\n");
+                Out("%02x", frameNumber);
+                if (verbose)
+                {
+                    Out(" %p", rsp);
+                    Out(" %p", ripRet);
+                }
+                Out(" <unknown %p>\n", rip);
             }
         }
 
@@ -1644,9 +1627,10 @@ JD_PRIVATE_COMMAND(jstack,
         rip = ripRet;
         frameNumber++;
     }
+    while (rbp != 0);
     if (!interpreterStackFrame.IsNull())
     {
-        Out("WARNING: Interpreter stack frame unmatched");
+        Out("WARNING: Interpreter stack frame unmatched\n");
     }
 }
 

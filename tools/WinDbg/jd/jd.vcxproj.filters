@@ -38,6 +38,7 @@
     <ClCompile Include="RemoteScriptContext.cpp" />
     <ClCompile Include="JDTypeCache.cpp" />
     <ClCompile Include="RemoteBitVector.cpp" />
+    <ClCompile Include="RemoteBaseDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="JDTypeCache.h" />
     <ClInclude Include="RemoteObjectInfoBits.h" />
     <ClInclude Include="RemoteBitVector.h" />
+    <ClInclude Include="RemoteBaseDictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

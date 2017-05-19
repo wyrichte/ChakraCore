@@ -8,6 +8,10 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
+JDRemoteTyped RemoteUtf8SourceInfo::GetSrcInfo()
+{
+    return utf8SourceInfo.Field("m_srcInfo");
+}
 
 RemoteScriptContext RemoteUtf8SourceInfo::GetScriptContext()
 {
@@ -22,7 +26,8 @@ JDRemoteTyped RemoteUtf8SourceInfo::GetLineOffsetCache()
     }
     return JDRemoteTyped("(void *)0");
 }
-JDRemoteTyped RemoteUtf8SourceInfo::GetDeferredFunctionsDictionary()
+
+RemoteBaseDictionary RemoteUtf8SourceInfo::GetDeferredFunctionsDictionary()
 {
     if (!GetExtension()->IsJScript9())
     {
@@ -31,9 +36,14 @@ JDRemoteTyped RemoteUtf8SourceInfo::GetDeferredFunctionsDictionary()
     return JDRemoteTyped("(void *)0");
 }
 
-JDRemoteTyped RemoteUtf8SourceInfo::GetFunctionBodyDictionary()
+RemoteBaseDictionary RemoteUtf8SourceInfo::GetFunctionBodyDictionary()
 {
     return utf8SourceInfo.Field("functionBodyDictionary");
+}
+
+ExtRemoteTyped RemoteUtf8SourceInfo::GetExtRemoteTyped()
+{
+    return utf8SourceInfo;
 }
 
 // ---- End jd private commands implementation ----------------------------------------------------

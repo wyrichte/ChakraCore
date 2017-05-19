@@ -26,8 +26,7 @@
     <ClCompile>
       <DisableSpecificWarnings>
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
-        4458;     <!-- declaration of '' hides class memeber -->
-      </DisableSpecificWarnings>
+        4458;     <!-- declaration of '' hides class memeber --></DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -73,6 +72,7 @@
     <ClCompile Include="RecyclerList.cpp" />
     <ClCompile Include="RecyclerObjectGraph.cpp" />
     <ClCompile Include="RecyclerRoots.cpp" />
+    <ClCompile Include="RemoteBaseDictionary.cpp" />
     <ClCompile Include="RemoteBitVector.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
@@ -111,6 +111,7 @@
     <ClInclude Include="Collections.h" />
     <ClInclude Include="ExtRemoteTypedUtil.h" />
     <ClInclude Include="FieldInfoCache.h" />
+    <ClInclude Include="RemoteBaseDictionary.h" />
     <ClInclude Include="RemoteBitVector.h" />
     <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RecyclerObjectGraph.h" />

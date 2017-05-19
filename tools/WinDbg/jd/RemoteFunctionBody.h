@@ -48,7 +48,7 @@ public:
         return this->GetAuxWrappedField("m_scopeInfo", "Js::ScopeInfo");
     }
     
-    JDRemoteTyped GetBoundPropertyRecords()
+    RemoteBaseDictionary GetBoundPropertyRecords()
     {
         return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
     }
@@ -60,7 +60,7 @@ public:
 
     PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
     {
-        return JDUtil::GetWrappedField(*this, "m_displayName").Dereference().GetString(buffer);
+        return GetDisplayName().Dereference().GetString(buffer);
     }
 };
 

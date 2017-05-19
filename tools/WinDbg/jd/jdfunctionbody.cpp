@@ -19,6 +19,80 @@ void PrintFunctionBody(RemoteFunctionBody& functionBody)
     functionBody.PrintAuxPtrs();
 }
 
+EXT_COMMAND(ffb,
+    "Find FunctionBody",
+    "{exact;b,o;exactMatch;do exact match}"
+    "{;x;functionName;String of function name}")
+{
+    bool exactMatch = HasArg("exact");
+    PCSTR arg = GetUnnamedArgStr(0);
+    size_t length = strlen(arg);
+    if (length == 0)
+    {
+        return;
+    }
+
+    RemoteThreadContext::ForEach([=](RemoteThreadContext threadContext)
+    {
+        return threadContext.ForEachScriptContext([=](RemoteScriptContext scriptContext)
+        {
+            return scriptContext.ForEachUtf8SourceInfo([=](ULONG, RemoteUtf8SourceInfo utf8SourceInfo)
+            {
+                return utf8SourceInfo.GetFunctionBodyDictionary().ForEachValue([=](RemoteFunctionBody functionBody)
+                {
+                    ExtBuffer<WCHAR> buffer;
+                    PCWSTR name = functionBody.GetDisplayName(&buffer);
+                    size_t nameLength = wcslen(name);
+                    if (exactMatch)
+                    {
+                        if (nameLength != length)
+                        {
+                            return false;
+                        }
+
+                        for (size_t i = 0; i < length; i++)
+                        {
+                            if (arg[i] != name[i])
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        PCWSTR match = wcschr(name, arg[0]);
+                        bool matched = false;
+                        while (match && nameLength - (match - name) >= length)
+                        {
+                            matched = true;
+                            for (size_t i = 1; i < length; i++)
+                            {
+                                if (match[i] != arg[i])
+                                {
+                                    matched = false;
+                                    break;
+                                }
+                            }
+                            if (matched)
+                            {
+                                break;
+                            }
+                            match = wcschr(match + 1, arg[0]);
+                        }
+                        if (!matched)
+                        {
+                            return false;
+                        }
+                    }
+                    functionBody.PrintNameAndNumberWithLink();
+                    Out("\n");
+                    return false;
+                });
+            });
+        });
+    });
+}
+
 EXT_COMMAND(fb,
     "Dump FunctionBody",
     "{;x;functionBody;express or address of function body}")

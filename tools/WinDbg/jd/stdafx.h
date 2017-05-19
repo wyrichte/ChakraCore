@@ -92,6 +92,7 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "RemoteTypeHandler.h"
 #include "ExtRemoteTypedUtil.h"
 #include "JDRemoteTyped.h"
+#include "RemoteBaseDictionary.h"
 
 #include "RecyclerCachedData.h"
 #include "jd.h"

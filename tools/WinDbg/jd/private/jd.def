@@ -16,6 +16,7 @@ EXPORTS
     prop
     var
     fb
+    ffb
     url
     ldsym
     jsstream

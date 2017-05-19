@@ -49,7 +49,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
         *typeName = nullptr;
     }
 
-    ULONG64 vtbleAddr;
+    ULONG64 vtbleAddr = 0;
     RecyclerCachedData& recyclerCachedData = GetExtension()->recyclerCachedData;
     if (recyclerCachedData.IsCachedDebuggeeMemoryEnabled())
     {
@@ -62,12 +62,20 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
         }
         else
         {
-            vtbleAddr = ExtRemoteData(objectAddress, GetExtension()->m_PtrSize).GetPtr();
+            ULONG read;
+            if (sizeof(vtbleAddr) >= g_Ext->m_PtrSize && FAILED(g_Ext->m_Data->ReadVirtual(objectAddress, &vtbleAddr, g_Ext->m_PtrSize, &read)) && read != g_Ext->m_PtrSize)
+            {
+                return false;
+            }            
         }
     }
     else
     {
-        vtbleAddr = ExtRemoteData(objectAddress, GetExtension()->m_PtrSize).GetPtr();
+        ULONG read;
+        if (sizeof(vtbleAddr) >= g_Ext->m_PtrSize && FAILED(g_Ext->m_Data->ReadVirtual(objectAddress, &vtbleAddr, g_Ext->m_PtrSize, &read)) && read != g_Ext->m_PtrSize)
+        {
+            return false;
+        }
     }
 
     if (!(vtbleAddr % 4 == 0 && GetExtension()->InChakraModule(vtbleAddr)))

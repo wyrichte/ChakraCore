@@ -13,10 +13,15 @@ class RemoteUtf8SourceInfo
 public:
     RemoteUtf8SourceInfo(ExtRemoteTyped const& utf8SourceInfo) : utf8SourceInfo(utf8SourceInfo) {};
     
+    JDRemoteTyped GetSrcInfo();
     JDRemoteTyped GetLineOffsetCache();
-    JDRemoteTyped GetDeferredFunctionsDictionary();
-    JDRemoteTyped GetFunctionBodyDictionary();
+    RemoteBaseDictionary GetDeferredFunctionsDictionary();
+    RemoteBaseDictionary GetFunctionBodyDictionary();
+    
     RemoteScriptContext GetScriptContext();
+
+    ExtRemoteTyped GetExtRemoteTyped();
+
 private:
     JDRemoteTyped utf8SourceInfo;
 };

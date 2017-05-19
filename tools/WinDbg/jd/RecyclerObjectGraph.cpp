@@ -1,3 +1,6 @@
+//---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "RecyclerObjectGraph.h"
 #include "RecyclerRoots.h"
@@ -602,10 +605,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             };
 
 #define AddDictionaryFieldBase(dictionary, name, MACRO) \
-            if (addField(dictionary, name, true)) \
+            if (addField(dictionary.GetExtRemoteTyped(), name, true)) \
             { \
-                addField(dictionary.Field("buckets"), MACRO(name ## ".buckets")); \
-                addField(dictionary.Field("entries"), MACRO(name ## ".entries")); \
+                addField(dictionary.GetBuckets(), MACRO(name ## ".buckets")); \
+                addField(dictionary.GetEntries(), MACRO(name ## ".entries")); \
             }
 
 #define IDENT_MACRO(n) n
@@ -641,7 +644,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             {
                 addFunctionProxyFields(remoteTyped, nameIndex);
                 RemoteParseableFunctionInfo parseableFunctionInfo(remoteTyped);
-                JDRemoteTyped boundPropertyRecords = parseableFunctionInfo.GetBoundPropertyRecords();
+                RemoteBaseDictionary boundPropertyRecords = parseableFunctionInfo.GetBoundPropertyRecords();
                 AddDictionaryFieldBase(boundPropertyRecords, "{BoundPropertyRecordsDictionary}", FUNCTION_PROXY_FIELD_NAME);
                 addField(parseableFunctionInfo.GetDisplayName(), FUNCTION_PROXY_FIELD_NAME("m_displayName"));
                 addField(parseableFunctionInfo.GetScopeInfo(), FUNCTION_PROXY_FIELD_NAME("m_scopeInfo"));
@@ -745,17 +748,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             else if (IsTypeOrCrossSite("Js::GlobalObject"))
             {
                 addDynamicObjectFields(remoteTyped);
-                JDRemoteTyped loadInlineCacheMap = remoteTyped.Field("loadInlineCacheMap");
+                RemoteBaseDictionary loadInlineCacheMap = remoteTyped.Field("loadInlineCacheMap");
                 AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
 
                 // IE11 doesn't separate loadMethodInlineCaches
                 if (remoteTyped.HasField("loadMethodInlineCacheMap"))
                 {
-                    JDRemoteTyped loadMethodInlineCacheMap = remoteTyped.Field("loadMethodInlineCacheMap");
+                    RemoteBaseDictionary loadMethodInlineCacheMap = remoteTyped.Field("loadMethodInlineCacheMap");
                     AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
                 }
 
-                JDRemoteTyped storeInlineCacheMap = remoteTyped.Field("storeInlineCacheMap");
+                RemoteBaseDictionary storeInlineCacheMap = remoteTyped.Field("storeInlineCacheMap");
                 AddDictionaryField(loadInlineCacheMap, "Js::GlobalObject.{RootObjectInlineCacheMap}");
 
                 addField(remoteTyped.Field("reservedProperties"), "Js::GlobalObject.{ReservedPropertiesHashSet}");
@@ -918,7 +921,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");
                 addField(functionBody.GetPropertyIdsForScopeSlotArray(), "Js::FunctionBoredy.propertyIdsForScopeSlotArray");
 
-                JDRemoteTyped boundPropertyRecords = functionBody.GetBoundPropertyRecords();
+                RemoteBaseDictionary boundPropertyRecords = functionBody.GetBoundPropertyRecords();
                 AddDictionaryField(boundPropertyRecords, "Js::FunctionBody.{BoundPropertyRecordsDictionary}");
 
                 JDRemoteTyped sourceInfo = functionBody.GetSourceInfo();
@@ -1002,10 +1005,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                             addField(lineOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList.buffer");
                         }
                     }
-                    JDRemoteTyped deferredFunctionsDictionary = utf8SourceInfo.GetDeferredFunctionsDictionary();
+                    RemoteBaseDictionary deferredFunctionsDictionary = utf8SourceInfo.GetDeferredFunctionsDictionary();
                     AddDictionaryField(deferredFunctionsDictionary, "Js::Utf8SourceInfo.{DeferredFunctionsDictionary}");
                 }
-                JDRemoteTyped functionBodyDictionary = utf8SourceInfo.GetFunctionBodyDictionary();
+                RemoteBaseDictionary functionBodyDictionary = utf8SourceInfo.GetFunctionBodyDictionary();
                 AddDictionaryField(functionBodyDictionary, "Js::Utf8SourceInfo.{FunctionBodyDictionary}");
             }
             else if (strcmp(simpleTypeName, "UnifiedRegex::RegexPattern *") == 0)
@@ -1048,11 +1051,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 // Added in commit 0f84cdec8bcff4651d364aad2160d97cce379ed0 for RS2
                 if (remoteTyped.HasField("jsrtExternalTypesCache"))
                 {
-                    JDRemoteTyped dictionary = remoteTyped.Field("jsrtExternalTypesCache");
+                    RemoteBaseDictionary dictionary = remoteTyped.Field("jsrtExternalTypesCache");
                     AddDictionaryField(dictionary, "Js::JavascriptLibrary.jsrtExternalTypesCache");
                 }
 
-                JDRemoteTyped propertyStringMap = remoteTyped.Field("propertyStringMap");
+                RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
                 AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap");
             }
             else if (strcmp(simpleTypeName, "HostDispatch *") == 0)

@@ -43,6 +43,7 @@ SOURCES = \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \
         ..\RemoteBitVector.cpp \
+        ..\RemoteBaseDictionary.cpp \
         ..\util.cpp \
         ..\collections.cpp \
         ..\JDByteCodeCachedData.cpp\

@@ -117,6 +117,37 @@ public:
         forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
     }
 
+    template <class Fn>
+    bool ForEachUtf8SourceInfo(Fn fn)
+    {
+        JDRemoteTyped sourceList = this->GetSourceList();
+        if (sourceList.GetPtr() != 0)
+        {
+            ExtRemoteTyped buffer = sourceList.Field("buffer");
+            if (buffer.GetPtr() != 0)
+            {
+                ULONG count = sourceList.Field("count").GetUlong();
+
+                for (ULONG i = 0; i < count; i++)
+                {
+                    ExtRemoteTyped sourceInfoWeakRef = buffer[i];
+                    if ((sourceInfoWeakRef.GetPtr() & 1) == 0)
+                    {
+                        ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
+                        if (strongRef != 0)
+                        {
+                            if (fn(i, ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::Utf8SourceInfo*)@$extin"), strongRef)))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     static bool TryGetScriptContextFromPointer(ULONG64 pointer, RemoteScriptContext& remoteScriptContext);
 private:
     template <class Fn>

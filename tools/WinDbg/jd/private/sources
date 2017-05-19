@@ -40,6 +40,7 @@ SOURCES = \
         ..\RemoteHeapBlock.cpp \
         ..\RemoteHeapBlockMap.cpp \
         ..\RemoteBitVector.cpp \
+        ..\RemoteBaseDictionary.cpp \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
         ..\JDTypeCache.cpp \

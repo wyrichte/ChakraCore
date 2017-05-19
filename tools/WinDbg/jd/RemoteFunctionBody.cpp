@@ -272,7 +272,7 @@ RemoteFunctionBody::PrintNameAndNumberWithLink()
     ExtBuffer<WCHAR> displayNameBuffer;
     if (GetExtension()->PreferDML())
     {
-        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%s *)0x%p\">%s</link> (#%d.%d, #%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%S *)0x%p\">%s</link> (#%d.%d, #%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
     }
     else
     {
@@ -286,7 +286,7 @@ RemoteFunctionBody::PrintNameAndNumberWithRawLink()
     ExtBuffer<WCHAR> displayNameBuffer;
     if (GetExtension()->PreferDML())
     {
-        GetExtension()->Dml(_u("%s (#%d.%d, #%d) @ <link cmd=\"dt %s 0x%p\">0x%p</link>"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
+        GetExtension()->Dml(_u("%s (#%d.%d, #%d) @ <link cmd=\"dt %S 0x%p\">0x%p</link>"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), this->GetPtr());
     }
     else
     {
