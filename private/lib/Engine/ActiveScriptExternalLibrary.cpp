@@ -58,6 +58,7 @@ void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()
     PropertyId debugEvalPropId = scriptContext->GetOrAddPropertyIdTracked(_u("debugEval"));
     library->debugEval = library->DefaultCreateFunction(&Js::DiagnosticsScriptObject::EntryInfo::DebugEval, 2, nullptr, nullptr, debugEvalPropId);
     library->AddMember(diagnosticsScriptObject, debugEvalPropId, library->GetDebugEval());
+    library->AddFunctionToLibraryObjectWithPropertyName(diagnosticsScriptObject, _u("getConsoleScope"), &Js::DiagnosticsScriptObject::EntryInfo::GetConsoleScopeObject, 0);
 #ifdef EDIT_AND_CONTINUE
     PropertyId editSourcePropId = scriptContext->GetOrAddPropertyIdTracked(_u("editSource"));
     library->editSource = library->DefaultCreateFunction(&Js::DiagnosticsScriptObject::EntryInfo::EditSource, 3, nullptr, nullptr, editSourcePropId);

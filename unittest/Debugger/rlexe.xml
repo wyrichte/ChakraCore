@@ -2260,4 +2260,11 @@
       <tags>exclude_dynapogo</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>debugEval_ConsoleScope.js</files>
+      <compile-flags>-DiagnosticsEngine</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
 </regress-exe>
