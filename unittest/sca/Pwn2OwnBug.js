@@ -18,11 +18,11 @@ function test1() {
         WScript.Echo('Expected to throw.');
     } catch (e) {
         if (e instanceof TypeError) {
-            if (e.message !== "'this' is not a DataView object") {
-                WScript.Echo('FAIL');
+            if (e.message !== "The ArrayBuffer is detached.") {
+                WScript.Echo('FAIL ' + e.message);
             }
         } else {
-            WScript.Echo('FAIL');
+            WScript.Echo('FAIL ' + e.message);
         }
     }
 }
@@ -39,7 +39,7 @@ function test2() {
         WScript.Echo('Expected to throw.');
     } catch (e) {
         if (e.message !== 'DataView.prototype.GetInt32: The ArrayBuffer is detached.') {
-            WScript.Echo("FAIL" + e.message);
+            WScript.Echo("FAIL " + e.message);
         }
     }
     
