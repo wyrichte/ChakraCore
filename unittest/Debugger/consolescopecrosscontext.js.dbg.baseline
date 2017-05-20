@@ -26,12 +26,12 @@
   },
   {
     "evaluate": {
-      "delete cc1Var1;": "false"
+      "delete cc1Var1;": "true"
     }
   },
   {
     "evaluate": {
-      "WScript.Echo(cc1Var1);": "undefined"
+      "WScript.Echo(cc1Var1);": "'cc1Var1' is not defined"
     }
   },
   {
@@ -46,12 +46,12 @@
   },
   {
     "evaluate": {
-      "delete cc1Var3;": "false"
+      "delete cc1Var3;": "true"
     }
   },
   {
     "evaluate": {
-      "WScript.Echo(cc1Var3);": "undefined"
+      "WScript.Echo(cc1Var3);": "'cc1Var3' is not defined"
     }
   },
   {
