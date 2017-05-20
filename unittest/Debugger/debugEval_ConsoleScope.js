@@ -35,3 +35,35 @@ compare(diagnosticsScript.debugEval("x6", true), 6);
 
 // Compare the console scope objects and make sure they are the same
 compare(consoleScopeObj1, consoleScopeObj2);
+
+// Check the property descriptor for var declaration
+diagnosticsScript.debugEval("var x7 = 7", true);
+compare(consoleScopeObj1.x7, 7);
+var varDesc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x7");
+compare(varDesc.configurable, true);
+compare(varDesc.writable, true);
+compare(varDesc.enumerable, true);
+
+// Check the property descriptor for let declaration
+diagnosticsScript.debugEval("let x8 = 8", true);
+compare(consoleScopeObj1.x8, 8);
+var letDesc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x8");
+compare(letDesc.configurable, true);
+compare(letDesc.writable, true);
+compare(letDesc.enumerable, true);
+
+// Check the property descriptor for implicit declaration
+diagnosticsScript.debugEval("x9 = 9", true);
+compare(consoleScopeObj1.x9, 9);
+var desc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x9");
+compare(desc.configurable, true);
+compare(desc.writable, true);
+compare(desc.enumerable, true);
+
+// Check the property descriptor for const declaration
+diagnosticsScript.debugEval("const x10 = 10", true);
+compare(consoleScopeObj1.x10, 10);
+var constDesc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x10");
+compare(constDesc.configurable, true);
+compare(constDesc.writable, false);
+compare(constDesc.enumerable, true);
