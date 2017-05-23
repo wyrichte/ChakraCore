@@ -24,7 +24,7 @@ function oneTest(index)
   test(a);
 }
 
-for (i = 1; i < 100; i++) {
+for (i = 1; i < 20; i++) {
 oneTest(i);
 }
 

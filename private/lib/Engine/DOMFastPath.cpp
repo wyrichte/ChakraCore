@@ -9,90 +9,74 @@
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "ActiveScriptExternalLibrary.h"
 
-DECLARE_ONEHUNDRED_SIMPLEACCESSOR_INFO(Object)
-DECLARE_ONEHUNDRED_SIMPLEACCESSOR_INFO(Type)
+DECLARE_OBJECT_SIMPLEACCESS_INFO
+DECLARE_TYPE_SIMPLEACCESS_INFO
 
 Js::FunctionInfo DOMFastPathInfo::objectGetterTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attributeGetter, attributeSetter) funcInfoGetter,
 #include "DOMFastPathInfolist.h"
+    OBJECT_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 Js::FunctionInfo DOMFastPathInfo::objectSetterTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) funcInfoSetter,
 #include "DOMFastPathInfolist.h"
+    OBJECT_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 IR::JnHelperMethod const DOMFastPathInfo::objectGetterHelperIDTable [] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameGetter,
 #include "DOMFastPathInfolist.h"
+    OBJECT_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 IR::JnHelperMethod const DOMFastPathInfo::objectSetterHelperIDTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Object
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameSetter,
 #include "DOMFastPathInfolist.h"
+    OBJECT_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 C_ASSERT(_countof(DOMFastPathInfo::objectSetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT);
 C_ASSERT(_countof(DOMFastPathInfo::objectGetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT);
 
 Js::FunctionInfo DOMFastPathInfo::typeGetterTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Type
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attributeGetter, attributeSetter) funcInfoGetter,
 #include "DOMFastPathInfolist.h"
+    TYPE_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 Js::FunctionInfo DOMFastPathInfo::typeSetterTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Type
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) funcInfoSetter,
 #include "DOMFastPathInfolist.h"
+    TYPE_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 IR::JnHelperMethod const DOMFastPathInfo::typeGetterHelperIDTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Type
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameGetter,
 #include "DOMFastPathInfolist.h"
+    TYPE_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 IR::JnHelperMethod const DOMFastPathInfo::typeSetterHelperIDTable[] = {
-#undef SIMPLESLOT_RECORD_KIND
-#define SIMPLESLOT_RECORD_KIND Type
 #undef _ONE_SIMPLESLOT_RECORD
 #define _ONE_SIMPLESLOT_RECORD(nameGetter, nameSetter, funcInfoGetter, funcInfoSetter, entryGetter, entrySetter, attribute, attributeSetter) IR::JnHelperMethod::Helper##nameSetter,
 #include "DOMFastPathInfolist.h"
+    TYPE_SIMPLESLOT_RECORDS
 #undef _ONE_SIMPLESLOT_RECORD
-#undef SIMPLESLOT_RECORD_KIND
 };
 
 C_ASSERT(_countof(DOMFastPathInfo::typeSetterTable) == ActiveScriptExternalLibrary::DOM_BUILTIN_MAX_TYPE_SLOT_COUNT);

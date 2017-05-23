@@ -6,8 +6,8 @@
 class ActiveScriptExternalLibrary : public Js::ExternalLibraryBase
 {
 public:
-    static const unsigned int DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT = 100;
-    static const unsigned int DOM_BUILTIN_MAX_TYPE_SLOT_COUNT   = 100;
+    static const unsigned int DOM_BUILTIN_MAX_OBJECT_SLOT_COUNT = 20;
+    static const unsigned int DOM_BUILTIN_MAX_TYPE_SLOT_COUNT   = 4;
 
     ActiveScriptExternalLibrary();
     HRESULT Initialize(Js::JavascriptLibrary* library);
