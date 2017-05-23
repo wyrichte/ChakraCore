@@ -511,7 +511,7 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
     Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(args[1]);
 
     CComPtr<IDebugDocumentContext> pDocumentContext = NULL;
-    scriptContext->GetDocumentContext(scriptContext, javascriptFunction->GetFunctionBody(), &pDocumentContext);
+    scriptContext->GetDocumentContext(javascriptFunction->GetFunctionBody(), &pDocumentContext);
 
     Js::Var result = scriptContext->GetLibrary()->GetUndefined();
 
@@ -578,7 +578,7 @@ Js::Var DebugObject::EntryGetPositionOfLine(Js::RecyclableObject* function, Js::
     Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(args[1]);
 
     IDebugDocumentContext *pDocumentContext = NULL;
-    scriptContext->GetDocumentContext(scriptContext, javascriptFunction->GetFunctionBody(), &pDocumentContext);
+    scriptContext->GetDocumentContext(javascriptFunction->GetFunctionBody(), &pDocumentContext);
 
     Js::Var result = scriptContext->GetLibrary()->GetUndefined();
     if (pDocumentContext != nullptr)

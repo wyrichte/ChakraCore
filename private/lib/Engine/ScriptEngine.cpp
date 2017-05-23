@@ -1146,7 +1146,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionContext(_In_ Var instance, _O
     IDebugDocumentContext * pDebugDocumentContext = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        hr = GetDebugDocumentContextFromHostPosition(scriptContext, pFBody, &pDebugDocumentContext);
+        hr = GetDebugDocumentContextFromHostPosition(pFBody, &pDebugDocumentContext);
         if (hr == S_OK)
         {
             *ppDebugDocumentContext = static_cast<IUnknown *>(pDebugDocumentContext);
@@ -1733,10 +1733,10 @@ HRESULT ScriptEngine::GetDocumentContextFromPosition(
 }
 
 HRESULT ScriptEngine::GetDebugDocumentContextFromHostPosition(
-    Js::ScriptContext           *pContext,
     Js::FunctionBody            *pFunctionBody,
     IDebugDocumentContext       **ppDebugDocumentContext)
 {
+    Js::ScriptContext *pContext = pFunctionBody->GetScriptContext();
     // The library code should not be register to the PDM, as they will not be shown to the user.
     if (pContext->IsScriptContextInSourceRundownOrDebugMode() && !pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode())
     {
