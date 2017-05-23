@@ -1096,7 +1096,6 @@ public:
     STDMETHOD(PopInvocationContext)(__in DWORD cookie);
 
     static HRESULT GetDebugDocumentContextFromHostPosition(
-        Js::ScriptContext           *pContext,
         Js::FunctionBody            *pFunctionBody,
         IDebugDocumentContext       **ppDebugDocumentContext
         );
