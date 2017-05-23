@@ -3,11 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 
-
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 RemoteScriptFunction::RemoteScriptFunction()
 {}
 
@@ -51,7 +46,3 @@ RemoteScriptFunction::PrintNameAndNumberWithLink()
             object.GetPtr());
     }
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

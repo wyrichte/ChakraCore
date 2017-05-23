@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 #include "JDUtil.h"
 #include <functional>
 class RemoteFunctionProxy : public JDRemoteTyped
@@ -222,8 +218,3 @@ private:
     JDRemoteTyped GetUtf8SourceInfo();
     JDRemoteTyped GetSourceContextInfo();
 };
-
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

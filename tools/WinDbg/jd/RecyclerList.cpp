@@ -2,7 +2,6 @@
 
 #include "RemoteRecyclerList.h"
 
-#ifdef JD_PRIVATE
 template <bool isSlist>
 void DumpList(ULONG64 address, PCSTR type)
 {
@@ -46,4 +45,3 @@ JD_PRIVATE_COMMAND(dlist,
     DumpList<false>(arg, type);
 }
 
-#endif

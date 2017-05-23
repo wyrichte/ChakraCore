@@ -3,10 +3,6 @@
 //---------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 #include "RemoteHeapBlock.h"
 
 class RemoteHeapBlockMap
@@ -149,7 +145,3 @@ RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteType
 
     return false;
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

@@ -3,8 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
-
 RemoteInterpreterStackFrame::RemoteInterpreterStackFrame()
 {
 }
@@ -63,4 +61,3 @@ RemoteInterpreterStackFrame::IsFromBailout()
         return false;
     return interpreterStackFrame.Field("m_flags").GetShort() & Ret;
 }
-#endif

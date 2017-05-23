@@ -3,11 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 
-
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 RemoteRecycler::RemoteRecycler(ULONG64 recycler) :
     recycler(GetExtension()->FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recycler)
 {
@@ -97,7 +92,3 @@ bool RemoteRecycler::IsPageHeapEnabled()
 {
     return recycler.Field("isPageHeapEnabled").GetStdBool();
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

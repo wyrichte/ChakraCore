@@ -3,11 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 
-
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 RemoteScriptContext::RemoteScriptContext()
 {
 }
@@ -142,7 +137,3 @@ bool RemoteScriptContext::TryGetScriptContextFromPointer(ULONG64 pointer, Remote
         });
     });
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

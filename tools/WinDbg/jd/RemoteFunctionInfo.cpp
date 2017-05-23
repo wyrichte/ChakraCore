@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 bool
 RemoteFunctionInfo::HasBody()
 {
@@ -34,4 +33,3 @@ RemoteFunctionInfo::GetOriginalEntryPoint()
 {
     return functionInfo.Field("originalEntryPoint").GetPtr();
 }
-#endif

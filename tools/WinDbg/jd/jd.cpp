@@ -13,14 +13,12 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_AuxPtrsFix32("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,6>",
         "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,3>", false)
 {
-#ifdef JD_PRIVATE
     m_moduleName[0] = '\0';
     m_unitTestMode = false;
     m_uiServerString[0] = '\0';
     m_gcNS[0] = '\1';
     m_isCachedHasMemoryNS = false;
     m_hasMemoryNS = false;
-#endif
 }
 
 static RemoteNullTypeHandler s_nullTypeHandler;
@@ -86,9 +84,6 @@ bool EXT_CLASS_BASE::PreferDML()
     return SUCCEEDED(m_Control->GetEngineOptions(&ulOptions)) && ((ulOptions & DEBUG_ENGOPT_PREFER_DML) != 0);
 }
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
 void
 EXT_CLASS_BASE::OnSessionInaccessible(ULONG64)
 {
@@ -113,7 +108,7 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
     if (m_moduleName[0] == '\0') {
         ULONG index = DEBUG_ANY_ID;
         ULONG64 base;
-        IfFailThrow(FindJScriptModuleByName<JD_IS_PUBLIC>(m_Symbols, &index, &base),
+        IfFailThrow(FindJScriptModuleByName(m_Symbols, &index, &base),
             "Failed to find the jscript module in the process");
 
         if (FAILED(m_Symbols2->GetModuleNameString(
@@ -1852,7 +1847,3 @@ namespace Output
         free(buffer);
     }
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

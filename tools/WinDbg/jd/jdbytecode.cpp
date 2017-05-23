@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 #include "jdbytecode.h"
 #include "JDBackendUtil.h"
 #define MAX_LAYOUT_TYPE_NAME 255
@@ -1036,4 +1035,3 @@ JD_PRIVATE_COMMAND(bc,
         }
     }
 }
-#endif

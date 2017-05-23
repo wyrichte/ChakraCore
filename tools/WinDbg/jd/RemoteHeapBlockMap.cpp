@@ -4,10 +4,6 @@
 #include "stdafx.h"
 #include "RemoteHeapBlockMap.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
 {
     ULONG64 heapBlockMapAddr = heapBlockMap.GetPointerTo().GetPtr();
@@ -49,7 +45,3 @@ RemoteHeapBlock * RemoteHeapBlockMap::FindHeapBlock(ULONG64 address)
     }
     return nullptr;
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 #include "JDBackendUtil.h"
 
 void PrintFunctionBody(RemoteFunctionBody& functionBody)
@@ -165,4 +164,3 @@ EXT_COMMAND(fb,
     }
     PrintFunctionBody(functionBody);
 }
-#endif

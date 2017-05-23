@@ -76,7 +76,7 @@ EXT_COMMAND(ldsym,
     //      It will succeed after ".reload". To workaround, check both known jscript9test/jscript9 modules.
     ULONG index = DEBUG_ANY_ID;
     ULONG64 base;
-    IfFailThrow(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &base),
+    IfFailThrow(FindJScriptModuleByName(m_Symbols, &index, &base),
         "Failed to find chakra module in the process");
 
     _TCHAR moduleName[MAX_PATH], imageName[MAX_PATH];

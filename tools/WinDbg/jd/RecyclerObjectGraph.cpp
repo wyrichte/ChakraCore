@@ -5,8 +5,6 @@
 #include "RecyclerObjectGraph.h"
 #include "RecyclerRoots.h"
 
-#ifdef JD_PRIVATE
-
 RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     if (recycler.CollectionInProgress())
@@ -1254,4 +1252,3 @@ void RecyclerObjectGraph::ScanBytes(ConstructData& constructData, RemoteHeapBloc
     this->_objectGraph.AddEdges(node, successors);
 }
 
-#endif

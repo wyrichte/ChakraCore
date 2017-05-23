@@ -3,9 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
 #include "RemoteRecycler.h"
 
 class RemoteThreadContext
@@ -197,6 +194,3 @@ private:
     static RemoteThreadContext GetThreadContextFromContainer(ExtRemoteTyped container);
 
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE

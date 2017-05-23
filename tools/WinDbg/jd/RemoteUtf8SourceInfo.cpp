@@ -4,10 +4,6 @@
 #include "StdAfx.h"
 
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 JDRemoteTyped RemoteUtf8SourceInfo::GetSrcInfo()
 {
     return utf8SourceInfo.Field("m_srcInfo");
@@ -45,7 +41,3 @@ ExtRemoteTyped RemoteUtf8SourceInfo::GetExtRemoteTyped()
 {
     return utf8SourceInfo;
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

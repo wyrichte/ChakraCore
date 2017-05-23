@@ -3,8 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-#ifdef JD_PRIVATE
-
 //
 // Represents a data value that might be uninitialized.
 //
@@ -40,5 +38,3 @@ public:
         return *this;
     }
 };
-
-#endif //JD_PRIVATE

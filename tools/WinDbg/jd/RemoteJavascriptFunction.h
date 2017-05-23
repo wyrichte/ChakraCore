@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 class RemoteScriptFunction;
 class RemoteJavascriptFunction : public RemoteRecyclableObject
 {
@@ -19,7 +15,3 @@ public:
 
     RemoteFunctionInfo GetFunctionInfo();
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

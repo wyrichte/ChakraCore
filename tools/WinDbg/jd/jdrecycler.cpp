@@ -11,10 +11,6 @@
 #include "RemoteObjectInfoBits.h"
 #include "RemoteBitVector.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 #pragma warning(disable: 4481)  // allow use of abstract and override keywords
 
 PCSTR EXT_CLASS_BASE::GetPageAllocatorType()
@@ -2211,10 +2207,5 @@ JD_PRIVATE_COMMAND(findpage,
         return false; // Don't stop iterating
     });
 }
-#endif
 
 #pragma endregion()
-
-// ---- End jd private commands implementation ----------------------------------------------------
-//JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

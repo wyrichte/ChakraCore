@@ -31,10 +31,6 @@ ATL_LIBS = $(ATL_LIB_PATH)\atlsd.lib $(ATL_LIBS)
 ATL_LIBS = $(ATL_LIB_PATH)\atls.lib $(ATL_LIBS)
 !endif
 
-!if "$(JD_PRIVATE)" != ""
-C_DEFINES = $(C_DEFINES) /DJD_PRIVATE
-!endif
-
 INCLUDES = \
     $(INCLUDES); \
     $(JSCRIPT_ROOT)\core\lib\common; \
@@ -60,9 +56,7 @@ TARGETLIBS = \
         $(DBGSDK_LIB_PATH)\dbghelp.lib \
         $(DBGSDK_LIB_PATH)\dbgeng.lib \
         $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\release\$(O)\guids.obj \
-!if "$(JD_PRIVATE)" != ""
         $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
-!endif
 
 USE_MSVCRT = 1
 USE_STL = 1

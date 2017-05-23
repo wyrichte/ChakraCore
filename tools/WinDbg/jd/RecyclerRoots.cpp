@@ -13,8 +13,6 @@
 #include "RemoteHeapBlockMap.h"
 #include "RemoteObjectInfoBits.h"
 
-#ifdef JD_PRIVATE
-
 ULONG64 GetStackTop()
 {
     // Fix for x64?
@@ -2361,4 +2359,3 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     this->Out("Total %d nodes, %d edges\n", objectGraph.GetNodeCount(), objectGraph.GetEdgeCount());
 }
 
-#endif // JD_PRIVATE
