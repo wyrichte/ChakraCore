@@ -102,7 +102,7 @@ RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) :
     JDRemoteTyped(JDRemoteTyped::FromPtrWithVtable(pBody))
 {}
  
-JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(const char* fieldName, char* castType)
+JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char const* castType)
 {
     JDRemoteTyped ret = Eval("@@c++((void*)0)");
 
@@ -144,12 +144,12 @@ void RemoteFunctionProxy::PrintAuxPtrs()
 {
     WalkAuxPtrs([](uint8 type, const char* name, ExtRemoteTyped auxPtr) ->bool
     {
-        GetExtension()->Out("\t%s:\t\t\t0x%I64X\n", name, auxPtr.GetPtr());
+        GetExtension()->Out("\t%-30s: 0x%I64X\n", name, auxPtr.GetPtr());
         return false;
     });
 }
 
-JDRemoteTyped RemoteFunctionProxy::GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName)
+JDRemoteTyped RemoteFunctionProxy::GetAuxWrappedField(char const * fieldName, char const* castType, char const* oldFieldName)
 {
     if (this->HasField("auxPtrs"))
     {
@@ -168,7 +168,7 @@ JDRemoteTyped RemoteFunctionBody::GetReferencedPropertyIdMap()
     return JDRemoteTyped("(void *)0");
 }
 
-JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char * fieldName)
+JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char const * fieldName)
 {
     if (GetExtension()->IsJScript9())
     {
@@ -176,7 +176,7 @@ JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char * fieldName)
     }
     return this->Field(fieldName);
 }
-JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char * fieldName)
+JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char const * fieldName)
 {
     if (GetExtension()->IsJScript9())
     {
@@ -185,7 +185,7 @@ JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char * fieldName)
     return JDUtil::GetWrappedField(*this, fieldName);
 }
 
-JDRemoteTyped RemoteFunctionBody::GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType, char* oldFieldName)
+JDRemoteTyped RemoteFunctionBody::GetAuxWrappedFieldRecyclerData(char const* fieldName, char const* castType, char const* oldFieldName)
 {
     if (GetExtension()->IsJScript9())
     {

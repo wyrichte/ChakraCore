@@ -19,12 +19,12 @@ public:
     }
 
     // Get the auxiliary pointer on the function body by the field name
-    JDRemoteTyped GetAuxPtrsField(const char* fieldName, char* castType);
+    JDRemoteTyped GetAuxPtrsField(char const* fieldName, char const* castType);
     // Print all instantiated auxiliary pointers
     void PrintAuxPtrs();
 
 protected:
-    JDRemoteTyped GetAuxWrappedField(char* fieldName, char* castType, char* oldFieldName = nullptr);
+    JDRemoteTyped GetAuxWrappedField(char const* fieldName, char const* castType, char const* oldFieldName = nullptr);
 
 private:
     template<typename Fn>
@@ -189,7 +189,13 @@ public:
 
     JDRemoteTyped GetPolymorphicInlineCachesHead()
     {
-        return this->GetAuxWrappedFieldRecyclerData("m_polymorphicInlineCachesHead", "Js::PolymorphicInlineCache");
+        JDRemoteTyped remoteTyped = this->GetAuxWrappedFieldRecyclerData("m_polymorphicInlineCachesHead", "Js::PolymorphicInlineCache");
+        if (remoteTyped.HasField("next"))
+        {
+            return remoteTyped;
+        }
+        // After commit ebb59986122be91d451cefb72d9b6ba8320d2d69 in RS3
+        return remoteTyped.Cast("Js::FunctionBodyPolymorphicInlineCache");
     }
 
     JDRemoteTyped GetPropertyIdsForScopeSlotArray()
@@ -202,12 +208,6 @@ public:
         return this->GetAuxWrappedFieldRecyclerData("literalRegexes", "UnifiedRegex::RegexPattern *");
     }
 
-    JDRemoteTyped GetFieldRecyclerData(char * fieldName);
-    JDRemoteTyped GetWrappedFieldRecyclerData(char* fieldName);
-    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char* fieldName, char* castType, char* oldFieldName = nullptr);
-
-    uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
-
     void PrintNameAndNumber();
     void PrintNameAndNumberWithLink();
     void PrintNameAndNumberWithRawLink();
@@ -215,6 +215,12 @@ public:
     void PrintSourceUrl();
     void PrintSource();
 private:
+    JDRemoteTyped GetFieldRecyclerData(char const * fieldName);
+    JDRemoteTyped GetWrappedFieldRecyclerData(char const * fieldName);
+    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char const * fieldName, char const* castType, char const * oldFieldName = nullptr);
+
+    uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
+
     JDRemoteTyped GetUtf8SourceInfo();
     JDRemoteTyped GetSourceContextInfo();
 };

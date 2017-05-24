@@ -62,7 +62,7 @@ void RemoteSimpleTypeHandler::EnumerateProperties(ExtRemoteTyped& obj, const Obj
         {
             auto name = descriptor.Field("Id");
             ULONG64 value = slotReader.GetSlot(i);
-            listener.Enumerate(name, value);
+            listener.Enumerate(name, i, value);
         }
     }
 }
@@ -95,7 +95,7 @@ void RemotePathTypeHandler::EnumerateProperties(ExtRemoteTyped& obj, const Objec
     {
         auto name = assignments[i];
         ULONG64 value = slotReader.GetSlot(i);
-        listener.Enumerate(name, value);
+        listener.Enumerate(name, i, value);
     }
 }
 
@@ -107,9 +107,33 @@ void RemoteSimpleDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& o
     auto propertyMap = m_typeHandler->Field("propertyMap");
     auto entries = propertyMap.Field("entries");
 
-    LONG count = propertyMap.Field("count").GetLong() - propertyMap.Field("freeCount").GetLong();
+    bool isUnordered = m_typeHandler->HasField("deletedPropertyIndex");
+    stdext::hash_set<int> deletedIndex;
+
+    if (isUnordered)
+    {
+        int currentIndex = (int)m_typeHandler->Field("deletedPropertyIndex").GetData(sizeof(T));
+        while ((T)currentIndex != (T)-1)
+        {
+            deletedIndex.insert(currentIndex);
+            ULONG64 value = slotReader.GetSlot(currentIndex);
+            GetExtension()->IsTaggedIntVar(value, &currentIndex);
+        }
+    }
+
+    LONG count = propertyMap.Field("count").GetLong();
+    if (!isUnordered)
+    {
+        count -= propertyMap.Field("freeCount").GetLong();
+    }
+
     for (LONG i = 0; i < count; i++)
     {
+        if (isUnordered && deletedIndex.find(i) != deletedIndex.end())
+        {
+            continue;
+        }
+
         auto entry = entries[i];
         
         auto descriptor = entry.Field("value");
@@ -119,7 +143,7 @@ void RemoteSimpleDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& o
             auto name = entry.Field("key");
             LONG slot = (LONG)(descriptor.Field("propertyIndex").GetData(sizeof(T)));
             ULONG64 value = slotReader.GetSlot(slot);
-            listener.Enumerate(name, value);
+            listener.Enumerate(name, slot, value);
         }
     }
 }
@@ -150,13 +174,13 @@ void RemoteDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& obj, co
             T data = (T)(descriptor.Field("Data").GetData(sizeof(T)));
             if (data != (T)-1)
             {
-                listener.Enumerate(name, slotReader.GetSlot(data));
+                listener.Enumerate(name, data, slotReader.GetSlot(data));
             }
             else
             {
                 T getter = (T)(descriptor.Field("Getter").GetData(sizeof(T)));
                 T setter = (T)(descriptor.Field("Setter").GetData(sizeof(T)));
-                listener.Enumerate(name, slotReader.GetSlot(getter), slotReader.GetSlot(setter));
+                listener.Enumerate(name, getter, slotReader.GetSlot(getter), setter, slotReader.GetSlot(setter));
             }
         }
     }

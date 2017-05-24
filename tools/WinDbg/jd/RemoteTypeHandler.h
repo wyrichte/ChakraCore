@@ -106,5 +106,5 @@ public:
     // value: data property, or getter of accessor property
     // value1: setter of accessor property
     //
-    virtual void Enumerate(ExtRemoteTyped& name, ULONG64 value, ULONG64 value1 = 0) const = 0;
+    virtual void Enumerate(ExtRemoteTyped& name, LONG slot, ULONG64 value, LONG slot1 = -1, ULONG64 value1 = 0) const = 0;
 };

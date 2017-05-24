@@ -143,7 +143,7 @@ public:
     virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
 
-    bool PrintProperty(ULONG64 name, ULONG64 value, ULONG64 value1 = 0, int depth = 0);
+    bool PrintProperty(bool printSlotIndex, ULONG64 name, LONG slot, ULONG64 value, LONG slot1 = -1, ULONG64 value1 = 0, int depth = 0);
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
     void Out(_In_ PCWSTR fmt, ...);
@@ -242,9 +242,12 @@ public:
         return byteCodeCachedData;
     }
 
+
+    bool IsTaggedIntVar(ULONG64 var, int* value);
 private:
     JDByteCodeCachedData byteCodeCachedData;
 
+    
 protected:
     void DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeField, int index);
     void DisplayLargeHeapBlockInfo(ExtRemoteTyped& largeHeapBlock);
@@ -269,11 +272,10 @@ protected:
     void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
 
     bool IsInt31Var(ULONG64 var, int* value);
-    bool IsTaggedIntVar(ULONG64 var, int* value);
     bool IsFloatVar(ULONG64 var, double* value);
 
-    void PrintVar(ULONG64 var, int depth = 0);
-    void PrintProperties(ULONG64 var, int depth = 0);
+    void PrintVar(bool printSlotIndex, ULONG64 var, int depth = 0);
+    void PrintProperties(bool printSlotIndex, ULONG64 var, int depth = 0);
     void PrintSimpleVarValue(ExtRemoteTyped& obj);
     std::string GetRemoteVTableName(PCSTR type);
     std::string GetTypeNameFromVTable(PCSTR vtablename);

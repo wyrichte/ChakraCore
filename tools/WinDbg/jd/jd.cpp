@@ -30,6 +30,17 @@ static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0_
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,1>");
 static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge0_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,0>");
 static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryTypeHandlerLarge1_11("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const *,1>");
+
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryUnorderedTypeHandler0_11("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::PropertyRecord const *,0>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryUnorderedTypeHandler1_11("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::PropertyRecord const *,1>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryUnorderedTypeHandlerLarge0_11("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::PropertyRecord const *,0>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryUnorderedTypeHandlerLarge1_11("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::PropertyRecord const *,1>");
+
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryUnorderedStringTypeHandler0_11("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::JavascriptString *,0>");
+static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryUnorderedStringTypeHandler1_11("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::JavascriptString *,1>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryUnorderedStringTypeHandlerLarge0_11("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::JavascriptString *,0>");
+static RemoteSimpleDictionaryTypeHandler<INT> s_simpleDictionaryUnorderedStringTypeHandlerLarge1_11("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::JavascriptString *,1>");
+
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0("Js::SimpleDictionaryTypeHandlerBase<unsigned short,0>");
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1("Js::SimpleDictionaryTypeHandlerBase<unsigned short,1>");
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler9("Js::SimpleDictionaryTypeHandlerBase<unsigned short>"); // IE9
@@ -46,6 +57,14 @@ static RemoteTypeHandler* s_typeHandlers[] =
     &s_simpleDictionaryTypeHandler1_11,
     &s_simpleDictionaryTypeHandlerLarge0_11,
     &s_simpleDictionaryTypeHandlerLarge1_11,
+    &s_simpleDictionaryUnorderedTypeHandler0_11,
+    &s_simpleDictionaryUnorderedTypeHandler1_11,
+    &s_simpleDictionaryUnorderedTypeHandlerLarge0_11,
+    &s_simpleDictionaryUnorderedTypeHandlerLarge1_11,
+    &s_simpleDictionaryUnorderedStringTypeHandler0_11,
+    &s_simpleDictionaryUnorderedStringTypeHandler1_11,
+    &s_simpleDictionaryUnorderedStringTypeHandlerLarge0_11,
+    &s_simpleDictionaryUnorderedStringTypeHandlerLarge1_11,
     &s_simpleDictionaryTypeHandler0,
     &s_simpleDictionaryTypeHandler1,
     &s_simpleDictionaryTypeHandler9, // IE9
@@ -630,7 +649,7 @@ JD_PRIVATE_COMMAND(var,
     PrintVar(var, 0);
 }
 
-void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
+void EXT_CLASS_BASE::PrintVar(bool printSlotIndex, ULONG64 var, int depth)
 {
     int intValue;
     double dblValue;
@@ -797,29 +816,38 @@ void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
 class ObjectPropertyDumper : public ObjectPropertyListener
 {
 private:
+    bool printSlotIndex;
     int m_depth;
     TypeHandlerPropertyNameReader* m_propertyNameReader;
 
 public:
-    ObjectPropertyDumper(int depth, TypeHandlerPropertyNameReader* propertyNameReader)
-        : m_depth(depth), m_propertyNameReader(propertyNameReader)
+    ObjectPropertyDumper(int depth, TypeHandlerPropertyNameReader* propertyNameReader, bool printSlotIndex)
+        : m_depth(depth), m_propertyNameReader(propertyNameReader), printSlotIndex(printSlotIndex)
     {
     }
 
-    virtual void Enumerate(ExtRemoteTyped& name, ULONG64 value, ULONG64 value1) const override
+    virtual void Enumerate(ExtRemoteTyped& name, LONG slot, ULONG64 value, LONG slot1, ULONG64 value1) const override
     {
-        ULONG64 pName = m_propertyNameReader->GetPropertyName(name);
-        GetExtension()->PrintProperty(pName, value, value1, m_depth);
+        ULONG64 pName;
+        if (strcmp(JDUtil::StripStructClass(name.GetTypeName()), "Js::JavascriptString *") == 0)
+        {
+            pName = name.Field("m_pszValue").GetPtr();
+        }
+        else
+        {
+            pName = m_propertyNameReader->GetPropertyName(name);
+        }
+        GetExtension()->PrintProperty(printSlotIndex, pName, slot, value, slot1, value1, m_depth);
     }
 
-    static void Enumerate(ExtRemoteTyped& obj, RemoteTypeHandler* typeHandler, TypeHandlerPropertyNameReader* reader, int depth)
+    static void Enumerate(ExtRemoteTyped& obj, RemoteTypeHandler* typeHandler, TypeHandlerPropertyNameReader* reader, int depth, bool printSlotIndex)
     {
-        ObjectPropertyDumper dumper(depth, reader);
+        ObjectPropertyDumper dumper(depth, reader, printSlotIndex);
         typeHandler->EnumerateProperties(obj, dumper);
     }
 };
 
-void EXT_CLASS_BASE::PrintProperties(ULONG64 var, int depth)
+void EXT_CLASS_BASE::PrintProperties(bool printSlotIndex, ULONG64 var, int depth)
 {
     ExtRemoteTyped obj(FillModule("(%s!Js::DynamicObject*)@$extin"), var);
     ExtRemoteTyped type(FillModule("(%s!Js::DynamicType*)@$extin"), obj.Field("type").GetPtr());
@@ -853,17 +881,17 @@ void EXT_CLASS_BASE::PrintProperties(ULONG64 var, int depth)
         if (m_usingPropertyRecordInTypeHandlers)
         {
             TypeHandlerPropertyRecordNameReader reader;
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth);
+            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth, printSlotIndex);
         }
         else
         {
             TypeHandlerPropertyIdNameReader reader(GetThreadContextFromObject(obj));
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth);
+            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth, printSlotIndex);
         }
     }
 }
 
-bool EXT_CLASS_BASE::PrintProperty(ULONG64 name, ULONG64 value, ULONG64 value1, int depth)
+bool EXT_CLASS_BASE::PrintProperty(bool printSlotIndex, ULONG64 name, LONG slot, ULONG64 value, LONG slot1, ULONG64 value1, int depth)
 {
     // indent
     for (int i = 0; i < depth; i++)
@@ -883,7 +911,7 @@ bool EXT_CLASS_BASE::PrintProperty(ULONG64 name, ULONG64 value, ULONG64 value1, 
 
     if (value1)
     {
-        PrintProperty(name, value1, 0, depth);
+        PrintProperty(printSlotIndex, name, slot, value1, -1, 0, depth);
     }
     return true;
 }

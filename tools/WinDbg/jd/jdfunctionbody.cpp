@@ -10,12 +10,14 @@ void PrintFunctionBody(RemoteFunctionBody& functionBody)
     functionBody.PrintNameAndNumberWithRawLink();
     GetExtension()->Out(" ");
     functionBody.PrintByteCodeLink();
-    GetExtension()->Out("\nSource Url: ");
+    GetExtension()->Out("\n");
+    functionBody.PrintAuxPtrs();
+    GetExtension()->Out("Source Url: ");
     functionBody.PrintSourceUrl();
     GetExtension()->Out("\n");
     functionBody.PrintSource();
     GetExtension()->Out("\n");
-    functionBody.PrintAuxPtrs();
+
 }
 
 EXT_COMMAND(ffb,
@@ -94,73 +96,77 @@ EXT_COMMAND(ffb,
 
 EXT_COMMAND(fb,
     "Dump FunctionBody",
-    "{;x;functionBody;express or address of function body}")
+    "{;x;functionBody;expression or address of function body}")
 {
     PCSTR arg = GetUnnamedArgStr(0);
     ExtRemoteTyped input = ExtRemoteTyped(arg);
     RemoteFunctionBody functionBody;
     PCSTR inputType = input.GetTypeName();
-    if (strcmp(inputType, "int") == 0 || strcmp(inputType, "int64") == 0)
+    // Infer from vtable if it is just an address
+    if (strcmp(inputType, "int") == 0)
     {
-        // Just an address
-        functionBody = ExtRemoteTyped(this->FillModule("(%s!Js::FunctionBody *)@$extin"), input.GetLong64());
+        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong());
+        inputType = input.GetTypeName();
     }
-    else
+    else if (strcmp(inputType, "int64") == 0)
     {
-        inputType = JDUtil::StripStructClass(inputType);        
-        if (strcmp(inputType, "Js::FunctionBody") == 0 || strcmp(inputType, "Js::FunctionBody *") == 0)
+        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong64());
+        inputType = input.GetTypeName();
+    }
+
+    inputType = JDUtil::StripStructClass(inputType);
+    if (strcmp(inputType, "Js::FunctionBody") == 0 || strcmp(inputType, "Js::FunctionBody *") == 0)
+    {
+        functionBody = input;
+    }
+    else if (strcmp(inputType, "Js::InterpreterStackFrame") == 0 || strcmp(inputType, "Js::InterpreterStackFrame *") == 0)
+    {
+        functionBody = input.Field("m_functionBody");
+    }
+    else if (strcmp(inputType, "Js::JavascriptFunction") == 0 || strcmp(inputType, "Js::JavascriptFunction *") == 0
+        || strcmp(inputType, "Js::ScriptFunction") == 0 || strcmp(inputType, "Js::ScriptFunction *") == 0)
+    {
+        RemoteFunctionInfo functionInfo(input.Field("functionInfo"));
+        if (functionInfo.HasBody())
         {
-            functionBody = input;            
+            functionBody = functionInfo.GetFunctionBody();
         }
-        else if (strcmp(inputType, "Js::InterpreterStackFrame") == 0 || strcmp(inputType, "Js::InterpreterStackFrame *") == 0)
+        else
         {
-            functionBody = input.Field("m_functionBody");
+            this->ThrowLastError("Function Info not a function body");
         }
-        else if (strcmp(inputType, "Js::JavascriptFunction") == 0 || strcmp(inputType, "Js::JavascriptFunction *") == 0
-            || strcmp(inputType, "Js::ScriptFunction") == 0 || strcmp(inputType, "Js::ScriptFunction *") == 0)
+    }
+    else if (strcmp(inputType, "Js::RecyclableObject") == 0 || strcmp(inputType, "Js::RecyclableObject *") == 0)
+    {
+        RemoteRecyclableObject recyclableObject(input);
+        if (recyclableObject.IsJavascriptFunction())
         {
-            RemoteFunctionInfo functionInfo(input.Field("functionInfo"));
+            RemoteFunctionInfo functionInfo(recyclableObject.AsJavascriptFunction().GetFunctionInfo());
             if (functionInfo.HasBody())
             {
                 functionBody = functionInfo.GetFunctionBody();
             }
             else
             {
-                this->ThrowLastError("Function Info not a function body");
-            }            
-        }       
-        else if (strcmp(inputType, "Js::RecyclableObject") == 0 || strcmp(inputType, "Js::RecyclableObject *") == 0)
-        {
-            RemoteRecyclableObject recyclableObject(input);
-            if (recyclableObject.IsJavascriptFunction())
-            {
-                RemoteFunctionInfo functionInfo(recyclableObject.AsJavascriptFunction().GetFunctionInfo());
-                if (functionInfo.HasBody())
-                {
-                    functionBody = functionInfo.GetFunctionBody();
-                }
-                else
-                {
-                    this->ThrowLastError("Recyclable object not a script function");
-                }
-            }
-            else
-            {
                 this->ThrowLastError("Recyclable object not a script function");
             }
         }
-        else if (strcmp(inputType, "Func") == 0 || strcmp(inputType, "Func *") == 0)
-        {
-            functionBody = JDBackendUtil::GetFunctionBodyFromFunc(input);
-        }
-        else if (strcmp(inputType, "IRBuilder") == 0 || strcmp(inputType, "IRBuilder *") == 0)
-        {
-            functionBody = input.Field("m_functionBody");
-        }
         else
         {
-            this->ThrowLastError("Unknown type for function body dump");
+            this->ThrowLastError("Recyclable object not a script function");
         }
+    }
+    else if (strcmp(inputType, "Func") == 0 || strcmp(inputType, "Func *") == 0)
+    {
+        functionBody = JDBackendUtil::GetFunctionBodyFromFunc(input);
+    }
+    else if (strcmp(inputType, "IRBuilder") == 0 || strcmp(inputType, "IRBuilder *") == 0)
+    {
+        functionBody = input.Field("m_functionBody");
+    }
+    else
+    {
+        this->ThrowLastError("Unknown type for function body dump");
     }
     PrintFunctionBody(functionBody);
 }

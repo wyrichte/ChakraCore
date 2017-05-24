@@ -208,7 +208,9 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
         }
     }
 
-    if (strcmp(simpleTypeName, "Js::PolymorphicInlineCache *") == 0)
+    if (strcmp(simpleTypeName, "Js::PolymorphicInlineCache *") == 0
+        || strcmp(simpleTypeName, "Js::FunctionBodyPolymorphicInlineCache *") == 0
+        || strcmp(simpleTypeName, "Js::ScriptContextPolymorphicInlineCache *") == 0)
     {
         // Even though PolymorphicInlineCache has a functionBody, the data is leaf
         // So the pointer may not be valid memory if the PolymorphicInlineCache has a false reference to it

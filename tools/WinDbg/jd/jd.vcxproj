@@ -20,7 +20,6 @@
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\Exe\jshost;$(SolutionDir)..\Exe\jdtest;$(SolutionDir)..\Lib\Common\Memory;$(SolutionDir)..\Dll\JScriptDiag;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -28,32 +27,38 @@
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4458;     <!-- declaration of '' hides class memeber --></DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ChakraRootDirectory)private\bin\ChakraDiag;$(SdkToolsIncPath);$(ChakraCoreRootDirectory)lib\common;$(ChakraCoreRootDirectory)lib\common\core;$(ChakraCoreRootDirectory)lib\common\common;$(ChakraCoreRootDirectory)lib\common\memory;$(ChakraCoreRootDirectory)lib\backend;$(ChakraRootDirectory)private\bin\jshost;$(ChakraRootDirectory)private\bin\jdtest;$(ChakraPublishIntDir);$(ChakraCoreRootDirectory)lib\runtime\types;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+          $(ChakraRootDirectory)private\bin\ChakraDiag;
+          $(ChakraRootDirectory)private\bin\jdtest;
+          $(ChakraRootDirectory)private\bin\jshost;
+          $(SdkToolsIncPath);
+          $(ChakraCoreRootDirectory)lib\common;
+          $(ChakraCoreRootDirectory)lib\common\core;
+          $(ChakraCoreRootDirectory)lib\common\memory;
+          %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <ModuleDefinitionFile>release\jsd.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
       <AdditionalDependencies>
         engextcpp.lib;
-        $(SdkLibPath)\kernel32.lib;
-        $(SdkLibPath)\user32.lib;
-        $(SdkLibPath)\ole32.lib;
-        $(SdkLibPath)\dbghelp.lib;
-        $(SdkLibPath)\dbgeng.lib;
-        $(SdkLibPath)\shlwapi.lib;
-        $(SdkLibPath)\oleaut32.lib;
-        $(SdkLibPath)\advapi32.lib;
-        chakradiaglib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);$(InternalSdkLibPath);$(IntDir)..\ChakraDiagLib</AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Test' or '$(Configuration)'=='Release'">
-    <ClCompile>
-      <PreprocessorDefinitions>JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>
+        dbghelp.lib;
+        dbgeng.lib;
+        chakradiaglib.lib;
+        kernel32.lib;
+        user32.lib;
+        ole32.lib;        
+        oleaut32.lib;        
+        %(AdditionalDependencies)
+    </AdditionalDependencies>
+    <AdditionalLibraryDirectories>
+        $(SdkLibPath);
+        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
+        $(InternalSdkLibPath);
+        $(IntDir)..\ChakraDiagLib
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
