@@ -3,8 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
-
 RemoteJavascriptFunction::RemoteJavascriptFunction() {}
 RemoteJavascriptFunction::RemoteJavascriptFunction(ExtRemoteTyped const& o) : 
     RemoteRecyclableObject(o) 
@@ -38,4 +36,3 @@ RemoteJavascriptFunction::GetFunctionInfo()
 {
     return object.Field("functionInfo");
 }
-#endif

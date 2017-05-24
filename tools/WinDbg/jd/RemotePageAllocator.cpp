@@ -3,9 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
 #include "RemotePageAllocator.h"
 
 ULONG64
@@ -143,8 +140,3 @@ RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries)
         DisplayData((ULONG)strlen(name), used, reserved, committed, unused);
     }
 }
-
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

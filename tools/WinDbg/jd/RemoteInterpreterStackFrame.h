@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 class RemoteInterpreterStackFrame
 {
 public:
@@ -24,5 +20,3 @@ public:
 private:
     ExtRemoteTyped interpreterStackFrame;
 };
-
-#endif

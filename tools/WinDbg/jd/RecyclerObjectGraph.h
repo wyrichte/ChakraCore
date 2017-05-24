@@ -3,7 +3,6 @@
 #include <stack>
 #include "jdrecycler.h"
 #include "Collections.h"
-#ifdef JD_PRIVATE
 
 // Represents the recycler object graph
 // Encapsulates logic to scan remote recycler objects
@@ -108,4 +107,3 @@ protected:
     bool m_interior;
 };
 
-#endif

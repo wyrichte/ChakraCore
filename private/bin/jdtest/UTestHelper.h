@@ -110,25 +110,16 @@ public:
     bool IsExpandable() const { return attr & JS_PROPERTY_HAS_CHILDREN; }
 };
 
-//
-// Helper for finding the jscript module in the debuggee process
-//
-template <bool IsPublic>
-struct JsModuleList
+inline HRESULT FindJScriptModuleByName(_In_ IDebugSymbols* pSymbols, _Out_ ULONG* pIndex, _Out_ ULONG64* pBase)
 {
-    static PCSTR moduleList[];
-};
-PCSTR JsModuleList<true>::moduleList[] = { "chakra", "chakracore", "jscript9" }; // Only support jscript9 and chakra for public tool
-PCSTR JsModuleList<false>::moduleList[] = { "chakratest", "chakra", "chakracore", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc" };
+    //PCSTR moduleList[] = { "chakra", "chakracore", "jscript9" }; // Only support jscript9 and chakra for public tool
+    static PCSTR moduleList[] = { "chakratest", "chakra", "chakracore", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc" };
 
-template <bool IsPublic>
-HRESULT FindJScriptModuleByName(_In_ IDebugSymbols* pSymbols, _Out_ ULONG* pIndex, _Out_ ULONG64* pBase)
-{
     HRESULT hr = E_FAIL;
 
-    for (int i = 0; i < _countof(JsModuleList<IsPublic>::moduleList); i++)
+    for (int i = 0; i < _countof(moduleList); i++)
     {
-        hr = pSymbols->GetModuleByModuleName(JsModuleList<IsPublic>::moduleList[i], 0, pIndex, pBase);
+        hr = pSymbols->GetModuleByModuleName(moduleList[i], 0, pIndex, pBase);
         if (SUCCEEDED(hr))
         {
             break;

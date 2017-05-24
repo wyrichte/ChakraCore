@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 void InitEnums(_In_ const char* enumType, std::map<std::string, uint8>& nameValMap, std::vector<std::string>& names)
 {
     if (nameValMap.empty())
@@ -368,7 +364,3 @@ RemoteFunctionBody::GetSourceContextInfo()
 {
     return GetUtf8SourceInfo().Field("m_srcInfo").Field("sourceContextInfo");
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

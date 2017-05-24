@@ -3,11 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
-
 class RemoteBaseDictionary
 {
 public:
@@ -52,5 +47,3 @@ public:
 private:
     JDRemoteTyped baseDictionary;
 };
-
-#endif

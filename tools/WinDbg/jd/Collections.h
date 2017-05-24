@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-#ifdef JD_PRIVATE
 #include <hash_set>
 #include <vector>
 #include <hash_map>
@@ -810,4 +809,3 @@ private:
     RecyclerObjectTypeInfo * typeInfo;
 };
 
-#endif

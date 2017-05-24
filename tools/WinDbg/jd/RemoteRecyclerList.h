@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef JD_PRIVATE
 template <bool isSlist>
 class RemoteListIterator
 {
@@ -75,4 +74,3 @@ private:
 
 template <bool isSlist>
 void DumpList(ULONG64 address, PCSTR type);
-#endif

@@ -3,7 +3,6 @@
 #include <string>
 #include <guiddef.h>
 
-#ifdef JD_PRIVATE
 EXT_CLASS_BASE* GetExtension()
 {
     return (EXT_CLASS_BASE*)g_Ext.Get();
@@ -102,4 +101,3 @@ void ReplacePlaceHolders(PCSTR holder, std::string value, std::string& cmd)
         }
     }
 }
-#endif

@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 class RemotePageAllocator
 {
 public:
@@ -51,7 +47,3 @@ private:
     Nullable<ULONG64> reservedBytes;
     Nullable<ULONG64> committedBytes;
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

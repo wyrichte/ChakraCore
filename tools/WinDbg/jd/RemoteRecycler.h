@@ -3,9 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
 #include "RemotePageAllocator.h"
 class RemoteThreadContext;
 class RemoteRecycler
@@ -77,6 +74,3 @@ void RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
         fn("BGProfiler", RemotePageAllocator(recycler.Field("backgroundProfilerPageAllocator")));
     }
 }
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

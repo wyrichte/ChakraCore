@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 class TypeHandlerPropertyNameReader
 {
 public:
@@ -38,7 +34,3 @@ public:
         return m_reader.GetNameByPropertyId(key.GetUlong());
     }
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

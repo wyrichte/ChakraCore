@@ -1,7 +1,6 @@
 TARGETNAME = mphext
 TARGETTYPE = DYNLINK
 
-JD_PRIVATE = 1
 !include ..\sources.inc
 
 C_DEFINES = $(C_DEFINES) /DMPH_CMDS

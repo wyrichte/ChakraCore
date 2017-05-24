@@ -151,7 +151,7 @@ EXT_COMMAND(ldsym,
     // Find jscript9 module
     ULONG index = DEBUG_ANY_ID;
     ULONG64 base;
-    IfFailThrow(FindJScriptModuleByName<JD_IS_PUBLIC>(m_Symbols, &index, &base),
+    IfFailThrow(FindJScriptModuleByName(m_Symbols, &index, &base),
         "Failed to find the jscript module in the process");
 
     WCHAR moduleName[MAX_PATH], imageName[MAX_PATH];

@@ -3,7 +3,6 @@
 //---------------------------------------------------------------------------
 #pragma once
 
-#ifdef JD_PRIVATE
 #include <math.h>
 #include "RemoteRecycler.h"
 
@@ -48,4 +47,3 @@ public:
 private:
     T * _ptr;
 };
-#endif

@@ -3,11 +3,6 @@
 //----------------------------------------------------------------------------
 #include "StdAfx.h"
 
-
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 #include "RemoteThreadContext.h"
 
 bool RemoteThreadContext::Info::IsUsingGlobalListFirst()
@@ -314,7 +309,3 @@ RemoteThreadContext::TryGetThreadContextFromPointer(ULONG64 contextPointer, Remo
         return false;
     });
 }
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

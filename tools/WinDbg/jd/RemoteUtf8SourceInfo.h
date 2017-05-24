@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 class RemoteScriptContext;
 class RemoteUtf8SourceInfo
 {
@@ -25,7 +21,3 @@ public:
 private:
     JDRemoteTyped utf8SourceInfo;
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

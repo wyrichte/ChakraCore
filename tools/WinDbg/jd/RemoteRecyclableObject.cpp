@@ -3,8 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
-
 RemoteRecyclableObject::RemoteRecyclableObject() {}
 RemoteRecyclableObject::RemoteRecyclableObject(ExtRemoteTyped const& o) : object(o) {};
 
@@ -29,5 +27,3 @@ RemoteRecyclableObject::AsJavascriptFunction()
     }
     return object.GetPtr();
 }
-
-#endif

@@ -50,7 +50,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug' or '$(Configuration)'=='Test' or '$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>JD_PRIVATE;JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>private\jd.def</ModuleDefinitionFile>

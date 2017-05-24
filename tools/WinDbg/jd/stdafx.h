@@ -39,9 +39,7 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 
 #define PropertyDeleted         0x08
 
-#ifdef JD_PRIVATE
 #include "common\MathUtil.h"
-#endif  // JD_PRIVATE
 // -----------------------------------------------------------------------------------------
 
 #define IfNullReturnError(expr, hrError) \
@@ -79,13 +77,6 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #define QI_IMPL_INTERFACE(intf) \
     QI_IMPL(__uuidof(intf), intf)
 
-#ifndef JD_PRIVATE
-#define JD_IS_PUBLIC    true
-#else
-#define JD_IS_PUBLIC    false
-#endif
-
-
 #include "time.h"
 #include "UTestHelper.h"
 #include "Nullable.h"
@@ -98,8 +89,4 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "jd.h"
 #include "TypeHandlerPropertyNameReader.h"
 
-#ifdef JD_PRIVATE
 #include "dbghelp.h"
-#endif
-
-

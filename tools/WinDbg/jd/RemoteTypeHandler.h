@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #pragma once
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 // forward
 class EXT_CLASS_BASE;
 class ObjectPropertyListener;
@@ -112,7 +108,3 @@ public:
     //
     virtual void Enumerate(ExtRemoteTyped& name, ULONG64 value, ULONG64 value1 = 0) const = 0;
 };
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

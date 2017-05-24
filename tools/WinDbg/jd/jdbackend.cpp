@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 #include "jdbackend.h"
 #include "jdbackendutil.h"
 #define TEMP_BUFFER_SIZE 1024
@@ -511,5 +510,3 @@ JD_PRIVATE_COMMAND(irfunc,
     JDBackend jdbackend(propertyNameReader);
     jdbackend.DumpFunc(func);
 }
-
-#endif

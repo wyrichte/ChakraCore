@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 #include "Collections.h"
 
 void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
@@ -139,6 +138,4 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
 
 // Instantiate templates
 template Graph<ULONG64, RecyclerGraphNodeData>;
-#endif
-
 #endif

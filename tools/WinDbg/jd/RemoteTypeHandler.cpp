@@ -3,10 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 void RemoteTypeHandler::Set(const std::string& module, ExtRemoteTyped& typeHandler)
 {
     // Cast typeHandler to concrete type.
@@ -168,7 +164,3 @@ void RemoteDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& obj, co
 
 // Specialize on USHORT
 template class RemoteDictionaryTypeHandler<USHORT>;
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

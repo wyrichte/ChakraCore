@@ -1,6 +1,5 @@
 #pragma once
 
-#ifdef JD_PRIVATE
 #include "Collections.h"
 #include "RemoteRecycler.h"
 
@@ -219,4 +218,3 @@ template <typename TNode>
 void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
 
 ULONG64 GetStackTop();
-#endif

@@ -4,10 +4,6 @@
 #include "stdafx.h"
 #include "guids.h"
 
-// ---- Begin jd private commands implementation --------------------------------------------------
-#ifdef JD_PRIVATE
-// ------------------------------------------------------------------------------------------------
-
 #include "werdump.h"
 #include "MockDataTarget.h"
 #include "DiagException.h"
@@ -484,7 +480,7 @@ void EXT_CLASS_BASE::CreateDebugProcess(IJsDebugProcess** ppDebugProcess)
     IfFailThrow(m_System->GetCurrentProcessSystemId(&processId));
 
     UINT64 baseAddress; ULONG index;
-    IfFailThrow(FindJScriptModuleByName</*IsPublic*/false>(m_Symbols, &index, &baseAddress));
+    IfFailThrow(FindJScriptModuleByName(m_Symbols, &index, &baseAddress));
 
     // Skip validateDebugMode, so that a user can always decode the script stack. (Subsequent locals inspection could fail.)
     IfFailThrow(m_jsDebug->OpenVirtualProcess(dataTarget, /*validateDebugMode*/false, processId, baseAddress, NULL, ppDebugProcess));
@@ -588,7 +584,3 @@ ULONG64 EXT_CLASS_BASE::GetEnumValue(const char* enumName, bool useMemoryNamespa
 }
 
 class Module: public CAtlDllModuleT<Module> {} _Module;
-
-// ---- End jd private commands implementation ----------------------------------------------------
-#endif //JD_PRIVATE
-// ------------------------------------------------------------------------------------------------

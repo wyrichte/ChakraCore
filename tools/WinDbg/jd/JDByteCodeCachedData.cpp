@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-#ifdef JD_PRIVATE
 #include "JDByteCodeCachedData.h"
 
 void
@@ -90,5 +89,3 @@ JDByteCodeCachedData::Clear()
         delete[] extendedAttributesTable;
     }
 }
-
-#endif

@@ -3,7 +3,6 @@
 //---------------------------------------------------------------------------
 #pragma once
 
-#ifdef JD_PRIVATE
 #define ENABLE_MARK_OBJ 0
 #define ENABLE_UI_SERVER 0
 class RootPointers;
@@ -18,14 +17,11 @@ class RootPointers;
 #include "RemoteInterpreterStackFrame.h"
 #include "RemoteScriptContext.h"
 #include "RemoteThreadContext.h"
-#endif
 
 #include <map>
 #include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
-#ifdef JD_PRIVATE
 #include "JDByteCodeCachedData.h"
-#endif
 
 #include "JDTypeCache.h"
 
@@ -124,9 +120,7 @@ private:
 
 
 class EXT_CLASS_BASE : public ExtExtension
-#ifdef JD_PRIVATE
     , public DummyTestGroup
-#endif
 #ifdef MPH_CMDS
     , public MphCmdsWrapper
 #endif
@@ -140,11 +134,6 @@ public:
     ~EXT_CLASS_BASE() { ClearCache(); }
     bool PreferDML();
 
-// ------------------------------------------------------------------------------------------------
-// jd private commands: Wrap anything not meant to be published under JD_PRIVATE.
-// ------------------------------------------------------------------------------------------------
-#ifdef JD_PRIVATE
-public:
     friend class ObjectInfoHelper;
     friend class RecyclerObjectGraph;
 
@@ -247,18 +236,14 @@ public:
 
     bool IsJITServer();
 
-#ifdef JD_PRIVATE
     JDByteCodeCachedData const& GetByteCodeCachedData()
     {
         byteCodeCachedData.Ensure();
         return byteCodeCachedData;
     }
-#endif
-private:
 
-#ifdef JD_PRIVATE
+private:
     JDByteCodeCachedData byteCodeCachedData;
-#endif
 
 protected:
     void DumpBlock(ExtRemoteTyped block, LPCSTR desc, LPCSTR sizeField, int index);
@@ -385,7 +370,6 @@ protected:
     friend class JDTypeCache;
     JDTypeCache typeCache;    
     
-#endif //JD_PRIVATE
 };
 
 #ifdef JD_PRIVATE_CMDS
@@ -478,8 +462,6 @@ public:
     MPH_COMMAND_METHOD(mpheap);
 };
 
-#ifdef JD_PRIVATE
-
 std::string GetSymbolForOffset(ULONG64 offset);
 ULONG64 GetPointerAtAddress(ULONG64 offset);
 int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
@@ -501,4 +483,3 @@ static bool SListForEach(ExtRemoteTyped list,  Fn fn)
     }
     return false;
 }
-#endif //JD_PRIVATE
