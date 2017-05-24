@@ -27,7 +27,7 @@
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4458;     <!-- declaration of '' hides class memeber --></DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;JD_PRIVATE_CMDS;MPH_CMDS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
           $(ChakraRootDirectory)private\bin\ChakraDiag;
           $(ChakraRootDirectory)private\bin\jdtest;

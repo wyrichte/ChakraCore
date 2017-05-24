@@ -117,12 +117,10 @@ bool EXT_CLASS_BASE::IsJScript9()
 // Get cached JS module name
 PCSTR EXT_CLASS_BASE::GetModuleName()
 {
-#ifdef MPH_CMDS
     if (this->inMPHCmd)
     {
         return this->memGCModule;
     }
-#endif
 
     if (m_moduleName[0] == '\0') {
         ULONG index = DEBUG_ANY_ID;
