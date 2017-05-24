@@ -7,11 +7,6 @@
 #define VER_FILESUBTYPE                 VFT2_UNKNOWN
 #define VER_FILEDESCRIPTION_STR         L"Microsoft \x00ae JScript\0"
 #define VER_FILETYPE                    VFT_DLL
-
-#ifdef JD_PRIVATE_CMDS
 #define VER_INTERNALNAME_STR            "jd.dll"
-#else
-#define VER_INTERNALNAME_STR            "mphext.dll"
-#endif
 
 #include "common.ver"

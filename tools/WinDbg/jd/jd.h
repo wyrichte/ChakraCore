@@ -121,9 +121,7 @@ private:
 
 class EXT_CLASS_BASE : public ExtExtension
     , public DummyTestGroup
-#ifdef MPH_CMDS
     , public MphCmdsWrapper
-#endif
 {
 protected:
     static HRESULT PrivateCoCreate(LPCWSTR strModule, REFCLSID rclsid, REFIID iid, LPVOID* ppunk);
@@ -374,21 +372,11 @@ protected:
     
 };
 
-#ifdef JD_PRIVATE_CMDS
 #define JD_PRIVATE_COMMAND(_Name, _Desc, _Args) \
     EXT_COMMAND(_Name, _Desc, _Args)
-#else
-#define JD_PRIVATE_COMMAND(_Name, _Desc, _Args) \
-    void EXT_CLASS::##_Name()
-#endif
 
-#ifdef MPH_CMDS
 #define MPH_COMMAND(_Name, _Desc, _Args) \
     EXT_COMMAND(_Name, _Desc, _Args)
-#else
-#define MPH_COMMAND(_Name, _Desc, _Args) \
-    void EXT_CLASS::##_Name()
-#endif
 
 #define JD_PRIVATE_COMMAND_METHOD EXT_COMMAND_METHOD
 #define MPH_COMMAND_METHOD EXT_COMMAND_METHOD

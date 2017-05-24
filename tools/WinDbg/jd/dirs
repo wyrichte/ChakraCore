@@ -1,3 +1,2 @@
 DIRS=\
     private{noncrit} \
-    mph{noncrit} \
