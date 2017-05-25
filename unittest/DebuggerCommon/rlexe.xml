@@ -32,7 +32,6 @@
     <default>
       <files>ES6_intl_stepinto.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_intl_stepinto.js.dbg.baseline -Intl</compile-flags>
-      <baseline>ES6_intl_stepinto.js.baseline</baseline>
       <tags>exclude_winglob</tags>
     </default>
   </test>
