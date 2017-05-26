@@ -90,3 +90,4 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "TypeHandlerPropertyNameReader.h"
 
 #include "dbghelp.h"
+#include "RemoteVar.h"

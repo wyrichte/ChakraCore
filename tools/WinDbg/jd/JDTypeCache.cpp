@@ -175,6 +175,24 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             auto newString = new std::string(std::string(moduleName) + "!Js::JavascriptDate");
             vtableTypeNameMap[offset] = newString;
         }
+
+        // Js::RuntimeFunction vtable may be ICF'ed with Js::JavascriptPromise*Function and JavascriptTypedObjectSlotAccessorFunction
+        // It is preferable to always report Js::RuntimeFunction for all of them.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::RuntimeFunction");
+        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(moduleName) + "!Js::RuntimeFunction");
+            vtableTypeNameMap[offset] = newString;
+        }
+
+        // Js::RecyclableObject vtable may be ICF'ed with Js::ThrowErrorObject and Js::UndeclaredBlockVariable
+        // It is preferable to always report Js::RecyclableObject for all of them.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::RecyclableObject");
+        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(moduleName) + "!Js::RecyclableObject");
+            vtableTypeNameMap[offset] = newString;
+        }
     }
 
     auto i = vtableTypeNameMap.find(vtableAddr);

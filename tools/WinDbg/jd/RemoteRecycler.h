@@ -15,7 +15,7 @@ public:
     ExtRemoteTyped GetExtRemoteTyped();
 
     template <typename Fn>
-    void ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn);
+    bool ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn);
 
     ULONG64 GetExternalRootMarker();
     ULONG64 GetPtr();
@@ -44,33 +44,64 @@ private:
 };
 
 template <typename Fn>
-void RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
+bool RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
 {
-    fn(leafPageAllocatorName, RemotePageAllocator(recycler.Field("threadPageAllocator")));
-    fn("WriteWatch", RemotePageAllocator(recycler.Field("recyclerPageAllocator")));
+    if (fn(leafPageAllocatorName, RemotePageAllocator(recycler.Field("threadPageAllocator"))))
+    {
+        return true;
+    }
+    if (fn("WriteWatch", RemotePageAllocator(recycler.Field("recyclerPageAllocator"))))
+    {
+        return true;
+    }
     if (recycler.HasField("recyclerLargeBlockPageAllocator"))
     {
-        fn("WriteWatchLarge", RemotePageAllocator(recycler.Field("recyclerLargeBlockPageAllocator")));
+        if (fn("WriteWatchLarge", RemotePageAllocator(recycler.Field("recyclerLargeBlockPageAllocator"))))
+        {
+            return true;
+        }
     } 
     if (recycler.HasField("recyclerWithBarrierPageAllocator"))
     {
-        fn("WriteBarrier", RemotePageAllocator(recycler.Field("recyclerWithBarrierPageAllocator")));
+        if (fn("WriteBarrier", RemotePageAllocator(recycler.Field("recyclerWithBarrierPageAllocator"))))
+        {
+            return true;
+        }
     }
     if (recycler.HasField("markStackPageAllocator"))
     {
-        fn("MarkStack", RemotePageAllocator(recycler.Field("markStackPageAllocator")));
+        if (fn("MarkStack", RemotePageAllocator(recycler.Field("markStackPageAllocator"))))
+        {
+            return true;
+        }
     }
     else
     {
         // MarkContext
-        fn("MarkCxt", RemotePageAllocator(recycler.Field("markContext").Field("pagePool").Field("pageAllocator")));
-        fn("ParaMarkCxt1", RemotePageAllocator(recycler.Field("parallelMarkContext1").Field("pagePool").Field("pageAllocator")));
-        fn("ParaMarkCxt2", RemotePageAllocator(recycler.Field("parallelMarkContext2").Field("pagePool").Field("pageAllocator")));
-        fn("ParaMarkCxt3", RemotePageAllocator(recycler.Field("parallelMarkContext3").Field("pagePool").Field("pageAllocator")));
+        if (fn("MarkCxt", RemotePageAllocator(recycler.Field("markContext").Field("pagePool").Field("pageAllocator"))))
+        {
+            return true;
+        }
+        if (fn("ParaMarkCxt1", RemotePageAllocator(recycler.Field("parallelMarkContext1").Field("pagePool").Field("pageAllocator"))))
+        {
+            return true;
+        }
+        if (fn("ParaMarkCxt2", RemotePageAllocator(recycler.Field("parallelMarkContext2").Field("pagePool").Field("pageAllocator"))))
+        {
+            return true;
+        }
+        if (fn("ParaMarkCxt3", RemotePageAllocator(recycler.Field("parallelMarkContext3").Field("pagePool").Field("pageAllocator"))))
+        {
+            return true;
+        }
     }  
 
     if (recycler.HasField("backgroundProfilerPageAllocator"))
     {
-        fn("BGProfiler", RemotePageAllocator(recycler.Field("backgroundProfilerPageAllocator")));
+        if (fn("BGProfiler", RemotePageAllocator(recycler.Field("backgroundProfilerPageAllocator"))))
+        {
+            return true;
+        }
     }
+    return false;
 }

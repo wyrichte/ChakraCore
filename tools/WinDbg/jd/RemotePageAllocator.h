@@ -17,7 +17,7 @@ public:
     static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed, ULONG64 unused);
     void DisplayData(PCSTR name, bool showZeroEntries);
     template <typename Fn>
-    void ForEachSegment(Fn fn)
+    bool ForEachSegment(Fn fn)
     {
         char* segmentsNames[] = { "segments", "fullSegments", "emptySegments", "decommitSegments", "largeSegments" };
 
@@ -31,12 +31,13 @@ public:
                 {
                     if (fn(segmentsNames[i], curr.Field("node.data")))
                     {
-                        break;
+                        return true;
                     }
                     curr = curr.Field("base.next");
                 }
             }
         }
+        return false;
     }
     ExtRemoteTyped GetExtRemoteTyped() { return pageAllocator; }
 private:

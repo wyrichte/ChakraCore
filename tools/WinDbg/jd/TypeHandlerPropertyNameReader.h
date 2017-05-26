@@ -24,7 +24,7 @@ private:
     EXT_CLASS_BASE::PropertyNameReader m_reader;
 
 public:
-    TypeHandlerPropertyIdNameReader(ExtRemoteTyped threadContext)
+    TypeHandlerPropertyIdNameReader(RemoteThreadContext threadContext)
         : m_reader(threadContext)
     {
     }

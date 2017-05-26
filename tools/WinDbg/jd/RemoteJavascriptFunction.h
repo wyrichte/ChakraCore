@@ -14,4 +14,6 @@ public:
     RemoteScriptFunction AsScriptFunction();
 
     RemoteFunctionInfo GetFunctionInfo();
+
+    void Print();
 };

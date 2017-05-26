@@ -74,34 +74,49 @@ public:
     }
 
     template <typename Fn>
-    void ForEachPageAllocator(Fn fn)
+    bool ForEachPageAllocator(Fn fn)
     {        
         RemoteRecycler recycler = this->GetRecycler();
         if (recycler.GetPtr() == 0)
         {
             // Recycler not initialized?  Just print the thread one
-            fn("Thread", RemotePageAllocator(threadContext.Field("pageAllocator")));            
+            if (fn("Thread", RemotePageAllocator(threadContext.Field("pageAllocator"))))
+            {
+                return true;
+            }
         }
         else if (threadContext.HasField("leafPageAllocator"))
         {
-            fn("Thread", RemotePageAllocator(threadContext.Field("pageAllocator")));            
-            recycler.ForEachPageAllocator("RecyclerLeaf", fn);
+            if (fn("Thread", RemotePageAllocator(threadContext.Field("pageAllocator")))
+                || recycler.ForEachPageAllocator("RecyclerLeaf", fn))
+            {
+                return true;
+            }
         }
         else
         {
-            recycler.ForEachPageAllocator("Thread", fn);
+            if (recycler.ForEachPageAllocator("Thread", fn))
+            {
+                return true;
+            }
         }
 
         if (threadContext.HasField("diagnosticPageAllocator"))
         {
-            fn("Diag", RemotePageAllocator(threadContext.Field("diagnosticPageAllocator")));
+            if (fn("Diag", RemotePageAllocator(threadContext.Field("diagnosticPageAllocator"))))
+            {
+                return true;
+            }
         }
         else if (threadContext.HasField("debugManager"))
         {
             ExtRemoteTyped debugManager = threadContext.Field("debugManager");
             if (debugManager.GetPtr() != 0)
             {
-                fn("Diag", RemotePageAllocator(debugManager.Field("diagnosticPageAllocator")));
+                if (fn("Diag", RemotePageAllocator(debugManager.Field("diagnosticPageAllocator"))))
+                {
+                    return true;
+                }
             }
         }
         
@@ -117,13 +132,19 @@ public:
                     ExtRemoteTyped parallelThreadData = backgroundJobProcessor.Field("parallelThreadData");
                     for (uint i = 0; i < maxThreadCount; i++)
                     {
-                        fn("BGJob", RemotePageAllocator(parallelThreadData.ArrayElement(i).Field("backgroundPageAllocator")));
+                        if (fn("BGJob", RemotePageAllocator(parallelThreadData.ArrayElement(i).Field("backgroundPageAllocator"))))
+                        {
+                            return true;
+                        }
                     }
                 }
                 else
                 {
                     // IE11 don't have parallel parse
-                    fn("BGJob", RemotePageAllocator(backgroundJobProcessor.Field("backgroundPageAllocator")));
+                    if (fn("BGJob", RemotePageAllocator(backgroundJobProcessor.Field("backgroundPageAllocator"))))
+                    {
+                        return true;
+                    }
                 }
             }
         }        
@@ -137,27 +158,45 @@ public:
             if (codePageAllocators.HasField("preReservedHeapAllocator"))
             {
                 // Renamed in commit ac56bc05618bf964cce48213d2d503e88d5f4536: Use Sections for OOP JIT
-                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapAllocator")));
+                if (fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapAllocator"))))
+                {
+                    return true;
+                }
             }
             else
             {
-                fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator")));
+                if (fn("CodePreRes", RemotePageAllocator(codePageAllocators.Field("preReservedHeapPageAllocator"))))
+                {
+                    return true;
+                }
             }
-            fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator")));
+            if (fn("Code", RemotePageAllocator(codePageAllocators.Field("pageAllocator"))))
+            {
+                return true;
+            }
 
             ExtRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
             if (thunkPageAllocators.HasField("preReservedHeapAllocator"))
             {
-                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapAllocator")));
+                if (fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapAllocator"))))
+                {
+                    return true;
+                }
             }
             else
             {
-                fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator")));
+                if (fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapPageAllocator"))))
+                {
+                    return true;
+                }
             }
-            fn("CodeThunk", RemotePageAllocator(thunkPageAllocators.Field("pageAllocator")));
+            if (fn("CodeThunk", RemotePageAllocator(thunkPageAllocators.Field("pageAllocator"))))
+            {
+                return true;
+            }
         }
 
-        this->ForEachScriptContext([fn](RemoteScriptContext scriptContext)
+        return this->ForEachScriptContext([fn](RemoteScriptContext scriptContext)
         {
             scriptContext.ForEachPageAllocator(fn);
             return false;

@@ -45,8 +45,8 @@ public:
 class RemoteSimpleTypeHandler : public RemoteTypeHandler
 {
 public:
-    RemoteSimpleTypeHandler()
-        : RemoteTypeHandler("Js::SimpleTypeHandler")
+    RemoteSimpleTypeHandler(PCSTR name)
+        : RemoteTypeHandler(name)
     {
     }
 

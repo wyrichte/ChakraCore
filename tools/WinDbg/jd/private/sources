@@ -38,6 +38,8 @@ SOURCES = \
         ..\RemoteHeapBlockMap.cpp \
         ..\RemoteBitVector.cpp \
         ..\RemoteBaseDictionary.cpp \
+        ..\RemoteVar.cpp \
+        ..\RemoteDynamicObject.cpp \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
         ..\JDTypeCache.cpp \

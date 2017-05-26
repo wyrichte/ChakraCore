@@ -441,61 +441,6 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* 
     return DumpPossibleSymbol(node->Key(), makeLink, showScriptContext);    
 }
 
-bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const * typeName, bool makeLink, bool showScriptContext)
-{
-    if (strstr(typeName, "ArrayObjectInstance") != 0 ||
-        strstr(typeName, "Js::CustomExternalObject") != 0)
-    {
-        ULONG64 offsetOfExternalObject = 0x18;
-
-        if (this->m_PtrSize == 8)
-        {
-            offsetOfExternalObject = 0x30;
-        }
-
-        ULONG64 externalObject = object.GetPtr() + offsetOfExternalObject;
-        ULONG64 domObject = GetPointerAtAddress(externalObject);
-        if (domObject != NULL)
-        {
-            try
-            {
-                ULONG64 domVtable = GetPointerAtAddress(domObject);
-                std::string symbol = GetSymbolForOffset(domVtable);
-
-                if (!symbol.empty())
-                {
-                    this->Out(" (maybe DOM item %s)", symbol.c_str());
-                }
-                else
-                {
-                    this->Out(" (0x%p)", externalObject);
-                }
-            }
-            catch (ExtException ex)
-            {
-                this->Err(" (fail to deref 0x%p, Error: %s)", domObject, ex.GetMessageW());
-            }
-        }
-        return true;
-    }
-    if (strstr(typeName, "JavascriptDispatch") != 0)
-    {
-        ExtRemoteTyped scriptObject = object.Field("scriptObject");
-        ULONG64 scriptObjectPointer = scriptObject.GetPtr();
-        // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
-        if (scriptObjectPointer)
-        {
-            this->Out(" [ScriptObject");
-            if (!DumpPossibleSymbol(scriptObjectPointer, makeLink, showScriptContext))
-            {
-                this->Out(" = 0x%p", scriptObjectPointer);
-            }
-            this->Out("]");
-        }
-        return true;
-    }
-    return false;
-}
 
 bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool showScriptContext)
 {
@@ -542,7 +487,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     }
     this->Out("%s", typeName);
 
-    DumpPossibleExternalSymbol(object, typeName, makeLink, showScriptContext);    
+    RemoteRecyclableObject(object).DumpPossibleExternalSymbol(typeName, makeLink, showScriptContext);    
 
     return true;
 }

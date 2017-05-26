@@ -36,3 +36,30 @@ RemoteJavascriptFunction::GetFunctionInfo()
 {
     return object.Field("functionInfo");
 }
+
+void
+RemoteJavascriptFunction::Print()
+{
+    RemoteFunctionInfo functionInfo = this->GetFunctionInfo();
+    if (functionInfo.HasBody())
+    {
+        RemoteFunctionBody functionBody = functionInfo.GetFunctionBody();
+        g_Ext->Out(_u("  [FunctionBody] "));
+        functionBody.PrintNameAndNumberWithLink();
+        g_Ext->Out(_u(" "));
+        functionBody.PrintByteCodeLink();
+        g_Ext->Out("\n");
+    }
+    else
+    {
+        std::string symbol = GetSymbolForOffset(functionInfo.GetOriginalEntryPoint());
+        if (!symbol.empty())
+        {
+            g_Ext->Out("  [NativeEntry] %s", symbol.c_str());
+        }
+        else
+        {
+            object.Field("functionInfo").OutFullValue();
+        }
+    }
+}

@@ -22,7 +22,9 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
 }
 
 static RemoteNullTypeHandler s_nullTypeHandler;
-static RemoteSimpleTypeHandler s_simpleTypeHandler;
+static RemoteSimpleTypeHandler s_simpleTypeHandler("Js::SimpleTypeHandler");
+static RemoteSimpleTypeHandler s_simpleTypeHandler1_11("Js::SimpleTypeHandler<1>");
+static RemoteSimpleTypeHandler s_simpleTypeHandler2_11("Js::SimpleTypeHandler<2>");
 static RemoteSimplePathTypeHandler s_simplePathTypeHandler;
 static RemotePathTypeHandler s_pathTypeHandler;
 
@@ -50,6 +52,8 @@ static RemoteTypeHandler* s_typeHandlers[] =
 {
     &s_nullTypeHandler,
     &s_simpleTypeHandler,
+    &s_simpleTypeHandler1_11,
+    &s_simpleTypeHandler2_11,
     &s_simplePathTypeHandler,
     &s_pathTypeHandler,
 
@@ -574,344 +578,25 @@ JD_PRIVATE_COMMAND(prop,
 }
 
 
-EXT_CLASS_BASE::TaggedIntUsage EXT_CLASS_BASE::GetTaggedIntUsage()
+bool EXT_CLASS_BASE::GetTaggedInt31Usage()
 {
-    if (!m_taggedIntUsage.HasValue())
+    if (!m_taggedInt31Usage.HasValue())
     {
         ULONG64 offset;
-        m_taggedIntUsage = SUCCEEDED(m_Symbols->GetOffsetByName(FillModule("%s!Js::TaggedInt::Divide"), &offset)) ?
-        TaggedInt_TaggedInt : TaggedInt_Int31;
+        m_taggedInt31Usage = FAILED(m_Symbols->GetOffsetByName(FillModule("%s!Js::TaggedInt::Divide"), &offset));
     }
-    return m_taggedIntUsage;
+    return m_taggedInt31Usage;
 }
 
-bool EXT_CLASS_BASE::IsInt31Var(ULONG64 var, int* value)
-{
-    if (!DoInt32Var())
-    {
-        if (GetTaggedIntUsage() == TaggedInt_Int31) // IE9
-        {
-            if (var & 1)
-            {
-                *value = ((int)var) >> 1;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-bool EXT_CLASS_BASE::IsTaggedIntVar(ULONG64 var, int* value)
-{
-    if (GetTaggedIntUsage() == TaggedInt_TaggedInt)
-    {
-        if (DoInt32Var())
-        {
-            if ((var >> 48) == 1)
-            {
-                *value = (int)var;
-                return true;
-            }
-        }
-        else
-        {
-            if (var & 1)
-            {
-                *value = ((int)var) >> 1;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-bool EXT_CLASS_BASE::IsFloatVar(ULONG64 var, double* value)
-{
-    if (DoFloatVar())
-    {
-        if ((uint64)var >> 50)
-        {
-            *(uint64*)value = var ^ FloatTag_Value;
-            return true;
-        }
-    }
-    return false;
-}
 
 JD_PRIVATE_COMMAND(var,
     "Print var",
+    "{s;b,o;printSlotIndex;Print slot index}"
     "{;s;var;Expression that evaluates to var}")
 {
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
-    ULONG64 var = varTyped.GetPtr();
-
-    PrintVar(var, 0);
-}
-
-void EXT_CLASS_BASE::PrintVar(bool printSlotIndex, ULONG64 var, int depth)
-{
-    int intValue;
-    double dblValue;
-    if (IsInt31Var(var, &intValue)) {
-        Out("Int31 0n%d\n", intValue);
-        return;
-    } else if (IsTaggedIntVar(var, &intValue)) {
-        Out("TaggedInt 0n%d\n", intValue);
-        return;
-    } else if (IsFloatVar(var, &dblValue)) {
-        Out("FloatVar %f\n", dblValue);
-        return;
-    }
-    std::string className = GetTypeNameFromVTableOfObject(var);
-    if (className.empty())
-    {
-        this->ThrowLastError("Pointer doesn't have a valid vtable");
-    }
-
-    ExtRemoteTyped obj(className.c_str(), var, true);
-    ExtRemoteTyped typeId = obj.Field("type.typeId");
-
-    const char* typeIdStr = JDUtil::GetEnumString(typeId);
-    if (depth == 0)
-    {
-        if (PreferDML())
-        {
-            std::string encodedClassName = JDUtil::EncodeDml(className.c_str());
-            Dml("%s * <link cmd=\"dt %s 0x%p\">0x%p</link> (%s)", JDUtil::StripModuleName(encodedClassName.c_str()),
-                encodedClassName.c_str(), var, var, typeIdStr);
-        }
-        else
-        {
-            Out("%s * 0x%p (%s) /*\"dt %s 0x%p\" to display*/", JDUtil::StripModuleName(className.c_str()),
-                var, typeIdStr, className.c_str(), var);
-        }
-        DumpPossibleExternalSymbol(obj, className.c_str());
-        Out("\n");
-    }
-
-    if(strcmp(typeIdStr, "TypeIds_Undefined") == 0)
-    {
-        Out("undefined\n");
-        return; // done
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Null") == 0)
-    {
-        Out("null\n");
-        return; // done
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Boolean") == 0)
-    {
-        Out(obj.Field("value").GetW32Bool() ? "true\n" : "false\n");
-        return; // done
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
-    {
-        obj.Field("m_value").OutFullValue();
-        return; // done
-    }
-    else if (strcmp(typeIdStr, "TypeIds_String") == 0)
-    {
-        Out("\"%mu\"\n", obj.Field("m_pszValue").GetPtr());
-        return; // done
-    }
-    else if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
-    {
-        if (depth == 0)
-        {
-            ExtRemoteTyped value = obj.Field("value");
-            PrintSimpleVarValue(value);
-        }
-        else
-        {
-            PrintSimpleVarValue(obj);
-        }
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
-    {
-        if (depth == 0)
-        {
-            RemoteFunctionInfo functionInfo(obj.Field("functionInfo"));
-            if (functionInfo.HasBody())
-            {
-                RemoteFunctionBody functionBody = functionInfo.GetFunctionBody();
-                Out(_u("  [FunctionBody] "));
-                functionBody.PrintNameAndNumberWithLink();
-                Out(_u(" "));
-                functionBody.PrintByteCodeLink();
-                Out("\n");
-            }
-            else
-            {
-                std::string symbol = GetSymbolForOffset(functionInfo.GetOriginalEntryPoint());
-                if (!symbol.empty())
-                {
-                    Out("  [NativeEntry] %s", symbol.c_str());
-                }
-                else
-                {
-                    obj.Field("functionInfo").OutFullValue();
-                }
-            }
-        }
-        else
-        {
-            PrintSimpleVarValue(obj);
-        }
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
-    {
-        if (depth == 0)
-        {
-            obj.Field("head").OutFullValue();
-        }
-        else
-        {
-            PrintSimpleVarValue(obj);
-        }
-    }
-    else
-    {
-        if (depth != 0)
-        {
-            PrintSimpleVarValue(obj);
-        }
-    }
-
-    if (depth == 0)
-    {
-        ExtRemoteTyped prototype = obj.Field("type.prototype");
-        Out("\n[prototype] ");
-        PrintSimpleVarValue(prototype);
-        Out("[properties] ");
-        PrintProperties(var, depth + 1);
-    }
-}
-
-void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
-{
-    std::string typeName = this->GetTypeNameFromVTableOfObject(obj.GetPtr());
-    PCSTR typeNameString;
-    if (!typeName.empty())
-    {
-        typeNameString = JDUtil::StripModuleName(typeName.c_str());
-    }
-    else
-    {
-        typeNameString = obj.GetTypeName();
-    }
-    if (PreferDML())
-    {
-        std::string encodedTypeName = JDUtil::EncodeDml(typeNameString);
-        Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", obj.GetPtr(), encodedTypeName.c_str(), obj.GetPtr(),
-            JDUtil::GetEnumString(obj.Field("type.typeId")));
-    }
-    else
-    {
-        Out("%s * 0x%p</link> (%s) /*\"!jd.var 0x%p\" to display*/\n", typeNameString, obj.GetPtr(),
-            JDUtil::GetEnumString(obj.Field("type.typeId")), obj.GetPtr());
-    }
-}
-
-class ObjectPropertyDumper : public ObjectPropertyListener
-{
-private:
-    bool printSlotIndex;
-    int m_depth;
-    TypeHandlerPropertyNameReader* m_propertyNameReader;
-
-public:
-    ObjectPropertyDumper(int depth, TypeHandlerPropertyNameReader* propertyNameReader, bool printSlotIndex)
-        : m_depth(depth), m_propertyNameReader(propertyNameReader), printSlotIndex(printSlotIndex)
-    {
-    }
-
-    virtual void Enumerate(ExtRemoteTyped& name, LONG slot, ULONG64 value, LONG slot1, ULONG64 value1) const override
-    {
-        ULONG64 pName;
-        if (strcmp(JDUtil::StripStructClass(name.GetTypeName()), "Js::JavascriptString *") == 0)
-        {
-            pName = name.Field("m_pszValue").GetPtr();
-        }
-        else
-        {
-            pName = m_propertyNameReader->GetPropertyName(name);
-        }
-        GetExtension()->PrintProperty(printSlotIndex, pName, slot, value, slot1, value1, m_depth);
-    }
-
-    static void Enumerate(ExtRemoteTyped& obj, RemoteTypeHandler* typeHandler, TypeHandlerPropertyNameReader* reader, int depth, bool printSlotIndex)
-    {
-        ObjectPropertyDumper dumper(depth, reader, printSlotIndex);
-        typeHandler->EnumerateProperties(obj, dumper);
-    }
-};
-
-void EXT_CLASS_BASE::PrintProperties(bool printSlotIndex, ULONG64 var, int depth)
-{
-    ExtRemoteTyped obj(FillModule("(%s!Js::DynamicObject*)@$extin"), var);
-    ExtRemoteTyped type(FillModule("(%s!Js::DynamicType*)@$extin"), obj.Field("type").GetPtr());
-    ExtRemoteTyped typeHandler = type.Field("typeHandler");
-
-    RemoteTypeHandler* pRemoteTypeHandler = GetTypeHandler(obj, typeHandler);
-
-    if (depth == 1)
-    {
-        std::string typeName;
-        PCSTR typeHandlerName = "Unknown handler type";
-        if (pRemoteTypeHandler)
-        {
-            typeHandlerName = pRemoteTypeHandler->GetName();
-        }
-        else
-        {
-            typeName = this->GetTypeNameFromVTableOfObject(typeHandler.GetPtr());
-            if (!typeName.empty())
-            {
-                typeHandlerName = JDUtil::StripModuleName(typeName.c_str());
-            }
-        }
-        Out("%s * ", pRemoteTypeHandler ? pRemoteTypeHandler->GetName() : typeHandlerName);
-        typeHandler.OutSimpleValue();
-        Out("\n");
-    }
-
-    if (pRemoteTypeHandler)
-    {
-        if (m_usingPropertyRecordInTypeHandlers)
-        {
-            TypeHandlerPropertyRecordNameReader reader;
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth, printSlotIndex);
-        }
-        else
-        {
-            TypeHandlerPropertyIdNameReader reader(GetThreadContextFromObject(obj));
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth, printSlotIndex);
-        }
-    }
-}
-
-bool EXT_CLASS_BASE::PrintProperty(bool printSlotIndex, ULONG64 name, LONG slot, ULONG64 value, LONG slot1, ULONG64 value1, int depth)
-{
-    // indent
-    for (int i = 0; i < depth; i++)
-    {
-        Out("   ");
-    }
-
-    Out("%-12mu : ", name);
-    try
-    {
-        PrintVar(value, depth);
-    }
-    catch (ExtException)
-    {
-        Out("%p <ERROR: Not a valid Var>\n", value);
-    }
-
-    if (value1)
-    {
-        PrintProperty(printSlotIndex, name, slot, value1, -1, 0, depth);
-    }
-    return true;
+    RemoteVar var = varTyped.GetPtr();
+    var.Print(this->HasArg("s"), 0);
 }
 
 bool EXT_CLASS_BASE::GetUsingInlineSlots(ExtRemoteTyped& typeHandler)
@@ -969,24 +654,6 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
     return GetTypeNameFromVTable(vtablename.c_str());
 }
 
-std::string EXT_CLASS_BASE::GetTypeNameFromVTableOfObject(ULONG64 objectAddress)
-{
-    return GetTypeNameFromVTable(ExtRemoteData(objectAddress, this->m_PtrSize).GetPtr());
-}
-
-ULONG64 EXT_CLASS_BASE::GetRemoteVTable(PCSTR type)
-{
-    auto symbol = GetRemoteVTableName(type);
-
-    ULONG64 vtable;
-    if (FAILED(m_Symbols->GetOffsetByName(symbol.c_str(), &vtable)))
-    {
-        vtable = 0;
-    }
-    return vtable;
-}
-
-
 // Get RemoteTypeHandler for a DynamicObject
 RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler)
 {
@@ -1038,19 +705,6 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
     }
 
     return NULL;
-}
-
-ExtRemoteTyped EXT_CLASS_BASE::GetThreadContextFromObject(ExtRemoteTyped& obj)
-{
-    auto type = obj.Field("type");
-
-    if (!m_usingLibraryInType.HasValue())
-    {
-        m_usingLibraryInType = type.HasField("javascriptLibrary");
-    }
-
-    return m_usingLibraryInType ?
-        type.Field("javascriptLibrary.scriptContext.threadContext") : type.Field("globalObject.scriptContext.threadContext");
 }
 
 void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bool showAll, bool showLink)

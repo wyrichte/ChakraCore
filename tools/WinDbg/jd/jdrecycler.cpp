@@ -2181,31 +2181,31 @@ JD_PRIVATE_COMMAND(findpage,
 {
 
     ULONG64 targetAddress = this->GetUnnamedArgU64(0);
-
-
-    RemoteThreadContext::ForEach([&](RemoteThreadContext threadContext)
+    bool found = RemoteThreadContext::ForEach([&](RemoteThreadContext threadContext)
     {
-        this->Out("Thread context: %p\n", threadContext.GetPtr());
-        threadContext.ForEachPageAllocator([&](PCSTR name, RemotePageAllocator pageAllocator)
+        return threadContext.ForEachPageAllocator([&](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            pageAllocator.ForEachSegment([&](PCSTR segName, ExtRemoteTyped pageSegment)->bool {
+            return pageAllocator.ForEachSegment([&](PCSTR segName, ExtRemoteTyped pageSegment) {
                 ULONG64 address = pageSegment.Field("address").GetUlongPtr();
                 ULONG pageCount = pageSegment.Field("segmentPageCount").GetUlong();
                 if (address <= targetAddress && pageCount * g_Ext->m_PageSize + address > targetAddress)
                 {
+                    this->Out("Thread context: %p\n", threadContext.GetPtr());
                     this->Out("Page Allocator: %p, %s\n", pageAllocator.GetExtRemoteTyped().GetPointerTo().GetPtr(), name);
                     pageAllocator.GetExtRemoteTyped().OutFullValue();
                     this->Out("PageSegment:%p, %s\n", pageSegment.GetPointerTo().GetPtr(), segName);
                     pageSegment.OutFullValue();
+                    return true;
                 }
                 return false;
             });
-            return false;
         });
-
-
-        return false; // Don't stop iterating
     });
+
+    if (!found)
+    {
+        this->Out("Address %p is not in any Chakra's page allocators\n", targetAddress);
+    }
 }
 
 #pragma endregion()

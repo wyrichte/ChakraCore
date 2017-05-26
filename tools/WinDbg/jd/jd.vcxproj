@@ -53,7 +53,7 @@
         oleaut32.lib;        
         %(AdditionalDependencies)
     </AdditionalDependencies>
-    <AdditionalLibraryDirectories>
+     <AdditionalLibraryDirectories>
         $(SdkLibPath);
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
         $(InternalSdkLibPath);
@@ -79,6 +79,7 @@
     <ClCompile Include="RecyclerRoots.cpp" />
     <ClCompile Include="RemoteBaseDictionary.cpp" />
     <ClCompile Include="RemoteBitVector.cpp" />
+    <ClCompile Include="RemoteDynamicObject.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
     <ClCompile Include="RemoteHeapBlock.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="JDRemoteTyped.cpp" />
     <ClCompile Include="RemoteTypeHandler.cpp" />
     <ClCompile Include="RemoteUtf8SourceInfo.cpp" />
+    <ClCompile Include="RemoteVar.cpp" />
     <ClCompile Include="ScriptDebugSite.cpp" />
     <ClCompile Include="jd.cpp" />
     <ClCompile Include="jdrecycler.cpp" />
@@ -118,6 +120,7 @@
     <ClInclude Include="FieldInfoCache.h" />
     <ClInclude Include="RemoteBaseDictionary.h" />
     <ClInclude Include="RemoteBitVector.h" />
+    <ClInclude Include="RemoteDynamicObject.h" />
     <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RecyclerObjectGraph.h" />
     <ClInclude Include="RemoteHeapBlockMap.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="JDRemoteTyped.h" />
     <ClInclude Include="RemoteTypeHandler.h" />
     <ClInclude Include="RemoteUtf8SourceInfo.h" />
+    <ClInclude Include="RemoteVar.h" />
     <ClInclude Include="ScriptDebugSite.h" />
     <ClInclude Include="jd.h" />
     <ClInclude Include="stdafx.h" />

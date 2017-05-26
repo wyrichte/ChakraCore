@@ -9,6 +9,7 @@ class RootPointers;
 #include <guiddef.h>
 #include "RecyclerObjectGraph.h"
 #include "RemoteRecyclableObject.h"
+#include "RemoteDynamicObject.h"
 #include "RemoteUtf8SourceInfo.h"
 #include "RemoteFunctionInfo.h"
 #include "RemoteFunctionBody.h"
@@ -140,8 +141,7 @@ public:
 
     virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
-
-    bool PrintProperty(bool printSlotIndex, ULONG64 name, LONG slot, ULONG64 value, LONG slot1 = -1, ULONG64 value1 = 0, int depth = 0);
+    
     bool GetUsingInlineSlots(ExtRemoteTyped& typeHandler);
     void Out(_In_ PCSTR fmt, ...);
     void Out(_In_ PCWSTR fmt, ...);
@@ -151,7 +151,6 @@ public:
 
     bool DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink = true, bool showScriptContext = false);
     bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
-    bool DumpPossibleExternalSymbol(JDRemoteTyped object, char const * typeName, bool makeLink = true, bool showScriptContext = false);
 
     HRESULT CppEvalExprU64NoThrow(_In_ PCSTR Str, _Out_ ULONG64 &result)
     {
@@ -202,8 +201,6 @@ public:
     PCSTR GetSegmentType();
     PCSTR GetPageSegmentType();
 
-    ExtRemoteTyped GetThreadContextFromObject(ExtRemoteTyped& obj);
-
     ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
     bool InChakraModule(ULONG64 address);
@@ -240,8 +237,6 @@ public:
         return byteCodeCachedData;
     }
 
-
-    bool IsTaggedIntVar(ULONG64 var, int* value);
 private:
     JDByteCodeCachedData byteCodeCachedData;
 
@@ -269,19 +264,11 @@ protected:
     void PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
     void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
 
-    bool IsInt31Var(ULONG64 var, int* value);
-    bool IsFloatVar(ULONG64 var, double* value);
-
-    void PrintVar(bool printSlotIndex, ULONG64 var, int depth = 0);
-    void PrintProperties(bool printSlotIndex, ULONG64 var, int depth = 0);
-    void PrintSimpleVarValue(ExtRemoteTyped& obj);
     std::string GetRemoteVTableName(PCSTR type);
     std::string GetTypeNameFromVTable(PCSTR vtablename);
 public: // TODO (doilij) reorganize public member (this being public is needed for CSVX)
     std::string GetTypeNameFromVTable(ULONG64 vtableAddress);
 protected:
-    std::string GetTypeNameFromVTableOfObject(ULONG64 objectAddress);    
-    ULONG64 GetRemoteVTable(PCSTR type);
     RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
 
     void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
@@ -293,9 +280,6 @@ protected:
     void EnsureStackFrame(int frame = -1);
     void Print(IJsDebugProperty* prop, int radix, int maxDepth = 3);
     void Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int depth, int maxDepth);
-    
-    bool DoInt32Var() const { return this->m_PtrSize == 8; };  // 64-bit use int32 var
-    bool DoFloatVar() const { return this->m_PtrSize == 8; };  // 64-bit use float var
 
     bool IsMinidumpDebugging()
     {
@@ -327,7 +311,6 @@ public:
         return (T)var.GetData(var.GetTypeSize());
     }
 
-
 protected:
     char m_moduleName[16]; // jc or jscript9, access through GetModuleName()
     char m_fillModuleBuffer[1024]; // one temp buffer
@@ -342,17 +325,16 @@ protected:
     Nullable<bool> m_usingWeakRef;                  // If the build uses WeakRef
     Nullable<ULONG> m_propertyIdNone;               // What's the PropertyIds::_none value
     Nullable<bool> m_usingInlineSlots;              // If the build uses inline slots
-    Nullable<bool> m_usingLibraryInType;            // If the build uses javascriptLibrary in Type (older builds use globalObject)
     Nullable<bool> m_usingPropertyRecordInTypeHandlers;   // If the build uses PropertyRecord* in type handlers
     Nullable<bool> m_pageAllocatorHasExtendedCounters; // If the build has extended counter for page allocators
     Nullable<bool> m_isJITServer;
+    Nullable<bool> m_taggedInt31Usage;
 
-    enum TaggedIntUsage {
-        TaggedInt_Int31,    // IE9 uses Int31
-        TaggedInt_TaggedInt // IE10 uses Int32Var/FloatVar on amd64
-    };
-    Nullable<TaggedIntUsage> m_taggedIntUsage;
-    TaggedIntUsage GetTaggedIntUsage();
+    friend class RemoteVar;
+    bool GetTaggedInt31Usage();
+
+    friend class RemoteDynamicObject;
+    bool GetUsingPropertyRecordInTypeHandlers() { return m_usingPropertyRecordInTypeHandlers; }
 
     stdext::hash_map<ULONG64, RemoteTypeHandler*> m_typeHandlers;
     stdext::hash_map<std::string, RemoteTypeHandler*> m_typeHandlersByName;

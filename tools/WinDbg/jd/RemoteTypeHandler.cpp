@@ -116,8 +116,11 @@ void RemoteSimpleDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& o
         while ((T)currentIndex != (T)-1)
         {
             deletedIndex.insert(currentIndex);
-            ULONG64 value = slotReader.GetSlot(currentIndex);
-            GetExtension()->IsTaggedIntVar(value, &currentIndex);
+            RemoteVar value = slotReader.GetSlot(currentIndex);
+            if (!value.TryGetTaggedIntVar(&currentIndex))
+            {
+                g_Ext->ThrowLastError("Delete Property Index list corrupted");
+            }
         }
     }
 

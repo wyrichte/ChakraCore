@@ -39,6 +39,8 @@
     <ClCompile Include="JDTypeCache.cpp" />
     <ClCompile Include="RemoteBitVector.cpp" />
     <ClCompile Include="RemoteBaseDictionary.cpp" />
+    <ClCompile Include="RemoteVar.cpp" />
+    <ClCompile Include="RemoteDynamicObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -85,6 +87,8 @@
     <ClInclude Include="RemoteObjectInfoBits.h" />
     <ClInclude Include="RemoteBitVector.h" />
     <ClInclude Include="RemoteBaseDictionary.h" />
+    <ClInclude Include="RemoteVar.h" />
+    <ClInclude Include="RemoteDynamicObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />
