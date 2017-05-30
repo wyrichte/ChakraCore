@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Telemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DirectCall.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp" />
+    <ClCompile Include="Engine\EngineDataTelemetryProvider.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ESBuiltIns\OpcodeTelemetry.cpp">
+      <Filter>ESBuiltins</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DirectCall.h" />
+    <ClInclude Include="TelemetryProvider.h" />
+    <ClInclude Include="IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="LanguageTelemetry.h" />
+    <ClInclude Include="ScriptContextTelemetry.h" />
+    <ClInclude Include="ScriptEngineTelemetry.h" />
+    <ClInclude Include="TelemetryList.includes.h" />
+    <ClInclude Include="Telemetry.h" />
+    <ClInclude Include="TelemetryMacros.h" />
+    <ClInclude Include="TelemetryPch.h" />
+    <ClInclude Include="ESBuiltIns\ESBuiltinFields.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineDataTelemetryProvider.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\OpcodeTelemetry.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltIns\IOpcodeTelemetry.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ESBuiltins\ESBuiltinsSCT.h">
+      <Filter>ESBuiltins</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptContextTelemetryModules.h" />
+    <ClInclude Include="Engine\EngineDataSCT.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dirs" />
+    <None Include="ESBuiltIns\sources.inc" />
+    <None Include="sources.inc" />
+      <Filter>ESBuiltins</Filter>
+    </None>
+    <None Include="ESBuiltIns\ESBuiltInsTypeNames.inc">
+      <Filter>ESBuiltins</Filter>
+    </None>
+    <None Include="Engine\dirs">
+      <Filter>Engine</Filter>
+    </None>
+    <None Include="ESBuiltIns\dirs">
+      <Filter>ESBuiltins</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{ddca80fa-473d-45fb-b3e0-062626cbd0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ESBuiltins">
+      <UniqueIdentifier>{852f7878-7ab3-4671-bfef-c49a18bd8903}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

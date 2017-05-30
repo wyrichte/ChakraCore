@@ -15,6 +15,10 @@ private:
     ScriptContextTelemetry& scriptContextTelemetry;
     ESBuiltInsOpcodeTelemetry opcodeTelemetry;
     byte*                     usageMap;
+    
+    // this function needs to be able to access usageMap
+    //friend void ScriptContextTelemetry::OutputTraceLogging(GUID, DWORD, bool);
+    friend class ScriptContextTelemetry;
 
     void IncrementUseCount(const ESBuiltInPropertyId esBuiltInPropertyId);
 
@@ -23,8 +27,6 @@ private:
     size_t count_GetBuiltInTypeNameFunction;
     size_t count_GetBuiltInTypeNameObject;
     size_t count_GetBuiltInTypeNameOther;
-
-    Throttle throttle;
 
 #ifdef TELEMETRY_ESB_STRINGS
     ESBuiltInPropertyId GetESBuiltInPropertyId(const Js::JavascriptString* typeName, const Js::PropertyId propertyId);
@@ -37,8 +39,9 @@ public:
     ESBuiltInsTelemetryProvider(ScriptContextTelemetry& scriptContextTelemetry);
     ~ESBuiltInsTelemetryProvider();
 
-    void OutputPrint() override;
-    void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT) override;
+#ifdef TELEMETRY_OUTPUTPRINT
+    virtual void OutputPrint() override;
+#endif
 
     // Built-ins specific telemetry methods below:
 

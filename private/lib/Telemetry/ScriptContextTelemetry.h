@@ -4,8 +4,7 @@
 
 #include "IScriptContextTelemetryProvider.h"
 
-#include "OpcodeTelemetry.h"
-#include "KnownMethodTelemetry.h"
+#include "ESBuiltins/OpcodeTelemetry.h"
 
 typedef JsUtil::List<IScriptContextTelemetryProvider*,ArenaAllocator> TelemetryProviderList;
 
@@ -15,10 +14,15 @@ class ScriptContextTelemetry final
 private:
     Js::ScriptContext& scriptContext;
     TelemetryProviderList telemetryProviders;
+    Throttle throttle;
+
+    // Keep local references to the telemetry providers for their use later
+#define SCT_STATE -3
+#include "ScriptContextTelemetryModules.h"
+#undef SCT_STATE
     
     // Telemetry aspects:
     OpcodeTelemetry opcodeTelemetry; // Telemetry on specific interpreter opcodes - requires callbacks added to each opcode handler in InterpreterStackFrame
-    KnownMethodTelemetry knownMethodTelemetry; // Telemetry on specific known method calls - requires callbacks added to each desired known method
     
     template<typename Func>
     void ForEachTelemetryProvider( Func callback )
@@ -38,7 +42,6 @@ public:
     Js::ScriptContext& GetScriptContext() const;
     
     OpcodeTelemetry& GetOpcodeTelemetry();
-    KnownMethodTelemetry& GetKnownMethodTelemetry();
 
     void Initialize();
 
