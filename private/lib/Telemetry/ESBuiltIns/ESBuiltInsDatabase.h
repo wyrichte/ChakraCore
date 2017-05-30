@@ -27,7 +27,7 @@ enum class ESBuiltInPropertyId : uint32
 #define ENTRY_BUILTIN(esVersion, typeName,location,propertyName) typeName ## _ ## location ## _ ## propertyName ## = COMPUTE_KEY_ESBuiltInPropertyId(typeName,location,propertyName),
 #define ENTRY_TELPOINT(n)
 #define ENTRY_LANGFEATURE(v,n)
-#include "LangTelFields.h"
+#include "ESBuiltinFields.h"
 #undef ENTRY_LANGFEATURE
 #undef ENTRY_TELPOINT
 #undef ENTRY_BUILTIN
@@ -73,7 +73,7 @@ enum class ESBuiltInPropertyIdIdx : size_t
 #define ENTRY_BUILTIN(esVersion,typeName,location,propertyName) typeName ## _ ## location ## _ ## propertyName,
 #define ENTRY_TELPOINT(n)
 #define ENTRY_LANGFEATURE(v,n)
-#include "LangTelFields.h"
+#include "ESBuiltinFields.h"
 #undef ENTRY_LANGFEATURE
 #undef ENTRY_TELPOINT
 #undef ENTRY_BUILTIN
@@ -93,8 +93,6 @@ private:
     static bool                  isInitialized;
     static ESBuiltInPropertyList esbiPropertyList;
 #endif
-
-    static ESBuiltInPropertyId   AddBuiltInExtension(const bool isInstanceProperty, const char16* typeNameCStr2, const size_t typeNameCStr2Length, const char16* propertyNameCStr, const size_t propertyNameLength);
 
     /// <remarks>Cannot be called from ScriptEngine's constructor because AssertCanHandleOutOfMemory() fails at that point.</remarks>
     static void Initialize();
@@ -130,8 +128,6 @@ public:
     static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByTypeId(const Js::TypeId typeId);
 
     static ESBuiltInTypeNameId GetESBuiltInTypeNameId_ByPointer(const Js::ScriptContext& scriptContext, const Js::JavascriptFunction* constructorFunction);
-
-    static Js::JavascriptString* GetConstructorName(const Js::ScriptContext& scriptContext, const Js::Var instance);
 
     /// <summary>Frees the contents of the lists.</summary>
     static void Cleanup();

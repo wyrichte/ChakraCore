@@ -9,7 +9,6 @@
 #include <evntrace.h>
 #include <TraceLoggingProvider.h>
 #include "TelemetryProvider.h"
-#include "Node.h"
 
 // List of all telemetry data points.
 #define TL_ES5BUILTINS "ES5Builtins"
@@ -114,7 +113,6 @@ class TraceLoggingClient
     CEtwSession *session;
     bool shouldLogTelemetry;
     bool telemetryThrottledByChance;
-    NodeTelemetryProvider node;
 
     Throttle throttle;
 
@@ -126,7 +124,6 @@ public:
     bool GetTelemetryThrottledByChance() { return telemetryThrottledByChance; }
     void FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
-    NodeTelemetryProvider* GetNodeTelemetryProvider();
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
     void FirePeriodicDomTelemetry(GUID activityId);
     void FireDomTelemetry(GUID activityId);

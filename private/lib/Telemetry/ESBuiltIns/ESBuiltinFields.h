@@ -209,3 +209,8 @@ ENTRY_BUILTIN(ES7, Uint32Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Uint8Array, Prototype, includes)
 ENTRY_BUILTIN(ES7, Uint8ClampedArray, Prototype, includes)
 BLOCK_END()
+
+// Some global stuff we want to track
+BLOCK_START(Global, 1)
+ENTRY_BUILTIN(Wasm, Global, Prototype, WebAssembly)
+BLOCK_END()

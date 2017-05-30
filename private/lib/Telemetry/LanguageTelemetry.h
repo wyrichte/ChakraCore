@@ -36,7 +36,7 @@ namespace Js
      #define ENTRY_BUILTIN(ver, base, type, n) Js::props base ## _ ## type ## _ ## n;
      #define ENTRY_LANGFEATURE(ver, n) Js::langFeature n;
      #define ENTRY_TELPOINT(n) Js::telPoint n;
-     #include "LangTelFields.h"
+     #include "ESBuiltins/ESBuiltinFields.h"
      #undef ENTRY_TELPOINT
      #undef ENTRY_LANGFEATURE
      #undef ENTRY_BUILTIN

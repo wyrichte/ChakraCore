@@ -36,17 +36,14 @@ WCHAR *g_ProcessExclusionList[] = {
     _u("loader42")
 };
 
+WCHAR *g_ProcessTestList[] = {
+    _u("telhost")
+};
+
 
 // Creating wrapper for atExit Scenario as we want to tackle OOM and other exceptions.
 void __cdecl firePackageTelemetryAtExit() 
 {
-  if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->GetNodeTelemetryProvider()->IsPackageTelemetryFired()))
-  {
-    HRESULT hr = NOERROR;
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
-      g_TraceLoggingClient->GetNodeTelemetryProvider()->FirePackageTelemetryHelper();
-    END_TRANSLATE_OOM_TO_HRESULT(hr);
-  }
 }
 
 DWORD Telemetry::initialized = FALSE;
@@ -60,10 +57,6 @@ void Telemetry::EnsureInitializeForJSRT()
 
 void Telemetry::OnJSRTThreadContextClose()
 {
-    if (g_TraceLoggingClient != nullptr && !(g_TraceLoggingClient->GetNodeTelemetryProvider()->IsPackageTelemetryFired()))
-    {
-        g_TraceLoggingClient->GetNodeTelemetryProvider()->FirePackageTelemetryHelper();
-    }
 }
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
@@ -104,11 +97,6 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), telemetryTh
 TraceLoggingClient::~TraceLoggingClient()
 {
     TraceLoggingUnregister(g_hTraceLoggingProv);
-}
-
-NodeTelemetryProvider* TraceLoggingClient::GetNodeTelemetryProvider()
-{
-    return &node;
 }
 
 void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)

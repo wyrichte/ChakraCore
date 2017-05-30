@@ -411,18 +411,6 @@ void JsrtContextChakra::OnScriptLoad(Js::JavascriptFunction * scriptFunction, Js
 {
     if (scriptFunction != NULL)
     {
-        // for telemetry purposes
-#ifdef ENABLE_BASIC_TELEMETRY
-        if (utf8SourceInfo != nullptr && g_TraceLoggingClient != nullptr)
-        {
-            JsrtRuntime* runtime = this->GetRuntime();
-            if (runtime != nullptr)
-            {
-                const char16* url = utf8SourceInfo->GetSrcInfo()->sourceContextInfo->url;
-                g_TraceLoggingClient->GetNodeTelemetryProvider()->TryLogNodePackage(runtime->GetThreadContext()->GetRecycler(), url);
-            }
-        }
-#endif
         if (this->GetScriptEngine()->CanRegisterDebugSources() || this->GetScriptContext()->IsProfiling())
         {
             ScriptEngine * scriptEngine = this->GetScriptEngine();

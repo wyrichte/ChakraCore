@@ -9,7 +9,7 @@ __interface IScriptContextTelemetryProvider
 public:
     
     /// <remarks>This isn't const as to allow implementations to self-mutate.</remarks>
-    void OutputPrint();
-    
-    void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT);
+#ifdef TELEMETRY_OUTPUTPRINT
+    virtual void OutputPrint();
+#endif
 };

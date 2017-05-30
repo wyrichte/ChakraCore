@@ -2,7 +2,7 @@
 
 #ifdef TELEMETRY_ESB
 
-#include "..\OpcodeTelemetry.h"
+#include "OpcodeTelemetry.h"
 
 class ESBuiltInsTelemetryProvider;
 

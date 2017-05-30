@@ -10,7 +10,7 @@
 // Parser includes
 // TODO: clean up the need of these regex related header here just for GroupInfo needed in JavascriptRegExpConstructor
 #include "RegexCommon.h"
-#include "Library\JavascriptRegExpConstructor.h"
+#include "Library/JavascriptRegExpConstructor.h"
 
 using namespace JsUtil;
 using namespace Js;
@@ -36,7 +36,7 @@ void ESBuiltInsDatabase::Initialize()
     esbiPropertyList.Add( \
         ESBuiltInProperty( ESBuiltInPropertyId::typeName ## _ ## location ## _ ## propertyName, _u(#typeName), location == Constructor, _u(#propertyName), Js::PropertyIds:: ## propertyName ) \
     );
-#include "ESBuiltInsDatabase.inc"
+#include "ESBuiltinFields.h"
 #undef BUILTIN
 #undef Constructor
 #undef Instance
@@ -86,7 +86,7 @@ size_t ESBuiltInsDatabase::GetESBuiltInArrayIndex(ESBuiltInPropertyId propertyId
         return static_cast<size_t>( ESBuiltInPropertyIdIdx:: ## typeName ## _ ## location ## _ ## propertyName );
 #define ENTRY_LANGFEATURE(esVersion, propertyName)
 #define ENTRY_TELPOINT(name)
-#include "LangTelFields.h"
+#include "ESBuiltinFields.h"
 #undef ENTRY_TELPOINT
 #undef ENTRY_LANGFEATURE
 #undef ENTRY_BUILTIN
