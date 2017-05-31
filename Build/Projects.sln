@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26412.1
+VisualStudioVersion = 15.0.26526.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E0786480-1474-43B0-ACDC-6F05779D9D83}"
 	ProjectSection(SolutionItems) = preProject
@@ -98,7 +98,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{80566F9B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{9423EC61-226A-4854-98DB-863286021CDE}"
 	ProjectSection(SolutionItems) = preProject
-		..\core\manifests\Manifests.vcxproj = ..\core\manifests\Manifests.vcxproj
+		..\core\manifests\CoreManifests.vcxproj = ..\core\manifests\CoreManifests.vcxproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "private", "private", "{9714D243-2BB2-4933-AF5E-35971D03E2FC}"
@@ -122,6 +122,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{48F7
 		..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj = ..\core\Lib\Runtime\Language\Chakra.Runtime.Language.vcxproj
 		..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj = ..\core\Lib\Runtime\Library\Chakra.Runtime.Library.vcxproj
 		..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj = ..\core\Lib\Runtime\Math\Chakra.Runtime.Math.vcxproj
+		..\core\lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj = ..\core\lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj
 		..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj = ..\core\Lib\Runtime\Types\Chakra.Runtime.Types.vcxproj
 	EndProjectSection
 EndProject
