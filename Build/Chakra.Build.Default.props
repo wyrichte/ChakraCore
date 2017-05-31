@@ -25,10 +25,6 @@
   <PropertyGroup>
     <!-- Disable building Wabt in ChakraFull until issues are resolved -->
     <BuildWabt>false</BuildWabt>
-
-    <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the
-         manifest xmls in the expanded NuGet package -->
-    <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
   </PropertyGroup>
   <!-- razzle solution build will use fake dependencies -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'!='true' AND '$(BuildingGitRepo)'!='true'">

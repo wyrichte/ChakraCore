@@ -62,6 +62,10 @@
     <!-- ========= From tools\makefile.def ========= -->
     <DelayImpLib Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(MinWinPrivSdkLibPath)\dloadwin7helper.lib</DelayImpLib>
     <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPath)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
+
+      <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the
+         manifest xmls in the expanded NuGet package -->
+    <EventManifestXmlPath>$(SdkIncPath)</EventManifestXmlPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
