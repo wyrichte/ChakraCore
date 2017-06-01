@@ -226,12 +226,14 @@ namespace Js
         ULONG refCount;
         DetachedStateBase **detachedStates;
         size_t transferableCount;
+        JsUtil::List<Js::SharedContents*, HeapAllocator> sharedContentsList;
 
     public:
         TransferablesHolder(size_t transferableCount)
             : refCount(0),
             detachedStates(nullptr),
-            transferableCount(transferableCount)
+            transferableCount(transferableCount),
+            sharedContentsList(&HeapAllocator::Instance)
         {
         }
 
@@ -276,6 +278,11 @@ namespace Js
 
                 transferableCount = 0;
 
+                sharedContentsList.Map([](int, Js::SharedContents* contents)
+                {
+                    contents->Release();
+                });
+
                 HeapDelete(this);
             }
 
@@ -303,6 +310,11 @@ namespace Js
             Var toReturn = JavascriptOperators::NewVarFromDetachedState(this->detachedStates[index], library);
             this->detachedStates[index]->MarkAsClaimed(); 
             return toReturn;
+        }
+
+        JsUtil::List<Js::SharedContents*, HeapAllocator>* GetSharedContentsList()
+        {
+            return &sharedContentsList;
         }
     };
 }

@@ -3074,33 +3074,30 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
 
     CComPtr<Js::TransferablesHolder> transferableHolder;
 
-    if (cTransferableVars > 0)
+    for (uint i = 0; i < cTransferableVars; i++)
     {
-        for (uint i = 0; i < cTransferableVars; i++)
+        Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(transferableVars[i]);
+        if(typeId != TypeIds_ArrayBuffer && !Js::CustomExternalObject::Is(transferableVars[i]))
         {
-            Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(transferableVars[i]);
-            if(typeId != TypeIds_ArrayBuffer && !Js::CustomExternalObject::Is(transferableVars[i]))
-            {
-                AssertMsg(false, "These should have been filtered out by the host.");
-                return E_SCA_TRANSFERABLE_UNSUPPORTED;
-            }
-
-            if (Js::JavascriptOperators::IsObjectDetached(transferableVars[i]))
-            {
-                return E_SCA_TRANSFERABLE_NEUTERED;
-            }
+            AssertMsg(false, "These should have been filtered out by the host.");
+            return E_SCA_TRANSFERABLE_UNSUPPORTED;
         }
 
-        transferableHolder = HeapNewNoThrow(Js::TransferablesHolder, cTransferableVars);
-        if (transferableHolder == nullptr)
+        if (Js::JavascriptOperators::IsObjectDetached(transferableVars[i]))
         {
-            return E_OUTOFMEMORY;
+            return E_SCA_TRANSFERABLE_NEUTERED;
         }
     }
+
+    transferableHolder = HeapNewNoThrow(Js::TransferablesHolder, cTransferableVars);
+    if (transferableHolder == nullptr)
+    {
+        return E_OUTOFMEMORY;
+    }
+    
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
 
-    JsUtil::List<Js::SharedContents*, HeapAllocator> sharedContentsList(&HeapAllocator::Instance);
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
@@ -3109,7 +3106,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         {
             Js::StreamWriter writer(scriptContext, pOutSteam);
             Js::SCASerializationEngine::Serialize(context, instance, &writer,
-                effectiveTransferableVars, cEffectiveTransferableVars, &sharedContentsList); // Use effective transferableVars
+                effectiveTransferableVars, cEffectiveTransferableVars, transferableHolder->GetSharedContentsList()); // Use effective transferableVars
             writer.Flush(); // Flush bufferred content to output stream
 
             // Always detach all supplied transferable vars
@@ -3118,7 +3115,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
                 transferableHolder->DetachAll(transferableVars);
             }
 
-            if (cEffectiveTransferableVars > 0)  // Transferred
+            if (cEffectiveTransferableVars > 0 // Transferred
+                || transferableHolder->GetSharedContentsList()->Count()>0)  // Shared
             {
                 hr = context->SetDependentObject(transferableHolder);
                 if (FAILED(hr))
@@ -3151,15 +3149,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     }
 
 LReturn:
-
-    if (FAILED(hr))
-    {
-        // if serialize failed for any reason, we should reduce the refcount which we added
-        sharedContentsList.Map([](int, Js::SharedContents* contents) 
-        {
-            contents->Release();
-        });
-    }
 
     return hr;
 }

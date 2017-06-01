@@ -238,9 +238,6 @@ namespace Js
                 m_reader->Read((intptr_t*)&sharedContents);
 
                 SharedArrayBuffer* arrayBuffer = lib->CreateSharedArrayBuffer(sharedContents);
-                uint refCount = sharedContents->Release();
-                Assert(refCount > 0);
-
                 *dst = arrayBuffer;
             }
             break;
