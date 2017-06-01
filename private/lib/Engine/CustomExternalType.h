@@ -24,7 +24,7 @@ namespace Js
 
     private:
         CustomExternalType(CustomExternalType * type) : ExternalTypeWithInheritedTypeIds(type), finalizer(type->finalizer), usage(type->usage), isSimpleWrapper(type->isSimpleWrapper), extraSlotsCount(type->extraSlotsCount) {}
-        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount, uint8 extraSlotCount /* To be fixed by OS 11993249 */) :
+        CustomExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint, DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount, uint8 extraSlotsCount) :
             ExternalTypeWithInheritedTypeIds(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId, inheritedTypeIds, inheritedTypeIdsCount), isSimpleWrapper(false), extraSlotsCount(extraSlotsCount) {}
         uint8 GetExtraSlotsCount() const { return extraSlotsCount; }
 

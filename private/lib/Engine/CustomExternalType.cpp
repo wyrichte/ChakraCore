@@ -23,7 +23,7 @@ namespace Js
             size_t extraSlotsSize = sizeof(void *) * extraSlotsCount;
             CustomExternalType * newType = RecyclerNewPlus(type->GetLibrary()->GetRecycler(), extraSlotsSize, CustomExternalType, type);
             js_memcpy_s((void *)(newType + 1), extraSlotsSize, (void *)(type + 1), extraSlotsSize);
-            /* To be fixed by OS 11993249: return newType; */
+            return newType;
         }
         return RecyclerNew(type->GetLibrary()->GetRecycler(), CustomExternalType, type);
     }
