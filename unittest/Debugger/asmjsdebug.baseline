@@ -13,46 +13,28 @@ import2 func, val 8
 0
 import2 func, val 16
 1
-true
-import2 func, val 32
-0
 import func, val 32
 1
 import func, val 64
 0
-true
-import func, val 128
-0
 debugCallback
+import2 func, val 32
+-1
 import2 func, val 64
-0
-import2 func, val 128
-1
-true
-import2 func, val 256
-0
+2
+import func, val 128
+-1
 import func, val 256
-0
-import func, val 512
-1
-true
-import func, val 1024
-0
+2
 AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 AsmJs initialization error - AsmJs disabled due to script debugger [@ asmjsdebug.js]
 debugCallback
-import2 func, val 512
-0
-import2 func, val 1024
+import2 func, val 128
+-1
+import2 func, val 256
 1
-true
-import2 func, val 2048
-0
-import func, val 2048
-0
-import func, val 4096
+import func, val 512
+-1
+import func, val 1024
 1
-true
-import func, val 8192
-0

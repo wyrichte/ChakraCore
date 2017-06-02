@@ -21,17 +21,6 @@ function outer()
         var U8 =stdlib.Uint8Array;
         var HEAPU8 =new stdlib.Uint8Array(heap);
         
-        function ch(b2)
-        {
-            if(len(b2) & 0xffffff || len(b2) <= 0xffffff || len(b2) > 0x80000000)
-                return false;
-            HEAP32=new I32(b2);
-            i8=new I8(b2);
-            HEAPU8=new U8(b2);
-            heap=b2; /**bp:locals(1);stack()**/
-            return true
-        }
-        
         function f(param)
         {
             param = param|0;
@@ -54,7 +43,7 @@ function outer()
             return +impa;
         }
         var table1 = [f, g, f, g];
-        return {fExp:f, gExp:g, ch:ch};
+        return {fExp:f, gExp:g};
     }
     return foo;
 }
@@ -85,11 +74,7 @@ function debugCallback()
     print("debugCallback");
     print(Math.round(module2.fExp(1)));
     print(Math.round(module2.gExp(2)));
-    print(module2.ch(new ArrayBuffer(1<<25)));
-    print(Math.round(module2.gExp(2)));
     print(Math.round(module1.fExp(1)));
-    print(Math.round(module1.gExp(2)));
-    print(module1.ch(new ArrayBuffer(1<<25)));
     print(Math.round(module1.gExp(2)));
 }
 WScript.Attach(debugCallback);
