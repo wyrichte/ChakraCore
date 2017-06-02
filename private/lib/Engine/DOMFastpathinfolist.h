@@ -5,10 +5,6 @@
 #error _ONE_SIMPLESLOT_RECORD must be defined before including this file
 #endif
 
-#ifndef SIMPLESLOT_RECORD_KIND
-#error SIMPLESLOT_RECORD_KIND must be defined before including this file
-#endif
-
 #undef ONE_SIMPLESLOT_RECORD
 #define ONE_SIMPLESLOT_RECORD(kind, x) _ONE_SIMPLESLOT_RECORD(Simple##kind##SlotGetter##x, Simple##kind##SlotSetter##x, DOMFastPath<x>::EntryInfo::Simple##kind##SlotGetter, DOMFastPath<x>::EntryInfo::Simple##kind##SlotSetter, DOMFastPath<x>::EntrySimple##kind##SlotGetter, DOMFastPath<x>::EntrySimple##kind##SlotSetter, (HelperMethodAttribute)(AttrCanThrow | AttrInVariant), AttrCanThrow)
 
@@ -24,26 +20,21 @@
     ONE_SIMPLESLOT_RECORD(kind, x##8) \
     ONE_SIMPLESLOT_RECORD(kind, x##9) \
 
-#define ONE_HUNDRED_SIMPLESLOT_RECORD(kind)\
-    ONE_SIMPLESLOT_RECORD(kind, 0) \
-    ONE_SIMPLESLOT_RECORD(kind, 1) \
-    ONE_SIMPLESLOT_RECORD(kind, 2) \
-    ONE_SIMPLESLOT_RECORD(kind, 3) \
-    ONE_SIMPLESLOT_RECORD(kind, 4) \
-    ONE_SIMPLESLOT_RECORD(kind, 5) \
-    ONE_SIMPLESLOT_RECORD(kind, 6) \
-    ONE_SIMPLESLOT_RECORD(kind, 7) \
-    ONE_SIMPLESLOT_RECORD(kind, 8) \
-    ONE_SIMPLESLOT_RECORD(kind, 9) \
-    TEN_SIMPLESLOT_RECORD(kind, 1) \
-    TEN_SIMPLESLOT_RECORD(kind, 2) \
-    TEN_SIMPLESLOT_RECORD(kind, 3) \
-    TEN_SIMPLESLOT_RECORD(kind, 4) \
-    TEN_SIMPLESLOT_RECORD(kind, 5) \
-    TEN_SIMPLESLOT_RECORD(kind, 6) \
-    TEN_SIMPLESLOT_RECORD(kind, 7) \
-    TEN_SIMPLESLOT_RECORD(kind, 8) \
-    TEN_SIMPLESLOT_RECORD(kind, 9) \
+#define OBJECT_SIMPLESLOT_RECORDS \
+    ONE_SIMPLESLOT_RECORD(Object, 0) \
+    ONE_SIMPLESLOT_RECORD(Object, 1) \
+    ONE_SIMPLESLOT_RECORD(Object, 2) \
+    ONE_SIMPLESLOT_RECORD(Object, 3) \
+    ONE_SIMPLESLOT_RECORD(Object, 4) \
+    ONE_SIMPLESLOT_RECORD(Object, 5) \
+    ONE_SIMPLESLOT_RECORD(Object, 6) \
+    ONE_SIMPLESLOT_RECORD(Object, 7) \
+    ONE_SIMPLESLOT_RECORD(Object, 8) \
+    ONE_SIMPLESLOT_RECORD(Object, 9) \
+    TEN_SIMPLESLOT_RECORD(Object, 1)
 
-ONE_HUNDRED_SIMPLESLOT_RECORD(SIMPLESLOT_RECORD_KIND)
-
+#define TYPE_SIMPLESLOT_RECORDS \
+    ONE_SIMPLESLOT_RECORD(Type, 0) \
+    ONE_SIMPLESLOT_RECORD(Type, 1) \
+    ONE_SIMPLESLOT_RECORD(Type, 2) \
+    ONE_SIMPLESLOT_RECORD(Type, 3)
