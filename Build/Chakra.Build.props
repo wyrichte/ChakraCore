@@ -248,7 +248,7 @@
       $(SdkLibPath)\onecore_downlevel.lib
     </RLCommonLinkDependencies>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(OptimizedBuild)'!='true'">
+  <PropertyGroup Condition="'$(DebugBuild)'=='true'">
     <ChakraCommonLinkDependencies>
         $(ChakraCommonLinkDependencies);
         $(SdkLibPath)\dbghelp.lib;

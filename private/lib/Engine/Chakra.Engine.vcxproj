@@ -99,7 +99,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxy.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DispMemberProxyType.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)dllfunc.cpp">
-      <AdditionalIncludeDirectories Condition="'$(OptimizedBuild)'=='true'">$(PublicInternalPath)\base\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(DebugBuild)'!='true'">$(PublicInternalPath)\base\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DOMFastPath.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)DOMProperties.cpp" />

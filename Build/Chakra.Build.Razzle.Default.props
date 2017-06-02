@@ -20,8 +20,9 @@
     <FreTest />
   </PropertyGroup>
   <PropertyGroup>
-    <OptimizedBuild />
-    <OptimizedBuild Condition="'$(Configuration)'=='Release' or '$(Configuration)'=='Test'">true</OptimizedBuild>
+    <DebugBuild />
+    <DebugBuild Condition="'$(Configuration)'!='Release' and '$(Configuration)'!='Test'">true</DebugBuild>
+    <OptimizedBuild Condition="'$(OptimizedBuild)'=='' and '$(BUILD_NO_OPT)'!='1' and '$(DebugBuild)'!='true'">true</OptimizedBuild>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <CharacterSet>Unicode</CharacterSet>

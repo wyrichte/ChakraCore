@@ -28,7 +28,7 @@
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
         $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
       </AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(OptimizedBuild)'!='true'">
+      <AdditionalDependencies Condition="'$(DebugBuild)'=='true'">
         %(AdditionalDependencies);
         $(SdkLibPath)\dbghelp.lib;
 
