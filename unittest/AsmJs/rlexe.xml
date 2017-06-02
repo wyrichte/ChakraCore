@@ -31,72 +31,6 @@
   </test>
   <test>
     <default>
-      <files>detach3.js</files>
-      <baseline>detach3.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach3.js</files>
-      <baseline>detach3.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach3.js</files>
-      <baseline>detach3.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach4.js</files>
-      <baseline>detach4.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach4.js</files>
-      <baseline>detach4.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach4.js</files>
-      <baseline>detach4.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach5.js</files>
-      <baseline>detach5.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach5.js</files>
-      <baseline>detach5.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>detach5.js</files>
-      <baseline>detach5.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>asm_message_debugmode.js</files>
       <baseline>asm_message_debugmode.baseline</baseline>
       <tags>exclude_chk</tags>
@@ -214,30 +148,6 @@
       <timeout>300</timeout>
     </default>
   </test>
-  <test>
-    <default>
-      <files>changeHeap.js</files>
-      <baseline>changeHeap.baseline</baseline>
-      <tags>exclude_dynapogo</tags>
-      <compile-flags>-testtrace:asmjs -forcedeferparse -simdjs -maic:0</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>changeHeap.js</files>
-      <baseline>changeHeap.baseline</baseline>
-      <tags>exclude_dynapogo</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -forcedeferparse -off:fulljit</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>changeHeap.js</files>
-      <baseline>changeHeap.baseline</baseline>
-      <tags>exclude_amd64,exclude_dynapogo</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -forcedeferparse -oopjit- -on:asmjsjittemplate</compile-flags>
-    </default>
-  </test>
   <!-- temporarily disable
   <test>
     <default>
@@ -323,36 +233,6 @@
     <default>
       <files>asmControlFlow.js</files>
       <baseline>asmControlFlow.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ammogrowable.js</files>
-      <baseline>ammogrowable.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ammogrowable.js</files>
-      <baseline>ammogrowable.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -maic:0</compile-flags>
-      <tags>Slow</tags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ammogrowable.js</files>
-      <baseline>ammogrowable.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -simdjs -nonative</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>ammogrowable.js</files>
-      <baseline>ammogrowable.baseline</baseline>
       <tags>exclude_amd64</tags>
       <compile-flags>-testtrace:asmjs -simdjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
