@@ -67,3 +67,16 @@ var constDesc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x10");
 compare(constDesc.configurable, true);
 compare(constDesc.writable, false);
 compare(constDesc.enumerable, true);
+
+// Force the console object to be cross site and try to retrieve properties
+var global2 = WScript.LoadScript("", "samethread", "diagnostics");
+diagnosticsScript.debugEval("x11 = 11", true);
+diagnosticsScript.debugEval.call(global2, "y11 = 111", true);
+compare(global2.y11, undefined);
+compare(global2.diagnosticsScript.getConsoleScope().y11, 111);
+compare(global2.diagnosticsScript.getConsoleScope().x11, 11);
+
+// Try creating let vars in a cross site console scope
+var global3 = WScript.LoadScript("diagnosticsScript.getConsoleScope();", "samethread", "diagnostics");
+diagnosticsScript.debugEval("let x12 = 12", true);
+compare(consoleScopeObj1.x12, 12);
