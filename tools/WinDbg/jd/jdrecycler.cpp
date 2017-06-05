@@ -404,9 +404,7 @@ void ObjectInfoHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose
 
     if (heapObject.heapBlockType == GetExtension()->enum_SmallLeafBlockType()
         || heapObject.heapBlockType == GetExtension()->enum_SmallNormalBlockType()
-#ifdef RECYCLER_WRITE_BARRIER
         || heapObject.heapBlockType == GetExtension()->enum_SmallNormalBlockWithBarrierType()
-#endif
         )
     {
         GetExtension()->Out(_u("Address bit index: %d\n"), heapObject.addressBitIndex);
@@ -462,8 +460,12 @@ void ObjectInfoHelper::DumpSmallHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     
     heapObject.index = (ushort)((objectAddress - startAddress) / heapObject.objectSize);
     heapObject.address = startAddress + heapObject.index * heapObject.objectSize;
-    if (heapObject.index < objectCount && heapObject.address == objectAddress)
+    if (heapObject.index < objectCount)
     {
+        if (heapObject.address != objectAddress)
+        {
+            GetExtension()->Out("WARNING: Pointer is not the beginning of the object\n");
+        }
         ExtRemoteData heapObjectData(heapObject.address, GetExtension()->m_PtrSize);
         heapObject.vtable = heapObjectData.GetPtr();
 
@@ -478,7 +480,7 @@ void ObjectInfoHelper::DumpSmallHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     }
     else
     {
-        GetExtension()->Out("Pointer is not valid in this heap block\n");
+        GetExtension()->Out("ERROR: Pointer is out of range of this heap block\n");
     }
 }
 
@@ -558,7 +560,6 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     {
         Out("Small normal block\n");
     }
-#ifdef RECYCLER_WRITE_BARRIER
     else if (type == this->enum_SmallNormalBlockWithBarrierType())
     {
         Out("Small normal block (with SWB)\n");
@@ -567,7 +568,6 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     {
         Out("Small finalizable block (with SWB)\n");
     }
-#endif
     else if (type == this->enum_MediumFinalizableBlockType())
     {
         Out("Medium finalizable block\n");
@@ -580,7 +580,6 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     {
         Out("Medium normal block\n");
     }
-#ifdef RECYCLER_WRITE_BARRIER
     else if (type == this->enum_MediumNormalBlockWithBarrierType())
     {
         Out("Medium normal block (with SWB)\n");
@@ -589,7 +588,6 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     {
         Out("Medium finalizable block (with SWB)\n");
     }
-#endif
     else
     {
         Out("Unexpected heapblock type: 0x%x\n", type);

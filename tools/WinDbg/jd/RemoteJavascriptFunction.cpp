@@ -4,17 +4,17 @@
 #include "stdafx.h"
 
 RemoteJavascriptFunction::RemoteJavascriptFunction() {}
-RemoteJavascriptFunction::RemoteJavascriptFunction(ExtRemoteTyped const& o) : 
-    RemoteRecyclableObject(o) 
+RemoteJavascriptFunction::RemoteJavascriptFunction(ExtRemoteTyped const& o) :
+    RemoteRecyclableObject(o)
 {}
 
 RemoteJavascriptFunction::RemoteJavascriptFunction(ULONG64 ptr) :
     RemoteRecyclableObject(ptr)
 {
-	if (!this->IsJavascriptFunction())
-	{
-		g_Ext->ThrowStatus(E_INVALIDARG, "RemoteJavascriptFunction used with non-function %p", ptr);
-	}
+    if (!this->IsJavascriptFunction())
+    {
+        g_Ext->ThrowStatus(E_INVALIDARG, "RemoteJavascriptFunction used with non-function %p", ptr);
+    }
 }
 
 bool
@@ -26,7 +26,7 @@ RemoteJavascriptFunction::IsScriptFunction()
 bool
 RemoteJavascriptFunction::IsBoundFunction()
 {
-	return object.HasField("targetFunction");
+    return object.HasField("targetFunction");
 }
 
 RemoteScriptFunction
@@ -39,7 +39,7 @@ RemoteJavascriptFunction::AsScriptFunction()
     return object.GetPtr();
 }
 
-RemoteFunctionInfo 
+RemoteFunctionInfo
 RemoteJavascriptFunction::GetFunctionInfo()
 {
     return object.Field("functionInfo");
@@ -48,7 +48,7 @@ RemoteJavascriptFunction::GetFunctionInfo()
 RemoteRecyclableObject
 RemoteJavascriptFunction::GetTargetFunction()
 {
-	return object.Field("targetFunction");
+    return object.Field("targetFunction");
 }
 
 void
@@ -76,11 +76,10 @@ RemoteJavascriptFunction::Print()
             object.Field("functionInfo").OutFullValue();
         }
 
-		if (this->IsBoundFunction())
-		{
-			g_Ext->Out("  [TargetFunction] ");
-			this->GetTargetFunction().PrintSimpleVarValue();
-			g_Ext->Out("\n");
-		}
+        if (this->IsBoundFunction())
+        {
+            g_Ext->Out("  [TargetFunction] ");
+            this->GetTargetFunction().PrintSimpleVarValue();
+        }
     }
 }

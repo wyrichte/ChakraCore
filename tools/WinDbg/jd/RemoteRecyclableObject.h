@@ -21,7 +21,7 @@ public:
     JDRemoteTyped GetType();
     RemoteScriptContext GetScriptContext();
 
-	void PrintSimpleVarValue();
+    void PrintSimpleVarValue();
 protected:
     char const * GetTypeName();
     char const * GetTypeIdEnumString();

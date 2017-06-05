@@ -158,7 +158,10 @@ void RootPointerReader::ScanRegisters(bool print)
 
         if (this->TryAdd(value, RootType::RootTypeRegister) && print)
         {
-            GetExtension()->Out("0x%p (Register %s)\n", value, buffer);
+            if (print)
+            {
+                GetExtension()->Out("0x%p (Register %s)\n", value, buffer);
+            }
         }
     }
 
@@ -208,10 +211,13 @@ void RootPointerReader::ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bo
             ULONG64 address = (ULONG64)stack32[i];
             if (this->TryAdd(address, RootType::RootTypeStack))
             {
-                GetExtension()->Out("0x%p", stack32[i]);
-                GetExtension()->Out(" (+0x%x)\n", i * GetExtension()->m_PtrSize);
-                GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
-                GetExtension()->Out("\n");
+                if (print)
+                {
+                    GetExtension()->Out("0x%p", stack32[i]);
+                    GetExtension()->Out(" (+0x%x)", i * GetExtension()->m_PtrSize);
+                    GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
+                    GetExtension()->Out("\n");
+                }
             }
         }
     }
@@ -223,10 +229,13 @@ void RootPointerReader::ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bo
             ULONG64 address = stack64[i];
             if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
-                GetExtension()->Out("0x%p", address);
-                GetExtension()->Out(" (+0x%x)", i * GetExtension()->m_PtrSize);
-                GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
-                GetExtension()->Out("\n");
+                if (print)
+                {
+                    GetExtension()->Out("0x%p", address);
+                    GetExtension()->Out(" (+0x%x)", i * GetExtension()->m_PtrSize);
+                    GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
+                    GetExtension()->Out("\n");
+                }
             }
         }
     }
@@ -1302,7 +1311,8 @@ JD_PRIVATE_COMMAND(traceroots,
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
     "{a;b,o;all;Shortest path to all roots}"
-    "{pred;b,o;showPredecessors;Show up to limit predecessors in the output}")
+    "{pred;b,o;showPredecessors;Show up to limit predecessors in the output}"
+    "{vt;b,o;vtable;Vtable Only}")
 {
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
@@ -1312,6 +1322,7 @@ JD_PRIVATE_COMMAND(traceroots,
     const bool transientRoots = HasArg("t");
     const bool allShortestPath = HasArg("a");
     const bool showPredecessors = HasArg("pred");
+    const bool infer = !HasArg("vt");
 
     if (pointerArg == NULL)
     {
@@ -1329,6 +1340,12 @@ JD_PRIVATE_COMMAND(traceroots,
         stackPointerArg = GetStackTop();
     }
 
+    RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;    
+    if (infer)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Infer);
+    }
+
     //
     // Perform necessary setup.
     //
@@ -1336,7 +1353,7 @@ JD_PRIVATE_COMMAND(traceroots,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg, flags));
 
     //
     // Data types and traversal state
