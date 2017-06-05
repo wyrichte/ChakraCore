@@ -11,9 +11,11 @@ public:
     RemoteJavascriptFunction(ULONG64 ptr);
     RemoteJavascriptFunction(ExtRemoteTyped const& o);
     bool IsScriptFunction();
+	bool IsBoundFunction();
     RemoteScriptFunction AsScriptFunction();
 
     RemoteFunctionInfo GetFunctionInfo();
+	RemoteRecyclableObject GetTargetFunction();
 
     void Print();
 };

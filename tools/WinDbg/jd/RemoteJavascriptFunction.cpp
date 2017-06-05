@@ -9,9 +9,12 @@ RemoteJavascriptFunction::RemoteJavascriptFunction(ExtRemoteTyped const& o) :
 {}
 
 RemoteJavascriptFunction::RemoteJavascriptFunction(ULONG64 ptr) :
-    RemoteRecyclableObject(ExtRemoteTyped("(Js::JavascriptFunction *)@$extin", ptr))
+    RemoteRecyclableObject(ptr)
 {
-
+	if (!this->IsJavascriptFunction())
+	{
+		g_Ext->ThrowStatus(E_INVALIDARG, "RemoteJavascriptFunction used with non-function %p", ptr);
+	}
 }
 
 bool
@@ -19,7 +22,12 @@ RemoteJavascriptFunction::IsScriptFunction()
 {
     return GetFunctionInfo().HasBody();
 }
-   
+
+bool
+RemoteJavascriptFunction::IsBoundFunction()
+{
+	return object.HasField("targetFunction");
+}
 
 RemoteScriptFunction
 RemoteJavascriptFunction::AsScriptFunction()
@@ -35,6 +43,12 @@ RemoteFunctionInfo
 RemoteJavascriptFunction::GetFunctionInfo()
 {
     return object.Field("functionInfo");
+}
+
+RemoteRecyclableObject
+RemoteJavascriptFunction::GetTargetFunction()
+{
+	return object.Field("targetFunction");
 }
 
 void
@@ -55,11 +69,18 @@ RemoteJavascriptFunction::Print()
         std::string symbol = GetSymbolForOffset(functionInfo.GetOriginalEntryPoint());
         if (!symbol.empty())
         {
-            g_Ext->Out("  [NativeEntry] %s", symbol.c_str());
+            g_Ext->Out("  [NativeEntry] %s\n", symbol.c_str());
         }
         else
         {
             object.Field("functionInfo").OutFullValue();
         }
+
+		if (this->IsBoundFunction())
+		{
+			g_Ext->Out("  [TargetFunction] ");
+			this->GetTargetFunction().PrintSimpleVarValue();
+			g_Ext->Out("\n");
+		}
     }
 }
