@@ -5031,7 +5031,7 @@ HRESULT ScriptEngine::ExecutePendingScripts(VARIANT *pvarRes, EXCEPINFO *pei)
             // closed, m_pglbod will be nullptr as well.
             if (nullptr == GetScriptSiteHolder() || (hrT == E_OUTOFMEMORY) || ibod >= m_pglbod->Cv())
             {
-                Assert(!( (hrT == E_OUTOFMEMORY) && (hr != DISP_E_EXCEPTION)));
+                Assert(!( (hrT == E_OUTOFMEMORY) && (hr != DISP_E_EXCEPTION && hr != E_OUTOFMEMORY)));
                 EnableInterrupts();
                 return hr;
             }
