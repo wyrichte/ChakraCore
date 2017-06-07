@@ -887,7 +887,7 @@ HRESULT ScriptSite::HandleJavascriptException(Js::JavascriptExceptionObject* exc
     return hr;
 }
 
-HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
+HRESULT ScriptSite::CallRootFunction(Js::RecyclableObject * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result)
 {
     Js::ScriptContext * scriptContext = function->GetScriptContext();
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
@@ -903,7 +903,7 @@ HRESULT ScriptSite::CallRootFunction(Js::JavascriptFunction * function, Js::Argu
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT_NESTED
     {
-        *result = function->CallRootFunction(args, scriptContext, false);
+        *result = Js::JavascriptFunction::CallRootFunction(function, args, scriptContext, false);
     }
     TRANSLATE_EXCEPTION_TO_HRESULT_ENTRY(const Js::JavascriptException& err)
     {
@@ -1325,7 +1325,6 @@ HRESULT ScriptSite::ExternalSYSTEMTIMEToVar(SYSTEMTIME* pst, Js::Var * result)
 
 HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Arguments* args, __in IServiceProvider * pspCaller, __out_opt Js::Var* varResult)
 {
-    Js::JavascriptFunction*         func = nullptr;
     Js::Var                        atomResult;
     HRESULT                         hr = S_OK;
 
@@ -1347,19 +1346,18 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
         return JSERR_NeedFunction;
     }
 
-    func = static_cast<Js::JavascriptFunction*>(pScrObj);
-
     SmartFPUControl smartFpuControl;
     if (smartFpuControl.HasErr())
     {
         return smartFpuControl.GetErr();
     }
 
-    Js::ScriptContext* functionScriptContext = func->GetScriptContext();
-    if (func->GetScriptContext() != this->GetScriptSiteContext())
+    Js::ScriptContext* functionScriptContext = pScrObj->GetScriptContext();
+    Js::RecyclableObject * callableObj = pScrObj;
+    if (functionScriptContext != this->GetScriptSiteContext())
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT
-        func = Js::JavascriptFunction::FromVar(Js::CrossSite::MarshalVar(this->GetScriptSiteContext(), func));
+        callableObj = Js::RecyclableObject::FromVar(Js::CrossSite::MarshalVar(this->GetScriptSiteContext(), pScrObj));
         END_TRANSLATE_OOM_TO_HRESULT(hr);
     }
     if (FAILED(hr))
@@ -1386,9 +1384,9 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
         return hr;
     }
     Assert(functionScriptContext == this->GetScriptSiteContext()
-        || func->IsExternal()
-        || (Js::CrossSite::IsThunk(func->GetEntryPoint()) && func->IsCrossSiteObject()));
-    hr = ScriptSite::CallRootFunction(func, *args, pspCaller, &atomResult);
+        || callableObj->IsExternal()
+        || Js::CrossSite::IsThunk(callableObj->GetEntryPoint()));
+    hr = ScriptSite::CallRootFunction(callableObj, *args, pspCaller, &atomResult);
 
     if (varResult != nullptr)
     {

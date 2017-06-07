@@ -314,7 +314,7 @@ public:
     static ScriptSite * FromHostScriptContext(HostScriptContext *);
 
     static HRESULT HandleJavascriptException(Js::JavascriptExceptionObject* exceptionObject, Js::ScriptContext * scriptContext, IServiceProvider * pspCaller = nullptr);
-    static HRESULT CallRootFunction(Js::JavascriptFunction * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result);
+    static HRESULT CallRootFunction(Js::RecyclableObject * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result);
     static HRESULT ExternalToPrimitive(Js::DynamicObject * obj, Js::JavascriptHint hint, Var * result, IServiceProvider * pspCaller = nullptr);
     static HRESULT ExternalGetPropertyReference(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
     static HRESULT ExternalGetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
