@@ -5,7 +5,6 @@
       <files>deferNestedJitLoopBody.js</files>
       <baseline>deferNestedJitLoopBody.baseline</baseline>
       <compile-flags>-force:deferparse -deferNested -forceJitLoopBody</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>

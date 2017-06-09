@@ -5,7 +5,6 @@
       <files>unicode_sunspider_regexp-dna.js</files>
       <baseline />
       <compile-flags> -ES6Unicode -ES6RegExSticky</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>
@@ -105,7 +104,6 @@
       <files>unicode_debugger.js</files>
       <baseline>unicode_debugger.baseline</baseline>
       <compile-flags> -ES6Unicode -debuglaunch -targeted</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>

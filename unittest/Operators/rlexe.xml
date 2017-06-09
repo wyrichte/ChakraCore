@@ -5,7 +5,6 @@
       <files>instanceof.js</files>
       <baseline>instanceof.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
 </regress-exe>

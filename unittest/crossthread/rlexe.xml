@@ -111,7 +111,7 @@
       <files>marshalsetter.js</files>
       <baseline>marshalsetter.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

@@ -9,7 +9,6 @@
     <default>
       <compile-flags>-maxInterpretCount:4 -bgjit-</compile-flags>
       <files>bug650387.js</files>
-      <tags>exclude_ship</tags>
     </default>
   </test>
 </regress-exe>
