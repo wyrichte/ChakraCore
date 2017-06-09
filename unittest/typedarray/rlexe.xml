@@ -5,7 +5,7 @@
       <files>PixelArray_MaxInterpret.js</files>
       <baseline>PixelArray_MaxInterpret.baseline</baseline>
       <compile-flags>-minInterpretCount:1 -maxInterpretCount:1 -off:simpleJit</compile-flags>
-      <tags>exclude_dynapogo,exclude_ship</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
 </regress-exe>

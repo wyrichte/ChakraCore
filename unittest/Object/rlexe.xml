@@ -12,7 +12,7 @@
       <files>moreProperties.js</files>
       <baseline>moreProperties.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
@@ -20,7 +20,7 @@
       <files>moreProperties-enumeration.js</files>
       <baseline>moreProperties-enumeration.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

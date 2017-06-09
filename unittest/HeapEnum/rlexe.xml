@@ -2,7 +2,7 @@
 <regress-exe>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>AsyncAwait.js</files>
       <baseline>AsyncAwait.baseline</baseline>
       <compile-flags>-ES6Classes -ES7AsyncAwait -ES6Generators</compile-flags>
@@ -10,20 +10,20 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>array.js</files>
       <baseline>array.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>arraybuffer.js</files>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>blockScopeSlotArrayTest.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayTest.baseline</baseline>
@@ -31,7 +31,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>blockScopeSlotArrayTest.js</files>
       <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayTest.baseline</baseline>
@@ -39,7 +39,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>blockScopeActivationObjectAsSlotArray.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
@@ -47,7 +47,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>blockScopeActivationObjectAsSlotArray.js</files>
       <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeActivationObjectAsSlotArray.baseline</baseline>
@@ -55,7 +55,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.baseline</baseline>
@@ -63,28 +63,28 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>arguments.js</files>
       <baseline>arguments.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>attributes.js</files>
       <baseline>attributes.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>boundfunction.js</files>
       <baseline>boundfunction.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64,exclude_serialized</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_serialized</tags>
       <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.baseline</baseline>
@@ -92,7 +92,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm,exclude_serialized</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_serialized</tags>
       <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.amd64.baseline</baseline>
@@ -183,63 +183,63 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>properties.js</files>
       <baseline>properties.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>ES5ArrayGetterSetters.js</files>
       <baseline>ES5ArrayGetterSetters.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>deletedProperties.js</files>
       <baseline>deletedProperties.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>regex.js</files>
       <baseline>regex.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>internalProperties.js</files>
       <baseline>internalProperties.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>string.js</files>
       <baseline>string.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>TypedArray.js</files>
       <baseline>TypedArray.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>closure.js</files>
       <baseline>closure.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>closure2.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>closure2.baseline</baseline>
@@ -247,7 +247,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>closure_catch.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>closure_catch.baseline</baseline>
@@ -255,7 +255,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_serialized</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_serialized</tags>
       <files>closure2.js</files>
       <baseline>closure2.baseline</baseline>
       <compile-flags>-forceserialized -es6classes -es6HasInstance</compile-flags>
@@ -263,14 +263,14 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>closure_binding.js</files>
       <baseline>closure_binding.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
       <files>closure_nested.js</files>
       <baseline>closure_nested.baseline</baseline>
       <compile-flags>-force:deferparse</compile-flags>
@@ -278,21 +278,21 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <files>closure_nested.js</files>
       <baseline>closure_nested.amd64.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
       <files>closure_nested_eval.js</files>
       <baseline>closure_nested_eval.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <files>closure_nested_eval.js</files>
       <baseline>closure_nested_eval.amd64.baseline</baseline>
     </default>
@@ -313,28 +313,28 @@
   </test>-->
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
       <files>errorObjectGetterSetterTest.js</files>
       <baseline>errorObjectGetterSetterTest.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <files>errorObjectGetterSetterTest.js</files>
       <baseline>errorObjectGetterSetterTest.amd64.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>getterTest.js</files>
       <baseline>getterTest.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>setterTest.js</files>
       <baseline>setterTest.baseline</baseline>
     </default>
@@ -359,7 +359,7 @@
   </test>-->
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <compile-flags>-Intl-</compile-flags>
       <files>mapsetweakmap.js</files>
       <baseline>mapsetweakmap.baseline</baseline>
@@ -367,7 +367,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm</tags>
       <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
       <files>objhashtable.js</files>
       <baseline>objhashtable.baseline</baseline>
@@ -375,7 +375,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
       <files>objhashtable.js</files>
       <baseline>objhashtable.amd64.baseline</baseline>
@@ -383,7 +383,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_arm</tags>
       <files>multifuncdecl.js</files>
       <compile-flags>-es6classes -es6HasInstance</compile-flags>
       <baseline>multifuncdecl.baseline</baseline>
@@ -392,7 +392,7 @@
   <test>
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.baseline</baseline>
@@ -401,7 +401,7 @@
   <test>
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.amd64.baseline</baseline>
@@ -409,7 +409,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.baseline</baseline>
@@ -417,7 +417,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.amd64.baseline</baseline>
@@ -425,21 +425,21 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>symbols.js</files>
       <baseline>symbols.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>dataview_546996.js</files>
       <baseline>dataview_546996.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <compile-flags>-ES6Classes -es6HasInstance</compile-flags>
       <files>lambda.js</files>
       <baseline>lambda.baseline</baseline>
@@ -447,21 +447,21 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>proxy.js</files>
       <baseline>proxy.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>iterators.js</files>
       <baseline>iterators.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_ship,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo</tags>
       <files>AsmJs.js</files>
       <baseline>AsmJs.baseline</baseline>
     </default>

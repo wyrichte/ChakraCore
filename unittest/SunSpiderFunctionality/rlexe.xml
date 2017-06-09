@@ -11,7 +11,6 @@
       <files>3d-cube.js</files>
       <baseline>3d-cube.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>
@@ -27,7 +26,7 @@
       <files>3d-cube.js</files>
       <baseline>3d-cube.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll -jsrt:8</compile-flags>
-      <tags>exclude_dynapogo,exclude_ship</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -195,7 +194,6 @@
       <files>crypto-aes.js</files>
       <baseline>crypto-aes.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>
@@ -362,7 +360,6 @@
       <files>string-fasta.js</files>
       <baseline>string-fasta.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>
@@ -384,7 +381,6 @@
       <files>string-tagcloud.js</files>
       <baseline>string-tagcloud.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>
@@ -421,7 +417,6 @@
       <files>string-validate-input.js</files>
       <baseline>string-validate-input.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
   <test>

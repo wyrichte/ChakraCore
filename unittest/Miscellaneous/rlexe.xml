@@ -53,7 +53,6 @@
       <files>etwtest.js</files>
       <baseline />
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_ship</tags>
     </default>
   </test>
 </regress-exe>

@@ -5,7 +5,7 @@
       <files>objtypespec-add-3.js</files>
       <baseline>objtypespec-add-3.baseline</baseline>
       <compile-flags>-maxinterpretcount:2</compile-flags>
-      <tags>exclude_ship, exclude_dynapogo</tags>
+      <tags> exclude_dynapogo</tags>
     </default>
   </test>
 </regress-exe>

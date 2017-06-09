@@ -227,17 +227,15 @@ set _Error=0
 set FRETEST=1
 
 ::
-:: If running on chk or FRETEST, use dynamic profile cache and undef tag exclude_ship.
+:: If running on chk or FRETEST, use dynamic profile cache
 ::
 set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -BaselineMode
 set _dynamicprofilecache=-dynamicprofilecache:profile.dpl
 set _dynamicprofileinput=-dynamicprofileinput:profile.dpl
-set _exclude_ship=
 if "%_buildType%" == "fre" (
     if "%FRETEST%" == "" (
         set _dynamicprofilecache=
         set _dynamicprofileinput=
-        set _exclude_ship=-nottags exclude_ship
     )
 )
 if "%_buildType%" == "chk" (
@@ -488,7 +486,7 @@ if "%_TESTCONFIG%"=="forceserialized" (
 echo %_TESTCONFIG% > %_logsRoot%\_currentRun.tmp
 :: Default variant is no longer run.
 :: if "%_TESTCONFIG%"=="default"      set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -speculationcap:0 %_dynamicprofilecache%
-set _runCmd=call %_runAllRLTestsDir%\runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_ship% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
+set _runCmd=call %_runAllRLTestsDir%\runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
 echo %_runCmd%
 %_runCmd% 2>&1
 
