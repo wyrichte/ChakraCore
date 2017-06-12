@@ -134,6 +134,7 @@
       <compile-flags>-Serialized</compile-flags>
       <files>sca_misc.js</files>
       <baseline>sca_misc.baseline</baseline>
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
