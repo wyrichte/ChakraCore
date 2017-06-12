@@ -40,6 +40,7 @@
       <compile-flags>-testEtwDll:NativeUnitTests.dll -Serialized:earley-boyer2.js.bc</compile-flags>
       <files>earley-boyer.js</files>
       <baseline>earley-boyer.baseline</baseline>
+      <tags>exclude_ship,exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -47,6 +48,7 @@
       <compile-flags>-Serialized:earley-boyer.js.bc</compile-flags>
       <files>earley-boyer.js</files>
       <baseline>earley-boyer.baseline</baseline>
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>

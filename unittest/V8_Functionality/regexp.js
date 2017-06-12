@@ -1639,7 +1639,7 @@ function runRegExpBenchmark() {
 
 
 
-var start = new Date();
+//var start = new Date();
 runRegExpBenchmark();
-var elapsed = new Date() - start;
-WScript.Echo("Regex- runRegExpBenchmark: " + elapsed + 'ms');
+//var elapsed = new Date() - start;
+//WScript.Echo("Regex- runRegExpBenchmark: " + elapsed + 'ms');
