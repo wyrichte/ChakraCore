@@ -19,6 +19,9 @@
       <files>bug114639.js</files>
       <baseline>bug114639.baseline</baseline>
       <compile-flags>-ForceCleanCacheOnCollect</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -33,6 +36,9 @@
       <files>bug_125409.js</files>
       <baseline>bug_125409.baseline</baseline>
       <compile-flags>-Force:Deferparse</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -48,12 +54,18 @@
       <files>bug_164240_1.js</files>
       <baseline>bug_164240_1.baseline</baseline>
       <compile-flags>-Force:Deferparse</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_350137.js</files>
       <baseline>bug_350137.baseline</baseline>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -61,7 +73,9 @@
       <files>bug_507389.js</files>
       <baseline>bug_507389.baseline</baseline>
       <compile-flags>-Force:Deferparse</compile-flags>
-      <tags>exclude_dynapogo</tags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_dynapogo,exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -122,6 +136,9 @@
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
       <compile-flags>-Intl -LogProfilerCallTree -Off:Inline</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
 <!-- Disable temporarily to unblock chakrafull ci
@@ -140,6 +157,9 @@
       <tags>exclude_dynapogo, exclude_serialized</tags>
       <baseline>proxy.baseline</baseline>
       <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
@@ -148,6 +168,9 @@
       <tags>exclude_dynapogo, exclude_serialized</tags>
       <baseline>Generators.baseline</baseline>
       <compile-flags>-es6all -LogProfilerCallTree -Off:Inline</compile-flags>
+      <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
+      serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>
