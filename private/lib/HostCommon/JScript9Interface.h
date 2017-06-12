@@ -169,6 +169,8 @@ public:
     static HRESULT GenerateValidPointersMapHeader(LPCWSTR vpmFullPath) { return CHECKED_CALL(GenerateValidPointersMapHeader, vpmFullPath); }
     static HRESULT GetFileNameFlag(BSTR * filename) { return CHECKED_CALL(GetFilenameFlag, filename); }
     static HRESULT FlushOutput() { return CHECKED_CALL(FlushOutput); }
+    static void GetContentOfSharedArrayBuffer(Var instance, void** content) { CHECKED_CALL(GetContentOfSharedArrayBuffer, instance, content); }
+    static void CreateSharedArrayBufferFromContent(IActiveScriptDirect * scriptDirect, void* content, Var* instance) { CHECKED_CALL(CreateSharedArrayBufferFromContent, scriptDirect, content, instance); }
 
     static HRESULT GetCrashOnExceptionFlag(bool * flag)
     {

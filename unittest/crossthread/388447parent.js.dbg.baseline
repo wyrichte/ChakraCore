@@ -34,7 +34,8 @@
         },
         "Atomics": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Atomics"
         },
         "console": {
           "[Methods]": "{...}",

@@ -57,6 +57,16 @@ Var ScriptDirect::GetUndefined()
     return undefined;
 }
 
+Var ScriptDirect::GetNull()
+{
+    Var value = NULL;
+    if (m_pScriptDirect)
+    {
+        m_pScriptDirect->GetNull(&value);
+    }
+    return value;
+}
+
 HRESULT ScriptDirect::GetProperty(Var obj, PropertyId propertyId, Var* value)
 {
     return (SUCCEEDED(m_pJavascriptOperators->GetProperty(m_pScriptDirect, obj, propertyId, value))) ? S_OK : E_FAIL;
@@ -259,6 +269,10 @@ HRESULT ScriptDirect::StringToVar(LPCWSTR str, Var* value)
 {
     size_t len = wcslen(str);
     return m_pScriptDirect->StringToVar(str, static_cast<int>(len), value);
+}
+HRESULT ScriptDirect::VarToString(Var value, BSTR* str)
+{
+    return m_pScriptDirect->VarToString(value, str);
 }
 
 HRESULT ScriptDirect::NewDate(double time, Var* pValue)

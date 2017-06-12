@@ -154,6 +154,26 @@ void __stdcall DisplayMemStats()
     }
 }
 
+void __stdcall GetContentOfSharedArrayBuffer(Var instance, void** content)
+{
+    *content = Js::SharedArrayBuffer::FromVar(instance)->GetSharedContents();
+}
+
+void __stdcall CreateSharedArrayBufferFromContent(IActiveScriptDirect * scriptDirect, void* content, Var* instance)
+{
+    auto scriptEngine = (ScriptEngine*)scriptDirect;
+    auto scriptContext = scriptEngine->GetScriptContext();
+
+    HRESULT hr;
+    BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+    {
+        *instance = scriptContext->GetLibrary()->CreateSharedArrayBuffer((Js::SharedContents*)content);
+    }
+    END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr);
+
+}
+
+
 #ifdef ENABLE_INTL_OBJECT
 void __stdcall ResetTimeZoneFactoryObjects()
 {
@@ -460,6 +480,8 @@ HRESULT OnJScript9Loaded()
         StopScriptProfiling,
         DisplayMemStats,
         FlushOutput,
+        GetContentOfSharedArrayBuffer,
+        CreateSharedArrayBufferFromContent,
 #ifdef ENABLE_INTL_OBJECT
         ResetTimeZoneFactoryObjects,
 #endif

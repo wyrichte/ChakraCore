@@ -460,10 +460,12 @@ HRESULT UnregisterPSObject(DWORD cookie)
 // Thread proc for the engine thread
 DWORD WINAPI EngineThreadProcImpl(LPVOID param)
 {
-    HANDLE * waitHandles = (HANDLE*)param;
-    HANDLE readyEvent = waitHandles[0];
+    EngineThreadData* threadData = (EngineThreadData*)param;
+    SetEngineThreadData(threadData);
+
+    HANDLE readyEvent = threadData->readyEvent;
     Assert(readyEvent);
-    HANDLE terminateThreadEvent = waitHandles[1];
+    HANDLE terminateThreadEvent = threadData->terminateHandle;
 
     HRESULT hr = S_OK;
   
@@ -510,9 +512,17 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
                         MSG msg;
                         while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
                         {
-                            TranslateMessage(&msg);
-                            DispatchMessage(&msg);
+                            if (msg.message == WM_BROADCAST_SAB && !GetEngineThreadData()->leaving)
+                            {
+                                WScriptFastDom::ReceiveBroadcastCallBack((void*)msg.wParam, (int)msg.lParam);
+                            }
+                            else
+                            {
+                                TranslateMessage(&msg);
+                                DispatchMessage(&msg);
+                            }
                         }
+
                     }
                     break;
 
@@ -557,6 +567,7 @@ DWORD WINAPI EngineThreadProc(LPVOID param)
     return (DWORD)-1;
 }
 
+
 // Creates an engine thread
 HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent)
 {
@@ -578,9 +589,9 @@ HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent)
         }
     }
 
-    HANDLE threadProcEvents[] = {readyEvent, terminateHandle};
+    EngineThreadData* threadData = new EngineThreadData(readyEvent, terminateHandle);
 
-    *thread = CreateThread(NULL, 0, EngineThreadProc, (LPVOID) threadProcEvents, 0, NULL);
+    *thread = CreateThread(NULL, 0, EngineThreadProc, (LPVOID)threadData, 0, NULL);
     if (!thread)
     {
         hr = HRESULT_FROM_WIN32(GetLastError());
@@ -1019,6 +1030,7 @@ HRESULT DoOneIASIteration(BSTR filename)
 
     // Create the main javascript engine
     JsHostActiveScriptSite * mainScriptSite = NULL;
+    SetEngineThreadData(new EngineThreadData(nullptr, nullptr));
     hr = CreateNewEngine(mainEngineThread, &mainScriptSite, true, HostConfigFlags::flags.DiagnosticsEngine /*actAsDiagnosticsHost*/, true /* primary engine */, 0);
     if (SUCCEEDED(hr))
     {
@@ -1137,6 +1149,8 @@ HRESULT DoOneIASIteration(BSTR filename)
 
     DiagnosticsHelper::DisposeHelper();
 
+    JsHostActiveScriptSite::Terminate();
+
     if (SetEvent(shutdownEvent))
     {
         try
@@ -1160,7 +1174,6 @@ HRESULT DoOneIASIteration(BSTR filename)
         hr = HRESULT_FROM_WIN32(GetLastError());
     }
 
-    JsHostActiveScriptSite::Terminate();
     return hr;
 }
 
@@ -2062,7 +2075,7 @@ int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
     int ret = 0;
     if (UseLargeAddresses(argc, argv))
     {
-         ret = TestLargeAddress(argc, argv, wmain1);
+        ret = TestLargeAddress(argc, argv, wmain1);
     }
     else
     {

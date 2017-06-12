@@ -44,6 +44,8 @@ struct TestHooks
     typedef HRESULT (__stdcall * StartScriptProfilingPtr)(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context);
     typedef HRESULT (__stdcall * StopScriptProfilingPtr)(IActiveScriptDirect * scriptDirect);
     typedef void(__stdcall * DisplayMemStatsPtr)();
+    typedef void (__stdcall *GetContentOfSharedArrayBufferPtr)(Var instance, void** content);
+    typedef void (__stdcall *CreateSharedArrayBufferFromContentPtr)(IActiveScriptDirect * scriptDirect, void* content, Var* instance);
 #ifdef ENABLE_INTL_OBJECT
     typedef void(__stdcall * ClearTimeZoneCalendarsPtr)();
 #endif
@@ -75,6 +77,8 @@ struct TestHooks
     StopScriptProfilingPtr pfStopScriptProfiling;
     DisplayMemStatsPtr pfDisplayMemStats;
     FlushOutputPtr pfFlushOutput;
+    GetContentOfSharedArrayBufferPtr pfGetContentOfSharedArrayBuffer;
+    CreateSharedArrayBufferFromContentPtr pfCreateSharedArrayBufferFromContent;
 #ifdef ENABLE_INTL_OBJECT
     ClearTimeZoneCalendarsPtr pfResetTimeZoneFactoryObjects;
 #endif
