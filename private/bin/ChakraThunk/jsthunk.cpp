@@ -296,9 +296,6 @@ JsThunk_ProcessAttach(
         // Check that the last instruction is a ret, i.e. not a tail call (assuming they do not look similar).
         // This does not guarantee that the byte is run.
 
-#if _CONTROL_FLOW_GUARD_SHADOW_STACK
-        // TODO: This is not compatible with shadow stack support.
-#endif
 
         if (!NT_VERIFY(((PBYTE)JsThunkData[0].Thunk)[JsThunk_Size - 1] == 0xC3))
         {
