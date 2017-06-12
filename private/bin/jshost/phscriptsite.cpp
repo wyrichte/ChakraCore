@@ -1679,22 +1679,22 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
 {
     HRESULT hr = S_OK;
 
-    IJsHostScriptSite * scriptSite = NULL;
+    CComPtr<IJsHostScriptSite> scriptSite = NULL;
     hr = git->GetInterfaceFromGlobal(jsHostScriptSiteCookie, IID_IJsHostScriptSite, (void**)&scriptSite);
     if (SUCCEEDED(hr))
     {
         if (scriptSite != this)
         {
-            hr = E_NOTIMPL;
+            hr = scriptSite->LoadScript(script);
         }
         else
         {
             bool usedUtf8 = true;
-            size_t scriptContentLen = strlen((const char*)script);
+            size_t scriptContentLen = wcslen(script);
             // If scriptContent length trucates, reject the script
             if (scriptContentLen <= UINT_MAX)
             {
-                hr = LoadScriptFromString(script, nullptr, static_cast<UINT>(scriptContentLen), &usedUtf8);
+                hr = LoadScriptFromString(script, nullptr, 0, &usedUtf8);
             }
             else
             {
@@ -1702,7 +1702,6 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScript(LPCOLESTR script)
             }
         }
 
-        scriptSite->Release();
     }
 
     return hr;

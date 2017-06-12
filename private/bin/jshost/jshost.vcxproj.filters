@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="jshost.def" />
+    <None Include="..\..\..\core\bin\ch\262.js" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="JsHostScriptSite.idl" />

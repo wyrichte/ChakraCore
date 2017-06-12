@@ -34,6 +34,7 @@ public:
     }
 
     Var GetUndefined();
+    Var GetNull();
 
     HRESULT GetProperty(Var obj, PropertyId propertyId, Var* value);
     HRESULT GetProperty(Var obj, LPCWSTR name, Var* value);
@@ -60,6 +61,7 @@ public:
     HRESULT HasProperty(Var obj, LPCWSTR name, BOOL* result);
 
     HRESULT StringToVar(LPCWSTR str, Var* value);
+    HRESULT VarToString(Var value, BSTR* str);
     HRESULT NewDate(double time, Var* pValue);
 
     void ThrowIfFailed(HRESULT hr, LPCWSTR msg = _u(""));

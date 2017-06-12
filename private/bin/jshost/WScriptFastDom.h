@@ -8,6 +8,27 @@
 #include "edgescriptdirect.h"
 typedef void(*NotifyCallback)();
 
+const UINT WM_BROADCAST_SAB = WM_USER + 0x100;
+
+struct EngineThreadData
+{
+    EngineThreadData(HANDLE readyEvent, HANDLE terminateHandle);
+    ~EngineThreadData();
+    HANDLE readyEvent;
+    HANDLE terminateHandle;
+
+    std::list<DWORD> childrenThreadIds;
+    std::list<std::wstring> reportQ;
+    CRITICAL_SECTION csReportQ;
+    void* cbReceiveBroadcast = nullptr;
+    EngineThreadData* parent;
+
+    bool leaving;
+};
+
+EngineThreadData* GetEngineThreadData();
+void SetEngineThreadData(EngineThreadData*);
+
 class WScriptFastDom
 {
 public:
@@ -136,6 +157,14 @@ public:
     static Var SetRestrictedMode(Var function, CallInfo callInfo, Var* args);
     static Var TestConstructor(Var function, CallInfo callInfo, Var* args);
     static Var SetKeepAlive(Var function, CallInfo callInfo, Var* args);
+
+    static Var Broadcast(Var function, CallInfo callInfo, Var* args);
+    static Var ReceiveBroadcast(Var function, CallInfo callInfo, Var* args);
+    static Var Report(Var function, CallInfo callInfo, Var* args);
+    static Var GetReport(Var function, CallInfo callInfo, Var* args);
+    static Var Leaving(Var function, CallInfo callInfo, Var* args);
+    static Var Sleep(Var function, CallInfo callInfo, Var* args);
+    static void ReceiveBroadcastCallBack(void* sharedContent, int id);
 
     static HRESULT Initialize(IActiveScript * activeScript, BOOL inHTMLHost = FALSE, NotifyCallback keepaliveCallback = nullptr);
     static HRESULT InitializeStreams(IActiveScriptDirect *activeScriptDirect, Var wscript);
