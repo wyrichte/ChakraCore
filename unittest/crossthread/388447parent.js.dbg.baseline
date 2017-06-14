@@ -96,7 +96,8 @@
         "undefined": "undefined",
         "WebAssembly": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "WebAssembly"
         },
         "WScript": {
           "[Methods]": "{...}",
