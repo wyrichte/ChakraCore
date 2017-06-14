@@ -181,9 +181,12 @@ namespace Js
                     {
                         return false;
                     }
+                    
+                    if(contextType == SCAContext_CrossProcess || contextType == SCAContext_Persist)
+                    {
+                        return false;
+                    }
 
-                    AssertOrFailFastMsg(!(contextType == SCAContext_CrossProcess || contextType == SCAContext_Persist),
-                        "SharedArrayBuffer can't be passed cross process or be Persisted");
             
                     SharedArrayBuffer* buf = SharedArrayBuffer::FromVar(src);
                     SharedContents* sharedContents = buf->GetSharedContents();
