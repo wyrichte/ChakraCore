@@ -54,6 +54,12 @@
 
     Defaults to $True.
 
+    .PARAMETER Dirs
+
+    Indicates which directories to run the unit tests from.
+
+    Defaults to "".
+
     .PARAMETER BuildNumber
 
     Specifies the build number to be tested. This is only used in the non-DRT mode to copy binaries from an official build drop.
@@ -168,6 +174,9 @@ Param(
 
     [Parameter(Mandatory=$false)]
     [bool]$RunJsrtUnitTests = $True,
+
+    [Parameter(Mandatory=$false)]
+    [string]$Dirs,
 
     [Parameter(Mandatory=$false)]
     [string]$BuildNumber,
@@ -350,7 +359,15 @@ try
                     if($RunUnitTests)
                     {
                         # Create the command for running unit tests by passing "-unit" parameter.
-                        Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit")
+                        if($Dirs -ne "")
+                        {
+                            Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit:`"-dirs:$Dirs`"")
+                        }
+                        else
+                        {
+                            Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit")
+                        }
+
                         Write-Host "The chakra.cmd Unit Tests execution call: $UnitTestRunCommand"
 
                         # Run Unit Test call
@@ -375,7 +392,17 @@ try
                     {
                         # Create the command for running HTML unit tests by passing "-unit:"-html -variants:interpreted;dynapogo"" parameter. We write the HTML test logs in a dedicated folder so as not to 
                         # overwrite the normal unit test logs.
-                        Set-Variable -Name HtmlUnitTestRunCommand -Value (($TestRunCommand -f "-unit:`"-html -variants:interpreted;dynapogo`"").Replace("JScriptDrtTestRunLogs", "JScriptDrtHtmlTestRunLogs"))
+                        if($Dirs -ne "")
+                        {
+                            Set-Variable -Name HtmlUnitTestRunCommand -Value (($TestRunCommand -f "-unit:`"-html -variants:interpreted;dynapogo -dirs:$Dirs`""))
+                        }
+                        else
+                        {
+                            Set-Variable -Name HtmlUnitTestRunCommand -Value (($TestRunCommand -f "-unit:`"-html -variants:interpreted;dynapogo`""))
+                        }
+
+                        $HtmlUnitTestRunCommand = $HtmlUnitTestRunCommand.Replace("JScriptDrtTestRunLogs", "JScriptDrtHtmlTestRunLogs")
+
                         Write-Host "The chakra.cmd HTML Unit Tests execution call: $HtmlUnitTestRunCommand"
 
                         # Run HTML Unit Test call
@@ -453,7 +480,15 @@ try
 
             if($ProjectionTestResult -eq 0)
             {
-                Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection")
+                if($Dirs -ne "")
+                {
+                    Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection:`"-dirs:$Dirs`"")
+                }
+                else
+                {
+                    Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection")
+                }
+
                 Write-Host "The chakra.cmd Projection Tests execution call: $ProjectionTestRunCommand"
 
                 #12. Run Projection Test:
@@ -478,9 +513,13 @@ try
         Write-Host $_.Exception.Message
     }
 
-    if($DrtResult -eq 0 -and ($ProjectionTestResult -eq 1 -or $UnitTestResult -eq 1 -or $UnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1))
+    if($ProjectionTestResult -eq 1 -or $UnitTestResult -eq 1 -or $UnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1)
     {
         $DrtResult = 1
+    }
+    else
+    {
+        $DrtResult = 0
     }
 }
 catch [Exception]
