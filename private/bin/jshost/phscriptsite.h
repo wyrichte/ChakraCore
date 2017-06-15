@@ -127,6 +127,12 @@ private:
     HRESULT RegisterDebugDocuments(CComPtr<IActiveScript>& activeScript, std::vector<SourceContextPair>& cookiePairs);
     void UpdateFileMapTable(std::vector<SourceContextPair>& cookiePairs, SourceContextPair* outPairArray);
 
+    STDMETHODIMP FetchImportedModuleHelper(
+        /* [in] */ ModuleRecord referencingModule,
+        /* [in] */ LPCWSTR specifier,
+        /* [in] */ unsigned long specifierLength,
+        /* [out] */ ModuleRecord *dependentModuleRecord);
+
 public:
 
     bool delegateErrorHandling = false;

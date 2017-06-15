@@ -1095,7 +1095,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
     char16 * fullpath = nullptr;
     bool contentsFromModuleSourceMap = false;
-    bool printFileOpenError = !HostConfigFlags::flags.AsyncModuleLoadIsEnabled;
+    bool printFileOpenError = !HostConfigFlags::flags.MuteHostErrorMsgIsEnabled;
 
     auto moduleFromSourceMap = moduleSourceMap.find(scriptFilename);
     if (isModuleCode && moduleFromSourceMap != moduleSourceMap.end())
@@ -2322,11 +2322,11 @@ void __stdcall JsHostActiveScriptSite::EnqueuePromiseTask(Var task)
     WScriptFastDom::PushMessage(msg);
 }
 
-STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
-    /* [in] */ __RPC__in ModuleRecord referencingModule,
-    /* [in] */ __RPC__in LPCWSTR specifier,
+STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleHelper(
+    /* [in] */ ModuleRecord referencingModule,
+    /* [in] */ LPCWSTR specifier,
     /* [in] */ unsigned long specifierLength,
-    /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
+    /* [out] */ ModuleRecord *dependentModuleRecord)
 {
     HRESULT hr;
     // TODO: implement the dictionary
@@ -2343,6 +2343,7 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     if (SUCCEEDED(hr))
     {
         moduleRecordMap[specifier] = moduleRecord;
+        activeScriptDirect->SetModuleHostInfo(moduleRecord, ModuleHostInfo_HostDefined, (void *)specifier);
         WScriptFastDom::ModuleMessage* moduleMessage =
             WScriptFastDom::ModuleMessage::Create(referencingModule, specifier, activeScriptDirect);
         WScriptFastDom::PushMessage(moduleMessage);
@@ -2351,33 +2352,23 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     return hr;
 }
 
+STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
+    /* [in] */ __RPC__in ModuleRecord referencingModule,
+    /* [in] */ __RPC__in LPCWSTR specifier,
+    /* [in] */ unsigned long specifierLength,
+    /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
+{
+    return FetchImportedModuleHelper(referencingModule, specifier, specifierLength, dependentModuleRecord);
+}
+
+
 STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleFromScript(
     /* [in] */ __RPC__in DWORD_PTR dwReferencingSourceContext,
     /* [in] */ __RPC__in LPCWSTR specifier,
     /* [in] */ unsigned long specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
 {
-    HRESULT hr;
-    // TODO: implement the dictionary
-    CComPtr<IActiveScriptDirect> activeScriptDirect;
-    hr = GetActiveScriptDirect(&activeScriptDirect);
-    ModuleRecord moduleRecord = nullptr;
-    auto moduleEntry = moduleRecordMap.find(specifier);
-    if (moduleEntry != moduleRecordMap.end())
-    {
-        *dependentModuleRecord = moduleEntry->second;
-        return S_OK;
-    }
-    hr = activeScriptDirect->InitializeModuleRecord(nullptr, specifier, specifierLength, &moduleRecord);
-    if (SUCCEEDED(hr))
-    {
-        moduleRecordMap[specifier] = moduleRecord;
-        WScriptFastDom::ModuleMessage* moduleMessage =
-            WScriptFastDom::ModuleMessage::Create(nullptr, specifier, activeScriptDirect);
-        WScriptFastDom::PushMessage(moduleMessage);
-        *dependentModuleRecord = moduleRecord;
-    }
-    return hr;
+    return FetchImportedModuleHelper(nullptr, specifier, specifierLength, dependentModuleRecord);
 }
 
 STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
@@ -2391,12 +2382,26 @@ STDMETHODIMP JsHostActiveScriptSite::NotifyModuleReady(
     {
         if (exceptionVar != nullptr)
         {
-            IActiveScriptError* scriptError = nullptr;
-            hr = activeScriptDirect->CreateScriptErrorFromVar(exceptionVar, &scriptError);
-            if (SUCCEEDED(hr))
+            if (!HostConfigFlags::flags.MuteHostErrorMsgIsEnabled)
             {
-                OnScriptError(scriptError);
-                scriptError->Release();
+                IActiveScriptError* scriptError = nullptr;
+                hr = activeScriptDirect->CreateScriptErrorFromVar(exceptionVar, &scriptError);
+                if (SUCCEEDED(hr))
+                {
+                    OnScriptError(scriptError);
+                    scriptError->Release();
+                }
+            }
+
+            if (HostConfigFlags::flags.TraceHostCallbackIsEnabled)
+            {
+                LPCWSTR specifier = nullptr;
+                activeScriptDirect->GetModuleHostInfo(referencingModule, ModuleHostInfo_HostDefined, (void**)&specifier);
+
+                if (specifier != nullptr)
+                {
+                    wprintf(_u("NotifyModuleReadyCallback(exception) %s\n"), specifier);
+                }
             }
         }
         else

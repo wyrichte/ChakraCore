@@ -44,7 +44,8 @@ FLAG(bool, MemProtectHeapTest,              "Specific test for memory protect he
 FLAG(bool, OOPJIT,                          "JIT jobs should be run in a separate process", true)
 FLAG(bool, ForceOOPImageRebase,             "Ensure JIT process will have to rebase dlls", false)
 FLAG(bool, EnableOnLeaveScript,             "Execute __onLeaveScript() when leave script", false)
-FLAG(bool, AsyncModuleLoad,                 "Silence host error output for module load failures to enable promise testing", false)
+FLAG(bool, MuteHostErrorMsg,                "Mute host error output, e.g. module load failures", false)
+FLAG(bool, TraceHostCallback,               "Output traces for host callbacks", false)
 FLAG(bool, $262,                            "load $262 harness", false)
 #undef FLAG
 #endif

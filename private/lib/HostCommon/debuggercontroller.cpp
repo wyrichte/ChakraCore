@@ -489,7 +489,7 @@ void DebuggerController::Log(__in __nullterminated char16 *msg, ...)
 
 void DebuggerController::LogError(__in __nullterminated char16 *msg, ...)
 {
-    if (!HostConfigFlags::flags.AsyncModuleLoadIsEnabled)
+    if (!HostConfigFlags::flags.MuteHostErrorMsgIsEnabled)
     {
         va_list args;
         va_start(args, msg);
