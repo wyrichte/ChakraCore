@@ -36,10 +36,7 @@
 
         var testList = config.testPath + "\\UnitTest.JsRT.API.dll ";
         testList += config.testPath + "\\UnitTest.JsRT.ComProjection.dll ";
-        testList += config.testPath + "\\UnitTest.JsRT.Engine.dll ";
-        testList += config.testPath + "\\UnitTest.JsRT.MemoryPolicy.dll ";
         testList += config.testPath + "\\UnitTest.JsRT.RentalThreading.dll ";
-        testList += config.testPath + "\\UnitTest.JsRT.ThreadService.dll ";
 
         var runManagedTests = true;
         var logFile = undefined;
