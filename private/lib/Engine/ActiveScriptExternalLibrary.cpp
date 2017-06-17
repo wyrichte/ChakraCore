@@ -97,7 +97,7 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateSlotGetterFunction(b
     if (slotGetterFunctionTypes[slotIndex] == nullptr)
     {
         slotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
-        if (JITManager::GetJITManager()->IsOOPJITEnabled())
+        if (JITManager::GetJITManager()->IsOOPJITEnabled() && JITManager::GetJITManager()->IsConnected())
         {
             if (scriptContext->GetRemoteScriptAddr())
             {
