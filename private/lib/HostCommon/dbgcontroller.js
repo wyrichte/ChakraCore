@@ -94,6 +94,7 @@ var controllerObj = {
             "Atomics",
             "Boolean",
             "CanvasPixelArray",
+            "chWriteTraceEvent",
             "CollectGarbage",
             "console",
             "CreateDomArrayObject",
