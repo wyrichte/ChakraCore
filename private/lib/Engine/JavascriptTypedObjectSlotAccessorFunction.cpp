@@ -60,7 +60,7 @@ namespace Js
             // what we are doing here.
             // Note that if we are using a fallback trampoline for lazy FTL slots, it is OK to have a null slot. In this case the trampoline will be called.
             if (fallBackTrampoline == nullptr
-                && (SUCCEEDED(JsVarToExtension(thisObj, &extension))
+                && (FAILED(JsVarToExtension(thisObj, &extension))
                     || (*(void**)extension == nullptr)))
             {
                 return false;
