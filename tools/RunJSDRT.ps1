@@ -60,6 +60,12 @@
 
     Defaults to "".
 
+    .PARAMETER Variants
+
+    Indicates which variants of the unit tests to run.
+
+    Defaults to "".
+
     .PARAMETER BuildNumber
 
     Specifies the build number to be tested. This is only used in the non-DRT mode to copy binaries from an official build drop.
@@ -177,6 +183,9 @@ Param(
 
     [Parameter(Mandatory=$false)]
     [string]$Dirs,
+
+    [Parameter(Mandatory=$false)]
+    [string]$Variants,
 
     [Parameter(Mandatory=$false)]
     [string]$BuildNumber,
@@ -334,6 +343,20 @@ try
     Set-Variable -Name UnitTestRunResult -Value -1
     Set-Variable -Name HtmlUnitTestRunResult -Value -1
     Set-Variable -Name JsrtUnitTestRunResult -Value -1
+    Set-Variable -Name DirsFlag -Value ""
+    Set-Variable -Name VariantsFlag -Value ""
+
+    $DirsFlag = ""
+    $VariantsFlag = ""
+    if($Dirs -ne "")
+    {
+        $DirsFlag = " -dirs:$Dirs"
+    }
+
+    if($Variants -ne "")
+    {
+        $VariantsFlag = " -variants:$Variants -variantsWhenDirs:$Variants"
+    }
 
     if($RunUnitTests -or $RunHtmlUnitTests -or $RunJsrtUnitTests)
     {
@@ -359,7 +382,6 @@ try
                     if($RunUnitTests)
                     {
                         # Create the command for running unit tests by passing "-unit" parameter.
-                        if($Dirs -ne "")
                         {
                             Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit:`"-dirs:$Dirs`"")
                         }
@@ -390,7 +412,7 @@ try
                 {
                     if($RunHtmlUnitTests)
                     {
-                        # Create the command for running HTML unit tests by passing "-unit:"-html -variants:interpreted;dynapogo"" parameter. We write the HTML test logs in a dedicated folder so as not to 
+                        # Create the command for running HTML unit tests by passing "-unit:"-html -variants:interpreted;dynapogo"" parameter. 
                         # overwrite the normal unit test logs.
                         if($Dirs -ne "")
                         {
@@ -480,7 +502,6 @@ try
 
             if($ProjectionTestResult -eq 0)
             {
-                if($Dirs -ne "")
                 {
                     Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection:`"-dirs:$Dirs`"")
                 }
