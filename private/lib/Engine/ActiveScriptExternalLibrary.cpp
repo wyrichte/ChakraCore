@@ -99,10 +99,11 @@ Js::JavascriptFunction * ActiveScriptExternalLibrary::CreateSlotGetterFunction(b
         slotGetterFunctionTypes[slotIndex] = library->CreateFunctionWithLengthType(functionInfo);
         if (JITManager::GetJITManager()->IsOOPJITEnabled() && JITManager::GetJITManager()->IsConnected())
         {
-            if (scriptContext->GetRemoteScriptAddr())
+            PSCRIPTCONTEXT_HANDLE remoteScriptContext = this->scriptContext->GetRemoteScriptAddr();
+            if (remoteScriptContext)
             {
                 HRESULT hr = JITManager::GetJITManager()->AddDOMFastPathHelper(
-                    scriptContext->GetRemoteScriptAddr(),
+                    remoteScriptContext,
                     (intptr_t)functionInfo,
                     (int)getterIRHelper);
                 JITManager::HandleServerCallResult(hr, RemoteCallType::StateUpdate);
