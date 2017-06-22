@@ -299,7 +299,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum</tags>
+      <tags>HeapEnum,exclude_drt</tags>
       <files>SimpleDom.html</files>
       <baseline>SimpleDom.baseline</baseline>
     </default>

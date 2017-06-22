@@ -97,7 +97,7 @@
     <default>
       <files>regexp.js</files>
       <baseline>regexp.baseline</baseline>
-      <tags>fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized</tags>
+      <tags>fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -105,7 +105,7 @@
       <files>regexp.js</files>
       <baseline>regexp.baseline</baseline>
       <compile-flags>-optimizeForManyInstances</compile-flags>
-      <tags>exclude_fre,fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized</tags>
+      <tags>exclude_fre,fails_interpreted,fails_default,fails_dynapogo,fails_bytecodeserialized,exclude_drt</tags>
     </default>
   </test>
   <test>

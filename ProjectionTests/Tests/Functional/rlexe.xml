@@ -926,7 +926,7 @@
       <files>ArrayRestricted.js</files>
       <baseline>ArrayRestricted.baseline</baseline>
       <compile-flags></compile-flags>
-      <tags>exclude_win7,exclude_amd64</tags>
+      <tags>exclude_win7,exclude_amd64,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -990,7 +990,7 @@
       <files>InspectableToVar.js</files>
       <baseline>InspectableToVar.baseline</baseline>
       <compile-flags></compile-flags>
-      <tags>exclude_win7</tags>
+      <tags>exclude_win7,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -1652,7 +1652,7 @@ Re-enable with new baseline
       <files>AllowForWebInstanceMembers.js</files>
       <baseline>AllowForWebInstanceMembers.baseline</baseline>
       <compile-flags>-hostType:3</compile-flags>
-      <tags>exclude_win7,exclude_win8</tags>
+      <tags>exclude_win7,exclude_win8,exclude_drt</tags>
     </default>
   </test>
 
@@ -1688,7 +1688,7 @@ Re-enable with new baseline
       <files>AllowForWebInstanceMembers.js</files>
       <baseline>AllowForWebInstanceMembers.baseline</baseline>
       <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
-      <tags>exclude_win7,exclude_win8</tags>
+      <tags>exclude_win7,exclude_win8,exclude_drt</tags>
     </default>
   </test>
 

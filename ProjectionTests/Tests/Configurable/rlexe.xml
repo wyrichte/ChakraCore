@@ -51,7 +51,7 @@
       <files>Mock.js</files>
       <baseline>Mock.baseline</baseline>
       <compile-flags>-Configurable</compile-flags>
-      <tags>exclude_win7</tags>
+      <tags>exclude_win7,exclude_drt</tags>
     </default>
   </test>
 
@@ -59,7 +59,7 @@
     <default>
       <files>Mock.js</files>
       <baseline>Mock.notConfigured.baseline</baseline>
-      <tags>exclude_win7</tags>
+      <tags>exclude_win7,exclude_drt</tags>
     </default>
   </test>
 
