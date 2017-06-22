@@ -138,7 +138,7 @@
       <compile-flags>-Intl -LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
       serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
-      <tags>exclude_forceserialized</tags>
+      <tags>exclude_forceserialized,exclude_drt</tags>
     </default>
   </test>
 <!-- Disable temporarily to unblock chakrafull ci
@@ -159,7 +159,7 @@
       <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
       serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
-      <tags>exclude_forceserialized</tags>
+      <tags>exclude_forceserialized,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -170,7 +170,7 @@
       <compile-flags>-es6all -LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
       serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
-      <tags>exclude_forceserialized</tags>
+      <tags>exclude_forceserialized,exclude_drt</tags>
     </default>
   </test>
   <test>

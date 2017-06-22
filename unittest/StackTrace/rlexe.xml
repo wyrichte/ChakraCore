@@ -30,7 +30,7 @@
   </test>
   <test>
     <default>
-      <tags>GetExtendedExceptionInfo</tags>
+      <tags>GetExtendedExceptionInfo,exclude_drt</tags>
       <files>libraryCodeParentThrowThroughFrame.onError.html</files>
       <compile-flags>-WERExceptionSupport</compile-flags>
       <baseline>libraryCodeParentThrowThroughFrame.onError.win8.baseline</baseline>
@@ -65,7 +65,7 @@
   </test>
   <test>
     <default>
-      <tags>StackTrace</tags>
+      <tags>StackTrace,exclude_drt</tags>
       <files>simpleThrow.html</files>
       <baseline>simpleThrow.html.baseline</baseline>
     </default>
@@ -111,7 +111,7 @@
   </test>
   <test>
     <default>
-      <tags>StackTrace</tags>
+      <tags>StackTrace,exclude_drt</tags>
       <files>OOS.html</files>
       <baseline>OOS.html.baseline</baseline>
     </default>

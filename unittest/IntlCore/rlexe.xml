@@ -60,7 +60,7 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerTest.js.dbg.baseline -Intl</compile-flags>
       <files>IntlInternalsHiddenFromDebuggerTest.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -68,7 +68,7 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:IntlInternalsHiddenFromDebuggerInterlacedTest.js.dbg.baseline -Intl</compile-flags>
       <files>IntlInternalsHiddenFromDebuggerInterlacedTest.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized,exclude_drt</tags>
     </default>
   </test>
 
@@ -85,7 +85,7 @@
       <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_drt</tags>
     </default>
   </test>
   <test>
@@ -93,7 +93,7 @@
       <compile-flags>-targeted -automaticsourcerundown -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_drt</tags>
     </default>
   </test>
   <!-- TODO (doilij) merge scriptInLibrary.js with scriptInLibrary_alt.js -->
@@ -112,7 +112,7 @@
       <compile-flags>-targeted -debuglaunch -dbgbaseline:throwFromLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>throwFromLibrary.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
-      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized</tags>
+      <tags>Intl,exclude_winBlue,exclude_winglob,exclude_serialized,exclude_drt</tags>
     </default>
   </test>
   <test>

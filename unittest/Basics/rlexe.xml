@@ -12,7 +12,7 @@
   <test>
     <default>
       <files>OS_bug_3137431.html</files>
-      <tags>BugFix</tags>
+      <tags>BugFix,exclude_drt</tags>
     </default>
   </test>
   <test>
