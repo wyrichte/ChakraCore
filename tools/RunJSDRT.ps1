@@ -95,6 +95,12 @@
     Specifies the local working directory for the test run. For DRT mode, this will be same as the DrtBundleRoot directory.
 
     Defaults to $env:SystemDrive\JScriptTestDir.
+
+    .PARAMETER LogsRootDir
+
+    Specifies the root folder for all test setup and run logs.
+
+    Defaults to $env:SystemDrive\JScriptTestDir.
      
     .PARAMETER BuildDropRootLocation
 
@@ -206,6 +212,9 @@ Param(
     [string]$JScriptTestDir = "$env:SystemDrive\JScriptTestDir",
 
     [Parameter(Mandatory=$false)]
+    [string]$LogsRootDir = "$env:SystemDrive\JScriptTestDir",
+
+    [Parameter(Mandatory=$false)]
     [string]$BuildDropRootLocation= "\\winbuilds\release\",
 
     [Parameter(Mandatory=$false)]
@@ -228,6 +237,7 @@ try
 
     $JScriptTestBin = Join-Path $JScriptTestBin "\"
     $JScriptTestDir = Join-Path $JScriptTestDir "\"
+    $LogsRootDir = Join-Path $LogsRootDir "\"
 
     Write-Host "JScript Test Binaries Location: $JScriptTestBin"
     Write-Host "JScript Test Working Directory: $JScriptTestDir"
@@ -258,6 +268,8 @@ try
         $BuildDropLocation = $BuildDropRootLocationOverride
         Write-Host "Build drop location Test Override: $BuildDropLocation"
     }
+
+    Write-Host "Logs will be written to $LogsRootDir"
 
     Write-Progress -Activity "Copy JScript Binaries" -Status "Starting copying of JScript binaries from build drop ..." -PercentComplete 0
     # While running DRTs the DRT Bundle root directory should already have the JScript and Projection folders setup correctly.
@@ -331,12 +343,12 @@ try
     # A sample chakra.cmd call for setting up Unit tests look like below:
     # Tools\chakra.cmd test-setupsnap -trace:*.* -traceTestOutput -testOutputRelativePath:"chk_drtSetup" -baseLogDirectory:"C:\drtJSlogs" -optin -unit -buildType:chk -snapBinRoot:%JScriptTestBin%  -snapTargetRoot:%JScriptTestDir% -sdxRoot:%JScriptTestDir% -binRoot:%JScriptTestDir%
     Set-Variable -Name TestOutputRelativePath -Value ($BuildFlavor + "_JScriptDrtSetup")
-    Set-Variable -Name TestSetupCommand -Value ".\tools\chakra.cmd test-setupsnap -trace:*.* -traceTestOutput -testOutputRelativePath:$TestOutputRelativePath -baseLogDirectory:$JScriptTestDir\JScriptDrtSetupLogs -optin {0} -buildType:$BuildFlavor -snapBinRoot:$JScriptTestBin  -snapTargetRoot:$JScriptTestDir -sdxRoot:$JScriptTestDir -binRoot:$JScriptTestDir"
+    Set-Variable -Name TestSetupCommand -Value ".\tools\chakra.cmd test-setupsnap -trace:*.* -traceTestOutput -testOutputRelativePath:$TestOutputRelativePath -baseLogDirectory:$LogsRootDir\JScriptDrtSetupLogs -optin {0} -buildType:$BuildFlavor -snapBinRoot:$JScriptTestBin  -snapTargetRoot:$JScriptTestDir -sdxRoot:$JScriptTestDir -binRoot:$JScriptTestDir"
     Write-Host "Template chakra.cmd Setup call: $TestSetupCommand"
 
     # A sample chakra.cmd call for running up Unit tests look like below:
     #Tools\chakra.cmd test -trace:*.* -traceTestOutput -doSnapSetup- -optin -unit -buildType:fre -platform:amd64 -snapBinRoot:\projection\winrt -snapTargetRoot:%JScriptTestDir% -sdxRoot:%JScriptTestDir% -binRoot:%JScriptTestDir% -snap -drt -baseLogDirectory:"%JScriptTestDir%\logs"
-    Set-Variable -Name TestRunCommand -Value ".\tools\chakra.cmd test -trace:*.* -traceTestOutput -doSnapSetup- -optin {0} -buildType:$BuildFlavor -platform:$BuildArch -snapBinRoot:\projection\winrt -snapTargetRoot:$JScriptTestDir -sdxRoot:$JScriptTestDir -binRoot:$JScriptTestDir -snap -drt -baseLogDirectory:$JScriptTestDir\JScriptDrtTestRunLogs"
+    Set-Variable -Name TestRunCommand -Value ".\tools\chakra.cmd test -trace:*.* -traceTestOutput -doSnapSetup- -optin {0} -buildType:$BuildFlavor -platform:$BuildArch -snapBinRoot:\projection\winrt -snapTargetRoot:$JScriptTestDir -sdxRoot:$JScriptTestDir -binRoot:$JScriptTestDir -snap -drt -baseLogDirectory:$LogsRootDir\JScriptDrtTestRunLogs"
     Write-Host "Template chakra.cmd Test call: $TestRunCommand"
 
     Set-Variable -Name UnitTestResult -Value -1
@@ -382,13 +394,10 @@ try
                     if($RunUnitTests)
                     {
                         # Create the command for running unit tests by passing "-unit" parameter.
-                        {
-                            Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit:`"-dirs:$Dirs`"")
-                        }
-                        else
-                        {
-                            Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f "-unit")
-                        }
+
+                        Set-Variable -Name UnitTestFlags -Value "-unit:`"-nottags:Slow{0}{1}`""
+                        $UnitTestFlags = ($UnitTestFlags -f $dirsFlag, $variantsFlag)
+                        Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f $UnitTestFlags)
 
                         Write-Host "The chakra.cmd Unit Tests execution call: $UnitTestRunCommand"
 
@@ -413,16 +422,11 @@ try
                     if($RunHtmlUnitTests)
                     {
                         # Create the command for running HTML unit tests by passing "-unit:"-html -variants:interpreted;dynapogo"" parameter. 
-                        # overwrite the normal unit test logs.
-                        if($Dirs -ne "")
-                        {
-                            Set-Variable -Name HtmlUnitTestRunCommand -Value (($TestRunCommand -f "-unit:`"-html -variants:interpreted;dynapogo -dirs:$Dirs`""))
-                        }
-                        else
-                        {
-                            Set-Variable -Name HtmlUnitTestRunCommand -Value (($TestRunCommand -f "-unit:`"-html -variants:interpreted;dynapogo`""))
-                        }
+                        Set-Variable -Name HtmlUnitTestFlags -Value "-unit:`"-html -nottags:Slow{0}{1}`""
+                        $HtmlUnitTestFlags = ($HtmlUnitTestFlags -f $dirsFlag, $variantsFlag)
+                        Set-Variable -Name HtmlUnitTestRunCommand -Value ($TestRunCommand -f $HtmlUnitTestFlags)
 
+                        # We write the HTML test logs in a dedicated folder so as not to overwrite the normal unit test logs.
                         $HtmlUnitTestRunCommand = $HtmlUnitTestRunCommand.Replace("JScriptDrtTestRunLogs", "JScriptDrtHtmlTestRunLogs")
 
                         Write-Host "The chakra.cmd HTML Unit Tests execution call: $HtmlUnitTestRunCommand"
@@ -502,13 +506,9 @@ try
 
             if($ProjectionTestResult -eq 0)
             {
-                {
-                    Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection:`"-dirs:$Dirs`"")
-                }
-                else
-                {
-                    Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f "-projection")
-                }
+                Set-Variable -Name ProjectionTestFlags -Value "-projection:`"-nottags:Slow{0}{1}`""
+                $ProjectionTestFlags = ($ProjectionTestFlags -f $dirsFlag, $variantsFlag)
+                Set-Variable -Name ProjectionTestRunCommand -Value ($TestRunCommand -f $ProjectionTestFlags)
 
                 Write-Host "The chakra.cmd Projection Tests execution call: $ProjectionTestRunCommand"
 
