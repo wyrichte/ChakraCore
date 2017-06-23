@@ -8,6 +8,7 @@
 
 void
 GenerateFastExternalEqTest(
+    Lowerer* lowerer,
     CustomExternalObjectOperations *pData,
     IR::RegOpnd *typeRegOpnd,
     IR::Instr *instrBranch,
@@ -22,7 +23,7 @@ GenerateFastExternalEqTest(
 
     // Check external type flag.
     IR::Opnd *opnd = IR::IndirOpnd::New(typeRegOpnd, Js::Type::GetOffsetOfFlags(), TyUint8, func);
-    Lowerer::InsertTestBranch(
+    lowerer->InsertTestBranch(
         opnd,
         IR::IntConstOpnd::New(TypeFlagMask_External, TyUint8, func),
         Js::OpCode::BrEq_A,
@@ -32,7 +33,7 @@ GenerateFastExternalEqTest(
     // Check for CustomExternalType -- see if operations field is non-null.
     opnd =
         IR::IndirOpnd::New(typeRegOpnd, Js::ExternalType::GetOffsetOfOperations(), TyMachReg, func);
-    Lowerer::InsertCompareBranch(
+    lowerer->InsertCompareBranch(
         opnd,
         IR::AddrOpnd::New(nullptr, IR::AddrOpndKindConstantVar, func, true),
         Js::OpCode::BrEq_A,
@@ -44,7 +45,7 @@ GenerateFastExternalEqTest(
     opnd = IR::IndirOpnd::New(typeRegOpnd, pData->offsetOfOperationsUsage, TyUint32, func);
     if (fallThroughOnSuccess)
     {
-        Lowerer::InsertTestBranch(
+        lowerer->InsertTestBranch(
             opnd,
             IR::IntConstOpnd::New(operationFlag, TyUint32, func),
             Js::OpCode::BrNeq_A,
@@ -53,14 +54,14 @@ GenerateFastExternalEqTest(
     }
     else
     {
-        Lowerer::InsertTestBranch(
+        lowerer->InsertTestBranch(
             opnd,
             IR::IntConstOpnd::New(operationFlag, TyUint32, func),
             Js::OpCode::BrEq_A,
             labelSuccess,
             instrBranch);
 
-        Lowerer::InsertBranch(Js::OpCode::Br, labelHelper, instrBranch);
+        lowerer->InsertBranch(Js::OpCode::Br, labelHelper, instrBranch);
     }
 }
 
@@ -95,7 +96,7 @@ ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2,
         {
             IR::LabelInstr *labelContinue = IR::LabelInstr::New(Js::OpCode::Label, lowerer->m_func, isInHelper);
             IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src1->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelContinue, isInHelper);
-            GenerateFastExternalEqTest(&data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, false, false, lowerer->m_func);
+            GenerateFastExternalEqTest(lowerer, &data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, false, false, lowerer->m_func);
 
             instrBranch->InsertBefore(labelContinue);
             lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, nullptr, isInHelper);
@@ -103,7 +104,7 @@ ExternalLowerer::TryGenerateFastExternalEqTest(IR::Opnd * src1, IR::Opnd * src2,
         else
         {
             IR::RegOpnd *typeRegOpnd = lowerer->GenerateIsBuiltinRecyclableObject(src2->AsRegOpnd(), instrBranch, labelHelper, false /*checkObjectAndDynamicObject*/, labelBooleanCmp, isInHelper);
-            GenerateFastExternalEqTest(&data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, true, true, lowerer->m_func);
+            GenerateFastExternalEqTest(lowerer, &data, typeRegOpnd, instrBranch, labelHelper, labelBooleanCmp, true, true, lowerer->m_func);
         }
         return true;
     }
