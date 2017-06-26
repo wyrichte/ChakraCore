@@ -7,6 +7,20 @@
   </test>
   <test>
     <default>
+      <files>bug_Issue3035.js</files>
+      <compile-flags>-CollectGarbage -args summary -endargs</compile-flags>
+      <tags>BugFix,Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>bug_Issue3035.js</files>
+      <compile-flags>-CollectGarbage -forcearraybtree -args summary -endargs</compile-flags>
+      <tags>BugFix,Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>array_splice5.html</files>
       <baseline>array_splice5.baseline</baseline>
       <compile-flags>-htmlversion</compile-flags>
