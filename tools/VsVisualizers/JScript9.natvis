@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- copy to %USERPROFILE%\My Documents\Visual Studio 2012\Visualizers\ to use-->
+<!-- copy to %USERPROFILE%\My Documents\Visual Studio 2017\Visualizers\ to use-->
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   <Type Name="Js::OpCode">
     <DisplayString Condition="_value &lt;= Js::OpCode::MaxByteSizedOpcodes">{Js::OpCodeUtil::OpCodeNames[_value],sub}</DisplayString>
@@ -38,6 +38,9 @@
   <Type Name="IR::IntConstOpnd">
     <DisplayString>{m_value}</DisplayString>
   </Type>
+  <Type Name="IR::Int64ConstOpnd">
+    <DisplayString>{m_value}</DisplayString>
+  </Type>
   <Type Name="IR::FloatConstOpnd">
     <DisplayString>{m_value}</DisplayString>
   </Type>
@@ -66,11 +69,11 @@
     <DisplayString Condition="m_offset &lt; 0 &amp;&amp; m_indexOpnd == 0">[{*m_baseOpnd}-{m_offset}]</DisplayString>
     <DisplayString Condition="m_offset &gt; 0 &amp;&amp; m_scale == 0">[{*m_baseOpnd}+{*m_indexOpnd}+{m_offset}]</DisplayString>
     <DisplayString Condition="m_offset &lt; 0 &amp;&amp; m_scale == 0">[{*m_baseOpnd}+{*m_indexOpnd}-{m_offset}]</DisplayString>
-    <DisplayString Condition="m_offset &gt; 0">[{*m_baseOpnd}+{*m_indexOpnd}*{(int)m_scale}+{m_offset}]</DisplayString>
-    <DisplayString Condition="m_offset &lt; 0">[{*m_baseOpnd}+{*m_indexOpnd}*{(int)m_scale}-{m_offset}]</DisplayString>
+    <DisplayString Condition="m_offset &gt; 0">[{*m_baseOpnd}+{*m_indexOpnd}*{1 &lt;&lt; (int)m_scale}+{m_offset}]</DisplayString>
+    <DisplayString Condition="m_offset &lt; 0">[{*m_baseOpnd}+{*m_indexOpnd}*{1 &lt;&lt; (int)m_scale}-{m_offset}]</DisplayString>
     <DisplayString Condition="m_indexOpnd == 0">[{*m_baseOpnd}]</DisplayString>
     <DisplayString Condition="m_scale == 0">[{*m_baseOpnd}+{*m_indexOpnd}]</DisplayString>
-    <DisplayString>[{*m_baseOpnd}+{*m_indexOpnd}*{(int)m_scale}]</DisplayString>
+    <DisplayString>[{*m_baseOpnd}+{*m_indexOpnd}*{1 &lt;&lt; (int)m_scale}]</DisplayString>
   </Type>
   <Type Name="Sym">
     <DisplayString Condition="m_kind == SymKindStack">{*(StackSym *)this}</DisplayString>
@@ -111,24 +114,25 @@
       </ArrayItems>
     </Expand>
   </Type>
+<!--
   <Type Name="ValueType">
     <DisplayString LegacyAddin="chakratest.dll"
                    Export="NatVis_ValueType"/>
   </Type>
-  <Type Name="BVSparseNode&lt;JitArenaAllocator&gt;">
+  <Type Name="BVSparseNode">
     <DisplayString LegacyAddin="chakratest.dll"
-                   Export="NatVis_BVSparseNode_JitArenaAllocator"/>
+                   Export="NatVis_BVSparseNode"/>
   </Type>
   <Type Name="BVSparse&lt;JitArenaAllocator&gt;">
     <DisplayString LegacyAddin="chakratest.dll"
                    Export="NatVis_BVSparse_JitArenaAllocator"/>
   </Type>
+-->
   <Type Name="Js::ParseableFunctionInfo">
-    <DisplayString>{this->m_displayName.ptr,su} ({this->functionId})</DisplayString>
+    <DisplayString>{this->m_displayName.ptr,su} ({this->m_functionNumber.value})</DisplayString>
   </Type>
   <Type Name="Func">
-    <DisplayString Condition="this->m_workItem->type == JsLoopBodyWorkItemType">{this->m_jnFunction->m_displayName.ptr,su} Loop ({this->m_jnFunction->functionId})</DisplayString>
-    <DisplayString>{this->m_jnFunction}</DisplayString>
+    <DisplayString>{this->m_workItem->m_jitBody.m_bodyData.displayName,su} Loop ({(int)m_workItem->m_jitBody.m_bodyData.sourceContextId}.{m_workItem->m_workItemData->jitData->localFuncId} #{m_workItem->m_jitBody.m_bodyData.funcNumber})</DisplayString>
   </Type>
   <Type Name="Js::Var">
     <DisplayString Condition="(((unsigned int)this) &amp; 0x1) == 0x1">{(((unsigned int)this) >> 1)}</DisplayString>
@@ -145,6 +149,17 @@
         <Size>length</Size>
         <ValuePointer>(void**)(this+1)</ValuePointer>
       </ArrayItems >
+    </Expand>
+  </Type>
+  <Type Name="Js::SparseArraySegment&lt;*&gt;">
+    <Expand>
+      <Item Name="length">length</Item>
+      <Item Name="size">size</Item>
+      <IndexListItems>
+        <Size>length</Size>
+        <ValueNode Condition="*((unsigned int*)(&amp;elements[$i])) == 0x80000002">"Missing Value"</ValueNode>
+        <ValueNode Condition="(unsigned int)elements[$i] != 0x80000002">elements[$i]</ValueNode>
+      </IndexListItems>
     </Expand>
   </Type>
   <Type Name="Js::CompactCounters&lt;Js::FunctionBody,enum Js::FunctionBody::CounterFields&gt;">
@@ -319,6 +334,30 @@
         <Size>list.count</Size>
         <ValuePointer>list.buffer</ValuePointer>
       </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="JsUtil::List&lt;*&gt;">
+    <DisplayString Condition="count > 0">Size = {count}</DisplayString>
+    <DisplayString Condition="count == 0">Empty</DisplayString>
+    <Expand>
+      <Item Name="[size]">count</Item>
+      <ArrayItems>
+        <Size>count</Size>
+        <ValuePointer>buffer</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="SListBase&lt;*&gt;">
+    <DisplayString Condition="count > 0">Size = {count}</DisplayString>
+    <DisplayString Condition="count == 0">Empty</DisplayString>
+    <Expand>
+      <Item Name="[size]">count</Item>
+      <LinkedListItems>
+        <Size>count</Size>
+        <HeadPointer>next.node</HeadPointer>
+        <NextPointer>next.node</NextPointer>
+        <ValueNode>data</ValueNode>
+      </LinkedListItems>
     </Expand>
   </Type>
 </AutoVisualizer>
