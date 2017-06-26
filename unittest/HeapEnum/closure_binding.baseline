@@ -184,10 +184,8 @@
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
  |  |    |  [Properties] count: 5
- |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (3)
+ |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
- |  |    |  |    [Scopes] count: 1
- |  |    |  |    | scope[0]: type: Null (seen)
  |  |    |  |    [Properties] count: 3
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 callee: type: FunctionObject (seen)
@@ -220,10 +218,8 @@
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
  |  |    |  [Properties] count: 5
- |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (3)
+ |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
- |  |    |  |    [Scopes] count: 1
- |  |    |  |    | scope[0]: type: Null (seen)
  |  |    |  |    [Properties] count: 3
  |  |    |  |    | 0 length: value: 0.000000
  |  |    |  |    | 1 callee: type: FunctionObject (seen)
