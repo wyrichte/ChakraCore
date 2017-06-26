@@ -110,10 +110,8 @@
  |  |    | 0 sourceUrl: value: arguments.js
  |  |    | 1 sourceRow: value: 23.000000
  |  |    | 2 sourceCol: value: 23.000000
- |  | 1 tst_NoParams_with_0_arguments: type: ArgumentObject flags: (new) optional info records (3)
+ |  | 1 tst_NoParams_with_0_arguments: type: ArgumentObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
- |  |    [Scopes] count: 1
- |  |    | scope[0]: type: Null (seen)
  |  |    [Properties] count: 3
  |  |    | 0 length: value: 0.000000
  |  |    | 1 callee: type: FunctionObject (seen)
@@ -124,10 +122,8 @@
  |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |    [Internal property] value: values
  |  |    |    |    [Prototype] type: StringObject (seen)
- |  | 2 tst_NoParams_with_1_argument: type: ArgumentObject flags: (new) optional info records (4)
+ |  | 2 tst_NoParams_with_1_argument: type: ArgumentObject flags: (new) optional info records (3)
  |  |    [Prototype] type: ObjectObject (seen)
- |  |    [Scopes] count: 1
- |  |    | scope[0]: type: Null (seen)
  |  |    [Properties] count: 3
  |  |    | 0 length: value: 1.000000
  |  |    | 1 callee: type: FunctionObject (seen)
