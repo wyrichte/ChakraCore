@@ -15,3 +15,11 @@ bool GetDeviceFamilyInfo(
 {
     return false;
 }
+
+#if DBG && defined(RECYCLER_VERIFY_MARK)
+bool IsLikelyRuntimeFalseReference(char* objectStartAddress, size_t offset,
+    const char* typeName)
+{
+    return false;
+}
+#endif
