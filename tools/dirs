@@ -4,3 +4,4 @@ DIRS=\
     WWAHostJSCounterProvider{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
     JsEtwConsole{!MOBILECORE,!ARM,noncrit,!EXCLUDE_IE_MAIN} \
     snap{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
+    PublishDrtScripts{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \

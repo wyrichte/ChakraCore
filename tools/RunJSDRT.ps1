@@ -35,9 +35,15 @@
 
     .PARAMETER RunUnitTests
 
-    Indicates whether to run JScript Unit tests. Does not include HTML Unit tests and JSRT Unit tests.
+    Indicates whether to run JScript FULL Unit tests. Does not include CORE Unit tests, HTML Unit tests and JSRT Unit tests.
 
     Defaults to $True.
+
+    .PARAMETER RunCoreUnitTests
+
+    Indicates whether to run JScript CORE Unit tests. Does not include FULL Unit tests, HTML Unit tests and JSRT Unit tests.
+
+    Defaults to $False.
 
     .PARAMETER RunHtmlUnitTests
 
@@ -180,6 +186,9 @@ Param(
 
     [Parameter(Mandatory=$false)]
     [bool]$RunUnitTests = $True,
+
+    [Parameter(Mandatory=$false)]
+    [bool]$RunCoreUnitTests = $False,
 
     [Parameter(Mandatory=$false)]
     [bool]$RunHtmlUnitTests = $True,
@@ -352,7 +361,8 @@ try
     Write-Host "Template chakra.cmd Test call: $TestRunCommand"
 
     Set-Variable -Name UnitTestResult -Value -1
-    Set-Variable -Name UnitTestRunResult -Value -1
+    Set-Variable -Name FullUnitTestRunResult -Value -1
+    Set-Variable -Name CoreUnitTestRunResult -Value -1   
     Set-Variable -Name HtmlUnitTestRunResult -Value -1
     Set-Variable -Name JsrtUnitTestRunResult -Value -1
     Set-Variable -Name DirsFlag -Value ""
@@ -370,7 +380,7 @@ try
         $VariantsFlag = " -variants:$Variants -variantsWhenDirs:$Variants"
     }
 
-    if($RunUnitTests -or $RunHtmlUnitTests -or $RunJsrtUnitTests)
+    if($RunUnitTests -or $RunHtmlUnitTests -or $RunJsrtUnitTests -or $RunCoreUnitTests)
     {
         try
         {
@@ -384,7 +394,7 @@ try
             Invoke-Expression $UnitTestSetupCommand
             $UnitTestResult = $LASTEXITCODE
 
-            Write-Host "Unit Tests environment setup exit code: $UnitTestResult"
+            Write-Host "Unit Tests environment setup exit code: $FullUnitTestRunResult"
             Write-Progress -Activity "Run JScript Unit Tests" -Status "Finished JScript Unit tests setup. Exit code: $UnitTestResult" -PercentComplete 50
 
             if($UnitTestResult -eq 0)
@@ -393,26 +403,57 @@ try
                 {
                     if($RunUnitTests)
                     {
-                        # Create the command for running unit tests by passing "-unit" parameter.
-
+                        # Create the command for running FULL unit tests by passing "-unit" parameter.
                         Set-Variable -Name UnitTestFlags -Value "-unit:`"-nottags:Slow{0}{1}`""
                         $UnitTestFlags = ($UnitTestFlags -f $dirsFlag, $variantsFlag)
                         Set-Variable -Name UnitTestRunCommand -Value ($TestRunCommand -f $UnitTestFlags)
 
-                        Write-Host "The chakra.cmd Unit Tests execution call: $UnitTestRunCommand"
+                        Write-Host "The chakra.cmd FULL Unit Tests execution call: $UnitTestRunCommand"
 
                         # Run Unit Test call
                         Invoke-Expression $UnitTestRunCommand
-                        $UnitTestRunResult = $LASTEXITCODE
+                        $FullUnitTestRunResult = $LASTEXITCODE
 
-                        Write-Host "Unit tests execution exit code: $UnitTestRunResult"
-                        Write-Progress -Activity "Run JScript Unit Tests" -Status "Finished executing JScript Unit tests . Exit code: $UnitTestRunResult" -PercentComplete 90
+                        Write-Host "FULL Unit tests execution exit code: $FullUnitTestRunResult"
+                        Write-Progress -Activity "Run JScript Unit Tests" -Status "Finished executing JScript FULL Unit tests . Exit code: $FullUnitTestRunResult" -PercentComplete 60
                     }
                 }
                 catch [Exception]
                 {
-                    $UnitTestRunResult = 1
-                    Write-Host "Error: Running JScript Unit Tests failed."
+                    $FullUnitTestRunResult = 1
+                    Write-Host "Error: Running JScript FULL Unit Tests failed."
+                    Write-Host $_.Exception.GetType().FullName
+                    Write-Host $_.Exception.Message
+                }
+
+                try
+                {
+                    if($RunCoreUnitTests)
+                    {
+                        # Create the command for running CORE unit tests by passing "-unit" parameter. To run CORE unit tests we explicitly set the testRoot to be the core\test folder.
+                        # Core Test Folder Root would be something like: C:\CopyBuiltFiles.x86.chk\inetcore\jscript\core\test
+                        Set-Variable -Name CoreUnitTestFolderRoot -Value (Join-Path $JScriptTestBin "inetcore\jscript\core\test\")
+                        Set-Variable -Name CoreUnitTestFlags -Value "-unit:`"-nottags:Slow{0}{1} -testRoot:{2}`""
+                        $CoreUnitTestFlags = ($CoreUnitTestFlags -f $dirsFlag, $variantsFlag, $CoreUnitTestFolderRoot)
+                        Set-Variable -Name CoreUnitTestRunCommand -Value ($TestRunCommand -f $CoreUnitTestFlags)
+
+                        # We write the CORE test logs in a dedicated folder so as not to overwrite the FULL unit test logs.
+                        $CoreUnitTestRunCommand = $CoreUnitTestRunCommand.Replace("JScriptDrtTestRunLogs", "JScriptDrtCoreTestRunLogs")
+
+                        Write-Host "The chakra.cmd CORE Unit Tests execution call: $CoreUnitTestRunCommand"
+
+                        # Run Unit Test call
+                        Invoke-Expression $CoreUnitTestRunCommand
+                        $CoreUnitTestRunResult = $LASTEXITCODE
+
+                        Write-Host "CORE Unit tests execution exit code: $CoreUnitTestRunResult"
+                        Write-Progress -Activity "Run JScript CORE Unit Tests" -Status "Finished executing JScript CORE Unit tests . Exit code: $CoreUnitTestRunResult" -PercentComplete 90
+                    }
+                }
+                catch [Exception]
+                {
+                    $CoreUnitTestRunResult = 1
+                    Write-Host "Error: Running JScript CORE Unit Tests failed."
                     Write-Host $_.Exception.GetType().FullName
                     Write-Host $_.Exception.Message
                 }
@@ -426,7 +467,7 @@ try
                         $HtmlUnitTestFlags = ($HtmlUnitTestFlags -f $dirsFlag, $variantsFlag)
                         Set-Variable -Name HtmlUnitTestRunCommand -Value ($TestRunCommand -f $HtmlUnitTestFlags)
 
-                        # We write the HTML test logs in a dedicated folder so as not to overwrite the normal unit test logs.
+                        # We write the HTML test logs in a dedicated folder so as not to overwrite the FULL unit test logs.
                         $HtmlUnitTestRunCommand = $HtmlUnitTestRunCommand.Replace("JScriptDrtTestRunLogs", "JScriptDrtHtmlTestRunLogs")
 
                         Write-Host "The chakra.cmd HTML Unit Tests execution call: $HtmlUnitTestRunCommand"
@@ -479,7 +520,7 @@ try
         }
         catch [Exception]
         {
-            $UnitTestResult = 1
+            $FullUnitTestRunResult = 1
             Write-Host "Error: Running JScript Unit Tests failed."
             Write-Host $_.Exception.GetType().FullName
             Write-Host $_.Exception.Message
@@ -534,7 +575,7 @@ try
         Write-Host $_.Exception.Message
     }
 
-    if($ProjectionTestResult -eq 1 -or $UnitTestResult -eq 1 -or $UnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1)
+    if($ProjectionTestResult -eq 1 -or $FullUnitTestRunResult -eq 1 -or $FullUnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1)
     {
         $DrtResult = 1
     }
@@ -562,17 +603,33 @@ Write-Host ""
 Write-Host "==== Test Results Summary ===="
 if($RunUnitTests)
 {
-    if($UnitTestRunResult -eq 0)
+    if($FullUnitTestRunResult -eq 0)
     {
-        Write-Host "Success: JScript Unit Tests execution succeeded."
+        Write-Host "Success: JScript FULL Unit Tests execution succeeded."
     }
-    elseif($UnitTestRunResult -eq -1)
+    elseif($FullUnitTestRunResult -eq -1)
     {
-        Write-Host "Error: Not Run: JScript Unit Tests were NOT run."
+        Write-Host "Error: Not Run: JScript FULLUnit Tests were NOT run."
     }
     else
     {
-        Write-Host "Error: JScript Unit Tests execution failed."
+        Write-Host "Error: JScript FULL Unit Tests execution failed."
+    }
+}
+
+if($RunCoreUnitTests)
+{
+    if($CoreUnitTestRunResult -eq 0)
+    {
+        Write-Host "Success: JScript CORE Unit Tests execution succeeded."
+    }
+    elseif($CoreUnitTestRunResult -eq -1)
+    {
+        Write-Host "Error: Not Run: JScript CORE Unit Tests were NOT run."
+    }
+    else
+    {
+        Write-Host "Error: JScript CORE Unit Tests execution failed."
     }
 }
 
@@ -637,7 +694,8 @@ $TestRunTimer.Stop()
 $TestRunEndTime = Get-Date
 Write-Host ""
 Write-Host "==== Test Run Flags and Execution Times ===="
-Write-Host "Run Unit Tests flag: $RunUnitTests."
+Write-Host "Run FULL Unit Tests flag: $RunUnitTests."
+Write-Host "Run CORE Unit Tests flag: $RunCoreUnitTests."
 Write-Host "Run HTML Unit Tests flag: $RunHtmlUnitTests."
 Write-Host "Run JSRT Unit Tests flag: $RunJsrtUnitTests."
 Write-Host "Run Projection Tests flag: $RunProjectionTests."
