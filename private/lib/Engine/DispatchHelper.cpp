@@ -160,7 +160,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariantNoThrow(Js::Var var, VARIANT * pVar
 {
     HRESULT hr = S_OK;
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
         hr = MarshalJsVarToVariant(var, pVar);
     }
@@ -788,7 +788,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(VARIANT *pVarIn, Js
 {
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     HRESULT hr = NOERROR;
-    BEGIN_TRANSLATE_OOM_TO_HRESULT
+    BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
     {
         hr = MarshalVariantToJsVar(pVarIn, pAtom, scriptContext);
     }
