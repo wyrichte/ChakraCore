@@ -2321,7 +2321,7 @@ HRESULT WScriptFastDom::ModuleMessage::Call()
 {
     HRESULT hr;
     Var result;
-    if (specifier == nullptr)
+    if (specifier == (LPCWSTR)nullptr)
     {
         hr = scriptDirect->ModuleEvaluation(moduleRecord, &result);
     }

@@ -57,7 +57,7 @@ public:
     {
     private:
         ModuleRecord moduleRecord;
-        LPCWSTR specifier;
+        CComBSTR specifier;
         CComPtr<IActiveScriptDirect> scriptDirect;
 
         ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect);
