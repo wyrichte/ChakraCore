@@ -141,7 +141,6 @@
       <tags>exclude_forceserialized,exclude_drt</tags>
     </default>
   </test>
-<!-- Disable temporarily to unblock chakrafull ci
   <test>
     <default>
       <tags>exclude_dynapogo,exclude_serialized</tags>
@@ -150,7 +149,6 @@
       <compile-flags>-PerformUTF8BoundaryTest -LogLineColumnProfileInfo-</compile-flags>
     </default>
   </test>
-!-->
   <test>
     <default>
       <files>proxy.js</files>
