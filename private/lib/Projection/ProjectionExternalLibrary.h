@@ -11,8 +11,8 @@ public:
     Js::DynamicType * GetWinRTDateType() const { return winrtDateType; }
     Js::DynamicType * GetWinRTErrorType() const { return winrtErrorType; }
     Js::JavascriptError* CreateWinRTError(IErrorInfo* perrinfo, Js::RestrictedErrorStrings * proerrstr);
-    static void __cdecl InitializeWinRTErrorConstructor(Js::DynamicObject* constructor, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
-    static void __cdecl InitializeWinRTErrorPrototype(Js::DynamicObject* prototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
+    static bool __cdecl InitializeWinRTErrorConstructor(Js::DynamicObject* constructor, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
+    static bool __cdecl InitializeWinRTErrorPrototype(Js::DynamicObject* prototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
     void InitializeWinRTPromiseConstructor();
     Js::JavascriptFunction* GetWinRTErrorConstructor() const { return winrtErrorConstructor; }
     Js::DynamicObject* GetWinRTErrorPrototype() const { return winrtErrorPrototype; }

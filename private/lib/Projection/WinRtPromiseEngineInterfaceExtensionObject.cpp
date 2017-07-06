@@ -77,7 +77,7 @@ namespace Projection
         }
     }
 
-    void WinRTPromiseEngineInterfaceExtensionObject::InitializePromiseNativeInterfaces(Js::DynamicObject* promiseNativeInterfaces, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
+    bool WinRTPromiseEngineInterfaceExtensionObject::InitializePromiseNativeInterfaces(Js::DynamicObject* promiseNativeInterfaces, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
     {
         typeHandler->Convert(promiseNativeInterfaces, mode, 9);
 
@@ -111,6 +111,8 @@ namespace Projection
         library->AddMember(promiseNativeInterfaces, Js::PropertyIds::setNonUserCodeExceptions, library->GetDebugObjectNonUserSetterFunction(), PropertyNone);
 
         promiseNativeInterfaces->SetHasNoEnumerableProperties(true);
+
+        return true;
     }
 
 #if DBG

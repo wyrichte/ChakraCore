@@ -71,8 +71,7 @@ namespace Js
         return hr;
     }
 
-    void
-        CustomExternalType::DeferredInitializer(DynamicObject * instance, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode)
+    bool CustomExternalType::DeferredInitializer(DynamicObject * instance, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode)
     {
         CustomExternalObject * object = (CustomExternalObject *)instance;
         HRESULT hr = E_FAIL;
@@ -91,15 +90,17 @@ namespace Js
         }
         ThreadContext * threadContext = scriptContext->GetThreadContext();
 
-        // Expanding defer initialize type should not have any side effect
-        // We can consider it as a async host operation, as because it happens on demend, which can happen
-        // at any other time.  We will still bail out when it happen, but it will not record as having
-        // implicit call. (just like dispose and QC)
         if (object->GetCustomExternalType()->IsSimpleWrapper())
         {
             hr = (DefaultScriptOperations::s_DefaultScriptOperations).GetInitializer(&initializer, &initSlotCapacity, &hasAccessors);
             Assert(SUCCEEDED(hr));
             typeHandler->Convert(instance, mode, initSlotCapacity, hasAccessors);
+        }
+        else if (threadContext->IsDisableImplicitCall())
+        {
+            // Expanding defer initialize type can have any side effect
+            threadContext->AddImplicitCallFlags(ImplicitCall_External);
+            return false;
         }
         else
         {
@@ -140,6 +141,8 @@ namespace Js
         {
             Js::JavascriptError::MapAndThrowError(scriptContext, hr);
         }
+
+        return true;
     }
 
     CustomExternalObject::CustomExternalObject(CustomExternalType * type

@@ -377,7 +377,7 @@ private:
     void InitializeEditTest();
 #endif
 
-    static void __cdecl InitializeDebugObjectType(Js::DynamicObject* mathObject, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
+    static bool __cdecl InitializeDebugObjectType(Js::DynamicObject* mathObject, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
 
     static void ScriptStartEventHandler(Js::ScriptContext * scriptContext);
     static void ScriptEndEventHandler(Js::ScriptContext * scriptContext);

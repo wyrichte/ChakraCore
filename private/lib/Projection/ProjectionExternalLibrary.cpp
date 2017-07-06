@@ -88,7 +88,7 @@ Js::JavascriptFunction* ProjectionExternalLibrary::GetWinRTPromiseConstructor()
     return this->winRTPromiseConstructor;
 }
 
-void ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObject* constructor, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
+bool ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObject* constructor, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
 {
     typeHandler->Convert(constructor, mode, 3);
     Js::ScriptContext* scriptContext = constructor->GetScriptContext();
@@ -104,9 +104,10 @@ void ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObjec
         library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
     }
     constructor->SetHasNoEnumerableProperties(true);
+    return true;
 }
 
-void ProjectionExternalLibrary::InitializeWinRTErrorPrototype(Js::DynamicObject* prototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
+bool ProjectionExternalLibrary::InitializeWinRTErrorPrototype(Js::DynamicObject* prototype, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
 {
     typeHandler->Convert(prototype, mode, 4);
     Js::ScriptContext* scriptContext = prototype->GetScriptContext();
@@ -121,6 +122,7 @@ void ProjectionExternalLibrary::InitializeWinRTErrorPrototype(Js::DynamicObject*
     library->AddMember(prototype, Js::PropertyIds::message, library->GetEmptyString(), prototypeNameMessageAttributes);
     library->AddFunctionToLibraryObject(prototype, Js::PropertyIds::toString, &Js::JavascriptError::EntryInfo::ToString, 0);
     prototype->SetHasNoEnumerableProperties(hasNoEnumerableProperties);
+    return true;
 }
 
 void ProjectionExternalLibrary::InitializeWinRTPromiseConstructor()

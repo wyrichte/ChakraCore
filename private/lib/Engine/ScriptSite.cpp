@@ -1746,7 +1746,7 @@ void ScriptSite::InitializeDebugObject()
     library->EnsureDebugObject(debugObject);
 }
 
-void ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
+bool ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode)
 {
     typeHandler->Convert(debugObject, mode, 36);
 
@@ -1863,6 +1863,7 @@ void ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::D
         debugObject->SetAttributes(Js::PropertyIds::msTraceAsyncOperationCompleted, PropertyNone);
     }
 
+    return true;
 }
 
 #if defined(EDIT_AND_CONTINUE) && defined(ENABLE_DEBUG_CONFIG_OPTIONS)
