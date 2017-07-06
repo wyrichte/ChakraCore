@@ -9,7 +9,7 @@
     var variantsConfigObject = {
         interpretedFlags: {
             type: "String",
-            defaultValue: "-maxInterpretCount:1 -maxSimpleJitRunCount:1 -bgjit- {0}", defaultValueReferences: ["dynamicProfileCacheFlag"]
+            defaultValue: "-maxInterpretCount:1 -maxSimpleJitRunCount:1 -BaselineMode -bgjit- {0}", defaultValueReferences: ["dynamicProfileCacheFlag"]
         },
         interpretedRLFlags: {
             type: "String",
@@ -27,7 +27,7 @@
 
         dynapogoFlags: {
             type: "String",
-            defaultValue: "-forceNative -off:simpleJit -bgJitDelay:0 {0}", defaultValueReferences: ["dynamicProfileInputFlag"]
+            defaultValue: "-forceNative -off:simpleJit -BaselineMode -bgJitDelay:0 {0}", defaultValueReferences: ["dynamicProfileInputFlag"]
         },
         dynapogoRLFlags: {
             type: "String",
