@@ -12,7 +12,7 @@ namespace Projection
 #if DBG
         void DumpByteCode() override;
 #endif
-        static void __cdecl InitializePromiseNativeInterfaces(Js::DynamicObject* promiseNativeInterfaces, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
+        static bool __cdecl InitializePromiseNativeInterfaces(Js::DynamicObject* promiseNativeInterfaces, Js::DeferredTypeHandlerBase * typeHandler, Js::DeferredInitializeMode mode);
         Js::Var GetPromiseConstructor(_In_ Js::ScriptContext * scriptContext);
 
         class EntryInfo

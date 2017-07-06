@@ -18,7 +18,7 @@ namespace Js
         OperationUsage GetOperationUsage() const { return usage; }
         bool IsSimpleWrapper() const { return isSimpleWrapper; }
 
-        static void __cdecl DeferredInitializer(DynamicObject * instance, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode);
+        static bool __cdecl DeferredInitializer(DynamicObject * instance, DeferredTypeHandlerBase * typeHandler, DeferredInitializeMode mode);
 
         static size_t GetOffsetOfUsage() { return offsetof(CustomExternalType, usage); }
 
