@@ -6,7 +6,6 @@
 var platform = Debug.EngineInterface.Intl;
 
 // WinTH: Changed to use non-breaking space in some output
-var NON_BREAKING_SPACE = String.fromCharCode(0xA0);
 
 function Assert(func, arguments, expected, thisArg, altExpected) {
     var result = func.apply(thisArg, arguments);
@@ -16,6 +15,16 @@ function Assert(func, arguments, expected, thisArg, altExpected) {
         WScript.Echo(funcName + ": Expected result was '" + expected + "', actual '" + result + "'.");
     }
 }
+
+function AssertRegex(func, arguments, expectedRegex, thisArg) {
+    var result = func.apply(thisArg, arguments);
+    var funcName = func.toString().match(/function (.*)\(/)[1];
+
+    if (!expectedRegex.test(String(result))) {
+        WScript.Echo(funcName + ": Expected result Regex was '" + expectedRegex + "', actual '" + String(result) + "'.");
+    }
+}
+
 function AssertTypeOf(func, arguments, expected, thisArg) {
     var result = func.apply(thisArg, arguments);
     var funcName = func.toString().match(/function (.*)\(/)[1];
@@ -67,8 +76,7 @@ Assert(platform.cacheNumberFormat, [percentFormatterStateObject], undefined);
 
 Assert(platform.formatNumber, [1, currencyFormatterStateObject], "$1");
 Assert(platform.formatNumber, [1, numberFormatterStateObject], "1");
-Assert(platform.formatNumber, [0.5, percentFormatterStateObject], "50 %",
-    /*thisArg*/undefined, /*altExpected*/"50" + NON_BREAKING_SPACE + "%");
+AssertRegex(platform.formatNumber, [0.5, percentFormatterStateObject], new RegExp("50[\x20\u00a0]?%"), /*thisArg*/undefined);
 
 Assert(platform.currencyDigits, ["USD"], 2);
 
