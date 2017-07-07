@@ -107,7 +107,7 @@ void RemoteSimpleDictionaryTypeHandler<T>::EnumerateProperties(ExtRemoteTyped& o
     auto propertyMap = m_typeHandler->Field("propertyMap");
     auto entries = propertyMap.Field("entries");
 
-    bool isUnordered = m_typeHandler->HasField("deletedPropertyIndex");
+    bool isUnordered = m_typeHandler->Field("isUnordered").GetStdBool() && m_typeHandler->HasField("deletedPropertyIndex");
     stdext::hash_set<int> deletedIndex;
 
     if (isUnordered)

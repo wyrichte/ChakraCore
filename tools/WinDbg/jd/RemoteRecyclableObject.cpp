@@ -208,10 +208,12 @@ bool RemoteRecyclableObject::DumpPossibleExternalSymbol(char const * typeName, b
         ULONG64 externalObject = object.GetPtr() + offsetOfExternalObject;
         ULONG64 domObject = GetPointerAtAddress(externalObject);
         if (domObject != NULL)
-        {
+        {            
             try
             {
-                ULONG64 domVtable = GetPointerAtAddress(domObject);
+                // Untag the last two bits.
+                ULONG64 untaggedDOMObject = domObject & ~0x3;
+                ULONG64 domVtable = GetPointerAtAddress(untaggedDOMObject);
                 std::string symbol = GetSymbolForOffset(domVtable);
 
                 if (!symbol.empty())

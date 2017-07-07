@@ -8,7 +8,7 @@
 #define MAX_LAYOUT_TYPE_NAME 255
 
 JDByteCode::JDByteCode(bool dumpProbeBackingBlock, bool verbose)
-    : readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
+    : readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose), hasFunctionBody(false),
     RootObjectRegSlot(1),           // TODO: how do find this symbolically?
     CallIExtended_SpreadArgs(1),     // TODO: how do find this symbolically?
     cachedData(GetExtension()->GetByteCodeCachedData())
@@ -959,7 +959,16 @@ JDByteCode::DumpForRecyclableObject(ExtRemoteTyped recyclableObject)
 void
 JDByteCode::DumpForFunc(ExtRemoteTyped func)
 {
-    DumpForFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func));
+    if (GetExtension()->IsJITServer())
+    {
+        g_Ext->Out("In JIT Server\n");
+        ExtRemoteTyped bodyData = func.Field("m_workItem").Field("m_jitBody").Field("m_bodyData");
+        DumpByteCodeBuffer(bodyData.Field("byteCodeBuffer").GetPtr());
+    }
+    else
+    {
+        DumpForFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func));
+    }
 }
 
 void
@@ -979,6 +988,13 @@ JDByteCode::DumpForInterpreterStackFrame(ExtRemoteTyped interpreterStackFrame)
     DumpForFunctionBody(interpreterStackFrame.Field("m_functionBody"));
 }
 
+void
+JDByteCode::DumpByteCodeBuffer(ULONG64 address)
+{
+    g_Ext->Out("0x%I64x treated as the byte code buffer\n", address);
+    this->DumpBytes(ExtRemoteTyped("(unsigned char *)@$extin", address));
+}
+
 JD_PRIVATE_COMMAND(bc,
     "Dump bytecode",
     "{p;b,o;probe;dump byte code at the probe backing block}"
@@ -994,8 +1010,7 @@ JD_PRIVATE_COMMAND(bc,
     if (strcmp(inputType, "int") == 0 || strcmp(inputType, "int64") == 0)
     {
         // Just an address
-        Out("0x%u treated as the byte code buffer", input.GetLong64());
-        jdbytecode.DumpBytes(ExtRemoteTyped("(unsigned char *)@$extin", input.GetLong64()));
+        jdbytecode.DumpByteCodeBuffer(input.GetLong64());
     }
     else
     {

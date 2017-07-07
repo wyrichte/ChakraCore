@@ -289,29 +289,13 @@ JD_PRIVATE_COMMAND(tc,
     ULONG64 arg = GetUnnamedArgU64(0);
     ExtRemoteTyped threadContext;
 
-    if (arg != 0)
+    if (arg == 0)
     {
-        threadContext = ExtRemoteTyped(FillModule("(%s!ThreadContext*)@$extin"), arg);
+        RemoteThreadContext::PrintAll();
+        return;
     }
-    else
-    {
-        ULONG threadId = 0;
-        this->m_System4->GetCurrentThreadId(&threadId);
-        Out("Current thread: %d\n", threadId);
-
-        // @$teb resolves to the 64-bit TEB in the 64-bit process regardless of the bit-ness of the debuggee,
-        // so don't rely on the TEB to get the threadContext.
-        threadContext = RemoteThreadContext::GetCurrentThreadContext().GetExtRemoteTyped();
-    }
-
-    if (threadContext.GetPtr() == 0)
-    {
-        Out("ThreadContext not found on this thread- is Chakra loaded on this thread?\n");
-    }
-    else
-    {
-        threadContext.OutFullValue();
-    }
+    threadContext = ExtRemoteTyped(FillModule("(%s!ThreadContext*)@$extin"), arg);
+    threadContext.OutFullValue();
 }
 
 // Get a pointer to InternalString content buffer.
@@ -677,6 +661,11 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
         m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const * __ptr64,1>")] = &s_simpleDictionaryTypeHandler1_11;
         m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const * __ptr64,0>")] = &s_simpleDictionaryTypeHandlerLarge0_11;
         m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryTypeHandlerBase<int,Js::PropertyRecord const * __ptr64,1>")] = &s_simpleDictionaryTypeHandlerLarge1_11;
+
+        m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::PropertyRecord const * __ptr64,0>")] = &s_simpleDictionaryUnorderedTypeHandler0_11;
+        m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryUnorderedTypeHandler<unsigned short,Js::PropertyRecord const * __ptr64,1>")] = &s_simpleDictionaryUnorderedTypeHandler1_11;
+        m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::PropertyRecord const * __ptr64,0>")] = &s_simpleDictionaryUnorderedTypeHandlerLarge0_11;
+        m_typeHandlersByName[GetRemoteVTableName("Js::SimpleDictionaryUnorderedTypeHandler<int,Js::PropertyRecord const * __ptr64,1>")] = &s_simpleDictionaryUnorderedTypeHandlerLarge1_11;
     }
 
     ULONG64 vtable = ExtRemoteTyped("(void**)@$extin", typeHandler.GetPtr()).Dereference().GetPtr();
@@ -725,7 +714,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
             try
             {
                 bool fPrimaryEngine;
-                ExtRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine");
+                JDRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine");
                 if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
                 {
                     fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
@@ -1339,34 +1328,8 @@ JD_PRIVATE_COMMAND(stst,
         ThrowLastError("ERROR: this command not supported in Win7/Win8");
     }
 
-    int numThreadContexts = 0;
     ulong scriptThreadId = 0;
-    RemoteThreadContext::ForEach([&scriptThreadId, &numThreadContexts, this](RemoteThreadContext threadContext)
-    {
-        ulong threadContextThreadId = 0;
-
-        ULONG64 threadContextAddress = threadContext.GetPtr();
-        if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
-        {
-            if (PreferDML())
-            {
-                Dml("<link cmd=\"~%us\">Thread context: <b>%p</b></link>\n", threadContextThreadId, threadContextAddress);
-            }
-            else
-            {
-                Out("Thread context: %p /*\"~%us\" to switch*/\n", threadContextAddress, threadContextThreadId);
-            }
-        }
-        else
-        {
-            this->Out("Thread context: %p\n", threadContextAddress);
-        }
-
-        numThreadContexts++;
-        scriptThreadId = threadContextThreadId;
-        return false;
-    });
-
+    uint numThreadContexts = RemoteThreadContext::PrintAll(&scriptThreadId);
     if (numThreadContexts == 0)
     {
         this->Out("No script threads were found");

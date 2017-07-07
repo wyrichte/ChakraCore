@@ -40,10 +40,14 @@ JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * field
     JDRemoteTyped field = derefObject.Field(fieldName);
     ExtRemoteTyped pointerToField = field.GetPointerTo();       // Forces "field" to be populate correctly.
 
-    Value value(field.m_Typed.ModBase, field.m_Typed.TypeId, (ULONG)(field.m_Offset - derefObject.m_Offset));
-    if (value.IsValid())
+    // TODO: Don't cache field that are size 1, because they may be bit fields, and I don't know how to distingish them
+    if (field.m_Typed.Size != 1)
     {
-        fieldInfoCache.cache[key] = value;
+        Value value(field.m_Typed.ModBase, field.m_Typed.TypeId, (ULONG)(field.m_Offset - derefObject.m_Offset));
+        if (value.IsValid())
+        {
+            fieldInfoCache.cache[key] = value;
+        }
     }
     return field;
 }

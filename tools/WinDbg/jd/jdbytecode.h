@@ -19,7 +19,7 @@ public:
     void DumpForFunc(ExtRemoteTyped func);
     void DumpForIRBuilder(ExtRemoteTyped irbuilder);    
     void DumpBytes(ExtRemoteTyped bytes);
-
+    void DumpByteCodeBuffer(ULONG64 address);
 public:
 
 

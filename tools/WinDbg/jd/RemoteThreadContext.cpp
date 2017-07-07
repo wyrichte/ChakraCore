@@ -309,3 +309,99 @@ RemoteThreadContext::TryGetThreadContextFromPointer(ULONG64 contextPointer, Remo
         return false;
     });
 }
+
+uint
+RemoteThreadContext::PrintAll(ulong * pScriptThreadId)
+{
+    ULONG64 sharedUserDataAddress;
+    HRESULT hr;
+
+    if ((hr = g_Ext->m_Data->ReadDebuggerData(
+        DEBUG_DATA_SharedUserData, &sharedUserDataAddress,
+        sizeof(sharedUserDataAddress), NULL)) != S_OK)
+    {
+        sharedUserDataAddress = (ULONG64)0;
+    }
+
+    ExtRemoteTyped sharedUserData("(nt!_KUSER_SHARED_DATA*)@$extin", sharedUserDataAddress);
+    ULONG64 systemTime = ((ULONG64)sharedUserData.Field("SystemTime.High1Time").GetUlong() << 32ull) + sharedUserData.Field("SystemTime.LowPart").GetUlong();
+        
+    uint numThreadContexts = 0;
+    ulong scriptThreadId = 0;
+    RemoteThreadContext currentRemoteThreadContext;
+    ULONG64 currentThreadContext = 0;
+    if (RemoteThreadContext::TryGetCurrentThreadContext(currentRemoteThreadContext))
+    {
+        currentThreadContext = currentRemoteThreadContext.GetPtr();
+    }    
+    g_Ext->Out("     Thread Context\n");
+    RemoteThreadContext::ForEach([currentThreadContext, systemTime, &scriptThreadId, &numThreadContexts](RemoteThreadContext threadContext)
+    {
+        ulong threadContextThreadId = 0;
+
+        ULONG64 threadContextAddress = threadContext.GetPtr();
+        if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
+        {
+            if (currentThreadContext != threadContextAddress && GetExtension()->PreferDML())
+            {
+                g_Ext->Dml("<link cmd=\"~%us\">%4u</link>", threadContextThreadId, threadContextThreadId);
+            }
+            else
+            {
+                g_Ext->Out("%4u", threadContextThreadId);
+            }
+            if (GetExtension()->PreferDML())
+            {
+                g_Ext->Dml(" <link cmd=\"dt %s %p\">%p</link>", GetExtension()->FillModule("%s!ThreadContext"), threadContextAddress, threadContextAddress);
+            }
+            else
+            {
+                g_Ext->Out(" %p", threadContextAddress);
+            }
+        }
+        else
+        {
+            g_Ext->Out("   ? %p", threadContextAddress);
+        }
+
+
+        if (currentThreadContext == threadContextAddress)
+        {
+            g_Ext->Out(" (current)");
+        }
+        else
+        {
+            g_Ext->Out("          ");
+        }
+        if (threadContext.GetCallRootLevel() != 0)
+        {
+            ExtRemoteTyped telemetryBlock = threadContext.GetExtRemoteTyped().Field("telemetryBlock");
+            ULONG64 lastScriptStartTime = ((ULONG64)telemetryBlock.Field("lastScriptStartTime.dwHighDateTime").GetUlong() << 32ull) + telemetryBlock.Field("lastScriptStartTime.dwLowDateTime").GetUlong();
+            g_Ext->Out(" [In script time: %.2fms]", (double)(systemTime - lastScriptStartTime) / 10 / 1000);
+        }
+        RemoteRecycler recycler = threadContext.GetRecycler();
+        if (recycler.CollectionInProgress())
+        {
+            ExtRemoteTyped telemetryBlock = threadContext.GetRecycler().GetExtRemoteTyped().Field("telemetryBlock");
+            ULONG64 lastGCTriggerTime = ((ULONG64)telemetryBlock.Field("currentCollectionStartTime.dwHighDateTime").GetUlong() << 32ull) + telemetryBlock.Field("currentCollectionStartTime.dwLowDateTime").GetUlong();
+            if (systemTime < lastGCTriggerTime)
+            {
+                g_Ext->Out(" [Last GC trigger time: <after system time>]");
+            }
+            else
+            {
+                g_Ext->Out(" [Last GC trigger time: %.2fms]", (double)(systemTime - lastGCTriggerTime) / 10 / 1000);
+            }
+        }
+        g_Ext->Out("\n");
+
+        numThreadContexts++;
+        scriptThreadId = threadContextThreadId;
+        return false;
+    });
+    if (pScriptThreadId)
+    {
+        *pScriptThreadId = scriptThreadId;
+    }
+    return numThreadContexts;
+}
