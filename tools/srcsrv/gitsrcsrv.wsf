@@ -115,14 +115,22 @@
         
         function downloadWithTf() {
             var shell = new ActiveXObject("WScript.Shell");
-            var path = shell.Environment("SYSTEM")("VS140COMNTOOLS"); 
+            var path = shell.Environment("SYSTEM")("VS140COMNTOOLS");
             if (!path) {
                 path = shell.Environment("SYSTEM")("VS120COMNTOOLS");
-                if (!path) {
-                    path = "";
-                }
-            } 
-            print("Try " + path + "tf.exe");
+            }
+            if (path) {
+                path += "..\\IDE\\tf.exe";
+            }
+
+            if (!fso.fileexists(path)) {
+                path = "c:\\Debuggers\\tf.exe";
+            }
+            if (!fso.fileexists(path)) {
+                path = "tf.exe"; // hope it is in env PATH
+            }
+
+            print("Try " + path);
             // tf git view /path:path
             //             /collection:TeamProjectCollectionUrl
             //             /teamproject:TeamProjectIdentifier
@@ -131,7 +139,7 @@
             //             [/output:localfile]
             //             [/console]
             //             [/login:username,[password]]
-            var cmd = "\"" + path + "tf.exe\" git view"
+            var cmd = "\"" + path + "\" git view"
                 + " /output:" + saveAs
                 + " /collection:" + collection
                 + " /path:" + repoPath
