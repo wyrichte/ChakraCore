@@ -75,6 +75,7 @@ public:
         static Js::FunctionInfo GetLineOfPosition;
         static Js::FunctionInfo GetPositionOfLine;
         static Js::FunctionInfo AddFTLProperty;
+        static Js::FunctionInfo AddLazyFTLProperty;
         static Js::FunctionInfo CreateTypedObject;
         static Js::FunctionInfo CreateProjectionArrayBuffer;
         static Js::FunctionInfo EmitStackTraceEvent;
@@ -86,6 +87,8 @@ public:
         static Js::FunctionInfo DetachAndFreeObject;
         static Js::FunctionInfo IsAsmJSModule;
         static Js::FunctionInfo Enable;
+        static Js::FunctionInfo DisableImplicitCalls;
+        static Js::FunctionInfo EnableImplicitCalls;
 #else
 #ifdef ENABLE_HEAP_DUMPER
         static Js::FunctionInfo DumpHeap;
@@ -123,6 +126,8 @@ public:
     static Js::Var EntryGetLineOfPosition(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryGetPositionOfLine(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryAddFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
+    static Js::Var EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
+    static Js::Var AddFTLPropertyCommon(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryCreateTypedObject(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryCreateProjectionArrayBuffer(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryEmitStackTraceEvent(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
@@ -134,6 +139,8 @@ public:
     static Js::Var DetachAndFreeObject(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryIsAsmJSModule(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     static Js::Var EntryEnable(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
+    static Js::Var EntryDisableImplicitCalls(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
+    static Js::Var EntryEnableImplicitCalls(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
 
     static Js::Var DummyScriptMethod(Var method, CallInfo callInfo, Var* args) { return method; }
     static HRESULT __cdecl DummyInitializeMethod(Var instance) { return S_OK; }
