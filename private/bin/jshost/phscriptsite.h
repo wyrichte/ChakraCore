@@ -83,6 +83,8 @@ private:
     SimpleSourceMapper* deleteSimpleSourceMappersOnShutDown[freeOnShutdownCount];
     std::map<std::wstring, ModuleRecord> moduleRecordMap;
     std::map<std::wstring, std::wstring> moduleSourceMap;
+    std::map<ModuleRecord, std::wstring> moduleDirMap;
+    std::map<DWORD_PTR, std::wstring> scriptDirMap;
 
     Js::DelayLoadWinRtString * m_WinRTStringLibrary;
     DelayLoadWinRtTypeResolution * m_WinRTTypeResolutionLibrary;
@@ -111,10 +113,10 @@ private:
     HRESULT CreateScriptEngine(bool isPrimary = true);
 
     HRESULT LoadScriptFromFile(LPCOLESTR filename, Var* errorObject = nullptr, bool isModuleCode = false);
-    HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8);
+    HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8, char16 *fullPath = nullptr);
 
     HRESULT LoadModuleFromString(bool isUtf8, 
-        LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, Var* errorObject);
+        LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, Var* errorObject, LPCWSTR fullName = nullptr);
 
     HRESULT StopScriptEngine();
 
@@ -127,11 +129,14 @@ private:
     HRESULT RegisterDebugDocuments(CComPtr<IActiveScript>& activeScript, std::vector<SourceContextPair>& cookiePairs);
     void UpdateFileMapTable(std::vector<SourceContextPair>& cookiePairs, SourceContextPair* outPairArray);
 
+    static char16* GetDir(LPCWSTR fullPath, __out char16* const fullDir);
+
     STDMETHODIMP FetchImportedModuleHelper(
         /* [in] */ ModuleRecord referencingModule,
         /* [in] */ LPCWSTR specifier,
         /* [in] */ unsigned long specifierLength,
-        /* [out] */ ModuleRecord *dependentModuleRecord);
+        /* [out] */ ModuleRecord *dependentModuleRecord,
+        /* [in] */ LPCWSTR refdir = nullptr);
 
 public:
 
@@ -166,7 +171,7 @@ public:
 
     // IJsHostScriptSite interfaces
     STDMETHODIMP LoadScriptFile(LPCOLESTR filename);
-    STDMETHODIMP LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject);
+    STDMETHODIMP LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject, DWORD_PTR referenceModuleRecord);
     STDMETHODIMP LoadScript(LPCOLESTR script);
     STDMETHODIMP LoadModule(LPCOLESTR script, byte** errorObject);
     STDMETHODIMP RegisterModuleSource(LPCOLESTR moduleIdentifier, LPCOLESTR script);
@@ -242,6 +247,7 @@ public:
     static HRESULT Shutdown(JsHostActiveScriptSite * scriptSite);
     static LPCWSTR MapExternalToES6ErrorText(JsErrorType externalErrorType);   
     static void Terminate();
+    void RegisterScriptDir (DWORD_PTR sourceContext, char16* const fullDir);
 
     void SetDomainId(WORD domainId) { this->domainId = domainId; }
 };

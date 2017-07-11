@@ -1,7 +1,7 @@
 === Before change ===
 ok
 ENC: QueryEdit: 1 requests
-ENC: editactivationobject2.js (238,113):
+ENC: editActivationObject2.js (238,113):
 /**edit(test)**/
     function f1() { return x;}
     /// funct...

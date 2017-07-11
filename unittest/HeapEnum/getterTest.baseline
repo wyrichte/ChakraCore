@@ -253,7 +253,7 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] getFunction
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: gettertest.js
+ |  |    | 0 sourceUrl: value: getterTest.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 1.000000
  |  | 1 foo: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)

@@ -1,7 +1,7 @@
 === Before change ===
 abc
 ENC: QueryEdit: 1 requests
-ENC: editreorderupdate.js (32,167):
+ENC: editReorderUpdate.js (32,167):
 /**edit(test)**/
 function f1(a) {
     return a;

@@ -152,11 +152,11 @@
  |  |  |    [Scopes] count: 1
  |  |  |    | scope[0]: type: Scope (seen)
  |  |  |    [Relationships] count: 3
- |  |  |    | 0 sourceUrl: value: blockscopeslotarraynestedfunctiondeclarationtest.bug287382.js
+ |  |  |    | 0 sourceUrl: value: blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.js
  |  |  |    | 1 sourceRow: value: 10.000000
  |  |  |    | 2 sourceCol: value: 9.000000
  |  [Relationships] count: 3
- |  | 0 sourceUrl: value: blockscopeslotarraynestedfunctiondeclarationtest.bug287382.js
+ |  | 0 sourceUrl: value: blockScopeSlotArrayNestedFunctionDeclarationTest.bug287382.js
  |  | 1 sourceRow: value: 12.000000
  |  | 2 sourceCol: value: 17.000000
 

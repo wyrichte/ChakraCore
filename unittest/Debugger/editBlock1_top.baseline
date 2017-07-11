@@ -1,7 +1,7 @@
 === Before change ===
 function Timer(){}
 ENC: QueryEdit: 1 requests
-ENC: editblock1_top.js (134,115):
+ENC: editBlock1_top.js (134,115):
 /**edit(test)**/
     /// function dummy(){};
     /// function...

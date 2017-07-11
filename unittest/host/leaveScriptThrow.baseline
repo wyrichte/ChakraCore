@@ -1,6 +1,6 @@
 __onLeaveScript
 JavascriptError: 2nd throw from __onLeaveScript
-	at __onLeaveScript() (leavescriptthrow.js:4:3)
-	at Global code (leavescriptthrow.js:1:1)
+	at __onLeaveScript() (leaveScriptThrow.js:4:3)
+	at Global code (leaveScriptThrow.js:1:1)
 JavascriptError: 1st throw
-	at Global code (leavescriptthrow.js:7:1)
+	at Global code (leaveScriptThrow.js:7:1)

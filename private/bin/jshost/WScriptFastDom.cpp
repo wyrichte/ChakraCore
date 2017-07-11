@@ -807,7 +807,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
                 if (SUCCEEDED(runInfo.hr))
                 {
-                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, FALSE, (byte**)&errorObject);
+                    runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, FALSE, (byte**)&errorObject, (DWORD_PTR)nullptr);
                 }
                 if (FAILED(runInfo.hr) && errorObject != nullptr)
                 {
@@ -2336,7 +2336,7 @@ HRESULT WScriptFastDom::ModuleMessage::Call()
         hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
         if (SUCCEEDED(hr))
         {
-            hr = jsHostScriptSite->LoadModuleFile(specifier, TRUE, (byte**)&errorObject);
+            hr = jsHostScriptSite->LoadModuleFile(specifier, TRUE, (byte**)&errorObject, (DWORD_PTR)this->moduleRecord);
         }
     }
 Error:

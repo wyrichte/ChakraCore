@@ -2,7 +2,7 @@
 abc
 def
 ENC: QueryEdit: 1 requests
-ENC: editmoveupdate2.js (70,297):
+ENC: editMoveUpdate2.js (70,297):
 /**edit(test)**/
 function f1(a) {
     return a;

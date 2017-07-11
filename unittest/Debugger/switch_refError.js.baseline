@@ -1,2 +1,2 @@
 ReferenceError: 'x' is not defined
-	at Run() (switch_referror.js:5:2)
+	at Run() (switch_refError.js:5:2)

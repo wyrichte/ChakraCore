@@ -6,7 +6,7 @@ function foo() {
     return function f() { return foo; }
 }
 ENC: QueryEdit: 1 requests
-ENC: editactivationobject3.js (301,63):
+ENC: editActivationObject3.js (301,63):
 /**edit(test)**/
     /// var foo = 1;
     /**endedit(test)**/...
