@@ -1,7 +1,7 @@
 === Before change ===
 ok
 ENC: QueryEdit: 1 requests
-ENC: editactivationobject1.js (145,145):
+ENC: editActivationObject1.js (145,145):
 /**edit(test)**/
     var dummy = "ERROR!";
     var x = "ok"; ...

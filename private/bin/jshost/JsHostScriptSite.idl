@@ -13,7 +13,7 @@ import "unknwn.idl";
 interface IJsHostScriptSite : IUnknown
 {
     HRESULT LoadScriptFile(LPCOLESTR filename);
-    HRESULT LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject);
+    HRESULT LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject, DWORD_PTR referenceModuleRecord);
     HRESULT LoadScript(LPCOLESTR script);
     HRESULT LoadModule(LPCOLESTR script, byte** errorObject); // module methods does not through DCOM
     HRESULT RegisterModuleSource(LPCOLESTR moduleIdentifier, LPCOLESTR script);

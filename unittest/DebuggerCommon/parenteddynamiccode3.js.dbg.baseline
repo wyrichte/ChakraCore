@@ -9,7 +9,7 @@
       "Name": "Root",
       "Children": [
         {
-          "Name": "parenteddynamiccode3.js",
+          "Name": "parentedDynamicCode3.js",
           "Children": [
             {
               "Name": "eval code (1)",
@@ -38,7 +38,7 @@
       "Name": "Root",
       "Children": [
         {
-          "Name": "parenteddynamiccode3.js",
+          "Name": "parentedDynamicCode3.js",
           "Children": [
             {
               "Name": "eval code (1)",

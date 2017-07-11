@@ -253,28 +253,28 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testprop.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 110.000000
  |  | 1 testprop: rsFlags: setter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testprop.set
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 88.000000
  |  | 2 testprop2: rsFlags: getter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testprop2.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 8.000000
  |  |    | 2 sourceCol: value: 111.000000
  |  | 3 testprop2: rsFlags: setter type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] testprop2.set
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 8.000000
  |  |    | 2 sourceCol: value: 89.000000
  |  [Array elements] count: 11
@@ -282,14 +282,14 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 100.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 4.000000
  |  |    | 2 sourceCol: value: 105.000000
  |  | 100: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 100.set
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 4.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 200: type: String flags: (new size_approximate) optional info records (2)
@@ -299,21 +299,21 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 300.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 6.000000
  |  |    | 2 sourceCol: value: 105.000000
  |  | 300: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 300.set
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 6.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 400: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 400.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 7.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 400: type: FunctionObject flags: (new) optional info records (1)
@@ -323,14 +323,14 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 500.set
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 9.000000
  |  |    | 2 sourceCol: value: 83.000000
  |  | 600: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] 600.get
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: es5arraygettersetters.js
+ |  |    | 0 sourceUrl: value: ES5ArrayGetterSetters.js
  |  |    | 1 sourceRow: value: 10.000000
  |  |    | 2 sourceCol: value: 99.000000
  |  | 600: type: FunctionObject (seen)

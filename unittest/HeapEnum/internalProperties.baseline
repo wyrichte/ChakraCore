@@ -253,7 +253,7 @@
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] HETest.testForInWithPrototype
  |  |    [Relationships] count: 3
- |  |    | 0 sourceUrl: value: internalproperties.js
+ |  |    | 0 sourceUrl: value: internalProperties.js
  |  |    | 1 sourceRow: value: 14.000000
  |  |    | 2 sourceCol: value: 33.000000
  |  | 1 instance: type: ObjectObject flags: (new) optional info records (2)

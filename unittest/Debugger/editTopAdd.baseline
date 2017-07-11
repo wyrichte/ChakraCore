@@ -1,7 +1,7 @@
 === Before change ===
 f ==  undefined
 ENC: QueryEdit: 1 requests
-ENC: edittopadd.js (55,103):
+ENC: editTopAdd.js (55,103):
 /**edit(top)**/
 /// function f() {
 ///     WScript.Echo("new ...

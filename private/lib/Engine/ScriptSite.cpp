@@ -1707,9 +1707,7 @@ HRESULT ScriptSite::FetchImportedModuleFromScript(DWORD_PTR dwReferencingSourceC
     {
         Assert(!GetScriptSiteContext()->GetThreadContext()->IsScriptActive());
         BEGIN_NO_EXCEPTION
-        // TODO(suwc): switch to FetchImportedModuleFromScript once idl update is completed
-        //hr = scriptHost->FetchImportedModuleFromScript(dwReferencingSourceContext, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
-        hr = scriptHost->FetchImportedModule(nullptr, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
+        hr = scriptHost->FetchImportedModuleFromScript(dwReferencingSourceContext, specifier, wcslen(specifier), (ModuleRecord*)dependentModuleRecord);
         END_NO_EXCEPTION
     }
     return hr;

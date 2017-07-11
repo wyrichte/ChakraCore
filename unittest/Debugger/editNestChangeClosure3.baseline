@@ -1,7 +1,7 @@
 === Before change ===
 old new
 ENC: QueryEdit: 1 requests
-ENC: editnestchangeclosure3.js (107,179):
+ENC: editNestChangeClosure3.js (107,179):
 /**edit(nest)**/
     var x = a;
     return function f() {

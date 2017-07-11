@@ -1,7 +1,7 @@
 === Before change ===
 1
 ENC: QueryEdit: 1 requests
-ENC: editblock3.js (297,496):
+ENC: editBlock3.js (297,496):
 /**edit(test)**/
             if (true) {
                 let ...
