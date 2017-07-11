@@ -320,13 +320,6 @@ HRESULT DoOneJsrtIteration(BSTR filename)
         IfFailGo(E_FAIL);
     }
 
-    // canonicalize that path name to lower case for the profile storage
-    size_t len = wcslen(fullPath);
-    for (size_t i = 0; i < len; i ++)
-    {
-        fullPath[i] = towlower(fullPath[i]);
-    }
-
 #ifdef FAULT_INJECTION
     // FaultInjection check point: engine initialized
     int faultInjection;

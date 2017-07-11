@@ -1,7 +1,7 @@
 === Before change ===
 undefined
 ENC: QueryEdit: 1 requests
-ENC: editblock2.js (133,184):
+ENC: editBlock2.js (133,184):
 /**edit(test)**/
         function foo() { }
 

@@ -154,7 +154,7 @@
  |  |  |    [Scopes] count: 1
  |  |  |    | scope[0]: type: Scope (seen)
  |  |  |    [Relationships] count: 3
- |  |  |    | 0 sourceUrl: value: blockscopeactivationobjectasslotarray.js
+ |  |  |    | 0 sourceUrl: value: blockScopeActivationObjectAsSlotArray.js
  |  |  |    | 1 sourceRow: value: 4.000000
  |  |  |    | 2 sourceCol: value: 5.000000
  |  |  | 2 a: type: ObjectObject flags: (new) optional info records (2)
@@ -163,7 +163,7 @@
  |  |  |    | 0 p1: value: 1.000000
  |  |  |    | 1 p2: value: 2.000000
  |  [Relationships] count: 3
- |  | 0 sourceUrl: value: blockscopeactivationobjectasslotarray.js
+ |  | 0 sourceUrl: value: blockScopeActivationObjectAsSlotArray.js
  |  | 1 sourceRow: value: 8.000000
  |  | 2 sourceCol: value: 13.000000
 

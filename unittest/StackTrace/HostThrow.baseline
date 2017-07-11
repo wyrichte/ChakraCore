@@ -1,4 +1,4 @@
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
-   at foo (hostthrow.js:8:9)
-   at Global code (hostthrow.js:7:6)
+   at foo (HostThrow.js:8:9)
+   at Global code (HostThrow.js:7:6)

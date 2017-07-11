@@ -144,7 +144,7 @@
  |  |  |    |    [Prototype] type: StringObject (seen)
  |  [Function name] func
  |  [Relationships] count: 3
- |  | 0 sourceUrl: value: asmjs.js
+ |  | 0 sourceUrl: value: AsmJs.js
  |  | 1 sourceRow: value: 3.000000
  |  | 2 sourceCol: value: 3.000000
 

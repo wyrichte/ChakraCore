@@ -1,7 +1,7 @@
 === Before change ===
 old f
 ENC: QueryEdit: 1 requests
-ENC: edittopchangewitherror.js (54,142):
+ENC: editTopChangeWithError.js (54,142):
 /**edit(top)**/
 function f() {
     WScript.Echo("old f");

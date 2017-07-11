@@ -66,7 +66,6 @@ JsHostActiveScriptSite::JsHostActiveScriptSite()
 {
 }
 
-
 JsHostActiveScriptSite::~JsHostActiveScriptSite()
 {
     if (javascriptDispatchCookie)
@@ -148,6 +147,20 @@ void JsHostActiveScriptSite::RegisterToUnmapOnShutdown(MappingInfo info)
     {
         unmapOnShutdown[nextUnmapOnShutdownSlot++] = info;
     }
+}
+
+void JsHostActiveScriptSite::RegisterScriptDir(DWORD_PTR sourceContext, char16* const fullDir)
+{
+    char16 dir[_MAX_PATH];
+    scriptDirMap[sourceContext] = std::wstring(GetDir(fullDir, dir));
+}
+
+char16* JsHostActiveScriptSite::GetDir(LPCWSTR fullPath, __out char16* const fullDir)
+{
+    char16 dir[_MAX_DIR];
+    _wsplitpath_s(fullPath, fullDir, _MAX_DRIVE, dir, _MAX_DIR, nullptr, 0, nullptr, 0);
+    wcscat_s(fullDir, _MAX_PATH, dir);
+    return fullDir;
 }
 
 HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
@@ -1093,11 +1106,24 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     LPCOLESTR contentsRaw = NULL;
     UINT lengthBytes = 0;
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
-    char16 * fullpath = nullptr;
+    char16 fullpath[_MAX_PATH];
     bool contentsFromModuleSourceMap = false;
     bool printFileOpenError = !HostConfigFlags::flags.MuteHostErrorMsgIsEnabled;
 
     auto moduleFromSourceMap = moduleSourceMap.find(scriptFilename);
+
+    if (scriptFilename == nullptr)
+    {
+        scriptFilename = _u("script.js");
+    }
+
+    if (_wfullpath(fullpath, scriptFilename, _MAX_PATH) == nullptr)
+    {
+        fwprintf(stderr, _u("Out of memory"));
+        IfFailGo(E_OUTOFMEMORY);
+    }
+
+    size_t len = wcslen(fullpath);
     if (isModuleCode && moduleFromSourceMap != moduleSourceMap.end())
     {
         // This is our string and it's not UTF8
@@ -1108,22 +1134,9 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     }
     else
     {
-        hr = JsHostLoadScriptFromFile(scriptFilename, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
+        RegisterScriptDir(m_dwNextSourceCookie, fullpath);
+        hr = JsHostLoadScriptFromFile(fullpath, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
         IfFailGo(hr);
-    }
-
-    fullpath = _wfullpath(NULL, scriptFilename, 0);
-    if (fullpath == NULL)
-    {
-        fwprintf(stderr, _u("Out of memory"));
-        IfFailGo(E_OUTOFMEMORY);
-    }
-
-    // canonicalize that path name to lower case for the profile storage
-    UINT len = (UINT)wcslen(fullpath);
-    for (size_t i = 0; i < len; i ++)
-    {
-        fullpath[i] = towlower(fullpath[i]);
     }
    
     DiagnosticsHelper *diagnosticsHelper = DiagnosticsHelper::GetDiagnosticsHelper();
@@ -1149,11 +1162,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     {
         if (isUtf8)
         {
-            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contentsRaw, lengthBytes, errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contentsRaw, lengthBytes, errorObject, fullpath);
         }
         else
         {
-            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject);
+            hr = LoadModuleFromString(isUtf8, scriptFilename, (UINT)wcslen(scriptFilename), contents, (UINT)wcslen(contents)*sizeof(char16), errorObject, fullpath);
         }
         goto Error;
     }
@@ -1328,7 +1341,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     }
     else
     {
-        hr = LoadScriptFromString(contents, isUtf8 ? (BYTE*)contentsRaw : nullptr, lengthBytes, &usedUtf8);
+        hr = LoadScriptFromString(contents, isUtf8 ? (BYTE*)contentsRaw : nullptr, lengthBytes, &usedUtf8, fullpath);
     }
 
 Error:
@@ -1340,11 +1353,6 @@ Error:
     if (!contentsFromModuleSourceMap && contents && (contents != contentsRaw))
     {
         HeapFree(GetProcessHeap(), 0, (void*)contents);
-    }
-
-    if (fullpath)
-    {
-        free(fullpath);
     }
 
     if (HostConfigFlags::flags.IgnoreScriptErrorCode)
@@ -1363,7 +1371,7 @@ DWORD_PTR JsHostActiveScriptSite::AddUrl(_In_z_ LPCWSTR url)
 
 // TODO: make source code heapalloc.
 HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8, 
-    LPCWSTR filename, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject)
+    LPCWSTR filename, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, void** errorObject, LPCWSTR fullName)
 {
     HRESULT hr = S_OK;
     CComPtr<IActiveScript> activeScript;
@@ -1378,7 +1386,8 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
         DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
     // TODO: handle nested module/create the dictionary for filename<->ModuleRecord mapping.
         ModuleRecord requestModule = nullptr;
-        auto moduleRecordEntry = moduleRecordMap.find(filename);
+        LPCWSTR moduleRecordKey = fullName ? fullName : filename;
+        auto moduleRecordEntry = moduleRecordMap.find(std::wstring(moduleRecordKey));
         if (moduleRecordEntry == moduleRecordMap.end())
         {
             fwprintf(stderr, _u("module record for %s should have been created \n"), filename);
@@ -1404,7 +1413,7 @@ HRESULT JsHostActiveScriptSite::LoadModuleFromString(bool isUtf8,
     return hr;
 }
 
-HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8)
+HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8, char16 *fullPath)
 {
     HRESULT hr = S_OK;
 
@@ -1429,6 +1438,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
         {
             // Increment m_dwNextSourceCookie first, so that if below ParseScriptText calls WScript.LoadScriptFile we'll use the correct next source cookie.
             DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
+            if (fullPath)
+            {
+                RegisterScriptDir(dwSourceCookie, fullPath);
+            }
+
             EXCEPINFO excepinfo;
             DWORD dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
             
@@ -1544,7 +1558,7 @@ void JsHostActiveScriptSite::Terminate()
 
     WScriptFastDom::ShutdownAll();
 
-    for (DWORD slot = 0; slot<nextFreeOnShutdownSlot; ++slot)
+    for (DWORD slot = 0; slot < nextFreeOnShutdownSlot; ++slot)
     {
         HeapFree(GetProcessHeap(), 0, freeOnShutdown[slot]);
         freeOnShutdown[slot] = nullptr;
@@ -1552,7 +1566,7 @@ void JsHostActiveScriptSite::Terminate()
 
     nextFreeOnShutdownSlot = 0;
 
-    for (DWORD slot = 0; slot<nextUnmapOnShutdownSlot; ++slot)
+    for (DWORD slot = 0; slot < nextUnmapOnShutdownSlot; ++slot)
     {
         UnmapViewOfFile(unmapOnShutdown[slot].base);
         CloseHandle(unmapOnShutdown[slot].fileMapping);
@@ -1600,14 +1614,30 @@ STDMETHODIMP JsHostActiveScriptSite::LoadScriptFile(LPCOLESTR filename)
     return hr;
 }
 
-STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject)
+STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL useExistingModuleRecord, byte** errorObject, DWORD_PTR referenceModuleRecord)
 {
     HRESULT hr = S_OK;
 
-    auto moduleEntry = moduleRecordMap.find(filename);
     CComPtr<IActiveScriptDirect> scriptDirect = nullptr;
     ModuleRecord moduleRecord = nullptr;
+    std::wstring specifierFullPath;
+    char16 fullPath[_MAX_PATH];
+    if (referenceModuleRecord)
+    {
+        auto moduleDirEntry = moduleDirMap.find((ModuleRecord)referenceModuleRecord);
+        if (moduleDirEntry != moduleDirMap.end())
+        {
+            specifierFullPath = moduleDirEntry->second;
+        }
+    }
 
+    specifierFullPath += filename;
+    if (_wfullpath(fullPath, specifierFullPath.c_str(), _MAX_PATH) == nullptr)
+    {
+        return E_FAIL;
+    }
+
+    auto moduleEntry = moduleRecordMap.find(fullPath);
     if (useExistingModuleRecord)
     {
         if (moduleEntry == moduleRecordMap.end())
@@ -1640,7 +1670,9 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
 
                 if (SUCCEEDED(hr))
                 {
-                    moduleRecordMap[filename] = moduleRecord;
+                    moduleRecordMap[fullPath] = moduleRecord;
+                    char16 dir[_MAX_PATH];
+                    moduleDirMap[moduleRecord] = std::wstring(GetDir(fullPath, dir));
                 }
             }
         }
@@ -1648,7 +1680,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
 
     if (SUCCEEDED(hr))
     {
-        hr = LoadScriptFromFile(filename, (Var*)errorObject, true);
+        hr = LoadScriptFromFile(fullPath, (Var*)errorObject, true);
     }
 
     if (FAILED(hr) && moduleRecord != nullptr)
@@ -1662,7 +1694,14 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
 
 STDMETHODIMP JsHostActiveScriptSite::RegisterModuleSource(LPCOLESTR moduleIdentifier, LPCOLESTR script)
 {
-    auto existingModuleSource = moduleSourceMap.find(moduleIdentifier);
+    char16 fullpath[_MAX_PATH];
+    if (_wfullpath(fullpath, moduleIdentifier, _MAX_PATH) == nullptr)
+    {
+        fwprintf(stderr, _u("Out of memory"));
+        return E_OUTOFMEMORY;
+    }
+
+    auto existingModuleSource = moduleSourceMap.find(fullpath);
     
     if (existingModuleSource != moduleSourceMap.end())
     {
@@ -1670,7 +1709,7 @@ STDMETHODIMP JsHostActiveScriptSite::RegisterModuleSource(LPCOLESTR moduleIdenti
         return E_INVALIDARG;
     }
 
-    moduleSourceMap[moduleIdentifier] = script;
+    moduleSourceMap[fullpath] = script;
 
     return S_OK;
 }
@@ -2021,12 +2060,6 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
                 }
             }
 
-            size_t len = wcslen(filename);
-            for (size_t i = 0; i < len; i++)
-            {
-                filename[i] = towlower(filename[i]);
-            }
-
             for (unsigned int i = 0; i < excepInfo.callStack.frameCount; i++)
             {
                 if (NULL != filenameFlag && !this->delegateErrorHandling)
@@ -2326,23 +2359,36 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleHelper(
     /* [in] */ ModuleRecord referencingModule,
     /* [in] */ LPCWSTR specifier,
     /* [in] */ unsigned long specifierLength,
-    /* [out] */ ModuleRecord *dependentModuleRecord)
+    /* [out] */ ModuleRecord *dependentModuleRecord,
+    /* [in] */ LPCWSTR refdir)
 {
     HRESULT hr;
     // TODO: implement the dictionary
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     hr = GetActiveScriptDirect(&activeScriptDirect);
     ModuleRecord moduleRecord = nullptr;
-    auto moduleEntry = moduleRecordMap.find(specifier);
+
+    char16 fullPath[_MAX_PATH];
+    std::wstring specifierFullPath = refdir ? refdir : _u("");
+    specifierFullPath += specifier;
+    if (_wfullpath(fullPath, specifierFullPath.c_str(), _MAX_PATH) == nullptr)
+    {
+        return JsErrorInvalidArgument;
+    }
+
+    auto moduleEntry = moduleRecordMap.find(fullPath);
     if (moduleEntry != moduleRecordMap.end())
     {
         *dependentModuleRecord = moduleEntry->second;
         return S_OK;
     }
+
     hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
     if (SUCCEEDED(hr))
     {
-        moduleRecordMap[specifier] = moduleRecord;
+        char16 dir[_MAX_PATH];
+        moduleDirMap[moduleRecord] = std::wstring(GetDir(fullPath, dir));
+        moduleRecordMap[fullPath] = moduleRecord;
         activeScriptDirect->SetModuleHostInfo(moduleRecord, ModuleHostInfo_HostDefined, (void *)specifier);
         WScriptFastDom::ModuleMessage* moduleMessage =
             WScriptFastDom::ModuleMessage::Create(referencingModule, specifier, activeScriptDirect);
@@ -2358,6 +2404,13 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModule(
     /* [in] */ unsigned long specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
 {
+    auto moduleDirEntry = moduleDirMap.find(referencingModule);
+    if (moduleDirEntry != moduleDirMap.end())
+    {
+        std::wstring dir = moduleDirEntry->second;
+        return FetchImportedModuleHelper(referencingModule, specifier, specifierLength, dependentModuleRecord, dir.c_str());
+    }
+
     return FetchImportedModuleHelper(referencingModule, specifier, specifierLength, dependentModuleRecord);
 }
 
@@ -2368,6 +2421,13 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleFromScript(
     /* [in] */ unsigned long specifierLength,
     /* [out] */ __RPC__deref_out_opt ModuleRecord *dependentModuleRecord)
 {
+    auto scriptDirEntry = scriptDirMap.find(dwReferencingSourceContext);
+    if (scriptDirEntry != scriptDirMap.end())
+    {
+        std::wstring dir = scriptDirEntry->second;
+        return FetchImportedModuleHelper(nullptr, specifier, specifierLength, dependentModuleRecord, dir.c_str());
+    }
+
     return FetchImportedModuleHelper(nullptr, specifier, specifierLength, dependentModuleRecord);
 }
 

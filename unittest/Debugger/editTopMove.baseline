@@ -2,7 +2,7 @@
 old f1
 old f2
 ENC: QueryEdit: 1 requests
-ENC: edittopmove.js (28,287):
+ENC: editTopMove.js (28,287):
 /**edit(top)**/
 function f1() {
     WScript.Echo("old f1");
