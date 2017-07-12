@@ -171,18 +171,4 @@
       <tags>exclude_forceserialized,exclude_drt</tags>
     </default>
   </test>
-  <test>
-    <default>
-      <files>SIMDFloat32x4_profiler.js</files>
-      <baseline>SIMDFloat32x4_profiler.baseline</baseline>
-      <compile-flags>-Simdjs</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt32x4_profiler.js</files>
-      <baseline>SIMDInt32x4_profiler.baseline</baseline>
-      <compile-flags>-Simdjs</compile-flags>
-    </default>
-  </test>
 </regress-exe>
