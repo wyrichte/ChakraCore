@@ -1634,66 +1634,6 @@
   </test>
   <test>
     <default>
-      <files>SIMDFloat32x4_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdfloat32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt32x4_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdint32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt8x16_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdint8x16_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDInt16x8_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdint16x8_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDBool32x4_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdbool32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDBool8x16_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdbool8x16_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDBool16x8_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simdbool16x8_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDUint32x4_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simduint32x4_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDUint8x16_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simduint8x16_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>SIMDUint16x8_dbg_test.js</files>
-      <compile-flags>-simdjs -inspectmaxstringlength:200 -debuglaunch -targeted -dbgbaseline:simduint16x8_dbg_test.js.dbg.baseline</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>parambind_os6622447.js</files>
       <compile-flags>-force:deferparse -dbgbaseline:emptyJson.dbg.baseline</compile-flags>
     </default>
@@ -1752,21 +1692,21 @@
     <default>
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
-      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
+      <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
-      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline -maic:0</compile-flags>
+      <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline -maic:0</compile-flags>
     </default>
   </test>
   <test>
     <default>
       <files>asmjseval.js</files>
       <baseline>asmjseval.baseline</baseline>
-      <compile-flags>-asmjs -simdjs -testtrace:asmjs -targeted -dbgbaseline:asmjseval.js.dbg.baseline</compile-flags>
+      <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjseval.js.dbg.baseline</compile-flags>
     </default>
   </test>
   <test>
