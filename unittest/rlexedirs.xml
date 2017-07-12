@@ -243,18 +243,6 @@
 </dir>
 <dir>
   <default>
-    <files>SIMD.workloads.asmjs</files>
-    <tags>exclude_serialized,exclude_arm,exclude_arm64</tags>
-  </default>
-</dir>
-<dir>
-  <default>
-    <files>SIMD.validation</files>
-    <tags>exclude_arm,exclude_arm64</tags>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>utf8</files>
   </default>
 </dir>
