@@ -1454,7 +1454,6 @@ Re-enable with new baseline
     </default>
   </test>
   
-  <!-- Disabled due to breaking change in spec update - see OS 10450472
   <test>
     <default>
       <files>IBuffer.js</files>
@@ -1471,7 +1470,6 @@ Re-enable with new baseline
       <tags>exclude_win7,exclude_fre</tags>
     </default>
   </test>
-  -->
   
   <!--  IBuffer tests are temporarily disabled under -version:5 on AMD64. See TFS Task 709060 -->
   <test>
