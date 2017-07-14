@@ -1795,6 +1795,7 @@ bool ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::D
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createTypedObject"), &DebugObject::EntryInfo::CreateTypedObject, 0);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("createProjectionArrayBuffer"), &DebugObject::EntryInfo::CreateProjectionArrayBuffer, 0);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("addFTLProperty"), &DebugObject::EntryInfo::AddFTLProperty, 0);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("addLazyFTLProperty"), &DebugObject::EntryInfo::AddLazyFTLProperty, 0);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("emitStackTraceEvent"), &DebugObject::EntryInfo::EmitStackTraceEvent, 0);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("getTypeInfo"), &DebugObject::EntryInfo::GetTypeInfo, 1);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("parseFunction"), &DebugObject::EntryInfo::ParseFunction, 1);
@@ -1804,6 +1805,8 @@ bool ScriptSite::InitializeDebugObjectType(Js::DynamicObject* debugObject, Js::D
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("detachAndFreeObject"), &DebugObject::EntryInfo::DetachAndFreeObject, 1);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("isAsmJSModule"), &DebugObject::EntryInfo::IsAsmJSModule, 0);
         library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("enable"), &DebugObject::EntryInfo::Enable, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("disableImplicitCalls"), &DebugObject::EntryInfo::DisableImplicitCalls, 1);
+        library->AddFunctionToLibraryObjectWithPropertyName(debugObject, _u("enableImplicitCalls"), &DebugObject::EntryInfo::EnableImplicitCalls, 1);
     }
     if (!CONFIG_FLAG(DisableDebugObject) || CONFIG_FLAG(DumpHeap))
     {

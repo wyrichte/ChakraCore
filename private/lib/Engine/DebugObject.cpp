@@ -6,6 +6,7 @@
 
 #include "Library\ES5Array.h"
 #include "ActiveScriptProfilerHeapEnum.h"
+#include "edgejsstatic.h"
 
 Js::FunctionInfo DebugObject::EntryInfo::Write(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryWrite));
 Js::FunctionInfo DebugObject::EntryInfo::WriteLine(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryWriteLine));
@@ -27,6 +28,7 @@ Js::FunctionInfo DebugObject::EntryInfo::GetCurrentSourceInfo(FORCE_NO_WRITE_BAR
 Js::FunctionInfo DebugObject::EntryInfo::GetLineOfPosition(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetLineOfPosition));
 Js::FunctionInfo DebugObject::EntryInfo::GetPositionOfLine(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryGetPositionOfLine));
 Js::FunctionInfo DebugObject::EntryInfo::AddFTLProperty(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryAddFTLProperty));
+Js::FunctionInfo DebugObject::EntryInfo::AddLazyFTLProperty(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryAddLazyFTLProperty));
 Js::FunctionInfo DebugObject::EntryInfo::CreateTypedObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateTypedObject));
 Js::FunctionInfo DebugObject::EntryInfo::CreateProjectionArrayBuffer(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateProjectionArrayBuffer));
 Js::FunctionInfo DebugObject::EntryInfo::EmitStackTraceEvent(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEmitStackTraceEvent));
@@ -38,6 +40,8 @@ Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(
 Js::FunctionInfo DebugObject::EntryInfo::DetachAndFreeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::DetachAndFreeObject));
 Js::FunctionInfo DebugObject::EntryInfo::IsAsmJSModule(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryIsAsmJSModule));
 Js::FunctionInfo DebugObject::EntryInfo::Enable(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEnable));
+Js::FunctionInfo DebugObject::EntryInfo::DisableImplicitCalls(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryDisableImplicitCalls));
+Js::FunctionInfo DebugObject::EntryInfo::EnableImplicitCalls(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEnableImplicitCalls));
 
 #else
 #ifdef ENABLE_HEAP_DUMPER
@@ -989,6 +993,123 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
     Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
 
     return getter;
+}
+
+static Var getterTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    return Js::TaggedInt::ToVarUnchecked(1);
+}
+static Var setterTrampoline(Var function, CallInfo callInfo, Var *args)
+{
+    return function;
+}
+
+// arguments
+//   addLazyFTLProperty(obj, propertyName, index);
+Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
+    Assert(!(callInfo.Flags & CallFlags_New));
+
+    ARGUMENTS(args, callInfo);
+
+    Js::ScriptContext* scriptContext = function->GetScriptContext();
+    if (args.Info.Count < 4)
+    {
+        Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
+    }
+    Js::RecyclableObject* obj = Js::RecyclableObject::FromVar(args[1]);
+    if (Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(obj)))
+    {
+        Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
+    }
+
+    Js::Var propertyName = args[2];
+
+    if (!Js::JavascriptString::Is(propertyName))
+    {
+        Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
+    }
+
+    Js::Var indexVar = args[3];
+    int index = 0;
+    if (!Js::TaggedInt::Is(indexVar))
+    {
+        Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
+    }
+    index = Js::TaggedInt::ToInt32(indexVar);
+
+    if (scriptContext->IsClosed())
+    {
+        return scriptContext->GetLibrary()->GetUndefined();
+    }
+    Js::PropertyId propertyId;
+    Js::Var getter = scriptContext->GetLibrary()->GetUndefined();
+    Js::Var setter = scriptContext->GetLibrary()->GetUndefined();
+    Js::JavascriptString* propertyString = Js::JavascriptString::FromVar(propertyName);
+    propertyId = scriptContext->GetOrAddPropertyIdTracked(propertyString->GetSz(), propertyString->GetLength());
+    HRESULT hr;
+
+    ScriptSite * scriptSite = ScriptSite::FromScriptContext(scriptContext);
+    ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
+    BEGIN_LEAVE_SCRIPT(scriptContext)
+    {
+        hr = scriptEngine->GetObjectSlotAccessor(Js::JavascriptOperators::GetTypeId(obj), propertyId, index, &getterTrampoline, &setterTrampoline, &getter, &setter);
+    }
+    END_LEAVE_SCRIPT(scriptContext);
+
+    switch (hr)
+    {
+    case S_OK:
+        break;
+    case E_OUTOFMEMORY:
+        Js::JavascriptError::ThrowOutOfMemoryError(scriptContext);
+    case E_INVALIDARG:
+        return scriptContext->GetLibrary()->GetUndefined();
+    default:
+        AssertMsg(UNREACHED, "GetTypedObjectSlotAccessor returned unexpected HRESULT");
+        return scriptContext->GetLibrary()->GetUndefined();
+    }
+
+    Js::RecyclableObject* protoObj = Js::JavascriptOperators::GetPrototype(obj);
+    if (!Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(protoObj)))
+    {
+        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
+    }
+    else
+    {
+        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
+    }
+    Js::Var outArgs[2];
+    outArgs[0] = obj;
+    Js::Arguments jsArguments(0, nullptr);
+    jsArguments.Info.Count = callInfo.Count;
+    jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
+    jsArguments.Values = (Js::Var*)outArgs;
+
+    Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+
+    return getter;
+}
+
+Js::Var DebugObject::EntryDisableImplicitCalls(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    ThreadContext* threadContext = function->GetScriptContext()->GetThreadContext();
+
+    threadContext->DisableImplicitCall();
+
+    return function;
+}
+
+Js::Var DebugObject::EntryEnableImplicitCalls(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
+{
+    ARGUMENTS(args, callInfo);
+    ThreadContext* threadContext = function->GetScriptContext()->GetThreadContext();
+
+    threadContext->ClearDisableImplicitFlags();
+
+    return function;
 }
 
 Js::Var DebugObject::EntryGetTypeInfo(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
