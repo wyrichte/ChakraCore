@@ -20,7 +20,7 @@ namespace Js
 
     PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {        
-        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext)));
         if (result)
@@ -32,7 +32,7 @@ namespace Js
 
     PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
     {        
-        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyNameString, value, info, requestContext)));
         if (result)
         {
@@ -43,10 +43,10 @@ namespace Js
 
     PropertyQueryFlags ExternalObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) 
     {        
-        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         PropertyQueryFlags result = DynamicObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
-        if (result)
+        if (JavascriptConversion::PropertyQueryFlagsToBoolean(result))
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
         }
@@ -134,7 +134,7 @@ namespace Js
 
     PropertyQueryFlags ExternalObject::GetItemQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
     {     
-        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         PropertyQueryFlags result = DynamicObject::GetItemQuery(originalInstance, index, value, requestContext);
         if (JavascriptConversion::PropertyQueryFlagsToBoolean(result))
@@ -146,7 +146,7 @@ namespace Js
 
     PropertyQueryFlags ExternalObject::GetItemReferenceQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
     {
-        if (!this->VerifyObjectAlive()) return Property_NotFound;
+        if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         PropertyQueryFlags result = DynamicObject::GetItemReferenceQuery(originalInstance, index, value, requestContext);
         if (JavascriptConversion::PropertyQueryFlagsToBoolean(result))

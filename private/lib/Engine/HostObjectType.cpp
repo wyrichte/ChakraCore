@@ -44,7 +44,7 @@ Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
 
     DISPID dispId;
@@ -68,7 +68,7 @@ Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js
                 }
 
             }
-            return Js::Property_NotFound;
+            return Js::PropertyQueryFlags::Property_NotFound;
         }
     }
     if (this->hostDispatch->GetValueByDispId(dispId, value))
@@ -77,9 +77,9 @@ Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js
         {
             this->CacheDispId(propertyId, dispId);
         }
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
-    return Js::Property_NotFound;
+    return Js::PropertyQueryFlags::Property_NotFound;
 }
 
 Js::PropertyQueryFlags HostObject::GetPropertyQuery(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
@@ -118,7 +118,7 @@ Js::PropertyQueryFlags HostObject::GetPropertyReferenceQuery(Js::Var originalIns
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
 
     HostDispatch* hostDispatch = this->GetHostDispatch();
@@ -140,11 +140,11 @@ Js::PropertyQueryFlags HostObject::GetPropertyReferenceQuery(Js::Var originalIns
                     {
                         hostDispatch = globalDispatches->Item(i);
                         hostDispatch->GetReferenceByDispId(dispId, value, GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
-                        return Js::Property_Found;
+                        return Js::PropertyQueryFlags::Property_Found;
                     }
                 }
             }
-            return Js::Property_NotFound;
+            return Js::PropertyQueryFlags::Property_NotFound;
         }
     }
 
@@ -153,7 +153,7 @@ Js::PropertyQueryFlags HostObject::GetPropertyReferenceQuery(Js::Var originalIns
         this->CacheDispId(propertyId, dispId);
     }
     hostDispatch->GetReferenceByDispId(dispId, value, GetScriptContext()->GetPropertyName(propertyId)->GetBuffer());
-    return Js::Property_Found;
+    return Js::PropertyQueryFlags::Property_Found;
 }
 
 BOOL HostObject::SetProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)
