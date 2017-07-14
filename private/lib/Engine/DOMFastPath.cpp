@@ -172,8 +172,17 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject
     // It's possible that the slot is null if the DOM decided to lazily initialize it.
     // In this case we need to use their trampoline.
     ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
-    if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
+    if (retVal == nullptr)
     {
+        ThreadContext *threadContext = scriptContext->GetThreadContext();
+        if (threadContext->IsDisableImplicitCall())
+        {
+            threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+
+        AssertOrFailFastMsg(fallBackTrampoline != nullptr, "A slot was null without having a fallback trampoline. Is it really a lazy FTL slot?");
+
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
@@ -223,11 +232,18 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject
     ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
     if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
     {
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        ThreadContext *threadContext = scriptContext->GetThreadContext();
+        if (threadContext->IsDisableImplicitCall())
+        {
+            threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
 
-        Js::ScriptContext* scriptContext = function->GetScriptContext();
         Var result = nullptr;
         BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         {
@@ -277,8 +293,17 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* 
     // It's possible that the slot is null if the DOM decided to lazily initialize it.
     // In this case we need to use their trampoline.
     ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
-    if (retVal == nullptr && fallBackTrampoline != nullptr)
+    if (retVal == nullptr)
     {
+        ThreadContext *threadContext = scriptContext->GetThreadContext();
+        if (threadContext->IsDisableImplicitCall())
+        {
+            threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+
+        AssertOrFailFastMsg(fallBackTrampoline != nullptr, "A slot was null without having a fallback trampoline. Is it really a lazy FTL slot?");
+
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
@@ -329,11 +354,18 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* 
     ScriptMethod fallBackTrampoline = typedObjectSlotAccessorFunction->GetFallBackTrampoline();
     if (externalVars[slotIndex] == nullptr && fallBackTrampoline != nullptr)
     {
+        Js::ScriptContext* scriptContext = function->GetScriptContext();
+        ThreadContext *threadContext = scriptContext->GetThreadContext();
+        if (threadContext->IsDisableImplicitCall())
+        {
+            threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
+            return scriptContext->GetLibrary()->GetUndefined();
+        }
+
         CallInfo scriptMethodCallInfo;
         scriptMethodCallInfo.Count = callInfo.Count;
         scriptMethodCallInfo.Flags = callInfo.Flags;
 
-        Js::ScriptContext* scriptContext = function->GetScriptContext();
         Var result = nullptr;
         BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext)
         {

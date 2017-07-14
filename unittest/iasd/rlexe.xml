@@ -46,4 +46,10 @@
       <baseline>marshalproto.baseline</baseline>
     </default>
   </test>
+    <test>
+    <default>
+      <files>lazyftl-implicit.js</files>
+      <compile-flags>-args summary -endargs</compile-flags>
+    </default>
+  </test>
 </regress-exe>
