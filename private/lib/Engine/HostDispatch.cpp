@@ -1116,7 +1116,7 @@ Js::PropertyQueryFlags HostDispatch::HasItemQuery(uint32 index)
     if (threadContext->IsDisableImplicitCall())
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
     char16 buffer[22];
 
@@ -1135,7 +1135,7 @@ Js::PropertyQueryFlags HostDispatch::GetItemReferenceQuery(Js::Var originalInsta
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         *value = requestContext->GetLibrary()->GetNull();
-        return Js::Property_NotFound;
+        return Js::PropertyQueryFlags::Property_NotFound;
     }
     char16 buffer[22];
 
@@ -1154,7 +1154,7 @@ Js::PropertyQueryFlags HostDispatch::GetItemQuery(Js::Var originalInstance, __in
     {
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         *value = requestContext->GetLibrary()->GetNull();
-        return Js::Property_NotFound;
+        return Js::PropertyQueryFlags::Property_NotFound;
     }
     char16 buffer[22];
 

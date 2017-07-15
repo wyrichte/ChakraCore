@@ -8,28 +8,28 @@
 Js::PropertyQueryFlags DispMemberProxy::HasPropertyQuery(Js::PropertyId propertyId)
 {
     AssertMsg(false, "DispMemberProxy::HasPropertyQuery should never be called");
-    return Js::Property_NotFound;
+    return Js::PropertyQueryFlags::Property_NotFound;
 }
 
 Js::PropertyQueryFlags DispMemberProxy::GetPropertyQuery(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
     AssertMsg(false, "DispMemberProxy::GetPropertyQuery should never be called");
-    return Js::Property_NotFound;
+    return Js::PropertyQueryFlags::Property_NotFound;
 }
 
 Js::PropertyQueryFlags DispMemberProxy::GetPropertyQuery(Js::Var originalInstance,Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
     AssertMsg(false, "DispMemberProxy::GetPropertyQuery should never be called");
-    return Js::Property_NotFound;
+    return Js::PropertyQueryFlags::Property_NotFound;
 }
 
 Js::PropertyQueryFlags DispMemberProxy::GetPropertyReferenceQuery(Js::Var originalInstance,Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
 {
     AssertMsg(false, "DispMemberProxy::GetRefProperty should never be called");
-    return Js::Property_NotFound;
+    return Js::PropertyQueryFlags::Property_NotFound;
 }
 
 BOOL DispMemberProxy::SetProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)

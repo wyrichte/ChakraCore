@@ -154,7 +154,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject* customExternalObject = (Js::CustomExternalObject*)instance;
-                *propertyPresent = customExternalObject->ExternalObject::GetPropertyReferenceQuery(instance, propertyId, value, NULL, objInstance->GetScriptContext());
+                *propertyPresent = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::GetPropertyReferenceQuery(instance, propertyId, value, NULL, objInstance->GetScriptContext()));
             }
             else
             {

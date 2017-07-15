@@ -110,11 +110,11 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Prop
         {
             Assert(wasGetAttempted);
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
-            return Js::Property_Found;
+            return Js::PropertyQueryFlags::Property_Found;
         }
         if (wasGetAttempted)
         {
-            return Js::Property_NotFound;
+            return Js::PropertyQueryFlags::Property_NotFound;
         }
     }
 
@@ -125,7 +125,7 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Prop
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
 
     result = this->GetValue(GetScriptContext()->GetPropertyName(propertyId)->GetBuffer(), value);
@@ -157,11 +157,11 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyReferenceQuery(Js::Var originalI
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
             Assert(wasGetAttempted);
-            return Js::Property_Found;
+            return Js::PropertyQueryFlags::Property_Found;
         }
         if (wasGetAttempted)
         {
-            return Js::Property_NotFound;
+            return Js::PropertyQueryFlags::Property_NotFound;
         }
     }    
     ThreadContext * threadContext = scriptContext->GetThreadContext();
@@ -171,7 +171,7 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyReferenceQuery(Js::Var originalI
     {        
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return Js::Property_Found;
+        return Js::PropertyQueryFlags::Property_Found;
     }
 
     result = this->GetPropertyReference(scriptContext->GetPropertyName(propertyId)->GetBuffer(), value);
