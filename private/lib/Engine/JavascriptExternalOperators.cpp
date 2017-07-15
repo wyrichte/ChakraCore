@@ -77,7 +77,7 @@ namespace Js
                     }
                 }
 
-                else if (scriptObject->DynamicObject::GetPropertyReferenceQuery(scriptObject, id, varMember, NULL, scriptContext)) // Given a root object, retrieve the property without deferring to the host object.
+                else if (JavascriptConversion::PropertyQueryFlagsToBoolean(scriptObject->DynamicObject::GetPropertyReferenceQuery(scriptObject, id, varMember, NULL, scriptContext))) // Given a root object, retrieve the property without deferring to the host object.
                 {
                     rc = true;
                 }

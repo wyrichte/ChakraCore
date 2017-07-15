@@ -146,9 +146,9 @@ namespace Js
     PropertyQueryFlags ProfileDataObject::HasPropertyQuery(PropertyId propertyId)
     {
         if(propertyId == loopCount)
-            return Property_Found;
+            return PropertyQueryFlags::Property_Found;
         if(propertyId == implicitCallFlags)
-            return Property_Found;
+            return PropertyQueryFlags::Property_Found;
 
         return DynamicObject::HasPropertyQuery(propertyId);
     }
@@ -162,12 +162,12 @@ namespace Js
         if(propertyId == loopCount)
         {
             *value = Js::JavascriptNumber::ToVar(funcBody->GetLoopCount(), requestContext);
-            return Property_Found;
+            return PropertyQueryFlags::Property_Found;
         }
         if(propertyId == implicitCallFlags)
         {
             *value = Js::JavascriptNumber::ToVar(funcBody->GetAnyDynamicProfileInfo()->GetImplicitCallFlags(), requestContext);
-            return Property_Found;
+            return PropertyQueryFlags::Property_Found;
         }
         return DynamicObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
     }
