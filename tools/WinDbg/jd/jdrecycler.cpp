@@ -1544,22 +1544,26 @@ JD_PRIVATE_COMMAND(memstats,
 
         if (showPageAllocator || showArenaAllocator)
         {
+            RemoteRecycler recycler = threadContext.GetRecycler();
+            Out("Thread context: %p Recycler: %p", threadContextPtr, recycler.GetPtr());
             ulong threadContextThreadId = 0;
             if (threadContext.TryGetDebuggerThreadId(&threadContextThreadId))
             {
                 if (PreferDML())
                 {
-                    Dml("Thread context: %p <link cmd=\"~%us\">(switch to thread)</link>\n", threadContextPtr, threadContextThreadId);
+                    Dml("<link cmd=\"~%us\">(switch to thread)</link>", threadContextThreadId);
                 }
                 else
                 {
-                    Out("Thread context: %p (switch to thread: \"~%us\")\n", threadContextPtr, threadContextThreadId);
+                    Out("(switch to thread: \"~%us\")", threadContextThreadId);
                 }
             }
-            else
+
+            if (PreferDML())
             {
-                Out("Thread context: %p\n", threadContextPtr);
+                Dml(" <link cmd=\"!jsobjectstats %p\">(!jsobjectstats)</link>", recycler.GetPtr());
             }
+            Out("\n");
         }
         if (showPageAllocator)
         {
