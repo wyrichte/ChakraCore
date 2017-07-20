@@ -919,7 +919,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(functionBody.GetCacheIdToPropertyIdMap(), "Js::FunctionBody.cacheIdToPropertyIdMap");
                 addField(functionBody.GetReferencedPropertyIdMap(), "Js::FunctionBody.referencedPropertyIdMap");
                 addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");
-                addField(functionBody.GetPropertyIdsForScopeSlotArray(), "Js::FunctionBoredy.propertyIdsForScopeSlotArray");
+                addField(functionBody.GetPropertyIdsForScopeSlotArray(), "Js::FunctionBody.propertyIdsForScopeSlotArray");
 
                 RemoteBaseDictionary boundPropertyRecords = functionBody.GetBoundPropertyRecords();
                 AddDictionaryField(boundPropertyRecords, "Js::FunctionBody.{BoundPropertyRecordsDictionary}");
