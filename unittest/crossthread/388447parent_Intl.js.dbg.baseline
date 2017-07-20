@@ -1,0 +1,241 @@
+[
+  {
+    "locals": {
+      "this": {
+        "[Methods]": {
+          "e_Intl_Collator": "<large string>",
+          "e_Intl_DateTimeFormat": "<large string>",
+          "e_Intl_NumberFormat": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "e": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Atomics": "{...}",
+          "console": "{...}",
+          "Debug": "{...}",
+          "Infinity": "Infinity",
+          "Intl": "{...}",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "obj": "{...}",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
+        "e_Intl": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "e_Intl_Collator_proto": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "e_Intl_DateTimeFormat_proto": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "e_Intl_NumberFormat_proto": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "e": {
+        "[Methods]": {},
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        },
+        "Atomics": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "Atomics"
+        },
+        "console": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "Debug": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "debuggerEnabled": "true",
+          "EngineInterface": "{...}",
+          "faultInjectionCookie": "0",
+          "MS_ASYNC_CALLBACK_STATUS_ASSIGN_DELEGATE": "0",
+          "MS_ASYNC_CALLBACK_STATUS_CANCEL": "3",
+          "MS_ASYNC_CALLBACK_STATUS_CHOOSEANY": "2",
+          "MS_ASYNC_CALLBACK_STATUS_ERROR": "4",
+          "MS_ASYNC_CALLBACK_STATUS_JOIN": "1",
+          "MS_ASYNC_OP_STATUS_CANCELED": "2",
+          "MS_ASYNC_OP_STATUS_ERROR": "3",
+          "MS_ASYNC_OP_STATUS_SUCCESS": "1",
+          "setNonUserCodeExceptions": "false"
+        },
+        "Infinity": "Infinity",
+        "Intl": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "JSON": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "JSON"
+        },
+        "Math": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "E": "<large string>",
+          "LN2": "<large string>",
+          "LN10": "<large string>",
+          "LOG2E": "<large string>",
+          "LOG10E": "<large string>",
+          "PI": "<large string>",
+          "SQRT1_2": "<large string>",
+          "SQRT2": "<large string>",
+          "Symbol.toStringTag": "Math"
+        },
+        "NaN": "NaN",
+        "obj": {
+          "__proto__": "{...}",
+          "x": "foo2.x"
+        },
+        "Reflect": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "SCA": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        },
+        "undefined": "undefined",
+        "WebAssembly": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Symbol.toStringTag": "WebAssembly"
+        },
+        "WScript": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "Arguments": "[]",
+          "StdErr": "{...}",
+          "StdIn": "{...}",
+          "StdOut": "{...}"
+        }
+      },
+      "e_Intl": {
+        "[Methods]": {
+          "Collator": "<large string>",
+          "DateTimeFormat": "<large string>",
+          "getCanonicalLocales": "<large string>",
+          "NumberFormat": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "e_Intl_Collator": {
+        "[Methods]": {
+          "supportedLocalesOf": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "length": "0",
+        "name": "Collator",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "e_Intl_Collator_proto": {
+        "[Methods]": {
+          "compare": "<large string>",
+          "constructor": "<large string>",
+          "resolvedOptions": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "e_Intl_DateTimeFormat": {
+        "[Methods]": {
+          "supportedLocalesOf": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "__relevantExtensionKeys": {
+          "__proto__": "[]",
+          "length": "2",
+          "[0]": "ca",
+          "[1]": "nu"
+        },
+        "length": "0",
+        "name": "<large string>",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "e_Intl_DateTimeFormat_proto": {
+        "[Methods]": {
+          "constructor": "<large string>",
+          "format": "<large string>",
+          "resolvedOptions": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      },
+      "e_Intl_NumberFormat": {
+        "[Methods]": {
+          "supportedLocalesOf": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "null",
+          "caller": "null",
+          "length": "0",
+          "name": ""
+        },
+        "length": "0",
+        "name": "NumberFormat",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
+      },
+      "e_Intl_NumberFormat_proto": {
+        "[Methods]": {
+          "constructor": "<large string>",
+          "format": "<large string>",
+          "resolvedOptions": "<large string>"
+        },
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "null"
+        }
+      }
+    }
+  }
+]

@@ -186,7 +186,12 @@
     <default>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent.js.dbg.baseline</compile-flags>
       <files>388447parent.js</files>
-      <files>388447parent.baseline</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent_Intl.js.dbg.baseline</compile-flags>
+      <files>388447parent_Intl.js</files>
     </default>
   </test>
   <test>
