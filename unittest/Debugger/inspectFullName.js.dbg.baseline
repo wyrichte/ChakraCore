@@ -71,7 +71,7 @@
     "evaluate": {
       "Array": {
         "[Methods]": {
-          "[Symbol.species]": "function Array() { [native code] }",
+          "Symbol.species": "function Array() { [native code] }",
           "Array.from": "function from() { [native code] }",
           "Array.isArray": "function isArray() { [native code] }",
           "Array.of": "function of() { [native code] }"
