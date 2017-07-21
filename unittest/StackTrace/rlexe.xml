@@ -109,6 +109,8 @@
       <baseline>StackTraceLimitOOS.mshtml.baseline</baseline>
     </default>
   </test>
+<!--
+OS#12406958
   <test>
     <default>
       <tags>StackTrace,exclude_drt</tags>
@@ -116,6 +118,7 @@
       <baseline>OOS.html.baseline</baseline>
     </default>
   </test>
+-->
   <test>
     <default>
       <tags>StackTrace</tags>

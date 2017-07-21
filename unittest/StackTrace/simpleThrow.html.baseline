@@ -1,20 +1,20 @@
-ReferenceError: 'BadType' is undefined
+ReferenceError: 'BadType' is not defined
    at throwException (simplethrow.js:17:9)
    at bar (simplethrow.js:64:5)
    at foo (simplethrow.js:71:5)
    at runtest (simplethrow.js:76:5)
-   at function2 (simpleThrow.html:8:5)
-   at function1 (simpleThrow.html:12:5)
-   at Global code (simpleThrow.html:14:1)
+   at function2 (SimpleThrow.html:8:5)
+   at function1 (SimpleThrow.html:12:5)
+   at Global code (SimpleThrow.html:14:1)
 
-ReferenceError: 'BadTypeWithFinally' is undefined
+ReferenceError: 'BadTypeWithFinally' is not defined
    at throwExceptionWithFinally (simplethrow.js:30:9)
    at bar (simplethrow.js:65:5)
    at foo (simplethrow.js:71:5)
    at runtest (simplethrow.js:76:5)
-   at function2 (simpleThrow.html:8:5)
-   at function1 (simpleThrow.html:12:5)
-   at Global code (simpleThrow.html:14:1)
+   at function2 (SimpleThrow.html:8:5)
+   at function1 (SimpleThrow.html:12:5)
+   at Global code (SimpleThrow.html:14:1)
 
 TypeError: Unable to set property 'nonExistentProperty' of undefined or null reference
    at StricModeFunction (simplethrow.js:55:5)
@@ -22,6 +22,6 @@ TypeError: Unable to set property 'nonExistentProperty' of undefined or null ref
    at bar (simplethrow.js:66:5)
    at foo (simplethrow.js:71:5)
    at runtest (simplethrow.js:76:5)
-   at function2 (simpleThrow.html:8:5)
-   at function1 (simpleThrow.html:12:5)
-   at Global code (simpleThrow.html:14:1)
+   at function2 (SimpleThrow.html:8:5)
+   at function1 (SimpleThrow.html:12:5)
+   at Global code (SimpleThrow.html:14:1)
