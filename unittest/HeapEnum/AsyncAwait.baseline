@@ -115,13 +115,13 @@
  |  |    |  |    [Properties] count: 9
  |  |    |  |    | 0 length: value: 1.000000
  |  |    |  |    | 1 prototype: type: ObjectObject (seen)
- |  |    |  |    | 2 [Symbol.species]: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    | 2 Symbol.species: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    |    [Properties] count: 2
  |  |    |  |    |    | 0 length: value: 0.000000
  |  |    |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (1)
  |  |    |  |    |    |    [Prototype] type: StringObject (seen)
- |  |    |  |    | 3 [Symbol.species]: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
+ |  |    |  |    | 3 Symbol.species: rsFlags: setter type: FunctionObject flags: (new) optional info records (1)
  |  |    |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    | 4 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    |    [Internal property] value: Promise

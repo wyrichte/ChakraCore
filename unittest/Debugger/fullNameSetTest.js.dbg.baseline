@@ -34,7 +34,7 @@
             },
             "set.__proto__.constructor": {
               "[Methods]": {
-                "[Symbol.species]": "function Set() { [native code] }"
+                "Symbol.species": "function Set() { [native code] }"
               },
               "set.__proto__.constructor.__proto__": {
                 "[Methods]": "{...}",

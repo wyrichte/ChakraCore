@@ -532,8 +532,8 @@
       "regexCon - [Type]": "Object, (RegExp constructor)",
       "regexCon": {
         "[Methods]": {
-          "[Symbol.species] - [Type]": "Object, (RegExp constructor)",
-          "[Symbol.species]": "{...}"
+          "Symbol.species - [Type]": "Object, (RegExp constructor)",
+          "Symbol.species": "{...}"
         },
         "__proto__ - [Type]": "Object, (Function)",
         "__proto__": {

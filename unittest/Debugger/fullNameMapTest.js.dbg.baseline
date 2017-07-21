@@ -20,7 +20,7 @@
             },
             "map.__proto__.constructor": {
               "[Methods]": {
-                "[Symbol.species]": "function Map() { [native code] }"
+                "Symbol.species": "function Map() { [native code] }"
               },
               "map.__proto__.constructor.__proto__": {
                 "[Methods]": "{...}",
