@@ -3,7 +3,7 @@
 <script>
 var str = "a";
 window.onerror = function() {
-    if( arguments.callee.caller.toString() === str)
+    if( arguments.callee.caller === null)
     {
         WScript.Echo("Pass");
     }

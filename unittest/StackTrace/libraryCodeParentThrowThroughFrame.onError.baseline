@@ -1,3 +1,3 @@
-[window.onerror] msg: 'x' is undefined
-                 relativeUrl: StackTrace/libraryCodeParentThrowThroughFrame.onError.html
+[window.onerror] msg: 'x' is not defined
+                 relativeUrl: StackTrace/libraryCodeChildThrowThroughFrame.html
                  line: 14
