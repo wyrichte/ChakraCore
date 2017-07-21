@@ -4,7 +4,7 @@
       "Int8Array": {
         "__proto__": {
           "[Methods]": {
-            "[Symbol.species]": "function Int8Array() { [native code] }",
+            "Symbol.species": "function Int8Array() { [native code] }",
             "from": "function from() { [native code] }",
             "of": "function of() { [native code] }"
           },
