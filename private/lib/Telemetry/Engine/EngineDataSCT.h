@@ -139,28 +139,7 @@
 
 #elif SCT_STATE == 5
         // do any necessary clean-up
-        if (scriptContext.bailoutReasonCounts != nullptr)
-        {
-            scriptContext.bailoutReasonCounts->Clear();
-        }
-        if (scriptContext.bailoutReasonCountsCap != nullptr)
-        {
-            scriptContext.bailoutReasonCountsCap->Clear();
-        }
-        if (scriptContext.rejitReasonCounts != nullptr)
-        {
-            for (UINT16 i = 0; i < rejitReasonCount; i++)
-            {
-                scriptContext.rejitReasonCounts[i] = 0;
-            }
-        }
-        if (scriptContext.rejitReasonCountsCap != nullptr)
-        {
-            for (UINT16 i = 0; i < rejitReasonCount; i++)
-            {
-                scriptContext.rejitReasonCountsCap[i] = 0;
-            }
-        }
+        // Bailout and Rejit maps are cleared in ScriptContext::PrintStats
 #undef STRINGOF
 // end of #elif SCT_STATE == 5
 
