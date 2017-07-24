@@ -2,7 +2,7 @@
 <regress-exe>
 <dir>
   <default>
-    <files>MSRC</files>
+    <files>msrc</files>
   </default>
 </dir>
 <dir>
