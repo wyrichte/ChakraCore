@@ -25,7 +25,7 @@ void FreeExcepInfo(ExtendedExceptionInfo *pei)
     CoTaskMemFree((LPVOID)(pei->errorType.typeText));
     for (UINT i=0; i < pei->callStack.frameCount; i++)
     {
-        if (pei->callStack.frames[i].activeScriptDirect != NULL) 
+        if (pei->callStack.frames[i].activeScriptDirect != NULL)
         {
             pei->callStack.frames[i].activeScriptDirect->Release();
         }
@@ -113,7 +113,8 @@ HRESULT STDMETHODCALLTYPE ScriptErrorTestsCallback(IActiveScriptError *errorInfo
     return hr;
 }
 
-void RunOnScriptErrorTests(MyScriptDirectTests* mytest, LPCWSTR codeToRun, OnScriptErrorTest* ... /* OnScriptErrorTest *testN, ..., OnScriptErrorTest *END_TEST */)
+void RunOnScriptErrorTests(MyScriptDirectTests* mytest, LPCWSTR codeToRun, ...
+    /* OnScriptErrorTest *test1, OnScriptErrorTest *test2, ..., OnScriptErrorTest *END_TEST */)
 {
     va_start(g_onScriptErrorTests, codeToRun);
 
@@ -309,7 +310,7 @@ HRESULT STDMETHODCALLTYPE TestOnScriptErrorGetsExpectedError_Callback(IActiveScr
     Print(testResult.str());
 
     g_OnScriptErrorCallbackSucceeded = (SUCCEEDED(hr) && exInfo.flags == ExtendedExceptionInfo_Available && exInfo.errorType.typeNumber == errorType);
-    FreeExcepInfo(&exInfo);    
+    FreeExcepInfo(&exInfo);
     return hr;
 }
 
@@ -326,12 +327,12 @@ enum DumpStackType
     dumpStack
 };
 
-// For the expected results can require 
-//    1) exact match on number of frames and stack trace output 
-//    2) just exact match on number of frames 
-//    3) no more or no less than a certain number of frames. 
-// 
-// Generally most tests are (1), OOM tests are (2) and SO tests are (3). 
+// For the expected results can require
+//    1) exact match on number of frames and stack trace output
+//    2) just exact match on number of frames
+//    3) no more or no less than a certain number of frames.
+//
+// Generally most tests are (1), OOM tests are (2) and SO tests are (3).
 //
 template <class T, int expectedFrameCount, FrameCountType frameCountType, DumpStackType dumpStackValue, bool retrieveObjectInfo>
 HRESULT STDMETHODCALLTYPE TestOnScriptErrorGetsExpectedCallStack_Callback(IActiveScriptError *errorInfo, void* context)
@@ -404,7 +405,7 @@ HRESULT STDMETHODCALLTYPE TestOnScriptErrorGetsExpectedCallStack_Callback(IActiv
     }
     Print(testResult.str());
 
-    FreeExcepInfo(&exInfo);    
+    FreeExcepInfo(&exInfo);
     return hr;
 }
 
@@ -518,8 +519,8 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
     OnScriptErrorTest OOMTest2 = OnScriptErrorTest("TestOnScriptErrorGetsExpectedStackTraceOnOOMSO1", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 3, exactMatch, noDumpStack, false>);
     RunOnScriptErrorTests(mytest,
         throwOOMSO1,
-        &OOMTest1, 
-        &OOMTest2, 
+        &OOMTest1,
+        &OOMTest2,
         &END_TEST);
 
     //Run these to check manually that don't generate a stack trace.
@@ -542,12 +543,12 @@ void RunGetExtendedExceptionInfoTests(MyScriptDirectTests* mytest)
 
  }
 
-void RunStackTraceInlineTests(MyScriptDirectTests* mytest) 
+void RunStackTraceInlineTests(MyScriptDirectTests* mytest)
 {
     WCHAR* nestedThrowWithArguments = _u("function g(x) {\n    f(null, undefined, NaN, true, 1, 'a', { as: 3 }, 23.23, 1e-4, 1, 1, 1, 1, 1, 1, 1);\n}\nfunction f(x) {\n    throw Error('mm');\n}\nfunction h() {\n    g();\n}\nvar s = new String('qqq');\neval('h(s, 123);');\n");
     WCHAR* nestedThrowWithArguments2 = _u("function a() {\n    b(1);\n}\nfunction b(x, y, z) {\n    c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n}\nfunction c() {\n    d(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);\n}\nfunction d() {\n    e(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);\n}\nfunction e() {\n    f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);\n}\nfunction f() {\n    g(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30);\n}\nfunction g() {\n    h(NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true, NaN, null, undefined, 'abacaba', 1, 1.3, 1e5, {}, { a: 4 }, new String('a'), true);\n}\nfunction h(a,b,c,d,e,f,g,h,i,j,k,l) {\n    throw new Error('Error inside of fucntions with a lot of arguments which has to be displayed');\n}\na();\n");
     WCHAR* nestedThrowWithArguments3 = _u("function f(x) {\n    throw new Error('x'); \n}\nf(3);");
-    
+
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 5, exactMatch, dumpStack, false>, nestedThrowWithArguments);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments2", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 9, exactMatch, dumpStack, false>, nestedThrowWithArguments2);
     RunOneOnScriptErrorTest(mytest, "TestOnScriptErrorGetExceptionInfoWithArguments3", TestOnScriptErrorGetsExpectedCallStack_Callback<T, 2, exactMatch, dumpStack, false>, nestedThrowWithArguments3);
