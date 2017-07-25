@@ -24,7 +24,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "null",
         "[1]": "strict mode"
@@ -60,7 +59,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "undefined",
         "[1]": "strict mode"
@@ -95,7 +93,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "true",
         "[1]": "strict mode"
@@ -130,7 +127,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "123",
         "[1]": "strict mode"
@@ -166,7 +162,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "String Value",
         "[1]": "strict mode"
@@ -203,7 +198,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "false",
         "[1]": "strict mode"
@@ -240,7 +234,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "45",
         "[1]": "strict mode"
@@ -279,7 +272,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "String Object",
         "[1]": "strict mode"
@@ -322,7 +314,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "[0,1]",
         "[1]": "strict mode"
@@ -361,7 +352,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "{...}",
         "[1]": "strict mode"
@@ -400,7 +390,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "2",
         "[0]": "{...}",
         "[1]": "strict mode"
@@ -436,7 +425,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "0"
       },
       "[Globals]": {
