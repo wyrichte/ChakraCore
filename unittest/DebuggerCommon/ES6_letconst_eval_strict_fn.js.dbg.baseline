@@ -9,7 +9,6 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callee": "<large string>",
-        "caller": "<large string>",
         "length": "0"
       },
       "a": "1",
