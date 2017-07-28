@@ -8,7 +8,7 @@
 
 Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
 {    
-    Var result;
+    Var result = nullptr;
     Js::Var values[2];
     Js::CallInfo info(2);
     Js::Arguments args(info, values);
@@ -141,7 +141,7 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Js::
     // TODO: Consider flowing string propertyNameString through logic for GetProperty instead of obtaining
     // or creating a PropertyRecord here. Would require extending GetPropertyFromRootObject and HasOwnProperty
     // to accept JavascriptString instead of PropertyId.
-    Js::PropertyRecord const * propertyRecord;
+    Js::PropertyRecord const * propertyRecord = nullptr;
     this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
     return HostDispatch::GetPropertyQuery(originalInstance, propertyRecord->GetPropertyId(), value, info, requestContext);
 }
@@ -191,7 +191,7 @@ BOOL HostDispatch::SetProperty(Js::JavascriptString* propertyNameString, Var val
 {
     // We need a BSTR like string with the byte length preceding the string buffer.
     // Just get or create the PropertyRecord which is already laid out this way.
-    Js::PropertyRecord const* propertyRecord;
+    Js::PropertyRecord const* propertyRecord = nullptr;
     this->GetScriptContext()->GetOrAddPropertyRecord(propertyNameString->GetString(), propertyNameString->GetLength(), &propertyRecord);
     return SetPropertyCore(propertyRecord->GetBuffer(), value, flags, info);
 }
@@ -580,14 +580,14 @@ BOOL HostDispatch::HasInstance(Js::Var instance, Js::ScriptContext* scriptContex
     }
 
     // REVIEW: avoid the marshalling
-    Js::Var prototype;
+    Js::Var prototype = nullptr;
     if (!this->GetValue(scriptContext->GetPropertyName(Js::PropertyIds::prototype)->GetBuffer(), &prototype)
         || Js::JavascriptOperators::GetTypeId(prototype) != Js::TypeIds_HostDispatch)
     {
         return __super::HasInstance(instance, scriptContext); // Throw TypeError
     }
     HostDispatch* prototypeDispatch = static_cast<HostDispatch*>(prototype);
-    Js::Var prototypeProxy;
+    Js::Var prototypeProxy = nullptr;
     if (!prototypeDispatch->GetPropertyReference(scriptContext->GetPropertyName(Js::PropertyIds::isPrototypeOf)->GetBuffer(), &prototypeProxy)
         || Js::JavascriptOperators::GetTypeId(prototypeProxy) != Js::TypeIds_HostDispatch)
     {
@@ -736,7 +736,7 @@ BOOL HostDispatch::IsSealed()
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    Var result;
+    Var result = nullptr;
     Js::Var values[2];
     Js::CallInfo info(2);
     Js::Arguments args(info, values);
@@ -759,7 +759,7 @@ BOOL HostDispatch::IsFrozen()
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    Var result;
+    Var result = nullptr;
     Js::Var values[2];
     Js::CallInfo info(2);
     Js::Arguments args(info, values);
@@ -782,7 +782,7 @@ BOOL HostDispatch::IsExtensible()
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
-    Var result;
+    Var result = nullptr;
     Js::Var values[2];
     Js::CallInfo info(2);
     Js::Arguments args(info, values);

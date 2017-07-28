@@ -3218,7 +3218,7 @@ HRESULT ScriptEngine::RegisterNamedItemHasCode(NamedItem *pnid)
 
     if (!(pnid->dwFlags & SCRIPTITEM_CODEONLY))
     {
-        IDispatch * pdisp;
+        IDispatch * pdisp = nullptr;
 
         IFFAILRET(GetObjectOfItem(&pdisp, pnid));
         if (nullptr != pdisp)
@@ -5076,7 +5076,7 @@ HRESULT ScriptEngine::ExecutePendingScripts(VARIANT *pvarRes, EXCEPINFO *pei)
 
             // Run the code.
             Js::Arguments arguments(0, nullptr);
-            Js::Var varResult;
+            Js::Var varResult = nullptr;
             hrT = GetScriptSiteHolder()->Execute(pep, &arguments, nullptr, &varResult);
             if (SUCCEEDED(hrT) && pvarRes != nullptr)
             {
@@ -5151,7 +5151,7 @@ HRESULT ScriptEngine::ChangeType(VARIANT *pvarDst, VARIANT *pvarSrc, LCID lcid, 
         {
 
             JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>(jsProxy);
-            Js::Var varValue;
+            Js::Var varValue = nullptr;
             Js::JavascriptHint hint;
             hint = (vtNew == VT_BSTR) ? Js::JavascriptHint::HintString : Js::JavascriptHint::HintNumber;
 
@@ -5568,7 +5568,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
         if (SUCCEEDED(hr))
         {
-            ParseNodePtr parseTree;
+            ParseNodePtr parseTree = nullptr;
             SourceContextInfo * sourceContextInfo = srcInfo->sourceContextInfo;
             if (fOriginalUTF8Code)
             {

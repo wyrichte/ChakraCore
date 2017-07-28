@@ -1182,7 +1182,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToString(
     {
         return hr;
     }
-    Js::JavascriptString * result;
+    Js::JavascriptString * result = nullptr;
     hr = GetScriptSiteHolder()->ExternalToString(instance, &result);
     if (FAILED(hr))
     {
@@ -1212,7 +1212,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToRawString(
     {
         return hr;
     }
-    Js::JavascriptString * result;
+    Js::JavascriptString * result = nullptr;
     hr = GetScriptSiteHolder()->ExternalToString(instance, &result);
     if (FAILED(hr))
     {
@@ -1778,7 +1778,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeFromVar(
 
     HRESULT hr = NOERROR;
     VARIANT srcVariant;
-    Var varValue;
+    Var varValue = nullptr;
     hr = VerifyOnEntry();
     if (FAILED(hr))
     {

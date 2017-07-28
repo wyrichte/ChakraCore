@@ -4195,7 +4195,7 @@ namespace ProjectionModel
         auto typeId = instantiation.First();
         auto genericInstantiations = instantiation.Second();
 
-        InterfaceConstructor * constructor;
+        InterfaceConstructor * constructor = nullptr;
         if (interfaceCache->TryGetValue(typeId, &constructor))
         {
             Js::VerifyCatastrophic(constructor->typeId == typeId);

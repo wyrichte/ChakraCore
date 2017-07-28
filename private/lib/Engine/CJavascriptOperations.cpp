@@ -209,7 +209,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::ThrowException(__in IActiveScri
     }
     ScriptSite* requestSite = ScriptSite::FromScriptDirect(scriptDirect);
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
-    HostScriptContext* hostScriptContext;
+    HostScriptContext* hostScriptContext = nullptr;
     Js::ScriptContext* srcScriptContext;
     if (SUCCEEDED(requestSite->GetPreviousHostScriptContext(&hostScriptContext)) &&
         hostScriptContext != NULL)

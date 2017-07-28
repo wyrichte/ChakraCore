@@ -163,7 +163,7 @@ namespace Projection
 
         if (iterable != NULL && iterator == nullptr)
         {
-            RtEXPR expr;
+            RtEXPR expr = nullptr;
             hr = projectionContext->GetExpr(MetadataStringIdNil, IdOfString(projectionContext->GetScriptContext(), _u("Windows.Foundation.Collections.IIterator`1")), _u("Windows.Foundation.Collections.IIterator`1"), iterable->genericParameters, &expr);
 
             if (SUCCEEDED(hr))

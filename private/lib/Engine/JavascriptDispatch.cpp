@@ -572,7 +572,7 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
     }
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        Js::PropertyRecord const * propertyRecord;
+        Js::PropertyRecord const * propertyRecord = nullptr;
         hr = GetPropertyIdWithFlagWithScriptEnter(bstr, grfdex, &propertyId, &indexVal, &isPropertyId, &propertyRecord);
         if (SUCCEEDED(hr))
         {
@@ -947,7 +947,7 @@ HRESULT JavascriptDispatch::CreateSafeArrayOfPropertiesWithScriptEnter(VARIANT* 
                 uint32 i = 0;
                 for (; i < length; i++)
                 {
-                    Js::PropertyRecord const * propertyRecord;
+                    Js::PropertyRecord const * propertyRecord = nullptr;
                     Js::JavascriptOperators::GetPropertyIdForInt(i, scriptContext, &propertyRecord);
                     propertyVar = Js::JavascriptOperators::GetProperty(scriptObject, propertyRecord->GetPropertyId(), scriptContext);
                     hr = DispatchHelper::MarshalJsVarToVariantNoThrowWithLeaveScript(propertyVar, &variants[i], scriptContext);
@@ -1229,7 +1229,7 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, scriptContext, builtInFunction, &arguments);
     if (SUCCEEDED(hr))
     {
-        Js::Var varResult;
+        Js::Var varResult = nullptr;
         hr = scriptSite->Execute(builtInFunction, &arguments, pspCaller, &varResult);
         if (SUCCEEDED(hr) && pVarRes)
         {
@@ -1289,7 +1289,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
     HRESULT         hr = S_OK;
     IDispatchEx     *pDispEx = nullptr;
     VARIANT         *pVarValue = nullptr;
-    Js::Var        varMember;
+    Js::Var        varMember = nullptr;
     Js::Var        value = nullptr;
 
     Js::JavascriptLibrary* library = scriptObject->GetLibrary();
@@ -1392,7 +1392,7 @@ HRESULT JavascriptDispatch::InvokeOnMember(
             }
             Js::RecyclableObject *obj = Js::RecyclableObject::FromVar(varMember);
             Js::Arguments arguments(0, nullptr);
-            ScriptSite* targetScriptSite;
+            ScriptSite* targetScriptSite = nullptr;
             IfFailedReturn(GetTargetScriptSite(obj,&targetScriptSite));
             if (targetScriptSite->IsClosed())
             {
@@ -1597,7 +1597,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
     {
         // Do property get
 
-        Js::Var varValue;
+        Js::Var varValue = nullptr;
         Js::JavascriptHint hint = Js::JavascriptHint::None;
 
         hr = scriptSite->ExternalToPrimitive(this->scriptObject, hint, &varValue, pspCaller);
@@ -1610,7 +1610,7 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
     else if (wFlags & k_dispCallOrConstruct)
     {
         // Do call/construct
-        Js::Var varResult;
+        Js::Var varResult = nullptr;
         Js::Var thisPointer = this->GetScriptContext()->GetLibrary()->GetNull();
         Js::Arguments arguments(0, nullptr);
         hr = DispatchHelper::MarshalDispParamToArgumentsNoThrowNoScript(pdp, thisPointer, this->GetScriptContext(), scriptObject, &arguments);
@@ -1649,7 +1649,7 @@ HRESULT JavascriptDispatch::DeleteMemberByName(BSTR bstrName, DWORD grfdex)
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
         BOOL isPropertyId = TRUE;
-        Js::PropertyRecord const * propertyRecord;
+        Js::PropertyRecord const * propertyRecord = nullptr;
         hr = GetPropertyIdWithFlagWithScriptEnter(bstrName,  grfdex, &propertyId, &indexVal, &isPropertyId, &propertyRecord);
         if (SUCCEEDED(hr))
         {
@@ -1797,7 +1797,7 @@ Js::PropertyId JavascriptDispatch::GetEnumeratorCurrentPropertyId()
     if (stringIndex != nullptr)
     {
         Js::JavascriptString* name = Js::JavascriptString::FromVar(stringIndex);
-        Js::PropertyRecord const * propertyRecord;
+        Js::PropertyRecord const * propertyRecord = nullptr;
         scriptContext->GetOrAddPropertyRecord(name->GetString(), name->GetLength(), &propertyRecord);
         Js::PropertyId pid = propertyRecord->GetPropertyId();
 
@@ -1983,7 +1983,7 @@ HRESULT JavascriptDispatch::HasInstance(VARIANT varInstance, BOOL * result, EXCE
 
     Js::ScriptContext* scriptContext = GetScriptContext();
 
-    Js::Var instance;
+    Js::Var instance = nullptr;
     hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varInstance, &instance, scriptContext);
     if (SUCCEEDED(hr))
     {

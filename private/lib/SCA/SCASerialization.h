@@ -68,7 +68,7 @@ namespace Js
 
             for (uint32 i = 0; i < length; i++)
             {
-                Var value;
+                Var value = nullptr;
                 if (ArrayItemAccessor::GetItem(arr, i, &value, scriptContext))
                 {
                     GetEngine()->Clone(value);
@@ -88,7 +88,7 @@ namespace Js
         {
             ScriptContext* scriptContext = GetScriptContext();
             IndexEnumerator e(arr);
-            Var value;
+            Var value = nullptr;
 
             while (e.MoveNext())
             {
