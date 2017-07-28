@@ -382,7 +382,7 @@ namespace Projection
         }
 #endif
 
-        ArrayObjectInstance* pArrayObjectInstance;
+        ArrayObjectInstance* pArrayObjectInstance = nullptr;
         HTYPE hTypeRef = pArrayProjection->GetTypeRef();
         hr = ArrayObjectInstance::Create(hTypeRef, pArrayProjection->getItemAtId, elementType, pArrayBlockPointer, length, projectionContext, &pArrayObjectInstance);
         IfFailedReturn(hr);

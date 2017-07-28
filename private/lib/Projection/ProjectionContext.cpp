@@ -379,8 +379,8 @@ namespace Projection
 
         JS_ETW(EventWriteJSCRIPT_PROJECTION_GETEXPRFROMCONCRETETYPENAME_START(passedInTypeName));
 
-        DWORD typeNamePartsCount;
-        HSTRING *typeNameParts;
+        DWORD typeNamePartsCount = 0;
+        HSTRING *typeNameParts = nullptr;
         HRESULT hr = threadContext->GetWinRTTypeResolutionLibrary()->RoParseTypeName(concreteTypeName, &typeNamePartsCount, &typeNameParts);
         IfFailedReturn(hr);
         Assert(typeNamePartsCount > 0);
@@ -452,7 +452,7 @@ namespace Projection
             return S_OK;
         }
 
-        Metadata::TypeDefProperties * typeDef;
+        Metadata::TypeDefProperties * typeDef = nullptr;
         HRESULT hr = ResolveTypeName(IdOfString(fullTypeName), fullTypeName, &typeDef);
         IfFailedReturn(hr);
 
@@ -501,7 +501,7 @@ namespace Projection
         Assert(expr != NULL);
         Assert(fullNameId != MetadataStringIdNil);
 
-        Metadata::TypeDefProperties * typeDef;
+        Metadata::TypeDefProperties * typeDef = nullptr;
         HRESULT hr = ResolveTypeName(fullNameId, fullName, &typeDef);
         IfFailedReturn(hr);
 
@@ -733,7 +733,7 @@ namespace Projection
 
         HRESULT hr = S_OK;
         Metadata::Assembly *assembly = nullptr;
-        CComPtr<IUnknown> info;
+        CComPtr<IUnknown> info = nullptr;
         //
         // Before we happily run off and look for our metadata using the file system, attempt to look through
         // the current assemblies.

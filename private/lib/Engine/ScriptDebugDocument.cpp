@@ -701,7 +701,7 @@ HRESULT ScriptDebugDocument::DbgGetRootApplicationNode(IDebugApplicationNode **p
 
     // REVIEW: rokyu - can scriptSiteDebug->GetRootApplicationNode return a node
     // that is different from scriptSiteDebug->GetApplication->GetRootNode?
-    IActiveScriptSiteDebug *scriptSiteDebug;
+    IActiveScriptSiteDebug *scriptSiteDebug = nullptr;
     ScriptEngine* scriptEngine = m_pScriptBody->GetScriptEngine();
 
     if (SUCCEEDED(scriptEngine->GetDebugSiteNoRef(&scriptSiteDebug)))
@@ -719,7 +719,7 @@ HRESULT ScriptDebugDocument::DbgGetRootApplicationNode(IDebugApplicationNode **p
 
     if(*ppdan == NULL)
     {
-        IDebugApplication* application;
+        IDebugApplication* application = nullptr;
         IfFailRet(scriptEngine->GetDebugApplicationCoreNoRef(&application));
         return application->GetRootNode(ppdan);
     }

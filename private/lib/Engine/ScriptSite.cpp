@@ -1325,7 +1325,7 @@ HRESULT ScriptSite::ExternalSYSTEMTIMEToVar(SYSTEMTIME* pst, Js::Var * result)
 
 HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Arguments* args, __in IServiceProvider * pspCaller, __out_opt Js::Var* varResult)
 {
-    Js::Var                        atomResult;
+    Js::Var                        atomResult = nullptr;
     HRESULT                         hr = S_OK;
 
     if (varResult != nullptr)
@@ -1649,8 +1649,8 @@ HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
         PropertyId setTimeoutId = scriptSiteContext->GetOrAddPropertyIdTracked(_u("SetTimeout"));
 
         Js::Var global = scriptSiteContext->GetGlobalObject();
-        Js::Var wscript;
-        Js::Var setTimeout;
+        Js::Var wscript = nullptr;
+        Js::Var setTimeout = nullptr;
         Js::JavascriptFunction* hostCallback;
 
         // Try to load WScript.SetTimeout

@@ -326,7 +326,7 @@ HRESULT DispatchExCaller::GetCurrentSourceContext(DWORD_PTR* pdwContext, VARIANT
     HRESULT hr = NOERROR;
     Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
     Js::JavascriptStackWalker walker(scriptContext);
-    Js::JavascriptFunction* func;
+    Js::JavascriptFunction* func = nullptr;
     if (walker.GetCaller(&func))
     {
         if (Js::JavascriptFunction::Is(func))

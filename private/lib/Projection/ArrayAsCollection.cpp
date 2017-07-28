@@ -43,7 +43,7 @@ namespace Projection
     HRESULT ArrayAsCollection::GetAt(__in ProjectionContext *projectionContext, RtCONCRETETYPE elementType, __in Js::JavascriptArray *pArray, __in unsigned index, __out_bcount(elementType->storageSize) byte *returnValue)
     {
         IfNullReturnError(returnValue, E_POINTER);
-        Var varItem;
+        Var varItem = nullptr;
         HRESULT hr = ArrayAsCollection::GetAt(projectionContext, pArray, index, &varItem);
         IfFailedReturn(hr);
 
@@ -82,7 +82,7 @@ namespace Projection
 
         for (uint uIndex = length ; uIndex > index; uIndex--)
         {
-            Var varItem;
+            Var varItem = nullptr;
             HRESULT hr = ArrayAsCollection::GetAt(projectionContext, pArray, uIndex - 1, &varItem);
             IfFailedReturn(hr);
 
@@ -115,7 +115,7 @@ namespace Projection
 
         for (index = index + 1; index < length; index++)
         {
-            Var varItem;
+            Var varItem = nullptr;
             HRESULT hr = ArrayAsCollection::GetAt(projectionContext, pArray, index, &varItem);
             IfFailedReturn(hr);
 
@@ -222,7 +222,7 @@ namespace Projection
         ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
         for (unsigned int index = startIndex; index < copyEndIndex; index++)
         {
-            Var varItem;
+            Var varItem = nullptr;
             HRESULT hr = ArrayAsCollection::GetAt(projectionContext, pArray, index, &varItem);
             IfFailedReturn(hr);
 
