@@ -369,7 +369,7 @@ namespace Projection
         projectionContext->TypeInstanceCreated(raw); 
         auto projectionWriter = projectionContext->GetProjectionWriter();
         auto scriptContext = projectionContext->GetScriptContext();
-        Var result;
+        Var result = nullptr;
         CComPtr<IUnknown> unknown;
         HRESULT hr;
 
@@ -384,8 +384,8 @@ namespace Projection
 
         if (!projectionWriter->TryGetTypedInstanceFromCache(unknown, &result))
         {
-            HTYPE htype;
-            RuntimeClassTypeInformation * typeInformation;
+            HTYPE htype = nullptr;
+            RuntimeClassTypeInformation * typeInformation = nullptr;
             Js::VerifyCatastrophic(projectionWriter->GetRuntimeClassTypeInformation(typeNameId, &htype, &typeInformation));
             result = projectionWriter->CreateProjectionObjectTypedInstance(typeNameId, htype, typeInformation, unknown, true, false, constructorArguments);
         }
@@ -1294,8 +1294,8 @@ namespace Projection
             if (ClassType::Is(type) || InterfaceType::Is(type))
             {
                 auto typeDefType = TypeDefinitionType::From(type);
-                HTYPE htype;
-                RuntimeClassTypeInformation * typeInformation;
+                HTYPE htype = nullptr;
+                RuntimeClassTypeInformation * typeInformation = nullptr;
                 
                 bool runtimeClassTypeExists;
                 {
@@ -1320,7 +1320,7 @@ namespace Projection
                     }
                     else
                     {
-                        RtEXPR expr;
+                        RtEXPR expr = nullptr;
                         HRESULT hr = projectionContext->GetExpr(typeDefType->typeId, typeDefType->typeDef->id, nullptr, typeDefType->genericParameters, &expr);
                         if (FAILED(hr))
                         {

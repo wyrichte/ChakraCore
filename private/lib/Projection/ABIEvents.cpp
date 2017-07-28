@@ -228,7 +228,7 @@ namespace Projection
         }
 
         auto typeDefinitionType = TypeDefinitionType::From(eventHandlerParam);
-        RtEXPR expr;
+        RtEXPR expr = nullptr;
         HRESULT hr = projectionContext->GetExpr(typeDefinitionType->typeId, typeDefinitionType->typeDef->id, nullptr, typeDefinitionType->genericParameters, &expr);
         if (FAILED(hr))
         {

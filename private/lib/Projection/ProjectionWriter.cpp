@@ -536,7 +536,7 @@ namespace Projection
     bool ProjectionWriter::TryEnsureRuntimeClassTypeExists(RtTYPEDEFINITIONTYPE type, HTYPE * htype, RuntimeClassTypeInformation ** typeInformation)
     {
         Assert(ClassType::Is(type) || InterfaceType::Is(type));
-        RtEXPR expr;
+        RtEXPR expr = nullptr;
 
         if(SUCCEEDED(projectionContext->GetExpr(type->typeId, type->typeDef->id, nullptr, type->genericParameters, &expr)))
         {
@@ -782,7 +782,7 @@ namespace Projection
 
     EventProjectionHandler *ProjectionWriter::GetExistingEventHandlerFromWeakReference(IWeakReference *weakReference)
     {
-        EventProjectionHandler *eventProjectionHandler;
+        EventProjectionHandler *eventProjectionHandler = nullptr;
         if (recyclerData->m_eventHandlerCache->TryGetValue(weakReference, &eventProjectionHandler))
         {
             return eventProjectionHandler;
@@ -804,7 +804,7 @@ namespace Projection
     // Try to see if the unknown is already in the cache
     bool ProjectionWriter::TryGetTypedInstanceFromCache(IUnknown *unknown, Var *result, bool allowExtensions)
     {
-        RecyclerWeakReference<Js::DynamicObject> *weakRef;
+        RecyclerWeakReference<Js::DynamicObject> *weakRef = nullptr;
         bool fFound = recyclerData->m_InspectablesCache->TryGetValue(unknown, &weakRef);
         // The object might be marked for disposing and hence weakRef might not be alive.
         if (fFound && weakRef->Get() != nullptr)
@@ -915,7 +915,7 @@ namespace Projection
             }
         }
 
-        ProjectionObjectInstance * instanceObject;
+        ProjectionObjectInstance * instanceObject = nullptr;
         HRESULT hr = ProjectionObjectInstance::Create(htype, typeInformation->HasEventHandlers(), unknown, thisInfo->defaultInterface ? thisInfo->defaultInterface->instantiated : GUID_NULL, projectionContext, &instanceObject, allowIdentity, typeInformation->GCPressure());
         IfFailedMapAndThrowHr(scriptContext, hr);
         Js::DynamicObject *resultObject = instanceObject;
@@ -1105,7 +1105,7 @@ namespace Projection
         HRESULT hr = S_OK;
         Assert(scriptContext->GetThreadContext()->IsScriptActive());
 
-        HTYPE htype;
+        HTYPE htype = nullptr;
         if (!htypesEnum->TryGetValue(typeNameId, &htype))
         {
             // Since right now we want the created type to last till scriptengine's context, we want to pass bindReference parameter as true

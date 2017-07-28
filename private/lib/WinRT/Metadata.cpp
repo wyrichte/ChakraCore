@@ -441,7 +441,7 @@ namespace Metadata
     {
         ULONG cb = 0;
         ++cb;
-        Type * parentType;
+        Type * parentType = nullptr;
         cb += DecodeType(sigSize-cb,pb+cb,a,&parentType);
 
         Js::VerifyCatastrophic(cb<sigSize);
@@ -452,7 +452,7 @@ namespace Metadata
         auto tail = parms;
         for(int i=0;i<genericParameterCount;++i)
         {
-            Type * parm;
+            Type * parm = nullptr;
             cb+=DecodeType(sigSize-cb,pb+cb,a,&parm);
             parms = parms->Append(parm, a, &tail);
         }
@@ -513,7 +513,7 @@ namespace Metadata
                 mdToken token;
                 ++cb;
                 cb += CorSigUncompressToken(pb+cb,&token);
-                Type * modded;
+                Type * modded = nullptr;
                 cb += DecodeType(sigSize-cb,pb+cb,a,&modded);
                 *pp = Anew(a, ModOpt, token, modded);
                 return cb; }
@@ -521,13 +521,13 @@ namespace Metadata
                 mdToken token;
                 ++cb;
                 cb += CorSigUncompressToken(pb+cb,&token);
-                Type * modded;
+                Type * modded = nullptr;
                 cb += DecodeType(sigSize-cb,pb+cb,a,&modded);
                 *pp = Anew(a, ModReqd, token, modded);
                 return cb; }
             case ELEMENT_TYPE_ARRAY: {
                 ++cb;
-                Type * elementType;
+                Type * elementType = nullptr;
                 cb += DecodeType(sigSize-cb,pb+cb, a, &elementType);
                 Js::VerifyCatastrophic(cb<sigSize);
                 auto rank = *(pb+cb);
@@ -597,7 +597,7 @@ namespace Metadata
                 return cb; }
             case ELEMENT_TYPE_GENERICINST: {
                 // We have something in the form of GenericType<ConcreteType1,ConcreteType2>
-                GenericInstantiation * gi;
+                GenericInstantiation * gi = nullptr;
                 auto result = DecodeGenericInstantiation(sigSize-cb,pb+cb,a,&gi);
                 *pp=gi;
                 return cb + result;
@@ -625,7 +625,7 @@ namespace Metadata
         case ELEMENT_TYPE_BYREF:
             {
                 ++cb;
-                Type * pointedTo;
+                Type * pointedTo = nullptr;
                 cb += DecodeType(sigSize-cb,pb+cb,a,&pointedTo);
                 auto byref = Anew(a, ByRef, pointedTo);
                 *pp = Anew(a, Parameter, byref, true, false);

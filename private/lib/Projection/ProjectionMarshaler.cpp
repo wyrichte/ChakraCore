@@ -367,7 +367,7 @@ namespace Projection
         case thisUnknownEventHandling:
         case thisUnknown: 
             {
-                IUnknown *unknown;
+                IUnknown *unknown = nullptr;
 #ifdef ENABLE_JS_ETW
                 if (EventEnabledJSCRIPT_PROJECTION_METHODCALL_START())
                 {
@@ -868,13 +868,13 @@ namespace Projection
         marshal.WriteInType(varInput, type, typeStorage, type->storageSize, true); 
 
         // Create the propertyValue
-        IInspectable *propertyValue;
+        IInspectable *propertyValue = nullptr;
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
         HRESULT hr = GetNonArrayTypeAsPropertyValue(type->storageSize, typeStorage, type, &propertyValue);
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
         RecordToUndo(propertyValue, true);
 
-        IInspectable *inspectable;
+        IInspectable *inspectable = nullptr;
         hr = QueryInterfaceAfterLeaveScript(scriptContext, propertyValue, constructor->iid->instantiated, (LPVOID *)&inspectable);
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
@@ -1761,7 +1761,7 @@ namespace Projection
         {
             RtABIFIELDPROPERTY prop = properties->First();
             PropertyId id = prop->identifier; 
-            Var fieldObject;
+            Var fieldObject = nullptr;
 
             if (!Js::JavascriptOperators::GetProperty(structObject, id, &fieldObject, scriptContext))
             {
@@ -1818,7 +1818,7 @@ namespace Projection
 
             // This is a native delegate - we can just get the IDelegate and put it out there.
             DelegateThis * delegateThis = reinterpret_cast<DelegateThis*>(signature->thisInfo);
-            IUnknown *unknown;
+            IUnknown *unknown = nullptr;
             IID iidDelegate = invokeInterface->iid->instantiated;
 
             HRESULT hr = QueryInterfaceAfterLeaveScript(scriptContext, delegateThis->_this, iidDelegate, (void**)&unknown);
@@ -1910,7 +1910,7 @@ namespace Projection
             useIID = IID_IUnknown;
         }
 
-        IUnknown *unknown;
+        IUnknown *unknown = nullptr;
         GetUnknownOfVarExtension(scriptContext, varInput, useIID, (void**)&unknown, nullptr, true);
         return WriteInUnknown(unknown, mem, memSize);
     }
@@ -1951,7 +1951,7 @@ namespace Projection
             } 
             else if (constructor->iid->piid==IID_IVectorView1 || constructor->iid->piid==IID_IVector1)
             {
-                ArrayAsVector *pIVector;
+                ArrayAsVector *pIVector = nullptr;
                 HRESULT hr = ArrayAsVector::Create(projectionContext, asArray, constructor, constructor->iid->piid == IID_IVectorView1, &pIVector);
                 IfFailedMapAndThrowHr(projectionContext->GetScriptContext(), hr);
 
@@ -2030,7 +2030,7 @@ namespace Projection
     // Returns:     a pointer to the byte right after this write
     byte * ProjectionMarshaler::WriteTypeNameTypeInParameter(Var varInput, MetadataStringId typeId, MetadataStringId typeNameId, ImmutableList<RtTYPE> * genericParameters, __in_bcount(memSize) byte * mem,__in size_t memSize, bool structsByValue)
     {
-        RtEXPR expr;
+        RtEXPR expr = nullptr;
         HRESULT hr = projectionContext->GetExpr(typeId, typeNameId, nullptr, genericParameters, &expr);
         if (FAILED(hr))
         {
@@ -2770,7 +2770,7 @@ namespace Projection
         RecordToUndo(unknown, true);
 
         // See if we can use the cached one
-        Var result;
+        Var result = nullptr;
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
         if (projectionWriter->TryGetTypedInstanceFromCache(unknown, &result, false))
         {
@@ -2824,7 +2824,7 @@ namespace Projection
         Assert(unknown != nullptr);
 
         // See if we can use the cached one
-        Var result;
+        Var result = nullptr;
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
         if (allowIdentity && projectionWriter->TryGetTypedInstanceFromCache(unknown, &result, allowExtensions))
         {
@@ -2848,7 +2848,7 @@ namespace Projection
             runtimeClassStr.Initialize(runtimeClassName);
 
             // fast path : string compare for basic types
-            Windows::Foundation::IPropertyValue *propertyValue;
+            Windows::Foundation::IPropertyValue *propertyValue = nullptr;
             hr = QueryInterfaceAfterLeaveScript(scriptContext, inspectable, Windows::Foundation::IID_IPropertyValue, (void **)&propertyValue);
             if (SUCCEEDED(hr))
             {
@@ -2876,8 +2876,7 @@ namespace Projection
         // looking for IReference and <T> combination, parsing the T to be type and then calling get_Value
         // But we can time it later
 
-        UINT32 runtimeClassHStringLength;
-        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &runtimeClassHStringLength);
+        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), nullptr);
         JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
@@ -2904,7 +2903,7 @@ namespace Projection
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
-        Var result;
+        Var result = nullptr;
         switch(propertyType)
         {
         case Windows::Foundation::PropertyType_Boolean:
@@ -3526,8 +3525,7 @@ namespace Projection
         Assert(inspectable != nullptr);
 
 #ifdef ENABLE_JS_ETW
-        UINT32 length;
-        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), &length);
+        PCWSTR runtimeClassString = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(runtimeClassHString.Get(), nullptr);
         EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_START(runtimeClassString);
 #endif
 
@@ -3548,7 +3546,7 @@ namespace Projection
             }
         }
 
-        RtEXPR expr;
+        RtEXPR expr = nullptr;
         HRESULT hr = projectionContext->GetExprFromConcreteTypeName(runtimeClassHString.Get(), &expr);
         if (SUCCEEDED(hr))
         {
@@ -3800,7 +3798,7 @@ namespace Projection
 #endif
 
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
-        Var result;
+        Var result = nullptr;
         if (!allowIdentity || !projectionWriter->TryGetTypedInstanceFromCache(unknown, &result, allowExtensions))
         {
             result =  projectionWriter->CreateNewTypeInstance(
@@ -3850,7 +3848,7 @@ namespace Projection
         Assert(unknown != nullptr);
 
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
-        Var result;
+        Var result = nullptr;
         if (!allowIdentity || !projectionWriter->TryGetTypedInstanceFromCache(unknown, &result))
         {
             result = projectionWriter->CreateNewTypeInstance(
@@ -3906,7 +3904,7 @@ namespace Projection
 #endif
 
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
-        Var result;
+        Var result = nullptr;
         if (!allowIdentity || !projectionWriter->TryGetTypedInstanceFromCache(unknown, &result))
         {
             RtIID defaultInterfaceIID = nullptr;
@@ -3953,7 +3951,7 @@ namespace Projection
         HRESULT hr = S_OK;
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-        HTYPE htype;
+        HTYPE htype = nullptr;
         hr = projectionWriter->GetStructHType(constructor->structType, &htype);
         IfFailedMapAndThrowHr(scriptContext, hr);
 
@@ -4064,7 +4062,7 @@ namespace Projection
     // Returns:     nullptr if the read failed
     Var ProjectionMarshaler::TryReadTypeNameOutParameter(bool definitelyNotRuntimeClass, MetadataStringId typeId, MetadataStringId typeNameId, ImmutableList<RtTYPE> * genericParameters, bool structsByValue, __in_bcount(memSize) byte * mem,__in size_t memSize, MetadataStringId methodNameId, bool allowIdentity, bool allowExtensions, ConstructorArguments* constructorArguments)
     {
-        RtEXPR expr;
+        RtEXPR expr = nullptr;
         HRESULT hr = projectionContext->GetExpr(typeId, typeNameId, nullptr, genericParameters, &expr);
         if (FAILED(hr))
         {
@@ -4171,7 +4169,7 @@ namespace Projection
 
     Var ProjectionMarshaler::ReadOutString(__in_bcount(memSize) byte *mem, __in size_t memSize)
     {
-        UINT32 length;
+        UINT32 length = 0;
         HSTRING hs = *(HSTRING*)mem;
         LPCWSTR sz = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(hs, &length); 
         return Js::JavascriptString::NewCopyBuffer(sz, length, projectionContext->GetScriptContext()); // NOTE: We could make a new basic type for HSTRINGs and avoid this copy.
@@ -4439,7 +4437,7 @@ namespace Projection
         // In case of ReceiveArray case we dont need to duplicate the array block as it is already under our ownership
         // But in case of delegates we dont own the buffer so we would need to create the duplicate
         // In case of delegate FillArray we shouldnt be copying contents from the original buffer because we are suppose to filling them while going out instead.
-        Var result;
+        Var result = nullptr;
         HRESULT hr = ArrayProjection::CreateArrayProjectionObject(ConcreteType::From(arrayType->elementType), projectionContext, arrayContents, elementCount, readArrayLength, (resourceCleanup == CalleeTransfersOwnership), &result, (resourceCleanup == CalleeTransfersOwnership) || isByRef || !isOut);
         IfFailedMapAndThrowHr(scriptContext, hr);
         RecordRecyclerVar(result);

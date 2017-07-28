@@ -407,7 +407,7 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
 
             // Grab the debug info with the name filled in.
             DebugPropertyInfo debugPropertyInfo;
-            hr = currentDebugProperty->GetPropertyInfo(DBGPROP_INFO_NAME, 16, &debugPropertyInfo);
+            IfFailGo(currentDebugProperty->GetPropertyInfo(DBGPROP_INFO_NAME, 16, &debugPropertyInfo));
 
             BSTR currentName =
                 (debugPropertyInfo.m_dwValidFields & DBGPROP_INFO_NAME) == DBGPROP_INFO_NAME

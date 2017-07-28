@@ -186,7 +186,7 @@ Js::Var DebugObject::EntryWriteLine(Js::RecyclableObject* function, Js::CallInfo
 Js::FunctionBody * DebugObject::GetCallerFunctionBody(Js::ScriptContext *scriptContext)
 {
     // Find the current function scope.
-    Js::JavascriptFunction* caller;
+    Js::JavascriptFunction* caller = nullptr;
     Js::FunctionBody *funcBody = NULL;
     if (Js::JavascriptStackWalker::GetCaller(&caller, scriptContext))
     {

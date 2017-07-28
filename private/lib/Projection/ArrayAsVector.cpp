@@ -214,7 +214,7 @@ namespace Projection
             // Create the Vector View if it doesnt exist
             if (m_pVectorView == NULL)
             {
-                RtEXPR expr;
+                RtEXPR expr = nullptr;
                 hr = projectionContext->GetExpr(MetadataStringIdNil, IdOfString(projectionContext->GetScriptContext(), _u("Windows.Foundation.Collections.IVectorView`1")), _u("Windows.Foundation.Collections.IVectorView`1"), vector->genericParameters, &expr);
 
                 if (SUCCEEDED(hr))

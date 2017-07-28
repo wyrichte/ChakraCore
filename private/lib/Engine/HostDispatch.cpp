@@ -34,7 +34,7 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL t
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     ITracker* tracker = NULL;
     HostVariant* hostVariant = NULL;
-    VARIANT* varDispatch;    
+    VARIANT* varDispatch = NULL;    
 
     if (pdisp != NULL)
     {
@@ -113,7 +113,7 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
 HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, ITracker *tracker)
 {
     HostVariant* hostVariant;
-    VARIANT* varDispatch;
+    VARIANT* varDispatch = nullptr;
     Recycler* recycler = scriptContext->GetRecycler();
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
 
@@ -710,7 +710,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
 
     if (SUCCEEDED(hr))
     {
-        Js::Var var;
+        Js::Var var = nullptr;
         DispatchHelper::VariantPropertyFlag propertyFlag = DispatchHelper::VariantPropertyFlag::IsReturnValue;
         hr = DispatchHelper::MarshalVariantToJsVarWithLeaveScript(&varValue, &var, scriptContext, propertyFlag);
         VariantClear(&varValue);
@@ -1351,7 +1351,7 @@ BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext)
     // Here we will call the actual ToString() method on the object
     // for dom objects we get different results when we call GetDefaultValue and ToString()
     // this function exists for compat functionality.
-    Js::Var result;
+    Js::Var result = nullptr;
     if (GetPropertyReference(scriptContext->GetPropertyName(Js::PropertyIds::toString)->GetBuffer(), &result))
     {
         Js::RecyclableObject* func = Js::RecyclableObject::FromVar(result);

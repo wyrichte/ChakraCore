@@ -466,7 +466,7 @@ STDMETHODIMP EventSink::Invoke(DISPID id, REFIID riid, LCID lcid,
     Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
 
     // Marshal the "this" pointer here.
-    Js::Var thisVar;
+    Js::Var thisVar = nullptr;
     VARIANT thisVariant;
     thisVariant.vt = VT_DISPATCH;
     thisVariant.pdispVal = this->GetDispatch();

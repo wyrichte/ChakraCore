@@ -1665,7 +1665,7 @@ namespace Js
                 // review: add inline cache if getsetter comes back to us. this shortcircuit the
                 // ITypeOpertions
                 DescriptorFlags tmpFlags;
-                Var tempSetterValue;
+                Var tempSetterValue = nullptr;
                 tmpFlags = ExternalObject::GetSetter(propertyId, &tempSetterValue, info, requestContext);
                 if (tempSetterValue != *setterValue)
                 {
