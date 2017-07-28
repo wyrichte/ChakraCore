@@ -143,8 +143,10 @@ namespace Projection
         {
             scriptContext->RegisterScript(function->GetFunctionProxy());
         }
-        // Mark we are profiling library code already, so that any initialization library code called here won't be reported to profiler
-        AutoProfilingUserCode autoProfilingUserCode(scriptContext->GetThreadContext(), /*isProfilingUserCode*/false);
+
+        // Mark we are profiling library code already, so that any initialization library code called here won't be reported to profiler.
+        // Also tell the debugger not to record events during intialization so that we don't leak information about initialization.
+        Js::AutoInitLibraryCodeScope autoInitLibraryCodeScope(scriptContext);
 
         Js::Var args[] = { scriptContext->GetLibrary()->GetUndefined(), library->GetEngineInterfaceObject() };
         Js::CallInfo callInfo(Js::CallFlags_Value, _countof(args));
