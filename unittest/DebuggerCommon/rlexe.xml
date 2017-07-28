@@ -1454,4 +1454,10 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:promisedisplay.js.dbg.baseline</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>AsyncDynamicAttach.js</files>
+      <compile-flags>-targeted -dbgbaseline:AsyncDynamicAttach.js.dbg.baseline</compile-flags>
+    </default>
+  </test>
 </regress-exe>
