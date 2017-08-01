@@ -70,7 +70,7 @@ namespace Projection
             // Mark the Promise bytecode as internal library code - the real stack frames will be ignored during a stackwalk.
             // If we aren't profiling and function proxies are enabled, allow the bytecode to be built into a FunctionProxy instead of a FunctionBody.
             ulong flags = fscrIsLibraryCode | (CONFIG_FLAG(CreateFunctionProxy) && !scriptContext->IsProfiling() ? fscrAllowFunctionProxy : 0);
-            HRESULT hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, (LPCUTF8)nullptr, hsi, (byte*)Js::Library_Bytecode_promise, nullptr, &this->promiseByteCode);
+            HRESULT hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, (LPCUTF8)nullptr, hsi, (byte*)Js::Library_Bytecode_Promise, nullptr, &this->promiseByteCode);
 
             AssertMsg(SUCCEEDED(hr), "Failed to deserialize Promise.js bytecode - very probably the bytecode needs to be rebuilt.");
             IfFailThrowHr(hr);

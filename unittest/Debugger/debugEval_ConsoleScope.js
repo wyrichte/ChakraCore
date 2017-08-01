@@ -80,3 +80,19 @@ compare(global2.diagnosticsScript.getConsoleScope().x11, 11);
 var global3 = WScript.LoadScript("diagnosticsScript.getConsoleScope();", "samethread", "diagnostics");
 diagnosticsScript.debugEval("let x12 = 12", true);
 compare(consoleScopeObj1.x12, 12);
+
+// Check the property descriptor for let declaration in strict mode
+diagnosticsScript.debugEval(`"use strict"; let x13 = 13`, true);
+compare(consoleScopeObj1.x13, 13);
+var letDesc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x13");
+compare(letDesc.configurable, true);
+compare(letDesc.writable, true);
+compare(letDesc.enumerable, true);
+
+// Check the property descriptor for const declaration in strict mode
+diagnosticsScript.debugEval(`"use strict"; const x14 = 14;`, true);
+compare(consoleScopeObj1.x14, 14);
+var desc = Object.getOwnPropertyDescriptor(consoleScopeObj1, "x14");
+compare(desc.configurable, true);
+compare(desc.writable, false);
+compare(desc.enumerable, true);
