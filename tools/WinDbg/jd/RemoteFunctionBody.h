@@ -39,6 +39,11 @@ public:
     RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy(pBody) {}
     RemoteParseableFunctionInfo(ExtRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
 
+    JDRemoteTyped GetDeferredPrototypeType()
+    {
+        return JDUtil::GetWrappedField(*this, "deferredPrototypeType");
+    }
+
     JDRemoteTyped GetScopeInfo()
     {
         return this->GetAuxWrappedField("m_scopeInfo", "Js::ScopeInfo");
@@ -58,6 +63,24 @@ public:
     {
         return GetDisplayName().Dereference().GetString(buffer);
     }
+
+    JDRemoteTyped GetNestedArray()
+    {
+        if (HasField("nestedArray"))
+        {
+            // Added in d76f76e9f72a4a7b99a62f64c3803d5e80aa4f9b fop RS2
+            return JDUtil::GetWrappedField(*this, "nestedArray");
+        }
+        return JDRemoteTyped("(void *)0");
+    }
+
+    JDRemoteTyped GetPropertyIdsForScopeSlotArray()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("propertyIdsForScopeSlotArray", "Js::PropertyId");
+    }
+    JDRemoteTyped GetDeferredStubs();
+protected:
+    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char const * fieldName, char const* castType, char const * oldFieldName = nullptr);
 };
 
 class RemoteFunctionBody : public RemoteParseableFunctionInfo
@@ -90,6 +113,15 @@ public:
     JDRemoteTyped GetCacheIdToPropertyIdMap()
     {
         return this->GetWrappedFieldRecyclerData("cacheIdToPropertyIdMap");
+    }
+    JDRemoteTyped GetInlineCacheTypes()
+    {
+        // DBG only field
+        if (this->HasField("m_inlineCacheTypes"))
+        {
+            return JDUtil::GetWrappedField(*this, "m_inlineCacheTypes");
+        }
+        return JDRemoteTyped("(void *)0");
     }
     JDRemoteTyped GetReferencedPropertyIdMap();
 
@@ -198,14 +230,16 @@ public:
         return remoteTyped.Cast("Js::FunctionBodyPolymorphicInlineCache");
     }
 
-    JDRemoteTyped GetPropertyIdsForScopeSlotArray()
-    {
-        return this->GetAuxWrappedFieldRecyclerData("propertyIdsForScopeSlotArray", "Js::PropertyId");
-    }
-
     JDRemoteTyped GetLiteralRegexes()
     {
         return this->GetAuxWrappedFieldRecyclerData("literalRegexes", "UnifiedRegex::RegexPattern *");
+    }
+
+    JDRemoteTyped GetObjectLiteralTypes();
+
+    JDRemoteTyped GetPropertyIdOnRegSlotsContainer()
+    {
+        return this->GetAuxWrappedFieldRecyclerData("propertyIdOnRegSlotsContainer", "Js::PropertyIdOnRegSlotsContainer");
     }
 
     void PrintNameAndNumber();
@@ -216,8 +250,7 @@ public:
     void PrintSource();
 private:
     JDRemoteTyped GetFieldRecyclerData(char const * fieldName);
-    JDRemoteTyped GetWrappedFieldRecyclerData(char const * fieldName);
-    JDRemoteTyped GetAuxWrappedFieldRecyclerData(char const * fieldName, char const* castType, char const * oldFieldName = nullptr);
+    JDRemoteTyped GetWrappedFieldRecyclerData(char const * fieldName);    
 
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 

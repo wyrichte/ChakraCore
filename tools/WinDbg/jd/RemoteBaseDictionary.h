@@ -3,13 +3,24 @@
 //----------------------------------------------------------------------------
 #pragma once
 
+// This works on BaseHashSet or BaseDictionary.
 class RemoteBaseDictionary
 {
 public:
-    RemoteBaseDictionary(ExtRemoteTyped baseDictionary) : baseDictionary(baseDictionary) {}
+    RemoteBaseDictionary(ExtRemoteTyped baseDictionary) : baseDictionary(baseDictionary), bucketCountName("bucketCount") {}
 
     JDRemoteTyped GetBuckets();
     JDRemoteTyped GetEntries();
+
+    template <typename Fn>
+    bool ForEachKey(Fn fn)
+    {
+        // For BaseDictionary only, but BaseHashSet
+        return ForEachEntry([&](JDRemoteTyped& entry)
+        {
+            return fn(entry.Field("key"));
+        });
+    }
 
     template <typename Fn>
     bool ForEachValue(Fn fn)
@@ -25,7 +36,7 @@ public:
     {
         JDRemoteTyped buckets = GetBuckets();
         JDRemoteTyped entries = GetEntries();
-        ULONG bucketCount = baseDictionary.Field("bucketCount").GetUlong();
+        ULONG bucketCount = baseDictionary.Field(bucketCountName).GetUlong();
         for (ULONG i = 0; i < bucketCount; i++)
         {
             LONG nextIndex = -1;
@@ -43,7 +54,15 @@ public:
     }
 
     ExtRemoteTyped GetExtRemoteTyped() { return baseDictionary; }
-
+protected:
+    RemoteBaseDictionary(ExtRemoteTyped baseDictionary, const char * bucketCountName) : baseDictionary(baseDictionary), bucketCountName(bucketCountName) {}
 private:
     JDRemoteTyped baseDictionary;
+    char const * bucketCountName;
+};
+
+class RemoteWeaklyReferencedKeyDictionary : public RemoteBaseDictionary
+{
+public:
+    RemoteWeaklyReferencedKeyDictionary(ExtRemoteTyped baseDictionary) : RemoteBaseDictionary(baseDictionary, "size") {}
 };

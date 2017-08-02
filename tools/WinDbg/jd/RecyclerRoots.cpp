@@ -1800,6 +1800,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{g;b,o;group;Group unknown objects}"
     "{lib;b,o;library;Infer and display per library}"
     "{fl;ed,o;filterLib;Filter to library}"
+    "{fs;edn=(10),o;filterSize;Filter to object size}"
 )
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
@@ -1813,9 +1814,11 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const bool showUnknown = HasArg("u");
     const bool groupUnknown = HasArg("g");
     const bool hasFilterLib = HasArg("fl");
+    const bool hasFilterSize = HasArg("fs");
     const bool perLibrary = hasFilterLib || HasArg("lib");
 
     const ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
+    const ULONG64 sizeFilter = hasFilterSize ? GetArgU64("fs") : (ULONG64)-1;
 
     if (sortByCount && sortByName)
     {
@@ -1910,6 +1913,13 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     objectGraph.MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
+        if (hasFilterSize)
+        {
+            if (node->GetObjectSize() != sizeFilter)
+            {
+                return;
+            }
+        }
         ObjectCountData * objectCountData;
         if (perLibrary)
         {

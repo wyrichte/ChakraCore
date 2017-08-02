@@ -185,13 +185,27 @@ JDRemoteTyped RemoteFunctionBody::GetWrappedFieldRecyclerData(char const * field
     return JDUtil::GetWrappedField(*this, fieldName);
 }
 
-JDRemoteTyped RemoteFunctionBody::GetAuxWrappedFieldRecyclerData(char const* fieldName, char const* castType, char const* oldFieldName)
+JDRemoteTyped RemoteParseableFunctionInfo::GetAuxWrappedFieldRecyclerData(char const* fieldName, char const* castType, char const* oldFieldName)
 {
     if (GetExtension()->IsJScript9())
     {
-        return this->Field("recyclerData").Field(oldFieldName != nullptr ? oldFieldName : fieldName);
+        // Legacy engine doesn't have recyclerData in ParseableFunctionInfo
+        if (this->HasField("recyclerData"))
+        {
+            return this->Field("recyclerData").Field(oldFieldName != nullptr ? oldFieldName : fieldName);
+        }
+        return JDRemoteTyped("(void *)0");
     }
     return this->GetAuxWrappedField(fieldName, castType, oldFieldName);
+}
+
+JDRemoteTyped RemoteParseableFunctionInfo::GetDeferredStubs()
+{
+    if (GetExtension()->IsJScript9())
+    {
+        return JDRemoteTyped("(void *)0");
+    }
+    return this->GetAuxWrappedField("deferredStubs", "DeferredFunctionStub *");
 }
 
 static std::map<std::string, uint8> counterEnum;
@@ -254,6 +268,15 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
     }
 }
 
+JDRemoteTyped 
+RemoteFunctionBody::GetObjectLiteralTypes()
+{
+    if (GetExtension()->IsJScript9())
+    {
+        return JDRemoteTyped("(void *)0");
+    }
+    return this->GetAuxWrappedField("objLiteralTypes", "Js::DynamicType **");
+}
 
 void
 RemoteFunctionBody::PrintNameAndNumber()

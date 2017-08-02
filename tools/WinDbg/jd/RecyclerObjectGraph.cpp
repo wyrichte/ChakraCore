@@ -397,8 +397,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             if (requireLivePointer || node)
             {
                 setNodeData(typeName, typeName, node, hasVtable, false, library);
+                return true;
             }
         }
+        return false;
     };
 
     auto addFieldData = [&](JDRemoteTyped field, char const * typeName, char const * fieldTypeName, bool overwriteVtable, ULONG64 library)
@@ -417,9 +419,65 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
     JDRemoteTyped threadRecyclableData = threadContext->GetExtRemoteTyped().Field("recyclableData.ptr");
     setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
-    JDRemoteTyped typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
-    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.bucket", typesWithProtoPropertyCache.Field("buckets"));
-    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.Field("entries"));
+    RemoteBaseDictionary typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
+    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.buckets", typesWithProtoPropertyCache.GetBuckets());
+    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.GetEntries());
+    typesWithProtoPropertyCache.ForEachValue([&](RemoteWeaklyReferencedKeyDictionary typeHashSet)
+    {
+        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}", typeHashSet.GetExtRemoteTyped());
+        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.buckets", typeHashSet.GetBuckets());
+        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.entries", typeHashSet.GetEntries());
+        typeHashSet.ForEachKey([&](JDRemoteTyped key)
+        {
+            setAddressData("RecyclerWeakReference<Js::Type>", key);
+            return false;
+        });
+        return false;
+    });
+    RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
+    setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
+    setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
+    propertyGuards.ForEachValue([&](JDRemoteTyped entry)
+    {
+        setAddressData("ThreadContext::PropertyGuardEntry", entry);
+        setAddressData("ThreadContext::PropertyGuardEntry.sharedGuard", entry.Field("sharedGuard"));
+        RemoteBaseDictionary uniqueGuards = entry.Field("uniqueGuards");
+        setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.buckets", uniqueGuards.GetBuckets());
+        setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.entries", uniqueGuards.GetEntries());
+        uniqueGuards.ForEachValue([&](JDRemoteTyped value)
+        {
+            setAddressData("RecyclerWeakReference<Js::PropertyGuard>", value);
+            return false;
+        });
+        if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
+        {
+            RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
+            setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
+            if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
+            {
+                entryPoints.ForEachKey([&](JDRemoteTyped key)
+                {
+                    setAddressData("RecyclerWeakReference<Js::EntryPointInfo>", key);
+                    return false;
+                });
+            }
+        }
+        return false;
+    });
+    RemoteBaseDictionary caseInvariantPropertySet = threadRecyclableData.Field("caseInvariantPropertySet");
+    if (setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet", caseInvariantPropertySet.GetExtRemoteTyped()))
+    {
+        setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.buckets", caseInvariantPropertySet.GetBuckets());
+        setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
+    }
+    JDRemoteTyped boundPropertyStrings = threadRecyclableData.Field("boundPropertyStrings");
+    setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));   
+    if (threadRecyclableData.HasField("symbolRegistrationMap"))  // IE doesn't have symbolRegistrationMap
+    {
+        RemoteBaseDictionary symbolRegistrationMap = threadRecyclableData.Field("symbolRegistrationMap");
+        setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
+        setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
+    }
 
     // For RS2 and below Js::Cache has a vtable, but may be ICF with other type.  Process them first.
     RemoteThreadContext remoteThreadContext(*threadContext);
@@ -430,10 +488,6 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
         if (library.HasField("scriptContextCache"))
         {
             cache = library.Field("scriptContextCache").Cast("Js::Cache");
-        }
-        else if (library.HasField("cache"))
-        {
-            cache = library.Field("cache").GetPointerTo();
         }
         else
         {
@@ -589,6 +643,12 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 }
             };
 
+            auto addNativeArrayFields = [&](JDRemoteTyped arr, char const * segmentName)
+            {
+                addArrayFields(arr, segmentName);
+                addField(arr.Field("weakRefToFuncBody"), "RecyclerWeakReference<Js::FunctionBody>");
+            };
+
             auto addPathTypeBase = [&](JDRemoteTyped pathType, char const * typePathName)
             {
                 JDRemoteTyped typePath = remoteTyped.Field("typePath");
@@ -602,16 +662,21 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 {
                     addDynamicTypeField(remoteTyped.Field("predecessorType"));
                 }
+                addField(typePath.Field("singletonInstance"), "RecyclerWeakReference<Js::DynamicObject>");
             };
 
+#define AddDictionaryFieldOnlyBase(dictionary, name, MACRO) \
+            addField(dictionary.GetBuckets(), MACRO(name ## ".buckets")); \
+            addField(dictionary.GetEntries(), MACRO(name ## ".entries"))
+
 #define AddDictionaryFieldBase(dictionary, name, MACRO) \
-            if (addField(dictionary.GetExtRemoteTyped(), name, true)) \
+            if (addField(dictionary.GetExtRemoteTyped(), MACRO(name), true)) \
             { \
-                addField(dictionary.GetBuckets(), MACRO(name ## ".buckets")); \
-                addField(dictionary.GetEntries(), MACRO(name ## ".entries")); \
+                AddDictionaryFieldOnlyBase(dictionary, name, MACRO); \
             }
 
 #define IDENT_MACRO(n) n
+#define AddDictionaryFieldOnly(dictionary, name) AddDictionaryFieldOnlyBase(dictionary, name, IDENT_MACRO)
 #define AddDictionaryField(dictionary, name) AddDictionaryFieldBase(dictionary, name, IDENT_MACRO)
 
             enum FunctionProxyNameIndex
@@ -636,7 +701,13 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 JDRemoteTyped functionObjectTypeList = functionProxy.GetFunctionObjectTypeList();
                 if (addField(functionObjectTypeList, FUNCTION_PROXY_FIELD_NAME("functionObjectTypeList"), true))
                 {
-                    addField(functionObjectTypeList.Field("buffer"), FUNCTION_PROXY_FIELD_NAME("functionObjectTypeList.buffer"));
+                    JDRemoteTyped buffer = functionObjectTypeList.Field("buffer");
+                    addField(buffer, FUNCTION_PROXY_FIELD_NAME("functionObjectTypeList.buffer"));
+                    int count = functionObjectTypeList.Field("count").GetLong();
+                    for (int i = 0; i < count; i++)
+                    {
+                        addField(buffer.ArrayElement(i), "RecyclerWeakReference<Js::ScriptFunctionType>");
+                    }
                 }
             };
 
@@ -648,38 +719,100 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 AddDictionaryFieldBase(boundPropertyRecords, "{BoundPropertyRecordsDictionary}", FUNCTION_PROXY_FIELD_NAME);
                 addField(parseableFunctionInfo.GetDisplayName(), FUNCTION_PROXY_FIELD_NAME("m_displayName"));
                 addField(parseableFunctionInfo.GetScopeInfo(), FUNCTION_PROXY_FIELD_NAME("m_scopeInfo"));
+                addField(parseableFunctionInfo.GetNestedArray(), FUNCTION_PROXY_FIELD_NAME("nestedArray"));
+                addField(parseableFunctionInfo.GetDeferredPrototypeType(), "Js::ScriptFunctionType");
+                addField(parseableFunctionInfo.GetPropertyIdsForScopeSlotArray(), FUNCTION_PROXY_FIELD_NAME("propertyIdsForScopeSlotArray"));
+                addField(parseableFunctionInfo.GetDeferredStubs(), FUNCTION_PROXY_FIELD_NAME("deferredStubs"));
             };
 #undef FUNCTION_PROXY_FIELD_NAME
+
+            enum EntryPointInfoNameIndex
+            {
+                FunctionEntryPointInfoNameIndex,
+                LoopEntryPointInfoNameIndex
+            };
+#define ENTRY_POINT_FIELD_NAME(n) (nameIndex == FunctionEntryPointInfoNameIndex? "Js::FunctionEntryPointInfo."##n : "Js::LoopEntryPointInfo."##n)
+
+            auto addEntryPointInfoField = [&](JDRemoteTyped remoteTyped, EntryPointInfoNameIndex nameIndex)
+            {
+                RemoteBaseDictionary weakFuncRefSet = remoteTyped.Field("weakFuncRefSet");
+                AddDictionaryFieldBase(weakFuncRefSet, "{WeakFuncRefSet}", ENTRY_POINT_FIELD_NAME);
+                RemoteBaseDictionary sharedPropertyGuards = remoteTyped.Field("sharedPropertyGuards");
+                AddDictionaryFieldBase(sharedPropertyGuards, "{SharedPropertyGuardDictionary}", ENTRY_POINT_FIELD_NAME);
+                int propertyGuardCount = remoteTyped.Field("propertyGuardCount").GetLong();
+                JDRemoteTyped propertyGuardWeakRefs = remoteTyped.Field("propertyGuardWeakRefs");
+                addField(propertyGuardWeakRefs, ENTRY_POINT_FIELD_NAME("propertyGuardWeakRefs"));
+                for (int i = 0; i < propertyGuardCount; i++)
+                {
+                    addField(propertyGuardWeakRefs.ArrayElement(i), "Js::FakePropertyGuardWeakReference");
+                }
+
+                addField(remoteTyped.Field("equivalentTypeCaches"), ENTRY_POINT_FIELD_NAME("equivalentTypeCaches"));
+                JDRemoteTyped constructorCacheList = remoteTyped.Field("constructorCaches");
+                while (addField(constructorCacheList, ENTRY_POINT_FIELD_NAME("{ConstructorCacheList}")))
+                {
+                    constructorCacheList = constructorCacheList.Field("next");
+                }
+                addField(remoteTyped.Field("polymorphicInlineCacheInfo"), ENTRY_POINT_FIELD_NAME("polymorphicInlineCacheInfo"));
+                addField(remoteTyped.Field("jitTransferData"), ENTRY_POINT_FIELD_NAME("jitTransferData"));
+                addField(remoteTyped.Field("runtimeTypeRefs"), ENTRY_POINT_FIELD_NAME("runtimeTypeRefs"));
+                if (remoteTyped.HasField("fieldAccessStats"))
+                {
+                    // DBG_DUMP only
+                    addField(remoteTyped.Field("fieldAccessStats"), nameIndex == FunctionEntryPointInfoNameIndex?
+                        "[DBG_DUMP] Js::FunctionEntryPointInfo.fieldAccessStats" : "[DBG_DUMP] Js::LoopEntryPointInfo.fieldAccessStats");
+                }
+            };
 
             bool isCrossSiteObject = strncmp(simpleTypeName, "Js::CrossSiteObject<", _countof("Js::CrossSiteObject<") - 1) == 0;
 
 #define IsTypeOrCrossSite(type) strcmp(simpleTypeName,  isCrossSiteObject? "Js::CrossSiteObject<" ## type ## "> *" : type ## " *") == 0
 #define TypeOrCrossSiteFieldName(type, field) isCrossSiteObject? "Js::CrossSiteObject<" ## type ## ">." ## field : type ## "." ## field
 
-
-
-            if (strcmp(simpleTypeName, "Js::RecyclableObject *") == 0
-                || strcmp(simpleTypeName, "Js::JavascriptBoolean *") == 0)
+            auto addFunctionFields = [&](JDRemoteTyped remoteTyped)
             {
-                addField(remoteTyped.Field("type"), "Js::StaticType");
-            }
-            else if (strcmp(simpleTypeName, "Js::LiteralString *") == 0)
+                JDRemoteTyped constructorCache = remoteTyped.Field("constructorCache");
+                addField(constructorCache, "Js::ConstructorCache");
+                JDRemoteTyped constructorCacheType = constructorCache.Field("content").Field("type");
+                if (constructorCacheType.GetPtr() != 0)
+                {
+                    addDynamicTypeField(constructorCacheType);
+                }
+            };
+
+            auto addScriptFunctionFields = [&](JDRemoteTyped remoteTyped)
             {
-                addField(remoteTyped.Field("type"), "Js::StaticType");
+                addDynamicObjectFields(remoteTyped, "Js::ScriptFunctionType");
+                addFunctionFields(remoteTyped);
+                JDRemoteTyped frameDisplay = remoteTyped.Field("environment");
+                addField(frameDisplay, "Js::FrameDisplay");
+                uint16 frameDisplayLength = frameDisplay.Field("length").GetUshort();
+                JDRemoteTyped scopes = frameDisplay.Field("scopes");
+                for (uint16 i = 0; i < frameDisplayLength; i++)
+                {
+                    addField(scopes.ArrayElement(i), "Js::FrameDisplayScopeSlots");
+                }
+            };
+
+            if (strcmp(simpleTypeName, "Js::LiteralString *") == 0)
+            {
                 addField(remoteTyped.Field("m_pszValue"), "Js::LiteralString.m_pszValue");
+            }
+            else if (strcmp(simpleTypeName, "Js::LiteralStringWithPropertyStringPtr *") == 0)
+            {
+                addField(remoteTyped.Field("m_pszValue"), "Js::LiteralStringWithPropertyStringPtr.m_pszValue");
             }
             else if (strcmp(simpleTypeName, "Js::BufferStringBuilder::WritableString *") == 0)
             {
-                addField(remoteTyped.Field("type"), "Js::StaticType");
                 addField(remoteTyped.Field("m_pszValue"), "Js::BufferStringBuilder::WritableString.m_pszValue");
-            }
-            else if (strcmp(simpleTypeName, "Js::SingleCharString *") == 0)
+            }            
+            else if (strcmp(simpleTypeName, "Js::SubString *") == 0)
             {
-                addField(remoteTyped.Field("type"), "Js::StaticType");
+                addField(remoteTyped.Field("m_pszValue"), "Js::SubString.m_pszValue");
+                addField(remoteTyped.Field("originalFullStringReference"), "Js::SubString.originalFullStringReference");
             }
             else if (strcmp(simpleTypeName, "Js::CompoundString *") == 0)
             {
-                addField(remoteTyped.Field("type"), "Js::StaticType");
                 addField(remoteTyped.Field("m_pszValue"), "Js::CompoundString.m_pszValue");
                 JDRemoteTyped block = remoteTyped.Field("lastBlock");
                 while (block.GetPtr() != 0)
@@ -694,26 +827,44 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 || IsTypeOrCrossSite("Js::JavascriptStringObject")
                 || IsTypeOrCrossSite("Js::JavascriptBooleanObject")
                 || IsTypeOrCrossSite("Js::JavascriptNumberObject")
-                || IsTypeOrCrossSite("Js::JavascriptSIMDObject"))
+                || IsTypeOrCrossSite("Js::JavascriptSIMDObject")
+                || IsTypeOrCrossSite("Js::RuntimeFunction")
+                || IsTypeOrCrossSite("Js::ActivationObject")
+                || IsTypeOrCrossSite("Js::ActivationObjectEx"))
             {
                 addDynamicObjectFields(remoteTyped);
             }
+            else if (IsTypeOrCrossSite("Js::JavascriptMap"))
+            {
+                addDynamicObjectFields(remoteTyped);
+                RemoteBaseDictionary mapDataMap = remoteTyped.Field("map");
+                AddDictionaryField(mapDataMap, "Js::JavascriptMap::MapDataMap");
+            }
+            else if (IsTypeOrCrossSite("Js::JavascriptSet"))
+            {
+                addDynamicObjectFields(remoteTyped);
+                RemoteBaseDictionary setDataSet = remoteTyped.Field("set");
+                AddDictionaryField(setDataSet, "Js::JavascriptSet::SetDataSet");
+            }
+            else if (IsTypeOrCrossSite("Js::JavascriptWeakMap")
+                || IsTypeOrCrossSite("Js::JavascriptWeakSet"))
+            {
+                addDynamicObjectFields(remoteTyped);
+                RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet");
+                AddDictionaryFieldOnly(keySet, "Js::JavascriptWeakMap::KeySet");
+            }
+            else if (IsTypeOrCrossSite("Js::JavascriptExternalFunction"))
+            {
+                addDynamicObjectFields(remoteTyped);
+                addFunctionFields(remoteTyped);
+            }
             else if (IsTypeOrCrossSite("Js::ScriptFunction"))
             {
-                addDynamicObjectFields(remoteTyped, "Js::ScriptFunctionType");
-                addField(remoteTyped.Field("environment"), "Js::FrameDisplay");
-                JDRemoteTyped constructorCache = remoteTyped.Field("constructorCache");
-                addField(constructorCache, "Js::ConstructorCache");
-                JDRemoteTyped constructorCacheType = constructorCache.Field("content").Field("type");
-                if (constructorCacheType.GetPtr() != 0)
-                {
-                    addDynamicTypeField(constructorCacheType);
-                }
+                addScriptFunctionFields(remoteTyped);
             }
             else if (IsTypeOrCrossSite("Js::ScriptFunctionWithInlineCache"))
             {
-                addDynamicObjectFields(remoteTyped, "Js::ScriptFunctionType");
-                addField(remoteTyped.Field("environment"), "Js::FrameDisplay");
+                addScriptFunctionFields(remoteTyped);
                 addField(remoteTyped.Field("m_inlineCaches"), TypeOrCrossSiteFieldName("Js::ScriptFunctionWithInlineCache", "m_inlineCaches"));
             }
             else if (IsTypeOrCrossSite("Js::BoundFunction"))
@@ -727,19 +878,19 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             }
             else if (IsTypeOrCrossSite("Js::JavascriptNativeIntArray"))
             {
-                addArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptNativeIntArray", "{SparseArraySegments}"));
+                addNativeArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptNativeIntArray", "{SparseArraySegments}"));
             }
             else if (IsTypeOrCrossSite("Js::JavascriptNativeFloatArray"))
             {
-                addArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptNativeFloatArray", "{SparseArraySegments}"));
+                addNativeArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptNativeFloatArray", "{SparseArraySegments}"));
             }
             else if (IsTypeOrCrossSite("Js::JavascriptCopyOnAccessNativeIntArray"))
             {
-                addArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptCopyOnAccessNativeIntArray", "{SparseArraySegments}"));
+                addNativeArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptCopyOnAccessNativeIntArray", "{SparseArraySegments}"));
             }
             else if (IsTypeOrCrossSite("Js::JavascriptCopyOnAccessNativeFloatArray"))
             {
-                addArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptCopyOnAccessNativeFloatArray", "{SparseArraySegments}"));
+                addNativeArrayFields(remoteTyped, TypeOrCrossSiteFieldName("Js::JavascriptCopyOnAccessNativeFloatArray", "{SparseArraySegments}"));
             }
             else if (strcmp(simpleTypeName, "Js::CustomExternalObject *") == 0)
             {
@@ -763,13 +914,13 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
                 addField(remoteTyped.Field("reservedProperties"), "Js::GlobalObject.{ReservedPropertiesHashSet}");
             }
+            else if (strcmp(simpleTypeName, "Js::LoopEntryPointInfo *") == 0)
+            {
+                addEntryPointInfoField(remoteTyped, LoopEntryPointInfoNameIndex);
+            }
             else if (strcmp(simpleTypeName, "Js::FunctionEntryPointInfo *") == 0)
             {
-                JDRemoteTyped constructorCacheList = remoteTyped.Field("constructorCaches");
-                while (addField(constructorCacheList, "Js::FunctionEntryPointInfo.{ConstructorCacheList}"))
-                {
-                    constructorCacheList = constructorCacheList.Field("next");
-                }
+                addEntryPointInfoField(remoteTyped, FunctionEntryPointInfoNameIndex);
             }
             else if (strcmp(simpleTypeName, "Js::DeferDeserializeFunctionInfo *") == 0)
             {
@@ -782,16 +933,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             else if (strcmp(simpleTypeName, "Js::FunctionBody *") == 0)
             {
                 addParseableFunctionInfoFields(remoteTyped, FunctionBodyNameIndex);
-                RemoteFunctionBody functionBody(remoteTyped);
-
+                RemoteFunctionBody functionBody(remoteTyped);                
                 if (functionBody.HasField("counters"))
                 {
                     addField(JDUtil::GetWrappedField(functionBody.Field("counters"), "fields"), "Js::FunctionBody.counters.fields");
-                }
-
-                if (functionBody.HasField("nestedArray"))
-                {
-                    addField(JDUtil::GetWrappedField(functionBody, "nestedArray"), "Js::FunctionBody.nestedArray");
                 }
 
                 JDRemoteTyped byteCodeBlock = functionBody.GetByteCodeBlock();
@@ -821,7 +966,13 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 JDRemoteTyped statementMaps = functionBody.GetStatementMaps();
                 if (addField(statementMaps, "Js::FunctionBody.statementMaps", true))
                 {
-                    addField(statementMaps.Field("buffer"), "Js::FunctionBody.statementMaps.buffer");
+                    int count = statementMaps.Field("count").GetLong();
+                    JDRemoteTyped buffer = statementMaps.Field("buffer");
+                    addField(buffer, "Js::FunctionBody.statementMaps.buffer");
+                    for (int i = 0; i < count; i++)
+                    {
+                        addField(buffer.ArrayElement(i), "Js::FunctionBody::StatementMap");
+                    }                    
                 }
 
                 JDRemoteTyped entryPoints = functionBody.GetEntryPoints();
@@ -917,16 +1068,30 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
                 addField(functionBody.GetConstTable(), "Js::FunctionBody.m_constTable");
                 addField(functionBody.GetCacheIdToPropertyIdMap(), "Js::FunctionBody.cacheIdToPropertyIdMap");
+                addField(functionBody.GetInlineCacheTypes(), "[DBG] Js::FunctionBody.m_inlineCacheTypes");
                 addField(functionBody.GetReferencedPropertyIdMap(), "Js::FunctionBody.referencedPropertyIdMap");
-                addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");
-                addField(functionBody.GetPropertyIdsForScopeSlotArray(), "Js::FunctionBody.propertyIdsForScopeSlotArray");
+                addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");                
+                addField(functionBody.GetObjectLiteralTypes(), "Js::FunctionBody.objLiteralTypes[]");
 
                 RemoteBaseDictionary boundPropertyRecords = functionBody.GetBoundPropertyRecords();
                 AddDictionaryField(boundPropertyRecords, "Js::FunctionBody.{BoundPropertyRecordsDictionary}");
 
                 JDRemoteTyped sourceInfo = functionBody.GetSourceInfo();
                 addField(sourceInfo.Field("pSpanSequence"), "Js::FunctionBody.sourceInfo.pSpanSequence");
-                addField(JDUtil::GetWrappedField(sourceInfo, "m_auxStatementData"), "Js::FunctionBody.sourceInfo.m_auxStatementData");
+                JDRemoteTyped auxStatementData = JDUtil::GetWrappedField(sourceInfo, "m_auxStatementData");
+                if (addField(auxStatementData, "Js::FunctionBody::AuxStatementData"))
+                {
+                    JDRemoteTyped statementAdjustmentRecords = auxStatementData.Field("m_statementAdjustmentRecords");
+                    if (addField(statementAdjustmentRecords, "Js::FunctionBody::StatementAdjustmentRecordList", true))
+                    {
+                        addField(statementAdjustmentRecords.Field("buffer"), "Js::FunctionBody::StatementAdjustmentRecordList.buffer");
+                    }
+                    JDRemoteTyped crossFrameBlockEntryExisRecords = auxStatementData.Field("m_crossFrameBlockEntryExisRecords");
+                    if (addField(crossFrameBlockEntryExisRecords, "Js::FunctionBody::CrossFrameEntryExitRecordList", true))
+                    {
+                        addField(crossFrameBlockEntryExisRecords.Field("buffer"), "Js::FunctionBody::CrossFrameEntryExitRecordList.buffer");
+                    }
+                }
                 JDRemoteTyped scopeObjectChain = JDUtil::GetWrappedField(sourceInfo, "pScopeObjectChain");
                 if (addField(scopeObjectChain, "Js::FunctionBody.sourceInfo.pScopeObjectChain"))
                 {
@@ -945,6 +1110,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                             addField(debuggerScopePropertyList.Field("buffer"), "Js::DebuggerScope.scopeProperties.buffer");
                         }
                     }
+                }
+
+                
+                JDRemoteTyped propertyIdOnRegSlotsContainer = functionBody.GetPropertyIdOnRegSlotsContainer();
+                if (addField(propertyIdOnRegSlotsContainer, "Js::FunctionBody.propertyIdOnRegSlotsContainer"))
+                {
+                    addField(propertyIdOnRegSlotsContainer.Field("propertyIdsForRegSlots"), "Js::FunctionBody.propertyIdOnRegSlotsContainer.propertyIdsForRegSlots");
+                    addField(propertyIdOnRegSlotsContainer.Field("propertyIdsForFormalArgs"), "Js::FunctionBody.propertyIdOnRegSlotsContainer.propertyIdsForFormalArgs");
                 }
             }
             else if (strcmp(simpleTypeName, "Js::SimpleSourceHolder *") == 0)
@@ -991,6 +1164,19 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     }
                 }
             }
+            else if (STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryTypeHandlerBase") 
+                || STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryUnorderedTypeHandler"))
+            {
+                addField(remoteTyped.Field("singletonInstance"), "RecyclerWeakReference<Js::DynamicObject>");
+                RemoteBaseDictionary propertyMap = remoteTyped.Field("propertyMap");
+                AddDictionaryField(propertyMap, "Js::SimpleDictionaryTypeHandlerBase<>.{PropertyDescriptorMap}");
+            }
+            else if (STR_START_WITH(simpleTypeName, "Js::DictionaryTypeHandlerBase"))
+            {
+                addField(remoteTyped.Field("singletonInstance"), "RecyclerWeakReference<Js::DynamicObject>");
+                RemoteBaseDictionary propertyMap = remoteTyped.Field("propertyMap");
+                AddDictionaryField(propertyMap, "Js::DictionaryTypeHandlerBase<>.{PropertyDescriptorMap}");
+            }
             else if (strcmp(simpleTypeName, "Js::Utf8SourceInfo *") == 0)
             {
                 RemoteUtf8SourceInfo utf8SourceInfo(remoteTyped);
@@ -1019,6 +1205,22 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(program.Field("source"), "UnifiedRegex::Program.source");
                 addField(unifiedRep.Field("matcher"), "UnifiedRegex::Matcher");
                 addField(unifiedRep.Field("trigramInfo"), "UnifiedRegex::TrigramInfo");
+                if (ENUM_EQUAL(program.Field("tag").GetSimpleValue(), InstructionsTag)
+                    || ENUM_EQUAL(program.Field("tag").GetSimpleValue(), BOIInstructionsTag))
+                {
+                    JDRemoteTyped repInsts = program.Field("rep").Field("insts");
+                    addField(repInsts.Field("insts"), "UnifiedRegex::Program::Instructions.insts");
+                    addField(repInsts.Field("litbuf"), "UnifiedRegex::Program::Instructions.litbuf");
+                    JDRemoteTyped scannerInfoArray = repInsts.Field("scannersForSyncToLiterals");
+                    if (addField(scannerInfoArray, "UnifiedRegex::ScannerInfo *[]"))
+                    {
+                        int scannerInfoArraySize = ExtRemoteTyped("UnifiedRegex::ScannersMixin::MaxNumSyncLiterals").GetLong();
+                        for (int i = 0; i < scannerInfoArraySize; i++)
+                        {
+                            addField(scannerInfoArray.ArrayElement(i), "UnifiedRegex::ScannerInfo");
+                        }
+                    }
+                }
             }
             else if (strcmp(simpleTypeName, "Js::JavascriptPromise *") == 0)
             {
@@ -1042,6 +1244,117 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             }
             else if (strcmp(simpleTypeName, "Js::JavascriptLibrary *") == 0)
             { 
+                auto addStaticTypeField = [&](JDRemoteTyped type)
+                {
+                    addField(type, "Js::StaticType");
+                    addField(type.Field("propertyCache"), "Js::StaticType.propertyCache", false, javascriptLibrary);
+                };
+
+                if (remoteTyped.HasField("stringCache"))
+                {
+                    // From RS4
+                    addStaticTypeField(remoteTyped.Field("stringCache").Field("stringTypeStatic"));
+                }
+                else
+                {
+                    addStaticTypeField(remoteTyped.Field("stringTypeStatic"));
+                }
+                
+                addStaticTypeField(remoteTyped.Field("booleanTypeStatic"));
+                addStaticTypeField(remoteTyped.Field("variantDateType"));
+                addStaticTypeField(remoteTyped.Field("symbolTypeStatic"));
+                addStaticTypeField(remoteTyped.Field("enumeratorType"));
+                addStaticTypeField(remoteTyped.Field("numberTypeStatic"));
+                addStaticTypeField(remoteTyped.Field("int64NumberTypeStatic"));
+                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));
+                addStaticTypeField(remoteTyped.Field("withType"));
+                addStaticTypeField(remoteTyped.Field("throwErrorObjectType"));
+
+                auto tryAddDynamicTypeField = [&](char const * fieldName)
+                {
+                    if (remoteTyped.HasField(fieldName))
+                    {
+                        JDRemoteTyped field = remoteTyped.Field(fieldName);
+                        if (field.GetPtr() != 0)
+                        {
+                            addDynamicTypeField(field);
+                        }
+                    }
+                };
+                tryAddDynamicTypeField("generatorConstructorPrototypeObjectType");
+                tryAddDynamicTypeField("constructorPrototypeObjectType");
+                tryAddDynamicTypeField("heapArgumentsType");
+                tryAddDynamicTypeField("activationObjectType");
+                tryAddDynamicTypeField("arrayType");
+                tryAddDynamicTypeField("nativeIntArrayType");
+                tryAddDynamicTypeField("copyOnAccessNativeIntArrayType");
+                tryAddDynamicTypeField("nativeFloatArrayType");
+                tryAddDynamicTypeField("arrayBufferType");
+                tryAddDynamicTypeField("sharedArrayBufferType");
+                tryAddDynamicTypeField("dataViewType");
+                tryAddDynamicTypeField("int8ArrayType");
+                tryAddDynamicTypeField("uint8ArrayType");
+                tryAddDynamicTypeField("uint8ClampedArrayType");
+                tryAddDynamicTypeField("int16ArrayType");
+                tryAddDynamicTypeField("uint16ArrayType");
+                tryAddDynamicTypeField("int32ArrayType");
+                tryAddDynamicTypeField("uint32ArrayType");
+                tryAddDynamicTypeField("float32ArrayType");
+                tryAddDynamicTypeField("float64ArrayType");
+                tryAddDynamicTypeField("int64ArrayType");
+                tryAddDynamicTypeField("uint64ArrayType");
+                tryAddDynamicTypeField("boolArrayType");
+                tryAddDynamicTypeField("charArrayType");                
+                tryAddDynamicTypeField("booleanTypeDynamic");
+                tryAddDynamicTypeField("dateType");
+                tryAddDynamicTypeField("symbolTypeDynamic");
+                tryAddDynamicTypeField("iteratorResultType");
+                tryAddDynamicTypeField("arrayIteratorType");
+                tryAddDynamicTypeField("mapIteratorType");
+                tryAddDynamicTypeField("setIteratorType");
+                tryAddDynamicTypeField("stringIteratorType");
+                tryAddDynamicTypeField("promiseType");
+                tryAddDynamicTypeField("listIteratorType");
+
+                tryAddDynamicTypeField("externalFunctionWithDeferredPrototypeType");
+                tryAddDynamicTypeField("wrappedFunctionWithDeferredPrototypeType");
+                tryAddDynamicTypeField("stdCallFunctionWithDeferredPrototypeType");
+                tryAddDynamicTypeField("idMappedFunctionWithPrototypeType");
+                tryAddDynamicTypeField("externalConstructorFunctionWithDeferredPrototypeType");
+                tryAddDynamicTypeField("defaultExternalConstructorFunctionWithDeferredPrototypeType");
+                tryAddDynamicTypeField("boundFunctionType");
+                tryAddDynamicTypeField("regexConstructorType");
+                tryAddDynamicTypeField("crossSiteDeferredPrototypeFunctionType");
+                tryAddDynamicTypeField("crossSiteIdMappedFunctionWithPrototypeType");
+                tryAddDynamicTypeField("crossSiteExternalConstructFunctionWithPrototypeType");
+                tryAddDynamicTypeField("errorType");
+                tryAddDynamicTypeField("evalErrorType");
+                tryAddDynamicTypeField("rangeErrorType");
+                tryAddDynamicTypeField("referenceErrorType");
+                tryAddDynamicTypeField("syntaxErrorType");
+                tryAddDynamicTypeField("typeErrorType");
+                tryAddDynamicTypeField("uriErrorType");
+                tryAddDynamicTypeField("webAssemblyCompileErrorType");
+                tryAddDynamicTypeField("webAssemblyRuntimeErrorType");
+                tryAddDynamicTypeField("webAssemblyLinkErrorType");
+                tryAddDynamicTypeField("webAssemblyModuleType");
+                tryAddDynamicTypeField("webAssemblyInstanceType");
+                tryAddDynamicTypeField("webAssemblyMemoryType");
+                tryAddDynamicTypeField("webAssemblyTableType");
+
+                tryAddDynamicTypeField("numberTypeDynamic");
+                tryAddDynamicTypeField("regexPrototypeType");
+                tryAddDynamicTypeField("regexType");
+                tryAddDynamicTypeField("regexResultType");
+                tryAddDynamicTypeField("stringTypeDynamic");
+                tryAddDynamicTypeField("mapType");
+                tryAddDynamicTypeField("setType");
+                tryAddDynamicTypeField("weakMapType");
+                tryAddDynamicTypeField("weakSetType");
+                tryAddDynamicTypeField("proxyType");
+                tryAddDynamicTypeField("SpreadArgumentType");
+                tryAddDynamicTypeField("moduleNamespaceType");
+
                 JDRemoteTyped list = remoteTyped.Field("typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain");
                 if (addField(list, "Js::JavascriptLibrary.typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain", true))
                 {
@@ -1057,6 +1370,77 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
                 RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
                 AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap");
+                propertyStringMap.ForEachValue([&](JDRemoteTyped value)
+                {
+                    addField(value, "RecyclerWeakReference<Js::PropertyString>");
+                    return false;
+                });
+                JDRemoteTyped bindRefChunk = remoteTyped.Field("bindRefChunkBegin");
+                do
+                {
+                    addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
+                    bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + remoteThreadContext.GetRecycler().GetObjectGranularity() - g_Ext->m_PtrSize);
+                }
+                while (bindRefChunk.GetPtr() != 0);
+                addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
+                if (remoteTyped.HasField("referencedPropertyRecords"))
+                {
+                    RemoteBaseDictionary referencedPropertyRecords = remoteTyped.Field("referencedPropertyRecords");
+                    AddDictionaryField(referencedPropertyRecords, "Js::JavascriptLibrary.referencedPropertyRecords");
+                }
+                if (remoteTyped.HasField("cache"))
+                {
+                    auto addEvalCacheDictionary = [&](JDRemoteTyped evalCacheDictionary)
+                    {
+                        if (addField(evalCacheDictionary, "Js::EvalCacheDictionary"))
+                        {
+                            JDRemoteTyped dictionary = evalCacheDictionary.Field("dictionary");
+                            addField(dictionary, "Js::EvalCacheTopLevelDictionary");
+                            RemoteBaseDictionary cacheStore = dictionary.Field("cacheStore");
+                            AddDictionaryField(cacheStore, "Js::EvalCacheTopLevelDictionary.cacheStore");
+                            cacheStore.ForEachEntry([&](JDRemoteTyped entry)
+                            {
+                                JDRemoteTyped evalString = entry.Field("key");
+                                addField(evalString.Field("str").Field("string"), "Js::EvalMapString");
+                                JDRemoteTyped record = entry.Field("value");
+                                if (!record.Field("singleValue").GetStdBool())
+                                {
+                                    RemoteBaseDictionary secondLevelDictionary = record.Field("nestedMap");
+                                    AddDictionaryField(secondLevelDictionary, "Js::SecondLevelEvalCache");
+                                }
+                                return false;
+                            });
+                        }
+                    };
+                    JDRemoteTyped cache = remoteTyped.Field("cache");
+                    addEvalCacheDictionary(cache.Field("evalCacheDictionary"));
+                    addEvalCacheDictionary(cache.Field("indirectEvalCacheDictionary"));                   
+                    addField(cache.Field("newFunctionCache"), "Js::JavascriptLibrary.Cache.newFunctionCache");
+                    addField(cache.Field("dynamicRegexMap"), "Js::JavascriptLibrary.Cache.dynamicRegexMap");
+
+                    auto addSourceContextField = [&](JDRemoteTyped sourceContextInfo)
+                    {
+                        addField(sourceContextInfo, "SourceContextInfo");
+                        addField(sourceContextInfo.Field("sourceDynamicProfileManager"), "SourceDynamicProfileManager");
+                        return false;
+                    };
+
+                    RemoteBaseDictionary sourceContextInfoMap = cache.Field("sourceContextInfoMap");
+                    AddDictionaryField(sourceContextInfoMap, "Js::JavascriptLibrary.Cache.sourceContextInfoMap");
+                    if (sourceContextInfoMap.GetExtRemoteTyped().GetPtr() != 0)
+                    {
+                        sourceContextInfoMap.ForEachValue(addSourceContextField);
+                    }
+                    RemoteBaseDictionary dynamicSourceContextInfoMap = cache.Field("dynamicSourceContextInfoMap");
+                    AddDictionaryField(dynamicSourceContextInfoMap, "Js::JavascriptLibrary.Cache.dynamicSourceContextInfoMap");
+                    if (dynamicSourceContextInfoMap.GetExtRemoteTyped().GetPtr() != 0)
+                    {
+                        dynamicSourceContextInfoMap.ForEachValue(addSourceContextField);
+                    }
+                    addField(cache.Field("noContextSourceContextInfo"), "Js::JavascriptLibrary.Cache.noContextSourceContextInfo");
+                    addField(cache.Field("noContextGlobalSourceInfo"), "Js::JavascriptLibrary.Cache.noContextGlobalSourceInfo");
+
+                }
             }
             else if (strcmp(simpleTypeName, "HostDispatch *") == 0)
             {
@@ -1065,6 +1449,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 // RefCountedHostVariant vtable is ICF with others, force it from HostDispatch which will also assign the library as well
                 addField(refCountedHostVariant, "RefCountedHostVariant", true);
                 addField(refCountedHostVariant.Field("hostVariant"), "HostVariant", true);
+            }
+            else if (strcmp(simpleTypeName, "Js::CaseInvariantPropertyListWithHashCode *") == 0)
+            {
+                
+                int count = remoteTyped.Field("count").GetLong();
+                JDRemoteTyped buffer = remoteTyped.Field("buffer");
+                addField(buffer, "Js::CaseInvariantPropertyListWithHashCode.buffer");
+                for (int i = 0; i < count; i++)
+                {
+                    addField(buffer.ArrayElement(i), "RecyclerWeakReference<Js::PropertyRecord>");
+                }
             }
             else
             {
