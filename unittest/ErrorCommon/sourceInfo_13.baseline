@@ -1,0 +1,3 @@
+CustomError: 123
+	at get obj.foo() (sourceInfo_13.js:17:9)
+	at Global code (sourceInfo_13.js:21:1)

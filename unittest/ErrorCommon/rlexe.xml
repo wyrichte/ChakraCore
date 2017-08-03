@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<regress-exe>
+<!-- These tests will be executed from core\test\Error, so give them the relative path to these baselines -->
+  <test>
+    <default>
+      <files>sourceInfo_01.js</files>
+      <baseline>..\..\..\unittest\ErrorCommon\sourceInfo_01.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>sourceInfo_11.js</files>
+      <baseline>..\..\..\unittest\ErrorCommon\sourceInfo_11.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>sourceInfo_13.js</files>
+      <baseline>..\..\..\unittest\ErrorCommon\sourceInfo_13.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>sourceInfo_20.js</files>
+      <baseline>..\..\..\unittest\ErrorCommon\sourceInfo_20.baseline</baseline>
+    </default>
+  </test>
+</regress-exe>

@@ -73,6 +73,12 @@
 </dir>
 <dir>
   <default>
+    <files>ErrorCommon</files>
+    <sourcepath>..\core\test\Error</sourcepath>
+  </default>
+</dir>
+<dir>
+  <default>
     <files>Math</files>
   </default>
 </dir>
