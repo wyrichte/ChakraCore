@@ -1,0 +1,3 @@
+CustomError: 123
+	at obj.func() (sourceInfo_11.js:17:9)
+	at Global code (sourceInfo_11.js:21:1)
