@@ -115,7 +115,9 @@ EXT_COMMAND(fb,
     }
 
     inputType = JDUtil::StripStructClass(inputType);
-    if (strcmp(inputType, "Js::FunctionBody") == 0 || strcmp(inputType, "Js::FunctionBody *") == 0)
+    if (strcmp(inputType, "Js::FunctionBody") == 0 || strcmp(inputType, "Js::FunctionBody *") == 0
+        || strcmp(inputType, "Js::ParseableFunctionInfo") == 0
+        || strcmp(inputType, "Js::ParseableFunctionInfo *") == 0)
     {
         functionBody = input;
     }
