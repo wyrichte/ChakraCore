@@ -79,7 +79,6 @@
       <!-- IsMessageBoxWPresent -->
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'!='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-1.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">%(DelayLoadDLLs);api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
       <!-- Pogo switches -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
