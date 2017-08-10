@@ -3721,7 +3721,7 @@
     <file src="sdk\lib\onecore\amd64\1.5\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.5" />
     <file src="sdk\lib\onecore\amd64\1.6\onecore.lib"                                                           target="sdk\lib\onecore\amd64\1.6" />
     <file src="sdk\lib\onecore\arm\1.0\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.0" />
-    <file src="sdk\lib\onecore\arm\1.1\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.0" />
+    <file src="sdk\lib\onecore\arm\1.1\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.1" />
     <file src="sdk\lib\onecore\arm\1.3\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.3" />
     <file src="sdk\lib\onecore\arm\1.5\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.5" />
     <file src="sdk\lib\onecore\arm\1.6\onecore.lib"                                                             target="sdk\lib\onecore\arm\1.6" />
