@@ -26,6 +26,7 @@
     <RazzleConfigurationPath Condition="'$(Configuration)'=='Debug'">chk</RazzleConfigurationPath>
     <RazzleConfigurationPath Condition="'$(Configuration)'!='Debug'">fre</RazzleConfigurationPath>
     <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\..\..\sdpublic</PUBLIC_ROOT>
+    <OSBUILDTOOLSROOT Condition="'$(OSBUILDTOOLSROOT)'==''">$(RazzleToolPath)</OSBUILDTOOLSROOT>
 
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\..\..\tools</RazzleToolPath>
     <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
@@ -35,9 +36,9 @@
     <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
        
-    <ExecutablePath>$(RazzleToolPath)\vc\HostX86\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
-    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'!='true'">$(RazzleToolPath)\vc\HostX64\amd64;$(RazzleToolPath)\amd64</ExecutablePath>
-    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'=='true'">$(RazzleToolPath)\vc\HostX86\amd64;$(RazzleToolPath)\x86</ExecutablePath>
+    <ExecutablePath>$(OSBUILDTOOLSROOT)\vc\HostX86\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'!='true'">$(OSBUILDTOOLSROOT)\vc\HostX64\amd64;$(RazzleToolPath)\amd64</ExecutablePath>
+    <ExecutablePath Condition="'$(Platform)'=='x64' and '$(BuildingInsideVisualStudio)'=='true'">$(OSBUILDTOOLSROOT)\vc\HostX86\amd64;$(RazzleToolPath)\x86</ExecutablePath>
    
     <GenerateManifest>false</GenerateManifest>
     <!-- disable incremental build because some library from public contains /GL objects -->
@@ -52,11 +53,6 @@
     <ChakraPublishIntDir>$(IntDir)..\Publish</ChakraPublishIntDir>
 
     <ChakraCommonMemoryLib>$(IntDir)..\Chakra.Common.Memory\Chakra.Common.Memory.lib</ChakraCommonMemoryLib>
-
-    <!-- ======== From Microsoft.Build.settings ======== -->
-    <NtTargetVersion_Win7 >0x601</NtTargetVersion_Win7>
-    <NtTargetVersion_Win8 >0x602</NtTargetVersion_Win8>
-    <NtTargetVersion_Win10>0xA00</NtTargetVersion_Win10>
 
     <!-- ========= From makefile.def ========= -->
     <LinkerAppVersion Condition="'$(LinkerAppVersion)' == ''">10.0</LinkerAppVersion>
