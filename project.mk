@@ -7,8 +7,8 @@ NO_LKG171_FLAGS=1
 # don't include implicit disable warnings
 DISABLE_IMPLICIT_COMPILER_WARNING_SUPPRESSION=1
 
-# inetcore\project.mk and inetcore.pathdefinitions.sources.inc disabled some warning that we still want. 
-# Override with our own list.  
+# inetcore\project.mk and inetcore.pathdefinitions.sources.inc disabled some warning that we still want.
+# Override with our own list.
 # All of these are for the benefit of test code that doesn't include lib\common\warnings.
 
 # 4100: unreferenced formal parameter
@@ -174,7 +174,7 @@ MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /O2
 !endif
 
 !ifdef X86
-# MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /arch:SSE2
+MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /arch:SSE2
 NOFTOL3=1
 !endif
 

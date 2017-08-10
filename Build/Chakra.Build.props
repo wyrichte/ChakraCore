@@ -77,6 +77,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
+      <!-- ========= For x86 sse2 Math ========= -->
+      <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
+      <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+
       <!-- ========= For IESettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
 
@@ -117,7 +121,6 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
-      <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
 
       <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
       <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->
