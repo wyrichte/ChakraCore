@@ -40,7 +40,7 @@
   </PropertyGroup>
   <!-- Common build settings -->
   <PropertyGroup>
-    <NtTargetVersion>$(NtTargetVersion_Win8)</NtTargetVersion>
+    <NtTargetVersion>$(NtTargetVersion_WinBlue)</NtTargetVersion>
   </PropertyGroup>
   <!-- Release builds should target RS2 -->
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

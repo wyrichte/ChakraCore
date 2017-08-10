@@ -15,6 +15,7 @@
 
     <ApiSetTargetVersion_1_0>0x0100</ApiSetTargetVersion_1_0>
     <ApiSetTargetVersion_1_1>0x0101</ApiSetTargetVersion_1_1>
+    <ApiSetTargetVersion_1_2>0x0102</ApiSetTargetVersion_1_2>
     <ApiSetTargetVersion_1_4>0x0104</ApiSetTargetVersion_1_4>
 
     <MinCoreTargetVersion_1_0>0x0100</MinCoreTargetVersion_1_0>
@@ -25,6 +26,7 @@
     <MinWinTargetVersion_1_4>0x0104</MinWinTargetVersion_1_4>
 
     <OneCoreTargetVersion_1_0>0x0100</OneCoreTargetVersion_1_0>
+    <OneCoreTargetVersion_1_1>0x0101</OneCoreTargetVersion_1_1>
     <OneCoreTargetVersion_1_3>0x0103</OneCoreTargetVersion_1_3>
     <OneCoreTargetVersion_1_6>0x0106</OneCoreTargetVersion_1_6>
 
@@ -32,10 +34,12 @@
     <!-- ========= From tools\makefile.api ========= -->
     <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(ApiSetTargetVersion_1_0)</ApiSetTargetVersion>
     <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win8)'">$(ApiSetTargetVersion_1_1)</ApiSetTargetVersion>
+    <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_WinBlue)'">$(ApiSetTargetVersion_1_2)</ApiSetTargetVersion>
     <ApiSetTargetVersion Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win10)'">$(ApiSetTargetVersion_1_4)</ApiSetTargetVersion>
 
     <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_0)'">$(MinWinTargetVersion_1_0)</MinWinTargetVersion>
     <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_1)'">$(MinWinTargetVersion_1_1)</MinWinTargetVersion>
+    <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_2)'">$(MinWinTargetVersion_1_1)</MinWinTargetVersion>
     <MinWinTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(MinWinTargetVersion_1_4)</MinWinTargetVersion>
 
     <MinWinTargetVersionStr Condition="'$(MinWinTargetVersion)'=='$(MinWinTargetVersion_1_0)'">1.0</MinWinTargetVersionStr>
@@ -43,19 +47,23 @@
     <MinWinTargetVersionStr Condition="'$(MinWinTargetVersion)'=='$(MinWinTargetVersion_1_4)'">1.4</MinWinTargetVersionStr>
 
     <MinCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(MinCoreTargetVersion_1_0)</MinCoreTargetVersion>
+    <MinCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_2)'">$(MinCoreTargetVersion_1_0)</MinCoreTargetVersion>
     <MinCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(MinCoreTargetVersion_1_3)</MinCoreTargetVersion>
 
     <MinCoreTargetVersionStr Condition="'$(MinCoreTargetVersion)'=='$(MinCoreTargetVersion_1_0)'">1.0</MinCoreTargetVersionStr>
     <MinCoreTargetVersionStr Condition="'$(MinCoreTargetVersion)'=='$(MinCoreTargetVersion_1_3)'">1.3</MinCoreTargetVersionStr>
 
     <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(OneCoreTargetVersion_1_0)</OneCoreTargetVersion>
+    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_2)'">$(OneCoreTargetVersion_1_1)</OneCoreTargetVersion>
     <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_6)</OneCoreTargetVersion>
 
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">1.0</OneCoreTargetVersionStr>
+    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_1)'">1.1</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_3)'">1.3</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">1.6</OneCoreTargetVersionStr>
 
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">6.2</WindowsVersionStr>
+    <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_2)'">6.3</WindowsVersionStr>
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">10.0</WindowsVersionStr>
 
 
