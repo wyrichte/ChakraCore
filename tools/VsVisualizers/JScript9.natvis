@@ -360,4 +360,23 @@
       </LinkedListItems>
     </Expand>
   </Type>
+  <Type Name="JsUtil::BaseDictionary&lt;*&gt;">
+    <DisplayString Condition="count > 0">Size = {count}</DisplayString>
+    <DisplayString Condition="count == 0">Empty</DisplayString>
+    <Expand>
+      <Item Name="[size]">count</Item>
+      <CustomListItems>
+        <Variable Name="iBucket" InitialValue="0" />
+        <Variable Name="iEntry" InitialValue="0" />
+        <Loop Condition="iBucket &lt; this->bucketCount">
+          <Exec>iEntry = this->buckets[iBucket]</Exec>
+          <Loop Condition="iEntry >= 0">
+            <Item>this->entries[iEntry].value</Item>
+            <Exec>iEntry = this->entries[iEntry].next</Exec>
+          </Loop>
+          <Exec>iBucket++</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
 </AutoVisualizer>
