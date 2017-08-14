@@ -18,7 +18,7 @@ RemoteFunctionInfo::GetFunctionBody()
 {
     if (!HasBody())
     {
-        return RemoteFunctionBody();
+        return RemoteFunctionBody(0);
     }
     // TODO: Proxy check?
     if (functionInfo.HasField("functionBodyImpl"))

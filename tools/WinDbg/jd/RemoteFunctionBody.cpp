@@ -343,7 +343,7 @@ RemoteFunctionBody::PrintSourceUrl()
     }
     if (isDynamic)
     {
-        GetExtension()->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetPtr());
+        GetExtension()->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetUlong());
     }
     else
     {

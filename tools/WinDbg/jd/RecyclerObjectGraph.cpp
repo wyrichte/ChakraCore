@@ -241,7 +241,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             {
                 return library;
             }
-        }        
+        }
     }
 
     if (strcmp(simpleTypeName, "Js::FunctionEntryPointInfo *") == 0
@@ -471,11 +471,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
         setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
     }
     JDRemoteTyped boundPropertyStrings = threadRecyclableData.Field("boundPropertyStrings");
-    setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));   
+    setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));
     if (threadRecyclableData.HasField("symbolRegistrationMap"))  // IE doesn't have symbolRegistrationMap
     {
         RemoteBaseDictionary symbolRegistrationMap = threadRecyclableData.Field("symbolRegistrationMap");
-        if (symbolRegistrationMap.GetExtRemoteTyped().GetPtr())
+        if (setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap", symbolRegistrationMap.GetExtRemoteTyped()))
         {
             setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
             setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
@@ -496,7 +496,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
         {
             return false;
         }
-        
+
         if (cache.GetPtr() != 0)
         {
             ULONG64 javascriptLibrary = library.GetPtr();
@@ -525,7 +525,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
     class AutoError
     {
-    public:        
+    public:
         ~AutoError()
         {
             if (objectAddress != 0)
@@ -570,7 +570,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
         {
             return;
         }
-        
+
         autoError.Start(objectAddress, typeName);
 
         char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
@@ -808,7 +808,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             else if (strcmp(simpleTypeName, "Js::BufferStringBuilder::WritableString *") == 0)
             {
                 addField(remoteTyped.Field("m_pszValue"), "Js::BufferStringBuilder::WritableString.m_pszValue");
-            }            
+            }
             else if (strcmp(simpleTypeName, "Js::SubString *") == 0)
             {
                 addField(remoteTyped.Field("m_pszValue"), "Js::SubString.m_pszValue");
@@ -936,7 +936,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             else if (strcmp(simpleTypeName, "Js::FunctionBody *") == 0)
             {
                 addParseableFunctionInfoFields(remoteTyped, FunctionBodyNameIndex);
-                RemoteFunctionBody functionBody(remoteTyped);                
+                RemoteFunctionBody functionBody(remoteTyped);
                 if (functionBody.HasField("counters"))
                 {
                     addField(JDUtil::GetWrappedField(functionBody.Field("counters"), "fields"), "Js::FunctionBody.counters.fields");
@@ -975,7 +975,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     for (int i = 0; i < count; i++)
                     {
                         addField(buffer.ArrayElement(i), "Js::FunctionBody::StatementMap");
-                    }                    
+                    }
                 }
 
                 JDRemoteTyped entryPoints = functionBody.GetEntryPoints();
@@ -1052,11 +1052,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(JDUtil::GetWrappedField(functionBody.GetPolymorphicInlineCaches(), "inlineCaches"), "Js::FunctionBody.{PolymorphicInlineCaches[]}");
 
                 JDRemoteTyped polymorphicInlineCachesHead = functionBody.GetPolymorphicInlineCachesHead();
-                
+
                 char const * polymorphicInlineCachesTypeName = nullptr;
                 while (polymorphicInlineCachesHead.GetPtr())
                 {
-                    // polymorphicInlineCache has a vtable, but it is a leaf, so if we have false reference to it, 
+                    // polymorphicInlineCache has a vtable, but it is a leaf, so if we have false reference to it,
                     // the data that it points to may be invalid. So better to override the vtable inferred info here.
 
                     if (!polymorphicInlineCachesTypeName)
@@ -1073,7 +1073,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(functionBody.GetCacheIdToPropertyIdMap(), "Js::FunctionBody.cacheIdToPropertyIdMap");
                 addField(functionBody.GetInlineCacheTypes(), "[DBG] Js::FunctionBody.m_inlineCacheTypes");
                 addField(functionBody.GetReferencedPropertyIdMap(), "Js::FunctionBody.referencedPropertyIdMap");
-                addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");                
+                addField(functionBody.GetLiteralRegexes(), "Js::FunctionBody.literalRegexes");
                 addField(functionBody.GetObjectLiteralTypes(), "Js::FunctionBody.objLiteralTypes[]");
 
                 RemoteBaseDictionary boundPropertyRecords = functionBody.GetBoundPropertyRecords();
@@ -1115,7 +1115,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     }
                 }
 
-                
+
                 JDRemoteTyped propertyIdOnRegSlotsContainer = functionBody.GetPropertyIdOnRegSlotsContainer();
                 if (addField(propertyIdOnRegSlotsContainer, "Js::FunctionBody.propertyIdOnRegSlotsContainer"))
                 {
@@ -1167,7 +1167,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     }
                 }
             }
-            else if (STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryTypeHandlerBase") 
+            else if (STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryTypeHandlerBase")
                 || STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryUnorderedTypeHandler"))
             {
                 addField(remoteTyped.Field("singletonInstance"), "RecyclerWeakReference<Js::DynamicObject>");
@@ -1228,7 +1228,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             else if (strcmp(simpleTypeName, "Js::JavascriptPromise *") == 0)
             {
                 auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
-                {                    
+                {
                     if (addField(reactionList, "Js::JavascriptPromiseReactionList", true))
                     {
                         int count = reactionList.Field("count").GetLong();
@@ -1246,7 +1246,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addPromiseReactionList(remoteTyped.Field("rejectReactions"));
             }
             else if (strcmp(simpleTypeName, "Js::JavascriptLibrary *") == 0)
-            { 
+            {
                 auto addStaticTypeField = [&](JDRemoteTyped type)
                 {
                     addField(type, "Js::StaticType");
@@ -1262,7 +1262,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 {
                     addStaticTypeField(remoteTyped.Field("stringTypeStatic"));
                 }
-                
+
                 addStaticTypeField(remoteTyped.Field("booleanTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("variantDateType"));
                 addStaticTypeField(remoteTyped.Field("symbolTypeStatic"));
@@ -1307,7 +1307,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 tryAddDynamicTypeField("int64ArrayType");
                 tryAddDynamicTypeField("uint64ArrayType");
                 tryAddDynamicTypeField("boolArrayType");
-                tryAddDynamicTypeField("charArrayType");                
+                tryAddDynamicTypeField("charArrayType");
                 tryAddDynamicTypeField("booleanTypeDynamic");
                 tryAddDynamicTypeField("dateType");
                 tryAddDynamicTypeField("symbolTypeDynamic");
@@ -1417,7 +1417,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     };
                     JDRemoteTyped cache = remoteTyped.Field("cache");
                     addEvalCacheDictionary(cache.Field("evalCacheDictionary"));
-                    addEvalCacheDictionary(cache.Field("indirectEvalCacheDictionary"));                   
+                    addEvalCacheDictionary(cache.Field("indirectEvalCacheDictionary"));
                     addField(cache.Field("newFunctionCache"), "Js::JavascriptLibrary.Cache.newFunctionCache");
                     addField(cache.Field("dynamicRegexMap"), "Js::JavascriptLibrary.Cache.dynamicRegexMap");
 
@@ -1455,7 +1455,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             }
             else if (strcmp(simpleTypeName, "Js::CaseInvariantPropertyListWithHashCode *") == 0)
             {
-                
+
                 int count = remoteTyped.Field("count").GetLong();
                 JDRemoteTyped buffer = remoteTyped.Field("buffer");
                 addField(buffer, "Js::CaseInvariantPropertyListWithHashCode.buffer");
@@ -1512,7 +1512,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
             updated.push(node);
         }
     });
-    
+
     while (!updated.empty())
     {
         RecyclerObjectGraph::GraphImplNodeType* node = updated.top();
@@ -1618,7 +1618,7 @@ void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 addr
         Assert(RootTypeUtils::IsAnyRootType(rootType));
         node->AddRootType(rootType); // propagate RootType info to ObjectGraph
     }
-    
+
     if (!found && !info.IsLeaf())
     {
         MarkStackEntry entry;
@@ -1634,7 +1634,7 @@ void RecyclerObjectGraph::ScanBytes(ConstructData& constructData, RemoteHeapBloc
     Assert(objectAddress != 0);
 
     uint objectSize = node->GetObjectSize();
-    RemoteHeapBlock::AutoDebuggeeMemory object(remoteHeapBlock, objectAddress, objectSize);   
+    RemoteHeapBlock::AutoDebuggeeMemory object(remoteHeapBlock, objectAddress, objectSize);
     char* current = (char *)object;
     char* end = current + objectSize;
     ulong ptrSize = g_Ext->m_PtrSize;
