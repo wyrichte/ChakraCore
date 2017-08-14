@@ -119,15 +119,52 @@
     <DisplayString LegacyAddin="chakratest.dll"
                    Export="NatVis_ValueType"/>
   </Type>
-  <Type Name="BVSparseNode">
-    <DisplayString LegacyAddin="chakratest.dll"
-                   Export="NatVis_BVSparseNode"/>
-  </Type>
-  <Type Name="BVSparse&lt;JitArenaAllocator&gt;">
-    <DisplayString LegacyAddin="chakratest.dll"
-                   Export="NatVis_BVSparse_JitArenaAllocator"/>
-  </Type>
 -->
+  <Type Name="BVUnitT&lt;*&gt;">
+    <Expand>
+      <CustomListItems>
+        <Variable Name="data" InitialValue="this->word" />
+        <Variable Name="i" InitialValue="0" />
+        <Loop Condition="data != 0">
+          <Item Condition="(data &amp; 1) != 0">i</Item>
+          <Exec>i++</Exec>
+          <Exec>data = data >> 1</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="BVSparseNode&lt;*&gt;">
+    <Expand>
+      <CustomListItems>
+        <Variable Name="data" InitialValue="this->data.word" />
+        <Variable Name="i" InitialValue="0" />
+        <Loop Condition="data != 0">
+          <Item Condition="(data &amp; 1) != 0">this->startIndex + i</Item>
+          <Exec>i++</Exec>
+          <Exec>data = data >> 1</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="BVSparse&lt;*&gt;">
+    <Expand>
+      <CustomListItems>
+        <Variable Name="node" InitialValue="this->head" />
+        <Variable Name="data" InitialValue="0ull" />
+        <Variable Name="i" InitialValue="0" />
+        <Loop Condition="node">
+          <Exec>data = node->data.word</Exec>
+          <Exec>i = 0</Exec>
+          <Loop Condition="data != 0">
+            <Item Condition="(data &amp; 1) != 0">node->startIndex + i</Item>
+            <Exec>i++</Exec>
+            <Exec>data = data >> 1</Exec>
+          </Loop>
+          <Exec>node = node->next</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
   <Type Name="Js::ParseableFunctionInfo">
     <DisplayString>{this->m_displayName.ptr,su} ({this->m_functionNumber.value})</DisplayString>
   </Type>
