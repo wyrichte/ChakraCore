@@ -81,7 +81,7 @@
   </Type>
   <Type Name="PropertySym">
     <DisplayString Condition="m_fieldKind == PropertyKindSlots || m_fieldKind == PropertyKindSlotArray">{*m_stackSym}[{m_propertyId,d}]</DisplayString>
-    <DisplayString Condition="m_fieldKind == PropertyKindData">{*m_stackSym}->{*(Js::PropertyRecord *)(m_func->m_jnFunction->m_scriptContext.value->threadContext->propertyMap->entries[m_propertyId - Js::PropertyIds::_none].value)}</DisplayString>
+    <DisplayString Condition="m_fieldKind == PropertyKindData &amp;&amp; !JITManager::s_jitManager.m_oopJitEnabled">{*m_stackSym}->{*(Js::PropertyRecord *)(((ThreadContext*)m_func->m_threadContextInfo)->propertyMap->entries[m_propertyId - Js::PropertyIds::_none].value)}</DisplayString>
     <DisplayString>p{m_id,d}</DisplayString>
   </Type>
   <Type Name="StackSym">
@@ -384,16 +384,26 @@
       </ArrayItems>
     </Expand>
   </Type>
-  <Type Name="SListBase&lt;*&gt;">
+  <Type Name="SListBase&lt;*,*,RealCount&gt;">
     <DisplayString Condition="count > 0">Size = {count}</DisplayString>
     <DisplayString Condition="count == 0">Empty</DisplayString>
     <Expand>
-      <Item Name="[size]">count</Item>
       <LinkedListItems>
         <Size>count</Size>
-        <HeadPointer>next.node</HeadPointer>
-        <NextPointer>next.node</NextPointer>
-        <ValueNode>data</ValueNode>
+        <HeadPointer>this->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <!-- "+ sizeof(this)" to skip this->next -->
+        <ValueNode>*($T1*)((intptr_t)this + sizeof(this))</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="SListBase&lt;*&gt;">
+    <Expand>
+      <LinkedListItems>
+        <HeadPointer>this->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <!-- "+ sizeof(this)" to skip this->next -->
+        <ValueNode>*($T1*)((intptr_t)this + sizeof(this))</ValueNode>
       </LinkedListItems>
     </Expand>
   </Type>
@@ -405,6 +415,8 @@
       <CustomListItems>
         <Variable Name="iBucket" InitialValue="0" />
         <Variable Name="iEntry" InitialValue="0" />
+
+        <Size>count</Size>
         <Loop Condition="iBucket &lt; this->bucketCount">
           <Exec>iEntry = this->buckets[iBucket]</Exec>
           <Loop Condition="iEntry >= 0">
