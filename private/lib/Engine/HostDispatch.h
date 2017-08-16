@@ -82,6 +82,8 @@ public:
     virtual Js::DynamicObject* GetRemoteObject() override;
     virtual RecyclableObject * CloneToScriptContext(Js::ScriptContext* requestContext) override;
     virtual BOOL ToString(Js::Var* value, Js::ScriptContext* scriptContext) override;
+    virtual BOOL GetInternalProperty(Js::Var instance, Js::PropertyId internalPropertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext);
+    virtual BOOL SetInternalProperty(Js::PropertyId internalPropertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info);
 
     static BOOL Is(Var instance);
     virtual void Finalize(bool isShutdown) override;
@@ -144,6 +146,7 @@ private:
 
     ScriptSite * scriptSite;
     LIST_ENTRY linkList;
+    Var weakMapKeyMap;
 
     IDispatch* GetIDispatchAddress();
     __inline HRESULT EnsureDispatch();
