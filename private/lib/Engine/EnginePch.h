@@ -32,11 +32,14 @@
 #include "Library\HostObjectBase.h"
 #include "Library\DateImplementation.h"
 #include "Library\JavascriptDate.h"
+#include "Library\JavascriptWeakMap.h"
 
 #include "Types\PropertyIndexRanges.h"
 #include "Types\DictionaryPropertyDescriptor.h"
 #include "Types\DictionaryTypeHandler.h"
 #include "Types\ES5ArrayTypeHandler.h"
+#include "Types\RecyclableObject.h"
+#include "Types\DynamicType.h"
 
 #ifdef ENABLE_MUTATION_BREAKPOINT
 #include "activdbg_private.h"
