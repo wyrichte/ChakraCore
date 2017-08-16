@@ -20,15 +20,6 @@ var tests = {
     },
 
     test02: {
-        name: "WeakMap disallows HostDispatch objects as keys",
-        body: function () {
-            var weakmap = new WeakMap();
-
-            var hd = window.location;
-
-            assert.throws(function () { weakmap.set(hd, 1); }, TypeError, "set called on HostDispatch object will throw TypeError");
-        }
-        /* TODO: When HostDispatch are allowed as WeakMap keys, switch to the following test
         name: "WeakMap should allow HostDispatch objects as keys",
         body: function () {
             var weakmap = new WeakMap();
@@ -44,7 +35,6 @@ var tests = {
             assert.isFalse(weakmap.has(hd), "weakmap no longer has HostDispatch object hd as a key");
             assert.isFalse(weakmap.delete(hd), "cannot delete HostDispatch object hd from weakmap because it is not a key anymore");
         }
-        */
     },
 };
 

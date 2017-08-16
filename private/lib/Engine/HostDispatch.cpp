@@ -156,7 +156,8 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, LPCOLESTR
 
 HostDispatch::HostDispatch(HostVariant* hostVariant, Js::StaticType * type) :
     Js::RecyclableObject(type),
-    cycleStack(nullptr)
+    cycleStack(nullptr),
+    weakMapKeyMap(nullptr)
 {
     AssertMsg(hostVariant, "Attempt to create HostDispatch without HostVariant");
     scriptSite = ScriptSite::FromScriptContext(type->GetScriptContext());
@@ -1364,6 +1365,26 @@ BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext)
     }
 
     return this->GetDefaultValue(Js::JavascriptHint::HintString, value, false);
+}
+
+BOOL HostDispatch::GetInternalProperty(Js::Var instance, Js::PropertyId internalPropertyId, Js::Var * value, Js::PropertyValueInfo * info, Js::ScriptContext * requestContext)
+{
+    if (internalPropertyId == Js::InternalPropertyIds::WeakMapKeyMap)
+    {
+        *value = weakMapKeyMap;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+BOOL HostDispatch::SetInternalProperty(Js::PropertyId internalPropertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo * info)
+{
+    if (internalPropertyId == Js::InternalPropertyIds::WeakMapKeyMap)
+    {
+        weakMapKeyMap = value;
+        return TRUE;
+    }
+    return FALSE;
 }
 
 Js::Var HostDispatch::Invoke(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
