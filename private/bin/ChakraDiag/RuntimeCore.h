@@ -343,7 +343,7 @@ namespace Wasm
 #include "JavascriptSIMDBool8x16.h"
 
 #include "RecyclerFastAllocator.h"      // Used by LibraryCommon.h
-#include "Debug\SourceContextInfo.h"    // Used by ScriptContext::noContextSourceContextInfo
+#include "Base\SourceContextInfo.h"    // Used by ScriptContext::noContextSourceContextInfo
 #include "Debug\DebuggingFlags.h"
 #include "Debug\DiagProbe.h"            // Used by ThreadContext::Diagnostics
 #include "Debug\DebugManager.h"         // Used by ThreadContext::DebugManager
