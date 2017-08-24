@@ -108,20 +108,5 @@ namespace Js
         Assert(Js::JavascriptConversion::IsCallable(this));
         GetDynamicType()->SetEntryPoint(Js::ExternalType::CrossSiteExternalEntryThunk);
     }
-
-    Var ExternalObject::InvokePut(Arguments args)
-    {
-        AssertMsg(false, "This scenario is no longer supported");
-        if (args.Info.Count < 3)
-        {
-            // The v5.8 behavior throws an exception if there is no input parameter to the call. So:
-            // x(0) = 1     -- does not throw
-            // x() = 1      -- throws
-            // We mimic this by checking here for 3 args: "this", input param, and assigned value.
-            Js::JavascriptError::ThrowReferenceError(this->GetScriptContext(), JSERR_CantAsgCall);
-        }
-        JavascriptMethod entryPoint = type->GetEntryPoint();
-        return JavascriptFunction::CallFunction<true>(this, entryPoint, args);
-    }
 }
 

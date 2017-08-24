@@ -51,7 +51,6 @@ public:
     virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
     virtual BOOL SetAccessor(Js::PropertyId propertyId, Js::Var setter, Js::Var getter);
     virtual Var GetTypeOfString(Js::ScriptContext * requestContext) override;
-    virtual Var InvokePut(Js::Arguments args) override;
     virtual RecyclableObject * CloneToScriptContext(Js::ScriptContext* requestContext) override;
 
 protected:

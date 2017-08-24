@@ -797,11 +797,6 @@ BOOL HostDispatch::IsExtensible()
     return Js::JavascriptBoolean::FromVar(result)->GetValue();
 }
 
-Var HostDispatch::InvokePut( Js::Arguments args)
-{    
-    return this->InvokeByDispId(args, DISPID_VALUE, true);
-}
-
 __inline BOOL HostDispatch::IsGlobalDispatch()
 {
     Js::GlobalObject * globalObj = GetScriptContext()->GetGlobalObject();

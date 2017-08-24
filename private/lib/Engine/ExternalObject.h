@@ -160,8 +160,6 @@ namespace Js
         virtual DynamicType* DuplicateType() override;
         virtual void MarshalToScriptContext(ScriptContext * scriptContext) override;
 
-        virtual Var InvokePut(Js::Arguments args) override;
-
         HRESULT Reinitialize(ExternalType* type, BOOL keepProperties);
 
 #if DBG

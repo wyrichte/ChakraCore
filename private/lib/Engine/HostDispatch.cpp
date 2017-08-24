@@ -1396,7 +1396,7 @@ Js::Var HostDispatch::Invoke(Js::RecyclableObject* function, Js::CallInfo callIn
     return _this->InvokeByDispId(args, DISPID_VALUE);
 }
 
-Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
+Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id)
 {
     AssertInScript();
 
@@ -1427,22 +1427,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
         Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), JSERR_NeedFunction);
     }
 
-    if (fIsPut)
-    {
-        Assert(args.Info.Flags == CallFlags_None);
-        if (args.Info.Count < 3)
-        {
-            // The v5.8 behavior throws an exception if there is no input parameter to the call. So:
-            // x(0) = 1     -- does not throw
-            // x() = 1      -- throws
-            // We mimic this by checking here for 3 args: "this", input param, and assigned value.
-            // This could be done at compile time, but it seems cleaner just to emit the call in the byte code
-            // and let the runtime take care of issuing an error.
-
-            Js::JavascriptError::ThrowReferenceError(this->GetScriptContext(), JSERR_CantAsgCall);
-        }
-    }
-    else if (args.Info.Flags & CallFlags_New)
+    if (args.Info.Flags & CallFlags_New)
     {
         fNew = TRUE;
         Assert(thisArg->GetPropertyCount()==0 && thisArg->GetTypeId() != Js::TypeIds_HostDispatch);
@@ -1516,34 +1501,31 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
         // but not for cross context calls
         BOOL keepThis = FALSE;
         
-        if(!fIsPut)
+        if (Js::DynamicObject::Is(thisArg) && ! hostVariant->IsIDispatch())
         {
-            if (Js::DynamicObject::Is(thisArg) && ! hostVariant->IsIDispatch())
+            keepThis = TRUE;
+        }
+        else
+        {
+            BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                keepThis = TRUE;
-            }
-            else
-            {
-                BEGIN_LEAVE_SCRIPT(scriptContext)
+                IJavascriptDispatchLocalProxy *pProxy = nullptr;
+                if(SUCCEEDED(pDispatch->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
                 {
-                    IJavascriptDispatchLocalProxy *pProxy = nullptr;
-                    if(SUCCEEDED(pDispatch->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
+                    pProxy->Release();
+                    keepThis = TRUE;
+                }
+                else
+                {
+                    IJavascriptDispatchRemoteProxy *pRemoteProxy = nullptr;
+                    if(SUCCEEDED(pDispatch->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void**)&pRemoteProxy)) && pRemoteProxy)
                     {
-                        pProxy->Release();
+                        pRemoteProxy->Release();
                         keepThis = TRUE;
                     }
-                    else
-                    {
-                        IJavascriptDispatchRemoteProxy *pRemoteProxy = nullptr;
-                        if(SUCCEEDED(pDispatch->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void**)&pRemoteProxy)) && pRemoteProxy)
-                        {
-                            pRemoteProxy->Release();
-                            keepThis = TRUE;
-                        }
-                    }
                 }
-                END_LEAVE_SCRIPT(scriptContext);
             }
+            END_LEAVE_SCRIPT(scriptContext);
         }
 
         dp.cArgs = keepThis? args.Info.Count : (args.Info.Count - 1);
@@ -1601,42 +1583,23 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut)
             END_LEAVE_SCRIPT(scriptContext)
         }
 
-        if (fIsPut)
+        if(keepThis)
         {
-            //keep this is excluded here
-            // The assigned value is last in the operand list, so first in the (reversed) disp params.
             dp.cNamedArgs = 1;
-            dispIdNamed = DISPID_PROPERTYPUT;
+            dispIdNamed = DISPID_THIS;
             dp.rgdispidNamedArgs = &dispIdNamed;
-            if (dp.rgvarg[0].vt == VT_DISPATCH)
-            {
-                invokeFlags = DISPATCH_PROPERTYPUT | DISPATCH_PROPERTYPUTREF;
-            }
-            else
-            {
-                invokeFlags = DISPATCH_PROPERTYPUT;
-            }
         }
         else
         {
-            if(keepThis)
-            {
-                dp.cNamedArgs = 1;
-                dispIdNamed = DISPID_THIS;
-                dp.rgdispidNamedArgs = &dispIdNamed;
-            }
-            else
-            {
-                dp.cNamedArgs = 0;
-                dp.rgdispidNamedArgs = nullptr;
-            }
+            dp.cNamedArgs = 0;
+            dp.rgdispidNamedArgs = nullptr;
+        }
 
-            invokeFlags = DISPATCH_METHOD;
-            int carg = keepThis ? dp.cArgs-1 : dp.cArgs;
-            if (carg > 0 && (args.Info.Flags & CallFlags_Value))
-            {
-                invokeFlags |= DISPATCH_PROPERTYGET;
-            }
+        invokeFlags = DISPATCH_METHOD;
+        int carg = keepThis ? dp.cArgs-1 : dp.cArgs;
+        if (carg > 0 && (args.Info.Flags & CallFlags_Value))
+        {
+            invokeFlags |= DISPATCH_PROPERTYGET;
         }
     }
 
