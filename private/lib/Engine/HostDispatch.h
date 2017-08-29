@@ -77,7 +77,6 @@ public:
     virtual BOOL IsFrozen() override;
     virtual BOOL IsExtensible() override;
     virtual HRESULT QueryObjectInterface(REFIID riid, void** ppvObj) override;
-    virtual Var InvokePut(Js::Arguments args) override;
     virtual BOOL GetRemoteTypeId(Js::TypeId* typeId) override;
     virtual Js::DynamicObject* GetRemoteObject() override;
     virtual RecyclableObject * CloneToScriptContext(Js::ScriptContext* requestContext) override;
@@ -112,7 +111,7 @@ public:
     BOOL PutValueByDispId(DISPID dispId, Js::Var value);
     BOOL DeletePropertyByDispId(DISPID dispId);
 
-    Js::Var InvokeByDispId(Js::Arguments args, DISPID id, BOOL fIsPut = false);
+    Js::Var InvokeByDispId(Js::Arguments args, DISPID id);
     BOOL InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoint, Js::Arguments args, Js::Var* result) override sealed;
     void RemoveFromPrototype(Js::ScriptContext * requestContext) override;
     void AddToPrototype(Js::ScriptContext * requestContext) override;

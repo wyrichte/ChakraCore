@@ -73,8 +73,3 @@ Var DispMemberProxy::GetTypeOfString(Js::ScriptContext * requestContext)
 {
     return requestContext->GetLibrary()->GetObjectTypeDisplayString();
 }
-
-Var DispMemberProxy::InvokePut(Js::Arguments args)
-{    
-    return this->InvokeByDispId(args, this->m_id, true);
-}
