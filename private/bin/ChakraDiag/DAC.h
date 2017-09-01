@@ -989,9 +989,8 @@ namespace JsDiag
         ULONG ConvertInternalOffsetToHost(ULONG charOffsetInScriptBuffer) const;
     };
 
-    typedef JsUtil::LineOffsetCache<Recycler> LineOffsetCache;
-    typedef LineOffsetCache::LineOffsetCacheItem LineOffsetCacheItem;
-    typedef JsUtil::ReadOnlyList<LineOffsetCacheItem> LineOffsetCacheReadOnlyList;
+    typedef Js::LineOffsetCache LineOffsetCache;    
+    typedef JsUtil::ReadOnlyList<charcount_t> LineOffsetCacheReadOnlyList;
 
     struct RemoteLineOffsetCache : public RemoteData<LineOffsetCache>
     {
@@ -1000,7 +999,8 @@ namespace JsDiag
         int GetLineForCharacterOffset(charcount_t characterOffset, charcount_t *outLineCharOffset, charcount_t *outByteOffset);
 
     private:
-        const LineOffsetCacheReadOnlyList* GetLineOffsetCacheList();
+        const LineOffsetCacheReadOnlyList* GetLineCharacterOffsetCacheList();
+        const LineOffsetCacheReadOnlyList* GetLineByteOffsetCacheList();
     };
 
     struct RemoteFunctionBody;

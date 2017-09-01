@@ -291,6 +291,7 @@ namespace Wasm
 #include "activdbg.h"
 #include "activdbg100.h"
 #include "SourceHolder.h"
+#include "LineOffsetCache.h"
 #include "Utf8SourceInfo.h"
 #include "JITClient.h"
 #include "Constants.h"                  // Used by FunctionInfo::FunctionInfo

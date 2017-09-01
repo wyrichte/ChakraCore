@@ -1191,19 +1191,19 @@ namespace JsDiag
 
     int RemoteLineOffsetCache::GetLineForCharacterOffset(charcount_t characterOffset, charcount_t *outLineCharOffset, charcount_t *outByteOffset)
     {
-        const LineOffsetCacheReadOnlyList* lineOffsetCacheList = this->GetLineOffsetCacheList();
-        RemoteList<LineOffsetCacheItem, LineOffsetCacheReadOnlyList> remoteLineOffsetCacheList(m_reader, lineOffsetCacheList);
+        const LineOffsetCacheReadOnlyList* lineCharacterOffsetCacheList = this->GetLineCharacterOffsetCacheList();
+        RemoteList<charcount_t, LineOffsetCacheReadOnlyList> remoteLineCharacterOffsetCacheList(m_reader, lineCharacterOffsetCacheList);
 
-        Assert(remoteLineOffsetCacheList.Count() > 0);
+        Assert(remoteLineCharacterOffsetCacheList.Count() > 0);
 
         // The list is sorted, so binary search to find the line info.
         int closestIndex = -1;
         int minRange = INT_MAX;
 
-        int resultIndex = remoteLineOffsetCacheList.BinarySearch([&](const LineOffsetCacheItem& item, int index)
+        int resultIndex = remoteLineCharacterOffsetCacheList.BinarySearch([&](const charcount_t item, int index)
         {
 
-            int offsetRange = characterOffset - item.characterOffset;
+            int offsetRange = characterOffset - item;
             if (offsetRange >= 0)
             {
                 if (offsetRange < minRange)
@@ -1233,25 +1233,39 @@ namespace JsDiag
 
         if (closestIndex >= 0)
         {
-            LineOffsetCacheItem lastItem = remoteLineOffsetCacheList.Item(closestIndex);
+            charcount_t lastItemCharactoerOffset = remoteLineCharacterOffsetCacheList.Item(closestIndex);
 
             if (outLineCharOffset != nullptr)
             {
-                *outLineCharOffset = lastItem.characterOffset;
+                *outLineCharOffset = lastItemCharactoerOffset;
             }
 
             if (outByteOffset != nullptr)
             {
-                *outByteOffset = lastItem.byteOffset;
+                const LineOffsetCacheReadOnlyList* lineByteOffsetCacheList = this->GetLineByteOffsetCacheList();
+                if (lineByteOffsetCacheList == nullptr)
+                {
+                    *outByteOffset = lastItemCharactoerOffset;
+                }
+                else
+                {
+                    RemoteList<charcount_t, LineOffsetCacheReadOnlyList> remoteLineByteOffsetCacheList(m_reader, lineByteOffsetCacheList);
+                    *outByteOffset = remoteLineByteOffsetCacheList.Item(closestIndex);
+                }
             }
         }
 
         return closestIndex;
     }
 
-    const LineOffsetCacheReadOnlyList* RemoteLineOffsetCache::GetLineOffsetCacheList()
+    const LineOffsetCacheReadOnlyList* RemoteLineOffsetCache::GetLineCharacterOffsetCacheList()
     {
-        return this->ToTargetPtr()->lineOffsetCacheList;
+        return this->ToTargetPtr()->lineCharacterOffsetCacheList;
+    }
+
+    const LineOffsetCacheReadOnlyList* RemoteLineOffsetCache::GetLineByteOffsetCacheList()
+    {
+        return this->ToTargetPtr()->lineByteOffsetCacheList;
     }
 
     RemoteFunctionBody_SourceInfo::RemoteFunctionBody_SourceInfo(IVirtualReader* reader, const RemoteFunctionBody* functionBody) :
