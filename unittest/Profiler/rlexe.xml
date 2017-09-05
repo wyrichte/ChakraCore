@@ -152,7 +152,7 @@
   <test>
     <default>
       <files>proxy.js</files>
-      <tags>exclude_dynapogo, exclude_serialized</tags>
+      <tags>exclude_dynapogo,exclude_serialized</tags>
       <baseline>proxy.baseline</baseline>
       <compile-flags>-LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 
@@ -163,7 +163,7 @@
   <test>
     <default>
       <files>Generators.js</files>
-      <tags>exclude_dynapogo, exclude_serialized</tags>
+      <tags>exclude_dynapogo,exclude_serialized</tags>
       <baseline>Generators.baseline</baseline>
       <compile-flags>-es6all -LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was 

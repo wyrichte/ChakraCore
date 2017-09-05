@@ -41,7 +41,7 @@
       <files>Events-recyclerStress.js</files>
       <baseline>Events-recyclerStress.baseline</baseline>
       <compile-flags>-recyclerStress</compile-flags>
-      <tags>,exclude_win7,exclude_fre</tags>
+      <tags>exclude_win7,exclude_fre</tags>
     </default>
   </test>
 
