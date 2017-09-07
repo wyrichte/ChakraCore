@@ -19,7 +19,6 @@ namespace Js
         DEFINE_MARSHAL_OBJECT_TO_SCRIPT_CONTEXT(ArrayBufferFromIBuffer);
 
         virtual ArrayBufferDetachedStateBase* CreateDetachedState(BYTE* buffer, uint32 bufferLength) override { Assert(UNREACHED); Throw::InternalError(); };
-        virtual ArrayBuffer * TransferInternal(uint32 newBufferLength) override { Assert(UNREACHED); Throw::InternalError(); };
 
     public:
         static ArrayBuffer* Create(Windows::Storage::Streams::IBuffer * iBuf,

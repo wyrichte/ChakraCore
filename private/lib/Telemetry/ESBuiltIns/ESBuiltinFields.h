@@ -47,11 +47,6 @@ ENTRY_BUILTIN(ES7, Array, Constructor, observe)
 ENTRY_BUILTIN(ES7, Array, Constructor, unobserve)
 BLOCK_END()
 
-// ArrayBuffer builtins
-BLOCK_START(ArrayBuffer, 1)
-ENTRY_BUILTIN(ES6, ArrayBuffer, Constructor, transfer)
-BLOCK_END()
-
 // Object builtins
 BLOCK_START(Object, 18)
 ENTRY_BUILTIN(ES5, Object, Constructor, defineProperty)
