@@ -151,16 +151,22 @@ void JsHostActiveScriptSite::RegisterToUnmapOnShutdown(MappingInfo info)
 
 void JsHostActiveScriptSite::RegisterScriptDir(DWORD_PTR sourceContext, char16* const fullDir)
 {
-    char16 dir[_MAX_PATH];
-    scriptDirMap[sourceContext] = std::wstring(GetDir(fullDir, dir));
+    GetDir(fullDir, &scriptDirMap[sourceContext]);
 }
 
-char16* JsHostActiveScriptSite::GetDir(LPCWSTR fullPath, __out char16* const fullDir)
+void JsHostActiveScriptSite::GetDir(LPCWSTR fullPath, __out std::wstring* fullDir)
 {
-    char16 dir[_MAX_DIR];
-    _wsplitpath_s(fullPath, fullDir, _MAX_DRIVE, dir, _MAX_DIR, nullptr, 0, nullptr, 0);
-    wcscat_s(fullDir, _MAX_PATH, dir);
-    return fullDir;
+    WCHAR fileDrive[_MAX_DRIVE];
+    WCHAR fileDir[_MAX_DIR];
+
+    std::wstring result;
+    if (_wsplitpath_s(fullPath, fileDrive, _countof(fileDrive), fileDir, _countof(fileDir), nullptr, 0, nullptr, 0) == 0)
+    {
+        result += fileDrive;
+        result += fileDir;
+    }
+
+    *fullDir = result;
 }
 
 HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
@@ -1671,8 +1677,7 @@ STDMETHODIMP JsHostActiveScriptSite::LoadModuleFile(LPCOLESTR filename, BOOL use
                 if (SUCCEEDED(hr))
                 {
                     moduleRecordMap[fullPath] = moduleRecord;
-                    char16 dir[_MAX_PATH];
-                    moduleDirMap[moduleRecord] = std::wstring(GetDir(fullPath, dir));
+                     GetDir(fullPath, &moduleDirMap[moduleRecord]);
                 }
             }
         }
@@ -2386,8 +2391,7 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleHelper(
     hr = activeScriptDirect->InitializeModuleRecord(referencingModule, specifier, specifierLength, &moduleRecord);
     if (SUCCEEDED(hr))
     {
-        char16 dir[_MAX_PATH];
-        moduleDirMap[moduleRecord] = std::wstring(GetDir(fullPath, dir));
+         GetDir(fullPath, &moduleDirMap[moduleRecord]);
         moduleRecordMap[fullPath] = moduleRecord;
         activeScriptDirect->SetModuleHostInfo(moduleRecord, ModuleHostInfo_HostDefined, (void *)specifier);
         WScriptFastDom::ModuleMessage* moduleMessage =

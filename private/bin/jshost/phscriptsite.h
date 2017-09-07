@@ -129,7 +129,8 @@ private:
     HRESULT RegisterDebugDocuments(CComPtr<IActiveScript>& activeScript, std::vector<SourceContextPair>& cookiePairs);
     void UpdateFileMapTable(std::vector<SourceContextPair>& cookiePairs, SourceContextPair* outPairArray);
 
-    static char16* GetDir(LPCWSTR fullPath, __out char16* const fullDir);
+    static void GetDir(LPCWSTR fullPath, __out std::wstring*fullDir);
+
 
     STDMETHODIMP FetchImportedModuleHelper(
         /* [in] */ ModuleRecord referencingModule,
