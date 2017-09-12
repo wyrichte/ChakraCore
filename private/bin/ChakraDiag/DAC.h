@@ -491,7 +491,7 @@ namespace JsDiag
             if (m_buckets.GetRemoteAddr() != NULL)
             {
                 uint hashCode = ToTargetPtr()->GetHashCodeWithKey<LookupType>(key);
-                uint targetBucket = ToTargetPtr()->GetBucket(hashCode, ToTargetPtr()->bucketCount);
+                uint targetBucket = ToTargetPtr()->GetBucket(hashCode);
                 for (int i = m_buckets[targetBucket]; i >= 0; i = m_entries[i].next)
                 {
                     if (m_entries[i].KeyEquals<LookupComparer>(key, hashCode))
