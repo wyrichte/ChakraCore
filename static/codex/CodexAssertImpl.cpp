@@ -10,5 +10,8 @@ void
 __stdcall CodexAssertOrFailFast(bool condition)
 {
     ASSERT(condition);
-    RaiseFailFastException(NULL, NULL, 0);
+    if (!condition)
+    {
+        RaiseFailFastException(NULL, NULL, 0);
+    }
 }
