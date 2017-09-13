@@ -5,6 +5,31 @@
 ********************************************************/
 #include <EnginePch.h>
 
+class AutoSetThrowInternalToDebugger
+{
+public:
+    AutoSetThrowInternalToDebugger(Js::ScriptContext *scriptContext)
+        : m_scriptContext(nullptr)
+    {
+        if (scriptContext != nullptr && !scriptContext->IsClosed() && scriptContext->IsScriptContextInDebugMode())
+        {
+            m_scriptContext = scriptContext;
+            m_scriptContext->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(true);
+        }
+    }
+
+    ~AutoSetThrowInternalToDebugger()
+    {
+        if (m_scriptContext != nullptr)
+        {
+            m_scriptContext->GetDebugContext()->GetProbeContainer()->SetThrowIsInternal(false);
+        }
+    }
+
+private:
+    Js::ScriptContext *m_scriptContext;
+};
+
 ULONG STDMETHODCALLTYPE CJavascriptOperations:: AddRef( void)
 {
     return InterlockedIncrement(&refCount);
@@ -50,6 +75,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::HasProperty(__in IActiveScriptD
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *result = Js::JavascriptOperators::OP_HasProperty(instance, propertyId, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -68,6 +94,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::GetProperty(__in IActiveScriptD
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *value = Js::JavascriptOperators::OP_GetProperty(instance, propertyId, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -83,6 +110,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::SetProperty(__in IActiveScriptD
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         Js::JavascriptOperators::OP_SetProperty(instance, propertyId, value, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -98,6 +126,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::DeleteProperty(__in IActiveScri
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         Js::JavascriptOperators::OP_DeleteProperty(instance, propertyId, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -115,6 +144,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::HasItem(__in IActiveScriptDirec
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *result = Js::JavascriptOperators::OP_HasItem(instance, index, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -132,6 +162,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::GetItem(__in IActiveScriptDirec
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *value = Js::JavascriptOperators::OP_GetElementI(instance, index, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -146,6 +177,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::SetItem(__in IActiveScriptDirec
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         Js::JavascriptOperators::OP_SetElementI(instance, index, value, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -160,6 +192,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::DeleteItem(__in IActiveScriptDi
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         Js::JavascriptOperators::OP_DeleteElementI(instance, index, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -177,6 +210,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::Equals(__in IActiveScriptDirect
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *result = Js::JavascriptOperators::Equal_Full(a, b, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -194,6 +228,7 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::StrictEquals(__in IActiveScript
     Js::ScriptContext* requestContext = requestSite->GetScriptSiteContext();
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(requestContext, false)
     {
+        AutoSetThrowInternalToDebugger setThrowInternal(requestContext);
         *result = Js::JavascriptOperators::StrictEqual(a, b, requestContext);
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
