@@ -1,5 +1,5 @@
 *** Running test #1 (test01): WeakMap should allow FastDOM objects as keys
 PASSED
-*** Running test #2 (test02): WeakMap disallows HostDispatch objects as keys
+*** Running test #2 (test02): WeakMap should allow HostDispatch objects as keys
 PASSED
 Summary of tests: total executed: 2; passed: 2; failed: 0
