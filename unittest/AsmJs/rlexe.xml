@@ -21,6 +21,7 @@
       <compile-flags>-testtrace:asmjs -nonative</compile-flags>
     </default>
   </test>
+  <!-- // disable templatized JIT tests
   <test>
     <default>
       <files>detach2.js</files>
@@ -28,7 +29,7 @@
       <tags>exclude_amd64</tags>
       <compile-flags>-testtrace:asmjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
-  </test>
+  </test>-->
   <test>
     <default>
       <files>asm_message_debugmode.js</files>
@@ -349,6 +350,7 @@
       <tags>Slow</tags>
     </default>
   </test>
+  <!-- // disable templatized JIT tests
   <test>
     <default>
       <files>pi.js</files>
@@ -357,6 +359,7 @@
       <tags>Slow,exclude_amd64</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>massiveLoopBug.js</files>
