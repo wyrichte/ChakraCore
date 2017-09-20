@@ -1,0 +1,709 @@
+
+//Script GUID:2760f68c-da52-49d3-b22b-feaee16146eb
+//Used for tracking history
+
+//   DailyTracker
+//   2015-03-01
+//   /shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/
+//   @@_endDate@@
+
+// DO NOT HAND-EDIT THIS FILE! This script is generated from a T4 template.
+// Run SummaryGenerator.cmd to re-create this file.
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+// 
+
+
+#DECLARE from      String = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Parse("@@startDate@@").AddMonths(-1).ToString("yyyy-MM-dd") );
+#DECLARE to        String = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"), DateTime.Parse("@@startDate@@").AddDays(-1).ToString("yyyy-MM-dd") );
+
+#DECLARE inputDirectory String   = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}", "ES6BuiltinsData" );
+#DECLARE outputFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1}.ss", "ES6BuiltinsSummary_Monthly", IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow.ToString("yyyy-MM-dd"), DateTime.Parse("@@startDate@@").ToString("yyyy-MM-dd") ) );
+
+#DECLARE noopInput     String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/GCPauseData/2015/04/GCPauseData_2015_04_01.ss");
+#DECLARE noop          String = String.Format(@"/users/sanyamc/processed/data/reporting/noop/noop.ss");
+
+#IF( DateTime.UtcNow.Day == 1 )
+
+allInput = SSTREAM
+	SPARSE STREAMSET @inputDirectory
+	PATTERN @"/%Y/%m/ES6BuiltinsData_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+
+summaryByDomain =
+SELECT
+	Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain,
+	Date.Value.ToString( "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture ) AS YearMonth,
+
+	COUNT(*) AS PagesTotal,
+
+	// Need to compute PagesUsing (UsesES6 in SQL) ourselves (note this should use the short-circuiting || operator for perf)...
+	SUM(
+		(
+			TAFromCount > 0 ||
+			TAOfCount > 0 ||
+			TACopyWithinCount > 0 ||
+			TAEntriesCount > 0 ||
+			TAEveryCount > 0 ||
+			TAFilterCount > 0 ||
+			TAFillCount > 0 ||
+			TAFindCount > 0 ||
+			TAFindIndexCount > 0 ||
+			TAForEachCount > 0 ||
+			TAIndexOfCount > 0 ||
+			TAJoinCount > 0 ||
+			TAKeysCount > 0 ||
+			TALastIndexOfCount > 0 ||
+			TAMapCount > 0 ||
+			TAReduceCount > 0 ||
+			TAReduceRightCount > 0 ||
+			TAReverseCount > 0 ||
+			TASomeCount > 0 ||
+			TASortCount > 0 ||
+			TASubArrayCount > 0 ||
+			TAValuesCount > 0 ||
+			WeakMapCount > 0 ||
+			SetCount > 0 ||
+			ProxyCount > 0 ||
+			SymbolCount > 0 ||
+			MapCount > 0 ||
+			GetOwnPropertySymbolsCount > 0 ||
+			Log10Count > 0 ||
+			Log1pCountCount > 0 ||
+			Log2Count > 0 ||
+			SinhCount > 0 ||
+			CoshCount > 0 ||
+			TanhCountCount > 0 ||
+			AsinhCount > 0 ||
+			AcoshCount > 0 ||
+			AtanhCount > 0 ||
+			HypotCount > 0 ||
+			CbrtCount > 0 ||
+			TruncCount > 0 ||
+			SignCount > 0 ||
+			ImulCount > 0 ||
+			Clz32Count > 0 ||
+			FroundCount > 0 ||
+			IsNaNCount > 0 ||
+			IsFiniteCount > 0 ||
+			IsIntegerCount > 0 ||
+			IsSafeIntegerCount > 0 ||
+			StartsWithCount > 0 ||
+			EndsWithCount > 0 ||
+			ContainsCount > 0 ||
+			RepeatCount > 0 ||
+			TAFromDebugModeCallCount > 0 ||
+			TAOfDebugModeCallCount > 0 ||
+			TACopyWithinDebugModeCallCount > 0 ||
+			TAEntriesDebugModeCallCount > 0 ||
+			TAEveryDebugModeCallCount > 0 ||
+			TAFilterDebugModeCallCount > 0 ||
+			TAFillDebugModeCallCount > 0 ||
+			TAFindDebugModeCallCount > 0 ||
+			TAFindIndexDebugModeCallCount > 0 ||
+			TAForEachDebugModeCallCount > 0 ||
+			TAIndexOfDebugModeCallCount > 0 ||
+			TAJoinDebugModeCallCount > 0 ||
+			TAKeysDebugModeCallCount > 0 ||
+			TALastIndexOfDebugModeCallCount > 0 ||
+			TAMapDebugModeCallCount > 0 ||
+			TAReduceDebugModeCallCount > 0 ||
+			TAReduceRightDebugModeCallCount > 0 ||
+			TAReverseDebugModeCallCount > 0 ||
+			TASomeDebugModeCallCount > 0 ||
+			TASortDebugModeCallCount > 0 ||
+			TASubArrayDebugModeCallCount > 0 ||
+			TAValuesDebugModeCallCount > 0 ||
+			WeakMapDebugModeCallCount > 0 ||
+			SetDebugModeCallCount > 0 ||
+			ProxyDebugModeCallCount > 0 ||
+			SymbolDebugModeCallCount > 0 ||
+			MapDebugModeCallCount > 0 ||
+			GetOwnPropertySymbolsDebugModeCallCount > 0 ||
+			Log10DebugModeCount > 0 ||
+			Log1pDebugModeCallCount > 0 ||
+			Log2DebugModeCallCount > 0 ||
+			SinhDebugModeCallCount > 0 ||
+			CoshDebugModeCallCount > 0 ||
+			TanhDebugModeCallCount > 0 ||
+			AsinhDebugModeCallCount > 0 ||
+			AcoshDebugModeCallCount > 0 ||
+			AtanhDebugModeCallCount > 0 ||
+			HypotDebugModeCallCount > 0 ||
+			CbrtDebugModeCallCount > 0 ||
+			TruncDebugModeCallCount > 0 ||
+			SignDebugModeCallCount > 0 ||
+			ImulDebugModeCallCount > 0 ||
+			Clz32DebugModeCallCount > 0 ||
+			FroundDebugModeCallCount > 0 ||
+			IsNaNDebugModeCallCount > 0 ||
+			IsFiniteDebugModeCallCount > 0 ||
+			IsIntegerDebugModeCallCount > 0 ||
+			IsSafeIntegerDebugModeCallCount > 0 ||
+			StartsWithDebugModeCallCount > 0 ||
+			EndsWithDebugModeCallCount > 0 ||
+			ContainsDebugModeCallCount > 0 ||
+			RepeatDebugModeCallCount > 0
+		) ? 1 : 0
+	) AS PagesUsing,
+	
+	SUM( TAFromCount ) AS TAFromCount_Invokes,
+	SUM( TAOfCount ) AS TAOfCount_Invokes,
+	SUM( TACopyWithinCount ) AS TACopyWithinCount_Invokes,
+	SUM( TAEntriesCount ) AS TAEntriesCount_Invokes,
+	SUM( TAEveryCount ) AS TAEveryCount_Invokes,
+	SUM( TAFilterCount ) AS TAFilterCount_Invokes,
+	SUM( TAFillCount ) AS TAFillCount_Invokes,
+	SUM( TAFindCount ) AS TAFindCount_Invokes,
+	SUM( TAFindIndexCount ) AS TAFindIndexCount_Invokes,
+	SUM( TAForEachCount ) AS TAForEachCount_Invokes,
+	SUM( TAIndexOfCount ) AS TAIndexOfCount_Invokes,
+	SUM( TAJoinCount ) AS TAJoinCount_Invokes,
+	SUM( TAKeysCount ) AS TAKeysCount_Invokes,
+	SUM( TALastIndexOfCount ) AS TALastIndexOfCount_Invokes,
+	SUM( TAMapCount ) AS TAMapCount_Invokes,
+	SUM( TAReduceCount ) AS TAReduceCount_Invokes,
+	SUM( TAReduceRightCount ) AS TAReduceRightCount_Invokes,
+	SUM( TAReverseCount ) AS TAReverseCount_Invokes,
+	SUM( TASomeCount ) AS TASomeCount_Invokes,
+	SUM( TASortCount ) AS TASortCount_Invokes,
+	SUM( TASubArrayCount ) AS TASubArrayCount_Invokes,
+	SUM( TAValuesCount ) AS TAValuesCount_Invokes,
+	SUM( WeakMapCount ) AS WeakMapCount_Invokes,
+	SUM( SetCount ) AS SetCount_Invokes,
+	SUM( ProxyCount ) AS ProxyCount_Invokes,
+	SUM( SymbolCount ) AS SymbolCount_Invokes,
+	SUM( MapCount ) AS MapCount_Invokes,
+	SUM( GetOwnPropertySymbolsCount ) AS GetOwnPropertySymbolsCount_Invokes,
+	SUM( Log10Count ) AS Log10Count_Invokes,
+	SUM( Log1pCountCount ) AS Log1pCountCount_Invokes,
+	SUM( Log2Count ) AS Log2Count_Invokes,
+	SUM( SinhCount ) AS SinhCount_Invokes,
+	SUM( CoshCount ) AS CoshCount_Invokes,
+	SUM( TanhCountCount ) AS TanhCountCount_Invokes,
+	SUM( AsinhCount ) AS AsinhCount_Invokes,
+	SUM( AcoshCount ) AS AcoshCount_Invokes,
+	SUM( AtanhCount ) AS AtanhCount_Invokes,
+	SUM( HypotCount ) AS HypotCount_Invokes,
+	SUM( CbrtCount ) AS CbrtCount_Invokes,
+	SUM( TruncCount ) AS TruncCount_Invokes,
+	SUM( SignCount ) AS SignCount_Invokes,
+	SUM( ImulCount ) AS ImulCount_Invokes,
+	SUM( Clz32Count ) AS Clz32Count_Invokes,
+	SUM( FroundCount ) AS FroundCount_Invokes,
+	SUM( IsNaNCount ) AS IsNaNCount_Invokes,
+	SUM( IsFiniteCount ) AS IsFiniteCount_Invokes,
+	SUM( IsIntegerCount ) AS IsIntegerCount_Invokes,
+	SUM( IsSafeIntegerCount ) AS IsSafeIntegerCount_Invokes,
+	SUM( StartsWithCount ) AS StartsWithCount_Invokes,
+	SUM( EndsWithCount ) AS EndsWithCount_Invokes,
+	SUM( ContainsCount ) AS ContainsCount_Invokes,
+	SUM( RepeatCount ) AS RepeatCount_Invokes,
+	SUM( TAFromDebugModeCallCount ) AS TAFromDebugModeCallCount_Invokes,
+	SUM( TAOfDebugModeCallCount ) AS TAOfDebugModeCallCount_Invokes,
+	SUM( TACopyWithinDebugModeCallCount ) AS TACopyWithinDebugModeCallCount_Invokes,
+	SUM( TAEntriesDebugModeCallCount ) AS TAEntriesDebugModeCallCount_Invokes,
+	SUM( TAEveryDebugModeCallCount ) AS TAEveryDebugModeCallCount_Invokes,
+	SUM( TAFilterDebugModeCallCount ) AS TAFilterDebugModeCallCount_Invokes,
+	SUM( TAFillDebugModeCallCount ) AS TAFillDebugModeCallCount_Invokes,
+	SUM( TAFindDebugModeCallCount ) AS TAFindDebugModeCallCount_Invokes,
+	SUM( TAFindIndexDebugModeCallCount ) AS TAFindIndexDebugModeCallCount_Invokes,
+	SUM( TAForEachDebugModeCallCount ) AS TAForEachDebugModeCallCount_Invokes,
+	SUM( TAIndexOfDebugModeCallCount ) AS TAIndexOfDebugModeCallCount_Invokes,
+	SUM( TAJoinDebugModeCallCount ) AS TAJoinDebugModeCallCount_Invokes,
+	SUM( TAKeysDebugModeCallCount ) AS TAKeysDebugModeCallCount_Invokes,
+	SUM( TALastIndexOfDebugModeCallCount ) AS TALastIndexOfDebugModeCallCount_Invokes,
+	SUM( TAMapDebugModeCallCount ) AS TAMapDebugModeCallCount_Invokes,
+	SUM( TAReduceDebugModeCallCount ) AS TAReduceDebugModeCallCount_Invokes,
+	SUM( TAReduceRightDebugModeCallCount ) AS TAReduceRightDebugModeCallCount_Invokes,
+	SUM( TAReverseDebugModeCallCount ) AS TAReverseDebugModeCallCount_Invokes,
+	SUM( TASomeDebugModeCallCount ) AS TASomeDebugModeCallCount_Invokes,
+	SUM( TASortDebugModeCallCount ) AS TASortDebugModeCallCount_Invokes,
+	SUM( TASubArrayDebugModeCallCount ) AS TASubArrayDebugModeCallCount_Invokes,
+	SUM( TAValuesDebugModeCallCount ) AS TAValuesDebugModeCallCount_Invokes,
+	SUM( WeakMapDebugModeCallCount ) AS WeakMapDebugModeCallCount_Invokes,
+	SUM( SetDebugModeCallCount ) AS SetDebugModeCallCount_Invokes,
+	SUM( ProxyDebugModeCallCount ) AS ProxyDebugModeCallCount_Invokes,
+	SUM( SymbolDebugModeCallCount ) AS SymbolDebugModeCallCount_Invokes,
+	SUM( MapDebugModeCallCount ) AS MapDebugModeCallCount_Invokes,
+	SUM( GetOwnPropertySymbolsDebugModeCallCount ) AS GetOwnPropertySymbolsDebugModeCallCount_Invokes,
+	SUM( Log10DebugModeCount ) AS Log10DebugModeCount_Invokes,
+	SUM( Log1pDebugModeCallCount ) AS Log1pDebugModeCallCount_Invokes,
+	SUM( Log2DebugModeCallCount ) AS Log2DebugModeCallCount_Invokes,
+	SUM( SinhDebugModeCallCount ) AS SinhDebugModeCallCount_Invokes,
+	SUM( CoshDebugModeCallCount ) AS CoshDebugModeCallCount_Invokes,
+	SUM( TanhDebugModeCallCount ) AS TanhDebugModeCallCount_Invokes,
+	SUM( AsinhDebugModeCallCount ) AS AsinhDebugModeCallCount_Invokes,
+	SUM( AcoshDebugModeCallCount ) AS AcoshDebugModeCallCount_Invokes,
+	SUM( AtanhDebugModeCallCount ) AS AtanhDebugModeCallCount_Invokes,
+	SUM( HypotDebugModeCallCount ) AS HypotDebugModeCallCount_Invokes,
+	SUM( CbrtDebugModeCallCount ) AS CbrtDebugModeCallCount_Invokes,
+	SUM( TruncDebugModeCallCount ) AS TruncDebugModeCallCount_Invokes,
+	SUM( SignDebugModeCallCount ) AS SignDebugModeCallCount_Invokes,
+	SUM( ImulDebugModeCallCount ) AS ImulDebugModeCallCount_Invokes,
+	SUM( Clz32DebugModeCallCount ) AS Clz32DebugModeCallCount_Invokes,
+	SUM( FroundDebugModeCallCount ) AS FroundDebugModeCallCount_Invokes,
+	SUM( IsNaNDebugModeCallCount ) AS IsNaNDebugModeCallCount_Invokes,
+	SUM( IsFiniteDebugModeCallCount ) AS IsFiniteDebugModeCallCount_Invokes,
+	SUM( IsIntegerDebugModeCallCount ) AS IsIntegerDebugModeCallCount_Invokes,
+	SUM( IsSafeIntegerDebugModeCallCount ) AS IsSafeIntegerDebugModeCallCount_Invokes,
+	SUM( StartsWithDebugModeCallCount ) AS StartsWithDebugModeCallCount_Invokes,
+	SUM( EndsWithDebugModeCallCount ) AS EndsWithDebugModeCallCount_Invokes,
+	SUM( ContainsDebugModeCallCount ) AS ContainsDebugModeCallCount_Invokes,
+	SUM( RepeatDebugModeCallCount ) AS RepeatDebugModeCallCount_Invokes,
+	
+	COUNTIF( TAFromCount > 0 ) AS TAFromCount_Pages,
+	COUNTIF( TAOfCount > 0 ) AS TAOfCount_Pages,
+	COUNTIF( TACopyWithinCount > 0 ) AS TACopyWithinCount_Pages,
+	COUNTIF( TAEntriesCount > 0 ) AS TAEntriesCount_Pages,
+	COUNTIF( TAEveryCount > 0 ) AS TAEveryCount_Pages,
+	COUNTIF( TAFilterCount > 0 ) AS TAFilterCount_Pages,
+	COUNTIF( TAFillCount > 0 ) AS TAFillCount_Pages,
+	COUNTIF( TAFindCount > 0 ) AS TAFindCount_Pages,
+	COUNTIF( TAFindIndexCount > 0 ) AS TAFindIndexCount_Pages,
+	COUNTIF( TAForEachCount > 0 ) AS TAForEachCount_Pages,
+	COUNTIF( TAIndexOfCount > 0 ) AS TAIndexOfCount_Pages,
+	COUNTIF( TAJoinCount > 0 ) AS TAJoinCount_Pages,
+	COUNTIF( TAKeysCount > 0 ) AS TAKeysCount_Pages,
+	COUNTIF( TALastIndexOfCount > 0 ) AS TALastIndexOfCount_Pages,
+	COUNTIF( TAMapCount > 0 ) AS TAMapCount_Pages,
+	COUNTIF( TAReduceCount > 0 ) AS TAReduceCount_Pages,
+	COUNTIF( TAReduceRightCount > 0 ) AS TAReduceRightCount_Pages,
+	COUNTIF( TAReverseCount > 0 ) AS TAReverseCount_Pages,
+	COUNTIF( TASomeCount > 0 ) AS TASomeCount_Pages,
+	COUNTIF( TASortCount > 0 ) AS TASortCount_Pages,
+	COUNTIF( TASubArrayCount > 0 ) AS TASubArrayCount_Pages,
+	COUNTIF( TAValuesCount > 0 ) AS TAValuesCount_Pages,
+	COUNTIF( WeakMapCount > 0 ) AS WeakMapCount_Pages,
+	COUNTIF( SetCount > 0 ) AS SetCount_Pages,
+	COUNTIF( ProxyCount > 0 ) AS ProxyCount_Pages,
+	COUNTIF( SymbolCount > 0 ) AS SymbolCount_Pages,
+	COUNTIF( MapCount > 0 ) AS MapCount_Pages,
+	COUNTIF( GetOwnPropertySymbolsCount > 0 ) AS GetOwnPropertySymbolsCount_Pages,
+	COUNTIF( Log10Count > 0 ) AS Log10Count_Pages,
+	COUNTIF( Log1pCountCount > 0 ) AS Log1pCountCount_Pages,
+	COUNTIF( Log2Count > 0 ) AS Log2Count_Pages,
+	COUNTIF( SinhCount > 0 ) AS SinhCount_Pages,
+	COUNTIF( CoshCount > 0 ) AS CoshCount_Pages,
+	COUNTIF( TanhCountCount > 0 ) AS TanhCountCount_Pages,
+	COUNTIF( AsinhCount > 0 ) AS AsinhCount_Pages,
+	COUNTIF( AcoshCount > 0 ) AS AcoshCount_Pages,
+	COUNTIF( AtanhCount > 0 ) AS AtanhCount_Pages,
+	COUNTIF( HypotCount > 0 ) AS HypotCount_Pages,
+	COUNTIF( CbrtCount > 0 ) AS CbrtCount_Pages,
+	COUNTIF( TruncCount > 0 ) AS TruncCount_Pages,
+	COUNTIF( SignCount > 0 ) AS SignCount_Pages,
+	COUNTIF( ImulCount > 0 ) AS ImulCount_Pages,
+	COUNTIF( Clz32Count > 0 ) AS Clz32Count_Pages,
+	COUNTIF( FroundCount > 0 ) AS FroundCount_Pages,
+	COUNTIF( IsNaNCount > 0 ) AS IsNaNCount_Pages,
+	COUNTIF( IsFiniteCount > 0 ) AS IsFiniteCount_Pages,
+	COUNTIF( IsIntegerCount > 0 ) AS IsIntegerCount_Pages,
+	COUNTIF( IsSafeIntegerCount > 0 ) AS IsSafeIntegerCount_Pages,
+	COUNTIF( StartsWithCount > 0 ) AS StartsWithCount_Pages,
+	COUNTIF( EndsWithCount > 0 ) AS EndsWithCount_Pages,
+	COUNTIF( ContainsCount > 0 ) AS ContainsCount_Pages,
+	COUNTIF( RepeatCount > 0 ) AS RepeatCount_Pages,
+	COUNTIF( TAFromDebugModeCallCount > 0 ) AS TAFromDebugModeCallCount_Pages,
+	COUNTIF( TAOfDebugModeCallCount > 0 ) AS TAOfDebugModeCallCount_Pages,
+	COUNTIF( TACopyWithinDebugModeCallCount > 0 ) AS TACopyWithinDebugModeCallCount_Pages,
+	COUNTIF( TAEntriesDebugModeCallCount > 0 ) AS TAEntriesDebugModeCallCount_Pages,
+	COUNTIF( TAEveryDebugModeCallCount > 0 ) AS TAEveryDebugModeCallCount_Pages,
+	COUNTIF( TAFilterDebugModeCallCount > 0 ) AS TAFilterDebugModeCallCount_Pages,
+	COUNTIF( TAFillDebugModeCallCount > 0 ) AS TAFillDebugModeCallCount_Pages,
+	COUNTIF( TAFindDebugModeCallCount > 0 ) AS TAFindDebugModeCallCount_Pages,
+	COUNTIF( TAFindIndexDebugModeCallCount > 0 ) AS TAFindIndexDebugModeCallCount_Pages,
+	COUNTIF( TAForEachDebugModeCallCount > 0 ) AS TAForEachDebugModeCallCount_Pages,
+	COUNTIF( TAIndexOfDebugModeCallCount > 0 ) AS TAIndexOfDebugModeCallCount_Pages,
+	COUNTIF( TAJoinDebugModeCallCount > 0 ) AS TAJoinDebugModeCallCount_Pages,
+	COUNTIF( TAKeysDebugModeCallCount > 0 ) AS TAKeysDebugModeCallCount_Pages,
+	COUNTIF( TALastIndexOfDebugModeCallCount > 0 ) AS TALastIndexOfDebugModeCallCount_Pages,
+	COUNTIF( TAMapDebugModeCallCount > 0 ) AS TAMapDebugModeCallCount_Pages,
+	COUNTIF( TAReduceDebugModeCallCount > 0 ) AS TAReduceDebugModeCallCount_Pages,
+	COUNTIF( TAReduceRightDebugModeCallCount > 0 ) AS TAReduceRightDebugModeCallCount_Pages,
+	COUNTIF( TAReverseDebugModeCallCount > 0 ) AS TAReverseDebugModeCallCount_Pages,
+	COUNTIF( TASomeDebugModeCallCount > 0 ) AS TASomeDebugModeCallCount_Pages,
+	COUNTIF( TASortDebugModeCallCount > 0 ) AS TASortDebugModeCallCount_Pages,
+	COUNTIF( TASubArrayDebugModeCallCount > 0 ) AS TASubArrayDebugModeCallCount_Pages,
+	COUNTIF( TAValuesDebugModeCallCount > 0 ) AS TAValuesDebugModeCallCount_Pages,
+	COUNTIF( WeakMapDebugModeCallCount > 0 ) AS WeakMapDebugModeCallCount_Pages,
+	COUNTIF( SetDebugModeCallCount > 0 ) AS SetDebugModeCallCount_Pages,
+	COUNTIF( ProxyDebugModeCallCount > 0 ) AS ProxyDebugModeCallCount_Pages,
+	COUNTIF( SymbolDebugModeCallCount > 0 ) AS SymbolDebugModeCallCount_Pages,
+	COUNTIF( MapDebugModeCallCount > 0 ) AS MapDebugModeCallCount_Pages,
+	COUNTIF( GetOwnPropertySymbolsDebugModeCallCount > 0 ) AS GetOwnPropertySymbolsDebugModeCallCount_Pages,
+	COUNTIF( Log10DebugModeCount > 0 ) AS Log10DebugModeCount_Pages,
+	COUNTIF( Log1pDebugModeCallCount > 0 ) AS Log1pDebugModeCallCount_Pages,
+	COUNTIF( Log2DebugModeCallCount > 0 ) AS Log2DebugModeCallCount_Pages,
+	COUNTIF( SinhDebugModeCallCount > 0 ) AS SinhDebugModeCallCount_Pages,
+	COUNTIF( CoshDebugModeCallCount > 0 ) AS CoshDebugModeCallCount_Pages,
+	COUNTIF( TanhDebugModeCallCount > 0 ) AS TanhDebugModeCallCount_Pages,
+	COUNTIF( AsinhDebugModeCallCount > 0 ) AS AsinhDebugModeCallCount_Pages,
+	COUNTIF( AcoshDebugModeCallCount > 0 ) AS AcoshDebugModeCallCount_Pages,
+	COUNTIF( AtanhDebugModeCallCount > 0 ) AS AtanhDebugModeCallCount_Pages,
+	COUNTIF( HypotDebugModeCallCount > 0 ) AS HypotDebugModeCallCount_Pages,
+	COUNTIF( CbrtDebugModeCallCount > 0 ) AS CbrtDebugModeCallCount_Pages,
+	COUNTIF( TruncDebugModeCallCount > 0 ) AS TruncDebugModeCallCount_Pages,
+	COUNTIF( SignDebugModeCallCount > 0 ) AS SignDebugModeCallCount_Pages,
+	COUNTIF( ImulDebugModeCallCount > 0 ) AS ImulDebugModeCallCount_Pages,
+	COUNTIF( Clz32DebugModeCallCount > 0 ) AS Clz32DebugModeCallCount_Pages,
+	COUNTIF( FroundDebugModeCallCount > 0 ) AS FroundDebugModeCallCount_Pages,
+	COUNTIF( IsNaNDebugModeCallCount > 0 ) AS IsNaNDebugModeCallCount_Pages,
+	COUNTIF( IsFiniteDebugModeCallCount > 0 ) AS IsFiniteDebugModeCallCount_Pages,
+	COUNTIF( IsIntegerDebugModeCallCount > 0 ) AS IsIntegerDebugModeCallCount_Pages,
+	COUNTIF( IsSafeIntegerDebugModeCallCount > 0 ) AS IsSafeIntegerDebugModeCallCount_Pages,
+	COUNTIF( StartsWithDebugModeCallCount > 0 ) AS StartsWithDebugModeCallCount_Pages,
+	COUNTIF( EndsWithDebugModeCallCount > 0 ) AS EndsWithDebugModeCallCount_Pages,
+	COUNTIF( ContainsDebugModeCallCount > 0 ) AS ContainsDebugModeCallCount_Pages,
+	COUNTIF( RepeatDebugModeCallCount > 0 ) AS RepeatDebugModeCallCount_Pages
+FROM
+	allInput
+GROUP BY
+	YearMonth,
+	Domain;
+
+///////////////////////////////
+
+summary = 
+SELECT
+	YearMonth,
+
+	SUM( PagesTotal )         AS PagesTotal,
+	SUM( PagesUsing )         AS PagesUsing,
+	COUNT( * )                AS DomainsTotal,
+	COUNTIF( PagesUsing > 0 ) AS DomainsUsing,
+
+	SUM( TAFromCount_Invokes ) AS TAFromCount_Invokes,
+	SUM( TAOfCount_Invokes ) AS TAOfCount_Invokes,
+	SUM( TACopyWithinCount_Invokes ) AS TACopyWithinCount_Invokes,
+	SUM( TAEntriesCount_Invokes ) AS TAEntriesCount_Invokes,
+	SUM( TAEveryCount_Invokes ) AS TAEveryCount_Invokes,
+	SUM( TAFilterCount_Invokes ) AS TAFilterCount_Invokes,
+	SUM( TAFillCount_Invokes ) AS TAFillCount_Invokes,
+	SUM( TAFindCount_Invokes ) AS TAFindCount_Invokes,
+	SUM( TAFindIndexCount_Invokes ) AS TAFindIndexCount_Invokes,
+	SUM( TAForEachCount_Invokes ) AS TAForEachCount_Invokes,
+	SUM( TAIndexOfCount_Invokes ) AS TAIndexOfCount_Invokes,
+	SUM( TAJoinCount_Invokes ) AS TAJoinCount_Invokes,
+	SUM( TAKeysCount_Invokes ) AS TAKeysCount_Invokes,
+	SUM( TALastIndexOfCount_Invokes ) AS TALastIndexOfCount_Invokes,
+	SUM( TAMapCount_Invokes ) AS TAMapCount_Invokes,
+	SUM( TAReduceCount_Invokes ) AS TAReduceCount_Invokes,
+	SUM( TAReduceRightCount_Invokes ) AS TAReduceRightCount_Invokes,
+	SUM( TAReverseCount_Invokes ) AS TAReverseCount_Invokes,
+	SUM( TASomeCount_Invokes ) AS TASomeCount_Invokes,
+	SUM( TASortCount_Invokes ) AS TASortCount_Invokes,
+	SUM( TASubArrayCount_Invokes ) AS TASubArrayCount_Invokes,
+	SUM( TAValuesCount_Invokes ) AS TAValuesCount_Invokes,
+	SUM( WeakMapCount_Invokes ) AS WeakMapCount_Invokes,
+	SUM( SetCount_Invokes ) AS SetCount_Invokes,
+	SUM( ProxyCount_Invokes ) AS ProxyCount_Invokes,
+	SUM( SymbolCount_Invokes ) AS SymbolCount_Invokes,
+	SUM( MapCount_Invokes ) AS MapCount_Invokes,
+	SUM( GetOwnPropertySymbolsCount_Invokes ) AS GetOwnPropertySymbolsCount_Invokes,
+	SUM( Log10Count_Invokes ) AS Log10Count_Invokes,
+	SUM( Log1pCountCount_Invokes ) AS Log1pCountCount_Invokes,
+	SUM( Log2Count_Invokes ) AS Log2Count_Invokes,
+	SUM( SinhCount_Invokes ) AS SinhCount_Invokes,
+	SUM( CoshCount_Invokes ) AS CoshCount_Invokes,
+	SUM( TanhCountCount_Invokes ) AS TanhCountCount_Invokes,
+	SUM( AsinhCount_Invokes ) AS AsinhCount_Invokes,
+	SUM( AcoshCount_Invokes ) AS AcoshCount_Invokes,
+	SUM( AtanhCount_Invokes ) AS AtanhCount_Invokes,
+	SUM( HypotCount_Invokes ) AS HypotCount_Invokes,
+	SUM( CbrtCount_Invokes ) AS CbrtCount_Invokes,
+	SUM( TruncCount_Invokes ) AS TruncCount_Invokes,
+	SUM( SignCount_Invokes ) AS SignCount_Invokes,
+	SUM( ImulCount_Invokes ) AS ImulCount_Invokes,
+	SUM( Clz32Count_Invokes ) AS Clz32Count_Invokes,
+	SUM( FroundCount_Invokes ) AS FroundCount_Invokes,
+	SUM( IsNaNCount_Invokes ) AS IsNaNCount_Invokes,
+	SUM( IsFiniteCount_Invokes ) AS IsFiniteCount_Invokes,
+	SUM( IsIntegerCount_Invokes ) AS IsIntegerCount_Invokes,
+	SUM( IsSafeIntegerCount_Invokes ) AS IsSafeIntegerCount_Invokes,
+	SUM( StartsWithCount_Invokes ) AS StartsWithCount_Invokes,
+	SUM( EndsWithCount_Invokes ) AS EndsWithCount_Invokes,
+	SUM( ContainsCount_Invokes ) AS ContainsCount_Invokes,
+	SUM( RepeatCount_Invokes ) AS RepeatCount_Invokes,
+	SUM( TAFromDebugModeCallCount_Invokes ) AS TAFromDebugModeCallCount_Invokes,
+	SUM( TAOfDebugModeCallCount_Invokes ) AS TAOfDebugModeCallCount_Invokes,
+	SUM( TACopyWithinDebugModeCallCount_Invokes ) AS TACopyWithinDebugModeCallCount_Invokes,
+	SUM( TAEntriesDebugModeCallCount_Invokes ) AS TAEntriesDebugModeCallCount_Invokes,
+	SUM( TAEveryDebugModeCallCount_Invokes ) AS TAEveryDebugModeCallCount_Invokes,
+	SUM( TAFilterDebugModeCallCount_Invokes ) AS TAFilterDebugModeCallCount_Invokes,
+	SUM( TAFillDebugModeCallCount_Invokes ) AS TAFillDebugModeCallCount_Invokes,
+	SUM( TAFindDebugModeCallCount_Invokes ) AS TAFindDebugModeCallCount_Invokes,
+	SUM( TAFindIndexDebugModeCallCount_Invokes ) AS TAFindIndexDebugModeCallCount_Invokes,
+	SUM( TAForEachDebugModeCallCount_Invokes ) AS TAForEachDebugModeCallCount_Invokes,
+	SUM( TAIndexOfDebugModeCallCount_Invokes ) AS TAIndexOfDebugModeCallCount_Invokes,
+	SUM( TAJoinDebugModeCallCount_Invokes ) AS TAJoinDebugModeCallCount_Invokes,
+	SUM( TAKeysDebugModeCallCount_Invokes ) AS TAKeysDebugModeCallCount_Invokes,
+	SUM( TALastIndexOfDebugModeCallCount_Invokes ) AS TALastIndexOfDebugModeCallCount_Invokes,
+	SUM( TAMapDebugModeCallCount_Invokes ) AS TAMapDebugModeCallCount_Invokes,
+	SUM( TAReduceDebugModeCallCount_Invokes ) AS TAReduceDebugModeCallCount_Invokes,
+	SUM( TAReduceRightDebugModeCallCount_Invokes ) AS TAReduceRightDebugModeCallCount_Invokes,
+	SUM( TAReverseDebugModeCallCount_Invokes ) AS TAReverseDebugModeCallCount_Invokes,
+	SUM( TASomeDebugModeCallCount_Invokes ) AS TASomeDebugModeCallCount_Invokes,
+	SUM( TASortDebugModeCallCount_Invokes ) AS TASortDebugModeCallCount_Invokes,
+	SUM( TASubArrayDebugModeCallCount_Invokes ) AS TASubArrayDebugModeCallCount_Invokes,
+	SUM( TAValuesDebugModeCallCount_Invokes ) AS TAValuesDebugModeCallCount_Invokes,
+	SUM( WeakMapDebugModeCallCount_Invokes ) AS WeakMapDebugModeCallCount_Invokes,
+	SUM( SetDebugModeCallCount_Invokes ) AS SetDebugModeCallCount_Invokes,
+	SUM( ProxyDebugModeCallCount_Invokes ) AS ProxyDebugModeCallCount_Invokes,
+	SUM( SymbolDebugModeCallCount_Invokes ) AS SymbolDebugModeCallCount_Invokes,
+	SUM( MapDebugModeCallCount_Invokes ) AS MapDebugModeCallCount_Invokes,
+	SUM( GetOwnPropertySymbolsDebugModeCallCount_Invokes ) AS GetOwnPropertySymbolsDebugModeCallCount_Invokes,
+	SUM( Log10DebugModeCount_Invokes ) AS Log10DebugModeCount_Invokes,
+	SUM( Log1pDebugModeCallCount_Invokes ) AS Log1pDebugModeCallCount_Invokes,
+	SUM( Log2DebugModeCallCount_Invokes ) AS Log2DebugModeCallCount_Invokes,
+	SUM( SinhDebugModeCallCount_Invokes ) AS SinhDebugModeCallCount_Invokes,
+	SUM( CoshDebugModeCallCount_Invokes ) AS CoshDebugModeCallCount_Invokes,
+	SUM( TanhDebugModeCallCount_Invokes ) AS TanhDebugModeCallCount_Invokes,
+	SUM( AsinhDebugModeCallCount_Invokes ) AS AsinhDebugModeCallCount_Invokes,
+	SUM( AcoshDebugModeCallCount_Invokes ) AS AcoshDebugModeCallCount_Invokes,
+	SUM( AtanhDebugModeCallCount_Invokes ) AS AtanhDebugModeCallCount_Invokes,
+	SUM( HypotDebugModeCallCount_Invokes ) AS HypotDebugModeCallCount_Invokes,
+	SUM( CbrtDebugModeCallCount_Invokes ) AS CbrtDebugModeCallCount_Invokes,
+	SUM( TruncDebugModeCallCount_Invokes ) AS TruncDebugModeCallCount_Invokes,
+	SUM( SignDebugModeCallCount_Invokes ) AS SignDebugModeCallCount_Invokes,
+	SUM( ImulDebugModeCallCount_Invokes ) AS ImulDebugModeCallCount_Invokes,
+	SUM( Clz32DebugModeCallCount_Invokes ) AS Clz32DebugModeCallCount_Invokes,
+	SUM( FroundDebugModeCallCount_Invokes ) AS FroundDebugModeCallCount_Invokes,
+	SUM( IsNaNDebugModeCallCount_Invokes ) AS IsNaNDebugModeCallCount_Invokes,
+	SUM( IsFiniteDebugModeCallCount_Invokes ) AS IsFiniteDebugModeCallCount_Invokes,
+	SUM( IsIntegerDebugModeCallCount_Invokes ) AS IsIntegerDebugModeCallCount_Invokes,
+	SUM( IsSafeIntegerDebugModeCallCount_Invokes ) AS IsSafeIntegerDebugModeCallCount_Invokes,
+	SUM( StartsWithDebugModeCallCount_Invokes ) AS StartsWithDebugModeCallCount_Invokes,
+	SUM( EndsWithDebugModeCallCount_Invokes ) AS EndsWithDebugModeCallCount_Invokes,
+	SUM( ContainsDebugModeCallCount_Invokes ) AS ContainsDebugModeCallCount_Invokes,
+	SUM( RepeatDebugModeCallCount_Invokes ) AS RepeatDebugModeCallCount_Invokes,
+	
+	SUM( TAFromCount_Pages ) AS TAFromCount_Pages,
+	SUM( TAOfCount_Pages ) AS TAOfCount_Pages,
+	SUM( TACopyWithinCount_Pages ) AS TACopyWithinCount_Pages,
+	SUM( TAEntriesCount_Pages ) AS TAEntriesCount_Pages,
+	SUM( TAEveryCount_Pages ) AS TAEveryCount_Pages,
+	SUM( TAFilterCount_Pages ) AS TAFilterCount_Pages,
+	SUM( TAFillCount_Pages ) AS TAFillCount_Pages,
+	SUM( TAFindCount_Pages ) AS TAFindCount_Pages,
+	SUM( TAFindIndexCount_Pages ) AS TAFindIndexCount_Pages,
+	SUM( TAForEachCount_Pages ) AS TAForEachCount_Pages,
+	SUM( TAIndexOfCount_Pages ) AS TAIndexOfCount_Pages,
+	SUM( TAJoinCount_Pages ) AS TAJoinCount_Pages,
+	SUM( TAKeysCount_Pages ) AS TAKeysCount_Pages,
+	SUM( TALastIndexOfCount_Pages ) AS TALastIndexOfCount_Pages,
+	SUM( TAMapCount_Pages ) AS TAMapCount_Pages,
+	SUM( TAReduceCount_Pages ) AS TAReduceCount_Pages,
+	SUM( TAReduceRightCount_Pages ) AS TAReduceRightCount_Pages,
+	SUM( TAReverseCount_Pages ) AS TAReverseCount_Pages,
+	SUM( TASomeCount_Pages ) AS TASomeCount_Pages,
+	SUM( TASortCount_Pages ) AS TASortCount_Pages,
+	SUM( TASubArrayCount_Pages ) AS TASubArrayCount_Pages,
+	SUM( TAValuesCount_Pages ) AS TAValuesCount_Pages,
+	SUM( WeakMapCount_Pages ) AS WeakMapCount_Pages,
+	SUM( SetCount_Pages ) AS SetCount_Pages,
+	SUM( ProxyCount_Pages ) AS ProxyCount_Pages,
+	SUM( SymbolCount_Pages ) AS SymbolCount_Pages,
+	SUM( MapCount_Pages ) AS MapCount_Pages,
+	SUM( GetOwnPropertySymbolsCount_Pages ) AS GetOwnPropertySymbolsCount_Pages,
+	SUM( Log10Count_Pages ) AS Log10Count_Pages,
+	SUM( Log1pCountCount_Pages ) AS Log1pCountCount_Pages,
+	SUM( Log2Count_Pages ) AS Log2Count_Pages,
+	SUM( SinhCount_Pages ) AS SinhCount_Pages,
+	SUM( CoshCount_Pages ) AS CoshCount_Pages,
+	SUM( TanhCountCount_Pages ) AS TanhCountCount_Pages,
+	SUM( AsinhCount_Pages ) AS AsinhCount_Pages,
+	SUM( AcoshCount_Pages ) AS AcoshCount_Pages,
+	SUM( AtanhCount_Pages ) AS AtanhCount_Pages,
+	SUM( HypotCount_Pages ) AS HypotCount_Pages,
+	SUM( CbrtCount_Pages ) AS CbrtCount_Pages,
+	SUM( TruncCount_Pages ) AS TruncCount_Pages,
+	SUM( SignCount_Pages ) AS SignCount_Pages,
+	SUM( ImulCount_Pages ) AS ImulCount_Pages,
+	SUM( Clz32Count_Pages ) AS Clz32Count_Pages,
+	SUM( FroundCount_Pages ) AS FroundCount_Pages,
+	SUM( IsNaNCount_Pages ) AS IsNaNCount_Pages,
+	SUM( IsFiniteCount_Pages ) AS IsFiniteCount_Pages,
+	SUM( IsIntegerCount_Pages ) AS IsIntegerCount_Pages,
+	SUM( IsSafeIntegerCount_Pages ) AS IsSafeIntegerCount_Pages,
+	SUM( StartsWithCount_Pages ) AS StartsWithCount_Pages,
+	SUM( EndsWithCount_Pages ) AS EndsWithCount_Pages,
+	SUM( ContainsCount_Pages ) AS ContainsCount_Pages,
+	SUM( RepeatCount_Pages ) AS RepeatCount_Pages,
+	SUM( TAFromDebugModeCallCount_Pages ) AS TAFromDebugModeCallCount_Pages,
+	SUM( TAOfDebugModeCallCount_Pages ) AS TAOfDebugModeCallCount_Pages,
+	SUM( TACopyWithinDebugModeCallCount_Pages ) AS TACopyWithinDebugModeCallCount_Pages,
+	SUM( TAEntriesDebugModeCallCount_Pages ) AS TAEntriesDebugModeCallCount_Pages,
+	SUM( TAEveryDebugModeCallCount_Pages ) AS TAEveryDebugModeCallCount_Pages,
+	SUM( TAFilterDebugModeCallCount_Pages ) AS TAFilterDebugModeCallCount_Pages,
+	SUM( TAFillDebugModeCallCount_Pages ) AS TAFillDebugModeCallCount_Pages,
+	SUM( TAFindDebugModeCallCount_Pages ) AS TAFindDebugModeCallCount_Pages,
+	SUM( TAFindIndexDebugModeCallCount_Pages ) AS TAFindIndexDebugModeCallCount_Pages,
+	SUM( TAForEachDebugModeCallCount_Pages ) AS TAForEachDebugModeCallCount_Pages,
+	SUM( TAIndexOfDebugModeCallCount_Pages ) AS TAIndexOfDebugModeCallCount_Pages,
+	SUM( TAJoinDebugModeCallCount_Pages ) AS TAJoinDebugModeCallCount_Pages,
+	SUM( TAKeysDebugModeCallCount_Pages ) AS TAKeysDebugModeCallCount_Pages,
+	SUM( TALastIndexOfDebugModeCallCount_Pages ) AS TALastIndexOfDebugModeCallCount_Pages,
+	SUM( TAMapDebugModeCallCount_Pages ) AS TAMapDebugModeCallCount_Pages,
+	SUM( TAReduceDebugModeCallCount_Pages ) AS TAReduceDebugModeCallCount_Pages,
+	SUM( TAReduceRightDebugModeCallCount_Pages ) AS TAReduceRightDebugModeCallCount_Pages,
+	SUM( TAReverseDebugModeCallCount_Pages ) AS TAReverseDebugModeCallCount_Pages,
+	SUM( TASomeDebugModeCallCount_Pages ) AS TASomeDebugModeCallCount_Pages,
+	SUM( TASortDebugModeCallCount_Pages ) AS TASortDebugModeCallCount_Pages,
+	SUM( TASubArrayDebugModeCallCount_Pages ) AS TASubArrayDebugModeCallCount_Pages,
+	SUM( TAValuesDebugModeCallCount_Pages ) AS TAValuesDebugModeCallCount_Pages,
+	SUM( WeakMapDebugModeCallCount_Pages ) AS WeakMapDebugModeCallCount_Pages,
+	SUM( SetDebugModeCallCount_Pages ) AS SetDebugModeCallCount_Pages,
+	SUM( ProxyDebugModeCallCount_Pages ) AS ProxyDebugModeCallCount_Pages,
+	SUM( SymbolDebugModeCallCount_Pages ) AS SymbolDebugModeCallCount_Pages,
+	SUM( MapDebugModeCallCount_Pages ) AS MapDebugModeCallCount_Pages,
+	SUM( GetOwnPropertySymbolsDebugModeCallCount_Pages ) AS GetOwnPropertySymbolsDebugModeCallCount_Pages,
+	SUM( Log10DebugModeCount_Pages ) AS Log10DebugModeCount_Pages,
+	SUM( Log1pDebugModeCallCount_Pages ) AS Log1pDebugModeCallCount_Pages,
+	SUM( Log2DebugModeCallCount_Pages ) AS Log2DebugModeCallCount_Pages,
+	SUM( SinhDebugModeCallCount_Pages ) AS SinhDebugModeCallCount_Pages,
+	SUM( CoshDebugModeCallCount_Pages ) AS CoshDebugModeCallCount_Pages,
+	SUM( TanhDebugModeCallCount_Pages ) AS TanhDebugModeCallCount_Pages,
+	SUM( AsinhDebugModeCallCount_Pages ) AS AsinhDebugModeCallCount_Pages,
+	SUM( AcoshDebugModeCallCount_Pages ) AS AcoshDebugModeCallCount_Pages,
+	SUM( AtanhDebugModeCallCount_Pages ) AS AtanhDebugModeCallCount_Pages,
+	SUM( HypotDebugModeCallCount_Pages ) AS HypotDebugModeCallCount_Pages,
+	SUM( CbrtDebugModeCallCount_Pages ) AS CbrtDebugModeCallCount_Pages,
+	SUM( TruncDebugModeCallCount_Pages ) AS TruncDebugModeCallCount_Pages,
+	SUM( SignDebugModeCallCount_Pages ) AS SignDebugModeCallCount_Pages,
+	SUM( ImulDebugModeCallCount_Pages ) AS ImulDebugModeCallCount_Pages,
+	SUM( Clz32DebugModeCallCount_Pages ) AS Clz32DebugModeCallCount_Pages,
+	SUM( FroundDebugModeCallCount_Pages ) AS FroundDebugModeCallCount_Pages,
+	SUM( IsNaNDebugModeCallCount_Pages ) AS IsNaNDebugModeCallCount_Pages,
+	SUM( IsFiniteDebugModeCallCount_Pages ) AS IsFiniteDebugModeCallCount_Pages,
+	SUM( IsIntegerDebugModeCallCount_Pages ) AS IsIntegerDebugModeCallCount_Pages,
+	SUM( IsSafeIntegerDebugModeCallCount_Pages ) AS IsSafeIntegerDebugModeCallCount_Pages,
+	SUM( StartsWithDebugModeCallCount_Pages ) AS StartsWithDebugModeCallCount_Pages,
+	SUM( EndsWithDebugModeCallCount_Pages ) AS EndsWithDebugModeCallCount_Pages,
+	SUM( ContainsDebugModeCallCount_Pages ) AS ContainsDebugModeCallCount_Pages,
+	SUM( RepeatDebugModeCallCount_Pages ) AS RepeatDebugModeCallCount_Pages,
+	
+	COUNTIF( TAFromCount_Pages > 0 ) AS TAFromCount_Domains,
+	COUNTIF( TAOfCount_Pages > 0 ) AS TAOfCount_Domains,
+	COUNTIF( TACopyWithinCount_Pages > 0 ) AS TACopyWithinCount_Domains,
+	COUNTIF( TAEntriesCount_Pages > 0 ) AS TAEntriesCount_Domains,
+	COUNTIF( TAEveryCount_Pages > 0 ) AS TAEveryCount_Domains,
+	COUNTIF( TAFilterCount_Pages > 0 ) AS TAFilterCount_Domains,
+	COUNTIF( TAFillCount_Pages > 0 ) AS TAFillCount_Domains,
+	COUNTIF( TAFindCount_Pages > 0 ) AS TAFindCount_Domains,
+	COUNTIF( TAFindIndexCount_Pages > 0 ) AS TAFindIndexCount_Domains,
+	COUNTIF( TAForEachCount_Pages > 0 ) AS TAForEachCount_Domains,
+	COUNTIF( TAIndexOfCount_Pages > 0 ) AS TAIndexOfCount_Domains,
+	COUNTIF( TAJoinCount_Pages > 0 ) AS TAJoinCount_Domains,
+	COUNTIF( TAKeysCount_Pages > 0 ) AS TAKeysCount_Domains,
+	COUNTIF( TALastIndexOfCount_Pages > 0 ) AS TALastIndexOfCount_Domains,
+	COUNTIF( TAMapCount_Pages > 0 ) AS TAMapCount_Domains,
+	COUNTIF( TAReduceCount_Pages > 0 ) AS TAReduceCount_Domains,
+	COUNTIF( TAReduceRightCount_Pages > 0 ) AS TAReduceRightCount_Domains,
+	COUNTIF( TAReverseCount_Pages > 0 ) AS TAReverseCount_Domains,
+	COUNTIF( TASomeCount_Pages > 0 ) AS TASomeCount_Domains,
+	COUNTIF( TASortCount_Pages > 0 ) AS TASortCount_Domains,
+	COUNTIF( TASubArrayCount_Pages > 0 ) AS TASubArrayCount_Domains,
+	COUNTIF( TAValuesCount_Pages > 0 ) AS TAValuesCount_Domains,
+	COUNTIF( WeakMapCount_Pages > 0 ) AS WeakMapCount_Domains,
+	COUNTIF( SetCount_Pages > 0 ) AS SetCount_Domains,
+	COUNTIF( ProxyCount_Pages > 0 ) AS ProxyCount_Domains,
+	COUNTIF( SymbolCount_Pages > 0 ) AS SymbolCount_Domains,
+	COUNTIF( MapCount_Pages > 0 ) AS MapCount_Domains,
+	COUNTIF( GetOwnPropertySymbolsCount_Pages > 0 ) AS GetOwnPropertySymbolsCount_Domains,
+	COUNTIF( Log10Count_Pages > 0 ) AS Log10Count_Domains,
+	COUNTIF( Log1pCountCount_Pages > 0 ) AS Log1pCountCount_Domains,
+	COUNTIF( Log2Count_Pages > 0 ) AS Log2Count_Domains,
+	COUNTIF( SinhCount_Pages > 0 ) AS SinhCount_Domains,
+	COUNTIF( CoshCount_Pages > 0 ) AS CoshCount_Domains,
+	COUNTIF( TanhCountCount_Pages > 0 ) AS TanhCountCount_Domains,
+	COUNTIF( AsinhCount_Pages > 0 ) AS AsinhCount_Domains,
+	COUNTIF( AcoshCount_Pages > 0 ) AS AcoshCount_Domains,
+	COUNTIF( AtanhCount_Pages > 0 ) AS AtanhCount_Domains,
+	COUNTIF( HypotCount_Pages > 0 ) AS HypotCount_Domains,
+	COUNTIF( CbrtCount_Pages > 0 ) AS CbrtCount_Domains,
+	COUNTIF( TruncCount_Pages > 0 ) AS TruncCount_Domains,
+	COUNTIF( SignCount_Pages > 0 ) AS SignCount_Domains,
+	COUNTIF( ImulCount_Pages > 0 ) AS ImulCount_Domains,
+	COUNTIF( Clz32Count_Pages > 0 ) AS Clz32Count_Domains,
+	COUNTIF( FroundCount_Pages > 0 ) AS FroundCount_Domains,
+	COUNTIF( IsNaNCount_Pages > 0 ) AS IsNaNCount_Domains,
+	COUNTIF( IsFiniteCount_Pages > 0 ) AS IsFiniteCount_Domains,
+	COUNTIF( IsIntegerCount_Pages > 0 ) AS IsIntegerCount_Domains,
+	COUNTIF( IsSafeIntegerCount_Pages > 0 ) AS IsSafeIntegerCount_Domains,
+	COUNTIF( StartsWithCount_Pages > 0 ) AS StartsWithCount_Domains,
+	COUNTIF( EndsWithCount_Pages > 0 ) AS EndsWithCount_Domains,
+	COUNTIF( ContainsCount_Pages > 0 ) AS ContainsCount_Domains,
+	COUNTIF( RepeatCount_Pages > 0 ) AS RepeatCount_Domains,
+	COUNTIF( TAFromDebugModeCallCount_Pages > 0 ) AS TAFromDebugModeCallCount_Domains,
+	COUNTIF( TAOfDebugModeCallCount_Pages > 0 ) AS TAOfDebugModeCallCount_Domains,
+	COUNTIF( TACopyWithinDebugModeCallCount_Pages > 0 ) AS TACopyWithinDebugModeCallCount_Domains,
+	COUNTIF( TAEntriesDebugModeCallCount_Pages > 0 ) AS TAEntriesDebugModeCallCount_Domains,
+	COUNTIF( TAEveryDebugModeCallCount_Pages > 0 ) AS TAEveryDebugModeCallCount_Domains,
+	COUNTIF( TAFilterDebugModeCallCount_Pages > 0 ) AS TAFilterDebugModeCallCount_Domains,
+	COUNTIF( TAFillDebugModeCallCount_Pages > 0 ) AS TAFillDebugModeCallCount_Domains,
+	COUNTIF( TAFindDebugModeCallCount_Pages > 0 ) AS TAFindDebugModeCallCount_Domains,
+	COUNTIF( TAFindIndexDebugModeCallCount_Pages > 0 ) AS TAFindIndexDebugModeCallCount_Domains,
+	COUNTIF( TAForEachDebugModeCallCount_Pages > 0 ) AS TAForEachDebugModeCallCount_Domains,
+	COUNTIF( TAIndexOfDebugModeCallCount_Pages > 0 ) AS TAIndexOfDebugModeCallCount_Domains,
+	COUNTIF( TAJoinDebugModeCallCount_Pages > 0 ) AS TAJoinDebugModeCallCount_Domains,
+	COUNTIF( TAKeysDebugModeCallCount_Pages > 0 ) AS TAKeysDebugModeCallCount_Domains,
+	COUNTIF( TALastIndexOfDebugModeCallCount_Pages > 0 ) AS TALastIndexOfDebugModeCallCount_Domains,
+	COUNTIF( TAMapDebugModeCallCount_Pages > 0 ) AS TAMapDebugModeCallCount_Domains,
+	COUNTIF( TAReduceDebugModeCallCount_Pages > 0 ) AS TAReduceDebugModeCallCount_Domains,
+	COUNTIF( TAReduceRightDebugModeCallCount_Pages > 0 ) AS TAReduceRightDebugModeCallCount_Domains,
+	COUNTIF( TAReverseDebugModeCallCount_Pages > 0 ) AS TAReverseDebugModeCallCount_Domains,
+	COUNTIF( TASomeDebugModeCallCount_Pages > 0 ) AS TASomeDebugModeCallCount_Domains,
+	COUNTIF( TASortDebugModeCallCount_Pages > 0 ) AS TASortDebugModeCallCount_Domains,
+	COUNTIF( TASubArrayDebugModeCallCount_Pages > 0 ) AS TASubArrayDebugModeCallCount_Domains,
+	COUNTIF( TAValuesDebugModeCallCount_Pages > 0 ) AS TAValuesDebugModeCallCount_Domains,
+	COUNTIF( WeakMapDebugModeCallCount_Pages > 0 ) AS WeakMapDebugModeCallCount_Domains,
+	COUNTIF( SetDebugModeCallCount_Pages > 0 ) AS SetDebugModeCallCount_Domains,
+	COUNTIF( ProxyDebugModeCallCount_Pages > 0 ) AS ProxyDebugModeCallCount_Domains,
+	COUNTIF( SymbolDebugModeCallCount_Pages > 0 ) AS SymbolDebugModeCallCount_Domains,
+	COUNTIF( MapDebugModeCallCount_Pages > 0 ) AS MapDebugModeCallCount_Domains,
+	COUNTIF( GetOwnPropertySymbolsDebugModeCallCount_Pages > 0 ) AS GetOwnPropertySymbolsDebugModeCallCount_Domains,
+	COUNTIF( Log10DebugModeCount_Pages > 0 ) AS Log10DebugModeCount_Domains,
+	COUNTIF( Log1pDebugModeCallCount_Pages > 0 ) AS Log1pDebugModeCallCount_Domains,
+	COUNTIF( Log2DebugModeCallCount_Pages > 0 ) AS Log2DebugModeCallCount_Domains,
+	COUNTIF( SinhDebugModeCallCount_Pages > 0 ) AS SinhDebugModeCallCount_Domains,
+	COUNTIF( CoshDebugModeCallCount_Pages > 0 ) AS CoshDebugModeCallCount_Domains,
+	COUNTIF( TanhDebugModeCallCount_Pages > 0 ) AS TanhDebugModeCallCount_Domains,
+	COUNTIF( AsinhDebugModeCallCount_Pages > 0 ) AS AsinhDebugModeCallCount_Domains,
+	COUNTIF( AcoshDebugModeCallCount_Pages > 0 ) AS AcoshDebugModeCallCount_Domains,
+	COUNTIF( AtanhDebugModeCallCount_Pages > 0 ) AS AtanhDebugModeCallCount_Domains,
+	COUNTIF( HypotDebugModeCallCount_Pages > 0 ) AS HypotDebugModeCallCount_Domains,
+	COUNTIF( CbrtDebugModeCallCount_Pages > 0 ) AS CbrtDebugModeCallCount_Domains,
+	COUNTIF( TruncDebugModeCallCount_Pages > 0 ) AS TruncDebugModeCallCount_Domains,
+	COUNTIF( SignDebugModeCallCount_Pages > 0 ) AS SignDebugModeCallCount_Domains,
+	COUNTIF( ImulDebugModeCallCount_Pages > 0 ) AS ImulDebugModeCallCount_Domains,
+	COUNTIF( Clz32DebugModeCallCount_Pages > 0 ) AS Clz32DebugModeCallCount_Domains,
+	COUNTIF( FroundDebugModeCallCount_Pages > 0 ) AS FroundDebugModeCallCount_Domains,
+	COUNTIF( IsNaNDebugModeCallCount_Pages > 0 ) AS IsNaNDebugModeCallCount_Domains,
+	COUNTIF( IsFiniteDebugModeCallCount_Pages > 0 ) AS IsFiniteDebugModeCallCount_Domains,
+	COUNTIF( IsIntegerDebugModeCallCount_Pages > 0 ) AS IsIntegerDebugModeCallCount_Domains,
+	COUNTIF( IsSafeIntegerDebugModeCallCount_Pages > 0 ) AS IsSafeIntegerDebugModeCallCount_Domains,
+	COUNTIF( StartsWithDebugModeCallCount_Pages > 0 ) AS StartsWithDebugModeCallCount_Domains,
+	COUNTIF( EndsWithDebugModeCallCount_Pages > 0 ) AS EndsWithDebugModeCallCount_Domains,
+	COUNTIF( ContainsDebugModeCallCount_Pages > 0 ) AS ContainsDebugModeCallCount_Domains,
+	COUNTIF( RepeatDebugModeCallCount_Pages > 0 ) AS RepeatDebugModeCallCount_Domains
+
+FROM
+	summaryByDomain
+GROUP BY
+	YearMonth;
+
+OUTPUT summary TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
+
+#ELSE
+// Do nothing.
+// Well, we can't do absolutely nothing: Cosmos requires atleast one output in the script, so dump to a dummy file instead.
+rs1 =
+SELECT COUNT(*) AS Total
+FROM
+	( SSTREAM @noopInput );
+OUTPUT
+	rs1 TO SSTREAM @noop WITH STREAMEXPIRY "365";
+#ENDIF

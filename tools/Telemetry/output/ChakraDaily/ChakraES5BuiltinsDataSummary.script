@@ -1,0 +1,353 @@
+
+//Script GUID:f6944aaf-de8c-41b0-a035-a2e225123252
+//Used for tracking history
+
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+// DO NOT HAND-EDIT THIS FILE! This script is generated from a T4 template.
+// Run SummaryGenerator.cmd to re-create this file.
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+// 
+
+
+#DECLARE startDate  DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+#DECLARE inputDirectory string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ES5BuiltinsData" , @streamDate );
+#DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ES5BuiltinsSummary_Daily", @streamDate );
+
+
+summaryByDomain =
+SELECT
+	Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain,
+	Date AS DayDate,
+
+	COUNT(*) AS PagesTotal,
+
+	// Need to compute PagesUsing (UsesES5 in SQL) ourselves (note this should use the short-circuiting || operator for perf)...
+	SUM(
+		(
+			ArrayisArray > 0 ||
+			ArrayIndexOf > 0 ||
+			ArrayEvery > 0 ||
+			ArrayFilter > 0 ||
+			ArrayForEach > 0 ||
+			ArrayLastIndexOf > 0 ||
+			ArrayMap > 0 ||
+			ArrayReduce > 0 ||
+			ArrayReduceRight > 0 ||
+			ArraySome > 0 ||
+			ObjectCreate > 0 ||
+			ObjectDefineProperties > 0 ||
+			ObjectFreeze > 0 ||
+			ObjectSeal > 0 ||
+			ObjectGetOwnPropertyNames > 0 ||
+			ObjectGetPrototypeOf > 0 ||
+			ObjectIsExtensible > 0 ||
+			ObjectIsFrozen > 0 ||
+			ObjectIsSealed > 0 ||
+			ObjectKeys > 0 ||
+			ObjectPreventExtension > 0 ||
+			DateToISOString > 0 ||
+			FunctionBind > 0 ||
+			StringTrim > 0 ||
+			ArrayisArrayDebugModeCall > 0 ||
+			ArrayIndexOfDebugModeCall > 0 ||
+			ArrayEveryDebugModeCall > 0 ||
+			ArrayFilterDebugModeCall > 0 ||
+			ArrayForEachDebugModeCall > 0 ||
+			ArrayLastIndexOfDebugModeCall > 0 ||
+			ArrayMapDebugModeCall > 0 ||
+			ArrayReduceDebugModeCall > 0 ||
+			ArrayReduceRightDebugModeCall > 0 ||
+			ArraySomeDebugModeCall > 0 ||
+			ObjectCreateDebugModeCall > 0 ||
+			ObjectDefinePropertiesDebugModeCall > 0 ||
+			ObjectFreezeDebugModeCall > 0 ||
+			ObjectSealDebugModeCall > 0 ||
+			ObjectGetOwnPropertyNamesDebugModeCall > 0 ||
+			ObjectGetPrototypeOfDebugModeCall > 0 ||
+			ObjectIsExtensibleDebugModeCall > 0 ||
+			ObjectIsFrozenDebugModeCall > 0 ||
+			ObjectIsSealedDebugModeCall > 0 ||
+			ObjectKeysDebugModeCall > 0 ||
+			ObjectPreventExtensionDebugModeCall > 0 ||
+			DateToISOStringDebugModeCall > 0 ||
+			FunctionBindDebugModeCall > 0 ||
+			StringTrimDebugModeCall > 0
+		) ? 1 : 0
+	) AS PagesUsing,
+	
+	SUM( ArrayisArray ) AS ArrayisArray_Invokes,
+	SUM( ArrayIndexOf ) AS ArrayIndexOf_Invokes,
+	SUM( ArrayEvery ) AS ArrayEvery_Invokes,
+	SUM( ArrayFilter ) AS ArrayFilter_Invokes,
+	SUM( ArrayForEach ) AS ArrayForEach_Invokes,
+	SUM( ArrayLastIndexOf ) AS ArrayLastIndexOf_Invokes,
+	SUM( ArrayMap ) AS ArrayMap_Invokes,
+	SUM( ArrayReduce ) AS ArrayReduce_Invokes,
+	SUM( ArrayReduceRight ) AS ArrayReduceRight_Invokes,
+	SUM( ArraySome ) AS ArraySome_Invokes,
+	SUM( ObjectCreate ) AS ObjectCreate_Invokes,
+	SUM( ObjectDefineProperties ) AS ObjectDefineProperties_Invokes,
+	SUM( ObjectFreeze ) AS ObjectFreeze_Invokes,
+	SUM( ObjectSeal ) AS ObjectSeal_Invokes,
+	SUM( ObjectGetOwnPropertyNames ) AS ObjectGetOwnPropertyNames_Invokes,
+	SUM( ObjectGetPrototypeOf ) AS ObjectGetPrototypeOf_Invokes,
+	SUM( ObjectIsExtensible ) AS ObjectIsExtensible_Invokes,
+	SUM( ObjectIsFrozen ) AS ObjectIsFrozen_Invokes,
+	SUM( ObjectIsSealed ) AS ObjectIsSealed_Invokes,
+	SUM( ObjectKeys ) AS ObjectKeys_Invokes,
+	SUM( ObjectPreventExtension ) AS ObjectPreventExtension_Invokes,
+	SUM( DateToISOString ) AS DateToISOString_Invokes,
+	SUM( FunctionBind ) AS FunctionBind_Invokes,
+	SUM( StringTrim ) AS StringTrim_Invokes,
+	SUM( ArrayisArrayDebugModeCall ) AS ArrayisArrayDebugModeCall_Invokes,
+	SUM( ArrayIndexOfDebugModeCall ) AS ArrayIndexOfDebugModeCall_Invokes,
+	SUM( ArrayEveryDebugModeCall ) AS ArrayEveryDebugModeCall_Invokes,
+	SUM( ArrayFilterDebugModeCall ) AS ArrayFilterDebugModeCall_Invokes,
+	SUM( ArrayForEachDebugModeCall ) AS ArrayForEachDebugModeCall_Invokes,
+	SUM( ArrayLastIndexOfDebugModeCall ) AS ArrayLastIndexOfDebugModeCall_Invokes,
+	SUM( ArrayMapDebugModeCall ) AS ArrayMapDebugModeCall_Invokes,
+	SUM( ArrayReduceDebugModeCall ) AS ArrayReduceDebugModeCall_Invokes,
+	SUM( ArrayReduceRightDebugModeCall ) AS ArrayReduceRightDebugModeCall_Invokes,
+	SUM( ArraySomeDebugModeCall ) AS ArraySomeDebugModeCall_Invokes,
+	SUM( ObjectCreateDebugModeCall ) AS ObjectCreateDebugModeCall_Invokes,
+	SUM( ObjectDefinePropertiesDebugModeCall ) AS ObjectDefinePropertiesDebugModeCall_Invokes,
+	SUM( ObjectFreezeDebugModeCall ) AS ObjectFreezeDebugModeCall_Invokes,
+	SUM( ObjectSealDebugModeCall ) AS ObjectSealDebugModeCall_Invokes,
+	SUM( ObjectGetOwnPropertyNamesDebugModeCall ) AS ObjectGetOwnPropertyNamesDebugModeCall_Invokes,
+	SUM( ObjectGetPrototypeOfDebugModeCall ) AS ObjectGetPrototypeOfDebugModeCall_Invokes,
+	SUM( ObjectIsExtensibleDebugModeCall ) AS ObjectIsExtensibleDebugModeCall_Invokes,
+	SUM( ObjectIsFrozenDebugModeCall ) AS ObjectIsFrozenDebugModeCall_Invokes,
+	SUM( ObjectIsSealedDebugModeCall ) AS ObjectIsSealedDebugModeCall_Invokes,
+	SUM( ObjectKeysDebugModeCall ) AS ObjectKeysDebugModeCall_Invokes,
+	SUM( ObjectPreventExtensionDebugModeCall ) AS ObjectPreventExtensionDebugModeCall_Invokes,
+	SUM( DateToISOStringDebugModeCall ) AS DateToISOStringDebugModeCall_Invokes,
+	SUM( FunctionBindDebugModeCall ) AS FunctionBindDebugModeCall_Invokes,
+	SUM( StringTrimDebugModeCall ) AS StringTrimDebugModeCall_Invokes,
+	
+	COUNTIF( ArrayisArray > 0 ) AS ArrayisArray_Pages,
+	COUNTIF( ArrayIndexOf > 0 ) AS ArrayIndexOf_Pages,
+	COUNTIF( ArrayEvery > 0 ) AS ArrayEvery_Pages,
+	COUNTIF( ArrayFilter > 0 ) AS ArrayFilter_Pages,
+	COUNTIF( ArrayForEach > 0 ) AS ArrayForEach_Pages,
+	COUNTIF( ArrayLastIndexOf > 0 ) AS ArrayLastIndexOf_Pages,
+	COUNTIF( ArrayMap > 0 ) AS ArrayMap_Pages,
+	COUNTIF( ArrayReduce > 0 ) AS ArrayReduce_Pages,
+	COUNTIF( ArrayReduceRight > 0 ) AS ArrayReduceRight_Pages,
+	COUNTIF( ArraySome > 0 ) AS ArraySome_Pages,
+	COUNTIF( ObjectCreate > 0 ) AS ObjectCreate_Pages,
+	COUNTIF( ObjectDefineProperties > 0 ) AS ObjectDefineProperties_Pages,
+	COUNTIF( ObjectFreeze > 0 ) AS ObjectFreeze_Pages,
+	COUNTIF( ObjectSeal > 0 ) AS ObjectSeal_Pages,
+	COUNTIF( ObjectGetOwnPropertyNames > 0 ) AS ObjectGetOwnPropertyNames_Pages,
+	COUNTIF( ObjectGetPrototypeOf > 0 ) AS ObjectGetPrototypeOf_Pages,
+	COUNTIF( ObjectIsExtensible > 0 ) AS ObjectIsExtensible_Pages,
+	COUNTIF( ObjectIsFrozen > 0 ) AS ObjectIsFrozen_Pages,
+	COUNTIF( ObjectIsSealed > 0 ) AS ObjectIsSealed_Pages,
+	COUNTIF( ObjectKeys > 0 ) AS ObjectKeys_Pages,
+	COUNTIF( ObjectPreventExtension > 0 ) AS ObjectPreventExtension_Pages,
+	COUNTIF( DateToISOString > 0 ) AS DateToISOString_Pages,
+	COUNTIF( FunctionBind > 0 ) AS FunctionBind_Pages,
+	COUNTIF( StringTrim > 0 ) AS StringTrim_Pages,
+	COUNTIF( ArrayisArrayDebugModeCall > 0 ) AS ArrayisArrayDebugModeCall_Pages,
+	COUNTIF( ArrayIndexOfDebugModeCall > 0 ) AS ArrayIndexOfDebugModeCall_Pages,
+	COUNTIF( ArrayEveryDebugModeCall > 0 ) AS ArrayEveryDebugModeCall_Pages,
+	COUNTIF( ArrayFilterDebugModeCall > 0 ) AS ArrayFilterDebugModeCall_Pages,
+	COUNTIF( ArrayForEachDebugModeCall > 0 ) AS ArrayForEachDebugModeCall_Pages,
+	COUNTIF( ArrayLastIndexOfDebugModeCall > 0 ) AS ArrayLastIndexOfDebugModeCall_Pages,
+	COUNTIF( ArrayMapDebugModeCall > 0 ) AS ArrayMapDebugModeCall_Pages,
+	COUNTIF( ArrayReduceDebugModeCall > 0 ) AS ArrayReduceDebugModeCall_Pages,
+	COUNTIF( ArrayReduceRightDebugModeCall > 0 ) AS ArrayReduceRightDebugModeCall_Pages,
+	COUNTIF( ArraySomeDebugModeCall > 0 ) AS ArraySomeDebugModeCall_Pages,
+	COUNTIF( ObjectCreateDebugModeCall > 0 ) AS ObjectCreateDebugModeCall_Pages,
+	COUNTIF( ObjectDefinePropertiesDebugModeCall > 0 ) AS ObjectDefinePropertiesDebugModeCall_Pages,
+	COUNTIF( ObjectFreezeDebugModeCall > 0 ) AS ObjectFreezeDebugModeCall_Pages,
+	COUNTIF( ObjectSealDebugModeCall > 0 ) AS ObjectSealDebugModeCall_Pages,
+	COUNTIF( ObjectGetOwnPropertyNamesDebugModeCall > 0 ) AS ObjectGetOwnPropertyNamesDebugModeCall_Pages,
+	COUNTIF( ObjectGetPrototypeOfDebugModeCall > 0 ) AS ObjectGetPrototypeOfDebugModeCall_Pages,
+	COUNTIF( ObjectIsExtensibleDebugModeCall > 0 ) AS ObjectIsExtensibleDebugModeCall_Pages,
+	COUNTIF( ObjectIsFrozenDebugModeCall > 0 ) AS ObjectIsFrozenDebugModeCall_Pages,
+	COUNTIF( ObjectIsSealedDebugModeCall > 0 ) AS ObjectIsSealedDebugModeCall_Pages,
+	COUNTIF( ObjectKeysDebugModeCall > 0 ) AS ObjectKeysDebugModeCall_Pages,
+	COUNTIF( ObjectPreventExtensionDebugModeCall > 0 ) AS ObjectPreventExtensionDebugModeCall_Pages,
+	COUNTIF( DateToISOStringDebugModeCall > 0 ) AS DateToISOStringDebugModeCall_Pages,
+	COUNTIF( FunctionBindDebugModeCall > 0 ) AS FunctionBindDebugModeCall_Pages,
+	COUNTIF( StringTrimDebugModeCall > 0 ) AS StringTrimDebugModeCall_Pages
+FROM
+	( SSTREAM @inputDirectory )
+GROUP BY
+	DayDate,
+	Domain;
+
+///////////////////////////////
+
+summary = 
+SELECT
+	DayDate,
+
+	SUM( PagesTotal )         AS PagesTotal,
+	SUM( PagesUsing )         AS PagesUsing,
+	COUNT( * )                AS DomainsTotal,
+	COUNTIF( PagesUsing > 0 ) AS DomainsUsing,
+
+	SUM( ArrayisArray_Invokes ) AS ArrayisArray_Invokes,
+	SUM( ArrayIndexOf_Invokes ) AS ArrayIndexOf_Invokes,
+	SUM( ArrayEvery_Invokes ) AS ArrayEvery_Invokes,
+	SUM( ArrayFilter_Invokes ) AS ArrayFilter_Invokes,
+	SUM( ArrayForEach_Invokes ) AS ArrayForEach_Invokes,
+	SUM( ArrayLastIndexOf_Invokes ) AS ArrayLastIndexOf_Invokes,
+	SUM( ArrayMap_Invokes ) AS ArrayMap_Invokes,
+	SUM( ArrayReduce_Invokes ) AS ArrayReduce_Invokes,
+	SUM( ArrayReduceRight_Invokes ) AS ArrayReduceRight_Invokes,
+	SUM( ArraySome_Invokes ) AS ArraySome_Invokes,
+	SUM( ObjectCreate_Invokes ) AS ObjectCreate_Invokes,
+	SUM( ObjectDefineProperties_Invokes ) AS ObjectDefineProperties_Invokes,
+	SUM( ObjectFreeze_Invokes ) AS ObjectFreeze_Invokes,
+	SUM( ObjectSeal_Invokes ) AS ObjectSeal_Invokes,
+	SUM( ObjectGetOwnPropertyNames_Invokes ) AS ObjectGetOwnPropertyNames_Invokes,
+	SUM( ObjectGetPrototypeOf_Invokes ) AS ObjectGetPrototypeOf_Invokes,
+	SUM( ObjectIsExtensible_Invokes ) AS ObjectIsExtensible_Invokes,
+	SUM( ObjectIsFrozen_Invokes ) AS ObjectIsFrozen_Invokes,
+	SUM( ObjectIsSealed_Invokes ) AS ObjectIsSealed_Invokes,
+	SUM( ObjectKeys_Invokes ) AS ObjectKeys_Invokes,
+	SUM( ObjectPreventExtension_Invokes ) AS ObjectPreventExtension_Invokes,
+	SUM( DateToISOString_Invokes ) AS DateToISOString_Invokes,
+	SUM( FunctionBind_Invokes ) AS FunctionBind_Invokes,
+	SUM( StringTrim_Invokes ) AS StringTrim_Invokes,
+	SUM( ArrayisArrayDebugModeCall_Invokes ) AS ArrayisArrayDebugModeCall_Invokes,
+	SUM( ArrayIndexOfDebugModeCall_Invokes ) AS ArrayIndexOfDebugModeCall_Invokes,
+	SUM( ArrayEveryDebugModeCall_Invokes ) AS ArrayEveryDebugModeCall_Invokes,
+	SUM( ArrayFilterDebugModeCall_Invokes ) AS ArrayFilterDebugModeCall_Invokes,
+	SUM( ArrayForEachDebugModeCall_Invokes ) AS ArrayForEachDebugModeCall_Invokes,
+	SUM( ArrayLastIndexOfDebugModeCall_Invokes ) AS ArrayLastIndexOfDebugModeCall_Invokes,
+	SUM( ArrayMapDebugModeCall_Invokes ) AS ArrayMapDebugModeCall_Invokes,
+	SUM( ArrayReduceDebugModeCall_Invokes ) AS ArrayReduceDebugModeCall_Invokes,
+	SUM( ArrayReduceRightDebugModeCall_Invokes ) AS ArrayReduceRightDebugModeCall_Invokes,
+	SUM( ArraySomeDebugModeCall_Invokes ) AS ArraySomeDebugModeCall_Invokes,
+	SUM( ObjectCreateDebugModeCall_Invokes ) AS ObjectCreateDebugModeCall_Invokes,
+	SUM( ObjectDefinePropertiesDebugModeCall_Invokes ) AS ObjectDefinePropertiesDebugModeCall_Invokes,
+	SUM( ObjectFreezeDebugModeCall_Invokes ) AS ObjectFreezeDebugModeCall_Invokes,
+	SUM( ObjectSealDebugModeCall_Invokes ) AS ObjectSealDebugModeCall_Invokes,
+	SUM( ObjectGetOwnPropertyNamesDebugModeCall_Invokes ) AS ObjectGetOwnPropertyNamesDebugModeCall_Invokes,
+	SUM( ObjectGetPrototypeOfDebugModeCall_Invokes ) AS ObjectGetPrototypeOfDebugModeCall_Invokes,
+	SUM( ObjectIsExtensibleDebugModeCall_Invokes ) AS ObjectIsExtensibleDebugModeCall_Invokes,
+	SUM( ObjectIsFrozenDebugModeCall_Invokes ) AS ObjectIsFrozenDebugModeCall_Invokes,
+	SUM( ObjectIsSealedDebugModeCall_Invokes ) AS ObjectIsSealedDebugModeCall_Invokes,
+	SUM( ObjectKeysDebugModeCall_Invokes ) AS ObjectKeysDebugModeCall_Invokes,
+	SUM( ObjectPreventExtensionDebugModeCall_Invokes ) AS ObjectPreventExtensionDebugModeCall_Invokes,
+	SUM( DateToISOStringDebugModeCall_Invokes ) AS DateToISOStringDebugModeCall_Invokes,
+	SUM( FunctionBindDebugModeCall_Invokes ) AS FunctionBindDebugModeCall_Invokes,
+	SUM( StringTrimDebugModeCall_Invokes ) AS StringTrimDebugModeCall_Invokes,
+	
+	SUM( ArrayisArray_Pages ) AS ArrayisArray_Pages,
+	SUM( ArrayIndexOf_Pages ) AS ArrayIndexOf_Pages,
+	SUM( ArrayEvery_Pages ) AS ArrayEvery_Pages,
+	SUM( ArrayFilter_Pages ) AS ArrayFilter_Pages,
+	SUM( ArrayForEach_Pages ) AS ArrayForEach_Pages,
+	SUM( ArrayLastIndexOf_Pages ) AS ArrayLastIndexOf_Pages,
+	SUM( ArrayMap_Pages ) AS ArrayMap_Pages,
+	SUM( ArrayReduce_Pages ) AS ArrayReduce_Pages,
+	SUM( ArrayReduceRight_Pages ) AS ArrayReduceRight_Pages,
+	SUM( ArraySome_Pages ) AS ArraySome_Pages,
+	SUM( ObjectCreate_Pages ) AS ObjectCreate_Pages,
+	SUM( ObjectDefineProperties_Pages ) AS ObjectDefineProperties_Pages,
+	SUM( ObjectFreeze_Pages ) AS ObjectFreeze_Pages,
+	SUM( ObjectSeal_Pages ) AS ObjectSeal_Pages,
+	SUM( ObjectGetOwnPropertyNames_Pages ) AS ObjectGetOwnPropertyNames_Pages,
+	SUM( ObjectGetPrototypeOf_Pages ) AS ObjectGetPrototypeOf_Pages,
+	SUM( ObjectIsExtensible_Pages ) AS ObjectIsExtensible_Pages,
+	SUM( ObjectIsFrozen_Pages ) AS ObjectIsFrozen_Pages,
+	SUM( ObjectIsSealed_Pages ) AS ObjectIsSealed_Pages,
+	SUM( ObjectKeys_Pages ) AS ObjectKeys_Pages,
+	SUM( ObjectPreventExtension_Pages ) AS ObjectPreventExtension_Pages,
+	SUM( DateToISOString_Pages ) AS DateToISOString_Pages,
+	SUM( FunctionBind_Pages ) AS FunctionBind_Pages,
+	SUM( StringTrim_Pages ) AS StringTrim_Pages,
+	SUM( ArrayisArrayDebugModeCall_Pages ) AS ArrayisArrayDebugModeCall_Pages,
+	SUM( ArrayIndexOfDebugModeCall_Pages ) AS ArrayIndexOfDebugModeCall_Pages,
+	SUM( ArrayEveryDebugModeCall_Pages ) AS ArrayEveryDebugModeCall_Pages,
+	SUM( ArrayFilterDebugModeCall_Pages ) AS ArrayFilterDebugModeCall_Pages,
+	SUM( ArrayForEachDebugModeCall_Pages ) AS ArrayForEachDebugModeCall_Pages,
+	SUM( ArrayLastIndexOfDebugModeCall_Pages ) AS ArrayLastIndexOfDebugModeCall_Pages,
+	SUM( ArrayMapDebugModeCall_Pages ) AS ArrayMapDebugModeCall_Pages,
+	SUM( ArrayReduceDebugModeCall_Pages ) AS ArrayReduceDebugModeCall_Pages,
+	SUM( ArrayReduceRightDebugModeCall_Pages ) AS ArrayReduceRightDebugModeCall_Pages,
+	SUM( ArraySomeDebugModeCall_Pages ) AS ArraySomeDebugModeCall_Pages,
+	SUM( ObjectCreateDebugModeCall_Pages ) AS ObjectCreateDebugModeCall_Pages,
+	SUM( ObjectDefinePropertiesDebugModeCall_Pages ) AS ObjectDefinePropertiesDebugModeCall_Pages,
+	SUM( ObjectFreezeDebugModeCall_Pages ) AS ObjectFreezeDebugModeCall_Pages,
+	SUM( ObjectSealDebugModeCall_Pages ) AS ObjectSealDebugModeCall_Pages,
+	SUM( ObjectGetOwnPropertyNamesDebugModeCall_Pages ) AS ObjectGetOwnPropertyNamesDebugModeCall_Pages,
+	SUM( ObjectGetPrototypeOfDebugModeCall_Pages ) AS ObjectGetPrototypeOfDebugModeCall_Pages,
+	SUM( ObjectIsExtensibleDebugModeCall_Pages ) AS ObjectIsExtensibleDebugModeCall_Pages,
+	SUM( ObjectIsFrozenDebugModeCall_Pages ) AS ObjectIsFrozenDebugModeCall_Pages,
+	SUM( ObjectIsSealedDebugModeCall_Pages ) AS ObjectIsSealedDebugModeCall_Pages,
+	SUM( ObjectKeysDebugModeCall_Pages ) AS ObjectKeysDebugModeCall_Pages,
+	SUM( ObjectPreventExtensionDebugModeCall_Pages ) AS ObjectPreventExtensionDebugModeCall_Pages,
+	SUM( DateToISOStringDebugModeCall_Pages ) AS DateToISOStringDebugModeCall_Pages,
+	SUM( FunctionBindDebugModeCall_Pages ) AS FunctionBindDebugModeCall_Pages,
+	SUM( StringTrimDebugModeCall_Pages ) AS StringTrimDebugModeCall_Pages,
+	
+	COUNTIF( ArrayisArray_Pages > 0 ) AS ArrayisArray_Domains,
+	COUNTIF( ArrayIndexOf_Pages > 0 ) AS ArrayIndexOf_Domains,
+	COUNTIF( ArrayEvery_Pages > 0 ) AS ArrayEvery_Domains,
+	COUNTIF( ArrayFilter_Pages > 0 ) AS ArrayFilter_Domains,
+	COUNTIF( ArrayForEach_Pages > 0 ) AS ArrayForEach_Domains,
+	COUNTIF( ArrayLastIndexOf_Pages > 0 ) AS ArrayLastIndexOf_Domains,
+	COUNTIF( ArrayMap_Pages > 0 ) AS ArrayMap_Domains,
+	COUNTIF( ArrayReduce_Pages > 0 ) AS ArrayReduce_Domains,
+	COUNTIF( ArrayReduceRight_Pages > 0 ) AS ArrayReduceRight_Domains,
+	COUNTIF( ArraySome_Pages > 0 ) AS ArraySome_Domains,
+	COUNTIF( ObjectCreate_Pages > 0 ) AS ObjectCreate_Domains,
+	COUNTIF( ObjectDefineProperties_Pages > 0 ) AS ObjectDefineProperties_Domains,
+	COUNTIF( ObjectFreeze_Pages > 0 ) AS ObjectFreeze_Domains,
+	COUNTIF( ObjectSeal_Pages > 0 ) AS ObjectSeal_Domains,
+	COUNTIF( ObjectGetOwnPropertyNames_Pages > 0 ) AS ObjectGetOwnPropertyNames_Domains,
+	COUNTIF( ObjectGetPrototypeOf_Pages > 0 ) AS ObjectGetPrototypeOf_Domains,
+	COUNTIF( ObjectIsExtensible_Pages > 0 ) AS ObjectIsExtensible_Domains,
+	COUNTIF( ObjectIsFrozen_Pages > 0 ) AS ObjectIsFrozen_Domains,
+	COUNTIF( ObjectIsSealed_Pages > 0 ) AS ObjectIsSealed_Domains,
+	COUNTIF( ObjectKeys_Pages > 0 ) AS ObjectKeys_Domains,
+	COUNTIF( ObjectPreventExtension_Pages > 0 ) AS ObjectPreventExtension_Domains,
+	COUNTIF( DateToISOString_Pages > 0 ) AS DateToISOString_Domains,
+	COUNTIF( FunctionBind_Pages > 0 ) AS FunctionBind_Domains,
+	COUNTIF( StringTrim_Pages > 0 ) AS StringTrim_Domains,
+	COUNTIF( ArrayisArrayDebugModeCall_Pages > 0 ) AS ArrayisArrayDebugModeCall_Domains,
+	COUNTIF( ArrayIndexOfDebugModeCall_Pages > 0 ) AS ArrayIndexOfDebugModeCall_Domains,
+	COUNTIF( ArrayEveryDebugModeCall_Pages > 0 ) AS ArrayEveryDebugModeCall_Domains,
+	COUNTIF( ArrayFilterDebugModeCall_Pages > 0 ) AS ArrayFilterDebugModeCall_Domains,
+	COUNTIF( ArrayForEachDebugModeCall_Pages > 0 ) AS ArrayForEachDebugModeCall_Domains,
+	COUNTIF( ArrayLastIndexOfDebugModeCall_Pages > 0 ) AS ArrayLastIndexOfDebugModeCall_Domains,
+	COUNTIF( ArrayMapDebugModeCall_Pages > 0 ) AS ArrayMapDebugModeCall_Domains,
+	COUNTIF( ArrayReduceDebugModeCall_Pages > 0 ) AS ArrayReduceDebugModeCall_Domains,
+	COUNTIF( ArrayReduceRightDebugModeCall_Pages > 0 ) AS ArrayReduceRightDebugModeCall_Domains,
+	COUNTIF( ArraySomeDebugModeCall_Pages > 0 ) AS ArraySomeDebugModeCall_Domains,
+	COUNTIF( ObjectCreateDebugModeCall_Pages > 0 ) AS ObjectCreateDebugModeCall_Domains,
+	COUNTIF( ObjectDefinePropertiesDebugModeCall_Pages > 0 ) AS ObjectDefinePropertiesDebugModeCall_Domains,
+	COUNTIF( ObjectFreezeDebugModeCall_Pages > 0 ) AS ObjectFreezeDebugModeCall_Domains,
+	COUNTIF( ObjectSealDebugModeCall_Pages > 0 ) AS ObjectSealDebugModeCall_Domains,
+	COUNTIF( ObjectGetOwnPropertyNamesDebugModeCall_Pages > 0 ) AS ObjectGetOwnPropertyNamesDebugModeCall_Domains,
+	COUNTIF( ObjectGetPrototypeOfDebugModeCall_Pages > 0 ) AS ObjectGetPrototypeOfDebugModeCall_Domains,
+	COUNTIF( ObjectIsExtensibleDebugModeCall_Pages > 0 ) AS ObjectIsExtensibleDebugModeCall_Domains,
+	COUNTIF( ObjectIsFrozenDebugModeCall_Pages > 0 ) AS ObjectIsFrozenDebugModeCall_Domains,
+	COUNTIF( ObjectIsSealedDebugModeCall_Pages > 0 ) AS ObjectIsSealedDebugModeCall_Domains,
+	COUNTIF( ObjectKeysDebugModeCall_Pages > 0 ) AS ObjectKeysDebugModeCall_Domains,
+	COUNTIF( ObjectPreventExtensionDebugModeCall_Pages > 0 ) AS ObjectPreventExtensionDebugModeCall_Domains,
+	COUNTIF( DateToISOStringDebugModeCall_Pages > 0 ) AS DateToISOStringDebugModeCall_Domains,
+	COUNTIF( FunctionBindDebugModeCall_Pages > 0 ) AS FunctionBindDebugModeCall_Domains,
+	COUNTIF( StringTrimDebugModeCall_Pages > 0 ) AS StringTrimDebugModeCall_Domains
+
+FROM
+	summaryByDomain
+GROUP BY
+	DayDate;
+
+OUTPUT summary TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
+

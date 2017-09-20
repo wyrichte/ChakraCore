@@ -1,0 +1,112 @@
+//Script GUID:ce3a253f-2522-414c-88ed-47f810336d16
+//Used for tracking history
+ //Script GUID:eec3197f-3d26-4a43-843c-36290345115f
+
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+#IF(LOCAL)
+#DECLARE cookedChakraData string = @"C:\EITools\Asimov\ScopeQueries\Sanyamc-private\CookedChakraTelemetry_2015_02_01.ss";
+#ELSE
+    #DECLARE cookedChakraData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+#ENDIF
+
+#IF(LOCAL)
+#DECLARE chakraURLData string =@"C:\Users\sanyamc\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\Microsoft\ScopeStudio\1.8.0000.2\CosmosRuntimeSDK\users\sanyamc\processed\data\reporting\Domains\2015\01\Domains_2015_01_26.ss";
+#ELSE
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+//#DECLARE chakraURLData string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#ENDIF
+
+#IF(LOCAL)
+#DECLARE DeviceIdToMachineIdMap string = @"C:\Users\sanyamc\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\Microsoft\ScopeStudio\1.8.0000.2\CosmosRuntimeSDK\users\sanyamc\processed\data\reporting\DeviceIdToMachineId\2015\01\DeviceIdToMachineId_2015_01_26.ss";
+#ELSE
+     #DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+//#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+#ENDIF
+
+#IF(LOCAL)
+#DECLARE JITTimeOutput string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "JITTimeData", @streamDate);
+#ELSE
+     #DECLARE JITTimeOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "JITTimeData", @streamDate);
+//#DECLARE JITTimeOutput string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "JITTimeData", @streamDate);
+#ENDIF
+
+
+
+
+
+//
+// Getting data from DeviceIdToMachineConfigID Map DeviceId -> MachineConfigId
+//
+deviceIdToMachineConfigIdMap =
+    SELECT *
+    FROM
+    (
+        SSTREAM @DeviceIdToMachineIdMap
+    );
+
+chakraData =
+    SELECT *,
+         device_id AS deviceId,
+        data["activityId"]AS ActivityId
+    FROM
+    (
+        SSTREAM @cookedChakraData
+    )
+     WHERE ext IS NOT NULL;
+
+// Select the URL data from Chakra URL data stream
+
+chakraUrlData =
+    SELECT *        
+    FROM
+    (
+        SSTREAM @chakraURLData
+    );
+
+//
+// Aggregate JITTimeData, grouped by MachineConfig, AppName, Domain, BinaryVersion.
+//
+JITTimeData =
+    SELECT 
+           Date,
+           MachineConfigId,
+           Chakra.Utils.Filters.ExtractDomain( chakraUrlData.Domain ) AS Domain,
+           data["binaryVersion"] AS BinaryVersion,
+           SUM(UInt64.Parse(Double.Parse(data["lessThan5ms"]).ToString())) AS TotalLessThan5ms,
+           SUM(UInt64.Parse(Double.Parse(data["within5And10ms"]).ToString())) AS TotalWithin5And10ms,
+           SUM(UInt64.Parse(Double.Parse(data["within10And20ms"]).ToString())) AS TotalWithin10And20ms,
+           SUM(UInt64.Parse(Double.Parse(data["within20And50ms"]).ToString())) AS TotalWithin20And50ms,
+           SUM(UInt64.Parse(data["within50And100ms"].Replace(".",""))) AS TotalWithin50And100ms,
+           SUM(UInt64.Parse(data["within100And300ms"].Replace(".",""))) AS TotalWithin100And300ms,
+           SUM(UInt64.Parse(data["greaterThan300ms"].Replace(".",""))) AS TotalGreaterThan300ms,
+           COUNT(*) AS TotalNumberRecords,
+           COUNT(DISTINCT deviceId) AS NumberOfDevices,
+           Chakra.Utils.Filters.ExtractAppName(appVer) AS applicationName
+    FROM chakraData
+    INNER JOIN deviceIdToMachineConfigIdMap
+    ON
+    deviceIdToMachineConfigIdMap.DeviceId == deviceId
+    INNER JOIN chakraUrlData
+    ON
+    chakraData.ActivityId == chakraUrlData.ActivityId
+    WHERE name == "Microsoft.Web.Platform.Chakra.JITTime.V2" && data["binaryFlavor"] != "CHK" && data["lessThan5ms"] IS NOT NULL && data["within5And10ms"] IS NOT NULL && data["within10And20ms"] IS NOT NULL && data["within20And50ms"] IS NOT NULL && data["within50And100ms"] IS NOT NULL && data["within100And300ms"] IS NOT NULL && data["greaterThan300ms"] IS NOT NULL
+    GROUP BY applicationName,
+             MachineConfigId,
+             Domain,
+             BinaryVersion,
+             Date;   
+
+OUTPUT JITTimeData
+TO SSTREAM @JITTimeOutput WITH STREAMEXPIRY "365";

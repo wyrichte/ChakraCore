@@ -1,0 +1,463 @@
+//Script GUID:de888823-45ac-4448-ad98-71d098ef8844
+//Used for tracking history
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+//----------------------------Fetch Raw Chakra Data ------------------------------------------------
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE viewDate DateTime = @startDate.AddDays(-2);
+#DECLARE endDate DateTime = @streamDate.AddDays(1); 
+#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+//#DECLARE outputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+
+
+
+// Telemetry Asimov stack  
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
+  
+// Reference the namespaces  
+USING Microsoft.Telemetry.Asimov;  
+USING Microsoft.Telemetry.Asimov.Cosmos;  
+// Reference the Asimov (consumption) module  
+MODULE @"Asimov.module" AS Asimov; 
+
+
+
+// Common schema sources  
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
+RESOURCE @schemaFile1;  
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
+RESOURCE @schemaFile2;  
+ 
+
+ 
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
+#DECLARE useExactInputPath bool = false;  
+
+#DECLARE eventNamesRegEx1 string = @"Microsoft.Web.Platform.Chakra.ES6Ctors"; 
+
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawDataES6Ctors = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx = @eventNamesRegEx1,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+
+#DECLARE eventNamesRegEx2 string = @"Microsoft.Web.Platform.Chakra.ES6Builtins"; 
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawDataES6Builtins = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx2 = @eventNamesRegEx2,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+
+#DECLARE eventNamesRegEx3 string = @"Microsoft.Web.Platform.Chakra.TABuiltins"; 
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawDataTABuiltins = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx3 = @eventNamesRegEx3,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+ 
+
+
+///-----------------------------------------------------------------------------------------------------
+
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.dll";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.pdb";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.xml";
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+
+
+#IF(LOCAL)
+#DECLARE chakraURLData string =@"C:\Users\sanyamc\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\Microsoft\ScopeStudio\1.8.0000.2\CosmosRuntimeSDK\users\sanyamc\processed\data\reporting\Domains\2015\01\Domains_2015_01_26.ss";
+#ELSE
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+//#DECLARE chakraURLData string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#ENDIF
+
+
+
+#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+#DECLARE inputMachineConfigs String   = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs2",@streamDate );
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+#DECLARE ES6BuiltinOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ES6BuiltinsData", @streamDate);
+deviceIdToMachineConfigIdMap =
+    SELECT *
+    FROM
+    (
+        SSTREAM @DeviceIdToMachineIdMap
+    );
+
+
+
+// Select the URL data from Chakra URL data stream
+
+chakraUrlData =
+    SELECT *        
+    FROM
+    (
+        SSTREAM @chakraURLData
+    )
+WHERE Domain != "" AND Domain IS NOT NULL;
+machineConfigInputs = 
+  SELECT *        
+    FROM
+    (
+        SSTREAM  @inputMachineConfigs
+    );
+
+
+chakraES6BuiltinsData =
+    SELECT *,
+        A_device_id AS deviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawDataES6Builtins
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+
+chakraTABuiltinsData =
+    SELECT *,
+        A_device_id AS deviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawDataTABuiltins
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+
+rawDataES6Ctors =
+    SELECT *,
+        A_device_id AS deviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawDataES6Ctors
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+//
+// Extract the ES6 Builtin Data
+//
+es6BuiltinData =
+    SELECT @streamDate AS Date,
+           Chakra.Utils.Filters.ExtractDomain( chakraUrlData.Domain ) AS Domain,
+           Chakra.Utils.Filters.ExtractAppName(A_appVer) AS ApplicationName,
+           MachineConfigId,
+        COUNT(DISTINCT chakraES6BuiltinsData.deviceId) AS NumberOfDevices,
+		SUM(UInt64.Parse(C_GetOwnPropertySymbolsCount?? "0")) AS GetOwnPropertySymbolsCount,
+		SUM(UInt64.Parse(C_GetOwnPropertySymbolsDebugModeCallCount?? "0")) AS GetOwnPropertySymbolsDebugModeCallCount,
+		SUM(UInt64.Parse(C_Log10Count?? "0")) AS Log10Count,
+		SUM(UInt64.Parse(C_Log10DebugModeCount?? "0")) AS Log10DebugModeCount,
+		SUM(UInt64.Parse(C_Log1pCountCount?? "0")) AS Log1pCountCount,
+		SUM(UInt64.Parse(C_Log1pDebugModeCallCount?? "0")) AS Log1pDebugModeCallCount,
+		SUM(UInt64.Parse(C_Log2Count?? "0")) AS Log2Count,
+		SUM(UInt64.Parse(C_Log2DebugModeCallCount?? "0")) AS Log2DebugModeCallCount,
+		SUM(UInt64.Parse(C_SinhCount?? "0")) AS SinhCount,
+		SUM(UInt64.Parse(C_SinhDebugModeCallCount?? "0")) AS SinhDebugModeCallCount,
+		SUM(UInt64.Parse(C_CoshCount?? "0")) AS CoshCount,
+		SUM(UInt64.Parse(C_CoshDebugModeCallCount?? "0")) AS CoshDebugModeCallCount,
+		SUM(UInt64.Parse(C_TanhCountCount?? "0")) AS TanhCountCount,
+		SUM(UInt64.Parse(C_TanhDebugModeCallCount?? "0")) AS TanhDebugModeCallCount,
+		SUM(UInt64.Parse(C_AsinhCount?? "0")) AS AsinhCount,
+		SUM(UInt64.Parse(C_AsinhDebugModeCallCount?? "0")) AS AsinhDebugModeCallCount,
+		SUM(UInt64.Parse(C_AcoshCount?? "0")) AS AcoshCount,
+		SUM(UInt64.Parse(C_AcoshDebugModeCallCount?? "0")) AS AcoshDebugModeCallCount,
+		SUM(UInt64.Parse(C_AtanhCount?? "0")) AS AtanhCount,
+		SUM(UInt64.Parse(C_AtanhDebugModeCallCount?? "0")) AS AtanhDebugModeCallCount,
+		SUM(UInt64.Parse(C_HypotCount?? "0")) AS HypotCount,
+		SUM(UInt64.Parse(C_HypotDebugModeCallCount?? "0")) AS HypotDebugModeCallCount,
+		SUM(UInt64.Parse(C_CbrtCount?? "0")) AS CbrtCount,
+		SUM(UInt64.Parse(C_CbrtDebugModeCallCount?? "0")) AS CbrtDebugModeCallCount,
+		SUM(UInt64.Parse(C_TruncCount?? "0")) AS TruncCount,
+		SUM(UInt64.Parse(C_TruncDebugModeCallCount?? "0")) AS TruncDebugModeCallCount,
+		SUM(UInt64.Parse(C_SignCount?? "0")) AS SignCount,
+		SUM(UInt64.Parse(C_SignDebugModeCallCount?? "0")) AS SignDebugModeCallCount,
+		SUM(UInt64.Parse(C_ImulCount?? "0")) AS ImulCount,
+		SUM(UInt64.Parse(C_ImulDebugModeCallCount?? "0")) AS ImulDebugModeCallCount,
+		SUM(UInt64.Parse(C_Clz32Count?? "0")) AS Clz32Count,
+		SUM(UInt64.Parse(C_Clz32DebugModeCallCount?? "0")) AS Clz32DebugModeCallCount,
+		SUM(UInt64.Parse(C_FroundCount?? "0")) AS FroundCount,
+		SUM(UInt64.Parse(C_FroundDebugModeCallCount?? "0")) AS FroundDebugModeCallCount,
+		SUM(UInt64.Parse(C_IsNaNCount?? "0")) AS IsNaNCount,
+		SUM(UInt64.Parse(C_IsNaNDebugModeCallCount?? "0")) AS IsNaNDebugModeCallCount,
+		SUM(UInt64.Parse(C_IsFiniteCount?? "0")) AS IsFiniteCount,
+		SUM(UInt64.Parse(C_IsFiniteDebugModeCallCount?? "0")) AS IsFiniteDebugModeCallCount,
+		SUM(UInt64.Parse(C_IsIntegerCount?? "0")) AS IsIntegerCount,
+		SUM(UInt64.Parse(C_IsIntegerDebugModeCallCount?? "0")) AS IsIntegerDebugModeCallCount,
+		SUM(UInt64.Parse(C_IsSafeIntegerCount?? "0")) AS IsSafeIntegerCount,
+		SUM(UInt64.Parse(C_IsSafeIntegerDebugModeCallCount?? "0")) AS IsSafeIntegerDebugModeCallCount,
+		SUM(UInt64.Parse(C_StartsWithCount?? "0")) AS StartsWithCount,
+		SUM(UInt64.Parse(C_StartsWithDebugModeCallCount?? "0")) AS StartsWithDebugModeCallCount,
+		SUM(UInt64.Parse(C_EndsWithCount?? "0")) AS EndsWithCount,
+		SUM(UInt64.Parse(C_EndsWithDebugModeCallCount?? "0")) AS EndsWithDebugModeCallCount,
+		SUM(UInt64.Parse(C_ContainsCount?? "0")) AS ContainsCount,
+		SUM(UInt64.Parse(C_ContainsDebugModeCallCount?? "0")) AS ContainsDebugModeCallCount,
+		SUM(UInt64.Parse(C_RepeatCount?? "0")) AS RepeatCount,
+		SUM(UInt64.Parse(C_RepeatDebugModeCallCount?? "0")) AS RepeatDebugModeCallCount
+        FROM
+        chakraES6BuiltinsData
+        INNER JOIN chakraUrlData
+            ON chakraES6BuiltinsData.ActivityId == chakraUrlData.ActivityId
+        INNER JOIN deviceIdToMachineConfigIdMap
+            ON deviceIdToMachineConfigIdMap.DeviceId == chakraES6BuiltinsData.deviceId
+        GROUP BY Date, Domain, ApplicationName, MachineConfigId;
+
+es6ctordata =     SELECT @streamDate AS Date,
+        chakraUrlData.Domain AS Domain,
+        Chakra.Utils.Filters.ExtractAppName(A_appVer) AS ApplicationName,
+        MachineConfigId,
+		SUM(UInt64.Parse(C_WeakMapCount?? "0")) AS WeakMapCount,
+		SUM(UInt64.Parse(C_WeakMapDebugModeCallCount?? "0")) AS WeakMapDebugModeCallCount,
+		SUM(UInt64.Parse(C_SetCount?? "0")) AS SetCount,
+		SUM(UInt64.Parse(C_SetDebugModeCallCount?? "0")) AS SetDebugModeCallCount,
+		SUM(UInt64.Parse(C_ProxyCount?? "0")) AS ProxyCount,
+		SUM(UInt64.Parse(C_ProxyDebugModeCallCount?? "0")) AS ProxyDebugModeCallCount,
+		SUM(UInt64.Parse(C_SymbolCount?? "0")) AS SymbolCount,
+		SUM(UInt64.Parse(C_SymbolDebugModeCallCount?? "0")) AS SymbolDebugModeCallCount,
+		SUM(UInt64.Parse(C_MapCount?? "0")) AS MapCount,
+		SUM(UInt64.Parse(C_MapDebugModeCallCount?? "0")) AS MapDebugModeCallCount
+        FROM
+        rawDataES6Ctors
+        INNER JOIN chakraUrlData
+            ON rawDataES6Ctors.ActivityId == chakraUrlData.ActivityId
+        INNER JOIN deviceIdToMachineConfigIdMap
+            ON deviceIdToMachineConfigIdMap.DeviceId == rawDataES6Ctors.deviceId
+        GROUP BY Date, Domain, ApplicationName, MachineConfigId;
+
+
+es6typedarraydata =     SELECT @streamDate AS Date,
+           chakraUrlData.Domain AS Domain,
+           Chakra.Utils.Filters.ExtractAppName(A_appVer) AS ApplicationName,
+           MachineConfigId,
+		SUM(UInt64.Parse(C_TAFromCount?? "0")) AS TAFromCount,
+		SUM(UInt64.Parse(C_TAFromDebugModeCallCount?? "0")) AS TAFromDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAOfCount?? "0")) AS TAOfCount,
+		SUM(UInt64.Parse(C_TAOfDebugModeCallCount?? "0")) AS TAOfDebugModeCallCount,
+		SUM(UInt64.Parse(C_TACopyWithinCount?? "0")) AS TACopyWithinCount,
+		SUM(UInt64.Parse(C_TACopyWithinDebugModeCallCount?? "0")) AS TACopyWithinDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAEntriesCount?? "0")) AS TAEntriesCount,
+		SUM(UInt64.Parse(C_TAEntriesDebugModeCallCount?? "0")) AS TAEntriesDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAEveryCount?? "0")) AS TAEveryCount,
+		SUM(UInt64.Parse(C_TAEveryDebugModeCallCount?? "0")) AS TAEveryDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAFilterCount?? "0")) AS TAFilterCount,
+		SUM(UInt64.Parse(C_TAFilterDebugModeCallCount?? "0")) AS TAFilterDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAFillCount?? "0")) AS TAFillCount,
+		SUM(UInt64.Parse(C_TAFillDebugModeCallCount?? "0")) AS TAFillDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAFindCount?? "0")) AS TAFindCount,
+		SUM(UInt64.Parse(C_TAFindDebugModeCallCount?? "0")) AS TAFindDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAFindIndexCount?? "0")) AS TAFindIndexCount,
+		SUM(UInt64.Parse(C_TAFindIndexDebugModeCallCount?? "0")) AS TAFindIndexDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAForEachCount?? "0")) AS TAForEachCount,
+		SUM(UInt64.Parse(C_TAForEachDebugModeCallCount?? "0")) AS TAForEachDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAIndexOfCount?? "0")) AS TAIndexOfCount,
+		SUM(UInt64.Parse(C_TAIndexOfDebugModeCallCount?? "0")) AS TAIndexOfDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAJoinCount?? "0")) AS TAJoinCount,
+		SUM(UInt64.Parse(C_TAJoinDebugModeCallCount?? "0")) AS TAJoinDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAKeysCount?? "0")) AS TAKeysCount,
+		SUM(UInt64.Parse(C_TAKeysDebugModeCallCount?? "0")) AS TAKeysDebugModeCallCount,
+		SUM(UInt64.Parse(C_TALastIndexOfCount?? "0")) AS TALastIndexOfCount,
+		SUM(UInt64.Parse(C_TALastIndexOfDebugModeCallCount?? "0")) AS TALastIndexOfDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAMapCount?? "0")) AS TAMapCount,
+		SUM(UInt64.Parse(C_TAMapDebugModeCallCount?? "0")) AS TAMapDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAReduceCount?? "0")) AS TAReduceCount,
+		SUM(UInt64.Parse(C_TAReduceDebugModeCallCount?? "0")) AS TAReduceDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAReduceRightCount?? "0")) AS TAReduceRightCount,
+		SUM(UInt64.Parse(C_TAReduceRightDebugModeCallCount?? "0")) AS TAReduceRightDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAReverseCount?? "0")) AS TAReverseCount,
+		SUM(UInt64.Parse(C_TAReverseDebugModeCallCount?? "0")) AS TAReverseDebugModeCallCount,
+		SUM(UInt64.Parse(C_TASomeCount?? "0")) AS TASomeCount,
+		SUM(UInt64.Parse(C_TASomeDebugModeCallCount?? "0")) AS TASomeDebugModeCallCount,
+		SUM(UInt64.Parse(C_TASortCount?? "0")) AS TASortCount,
+		SUM(UInt64.Parse(C_TASortDebugModeCallCount?? "0")) AS TASortDebugModeCallCount,
+		SUM(UInt64.Parse(C_TASubArrayCount?? "0")) AS TASubArrayCount,
+		SUM(UInt64.Parse(C_TASubArrayDebugModeCallCount?? "0")) AS TASubArrayDebugModeCallCount,
+		SUM(UInt64.Parse(C_TAValuesCount?? "0")) AS TAValuesCount,
+		SUM(UInt64.Parse(C_TAValuesDebugModeCallCount?? "0")) AS TAValuesDebugModeCallCount
+    FROM
+    chakraTABuiltinsData
+    INNER JOIN chakraUrlData
+        ON chakraTABuiltinsData.ActivityId == chakraUrlData.ActivityId
+    INNER JOIN deviceIdToMachineConfigIdMap
+        ON deviceIdToMachineConfigIdMap.DeviceId == chakraTABuiltinsData.deviceId
+    GROUP BY Date, Domain, ApplicationName, MachineConfigId;
+
+
+// Create the list of contexts (Domain + ApplicationName + MachineConfigId);
+contexts =
+    SELECT Date, Domain, ApplicationName, MachineConfigId FROM es6BuiltinData
+    UNION
+    SELECT Date, Domain, ApplicationName, MachineConfigId FROM es6ctordata
+    UNION
+    SELECT Date, Domain, ApplicationName, MachineConfigId FROM es6typedarraydata;
+
+
+// Combine the tables together so we can have a single, fancy, ES6 table (easier for querying)
+outputData =
+    SELECT 
+           contexts.Date AS Date,
+           contexts.Domain AS Domain,
+           contexts.ApplicationName AS ApplicationName,
+           contexts.MachineConfigId AS MachineConfigId,
+           SUM(TAFromCount) AS TAFromCount,
+           SUM(TAFromDebugModeCallCount) AS TAFromDebugModeCallCount,
+           SUM(TAOfCount) AS TAOfCount,
+           SUM(TAOfDebugModeCallCount) AS TAOfDebugModeCallCount,
+           SUM(TACopyWithinCount) AS TACopyWithinCount,
+           SUM(TACopyWithinDebugModeCallCount) AS TACopyWithinDebugModeCallCount,
+           SUM(TAEntriesCount) AS TAEntriesCount,
+           SUM(TAEntriesDebugModeCallCount) AS TAEntriesDebugModeCallCount,
+           SUM(TAEveryCount) AS TAEveryCount,
+           SUM(TAEveryDebugModeCallCount) AS TAEveryDebugModeCallCount,
+           SUM(TAFilterCount) AS TAFilterCount,
+           SUM(TAFilterDebugModeCallCount) AS TAFilterDebugModeCallCount,
+           SUM(TAFillCount) AS TAFillCount,
+           SUM(TAFillDebugModeCallCount) AS TAFillDebugModeCallCount,
+           SUM(TAFindCount) AS TAFindCount,
+           SUM(TAFindDebugModeCallCount) AS TAFindDebugModeCallCount,
+           SUM(TAFindIndexCount) AS TAFindIndexCount,
+           SUM(TAFindIndexDebugModeCallCount) AS TAFindIndexDebugModeCallCount,
+           SUM(TAForEachCount) AS TAForEachCount,
+           SUM(TAForEachDebugModeCallCount) AS TAForEachDebugModeCallCount,
+           SUM(TAIndexOfCount) AS TAIndexOfCount,
+           SUM(TAIndexOfDebugModeCallCount) AS TAIndexOfDebugModeCallCount,
+           SUM(TAJoinCount) AS TAJoinCount,
+           SUM(TAJoinDebugModeCallCount) AS TAJoinDebugModeCallCount,
+           SUM(TAKeysCount) AS TAKeysCount,
+           SUM(TAKeysDebugModeCallCount) AS TAKeysDebugModeCallCount,
+           SUM(TALastIndexOfCount) AS TALastIndexOfCount,
+           SUM(TALastIndexOfDebugModeCallCount) AS TALastIndexOfDebugModeCallCount,
+           SUM(TAMapCount) AS TAMapCount,
+           SUM(TAMapDebugModeCallCount) AS TAMapDebugModeCallCount,
+           SUM(TAReduceCount) AS TAReduceCount,
+           SUM(TAReduceDebugModeCallCount) AS TAReduceDebugModeCallCount,
+           SUM(TAReduceRightCount) AS TAReduceRightCount,
+           SUM(TAReduceRightDebugModeCallCount) AS TAReduceRightDebugModeCallCount,
+           SUM(TAReverseCount) AS TAReverseCount,
+           SUM(TAReverseDebugModeCallCount) AS TAReverseDebugModeCallCount,
+           SUM(TASomeCount) AS TASomeCount,
+           SUM(TASomeDebugModeCallCount) AS TASomeDebugModeCallCount,
+           SUM(TASortCount) AS TASortCount,
+           SUM(TASortDebugModeCallCount) AS TASortDebugModeCallCount,
+           SUM(TASubArrayCount) AS TASubArrayCount,
+           SUM(TASubArrayDebugModeCallCount) AS TASubArrayDebugModeCallCount,
+           SUM(TAValuesCount) AS TAValuesCount,
+           SUM(TAValuesDebugModeCallCount) AS TAValuesDebugModeCallCount,
+
+           SUM(WeakMapCount) AS WeakMapCount,
+           SUM(WeakMapDebugModeCallCount) AS WeakMapDebugModeCallCount,
+           SUM(SetCount) AS SetCount,
+           SUM(SetDebugModeCallCount) AS SetDebugModeCallCount,
+           SUM(ProxyCount) AS ProxyCount,
+           SUM(ProxyDebugModeCallCount) AS ProxyDebugModeCallCount,
+           SUM(SymbolCount) AS SymbolCount,
+           SUM(SymbolDebugModeCallCount) AS SymbolDebugModeCallCount,
+           SUM(MapCount) AS MapCount,
+           SUM(MapDebugModeCallCount) AS MapDebugModeCallCount,
+
+           SUM(GetOwnPropertySymbolsCount) AS GetOwnPropertySymbolsCount,
+           SUM(GetOwnPropertySymbolsDebugModeCallCount) AS GetOwnPropertySymbolsDebugModeCallCount,
+           SUM(Log10Count) AS Log10Count,
+           SUM(Log10DebugModeCount) AS Log10DebugModeCount,
+           SUM(Log1pCountCount) AS Log1pCountCount,
+           SUM(Log1pDebugModeCallCount) AS Log1pDebugModeCallCount,
+           SUM(Log2Count) AS Log2Count,
+           SUM(Log2DebugModeCallCount) AS Log2DebugModeCallCount,
+           SUM(SinhCount) AS SinhCount,
+           SUM(SinhDebugModeCallCount) AS SinhDebugModeCallCount,
+           SUM(CoshCount) AS CoshCount,
+           SUM(CoshDebugModeCallCount) AS CoshDebugModeCallCount,
+           SUM(TanhCountCount) AS TanhCountCount,
+           SUM(TanhDebugModeCallCount) AS TanhDebugModeCallCount,
+           SUM(AsinhCount) AS AsinhCount,
+           SUM(AsinhDebugModeCallCount) AS AsinhDebugModeCallCount,
+           SUM(AcoshCount) AS AcoshCount,
+           SUM(AcoshDebugModeCallCount) AS AcoshDebugModeCallCount,
+           SUM(AtanhCount) AS AtanhCount,
+           SUM(AtanhDebugModeCallCount) AS AtanhDebugModeCallCount,
+           SUM(HypotCount) AS HypotCount,
+           SUM(HypotDebugModeCallCount) AS HypotDebugModeCallCount,
+           SUM(CbrtCount) AS CbrtCount,
+           SUM(CbrtDebugModeCallCount) AS CbrtDebugModeCallCount,
+           SUM(TruncCount) AS TruncCount,
+           SUM(TruncDebugModeCallCount) AS TruncDebugModeCallCount,
+           SUM(SignCount) AS SignCount,
+           SUM(SignDebugModeCallCount) AS SignDebugModeCallCount,
+           SUM(ImulCount) AS ImulCount,
+           SUM(ImulDebugModeCallCount) AS ImulDebugModeCallCount,
+           SUM(Clz32Count) AS Clz32Count,
+           SUM(Clz32DebugModeCallCount) AS Clz32DebugModeCallCount,
+           SUM(FroundCount) AS FroundCount,
+           SUM(FroundDebugModeCallCount) AS FroundDebugModeCallCount,
+           SUM(IsNaNCount) AS IsNaNCount,
+           SUM(IsNaNDebugModeCallCount) AS IsNaNDebugModeCallCount,
+           SUM(IsFiniteCount) AS IsFiniteCount,
+           SUM(IsFiniteDebugModeCallCount) AS IsFiniteDebugModeCallCount,
+           SUM(IsIntegerCount) AS IsIntegerCount,
+           SUM(IsIntegerDebugModeCallCount) AS IsIntegerDebugModeCallCount,
+           SUM(IsSafeIntegerCount) AS IsSafeIntegerCount,
+           SUM(IsSafeIntegerDebugModeCallCount) AS IsSafeIntegerDebugModeCallCount,
+           SUM(StartsWithCount) AS StartsWithCount,
+           SUM(StartsWithDebugModeCallCount) AS StartsWithDebugModeCallCount,
+           SUM(EndsWithCount) AS EndsWithCount,
+           SUM(EndsWithDebugModeCallCount) AS EndsWithDebugModeCallCount,
+           SUM(ContainsCount) AS ContainsCount,
+           SUM(ContainsDebugModeCallCount) AS ContainsDebugModeCallCount,
+           SUM(RepeatCount) AS RepeatCount,
+           SUM(RepeatDebugModeCallCount) AS RepeatDebugModeCallCount
+    FROM contexts
+    FULL OUTER JOIN es6BuiltinData
+    ON contexts.Domain == es6BuiltinData.Domain && contexts.ApplicationName == es6BuiltinData.ApplicationName && contexts.MachineConfigId == es6BuiltinData.MachineConfigId
+    FULL OUTER JOIN es6ctordata
+    ON contexts.Domain == es6ctordata.Domain && contexts.ApplicationName == es6ctordata.ApplicationName && contexts.MachineConfigId == es6ctordata.MachineConfigId
+    FULL OUTER JOIN es6typedarraydata
+    ON contexts.Domain == es6typedarraydata.Domain && contexts.ApplicationName == es6typedarraydata.ApplicationName && contexts.MachineConfigId == es6typedarraydata.MachineConfigId
+    GROUP BY Date, Domain, ApplicationName, MachineConfigId;
+
+OUTPUT outputData
+TO SSTREAM @ES6BuiltinOutput
+   WITH STREAMEXPIRY "365";

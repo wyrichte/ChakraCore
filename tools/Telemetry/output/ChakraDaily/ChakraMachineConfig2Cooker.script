@@ -1,0 +1,253 @@
+//Script GUID:d93e96d3-003c-477c-a4ec-51fcff8e61ae
+//Used for tracking history
+
+/*
+This is the same as MachineConfigExtractor (version 1) except it adds these columns:
+
+    DeviceModel
+    DeviceFamily
+    MDC1DeviceFamily
+    MDC2FormFactor
+
+And changes the output paths to v2.
+*/
+
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+
+ //Script GUID:eec3197f-3d26-4a43-843c-36290345115f
+
+//   DailyTracker
+//   2015-04-01
+//   /shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/
+//   @@_endDate@@
+
+//Script GUID:644413f4-704e-4703-865d-bad1b10855a4
+//Used for tracking history
+
+
+// Goal of this script is to have streams output for our charts for summary dashboard.
+
+// 1. Non-MSFT , Non-VM devices for a month.
+
+//----------------------------Fetch Raw Chakra Data ------------------------------------------------
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE endDate DateTime = @streamDate.AddHours(23); 
+#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+
+
+
+// Telemetry Asimov stack  
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
+  
+// Reference the namespaces  
+USING Microsoft.Telemetry.Asimov;  
+USING Microsoft.Telemetry.Asimov.Cosmos;
+// Reference the Asimov (consumption) module  
+MODULE @"Asimov.module" AS Asimov; 
+
+#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra"; 
+// Common schema sources  
+
+// Common schema sources  
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
+RESOURCE @schemaFile1;  
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
+RESOURCE @schemaFile2;  
+ 
+
+ 
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
+#DECLARE useExactInputPath bool = false;  
+
+
+// Pull the event data 
+//[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawData = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx = @eventNamesRegEx,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+ 
+
+
+///-----------------------------------------------------------------------------------------------------
+
+#DECLARE MachineOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs2", @streamDate);
+//#DECLARE MachineOutput string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs", @streamDate);
+#DECLARE  DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+
+
+//#DECLARE Data string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/data.ss");
+//#DECLARE NullExt string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/nullExtData.ss");
+//#DECLARE MachineIds string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/MachineIDs.ss");
+
+
+
+
+
+// 
+// Find the Machine IDs used by Chakra events. 
+//
+
+machineIDs =
+    SELECT DISTINCT A_device_id AS  DeviceId 
+    FROM
+rawData
+    WHERE A_ext IS NOT NULL;
+
+
+#DECLARE currentVersion string = "V3";
+#DECLARE rootFolder string = "/shares/asimov.prod.data";
+ 
+#DECLARE CENSUS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Device.Census.dll", @rootFolder);
+#DECLARE UTILS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Common.Utilities.dll", @rootFolder);
+#DECLARE PARSERS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Common.Parsers.dll", @rootFolder);
+ 
+REFERENCE @CENSUS;
+USING Microsoft.Telemetry.Device.Census;
+REFERENCE @UTILS;
+USING Microsoft.Telemetry.Common.Utilities;
+REFERENCE @PARSERS;
+USING Microsoft.Telemetry.Common.Parsers;
+ 
+// If the Version is not passed in as a parameter, the current version will be used by default.
+deviceCensusV2Daily =
+    VIEW @"/shares/asimov.prod.data/Public/Processed/Device/Census/Daily/DeviceCensusDaily.View"
+    PARAMS
+    (
+        Version = @currentVersion,
+        SparseStreamSet = "true",
+        StartDate = @streamDate.ToString("yyyy-MM-dd"),
+        EndDate = @endDate.ToString("yyyy-MM-dd")
+    );
+
+
+
+//
+// Find all unique machine configs represented in our event data.
+//
+machineData =
+    SELECT          DeviceModel,
+                    DeviceFamily,
+                    MDC1DeviceFamily,
+                    MDC2FormFactor,
+                    OSVersionFull,
+                    OSBuildType,
+                    OSArchitecture,
+                    IEVersion,
+                    IsVirtualDevice,
+                    ProcessorCores,
+                    ProcessorArchitectureId,
+                    ProcessorModel,
+                    TotalPhysicalRAM,
+                    ChassisTypeName,
+                    IsTestLab,
+                    IsMSFTOwned,
+                    IsFlightingInternal,
+                    COUNT(*) AS NumberOfDevices
+
+    FROM deviceCensusV2Daily
+    INNER JOIN machineIDs
+    ON machineIDs.DeviceId == DeviceId
+    GROUP BY
+            DeviceModel,
+            DeviceFamily,
+            MDC1DeviceFamily,
+            MDC2FormFactor,
+            OSVersionFull,
+            OSBuildType,
+            OSArchitecture,
+            IEVersion,
+            IsVirtualDevice,
+            ProcessorCores,
+            ProcessorArchitectureId,
+            ProcessorModel,
+            TotalPhysicalRAM,
+            ChassisTypeName,
+            IsTestLab,
+            IsMSFTOwned,
+            IsFlightingInternal;
+        
+
+
+//
+// Add a unique ID to each row (can't figure out how to do that in the same query as above)
+//
+machineData =
+    SELECT Guid.NewGuid() AS MachineConfigId,
+           NumberOfDevices,
+           DeviceModel,
+           DeviceFamily,
+           MDC1DeviceFamily,
+           MDC2FormFactor,
+           OSVersionFull,
+           OSBuildType,
+           OSArchitecture,
+           IEVersion,
+           IsVirtualDevice,
+           ProcessorCores,
+           ProcessorArchitectureId,
+           ProcessorModel,
+           TotalPhysicalRAM,
+           ChassisTypeName,
+           IsTestLab,
+           IsMSFTOwned,
+           IsFlightingInternal
+
+    FROM machineData;
+
+
+//
+// Build a mapping from DeviceId -> MachineConfigId
+//
+deviceIdToMachineConfigIdMap =
+    SELECT DeviceId,
+           machineData.MachineConfigId AS MachineConfigId,
+           machineData.OSArchitecture AS OSArchitecture
+  FROM deviceCensusV2Daily
+    INNER JOIN machineData
+    ON(
+      DeviceModel == machineData.DeviceModel AND
+      DeviceFamily == machineData.DeviceFamily AND
+      MDC1DeviceFamily == machineData.MDC1DeviceFamily AND
+      MDC2FormFactor == machineData.MDC2FormFactor AND
+      OSVersionFull == machineData.OSVersionFull AND
+      OSBuildType == machineData.OSBuildType AND
+      OSArchitecture == machineData.OSArchitecture AND
+      IEVersion == machineData.IEVersion AND
+      IsVirtualDevice == machineData.IsVirtualDevice AND
+      ProcessorCores == machineData.ProcessorCores AND
+      ProcessorArchitectureId == machineData.ProcessorArchitectureId AND
+      ProcessorModel == machineData.ProcessorModel AND
+      TotalPhysicalRAM == machineData.TotalPhysicalRAM AND
+      ChassisTypeName == machineData.ChassisTypeName AND
+      IsTestLab == machineData.IsTestLab AND
+      IsMSFTOwned == machineData.IsMSFTOwned AND
+      IsFlightingInternal == machineData.IsFlightingInternal);
+
+
+OUTPUT machineData
+TO SSTREAM @MachineOutput WITH STREAMEXPIRY "365";
+
+OUTPUT deviceIdToMachineConfigIdMap
+TO SSTREAM @DeviceIdToMachineIdMap WITH STREAMEXPIRY "365";
+

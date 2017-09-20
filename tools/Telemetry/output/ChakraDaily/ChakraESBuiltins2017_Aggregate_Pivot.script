@@ -1,0 +1,320 @@
+//Script GUID:de366ac5-fa6e-4538-9133-092819d4e338
+//Used for tracking history
+
+/*
+ * This script basically exists to address an issue in Kusto. Although purported to
+ * be able to handle wide rows, Kusto in fact fails to properly vectorize commonly-
+ * used operations (so if, for example, you were to want to sum your rowset column-
+ * by-column, most databases would handle this by distributing rows by an aggregand
+ * and then doing vectorized summation on the column data. Kusto doesn't handle the
+ * operation sensibly, instead blowing up in terms of computation time due (afaict)
+ * to attempting to split the column stores data, and then handle the generation of
+ * each column separately with its own operator. This means a query which should in
+ * most databases take milliseconds takes tens of minutes in Kusto.) This query, to
+ * reduce the row size, pivots our data heavily down to 6 columns: domain, appname,
+ * numpoints, metric, instances, and numtraces. This should work significantly more
+ * performantly downstream.
+ */
+
+// Some necessary C# code
+#CS
+using Microsoft.SCOPE.Types;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using ScopeRuntime;
+
+public class UnpivotProcessor : Processor
+{
+    private static readonly string telemetryConfig = @"
+BLOCK_START(Array, 14)
+ENTRY_BUILTIN(ES5, Array, Constructor, isArray)
+ENTRY_BUILTIN(ES5, Array, Prototype, indexOf)
+ENTRY_BUILTIN(ES5, Array, Prototype, includes)
+ENTRY_BUILTIN(ES5, Array, Prototype, every)
+ENTRY_BUILTIN(ES5, Array, Prototype, filter)
+ENTRY_BUILTIN(ES5, Array, Prototype, forEach)
+ENTRY_BUILTIN(ES5, Array, Prototype, lastIndexOf)
+ENTRY_BUILTIN(ES5, Array, Prototype, map)
+ENTRY_BUILTIN(ES5, Array, Prototype, reduce)
+ENTRY_BUILTIN(ES5, Array, Prototype, reduceRight)
+ENTRY_BUILTIN(ES5, Array, Prototype, some)
+ENTRY_BUILTIN(ES7, Array, Prototype, contains)
+ENTRY_BUILTIN(ES7, Array, Constructor, observe)
+ENTRY_BUILTIN(ES7, Array, Constructor, unobserve)
+BLOCK_END()
+BLOCK_START(ArrayBuffer, 1)
+ENTRY_BUILTIN(ES6, ArrayBuffer, Constructor, transfer)
+BLOCK_END()
+BLOCK_START(Object, 18)
+ENTRY_BUILTIN(ES5, Object, Constructor, defineProperty)
+ENTRY_BUILTIN(ES5, Object, Constructor, defineProperties)
+ENTRY_BUILTIN(ES5, Object, Constructor, create)
+ENTRY_BUILTIN(ES5, Object, Constructor, seal)
+ENTRY_BUILTIN(ES5, Object, Constructor, freeze)
+ENTRY_BUILTIN(ES5, Object, Constructor, preventExtensions)
+ENTRY_BUILTIN(ES5, Object, Constructor, isSealed)
+ENTRY_BUILTIN(ES5, Object, Constructor, isFrozen)
+ENTRY_BUILTIN(ES5, Object, Constructor, isExtensible)
+ENTRY_BUILTIN(ES5, Object, Constructor, getOwnPropertyNames)
+ENTRY_BUILTIN(ES5, Object, Constructor, getPrototypeOf)
+ENTRY_BUILTIN(ES5, Object, Constructor, keys)
+ENTRY_BUILTIN(ES6, Object, Constructor, getOwnPropertySymbols)
+ENTRY_BUILTIN(ES7, Object, Constructor, values)
+ENTRY_BUILTIN(ES7, Object, Constructor, entries)
+ENTRY_BUILTIN(ES7, Object, Constructor, getOwnPropertyDescriptors)
+ENTRY_BUILTIN(ES7, Object, Constructor, observe)
+ENTRY_BUILTIN(ES7, Object, Constructor, unobserve)
+BLOCK_END()
+BLOCK_START(Date, 1)
+ENTRY_BUILTIN(ES5, Date, Prototype, toISOString)
+BLOCK_END()
+BLOCK_START(Function, 1)
+ENTRY_BUILTIN(ES5, Function, Prototype, bind)
+BLOCK_END()
+BLOCK_START(String, 11)
+ENTRY_BUILTIN(ES5, String, Prototype, trim)
+ENTRY_BUILTIN(ES6, String, Prototype, startsWith)
+ENTRY_BUILTIN(ES6, String, Prototype, endsWith)
+ENTRY_BUILTIN(ES6, String, Prototype, contains)
+ENTRY_BUILTIN(ES6, String, Prototype, repeat)
+ENTRY_BUILTIN(ES7, String, Prototype, padStart)
+ENTRY_BUILTIN(ES7, String, Prototype, padEnd)
+ENTRY_BUILTIN(ES7, String, Prototype, at)
+ENTRY_BUILTIN(ES7, String, Prototype, substr)
+ENTRY_BUILTIN(ES7, String, Prototype, trimLeft)
+ENTRY_BUILTIN(ES7, String, Prototype, trimRight)
+BLOCK_END()
+BLOCK_START(Math, 17)
+ENTRY_BUILTIN(ES6, Math, Constructor, log10)
+ENTRY_BUILTIN(ES6, Math, Constructor, log1p)
+ENTRY_BUILTIN(ES6, Math, Constructor, log2)
+ENTRY_BUILTIN(ES6, Math, Constructor, expm1)
+ENTRY_BUILTIN(ES6, Math, Constructor, sinh)
+ENTRY_BUILTIN(ES6, Math, Constructor, cosh)
+ENTRY_BUILTIN(ES6, Math, Constructor, tanh)
+ENTRY_BUILTIN(ES6, Math, Constructor, asinh)
+ENTRY_BUILTIN(ES6, Math, Constructor, acosh)
+ENTRY_BUILTIN(ES6, Math, Constructor, atanh)
+ENTRY_BUILTIN(ES6, Math, Constructor, hypot)
+ENTRY_BUILTIN(ES6, Math, Constructor, cbrt)
+ENTRY_BUILTIN(ES6, Math, Constructor, trunc)
+ENTRY_BUILTIN(ES6, Math, Constructor, sign)
+ENTRY_BUILTIN(ES6, Math, Constructor, imul)
+ENTRY_BUILTIN(ES6, Math, Constructor, clz32)
+ENTRY_BUILTIN(ES6, Math, Constructor, fround)
+BLOCK_END()
+BLOCK_START(Number, 4)
+ENTRY_BUILTIN(ES6, Number, Constructor, isNaN)
+ENTRY_BUILTIN(ES6, Number, Constructor, isFinite)
+ENTRY_BUILTIN(ES6, Number, Constructor, isInteger)
+ENTRY_BUILTIN(ES6, Number, Constructor, isSafeInteger)
+BLOCK_END()
+ENTRY_TELPOINT(ES6_RegexSymbolMatch)
+ENTRY_TELPOINT(ES6_RegexSymbolSearch)
+ENTRY_TELPOINT(ES6_RegexSymbolReplace)
+ENTRY_TELPOINT(ES6_RegexSymbolSplit)
+ENTRY_TELPOINT(ES6_Proxy)
+ENTRY_TELPOINT(ES6_Symbol)
+ENTRY_TELPOINT(ES6_Map)
+ENTRY_TELPOINT(ES6_WeakMap)
+ENTRY_TELPOINT(ES6_WeakSet)
+ENTRY_TELPOINT(ES6_Set)
+ENTRY_TELPOINT(ES6_Promise)
+BLOCK_START(TypedArray, 23)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, from)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, of)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, copyWithin)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, entries)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, every)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, fill)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, filter)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, find)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, findIndex)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, forEach)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, includes)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, indexOf)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, join)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, keys)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, lastIndexOf)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, map)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, reduce)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, reduceRight)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, reverse)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, some)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, sort)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, subarray)
+ENTRY_BUILTIN(ES6, TypedArray, Prototype, values)
+BLOCK_END()
+ENTRY_LANGFEATURE(ES6, Let)
+ENTRY_LANGFEATURE(ES6, Lambda)
+ENTRY_LANGFEATURE(ES6, StrictModeFunction)
+ENTRY_LANGFEATURE(ES6, Super)
+ENTRY_LANGFEATURE(ES6, Class)
+ENTRY_LANGFEATURE(ES6, AsmJSFunction)
+ENTRY_LANGFEATURE(ES6, StringTemplates)
+ENTRY_LANGFEATURE(ES6, Const)
+ENTRY_LANGFEATURE(ES6, Generator)
+ENTRY_LANGFEATURE(ES6, Rest)
+ENTRY_LANGFEATURE(ES6, SpreadFeature)
+ENTRY_LANGFEATURE(ES6, UnicodeRegexFlag)
+ENTRY_LANGFEATURE(ES6, StickyRegexFlag)
+ENTRY_LANGFEATURE(ES6, DefaultArgFunction)
+BLOCK_START(Other, 12)
+ENTRY_BUILTIN(ES7, Float32Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Float64Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Int16Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Int32Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Int8Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Map, Prototype, toJSON)
+ENTRY_BUILTIN(ES7, RegExp, Constructor, escape)
+ENTRY_BUILTIN(ES7, Set, Prototype, toJSON)
+ENTRY_BUILTIN(ES7, Uint16Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Uint32Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Uint8Array, Prototype, includes)
+ENTRY_BUILTIN(ES7, Uint8ClampedArray, Prototype, includes)
+BLOCK_END()
+BLOCK_START(Global, 1)
+ENTRY_BUILTIN(Wasm, Global, Prototype, WebAssembly)
+BLOCK_END()
+        ";
+    public override bool ConstantResultSchema
+    {
+        get
+        {
+            return true;
+        } 
+    }
+    public override bool RowLevelProcessor
+    {
+        get
+        {
+            return true;
+        }
+    }
+    private List<Tuple<String, String, String, String>> stuff = new List<Tuple<String, String, String, String>>();
+    private bool hasInitialized = false;
+    private void InternalInitialize()
+    {
+       if(!hasInitialized)
+        {
+            hasInitialized = true;
+            Regex nocomments = new Regex(@"//[^\n]*\n");
+            String uncommented = nocomments.Replace(telemetryConfig, "");
+            Regex builtins = new Regex(@"((?<Type>BLOCK_START)\((?<BlockName>[a-zA-Z0-9_]*), *(?<BlockCount>[0-9]*)\))|((?<Type>ENTRY_BUILTIN)\((?<EMCAVersion>[a-zA-Z0-9_]*), *(?<BaseObject>[a-zA-Z0-9_]*), *(?<LinkType>[a-zA-Z0-9_]*), *(?<FunctionName>[a-zA-Z0-9_]*)\))|((?<Type>ENTRY_LANGFEATURE)\((?<EMCAVersion>[a-zA-Z0-9_]*), *(?<PointName>[a-zA-Z0-9_]*)\))|((?<Type>ENTRY_TELPOINT)\((?<PointName>[a-zA-Z0-9_]*)\))");
+            foreach ( Match match in builtins.Matches(uncommented) )
+            {
+                switch (match.Groups["Type"].Value)
+                {
+                    case "BLOCK_START":
+                        break;
+                    case "ENTRY_BUILTIN":
+                        {
+                            string fieldtag = match.Groups["BaseObject"].Value + "_" + match.Groups["LinkType"].Value + "_" + match.Groups["FunctionName"].Value;
+                            string fieldtag_traces = fieldtag + "_traces";
+                            stuff.Add(new Tuple<String, String, String, String>(fieldtag, fieldtag + "_props_sum", fieldtag + "_callCount_sum", fieldtag_traces));
+                            //stuff.Add(new Tuple<string, string, string>(fieldtag + "_callCount", fieldtag + "_callCount_sum", fieldtag_traces));
+                            //stuff.Add(new Tuple<string, string, string>(fieldtag + "_dMCallCount", fieldtag + "_dMCallCount_sum", fieldtag_traces));
+                        }
+                        break;
+                    case "ENTRY_LANGFEATURE":
+                    case "ENTRY_TELPOINT":
+                        {
+                            string fieldtag = match.Groups["PointName"].Value;
+                            stuff.Add(new Tuple<String, String, String, String>(fieldtag, null, fieldtag + "_sum", fieldtag + "_traces"));
+                        }
+                        break;
+                }
+            }
+        } 
+    }
+    public override Schema GetOutputSchemaAtCompileTime(string[] requestedColumns, string[] args, Schema input)
+    {
+        return new Schema("Domain:string,ApplicationName:string,numpoints:long,metric:string,parseCount:long,runCount:long,traceCount:long");
+    }
+    public override Schema Produces(string[] requestedColumns, string[] args, Schema input)
+    {
+        return GetOutputSchemaAtCompileTime(requestedColumns, args, input);
+    }
+    public override void Initialize(RowSet left, RowSet right, string[] args)
+    {
+        base.Initialize(left, right, args);
+    }
+    public override IEnumerable<Row> Process(RowSet input, Row outputRow, string[] args)
+    {
+        InternalInitialize();
+        // We're going to emit a _lot_ of rows here
+        foreach (Row row in input.Rows)
+        {
+            // iterate over the field groupings
+            foreach (Tuple<String, String, String, String> tuple in stuff)
+            {
+                // fill in the ouput row
+                row["Domain"].CopyTo(outputRow["Domain"]);
+                row["ApplicationName"].CopyTo(outputRow["ApplicationName"]);
+                row["numpoints"].CopyTo(outputRow["numpoints"]);
+                outputRow["metric"].Set(tuple.Item1);
+                if(tuple.Item2 != null)
+                {
+                    row[tuple.Item2].CopyTo(outputRow["parseCount"]);
+                }
+                else
+                {
+                    outputRow["parseCount"].Set(0);
+                }
+                if (tuple.Item3 != null)
+                {
+                    row[tuple.Item3].CopyTo(outputRow["runCount"]);
+                }
+                else
+                {
+                    outputRow["runCount"].Set(0);
+                }
+                row[tuple.Item4].CopyTo(outputRow["traceCount"]);
+                // return each row
+                yield return outputRow;
+            }
+        }
+    }
+}
+#ENDCS
+
+// hook up to the asimov date inputs, so that back runs work properly
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+// The pivoted input file
+#IF(LOCAL)
+    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData_Aggregated.ss";
+#ELSE
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Aggregated" , @streamDate );
+#ENDIF
+
+// The post-aggregation output file
+#IF(LOCAL)
+    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData_Aggregated_Pivoted.ss";
+#ELSE
+    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Aggregated_Pivoted" , @streamDate );
+#ENDIF
+
+
+
+// Grab the already-aggregated data from the previous stage's output file.i
+inputData = 
+    SELECT
+        *
+    FROM ( SSTREAM @inputFileName );
+
+
+// Pivot that data down to 5 columns
+// Query construction strategy:
+//   Custom c# to unpivot table
+outputData =
+    PROCESS inputData
+    PRODUCE *
+    USING UnpivotProcessor;
+
+
+OUTPUT outputData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";

@@ -1,0 +1,65 @@
+//Script GUID:27b285ba-111c-4e51-ae96-3d692ae1c54f
+//Used for tracking history
+//Script GUID:d4a2b957-4ff3-4c76-93ad-1607bddce1aa
+//Used for tracking history
+
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+#IF(LOCAL)
+    #DECLARE cookedChakraData string = @"C:\temp\ss\CookedChakraTelemetry_2015_01_26.ss";
+    #DECLARE chakraURLData string = @"C:\temp\ss\Domains_2015_01_26.ss";
+    #DECLARE DeviceIdToMachineIdMap string = @"C:\temp\ss\DeviceIdToMachineId_2015_01_26.ss";
+    #DECLARE LeakedScriptCtxt string = string.Format(@"/users/rdawson/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "LeakedScriptCtxtData", @streamDate);
+#ELSE
+    #DECLARE cookedChakraData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+    #DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+    #DECLARE LeakedScriptCtxt string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "LeakedScriptCtxtData", @streamDate);
+    //#DECLARE LeakedScriptCtxt string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "LeakedScriptCtxtData", @streamDate);
+#ENDIF
+
+// Pull data from the streams into tables (required to join on them in the main query below)
+deviceIdToMachineConfigIdMap = SELECT DeviceId, MachineConfigId FROM ( SSTREAM @DeviceIdToMachineIdMap );
+chakraData = SELECT *, data["activityId"] AS ActivityId,  device_id AS deviceId FROM ( SSTREAM @cookedChakraData ) WHERE ext IS NOT NULL; // Selecting * so that we get the data JSON blog in addition, just add 'data' as a separate select field does not seem to work
+chakraUrlData = SELECT Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain, ActivityId FROM ( SSTREAM @chakraURLData );
+
+
+leakedScriptCtxtData =
+    SELECT 
+        Date,
+        MachineConfigId,
+        chakraUrlData.Domain AS Domain,
+        data["binaryVersion"] AS BinaryVersion,
+        MAX(UInt32.Parse(data["unreleasedScriptContextCount"])) AS maxUnreleasedScriptCtxtCount,
+        //PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY UInt64.Parse(data["maxPAUB"])) OVER (PARTITION BY chakraUrlData.Domain) AS medianMaxPAUB, //PERCENTILE_DISC is not supported in a grouped query.  If we think median is critical, this can be refactored to calculate median prior to grouping.
+        AVG(UInt32.Parse(data["unreleasedScriptContextCount"])) AS averageUnreleasedScriptCtxtCount,
+        STDEV(UInt32.Parse(data["unreleasedScriptContextCount"])) AS stdevUnreleasedScriptCtxtCount,
+        SUM(UInt32.Parse(data["unreleasedScriptContextCount"])) AS totalUnreleasedScriptCtxtCount,
+        COUNT(*) AS TotalNumberRecords,
+        COUNT(DISTINCT deviceId) AS NumberOfDevices,
+        Chakra.Utils.Filters.ExtractAppName(appVer) AS ApplicationName
+    FROM chakraData
+    INNER JOIN deviceIdToMachineConfigIdMap
+        ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.deviceId
+    INNER JOIN chakraUrlData
+        ON chakraData.ActivityId == chakraUrlData.ActivityId
+    WHERE (name == "Microsoft.Web.Platform.Chakra.GCPauseStats.V2" OR name=="Microsoft.Web.Platform.Chakra.GCPauseStats") && data["binaryFlavor"] != "CHK" && data["unreleasedScriptContextCount"] IS NOT NULL
+    GROUP BY ApplicationName,
+             MachineConfigId,
+             Domain,
+             BinaryVersion,
+             Date;
+
+OUTPUT leakedScriptCtxtData
+TO SSTREAM @LeakedScriptCtxt WITH STREAMEXPIRY "365";
