@@ -1,0 +1,170 @@
+//Script GUID:4aa3bfb3-b983-4808-ba67-60b57a924203
+//Used for tracking history
+
+//   DailyTracker
+//   2015-01-25
+//   /shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/
+//   @@_endDate@@
+
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+#DECLARE deviceCensusEndDate string = @startDate.ToString("yyyy-MM-dd");
+#DECLARE deviceCensusStartDate string = @deviceCensusDate.ToString("yyyy-MM-dd");
+
+#IF(LOCAL)
+#DECLARE cookedChakraData string = @"C:\Users\sanyamc\Downloads\CookedChakraTelemetry_2015_03_14 (1).ss";
+#ELSE
+    #DECLARE cookedChakraData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+
+//#DECLARE cookedChakraData string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+//#DECLARE cookedChakraData string = string.Format(@"/users/sanyamc/processed/data/reporting/CookedChakraTelemetry/2015/03/CookedChakraTelemetry_2015_03_14.ss");
+#ENDIF
+
+#IF(LOCAL)
+#DECLARE deviceCensusPath string = @"C:\EITools\Asimov\ScopeQueries\Sanyamc-private\DeviceCensusDaily_V3_2015_03_14.ss";
+#ELSE
+    #DECLARE deviceCensusPath string = string.Format(@"/shares/asimov.prod.data/Public/Processed/Device/Census/Daily/V3/");
+#ENDIF
+
+
+#IF(LOCAL)
+#DECLARE MachineOutput string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs", @streamDate);
+#ELSE
+#DECLARE MachineOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs", @streamDate);
+//#DECLARE MachineOutput string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs", @streamDate);
+#ENDIF
+
+#IF(LOCAL)
+#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+#ELSE
+//#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+#DECLARE  DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+#ENDIF
+
+//#DECLARE Data string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/data.ss");
+//#DECLARE NullExt string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/nullExtData.ss");
+//#DECLARE MachineIds string = string.Format(@"/users/sanyamc/processed/data/reporting/dataOutput/MachineIDs.ss");
+
+
+
+
+
+// 
+// Find the Machine IDs used by Chakra events. 
+//
+
+machineIDs =
+    SELECT DISTINCT device_id AS  DeviceId 
+    FROM
+    (
+        SSTREAM @cookedChakraData
+    )   
+    WHERE ext IS NOT NULL;
+
+
+
+//
+// Find all unique machine configs represented in our event data.
+//
+machineData =
+    SELECT          OSVersionFull,
+                    OSBuildType,
+                    OSArchitecture,
+                    IEVersion,
+                    IsVirtualDevice,
+                    ProcessorCores,
+                    ProcessorArchitectureId,
+                    ProcessorModel,
+                    TotalPhysicalRAM,
+                    ChassisTypeName,
+                    IsTestLab,
+                    IsMSFTOwned,
+                    IsFlightingInternal,
+                    COUNT(*) AS NumberOfDevices
+
+    FROM
+    (
+        SSTREAM SPARSE STREAMSET @deviceCensusPath
+        PATTERN @"/%Y/%m/DeviceCensusDaily_V3_%Y_%m_%d.ss"
+        RANGE __date=[@deviceCensusStartDate, @deviceCensusEndDate]
+    )
+    INNER JOIN machineIDs
+    ON machineIDs.DeviceId == DeviceId
+    GROUP BY
+            OSVersionFull,
+            OSBuildType,
+            OSArchitecture,
+            IEVersion,
+            IsVirtualDevice,
+            ProcessorCores,
+            ProcessorArchitectureId,
+            ProcessorModel,
+            TotalPhysicalRAM,
+            ChassisTypeName,
+            IsTestLab,
+            IsMSFTOwned,
+            IsFlightingInternal;
+        
+
+
+//
+// Add a unique ID to each row (can't figure out how to do that in the same query as above)
+//
+machineData =
+    SELECT Guid.NewGuid() AS MachineConfigId,
+           NumberOfDevices,
+           OSVersionFull,
+           OSBuildType,
+           OSArchitecture,
+           IEVersion,
+           IsVirtualDevice,
+           ProcessorCores,
+           ProcessorArchitectureId,
+           ProcessorModel,
+           TotalPhysicalRAM,
+           ChassisTypeName,
+           IsTestLab,
+           IsMSFTOwned,
+           IsFlightingInternal
+
+    FROM machineData;
+
+
+//
+// Build a mapping from DeviceId -> MachineConfigId
+//
+deviceIdToMachineConfigIdMap =
+    SELECT DeviceId,
+           machineData.MachineConfigId AS MachineConfigId
+    FROM
+    (
+        SSTREAM SPARSE STREAMSET @deviceCensusPath
+        PATTERN @"/%Y/%m/DeviceCensusDaily_V3_%Y_%m_%d.ss"
+        RANGE __date=[@deviceCensusStartDate, @deviceCensusEndDate]
+    )
+    INNER JOIN machineData
+    ON(
+      OSVersionFull == machineData.OSVersionFull AND
+      OSBuildType == machineData.OSBuildType AND
+      OSArchitecture == machineData.OSArchitecture AND
+      IEVersion == machineData.IEVersion AND
+      IsVirtualDevice == machineData.IsVirtualDevice AND
+      ProcessorCores == machineData.ProcessorCores AND
+      ProcessorArchitectureId == machineData.ProcessorArchitectureId AND
+      ProcessorModel == machineData.ProcessorModel AND
+      TotalPhysicalRAM == machineData.TotalPhysicalRAM AND
+      ChassisTypeName == machineData.ChassisTypeName AND
+      IsTestLab == machineData.IsTestLab AND
+      IsMSFTOwned == machineData.IsMSFTOwned AND
+      IsFlightingInternal == machineData.IsFlightingInternal);
+
+
+OUTPUT machineData
+TO SSTREAM @MachineOutput WITH STREAMEXPIRY "365";
+
+OUTPUT deviceIdToMachineConfigIdMap
+TO SSTREAM @DeviceIdToMachineIdMap WITH STREAMEXPIRY "365";
+

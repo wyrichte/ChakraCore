@@ -1,0 +1,106 @@
+//Script GUID:1dcb43b3-d3a6-4c5f-8d0d-dd1f0055977a
+//Used for tracking history
+
+/*
+ * This script handles some basic aggregation for the ESBuiltins telemetry. As it's
+ * undesirable to take up a huge amount of data storage very long-term, and because
+ * Kusto has significantly tighter constraints on data ingestion, storage, and then
+ * processing volume, this is the data that we persist the longest and which we set
+ * as what we'd like to have available in Kusto for quick analysis and easy access.
+ */
+
+// hook up to the asimov date inputs, so that back runs work properly
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+// The pivoted input file
+#IF(LOCAL)
+    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+#ELSE
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraBailOutReJIT_Pivoted" , @streamDate );
+#ENDIF
+
+// The machine config information file
+#IF(LOCAL)
+    #DECLARE machineConfigFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+#ELSE
+    #DECLARE machineConfigFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2" , @streamDate );
+#ENDIF
+
+// The post-aggregation output file
+#IF(LOCAL)
+    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData_Aggregated.ss";
+#ELSE
+    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraBailOutReJIT_Referenced" , @streamDate );
+#ENDIF
+
+
+// Grab the already-pivoted data from the previous stage's output file.
+inputData = 
+    SELECT
+        *
+    FROM ( SSTREAM @inputFileName );
+
+configMap =
+    SELECT
+        *
+    FROM ( SSTREAM @machineConfigFileName );
+
+
+/*
+ * Now we cross-reference with the machine info to get the architecture of each line.
+ */
+ReferencedData =
+    SELECT
+            inputData.Domain,
+            inputData.ApplicationName,
+            inputData.ActivityId,
+<<<FORALL_PRINTF(rejitReasons,
+"            inputData.rejit_%reasonName_present,
+            inputData.rejit_%reasonName_count,
+            inputData.rejit_%reasonName_count_cap,", "\n")>>>
+<<<FORALL_PRINTF(bailOutKinds,
+"            inputData.bailout_%kindName_present,
+            inputData.bailout_%kindName_count,
+            inputData.bailout_%kindName_count_cap,", "\n")>>>
+            configMap.OSArchitecture AS OSArchitecture
+    FROM inputData
+    INNER JOIN configMap
+    ON(
+            inputData.MachineConfigId == configMap.MachineConfigId
+      );
+
+/*
+ * Aggregate by architecture
+ */
+AggregateData = 
+    SELECT
+        Domain,
+        ApplicationName,
+        OSArchitecture,
+        COUNT(*) AS numpoints,
+<<<FORALL_PRINTF(rejitReasons,
+"        SUM(rejit_%reasonName_present ? 1 : 0) AS rejit_%reasonName_traces,
+        SUM(rejit_%reasonName_count) AS rejit_%reasonName_sum,
+        SUM(rejit_%reasonName_count_cap) AS rejit_%reasonName_cap_sum", ",\n")>>>,
+<<<FORALL_PRINTF(bailOutKinds,
+"        SUM(bailout_%kindName_present ? 1 : 0) AS bailout_%kindName_traces,
+        SUM(bailout_%kindName_count) AS bailout_%kindName_sum,
+        SUM(bailout_%kindName_count_cap) AS bailout_%kindName_cap_sum", ",\n")>>>
+    FROM ReferencedData
+    GROUP BY Domain,
+             ApplicationName,
+             OSArchitecture;
+
+
+
+/*
+ * Remove low-count entries - reduces risk of PII disclosure, as well as reduces noise
+ */
+NarrowedData =
+    SELECT *
+    FROM AggregateData
+    WHERE numpoints > 3;
+
+// Write to the output file
+OUTPUT NarrowedData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";

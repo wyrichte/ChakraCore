@@ -1,0 +1,204 @@
+//Script GUID:de888823-45ac-4448-ad98-71d098ef8844
+//Used for tracking history
+
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+// Goal of this script is to have streams output for our charts for summary dashboard.
+
+// 1. Non-MSFT , Non-VM devices for a month.
+
+//----------------------------Fetch Raw Chakra Data ------------------------------------------------
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE viewDate DateTime = @startDate.AddDays(-2);
+#DECLARE endDate DateTime = @streamDate.AddDays(1); 
+#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+//#DECLARE outputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+
+
+
+// Telemetry Asimov stack  
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
+  
+// Reference the namespaces  
+USING Microsoft.Telemetry.Asimov;  
+USING Microsoft.Telemetry.Asimov.Cosmos;  
+// Reference the Asimov (consumption) module  
+MODULE @"Asimov.module" AS Asimov; 
+
+#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra.ES5Builtins"; 
+
+
+// Common schema sources  
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
+RESOURCE @schemaFile1;  
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
+RESOURCE @schemaFile2;  
+ 
+
+ 
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
+#DECLARE useExactInputPath bool = false;  
+
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawData = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx = @eventNamesRegEx,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+ 
+
+
+///-----------------------------------------------------------------------------------------------------
+
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.dll";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.pdb";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.xml";
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+
+
+#IF(LOCAL)
+#DECLARE chakraURLData string =@"C:\Users\sanyamc\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\Microsoft\ScopeStudio\1.8.0000.2\CosmosRuntimeSDK\users\sanyamc\processed\data\reporting\Domains\2015\01\Domains_2015_01_26.ss";
+#ELSE
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+//#DECLARE chakraURLData string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#ENDIF
+
+
+#DECLARE ES5BuiltinOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ES5BuiltinsData", @streamDate);
+#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+#DECLARE inputMachineConfigs String   = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs2",@streamDate );
+//#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+
+//#DECLARE GCPauseOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseData", @streamDate);
+
+//
+// Getting data from DeviceIdToMachineConfigID Map DeviceId -> MachineConfigId
+//
+deviceIdToMachineConfigIdMap =
+    SELECT *
+    FROM
+    (
+        SSTREAM @DeviceIdToMachineIdMap
+    );
+
+chakraData =
+    SELECT *,
+        A_device_id AS deviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawData
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+
+// Select the URL data from Chakra URL data stream
+
+chakraUrlData =
+    SELECT *        
+    FROM
+    (
+        SSTREAM @chakraURLData
+    )
+WHERE Domain != "" AND Domain IS NOT NULL;
+machineConfigInputs = 
+  SELECT *        
+    FROM
+    (
+        SSTREAM  @inputMachineConfigs
+    );
+
+
+
+//
+// Extract the ES5 Builtin Data
+//
+es5BuiltinData =
+    SELECT 
+           @streamDate AS Date,
+           Chakra.Utils.Filters.ExtractDomain( chakraUrlData.Domain ) AS Domain,
+           Chakra.Utils.Filters.ExtractAppName(A_appVer) AS ApplicationName,
+           MachineConfigId,
+           COUNT(DISTINCT chakraData.deviceId) AS NumberOfDevices,
+           SUM(UInt64.Parse(C_arrayisArrayCount?? "0")) AS ArrayisArray,
+           SUM(UInt64.Parse(C_arrayIndexOfCount?? "0")) AS ArrayIndexOf,
+           SUM(UInt64.Parse(C_arrayEveryCount?? "0")) AS ArrayEvery,
+           SUM(UInt64.Parse(C_arrayFilterCount?? "0")) AS ArrayFilter,
+           SUM(UInt64.Parse(C_arrayForEachCount?? "0")) AS ArrayForEach,
+           SUM(UInt64.Parse(C_arrayLastIndexOfCount?? "0")) AS ArrayLastIndexOf,
+           SUM(UInt64.Parse(C_arrayMapCount?? "0")) AS ArrayMap,
+           SUM(UInt64.Parse(C_arrayReduceCount?? "0")) AS ArrayReduce,
+           SUM(UInt64.Parse(C_arrayReduceRightCount?? "0")) AS ArrayReduceRight,
+           SUM(UInt64.Parse(C_arraySomeCount?? "0")) AS ArraySome,
+           SUM(UInt64.Parse(C_objectCreateCount?? "0")) AS ObjectCreate,
+           SUM(UInt64.Parse(C_objectDefinePropertiesCount?? "0")) AS ObjectDefineProperties,
+           SUM(UInt64.Parse(C_objectFreezeCount?? "0")) AS ObjectFreeze,
+           SUM(UInt64.Parse(C_objectSealCount?? "0")) AS ObjectSeal,
+           SUM(UInt64.Parse(C_objectGetOwnPropertyNamesCount?? "0")) AS ObjectGetOwnPropertyNames,
+           SUM(UInt64.Parse(C_objectGetPrototypeOfCount?? "0")) AS ObjectGetPrototypeOf,
+           SUM(UInt64.Parse(C_objectIsExtensibleCount?? "0")) AS ObjectIsExtensible,
+           SUM(UInt64.Parse(C_objectIsFrozenCount?? "0")) AS ObjectIsFrozen,
+           SUM(UInt64.Parse(C_objectIsSealedCount?? "0")) AS ObjectIsSealed,
+           SUM(UInt64.Parse(C_objectKeysCount?? "0")) AS ObjectKeys,
+           SUM(UInt64.Parse(C_objectPreventExtensionCount?? "0")) AS ObjectPreventExtension,
+           SUM(UInt64.Parse(C_dateToISOStringCount?? "0")) AS DateToISOString,
+           SUM(UInt64.Parse(C_functionBindCount?? "0")) AS FunctionBind,
+           SUM(UInt64.Parse(C_stringTrimCount?? "0")) AS StringTrim,
+           SUM(UInt64.Parse(C_arrayisArrayDebugModeCallCount?? "0")) AS ArrayisArrayDebugModeCall,
+           SUM(UInt64.Parse(C_arrayIndexOfDebugModeCallCount?? "0")) AS ArrayIndexOfDebugModeCall,
+           SUM(UInt64.Parse(C_arrayEveryDebugModeCallCount?? "0")) AS ArrayEveryDebugModeCall,
+           SUM(UInt64.Parse(C_arrayFilterDebugModeCallCount?? "0")) AS ArrayFilterDebugModeCall,
+           SUM(UInt64.Parse(C_arrayForEachDebugModeCallCount?? "0")) AS ArrayForEachDebugModeCall,
+           SUM(UInt64.Parse(C_arrayLastIndexOfDebugModeCallCount?? "0")) AS ArrayLastIndexOfDebugModeCall,
+           SUM(UInt64.Parse(C_arrayMapDebugModeCallCount?? "0")) AS ArrayMapDebugModeCall,
+           SUM(UInt64.Parse(C_arrayReduceDebugModeCallCount?? "0")) AS ArrayReduceDebugModeCall,
+           SUM(UInt64.Parse(C_arrayReduceRightDebugModeCallCount?? "0")) AS ArrayReduceRightDebugModeCall,
+           SUM(UInt64.Parse(C_arraySomeDebugModeCallCount?? "0")) AS ArraySomeDebugModeCall,
+           SUM(UInt64.Parse(C_objectCreateDebugModeCallCount?? "0")) AS ObjectCreateDebugModeCall,
+           SUM(UInt64.Parse(C_objectDefinePropertiesDebugModeCallCount?? "0")) AS ObjectDefinePropertiesDebugModeCall,
+           SUM(UInt64.Parse(C_objectFreezeDebugModeCallCount?? "0")) AS ObjectFreezeDebugModeCall,
+           SUM(UInt64.Parse(C_objectSealDebugModeCallCount?? "0")) AS ObjectSealDebugModeCall,
+           SUM(UInt64.Parse(C_objectGetOwnPropertyNamesDebugModeCallCount?? "0")) AS ObjectGetOwnPropertyNamesDebugModeCall,
+           SUM(UInt64.Parse(C_objectGetPrototypeOfDebugModeCallCount?? "0")) AS ObjectGetPrototypeOfDebugModeCall,
+           SUM(UInt64.Parse(C_objectIsExtensibleDebugModeCallCount?? "0")) AS ObjectIsExtensibleDebugModeCall,
+           SUM(UInt64.Parse(C_objectIsFrozenDebugModeCallCount?? "0")) AS ObjectIsFrozenDebugModeCall,
+           SUM(UInt64.Parse(C_objectIsSealedDebugModeCallCount?? "0")) AS ObjectIsSealedDebugModeCall,
+           SUM(UInt64.Parse(C_objectKeysDebugModeCallCount?? "0")) AS ObjectKeysDebugModeCall,
+           SUM(UInt64.Parse(C_objectPreventExtensionDebugModeCallCount?? "0")) AS ObjectPreventExtensionDebugModeCall,
+           SUM(UInt64.Parse(C_dateToISOStringDebugModeCallCount?? "0")) AS DateToISOStringDebugModeCall,
+           SUM(UInt64.Parse(C_functionBindDebugModeCallCount?? "0")) AS FunctionBindDebugModeCall,
+           SUM(UInt64.Parse(C_stringTrimDebugModeCallCount?? "0")) AS StringTrimDebugModeCall
+    FROM
+           chakraData
+    INNER JOIN chakraUrlData
+        ON chakraData.ActivityId == chakraUrlData.ActivityId
+    INNER JOIN deviceIdToMachineConfigIdMap
+        ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.deviceId
+    GROUP BY Date, Domain, ApplicationName, MachineConfigId;
+
+
+
+OUTPUT es5BuiltinData
+TO SSTREAM @ES5BuiltinOutput WITH STREAMEXPIRY "365";

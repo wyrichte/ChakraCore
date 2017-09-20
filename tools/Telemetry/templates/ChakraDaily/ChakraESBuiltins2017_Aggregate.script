@@ -1,0 +1,82 @@
+//Script GUID:1dcb43b3-d3a6-4c5f-8d0d-dd1f0055977a
+//Used for tracking history
+
+/*
+ * This script handles some basic aggregation for the ESBuiltins telemetry. As it's
+ * undesirable to take up a huge amount of data storage very long-term, and because
+ * Kusto has significantly tighter constraints on data ingestion, storage, and then
+ * processing volume, this is the data that we persist the longest and which we set
+ * as what we'd like to have available in Kusto for quick analysis and easy access.
+ */
+
+// hook up to the asimov date inputs, so that back runs work properly
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+// The pivoted input file
+#IF(LOCAL)
+    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+#ELSE
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Pivoted" , @streamDate );
+#ENDIF
+
+// The post-aggregation output file
+#IF(LOCAL)
+    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData_Aggregated.ss";
+#ELSE
+    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Aggregated" , @streamDate );
+#ENDIF
+
+
+// Grab the already-pivoted data from the previous stage's output file.
+inputData = 
+    SELECT
+        *
+    FROM ( SSTREAM @inputFileName );
+
+
+// Do one pass over the data, gathering sums
+// regexes used:
+//
+// :%s/BLOCK.*\n//g
+// :%s/ENTRY_TELPOINT(\([a-zA-Z0-9_]*\))/SUM(\1_present ? 1 : 0) AS \1_traces,\rSUM((UInt64)\1) AS \1_sum,/g
+// :%s/ENTRY_LANGFEATURE([a-zA-Z0-9]*, \([a-zA-Z0-9]*\))/SUM(\1_present ? 1 : 0) AS \1_traces,\rSUM((UInt64)\1) AS \1_sum,/g
+// :%s/ENTRY_BUILTIN([a-zA-Z0-9]*, \([a-zA-Z0-9]*\), \([a-zA-Z0-9]*\), \([a-zA-Z0-9]*\))/SUM(\1_\2_\3_present ? 1 : 0) AS  \1_\2_\3_traces,\rSUM((UInt64)\1_\2_\3_props) AS \1_\2_\3_props_sum,\r\SUM((UInt64)\1_\2_\3_callCount) AS \1_\2_\3_callCount_sum,\rSUM((UInt64)\1_\2_\3_dMCallCount) AS \1_\2_\3_dMCallCount_sum,/g
+// :%s/\n\n/\r/g
+//
+// Or just use generatequeries.py
+
+AggregateData =
+    SELECT Domain,
+           ApplicationName,
+           COUNT(*) AS numpoints,
+<<<FORALL_PRINTF(builtins,
+"           SUM(%baseObject_%functionResidence_%functionName_present? 1 : 0) AS %baseObject_%functionResidence_%functionName_traces,
+           SUM((UInt64) %baseObject_%functionResidence_%functionName_props) AS %baseObject_%functionResidence_%functionName_props_sum,
+           SUM((UInt64) %baseObject_%functionResidence_%functionName_callCount) AS %baseObject_%functionResidence_%functionName_callCount_sum,
+           SUM((UInt64) %baseObject_%functionResidence_%functionName_dMCallCount) AS %baseObject_%functionResidence_%functionName_dMCallCount_sum,","\n")>>>
+<<<FORALL_PRINTF(telpoints,
+"           SUM(%pointName_present? 1 : 0) AS %pointName_traces,
+           SUM((UInt64) %pointName) AS %pointName_sum,","\n")>>>
+<<<FORALL_PRINTF(langfeatures,
+"           SUM(%pointName_present? 1 : 0) AS %pointName_traces,
+           SUM((UInt64) %pointName) AS %pointName_sum",",\n")>>>
+    FROM inputData
+    GROUP BY Domain,
+             ApplicationName;
+
+/*
+ * We filter here a little bit more to both speed up analysis passes and avoid such
+ * cases where we might leak data about a specific user through insufficient sample
+ * counts for sites (such that we just have a single sample from a site unique to a
+ * user). This happens to also improve our data quality, since it isn't offset by a
+ * site that only has a single anomalous trace.
+ */
+
+FilteredData =
+    SELECT *
+    FROM AggregateData
+    WHERE numpoints > 3;
+
+// Write to the output file
+OUTPUT FilteredData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";

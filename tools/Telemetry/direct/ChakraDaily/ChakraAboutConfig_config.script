@@ -1,0 +1,82 @@
+//Script GUID:c6147c06-d54e-4a96-8458-976d59b583a4
+//Used for tracking history
+
+REFERENCE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Microsoft.Telemetry.AsimovInterface.dll";
+
+REFERENCE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Microsoft.Telemetry.AsimovModuleCosmos.dll";
+
+REFERENCE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Microsoft.Telemetry.AsimovCosmosExtensions.dll";
+
+MODULE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Asimov.module" AS Asimov;
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+
+//#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+//Or should we just put this in the main cooked Chakra stream
+//#DECLARE cookedChakraData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/{0:yyyy}/{0:MM}/CookedChakraTelemetry_{0:yyyy}_{0:MM}_{0:dd}.ss",@streamDate);
+#DECLARE DeviceIdToMachineIdMap string =  string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/DeviceIdToMachineId2/{0:yyyy}/{0:MM}/DeviceIdToMachineId2_{0:yyyy}_{0:MM}_{0:dd}.ss",@streamDate);
+#DECLARE MachineConfig string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/MachineConfigs2/{0:yyyy}/{0:MM}/MachineConfigs2_{0:yyyy}_{0:MM}_{0:dd}.ss", @streamDate);
+#DECLARE configOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/AboutConfig/{0:yyyy}/{0:MM}/AboutConfig_{0:yyyy}_{0:MM}_{0:dd}.ss", @streamDate );
+
+// Pull data from the streams into tables (required to join on them in the main query below)
+configChanges =
+    SELECT *,
+        device_id AS deviceId,
+        @streamDate AS Date
+    FROM Asimov.AsimovEventViewLite
+    (
+        startDate = @streamDate, 
+        endDate = @streamDate,
+        eventFlavor = "Cll",
+        eventPipeline = "Public,LowPriority",
+        eventRetention = "Low",
+        disallowSparseStreamset = false
+    )
+    WHERE name == "Microsoft.Windows.App.Browser.AboutFlagsUpdated";
+    //WHERE name == "Microsoft.Windows.App.Browser.AboutFlagsUpdated" && ext IS NOT NULL && data IS NOT NULL && (data["description"] == "ExperimentalJS" || data["description"] == "Asmjs");
+deviceIdToMachineConfigIdMap= SSTREAM @DeviceIdToMachineIdMap;
+machineConfig = SSTREAM @MachineConfig;
+
+//Filter separately as doing it in one step (as above in the commented where clause) proved very slow
+configChanges2 = 
+    SELECT *
+    FROM configChanges
+    WHERE ext IS NOT NULL && data IS NOT NULL && (data["description"] == "ExperimentalJS" || data["description"] == "Asmjs");
+
+//
+// Prepare the final output stream (@TODO - Reason about distinct users and users who quickly toggle something on then right off again, and then if we want to connect users disabling a feature to Watson/etc)
+//
+usage1 =
+    SELECT 
+        Date AS Date,
+        COUNTIF(data["description"] == "ExperimentalJS" && data["value"] == "true") AS ExperimentalEnabled,
+        COUNTIF(data["description"] == "ExperimentalJS" && data["value"] == "false") AS ExperimentalDisabled,
+        COUNTIF(data["description"] == "Asmjs" && data["value"] == "true") AS AsmjsEnabled,
+        COUNTIF(data["description"] == "Asmjs" && data["value"] == "false") AS AsmjsDisabled
+    FROM configChanges2
+    INNER JOIN deviceIdToMachineConfigIdMap //@TODO - @BUGBUG - These joins will fail if a user toggled the setting and then did not browse to any page containing JavaScript that day unless we include the about:config events in the daily cooked Chakra stream.  How common that is is unclear....
+        ON deviceIdToMachineConfigIdMap.DeviceId == configChanges2.deviceId
+    INNER JOIN machineConfig
+        ON deviceIdToMachineConfigIdMap.MachineConfigId == machineConfig.MachineConfigId
+    WHERE IsMSFTOwned == false
+    GROUP BY Date;
+
+usage2 =
+    SELECT 
+        Date,
+        ExperimentalEnabled,
+        ExperimentalDisabled,
+        (ExperimentalEnabled - ExperimentalDisabled) AS ExperimentalNet,
+        AsmjsEnabled,
+        AsmjsDisabled,
+        (AsmjsEnabled - AsmjsDisabled) AS AsmjsNet
+    FROM
+        usage1;
+
+OUTPUT usage2
+TO SSTREAM @configOutput CLUSTERED BY Date SORTED BY Date WITH STREAMEXPIRY "365";
+

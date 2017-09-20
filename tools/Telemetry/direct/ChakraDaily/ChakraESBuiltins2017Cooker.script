@@ -1,0 +1,93 @@
+//Script GUID:d71e9e63-8ce3-42b8-aa9a-2ca917f254ec
+//Used for tracking history
+
+/*
+ * This is where we process the main body of telemetry data coming into asimov from
+ * clients running ChakraFull. We already extracted the data from the asimov's main
+ * telemetry stream into the cookedchakratelemetry files; additionally, we have set
+ * up the device and url data files, which we will now correlate with the usage and
+ * polyfill data. The output of this file is significantly smaller than the inputs,
+ * and marks the point at which we've finished correlating it with other tables, so
+ * the rest of the processing steps on this data stream can be somewhat simpler (in
+ * some ways, at least; pivoting still has its own complexities).
+ */
+
+// We use a couple functions from this to do our processing.
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+// For the json stuff
+MODULE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+
+// hook up to the asimov date inputs, so that back runs work properly
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1);
+
+// reference the pre-cooked data
+// note: LOCAL is declared externally when running locally
+// chakra telemetry
+#IF(LOCAL)
+    #DECLARE cookedChakraData string = @"c:\ChakraTelTest\CookedChakraTelemetry_2011_01_03.ss";
+#ELSE
+    #DECLARE cookedChakraData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+#ENDIF
+// activity->url map
+#IF(LOCAL)
+    #DECLARE chakraURLData string =@"c:\ChakraTelTest\CookedURLTelemetry_2017_01_03.ss";
+#ELSE
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#ENDIF
+// deviceid->machineid map
+#IF(LOCAL)
+    #DECLARE DeviceIdToMachineIdMap string = @"c:\ChakraTelTest\DeviceIdToMachineId2_2017_01_03.ss";
+#ELSE
+    #DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+#ENDIF
+// output file for us to write to at the end
+#IF(LOCAL)
+    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData.ss";
+#ELSE
+    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData" , @streamDate );
+#ENDIF
+
+// Grab the data from the cooked files into live streams
+deviceIdToMachineConfigIdMap =
+	SELECT *
+	FROM ( SSTREAM @DeviceIdToMachineIdMap );
+
+chakraUrlData =
+	SELECT *
+	FROM ( SSTREAM @chakraURLData );
+
+chakraData =
+    SELECT *
+    FROM ( SSTREAM @cookedChakraData )
+    WHERE name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
+
+chakraData2 =
+    PROCESS chakraData
+    USING JsonObjectProcessor (
+        "ext",
+        "device.id:deviceId:string"
+    );
+
+chakraData3 =
+    PROCESS chakraData2
+    USING JsonObjectProcessor (
+        "data",
+        "activityID:ActivityId:string"
+    );
+
+// Select 
+//ESBuiltinsData = 
+ESBuiltIns2017Data =
+    SELECT
+        chakraData3.*,
+        deviceIdToMachineConfigIdMap.MachineConfigId AS MachineConfigId,
+        chakraUrlData.Domain AS Domain,
+        Chakra.Utils.Filters.ExtractAppName(appVer) AS ApplicationName
+    FROM
+        chakraData3
+        INNER JOIN chakraUrlData ON chakraData3.ActivityId == chakraUrlData.ActivityId
+        INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData3.deviceId;
+
+OUTPUT ESBuiltIns2017Data TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";

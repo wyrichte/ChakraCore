@@ -1,0 +1,26 @@
+//Script GUID:2746696c-fb1f-43d9-b5a7-9155539dd108
+//Used for tracking history
+
+// The script simply combines the hourly SS into daily SS.
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow.Date.AddDays(-1), DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-3); // We are little behind , just to make sure that all streams are produces by Watson team's scripts before our scripts run. Small price to pay for reliably running the nightly workflow.
+#DECLARE startDateString String = @streamDate.ToString("yyyy-MM-dd");
+
+allData = 
+SELECT
+	*
+FROM
+(
+	SSTREAM SPARSE STREAMSET @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Watson/Flat3/"
+	PATTERN @"%Y/%m/%d_%h.ss"
+	RANGE __date = [ @startDateString, @startDateString ], __hour = ["00", "23"] // can't specify stepping for hours so SCOPE will iterate 0,1,2,3...18, but as it's as a sparse-set, that's okay.
+
+//	PATTERN @"%Year/%Month/%Day_%Hour.ss" // apparently when using __datetime, you must use a different string format syntax. wut.
+//	RANGE __datetime = [ @startDateString, @startDateString ]("06:00:00") // 6-hour steps
+//	RANGE __datetime = [ "2015-05-29", "2015-05-29" ]("06:00:00") // 6-hour steps
+);
+
+#DECLARE outputFileName String = String.Format( "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Watson/Flat3/{0:yyyy}/{0:MM}/{0:dd}.ss", @streamDate);
+
+OUTPUT allData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
