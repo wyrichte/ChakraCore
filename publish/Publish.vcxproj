@@ -35,6 +35,7 @@
         <!-- For EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)core\lib\runtime\types;
         <!-- For scaformat.idl -->
+        $(OneCoreInetcoreIncPath);
         $(PublicInternalPath)\inetcore\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

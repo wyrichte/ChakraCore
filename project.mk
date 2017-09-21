@@ -125,6 +125,8 @@ COREINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\JITServer; \
     $(JSCRIPT_ROOT)\private\lib\memprotectheap; \
     $(JSCRIPT_ROOT)\publish; \
+    $(ONECORESHELL_INC_PATH); \
+    $(ONECOREUAPSHELL_INC_PATH); \
     $(SHELL_INC_PATH); \
     $(BROWSER_INETCORE_INC_PATH); \
     $(SDK_INC_PATH);\
@@ -141,6 +143,8 @@ SITEINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\JITClient; \
     $(JSCRIPT_ROOT)\core\lib\JITIDL; \
     $(JSCRIPT_ROOT)\core\lib\JITServer; \
+    $(ONECORESHELL_INC_PATH); \
+    $(ONECOREUAPSHELL_INC_PATH); \
     $(SHELL_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
 
@@ -174,7 +178,7 @@ MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /O2
 !endif
 
 !ifdef X86
-MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /arch:SSE2
+# MSC_OPTIMIZATION=$(MSC_OPTIMIZATION) /arch:SSE2
 NOFTOL3=1
 !endif
 

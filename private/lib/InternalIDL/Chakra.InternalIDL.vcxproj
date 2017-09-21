@@ -24,6 +24,7 @@
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)publish;
         <!-- For scriptDirectHost.idl -->
+        $(OneCoreInetcoreIncPath);
         $(PublicInternalPath)\Inetcore\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

@@ -52,7 +52,10 @@
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
         <!-- For winmddefsp.h  -->
-        $(PublicInternalPath)\com\inc\midlrt;
+        $(OneCoreUapComIncPath)\midlrt;
+
+        <!-- For DTBHost.h -->
+        $(EnlistmentRoot)\onecoreuap\inetcore\lib\devtb\dtbhost_edge;
 
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
@@ -161,6 +164,7 @@
         $(ChakraRootDirectory)publish;
         $(ChakraCoreRootDirectory)lib\runtime\types;
         <!-- For scaformat.idl -->
+        $(OneCoreInetcoreIncPath);
         $(PublicInternalPath)\inetcore\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

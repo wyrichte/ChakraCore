@@ -54,8 +54,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Engine\EngineDataTelemetryProvider.cpp" />
-    <ClCompile Include="ESBuiltIns\OpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Engine\EngineDataTelemetryProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\OpcodeTelemetry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectCall.h" />

@@ -52,6 +52,8 @@
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
+        $(ONECORESDKTOOLSINCPATH);
+
         $(SdkToolsIncPath);
       </AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
@@ -84,16 +86,16 @@
         $(SdkLibPath)\ntdll.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCoreSdkLibPath)\mincore_obsolete.lib;
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(OneCoreShellLibPath)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
 
         <!-- _DoNotUseDirectly_CULprintf in codex -->
         <!-- TODO: Clean this up -->
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib;
+        $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib;
 
         <!-- Setting store -->
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsApi.lib;
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsId.lib
+        $(OneCoreUapInetcoreLibPath)\iertutilp.lib;
+        $(OneCoreUapInetcoreLibPath)\IESettingsApi.lib;
+        $(OneCoreUapInetcoreLibPath)\IESettingsId.lib
       </AdditionalDependencies>
 
       <DelayLoadDLLs>%(DelayLoadDLLs);api-ms-win-shcore-stream-l1-1-0.dll</DelayLoadDLLs>

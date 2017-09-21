@@ -60,8 +60,8 @@
       <SubSystem>Console</SubSystem>
       <ModuleDefinitionFile>$(IntDir)chakra.def</ModuleDefinitionFile>
       <!-- PathCchApis.lib: (to avoid loading api-ms-win-core-path-l1-1-0.dll)
-              PathCchCombine  (used in iedevtools_host_iel1.lib)
-              PathCchAppend   (used in iedevtools_host_iel1.lib) -->
+              PathCchCombine  (used in iedevtools_host_iel1_edge.lib)
+              PathCchAppend   (used in iedevtools_host_iel1_edge.lib) -->
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(ChakraCommonLinkDependencies);
@@ -69,17 +69,17 @@
         $(SdkLibPath)\muiload.lib;
 
         <!-- Setting store -->
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib;
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsApi.lib;
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\IESettingsId.lib;
+        $(OneCoreUapInetcoreLibPath)\iertutilp.lib;
+        $(OneCoreUapInetcoreLibPath)\IESettingsApi.lib;
+        $(OneCoreUapInetcoreLibPath)\IESettingsId.lib;
 
         <!-- For _DoNotUseDirectly_CULprintf in codex --><!-- TODO: Clean this up -->
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\CommonUtilityLibrary.lib
+        $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
       <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">%(DelayLoadDLLs);api-ms-win-core-com-l1-1-0.dll</DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">%(DelayLoadDLLs);api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">%(DelayLoadDLLs);api-ms-win-core-winrt-error-l1-*.dll</DelayLoadDLLs>
       <!-- Pogo switches -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-pspeed1</AdditionalOptions>
       <!-- ======== From makefile.def ======== -->
@@ -102,20 +102,20 @@
         <!-- iedevtools_host_iel1.lib:
               LoadLatestPDM
               ShouldUseLocalPDM -->
-        $(IELibPath)\devtb\dtbhost\$(ObjectDirectory)iedevtools_host_iel1.lib;
+        $(IELibPath)\devtb\dtbhost_edge\$(ObjectDirectory)iedevtools_host_iel1_edge.lib;
 
         <!-- All for ScriptProjectionHostApi -->
         $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
-        $(BaseLibPath)\AppModel\Common\AppModel.Common.lib;
+        $(OneCoreBaseLibPath)\appmodel\common\appmodel.common.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
         $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
       </AdditionalDependencies>
       <DelayLoadDLLs>
         %(DelayLoadDLLs);
-        ext-ms-win-rometadata-dispenser-l1-1-0.dll;
-        api-ms-win-core-winrt-l1-1-0.dll;
-        api-ms-win-ro-typeresolution-l1-1-0.dll
+        ext-ms-win-rometadata-dispenser-l1-*.dll;
+        api-ms-win-core-winrt-l1-*.dll;
+        api-ms-win-ro-typeresolution-l1-*.dll
       </DelayLoadDLLs>
     </Link>
     <ImpLib>

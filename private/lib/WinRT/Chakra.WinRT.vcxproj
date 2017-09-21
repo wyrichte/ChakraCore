@@ -27,7 +27,9 @@
         <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
-        
+
+        $(ONECOREUAPCOMINCPATH)\midlrt;
+
         $(ComIncPath)\midlrt;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

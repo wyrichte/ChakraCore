@@ -34,7 +34,9 @@
         $(ChakraRootDirectory)private\lib\HostCommon;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
-        
+        $(ChakraPublishIntDir);
+        $(ChakraCoreRootDirectory)lib\runtime\types;
+        $(ONECORESDKTOOLSINCPATH);
         $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

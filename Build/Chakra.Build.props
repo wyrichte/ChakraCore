@@ -77,18 +77,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <!-- ========= For x86 sse2 Math ========= -->
-      <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
-      <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-
+      
       <!-- ========= For IESettings.h ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreInetcoreIncPath);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For GlobalMSRCSettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(BaseDataPath)\MSRC</AdditionalIncludeDirectories>
 
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreUapShellIncPath);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ChakraRootDirectory)private\lib\placeholder</AdditionalIncludeDirectories>
@@ -121,6 +118,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
+      <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
 
       <!-- ========= Microsoft.Build.Cpp.Default.props ========= -->
       <!-- These are already defined in Microsoft.Build.Cpp.Default.props, have it here too so that the non-Razzle build will be the same -->

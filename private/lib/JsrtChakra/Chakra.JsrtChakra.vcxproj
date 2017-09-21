@@ -42,7 +42,7 @@
         $(ChakraCoreRootDirectory)lib\runtime\types;
         
         <!-- For winmddefsp.h  -->
-        $(PublicInternalPath)\com\inc\midlrt;
+        $(OneCoreUapComIncPath)\midlrt;
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

@@ -34,6 +34,8 @@
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
+        $(ONECORESDKTOOLSINCPATH);
+
         $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
