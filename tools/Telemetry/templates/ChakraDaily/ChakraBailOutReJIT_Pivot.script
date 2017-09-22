@@ -307,16 +307,15 @@ ChakraBailOutReJIT_Extracted =
 // :%s/$/,/g
 //
 //
-// At least, that's how it worked earlier. Now, you can just use generatequeries.py
-// to create this file, and it should update everything and avoid errors.
-//
-// ActivityId is at the end to simplify comma handling
+// At least, that's how it worked earlier. Now, you can just use GenTel.py to build
+// this file, and it should update everything and avoid errors.
 
 ChakraBailOutReJIT_Pivoted =
     PROCESS ChakraBailOutReJIT_Extracted
     PRODUCE Domain,
             ApplicationName,
             MachineConfigId,
+            ActivityId
 <<<FORALL_PRINTF(rejitReasons,
 "            rejit_%reasonName_present,
             rejit_%reasonName_count,
@@ -324,8 +323,7 @@ ChakraBailOutReJIT_Pivoted =
 <<<FORALL_PRINTF(bailOutKinds,
 "            bailout_%kindName_present,
             bailout_%kindName_count,
-            bailout_%kindName_count_cap,", "\n")>>>
-            ActivityId
+            bailout_%kindName_count_cap", ",\n")>>>
     USING AssocProcessor;
 
 OUTPUT ChakraBailOutReJIT_Pivoted TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
