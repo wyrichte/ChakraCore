@@ -5,13 +5,11 @@
 //   2017-02-08
 //   limit to one event due to timeout issues, remove date from row due to never being used/being something that can be added later
 
-MODULE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
 
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
-//#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
 #DECLARE outputPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
-//#DECLARE outputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
 
 data =
     SELECT *
@@ -23,5 +21,28 @@ data =
     )
     WHERE name == "Microsoft.Web.Platform.Chakra.ChakraInit" OR name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
 
-OUTPUT data
+data2 =
+    PROCESS data
+    USING JsonObjectProcessor (
+        "ext",
+        "device.id:deviceId:string"
+    );
+
+data3 =
+    PROCESS data2
+    USING JsonObjectProcessor (
+        "data",
+        "activityID:ActivityId:string"
+    );
+
+data4 =
+    SELECT deviceId,
+           data,
+           appVer,
+           name,
+           ActivityId
+    FROM data3
+    WHERE name IS NOT NULL;
+
+OUTPUT data4
 TO SSTREAM @outputPath  WITH STREAMEXPIRY "30";
