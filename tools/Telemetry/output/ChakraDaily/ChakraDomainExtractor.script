@@ -9,56 +9,56 @@
 //----------------------------Fetch Raw Chakra Data ------------------------------------------------
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
-#DECLARE endDate DateTime = @startDate.AddHours(23); 
+#DECLARE endDate DateTime = @startDate.AddHours(23);
 #DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
 
 
 
-// Telemetry Asimov stack  
-REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
-REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
-REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
-  
-// Reference the namespaces  
-USING Microsoft.Telemetry.Asimov;  
+// Telemetry Asimov stack
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll";
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll";
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll";
+
+// Reference the namespaces
+USING Microsoft.Telemetry.Asimov;
 USING Microsoft.Telemetry.Asimov.Cosmos;
-// Reference the Asimov (consumption) module  
-MODULE @"Asimov.module" AS Asimov; 
+// Reference the Asimov (consumption) module
+MODULE @"Asimov.module" AS Asimov;
 
-#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra"; 
-// Common schema sources  
+#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra";
+// Common schema sources
 
-// Common schema sources  
-#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
-RESOURCE @schemaFile1;  
-#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
-RESOURCE @schemaFile2;  
- 
-
- 
-#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
-#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
-#DECLARE useExactInputPath bool = false;  
+// Common schema sources
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";
+RESOURCE @schemaFile1;
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";
+RESOURCE @schemaFile2;
 
 
-// Pull the event data 
-rawData = Asimov.AsimovEventView ( 
+
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path
+#DECLARE useExactInputPath bool = false;
+
+
+// Pull the event data
+rawData = Asimov.AsimovEventView (
     startDate = @streamDate,
-    endDate = @endDate, 
-  
-    inputPath = @inputPath,  
-    useExactInputPath = @useExactInputPath,  
- 
-    eventNamesRegEx = @eventNamesRegEx,  
+    endDate = @endDate,
+
+    inputPath = @inputPath,
+    useExactInputPath = @useExactInputPath,
+
+    eventNamesRegEx = @eventNamesRegEx,
     schemaFiles = @schemaFiles,
-    // 
-    // Keep all PartA fields; alternatively a list of fields can be specified.  
-    // For example - "name, time, deviceId". Note that "*" is the default  
-    // value for this parameter, but we are including here for demo purposes.  
-    // 
-    partAToKeep = "*" 
-    ); 
- 
+    //
+    // Keep all PartA fields; alternatively a list of fields can be specified.
+    // For example - "name, time, deviceId". Note that "*" is the default
+    // value for this parameter, but we are including here for demo purposes.
+    //
+    partAToKeep = "*"
+    );
+
 
 
 ///-----------------------------------------------------------------------------------------------------
@@ -78,24 +78,23 @@ REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bi
 chakraData =
     SELECT *,
            C_activityId AS ActivityId
-    FROM
-   rawData;
+    FROM rawData;
 
-cookedUrlData = SELECT 
-    time, 
+cookedUrlData = SELECT
+    time,
     ActivityId,
     Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain
-    FROM (SSTREAM @cookedUrlData)WHERE Domain IS NOT NULL;
+    FROM (SSTREAM @cookedUrlData) WHERE Domain IS NOT NULL;
 
 urlData = SELECT DISTINCT
         cookedUrlData.ActivityId AS ActivityId,
         cookedUrlData.Domain AS Domain
-        FROM ( 
+        FROM (
             // This sub-query is to find the FIRST domain (ordered by time) for each ActivityId that is not about:blank.
-            SELECT 
+            SELECT
                 ActivityId,
                 MIN(time) AS time
-            FROM 
+            FROM
                 cookedUrlData
             WHERE
                 cookedUrlData.Domain != "about:blank"
@@ -103,7 +102,7 @@ urlData = SELECT DISTINCT
                 ActivityId
         ) AS FirstUrlForActivity
         INNER JOIN cookedUrlData ON cookedUrlData.ActivityId == FirstUrlForActivity.ActivityId AND cookedUrlData.time == FirstUrlForActivity.time;
-        
+
 
 
 chakraUrlData =

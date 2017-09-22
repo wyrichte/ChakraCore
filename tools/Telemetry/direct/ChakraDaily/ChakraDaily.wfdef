@@ -58,7 +58,7 @@
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
-      <Activity Name="ChakraDomainExtractor" ConfigBase="ChakraDomainExtractor" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+      <Activity Name="ChakraDomainExtractor" ConfigBase="ChakraDomainExtractor" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" Enabled="0" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
         <Dependencies>
           <Dependency Name="ChakraDailyURLCooker" />
         </Dependencies>

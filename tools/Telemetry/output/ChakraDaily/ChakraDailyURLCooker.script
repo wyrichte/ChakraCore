@@ -5,14 +5,9 @@
 
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
-//#DECLARE sensitivePath string = string.Format(@"/shares/asimov.prod.data/UserSensitive.Usage/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
-//#DECLARE regularPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
-//#DECLARE urlOutputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss","CookedURLTelemetry", @streamDate);
-//#DECLARE markupOutputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedMarkupTelemetry", @streamDate);
-#DECLARE urlOutputPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedURLTelemetry", @streamDate);
-//#DECLARE markupOutputPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedMarkupTelemetry", @streamDate);
+#DECLARE DomainOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
 
-MODULE "/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
 
 baseurldata =
         // We are very careful here to just select the domain, since the result
@@ -24,12 +19,12 @@ baseurldata =
         lastHour = @startDate
     );
 
-exturldata = 
+exturldata =
 	PROCESS baseurldata
 	USING JsonObjectProcessor
 	(
 		"ext",
-		"aId:ActivityId:string"
+		"utc.aId:ActivityId:string"
 	);
 
 dataurldata =
@@ -47,7 +42,79 @@ urldata =
 		Domain,
 		ActivityId
 	FROM dataurldata
-	WHERE name == "Microsoft.Web.Platform.SetUri";
+	WHERE
+        name == "Microsoft.Web.Platform.SetUri"
+    AND Domain IS NOT NULL;
 
-OUTPUT urldata
-TO SSTREAM @urlOutputPath WITH STREAMEXPIRY "30";
+// Now that we have the URL data, we want to filter it to just what we need for the
+// ActivityIds that are present in our primary streams. This helps us avoid storing
+// data that we then need to do additional privacy checks on.
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+data =
+    SELECT *
+    FROM Asimov.CllEventsR1
+    (
+		isolation = "Osg",
+        firstHour = @streamDate,
+        lastHour = @startDate
+    )
+    WHERE name == "Microsoft.Web.Platform.Chakra.ChakraInit" OR name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
+
+chakraData =
+    PROCESS data
+    USING JsonObjectProcessor (
+        "data",
+        "activityID:ActivityId:string"
+    );
+
+//
+// Select only the URL data data that matches our ActivityIDs.  For each ActivityId, make sure to choose the FIRST url that matches it.
+//
+cookedUrlData = SELECT
+    time,
+    ActivityId,
+    Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain
+    FROM urldata
+    WHERE Domain IS NOT NULL;
+
+urlData = SELECT DISTINCT
+        cookedUrlData.ActivityId AS ActivityId,
+        cookedUrlData.Domain AS Domain
+        FROM (
+            // This sub-query is to find the FIRST domain (ordered by time) for each ActivityId that is not about:blank.
+            SELECT
+                ActivityId,
+                MIN(time) AS time
+            FROM
+                cookedUrlData
+            WHERE
+                cookedUrlData.Domain != "about:blank"
+            GROUP BY
+                ActivityId
+        ) AS FirstUrlForActivity
+        INNER JOIN cookedUrlData ON cookedUrlData.ActivityId == FirstUrlForActivity.ActivityId AND cookedUrlData.time == FirstUrlForActivity.time;
+
+
+
+chakraUrlData =
+    SELECT DISTINCT urlData.Domain,
+                    ActivityId
+    FROM urlData
+    INNER JOIN chakraData
+    ON urlData.ActivityId == chakraData.ActivityId;
+
+//
+// Domain-tag the data and send it to the output stream
+//
+
+domainTaggedChakraData =
+    SELECT
+        chakraData.ActivityId,
+        chakraUrlData.Domain
+    FROM chakraData
+    INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId;
+
+OUTPUT domainTaggedChakraData
+TO SSTREAM @DomainOutput WITH STREAMEXPIRY "30";
