@@ -69,4 +69,25 @@ namespace JsDiag
         }
     };
 
+    class AutoHandle
+    {
+    public:
+        AutoHandle(HANDLE handle = NULL) : handle(handle) {}
+        ~AutoHandle() { Close(); }
+
+        HANDLE* operator&() { return &this->handle; }
+        operator HANDLE() const { return this->handle; }
+
+        void Close()
+        {
+            if (this->handle)
+            {
+                CloseHandle(this->handle);
+                this->handle = NULL;
+            }
+        }
+    private:
+        HANDLE handle;
+    };
+
 } // namespace JsDiag

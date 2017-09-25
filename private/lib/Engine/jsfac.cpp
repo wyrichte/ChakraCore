@@ -133,40 +133,7 @@ public:
     }
 };
 
-class CDiagHookClassFactory : public CClassFactory
-{
-public:
-    CDiagHookClassFactory() :
-      CClassFactory(CLSID_DiagHook, NULL, NULL, NULL, NULL, NULL, 0, 0)
-    {
-    }
-
-    REFIID GetTypeId(void) { return CLSID_DiagHook; }
-
-    STDMETHODIMP CreateInstance(IUnknown *punkOuter, REFIID riid, void **ppvObj)
-    {
-        CHECK_POINTER(ppvObj);
-        *ppvObj = NULL;
-
-        if (punkOuter != NULL)
-        {
-            return CLASS_E_NOAGGREGATION;
-        }
-
-        HRESULT hr = NOERROR;
-        CComPtr<JsDiag::DiagHook> pDiagHook;
-
-        IFFAILRET(JsDiag::DiagHook::CreateInstance(&pDiagHook));
-        return pDiagHook->QueryInterface(riid, ppvObj);
-    }
-};
-
 CClassFactory * CreateJScript9DACClassFactory(void)
 {
     return new CJScript9DACClassFactory();
-}
-
-CClassFactory * CreateDiagHookClassFactory(void)
-{
-    return new CDiagHookClassFactory();
 }

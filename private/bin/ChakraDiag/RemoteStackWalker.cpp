@@ -43,18 +43,6 @@ RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, T
 
     m_reader = m_debugClient->GetReader();
 
-    if (threadContextAddr == nullptr)
-    {
-        ThreadContextTLSEntry* threadContextTlsEntry = m_debugClient->GetThreadContextTlsEntry(threadId);
-        if(threadContextTlsEntry == nullptr)
-        {
-            DiagException::Throw(E_JsDEBUG_UNKNOWN_THREAD);
-        }
-
-        RemoteThreadContextTLSEntry tlsEntry(m_reader, threadContextTlsEntry);
-        threadContextAddr = tlsEntry.GetThreadContext();
-    }
-
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     // Needed to get DIAG_PHASE_OFF working for inlining
     RemoteConfiguration::EnsureInstance(m_reader, m_debugClient->GetGlobalPointer<const Configuration>(Globals_Configuration)); 

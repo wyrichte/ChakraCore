@@ -24,106 +24,27 @@
 #include "RegexCommon.h"
 #include "Library\JavascriptRegExpConstructor.h"
 
+// Reuse this GUID to identify build
+#include "ByteCodeCacheReleaseFileVersion.h"
+
 extern HANDLE g_hInstance;
 
-namespace JsDiag
+void DiagHookDumpGlobals()
 {
-    DiagHook::DiagHook() {}
-
-  
-    STDMETHODIMP DiagHook::GetGlobals(
-        /* [size_is][out] */ __RPC__out_ecount_full(globalsCount) void **globals,
-        /* [in] */ ULONG globalsCount)
+    // Dump a build GUID for ChakraDiag to verify builds match
+    REFIID buildGuid = byteCodeCacheReleaseFileVersion;
+    LPOLESTR guidStr;
+    if (SUCCEEDED(StringFromIID(buildGuid, &guidStr)))
     {
-        const INT_PTR s_globals[] =
-        {
-#define ENTRY(field, name) reinterpret_cast<INT_PTR>(&##field##),
+        wprintf(_u("Build\t%s\n"), guidStr);
+        CoTaskMemFree(guidStr);
+    }
+
+    // Dump module offsets of some globals
+    INT_PTR baseAddr = reinterpret_cast<INT_PTR>(g_hInstance);
+
+#define ENTRY(field, name) \
+    wprintf(_u(#name) _u("\t%Ix\n"), static_cast<size_t>(reinterpret_cast<INT_PTR>(&##field##) - baseAddr));
 #include "DiagGlobalList.h"
 #undef ENTRY
-        };
-
-        if(globalsCount != _countof(s_globals))
-        {
-            AssertMsg(false, "Mismatched runtime ~ diag?");
-            return E_INVALIDARG;
-        }
-
-        INT_PTR baseAddr = reinterpret_cast<INT_PTR>(g_hInstance);
-        for (ULONG i = 0; i < globalsCount; i++)
-        {
-            globals[i] = (void*)(s_globals[i] - baseAddr);
-        }
-        return S_OK;
-    }
-
-    STDMETHODIMP DiagHook::GetVTables(
-        /* [size_is][out] */ __RPC__out_ecount_full(bufferSize) void **vtables,
-        /* [in] */ ULONG bufferSize)
-    {
-        // NOTE: This table can't be static -- it may be resolved earlier than static ...::Address.
-        const INT_PTR s_diagVTables[] =
-        {
-#define ENTRY(s) VirtualTableInfo<Js::##s##>::Address,
-#define PROJECTION_ENTRY(s) VirtualTableInfo<Projection::##s##>::Address,
-#include "DiagVTableList.h"
-#undef ENTRY
-#undef PROJECTION_ENTRY
-        };
-
-        if (bufferSize != _countof(s_diagVTables))
-        {
-            AssertMsg(false, "Mismatched runtime ~ diag?");
-            return E_INVALIDARG;
-        }
-
-        const INT_PTR baseAddr = (INT_PTR)g_hInstance;
-        for (int i = 0; i < _countof(s_diagVTables); i++)
-        {
-            vtables[i] = reinterpret_cast<void*>(s_diagVTables[i] - baseAddr);
-        }
-
-        return S_OK;
-    }
-
-    STDMETHODIMP DiagHook::GetErrorString( 
-            /* [in] */ HRESULT errorCode,
-            /* [out] */ __RPC__deref_out_opt BSTR *bsResource)
-    {
-        HRESULT hr = errorCode;
-
-        // FACILITY_CONTROL is used for internal (activscp.idl) and legacy errors
-        // FACILITY_JSCRIPT is used for newer public errors
-        if (FACILITY_CONTROL == HRESULT_FACILITY(hr) || FACILITY_JSCRIPT == HRESULT_FACILITY(hr))
-        {
-            HRESULT hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ true);
-
-            BSTR message = BstrGetResourceString(hrAdjusted);
-            if (!message)
-            {
-                hrAdjusted = Js::JavascriptError::GetAdjustedResourceStringHr(hr, /* isFormatString */ false);
-
-                message = BstrGetResourceString(hrAdjusted);
-            }
-
-            if (message)
-            {
-                *bsResource = message;
-                return S_OK;
-            }
-        }
-
-        *bsResource = nullptr;
-        return E_FAIL;
-    }
-} // namespace JsDiag.
-
-#if DBG
-//
-// Verify all concrete string classes are listed in DiagVTableList.h. Any missing string class
-// won't have "_declareConcreteStringClass" implementation and results in a link error.
-//
-#define STRING_ENTRY(s)                     void Js::s##::_declareConcreteStringClass() {}
-#define STRING_ENTRY_TEMPLATE(s, c, ...)    template<> void Js::c##<__VA_ARGS__>::_declareConcreteStringClass() {}
-#include "DiagVTableList.h"
-#endif
-
+}

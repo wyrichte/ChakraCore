@@ -20,7 +20,6 @@
 #endif
 
 extern CClassFactory* CreateJScript9DACClassFactory(void);
-extern CClassFactory* CreateDiagHookClassFactory(void);
 extern CClassFactory* CreateJScript9ThreadServiceClassFactory();
 CClassFactory* CreateJscript9ClassFactory(void);
 
@@ -245,6 +244,15 @@ EXTERN_C BOOL WINAPI ChakraDllMain(HINSTANCE hmod, DWORD dwReason, PVOID pvReser
 #endif // _WIN32 || _WIN64
 
 
+void DiagHookDumpGlobals();
+
+void CALLBACK
+DumpDiagInfo(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmdLine, int nCmdShow)
+{
+    DiagHookDumpGlobals();
+}
+
+
 //
 // declare class factories
 //
@@ -274,10 +282,6 @@ STDAPIEXPORT DllGetClassObject (REFCLSID rclsid, REFIID riid, LPVOID *ppv)
     else if (rclsid == CLSID_JScript9DAC)
     {
         pCF = CreateJScript9DACClassFactory();
-    }
-    else if (rclsid == CLSID_DiagHook)
-    {
-        pCF = CreateDiagHookClassFactory();
     }
     else if (rclsid == CLSID_ChakraThreadService)
     {

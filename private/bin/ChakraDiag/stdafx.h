@@ -116,14 +116,6 @@ namespace JsDiag
     class RemoteStackWalker;
     class DebugClient;
     class RemoteStackFrame;
-    enum Diag_VTableType
-    {
-#define ENTRY(s) Diag_##s,
-#define MARK_ENTRY(mark, entry) Diag_##mark = Diag_##entry,
-#include "DiagVTableList.h"
-#undef ENTRY
-        Diag_MaxVTable
-    };
 
     enum Globals : unsigned
     {

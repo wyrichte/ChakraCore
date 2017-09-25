@@ -2,29 +2,34 @@
 // Copyright (C) Microsoft. All rights reserved. 
 //---------------------------------------------------------------------------
 #include "stdafx.h"
+#include "PathCch.h"
+
+// Reuse this GUID to identify build
+#include "ByteCodeCacheReleaseFileVersion.h"
 
 extern HANDLE g_hInstance;
 
 namespace JsDiag
 {
-    const char16* DebugClient::c_js9ModuleName = JS9_MODULE_NAME;
-    const char16* DebugClient::c_js9FileName = JS9_MODULE_NAME _u(".dll");
-    const char16* DebugClient::c_js9TestModuleName = JS9_MODULE_NAME _u("test");
-    const char16* DebugClient::c_js9TestFileName = JS9_MODULE_NAME _u("test.dll");
+    const char16* DebugClient::c_chakraModuleName = CHAKRA_MODULE_NAME;
+    const char16* DebugClient::c_chakraFileName = CHAKRA_MODULE_NAME _u(".dll");
+    const char16* DebugClient::c_chakraTestModuleName = CHAKRA_MODULE_NAME _u("test");
+    const char16* DebugClient::c_chakraTestFileName = CHAKRA_MODULE_NAME _u("test.dll");
 
     const LibraryName DebugClient::c_librariesToTry[] = {
-        { DebugClient::c_js9ModuleName, DebugClient::c_js9FileName }, 
+        { DebugClient::c_chakraModuleName, DebugClient::c_chakraFileName },
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
-        // ENABLE_DEBUG_CONFIG_OPTIONS is to make sure we don't ship with check for jscript9test.dll.
-        { DebugClient::c_js9TestModuleName, DebugClient::c_js9TestFileName } 
+        // ENABLE_DEBUG_CONFIG_OPTIONS is to make sure we don't ship with check for ChakraTest.dll.
+        { DebugClient::c_chakraTestModuleName, DebugClient::c_chakraTestFileName }
 #endif
     };
 
     DebugClient::DebugClient(DiagProvider* diagProvider) : 
         m_diagProvider(diagProvider),
-        m_hasTargetHooks(false),
-        m_js9BaseAddr(0),
-        m_js9HighAddress(0)
+        m_chakraBaseAddr(0),
+        m_chakraHighAddr(0),
+        m_globals(),
+        m_hasTargetHooks(false)
     {
         Assert(diagProvider);
     }
@@ -41,69 +46,118 @@ namespace JsDiag
         }
     }
 
-    void DebugClient::GetVTables(_Outptr_result_buffer_(*vtablesSize) const VTABLE_PTR** vtables, _Out_ ULONG* vtablesSize)
-    {
-        EnsureTargetHooks();
-        *vtables = m_vtables;
-        *vtablesSize = _countof(m_vtables);
-    }
-
-    bool DebugClient::IsVTable(const void* vtable,
-        _In_range_(0, Diag_MaxVTable - 1) Diag_VTableType first,
-        _In_range_(0, Diag_MaxVTable - 1) Diag_VTableType last)
-    {
-        Assert(first < Diag_MaxVTable && last < Diag_MaxVTable);
-        EnsureTargetHooks();
-
-        for (int i = first; i <= last; i++)
-        {
-            if (m_vtables[i] == vtable)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     void DebugClient::InitializeTargetHooks()
     {
-        // Load/unload jscript9.dll instance locally and get offsets from it so that we can hook to target instance.
-        this->LoadTargetAndExecute([&](IDiagHook* hook, ULONG64 moduleBaseAddr64) {
-            this->GetGlobals(hook, moduleBaseAddr64);
-            this->GetVTables(hook, moduleBaseAddr64, m_vtables, _countof(m_vtables));
+        this->LoadTargetAndExecute([&](const CStringA& diagInfo, ULONG64 moduleBaseAddr64) {
+            this->GetGlobals(diagInfo, moduleBaseAddr64);
             m_hasTargetHooks = true;
         });
     }
 
-    // Returns the index of TLS slot used by ThreadContextTLSEntry in remote process.
-    // This is used to get the actual TLS slot, similar to TlsGetValue(index).
     template <typename T>
     void DebugClient::LoadTargetAndExecute(T operation)
     {
-        // Load the library (try jscript9.dll, then jscript9test.dll).
+        // Load the library (try Chakra.dll, then ChakraTest.dll).
         int tryCount = sizeof(c_librariesToTry) / sizeof(LibraryName);
         for (int i = 0; i < tryCount; ++i)
         {
             LibraryName libraryName = c_librariesToTry[i];
 
             // Get the module base from target process.
-            Assert(m_js9BaseAddr == 0);
-            bool isSuccess = m_diagProvider->TryGetTargetModuleBaseAddr(libraryName.ModuleName, &m_js9BaseAddr);
+            Assert(m_chakraBaseAddr == 0);
+            bool isSuccess = m_diagProvider->TryGetTargetModuleBaseAddr(libraryName.ModuleName, &m_chakraBaseAddr);
             if (!isSuccess)
             {
                 continue;   // The specified module should not be loaded in target process, try next module.
             }
-            void* moduleBaseAddr = reinterpret_cast<void*>(m_js9BaseAddr);
-            Assert((ULONG64)moduleBaseAddr == m_js9BaseAddr);
+            void* moduleBaseAddr = reinterpret_cast<void*>(m_chakraBaseAddr);
+            Assert((ULONG64)moduleBaseAddr == m_chakraBaseAddr);
 
-            // Load the library (with auto-unload).
-            AutoLibrary library(libraryName.FileName);
+            AutoHandle hChildStdOut_Read, hChildStdOut_Write;
             {
-                CComPtr<IDiagHook> diagHook;
-                diagHook = this->GetDiagHook(library.Handle);
-                operation(diagHook, m_js9BaseAddr);
+                SECURITY_ATTRIBUTES saAttr;
+                saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
+                saAttr.bInheritHandle = TRUE;
+                saAttr.lpSecurityDescriptor = NULL;
+                if (!CreatePipe(&hChildStdOut_Read, &hChildStdOut_Write, &saAttr, 0))
+                {
+                    DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_CREATEPIPE);
+                }
+                if (!SetHandleInformation(hChildStdOut_Read, HANDLE_FLAG_INHERIT, 0))
+                {
+                    DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_CREATEPIPE);
+                }
             }
+
+            char16 sysDir[MAX_PATH];
+            {
+                UINT len = GetSystemDirectory(sysDir, _countof(sysDir));
+                if (len == 0 || len >= _countof(sysDir))
+                {
+                    DiagException::Throw(E_UNEXPECTED);
+                }
+            }
+
+            const char16* dllDir = sysDir;
+            const char16* dllName = libraryName.FileName;
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+            // Try local Chakra.dll if exists, to support jdtest.exe
+            char16 localPath[MAX_PATH];
+            DWORD localPathLen = GetModuleFileName(NULL, localPath, _countof(localPath));
+            if (localPathLen > 0
+                && SUCCEEDED(PathCchRemoveFileSpec(localPath, localPathLen))
+                && SUCCEEDED(PathCchAppend(localPath, _countof(localPath), dllName))
+                && PathFileExists(localPath)
+                && SUCCEEDED(PathCchRemoveFileSpec(localPath, localPathLen)))
+            {
+                dllDir = localPath;
+            }
+#endif
+            char16 szCmdline[MAX_PATH];
+            if (swprintf_s(szCmdline,
+                _u("\"%s\\rundll32.exe\" \"%s\\%s\",DumpDiagInfo"), sysDir, dllDir, dllName) < 0)
+            {
+                DiagException::Throw(E_UNEXPECTED);
+            }
+            PROCESS_INFORMATION piProcInfo = {};
+            STARTUPINFO siStartInfo = {};
+            siStartInfo.cb = sizeof(STARTUPINFO);
+            siStartInfo.hStdError = hChildStdOut_Write;
+            siStartInfo.hStdOutput = hChildStdOut_Write;
+            siStartInfo.dwFlags |= STARTF_USESTDHANDLES;
+
+            if (!CreateProcess(NULL,
+                szCmdline,     // command line
+                NULL,          // process security attributes
+                NULL,          // primary thread security attributes
+                TRUE,          // handles are inherited
+                0,             // creation flags
+                NULL,          // use parent's environment
+                NULL,          // use parent's current directory
+                &siStartInfo,  // STARTUPINFO pointer
+                &piProcInfo))  // receives PROCESS_INFORMATION
+            {
+                DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_CREATEPROCESS);
+            }
+
+            AutoHandle hThread(piProcInfo.hThread), hProcess(piProcInfo.hProcess);
+            hChildStdOut_Write.Close();
+
+            CStringA s;
+            {
+                char buf[256];
+                for (;;)
+                {
+                    DWORD dwRead;
+                    if (!ReadFile(hChildStdOut_Read, buf, _countof(buf), &dwRead, NULL) || dwRead == 0)
+                    {
+                        break;
+                    }
+                    s.Append(buf, dwRead);
+                }
+            }
+
+            operation(s, m_chakraBaseAddr);
             return;
         }
 
@@ -111,84 +165,87 @@ namespace JsDiag
         DiagException::Throw(E_INVALIDARG, DiagErrorCode::CHAKRA_MODULE_NOTFOUND);
     }
 
-    // Returns address of Js::Congfiguration::Global, in target process address space.
-    void DebugClient::GetGlobals(IDiagHook* diagHook, ULONG64 moduleBaseAddr)
+    void DebugClient::GetGlobals(const CStringA& diagInfo, ULONG64 moduleBaseAddr)
     {
-        void** globals = reinterpret_cast<void**>(&m_globals);
-        Assert(globals != nullptr);
-        size_t globalsSize = _countof(m_globals);
-        HRESULT hr = diagHook->GetGlobals(globals, globalsSize);
-        CheckHR(hr, DiagErrorCode::DIAGHOOK_GETGLOBALS);
-
-        for (ULONG i = 0; i < globalsSize; i++)
+        static const char* LINE = "\r\n";
+        static const char* SPACE = " \t";
+        static const char* NAMES[] =
         {
-            m_globals[i] = reinterpret_cast<LPVOID>(reinterpret_cast<LPBYTE>(m_globals[i]) + moduleBaseAddr);
+#define ENTRY(field, name) #name,
+#include "DiagGlobalList.h"
+#undef ENTRY
+        };
+
+        int i = 0, matchCount = 0;
+        while (i >= 0)  // -1 when Tokenize reaches end of string
+        {
+            CStringA line = diagInfo.Tokenize(LINE, i);
+            if (line.GetLength() == 0) {
+                continue;
+            }
+
+            int j = 0;
+            CStringA name = line.Tokenize(SPACE, j);
+            CStringA value = line.Tokenize(SPACE, j);
+
+            if (name == "Build")
+            {
+                REFIID buildGuid = byteCodeCacheReleaseFileVersion;
+                CA2WEX<> wValue(value);
+                IID guid;
+                if (FAILED(IIDFromString(wValue, &guid))
+                    || !IsEqualGUID(guid, buildGuid))
+                {
+                    DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_INFO_BUILD_MISMATCH);
+                }
+                continue;
+            }
+
+            bool match = false;
+            for (int k = 0; k < _countof(NAMES) && !match; k++)
+            {
+                if (name == NAMES[k])
+                {
+                    size_t offset;
+                    if (sscanf_s(value, "%Ix", &offset) != 1)
+                    {
+                        DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_INFO_BAD_VALUE);
+                    }
+                    m_globals[k] = reinterpret_cast<LPVOID>(moduleBaseAddr + offset);
+                    match = true;
+                }
+            }
+
+            if (match)
+            {
+                matchCount++;
+            }
+            else
+            {
+                DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_INFO_BAD_NAME);
+            }
         }
-    }
 
-    // Addr of jscript9 TEB entry, in the remote process address space.
-    ThreadContextTLSEntry* DebugClient::GetThreadContextTlsEntry(ULONG threadId)
-    {
-        EnsureTargetHooks();
-
-        DWORD tlsSlotIndex = this->GetGlobalValue<DWORD>(Globals_TlsSlot);
-        
-        UINT64 tebEntryAddr;
-        HRESULT hr = m_diagProvider->GetTlsValue(threadId, tlsSlotIndex, &tebEntryAddr);
-        CheckHR(hr, DiagErrorCode::DIAG_GET_TLSVALUE);
-        
-        return (ThreadContextTLSEntry*)tebEntryAddr;
+        if (matchCount != Globals_Count)
+        {
+            DiagException::Throw(E_FAIL, DiagErrorCode::DIAG_INFO_COUNT_MISMATCH);
+        }
     }
 
     bool DebugClient::IsJsModuleAddress(void* address)
     {
-        if(!m_js9HighAddress)
+        if(!m_chakraHighAddr)
         {
             EnsureTargetHooks();
-            m_js9HighAddress = (UINT64)(this->GetGlobalValue<UINT_PTR>(Globals_DllHighAddress));
-            Assert(this->GetGlobalValue<UINT_PTR>(Globals_DllBaseAddress) == m_js9BaseAddr);
-            Assert(m_js9HighAddress != NULL);
+            m_chakraHighAddr = (UINT64)(this->GetGlobalValue<UINT_PTR>(Globals_DllHighAddress));
+            Assert(this->GetGlobalValue<UINT_PTR>(Globals_DllBaseAddress) == m_chakraBaseAddr);
+            Assert(m_chakraHighAddr != NULL);
         }
-        if(address >= (void*)m_js9BaseAddr && address <= (void*)m_js9HighAddress)
+        if(address >= (void*)m_chakraBaseAddr && address <= (void*)m_chakraHighAddr)
         {
             return true;
         }
         return false;
-    }
-
-    //
-    // Obtain needed vtable info in the specified module
-    //
-    void DebugClient::GetVTables(IDiagHook* diagHook, ULONG64 moduleBaseAddr,
-        _Out_writes_all_(vtablesSize) VTABLE_PTR* vtables, ULONG vtablesSize)
-    {
-        HRESULT hr = diagHook->GetVTables((void**)vtables, vtablesSize);
-        CheckHR(hr, DiagErrorCode::DIAGHOOK_GETVTABLE);
-
-        for (ULONG i = 0; i < vtablesSize; i++)
-        {
-            vtables[i] = reinterpret_cast<VTABLE_PTR>(reinterpret_cast<const BYTE*>(vtables[i]) + moduleBaseAddr);
-        }
-    }
-
-    CComPtr<IDiagHook> DebugClient::GetDiagHook(HMODULE libraryHandle)
-    {
-        typedef HRESULT (STDAPICALLTYPE* FN_DllGetClassObject)(REFCLSID, REFIID, LPVOID*);
-        FN_DllGetClassObject proc = (FN_DllGetClassObject)::GetProcAddress(libraryHandle, "DllGetClassObject");
-        if (proc == nullptr)
-        {
-            DiagException::Throw(HRESULT_FROM_WIN32(::GetLastError()), DiagErrorCode::DIAGHOOK_GETPROC);
-        }
-
-        CComPtr <IClassFactory> classFactory;
-        HRESULT hr = proc(CLSID_DiagHook, __uuidof(IClassFactory), (LPVOID*)&classFactory);
-        CheckHR(hr, DiagErrorCode::DIAGHOOK_CREATE);
-
-        CComPtr<IDiagHook> diagHook;
-        hr = classFactory->CreateInstance(nullptr, __uuidof(IDiagHook), (PVOID*)&diagHook);
-        CheckHR(hr, DiagErrorCode::DIAGHOOK_CREATE);
-
-        return diagHook;
     }
 
      RemoteStackFrameEnumerator* DebugClient::CreateStackFrameEnumerator(ULONG threadId, void* advanceToAddr)
@@ -200,35 +257,5 @@ namespace JsDiag
      { 
          return m_diagProvider->GetReader(); 
      }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // AutoLibrary
-    AutoLibrary::AutoLibrary(LPCWSTR fileName):
-        Handle(nullptr)
-    {
-        if (fileName)
-        {
-            Load(fileName);
-        }
-    }
-
-    void AutoLibrary::Load(LPCWSTR fileName)
-    {
-        // Note that loading library increments its ref count, so that it's already loaded, we'll get same module.
-        // Unloading decrements ref count and actually unloads the library only when ref count becomes 0.
-        this->Handle = ::LoadLibraryExW(fileName, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
-        if (!this->Handle)
-        {
-            DiagException::Throw(HRESULT_FROM_WIN32(::GetLastError()), DiagErrorCode::LOAD_LIBRARY);
-        }
-    }
-
-    AutoLibrary::~AutoLibrary()
-    {
-        if (this->Handle)
-        {
-            ::FreeLibrary(this->Handle);
-        }
-    }
 
 } // namespace JsDiag.

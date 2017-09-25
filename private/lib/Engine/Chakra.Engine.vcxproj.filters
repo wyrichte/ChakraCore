@@ -80,7 +80,6 @@
     <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DefaultScriptOperations.h" />
     <ClInclude Include="DiagGlobalList.h" />
-    <ClInclude Include="DiagVTableList.h" />
     <ClInclude Include="DiagnosticsScriptObject.h" />
     <ClInclude Include="DispatchHelper.h" />
     <ClInclude Include="dispidhelper.h" />
@@ -112,7 +111,6 @@
     <ClInclude Include="ProfileDataObject.h" />
     <ClInclude Include="refcountedHostVariant.h" />
     <ClInclude Include="ScriptDAC.h" />
-    <ClInclude Include="DiagHook.h" />
     <ClInclude Include="ScriptDebugDocument.h" />
     <ClInclude Include="scpnode.h" />
     <ClInclude Include="scptext.h" />

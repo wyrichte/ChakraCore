@@ -51,10 +51,6 @@ DEFINE_GUID(IID_IHTMLDomConstructor, 0x3051049b, 0x98b5, 0x11cf,0xbb,0x82,0x00,0
 DEFINE_GUID(CLSID_JScript9DAC, 0x197060cb, 0x5efb, 0x4a53, 0xb0, 0x42, 0x93, 0x9d, 0xbb, 0x31, 0x62, 0x7c);
 
 
-// The GUID used to create jscript9 Diagnostics Hook (IDiagHook) for chakradiag.dll
-// {47133566-c4ec-41dc-b78f-26c5ee7eae68}
-DEFINE_GUID(CLSID_DiagHook, 0x47133566, 0xc4ec, 0x41dc, 0xb7, 0x8f, 0x26, 0xc5, 0xee, 0x7e, 0xae, 0x68);
-
 // Through this interface COM objects expose them selves into JScript GC. This is
 // done for fixing JScript-COM objects circular reference leaks observed due to
 // uncontrolled refcounting.

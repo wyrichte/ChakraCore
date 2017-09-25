@@ -1310,25 +1310,6 @@ interface IScriptDAC: IUnknown
     HRESULT LoadScriptSymbols([in] IScriptDebugSite* debugSite);
 };
 
-// IDiagHook interface is implemented by the script engine to let jscript9diag.dll hook into jscript9.dll.
-[
-    object,
-    local,
-    uuid(15F6F02C-6441-412A-B6F9-D08C7673E7DE),
-    helpstring("IDiagHook Interface"),
-    pointer_default(unique)
-]
-interface IDiagHook: IUnknown
-{
-    // Returns an array of relative offset from base address of static global fields in the runtime
-    HRESULT GetGlobals([out, size_is(globalsCount)] void** globals, [in] ULONG globalsCount);
-
-    HRESULT GetVTables([out, size_is(bufferSize)] void** vtables, [in] ULONG bufferSize);
-
-    // Get a runtime error message resource string
-    HRESULT GetErrorString([in] HRESULT errorCode, [out] BSTR* bsResource);
-};
-
 
 cpp_quote("#define SCRIPT_E_INVALID_NATIVE_CODE 0x80020203L")
 

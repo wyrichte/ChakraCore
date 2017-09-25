@@ -273,14 +273,6 @@ protected:
 
     void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
 
-    // jscript9diag
-    void EnsureJsDebug(PCWSTR jscript9diagPath = nullptr);
-    void CreateDebugProcess(IJsDebugProcess** ppDebugProcess);
-    void CreateStackWalker(IJsDebugStackWalker** ppStackWalker);
-    void EnsureStackFrame(int frame = -1);
-    void Print(IJsDebugProperty* prop, int radix, int maxDepth = 3);
-    void Print(IJsDebugProperty* prop, PCWSTR fmt, int radix, int depth, int maxDepth);
-
     bool IsMinidumpDebugging()
     {
         ULONG Class = 0;
@@ -339,11 +331,7 @@ protected:
     stdext::hash_map<ULONG64, RemoteTypeHandler*> m_typeHandlers;
     stdext::hash_map<std::string, RemoteTypeHandler*> m_typeHandlersByName;
 
-    // jscript9diag
-    CComPtr<IJsDebug2> m_jsDebug;
-    CComPtr<IJsDebugFrame> m_jsFrame;
-    CComPtr<IDebugSymbols5> m_symbols5;
-    int m_jsFrameNumber;
+    // ChakraDiag
     bool m_unitTestMode;
 
     bool m_isCachedHasMemoryNS;
@@ -374,7 +362,6 @@ public:
     JD_PRIVATE_COMMAND_METHOD(var);
     JD_PRIVATE_COMMAND_METHOD(fb);
     JD_PRIVATE_COMMAND_METHOD(ffb);
-    JD_PRIVATE_COMMAND_METHOD(diagvar);
 
     JD_PRIVATE_COMMAND_METHOD(url);
     JD_PRIVATE_COMMAND_METHOD(sourceInfos);
@@ -424,10 +411,7 @@ public:
     // jdbytecode commands
     JD_PRIVATE_COMMAND_METHOD(bc);
 
-    // jscript9diag commands
-    JD_PRIVATE_COMMAND_METHOD(diagstack);
-    JD_PRIVATE_COMMAND_METHOD(diagframe);
-    JD_PRIVATE_COMMAND_METHOD(diageval);
+    // ChakraDiag commands
     JD_PRIVATE_COMMAND_METHOD(utmode);
     JD_PRIVATE_COMMAND_METHOD(jsstream);
 

@@ -39,6 +39,8 @@ EXPORTS
     NatVis_BVSparse_JitArenaAllocator
 #endif
 
+    DumpDiagInfo
+
     MemProtectHeapCreate
     MemProtectHeapRootAlloc
     MemProtectHeapRootAllocLeaf

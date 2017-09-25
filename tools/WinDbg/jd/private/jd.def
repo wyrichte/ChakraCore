@@ -26,10 +26,6 @@ EXPORTS
     drpids
     oi
     count
-    diagvar
-    diagstack
-    diagframe
-    diageval
     utmode
     findref
     showroots

@@ -145,7 +145,6 @@
 #endif
 
 #include "ScriptDAC.h"
-#include "DiagHook.h"
 #include "JavascriptThreadService.h"
 
 #include "scrpting.h"
