@@ -651,7 +651,7 @@ Js::Var DebugObject::EntryGetHostInfo(Js::RecyclableObject* function, Js::CallIn
     while (contextList != NULL)
     {
         url = contextList->GetUrl();
-        result->SetItem(index, Js::JavascriptString::NewWithArenaSz(url, scriptContext), Js::PropertyOperation_None);
+        result->SetItem(index, Js::JavascriptString::NewCopySz(url, scriptContext), Js::PropertyOperation_None);
         index++;
         contextList = contextList->next;
     }
