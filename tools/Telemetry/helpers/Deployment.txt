@@ -1,0 +1,8 @@
+﻿To deploy this assembly once you've made changes, follow these steps:
+
+    1) Run the unit tests.
+    2) Build a Release version of the assembly.
+    3) Go to https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/
+    4) Delete the existing Chakra.Utils.dll
+    5) Upload the new Release version
+    6) Verify the "Modified" time stamp so you know it's the version you just uploaded.
