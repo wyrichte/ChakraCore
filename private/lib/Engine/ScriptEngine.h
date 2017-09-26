@@ -10,8 +10,8 @@
 
 extern const EXCEPINFO NoException;
 
-ulong ComputeGrfscrUTF16(const void * pDelimiter);
-ulong ComputeGrfscrUTF8(const void * pDelimiter);
+ulong ComputeGrfscrUTF16();
+ulong ComputeGrfscrUTF8();
 
 #define IACTIVESCRIPTERROR64 (IActiveScriptError64*)
 
@@ -653,7 +653,7 @@ public:
     typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength,
         ulong grfscr, SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** pSourceInfo);
-    typedef ulong (ComputeGrfscrFunction)(const void *pDelimiter);
+    typedef ulong (ComputeGrfscrFunction)();
     typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, ulong grfscr,
         SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);

@@ -61,47 +61,25 @@ const EXCEPINFO NoException = { 0, 0, nullptr, nullptr, nullptr, 0, nullptr, nul
 
 // Local functions:
 
-ulong ComputeGrfscrUTF16(const void *pDelimiter)
+ulong ComputeGrfscrUTF16()
 {
-    LPCOLESTR pszDelimiter = (LPCOLESTR) pDelimiter;
-    ulong grfscr = 0;
-    if (nullptr != pszDelimiter)
-    {
-        if (pszDelimiter[0] == OLESTR('"') && pszDelimiter[1] == OLESTR('\0'))
-            grfscr |= fscrMapQuote;
-        else if (0 == ostricmp(OLESTR("</script>"), pszDelimiter))
-            grfscr |= fscrHtmlComments;
-        else if (0 == ostricmp(OLESTR("STRIP EMBEDDED HTML COMMENTS"), pszDelimiter))
-            grfscr |= fscrHtmlComments|fscrDoNotHandleTrailingHtmlComments;
-    }
-    return grfscr;
+    return 0;
 }
 
-ulong ComputeGrfscrUTF8(const void * pDelimiter)
+ulong ComputeGrfscrUTF8()
 {
-    const char *pszDelimiter = (const char *)pDelimiter;
-    ulong grfscr = 0;
-    if (nullptr != pszDelimiter)
-    {
-        if (pszDelimiter[0] == '"' && pszDelimiter[1] == '\0')
-            grfscr |= fscrMapQuote;
-        else if (0 == _stricmp("</script>", pszDelimiter))
-            grfscr |= fscrHtmlComments;
-        else if (0 == _stricmp("STRIP EMBEDDED HTML COMMENTS", pszDelimiter))
-            grfscr |= fscrHtmlComments|fscrDoNotHandleTrailingHtmlComments;
-    }
-    return grfscr;
+    return 0;
 }
 
-ulong ComputeGrfscrUTF8ForSerialization(const void * pDelimiter)
+ulong ComputeGrfscrUTF8ForSerialization()
 {
-    ulong result = ComputeGrfscrUTF8(pDelimiter);
+    ulong result = ComputeGrfscrUTF8();
     return result | fscrNoPreJit;
 }
 
-ulong ComputeGrfscrUTF8ForDeserialization(const void * pDelimiter)
+ulong ComputeGrfscrUTF8ForDeserialization()
 {
-    ulong result = ComputeGrfscrUTF8(pDelimiter);
+    ulong result = ComputeGrfscrUTF8();
 
     if(CONFIG_FLAG(CreateFunctionProxy))
     {
@@ -120,60 +98,6 @@ bool GetExperimentalFlag(const SettingStore::VALUEID<BOOL> id)
     }
     return false;
 }
-#endif
-
-#if _WIN32 || _WIN64
-template <class T>
-charcount_t GetLengthExcludingHTMLCommentSuffix(const T * pszSrc, charcount_t cchSrc, Js::ScriptContext *scriptContext)
-{
-    Assert(cchSrc > 0);
-    if (cchSrc < 1 || nullptr == pszSrc)
-        return cchSrc;
-
-    charcount_t len = cchSrc - 1;
-    while (len > 3 && scriptContext->GetCharClassifier()->IsWhiteSpace(pszSrc[len]))
-        len--;
-
-    if (len < 3 ||
-        '>' != pszSrc[len--] ||
-        '-' != pszSrc[len--] ||
-        '-' != pszSrc[len--]
-    )
-    {
-        return cchSrc;
-    }
-
-    //saw a --> delimiter
-    //now run back until there is an EOL, a // or a <!--
-    while (len > 0)
-    {
-        if ('\n' == pszSrc[len] || '\r' == pszSrc[len])
-        {
-            len++; // include the EOL
-            break; // saw an EOL
-        }
-        if (len >= 1 && '/' == pszSrc[len-1] && '/' == pszSrc[len])
-        {
-            len--; // exclude the first // of a // comment.
-            break; //saw a //
-        }
-        if (len >= 3 &&
-            '<' == pszSrc[len-3] &&
-            '!' == pszSrc[len-2] &&
-            '-' == pszSrc[len-1] &&
-            '-' == pszSrc[len]
-        )
-        {
-            len -= 3; // exclude the <!-- --> comment.
-            break; //saw a <!--
-        }
-        len--;
-    }
-
-    return len;
-}
-#else
-#error Neither  _WIN32, nor _WIN64 is defined
 #endif
 
 ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
@@ -3532,7 +3456,7 @@ HRESULT ScriptEngine::AddScriptletCore(
 
     dwFlags &= SCRIPTTEXT_ALL_FLAGS;
     dwFlags |= SCRIPTTEXT_ISSCRIPTLET; // this is a scriptlet
-    grfscr |= ComputeGrfscrUTF16(pcszDelimiter);
+    grfscr |= ComputeGrfscrUTF16();
     grfscr |= (fscrImplicitThis | fscrImplicitParents);
 
     // If we are started, force immediate execution.
@@ -4466,7 +4390,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         FAILGO(E_OUTOFMEMORY);
 
     // compile it
-    grfscr |= ComputeGrfscrUTF16(pcszDelim);
+    grfscr |= ComputeGrfscrUTF16();
 
     if (dwFlags & SCRIPTPROC_IMPLICIT_THIS)
     {
@@ -4866,7 +4790,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
         return E_INVALIDARG;
     }
 
-    grfscr |= ComputeGrfscr(pszDelimiter);
+    grfscr |= ComputeGrfscr();
     if (dwFlags & SCRIPTTEXT_ISPERSISTENT)
         bod.grfbod |= fbodPersist;
 
@@ -5381,15 +5305,6 @@ HRESULT ScriptEngine::CompileUTF16(
     // We count the characters because the length received in srcInfo is unreliable.
     charcount_t stringLength = static_cast< charcount_t>(cbLength);
 
-#if _WIN32 || _WIN64
-    if (grfscr & fscrHtmlComments && !(grfscr & fscrDoNotHandleTrailingHtmlComments) && stringLength > 0)
-    {
-        stringLength = GetLengthExcludingHTMLCommentSuffix(pszSrc, stringLength, this->scriptContext);
-    }
-#else
-#error Neither _WIN16, _WIN32, nor _WIN64 is defined
-#endif
-
     // Convert the LPOLESTR buffer to a LPUTF8
     // Allocate we need at most 3 bytes for each wchar and a null terminator
 
@@ -5445,23 +5360,12 @@ HRESULT ScriptEngine::CompileUTF8(
     __out Js::Utf8SourceInfo** ppSourceInfo)
 {
     // TODO : calculate cbLength? how
-    LPCUTF8 pszSrc = (LPCUTF8) pSrc;
     HRESULT hr = ERROR_SUCCESS;
 
     Assert(this->scriptContext == GetScriptSiteHolder()->GetScriptSiteContext());
 
     // We count the characters because the length received in srcInfo is unreliable.
     charcount_t stringLength = static_cast< charcount_t>(cbLength);
-
-
-#if _WIN32 || _WIN64
-    if (grfscr & fscrHtmlComments && !(grfscr & fscrDoNotHandleTrailingHtmlComments) && stringLength > 0)
-    {
-        stringLength = GetLengthExcludingHTMLCommentSuffix(pszSrc, stringLength, this->scriptContext);
-    }
-#else
-#error Neither _WIN16, _WIN32, nor _WIN64 is defined
-#endif
 
     // Currently always called from a try-catch
     ENTER_PINNED_SCOPE(Js::Utf8SourceInfo, sourceInfo);
