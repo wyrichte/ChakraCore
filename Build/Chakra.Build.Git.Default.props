@@ -3,9 +3,9 @@
   <PropertyGroup>
     <!-- Todo:: Find a way to use the versions in packages.config -->
     <!-- !! Keep version number in sync with packages.config !! -->
-    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.2.0.12</IELibPath>
-    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.2.0.12</RazzleToolPath>
-    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.2.0.12</PUBLIC_ROOT>
+    <IELibPath Condition="'$(IELibPath)'==''">$(SolutionDir)..\external\IELibs.2.0.13</IELibPath>
+    <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\external\RazzleTools.2.0.13</RazzleToolPath>
+    <PUBLIC_ROOT Condition="'$(PUBLIC_ROOT)'==''">$(SolutionDir)..\external\SDPublics.2.0.13</PUBLIC_ROOT>
 
     <ObjectDirectory Condition="'$(Configuration)'=='Debug'">objchk\$(PlatformPathNameAlt)\</ObjectDirectory>
     <ObjectDirectory Condition="'$(Configuration)'!='Debug'">objfre\$(PlatformPathNameAlt)\</ObjectDirectory>
