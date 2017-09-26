@@ -64,7 +64,7 @@
         4459;     <!-- declaration of '' hides global declaration -->
         4475;     <!-- TODO(curtism): Invalid length modifier in format string on x64 -->
       </DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Arm64' ">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->

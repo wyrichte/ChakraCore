@@ -2,6 +2,9 @@
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(ChakraCoreBuildDirectory)Common.Build.ProjectConfiguration.props" />
   <Import Project="$(ChakraCoreBuildDirectory)MicroBuildv2.Build.ProjectConfiguration.props" />
+  <PropertyGroup>
+    <WindowsSDKDesktopARM64Support Condition="'$(Platform)'=='Arm64'">true</WindowsSDKDesktopARM64Support>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations" Condition="'$(BuildingWithBuildExe)'=='true'">
     <ProjectConfiguration Include="Debug|Arm64">
       <Configuration>Debug</Configuration>

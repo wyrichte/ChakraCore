@@ -44,7 +44,7 @@
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>StaticLibPch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Arm64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' --></DisableSpecificWarnings>

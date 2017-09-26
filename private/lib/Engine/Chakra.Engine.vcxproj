@@ -74,7 +74,7 @@
         4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
         4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
       </DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Platform)'=='x64'">
+      <DisableSpecificWarnings Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Arm64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
