@@ -18,8 +18,7 @@ namespace JsDiag
 //   ...
 //   (high addr)
 
-// TODO: for WER a ctor which takes CONTEXT* makes more sense.
-RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, ThreadContext* threadContextAddr, bool walkInternalFrame, bool doDebugModeValidation) :
+RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, ThreadContext* threadContextAddr) :
     m_frameEnumerator(nullptr),
     m_threadId(threadId),
     m_currentJavascriptFrameIndex(0),
@@ -32,7 +31,6 @@ RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, T
     m_scriptEntryFrameBase(nullptr),
     m_scriptEntryReturnAddress(nullptr),
     m_isJavascriptFrame(false),
-    m_walkInternalFrame(walkInternalFrame),
     m_checkedFirstInterpreterFrame(false)
 {
     // Set up the Debug Client.
@@ -81,16 +79,6 @@ RemoteStackWalker::RemoteStackWalker(DebugClient* debugClient, ULONG threadId, T
             m_prevInterpreterFrame = threadContext->leafInterpreterFrame ?
                 new(oomthrow) RemoteInterpreterStackFrame(m_reader, threadContext->leafInterpreterFrame) :
                 nullptr;
-
-            // If the script context is not in debug mode - the public API
-            // is supposed to return with an error
-            if(doDebugModeValidation)
-            {            
-                if(!this->m_scriptContext->Get()->IsInDebugMode())
-                {
-                    DiagException::Throw(E_JsDEBUG_RUNTIME_NOT_IN_DEBUG_MODE);
-                }
-            }
         }
     }
 }
@@ -114,22 +102,6 @@ bool RemoteStackWalker::WalkToNextJavascriptFrame()
     return false;
 }
 
-bool RemoteStackWalker::WalkToTarget(Js::JavascriptFunction* funcTargetRemoteAddress)
-{
-    // This method is in sync with JavascriptStackWalker::WalkToTarget() on the runtime side.
-    Assert(funcTargetRemoteAddress);
-
-    while (this->WalkToNextJavascriptFrame())
-    {
-        if (this->GetCurrentFunction() == funcTargetRemoteAddress)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame)
 {
     if (m_currentFrame == nullptr)
@@ -143,7 +115,7 @@ void RemoteStackWalker::GetCurrentJavascriptFrame(RemoteStackFrame** remoteFrame
         Js::JavascriptFunction* functionAddr = this->GetCurrentFunction();
 
 #ifdef _M_AMD64
-        if (m_walkInternalFrame && functionAddr == m_debugClient->GetGlobalPointer<void>(Globals_Amd64FakeEHFrameProcOffset))
+        if (functionAddr == m_debugClient->GetGlobalPointer<void>(Globals_Amd64FakeEHFrameProcOffset))
         {
             Assert(m_lastInternalFrame.GetFrameAddress() && m_lastInternalFrame.GetFrameType() == InternalFrameType::IFT_EHFrame);
             Assert(!m_interpreterFrame);
@@ -272,7 +244,7 @@ void RemoteStackWalker::UpdateFrame()
         Js::JavascriptFunction* functionAddr = this->GetCurrentFunction();
 
 #if defined(_M_AMD64)
-        if (m_walkInternalFrame && functionAddr == m_debugClient->GetGlobalPointer<void>(Globals_Amd64FakeEHFrameProcOffset))
+        if (functionAddr == m_debugClient->GetGlobalPointer<void>(Globals_Amd64FakeEHFrameProcOffset))
         {
             Assert(m_lastInternalFrame.GetFrameAddress() && m_lastInternalFrame.GetFrameType() == InternalFrameType::IFT_EHFrame);
             return;
@@ -368,14 +340,14 @@ bool RemoteStackWalker::CheckJavascriptFrame()
                 m_lastInternalFrame.SetFrame(ip, InternalFrameType::IFT_EHFrame);
             }
             Assert(m_lastInternalFrame.GetFrameAddress() && m_lastInternalFrame.GetFrameType() == InternalFrameType::IFT_EHFrame);
-            return m_walkInternalFrame;
+            return true;
         }
 #endif
 
         if (this->GetCurrentCallInfo().Flags & CallFlags_InternalFrame)
         {
             m_lastInternalFrame.SetFrame(ip, InternalFrameType::IFT_LoopBody);
-            return m_walkInternalFrame;
+            return true;
         }
 
         // Current frame is native; if there was internal EH frame, we should keep it for e.g. GetByteCodeOffset,
@@ -531,7 +503,6 @@ void RemoteStackWalker::GetCodeAddrAndLoopNumberFromCurrentFrame(DWORD_PTR* pCod
             }
             else if (m_prevInterpreterFrame) // We are at the jit loop body frame
             {
-                Assert(m_walkInternalFrame);
                 loopNumber = m_prevInterpreterFrame->ToTargetPtr()->currentLoopNum;
             }
         }
@@ -575,44 +546,6 @@ bool RemoteStackWalker::IsJavascriptFrame()
 {
     return m_isJavascriptFrame;
 }
-
-bool RemoteStackWalker::IsCallerGlobalFunction()
-{
-    // This method is in sync with JavascriptStackWalker::IsCallerGlobalFunction() on the runtime side.
-    Js::CallInfo callInfo = this->GetCurrentCallInfo();
-    RemoteJavascriptFunction function = RemoteJavascriptFunction(this->m_reader, this->GetCurrentFunction());
-    if (DIAG_CONFIG_FLAG(LibraryStackFrame) && !function.IsScriptFunction())
-    {
-        return false; // native library code can't be global function
-    }
-
-    RemoteFunctionInfo functionInfo = RemoteFunctionInfo(this->m_reader, function->GetFunctionInfo());
-    if (functionInfo->HasParseableInfo())
-    {
-        RemoteParseableFunctionInfo parseableFunctionInfo = RemoteParseableFunctionInfo(this->m_reader, functionInfo->GetParseableFunctionInfo());
-        return parseableFunctionInfo->GetIsGlobalFunc() || IsEval(callInfo);
-    }
-    else
-    {
-        AssertMsg(false, "Here we should only have script functions which were already parsed/deserialized.");
-        return callInfo.Count == 0 || IsEval(callInfo);
-    }
-}
-
-bool RemoteStackWalker::IsEval(const Js::CallInfo& callInfo) const
-{
-    // This method is in sync with JavascriptStackWalker::IsEval() on the runtime side.
-    return (callInfo.Flags & Js::CallFlags::CallFlags_Eval) != 0;
-}
-
-bool RemoteStackWalker::IsEvalCaller()
-{
-    // This method is in sync with JavascriptStackWalker::IsEvalCaller() on the runtime side.
-    Js::CallInfo callinfo = GetCurrentCallInfo();
-    return IsEval(callinfo);
-}
-
-
 
 //
 // Advance enumerator and m_currentFrame to specific frame below.

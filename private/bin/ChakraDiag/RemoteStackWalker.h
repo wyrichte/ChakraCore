@@ -76,31 +76,26 @@ namespace JsDiag
         void* m_scriptEntryReturnAddress; // The return address of the script entry frame
         bool m_isJavascriptFrame;
 
-        bool m_walkInternalFrame;               // If caller wants internal frame
         bool m_checkedFirstInterpreterFrame;    // Used for extra validation for first interpreter frame
 
         CAtlMap<const FunctionBody*, RefCounted<RemoteFunctionBody>> m_functionBodyMap;    // map to cache RemoteFunctionBody
         CAtlMap<const ScriptContext*, RefCounted<RemoteScriptContext>> m_scriptContextMap; // map to cache RemoteScriptContext
 
     public:
-        RemoteStackWalker(DebugClient* debugClient, ULONG threadId, ThreadContext* threadContextAddr, bool walkInternalFrame, bool doDebugModeValidation = false);
+        RemoteStackWalker(DebugClient* debugClient, ULONG threadId, ThreadContext* threadContextAddr);
         ~RemoteStackWalker();
 
-        bool WalkToTarget(Js::JavascriptFunction* funcTargetRemoteAddress);
         bool WalkToNextJavascriptFrame();
         void GetCurrentJavascriptFrame(RemoteStackFrame** frame);
         void* GetCurrentScriptExitFrameBase();
         void* GetCurrentScriptEntryFrameBase();
         void* GetCurrentScriptEntryReturnAddress();
         Js::JavascriptFunction* GetCurrentFunction(bool includeInlineFrames = true);
-        bool IsCallerGlobalFunction();
-        bool IsEvalCaller();
         Js::CallInfo GetCurrentCallInfo(bool includeInlineFrames = true);
 
     private:
         bool WalkOneFrame();
         bool IsJavascriptFrame();
-        bool IsEval(const Js::CallInfo& callInfo) const;
         void* AdvanceToFrame(const void* frameAddress);
         bool CheckJavascriptFrame();
         void UpdateFrame();

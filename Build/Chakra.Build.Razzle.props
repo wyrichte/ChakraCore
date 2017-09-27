@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <DebugAtl Condition="'$(Configuration)' != 'Debug'"></DebugAtl>
+    <DebugAtl Condition="'$(Configuration)' == 'Debug'">d</DebugAtl>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <!-- For Utf8Codex.h -->
@@ -69,7 +73,7 @@
     </Link>
     <Link Condition="'$(UseStaticAtl)'=='true'">
       <!-- Add back any ATL libs that is cleared in Chakra.Build.props (which doesn't use atls_nouser32.lib when BUILD_FOR_CORESYSTEM=1 -->
-      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'!='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls.lib</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'!='true'">%(AdditionalDependencies);$(SdkLibPath)\atls$(DebugAtl).lib</AdditionalDependencies>
       <AdditionalDependencies Condition="'$(AtlVersion)' &gt;= '70' AND '$(BuildForCoreSystem)'=='true'">%(AdditionalDependencies);$(InternalSdkLibPath)\atls_nouser32.lib</AdditionalDependencies>
       <AdditionalDependencies>%(AdditionalDependencies);$(SdkLibPath)\atlthunk.lib</AdditionalDependencies>
     </Link>

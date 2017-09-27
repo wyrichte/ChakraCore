@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectName>ChakraDiagDump</ProjectName>
+    <ProjectGuid>{AB96693B-57D2-4667-BA2B-C408D6A4B29C}</ProjectGuid>
+    <RootNamespace>Js</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <TargetName>JScript9diagdump</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseStaticAtl>true</UseStaticAtl>
+    <AtlVersion>70</AtlVersion>
+    <BuildForCoreSystem>false</BuildForCoreSystem>
+    <Mui Condition="'$(BuildingWithBuildExe)'=='true'">false</Mui>
+  </PropertyGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        %(AdditionalIncludeDirectories);
+        $(ChakraRootDirectory)core\Lib\Common;
+        $(ChakraRootDirectory)core\Lib\Common\Core;
+        $(ChakraRootDirectory)core\Lib\Common\Memory;
+        $(ChakraRootDirectory)private\bin\ChakraDiag;
+        $(SdkToolsIncPath);
+      </AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+        %(DisableSpecificWarnings);
+        4838;     <!-- atlcomcli.h(414): warning C4838: conversion from 'int' to 'UINT' requires a narrowing conversion -->
+      </DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
+      <ModuleDefinitionFile>$(IntDir)JScript9diagdump.def</ModuleDefinitionFile>
+    </ImpLib>
+    <Link>
+      <ModuleDefinitionFile>$(IntDir)JScript9diagdump.def</ModuleDefinitionFile>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(InternalSdkLibPath)\nothrownew.lib;
+        $(SdkLibPath)\onecore_downlevel.lib;
+        $(SdkLibPath)\oleaut32.lib;
+      </AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)JScript9diagdump.def">
+      <PreprocessToFile>true</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>true</PreprocessSuppressLineNumbers>
+      <ObjectFileName>$(IntDir)JScript9diagdump.def</ObjectFileName>
+      <LinkCompiled>false</LinkCompiled>
+      <ImpLibCompiled>false</ImpLibCompiled>
+      <!-- Clear the forced includes -->
+      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\Serializer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\ScriptDump.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\ScriptDumpReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\thrownew.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)dumpdll.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FilesToSign Include="$(OutDir)\$(TargetName).dll">
+      <Authenticode>MicrosoftSHA2</Authenticode>
+    </FilesToSign>
+  </ItemGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

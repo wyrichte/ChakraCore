@@ -186,7 +186,7 @@ namespace JsDiag
 
             // Collect all frames of this thread stack
             CAtlArray<CComPtr<RemoteStackFrame>> frames;
-            RemoteStackWalker stackWalker(&debugClient, threadId, pThreadContext, /*walkInternalFrame*/true);
+            RemoteStackWalker stackWalker(&debugClient, threadId, pThreadContext);
             while (stackWalker.WalkToNextJavascriptFrame())
             {
                 CComPtr<RemoteStackFrame> remoteFrame;
