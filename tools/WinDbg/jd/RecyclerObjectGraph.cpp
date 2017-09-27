@@ -1378,14 +1378,18 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     addField(value, "RecyclerWeakReference<Js::PropertyString>");
                     return false;
                 });
-                JDRemoteTyped bindRefChunk = remoteTyped.Field("bindRefChunkBegin");
-                do
+
+                // Added during RS1
+                if (remoteTyped.HasField("bindRefChunkBegin"))
                 {
-                    addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
-                    bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + remoteThreadContext.GetRecycler().GetObjectGranularity() - g_Ext->m_PtrSize);
+                    JDRemoteTyped bindRefChunk = remoteTyped.Field("bindRefChunkBegin");
+                    do
+                    {
+                        addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
+                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + remoteThreadContext.GetRecycler().GetObjectGranularity() - g_Ext->m_PtrSize);
+                    } while (bindRefChunk.GetPtr() != 0);
+                    addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
                 }
-                while (bindRefChunk.GetPtr() != 0);
-                addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
                 if (remoteTyped.HasField("referencedPropertyRecords"))
                 {
                     RemoteBaseDictionary referencedPropertyRecords = remoteTyped.Field("referencedPropertyRecords");
