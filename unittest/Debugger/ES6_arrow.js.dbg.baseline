@@ -40,9 +40,9 @@
   {
     "callstack": [
       {
-        "start": 76,
-        "length": 1,
-        "text": "}",
+        "start": 70,
+        "length": 4,
+        "text": "this",
         "frameDescription": "arrow_concisebody"
       },
       {
@@ -55,14 +55,10 @@
   },
   {
     "locals": {
-      "this": "{...}",
-      "[arrow_concisebody returned]": "undefined",
-      "arrow_expression": "() => this",
-      "arrow_concisebody": "() => { this; }",
-      "deepfunction": "undefined",
-      "deepfunctionwithNames": "undefined",
-      "obj": "undefined",
-      "noeval": "undefined"
+      "this": "null",
+      "[Return value]": "undefined",
+      "arguments": "{...}",
+      "[Globals]": ""
     }
   },
   {
@@ -149,9 +145,9 @@
   {
     "callstack": [
       {
-        "start": 1232,
-        "length": 1,
-        "text": "}",
+        "start": 1204,
+        "length": 4,
+        "text": "this",
         "frameDescription": "obj.lambda2"
       },
       {

@@ -2027,16 +2027,16 @@ LPCWSTR HeapDumper::GetNameFromId(PROFILER_HEAP_OBJECT_NAME_ID nameId)
     if (nameId == 0)
     {
         return _u("** Error ***: property ID is 0");
-    }		  
-    if (nameId == Js::PropertyIds::_lexicalThisSlotSymbol)
+    }
+    if (nameId == Js::PropertyIds::_this)
     {
         return _u("this");
     }
-    if (nameId == Js::PropertyIds::_superReferenceSymbol || nameId == Js::PropertyIds::_superCtorReferenceSymbol)
+    if (nameId == Js::PropertyIds::_super|| nameId == Js::PropertyIds::_superConstructor)
     {
         return _u("super");
     }
-    if (nameId == Js::PropertyIds::_lexicalNewTargetSymbol)
+    if (nameId == Js::PropertyIds::_newTarget)
     {
         return _u("new.target");
     }

@@ -146,9 +146,8 @@
  |  [Scopes] count: 1
  |  | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |  [Prototype] type: Null (seen)
- |  |  [Properties] count: 3
- |  |  | 0 new.target: type: Undefined (seen)
- |  |  | 1 nestedEval: type: FunctionObject flags: (new) optional info records (4)
+ |  |  [Properties] count: 2
+ |  |  | 0 nestedEval: type: FunctionObject flags: (new) optional info records (4)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Function name] nestedEval
  |  |  |    [Scopes] count: 1
@@ -157,7 +156,7 @@
  |  |  |    | 0 sourceUrl: value: blockScopeActivationObjectAsSlotArray.js
  |  |  |    | 1 sourceRow: value: 4.000000
  |  |  |    | 2 sourceCol: value: 5.000000
- |  |  | 2 a: type: ObjectObject flags: (new) optional info records (2)
+ |  |  | 1 a: type: ObjectObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: ObjectObject (seen)
  |  |  |    [Properties] count: 2
  |  |  |    | 0 p1: value: 1.000000
