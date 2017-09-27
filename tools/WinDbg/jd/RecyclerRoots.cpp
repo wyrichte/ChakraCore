@@ -471,7 +471,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
         }
         else
         {
-            this->Out("(\"?? (%s *)0x%p\" to display) ", encodedTypeName.c_str(), address);
+            this->Out("(\"?? (%s *)0x%p\" to display)</link> ", encodedTypeName.c_str(), address);
         }
 
         if (object.HasField("type") && object.Field("type").HasField("typeId"))
@@ -482,7 +482,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
             }
             else
             {
-                this->Out("(\"!jd.var 0x%p\" to display) ", address);
+                this->Out("(\"!jd.var 0x%p\" to display) ", encodedTypeName.c_str(), address);
             }
             if (showScriptContext)
             {

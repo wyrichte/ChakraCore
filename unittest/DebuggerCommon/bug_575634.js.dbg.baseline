@@ -18,9 +18,9 @@
   {
     "callstack": [
       {
-        "start": 493,
-        "length": 8,
-        "text": "return 0",
+        "start": 465,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o.bar"
       },
       {

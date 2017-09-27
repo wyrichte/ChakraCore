@@ -430,16 +430,15 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
- |  |    |  [Properties] count: 5
- |  |    |  | 0 new.target: type: Undefined (seen)
- |  |    |  | 1 x: value: 12.000000
- |  |    |  | 2 y: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |  [Properties] count: 4
+ |  |    |  | 0 x: value: 12.000000
+ |  |    |  | 1 y: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    [Internal property] value: test
  |  |    |  |    [Prototype] type: StringObject (seen)
- |  |    |  | 3 z: type: Number flags: (new) optional info records (1)
+ |  |    |  | 2 z: type: Number flags: (new) optional info records (1)
  |  |    |  |    [Prototype] type: NumberObject flags: (new) optional info records (1)
  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  | 4 inner: type: FunctionObject (seen)
+ |  |    |  | 3 inner: type: FunctionObject (seen)
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_nested_eval.js
  |  |    | 1 sourceRow: value: 18.000000
@@ -454,7 +453,7 @@
  |  |    |    [Scopes] count: 2
  |  |    |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |    |  [Prototype] type: Null (seen)
- |  |    |    |  [Properties] count: 9
+ |  |    |    |  [Properties] count: 10
  |  |    |    |  | 0 evalstr: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: var eeo = "eeo_value"
  |  |    |    |  |    [Prototype] type: StringObject (seen)
@@ -473,15 +472,16 @@
  |  |    |    |  |    |    |    [Internal property] value: values
  |  |    |    |  |    |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 2 super: type: Undefined (seen)
- |  |    |    |  | 3 new.target: type: Undefined (seen)
- |  |    |    |  | 4 aa: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 3 super: type: Undefined (seen)
+ |  |    |    |  | 4 new.target: type: Undefined (seen)
+ |  |    |    |  | 5 aa: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: aa
  |  |    |    |  |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 5 bb: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 6 bb: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: bb
  |  |    |    |  |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 6 inner_a: type: FunctionObject (seen)
- |  |    |    |  | 7 inner_b: type: FunctionObject flags: (new) optional info records (4)
+ |  |    |    |  | 7 inner_a: type: FunctionObject (seen)
+ |  |    |    |  | 8 inner_b: type: FunctionObject flags: (new) optional info records (4)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] inner_b
  |  |    |    |  |    [Scopes] count: 2
@@ -491,7 +491,7 @@
  |  |    |    |  |    | 0 sourceUrl: value: closure_nested_eval.js
  |  |    |    |  |    | 1 sourceRow: value: 40.000000
  |  |    |    |  |    | 2 sourceCol: value: 23.000000
- |  |    |    |  | 8 eeo: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 9 eeo: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: eeo_value
  |  |    |    |  |    [Prototype] type: StringObject (seen)
  |  |    |    | scope[1]: type: Scope (seen)

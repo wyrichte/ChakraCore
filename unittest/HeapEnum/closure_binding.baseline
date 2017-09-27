@@ -183,7 +183,7 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
- |  |    |  [Properties] count: 5
+ |  |    |  [Properties] count: 6
  |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
  |  |    |  |    [Properties] count: 3
@@ -197,9 +197,10 @@
  |  |    |  |    |    |    [Internal property] value: values
  |  |    |  |    |    |    [Prototype] type: StringObject (seen)
  |  |    |  | 1 super: type: Undefined (seen)
- |  |    |  | 2 new.target: type: Undefined (seen)
- |  |    |  | 3 f3: type: FunctionObject (seen)
- |  |    |  | 4 a3: value: 3.000000
+ |  |    |  | 2 super: type: Undefined (seen)
+ |  |    |  | 3 new.target: type: Undefined (seen)
+ |  |    |  | 4 f3: type: FunctionObject (seen)
+ |  |    |  | 5 a3: value: 3.000000
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_binding.js
  |  |    | 1 sourceRow: value: 77.000000
@@ -217,7 +218,7 @@
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Prototype] type: Null (seen)
- |  |    |  [Properties] count: 5
+ |  |    |  [Properties] count: 6
  |  |    |  | 0 arguments: type: ArgumentObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: ObjectObject (seen)
  |  |    |  |    [Properties] count: 3
@@ -225,9 +226,10 @@
  |  |    |  |    | 1 callee: type: FunctionObject (seen)
  |  |    |  |    | 2 Symbol.iterator: type: FunctionObject (seen)
  |  |    |  | 1 super: type: Undefined (seen)
- |  |    |  | 2 new.target: type: Undefined (seen)
- |  |    |  | 3 f4: type: FunctionObject (seen)
- |  |    |  | 4 a4: value: 2.000000
+ |  |    |  | 2 super: type: Undefined (seen)
+ |  |    |  | 3 new.target: type: Undefined (seen)
+ |  |    |  | 4 f4: type: FunctionObject (seen)
+ |  |    |  | 5 a4: value: 2.000000
  |  |    [Relationships] count: 3
  |  |    | 0 sourceUrl: value: closure_binding.js
  |  |    | 1 sourceRow: value: 87.000000

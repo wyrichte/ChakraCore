@@ -1,8 +1,9 @@
 [
   {
     "locals": {
-      "this - [Type]": "Object",
+      "this - [Type]": "Object, (Global)",
       "this": {
+        "[Methods]": "{...}",
         "__proto__ - [Type]": "Object",
         "__proto__": "{...}"
       },

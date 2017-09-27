@@ -1155,7 +1155,7 @@ UINT ActiveScriptProfilerHeapEnum::GetNamePropertySlotCount(Js::RecyclableObject
     UINT count = 0;
     Var getter=NULL, setter=NULL;
     if (relationshipId != Js::Constants::NoProperty &&
-        relationshipId != Js::PropertyIds::_lexicalThisSlotSymbol &&
+        relationshipId != Js::PropertyIds::_this &&
         ! Js::IsInternalPropertyId(relationshipId) &&
         Js::JavascriptOperators::HasOwnPropertyNoHostObjectForHeapEnum(obj, relationshipId, obj->GetScriptContext(), getter, setter))
     {

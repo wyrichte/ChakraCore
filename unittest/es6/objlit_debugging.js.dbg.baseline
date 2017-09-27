@@ -18,9 +18,9 @@
   {
     "callstack": [
       {
-        "start": 208,
-        "length": 1,
-        "text": "}",
+        "start": 179,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[simplestring]"
       },
       {
@@ -34,9 +34,9 @@
   {
     "callstack": [
       {
-        "start": 290,
-        "length": 1,
-        "text": "}",
+        "start": 261,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[simplestringshorthand]"
       },
       {
@@ -82,9 +82,9 @@
   {
     "callstack": [
       {
-        "start": 524,
-        "length": 1,
-        "text": "}",
+        "start": 495,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[]"
       },
       {
@@ -98,9 +98,9 @@
   {
     "callstack": [
       {
-        "start": 615,
-        "length": 1,
-        "text": "}",
+        "start": 586,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[]"
       },
       {
@@ -146,9 +146,9 @@
   {
     "callstack": [
       {
-        "start": 852,
-        "length": 1,
-        "text": "}",
+        "start": 823,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[123]"
       },
       {
@@ -162,9 +162,9 @@
   {
     "callstack": [
       {
-        "start": 914,
-        "length": 1,
-        "text": "}",
+        "start": 885,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[321]"
       },
       {
@@ -210,9 +210,9 @@
   {
     "callstack": [
       {
-        "start": 1103,
-        "length": 1,
-        "text": "}",
+        "start": 1074,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[123.456]"
       },
       {
@@ -226,9 +226,9 @@
   {
     "callstack": [
       {
-        "start": 1169,
-        "length": 1,
-        "text": "}",
+        "start": 1140,
+        "length": 4,
+        "text": "this",
         "frameDescription": "o[654.321]"
       },
       {

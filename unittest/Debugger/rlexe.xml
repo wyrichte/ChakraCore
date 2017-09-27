@@ -2031,6 +2031,7 @@
       <baseline>exception_in_func_mapES6.js.baseline</baseline>
     </default>
   </test>
+  <!-- 13954661
   <test>
     <default>
       <files>frames_inspection_mapES6.js</files>
@@ -2038,6 +2039,7 @@
       <baseline>frames_inspection_mapES6.js.baseline</baseline>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>frames_letconst_ES6.js</files>
