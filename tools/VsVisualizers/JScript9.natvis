@@ -150,7 +150,7 @@
     <Expand>
       <CustomListItems>
         <Variable Name="node" InitialValue="this->head" />
-        <Variable Name="data" InitialValue="0ull" />
+        <Variable Name="data" InitialValue="0" />
         <Variable Name="i" InitialValue="0" />
         <Loop Condition="node">
           <Exec>data = node->data.word</Exec>
@@ -161,6 +161,19 @@
             <Exec>data = data >> 1</Exec>
           </Loop>
           <Exec>node = node->next</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="BVFixed">
+    <Expand>
+      <CustomListItems>
+        <Variable Name="wordCount" InitialValue="((this->len - 1) &gt;&gt; BVUnit::ShiftValue) + 1" />
+        <Variable Name="iNode" InitialValue="0" />
+        <Item Name="WordCount">wordCount</Item>
+        <Loop Condition="iNode &lt; wordCount">
+          <Item>this->data[iNode]</Item>
+          <Exec>iNode++</Exec>
         </Loop>
       </CustomListItems>
     </Expand>
