@@ -315,7 +315,7 @@ ChakraBailOutReJIT_Pivoted =
     PRODUCE Domain,
             ApplicationName,
             MachineConfigId,
-            ActivityId
+            ActivityId,
 <<<FORALL_PRINTF(rejitReasons,
 "            rejit_%reasonName_present,
             rejit_%reasonName_count,

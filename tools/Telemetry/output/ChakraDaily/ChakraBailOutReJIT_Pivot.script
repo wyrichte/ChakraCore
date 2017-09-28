@@ -409,7 +409,7 @@ ChakraBailOutReJIT_Pivoted =
     PRODUCE Domain,
             ApplicationName,
             MachineConfigId,
-            ActivityId
+            ActivityId,
             rejit_None_present,
             rejit_None_count,
             rejit_None_count_cap,
