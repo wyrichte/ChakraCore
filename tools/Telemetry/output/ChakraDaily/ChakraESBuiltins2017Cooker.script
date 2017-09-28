@@ -63,31 +63,19 @@ chakraData =
     FROM ( SSTREAM @cookedChakraData )
     WHERE name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
 
-chakraData2 =
-    PROCESS chakraData
-    USING JsonObjectProcessor (
-        "ext",
-        "device.id:deviceId:string"
-    );
-
-chakraData3 =
-    PROCESS chakraData2
-    USING JsonObjectProcessor (
-        "data",
-        "activityID:ActivityId:string"
-    );
-
 // Select 
 //ESBuiltinsData = 
 ESBuiltIns2017Data =
     SELECT
-        chakraData3.*,
+        chakraData.data AS data,
+        chakraData.appVer AS appVer,
+        chakraData.ActivityId AS ActivityId,
         deviceIdToMachineConfigIdMap.MachineConfigId AS MachineConfigId,
         chakraUrlData.Domain AS Domain,
         Chakra.Utils.Filters.ExtractAppName(appVer) AS ApplicationName
     FROM
-        chakraData3
-        INNER JOIN chakraUrlData ON chakraData3.ActivityId == chakraUrlData.ActivityId
-        INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData3.deviceId;
+        chakraData
+        INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId
+        INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.deviceId;
 
 OUTPUT ESBuiltIns2017Data TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
