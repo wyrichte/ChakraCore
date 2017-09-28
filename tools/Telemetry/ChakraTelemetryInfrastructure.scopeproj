@@ -30,38 +30,15 @@
   </ItemGroup>
   <ItemGroup>
     <Script Include="output\ChakraDaily\ChakraAboutConfig_config.script" />
-    <Script Include="output\ChakraDaily\ChakraApplicationCounts.script" />
     <Script Include="output\ChakraDaily\ChakraBailOutReJIT_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraBailOutReJIT_Reference.script" />
     <Script Include="output\ChakraDaily\ChakraDailyCooker.script" />
     <Script Include="output\ChakraDaily\ChakraDailyURLCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraDomainExtractor.script" />
-    <Script Include="output\ChakraDaily\ChakraES5BuiltinsCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraES5BuiltinsDataSummary.script" />
-    <Script Include="output\ChakraDaily\ChakraES5BuiltinsSummary_Monthly.script" />
-    <Script Include="output\ChakraDaily\ChakraES6BuiltinsCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraES6BuiltinsSummary.script" />
-    <Script Include="output\ChakraDaily\ChakraES6BuiltinsSummary_Monthly.script" />
-    <Script Include="output\ChakraDaily\ChakraES6LanguageCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraES6LanguageSummaryCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraES6LanguageSummary_Monthly.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017Cooker.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Pivot.script" />
-    <Script Include="output\ChakraDaily\ChakraGCPauseCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraGlobalStatsCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraJITTimeCookerBase.script" />
     <Script Include="output\ChakraDaily\ChakraMachineConfig2Cooker.script" />
-    <Script Include="output\ChakraDaily\ChakraMachineConfigCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraMissingEvents.script" />
-    <Script Include="output\ChakraDaily\ChakraPageAllocatorUsedBytesCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraParserCooker.script" />
-    <Script Include="output\ChakraDaily\ChakraUnreleasedScriptCtxt.script" />
-    <Script Include="output\ChakraDaily\ChakraWatsonScriptPart2.script" />
-    <Script Include="output\ChakraDaily\WatsonScriptPart1.script" />
-    <Script Include="output\ChakraDaily\WatsonScriptPart1_Part2.script" />
-    <Script Include="output\ChakraDaily\WatsonScriptPart2.script" />
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\ScopeStudio\MsBuild\1.0\Scope.targets" />
 </Project>
