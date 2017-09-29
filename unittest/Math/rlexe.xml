@@ -5,7 +5,7 @@
       <files>math.js</files>
       <!-- x86 all -->
       <baseline>math.baseline</baseline>
-      <tags>exclude_amd64,exclude_arm</tags>
+      <tags>exclude_amd64,exclude_arm,exclude_arm64</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -14,7 +14,7 @@
       <files>math.js</files>
       <baseline>math.x64.baseline</baseline>
       <!-- Win7 x64 -->
-      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
+      <tags>exclude_arm,exclude_arm64,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -23,7 +23,7 @@
       <files>math.js</files>
       <baseline>math.x64.win8.baseline</baseline>
       <!-- Win8/Blue x64 -->
-      <tags>exclude_arm,exclude_x86,exclude_win7,Slow</tags>
+      <tags>exclude_arm,exclude_arm64,exclude_x86,exclude_win7,Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -33,7 +33,17 @@
       <baseline>math.arm.baseline</baseline>
       <!--  ARM -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_x86,exclude_amd64</tags>
+      <tags>exclude_arm64,exclude_x86,exclude_amd64</tags>
+      <timeout>300</timeout>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>math.js</files>
+      <baseline>math.arm64.baseline</baseline>
+      <!--  ARM64 -->
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_arm,exclude_x86,exclude_amd64</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -43,7 +53,7 @@
       <!-- x86 all OS -->
       <baseline>math.baseline</baseline>
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_amd64,exclude_arm</tags>
+      <tags>exclude_amd64,exclude_arm,exclude_arm64</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -53,7 +63,7 @@
       <baseline>math.x64.baseline</baseline>
       <!--  Win7 x64 -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_arm,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
+      <tags>exclude_arm,exclude_arm64,exclude_x86,exclude_win8,exclude_winBlue,exclude_win10,Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -63,7 +73,7 @@
       <baseline>math.x64.win8.baseline</baseline>
       <!--  Win8/blue x64 -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_arm,exclude_x86,exclude_win7,Slow</tags>
+      <tags>exclude_arm,exclude_arm64,exclude_x86,exclude_win7,Slow</tags>
       <timeout>300</timeout>
     </default>
   </test>
@@ -73,7 +83,17 @@
       <baseline>math.arm.baseline</baseline>
       <!--  ARM -->
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
-      <tags>exclude_x86,exclude_amd64</tags>
+      <tags>exclude_arm64,exclude_x86,exclude_amd64</tags>
+      <timeout>300</timeout>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>math.js</files>
+      <baseline>math.arm64.baseline</baseline>
+      <!--  ARM64 -->
+      <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
+      <tags>exclude_arm,exclude_x86,exclude_amd64</tags>
       <timeout>300</timeout>
     </default>
   </test>

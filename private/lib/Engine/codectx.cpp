@@ -6,14 +6,12 @@
 #include "EnginePch.h"
 #include "Language\InterpreterStackFrame.h"
 
-#if _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM
 #pragma warning(push)
 #pragma warning(disable:4211)       // nonstandard extension used: redefined extern to static
 // TEMP: Until we get an msdbg.lib with the definition.
 static const GUID IID_ISetNextStatement = { 0x51973C03, 0xCB0C, 0x11D0, { 0xB5, 0xC9, 0x00, 0xA0, 0x24, 0x4A, 0x0E, 0x7A } };
 static const GUID IID_IDebugSetValueCallback = { 0xe0284f01, 0xeda1, 0x11d0, { 0xb4, 0x52, 0x00, 0xa0, 0x24, 0x4a, 0x1d, 0xd2 } };
 #pragma warning(pop)
-#endif // _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM
 
 static const GUID IID_IInternalCodeContext = { 0x50467580, 0x71b7, 0x11d1, { 0x8c, 0xAE, 0x00, 0xa0, 0xc9, 0x0f, 0xff, 0xc0 } };
 
@@ -426,12 +424,10 @@ HRESULT CDebugStackFrame::QueryInterface(REFIID iid, void ** ppv)
         *ppv = (IDebugStackFrame *)this;
     else if (iid == __uuidof(IDebugExpressionContext))
         *ppv = (IDebugExpressionContext *)this;
-#if _M_IX86 || _M_AMD64 || _M_IA64 || _M_ARM // See definition of IID_IDebugSetValueCallback and IID_ISetNextStatement above.
     else if (iid == IID_IDebugSetValueCallback)
         *ppv = (IDebugSetValueCallback *)this;
     else if (iid == IID_ISetNextStatement)
         *ppv = (ISetNextStatement *)this;
-#endif
     else
     {
         *ppv = nullptr;
