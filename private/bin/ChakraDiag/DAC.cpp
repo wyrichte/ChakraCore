@@ -19,6 +19,11 @@ __declspec(noinline) void DebugHeap_OOM_fatal_error()
 {
     Assert(false);
 };
+// another dummy definition for linker
+hash_t PrimePolicy::ModPrime(hash_t key, uint prime, int modFunctionIndex)
+{
+    return key & prime;
+}
 NoCheckHeapAllocator NoCheckHeapAllocator::Instance;
 HANDLE NoCheckHeapAllocator::processHeap;
 
