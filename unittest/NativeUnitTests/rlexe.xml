@@ -86,6 +86,7 @@
       </override>
     </condition>
   </test>
+<!-- Disabling test, tracked by OS#14010656
   <test>
     <default>
       <tags>exclude_jsrt</tags>
@@ -94,6 +95,7 @@
       <baseline>Int64.baseline</baseline>
     </default>
   </test>
+-->
   <test>
     <default>
       <tags>exclude_jsrt</tags>
