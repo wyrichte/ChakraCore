@@ -124,7 +124,7 @@ namespace Js
                     && memcmp(this->GetSource(_u("Equal Comparison")), other->GetSource(_u("Equal Comparison")), this->GetByteLength(_u("Equal Comparison"))));
         }
         
-        int GetHashCode()
+        hash_t GetHashCode()
         {
             LPCUTF8 source = GetSource(_u("Hash Code Calculation"));
             size_t byteLength = GetByteLength(_u("Hash Code Calculation"));
