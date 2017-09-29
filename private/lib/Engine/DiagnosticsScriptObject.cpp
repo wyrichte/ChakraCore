@@ -298,35 +298,29 @@ namespace Js
         }
 
         AssertMsg(reThrownEx, "How come we don't have an exception object here?");
-        if (reThrownEx->GetScriptContext() != debugEvalScriptContext)
+        Var rethrownObject = reThrownEx->GetThrownObject(targetScriptContext);
+        if (rethrownObject && RecyclableObject::Is(rethrownObject) && CrossSite::NeedMarshalVar(rethrownObject, debugEvalScriptContext))
         {
-            Var rethrownObject = reThrownEx->GetThrownObject(targetScriptContext);
-            if (rethrownObject)
+            // DebugEval runs in diagnostics context with different CMDID_SCRIPTSITE_SID then user page
+            if (JavascriptError::Is(rethrownObject))
             {
-                // DebugEval runs in diagnostics context with different CMDID_SCRIPTSITE_SID then user page
-                if (JavascriptError::Is(rethrownObject))
-                {
-                    // Exception (JavaScript error) thrown from user page will fail the ScriptSite::CheckCrossDomainScriptContext check resulting in a Permission Denied error message
-                    // Create a new error, copy basic stuff (line no. and message) and throw that instead
-                    JavascriptError* jsErrorObject = JavascriptError::FromVar(rethrownObject);
-                    JavascriptError* jsNewErrorObject = jsErrorObject->CloneErrorMsgAndNumber(debugEvalScriptContext->GetLibrary());
-                    AssertMsg(jsNewErrorObject != nullptr, "Error shouldn't have been null");
-                    reThrownEx->ReplaceThrownObject(jsNewErrorObject);
-                }
-                else if (RecyclableObject::Is(rethrownObject))
-                {
-                    // If it is a object we can't throw it, just get the toString value of the object and throw that instead
-                    JavascriptString* stringValue = JavascriptConversion::ToString(rethrownObject, targetScriptContext);
-                    AssertMsg(stringValue != nullptr, "Failed to get string value of thrown object");
-                    RecyclableObject* stringObj = stringValue->CloneToScriptContext(debugEvalScriptContext);
-                    reThrownEx->ReplaceThrownObject(stringObj);
-                }
-                else
-                {
-                    Assert(!CrossSite::NeedMarshalVar(rethrownObject, debugEvalScriptContext));
-                }
+                // Exception (JavaScript error) thrown from user page will fail the ScriptSite::CheckCrossDomainScriptContext check resulting in a Permission Denied error message
+                // Create a new error, copy basic stuff (line no. and message) and throw that instead
+                JavascriptError* jsErrorObject = JavascriptError::FromVar(rethrownObject);
+                JavascriptError* jsNewErrorObject = jsErrorObject->CloneErrorMsgAndNumber(debugEvalScriptContext->GetLibrary());
+                AssertMsg(jsNewErrorObject != nullptr, "Error shouldn't have been null");
+                reThrownEx->ReplaceThrownObject(jsNewErrorObject);
+            }
+            else
+            {
+                // If it is a object we can't throw it, just get the toString value of the object and throw that instead
+                JavascriptString* stringValue = JavascriptConversion::ToString(rethrownObject, targetScriptContext);
+                AssertMsg(stringValue != nullptr, "Failed to get string value of thrown object");
+                RecyclableObject* stringObj = stringValue->CloneToScriptContext(debugEvalScriptContext);
+                reThrownEx->ReplaceThrownObject(stringObj);
             }
         }
+
         debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
         JavascriptExceptionOperators::DoThrow(reThrownEx, targetScriptContext);
     }
