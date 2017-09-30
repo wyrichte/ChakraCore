@@ -8,6 +8,7 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
+  <!-- OS#14010656
   <test>
     <default>
       <files>ObjectFreeze.js</files>
@@ -29,6 +30,7 @@
       <tags>exclude_apollo</tags>
     </default>
   </test>
+-->
   <test>
     <default>
       <files>ObjectDefineProperty.js</files>
