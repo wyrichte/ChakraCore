@@ -122,7 +122,7 @@
     <default>
       <files>ES6Symbol_withHashtable.js</files>
       <baseline>ES6Symbol_withHashtable.baseline</baseline>
-      <tags>exclude_amd64</tags>
+      <tags>exclude_amd64,exclude_arm64</tags>
     </default>
   </test>
   <test>

@@ -10,9 +10,16 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_arm64</tags>
       <files>array.js</files>
       <baseline>array.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_arm,exclude_x86,exclude_amd64</tags>
+      <files>array.js</files>
+      <baseline>array.arm64.baseline</baseline>
     </default>
   </test>
   <test>
@@ -84,7 +91,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_serialized</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm64,exclude_serialized</tags>
       <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.baseline</baseline>
@@ -92,10 +99,18 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_serialized</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64,exclude_serialized</tags>
       <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.amd64.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_arm,exclude_x86,exclude_amd64,exclude_serialized</tags>
+      <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <files>deferDeserializeTest.js</files>
+      <baseline>deferDeserializeTest.arm64.baseline</baseline>
     </default>
   </test>
   <!-- These tests should only be run during the interpreted phase. On x86fre, they do not produce profile data so the dynapogo phase would fail. !-->
@@ -278,7 +293,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64</tags>
       <files>closure_nested.js</files>
       <baseline>closure_nested.amd64.baseline</baseline>
     </default>
@@ -292,7 +307,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64</tags>
       <files>closure_nested_eval.js</files>
       <baseline>closure_nested_eval.amd64.baseline</baseline>
     </default>
@@ -313,7 +328,7 @@
   </test>-->
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm64</tags>
       <files>errorObjectGetterSetterTest.js</files>
       <baseline>errorObjectGetterSetterTest.baseline</baseline>
     </default>
@@ -367,7 +382,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm,exclude_arm64</tags>
       <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
       <files>objhashtable.js</files>
       <baseline>objhashtable.baseline</baseline>
@@ -375,7 +390,7 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64</tags>
       <compile-flags>-DeletedPropertyReuseThreshold:1 -Intl-</compile-flags>
       <files>objhashtable.js</files>
       <baseline>objhashtable.amd64.baseline</baseline>
@@ -392,7 +407,7 @@
   <test>
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
-      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.baseline</baseline>
@@ -401,7 +416,7 @@
   <test>
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.amd64.baseline</baseline>
@@ -409,7 +424,16 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
+      <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+      <files>letconst-undeclblockvar.js</files>
+      <baseline>letconst-undeclblockvar.arm64.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_arm64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.baseline</baseline>
@@ -417,10 +441,18 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_arm64</tags>
       <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.amd64.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_amd64,exclude_arm</tags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <files>letconst-globals.js</files>
+      <baseline>letconst-globals.arm64.baseline</baseline>
     </default>
   </test>
   <test>

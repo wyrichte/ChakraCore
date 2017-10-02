@@ -1693,6 +1693,7 @@
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
+      <tags>exclude_arm,exclude_arm64</tags>
     </default>
   </test>
   <test>
@@ -1700,6 +1701,7 @@
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline -maic:0</compile-flags>
+      <tags>exclude_arm,exclude_arm64</tags>
     </default>
   </test>
   <test>
@@ -1707,6 +1709,7 @@
       <files>asmjseval.js</files>
       <baseline>asmjseval.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjseval.js.dbg.baseline</compile-flags>
+      <tags>exclude_arm,exclude_arm64</tags>
     </default>
   </test>
   <test>
@@ -2199,7 +2202,7 @@
     <default>
       <files>restrictedEval.js</files>
       <compile-flags>-targeted -mic:1 -off:simplejit -EvalRestriction -inspectmaxstringlength:100 -dbgbaseline:restrictedeval.js.dbg.baseline</compile-flags>
-      <tags>exclude_dynapogo</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>

@@ -15,7 +15,7 @@ function createNestedArray(level) {
 
     return toReturn;
 }
-var recursionDepth = 3000;
+var recursionDepth = 1500;
 var b = createNestedArray(recursionDepth);
 var data = SCA.serialize({ a: b });
 var result = SCA.lookupEx(data, [["a"]]);

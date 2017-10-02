@@ -183,7 +183,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll StaticLibVerificationTest</compile-flags>
       <files>dummy.js</files>
       <baseline>StaticLibVerificationTest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_apollo,exclude_arm,exclude_arm64,exclude_jsrt,exclude_dynapogo</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>

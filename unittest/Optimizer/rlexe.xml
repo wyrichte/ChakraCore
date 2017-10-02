@@ -47,7 +47,7 @@
       <files>TypedArrayTransfer.js</files>
       <baseline>TypedArrayTransfer.baseline</baseline>
       <compile-flags>-bgJit- -off:simpleJit -fullJitAfter:2 -off:inline -testTrace:arraySegmentHoist</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized,exclude_default</tags>
+      <tags>exclude_dynapogo,exclude_serialized,exclude_default,exclude_nonative</tags>
     </default>
   </test>
 </regress-exe>
