@@ -21,8 +21,8 @@ StackFramesEvent: Frame : (MethodID : 5) (runTest), LineNumber : 21, ColumnNumbe
 StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 32, ColumnNumber : 0
 StackFramesEvent: 
 Posting stack trace via ETW:
-StackFramesEvent: Frame : (MethodID : 89) (Anonymous function), LineNumber : 2, ColumnNumber : 0
-StackFramesEvent: Frame : (MethodID : 88) (test1), LineNumber : 1, ColumnNumber : 1
-StackFramesEvent: Frame : (MethodID : 87) (eval code), LineNumber : 5, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 90) (Anonymous function), LineNumber : 2, ColumnNumber : 0
+StackFramesEvent: Frame : (MethodID : 89) (test1), LineNumber : 1, ColumnNumber : 1
+StackFramesEvent: Frame : (MethodID : 88) (eval code), LineNumber : 5, ColumnNumber : 0
 StackFramesEvent: Frame : (MethodID : 9) (evalTest), LineNumber : 48, ColumnNumber : 8
 StackFramesEvent: Frame : (MethodID : 1) (Global code), LineNumber : 50, ColumnNumber : 0

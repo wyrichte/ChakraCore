@@ -212,6 +212,10 @@ var localesList = [
     { defaultLocale: "ka-GE_modern", parsedLocale: "ka", collation: "default" }];
 
 localesList.forEach(function (localeInfo) {
+    // in the actual runtime, the system default locale cannot change, by design (and thus we cache the value)
+    // however for debugging purposes we have this flag that we can disable:
+    platform.useCaches = false;
+
     platform.getDefaultLocale = function () { return localeInfo.defaultLocale; }
     var resolvedOptions = new Intl.Collator().resolvedOptions();
     if (resolvedOptions.locale !== localeInfo.parsedLocale || resolvedOptions.collation !== localeInfo.collation) {
