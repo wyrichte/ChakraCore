@@ -112,11 +112,9 @@ HRESULT AttemptCreateArrayBufferFromIBuffer(__in Projection::ProjectionObjectIns
             }
 
             // Since we are doing byte access and the user is explicitly passing size, we assume that all bytes are used.
-            MarkerForExternalDebugStep();
             hr = iBuf->get_Capacity(&capacity);
             if (FAILED(hr)) break;
 
-            MarkerForExternalDebugStep();
             hr = iBuf->put_Length(capacity);
             if (FAILED(hr)) break;
 
@@ -124,7 +122,6 @@ HRESULT AttemptCreateArrayBufferFromIBuffer(__in Projection::ProjectionObjectIns
             hr = iBuf->QueryInterface(__uuidof(Windows::Storage::Streams::IBufferByteAccess), reinterpret_cast<void**>(&iBufByteAccess));
             if (FAILED(hr)) break;
 
-            MarkerForExternalDebugStep();
             hr = iBufByteAccess->Buffer(&buffer);
         }
         while (0); // Any breaks will allow END_LEAVE_SCRIPT to do its job before using IfFailGo as normal.

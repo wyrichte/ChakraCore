@@ -340,15 +340,6 @@ dbl_align:
 #endif
             }
 
-            // DevDiv Bug 991829 - Moving MarkerForExternalDebugStep call from before doing CFG check to after CFG check
-            // For JavaScript to Native stepping VS sets a native breakpoint on MarkerForExternalDebugStep function
-            // when the function is hit, VS does single stepping till control leaves jscript9.dll.
-            // If other OS modules symbol are not loaded VS will stop at user code/dll, thus user will see the stepping completed in his/her code.
-            // This function should be called just before we are calling into user code. Since the above CFG check calls into kernel
-            // we need to have MarkerForExternalDebugStep called after CFG check and not before it.
-
-            MarkerForExternalDebugStep();
-
             // call variable argument function provided in entryPoint
             _asm
             {
