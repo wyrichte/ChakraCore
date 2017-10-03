@@ -706,7 +706,6 @@ namespace Projection
             HRESULT hr;
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                MarkerForExternalDebugStep();
                 hr = (*call)(unknown);
                 // If the interface is a default interface, we don't need to release since we already don't add ref the cached default interface for this call
                 if (!isDefaultInterface)
@@ -757,14 +756,12 @@ namespace Projection
                     typedef HRESULT fn(IUnknown*, T1::TLength, T1::TBase);
                     auto call = (fn*)vptr;
                     auto c1Length = T1::GetLength(&c1);
-                    MarkerForExternalDebugStep();
                     hr = (*call)(unknown, c1Length, p1);
                 }
                 else
                 {
                     typedef HRESULT fn(IUnknown*, T1::TBase);
                     auto call = (fn*)vptr;
-                    MarkerForExternalDebugStep();
                     hr = (*call)(unknown, p1);
                 }
                 // If the interface is a default interface, we don't need to release since we already don't add ref the cached default interface for this call
@@ -820,7 +817,6 @@ namespace Projection
             HRESULT hr;
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                MarkerForExternalDebugStep();
                 hr = (*call)(unknown, &p1);
                 // If the interface is a default interface, we don't need to release since we already don't add ref the cached default interface for this call
                 if (!isDefaultInterface)
@@ -886,7 +882,6 @@ namespace Projection
                 HRESULT hr;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
-                    MarkerForExternalDebugStep();
                     hr = (*call)(unknown, p1, p2);
                     // If the interface is a default interface, we don't need to release since we already don't add ref the cached default interface for this call
                     if (!isDefaultInterface)
@@ -948,7 +943,6 @@ namespace Projection
                 HRESULT hr = S_OK;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
                 {
-                    MarkerForExternalDebugStep();
                     hr = (*call)(unknown, p1, &p2);
                     // If the interface is a default interface, we don't need to release since we already don't add ref the cached default interface for this call
                     if (!isDefaultInterface)
@@ -1054,7 +1048,6 @@ namespace Projection
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            MarkerForExternalDebugStep();
             hr = (*call)(signature->factory);
         }
         END_LEAVE_SCRIPT(scriptContext)
@@ -1091,7 +1084,6 @@ namespace Projection
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            MarkerForExternalDebugStep();
             hr = (*call)(signature->factory, &p1);
             if (T1::toVarRequiresRuntimeClassName && SUCCEEDED(hr))
             {
@@ -1148,14 +1140,12 @@ namespace Projection
                     typedef HRESULT fn(IUnknown*, T1::TLength, T1::TBase);
                     auto call = (fn*)signature->vtableEntry;
                     auto c1Length = T1::GetLength(&c1);
-                    MarkerForExternalDebugStep();
                     hr = (*call)(signature->factory, c1Length, p1);
                 }
                 else
                 {
                     typedef HRESULT fn(IUnknown*, T1::TBase);
                     auto call = (fn*)signature->vtableEntry;
-                    MarkerForExternalDebugStep();
                     hr = (*call)(signature->factory, p1);
                 }
                 T1::ReleaseInAfterCall(p1, &c1, projectionContext);
@@ -1195,7 +1185,6 @@ namespace Projection
             Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                MarkerForExternalDebugStep();
                 hr = (*call)(signature->factory, p1, p2);
                 T1::ReleaseInAfterCall(p1, &c1, projectionContext);
                 T2::ReleaseInAfterCall(p2, &c2, projectionContext);
@@ -1244,7 +1233,6 @@ namespace Projection
             Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                MarkerForExternalDebugStep();
                 hr = (*call)(signature->factory, p1, &p2);
                 if (T2::toVarRequiresRuntimeClassName && SUCCEEDED(hr))
                 {

@@ -49,7 +49,6 @@
 
     EXPORT arm_ProjectionCall
     IMPORT  __chkstk                ; See \\cpvsbuild\drops\dev11\Main\raw\current\sources\vctools\crt\crtw32\startup\arm\chkstk.asm.
-    IMPORT  MarkerForExternalDebugStep
 #if defined(_CONTROL_FLOW_GUARD)
         IMPORT __guard_check_icall_fptr
 #endif
@@ -111,13 +110,6 @@ stackArgsDone
     ldr     r12, [r12]
     blx     r12
 #endif
-
-;
-; MarkerForExternalDebugStep function call before leaving the engine for calling projection method
-; This should be just before the actual call for JavaScript to Native stepping to work correctly
-;
-    mov32   r12, MarkerForExternalDebugStep
-    blx     r12
 
     mov     r0, r5          ; restore r0
     mov     callLayout, r6  ; restore callLayout (r1)

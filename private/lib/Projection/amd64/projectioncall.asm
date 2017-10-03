@@ -17,7 +17,6 @@
 include ksamd64.inc
 
         extern  __chkstk:proc
-        extern  MarkerForExternalDebugStep:proc
 ifdef _CONTROL_FLOW_GUARD
         extrn __guard_check_icall_fptr:QWORD
         extrn amd64_CheckICall:proc
@@ -101,12 +100,6 @@ ifdef _CONTROL_FLOW_GUARD
         mov     rcx, r10
         call    amd64_CheckICall        ; verify that the call target is valid
 endif
-
-;
-; MarkerForExternalDebugStep function call before leaving the engine for calling projection method
-; This should be just before the actual call for JavaScript to Native stepping to work correctly
-;
-        call    MarkerForExternalDebugStep
         
         mov     r10, rsi                ; restore call target
         mov     rdx, rdi                ; restore "this" pointer
