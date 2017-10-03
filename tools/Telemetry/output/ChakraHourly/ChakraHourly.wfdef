@@ -1,20 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Workflows>
-  <Workflow Name="ChakraHourly" PrefixParentName="0" Start="2015-06-05T17:15:00.0000000" RecurrenceUnit="2" RecurrenceAmount="1" Email="drees@microsoft.com;sanyamc@microsoft.com" FolderName="Chakra" Author="sanyamc" MaxParallelExecution="1" TimeOutInMinutes="0">
-    <ConfigBases>
-      <ConfigBase Name="ChakraWatsonHourly" File="ChakraWatsonHourly.script" />
-    </ConfigBases>
-    <Parameters>
-      <Parameter Name="_autoTokenAllocationTimeStamp" Value="7/30/2015 4:07:01 PM" />
-      <Parameter Name="_recurrence" Value="HourlyTracker" />
-      <Parameter Name="_recurrencePriority" Value="1000" />
-      <Parameter Name="_startDate" Value="2015-05-15" />
-      <Parameter Name="_startDateTime" Value="2015-05-15T01:00:00" />
-      <Parameter Name="_tokenAllocation" Value="23" />
-      <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-    </Parameters>
-    <Activities>
-      <Activity Name="WatsonHourlyScript" ConfigBase="ChakraWatsonHourly" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="8" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3" />
-    </Activities>
-  </Workflow>
+  <Workflow Name="ChakraHourly" PrefixParentName="0" Start="2015-06-05T17:15:00.0000000" RecurrenceUnit="2" RecurrenceAmount="1" Email="drees@microsoft.com;sanyamc@microsoft.com" FolderName="Chakra" Author="sanyamc" MaxParallelExecution="1" TimeOutInMinutes="0" />
 </Workflows>

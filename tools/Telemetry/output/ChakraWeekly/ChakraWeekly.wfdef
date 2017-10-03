@@ -1,33 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Workflows>
-  <Workflow Name="ChakraWeekly" PrefixParentName="0" Start="2015-03-27T19:55:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="sanyamc@microsoft.com" SkipRecurrenceWhenStillExecuting="0" FolderName="Chakra" Author="SANYAMC" MaxParallelExecution="1" TimeOutInMinutes="0">
-    <ConfigBases>
-      <ConfigBase Name="ES5Builtins_Weekly_Config" File="ES5Builtins_Weekly_Config.script" />
-      <ConfigBase Name="ES6Builtins_Weekly_Config" File="ES6Builtins_Weekly_Config.script" />
-      <ConfigBase Name="ES6Lang_Weekly_Config" File="ES6Lang_Weekly_Config.script" />
-    </ConfigBases>
-    <Parameters>
-      <Parameter Name="_recurrence" Value="DailyTracker" />
-      <Parameter Name="_startDate" Value="2015-03-02" />
-      <Parameter Name="_tokenAllocation" Value="2" />
-      <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-    </Parameters>
-    <Activities>
-      <Activity Name="ES5_Builtins_Weekly" ConfigBase="ES5Builtins_Weekly_Config" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Parameters>
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="4/29/2015 2:07:27 AM" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ES6_Builtins_Weekly" ConfigBase="ES6Builtins_Weekly_Config" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Parameters>
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="4/29/2015 1:51:18 AM" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ES6_Language_Daily" ConfigBase="ES6Lang_Weekly_Config" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="8" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Parameters>
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="6/1/2015 4:33:35 PM" />
-        </Parameters>
-      </Activity>
-    </Activities>
-  </Workflow>
+  <Workflow Name="ChakraWeekly" PrefixParentName="0" Start="2015-03-27T19:55:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="sanyamc@microsoft.com" SkipRecurrenceWhenStillExecuting="0" FolderName="Chakra" Author="SANYAMC" MaxParallelExecution="1" TimeOutInMinutes="0" />
 </Workflows>
