@@ -1,0 +1,174 @@
+//Script GUID:f1911a3f-6ed0-4487-a309-e4c7475441b0
+//Used for tracking history
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.dll";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.pdb";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.xml";
+
+
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+
+
+
+//----------------------------Fetch Raw Chakra Data for GCPause------------------------------------------------
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE viewDate DateTime = @startDate.AddDays(-2);
+#DECLARE endDate DateTime = @streamDate.AddDays(1); 
+#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+//#DECLARE outputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+
+
+
+// Telemetry Asimov stack  
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
+  
+// Reference the namespaces  
+USING Microsoft.Telemetry.Asimov;  
+USING Microsoft.Telemetry.Asimov.Cosmos;  
+// Reference the Asimov (consumption) module  
+MODULE @"Asimov.module" AS Asimov; 
+
+#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra.GlobalStats.V2"; 
+// Common schema sources  
+
+// Common schema sources  
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
+RESOURCE @schemaFile1;  
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
+RESOURCE @schemaFile2;  
+ 
+
+ 
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
+#DECLARE useExactInputPath bool = false;  
+
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawData = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx = @eventNamesRegEx,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+ 
+
+
+///-----------------------------------------------------------------------------------------------------
+
+
+
+#DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+#DECLARE inputMachineConfigs String   = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs2",@streamDate );
+
+#DECLARE outputAreaChartFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GlobalExec/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GlobalExecArea",@streamDate );
+
+// Pull data from the streams into tables (required to join on them in the main query below)
+deviceIdToMachineConfigIdMap =
+	SELECT
+		DeviceId,
+		MachineConfigId
+	FROM
+		( SSTREAM @DeviceIdToMachineIdMap );
+
+chakraData =
+    SELECT *,
+        A_device_id AS DeviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawData
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+
+domainData =
+	SELECT
+		Chakra.Utils.Filters.ExtractDomain( Domain ) AS Domain,
+		ActivityId
+	FROM
+		( SSTREAM @chakraURLData );
+
+machineConfigInputs = 
+  SELECT *        
+    FROM
+    (
+        SSTREAM  @inputMachineConfigs
+    );
+
+/////////////////////////////////////
+
+globalExecTimesData =
+	SELECT
+		// Group-by keys:
+        @streamDate AS Date,
+		Chakra.Utils.Filters.ExtractAppName(A_appVer) AS ApplicationName,
+		MachineConfigId,
+		domainData.Domain,
+		C_binaryVersion AS BinaryVersion,
+        C_binaryArch AS BinaryArch,
+		// Aggregate data values:
+		MAX( Double.Parse( C_maxGlobalFunctionExecTime, System.Globalization.CultureInfo.InvariantCulture ) ) AS MaxExecutionTime,
+		AVG( Double.Parse( C_maxGlobalFunctionExecTime, System.Globalization.CultureInfo.InvariantCulture) ) AS MeanExecutionTime,
+		STDEV (Double.Parse( C_maxGlobalFunctionExecTime, System.Globalization.CultureInfo.InvariantCulture) ) AS StdDevExecutionTime,
+        COUNT(DISTINCT chakraData.DeviceId) AS NumberOfDevices,
+		COUNT( *) AS SampleSize
+		// NOTE: Should we add Absolute Deviatation numbers too?
+	FROM
+		chakraData
+		INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.DeviceId
+		INNER JOIN domainData                   ON chakraData.ActivityId                 == domainData.ActivityId
+	WHERE
+		C_binaryFlavor!= "CHK"
+        &&
+        C_maxGlobalFunctionExecTime IS NOT NULL 
+	GROUP BY
+		Date,
+		ApplicationName,
+		MachineConfigId,
+		Domain,
+        BinaryArch,
+		BinaryVersion;
+
+
+input = 
+   SELECT COUNTIF(MeanExecutionTime < 30) AS TLessThan30ms,
+           COUNTIF(MeanExecutionTime >=30 AND MeanExecutionTime<60) AS TBetween30n60ms,
+           COUNTIF(MeanExecutionTime >=60 AND MeanExecutionTime<100) AS TBetween60n100ms,
+           COUNTIF(MeanExecutionTime >=100 AND MeanExecutionTime<300) AS TBetween100n300ms,
+           COUNTIF(MeanExecutionTime >=300) AS TGreaterThan300ms,
+          BinaryArch, 
+          MDC1DeviceFamily,
+          ApplicationName,
+          Date,
+          Domain
+   FROM globalExecTimesData AS get
+INNER JOIN machineConfigInputs AS mc ON get.MachineConfigId == mc.MachineConfigId
+WHERE mc.IsVirtualDevice == false AND mc.IsMSFTOwned == false
+GROUP BY Date, Domain, ApplicationName, BinaryArch,MDC1DeviceFamily;
+
+
+//areaChart = PROCESS input USING UnpivotProcessor("-valueCol","Amount","-pivotCol","Series","-in","TLessThan30ms,TBetween30n60ms,TBetween60n100ms,TBetween100n300ms,TGreaterThan300ms");
+
+OUTPUT input
+TO SSTREAM @outputAreaChartFileName CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily, ApplicationName SORTED BY Date, BinaryArch, MDC1DeviceFamily, ApplicationName WITH STREAMEXPIRY "365" ;
+
+
+
+
+
+

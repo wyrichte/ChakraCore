@@ -1,0 +1,193 @@
+//Script GUID:2bb5e660-928a-4292-be8f-c356914eac12
+//Used for tracking history
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.dll";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.pdb";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.xml";
+
+
+#DECLARE from String = "2015-04-01";
+#DECLARE to String = DateTime.UtcNow.ToString("yyyy-MM-dd");
+
+//#DECLARE dailyGCPauseAreaChartFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/GCPauseArea/");
+//#DECLARE dailyGCPauseTopDomainFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/{0}/", "GCPauseTopDomains");
+
+#DECLARE outputAreaChartFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/AreaAggregated.ss");
+//#DECLARE GCPauseOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseData", @streamDate);
+#DECLARE outputTopDomainFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/TopDomainsAggregated.ss");
+
+#DECLARE outputNodeUsage String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/Node/NodeUsageAggregated.ss");
+#DECLARE outputACUsage String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/AboutConfig/AboutConfigAggregated.ss");
+
+#DECLARE outJITAreaChart String =String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/JITTime/AreaAggregated.ss");
+#DECLARE outJITTopDomains String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/JITTime/TopDomainsAggregated.ss");
+
+
+// **************JIT input and aggregated output
+
+
+
+areaJITTimeData = SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/JITTime/JITTimeArea/"
+	PATTERN @"/%Y/%m/JITTimeArea_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+
+topDomainsJIT =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/JITTime/JITTimeTopDomains/"
+	PATTERN @"/%Y/%m/JITTimeTopDomains_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+//topDomainsJITTemp = SELECT Above100msPauses, Date, Domain, TotalJITTimes, TotalNumberOfDevices,PauseAbove100ms,BinaryArch,MDC1DeviceFamily,applicationName,TotalNavigations FROM topDomainsJIT;
+
+
+OUTPUT areaJITTimeData
+TO SSTREAM @outJITAreaChart CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+OUTPUT topDomainsJIT
+TO SSTREAM @outJITTopDomains CLUSTERED BY Date, BinaryArch, Domain SORTED BY Date, BinaryArch, Domain WITH STREAMEXPIRY "365" ;
+
+// **************Memory input and aggregated output
+
+#DECLARE outPAUBAreaChart String =String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/PAUBArea/AreaAggregated.ss");
+#DECLARE outPAUBTopDomains String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/PAUBGrid/TopDomainsAggregated.ss");
+
+areaPAUBData = SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/PAUBArea/"
+	PATTERN @"/%Y/%m/PAUBArea_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+areaPAUBAmountRounded = SELECT  Math.Round((double)Amount,2) AS Amount, Series, MDC1DeviceFamily, BinaryArch, Date, Domain, applicationName FROM areaPAUBData;
+
+
+topDomainsPAUB =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/PAUBGrid/"
+	PATTERN @"/%Y/%m/PAUBGrid_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+topDomainsRounded = SELECT Math.Round((double)MaxUsedMiB,2) AS MaxUsedMiB, Domain,Date,BinaryArch,MDC1DeviceFamily,applicationName,TotalNavigations,TotalUniqueDevices FROM topDomainsPAUB;
+
+OUTPUT areaPAUBAmountRounded
+TO SSTREAM @outPAUBAreaChart  CLUSTERED BY BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+OUTPUT topDomainsRounded
+TO SSTREAM @outPAUBTopDomains CLUSTERED BY BinaryArch, Domain SORTED BY BinaryArch, Domain WITH STREAMEXPIRY "365" ;
+
+
+
+
+
+// ***************** Global Exec Time aggregated Output
+#DECLARE outGlobalExecAreaChart String =String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GlobalExec/AreaAggregated.ss");
+
+areaGlobalExec = SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GlobalExec/GlobalExecArea/"
+	PATTERN @"/%Y/%m/GlobalExecArea_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+OUTPUT areaGlobalExec
+TO SSTREAM @outGlobalExecAreaChart CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+
+// ***************** GC Pause aggregated Output
+
+
+areaGCPauseData = SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/GCPauseArea/"
+	PATTERN @"/%Y/%m/GCPauseArea_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ] USING ColumnProcessor("-rename","(.*)ms:$1","-skipValidation");
+    ;
+
+
+topDomains =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/GCPauseTopDomains/"
+	PATTERN @"/%Y/%m/GCPauseTopDomains_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ] USING ColumnProcessor("-rename","Total(.*)ms:Total$1","-skipValidation");
+
+topDomainsTemp = SELECT Domain,Date,BinaryArch,MDC1DeviceFamily,applicationName,TotalNavigations,TotalGCPauses,Above100msPausePerNavigation AS Above100msPause, TotalNumberOfDevices, PausesAbove100ms FROM topDomains;
+
+OUTPUT areaGCPauseData
+TO SSTREAM @outputAreaChartFileName CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+OUTPUT topDomainsTemp
+TO SSTREAM @outputTopDomainFileName CLUSTERED BY BinaryArch, Domain SORTED BY BinaryArch, Domain WITH STREAMEXPIRY "365" ;
+
+
+//********************* Output input filters to a seperate stream, for shorter iscope time.
+
+#DECLARE outmdc1 String =String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/MDC1DeviceFamily.ss");
+#DECLARE outbinaryArch String =String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/BinaryArch.ss");
+
+
+  OutMDC1DeviceFamily=  SELECT DISTINCT "Any" AS text, "Any" AS value
+              UNION ALL
+              SELECT DISTINCT MDC1DeviceFamily AS text, MDC1DeviceFamily AS value
+              FROM areaGCPauseData;
+
+  OUTBinaryArch =   SELECT DISTINCT "Any" AS text, "Any" AS value
+              UNION ALL
+              SELECT DISTINCT BinaryArch AS text, BinaryArch AS value
+              FROM areaGCPauseData;
+
+OUTPUT OutMDC1DeviceFamily
+TO SSTREAM @outmdc1 WITH STREAMEXPIRY "365" ;
+
+OUTPUT OUTBinaryArch
+TO SSTREAM @outbinaryArch WITH STREAMEXPIRY "365" ;
+
+
+
+// ***************** NodeUsage aggregated Output
+nodeUsage =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/NodeUsage/"
+	PATTERN @"/%Y/%m/NodeUsage_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+nodeUsageUnpvt = PROCESS nodeUsage USING UnpivotProcessor("-valueCol","Amount","-pivotCol","Series","-in","NumberOfInvocations,devicesPerDay");
+
+OUTPUT nodeUsageUnpvt 
+TO SSTREAM @outputNodeUsage CLUSTERED BY MDC1DeviceFamily, applicationName, IsMSFTOwned SORTED BY MDC1DeviceFamily, applicationName, IsMSFTOwned WITH STREAMEXPIRY "365" ;
+
+// ***************** About:Config aggregated Output
+ACUsage =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/AboutConfig/"
+	PATTERN @"/%Y/%m/AboutConfig_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+ACinput = SELECT * FROM ACUsage;
+
+ACUsageUnpvt = PROCESS ACinput USING UnpivotProcessor("-valueCol","Amount","-pivotCol","Series","-in","ExperimentalEnabled,ExperimentalDisabled,ExperimentalNet,AsmjsEnabled,AsmjsDisabled,AsmjsNet");
+
+OUTPUT ACUsageUnpvt 
+TO SSTREAM @outputACUsage CLUSTERED BY Date SORTED BY Date WITH STREAMEXPIRY "365" ;
+
+
+
+//****************** Parser Times aggregated Output
+
+#DECLARE areaChartParser String = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/ParserTimes/AreaAggregated.ss";
+#DECLARE topDomainsParser String = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/ParserTimes/TopDomains.ss";
+
+areaGCPauseData = SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/ParserTimes/ParserArea/"
+	PATTERN @"/%Y/%m/ParserArea_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+
+topDomains =  SSTREAM
+	SPARSE STREAMSET "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/ParserTimes/ParserTopDomains/"
+	PATTERN @"/%Y/%m/ParserTopDomains_%Y_%m_%d.ss"
+	RANGE __date=[ @from, @to ];
+
+OUTPUT areaGCPauseData
+TO SSTREAM @areaChartParser CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+OUTPUT topDomains
+TO SSTREAM @topDomainsParser  CLUSTERED BY BinaryArch, Domain SORTED BY BinaryArch, Domain WITH STREAMEXPIRY "365" ;
+
+
+
+
+
+
+

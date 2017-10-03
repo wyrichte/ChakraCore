@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflows>
+  <Workflow Name="ChakraAggregator" PrefixParentName="0" Start="2015-07-28T06:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" TriggeredByWorkflow="ChakraDaily" TriggeredByActivity="ChakraDomainExtractor" SkipRecurrenceWhenStillExecuting="0" FolderName="Chakra" Author="SANYAMC" MaxParallelExecution="1" TimeOutInMinutes="0">
+    <ConfigBases>
+      <ConfigBase Name="AggregatorConfig" File="AggregatorConfig.script" />
+      <ConfigBase Name="ChakraGCPauseAggregatorConfig" File="ChakraGCPauseAggregatorConfig.script" />
+      <ConfigBase Name="ChakraGlobalExecAggregatorConfig" File="ChakraGlobalExecAggregatorConfig.script" />
+      <ConfigBase Name="ChakraHostTypes" File="ChakraHostTypes.script" />
+      <ConfigBase Name="ChakraJITTimeAggregatorConfig" File="ChakraJITTimeAggregatorConfig.script" />
+      <ConfigBase Name="ChakraNodeUsageCooker" File="ChakraNodeUsageCooker.script" />
+      <ConfigBase Name="ChakraParseTimeCooker" File="ChakraParseTimeCooker.script" />
+      <ConfigBase Name="ChakraPAUBAggregatorConfig" File="ChakraPAUBAggregatorConfig.script" />
+    </ConfigBases>
+    <Parameters>
+      <Parameter Name="_recurrence" Value="DailyTracker" />
+      <Parameter Name="_tokenAllocation" Value="25" />
+      <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
+    </Parameters>
+    <Activities>
+      <Activity Name="ChakraGCPauseAggregator" ConfigBase="ChakraGCPauseAggregatorConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:22:56 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-06-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraGlobalExecAggregator" ConfigBase="ChakraGlobalExecAggregatorConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:23:01 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-04-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraHostType" ConfigBase="ChakraHostTypes" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:23:05 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-06-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraJITTimeAggregator" ConfigBase="ChakraJITTimeAggregatorConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:23:04 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-04-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraNodeUsage" ConfigBase="ChakraNodeUsageCooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:22:56 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-04-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraParseTimeAggregator" ConfigBase="ChakraParseTimeCooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="7" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:23:05 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-06-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraPAUBAggregator" ConfigBase="ChakraPAUBAggregatorConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:22:58 PM" />
+          <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
+          <Parameter Name="_startDate" Value="2015-04-01" />
+        </Parameters>
+      </Activity>
+      <Activity Name="AggregatedStreams" ConfigBase="AggregatorConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraGCPauseAggregator" />
+          <Dependency Name="ChakraGlobalExecAggregator" />
+          <Dependency Name="ChakraJITTimeAggregator" />
+          <Dependency Name="ChakraNodeUsage" />
+          <Dependency Name="ChakraPAUBAggregator" />
+        </Dependencies>
+        <Parameters>
+          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:22:55 PM" />
+          <Parameter Name="_startDate" Value="2015-05-17" />
+        </Parameters>
+      </Activity>
+    </Activities>
+  </Workflow>
+</Workflows>

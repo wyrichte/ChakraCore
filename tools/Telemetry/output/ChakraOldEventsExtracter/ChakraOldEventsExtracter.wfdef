@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflows>
+  <Workflow Name="ChakraOldEventsExtracter" PrefixParentName="0" Start="2015-01-28T08:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="arjunb@microsoft.com" SkipRecurrenceWhenStillExecuting="0" FolderName="Chakra" Tags="chakra" Author="ARJUNB" MaxParallelExecution="1" TimeOutInMinutes="0">
+    <ConfigBases>
+      <ConfigBase Name="ChakraOldEventsCfg" File="ChakraOldEventsCfg.script" />
+      <ConfigBase Name="ChakraOldGCPauseAggregator" File="ChakraOldGCPauseAggregator.script" />
+      <ConfigBase Name="ChakraOldGCPauseMachineConfig" File="ChakraOldGCPauseMachineConfig.script" />
+      <ConfigBase Name="ChakraOldGCPauseReporter" File="ChakraOldGCPauseReporter.script" />
+      <ConfigBase Name="ChakraOldTotalUsageActivity" File="ChakraOldTotalUsageActivity.script" />
+      <ConfigBase Name="ChakraOldTotalUsageReporter" File="ChakraOldTotalUsageReporter.script" />
+    </ConfigBases>
+    <Activities>
+      <Activity Name="ChakraOldEventsActivity" ConfigBase="ChakraOldEventsCfg" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2015-01-22" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldCookedChakraTelemetry/Tracker/" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraOldGCPauseMachineConfig" ConfigBase="ChakraOldGCPauseMachineConfig" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraOldEventsActivity" />
+        </Dependencies>
+        <Parameters>
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2015-01-22" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldCookedChakraTelemetry/TrackerGC/" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraOldTotalUsageActivity" ConfigBase="ChakraOldTotalUsageActivity" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraOldEventsActivity" />
+        </Dependencies>
+        <Parameters>
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2015-01-22" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldTotalUsage/Tracker/" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraOldTotalUsageReporter" ConfigBase="ChakraOldTotalUsageReporter" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraOldTotalUsageActivity" />
+        </Dependencies>
+      </Activity>
+      <Activity Name="ChakraOldGCPauseAggregator" ConfigBase="ChakraOldGCPauseAggregator" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraOldGCPauseMachineConfig" />
+        </Dependencies>
+        <Parameters>
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2015-01-22" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldCookedChakraTelemetry/TrackerGCReporter/" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraOldGCPauseReporter" ConfigBase="ChakraOldGCPauseReporter" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraOldGCPauseAggregator" />
+        </Dependencies>
+      </Activity>
+    </Activities>
+  </Workflow>
+</Workflows>

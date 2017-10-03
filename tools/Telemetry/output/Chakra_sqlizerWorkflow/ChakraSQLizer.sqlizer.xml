@@ -1,0 +1,22 @@
+<manifest version="1.0" cosmosVcRoot="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.Jobs/" numberOfParallelStreams="25">
+  <dataMarts>
+    <dataMart name ="@@Database@@">
+      <connection>
+        <sql connectionString="Data Source=@@ServerName@@;Initial Catalog=@@Database@@;Integrated Security=SSPI;Connection Timeout=60;Asynchronous Processing=true;" 
+
+        batchSize="100000"/>
+              </connection>
+        <entities>
+        <entity name="@@TableName@@" version="1.0" dynamicSchemaUpgrade="true" startDate="@@startDate@@" >
+            <cosmos downloadType="StructuredStream" streamSetLocation="@@StreamSetLocation@@">
+            </cosmos>
+            <table name="dbo.@@TableName@@" includeStreamDateColumn="true">           
+            <partitionScheme partitionSchemeType="Daily" columnName="SQLizerStreamDateId"/>
+             @@Indexes@@
+            </table>
+            <load loadType="DateAligned"/>
+        </entity>
+        </entities>
+    </dataMart>
+    </dataMarts>
+</manifest>

@@ -1,0 +1,216 @@
+ //Script GUID:eec3197f-3d26-4a43-843c-36290345115f
+
+//   DailyTracker
+//   2015-04-01
+//   /shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/
+//   @@_endDate@@
+
+//Script GUID:644413f4-704e-4703-865d-bad1b10855a4
+//Used for tracking history
+
+
+// Goal of this script is to have streams output for our charts for summary dashboard.
+
+// 1. Non-MSFT , Non-VM devices for a month.
+
+//----------------------------Fetch Raw Chakra Data for GCPause------------------------------------------------
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE viewDate DateTime = @startDate.AddDays(-2);
+#DECLARE endDate DateTime = @streamDate.AddDays(1); 
+#DECLARE streamSetPath string = string.Format(@"/shares/asimov.prod.data/Public/Collection/Asimov/Cll/Low/v2/?date={0}...{1}&hour=all&sparsestreamset=true", @streamDate.ToString("yyyy-MM-dd"), @streamDate.ToString("yyyy-MM-dd"));
+//#DECLARE outputPath string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "CookedChakraTelemetry", @streamDate);
+
+
+
+// Telemetry Asimov stack  
+REFERENCE @"Microsoft.Telemetry.AsimovInterface.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovModuleCosmos.dll"; 
+REFERENCE @"Microsoft.Telemetry.AsimovCosmosExtensions.dll"; 
+  
+// Reference the namespaces  
+USING Microsoft.Telemetry.Asimov;  
+USING Microsoft.Telemetry.Asimov.Cosmos;  
+// Reference the Asimov (consumption) module  
+MODULE @"Asimov.module" AS Asimov; 
+
+#DECLARE eventNamesRegEx string = @"Microsoft.Web.Platform.Chakra.GCPauseStats.V2"; 
+// Common schema sources  
+
+// Common schema sources  
+#DECLARE schemaFile1 string = @"ext-schemas-part-a-cll-v2.xml";  
+RESOURCE @schemaFile1;  
+#DECLARE schemaFile2 string =  @"all-schema-cooking-cll-v2.xml";  
+RESOURCE @schemaFile2;  
+ 
+
+ 
+#DECLARE schemaFiles string = String.Join(",", @schemaFile1, @schemaFile2);  
+#DECLARE inputPath string = "/shares/asimov.prod.data/Public/Collection/Asimov/Cll"; //old path 
+#DECLARE useExactInputPath bool = false;  
+
+
+// Pull the event data 
+[MAXBYTESPERSSSEXTRACTCOMBINEVERTEX=64000000000] 
+rawData = Asimov.AsimovEventView ( 
+    startDate = @streamDate,
+    endDate = @endDate, 
+  
+    inputPath = @inputPath,  
+    useExactInputPath = @useExactInputPath,  
+ 
+    eventNamesRegEx = @eventNamesRegEx,  
+    schemaFiles = @schemaFiles,
+    // 
+    // Keep all PartA fields; alternatively a list of fields can be specified.  
+    // For example - "name, time, deviceId". Note that "*" is the default  
+    // value for this parameter, but we are including here for demo purposes.  
+    // 
+    partAToKeep = "*" 
+    ); 
+ 
+
+
+///-----------------------------------------------------------------------------------------------------
+
+
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.dll";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.pdb";
+RESOURCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Relevance.ScopeLib.xml";
+
+#DECLARE rootDir string = @"/shares/asimov.prod.data";
+#DECLARE deviceCensusDate DateTime = @startDate.AddDays(-2);
+
+
+
+#IF(LOCAL)
+#DECLARE chakraURLData string =@"C:\Users\sanyamc\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\Microsoft\ScopeStudio\1.8.0000.2\CosmosRuntimeSDK\users\sanyamc\processed\data\reporting\Domains\2015\01\Domains_2015_01_26.ss";
+#ELSE
+    #DECLARE chakraURLData string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+//#DECLARE chakraURLData string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#ENDIF
+
+
+     #DECLARE DeviceIdToMachineIdMap string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2", @streamDate);
+     #DECLARE inputMachineConfigs String   = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "MachineConfigs2",@streamDate );
+//#DECLARE DeviceIdToMachineIdMap string = string.Format(@"/users/sanyamc/processed/data/reporting/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId", @streamDate);
+
+//#DECLARE GCPauseOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseData", @streamDate);
+
+
+#DECLARE outputAreaChartFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseArea",@streamDate );
+//#DECLARE GCPauseOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseData", @streamDate);
+#DECLARE outputTopDomainFileName String = String.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Aggregator/GCPause/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "GCPauseTopDomains",@streamDate);
+
+
+//
+// Getting data from DeviceIdToMachineConfigID Map DeviceId -> MachineConfigId
+//
+deviceIdToMachineConfigIdMap =
+    SELECT *
+    FROM
+    (
+        SSTREAM @DeviceIdToMachineIdMap
+    );
+
+chakraData =
+    SELECT *,
+        A_device_id AS deviceId,
+        C_activityId AS ActivityId
+    FROM
+    rawData
+    WHERE A_ext IS NOT NULL AND C_activityId!=Guid.Empty.ToString() AND C_activityId IS NOT NULL;
+
+// Select the URL data from Chakra URL data stream
+
+chakraUrlData =
+    SELECT *        
+    FROM
+    (
+        SSTREAM @chakraURLData
+    )
+WHERE Domain != "" AND Domain IS NOT NULL;
+machineConfigInputs = 
+  SELECT *        
+    FROM
+    (
+        SSTREAM  @inputMachineConfigs
+    );
+
+
+
+gcPauseInputs =
+    SELECT 
+          @streamDate AS Date,
+           MachineConfigId,
+           Chakra.Utils.Filters.ExtractDomain( chakraUrlData.Domain ) AS Domain,
+           C_binaryVersion AS BinaryVersion,
+           C_binaryArch AS BinaryArch,
+           SUM(UInt32.Parse(C_lessThan3ms)) AS TotalLessThan3ms,
+           SUM(UInt32.Parse(C_within3And7ms)) AS TotalWithin3And7ms,
+           SUM(UInt32.Parse(C_within7And10ms)) AS TotalWithin7And10ms,
+           SUM(UInt32.Parse(C_within10And20ms)) AS TotalWithin10And20ms,
+           SUM(UInt32.Parse(C_within20And50ms)) AS TotalWithin20And50ms,
+          // SUM(UInt32.Parse(C_greaterThan50ms)) AS TotalGreaterThan50ms, // keeping for historical purposes.
+           SUM(UInt32.Parse(C_within50And100ms)) AS TotalWithin50And100ms,
+           SUM(UInt32.Parse(C_within100And300ms)) AS TotalWithin100And300ms,
+           SUM(UInt32.Parse(C_greaterThan300ms)) AS TotalGreaterThan300ms,
+           COUNT(*) AS TotalNumberRecords,
+           COUNT(DISTINCT deviceId) AS NumberOfDevices,
+           Chakra.Utils.Filters.ExtractAppName(A_appVer) AS applicationName
+    FROM chakraData
+    INNER JOIN deviceIdToMachineConfigIdMap
+    ON
+    deviceIdToMachineConfigIdMap.DeviceId == deviceId
+    LEFT OUTER JOIN chakraUrlData
+    ON
+    chakraData.ActivityId == chakraUrlData.ActivityId
+    WHERE chakraUrlData.Domain IS NOT NULL && C_binaryFlavor != "CHK" && C_lessThan3ms IS NOT NULL && C_within3And7ms IS NOT NULL && C_within7And10ms IS NOT NULL && C_within10And20ms IS NOT NULL && C_within20And50ms IS NOT NULL && C_greaterThan50ms IS NOT NULL  && C_within50And100ms IS NOT NULL&& C_within100And300ms IS NOT NULL && C_greaterThan300ms IS NOT NULL
+    GROUP BY applicationName,
+             MachineConfigId,
+             Domain,
+             BinaryVersion,
+             BinaryArch,
+             Date;
+
+
+areaChart =
+SELECT SUM(TotalLessThan3ms) AS TotalLessThan3ms, SUM(TotalWithin3And7ms) AS Total3n7ms, SUM(TotalWithin7And10ms) AS Total7n10ms, SUM(TotalWithin10And20ms) AS Total10n20ms, SUM(TotalWithin20And50ms) AS Total20n50ms, SUM(TotalWithin50And100ms) AS Total50n100ms, SUM(TotalWithin100And300ms) AS Total100n300ms, SUM(TotalGreaterThan300ms) AS TotalGreaterThan300ms,
+Domain,
+applicationName,
+Date,
+BinaryArch,
+MDC1DeviceFamily
+FROM gcPauseInputs AS gcp
+INNER JOIN machineConfigInputs AS mc ON gcp.MachineConfigId == mc.MachineConfigId
+WHERE mc.IsVirtualDevice == false AND mc.IsMSFTOwned == false AND mc.IsTestLab == false
+GROUP BY Date, Domain, applicationName, BinaryArch,MDC1DeviceFamily;
+
+
+topDomains = 
+  SELECT Domain,
+   Date,
+  SUM(NumberOfDevices) AS TotalNumberOfDevices, 
+ SUM(TotalGreaterThan300ms)+ SUM(TotalWithin100And300ms) AS PausesAbove100ms,
+  (SUM(TotalLessThan3ms)+ SUM(TotalWithin3And7ms)+ SUM(TotalWithin7And10ms)+SUM(TotalWithin10And20ms)+SUM(TotalWithin20And50ms)+SUM(TotalWithin50And100ms)+SUM(TotalWithin100And300ms)+SUM(TotalGreaterThan300ms)) AS TotalGCPauses,
+  SUM(TotalNumberRecords) AS TotalNavigations,
+  SUM(TotalGreaterThan300ms)+ SUM(TotalWithin100And300ms) AS Above100msPausePerNavigation,
+BinaryArch,
+MDC1DeviceFamily,
+applicationName
+FROM gcPauseInputs AS gcp
+INNER JOIN machineConfigInputs AS mc ON gcp.MachineConfigId == mc.MachineConfigId
+WHERE mc.IsVirtualDevice == false AND mc.IsMSFTOwned == false AND mc.IsTestLab == false
+AND (TotalLessThan3ms > 0 || TotalWithin3And7ms > 0 || TotalWithin7And10ms > 0 || TotalWithin10And20ms > 0 || TotalWithin20And50ms > 0 || TotalWithin50And100ms > 0 || TotalWithin100And300ms > 0 || TotalGreaterThan300ms > 0)
+HAVING TotalNavigations > 20 AND  TotalNumberOfDevices>5
+GROUP BY Domain, Date, applicationName, BinaryArch,MDC1DeviceFamily;
+
+ 
+
+
+OUTPUT areaChart
+TO SSTREAM @outputAreaChartFileName CLUSTERED BY Date, BinaryArch, MDC1DeviceFamily SORTED BY Date, BinaryArch, MDC1DeviceFamily WITH STREAMEXPIRY "365" ;
+
+OUTPUT topDomains
+TO SSTREAM @outputTopDomainFileName CLUSTERED BY Date, BinaryArch, Domain SORTED BY Date, BinaryArch, Domain WITH STREAMEXPIRY "365" ;

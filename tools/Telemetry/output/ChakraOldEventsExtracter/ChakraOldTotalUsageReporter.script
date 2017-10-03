@@ -1,0 +1,23 @@
+
+//
+// This script aggregates the "TotalUsage" tables into a single table that can be exported to CSV.
+// The function of this script could easily be replaced by SQLizer (which can read streamsets).
+//
+
+//
+// The dates are a little weird here.  "StartDate" is the date the script began running.  We should fix this.
+//
+#DECLARE startDate string = DateTime.Parse("@@startDate@@").AddDays(-1).ToString("yyyy-MM-dd");
+#DECLARE streamStartDate string = DateTime.Parse("2015-01-21").ToString("yyyy-MM-dd");
+#DECLARE streamPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldTotalUsage");
+#DECLARE outPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/OldTotalUsage/OldTotalUsageRollup.ss");
+
+data = SELECT   __date AS Date, 
+                *
+       FROM (
+            SSTREAM SPARSE STREAMSET @streamPath
+            PATTERN @"/%Y/%m/OldTotalUsage_%Y_%m_%d.ss"
+            RANGE __date=[@streamStartDate,@startDate]
+       );
+
+OUTPUT data TO SSTREAM @outPath WITH STREAMEXPIRY "365";

@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflows>
+  <Workflow Name="Chakra_sqlizerWorkflow" PrefixParentName="0" Start="2015-02-05T22:30:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="ieei@microsoft.com" FolderName="Chakra" Author="SANYAMC" MaxParallelExecution="1" TimeOutInMinutes="0">
+    <ConfigBases>
+      <ConfigBase Name="ChakraSQLizer" File="ChakraSQLizer.sqlizer.xml" />
+    </ConfigBases>
+    <Activities>
+      <Activity Name="ChakraApplicationCountsSQLizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Validation/ApplicationCount/" />
+          <Parameter Name="TableName" Value="ApplicationCounts" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraDeviceIdToMachineId" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/DeviceIdToMachineId/" />
+          <Parameter Name="TableName" Value="DeviceIdToMachineId" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraDomains" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Domains/" />
+          <Parameter Name="TableName" Value="Domains" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES5BuiltinsData" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-07-01" />
+          <Parameter Name="StreamSetLocation" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES5BuiltinsData/" />
+          <Parameter Name="TableName" Value="ES5BuiltinsData" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES5BuiltinsSummaryDaily" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/asimov.partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES5BuiltinsDataSummary/" />
+          <Parameter Name="TableName" Value="ES5BuiltinsDataSummary" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES5BuiltinsSummaryMonthly" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES5BuiltinsSummary_Monthly/" />
+          <Parameter Name="TableName" Value="ES5BuiltinsSummary_Monthly" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES6BuiltinsData" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-07-01" />
+          <Parameter Name="StreamSetLocation" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6BuiltinsData/" />
+          <Parameter Name="TableName" Value="ES6BuiltinsData" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES6BuiltinsSummaryDaily" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/asimov.partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6BuiltinsDataSummary/" />
+          <Parameter Name="TableName" Value="ES65BuiltinsDataSummary" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES6BuiltinsSummaryMonthly" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6BuiltinsSummary_Monthly/" />
+          <Parameter Name="TableName" Value="ES6BuiltinsSummary_Monthly" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES6LanguageData" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-07-01" />
+          <Parameter Name="StreamSetLocation" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6LanguageData/" />
+          <Parameter Name="TableName" Value="ES6LanguageData" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraES6LanguageSummary_monthly" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value=" &lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6LanguageSummary_Monthly/" />
+          <Parameter Name="TableName" Value="dbo.ES6LanguageSummary_Monthly" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraEventsWithoutDeviceDetails" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ChakraEventsWithoutDeviceDetails/" />
+          <Parameter Name="TableName" Value="ChakraEventsWithoutDeviceDetails" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraGCPauses" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="       &lt;indexes&gt;    &lt;index name=&quot;NonClustered_Date_WithCounts&quot; type=&quot;NonClustered&quot;&gt;&lt;column name=&quot;MachineConfigId&quot; order=&quot;1&quot; /&gt;&lt;column name=&quot;Date&quot; order=&quot;2&quot; /&gt;         &lt;/index&gt;            &lt;index name=&quot;Clustered_Date_MachineConfigId&quot; type=&quot;Clustered&quot;&gt;            &lt;column name=&quot;Date&quot; order=&quot;1&quot; /&gt;            &lt;column name=&quot;MachineConfigId&quot; order=&quot;2&quot; /&gt;            &lt;/index&gt; &lt;/indexes&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/GCPauseData/" />
+          <Parameter Name="TableName" Value="GCPauseData" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraGlobalExecSqlizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="           &lt;indexes&gt;            &lt;index name=&quot;IX_Date&quot; type=&quot;NonClustered&quot;&gt;            &lt;column name=&quot;Date&quot; order=&quot;1&quot; /&gt;            &lt;/index&gt;            &lt;index name=&quot;IX_MachineConfigId_Incl_MeanExecutionTime_SampleSize&quot; type=&quot;NonClustered&quot;&gt;            &lt;column name=&quot;Date&quot; order=&quot;1&quot; /&gt;            &lt;column name=&quot;MachineConfigId&quot; order=&quot;2&quot; /&gt;            &lt;/index&gt;            &lt;/indexes&gt; " />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/GlobalExecTimes/" />
+          <Parameter Name="TableName" Value="GlobalExecData" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraJITTimeSQLizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/JITTimeData/" />
+          <Parameter Name="TableName" Value="JITTime" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraLeakedScriptCtxtSqlizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="    &lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="Chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/LeakedScriptCtxtData/" />
+          <Parameter Name="TableName" Value="LeakedScriptCtxt" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraMachineConfigs" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/MachineConfigs/" />
+          <Parameter Name="TableName" Value="MachineConfigs" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraMissingEventsSQLizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="           &lt;indexes&gt;            &lt;index name=&quot;NonClustered_Date_MissingEvents&quot; type=&quot;NonClustered&quot;&gt;            &lt;column name=&quot;Date&quot; order=&quot;1&quot; /&gt;            &lt;/index&gt;            &lt;index name=&quot;NonClustered_Date_WithBadActivityId&quot; type=&quot;NonClustered&quot;&gt;            &lt;column name=&quot;Date&quot; order=&quot;1&quot; /&gt;            &lt;/index&gt;            &lt;/indexes&gt; " />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Validation/MissingEvents/" />
+          <Parameter Name="TableName" Value="MissingEvents" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraParserTimeSqlizer" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-24" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ParserTimes/" />
+          <Parameter Name="TableName" Value="ParseTimes" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakraPAUBSqlize" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="Sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-01-25" />
+          <Parameter Name="StreamSetLocation" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/PAUBData/" />
+          <Parameter Name="TableName" Value="PAUBdata" />
+        </Parameters>
+      </Activity>
+      <Activity Name="ChakrES6LanguageSummary" ConfigBase="ChakraSQLizer" Class="Microsoft.Xbox.SQLizer.XFlow.SQLizerActivityV2" MaxRetries="3" Enabled="0" AllowedResources="chakra-sh" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="Database" Value="sanyam1" />
+          <Parameter Name="Indexes" Value="&lt;!-- Replacing Indexes Param with an XML comment--&gt;" />
+          <Parameter Name="ServerName" Value="chakra-sh" />
+          <Parameter Name="startDate" Value="2015-03-01" />
+          <Parameter Name="StreamSetLocation" Value="https://cosmos11.osdinfra.net/cosmos/Asimov.Partner.osg/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/ES6LanguageDataSummary/" />
+          <Parameter Name="TableName" Value="ES6LanguageSummary" />
+        </Parameters>
+      </Activity>
+    </Activities>
+  </Workflow>
+</Workflows>

@@ -1,0 +1,33 @@
+//Script GUID:6aaf8464-9b91-46e0-85b0-2f76845db971
+//Used for tracking history
+// Recurrent Scope Variables:
+//   @@_recurrence@@
+//   @@_startDate@@
+//   @@_trackerFolder@@
+//   @@_endDate@@
+
+#DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
+#DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
+#DECLARE gcPauseDataStream string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "OldGCPauseData", @streamDate);
+#DECLARE machineConfigStream string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "OldMachineConfigs", @streamDate);
+#DECLARE outputPath string = string.Format("/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_Report_{1:yyyy}_{1:MM}_{1:dd}.ss", "OldGCPauseData", @streamDate);
+
+gcPauseData = SSTREAM @gcPauseDataStream;
+machineConfigs = SSTREAM @machineConfigStream;
+
+data =
+    SELECT
+        Date,
+        machineConfigs.OSArchitecture AS OSArchitecture,
+           1.0 * SUM(TotalLessThan3ms) AS TotalLessThan3ms,
+           1.0 * SUM(TotalWithin3And7ms) AS TotalWithin3And7ms,
+           1.0 * SUM(TotalWithin7And10ms) AS TotalWithin7And10ms,
+           1.0 * SUM(TotalWithin10And20ms) AS TotalWithin10And20ms,
+           1.0 * SUM(TotalWithin20And50ms) AS TotalWithin20And50ms,
+           1.0 * SUM(TotalGreaterThan50ms) AS TotalGreaterThan50ms
+    FROM gcPauseData
+    INNER JOIN machineConfigs ON gcPauseData.MachineConfigId == machineConfigs.MachineConfigId
+    GROUP BY OSArchitecture, Date;
+
+OUTPUT data
+TO SSTREAM @outputPath  WITH STREAMEXPIRY "30";
