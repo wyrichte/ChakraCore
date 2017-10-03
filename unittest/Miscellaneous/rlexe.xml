@@ -11,7 +11,7 @@
     <default>
       <files>DebugGetArrayType.js</files>
       <baseline>DebugGetArrayType.baseline</baseline>
-      <tags>exclude_fre,exclude_dynapogo</tags>
+      <tags>exclude_fre,exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
