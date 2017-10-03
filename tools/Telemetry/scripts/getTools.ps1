@@ -30,7 +30,8 @@ if (! (Test-Path "${scriptLoc}..\tools\Nuget\") ) {
 
 pushd "${scriptLoc}..\tools\Nuget"
 $p = .\nuget.exe Sources list | select-string "https://microsoft.pkgs.visualstudio.com/_packaging/Universal.Store/nuget/v3/index.json"
-if (${p} -eq "") {
-  .\nuget.exe sources Add -Name "Universal.Store" -Source "https://microsoft.pkgs.visualstudio.com/_packaging/Universal.Store/nuget/v3/index.json"
+if ([string]::IsNullOrEmpty($p)) {
+    .\nuget.exe sources Add -Name "Universal.Store" -Source "https://microsoft.pkgs.visualstudio.com/_packaging/Universal.Store/nuget/v3/index.json"
 }
 .\nuget.exe install -Source "Universal.Store" -Source "Nuget.org" -OutputDirectory ..\ XflowConfig -version 3.0.1703.30004
+popd
