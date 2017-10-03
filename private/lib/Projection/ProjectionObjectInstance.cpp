@@ -280,7 +280,6 @@ namespace Projection
 
             BEGIN_LEAVE_SCRIPT(scriptContext)
             {
-                MarkerForExternalDebugStep();
                 hr = instance->stringable->ToString(&hstring);
             }
             END_LEAVE_SCRIPT(scriptContext)

@@ -179,7 +179,6 @@ namespace Projection
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            MarkerForExternalDebugStep();
             hr = pfnAddEventListener(inspectable, eventHandler, &eventCookie);
 
             if (!isDefaultInterface)
@@ -286,7 +285,6 @@ namespace Projection
 
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
 
-        MarkerForExternalDebugStep();
         hr = pfnRemoveListener(inspectable, eventCookie);
         if (!isDefaultInterface && (fReleaseInspectableOnSuccess || FAILED(hr)))
         {

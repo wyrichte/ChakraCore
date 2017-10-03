@@ -7,7 +7,6 @@ ENTRY(ThreadContext::globalListFirst, ThreadContextList)
 ENTRY(ThreadContextTLSEntry::s_tlsSlot, TlsSlot)
 ENTRY(AutoSystemInfo::Data.dllLoadAddress, DllBaseAddress)
 ENTRY(AutoSystemInfo::Data.dllHighAddress, DllHighAddress)
-ENTRY(MarkerForExternalDebugStep, ExternalStepAddress)
 
 #ifdef _M_AMD64
 ENTRY(amd64_ReturnFromCallWithFakeFrame, Amd64FakeEHFrameProcOffset)
