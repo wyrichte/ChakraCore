@@ -117,7 +117,7 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent Condition="'$(BuildingWithBuildExe)'!='true'">
-      <Command Condition="'$(Configuration)'!='Release'">"$(ProjectDir)postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)"</Command>
+      <Command Condition="'$(Configuration)'!='Release'">"$(ProjectDir)postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)" "$(ARMRemoteShare)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <!-- sign instruction -->

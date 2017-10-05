@@ -121,6 +121,9 @@
     <ImpLib>
       <AdditionalDependencies>$(ChakraLibs);%(AdditionalDependencies)</AdditionalDependencies>
     </ImpLib>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">"$(ProjectDir)..\jshost\postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)" "$(ARMRemoteShare)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
   <ItemGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(TargetName)'=='Chakra'">
