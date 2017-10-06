@@ -1,0 +1,11 @@
+<html>
+<head></head>
+<body>
+<form name=testform>
+    <input type=BUTTON name=BUTTON1 value=BUTTON1 accessKey=A onclick="return 'BUTTON1' != BUTTON1.name ? 'FAIL' : 'PASS'"/>
+</form>
+<script>
+    WScript.Echo(document.forms[0].BUTTON1.onclick())
+</script>
+</body>
+</html>

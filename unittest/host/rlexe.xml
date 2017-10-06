@@ -51,4 +51,9 @@
       <files>HTMLCommentSuffix.html</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>EventHandlerWithImplicitThis.html</files>
+    </default>
+  </test>
 </regress-exe>
