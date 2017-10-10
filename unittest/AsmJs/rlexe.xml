@@ -447,6 +447,14 @@
   </test>
   <test>
     <default>
+      <files>msrc40370.js</files>
+      <!-- Add -EnableFatalErrorOnOOM- in unreleased/rs4 -->
+      <!-- Remove -ArrayBufferTransfer in master and change ArrayBuffer.transfer to ArrayBuffer.detach in test file-->
+      <compile-flags>-ArrayBufferTransfer</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>testBasic.js</files>
       <baseline>testBasic.baseline</baseline>
       <tags>exclude_amd64</tags>
