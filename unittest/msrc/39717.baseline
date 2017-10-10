@@ -1,0 +1,5 @@
+*** Running test #1 (0): Use of new.target in coroutines called through Proxy
+PASSED
+*** Running test #2 (1): Use of new.target in regular functions that are called through Proxy
+PASSED
+Summary of tests: total executed: 2; passed: 2; failed: 0

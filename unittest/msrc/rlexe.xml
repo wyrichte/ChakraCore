@@ -1,3 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+  <test>
+    <default>
+      <files>40038.js</files>
+      <compile-flags>-mic:1 -MaxSimpleJITRunCount:3 -force:FieldCopyProp</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>39717.js</files>
+      <baseline>39717.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40166.js</files>
+      <compile-flags>-PageHeap:2 -force:deferparse</compile-flags>
+    </default>
+  </test>
 </regress-exe>
