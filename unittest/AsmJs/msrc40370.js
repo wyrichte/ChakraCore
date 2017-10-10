@@ -1,6 +1,5 @@
 function detach(heap) {
-  // TODO:: Change this to ArrayBuffer.detach in master branch
-  ArrayBuffer.transfer(heap);
+  ArrayBuffer.detach(heap);
 }
 function trytest(fn) {
   try {
