@@ -22,11 +22,13 @@ class RemoteThreadContext;
     MACRO(SmallFinalizableBlockType) \
     MACRO(SmallNormalBlockWithBarrierType) \
     MACRO(SmallFinalizableBlockWithBarrierType) \
+    MACRO(SmallRecyclerVisitedHostBlockType) \
     MACRO(MediumNormalBlockType) \
     MACRO(MediumLeafBlockType) \
     MACRO(MediumFinalizableBlockType) \
     MACRO(MediumNormalBlockWithBarrierType) \
     MACRO(MediumFinalizableBlockWithBarrierType) \
+    MACRO(MediumRecyclerVisitedHostBlockType) \
     MACRO(LargeBlockType) \
 
 //    MACRO(SmallBlockTypeCount) \

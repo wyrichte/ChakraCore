@@ -8,6 +8,7 @@ DIRS = \
     SCA \
     SCALookup  \
     MemProtectHeap \
+    RecyclerHeap \
     StaticLib  \
     WinRT      \
     HostCommon \

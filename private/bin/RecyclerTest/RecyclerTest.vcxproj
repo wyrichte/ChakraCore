@@ -1,14 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
+    <ProjectName>RecyclerTest</ProjectName>
     <ProjectGuid>{94E22D67-70E5-468F-A62C-9D657B1D170F}</ProjectGuid>
     <RootNamespace>Js</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <UseStl>true</UseStl>
+    <StlVersion>70</StlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -16,29 +19,31 @@
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\sdk\inc\crt\stl70</IncludePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(BuildRazzleDependencies)'!='true'">
-    <Link>      
-      <AdditionalDependencies>ieshare_iedevtools_host_iel1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..;..\..\Lib\Common;$(IntDir)..\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+          $(PUBLIC_ROOT)\sdk\inc\crt\stl70;
+          $(IntDir);
+          $(ChakraRootDirectory)core\lib\Common;
+          $(ChakraRootDirectory)core\lib\Common\Core;
+
+          %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Memory.lib;muiload.lib;psapi.lib;shlwapi.lib;atl.lib;atlthunk.lib;ntstc_msvcrt.lib;CommonUtilityLibrary.lib;dbghelp.lib;version.lib;jitprofiling.lib;advapi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+        $(ChakraCommonMemoryLib);
+        $(ChakraRuntimePlatformAgnostic);
+        $(ChakraCommonLinkDependencies);
+        $(SdkLibPath)\kernel32.lib; <!-- For CreateWaitableTimer -->
+        %(AdditionalDependencies);
+      </AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(OptimizedBuild)'=='true'">
-    <ClCompile>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>    
-    </ClCompile>
-  </ItemDefinitionGroup>  
   <ItemGroup>
     <ClCompile Include="harness.cpp" />
     <ClCompile Include="list.cpp" />
@@ -57,6 +62,29 @@
     <ClInclude Include="tests.h" />
     <ClInclude Include="tracker.h" />
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\core\lib\Common\Common\Chakra.Common.Common.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\lib\Common\Core\Chakra.Common.Core.vcxproj">
+      <Project>{cc4153ff-ac3e-4734-b562-cc23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\lib\Common\DataStructures\Chakra.Common.DataStructures.vcxproj">
+      <Project>{5643d42a-c38d-4d82-9662-58470b3ac9f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\lib\Common\Exceptions\Chakra.Common.Exceptions.vcxproj">
+      <Project>{fd8eec40-4141-448a-bf4b-1589fbe4f60d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\lib\Common\Memory\Chakra.Common.Memory.vcxproj">
+      <Project>{bb4153ff-ac3e-4734-b562-ff23812df31b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\core\lib\Runtime\PlatformAgnostic\Chakra.Runtime.PlatformAgnostic.vcxproj">
+      <Project>{129ac184-877c-441f-ac49-a692ce700e62}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\publish\Publish.vcxproj">
+      <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

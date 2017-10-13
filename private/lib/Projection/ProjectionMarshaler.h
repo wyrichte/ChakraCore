@@ -118,7 +118,7 @@ namespace Projection
         ~DelegateThis()
         {   }
 
-        void Dispose(bool isShutdown) override 
+        void Dispose(bool isShutdown) override
         {
             if (_this  && !isShutdown)
             {
@@ -150,7 +150,7 @@ namespace Projection
         { 
         }
 
-        void Dispose(bool isShutdown) override 
+        void Dispose(bool isShutdown) override
         {
             if (factory && !isShutdown)
             {

@@ -35,7 +35,7 @@ void TestWeakReferences(Recycler *recycler, ArenaAllocator *alloc, TestContext *
 void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx);
 void TestNor(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
 void TestMem(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
-
 #ifdef RECYCLER_PAGE_HEAP
 void TestPageHeapAlloc(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
 #endif
+void TestRecyclerVisitedObjects(Recycler*, ArenaAllocator* alloc, TestContext *ctx);

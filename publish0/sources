@@ -6,6 +6,9 @@ INCLUDES=$(INCLUDES);$(COREINCLUDES);$(SDK_LIB_PATH);$(SDK_INC_PATH)\atl30;$(PRO
 
 PUBLISH_FILES= \
     {..\core\lib\Runtime\Types\edgejavascriptTypeId.h=$(PROJECT_INC_PATH)\edgejavascriptTypeId.h} \
+    {..\private\lib\RecyclerHeap\RecyclerHeap.h=$(PROJECT_INC_PATH)\RecyclerHeap.h} \
+    {..\core\lib\common\core\RecyclerHeapMarkingContext.h=$(PROJECT_INC_PATH)\RecyclerHeapMarkingContext.h} \
+    {..\core\lib\common\core\RecyclerVisitedObject.h=$(PROJECT_INC_PATH)\RecyclerVisitedObject.h} \
 
 SOURCES= \
 # generates SAL annotations for our interface

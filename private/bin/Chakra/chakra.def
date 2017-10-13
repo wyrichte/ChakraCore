@@ -59,3 +59,12 @@ EXPORTS
     MemProtectHeapAddRootSection
     MemProtectHeapRemoveRootSection
     MemProtectHeapIsValidObject
+
+#ifdef RECYCLER_VISITED_HOST
+    RecyclerNativeHeapAllocTraced
+    RecyclerNativeHeapAllocTracedFinalized
+    RecyclerNativeHeapAllocFinalized
+    RecyclerNativeHeapAllocLeaf
+    RecyclerNativeHeapRootAddRef
+    RecyclerNativeHeapRootRelease
+#endif

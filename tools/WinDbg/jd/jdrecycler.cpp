@@ -329,6 +329,8 @@ void ObjectInfoHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBloc
             heapBlockTypeString = "Small Normal Block (with SWB)";
         else if (heapBlockType == GetExtension()->enum_SmallFinalizableBlockWithBarrierType())
             heapBlockTypeString = "Small Finalizable Block (with SWB)";
+        else if (heapBlockType == GetExtension()->enum_SmallRecyclerVisitedHostBlockType())
+            heapBlockTypeString = "Small Recycler Visited Block";
         else if (heapBlockType == GetExtension()->enum_MediumNormalBlockType())
             heapBlockTypeString = "Medium Normal Heap Block";
         else if (heapBlockType == GetExtension()->enum_MediumLeafBlockType())
@@ -339,6 +341,8 @@ void ObjectInfoHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBloc
             heapBlockTypeString = "Medium Normal Block (with SWB)";
         else if (heapBlockType == GetExtension()->enum_MediumFinalizableBlockWithBarrierType())
             heapBlockTypeString = "Medium Finalizable Block (with SWB)";
+        else if (heapBlockType == GetExtension()->enum_MediumRecyclerVisitedHostBlockType())
+            heapBlockTypeString = "Medium Recycler Visited Block";
         else
             Assert(false);
 
@@ -568,6 +572,10 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     {
         Out("Small finalizable block (with SWB)\n");
     }
+    else if (type == this->enum_SmallRecyclerVisitedHostBlockType())
+    {
+        Out("Small recycler visited block\n");
+    }
     else if (type == this->enum_MediumFinalizableBlockType())
     {
         Out("Medium finalizable block\n");
@@ -587,6 +595,10 @@ EXT_CLASS_BASE::DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, Remote
     else if (type == this->enum_MediumFinalizableBlockWithBarrierType())
     {
         Out("Medium finalizable block (with SWB)\n");
+    }
+    else if (type == this->enum_MediumRecyclerVisitedHostBlockType())
+    {
+        Out("Medium recycler visited block\n");
     }
     else
     {
@@ -1130,8 +1142,9 @@ JD_PRIVATE_COMMAND(hbstats,
         ShowFinalizableBlock = 0x20,
         ShowNormalWriteBarrierBlock = 0x40,
         ShowFinalizableWriteBarrierBlock = 0x80,
+        ShowRecyclerVisitedHostBlock = 0x100,
 
-        ShowAnyNonWriteBarrierBlock = ShowNormalBlock | ShowLeafBlock | ShowFinalizableBlock,
+        ShowAnyNonWriteBarrierBlock = ShowNormalBlock | ShowLeafBlock | ShowFinalizableBlock | ShowRecyclerVisitedHostBlock,
         ShowAnyWriteBarrierBlock = ShowNormalWriteBarrierBlock | ShowFinalizableWriteBarrierBlock,
 
         ShowAnySizeClass = ShowSmallBlock | ShowMediumBlock | ShowLargeBlock,
@@ -1170,6 +1183,10 @@ JD_PRIVATE_COMMAND(hbstats,
         else if (_stricmp("nwb", arg) == 0)
         {
             filterType = (FilterType)(ShowAnyNonWriteBarrierBlock | ShowAnySizeClass);
+        }
+        else if (_stricmp("rvo", arg) == 0)
+        {
+            filterType = (FilterType)(ShowRecyclerVisitedHostBlock | ShowAnySizeClass);
         }
         else
         {
@@ -1252,6 +1269,13 @@ JD_PRIVATE_COMMAND(hbstats,
                 return false;
             }
         }
+        else if (remoteHeapBlock.IsSmallRecyclerVisitedHostHeapBlock())
+        {
+            if ((filterType & (ShowSmallBlock | ShowRecyclerVisitedHostBlock)) != (ShowSmallBlock | ShowRecyclerVisitedHostBlock))
+            {
+                return false;
+            }
+        }
         else if (remoteHeapBlock.IsMediumNormalHeapBlock())
         {
             if ((filterType & (ShowMediumBlock | ShowNormalBlock)) != (ShowMediumBlock | ShowNormalBlock))
@@ -1283,6 +1307,13 @@ JD_PRIVATE_COMMAND(hbstats,
         else if (remoteHeapBlock.IsMediumFinalizableWithBarrierHeapBlock())
         {
             if ((filterType & (ShowMediumBlock | ShowFinalizableWriteBarrierBlock)) != (ShowMediumBlock | ShowFinalizableWriteBarrierBlock))
+            {
+                return false;
+            }
+        }
+        else if (remoteHeapBlock.IsMediumRecyclerVisitedHostHeapBlock())
+        {
+            if ((filterType & (ShowMediumBlock | ShowRecyclerVisitedHostBlock)) != (ShowMediumBlock | ShowRecyclerVisitedHostBlock))
             {
                 return false;
             }
@@ -1384,6 +1415,11 @@ JD_PRIVATE_COMMAND(hbstats,
             Assert((filterType & (ShowSmallBlock | ShowFinalizableWriteBarrierBlock)) == (ShowSmallBlock | ShowFinalizableWriteBarrierBlock));
             name = "FinWB  (S)";
         }
+        else if (type == this->enum_SmallRecyclerVisitedHostBlockType())
+        {
+            Assert((filterType & (ShowSmallBlock | ShowRecyclerVisitedHostBlock)) == (ShowSmallBlock | ShowRecyclerVisitedHostBlock));
+            name = "Visited(S)";
+        }
         else if (type == this->enum_MediumNormalBlockType())
         {
             Assert((filterType & (ShowMediumBlock | ShowNormalBlock)) == (ShowMediumBlock | ShowNormalBlock));
@@ -1408,6 +1444,11 @@ JD_PRIVATE_COMMAND(hbstats,
         {
             Assert((filterType & (ShowMediumBlock | ShowFinalizableWriteBarrierBlock)) == (ShowMediumBlock | ShowFinalizableWriteBarrierBlock));
             name = "FinWB  (M)";
+        }
+        else if (type == this->enum_MediumRecyclerVisitedHostBlockType())
+        {
+            Assert((filterType & (ShowMediumBlock | ShowRecyclerVisitedHostBlock)) == (ShowMediumBlock | ShowRecyclerVisitedHostBlock));
+            name = "Visited(M)";
         }
         else if (type == this->enum_LargeBlockType())
         {

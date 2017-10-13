@@ -20,6 +20,9 @@ JS_LIBTYPE_LS = $(JS_LIBTYPE)
 JS_LIBS_MEMPROTECTHEAP = \
     $(OBJECT_JSCRIPT_DIR)\private\lib\memprotectheap\$(JS_LIBTYPE)\$(O)\chakra.memprotectheap.lib \
 
+JS_LIBS_RECYCLERHEAP = \
+    $(OBJECT_JSCRIPT_DIR)\private\lib\recyclerheap\$(JS_LIBTYPE)\$(O)\chakra.recyclerheap.lib \
+
 JS_LIBS_PLATFORMAGNOSTIC = \
 	  $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\runtime\PlatformAgnostic\$(JS_LIBTYPE)\$(O)\chakra.runtime.PlatformAgnostic.lib \
 
@@ -32,6 +35,7 @@ JS_LIBS_COMMON = \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\exceptions\$(JS_LIBTYPE)\$(O)\chakra.common.exceptions.lib \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\datastructures\$(JS_LIBTYPE)\$(O)\chakra.common.datastructures.lib \
     $(JS_LIBS_MEMPROTECTHEAP) \
+    $(JS_LIBS_RECYCLERHEAP) \
     $(JS_LIBS_PLATFORMAGNOSTIC)
 
 JS_LIBS_PARSER_INC = \
@@ -66,6 +70,7 @@ JS_LIBS_JITSERVER = \
 JS_LINK_LIBS = \
     $(JS_LIBS_COMMON) \
     $(JS_LIBS_MEMPROTECTHEAP) \
+    $(JS_LIBS_RECYCLERHEAP) \
     $(JS_LIBS_PARSER) \
     $(JS_LIBS_RUNTIME) \
     $(JS_LIBS_JITSERVER) \

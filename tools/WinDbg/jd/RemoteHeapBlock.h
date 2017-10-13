@@ -39,6 +39,8 @@ public:
     bool IsMediumFinalizableHeapBlock();
     bool IsSmallFinalizableWithBarrierHeapBlock();
     bool IsMediumFinalizableWithBarrierHeapBlock();
+    bool IsSmallRecyclerVisitedHostHeapBlock();
+    bool IsMediumRecyclerVisitedHostHeapBlock();
     bool IsLargeHeapBlock();
     bool IsLeafHeapBlock();
     bool IsFinalizableHeapBlock();

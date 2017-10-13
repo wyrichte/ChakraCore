@@ -52,6 +52,7 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\lib\memprotectheap\test|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\projection\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\projection\test|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\recyclerheap\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\sca\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\sca\test|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\telemetry\release|PASS1 \
@@ -59,10 +60,10 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\lib\winrt\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\winrt\test|PASS1 \
 
-PUBLIC_PASS0_CONSUMES= \
-    onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \
-
 PUBLIC_PASS1_CONSUMES= \
     minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
     minkernel\crts\libw32\lib\extdlllib|PASS1 \
+
+PUBLIC_PASS0_CONSUMES= \
+    onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \
 

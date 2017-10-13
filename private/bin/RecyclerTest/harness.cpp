@@ -122,12 +122,42 @@ static void OutOfMemory()
 
 #include "DefaultCommonExternalApi.cpp"
 
+// Stubs
+void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo) { }
+
+enum MemProtectHeapCollectFlags {};
+enum MemProtectHeapCreateFlags {};
+
+HRESULT MemProtectHeapCreate(void ** heapHandle, MemProtectHeapCreateFlags flags) { return E_NOTIMPL; };
+void * MemProtectHeapRootAlloc(void * heapHandle, size_t size) { return nullptr; };
+void * MemProtectHeapRootAllocLeaf(void * heapHandle, size_t size) { return nullptr; };
+HRESULT MemProtectHeapUnrootAndZero(void * heapHandle, void * memory) { return E_NOTIMPL; };
+HRESULT MemProtectHeapMemSize(void * heapHandle, void * memory, size_t * outSize) { return E_NOTIMPL; };
+HRESULT MemProtectHeapDestroy(void * heapHandle) { return E_NOTIMPL; };
+HRESULT MemProtectHeapCollect(void * heapHandle, MemProtectHeapCollectFlags flags) { return E_NOTIMPL; };
+HRESULT MemProtectHeapProtectCurrentThread(void * heapHandle, void(__stdcall* threadWake)(void* threadWakeArgument), void* threadWakeArgument) { return E_NOTIMPL; };
+HRESULT MemProtectHeapUnprotectCurrentThread(void * heapHandle) { return E_NOTIMPL; };
+HRESULT MemProtectHeapSynchronizeWithCollector(void * heapHandle) { return E_NOTIMPL; };
+
+#if DBG && defined(INTERNAL_MEM_PROTECT_HEAP_ALLOC)
+void MemProtectHeapSetDisableConcurrentThreadExitedCheck(void * heapHandle) {};
+#endif
+
+#if DBG && defined(RECYCLER_VERIFY_MARK)
+bool IsLikelyRuntimeFalseReference(char* objectStartAddress, size_t offset,
+    const char* typeName)
+{
+    return false;
+}
+#endif
+
+// Entry point
 int __cdecl main(int argc, __in_ecount(argc) char* argv[])
 {
     srand(0xabbafeed);
 
     PageAllocator::BackgroundPageQueue backgroundPageQueue;
-    IdleDecommitPageAllocator pageAllocator(NULL, PageAllocatorType_Thread,
+    IdleDecommitPageAllocator pageAllocator(NULL, PageAllocatorType_Thread, Js::Configuration::Global.flags,
         0, IdleDecommitPageAllocator::DefaultMaxFreePageCount, false, &backgroundPageQueue);
     Recycler * recycler = nullptr;
 
@@ -149,7 +179,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
         }
 #endif
 
-        recycler = new Recycler(nullptr, &pageAllocator, OutOfMemory);
+        recycler = new Recycler(nullptr, &pageAllocator, OutOfMemory, Js::Configuration::Global.flags);
         recycler->Initialize(false, nullptr);
         recycler->Prime();
 

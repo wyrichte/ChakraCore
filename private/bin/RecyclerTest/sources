@@ -65,6 +65,7 @@ SOURCES= \
     Tests.cpp    \
     Tracker.cpp    \
     Reporting.cpp   \
+    Stubs.cpp   \
 
 PRECOMPILED_INCLUDE=stdafx.h
 PRECOMPILED_SOURCEFILE=stdafx.cpp

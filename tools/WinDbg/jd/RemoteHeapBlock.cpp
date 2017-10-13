@@ -159,6 +159,17 @@ RemoteHeapBlock::IsMediumFinalizableWithBarrierHeapBlock()
 }
 
 bool
+RemoteHeapBlock::IsSmallRecyclerVisitedHostHeapBlock()
+{
+    return type == GetExtension()->enum_SmallRecyclerVisitedHostBlockType();
+}
+
+bool
+RemoteHeapBlock::IsMediumRecyclerVisitedHostHeapBlock()
+{
+    return type == GetExtension()->enum_MediumRecyclerVisitedHostBlockType();
+}
+bool
 RemoteHeapBlock::IsLeafHeapBlock()
 {
     return IsSmallLeafHeapBlock() || IsMediumLeafHeapBlock();
@@ -167,7 +178,7 @@ RemoteHeapBlock::IsLeafHeapBlock()
 bool
 RemoteHeapBlock::IsFinalizableHeapBlock()
 {
-    return IsSmallFinalizableHeapBlock() || IsMediumFinalizableHeapBlock() || IsSmallFinalizableWithBarrierHeapBlock() || IsMediumFinalizableWithBarrierHeapBlock();
+    return IsSmallFinalizableHeapBlock() || IsMediumFinalizableHeapBlock() || IsSmallFinalizableWithBarrierHeapBlock() || IsMediumFinalizableWithBarrierHeapBlock() || IsSmallRecyclerVisitedHostHeapBlock() || IsMediumRecyclerVisitedHostHeapBlock();
 }
 
 bool

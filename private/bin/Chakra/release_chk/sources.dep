@@ -79,6 +79,7 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\lib\jsrtchakra\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\memprotectheap\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\projection\release|PASS1 \
+    onecoreuap\inetcore\jscript\private\lib\recyclerheap\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\sca\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\telemetry\release|PASS1 \
     onecoreuap\inetcore\jscript\private\lib\winrt\release|PASS1 \

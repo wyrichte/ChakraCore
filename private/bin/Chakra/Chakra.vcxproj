@@ -241,6 +241,9 @@
     <ProjectReference Include="..\..\..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj">
       <Project>{bb4153ff-ac3e-4734-b562-ee23812df31b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\private\Lib\RecyclerHeap\Chakra.RecyclerHeap.vcxproj">
+      <Project>{58388d86-71a2-40be-9d40-b61bd2204cab}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\core\Lib\Parser\Chakra.Parser.vcxproj">
       <Project>{f6fad160-5a4b-476a-93ac-33e0b3a18c0c}</Project>
     </ProjectReference>

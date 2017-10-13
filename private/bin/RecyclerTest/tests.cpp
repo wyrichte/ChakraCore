@@ -26,6 +26,7 @@ TestCase Tests[] = {
     {&TestWeakReferences, "WeakRef"},
     {&TestWeakReferenceHashTable, "WeakRefHashTable"},
     {&TestPageHeapAlloc, "PageHeapAlloc" },
+    {&TestRecyclerVisitedObjects, "RecyclerVisitedObjects"},
     {NULL, NULL},
 };
 
@@ -55,16 +56,16 @@ void UseCPU(int numthreads)
 
 }
 
-tracker *objtracker;
+tracker *g_objtracker;
 
 BOOL CheckFnMemoryMapped(void *addr, size_t size)
 {
-    if(objtracker->dbg_level >= tracker::All)
+    if(g_objtracker->dbg_level >= tracker::All)
         printf("NOTE: CheckFnMemoryMapped noticed collection of %p\n", addr);
 
-    if(objtracker->object_tracker->check(addr))
+    if(g_objtracker->object_tracker->check(addr))
     {
-        if(objtracker->dbg_level >= tracker::Errors)
+        if(g_objtracker->dbg_level >= tracker::Errors)
         {
             printf("RECYCLER ERROR: CheckFnMemoryMapped caught free of live object %p\n", addr);
             printf("PID: %x\n", GetCurrentProcessId());
@@ -129,10 +130,10 @@ void TestWeakReferences(Recycler *recycler, ArenaAllocator *alloc, TestContext *
 {
     Output::UseDebuggerWindow();
 
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     //tracker *objtracker = new tracker();
 
-    objtracker->dbg_level = tracker::Errors;
+    g_objtracker->dbg_level = tracker::Errors;
 
     // # of objects
     const int objcount = 100;
@@ -140,8 +141,8 @@ void TestWeakReferences(Recycler *recycler, ArenaAllocator *alloc, TestContext *
     const int bytes = 256;
 
     // allocate some storage for pointers.
-    void **ptrs = (void**)objtracker->track_malloc(sizeof(void*)*objcount);
-    RecyclerWeakReference<void>** weakReferences = (RecyclerWeakReference<void>**)objtracker->track_malloc(sizeof(RecyclerWeakReference<void>*) * objcount);
+    void **ptrs = (void**)g_objtracker->track_malloc(sizeof(void*)*objcount);
+    RecyclerWeakReference<void>** weakReferences = (RecyclerWeakReference<void>**)g_objtracker->track_malloc(sizeof(RecyclerWeakReference<void>*) * objcount);
 
     ctx->Start();
     while(ctx->NextIteration())
@@ -149,20 +150,20 @@ void TestWeakReferences(Recycler *recycler, ArenaAllocator *alloc, TestContext *
         // allocate objects in the recycler
         for(int j = 0; j < objcount; ++j)
         {
-            void* object = objtracker->track_malloc(bytes);
-            objtracker->allocator->update_pointer(&(ptrs[j]), object);
+            void* object = g_objtracker->track_malloc(bytes);
+            g_objtracker->allocator->update_pointer(&(ptrs[j]), object);
             object = NULL; // Null it out so that it's not still on the stack
         }
 
-        AllocateWeakReferences(weakReferences, ptrs, objtracker, recycler, objcount);
+        AllocateWeakReferences(weakReferences, ptrs, g_objtracker, recycler, objcount);
         VerifyWeakReferences(weakReferences, ptrs, objcount);
 
         // free every object
         for(int j = 0; j < objcount; ++j)
         {
             void* ptr=ptrs[j];
-            objtracker->allocator->update_pointer(&(ptrs[j]),0);
-            objtracker->track_free(ptr);
+            g_objtracker->allocator->update_pointer(&(ptrs[j]),0);
+            g_objtracker->track_free(ptr);
             ptr=NULL;
         }
 
@@ -172,24 +173,24 @@ void TestWeakReferences(Recycler *recycler, ArenaAllocator *alloc, TestContext *
         VerifyWeakReferences(weakReferences, objcount);
 
         // free weak refs
-        FreeWeakReferences(weakReferences, objtracker, objcount);
+        FreeWeakReferences(weakReferences, g_objtracker, objcount);
     }
 
-    objtracker->track_free(ptrs);
-    objtracker->track_free(weakReferences);
+    g_objtracker->track_free(ptrs);
+    g_objtracker->track_free(weakReferences);
 
     ctx->Finish();
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
     Output::UseDebuggerWindow();
 
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     //tracker *objtracker = new tracker();
 
-    objtracker->dbg_level = tracker::Errors;
+    g_objtracker->dbg_level = tracker::Errors;
 
     // # of objects
     const int objcount = 100;
@@ -197,8 +198,8 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
     const int bytes = 256;
 
     // allocate some storage for pointers.
-    void **ptrs = (void**)objtracker->track_malloc(sizeof(void*)*objcount);
-    RecyclerWeakReferenceBase** weakReferences = (RecyclerWeakReferenceBase**)objtracker->track_malloc(sizeof(RecyclerWeakReferenceBase*) * objcount);
+    void **ptrs = (void**)g_objtracker->track_malloc(sizeof(void*)*objcount);
+    RecyclerWeakReferenceBase** weakReferences = (RecyclerWeakReferenceBase**)g_objtracker->track_malloc(sizeof(RecyclerWeakReferenceBase*) * objcount);
     WeakReferenceHashTable<PrimePolicy> hashTable(objcount, &HeapAllocator::Instance);
 
     ctx->Start();
@@ -207,8 +208,8 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         // allocate objects in the recycler
         for(int j = 0; j < objcount; ++j)
         {
-            void* object = objtracker->track_malloc(bytes);
-            objtracker->allocator->update_pointer(&(ptrs[j]), object);
+            void* object = g_objtracker->track_malloc(bytes);
+            g_objtracker->allocator->update_pointer(&(ptrs[j]), object);
             weakReferences[j] = hashTable.Add((char*) object, recycler);
             object = NULL;
         }
@@ -239,8 +240,8 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         for(int j = 0; j < objcount; ++j)
         {
             void* ptr=ptrs[j];
-            objtracker->allocator->update_pointer(&(ptrs[j]),0);
-            objtracker->track_free(ptr);
+            g_objtracker->allocator->update_pointer(&(ptrs[j]),0);
+            g_objtracker->track_free(ptr);
             ptr=NULL;
         }
 
@@ -260,19 +261,19 @@ void TestWeakReferenceHashTable(Recycler *recycler, ArenaAllocator *alloc, TestC
         recycler->CollectNow<CollectNowForceInThread>();
     }
 
-    objtracker->track_free(ptrs);
-    objtracker->track_free(weakReferences);
+    g_objtracker->track_free(ptrs);
+    g_objtracker->track_free(weakReferences);
 
     ctx->Finish();
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void TestBasic(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     //tracker *objtracker = new tracker();
 
-    objtracker->dbg_level = tracker::Errors;
+    g_objtracker->dbg_level = tracker::Errors;
 
     // # of objects
     const int objcount = 100;
@@ -280,7 +281,7 @@ void TestBasic(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
     const int bytes = 256;
 
     // allocate some storage for pointers.
-    void **ptrs = (void**)objtracker->track_malloc(sizeof(void*)*objcount);
+    void **ptrs = (void**)g_objtracker->track_malloc(sizeof(void*)*objcount);
 
     ctx->Start();
     while(ctx->NextIteration())
@@ -288,34 +289,34 @@ void TestBasic(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
         // allocate objects in the recycler
         for(int j = 0; j < objcount; ++j)
         {
-            objtracker->allocator->update_pointer(&(ptrs[j]),objtracker->track_malloc(bytes));
+            g_objtracker->allocator->update_pointer(&(ptrs[j]), g_objtracker->track_malloc(bytes));
         }
 
         // free every object
         for(int j = 0; j < objcount; ++j)
         {
             void* ptr=ptrs[j];
-            objtracker->allocator->update_pointer(&(ptrs[j]),0);
-            objtracker->track_free(ptr);
+            g_objtracker->allocator->update_pointer(&(ptrs[j]),0);
+            g_objtracker->track_free(ptr);
             ptr=NULL;
         }
 
     }
 
-    objtracker->track_free(ptrs);
+    g_objtracker->track_free(ptrs);
     ctx->Finish();
-    delete objtracker;
+    delete g_objtracker;
 }
 
 
 void TestList(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
-    objtracker = new tracker(new recycler_wrapper(recycler));
-    objtracker->dbg_level = tracker::Errors;
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker->dbg_level = tracker::Errors;
     recycler->SetCheckFn((CheckFn_t)CheckFnMemoryMapped);
 
     {
-        tracked::list l(objtracker);
+        tracked::list l(g_objtracker);
 
         int len = 0;
         ctx->Start();
@@ -345,16 +346,16 @@ void TestList(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
     }
     ctx->Finish();
     recycler->SetCheckFn(nullptr);
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     recycler->SetCheckFn((CheckFn_t)CheckFnMemoryMapped);
     //tracker *objtracker = new tracker(new allocator_base());
 
-    objtracker->dbg_level = tracker::Errors;
+    g_objtracker->dbg_level = tracker::Errors;
 
 
     // # of 1st level objects
@@ -367,7 +368,7 @@ void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
     int bytes;
 
     // allocate some storage for first level objects.
-    void ***ptrs = (void***)objtracker->track_malloc(sizeof(void**)*objcount1);
+    void ***ptrs = (void***)g_objtracker->track_malloc(sizeof(void**)*objcount1);
 
     ctx->Start();
     while(ctx->NextIteration())
@@ -380,8 +381,8 @@ void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
                 //puts("======== allocating 1st level objects");
                 for(int i = 0; i < objcount1; ++i)
                 {
-                    void *newobj = objtracker->track_malloc(sizeof(void*)*objcount2);
-                    objtracker->allocator->update_pointer((void**)&ptrs[i], newobj);
+                    void *newobj = g_objtracker->track_malloc(sizeof(void*)*objcount2);
+                    g_objtracker->allocator->update_pointer((void**)&ptrs[i], newobj);
                 }
 
                 // allocate 2nd level objects
@@ -390,8 +391,8 @@ void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
                     //printf("======== allocating 2nd level objects for %p\n", ptrs[i]);
                     for(int j = 0; j < objcount2; ++j)
                     {
-                        void *newobj = objtracker->track_malloc(bytes);
-                        objtracker->allocator->update_pointer((void**)&(ptrs[i][j]), newobj);
+                        void *newobj = g_objtracker->track_malloc(bytes);
+                        g_objtracker->allocator->update_pointer((void**)&(ptrs[i][j]), newobj);
                     }
                 }
                 // ok, free up everything
@@ -401,25 +402,25 @@ void TestBasic2(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
                     for(int j = 0; j < objcount2; ++j)
                     {
                         void *tmp = ptrs[i][j];
-                        objtracker->allocator->update_pointer((void**)&(ptrs[i][j]), 0);
-                        objtracker->track_free(tmp);          
+                        g_objtracker->allocator->update_pointer((void**)&(ptrs[i][j]), 0);
+                        g_objtracker->track_free(tmp);
                     }
                     //printf("======== freeing %p\n", ptrs[i]);
                     void *tmp = ptrs[i];
-                    objtracker->allocator->update_pointer((void**)&ptrs[i], 0);
-                    objtracker->track_free(tmp);
+                    g_objtracker->allocator->update_pointer((void**)&ptrs[i], 0);
+                    g_objtracker->track_free(tmp);
                 }
             }
         }
     }
     ctx->Finish();
     recycler->SetCheckFn(nullptr);
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void TestCycles(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     recycler->SetCheckFn((CheckFn_t)CheckFnMemoryMapped);    
 
     const int cycle_count = 125;
@@ -436,17 +437,17 @@ void TestCycles(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
         for(int i = 0; i < cycle_count; ++i)
         {
             prev = curr;
-            curr = (void**)objtracker->track_malloc(sizeof(void*)*128);
+            curr = (void**)g_objtracker->track_malloc(sizeof(void*)*128);
             if(i == 0)
                 root = curr;
             else
             {
-                objtracker->allocator->update_pointer(prev, (void*)curr);
+                g_objtracker->allocator->update_pointer(prev, (void*)curr);
             }
         }
 
         // close the cycle
-        objtracker->allocator->update_pointer(curr, (void*)root);
+        g_objtracker->allocator->update_pointer(curr, (void*)root);
 
         // free up the cycle in the object tracker
         void **tmp = (void**)root;
@@ -455,7 +456,7 @@ void TestCycles(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
         {
             // the debug CRT will zero out freed memory, so save a pointer first
             next = (void**)*tmp;
-            objtracker->track_free(tmp);
+            g_objtracker->track_free(tmp);
             tmp = next;
         } while(tmp != (void**)root);
 
@@ -465,7 +466,7 @@ void TestCycles(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 
     ctx->Finish();
     recycler->SetCheckFn(nullptr);
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void OutOfMemory()
@@ -488,7 +489,7 @@ void TestMem(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx) {
     while(ctx->NextIteration()) {
         ++i;
         a2=new ArenaAllocator(_u("eeek"), alloc->GetPageAllocator(), OutOfMemory);
-        r2=new Recycler(NULL, (IdleDecommitPageAllocator *)alloc->GetPageAllocator(), OutOfMemory);
+        r2=new Recycler(NULL, (IdleDecommitPageAllocator *)alloc->GetPageAllocator(), OutOfMemory, Js::Configuration::Global.flags);
         r2->Initialize(false, NULL);
         delete r2;
         delete a2;
@@ -513,7 +514,7 @@ void TestMem(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx) {
 
 void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx)
 {
-    objtracker = new tracker(new recycler_wrapper(recycler));
+    g_objtracker = new tracker(new recycler_wrapper(recycler));
     //objtracker = new tracker(new allocator_base());
     recycler->SetCheckFn((CheckFn_t)CheckFnMemoryMapped);
 
@@ -529,19 +530,19 @@ void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ct
     // create 50 container objects
     for(int i = 0; i < num_testobj; ++i)
     {
-        testobjs[i] = (void***)objtracker->track_malloc(num_bytes);
+        testobjs[i] = (void***)g_objtracker->track_malloc(num_bytes);
     }
 
     // create 50 2-item linked lists
     for(int i = 0; i < num_testobj; ++i)
     {
-        void *tmp1 = objtracker->track_malloc(num_bytes);
-        objtracker->allocator->update_pointer((void**)testobjs[i], tmp1);
+        void *tmp1 = g_objtracker->track_malloc(num_bytes);
+        g_objtracker->allocator->update_pointer((void**)testobjs[i], tmp1);
     }
     for(int i = 0; i < num_testobj; ++i)
     {
-        void *tmp1 = objtracker->track_malloc(num_bytes*4);
-        objtracker->allocator->update_pointer((void**)*testobjs[i], tmp1);
+        void *tmp1 = g_objtracker->track_malloc(num_bytes*4);
+        g_objtracker->allocator->update_pointer((void**)*testobjs[i], tmp1);
     }
 
     ctx->Start();
@@ -553,7 +554,7 @@ void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ct
             //allocate an object
             if(bufidx < _countof(tmpbuf))
             {
-                tmpbuf[bufidx++] = objtracker->track_malloc(num_bytes);
+                tmpbuf[bufidx++] = g_objtracker->track_malloc(num_bytes);
             }
             else
             {
@@ -563,21 +564,21 @@ void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ct
             // free objects if needed
             if(bufidx == num_tmpobj)
             {
-                for(int i = 0; i < bufidx; ++i)
+                for(int j = 0; j < bufidx; ++j)
                 {
-                    objtracker->track_free(tmpbuf[i]);
-                    tmpbuf[i] = 0;
+                    g_objtracker->track_free(tmpbuf[j]);
+                    tmpbuf[j] = 0;
                 }
                 bufidx = 0;
             }
 
             void *tmp = (void*)*testobjs[i];
-            objtracker->allocator->update_pointer((void**)testobjs[i], (void*)**testobjs[i]);
+            g_objtracker->allocator->update_pointer((void**)testobjs[i], (void*)**testobjs[i]);
   
             //allocate an object
             if(bufidx < _countof(tmpbuf))
             {
-                tmpbuf[bufidx++] = objtracker->track_malloc(num_bytes);
+                tmpbuf[bufidx++] = g_objtracker->track_malloc(num_bytes);
             }
             else
             {
@@ -586,23 +587,23 @@ void TestPointerSwaps(Recycler *recycler, ArenaAllocator *alloc, TestContext *ct
             // free objects if needed
             if(bufidx == num_tmpobj)
             {
-                for(int i = 0; i < bufidx; ++i)
+                for(int j = 0; j < bufidx; ++j)
                 {
-                    objtracker->track_free(tmpbuf[i]);
-                    tmpbuf[i] = 0;
+                    g_objtracker->track_free(tmpbuf[j]);
+                    tmpbuf[j] = 0;
                 }
                 bufidx = 0;
             }
 
             // complete the reversal
-            objtracker->allocator->update_pointer((void**)*testobjs[i], tmp);
-            objtracker->allocator->update_pointer((void**)tmp, nullptr);
+            g_objtracker->allocator->update_pointer((void**)*testobjs[i], tmp);
+            g_objtracker->allocator->update_pointer((void**)tmp, nullptr);
 
         }
     }
     ctx->Finish();
     recycler->SetCheckFn(nullptr);
-    delete objtracker;
+    delete g_objtracker;
 }
 
 void TestMarkSweep(Recycler* recycler,ArenaAllocator *alloc, TestContext *ctx) {
@@ -660,9 +661,9 @@ void TestMarkSweepRandom(Recycler* recycler,ArenaAllocator *alloc, TestContext *
                 pointers[i]=recycler->Alloc(nBytes);
                 totalAlloc+=nBytes;
             }
-            int x=0;
+            uintptr_t x=0;
             for (int i=0;i<20000;i++) {
-                x^=(int)pointers[i];
+                x^=(uintptr_t)pointers[i];
             }
         }
         if (0==(k%10)) {
@@ -675,7 +676,7 @@ void TestMarkSweepRandom(Recycler* recycler,ArenaAllocator *alloc, TestContext *
 }
 
 struct DynamicObject {
-    int type;
+    uintptr_t type;
     void** slots;
     BOOL free;
 };
@@ -693,7 +694,7 @@ BOOL CheckDynamic(void* addr,int size) {
         DynamicObject* obj=(DynamicObject*)addr;
         if (obj->free)
             printf("double free\n");
-        if (obj->type!=((int)obj+1)) {
+        if (obj->type!=((uintptr_t)obj+1)) {
             printf("corruption in type field\n");            
         }
 #ifdef CHECK_CHILD
@@ -725,15 +726,15 @@ void TestMarkSweepDynamic(Recycler* recycler,ArenaAllocator *alloc, TestContext 
                 totalAlloc+=16;
                 totalAlloc+=nBytes;
                 pointers[i]=(DynamicObject*)recycler->Alloc(16);
-                pointers[i]->type=(int)pointers[i]+1;
+                pointers[i]->type=(uintptr_t)pointers[i]+1;
                 pointers[i]->free=false;
                 pointers[i]->slots=NULL;
                 if (i>2) {
                     pointers[i]->slots = (void **)recycler->Alloc(nBytes);
-                    for (int k=0;k<nSlots;k+=2) {
+                    for (int h=0;h<nSlots;h+=2) {
                         int refIndex=rand()%(i-1);
-                        pointers[i]->slots[k] = (void*)pointers[refIndex];
-                        pointers[i]->slots[k+1] = pointers[i]->slots+k+1;
+                        pointers[i]->slots[h] = (void*)pointers[refIndex];
+                        pointers[i]->slots[h+1] = pointers[i]->slots+h+1;
                     }
                 }
             }
@@ -756,7 +757,7 @@ struct TestDList {
 };
 
 TestDList* TestDListMakeListEntry(Recycler* recycler,HeapInfo* heapInfo) {
-    TestDList *entry=(TestDList*)recycler->RealAlloc<NoBit>(heapInfo, sizeof(TestDList));
+    TestDList *entry=(TestDList*)recycler->RealAlloc<NoBit, /*nothrow*/false>(heapInfo, sizeof(TestDList));
     entry->next=entry;
     entry->prev=entry;
     entry->isHead=false;
@@ -764,7 +765,7 @@ TestDList* TestDListMakeListEntry(Recycler* recycler,HeapInfo* heapInfo) {
 }
 
 TestDList* TestDListMakeListHead(Recycler* recycler,HeapInfo* heapInfo) {
-    TestDList *entry=(TestDList*)recycler->RealAlloc<NoBit>(heapInfo, sizeof(TestDList));
+    TestDList *entry=(TestDList*)recycler->RealAlloc<NoBit, /*nothrow*/false>(heapInfo, sizeof(TestDList));
     entry->next=entry;
     entry->prev=entry;
     entry->isHead=false;
@@ -814,7 +815,7 @@ BOOL CheckTestDList(void* addr,int size) {
     for (int i=0;i<LIST_LEN;i++) {
         if (dlist==listEntries[i]) {
             stop=true;
-            printf("free of item on list 0x%Ix %d\n",dlist,dlist->data);
+            printf("free of item on list 0x%Ix %d\n",(uintptr_t)dlist,dlist->data);
             return false;
         }
     }
@@ -826,7 +827,7 @@ void TestDoublyLinkedList(Recycler* recycler,ArenaAllocator* alloc, TestContext 
     recycler->SetCheckFn((CheckFn_t)CheckTestDList);
     HeapInfo* heapInfo=recycler->GetAutoHeap();
     TestDList* dlist=TestDListMakeListHead(recycler,heapInfo);
-    printf("list head is 0x%Ix at stack address 0x%Ix\n",dlist,&dlist);
+    printf("list head is 0x%Ix at stack address 0x%Ix\n",(uintptr_t)dlist,(uintptr_t)&dlist);
     // add LIST_LEN elements
     for (i=0;i<LIST_LEN;i++) {
         listEntries[i]=TestDListAdd(dlist,i,recycler,heapInfo);
@@ -863,12 +864,186 @@ void TestPageHeapAlloc(Recycler* recycler, ArenaAllocator* alloc, TestContext *c
         guardPage = allocated - AutoSystemInfo::PageSize;
     }
 
-    Assert(((long) guardPage % AutoSystemInfo::PageSize) == 0);
+    Assert(((uintptr_t) guardPage % AutoSystemInfo::PageSize) == 0);
 
     MEMORY_BASIC_INFORMATION info = { 0 };
     size_t ret = ::VirtualQuery((LPVOID)guardPage, &info, sizeof(MEMORY_BASIC_INFORMATION));
     Assert(ret != 0);
     Assert(info.Protect == PAGE_NOACCESS);
+
+    printf("Pass");
+}
+#endif
+
+#ifdef RECYCLER_VISITED_HOST
+class RecyclerVisitedObjectImpl : public IRecyclerVisitedObject
+{
+public:
+    void Finalize(bool isShutdown) override { finalizeCount++; s_finalized++; }
+
+    void Dispose(bool isShutdown) override { disposeCount++; s_disposed++; }
+
+    void Mark(RecyclerHeapHandle recycler) override { Assert(false); }
+
+    void OnMark() override {}
+
+    void Trace(IRecyclerHeapMarkingContext* markingContext)
+    {
+        traceCount++;
+        s_traced++;
+        markingContext->MarkObjects(&tracedPointer, 1, this);
+    }
+
+    enum class AllocationType : UINT
+    {
+        TraceAndFinalized = 0,
+        TraceOnly,
+        FinalizeOnly,
+        Count,
+    };
+    static RecyclerVisitedObjectImpl* Create(Recycler* recycler, AllocationType allocType)
+    {
+        void* mem;
+        const size_t size = sizeof(RecyclerVisitedObjectImpl);
+        switch (allocType)
+        {
+        case AllocationType::TraceAndFinalized:
+            mem = RecyclerAllocVisitedHostTracedAndFinalizedZero(recycler,size);
+            break;
+        case AllocationType::TraceOnly:
+            mem = RecyclerAllocVisitedHostTracedZero(recycler,size);
+            break;
+        default:
+            Assert(allocType == AllocationType::FinalizeOnly);
+            mem = RecyclerAllocVisitedHostFinalizedZero(recycler,size);
+        }
+
+        static const char zeros[sizeof(RecyclerVisitedObjectImpl)] = {0};
+        Assert(memcmp(mem, zeros, sizeof(RecyclerVisitedObjectImpl)) == 0);
+
+        return new (mem) RecyclerVisitedObjectImpl(allocType);
+    }
+
+    static int s_finalized;
+    static int s_disposed;
+    static int s_traced;
+
+    UINT finalizeCount;
+    UINT disposeCount;
+    UINT traceCount;
+    void* tracedPointer;
+
+private:
+    RecyclerVisitedObjectImpl(AllocationType allocType) : 
+        type(allocType), finalizeCount(0), disposeCount(0), traceCount(0), tracedPointer(nullptr)
+    {}
+    AllocationType type;
+};
+
+int RecyclerVisitedObjectImpl::s_finalized = 0;
+int RecyclerVisitedObjectImpl::s_disposed = 0;
+int RecyclerVisitedObjectImpl::s_traced = 0;
+
+
+// In our test, we'll create 2 objects for each RecyclerVisitedObjectImpl allocation type
+const UINT objectTypeCount = 2;
+const UINT recyclerVisitedObjectImplCount = static_cast<int>(RecyclerVisitedObjectImpl::AllocationType::Count) * objectTypeCount;
+
+// We also want 2 leaf objects (which won't be RecyclerVisitedObjectImpl)
+const UINT leafObjectCount = 2;
+
+const UINT totalObjectCount = recyclerVisitedObjectImplCount + leafObjectCount;
+
+// Non-rooting array used for debugging TestRecyclerVisitedObject
+void* g_allocatedObjects[totalObjectCount];
+
+void TestRecyclerVisitedObjects(Recycler* recycler,ArenaAllocator* alloc, TestContext *ctx) {
+    void* stackRoots[totalObjectCount];
+
+    // Perform two of each allocation and pin it in a stack array.
+    for (UINT i = 0; i < recyclerVisitedObjectImplCount; i++)
+    {
+        RecyclerVisitedObjectImpl* ptr = RecyclerVisitedObjectImpl::Create(recycler, static_cast<RecyclerVisitedObjectImpl::AllocationType>(i / objectTypeCount));
+        stackRoots[i] = ptr;
+        g_allocatedObjects[i] = ptr;
+        ptr = nullptr;
+    }
+
+    for (UINT i = 0; i < leafObjectCount; i++)
+    {
+        const size_t maxLeafSize = 2048;
+        size_t leafSize = rand() % maxLeafSize;
+        void* leaf = RecyclerAllocLeafZero(recycler, leafSize);
+        stackRoots[i + recyclerVisitedObjectImplCount] = leaf;
+        g_allocatedObjects[i + recyclerVisitedObjectImplCount] = leaf;
+    }
+
+    // Collect with all the allocated objects pinned by stackRoots.
+    recycler->CollectNow<CollectNowForceInThreadExternal>();
+
+    // Everything is pinned, there should be no finalization
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 0);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 0);
+
+    // There are 4 traced objects (2 traced only, 2 traced and finalized). These should have
+    // all been traced since they are stack roots.
+    Assert(RecyclerVisitedObjectImpl::s_traced == 4);
+
+    // Unroot a trace+finalized (0), a traced-only (3), and a finalized-only (5), then collect again
+    stackRoots[0] = stackRoots[3] = stackRoots[5] = nullptr;
+    recycler->CollectNow<CollectNowForceInThreadExternal>();
+
+    // Two finalizable objects were unreachable (indices 0 and 5)
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 2);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 2);
+
+    // Two traced objects remained pinned (indices 1 and 2) and should have
+    // been traced.
+    Assert(RecyclerVisitedObjectImpl::s_traced == 6);
+
+    // These were also marked in the first collection (so should have a count of 2);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(stackRoots[1])->traceCount == 2);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(stackRoots[2])->traceCount == 2);
+
+    // Of the remaining objects (indices 1, 2, 4), two are traceable. Point 1 at 2, and 2 at 4, and
+    // verify all are traced and not disposed.
+    RecyclerVisitedObjectImpl* traced1 = static_cast<RecyclerVisitedObjectImpl*>(stackRoots[1]);
+    traced1->tracedPointer = stackRoots[2];
+    RecyclerVisitedObjectImpl* traced2 = static_cast<RecyclerVisitedObjectImpl*>(stackRoots[2]);
+    traced2->tracedPointer = stackRoots[4];
+    traced2 = nullptr;
+    
+    stackRoots[1] = stackRoots[2] = stackRoots[4] = nullptr;
+
+    recycler->CollectNow<CollectNowForceInThreadExternal>();
+    Assert(RecyclerVisitedObjectImpl::s_traced == 8);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(g_allocatedObjects[1])->traceCount == 3);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(g_allocatedObjects[2])->traceCount == 3);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 2);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 2);
+
+    // interior pointer instead
+    traced1->tracedPointer = static_cast<byte*>(traced1->tracedPointer) + 8;
+
+    // point to traced1 inside some allocated buffer that will be conservatively scanned, 
+    // and point to an interior location (albeit 16-byte aligned) to make sure our interior
+    // logic inside heapblockmap calls Trace on the right pointer.
+    char* recyclerMem = recycler->Alloc(32);
+    *((void**)(recyclerMem + 8)) = reinterpret_cast<void**>(traced1) + 4;
+    traced1 = nullptr;
+
+    recycler->CollectNow<CollectNowForceInThreadExternal>();
+    Assert(RecyclerVisitedObjectImpl::s_traced == 10);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(g_allocatedObjects[1])->traceCount == 4);
+    Assert(static_cast<RecyclerVisitedObjectImpl*>(g_allocatedObjects[2])->traceCount == 4);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 2);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 2);
+
+    recyclerMem = nullptr;
+    recycler->CollectNow<CollectNowForceInThreadExternal>();
+    Assert(RecyclerVisitedObjectImpl::s_traced == 10);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 4);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 4);
 
     printf("Pass");
 }

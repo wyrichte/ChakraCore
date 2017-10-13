@@ -49,6 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{3FBCBF4C-108
 		..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj = ..\private\lib\JsrtChakra\Chakra.JsrtChakra.vcxproj
 		..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj = ..\private\Lib\MemProtectHeap\static\Chakra.MemProtectHeap.Static.vcxproj
 		..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj = ..\private\Lib\MemProtectHeap\Chakra.MemProtectHeap.vcxproj
+		..\private\Lib\RecyclerHeap\Chakra.RecyclerHeap.vcxproj = ..\private\Lib\RecyclerHeap\Chakra.RecyclerHeap.vcxproj
 		..\private\lib\Projection\Chakra.Projection.vcxproj = ..\private\lib\Projection\Chakra.Projection.vcxproj
 		..\private\lib\SCA\Chakra.SCA.vcxproj = ..\private\lib\SCA\Chakra.SCA.vcxproj
 		..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj = ..\private\Lib\SCALookup\Chakra.SCAlookup.vcxproj

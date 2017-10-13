@@ -102,6 +102,7 @@
     <ChakraSCALibs>$(RazzleJscriptObjectRoot)\private\lib\sca\$(RazzleJscriptObjectDirectory)Chakra.SCA.lib</ChakraSCALibs>
     <ChakraProjectionLibs>$(RazzleJscriptObjectRoot)\private\lib\projection\$(RazzleJscriptObjectDirectory)Chakra.Projection.lib</ChakraProjectionLibs>
     <ChakraEngineLibs>$(RazzleJscriptObjectRoot)\private\lib\engine\$(RazzleJscriptObjectDirectory)Chakra.Engine.lib</ChakraEngineLibs>
+    <ChakraRecyclerHeapLibs>$(RazzleJscriptObjectRoot)\private\lib\recyclerheap\$(RazzleJscriptObjectDirectory)Chakra.RecyclerHeap.lib</ChakraRecyclerHeapLibs>
 
     <ChakraLibs>
       $(ChakraRuntimeLibs);
@@ -116,6 +117,7 @@
       $(ChakraSCALibs);
       $(ChakraProjectionLibs);
       $(ChakraEngineLibs);
+      $(ChakraRecyclerHeapLibs);
       $(ChakraCommonLibs)
     </ChakraLibs>
 

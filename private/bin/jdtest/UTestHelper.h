@@ -113,7 +113,7 @@ public:
 inline HRESULT FindJScriptModuleByName(_In_ IDebugSymbols* pSymbols, _Out_ ULONG* pIndex, _Out_ ULONG64* pBase)
 {
     //PCSTR moduleList[] = { "chakra", "chakracore", "jscript9" }; // Only support jscript9 and chakra for public tool
-    static PCSTR moduleList[] = { "chakratest", "chakra", "chakracore", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc" };
+    static PCSTR moduleList[] = { "chakratest", "chakra", "chakracore", "jscript9test", "jscript9", "chakralstest", "chakrals", "jc", "recyclertest", "gcstress" };
 
     HRESULT hr = E_FAIL;
 
