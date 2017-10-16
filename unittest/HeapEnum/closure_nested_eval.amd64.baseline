@@ -451,7 +451,7 @@
  |  |    |    [Scopes] count: 2
  |  |    |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |    |  [Prototype] type: Null (seen)
- |  |    |    |  [Properties] count: 10
+ |  |    |    |  [Properties] count: 9
  |  |    |    |  | 0 evalstr: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: var eeo = "eeo_value"
  |  |    |    |  |    [Prototype] type: StringObject (seen)
@@ -470,16 +470,15 @@
  |  |    |    |  |    |    |    [Internal property] value: values
  |  |    |    |  |    |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 2 super: type: Undefined (seen)
- |  |    |    |  | 3 super: type: Undefined (seen)
- |  |    |    |  | 4 new.target: type: Undefined (seen)
- |  |    |    |  | 5 aa: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 3 new.target: type: Undefined (seen)
+ |  |    |    |  | 4 aa: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: aa
  |  |    |    |  |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 6 bb: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 5 bb: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: bb
  |  |    |    |  |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 7 inner_a: type: FunctionObject (seen)
- |  |    |    |  | 8 inner_b: type: FunctionObject flags: (new) optional info records (4)
+ |  |    |    |  | 6 inner_a: type: FunctionObject (seen)
+ |  |    |    |  | 7 inner_b: type: FunctionObject flags: (new) optional info records (4)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] inner_b
  |  |    |    |  |    [Scopes] count: 2
@@ -489,7 +488,7 @@
  |  |    |    |  |    | 0 sourceUrl: value: closure_nested_eval.js
  |  |    |    |  |    | 1 sourceRow: value: 40.000000
  |  |    |    |  |    | 2 sourceCol: value: 23.000000
- |  |    |    |  | 9 eeo: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  | 8 eeo: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    [Internal property] value: eeo_value
  |  |    |    |  |    [Prototype] type: StringObject (seen)
  |  |    |    | scope[1]: type: Scope (seen)
