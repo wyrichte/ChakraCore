@@ -1543,6 +1543,39 @@ interface IActiveScriptDirectSite : IUnknown
     HRESULT HostExceptionFromHRESULT([in] HRESULT domHRErrorCode, [out] Var *domExceptionObject);
 };
 
+typedef void* RecyclerNativeHeapHandle;
+
+// Externally defined interfaces
+interface IActiveScriptGarbageCollector;
+cpp_quote("typedef interface IActiveScriptGarbageCollector IActiveScriptGarbageCollector;") // Needed to appear in generated files.
+interface IActiveScriptDirectGarbageCollector;
+cpp_quote("typedef interface IActiveScriptDirectGarbageCollector IActiveScriptDirectGarbageCollector;") // Needed to appear in generated files.
+interface ITrackingService;
+cpp_quote("typedef interface ITrackingService ITrackingService;") // Needed to appear in generated files.
+interface IJavascriptThreadProperty;
+cpp_quote("typedef interface IJavascriptThreadProperty IJavascriptThreadProperty;") // Needed to appear in generated files.
+interface IActiveScriptLifecycleEventSink;
+cpp_quote("typedef interface IActiveScriptLifecycleEventSink IActiveScriptLifecycleEventSink;") // Needed to appear in generated files.
+
+// Dispense resources associated with the current Javascript thread
+[
+    object,
+    local,
+    uuid(20ec5ed0-4163-46b2-96ae-efe03e1cf29a)
+]
+interface IJavascriptThreadService : IUnknown
+{
+    // 1:1 Relationships to other interfaces
+    HRESULT GetActiveScriptGarbageCollector([out] IActiveScriptGarbageCollector** activeScriptGarbageCollector);
+    HRESULT GetActiveScriptDirectGarbageCollector([out] IActiveScriptDirectGarbageCollector** activeScriptDirectGarbageCollector);
+    HRESULT GetTrackingService([out] ITrackingService** trackingService);
+    HRESULT GetJavascriptThreadProperty([out] IJavascriptThreadProperty** javascriptThreadProperty);
+    HRESULT GetActiveScriptLifecycleEventSink([out] IActiveScriptLifecycleEventSink** activeScriptLifecycleEventSink);
+
+    // A handle to this thread's Javascript heap
+    HRESULT GetRecyclerNativeHeapHandle([out] RecyclerNativeHeapHandle* recyclerNativeHeapHandle);
+};
+
 //
 // Restore the previous setting for C4201 compiler warning
 //

@@ -148,10 +148,11 @@ STDMETHODIMP JavascriptThreadService::QueryInterface(
     VALIDATE_WRITE_POINTER(ppvObj, void *);
     if (IsEqualIID(riid, IID_IUnknown))
     {
-        *ppvObj = static_cast<IUnknown*>(static_cast<ITrackingService*>(this));
+        *ppvObj = this;
         AddRef();
         return NOERROR;
     }
+    QI_IMPL(__uuidof(IJavascriptThreadService), IJavascriptThreadService);
     QI_IMPL(__uuidof(IActiveScriptGarbageCollector), IActiveScriptGarbageCollector);
     QI_IMPL(__uuidof(IActiveScriptDirectGarbageCollector), IActiveScriptDirectGarbageCollector);
     QI_IMPL(__uuidof(IJavascriptThreadProperty), IJavascriptThreadProperty);
@@ -780,3 +781,44 @@ JavascriptThreadService::IdleCollectCallback(void* context)
     Assert(hasScheduledIdleCollect || !threadService->hasTimerScheduled);
 }
 
+
+STDMETHODIMP JavascriptThreadService::GetActiveScriptGarbageCollector(IActiveScriptGarbageCollector** activeScriptGarbageCollector)
+{
+    *activeScriptGarbageCollector = this;
+    this->AddRef();
+    return S_OK;
+}
+
+STDMETHODIMP JavascriptThreadService::GetActiveScriptDirectGarbageCollector(IActiveScriptDirectGarbageCollector** activeScriptDirectGarbageCollector)
+{
+    *activeScriptDirectGarbageCollector = this;
+    this->AddRef();
+    return S_OK;
+}
+
+STDMETHODIMP JavascriptThreadService::GetTrackingService(ITrackingService** trackingService)
+{
+    *trackingService = this;
+    this->AddRef();
+    return S_OK;
+}
+
+STDMETHODIMP JavascriptThreadService::GetJavascriptThreadProperty(IJavascriptThreadProperty** javascriptThreadProperty)
+{
+    *javascriptThreadProperty = this;
+    this->AddRef();
+    return S_OK;
+}
+
+STDMETHODIMP JavascriptThreadService::GetActiveScriptLifecycleEventSink(IActiveScriptLifecycleEventSink** activeScriptLifecycleEventSink)
+{
+    *activeScriptLifecycleEventSink = this;
+    this->AddRef();
+    return S_OK;
+}
+
+STDMETHODIMP JavascriptThreadService::GetRecyclerNativeHeapHandle(RecyclerNativeHeapHandle* recyclerNativeHeapHandle)
+{
+    *recyclerNativeHeapHandle = ThreadContext::GetContextForCurrentThread()->GetRecycler();
+    return S_OK;
+}

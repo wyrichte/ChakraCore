@@ -25,7 +25,8 @@ public:
     STDMETHOD(IsTrackedObject) (IUnknown* pUnk, IDispatchEx** ppDispTracked, BOOL* pfTracker) = 0;
 };
 
-class JavascriptThreadService sealed : public IActiveScriptGarbageCollector,
+class JavascriptThreadService sealed : public IJavascriptThreadService,
+                   public IActiveScriptGarbageCollector,
                    public IActiveScriptDirectGarbageCollector,
                    public ITrackingService,
                    public IJavascriptThreadProperty,
@@ -52,6 +53,15 @@ public:
     STDMETHOD(QueryInterface)(REFIID riid, void** ppvObj);
     STDMETHOD_(ULONG,AddRef)(void);
     STDMETHOD_(ULONG,Release)(void);
+
+    // *** IJavascriptThreadService ***
+    STDMETHOD(GetActiveScriptGarbageCollector)(IActiveScriptGarbageCollector** activeScriptGarbageCollector);
+    STDMETHOD(GetActiveScriptDirectGarbageCollector)(IActiveScriptDirectGarbageCollector** activeScriptDirectGarbageCollector);
+    STDMETHOD(GetTrackingService)(ITrackingService** trackingService);
+    STDMETHOD(GetJavascriptThreadProperty)(IJavascriptThreadProperty** javascriptThreadProperty);
+    STDMETHOD(GetActiveScriptLifecycleEventSink)(IActiveScriptLifecycleEventSink** activeScriptLifecycleEventSink);
+
+    STDMETHOD(GetRecyclerNativeHeapHandle)(RecyclerNativeHeapHandle* recyclerNativeHeapHandle);
 
     // *** IActiveScriptGarbageCollector ***
     STDMETHOD(CollectGarbage)(SCRIPTGCTYPE scriptgctype) override;
