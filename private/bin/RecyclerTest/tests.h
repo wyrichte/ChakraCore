@@ -38,4 +38,8 @@ void TestMem(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
 #ifdef RECYCLER_PAGE_HEAP
 void TestPageHeapAlloc(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
 #endif
+#ifdef RECYCLER_VISITED_HOST
 void TestRecyclerVisitedObjects(Recycler*, ArenaAllocator* alloc, TestContext *ctx);
+void TestWeakReferenceExports(Recycler* recycler, ArenaAllocator* alloc, TestContext *ctx);
+void TestRootAddRefRelease(Recycler* recycler, ArenaAllocator* alloc, TestContext *ctx);
+#endif

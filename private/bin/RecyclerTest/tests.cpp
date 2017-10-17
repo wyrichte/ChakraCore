@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <process.h>
 #include <assert.h>
+#include "RecyclerHeap.h"
 
 typedef BOOL(*CheckFn_t)(char*, size_t);
 
@@ -26,7 +27,11 @@ TestCase Tests[] = {
     {&TestWeakReferences, "WeakRef"},
     {&TestWeakReferenceHashTable, "WeakRefHashTable"},
     {&TestPageHeapAlloc, "PageHeapAlloc" },
+#ifdef RECYCLER_VISITED_HOST
     {&TestRecyclerVisitedObjects, "RecyclerVisitedObjects"},
+    {&TestWeakReferenceExports, "WeakReferenceExports" },
+    {&TestRootAddRefRelease, "RootAddRefRelease" },
+#endif
     {NULL, NULL},
 };
 
@@ -887,11 +892,15 @@ public:
 
     void OnMark() override {}
 
-    void Trace(IRecyclerHeapMarkingContext* markingContext)
+    void Trace(IRecyclerHeapMarkingContext* markingContext) override
     {
         traceCount++;
         s_traced++;
-        markingContext->MarkObjects(&tracedPointer, 1, this);
+        void* references[] = {
+            tracedPointer,
+            weakReferenceHandle
+        };
+        markingContext->MarkObjects(references, _countof(references), this);
     }
 
     enum class AllocationType : UINT
@@ -901,10 +910,15 @@ public:
         FinalizeOnly,
         Count,
     };
-    static RecyclerVisitedObjectImpl* Create(Recycler* recycler, AllocationType allocType)
+
+    static RecyclerVisitedObjectImpl* Create(Recycler* recycler, AllocationType allocType, size_t size = 0)
     {
         void* mem;
-        const size_t size = sizeof(RecyclerVisitedObjectImpl);
+        if (size == 0 || size < sizeof(RecyclerVisitedObjectImpl))
+        {
+            size = sizeof(RecyclerVisitedObjectImpl);
+        }
+
         switch (allocType)
         {
         case AllocationType::TraceAndFinalized:
@@ -932,6 +946,7 @@ public:
     UINT disposeCount;
     UINT traceCount;
     void* tracedPointer;
+    RecyclerNativeHeapWeakReferenceHandle weakReferenceHandle;
 
 private:
     RecyclerVisitedObjectImpl(AllocationType allocType) : 
@@ -1046,5 +1061,125 @@ void TestRecyclerVisitedObjects(Recycler* recycler,ArenaAllocator* alloc, TestCo
     Assert(RecyclerVisitedObjectImpl::s_disposed == 4);
 
     printf("Pass");
+}
+
+// Helper macro for collecting synchronously without considering the stack
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+#define COLLECTNOW_NOSTACK(recycler) \
+{\
+    Recycler::AutoEnterExternalStackSkippingGCMode autoGC(recycler); /* Indicate we are deliberablity skipping the stack */ \
+    recycler->CollectNow<CollectNowForceInThreadExternalNoStack>(); \
+}
+#else
+#define COLLECTNOW_NOSTACK(recycler) recycler->CollectNow<CollectNowForceInThreadExternalNoStack>()
+#endif
+
+void TestWeakReferenceExports(Recycler* recycler, ArenaAllocator* alloc, TestContext *ctx) {
+    RecyclerVisitedObjectImpl::s_traced = 0; 
+    RecyclerVisitedObjectImpl::s_finalized = 0;
+    RecyclerVisitedObjectImpl::s_disposed = 0;
+
+    RecyclerVisitedObjectImpl* finalized = RecyclerVisitedObjectImpl::Create(recycler, RecyclerVisitedObjectImpl::AllocationType::FinalizeOnly);
+    RecyclerVisitedObjectImpl* tracedAndFinalized = RecyclerVisitedObjectImpl::Create(recycler, RecyclerVisitedObjectImpl::AllocationType::TraceAndFinalized);
+
+    RecyclerNativeHeapWeakReferenceHandle weakReferenceHandle;
+    HRESULT hr = RecyclerNativeHeapCreateWeakReference(recycler, finalized, /*out*/&weakReferenceHandle);
+    Assert(hr == S_OK);
+
+    tracedAndFinalized->tracedPointer = finalized;
+    tracedAndFinalized->weakReferenceHandle = weakReferenceHandle;
+
+    void* strongReference = RecyclerNativeHeapGetStrongReference(recycler, weakReferenceHandle);
+    Assert(strongReference == finalized);
+
+    hr = RecyclerNativeHeapRootAddRef(recycler, tracedAndFinalized, /*count*/nullptr);
+    Assert(hr == S_OK);
+
+    RecyclerNativeHeapWeakReferenceCleanupCookie weakReferenceCookie = RecyclerNativeHeapInitialWeakReferenceCleanupCookie;
+    RecyclerNativeHeapHasWeakReferenceCleanupOccurred(recycler, &weakReferenceCookie);
+
+    COLLECTNOW_NOSTACK(recycler);
+
+    bool hasWeakReferenceCleanupOccurred = RecyclerNativeHeapHasWeakReferenceCleanupOccurred(recycler, &weakReferenceCookie);
+
+    Assert(!hasWeakReferenceCleanupOccurred); // No weak references cleaned during the previous collection
+
+    Assert(RecyclerVisitedObjectImpl::s_traced == 1);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 0);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 0);
+
+    strongReference = RecyclerNativeHeapGetStrongReference(recycler, weakReferenceHandle);
+    Assert(strongReference == finalized);
+
+    // Drop our reference to finalized, but keep the weak reference handle
+    tracedAndFinalized->tracedPointer = nullptr;
+
+    COLLECTNOW_NOSTACK(recycler);
+
+    Assert(RecyclerVisitedObjectImpl::s_traced == 2);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 1);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 1);
+
+    hasWeakReferenceCleanupOccurred = RecyclerNativeHeapHasWeakReferenceCleanupOccurred(recycler, &weakReferenceCookie);
+    Assert(hasWeakReferenceCleanupOccurred); // Weak pointer cleanup occurred in the previous collection
+
+    strongReference = RecyclerNativeHeapGetStrongReference(recycler, weakReferenceHandle);
+    Assert(strongReference == nullptr);
+
+    // Collect the object we've used as our root
+    RecyclerNativeHeapRootRelease(recycler, tracedAndFinalized, /*count*/nullptr);
+
+    COLLECTNOW_NOSTACK(recycler);
+
+    hasWeakReferenceCleanupOccurred = RecyclerNativeHeapHasWeakReferenceCleanupOccurred(recycler, &weakReferenceCookie);
+    Assert(!hasWeakReferenceCleanupOccurred); // We already nulled out the weak reference so it shouldn't be counted again when the handle is collected
+
+    Assert(RecyclerVisitedObjectImpl::s_traced == 2);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 2);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 2);
+
+    printf("Pass");
+}
+
+void TestRootAddRefRelease(Recycler* recycler, ArenaAllocator* alloc, TestContext *ctx) {
+    RecyclerVisitedObjectImpl::s_traced = 0;
+    RecyclerVisitedObjectImpl::s_finalized = 0;
+    RecyclerVisitedObjectImpl::s_disposed = 0;
+
+    RecyclerVisitedObjectImpl* tracedAndFinalized = RecyclerVisitedObjectImpl::Create(recycler, RecyclerVisitedObjectImpl::AllocationType::TraceAndFinalized);
+    RecyclerVisitedObjectImpl* tracedAndFinalized2 = RecyclerVisitedObjectImpl::Create(recycler, RecyclerVisitedObjectImpl::AllocationType::TraceAndFinalized);
+    Assert(sizeof(RecyclerVisitedObjectImpl) > 16);
+    void* tracedAndFinalizedInterior = (void*)((uintptr_t)tracedAndFinalized + 16);
+    void* tracedAndFinalized2Interior = (void*)((uintptr_t)tracedAndFinalized2 + 16);
+
+    Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalizedInterior) == tracedAndFinalized);
+    Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalized2Interior) == tracedAndFinalized2);
+
+    HRESULT hr = RecyclerNativeHeapRootAddRef(recycler, tracedAndFinalizedInterior, /*count*/nullptr);
+    Assert(hr == S_OK);
+    hr = RecyclerNativeHeapRootAddRef(recycler, tracedAndFinalized2Interior, /*count*/nullptr);
+    Assert(hr == S_OK);
+
+    COLLECTNOW_NOSTACK(recycler);
+
+    Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalizedInterior) == tracedAndFinalized);
+    Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalized2Interior) == tracedAndFinalized2);
+
+    Assert(RecyclerVisitedObjectImpl::s_traced == 2);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 0);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 0);
+
+    RecyclerNativeHeapRootRelease(recycler, tracedAndFinalizedInterior, /*count*/nullptr);
+    RecyclerNativeHeapRootRelease(recycler, tracedAndFinalized2Interior, /*count*/nullptr);
+
+    COLLECTNOW_NOSTACK(recycler);
+
+    // Note: these Asserts fire because the HeapBlock still exists and is willing to translate any address owned by the block regardless of the state of the object within the block
+    //Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalizedInterior) == nullptr);
+    //Assert(RecyclerNativeHeapGetRealAddressFromInterior(recycler, tracedAndFinalized2Interior) == nullptr);
+
+    Assert(RecyclerVisitedObjectImpl::s_traced == 2);
+    Assert(RecyclerVisitedObjectImpl::s_finalized == 2);
+    Assert(RecyclerVisitedObjectImpl::s_disposed == 2);
 }
 #endif

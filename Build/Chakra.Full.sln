@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26216.0
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chakra", "..\private\bin\Chakra\Chakra.vcxproj", "{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -395,17 +395,25 @@ Global
 		{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}.jshost-Test|x86.ActiveCfg = Test|Win32
 		{EA882C8D-81FC-42FE-ABD5-2666DB933FDA}.jshost-Test|x86.Build.0 = Test|Win32
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|ARM.ActiveCfg = Debug|ARM
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|ARM.Build.0 = Debug|ARM
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|ARM64.ActiveCfg = Debug|ARM64
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|ARM64.Build.0 = Debug|ARM64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|x64.ActiveCfg = Debug|x64
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|x64.Build.0 = Debug|x64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|x86.ActiveCfg = Debug|Win32
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Debug|x86.Build.0 = Debug|Win32
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Release|ARM.ActiveCfg = Release|ARM
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Release|ARM64.ActiveCfg = Release|ARM64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Release|x64.ActiveCfg = Release|x64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Release|x86.ActiveCfg = Release|Win32
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|ARM.ActiveCfg = Test|ARM
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|ARM.Build.0 = Test|ARM
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|ARM64.ActiveCfg = Test|ARM64
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|ARM64.Build.0 = Test|ARM64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|x64.ActiveCfg = Test|x64
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|x64.Build.0 = Test|x64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|x86.ActiveCfg = Test|Win32
+		{94E22D67-70E5-468F-A62C-9D657B1D170F}.all-Test|x86.Build.0 = Test|Win32
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.jshost-Debug|ARM.ActiveCfg = Debug|ARM
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.jshost-Debug|ARM64.ActiveCfg = Debug|ARM64
 		{94E22D67-70E5-468F-A62C-9D657B1D170F}.jshost-Debug|x64.ActiveCfg = Debug|x64
