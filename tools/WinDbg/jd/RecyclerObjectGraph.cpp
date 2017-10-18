@@ -788,12 +788,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addDynamicObjectFields(remoteTyped, "Js::ScriptFunctionType");
                 addFunctionFields(remoteTyped);
                 JDRemoteTyped frameDisplay = remoteTyped.Field("environment");
-                addField(frameDisplay, "Js::FrameDisplay");
-                uint16 frameDisplayLength = frameDisplay.Field("length").GetUshort();
-                JDRemoteTyped scopes = frameDisplay.Field("scopes");
-                for (uint16 i = 0; i < frameDisplayLength; i++)
+                if (addField(frameDisplay, "Js::FrameDisplay"))
                 {
-                    addField(scopes.ArrayElement(i), "Js::FrameDisplayScopeSlots");
+                    uint16 frameDisplayLength = frameDisplay.Field("length").GetUshort();
+                    JDRemoteTyped scopes = frameDisplay.Field("scopes");
+                    for (uint16 i = 0; i < frameDisplayLength; i++)
+                    {
+                        addField(scopes.ArrayElement(i), "Js::FrameDisplayScopeSlots");
+                    }
                 }
             };
 
