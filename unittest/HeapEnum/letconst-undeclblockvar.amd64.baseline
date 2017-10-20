@@ -483,19 +483,19 @@
  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: CreateDomSetObject
  |  |    |    [Prototype] type: StringObject (seen)
- |  | 66 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
- |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] testScopeSlotArray
- |  | 67 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
- |  |    [Prototype] type: FunctionObject (seen)
- |  |    [Function name] testActivationObject
- |  | 68 func: type: FunctionObject flags: (new) optional info records (3)
+ |  | 66 func: type: FunctionObject flags: (new) optional info records (3)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Function name] func
  |  |    [Scopes] count: 1
  |  |    | scope[0]: type: Scope flags: (new) optional info records (2)
  |  |    |  [Function name] testScopeSlotArray
  |  |    |  [Properties] count: 0
+ |  | 67 testScopeSlotArray: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Function name] testScopeSlotArray
+ |  | 68 testActivationObject: type: FunctionObject flags: (new) optional info records (2)
+ |  |    [Prototype] type: FunctionObject (seen)
+ |  |    [Function name] testActivationObject
 
 ==========>End Heap Dump<===============
 
