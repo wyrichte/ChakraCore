@@ -125,7 +125,7 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "length": "0"
+              "length": "1"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
