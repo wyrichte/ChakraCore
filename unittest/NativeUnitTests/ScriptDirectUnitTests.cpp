@@ -200,7 +200,6 @@ HRESULT RunNativeTest(JsHostNativeTestArguments* jsHostArgs)
     }
     else if (_wcsicmp(jsHostArgs->flags[0], _u("DirectAPIDisableNoScriptScopeTest")) == 0)
     {
-        // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
         Print("\n\nRunning DirectAPIDisableNoScriptScopeTest tests\n");
         RunJsDirectDisableNoScriptScopeTest(&test);
         return S_OK;

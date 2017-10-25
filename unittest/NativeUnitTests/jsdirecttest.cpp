@@ -304,7 +304,8 @@ void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
 
 void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
 {
-    // TODO (doilij): DisableNoScriptScope is a temporary workaround to unblock integration of NoScriptScope into TreeWriter
+    // This test covers behavior that previously required the DisableNoScriptScope workaround.
+    // The behavior was fixed and the workaround was removed in commit 0d5a69e6 (<yongqu>).
 
     myTests->InitThreadService();
 
@@ -327,7 +328,7 @@ void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
     // NoScriptScope == true
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true), S_OK);
     x->ChangeTypeToVar(&variant, &var); // would fail before fix, expect to pass now
-    printf("When NoScriptScope==true, and DisableNoScriptScope workaround is in place, this should pass.\n");
+    printf("When NoScriptScope==true, this should still pass.\n");
 }
 
 #undef NOSCRIPTSCOPE_CHECK_BOOL

@@ -5,4 +5,4 @@ Running DirectAPIDisableNoScriptScopeTest tests
 SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, false) // HRESULT == S_OK
 When NoScriptScope==false, this should pass.
 SUCCESS: JsStaticAPI::JavascriptLibrary::SetNoScriptScope(trackingService, true) // HRESULT == S_OK
-When NoScriptScope==true, and DisableNoScriptScope workaround is in place, this should pass.
+When NoScriptScope==true, this should still pass.
