@@ -63,9 +63,10 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
 
     if (!dispMap->TryGetValue(scriptObject, &jsdisp))
     {
-        if (Js::CustomExternalObject::Is(scriptObject))
+        Js::CustomExternalObject * customExternalScriptObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(scriptObject);
+        if (customExternalScriptObject)
         {
-            jsdisp = Js::CustomExternalObject::FromVar(scriptObject)->GetCachedJavascriptDispatch();
+            jsdisp = customExternalScriptObject->GetCachedJavascriptDispatch();
             if (jsdisp)
             {
                 AssertMsg(!jsdisp->isGCTracked, "JD wrapping CEO shouldn't be GC tracked");
@@ -2133,9 +2134,10 @@ AutoActiveCallPointer::~AutoActiveCallPointer()
 HRESULT JavascriptDispatch::ResetContentToNULL()
 {
     // this is called when a site is closed. we should clean up the cache when the JavascriptDispatch is reset.
-    if (Js::CustomExternalObject::Is(scriptObject))
+    Js::CustomExternalObject * customExternalScriptObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(scriptObject);
+    if (customExternalScriptObject)
     {
-        Js::CustomExternalObject::FromVar(scriptObject)->CacheJavascriptDispatch(nullptr);
+        customExternalScriptObject->CacheJavascriptDispatch(nullptr);
     }
     scriptObject = nullptr;
     dispIdEnumerator = nullptr;
@@ -2199,9 +2201,10 @@ void JavascriptDispatch::CachePropertyId(Js::PropertyRecord const * propertyReco
     // this cause problem for nested element's fields. So for propertyIds that are created from 
     // CustomExternalObject, we'll keep them alive for the lifetime of CEO. type handler might not
     // hold reference to those property so we need to use cached javascriptdispatch
-    if (Js::CustomExternalObject::Is(scriptObject) && isPropertyId)
+    Js::CustomExternalObject * customExternalScriptObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(scriptObject);
+    if (customExternalScriptObject && isPropertyId)
     {
-        Js::CustomExternalObject::FromVar(scriptObject)->CacheJavascriptDispatch(this);
+        customExternalScriptObject->CacheJavascriptDispatch(this);
     }
 
 

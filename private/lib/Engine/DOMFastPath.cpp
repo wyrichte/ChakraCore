@@ -96,10 +96,10 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
         return nullptr;
     }
 
-    Assert(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(recyclableObject));
+    AssertOrFailFast(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(recyclableObject));
     Assert(args.Info.Count > 0);
 
-    Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(dynamicObject);
+    Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(dynamicObject);
     Js::FunctionInfo* funcInfo = simpleAccessorFunction->GetFunctionInfo();
     Assert((funcInfo->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
     targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), requestHostContext);
@@ -157,7 +157,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject
     }
 
     AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
     Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
@@ -218,7 +218,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject
     }
 
     AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
     Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
@@ -278,7 +278,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* 
     }
 
     AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
     Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
@@ -339,7 +339,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* 
     }
 
     AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::FromVar(function);
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
     Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);

@@ -23,6 +23,7 @@ namespace Js
         bool InstanceOf(Var thisObj);
 
         static JavascriptTypedObjectSlotAccessorFunction* FromVar(Var instance);
+        static JavascriptTypedObjectSlotAccessorFunction* UnsafeFromVar(Var instance);
         static bool Is(Var instance);
 
         ScriptMethod GetFallBackTrampoline() const { return fallBackTrampoline; }

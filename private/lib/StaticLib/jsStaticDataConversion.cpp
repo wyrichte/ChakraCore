@@ -29,7 +29,7 @@ namespace JsStaticAPI
 #endif
         else if (Js::JavascriptBoolean::Is(obj))
         {
-            *value =  Js::JavascriptBoolean::FromVar(obj)->GetValue();
+            *value =  Js::JavascriptBoolean::UnsafeFromVar(obj)->GetValue();
             return NOERROR;
         }
 
@@ -45,7 +45,7 @@ namespace JsStaticAPI
     IActiveScriptDirect* DataConversion::VarToScriptDirectNoRef(Var obj)
     {
         Assert(Js::RecyclableObject::Is(obj));
-        Js::ScriptContext* scriptContext = Js::RecyclableObject::FromVar(obj)->GetScriptContext();
+        Js::ScriptContext* scriptContext = Js::RecyclableObject::UnsafeFromVar(obj)->GetScriptContext();
         if (scriptContext->IsClosed())
         {
             return NULL;

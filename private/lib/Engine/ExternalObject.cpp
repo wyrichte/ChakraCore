@@ -95,9 +95,10 @@ namespace Js
         }
         else
         {
-            if (CustomExternalObject::Is(this))
+            Js::CustomExternalObject * ceo = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(this);
+            if (ceo)
             {
-                Js::CustomExternalObject::FromVar(this)->CacheJavascriptDispatch(NULL);
+                ceo->CacheJavascriptDispatch(NULL);
             }
         }
         return NOERROR;

@@ -72,6 +72,13 @@ namespace Js
 
     JavascriptTypedObjectSlotAccessorFunction* JavascriptTypedObjectSlotAccessorFunction::FromVar(Var instance)
     {
+        AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(instance));
+        AssertOrFailFast((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
+        return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);
+    }
+
+    JavascriptTypedObjectSlotAccessorFunction* JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(Var instance)
+    {
         Assert(Js::JavascriptTypedObjectSlotAccessorFunction::Is(instance));
         Assert((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
         return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);

@@ -170,6 +170,13 @@ namespace Js
 
     CustomExternalObject* CustomExternalObject::FromVar(Var instance)
     {
+        AssertOrFailFast(Is(instance));
+        CustomExternalObject* obj = static_cast<CustomExternalObject*>(instance);
+        return obj;
+    }
+
+    CustomExternalObject* CustomExternalObject::UnsafeFromVar(Var instance)
+    {
         Assert(Is(instance));
         CustomExternalObject* obj = static_cast<CustomExternalObject*>(instance);
         return obj;

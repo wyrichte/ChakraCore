@@ -107,6 +107,7 @@ namespace Js
 
         static bool Is(Var instance);
         static CustomExternalObject* FromVar(Var instance);
+        static CustomExternalObject* UnsafeFromVar(Var instance);
 
         virtual void Finalize(bool isShutdown) override;
         virtual void Dispose(bool isShutdown) override;

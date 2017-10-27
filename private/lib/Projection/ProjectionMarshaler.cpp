@@ -94,9 +94,9 @@ namespace Projection
     //              expectedTypeId - the expected type of the 'this' object
     void GetUnknownOfVarExtension(Js::ScriptContext * scriptContext, Var instance, const IID & iid, void ** pp, bool * isDefaultInterface, bool addRefDefault, MetadataStringId methodNameId, MetadataStringId expectedTypeId)
     {
-        if (Js::CustomExternalObject::Is(instance))
+        auto ceo = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(instance);
+        if (ceo)
         {
-            auto ceo = Js::CustomExternalObject::FromVar(instance);
             if ((expectedTypeId != MetadataStringIdNil) && (ceo->GetTypeNameId() != expectedTypeId))
             {
                 Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NeedWinRTType, StringOfId(scriptContext, expectedTypeId)); 

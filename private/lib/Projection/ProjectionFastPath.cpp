@@ -105,9 +105,9 @@ namespace Projection
             return nullptr;
         }
 
-        if (Js::CustomExternalObject::Is(thisArg))
+        auto ceo = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(thisArg);
+        if (ceo)
         {
-            auto ceo = Js::CustomExternalObject::FromVar(thisArg);
             if (ceo->GetTypeNameId() == expectedTypeId)
             {
                 auto p = (ProjectionObjectInstance*)(thisArg);

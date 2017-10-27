@@ -390,12 +390,12 @@ namespace Projection
 
     BOOL ProjectionObjectInstance::Is(Var instance)
     {
-        if (!Js::CustomExternalObject::Is(instance))
+        Js::CustomExternalObject* externalObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(instance);
+        if (!externalObject)
         {
             return FALSE;
         }
         
-        Js::CustomExternalObject* externalObject = Js::CustomExternalObject::FromVar(instance);
         Js::ExternalType * externalType = (Js::ExternalType *)externalObject->GetType();
         ProjectionTypeOperations* projectionTypeOperations = NULL;
         if (SUCCEEDED(externalType->GetTypeOperations()->QueryInterface(IID_IProjectionTypeOperations, (void**)&projectionTypeOperations)))
