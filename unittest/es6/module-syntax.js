@@ -119,9 +119,9 @@ var tests = [
     {
         name: "Runtime error import statements",
         body: function () {
-            testModuleScript('import foo from "ValidExportStatements.js"; assert.throws(()=>{ foo =12; }, TypeError, "assignment to const");', 'Imported default bindings are constant bindings', false);
-            testModuleScript('import { foo } from "ValidExportStatements.js"; assert.throws(()=>{ foo = 12; }, TypeError, "assignment to const");', 'Imported named bindings are constant bindings', false);
-            testModuleScript('import { foo as foo22 } from "ValidExportStatements.js"; assert.throws(()=>{ foo22 = 12; }, TypeError, "assignment to const");', 'Renamed import bindings are constant bindings', false);
+            testModuleScript('import foo from "ValidExportStatements.js"; try { (() => { foo = 12; })() } catch(e) { assert.areEqual("Assignment to const", e.message); }', 'Imported default bindings are constant bindings', false);
+            testModuleScript('import { foo } from "ValidExportStatements.js"; try { (() => { foo = 12; })() } catch(e) { assert.areEqual("Assignment to const", e.message); }', 'Imported named bindings are constant bindings', false);
+            testModuleScript('import * as foo from "ValidExportStatements.js"; try { (() => { foo = 12; })() } catch(e) { assert.areEqual("Assignment to const", e.message); }', 'Namespace import bindings are constant bindings', false);
             
             // 'import *' is not yet implemented
             //testModuleScript('import * as foo from "ValidExportStatements.js"; assert.throws(()=>{ foo22 = 12; }, TypeError, "assignment to const");', 'Renamed import bindings are constant bindings', false);
