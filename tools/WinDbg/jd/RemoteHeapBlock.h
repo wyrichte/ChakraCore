@@ -44,6 +44,7 @@ public:
     bool IsLargeHeapBlock();
     bool IsLeafHeapBlock();
     bool IsFinalizableHeapBlock();
+    bool IsSmallHeapBlock();
 
     ULONG64 GetHeapBlockAddress() { return heapBlockAddress; }
     ULONG64 GetAddress() { return address; }

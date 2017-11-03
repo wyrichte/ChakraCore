@@ -46,7 +46,7 @@ public:
                 return memcmp(_Key1, _Key2, sizeof(RecyclerObjectTypeInfo)) == -1;
             }
         };
-        HashSet<RecyclerObjectTypeInfo *, RecyclerObjectTypeInfo::HashCompare> typeInfoSet;
+        HashSet<RecyclerObjectTypeInfo *, HashCompare> typeInfoSet;
     };
 private:
     const char * typeName;

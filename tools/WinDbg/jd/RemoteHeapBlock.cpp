@@ -72,7 +72,10 @@ RemoteHeapBlock::Initialize()
         totalObjectCount = heapBlock.Field("objectCount").GetUshort();
         bucketObjectSize = heapBlock.Field("objectSize").GetUshort();
         totalObjectSize = bucketObjectSize * totalObjectCount;
-        size = JDUtil::Align<ULONG64>(totalObjectSize, g_Ext->m_PageSize);
+        // We never use odd number of pages, so align to 2 pages. This fixes some cases
+        // of mediumn blocks where objectSize > 1 page, unallocatable space = 1.x pages,
+        // and alignment to 1 page ends up with (PageCount - 1) pages.
+        size = JDUtil::Align<ULONG64>(totalObjectSize, g_Ext->m_PageSize * 2);
     }
 
     hasCachedAllocatedObjectCountAndSize = false;
@@ -85,11 +88,17 @@ RemoteHeapBlock::GetExtRemoteTyped()
     {
         return GetExtension()->recyclerCachedData.GetAsLargeHeapBlock(heapBlockAddress);
     }
+
+    const bool isSmall = IsSmallHeapBlock();
     if (IsFinalizableHeapBlock())
     {
-        return GetExtension()->recyclerCachedData.GetAsSmallFinalizableHeapBlock(heapBlockAddress);
+        return isSmall ?
+            GetExtension()->recyclerCachedData.GetAsSmallFinalizableHeapBlock(heapBlockAddress) :
+            GetExtension()->recyclerCachedData.GetAsMediumFinalizableHeapBlock(heapBlockAddress);
     }
-    return GetExtension()->recyclerCachedData.GetAsSmallHeapBlock(heapBlockAddress);
+    return isSmall ?
+        GetExtension()->recyclerCachedData.GetAsSmallHeapBlock(heapBlockAddress) :
+        GetExtension()->recyclerCachedData.GetAsMediumHeapBlock(heapBlockAddress);
 }
 
 char
@@ -179,6 +188,14 @@ bool
 RemoteHeapBlock::IsFinalizableHeapBlock()
 {
     return IsSmallFinalizableHeapBlock() || IsMediumFinalizableHeapBlock() || IsSmallFinalizableWithBarrierHeapBlock() || IsMediumFinalizableWithBarrierHeapBlock() || IsSmallRecyclerVisitedHostHeapBlock() || IsMediumRecyclerVisitedHostHeapBlock();
+}
+
+bool
+RemoteHeapBlock::IsSmallHeapBlock()
+{
+    return IsSmallNormalHeapBlock() || IsSmallLeafHeapBlock() || IsSmallFinalizableHeapBlock()
+        || IsSmallNormalWithBarrierHeapBlock() || IsSmallFinalizableWithBarrierHeapBlock()
+        || IsSmallRecyclerVisitedHostHeapBlock();
 }
 
 bool

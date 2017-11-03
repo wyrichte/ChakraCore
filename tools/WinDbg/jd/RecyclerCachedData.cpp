@@ -34,17 +34,44 @@ static char const * StaticGetSmallFinalizableHeapBlockTypeName()
     }
 }
 
+static char const * StaticGetMediumHeapBlockTypeName()
+{
+    auto ext = GetExtension();
+    if (ext->HasMemoryNS())
+    {
+        return ext->FillModule("%s!Memory::SmallHeapBlockT<MediumAllocationBlockAttributes>");
+    }
+    else
+    {
+        return ext->FillModule("%s!SmallHeapBlockT<MediumAllocationBlockAttributes>");
+    }
+}
+
+static char const * StaticGetMediumFinalizableHeapBlockTypeName()
+{
+    auto ext = GetExtension();
+    if (ext->HasMemoryNS())
+    {
+        return ext->FillModule("%s!Memory::SmallFinalizableHeapBlockT<MediumAllocationBlockAttributes>");
+    }
+    else
+    {
+        return ext->FillModule("%s!SmallFinalizableHeapBlockT<MediumAllocationBlockAttributes>");
+    }
+}
+
 RecyclerCachedData::RecyclerCachedData() :
     m_heapBlockTypeInfo("HeapBlock", true),
     m_smallHeapBlockTypeInfo(StaticGetSmallHeapBlockTypeName),
     m_smallFinalizableHeapBlockTypeInfo(StaticGetSmallFinalizableHeapBlockTypeName),
+    m_mediumHeapBlockTypeInfo(StaticGetMediumHeapBlockTypeName),
+    m_mediumFinalizableHeapBlockTypeInfo(StaticGetMediumFinalizableHeapBlockTypeName),
     m_largeHeapBlockTypeInfo("LargeHeapBlock", true),
     m_blockTypeEnumInitialized(false),
     m_mphblockTypeEnumInitialized(false),
     m_debuggeeMemoryCache(NULL),
     cachedObjectGraphRecyclerAddress(0),
     cachedObjectGraph(NULL)
-
 {}
 
 RemoteHeapBlock * RecyclerCachedData::FindCachedHeapBlock(ULONG64 address)
@@ -135,6 +162,9 @@ void RecyclerCachedData::Clear()
     m_heapblockMapCache.clear();
     m_heapBlockTypeInfo.Clear();
     m_smallHeapBlockTypeInfo.Clear();
+    m_smallFinalizableHeapBlockTypeInfo.Clear();
+    m_mediumHeapBlockTypeInfo.Clear();
+    m_mediumFinalizableHeapBlockTypeInfo.Clear();
     m_largeHeapBlockTypeInfo.Clear();
 
     if (this->cachedObjectGraph != nullptr)
@@ -157,6 +187,21 @@ ExtRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
 ExtRemoteTyped RecyclerCachedData::GetAsSmallFinalizableHeapBlock(ULONG64 address)
 {
     return m_smallFinalizableHeapBlockTypeInfo.Cast(address);
+}
+
+ExtRemoteTyped RecyclerCachedData::GetAsMediumHeapBlock(ULONG64 address)
+{
+    return m_mediumHeapBlockTypeInfo.Cast(address);
+}
+
+ExtRemoteTyped RecyclerCachedData::GetAsMediumFinalizableHeapBlock(ULONG64 address)
+{
+    return m_mediumFinalizableHeapBlockTypeInfo.Cast(address);
+}
+
+ExtRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)
+{
+    return m_largeHeapBlockTypeInfo.Cast(address);
 }
 
 bool RecyclerCachedData::GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory)
@@ -230,11 +275,6 @@ void RecyclerCachedData::DisableCachedDebuggeeMemory()
     m_debuggeeMemoryCacheReferences.clear();
     HeapDestroy(m_debuggeeMemoryCache);
     m_debuggeeMemoryCache = NULL;
-}
-
-ExtRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)
-{
-    return m_largeHeapBlockTypeInfo.Cast(address);
 }
 
 void RecyclerCachedData::EnsureBlockTypeEnum()

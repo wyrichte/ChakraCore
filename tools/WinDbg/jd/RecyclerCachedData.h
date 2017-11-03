@@ -53,9 +53,11 @@ public:
     void Clear();
 
     ExtRemoteTyped GetAsHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
     ExtRemoteTyped GetAsSmallFinalizableHeapBlock(ULONG64 address);
+    ExtRemoteTyped GetAsMediumHeapBlock(ULONG64 address);
+    ExtRemoteTyped GetAsMediumFinalizableHeapBlock(ULONG64 address);
+    ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
 
     RemoteHeapBlock * FindCachedHeapBlock(ULONG64 address);
 
@@ -94,6 +96,8 @@ private:
     CachedTypeInfo m_heapBlockTypeInfo;
     CachedTypeInfo m_smallHeapBlockTypeInfo;
     CachedTypeInfo m_smallFinalizableHeapBlockTypeInfo;
+    CachedTypeInfo m_mediumHeapBlockTypeInfo;
+    CachedTypeInfo m_mediumFinalizableHeapBlockTypeInfo;
     CachedTypeInfo m_largeHeapBlockTypeInfo;
     bool m_blockTypeEnumInitialized;
     bool m_mphblockTypeEnumInitialized;
