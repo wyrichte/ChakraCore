@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
       <files>sca_basic.js</files>
       <baseline>sca_basic.baseline</baseline>
-      <tags>exclude_nonrazzle</tags>
+      <!-- Tracked by OS#14409784 -->
+      <tags>fail</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
@@ -43,7 +44,8 @@
     <default>
       <files>sca_object.js</files>
       <baseline>sca_object.baseline</baseline>
-      <tags>exclude_nonrazzle</tags>
+      <!-- Tracked by OS#14411861 -->
+      <tags>fail</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
