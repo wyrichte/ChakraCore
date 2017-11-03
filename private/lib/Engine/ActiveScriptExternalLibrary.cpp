@@ -40,7 +40,7 @@ void ActiveScriptExternalLibrary::InitializeTypes()
         Js::SimpleDictionaryTypeHandler::New(scriptContext->GetRecycler(), 0, 0, 0, true, true), true, true);
 
     hostObjectType = Js::DynamicType::New(scriptContext, Js::TypeIds_HostObject, library->GetNull(), nullptr,
-        Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
+        Js::SimplePathTypeHandlerNoAttr::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 }
 
 void ActiveScriptExternalLibrary::InitializeDiagnosticsScriptObject()

@@ -83,7 +83,7 @@ var tests = [
             var h = getHashtable();
 
             if (typeof Debug.getTypeHandlerName === 'function') {
-                assert.areEqual("class Js::PathTypeHandler const *", Debug.getTypeHandlerName(h), "Object is a string-keyed type handler");
+                assert.areEqual("class Js::PathTypeHandlerNoAttr const *", Debug.getTypeHandlerName(h), "Object is a string-keyed type handler");
             }
 
             h['s'] = '0';

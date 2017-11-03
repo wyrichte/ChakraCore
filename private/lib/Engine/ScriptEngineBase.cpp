@@ -644,7 +644,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
         }
         else
         {
-            customExternalTypeHandler = Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true);
+            customExternalTypeHandler = Js::SimplePathTypeHandlerNoAttr::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true);
         }
 
         Js::CustomExternalType * customExternalType =
@@ -664,7 +664,7 @@ HRESULT ScriptEngineBase::CreateTypeFromPrototypeInternal(
         }
         Js::ExternalType * externalType = RecyclerNew(recycler, Js::ExternalType,
             localScriptContext, (Js::TypeId)typeId, objPrototype, (Js::ExternalMethod)entryPoint,
-            Js::SimplePathTypeHandler::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
+            Js::SimplePathTypeHandlerNoAttr::New(localScriptContext, localScriptContext->GetLibrary()->GetRootPath(), 0, 0, 0, true, true), true, true, nameId);
         type = externalType;
     }
 

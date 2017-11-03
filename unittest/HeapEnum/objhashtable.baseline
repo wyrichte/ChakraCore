@@ -1,4 +1,4 @@
-class Js::SimplePathTypeHandler const *
+class Js::SimplePathTypeHandlerNoAttr const *
 
 
 ===========>Starting Heap Dump for specific object<===============

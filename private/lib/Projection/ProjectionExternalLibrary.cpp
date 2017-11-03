@@ -21,7 +21,7 @@ void ProjectionExternalLibrary::Initialize(Js::JavascriptLibrary* library)
     Js::JavascriptFunction* nativeErrorPrototype = nullptr;
 
     winrtDateType = Js::DynamicType::New(scriptContext, Js::TypeIds_WinRTDate, library->GetDatePrototype(), nullptr,
-        Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
+        Js::SimplePathTypeHandlerNoAttr::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 
     if (scriptContext->GetConfig()->IsES6PrototypeChain())
     {
@@ -41,7 +41,7 @@ void ProjectionExternalLibrary::Initialize(Js::JavascriptLibrary* library)
             /*isExternalError*/FALSE, /*isPrototype*/TRUE);
 
         winrtErrorType = Js::DynamicType::New(scriptContext, Js::TypeIds_Error, winrtErrorPrototype, nullptr,
-            Js::SimplePathTypeHandler::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
+            Js::SimplePathTypeHandlerNoAttr::New(scriptContext, library->GetRootPath(), 0, 0, 0, true, true), true, true);
 
         winRTPromiseExtension = RecyclerNew(library->GetRecycler(), WinRTPromiseEngineInterfaceExtensionObject, scriptContext);
         library->GetEngineInterfaceObject()->SetEngineExtension(Js::EngineInterfaceExtensionKind::EngineInterfaceExtensionKind_WinRTPromise, winRTPromiseExtension);
