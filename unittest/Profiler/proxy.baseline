@@ -212,8 +212,6 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 99, Column: 15, Character Position: 4226
 [FunctionCompiled]: Function: cleanupBeforeTestStarts, Line: 14, Column: 1, Character Position: 538
 [FunctionCompiled]: Function: compare, Line: 336, Column: 19, Character Position: 13784
-[FunctionCompiled]: Function: get isCompatVersion9, Line: 62, Column: 13, Character Position: 3106
-[FunctionCompiled]: Function: get isVersion10OrLater, Line: 65, Column: 13, Character Position: 3217
 [FunctionCompiled]: Function: handler.trapApply, Line: 162, Column: 33, Character Position: 6556
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 220, Column: 37, Character Position: 8966
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 264, Column: 37, Character Position: 10858
