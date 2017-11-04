@@ -304,28 +304,37 @@ undefined
  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: findIndex
  |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  | 24 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |  | 24 keys: type: FunctionObject flags: (new) optional info records (3)
  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |    [Properties] count: 2
- |  |  |    | 0 length: value: 0.000000
- |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |    [Internal property] value: entries
- |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  | 25 keys: type: FunctionObject flags: (new) optional info records (2)
- |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |    [Properties] count: 2
- |  |  |    | 0 length: value: 0.000000
- |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    [Function name] keys
+ |  |  |    [Properties] count: 4
+ |  |  |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: keys
  |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  | 26 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  |    | 2 caller: type: Null (seen)
+ |  |  |    | 3 arguments: type: Null (seen)
+ |  |  | 25 values: type: FunctionObject flags: (new) optional info records (3)
  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |    [Properties] count: 2
- |  |  |    | 0 length: value: 0.000000
- |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    [Function name] values
+ |  |  |    [Properties] count: 4
+ |  |  |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: values
  |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  | 27 Symbol.iterator: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  |    | 2 caller: type: Null (seen)
+ |  |  |    | 3 arguments: type: Null (seen)
+ |  |  | 26 Symbol.iterator: type: FunctionObject (seen)
+ |  |  | 27 entries: type: FunctionObject flags: (new) optional info records (3)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Function name] entries
+ |  |  |    [Properties] count: 4
+ |  |  |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |  |    |    [Internal property] value: entries
+ |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  |    | 2 caller: type: Null (seen)
+ |  |  |    | 3 arguments: type: Null (seen)
  |  |  | 28 Symbol.unscopables: type: ObjectObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: Null (seen)
  |  |  |    [Properties] count: 8

@@ -115,13 +115,16 @@
  |  |    [Properties] count: 3
  |  |    | 0 length: value: 0.000000
  |  |    | 1 callee: type: FunctionObject (seen)
- |  |    | 2 Symbol.iterator: type: FunctionObject flags: (new) optional info records (2)
+ |  |    | 2 Symbol.iterator: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    [Prototype] type: FunctionObject (seen)
- |  |    |    [Properties] count: 2
- |  |    |    | 0 length: value: 0.000000
- |  |    |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    [Function name] values
+ |  |    |    [Properties] count: 4
+ |  |    |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |    [Internal property] value: values
  |  |    |    |    [Prototype] type: StringObject (seen)
+ |  |    |    | 1 length: value: 0.000000
+ |  |    |    | 2 caller: type: Null (seen)
+ |  |    |    | 3 arguments: type: Null (seen)
  |  | 2 tst_NoParams_with_1_argument: type: ArgumentObject flags: (new) optional info records (3)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 3

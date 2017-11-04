@@ -1,16 +1,16 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00ac Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b0 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 BailOut: function: foo1 ( (#1.1), #2) offset: #002f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
 BailOut: changing due to ignore exception: function: foo2 ( (#1.2), #3) offset: #000c -> #000e Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
 BailOut: function: foo2 ( (#1.2), #3) offset: #000e Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
 BailOut: function: foo3 ( (#1.3), #4) offset: #0014 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutIgnoreException
 foo3.after throw
-BailOut: function: InitializeCollator ( (#-1.47), #52) offset: #00db Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeCollator ( (#-1.47), #52) offset: #00f3 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: Anonymous function ( (#-1.54), #42) offset: #01c1 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function: InitializeNumberFormat ( (#-1.55), #63) offset: #00d5 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeNumberFormat ( (#-1.55), #63) offset: #00ed Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: Anonymous function ( (#-1.62), #43) offset: #00ca Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function: InitializeDateTimeFormat ( (#-1.70), #75) offset: #00b0 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeDateTimeFormat ( (#-1.70), #75) offset: #00c6 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: EcmaOptionsToWindowsTemplate ( (#-1.64), #70) offset: #02e0 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function: InitializeNumberFormat ( (#-1.55), #63) offset: #00d5 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function: InitializeNumberFormat ( (#-1.55), #63) offset: #00ed Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: CanonicalizeLocaleList ( (#-1.30), #30) offset: #002a Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: changing due to ignore exception: function: foo4 ( (#1.4), #5) offset: #001c -> #001f Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
 BailOut: function: foo4 ( (#1.4), #5) offset: #001f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException

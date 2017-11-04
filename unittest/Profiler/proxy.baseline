@@ -766,8 +766,6 @@ Dumping sorted function compiled events
                 Array.push
                 Echo
               VerifyThis
-              Array.values
-              Array Iterator.next
               target
                 Echo
             areEqual
@@ -841,8 +839,6 @@ Dumping sorted function compiled events
                     Array.push
                     Echo
                   VerifyThis
-                  Array.values
-                  Array Iterator.next
             areEqual
               compare
               validate
@@ -864,8 +860,6 @@ Dumping sorted function compiled events
                 Array.push
                 Echo
               VerifyThis
-              Array.values
-              Array Iterator.next
               Object
             areEqual
               compare
