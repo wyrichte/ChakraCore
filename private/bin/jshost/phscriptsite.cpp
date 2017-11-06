@@ -1194,7 +1194,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
         }
         else
         {
-#if _M_AMD64
+#if TARGET_64
             auto fnAppend = _u(".bc.64b.h");
 #else
             auto fnAppend = _u(".bc.32b.h");
