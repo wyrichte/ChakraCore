@@ -1366,11 +1366,6 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
     }
     uint argCount = args->Info.Count;
     AssertMsg((args->Info.Flags & CallFlags_CallPut) == 0, "This is NOT expected.");
-    if (args->Info.Flags & CallFlags_ExtraArg)
-    {
-        Assert(argCount >= 1);
-        argCount--;
-    }
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT
             for (unsigned int i = 0; i < argCount; i++)

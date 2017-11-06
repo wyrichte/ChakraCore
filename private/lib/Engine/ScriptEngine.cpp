@@ -3225,6 +3225,8 @@ STDMETHODIMP ScriptEngine::AddNamedItem(LPCOLESTR pcszName, DWORD dwFlags)
     {
         // Create a new named item
         pnid = new NamedItem;
+        // We don't support any other module id right now
+        Assert(pnid->moduleID == kmodGlobal);
         IFNULLMEMRET(pnid);
         pnid->bstrItemName = SysAllocString(pcszName);
         if (pnid->bstrItemName == nullptr)
@@ -4081,6 +4083,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
             else
             {
                 moduleID = pnid->moduleID;
+                Assert(moduleID == kmodGlobal);
             }
         }
 
