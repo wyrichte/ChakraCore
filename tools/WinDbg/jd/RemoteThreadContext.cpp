@@ -143,20 +143,19 @@ bool RemoteThreadContext::GetTlsSlot(ExtRemoteTyped& teb, ULONG tlsSlotIndex, UL
 bool RemoteThreadContext::TryGetThreadContextFromTeb(RemoteThreadContext& remoteThreadContext)
 {
     ExtRemoteTyped teb = ExtRemoteTypedUtil::GetTeb();
-    EXT_CLASS_BASE * ext = GetExtension();
-    ExtRemoteTyped tlsSlot(ext->FillModule(IsUsingThreadContextTLSSlot() ?
+    ExtRemoteTyped tlsSlot(GetExtension()->FillModule(IsUsingThreadContextTLSSlot() ?
         "%s!ThreadContextTLSEntry::s_tlsSlot" : "%s!ThreadContext::s_tlsSlot"));
     ULONG tlsSlotIndex = tlsSlot.GetUlong();
 
     ULONG64 tlsEntryPtr = NULL;
     if (GetTlsSlot(teb, tlsSlotIndex, &tlsEntryPtr) && tlsEntryPtr)
     {
-        ExtRemoteTyped tlsEntry(ext->FillModule("(%s!ThreadContextTLSEntry*)@$extin"), tlsEntryPtr);
+        ExtRemoteTyped tlsEntry(GetExtension()->FillModule("(%s!ThreadContextTLSEntry*)@$extin"), tlsEntryPtr);
         ExtRemoteTyped threadContextId = tlsEntry.Field("threadContext");
         
         if (IsUsingThreadContextBase())
         {
-            remoteThreadContext = ExtRemoteTyped(ext->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
+            remoteThreadContext = ExtRemoteTyped(GetExtension()->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
         }
         else
         {
@@ -229,7 +228,7 @@ RemoteThreadContext::GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress)
 
 bool RemoteThreadContext::HasThreadId()
 {
-    return RemoteThreadContext(ExtRemoteTyped("(ThreadContext *)0")).HasThreadIdField();
+    return RemoteThreadContext(ExtRemoteTyped(GetExtension()->FillModule("(%s!ThreadContext *)0"))).HasThreadIdField();
 }
 
 bool RemoteThreadContext::HasThreadIdField()

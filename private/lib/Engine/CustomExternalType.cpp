@@ -122,6 +122,8 @@ namespace Js
                 {
                     ASYNC_HOST_OPERATION_START(threadContext);
 
+                    AutoDisableInterrupt autoDisableInterrupt(threadContext, false /* explicitCompletion */);
+
                     hr = initializer(instance);
 
                     ASYNC_HOST_OPERATION_END(threadContext);

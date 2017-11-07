@@ -11,10 +11,7 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_AuxPtrsFix16("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,3>",
         "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,16,1>", false),
     m_AuxPtrsFix32("Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,6>",
-        "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,3>", false),
-#ifdef JD_PRIVATE
-   recyclerCachedData(this)
-#endif
+        "Js::AuxPtrsFix<enum Js::FunctionProxy::AuxPointerType,32,3>", false)
 {
 #ifdef JD_PRIVATE
     m_moduleName[0] = '\0';
@@ -79,7 +76,7 @@ void EXT_CLASS_BASE::IfFailThrow(HRESULT hr, PCSTR msg)
 {
     if (FAILED(hr))
     {
-        ThrowStatus(hr, msg);
+        ThrowStatus(hr, "%s", msg ? msg : "");
     }
 }
 
@@ -117,7 +114,7 @@ PCSTR EXT_CLASS_BASE::GetModuleName()
         ULONG index = DEBUG_ANY_ID;
         ULONG64 base;
         IfFailThrow(FindJScriptModuleByName<JD_IS_PUBLIC>(m_Symbols, &index, &base),
-            "Failed to find jscript9 module in the process");
+            "Failed to find the jscript module in the process");
 
         if (FAILED(m_Symbols2->GetModuleNameString(
             DEBUG_MODNAME_MODULE, // get module name
@@ -403,33 +400,32 @@ ULONG EXT_CLASS_BASE::GetPropertyIdNone(ExtRemoteTyped& propertyNameListBuffer)
 }
 
 
-EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, RemoteThreadContext threadContext)
+EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(RemoteThreadContext threadContext)
 {
-    m_ext = ext;
     _maxBuiltIn = 0;
     if (threadContext.GetPtr() != 0)
     {
-        if (!ext->m_newPropertyMap.HasValue())
+        if (!GetExtension()->m_newPropertyMap.HasValue())
         {
 
             // We're using the new property map logic if the propertyNameList isn't there.
 
-            ext->m_newPropertyMap = !threadContext.GetExtRemoteTyped().HasField("propertyNameList");
+            GetExtension()->m_newPropertyMap = !threadContext.GetExtRemoteTyped().HasField("propertyNameList");
         }
 
-        if (ext->m_newPropertyMap)
+        if (GetExtension()->m_newPropertyMap)
         {
             ExtRemoteTyped propertyMap = threadContext.GetExtRemoteTyped().Field("propertyMap");
             m_buffer = propertyMap.Field("entries");
             m_count = propertyMap.Field("count").GetUlong();
-            _none = m_ext->GetPropertyIdNone(m_buffer);
+            _none = GetExtension()->GetPropertyIdNone(m_buffer);
         }
         else
         {
             ExtRemoteTyped propertyNameList = threadContext.GetExtRemoteTyped().Field("propertyNameList");
             m_buffer = propertyNameList.Field("buffer");
             m_count = propertyNameList.Field("count").GetUlong();
-            _none = m_ext->GetPropertyIdNone(m_buffer);
+            _none = GetExtension()->GetPropertyIdNone(m_buffer);
         }
     }
     else
@@ -440,7 +436,7 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, Remo
         // Try to infer some info the slow way
         for (int i = 0; i < 20; i++)
         {
-            ExtRemoteTyped prop(ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), i);
+            ExtRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), i);
             if (strcmp(JDUtil::GetEnumString(prop), "_none") == 0)
             {
                 _none = i;
@@ -456,7 +452,7 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, Remo
             while (maxCountJSOnlyProperty >= minCountJSOnlyProperty)
             {
                 int midCountJSOnlyProperty = (maxCountJSOnlyProperty - minCountJSOnlyProperty) / 2 + minCountJSOnlyProperty;
-                ExtRemoteTyped prop(ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
+                ExtRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
 
                 char const * name = JDUtil::GetEnumString(prop);
                 if (strcmp(name, "_countJSOnlyProperty") == 0)
@@ -480,7 +476,7 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(EXT_CLASS_BASE* ext, Remo
 
 ULONG64 EXT_CLASS_BASE::PropertyNameReader::GetNameByIndex(ULONG i)
 {
-    return m_ext->GetPropertyName(m_buffer[i]).GetPtr();
+    return GetExtension()->GetPropertyName(m_buffer[i]).GetPtr();
 }
 
 ULONG64 EXT_CLASS_BASE::PropertyNameReader::GetNameByPropertyId(ULONG propertyId)
@@ -505,11 +501,11 @@ std::string EXT_CLASS_BASE::PropertyNameReader::GetNameStringByPropertyId(ULONG 
         char buffer[30];
 
         // Either this is a JIT server or it is an invalid property id
-        if (m_ext->IsJITServer())
+        if (GetExtension()->IsJITServer())
         {
             if (propertyId < _maxBuiltIn)
             {
-                return JDUtil::GetEnumString(ExtRemoteTyped(m_ext->FillModule("(%s!Js::PropertyIds::_E)@$extin"), propertyId));
+                return JDUtil::GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), propertyId));
             }
             sprintf_s(buffer, "<PropId %d>", propertyId);
         }
@@ -545,7 +541,7 @@ JD_PRIVATE_COMMAND(prop,
         ThrowCommandHelp();
     }
 
-    PropertyNameReader propertyNameReader(this, threadContext);
+    PropertyNameReader propertyNameReader(threadContext);
     if (propertyId)
     {
         ULONG64 pName = propertyNameReader.GetNameByPropertyId(propertyId);
@@ -726,14 +722,14 @@ void EXT_CLASS_BASE::PrintVar(ULONG64 var, int depth)
             {
                 RemoteFunctionBody functionBody = functionInfo.GetFunctionBody();
                 Out(_u("  [FunctionBody] "));
-                functionBody.PrintNameAndNumberWithLink(this);
+                functionBody.PrintNameAndNumberWithLink();
                 Out(_u(" "));
-                functionBody.PrintByteCodeLink(this);
+                functionBody.PrintByteCodeLink();
                 Out("\n");
             }
             else
             {
-                std::string symbol = GetSymbolForOffset(this, functionInfo.GetOriginalEntryPoint());
+                std::string symbol = GetSymbolForOffset(functionInfo.GetOriginalEntryPoint());
                 if (!symbol.empty())
                 {
                     Out("  [NativeEntry] %s", symbol.c_str());
@@ -806,25 +802,24 @@ void EXT_CLASS_BASE::PrintSimpleVarValue(ExtRemoteTyped& obj)
 class ObjectPropertyDumper : public ObjectPropertyListener
 {
 private:
-    EXT_CLASS_BASE* m_ext;
     int m_depth;
     TypeHandlerPropertyNameReader* m_propertyNameReader;
 
 public:
-    ObjectPropertyDumper(EXT_CLASS_BASE* ext, int depth, TypeHandlerPropertyNameReader* propertyNameReader)
-        : m_ext(ext), m_depth(depth), m_propertyNameReader(propertyNameReader)
+    ObjectPropertyDumper(int depth, TypeHandlerPropertyNameReader* propertyNameReader)
+        : m_depth(depth), m_propertyNameReader(propertyNameReader)
     {
     }
 
     virtual void Enumerate(ExtRemoteTyped& name, ULONG64 value, ULONG64 value1) const override
     {
         ULONG64 pName = m_propertyNameReader->GetPropertyName(name);
-        m_ext->PrintProperty(pName, value, value1, m_depth);
+        GetExtension()->PrintProperty(pName, value, value1, m_depth);
     }
 
-    static void Enumerate(ExtRemoteTyped& obj, RemoteTypeHandler* typeHandler, TypeHandlerPropertyNameReader* reader, EXT_CLASS_BASE* ext, int depth)
+    static void Enumerate(ExtRemoteTyped& obj, RemoteTypeHandler* typeHandler, TypeHandlerPropertyNameReader* reader, int depth)
     {
-        ObjectPropertyDumper dumper(ext, depth, reader);
+        ObjectPropertyDumper dumper(depth, reader);
         typeHandler->EnumerateProperties(obj, dumper);
     }
 };
@@ -863,12 +858,12 @@ void EXT_CLASS_BASE::PrintProperties(ULONG64 var, int depth)
         if (m_usingPropertyRecordInTypeHandlers)
         {
             TypeHandlerPropertyRecordNameReader reader;
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, this, depth);
+            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth);
         }
         else
         {
-            TypeHandlerPropertyIdNameReader reader(this, GetThreadContextFromObject(obj));
-            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, this, depth);
+            TypeHandlerPropertyIdNameReader reader(GetThreadContextFromObject(obj));
+            ObjectPropertyDumper::Enumerate(obj, pRemoteTypeHandler, &reader, depth);
         }
     }
 }
@@ -945,7 +940,7 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(PCSTR vtablename)
 
 std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
 {
-    std::string vtablename = GetSymbolForOffset(this, vtableAddress);
+    std::string vtablename = GetSymbolForOffset(vtableAddress);
     if (vtablename.empty())
     {
         return std::string();
@@ -1000,7 +995,7 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
     auto iter = m_typeHandlers.find(vtable);
     if (iter != m_typeHandlers.end())
     {
-        iter->second->Set(this, m_moduleName, typeHandler);
+        iter->second->Set(m_moduleName, typeHandler);
         return iter->second;
     }
 
@@ -1017,7 +1012,7 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemote
     {
         // Found the name, add it to the vtable map, so we don't have to do GetNameByOffset again for this vtable
         m_typeHandlers[vtable] = iter2->second;
-        iter2->second->Set(this, m_moduleName, typeHandler);
+        iter2->second->Set(m_moduleName, typeHandler);
         return iter2->second;
     }
 
@@ -1573,7 +1568,7 @@ JD_PRIVATE_COMMAND(jstack,
             }
 
             Out(" js!");
-            interpreterStackFrame.GetScriptFunction().PrintNameAndNumberWithLink(this);
+            interpreterStackFrame.GetScriptFunction().PrintNameAndNumberWithLink();
             Out(" [");
             if (isFromBailout)
             {
@@ -1586,7 +1581,7 @@ JD_PRIVATE_COMMAND(jstack,
             }
             else
             {
-                Dml("Interpreter 0x%p /*\"?? (%s!Js::InterpreterStackFrame *)0x%p\" to display*/]", interpreterStackFrame.GetAddress(), this->GetModuleName(), interpreterStackFrame.GetAddress());
+                Out("Interpreter 0x%p /*\"?? (%s!Js::InterpreterStackFrame *)0x%p\" to display*/]", interpreterStackFrame.GetAddress(), this->GetModuleName(), interpreterStackFrame.GetAddress());
             }
             Out("\n");
 
@@ -1623,7 +1618,7 @@ JD_PRIVATE_COMMAND(jstack,
                 {
                     isFunctionObject = true;
                     Out(" js!");
-                    RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink(this);
+                    RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink();
 
                     ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), rbp + ptrSize * 3);
                     ULONG callFlags = callInfo.Field("Flags").GetUlong();

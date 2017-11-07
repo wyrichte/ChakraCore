@@ -197,8 +197,8 @@ struct HeapObject
 class ObjectInfoHelper
 {
 public:
-    ObjectInfoHelper(EXT_CLASS_BASE* extension, RemoteRecycler recycler)
-        : ext(extension), recycler(recycler)
+    ObjectInfoHelper(RemoteRecycler recycler)
+        : recycler(recycler)
     {
     }
 
@@ -209,25 +209,24 @@ public:
     void DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock);
 
 private:
-    EXT_CLASS_BASE* ext;
     // TODO (doilij) refactor the recycler field out of this class. Persisting an ExtRemoteTyped causes problems.
     RemoteRecycler recycler;
 };
 
 void ObjectInfoHelper::DumpObjectInfoBits(unsigned char info)
 {
-    ext->Out(_u("Info: 0x%x ("), info);
+    GetExtension()->Out(_u("Info: 0x%x ("), info);
 
-    if (info & RemoteObjectInfoBits::FinalizeBit) ext->Out(" Finalize ");
-    if (info & RemoteObjectInfoBits::PendingDisposeBit) ext->Out(" PendingDispose ");
-    if (info & RemoteObjectInfoBits::LeafBit) ext->Out(" Leaf ");
-    if (info & RemoteObjectInfoBits::TrackBit) ext->Out(" Track ");
-    if (info & RemoteObjectInfoBits::ImplicitRootBit) ext->Out(" ImplticitRoot ");
-    if (info & RemoteObjectInfoBits::NewTrackBit) ext->Out(" NewTrack ");
-    if (info & RemoteObjectInfoBits::MemoryProfilerOldObjectBit) ext->Out(" MemoryProfilerOldObject ");
-    if (info & RemoteObjectInfoBits::EnumClass_1_Bit) ext->Out(" EnumClass_1_Bit ");
+    if (info & RemoteObjectInfoBits::FinalizeBit) GetExtension()->Out(" Finalize ");
+    if (info & RemoteObjectInfoBits::PendingDisposeBit) GetExtension()->Out(" PendingDispose ");
+    if (info & RemoteObjectInfoBits::LeafBit) GetExtension()->Out(" Leaf ");
+    if (info & RemoteObjectInfoBits::TrackBit) GetExtension()->Out(" Track ");
+    if (info & RemoteObjectInfoBits::ImplicitRootBit) GetExtension()->Out(" ImplticitRoot ");
+    if (info & RemoteObjectInfoBits::NewTrackBit) GetExtension()->Out(" NewTrack ");
+    if (info & RemoteObjectInfoBits::MemoryProfilerOldObjectBit) GetExtension()->Out(" MemoryProfilerOldObject ");
+    if (info & RemoteObjectInfoBits::EnumClass_1_Bit) GetExtension()->Out(" EnumClass_1_Bit ");
 
-    ext->Out(_u(")"));
+    GetExtension()->Out(_u(")"));
 }
 
 void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG64 objectAddress, bool verbose)
@@ -235,40 +234,40 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     ULONG64 heapBlockAddress = heapBlock.GetHeapBlockAddress();
     ULONG64 blockAddress = heapBlock.GetAddress();
 
-    ULONG64 sizeOfHeapBlock = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+    ULONG64 sizeOfHeapBlock = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
+    ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
 
     ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
 
     if (headerAddress < blockAddress)
     {
-        ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-        DumpHeapBlockLink(ext->enum_LargeBlockType(), heapBlockAddress);
+        GetExtension()->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
+        DumpHeapBlockLink(GetExtension()->enum_LargeBlockType(), heapBlockAddress);
         return;
     }
 
-    ExtRemoteTyped largeObjectHeader(ext->FillModuleAndMemoryNS("%s!%sLargeObjectHeader"), headerAddress, false);
+    ExtRemoteTyped largeObjectHeader(GetExtension()->FillModuleAndMemoryNS("%s!%sLargeObjectHeader"), headerAddress, false);
 
     HeapObject heapObject;
     heapObject.index = (ushort)largeObjectHeader.Field("objectIndex").m_Typed.Data; // Why does calling UShort not work?
 
-    ULONG largeObjectHeaderPtrSize = ext->m_PtrSize;
+    ULONG largeObjectHeaderPtrSize = GetExtension()->m_PtrSize;
 
     ULONG64 headerArrayAddress = heapBlockAddress + sizeOfHeapBlock + (heapObject.index * largeObjectHeaderPtrSize);
     ExtRemoteData  headerData(headerArrayAddress, largeObjectHeaderPtrSize);
 
     if (headerData.GetPtr() != headerAddress)
     {
-        ext->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
-        DumpHeapBlockLink(ext->enum_LargeBlockType(), heapBlockAddress);
-        ext->Out("Header address: 0x%p, Header in index %d is 0x%p\n", headerAddress, heapObject.index, headerData.GetPtr());
+        GetExtension()->Out("Object with address 0x%p was not found in corresponding heap block\n", objectAddress);
+        DumpHeapBlockLink(GetExtension()->enum_LargeBlockType(), heapBlockAddress);
+        GetExtension()->Out("Header address: 0x%p, Header in index %d is 0x%p\n", headerAddress, heapObject.index, headerData.GetPtr());
         return;
     }
 
     heapObject.address = objectAddress;
     heapObject.addressBitIndex = heapObject.index;
     heapObject.heapBlock = heapBlockAddress;
-    heapObject.heapBlockType = ext->enum_LargeBlockType();
+    heapObject.heapBlockType = GetExtension()->enum_LargeBlockType();
     heapObject.objectInfoAddress = headerAddress + sizeof(uint) + sizeof(uint) + largeObjectHeaderPtrSize;
     if (largeObjectHeader.HasField("attributesAndChecksum"))
     {
@@ -300,7 +299,7 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     }
 
 
-    ExtRemoteData heapObjectData(heapObject.address, this->ext->m_PtrSize);
+    ExtRemoteData heapObjectData(heapObject.address, GetExtension()->m_PtrSize);
     heapObject.vtable = heapObjectData.GetPtr();
 
     DumpHeapObject(heapObject, verbose);
@@ -308,65 +307,65 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
 
 void ObjectInfoHelper::DumpHeapBlockLink(ULONG64 heapBlockType, ULONG64 heapBlock)
 {
-    if (heapBlockType == ext->enum_LargeBlockType())
+    if (heapBlockType == GetExtension()->enum_LargeBlockType())
     {
-        PCSTR heapblockSymbol = ext->FillModuleAndMemoryNS("%s!%sLargeHeapBlock");
-        if (ext->PreferDML())
+        PCSTR heapblockSymbol = GetExtension()->FillModuleAndMemoryNS("%s!%sLargeHeapBlock");
+        if (GetExtension()->PreferDML())
         {
-            ext->Dml("Large Heap Block: <link cmd=\"dt %s 0x%p\">0x%p</link>\n", heapblockSymbol, heapBlock, heapBlock);
+            GetExtension()->Dml("Large Heap Block: <link cmd=\"dt %s 0x%p\">0x%p</link>\n", heapblockSymbol, heapBlock, heapBlock);
         }
         else
         {
-            ext->Out("Large Heap Block: 0x%p /*\"dt %s 0x%p\" to display*/\n", heapBlock, heapblockSymbol, heapBlock);
+            GetExtension()->Out("Large Heap Block: 0x%p /*\"dt %s 0x%p\" to display*/\n", heapBlock, heapblockSymbol, heapBlock);
         }
     }
     else
     {
         PCSTR heapBlockTypeString = "unknown Heap Block";
 
-        if (heapBlockType == ext->enum_SmallNormalBlockType())
+        if (heapBlockType == GetExtension()->enum_SmallNormalBlockType())
             heapBlockTypeString = "Small Normal Heap Block";
-        else if (heapBlockType == ext->enum_SmallLeafBlockType())
+        else if (heapBlockType == GetExtension()->enum_SmallLeafBlockType())
             heapBlockTypeString = "Small Leaf Block";
-        else if (heapBlockType == ext->enum_SmallFinalizableBlockType())
+        else if (heapBlockType == GetExtension()->enum_SmallFinalizableBlockType())
             heapBlockTypeString = "Small Finalizable Block";
-        else if (heapBlockType == ext->enum_SmallNormalBlockWithBarrierType())
+        else if (heapBlockType == GetExtension()->enum_SmallNormalBlockWithBarrierType())
             heapBlockTypeString = "Small Normal Block (with SWB)";
-        else if (heapBlockType == ext->enum_SmallFinalizableBlockWithBarrierType())
+        else if (heapBlockType == GetExtension()->enum_SmallFinalizableBlockWithBarrierType())
             heapBlockTypeString = "Small Finalizable Block (with SWB)";
-        else if (heapBlockType == ext->enum_MediumNormalBlockType())
+        else if (heapBlockType == GetExtension()->enum_MediumNormalBlockType())
             heapBlockTypeString = "Medium Normal Heap Block";
-        else if (heapBlockType == ext->enum_MediumLeafBlockType())
+        else if (heapBlockType == GetExtension()->enum_MediumLeafBlockType())
             heapBlockTypeString = "Medium Leaf Block";
-        else if (heapBlockType == ext->enum_MediumFinalizableBlockType())
+        else if (heapBlockType == GetExtension()->enum_MediumFinalizableBlockType())
             heapBlockTypeString = "Medium Finalizable Block";
-        else if (heapBlockType == ext->enum_MediumNormalBlockWithBarrierType())
+        else if (heapBlockType == GetExtension()->enum_MediumNormalBlockWithBarrierType())
             heapBlockTypeString = "Medium Normal Block (with SWB)";
-        else if (heapBlockType == ext->enum_MediumFinalizableBlockWithBarrierType())
+        else if (heapBlockType == GetExtension()->enum_MediumFinalizableBlockWithBarrierType())
             heapBlockTypeString = "Medium Finalizable Block (with SWB)";
         else
             Assert(false);
 
         if (recycler.GetPtr())
         {
-            if (ext->PreferDML())
+            if (GetExtension()->PreferDML())
             {
-                ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, recycler.GetPtr(), heapBlock);
+                GetExtension()->Dml("%s: <link cmd=\"!showblockinfo 0x%p 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, recycler.GetPtr(), heapBlock);
             }
             else
             {
-                ext->Out("%s: 0x%p /*\"!showblockinfo 0x%p 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock, recycler.GetPtr());
+                GetExtension()->Out("%s: 0x%p /*\"!showblockinfo 0x%p 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock, recycler.GetPtr());
             }
         }
         else
         {
-            if (ext->PreferDML())
+            if (GetExtension()->PreferDML())
             {
-                ext->Dml("%s: <link cmd=\"!showblockinfo 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, heapBlock);
+                GetExtension()->Dml("%s: <link cmd=\"!showblockinfo 0x%p\">0x%p</link>\n", heapBlockTypeString, heapBlock, heapBlock);
             }
             else
             {
-                ext->Out("%s: 0x%p /*\"!showblockinfo 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock);
+                GetExtension()->Out("%s: 0x%p /*\"!showblockinfo 0x%p\" to display*/\n", heapBlockTypeString, heapBlock, heapBlock);
             }
         }
     }
@@ -376,80 +375,80 @@ void ObjectInfoHelper::DumpHeapObject(const HeapObject& heapObject, bool verbose
 {
     // DumpHeapBlockLink(heapObject.heapBlockType, heapObject.heapBlock);
 
-    ext->Out(_u("Object: "));
-    std::string className = ext->GetTypeNameFromVTable(heapObject.vtable);
+    GetExtension()->Out(_u("Object: "));
+    std::string className = GetExtension()->GetTypeNameFromVTable(heapObject.vtable);
 
     if (!className.empty())
     {
-        if (ext->PreferDML())
+        if (GetExtension()->PreferDML())
         {
-            ext->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
+            GetExtension()->Dml("<link cmd=\"dt %s 0x%p\">0x%p</link>", className.c_str(), heapObject.address, heapObject.address);
         }
         else
         {
-            ext->Out("0x%p /*\"dt %s 0x%p\" to display*/", heapObject.address, className.c_str(), heapObject.address);
+            GetExtension()->Out("0x%p /*\"dt %s 0x%p\" to display*/", heapObject.address, className.c_str(), heapObject.address);
         }
     }
     else
     {
-        ext->Out(_u("0x%p "), heapObject.address);
+        GetExtension()->Out(_u("0x%p "), heapObject.address);
     }
 
-    ext->Out(_u(" (Symbol @ 0x%p: "), heapObject.vtable);
-    ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable);
-    ext->Out(")");
+    GetExtension()->Out(_u(" (Symbol @ 0x%p: "), heapObject.vtable);
+    GetExtension()->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable);
+    GetExtension()->Out(")");
 
-    ext->Out("\n");
-    ext->Out(_u("Object size: 0x%x\n"), heapObject.objectSize);
+    GetExtension()->Out("\n");
+    GetExtension()->Out(_u("Object size: 0x%x\n"), heapObject.objectSize);
 
     DumpObjectInfoBits(heapObject.objectInfoBits);
-    ext->Out(" @0x%p\n", heapObject.objectInfoAddress);
+    GetExtension()->Out(" @0x%p\n", heapObject.objectInfoAddress);
 
-    ext->Out("Object index: %d\n", heapObject.index);
+    GetExtension()->Out("Object index: %d\n", heapObject.index);
 
-    if (heapObject.heapBlockType == ext->enum_SmallLeafBlockType()
-        || heapObject.heapBlockType == ext->enum_SmallNormalBlockType()
+    if (heapObject.heapBlockType == GetExtension()->enum_SmallLeafBlockType()
+        || heapObject.heapBlockType == GetExtension()->enum_SmallNormalBlockType()
 #ifdef RECYCLER_WRITE_BARRIER
-        || heapObject.heapBlockType == ext->enum_SmallNormalBlockWithBarrierType()
+        || heapObject.heapBlockType == GetExtension()->enum_SmallNormalBlockWithBarrierType()
 #endif
         )
     {
-        ext->Out(_u("Address bit index: %d\n"), heapObject.addressBitIndex);
+        GetExtension()->Out(_u("Address bit index: %d\n"), heapObject.addressBitIndex);
     }
 
     if (verbose)
     {
-        ext->Out("FreeBit: %d", heapObject.isFreeSet);
-        if (!ext->IsMinidumpDebugging())
+        GetExtension()->Out("FreeBit: %d", heapObject.isFreeSet);
+        if (!GetExtension()->IsMinidumpDebugging())
         {
-            ext->Out(" (");
-            if (ext->PreferDML())
+            GetExtension()->Out(" (");
+            if (GetExtension()->PreferDML())
             {
-                ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
+                GetExtension()->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.freeBitWord);
             }
             else
             {
-                ext->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.freeBitWord);
+                GetExtension()->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.freeBitWord);
             }
-            ext->Out(")");
+            GetExtension()->Out(")");
         }
-        ext->Out("\n");
+        GetExtension()->Out("\n");
 
-        ext->Out("MarkBit: %d", heapObject.isMarkSet);
-        if (!ext->IsMinidumpDebugging())
+        GetExtension()->Out("MarkBit: %d", heapObject.isMarkSet);
+        if (!GetExtension()->IsMinidumpDebugging())
         {
-            ext->Out(" (");
-            if (ext->PreferDML())
+            GetExtension()->Out(" (");
+            if (GetExtension()->PreferDML())
             {
-                ext->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
+                GetExtension()->Dml("<link cmd=\"ba w1 0x%p\">Set Breakpoint</link>", heapObject.markBitWord);
             }
             else
             {
-                ext->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.markBitWord);
+                GetExtension()->Out("Set Breakpoint: \"ba w1 0x%p\"", heapObject.markBitWord);
             }
-            ext->Out(")");
+            GetExtension()->Out(")");
         }
-        ext->Out("\n");
+        GetExtension()->Out("\n");
     }
 }
 
@@ -469,7 +468,7 @@ void ObjectInfoHelper::DumpSmallHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     heapObject.address = startAddress + heapObject.index * heapObject.objectSize;
     if (heapObject.index < objectCount && heapObject.address == objectAddress)
     {
-        ExtRemoteData heapObjectData(heapObject.address, ext->m_PtrSize);
+        ExtRemoteData heapObjectData(heapObject.address, GetExtension()->m_PtrSize);
         heapObject.vtable = heapObjectData.GetPtr();
 
         heapObject.addressBitIndex = heapBlock.GetAddressBitIndex(heapObject.address);
@@ -483,7 +482,7 @@ void ObjectInfoHelper::DumpSmallHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     }
     else
     {
-        ext->Out("Pointer is not valid in this heap block\n");
+        GetExtension()->Out("Pointer is not valid in this heap block\n");
     }
 }
 
@@ -499,7 +498,7 @@ JD_PRIVATE_COMMAND(oi,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    ObjectInfoHelper ObjectInfoHelper(this, recycler.GetExtRemoteTyped());
+    ObjectInfoHelper ObjectInfoHelper(recycler.GetExtRemoteTyped());
     RemoteHeapBlock * remoteHeapBlock = recycler.GetHeapBlockMap().FindHeapBlock(objectAddress);
     if (remoteHeapBlock != NULL)
     {
@@ -518,7 +517,7 @@ JD_PRIVATE_COMMAND(oi,
 
         if (verbose)
         {
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
             if (rootPointers->Contains(objectAddress))
             {
                 Out("Is Root: true\n");
@@ -1083,9 +1082,9 @@ struct RecyclerBucketStats
         totalByteCount += current.totalByteCount;
     }
 
-    void Out(ExtExtension * ext)
+    void Out()
     {
-        ext->Out("%5I64u %7I64u %7I64u %11I64u %11I64u %11I64u   %6.2f%%",
+        GetExtension()->Out("%5I64u %7I64u %7I64u %11I64u %11I64u %11I64u   %6.2f%%",
             count, objectCount, finalizeCount,
             objectByteCount, totalByteCount - objectByteCount, totalByteCount,
             100.0 * (static_cast<double>(objectByteCount) / totalByteCount));
@@ -1428,7 +1427,7 @@ JD_PRIVATE_COMMAND(hbstats,
         }
 
         this->Out(format, name, info.first.second);
-        info.second.Out(this);
+        info.second.Out();
         this->Out("\n");
     }
 
@@ -1436,7 +1435,7 @@ JD_PRIVATE_COMMAND(hbstats,
     {
         this->Out("-----------------------------------------------------------------------------------------\n");
         this->Out("Total           : ");
-        totalStats.Out(this);
+        totalStats.Out();
         this->Out("\n");
 
         this->Out("\n");
@@ -1587,7 +1586,7 @@ JD_PRIVATE_COMMAND(memstats,
 
             if (showPageAllocator)
             {
-                pageAllocator.DisplayData(this, name, showZeroEntries);
+                pageAllocator.DisplayData(name, showZeroEntries);
             }
             return false;
         });
@@ -1668,7 +1667,7 @@ typedef struct _OBJECTINFO
     char const * typeName;
 } OBJECTINFO;
 
-OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BASE* ext)
+OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler)
 {
     OBJECTINFO info;
     JDRemoteTyped& heapBlock = info.heapBlock;
@@ -1695,7 +1694,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BAS
 
         ULONG64 headerListAddress = heapBlock.GetPtr() + heapBlock.GetTypeSize();
         ULONG objectCount = heapBlock.Field("objectCount").GetUlong();
-        ExtRemoteTyped headerList(ext->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader**)@$extin"), headerListAddress);
+        ExtRemoteTyped headerList(GetExtension()->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader**)@$extin"), headerListAddress);
 
         bool foundInfo = false;
         ExtRemoteTyped header;
@@ -1704,7 +1703,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BAS
             header = headerList.ArrayElement(i);
             info.heapEntry = header.GetPtr();
             info.userPtr = info.heapEntry + header.GetTypeSize();
-            info.userSize = ext->GetNumberValue<ULONG64>(header.Field("objectSize"));
+            info.userSize = GetExtension()->GetNumberValue<ULONG64>(header.Field("objectSize"));
 
             if (address >= info.userPtr  && address < info.userPtr + info.userSize)
             {
@@ -1724,7 +1723,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BAS
     else
     {
         auto blockAddress = heapBlock.Field("address").GetPtr();
-        auto objectSize = ext->GetNumberValue<ULONG64>(heapBlock.Field("objectSize"));
+        auto objectSize = GetExtension()->GetNumberValue<ULONG64>(heapBlock.Field("objectSize"));
         info.userPtr = address - ((address - blockAddress) % objectSize);
         ULONG64 index = (address - blockAddress) / objectSize;
         Assert(index < USHRT_MAX);
@@ -1747,7 +1746,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BAS
         }
         else
         {
-            info.message = ext->FillModuleV("Can't handle HeapBlockType: %s", typeEnumName);
+            info.message = GetExtension()->FillModuleV("Can't handle HeapBlockType: %s", typeEnumName);
             return info;
         }
 
@@ -1775,29 +1774,29 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler, EXT_CLASS_BAS
     return info;
 };
 
-void ShowStack(ExtRemoteTyped heapBlock, PCSTR stackType, EXT_CLASS_BASE* ext)
+void ShowStack(ExtRemoteTyped heapBlock, PCSTR stackType)
 {
     // stackType is "Alloc" or "Free"
-    std::string stackFieldName = ext->FillModuleV("pageHeap%sStack", stackType);
+    std::string stackFieldName = GetExtension()->FillModuleV("pageHeap%sStack", stackType);
     if (!heapBlock.HasField(stackFieldName.c_str()))
     {
-        ext->Out("Page heap %s stack trace is not supported\n", stackType);
+        GetExtension()->Out("Page heap %s stack trace is not supported\n", stackType);
         return;
     }
     ExtRemoteTyped stackField = heapBlock.Field(stackFieldName.c_str());
-    std::string HeapBlockType = ext->FillModuleAndMemoryNS("%s!%sHeapBlock");
+    std::string HeapBlockType = GetExtension()->FillModuleAndMemoryNS("%s!%sHeapBlock");
     char buffer[1024];
     if (stackField.GetPtr() != NULL)
     {
-        sprintf_s(buffer, "%s", ext->FillModuleV("dps @@c++(((%s*)(0x%llx))->%s->stackBackTrace) L@@c++(((%s*)(0x%llx))->%s->framesCount)",
+        sprintf_s(buffer, "%s", GetExtension()->FillModuleV("dps @@c++(((%s*)(0x%llx))->%s->stackBackTrace) L@@c++(((%s*)(0x%llx))->%s->framesCount)",
             HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str(), HeapBlockType.c_str(), heapBlock.GetPtr(), stackFieldName.c_str()));
-        if (ext->PreferDML())
+        if (GetExtension()->PreferDML())
         {
-            ext->Dml("\t<b>%s</b> <link cmd=\"%s\">stack</link>:\n", stackType, buffer);
+            GetExtension()->Dml("\t<b>%s</b> <link cmd=\"%s\">stack</link>:\n", stackType, buffer);
         }
         else
         {
-            ext->Out("\t%s stack /*\"%s\" to display*/:\n", stackType, buffer);
+            GetExtension()->Out("\t%s stack /*\"%s\" to display*/:\n", stackType, buffer);
         }
 
         ExtBuffer<char> symbol;
@@ -1805,8 +1804,8 @@ void ShowStack(ExtRemoteTyped heapBlock, PCSTR stackType, EXT_CLASS_BASE* ext)
         auto stack = stackField.Field("stackBackTrace");
         for (ULONG i = 0; i < stackField.Field("framesCount").GetUlong(); i++)
         {
-            ext->GetOffsetSymbol(stack.ArrayElement(i).GetPtr(), &symbol, &displacement);
-            ext->Out("\t  %016I64x %s+0X%x\n", stack.ArrayElement(i).GetPtr(), symbol.GetBuffer(), displacement);
+            GetExtension()->GetOffsetSymbol(stack.ArrayElement(i).GetPtr(), &symbol, &displacement);
+            GetExtension()->Out("\t  %016I64x %s+0X%x\n", stack.ArrayElement(i).GetPtr(), symbol.GetBuffer(), displacement);
         }
     }
 }
@@ -1892,9 +1891,9 @@ MPH_COMMAND(mpheap,
     {
         bool showZeroEntries = true;
         RemotePageAllocator::DisplayDataHeader("Allocator");
-        remoteRecycler.ForEachPageAllocator("Thread", [this, showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
+        remoteRecycler.ForEachPageAllocator("Thread", [showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            pageAllocator.DisplayData(this, name, showZeroEntries);
+            pageAllocator.DisplayData(name, showZeroEntries);
             return false;
         });
         return;
@@ -2017,7 +2016,7 @@ MPH_COMMAND(mpheap,
             this->Out("Command to show block: %s\n", buffer);
         }
 
-        OBJECTINFO info = GetObjectInfo(address, recycler, this);
+        OBJECTINFO info = GetObjectInfo(address, recycler);
         if (!info.succeeded)
         {
             this->Err(info.message.c_str());
@@ -2064,54 +2063,54 @@ MPH_COMMAND(mpheap,
                 return;
             }
 
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr, GetStackTop(this));
-            rootPointers->Map([this, &recycler, &verbose, &address](ULONG64 rootAddress)
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr, GetStackTop());
+            rootPointers->Map([&recycler, &verbose, &address](ULONG64 rootAddress)
             {
-                this->ThrowInterrupt();
-                auto info = GetObjectInfo(rootAddress, recycler, this);
+                GetExtension()->ThrowInterrupt();
+                auto info = GetObjectInfo(rootAddress, recycler);
                 char buffer[1024];
-                sprintf_s(buffer, this->m_PtrSize == 8 ? "0x%016I64x" : "0x%08I64x", rootAddress);
+                sprintf_s(buffer, GetExtension()->m_PtrSize == 8 ? "0x%016I64x" : "0x%08I64x", rootAddress);
                 if (verbose)
                 {
-                    if (PreferDML())
+                    if (GetExtension()->PreferDML())
                     {
-                        this->Dml("\tRoot:  <link cmd=\"!mpheap -p -a %s\">%s</link>",
+                        GetExtension()->Dml("\tRoot:  <link cmd=\"!mpheap -p -a %s\">%s</link>",
                             buffer, buffer);
                     }
                     else
                     {
-                        this->Out("\tRoot:  %s /*\"!mpheap -p -a %s\" to display*/",
+                        GetExtension()->Out("\tRoot:  %s /*\"!mpheap -p -a %s\" to display*/",
                             buffer, buffer);
                     }
                     if (info.succeeded)
                     {
-                        if (PreferDML())
+                        if (GetExtension()->PreferDML())
                         {
-                            this->Dml("  +<link cmd=\"dp %s L0x%x\">0x%x</link>\n",
-                                buffer, info.userSize / this->m_PtrSize, info.userSize);
+                            GetExtension()->Dml("  +<link cmd=\"dp %s L0x%x\">0x%x</link>\n",
+                                buffer, info.userSize / GetExtension()->m_PtrSize, info.userSize);
                         }
                         else
                         {
-                            this->Out("  +0x%x /*\"dp %s L0x%x\" to display*/\n",
-                                info.userSize, buffer, info.userSize / this->m_PtrSize);
+                            GetExtension()->Out("  +0x%x /*\"dp %s L0x%x\" to display*/\n",
+                                info.userSize, buffer, info.userSize / GetExtension()->m_PtrSize);
                         }
                     }
                     else
                     {
-                        this->Out((info.message + "\n").c_str());
+                        GetExtension()->Out((info.message + "\n").c_str());
                     }
                 }
 
                 if (info.succeeded)
                 {
                     ExtRemoteTyped rootMem("(void**)@$extin", rootAddress);
-                    for (size_t i = 0; i < info.userSize / this->m_PtrSize; i++)
+                    for (size_t i = 0; i < info.userSize / GetExtension()->m_PtrSize; i++)
                     {
                         auto data = rootMem.ArrayElement(i).GetPtr();
                         if ((ULONG64)data == address)
                         {
-                            this->Out("\t      Ref: %s +0x%x\n",
-                                buffer, i*this->m_PtrSize);
+                            GetExtension()->Out("\t      Ref: %s +0x%x\n",
+                                buffer, i*GetExtension()->m_PtrSize);
                         }
                     }
                 }
@@ -2123,8 +2122,8 @@ MPH_COMMAND(mpheap,
         // page heap
         if (pageHeapOn)
         {
-            ShowStack(heapBlock, "Alloc", this);
-            ShowStack(heapBlock, "Free", this);
+            ShowStack(heapBlock, "Alloc");
+            ShowStack(heapBlock, "Free");
         }
 
         return;
@@ -2133,8 +2132,7 @@ MPH_COMMAND(mpheap,
 
 void MphCmdsWrapper::InitializeForMPH()
 {
-    EXT_CLASS_BASE* ext = (EXT_CLASS_BASE*)this;
-    ext->inMPHCmd = true;
+    GetExtension()->inMPHCmd = true;
 
     enum IEMode
     {
@@ -2142,7 +2140,7 @@ void MphCmdsWrapper::InitializeForMPH()
         edge = 1
     };
 
-    bool verbose = ext->HasArg("v");
+    bool verbose = GetExtension()->HasArg("v");
 
     char* tridentModules[] = { "mshtml", "edgehtml" };
     char* memGCModules[] = { "mshtml", "chakra" };
@@ -2151,27 +2149,27 @@ void MphCmdsWrapper::InitializeForMPH()
     IEMode mode = legacy;
     sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
     ULONG typeIdMemProtectHeap;
-    if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
+    if (GetExtension()->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
     {
         if (verbose)
         {
-            ext->Out("Found MemProtectHeap in mshtml(legacy mode).\n");
+            GetExtension()->Out("Found MemProtectHeap in mshtml(legacy mode).\n");
         }
     }
     else
     {
         mode = edge;
         sprintf_s(buffer, "%s!MemProtectHeap", memGCModules[mode]); // should not be inlined
-        if (ext->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
+        if (GetExtension()->m_Symbols2->GetSymbolTypeId(buffer, &typeIdMemProtectHeap, nullptr) == S_OK)
         {
             if (verbose)
             {
-                ext->Out("Found MemProtectHeap in chakra(edge mode).\n");
+                GetExtension()->Out("Found MemProtectHeap in chakra(edge mode).\n");
             }
         }
         else
         {
-            ext->Err("Cannot find MemProtectHeap.\n");
+            GetExtension()->Err("Cannot find MemProtectHeap.\n");
             return;
         }
     }

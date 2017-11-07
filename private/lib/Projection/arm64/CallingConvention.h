@@ -65,7 +65,7 @@ struct ApcsCallLayout
 //       ParameterLocation loc;
 //       cch.GetNextParameterLocation(parameter, &loc);
 //       // use the loc as needed.
-//   }  
+//   }
 //   int stackSize = cch.GetStackSlotCount() * 4;
 class CallingConventionHelper
 {
@@ -77,7 +77,7 @@ private:
         int GenRegIndex;            // Next general register to be assigned a value.
         int StackSlotIndex;         // Next stack slot to be assigned a value (each slot = 4 bytes).
 
-        RegisterAndStackState(int reservedGeneralRegisterCount) : 
+        RegisterAndStackState(int reservedGeneralRegisterCount) :
             FloatRegIndex(0), GenRegIndex(reservedGeneralRegisterCount), StackSlotIndex(0)
         {
         }
@@ -94,7 +94,7 @@ public:
     // Get placement of the parameter into loc, and update register/stack usage so far.
     // To get actual location in memory, you can use ApcsCallLayout::GetParameterLocation().
     void GetNextParameterLocation(RtABIPARAMETER parameter, ParameterLocation *loc);
-    void GetNextParameterLocation(int byteCount, bool isFloatingPoint, ParameterLocation *loc);
+    void GetNextParameterLocation(int byteCount, bool isFloatingPoint, ParameterLocation *loc, RtCONCRETETYPE type);
 
     int GetStackSlotCount()
     {

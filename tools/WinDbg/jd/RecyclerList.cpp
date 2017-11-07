@@ -4,7 +4,7 @@
 
 #ifdef JD_PRIVATE
 template <bool isSlist>
-void DumpList(EXT_CLASS_BASE* ext, ULONG64 address, PCSTR type)
+void DumpList(ULONG64 address, PCSTR type)
 {
     RemoteListIterator<isSlist> iterator(type, address);
 
@@ -12,18 +12,18 @@ void DumpList(EXT_CLASS_BASE* ext, ULONG64 address, PCSTR type)
     while (iterator.Next())
     {
         ULONG64 data = iterator.GetDataPtr();
-        if (ext->PreferDML())
+        if (GetExtension()->PreferDML())
         {
-            ext->Dml("<link cmd=\"?? (%s*) 0x%p\">0x%p</link>\n", type, data, data);
+            GetExtension()->Dml("<link cmd=\"?? (%s*) 0x%p\">0x%p</link>\n", type, data, data);
         }
         else
         {
-            ext->Out("0x%p /*\"?? (%s*) 0x%p\" to display*/\n", data, type, data);
+            GetExtension()->Out("0x%p /*\"?? (%s*) 0x%p\" to display*/\n", data, type, data);
         }
         count++;
     }
 
-    ext->Out("Count is %d\n", count);
+    GetExtension()->Out("Count is %d\n", count);
 }
 
 JD_PRIVATE_COMMAND(slist,
@@ -33,7 +33,7 @@ JD_PRIVATE_COMMAND(slist,
     ULONG64 arg = GetUnnamedArgU64(0);
     PCSTR type = GetUnnamedArgStr(1);
 
-    DumpList<true>(this, arg, type);
+    DumpList<true>(arg, type);
 }
 
 JD_PRIVATE_COMMAND(dlist,
@@ -43,7 +43,7 @@ JD_PRIVATE_COMMAND(dlist,
     ULONG64 arg = GetUnnamedArgU64(0);
     PCSTR type = GetUnnamedArgStr(1);
 
-    DumpList<false>(this, arg, type);
+    DumpList<false>(arg, type);
 }
 
 #endif

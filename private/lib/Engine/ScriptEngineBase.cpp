@@ -577,6 +577,36 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateDeferredConstructor(
     return hr;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::TriggerDOMMutationBreakpoint()
+{
+    HRESULT hr = VerifyOnEntry();
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+    if (scriptContext != nullptr && !scriptContext->IsClosed())
+    {
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
+        {
+            if (scriptContext->IsScriptContextInDebugMode())
+            {
+                scriptContext->GetDebugContext()->GetProbeContainer()->DispatchDOMMutationBreakpoint();
+            }
+            else
+            {
+                hr = E_FAIL;
+            }
+        }
+        END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
+    }
+    else
+    {
+        hr = E_FAIL;
+    }
+
+    return hr;
+}
+
 HRESULT ScriptEngineBase::GetOPrototypeInformationForTypeCreation(
     __in Var &varPrototype,
     __in PropertyId nameId,
@@ -1497,6 +1527,17 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDOMDirectFunction(
     __in UINT64 flags,
     __out Var* jsFunction)
 {
+    return BuildDOMDirectFunction(signature, entryPoint, nameId, flags, 0, jsFunction);
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDOMDirectFunction(
+    __in Var signature,
+    __in ScriptMethod entryPoint,
+    __in PropertyId nameId,
+    __in UINT64 flags,
+    __in UCHAR length,
+    __out Var* jsFunction)
+{
     HRESULT hr = NOERROR;
     IfNullReturnError(jsFunction, E_INVALIDARG);
     *jsFunction = nullptr;
@@ -1514,7 +1555,13 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::BuildDOMDirectFunction(
     *jsFunction = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        *jsFunction = library->CreateExternalFunction((Js::ExternalMethod)entryPoint, nameId, signature, prototypeTypeId, flags);
+        *jsFunction = library->CreateExternalFunction((Js::ExternalMethod)entryPoint, nameId, signature, flags, (length > 0));
+
+        if (length > 0)
+        {
+            Js::JavascriptExternalFunction *externalFunction = static_cast<Js::JavascriptExternalFunction*>(*jsFunction);
+            externalFunction->SetDeferredLength(length);
+        }
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;

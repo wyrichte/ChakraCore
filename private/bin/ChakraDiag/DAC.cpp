@@ -501,7 +501,7 @@ namespace JsDiag
 
     LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress()
     {
-        return (char*) GetPreReservedStartAddress() + GetPreReservedRegionSize();
+        return (char*)GetPreReservedStartAddress() + GetPreReservedRegionSize();
     }
 
     LPVOID  RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress(void *regionStart)

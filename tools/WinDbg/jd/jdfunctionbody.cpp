@@ -6,17 +6,17 @@
 #ifdef JD_PRIVATE
 #include "JDBackendUtil.h"
 
-void PrintFunctionBody(EXT_CLASS_BASE *ext, RemoteFunctionBody& functionBody)
+void PrintFunctionBody(RemoteFunctionBody& functionBody)
 {
-    functionBody.PrintNameAndNumberWithRawLink(ext);
-    ext->Out(" ");
-    functionBody.PrintByteCodeLink(ext);
-    ext->Out("\nSource Url: ");
-    functionBody.PrintSourceUrl(ext);
-    ext->Out("\n");
-    functionBody.PrintSource(ext);
-    ext->Out("\n");
-    functionBody.PrintAuxPtrs(ext);
+    functionBody.PrintNameAndNumberWithRawLink();
+    GetExtension()->Out(" ");
+    functionBody.PrintByteCodeLink();
+    GetExtension()->Out("\nSource Url: ");
+    functionBody.PrintSourceUrl();
+    GetExtension()->Out("\n");
+    functionBody.PrintSource();
+    GetExtension()->Out("\n");
+    functionBody.PrintAuxPtrs();
 }
 
 EXT_COMMAND(fb,
@@ -89,6 +89,6 @@ EXT_COMMAND(fb,
             this->ThrowLastError("Unknown type for function body dump");
         }
     }
-    PrintFunctionBody(this, functionBody);
+    PrintFunctionBody(functionBody);
 }
 #endif

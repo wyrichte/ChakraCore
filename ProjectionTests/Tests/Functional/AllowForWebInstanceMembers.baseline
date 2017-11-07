@@ -219,6 +219,7 @@ Comment: Objectdump:
         ['slowPath', 'function', 6],
         ['testBug202724_GetInt64', 'function', 0],
         ['testBug202724_GetUInt64', 'function', 0],
+        ['testBug8327782_StackArguments', 'function', 9],
         ['testError', 'function', 1],
         ['testInAllIRefStruct', 'function', 1],
         ['testInMixIRefStruct', 'function', 1],
@@ -2929,6 +2930,19 @@ Pass: testBug202724_GetUInt64.length
       Actual: 0
 
 Pass: name
+      Actual: testBug8327782_StackArguments
+
+Pass: typeof [object Animals.Animal][testBug8327782_StackArguments]
+      Actual: function
+
+Pass: testBug8327782_StackArguments.length
+      Actual: 9
+
+Comment: Setting length of function to be 10
+Pass: testBug8327782_StackArguments.length
+      Actual: 9
+
+Pass: name
       Actual: testError
 
 Pass: typeof [object Animals.Animal][testError]
@@ -3169,7 +3183,7 @@ Pass: toString.length
       Actual: 0
 
 Pass: number of members
-      Actual: 231
+      Actual: 232
 
 PASS [Test 1: Verify that instance members of an object of a class with [AllowForWeb] are accessible]
 =================================================

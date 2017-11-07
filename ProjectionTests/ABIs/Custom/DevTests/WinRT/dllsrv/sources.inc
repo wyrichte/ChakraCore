@@ -20,7 +20,9 @@ PRECOMPILED_CXX=1
 PRECOMPILED_INCLUDE=..\stdafx.h
 
 INCLUDES= \
+    $(ONECORECOM_INC_PATH); \
     $(COM_INC_PATH);\
+    $(ONECORECOM_INC_PATH)\winrt; \
     $(COM_INC_PATH)\winrt;\
     $(OBJ_PATH)\..\..\lib\$(O);\
     ..\..\lib;\
@@ -32,7 +34,7 @@ SOURCES=\
 
 TARGETLIBS=\
     $(OBJ_PATH)\..\..\lib\$(O)\DevTests.lib \
-    $(SDK_LIB_PATH)\user32.lib   \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_user32.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-error-l1.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-string-l1.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-com-l1.lib \

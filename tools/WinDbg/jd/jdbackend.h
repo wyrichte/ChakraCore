@@ -8,7 +8,7 @@
 class JDBackend : public JDUtil
 {
 public:
-    JDBackend(EXT_CLASS_BASE * ext, EXT_CLASS_BASE::PropertyNameReader& propertyNameReader);
+    JDBackend(EXT_CLASS_BASE::PropertyNameReader& propertyNameReader);
     void DumpFunc(ExtRemoteTyped func);
     void DumpInstr(ExtRemoteTyped instr);
 private:
@@ -36,6 +36,5 @@ private:
 
     ULONG64 GetInt(ExtRemoteTyped value);
 private:
-    EXT_CLASS_BASE * ext;
     EXT_CLASS_BASE::PropertyNameReader& propertyNameReader;
 };

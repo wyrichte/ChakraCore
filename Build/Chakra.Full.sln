@@ -220,6 +220,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{158C8616-750C-4E0E-BD3D-5721D3C555E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Private", "Private", "{0D237E33-806E-4753-960F-161BD66E848E}"
+	ProjectSection(SolutionItems) = preProject
+		..\core\lib\common\ChakraMSRCSettings.h = ..\core\lib\common\ChakraMSRCSettings.h
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A494A9E5-F5E8-451B-B27A-FDAF42861AF6}"
 EndProject

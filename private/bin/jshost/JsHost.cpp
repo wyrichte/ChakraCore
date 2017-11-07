@@ -511,10 +511,10 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
                             }
                             else
                             {
-                                TranslateMessage(&msg);
-                                DispatchMessage(&msg);
-                            }
+                            TranslateMessage(&msg);
+                            DispatchMessage(&msg);
                         }
+                    }
 
                     }
                     break;
@@ -1313,6 +1313,9 @@ LONG WINAPI JsHostUnhandledExceptionFilter(LPEXCEPTION_POINTERS lpep)
             case MarkStack_OUTOFMEMORY:
                 reason = _u("mark stack out of memory");
                 break;
+            case Fatal_OutOfMemory:
+                reason = _u("out of memory");
+                break;
             };
             fwprintf(stderr, _u("NON-CONTINUABLE FATAL ERROR: jshost.exe failed due to exception code %x, %s (%d)\n"), exceptionCode, reason, reasonCode);
             _flushall();
@@ -2068,7 +2071,7 @@ int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
     int ret = 0;
     if (UseLargeAddresses(argc, argv))
     {
-        ret = TestLargeAddress(argc, argv, wmain1);
+         ret = TestLargeAddress(argc, argv, wmain1);
     }
     else
     {

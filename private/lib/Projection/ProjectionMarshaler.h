@@ -49,7 +49,7 @@ namespace Projection
         RtIID GetDefaultInterface()
         {
             return defaultInterface;
-        }      
+        }
 
         MetadataStringId GetTypeId()
         {
@@ -69,25 +69,25 @@ namespace Projection
     // IUnknown is held in var extension
     struct UnknownThis : ThisInfo
     {
-        UnknownThis(MetadataStringId typeId, RtIID defaultInterface, RtSPECIALIZATION specialization) 
+        UnknownThis(MetadataStringId typeId, RtIID defaultInterface, RtSPECIALIZATION specialization)
             : ThisInfo(thisUnknown, typeId, defaultInterface, specialization)
-        { 
+        {
         }
     };
 
     // IUnknown is held in var extension
     struct UnknownEventHandlingThis : ThisInfo
     {
-        UnknownEventHandlingThis(MetadataStringId typeId, RtIID defaultInterface, RtSPECIALIZATION specialization) 
+        UnknownEventHandlingThis(MetadataStringId typeId, RtIID defaultInterface, RtSPECIALIZATION specialization)
             : ThisInfo(thisUnknownEventHandling, typeId, defaultInterface, specialization)
-        { 
+        {
         }
     };
 
     // 'this' is a prototype instance
     struct PrototypeThis : ThisInfo
     {
-        PrototypeThis() 
+        PrototypeThis()
             : ThisInfo(thisPrototype, MetadataStringIdNil, nullptr, nullptr)
         { }
     };
@@ -95,7 +95,7 @@ namespace Projection
     // 'this' is a namespace
     struct NamespaceThis : ThisInfo
     {
-        NamespaceThis() 
+        NamespaceThis()
             : ThisInfo(thisNamespace, MetadataStringIdNil, nullptr, nullptr)
         { }
     };
@@ -103,10 +103,10 @@ namespace Projection
     // 'this' is a delegate
     struct DelegateThis : ThisInfo
     {
-        IUnknown * _this; 
+        IUnknown * _this;
         RtDELEGATECONSTRUCTOR constructor;
 
-        DelegateThis(RtDELEGATECONSTRUCTOR constructor, IUnknown * _this) 
+        DelegateThis(RtDELEGATECONSTRUCTOR constructor, IUnknown * _this)
             : ThisInfo(thisDelegate, MetadataStringIdNil, nullptr, nullptr), constructor(constructor), _this(_this)
         {
             Assert(_this);
@@ -118,7 +118,7 @@ namespace Projection
         ~DelegateThis()
         {   }
 
-        void Dispose(bool isShutdown) override 
+        void Dispose(bool isShutdown) override
         {
             if (_this  && !isShutdown)
             {
@@ -131,9 +131,9 @@ namespace Projection
     struct RuntimeClassThis : ThisInfo
     {
 #if DBG
-        LPCWSTR fullClassName; 
+        LPCWSTR fullClassName;
 #endif
-        IActivationFactory * factory;  
+        IActivationFactory * factory;
         EventProjectionHandler eventProjectionHandler;
 
         EventProjectionHandler * GetEventProjectionHandler() { return &eventProjectionHandler; }
@@ -147,10 +147,10 @@ namespace Projection
         RuntimeClassThis(MetadataStringId typeId) :
 #endif
             ThisInfo(thisRuntimeClass, typeId, nullptr, nullptr), factory(nullptr)
-        { 
+        {
         }
 
-        void Dispose(bool isShutdown) override 
+        void Dispose(bool isShutdown) override
         {
             if (factory && !isShutdown)
             {
@@ -167,7 +167,7 @@ namespace Projection
         TBaggage baggage;
         ThunkSignature(ProjectionContext * projectionContext, TBaggage baggage)
             : projectionContext(projectionContext), baggage(baggage)
-        { } 
+        { }
     };
 
     struct Signature
@@ -217,9 +217,9 @@ namespace Projection
     {
         ConstructorArgumentType type;
 
-        ConstructorArguments(ConstructorArgumentType type) 
-            : type(type) 
-        { 
+        ConstructorArguments(ConstructorArgumentType type)
+            : type(type)
+        {
         }
     };
 
@@ -259,7 +259,7 @@ namespace Projection
         }
     };
 
-    enum DeprecatedInvocationType 
+    enum DeprecatedInvocationType
     {
         DeprecatedInvocation_Class,
         DeprecatedInvocation_Method,
@@ -314,7 +314,7 @@ namespace Projection
 #if DBG
         UnknownsReleaser *unknownsReleaser;
 #endif
-         
+
         byte * WriteInPointer(__in void * pointer, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteInUnknown(__in IUnknown * unknown, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteInBasicType(__in Var arg, __in RtBASICTYPE type, __in_bcount(memSize) byte * mem, __in size_t memSize);
@@ -322,7 +322,7 @@ namespace Projection
         byte * WriteInGuid(Var varInput, bool fStructsByValue, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteInDate(Var varInput, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteInTimeSpan(Var varInput, __in_bcount(memSize) byte * mem, __in size_t memSize);
-        byte * WriteStructConstructorTypeInParameter(Var varInput, RtSTRUCTCONSTRUCTOR constructor, bool structsByValue, __in_bcount(memSize) byte * mem, __in size_t memSize);
+        byte * WriteStructConstructorTypeInParameter(Var varInput, RtSTRUCTCONSTRUCTOR constructor, bool structsByValue, __in_bcount(memSize) byte * mem, __in size_t memSize, __in bool padHFA);
         byte * WriteDelegateConstructorTypeInParameter(Var varInput, RtDELEGATECONSTRUCTOR constructor, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteInterfaceInParameter(Var varInput, const IID & iid, __in_bcount(memSize) byte * mem, __in size_t memSize);
         byte * WriteRuntimeInterfaceConstructor(Var varInput, RtRUNTIMEINTERFACECONSTRUCTOR constructor, __in_bcount(memSize) byte * mem, __in size_t memSize);
@@ -341,14 +341,14 @@ namespace Projection
 
 
         HRESULT GetTypedArrayAsPropertyValue(
-            __in size_t arraySize, 
-            __in_bcount(arraySize) byte * typedArrayBuffer, 
-            __in CorElementType type, 
+            __in size_t arraySize,
+            __in_bcount(arraySize) byte * typedArrayBuffer,
+            __in CorElementType type,
             __out IInspectable **propertyValue);
         HRESULT GetTypedArrayAsPropertyValue(
-            __in size_t arraySize, 
-            __in_bcount(arraySize) byte * typedArrayBuffer, 
-            __in RtCONCRETETYPE type, 
+            __in size_t arraySize,
+            __in_bcount(arraySize) byte * typedArrayBuffer,
+            __in RtCONCRETETYPE type,
             __out IInspectable **propertyValue);
         HRESULT GetBuiltinTypedArrayAsPropertyValue(
             __in Var varValue,
@@ -356,13 +356,13 @@ namespace Projection
 
         HRESULT GetNonArrayTypeAsPropertyValue(
             __in size_t arraySize,
-            __in_bcount(arraySize) byte * typeBuffer, 
-            __in CorElementType type, 
+            __in_bcount(arraySize) byte * typeBuffer,
+            __in CorElementType type,
             __out IInspectable **propertyValue);
         HRESULT GetNonArrayTypeAsPropertyValue(
             __in size_t arraySize,
-            __in_bcount(arraySize) byte * typeBuffer, 
-            __in RtCONCRETETYPE type, 
+            __in_bcount(arraySize) byte * typeBuffer,
+            __in RtCONCRETETYPE type,
             __out IInspectable **propertyValue);
 
         byte * WriteInspectableObject(Var varInput, __in_bcount(memSize) byte *mem, __in size_t memSize, bool boxInterface = false);
@@ -473,17 +473,18 @@ namespace Projection
         byte * WriteOutParameter(__in Js::Var inOutArg, __in RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize, MetadataStringId methodNameId);
         byte * WriteInParameter(__in Var arg, __in RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize);
         void WriteInArrayTypeIndividual(Var arg, RtARRAYTYPE type, bool isByRef, __in_bcount(sizeof(LPVOID)) byte * lengthPointer, __in_bcount(sizeof(LPVOID)) byte * arrayPointer, bool isOut, bool hasLength = false, uint32 lengthValue = 0);
+        byte * WriteInHFAParameter(__in Var arg, RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize);
         byte * WriteInType(Var arg, RtTYPE type, __in_bcount(memSize) byte * mem,__in size_t memSize, bool structsByValue);
 
         Js::Var ReadOutType(Js::Var inOutArgument, RtTYPE type, bool structsByValue, __in_bcount(memSize) byte * mem, __in size_t memSize, MetadataStringId methodNameId, bool allowIdentity = true, bool allowExtensions = false, ConstructorArguments* constructorArguments = nullptr);
         Js::Var ReadOutParameter(Js::Var inOutArgument, RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize, MetadataStringId methodNameId, bool allowIdentity = true, bool allowExtensions = false, ConstructorArguments* constructorArguments = nullptr);
 
-        Js::Var ReadOutArrayType(Js::Var inOutArgument, RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,  
+        Js::Var ReadOutArrayType(Js::Var inOutArgument, RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,
             __in_bcount(memSize2) byte * mem2, __in size_t memSize2, MetadataStringId methodNameId, bool isByRef, bool isOut, bool allowExtensions = false, bool hasLength = false, uint32 lengthValue = 0);
         Var TransferOwnershipAndReadInterfaceFromClassName(IInspectable *inspectable, HSTRING className, MetadataStringId methodNameId, ConstructorArguments* constructorArguments = nullptr);
         IUnknown * GetFastPathInterfaceFromExpr(Var varInput, RtEXPR expr);
         bool InitializeDelegateOutType(RtTYPE type, __in_bcount(memSize) byte * mem,__in size_t memSize);
-        bool InitializeDelegateOutArrayType(RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,  
+        bool InitializeDelegateOutArrayType(RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,
             __in_bcount(memSize2) byte * mem2, __in size_t memSize2, bool isFillArray, bool hasLength, uint32 lengthValue);
 
         void SetReleaseDelegateOutResources() { fReleaseDelegateOutResources = true; }
@@ -493,7 +494,7 @@ namespace Projection
         void SetIsInAsyncInterface() { fInAsyncInterface = true; }
 
 #ifdef PROJECTION_METADATA_TRACE
-        static void Trace(const char16 *form, ...) 
+        static void Trace(const char16 *form, ...)
         {
             if (Js::Configuration::Global.flags.Trace.IsEnabled(Js::ProjectionMetadataPhase))
             {

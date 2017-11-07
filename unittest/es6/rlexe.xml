@@ -90,6 +90,8 @@
       <files>ES6Promise_WebWorker.html</files>
       <baseline>ES6Promise_WebWorker.baseline</baseline>
       <compile-flags>-HtmlKeepAlive</compile-flags>
+      <!--Bug 12947322: Excluding from DRT runs as this fails in dev3 class lab runs.-->
+      <tags>exclude_drt</tags>
     </default>
   </test>
   <test>

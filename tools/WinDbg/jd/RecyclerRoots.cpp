@@ -15,11 +15,11 @@
 
 #ifdef JD_PRIVATE
 
-ULONG64 GetStackTop(EXT_CLASS_BASE* ext)
+ULONG64 GetStackTop()
 {
     // Fix for x64?
     ULONG64 offset;
-    ext->m_Registers2->GetStackOffset(&offset);
+    GetExtension()->m_Registers2->GetStackOffset(&offset);
     return offset;
 }
 
@@ -109,10 +109,10 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
     free(pinnedObjectMapEntries);
 }
 
-void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
+void RootPointerReader::ScanRegisters(bool print)
 {
     ULONG numRegisters;
-    ExtCheckedPointer<IDebugRegisters2> pRegisters = ext->m_Registers2;
+    ExtCheckedPointer<IDebugRegisters2> pRegisters = GetExtension()->m_Registers2;
 
     pRegisters->GetNumberRegisters(&numRegisters);
 
@@ -131,7 +131,7 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
             continue;
         }
 
-        if (ext->m_PtrSize == 4)
+        if (GetExtension()->m_PtrSize == 4)
         {
             if (registerDescription.Type != DEBUG_VALUE_INT32)
             {
@@ -156,79 +156,79 @@ void RootPointerReader::ScanRegisters(EXT_CLASS_BASE* ext, bool print)
         DEBUG_VALUE debugValue;
         pRegisters->GetValue(i, &debugValue);
 
-        ULONG64 value = ext->m_PtrSize == 4? debugValue.I32 : debugValue.I64;
+        ULONG64 value = GetExtension()->m_PtrSize == 4? debugValue.I32 : debugValue.I64;
 
         if (this->TryAdd(value, RootType::RootTypeRegister) && print)
         {
-            ext->Out("0x%p (Register %s)\n", value, buffer);
+            GetExtension()->Out("0x%p (Register %s)\n", value, buffer);
         }
     }
 
     if (print)
     {
-        ext->Out("Number of scanned registers: %d\n", scannedRegisters);
-        ext->Out("Number of total registers: %d\n", numRegisters);
+        GetExtension()->Out("Number of scanned registers: %d\n", scannedRegisters);
+        GetExtension()->Out("Number of total registers: %d\n", numRegisters);
     }
 }
 
-void RootPointerReader::ScanStack(EXT_CLASS_BASE* ext, RemoteRecycler& recycler, ULONG64 stackTop, bool print, bool showScriptContext)
+void RootPointerReader::ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bool print, bool showScriptContext)
 {
     ULONG64 stackBase = 0;
     if (recycler.GetExtRemoteTyped().HasField("stackBase") && recycler.GetExtRemoteTyped().Field("mainThreadHandle").GetPtr() != 0)
     {
-        stackBase = (ULONG64)((ext->m_PtrSize == 4) ? recycler.GetExtRemoteTyped().Field("stackBase").GetUlong()
+        stackBase = (ULONG64)((GetExtension()->m_PtrSize == 4) ? recycler.GetExtRemoteTyped().Field("stackBase").GetUlong()
             : recycler.GetExtRemoteTyped().Field("stackBase").GetPtr());
     }
     else
     {        
         ExtRemoteTyped stackBaseField = ExtRemoteTypedUtil::GetTeb().Field("NtTib.StackBase");
-        stackBase = (ext->m_PtrSize == 4) ? stackBaseField.GetUlong() : stackBaseField.GetUlong64();
+        stackBase = (GetExtension()->m_PtrSize == 4) ? stackBaseField.GetUlong() : stackBaseField.GetUlong64();
     }
 
     size_t stackSizeInBytes = (size_t)(stackBase - stackTop);
     byte * stack = (byte *)malloc(stackSizeInBytes);
     if (!stack)
     {
-        ext->ThrowOutOfMemory();
+        GetExtension()->ThrowOutOfMemory();
     }
     ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
-    ext->Out("Scanning %x bytes starting from 0x%p\n", stackSizeInBytes, stackTop);
+    GetExtension()->Out("Scanning %x bytes starting from 0x%p\n", stackSizeInBytes, stackTop);
 
     ExtRemoteData data(stackTop, stackSizeInBytesLong);
     data.ReadBuffer(stack, stackSizeInBytesLong);
 
     if (print)
     {
-        ext->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
+        GetExtension()->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
     }
 
-    if (ext->m_PtrSize == 4)
+    if (GetExtension()->m_PtrSize == 4)
     {
         ULONG32* stack32 = (ULONG32*)stack;
-        for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
+        for (uint i = 0; i < (uint)stackSizeInBytesLong / GetExtension()->m_PtrSize; i++)
         {
             ULONG64 address = (ULONG64)stack32[i];
             if (this->TryAdd(address, RootType::RootTypeStack))
             {
-                ext->Out("0x%p", stack32[i]);
-                ext->Out(" (+0x%x)\n", i * ext->m_PtrSize);
-                ext->DumpPossibleSymbol(address, true, showScriptContext);
-                ext->Out("\n");
+                GetExtension()->Out("0x%p", stack32[i]);
+                GetExtension()->Out(" (+0x%x)\n", i * GetExtension()->m_PtrSize);
+                GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
+                GetExtension()->Out("\n");
             }
         }
     }
     else
     {
         ULONG64* stack64 = (ULONG64*)stack;
-        for (uint i = 0; i < (uint)stackSizeInBytesLong / ext->m_PtrSize; i++)
+        for (uint i = 0; i < (uint)stackSizeInBytesLong / GetExtension()->m_PtrSize; i++)
         {
             ULONG64 address = stack64[i];
             if (this->TryAdd(address, RootType::RootTypeStack) && print)
             {
-                ext->Out("0x%p", address);
-                ext->Out(" (+0x%x)", i * ext->m_PtrSize);
-                ext->DumpPossibleSymbol(address, true, showScriptContext);
-                ext->Out("\n");
+                GetExtension()->Out("0x%p", address);
+                GetExtension()->Out(" (+0x%x)", i * GetExtension()->m_PtrSize);
+                GetExtension()->DumpPossibleSymbol(address, true, showScriptContext);
+                GetExtension()->Out("\n");
             }
         }
     }
@@ -246,7 +246,6 @@ void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootT
 
     context.start = object;
 
-    EXT_CLASS_BASE* ext = GetExtension();
     ULONG64 remainingBytes = bytes;
     ULONG64 curr = object;
     while (remainingBytes != 0)
@@ -255,14 +254,14 @@ void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootT
         byte buffer[4096];
         ExtRemoteData data(curr, readBytes);
         data.ReadBuffer(buffer, readBytes);
-        ULONG numPointers = readBytes / ext->m_PtrSize;
+        ULONG numPointers = readBytes / GetExtension()->m_PtrSize;
         byte * currBuffer = buffer;
         for (uint i = 0; i < numPointers; i++)
         {
             context.current = curr;
 
-            this->TryAdd(ext->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer, rootType, &context);
-            currBuffer += ext->m_PtrSize;
+            this->TryAdd(GetExtension()->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer, rootType, &context);
+            currBuffer += GetExtension()->m_PtrSize;
         }
 
         remainingBytes -= readBytes;
@@ -272,8 +271,6 @@ void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootT
 
 void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
 {
-    EXT_CLASS_BASE* ext = GetExtension();
-
     while (blocks.GetPtr() != NULL)
     {
 #if VERBOSE
@@ -281,7 +278,7 @@ void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
 #endif
 
         ExtRemoteTyped block = blocks.Dereference();
-        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
+        ULONG64 blockBytes = blocks.GetPtr() + GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
         ULONG64 byteCount = ExtRemoteTypedUtil::GetSizeT(nBytesField);
         if (byteCount != 0)
@@ -294,10 +291,9 @@ void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
 
 void RootPointerReader::ScanArenaMemoryBlocks(ExtRemoteTyped blocks)
 {
-    EXT_CLASS_BASE* ext = GetExtension();
     while (blocks.GetPtr() != NULL)
     {
-        ULONG64 blockBytes = blocks.GetPtr() + ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
+        ULONG64 blockBytes = blocks.GetPtr() + GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
         ExtRemoteTyped nBytesField = blocks.Field("nbytes");
         size_t byteCount = (size_t)nBytesField.GetLong();
         ScanObject(blockBytes, byteCount, RootType::RootTypeArena);
@@ -307,8 +303,7 @@ void RootPointerReader::ScanArenaMemoryBlocks(ExtRemoteTyped blocks)
 
 void RootPointerReader::ScanArenaData(ULONG64 arenaDataPtr)
 {
-    EXT_CLASS_BASE* ext = GetExtension();
-    ExtRemoteTyped arenaData(ext->FillModuleAndMemoryNS("(%s!%sArenaData*)@$extin"), arenaDataPtr);
+    ExtRemoteTyped arenaData(GetExtension()->FillModuleAndMemoryNS("(%s!%sArenaData*)@$extin"), arenaDataPtr);
     ScanArenaBigBlocks(arenaData.Field("bigBlocks"));
     ScanArenaBigBlocks(arenaData.Field("fullBlocks"));
     ScanArenaMemoryBlocks(arenaData.Field("mallocBlocks"));
@@ -316,10 +311,9 @@ void RootPointerReader::ScanArenaData(ULONG64 arenaDataPtr)
 
 void RootPointerReader::ScanArena(ULONG64 arena, bool verbose)
 {
-    EXT_CLASS_BASE* ext = GetExtension();
     if (verbose)
-        ext->Out("Scanning arena 0x%p\n", arena);
-    arena += ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sAllocator))"));
+        GetExtension()->Out("Scanning arena 0x%p\n", arena);
+    arena += GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sAllocator))"));
     ScanArenaData(arena);
 }
 
@@ -400,20 +394,20 @@ void RootPointerReader::ScanImplicitRoots(bool print)
     }
 }
 
-bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext, bool verbose)
+bool IsUsingDebugPinRecord(bool verbose)
 {
     ULONG typeId = 0;
-    HRESULT hr = ext->m_Symbols->GetTypeId(0, ext->FillModuleAndMemoryNS("%s!%sRecycler::PinRecord"), &typeId);
+    HRESULT hr = GetExtension()->m_Symbols->GetTypeId(0, GetExtension()->FillModuleAndMemoryNS("%s!%sRecycler::PinRecord"), &typeId);
 
     // On retail builds, the pinRecord type doesn't even exist, it gets optimized away to int
     // On debug builds, the type might exist but it may or may not have extra information in it
     if (SUCCEEDED(hr) && typeId != 0)
     {
-        ULONG64 sizeofPinRecord = ext->EvalExprU64(ext->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sRecycler::PinRecord))"));
+        ULONG64 sizeofPinRecord = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sRecycler::PinRecord))"));
         bool is = (sizeofPinRecord != sizeof(uint));
         if (verbose)
         {
-            ext->Out("Using pin record with stack traces: %s\n", (is ? "true" : "false"));
+            GetExtension()->Out("Using pin record with stack traces: %s\n", (is ? "true" : "false"));
         }
 
         return is;
@@ -423,11 +417,11 @@ bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext, bool verbose)
 }
 
 template <typename Fn>
-void MapPinnedObjects(EXT_CLASS_BASE* ext, RemoteRecycler recycler, const Fn& callback, bool verbose)
+void MapPinnedObjects(RemoteRecycler recycler, const Fn& callback, bool verbose)
 {
-    bool isUsingDebugPinnedRecord = IsUsingDebugPinRecord(ext, verbose);
-    // ext->Out(_u("Possible symbol for %p: "), heapObject.vtable); ext->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); ext->Out("\n");
-    if (ext->m_PtrSize == 8)
+    bool isUsingDebugPinnedRecord = IsUsingDebugPinRecord(verbose);
+    // GetExtension()->Out(_u("Possible symbol for %p: "), heapObject.vtable); GetExtension()->m_Symbols3->OutputSymbolByOffset(DEBUG_OUTCTL_AMBIENT, DEBUG_OUTSYM_ALLOW_DISPLACEMENT, heapObject.vtable); GetExtension()->Out("\n");
+    if (GetExtension()->m_PtrSize == 8)
     {
         PinnedObjectMap<ULONG64> pinnedObjects(recycler, isUsingDebugPinnedRecord);
         pinnedObjects.Map(callback);
@@ -468,7 +462,7 @@ bool EXT_CLASS_BASE::DumpPossibleExternalSymbol(JDRemoteTyped object, char const
             try
             {
                 ULONG64 domVtable = GetPointerAtAddress(domObject);
-                std::string symbol = GetSymbolForOffset(this, domVtable);
+                std::string symbol = GetSymbolForOffset(domVtable);
 
                 if (!symbol.empty())
                 {
@@ -555,20 +549,20 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     return true;
 }
 
-void DumpPinnedObject(EXT_CLASS_BASE* ext, int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry, bool showEntries, bool showScriptContext)
+void DumpPinnedObject(int i, int j, ULONG64 entryPointer, const PinnedObjectEntry& entry, bool showEntries, bool showScriptContext)
 {
     if (showEntries)
     {
-        ext->Out("Index: (0x%x, %d), Entry: 0x%p, Address: ", i, j, entryPointer);
+        GetExtension()->Out("Index: (0x%x, %d), Entry: 0x%p, Address: ", i, j, entryPointer);
     }
-    ext->Out("0x%p, ", entry.address);
-    ext->Out("Ref:%d", entry.pinnedCount);
-    // There appears to be a bug in ext->Out where it doesn't deal with %d properly when
+    GetExtension()->Out("0x%p, ", entry.address);
+    GetExtension()->Out("Ref:%d", entry.pinnedCount);
+    // There appears to be a bug in GetExtension()->Out where it doesn't deal with %d properly when
     // mixed with other types
 
-    ext->DumpPossibleSymbol(entry.address, true, showScriptContext);
+    GetExtension()->DumpPossibleSymbol(entry.address, true, showScriptContext);
 
-    ext->Out("\n");
+    GetExtension()->Out("\n");
 }
 
 JD_PRIVATE_COMMAND(showpinned,
@@ -584,24 +578,24 @@ JD_PRIVATE_COMMAND(showpinned,
     const bool showScriptContext = HasArg("sc");
     const bool showEntries = HasArg("e");
 
-    auto dumpPinnedObjectFromRecycler = [this, showScriptContext, showEntries](RemoteRecycler recycler)
+    auto dumpPinnedObjectFromRecycler = [showScriptContext, showEntries](RemoteRecycler recycler)
     {
         uint count = 0;
-        MapPinnedObjects(this, recycler, [&count, this, showScriptContext, showEntries](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+        MapPinnedObjects(recycler, [&count, showScriptContext, showEntries](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
         {
-            DumpPinnedObject(this, i, j, entryPointer, entry, showEntries, showScriptContext);
+            DumpPinnedObject(i, j, entryPointer, entry, showEntries, showScriptContext);
             count++;
         }, true);
 
-        Out("Count is %d\n", count);
+        GetExtension()->Out("Count is %d\n", count);
     };
 
     if (allThreadContext)
     {
-        RemoteThreadContext::ForEach([this, dumpPinnedObjectFromRecycler](RemoteThreadContext threadContext)
+        RemoteThreadContext::ForEach([dumpPinnedObjectFromRecycler](RemoteThreadContext threadContext)
         {
-            Out("===========================================================\n");
-            Out("ThreadContext %p\n", threadContext.GetPtr());
+            GetExtension()->Out("===========================================================\n");
+            GetExtension()->Out("ThreadContext %p\n", threadContext.GetPtr());
             dumpPinnedObjectFromRecycler(threadContext.GetRecycler());
             return false;
         });
@@ -615,12 +609,12 @@ JD_PRIVATE_COMMAND(showpinned,
 }
 
 template <class Fn>
-void SearchRange(ULONG64 startAddress, uint numBytes, ExtExtension* ext, ULONG64 targetValue, Fn fn)
+void SearchRange(ULONG64 startAddress, uint numBytes, ULONG64 targetValue, Fn fn)
 {
     char* pageContents = (char*)malloc(numBytes);
     AutoFree guard((void*)pageContents);
     ExtRemoteData remotePage(startAddress, numBytes);
-    size_t ptrSize = ext->m_PtrSize;
+    size_t ptrSize = GetExtension()->m_PtrSize;
 
     try
     {
@@ -653,7 +647,7 @@ void SearchRange(ULONG64 startAddress, uint numBytes, ExtExtension* ext, ULONG64
             ULONG64 offset = (ULONG64)(current - start);
             ULONG64 addr = startAddress + offset;
 #if VERBOSE
-            ext->Out("Start address: 0x%p, Value: 0x%p, Current: %p, Offset: %d\n", startAddress, value, current, offset);
+            GetExtension()->Out("Start address: 0x%p, Value: 0x%p, Current: %p, Offset: %d\n", startAddress, value, current, offset);
 #endif
             fn(addr);
         }
@@ -692,7 +686,7 @@ JD_PRIVATE_COMMAND(findref,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
+    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
     RemoteHeapBlockMap hbm = recycler.GetHeapBlockMap();
     struct FindRefData
     {
@@ -701,18 +695,18 @@ JD_PRIVATE_COMMAND(findref,
         bool isRoot;
     };
     std::vector<FindRefData> results;
-    hbm.ForEachHeapBlock([this, rootPointers, referencedObject, &results](RemoteHeapBlock heapBlock)
+    hbm.ForEachHeapBlock([rootPointers, referencedObject, &results](RemoteHeapBlock heapBlock)
     {
         if (heapBlock.IsLargeHeapBlock())
         {
-            ULONG64 sizeOfObjectHeader = this->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-            heapBlock.ForEachLargeObjectHeader([this, referencedObject, sizeOfObjectHeader, rootPointers, &results](JDRemoteTyped header)
+            ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            heapBlock.ForEachLargeObjectHeader([referencedObject, sizeOfObjectHeader, rootPointers, &results](JDRemoteTyped header)
             {
                 ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
 
                 ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
 
-                SearchRange(startAddress, (uint)objectSize, this, referencedObject, [&](ULONG64 addr) {
+                SearchRange(startAddress, (uint)objectSize, referencedObject, [&](ULONG64 addr) {
                     FindRefData result;
                     result.address = startAddress;
                     result.offset = addr - startAddress;
@@ -727,7 +721,7 @@ JD_PRIVATE_COMMAND(findref,
             ULONG64 startAddress = heapBlock.GetAddress();
             ULONG objectSize = heapBlock.GetBucketObjectSize();
 
-            SearchRange(startAddress, (uint)heapBlock.GetTotalObjectSize(), this, referencedObject, [&](ULONG64 addr)
+            SearchRange(startAddress, (uint)heapBlock.GetTotalObjectSize(), referencedObject, [&](ULONG64 addr)
             {
                 ULONG64 offset = (addr - startAddress);
                 ULONG objectIndex = (ULONG)(offset / objectSize);
@@ -784,7 +778,7 @@ JD_PRIVATE_COMMAND(showroots,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RootPointerReader rootPointerManager(this, recycler);
+    RootPointerReader rootPointerManager(recycler);
 
     // TODO (doilij) refactor this with ComputeRoots below
 
@@ -811,7 +805,7 @@ JD_PRIVATE_COMMAND(showroots,
         if (externalWeakReferenceList != NULL)
         {
             Out("External Weak Reference caches\n");
-            DumpList<true>(this, externalWeakReferenceList, "ExternalWeakReferenceCache *");
+            DumpList<true>(externalWeakReferenceList, "ExternalWeakReferenceCache *");
         }
     }
 
@@ -823,9 +817,9 @@ JD_PRIVATE_COMMAND(showroots,
 
     Out("\nPinned objects\n");
     uint count = 0;
-    MapPinnedObjects(this, recycler, [&count, &rootPointerManager, this, showEntries, showScriptContext](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+    MapPinnedObjects(recycler, [&count, &rootPointerManager, showEntries, showScriptContext](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
     {
-        DumpPinnedObject(this, i, j, entryPointer, entry, showEntries, showScriptContext);
+        DumpPinnedObject(i, j, entryPointer, entry, showEntries, showScriptContext);
         count++;
         rootPointerManager.TryAdd((ULONG64)entry.address, RootType::RootTypePinned);
     }, true);
@@ -834,25 +828,25 @@ JD_PRIVATE_COMMAND(showroots,
 
     Out("\nGuest arenas\n");
     ULONG64 guestArenaList = recycler.GetExtRemoteTyped().Field("guestArenaList").GetPointerTo().GetPtr();
-    DumpList<false>(this, guestArenaList, FillModuleAndMemoryNS("%s!%sRecycler::GuestArenaAllocator"));
+    DumpList<false>(guestArenaList, FillModuleAndMemoryNS("%s!%sRecycler::GuestArenaAllocator"));
 
     Out("\nExternal guest arenas\n");
 
     ExtRemoteTyped egal = recycler.GetExtRemoteTyped().Field("externalGuestArenaList");
     ULONG64 externalGuestArenaList = egal.GetPointerTo().GetPtr();
-    DumpList<false>(this, externalGuestArenaList, "ArenaData *");
+    DumpList<false>(externalGuestArenaList, "ArenaData *");
 
     Out("\nStack\n");
-    rootPointerManager.ScanRegisters(this);
-    rootPointerManager.ScanStack(this, recycler, GetStackTop(GetExtension()), true, showScriptContext);
+    rootPointerManager.ScanRegisters();
+    rootPointerManager.ScanStack(recycler, GetStackTop(), true, showScriptContext);
 
     PCSTR typeName = recycler.GetExtRemoteTyped().Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
 }
 
-Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop, bool dump)
+Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop, bool dump)
 {
-    RootPointerReader rootPointerManager(ext, recycler);
+    RootPointerReader rootPointerManager(recycler);
 
     /*
      * FindRoots algorithm
@@ -901,7 +895,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThr
     // Scan pinned objects
     //
 
-    MapPinnedObjects(ext, recycler, [&rootPointerManager](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
+    MapPinnedObjects(recycler, [&rootPointerManager](int i, int j, ULONG64 entryPointer, PinnedObjectEntry entry)
     {
         rootPointerManager.TryAdd(entry.address, RootType::RootTypePinned);
     }, dump);
@@ -918,7 +912,7 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThr
     while (guestArenaIterator.Next())
     {
         ULONG64 data = guestArenaIterator.GetDataPtr();
-        ExtRemoteTyped guestArena(ext->FillModuleAndMemoryNS("(%s!%sRecycler::GuestArenaAllocator*)@$extin"), data);
+        ExtRemoteTyped guestArena(GetExtension()->FillModuleAndMemoryNS("(%s!%sRecycler::GuestArenaAllocator*)@$extin"), data);
 
         ExtRemoteTyped isPendingDelete = guestArena.Dereference().Field("pendingDelete");
         if (!isPendingDelete.GetBoolean())
@@ -944,8 +938,8 @@ Addresses * ComputeRoots(EXT_CLASS_BASE* ext, RemoteRecycler recycler, RemoteThr
     // Scan stack
     //
 
-    rootPointerManager.ScanRegisters(ext, dump);
-    rootPointerManager.ScanStack(ext, recycler, stackTop, dump);
+    rootPointerManager.ScanRegisters(dump);
+    rootPointerManager.ScanStack(recycler, stackTop, dump);
 
     return rootPointerManager.DetachAddresses();
 }
@@ -995,44 +989,44 @@ JD_PRIVATE_COMMAND(markobj,
 }
 #endif
 
-void DumpPointerPropertiesSeparatorLine(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesSeparatorLine()
 {
-    ext->Out("----------------------------+-------------------------------------\n");
+    GetExtension()->Out("----------------------------+-------------------------------------\n");
 }
 
-void DumpPointerPropertiesPredecessorsHeader(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesPredecessorsHeader()
 {
-    ext->Out("----------------------------+-Predecessors------------------------\n");
+    GetExtension()->Out("----------------------------+-Predecessors------------------------\n");
 }
 
-void DumpPointerPropertiesDescendantsHeader(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesDescendantsHeader()
 {
-    ext->Out("----------------------------+-Descendants-------------------------\n");
+    GetExtension()->Out("----------------------------+-Descendants-------------------------\n");
 }
 
-void DumpPointerPropertiesHorizontalSpacer(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesHorizontalSpacer()
 {
-    ext->Out("                            | ");
+    GetExtension()->Out("                            | ");
 }
 
-void DumpPointerPropertiesSpacerLine(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesSpacerLine()
 {
-    ext->Out("                            |\n");
+    GetExtension()->Out("                            |\n");
 }
 
-void DumpPointerPropertiesHeader(EXT_CLASS_BASE* ext)
+void DumpPointerPropertiesHeader()
 {
-    ext->Out("\n");
-    ext->Out("              P             | Pinned Root\n");
-    ext->Out("               S            | Stack Root\n");
-    ext->Out("                R           | Register Root\n");
-    ext->Out("                 A          | Arena Root\n");
-    ext->Out("                  I         | Implicit Root\n");
-    ext->Out("                    ^       | Click to execute `!jd.predecessors` on this node\n");
-    ext->Out("                      v     | Click to execute `!jd.successors` on this node\n");
-    ext->Out("                        >   | Click to execute `!jd.traceroots` on this node\n");
-    ext->Out("  Pred   Succ Flags       * | Original input pointer\n");
-    DumpPointerPropertiesSeparatorLine(ext);
+    GetExtension()->Out("\n");
+    GetExtension()->Out("              P             | Pinned Root\n");
+    GetExtension()->Out("               S            | Stack Root\n");
+    GetExtension()->Out("                R           | Register Root\n");
+    GetExtension()->Out("                 A          | Arena Root\n");
+    GetExtension()->Out("                  I         | Implicit Root\n");
+    GetExtension()->Out("                    ^       | Click to execute `!jd.predecessors` on this node\n");
+    GetExtension()->Out("                      v     | Click to execute `!jd.successors` on this node\n");
+    GetExtension()->Out("                        >   | Click to execute `!jd.traceroots` on this node\n");
+    GetExtension()->Out("  Pred   Succ Flags       * | Original input pointer\n");
+    DumpPointerPropertiesSeparatorLine();
 }
 
 typedef RecyclerObjectGraph::GraphImplNodeType NodeType;
@@ -1077,7 +1071,7 @@ void FormatPointerFlags(char *buffer, uint bufferLength, Node node)
     buffer[bufferLength - 1] = NULL;
 }
 
-void DumpPointerProperties(EXT_CLASS_BASE* ext, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
+void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     ULONG64 address = NULL, int currentLevel = 0)
 {
     if (address == NULL)
@@ -1092,68 +1086,68 @@ void DumpPointerProperties(EXT_CLASS_BASE* ext, RecyclerObjectGraph &objectGraph
     auto node = objectGraph.FindNode(address);
     size_t pred = node->GetPredecessorCount();
     size_t desc = node->GetSuccessorCount();
-    ext->Out("%6d ", pred);
-    ext->Out("%6d ", desc);
+    GetExtension()->Out("%6d ", pred);
+    GetExtension()->Out("%6d ", desc);
 
     const uint bufferLength = 6; // space for 5 flags plus NULL
     char buffer[bufferLength];
     FormatPointerFlags(buffer, bufferLength, node);
-    ext->Out("%s ", buffer);
+    GetExtension()->Out("%s ", buffer);
 
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
-        ext->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", address);
-        ext->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", address);
+        GetExtension()->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", address);
+        GetExtension()->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", address);
     }
     else
     {
-        ext->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/", address);
-        ext->Out("v /*\"!jd.successors -limit 0 0x%p\"*/", address);
+        GetExtension()->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/", address);
+        GetExtension()->Out("v /*\"!jd.successors -limit 0 0x%p\"*/", address);
     }
 
     bool isInput = (pointerArg == address); // display * or > with link as appropriate
-    if (ext->PreferDML())
+    if (GetExtension()->PreferDML())
     {
         if (isInput)
         {
-            ext->Out("  "); // spacer for >
-            ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">*</link>", address);
+            GetExtension()->Out("  "); // spacer for >
+            GetExtension()->Dml("<link cmd=\"!jd.traceroots 0x%p\">*</link>", address);
         }
         else
         {
-            ext->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", address);
-            ext->Out("  "); // spacer for *
+            GetExtension()->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link>", address);
+            GetExtension()->Out("  "); // spacer for *
         }
     }
     else
     {
         if (isInput)
         {
-            ext->Out("  "); // spacer for >
-            ext->Out("* /*\"!jd.traceroots 0x%p\"*/", address);
+            GetExtension()->Out("  "); // spacer for >
+            GetExtension()->Out("* /*\"!jd.traceroots 0x%p\"*/", address);
         }
         else
         {
-            ext->Out("> /*\"!jd.traceroots 0x%p\"*/", address);
-            ext->Out("  "); // spacer for *
+            GetExtension()->Out("> /*\"!jd.traceroots 0x%p\"*/", address);
+            GetExtension()->Out("  "); // spacer for *
         }
     }
 
-    ext->Out(" | ");
+    GetExtension()->Out(" | ");
 
     // print the address and symbol
-    ext->Out("0x%p ", address);
-    ext->Out("(level %c%-8d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
-    ext->DumpPossibleSymbol(node);
-    ext->Out("\n");
+    GetExtension()->Out("0x%p ", address);
+    GetExtension()->Out("(level %c%-8d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
+    GetExtension()->DumpPossibleSymbol(node);
+    GetExtension()->Out("\n");
 }
 
 template <bool predecessorsMode = false, bool links = true>
-void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
+void DumpPredSucc(Node currentNode, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     ULONG64 limitArg, bool showOnlyRoots)
 {
     // Display the target pointer and one level of its descendants
-    DumpPointerProperties(ext, objectGraph, pointerArg, pointerArg, 0);
+    DumpPointerProperties(objectGraph, pointerArg, pointerArg, 0);
 
     int level = 1;
     char *command = "successors";
@@ -1166,7 +1160,7 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
     }
 
     uint count = 0;
-    auto mapper = [ext, &objectGraph, pointerArg, &count, limitArg, level, command, showOnlyRoots, &countFunction, currentNode](Node next)
+    auto mapper = [&objectGraph, pointerArg, &count, limitArg, level, command, showOnlyRoots, &countFunction, currentNode](Node next)
     {
         RootType rootType = next->GetRootType();
         if (showOnlyRoots && !RootTypeUtils::IsAnyRootType(rootType))
@@ -1175,21 +1169,21 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
         }
 
         ULONG64 address = next->Key();
-        DumpPointerProperties(ext, objectGraph, pointerArg, address, level);
+        DumpPointerProperties(objectGraph, pointerArg, address, level);
 
         // Display all children if the value is 0, otherwise display up to count children.
         if (limitArg != 0 && (++count) >= limitArg)
         {
-            DumpPointerPropertiesHorizontalSpacer(ext);
+            DumpPointerPropertiesHorizontalSpacer();
             uint nodeCount = (currentNode->*countFunction)();
-            ext->Out("Limit Reached. %d more not displayed.", nodeCount - count);
-            if (ext->PreferDML())
+            GetExtension()->Out("Limit Reached. %d more not displayed.", nodeCount - count);
+            if (GetExtension()->PreferDML())
             {
-                ext->Dml(" <link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+                GetExtension()->Dml(" <link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
             }
             else
             {
-                ext->Out(" (\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
+                GetExtension()->Out(" (\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
             }
             return true;
         }
@@ -1208,27 +1202,27 @@ void DumpPredSucc(EXT_CLASS_BASE* ext, Node currentNode, RecyclerObjectGraph &ob
 
     if (limitArg == 0 && links)
     {
-        ext->Out("\n");
-        if (ext->PreferDML())
+        GetExtension()->Out("\n");
+        if (GetExtension()->PreferDML())
         {
             if (showOnlyRoots)
             {
-                ext->Dml("<link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
+                GetExtension()->Dml("<link cmd=\"!jd.%s /limit 0 0x%p\">(Display all %s.)</link>\n", command, pointerArg, command);
             }
             else
             {
-                ext->Dml("<link cmd=\"!jd.%s /r /limit 0 0x%p\">(Display only roots.)</link>\n", command, pointerArg);
+                GetExtension()->Dml("<link cmd=\"!jd.%s /r /limit 0 0x%p\">(Display only roots.)</link>\n", command, pointerArg);
             }
         }
         else
         {
             if (showOnlyRoots)
             {
-                ext->Out("(\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
+                GetExtension()->Out("(\"!jd.%s /limit 0 0x%p\" to display all %s.)\n", command, pointerArg, command);
             }
             else
             {
-                ext->Out("(\"!jd.%s /r /limit 0 0x%p\" to display only roots.)\n", command, pointerArg);
+                GetExtension()->Out("(\"!jd.%s /r /limit 0 0x%p\" to display only roots.)\n", command, pointerArg);
             }
         }
     }
@@ -1261,29 +1255,29 @@ void EXT_CLASS_BASE::PredSuccImpl()
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this)));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop()));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
     // Actually dump the pointers.
     //
 
-    DumpPointerPropertiesHeader(this);
-    predSuccFn(this, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPointerPropertiesHeader();
+    predSuccFn(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
 template <bool links = true>
-void DumpPredecessors(EXT_CLASS_BASE* ext, Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
+void DumpPredecessors(Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     ULONG64 limitArg, bool showOnlyRoots)
 {
-    DumpPredSucc<true, links>(ext, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPredSucc<true, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
 template <bool links = true>
-void DumpSuccessors(EXT_CLASS_BASE* ext, Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
+void DumpSuccessors(Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     ULONG64 limitArg, bool showOnlyRoots)
 {
-    DumpPredSucc<false, links>(ext, node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPredSucc<false, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
 }
 
 JD_PRIVATE_COMMAND(predecessors,
@@ -1389,7 +1383,7 @@ JD_PRIVATE_COMMAND(traceroots,
 
     if (stackPointerArg == NULL)
     {
-        stackPointerArg = GetStackTop(this);
+        stackPointerArg = GetStackTop();
     }
 
     //
@@ -1588,7 +1582,7 @@ JD_PRIVATE_COMMAND(traceroots,
         }
     }
 
-    DumpPointerPropertiesHeader(this);
+    DumpPointerPropertiesHeader();
 
     // Print itself if no other roots found and itself is a root
     if (rootQueue.empty() && transientRootQueue.empty())
@@ -1631,27 +1625,27 @@ JD_PRIVATE_COMMAND(traceroots,
         TraversalData *pTraversalData = traversalMap.Get(address);
         while (pTraversalData != nullptr)
         {
-            DumpPointerProperties(this, objectGraph, pointerArg, pTraversalData->address, pTraversalData->level);
+            DumpPointerProperties(objectGraph, pointerArg, pTraversalData->address, pTraversalData->level);
             pTraversalData = pTraversalData->child;
         }
 
-        DumpPointerPropertiesSeparatorLine(this);
+        DumpPointerPropertiesSeparatorLine();
     }
 
     // Only display the descendants section if node actually has descendants.
     if (node->GetSuccessorCount() > 0)
     {
-        DumpPointerPropertiesSpacerLine(this);
-        DumpPointerPropertiesDescendantsHeader(this);
-        DumpSuccessors<false>(this, node, objectGraph, pointerArg, limitArg, false);
+        DumpPointerPropertiesSpacerLine();
+        DumpPointerPropertiesDescendantsHeader();
+        DumpSuccessors<false>(node, objectGraph, pointerArg, limitArg, false);
     }
 
     // Display an option to show predecessors if there are any.
     if (showPredecessors && node->GetPredecessorCount() > 0)
     {
-        DumpPointerPropertiesSpacerLine(this);
-        DumpPointerPropertiesPredecessorsHeader(this);
-        DumpPredecessors<false>(this, node, objectGraph, pointerArg, limitArg, false);
+        DumpPointerPropertiesSpacerLine();
+        DumpPointerPropertiesPredecessorsHeader();
+        DumpPredecessors<false>(node, objectGraph, pointerArg, limitArg, false);
     }
 
     // Delete all of the TraversalData pointers in traversalMap so we don't leak.
@@ -1661,7 +1655,7 @@ JD_PRIVATE_COMMAND(traceroots,
     });
 }
 
-void OnArenaRootScanned(EXT_CLASS_BASE* ext, ULONG64 root, void* context)
+void OnArenaRootScanned(ULONG64 root, void* context)
 {
     struct Context
     {
@@ -1670,7 +1664,7 @@ void OnArenaRootScanned(EXT_CLASS_BASE* ext, ULONG64 root, void* context)
     };
 
     Context* ctx = (Context*)context;
-    ext->Out("  [0x%p, 0x%p] => 0x%p\n", ctx->start, ctx->current, root);
+    GetExtension()->Out("  [0x%p, 0x%p] => 0x%p\n", ctx->start, ctx->current, root);
 }
 
 JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.", 
@@ -1681,7 +1675,7 @@ JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.",
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RootPointerReader rootPointerManager(this, recycler, OnArenaRootScanned);
+    RootPointerReader rootPointerManager(recycler, OnArenaRootScanned);
     ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
     ULONG64 recyclerAddress = recyclerExtRemoteTyped.m_Data; // TODO: recycler needs to be a pointer to make this work
     ULONG64 guestArenaList = recyclerAddress + recyclerExtRemoteTyped.GetFieldOffset("guestArenaList");
@@ -1756,7 +1750,7 @@ JD_PRIVATE_COMMAND(savegraph,
 
     if (stackPointerArg == NULL)
     {
-        stackPointerArg = GetStackTop(this);
+        stackPointerArg = GetStackTop();
     }
 
     Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, stackPointerArg);
@@ -1885,7 +1879,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     if (verbose)
     {
-        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop(this));
+        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
     }
 
@@ -1898,7 +1892,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     {
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
     }
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this), flags));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(), flags));
 
     typedef stdext::hash_map<char const *, ObjectAllocStats> ObjectCountsMap;
     struct ObjectCountData
@@ -2227,7 +2221,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(this),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
         typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
 
     this->Out("\n");

@@ -39,15 +39,13 @@
         $(MSBuildThisFileDirectory)..\EnC;
         $(ChakraInternalIDLIntDir);
 
-        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
-        
-        <!-- For winmddefsp.h  -->
+
+        $(OneCoreUapComIncPath)\midlrt;
         $(PublicInternalPath)\com\inc\midlrt;
 
-        <!-- For winrtobjectprobe.h in ProjectionObjectInstance.cpp -->
-        $(ComIncPath);
+        $(OneCoreComIncPath);
 
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

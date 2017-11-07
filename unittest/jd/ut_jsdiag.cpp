@@ -370,7 +370,7 @@ void EXT_CLASS::IfFailThrow(HRESULT hr, PCSTR msg)
 {
     if (FAILED(hr))
     {
-        ThrowLastError(msg);
+        ThrowStatus(hr, "%s", msg ? msg : "");
     }
 }
 

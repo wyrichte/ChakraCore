@@ -31,7 +31,7 @@ namespace ProjectionModel
     // Updates internal state so that when you call it next time, you'll get location of next argument and not this one.
     // In:
     //   - the argument to get the location of.
-    // Out: 
+    // Out:
     //   - loc receives (is filled with) the location.
     void CallingConventionHelper::GetNextParameterLocation(RtABIPARAMETER argument, ParameterLocation *loc)
     {
@@ -46,28 +46,28 @@ namespace ProjectionModel
         }
         RtCONCRETETYPE concreteType = ConcreteType::From(argument->type);
 
-        // Note: for tcMissingNamedType, the data is unreliable/garbage, we'll report the error later 
+        // Note: for tcMissingNamedType, the data is unreliable/garbage, we'll report the error later
         //       when the arg is actually used (like WriteInType), here assuming 8-bytes/non floating point.
         bool isMissingType = argument->type->typeCode == tcMissingNamedType;
         AssertMsg(argument->GetSizeOnStack() < INT_MAX, "No argument should exceed available stack space.");
         int byteCount = isMissingType ? 8 : (int)argument->GetSizeOnStack();
         bool isFloatingPoint = isMissingType ? false : CallingConventionHelper::IsFloatingPoint(concreteType);
-
-        return GetNextParameterLocation(byteCount, isFloatingPoint, loc);
+        return GetNextParameterLocation(byteCount, isFloatingPoint, loc, concreteType);
     }
 
     // Get abstract location of next argument and update internal state which will be used for next argument.
-    // In: 
+    // In:
     //   - byteCount: size of argument in bytes, aka "size on stack".
     //   - isFloatingPoint: whether we should use VFP registers for the argument.
-    // Out: 
+    //   - type: type information about the argument.
+    // Out:
     //   - loc receives the location.
     // Notes:
     //   - see also: http://windows/planning/w8themes/arm/Shared%20Documents/Windows%20ARM%20ABI.docx
     //   - see also: http://infocenter.arm.com/help/topic/com.arm.doc.espc0002/ATPCS.pdf
     //   - see also: http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042d/IHI0042D_aapcs.pdf
     //   - see also: \\cpvsbuild\DROPS\dev11\Main\raw\current\sources\ndp\clr\src\VM\CallingConvention.cpp.
-    void CallingConventionHelper::GetNextParameterLocation(int byteCount, bool isFloatingPoint, ParameterLocation *loc)
+    void CallingConventionHelper::GetNextParameterLocation(int byteCount, bool isFloatingPoint, ParameterLocation *loc, RtCONCRETETYPE type)
     {
         // Attempt to place the argument into some combination of floating point or general registers and
         // the stack.
@@ -81,26 +81,49 @@ namespace ProjectionModel
         //       (per ABI, float args of vararg functions go to the stack rather than VFP registers).
         if (isFloatingPoint)
         {
+
+            int floatRegCount;
+
+            if (StructType::Is(type))
+            {
+
+                // If this is an HFA then the registers required area count of
+                // the fields in the struct.
+
+                auto structType = StructType::From(type);
+                floatRegCount = structType->hfpFieldCount;
+            }
+            else
+            {
+                // If this is not an HFA then the floating point case should
+                // be a float or a double passed by value.
+                floatRegCount = argSlotCount;
+                Assert(floatRegCount == 1);
+            }
+
             // Handle floating point (primitive) arguments.
 
-            int availableSlotCount = 16 - m_usageData.FloatRegIndex * 2;
-            if (argSlotCount > availableSlotCount && m_usageData.StackSlotIndex != 0)
+            int availableRegCount = 8 - m_usageData.FloatRegIndex;
+            if (floatRegCount > availableRegCount)
             {
                 m_usageData.FloatRegIndex = 8;
             }
 
-            // Indicate to the caller whether the first part (or possibly all) of the argument fits into one
-            // or more general registers.
+            // Indicate to the caller whether the argument fits into one
+            // or more floating point registers.
             if (m_usageData.FloatRegIndex < 8)
             {
                 loc->FloatRegIndex = m_usageData.FloatRegIndex;
-                loc->floatRegCount = min(argSlotCount + 1, 16 - m_usageData.FloatRegIndex * 2) / 2;
+                loc->floatRegCount = floatRegCount;
 
                 // Mark the registers just allocated as used.
                 m_usageData.FloatRegIndex += loc->floatRegCount;
 
                 // Drop from consideration the portion of the argument that we just placed.
-                argSlotCount -= min(argSlotCount, loc->floatRegCount * 2);
+                // It is invalid to have some portion of an argument in float registers and
+                // some spilled onto the stack so arg slot count must be 0 at this point if
+                // any values are going in registers.
+                argSlotCount = 0;
             }
         }
         else
@@ -181,7 +204,7 @@ namespace ProjectionModel
         }
         else
         {
-            // When argument is split across general registers and stack, this is possible only when FP registers 
+            // When argument is split across general registers and stack, this is possible only when FP registers
             // were not placed on the stack yet. Thus, since in the data structure stack is right after general registers,
             // we can just place the value to general regs and it will span to the stack region continuosly.
             if (loc->GenRegIndex != ParameterLocation::invalidIndex)
@@ -205,7 +228,7 @@ namespace ProjectionModel
     }
 
     // Allocate data for registers and stack.
-    // Note that for registers, for simplicity, unless regs are not used, we allocate data for all regs, 
+    // Note that for registers, for simplicity, unless regs are not used, we allocate data for all regs,
     // rather than just for used amount of regs.
     // TODO: Evanesco: consider allocating only required number of registers rather than "either none or all registers".
     void ApcsCallLayout::AllocateData(ArenaAllocator* alloc, int generalRegisterCount, int floatRegisterCount, int stackSize)

@@ -7,10 +7,8 @@
 #ifdef JD_PRIVATE
 // ------------------------------------------------------------------------------------------------
 
-void RemoteTypeHandler::Set(EXT_CLASS_BASE* ext, const std::string& module, ExtRemoteTyped& typeHandler)
+void RemoteTypeHandler::Set(const std::string& module, ExtRemoteTyped& typeHandler)
 {
-    m_ext = ext;
-
     // Cast typeHandler to concrete type.
     auto symbol = "(" + module + "!" + m_name + "*)@$extin";
     typeHandler.Set(symbol.c_str(), typeHandler.GetPtr());
@@ -28,7 +26,7 @@ public:
     RemoteObjectSlotReader(RemoteTypeHandler* remoteTypeHandler, ExtRemoteTyped& obj)
     {
         ExtRemoteTyped& typeHandler = *remoteTypeHandler->GetTypeHandlerData();
-        if (remoteTypeHandler->GetExt()->GetUsingInlineSlots(typeHandler))
+        if (GetExtension()->GetUsingInlineSlots(typeHandler))
         {
             // inlineSlotCapacity was changed from int to uint16, try to support both value type
             ExtRemoteTyped inlineSlotCapacity = typeHandler.Field("inlineSlotCapacity");

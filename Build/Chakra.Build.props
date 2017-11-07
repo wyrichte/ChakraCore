@@ -59,7 +59,6 @@
 
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">1.0</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_1)'">1.1</OneCoreTargetVersionStr>
-    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_3)'">1.3</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">1.6</OneCoreTargetVersionStr>
 
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">6.2</WindowsVersionStr>
@@ -74,13 +73,13 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <!-- ========= For IESettings.h ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreInetcoreIncPath);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For GlobalMSRCSettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(BaseDataPath)\MSRC</AdditionalIncludeDirectories>
 
       <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreUapShellIncPath);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ChakraRootDirectory)private\lib\placeholder</AdditionalIncludeDirectories>
@@ -111,7 +110,6 @@
 
       <!-- ========= From inetcore\jscript\project.mk ========= -->
       <PreprocessorDefinitions>%(PreprocessorDefinitions);NTBUILD;NO_SHLWAPI_ISOS</PreprocessorDefinitions>
-      <AdditionalOptions Condition="'$(Platform)'=='Win32'">%(AdditionalOptions) /d2noftol3</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'=='x64'">%(AdditionalOptions) /homeparams</AdditionalOptions>
       <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
 
@@ -143,6 +141,10 @@
       <DisableSpecificWarnings>
         %(DisableSpecificWarnings);
         4458;     <!-- declaration of '' hides class memeber -->
+        4290;     <!--
+                    warning from include WIL (feature staging)
+                    ...\sdk\inc\crt\new(71) : error C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+                  -->
       </DisableSpecificWarnings>
 
     </ClCompile>
@@ -159,6 +161,12 @@
       <AdditionalOptions>%(AdditionalOptions) /merge:.orpc=.text</AdditionalOptions>
       <Version>$(LinkerAppVersion)</Version>
       <AdditionalOptions>%(AdditionalOptions) /osversion:$(LinkerOSVersion)</AdditionalOptions>
+
+      <!--
+        warning from include WIL (feature staging)
+        LNK4049: locally defined symbol ?nothrow@std@@3Unothrow_t@1@B (struct std::nothrow_t const std::nothrow) imported
+      -->
+      <AdditionalOptions>%(AdditionalOptions) /ignore:4049</AdditionalOptions>
 
       <!-- Clear all the library and we build our own lib list -->
       <AdditionalDependencies />
@@ -192,7 +200,7 @@
 
       <!-- /guard:cf, which also turn on /d2guardgsforcfg, which cause binary size regressions, explicitly turn it off -->
       <AdditionalOptions>%(AdditionalOptions) /d2guardgsforcfg-</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Platform)'=='Win32'">/d2guardcheckesp2 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Platform)'=='Win32' or '$(Platform)'=='chpe'">/d2guardcheckesp2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Platform)'!='ARM' and '$(Platform)'!='Arm64'">%(AdditionalOptions) /d2psvcallopt150000</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>

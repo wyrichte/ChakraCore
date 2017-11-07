@@ -93,6 +93,35 @@ public:
 
 };
 
+class AutoCppExpressionSyntax
+{
+public:
+    AutoCppExpressionSyntax(IDebugControl5* control) :
+        control(control)
+    {
+        if (SUCCEEDED(control->GetExpressionSyntax(&exprSyntaxFlags)))
+        {
+            control->SetExpressionSyntaxByName("c++");
+        }
+        else
+        {
+            control = NULL;
+        }
+    }
+
+    ~AutoCppExpressionSyntax()
+    {
+        if (control != NULL)
+        {
+            control->SetExpressionSyntax(exprSyntaxFlags);
+        }
+    }
+
+private:
+    ULONG exprSyntaxFlags;
+    IDebugControl5* control;
+};
+
 
 class EXT_CLASS_BASE : public ExtExtension
 #ifdef JD_PRIVATE
@@ -121,9 +150,7 @@ public:
 
     template <bool slist> 
     friend class RemoteListIterator;
-    
-    friend bool IsUsingDebugPinRecord(EXT_CLASS_BASE* ext);
-    
+
     virtual void OnSessionInaccessible(ULONG64) override;
     virtual void __thiscall Uninitialize() override;
 
@@ -134,15 +161,29 @@ public:
     void Dbg(_In_ PCSTR fmt, ...);
     void Dbg(_In_ PCWSTR fmt, ...);
     bool IsJScript9();
-    
+
     bool DumpPossibleSymbol(RecyclerObjectGraph::GraphImplNodeType* node, bool makeLink = true, bool showScriptContext = false);
     bool DumpPossibleSymbol(ULONG64 address, bool makeLink = true, bool showScriptContext = false);
     bool DumpPossibleExternalSymbol(JDRemoteTyped object, char const * typeName, bool makeLink = true, bool showScriptContext = false);
 
+    HRESULT CppEvalExprU64NoThrow(_In_ PCSTR Str, _Out_ ULONG64 &result)
+    {
+        AutoCppExpressionSyntax cppSyntax(m_Control5);
+        HRESULT Status;
+        DEBUG_VALUE FullVal;
+
+        if ((Status = m_Control->
+            Evaluate(Str, DEBUG_VALUE_INT64, &FullVal, NULL)) == S_OK)
+        {
+            result = FullVal.I64;
+        }
+
+        return Status;
+    }
+
     class PropertyNameReader
     {
     private:
-        EXT_CLASS_BASE* m_ext;
         ExtRemoteTyped m_buffer;
         ULONG m_count;
         ULONG _none;
@@ -150,7 +191,7 @@ public:
         
     public:
         
-        PropertyNameReader(EXT_CLASS_BASE* ext, RemoteThreadContext threadContext);
+        PropertyNameReader(RemoteThreadContext threadContext);
 
         ULONG Count() const { return m_count; }
         ULONG GetPropertyIdByIndex(ULONG i) const { return _none + i; }
@@ -436,38 +477,9 @@ public:
     MPH_COMMAND_METHOD(mpheap);
 };
 
-class AutoCppExpressionSyntax
-{
-public:
-    AutoCppExpressionSyntax(IDebugControl5* control) :
-        control(control)
-    {
-        if (SUCCEEDED(control->GetExpressionSyntax(&exprSyntaxFlags)))
-        {
-            control->SetExpressionSyntaxByName("c++");
-        }
-        else
-        {
-            control = NULL;
-        }
-    }
-
-    ~AutoCppExpressionSyntax()
-    {
-        if (control != NULL)
-        {
-            control->SetExpressionSyntax(exprSyntaxFlags);
-        }
-    }
-
-private:
-    ULONG exprSyntaxFlags;
-    IDebugControl5* control;
-};
-
 #ifdef JD_PRIVATE
 
-std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset);
+std::string GetSymbolForOffset(ULONG64 offset);
 ULONG64 GetPointerAtAddress(ULONG64 offset);
 int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
 EXT_CLASS_BASE* GetExtension();

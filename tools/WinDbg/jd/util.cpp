@@ -9,7 +9,7 @@ EXT_CLASS_BASE* GetExtension()
     return (EXT_CLASS_BASE*)g_Ext.Get();
 }
 
-std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset)
+std::string GetSymbolForOffset(ULONG64 offset)
 {
     std::string str;
     ExtBuffer<char> name;
@@ -17,7 +17,7 @@ std::string GetSymbolForOffset(EXT_CLASS_BASE* ext, ULONG64 offset)
 
     try 
     {
-        result = ext->GetOffsetSymbol(offset, &name);
+        result = GetExtension()->GetOffsetSymbol(offset, &name);
     } 
     catch (...) 
     {

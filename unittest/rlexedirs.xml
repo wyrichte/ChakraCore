@@ -3,6 +3,7 @@
 <dir>
   <default>
     <files>msrc</files>
+    <tags>exclude_drt</tags>
   </default>
 </dir>
 <dir>

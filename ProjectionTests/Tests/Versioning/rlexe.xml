@@ -6,7 +6,7 @@
       <files>runtimeclass_v0.js</files>
       <baseline>runtimeclass_v0.baseline</baseline>
       <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:0</compile-flags>
-      <tags>exclude_win7,exclude_fre</tags>
+      <tags>exclude_win7,exclude_fre,exclude_drt</tags>
     </default>
   </test>
   
@@ -51,7 +51,7 @@
       <files>MarshalingVersionedTypes_v0.js</files>
       <baseline>MarshalingVersionedTypes_v0.baseline</baseline>
       <compile-flags>-EnableVersioningAllAssemblies -TargetWinRTVersion:0</compile-flags>
-      <tags>exclude_win7,exclude_fre</tags>
+      <tags>exclude_win7,exclude_fre,exclude_drt</tags>
     </default>
   </test>
 
@@ -96,7 +96,7 @@
       <files>runtimeclass_v0_FirstPartyVersioned.js</files>
       <baseline>runtimeclass_v0_FirstPartyVersioned.baseline</baseline>
       <compile-flags>-TargetWinRTVersion:0</compile-flags>
-      <tags>exclude_win7,exclude_fre</tags>
+      <tags>exclude_win7,exclude_fre,exclude_drt</tags>
     </default>
   </test>
 
@@ -114,7 +114,7 @@
       <files>MarshalingVersionedTypes_v0_FirstPartyVersioned.js</files>
       <baseline>MarshalingVersionedTypes_v0_FirstPartyVersioned.baseline</baseline>
       <compile-flags>-TargetWinRTVersion:0</compile-flags>
-      <tags>exclude_win7,exclude_fre</tags>
+      <tags>exclude_win7,exclude_fre,exclude_drt</tags>
     </default>
   </test>
 

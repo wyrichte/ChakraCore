@@ -15,7 +15,7 @@ public:
     RemoteScriptFunction(ExtRemoteTyped const& scriptFunction);
         
     RemoteFunctionBody GetFunctionBody();
-    void PrintNameAndNumberWithLink(EXT_CLASS_BASE * ext);
+    void PrintNameAndNumberWithLink();
 };
 
 // ---- End jd private commands implementation ----------------------------------------------------

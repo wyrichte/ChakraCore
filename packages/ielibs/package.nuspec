@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IELibs</id>
-    <version>1.0.19</version>
+    <version>2.0.3</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
   </metadata>
   <files>
     <!-- These files are relative to inetcore\jscript\packages\ielibs\stage -->
-    <file src="..\..\..\..\inc\devtbhost.h" target="devtbhost.h" />
+    <file src="..\..\..\..\lib\devtb\dtbhost_edge\devtbhost.h" target="devtbhost.h" />
     <file src="..\..\..\..\inc\IWebWorkerLifetime.hpp" target="IWebWorkerLifetime.hpp" />
     <file src="..\..\..\..\..\..\data\MSRC\GlobalMSRCSettings.h" target="GlobalMSRCSettings.h" />
     <file src="..\..\..\..\..\..\data\MSRC\VerifyGlobalMSRCSettings.inl" target="VerifyGlobalMSRCSettings.inl" />

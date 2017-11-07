@@ -145,17 +145,16 @@ public:
 class RootPointerReader
 {
 public:
-    typedef void(*RootAddedCallback)(EXT_CLASS_BASE*, ULONG64, void*);
+    typedef void(*RootAddedCallback)(ULONG64, void*);
 
-    static void DefaultRootAddedCallback(EXT_CLASS_BASE*, ULONG64, void* context)
+    static void DefaultRootAddedCallback(ULONG64, void* context)
     {
     }
 
-    RootPointerReader(EXT_CLASS_BASE* extension, RemoteRecycler recycler, RootAddedCallback callback = DefaultRootAddedCallback) :
+    RootPointerReader(RemoteRecycler recycler, RootAddedCallback callback = DefaultRootAddedCallback) :
         _recycler(recycler),
         m_addresses(new Addresses()),
-        m_rootAddedCallback(callback),
-        m_extension(extension)
+        m_rootAddedCallback(callback)
     {
     }
 
@@ -176,7 +175,7 @@ public:
 #endif
                 Add(address, rootType);
 
-                m_rootAddedCallback(m_extension, address, context);
+                m_rootAddedCallback(address, context);
 
                 return true;
             }
@@ -196,8 +195,8 @@ public:
         return m_addresses.release();
     }
 
-    void ScanRegisters(EXT_CLASS_BASE* ext, bool print = true);
-    void ScanStack(EXT_CLASS_BASE* ext, RemoteRecycler& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
+    void ScanRegisters(bool print = true);
+    void ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
     void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
     void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
@@ -206,19 +205,18 @@ public:
     void ScanImplicitRoots(bool print = true);
 private:
 
-    EXT_CLASS_BASE* m_extension;
     RootAddedCallback m_rootAddedCallback;
     std::auto_ptr<Addresses> m_addresses;
     RemoteRecycler _recycler;
 };
 
 template <typename Fn>
-void MapPinnedObjects(EXT_CLASS_BASE* ext, ExtRemoteTyped recycler, const Fn& callback);
+void MapPinnedObjects(ExtRemoteTyped recycler, const Fn& callback);
 
 // Use this template to get around the following nested type definition not being available in this file:
 // - RecyclerObjectGraph::GraphImplNodeType
 template <typename TNode>
 void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
 
-ULONG64 GetStackTop(EXT_CLASS_BASE* ext);
+ULONG64 GetStackTop();
 #endif

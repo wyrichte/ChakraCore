@@ -16,12 +16,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "undefined",
-        "b": "undefined",
-        "console": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "b": "undefined"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -62,12 +57,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "[...]",
-        "b": "[]",
-        "console": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "b": "[]"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -114,12 +104,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "[...]",
-        "b": "[]",
-        "console": "{...}"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "b": "[]"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -167,11 +152,9 @@
         "__proto__": "{...}",
         "a": "[...]",
         "b": "[]",
-        "console": "{...}",
         "inEval": "undefined"
       },
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "a": "[...]",
         "b": "[]",
@@ -213,7 +196,6 @@
         "__proto__": "{...}",
         "a": "[...]",
         "b": "[]",
-        "console": "{...}",
         "inEval": "11"
       },
       "arguments": {
@@ -224,7 +206,6 @@
       "str": "undefined",
       "k": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "a": "[...]",
         "b": "[]",
@@ -266,7 +247,6 @@
         "__proto__": "{...}",
         "a": "[...]",
         "b": "[]",
-        "console": "{...}",
         "inEval": "11"
       },
       "arguments": {
@@ -3279,7 +3259,6 @@
       },
       "k": "3000",
       "[Globals]": {
-        "console": "{...}",
         "foo": "<large string>",
         "a": "[...]",
         "b": "[]",
@@ -3321,12 +3300,7 @@
         "__proto__": "{...}",
         "a": "[...]",
         "b": "[]",
-        "console": "{...}",
         "inEval": "11"
-      },
-      "console": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
       },
       "foo": {
         "__proto__": "<large string>",

@@ -8,9 +8,8 @@
 #include "JDBackendUtil.h"
 #define MAX_LAYOUT_TYPE_NAME 255
 
-JDByteCode::JDByteCode(EXT_CLASS_BASE * ext, bool dumpProbeBackingBlock, bool verbose)
-    : ext(ext),
-    readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
+JDByteCode::JDByteCode(bool dumpProbeBackingBlock, bool verbose)
+    : readerOffset((ULONG64)-1), propertyNameReader(nullptr), dumpProbeBackingBlock(dumpProbeBackingBlock), verbose(verbose),
     RootObjectRegSlot(1),           // TODO: how do find this symbolically?
     CallIExtended_SpreadArgs(1),     // TODO: how do find this symbolically?
     cachedData(GetExtension()->GetByteCodeCachedData())
@@ -61,32 +60,32 @@ JDByteCode::GetSigned(ExtRemoteTyped signedField)
 void
 JDByteCode::DumpReg(ExtRemoteTyped regSlot)
 {
-    ext->Out(" R%u ", GetUnsigned(regSlot));
+    GetExtension()->Out(" R%u ", GetUnsigned(regSlot));
 }
 
 void
 JDByteCode::DumpU2(ExtRemoteTyped value)
 {
-    ext->Out(" ushort:%d ", GetSigned(value));
+    GetExtension()->Out(" ushort:%d ", GetSigned(value));
 }
 
 void
 JDByteCode::DumpI4(ExtRemoteTyped value)
 {
-    ext->Out(" int:%d ", GetSigned(value));
+    GetExtension()->Out(" int:%d ", GetSigned(value));
 }
 
 void
 JDByteCode::DumpU4(ExtRemoteTyped value)
 {
-    ext->Out(" uint:%d ", GetUnsigned(value));
+    GetExtension()->Out(" uint:%d ", GetUnsigned(value));
 }
 
 void
 JDByteCode::DumpOffset(ExtRemoteTyped relativeJumpOffset, uint nextOffset)
 {
     int jumpOffset = relativeJumpOffset.GetTypeSize() == 2 ? relativeJumpOffset.GetShort() : relativeJumpOffset.GetLong();
-    ext->Out(" x:%04x (%4d)", nextOffset + jumpOffset, jumpOffset);
+    GetExtension()->Out(" x:%04x (%4d)", nextOffset + jumpOffset, jumpOffset);
 }
 
 void
@@ -133,7 +132,7 @@ JDByteCode::DumpReg3C(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
     DumpReg(layout.Field("R0"));
     DumpReg(layout.Field("R1"));
     DumpReg(layout.Field("R2"));
-    ext->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
+    GetExtension()->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
 }
 
 void
@@ -196,10 +195,10 @@ JDByteCode::DumpCallI(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
     };
     if (returnReg != (uint)-1)
     {
-        ext->Out(" R%u =", returnReg);
+        GetExtension()->Out(" R%u =", returnReg);
     }
     DumpReg(layout.Field("Function"));
-    ext->Out("(ArgCount: %u)", GetUnsigned(layout.Field("ArgCount")));
+    GetExtension()->Out("(ArgCount: %u)", GetUnsigned(layout.Field("ArgCount")));
 }
 
 void
@@ -209,7 +208,7 @@ JDByteCode::DumpCallIExtended(ExtRemoteTyped layout, char * opcodeStr, uint next
     if (layout.Field("Options").GetUchar() & CallIExtended_SpreadArgs)
     {
         // TODO: dump spread args
-        ext->Out(_u(" spreadArgs [???]"));
+        GetExtension()->Out(_u(" spreadArgs [???]"));
     }
 }
 
@@ -260,16 +259,16 @@ JDByteCode::DumpReg2Int1(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
 {
     bool isGetCachedFunc = ENUM_EQUAL(opcodeStr, GetCachedFunc);
     DumpReg(layout.Field("R0"));
-    ext->Out("=");
+    GetExtension()->Out("=");
     if (isGetCachedFunc)
     {
-        ext->Out(" func(");
+        GetExtension()->Out(" func(");
     }
     DumpReg(layout.Field("R1"));
-    ext->Out(", %d", GetSigned(layout.Field("C1")));
+    GetExtension()->Out(", %d", GetSigned(layout.Field("C1")));
     if (isGetCachedFunc)
     {
-        ext->Out(")");
+        GetExtension()->Out(")");
     }
 }
 
@@ -312,7 +311,7 @@ JDByteCode::DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint next
     char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
     if (ENUM_EQUAL(opcodeStr, LdRoot) || ENUM_EQUAL(opcodeStr, ProfiledLdRoot))
     {
-        ext->Out(" R%u = root.%S #%u",
+        GetExtension()->Out(" R%u = root.%S #%u",
             value,
             propertyName,
             inlineCacheIndex);
@@ -320,19 +319,19 @@ JDByteCode::DumpElementRootCP(ExtRemoteTyped layout, char * opcodeStr, uint next
     else if (ENUM_EQUAL(opcodeStr, StRoot) || ENUM_EQUAL(opcodeStr, InitRoot)
         || ENUM_EQUAL(opcodeStr, ProfiledStRoot) || ENUM_EQUAL(opcodeStr, ProfiledInitRoot))
     {
-        ext->Out(" root.%S = R%u #%u",
+        GetExtension()->Out(" root.%S = R%u #%u",
             propertyName,
             value,
             inlineCacheIndex);
     }
     else
     {
-        ext->Out("<ElementRootCP>");
+        GetExtension()->Out("<ElementRootCP>");
     }
 
     if (ENUM_EQUAL(opcodeStr, Profiled))
     {
-        ext->Out(" <%u>", inlineCacheIndex);
+        GetExtension()->Out(" <%u>", inlineCacheIndex);
     }
 }
 
@@ -346,7 +345,7 @@ JDByteCode::DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
     char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
     if (ENUM_EQUAL(opcodeStr, LdLocal) || ENUM_EQUAL(opcodeStr, ProfiledLdLocal))
     {
-        ext->Out(" R%u = %S #%u",
+        GetExtension()->Out(" R%u = %S #%u",
             value,
             propertyName,
             inlineCacheIndex);
@@ -354,14 +353,14 @@ JDByteCode::DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
     else if (ENUM_EQUAL(opcodeStr, St) || ENUM_EQUAL(opcodeStr, Init)
         || ENUM_EQUAL(opcodeStr, ProfiledSt) || ENUM_EQUAL(opcodeStr, ProfiledInit))
     {
-        ext->Out(" %S = R%u #%u",
+        GetExtension()->Out(" %S = R%u #%u",
             propertyName,
             value,
             inlineCacheIndex);
     }
     else if (ENUM_EQUAL(opcodeStr, ScopedLdFld))
     {
-        ext->Out(" R%u = %S, R%u #%u",
+        GetExtension()->Out(" R%u = %S, R%u #%u",
             value,
             propertyName,
             RootObjectRegSlot,
@@ -369,7 +368,7 @@ JDByteCode::DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
     }
     else if (ENUM_EQUAL(opcodeStr, ScopedStFld) || ENUM_EQUAL(opcodeStr, ConsoleScopedStFld))
     {
-        ext->Out(" %S = R%u, R%u #%u",
+        GetExtension()->Out(" %S = R%u, R%u #%u",
             propertyName,
             value,
             RootObjectRegSlot,
@@ -377,12 +376,12 @@ JDByteCode::DumpElementP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
     }
     else
     {
-        ext->Out("<ElementP>");
+        GetExtension()->Out("<ElementP>");
     }
 
     if (ENUM_EQUAL(opcodeStr, Profiled))
     {
-        ext->Out(" <%u>", inlineCacheIndex);
+        GetExtension()->Out(" <%u>", inlineCacheIndex);
     }
 }
 
@@ -397,7 +396,7 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     char16 * propertyName = this->GetPropertyNameFromCacheId(inlineCacheIndex, tempBuffer, _countof(tempBuffer));
     if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd) || ENUM_EQUAL(opcodeStr, ScopedLdMethodFld))
     {
-        ext->Out(" R%u = R%u.%S #%u",
+        GetExtension()->Out(" R%u = R%u.%S #%u",
             value,
             instance,
             propertyName,
@@ -406,7 +405,7 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     else if (ENUM_EQUAL(opcodeStr, St) || ENUM_EQUAL(opcodeStr, Init)
         || ENUM_EQUAL(opcodeStr, ProfiledSt) || ENUM_EQUAL(opcodeStr, ProfiledInit))
     {
-        ext->Out(" R%u.%S = R%u #%u",
+        GetExtension()->Out(" R%u.%S = R%u #%u",
             instance,
             propertyName,
             value,
@@ -414,7 +413,7 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     }
     else if (ENUM_EQUAL(opcodeStr, ScopedLd))
     {
-        ext->Out(" R%u = R%u.%S, R%u #%u",
+        GetExtension()->Out(" R%u = R%u.%S, R%u #%u",
             value,
             instance,
             propertyName,
@@ -423,7 +422,7 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     }
     else if (ENUM_EQUAL(opcodeStr, ScopedSt))
     {
-        ext->Out(" R%u.%S = R%u, R%u #%u",
+        GetExtension()->Out(" R%u.%S = R%u, R%u #%u",
             instance,
             propertyName,
             value,
@@ -432,12 +431,12 @@ JDByteCode::DumpElementCP(ExtRemoteTyped layout, char * opcodeStr, uint nextOffs
     }
     else
     {
-        ext->Out("<ElementCP>");
+        GetExtension()->Out("<ElementCP>");
     }
 
     if (ENUM_EQUAL(opcodeStr, Profiled))
     {
-        ext->Out(" <%u>", inlineCacheIndex);
+        GetExtension()->Out(" <%u>", inlineCacheIndex);
     }
 }
 
@@ -447,19 +446,19 @@ JDByteCode::DumpElementSlot(ExtRemoteTyped layout, char * opcodeStr, uint nextOf
     if (ENUM_EQUAL(opcodeStr, New))
     {
         DumpReg(layout.Field("Value"));
-        ext->Out("= env:");
+        GetExtension()->Out("= env:");
         DumpReg(layout.Field("Instance"));
-        ext->Out("<FuncName???>");        // TODO: dump function name
+        GetExtension()->Out("<FuncName???>");        // TODO: dump function name
     }
     else if (ENUM_EQUAL(opcodeStr, St))
     {
-        ext->Out(" R%u[%u] = R%u", GetUnsigned(layout.Field("Instance")),
+        GetExtension()->Out(" R%u[%u] = R%u", GetUnsigned(layout.Field("Instance")),
             GetUnsigned(layout.Field("SlotIndex")),
             GetUnsigned(layout.Field("Value")));
     }
     else
     {
-        ext->Out(" R%u = R%u[%u]", GetUnsigned(layout.Field("Value")),
+        GetExtension()->Out(" R%u = R%u[%u]", GetUnsigned(layout.Field("Value")),
             GetUnsigned(layout.Field("Instance")),
             GetUnsigned(layout.Field("SlotIndex")));
     }
@@ -471,23 +470,23 @@ JDByteCode::DumpElementSlotI1(ExtRemoteTyped layout, char * opcodeStr, uint next
 {
     if (ENUM_EQUAL(opcodeStr, St))
     {
-        ext->Out(" [%u] = R%u", GetUnsigned(layout.Field("SlotIndex")),
+        GetExtension()->Out(" [%u] = R%u", GetUnsigned(layout.Field("SlotIndex")),
             GetUnsigned(layout.Field("Value")));
     }
     else if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd))
     {
-        ext->Out(" R%u = [%u]", GetUnsigned(layout.Field("Value")),
+        GetExtension()->Out(" R%u = [%u]", GetUnsigned(layout.Field("Value")),
             GetUnsigned(layout.Field("SlotIndex")));
     }
     else if (ENUM_EQUAL(opcodeStr, New))
     {
         // TODO: Get the nested function name
         uint slotIndex = GetUnsigned(layout.Field("SlotIndex"));
-        ext->Out(" R%u = <nested %d>()", GetUnsigned(layout.Field("Value")), slotIndex);
+        GetExtension()->Out(" R%u = <nested %d>()", GetUnsigned(layout.Field("Value")), slotIndex);
     }
     else
     {
-        ext->Out("<ElementSlotI1>");
+        GetExtension()->Out("<ElementSlotI1>");
     }
 }
 
@@ -496,13 +495,13 @@ JDByteCode::DumpElementSlotI2(ExtRemoteTyped layout, char * opcodeStr, uint next
 {
     if (ENUM_EQUAL(opcodeStr, St))
     {
-        ext->Out(" [%u][%u] = R%u", GetUnsigned(layout.Field("SlotIndex1")),
+        GetExtension()->Out(" [%u][%u] = R%u", GetUnsigned(layout.Field("SlotIndex1")),
             GetUnsigned(layout.Field("SlotIndex2")),
             GetUnsigned(layout.Field("Value")));
     }
     else
     {
-        ext->Out(" R%u = [%u][%u]", GetUnsigned(layout.Field("Value")),
+        GetExtension()->Out(" R%u = [%u][%u]", GetUnsigned(layout.Field("Value")),
             GetUnsigned(layout.Field("SlotIndex1")),
             GetUnsigned(layout.Field("SlotIndex2")));
     }
@@ -517,7 +516,7 @@ JDByteCode::DumpElementScopedC2(ExtRemoteTyped layout, char * opcodeStr, uint ne
     char16 tempBuffer[1024];
     char16 * propertyName = this->GetPropertyNameFromReferencedIndex(referencedIndex, tempBuffer, _countof(tempBuffer));
 
-    ext->Out(" R%u, R%u = %S",
+    GetExtension()->Out(" R%u, R%u = %S",
         value,
         value2,
         propertyName);
@@ -532,19 +531,19 @@ JDByteCode::DumpElementI(ExtRemoteTyped layout, char * opcodeStr, uint nextOffse
 
     if (ENUM_EQUAL(opcodeStr, Ld) || ENUM_EQUAL(opcodeStr, ProfiledLd) || ENUM_EQUAL(opcodeStr, Typeof))
     {
-        ext->Out(" R%u = R%u[R%u]", value, instance, element);
+        GetExtension()->Out(" R%u = R%u[R%u]", value, instance, element);
     }
     else if (ENUM_EQUAL(opcodeStr, St) || ENUM_EQUAL(opcodeStr, ProfiledSt))
     {
-        ext->Out(" R%u[R%u] = R%u", instance, element, value);
+        GetExtension()->Out(" R%u[R%u] = R%u", instance, element, value);
     }
     else if (ENUM_EQUAL(opcodeStr, Delete))
     {
-        ext->Out(" R%u[R%u]", instance, element);
+        GetExtension()->Out(" R%u[R%u]", instance, element);
     }
     else
     {
-        ext->Out("<ElementI>");
+        GetExtension()->Out("<ElementI>");
     }
 }
 
@@ -554,12 +553,12 @@ JDByteCode::DumpReg1Unsigned1(ExtRemoteTyped layout, char * opcodeStr, uint next
     if (ENUM_EQUAL(opcodeStr, InitUndeclSlot) || ENUM_EQUAL(opcodeStr, InvalCachedScope)
         || ENUM_EQUAL(opcodeStr, NewScopeSlots))
     {
-        ext->Out(" R%u[%u]", GetUnsigned(layout.Field("R0")), GetUnsigned(layout.Field("C1")));
+        GetExtension()->Out(" R%u[%u]", GetUnsigned(layout.Field("R0")), GetUnsigned(layout.Field("C1")));
     }
     else if (ENUM_EQUAL(opcodeStr, NewRegEx))
     {
         DumpReg(layout.Field("R0"));
-        ext->Out("=<regex #%u>", GetUnsigned(layout.Field("C1")));
+        GetExtension()->Out("=<regex #%u>", GetUnsigned(layout.Field("C1")));
     }
     else
     {
@@ -578,41 +577,41 @@ void
 JDByteCode::DumpReg2WithICIndex(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpReg2(layout, opcodeStr, nextOffset);
-    ext->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
+    GetExtension()->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
 }
 
 void
 JDByteCode::DumpCallIWithICIndex(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpCallI(layout, opcodeStr, nextOffset);
-    ext->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
+    GetExtension()->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
 }
 
 void
 JDByteCode::DumpCallIExtendedWithICIndex(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpCallIExtended(layout, opcodeStr, nextOffset);
-    ext->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
+    GetExtension()->Out(" <%u>", GetUnsigned(layout.Field("inlineCacheIndex")));
 }
 
 void
 JDByteCode::DumpArg(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
-    ext->Out(" Out%u =", GetUnsigned(layout.Field("Arg")));
+    GetExtension()->Out(" Out%u =", GetUnsigned(layout.Field("Arg")));
     DumpReg(layout.Field("Reg"));
 }
 
 void
 JDByteCode::DumpStartCall(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
-    ext->Out(" ArgCount: %u", GetUnsigned(layout.Field("ArgCount")));
+    GetExtension()->Out(" ArgCount: %u", GetUnsigned(layout.Field("ArgCount")));
 }
 
 void
 JDByteCode::DumpAuxiliary(ExtRemoteTyped layout, char * opcodeStr, uint nextOffset)
 {
     DumpReg(layout.Field("R0"));
-    ext->Out(" = AuxOffset: %u C1: %d", GetUnsigned(layout.Field("Offset")), GetSigned(layout.Field("C1")));
+    GetExtension()->Out(" = AuxOffset: %u C1: %d", GetUnsigned(layout.Field("Offset")), GetSigned(layout.Field("C1")));
 }
 
 void
@@ -623,13 +622,13 @@ JDByteCode::DumpConstantTable()
         return;
     }
 
-    ext->Out("    Constant Table:\n    ======== =====\n");
+    GetExtension()->Out("    Constant Table:\n    ======== =====\n");
     uint count = this->functionBody.GetConstCount();
     const uint firstRegSlot = 1; // FunctionBody::FirstRegSlot
     for (uint reg = firstRegSlot; reg < count; reg++)
     {
         // TODO: better interpretation of these constants instead of dumping the address?
-        ext->Out("     R%u = 0x%p\n", reg, this->functionBody.GetConstTable()[(ULONG)(reg - firstRegSlot)].GetPtr());
+        GetExtension()->Out("     R%u = 0x%p\n", reg, this->functionBody.GetConstTable()[(ULONG)(reg - firstRegSlot)].GetPtr());
     }
 }
 
@@ -647,12 +646,12 @@ JDByteCode::DumpImplicitArgIns()
     {
         return;
     }
-    ext->Out(_u("    Implicit Arg Ins:\n    ======== =====\n"));
+    GetExtension()->Out(_u("    Implicit Arg Ins:\n    ======== =====\n"));
     uint constCount = this->functionBody.GetConstCount();
 
     for (uint reg = 1; reg < inParamCount; reg++)
     {
-        ext->Out("     R%u = ArgIn_A In%u\n", reg + constCount - 1, reg);
+        GetExtension()->Out("     R%u = ArgIn_A In%u\n", reg + constCount - 1, reg);
     }
 }
 void
@@ -660,7 +659,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 {
     if (this->verbose)
     {
-        ext->Out("Byte code buffer: 0x%p\n", bytes.GetPtr());
+        GetExtension()->Out("Byte code buffer: 0x%p\n", bytes.GetPtr());
     }
     DumpConstantTable();
     DumpImplicitArgIns();
@@ -672,7 +671,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         bool isBreakPoint = 0;
         LONG opcodeSize = 1;
         unsigned short opcodeByte = (unsigned short)bytes[currentOffset].GetUchar();
-        char * opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
+        char * opcodeStr = GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
         if (ENUM_EQUAL(opcodeStr, EndOfBlock))
         {
             break;
@@ -686,7 +685,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
             {
                 // If the debugger created a probe backing block, use that instead.
                 opcodeByte = (unsigned short)probeBackingBlock.Field("m_content")[currentOffset].GetUchar();
-                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
+                opcodeStr = GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
             }
         }
 
@@ -744,13 +743,13 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
                 {
                     extendedOpCode = 0x100 | opcodeByte;
                 }
-                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), extendedOpCode));
+                opcodeStr = GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), extendedOpCode));
                 opCodeLayoutTable = cachedData.extendedLayoutTable;
                 opCodeAttrTable = cachedData.extendedAttributesTable;
             }
             else
             {
-                opcodeStr = GetEnumString(ExtRemoteTyped(ext->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
+                opcodeStr = GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), opcodeByte));
                 opCodeLayoutTable = cachedData.layoutTable;
                 opCodeAttrTable = cachedData.attributesTable;
             }
@@ -763,7 +762,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 
 
         uint layoutType = opCodeLayoutTable[opcodeByte];
-        ExtRemoteTyped layoutEnum(ext->FillModule("(%s!Js::OpLayoutType::_E)@$extin"), layoutType);
+        ExtRemoteTyped layoutEnum(GetExtension()->FillModule("(%s!Js::OpLayoutType::_E)@$extin"), layoutType);
         char layoutTypeName[MAX_LAYOUT_TYPE_NAME];
         int attribute = opCodeAttrTable[opcodeByte];
         char * layoutStr = GetEnumString(layoutEnum);
@@ -800,17 +799,17 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         {
             if (layoutSizeEnum != cachedData.LayoutSize_SmallLayout)
             {
-                ext->ThrowLastError("Non-multisize layout opcode shouldn't have layout size prefix");
+                GetExtension()->ThrowLastError("Non-multisize layout opcode shouldn't have layout size prefix");
             }
             sprintf_s(layoutTypeName, MAX_LAYOUT_TYPE_NAME, layoutTypeStr, plainLayoutStr);
         }
 
         LONG layoutStart = currentOffset + opcodeSize;
-        ExtRemoteTyped layout(ext->FillModule(layoutTypeName), bytes.GetPtr() + layoutStart, false);
+        ExtRemoteTyped layout(GetExtension()->FillModule(layoutTypeName), bytes.GetPtr() + layoutStart, false);
         uint layoutSize = layout.GetTypeSize();
         uint nextOffset = layoutStart + layoutSize;
 
-        ext->Out("%s %s%04x",
+        GetExtension()->Out("%s %s%04x",
             isBreakPoint ? "BP " : "   ",
             (readerOffset == currentOffset) ? "=>" : "  ", currentOffset);
 
@@ -820,16 +819,16 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         {
             if (opcodePrefix != 0)
             {
-                ext->Out(" %02x", opcodePrefix);
+                GetExtension()->Out(" %02x", opcodePrefix);
             }
             else
             {
-                ext->Out("   ");
+                GetExtension()->Out("   ");
             }
-            ext->Out(" %02x", opcodeByte);
+            GetExtension()->Out(" %02x", opcodeByte);
             for (uint i = 0; i < layout.GetTypeSize(); i++)
             {
-                ext->Out(" %02x", bytes[layoutStart + i].GetUchar());
+                GetExtension()->Out(" %02x", bytes[layoutStart + i].GetUchar());
             }
 
             const int MaxLayoutBytes = 10;
@@ -837,11 +836,11 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
             {
                 for (uint i = 0; i < MaxLayoutBytes - layoutSize; i++)
                 {
-                    ext->Out("   ");
+                    GetExtension()->Out("   ");
                 }
             }
         }
-        ext->Out(" %-30s", opcodeStr);
+        GetExtension()->Out(" %-30s", opcodeStr);
 
 #define PROCESS_LAYOUT(layoutName) \
         if (strcmp(plainLayoutStr, #layoutName) == 0) \
@@ -853,7 +852,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         if (strcmp(plainLayoutStr, "Empty") == 0)
         {
             currentOffset += opcodeSize;
-            ext->Out("\n");
+            GetExtension()->Out("\n");
             continue;
         }
         else PROCESS_LAYOUT(CallI)
@@ -893,21 +892,21 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         else PROCESS_LAYOUT(Auxiliary)
         else
         {
-            ext->Out(" <%s>", plainLayoutStr);
+            GetExtension()->Out(" <%s>", plainLayoutStr);
         }
 
         if (isProfiledLayout)
         {
-            ext->Out(" <%u>", GetUnsigned(layout.Field("profileId")));
+            GetExtension()->Out(" <%u>", GetUnsigned(layout.Field("profileId")));
         }
         currentOffset = nextOffset;
 
-        ext->Out("\n");
+        GetExtension()->Out("\n");
     }
 
     if (readerOffset != (ULONG64)-1 && !foundReaderOffset)
     {
-        ext->Out("WARNING: Current interpreter offset not found at 0x%x\n", readerOffset);
+        GetExtension()->Out("WARNING: Current interpreter offset not found at 0x%x\n", readerOffset);
     }
 }
 
@@ -916,15 +915,15 @@ JDByteCode::DumpForFunctionBody(ExtRemoteTyped funcBody)
 {
     this->hasFunctionBody = true;
     this->functionBody = funcBody;
-    this->propertyNameReader = new EXT_CLASS_BASE::PropertyNameReader(ext, RemoteFunctionBody(funcBody).GetThreadContext());
-    RemoteFunctionBody(funcBody).PrintNameAndNumberWithLink(ext);
-    ext->Out("\n");
+    this->propertyNameReader = new EXT_CLASS_BASE::PropertyNameReader(RemoteFunctionBody(funcBody).GetThreadContext());
+    RemoteFunctionBody(funcBody).PrintNameAndNumberWithLink();
+    GetExtension()->Out("\n");
     if (dumpProbeBackingBlock)
     {
         ExtRemoteTyped probeBackingBlock = this->functionBody.GetProbeBackingStore();
         if (probeBackingBlock.GetPtr() == 0)
         {
-            ext->ThrowLastError("No probe backing block to dump");
+            GetExtension()->ThrowLastError("No probe backing block to dump");
         }
         DumpBytes(probeBackingBlock.Field("m_content"));
         return;
@@ -943,7 +942,7 @@ void
 JDByteCode::DumpForScriptFunction(ExtRemoteTyped functionObject)
 {
     // TODO: Need script function check
-    DumpForFunctionBody(ExtRemoteTyped(ext->FillModule("(%s!Js::FunctionBody *)@$extin"),
+    DumpForFunctionBody(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::FunctionBody *)@$extin"),
         functionObject.Field("functionInfo").GetPtr()));
 }
 
@@ -954,7 +953,7 @@ JDByteCode::DumpForRecyclableObject(ExtRemoteTyped recyclableObject)
     {
         throw ExtException(E_FAIL, "Not JavascriptFunction");
     }
-    DumpForJavascriptFunction(ExtRemoteTyped(ext->FillModule("(%s!Js::JavascriptFunction *)@$extin"),
+    DumpForJavascriptFunction(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::JavascriptFunction *)@$extin"),
         recyclableObject.GetPtr()));
 }
 
@@ -991,7 +990,7 @@ JD_PRIVATE_COMMAND(bc,
     const bool verbose = HasArg("v");
     PCSTR arg = GetUnnamedArgStr(0);
     ExtRemoteTyped input = ExtRemoteTyped(arg);
-    JDByteCode jdbytecode(this, dumpProbeBackingBlock, verbose);
+    JDByteCode jdbytecode(dumpProbeBackingBlock, verbose);
     PCSTR inputType = input.GetTypeName();
     if (strcmp(inputType, "int") == 0 || strcmp(inputType, "int64") == 0)
     {

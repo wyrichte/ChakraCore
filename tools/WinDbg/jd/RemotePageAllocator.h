@@ -19,7 +19,7 @@ public:
     static void DisplayDataHeader(PCSTR name);
     static void DisplayDataLine();
     static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed, ULONG64 unused);
-    void DisplayData(EXT_CLASS_BASE * ext, PCSTR name, bool showZeroEntries);
+    void DisplayData(PCSTR name, bool showZeroEntries);
     template <typename Fn>
     void ForEachSegment(Fn fn)
     {

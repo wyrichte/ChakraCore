@@ -1,7 +1,7 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00ac Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
-BailOut: function: foo1 ( (#1.1), #2) offset: #002f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
-BailOut: changing due to ignore exception: function: foo2 ( (#1.2), #3) offset: #000c -> #000e Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
-BailOut: function: foo2 ( (#1.2), #3) offset: #000e Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00ae Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: foo1 ( (#1.1), #2) offset: #002f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: changing due to ignore exception: function: foo2 ( (#1.2), #3) offset: #000c -> #000e Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: function: foo2 ( (#1.2), #3) offset: #000e Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 BailOut: function: foo3 ( (#1.3), #4) offset: #0014 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutIgnoreException
 foo3.after throw
 BailOut: function: InitializeCollator ( (#-1.39), #46) offset: #0105 Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
@@ -12,9 +12,9 @@ BailOut: function: InitializeDateTimeFormat ( (#-1.62), #68) offset: #00d4 Opcod
 BailOut: function: EcmaOptionsToWindowsTemplate ( (#-1.56), #63) offset: #03bb Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: InitializeNumberFormat ( (#-1.47), #56) offset: #00ff Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function: CanonicalizeLocaleList ( (#-1.23), #24) offset: #002d Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: changing due to ignore exception: function: foo4 ( (#1.4), #5) offset: #001c -> #001f Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
-BailOut: function: foo4 ( (#1.4), #5) offset: #001f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
+BailOut: changing due to ignore exception: function: foo4 ( (#1.4), #5) offset: #001c -> #001f Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: function: foo4 ( (#1.4), #5) offset: #001f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 foo4.after Intl call
-BailOut: changing due to ignore exception: function: foo5_inner ( (#1.7), #8) offset: #001f -> #0026 Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
-BailOut: function: foo5_inner ( (#1.7), #8) offset: #0026 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
+BailOut: changing due to ignore exception: function: foo5_inner ( (#1.7), #8) offset: #001f -> #0026 Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: function: foo5_inner ( (#1.7), #8) offset: #0026 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 done

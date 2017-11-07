@@ -6,15 +6,15 @@ set LOGSDIR=%BUNDLEROOT%\LogFiles
 set FILENAME=%~f0
 set ARCH=%architecture%
 set FLAVOR=fre
-if not x%FILENAME:fre=%==%FILENAME% set FLAVOR=chk
+if %FILENAME:fre=%==%FILENAME% set FLAVOR=chk
 
 echo BundleRoot is at %BUNDLEROOT%
 echo Logs are at %LOGSDIR%
 echo Architecture is %ARCH%
 echo Flavor is %FLAVOR%
 
-echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs InlineCaches`,JSON`,fieldopts`,SIMD.workloads.asmjs`,SIMD.validation
-powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs InlineCaches`,JSON`,fieldopts`,SIMD.workloads.asmjs`,SIMD.validation
+echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs InlineCaches`,JSON`,fieldopts
+powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs InlineCaches`,JSON`,fieldopts
 
 if ERRORLEVEL 1 (
     echo [LABMARKFAILED] >> %LOGSDIR%\Test-Summary.log

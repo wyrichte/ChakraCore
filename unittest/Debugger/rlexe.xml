@@ -1396,6 +1396,34 @@
   </test>
   <test>
     <default>
+      <files>debugEval_ConsoleScope.js</files>
+      <compile-flags>-DiagnosticsEngine</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>dommutation.js</files>
+      <compile-flags>-debuglaunch -targeted -dbgbaseline:dommutation.js.dbg.baseline</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>dommutation_debugeval.js</files>
+      <compile-flags>-debuglaunch -targeted -DiagnosticsEngine -dbgbaseline:dommutation_debugeval.js.dbg.baseline</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>dommutation_native.js</files>
+      <compile-flags>-debuglaunch -targeted -force:rejit -dbgbaseline:dommutation_native.js.dbg.baseline</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>stackwalkbug_628552.js</files>
       <compile-flags>-EnableMiscWScriptFunctions -debugLaunch -targeted -dbgbaseline:stackwalkbug_628552.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo</tags>

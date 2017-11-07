@@ -11,12 +11,12 @@ Pass: e.message
 
 Pass: e.stack should be defined
       Actual: WinRTError: Unknown runtime error
-   at test (winrterror.js:54:17)
+   at test (WinRTError.js:54:17)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
 
 Pass: e.description should be defined
       Actual: Unknown runtime error
@@ -43,12 +43,12 @@ Pass: e.message
 
 Pass: e.stack should be defined
       Actual: WinRTError: Unknown runtime error
-   at test (winrterror.js:117:17)
+   at test (WinRTError.js:117:17)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
 
 Pass: e.description should be defined
       Actual: Unknown runtime error
@@ -88,12 +88,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Unspecified error
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -129,12 +129,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: The parameter is incorrect.
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -170,12 +170,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Invalid pointer
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -211,12 +211,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: No such interface supported
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -252,12 +252,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Not implemented
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -293,12 +293,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Operation aborted
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -334,12 +334,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -375,12 +375,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: The handle is invalid.
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -416,12 +416,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Not enough storage is available to complete this operation.
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -457,12 +457,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Catastrophic failure
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -498,12 +498,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: The operation attempted to access data outside the valid range
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -539,12 +539,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Class not registered
 
-   at test (winrterror.js:150:21)
+   at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5767,12 +5767,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-1'
@@ -5808,12 +5808,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-2'
@@ -5849,12 +5849,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-3'
@@ -5890,12 +5890,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-4'
@@ -5931,12 +5931,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-5'
@@ -5972,12 +5972,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-6'
@@ -6013,12 +6013,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-7'
@@ -6054,12 +6054,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-9'
@@ -6095,12 +6095,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-8'
@@ -6136,12 +6136,12 @@ Pass: stack should be defined
 
 Pass: typeof WinRTError: Access is denied.
 
-   at test (winrterror.js:341:21)
+   at test (WinRTError.js:341:21)
    at test (projectionsglue.js:1037:25)
    at states.running (projectionsglue.js:683:21)
    at runTasks (projectionsglue.js:788:13)
    at run (projectionsglue.js:850:13)
-   at Global code (winrterror.js:357:112)
+   at Global code (WinRTError.js:357:112)
       Actual: string
 
 Comment: Verifying e does not contain property with value 'S-1-15-3-10'

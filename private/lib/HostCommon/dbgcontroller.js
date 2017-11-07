@@ -58,6 +58,7 @@ var controllerObj = {
     exceptionCommands: null,
     wasResumed: false,
     mutationCommands: null,
+    domMutationCommands: null,
     _trace: 0, // Internal tracing flags
 
     // Start internal tracing of given category
@@ -258,7 +259,7 @@ var controllerObj = {
             // /**loc  <-- a named source location
             var bpStartToken = "/**";
             var bpStartTokenLength = bpStartToken.length;
-            var bpStartStrings = ["bp", "loc", "exception", "edit", "endedit", "onmbp"];
+            var bpStartStrings = ["bp", "loc", "exception", "edit", "endedit", "onmbp", "ondmbp"];
             var bpEnd = "**/";
             var tripleCommentToken = "///";
             var tripleCommentTokenLength = tripleCommentToken.length;
@@ -281,11 +282,12 @@ var controllerObj = {
 
                 for (var startString in bpStartStrings) {
 
-                    // bpStart = /**bp, /**loc, /**exception, /**edit, /**endedit, /**onmbp
+                    // bpStart = /**bp, /**loc, /**exception, /**edit, /**endedit, /**onmbp, /**ondmbp
                     var bpStart = bpStartToken + bpStartStrings[startString];
                     var isLocationBreakpoint = (bpStart.indexOf("loc") != -1);
                     var isExceptionBreakpoint = (bpStart.indexOf("exception") != -1);
                     var isOnMutationBreakpoint = (bpStart.indexOf("onmbp") != -1);
+                    var isDOMMutationBreakpoint = (bpStart.indexOf("ondmbp") != -1);
                     var startIdx = -1;
 
                     while ((startIdx = line.indexOf(bpStart, startIdx + 1)) != -1) {
@@ -485,6 +487,13 @@ var controllerObj = {
                             }
                             this.mutationCommands = bpExecStr;
                         }
+                        else if (isDOMMutationBreakpoint) {
+                            if (this.domMutationCommands != null) {
+                                WScript.Echo("ERROR: more than one ondmbp annotation found");
+                                return;
+                            }
+                            this.domMutationCommands = bpExecStr;
+                        }
                         else if (isExceptionBreakpoint) {
                             if (this.exceptionCommands != null) {
                                 WScript.Echo("ERROR: more than one 'exception' annotation found");
@@ -540,6 +549,9 @@ var controllerObj = {
     handleMutationBreakpoint: function () {
         return this.handleBreakpoint("mutation");
     },
+    handleDOMMutationBreakpoint: function () {
+        return this.handleBreakpoint("dommutation");
+    },
     handleBreakpoint: function (id) {
         this.wasResumed = false;
 
@@ -551,6 +563,12 @@ var controllerObj = {
                     execStr = this.mutationCommands;
                     if (execStr && execStr.toString().search("removeExpr()") != -1) {
                         this.mutationCommands = null;
+                    }
+                }
+                else if (id === "dommutation") {
+                    execStr = this.domMutationCommands;
+                    if (execStr && execStr.toString().search("removeExpr()") != -1) {
+                        this.domMutationCommands = null;
                     }
                 }
                 else if (id === "exception") {
@@ -927,4 +945,7 @@ function HandleException() {
 }
 function HandleMutationBreakpoint() {
     return controllerObj.handleMutationBreakpoint.apply(controllerObj, arguments);
+}
+function HandleDOMMutationBreakpoint() {
+    return controllerObj.handleDOMMutationBreakpoint.apply(controllerObj, arguments);
 }

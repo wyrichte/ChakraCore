@@ -438,6 +438,7 @@ namespace JsDiag
     struct RemoteDictionary : public RemoteData<T>
     {
         typedef typename T::EntryType EntryType;
+        typedef typename T::KeyType TKey;
         typedef typename T::ValueType TValue;
 
     private:
@@ -465,6 +466,16 @@ namespace JsDiag
                 return true;
             }
             return false;
+        }
+
+        template<typename Fn>
+        void Map(Fn fn)
+        {
+            MapUntil([fn](TKey const& key, TValue const& value) -> bool
+            {
+                fn(key, value);
+                return false;
+            });
         }
 
         template<typename Fn>

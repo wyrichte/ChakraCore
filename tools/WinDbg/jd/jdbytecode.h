@@ -9,7 +9,7 @@
 class JDByteCode : public JDUtil
 {
 public:
-    JDByteCode(EXT_CLASS_BASE * ext, bool dumpProbeBackingBlock, bool verbose);
+    JDByteCode(bool dumpProbeBackingBlock, bool verbose);
     ~JDByteCode();
     void DumpForInterpreterStackFrame(ExtRemoteTyped interpreterStackFrame);
     void DumpForFunctionBody(ExtRemoteTyped functionBody);
@@ -30,7 +30,6 @@ private:
 
     RemoteFunctionBody functionBody;
     EXT_CLASS_BASE::PropertyNameReader * propertyNameReader;
-    EXT_CLASS_BASE * ext;
 #ifdef JD_PRIVATE
     JDByteCodeCachedData const& cachedData;
 #endif

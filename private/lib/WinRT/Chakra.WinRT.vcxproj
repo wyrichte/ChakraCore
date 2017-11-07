@@ -19,14 +19,16 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
-        <!-- For unicode.h -->
+        
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\Common;
         $(ChakraRootDirectory)core\lib\runtime;
         $(ChakraRootDirectory)private\lib\engine;
-        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+        
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
+        
+        $(ONECOREUAPCOMINCPATH)\midlrt;
         
         $(ComIncPath)\midlrt;
         %(AdditionalIncludeDirectories)

@@ -119,6 +119,7 @@ public:
     };
 
     static Var Echo(Var function, CallInfo callInfo, Var* args);
+    static Var DispatchDOMMutationBreakpoint(Var function, CallInfo callInfo, Var* args);
     static Var Quit(Var function, CallInfo callInfo, Var* args);
     static Var QuitHtmlHost(Var function, CallInfo callInfo, Var* args);
     static Var StdErrWriteLine(Var function, CallInfo callInfo, Var* args);

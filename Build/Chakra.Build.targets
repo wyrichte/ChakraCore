@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Signing -->
   <Target Name="SignTool" Condition="'@(BinplaceLinked)' != ''">
-    <Exec Command="signtool sign /v $(SIGNTOOL_SIGN) @(BinplaceLinked)" />
+    <Exec Command="%RazzleToolPath%\signer.cmd authenticode -type testsignonly -s WindowsSystemComponent -f @(BinplaceLinked)" />
   </Target>
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'=='true' AND '$(NT_SIGNCODE)'=='1'">
     <AfterBuildLinked>
