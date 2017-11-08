@@ -48,6 +48,12 @@
   </test>
   <test>
     <default>
+      <files>iteratorDel.js</files>
+      <compile-flags>-args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>HTMLCommentSuffix.html</files>
     </default>
   </test>
