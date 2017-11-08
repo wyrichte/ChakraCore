@@ -5,9 +5,9 @@ function foo() {
     obj.AddObject(101);
     obj.AddObject(102);
     var iter = obj.entries();
-    print(iter);
 }
 
 foo();
+print("Passed");
 
 
