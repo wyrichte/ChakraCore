@@ -1,11 +1,21 @@
 # Use this script to run tests remotely on an ARM64 dev machine
 # grabs your arm64_debug build for the tests
 
+# Useful commands to parse information from output:
+# Untangle thread information:
+#  cat coretestrun.txt | sort -k 1,1 -n --stable | cat > coretestrun2.txt
+# Get folder-level and overall results:
+#  cat coretestrun2.txt | grep Summary: | sed -e "s/^[0-9]>//" | sort | uniq -c
+# Get the number of assertions per folder:
+#  cat coretestrun2.txt | grep ASSERTION -B 2 | grep "name of output file" | sed -e "s/^[0-9]>//" | sort | sed -e "s/.*core\\\\test\\\\\\([^\\\\]*\\)\\\\.*/\1/" | sort | uniq -c | sort
+# Get the number of hits per assertion:
+#  cat testrunoutput2.txt | grep ASSERTION | sed -e "s/^[0-9]>//" -e "s/ASSERTION [0-9]*:/ASSERTION:/" | sort | uniq -c | sort
+# Get the folders hitting a particular assertion:
+#  cat coretestrun2.txt | grep "ARM64UnwindEncoder.cpp, line 76" -B 2 | grep "name of output file" | sed -e "s/^[0-9]>//" | sort | sed -e "s/.*core\\\\test\\\\\\([^\\\\]*\\)\\\\.*/\1/" | sort | uniq -c
+
 param(
     [string]$binflavor="arm64_debug",
-    [switch]$showSkips=$false,
-    [switch]$createcsv=$false,
-    [switch]$debugOut=$false
+    [switch]$debugOut=$true
 );
 $configpath = (Join-Path (Join-Path $Env:UserProfile "ChakraDevConfig") "Chakra.Build.user.props");
 
@@ -42,7 +52,7 @@ try
 {
     [string]$testdirbase = Join-Path $machineShare "alltests";
     [string]$testfullbase = Join-Path $testdirbase "unittests";
-    [string]$testcorebase = Join-Path $testdirbase "tests";
+    [string]$testcorebase = Join-Path (Join-Path $testdirbase "core") "test";
     [string]$bindir = Join-Path $machineShare $binflavor;
     echo "Copying tests...";
     # Copy all of our tests - this means that there's going to be a couple minutes
@@ -98,9 +108,11 @@ try
                 Start-Sleep -Seconds 1
             }
         }
+        # Set the test target
+        [string]$testtarget = $testcorebase;
 
         # We need to figure out the local path to the share, because cmd is old
-        [string]$wdtemp = $testfullbase.Replace("\\","");
+        [string]$wdtemp = $testtarget.Replace("\\","");
         $wdtempsegs = $wdtemp.Split("\");
         [string]$computername = $wdtempsegs[0];
         [string]$sharename = $wdtempsegs[1];
@@ -125,8 +137,9 @@ try
         # Arg setup
         [string]$binaryName = "jshost.exe";
         [string]$bindirarg = Join-Path $bindir "..";
-        #$failingDirs = "`"" + "Array,AsmJs,AsyncDebug,bailout,Basics,Bugs,crossthread,Date,Debugger,DebuggerCommon,Error,ErrorCommon,es6,FixedFields,Function,HeapEnum,host,iasd,InlineCaches,InternalProfile,Intl,IntlCore,jd,Miscellaneous,msrc,NativeUnitTests,Object,Opegen,Operators,Optimizer,Profiler,sca,StackTrace,strict,Strings,SunSpider,SunSpider1.0.2,SunSpiderFunctionality,UnifiedRegex,V8,V8strict,V8_Functionality" + "`"";
-        [string]$dirs = "`"" + "fieldopts,JSON,KrakenFunctionality,Lib,loop,Math,Regex,typedarray,utf8" + "`"";
+        #$failingDirs = "`"" + "Array,AsmJs,AsyncDebug,bailout,Basics,Bugs,crossthread,Date,Debugger,DebuggerCommon,Error,ErrorCommon,es6,FixedFields,Function,HeapEnum,host,iasd,InlineCaches,InternalProfile,Intl,IntlCore,jd,Miscellaneous,msrc,NativeUnitTests,Object,Opegen,Operators,Optimizer,Profiler,sca,StackTrace,strict,Strings,SunSpider,SunSpider1.0.2,SunSpiderFunctionality,UnifiedRegex,V8,V8strict,V8_Functionality,loop,Math,Regex" + "`"";
+        [string]$dirs = "`"" + "Array,AsmJs,AsmJSFloat,ASMJSParser,bailout,Basics,Boolean,Bugs,Closures,ControlFlow,Conversions,Date,Debugger,DebuggerCommon,DynamicCode,EH,Error,es5,es6,es7,fieldopts,FixedFields,Function,Generated,GlobalFunctions,InlineCaches,inlining,Intl,JsBuiltIns,JSON,LetConst,Lib,loop,Math,Miscellaneous,Number,Object,Operators,Optimizer,PerfHint,Prototypes,Regex,RWC,Scanner,stackfunc,StackTrace,strict,Strings,switchStatement,TaggedFloats,TaggedIntegers,TTBasic,TTExecuteBasic,typedarray,UnifiedRegex,UnitTestFramework,utf8,VT_DATE" + "`"";
+        #[string]$dirs = "`"" + "SwitchStatement" + "`"";
         [string]$extraflags = "`"-oopjit-`"";
 
         $stdoutloc = New-TemporaryFile;
@@ -134,7 +147,7 @@ try
 
         echo "Starting test run... (output will display all at once at the end)";
 
-        $rlproc = Start-Process -FilePath $rlbin -ArgumentList "-arm64","-debug","-binary",$binaryName,"-bindir",$bindirarg,"-dirs",$dirs,"-extrahostflags",$extraflags -Wait -WorkingDirectory $workingDirectory -RedirectStandardOutput $stdoutloc.FullName -RedirectStandardError $stderrloc.FullName;
+        $rlproc = Start-Process -FilePath $rlbin -ArgumentList "-arm64","-debug","-binary",$binaryName,"-bindir",$bindirarg,"-dirs",$dirs,"-extrahostflags",$extraflags,"-onlyassertoutput" -Wait -WorkingDirectory $workingDirectory -RedirectStandardOutput $stdoutloc.FullName -RedirectStandardError $stderrloc.FullName;
 
         [string]$output = Get-Content -Raw -Path $stdoutloc.FullName;
         [string]$error = Get-Content -Raw -Path $stderrloc.FullName;
