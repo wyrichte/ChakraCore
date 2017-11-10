@@ -2,5 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuiltThisFileDirectory)..\..\..\..\Build\Chakra.Build.Paths.props" />
   <Import Project="..\..\..\..\core\lib\JITIDL\Chakra.JITIDL.vcxproj" />
+  <!-- 
+    Razzle dev signing assumes that if the OutputType isn't provided,
+    it must be exe and it sets TargetExt to exe for the purpose of signing.
+    Explicitly override it here to work around this interpretation of TargetType
+  -->
+  <PropertyGroup>
+    <TargetExt></TargetExt>
+  </PropertyGroup>
 </Project>
 

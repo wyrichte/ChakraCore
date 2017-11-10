@@ -6,7 +6,7 @@ set LOGSDIR=%BUNDLEROOT%\LogFiles
 set FILENAME=%~f0
 set ARCH=%architecture%
 set FLAVOR=fre
-if not x%FILENAME:fre=%==%FILENAME% set FLAVOR=chk
+if %FILENAME:fre=%==%FILENAME% set FLAVOR=chk
 
 echo BundleRoot is at %BUNDLEROOT%
 echo Logs are at %LOGSDIR%

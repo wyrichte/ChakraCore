@@ -18,6 +18,20 @@
     <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
     <BaseLibPath Condition="'$(BaseLibPath)'==''">$(PublicInternalPath)\base\lib\$(PlatformPathNameAlt)</BaseLibPath>
 
+    <OneCoreBaseLibDest Condition="'$(OneCoreBaseLibDest)' == ''">$(PublicInternalPath)\onecorebase\lib</OneCoreBaseLibDest>
+    <OneCoreBaseLibPath Condition="'$(OneCoreBaseLibPath)' == ''">$(OneCoreBaseLibDest)\$(PlatformPathNameAlt)</OneCoreBaseLibPath>
+    <OneCoreComIncPath Condition="'$(OneCoreComIncPath)' == ''">$(PublicInternalPath)\onecorecom\inc</OneCoreComIncPath>
+    <OneCoreInetcoreIncPath Condition="'$(OneCoreInetcoreIncPath)' == ''">$(PublicInternalPath)\onecoreinetcore\inc</OneCoreInetcoreIncPath>
+    <OneCoreSdkToolsIncPath Condition="'$(OneCoreSdkToolsIncPath)' == ''">$(PublicInternalPath)\onecoresdktools\inc</OneCoreSdkToolsIncPath>
+    <OneCoreShellLibDest Condition="'$(OneCoreShellLibDest)' == ''">$(PublicInternalPath)\onecoreshell\lib</OneCoreShellLibDest>
+    <OneCoreShellLibPath Condition="'$(OneCoreShellLibPath)' == ''">$(OneCoreShellLibDest)\$(PlatformPathNameAlt)</OneCoreShellLibPath>
+    <OneCoreUapComIncPath Condition="'$(OneCoreUapComIncPath)' == ''">$(PublicInternalPath)\onecoreuapcom\inc</OneCoreUapComIncPath>
+    <OneCoreUapInetcoreLibDest Condition="'$(OneCoreUapInetcoreLibDest)' == ''">$(PublicInternalPath)\onecoreuapinetcore\lib</OneCoreUapInetcoreLibDest>
+    <OneCoreUapInetcoreLibPath Condition="'$(OneCoreUapInetcoreLibPath)' == ''">$(OneCoreUapInetcoreLibDest)\$(PlatformPathNameAlt)</OneCoreUapInetcoreLibPath>
+    <OneCoreUapShellIncPath Condition="'$(OneCoreUapShellIncPath)' == ''">$(PublicInternalPath)\onecoreuapshell\inc</OneCoreUapShellIncPath>
+    <OneCoreUapShellLibDest Condition="'$(OneCoreUapShellLibDest)' == ''">$(PublicInternalPath)\onecoreuapshell\lib</OneCoreUapShellLibDest>
+    <OneCoreUapShellLibPath Condition="'$(OneCoreUapShellLibPath)' == ''">$(OneCoreUapShellLibDest)\$(PlatformPathNameAlt)</OneCoreUapShellLibPath>
+
     <BaseDataPath>$(RazzleDataPath)</BaseDataPath>
 
     <SdkToolsIncPath>$(PublicInternalPath)\sdktools\inc</SdkToolsIncPath>

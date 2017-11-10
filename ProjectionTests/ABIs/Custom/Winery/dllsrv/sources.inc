@@ -20,6 +20,7 @@ PRECOMPILED_INCLUDE=..\stdafx.h
 MSC_WARNING_LEVEL=/W4
 
 INCLUDES= \
+    $(ONECORECOM_INC_PATH); \
     $(COM_INC_PATH);\
     $(COM_INC_PATH)\winrt;\
     $(OBJ_PATH)\..\..\idl\$(O);\

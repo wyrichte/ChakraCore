@@ -94,7 +94,7 @@
     </default>
   </test>
 -->
-  
+
   <test>
     <default>
       <files>AsyncDebug.js</files>
@@ -112,7 +112,7 @@
       <tags>exclude_win7</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>AsyncDebug-WinJS.js</files>
@@ -129,7 +129,7 @@
       <tags>exclude_win7,exclude_winBlue,exclude_fre,JsEtwConsole</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>AsyncDebug.js</files>
@@ -146,7 +146,7 @@
       <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>stacktraceevent_1.js</files>
@@ -925,15 +925,15 @@
     <default>
       <files>ArrayRestricted.js</files>
       <baseline>ArrayRestricted.baseline</baseline>
-      <compile-flags></compile-flags>
-      <tags>exclude_win7,exclude_amd64,exclude_drt</tags>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
+      <tags>exclude_win7,exclude_amd64</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ArrayRestricted.js</files>
       <baseline>ArrayRestricted.baseline</baseline>
-      <compile-flags>-NoWinRTFastSig</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -NoWinRTFastSig</compile-flags>
       <tags>exclude_win7,exclude_amd64,exclude_fre</tags>
     </default>
   </test>
@@ -990,7 +990,7 @@
       <files>InspectableToVar.js</files>
       <baseline>InspectableToVar.baseline</baseline>
       <compile-flags></compile-flags>
-      <tags>exclude_win7,exclude_drt</tags>
+      <tags>exclude_win7</tags>
     </default>
   </test>
   <test>
@@ -1092,7 +1092,7 @@
       <tags>exclude_win7,exclude_win8,exclude_fre</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>WinRTError.js</files>
@@ -1435,7 +1435,7 @@ Re-enable with new baseline
       <tags>exclude_win7</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>msGetSetWeakWinRTProperty.js</files>
@@ -1453,7 +1453,7 @@ Re-enable with new baseline
       <tags>exclude_win7</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>IBuffer.js</files>
@@ -1470,7 +1470,7 @@ Re-enable with new baseline
       <tags>exclude_win7,exclude_fre</tags>
     </default>
   </test>
-  
+
   <!--  IBuffer tests are temporarily disabled under -version:5 on AMD64. See TFS Task 709060 -->
   <test>
     <default>
@@ -1559,7 +1559,7 @@ Re-enable with new baseline
       <tags>exclude_win7</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>IEnumerable.test2only.js</files>
@@ -1593,7 +1593,7 @@ Re-enable with new baseline
       <tags>exclude_win7</tags>
     </default>
   </test>
-  
+
   <test>
     <default>
       <files>IEnumerable.test4only.js</files>
@@ -1650,7 +1650,7 @@ Re-enable with new baseline
       <files>AllowForWebInstanceMembers.js</files>
       <baseline>AllowForWebInstanceMembers.baseline</baseline>
       <compile-flags>-hostType:3</compile-flags>
-      <tags>exclude_win7,exclude_win8,exclude_drt</tags>
+      <tags>exclude_win7,exclude_win8</tags>
     </default>
   </test>
 
@@ -1686,7 +1686,7 @@ Re-enable with new baseline
       <files>AllowForWebInstanceMembers.js</files>
       <baseline>AllowForWebInstanceMembers.baseline</baseline>
       <compile-flags>-hostType:3 -WinRTConstructorAllowed</compile-flags>
-      <tags>exclude_win7,exclude_win8,exclude_drt</tags>
+      <tags>exclude_win7,exclude_win8</tags>
     </default>
   </test>
 

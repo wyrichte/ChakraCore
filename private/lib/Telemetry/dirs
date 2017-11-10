@@ -1,1 +1,4 @@
 !include ..\..\..\jslibdirs.$(_BuildType)
+DIRS=$(DIRS) \
+    Engine \
+    ESBuiltins

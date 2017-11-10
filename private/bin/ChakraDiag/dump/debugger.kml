@@ -8,25 +8,11 @@
     <BuildOutput Destination="x86\winext"/>
   </ContentGroup>
   <ContentGroup
-      BuildArchitecture="x86"
-      BuildType="fre"
-      >
-    <FeatureReference Name="Internal X86 Common Extensions"/>
-    <BuildOutput Destination="winext"/>
-  </ContentGroup>
-  <ContentGroup
       BuildArchitecture="amd64"
       BuildType="fre"
       >
     <FeatureReference Name="X64 Common Extensions"/>
     <BuildOutput Destination="x64\winext"/>
-  </ContentGroup>
-  <ContentGroup
-      BuildArchitecture="amd64"
-      BuildType="fre"
-      >
-    <FeatureReference Name="Internal X64 Common Extensions"/>
-    <BuildOutput Destination="winext"/>
   </ContentGroup>
   <ContentGroup
       BuildArchitecture="arm"
@@ -36,10 +22,10 @@
     <BuildOutput Destination="arm\winext"/>
   </ContentGroup>
   <ContentGroup
-      BuildArchitecture="arm"
+      BuildArchitecture="arm64"
       BuildType="fre"
       >
-    <FeatureReference Name="Internal Arm Common Extensions"/>
-    <BuildOutput Destination="winext"/>
+    <FeatureReference Name="Arm64 Common Extensions"/>
+    <BuildOutput Destination="arm64\winext"/>
   </ContentGroup>
 </Content>

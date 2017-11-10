@@ -10,7 +10,7 @@
     <ConfigurationType>Utility</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />    
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Props" />
   <ItemGroup Condition="'$(BuildRazzleDependencies)'=='true'">
@@ -35,6 +35,7 @@
         <!-- For EdgeJavascriptTypeId.h -->
         $(ChakraRootDirectory)core\lib\runtime\types;
         <!-- For scaformat.idl -->
+        $(OneCoreInetcoreIncPath);
         $(PublicInternalPath)\inetcore\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

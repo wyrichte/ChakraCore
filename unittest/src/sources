@@ -33,7 +33,7 @@ LINKLIBS= \
 !IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
     ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
-    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib       \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\codex\$(O)\chakra.common.codex.lib \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
     $(PROJECT_LIB_PATH)\IESettingsId.lib \
@@ -49,6 +49,7 @@ TARGETLIBS=     \
     $(SDK_LIB_PATH)\ntdll.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_ole32.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_version.lib \
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_user32.lib \

@@ -54,30 +54,29 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Engine\EngineDataTelemetryProvider.cpp" />
-    <ClCompile Include="ESBuiltIns\OpcodeTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Engine\EngineDataTelemetryProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ESBuiltIns\OpcodeTelemetry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectCall.h" />
-    <ClInclude Include="Engine\EngineDataSCT.h" />
-    <ClInclude Include="Engine\EngineDataTelemetryProvider.h" />
-    <ClInclude Include="ESBuiltIns\ESBuiltinFields.h" />
-    <ClInclude Include="ESBuiltIns\ESBuiltInsDatabase.h" />
-    <ClInclude Include="ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
-    <ClInclude Include="ESBuiltins\ESBuiltinsSCT.h" />
-    <ClInclude Include="ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
-    <ClInclude Include="ESBuiltIns\IOpcodeTelemetry.h" />
-    <ClInclude Include="ESBuiltIns\OpcodeTelemetry.h" />
-    <ClInclude Include="ScriptContextTelemetryModules.h" />
-    <ClInclude Include="TelemetryProvider.h" />
-    <ClInclude Include="IScriptContextTelemetryProvider.h" />
-    <ClInclude Include="LanguageTelemetry.h" />
-    <ClInclude Include="ScriptContextTelemetry.h" />
-    <ClInclude Include="ScriptEngineTelemetry.h" />
-    <ClInclude Include="TelemetryList.includes.h" />
-    <ClInclude Include="Telemetry.h" />
-    <ClInclude Include="TelemetryMacros.h" />
-    <ClInclude Include="TelemetryPch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DirectCall.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Engine\EngineDataSCT.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltinFields.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsDatabase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsOpcodeTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltins\ESBuiltinsSCT.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\ESBuiltInsTelemetryProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\IOpcodeTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ESBuiltIns\OpcodeTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContextTelemetryModules.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IScriptContextTelemetryProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LanguageTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContextTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptEngineTelemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryList.includes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Telemetry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryMacros.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryPch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />

@@ -125,6 +125,8 @@ COREINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\JITServer; \
     $(JSCRIPT_ROOT)\private\lib\memprotectheap; \
     $(JSCRIPT_ROOT)\publish; \
+    $(ONECORESHELL_INC_PATH); \
+    $(ONECOREUAPSHELL_INC_PATH); \
     $(SHELL_INC_PATH); \
     $(BROWSER_INETCORE_INC_PATH); \
     $(SDK_INC_PATH);\
@@ -141,6 +143,8 @@ SITEINCLUDES=\
     $(JSCRIPT_ROOT)\core\lib\JITClient; \
     $(JSCRIPT_ROOT)\core\lib\JITIDL; \
     $(JSCRIPT_ROOT)\core\lib\JITServer; \
+    $(ONECORESHELL_INC_PATH); \
+    $(ONECOREUAPSHELL_INC_PATH); \
     $(SHELL_INC_PATH); \
     $(OBJECT_INETCORE_LIB_NAV_FCK_O_DIR); \
 
@@ -198,3 +202,4 @@ _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINBLUE)
 !if $(FREEBUILD)
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN10_RS2)
 !endif
+

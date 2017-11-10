@@ -21,7 +21,9 @@ PRECOMPILED_CXX=1
 PRECOMPILED_INCLUDE=..\stdafx.h
 
 INCLUDES= \
+    $(ONECORECOM_INC_PATH); \
     $(COM_INC_PATH);\
+    $(ONECORECOM_INC_PATH)\winrt; \
     $(COM_INC_PATH)\winrt;\
     $(JSCRIPT_ROOT)\ProjectionTests\ABIs\Custom\TeachRT\WinRT\idl; \
     $(OBJ_PATH)\..\..\lib\$(O);\

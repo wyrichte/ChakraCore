@@ -1026,7 +1026,7 @@ public:
     BOOL IsDebuggerEnvironmentAvailable(bool requery = false);
     HRESULT TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo);
     bool CanRegisterDebugSources();
-    HRESULT DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBra);
+    HRESULT DbgHandleBreakpoint(BREAKREASONEX br, BREAKRESUMEACTION* pBra);
     HRESULT DbgRegisterScriptBlock(CScriptBody* pbody, DWORD_PTR dwDebugSourceContext, LPCWSTR title = NULL);
     HRESULT DbgRegisterScriptBlock(CScriptBody* pbody);
     HRESULT DbgRegisterFunction(Js::ScriptContext * scriptContext, Js::FunctionBody * functionBody, DWORD_PTR dwDebugSourceContext, LPCWSTR title);

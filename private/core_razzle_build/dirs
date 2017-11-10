@@ -10,4 +10,4 @@ DIRS = \
     JITIDL \
     jsrt \
     rl{noncrit} \
-    wabt \
+

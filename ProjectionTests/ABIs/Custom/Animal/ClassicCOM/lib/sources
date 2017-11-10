@@ -22,5 +22,5 @@ SOURCES=\
     Animals.rc  \
 
 TARGETLIBS=\
-    $(SDK_LIB_PATH)\kernel32.lib   \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_kernel32.lib \
     $(SDK_LIB_PATH)\ole32.lib \

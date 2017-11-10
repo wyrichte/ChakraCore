@@ -72,10 +72,10 @@ namespace JsDiag
     class ScriptState
     {
     private:
-        static void SaveState(IStackProviderDataTarget* dataTarget, AutoList<WerStack>& werStacks);
+        static void SaveState(IStackProviderDataTarget* dataTarget, AutoList<WerStack>& werStacks, MINIDUMP_TYPE dumpType);
         static void GetStream(WerMessage* message, PVOID* ppBuf, ULONG* pSize);
 
     public:
-        static void SaveState(IStackProviderDataTarget* dataTarget, PMINIDUMP_USER_STREAM_INFORMATION *ppUserStream);
+        static void SaveState(IStackProviderDataTarget* dataTarget, PMINIDUMP_USER_STREAM_INFORMATION *ppUserStream, MINIDUMP_TYPE dumpType);
     };
 }

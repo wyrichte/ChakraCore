@@ -29,13 +29,73 @@ namespace Js
     };
 
     //
-    // Helper class for accessing remote debugging target data.
+    // Base class for buffer of sizeof(T).
     //
-    template <class T>
-    class RemoteData
+    template <typename T>
+    class DataBuffer
+    {
+    public:
+        ULONG GetBufferSize() const
+        {
+            CompileAssert(sizeof(T) < INT_MAX);
+            return static_cast<ULONG>(sizeof(T));
+        }
+    };
+
+    //
+    // Static on-stack buffer of sizeof(T).
+    //
+    template <typename T>
+    class StaticDataBuffer : public DataBuffer<T>
     {
     private:
         BYTE m_data[sizeof(T)];
+
+    public:
+        HRESULT EnsureBuffer()
+        {
+            CompileAssert(sizeof(T) <= 1024);  // Use DynamicDataBuffer if T too large
+            return S_OK;
+        }
+
+        const BYTE* GetBuffer() const { return m_data; }
+        BYTE* GetBuffer() { return m_data; }
+    };
+
+    //
+    // Dynamic allocated-from-heap buffer of sizeof(T).
+    //
+    template <typename T>
+    class DynamicDataBuffer : public DataBuffer<T>
+    {
+    private:
+        AutoArrayPtr<BYTE> m_data;
+
+    public:
+        DynamicDataBuffer() : m_data(nullptr, 0) {}
+
+        HRESULT EnsureBuffer()
+        {
+            if (m_data == nullptr)
+            {
+                m_data.Set(HeapNewNoThrowArray(BYTE, sizeof(T)), sizeof(T));
+            }
+
+            return m_data == nullptr ? E_OUTOFMEMORY : S_OK;
+        }
+
+        const BYTE* GetBuffer() const { return m_data; }
+        BYTE* GetBuffer() { return m_data; }
+    };
+
+    //
+    // Helper class for accessing remote debugging target data.
+    //
+    template <class T, template <typename V> class Buffer = StaticDataBuffer>
+    class RemoteData
+    {
+    private:
+        Buffer<T> m_data;
         const T* remoteAddress;
 
     public:
@@ -46,29 +106,34 @@ namespace Js
 
         const T* GetRemoteAddress()
         {
+            Assert(remoteAddress);
             return remoteAddress;
         }
 
         HRESULT Read(IScriptDebugSite* debugSite, const T* addr)
         {
-            HRESULT hr = ScriptDAC::Read(debugSite, addr, m_data, sizeof(m_data));
-
+            HRESULT hr = m_data.EnsureBuffer();
             if (SUCCEEDED(hr))
             {
-                remoteAddress = addr;
+                hr = ScriptDAC::Read(debugSite, addr, m_data.GetBuffer(), m_data.GetBufferSize());
+                if (SUCCEEDED(hr))
+                {
+                    remoteAddress = addr;
+                }
             }
-
             return hr;
         }
 
         T* operator->()
         {
-            return reinterpret_cast<T*>(&m_data[0]);
+            Assert(remoteAddress);  // must have read
+            return reinterpret_cast<T*>(m_data.GetBuffer());
         }
 
         const T* operator->() const
         {
-            return reinterpret_cast<const T*>(&m_data[0]);
+            Assert(remoteAddress);  // must have read
+            return reinterpret_cast<const T*>(m_data.GetBuffer());
         }
 
         operator T*()
@@ -284,7 +349,7 @@ Error:
     //
     // Represents remote ScriptContext data.
     //
-    class RemoteScriptContext: public RemoteData<ScriptContext>
+    class RemoteScriptContext: public RemoteData<ScriptContext, DynamicDataBuffer>
     {
     private:
         HRESULT ReadEmitBufferAllocations(IScriptDebugSite* debugSite);

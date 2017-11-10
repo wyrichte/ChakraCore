@@ -7,7 +7,7 @@
          EH blocks.
      -->
       <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
-      <compile-flags>-WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
       <timeout>300</timeout>
@@ -20,7 +20,7 @@
          EH blocks.
      -->
       <tags>GetExtendedExceptionInfo,exclude_amd64,exclude_jsrt,Slow</tags>
-      <compile-flags>-bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -bgJit- -WERExceptionSupport -nativetest:NativeUnitTests.dll GetExtendedExceptionInfo</compile-flags>
       <files>dummy.js</files>
       <baseline>GetExtendedExceptionInfo.baseline</baseline>
       <timeout>300</timeout>

@@ -599,14 +599,19 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
                 }
                 else
                 {
-                    if (propertyId == Js::Constants::NoProperty)
+                    Assert(propertyId == Js::Constants::NoProperty);
+
+                    scriptContext->GetOrAddPropertyRecord(bstr, nameLength, &propertyRecord);
+                    propertyId = propertyRecord->GetPropertyId();
+
+                    if (SUCCEEDED(OP_InitPropertyWithScriptEnter(scriptObject, propertyId, scriptContext->GetLibrary()->GetNull())))
                     {
                         // the type handler should keep the propertyid alive. We don't need to cache the property here.
-                        scriptContext->GetOrAddPropertyRecord(bstr, nameLength, &propertyRecord);
-                        propertyId = propertyRecord->GetPropertyId();
                     }
-
-                    OP_InitPropertyWithScriptEnter(scriptObject, propertyId, scriptContext->GetLibrary()->GetNull());
+                    else
+                    {
+                        CachePropertyId(propertyRecord);
+                    }
                 }
                 hr = S_OK;
             }

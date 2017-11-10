@@ -52,7 +52,10 @@
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
         <!-- For winmddefsp.h  -->
-        $(PublicInternalPath)\com\inc\midlrt;
+        $(OneCoreUapComIncPath)\midlrt;
+
+        <!-- For DTBHost.h -->
+        $(EnlistmentRoot)\onecoreuap\inetcore\lib\devtb\dtbhost_edge;
 
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
@@ -78,6 +81,8 @@
       </DisableSpecificWarnings>
       <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
       <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
+      <!--#import is not supported with /MP -->
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -161,6 +166,7 @@
         $(ChakraRootDirectory)publish;
         $(ChakraCoreRootDirectory)lib\runtime\types;
         <!-- For scaformat.idl -->
+        $(OneCoreInetcoreIncPath);
         $(PublicInternalPath)\inetcore\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>

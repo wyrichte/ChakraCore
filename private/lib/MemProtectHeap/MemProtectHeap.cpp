@@ -270,6 +270,7 @@ public:
 #endif
     virtual void DisposeObjects(Recycler* recycler) override;
     virtual void PreDisposeObjectsCallBack() override {};
+    
 #ifdef ENABLE_PROJECTION
     virtual void MarkExternalWeakReferencedObjects(bool inPartialCollect) override {};
     virtual void ResolveExternalWeakReferencedObjects() override {};

@@ -239,6 +239,16 @@ typedef [v1_enum] enum ParseModuleSourceFlags
 
 typedef void* ModuleRecord;
 
+typedef [v1_enum] enum ExternalFunctionFlags
+{
+    ExternalFunctionFlags_DependsOnDOMState = 0x01,
+    ExternalFunctionFlags_DependsOnDeviceState = 0x02,
+    ExternalFunctionFlags_DependsOnNothing = 0x04,
+
+    ExternalFunctionFlags_AffectsDOMState = 0x08,
+    ExternalFunctionFlags_AffectsNothing = 0x10
+} ExternalFunctionFlags;
+
 [
     object,
     uuid(79D57FFB-9F0D-4996-8BC8-9CBAA0DF58C0),
@@ -1158,6 +1168,9 @@ interface IActiveScriptDirect : IUnknown
     ///   serverSecurityDescriptor  : Security descriptor for the AC the JIT process is in
     ///   connectionId              : The RPC connectionId used by the JIT process to establish an RPC server
     HRESULT SetJITConnectionInfo([in] HANDLE jitProcHandle, [in] void* serverSecurityDescriptor, [in] UUID connectionId);
+
+    /// Host can call this method to cause a synchronous breakpoint when a DOM mutation occurs
+    HRESULT TriggerDOMMutationBreakpoint();
 };
 
 /// Return an IActiveScriptDirect interface which respresnts the given instance.

@@ -12,6 +12,5 @@ DIRS=\
     Scripts{Test} \
     Snap{Test,noncrit} \
     DevAppx{Test,noncrit} \
-    CLR{Test} \
     PhoneDevTestPkg{Test,noncrit} \
 

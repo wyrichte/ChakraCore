@@ -71,6 +71,31 @@ Var WScriptFastDom::Echo(Var function, CallInfo callInfo, Var* args)
     return EchoToStream(stdout, /* newLine */ true, function, callInfo.Count, args);
 }
 
+Var WScriptFastDom::DispatchDOMMutationBreakpoint(Var function, CallInfo callInfo, Var* args)
+{
+    HRESULT hr = E_FAIL;
+    IActiveScriptDirect * activeScriptDirect = nullptr;
+    hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
+    if (FAILED(hr))
+    {
+        return nullptr;
+    }
+
+    activeScriptDirect->TriggerDOMMutationBreakpoint();
+
+    if (FAILED(hr))
+    {
+        activeScriptDirect->ReleaseAndRethrowException(hr);
+    }
+
+    if (activeScriptDirect != nullptr)
+    {
+        activeScriptDirect->Release();
+    }
+
+    return nullptr;
+}
+
 Var WScriptFastDom::StdErrWriteLine(Var function, CallInfo callInfo, Var* args)
 {
     args = &args[1];
@@ -987,9 +1012,9 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
                                 {
                                     runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
                                     jsHostScriptSite->Release();
+                                }
+                            }
                         }
-                    }
-                }
                         newActiveScript->Release();
                     }
                 }
@@ -2027,6 +2052,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
 
     // Create the Echo method
     hr = AddMethodToObject(_u("Echo"), activeScriptDirect, wscript, WScriptFastDom::Echo);
+    IfFailedGo(hr);
+
+    // Triggers a DOM mutation breakpoint
+    hr = AddMethodToObject(_u("ChangeDOMElement"), activeScriptDirect, wscript, WScriptFastDom::DispatchDOMMutationBreakpoint);
     IfFailedGo(hr);
 
     // Create the console object

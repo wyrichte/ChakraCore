@@ -821,7 +821,7 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
 {
     BREAKRESUMEACTION resumeAction = BREAKRESUMEACTION_CONTINUE;
     ERRORRESUMEACTION errorResumeAction = ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller;
-    BREAKREASON br = BREAKREASON_BREAKPOINT;
+    BREAKREASONEX br = BREAKREASON_BREAKPOINT_EX;
     bool isBreakpoint = true;
     bool isException = false;
 
@@ -848,24 +848,29 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
         || Js::STOP_INLINEBREAKPOINT == haltState->stopType
         || Js::STOP_BREAKPOINT == haltState->stopType
         || Js::STOP_MUTATIONBREAKPOINT == haltState->stopType
+        || Js::STOP_DOMMUTATIONBREAKPOINT == haltState->stopType
         || !GetScriptSiteHolder()->FOneTimeBreak(&br))
     {
         isBreakpoint = false;
         switch(haltState->stopType)
         {
         case Js::STOP_MUTATIONBREAKPOINT:
-            br = BREAKREASON_MUTATION_BREAKPOINT;
+            br = BREAKREASON_MUTATION_BREAKPOINT_EX;
+            isBreakpoint = true;
+            break;
+        case Js::STOP_DOMMUTATIONBREAKPOINT:
+            br = BREAKREASON_DOMMUTATION_BREAKPOINT_EX;
             isBreakpoint = true;
             break;
         case Js::STOP_BREAKPOINT:
         case Js::STOP_ASYNCBREAK:
-            br = BREAKREASON_BREAKPOINT;
+            br = BREAKREASON_BREAKPOINT_EX;
             isBreakpoint = true;
             break;
         case Js::STOP_STEPCOMPLETE:
             if (m_remoteDbgThreadId == NOBASETHREAD || m_remoteDbgThreadId == m_dwBaseThread)
             {
-                br = BREAKREASON_STEP;
+                br = BREAKREASON_STEP_EX;
             }
             else
             {
@@ -875,7 +880,7 @@ void ScriptEngine::DispatchHalt(Js::InterpreterHaltState* haltState)
             isBreakpoint = true;
             break;
         case Js::STOP_INLINEBREAKPOINT:
-            br = BREAKREASON_LANGUAGE_INITIATED;
+            br = BREAKREASON_LANGUAGE_INITIATED_EX;
             isBreakpoint = true;
             break;
         case Js::STOP_EXCEPTIONTHROW:
@@ -1503,7 +1508,7 @@ STDMETHODIMP ScriptEngine::EnumCodeContextsOfPosition(
     });
 }
 
-HRESULT ScriptEngine::DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBra)
+HRESULT ScriptEngine::DbgHandleBreakpoint(BREAKREASONEX br, BREAKRESUMEACTION* pBra)
 {
     HRESULT hr = E_FAIL;
     if (DebugHelper::IsScriptEngineClosed(this, &hr))
@@ -1530,7 +1535,7 @@ HRESULT ScriptEngine::DbgHandleBreakpoint(BREAKREASON br, BREAKRESUMEACTION* pBr
         // Also, keep a local variable for the site as that might be null if script engine is closed
         AutoCOMPtr<ScriptSite> spScriptSite(this->GetScriptSiteHolder());
 
-        hr = m_pda->HandleBreakPoint(br, pBra);
+        hr = m_pda->HandleBreakPoint((BREAKREASON)br, pBra);
 
         DbgSetAllowUserToRecoverTab(spActiveScriptSite, true);
     }
@@ -6388,6 +6393,22 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
             }
 
             this->m_fAllowWinRTConstructor = (pvarValue->boolVal != VARIANT_FALSE);
+
+            return NOERROR;
+        }
+
+    case SCRIPTPROP_WEREXCEPTIONSUPPORT:
+        {
+            if (nullptr != pvarIndex)
+            {
+                return E_INVALIDARG;
+            }
+            if (VT_BOOL != pvarValue->vt)
+            {
+                return E_INVALIDARG;
+            }
+
+            Js::Configuration::Global.flags.WERExceptionSupport = (pvarValue->boolVal != VARIANT_FALSE);
 
             return NOERROR;
         }

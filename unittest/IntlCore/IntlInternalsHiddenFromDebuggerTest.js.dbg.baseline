@@ -2,7 +2,7 @@
   {
     "callstack": [
       {
-        "start": 594,
+        "start": 606,
         "length": 12,
         "text": "return 'foo'",
         "frameDescription": "toString"
@@ -20,13 +20,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 704,
+        "start": 723,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 730,
+        "start": 752,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"
@@ -36,7 +36,7 @@
   {
     "callstack": [
       {
-        "start": 594,
+        "start": 606,
         "length": 12,
         "text": "return 'foo'",
         "frameDescription": "toString"
@@ -54,13 +54,13 @@
         "frameDescription": "Array.prototype.sort"
       },
       {
-        "start": 704,
+        "start": 723,
         "length": 21,
         "text": "array.sort(c.compare)",
         "frameDescription": "testCallback"
       },
       {
-        "start": 730,
+        "start": 752,
         "length": 14,
         "text": "testCallback()",
         "frameDescription": "Global code"

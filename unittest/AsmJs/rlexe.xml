@@ -1,32 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+ <!-- Remove EnableFatalErrorOnOOM when detach does not throw OOM when failed to detach. Bug will be filed to address this later -->
   <test>
     <default>
       <files>detach.js</files>
       <baseline>detach.baseline</baseline>
-      <compile-flags>-testtrace:asmjs</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -testtrace:asmjs</compile-flags>
+      <tags>exclude_drt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detach2.js</files>
       <baseline>detach2.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -maic:0</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -testtrace:asmjs -maic:0</compile-flags>
+      <tags>exclude_drt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detach2.js</files>
       <baseline>detach2.baseline</baseline>
-      <compile-flags>-testtrace:asmjs -nonative</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM- -testtrace:asmjs -nonative</compile-flags>
+      <tags>exclude_drt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>detach2.js</files>
       <baseline>detach2.baseline</baseline>
-      <tags>exclude_amd64</tags>
-      <compile-flags>-testtrace:asmjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
+      <tags>exclude_amd64,exclude_drt</tags>
+      <compile-flags>-EnableFatalErrorOnOOM- -testtrace:asmjs -oopjit- -on:asmjsjittemplate -off:fulljit</compile-flags>
     </default>
   </test>
   <test>

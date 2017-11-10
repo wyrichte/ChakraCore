@@ -47,7 +47,7 @@ static BOOL AttachProcess(HANDLE hmod)
     g_hInstance = hmod;
     AutoSystemInfo::SaveModuleFileName(hmod);
 
-#if defined(_M_IX86)
+#if defined(_M_IX86) && !defined(_M_HYBRID_X86_ARM64)
     // Enable SSE2 math functions in CRT if SSE2 is available
     _set_SSE2_enable(TRUE);
 #endif

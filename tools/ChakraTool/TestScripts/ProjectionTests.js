@@ -196,6 +196,7 @@
 
             config.setup = false;
             notTagsArray.push("exclude_drt");
+            notTagsArray.push("exclude_jshost");
             config.unregister = true;
         }
         shell.setCurrentDirectory(config.testRoot);
@@ -316,7 +317,10 @@
         
         if (config.testCab !== undefined) {
             logger.logLine("Extracting test collateral.", "Setup");
-            shell.execute("{0}\\cabarc.exe -o -p X {1} {2}\\".format(config.snapOwnBinRoot, config.testCab, snapTargetDir));
+            var extraction7ZipCommandLine = "7z x -r -aoa -y {0} -o{1}".format(config.testCab, snapTargetDir);
+            logger.logLine("Needs 7-zip installed on the test machine and on the %path%");
+            logger.logLine(extraction7ZipCommandLine);
+            shell.execute(extraction7ZipCommandLine);
 
             if (!Storage.DoesFileExist("{0}\\Tests\\Functional\\AsyncDebug.js".format(snapTargetDir))) {
                 throw new Error("Expected files are not found after extracting Projection tests cab, aborting!");
@@ -331,7 +335,7 @@
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\*.winmd".format(config.snapMDRoot), jshostDir, "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
@@ -577,7 +581,7 @@
             },
             snapMDRoot: {
                 type: "Directory",
-                defaultValue: "{0}\\winmetadata",
+                defaultValue: "{0}",
                 defaultValueReferences: ["snapTargetDir"],
                 description: "SNAP Only: When calling SNAP setup, this will be resolved to the directory where projection MD files should go."
             }

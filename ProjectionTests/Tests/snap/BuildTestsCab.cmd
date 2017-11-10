@@ -17,8 +17,8 @@
 :: Filename should be the name of the cab file to build.
 ::     During build this should translate to $(TARGETNAME).cab - Tests.cab.
 ::
-:: PublicRoot should be the location where the enlistment publics are located.
-::     During build this translates to $(PUBLIC_ROOT).
+:: ProjectSdkMetadataPath should be the location where the enlistment publics are located.
+::     During build this translates to $(PUBLIC_ROOT)\Internal\$(_PROJECT_DEPOT)\Internal\BuildMetadata.
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -27,17 +27,15 @@ setlocal EnableDelayedExpansion
 set _DestinationPath=%1
 set _ProjectionTestsRoot=%2\ProjectionTests
 set _CabFilename=%3
-set _PublicRoot=%4
-set _SDKRoot=%_PublicRoot%\sdk
-set _MetadataRoot=%_SDKRoot%\winmetadata
+set _ProjectSdkMetadataPath=%4
 set _IncludedExtensions=cmd,js,html,baseline,config,exe,dll,bat,ps1,psm1,xml,man,winmd,rsp
-set _FileFilter=%_MetadataRoot%\*.winmd
+set _FileFilter=%_ProjectSdkMetadataPath%\Windows.winmd
 
 for %%i in (%_IncludedExtensions%) do (
     set _FileFilter=!_FileFilter! %_ProjectionTestsRoot%\*.%%i
 )
 
-echo cabarc.exe -r -p -P %_ProjectionTestsRoot:~3%\ -P %_SDKRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
-cabarc.exe -r -p -P %_ProjectionTestsRoot:~3%\ -P %_SDKRoot:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
+echo cabarc.exe -r -p -P %_ProjectionTestsRoot:~3%\ -P %_ProjectSdkMetadataPath:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
+cabarc.exe -r -p -P %_ProjectionTestsRoot:~3%\ -P %_ProjectSdkMetadataPath:~3%\ N %_DestinationPath%\%_CabFilename% %_FileFilter%
 
 endlocal

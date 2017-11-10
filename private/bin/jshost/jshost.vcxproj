@@ -67,7 +67,7 @@
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
-        $(PublicInternalPath)\shell\lib\$(PlatformPathNameAlt)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(OneCoreShellLibPath)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
         $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-windowclass-l1-1-0.lib;
@@ -81,27 +81,19 @@
         <!-- For InternetCrackURl and CreateURLMoniker for HtmlApp.cpp -->
         $(SdkLibPath)\urlmon.lib;
         $(SdkLibPath)\wininet.lib;
-        $(PublicInternalPath)\inetcore\lib\$(PlatformPathNameAlt)\iertutilp.lib
+        $(OneCoreUapInetcoreLibPath)\iertutilp.lib
       </AdditionalDependencies>
       <DelayLoadDLLs>
         %(DelayLoadDlls);
-        ext-ms-win-ntuser-synch-l1-1-0.dll;
-        ext-ms-win-ntuser-message-l1-1-1.dll;
-        ext-ms-win-ntuser-misc-l1-1-0.dll;
-        ext-ms-win-ntuser-window-l1-1-0.dll;
-        ext-ms-win-ntuser-gui-l1-1-0.dll;
-        ext-ms-win-ntuser-windowclass-l1-1-0.dll;
-        ole32.dll
-      </DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(Platform)'!='Arm64'">
-        %(DelayLoadDlls);
-        ext-ms-win-shell-shell32-l1-2-0.dll;
-        ext-ms-win-ntuser-draw-l1-1-1.dll
-      </DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(Platform)'=='Arm64'">
-        %(DelayLoadDlls);
-        ext-ms-win-shell-shell32-l1-2-1.dll;
-        ext-ms-win-ntuser-draw-l1-1-2.dll
+        ext-ms-win-ntuser-synch-l1-*.dll;
+        ext-ms-win-ntuser-message-l1-*.dll;
+        ext-ms-win-ntuser-misc-l1-*.dll;
+        ext-ms-win-ntuser-window-l1-*.dll;
+        ext-ms-win-ntuser-gui-l1-*.dll;
+        ext-ms-win-ntuser-windowclass-l1-*.dll;
+        ole32.dll;
+        ext-ms-win-shell-shell32-l1-*.dll;
+        ext-ms-win-ntuser-draw-l1-*.dll
       </DelayLoadDLLs>
     </Link>
     <Link Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -110,6 +102,7 @@
         $(ChakraCommonCodexLib);
         $(RazzleJscriptObjectRoot)\private\lib\scalookup\$(ObjectDirectory)\SCALookup_iel3.lib;
         $(RazzleJscriptObjectRoot)\private\lib\HostCommon\$(ObjectDirectory)\Chakra.Host.Common.lib;
+        $(RazzleJscriptObjectRoot)\private\lib\StaticLib\$(ObjectDirectory)\edgejsstatic.lib;
         $(SdkLibPath)\onecore_downlevel.lib
       </AdditionalDependencies>
       <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->

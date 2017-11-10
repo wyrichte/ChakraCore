@@ -23,7 +23,7 @@ HRESULT WINAPI GetDumpStreams(
 
     return JsDiag::JsDebugApiWrapper([=]
     {
-        JsDiag::ScriptState::SaveState(dataTarget, ppUserStream);
+        JsDiag::ScriptState::SaveState(dataTarget, ppUserStream, DumpType);
         return S_OK;
     });
 }
@@ -173,7 +173,7 @@ namespace JsDiag
         DiagException::Throw(E_UNEXPECTED);
     }
 
-    void ScriptState::SaveState(IStackProviderDataTarget* dataTarget, AutoList<WerStack>& werStacks)
+    void ScriptState::SaveState(IStackProviderDataTarget* dataTarget, AutoList<WerStack>& werStacks, MINIDUMP_TYPE dumpType)
     {
         DbgEngDiagProvider diagProvider(dataTarget);
         DebugClient debugClient(&diagProvider);
@@ -224,12 +224,64 @@ namespace JsDiag
                 werStacks.Add(werStack); // werStacks owns pointers
             }
 
+            if ((dumpType & MiniDumpFilterMemory) == 0)
+            {
+                // enumerate OOP JIT frames (which are MEM_MAPPED and as such will not automatically be included in dumps)
+                uintptr_t preReservedRegionStartAddr = threadContext->m_prereservedRegionAddr;
+
+                if (preReservedRegionStartAddr != 0)
+                {
+                    uintptr_t preReservedRegionEndAddr = (uintptr_t)RemotePreReservedVirtualAllocWrapper::GetPreReservedEndAddress((void*)preReservedRegionStartAddr);
+                    CheckHR(dataTarget->EnumMemoryRegion(preReservedRegionStartAddr, (ULONG)(preReservedRegionEndAddr - preReservedRegionStartAddr)));
+                }
+
+                ScriptContext * scriptContextList = threadContext->scriptContextList;
+                while (scriptContextList != nullptr)
+                {
+                    RemoteScriptContext scriptContext(debugClient.GetReader(), scriptContextList);
+
+                    if (scriptContext->jitFuncRangeCache != nullptr)
+                    {
+                        RemoteJITPageAddrToFuncRangeCacheWrapper jitFuncRangeCache(debugClient.GetReader(), scriptContext->jitFuncRangeCache);
+
+                        if (jitFuncRangeCache->jitPageAddrToFuncRangeMap != nullptr)
+                        {
+                            RemoteDictionary<JITPageAddrToFuncRangeCache::JITPageAddrToFuncRangeMap> jitPageAddrToFuncRangeMap(debugClient.GetReader(), jitFuncRangeCache->jitPageAddrToFuncRangeMap);
+
+                            jitPageAddrToFuncRangeMap.Map([dataTarget, debugClient](void * pageAddr, JITPageAddrToFuncRangeCache::RangeMap * pRangeMap)
+                            {
+                                if (pRangeMap != nullptr)
+                                {
+                                    RemoteDictionary<JITPageAddrToFuncRangeCache::RangeMap> rangeMap(debugClient.GetReader(), pRangeMap);
+
+                                    rangeMap.Map([dataTarget](void * address, uint bytes)
+                                    {
+                                        CheckHR(dataTarget->EnumMemoryRegion((uintptr_t)address, bytes));
+                                    });
+                                }
+                            });
+                        }
+
+                        if (jitFuncRangeCache->largeJitFuncToSizeMap != nullptr)
+                        {
+                            RemoteDictionary<JITPageAddrToFuncRangeCache::LargeJITFuncAddrToSizeMap> largeFuncMap(debugClient.GetReader(), jitFuncRangeCache->largeJitFuncToSizeMap);
+                            largeFuncMap.Map([dataTarget](void * pageAddr, uint bytes)
+                            {
+                                CheckHR(dataTarget->EnumMemoryRegion((uintptr_t)pageAddr, bytes));
+                            });
+                        }
+                    }
+
+                    scriptContextList = scriptContext->next;
+                }
+            }
+
             // Advance to next ThreadContext
             pThreadContext = static_cast<ThreadContext*>(threadContext->next);
         }
     }
 
-    void ScriptState::SaveState(IStackProviderDataTarget* dataTarget, PMINIDUMP_USER_STREAM_INFORMATION *ppUserStream)
+    void ScriptState::SaveState(IStackProviderDataTarget* dataTarget, PMINIDUMP_USER_STREAM_INFORMATION *ppUserStream, MINIDUMP_TYPE dumpType)
     {
         LPVOID pb = nullptr;
         ULONG size = 0;
@@ -242,7 +294,7 @@ namespace JsDiag
             {
                 // Collect all WER stacks
                 AutoList<WerStack> werStacks;
-                SaveState(dataTarget, werStacks);
+                SaveState(dataTarget, werStacks, dumpType);
 
                 // Transform collected WER stacks (even if none) into dump stream
                 ULONG stacksCount = static_cast<ULONG>(werStacks.GetCount());
