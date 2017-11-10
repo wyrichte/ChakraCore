@@ -63,8 +63,8 @@ try
     echo "Copying binaries...";
     robocopy /MIR /NJH /NJS /NP /NDL $chakraFullDir\Build\VcBuild\bin\$binflavor $bindir;
     echo "Invoking test runner...";
-    Invoke-Command -ComputerName $machineName -ArgumentList $machineShare,$bindir,$testcorebase,$testfullbase,$constantSwitches,$showSkips,$debugOut -ErrorAction Stop -ScriptBlock {
-        param([string]$machineShare, [string]$bindir, [string]$testcorebase, [string]$testfullbase, [string]$constantSwitches, [bool]$showskips, [bool]$debugOut);
+    Invoke-Command -ComputerName $machineName -ArgumentList $machineShare,$bindir,$testcorebase,$testfullbase,$constantSwitches,$debugOut -ErrorAction Stop -ScriptBlock {
+        param([string]$machineShare, [string]$bindir, [string]$testcorebase, [string]$testfullbase, [string]$constantSwitches, [bool]$debugOut);
         echo "Remote test runner started";
         # A few of the arm64 machines have postmortem debuggers set up.
         # In general, this is good; however, we hit an issue when doing
@@ -139,7 +139,7 @@ try
         [string]$bindirarg = Join-Path $bindir "..";
         #$failingDirs = "`"" + "Array,AsmJs,AsyncDebug,bailout,Basics,Bugs,crossthread,Date,Debugger,DebuggerCommon,Error,ErrorCommon,es6,FixedFields,Function,HeapEnum,host,iasd,InlineCaches,InternalProfile,Intl,IntlCore,jd,Miscellaneous,msrc,NativeUnitTests,Object,Opegen,Operators,Optimizer,Profiler,sca,StackTrace,strict,Strings,SunSpider,SunSpider1.0.2,SunSpiderFunctionality,UnifiedRegex,V8,V8strict,V8_Functionality,loop,Math,Regex" + "`"";
         [string]$dirs = "`"" + "Array,AsmJs,AsmJSFloat,ASMJSParser,bailout,Basics,Boolean,Bugs,Closures,ControlFlow,Conversions,Date,Debugger,DebuggerCommon,DynamicCode,EH,Error,es5,es6,es7,fieldopts,FixedFields,Function,Generated,GlobalFunctions,InlineCaches,inlining,Intl,JsBuiltIns,JSON,LetConst,Lib,loop,Math,Miscellaneous,Number,Object,Operators,Optimizer,PerfHint,Prototypes,Regex,RWC,Scanner,stackfunc,StackTrace,strict,Strings,switchStatement,TaggedFloats,TaggedIntegers,TTBasic,TTExecuteBasic,typedarray,UnifiedRegex,UnitTestFramework,utf8,VT_DATE" + "`"";
-        #[string]$dirs = "`"" + "SwitchStatement" + "`"";
+        #[string]$dirs = "`"" + "conversions" + "`"";
         [string]$extraflags = "`"-oopjit-`"";
 
         $stdoutloc = New-TemporaryFile;
