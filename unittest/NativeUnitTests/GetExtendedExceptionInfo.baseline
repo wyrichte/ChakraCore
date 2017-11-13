@@ -452,13 +452,13 @@ PASS: TestOnScriptErrorGetsExpectedURIErrorOnExplicitThrow
 	    throw 'Custom error'
 
     Uncaught exception:
-	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeNumber: 10
 	exInfo.errorType.typeText: Custom error
 	exInfo.bstrSource: JavaScript runtime error
 	exInfo.bstrDescription: Custom error
 	exInfo.scode: 800a139e
 
-	expected error type 7, got: 7 (Custom error: Custom error)
+	expected error type a, got: a (Custom error: Custom error)
 
 PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 
@@ -466,13 +466,13 @@ PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 	    throw {a: 'aaa', b: 'bbb'}
 
     Uncaught exception:
-	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeNumber: 10
 	exInfo.errorType.typeText: Custom error
 	exInfo.bstrSource: JavaScript runtime error
 	exInfo.bstrDescription: [object Object]
 	exInfo.scode: 800a139e
 
-	expected error type 7, got: 7 (Custom error: [object Object])
+	expected error type a, got: a (Custom error: [object Object])
 
 PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 
@@ -667,13 +667,13 @@ result.description=undefined
 result.number=undefined
 result.stack=undefined
     Uncaught exception:
-	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeNumber: 10
 	exInfo.errorType.typeText: Custom error
 	exInfo.bstrSource: JavaScript runtime error
 	exInfo.bstrDescription: Custom error
 	exInfo.scode: 800a139e
 
-	expected error type 7, got: 7 (Custom error: Custom error)
+	expected error type a, got: a (Custom error: Custom error)
 
 PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 
@@ -687,13 +687,13 @@ result.description=undefined
 result.number=undefined
 result.stack=undefined
     Uncaught exception:
-	exInfo.errorType.typeNumber: 7
+	exInfo.errorType.typeNumber: 10
 	exInfo.errorType.typeText: Custom error
 	exInfo.bstrSource: JavaScript runtime error
 	exInfo.bstrDescription: [object Object]
 	exInfo.scode: 800a139e
 
-	expected error type 7, got: 7 (Custom error: [object Object])
+	expected error type a, got: a (Custom error: [object Object])
 
 PASS: TestOnScriptErrorGetsExpectedCustomErrorOnThrowString
 

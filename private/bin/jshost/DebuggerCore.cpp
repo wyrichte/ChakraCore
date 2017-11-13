@@ -609,14 +609,18 @@ HRESULT Debugger::PerformOnBreak()
     // Resume
     if(HostConfigFlags::flags.Targeted)
     {
-        if(m_eCurrentBreakReason == BREAKREASON_ERROR || m_eCurrentBreakReason == BREAKREASON_DEBUGGER_HALT)
+        if(m_eCurrentBreakReason == BREAKREASON_ERROR_EX || m_eCurrentBreakReason == BREAKREASON_DEBUGGER_HALT_EX)
         {
             // The breakpoint was from an exception or async break
             IfFailGo(m_pController->HandleException());
         }
-        else if (m_eCurrentBreakReason == BREAKREASON_MUTATION_BREAKPOINT)
+        else if (m_eCurrentBreakReason == BREAKREASON_MUTATION_BREAKPOINT_EX)
         {
             IfFailGo(m_pController->HandleMutationBreakpoint());
+        }
+        else if (m_eCurrentBreakReason == BREAKREASON_DOMMUTATION_BREAKPOINT_EX)
+        {
+            IfFailGo(m_pController->HandleDOMMutationBreakpoint());
         }
         else
         {
@@ -801,7 +805,7 @@ HRESULT Debugger::GetCurrentBreakpoint(BpInfo **bpInfo)
     *bpInfo = NULL;
 
     // Match the breakpoint if either (a) we hit a breakpoint, or (b) it's targeted mode and we stepped into a breakpoint
-    if (m_eCurrentBreakReason == BREAKREASON_BREAKPOINT || (HostConfigFlags::flags.Targeted && m_eCurrentBreakReason == BREAKREASON_STEP))
+    if (m_eCurrentBreakReason == BREAKREASON_BREAKPOINT_EX || (HostConfigFlags::flags.Targeted && m_eCurrentBreakReason == BREAKREASON_STEP_EX))
     {
         CComPtr<IEnumDebugStackFrames> enumFrames;
         CComPtr<IDebugCodeContext> codeContext;

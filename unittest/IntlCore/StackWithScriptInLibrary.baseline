@@ -1,9 +1,9 @@
 Posting stack trace via ETW:
-	Frame 0: Name=0 (baz), SourceLocationLength=67, SourceLocationStartIndex=573
-	Frame 1: Name=6 (bar), SourceLocationLength=35, SourceLocationStartIndex=689
-	Frame 2: Name=12 (foo), SourceLocationLength=35, SourceLocationStartIndex=773
-	Frame 3: Name=18 (a.toString), SourceLocationLength=27, SourceLocationStartIndex=887
+	Frame 0: Name=0 (baz), SourceLocationLength=67, SourceLocationStartIndex=582
+	Frame 1: Name=6 (bar), SourceLocationLength=35, SourceLocationStartIndex=702
+	Frame 2: Name=12 (foo), SourceLocationLength=35, SourceLocationStartIndex=790
+	Frame 3: Name=18 (a.toString), SourceLocationLength=27, SourceLocationStartIndex=910
 	Frame 4: Name=31 (Intl.Collator.prototype.compare), SourceLocationLength=0, SourceLocationStartIndex=0
-	Frame 5: Name=65 (Global code), SourceLocationLength=20, SourceLocationStartIndex=924
+	Frame 5: Name=65 (Global code), SourceLocationLength=20, SourceLocationStartIndex=950
 NameBuffer = "baz";"bar";"foo";"a.toString";"Intl.Collator.prototype.compare";"Global code";
 Calling AsyncCausalityTracer.TraceOperationCreation(traceLevel=0, source=1, platformId={3CEFF62F-E251-4588-AE37-9D6D748ACD49}, operationId=1, operationName=somestring, relatedContext=0)

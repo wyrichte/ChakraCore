@@ -6,15 +6,15 @@ set LOGSDIR=%BUNDLEROOT%\LogFiles
 set FILENAME=%~f0
 set ARCH=%architecture%
 set FLAVOR=fre
-if not x%FILENAME:fre=%==%FILENAME% set FLAVOR=chk
+if %FILENAME:fre=%==%FILENAME% set FLAVOR=chk
 
 echo BundleRoot is at %BUNDLEROOT%
 echo Logs are at %LOGSDIR%
 echo Architecture is %ARCH%
 echo Flavor is %FLAVOR%
 
-echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es5`,Object`,SIMD.int8x16.asmjs`,SIMD.uint32x4.asmjs`,SIMD.uint16x8.asmjs`,SIMD.uint8x16.asmjs`,SIMD.bool32x4.asmjs`,SIMD.bool16x8.asmjs`,SIMD.bool8x16.asmjs`,SIMD.wrappers
-powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es5`,Object`,SIMD.int8x16.asmjs`,SIMD.uint32x4.asmjs`,SIMD.uint16x8.asmjs`,SIMD.uint8x16.asmjs`,SIMD.bool32x4.asmjs`,SIMD.bool16x8.asmjs`,SIMD.bool8x16.asmjs`,SIMD.wrappers
+echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es5`,Object
+powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es5`,Object
 
 if ERRORLEVEL 1 (
     echo [LABMARKFAILED] >> %LOGSDIR%\Test-Summary.log

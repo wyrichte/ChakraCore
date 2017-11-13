@@ -22,7 +22,9 @@ PRECOMPILED_INCLUDE=stdafx.h
 
 INCLUDES= \
 	$(SDK_INC_PATH)\atl30; \
+    $(ONECORECOM_INC_PATH); \
     $(COM_INC_PATH);\
+    $(ONECORECOM_INC_PATH)\winrt; \
     $(COM_INC_PATH)\winrt;\
     $(OBJ_PATH)\..\lib\$(O);\
     $(OBJ_PATH)\..\idl\dll\$(O);\

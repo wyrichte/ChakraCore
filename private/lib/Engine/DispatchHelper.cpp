@@ -482,6 +482,11 @@ HRESULT DispatchHelper::MarshalVariantToFrameDisplay(VARIANT *pVar, Js::FrameDis
     SAFEARRAY *pArray = pVar->parray;
     Assert(pArray && pArray->cDims == 1);
 
+    if (pArray->cbElements != (uint16)pArray->cbElements)
+    {
+        return E_INVALIDARG;
+    }
+
     uint16 length = (uint16)pArray->cbElements;
     if (length == 0)
     {

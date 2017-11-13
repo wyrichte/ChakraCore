@@ -1717,7 +1717,7 @@ namespace Projection
     //              memSize - the size of mem in bytes
     //              methodName - the name of the calling method
     // Returns:     a pointer to the byte right after this write
-    byte * ProjectionMarshaler::WriteStructConstructorTypeInParameter(Var varInput, RtSTRUCTCONSTRUCTOR constructor, bool structsByValue, __in_bcount(memSize) byte * mem,__in size_t memSize)
+    byte * ProjectionMarshaler::WriteStructConstructorTypeInParameter(Var varInput, RtSTRUCTCONSTRUCTOR constructor, bool structsByValue, __in_bcount(memSize) byte * mem,__in size_t memSize, __in bool padHFA)
     {
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         if (Js::TaggedNumber::Is(varInput))
@@ -1757,6 +1757,10 @@ namespace Projection
 #endif
         ImmutableList<RtABIFIELDPROPERTY> * properties = constructor->structType->fields;
         size_t remainingStorage = constructor->structType->storageSize;
+#if _M_ARM64
+        // hfa padding only used on ARM64.
+        int hfaPadding = 0;
+#endif
         while(properties)
         {
             RtABIFIELDPROPERTY prop = properties->First();
@@ -1769,6 +1773,14 @@ namespace Projection
             }
 
             byte * fieldMem = storage + prop->fieldOffset;
+#if _M_ARM64
+
+            if (padHFA)
+            {
+                fieldMem = storage + prop->fieldOffset + hfaPadding;
+                hfaPadding = hfaPadding + 16 - prop->type->storageSize;
+            }
+#endif
             WriteInType(fieldObject, prop->type, fieldMem, remainingStorage, true);
             remainingStorage -= prop->type->storageSize;
             properties = properties->GetTail();
@@ -1992,7 +2004,7 @@ namespace Projection
         case functionDelegateConstructor:
             return WriteDelegateConstructorTypeInParameter(varInput, DelegateConstructor::From(function), mem, memSize);
         case functionStructConstructor: 
-            return WriteStructConstructorTypeInParameter(varInput, StructConstructor::From(function), structsByValue, mem, memSize);
+            return WriteStructConstructorTypeInParameter(varInput, StructConstructor::From(function), structsByValue, mem, memSize, false);
         case functionInterfaceConstructor:
             return WriteRuntimeInterfaceConstructor(varInput, RuntimeInterfaceConstructor::From(function), mem, memSize);
         case functionRuntimeClassConstructor: 
@@ -2441,6 +2453,33 @@ namespace Projection
     byte * ProjectionMarshaler::WriteInParameter(__in Var arg, __in RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize)
     {
         return WriteInType(arg, parameter->type, mem, memSize, false);
+    }
+
+    // Info:        Write an HFA parameter. This function is only used on ARM64 and plumbs data through to the struct marshalling routine in cases where we know we are
+    //              marshaling a struct of exactly 4 or fewer floats or 4 or fewer doubles since extra padding is necessary to make sure they get loaded into the
+    //              correct floating point registers.
+    // Parameters:  arg - the input
+    //              parameter - the parameter to write
+    //              mem - pointer to the target memory
+    //              memSize - the size of the mem in bytes
+    // Returns:     a pointer to the byte right after this write
+    byte * ProjectionMarshaler::WriteInHFAParameter(__in Var arg, RtABIPARAMETER parameter, __in_bcount(memSize) byte * mem,__in size_t memSize)
+    {
+
+        Assert(parameter->type->typeCode == tcStructType);
+        RtTYPEDEFINITIONTYPE typeDefinitionType = TypeDefinitionType::From(parameter->type);
+        RtEXPR expr;
+        HRESULT hr = projectionContext->GetExpr(typeDefinitionType->typeId, typeDefinitionType->typeDef->id, nullptr, typeDefinitionType->genericParameters, &expr);
+        if (FAILED(hr)) {
+            Js::VerifyOkCatastrophic(hr);
+        }
+
+        Assert(expr->type == exprFunction);
+
+        RtFUNCTION function = Function::From(expr);
+        Assert(function->functionType == functionStructConstructor);
+
+        return WriteStructConstructorTypeInParameter(arg, StructConstructor::From(function), false, mem, memSize, true);
     }
 
     bool ProjectionMarshaler::CanMarshalExpr(RtEXPR expr)

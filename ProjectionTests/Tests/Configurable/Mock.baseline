@@ -214,6 +214,7 @@ Comment: myAnimal.setNumLegs: {"writable":true,"enumerable":true,"configurable":
 Comment: myAnimal.slowPath: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal.testBug202724_GetInt64: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal.testBug202724_GetUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal.testBug8327782_StackArguments: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal.testError: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal.testInAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal.testInMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
@@ -488,6 +489,7 @@ Comment: myAnimal3.setNumLegs: {"writable":true,"enumerable":true,"configurable"
 Comment: myAnimal3.slowPath: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal3.testBug202724_GetInt64: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal3.testBug202724_GetUInt64: {"writable":true,"enumerable":true,"configurable":true}
+Comment: myAnimal3.testBug8327782_StackArguments: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal3.testError: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal3.testInAllIRefStruct: {"writable":true,"enumerable":true,"configurable":true}
 Comment: myAnimal3.testInMixIRefStruct: {"writable":true,"enumerable":true,"configurable":true}

@@ -2,7 +2,7 @@ TEST_CODE=1
 TARGETTYPE    = NOTARGET
 TARGET_DESTINATION = Projection\SNAP
 
-PASS_INDEPENDENT_BINPLACE= \
+PASS0_BINPLACE = \
     .\getRegistrationUtilities.bat \
     .\RegisterProjectionABIs.ps1 \
     .\RegisterProjectionABIs.psm1 \

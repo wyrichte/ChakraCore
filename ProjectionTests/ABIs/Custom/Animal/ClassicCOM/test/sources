@@ -29,5 +29,5 @@ SOURCES = \
     AnimalTest.cpp \
 
 TARGETLIBS = \
-    $(SDK_LIB_PATH)\kernel32.lib \
+    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_kernel32.lib \
 

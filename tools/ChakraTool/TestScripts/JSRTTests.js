@@ -70,28 +70,26 @@
     function snapSetup(testContext) {
         var logger = testContext.onlyForIntellisense ? Logger(testContext.logger) : testContext.logger;
 
-        logger.logErrorLine("JSRT is not yet supported on DRT's in SNAP, files aren't binplaced.", "Setup");
+        var config = testContext.config;
+        var shell = testContext.onlyForIntellisense ? Shell(testContext.shell) : testContext.shell;
+        shell.setStdOutWriter(logger.logRaw);
+        shell.setStdErrWriter(logger.logErrorRaw);
+        logger.logLine("Started JSRT snap setup.", "Setup");
 
-        //var config = testContext.config;
-        //var shell = testContext.onlyForIntellisense ? Shell(testContext.shell) : testContext.shell;
-        //shell.setStdOutWriter(logger.logRaw);
-        //shell.setStdErrWriter(logger.logErrorRaw);
-        //logger.logLine("Started JSRT snap setup.", "Setup");
+        //robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx
+        logger.logLine("Executing robocopy {0} {1} *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx".format(config.snapSourceDir, config.snapTargetDir), "Setup");
+        var exitCode = shell.execute("robocopy {0} {1} *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx".format(config.snapSourceDir, config.snapTargetDir));
+        switch (exitCode) {
+            case 0:
+            case 1:
+            case 2:
+                logger.logLine("Robocopy succeeded with exit code {0}".format(exitCode), "Setup");
+                break;
+            default:
+                throw new Error("Robocopy encountered an error, exit code: {0}".format(exitCode));
+        }
 
-        ////robocopy %_sourceDir% %_targetDir% *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx
-        //logger.logLine("Executing robocopy {0} {1} *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx".format(config.snapSourceDir, config.snapTargetDir), "Setup");
-        //var exitCode = shell.execute("robocopy {0} {1} *.dll *.exe *.mui *.tlb *.js /njh /njs /ndl /purge /xx".format(config.snapSourceDir, config.snapTargetDir));
-        //switch (exitCode) {
-        //    case 0:
-        //    case 1:
-        //    case 2:
-        //        logger.logLine("Robocopy succeeded with exit code {0}".format(exitCode), "Setup");
-        //        break;
-        //    default:
-        //        throw new Error("Robocopy encountered an error, exit code: {0}".format(exitCode));
-        //}
-
-        //logger.logLine("Completed JSRT snap setup.", "Setup");
+        logger.logLine("Completed JSRT snap setup.", "Setup");
     }
 
     this.TestHost.registerTestSuite({
@@ -126,9 +124,19 @@
                 type: "Number",
                 defaultValue: 5 * 60 * 1000,
                 description: "The time out for the test in milliseconds, default is 5 min."
+            },
+            snapSourceDir: {
+                type: "Directory",
+                defaultValue: "{0}\\jsrt\\unittest",
+                defaultValueReferences: ["snapBinRoot"],
+                description: "SNAP Only: When calling SNAP setup, this will be resolved to the share directory containing JSRT test scripts."
+            },
+            snapTargetDir: {
+                type: "Directory",
+                defaultValue: "{0}\\jsrt\\unittest",
+                defaultValueReferences: ["snapJSRoot"],
+                description: "SNAP Only: When calling SNAP setup, this will be resolved to the local directory where JSRT test scripts will be copied to."
             }
-           // snapSourceDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapBinRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the share directory containing JSRT test scripts." },
-           // snapTargetDir: { type: "Directory", defaultValue: "{0}\\jsrt\\unittest", defaultValueReferences: ["snapJSRoot"], description: "SNAP Only: When calling SNAP setup, this will be resolved to the local directory where JSRT test scripts will be copied to." }
         }
     });
 }());

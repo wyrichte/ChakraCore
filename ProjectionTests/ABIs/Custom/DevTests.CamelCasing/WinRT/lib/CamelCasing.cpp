@@ -9,7 +9,7 @@ using namespace Windows::Foundation::Collections;
 using namespace Microsoft::WRL;
 
 template<class E, class T>
-HRESULT InvokeAll(E& e, T& t, const wchar_t *str){
+HRESULT InvokeAll(E& e, T t, const wchar_t *str){
     Windows::Internal::String string;
     IfFailedReturn(string.Initialize(str));
     e.InvokeAll(t, string.Get());

@@ -38,7 +38,7 @@ TARGETLIBS=     \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
-    $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
+    $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib       \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
     $(PROJECT_LIB_PATH)\IESettingsId.lib \
     $(PROJECT_LIB_PATH)\IESettingsApi.lib \

@@ -292,6 +292,15 @@ public:
         __in UINT64 flags,
         __out Var* jsFunction);
 
+    /* Static lib variant */
+    virtual HRESULT STDMETHODCALLTYPE BuildDOMDirectFunction(
+        __in Var signature,
+        __in ScriptMethod entryPoint,
+        __in PropertyId nameId,
+        __in UINT64 flags,
+        __in UCHAR length,
+        __out Var* jsFunction);
+
     HRESULT STDMETHODCALLTYPE GetTypedObjectSlotAccessor(
         __in JavascriptTypeId typeId,
         __in PropertyId nameId,
@@ -498,6 +507,8 @@ public:
         /* [in] */ __RPC__deref_in_opt ModuleRecord requestModule,
         /* [in] */ ModuleHostInfoKind moduleHostState,
         /* [out] */ __RPC__deref_out_opt void **hostInfo) override;
+
+    HRESULT STDMETHODCALLTYPE TriggerDOMMutationBreakpoint();
 
     HRESULT STDMETHODCALLTYPE CreateScriptErrorFromVar(Var errorObject, IActiveScriptError** scriptError) override;
 

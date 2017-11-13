@@ -105,3 +105,5 @@ Math::Rand()
 
     return newRand;
 }
+
+IMPLEMENT_STUB_IsLikelyRuntimeFalseReference()

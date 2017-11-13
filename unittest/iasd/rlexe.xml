@@ -52,4 +52,10 @@
       <compile-flags>-args summary -endargs</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>domlength.htm</files>
+      <baseline>domlength.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

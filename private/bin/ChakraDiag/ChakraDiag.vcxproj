@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props"/>
+  <Import Condition="'$(ChakraBuildPathImported)'!='true'" Project="$(SolutionDir)Chakra.Build.Paths.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.ProjectConfiguration.props" />
   <PropertyGroup Label="Globals">
     <ProjectName>ChakraDiag</ProjectName>
@@ -19,7 +19,7 @@
     <Mui Condition="'$(BuildingWithBuildExe)'=='true'">false</Mui>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.props" />
   <PropertyGroup>
@@ -48,7 +48,7 @@
         $(ChakraRootDirectory)private\lib\Projection;
         $(ChakraRootDirectory)private\lib;
 
-        <!-- For EdgeScriptDirect.h and EdgeJavascriptTypeId.h -->
+
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
@@ -89,7 +89,6 @@
         $(OneCoreShellLibPath)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
 
         <!-- _DoNotUseDirectly_CULprintf in codex -->
-        <!-- TODO: Clean this up -->
         $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib;
 
         <!-- Setting store -->
@@ -189,14 +188,14 @@
     <ClInclude Include="VirtualReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="$(MSBuildThisFileDirectory)ChakraDiag.rc" />    
+    <ResourceCompile Include="$(MSBuildThisFileDirectory)ChakraDiag.rc" />
   </ItemGroup>
   <!-- sign instruction -->
     <ItemGroup>
     <FilesToSign Include="$(OutDir)\$(TargetName).dll">
       <Authenticode>MicrosoftSHA2</Authenticode>
     </FilesToSign>
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup>
     <None Include="JsDebug.rgs" />
   </ItemGroup>
@@ -226,6 +225,6 @@
       <Project>{1876e800-ad77-48c4-a2f7-e5265f24ac35}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')"/>
+  <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

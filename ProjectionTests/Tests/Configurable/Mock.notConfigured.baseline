@@ -214,6 +214,7 @@ Comment: myAnimal.setNumLegs: {"writable":false,"enumerable":true,"configurable"
 Comment: myAnimal.slowPath: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal.testBug202724_GetInt64: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal.testBug202724_GetUInt64: {"writable":false,"enumerable":true,"configurable":false}
+Comment: myAnimal.testBug8327782_StackArguments: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal.testError: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal.testInAllIRefStruct: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal.testInMixIRefStruct: {"writable":false,"enumerable":true,"configurable":false}
@@ -475,6 +476,7 @@ Comment: myAnimal2.setNumLegs: {"writable":false,"enumerable":true,"configurable
 Comment: myAnimal2.slowPath: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal2.testBug202724_GetInt64: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal2.testBug202724_GetUInt64: {"writable":false,"enumerable":true,"configurable":false}
+Comment: myAnimal2.testBug8327782_StackArguments: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal2.testError: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal2.testInAllIRefStruct: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal2.testInMixIRefStruct: {"writable":false,"enumerable":true,"configurable":false}
@@ -720,6 +722,7 @@ Comment: myAnimal3.setNumLegs: {"writable":false,"enumerable":true,"configurable
 Comment: myAnimal3.slowPath: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal3.testBug202724_GetInt64: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal3.testBug202724_GetUInt64: {"writable":false,"enumerable":true,"configurable":false}
+Comment: myAnimal3.testBug8327782_StackArguments: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal3.testError: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal3.testInAllIRefStruct: {"writable":false,"enumerable":true,"configurable":false}
 Comment: myAnimal3.testInMixIRefStruct: {"writable":false,"enumerable":true,"configurable":false}

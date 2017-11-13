@@ -322,16 +322,16 @@ try
     if($RunJsrtUnitTests)
     {
         Write-Host "Needs 7-zip installed on the test machine and on the %path%"
-        Write-Host "7z x -r -aoa -y $JScriptTestBin\JScriptTestCollateral.cab -o$JScriptTestBin\jsrt\unittest unittest\jsrt\scripts\*.js"
-        7z e -r -aoa -y $JScriptTestBin\JScriptTestCollateral.cab -o"$JScriptTestBin\jsrt\unittest" unittest\jsrt\scripts\*.js
+        Write-Host "7z e -r -aoa -y -o""$JScriptTestBin\jsrt\unittest"" $(Join-Path $JScriptTestBin "JScriptTestCollateral.cab") unittest\jsrt\scripts\*.js"
+        7z e -r -aoa -y -o"$JScriptTestBin\jsrt\unittest" $(Join-Path $JScriptTestBin "JScriptTestCollateral.cab") unittest\jsrt\scripts\*.js
 
         Write-Progress -Activity "Copy JScript Binaries" -Status "Finished copying JSRT tests from build drop ..." -PercentComplete 65
     }
 
     Write-Host "Begin extracting just the Tools from the $JScriptTestBin\JScriptTestCollateral.cab to $JScriptTestBin."
     Write-Host "Needs 7-zip installed on the test machine and on the %path%"
-    Write-Host "7z x -r -aoa -y $JScriptTestBin\JScriptTestCollateral.cab -o$JScriptTestBin tools\\*.*" 
-    7z x -r -aoa -y $JScriptTestBin\JScriptTestCollateral.cab -o"$JScriptTestBin" tools\*.*
+    Write-Host "7z x -r -aoa -y -o""$JScriptTestBin"" $(Join-Path $JScriptTestBin "JScriptTestCollateral.cab") tools\*.*" 
+    7z x -r -aoa -y -o"$JScriptTestBin" $(Join-Path $JScriptTestBin "JScriptTestCollateral.cab") tools\*.*
 
     if($LASTEXITCODE -ne 0)
     {

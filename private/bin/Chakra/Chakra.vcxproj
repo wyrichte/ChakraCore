@@ -73,7 +73,7 @@
         $(OneCoreUapInetcoreLibPath)\IESettingsApi.lib;
         $(OneCoreUapInetcoreLibPath)\IESettingsId.lib;
 
-        <!-- For _DoNotUseDirectly_CULprintf in codex --><!-- TODO: Clean this up -->
+        <!-- For _DoNotUseDirectly_CULprintf in codex -->
         $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
@@ -99,12 +99,10 @@
       <AdditionalDependencies>
         $(ChakraLibs);
         %(AdditionalDependencies);
-        <!-- iedevtools_host_iel1.lib:
-              LoadLatestPDM
-              ShouldUseLocalPDM -->
+       
         $(IELibPath)\devtb\dtbhost_edge\$(ObjectDirectory)iedevtools_host_iel1_edge.lib;
 
-        <!-- All for ScriptProjectionHostApi -->
+
         $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(OneCoreBaseLibPath)\appmodel\common\appmodel.common.lib;

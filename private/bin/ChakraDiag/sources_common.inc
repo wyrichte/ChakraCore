@@ -18,6 +18,7 @@ INCLUDES= \
    $(SDK_LIB_PATH); \
    $(SDK_INC_PATH); \
    $(SDK_INC_PATH)\atlmfc; \
+   $(ONECORESDKTOOLS_INC_PATH); \
    $(SDKTOOLS_INC_PATH); \
    $(COM_INC_PATH); \
    $(COM_INC_PATH)\winrt; \

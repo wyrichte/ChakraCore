@@ -104,12 +104,7 @@
         if (exitCode.isError) {
             throw new Error("Robocopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
-        exitCode = shell.roboCopy("{0}\\spartan".format(config.snapBinRoot), jsRootDir, "*.dll *.exe *.mui *.tlb /njh /njs /ndl /purge /xx");
-        if (exitCode.isError) {
-            throw new Error("Robocopy encountered an error: {0}".format(exitCode));
-        }
-        
+
         if (config.snapAdditionalBinRoot !== undefined) {
             logger.logLine("snapAdditionalBinRoot switch was set, copying those files as well.");
             var exitCode = shell.roboCopy(config.snapAdditionalBinRoot, jsRootDir, "*.dll *.exe *.mui *.tlb /njh /njs /ndl /purge /xx");

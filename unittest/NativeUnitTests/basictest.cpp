@@ -2,9 +2,6 @@
 #include "stdafx.h"
 #include "ScriptDirectUnitTests.h"
 #include "edgejsStatic.h"
-#ifdef _NTBUILD
-#include <VerifyGlobalMSRCSettings.inl>
-#endif
 
 Var MyObjectConstructor(Var function, CallInfo callInfo, Var* args)
 {

@@ -13,7 +13,6 @@
       <PreprocessorDefinitions>_WIN32_WINNT=$(Win32_WinNTVersion);WINVER=$(Win32_WinNTVersion);_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(NotLeanAndMean)' == ''">%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN=1</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(NTDDIVersion)'!=''" >%(PreprocessorDefinitions);NTDDI_VERSION=$(NTDDIVersion)</PreprocessorDefinitions>
-
       <ForcedIncludeFiles>%(ForcedIncludeFiles);$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
 

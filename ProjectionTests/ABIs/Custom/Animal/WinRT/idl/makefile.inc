@@ -1,2 +1,2 @@
 $(OBJ_PATH)\$(O)\published\Animals.winmd:
-    mdmerge -metadata_dir $(SDK_METADATA_PATH) -metadata_dir $(OBJ_PATH)\..\..\..\teachRT\winrt\idl\dll\$(O) -i $(OBJ_PATH)\$(O) -o $(OBJ_PATH)\$(O)\published -n:1 -partial
+    mdmerge -metadata_dir $(PROJECT_SDK_METADATA_PATH) -metadata_dir $(OBJ_PATH)\..\..\..\teachRT\winrt\idl\dll\$(O) -i $(OBJ_PATH)\$(O) -o $(OBJ_PATH)\$(O)\published -n:1 -partial

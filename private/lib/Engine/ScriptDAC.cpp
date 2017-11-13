@@ -16,6 +16,9 @@
 
 namespace Js
 {
+    typedef RemoteData<ThreadContext, DynamicDataBuffer> RemoteThreadContext;
+    typedef RemoteData<InProcCodeGenAllocators, DynamicDataBuffer> RemoteInProcCodeGenAllocators;
+
     ScriptDAC::ScriptDAC()
     {
     }
@@ -36,7 +39,7 @@ namespace Js
 
         while (threadContextPtr)
         {
-            RemoteData<ThreadContext> threadContext;
+            RemoteThreadContext threadContext;
             IfFailGo(threadContext.Read(debugSite, threadContextPtr));
 
             const ScriptContext* scriptContextPtr = threadContext->GetScriptContextList();
@@ -148,7 +151,7 @@ Error:
 
             if (nativeCodeGen->foregroundAllocators)
             {
-                RemoteData<InProcCodeGenAllocators> foregroundAllocators;
+                RemoteInProcCodeGenAllocators foregroundAllocators;
                 IfFailGo(foregroundAllocators.Read(debugSite, nativeCodeGen->foregroundAllocators));
                 if (foregroundAllocators->emitBufferManager.allocations != nullptr)
                 {
@@ -159,7 +162,7 @@ Error:
 
             if (nativeCodeGen->backgroundAllocators)
             {
-                RemoteData<InProcCodeGenAllocators> backgroundAllocators;
+                RemoteInProcCodeGenAllocators backgroundAllocators;
                 IfFailGo(backgroundAllocators.Read(debugSite, nativeCodeGen->backgroundAllocators));
                 if (backgroundAllocators->emitBufferManager.allocations != nullptr)
                 {
@@ -170,7 +173,7 @@ Error:
 
             if (!modulesAdded)
             {
-                RemoteData<ThreadContext> threadContext;
+                RemoteThreadContext threadContext;
                 IfFailGo(threadContext.Read(debugSite, (*this)->GetThreadContext()));
                 uintptr_t preReservedRegionStartAddr = threadContext->GetPreReservedRegionAddr();
 

@@ -7,7 +7,7 @@ set PLATFORM=%~2
 set DESTINATION=%~3
 
 set FILEVER_PATH=%RAZZLE_TOOLS_PATH%\x86\filever.exe
-set LINK_PATH=%RAZZLE_TOOLS_PATH%\vc\HostX86\x86\link.exe
+set LINK_PATH=%OSBuildToolsRoot%\vc\HostX86\x86\link.exe
 echo filever: %FILEVER_PATH%
 echo link: %LINK_PATH%
 

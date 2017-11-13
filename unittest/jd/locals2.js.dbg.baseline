@@ -938,10 +938,6 @@
         }
       },
       "[Globals]": {
-        "console": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        },
         "Animal": {
           "__proto__": "function() {\n    [native code]\n}",
           "arguments": "null",

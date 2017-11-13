@@ -1,0 +1,23 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 141,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "f1"
+      },
+      {
+        "start": 202,
+        "length": 4,
+        "text": "f1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "diagnosticsScript.debugEval('function f2() { return 1; }; f2()', true)": "1"
+    }
+  }
+]

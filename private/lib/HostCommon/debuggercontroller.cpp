@@ -540,6 +540,12 @@ HRESULT DebuggerController::HandleMutationBreakpoint()
     return m_scriptWrapper->CallGlobalFunction(_u("HandleMutationBreakpoint"), &result);
 }
 
+HRESULT DebuggerController::HandleDOMMutationBreakpoint()
+{
+    JsValueRef result;
+    return m_scriptWrapper->CallGlobalFunction(_u("HandleDOMMutationBreakpoint"), &result);
+}
+
 HRESULT ScriptEngineWrapper::GetExternalData(JsValueRef func, void **data)
 {
     HRESULT hr = S_OK;
@@ -624,31 +630,37 @@ UINT DebuggerController::GetRadix(DebugPropertyFlags flags)
 
 LPCWSTR DebuggerController::GetBreakpointReason(BREAKREASON reason)
 {
-    switch(reason)
+    BREAKREASONEX reasonEx = (BREAKREASONEX)reason;
+    switch(reasonEx)
     {
-    case BREAKREASON_ERROR:                     // script error
+    case BREAKREASON_ERROR_EX:                     // script error
         return _u("exception");
 
-    case BREAKREASON_BREAKPOINT:                // Script breakpoint
+    case BREAKREASON_BREAKPOINT_EX:                // Script breakpoint
         return _u("breakpoint");
 
-    case BREAKREASON_STEP:                      // Caused by the stepping mode
+    case BREAKREASON_STEP_EX:                      // Caused by the stepping mode
         return _u("step");
 
-    case BREAKREASON_DEBUGGER_BLOCK:            // Caused by another thread breaking
+    case BREAKREASON_DEBUGGER_BLOCK_EX:            // Caused by another thread breaking
         return _u("debugger_block");
 
-    case BREAKREASON_HOST_INITIATED:            // Caused by host requested break
+    case BREAKREASON_HOST_INITIATED_EX:            // Caused by host requested break
         return _u("host_initiated");
 
-    case BREAKREASON_LANGUAGE_INITIATED:        // Caused by a scripted break
+    case BREAKREASON_LANGUAGE_INITIATED_EX:        // Caused by a scripted break
         return _u("language_initiated");
 
-    case BREAKREASON_DEBUGGER_HALT:             // Caused by debugger IDE requested break
+    case BREAKREASON_DEBUGGER_HALT_EX:             // Caused by debugger IDE requested break
         return _u("debugger_halt");
-    case BREAKREASON_MUTATION_BREAKPOINT:       // Caused by mutation breakpoint
+
+    case BREAKREASON_MUTATION_BREAKPOINT_EX:       // Caused by mutation breakpoint
         return _u("mutation_breakpoint");
-    case BREAKREASON_JIT:                   // Caused by JIT Debugging startup
+
+    case BREAKREASON_DOMMUTATION_BREAKPOINT_EX:    // Caused by DOM mutation break
+        return _u("DOM mutation breakpoint");
+
+    case BREAKREASON_JIT_EX:                   // Caused by JIT Debugging startup
     default:
         return _u("unknown");
     }

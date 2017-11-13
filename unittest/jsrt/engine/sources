@@ -3,7 +3,7 @@ TARGETTYPE                      =   DYNLINK
 TARGET_DESTINATION              =   jscript\jsrt\unittest
 DLLDEF                          =
 
-PASS_INDEPENDENT_BINPLACE       =   Tests.xml
+PASS0_BINPLACE                  =   Tests.xml
 
 USE_NOTHROW_NEW=1
 USE_MSVCRT                      =   1

@@ -33,12 +33,12 @@
       <tags>GetExtendedExceptionInfo,exclude_drt</tags>
       <files>libraryCodeParentThrowThroughFrame.onError.html</files>
       <compile-flags>-WERExceptionSupport</compile-flags>
-      <baseline>libraryCodeParentThrowThroughFrame.onError.win8.baseline</baseline>
+      <baseline>libraryCodeParentThrowThroughFrame.onError.baseline</baseline>
     </default>
     <condition order="1" type="include">
-      <os>win7</os>
+      <os>win8</os>
       <override>
-        <baseline>libraryCodeParentThrowThroughFrame.onError.baseline</baseline>
+        <baseline>libraryCodeParentThrowThroughFrame.onError.win8.baseline</baseline>
       </override>
     </condition>
   </test>
