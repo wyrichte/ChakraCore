@@ -452,8 +452,7 @@
   <test>
     <default>
       <files>msrc40370.js</files>
-      <!-- Add -EnableFatalErrorOnOOM- in unreleased/rs4 -->
-      <compile-flags></compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
     </default>
   </test>
   <test>

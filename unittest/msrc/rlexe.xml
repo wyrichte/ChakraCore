@@ -49,7 +49,7 @@
   <test>
     <default>
       <files>40370.js</files>
-      <compile-flags>-ArrayBufferTransfer -EnableFatalErrorOnOOM-</compile-flags>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
     </default>
   </test>
 </regress-exe>

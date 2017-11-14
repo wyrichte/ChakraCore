@@ -1,4 +1,4 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b0 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b2 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 BailOut: function: foo1 ( (#1.1), #2) offset: #002f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 BailOut: changing due to ignore exception: function: foo2 ( (#1.2), #3) offset: #000c -> #000e Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 BailOut: function: foo2 ( (#1.2), #3) offset: #000e Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
@@ -15,6 +15,6 @@ BailOut: function: CanonicalizeLocaleList ( (#-1.30), #30) offset: #002a Opcode:
 BailOut: changing due to ignore exception: function: foo4 ( (#1.4), #5) offset: #001c -> #001f Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 BailOut: function: foo4 ( (#1.4), #5) offset: #001f Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 foo4.after Intl call
-BailOut: changing due to ignore exception: function: foo5_inner ( (#1.7), #8) offset: #001f -> #0026 Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
-BailOut: function: foo5_inner ( (#1.7), #8) offset: #0026 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: changing due to ignore exception: function: foo5_inner ( (#1.7), #8) offset: #0019 -> #0020 Opcode: BailForDebugger Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
+BailOut: function: foo5_inner ( (#1.7), #8) offset: #0020 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 done
