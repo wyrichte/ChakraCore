@@ -33,7 +33,7 @@
   },
   {
     "evaluate": {
-      "l2": "'l2' is undefined"
+      "l2": "'l2' is not defined"
     }
   },
   {

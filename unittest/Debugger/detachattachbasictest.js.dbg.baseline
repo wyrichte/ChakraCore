@@ -15,7 +15,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -25,7 +24,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -57,7 +55,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -67,7 +64,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -99,7 +95,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -109,7 +104,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -141,7 +135,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -151,7 +144,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -183,7 +175,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -193,7 +184,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -225,7 +215,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -235,7 +224,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -267,7 +255,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -277,7 +264,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -309,7 +295,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -319,7 +304,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -351,7 +335,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -361,7 +344,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -393,7 +375,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -403,7 +384,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -435,7 +415,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -446,7 +425,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -478,7 +456,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -488,7 +465,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -520,7 +496,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -530,7 +505,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -562,7 +536,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -572,7 +545,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -604,7 +576,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -614,7 +585,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -646,7 +616,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -656,7 +625,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -688,7 +656,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -698,7 +665,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -730,7 +696,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -740,7 +705,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -772,7 +736,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -782,7 +745,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -814,7 +776,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -824,7 +785,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -856,7 +816,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -867,7 +826,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -899,7 +857,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -909,7 +866,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -941,7 +897,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -951,7 +906,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -983,7 +937,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -993,7 +946,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1025,7 +977,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1035,7 +986,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1067,7 +1017,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1077,7 +1026,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1109,7 +1057,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1119,7 +1066,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1151,7 +1097,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1161,7 +1106,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1193,7 +1137,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1203,7 +1146,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1235,7 +1177,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1245,7 +1186,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1277,7 +1217,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -1288,7 +1227,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1320,7 +1258,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1330,7 +1267,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1362,7 +1298,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1372,7 +1307,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1404,7 +1338,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1414,7 +1347,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1446,7 +1378,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1456,7 +1387,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1488,7 +1418,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1498,7 +1427,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1530,7 +1458,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1540,7 +1467,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1572,7 +1498,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1582,7 +1507,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1614,7 +1538,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1624,7 +1547,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1656,7 +1578,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1666,7 +1587,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1698,7 +1618,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -1709,7 +1628,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1741,7 +1659,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1751,7 +1668,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1783,7 +1699,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1793,7 +1708,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1825,7 +1739,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1835,7 +1748,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1867,7 +1779,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1877,7 +1788,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1909,7 +1819,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1919,7 +1828,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1951,7 +1859,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -1961,7 +1868,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -1993,7 +1899,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2003,7 +1908,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2035,7 +1939,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2045,7 +1948,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2077,7 +1979,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2087,7 +1988,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2119,7 +2019,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -2130,7 +2029,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2162,7 +2060,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2172,7 +2069,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2204,7 +2100,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2214,7 +2109,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2246,7 +2140,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2256,7 +2149,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2288,7 +2180,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2298,7 +2189,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2330,7 +2220,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2340,7 +2229,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2372,7 +2260,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2382,7 +2269,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2414,7 +2300,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2424,7 +2309,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2456,7 +2340,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2466,7 +2349,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2498,7 +2380,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2508,7 +2389,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2540,7 +2420,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -2551,7 +2430,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2583,7 +2461,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2593,7 +2470,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2625,7 +2501,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2635,7 +2510,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2667,7 +2541,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2677,7 +2550,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2709,7 +2581,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2719,7 +2590,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2751,7 +2621,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2761,7 +2630,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2793,7 +2661,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2803,7 +2670,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2835,7 +2701,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2845,7 +2710,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2877,7 +2741,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2887,7 +2750,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2919,7 +2781,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -2929,7 +2790,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -2961,7 +2821,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -2972,7 +2831,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3004,7 +2862,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3014,7 +2871,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3046,7 +2902,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3056,7 +2911,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3088,7 +2942,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3098,7 +2951,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3130,7 +2982,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3140,7 +2991,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3172,7 +3022,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3182,7 +3031,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3214,7 +3062,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3224,7 +3071,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3256,7 +3102,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3266,7 +3111,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3298,7 +3142,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3308,7 +3151,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3340,7 +3182,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3350,7 +3191,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3382,7 +3222,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -3393,7 +3232,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3425,7 +3263,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3435,7 +3272,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3467,7 +3303,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3477,7 +3312,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3509,7 +3343,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3519,7 +3352,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3551,7 +3383,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3561,7 +3392,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3593,7 +3423,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3603,7 +3432,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3635,7 +3463,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3645,7 +3472,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3677,7 +3503,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3687,7 +3512,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3719,7 +3543,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3729,7 +3552,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3761,7 +3583,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3771,7 +3592,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3803,7 +3623,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -3814,7 +3633,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3846,7 +3664,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3856,7 +3673,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3888,7 +3704,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3898,7 +3713,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3930,7 +3744,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3940,7 +3753,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -3972,7 +3784,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -3982,7 +3793,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4014,7 +3824,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4024,7 +3833,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4056,7 +3864,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4066,7 +3873,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4098,7 +3904,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4108,7 +3913,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4140,7 +3944,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4150,7 +3953,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4182,7 +3984,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4192,7 +3993,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4224,7 +4024,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -4235,7 +4034,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4267,7 +4065,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4277,7 +4074,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4309,7 +4105,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4319,7 +4114,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4351,7 +4145,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4361,7 +4154,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4393,7 +4185,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4403,7 +4194,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4435,7 +4225,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4445,7 +4234,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4477,7 +4265,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4487,7 +4274,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4519,7 +4305,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4529,7 +4314,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4561,7 +4345,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4571,7 +4354,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4603,7 +4385,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "arguments": {
@@ -4613,7 +4394,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }
@@ -4645,7 +4425,6 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "console": "{...}",
         "i": "100"
       },
       "[CollectGarbage returned]": "undefined",
@@ -4656,7 +4435,6 @@
       },
       "a": "undefined",
       "[Globals]": {
-        "console": "{...}",
         "detachBasicTest": "<large string>",
         "i": "100"
       }

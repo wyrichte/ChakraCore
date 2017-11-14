@@ -95,13 +95,13 @@ namespace JsStaticAPI
         static PropertyId __stdcall GetPropertyIdSymbolToStringTag(IActiveScriptDirect* activeScriptDirect);
 
         static Var __stdcall CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
-            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+            JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
 
         static Var __stdcall CreateExternalKeysFunction(IActiveScriptDirect* activeScriptDirect,
-            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+            JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
 
         static Var __stdcall CreateExternalValuesFunction(IActiveScriptDirect* activeScriptDirect,
-            JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
+            JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);
 
 
         static void * CustomIteratorToExtension(Var iterator);
@@ -146,7 +146,17 @@ namespace JsStaticAPI
     public:
         static void ** TypeToExtension(HTYPE instance);     // Requires CustomExteranlType
         static void ** VarToExtension(Var obj);             // Requires CustomExternalObject
+        static Var ExtensionToVar(void * buffer);           // Requires CustomExternalObject
         static HTYPE GetTypeFromVar(Var instance);          // Requires CustomExternalObject
+
+        static HRESULT __stdcall BuildDOMDirectFunction(
+            IActiveScriptDirect* activeScriptDirect,
+            Var signature,
+            ScriptMethod entryPoint,
+            PropertyId nameId,
+            UINT64 flags,
+            UCHAR length,
+            Var* jsFunction);
     };
 
     class FastDOM

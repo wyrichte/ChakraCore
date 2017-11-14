@@ -4435,14 +4435,9 @@ function PogoProfile(inDir, instrDir, optDir, installDir, pgcOtherDir, pgcScenar
 
     // Next, we need to merge the PGC files from pgcScenarioDir into the PGD files
     logMsg(LogClrAutomation, LogInfo, "PogoProfile: merging PGC files into " + optDir + "\\PgoDataMerged\n");
-    var pgomgrExePath = undefined;
-    if (currentArch == "x86") {
-        pgomgrExePath = srcBase + "\\tools\\x86\\vc\\bin\\pgomgr.exe";
-    } else {
-        pgomgrExePath = srcBase + "\\tools\\x86_" + currentArch + "\\vc\\bin\\pgomgr.exe";
-    }
+    var pgomgrExePath = Env("OSBuildToolsRoot")+"\\Pgo\\amd64\\pgomgr.exe";
 
-   var srcFolder = FSOGetFolder(optDir + "\\PgoDataMerged");
+    var srcFolder = FSOGetFolder(optDir + "\\PgoDataMerged");
     var files = new Enumerator(srcFolder.files);
     for(; !files.atEnd(); files.moveNext())
     {

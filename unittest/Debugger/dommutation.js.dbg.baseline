@@ -1,0 +1,82 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 58,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "f1"
+      },
+      {
+        "start": 90,
+        "length": 4,
+        "text": "f1()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 120,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 229,
+        "length": 4,
+        "text": "f2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 179,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 218,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "f2"
+      },
+      {
+        "start": 229,
+        "length": 4,
+        "text": "f2()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 328,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "f3"
+      },
+      {
+        "start": 481,
+        "length": 4,
+        "text": "f3()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "evaluate": {
+      "WScript.ChangeDOMElement()": "undefined"
+    }
+  },
+  {
+    "evaluate": {
+      "f52()": "10"
+    }
+  }
+]

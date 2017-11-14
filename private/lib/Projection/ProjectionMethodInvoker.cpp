@@ -6,9 +6,9 @@
 extern "C" void __cdecl _alloca_probe_16();
 #ifdef _M_IX86
 #ifdef _CONTROL_FLOW_GUARD
-extern "C" PVOID __guard_check_icall_fptr;  
+extern "C" PVOID __guard_check_icall_fptr;
 #endif
-#endif 
+#endif
 
 namespace Projection
 {
@@ -26,12 +26,12 @@ namespace Projection
 #ifdef _M_ARM32_OR_ARM64
         parameterLocations(nullptr),
 #else
-        stack(nullptr), 
+        stack(nullptr),
 #endif
         signature(signature),
         marshal(CalleeTransfersOwnership, projectionContext, false)
-    {  
-        // Since each arena allocator is atlease 4K in size, reuse the arena of projectionmarshaler - both are going to have same life time so it is safe to 
+    {
+        // Since each arena allocator is atlease 4K in size, reuse the arena of projectionmarshaler - both are going to have same life time so it is safe to
         // share the arena instead of using 2 pages of memory per method call when we could use 1page at a time.
 #ifndef _M_ARM32_OR_ARM64
         stack = AnewArray(marshal.alloc, byte, signature->GetParameters()->sizeOfCallstack);
@@ -39,7 +39,7 @@ namespace Projection
     }
 
     // Info:        Build the callstack with the given arguments
-    // Parameters:  
+    // Parameters:
     //   _this     - "this" pointer.
     //   arguments - Javascript arguments.
     void ProjectionMethodInvoker::BuildCallStack(IUnknown* _this, Js::Arguments arguments, bool isDelegate)
@@ -47,10 +47,10 @@ namespace Projection
 #ifdef _M_ARM32_OR_ARM64
         this->callLayout.Clear();
 
-        // 1st iteration: 
+        // 1st iteration:
         // - determine location of each argument.
         // - determine size of data needed.
-        // - allocate data for callLayout. 
+        // - allocate data for callLayout.
 
         this->parameterLocations = AnewArrayZ(marshal.alloc, ParameterLocation, this->signature->GetParameters()->allParameters->Count());
         InitParameterLocations(this->parameterLocations);
@@ -73,6 +73,11 @@ namespace Projection
 #ifdef _M_ARM32_OR_ARM64
             // Get the place where to write the value.
             byte* location = this->callLayout.GetParameterLocation(&this->parameterLocations[parameterLocationIndex]);
+#endif
+
+#if _M_ARM64
+            ParameterLocation* loc = &this->parameterLocations[parameterLocationIndex];
+            bool isHFA = (loc->FloatRegIndex != ParameterLocation::invalidIndex) && (loc->floatRegCount > 1);
 #endif
 
             Js::ScriptContext *scriptContext = marshal.projectionContext->GetScriptContext();
@@ -101,7 +106,7 @@ namespace Projection
             {
                 // PassArray or FillArray pattern with [in] lengthAttribute
                 // We can only use [in] length attribute as thats the only one that has been applied at this point of the time
-                
+
                 AssertMsg(lengthParam->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
                 uint32 lengthForArray = (uint32)Js::JavascriptConversion::ToInt32(arguments[(int)lengthParam->inParameterIndex + 1], scriptContext);
                 marshal.WriteInArrayTypeIndividual(arguments[(int)parameter->inParameterIndex + 1], ArrayType::From(parameter->type), false, location, location + sizeof(LPVOID), parameter->isOut, true, lengthForArray);
@@ -111,11 +116,20 @@ namespace Projection
                 AssertMsg(parameter->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
                 Var inOutArg = parameter->isIn ? arguments[(int)parameter->inParameterIndex + 1] : nullptr;
                 marshal.WriteOutParameter(inOutArg, parameter, location, parameter->GetSizeOnStack(), signature->nameId);
-            } 
+            }
             else
             {
                 AssertMsg(parameter->inParameterIndex < 65536, "Invalid metadata: ECMA-335 specifies parameter index as 2-byte integer.");
-                marshal.WriteInParameter(arguments[(int)parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
+#if _M_ARM64
+                if (isHFA)
+                {
+                    marshal.WriteInHFAParameter(arguments[(int)parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
+                }
+                else
+#endif
+                {
+                    marshal.WriteInParameter(arguments[(int)parameter->inParameterIndex + 1], parameter, location, parameter->GetSizeOnStack());
+                }
             }
 
 #ifndef _M_ARM32_OR_ARM64
@@ -140,7 +154,7 @@ namespace Projection
         size_t outArgumentCount = signature->GetParameters()->allParameters->Count() - signature->inParameterCount;
         Js::ScriptContext *scriptContext = marshal.projectionContext->GetScriptContext();
 
-        // create an object to aggregate all the out parameters. 
+        // create an object to aggregate all the out parameters.
         Var instance = NULL;
         if (outArgumentCount == 0)
         {
@@ -155,7 +169,7 @@ namespace Projection
 #ifndef _M_ARM32_OR_ARM64
         byte * location = stack;
 #endif
-        signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateN([&](int parameterLocationIndex, RtABIPARAMETER parameter) 
+        signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateN([&](int parameterLocationIndex, RtABIPARAMETER parameter)
         {
 #ifdef _M_ARM32_OR_ARM64
             AssertMsg(this->parameterLocations, "At this time BuildCallStack should've been already called and parameterLocations should've been allocated.");
@@ -184,10 +198,10 @@ namespace Projection
                     byte *lengthParamLocation = stack;
                     signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateFirstN(((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter, [&](RtABIPARAMETER parameter) {
                         lengthParamLocation += parameter->GetSizeOnStack();
-                    });                        
+                    });
 #endif
                     Var lengthVar = (lengthParam->isIn) ? arguments[(int)lengthParam->inParameterIndex + 1] : marshal.ReadOutParameter(nullptr, lengthParam, lengthParamLocation, lengthParam->GetSizeOnStack(), signature->nameId);
-        
+
                     uint32 lengthForArray = (unsigned __int32)Js::JavascriptConversion::ToInt32(lengthVar, marshal.projectionContext->GetScriptContext());
 
                     if (ArrayType::Is(parameter->type))
@@ -230,7 +244,7 @@ namespace Projection
                         LPCWSTR parameterName = StringOfId(scriptContext, parameter->id);
                         scriptContext->GetOrAddPropertyRecord(parameterName, Js::JavascriptString::GetBufferLength(parameterName), &propRecord);
                         Assert(Js::Constants::NoProperty != propRecord->GetPropertyId());
-                        Js::JavascriptOperators::OP_SetProperty(instance, propRecord->GetPropertyId(), parameterValue, scriptContext);                
+                        Js::JavascriptOperators::OP_SetProperty(instance, propRecord->GetPropertyId(), parameterValue, scriptContext);
                     }
                 }
             }
@@ -247,7 +261,7 @@ namespace Projection
 
     // Info:        Invoke the method through the given unknown and vtable offset
     //              Leaves result on context stack.
-    //              Caller is suppose to call this function with _this addrefed, making sure it would stay alive for this function call. 
+    //              Caller is suppose to call this function with _this addrefed, making sure it would stay alive for this function call.
     //              It is responsibility of this function to release the _this ptr after the call is complete
     // Parameters:  _this - the unknown to invoke on
     //              vtableIndex - the vtable offset
@@ -258,7 +272,7 @@ namespace Projection
     {
         IncrementInvokeCount();
 
-        // If the interface is a default interface, we don't need to release 
+        // If the interface is a default interface, we don't need to release
         // since we already don't add ref the cached default interface for this call
         if (!isDefaultInterface)
         {
@@ -270,7 +284,7 @@ namespace Projection
 
         // Build callstack with in parameters (which can throw exception if the parameter conversion isnt supported) and allocate space for out parameters if needed
         BuildCallStack(_this, arguments, isDelegate);
-        
+
         Js::ScriptContext *scriptContext = marshal.projectionContext->GetScriptContext();
 
         // Invoke method
@@ -287,10 +301,10 @@ namespace Projection
 
 #if _M_IX86
 
-            void *data;   
+            void *data;
             void *savedEsp;
 
-            __asm 
+            __asm
             {
                 // Save ESP
                 mov ecx, esp
@@ -310,7 +324,7 @@ dbl_align:
                 // 8-byte align frame to improve floating point perf of our JIT'd code.
                 and esp, -8
 
-                mov data, esp   
+                mov data, esp
             }
 
             {
@@ -403,7 +417,7 @@ dbl_align:
         // Since the call was successful, all the out resources need to be released
         marshal.SetReleaseOutResources();
 
-        Var result; 
+        Var result;
         result = ReadOutParameters(args, parameterMarker);
         return result;
     }

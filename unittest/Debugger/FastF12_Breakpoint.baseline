@@ -1,2 +1,2 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b0 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b2 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 BailOut: function: foo ( (#1.1), #2) offset: #0000 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStep

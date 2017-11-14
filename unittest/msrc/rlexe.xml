@@ -1,9 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
-      <files>40038.js</files>
-      <compile-flags>-mic:1 -MaxSimpleJITRunCount:3 -force:FieldCopyProp</compile-flags>
+      <files>39741.js</files>
+      <baseline>39741.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc39293.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>39604.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>39290.js</files>
+      <baseline>39290.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>39964.js</files>
+      <baseline>39964.baseline</baseline>
     </default>
   </test>
   <test>
@@ -14,8 +36,20 @@
   </test>
   <test>
     <default>
+      <files>40038.js</files>
+      <compile-flags>-mic:1 -MaxSimpleJITRunCount:3 -force:FieldCopyProp</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>40166.js</files>
       <compile-flags>-PageHeap:2 -force:deferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40370.js</files>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
     </default>
   </test>
 </regress-exe>

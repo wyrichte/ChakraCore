@@ -510,19 +510,19 @@ PASS [Test 5: Marshaling of Versioned Delegates]
 
 =================================================
 Starting [Test 6: Marshaling of IVector with Versioned T]
-Pass: minVersionInterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'minVersionInterfaceVectorIn' has an invalid signature and cannot be called)
+Pass: minVersionInterfaceVectorIn
       Actual: true
 
-Pass: win8InterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'win8InterfaceVectorIn' has an invalid signature and cannot be called)
+Pass: win8InterfaceVectorIn
       Actual: true
 
-Pass: win8SP1InterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'win8SP1InterfaceVectorIn' has an invalid signature and cannot be called)
+Pass: win8SP1InterfaceVectorIn
       Actual: true
 
-Pass: win9InterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'win9InterfaceVectorIn' has an invalid signature and cannot be called)
+Pass: win9InterfaceVectorIn
       Actual: true
 
-Pass: maxVersionInterfaceVectorIn has an invalid signature for this target version returned (TypeError: The function 'maxVersionInterfaceVectorIn' has an invalid signature and cannot be called)
+Pass: maxVersionInterfaceVectorIn
       Actual: true
 
 PASS [Test 6: Marshaling of IVector with Versioned T]

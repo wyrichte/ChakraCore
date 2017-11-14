@@ -330,7 +330,7 @@ namespace JsStaticAPI
     }
 
     Var JavascriptLibrary::CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
-        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+        JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
     {
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
         Var func = nullptr;
@@ -341,7 +341,7 @@ namespace JsStaticAPI
     }
 
     Var JavascriptLibrary::CreateExternalKeysFunction(IActiveScriptDirect* activeScriptDirect,
-        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+        JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
     {
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
         Var func = nullptr;
@@ -352,7 +352,7 @@ namespace JsStaticAPI
     }
 
     Var JavascriptLibrary::CreateExternalValuesFunction(IActiveScriptDirect* activeScriptDirect,
-        JavascriptTypeId type, uint byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
+        JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction)
     {
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
         Var func = nullptr;

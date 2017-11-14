@@ -35,13 +35,13 @@ namespace Projection
         : CUnknownImpl(projectionContext, fReadOnly ? g_VectorViewVtable : g_VectorVtable
 #if DBG_DUMP
             , fReadOnly ? vectorViewWrapper : vectorWrapper
-#endif        
-        ), 
+#endif
+        ),
         m_fReadOnly(fReadOnly),
         m_pIterable(NULL),
         m_pVectorView(NULL),
         m_iidIterable(GUID_NULL),
-        m_pUnderlyingArray(NULL), 
+        m_pUnderlyingArray(NULL),
         vector(NULL),
         iterable(NULL)
     {
@@ -52,7 +52,7 @@ namespace Projection
         replaceAllId = projectionContext->replaceAllId;
 
         // Make sure DLL is not unloaded until this object is destroyed. When the DLL is unloaded
-        // we will clean up the ThreadContext which will empty a lot of memory which this object 
+        // we will clean up the ThreadContext which will empty a lot of memory which this object
         // might try to use causing potential memory corruption or access violations.
         DLLAddRef();
     }
@@ -80,7 +80,7 @@ namespace Projection
     }
 
     HRESULT ArrayAsVector::Initialize(
-            __in Js::JavascriptArray *pUnderlyingArray, 
+            __in Js::JavascriptArray *pUnderlyingArray,
             __in RtRUNTIMEINTERFACECONSTRUCTOR vector)
     {
         Assert(vector == NULL || (!m_fReadOnly && vector->iid->piid == ProjectionModel::IID_IVector1) || (m_fReadOnly && vector->iid->piid == ProjectionModel::IID_IVectorView1));
@@ -101,8 +101,8 @@ namespace Projection
     }
 
     HRESULT ArrayAsVector::Create(
-            __in ProjectionContext *projectionContext, 
-            __in Js::JavascriptArray *pUnderlyingArray, 
+            __in ProjectionContext *projectionContext,
+            __in Js::JavascriptArray *pUnderlyingArray,
             __in RtRUNTIMEINTERFACECONSTRUCTOR vector,
             __in bool fReadOnly,
             __out ArrayAsVector **newArrayAsVector)
@@ -246,20 +246,20 @@ namespace Projection
         DefineCallingConventionLocals();
 
         // GetNextParameterLocation_ is only for ARM: T is never going to out/Array, so using elementType->sizeOnStack is safe.
-        GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType), 
-            CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation);
+        GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType),
+            CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation, elementType);
         byte* varValuelocation = GetNextInParameterAddressFromParamType(elementType);
         varValue = marshal.ReadOutType(nullptr, elementType, false, varValuelocation, elementType->sizeOnStack, indexOfId);
         UpdateParameterRead(elementType->sizeOnStack);
 
-        GetNextParameterLocation_(sizeof(int*), false, false, parameterLocation);
+        GetNextParameterLocation_(sizeof(int*), false, false, parameterLocation, NULL);
         uint  *index = (uint *)GetNextOutParameterAddress(false, false);
         UpdateParameterRead(sizeof(uint *));
 
-        GetNextParameterLocation_(sizeof(int*), false, false, parameterLocation);
+        GetNextParameterLocation_(sizeof(int*), false, false, parameterLocation, NULL);
         boolean *found = (boolean *)(GetNextOutParameterAddress(false, false));
         UpdateParameterRead(sizeof(boolean *));
-        
+
         if (index != nullptr && found != nullptr)
         {
         hr = ArrayAsCollection::IndexOf(projectionContext, m_pUnderlyingArray, varValue, index, found);
@@ -275,22 +275,22 @@ namespace Projection
     CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, SetAt, 2, sizeof(uint) + sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED)
     {
         hr = SupportsWrite();
-        
+
         if (SUCCEEDED(hr))
         {
             DefineCallingConventionLocals();
-            GetNextParameterLocation_(sizeof(uint*), false, false, parameterLocation);
+            GetNextParameterLocation_(sizeof(uint*), false, false, parameterLocation, NULL);
             uint index = *(uint *)(GetNextInParameterAddress(false, false));
             UpdateParameterRead(sizeof(uint));
 
             ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
-            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType), 
-                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation);
+            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType),
+                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation, elementType);
             byte* valueLocation = GetNextInParameterAddressFromParamType(elementType);
             varValue = marshal.ReadOutType(nullptr, elementType, false, valueLocation, elementType->sizeOnStack, setAtId);
-            UpdateParameterRead(elementType->sizeOnStack); 
-        
-            // Do the core work 
+            UpdateParameterRead(elementType->sizeOnStack);
+
+            // Do the core work
             hr = ArrayAsCollection::SetAt(projectionContext, m_pUnderlyingArray, index, varValue);
         }
     }
@@ -300,22 +300,22 @@ namespace Projection
     CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, InsertAt, 2, sizeof(uint) + sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED)
     {
         hr = SupportsWrite();
-        
+
         if (SUCCEEDED(hr))
         {
             DefineCallingConventionLocals();
-            GetNextParameterLocation_(sizeof(uint*), false, false, parameterLocation);
+            GetNextParameterLocation_(sizeof(uint*), false, false, parameterLocation, NULL);
             uint index = *(uint *)(GetNextInParameterAddress(false, false));
             UpdateParameterRead(sizeof(uint));
 
             ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
-            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType), 
-                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation);
+            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType),
+                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation, elementType);
             byte* valueLocation = GetNextInParameterAddressFromParamType(elementType);
             varValue = marshal.ReadOutType(nullptr, elementType, false, valueLocation, elementType->sizeOnStack, insertAtId);
-            UpdateParameterRead(elementType->sizeOnStack); 
-        
-            // Do the core work 
+            UpdateParameterRead(elementType->sizeOnStack);
+
+            // Do the core work
             hr = ArrayAsCollection::InsertAt(projectionContext, m_pUnderlyingArray, index, varValue);
         }
     }
@@ -325,7 +325,7 @@ namespace Projection
     CUnknownMethodImpl_Prolog(ArrayAsVector, RemoveAt, (index), __in unsigned index)
     {
         hr = SupportsWrite();
-        
+
         if (SUCCEEDED(hr))
         {
             hr = ArrayAsCollection::RemoveAt(projectionContext, m_pUnderlyingArray, index);
@@ -338,21 +338,21 @@ namespace Projection
 #pragma warning(disable:4189) // local variable is initialized but not referenced
 #pragma warning(disable:28931)
     // Parameters : __in_opt T value
-    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, Append, 1, sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED) 
+    CUnknownMethodImpl_ArgT_Prolog(ArrayAsVector, Append, 1, sizeOnStackOfElement, Var varValue;, E_ACCESSDENIED)
     {
         hr = SupportsWrite();
-        
+
         if (SUCCEEDED(hr))
         {
             DefineCallingConventionLocals();
             ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
-            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType), 
-                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation);
+            GetNextParameterLocation_(elementType->sizeOnStack, CallingConventionHelper::IsFloatingPoint(elementType),
+                CallingConventionHelper::Is64BitAlignRequired(elementType), parameterLocation, elementType);
             byte* valueLocation = GetNextInParameterAddressFromParamType(elementType);
             varValue = marshal.ReadOutType(nullptr, elementType, false, valueLocation, elementType->sizeOnStack, appendId);
-            UpdateParameterRead(elementType->sizeOnStack); 
-        
-            // Do the core work 
+            UpdateParameterRead(elementType->sizeOnStack);
+
+            // Do the core work
             hr = ArrayAsCollection::Append(projectionContext, m_pUnderlyingArray, varValue);
         }
     }
@@ -369,7 +369,7 @@ namespace Projection
         }
     }
     CUnknownMethodImpl_NoArgs_Epilog()
-    
+
     CUnknownMethodImpl_NoArgs_Prolog(ArrayAsVector, Clear)
     {
         hr = SupportsWrite();

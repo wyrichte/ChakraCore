@@ -34,8 +34,6 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         }
     }
 
-
-
     runner.addTest({
         id: 0,
         desc: 'DevTests.Versioning Members',
@@ -56,24 +54,24 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
                 ObservableVectorInt     : "function",
                 RequiresVectorInt           : "function",
                 RequiresObservableVectorInt : "function",
-                /* -- Excluded from this version --
-                // Win8 types
-                Win8Enum                : "object",
-                Win8Class               : "function",
-                VersionedVectorInt          : "function",
-                VersionedObservableVectorInt: "function",
-                VectorVersionedT            : "function",
-                ObservableVectorVersionedT  : "function",
-                // Win8SP1 types
-                Win8SP1Enum             : "object",
-                Win8SP1Class            : "function",
-                // Win9 types
-                Win9Enum                : "object",
-                Win9Class               : "function",
-                // Max version types
-                MaxVersionEnum          : "object",
-                MaxVersionClass         : "function",
-                */
+                //  -- Excluded from this version --
+                // // Win8 types
+                // Win8Enum                : "object",
+                // Win8Class               : "function",
+                // VersionedVectorInt          : "function",
+                // VersionedObservableVectorInt: "function",
+                // VectorVersionedT            : "function",
+                // ObservableVectorVersionedT  : "function",
+                // // Win8SP1 types
+                // Win8SP1Enum             : "object",
+                // Win8SP1Class            : "function",
+                // // Win9 types
+                // Win9Enum                : "object",
+                // Win9Class               : "function",
+                // // Max version types
+                // MaxVersionEnum          : "object",
+                // MaxVersionClass         : "function",
+                // 
             };
             verify.members(ns, membersExpected, nsName);
             
@@ -173,7 +171,6 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
             verify.notDefined(rtc, rtcName);
         }
     });
-
     runner.addTest({
         id: 6,
         desc: 'Versioning behavior of VectorInt',

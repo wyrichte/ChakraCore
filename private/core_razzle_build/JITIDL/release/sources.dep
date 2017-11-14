@@ -1,6 +1,7 @@
 PUBLIC_PASS0_CONSUMES= \
     minkernel\ntos\ke\mp|PASS0 \
     minkernel\published\base|PASS0 \
+    onecore\base\published|PASS0 \
     onecore\com\published\idlole\publish|PASS0 \
     onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \
     redist\mspartners\netfx45\core\binary_release|PASS0 \

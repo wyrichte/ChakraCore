@@ -21,4 +21,12 @@
       <tags>exclude_dynapogo</tags>
     </default>
   </test>
+<!--
+  <test>
+    <default>
+      <files>bug12628506.js</files>
+      <compile-flags> -loopinterpretcount:1 </compile-flags>
+    </default>
+  </test>
+-->
 </regress-exe>

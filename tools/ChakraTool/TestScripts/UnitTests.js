@@ -172,6 +172,7 @@
 
         if (config.drt) {
             notTagsArray.push("exclude_drt");
+            notTagsArray.push("exclude_jshost");
         } else {
             var exitCode = shell.execute("call {0}\\runjs setupTesthost".format(config.jsToolsRoot));
             if(exitCode !== 0){
@@ -256,7 +257,10 @@
 
         if (config.testCab !== undefined) {
             logger.logLine("Extracting test collateral.", "Setup");
-            shell.execute("{0}\\cabarc.exe -o -p X {1} {2}\\".format(config.snapOwnBinRoot, config.testCab, snapTargetDir));
+            var extraction7ZipCommandLine = "7z x -r -aoa -y {0} -o{1} *.*".format(config.testCab, snapTargetDir);
+            logger.logLine("Needs 7-zip installed on the test machine and on the %path%");
+            logger.logLine(extraction7ZipCommandLine);
+            shell.execute(extraction7ZipCommandLine);
 
             if (!Storage.DoesFileExist("{0}\\Tools\\runjs.bat".format(snapTargetDir))) {
                 throw new Error("Expected files are not found after extracting unit tests cab, aborting!");

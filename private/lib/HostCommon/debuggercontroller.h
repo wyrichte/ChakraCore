@@ -195,6 +195,7 @@ public:
     HRESULT HandleException();
     HRESULT ResetBpMap();
     HRESULT HandleMutationBreakpoint();
+    HRESULT HandleDOMMutationBreakpoint();
 
     HRESULT VerifyAndWriteNewBaselineFile(std::wstring const& filename);
 

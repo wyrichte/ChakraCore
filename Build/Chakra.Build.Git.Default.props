@@ -21,8 +21,6 @@
         $(IELibPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
-      <!-- Workaround for core depdendency on IE MSRC macros. Remove when we no longer need GlobalMSRCSettings, and do not allow to make it to OSS. -->
-      <ForcedIncludeFiles>%(ForcedIncludeFiles);GlobalMSRCSettings.h</ForcedIncludeFiles>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>

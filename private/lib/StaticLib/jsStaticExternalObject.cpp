@@ -22,4 +22,24 @@ namespace JsStaticAPI
     {
         return (void**)(((char*)instance) + sizeof(Js::CustomExternalObject));
     }
+
+    Var ExternalObject::ExtensionToVar(void * buffer)
+    {
+        Assert(buffer != nullptr);
+        return (Var)(((char*)buffer) - sizeof(Js::CustomExternalObject));
+    }
+
+    HRESULT __stdcall ExternalObject::BuildDOMDirectFunction(
+        IActiveScriptDirect* activeScriptDirect,
+        Var signature,
+        ScriptMethod entryPoint,
+        PropertyId nameId,
+        UINT64 flags,
+        UCHAR length,
+        Var* jsFunction)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+
+        return scriptEngineBase->BuildDOMDirectFunction(signature, entryPoint, nameId, flags, length, jsFunction);
+    }
 }

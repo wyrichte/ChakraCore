@@ -1,5 +1,5 @@
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b0 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
-BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b0 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b2 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
+BailOut: function: controllerObj.addSourceFile ( (#-1.19), #20) offset: #00b2 Opcode: BailOut Kind: BailOutOnFailedHoistedBoundCheck
 Main() - IsInJitMode() == true
 Start!
 DO() - IsInJitMode() == true
@@ -9,7 +9,7 @@ PrintInner() - IsInJitMode() == false
 foo to inner document!
 /PrintInner() - IsInJitMode() == false
 /Print() - IsInJitMode() == true
-BailOut: function: Do ( (#2.1), #3) offset: #0054 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutIgnoreException
+BailOut: function: Do ( (#2.1), #3) offset: #0054 Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 /DO() - IsInJitMode() == false
 Completed!
 /Main() - IsInJitMode() == true

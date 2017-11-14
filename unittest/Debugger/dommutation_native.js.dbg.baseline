@@ -1,0 +1,334 @@
+[
+  {
+    "callstack": [
+      {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 298,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 344,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "4",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "DOM mutation breakpoint",
+      "location": {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 234,
+        "length": 3,
+        "text": "j++",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 244,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 255,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Return value]": "5",
+      "arguments": "{...}",
+      "j": "5",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 298,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 352,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "4",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "DOM mutation breakpoint",
+      "location": {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 234,
+        "length": 3,
+        "text": "j++",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 244,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 255,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Return value]": "5",
+      "arguments": "{...}",
+      "j": "5",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 298,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 360,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "4",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "DOM mutation breakpoint",
+      "location": {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 234,
+        "length": 3,
+        "text": "j++",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 244,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 255,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Return value]": "5",
+      "arguments": "{...}",
+      "j": "5",
+      "[Globals]": ""
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      },
+      {
+        "start": 298,
+        "length": 5,
+        "text": "bar()",
+        "frameDescription": "foo"
+      },
+      {
+        "start": 368,
+        "length": 5,
+        "text": "foo()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "arguments": "{...}",
+      "j": "4",
+      "[Globals]": ""
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "DOM mutation breakpoint",
+      "location": {
+        "start": 201,
+        "length": 26,
+        "text": "WScript.ChangeDOMElement()",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 234,
+        "length": 3,
+        "text": "j++",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 244,
+        "length": 8,
+        "text": "return j",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "breakpoint": {
+      "reason": "step",
+      "location": {
+        "start": 255,
+        "length": 1,
+        "text": "}",
+        "frameDescription": "bar"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": "{...}",
+      "[Return value]": "5",
+      "arguments": "{...}",
+      "j": "5",
+      "[Globals]": ""
+    }
+  }
+]

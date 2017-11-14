@@ -14,7 +14,7 @@
             // stats:rejit
             UINT32 rejitReasons[] = {
 #define REJIT_REASON(f) crc32(STRINGIZE(f)),
-#include "../../core/lib/Common/Common/RejitReasons.h"
+#include "../../../../core/lib/Common/Common/RejitReasons.h"
 #undef REJIT_REASON
             };
             UINT16 rejitReasonCount = _countof(rejitReasons);
@@ -38,7 +38,7 @@
 #define BAIL_OUT_KIND(a, b) crc32(STRINGIZE(a)), 
 #define BAIL_OUT_KIND_VALUE(a, b) crc32(STRINGIZE(a)),
 #define BAIL_OUT_KIND_VALUE_LAST(a, b) crc32(STRINGIZE(a))
-#include "../../core/lib/Backend/BailOutKind.h"
+#include "../../../../core/lib/Backend/BailOutKind.h"
 #undef BAIL_OUT_KIND_VALUE_LAST
 #undef BAIL_OUT_KIND_VALUE
 #undef BAIL_OUT_KIND
@@ -63,7 +63,7 @@
 #define BAIL_OUT_KIND(a, b) a, 
 #define BAIL_OUT_KIND_VALUE(a, b) a,
 #define BAIL_OUT_KIND_VALUE_LAST(a, b) a
-#include "../../core/lib/Backend/BailOutKind.h"
+#include "../../../../core/lib/Backend/BailOutKind.h"
 #undef BAIL_OUT_KIND_VALUE_LAST
 #undef BAIL_OUT_KIND_VALUE
 #undef BAIL_OUT_KIND
@@ -71,7 +71,7 @@
 #define BAIL_OUT_KIND(a, b) Assert(!bailoutMap.ContainsKey(IR::BailOutKind::a)); bailoutMap.Item( IR::BailOutKind::a, bailoutKindIndexes::a);
 #define BAIL_OUT_KIND_VALUE(a, b) Assert(!bailoutMap.ContainsKey(IR::BailOutKind::a)); bailoutMap.Item( IR::BailOutKind::a, bailoutKindIndexes::a);
 #define BAIL_OUT_KIND_VALUE_LAST(a, b) Assert(!bailoutMap.ContainsKey(IR::BailOutKind::a)); bailoutMap.Item( IR::BailOutKind::a, bailoutKindIndexes::a);
-#include "../../core/lib/Backend/BailOutKind.h"
+#include "../../../../core/lib/Backend/BailOutKind.h"
 #undef BAIL_OUT_KIND_VALUE_LAST
 #undef BAIL_OUT_KIND_VALUE
 #undef BAIL_OUT_KIND

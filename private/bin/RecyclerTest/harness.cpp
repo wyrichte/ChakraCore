@@ -143,14 +143,6 @@ HRESULT MemProtectHeapSynchronizeWithCollector(void * heapHandle) { return E_NOT
 void MemProtectHeapSetDisableConcurrentThreadExitedCheck(void * heapHandle) {};
 #endif
 
-#if DBG && defined(RECYCLER_VERIFY_MARK)
-bool IsLikelyRuntimeFalseReference(char* objectStartAddress, size_t offset,
-    const char* typeName)
-{
-    return false;
-}
-#endif
-
 // Entry point
 int __cdecl main(int argc, __in_ecount(argc) char* argv[])
 {

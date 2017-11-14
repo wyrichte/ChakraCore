@@ -92,14 +92,6 @@
         ext-ms-win-ntuser-gui-l1-*.dll;
         ext-ms-win-ntuser-windowclass-l1-*.dll;
         ole32.dll;
-      </DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(Platform)'!='Arm64'">
-        %(DelayLoadDlls);
-        ext-ms-win-shell-shell32-l1-*.dll;
-        ext-ms-win-ntuser-draw-l1-*.dll
-      </DelayLoadDLLs>
-      <DelayLoadDLLs Condition="'$(Platform)'=='Arm64'">
-        %(DelayLoadDlls);
         ext-ms-win-shell-shell32-l1-*.dll;
         ext-ms-win-ntuser-draw-l1-*.dll
       </DelayLoadDLLs>

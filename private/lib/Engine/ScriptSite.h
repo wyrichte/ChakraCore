@@ -279,17 +279,17 @@ public:
         m_fAllowBreakpoints = !FInDebuggerCallback();
         return NOERROR;
     }
-    BOOL FOneTimeBreak(BREAKREASON *pbr)
+    BOOL FOneTimeBreak(BREAKREASONEX *pbr)
     {
         if (!(m_grfbrk & kgrfbrkBreak))
             return FALSE;
 
         if (m_grfbrk & APPBREAKFLAG_DEBUGGER_HALT)
-            *pbr = BREAKREASON_DEBUGGER_HALT;
+            *pbr = BREAKREASON_DEBUGGER_HALT_EX;
         else if (m_grfbrk & APPBREAKFLAG_DEBUGGER_BLOCK)
-            *pbr = BREAKREASON_DEBUGGER_BLOCK;
+            *pbr = BREAKREASON_DEBUGGER_BLOCK_EX;
         else
-            *pbr = BREAKREASON_STEP;
+            *pbr = BREAKREASON_STEP_EX;
         return TRUE;
     }
 

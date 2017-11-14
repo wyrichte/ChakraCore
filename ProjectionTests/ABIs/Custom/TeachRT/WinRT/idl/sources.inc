@@ -29,7 +29,7 @@ NTTARGETFILE1 = $(OBJ_PATH)\$O\ComposedMetadata
 # real product APIs.
 #
 # PASS0_PUBLISH= \
-#    {$(OBJ_PATH)\$(O)\$(TARGETNAME).winmd=$(INTERNAL_SDK_METADATA_PATH)\$(TARGETNAME).winmd}
+#    {$(OBJ_PATH)\$(O)\$(TARGETNAME).winmd=$(PROJECT_INTERIM_METADATA_PATH)\$(TARGETNAME).winmd}
 
 ##########################################################
 # 2) build proxy / stub DLL for Exe version of the sample.
@@ -66,7 +66,7 @@ SOURCES=\
 TARGETLIBS = \
     $(SDK_LIB_PATH)\rpcrt4.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-string-l1.lib \
-    $(COM_LIB_PATH)\combasep.lib \
+    $(ONECORECOM_LIB_PATH)\combasep.lib \
 
 C_DEFINES= $(C_DEFINES) -DUNICODE=1 -D_UNICODE=1 -DREGISTER_PROXY_DLL -DPROXY_CLSID_IS={0xF6EFEABD,0x3370,0x4AA0,{0xA4,0xFD,0x88,0xBA,0xDC,0x3B,0x1A,0x39}}
 

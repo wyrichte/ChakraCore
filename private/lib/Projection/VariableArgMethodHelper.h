@@ -8,7 +8,7 @@ namespace Projection
 {
 // Static Method Name that stores the register and calls helper
 #define ClassMethodImplName(className, methodName) className::##methodName##Impl
-#define ClassMethodName(className, methodName) className::##methodName 
+#define ClassMethodName(className, methodName) className::##methodName
 
 #if _M_IX86
 #define ClassMethod_VarArgT_ImplName(className, methodName) ClassMethodImplName(className, methodName)
@@ -160,7 +160,7 @@ namespace Projection
 // Core Method returning ULONG defs
 #define CUnknownMethod_ULONGReturn_Def(methodName)                                                                                                                          \
     __declspec(noinline)                                                                                                                                                    \
-    virtual ULONG __stdcall methodName()                                            
+    virtual ULONG __stdcall methodName()
 
 #define CUnknownMethod_ULONGReturn_Prolog(className, methodName)                                                                                                            \
     /* ClassName::MethodName: Method that will do the actual work                                                           */                                              \
@@ -194,7 +194,7 @@ namespace Projection
     CUnknownMethodNoError_Prolog(className, methodName, __VA_ARGS__)
 
 #define CUnknownMethodNoErrorImpl_Epilog()                                                                                                                                  \
-    CUnknownMethodNoError_Epilog() 
+    CUnknownMethodNoError_Epilog()
 
 
 // Impl Method with arguments
@@ -315,7 +315,7 @@ namespace Projection
 // | old local 1    |
 // | old local 2    |
 // | old local 3    |
-// | old local n    |                  
+// | old local n    |
 // |----------------|
 // | fn param n     |   [ebp + 4n + 12]
 // | fn param n-1   |   [ebp + 4(n-1) + 12]
@@ -419,7 +419,7 @@ namespace Projection
 #if defined(_M_ARM64)
     const int REG_PARAMS = 8;
 #else
-    // Per AMD64/ARM calling convention, first 4 function args are passed in registers. 
+    // Per AMD64/ARM calling convention, first 4 function args are passed in registers.
     // The fist arg is 'this' pointer so we substract 1.
 const int REG_PARAMS = 4;
 #endif
@@ -487,13 +487,13 @@ const int REG_PARAMS = 4;
     signature->GetParameters()->allParameters->Cast<RtABIPARAMETER>()->IterateFirstN(((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter, [&](RtABIPARAMETER parameter) { \
         AssertMsg(parameter->GetSizeOnStack() < UINT_MAX, "Invalid metadata: Parameter projection exceeds allowable sizes by metadata."); \
         lengthParamLocation += (uint)parameter->GetSizeOnStack(); \
-    });                        
+    });
 
 // These are unused for this architecture and thus expand into nothing.
 #define DefineAndInitParameterLocations(parameterCount)
 #define DefineParameterLocationAsGetArrayItem(parameterLocations, parameterLocationIndex)
 #define DefineCallingConventionLocals()
-#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)
+#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation, elementType)
 
 #elif _M_AMD64
 #define GetNextInParameterAddress(fDouble, fFloat)                                                                                                                          \
@@ -540,7 +540,7 @@ const int REG_PARAMS = 4;
 #define DefineAndInitParameterLocations(parameterCount)
 #define DefineParameterLocationAsGetArrayItem(parameterLocations, parameterLocationIndex)
 #define DefineCallingConventionLocals()
-#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)
+#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation, elementType)
 
 #elif defined(_M_ARM)
 
@@ -586,8 +586,8 @@ const int REG_PARAMS = 4;
     lengthParamLocation = StackVarArgReader::Read(&parameterLocations[((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter], stackArgs);
 
 // Not used on this architechture.
-// Note: it's important that stackBytesRead is always 0 -- 
-//       as places using GetNextXXX macros often pass stackBytesRead + sizeeof(LPVOID) as offset, 
+// Note: it's important that stackBytesRead is always 0 --
+//       as places using GetNextXXX macros often pass stackBytesRead + sizeeof(LPVOID) as offset,
 //       otherwise we will be getting wrong offsets.
 #define UpdateParameterReadByModelParameter(modelParameter)
 
@@ -610,7 +610,7 @@ const int REG_PARAMS = 4;
     ProjectionModel::ParameterLocation* parameterLocation = &parameterLocationValue;
 
 // Note: '_' is added to the end of macro name to avoid conflict with CallingConventionHelper::GetNextParameterLocation.
-#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)                                                                \
+#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation, elementType)                                                    \
     callingConvention.GetNextParameterLocation(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)
 
 #elif defined(_M_ARM64)
@@ -657,8 +657,8 @@ const int REG_PARAMS = 4;
     lengthParamLocation = StackVarArgReader::Read(&parameterLocations[((AbiArrayParameterWithLengthAttribute *)parameter)->lengthIsParameter], stackArgs);
 
 // Not used on this architechture.
-// Note: it's important that stackBytesRead is always 0 -- 
-//       as places using GetNextXXX macros often pass stackBytesRead + sizeeof(LPVOID) as offset, 
+// Note: it's important that stackBytesRead is always 0 --
+//       as places using GetNextXXX macros often pass stackBytesRead + sizeeof(LPVOID) as offset,
 //       otherwise we will be getting wrong offsets.
 #define UpdateParameterReadByModelParameter(modelParameter)
 
@@ -681,9 +681,9 @@ const int REG_PARAMS = 4;
     ProjectionModel::ParameterLocation* parameterLocation = &parameterLocationValue;
 
 // Note: '_' is added to the end of macro name to avoid conflict with CallingConventionHelper::GetNextParameterLocation.
-#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation)                                                                \
+#define GetNextParameterLocation_(sizeOnStack, isFloatingPoint, is64BitAlignRequired, parameterLocation, elementType)                                                   \
     AssertMsg(sizeOnStack < INT_MAX, "ARM64: Element size on stack should not exceed available stack space.");                                             \
-    callingConvention.GetNextParameterLocation((int)sizeOnStack, isFloatingPoint, parameterLocation)
+    callingConvention.GetNextParameterLocation((int)sizeOnStack, isFloatingPoint, parameterLocation, elementType)
 
 #endif
 
@@ -691,7 +691,7 @@ const int REG_PARAMS = 4;
 typedef byte StackVarArg;
 #elif _M_AMD64
 //  Defines structure for passing registry values on AMD64
-typedef struct StackVarArg 
+typedef struct StackVarArg
 {
     double * pFloatRegisters;
     __int64 * pStack;

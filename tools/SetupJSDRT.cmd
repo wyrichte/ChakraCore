@@ -308,11 +308,11 @@ set _scriptFullname=%~f0
 
     echo Extracting test collateral
     if exist %_projectionTestCab% (
-        
-        echo %_snapBinRoot%\cabarc.exe -o -p X %_projectionTestCab% %_targetDir%\
-        %_snapBinRoot%\cabarc.exe -o -p X %_projectionTestCab% %_targetDir%\
 
-        :: Cabarc doesn't return nonzero errorlevel for many failures. Look for output files.
+        echo Needs 7-zip installed on the test machine and on the %path%.
+        echo 7z x -r -aoa -y %_projectionTestCab% -o%_targetDir%\ *.*
+        7z x -r -aoa -y %_projectionTestCab% -o%_targetDir%\ *.*
+
         if not exist %_targetDir%\Tests\Functional\AsyncDebug.js (
             echo Expected files are not found after extracting Tests.cab. Aborting.
             goto :Error
@@ -391,12 +391,12 @@ set _scriptFullname=%~f0
 
     echo Extracting test collateral
     if exist %_testCab% (
-        
-        echo %_snapBinRoot%\cabarc.exe -o -p X %_testCab% %_targetDir%\
-        %_snapBinRoot%\cabarc.exe -o -p X %_testCab% %_targetDir%\
+        echo Needs 7-zip installed on the test machine and on the %path%.
+        echo 7z x -r -aoa -y %_testCab% -o%_targetDir%\ *.*
+        7z x -r -aoa -y %_testCab% -o%_targetDir%\ *.*
 
         if not exist %_targetDir%\Tools\runjs.bat (
-            echo Expected files are not found after extracting JScriptTools.cab. Aborting.
+            echo Expected files are not found after extracting JScriptTestCollateral.cab. Aborting.
             goto :Error
         )
     )

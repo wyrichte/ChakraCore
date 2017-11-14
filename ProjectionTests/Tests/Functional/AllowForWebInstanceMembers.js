@@ -1,4 +1,4 @@
-if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefined') { WScript.LoadScriptFile('..\\projectionsglue.js'); } 
+if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefined') { WScript.LoadScriptFile('..\\projectionsglue.js'); }
 (function () {
 
     // This is essentially the same as InspectableToVar.js, except that due to the Animal constructor being blocked the
@@ -216,6 +216,7 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
         ['slowPath', 'function', 6],
         ['testBug202724_GetInt64', 'function', 0],
         ['testBug202724_GetUInt64', 'function', 0],
+        ['testBug8327782_StackArguments', 'function', 9],
         ['testError', 'function', 1],
         ['testInAllIRefStruct', 'function', 1],
         ['testInMixIRefStruct', 'function', 1],

@@ -4,4 +4,5 @@ DIRS = \
     private \
     tools{!min_rt} \
     unittest{!min_rt} \
+    ProjectionTests{!min_rt} \
     static{!min_rt} \

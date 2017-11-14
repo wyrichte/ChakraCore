@@ -16,7 +16,7 @@
 
       <!-- ======== From tools\makefile.def ========-->
       <AdditionalOptions>%(AdditionalOptions) /d2Qvec-mathlib-</AdditionalOptions>
-      <AdditionalOptions Condition="'$(Platform)'=='Win32' OR '$(Platform)'=='x64'">%(AdditionalOptions) /d2Qvec-sse2only</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Platform)'=='Win32' OR '$(Platform)'=='x64' OR '$(Platform)'=='chpe'">%(AdditionalOptions) /d2Qvec-sse2only</AdditionalOptions>
 
       <!--
       This flags are in the original razzle build, but don't look like it is necessary for our build
