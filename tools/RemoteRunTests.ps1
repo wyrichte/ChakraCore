@@ -100,7 +100,7 @@ try
         }
 
         # We need to figure out the local path to the share, because cmd is old
-        [string]$wdtemp = $testfullbase.Replace("\\","");
+        [string]$wdtemp = $testcorebase.Replace("\\","");
         $wdtempsegs = $wdtemp.Split("\");
         [string]$computername = $wdtempsegs[0];
         [string]$sharename = $wdtempsegs[1];
@@ -126,8 +126,8 @@ try
         [string]$binaryName = "jshost.exe";
         [string]$bindirarg = Join-Path $bindir "..";
         #$failingDirs = "`"" + "Array,AsmJs,AsyncDebug,bailout,Basics,Bugs,crossthread,Date,Debugger,DebuggerCommon,Error,ErrorCommon,es6,FixedFields,Function,HeapEnum,host,iasd,InlineCaches,InternalProfile,Intl,IntlCore,jd,Miscellaneous,msrc,NativeUnitTests,Object,Opegen,Operators,Optimizer,Profiler,sca,StackTrace,strict,Strings,SunSpider,SunSpider1.0.2,SunSpiderFunctionality,UnifiedRegex,V8,V8strict,V8_Functionality" + "`"";
-        [string]$dirs = "`"" + "fieldopts,JSON,KrakenFunctionality,Lib,loop,Math,Regex,typedarray,utf8" + "`"";
-        [string]$extraflags = "`"-oopjit-`"";
+        [string]$dirs = "`"" + "inlining" + "`"";
+        [string]$extraflags = "`"`"";
 
         $stdoutloc = New-TemporaryFile;
         $stderrloc = New-TemporaryFile;
