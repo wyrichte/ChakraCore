@@ -173,43 +173,43 @@ Asm.js compilation failed.
 Function return types in table tbl do not match
 Asm.js compilation failed.
 
-functionPtr.js(1, 36)
+[Dynamic code](1, 36)
 	Asm.js Compilation Error function : None::g
 	Unable to find function table tbl
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function call must be of format identifier(...) or identifier[expr & size](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Identifier f is not a function table
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Trying to load from Function table tbl of size [2] with size [1]
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Trying to load from Function table tbl of size [2] with size [4]
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Invalid type for [| & ^ >> << >>>] left and right operand must be of type intish
 
@@ -223,73 +223,73 @@ Asm.js compilation failed.
 Function signatures in table tbl do not match
 Asm.js compilation failed.
 
-functionPtr.js(1, 25)
+[Dynamic code](1, 25)
 	Asm.js Compilation Error function : None::g
 	Unable to find function table tbl
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 70)
+[Dynamic code](1, 70)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table size must be positive
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 62)
+[Dynamic code](1, 62)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 70)
+[Dynamic code](1, 70)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 71)
+[Dynamic code](1, 71)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 61)
+[Dynamic code](1, 61)
 	Asm.js Compilation Error function : None::g
 	Function table call must be of format identifier[expr & NumericLiteral](...)
 
 Asm.js compilation failed.
 
-functionPtr.js(1, 50)
+[Dynamic code](1, 50)
 	Asm.js Compilation Error function : None::g
 	Function table size must be a power of 2
 
