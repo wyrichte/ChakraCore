@@ -52,4 +52,38 @@
       <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>40214.js</files>
+      <tags>exclude_x86</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40394.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40620.js</files>
+      <timeout>300</timeout>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41014.js</files>
+      <compile-flags>-CollectGarbage</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40750.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40938.js</files>
+    </default>
+  </test>
 </regress-exe>
