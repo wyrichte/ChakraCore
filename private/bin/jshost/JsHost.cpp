@@ -1652,6 +1652,7 @@ int ExecuteTests(int argc, __in_ecount(argc) LPWSTR argv[], DoOneIterationPtr pf
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     JScript9Interface::SetOOPCFGRegistrationFlag(false);
+    JScript9Interface::SetCrashOnOOPJITFailureFlag(true);
 #endif
 
     __try

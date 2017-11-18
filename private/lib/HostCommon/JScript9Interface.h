@@ -235,6 +235,7 @@ public:
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     static HRESULT SetOOPCFGRegistrationFlag(bool flag) { return CHECKED_CALL(SetOOPCFGRegistrationFlag, flag); }
+    static HRESULT SetCrashOnOOPJITFailureFlag(bool flag) { return CHECKED_CALL(SetCrashOnOOPJITFailureFlag, flag); }
 #endif
 
     static boolean SupportsDllGetClassObjectCallback() {return m_testHooks.pfDllGetClassObject != NULL; }
