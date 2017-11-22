@@ -408,7 +408,8 @@ namespace Projection
             /* | old local n    |   [esp]       */                                                                                                                          \
                                                                                                                                                                             \
             /* return to the old function caller - eip we popped earlier    */                                                                                              \
-            __asm jmp edx /* Jump to return address at the caller function  */                                                                                              \
+            __asm push edx                                                                                                                                                  \
+            __asm ret /* Return to return address at the caller function  */                                                                                                \
                                                                                                                                                                             \
         }                                                                                                                                                                   \
     }                                                                                                                                                                       \
