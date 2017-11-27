@@ -888,7 +888,7 @@
     <default>
       <files>crosscontext1.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:crosscontext1.js.dbg.baseline -Intl-</compile-flags>
-      <tags>exclude_dynapogo</tags>
+      <tags>exclude_dynapogo,exclude_arm,exclude_arm64</tags> <!-- baseline have WebAssembly which is not supported on ARM32 and ARM64 -->
     </default>
   </test>
   <test>

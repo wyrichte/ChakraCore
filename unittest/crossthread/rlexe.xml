@@ -188,12 +188,14 @@
     <default>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent.js.dbg.baseline</compile-flags>
       <files>388447parent.js</files>
+      <tags>exclude_arm,exclude_arm64</tags> <!-- baseline have WebAssembly which is not supported on ARM32 and ARM64 -->
     </default>
   </test>
   <test>
     <default>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:388447parent_Intl.js.dbg.baseline</compile-flags>
       <files>388447parent_Intl.js</files>
+      <tags>exclude_arm,exclude_arm64</tags> <!-- baseline have WebAssembly which is not supported on ARM32 and ARM64 -->
     </default>
   </test>
   <test>
