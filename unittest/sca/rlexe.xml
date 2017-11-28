@@ -4,8 +4,6 @@
     <default>
       <files>sca_basic.js</files>
       <baseline>sca_basic.baseline</baseline>
-      <!-- Tracked by OS#14409784 -->
-      <tags>fail</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
