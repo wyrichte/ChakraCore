@@ -44,8 +44,6 @@
     <default>
       <files>sca_object.js</files>
       <baseline>sca_object.baseline</baseline>
-      <!-- Tracked by OS#14411861 -->
-      <tags>fail</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
