@@ -49,6 +49,7 @@ public:
     ULONG64 GetHeapBlockAddress() { return heapBlockAddress; }
     ULONG64 GetAddress() { return address; }
     ULONG64 GetSize();
+    ULONG64 GetAllocatableSize();
     ULONG GetFinalizeCount();
 
     ULONG64 GetTotalObjectSize();

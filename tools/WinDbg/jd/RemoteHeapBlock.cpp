@@ -209,6 +209,13 @@ ULONG64 RemoteHeapBlock::GetSize()
     return size;
 }
 
+ULONG64 RemoteHeapBlock::GetAllocatableSize()
+{
+    // Some small heap blocks may have unallocatable page at the end
+    return this->IsLargeHeapBlock() ?
+        size : JDUtil::Align<ULONG64>(totalObjectSize, g_Ext->m_PageSize);
+}
+
 ULONG RemoteHeapBlock::GetFinalizeCount()
 {
     JDRemoteTyped heapBlock = GetExtRemoteTyped();
@@ -414,7 +421,7 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
 
     if (!isBumpAllocation && head.GetPtr())
     {
-        AutoDebuggeeMemory autoDebuggeeMemory(this, this->GetAddress(), (ULONG)this->GetSize());
+        AutoDebuggeeMemory autoDebuggeeMemory(this, this->GetAddress(), (ULONG)this->GetAllocatableSize());
         ULONG64 curr = head.GetPtr();
         while (curr != 0)
         {
@@ -434,9 +441,9 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
 char * RemoteHeapBlock::GetDebuggeeMemory(ULONG64 address, ULONG size, bool * cached)
 {
     Assert(address >= this->GetAddress());
-    Assert(size <= this->GetSize());
-    Assert(address - this->GetAddress() < this->GetSize());
-    if (this->debuggeeMemory != nullptr || GetExtension()->recyclerCachedData.GetCachedDebuggeeMemory(this->GetAddress(), (ULONG)this->GetSize(), &this->debuggeeMemory))
+    Assert(address + size <= this->GetAddress() + this->GetAllocatableSize());
+    if (this->debuggeeMemory != nullptr
+        || GetExtension()->recyclerCachedData.GetCachedDebuggeeMemory(this->GetAddress(), (ULONG)this->GetAllocatableSize(), &this->debuggeeMemory))
     {
         *cached = true;
         return this->debuggeeMemory + address - this->GetAddress();
@@ -473,7 +480,7 @@ ULONG RemoteHeapBlock::GetRecyclerCookie()
 
 bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObjectInfo& info, bool interior, bool verbose)
 {
-    Assert(originalAddress >= this->GetAddress() && originalAddress < this->GetAddress() + this->GetSize());
+    Assert(originalAddress >= this->GetAddress() && originalAddress < this->GetAddress() + this->GetAllocatableSize());
     if (this->IsLargeHeapBlock())
     {
         ULONG64 objectAddress;
