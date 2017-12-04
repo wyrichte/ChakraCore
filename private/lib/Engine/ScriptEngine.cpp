@@ -5383,13 +5383,6 @@ HRESULT ScriptEngine::CompileUTF8(
     SETRETVAL(ppSourceInfo, sourceInfo);
 
     hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
-    if (pse->ei.scode == JSERR_AsmJsCompileError)
-    {
-        // recompile if we have asm.js parse error
-        grfscr |= fscrNoAsmJs;
-        pse->Free();
-        hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
-    }
     LEAVE_PINNED_SCOPE();
 
     return hr;
@@ -5534,6 +5527,13 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 }
             }
 
+            if (pse->ei.scode == JSERR_AsmJsCompileError)
+            {
+                // recompile if we have asm.js parse error
+                grfscr |= fscrNoAsmJs;
+                pse->Free();
+                hr = CompileUTF8Core(utf8SourceInfo, cchLength, grfscr, srcInfo, pszTitle, fOriginalUTF8Code, pse, ppbody, ppFuncInfo, fUsedExisting);
+            }
             return hr;
         }
         pRootFunc = func->GetParseableFunctionInfo();
