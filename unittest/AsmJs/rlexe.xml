@@ -466,4 +466,9 @@
       <compile-flags>-testtrace:asmjs -oopjit- -off:fulljit -nodeferparse</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>utf16.js</files>
+    </default>
+  </test>
 </regress-exe>
