@@ -4,6 +4,9 @@
 
 #include "StaticLibPch.h"
 
+// Common/Core/Assertions.h -> extern int AssertCount
+int AssertCount = 0;
+
 namespace JsStaticAPI
 {
     //============================================================================================================
