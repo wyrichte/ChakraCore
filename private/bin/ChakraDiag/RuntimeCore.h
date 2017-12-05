@@ -509,7 +509,7 @@ class ScriptContextTelemetry;
 #include "scrpting.h"                       // Used by ScriptDebugDocument.h
 #include "ScriptDebugDocument.h"            // Used by DAC.h
 
-#ifdef _M_X64_OR_ARM64
+#ifdef TARGET_64
 // TODO: Clean this warning up
 #pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
 #endif

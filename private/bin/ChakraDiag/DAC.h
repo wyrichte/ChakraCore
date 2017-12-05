@@ -69,7 +69,7 @@ namespace JsDiag
     public:
         LPBYTE GetBuffer()
         {
-#if defined(_M_X64) || defined(_M_ARM64)
+#if defined(TARGET_64)
             CompileAssert(sizeof(T) <= 1024); // Otherwise use DynamicDataBuffer
 #else
             CompileAssert(sizeof(T) <= 512); // Otherwise use DynamicDataBuffer
