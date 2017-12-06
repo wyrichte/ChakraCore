@@ -37,6 +37,14 @@ class MessageQueue
     std::multimap<unsigned int, MessageBase*> m_queue;
 
 public:
+    ~MessageQueue()
+    {
+        for (const auto& pair : m_queue)
+        {
+            delete pair.second;
+        }
+    }
+
     void Push(MessageBase *message)
     {
         message->BeginTimer();

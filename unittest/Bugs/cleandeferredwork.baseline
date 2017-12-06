@@ -1,0 +1,1 @@
+ERROR: JScript9Interface::JsrtRunScript(fileContents, 0, fullPath, NULL) failed. JsErrorCode=0x30001 (JsErrorScriptException)
