@@ -380,17 +380,20 @@ HRESULT DoOneJsrtIteration(BSTR filename)
     } while(!messageQueue->IsEmpty());
 
 Error:
+    if (messageQueue != NULL)
+    {
+        // If messages queue was not drained due to failure in JsrtRunScript,
+        // then we must delete the remaining messages before detaching the thread context
+        // so that they can be removed from the recycler.
+        delete messageQueue;
+    }
+
     if (attachFunction != JS_INVALID_REFERENCE)
     {
         JScript9Interface::JsrtRelease(attachFunction, NULL);
         attachFunction = JS_INVALID_REFERENCE;
     }
     JScript9Interface::JsrtSetCurrentContext(NULL);
-
-    if(messageQueue != NULL)
-    {
-        delete messageQueue;
-    }
 
     if (runtime != JS_INVALID_RUNTIME_HANDLE)
     {

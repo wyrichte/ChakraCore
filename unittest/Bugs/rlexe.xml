@@ -21,6 +21,14 @@
       <tags>exclude_dynapogo</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <compile-flags>-jsrt</compile-flags>
+      <files>cleandeferredwork.js</files>
+      <baseline>cleandeferredwork.baseline</baseline>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
 <!--
   <test>
     <default>
