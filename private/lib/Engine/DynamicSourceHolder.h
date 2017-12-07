@@ -57,7 +57,7 @@ namespace Js
                 TryMapSource();
 #if ENABLE_DEBUG_CONFIG_OPTIONS
                 AssertMsg(reasonString != nullptr, "Reason string for why we are mapping the source was not provided.");
-                JS_ETW(EventWriteJSCRIPT_SOURCEMAPPING((uint32)wcslen(reasonString), reasonString, (ushort)requestedFor));
+                JS_ETW(EventWriteJSCRIPT_SOURCEMAPPING(reasonString, (ushort)requestedFor));
 #endif
             }
 

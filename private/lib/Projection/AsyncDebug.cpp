@@ -736,7 +736,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
         // Account for the terminating null character.
         nameBufferLength++;
         
-        JS_ETW(EventWriteJSCRIPT_ASYNCCAUSALITY_STACKTRACE(operationId, frameCount, nameBufferLength, sizeof(AsyncDebug::ETWStackFrame), frames, nameBufferString));
+        JS_ETW(EventWriteJSCRIPT_ASYNCCAUSALITY_STACKTRACE(operationId, frameCount, nameBufferLength, nameBufferString, sizeof(AsyncDebug::ETWStackFrame), frames));
     }
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
 }
