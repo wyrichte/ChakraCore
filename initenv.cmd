@@ -134,6 +134,7 @@ goto :main
   doskey x86=           %%ChakraFullRepoRoot%%\initenv.cmd -x86 -%%ChakraBuildType%%
   doskey x64=           %%ChakraFullRepoRoot%%\initenv.cmd -x64 -%%ChakraBuildType%%
   doskey arm=           %%ChakraFullRepoRoot%%\initenv.cmd -arm -%%ChakraBuildType%%
+  doskey arm64=         %%ChakraFullRepoRoot%%\initenv.cmd -arm64 -%%ChakraBuildType%%
 
   doskey debug=         %%ChakraFullRepoRoot%%\initenv.cmd -%%ChakraBuildArch%% -debug
   doskey test=          %%ChakraFullRepoRoot%%\initenv.cmd -%%ChakraBuildArch%% -test
@@ -150,6 +151,10 @@ goto :main
   doskey armdebug=      %%ChakraFullRepoRoot%%\initenv.cmd -arm -debug
   doskey armtest=       %%ChakraFullRepoRoot%%\initenv.cmd -arm -test
   doskey armrelease=    %%ChakraFullRepoRoot%%\initenv.cmd -arm -release
+
+  doskey arm64debug=      %%ChakraFullRepoRoot%%\initenv.cmd -arm64 -debug
+  doskey arm64test=       %%ChakraFullRepoRoot%%\initenv.cmd -arm64 -test
+  doskey arm64release=    %%ChakraFullRepoRoot%%\initenv.cmd -arm64 -release
 
   doskey buildfull=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd $*
   doskey buildcore=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd /core $*
@@ -172,6 +177,7 @@ goto :main
   if /i "%1" == "-x86"              set ChakraBuildArch=x86&                                    goto :ArgOk
   if /i "%1" == "-x64"              set ChakraBuildArch=x64&                                    goto :ArgOk
   if /i "%1" == "-arm"              set ChakraBuildArch=arm&                                    goto :ArgOk
+  if /i "%1" == "-arm64"            set ChakraBuildArch=arm64&                                  goto :ArgOk
   if /i "%1" == "-debug"            set ChakraBuildType=debug&                                  goto :ArgOk
   if /i "%1" == "-test"             set ChakraBuildType=test&                                   goto :ArgOk
   if /i "%1" == "-release"          set ChakraBuildType=release&                                goto :ArgOk
@@ -179,12 +185,15 @@ goto :main
   if /i "%1" == "-x86debug"         set ChakraBuildArch=x86&set ChakraBuildType=debug&          goto :ArgOk
   if /i "%1" == "-x64debug"         set ChakraBuildArch=x64&set ChakraBuildType=debug&          goto :ArgOk
   if /i "%1" == "-armdebug"         set ChakraBuildArch=arm&set ChakraBuildType=debug&          goto :ArgOk
+  if /i "%1" == "-arm64debug"       set ChakraBuildArch=arm64&set ChakraBuildType=debug&        goto :ArgOk
   if /i "%1" == "-x86test"          set ChakraBuildArch=x86&set ChakraBuildType=test&           goto :ArgOk
   if /i "%1" == "-x64test"          set ChakraBuildArch=x64&set ChakraBuildType=test&           goto :ArgOk
   if /i "%1" == "-armtest"          set ChakraBuildArch=arm&set ChakraBuildType=test&           goto :ArgOk
+  if /i "%1" == "-arm64test"        set ChakraBuildArch=arm64&set ChakraBuildType=test&         goto :ArgOk
   if /i "%1" == "-x86release"       set ChakraBuildArch=x86&set ChakraBuildType=release&        goto :ArgOk
   if /i "%1" == "-x64release"       set ChakraBuildArch=x64&set ChakraBuildType=release&        goto :ArgOk
   if /i "%1" == "-armrelease"       set ChakraBuildArch=arm&set ChakraBuildType=release&        goto :ArgOk
+  if /i "%1" == "-arm64release"     set ChakraBuildArch=arm64&set ChakraBuildType=release&      goto :ArgOk
 
   if not "%1" == "" (
     echo Unknown argument: %1
