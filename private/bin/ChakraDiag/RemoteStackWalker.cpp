@@ -191,7 +191,7 @@ bool RemoteStackWalker::WalkOneFrame()
                 m_currentFrame->EffectiveFrameBase;
         }
         // If we're at the entry from a host frame, hop to the frame from which we left the script.
-        if (m_scriptEntryExitRecord && ip == m_scriptEntryExitRecord->ToTargetPtr()->returnAddrOfScriptEntryFunction)
+        if (m_scriptEntryExitRecord && ip == *(void**)m_scriptEntryExitRecord->ToTargetPtr()->addrOfReturnAddrOfScriptEntryFunction)
         {
             m_scriptEntryFrameBase = m_currentFrame->EffectiveFrameBase;
             m_scriptEntryReturnAddress = m_currentFrame->ReturnAddress;
