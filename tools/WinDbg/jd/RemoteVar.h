@@ -11,7 +11,12 @@ public:
     bool TryGetTaggedIntVar(int* value);
     bool TryGetFloatVar(double* value);
 
+    bool IsRecyclableObject();
+    bool IsUndefined();
+    bool IsNull();
+
     void Print(bool printSlotIndex, int depth);
+    void PrintLink(char const * link = nullptr);
 private:
     ULONG64 var;
 

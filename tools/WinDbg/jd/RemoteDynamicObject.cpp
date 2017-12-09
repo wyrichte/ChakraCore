@@ -91,6 +91,10 @@ void RemoteDynamicObject::PrintProperties(bool printSlotIndex, int depth)
             ObjectPropertyDumper::Enumerate(object, pRemoteTypeHandler, &reader, depth, printSlotIndex);
         }
     }
+    else
+    {
+        g_Ext->Out("WARNING: unknown type Handler, unable to enumerate properties\n");
+    }
 }
 
 void RemoteDynamicObject::PrintProperty(bool printSlotIndex, ULONG64 name, LONG slot, ULONG64 value, LONG slot1, ULONG64 value1, int depth)
@@ -109,6 +113,7 @@ void RemoteDynamicObject::PrintProperty(bool printSlotIndex, ULONG64 name, LONG 
     try
     {
         RemoteVar(value).Print(printSlotIndex, depth);
+        g_Ext->Out("\n");
     }
     catch (ExtException)
     {

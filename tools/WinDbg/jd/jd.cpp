@@ -25,8 +25,14 @@ static RemoteNullTypeHandler s_nullTypeHandler;
 static RemoteSimpleTypeHandler s_simpleTypeHandler("Js::SimpleTypeHandler");
 static RemoteSimpleTypeHandler s_simpleTypeHandler1_11("Js::SimpleTypeHandler<1>");
 static RemoteSimpleTypeHandler s_simpleTypeHandler2_11("Js::SimpleTypeHandler<2>");
-static RemoteSimplePathTypeHandler s_simplePathTypeHandler;
+
+static RemotePathTypeHandler s_simplePathTypeHandler("Js::SimplePathTypeHandler");
 static RemotePathTypeHandler s_pathTypeHandler;
+
+static RemotePathTypeHandler s_simplePathTypeHandlerNoAttr("Js::SimplePathTypeHandlerNoAttr");  // RS4+
+static RemotePathTypeHandler s_simplePathTypeHandlerWithAttr("Js::SimplePathTypeHandlerWithAttr");  // RS4+
+static RemotePathTypeHandler s_pathTypeHandlerNoAttr("Js::PathTypeHandlerNoAttr");  // RS4+
+static RemotePathTypeHandler s_pathTypeHandlerWithAttr("Js::PathTypeHandlerWithAttr");  // RS4+
 
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler0_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,0>");
 static RemoteSimpleDictionaryTypeHandler<USHORT> s_simpleDictionaryTypeHandler1_11("Js::SimpleDictionaryTypeHandlerBase<unsigned short,Js::PropertyRecord const *,1>");
@@ -56,6 +62,11 @@ static RemoteTypeHandler* s_typeHandlers[] =
     &s_simpleTypeHandler2_11,
     &s_simplePathTypeHandler,
     &s_pathTypeHandler,
+
+    &s_simplePathTypeHandlerNoAttr,
+    &s_simplePathTypeHandlerWithAttr,
+    &s_pathTypeHandlerNoAttr,
+    &s_pathTypeHandlerWithAttr,
 
     &s_simpleDictionaryTypeHandler0_11,
     &s_simpleDictionaryTypeHandler1_11,
@@ -581,6 +592,7 @@ JD_PRIVATE_COMMAND(var,
     ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
     RemoteVar var = varTyped.GetPtr();
     var.Print(this->HasArg("s"), 0);
+    g_Ext->Out("\n");
 }
 
 bool EXT_CLASS_BASE::GetUsingInlineSlots(ExtRemoteTyped& typeHandler)
@@ -1004,6 +1016,36 @@ JD_PRIVATE_COMMAND(sourceInfos,
     ThrowCommandHelp();
 }
 
+static void DumpArgs(ULONG callCount, ULONG64 addressOfArguments)
+{
+    if (callCount == 0)
+    {
+        return;
+    }
+
+    const ULONG ptrSize = g_Ext->m_PtrSize;
+    ExtRemoteData thisArg(addressOfArguments, ptrSize);
+    RemoteVar thisVar(thisArg.GetPtr());
+    if (!thisVar.IsUndefined())
+    {
+        g_Ext->Out(" ");
+        thisVar.PrintLink("this");
+    }
+
+    g_Ext->Out(" (");
+    for (ULONG i = 1; i < callCount; i++)
+    {
+        if (i != 1)
+        {
+            g_Ext->Out(", ");
+        }
+        ExtRemoteData arg(addressOfArguments + ptrSize * i, ptrSize);
+        RemoteVar argVar(arg.GetPtr());
+        argVar.Print(false, -1);
+    }
+    g_Ext->Out(")");
+}
+
 JD_PRIVATE_COMMAND(count,
     "Count item in a list",
     "{;s;type;type of object}{;e;head;head of the list}{;s;next;next field name}")
@@ -1019,39 +1061,126 @@ JD_PRIVATE_COMMAND(count,
     Out("%I64u\n", ExtRemoteTypedUtil::Count(object, nextstr));
 }
 
+class JDStackWalker
+{
+public:    
+    JDStackWalker(ULONG64 initialRbp = 0);
+    bool Next();
+    CHAR * GetCurrentSymbol(ULONG64 * offset);
+ 
+    
+    ULONG64 GetRbp() const { return rbp; }
+    ULONG64 GetRip() const { return rip; }
+
+    void PrintFrameNumber(bool verbose);
+private:
+    ULONG GetFrameNumber() const { return frameNumber; }
+    ULONG64 GetRsp() const { return rsp; }
+    ULONG64 GetNextRip() const { return nextFrameIndex < filled ? frames[nextFrameIndex].InstructionOffset : 0; }
+
+    ULONG64 rbp;
+    ULONG64 rsp;
+    ULONG64 rip;
+
+    ULONG frameNumber;
+    CHAR nameBuffer[1024];
+
+    DEBUG_STACK_FRAME frames[0x1000];
+    ULONG filled;
+    ULONG nextFrameIndex;
+};
+
+JDStackWalker::JDStackWalker(ULONG64 initialRbp )
+{
+    frameNumber = (ULONG)-1;
+    nextFrameIndex = 0;
+    ULONG64 startRsp;
+    ULONG64 startRbp;
+    ULONG64 startRip;
+
+    if (initialRbp == 0)
+    {
+        HRESULT hr = g_Ext->m_Registers->GetStackOffset(&startRsp);
+        if (FAILED(hr))
+        {
+            g_Ext->ThrowLastError("Unable to load rsp\n");
+        }
+        hr = g_Ext->m_Registers->GetFrameOffset(&startRbp);
+        if (FAILED(hr))
+        {
+            g_Ext->ThrowLastError("Unable to load rbp\n");
+        }
+        hr = g_Ext->m_Registers->GetInstructionOffset(&startRip);
+        if (FAILED(hr))
+        {
+            g_Ext->ThrowLastError("Unable to load rip\n");
+        }
+    }
+    else
+    {
+        startRbp = initialRbp;
+        startRsp = 0;
+        startRip = 0;
+    }
+    
+    HRESULT hr = g_Ext->m_Control5->GetStackTrace(startRbp, startRsp, startRip, frames, _countof(frames), &filled);
+    if (FAILED(hr) || filled == 0)
+    {
+        g_Ext->ThrowLastError("Unable to get stack frames");
+    }
+}
+
+bool JDStackWalker::Next()
+{
+    if (nextFrameIndex >= filled)
+    {
+        return false;
+    }
+
+    rsp = frames[nextFrameIndex].StackOffset;
+    rbp = frames[nextFrameIndex].FrameOffset;
+    rip = frames[nextFrameIndex].InstructionOffset;    
+    frameNumber++;
+    nextFrameIndex++;
+    return true;
+}
+
+CHAR * JDStackWalker::GetCurrentSymbol(ULONG64 *offset)
+{
+    ULONG nameSize;
+    if (SUCCEEDED(g_Ext->m_Symbols->GetNearNameByOffset(
+        rip,
+        0,
+        nameBuffer,
+        sizeof(nameBuffer),
+        &nameSize,
+        offset)))
+    {
+        return nameBuffer;
+    }
+    return nullptr;
+}
+
+void JDStackWalker::PrintFrameNumber(bool verbose)
+{
+    g_Ext->Out("%02x", this->GetFrameNumber());
+    if (verbose)
+    {
+        g_Ext->Out(" %p", this->GetRsp());
+        g_Ext->Out(" %p", this->GetNextRip());
+    }
+}
 
 JD_PRIVATE_COMMAND(jstack,
     "Print JS Stack. This is untested, and works only if all modules in the stack have FPO turned off",
     "{v;b,o;verbose;Dump ChildEBP and RetAddr information}"
     "{all;b,o;all;Dump full mixed mode stack- useful if stack has JITted functions}"
+    "{args;b,o;all;Dump arguments to script functions}"
     "{;e,o,d=0;rbp;starting rbp}")
 {
     const bool verbose = HasArg("v");
     const bool dumpFull = HasArg("all");
-
-    ULONG64 rsp = 0;
-    ULONG64 rbp = this->GetUnnamedArgU64(0);
-    ULONG64 rip = 0;
-    HRESULT hr;
-
-    if (rbp == 0)
-    {
-        hr = this->m_Registers->GetStackOffset(&rsp);
-        if (FAILED(hr))
-        {
-            ThrowLastError("Unable to load rsp\n");
-        }
-        hr = this->m_Registers->GetFrameOffset(&rbp);
-        if (FAILED(hr))
-        {
-            ThrowLastError("Unable to load rbp\n");
-        }
-        hr = this->m_Registers->GetInstructionOffset(&rip);
-        if (FAILED(hr))
-        {
-            ThrowLastError("Unable to load rip\n");
-        }
-    }
+    const bool dumpArgs = HasArg("args");
 
     RemoteThreadContext threadContext = RemoteThreadContext::GetCurrentThreadContext();
     if (threadContext.GetCallRootLevel() == 0)
@@ -1074,148 +1203,37 @@ JD_PRIVATE_COMMAND(jstack,
         }
     }
     Out("\n");
-    ULONG frameNumber = 0;
-    do
+
+    JDStackWalker stackWalker(this->GetUnnamedArgU64(0));
+    while (stackWalker.Next())
     {
-        if (rip != 0)
+        ULONG64 offset = 0;
+        CHAR * nameBuffer = stackWalker.GetCurrentSymbol(&offset);
+        // Native stack frames
+        if (nameBuffer)
         {
-            CHAR nameBuffer[1024];
-            ULONG nameSize;
-            ULONG64 offset = 0;
-
-            hr = m_Symbols->GetNearNameByOffset(
-                rip,
-                0,
-                nameBuffer,
-                sizeof(nameBuffer),
-                &nameSize,
-                &offset);
-
-            if (SUCCEEDED(hr))
+            if (dumpFull)
             {
-                DEBUG_STACK_FRAME frames[100];
-                ULONG filled;
-                hr = this->m_Control5->GetStackTrace(rbp, rsp, rip, frames, _countof(frames), &filled);
-                if (FAILED(hr))
-                {
-                    ThrowLastError("Unable to get stack frame");
-                }
-
-                ULONG i = 0;
-                ULONG64 lastBailoutLayoutX64 = 0;
-                bool lastWasBailoutOnX64 = false;
-                bool hasSeenBailoutOnX64 = false;
-                bool firstBailoutOnX64 = false;
-                while (i < filled)
-                {
-                    rsp = frames[i].StackOffset;
-                    rbp = frames[i].FrameOffset;
-                    rip = frames[i].InstructionOffset;
-                    ULONG64 ripRet = frames[i].ReturnOffset;
-
-                    hr = m_Symbols->GetNearNameByOffset(
-                        rip,
-                        0,
-                        nameBuffer,
-                        sizeof(nameBuffer),
-                        &nameSize,
-                        &offset);
-
-                    if (FAILED(hr))
-                    {
-                        // HEURITICS fixing up unwinding to JIT Frame from BailOutRecord::Bailout
-                        if (lastWasBailoutOnX64)
-                        {
-                            if (lastBailoutLayoutX64 != 0)
-                            {
-                                rbp = lastBailoutLayoutX64 - 2 * ptrSize;
-                            }
-                            else if (firstBailoutOnX64)
-                            {
-                                ExtRemoteTyped bailOutRecord = *ExtRemoteTyped(this->FillModule("(%s!BailOutRecord **)@$extin"), rsp);
-                                rbp = bailOutRecord.Field("globalBailOutRecordTable.registerSaveSpace").ArrayElement(5).GetPtr();  // 6 is RBP reg number
-                            }
-                        }
-                        break;
-                    }
-
-                    if (ptrSize == 8)
-                    {
-                        lastWasBailoutOnX64 = false;
-                        if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOutHelper")) == 0 && i + 1 < filled)
-                        {
-                            lastBailoutLayoutX64 = ExtRemoteData(frames[i + 1].StackOffset, ptrSize).GetPtr();
-                        }
-                        else if (strcmp(nameBuffer, this->FillModule("%s!BailOutRecord::BailOut")) == 0)
-                        {
-                            lastWasBailoutOnX64 = true;
-                            firstBailoutOnX64 = !hasSeenBailoutOnX64;
-                            hasSeenBailoutOnX64 = true;
-                        }
-                    }
-
-                    if (dumpFull)
-                    {
-                        Out("%02x", frameNumber);
-                        if (verbose)
-                        {
-                            Out(" %p", rsp);
-                            Out(" %p", ripRet);
-                        }
-                        Out(" %s+0x%x\n", nameBuffer, offset);
-                    }
-
-                    frameNumber++;
-                    i++;
-                }
-                if (i == filled)
-                {
-                    break;
-                }
+                stackWalker.PrintFrameNumber(verbose);
+                Out(" %s+0x%x\n", nameBuffer, offset);
             }
+            continue;
         }
 
 
-        ULONG64 ripRet;
-        if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == rip)
+        // Interpreter stack frames
+        if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == stackWalker.GetRip())
         {
-            // If the interpreterStackFrame is from bailout, assume the stackwalker is right.
-            bool isFromBailout = interpreterStackFrame.IsFromBailout();
-            if (!isFromBailout)
-            {
-                // This is an interpreter thunk frame
-                if (ptrSize == 8)
-                {
-                    // AMD64 stack size is InterpreterThunkEmitter::StackAllocSize = 0x28
-                    // So return address is at 0x28 and we will just fake rbp as 0x28 - 0x8;
-                    rbp = rsp + 0x20;
-                }
-                else if (rbp <= rsp)
-                {
-                    // HEURSTIC: Assume the callee save rbp if we dn't have a valid rbp
-                    ExtRemoteData childEbp(rsp - 2 * ptrSize, ptrSize);
-                    rbp = childEbp.GetPtr();
-                }
-            }
-
-            ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
-            ripRet = returnAddress.GetPtr();
-
-            Out("%02x", frameNumber);
-            if (verbose)
-            {
-                Out(" %p", rsp);
-                Out(" %p", ripRet);
-            }
+            stackWalker.PrintFrameNumber(verbose);
 
             Out(" js!");
             interpreterStackFrame.GetScriptFunction().PrintNameAndNumberWithLink();
             Out(" [");
-            if (isFromBailout)
+
+            if (interpreterStackFrame.IsFromBailout())
             {
                 Out("JIT, Bailout ");
             }
-
             if (PreferDML())
             {
                 Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link>]", this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress());
@@ -1224,74 +1242,62 @@ JD_PRIVATE_COMMAND(jstack,
             {
                 Out("Interpreter 0x%p /*\"?? (%s!Js::InterpreterStackFrame *)0x%p\" to display*/]", interpreterStackFrame.GetAddress(), this->GetModuleName(), interpreterStackFrame.GetAddress());
             }
+            
+            if (dumpArgs)
+            {
+                ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
+                ULONG callCount = callInfo.Field("Count").GetUlong();
+                DumpArgs(callCount, stackWalker.GetRbp() + ptrSize * 4);
+            }
             Out("\n");
 
             interpreterStackFrame = interpreterStackFrame.GetPreviousFrame();
+            continue;
         }
-        else
+
+        // JIT'ed stack frames
+        ExtRemoteData firstArg(stackWalker.GetRbp() + ptrSize * 2, ptrSize);
+        char const * typeName;
+        JDRemoteTyped firstArgCasted = JDRemoteTyped::FromPtrWithVtable(firstArg.GetPtr(), &typeName);
+        bool isFunctionObject = false;
+        if (typeName != nullptr && firstArgCasted.HasField("type"))
         {
-            if (rbp <= rsp)
+
+           JDRemoteTyped type = firstArgCasted.Field("type");
+            if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
             {
-                // HEURSTIC: Assume the callee save rbp if we dn't have a valid rbp
-                ExtRemoteData previousChildFramePointer(rsp - 2 * ptrSize, ptrSize);
-                rbp = previousChildFramePointer.GetPtr();
-            }
+                stackWalker.PrintFrameNumber(verbose);
 
-            ExtRemoteData returnAddress(rbp + ptrSize, ptrSize);
-            ripRet = returnAddress.GetPtr();
+                isFunctionObject = true;
+                Out(" js!");
+                RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink();
 
-            ExtRemoteData firstArg(rbp + ptrSize * 2, ptrSize);
-            char const * typeName;
-            JDRemoteTyped firstArgCasted = JDRemoteTyped::FromPtrWithVtable(firstArg.GetPtr(), &typeName);
-            bool isFunctionObject = false;
-            if (typeName != nullptr && firstArgCasted.HasField("type"))
-            {
-
-                JDRemoteTyped type = firstArgCasted.Field("type");
-                if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
+                ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
+                ULONG callFlags = callInfo.Field("Flags").GetUlong();
+                if (callFlags & ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong())
                 {
-                    Out("%02x", frameNumber);
-                    if (verbose)
-                    {
-                        Out(" %p", rsp);
-                        Out(" %p", ripRet);
-                    }
-
-                    isFunctionObject = true;
-                    Out(" js!");
-                    RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink();
-
-                    ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), rbp + ptrSize * 3);
-                    ULONG callFlags = callInfo.Field("Flags").GetUlong();
-                    if (callFlags & ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong())
-                    {
-                        Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
-                    }
-                    else
-                    {
-                        Out(" [JIT]\n");
-                    }
+                    Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
                 }
-            }
-            if (!isFunctionObject && dumpFull)
-            {
-                Out("%02x", frameNumber);
-                if (verbose)
+                else
                 {
-                    Out(" %p", rsp);
-                    Out(" %p", ripRet);
+
+                    Out(" [JIT]");
+                    if (dumpArgs)
+                    {
+                        ULONG callCount = callInfo.Field("Count").GetUlong();
+                        DumpArgs(callCount, stackWalker.GetRbp() + ptrSize * 4);
+                    }
+                    Out("\n");
                 }
-                Out(" <unknown %p>\n", rip);
             }
         }
-
-        ExtRemoteData childEbp(rbp, ptrSize);
-        rsp = rbp + 2 * ptrSize;
-        rbp = childEbp.GetPtr();
-        rip = ripRet;
-        frameNumber++;
+        if (!isFunctionObject && dumpFull)
+        {
+            stackWalker.PrintFrameNumber(verbose);
+            Out(" <unknown %p>\n", stackWalker.GetRip());
+        }
     }
-    while (rbp != 0);
+
     if (!interpreterStackFrame.IsNull())
     {
         Out("WARNING: Interpreter stack frame unmatched\n");

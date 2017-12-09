@@ -64,15 +64,6 @@ public:
     virtual void EnumerateProperties(ExtRemoteTyped& obj, const ObjectPropertyListener& listener) override;
 };
 
-class RemoteSimplePathTypeHandler : public RemotePathTypeHandler
-{
-public:
-    RemoteSimplePathTypeHandler() :
-        RemotePathTypeHandler("Js::SimplePathTypeHandler")
-    {
-    }
-};
-
 // Note that we don't care about the other template parameter "IsNotExtensibleSupported" here.
 template <typename T>
 class RemoteSimpleDictionaryTypeHandler : public RemoteTypeHandler

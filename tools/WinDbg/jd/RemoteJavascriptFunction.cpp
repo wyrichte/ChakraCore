@@ -80,6 +80,7 @@ RemoteJavascriptFunction::Print()
         {
             g_Ext->Out("  [TargetFunction] ");
             this->GetTargetFunction().PrintSimpleVarValue();
+            g_Ext->Out("\n");
         }
     }
 }
