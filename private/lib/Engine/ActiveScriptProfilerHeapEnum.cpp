@@ -693,7 +693,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     Js::ScopeSlots slotArray(scopeSlotArray);
 
     UINT propertyCount = 0;
-    if (slotArray.IsFunctionScopeSlotArray())
+    if (!slotArray.IsDebuggerScopeSlotArray())
     {
         Js::ParseableFunctionInfo* pfi = slotArray.GetFunctionInfo()->GetParseableFunctionInfo();
         Assert(pfi);
@@ -761,7 +761,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         UINT slotIndex;
         PropertyId propertyId;
 
-        if (slotArray.IsFunctionScopeSlotArray())
+        if (!slotArray.IsDebuggerScopeSlotArray())
         {
             AssertMsg(propertyIds, "Property ID array was not found for the function slot array.");
             Assert(propertyIds[j] != Js::Constants::NoProperty);
