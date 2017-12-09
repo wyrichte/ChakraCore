@@ -11,6 +11,10 @@ public:
     RemoteRecyclableObject();
     RemoteRecyclableObject(ULONG64 address);
     RemoteRecyclableObject(ExtRemoteTyped const& o);
+    
+    bool IsUndefined();
+    bool IsNull();
+
     bool IsJavascriptFunction();
     RemoteJavascriptFunction AsJavascriptFunction();
 
@@ -22,7 +26,10 @@ public:
     RemoteScriptContext GetScriptContext();
 
     void PrintSimpleVarValue();
+
+    void PrintLink(char const * link = nullptr);
 protected:
+    void PrintPrimitiveValue(char const * value, int depth);
     char const * GetTypeName();
     char const * GetTypeIdEnumString();
 

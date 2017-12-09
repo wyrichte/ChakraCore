@@ -62,6 +62,18 @@ RemoteRecyclableObject::GetTypeIdEnumString()
 }
 
 bool
+RemoteRecyclableObject::IsUndefined()
+{
+    return strcmp(GetTypeIdEnumString(), "TypeIds_Undefined") == 0;
+}
+
+bool
+RemoteRecyclableObject::IsNull()
+{
+    return strcmp(GetTypeIdEnumString(), "TypeIds_Null") == 0;
+}
+
+bool
 RemoteRecyclableObject::IsJavascriptFunction()
 {
     return strcmp(GetTypeIdEnumString(), "TypeIds_Function") == 0;
@@ -84,13 +96,32 @@ RemoteRecyclableObject::PrintSimpleVarValue()
     if (GetExtension()->PreferDML())
     {
         std::string encodedTypeName = JDUtil::EncodeDml(typeName);
-        g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">%s * 0x%p</link> (%s)\n", this->GetPtr(), JDUtil::StripModuleName(encodedTypeName.c_str()), 
+        g_Ext->Dml("%s * <link cmd=\"!jd.var 0x%p\">0x%p</link> (%s)", JDUtil::StripModuleName(encodedTypeName.c_str()), this->GetPtr(),
             this->GetPtr(), this->GetTypeIdEnumString());
     }
     else
     {
-        g_Ext->Out("%s * 0x%p</link> (%s) /*\"!jd.var 0x%p\" to display*/\n", JDUtil::StripModuleName(typeName), 
+        g_Ext->Out("%s * 0x%p (%s) /*\"!jd.var 0x%p\" to display*/", JDUtil::StripModuleName(typeName), 
             this->GetPtr(), this->GetTypeIdEnumString(), this->GetPtr());
+    }
+}
+
+void
+RemoteRecyclableObject::PrintLink(char const * link)
+{
+    RemoteVar(this->GetPtr()).PrintLink(link);
+}
+
+void
+RemoteRecyclableObject::PrintPrimitiveValue(char const * value, int depth)
+{
+    if (depth == 0)
+    {
+        g_Ext->Out("%s (0x%p)", value, this->GetPtr());
+    }
+    else
+    {
+        PrintLink(value);
     }
 }
 
@@ -118,17 +149,17 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
 
     if (strcmp(typeIdStr, "TypeIds_Undefined") == 0)
     {
-        g_Ext->Out("undefined\n");
+        PrintPrimitiveValue("<undefined>", depth);
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_Null") == 0)
     {
-        g_Ext->Out("null\n");
+        PrintPrimitiveValue("<null>", depth);    
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_Boolean") == 0)
     {
-        g_Ext->Out(object.Field("value").GetW32Bool() ? "true\n" : "false\n");
+        PrintPrimitiveValue(object.Field("value").GetW32Bool() ? "<true>" : "<false>", depth);
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
@@ -138,35 +169,29 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
     }
     else if (strcmp(typeIdStr, "TypeIds_String") == 0)
     {
-        g_Ext->Out("\"%mu\"\n", object.Field("m_pszValue").GetPtr());
+        if (GetExtension()->PreferDML())
+        {
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">\"%mu\"</link>", this->GetPtr(), object.Field("m_pszValue").GetPtr());
+        }
+        else
+        {
+            g_Ext->Out("\"%mu\" (%p)", object.Field("m_pszValue").GetPtr(), this->GetPtr());
+        }
         return; // done
     }
-    else if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
+    else if (depth == 0)
     {
-        if (depth == 0)
+        if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
         {
             RemoteRecyclableObject value = object.Field("value");
             value.PrintSimpleVarValue();
+            g_Ext->Out("\n");
         }
-        else
-        {
-            this->PrintSimpleVarValue();
-        }
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
-    {
-        if (depth == 0)
+        else if (strcmp(typeIdStr, "TypeIds_Function") == 0)
         {
             this->AsJavascriptFunction().Print();
         }
-        else
-        {
-            this->PrintSimpleVarValue();
-        }
-    }
-    else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
-    {
-        if (depth == 0)
+        else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
         {
             object.Field("head").OutFullValue();
         }
@@ -177,17 +202,15 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
     }
     else
     {
-        if (depth != 0)
-        {
-            this->PrintSimpleVarValue();
-        }
+        this->PrintSimpleVarValue();
     }
 
     if (depth == 0)
     {
         RemoteRecyclableObject prototype = GetType().Field("prototype");
         g_Ext->Out("\n[prototype] ");
-        prototype.PrintSimpleVarValue();        
+        prototype.PrintSimpleVarValue();
+        g_Ext->Out("\n");
         RemoteDynamicObject(*this).PrintProperties(printSlotIndex, depth + 1);
     }
 }

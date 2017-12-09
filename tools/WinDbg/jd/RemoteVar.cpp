@@ -71,13 +71,78 @@ void RemoteVar::Print(bool printSlotIndex, int depth)
     int intValue;
     double dblValue;
 
+    if (TryGetTaggedIntVar(&intValue))
+    {
+        if (GetExtension()->PreferDML() && depth != 0)
+        {
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">[TaggedInt] 0n%d</link>", this->var, intValue);
+        }
+        else
+        {
+            g_Ext->Out("[TaggedInt] 0n%d (0x%p)", intValue, this->var);
+        }       
+        return;
+    }
+    if (TryGetFloatVar(&dblValue))
+    {
+        if (GetExtension()->PreferDML() && depth != 0)
+        {
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">[TaggedInt] 0n%d</link>", this->var, intValue);
+        }
+        else
+        {
+            g_Ext->Out("[FloatVar] %f (0x%p)", intValue, this->var);
+        }
+        return;
+    }
+    RemoteRecyclableObject(var).Print(printSlotIndex, depth);
+}
+
+void RemoteVar::PrintLink(char const * link)
+{
+    if (GetExtension()->PreferDML())
+    {
+        if (link != nullptr)
+        {
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">%s</link>", this->var, link);
+        }
+        else
+        {
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">0x%p</link>", this->var, this->var);
+        }
+    }
+    else
+    {
+        if (link != nullptr)
+        {
+            g_Ext->Out("%s=0x%p", link, this->var);
+        }
+        else
+        {
+            g_Ext->Out("0x%p", this->var);
+        }
+    }
+}
+
+bool RemoteVar::IsRecyclableObject()
+{
+    int intValue;
+    double dblValue;
     if (TryGetTaggedIntVar(&intValue)) {
-        g_Ext->Out("TaggedInt 0n%d\n", intValue);
-        return;
+        return false;
     }
-    else if (TryGetFloatVar(&dblValue)) {
-        g_Ext->Out("FloatVar %f\n", dblValue);
-        return;
+    if (TryGetFloatVar(&dblValue)) {
+        return false;
     }
-    RemoteRecyclableObject(var).Print(printSlotIndex, depth);    
+    return true;
+}
+
+bool RemoteVar::IsUndefined()
+{
+    return IsRecyclableObject() && RemoteRecyclableObject(var).IsUndefined();
+}
+
+bool RemoteVar::IsNull()
+{
+    return IsRecyclableObject() && RemoteRecyclableObject(var).IsNull();
 }
