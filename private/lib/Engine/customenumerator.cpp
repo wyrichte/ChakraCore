@@ -35,6 +35,7 @@ namespace Js
     {
         BOOL itemsAvailable = FALSE;
         ScriptContext* scriptContext = GetScriptContext();
+        propertyId = Js::Constants::NoProperty;
         if (varEnumerator == nullptr)
         {
             return nullptr;
@@ -64,7 +65,6 @@ namespace Js
         }
         if (SUCCEEDED(hr) && currentName)
         {
-            propertyId = Js::Constants::NoProperty;
             return (JavascriptString*)CrossSite::MarshalVar(GetScriptContext(), currentName);
         }
         return nullptr;
