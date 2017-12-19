@@ -24,7 +24,7 @@ namespace Js
 
     bool JavascriptErrorDebug::Is(Var aValue)
     {
-        AssertMsg(aValue != NULL, "Error is NULL - did it come from an out of memory exception?");
+        AssertMsg(aValue != NULL, "Error is NULL - did it come from an oom exception?");
         if (JavascriptOperators::GetTypeId(aValue) == TypeIds_Error)
         {
             JavascriptError * error = JavascriptError::FromVar(aValue);
