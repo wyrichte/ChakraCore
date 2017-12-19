@@ -38,6 +38,7 @@ EXPORTS
     savegraph
     slist
     dlist
+    dumpbuffer
     dumptrace
     recycler
     tc
