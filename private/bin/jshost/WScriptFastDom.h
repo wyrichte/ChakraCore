@@ -196,5 +196,6 @@ private:
 
     static HRESULT GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScript, VARIANT* varResult);
     static HRESULT GetHtmlDebugFunctionHelper(Var function, CallInfo callInfo, Var* args, IDispatchEx** dispFunction);
+    static void CheckRecordedException(IActiveScriptDirect* activeScript, HRESULT hr, bool release = true);
 };
 
