@@ -80,17 +80,17 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
         binaryVerificationData->scriptEngineBaseSize != sizeof(ScriptEngineBase) ||
         binaryVerificationData->scriptEngineBaseOffset != (DWORD)(static_cast<ScriptEngine*>((IActiveScriptDirect*)0x0)) ||
         binaryVerificationData->scriptContextBaseSize != sizeof(Js::ScriptContextBase) ||
-        binaryVerificationData->scriptContextBaseOffset != (DWORD)((Js::ScriptContext*)0x0)->GetScriptContextBase() ||
+        binaryVerificationData->scriptContextBaseOffset != (DWORD)((const Js::ScriptContext*)0x0)->GetScriptContextBase() ||
         binaryVerificationData->javascriptLibraryBaseSize != sizeof(Js::JavascriptLibraryBase) ||
-        binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
+        binaryVerificationData->javascriptLibraryBaseOffset != (DWORD)((const Js::JavascriptLibrary*)0x0)->GetLibraryBase() ||
         binaryVerificationData->customExternalObjectSize != sizeof(Js::CustomExternalObject) ||
-        binaryVerificationData->typeOffset != (DWORD)((Js::RecyclableObject*)(0x0))->GetOffsetOfType() ||
-        binaryVerificationData->typeIdOffset != (DWORD)((Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
+        binaryVerificationData->typeOffset != (DWORD)((const Js::RecyclableObject*)(0x0))->GetOffsetOfType() ||
+        binaryVerificationData->typeIdOffset != (DWORD)((const Js::Type*)(0x0))->GetTypeIdFieldOffset() ||
         binaryVerificationData->taggedIntSize != sizeof(Js::TaggedInt) ||
         binaryVerificationData->typeIdLimit != TypeIds_Limit ||
         binaryVerificationData->javascriptNumberSize != sizeof(Js::JavascriptNumber) ||
         binaryVerificationData->numberUtilitiesBaseSize != sizeof(Js::NumberUtilitiesBase) ||
-        binaryVerificationData->numberUtilitiesBaseOffset != (DWORD)((Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase())
+        binaryVerificationData->numberUtilitiesBaseOffset != (DWORD)((const Js::NumberUtilities*)0x0)->GetNumberUtilitiesBase())
     {
         wasBinaryVerified = FALSE;
         JS_ETW(EventWriteJSCRIPT_HOSTING_BINARYINCONSISTENCY(
