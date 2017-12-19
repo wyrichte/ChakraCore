@@ -81,12 +81,8 @@ Var WScriptFastDom::DispatchDOMMutationBreakpoint(Var function, CallInfo callInf
         return nullptr;
     }
 
-    activeScriptDirect->TriggerDOMMutationBreakpoint();
-
-    if (FAILED(hr))
-    {
-        activeScriptDirect->ReleaseAndRethrowException(hr);
-    }
+    hr = activeScriptDirect->TriggerDOMMutationBreakpoint();
+    CheckRecordedException(activeScriptDirect, hr);
 
     if (activeScriptDirect != nullptr)
     {
@@ -232,11 +228,7 @@ LReturn:
         operations->Release();
     }
 
-    if (FAILED(hr))
-    {
-        activeScriptDirect->ReleaseAndRethrowException(hr);
-    }
-
+    CheckRecordedException(activeScriptDirect, hr);
     if (activeScriptDirect != nullptr)
     {
         activeScriptDirect->Release();
@@ -296,10 +288,7 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
         }
         else
         {
-            if (hr == SCRIPT_E_RECORDED)
-            {
-                activeScriptDirect->ReleaseAndRethrowException(hr);
-            }
+            CheckRecordedException(activeScriptDirect, hr);
         }
     }
 
@@ -403,10 +392,7 @@ Var WScriptFastDom::GetWorkingSet(Var function, CallInfo callInfo, Var* args)
                 {
                     hr = activeScriptDirect->DispExToVar(wsDispatch, &instance);
                 }
-                if (hr == SCRIPT_E_RECORDED)
-                {
-                    activeScriptDirect->ReleaseAndRethrowException(hr);
-                }
+                CheckRecordedException(activeScriptDirect, hr);
             }
             else
             {
@@ -441,10 +427,7 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
             if (FAILED(hr))
             {
                 exitCode = 0;
-                if (hr == SCRIPT_E_RECORDED)
-                {
-                    activeScriptDirect->ReleaseAndRethrowException(hr);
-                }
+                CheckRecordedException(activeScriptDirect, hr);
             }
         }
         activeScriptDirect->Release();
@@ -708,6 +691,11 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
     }
 
     Var returnValue = NULL;
+    runInfo.hr = activeScriptDirect->GetUndefined(&returnValue);
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
     args = &args[1];
 
     if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo))
@@ -809,10 +797,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                                         }
                                     }
                                 }
-                                if (runInfo.hr == SCRIPT_E_RECORDED)
-                                {
-                                    activeScriptDirect->ReleaseAndRethrowException(runInfo.hr);
-                                }
+                                CheckRecordedException(activeScriptDirect, runInfo.hr, false);
                             }
                         }
                         scriptSite->Release();
@@ -834,12 +819,21 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                 {
                     runInfo.hr = jsHostScriptSite->LoadModuleFile(runInfo.source, FALSE, (byte**)&errorObject, (DWORD_PTR)nullptr);
                 }
+                CheckRecordedException(activeScriptDirect, runInfo.hr, false);
                 if (FAILED(runInfo.hr) && errorObject != nullptr)
                 {
                     runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
                 }
             }
         }
+    }
+
+    CheckRecordedException(activeScriptDirect, runInfo.hr, false);
+    if (FAILED(runInfo.hr))
+    {
+        Var errorObject = nullptr;
+        activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptError, runInfo.hr, runInfo.errorMessage, &errorObject);
+        operations->ThrowException(activeScriptDirect, errorObject, FALSE);
     }
 
     return returnValue;
@@ -888,10 +882,11 @@ Var WScriptFastDom::LoadModule(Var function, CallInfo callInfo, Var* args)
     CComPtr<IJavascriptOperations> operations = NULL;
     JsHostActiveScriptSite *scriptSite = nullptr;
     runInfo.hr = JScript9Interface::JsVarToScriptDirect(function, &activeScriptDirect);
-    if (SUCCEEDED(runInfo.hr))
+    if (FAILED(runInfo.hr))
     {
-        runInfo.hr = activeScriptDirect->GetJavascriptOperations(&operations);
+        return NULL;
     }
+    runInfo.hr = activeScriptDirect->GetJavascriptOperations(&operations);
     if (FAILED(runInfo.hr))
     {
         return NULL;
@@ -906,6 +901,12 @@ Var WScriptFastDom::LoadModule(Var function, CallInfo callInfo, Var* args)
 
     args = &args[1];
     Var returnValue = NULL;
+    runInfo.hr = activeScriptDirect->GetUndefined(&returnValue);
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
+
     CComPtr<IJsHostScriptSite> jsHostScriptSite;
     runInfo.hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
     if (SUCCEEDED(runInfo.hr))
@@ -919,9 +920,14 @@ Var WScriptFastDom::LoadModule(Var function, CallInfo callInfo, Var* args)
             }
         }
     }
+    CheckRecordedException(activeScriptDirect, runInfo.hr, false);
     if (FAILED(runInfo.hr))
     {
-        runInfo.hr = operations->ThrowException(activeScriptDirect, errorObject, FALSE);
+        if (!errorObject)
+        {
+            activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptError, runInfo.hr, runInfo.errorMessage, &errorObject);
+        }
+        operations->ThrowException(activeScriptDirect, errorObject, FALSE);
     }
     return returnValue;
 }
@@ -943,6 +949,11 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
     }
 
     Var returnValue = NULL;
+    runInfo.hr = activeScriptDirect->GetUndefined(&returnValue);
+    if (FAILED(runInfo.hr))
+    {
+        return NULL;
+    }
     args = &args[1];
 
     if (ParseRunInfoFromArgs(activeScriptDirect, callInfo, args, runInfo, true))
@@ -1061,10 +1072,7 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
                                         }
                                     }
                                 }
-                                if (runInfo.hr == SCRIPT_E_RECORDED)
-                                {
-                                    activeScriptDirect->ReleaseAndRethrowException(runInfo.hr);
-                                }
+                                CheckRecordedException(activeScriptDirect, runInfo.hr, false);
                             }
                         }
                     }
@@ -1074,6 +1082,7 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
         }
     }
 
+    CheckRecordedException(activeScriptDirect, runInfo.hr, false);
     if (FAILED(runInfo.hr))
     {
         Var errorObject = NULL;
@@ -1206,6 +1215,21 @@ HRESULT WScriptFastDom::GetHtmlDebugFunctionHelper(Var function, CallInfo callIn
     return hr;
 }
 
+void WScriptFastDom::CheckRecordedException(IActiveScriptDirect* activeScript, HRESULT hr, bool release /*= true*/)
+{
+    if (hr == SCRIPT_E_RECORDED && activeScript)
+    {
+        if (!release)
+        {
+            // The only available API is "Release"AndRethrowException
+            // So add a ref here to mimic a no release version of the API
+            activeScript->AddRef();
+        }
+        activeScript->ReleaseAndRethrowException(hr);
+    }
+
+}
+
 Var WScriptFastDom::HtmlPerformSourceRundown(Var function, CallInfo callInfo, Var* args)
 {
     CComPtr<IDispatchEx> functionDispatch;
@@ -1308,10 +1332,7 @@ Var WScriptFastDom::Edit(Var function, CallInfo callInfo, Var* args)
         }
         else
         {
-            if (hr == SCRIPT_E_RECORDED)
-            {
-                activeScriptDirect->ReleaseAndRethrowException(hr);
-            }
+            CheckRecordedException(activeScriptDirect, hr, false);
         }
 
         Var undefined = nullptr;

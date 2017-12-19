@@ -1,0 +1,9 @@
+() => WScript.LoadModule(Symbol()): TypeError: Object doesn't support property or method 'ToString'
+() => WScript.LoadModule({toString() {throw new Error("Exception when calling toString");}}): Error: Exception when calling toString
+() => WScript.LoadModule(): Error: Too many or too few arguments.
+() => WScript.LoadScript(Symbol()): TypeError: Object doesn't support property or method 'ToString'
+() => WScript.LoadScript({toString() {throw new Error("Exception when calling toString");}}): Error: Exception when calling toString
+() => WScript.LoadScript(): Error: Too many or too few arguments.
+() => WScript.LoadScriptFile(Symbol()): TypeError: Object doesn't support property or method 'ToString'
+() => WScript.LoadScriptFile({toString() {throw new Error("Exception when calling toString");}}): Error: Exception when calling toString
+() => WScript.LoadScriptFile(): Error: Too many or too few arguments.

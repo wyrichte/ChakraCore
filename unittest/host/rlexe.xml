@@ -56,4 +56,10 @@
       <files>EventHandlerWithImplicitThis.html</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>wscript_tests.js</files>
+      <baseline>wscript_tests.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>
