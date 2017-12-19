@@ -1061,6 +1061,55 @@ JD_PRIVATE_COMMAND(count,
     Out("%I64u\n", ExtRemoteTypedUtil::Count(object, nextstr));
 }
 
+JD_PRIVATE_COMMAND(dumpbuffer,
+    "Outputs buffer content",
+    "{;e,r;buffer; The buffer to dump}"\
+    "{;e,o,d=0x10;length; Length of the buffer to dump}"\
+    "{file;s,o;file; File to output the buffer, dump to console if missing}")
+{
+    ULONG64 address = GetUnnamedArgU64(0);
+    ULONG length = (ULONG)GetUnnamedArgU64(1);
+    ExtRemoteData ext(address, length);
+    byte* buf = new byte[length];
+    struct AutoCleanBuf
+    {
+        byte* buf;
+        ~AutoCleanBuf() { delete[] buf; }
+    } autoCleanBuf = { buf };
+    ext.ReadBuffer(buf, length);
+
+    if (HasArg("file"))
+    {
+        const char* filename = GetArgStr("file");
+        FILE* outfile = fopen(filename, "wb");
+        if (!outfile)
+        {
+            g_Ext->Out("Unable to open file %s for write\n", filename);
+            return;
+        }
+        struct AutoClose
+        {
+            FILE* file;
+            ~AutoClose() { fclose(file); }
+        } autoClose = { outfile };
+        fwrite(buf, sizeof(byte), length, outfile);
+        int error = ferror(outfile);
+        if (error != 0)
+        {
+            g_Ext->Out("There was an error while writing to file %s: %d\n", filename, error);
+            return;
+        }
+    }
+    else
+    {
+        for (ULONG i = 0; i < length; ++i)
+        {
+            UCHAR val = buf[i];
+            g_Ext->Out("0x%x,", val);
+        }
+    }
+}
+
 class JDStackWalker
 {
 public:    
