@@ -853,130 +853,15 @@ BOOL HostDispatch::PutValue(const char16 * psz, Js::Var value)
 
 BOOL HostDispatch::GetAccessors(const char16 * name, Js::Var* getter, Js::Var* setter, Js::ScriptContext * requestContext)
 {
-    HRESULT hr = S_OK;
-    BSTR propName = NULL;
-    IHTMLDOMConstructor *pDomConst = NULL;
-    VARIANT varGetter;
-    VARIANT varSetter;
-    BOOL bgetset = FALSE;
-    if (nullptr == getter || nullptr == setter)
-    {
-        return FALSE;
-    }
-
-    if (requestContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
-        *setter = requestContext->GetLibrary()->GetNull();
-        *getter = requestContext->GetLibrary()->GetNull();
-        requestContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
-    }
-
-    if (FAILED(hr = EnsureDispatch()))
-    {
-        return FALSE;
-    }
-
-    VariantInit(&varGetter);
-    VariantInit(&varSetter);
-    *setter = NULL;
-    *getter = NULL;
-    IDispatch* pDispatch = GetDispatchNoRef();
-    if (pDispatch == NULL)
-    {
-        return FALSE;
-    }
-    
-    BEGIN_LEAVE_SCRIPT(requestContext)
-    {
-        propName = SysAllocString(name);
-        if (propName != NULL)
-        {
-            hr = pDispatch->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
-
-            if (SUCCEEDED(hr))
-            {
-                hr = pDomConst->LookupGetter(propName, &varGetter);
-                if (SUCCEEDED(hr))
-                {
-                    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varGetter, getter, requestContext);
-                    VariantClear(&varGetter);
-                    if (SUCCEEDED(hr))
-                    {
-                        bgetset = TRUE;
-                    }
-                }
-                else
-                {
-                    // we'll try to find setter even if we can't find getter. 
-                    hr = NOERROR;
-                }
-            }
-        
-            if (SUCCEEDED(hr))
-            {
-                hr = pDomConst->LookupSetter(propName, &varSetter);
-                if (SUCCEEDED(hr))
-                {
-                    hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&varSetter, setter, requestContext);
-                    VariantClear(&varSetter);
-                    if (SUCCEEDED(hr))
-                    {
-                        bgetset = TRUE;
-                    }
-                }
-                else
-                {
-                    hr = NOERROR;
-                }
-            }
-
-
-            if (NULL != pDomConst)
-            {
-                pDomConst->Release();
-            }
-
-            SysFreeString(propName);
-        }
-        else
-        {
-            hr = E_OUTOFMEMORY;
-        }
-        
-    }
-    END_LEAVE_SCRIPT(requestContext);   
-    
-    /* REVIEW: throw exception for failed HRESULT? */
-    return bgetset;
+    return FALSE;
 }
 
-void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::PropertyDescriptor descriptor)
+void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, const Js::PropertyDescriptor& descriptor)
 {
     Js::ScriptContext* scriptContext = this->GetScriptContext();
-
-    // Do the same in all modes for compatibility and consistency. In IE9 std mode we may have
-    // remote objects wrapped in HostDispatch and we don't support ES5 on remote objects.
-
-    IHTMLDOMConstructor *pDomConst = NULL;
-    if (FAILED(this->QueryObjectInterfaceInScript(IID_IHTMLDomConstructor,(void**)&pDomConst)))
-    {
-        Js::JavascriptError::ThrowTypeError(this->GetScriptContext(), VBSERR_ActionNotSupported);
-    }
-
-    pDomConst->Release();
     if (descriptor.GetterSpecified() || descriptor.SetterSpecified())
     {
-        if (descriptor.ConfigurableSpecified() && !descriptor.IsConfigurable())
-        {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeFalse, _u("configurable"));
-        }
-        if (descriptor.EnumerableSpecified() && descriptor.IsEnumerable())
-        {
-            Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_InvalidAttributeTrue, _u("enumerable"));
-        }
-
-        Assert(!descriptor.WritableSpecified());  // Not allowed by JavascriptOperators::ToPropertyDescriptor
+        Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NoAccessors);
     }
     else
     {
@@ -999,22 +884,6 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::Proper
     }
 }
 
-void HostDispatch::ThrowIfCannotGetOwnPropertyDescriptor(Js::PropertyId propId)
-{
-    Js::ScriptContext* scriptContext = this->GetScriptContext();
-
-    // Do the same in all modes for compatibility and consistency. In IE9 std mode we may have
-    // remote objects wrapped in HostDispatch and we don't support ES5 on remote objects.
-
-    IHTMLDOMConstructor *pDomConst = NULL;        
-    if (FAILED(this->QueryObjectInterfaceInScript(IID_IHTMLDomConstructor,(void**)&pDomConst)))
-    {
-        Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_ActionNotSupported);
-    }
-
-    pDomConst->Release();
-}
-
 BOOL HostDispatch::GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor)
 {
     return false;
@@ -1023,91 +892,8 @@ BOOL HostDispatch::GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descript
 BOOL HostDispatch::SetAccessors(const char16 * name, Js::Var getter, Js::Var setter)
 {
     AssertInScript();
-
-    HRESULT hr = S_OK;
-  
     Js::ScriptContext* scriptContext = this->GetScriptContext();
-
-    if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
-        scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
-        return TRUE;
-    }
-
-    if (FAILED(hr = EnsureDispatch()))
-    {
-        return FALSE;
-    }
-    IDispatch* pDispatch = GetDispatchNoRef();
-    if (pDispatch == NULL)
-    {
-        return FALSE;
-    }
-
-    if (getter == nullptr && setter == nullptr)
-    {
-        return FALSE;
-    }
-    
-    BEGIN_LEAVE_SCRIPT(scriptContext)
-    {
-        BSTR propName = NULL;
-        VARIANT varGetter;
-        VARIANT varSetter;
-
-        // REVIEW: The special case for IHTMLDOMConstructor is IE8 only?  Remove?
-        IHTMLDOMConstructor *pDomConst = NULL;
-
-        VariantInit(&varGetter);
-        VariantInit(&varSetter);
-
-        if (nullptr != getter)
-        {
-            hr = DispatchHelper::MarshalJsVarToVariantNoThrow(getter, &varGetter, scriptContext);            
-        }
-
-        if (SUCCEEDED(hr) && nullptr != setter)
-        {
-            hr = DispatchHelper::MarshalJsVarToVariantNoThrow(setter, &varSetter, scriptContext);           
-        }
-       
-        if (SUCCEEDED(hr))
-        {
-            propName = SysAllocString(name);
-            if (propName == NULL)
-            {
-                hr = E_OUTOFMEMORY;            
-            }
-            else
-            {
-                hr = pDispatch->QueryInterface(IID_IHTMLDomConstructor, (void**)&pDomConst);
-                if (SUCCEEDED(hr) && getter != nullptr)
-                {
-                    hr = pDomConst->DefineGetter(propName, &varGetter);
-                }
-                if (SUCCEEDED(hr) && setter != nullptr)
-                {
-                    hr = pDomConst->DefineSetter(propName, &varSetter);
-                }                
-            }
-        }
-
-        SysFreeString(propName);
-        VariantClear(&varGetter);
-        VariantClear(&varSetter);
-
-        if (NULL != pDomConst)
-        {
-            pDomConst->Release();
-        }
-    }
-    END_LEAVE_SCRIPT(scriptContext);      
-
-    if (hr == E_OUTOFMEMORY)
-    {
-        Js::Throw::OutOfMemory();
-    }
-    return S_OK == hr;
+    Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NoAccessors);
 }
 
 Js::PropertyQueryFlags HostDispatch::HasItemQuery(uint32 index)
