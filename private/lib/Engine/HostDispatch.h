@@ -48,9 +48,8 @@ public:
     virtual BOOL InitProperty(Js::PropertyId propertyId, Js::Var value, Js::PropertyOperationFlags flags = Js::PropertyOperation_None, Js::PropertyValueInfo* info = NULL) override;
     virtual BOOL DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperationFlags flags) override;
     virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
-    virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, Js::PropertyDescriptor descriptor);
-    virtual void ThrowIfCannotGetOwnPropertyDescriptor(Js::PropertyId propId);
-    virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor);
+    virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, const Js::PropertyDescriptor& descriptor) override;
+    virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor) override;
     virtual Js::PropertyQueryFlags HasItemQuery(uint32 index) override;
     virtual Js::PropertyQueryFlags GetItemReferenceQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
     virtual Js::PropertyQueryFlags GetItemQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
@@ -81,8 +80,8 @@ public:
     virtual Js::DynamicObject* GetRemoteObject() override;
     virtual RecyclableObject * CloneToScriptContext(Js::ScriptContext* requestContext) override;
     virtual BOOL ToString(Js::Var* value, Js::ScriptContext* scriptContext) override;
-    virtual BOOL GetInternalProperty(Js::Var instance, Js::PropertyId internalPropertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext);
-    virtual BOOL SetInternalProperty(Js::PropertyId internalPropertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info);
+    virtual BOOL GetInternalProperty(Js::Var instance, Js::PropertyId internalPropertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
+    virtual BOOL SetInternalProperty(Js::PropertyId internalPropertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
 
     static BOOL Is(Var instance);
     virtual void Finalize(bool isShutdown) override;
