@@ -1,8 +1,12 @@
-function asmModule() {
-  "use asm";
-  function f() {}
+
+var asmModule = new Function(`
+"use asm";
+  function f() {
+    ${Array(100).fill("if(0){").join("\n")}
+    ${Array(100).fill("}").join("\n")}
+  }
   return f;
-}
+`);
 
 function recur() {
   try {
