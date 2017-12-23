@@ -2,6 +2,14 @@
 <regress-exe>
   <test>
     <default>
+      <files>ByteCodeVerification.js</files>
+      <baseline>ByteCodeVerification.baseline</baseline>
+      <compile-flags>-ByteCodeVerification ByteCodeVerification.baseline</compile-flags>
+      <tags>exclude_fre,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>DebugGetTypeHandlerName.js</files>
       <baseline>DebugGetTypeHandlerName.baseline</baseline>
       <tags>exclude_fre,exclude_dynapogo</tags>

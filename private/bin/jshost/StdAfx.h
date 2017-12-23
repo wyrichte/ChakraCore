@@ -116,6 +116,7 @@
 #endif // USE_EDGEMODE_JSRT
 #include "jsrt.h"
 #include "Core/CommonTypedefs.h"
+#include "ByteCodeVerification.h"
 #include "EdgeJsHostNativeTest.h"
 #include "ThreadMessage.h"
 #include "MessageQueue.h"

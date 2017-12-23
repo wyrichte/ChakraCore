@@ -1845,6 +1845,24 @@ int HandleNativeTestFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[]
     return 0;
 }
 
+bool HandleBytecodeVerificationFlag(int argc, LPWSTR argv[], int& retCode)
+{
+    LPCWSTR bytecodeVerificationFlag = _u("-BytecodeVerification");
+    size_t bytecodeVerificationFlagLen = wcslen(bytecodeVerificationFlag);
+    int i = HostConfigFlags::FindArg(argc, argv, bytecodeVerificationFlag, bytecodeVerificationFlagLen);
+    if (i < 0)
+    {
+        return false;
+    }
+    LPWSTR verificationFile = nullptr;
+    if (i + 1 < argc)
+    {
+        verificationFile = argv[i + 1];
+    }
+    retCode = (int)VerifyAllByteCode(verificationFile);
+    return true;
+}
+
 int HandleDebuggerBaselineFlag(int& argc, _Inout_updates_to_(argc, argc) LPWSTR argv[])
 {
     LPCWSTR dbgBaselineFlag = _u("-dbgbaseline:");
@@ -2005,7 +2023,13 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
     HostConfigFlags::HandleJsEtwConsoleFlag(argc, argv);
     HostConfigFlags::HandleBaselinePathFlag(argc, argv);
 
-    if (int ret = HandleNativeTestFlag(argc, argv) != 0)
+    int ret = HandleNativeTestFlag(argc, argv);
+    if (ret != 0)
+    {
+        return ret;
+    }
+
+    if (HandleBytecodeVerificationFlag(argc, argv, ret))
     {
         return ret;
     }
@@ -2015,8 +2039,6 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
         wprintf(_u("ERROR: -auto must be used with -debuglaunch\n"));
         return EXIT_FAILURE;
     }
-
-    int ret = 0;
 
     if (runJITServer)
     {

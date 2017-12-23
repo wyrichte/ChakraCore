@@ -1,0 +1,1720 @@
+Bytecode GUID = {C90F51EC-FA5C-4482-808E-0A3D54DECC0C}
+OpCode: EndOfBlock = 0. Layout = Empty
+OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
+OpCode: MediumLayoutPrefix = 2. Layout = Empty
+OpCode: ExtendedMediumLayoutPrefix = 3. Layout = Empty
+OpCode: LargeLayoutPrefix = 4. Layout = Empty
+OpCode: ExtendedLargeLayoutPrefix = 5. Layout = Empty
+OpCode: Nop = 6. Layout = Empty
+OpCode: StartCall = 7. Layout = StartCall
+OpCode: Break = 8. Layout = Empty
+OpCode: Br = 9. Layout = Br
+OpCode: BrNotHasSideEffects = 10. Layout = BrS
+OpCode: BrFncNeqApply = 11. Layout = BrReg1
+OpCode: BrEq_A = 12. Layout = BrReg2
+OpCode: BrNeq_A = 13. Layout = BrReg2
+OpCode: BrFalse_A = 14. Layout = BrReg1
+OpCode: BrTrue_A = 15. Layout = BrReg1
+OpCode: BrGe_A = 16. Layout = BrReg2
+OpCode: BrGt_A = 17. Layout = BrReg2
+OpCode: BrLt_A = 18. Layout = BrReg2
+OpCode: BrLe_A = 19. Layout = BrReg2
+OpCode: BrSrEq_A = 20. Layout = BrReg2
+OpCode: BrSrNeq_A = 21. Layout = BrReg2
+OpCode: BrOnNoProperty = 22. Layout = BrProperty
+OpCode: BrOnNoLocalProperty = 23. Layout = BrLocalProperty
+OpCode: BrOnNoEnvProperty = 24. Layout = BrEnvProperty
+OpCode: BrOnObject_A = 25. Layout = BrReg1
+OpCode: BrNotNull_A = 26. Layout = BrReg1
+OpCode: EndSwitch = 27. Layout = Br
+OpCode: Case = 28. Layout = BrReg2
+OpCode: BeginSwitch = 29. Layout = Reg2
+OpCode: ProfiledBeginSwitch = 30. Layout = ProfiledReg2
+OpCode: CallI = 31. Layout = CallI
+OpCode: CallIFlags = 32. Layout = CallIFlags
+OpCode: CallIExtended = 33. Layout = CallIExtended
+OpCode: CallIExtendedFlags = 34. Layout = CallIExtendedFlags
+OpCode: Throw = 35. Layout = Reg1
+OpCode: Ret = 36. Layout = Empty
+OpCode: Yield = 37. Layout = Reg2
+OpCode: ResumeYield = 38. Layout = Reg2
+OpCode: ResumeYieldStar = 39. Layout = Reg3
+OpCode: Incr_A = 40. Layout = Reg2
+OpCode: Decr_A = 41. Layout = Reg2
+OpCode: Neg_A = 42. Layout = Reg2
+OpCode: Not_A = 43. Layout = Reg2
+OpCode: Typeof = 44. Layout = Reg2
+OpCode: TypeofElem = 45. Layout = ElementI
+OpCode: ApplyArgs = 46. Layout = Reg5
+OpCode: Add_A = 47. Layout = Reg3
+OpCode: Div_A = 48. Layout = Reg3
+OpCode: ProfiledDiv_A = 49. Layout = ProfiledReg3
+OpCode: Mul_A = 50. Layout = Reg3
+OpCode: Rem_A = 51. Layout = Reg3
+OpCode: ProfiledRem_A = 52. Layout = ProfiledReg3
+OpCode: Sub_A = 53. Layout = Reg3
+OpCode: Expo_A = 54. Layout = Reg3
+OpCode: And_A = 55. Layout = Reg3
+OpCode: Or_A = 56. Layout = Reg3
+OpCode: Xor_A = 57. Layout = Reg3
+OpCode: Shl_A = 58. Layout = Reg3
+OpCode: Shr_A = 59. Layout = Reg3
+OpCode: ShrU_A = 60. Layout = Reg3
+OpCode: CmEq_A = 61. Layout = Reg3
+OpCode: CmGe_A = 62. Layout = Reg3
+OpCode: CmGt_A = 63. Layout = Reg3
+OpCode: CmLt_A = 64. Layout = Reg3
+OpCode: CmLe_A = 65. Layout = Reg3
+OpCode: CmNeq_A = 66. Layout = Reg3
+OpCode: CmSrEq_A = 67. Layout = Reg3
+OpCode: CmSrNeq_A = 68. Layout = Reg3
+OpCode: Conv_Num = 69. Layout = Reg2
+OpCode: Conv_Obj = 70. Layout = Reg2
+OpCode: Ld_A = 71. Layout = Reg2
+OpCode: LdLocalObj = 72. Layout = Reg1
+OpCode: LdInnerScope = 73. Layout = Reg1Unsigned1
+OpCode: LdC_A_Null = 74. Layout = Reg1
+OpCode: ChkUndecl = 75. Layout = Reg1
+OpCode: EnsureNoRootFld = 76. Layout = ElementRootU
+OpCode: EnsureNoRootRedeclFld = 77. Layout = ElementRootU
+OpCode: ScopedEnsureNoRedeclFld = 78. Layout = ElementScopedC
+OpCode: InitUndecl = 79. Layout = Reg1
+OpCode: InitUndeclLetFld = 80. Layout = ElementPIndexed
+OpCode: InitUndeclRootLetFld = 81. Layout = ElementRootU
+OpCode: InitUndeclConstFld = 82. Layout = ElementPIndexed
+OpCode: InitUndeclRootConstFld = 83. Layout = ElementRootU
+OpCode: InitConst = 84. Layout = Reg2
+OpCode: InitConstSlot = 85. Layout = ElementSlot
+OpCode: InitLetFld = 86. Layout = ElementCP
+OpCode: InitRootLetFld = 87. Layout = ElementRootCP
+OpCode: InitConstFld = 88. Layout = ElementCP
+OpCode: InitRootConstFld = 89. Layout = ElementRootCP
+OpCode: InitClassMember = 90. Layout = ElementCP
+OpCode: ArgIn0 = 91. Layout = Reg1
+OpCode: ArgOut_A = 92. Layout = Arg
+OpCode: ProfiledArgOut_A = 93. Layout = ProfiledArg
+OpCode: ArgOut_ANonVar = 94. Layout = Arg
+OpCode: ArgOut_Env = 95. Layout = ArgNoSrc
+OpCode: Delete_A = 96. Layout = Reg2
+OpCode: LdFld = 97. Layout = ElementCP
+OpCode: ProfiledLdFld = 98. Layout = ElementCP
+OpCode: LdLocalFld = 99. Layout = ElementP
+OpCode: ProfiledLdLocalFld = 100. Layout = ElementP
+OpCode: LdEnvObj = 101. Layout = ElementSlotI1
+OpCode: LdFldForTypeOf = 102. Layout = ElementCP
+OpCode: ProfiledLdFldForTypeOf = 103. Layout = ElementCP
+OpCode: LdFldForCallApplyTarget = 104. Layout = ElementCP
+OpCode: ProfiledLdFldForCallApplyTarget = 105. Layout = ElementCP
+OpCode: LdRootFld = 106. Layout = ElementRootCP
+OpCode: ProfiledLdRootFld = 107. Layout = ElementRootCP
+OpCode: LdMethodFld = 108. Layout = ElementCP
+OpCode: ProfiledLdMethodFld = 109. Layout = ElementCP
+OpCode: LdRootMethodFld = 110. Layout = ElementRootCP
+OpCode: ProfiledLdRootMethodFld = 111. Layout = ElementRootCP
+OpCode: StFld = 112. Layout = ElementCP
+OpCode: ProfiledStFld = 113. Layout = ElementCP
+OpCode: StRootFld = 114. Layout = ElementRootCP
+OpCode: ProfiledStRootFld = 115. Layout = ElementRootCP
+OpCode: StLocalFld = 116. Layout = ElementP
+OpCode: ProfiledStLocalFld = 117. Layout = ElementP
+OpCode: StFldStrict = 118. Layout = ElementCP
+OpCode: ProfiledStFldStrict = 119. Layout = ElementCP
+OpCode: StRootFldStrict = 120. Layout = ElementRootCP
+OpCode: ProfiledStRootFldStrict = 121. Layout = ElementRootCP
+OpCode: InitFld = 122. Layout = ElementCP
+OpCode: ProfiledInitFld = 123. Layout = ElementCP
+OpCode: InitLocalFld = 124. Layout = ElementP
+OpCode: ProfiledInitLocalFld = 125. Layout = ElementP
+OpCode: InitRootFld = 126. Layout = ElementRootCP
+OpCode: ProfiledInitRootFld = 127. Layout = ElementRootCP
+OpCode: DeleteFld = 128. Layout = ElementC
+OpCode: DeleteRootFld = 129. Layout = ElementC
+OpCode: DeleteFldStrict = 130. Layout = ElementC
+OpCode: DeleteRootFldStrict = 131. Layout = ElementC
+OpCode: ScopedLdFld = 132. Layout = ElementP
+OpCode: ScopedLdMethodFld = 133. Layout = ElementCP
+OpCode: ScopedLdInst = 134. Layout = ElementScopedC2
+OpCode: ScopedInitFunc = 135. Layout = ElementScopedC
+OpCode: ScopedStFld = 136. Layout = ElementP
+OpCode: ScopedStFldStrict = 137. Layout = ElementP
+OpCode: ScopedDeleteFld = 138. Layout = ElementScopedC
+OpCode: ScopedDeleteFldStrict = 139. Layout = ElementScopedC
+OpCode: LdSlot = 140. Layout = ElementSlot
+OpCode: ProfiledLdSlot = 141. Layout = ProfiledElementSlot
+OpCode: LdEnvSlot = 142. Layout = ElementSlotI2
+OpCode: ProfiledLdEnvSlot = 143. Layout = ProfiledElementSlotI2
+OpCode: LdInnerSlot = 144. Layout = ElementSlotI2
+OpCode: ProfiledLdInnerSlot = 145. Layout = ProfiledElementSlotI2
+OpCode: LdLocalSlot = 146. Layout = ElementSlotI1
+OpCode: ProfiledLdLocalSlot = 147. Layout = ProfiledElementSlotI1
+OpCode: StEnvSlot = 148. Layout = ElementSlotI2
+OpCode: StInnerSlot = 149. Layout = ElementSlotI2
+OpCode: StLocalSlot = 150. Layout = ElementSlotI1
+OpCode: LdElemI_A = 151. Layout = ElementI
+OpCode: ProfiledLdElemI_A = 152. Layout = ProfiledElementI
+OpCode: LdMethodElem = 153. Layout = ElementI
+OpCode: StElemI_A = 154. Layout = ElementI
+OpCode: ProfiledStElemI_A = 155. Layout = ProfiledElementI
+OpCode: StElemI_A_Strict = 156. Layout = ElementI
+OpCode: ProfiledStElemI_A_Strict = 157. Layout = ProfiledElementI
+OpCode: StArrItemI_CI4 = 158. Layout = ElementUnsigned1
+OpCode: StArrItemC_CI4 = 159. Layout = ElementUnsigned1
+OpCode: LdArrHead = 160. Layout = Reg2
+OpCode: StArrInlineItem_CI4 = 161. Layout = ElementUnsigned1
+OpCode: StArrSegItem_CI4 = 162. Layout = ElementUnsigned1
+OpCode: StArrSegItem_A = 163. Layout = Auxiliary
+OpCode: DeleteElemI_A = 164. Layout = ElementI
+OpCode: DeleteElemIStrict_A = 165. Layout = ElementI
+OpCode: LdLen_A = 166. Layout = Reg2
+OpCode: ProfiledLdLen_A = 167. Layout = ProfiledReg2
+OpCode: LdUndef = 168. Layout = Reg1
+OpCode: LdNaN = 169. Layout = Reg1
+OpCode: LdInfinity = 170. Layout = Reg1
+OpCode: LdTrue = 171. Layout = Reg1
+OpCode: LdFalse = 172. Layout = Reg1
+OpCode: LdArgCnt = 173. Layout = Reg1
+OpCode: LdHeapArguments = 174. Layout = Reg1
+OpCode: LdLetHeapArguments = 175. Layout = Reg1
+OpCode: LdHeapArgsCached = 176. Layout = Reg1
+OpCode: LdThis = 177. Layout = Reg2Int1
+OpCode: ProfiledLdThis = 178. Layout = Reg2Int1
+OpCode: StrictLdThis = 179. Layout = Reg2
+OpCode: ProfiledStrictLdThis = 180. Layout = Reg2
+OpCode: LdInnerFrameDisplay = 181. Layout = Reg3
+OpCode: LdInnerFrameDisplayNoParent = 182. Layout = Reg2
+OpCode: LdIndexedFrameDisplay = 183. Layout = Reg2Int1
+OpCode: LdIndexedFrameDisplayNoParent = 184. Layout = Reg1Unsigned1
+OpCode: LdFuncExprFrameDisplay = 185. Layout = Reg2
+OpCode: IsIn = 186. Layout = Reg3
+OpCode: LdArgumentsFromFrame = 187. Layout = Reg1
+OpCode: LdElemUndef = 188. Layout = ElementU
+OpCode: LdElemUndefScoped = 189. Layout = ElementScopedU
+OpCode: LdFuncExpr = 190. Layout = Reg1
+OpCode: LdPropIds = 191. Layout = Auxiliary
+OpCode: StFuncExpr = 192. Layout = ElementC
+OpCode: StLocalFuncExpr = 193. Layout = ElementU
+OpCode: NewScObject = 194. Layout = CallI
+OpCode: ProfiledNewScObject = 195. Layout = ProfiledCallI
+OpCode: ProfiledNewScObjectWithICIndex = 196. Layout = ProfiledCallIWithICIndex
+OpCode: NewScObjArray = 197. Layout = CallI
+OpCode: ProfiledNewScObjArray = 198. Layout = Profiled2CallI
+OpCode: NewScObjArraySpread = 199. Layout = CallIExtended
+OpCode: ProfiledNewScObjArraySpread = 200. Layout = Profiled2CallIExtended
+OpCode: NewScObject_A = 201. Layout = Auxiliary
+OpCode: NewScObjectNoCtorFull = 202. Layout = Reg2
+OpCode: NewScObjectSimple = 203. Layout = Reg1
+OpCode: NewScObjectLiteral = 204. Layout = Auxiliary
+OpCode: NewScArray = 205. Layout = Reg1Unsigned1
+OpCode: ProfiledNewScArray = 206. Layout = ProfiledReg1Unsigned1
+OpCode: NewScArrayWithMissingValues = 207. Layout = Reg1Unsigned1
+OpCode: NewScIntArray = 208. Layout = Auxiliary
+OpCode: ProfiledNewScIntArray = 209. Layout = ProfiledAuxiliary
+OpCode: NewScFltArray = 210. Layout = Auxiliary
+OpCode: ProfiledNewScFltArray = 211. Layout = ProfiledAuxiliary
+OpCode: NewScFunc = 212. Layout = ElementSlotI1
+OpCode: NewScGenFunc = 213. Layout = ElementSlotI1
+OpCode: NewStackScFunc = 214. Layout = ElementSlotI1
+OpCode: InitCachedFuncs = 215. Layout = AuxNoReg
+OpCode: GetCachedFunc = 216. Layout = Reg1Unsigned1
+OpCode: CommitScope = 217. Layout = Empty
+OpCode: InvalCachedScope = 218. Layout = Unsigned1
+OpCode: NewPseudoScope = 219. Layout = Unsigned1
+OpCode: NewBlockScope = 220. Layout = Unsigned1
+OpCode: CloneBlockScope = 221. Layout = Unsigned1
+OpCode: NewInnerScopeSlots = 222. Layout = Reg3
+OpCode: CloneInnerScopeSlots = 223. Layout = Unsigned1
+OpCode: NewRegEx = 224. Layout = Reg1Unsigned1
+OpCode: IsInst = 225. Layout = Reg3C
+OpCode: InitForInEnumerator = 226. Layout = Reg1Unsigned1
+OpCode: ProfiledInitForInEnumerator = 227. Layout = ProfiledReg1Unsigned1
+OpCode: BrOnEmpty = 228. Layout = BrReg1Unsigned1
+OpCode: TryCatch = 229. Layout = Br
+OpCode: TryFinally = 230. Layout = Br
+OpCode: Catch = 231. Layout = Reg1
+OpCode: LeaveNull = 232. Layout = Empty
+OpCode: Leave = 233. Layout = Empty
+OpCode: LoopBodyStart = 234. Layout = Unsigned1
+OpCode: ProfiledLoopStart = 235. Layout = Unsigned1
+OpCode: ProfiledLoopBodyStart = 236. Layout = Unsigned1
+OpCode: ProfiledLoopEnd = 237. Layout = Unsigned1
+OpCode: ProfiledCallI = 238. Layout = ProfiledCallI
+OpCode: ProfiledCallIFlags = 239. Layout = ProfiledCallIFlags
+OpCode: ProfiledCallIExtended = 240. Layout = ProfiledCallIExtended
+OpCode: ProfiledCallIExtendedFlags = 241. Layout = ProfiledCallIExtendedFlags
+OpCode: ProfiledCallIWithICIndex = 242. Layout = ProfiledCallIWithICIndex
+OpCode: ProfiledCallIFlagsWithICIndex = 243. Layout = ProfiledCallIFlagsWithICIndex
+OpCode: ProfiledCallIExtendedWithICIndex = 244. Layout = ProfiledCallIExtendedWithICIndex
+OpCode: ProfiledCallIExtendedFlagsWithICIndex = 245. Layout = ProfiledCallIExtendedFlagsWithICIndex
+OpCode: ProfiledReturnTypeCallI = 246. Layout = ProfiledCallI
+OpCode: ProfiledReturnTypeCallIFlags = 247. Layout = ProfiledCallIFlags
+OpCode: ProfiledReturnTypeCallIExtended = 248. Layout = ProfiledCallIExtended
+OpCode: ProfiledReturnTypeCallIExtendedFlags = 249. Layout = ProfiledCallIExtendedFlags
+OpCode: Unused = 250. Layout = Reg1
+OpCode: Concat3 = 251. Layout = Reg4
+OpCode: NewConcatStrMulti = 252. Layout = Reg3B1
+OpCode: SetConcatStrMultiItem = 253. Layout = Reg2B1
+OpCode: SetConcatStrMultiItem2 = 254. Layout = Reg3B1
+OpCode: SpreadArrayLiteral = 255. Layout = Reg2Aux
+OpCode: InvalidOpCode = 256. Layout = Empty
+OpCode: BrLong = 257. Layout = BrLong
+OpCode: BrOnHasProperty = 258. Layout = BrProperty
+OpCode: BrNotUndecl_A = 259. Layout = BrReg1
+OpCode: Conv_Str = 260. Layout = Reg2
+OpCode: NewWithObject = 261. Layout = Reg2
+OpCode: UnwrapWithObj = 262. Layout = Reg2
+OpCode: SetComputedNameVar = 263. Layout = Reg2
+OpCode: LdParamObj = 264. Layout = Reg1
+OpCode: InitUndeclLocalLetFld = 265. Layout = ElementP
+OpCode: InitUndeclLocalConstFld = 266. Layout = ElementP
+OpCode: InitUndeclConsoleLetFld = 267. Layout = ElementScopedU
+OpCode: InitUndeclConsoleConstFld = 268. Layout = ElementScopedU
+OpCode: InitClassMemberComputedName = 269. Layout = ElementI
+OpCode: InitClassMemberSet = 270. Layout = ElementC
+OpCode: InitClassMemberGet = 271. Layout = ElementC
+OpCode: InitClassMemberSetComputedName = 272. Layout = ElementI
+OpCode: InitClassMemberGetComputedName = 273. Layout = ElementI
+OpCode: BrOnClassConstructor = 274. Layout = BrReg1
+OpCode: BrOnBaseConstructorKind = 275. Layout = BrReg1
+OpCode: LdSuperFld = 276. Layout = ElementC2
+OpCode: ProfiledLdSuperFld = 277. Layout = ElementC2
+OpCode: LdRootFldForTypeOf = 278. Layout = ElementRootCP
+OpCode: ProfiledLdRootFldForTypeOf = 279. Layout = ElementRootCP
+OpCode: LdLocalMethodFld = 280. Layout = ElementP
+OpCode: ProfiledLdLocalMethodFld = 281. Layout = ElementP
+OpCode: StSuperFld = 282. Layout = ElementC2
+OpCode: ProfiledStSuperFld = 283. Layout = ElementC2
+OpCode: InitLocalLetFld = 284. Layout = ElementP
+OpCode: InitInnerFld = 285. Layout = ElementPIndexed
+OpCode: InitInnerLetFld = 286. Layout = ElementPIndexed
+OpCode: DeleteLocalFld = 287. Layout = ElementU
+OpCode: ScopedLdFldForTypeOf = 288. Layout = ElementP
+OpCode: ConsoleScopedStFld = 289. Layout = ElementP
+OpCode: ConsoleScopedStFldStrict = 290. Layout = ElementP
+OpCode: LdParamSlot = 291. Layout = ElementSlotI1
+OpCode: ProfiledLdParamSlot = 292. Layout = ProfiledElementSlotI1
+OpCode: LdInnerObjSlot = 293. Layout = ElementSlotI2
+OpCode: ProfiledLdInnerObjSlot = 294. Layout = ProfiledElementSlotI2
+OpCode: LdObjSlot = 295. Layout = ElementSlot
+OpCode: ProfiledLdObjSlot = 296. Layout = ProfiledElementSlot
+OpCode: LdLocalObjSlot = 297. Layout = ElementSlotI1
+OpCode: ProfiledLdLocalObjSlot = 298. Layout = ProfiledElementSlotI1
+OpCode: LdParamObjSlot = 299. Layout = ElementSlotI1
+OpCode: ProfiledLdParamObjSlot = 300. Layout = ProfiledElementSlotI1
+OpCode: LdEnvObjSlot = 301. Layout = ElementSlotI2
+OpCode: ProfiledLdEnvObjSlot = 302. Layout = ProfiledElementSlotI2
+OpCode: LdModuleSlot = 303. Layout = ElementSlotI2
+OpCode: ProfiledLdModuleSlot = 304. Layout = ProfiledElementSlotI2
+OpCode: StParamSlot = 305. Layout = ElementSlotI1
+OpCode: StEnvSlotChkUndecl = 306. Layout = ElementSlotI2
+OpCode: StInnerSlotChkUndecl = 307. Layout = ElementSlotI2
+OpCode: StLocalSlotChkUndecl = 308. Layout = ElementSlotI1
+OpCode: StParamSlotChkUndecl = 309. Layout = ElementSlotI1
+OpCode: StObjSlot = 310. Layout = ElementSlot
+OpCode: StInnerObjSlot = 311. Layout = ElementSlotI2
+OpCode: StLocalObjSlot = 312. Layout = ElementSlotI1
+OpCode: StParamObjSlot = 313. Layout = ElementSlotI1
+OpCode: StLocalObjSlotChkUndecl = 314. Layout = ElementSlotI1
+OpCode: StParamObjSlotChkUndecl = 315. Layout = ElementSlotI1
+OpCode: StEnvObjSlot = 316. Layout = ElementSlotI2
+OpCode: StObjSlotChkUndecl = 317. Layout = ElementSlot
+OpCode: StInnerObjSlotChkUndecl = 318. Layout = ElementSlotI2
+OpCode: StEnvObjSlotChkUndecl = 319. Layout = ElementSlotI2
+OpCode: StModuleSlot = 320. Layout = ElementSlotI2
+OpCode: InitSetFld = 321. Layout = ElementC
+OpCode: InitGetFld = 322. Layout = ElementC
+OpCode: InitSetElemI = 323. Layout = ElementI
+OpCode: InitGetElemI = 324. Layout = ElementI
+OpCode: InitComputedProperty = 325. Layout = ElementI
+OpCode: InitProto = 326. Layout = ElementC
+OpCode: LdChakraLib = 327. Layout = Reg1
+OpCode: LdLetHeapArgsCached = 328. Layout = Reg1
+OpCode: LdStackArgPtr = 329. Layout = Reg1
+OpCode: LdLocalElemUndef = 330. Layout = ElementRootU
+OpCode: LdNewTarget = 331. Layout = Reg1
+OpCode: ChkNewCallFlag = 332. Layout = Empty
+OpCode: LdCustomSpreadIteratorList = 333. Layout = Reg2
+OpCode: NewScObjectSpread = 334. Layout = CallIExtended
+OpCode: ProfiledNewScObjectSpread = 335. Layout = ProfiledCallIExtended
+OpCode: InitClass = 336. Layout = Class
+OpCode: NewInnerScFunc = 337. Layout = ElementSlot
+OpCode: NewInnerScGenFunc = 338. Layout = ElementSlot
+OpCode: NewInnerStackScFunc = 339. Layout = ElementSlot
+OpCode: TryFinallyWithYield = 340. Layout = BrReg2
+OpCode: Finally = 341. Layout = Empty
+OpCode: ResumeCatch = 342. Layout = Empty
+OpCode: ResumeFinally = 343. Layout = BrReg2
+OpCode: RuntimeTypeError = 344. Layout = W1
+OpCode: RuntimeReferenceError = 345. Layout = W1
+OpCode: EmitTmpRegCount = 346. Layout = Unsigned1
+OpCode: Label = 347. Layout = Empty
+OpCode: FunctionEntry = 348. Layout = Empty
+OpCode: FunctionExit = 349. Layout = Empty
+OpCode: StatementBoundary = 350. Layout = Empty
+OpCode: ClearAttributes = 351. Layout = ElementU
+OpCode: ObjectFreeze = 352. Layout = Reg1
+OpCode: LdHomeObj = 353. Layout = Reg1
+OpCode: LdFuncObj = 354. Layout = Reg1
+OpCode: LdHomeObjProto = 355. Layout = Reg2
+OpCode: LdFuncObjProto = 356. Layout = Reg2
+OpCode: SetHomeObj = 357. Layout = Reg2
+OpCode: ImportCall = 358. Layout = Reg2
+OpCode: BeginBodyScope = 359. Layout = Empty
+OpCodeAsmJs: EndOfBlock = 0. Layout = Empty
+OpCodeAsmJs: ExtendedOpcodePrefix = 1. Layout = Empty
+OpCodeAsmJs: MediumLayoutPrefix = 2. Layout = Empty
+OpCodeAsmJs: ExtendedMediumLayoutPrefix = 3. Layout = Empty
+OpCodeAsmJs: LargeLayoutPrefix = 4. Layout = Empty
+OpCodeAsmJs: ExtendedLargeLayoutPrefix = 5. Layout = Empty
+OpCodeAsmJs: Nop = 6. Layout = Empty
+OpCodeAsmJs: Label = 7. Layout = Empty
+OpCodeAsmJs: Ret = 8. Layout = Empty
+OpCodeAsmJs: Ld_IntConst = 9. Layout = Int1Const1
+OpCodeAsmJs: Ld_Int = 10. Layout = Int2
+OpCodeAsmJs: Ld_LongConst = 11. Layout = Long1Const1
+OpCodeAsmJs: Ld_Long = 12. Layout = Long2
+OpCodeAsmJs: Ld_FltConst = 13. Layout = Float1Const1
+OpCodeAsmJs: Ld_Flt = 14. Layout = Float2
+OpCodeAsmJs: Ld_DbConst = 15. Layout = Double1Const1
+OpCodeAsmJs: Ld_Db = 16. Layout = Double2
+OpCodeAsmJs: StartCall = 17. Layout = StartCall
+OpCodeAsmJs: Call = 18. Layout = AsmCall
+OpCodeAsmJs: CheckHeap = 19. Layout = Empty
+OpCodeAsmJs: ArgOut_Int = 20. Layout = Reg1Int1
+OpCodeAsmJs: ArgOut_Long = 21. Layout = Reg1Long1
+OpCodeAsmJs: ArgOut_Flt = 22. Layout = Reg1Float1
+OpCodeAsmJs: ArgOut_Db = 23. Layout = Reg1Double1
+OpCodeAsmJs: Conv_VTI = 24. Layout = Int1Reg1
+OpCodeAsmJs: Conv_VTF = 25. Layout = Float1Reg1
+OpCodeAsmJs: Conv_VTD = 26. Layout = Double1Reg1
+OpCodeAsmJs: Conv_VTL = 27. Layout = Long1Reg1
+OpCodeAsmJs: I_StartCall = 28. Layout = StartCall
+OpCodeAsmJs: I_Call = 29. Layout = AsmCall
+OpCodeAsmJs: ProfiledI_Call = 30. Layout = ProfiledAsmCall
+OpCodeAsmJs: I_ArgOut_Db = 31. Layout = Reg1Double1
+OpCodeAsmJs: I_ArgOut_Int = 32. Layout = Reg1Int1
+OpCodeAsmJs: I_ArgOut_Long = 33. Layout = Reg1Long1
+OpCodeAsmJs: I_ArgOut_Flt = 34. Layout = Reg1Float1
+OpCodeAsmJs: AsmJsLoopBodyStart = 35. Layout = AsmUnsigned1
+OpCodeAsmJs: WasmLoopBodyStart = 36. Layout = WasmLoopStart
+OpCodeAsmJs: AsmBr = 37. Layout = AsmBr
+OpCodeAsmJs: BrTrue_Int = 38. Layout = BrInt1
+OpCodeAsmJs: BrFalse_Int = 39. Layout = BrInt1
+OpCodeAsmJs: BrEq_Int = 40. Layout = BrInt2
+OpCodeAsmJs: BeginSwitch_Int = 41. Layout = Int2
+OpCodeAsmJs: EndSwitch_Int = 42. Layout = AsmBr
+OpCodeAsmJs: Case_Int = 43. Layout = BrInt2
+OpCodeAsmJs: Case_IntConst = 44. Layout = BrInt1Const1
+OpCodeAsmJs: Reinterpret_ITF = 45. Layout = Float1Int1
+OpCodeAsmJs: Reinterpret_FTI = 46. Layout = Int1Float1
+OpCodeAsmJs: Reinterpret_LTD = 47. Layout = Double1Long1
+OpCodeAsmJs: Reinterpret_DTL = 48. Layout = Long1Double1
+OpCodeAsmJs: Conv_LTI = 49. Layout = Int1Long1
+OpCodeAsmJs: Conv_DTI = 50. Layout = Int1Double1
+OpCodeAsmJs: Conv_FTI = 51. Layout = Int1Float1
+OpCodeAsmJs: Conv_DTU = 52. Layout = Int1Double1
+OpCodeAsmJs: Conv_FTU = 53. Layout = Int1Float1
+OpCodeAsmJs: Conv_ITL = 54. Layout = Long1Int1
+OpCodeAsmJs: Conv_UTL = 55. Layout = Long1Int1
+OpCodeAsmJs: Conv_FTL = 56. Layout = Long1Float1
+OpCodeAsmJs: Conv_DTL = 57. Layout = Long1Float1
+OpCodeAsmJs: Conv_FTUL = 58. Layout = Long1Float1
+OpCodeAsmJs: Conv_DTUL = 59. Layout = Long1Float1
+OpCodeAsmJs: Conv_ITD = 60. Layout = Double1Int1
+OpCodeAsmJs: Conv_LTD = 61. Layout = Double1Long1
+OpCodeAsmJs: Conv_FTD = 62. Layout = Double1Float1
+OpCodeAsmJs: Conv_UTD = 63. Layout = Double1Int1
+OpCodeAsmJs: Conv_UTF = 64. Layout = Float1Int1
+OpCodeAsmJs: Conv_ULTD = 65. Layout = Double1Long1
+OpCodeAsmJs: Conv_ULTF = 66. Layout = Float1Long1
+OpCodeAsmJs: Conv_LTF = 67. Layout = Float1Long1
+OpCodeAsmJs: Return_Long = 68. Layout = Long2
+OpCodeAsmJs: Return_Db = 69. Layout = Double2
+OpCodeAsmJs: Return_Flt = 70. Layout = Float2
+OpCodeAsmJs: Return_Int = 71. Layout = Int2
+OpCodeAsmJs: I32Extend8_s = 72. Layout = Int2
+OpCodeAsmJs: I32Extend16_s = 73. Layout = Int2
+OpCodeAsmJs: I64Extend8_s = 74. Layout = Long2
+OpCodeAsmJs: I64Extend16_s = 75. Layout = Long2
+OpCodeAsmJs: I64Extend32_s = 76. Layout = Long2
+OpCodeAsmJs: LdSlotArr = 77. Layout = ElementSlot
+OpCodeAsmJs: LdSlot = 78. Layout = ElementSlot
+OpCodeAsmJs: LdSlot_Db = 79. Layout = ElementSlot
+OpCodeAsmJs: LdSlot_Int = 80. Layout = ElementSlot
+OpCodeAsmJs: LdSlot_Long = 81. Layout = ElementSlot
+OpCodeAsmJs: LdSlot_Flt = 82. Layout = ElementSlot
+OpCodeAsmJs: StSlot_Db = 83. Layout = ElementSlot
+OpCodeAsmJs: StSlot_Int = 84. Layout = ElementSlot
+OpCodeAsmJs: StSlot_Long = 85. Layout = ElementSlot
+OpCodeAsmJs: StSlot_Flt = 86. Layout = ElementSlot
+OpCodeAsmJs: LdArr_Func = 87. Layout = ElementSlot
+OpCodeAsmJs: LdArr_WasmFunc = 88. Layout = ElementSlot
+OpCodeAsmJs: CheckSignature = 89. Layout = Reg1IntConst1
+OpCodeAsmJs: LdArrWasm = 90. Layout = WasmMemAccess
+OpCodeAsmJs: StArrWasm = 91. Layout = WasmMemAccess
+OpCodeAsmJs: LdArr = 92. Layout = AsmTypedArr
+OpCodeAsmJs: LdArrConst = 93. Layout = AsmTypedArr
+OpCodeAsmJs: StArr = 94. Layout = AsmTypedArr
+OpCodeAsmJs: StArrConst = 95. Layout = AsmTypedArr
+OpCodeAsmJs: Neg_Int = 96. Layout = Int2
+OpCodeAsmJs: Not_Int = 97. Layout = Int2
+OpCodeAsmJs: LogNot_Int = 98. Layout = Int2
+OpCodeAsmJs: Conv_ITB = 99. Layout = Int2
+OpCodeAsmJs: Add_Int = 100. Layout = Int3
+OpCodeAsmJs: Sub_Int = 101. Layout = Int3
+OpCodeAsmJs: Mul_Int = 102. Layout = Int3
+OpCodeAsmJs: Div_Int = 103. Layout = Int3
+OpCodeAsmJs: Div_Trap_Int = 104. Layout = Int3
+OpCodeAsmJs: Rem_Int = 105. Layout = Int3
+OpCodeAsmJs: Rem_Trap_Int = 106. Layout = Int3
+OpCodeAsmJs: And_Int = 107. Layout = Int3
+OpCodeAsmJs: Or_Int = 108. Layout = Int3
+OpCodeAsmJs: Xor_Int = 109. Layout = Int3
+OpCodeAsmJs: Shl_Int = 110. Layout = Int3
+OpCodeAsmJs: Shr_Int = 111. Layout = Int3
+OpCodeAsmJs: Shr_UInt = 112. Layout = Int3
+OpCodeAsmJs: Rol_Int = 113. Layout = Int3
+OpCodeAsmJs: Ror_Int = 114. Layout = Int3
+OpCodeAsmJs: PopCnt_Int = 115. Layout = Int2
+OpCodeAsmJs: Div_UInt = 116. Layout = Int3
+OpCodeAsmJs: Div_Trap_UInt = 117. Layout = Int3
+OpCodeAsmJs: Rem_UInt = 118. Layout = Int3
+OpCodeAsmJs: Rem_Trap_UInt = 119. Layout = Int3
+OpCodeAsmJs: Add_Long = 120. Layout = Long3
+OpCodeAsmJs: Sub_Long = 121. Layout = Long3
+OpCodeAsmJs: Mul_Long = 122. Layout = Long3
+OpCodeAsmJs: Div_Trap_Long = 123. Layout = Long3
+OpCodeAsmJs: Div_Trap_ULong = 124. Layout = Long3
+OpCodeAsmJs: Rem_Trap_Long = 125. Layout = Long3
+OpCodeAsmJs: Rem_Trap_ULong = 126. Layout = Long3
+OpCodeAsmJs: And_Long = 127. Layout = Long3
+OpCodeAsmJs: Or_Long = 128. Layout = Long3
+OpCodeAsmJs: Xor_Long = 129. Layout = Long3
+OpCodeAsmJs: Shl_Long = 130. Layout = Long3
+OpCodeAsmJs: Shr_ULong = 131. Layout = Long3
+OpCodeAsmJs: Shr_Long = 132. Layout = Long3
+OpCodeAsmJs: Rol_Long = 133. Layout = Long3
+OpCodeAsmJs: Ror_Long = 134. Layout = Long3
+OpCodeAsmJs: Clz_Long = 135. Layout = Long2
+OpCodeAsmJs: Ctz_Long = 136. Layout = Long2
+OpCodeAsmJs: PopCnt_Long = 137. Layout = Long2
+OpCodeAsmJs: Neg_Db = 138. Layout = Double2
+OpCodeAsmJs: Add_Db = 139. Layout = Double3
+OpCodeAsmJs: Sub_Db = 140. Layout = Double3
+OpCodeAsmJs: Mul_Db = 141. Layout = Double3
+OpCodeAsmJs: Div_Db = 142. Layout = Double3
+OpCodeAsmJs: Rem_Db = 143. Layout = Double3
+OpCodeAsmJs: Neg_Flt = 144. Layout = Float2
+OpCodeAsmJs: Add_Flt = 145. Layout = Float3
+OpCodeAsmJs: Sub_Flt = 146. Layout = Float3
+OpCodeAsmJs: Mul_Flt = 147. Layout = Float3
+OpCodeAsmJs: Div_Flt = 148. Layout = Float3
+OpCodeAsmJs: CmLt_Int = 149. Layout = Int3
+OpCodeAsmJs: CmLe_Int = 150. Layout = Int3
+OpCodeAsmJs: CmGt_Int = 151. Layout = Int3
+OpCodeAsmJs: CmGe_Int = 152. Layout = Int3
+OpCodeAsmJs: CmEq_Int = 153. Layout = Int3
+OpCodeAsmJs: CmNe_Int = 154. Layout = Int3
+OpCodeAsmJs: Eqz_Int = 155. Layout = Int2
+OpCodeAsmJs: CmLt_UInt = 156. Layout = Int3
+OpCodeAsmJs: CmLe_UInt = 157. Layout = Int3
+OpCodeAsmJs: CmGt_UInt = 158. Layout = Int3
+OpCodeAsmJs: CmGe_UInt = 159. Layout = Int3
+OpCodeAsmJs: CmEq_Long = 160. Layout = Int1Long2
+OpCodeAsmJs: CmNe_Long = 161. Layout = Int1Long2
+OpCodeAsmJs: CmLt_Long = 162. Layout = Int1Long2
+OpCodeAsmJs: CmLe_Long = 163. Layout = Int1Long2
+OpCodeAsmJs: CmLt_ULong = 164. Layout = Int1Long2
+OpCodeAsmJs: CmLe_ULong = 165. Layout = Int1Long2
+OpCodeAsmJs: CmGt_Long = 166. Layout = Int1Long2
+OpCodeAsmJs: CmGe_Long = 167. Layout = Int1Long2
+OpCodeAsmJs: CmGt_ULong = 168. Layout = Int1Long2
+OpCodeAsmJs: CmGe_ULong = 169. Layout = Int1Long2
+OpCodeAsmJs: Eqz_Long = 170. Layout = Int1Long1
+OpCodeAsmJs: CmLt_Db = 171. Layout = Int1Double2
+OpCodeAsmJs: CmLe_Db = 172. Layout = Int1Double2
+OpCodeAsmJs: CmGt_Db = 173. Layout = Int1Double2
+OpCodeAsmJs: CmGe_Db = 174. Layout = Int1Double2
+OpCodeAsmJs: CmEq_Db = 175. Layout = Int1Double2
+OpCodeAsmJs: CmNe_Db = 176. Layout = Int1Double2
+OpCodeAsmJs: CmLt_Flt = 177. Layout = Int1Float2
+OpCodeAsmJs: CmLe_Flt = 178. Layout = Int1Float2
+OpCodeAsmJs: CmGt_Flt = 179. Layout = Int1Float2
+OpCodeAsmJs: CmGe_Flt = 180. Layout = Int1Float2
+OpCodeAsmJs: CmEq_Flt = 181. Layout = Int1Float2
+OpCodeAsmJs: CmNe_Flt = 182. Layout = Int1Float2
+OpCodeAsmJs: Abs_Int = 183. Layout = Int2
+OpCodeAsmJs: Min_Int = 184. Layout = Int3
+OpCodeAsmJs: Max_Int = 185. Layout = Int3
+OpCodeAsmJs: Imul_Int = 186. Layout = Int3
+OpCodeAsmJs: Clz32_Int = 187. Layout = Int2
+OpCodeAsmJs: Ctz_Int = 188. Layout = Int2
+OpCodeAsmJs: Sin_Db = 189. Layout = Double2
+OpCodeAsmJs: Cos_Db = 190. Layout = Double2
+OpCodeAsmJs: Tan_Db = 191. Layout = Double2
+OpCodeAsmJs: Asin_Db = 192. Layout = Double2
+OpCodeAsmJs: Acos_Db = 193. Layout = Double2
+OpCodeAsmJs: Atan_Db = 194. Layout = Double2
+OpCodeAsmJs: Abs_Db = 195. Layout = Double2
+OpCodeAsmJs: Ceil_Db = 196. Layout = Double2
+OpCodeAsmJs: Ceil_Flt = 197. Layout = Float2
+OpCodeAsmJs: Floor_Db = 198. Layout = Double2
+OpCodeAsmJs: Floor_Flt = 199. Layout = Float2
+OpCodeAsmJs: Exp_Db = 200. Layout = Double2
+OpCodeAsmJs: Log_Db = 201. Layout = Double2
+OpCodeAsmJs: Pow_Db = 202. Layout = Double3
+OpCodeAsmJs: Sqrt_Db = 203. Layout = Double2
+OpCodeAsmJs: Sqrt_Flt = 204. Layout = Float2
+OpCodeAsmJs: Abs_Flt = 205. Layout = Float2
+OpCodeAsmJs: Atan2_Db = 206. Layout = Double3
+OpCodeAsmJs: Min_Db = 207. Layout = Double3
+OpCodeAsmJs: Min_Flt = 208. Layout = Float3
+OpCodeAsmJs: Max_Db = 209. Layout = Double3
+OpCodeAsmJs: Max_Flt = 210. Layout = Float3
+OpCodeAsmJs: Fround_Flt = 211. Layout = Float2
+OpCodeAsmJs: Fround_Db = 212. Layout = Float1Double1
+OpCodeAsmJs: Fround_Int = 213. Layout = Float1Int1
+OpCodeAsmJs: Fround_Long = 214. Layout = Float1Long1
+OpCodeAsmJs: Simd128_Start = 215. Layout = Empty
+OpCodeAsmJs: Simd128_IntsToI4 = 216. Layout = Int32x4_1Int4
+OpCodeAsmJs: Simd128_Splat_I4 = 217. Layout = Int32x4_1Int1
+OpCodeAsmJs: Simd128_FromFloat32x4_I4 = 218. Layout = Int32x4_1Float32x4_1
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_I4 = 219. Layout = Int32x4_1Float32x4_1
+OpCodeAsmJs: Simd128_Neg_I4 = 220. Layout = Int32x4_2
+OpCodeAsmJs: Simd128_Add_I4 = 221. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Sub_I4 = 222. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Mul_I4 = 223. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Lt_I4 = 224. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_Gt_I4 = 225. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_Eq_I4 = 226. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_Select_I4 = 227. Layout = Int32x4_1Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_And_I4 = 228. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Or_I4 = 229. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Xor_I4 = 230. Layout = Int32x4_3
+OpCodeAsmJs: Simd128_Not_I4 = 231. Layout = Int32x4_2
+OpCodeAsmJs: Simd128_ShLtByScalar_I4 = 232. Layout = Int32x4_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_I4 = 233. Layout = Int32x4_2Int1
+OpCodeAsmJs: Simd128_Swizzle_I4 = 234. Layout = Int32x4_2Int4
+OpCodeAsmJs: Simd128_Shuffle_I4 = 235. Layout = Int32x4_3Int4
+OpCodeAsmJs: Simd128_Ld_I4 = 236. Layout = Int32x4_2
+OpCodeAsmJs: Simd128_LdSlot_I4 = 237. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_I4 = 238. Layout = ElementSlot
+OpCodeAsmJs: Simd128_Return_I4 = 239. Layout = Int32x4_2
+OpCodeAsmJs: Simd128_I_ArgOut_I4 = 240. Layout = Reg1Int32x4_1
+OpCodeAsmJs: Simd128_End = 241. Layout = Empty
+OpCodeAsmJs: Simd128_Ld_I8 = 242. Layout = Int16x8_2
+OpCodeAsmJs: Simd128_LdSlot_I8 = 243. Layout = ElementSlot
+OpCodeAsmJs: Simd128_Ld_U4 = 244. Layout = Uint32x4_2
+OpCodeAsmJs: Simd128_Ld_U8 = 245. Layout = Uint16x8_2
+OpCodeAsmJs: Simd128_Ld_U16 = 246. Layout = Uint8x16_2
+OpCodeAsmJs: Simd128_LdSlot_I16 = 247. Layout = ElementSlot
+OpCodeAsmJs: InvalidOpCode = 256. Layout = Empty
+OpCodeAsmJs: Copysign_Db = 257. Layout = Double3
+OpCodeAsmJs: Copysign_Flt = 258. Layout = Float3
+OpCodeAsmJs: Trunc_Db = 259. Layout = Double2
+OpCodeAsmJs: Trunc_Flt = 260. Layout = Float2
+OpCodeAsmJs: Nearest_Db = 261. Layout = Double2
+OpCodeAsmJs: Nearest_Flt = 262. Layout = Float2
+OpCodeAsmJs: CurrentMemory_Int = 263. Layout = AsmReg1
+OpCodeAsmJs: GrowMemory = 264. Layout = Int2
+OpCodeAsmJs: Unreachable_Void = 265. Layout = Empty
+OpCodeAsmJs: Conv_Check_DTI = 266. Layout = Int1Double1
+OpCodeAsmJs: Conv_Check_FTI = 267. Layout = Int1Float1
+OpCodeAsmJs: Conv_Check_DTU = 268. Layout = Int1Double1
+OpCodeAsmJs: Conv_Check_FTU = 269. Layout = Int1Float1
+OpCodeAsmJs: Conv_Check_FTL = 270. Layout = Long1Float1
+OpCodeAsmJs: Conv_Check_FTUL = 271. Layout = Long1Float1
+OpCodeAsmJs: Conv_Check_DTL = 272. Layout = Long1Double1
+OpCodeAsmJs: Conv_Check_DTUL = 273. Layout = Long1Double1
+OpCodeAsmJs: PrintFuncName = 274. Layout = Int2
+OpCodeAsmJs: PrintArgSeparator = 275. Layout = Empty
+OpCodeAsmJs: PrintBeginCall = 276. Layout = Empty
+OpCodeAsmJs: PrintNewLine = 277. Layout = Empty
+OpCodeAsmJs: PrintEndCall = 278. Layout = Int2
+OpCodeAsmJs: PrintI32 = 279. Layout = Int2
+OpCodeAsmJs: PrintI64 = 280. Layout = Long2
+OpCodeAsmJs: PrintF32 = 281. Layout = Float2
+OpCodeAsmJs: PrintF64 = 282. Layout = Double2
+OpCodeAsmJs: Simd128_Start_Extend = 283. Layout = Empty
+OpCodeAsmJs: Simd128_FloatsToF4 = 284. Layout = Float32x4_1Float4
+OpCodeAsmJs: Simd128_Splat_F4 = 285. Layout = Float32x4_1Float1
+OpCodeAsmJs: Simd128_FromInt32x4_F4 = 286. Layout = Float32x4_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_F4 = 287. Layout = Float32x4_1Int32x4_1
+OpCodeAsmJs: Simd128_Abs_F4 = 288. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_Neg_F4 = 289. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_Add_F4 = 290. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Sub_F4 = 291. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Mul_F4 = 292. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Div_F4 = 293. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Clamp_F4 = 294. Layout = Float32x4_4
+OpCodeAsmJs: Simd128_Min_F4 = 295. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Max_F4 = 296. Layout = Float32x4_3
+OpCodeAsmJs: Simd128_Rcp_F4 = 297. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_RcpSqrt_F4 = 298. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_Sqrt_F4 = 299. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_Swizzle_F4 = 300. Layout = Float32x4_2Int4
+OpCodeAsmJs: Simd128_Shuffle_F4 = 301. Layout = Float32x4_3Int4
+OpCodeAsmJs: Simd128_Lt_F4 = 302. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_LtEq_F4 = 303. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_Eq_F4 = 304. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_Neq_F4 = 305. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_Gt_F4 = 306. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_GtEq_F4 = 307. Layout = Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_Select_F4 = 308. Layout = Float32x4_1Bool32x4_1Float32x4_2
+OpCodeAsmJs: Simd128_Ld_F4 = 309. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_LdSlot_F4 = 310. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_F4 = 311. Layout = ElementSlot
+OpCodeAsmJs: Simd128_Return_F4 = 312. Layout = Float32x4_2
+OpCodeAsmJs: Simd128_I_ArgOut_F4 = 313. Layout = Reg1Float32x4_1
+OpCodeAsmJs: Simd128_IntsToI16 = 314. Layout = Int8x16_1Int16
+OpCodeAsmJs: Simd128_Splat_I16 = 315. Layout = Int8x16_1Int1
+OpCodeAsmJs: Simd128_ExtractLane_I16 = 316. Layout = Int1Int8x16_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_I16 = 317. Layout = Int8x16_2Int2
+OpCodeAsmJs: Simd128_Swizzle_I16 = 318. Layout = Int8x16_2Int16
+OpCodeAsmJs: Simd128_Shuffle_I16 = 319. Layout = Int8x16_3Int16
+OpCodeAsmJs: Simd128_Neg_I16 = 320. Layout = Int8x16_2
+OpCodeAsmJs: Simd128_Add_I16 = 321. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Sub_I16 = 322. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Mul_I16 = 323. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Lt_I16 = 324. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_LtEq_I16 = 325. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_Gt_I16 = 326. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_GtEq_I16 = 327. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_Eq_I16 = 328. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_Neq_I16 = 329. Layout = Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_Select_I16 = 330. Layout = Int8x16_1Bool8x16_1Int8x16_2
+OpCodeAsmJs: Simd128_And_I16 = 331. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Or_I16 = 332. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Xor_I16 = 333. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_Not_I16 = 334. Layout = Int8x16_2
+OpCodeAsmJs: Simd128_ShLtByScalar_I16 = 335. Layout = Int8x16_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_I16 = 336. Layout = Int8x16_2Int1
+OpCodeAsmJs: Simd128_AddSaturate_I16 = 337. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_SubSaturate_I16 = 338. Layout = Int8x16_3
+OpCodeAsmJs: Simd128_LdArr_I16 = 339. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_I16 = 340. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_I16 = 341. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_I16 = 342. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_And_B16 = 343. Layout = Bool8x16_3
+OpCodeAsmJs: Simd128_Or_B16 = 344. Layout = Bool8x16_3
+OpCodeAsmJs: Simd128_Xor_B16 = 345. Layout = Bool8x16_3
+OpCodeAsmJs: Simd128_Not_B16 = 346. Layout = Bool8x16_2
+OpCodeAsmJs: Simd128_Neg_U4 = 347. Layout = Uint32x4_2
+OpCodeAsmJs: Simd128_Neg_U8 = 348. Layout = Uint16x8_2
+OpCodeAsmJs: Simd128_Neg_U16 = 349. Layout = Uint8x16_2
+OpCodeAsmJs: Simd128_StSlot_I8 = 350. Layout = ElementSlot
+OpCodeAsmJs: Simd128_LdSlot_U4 = 351. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_U4 = 352. Layout = ElementSlot
+OpCodeAsmJs: Simd128_LdSlot_U8 = 353. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_U8 = 354. Layout = ElementSlot
+OpCodeAsmJs: Simd128_LdSlot_U16 = 355. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_U16 = 356. Layout = ElementSlot
+OpCodeAsmJs: Simd128_I_ArgOut_I8 = 357. Layout = Reg1Int16x8_1
+OpCodeAsmJs: Simd128_Return_I8 = 358. Layout = Int16x8_2
+OpCodeAsmJs: Simd128_I_ArgOut_U4 = 359. Layout = Reg1Uint32x4_1
+OpCodeAsmJs: Simd128_Return_U4 = 360. Layout = Uint32x4_2
+OpCodeAsmJs: Simd128_I_ArgOut_U8 = 361. Layout = Reg1Uint16x8_1
+OpCodeAsmJs: Simd128_Return_U8 = 362. Layout = Uint16x8_2
+OpCodeAsmJs: Simd128_I_ArgOut_U16 = 363. Layout = Reg1Uint8x16_1
+OpCodeAsmJs: Simd128_Return_U16 = 364. Layout = Uint8x16_2
+OpCodeAsmJs: Simd128_I_ArgOut_B4 = 365. Layout = Reg1Bool32x4_1
+OpCodeAsmJs: Simd128_Return_B4 = 366. Layout = Bool32x4_2
+OpCodeAsmJs: Simd128_I_ArgOut_B8 = 367. Layout = Reg1Bool16x8_1
+OpCodeAsmJs: Simd128_Return_B8 = 368. Layout = Bool16x8_2
+OpCodeAsmJs: Simd128_I_ArgOut_B16 = 369. Layout = Reg1Bool8x16_1
+OpCodeAsmJs: Simd128_Return_B16 = 370. Layout = Bool8x16_2
+OpCodeAsmJs: Simd128_LdArr_I4 = 371. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_I4 = 372. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArr_F4 = 373. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_F4 = 374. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_I4 = 375. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_I4 = 376. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_F4 = 377. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_F4 = 378. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_ExtractLane_I4 = 379. Layout = Int1Int32x4_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_I4 = 380. Layout = Int32x4_2Int2
+OpCodeAsmJs: Simd128_FromUint32x4Bits_I4 = 381. Layout = Int32x4_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_I4 = 382. Layout = Int32x4_1Int16x8_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_I4 = 383. Layout = Int32x4_1Uint16x8_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_I4 = 384. Layout = Int32x4_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_I4 = 385. Layout = Int32x4_1Uint8x16_1
+OpCodeAsmJs: Simd128_ExtractLane_F4 = 386. Layout = Float1Float32x4_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_F4 = 387. Layout = Float32x4_2Int1Float1
+OpCodeAsmJs: Simd128_FromUint32x4_F4 = 388. Layout = Float32x4_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromUint32x4Bits_F4 = 389. Layout = Float32x4_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_F4 = 390. Layout = Float32x4_1Int16x8_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_F4 = 391. Layout = Float32x4_1Uint16x8_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_F4 = 392. Layout = Float32x4_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_F4 = 393. Layout = Float32x4_1Uint8x16_1
+OpCodeAsmJs: Simd128_LtEq_I4 = 394. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_GtEq_I4 = 395. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_Neq_I4 = 396. Layout = Bool32x4_1Int32x4_2
+OpCodeAsmJs: Simd128_IntsToI8 = 397. Layout = Int16x8_1Int8
+OpCodeAsmJs: Simd128_ExtractLane_I8 = 398. Layout = Int1Int16x8_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_I8 = 399. Layout = Int16x8_2Int2
+OpCodeAsmJs: Simd128_Swizzle_I8 = 400. Layout = Int16x8_2Int8
+OpCodeAsmJs: Simd128_Shuffle_I8 = 401. Layout = Int16x8_3Int8
+OpCodeAsmJs: Simd128_Splat_I8 = 402. Layout = Int16x8_1Int1
+OpCodeAsmJs: Simd128_And_I8 = 403. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Or_I8 = 404. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Xor_I8 = 405. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Not_I8 = 406. Layout = Int16x8_2
+OpCodeAsmJs: Simd128_Add_I8 = 407. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Sub_I8 = 408. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Mul_I8 = 409. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_Neg_I8 = 410. Layout = Int16x8_2
+OpCodeAsmJs: Simd128_Eq_I8 = 411. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_Neq_I8 = 412. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_Lt_I8 = 413. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_LtEq_I8 = 414. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_Gt_I8 = 415. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_GtEq_I8 = 416. Layout = Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_ShLtByScalar_I8 = 417. Layout = Int16x8_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_I8 = 418. Layout = Int16x8_2Int1
+OpCodeAsmJs: Simd128_Select_I8 = 419. Layout = Int16x8_1Bool16x8_1Int16x8_2
+OpCodeAsmJs: Simd128_AddSaturate_I8 = 420. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_SubSaturate_I8 = 421. Layout = Int16x8_3
+OpCodeAsmJs: Simd128_LdArr_I8 = 422. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_I8 = 423. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_I8 = 424. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_I8 = 425. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_I8 = 426. Layout = Int16x8_1Float32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_I8 = 427. Layout = Int16x8_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_I8 = 428. Layout = Int16x8_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint32x4Bits_I8 = 429. Layout = Int16x8_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_I8 = 430. Layout = Int16x8_1Uint16x8_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_I8 = 431. Layout = Int16x8_1Uint8x16_1
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_I16 = 432. Layout = Int8x16_1Float32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_I16 = 433. Layout = Int8x16_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_I16 = 434. Layout = Int8x16_1Int16x8_1
+OpCodeAsmJs: Simd128_FromUint32x4Bits_I16 = 435. Layout = Int8x16_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_I16 = 436. Layout = Int8x16_1Uint16x8_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_I16 = 437. Layout = Int8x16_1Uint8x16_1
+OpCodeAsmJs: Simd128_Ld_I16 = 438. Layout = Int8x16_2
+OpCodeAsmJs: Simd128_StSlot_I16 = 439. Layout = ElementSlot
+OpCodeAsmJs: Simd128_Return_I16 = 440. Layout = Int8x16_2
+OpCodeAsmJs: Simd128_I_ArgOut_I16 = 441. Layout = Reg1Int8x16_1
+OpCodeAsmJs: Simd128_IntsToU4 = 442. Layout = Uint32x4_1Int4
+OpCodeAsmJs: Simd128_ExtractLane_U4 = 443. Layout = Int1Uint32x4_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_U4 = 444. Layout = Uint32x4_2Int2
+OpCodeAsmJs: Simd128_Swizzle_U4 = 445. Layout = Uint32x4_2Int4
+OpCodeAsmJs: Simd128_Shuffle_U4 = 446. Layout = Uint32x4_3Int4
+OpCodeAsmJs: Simd128_Splat_U4 = 447. Layout = Uint32x4_1Int1
+OpCodeAsmJs: Simd128_And_U4 = 448. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Or_U4 = 449. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Xor_U4 = 450. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Not_U4 = 451. Layout = Uint32x4_2
+OpCodeAsmJs: Simd128_Add_U4 = 452. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Sub_U4 = 453. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Mul_U4 = 454. Layout = Uint32x4_3
+OpCodeAsmJs: Simd128_Eq_U4 = 455. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_Neq_U4 = 456. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_Lt_U4 = 457. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_LtEq_U4 = 458. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_Gt_U4 = 459. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_GtEq_U4 = 460. Layout = Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_ShLtByScalar_U4 = 461. Layout = Uint32x4_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_U4 = 462. Layout = Uint32x4_2Int1
+OpCodeAsmJs: Simd128_Select_U4 = 463. Layout = Uint32x4_1Bool32x4_1Uint32x4_2
+OpCodeAsmJs: Simd128_LdArr_U4 = 464. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_U4 = 465. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_U4 = 466. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_U4 = 467. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_FromFloat32x4_U4 = 468. Layout = Uint32x4_1Float32x4_1
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_U4 = 469. Layout = Uint32x4_1Float32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_U4 = 470. Layout = Uint32x4_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_U4 = 471. Layout = Uint32x4_1Int16x8_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_U4 = 472. Layout = Uint32x4_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_U4 = 473. Layout = Uint32x4_1Uint16x8_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_U4 = 474. Layout = Uint32x4_1Uint8x16_1
+OpCodeAsmJs: Simd128_IntsToU8 = 475. Layout = Uint16x8_1Int8
+OpCodeAsmJs: Simd128_ExtractLane_U8 = 476. Layout = Int1Uint16x8_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_U8 = 477. Layout = Uint16x8_2Int2
+OpCodeAsmJs: Simd128_Swizzle_U8 = 478. Layout = Uint16x8_2Int8
+OpCodeAsmJs: Simd128_Shuffle_U8 = 479. Layout = Uint16x8_3Int8
+OpCodeAsmJs: Simd128_Splat_U8 = 480. Layout = Uint16x8_1Int1
+OpCodeAsmJs: Simd128_And_U8 = 481. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_Or_U8 = 482. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_Xor_U8 = 483. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_Not_U8 = 484. Layout = Uint16x8_2
+OpCodeAsmJs: Simd128_Add_U8 = 485. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_Sub_U8 = 486. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_Mul_U8 = 487. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_ShLtByScalar_U8 = 488. Layout = Uint16x8_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_U8 = 489. Layout = Uint16x8_2Int1
+OpCodeAsmJs: Simd128_Lt_U8 = 490. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_LtEq_U8 = 491. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_Gt_U8 = 492. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_GtEq_U8 = 493. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_Eq_U8 = 494. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_Neq_U8 = 495. Layout = Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_Select_U8 = 496. Layout = Uint16x8_1Bool16x8_1Uint16x8_2
+OpCodeAsmJs: Simd128_AddSaturate_U8 = 497. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_SubSaturate_U8 = 498. Layout = Uint16x8_3
+OpCodeAsmJs: Simd128_LdArr_U8 = 499. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_U8 = 500. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_U8 = 501. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_U8 = 502. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_U8 = 503. Layout = Uint16x8_1Float32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_U8 = 504. Layout = Uint16x8_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_U8 = 505. Layout = Uint16x8_1Int16x8_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_U8 = 506. Layout = Uint16x8_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint32x4Bits_U8 = 507. Layout = Uint16x8_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromUint8x16Bits_U8 = 508. Layout = Uint16x8_1Uint8x16_1
+OpCodeAsmJs: Simd128_IntsToU16 = 509. Layout = Uint8x16_1Int16
+OpCodeAsmJs: Simd128_ExtractLane_U16 = 510. Layout = Int1Uint8x16_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_U16 = 511. Layout = Uint8x16_2Int2
+OpCodeAsmJs: Simd128_Swizzle_U16 = 512. Layout = Uint8x16_2Int16
+OpCodeAsmJs: Simd128_Shuffle_U16 = 513. Layout = Uint8x16_3Int16
+OpCodeAsmJs: Simd128_Splat_U16 = 514. Layout = Uint8x16_1Int1
+OpCodeAsmJs: Simd128_And_U16 = 515. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_Or_U16 = 516. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_Xor_U16 = 517. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_Not_U16 = 518. Layout = Uint8x16_2
+OpCodeAsmJs: Simd128_Add_U16 = 519. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_Sub_U16 = 520. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_Mul_U16 = 521. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_ShLtByScalar_U16 = 522. Layout = Uint8x16_2Int1
+OpCodeAsmJs: Simd128_ShRtByScalar_U16 = 523. Layout = Uint8x16_2Int1
+OpCodeAsmJs: Simd128_Lt_U16 = 524. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_LtEq_U16 = 525. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_Gt_U16 = 526. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_GtEq_U16 = 527. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_Eq_U16 = 528. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_Neq_U16 = 529. Layout = Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_Select_U16 = 530. Layout = Uint8x16_1Bool8x16_1Uint8x16_2
+OpCodeAsmJs: Simd128_AddSaturate_U16 = 531. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_SubSaturate_U16 = 532. Layout = Uint8x16_3
+OpCodeAsmJs: Simd128_LdArr_U16 = 533. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_LdArrConst_U16 = 534. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArr_U16 = 535. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_StArrConst_U16 = 536. Layout = AsmSimdTypedArr
+OpCodeAsmJs: Simd128_FromFloat32x4Bits_U16 = 537. Layout = Uint8x16_1Float32x4_1
+OpCodeAsmJs: Simd128_FromInt32x4Bits_U16 = 538. Layout = Uint8x16_1Int32x4_1
+OpCodeAsmJs: Simd128_FromInt16x8Bits_U16 = 539. Layout = Uint8x16_1Int16x8_1
+OpCodeAsmJs: Simd128_FromInt8x16Bits_U16 = 540. Layout = Uint8x16_1Int8x16_1
+OpCodeAsmJs: Simd128_FromUint32x4Bits_U16 = 541. Layout = Uint8x16_1Uint32x4_1
+OpCodeAsmJs: Simd128_FromUint16x8Bits_U16 = 542. Layout = Uint8x16_1Uint16x8_1
+OpCodeAsmJs: Simd128_IntsToB4 = 543. Layout = Bool32x4_1Int4
+OpCodeAsmJs: Simd128_Splat_B4 = 544. Layout = Bool32x4_1Int1
+OpCodeAsmJs: Simd128_ExtractLane_B4 = 545. Layout = Int1Bool32x4_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_B4 = 546. Layout = Bool32x4_2Int2
+OpCodeAsmJs: Simd128_And_B4 = 547. Layout = Bool32x4_3
+OpCodeAsmJs: Simd128_Or_B4 = 548. Layout = Bool32x4_3
+OpCodeAsmJs: Simd128_Xor_B4 = 549. Layout = Bool32x4_3
+OpCodeAsmJs: Simd128_Not_B4 = 550. Layout = Bool32x4_2
+OpCodeAsmJs: Simd128_AnyTrue_B4 = 551. Layout = Int1Bool32x4_1
+OpCodeAsmJs: Simd128_AllTrue_B4 = 552. Layout = Int1Bool32x4_1
+OpCodeAsmJs: Simd128_Ld_B4 = 553. Layout = Bool32x4_2
+OpCodeAsmJs: Simd128_LdSlot_B4 = 554. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_B4 = 555. Layout = ElementSlot
+OpCodeAsmJs: Simd128_IntsToB8 = 556. Layout = Bool16x8_1Int8
+OpCodeAsmJs: Simd128_Splat_B8 = 557. Layout = Bool16x8_1Int1
+OpCodeAsmJs: Simd128_ExtractLane_B8 = 558. Layout = Int1Bool16x8_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_B8 = 559. Layout = Bool16x8_2Int2
+OpCodeAsmJs: Simd128_And_B8 = 560. Layout = Bool16x8_3
+OpCodeAsmJs: Simd128_Or_B8 = 561. Layout = Bool16x8_3
+OpCodeAsmJs: Simd128_Xor_B8 = 562. Layout = Bool16x8_3
+OpCodeAsmJs: Simd128_Not_B8 = 563. Layout = Bool16x8_2
+OpCodeAsmJs: Simd128_AnyTrue_B8 = 564. Layout = Int1Bool16x8_1
+OpCodeAsmJs: Simd128_AllTrue_B8 = 565. Layout = Int1Bool16x8_1
+OpCodeAsmJs: Simd128_Ld_B8 = 566. Layout = Bool16x8_2
+OpCodeAsmJs: Simd128_LdSlot_B8 = 567. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_B8 = 568. Layout = ElementSlot
+OpCodeAsmJs: Simd128_IntsToB16 = 569. Layout = Bool8x16_1Int16
+OpCodeAsmJs: Simd128_Splat_B16 = 570. Layout = Bool8x16_1Int1
+OpCodeAsmJs: Simd128_ExtractLane_B16 = 571. Layout = Int1Bool8x16_1Int1
+OpCodeAsmJs: Simd128_ReplaceLane_B16 = 572. Layout = Bool8x16_2Int2
+OpCodeAsmJs: Simd128_AnyTrue_B16 = 573. Layout = Int1Bool8x16_1
+OpCodeAsmJs: Simd128_AllTrue_B16 = 574. Layout = Int1Bool8x16_1
+OpCodeAsmJs: Simd128_Ld_B16 = 575. Layout = Bool8x16_2
+OpCodeAsmJs: Simd128_LdSlot_B16 = 576. Layout = ElementSlot
+OpCodeAsmJs: Simd128_StSlot_B16 = 577. Layout = ElementSlot
+OpCodeAsmJs: Simd128_End_Extend = 578. Layout = Empty
+InternalProperty: TypeOfPrototypeObjectInlined
+InternalProperty: TypeOfPrototypeObjectDictionary
+InternalProperty: NonExtensibleType
+InternalProperty: SealedType
+InternalProperty: FrozenType
+InternalProperty: StackTrace
+InternalProperty: StackTraceCache
+InternalProperty: WeakMapKeyMap
+InternalProperty: HiddenObject
+InternalProperty: RevocableProxy
+InternalProperty: MutationBp
+Property: _symbolHasInstance
+Property: _symbolIsConcatSpreadable
+Property: _symbolIterator
+Property: _symbolMatch
+Property: _symbolReplace
+Property: _symbolSearch
+Property: _symbolSplit
+Property: _symbolSpecies
+Property: _symbolToPrimitive
+Property: _symbolToStringTag
+Property: _symbolUnscopables
+Property: abs
+Property: acos
+Property: asin
+Property: atan
+Property: atan2
+Property: ceil
+Property: cos
+Property: exp
+Property: floor
+Property: log
+Property: LOG10E
+Property: LOG2E
+Property: min
+Property: PI
+Property: pow
+Property: random
+Property: round
+Property: sin
+Property: sqrt
+Property: tan
+Property: log10
+Property: log2
+Property: log1p
+Property: expm1
+Property: cosh
+Property: sinh
+Property: tanh
+Property: acosh
+Property: asinh
+Property: atanh
+Property: hypot
+Property: trunc
+Property: sign
+Property: cbrt
+Property: imul
+Property: clz32
+Property: fround
+Property: check
+Property: Float32x4
+Property: Float64x2
+Property: Int32x4
+Property: Int8x16
+Property: Int16x8
+Property: Bool32x4
+Property: Bool16x8
+Property: Bool8x16
+Property: Uint32x4
+Property: Uint16x8
+Property: Uint8x16
+Property: splat
+Property: fromFloat32x4
+Property: fromInt32x4
+Property: fromUint32x4
+Property: fromFloat64x2
+Property: fromFloat32x4Bits
+Property: fromFloat64x2Bits
+Property: fromInt32x4Bits
+Property: fromInt16x8Bits
+Property: fromInt8x16Bits
+Property: fromUint32x4Bits
+Property: fromUint16x8Bits
+Property: fromUint8x16Bits
+Property: extractLane
+Property: replaceLane
+Property: load
+Property: store
+Property: load1
+Property: store1
+Property: load2
+Property: store2
+Property: load3
+Property: store3
+Property: mul
+Property: div
+Property: and_
+Property: or_
+Property: xor_
+Property: neg
+Property: not_
+Property: swizzle
+Property: shuffle
+Property: select
+Property: reciprocalApproximation
+Property: reciprocalSqrtApproximation
+Property: lessThan
+Property: lessThanOrEqual
+Property: equal
+Property: notEqual
+Property: greaterThanOrEqual
+Property: greaterThan
+Property: shiftLeft
+Property: shiftLeftByScalar
+Property: shiftRightByScalar
+Property: allTrue
+Property: anyTrue
+Property: addSaturate
+Property: subSaturate
+Property: add
+Property: all
+Property: anchor
+Property: apply
+Property: Array
+Property: assign
+Property: atEnd
+Property: big
+Property: bind
+Property: blink
+Property: bold
+Property: boolean_
+Property: Boolean
+Property: JsBuiltIn
+Property: call
+Property: CanvasPixelArray
+Property: cast
+Property: catch_
+Property: charAt
+Property: charCodeAt
+Property: codePointAt
+Property: clear
+Property: copyWithin
+Property: CollectGarbage
+Property: concat
+Property: construct
+Property: constructor
+Property: ConversionError
+Property: create
+Property: date
+Property: Date
+Property: decodeURI
+Property: decodeURIComponent
+Property: default_
+Property: delete_
+Property: star_
+Property: deleteProperty
+Property: description
+Property: detach
+Property: done
+Property: E
+Property: encodeURI
+Property: encodeURIComponent
+Property: endsWith
+Property: entries
+Property: enumerate
+Property: Enumerator
+Property: EPSILON
+Property: escape
+Property: Error
+Property: eval
+Property: EvalError
+Property: every
+Property: exec
+Property: false_
+Property: flags
+Property: fill
+Property: filter
+Property: find
+Property: findIndex
+Property: fixed
+Property: fontcolor
+Property: fontsize
+Property: for_
+Property: forEach
+Property: freeze
+Property: from
+Property: fromCharCode
+Property: fromCodePoint
+Property: function
+Property: Function
+Property: getDate
+Property: getDay
+Property: getFullYear
+Property: getHours
+Property: getMilliseconds
+Property: getMinutes
+Property: getMonth
+Property: GetObjectW
+Property: getOwnPropertyDescriptor
+Property: getOwnPropertyNames
+Property: getOwnPropertySymbols
+Property: getSeconds
+Property: getTime
+Property: getTimezoneOffset
+Property: getUTCDate
+Property: getUTCDay
+Property: getUTCFullYear
+Property: getUTCHours
+Property: getUTCMilliseconds
+Property: getUTCMinutes
+Property: getUTCMonth
+Property: getUTCSeconds
+Property: getVarDate
+Property: getYear
+Property: has
+Property: hasInstance
+Property: hasOwnProperty
+Property: includes
+Property: indexOf
+Property: Infinity
+Property: Intl
+Property: invokeJit
+Property: is
+Property: isArray
+Property: isConcatSpreadable
+Property: isExtensible
+Property: isFinite
+Property: isFrozen
+Property: isInteger
+Property: isNaN
+Property: isPrototypeOf
+Property: isSafeInteger
+Property: isSealed
+Property: isView
+Property: italics
+Property: item
+Property: iterator
+Property: join
+Property: JSON
+Property: keyFor
+Property: keys
+Property: lastIndexOf
+Property: length
+Property: link
+Property: LN10
+Property: LN2
+Property: localeCompare
+Property: map
+Property: Map
+Property: Math
+Property: WebAssembly
+Property: Module
+Property: Instance
+Property: Memory
+Property: Table
+Property: CompileError
+Property: RuntimeError
+Property: LinkError
+Property: validate
+Property: compileStreaming
+Property: instantiate
+Property: instantiateStreaming
+Property: grow
+Property: module
+Property: instance
+Property: kind
+Property: exports
+Property: imports
+Property: customSections
+Property: initial
+Property: maximum
+Property: element
+Property: low
+Property: high
+Property: arrayBuffer
+Property: wabt
+Property: convertWast2Wasm
+Property: spec
+Property: commands
+Property: type
+Property: line
+Property: action
+Property: field
+Property: args
+Property: as
+Property: text
+Property: expected
+Property: SIMD
+Property: max
+Property: MAX_SAFE_INTEGER
+Property: MAX_VALUE
+Property: match
+Property: message
+Property: MIN_SAFE_INTEGER
+Property: MIN_VALUE
+Property: moveFirst
+Property: moveNext
+Property: NaN
+Property: name
+Property: next
+Property: normalize
+Property: now
+Property: null
+Property: Number
+Property: number
+Property: NEGATIVE_INFINITY
+Property: ownKeys
+Property: object
+Property: Object
+Property: object_Arguments
+Property: object_Array
+Property: object_Boolean
+Property: object_Date
+Property: object_Error
+Property: object_Function
+Property: object_Number
+Property: object_Object
+Property: object_RegExp
+Property: object_String
+Property: of
+Property: parse
+Property: parseFloat
+Property: parseInt
+Property: pop
+Property: POSITIVE_INFINITY
+Property: preventExtensions
+Property: propertyIsEnumerable
+Property: prototype
+Property: proxy
+Property: Proxy
+Property: push
+Property: race
+Property: RangeError
+Property: raw
+Property: reduce
+Property: reduceRight
+Property: ReferenceError
+Property: Reflect
+Property: RegExpError
+Property: reject
+Property: replace
+Property: resolve
+Property: return_
+Property: reverse
+Property: revocable
+Property: revoke
+Property: RegExp
+Property: repeat
+Property: seal
+Property: search
+Property: Set
+Property: setDate
+Property: setFullYear
+Property: setHours
+Property: setMilliseconds
+Property: setMinutes
+Property: setMonth
+Property: setSeconds
+Property: setTime
+Property: setUTCDate
+Property: setUTCFullYear
+Property: setUTCHours
+Property: setUTCMilliseconds
+Property: setUTCMinutes
+Property: setUTCMonth
+Property: setUTCSeconds
+Property: setYear
+Property: shift
+Property: size
+Property: slice
+Property: some
+Property: sort
+Property: source
+Property: species
+Property: splice
+Property: split
+Property: SQRT1_2
+Property: SQRT2
+Property: strike
+Property: string
+Property: String
+Property: sub
+Property: substring
+Property: substr
+Property: sup
+Property: stack
+Property: stackTraceLimit
+Property: startsWith
+Property: stringify
+Property: symbol
+Property: Symbol
+Property: SyntaxError
+Property: test
+Property: then
+Property: throw_
+Property: toDateString
+Property: toExponential
+Property: toFixed
+Property: toISOString
+Property: toJSON
+Property: toLocaleDateString
+Property: toLocaleLowerCase
+Property: toLocaleString
+Property: toLocaleTimeString
+Property: toLocaleUpperCase
+Property: toLowerCase
+Property: toPrecision
+Property: toPrimitive
+Property: toString
+Property: toStringTag
+Property: toTimeString
+Property: toUpperCase
+Property: toUTCString
+Property: trim
+Property: trimLeft
+Property: trimRight
+Property: true_
+Property: TypeError
+Property: undefined
+Property: unescape
+Property: unknown
+Property: unscopables
+Property: unshift
+Property: URIError
+Property: UTC
+Property: valueOf
+Property: values
+Property: WeakMap
+Property: WeakSet
+Property: WinRTError
+Property: write
+Property: writeln
+Property: setNonUserCodeExceptions
+Property: debuggerEnabled
+Property: enumerable
+Property: configurable
+Property: writable
+Property: value
+Property: get
+Property: getPrototypeOf
+Property: setPrototypeOf
+Property: set
+Property: defineProperty
+Property: defineProperties
+Property: toGMTString
+Property: compile
+Property: global
+Property: lastIndex
+Property: multiline
+Property: ignoreCase
+Property: unicode
+Property: sticky
+Property: byteOffset
+Property: byteLength
+Property: buffer
+Property: BYTES_PER_ELEMENT
+Property: ArrayBuffer
+Property: Int8Array
+Property: Int16Array
+Property: Int32Array
+Property: Uint8Array
+Property: Uint8ClampedArray
+Property: Uint16Array
+Property: Uint32Array
+Property: Float32Array
+Property: Float64Array
+Property: CharArray
+Property: Int64Array
+Property: Uint64Array
+Property: BooleanArray
+Property: DataView
+Property: setInt8
+Property: setUint8
+Property: setInt16
+Property: setUint16
+Property: setInt32
+Property: setUint32
+Property: setFloat32
+Property: setFloat64
+Property: getInt8
+Property: getUint8
+Property: getInt16
+Property: getUint16
+Property: getInt32
+Property: getUint32
+Property: getFloat32
+Property: getFloat64
+Property: subarray
+Property: Debug
+Property: caller
+Property: callee
+Property: arguments
+Property: $_
+Property: $1
+Property: $2
+Property: $3
+Property: $4
+Property: $5
+Property: $6
+Property: $7
+Property: $8
+Property: $9
+Property: index
+Property: input
+Property: lastMatch
+Property: lastParen
+Property: leftContext
+Property: rightContext
+Property: options
+Property: __instance
+Property: Small
+Property: $Ampersand
+Property: $Plus
+Property: $BackTick
+Property: $Tick
+Property: __defineGetter__
+Property: __defineSetter__
+Property: __lookupGetter__
+Property: __lookupSetter__
+Property: __proto__
+Property: EngineInterface
+Property: raiseAssert
+Property: __minimumFractionDigits
+Property: __maximumFractionDigits
+Property: __minimumIntegerDigits
+Property: __minimumSignificantDigits
+Property: __maximumSignificantDigits
+Property: minimumSignificantDigits
+Property: maximumSignificantDigits
+Property: __isDecimalPointAlwaysDisplayed
+Property: __useGrouping
+Property: __numberingSystem
+Property: __formatterToUse
+Property: __currency
+Property: __currencyDisplay
+Property: __currencyDisplayToUse
+Property: __locale
+Property: __templateString
+Property: Collator
+Property: NumberFormat
+Property: DateTimeFormat
+Property: format
+Property: resolvedOptions
+Property: compare
+Property: locale
+Property: sensitivity
+Property: numeric
+Property: ignorePunctuation
+Property: __windowsClock
+Property: __windowsCalendar
+Property: __patternStrings
+Property: isWellFormedLanguageTag
+Property: normalizeLanguageTag
+Property: compareString
+Property: resolveLocaleLookup
+Property: resolveLocaleBestFit
+Property: getDefaultLocale
+Property: getExtensions
+Property: formatNumber
+Property: cacheNumberFormat
+Property: createDateTimeFormat
+Property: currencyDigits
+Property: formatDateTime
+Property: registerBuiltInFunction
+Property: getHiddenObject
+Property: setHiddenObject
+Property: builtInSetPrototype
+Property: builtInGetArrayLength
+Property: builtInRegexMatch
+Property: builtInCallInstanceFunction
+Property: subTags
+Property: builtInMathAbs
+Property: builtInMathFloor
+Property: builtInMathMax
+Property: builtInMathPow
+Property: builtInJavascriptObjectEntryDefineProperty
+Property: builtInJavascriptObjectEntryGetPrototypeOf
+Property: builtInJavascriptObjectEntryIsExtensible
+Property: builtInJavascriptObjectEntryGetOwnPropertyNames
+Property: builtInJavascriptObjectEntryHasOwnProperty
+Property: builtInJavascriptObjectCreate
+Property: builtInJavascriptObjectPreventExtensions
+Property: builtInJavascriptObjectGetOwnPropertyDescriptor
+Property: builtInJavascriptArrayEntryForEach
+Property: builtInJavascriptArrayEntryIndexOf
+Property: builtInJavascriptArrayEntryPush
+Property: builtInJavascriptArrayEntryJoin
+Property: builtInJavascriptFunctionEntryBind
+Property: builtInJavascriptDateEntryGetDate
+Property: builtInJavascriptDateEntryNow
+Property: builtInJavascriptRegExpEntryTest
+Property: builtInJavascriptStringEntryMatch
+Property: builtInJavascriptStringEntryReplace
+Property: builtInJavascriptStringEntryToLowerCase
+Property: builtInJavascriptStringEntryToUpperCase
+Property: builtInGlobalObjectEntryIsFinite
+Property: builtInGlobalObjectEntryIsNaN
+Property: builtInGlobalObjectEval
+Property: raiseNeedObject
+Property: raiseNeedObjectOrString
+Property: raiseThis_NullOrUndefined
+Property: raiseNotAConstructor
+Property: raiseInvalidDate
+Property: ToLogicalBoolean
+Property: ToString
+Property: ToNumber
+Property: raiseOptionValueOutOfRange_3
+Property: raiseOptionValueOutOfRange
+Property: ToUint32
+Property: raiseLocaleNotWellFormed
+Property: isValid
+Property: localeMatcher
+Property: validateAndCanonicalizeTimeZone
+Property: getDefaultTimeZone
+Property: raiseObjectIsAlreadyInitialized
+Property: raiseObjectIsNonExtensible
+Property: raiseNeedObjectOfType
+Property: raiseInvalidCurrencyCode
+Property: raiseMissingCurrencyCode
+Property: __initializedIntlObject
+Property: __initializedNumberFormat
+Property: __initializedDateTimeFormat
+Property: localeWithoutSubtags
+Property: __matcher
+Property: __localeForCompare
+Property: __usage
+Property: __sensitivity
+Property: __ignorePunctuation
+Property: __caseFirst
+Property: __numeric
+Property: __collation
+Property: __initializedCollator
+Property: __boundCompare
+Property: __boundFormat
+Property: supportedLocalesOf
+Property: __style
+Property: weekday
+Property: year
+Property: month
+Property: day
+Property: minute
+Property: hour
+Property: second
+Property: era
+Property: timeZone
+Property: timeZoneName
+Property: hour12
+Property: __weekday
+Property: __year
+Property: __month
+Property: __day
+Property: __minute
+Property: __hour
+Property: __second
+Property: __era
+Property: __timeZone
+Property: __timeZoneName
+Property: __hour12
+Property: __formatMatcher
+Property: __calendar
+Property: calendar
+Property: __relevantExtensionKeys
+Property: numberingSystem
+Property: MS_ASYNC_OP_STATUS_SUCCESS
+Property: MS_ASYNC_OP_STATUS_CANCELED
+Property: MS_ASYNC_OP_STATUS_ERROR
+Property: MS_ASYNC_CALLBACK_STATUS_ASSIGN_DELEGATE
+Property: MS_ASYNC_CALLBACK_STATUS_JOIN
+Property: MS_ASYNC_CALLBACK_STATUS_CHOOSEANY
+Property: MS_ASYNC_CALLBACK_STATUS_CANCEL
+Property: MS_ASYNC_CALLBACK_STATUS_ERROR
+Property: msTraceAsyncOperationStarting
+Property: msTraceAsyncCallbackStarting
+Property: msTraceAsyncCallbackCompleted
+Property: msUpdateAsyncCallbackRelation
+Property: msTraceAsyncOperationCompleted
+Property: getErrorMessage
+Property: logDebugMessage
+Property: tagPublicLibraryCode
+Property: enqueueTask
+Property: Common
+Property: Promise
+Property: MissingProperty
+Property: winglob
+Property: __chakraLibrary
+Property: registerChakraLibraryFunction
+Property: registerFunction
+Property: className
+Property: methodName
+Property: argumentsCount
+Property: forceInline
+Property: alias
+Property: GetLength
+Property: GetIteratorPrototype
+Property: InitInternalProperties
+Property: observe
+Property: unobserve
+Property: setUInt16
+Property: at
+Property: contains
+Property: rightPad
+Property: rPad
+Property: padRight
+Property: leftPad
+Property: lPad
+Property: padLeft
+Property: getOwnPropertyDescriptors
+Property: __constructor
+Property: _RuntimeFunctionNameId_hasInstance
+Property: _RuntimeFunctionNameId_toStringTag
+Property: _RuntimeFunctionNameId_toPrimitive
+Property: _RuntimeFunctionNameId_iterator
+Property: _RuntimeFunctionNameId_species
+Property: _RuntimeFunctionNameId_replace
+Property: _RuntimeFunctionNameId_search
+Property: _RuntimeFunctionNameId_match
+Property: _RuntimeFunctionNameId_split
+Property: document
+Property: _event
+Property: history
+Property: location
+Property: navigator
+Property: screen
+Property: padStart
+Property: padEnd
+Property: SharedArrayBuffer
+Property: Atomics
+Property: compareExchange
+Property: exchange
+Property: isLockFree
+Property: wait
+Property: wake
+Property: column
+Property: url
+Property: exception
+Property: _this
+Property: _super
+Property: _superConstructor
+Property: _newTarget
+Serializable Field: uint32 m_grfscr;
+Serializable Field: ArgSlot m_inParamCount;
+Serializable Field: ArgSlot m_reportedInParamCount;
+Serializable Field: charcount_t m_cchStartOffset;
+Serializable Field: charcount_t m_cchLength;
+Serializable Field: uint m_cbLength;
+Serializable Field: uint m_displayShortNameOffset;
+Serializable Field: FunctionBodyFlags flags;
+Serializable Field: UINT scopeSlotArraySize;
+Serializable Field: UINT paramScopeSlotArraySize;
+Serializable Field: RegSlot VarCount;
+Serializable Field: RegSlot ConstantCount;
+Serializable Field: RegSlot FirstTmpRegister;
+Serializable Field: RegSlot OutParamMaxDepth;
+Serializable Field: uint ByteCodeCount;
+Serializable Field: uint ByteCodeWithoutLDACount;
+Serializable Field: uint ByteCodeInLoopCount;
+Serializable Field: uint16 m_envDepth;
+Serializable Field: uint16 m_argUsedForBranch;
+Serializable Field: ProfileId profiledLdElemCount;
+Serializable Field: ProfileId profiledStElemCount;
+Serializable Field: ProfileId profiledCallSiteCount;
+Serializable Field: ProfileId profiledArrayCallSiteCount;
+Serializable Field: ProfileId profiledDivOrRemCount;
+Serializable Field: ProfileId profiledSwitchCount;
+Serializable Field: ProfileId profiledReturnTypeCount;
+Serializable Field: ProfileId profiledSlotCount;
+Serializable Field: uint LoopCount;
+Serializable Field: bool m_hasFinally;
+Serializable Field: bool hasScopeObject;
+Serializable Field: bool hasCachedScopePropIds;
+Serializable Field: uint ForInLoopDepth;
+Serializable Field: uint InlineCacheCount;
+Serializable Field: uint RootObjectLoadInlineCacheStart;
+Serializable Field: uint RootObjectLoadMethodInlineCacheStart;
+Serializable Field: uint RootObjectStoreInlineCacheStart;
+Serializable Field: uint IsInstInlineCacheCount;
+Serializable Field: uint ReferencedPropertyIdCount;
+Serializable Field: uint ObjLiteralCount;
+Serializable Field: uint LiteralRegexCount;
+Serializable Field: uint InnerScopeCount;
+Serializable Field: ProfileId ProfiledForInLoopCount;
+Serializable Field: RegSlot LocalClosureRegister;
+Serializable Field: RegSlot ParamClosureRegister;
+Serializable Field: RegSlot LocalFrameDisplayRegister;
+Serializable Field: RegSlot EnvRegister;
+Serializable Field: RegSlot ThisRegisterForEventHandler;
+Serializable Field: RegSlot FirstInnerScopeRegister;
+Serializable Field: RegSlot FuncExprScopeRegister;
