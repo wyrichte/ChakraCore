@@ -46,6 +46,19 @@ if not "%1"=="" (
 pushd %__ScriptDirectory%..
 
 if %DoFull%==1 (
+  call :RegenFull
+)
+
+if %DoCore%==1 (
+  call core/RegenAllByteCode.cmd
+)
+
+popd
+
+endlocal
+goto:eof
+
+:RegenFull
   :: [Full]   jshost.exe    x64_debug
   call tools\GitScripts\init.cmd x64 debug
   call build /verbosity:minimal
@@ -53,6 +66,33 @@ if %DoFull%==1 (
     echo There was a build error for x64 debug. Stopping bytecode generation.
     exit /b 1
   )
+
+  :: Verify ByteCode GUID
+  set __bin=%__ScriptDirectory%..\Build\VcBuild\bin\x64_debug\jshost.exe
+  set __baseline=%__ScriptDirectory%..\unittest\Miscellaneous\ByteCodeVerification.baseline
+  set __veriflog=%__ScriptDirectory%verification.log
+  call %__bin% -ByteCodeVerification %__baseline% > %__veriflog%
+  if %errorlevel% equ 3 (
+    echo GUID Mismatch, the guid was probably changed and require a baseline update
+    call %__bin% -ByteCodeVerification > %__baseline%
+  )
+  if %errorlevel% equ 4 (
+    echo OpCodes changed, require a GUID update, the new GUID should be in the log file
+    copy /y %__veriflog% %__ScriptDirectory%..\core\lib\Runtime\ByteCode\ByteCodeCacheReleaseFileVersion.h
+    call:convert2Unix %__ScriptDirectory%..\core\lib\Runtime\ByteCode\ByteCodeCacheReleaseFileVersion.h
+    :: Need to rebuild to validate update to GUID
+    goto:RegenFull
+  )
+  :: Run a second time, there should be no errors now
+  call %__bin% -ByteCodeVerification %__baseline% > %__veriflog%
+  if %errorlevel% neq 0 (
+    echo There was an error while running ByteCodeVerification
+    type %__veriflog%
+    del %__veriflog%
+    exit /b 1
+  )
+  del %__veriflog%
+
   :: [Full]   jshost.exe    x86_debug
   call tools\GitScripts\init.cmd x86 debug
   call build /verbosity:minimal
@@ -69,21 +109,21 @@ if %DoFull%==1 (
     exit /b 1
   )
   popd
-)
-
-
-if %DoCore%==1 (
-  call core/RegenAllByteCode.cmd
-)
-
-popd
-
-endlocal
 goto:eof
 
 :showHelp
-echo usage RegenAllByteCode.cmd
-echo --no-full   Will not regenerate bytecode header for ChakraFull
-echo --no-core   Will not regenerate bytecode header for ChakraCore
-echo -h, --help, /? Show this help message
-endlocal
+  echo usage RegenAllByteCode.cmd
+  echo --no-full   Will not regenerate bytecode header for ChakraFull
+  echo --no-core   Will not regenerate bytecode header for ChakraCore
+  echo -h, --help, /? Show this help message
+  endlocal
+goto:eof
+
+:convert2Unix
+  where dos2unix.exe > NUL
+  if %errorlevel% equ 0 (
+    dos2unix.exe %1
+    goto:eof
+  )
+  echo todo: Find a way to fix line endings without dos2unix utility
+goto:eof

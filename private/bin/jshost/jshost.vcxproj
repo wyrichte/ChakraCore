@@ -125,6 +125,9 @@
     </BinplaceLinked>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ByteCodeVerification.cpp">
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)core\lib\Runtime;$(ChakraRootDirectory)core\lib\Runtime\ByteCode;$(ChakraRootDirectory)core\lib\Backend;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="CodexAssert.cpp" />
     <ClCompile Include="DebuggerCore.cpp" />
     <ClCompile Include="DelayLoadLibrary.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="WScriptJsrt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ByteCodeVerification.h" />
     <ClInclude Include="ComObject.h" />
     <ClInclude Include="DebuggerCore.h" />
     <ClInclude Include="DelayLoadLibrary.h" />

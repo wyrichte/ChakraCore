@@ -36,6 +36,7 @@ tools/Exprgen
 *.dmp
 /packages/*/stage
 CoreCompileInputs.cache
+tools/verification.log
 
 # Visual Studio Extensions
 *.vadbg
