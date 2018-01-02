@@ -13,8 +13,8 @@ echo Logs are at %LOGSDIR%
 echo Architecture is %ARCH%
 echo Flavor is %FLAVOR%
 
-echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es6`,UnitTestFramework`,$262`,Basics`,EH`,InlineCaches
-powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es6`,UnitTestFramework`,$262`,Basics`,EH`,InlineCaches
+echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es6`,UnitTestFramework`,Test262`,Basics`,EH`,InlineCaches
+powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunUnitTests $False -RunCoreUnitTests $True -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs es6`,UnitTestFramework`,Test262`,Basics`,EH`,InlineCaches
 
 if ERRORLEVEL 1 (
     echo [LABMARKFAILED] >> %LOGSDIR%\Test-Summary.log

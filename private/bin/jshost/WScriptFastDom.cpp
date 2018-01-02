@@ -1736,7 +1736,7 @@ Var WScriptFastDom::Report(Var function, CallInfo callInfo, Var* args)
     {
         BSTR str;
         IfFailGo(scriptDirect.VarToString(args[0], &str));
-        
+
         EnterCriticalSection(&GetEngineThreadData()->parent->csReportQ);
         GetEngineThreadData()->parent->reportQ.push_back(std::wstring(str));
         LeaveCriticalSection(&GetEngineThreadData()->parent->csReportQ);
@@ -1757,7 +1757,7 @@ Var WScriptFastDom::GetReport(Var function, CallInfo callInfo, Var* args)
     IfFailGo(scriptDirect.From(function));
     result = scriptDirect.GetNull();
 
-    
+
     EnterCriticalSection(&GetEngineThreadData()->csReportQ);
     if (!GetEngineThreadData()->reportQ.empty())
     {
@@ -2217,7 +2217,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(_u("SetRestrictedMode"), activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
     IfFailedGo(hr);
 
-    if (!isHTMLHost && HostConfigFlags::flags.$262)
+    if (!isHTMLHost && HostConfigFlags::flags.Test262)
     {
         IfFailedGo(hr = AddMethodToObject(_u("Broadcast"), activeScriptDirect, wscript, WScriptFastDom::Broadcast));
         IfFailedGo(hr = AddMethodToObject(_u("ReceiveBroadcast"), activeScriptDirect, wscript, WScriptFastDom::ReceiveBroadcast));
