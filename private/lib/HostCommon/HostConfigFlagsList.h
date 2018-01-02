@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #ifdef FLAG
@@ -46,7 +46,7 @@ FLAG(bool, ForceOOPImageRebase,             "Ensure JIT process will have to reb
 FLAG(bool, EnableOnLeaveScript,             "Execute __onLeaveScript() when leave script", false)
 FLAG(bool, MuteHostErrorMsg,                "Mute host error output, e.g. module load failures", false)
 FLAG(bool, TraceHostCallback,               "Output traces for host callbacks", false)
-FLAG(bool, $262,                            "load $262 harness", false)
+FLAG(bool, Test262,                         "load Test262 harness", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2

@@ -1736,7 +1736,7 @@ Var WScriptFastDom::Report(Var function, CallInfo callInfo, Var* args)
     {
         BSTR str;
         IfFailGo(scriptDirect.VarToString(args[0], &str));
-        
+
         EnterCriticalSection(&GetEngineThreadData()->parent->csReportQ);
         GetEngineThreadData()->parent->reportQ.push_back(std::wstring(str));
         LeaveCriticalSection(&GetEngineThreadData()->parent->csReportQ);
@@ -1757,7 +1757,7 @@ Var WScriptFastDom::GetReport(Var function, CallInfo callInfo, Var* args)
     IfFailGo(scriptDirect.From(function));
     result = scriptDirect.GetNull();
 
-    
+
     EnterCriticalSection(&GetEngineThreadData()->csReportQ);
     if (!GetEngineThreadData()->reportQ.empty())
     {
@@ -2217,7 +2217,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(_u("SetRestrictedMode"), activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
     IfFailedGo(hr);
 
-    if (!isHTMLHost && HostConfigFlags::flags.$262)
+    if (!isHTMLHost && HostConfigFlags::flags.Test262)
     {
         IfFailedGo(hr = AddMethodToObject(_u("Broadcast"), activeScriptDirect, wscript, WScriptFastDom::Broadcast));
         IfFailedGo(hr = AddMethodToObject(_u("ReceiveBroadcast"), activeScriptDirect, wscript, WScriptFastDom::ReceiveBroadcast));
@@ -2226,9 +2226,21 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
         IfFailedGo(hr = AddMethodToObject(_u("Leaving"), activeScriptDirect, wscript, WScriptFastDom::Leaving));
         IfFailedGo(hr = AddMethodToObject(_u("Sleep"), activeScriptDirect, wscript, WScriptFastDom::Sleep));
 
-        const wchar_t $262[] =
+        const char ch262[] =
             #include "..\..\bin\ch\262.js"
             ;
+
+        // Contents of 262.js is shared between ch and jshost
+        // ch has to be xplat compatible hence ch262 contents are `char` (with R"" macro)
+        // There is no unicode (there shouldn't be) inside 262.js
+        // simply copy into new buffer
+        size_t len = strlen(ch262);
+        wchar_t * $262 = (wchar_t*) malloc((len + 1) * sizeof(wchar_t));
+        for (int i = 0; i < len; i++)
+        {
+            $262[i] = (wchar_t)ch262[i];
+        }
+        $262[len] = wchar_t(0);
 
         IJsHostScriptSite * jsHostScriptSite;
         hr = activeScript->GetScriptSite(IID_IJsHostScriptSite, (void**)&jsHostScriptSite);
@@ -2246,6 +2258,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
             }
             jsHostScriptSite->Release();
         }
+        free($262);
     }
 
     // Add constructor ImageData
