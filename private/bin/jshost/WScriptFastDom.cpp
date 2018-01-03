@@ -2257,7 +2257,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
         // simply copy into new buffer
         size_t len = strlen(ch262);
         wchar_t * $262 = (wchar_t*) malloc((len + 1) * sizeof(wchar_t));
-        for (int i = 0; i < len; i++)
+        for (size_t i = 0; i < len; i++)
         {
             $262[i] = (wchar_t)ch262[i];
         }
