@@ -85,7 +85,7 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_apollo,exclude_amd64,exclude_serialized</tags>
-      <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.baseline</baseline>
     </default>
@@ -93,7 +93,7 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm,exclude_serialized</tags>
-      <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <compile-flags>-forceserialized -Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer</compile-flags>
       <files>deferDeserializeTest.js</files>
       <baseline>deferDeserializeTest.amd64.baseline</baseline>
     </default>
@@ -393,7 +393,7 @@
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
       <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
-      <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.baseline</baseline>
     </default>
@@ -402,7 +402,7 @@
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
       <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
-      <compile-flags>-Intl- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum-</compile-flags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.amd64.baseline</baseline>
     </default>
@@ -410,7 +410,7 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_apollo,exclude_amd64</tags>
-      <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.baseline</baseline>
     </default>
@@ -418,7 +418,7 @@
   <test>
     <default>
       <tags>HeapEnum,exclude_apollo,exclude_x86,exclude_arm</tags>
-      <compile-flags>-Intl- -disableDebugObject -dumpHeap</compile-flags>
+      <compile-flags>-Intl- -disableDebugObject -dumpHeap -ESSharedArrayBuffer</compile-flags>
       <files>letconst-globals.js</files>
       <baseline>letconst-globals.amd64.baseline</baseline>
     </default>

@@ -114,4 +114,19 @@
       <files>41777.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>41792.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41913.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41913_int.js</files>
+    </default>
+  </test>
 </regress-exe>
