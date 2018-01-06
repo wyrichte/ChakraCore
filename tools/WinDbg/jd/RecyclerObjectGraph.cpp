@@ -1190,10 +1190,28 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     JDRemoteTyped lineOffsetCache = utf8SourceInfo.GetLineOffsetCache();
                     if (addField(lineOffsetCache, "Js::Utf8SourceInfo.m_lineOffsetCache"))
                     {
-                        JDRemoteTyped lineOffsetCacheList = lineOffsetCache.Field("lineOffsetCacheList");
-                        if (addField(lineOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList", true))
+                        if (lineOffsetCache.HasField("lineOffsetCacheList"))
                         {
-                            addField(lineOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList.buffer");
+                            // before commit 6eb4457
+                            JDRemoteTyped lineOffsetCacheList = lineOffsetCache.Field("lineOffsetCacheList");
+                            if (addField(lineOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList", true))
+                            {
+                                addField(lineOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineOffsetCacheList.buffer");
+                            }
+                        }
+                        else
+                        {
+                            // after commit 6eb4457
+                            JDRemoteTyped lineCharacterOffsetCacheList = lineOffsetCache.Field("lineCharacterOffsetCacheList");
+                            if (addField(lineCharacterOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineCharacterOffsetCacheList", true))
+                            {
+                                addField(lineCharacterOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineCharacterOffsetCacheList.buffer");
+                            }
+                            JDRemoteTyped lineByteOffsetCacheList = lineOffsetCache.Field("lineByteOffsetCacheList");
+                            if (addField(lineByteOffsetCacheList, "Js::Utf8SourceInfo.m_lineOffsetCache.lineByteOffsetCacheList", true))
+                            {
+                                addField(lineByteOffsetCacheList.Field("buffer"), "Js::Utf8SourceInfo.m_lineOffsetCache.lineByteOffsetCacheList.buffer");
+                            }
                         }
                     }
                     RemoteBaseDictionary deferredFunctionsDictionary = utf8SourceInfo.GetDeferredFunctionsDictionary();
