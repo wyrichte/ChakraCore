@@ -1016,12 +1016,29 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     HRESULT hr = S_OK;
     DWORD bufferSize = 1;
     EXCEPINFO excepinfo = {0};
+    std::string normalizedContentStr;
 
     IfFailGo(scriptSite->GetActiveScript(&activeScript));
     IfFailGo(activeScript->QueryInterface(IID_IActiveScriptByteCode, (void**)&byteCodeGen));
-    // Create byte code file    
-    IfFailGo(byteCodeGen->GenerateByteCodeBuffer(lengthBytes, (BYTE*)contentsRaw, &s_generateLibraryByteCodeHeaderConfig, dwSourceCookie, &excepinfo, &buffer, &bufferSize));
-    fileHandle = CreateFile(bcFullPath, GENERIC_WRITE, FILE_SHARE_DELETE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+    char* token = nullptr, *nextToken = nullptr;
+    token = strtok_s((char*)contentsRaw, "\r", &nextToken);
+    while (token)
+    {
+        normalizedContentStr.append(token);
+        token = strtok_s(nullptr, "\r", &nextToken);
+    }
+    
+    // Create byte code file
+    IfFailGo(byteCodeGen->GenerateByteCodeBuffer((DWORD)normalizedContentStr.size(), (BYTE*)normalizedContentStr.c_str(), &s_generateLibraryByteCodeHeaderConfig, dwSourceCookie, &excepinfo, &buffer, &bufferSize));
+    if (bcFullPath)
+    {
+        fileHandle = CreateFile(bcFullPath, GENERIC_WRITE, FILE_SHARE_DELETE, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    }
+    else
+    {
+        fileHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    }
     if (fileHandle == INVALID_HANDLE_VALUE) IfFailGo(E_FAIL);
 
     DWORD written;
@@ -1030,31 +1047,24 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
     // We want to keep the MIT notice here because Intl.js ByteCode can, in theory, be produced using either ch.exe or jshost.exe.
     // No matter how it is generated, we want to make sure that the MIT License is definitely present in case we commit the result to Git.
     auto outputStr =
-        "//-------------------------------------------------------------------------------------------------------\r\n"
-        "// Copyright (C) Microsoft. All rights reserved.\r\n"
-        "// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.\r\n"
-        "//-------------------------------------------------------------------------------------------------------\r\n"
-        "#if 0\r\n";
+        "//-------------------------------------------------------------------------------------------------------\n"
+        "// Copyright (C) Microsoft. All rights reserved.\n"
+        "// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.\n"
+        "//-------------------------------------------------------------------------------------------------------\n"
+        "#if 0\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
-    if (!WriteFile(fileHandle, contentsRaw, lengthBytes, &written, nullptr)) IfFailGo(E_FAIL);
-    if (lengthBytes < 2 || contentsRaw[lengthBytes - 2] != '\r' || contentsRaw[lengthBytes - 1] != '\n')
-    {
-        outputStr = "\r\n#endif\r\n";
-    }
-    else
-    {
-        outputStr = "#endif\r\n";
-    }
+    if (!WriteFile(fileHandle, normalizedContentStr.c_str(), (DWORD)normalizedContentStr.size(), &written, nullptr)) IfFailGo(E_FAIL);
+    outputStr = "\n#endif\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
     // Write out the bytecode
-    outputStr = "namespace Js\r\n{\r\n    const char Library_Bytecode_";
+    outputStr = "namespace Js\n{\n    const char Library_Bytecode_";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
     size_t convertedChars;
     char libraryNameNarrow[MAX_PATH + 1];
     if (wcstombs_s(&convertedChars, libraryNameNarrow, libraryNameWide, _TRUNCATE) != 0) IfFailGo(E_FAIL);
     if (!WriteFile(fileHandle, libraryNameNarrow, static_cast<DWORD>(strlen(libraryNameNarrow)), &written, nullptr)) IfFailGo(E_FAIL);
-    outputStr = "[] = {\r\n/* 00000000 */";
+    outputStr = "[] = {\n/* 00000000 */";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
     for (unsigned int i = 0; i < bufferSize; i++)
@@ -1080,14 +1090,14 @@ HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD
         if (i % 16 == 15 && i < bufferSize - 1)
         {
             char offset[offsetLen];
-            _snprintf_s(offset, offsetLen, "\r\n/* %08X */", i + 1);  // close quote, new line, offset and open quote
-            if (!WriteFile(fileHandle, offset, offsetLen - 1, &written, nullptr)) IfFailGo(E_FAIL);
+            int actualLen = _snprintf_s(offset, offsetLen, "\n/* %08X */", i + 1);  // close quote, new line, offset and open quote
+            if (!WriteFile(fileHandle, offset, actualLen, &written, nullptr)) IfFailGo(E_FAIL);
         }
     }
-    outputStr = "};\r\n\r\n";
+    outputStr = "};\n\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
-    outputStr = "}\r\n";
+    outputStr = "}\n";
     if (!WriteFile(fileHandle, outputStr, static_cast<DWORD>(strlen(outputStr)), &written, nullptr)) IfFailGo(E_FAIL);
 
 Error:
@@ -1186,24 +1196,8 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
         {
             bcFullPath = HostConfigFlags::flags.GenerateLibraryByteCodeHeader;
         }
-        else
-        {
-#if _M_AMD64
-            auto fnAppend = _u(".bc.64b.h");
-#else
-            auto fnAppend = _u(".bc.32b.h");
-#endif
-            auto bcFilenameLength = wcslen(fullpath) + wcslen(fnAppend); 
-            bcFullPath = new char16[bcFilenameLength + 1];
-            wcscpy_s(bcFullPath, bcFilenameLength + 1, fullpath);
-            wcscat_s(bcFullPath, bcFilenameLength + 1, fnAppend); 
-        }
         DWORD_PTR dwSourceCookie = this->AddUrl(fullpath);
         hr = GenerateLibraryByteCodeHeader(this, lengthBytes, (BYTE*)contentsRaw, dwSourceCookie, bcFullPath, filename);
-        if (bcFullPath != HostConfigFlags::flags.GenerateLibraryByteCodeHeader)
-        {
-            delete [] bcFullPath;
-        }
     }
     else if (isUtf8 && HostConfigFlags::flags.SerializedIsEnabled)
     {        

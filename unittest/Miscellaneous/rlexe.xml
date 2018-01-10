@@ -1,5 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
+<!-- ByteCode Header verification tests begin -->
+  <test>
+    <default>
+      <files>../../private/lib/Projection/InJavascript/Promise.js</files>
+      <baseline>../../private/lib/Projection/InJavascript/Promise.js.bc.32b.h</baseline>
+      <compile-flags>-GenerateLibraryByteCodeHeader -Intl</compile-flags>
+      <tags>exclude_dynapogo,exclude_amd64</tags>
+      <eol-normalization />
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>../../private/lib/Projection/InJavascript/Promise.js</files>
+      <baseline>../../private/lib/Projection/InJavascript/Promise.js.bc.64b.h</baseline>
+      <compile-flags>-GenerateLibraryByteCodeHeader -Intl</compile-flags>
+      <tags>exclude_dynapogo,exclude_x86</tags>
+      <eol-normalization />
+    </default>
+  </test>
+<!-- ByteCode Header verification tests end -->
   <test>
     <default>
       <files>DebugGetTypeHandlerName.js</files>
