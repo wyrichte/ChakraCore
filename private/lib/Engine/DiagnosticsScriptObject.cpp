@@ -285,7 +285,7 @@ namespace Js
         try
         {
             OUTPUT_TRACE(Js::ConsoleScopePhase, _u("EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n"), isStrictMode, isLibraryCode, JavascriptString::FromVar(args[1])->GetSz());
-            Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval);
+            Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval, debugEvalScriptContext);
             value = CrossSite::MarshalVar(debugEvalScriptContext, value);  // MarshalVar if needed.
             Assert(!CrossSite::NeedMarshalVar(value, debugEvalScriptContext));
             debugManager->UpdateConsoleScope(emptyTopMostScope, targetScriptContext);
