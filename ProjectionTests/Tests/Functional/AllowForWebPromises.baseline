@@ -480,7 +480,7 @@ Comment: Error: my throw
    at run (projectionsglue.js:850:13)
    at Global code (AllowForWebPromises.js:1644:112)
 Pass: Expected E_OUTOFMEMORY error
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Comment: Error: my throw
@@ -595,7 +595,7 @@ PASS [Test 24-done: InvalidSenderPassedToCompleted]
 
 Passed: 51
 Failed: 0
-WinRTError: Not enough storage is available to complete this operation.
+WinRTError: Not enough memory resources are available to complete this operation.
 
 	at o[WinRT Promise.done()]() (AllowForWebPromises.js:1:177)
 	at o[Winery.AllowForWebCustomAsyncInfo]() (AllowForWebPromises.js:1:104)

@@ -12,7 +12,7 @@ Stack info:
 frame 0: delegate, line: 15, characterPosition: 12
 frame 1: [Throw Stack Follows], line: 0, characterPosition: 0
 frame 2: delegate(object, string), line: 19, characterPosition: 12
-ActiveScriptError_DelegateTransform.js(24, 5) JavaScript runtime error: Not enough storage is available to complete this operation.
+ActiveScriptError_DelegateTransform.js(24, 5) JavaScript runtime error: Not enough memory resources are available to complete this operation.
 
 Transform: E_HANDLE -> E_OUTOFMEMORY
 Restricted Error String: Transform: E_HANDLE -> E_OUTOFMEMORY

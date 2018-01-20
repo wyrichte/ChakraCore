@@ -1174,7 +1174,7 @@ if (typeof WScript !== 'undefined' && typeof WScript.LoadScriptFile !== 'undefin
     // });
 
     var errorMessages = {};
-    errorMessages.e_outofmemory = "Not enough storage is available to complete this operation.\r\n";
+    errorMessages.e_outofmemory = "Not enough memory resources are available to complete this operation.\r\n";
 
     runner.addTest({
         id: 413280,
