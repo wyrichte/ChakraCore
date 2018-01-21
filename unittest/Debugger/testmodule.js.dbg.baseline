@@ -51,16 +51,16 @@
           "Name": "testmodule.js"
         },
         {
-          "Name": "module_2.js"
-        },
-        {
           "Name": "module_1.js"
         },
         {
-          "Name": "module_3.js"
+          "Name": "module_2.js"
         },
         {
           "Name": "script block"
+        },
+        {
+          "Name": "module_3.js"
         }
       ]
     }
