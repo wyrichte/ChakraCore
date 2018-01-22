@@ -17,10 +17,10 @@
           "Text": "WScript.Attach(t"
         },
         {
-          "Name": "module_3.js"
+          "Name": "script block"
         },
         {
-          "Name": "script block"
+          "Name": "module_3.js"
         }
       ]
     }
