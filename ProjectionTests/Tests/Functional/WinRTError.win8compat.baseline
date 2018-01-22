@@ -391,17 +391,17 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Originate: e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Comment: Verifying members of e
 Pass: description should be defined
       Actual: string
 
-Pass: typeof Not enough storage is available to complete this operation.
+Pass: typeof Not enough memory resources are available to complete this operation.
 
       Actual: string
 
@@ -414,7 +414,7 @@ Pass: typeof -2147024882
 Pass: stack should be defined
       Actual: string
 
-Pass: typeof WinRTError: Not enough storage is available to complete this operation.
+Pass: typeof WinRTError: Not enough memory resources are available to complete this operation.
 
    at test (WinRTError.js:150:21)
    at test (projectionsglue.js:1037:25)
@@ -946,10 +946,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_fail -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1100,10 +1100,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_invalidArg -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1254,10 +1254,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_pointer -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1408,10 +1408,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_noInterface -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1562,10 +1562,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_notImpl -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1716,10 +1716,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_abort -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -1870,10 +1870,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_accessDenied -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2024,10 +2024,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_handle -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2346,10 +2346,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_unexpected -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2500,10 +2500,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_bounds -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2654,10 +2654,10 @@ Pass: e.number
       Actual: -2147024882
 
 Fail: e.message
-      Expected: Not enough storage is available to complete this operation.
+      Expected: Not enough memory resources are available to complete this operation.
 
 Transform: e_classNotReg -> e_outOfMemory
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2780,7 +2780,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -2901,7 +2901,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3022,7 +3022,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3143,7 +3143,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3264,7 +3264,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3385,7 +3385,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3506,7 +3506,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3627,7 +3627,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -3880,7 +3880,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4001,7 +4001,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4122,7 +4122,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4248,7 +4248,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4380,7 +4380,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4512,7 +4512,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4644,7 +4644,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4776,7 +4776,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -4908,7 +4908,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5040,7 +5040,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5172,7 +5172,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5304,7 +5304,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5436,7 +5436,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5568,7 +5568,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
@@ -5700,7 +5700,7 @@ Pass: e.number
       Actual: -2147024882
 
 Pass: e.message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Pass: TestUtilities.GetRestrictedStringFromError(e)
