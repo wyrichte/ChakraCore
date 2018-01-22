@@ -1186,7 +1186,7 @@ Comment: Verify correctness of DateTime projected as Date with a negative offset
 Pass: dateTime.getTime()
       Actual: -43201468800000
 
-Pass: instanceof Wed Dec 31 600 16:00:00 GMT-0800 (Pacific Standard Time)
+Pass: instanceof Wed Dec 31 0600 16:00:00 GMT-0800 (Pacific Standard Time)
       Actual: true
 
 Pass: Check if UTCFullYear matches
