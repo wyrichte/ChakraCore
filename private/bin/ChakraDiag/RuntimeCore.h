@@ -102,7 +102,6 @@ namespace Js
     class JavascriptRegExpConstructor;      // Used by JavascriptLibrary.h
     class JavascriptBoolean;                // Used by JavascriptLibrary.h
     class JavascriptEnumerator;             // Used by JavascriptLibrary.h
-    class PropertyStringCacheMap;           // Used by JavascriptLibrary.h
     class JavascriptExternalFunction;       // Used by JavascriptLibrary.h
     class HeapArgumentsObject;              // Used by JavascriptLibrary.h
     class ArrayBuffer;                      // Used by JavascriptLibrary.h
@@ -147,6 +146,9 @@ namespace Js
     class ObjectPrototypeObject;            // Used by JavascriptLibrary.h
     class JavascriptSymbol;                 // Used by JavascriptLibrary.h
     class JavascriptSymbolObject;           // Used by JavascriptLibrary.h
+    template<typename TProperty> class WeakPropertyIdMap;             // Used by JavascriptLibrary.h
+    typedef WeakPropertyIdMap<PropertyString> PropertyStringCacheMap; // Used by JavascriptLibrary.h
+    typedef WeakPropertyIdMap<JavascriptSymbol> SymbolCacheMap;       // Used by JavascriptLibrary.h
     class JavascriptArrayIterator;          // Used by JavascriptLibrary.h
     enum class JavascriptArrayIteratorKind; // Used by JavascriptLibrary.h
     class JavascriptMapIterator;            // Used by JavascriptLibrary.h
@@ -180,6 +182,7 @@ namespace Js
     class JavascriptStaticEnumerator;       // Used by RecyclableObject.h
     enum class EnumeratorFlags : byte;      // Used by RecyclableObject.h
     struct ForInCache;                      // Used by RecyclableObject.h
+    class PropertyRecordUsageCache;         // Used by RecyclableObject.h
     template <typename Key> struct SameValueZeroComparer;   // Used by JavascriptSet.h and JavascriptMap.h
     struct IsInstInlineCache;
     class FunctionInfo;
@@ -452,6 +455,7 @@ class ScriptContextTelemetry;
 #undef IsJsDiag
 #include "LiteralString.h"
 #include "SingleCharString.h"
+#include "PropertyRecordUsageCache.h"
 #include "PropertyString.h"
 #include "SubString.h"
 #include "ConcatString.h"
