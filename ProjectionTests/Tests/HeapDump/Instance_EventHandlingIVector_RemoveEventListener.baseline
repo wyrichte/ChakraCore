@@ -180,19 +180,28 @@ Pass: vectorChangedCount
  |  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |  |    [Properties] count: 1
  |  |  |  |    | 0 length: value: 1.000000
- |  |  |  | 22 entries: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  | 22 keys: type: FunctionObject flags: (new) optional info records (3)
  |  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |  |    [Properties] count: 1
+ |  |  |  |    [Function name] keys
+ |  |  |  |    [Properties] count: 3
  |  |  |  |    | 0 length: value: 0.000000
- |  |  |  | 23 keys: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    | 1 caller: type: Null (seen)
+ |  |  |  |    | 2 arguments: type: Null (seen)
+ |  |  |  | 23 values: type: FunctionObject flags: (new) optional info records (3)
  |  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |  |    [Properties] count: 1
+ |  |  |  |    [Function name] values
+ |  |  |  |    [Properties] count: 3
  |  |  |  |    | 0 length: value: 0.000000
- |  |  |  | 24 values: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |  |    | 1 caller: type: Null (seen)
+ |  |  |  |    | 2 arguments: type: Null (seen)
+ |  |  |  | 24 Symbol.iterator: type: FunctionObject (seen)
+ |  |  |  | 25 entries: type: FunctionObject flags: (new) optional info records (3)
  |  |  |  |    [Prototype] type: FunctionObject (seen)
- |  |  |  |    [Properties] count: 1
+ |  |  |  |    [Function name] entries
+ |  |  |  |    [Properties] count: 3
  |  |  |  |    | 0 length: value: 0.000000
- |  |  |  | 25 Symbol.iterator: type: FunctionObject (seen)
+ |  |  |  |    | 1 caller: type: Null (seen)
+ |  |  |  |    | 2 arguments: type: Null (seen)
  |  |  |  | 26 fill: type: FunctionObject flags: (new) optional info records (2)
  |  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |  |    [Properties] count: 1

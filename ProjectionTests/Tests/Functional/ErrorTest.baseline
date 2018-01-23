@@ -123,7 +123,7 @@ Pass: Error message
 
 
 Comment: Test marshaling of HRESULT: e_outOfMemory
-Pass: instanceof WinRTError: Not enough storage is available to complete this operation.
+Pass: instanceof WinRTError: Not enough memory resources are available to complete this operation.
 
       Actual: true
 
@@ -134,7 +134,7 @@ Pass: Error name
       Actual: WinRTError
 
 Pass: Error message
-      Actual: Not enough storage is available to complete this operation.
+      Actual: Not enough memory resources are available to complete this operation.
 
 
 Comment: Test marshaling of HRESULT: e_unexpected
