@@ -1140,17 +1140,28 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     }
 
     size_t len = wcslen(fullpath);
-    if (isModuleCode && moduleFromSourceMap != moduleSourceMap.end())
+    if (moduleFromSourceMap == moduleSourceMap.end())
+    {
+        moduleFromSourceMap = moduleSourceMap.find(fullpath);
+    }
+
+    if (moduleFromSourceMap != moduleSourceMap.end())
     {
         // This is our string and it's not UTF8
         // Leave isUtf8 false, contentsRaw nullptr, and lengthBytes 0
         // TODO: Support different encodings?
         contents = moduleFromSourceMap->second.c_str();
         contentsFromModuleSourceMap = true;
+        if (!isModuleCode)
+        {
+            lengthBytes = (UINT)moduleFromSourceMap->second.size();
+            isUtf8 = true;
+        }
     }
     else
     {
         RegisterScriptDir(m_dwNextSourceCookie, fullpath);
+
         hr = JsHostLoadScriptFromFile(fullpath, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
         IfFailGo(hr);
     }
