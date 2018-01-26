@@ -66,6 +66,7 @@
   <test>
     <default>
       <files>40620.js</files>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
       <timeout>300</timeout>
       <tags>Slow</tags>
     </default>
