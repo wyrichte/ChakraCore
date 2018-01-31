@@ -414,7 +414,7 @@ namespace Js
         switch (typeId)
         {
         case TypeIds_Int8Array:
-            if (VirtualTableInfo<Int8VirtualArray>::HasVirtualTable(src))
+            if (Int8VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<int8, false, true>(src);
             }
@@ -425,7 +425,7 @@ namespace Js
             break;
 
         case TypeIds_Uint8Array:
-            if (VirtualTableInfo<Uint8VirtualArray>::HasVirtualTable(src))
+            if (Uint8VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<uint8, false, true>(src);
             }
@@ -436,7 +436,7 @@ namespace Js
             break;
 
         case TypeIds_Uint8ClampedArray:
-            if (VirtualTableInfo<Uint8ClampedVirtualArray>::HasVirtualTable(src))
+            if (Uint8ClampedVirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<uint8, true, true>(src);
             }
@@ -447,7 +447,7 @@ namespace Js
             break;
 
         case TypeIds_Int16Array:
-            if (VirtualTableInfo<Int16VirtualArray>::HasVirtualTable(src))
+            if (Int16VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<int16, false, true>(src);
             }
@@ -458,7 +458,7 @@ namespace Js
             break;
 
         case TypeIds_Uint16Array:
-            if (VirtualTableInfo<Uint16VirtualArray>::HasVirtualTable(src))
+            if (Uint16VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<uint16, false, true>(src);
             }
@@ -469,7 +469,7 @@ namespace Js
             break;
 
         case TypeIds_Int32Array:
-            if (VirtualTableInfo<Int32VirtualArray>::HasVirtualTable(src))
+            if (Int32VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<int32, false, true>(src);
             }
@@ -480,7 +480,7 @@ namespace Js
             break;
 
         case TypeIds_Uint32Array:
-            if (VirtualTableInfo<Uint32VirtualArray>::HasVirtualTable(src))
+            if (Uint32VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<uint32, false, true>(src);
             }
@@ -491,7 +491,7 @@ namespace Js
             break;
 
         case TypeIds_Float32Array:
-            if (VirtualTableInfo<Float32VirtualArray>::HasVirtualTable(src))
+            if (Float32VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<float, false, true>(src);
             }
@@ -502,7 +502,7 @@ namespace Js
             break;
 
         case TypeIds_Float64Array:
-            if (VirtualTableInfo<Float64VirtualArray>::HasVirtualTable(src))
+            if (Float64VirtualArray::HasVirtualTableInfo(src))
             {
                 WriteTypedArray<double, false, true>(src);
             }
