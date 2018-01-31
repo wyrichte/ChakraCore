@@ -39,6 +39,7 @@
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraMachineConfig2Cooker.script" />
+    <Script Include="output\ChakraDaily\ChakraMasterPivot.script" />
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\ScopeStudio\MsBuild\1.0\Scope.targets" />
 </Project>
