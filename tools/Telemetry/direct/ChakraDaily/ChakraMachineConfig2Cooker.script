@@ -246,8 +246,8 @@ deviceIdToMachineConfigIdMap =
 
 
 OUTPUT machineData
-TO SSTREAM @MachineOutput WITH STREAMEXPIRY "365";
+TO SSTREAM @MachineOutput WITH STREAMEXPIRY "28";
 
 OUTPUT deviceIdToMachineConfigIdMap
-TO SSTREAM @DeviceIdToMachineIdMap WITH STREAMEXPIRY "365";
+TO SSTREAM @DeviceIdToMachineIdMap WITH STREAMEXPIRY "28";
 

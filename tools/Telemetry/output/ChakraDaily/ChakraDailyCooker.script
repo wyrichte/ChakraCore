@@ -45,4 +45,4 @@ data4 =
     WHERE name IS NOT NULL;
 
 OUTPUT data4
-TO SSTREAM @outputPath  WITH STREAMEXPIRY "30";
+TO SSTREAM @outputPath  WITH STREAMEXPIRY "28";

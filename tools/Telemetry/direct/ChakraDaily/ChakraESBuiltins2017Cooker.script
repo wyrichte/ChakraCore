@@ -78,4 +78,4 @@ ESBuiltIns2017Data =
         INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId
         INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.deviceId;
 
-OUTPUT ESBuiltIns2017Data TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
+OUTPUT ESBuiltIns2017Data TO SSTREAM @outputFileName WITH STREAMEXPIRY "28";

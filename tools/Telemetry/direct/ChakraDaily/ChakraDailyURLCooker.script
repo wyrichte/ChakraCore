@@ -117,4 +117,4 @@ domainTaggedChakraData =
     INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId;
 
 OUTPUT domainTaggedChakraData
-TO SSTREAM @DomainOutput WITH STREAMEXPIRY "30";
+TO SSTREAM @DomainOutput WITH STREAMEXPIRY "28";
