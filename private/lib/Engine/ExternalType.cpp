@@ -389,7 +389,7 @@ namespace Js
         DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId) 
         : DynamicType(scriptContext, typeId, prototype, nullptr, typeHandler, isLocked, isShared), nameId(nameId), operations(operations), hasInheritedTypeIds(false)
     {
-        this->flags |= TypeFlagMask_External | TypeFlagMask_CanHaveInterceptors;
+        this->flags |= TypeFlagMask_EngineExternal;
         Initialize(entryPoint);
     }
 
@@ -397,7 +397,7 @@ namespace Js
          DynamicTypeHandler * typeHandler, bool isLocked, bool isShared,  PropertyId nameId) 
          : DynamicType(scriptContext, typeId, prototype, nullptr, typeHandler, isLocked, isShared), nameId(nameId), operations(nullptr) 
      {
-         this->flags |= TypeFlagMask_External | TypeFlagMask_CanHaveInterceptors;
+         this->flags |= TypeFlagMask_EngineExternal;
          Initialize(entryPoint);
      }
 

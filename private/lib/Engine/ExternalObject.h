@@ -161,11 +161,6 @@ namespace Js
         virtual void MarshalToScriptContext(ScriptContext * scriptContext) override;
 
         HRESULT Reinitialize(ExternalType* type, BOOL keepProperties);
-
-#if DBG
-    private:        
-        virtual BOOL DbgCanHaveInterceptors() const override { return TRUE; }
-#endif
     };
     AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(ExternalObject, &RecyclableObject::DumpObjectFunction);
 }
