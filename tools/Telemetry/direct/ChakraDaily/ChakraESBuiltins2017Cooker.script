@@ -18,6 +18,11 @@ REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bi
 // For the json stuff
 MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
 
+// For the NGP stuff
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+
 // hook up to the asimov date inputs, so that back runs work properly
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1);
@@ -78,4 +83,6 @@ ESBuiltIns2017Data =
         INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId
         INNER JOIN deviceIdToMachineConfigIdMap ON deviceIdToMachineConfigIdMap.DeviceId == chakraData.deviceId;
 
-OUTPUT ESBuiltIns2017Data TO SSTREAM @outputFileName WITH STREAMEXPIRY "28";
+OUTPUT ESBuiltIns2017Data
+TO SSTREAM @outputFileName
+WITH STREAMEXPIRY "28";

@@ -9,40 +9,45 @@
 
 MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
 
+// For the NGP secondary tagging
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+
 baseurldata =
-        // We are very careful here to just select the domain, since the result
-        // will be stored in non-secured storage
-        Asimov.CllEventsR1
+    // We are very careful here to just select the domain, since the result
+    // will be stored in non-secured storage
+    Asimov.CllEventsR1
     (
-		isolation = "Osg.Usage",
+        isolation = "Osg.Usage",
         firstHour = @streamDate,
         lastHour = @startDate
     );
 
 exturldata =
-	PROCESS baseurldata
-	USING JsonObjectProcessor
-	(
-		"ext",
-		"utc.aId:ActivityId:string"
-	);
+    PROCESS baseurldata
+    USING JsonObjectProcessor
+    (
+        "ext",
+        "utc.aId:ActivityId:string"
+    );
 
 dataurldata =
-	PROCESS exturldata
-	USING JsonObjectProcessor
-	(
-		"data",
-		"domain:Domain:string"
-	);
+    PROCESS exturldata
+    USING JsonObjectProcessor
+    (
+        "data",
+        "domain:Domain:string"
+    );
 
 urldata =
-	SELECT
-		@streamDate AS Date,
-		time,
-		Domain,
-		ActivityId
-	FROM dataurldata
-	WHERE
+    SELECT
+        @streamDate AS Date,
+        time,
+        Domain,
+        ActivityId
+    FROM dataurldata
+    WHERE
         name == "Microsoft.Web.Platform.SetUri"
     AND Domain IS NOT NULL;
 
@@ -56,7 +61,7 @@ data =
     SELECT *
     FROM Asimov.CllEventsR1
     (
-		isolation = "Osg",
+        isolation = "Osg",
         firstHour = @streamDate,
         lastHour = @startDate
     )
@@ -112,9 +117,19 @@ chakraUrlData =
 domainTaggedChakraData =
     SELECT
         chakraData.ActivityId,
+        chakraData.user_id AS userId,
+        chakraData.device_id AS deviceId,
+        @streamDate AS streamDate,
         chakraUrlData.Domain
     FROM chakraData
     INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId;
 
+[Privacy.Subject.Device.CommonSchema(Column="deviceId")]
+[Privacy.Subject.User.CommonSchema(Column = "userId")]
+[Privacy.DataType.BrowsingHistory]
+[Privacy.Common.Timestamp(Column="streamDate")]
+[Privacy.DataType.BrowsingHistory.BrowseTimestamp(Column="streamDate")]
 OUTPUT domainTaggedChakraData
-TO SSTREAM @DomainOutput WITH STREAMEXPIRY "28";
+TO SSTREAM @DomainOutput
+CLUSTERED BY ActivityId
+WITH STREAMEXPIRY "28";
