@@ -25,7 +25,7 @@ GenerateFastExternalEqTest(
     IR::Opnd *opnd = IR::IndirOpnd::New(typeRegOpnd, Js::Type::GetOffsetOfFlags(), TyUint8, func);
     lowerer->InsertTestBranch(
         opnd,
-        IR::IntConstOpnd::New(TypeFlagMask_External, TyUint8, func),
+        IR::IntConstOpnd::New(TypeFlagMask_EngineExternal, TyUint8, func),
         Js::OpCode::BrEq_A,
         labelHelper,
         instrBranch);
