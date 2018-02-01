@@ -8,7 +8,7 @@
           "Symbol.toStringTag": "Promise"
         },
         "[Promise]": {
-          "[status]": "resolved",
+          "[status]": "pending",
           "[value]": "undefined"
         },
         "someOtherProp": "before"
