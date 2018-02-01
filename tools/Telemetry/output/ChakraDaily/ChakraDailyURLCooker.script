@@ -3,75 +3,71 @@
 //   /shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/
 //   @@_endDate@@
 
+/*
+ * This script handles ingestion of data from a few sources and correlation
+ * of that data.
+ */
+
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1); // Which 24-hour day of cooked events to process
-#DECLARE DomainOutput string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "Domains", @streamDate);
+#DECLARE endDate DateTime = @streamDate.AddHours(23);
+#DECLARE OutputFile string = string.Format(@"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraJoinedData", @streamDate);
 
+// For CllEvents and JSON
 MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
 
+// For some utility functions
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+// For the NGP secondary tagging
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+
+//
+// First we're going to pull in the url data - this sets the higher requirement
+// for access for this script.
+//
+
 baseurldata =
-        // We are very careful here to just select the domain, since the result
-        // will be stored in non-secured storage
-        Asimov.CllEventsR1
+    // We are very careful here to just select the domain, since the result
+    // will be stored in non-secured storage
+    Asimov.CllEventsR1
     (
-		isolation = "Osg.Usage",
+        isolation = "Osg.Usage",
         firstHour = @streamDate,
         lastHour = @startDate
     );
 
 exturldata =
-	PROCESS baseurldata
-	USING JsonObjectProcessor
-	(
-		"ext",
-		"utc.aId:ActivityId:string"
-	);
+    PROCESS baseurldata
+    USING JsonObjectProcessor
+    (
+        "ext",
+        "utc.aId:ActivityId:string"
+    );
 
 dataurldata =
-	PROCESS exturldata
-	USING JsonObjectProcessor
-	(
-		"data",
-		"domain:Domain:string"
-	);
+    PROCESS exturldata
+    USING JsonObjectProcessor
+    (
+        "data",
+        "domain:Domain:string"
+    );
 
 urldata =
-	SELECT
-		@streamDate AS Date,
-		time,
-		Domain,
-		ActivityId
-	FROM dataurldata
-	WHERE
+    SELECT
+        @streamDate AS Date,
+        time,
+        Domain,
+        ActivityId
+    FROM dataurldata
+    WHERE
         name == "Microsoft.Web.Platform.SetUri"
     AND Domain IS NOT NULL;
 
-// Now that we have the URL data, we want to filter it to just what we need for the
-// ActivityIds that are present in our primary streams. This helps us avoid storing
-// data that we then need to do additional privacy checks on.
-
-REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
-
-data =
-    SELECT *
-    FROM Asimov.CllEventsR1
-    (
-		isolation = "Osg",
-        firstHour = @streamDate,
-        lastHour = @startDate
-    )
-    WHERE name == "Microsoft.Web.Platform.Chakra.ChakraInit" OR name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
-
-chakraData =
-    PROCESS data
-    USING JsonObjectProcessor (
-        "data",
-        "activityID:ActivityId:string"
-    );
-
-//
 // Select only the URL data data that matches our ActivityIDs.  For each ActivityId, make sure to choose the FIRST url that matches it.
-//
+// Note that we also filter the domains in this call
 cookedUrlData = SELECT
     time,
     ActivityId,
@@ -79,6 +75,7 @@ cookedUrlData = SELECT
     FROM urldata
     WHERE Domain IS NOT NULL;
 
+// Filter down to the first real URL for an activity - means site, not iframe
 urlData = SELECT DISTINCT
         cookedUrlData.ActivityId AS ActivityId,
         cookedUrlData.Domain AS Domain
@@ -96,25 +93,113 @@ urlData = SELECT DISTINCT
         ) AS FirstUrlForActivity
         INNER JOIN cookedUrlData ON cookedUrlData.ActivityId == FirstUrlForActivity.ActivityId AND cookedUrlData.time == FirstUrlForActivity.time;
 
+//
+// Now that we have the URL data, we want to grab all of the relevant
+// Chakra events and join the two.
+//
 
+data =
+    SELECT *
+    FROM Asimov.CllEventsR1
+    (
+        isolation = "Osg",
+        firstHour = @streamDate,
+        lastHour = @startDate
+    )
+    WHERE name == "Microsoft.Web.Platform.Chakra.ChakraInit" OR name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
 
-chakraUrlData =
-    SELECT DISTINCT urlData.Domain,
-                    ActivityId
-    FROM urlData
-    INNER JOIN chakraData
-    ON urlData.ActivityId == chakraData.ActivityId;
+chakraData =
+    PROCESS data
+    USING JsonObjectProcessor (
+        "data",
+        "activityID:ActivityId:string"
+    );
+
+// Filter down to only the columns that we need and only for edge
+filteredChakraData =
+    SELECT
+        user_id AS userId,
+        device_id AS deviceId,
+        activityId,
+        data,
+    FROM chakraData
+    WHERE Chakra.Utils.Filters.ExtractAppName(appVer) == "microsoftedgecp.exe";
 
 //
-// Domain-tag the data and send it to the output stream
+// Add the url information to the chakra data
 //
 
 domainTaggedChakraData =
     SELECT
-        chakraData.ActivityId,
-        chakraUrlData.Domain
-    FROM chakraData
-    INNER JOIN chakraUrlData ON chakraData.ActivityId == chakraUrlData.ActivityId;
+        filteredChakraData.userId,
+        filteredChakraData.deviceId,
+        filteredChakraData.data,
+        @streamDate AS streamDate,
+        chakraUrlData.Domain,
+    FROM filteredChakraData
+    INNER JOIN urlData ON filteredChakraData.ActivityId == urlData.ActivityId;
 
-OUTPUT domainTaggedChakraData
-TO SSTREAM @DomainOutput WITH STREAMEXPIRY "28";
+//
+// We'd like to annotate the data with machine architecture information,
+// as this can help identify some issues. This means that we need to get
+// the daily census info for correlation.
+//
+
+#DECLARE currentVersion string = "V3";
+#DECLARE rootFolder string = "/shares/asimov.prod.data";
+
+#DECLARE CENSUS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Device.Census.dll", @rootFolder);
+#DECLARE UTILS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Common.Utilities.dll", @rootFolder);
+#DECLARE PARSERS string = string.Format("{0}/Public/Resources/Latest/Device/Microsoft.Telemetry.Common.Parsers.dll", @rootFolder);
+
+REFERENCE @CENSUS;
+USING Microsoft.Telemetry.Device.Census;
+REFERENCE @UTILS;
+USING Microsoft.Telemetry.Common.Utilities;
+REFERENCE @PARSERS;
+USING Microsoft.Telemetry.Common.Parsers;
+
+// If the Version is not passed in as a parameter, the current version will be used by default.
+deviceCensusV2Daily =
+    VIEW @"/shares/asimov.prod.data/Public/Processed/Device/Census/Daily/DeviceCensusDaily.View"
+    PARAMS
+    (
+        Version = @currentVersion,
+        SparseStreamSet = "true",
+        StartDate = @streamDate.ToString("yyyy-MM-dd"),
+        EndDate = @endDate.ToString("yyyy-MM-dd")
+    );
+
+//
+// Join it all together - after this step userid and deviceid are only kept for egress support
+//
+outputData =
+    SELECT
+        userId,
+        deviceId,
+        streamDate,
+        Domain,
+        data,
+        deviceCensusV2Daily.OSArchitecture
+    FROM domainTaggedChakraData
+    INNER JOIN deviceCensusV2Daily ON domainTaggedChakraData.deviceId == deviceCensusV2Daily.DeviceId;
+
+//
+// NGP Tag and export the data
+//
+
+[Privacy.Subject.Device.CommonSchema(Column="deviceId")]
+[Privacy.Subject.User.CommonSchema(Column = "userId")]
+[Privacy.Common.Timestamp(Column="streamDate")]
+[Privacy.DataType.BrowsingHistory]
+[Privacy.DataType.BrowsingHistory.Related("Domain")]
+[Privacy.DataType.BrowsingHistory.BrowseTimestamp(Column="streamDate")]
+[Privacy.DataType.ProductAndServicePerformance]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column="data")]
+[Privacy.DataType.SoftwareSetupAndInventory]
+[Privacy.DataTYpe.SoftwareSetupAndInventory.Related(Column="OSArchitecture")]
+OUTPUT outputData
+TO SSTREAM @OutputFile
+CLUSTERED BY name, Domain
+SORTED BY name, Domain
+WITH STREAMEXPIRY "28";
