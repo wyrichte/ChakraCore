@@ -1477,7 +1477,8 @@ Re-enable with new baseline
       <files>IBuffer.TwoDocuments.js</files>
       <baseline>IBuffer.twoDocuments.baseline</baseline>
       <compile-flags></compile-flags>
-      <tags>exclude_win7,exclude_amd64</tags>
+      <!-- OS#15765249 exclude_drt pending investigation -->
+      <tags>exclude_win7,exclude_amd64,exclude_drt</tags>
     </default>
   </test>
   <test>
