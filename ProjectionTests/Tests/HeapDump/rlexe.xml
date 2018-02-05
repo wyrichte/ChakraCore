@@ -552,7 +552,8 @@
             <files>Vector.js</files>
             <baseline>Vector.baseline</baseline>
             <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
-            <tags>exclude_win7,exclude_fre</tags>
+            <!-- OS#15766496 exclude_drt pending investigation -->
+            <tags>exclude_win7,exclude_fre,exclude_drt</tags>
         </default>
     </test>
     <test>
@@ -560,7 +561,8 @@
             <files>Vector.js</files>
             <baseline>Vector.baseline</baseline>
             <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
-            <tags>exclude_win7,exclude_fre</tags>
+            <!-- OS#15766496 exclude_drt pending investigation -->
+            <tags>exclude_win7,exclude_fre,exclude_drt</tags>
         </default>
     </test>
 
@@ -569,7 +571,8 @@
             <files>VectorView.js</files>
             <baseline>VectorView.baseline</baseline>
             <compile-flags> -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
-            <tags>exclude_win7,exclude_fre</tags>
+            <!-- OS#15766496 exclude_drt pending investigation -->
+            <tags>exclude_win7,exclude_fre,exclude_drt</tags>
         </default>
     </test>
     <test>
@@ -577,7 +580,8 @@
             <files>VectorView.js</files>
             <baseline>VectorView.baseline</baseline>
             <compile-flags> -EnableThirdPartyGCPressure -es6- -EnableFunctionSourceReportForHeapEnum-</compile-flags>
-            <tags>exclude_win7,exclude_fre</tags>
+            <!-- OS#15766496 exclude_drt pending investigation -->
+            <tags>exclude_win7,exclude_fre,exclude_drt</tags>
         </default>
     </test>
 

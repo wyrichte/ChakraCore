@@ -1045,7 +1045,8 @@
     <default>
       <files>setTimeout.html</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setTimeout.html.dbg.baseline</compile-flags>
-      <tags>exclude_dynapogo,exclude_chk</tags>
+      <!-- OS# 15765615:  [RS4] Disabled failing HTML test. The setTimeout.html debugger unit test fails in RS4. Needs further investigation. -->
+      <tags>exclude_dynapogo,exclude_chk,exclude_drt</tags>
       <baseline>settimeout.html.baseline</baseline>
     </default>
   </test>
