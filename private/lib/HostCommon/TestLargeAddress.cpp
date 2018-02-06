@@ -77,44 +77,40 @@ int
 TestLargeAddress(int argc, __in_ecount(argc) LPWSTR argv[], MainFunc pfunc)
 {
     // Reserve all lower 4G memory space    
-
-    unsigned int const allocationGranuality = 64 * 1024;
+    uint const allocationGranuality = 64 * 1024;
 #if _M_X64
-    unsigned __int64 const endAddress = (unsigned __int64)4 * (1024 * 1024 * 1024);
+    uintptr_t const endAddress = (uintptr_t)4 * (1024 * 1024 * 1024);
 #else
-    unsigned __int64 const endAddress = (unsigned __int64)2 * (1024 * 1024 * 1024);
+    uintptr_t const endAddress = (uintptr_t)2 * (1024 * 1024 * 1024);
 #endif
-    unsigned __int64 lastAddress = endAddress;
-
-    // Try reserve 2G memory space    
-    unsigned __int64 address = (unsigned __int64)VirtualAlloc(NULL, endAddress >> 1, MEM_RESERVE, PAGE_NOACCESS);
-    if (address != NULL)
+    uintptr_t address = allocationGranuality;
+    while (address < endAddress)
     {
-        if ( (unsigned __int64)address < endAddress)
+        MEMORY_BASIC_INFORMATION info = {};
+        VirtualQuery((LPVOID)address, &info, sizeof(info));
+        if (info.RegionSize == 0)
         {
-            // We have reserved some of the lower 4G in the 2G reserve
-            if (address + (endAddress >> 1) < endAddress)
+            break;
+        }
+        size_t offsetInRegion = address - (uintptr_t)info.BaseAddress;
+        size_t remainingRegionSize = info.RegionSize - offsetInRegion;
+        if (info.State == MEM_FREE)
+        {
+            size_t remaining = endAddress - (uintptr_t)address;
+            if (remainingRegionSize  > remaining)
             {
-                // Allocate the end of the lower 4G
-                for (unsigned __int64 i = address + (endAddress >> 1); i < endAddress; i += allocationGranuality)
-                {
-                    address = (unsigned __int64)VirtualAlloc((LPVOID)i, allocationGranuality, MEM_RESERVE, PAGE_NOACCESS);
-                }
+                remainingRegionSize = remaining;
             }
-
-            // Fill out the gap in the begining of the lower 4G
-            lastAddress = address;
+            LPVOID reservedAddr = VirtualAlloc((LPVOID)address, remainingRegionSize, MEM_RESERVE, PAGE_NOACCESS);
+            Assert(reservedAddr);
         }
-        else
+        address = (size_t)address + remainingRegionSize;
+        if (address % allocationGranuality != 0)
         {
-            // The 4G we reserve is not in the lower 4G, just free it and do it the slow way
-            VirtualFree((LPVOID)address, 0, MEM_RELEASE);
+            // address for reserve is required to be multiple of 64k
+            address = address & ~(allocationGranuality - 1);
+            address += allocationGranuality;
         }
-    }
-
-    for (unsigned __int64 i = allocationGranuality; i < lastAddress; i += allocationGranuality)
-    {
-        address = (unsigned __int64)VirtualAlloc((LPVOID)i, allocationGranuality, MEM_RESERVE, PAGE_NOACCESS);
     }
 
     // Create an separate thread to run the test so the stack addresses can be large as well.
@@ -141,5 +137,6 @@ TestLargeAddress(int argc, __in_ecount(argc) LPWSTR argv[], MainFunc pfunc)
         wprintf(_u("FATAL ERROR: GetExitCodeThread on large address thread failed\n"));
         exit(1);
     }
+
     return exitCode;
 }
