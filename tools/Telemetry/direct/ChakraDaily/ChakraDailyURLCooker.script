@@ -120,8 +120,9 @@ filteredChakraData =
     SELECT
         user_id AS userId,
         device_id AS deviceId,
-        activityId,
-        data,
+        ActivityId,
+        name,
+        data
     FROM chakraData
     WHERE Chakra.Utils.Filters.ExtractAppName(appVer) == "microsoftedgecp.exe";
 
@@ -133,9 +134,10 @@ domainTaggedChakraData =
     SELECT
         filteredChakraData.userId,
         filteredChakraData.deviceId,
+        filteredChakraData.name,
         filteredChakraData.data,
         @streamDate AS streamDate,
-        chakraUrlData.Domain,
+        urlData.Domain
     FROM filteredChakraData
     INNER JOIN urlData ON filteredChakraData.ActivityId == urlData.ActivityId;
 
@@ -177,6 +179,7 @@ outputData =
     SELECT
         userId,
         deviceId,
+        name,
         streamDate,
         Domain,
         data,
@@ -188,16 +191,14 @@ outputData =
 // NGP Tag and export the data
 //
 
-[Privacy.Subject.Device.CommonSchema(Column="deviceId")]
 [Privacy.Subject.User.CommonSchema(Column = "userId")]
+[Privacy.Subject.Device.CommonSchema(Column="deviceId")]
 [Privacy.Common.Timestamp(Column="streamDate")]
 [Privacy.DataType.BrowsingHistory]
 [Privacy.DataType.BrowsingHistory.Related("Domain")]
 [Privacy.DataType.BrowsingHistory.BrowseTimestamp(Column="streamDate")]
 [Privacy.DataType.ProductAndServicePerformance]
 [Privacy.DataType.ProductAndServicePerformance.Related(Column="data")]
-[Privacy.DataType.SoftwareSetupAndInventory]
-[Privacy.DataTYpe.SoftwareSetupAndInventory.Related(Column="OSArchitecture")]
 OUTPUT outputData
 TO SSTREAM @OutputFile
 CLUSTERED BY name, Domain

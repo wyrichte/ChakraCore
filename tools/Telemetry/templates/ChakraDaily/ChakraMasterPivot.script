@@ -84,7 +84,7 @@ public class AssocProcessor : Processor
         get
         {
             return true;
-        } 
+        }
     }
     // One input row results in one output row, enabling optimizations
     public override bool RowLevelProcessor
@@ -171,10 +171,11 @@ public class AssocProcessor : Processor
         Regex builtins = new Regex(@"((?<Type>BLOCK_START)\((?<BlockName>[a-zA-Z0-9_]*), *(?<BlockCount>[0-9]*)\))|((?<Type>ENTRY_BUILTIN)\((?<EMCAVersion>[a-zA-Z0-9_]*), *(?<BaseObject>[a-zA-Z0-9_]*), *(?<LinkType>[a-zA-Z0-9_]*), *(?<FunctionName>[a-zA-Z0-9_]*)\))|((?<Type>ENTRY_LANGFEATURE)\((?<EMCAVersion>[a-zA-Z0-9_]*), *(?<PointName>[a-zA-Z0-9_]*)\))|((?<Type>ENTRY_TELPOINT)\((?<PointName>[a-zA-Z0-9_]*)\))");
         String currentBlock = "";
         resultSchema = new Schema();
+        resultSchema.Add(new ColumnInfo("userId", typeof(string)));
+        resultSchema.Add(new ColumnInfo("deviceId", typeof(string)));
+        resultSchema.Add(new ColumnInfo("streamDate", typeof(string)));
         resultSchema.Add(new ColumnInfo("Domain", typeof(string)));
-        resultSchema.Add(new ColumnInfo("ApplicationName", typeof(string)));
-        resultSchema.Add(new ColumnInfo("MachineConfigId", typeof(string)));
-        resultSchema.Add(new ColumnInfo("ActivityId", typeof(string)));
+        resultSchema.Add(new ColumnInfo("OSArchitecture", typeof(string)));
         foreach (Match match in builtins.Matches(uncommented))
         {
             switch (match.Groups["Type"].Value)
@@ -244,10 +245,11 @@ public class AssocProcessor : Processor
         // Loop over all rows sent to this vertex, and process each to conform to the schema
         foreach(Row row in input.Rows)
         {
+            outputRow["userId"].Set(row["userId"] != null ? row["userId"].String : "");
+            outputRow["deviceId"].Set(row["deviceId"] != null ? row["deviceId"].String : "");
+            outputRow["streamDate"].Set(row["streamDate"] != null ? row["streamDate"].String : "");
             outputRow["Domain"].Set(row["Domain"] != null ? row["Domain"].String : "");
-            outputRow["ApplicationName"].Set(row["ApplicationName"] != null ? row["ApplicationName"].String : "");
-            outputRow["MachineConfigId"].Set(row["MachineConfigId"] != null ? row["MachineConfigId"].String : "");
-            outputRow["ActivityId"].Set(row["ActivityId"] != null ? row["ActivityId"].String : "");
+            outputRow["OSArchitecture"].Set(row["OSArchitecture"] != null ? row["OSArchitecture"].String : "");
             // handle the assoc arrays
             foreach(string str in validmappings.Keys)
             {
@@ -408,22 +410,23 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 // note: LOCAL is declared externally when running locally
 // chakra telemetry
 #IF(LOCAL)
-    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData.ss";
+    #DECLARE inputFileName string = @"c:\temp\ChakraJoinedData.ss";
 #ELSE
-    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData" , @streamDate );
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraJoinedData" , @streamDate );
 #ENDIF
 // output file for us to write to at the end
 #IF(LOCAL)
-    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+    #DECLARE outputFileName string = @"c:\temp\ChakraPivotedData.ss";
 #ELSE
-    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Pivoted" , @streamDate );
+    #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraPivotedData" , @streamDate );
 #ENDIF
 
 // Grab the data from the cooked files into live stream
-inputData = 
+inputData =
     SELECT
         *
-    FROM ( SSTREAM @inputFileName );
+    FROM ( SSTREAM @inputFileName )
+    WHERE name == "Microsoft.Web.Platform.Chakra.ESBuiltins";
 
 arrayData =
     PROCESS inputData
@@ -449,10 +452,13 @@ arrayData =
     );
 
 pivotedData =
-    PROCESS arrayData 
-    PRODUCE Domain,
-            ApplicationName,
-            MachineConfigId,
+    PROCESS arrayData
+    PRODUCE
+            userId,
+            deviceId,
+            streamDate,
+            Domain,
+            OSArchitecture,
 <<<FORALL_PRINTF(builtins,
 "            %baseObject_%functionResidence_%functionName_present,
             %baseObject_%functionResidence_%functionName_props,
@@ -471,9 +477,39 @@ pivotedData =
 <<<FORALL_PRINTF(bailOutKinds,
 "            bailout_%kindName_present,
             bailout_%kindName_count,
-            bailout_%kindName_count_cap,", "\n")>>>
-            ActivityId
+            bailout_%kindName_count_cap", ",\n")>>>
     USING AssocProcessor;
 
 // We cluster the data by domain becuase the consumers aggregate on that
-OUTPUT pivotedData TO SSTREAM @outputFileName CLUSTERED BY Domain WITH STREAMEXPIRY "28";
+[Privacy.Subject.User.CommonSchema(Column = "userId")]
+[Privacy.Subject.Device.CommonSchema(Column="deviceId")]
+[Privacy.Common.Timestamp(Column="streamDate")]
+[Privacy.DataType.BrowsingHistory]
+[Privacy.DataType.BrowsingHistory.Related("Domain")]
+[Privacy.DataType.BrowsingHistory.BrowseTimestamp(Column="streamDate")]
+[Privacy.DataType.ProductAndServicePerformance]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column="data")]
+<<<FORALL_PRINTF(builtins,
+"[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%baseObject_%functionResidence_%functionName_present&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%baseObject_%functionResidence_%functionName_props&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%baseObject_%functionResidence_%functionName_callCount&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%baseObject_%functionResidence_%functionName_dMCallCount&quot;)]", "\n")>>>
+<<<FORALL_PRINTF(telpoints,
+"[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%pointName_present&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%pointName&quot;)]", "\n")>>>
+<<<FORALL_PRINTF(langfeatures,
+"[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%pointName_present&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;%pointName&quot;)]", "\n")>>>
+<<<FORALL_PRINTF(rejitReasons,
+"[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;rejit_%reasonName_present&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;rejit_%reasonName_count&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;rejit_%reasonName_count_cap&quot;)]", "\n")>>>
+<<<FORALL_PRINTF(bailOutKinds,
+"[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;bailout_%kindName_present&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;bailout_%kindName_count&quot;)]
+[Privacy.DataType.ProductAndServicePerformance.Related(Column=&quot;bailout_%kindName_count_cap&quot;)]", "\n")>>>
+OUTPUT pivotedData
+TO SSTREAM @outputFileName
+CLUSTERED BY Domain
+SORTED BY Domain
+WITH STREAMEXPIRY "28";
