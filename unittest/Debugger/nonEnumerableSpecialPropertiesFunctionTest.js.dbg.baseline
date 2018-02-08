@@ -43,18 +43,16 @@
           "arguments": "<large string>",
           "arguments - [Attributes]": {
             "flags": [
-              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
-              "DBGPROP_ATTRIB_VALUE_READONLY"
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
             ],
-            "flagsAsValue": 2064
+            "flagsAsValue": 16
           },
           "caller": "<large string>",
           "caller - [Attributes]": {
             "flags": [
-              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE",
-              "DBGPROP_ATTRIB_VALUE_READONLY"
+              "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
             ],
-            "flagsAsValue": 2064
+            "flagsAsValue": 16
           },
           "length": "0",
           "length - [Attributes]": {

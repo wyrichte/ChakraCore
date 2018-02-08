@@ -103,7 +103,7 @@
  |  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |  |    |    [Internal property] value: __lookupSetter__
  |  |  |  |    |    [Prototype] type: StringObject (seen)
- |  |  [Properties] count: 8
+ |  |  [Properties] count: 12
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  | 1 length: value: 0.000000
@@ -143,6 +143,18 @@
  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: [Symbol.hasInstance]
  |  |  |    |    [Prototype] type: StringObject (seen)
+ |  |  | 8 caller: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 3
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 name: type: Undefined (seen)
+ |  |  |    | 2 length: value: 0.000000
+ |  |  | 9 caller: rsFlags: setter type: FunctionObject (seen)
+ |  |  | 10 arguments: rsFlags: getter type: FunctionObject (seen)
+ |  |  | 11 arguments: rsFlags: setter type: FunctionObject (seen)
  |  [Function name] internal
  |  [Scopes] count: 2
  |  | scope[0]: type: Scope flags: (new) optional info records (2)

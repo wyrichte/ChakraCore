@@ -303,8 +303,6 @@
           },
           "Symbol.iterator": {
             "__proto__": "<large string>",
-            "arguments": "null",
-            "caller": "null",
             "length": "0",
             "name": "values"
           }
@@ -395,8 +393,6 @@
           "length": "0",
           "name": ""
         },
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "String",
         "prototype": {

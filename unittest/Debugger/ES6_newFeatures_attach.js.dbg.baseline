@@ -109,8 +109,6 @@
       "constructor": {
         "[Methods]": "{...}",
         "constructor.__proto__": "function() {\n    [native code]\n}",
-        "constructor.arguments": "null",
-        "constructor.caller": "null",
         "constructor.length": "1",
         "constructor.name": "Object",
         "constructor.prototype": "{...}"
@@ -130,8 +128,6 @@
       "constructor": {
         "[Methods]": "{...}",
         "constructor.__proto__": "function() {\n    [native code]\n}",
-        "constructor.arguments": "null",
-        "constructor.caller": "null",
         "constructor.length": "1",
         "constructor.name": "Object",
         "constructor.prototype": "{...}"
