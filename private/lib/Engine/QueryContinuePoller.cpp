@@ -23,6 +23,14 @@ void QueryContinuePoller::TryInterruptPoll(Js::ScriptContext *scriptContext)
         return;
     }
 
+#if ENABLE_JS_REENTRANCY_CHECK
+    if (scriptContext->GetThreadContext()->GetNoJsReentrancy())
+    {
+        // We're in a state that doesn't permit re-entrancy, so don't hand control to the host now.
+        return;
+    }
+#endif
+
     DWORD tickLast = this->lastPollTick;
     DWORD tickNow = ::GetTickCount();
     DWORD timeout = scriptSite->GetTicksPerPoll();
