@@ -9,8 +9,6 @@
               "constructor": {
                 "[Methods]": "{...}",
                 "__proto__": "<large string>",
-                "arguments": "null",
-                "caller": "null",
                 "hasInstance": "<large string>",
                 "isConcatSpreadable": "<large string>",
                 "iterator": "<large string>",
@@ -24,22 +22,16 @@
               },
               "Symbol.toPrimitive": {
                 "__proto__": "<large string>",
-                "arguments": "null",
-                "caller": "null",
                 "length": "1",
                 "name": "<large string>"
               },
               "toString": {
                 "__proto__": "<large string>",
-                "arguments": "null",
-                "caller": "null",
                 "length": "0",
                 "name": "toString"
               },
               "valueOf": {
                 "__proto__": "<large string>",
-                "arguments": "null",
-                "caller": "null",
                 "length": "0",
                 "name": "valueOf"
               }

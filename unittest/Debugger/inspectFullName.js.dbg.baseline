@@ -71,10 +71,10 @@
     "evaluate": {
       "Array": {
         "[Methods]": {
-          "Symbol.species": "function Array() { [native code] }",
           "Array.from": "function from() { [native code] }",
           "Array.isArray": "function isArray() { [native code] }",
-          "Array.of": "function of() { [native code] }"
+          "Array.of": "function of() { [native code] }",
+          "Symbol.species": "function Array() { [native code] }"
         },
         "Array.__proto__": {
           "[Methods]": "{...}",
@@ -84,8 +84,6 @@
           "Array.__proto__.length": "0",
           "Array.__proto__.name": ""
         },
-        "Array.arguments": "null",
-        "Array.caller": "null",
         "Array.length": "1",
         "Array.name": "Array",
         "Array.prototype": {
