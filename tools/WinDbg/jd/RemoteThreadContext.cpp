@@ -206,19 +206,22 @@ RemoteThreadContext
 RemoteThreadContext::GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress)
 {
     RemoteThreadContext foundThreadContext;
-    if (!TryGetCurrentThreadContext(foundThreadContext))
+    if (TryGetCurrentThreadContext(foundThreadContext))
     {
-        if (fallbackRecyclerAddress != 0)
-        {
-            GetExtension()->Out("Warning: thread context not found on current thread, using Recycler's collectionWrapper instead");
-            ExtRemoteTyped fallbackThreadContext(GetExtension()->FillModuleAndMemoryNS("(ThreadContext*) ((%s!%sRecycler*) @$extin)->collectionWrapper"), fallbackRecyclerAddress);
-
-            return RemoteThreadContext(fallbackThreadContext);
-        }
-
-        GetExtension()->ThrowLastError("Failed to find thread context for current thread. Try using !stst first");
+        return foundThreadContext;
     }
-    return foundThreadContext;
+
+    if (fallbackRecyclerAddress != 0)
+    {
+        GetExtension()->Out("Warning: thread context not found on current thread, using Recycler's collectionWrapper instead");
+        ExtRemoteTyped fallbackThreadContext(GetExtension()->FillModuleAndMemoryNS("((%s!%sRecycler*) @$extin)->collectionWrapper"), fallbackRecyclerAddress);
+        if (TryGetThreadContextFromAnyContextPointer(fallbackThreadContext.GetPtr(), foundThreadContext))
+        {
+            return foundThreadContext;
+        }
+    }
+
+    GetExtension()->ThrowLastError("Failed to find thread context for current thread. Try using !stst first");
 }
 
 bool RemoteThreadContext::HasThreadId()

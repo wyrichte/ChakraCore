@@ -668,16 +668,24 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 addField(typePath.Field("singletonInstance"), "RecyclerWeakReference<Js::DynamicObject>");
             };
 
+            auto addDictionaryFields = [&](RemoteBaseDictionary& dictionary, char const * name, char const * bucketsName, char const * entriesName)
+            {
+                if (addField(dictionary.GetExtRemoteTyped(), name, true))
+                { 
+                    addField(dictionary.GetBuckets(), bucketsName);
+                    addField(dictionary.GetEntries(), entriesName);
+                    return true;
+                }
+                return false;
+            };
+
 #define AddDictionaryFieldOnlyBase(dictionary, name, MACRO) \
             addField(dictionary.GetBuckets(), MACRO(name ## ".buckets")); \
             addField(dictionary.GetEntries(), MACRO(name ## ".entries"))
 
 #define AddDictionaryFieldBase(dictionary, name, MACRO) \
-            if (addField(dictionary.GetExtRemoteTyped(), MACRO(name), true)) \
-            { \
-                AddDictionaryFieldOnlyBase(dictionary, name, MACRO); \
-            }
-
+            addDictionaryFields(dictionary, MACRO(name), MACRO(name ## ".buckets"), MACRO(name ## ".entries"))
+            
 #define IDENT_MACRO(n) n
 #define AddDictionaryFieldOnly(dictionary, name) AddDictionaryFieldOnlyBase(dictionary, name, IDENT_MACRO)
 #define AddDictionaryField(dictionary, name) AddDictionaryFieldBase(dictionary, name, IDENT_MACRO)
@@ -742,15 +750,30 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 AddDictionaryFieldBase(weakFuncRefSet, "{WeakFuncRefSet}", ENTRY_POINT_FIELD_NAME);
                 RemoteBaseDictionary sharedPropertyGuards = remoteTyped.Field("sharedPropertyGuards");
                 AddDictionaryFieldBase(sharedPropertyGuards, "{SharedPropertyGuardDictionary}", ENTRY_POINT_FIELD_NAME);
-                int propertyGuardCount = remoteTyped.Field("propertyGuardCount").GetLong();
-                JDRemoteTyped propertyGuardWeakRefs = remoteTyped.Field("propertyGuardWeakRefs");
-                addField(propertyGuardWeakRefs, ENTRY_POINT_FIELD_NAME("propertyGuardWeakRefs"));
-                for (int i = 0; i < propertyGuardCount; i++)
+                if (remoteTyped.HasField("propertyGuardCount"))
                 {
-                    addField(propertyGuardWeakRefs.ArrayElement(i), "Js::FakePropertyGuardWeakReference");
-                }
+                    // After CL#1313688
+                    int propertyGuardCount = remoteTyped.Field("propertyGuardCount").GetLong();
+                    JDRemoteTyped propertyGuardWeakRefs = remoteTyped.Field("propertyGuardWeakRefs");
+                    addField(propertyGuardWeakRefs, ENTRY_POINT_FIELD_NAME("propertyGuardWeakRefs"));
+                    for (int i = 0; i < propertyGuardCount; i++)
+                    {
+                        addField(propertyGuardWeakRefs.ArrayElement(i), "Js::FakePropertyGuardWeakReference");
+                    }
 
-                addField(remoteTyped.Field("equivalentTypeCaches"), ENTRY_POINT_FIELD_NAME("equivalentTypeCaches"));
+                    addField(remoteTyped.Field("equivalentTypeCaches"), ENTRY_POINT_FIELD_NAME("equivalentTypeCaches"));
+                }
+                else
+                {
+                    // Before CL#1313688
+                    int propertyGuardCount = remoteTyped.Field("typePropertyGuardCount").GetLong();
+                    JDRemoteTyped propertyGuardWeakRefs = remoteTyped.Field("typePropertyGuardWeakRefs");
+                    addField(propertyGuardWeakRefs, ENTRY_POINT_FIELD_NAME("typePropertyGuardWeakRefs"));
+                    for (int i = 0; i < propertyGuardCount; i++)
+                    {
+                        addField(propertyGuardWeakRefs.ArrayElement(i), "Js::FakePropertyGuardWeakReference");
+                    }
+                }
                 JDRemoteTyped constructorCacheList = remoteTyped.Field("constructorCaches");
                 while (addField(constructorCacheList, ENTRY_POINT_FIELD_NAME("{ConstructorCacheList}")))
                 {
@@ -1285,13 +1308,23 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
                 addStaticTypeField(remoteTyped.Field("booleanTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("variantDateType"));
-                addStaticTypeField(remoteTyped.Field("symbolTypeStatic"));
+
                 addStaticTypeField(remoteTyped.Field("enumeratorType"));
                 addStaticTypeField(remoteTyped.Field("numberTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("int64NumberTypeStatic"));
-                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));
-                addStaticTypeField(remoteTyped.Field("withType"));
+                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));                
                 addStaticTypeField(remoteTyped.Field("throwErrorObjectType"));
+
+                if (remoteTyped.HasField("symbolTypeStatic"))
+                {
+                    // Not in jscript9
+                    addStaticTypeField(remoteTyped.Field("symbolTypeStatic"));
+                }
+
+                if (remoteTyped.HasField("withType"))
+                {
+                    addStaticTypeField(remoteTyped.Field("withType"));
+                }
 
                 auto tryAddDynamicTypeField = [&](char const * fieldName)
                 {
@@ -1392,12 +1425,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 }
 
                 RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
-                AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap");
-                propertyStringMap.ForEachValue([&](JDRemoteTyped value)
+                if (AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap"))
                 {
-                    addField(value, "RecyclerWeakReference<Js::PropertyString>");
-                    return false;
-                });
+                    propertyStringMap.ForEachValue([&](JDRemoteTyped value)
+                    {
+                        addField(value, "RecyclerWeakReference<Js::PropertyString>");
+                        return false;
+                    });
+                }
 
                 // Added during RS1
                 if (remoteTyped.HasField("bindRefChunkBegin"))

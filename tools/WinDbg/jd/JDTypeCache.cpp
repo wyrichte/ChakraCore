@@ -202,6 +202,15 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             auto newString = new std::string(std::string(moduleName) + "!Js::ScriptFunction");
             vtableTypeNameMap[offset] = newString;
         }
+
+        // CustomExternalObject vtable may be ICF'ed with Projection::ArrayObjectInstance
+        // It is preferable to always report CustomExternalObject for all of them.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = GetExtension()->GetRemoteVTableName("CustomExternalObject");
+        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(moduleName) + "!CustomExternalObject");
+            vtableTypeNameMap[offset] = newString;
+        }
     }
 
     auto i = vtableTypeNameMap.find(vtableAddr);

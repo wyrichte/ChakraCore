@@ -90,5 +90,5 @@ bool RemoteRecycler::CollectionInProgress()
 
 bool RemoteRecycler::IsPageHeapEnabled()
 {
-    return recycler.Field("isPageHeapEnabled").GetStdBool();
+    return recycler.HasField("isPageHeapEnabled") && recycler.Field("isPageHeapEnabled").GetStdBool();
 }
