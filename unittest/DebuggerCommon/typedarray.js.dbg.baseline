@@ -4,9 +4,9 @@
       "Int8Array": {
         "__proto__": {
           "[Methods]": {
-            "Symbol.species": "function Int8Array() { [native code] }",
             "from": "function from() { [native code] }",
-            "of": "function of() { [native code] }"
+            "of": "function of() { [native code] }",
+            "Symbol.species": "function Int8Array() { [native code] }"
           },
           "__proto__": {
             "[Methods]": "{...}",
@@ -16,8 +16,6 @@
             "length": "0",
             "name": ""
           },
-          "arguments": "null",
-          "caller": "null",
           "length": "3",
           "name": "TypedArray",
           "prototype": {
@@ -30,9 +28,7 @@
             "Symbol.toStringTag": "undefined"
           }
         },
-        "arguments": "null",
         "BYTES_PER_ELEMENT": "1",
-        "caller": "null",
         "length": "3",
         "name": "Int8Array",
         "prototype": {

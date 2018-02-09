@@ -160,8 +160,6 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "forEach"
       }
@@ -176,8 +174,6 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "sin"
       }
@@ -242,8 +238,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "Array",
         "prototype": "[]"
@@ -259,8 +253,6 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "Boolean",
         "prototype": "false"
@@ -277,8 +269,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "EPSILON": "2.220446049250313e-16",
         "length": "1",
         "MAX_SAFE_INTEGER": "9007199254740991",
@@ -303,8 +293,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "ArrayBuffer",
         "prototype": "{...}"
@@ -320,9 +308,7 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
         "BYTES_PER_ELEMENT": "1",
-        "caller": "null",
         "length": "3",
         "name": "Uint8Array",
         "prototype": "{...}"
@@ -338,8 +324,6 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "Error",
         "prototype": "",
@@ -357,8 +341,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "7",
         "name": "Date",
         "prototype": "Invalid Date"
@@ -375,8 +357,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "String",
         "prototype": ""
@@ -393,8 +373,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "0",
         "name": "Map",
         "prototype": "{...}"
@@ -411,8 +389,6 @@
       "f": {
         "[Methods]": "{...}",
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "0",
         "name": "Set",
         "prototype": "{...}"
@@ -645,8 +621,6 @@
     "evaluate": {
       "f": {
         "__proto__": "function() {\n    [native code]\n}",
-        "arguments": "null",
-        "caller": "null",
         "length": "1",
         "name": "forEach"
       }
