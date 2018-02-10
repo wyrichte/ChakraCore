@@ -833,11 +833,11 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
     ULONG id;
     if (threadContext.TryGetDebuggerThreadId(&id, &threadId))
     {
-        Out("%2x", id);
+        Out("%3d", id);
     }
     else
     {
-        Out("xx");
+        Out("???");
     }
     Out(" ThreadId: %04x ", threadId);
     Out("ThreadContext: 0x%p Recycler: 0x%p", threadContext.GetPtr(), threadContext.GetRecycler().GetPtr());
@@ -1114,6 +1114,7 @@ class JDStackWalker
 {
 public:    
     JDStackWalker(ULONG64 initialRbp = 0);
+    ~JDStackWalker();
     bool Next();
     CHAR * GetCurrentSymbol(ULONG64 * offset);
  
@@ -1134,12 +1135,15 @@ private:
     ULONG frameNumber;
     CHAR nameBuffer[1024];
 
-    DEBUG_STACK_FRAME frames[0x1000];
+    DEBUG_STACK_FRAME * frames;
     ULONG filled;
     ULONG nextFrameIndex;
+
+    static const unsigned int NumFrames = 0x1000;
 };
 
-JDStackWalker::JDStackWalker(ULONG64 initialRbp )
+JDStackWalker::JDStackWalker(ULONG64 initialRbp) :
+    frames(nullptr)
 {
     frameNumber = (ULONG)-1;
     nextFrameIndex = 0;
@@ -1172,10 +1176,19 @@ JDStackWalker::JDStackWalker(ULONG64 initialRbp )
         startRip = 0;
     }
     
-    HRESULT hr = g_Ext->m_Control5->GetStackTrace(startRbp, startRsp, startRip, frames, _countof(frames), &filled);
+    frames = new DEBUG_STACK_FRAME[NumFrames];
+    HRESULT hr = g_Ext->m_Control5->GetStackTrace(startRbp, startRsp, startRip, frames, sizeof(DEBUG_STACK_FRAME) * NumFrames, &filled);
     if (FAILED(hr) || filled == 0)
     {
         g_Ext->ThrowLastError("Unable to get stack frames");
+    }
+}
+
+JDStackWalker::~JDStackWalker()
+{
+    if (frames)
+    {
+        delete[] frames;
     }
 }
 

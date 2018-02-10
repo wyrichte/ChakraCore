@@ -193,15 +193,10 @@ void RootPointerReader::ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bo
         GetExtension()->ThrowOutOfMemory();
     }
     ULONG stackSizeInBytesLong = (ULONG)stackSizeInBytes;
-    GetExtension()->Out("Scanning %x bytes starting from 0x%p\n", stackSizeInBytes, stackTop);
+    GetExtension()->Out("Scanning stack %d bytes starting from 0x%p to 0x%p\n", stackSizeInBytes, stackTop, stackBase);
 
     ExtRemoteData data(stackTop, stackSizeInBytesLong);
     data.ReadBuffer(stack, stackSizeInBytesLong);
-
-    if (print)
-    {
-        GetExtension()->Out("Stack top: 0x%p, stack start: 0x%p\n", stackTop, stackBase);
-    }
 
     if (GetExtension()->m_PtrSize == 4)
     {

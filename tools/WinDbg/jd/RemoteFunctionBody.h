@@ -221,7 +221,7 @@ public:
 
     JDRemoteTyped GetPolymorphicInlineCachesHead()
     {
-        JDRemoteTyped remoteTyped = this->GetAuxWrappedFieldRecyclerData("m_polymorphicInlineCachesHead", "Js::PolymorphicInlineCache");
+        JDRemoteTyped remoteTyped = this->GetAuxWrappedFieldRecyclerData("polymorphicInlineCachesHead", "Js::PolymorphicInlineCache");
         if (remoteTyped.HasField("next"))
         {
             return remoteTyped;

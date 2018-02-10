@@ -195,10 +195,6 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
         {
             object.Field("head").OutFullValue();
         }
-        else
-        {
-            this->PrintSimpleVarValue();
-        }
     }
     else
     {
