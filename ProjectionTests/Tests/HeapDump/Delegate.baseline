@@ -66,7 +66,7 @@
  |  |    |  |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |  |    [Properties] count: 1
  |  |    |  |  |    | 0 length: value: 1.000000
- |  |    |  [Properties] count: 6
+ |  |    |  [Properties] count: 10
  |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  | 1 length: value: 0.000000
@@ -86,6 +86,17 @@
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 1
  |  |    |  |    | 0 length: value: 0.000000
+ |  |    |  | 6 caller: rsFlags: getter type: FunctionObject flags: (old) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 2
+ |  |    |  |    | 0 prototype: type: ObjectObject flags: (old) optional info records (2)
+ |  |    |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |  |    |    [Properties] count: 1
+ |  |    |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |    |  |    | 1 length: value: 0.000000
+ |  |    |  | 7 caller: rsFlags: setter type: FunctionObject (seen)
+ |  |    |  | 8 arguments: rsFlags: getter type: FunctionObject (seen)
+ |  |    |  | 9 arguments: rsFlags: setter type: FunctionObject (seen)
  |  |    [Function name] toastCompleteCallback
 
  type: Fabrikam.Kitchen.Toaster flags: (new_state_unavailable WinRT_Instance external_unknown size_unavailable) optional info records (1)

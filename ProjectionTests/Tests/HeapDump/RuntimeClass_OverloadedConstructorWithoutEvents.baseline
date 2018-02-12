@@ -65,7 +65,7 @@
  |  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |  |    [Properties] count: 1
  |  |  |  |    | 0 length: value: 1.000000
- |  |  [Properties] count: 6
+ |  |  [Properties] count: 10
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  | 1 length: value: 0.000000
@@ -85,6 +85,17 @@
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Properties] count: 1
  |  |  |    | 0 length: value: 0.000000
+ |  |  | 6 caller: rsFlags: getter type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    [Prototype] type: FunctionObject (seen)
+ |  |  |    [Properties] count: 2
+ |  |  |    | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
+ |  |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |  |    |    [Properties] count: 1
+ |  |  |    |    | 0 constructor: type: FunctionObject (seen)
+ |  |  |    | 1 length: value: 0.000000
+ |  |  | 7 caller: rsFlags: setter type: FunctionObject (seen)
+ |  |  | 8 arguments: rsFlags: getter type: FunctionObject (seen)
+ |  |  | 9 arguments: rsFlags: setter type: FunctionObject (seen)
  |  [Properties] count: 100
  |  | 0 prototype: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
