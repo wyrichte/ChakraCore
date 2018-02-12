@@ -201,10 +201,10 @@ public:
         __in BOOL fPlayNavSound,
         __out BOOL* pfCancel) { return E_NOTIMPL; }
 
-    STDMETHOD(FireNavigateComplete2)(__in IHTMLWindow2* pHTMLWindow2, __in DWORD dwFlags) { return E_NOTIMPL; }
+    STDMETHOD(FireNavigateComplete2)(__in IHTMLWindow2* pHTMLWindow2, __in DWORD dwFlags) { return S_OK; }
     STDMETHOD(FireDownloadBegin)()  { return E_NOTIMPL; }
     STDMETHOD(FireDownloadComplete)()  { return E_NOTIMPL; }
-    STDMETHOD(FireDocumentComplete)(__in IHTMLWindow2* pHTMLWindow, __in DWORD dwFlags)  { return E_NOTIMPL; }
+    STDMETHOD(FireDocumentComplete)(__in IHTMLWindow2* pHTMLWindow, __in DWORD dwFlags)  { return S_OK; }
     STDMETHOD(UpdateDesktopComponent)(__in IHTMLWindow2* pHTMLWindow) { return E_NOTIMPL; }
     STDMETHOD(GetPendingUrl)(__out BSTR* pbstrPendingUrl) { return E_NOTIMPL; }
     STDMETHOD(ActiveElementChanged)(IHTMLElement* pHTMLElement) { return E_NOTIMPL; }

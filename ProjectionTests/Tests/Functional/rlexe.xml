@@ -143,8 +143,8 @@
       <files>StackForETW1.js</files>
       <baseline>StackForETW1.baseline</baseline>
       <compile-flags> -JsEtwConsole:"-keywordmask jscript9:0x80000"</compile-flags>
-      <!-- OS#15766632 exclude_drt pending investigation -->
-      <tags>exclude_win7,exclude_fre,JsEtwConsole,exclude_drt</tags>
+      <timeout>120</timeout>
+      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
     </default>
   </test>
 
@@ -153,8 +153,8 @@
       <files>stacktraceevent_1.js</files>
       <baseline>stacktraceevent_1.baseline</baseline>
       <compile-flags>-Intl- -trace:StackFramesEvent -JsEtwConsole:"-keywordmask jscript9:0x40000 jscript9"</compile-flags>
-      <!-- OS#15766632 exclude_drt pending investigation -->
-      <tags>exclude_win7,exclude_fre,JsEtwConsole,exclude_drt</tags>
+      <timeout>120</timeout>
+      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
     </default>
   </test>
 
@@ -1479,8 +1479,7 @@ Re-enable with new baseline
       <files>IBuffer.TwoDocuments.js</files>
       <baseline>IBuffer.twoDocuments.baseline</baseline>
       <compile-flags></compile-flags>
-      <!-- OS#15765249 exclude_drt pending investigation -->
-      <tags>exclude_win7,exclude_amd64,exclude_drt</tags>
+      <tags>exclude_win7,exclude_amd64</tags>
     </default>
   </test>
   <test>

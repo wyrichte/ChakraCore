@@ -119,6 +119,6 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Microsoft_Scripting_JScript9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\manifests\Microsoft-Scripting-JScript9.man;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\..\core\manifests\Microsoft-Scripting-Chakra-Instrumentation.man;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
