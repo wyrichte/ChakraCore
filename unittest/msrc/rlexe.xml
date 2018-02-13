@@ -130,4 +130,46 @@
       <files>41913_int.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>42345.js</files>
+      <baseline>42345.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42551.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42577.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42578.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42066.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42460_1.html</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42460_2.html</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42460_3.html</files>
+    </default>
+  </test>
 </regress-exe>
