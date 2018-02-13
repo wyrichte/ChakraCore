@@ -1,0 +1,14 @@
+<script>
+    var vars = new Array(2);
+    function main() {
+    vars[0] = new Array(1000000);
+    vars[1] = String.prototype.substr.call(vars[0], 100);
+    var o = {}; o.toString = f8;
+    String.prototype.lastIndexOf.call(vars[1], "a", o);
+    }
+    function f8(arg7, arg8, arg9) {
+    console.log(vars[1]);
+    CollectGarbage();
+    }
+    main();
+</script>

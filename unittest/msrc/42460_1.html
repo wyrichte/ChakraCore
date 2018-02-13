@@ -1,0 +1,15 @@
+<script>
+    var vars = new Array(2);
+    function main() {
+        vars[0] = Array(1000000).join(String.fromCharCode(0x41));
+        vars[1] = String.prototype.substring.call(vars[0], 1, vars[0].length);
+        String.prototype.replace.call(vars[1], RegExp(), f);
+    }
+    function f(arg1, arg2, arg3) {
+        console.log(arg3);
+        vars[0] = 1;
+        CollectGarbage();
+        return 'a';
+    }
+    main();
+</script>
