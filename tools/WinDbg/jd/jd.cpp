@@ -1336,7 +1336,18 @@ JD_PRIVATE_COMMAND(jstack,
 
                 ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
                 ULONG callFlags = callInfo.Field("Flags").GetUlong();
-                if (callFlags & ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong())
+                
+                // Js::CallFlags_InternalFrame is not available in jscript9's PDBs so we hardcode the value
+                // by default here, and in the Chakra case, pick up the one from the PDB in case it's different
+                // from the jscript9 value, since the latter is not likely to change
+                ULONG64 callFlagsInternalFrameValue = 0x80;
+
+                if (!IsJScript9())
+                {
+                    callFlagsInternalFrameValue = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong();
+                }
+
+                if ((callFlags & callFlagsInternalFrameValue))
                 {
                     Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
                 }

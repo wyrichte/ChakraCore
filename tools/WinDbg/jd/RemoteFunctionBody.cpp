@@ -354,9 +354,19 @@ RemoteFunctionBody::PrintSourceUrl()
 void
 RemoteFunctionBody::PrintSource()
 {
-    
     JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
-    ULONG64 buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
+    ULONG64 buffer = 0;
+    
+    if (utf8SourceInfo.HasField("debugModeSource"))
+    {
+        buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
+    }
+
+    if (buffer == 0 && utf8SourceInfo.HasField("m_utf8Source"))
+    {
+        buffer = utf8SourceInfo.Field("m_utf8Source").GetPtr();
+    }
+
     if (buffer == 0)
     {
         buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();

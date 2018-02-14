@@ -919,14 +919,18 @@ JD_PRIVATE_COMMAND(pagealloc,
 
         char* allocators[] = {
             "recyclerPageAllocator",
+            "threadPageAllocator",
             "recyclerWithBarrierPageAllocator",
             "recyclerLargeBlockPageAllocator"
         };
 
         for (int i = 0; i < _countof(allocators); i++)
         {
-            Out("\n\nType: %s\n", allocators[i]);
-            DisplayPageAllocatorInfo(recycler.Field(allocators[i]), outputType);
+            if (recycler.HasField(allocators[i]))
+            {
+                Out("\n\nType: %s\n", allocators[i]);
+                DisplayPageAllocatorInfo(recycler.Field(allocators[i]), outputType);
+            }
         }
     }
     else

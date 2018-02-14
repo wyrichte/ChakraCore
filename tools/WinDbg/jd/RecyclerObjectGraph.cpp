@@ -1074,6 +1074,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                 }
 
                 addField(functionBody.GetInlineCaches(), "Js::FunctionBody.<inlineCaches[]>");
+
                 addField(JDUtil::GetWrappedField(functionBody.GetPolymorphicInlineCaches(), "inlineCaches"), "Js::FunctionBody.{PolymorphicInlineCaches[]}");
 
                 JDRemoteTyped polymorphicInlineCachesHead = functionBody.GetPolymorphicInlineCachesHead();
@@ -1260,7 +1261,18 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     JDRemoteTyped scannerInfoArray = repInsts.Field("scannersForSyncToLiterals");
                     if (addField(scannerInfoArray, "UnifiedRegex::ScannerInfo *[]"))
                     {
-                        int scannerInfoArraySize = ExtRemoteTyped("UnifiedRegex::ScannersMixin::MaxNumSyncLiterals").GetLong();
+                        //
+                        // UnifiedRegex::ScannersMixin::MaxNumSyncLiterals is not available in jscript9 PDBs
+                        // so we hardcode the jscript9 value as the default since it's unlikely to change
+                        // We then get the value from the PDB for the non-jscript9 case in case it changed in Chakra
+                        //
+                        int scannerInfoArraySize = 4;
+
+                        if (!GetExtension()->IsJScript9())
+                        {
+                            scannerInfoArraySize = ExtRemoteTyped("UnifiedRegex::ScannersMixin::MaxNumSyncLiterals").GetLong();
+                        }
+
                         for (int i = 0; i < scannerInfoArraySize; i++)
                         {
                             addField(scannerInfoArray.ArrayElement(i), "UnifiedRegex::ScannerInfo");
