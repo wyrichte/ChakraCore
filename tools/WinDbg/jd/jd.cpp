@@ -1016,36 +1016,6 @@ JD_PRIVATE_COMMAND(sourceInfos,
     ThrowCommandHelp();
 }
 
-static void DumpArgs(ULONG callCount, ULONG64 addressOfArguments)
-{
-    if (callCount == 0)
-    {
-        return;
-    }
-
-    const ULONG ptrSize = g_Ext->m_PtrSize;
-    ExtRemoteData thisArg(addressOfArguments, ptrSize);
-    RemoteVar thisVar(thisArg.GetPtr());
-    if (!thisVar.IsUndefined())
-    {
-        g_Ext->Out(" ");
-        thisVar.PrintLink("this");
-    }
-
-    g_Ext->Out(" (");
-    for (ULONG i = 1; i < callCount; i++)
-    {
-        if (i != 1)
-        {
-            g_Ext->Out(", ");
-        }
-        ExtRemoteData arg(addressOfArguments + ptrSize * i, ptrSize);
-        RemoteVar argVar(arg.GetPtr());
-        argVar.Print(false, -1);
-    }
-    g_Ext->Out(")");
-}
-
 JD_PRIVATE_COMMAND(count,
     "Count item in a list",
     "{;s;type;type of object}{;e;head;head of the list}{;s;next;next field name}")
@@ -1121,6 +1091,7 @@ public:
     
     ULONG64 GetRbp() const { return rbp; }
     ULONG64 GetRip() const { return rip; }
+    ULONG64 GetAddressOfReturnAddress() { return nextFrameIndex < filled ? frames[nextFrameIndex].StackOffset - g_Ext->m_PtrSize : 0;  }
 
     void PrintFrameNumber(bool verbose);
 private:
@@ -1135,7 +1106,7 @@ private:
     ULONG frameNumber;
     CHAR nameBuffer[1024];
 
-    DEBUG_STACK_FRAME * frames;
+    DEBUG_STACK_FRAME_EX * frames;
     ULONG filled;
     ULONG nextFrameIndex;
 
@@ -1176,8 +1147,8 @@ JDStackWalker::JDStackWalker(ULONG64 initialRbp) :
         startRip = 0;
     }
     
-    frames = new DEBUG_STACK_FRAME[NumFrames];
-    HRESULT hr = g_Ext->m_Control5->GetStackTrace(startRbp, startRsp, startRip, frames, sizeof(DEBUG_STACK_FRAME) * NumFrames, &filled);
+    frames = new DEBUG_STACK_FRAME_EX[NumFrames];
+    HRESULT hr = g_Ext->m_Control5->GetStackTraceEx(startRbp, startRsp, startRip, frames, NumFrames, &filled);
     if (FAILED(hr) || filled == 0)
     {
         g_Ext->ThrowLastError("Unable to get stack frames");
@@ -1225,13 +1196,86 @@ CHAR * JDStackWalker::GetCurrentSymbol(ULONG64 *offset)
 
 void JDStackWalker::PrintFrameNumber(bool verbose)
 {
-    g_Ext->Out("%02x", this->GetFrameNumber());
+    if (GetExtension()->PreferDML())
+    {
+        g_Ext->Dml("<link cmd=\".frame 0x%02x\">%02x</link>", this->GetFrameNumber(), this->GetFrameNumber());
+    }
+    else
+    {
+        g_Ext->Out("%02x", this->GetFrameNumber());
+    }
     if (verbose)
     {
         g_Ext->Out(" %p", this->GetRsp());
         g_Ext->Out(" %p", this->GetNextRip());
     }
 }
+
+static void DumpArgs(ULONG callCount, ULONG64 addressOfArguments)
+{
+    if (callCount == 0)
+    {
+        return;
+    }
+
+    const ULONG ptrSize = g_Ext->m_PtrSize;
+    ExtRemoteData thisArg(addressOfArguments, ptrSize);
+    RemoteVar thisVar(thisArg.GetPtr());
+    if (!thisVar.IsUndefined())
+    {
+        g_Ext->Out(" ");
+        thisVar.PrintLink("this");
+    }
+
+    g_Ext->Out(" (");
+    for (ULONG i = 1; i < callCount; i++)
+    {
+        if (i != 1)
+        {
+            g_Ext->Out(", ");
+        }
+        ExtRemoteData arg(addressOfArguments + ptrSize * i, ptrSize);
+        RemoteVar argVar(arg.GetPtr());
+        argVar.Print(false, -1);
+    }
+    g_Ext->Out(")");
+}
+
+static void DumpInlineeFrames(ULONG64 frameAddr, bool dumpArgs, bool verbose)
+{
+    JDRemoteTyped frame(ExtRemoteTyped(GetExtension()->FillModule("(%s!InlinedFrameLayout *)@$extin"), frameAddr));
+    ULONG argCount = (ULONG)frame.Field("callInfo").BitField("Count").GetSizeT();
+    if (argCount == 0)
+    {
+        return;
+    }
+    ULONG64 arguments = frameAddr + frame.Dereference().GetTypeSize();
+    // REVIEW: Recursion
+    DumpInlineeFrames(arguments + argCount * g_Ext->m_PtrSize, dumpArgs, verbose);
+
+    g_Ext->Out("   ");
+    if (verbose)
+    {
+        if (g_Ext->m_PtrSize == 8)
+        {
+            g_Ext->Out("%34s", "");
+        }
+        else
+        {
+            g_Ext->Out("%18s", "");
+        }
+    }
+
+    g_Ext->Out("js!");
+    RemoteScriptFunction(frame.Field("function")).PrintNameAndNumberWithLink();
+    g_Ext->Out(" [JIT inlined]");
+
+    if (dumpArgs)
+    {
+        DumpArgs(argCount, arguments);
+    }
+    g_Ext->Out("\n");
+};
 
 JD_PRIVATE_COMMAND(jstack,
     "Print JS Stack. This is untested, and works only if all modules in the stack have FPO turned off",
@@ -1266,11 +1310,48 @@ JD_PRIVATE_COMMAND(jstack,
     }
     Out("\n");
 
+    JDRemoteTyped nativeLibraryEntryRecordCurr = threadContext.GetNativeLibraryEntryRecord().Field("head");
+    ULONG64 nativeLibraryAddressOfReturnAddressCurr = nativeLibraryEntryRecordCurr.GetPtr() != 0 ? nativeLibraryEntryRecordCurr.Field("addr").GetPtr() : 0;
     JDStackWalker stackWalker(this->GetUnnamedArgU64(0));
     while (stackWalker.Next())
     {
         ULONG64 offset = 0;
         CHAR * nameBuffer = stackWalker.GetCurrentSymbol(&offset);
+
+        if (!dumpFull && nativeLibraryAddressOfReturnAddressCurr != 0 && nativeLibraryAddressOfReturnAddressCurr == stackWalker.GetAddressOfReturnAddress())
+        {
+            JDRemoteTyped function = nativeLibraryEntryRecordCurr.Field("function");
+            JDRemoteTyped name = nativeLibraryEntryRecordCurr.Field("name");
+            ExtBuffer<WCHAR> buffer;
+            PWCHAR functionName = name.Dereference().GetString(&buffer);
+            stackWalker.PrintFrameNumber(verbose);
+            Out(" js!");
+            if (this->PreferDML())
+            {
+                Dml(_u("<link cmd=\"!jd.var 0x%p\">%s</link>"), function.GetPtr(), functionName);
+            }
+            else
+            {
+                Out(_u("%s /*\"!jd.var 0x%p\" to display*/"), functionName, function.GetPtr());
+            }
+            Out(" [Native]");
+
+            if (dumpArgs)
+            {
+                ExtRemoteTyped callInfo = nativeLibraryEntryRecordCurr.Field("callInfo");
+                ULONG callCount = callInfo.Field("Count").GetUlong();
+
+                // Skip the return address, and the 2 arguments function and callInfo
+                ULONG64 argLocation = nativeLibraryAddressOfReturnAddressCurr + g_Ext->m_PtrSize * 3;
+                DumpArgs(callCount, argLocation);
+            }
+
+            Out("\n");
+            nativeLibraryEntryRecordCurr = nativeLibraryEntryRecordCurr.Field("next");
+            nativeLibraryAddressOfReturnAddressCurr = nativeLibraryEntryRecordCurr.GetPtr() != 0 ? nativeLibraryEntryRecordCurr.Field("addr").GetPtr() : 0;
+            continue;
+        }
+
         // Native stack frames
         if (nameBuffer)
         {
@@ -1324,16 +1405,10 @@ JD_PRIVATE_COMMAND(jstack,
         bool isFunctionObject = false;
         if (typeName != nullptr && firstArgCasted.HasField("type"))
         {
-
            JDRemoteTyped type = firstArgCasted.Field("type");
             if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
             {
-                stackWalker.PrintFrameNumber(verbose);
-
-                isFunctionObject = true;
-                Out(" js!");
-                RemoteScriptFunction(firstArgCasted).PrintNameAndNumberWithLink();
-
+                RemoteScriptFunction function(firstArgCasted);
                 ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
                 ULONG callFlags = callInfo.Field("Flags").GetUlong();
                 
@@ -1347,20 +1422,37 @@ JD_PRIVATE_COMMAND(jstack,
                     callFlagsInternalFrameValue = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::CallFlags_InternalFrame)")).GetUlong();
                 }
 
-                if ((callFlags & callFlagsInternalFrameValue))
-                {
-                    Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
-                }
-                else
-                {
+                bool isInternalFrame = callFlags & callFlagsInternalFrameValue;
 
-                    Out(" [JIT]");
-                    if (dumpArgs)
+                RemoteEntryPoint entryPoint = function.GetFunctionBody().GetEntryPointFromNativeAddress(stackWalker.GetRip());
+                if (entryPoint.GetPtr())
+                {
+                    if (entryPoint.HasInlinees())
                     {
-                        ULONG callCount = callInfo.Field("Count").GetUlong();
-                        DumpArgs(callCount, stackWalker.GetRbp() + ptrSize * 4);
+                        DumpInlineeFrames(stackWalker.GetRbp() - entryPoint.GetFrameHeight(), dumpArgs, verbose);
                     }
-                    Out("\n");
+
+                    stackWalker.PrintFrameNumber(verbose);
+
+                    isFunctionObject = true;
+                    Out(" js!");
+                    function.PrintNameAndNumberWithLink();
+
+                    if (isInternalFrame)
+                    {
+                        Out(" [JIT LoopBody #%u]\n", interpreterStackFrame.GetCurrentLoopNum());
+                    }
+                    else
+                    {
+
+                        Out(" [JIT]");
+                        if (dumpArgs)
+                        {
+                            ULONG callCount = callInfo.Field("Count").GetUlong();
+                            DumpArgs(callCount, stackWalker.GetRbp() + ptrSize * 4);
+                        }
+                        Out("\n");
+                    }
                 }
             }
         }

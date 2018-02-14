@@ -12,6 +12,7 @@ class RootPointers;
 #include "RemoteDynamicObject.h"
 #include "RemoteUtf8SourceInfo.h"
 #include "RemoteFunctionInfo.h"
+#include "RemoteEntryPoint.h"
 #include "RemoteFunctionBody.h"
 #include "RemoteJavascriptFunction.h"
 #include "RemoteScriptFunction.h"

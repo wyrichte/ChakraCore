@@ -37,6 +37,12 @@ JDRemoteTyped JDRemoteTyped::Field(PCSTR field)
     return FieldInfoCache::GetField(*this, field);
 }
 
+JDRemoteTyped JDRemoteTyped::BitField(PCSTR field)
+{
+    // Don't cache bit field accesses
+    return __super::Field(field);
+}
+
 JDRemoteTyped JDRemoteTyped::ArrayElement(LONG64 index)
 {
     return __super::ArrayElement(index);
@@ -80,4 +86,9 @@ JDRemoteTyped JDRemoteTyped::FromPtrWithVtable(ULONG64 address, char const ** ty
         result = JDRemoteTyped("(void *)@$extin", address);
     }
     return result;
+}
+
+ULONG64 JDRemoteTyped::GetSizeT()
+{
+    return ExtRemoteTypedUtil::GetSizeT(*this);
 }

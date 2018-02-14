@@ -408,3 +408,9 @@ RemoteThreadContext::PrintAll(ulong * pScriptThreadId)
     }
     return numThreadContexts;
 }
+
+JDRemoteTyped
+RemoteThreadContext::GetNativeLibraryEntryRecord()
+{
+    return threadContext.Field("nativeLibraryEntry");
+}
