@@ -61,7 +61,7 @@ AssertObjectTypeOf(Intl.Collator, 'Intl.Collator', 'function');
 Assert(platform.isWellFormedLanguageTag, ["en-US"], true);
 Assert(platform.isWellFormedLanguageTag, ["1"], false);
 Assert(platform.normalizeLanguageTag, ["en-us"], "en-US");
-Assert(platform.compareString, ["A", "a", "en-US", undefined, undefined, undefined], 1);
+Assert(platform.compareString, ["A", "a", "en-US", undefined, undefined, undefined, undefined], 1);
 Assert(platform.resolveLocaleLookup, [platform.getDefaultLocale()], platform.getDefaultLocale());
 Assert(platform.resolveLocaleBestFit, [platform.getDefaultLocale()], platform.getDefaultLocale());
 Assert(platform.getExtensions, ["en-us-u-kf-true"], ["kf-true"]);
