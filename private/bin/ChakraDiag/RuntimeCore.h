@@ -167,6 +167,8 @@ namespace Js
     class JavascriptPromiseReactionTaskFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseResolveThenableTaskFunction; // Used by JavascriptLibrary.h
     class JavascriptPromiseAllResolveElementFunction; // Used by JavascriptLibrary.h
+    class JavascriptPromiseThenFinallyFunction; // Used by JavascriptLibrary.h
+    class JavascriptPromiseThunkFinallyFunction; // Used by JavascriptLibrary.h
     struct JavascriptPromiseAllResolveElementFunctionRemainingElementsWrapper; // Used by JavascriptLibrary.h
     struct JavascriptPromiseResolveOrRejectFunctionAlreadyResolvedWrapper; // Used by JavascriptLibrary.h
     class JavascriptProxy;                  // used by JavascriptLibrary.h

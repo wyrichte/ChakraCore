@@ -109,7 +109,7 @@
  |  | 1 asyncMethodPromise: type: Promise flags: (new) optional info records (1)
  |  |    [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |    |  [Prototype] type: ObjectObject (seen)
- |  |    |  [Properties] count: 4
+ |  |    |  [Properties] count: 5
  |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 9
@@ -164,7 +164,14 @@
  |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |  |    |    [Internal property] value: catch
  |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  | 3 then: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  | 3 finally: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |  |    [Properties] count: 2
+ |  |    |  |    | 0 length: value: 1.000000
+ |  |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |  |    |    [Internal property] value: finally
+ |  |    |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |  | 4 then: type: FunctionObject flags: (new) optional info records (2)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 length: value: 2.000000
