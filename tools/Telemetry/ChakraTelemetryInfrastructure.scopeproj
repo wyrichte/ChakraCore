@@ -30,14 +30,12 @@
   </ItemGroup>
   <ItemGroup>
     <Script Include="output\ChakraDaily\ChakraAboutConfig_config.script" />
-    <Script Include="output\ChakraDaily\ChakraBailOutReJIT_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraBailOutReJIT_Reference.script" />
     <Script Include="output\ChakraDaily\ChakraDailyCooker.script" />
     <Script Include="output\ChakraDaily\ChakraDailyURLCooker.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017Cooker.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate_Pivot.script" />
-    <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraMachineConfig2Cooker.script" />
     <Script Include="output\ChakraDaily\ChakraMasterPivot.script" />
   </ItemGroup>

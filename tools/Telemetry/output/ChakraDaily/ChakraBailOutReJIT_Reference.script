@@ -9,27 +9,25 @@
  * as what we'd like to have available in Kusto for quick analysis and easy access.
  */
 
+// For the NGP stuff
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+
 // hook up to the asimov date inputs, so that back runs work properly
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1);
 
 // The pivoted input file
 #IF(LOCAL)
-    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+    #DECLARE inputFileName string = @"c:\temp\ChakraPivotedData.ss";
 #ELSE
-    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraBailOutReJIT_Pivoted" , @streamDate );
-#ENDIF
-
-// The machine config information file
-#IF(LOCAL)
-    #DECLARE machineConfigFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
-#ELSE
-    #DECLARE machineConfigFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "DeviceIdToMachineId2" , @streamDate );
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraPivotedData" , @streamDate );
 #ENDIF
 
 // The post-aggregation output file
 #IF(LOCAL)
-    #DECLARE outputFileName string = @"c:\temp\ESBuiltinsData_Aggregated.ss";
+    #DECLARE outputFileName string = @"c:\temp\ChakraBailOutReJIT_Referenced.ss";
 #ELSE
     #DECLARE outputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraBailOutReJIT_Referenced" , @streamDate );
 #ENDIF
@@ -41,328 +39,12 @@ inputData =
         *
     FROM ( SSTREAM @inputFileName );
 
-configMap =
-    SELECT
-        *
-    FROM ( SSTREAM @machineConfigFileName );
-
-
 /*
- * Now we cross-reference with the machine info to get the architecture of each line.
- */
-ReferencedData =
-    SELECT
-            inputData.Domain,
-            inputData.ApplicationName,
-            inputData.ActivityId,
-            inputData.rejit_None_present,
-            inputData.rejit_None_count,
-            inputData.rejit_None_count_cap,
-            inputData.rejit_Forced_present,
-            inputData.rejit_Forced_count,
-            inputData.rejit_Forced_count_cap,
-            inputData.rejit_RuntimeStatsEnabled_present,
-            inputData.rejit_RuntimeStatsEnabled_count,
-            inputData.rejit_RuntimeStatsEnabled_count_cap,
-            inputData.rejit_AggressiveIntTypeSpecDisabled_present,
-            inputData.rejit_AggressiveIntTypeSpecDisabled_count,
-            inputData.rejit_AggressiveIntTypeSpecDisabled_count_cap,
-            inputData.rejit_AggressiveMulIntTypeSpecDisabled_present,
-            inputData.rejit_AggressiveMulIntTypeSpecDisabled_count,
-            inputData.rejit_AggressiveMulIntTypeSpecDisabled_count_cap,
-            inputData.rejit_DivIntTypeSpecDisabled_present,
-            inputData.rejit_DivIntTypeSpecDisabled_count,
-            inputData.rejit_DivIntTypeSpecDisabled_count_cap,
-            inputData.rejit_TrackIntOverflowDisabled_present,
-            inputData.rejit_TrackIntOverflowDisabled_count,
-            inputData.rejit_TrackIntOverflowDisabled_count_cap,
-            inputData.rejit_FloatTypeSpecDisabled_present,
-            inputData.rejit_FloatTypeSpecDisabled_count,
-            inputData.rejit_FloatTypeSpecDisabled_count_cap,
-            inputData.rejit_ImplicitCallFlagsChanged_present,
-            inputData.rejit_ImplicitCallFlagsChanged_count,
-            inputData.rejit_ImplicitCallFlagsChanged_count_cap,
-            inputData.rejit_FailedPolymorphicInlineeTypeCheck_present,
-            inputData.rejit_FailedPolymorphicInlineeTypeCheck_count,
-            inputData.rejit_FailedPolymorphicInlineeTypeCheck_count_cap,
-            inputData.rejit_InlineeChanged_present,
-            inputData.rejit_InlineeChanged_count,
-            inputData.rejit_InlineeChanged_count_cap,
-            inputData.rejit_CheckThisDisabled_present,
-            inputData.rejit_CheckThisDisabled_count,
-            inputData.rejit_CheckThisDisabled_count_cap,
-            inputData.rejit_LossyIntTypeSpecDisabled_present,
-            inputData.rejit_LossyIntTypeSpecDisabled_count,
-            inputData.rejit_LossyIntTypeSpecDisabled_count_cap,
-            inputData.rejit_MemOpDisabled_present,
-            inputData.rejit_MemOpDisabled_count,
-            inputData.rejit_MemOpDisabled_count_cap,
-            inputData.rejit_FailedTypeCheck_present,
-            inputData.rejit_FailedTypeCheck_count,
-            inputData.rejit_FailedTypeCheck_count_cap,
-            inputData.rejit_FailedFixedFieldTypeCheck_present,
-            inputData.rejit_FailedFixedFieldTypeCheck_count,
-            inputData.rejit_FailedFixedFieldTypeCheck_count_cap,
-            inputData.rejit_FailedFixedFieldCheck_present,
-            inputData.rejit_FailedFixedFieldCheck_count,
-            inputData.rejit_FailedFixedFieldCheck_count_cap,
-            inputData.rejit_FailedEquivalentTypeCheck_present,
-            inputData.rejit_FailedEquivalentTypeCheck_count,
-            inputData.rejit_FailedEquivalentTypeCheck_count_cap,
-            inputData.rejit_FailedEquivalentFixedFieldTypeCheck_present,
-            inputData.rejit_FailedEquivalentFixedFieldTypeCheck_count,
-            inputData.rejit_FailedEquivalentFixedFieldTypeCheck_count_cap,
-            inputData.rejit_CtorGuardInvalidated_present,
-            inputData.rejit_CtorGuardInvalidated_count,
-            inputData.rejit_CtorGuardInvalidated_count_cap,
-            inputData.rejit_ArrayCheckHoistDisabled_present,
-            inputData.rejit_ArrayCheckHoistDisabled_count,
-            inputData.rejit_ArrayCheckHoistDisabled_count_cap,
-            inputData.rejit_ArrayMissingValueCheckHoistDisabled_present,
-            inputData.rejit_ArrayMissingValueCheckHoistDisabled_count,
-            inputData.rejit_ArrayMissingValueCheckHoistDisabled_count_cap,
-            inputData.rejit_ArrayAccessHelperCallEliminationDisabled_present,
-            inputData.rejit_ArrayAccessHelperCallEliminationDisabled_count,
-            inputData.rejit_ArrayAccessHelperCallEliminationDisabled_count_cap,
-            inputData.rejit_ExpectingNativeArray_present,
-            inputData.rejit_ExpectingNativeArray_count,
-            inputData.rejit_ExpectingNativeArray_count_cap,
-            inputData.rejit_ConvertedNativeArray_present,
-            inputData.rejit_ConvertedNativeArray_count,
-            inputData.rejit_ConvertedNativeArray_count_cap,
-            inputData.rejit_ArrayAccessNeededHelperCall_present,
-            inputData.rejit_ArrayAccessNeededHelperCall_count,
-            inputData.rejit_ArrayAccessNeededHelperCall_count_cap,
-            inputData.rejit_JsArraySegmentHoistDisabled_present,
-            inputData.rejit_JsArraySegmentHoistDisabled_count,
-            inputData.rejit_JsArraySegmentHoistDisabled_count_cap,
-            inputData.rejit_TypedArrayTypeSpecDisabled_present,
-            inputData.rejit_TypedArrayTypeSpecDisabled_count,
-            inputData.rejit_TypedArrayTypeSpecDisabled_count_cap,
-            inputData.rejit_ExpectingConventionalNativeArrayAccess_present,
-            inputData.rejit_ExpectingConventionalNativeArrayAccess_count,
-            inputData.rejit_ExpectingConventionalNativeArrayAccess_count_cap,
-            inputData.rejit_LdLenIntSpecDisabled_present,
-            inputData.rejit_LdLenIntSpecDisabled_count,
-            inputData.rejit_LdLenIntSpecDisabled_count_cap,
-            inputData.rejit_FailedTagCheck_present,
-            inputData.rejit_FailedTagCheck_count,
-            inputData.rejit_FailedTagCheck_count_cap,
-            inputData.rejit_BoundCheckHoistDisabled_present,
-            inputData.rejit_BoundCheckHoistDisabled_count,
-            inputData.rejit_BoundCheckHoistDisabled_count_cap,
-            inputData.rejit_LoopCountBasedBoundCheckHoistDisabled_present,
-            inputData.rejit_LoopCountBasedBoundCheckHoistDisabled_count,
-            inputData.rejit_LoopCountBasedBoundCheckHoistDisabled_count_cap,
-            inputData.rejit_AfterLoopBodyRejit_present,
-            inputData.rejit_AfterLoopBodyRejit_count,
-            inputData.rejit_AfterLoopBodyRejit_count_cap,
-            inputData.rejit_DisableSwitchOptExpectingInteger_present,
-            inputData.rejit_DisableSwitchOptExpectingInteger_count,
-            inputData.rejit_DisableSwitchOptExpectingInteger_count_cap,
-            inputData.rejit_DisableSwitchOptExpectingString_present,
-            inputData.rejit_DisableSwitchOptExpectingString_count,
-            inputData.rejit_DisableSwitchOptExpectingString_count_cap,
-            inputData.rejit_InlineApplyDisabled_present,
-            inputData.rejit_InlineApplyDisabled_count,
-            inputData.rejit_InlineApplyDisabled_count_cap,
-            inputData.rejit_InlineSpreadDisabled_present,
-            inputData.rejit_InlineSpreadDisabled_count,
-            inputData.rejit_InlineSpreadDisabled_count_cap,
-            inputData.rejit_FloorInliningDisabled_present,
-            inputData.rejit_FloorInliningDisabled_count,
-            inputData.rejit_FloorInliningDisabled_count_cap,
-            inputData.rejit_ModByPowerOf2_present,
-            inputData.rejit_ModByPowerOf2_count,
-            inputData.rejit_ModByPowerOf2_count_cap,
-            inputData.rejit_NoProfile_present,
-            inputData.rejit_NoProfile_count,
-            inputData.rejit_NoProfile_count_cap,
-            inputData.rejit_PowIntIntTypeSpecDisabled_present,
-            inputData.rejit_PowIntIntTypeSpecDisabled_count,
-            inputData.rejit_PowIntIntTypeSpecDisabled_count_cap,
-            inputData.rejit_DisableStackArgOpt_present,
-            inputData.rejit_DisableStackArgOpt_count,
-            inputData.rejit_DisableStackArgOpt_count_cap,
-            inputData.rejit_OptimizeTryFinallyDisabled_present,
-            inputData.rejit_OptimizeTryFinallyDisabled_count,
-            inputData.rejit_OptimizeTryFinallyDisabled_count_cap,
-            inputData.bailout_BailOutInvalid_present,
-            inputData.bailout_BailOutInvalid_count,
-            inputData.bailout_BailOutInvalid_count_cap,
-            inputData.bailout_BailOutIntOnly_present,
-            inputData.bailout_BailOutIntOnly_count,
-            inputData.bailout_BailOutIntOnly_count_cap,
-            inputData.bailout_BailOutNumberOnly_present,
-            inputData.bailout_BailOutNumberOnly_count,
-            inputData.bailout_BailOutNumberOnly_count_cap,
-            inputData.bailout_BailOutPrimitiveButString_present,
-            inputData.bailout_BailOutPrimitiveButString_count,
-            inputData.bailout_BailOutPrimitiveButString_count_cap,
-            inputData.bailout_BailOutOnImplicitCalls_present,
-            inputData.bailout_BailOutOnImplicitCalls_count,
-            inputData.bailout_BailOutOnImplicitCalls_count_cap,
-            inputData.bailout_BailOutOnImplicitCallsPreOp_present,
-            inputData.bailout_BailOutOnImplicitCallsPreOp_count,
-            inputData.bailout_BailOutOnImplicitCallsPreOp_count_cap,
-            inputData.bailout_BailOutOnNotPrimitive_present,
-            inputData.bailout_BailOutOnNotPrimitive_count,
-            inputData.bailout_BailOutOnNotPrimitive_count_cap,
-            inputData.bailout_BailOutOnMemOpError_present,
-            inputData.bailout_BailOutOnMemOpError_count,
-            inputData.bailout_BailOutOnMemOpError_count_cap,
-            inputData.bailout_BailOutOnInlineFunction_present,
-            inputData.bailout_BailOutOnInlineFunction_count,
-            inputData.bailout_BailOutOnInlineFunction_count_cap,
-            inputData.bailout_BailOutOnNoProfile_present,
-            inputData.bailout_BailOutOnNoProfile_count,
-            inputData.bailout_BailOutOnNoProfile_count_cap,
-            inputData.bailout_BailOutOnPolymorphicInlineFunction_present,
-            inputData.bailout_BailOutOnPolymorphicInlineFunction_count,
-            inputData.bailout_BailOutOnPolymorphicInlineFunction_count_cap,
-            inputData.bailout_BailOutOnFailedPolymorphicInlineTypeCheck_present,
-            inputData.bailout_BailOutOnFailedPolymorphicInlineTypeCheck_count,
-            inputData.bailout_BailOutOnFailedPolymorphicInlineTypeCheck_count_cap,
-            inputData.bailout_BailOutShared_present,
-            inputData.bailout_BailOutShared_count,
-            inputData.bailout_BailOutShared_count_cap,
-            inputData.bailout_BailOutOnNotArray_present,
-            inputData.bailout_BailOutOnNotArray_count,
-            inputData.bailout_BailOutOnNotArray_count_cap,
-            inputData.bailout_BailOutOnNotNativeArray_present,
-            inputData.bailout_BailOutOnNotNativeArray_count,
-            inputData.bailout_BailOutOnNotNativeArray_count_cap,
-            inputData.bailout_BailOutConventionalTypedArrayAccessOnly_present,
-            inputData.bailout_BailOutConventionalTypedArrayAccessOnly_count,
-            inputData.bailout_BailOutConventionalTypedArrayAccessOnly_count_cap,
-            inputData.bailout_BailOutOnIrregularLength_present,
-            inputData.bailout_BailOutOnIrregularLength_count,
-            inputData.bailout_BailOutOnIrregularLength_count_cap,
-            inputData.bailout_BailOutCheckThis_present,
-            inputData.bailout_BailOutCheckThis_count,
-            inputData.bailout_BailOutCheckThis_count_cap,
-            inputData.bailout_BailOutOnTaggedValue_present,
-            inputData.bailout_BailOutOnTaggedValue_count,
-            inputData.bailout_BailOutOnTaggedValue_count_cap,
-            inputData.bailout_BailOutFailedTypeCheck_present,
-            inputData.bailout_BailOutFailedTypeCheck_count,
-            inputData.bailout_BailOutFailedTypeCheck_count_cap,
-            inputData.bailout_BailOutFailedEquivalentTypeCheck_present,
-            inputData.bailout_BailOutFailedEquivalentTypeCheck_count,
-            inputData.bailout_BailOutFailedEquivalentTypeCheck_count_cap,
-            inputData.bailout_BailOutInjected_present,
-            inputData.bailout_BailOutInjected_count,
-            inputData.bailout_BailOutInjected_count_cap,
-            inputData.bailout_BailOutExpectingInteger_present,
-            inputData.bailout_BailOutExpectingInteger_count,
-            inputData.bailout_BailOutExpectingInteger_count_cap,
-            inputData.bailout_BailOutExpectingString_present,
-            inputData.bailout_BailOutExpectingString_count,
-            inputData.bailout_BailOutExpectingString_count_cap,
-            inputData.bailout_BailOutFailedInlineTypeCheck_present,
-            inputData.bailout_BailOutFailedInlineTypeCheck_count,
-            inputData.bailout_BailOutFailedInlineTypeCheck_count_cap,
-            inputData.bailout_BailOutFailedFixedFieldTypeCheck_present,
-            inputData.bailout_BailOutFailedFixedFieldTypeCheck_count,
-            inputData.bailout_BailOutFailedFixedFieldTypeCheck_count_cap,
-            inputData.bailout_BailOutFailedFixedFieldCheck_present,
-            inputData.bailout_BailOutFailedFixedFieldCheck_count,
-            inputData.bailout_BailOutFailedFixedFieldCheck_count_cap,
-            inputData.bailout_BailOutFailedEquivalentFixedFieldTypeCheck_present,
-            inputData.bailout_BailOutFailedEquivalentFixedFieldTypeCheck_count,
-            inputData.bailout_BailOutFailedEquivalentFixedFieldTypeCheck_count_cap,
-            inputData.bailout_BailOutOnFloor_present,
-            inputData.bailout_BailOutOnFloor_count,
-            inputData.bailout_BailOutOnFloor_count_cap,
-            inputData.bailout_BailOnModByPowerOf2_present,
-            inputData.bailout_BailOnModByPowerOf2_count,
-            inputData.bailout_BailOnModByPowerOf2_count_cap,
-            inputData.bailout_BailOnIntMin_present,
-            inputData.bailout_BailOnIntMin_count,
-            inputData.bailout_BailOnIntMin_count_cap,
-            inputData.bailout_BailOnDivResultNotInt_present,
-            inputData.bailout_BailOnDivResultNotInt_count,
-            inputData.bailout_BailOnDivResultNotInt_count_cap,
-            inputData.bailout_BailOnSimpleJitToFullJitLoopBody_present,
-            inputData.bailout_BailOnSimpleJitToFullJitLoopBody_count,
-            inputData.bailout_BailOnSimpleJitToFullJitLoopBody_count_cap,
-            inputData.bailout_BailOutFailedCtorGuardCheck_present,
-            inputData.bailout_BailOutFailedCtorGuardCheck_count,
-            inputData.bailout_BailOutFailedCtorGuardCheck_count_cap,
-            inputData.bailout_BailOutOnFailedHoistedBoundCheck_present,
-            inputData.bailout_BailOutOnFailedHoistedBoundCheck_count,
-            inputData.bailout_BailOutOnFailedHoistedBoundCheck_count_cap,
-            inputData.bailout_LazyBailOut_present,
-            inputData.bailout_LazyBailOut_count,
-            inputData.bailout_LazyBailOut_count_cap,
-            inputData.bailout_BailOutOnFailedHoistedLoopCountBasedBoundCheck_present,
-            inputData.bailout_BailOutOnFailedHoistedLoopCountBasedBoundCheck_count,
-            inputData.bailout_BailOutOnFailedHoistedLoopCountBasedBoundCheck_count_cap,
-            inputData.bailout_BailOutForGeneratorYield_present,
-            inputData.bailout_BailOutForGeneratorYield_count,
-            inputData.bailout_BailOutForGeneratorYield_count_cap,
-            inputData.bailout_BailOutOnException_present,
-            inputData.bailout_BailOutOnException_count,
-            inputData.bailout_BailOutOnException_count_cap,
-            inputData.bailout_BailOutOnEarlyExit_present,
-            inputData.bailout_BailOutOnEarlyExit_count,
-            inputData.bailout_BailOutOnEarlyExit_count_cap,
-            inputData.bailout_BailOutSimd128F4Only_present,
-            inputData.bailout_BailOutSimd128F4Only_count,
-            inputData.bailout_BailOutSimd128F4Only_count_cap,
-            inputData.bailout_BailOutSimd128I4Only_present,
-            inputData.bailout_BailOutSimd128I4Only_count,
-            inputData.bailout_BailOutSimd128I4Only_count_cap,
-            inputData.bailout_BailOutSimd128I8Only_present,
-            inputData.bailout_BailOutSimd128I8Only_count,
-            inputData.bailout_BailOutSimd128I8Only_count_cap,
-            inputData.bailout_BailOutSimd128I16Only_present,
-            inputData.bailout_BailOutSimd128I16Only_count,
-            inputData.bailout_BailOutSimd128I16Only_count_cap,
-            inputData.bailout_BailOutSimd128U4Only_present,
-            inputData.bailout_BailOutSimd128U4Only_count,
-            inputData.bailout_BailOutSimd128U4Only_count_cap,
-            inputData.bailout_BailOutSimd128U8Only_present,
-            inputData.bailout_BailOutSimd128U8Only_count,
-            inputData.bailout_BailOutSimd128U8Only_count_cap,
-            inputData.bailout_BailOutSimd128U16Only_present,
-            inputData.bailout_BailOutSimd128U16Only_count,
-            inputData.bailout_BailOutSimd128U16Only_count_cap,
-            inputData.bailout_BailOutSimd128B4Only_present,
-            inputData.bailout_BailOutSimd128B4Only_count,
-            inputData.bailout_BailOutSimd128B4Only_count_cap,
-            inputData.bailout_BailOutSimd128B8Only_present,
-            inputData.bailout_BailOutSimd128B8Only_count,
-            inputData.bailout_BailOutSimd128B8Only_count_cap,
-            inputData.bailout_BailOutSimd128B16Only_present,
-            inputData.bailout_BailOutSimd128B16Only_count,
-            inputData.bailout_BailOutSimd128B16Only_count_cap,
-            inputData.bailout_BailOutSimd128D2Only_present,
-            inputData.bailout_BailOutSimd128D2Only_count,
-            inputData.bailout_BailOutSimd128D2Only_count_cap,
-            inputData.bailout_BailOutNoSimdTypeSpec_present,
-            inputData.bailout_BailOutNoSimdTypeSpec_count,
-            inputData.bailout_BailOutNoSimdTypeSpec_count_cap,
-            inputData.bailout_BailOutKindEnd_present,
-            inputData.bailout_BailOutKindEnd_count,
-            inputData.bailout_BailOutKindEnd_count_cap,
-            inputData.bailout_BailOutKindBitsStart_present,
-            inputData.bailout_BailOutKindBitsStart_count,
-            inputData.bailout_BailOutKindBitsStart_count_cap,
-            configMap.OSArchitecture AS OSArchitecture
-    FROM inputData
-    INNER JOIN configMap
-    ON(
-            inputData.MachineConfigId == configMap.MachineConfigId
-      );
-
-/*
- * Aggregate by architecture
+ * Aggregate over domain and architecture
  */
 AggregateData = 
     SELECT
         Domain,
-        ApplicationName,
         OSArchitecture,
         COUNT(*) AS numpoints,
         SUM(rejit_None_present ? 1 : 0) AS rejit_None_traces,
@@ -661,7 +343,6 @@ AggregateData =
         SUM(bailout_BailOutKindBitsStart_count_cap) AS bailout_BailOutKindBitsStart_cap_sum
     FROM ReferencedData
     GROUP BY Domain,
-             ApplicationName,
              OSArchitecture;
 
 
@@ -672,7 +353,8 @@ AggregateData =
 NarrowedData =
     SELECT *
     FROM AggregateData
-    WHERE numpoints > 3;
+    WHERE numpoints > 10;
 
 // Write to the output file
+[Privacy.Asset.NonPersonal]
 OUTPUT NarrowedData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
