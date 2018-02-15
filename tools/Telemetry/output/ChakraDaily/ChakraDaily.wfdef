@@ -2,27 +2,13 @@
 <Workflows>
   <Workflow Name="ChakraDaily" PrefixParentName="0" Start="2015-03-20T11:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="chakraei@microsoft.com" Enabled="1" FolderName="Chakra" Tags="chakra" Author="demorri" MaxParallelExecution="1" TimeOutInMinutes="0">
     <ConfigBases>
-      <ConfigBase Name="ChakraAboutConfig_config" File="ChakraAboutConfig_config.script" />
-      <ConfigBase Name="ChakraBailOutReJIT_Pivot" File="ChakraBailOutReJIT_Pivot.script" />
       <ConfigBase Name="ChakraBailOutReJIT_Reference" File="ChakraBailOutReJIT_Reference.script" />
-      <ConfigBase Name="ChakraDailyCooker" File="ChakraDailyCooker.script" />
       <ConfigBase Name="ChakraDailyURLCooker" File="ChakraDailyURLCooker.script" />
       <ConfigBase Name="ChakraESBuiltins2017_Aggregate" File="ChakraESBuiltins2017_Aggregate.script" />
       <ConfigBase Name="ChakraESBuiltins2017_Aggregate_Pivot" File="ChakraESBuiltins2017_Aggregate_Pivot.script" />
-      <ConfigBase Name="ChakraESBuiltins2017_Pivot" File="ChakraESBuiltins2017_Pivot.script" />
-      <ConfigBase Name="ChakraESBuiltins2017Cooker" File="ChakraESBuiltins2017Cooker.script" />
-      <ConfigBase Name="ChakraMachineConfig2Cooker" File="ChakraMachineConfig2Cooker.script" />
+      <ConfigBase Name="ChakraMasterPivot" File="ChakraMasterPivot.script" />
     </ConfigBases>
     <Activities>
-      <Activity Name="ChakraDailyCooker" ConfigBase="ChakraDailyCooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Parameters>
-          <Parameter Name="__vc" Value="" />
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="7/28/2015 9:12:46 AM" />
-          <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-02-05" />
-          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker" />
-        </Parameters>
-      </Activity>
       <Activity Name="ChakraDailyURLCooker" ConfigBase="ChakraDailyURLCooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Sensitive.Usage" RetryWaitInterval="3">
         <Parameters>
           <Parameter Name="__vc" Value="" />
@@ -30,98 +16,43 @@
           <Parameter Name="_priority" Value="1000" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
           <Parameter Name="_reprocessingPriority" Value="1000" />
-          <Parameter Name="_startDate" Value="2017-01-06" />
-          <Parameter Name="_tokenAllocation" Value="25" />
+          <Parameter Name="_startDate" Value="2018-01-06" />
+          <Parameter Name="_tokenAllocation" Value="40" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
-      <Activity Name="ChakraMachineConfig2Cooker" ConfigBase="ChakraMachineConfig2Cooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+      <Activity Name="ChakraMasterPivot" ConfigBase="ChakraMasterPivot" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraDailyURLCooker" />
+        </Dependencies>
         <Parameters>
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="10/24/2015 11:22:54 PM" />
+          <Parameter Name="__vc" Value="" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
           <Parameter Name="_scopePath" Value="$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Schema;$(CLUSTER_ROOT)/shares/asimov.prod.data/Public/Resources/Latest/Asimov;$(CLUSTER_ROOT)" />
-          <Parameter Name="_startDate" Value="2015-03-25" />
+          <Parameter Name="_startDate" Value="2018-01-06" />
           <Parameter Name="_tokenAllocation" Value="25" />
-          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ChakraAboutConfig" ConfigBase="ChakraAboutConfig_config" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="10" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Dependencies>
-          <Dependency Name="ChakraMachineConfig2Cooker" />
-        </Dependencies>
-        <Parameters>
-          <Parameter Name="_autoTokenAllocationTimeStamp" Value="8/21/2016 12:00:27 AM" />
-          <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2015-04-01" />
-          <Parameter Name="_tokenAllocation" Value="6" />
-          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ChakraESBuiltins2017Cooker" ConfigBase="ChakraESBuiltins2017Cooker" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Dependencies>
-          <Dependency Name="ChakraDailyCooker" />
-          <Dependency Name="ChakraDailyURLCooker" />
-          <Dependency Name="ChakraMachineConfig2Cooker" />
-        </Dependencies>
-        <Parameters>
-          <Parameter Name="__vc" Value="" />
-          <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-02-09" />
-          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ChakraBailOutReJIT_Pivot" ConfigBase="ChakraBailOutReJIT_Pivot" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Dependencies>
-          <Dependency Name="ChakraESBuiltins2017Cooker" />
-        </Dependencies>
-        <Parameters>
-          <Parameter Name="__vc" Value="" />
-          <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-07-23" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
       <Activity Name="ChakraBailOutReJIT_Reference" ConfigBase="ChakraBailOutReJIT_Reference" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
         <Dependencies>
-          <Dependency Name="ChakraBailOutReJIT_Pivot" />
-          <Dependency Name="ChakraMachineConfig2Cooker" />
+          <Dependency Name="ChakraMasterPivot" />
         </Dependencies>
         <Parameters>
           <Parameter Name="__vc" Value="" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-07-23" />
+          <Parameter Name="_startDate" Value="2018-01-23" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
-      </Activity>
-      <Activity Name="ChakraESBuiltins2017_Pivot" ConfigBase="ChakraESBuiltins2017_Pivot" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
-        <Dependencies>
-          <Dependency Name="ChakraESBuiltins2017Cooker" />
-        </Dependencies>
-        <Parameters>
-          <Parameter Name="__vc" Value="" />
-          <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-02-09" />
-          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-        </Parameters>
-      </Activity>
-      <Activity Name="ChakraDailyFinished" Class="Microsoft.Xflow.Activities.NoOpActivity" MaxRetries="3" RetryWaitInterval="3">
-        <Dependencies>
-          <Dependency Name="ChakraAboutConfig" />
-          <Dependency Name="ChakraDailyCooker" />
-          <Dependency Name="ChakraDailyURLCooker" />
-          <Dependency Name="ChakraESBuiltins2017_Pivot" />
-          <Dependency Name="ChakraESBuiltins2017Cooker" />
-          <Dependency Name="ChakraMachineConfig2Cooker" />
-        </Dependencies>
       </Activity>
       <Activity Name="ChakraESBuiltins2017_Aggregate" ConfigBase="ChakraESBuiltins2017_Aggregate" Class="Microsoft.Xflow.Activities.Scope.RecurrentScopeActivityV3" MaxRetries="3" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
         <Dependencies>
-          <Dependency Name="ChakraESBuiltins2017_Pivot" />
+          <Dependency Name="ChakraMasterPivot" />
         </Dependencies>
         <Parameters>
           <Parameter Name="__vc" Value="" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-02-09" />
+          <Parameter Name="_startDate" Value="2018-01-23" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
@@ -132,9 +63,15 @@
         <Parameters>
           <Parameter Name="__vc" Value="" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2017-02-09" />
+          <Parameter Name="_startDate" Value="2018-01-23" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
+      </Activity>
+      <Activity Name="ChakraDailyFinished" Class="Microsoft.Xflow.Activities.NoOpActivity" MaxRetries="3" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="ChakraBailOutReJIT_Reference" />
+          <Dependency Name="ChakraESBuiltins2017_Aggregate_Pivot" />
+        </Dependencies>
       </Activity>
     </Activities>
   </Workflow>
