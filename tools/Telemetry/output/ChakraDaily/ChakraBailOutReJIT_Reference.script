@@ -341,11 +341,9 @@ AggregateData =
         SUM(bailout_BailOutKindBitsStart_present ? 1 : 0) AS bailout_BailOutKindBitsStart_traces,
         SUM(bailout_BailOutKindBitsStart_count) AS bailout_BailOutKindBitsStart_sum,
         SUM(bailout_BailOutKindBitsStart_count_cap) AS bailout_BailOutKindBitsStart_cap_sum
-    FROM ReferencedData
+    FROM inputData
     GROUP BY Domain,
              OSArchitecture;
-
-
 
 /*
  * Remove low-count entries - reduces risk of PII disclosure, as well as reduces noise

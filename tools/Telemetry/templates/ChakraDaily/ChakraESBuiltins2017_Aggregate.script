@@ -20,9 +20,9 @@ MODULE @ModulePath AS WptModule;
 
 // The pivoted input file
 #IF(LOCAL)
-    #DECLARE inputFileName string = @"c:\temp\ChakraMasterPivot.ss";
+    #DECLARE inputFileName string = @"c:\temp\ChakraPivotedData.ss";
 #ELSE
-    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraMasterPivot" , @streamDate );
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraPivotedData" , @streamDate );
 #ENDIF
 
 // The post-aggregation output file

@@ -55,11 +55,9 @@ AggregateData =
 "        SUM(bailout_%kindName_present ? 1 : 0) AS bailout_%kindName_traces,
         SUM(bailout_%kindName_count) AS bailout_%kindName_sum,
         SUM(bailout_%kindName_count_cap) AS bailout_%kindName_cap_sum", ",\n")>>>
-    FROM ReferencedData
+    FROM inputData
     GROUP BY Domain,
              OSArchitecture;
-
-
 
 /*
  * Remove low-count entries - reduces risk of PII disclosure, as well as reduces noise
