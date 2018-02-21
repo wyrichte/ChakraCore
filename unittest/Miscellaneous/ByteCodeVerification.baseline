@@ -1,4 +1,4 @@
-Bytecode GUID = {5E35A82C-3DF6-456D-807F-F87DFE3D43D0}
+Bytecode GUID = {249564C7-AA34-48ED-934F-81F3BAEE915C}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1026,66 +1026,11 @@ Property: cbrt
 Property: imul
 Property: clz32
 Property: fround
-Property: check
-Property: Float32x4
-Property: Float64x2
-Property: Int32x4
-Property: Int8x16
-Property: Int16x8
-Property: Bool32x4
-Property: Bool16x8
-Property: Bool8x16
-Property: Uint32x4
-Property: Uint16x8
-Property: Uint8x16
-Property: splat
-Property: fromFloat32x4
-Property: fromInt32x4
-Property: fromUint32x4
-Property: fromFloat64x2
-Property: fromFloat32x4Bits
-Property: fromFloat64x2Bits
-Property: fromInt32x4Bits
-Property: fromInt16x8Bits
-Property: fromInt8x16Bits
-Property: fromUint32x4Bits
-Property: fromUint16x8Bits
-Property: fromUint8x16Bits
-Property: extractLane
-Property: replaceLane
 Property: load
 Property: store
-Property: load1
-Property: store1
-Property: load2
-Property: store2
-Property: load3
-Property: store3
-Property: mul
-Property: div
 Property: and_
 Property: or_
 Property: xor_
-Property: neg
-Property: not_
-Property: swizzle
-Property: shuffle
-Property: select
-Property: reciprocalApproximation
-Property: reciprocalSqrtApproximation
-Property: lessThan
-Property: lessThanOrEqual
-Property: equal
-Property: notEqual
-Property: greaterThanOrEqual
-Property: greaterThan
-Property: shiftLeft
-Property: shiftLeftByScalar
-Property: shiftRightByScalar
-Property: allTrue
-Property: anyTrue
-Property: addSaturate
-Property: subSaturate
 Property: add
 Property: all
 Property: anchor
@@ -1255,7 +1200,6 @@ Property: args
 Property: as
 Property: text
 Property: expected
-Property: SIMD
 Property: max
 Property: MAX_SAFE_INTEGER
 Property: MAX_VALUE
