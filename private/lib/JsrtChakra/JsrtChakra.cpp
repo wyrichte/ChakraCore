@@ -290,8 +290,8 @@ STDAPI_(JsErrorCode) JsInspectableToObject(_In_ IInspectable  *inspectable, _Out
         PARAM_NOT_NULL(inspectable);
         PARAM_NOT_NULL(value);
 #if DBG
-        CComPtr<IInspectable> dbgInspectable = nullptr;
-        CComPtr<IDispatchEx> dbgDispatch = nullptr;
+        AutoCOMPtr<IInspectable> dbgInspectable = nullptr;
+        AutoCOMPtr<IDispatchEx> dbgDispatch = nullptr;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         Assert(S_OK == inspectable->QueryInterface(__uuidof(IInspectable), (void**)&dbgInspectable));
         Assert(FAILED(inspectable->QueryInterface(__uuidof(IDispatchEx), (void**)&dbgDispatch)));

@@ -829,7 +829,7 @@ public:
             return hr;
         };
 
-        CComPtr<IDebugBitCorrectApplicationThread> spAppThread;
+        AutoCOMPtr<IDebugBitCorrectApplicationThread> spAppThread;
         HRESULT hr = this->GetBitCorrectApplicationThread(&spAppThread);
         if (SUCCEEDED(hr))
         {
@@ -1011,7 +1011,7 @@ private:
     JsUtil::List<CDebugStackFrame *, HeapAllocator> * debugStackFrame;
 
 #ifdef EDIT_AND_CONTINUE
-    CComPtr<IActiveScriptEdit> m_scriptEdit; // Edit and Continue service. Only one instance used per script engine. Created lazily.
+    AutoCOMPtr<IActiveScriptEdit> m_scriptEdit; // Edit and Continue service. Only one instance used per script engine. Created lazily.
 #endif
 
 public:

@@ -32,6 +32,35 @@ public:
     }
 };
 
+template <typename T>
+class AutoQICOMPtr : public BasePtr<T>
+{
+    using BasePtr<T>::ptr;
+public:
+    AutoQICOMPtr(IUnknown* lp)
+    {
+        //Actually do a QI to get identity
+        ptr = NULL;
+        if (lp != NULL)
+            lp->QueryInterface(IID_IUnknown, (void **)&ptr);
+    }
+
+    ~AutoQICOMPtr()
+    {
+        if (ptr)
+            ptr->Release();
+    }
+
+    void Release()
+    {
+        IUnknown* pTemp = ptr;
+        if (pTemp)
+        {
+            ptr = NULL;
+            pTemp->Release();
+        }
+    }
+};
 
 class DebugProperty sealed : public IDebugProperty,
 #ifdef ENABLE_MUTATION_BREAKPOINT
@@ -41,9 +70,9 @@ class DebugProperty sealed : public IDebugProperty,
 {
     ULONG m_refCount;
     WeakArenaReference<Js::IDiagObjectModelDisplay>* pModelWeakRef;
-    CComQIPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
-    CComPtr<ScriptEngine> pScriptEngine;
-    CComPtr <IUnknown> spunkParent;
+    AutoQICOMPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
+    AutoCOMPtr<ScriptEngine> pScriptEngine;
+    AutoCOMPtr<IUnknown> spunkParent;
     DWORD m_setDbgPropInfoAttributes;
     // Used for letting the debugger know that the item belongs to Return value sub-tree, that way we can tell them this is fake node.
     bool m_isInReturnValueHierarchy;
@@ -214,8 +243,8 @@ public:
 class DebugPropertySetValueCallback sealed : public IDebugSetValueCallback
 {
 private:
-    CComQIPtr<IDebugBitCorrectApplicationThread> pApplicationThread;
-    CComPtr<ScriptEngine> pScriptEngine;
+    AutoQICOMPtr<IDebugBitCorrectApplicationThread> pApplicationThread;
+    AutoCOMPtr<ScriptEngine> pScriptEngine;
     Js::IDiagObjectAddress* pAddress;
     ULONG m_refCount;
 
@@ -251,9 +280,9 @@ class EnumDebugPropertyInfo sealed : public IEnumDebugPropertyInfo, public IDebu
     ULONG current;
     UINT m_nRadix;
     WeakArenaReference<Js::IDiagObjectModelWalkerBase>* pWalkerWeakRef;
-    CComQIPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
-    CComPtr<ScriptEngine> m_pScriptEngine;
-    CComPtr <IUnknown> spunkDbgProp;
+    AutoQICOMPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
+    AutoCOMPtr<ScriptEngine> m_pScriptEngine;
+    AutoCOMPtr<IUnknown> spunkDbgProp;
     DBGPROP_INFO_FLAGS m_dwFieldSpec;
     // Needs to pass the field to the DebugProperty.
     bool m_isInReturnValueHierarchy;

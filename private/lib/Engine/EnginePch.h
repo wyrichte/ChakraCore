@@ -5,16 +5,8 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN 1
 
-#pragma warning(push)
-#pragma warning(disable:4456) // declaration of '' hides previous local declaration
-#include <atlbase.h>
-#pragma warning(pop)
-// atlbase.h 3.0 leak a warning(push) under _DEBUG
-#ifdef _DEBUG   
-#pragma warning(pop)
-#endif
-
 #include <strsafe.h>
+#include <shlwapi.h>
 #include "Parser.h"
 #include "common\ByteSwap.h"
 
@@ -106,6 +98,7 @@
 #include "scpnode.h"
 #include "scptext.h"
 #include "ScriptDebugDocument.h"
+#include "AutoBSTR.h"
 
 //====================================
 // Projections includes
@@ -160,6 +153,7 @@
 #include "DebugObject.h"
 #include "DiagnosticsScriptObject.h"
 #include "DOMProperties.h"
+#include "COMVariant.h"
 
 #include "resource.h"
 #include "ChakraVersion.h"

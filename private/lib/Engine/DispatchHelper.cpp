@@ -519,7 +519,7 @@ Js::Var DispatchHelper::MarshalBSTRToJsVar(Js::ScriptContext * scriptContext, BS
 
 HRESULT DispatchHelper::MarshalIDispatchToJsVar(Js::ScriptContext* scriptContext, IDispatch * pdispVal, Js::Var * var)
 {
-    CComPtr<IJavascriptDispatchLocalProxy> pProxy;
+    AutoCOMPtr<IJavascriptDispatchLocalProxy> pProxy;
     HRESULT hr = NOERROR;
 
     {
@@ -672,7 +672,7 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 *pAtom = scriptContext->GetLibrary()->GetNull();
                 break;
             }
-            CComPtr<IDispatch> dispatch;
+            AutoCOMPtr<IDispatch> dispatch;
             {
                 AUTO_NO_EXCEPTION_REGION;
                 hr = pVar->punkVal->QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
@@ -697,9 +697,9 @@ HRESULT DispatchHelper::MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAt
                 break;
             }
 
-            CComPtr<ITracker> tracker;
+            AutoCOMPtr<ITracker> tracker;
             IDispatch* pdispVal = pVar->pdispVal;
-            CComPtr<IDispatchEx> pDispEx;
+            AutoCOMPtr<IDispatchEx> pDispEx;
             {
                 AUTO_NO_EXCEPTION_REGION;
                 if (SUCCEEDED(pdispVal->QueryInterface(IID_PPV_ARGS(&pDispEx))) && pDispEx)

@@ -13,9 +13,9 @@ namespace Js
         public ClonerBase<Var, scaposition_t, TypeId, SerializationCloner<Writer> >
     {
     private:
-        CComPtr<ISCAContext> m_pSCAContext;
+        AutoCOMPtr<ISCAContext> m_pSCAContext;
         Writer* m_writer;
-        CComPtr<ISCASerializable> m_pSCASerializable; // Temporary, QI from a host object
+        AutoCOMPtr<ISCASerializable> m_pSCASerializable; // Temporary, QI from a host object
         JsUtil::List<SharedContents*, HeapAllocator>* m_sharedContentsrList;
 
     private:

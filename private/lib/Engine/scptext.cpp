@@ -169,7 +169,7 @@ HRESULT CScriptSourceDocumentText::MarkForClose()
 {
     if (!m_fIsMarkedClosed)
     {
-        CComAutoUnlockCS autoUnlock(&m_csForClose);
+        AutoCriticalSection autoUnlock(&m_csForClose);
         m_fIsMarkedClosed = true;
     }
 
@@ -543,7 +543,7 @@ HRESULT CScriptSourceDocumentText::GetLineOfPosition(ULONG charPosition, ULONG *
 
 HRESULT CScriptSourceDocumentText::GetSize(ULONG *pcln, ULONG *pcch)
 {
-    CComAutoUnlockCS autoUnlock(&m_csForClose);
+    AutoCriticalSection autoUnlock(&m_csForClose);
 
     if (m_fIsMarkedClosed)
     {
@@ -568,7 +568,7 @@ HRESULT CScriptSourceDocumentText::GetPositionOfLine(ULONG ln, ULONG *outCharPos
 {
     CHECK_POINTER(outCharPosition);
 
-    CComAutoUnlockCS autoUnlock(&m_csForClose);
+    AutoCriticalSection autoUnlock(&m_csForClose);
 
     if (m_fIsMarkedClosed)
     {

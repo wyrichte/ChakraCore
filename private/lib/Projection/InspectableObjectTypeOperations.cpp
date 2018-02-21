@@ -245,8 +245,8 @@ namespace Projection
         }
 
         // create two enumerators, based if we do return a single or one encapsulating the other
-        CComPtr<IVarEnumerator> pEnumerator;
-        CComPtr<IVarEnumerator> pOuterEnumerator;
+        AutoCOMPtr<IVarEnumerator> pEnumerator;
+        AutoCOMPtr<IVarEnumerator> pOuterEnumerator;
         GetDefaultTypeOperationsMethodResult(GetEnumerator, scriptDirect, instance, enumNonEnumerable, enumSymbols, &pEnumerator);
 
         if (HasVectorOrVectorViewArrayLikeProjection() && SUCCEEDED(hr))

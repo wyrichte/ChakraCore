@@ -252,12 +252,12 @@ namespace Js
     template <class Writer>
     void SerializationCloner<Writer>::ClonePropertiesWithSCASerializable(SrcTypeId srcTypeId, Src src, Dst dst)
     {
-        CComPtr<ISCASerializable> pSCASerializable = m_pSCASerializable;
+        AutoCOMPtr<ISCASerializable> pSCASerializable = m_pSCASerializable;
         Assert(pSCASerializable != NULL);
         m_pSCASerializable = NULL; // Clear temp
 
         SCATypeId typeId;
-        CComPtr<SCAPropBag> pPropBag;
+        AutoCOMPtr<SCAPropBag> pPropBag;
         SCAPropBag::CreateInstance(GetScriptContext(), &pPropBag);
 
         ScriptContext* scriptContext = GetScriptContext();

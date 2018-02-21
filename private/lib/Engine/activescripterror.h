@@ -122,7 +122,7 @@ private:
     bool m_fIsExceptionCaughtInNonUserCode : 1;
     bool m_wasRooted : 1;
 
-    CComPtr<IDebugStackFrame> m_pStackFrame;
+    AutoCOMPtr<IDebugStackFrame> m_pStackFrame;
 };
 
 class CallStackFrameHelper 

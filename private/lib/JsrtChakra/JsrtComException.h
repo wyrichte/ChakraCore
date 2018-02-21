@@ -26,9 +26,9 @@ public:
         {
         case S_OK:
             return JsNoError;
-        case CTL_E_OUTOFSTACKSPACE:
-        case CTL_E_OUTOFMEMORY:
-        case E_OUTOFMEMORY:        
+        case 0x800A001C: // CTL_E_OUTOFSTACKSPACE
+        case 0x800A0007: // CTL_E_OUTOFMEMORY
+        case E_OUTOFMEMORY:
             return JsErrorOutOfMemory;
         case E_POINTER:
             return JsErrorNullArgument;

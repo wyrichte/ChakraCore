@@ -182,7 +182,7 @@ HRESULT ScriptDebugDocument::ReParentToCaller()
     HRESULT hr = S_OK;
     if (m_debugDocHelper && m_isAttached)
     {
-        CComPtr<IDebugApplicationNode> pNode;
+        AutoCOMPtr<IDebugApplicationNode> pNode;
         if (m_debugDocHelper->GetDebugApplicationNode(&pNode) == S_OK)
         {
             Js::Utf8SourceInfo* callerUtfSourceInfo = m_pScriptBody->GetUtf8SourceInfo()->GetCallerUtf8SourceInfo();
@@ -192,7 +192,7 @@ HRESULT ScriptDebugDocument::ReParentToCaller()
                 Assert(callerDocument && callerDocument->m_debugDocHelper && callerDocument->m_isAttached);
                 if (callerDocument->m_debugDocHelper && callerDocument->m_isAttached)
                 {
-                    CComPtr<IDebugApplicationNode> pCallerNode;
+                    AutoCOMPtr<IDebugApplicationNode> pCallerNode;
                     if (callerDocument->m_debugDocHelper->GetDebugApplicationNode(&pCallerNode) == S_OK)
                     {
                         Assert(pCallerNode != nullptr);
@@ -240,9 +240,9 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
     bool isHostManagedSource = utfSourceInfo->IsHostManagedSource();
     WCHAR * shortName = NULL;
     WCHAR *longName = NULL;
-    CComPtr<IDebugApplicationNode> pParentNode;
-    CComPtr<IDebugApplicationNode> pNode;
-    CComPtr<IDebugDocumentContext> spDebugDocumentContext;
+    AutoCOMPtr<IDebugApplicationNode> pParentNode;
+    AutoCOMPtr<IDebugApplicationNode> pNode;
+    AutoCOMPtr<IDebugDocumentContext> spDebugDocumentContext;
     const int nameSize = 255;
     if (!isHostManagedSource)
     {
@@ -299,10 +299,10 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
     // Ensure Utf8SourceInfo has a reference to IDebugDocumentText before we add the text.
     if(SUCCEEDED(this->GetDocumentContext(srcInfo->ichMinHost, /*length*/ 1, &spDebugDocumentContext)))
     {
-        CComPtr<IDebugDocument> spDebugDocument;
+        AutoCOMPtr<IDebugDocument> spDebugDocument;
         if(SUCCEEDED(spDebugDocumentContext->GetDocument(&spDebugDocument)))
         {
-            CComPtr<IDebugDocumentText> spDebugDocumentText;
+            AutoCOMPtr<IDebugDocumentText> spDebugDocumentText;
             if(SUCCEEDED(spDebugDocument->QueryInterface(&spDebugDocumentText)))
             {
                 ((ScriptDebugDocument*)utfSourceInfo->GetDebugDocument())->SetDocumentText(spDebugDocumentText);
@@ -352,12 +352,12 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
                 this->DbgGetRootApplicationNode(&pParentNode);
             }
             
-            CComPtr<IDebugDocumentProvider> debugDocProvider;
+            AutoCOMPtr<IDebugDocumentProvider> debugDocProvider;
             if (m_debugDocHelper->QueryInterface(&debugDocProvider) == S_OK)
             {
                 // No matter if source map is present or not, we need to customize the document provider, so that we can intercept the GetName.
                 // This way we have more control for case like no source map available and return deterministic HR (S_OK and null/empty BSTR).
-                CComPtr<ScriptDocumentProviderBridge> spDocProviderBridge(
+                AutoCOMPtr<ScriptDocumentProviderBridge> spDocProviderBridge(
                     HeapNewNoThrow(ScriptDocumentProviderBridge, debugDocProvider, srcInfo->sourceContextInfo));
                 if (spDocProviderBridge)
                 {
@@ -706,7 +706,7 @@ HRESULT ScriptDebugDocument::DbgGetRootApplicationNode(IDebugApplicationNode **p
 
     if (SUCCEEDED(scriptEngine->GetDebugSiteNoRef(&scriptSiteDebug)))
     {
-        CComPtr<IActiveScriptSiteDebugHelper> spScriptSiteDebugHelper;
+        AutoCOMPtr<IActiveScriptSiteDebugHelper> spScriptSiteDebugHelper;
         if (scriptSiteDebug->QueryInterface(&spScriptSiteDebugHelper) == S_OK)
         {
             hr = spScriptSiteDebugHelper->GetApplicationNode(ppdan);

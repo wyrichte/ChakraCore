@@ -615,7 +615,7 @@ namespace Projection
         IfNullReturnError(enumerator, E_INVALIDARG);
         *enumerator = nullptr;
 
-        CComPtr<IVarEnumerator> pDefaultOperatationEnumerator;
+        AutoCOMPtr<IVarEnumerator> pDefaultOperatationEnumerator;
         HRESULT hr = __super::GetEnumerator(scriptDirect, instance, enumNonEnumerable, enumSymbols, &pDefaultOperatationEnumerator);
         IfFailedReturn(hr);
 

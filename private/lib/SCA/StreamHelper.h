@@ -12,7 +12,7 @@ namespace Js
     class StreamHelper: public ScriptContextHolder
     {
     private:
-        CComPtr<IStream> m_pStream;
+        AutoCOMPtr<IStream> m_pStream;
         scaposition_t m_position;
 
     protected:

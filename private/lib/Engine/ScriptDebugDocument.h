@@ -78,7 +78,7 @@ private:
 private:
     long                    m_refCount;
 
-    CComPtr<IDebugDocumentHelper> m_debugDocHelper;
+    AutoCOMPtr<IDebugDocumentHelper> m_debugDocHelper;
 
     CScriptBody *           m_pScriptBody;
 

@@ -14,28 +14,6 @@ class CScriptSourceDocumentText;
 class CScriptSourceContext;
 class ScriptEngine;
 
-class CComAutoUnlockCS
-{
-public:
-    CComAutoUnlockCS(CComAutoCriticalSection *pCS)
-    {
-        m_pCS = pCS;
-        Assert(m_pCS);
-        m_pCS->Lock();
-    }
-
-    ~CComAutoUnlockCS()
-    {
-        if (m_pCS)
-        {
-            m_pCS->Unlock();
-        }
-    }
-
-private:
-        CComAutoCriticalSection * m_pCS;
-};
-
 class CScriptSourceDocumentText :
     public IDebugDocumentText,
     public IDebugDocumentProvider,
@@ -76,7 +54,7 @@ protected:
     void UpdateLineCount(void);
     long CchDisplay(void);
 
-    CComAutoCriticalSection m_csForClose;
+    CriticalSection m_csForClose;
 
 public:
 

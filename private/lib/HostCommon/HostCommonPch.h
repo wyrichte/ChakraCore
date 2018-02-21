@@ -32,10 +32,7 @@
 #include <io.h>
 #include <assert.h>
 #include <strsafe.h>
-#pragma warning(push)
-#pragma warning(disable:4456) // declaration of '' hides previous local declaration
-#include <atlbase.h>
-#pragma warning(pop)
+#include <windows.h>
 #include <Psapi.h>
 
 #include <roapi.h>

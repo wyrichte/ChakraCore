@@ -188,7 +188,7 @@ STDMETHODIMP ActiveScriptError::GetSourceLineText(BSTR *pbstrSourceLine)
 STDMETHODIMP ActiveScriptError::GetDocumentContext(IDebugDocumentContext **ppDocContext)
 {
     HRESULT hr = S_OK;
-    CComPtr<IDebugCodeContext> pCodeContext;
+    AutoCOMPtr<IDebugCodeContext> pCodeContext;
 
     CHECK_POINTER(ppDocContext);
     *ppDocContext = nullptr;

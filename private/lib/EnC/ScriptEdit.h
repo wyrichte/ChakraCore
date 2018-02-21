@@ -52,8 +52,8 @@ namespace Js
         public ComObjectBase<IScriptEditQuery, ScriptEditQuery>
     {
     private:
-        CComPtr<ScriptEdit> m_scriptEdit;       // The ScriptEdit instance that created this query
-        CComPtr<ScriptEngine> m_scriptEngine;   // Keep the ScriptEngine alive
+        AutoCOMPtr<ScriptEdit> m_scriptEdit;       // The ScriptEdit instance that created this query
+        AutoCOMPtr<ScriptEngine> m_scriptEngine;   // Keep the ScriptEngine alive
         ULONG m_baselineGeneration;             // The ScriptEdit baseline generation when this query was made
         bool m_canApply;
 
@@ -142,7 +142,7 @@ namespace Js
         typedef SemanticChange::SemanticChangeList SemanticChangeList;
 
     private:
-        CComPtr<ScriptEdit> m_scriptEdit;
+        AutoCOMPtr<ScriptEdit> m_scriptEdit;
         ScriptParseTree* m_oldTree;
         ScriptParseTree* m_newTree;
 

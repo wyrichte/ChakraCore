@@ -9,7 +9,7 @@
 HRESULT EditAndContinue::InitializeScriptEdit(ScriptEngine * scriptEngine, IActiveScriptEdit ** scriptEdit)
 {
     HRESULT hr = S_OK;
-    CComPtr<Js::ScriptEdit> spScriptEdit;
+    AutoCOMPtr<Js::ScriptEdit> spScriptEdit;
     IFFAILRET(Js::ScriptEdit::CreateInstance(&spScriptEdit));
     IFFAILRET(spScriptEdit->Init(scriptEngine));
 

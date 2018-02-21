@@ -34,7 +34,7 @@ namespace Projection
 
         while (hasCurrent)
         {
-            CComPtr<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable *>> keyValuePair;
+            AutoCOMPtr<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable *>> keyValuePair;
             hr = iterator->get_Current(&keyValuePair);
             IfFailedReturn(hr);
 

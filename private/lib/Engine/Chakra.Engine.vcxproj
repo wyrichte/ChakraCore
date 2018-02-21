@@ -10,8 +10,6 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseStaticAtl>true</UseStaticAtl>
-    <AtlVersion>30</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -183,6 +181,7 @@
     <ClInclude Include="ActiveScriptExternalLibrary.h" />
     <ClInclude Include="ActiveScriptProfilerHeapEnum.h" />
     <ClInclude Include="ad1ex.h" />
+    <ClInclude Include="AutoBSTR.h" />
     <ClInclude Include="AutoCallerPointer.h" />
     <ClInclude Include="builtinoperations.h" />
     <ClInclude Include="caller.h" />
@@ -191,6 +190,7 @@
     <ClInclude Include="CJavascriptOperations.h" />
     <ClInclude Include="classfac.h" />
     <ClInclude Include="codectx.h" />
+    <ClInclude Include="COMVariant.h" />
     <ClInclude Include="customenumerator.h" />
     <ClInclude Include="CustomExternalType.h" />
     <ClInclude Include="dbgfmt.h" />

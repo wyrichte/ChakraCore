@@ -358,7 +358,7 @@ HRESULT CDebugStackFrame::Init(ScriptSite* scriptSite, int frameIndex)
     }
 
     m_scriptSite = scriptSite;
-    CComPtr<IDebugApplicationThread> pAppThread;
+    AutoCOMPtr<IDebugApplicationThread> pAppThread;
     hr = scriptSite->GetScriptEngine()->GetApplicationThread(&pAppThread);
     if (FAILED(hr))
     {
@@ -559,20 +559,20 @@ HRESULT CDebugStackFrame::ParseLanguageText(LPCOLESTR pszSrc, UINT uRadix,
         AssertPszN(pszDelimiter);
 
         HRESULT hr;
-        CComPtr<CDebugEval> eval;
+        AutoCOMPtr<CDebugEval> eval;
         CDebugExpression *expression = nullptr;
 
         CHECK_POINTER(ppDebugExpression);
         AssertMem(ppDebugExpression);
         *ppDebugExpression = nullptr;
 
-        hr = CDebugEval::Create(&eval.p, pszSrc, dwFlags, this, m_pApplicationThread);
+        hr = CDebugEval::Create(&eval, pszSrc, dwFlags, this, m_pApplicationThread);
         if (S_OK != hr)
         {
             goto Error;
         }
 
-        hr = CDebugExpression::Create(&expression, eval.p, m_pDebugApplication);
+        hr = CDebugExpression::Create(&expression, eval, m_pDebugApplication);
         if (S_OK != hr)
         {
             goto Error;
@@ -616,7 +616,7 @@ HRESULT CDebugStackFrame::GetDebugPropertyCore(IDebugProperty **ppDebugProperty)
 
     // We should be on the correct thread now.
     AssertMem(ppDebugProperty);
-    CComPtr<IDispatch> pDisp;
+    AutoCOMPtr<IDispatch> pDisp;
 
     if (DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
     {
@@ -765,14 +765,14 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
         return HR(E_INVALIDARG);
     }
 
-    CComPtr<IInternalCodeContext> pInternalCodeContext;
+    AutoCOMPtr<IInternalCodeContext> pInternalCodeContext;
 
     if (FAILED(codeContext->QueryInterface(IID_IInternalCodeContext, (void **)&pInternalCodeContext)))
     {
         return HR(E_NOTIMPL);
     }
 
-    AssertMem(pInternalCodeContext.p);
+    AssertMem(pInternalCodeContext);
 
     HRESULT hr;
     CCodeContext *pCodeContext;
@@ -1380,7 +1380,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
             {
                 return E_FAIL;
             }
-            CComVariant variant = pDisp;
+            COMVariant variant = pDisp;
             pDisp->Release();
             ScriptEngine* scriptEngine = m_scriptSite->GetScriptEngine();
 

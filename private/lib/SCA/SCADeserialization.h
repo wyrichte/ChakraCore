@@ -13,8 +13,8 @@ namespace Js
         public ClonerBase<scaposition_t, Var, SCATypeId, DeserializationCloner<Reader> >
     {
     private:
-        CComPtr<ISCAHost> m_pSCAHost;
-        CComPtr<ISCAContext> m_pSCAContext;
+        AutoCOMPtr<ISCAHost> m_pSCAHost;
+        AutoCOMPtr<ISCAContext> m_pSCAContext;
         Reader* m_reader;
 
     private:

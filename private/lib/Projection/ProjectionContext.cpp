@@ -733,7 +733,7 @@ namespace Projection
 
         HRESULT hr = S_OK;
         Metadata::Assembly *assembly = nullptr;
-        CComPtr<IUnknown> info = nullptr;
+        AutoCOMPtr<IUnknown> info = nullptr;
         //
         // Before we happily run off and look for our metadata using the file system, attempt to look through
         // the current assemblies.
@@ -777,7 +777,7 @@ namespace Projection
             // Any other failure (including RO_E_METADATA_NAME_IS_NAMESPACE), return now and don't cache.
             IfFailedReturn(hr);
 
-            CComPtr<IMetaDataImport2> import;
+            AutoCOMPtr<IMetaDataImport2> import;
             hr = info->QueryInterface(IID_IMetaDataImport2, (void**)&import);
             IfFailedReturn(hr);
             hr = CreateMetadataAssembly(import, &assembly, (isVersioned == TRUE));

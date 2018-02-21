@@ -133,6 +133,8 @@
     <ClInclude Include="ExternalObject.h" />
     <ClInclude Include="JavascriptTypedObjectSlotAccessorFunction.h" />
     <ClInclude Include="JavascriptErrorDebug.h" />
+    <ClInclude Include="COMVariant.h" />
+    <ClInclude Include="AutoBSTR.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />

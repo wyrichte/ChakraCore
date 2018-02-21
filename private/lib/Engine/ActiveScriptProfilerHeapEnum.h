@@ -122,7 +122,7 @@ private:
     static const ULONG PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_UNREPORTED_USER_OBJECT;
 #endif
 
-    CComPtr<IHeapEnumHost> m_heapEnumHost;
+    AutoCOMPtr<IHeapEnumHost> m_heapEnumHost;
 
     struct ProfilerHeapObjectJS
     {

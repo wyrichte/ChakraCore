@@ -109,8 +109,8 @@ private:
     ScriptSite* m_scriptSite;
     Js::DiagStackFrame* m_currentFrame;
     Js::WeakDiagStack* m_framePointers;
-    CComPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
-    CComPtr<IDebugApplication> m_pDebugApplication;
+    AutoCOMPtr<IDebugBitCorrectApplicationThread> m_pApplicationThread;
+    AutoCOMPtr<IDebugApplication> m_pDebugApplication;
     int m_frameIndex;
 
 #if defined(DBG) || defined(ENABLE_TRACE)

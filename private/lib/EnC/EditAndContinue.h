@@ -34,7 +34,7 @@ public:
             }
         };
 
-        CComPtr<DebugThreadCallDispatcher> spDispatcher;
+        AutoCOMPtr<DebugThreadCallDispatcher> spDispatcher;
         HRESULT hr = DebugThreadCallDispatcher::CreateInstance(&spDispatcher);
         if (SUCCEEDED(hr))
         {

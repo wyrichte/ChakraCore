@@ -3097,8 +3097,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     // pulled out underneath us
     Js::ScriptContext* scriptContext = this->scriptContext;
 
-    CComPtr<Js::TransferablesHolder> transferableHolder;
-
     for (uint i = 0; i < cTransferableVars; i++)
     {
         Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(transferableVars[i]);
@@ -3114,7 +3112,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
         }
     }
 
-    transferableHolder = HeapNewNoThrow(Js::TransferablesHolder, cTransferableVars);
+    AutoCOMPtr<Js::TransferablesHolder> transferableHolder = HeapNewNoThrow(Js::TransferablesHolder, cTransferableVars);
     if (transferableHolder == nullptr)
     {
         return E_OUTOFMEMORY;
@@ -3202,8 +3200,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Deserialize(
     // pulled out underneath us
     Js::ScriptContext* scriptContext = this->scriptContext;
 
-    CComPtr<IUnknown> dependentObject(nullptr);
-    CComPtr<Js::TransferablesHolder> transferableHolder = nullptr;
+    AutoCOMPtr<IUnknown> dependentObject(nullptr);
+    AutoCOMPtr<Js::TransferablesHolder> transferableHolder = nullptr;
 
     hr = context->GetDependentObject(&dependentObject);
 

@@ -363,7 +363,7 @@ namespace Projection
     bool IsWinRTType(Js::CustomExternalObject *ceo)
     {
         Js::ExternalType * externalType = (Js::ExternalType *)ceo->GetType();
-        CComPtr<ProjectionTypeOperations> projectionTypeOperations = nullptr;
+        AutoCOMPtr<ProjectionTypeOperations> projectionTypeOperations = nullptr;
         return (SUCCEEDED(externalType->GetTypeOperations()->QueryInterface(IID_IProjectionTypeOperations, (void**)&projectionTypeOperations)));
     }
 

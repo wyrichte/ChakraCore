@@ -1445,7 +1445,7 @@ namespace Projection
                 recyclerData->m_eventHandlerCache->Remove(weakReference);
 
                 // Remove the event handlers if any
-                CComPtr<IInspectable> inspectable = nullptr;
+                AutoCOMPtr<IInspectable> inspectable = nullptr;
                 Assert(!scriptContext->GetThreadContext()->IsScriptActive());
                 hr = weakReference->Resolve(__uuidof(IInspectable), &inspectable);
 
@@ -2058,8 +2058,8 @@ LReturn:
 
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            CComPtr<IWeakReferenceSource> weakReferenceSource;
-            CComPtr<IWeakReference> weakReference;
+            AutoCOMPtr<IWeakReferenceSource> weakReferenceSource;
+            AutoCOMPtr<IWeakReference> weakReference;
             if (SUCCEEDED(unknown->QueryInterface(__uuidof(IWeakReferenceSource), (void**)&weakReferenceSource))
                 && SUCCEEDED(weakReferenceSource->GetWeakReference(&weakReference)))
             {

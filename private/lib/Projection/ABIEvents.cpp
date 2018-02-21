@@ -205,7 +205,7 @@ namespace Projection
     // Returns:     on success event cookie corresponding to the event handler that is added
     __int64 AddEventHandler(RtEVENT eventInfo, IInspectable *inspectable, Js::JavascriptFunction *jsEventFunction, 
         LPCWSTR methodName, ProjectionContext *projectionContext, bool isDefaultInterface, 
-        CComPtr<CExternalWeakReferenceImpl> &weakDelegate, CComPtr<IUnknown> &pDelegate)
+        AutoCOMPtr<CExternalWeakReferenceImpl> &weakDelegate, AutoCOMPtr<IUnknown> &pDelegate)
     {
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         RtABIMETHODSIGNATURE addMethod = AbiMethodSignature::From(eventInfo->addOn);
@@ -262,8 +262,8 @@ namespace Projection
             Js::JavascriptErrorDebug::MapAndThrowError(scriptContext, hr);
         }
 
-        pDelegate.p = delegateObject->GetUnknown();
-        weakDelegate.p = delegateObject->GetPrivateWeakReference();
+        pDelegate = delegateObject->GetUnknown();
+        weakDelegate = delegateObject->GetPrivateWeakReference();
 
         return AddEventHandlerCore(addMethod, inspectable, pDelegate, scriptContext, isDefaultInterface);
     }
@@ -578,8 +578,8 @@ namespace Projection
                     {
                         bool isDefaultInterface = false;
                         IInspectable *inspectable = GetInspectableForAddOrRemoveEvent(thisInfo, rtmethod, args[0], projectionContext, &isDefaultInterface);
-                        CComPtr<CExternalWeakReferenceImpl> weakDelegate;
-                        CComPtr<IUnknown> pDelegate;
+                        AutoCOMPtr<CExternalWeakReferenceImpl> weakDelegate;
+                        AutoCOMPtr<IUnknown> pDelegate;
                         __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::JavascriptFunction::FromVar(args[2]), 
                             _u("addEventListener"), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
@@ -751,8 +751,8 @@ namespace Projection
         if (fSettingHandler)
         {
             Assert(inspectable != nullptr);
-            CComPtr<CExternalWeakReferenceImpl> weakDelegate;
-            CComPtr<IUnknown> pDelegate;
+            AutoCOMPtr<CExternalWeakReferenceImpl> weakDelegate;
+            AutoCOMPtr<IUnknown> pDelegate;
             __int64 eventCookie = AddEventHandler(signature->abiEvent, inspectable, Js::JavascriptFunction::FromVar(args[1]),
                 StringOfId(scriptContext, signature->eventPropertyNameId), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 

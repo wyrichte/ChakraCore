@@ -514,22 +514,22 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
 
     Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(args[1]);
 
-    CComPtr<IDebugDocumentContext> pDocumentContext = NULL;
+    AutoCOMPtr<IDebugDocumentContext> pDocumentContext = NULL;
     scriptContext->GetDocumentContext(javascriptFunction->GetFunctionBody(), &pDocumentContext);
 
     Js::Var result = scriptContext->GetLibrary()->GetUndefined();
 
     if (pDocumentContext != nullptr)
     {
-        CComPtr<IDebugDocumentContext> pDebugDocumentContext;
+        AutoCOMPtr<IDebugDocumentContext> pDebugDocumentContext;
         HRESULT hr = pDocumentContext->QueryInterface(__uuidof(IDebugDocumentContext), reinterpret_cast<void **>(&pDebugDocumentContext));
         if (SUCCEEDED(hr))
         {
-            CComPtr<IDebugDocument> pDocument;
+            AutoCOMPtr<IDebugDocument> pDocument;
             hr = pDebugDocumentContext->GetDocument(&pDocument);
             if (SUCCEEDED(hr))
             {
-                CComPtr<IDebugDocumentText> pDocumentText;
+                AutoCOMPtr<IDebugDocumentText> pDocumentText;
                 hr = pDocument->QueryInterface(__uuidof(IDebugDocumentText), (void **)&pDocumentText);
 
                 if (SUCCEEDED(hr))
@@ -1133,11 +1133,10 @@ Js::Var DebugObject::EntryGetTypeInfo(Js::RecyclableObject* function, Js::CallIn
     {
         return function;
     }
-    CComPtr<IDispatchEx> dispPtr = nullptr;
-    dispPtr = (IDispatchEx*)JavascriptDispatch::Create<true>(Js::DynamicObject::FromVar(obj));
+    AutoCOMPtr<IDispatchEx> dispPtr = (IDispatchEx*)JavascriptDispatch::Create<true>(Js::DynamicObject::FromVar(obj));
     if (dispPtr != nullptr)
     {
-        CComPtr<ITypeInfo> typeInfo;
+        AutoCOMPtr<ITypeInfo> typeInfo;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
             hr = dispPtr->GetTypeInfo(0, 0x409, &typeInfo);
@@ -2338,7 +2337,7 @@ HTYPE IASDDebugObjectHelper::EnsureType(JavascriptTypeId typeId, Js::PropertyId 
         return returnType;
     }
     HRESULT hr = NOERROR;
-    CComPtr<ITypeOperations> defaultTypeOperations = nullptr;
+    AutoCOMPtr<ITypeOperations> defaultTypeOperations = nullptr;
     if (useDefaultTypeOperations) 
     {
         hr = scriptDirect->GetDefaultTypeOperations(&defaultTypeOperations);

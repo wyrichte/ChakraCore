@@ -198,7 +198,7 @@ namespace Projection
             IfFailedReturn(hr);
         }
 
-        CComPtr<IVarEnumerator> pDefaultOperatationEnumerator;
+        AutoCOMPtr<IVarEnumerator> pDefaultOperatationEnumerator;
         hr = __super::GetEnumerator(scriptDirect, instance, enumNonEnumerable, enumSymbols, &pDefaultOperatationEnumerator);
         IfFailedReturn(hr);
 
@@ -595,7 +595,7 @@ namespace Projection
 
         // Get the Assembly for this IMetaDataImport
         Metadata::Assembly *assembly = nullptr;
-        CComPtr<IMetaDataImport2> import;
+        AutoCOMPtr<IMetaDataImport2> import;
         HRESULT hr = metadataImport->QueryInterface(IID_IMetaDataImport2, (void**)&import);
         IfFailedReturn(hr);
         hr = projectionContext->CreateMetadataAssembly(import, &assembly, (isVersioned == TRUE));

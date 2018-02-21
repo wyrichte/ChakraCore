@@ -126,7 +126,7 @@ public:
         }
 
         HRESULT hr = NOERROR;
-        CComPtr<Js::ScriptDAC> pDAC;
+        AutoCOMPtr<Js::ScriptDAC> pDAC;
 
         IFFAILRET(Js::ScriptDAC::CreateInstance(&pDAC));
         return pDAC->QueryInterface(riid, ppvObj);

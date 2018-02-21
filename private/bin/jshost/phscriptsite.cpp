@@ -12,6 +12,7 @@
 #include "Core\BasePtr.h"
 #include "Memory\AutoPtr.h"
 #include "hostsysinfo.h"
+#include "AutoBSTR.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
 SimpleSourceMapper *UTF8SourceMapper = nullptr;

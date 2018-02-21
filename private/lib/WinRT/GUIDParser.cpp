@@ -5,11 +5,6 @@
 #include "jscriptdllcommon.h"
 #include <Shlwapi.h>
 
-#pragma warning(push)
-#pragma warning(disable:4838) // conversion from 'int' to 'UINT' requires a narrowing conversion
-#pragma warning(disable:4456) // declaration of '' hides previous local declaration
-#include <atlbase.h>
-#pragma warning(pop)
 #include "GUIDParser.h"
 
 using namespace Js;
@@ -128,8 +123,7 @@ HRESULT GUIDParser::TryParseGUID(LPCWSTR g, GUID* result)
     IfNullReturnError(result, E_POINTER);
     IfNullReturnError(g, E_POINTER);
 
-    CHeapPtr<char16> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
+    AutoArrayPtr<char16> guidStr(HeapNewArrayZ(char16, (wcslen(g) + 1)), (wcslen(g) + 1));
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {
@@ -164,9 +158,7 @@ HRESULT GUIDParser::TryParseHexValueExact(LPCWSTR g, int length, unsigned long* 
         }
     }
 
-    CHeapPtr<char16> destStr;
-    destStr.Allocate((length+1) * sizeof(char16));
-    destStr[0] = 0;
+    AutoArrayPtr<char16> destStr(HeapNewArrayZ(char16, length + 1), length + 1);
     errno_t error = wcsncat_s(destStr, (length + 1), g, length);
     if (error != 0)
     {
@@ -199,9 +191,7 @@ HRESULT GUIDParser::TryParseHexValue(LPCWSTR g, int maxLength, int* offset, unsi
         return E_INVALIDARG;
     }
 
-    CHeapPtr<char16> destStr;
-    destStr.Allocate((index+1) * sizeof(char16));
-    destStr[0] = 0;
+    AutoArrayPtr<char16> destStr(HeapNewArrayZ(char16, index + 1), index + 1);
     errno_t error = wcsncat_s(destStr, (index + 1), g, index);
     if (error != 0)
     {
@@ -222,8 +212,7 @@ HRESULT GUIDParser::TryParseGUIDWithHexFormat(LPCWSTR g, GUID* result)
     int offset = 0;
 
     // Remove all whitespace from guid string
-    CHeapPtr<char16> guidStr;
-    guidStr.Allocate((wcslen(g)+1) * sizeof(char16));
+    AutoArrayPtr<char16> guidStr(HeapNewArrayZ(char16, wcslen(g) + 1), wcslen(g) + 1);
     errno_t error = wcscpy_s(guidStr, wcslen(g)+1, g);
     if (error != 0)
     {

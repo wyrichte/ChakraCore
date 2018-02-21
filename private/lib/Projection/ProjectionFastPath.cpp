@@ -370,7 +370,7 @@ namespace Projection
         auto projectionWriter = projectionContext->GetProjectionWriter();
         auto scriptContext = projectionContext->GetScriptContext();
         Var result = nullptr;
-        CComPtr<IUnknown> unknown;
+        AutoCOMPtr<IUnknown> unknown;
         HRESULT hr;
 
         BEGIN_LEAVE_SCRIPT(scriptContext)
@@ -998,7 +998,7 @@ namespace Projection
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
         // Get the factory
-        CComPtr<IActivationFactory> factory;
+        AutoCOMPtr<IActivationFactory> factory;
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
         hr = projectionContext->CreateTypeFactoryInstance(projectionContext->StringOfId(runtimeClassThis->typeId), __uuidof(IActivationFactory), (IUnknown**)&factory); 
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr); 

@@ -11,6 +11,7 @@ namespace Projection
     class CExternalWeakReferenceImpl sealed : IWeakReference
     {
         friend class CUnknownImpl;
+        friend class AutoCOMPtr<CExternalWeakReferenceImpl>;
 
     private:
         unsigned long strongRefCount;

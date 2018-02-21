@@ -396,7 +396,7 @@ namespace Projection
         Assert(MapWithStringKey::IsMapOrMapViewWithStringKey(specialization));
         Js::ScriptContext *scriptContext = specialization->projectionContext->GetScriptContext();
 
-        CComPtr<Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable *> *>> iterator = nullptr;
+        AutoCOMPtr<Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<HSTRING, IInspectable *> *>> iterator = nullptr;
         MapWithStringKeyEnumerator *pMapWithStringKeyEnumerator = nullptr;
         *enumerator = nullptr;
 

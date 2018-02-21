@@ -340,9 +340,9 @@ HRESULT JsrtContextChakra::EnsureProjectionHost()
             Assert(FALSE);
             return E_FAIL;  // we'll return cannotstartprojection later.
         }
-        CComPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
+        AutoCOMPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
         hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProjection), (void**)&activeScriptProjection);
-        CComPtr<IActiveScript> activeScript;
+        AutoCOMPtr<IActiveScript> activeScript;
         hr = activeScriptDirect->QueryInterface(&activeScript);
         if (SUCCEEDED(hr))
         {
@@ -357,7 +357,7 @@ HRESULT JsrtContextChakra::EnsureProjectionHost()
                 if (SUCCEEDED(hr))
                 {
                     // Reset delegate wrapper to ours, even if this->projectionDelegateWrapper == nullptr.
-                    CComPtr<IPrivateScriptProjection> privateScriptProjection;
+                    AutoCOMPtr<IPrivateScriptProjection> privateScriptProjection;
                     hr = activeScriptProjection->QueryInterface(&privateScriptProjection);
                     if (SUCCEEDED(hr))
                     {
@@ -381,7 +381,7 @@ JsErrorCode JsrtContextChakra::ReserveWinRTNamespace(_In_z_ const char16* nameSp
     {
         Js::ScriptContext * scriptContext = this->GetScriptContext();
         IActiveScriptDirect* activeScriptDirect = scriptContext->GetActiveScriptDirect();
-        CComPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
+        AutoCOMPtr<IActiveScriptProjection> activeScriptProjection = nullptr;
         hr = activeScriptDirect->QueryInterface(__uuidof(IActiveScriptProjection), (void**)&activeScriptProjection);
 
         if (SUCCEEDED(hr))

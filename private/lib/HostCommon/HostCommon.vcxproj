@@ -11,8 +11,6 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseStaticAtl>true</UseStaticAtl>
-    <AtlVersion>30</AtlVersion>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
   </PropertyGroup>

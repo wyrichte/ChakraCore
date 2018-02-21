@@ -2037,7 +2037,7 @@ void ScriptEngine::CheckHostInDebugMode()
 
     HRESULT hr = S_OK;
     AssertMsg(this->m_dwBaseThread == GetCurrentThreadId(), "CheckHostInDebugMode invoked in debugger thread!");
-    CComPtr<IActiveScriptSiteDebugHelper> activeScriptSiteDebugHelper;
+    AutoCOMPtr<IActiveScriptSiteDebugHelper> activeScriptSiteDebugHelper;
     hr = this->m_pActiveScriptSite->QueryInterface(
         __uuidof(IActiveScriptSiteDebugHelper),
         reinterpret_cast<void**>(&activeScriptSiteDebugHelper));
@@ -2606,7 +2606,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
     m_pActiveScriptSite = activeScriptSite;
     m_pActiveScriptSite->AddRef();
 
-    CComBSTR bstrUrl;
+    ::AutoBSTR bstrUrl;
     if (SUCCEEDED(this->GetUrl(&bstrUrl)))
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
@@ -3645,7 +3645,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
 
     DWORD dwFlags = 0;
     {
-        CComPtr<IGenerateByteCodeConfig> generateByteCodeConfig;
+        AutoCOMPtr<IGenerateByteCodeConfig> generateByteCodeConfig;
         if (punkContext != nullptr && SUCCEEDED(punkContext->QueryInterface(IID_IGenerateByteCodeConfig, (void **)&generateByteCodeConfig)))
         {
             dwFlags = generateByteCodeConfig->GetFlags();
@@ -4125,12 +4125,12 @@ HRESULT ScriptEngine::ParseScriptTextCore(
 
         ULONG ulColumn = 0;
         ULONG ulCharOffset = 0;
-        CComPtr<IActiveScriptDataCache> spProfileDataCache;
+        AutoCOMPtr<IActiveScriptDataCache> spProfileDataCache;
         BOOL isDynamicDocument = FALSE;
-        CComBSTR sourceMapUrl;
+        ::AutoBSTR sourceMapUrl;
         if (punkContext != nullptr)
         {
-            CComPtr<IActiveScriptContext> spActiveScriptContext;
+            AutoCOMPtr<IActiveScriptContext> spActiveScriptContext;
             if (SUCCEEDED(punkContext->QueryInterface(&spActiveScriptContext)))
             {
                 HRESULT hRes = spActiveScriptContext->GetLineColumn(nullptr, &ulColumn);
@@ -4280,11 +4280,11 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
     LPCOLESTR       pcszCodeT = pcszCode;
     BuildString     bs;
     SRCINFO         si;
-    CComPtr<IActiveScriptDataCache> spProfileDataCache;
+    AutoCOMPtr<IActiveScriptDataCache> spProfileDataCache;
 
     JavascriptDispatch* entryPointDispatch = nullptr;
     Js::DynamicObject * pfuncScript = nullptr;
-    CComBSTR sourceMapUrl;
+    ::AutoBSTR sourceMapUrl;
 
     CHECK_POINTER(ppdisp);
     *ppdisp = nullptr;
@@ -4325,7 +4325,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
     BOOL isDynamicDocument = FALSE;
     if (punkContext != nullptr)
     {
-        CComPtr<IActiveScriptContext> spActiveScriptContext;
+        AutoCOMPtr<IActiveScriptContext> spActiveScriptContext;
         if (SUCCEEDED(punkContext->QueryInterface(&spActiveScriptContext)))
         {
             HRESULT hRes = spActiveScriptContext->GetLineColumn(nullptr, &ulColumn);
@@ -5649,7 +5649,7 @@ SourceContextInfo * ScriptEngine::GetSourceContextInfo( DWORD_PTR hostSourceCont
 
     // The script context should have create a default SourceContextInfo for NoHostSourceContext
     Assert(hostSourceContext != Js::Constants::NoHostSourceContext);
-    CComBSTR bstrUrl;
+    ::AutoBSTR bstrUrl;
 
     GetHostContextUrl(hostSourceContext, &bstrUrl);
     return scriptContext->CreateSourceContextInfo(hostSourceContext, bstrUrl, SysStringLen(bstrUrl), profileDataCache, sourceMapUrl, SysStringLen(sourceMapUrl));
@@ -6706,7 +6706,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::InspectableUnknownToVarInternal(
 
     *instance = scriptContext->GetLibrary()->GetNull();
 
-    CComPtr<IInspectable> inspectable;
+    AutoCOMPtr<IInspectable> inspectable;
     hr = unknown->QueryInterface(__uuidof(IInspectable), (void**)&inspectable);
     if (FAILED(hr) || !inspectable)
     {
@@ -6726,7 +6726,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::InspectableUnknownToVarInternal(
         result->Release();
     }
 #endif
-    CComPtr<IUnknown> unkptr;
+    AutoCOMPtr<IUnknown> unkptr;
     hr = unknown->QueryInterface(IID_IUnknown, (void**)&unkptr);
     if (FAILED(hr) || !unkptr)
     {
@@ -7038,9 +7038,9 @@ public:
 private:
     long m_cRef;
     DEBUG_EVENT_INFO_TYPE m_messageType;
-    CComBSTR m_message;
-    CComBSTR m_url;
-    CComPtr<IDebugDocumentContext> m_documentContext;
+    ::AutoBSTR m_message;
+    ::AutoBSTR m_url;
+    AutoCOMPtr<IDebugDocumentContext> m_documentContext;
 };
 
 /*static*/
@@ -7056,7 +7056,7 @@ void ScriptEngine::RaiseMessageToDebugger(Js::ScriptContext *scriptContext, DEBU
             IDebugApplication *debugApplication = scriptEngine->GetDebugApplication();
             if (debugApplication != nullptr)
             {
-                CComPtr<RemoteDebugInfoEvent> remoteDebugInfo(HeapNewNoThrow(RemoteDebugInfoEvent, messageType, message, url));
+                AutoCOMPtr<RemoteDebugInfoEvent> remoteDebugInfo(HeapNewNoThrow(RemoteDebugInfoEvent, messageType, message, url));
                 debugApplication->FireDebuggerEvent(__uuidof(IRemoteDebugInfoEvent110),
                     static_cast<IUnknown *>(static_cast<IRemoteDebugInfoEvent110 *>(remoteDebugInfo)));
             }
@@ -7071,12 +7071,12 @@ RemoteDebugInfoEvent::RemoteDebugInfoEvent(DEBUG_EVENT_INFO_TYPE messageType, LP
 
     if (message)
     {
-        m_message.m_str = ::SysAllocString(message);
+        m_message = message;
     }
 
     if (url)
     {
-        m_url.m_str = ::SysAllocString(url);
+        m_url = url;
     }
 }
 

@@ -422,7 +422,7 @@ HRESULT TypeInfoBuilder::Create(__in LPCOLESTR pszName, LCID lcid,
         goto LFail;
 
     {
-        CComPtr<ICreateTypeInfo> typeInfo = nullptr;
+        AutoCOMPtr<ICreateTypeInfo> typeInfo = nullptr;
         hr = pbuilder->m_pctl->CreateTypeInfo((OLECHAR *)pszName,
             TKIND_DISPATCH, &typeInfo);
         if (FAILED(hr))

@@ -81,8 +81,8 @@ HRESULT AttemptCreateArrayBufferFromIBuffer(__in Projection::ProjectionObjectIns
 {
     Assert(prObj != nullptr && ppArrayBuffer != nullptr);
     HRESULT hr = S_OK;
-    CComPtr<Windows::Storage::Streams::IBuffer> iBuf = nullptr;
-    CComPtr<Windows::Storage::Streams::IBufferByteAccess> iBufByteAccess = nullptr;
+    AutoCOMPtr<Windows::Storage::Streams::IBuffer> iBuf = nullptr;
+    AutoCOMPtr<Windows::Storage::Streams::IBufferByteAccess> iBufByteAccess = nullptr;
     Js::JavascriptLibrary *library = prObj->GetLibrary();
     Js::ScriptContext *scriptContext = prObj->GetScriptContext();
     UINT32 capacity = 0;

@@ -41,7 +41,7 @@ namespace Js
         HRESULT hr = S_OK;
         OUTPUT_TRACE(Phase::ENCPhase, _u("QueryEdit: %d requests\n"), count);
 
-        CComPtr<ScriptEditQuery> spScriptEditQuery;
+        AutoCOMPtr<ScriptEditQuery> spScriptEditQuery;
         IFFAILRET(ScriptEditQuery::CreateInstance(&spScriptEditQuery));
         IFFAILRET(spScriptEditQuery->Init(this));
 
@@ -645,8 +645,8 @@ namespace Js
         {
             if (r.debugDocumentText)
             {
-                CComBSTR name;
-                PCWSTR pName = SUCCEEDED(r.debugDocumentText->GetName(DOCUMENTNAMETYPE_APPNODE, &name)) ? name : _u("[GetName failed]");
+                ::AutoBSTR name;
+                PCWSTR pName = SUCCEEDED(r.debugDocumentText->GetName(DOCUMENTNAMETYPE_APPNODE, &name)) ? (BSTR)name : _u("[GetName failed]");
 
                 WCHAR text[64];
                 ULONG maxLen = min(r.editTextSpan.length, static_cast<ULONG>(_countof(text) - 1));
@@ -881,7 +881,7 @@ namespace Js
             HRESULT hr = S_OK;
             ScriptEngine* scriptEngine = this->GetScriptEdit()->GetScriptEngine();
             
-            CComPtr<CScriptBody> scriptBody;
+            AutoCOMPtr<CScriptBody> scriptBody;
             scriptBody.Attach(HeapNew(CScriptBody, m_diff->NewRoot(), scriptEngine, newUtf8SourceInfo));
 
             // TODO: scriptBody life time?

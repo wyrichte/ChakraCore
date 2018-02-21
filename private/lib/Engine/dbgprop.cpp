@@ -268,7 +268,7 @@ HRESULT DebugProperty::BuildExprAndEval(BSTR bstrFullName,
 
     if (hr != S_OK || result == NULL || address == NULL || !address->Set(result))
     {
-        CComBSTR bstrFullString = NULL;
+        ::AutoBSTR bstrFullString = NULL;
         if (dbgProp != NULL)
         {
             Assert(bstrFullName == NULL);
@@ -419,7 +419,8 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
             BSTR composedName = *pbstrFullName;
             if (currentName != nullptr && SysStringLen(currentName) == 0)
             {
-                CComBSTR emptyName(_u("[\"\"]"));
+                ::AutoBSTR emptyName;
+                emptyName = _u("[\"\"]");
                 IfFailGo(PrependParentNameToChildFullName(emptyName, composedName, isLiteralProperty, pbstrFullName));
             }
             else
@@ -466,9 +467,11 @@ HRESULT DebugProperty::GetFullName(_Out_ BSTR * pbstrFullName)
         }
 
         // Move to the next parent.
-        CComPtr<IDebugProperty> parentDebugProperty;
-        IfFailGo(currentDebugProperty->GetParent(&parentDebugProperty));
-        currentDebugProperty = reinterpret_cast<DebugProperty*>(parentDebugProperty.p);
+        IDebugProperty* pparentDebugProperty;
+        AutoCOMPtr<IDebugProperty> parentDebugProperty;
+        IfFailGo(currentDebugProperty->GetParent(&pparentDebugProperty));
+        parentDebugProperty.Attach(pparentDebugProperty);
+        currentDebugProperty = reinterpret_cast<DebugProperty*>(pparentDebugProperty);
     }
 
     if (*pbstrFullName == nullptr)
@@ -827,7 +830,7 @@ HRESULT DebugProperty::EnumMembers(
         {
             if (pObjectModelWalker != nullptr)
             {
-                CComPtr<IUnknown> spunk = NULL;
+                AutoCOMPtr<IUnknown> spunk = NULL;
                 if (!pModel->IsLocalsAsRoot())
                 {
                     this->QueryInterface(__uuidof(IUnknown), (void **)&spunk);
@@ -970,7 +973,7 @@ STDMETHODIMP DebugProperty::CanSetMutationBreakpoint(
     }
 
     DebugProperty *parentProperty = this;
-    CComPtr<DebugProperty> parentPropertyRef;           // Use this to keep track of the ref count of the parent for !setOnObject
+    AutoCOMPtr<DebugProperty> parentPropertyRef;           // Use this to keep track of the ref count of the parent for !setOnObject
     if (!setOnObject)
     {
         // Get parent debug property, if we can't get parent property we can't set OMBP
@@ -1027,7 +1030,7 @@ STDMETHODIMP DebugProperty::SetMutationBreakpoint(
     IfNullReturnError(scriptContext, E_FAIL);
 
     DebugProperty *parentProperty = this;
-    CComPtr<DebugProperty> parentPropertyRef;           // Use this to keep track of the ref count of the parent for !setOnObject
+    AutoCOMPtr<DebugProperty> parentPropertyRef;           // Use this to keep track of the ref count of the parent for !setOnObject
     PropertyId parentPid = Js::Constants::NoProperty;
     PropertyId pid = Js::Constants::NoProperty;
     if (!setOnObject)
@@ -1343,7 +1346,7 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
 
         if (resolvedObj.typeId != Js::TypeIds_HostDispatch)
         {                               
-            CComPtr<IDebugProperty> property;
+            AutoCOMPtr<IDebugProperty> property;
             BEGIN_TRANSLATE_OOM_TO_HRESULT
             {
                 AutoPtr<WeakArenaReference<Js::IDiagObjectModelDisplay>> pDisplay  = resolvedObj.GetObjectDisplay();
@@ -1377,10 +1380,10 @@ HRESULT EnumDebugPropertyInfo::NextInternal(ULONG celt, DebugPropertyInfo *pi, U
                 hr = E_FAIL;
                 goto Error;
             }
-            CComVariant variant = pDisp;
+            COMVariant variant = pDisp;
             pDisp->Release();
 
-            CComPtr<IDebugProperty> spDbgProp;
+            AutoCOMPtr<IDebugProperty> spDbgProp;
 
             DebugPropertySetValueCallback* pPropSetValue = new DebugPropertySetValueCallback(m_pApplicationThread, m_pScriptEngine);
 

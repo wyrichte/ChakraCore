@@ -431,9 +431,9 @@ namespace Js
         AutoScriptEditResult result;
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
-            CComPtr<IScriptEditQuery> pScriptEditQuery;
+            AutoCOMPtr<IScriptEditQuery> pScriptEditQuery;
 
-            CComPtr<IActiveScriptEdit> pActiveScriptEdit;
+            AutoCOMPtr<IActiveScriptEdit> pActiveScriptEdit;
             IfFailGo(pActiveScriptDirect->QueryInterface(&pActiveScriptEdit));
             {
                 ULONG length;
