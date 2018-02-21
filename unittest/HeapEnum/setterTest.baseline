@@ -248,7 +248,7 @@
  |  |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: __lookupSetter__
  |  |  |    |    [Prototype] type: StringObject (seen)
- |  [Properties] count: 2
+ |  [Properties] count: 4
  |  | 0 foo: rsFlags: getter type: FunctionObject flags: (new) optional info records (1)
  |  |    [Prototype] type: FunctionObject (seen)
  |  | 1 foo: rsFlags: setter type: FunctionObject flags: (new) optional info records (3)
@@ -258,6 +258,8 @@
  |  |    | 0 sourceUrl: value: setterTest.js
  |  |    | 1 sourceRow: value: 3.000000
  |  |    | 2 sourceCol: value: 1.000000
+ |  | 2 foo: rsFlags: getter type: FunctionObject (seen)
+ |  | 3 foo: rsFlags: setter type: FunctionObject (seen)
 
 ==========>End Heap Dump<===============
 

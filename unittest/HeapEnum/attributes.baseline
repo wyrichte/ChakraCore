@@ -109,7 +109,7 @@ y local
  |  [Properties] count: 5
  |  | 0 x: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
- |  |    [Properties] count: 3
+ |  |    [Properties] count: 5
  |  |    | 0 x_data: value: 5.000000
  |  |    | 1 x_accessor: rsFlags: getter type: FunctionObject flags: (new) optional info records (3)
  |  |    |    [Prototype] type: FunctionObject (seen)
@@ -125,9 +125,11 @@ y local
  |  |    |    | 0 sourceUrl: value: attributes.js
  |  |    |    | 1 sourceRow: value: 15.000000
  |  |    |    | 2 sourceCol: value: 9.000000
+ |  |    | 3 x_accessor: rsFlags: getter type: FunctionObject (seen)
+ |  |    | 4 x_accessor: rsFlags: setter type: FunctionObject (seen)
  |  | 1 x2: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
- |  |    [Properties] count: 3
+ |  |    [Properties] count: 5
  |  |    | 0 x_data: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: x local
  |  |    |    [Prototype] type: StringObject (seen)
@@ -140,9 +142,11 @@ y local
  |  |    |    | 0 sourceUrl: value: attributes.js
  |  |    |    | 1 sourceRow: value: 20.000000
  |  |    |    | 2 sourceCol: value: 9.000000
+ |  |    | 3 x_accessor: rsFlags: getter type: FunctionObject (seen)
+ |  |    | 4 x_accessor: rsFlags: setter type: FunctionObject (seen)
  |  | 2 x3: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
- |  |    [Properties] count: 3
+ |  |    [Properties] count: 5
  |  |    | 0 x_data: type: String (seen)
  |  |    | 1 x_accessor: rsFlags: getter type: FunctionObject flags: (new) optional info records (3)
  |  |    |    [Prototype] type: FunctionObject (seen)
@@ -152,6 +156,8 @@ y local
  |  |    |    | 1 sourceRow: value: 25.000000
  |  |    |    | 2 sourceCol: value: 9.000000
  |  |    | 2 x_accessor: rsFlags: setter type: FunctionObject (seen)
+ |  |    | 3 x_accessor: rsFlags: getter type: FunctionObject (seen)
+ |  |    | 4 x_accessor: rsFlags: setter type: FunctionObject (seen)
  |  | 3 y: type: ObjectObject flags: (new) optional info records (2)
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 1
@@ -177,7 +183,7 @@ y local
  |  |    |    |  |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 1 y_inner: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: ObjectObject (seen)
- |  |    |    |  |    [Properties] count: 3
+ |  |    |    |  |    [Properties] count: 5
  |  |    |    |  |    | 0 y_accessor: rsFlags: getter type: FunctionObject flags: (new) optional info records (4)
  |  |    |    |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    |    [Function name] get y_inner.y_accessor
@@ -196,7 +202,9 @@ y local
  |  |    |    |  |    |    | 0 sourceUrl: value: attributes.js
  |  |    |    |  |    |    | 1 sourceRow: value: 33.000000
  |  |    |    |  |    |    | 2 sourceCol: value: 17.000000
- |  |    |    |  |    | 2 y_data: value: 6.000000
+ |  |    |    |  |    | 2 y_accessor: rsFlags: getter type: FunctionObject (seen)
+ |  |    |    |  |    | 3 y_accessor: rsFlags: setter type: FunctionObject (seen)
+ |  |    |    |  |    | 4 y_data: value: 6.000000
  |  |    |    [Relationships] count: 3
  |  |    |    | 0 sourceUrl: value: attributes.js
  |  |    |    | 1 sourceRow: value: 36.000000

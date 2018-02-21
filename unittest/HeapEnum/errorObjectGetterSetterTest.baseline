@@ -141,7 +141,7 @@
  |  |  |    [Properties] count: 2
  |  |  |    | 0 length: value: 0.000000
  |  |  |    | 1 name: type: String (seen)
- |  [Properties] count: 5
+ |  [Properties] count: 7
  |  | 0 message: type: String flags: (new size_approximate) optional info records (2)
  |  |    [Internal property] value: 'someUndefinedFunction' is not defined
  |  |    [Prototype] type: StringObject (seen)
@@ -159,6 +159,8 @@
  |  |    | 1 name: type: Undefined (seen)
  |  |    | 2 length: value: 0.000000
  |  | 4 stack: rsFlags: setter type: FunctionObject (seen)
+ |  | 5 stack: rsFlags: getter type: FunctionObject (seen)
+ |  | 6 stack: rsFlags: setter type: FunctionObject (seen)
 
 ==========>End Heap Dump<===============
 
