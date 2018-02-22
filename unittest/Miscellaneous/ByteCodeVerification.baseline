@@ -1,4 +1,4 @@
-Bytecode GUID = {249564C7-AA34-48ED-934F-81F3BAEE915C}
+Bytecode GUID = {552D65CC-09D7-4FCE-A631-C46FDF7F4A0A}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -165,8 +165,8 @@ OpCode: StArrSegItem_CI4 = 162. Layout = ElementUnsigned1
 OpCode: StArrSegItem_A = 163. Layout = Auxiliary
 OpCode: DeleteElemI_A = 164. Layout = ElementI
 OpCode: DeleteElemIStrict_A = 165. Layout = ElementI
-OpCode: LdLen_A = 166. Layout = Reg2
-OpCode: ProfiledLdLen_A = 167. Layout = ProfiledReg2
+OpCode: LdLen_A = 166. Layout = ElementCP
+OpCode: ProfiledLdLen_A = 167. Layout = ProfiledElementCP
 OpCode: LdUndef = 168. Layout = Reg1
 OpCode: LdNaN = 169. Layout = Reg1
 OpCode: LdInfinity = 170. Layout = Reg1
@@ -1684,6 +1684,7 @@ Serializable Field: uint ByteCodeWithoutLDACount;
 Serializable Field: uint ByteCodeInLoopCount;
 Serializable Field: uint16 m_envDepth;
 Serializable Field: uint16 m_argUsedForBranch;
+Serializable Field: ProfileId profiledLdLenCount;
 Serializable Field: ProfileId profiledLdElemCount;
 Serializable Field: ProfileId profiledStElemCount;
 Serializable Field: ProfileId profiledCallSiteCount;
