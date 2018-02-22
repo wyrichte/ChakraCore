@@ -74,7 +74,6 @@ PASSED
 construct trap
 PASSED
 *** Running test #17 (16): new on non-constructable function
-construct trap
 PASSED
 *** Running test #18 (17): new on builtin
 construct trap
@@ -161,7 +160,6 @@ PASSED
 construct trap
 PASSED
 *** Running test #36 (16): new on non-constructable function
-construct trap
 PASSED
 *** Running test #37 (17): new on builtin
 construct trap
@@ -177,7 +175,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: Anonymous function, Line: 180, Column: 27, Character Position: 7375
 [FunctionCompiled]: Function: Anonymous function, Line: 198, Column: 27, Character Position: 8033
 [FunctionCompiled]: Function: Anonymous function, Line: 239, Column: 27, Character Position: 9923
-[FunctionCompiled]: Function: Anonymous function, Line: 267, Column: 27, Character Position: 10959
+[FunctionCompiled]: Function: Anonymous function, Line: 267, Column: 27, Character Position: 10993
 [FunctionCompiled]: Function: Anonymous function, Line: 361, Column: 20, Character Position: 14812
 [FunctionCompiled]: Function: Anonymous function, Line: 59, Column: 27, Character Position: 2197
 [FunctionCompiled]: Function: Anonymous function, Line: 74, Column: 27, Character Position: 2848
@@ -202,8 +200,8 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: body, Line: 204, Column: 15, Character Position: 8231
 [FunctionCompiled]: Function: body, Line: 218, Column: 15, Character Position: 8897
 [FunctionCompiled]: Function: body, Line: 236, Column: 15, Character Position: 9797
-[FunctionCompiled]: Function: body, Line: 245, Column: 15, Character Position: 10134
-[FunctionCompiled]: Function: body, Line: 262, Column: 15, Character Position: 10789
+[FunctionCompiled]: Function: body, Line: 245, Column: 15, Character Position: 10168
+[FunctionCompiled]: Function: body, Line: 262, Column: 15, Character Position: 10823
 [FunctionCompiled]: Function: body, Line: 32, Column: 15, Character Position: 1054
 [FunctionCompiled]: Function: body, Line: 41, Column: 15, Character Position: 1418
 [FunctionCompiled]: Function: body, Line: 54, Column: 15, Character Position: 2005
@@ -214,7 +212,7 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: compare, Line: 336, Column: 19, Character Position: 13784
 [FunctionCompiled]: Function: handler.trapApply, Line: 162, Column: 33, Character Position: 6556
 [FunctionCompiled]: Function: handler.trapConstruct, Line: 220, Column: 37, Character Position: 8966
-[FunctionCompiled]: Function: handler.trapConstruct, Line: 264, Column: 37, Character Position: 10858
+[FunctionCompiled]: Function: handler.trapConstruct, Line: 264, Column: 37, Character Position: 10892
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 56, Column: 40, Character Position: 2074
 [FunctionCompiled]: Function: handler.trapIsExtensible, Line: 71, Column: 40, Character Position: 2725
 [FunctionCompiled]: Function: handler.trapOwnKeys, Line: 111, Column: 35, Character Position: 4630
@@ -241,8 +239,8 @@ Dumping sorted function compiled events
 [FunctionCompiled]: Function: reflectHandler.preventExtensions, Line: 225, Column: 36, Character Position: 6271
 [FunctionCompiled]: Function: reflectHandler.set, Line: 252, Column: 22, Character Position: 7179
 [FunctionCompiled]: Function: runTest, Line: 231, Column: 18, Character Position: 9717
-[FunctionCompiled]: Function: runTestPass, Line: 273, Column: 1, Character Position: 11153
-[FunctionCompiled]: Function: runTestPasses, Line: 279, Column: 1, Character Position: 11274
+[FunctionCompiled]: Function: runTestPass, Line: 273, Column: 1, Character Position: 11187
+[FunctionCompiled]: Function: runTestPasses, Line: 279, Column: 1, Character Position: 11308
 [FunctionCompiled]: Function: runTests, Line: 156, Column: 19, Character Position: 6165
 [FunctionCompiled]: Function: target, Line: 302, Column: 14, Character Position: 8586
 [FunctionCompiled]: Function: testRunner, Line: 117, Column: 18, Character Position: 4930
@@ -832,11 +830,6 @@ Dumping sorted function compiled events
             Proxy
             throws
               Anonymous function
-                observeHandler.construct
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyThis
             areEqual
               compare
               validate
@@ -1483,11 +1476,6 @@ Dumping sorted function compiled events
             Proxy
             throws
               Anonymous function
-                reflectHandler.construct
-                  LogResult
-                    Array.push
-                    Echo
-                  VerifyReflectThis
             areEqual
               compare
               validate

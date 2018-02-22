@@ -72,7 +72,6 @@ PASSED
 construct trap
 PASSED
 *** Running test #17 (16): new on non-constructable function
-construct trap
 PASSED
 *** Running test #18 (17): new on builtin
 construct trap
@@ -159,7 +158,6 @@ PASSED
 construct trap
 PASSED
 *** Running test #36 (16): new on non-constructable function
-construct trap
 PASSED
 *** Running test #37 (17): new on builtin
 construct trap

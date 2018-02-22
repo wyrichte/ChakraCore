@@ -237,7 +237,7 @@ var tests = [
             cleanupBeforeTestStarts();
             var myProxy = new Proxy(Math.abs, handler);
             assert.throws(function () { new myProxy() }, TypeError);
-            assert.areEqual(savedLogResult.length, 1, "trap non-constructable");
+            assert.areEqual(savedLogResult.length, 0, "target with no [[construct]] does not trap constructable");
         }
     },
     {
