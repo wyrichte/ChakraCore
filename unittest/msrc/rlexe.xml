@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -85,14 +85,6 @@
     <default>
       <files>41014.js</files>
       <compile-flags>-CollectGarbage</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
-      <files>41416.js</files>
-      <!-- Test should fail assertion in debug mode, so do not run. -->
-      <tags>exclude_chk</tags>
-      <baseline>41416.baseline</baseline>
     </default>
   </test>
   <test>
