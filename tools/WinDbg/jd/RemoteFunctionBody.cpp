@@ -397,3 +397,20 @@ RemoteFunctionBody::GetSourceContextInfo()
 {
     return GetUtf8SourceInfo().Field("m_srcInfo").Field("sourceContextInfo");
 }
+
+RemoteEntryPoint
+RemoteFunctionBody::GetEntryPointFromNativeAddress(ULONG64 nativeAddress)
+{
+    RemoteEntryPoint foundEntryPoint;
+    this->ForEachEntryPoint([nativeAddress, &foundEntryPoint](RemoteEntryPoint entryPoint)
+    {
+        if (entryPoint.IsInNativeAddressRange(nativeAddress))
+        {
+            foundEntryPoint = entryPoint;
+            return true;
+        }
+        return false;
+    });
+
+    return foundEntryPoint;
+}

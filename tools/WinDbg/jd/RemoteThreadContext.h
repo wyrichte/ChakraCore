@@ -211,6 +211,8 @@ public:
         return threadContext.Field("leafInterpreterFrame");
     }
 
+    JDRemoteTyped GetNativeLibraryEntryRecord();
+
     static bool HasThreadId();
     static bool TryGetThreadContextFromAnyContextPointer(ULONG64 contextPointer, RemoteThreadContext& remoteThreadContext);
     static bool TryGetThreadContextFromPointer(ULONG64 pointer, RemoteThreadContext& remoteThreadContext);

@@ -211,6 +211,15 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             auto newString = new std::string(std::string(moduleName) + "!CustomExternalObject");
             vtableTypeNameMap[offset] = newString;
         }
+
+        // Js::JavascriptArray vtable may be ICF'ed with Js::JavascriptNativeArray
+        // It is preferable to always report Js::JavascriptArray for all of them.  Enter the offset into the vtableTypeNameMap
+        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::JavascriptArray");
+        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        {
+            auto newString = new std::string(std::string(moduleName) + "!Js::JavascriptArray");
+            vtableTypeNameMap[offset] = newString;
+        }
     }
 
     auto i = vtableTypeNameMap.find(vtableAddr);

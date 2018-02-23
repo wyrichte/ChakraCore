@@ -242,6 +242,25 @@ public:
         return this->GetAuxWrappedFieldRecyclerData("propertyIdOnRegSlotsContainer", "Js::PropertyIdOnRegSlotsContainer");
     }
 
+    RemoteEntryPoint GetEntryPointFromNativeAddress(ULONG64 nativeCodeAddress);
+
+    template <typename Fn >
+    bool ForEachEntryPoint(Fn fn)
+    {
+        JDRemoteTyped entryPoints = this->GetEntryPoints();
+        int count = entryPoints.Field("count").GetLong();
+        JDRemoteTyped buffer = entryPoints.Field("buffer");
+        for (int i = 0; i < count; i++)
+        {
+            ULONG64 strongRef = buffer.ArrayElement(i).Field("strongRef").GetPtr();
+            if (strongRef != 0 && fn(JDRemoteTyped::FromPtrWithVtable(strongRef)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void PrintNameAndNumber();
     void PrintNameAndNumberWithLink();
     void PrintNameAndNumberWithRawLink();

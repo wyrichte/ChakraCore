@@ -41,6 +41,7 @@
     <ClCompile Include="RemoteBaseDictionary.cpp" />
     <ClCompile Include="RemoteVar.cpp" />
     <ClCompile Include="RemoteDynamicObject.cpp" />
+    <ClCompile Include="RemoteEntryPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="RemoteBaseDictionary.h" />
     <ClInclude Include="RemoteVar.h" />
     <ClInclude Include="RemoteDynamicObject.h" />
+    <ClInclude Include="RemoteEntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

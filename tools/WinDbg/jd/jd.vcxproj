@@ -53,7 +53,7 @@
         oleaut32.lib;        
         %(AdditionalDependencies)
     </AdditionalDependencies>
-     <AdditionalLibraryDirectories>
+    <AdditionalLibraryDirectories>
         $(SdkLibPath);
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
         $(InternalSdkLibPath);
@@ -80,6 +80,7 @@
     <ClCompile Include="RemoteBaseDictionary.cpp" />
     <ClCompile Include="RemoteBitVector.cpp" />
     <ClCompile Include="RemoteDynamicObject.cpp" />
+    <ClCompile Include="RemoteEntryPoint.cpp" />
     <ClCompile Include="RemoteFunctionBody.cpp" />
     <ClCompile Include="RemoteFunctionInfo.cpp" />
     <ClCompile Include="RemoteHeapBlock.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="RemoteBaseDictionary.h" />
     <ClInclude Include="RemoteBitVector.h" />
     <ClInclude Include="RemoteDynamicObject.h" />
+    <ClInclude Include="RemoteEntryPoint.h" />
     <ClInclude Include="RemoteHeapBlock.h" />
     <ClInclude Include="RecyclerObjectGraph.h" />
     <ClInclude Include="RemoteHeapBlockMap.h" />

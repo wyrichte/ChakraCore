@@ -104,7 +104,8 @@ void RemoteVar::PrintLink(char const * link)
     {
         if (link != nullptr)
         {
-            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">%s</link>", this->var, link);
+            std::string encodedLink = JDUtil::EncodeDml(link);
+            g_Ext->Dml("<link cmd=\"!jd.var 0x%p\">%s</link>", this->var, encodedLink.c_str());
         }
         else
         {
