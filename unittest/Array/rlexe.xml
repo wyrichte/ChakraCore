@@ -9,14 +9,14 @@
     <default>
       <files>bug_Issue3035.js</files>
       <compile-flags>-CollectGarbage -args summary -endargs</compile-flags>
-      <tags>BugFix,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_Issue3035.js</files>
       <compile-flags>-CollectGarbage -forcearraybtree -args summary -endargs</compile-flags>
-      <tags>BugFix,Slow</tags>
+      <tags>Slow</tags>
     </default>
   </test>
   <test>

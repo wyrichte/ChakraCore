@@ -67,7 +67,7 @@
     <default>
       <files>ES6Class_F12_issue2499.js</files>
       <compile-flags>-mic:1 -maxsimplejitruncount:2 -targeted</compile-flags>
-      <tags>exclude_dynapogo,exclude_serialized,bugfix</tags>
+      <tags>exclude_dynapogo,exclude_serialized</tags>
       <compile-flags>-args summary -endargs</compile-flags>
     </default>
   </test>

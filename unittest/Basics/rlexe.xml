@@ -12,13 +12,12 @@
   <test>
     <default>
       <files>OS_bug_3137431.html</files>
-      <tags>BugFix,exclude_drt</tags>
+      <tags>exclude_drt</tags>
     </default>
   </test>
   <test>
     <default>
       <files>docprototype.html</files>
-      <tags>BugFix</tags>
     </default>
   </test>
   <test>

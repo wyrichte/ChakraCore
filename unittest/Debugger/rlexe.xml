@@ -1631,14 +1631,14 @@
     <default>
       <files>bug_OS_2628934.html</files>
       <compile-flags>-debuglaunch</compile-flags>
-      <tags>BugFix,exclude_dynapogo</tags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>bug_OS_2744135_debugEvalSite.js</files>
       <compile-flags>-debuglaunch</compile-flags>
-      <tags>BugFix,exclude_serialized</tags>
+      <tags>exclude_serialized</tags>
     </default>
   </test>
   <test>

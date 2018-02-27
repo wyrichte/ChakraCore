@@ -11,7 +11,6 @@
     <default>
       <files>OS_2599112.html</files>
       <compile-flags>-forcedeferparse</compile-flags>
-      <tags>BugFix</tags>
     </default>
   </test>
   <test>
