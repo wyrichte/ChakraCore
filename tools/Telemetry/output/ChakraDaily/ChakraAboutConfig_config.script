@@ -78,5 +78,5 @@ usage2 =
         usage1;
 
 OUTPUT usage2
-TO SSTREAM @configOutput CLUSTERED BY Date SORTED BY Date WITH STREAMEXPIRY "365";
+TO SSTREAM @configOutput CLUSTERED BY Date SORTED BY Date WITH STREAMEXPIRY "28";
 

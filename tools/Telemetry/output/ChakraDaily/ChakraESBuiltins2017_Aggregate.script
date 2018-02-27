@@ -9,15 +9,20 @@
  * as what we'd like to have available in Kusto for quick analysis and easy access.
  */
 
+// For the NGP stuff
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+
 // hook up to the asimov date inputs, so that back runs work properly
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
 #DECLARE streamDate DateTime = @startDate.AddDays(-1);
 
 // The pivoted input file
 #IF(LOCAL)
-    #DECLARE inputFileName string = @"c:\temp\ESBuiltinsData_Pivoted.ss";
+    #DECLARE inputFileName string = @"c:\temp\ChakraPivotedData.ss";
 #ELSE
-    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ESBuiltinsData_Pivoted" , @streamDate );
+    #DECLARE inputFileName string = string.Format( @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/{0}/{1:yyyy}/{1:MM}/{0}_{1:yyyy}_{1:MM}_{1:dd}.ss", "ChakraPivotedData" , @streamDate );
 #ENDIF
 
 // The post-aggregation output file
@@ -44,11 +49,10 @@ inputData =
 // :%s/ENTRY_BUILTIN([a-zA-Z0-9]*, \([a-zA-Z0-9]*\), \([a-zA-Z0-9]*\), \([a-zA-Z0-9]*\))/SUM(\1_\2_\3_present ? 1 : 0) AS  \1_\2_\3_traces,\rSUM((UInt64)\1_\2_\3_props) AS \1_\2_\3_props_sum,\r\SUM((UInt64)\1_\2_\3_callCount) AS \1_\2_\3_callCount_sum,\rSUM((UInt64)\1_\2_\3_dMCallCount) AS \1_\2_\3_dMCallCount_sum,/g
 // :%s/\n\n/\r/g
 //
-// Or just use generatequeries.py
+// Or just use gentel.py
 
 AggregateData =
     SELECT Domain,
-           ApplicationName,
            COUNT(*) AS numpoints,
            SUM(Array_Constructor_isArray_present? 1 : 0) AS Array_Constructor_isArray_traces,
            SUM((UInt64) Array_Constructor_isArray_props) AS Array_Constructor_isArray_props_sum,
@@ -509,8 +513,7 @@ AggregateData =
            SUM(DefaultArgFunction_present? 1 : 0) AS DefaultArgFunction_traces,
            SUM((UInt64) DefaultArgFunction) AS DefaultArgFunction_sum
     FROM inputData
-    GROUP BY Domain,
-             ApplicationName;
+    GROUP BY Domain;
 
 /*
  * We filter here a little bit more to both speed up analysis passes and avoid such
@@ -523,7 +526,8 @@ AggregateData =
 FilteredData =
     SELECT *
     FROM AggregateData
-    WHERE numpoints > 3;
+    WHERE numpoints > 10;
 
 // Write to the output file
+[Privacy.Asset.NonPersonal]
 OUTPUT FilteredData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";

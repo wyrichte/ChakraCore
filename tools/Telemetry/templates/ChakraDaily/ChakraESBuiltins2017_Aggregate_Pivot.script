@@ -83,7 +83,7 @@ public class UnpivotProcessor : Processor
     }
     public override Schema GetOutputSchemaAtCompileTime(string[] requestedColumns, string[] args, Schema input)
     {
-        return new Schema("Domain:string,ApplicationName:string,numpoints:long,metric:string,parseCount:long,runCount:long,traceCount:long");
+        return new Schema("Domain:string,numpoints:long,metric:string,parseCount:long,runCount:long,traceCount:long");
     }
     public override Schema Produces(string[] requestedColumns, string[] args, Schema input)
     {
@@ -104,7 +104,6 @@ public class UnpivotProcessor : Processor
             {
                 // fill in the ouput row
                 row["Domain"].CopyTo(outputRow["Domain"]);
-                row["ApplicationName"].CopyTo(outputRow["ApplicationName"]);
                 row["numpoints"].CopyTo(outputRow["numpoints"]);
                 outputRow["metric"].Set(tuple.Item1);
                 if(tuple.Item2 != null)
@@ -131,6 +130,11 @@ public class UnpivotProcessor : Processor
     }
 }
 #ENDCS
+
+// For the NGP stuff
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
 
 // hook up to the asimov date inputs, so that back runs work properly
 #DECLARE startDate DateTime = IF("@@startDate@@".StartsWith("@@"), DateTime.UtcNow, DateTime.Parse("@@startDate@@"));
@@ -167,5 +171,5 @@ outputData =
     PRODUCE *
     USING UnpivotProcessor;
 
-
+[Privacy.Asset.NonPersonal]
 OUTPUT outputData TO SSTREAM @outputFileName WITH STREAMEXPIRY "365";
