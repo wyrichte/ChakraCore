@@ -123,6 +123,7 @@
           "[Methods]": "{...}",
           "__proto__": "{...}",
           "Arguments": "[]",
+          "Platform": "{...}",
           "StdErr": "{...}",
           "StdIn": "{...}",
           "StdOut": "{...}"

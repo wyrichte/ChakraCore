@@ -2079,6 +2079,27 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(_u("ChangeDOMElement"), activeScriptDirect, wscript, WScriptFastDom::DispatchDOMMutationBreakpoint);
     IfFailedGo(hr);
 
+    Var platform;
+    IfFailedGo(activeScriptDirect->CreateObject(&platform));
+    PropertyId platformProp;
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("Platform"), &platformProp));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, platformProp, platform, &result));
+    PropertyId intlLibraryProp, icuVersionProp;
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("INTL_LIBRARY"), &intlLibraryProp));
+    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("ICU_VERSION"), &icuVersionProp));
+    Var intlLibraryVar, icuVersionVar;
+#ifdef HAS_ICU
+    WCHAR intlLibrary[] = _u("icu");
+    int icuVersion = U_ICU_VERSION_MAJOR_NUM;
+#else
+    WCHAR intlLibrary[] = _u("winglob");
+    int icuVersion = -1;
+#endif
+    IfFailedGo(activeScriptDirect->StringToVar(intlLibrary, _countof(intlLibrary) - 1, &intlLibraryVar));
+    IfFailedGo(activeScriptDirect->IntToVar(icuVersion, &icuVersionVar));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, platform, intlLibraryProp, intlLibraryVar, &result));
+    IfFailedGo(operations->SetProperty(activeScriptDirect, platform, icuVersionProp, icuVersionVar, &result));
+
     // Create the console object
     PropertyId consolePropertyId;
     hr = activeScriptDirect->GetOrAddPropertyId(_u("console"), &consolePropertyId);

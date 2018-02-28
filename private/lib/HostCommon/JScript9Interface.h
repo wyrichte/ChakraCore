@@ -37,6 +37,7 @@ struct JsrtTestHooks
     typedef JsErrorCode (WINAPI *JsrtCallFunctionPtr)(JsValueRef function, JsValueRef* arguments, unsigned short argumentCount, JsValueRef *result);
     typedef JsErrorCode (WINAPI *JsrtNumberToDoublePtr)(JsValueRef value, double *doubleValue);
     typedef JsErrorCode (WINAPI *JsrtDoubleToNumberPtr)(double doubleValue, JsValueRef* value);
+    typedef JsErrorCode (WINAPI *JsrtIntToNumberPtr)(int intValue, JsValueRef* value);
     typedef JsErrorCode (WINAPI *JsrtGetExternalDataPtr)(JsValueRef object, void **data);
     typedef JsErrorCode (WINAPI *JsrtCreateArrayPtr)(unsigned int length, JsValueRef *result);
     typedef JsErrorCode (WINAPI *JsrtCreateArrayBufferPtr)(unsigned int byteLength, JsValueRef *result);
@@ -79,6 +80,7 @@ struct JsrtTestHooks
     JsrtCallFunctionPtr pfJsrtCallFunction;
     JsrtNumberToDoublePtr pfJsrtNumbertoDouble;
     JsrtDoubleToNumberPtr pfJsrtDoubleToNumber;
+    JsrtIntToNumberPtr pfJsrtIntToNumber;
     JsrtGetExternalDataPtr pfJsrtGetExternalData;
     JsrtCreateArrayPtr pfJsrtCreateArray;
     JsrtCreateArrayBufferPtr pfJsrtCreateArrayBuffer;
@@ -289,6 +291,7 @@ public:
     static JsErrorCode WINAPI JsrtCallFunction(JsValueRef function, JsValueRef* arguments, unsigned short argumentCount, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCallFunction(function, arguments, argumentCount, result); }
     static JsErrorCode WINAPI JsrtNumberToDouble(JsValueRef value, double* doubleValue) { return m_jsrtTestHooks.pfJsrtNumbertoDouble(value, doubleValue); }
     static JsErrorCode WINAPI JsrtDoubleToNumber(double doubleValue, JsValueRef* value) { return m_jsrtTestHooks.pfJsrtDoubleToNumber(doubleValue, value); }
+    static JsErrorCode WINAPI JsrtIntToNumber(int intValue, JsValueRef* value) { return m_jsrtTestHooks.pfJsrtIntToNumber(intValue, value); }
     static JsErrorCode WINAPI JsrtGetExternalData(JsValueRef object, void **data) { return m_jsrtTestHooks.pfJsrtGetExternalData(object, data); }
     static JsErrorCode WINAPI JsrtCreateArray(unsigned int length, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCreateArray(length, result); }
     static JsErrorCode WINAPI JsrtCreateArrayBuffer(unsigned int byteLength, JsValueRef *result) { return m_jsrtTestHooks.pfJsrtCreateArrayBuffer(byteLength, result); }

@@ -123,6 +123,7 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
     m_jsrtTestHooks.pfJsrtCallFunction = (JsrtTestHooks::JsrtCallFunctionPtr)GetProcAddress(chakraLibrary, "JsCallFunction");
     m_jsrtTestHooks.pfJsrtNumbertoDouble = (JsrtTestHooks::JsrtNumberToDoublePtr)GetProcAddress(chakraLibrary, "JsNumberToDouble");
     m_jsrtTestHooks.pfJsrtDoubleToNumber = (JsrtTestHooks::JsrtDoubleToNumberPtr)GetProcAddress(chakraLibrary, "JsDoubleToNumber");
+    m_jsrtTestHooks.pfJsrtIntToNumber = (JsrtTestHooks::JsrtIntToNumberPtr)GetProcAddress(chakraLibrary, "JsIntToNumber");
     m_jsrtTestHooks.pfJsrtGetExternalData = (JsrtTestHooks::JsrtGetExternalDataPtr)GetProcAddress(chakraLibrary, "JsGetExternalData");
     m_jsrtTestHooks.pfJsrtCreateArray = (JsrtTestHooks::JsrtCreateArrayPtr)GetProcAddress(chakraLibrary, "JsCreateArray");
     m_jsrtTestHooks.pfJsrtCreateArrayBuffer = (JsrtTestHooks::JsrtCreateArrayBufferPtr)GetProcAddress(chakraLibrary, "JsCreateArrayBuffer");

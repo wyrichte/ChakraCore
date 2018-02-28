@@ -583,11 +583,26 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
 {
     WScriptJsrt::onAttach = onAttach;
 
-    JsValueRef global, wscript, argsObject, echo, loadTextFile, loadBinaryFile, console;
+    JsValueRef global, wscript, argsObject, echo, loadTextFile, loadBinaryFile, console, platform;
     IfJsrtErrorFail(JScript9Interface::JsrtGetGlobalObject(&global), false);
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&wscript), false);
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&console), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&platform), false);
     if (!CreateArgsObject(&argsObject)) return false;
+
+    // Platform properties
+    JsValueRef intlLibraryValue, icuVersionValue;
+#ifdef HAS_ICU
+    WCHAR intlLibrary[] = _u("icu");
+    int icuVersion = U_ICU_VERSION_MAJOR_NUM;
+#else
+    WCHAR intlLibrary[] = _u("winglob");
+    int icuVersion = -1;
+#endif
+    IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(intlLibrary, _countof(intlLibrary) - 1, &intlLibraryValue), false);
+    IfJsrtErrorFail(JScript9Interface::JsrtIntToNumber(icuVersion, &icuVersionValue), false);
+    IfJsrtErrorFail(InstallPropOnObject(platform, _u("INTL_LIBRARY"), intlLibraryValue), false);
+    IfJsrtErrorFail(InstallPropOnObject(platform, _u("ICU_VERSION"), icuVersionValue), false);
 
     // WScript functions
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Echo"), EchoCallback, &echo), false);
@@ -606,6 +621,7 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("GetWorkingSet"), GetWorkingSetCallback), false);
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Flag"), FlagCallback), false);
     IfJsrtErrorFail(InstallPropOnObject(wscript, _u("Arguments"), argsObject), false);
+    IfJsrtErrorFail(InstallPropOnObject(wscript, _u("Platform"), platform), false);
 
     // console functions
     IfJsrtErrorFail(InstallPropOnObject(console, _u("log"), echo), false);
