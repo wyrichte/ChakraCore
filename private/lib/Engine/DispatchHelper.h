@@ -51,7 +51,7 @@ private:
     static HRESULT MarshalVariantToJsVarDerefed(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext* scriptContext);
     static Js::Var MarshalBSTRToJsVar(Js::ScriptContext * scriptContext, BSTR bstr);
     static HRESULT MarshalVariantToJsVarDerefedNoThrow(VARIANT *pVar, Js::Var *pAtom, Js::ScriptContext* scriptContext);
-    static inline BOOL DispatchHelper::AlreadyRecorded(HRESULT hr);
+    static inline BOOL AlreadyRecorded(HRESULT hr);
     static HRESULT ConvertToScalar(VARIANT *pvarSrc, VARIANT  *pvarDst, int vt, Js::ScriptContext *const scriptContext);
     static BOOL ConvertToScalarCore(VARIANT *pvarSrc, VARIANT  *pvarDst, int vt, Js::ScriptContext *const scriptContext);
     static HRESULT GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OLECHAR * psz, int pszLen);     

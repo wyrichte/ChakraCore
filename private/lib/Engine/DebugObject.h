@@ -284,7 +284,7 @@ public:
 
 private:
     static const USHORT profilerHeapObjectFlagsDumped = 0x8000;
-    static TypeMap HeapDumper::typeMap[];
+    static TypeMap typeMap[];
     ULONG numSnapshotElements;
     PROFILER_HEAP_OBJECT** pSnapshot;
     UINT maxPropertyId;

@@ -357,7 +357,7 @@ private:
     HostProfilerHeapObject* CreateExternalObjectElement(PROFILER_HEAP_OBJECT_NAME_ID typeNameId, Js::RecyclableObject* obj);
     ProfilerHeapObject* AllocateElement(UINT allocSize, PROFILER_HEAP_OBJECT_NAME_ID typeNameId);
     HRESULT GetHeapObjectInfo(Var instance, HostProfilerHeapObject** heapObjOut, HeapObjectInfoReturnResult& returnResult);
-    ProfilerHeapObjectOptionalInfo* ActiveScriptProfilerHeapEnum::GetNextOptionalInfo(ProfilerHeapObjectOptionalInfo* optionalInfo);
+    ProfilerHeapObjectOptionalInfo* GetNextOptionalInfo(ProfilerHeapObjectOptionalInfo* optionalInfo);
     void FreeObjectAndOptionalInfo(ProfilerHeapObject* obj);
     void FreeHostObjectExternalObjectList(HostProfilerHeapObject& hostInfo);
 
@@ -408,7 +408,7 @@ private:
     void VisitRelationshipList(PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST& list);
     template <typename T>
     void VisitDependencies(T* obj, USHORT optionalInfoCount, ULONG flags);
-    ULONG ActiveScriptProfilerHeapEnum::GetInternalPropertyFlags(PROFILER_HEAP_OBJECT_RELATIONSHIP *internalProp);
+    ULONG GetInternalPropertyFlags(PROFILER_HEAP_OBJECT_RELATIONSHIP *internalProp);
     void VisitAllDependencies(ProfilerHeapObject* obj);
     template <typename T>
     void GetOptionalInfo(__in T* obj,

@@ -58,8 +58,8 @@ public:
 
     // override these methods in subclasses
     STDMETHODIMP CreateInstance (IUnknown*, REFIID, void **) = 0;
-    STDMETHODIMP CClassFactory::RegisterServer(LPCWSTR threadModel);
-    STDMETHODIMP CClassFactory::UnregisterServer();
+    STDMETHODIMP RegisterServer(LPCWSTR threadModel);
+    STDMETHODIMP UnregisterServer();
 
     const WCHAR*     m_pszClassID;
     const WCHAR*     m_pszDescription;

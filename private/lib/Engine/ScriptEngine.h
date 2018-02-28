@@ -17,7 +17,6 @@ ulong ComputeGrfscrUTF8();
 
 extern LPOLESTR g_pszLangName;
 
-
 enum
 {
     fsiHostManaged = 0x01,
@@ -614,7 +613,7 @@ public:
         __in IActiveScriptProfilerCallback *pProfileCallback,
         __in DWORD dwEventMask,
         __in DWORD dwContext);
-    static HRESULT ScriptEngine::CheckForExternalProfiler(IActiveScriptProfilerCallback **ppProfileCallback);
+    static HRESULT CheckForExternalProfiler(IActiveScriptProfilerCallback **ppProfileCallback);
 
     void OnEnterScript(void);
     void OnLeaveScript(void);
@@ -1275,5 +1274,3 @@ public:
         return --currentRefCount;
     }
 };
-
-

@@ -317,7 +317,7 @@ namespace ProjectionModel
         RtPROPERTIESOBJECT properties;
         CorElementType baseTypeCode;  // Should be ELEMENT_TYPE_I4 or ELEMENT_TYPE_U4
         Enum(MetadataStringId typeId, const Metadata::TypeDefProperties * typeDef, RtPROPERTIESOBJECT properties, CorElementType baseTypeCode)
-            : Expr(exprEnum), typeId(typeId), typeDef(typeDef), properties(properties), baseTypeCode(baseTypeCode)	
+            : Expr(exprEnum), typeId(typeId), typeDef(typeDef), properties(properties), baseTypeCode(baseTypeCode)
         {
             Js::VerifyCatastrophic(typeDef);
             Js::VerifyCatastrophic(properties);
@@ -2176,7 +2176,7 @@ namespace ProjectionModel
             uint64TypeId = stringConverter->IdOfString(_u("UInt64"));
             objectTypeId = stringConverter->IdOfString(_u("Object"));
             char16TypeId = stringConverter->IdOfString(_u("Char16"));
-            
+
             dateTimeTypeId = stringConverter->IdOfString(GetWindowsFoundationDateTimeTypeName());
             timeSpanTypeId = stringConverter->IdOfString(GetWindowsFoundationTimeSpanTypeName());
             eventRegistrationTokenTypeId = stringConverter->IdOfString(GetWindowsFoundationEventRegistrationTokenTypeName());
@@ -2272,7 +2272,7 @@ namespace ProjectionModel
                 {
                     DeferredProjectionConstructorExpr* value = deferredConstructorMap->GetValueAt((int)offset);
                     Assert(value != nullptr);
-                    Output::Print(_u("deferredConstructorMap[%d/%d]: %s (#%d) - deferredType=%d\n"), 
+                    Output::Print(_u("deferredConstructorMap[%d/%d]: %s (#%d) - deferredType=%d\n"),
                         offset, count, this->stringConverter->StringOfId(value->typeId), value->typeId, value->deferredType);
                 }
                 Output::Flush();
@@ -2341,7 +2341,6 @@ namespace ProjectionModel
 
     private:
         bool CanMarshalType(RtTYPE type, bool fAllowGenericType = false, bool allowMissingTypes = false, bool *outWasMissingType = nullptr, bool allowWebHidden = false);
-        
 
         ImmutableList<DeferredTypeDefinitionCandidate> * implementedInterfaceConstructorsCheck;
         ImmutableList<DeferredTypeDefinitionCandidate> * currentImplementedRuntimeClassInterfaceConstructors;        // keeps track of the current RTCs being ctor-ed
@@ -2385,7 +2384,7 @@ namespace ProjectionModel
         RtFUNCTION constructorVoid;
         RtFUNCTION constructorObject;
         RtFUNCTION constructorSystemGuid;
-        
+
         RtFUNCTION constructorWindowsFoundationDateTime;
         RtFUNCTION constructorWindowsFoundationTimeSpan;
         RtFUNCTION constructorWindowsFoundationEventRegistrationToken;
@@ -2447,7 +2446,7 @@ namespace ProjectionModel
         MetadataStringId objectTypeId;
         MetadataStringId char16TypeId;
         MetadataStringId guidTypeId;
-        
+
         MetadataStringId dateTimeTypeId;
         MetadataStringId timeSpanTypeId;
         MetadataStringId eventRegistrationTokenTypeId;
@@ -2505,7 +2504,7 @@ namespace ProjectionModel
         RtABIMETHODSIGNATURE MethodSignatureOfMethod(const Metadata::TypeDefProperties * parentType, RtIID iid, const Metadata::MethodProperties * method, ImmutableList<RtTYPE> * genericParameters, MethodKind methodKind = MethodKind_Normal);
         RtABIMETHODSIGNATURE MethodSignatureOfMetadataArityGroup(RtIID iid, const MetadataArityGroup * metadataArityGroup, const Metadata::Assembly & assembly, ImmutableList<RtTYPE> * genericParameters);
         RtOVERLOADGROUP OverloadGroupOfMetadataOverloadGroup(RtIID iid, const MetadataOverloadGroup * metadataOverloadGroup, const Metadata::Assembly & assembly, ImmutableList<RtTYPE> * genericParameters);
-        ImmutableList<RtSYNTHETICPARAMETER> * ProjectionBuilder::SyntheticOverloadParameters(size_t maxArity);
+        ImmutableList<RtSYNTHETICPARAMETER> * SyntheticOverloadParameters(size_t maxArity);
         RtOVERLOADEDMETHODSIGNATURE OverloadedMethodSignatureOfOverloadGroup(const OverloadGroup * overloadGroup);
         RtPROPERTY FieldOfMetadataOverloadGroup(RtIID iid, const MetadataOverloadGroup * overloadGroup, const Metadata::TypeDefProperties * type, ImmutableList<RtTYPE> * genericParameters);
         RtEXPR LiteralOfFieldBlob(DWORD typeFlag, UVCP_CONSTANT blob);
@@ -2766,4 +2765,3 @@ namespace ProjectionModel
 
 #endif
 }
-
