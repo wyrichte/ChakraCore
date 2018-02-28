@@ -75,6 +75,20 @@
     <DisplayString Condition="m_scale == 0">[{*m_baseOpnd}+{*m_indexOpnd}]</DisplayString>
     <DisplayString>[{*m_baseOpnd}+{*m_indexOpnd}*{1 &lt;&lt; (int)m_scale}]</DisplayString>
   </Type>
+  <Type Name="IR::ListOpnd">
+    <DisplayString Condition="count == 0"></DisplayString>
+    <DisplayString Condition="count == 1">{*opnds[0]}</DisplayString>
+    <DisplayString Condition="count == 2">{*opnds[0]},{*opnds[1]}</DisplayString>
+    <DisplayString Condition="count == 3">{*opnds[0]},{*opnds[1]},{*opnds[2]}</DisplayString>
+    <DisplayString Condition="count == 4">{*opnds[0]},{*opnds[1]},{*opnds[2]},{*opnds[3]}</DisplayString>
+    <DisplayString Condition="count &gt; 4">{*opnds[0]},{*opnds[1]},{*opnds[2]},{*opnds[3]},...</DisplayString>
+    <Expand>
+      <ArrayItems>
+        <Size>count</Size>
+        <ValuePointer>opnds</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
   <Type Name="Sym">
     <DisplayString Condition="m_kind == SymKindStack">{*(StackSym *)this}</DisplayString>
     <DisplayString Condition="m_kind == SymKindProperty">{*(PropertySym *)this}</DisplayString>
