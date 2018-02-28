@@ -26,6 +26,7 @@
     <default>
       <files>39741.js</files>
       <baseline>39741.baseline</baseline>
+      <tags>require_asmjs</tags>
     </default>
   </test>
   <test>

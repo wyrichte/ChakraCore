@@ -235,7 +235,7 @@
 <dir>
   <default>
     <files>AsmJs</files>
-    <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,exclude_arm,exclude_arm64</tags>
+    <tags>exclude_apollo,exclude_dynapogo,exclude_serialized,require_asmjs</tags>
   </default>
 </dir>
 <dir>

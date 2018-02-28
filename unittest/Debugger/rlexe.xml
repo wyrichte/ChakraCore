@@ -882,7 +882,7 @@
     <default>
       <files>crosscontext1.js</files>
       <compile-flags>-ESSharedArrayBuffer -debuglaunch -targeted -dbgbaseline:crosscontext1.js.dbg.baseline -Intl-</compile-flags>
-      <tags>exclude_dynapogo,exclude_arm,exclude_arm64</tags> <!-- baseline have WebAssembly which is not supported on ARM32 and ARM64 -->
+      <tags>exclude_dynapogo,require_wasm</tags>
     </default>
   </test>
   <test>
@@ -1716,7 +1716,7 @@
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline</compile-flags>
-      <tags>exclude_arm,exclude_arm64</tags>
+      <tags>require_asmjs</tags>
     </default>
   </test>
   <test>
@@ -1724,7 +1724,7 @@
       <files>asmjsdebug.js</files>
       <baseline>asmjsdebug.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjsdebug.js.dbg.baseline -maic:0</compile-flags>
-      <tags>exclude_arm,exclude_arm64</tags>
+      <tags>require_asmjs</tags>
     </default>
   </test>
   <test>
@@ -1732,7 +1732,7 @@
       <files>asmjseval.js</files>
       <baseline>asmjseval.baseline</baseline>
       <compile-flags>-asmjs -testtrace:asmjs -targeted -dbgbaseline:asmjseval.js.dbg.baseline</compile-flags>
-      <tags>exclude_arm,exclude_arm64</tags>
+      <tags>require_asmjs</tags>
     </default>
   </test>
   <test>
