@@ -466,7 +466,7 @@ void FastDomTestCase9(MyScriptDirectTests* mytest,Verifier<MyScriptDirectTests>*
 void FastDomTestCase10(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests>* verify)
 {
     static const __int64 intValue[] = {0xFFF8000000000000ull, 0x7fffff0000000000ull, 0xFFFf000000000000ull, 0xFF00000000000000ull, 0xFFFFF00000000000ull};
-#ifdef _M_X64
+#if defined(_M_X64) || defined(_M_ARM64)
     static const BOOL shouldEqual[] = {true,                   false,                false,                true,                  false };
 #else
     static BOOL shouldEqual[] = {         true,                    true,                 true,                     true,                  true };

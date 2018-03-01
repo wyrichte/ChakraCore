@@ -6,7 +6,7 @@
       <baseline>sca_basic.baseline</baseline>
     </default>
     <condition order="1" type="include">
-      <target>amd64</target>
+      <target>amd64,arm64</target>
       <override>
         <baseline>sca_basic.x64.baseline</baseline>
       </override>
@@ -44,7 +44,7 @@
       <baseline>sca_object.baseline</baseline>
     </default>
     <condition order="1" type="include">
-      <target>amd64</target>
+      <target>amd64,arm64</target>
       <override>
         <baseline>sca_object.x64.baseline</baseline>
       </override>
@@ -89,7 +89,7 @@
       <tags>Slow,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
-      <target>amd64</target>
+      <target>amd64,arm64</target>
       <override>
         <baseline>sca_array.x64.baseline</baseline>
       </override>
@@ -103,7 +103,7 @@
       <tags>Slow,exclude_nonrazzle</tags>
     </default>
     <condition order="1" type="include">
-      <target>amd64</target>
+      <target>amd64,arm64</target>
       <override>
         <baseline>sca_array.x64.baseline</baseline>
       </override>
