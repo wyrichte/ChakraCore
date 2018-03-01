@@ -1061,7 +1061,7 @@
     <default>
       <files>scriptContextClosed.js</files>
       <compile-flags>-ESSharedArrayBuffer -targeted -debuglaunch -InspectMaxStringLength:20 -dbgbaseline:scriptContextClosed.js.dbg.arm64.baseline</compile-flags>
-      <tags>exclude_winglob,exclude_x86,exclude_x64</tags>
+      <tags>exclude_winglob,exclude_x86,exclude_arm64</tags>
     </default>
   </test>
   <test>
