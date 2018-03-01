@@ -10,16 +10,9 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_arm64</tags>
+      <tags>HeapEnum</tags>
       <files>array.js</files>
       <baseline>array.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_arm,exclude_x86,exclude_amd64</tags>
-      <files>array.js</files>
-      <baseline>array.arm64.baseline</baseline>
     </default>
   </test>
   <test>
@@ -285,32 +278,30 @@
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_amd64</tags>
+      <tags>HeapEnum</tags>
       <files>closure_nested.js</files>
       <baseline>closure_nested.baseline</baseline>
       <compile-flags>-force:deferparse</compile-flags>
     </default>
+    <condition order="1" type="include">
+      <target>amd64,arm64</target>
+      <override>
+        <baseline>closure_nested.amd64.baseline</baseline>
+      </override>
+    </condition>
   </test>
   <test>
     <default>
-      <tags>HeapEnum,exclude_x86,exclude_arm,exclude_arm64</tags>
-      <files>closure_nested.js</files>
-      <baseline>closure_nested.amd64.baseline</baseline>
-    </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_amd64</tags>
+      <tags>HeapEnum</tags>
       <files>closure_nested_eval.js</files>
       <baseline>closure_nested_eval.baseline</baseline>
     </default>
-  </test>
-  <test>
-    <default>
-      <tags>HeapEnum,exclude_x86,exclude_arm,exclude_arm64</tags>
-      <files>closure_nested_eval.js</files>
-      <baseline>closure_nested_eval.amd64.baseline</baseline>
-    </default>
+    <condition order="1" type="include">
+      <target>amd64,arm64</target>
+      <override>
+        <baseline>closure_nested_eval.amd64.baseline</baseline>
+      </override>
+    </condition>
   </test>
   <test>
     <default>
