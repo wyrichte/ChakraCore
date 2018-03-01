@@ -242,13 +242,6 @@ if "%_buildType%" == "chk" (
 set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -DumpOnCrash
 )
 
-@rem For Apollo, we will exclude tests that have the tag "exclude_apollo".
-set _ExcludeApolloTests=
-if "%APOLLO%" == "1" (
-    set _ExcludeApolloTests=-nottags exclude_apollo
-    set TARGET_OS=wp8
-)
-
 :: If running as part of DRT/nightly, we do not need to setup the test harnesses.
 if "%_drt%" == "" (
     if "%_nightly%" == "" (
@@ -486,7 +479,7 @@ if "%_TESTCONFIG%"=="forceserialized" (
 echo %_TESTCONFIG% > %_logsRoot%\_currentRun.tmp
 :: Default variant is no longer run.
 :: if "%_TESTCONFIG%"=="default"      set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -speculationcap:0 %_dynamicprofilecache%
-set _runCmd=call %_runAllRLTestsDir%\runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_ExcludeApolloTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
+set _runCmd=call %_runAllRLTestsDir%\runtests.cmd %_JCBinaryArgument% %_DIRS% -logverbose %_TAGS% %_NOTTAGS% %_DIRTAGS% %_DIRNOTTAGS% -nottags fails_%_TESTCONFIG% -nottags fail_%TARGET_OS% -nottags exclude_%_TESTCONFIG% -nottags exclude_%_buildArch% -nottags exclude_%TARGET_OS% -nottags exclude_%_buildType% %_exclude_serialized% %_exclude_forcedeferparse% %_exclude_nodeferparse% %_exclude_forceundodefer% %_ExcludeHtmlTests% %_ExcludeIntlTests% %_RLMode% %EXTRA_RL_FLAGS% %_rebase%
 echo %_runCmd%
 %_runCmd% 2>&1
 

@@ -2,7 +2,7 @@
 <regress-exe>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>JavascriptCausalityWrappers.js</files>
       <baseline>JavascriptCausalityWrappers.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -10,7 +10,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForETW.js</files>
       <baseline>StackForETW.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -18,7 +18,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForETW.js</files>
       <baseline>StackForETW_noDBG.baseline</baseline>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
@@ -27,7 +27,7 @@
   <!-- Enable when mshtmlhost supports DebugLaunch 
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>ScriptTags.html</files>
       <baseline>ScriptTags.baseline</baseline>
 	  <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -37,7 +37,7 @@
   !-->
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForLib.js</files>
       <baseline>StackForLib.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -45,7 +45,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForLib.js</files>
       <baseline>StackForLib_noDBG.baseline</baseline>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
@@ -53,7 +53,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForETWDynamicCode.js</files>
       <baseline>StackForETWDynamicCode.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch</compile-flags>
@@ -61,7 +61,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7</tags>
+      <tags>exclude_win7</tags>
       <files>StackForETWDynamicCode.js</files>
       <baseline>StackForETWDynamicCode_noDBG.baseline</baseline>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
@@ -69,7 +69,6 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo</tags>
       <files>TestCausalityEnums.js</files>
       <baseline>TestCausalityEnums.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
@@ -77,7 +76,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7,exclude_win8</tags>
+      <tags>exclude_win7,exclude_win8</tags>
       <files>TestBasicActiveScriptDirectAsyncCausality.js</files>
       <baseline>TestBasicActiveScriptDirectAsyncCausality.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>
@@ -85,7 +84,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_apollo,exclude_win7,exclude_win8</tags>
+      <tags>exclude_win7,exclude_win8</tags>
       <files>TestAsyncDebugWithScriptClosed.js</files>
       <baseline>TestAsyncDebugWithScriptClosed.baseline</baseline>
       <compile-flags>-AsyncDebugging -TraceAsyncDebugCalls -DebugLaunch -nativetest:NativeUnitTests.dll AsyncDebugTest</compile-flags>

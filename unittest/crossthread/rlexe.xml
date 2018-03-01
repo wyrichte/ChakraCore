@@ -5,56 +5,48 @@
       <files>ObjectToString.js</files>
       <baseline>ObjectToString.baseline</baseline>
       <compile-flags>-Intl-</compile-flags>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectFreeze.js</files>
       <baseline>ObjectFreeze.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectSeal.js</files>
       <baseline>ObjectSeal.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectPreventExtensions.js</files>
       <baseline>ObjectPreventExtensions.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectDefineProperty.js</files>
       <baseline>ObjectDefineProperty.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectDefineProperties.js</files>
       <baseline>ObjectDefineProperties.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ObjectEnumerators.js</files>
       <baseline>ObjectEnumerators.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>String.js</files>
       <baseline>String.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -62,14 +54,12 @@
       <files>Number.js</files>
       <baseline>Number.baseline</baseline>
       <compile-flags>-Intl-</compile-flags>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>Boolean.js</files>
       <baseline>Boolean.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -82,21 +72,18 @@
       <files>Date.js</files>
       <baseline>Date.baseline</baseline>
       <compile-flags>-Intl-</compile-flags>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>JSON.js</files>
       <baseline>JSON.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>Array.js</files>
       <baseline>Array.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -118,28 +105,24 @@
     <default>
       <files>testthis.js</files>
       <baseline>testthis.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>forIn.js</files>
       <baseline>forIn.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>forIncontext.js</files>
       <baseline>forIncontext.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>forIn.js</files>
       <baseline>forIn.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -152,14 +135,13 @@
     <default>
       <compile-flags>-crashOnException -SwallowExceptions -maxInterpretCount:1 -off:simpleJit -debug  -FaultInjection:1 -FaultInjectionType:1 -FaultInjectionCount:15382</compile-flags>
       <files>821662.js</files>
-      <tags>exclude_fre,exclude_apollo,exclude_serialized,fail</tags>
+      <tags>exclude_fre,exclude_serialized,fail</tags>
     </default>
   </test>
   <test>
     <default>
       <files>RegExp.js</files>
       <baseline>RegExp.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -167,7 +149,6 @@
       <compile-flags>-Force:Deferparse</compile-flags>
       <files>defercross.js</files>
       <baseline>defercross.baseline</baseline>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -199,7 +180,6 @@
   <test>
     <default>
       <files>bug705618.js</files>
-      <tags>exclude_apollo</tags>
     </default>
   </test>
   <test>
@@ -207,7 +187,7 @@
       <compile-flags> -FaultInjection:1 -FaultInjectionCount:0 -FaultInjectionType:64 -FaultInjectionScriptContextToTerminateCount:2 -CollectGarbage</compile-flags>
       <files>FaultInjectionForScriptTermination.js</files>
       <baseline>FaultInjectionForScriptTermination.baseline</baseline>
-      <tags>exclude_fre,exclude_apollo,Slow</tags>
+      <tags>exclude_fre,Slow</tags>
     </default>
   </test>
   <test>
@@ -229,7 +209,7 @@
     <default>
       <files>DebugFuncExecutorInDisposeObject4.js</files>
       <baseline>DebugFuncExecutorInDisposeObject4.baseline</baseline>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre</tags>
     </default>
   </test>
   <test>
@@ -251,27 +231,26 @@
       <files>bug1083203.js</files>
       <baseline>bug1083203.baseline</baseline>
       <compile-flags> -maxsimplejitruncount:2 -maxinterpretcount:1 -off:nativearray</compile-flags>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre</tags>
     </default>
   </test>
   <test>
     <default>
       <files>proxybug1.js</files>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre</tags>
     </default>
   </test>
   <test>
     <default>
       <files>cctxProxyBug.js</files>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre</tags>
     </default>
   </test>
   <test>
     <default>
       <files>objectcall.js</files>
       <compile-flags>-enableMiscWScriptFunctions</compile-flags>
-      <tags>exclude_fre,exclude_apollo</tags>
+      <tags>exclude_fre</tags>
     </default>
   </test>
-  <!-- WHEN ADDING A NEW TEST: for cross-thread test, make sure you add exclude_apollo tag for it -->
 </regress-exe>

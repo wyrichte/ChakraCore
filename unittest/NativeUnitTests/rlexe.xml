@@ -117,7 +117,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll VersionTest</compile-flags>
       <files>dummy.js</files>
       <baseline>VersionTest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,fail,exclude_jsrt</tags>
+      <tags>exclude_arm,fail,exclude_jsrt</tags>
     </default>
   </test>
   <test>
@@ -125,7 +125,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll ScriptDiagSerialization</compile-flags>
       <files>dummy.js</files>
       <baseline>ScriptDiagSerialization.baseline</baseline>
-      <tags>exclude_apollo,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -133,7 +133,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll VarToNativeArrayTest</compile-flags>
       <files>dummy.js</files>
       <baseline>VarToNativeArray.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -141,7 +141,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll DirectAPITest</compile-flags>
       <files>dummy.js</files>
       <baseline>DirectAPITest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -149,7 +149,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll DirectAPINoScriptScopeTest</compile-flags>
       <files>dummy.js</files>
       <baseline>DirectAPINoScriptScopeTest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -158,7 +158,7 @@
       <files>dummy.js</files>
       <baseline>DirectAPINoScriptScopeErrorCaseTest.baseline</baseline>
       <!-- exclude_chk because we expect this test to hit an assert in Debug mode, and this is intended to test the behavior in release mode -->
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
@@ -167,7 +167,7 @@
       <files>dummy.js</files>
       <baseline>DirectAPINoScriptScopeFailfastTest.baseline</baseline>
       <!-- exclude_chk because we expect this test to FailFast and the message printed is different in debug versus test -->
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
   <test>
@@ -175,7 +175,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll DirectAPIDisableNoScriptScopeTest</compile-flags>
       <files>dummy.js</files>
       <baseline>DirectAPIDisableNoScriptScopeTest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_jsrt,exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -183,7 +183,7 @@
       <compile-flags>-nativetest:NativeUnitTests.dll StaticLibVerificationTest</compile-flags>
       <files>dummy.js</files>
       <baseline>StaticLibVerificationTest.baseline</baseline>
-      <tags>exclude_apollo,exclude_arm,exclude_arm64,exclude_jsrt,exclude_dynapogo</tags>
+      <tags>exclude_arm,exclude_arm64,exclude_jsrt,exclude_dynapogo</tags>
     </default>
     <condition order="1" type="include">
       <target>amd64</target>
