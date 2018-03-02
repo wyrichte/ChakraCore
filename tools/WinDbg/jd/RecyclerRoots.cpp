@@ -1796,6 +1796,8 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{lib;b,o;library;Infer and display per library}"
     "{fl;ed,o;filterLib;Filter to library}"
     "{fs;edn=(10),o;filterSize;Filter to object size}"
+    "{fsmin;edn=(10),o;filterSizeMin;Filter to minimum object size}"
+    "{fsmax;edn=(10),o;filterSizeMax;Filter to maximum object size}"
 )
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
@@ -1810,10 +1812,18 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const bool groupUnknown = HasArg("g");
     const bool hasFilterLib = HasArg("fl");
     const bool hasFilterSize = HasArg("fs");
+    const bool hasFilterSizeMin = HasArg("fsmin");
+    const bool hasFilterSizeMax = HasArg("fsmax");
     const bool perLibrary = hasFilterLib || HasArg("lib");
 
+    if (hasFilterSize && (hasFilterSizeMin || hasFilterSizeMax))
+    {
+        throw ExtException(E_FAIL, "Can't specify both -fs and -fsmin/-fsmax");
+    }
     const ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
     const ULONG64 sizeFilter = hasFilterSize ? GetArgU64("fs") : (ULONG64)-1;
+    const ULONG64 sizeFilterMin = hasFilterSizeMin ? GetArgU64("fsmin") : (ULONG64)0;
+    const ULONG64 sizeFilterMax = hasFilterSizeMax ? GetArgU64("fsmax") : (ULONG64)-1;
 
     if (sortByCount && sortByName)
     {
@@ -1906,8 +1916,14 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         }
     } perLibraryObjectCountData;
 
+    ULONG64 actualTotalSize = 0;
+    ULONG64 actualTotalCount = 0;
+
     objectGraph.MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
+        actualTotalCount++;
+        actualTotalSize += node->GetObjectSize();
+
         if (hasFilterSize)
         {
             if (node->GetObjectSize() != sizeFilter)
@@ -1915,6 +1931,12 @@ JD_PRIVATE_COMMAND(jsobjectstats,
                 return;
             }
         }
+
+        if (node->GetObjectSize() < sizeFilterMin || node->GetObjectSize() > sizeFilterMax)
+        {
+            return;
+        }
+
         ObjectCountData * objectCountData;
         if (perLibrary)
         {
@@ -2016,6 +2038,12 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
                 Out("| ");
             }
+            else if (currCount == 0 && currSize == 0)
+            {
+                // Some entries only have unknown count, if we don't show unknown, and it is 0, don't show the entry.
+                continue;
+            }
+
             Out("%7I64u %11I64u %5.1f%% %5.1f%% ", currCount, currSize, (double)currCount / (double)numNodes * 100,
                 (double)currSize / (double)totalSize * 100);
 
@@ -2066,7 +2094,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out("                                          | ");
         }
 
-        Out("%7I64u %11I64u               Total object summary\n", numNodes, totalSize);
+        Out("%7I64u %11I64u %5.1f%% %5.1f%% Total object summary\n", numNodes, totalSize, (double)numNodes / (double)actualTotalCount * 100, (double)totalSize / (double)actualTotalSize * 100);
         Out("Found %d (%d vtable, %d field)\n", objectCounts.size(), vtableCount, objectCounts.size() - vtableCount);
     };
 
