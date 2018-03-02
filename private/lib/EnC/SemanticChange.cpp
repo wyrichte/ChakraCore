@@ -67,7 +67,7 @@ namespace Js
             case EditKind::Move:
                 if (edit.OldNode()->nop == knopFncDecl)
                 {
-                    LocalFunctionId functionId = edit.OldNode()->sxFnc.functionId;
+                    LocalFunctionId functionId = edit.OldNode()->AsParseNodeFnc()->functionId;
                     int editIndex = m_functionIdToEditIndex.Lookup(functionId, /*default*/-1);
 
                     if (editIndex < 0)
@@ -113,7 +113,7 @@ namespace Js
         {
             if (x->nop == knopFncDecl)
             {
-                m_functionIdToNode.Add(x->sxFnc.functionId, x);
+                m_functionIdToNode.Add(x->AsParseNodeFnc()->functionId, x);
             }
         });
     }
@@ -215,7 +215,7 @@ namespace Js
         // If they have same closure, recursively check/move/update nested functions.
         // Otherwise no nested functions can update. (We might improve this in future. There can be nested functions that don't use closure and not affected.)
         //
-        FunctionBody* newBody = m_diff.NewTree().GetUtf8SourceInfo()->FindFunction(edit.NewNode()->sxFnc.functionId);
+        FunctionBody* newBody = m_diff.NewTree().GetUtf8SourceInfo()->FindFunction(edit.NewNode()->AsParseNodeFnc()->functionId);
         Assert(newBody);
         if (AreSameClosure(top, newBody))
         {
@@ -300,7 +300,7 @@ namespace Js
     bool SemanticChangeAnalyzer::IsTopLevelDeclaration(ParseNodePtr node)
     {
         Assert(node->nop == knopFncDecl);
-        return node->parent->nop == knopProg && node->sxFnc.IsDeclaration();
+        return node->parent->nop == knopProg && node->AsParseNodeFnc()->IsDeclaration();
     }
 
     //

@@ -802,7 +802,7 @@ namespace Js
                 // var funcVar = func() will also not add to global
                 if (functionDeclarationNode->parent->nop == knopProg) 
                 {
-                    if (functionDeclarationNode->sxFnc.pid != nullptr) // Anonymous functions are not added to global
+                    if (functionDeclarationNode->AsParseNodeFnc()->pid != nullptr) // Anonymous functions are not added to global
                     {
                         AddAddGlobal(semanticChange);
                     }
@@ -917,7 +917,7 @@ namespace Js
     void ScriptEditAction::UpdateFunction::Commit()
     {
         FunctionBody* newBody = m_ownerScriptEditAction->GetScriptDiff()->NewTree().GetUtf8SourceInfo()->FindFunction(
-            m_semanticChange.NewNode()->sxFnc.functionId);
+            m_semanticChange.NewNode()->AsParseNodeFnc()->functionId);
         Assert(newBody);
 
         // Change these functionObject to use new functionBody
@@ -946,7 +946,7 @@ namespace Js
         ScriptContext* scriptContext = m_ownerScriptEditAction->GetScriptEdit()->GetScriptContext();
         ParseNodePtr functionNode = m_semanticChange.NewNode();
 
-        FunctionBody* newBody = m_ownerScriptEditAction->GetScriptDiff()->NewTree().GetUtf8SourceInfo()->FindFunction(functionNode->sxFnc.functionId);
+        FunctionBody* newBody = m_ownerScriptEditAction->GetScriptDiff()->NewTree().GetUtf8SourceInfo()->FindFunction(functionNode->AsParseNodeFnc()->functionId);
         Assert(newBody);
 
         GlobalObject* globalObject = scriptContext->GetGlobalObject();
@@ -959,7 +959,7 @@ namespace Js
         BEGIN_TRANSLATE_OOM_TO_HRESULT
             BEGIN_JS_RUNTIME_CALL_NOT_SCRIPT(scriptContext)
                 PropertyRecord const * propertyRecord;
-                scriptContext->GetOrAddPropertyRecord(functionNode->sxFnc.pid->Psz(), functionNode->sxFnc.pid->Cch(), &propertyRecord);
+                scriptContext->GetOrAddPropertyRecord(functionNode->AsParseNodeFnc()->pid->Psz(), functionNode->AsParseNodeFnc()->pid->Cch(), &propertyRecord);
                 PropertyId newFunctionPropertyId = propertyRecord->GetPropertyId();
                 if (!globalObject->HasProperty(newFunctionPropertyId)) 
                 {
