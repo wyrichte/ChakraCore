@@ -174,7 +174,7 @@ void __stdcall CreateSharedArrayBufferFromContent(IActiveScriptDirect * scriptDi
 }
 
 
-#ifdef ENABLE_INTL_OBJECT
+#if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
 void __stdcall ResetTimeZoneFactoryObjects()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
@@ -482,7 +482,7 @@ HRESULT OnJScript9Loaded()
         FlushOutput,
         GetContentOfSharedArrayBuffer,
         CreateSharedArrayBufferFromContent,
-#ifdef ENABLE_INTL_OBJECT
+#if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
         ResetTimeZoneFactoryObjects,
 #endif
 #ifdef FAULT_INJECTION

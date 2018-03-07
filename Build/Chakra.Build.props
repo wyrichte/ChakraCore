@@ -152,6 +152,13 @@
                   -->
       </DisableSpecificWarnings>
 
+      <PreprocessorDefinitions Condition="'$(UseICU)'=='true'">
+        %(PreprocessorDefinitions);
+        HAS_ICU;
+        WINDOWS10_ICU;
+        INTL_ICU=1
+      </PreprocessorDefinitions>
+
     </ClCompile>
 
     <Link>

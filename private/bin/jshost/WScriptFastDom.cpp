@@ -7,6 +7,7 @@
 #include "WscriptFastDom.h"
 #include "Jscript9Interface.h"
 #include "hostsysinfo.h"
+#include "PlatformAgnostic\ChakraICU.h"
 
 #include <initguid.h>
 #include <guids.h>
@@ -2090,7 +2091,7 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     Var intlLibraryVar, icuVersionVar;
 #ifdef HAS_ICU
     WCHAR intlLibrary[] = _u("icu");
-    int icuVersion = U_ICU_VERSION_MAJOR_NUM;
+    int icuVersion = PlatformAgnostic::ICUHelpers::GetICUMajorVersion();
 #else
     WCHAR intlLibrary[] = _u("winglob");
     int icuVersion = -1;

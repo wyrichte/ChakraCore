@@ -6,6 +6,7 @@
 
 #include "StdAfx.h"
 #include "WScriptJsrt.h"
+#include "PlatformAgnostic\ChakraICU.h"
 
 WScriptJsrt::OnAttachCallback WScriptJsrt::onAttach;
 
@@ -594,7 +595,7 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     JsValueRef intlLibraryValue, icuVersionValue;
 #ifdef HAS_ICU
     WCHAR intlLibrary[] = _u("icu");
-    int icuVersion = U_ICU_VERSION_MAJOR_NUM;
+    int icuVersion = PlatformAgnostic::ICUHelpers::GetICUMajorVersion();
 #else
     WCHAR intlLibrary[] = _u("winglob");
     int icuVersion = -1;

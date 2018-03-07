@@ -46,7 +46,7 @@ struct TestHooks
     typedef void(__stdcall * DisplayMemStatsPtr)();
     typedef void (__stdcall *GetContentOfSharedArrayBufferPtr)(Var instance, void** content);
     typedef void (__stdcall *CreateSharedArrayBufferFromContentPtr)(IActiveScriptDirect * scriptDirect, void* content, Var* instance);
-#ifdef ENABLE_INTL_OBJECT
+#if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
     typedef void(__stdcall * ClearTimeZoneCalendarsPtr)();
 #endif
 #ifdef FAULT_INJECTION
@@ -79,7 +79,7 @@ struct TestHooks
     FlushOutputPtr pfFlushOutput;
     GetContentOfSharedArrayBufferPtr pfGetContentOfSharedArrayBuffer;
     CreateSharedArrayBufferFromContentPtr pfCreateSharedArrayBufferFromContent;
-#ifdef ENABLE_INTL_OBJECT
+#if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
     ClearTimeZoneCalendarsPtr pfResetTimeZoneFactoryObjects;
 #endif
 #ifdef FAULT_INJECTION

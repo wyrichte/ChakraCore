@@ -223,7 +223,7 @@ void JScript9Interface::DisplayRecyclerStats()
     CHECKED_CALL(DisplayMemStats);
 }
 
-#ifdef ENABLE_INTL_OBJECT
+#if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
 void JScript9Interface::ResetTimeZoneFactoryObjects()
 {
     CHECKED_CALL(ResetTimeZoneFactoryObjects);

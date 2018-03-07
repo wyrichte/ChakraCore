@@ -108,6 +108,12 @@
       <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
+    <Link Condition="'$(UseICU)'=='true'">
+      <AdditionalDependencies>
+        %(AdditionalDependencies);
+        $(SdkLibPath)\icuuc.lib
+      </AdditionalDependencies>
+    </Link>
     <PostBuildEvent Condition="'$(BuildingWithBuildExe)'!='true'">
       <Command Condition="'$(Configuration)'!='Release'">"$(ProjectDir)postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)" "$(ARMRemoteShare)"</Command>
     </PostBuildEvent>
@@ -158,8 +164,12 @@
     </ClCompile>
     <ClCompile Include="TestUtilities.cpp" />
     <ClCompile Include="TypeResolution.cpp" />
-    <ClCompile Include="WScriptFastDom.cpp" />
-    <ClCompile Include="WScriptJsrt.cpp" />
+    <ClCompile Include="WScriptFastDom.cpp">
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)core\lib\Runtime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="WScriptJsrt.cpp">
+      <AdditionalIncludeDirectories>$(ChakraRootDirectory)core\lib\Runtime;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteCodeVerification.h" />
