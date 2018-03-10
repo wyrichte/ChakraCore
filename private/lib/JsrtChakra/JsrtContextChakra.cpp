@@ -249,6 +249,12 @@ void JsrtContextChakra::InitSite(JsrtRuntime *runtime)
         scriptContext->ForceNoNative();
     }
 
+    if (runtime->GetThreadContext()->NoDynamicThunks())
+    {
+        Js::ScriptContext * scriptContext = this->scriptEngine->GetScriptContext();
+        scriptContext->ForceNoDynamicThunks();
+    }
+
     JsrtComException::ThrowIfFailed(this->scriptEngine->InitNew());
     JsrtComException::ThrowIfFailed(this->scriptEngine->SetScriptState(SCRIPTSTATE_STARTED));
 
