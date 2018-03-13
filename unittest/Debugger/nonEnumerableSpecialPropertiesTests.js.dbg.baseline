@@ -275,6 +275,14 @@
           ],
           "flagsAsValue": 2048
         },
+        "name": "RegExp",
+        "name - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
+        },
         "prototype": "",
         "prototype - [Attributes]": {
           "flags": [

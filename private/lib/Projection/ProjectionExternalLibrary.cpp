@@ -98,11 +98,9 @@ bool ProjectionExternalLibrary::InitializeWinRTErrorConstructor(Js::DynamicObjec
     Js::JavascriptLibrary* library = constructor->GetLibrary();
     library->AddMember(constructor, Js::PropertyIds::prototype, projectionContext->GetProjectionExternalLibrary()->GetWinRTErrorPrototype(), PropertyNone);
     library->AddMember(constructor, Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(1), PropertyNone);
-    if (scriptContext->GetConfig()->IsES6FunctionNameEnabled())
-    {
-        Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable;
-        library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
-    }
+    Js::PropertyAttributes prototypeNameMessageAttributes = PropertyConfigurable;
+    library->AddMember(constructor, Js::PropertyIds::name, library->CreateStringFromCppLiteral(_u("WinRTError")), prototypeNameMessageAttributes);
+
     constructor->SetHasNoEnumerableProperties(true);
     return true;
 }
