@@ -348,7 +348,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         IfFailedReturn(hr);
 
         void* slotAddr = nullptr;
-        slotAddr = JsStaticAPI::ExternalObject::VarToExtension(externalVar) + slot_idx;
+        slotAddr = JsStaticAPI::ExternalObject::VarToExtension(externalVar);
         IfFailedReturn(hr);
         ((void**)slotAddr)[0] = externalVar;
         ((void**)slotAddr)[slot_idx] = jsFunction;

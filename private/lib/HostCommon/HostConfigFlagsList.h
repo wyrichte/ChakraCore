@@ -37,6 +37,7 @@ FLAG(bool, VerifyShortAndFullNameValues,    "Check that /**bp:evaluate()**/ shor
 FLAG(bool, PerformUTF8BoundaryTest,         "Performs a serialize/deserialize test on utf8 boundary aligned source, source length must be a factor of 4096.", false)
 FLAG(bool, DiagnosticsEngine,               "Create default engine as diagnostics engine (simulate the engine used to run F12 JS code).", false)
 FLAG(bool, EnableMiscWScriptFunctions,      "Some functions on WScript are disabled, this is for enabling them.", false)
+FLAG(bool, WScriptPlatform,                 "Enable WScript.Platform, which is used by core tests", true)
 FLAG(bool, EnableExtendedErrorMessages,     "JSHost will by default print short error mesages, this is for enabling the long format.", false)
 FLAG(bool, EvalRestriction,                 "Puts the script engine into Eval restricted mode, to restrict eval access use WScript.RegisterEvalApprover(func).", false)
 FLAG(bool, EvalIsAllowed,                   "If EvalRestriction flag is specified, this flag is used to determine the default value of 'IsEvalAllowed' API call that will be done on the host.", false)

@@ -584,26 +584,54 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
 {
     WScriptJsrt::onAttach = onAttach;
 
-    JsValueRef global, wscript, argsObject, echo, loadTextFile, loadBinaryFile, console, platform;
+    JsValueRef global, wscript, argsObject, echo, loadTextFile, loadBinaryFile, console;
     IfJsrtErrorFail(JScript9Interface::JsrtGetGlobalObject(&global), false);
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&wscript), false);
     IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&console), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&platform), false);
     if (!CreateArgsObject(&argsObject)) return false;
 
     // Platform properties
-    JsValueRef intlLibraryValue, icuVersionValue;
+    if (HostConfigFlags::flags.WScriptPlatform)
+    {
+        JsValueRef platform;
+        IfJsrtErrorFail(JScript9Interface::JsrtCreateObject(&platform), false);
+
+        JsValueRef intlLibraryValue, icuVersionValue, osValue, buildTypeValue, archValue;
 #ifdef HAS_ICU
-    WCHAR intlLibrary[] = _u("icu");
-    int icuVersion = PlatformAgnostic::ICUHelpers::GetICUMajorVersion();
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("icu"), 3, &intlLibraryValue), false);
+        IfJsrtErrorFail(JScript9Interface::JsrtIntToNumber(PlatformAgnostic::ICUHelpers::GetICUMajorVersion(), &icuVersionValue), false);
 #else
-    WCHAR intlLibrary[] = _u("winglob");
-    int icuVersion = -1;
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("winglob"), 7, &intlLibraryValue), false);
+        IfJsrtErrorFail(JScript9Interface::JsrtIntToNumber(-1, &icuVersionValue), false);
 #endif
-    IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(intlLibrary, _countof(intlLibrary) - 1, &intlLibraryValue), false);
-    IfJsrtErrorFail(JScript9Interface::JsrtIntToNumber(icuVersion, &icuVersionValue), false);
-    IfJsrtErrorFail(InstallPropOnObject(platform, _u("INTL_LIBRARY"), intlLibraryValue), false);
-    IfJsrtErrorFail(InstallPropOnObject(platform, _u("ICU_VERSION"), icuVersionValue), false);
+
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("win32"), 5, &osValue), false);
+
+#ifdef _DEBUG
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("Debug"), 5, &buildTypeValue), false);
+#elif defined(ENABLE_DEBUG_CONFIG_OPTIONS)
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("Test"), 4, &buildTypeValue), false);
+#else
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("Release"), 7, &buildTypeValue), false);
+#endif
+
+#if defined(_X86_) || defined(_M_IX86)
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("x86"), 3, &archValue), false);
+#elif defined(_AMD64_) || defined(_IA64_) || defined(_M_AMD64) || defined(_M_IA64)
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("x86_64"), 6, &archValue), false);
+#elif defined(_ARM_) || defined(_M_ARM)
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("ARM"), 3, &archValue), false);
+#elif defined(_ARM64_) || defined(_M_ARM64)
+        IfJsrtErrorFail(JScript9Interface::JsrtPointerToString(_u("ARM64"), 5, &archValue), false);
+#endif
+
+        IfJsrtErrorFail(InstallPropOnObject(platform, _u("INTL_LIBRARY"), intlLibraryValue), false);
+        IfJsrtErrorFail(InstallPropOnObject(platform, _u("ICU_VERSION"), icuVersionValue), false);
+        IfJsrtErrorFail(InstallPropOnObject(platform, _u("OS"), osValue), false);
+        IfJsrtErrorFail(InstallPropOnObject(platform, _u("BUILD_TYPE"), buildTypeValue), false);
+        IfJsrtErrorFail(InstallPropOnObject(platform, _u("ARCH"), archValue), false);
+    }
+    
 
     // WScript functions
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Echo"), EchoCallback, &echo), false);
@@ -622,7 +650,6 @@ bool WScriptJsrt::Initialize(OnAttachCallback onAttach)
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("GetWorkingSet"), GetWorkingSetCallback), false);
     IfJsrtErrorFail(InstallFunctionOnObject(wscript, _u("Flag"), FlagCallback), false);
     IfJsrtErrorFail(InstallPropOnObject(wscript, _u("Arguments"), argsObject), false);
-    IfJsrtErrorFail(InstallPropOnObject(wscript, _u("Platform"), platform), false);
 
     // console functions
     IfJsrtErrorFail(InstallPropOnObject(console, _u("log"), echo), false);

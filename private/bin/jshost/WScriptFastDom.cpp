@@ -2080,26 +2080,53 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     hr = AddMethodToObject(_u("ChangeDOMElement"), activeScriptDirect, wscript, WScriptFastDom::DispatchDOMMutationBreakpoint);
     IfFailedGo(hr);
 
-    Var platform;
-    IfFailedGo(activeScriptDirect->CreateObject(&platform));
-    PropertyId platformProp;
-    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("Platform"), &platformProp));
-    IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, platformProp, platform, &result));
-    PropertyId intlLibraryProp, icuVersionProp;
-    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("INTL_LIBRARY"), &intlLibraryProp));
-    IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("ICU_VERSION"), &icuVersionProp));
-    Var intlLibraryVar, icuVersionVar;
+    if (HostConfigFlags::flags.WScriptPlatform)
+    {
+        Var platform, intlLibraryVar, icuVersionVar, osVar, buildTypeVar, archVar;
+        IfFailedGo(activeScriptDirect->CreateObject(&platform));
 #ifdef HAS_ICU
-    WCHAR intlLibrary[] = _u("icu");
-    int icuVersion = PlatformAgnostic::ICUHelpers::GetICUMajorVersion();
+        IfFailedGo(activeScriptDirect->StringToVar(_u("icu"), 3, &intlLibraryVar));
+        IfFailedGo(activeScriptDirect->IntToVar(PlatformAgnostic::ICUHelpers::GetICUMajorVersion(), &icuVersionVar));
 #else
-    WCHAR intlLibrary[] = _u("winglob");
-    int icuVersion = -1;
+        IfFailedGo(activeScriptDirect->StringToVar(_u("winglob"), 7, &intlLibraryVar));
+        IfFailedGo(activeScriptDirect->IntToVar(-1, &icuVersionVar));
 #endif
-    IfFailedGo(activeScriptDirect->StringToVar(intlLibrary, _countof(intlLibrary) - 1, &intlLibraryVar));
-    IfFailedGo(activeScriptDirect->IntToVar(icuVersion, &icuVersionVar));
-    IfFailedGo(operations->SetProperty(activeScriptDirect, platform, intlLibraryProp, intlLibraryVar, &result));
-    IfFailedGo(operations->SetProperty(activeScriptDirect, platform, icuVersionProp, icuVersionVar, &result));
+
+        IfFailedGo(activeScriptDirect->StringToVar(_u("win32"), 5, &osVar));
+
+#ifdef _DEBUG
+        IfFailedGo(activeScriptDirect->StringToVar(_u("Debug"), 5, &buildTypeVar));
+#elif defined(ENABLE_DEBUG_CONFIG_OPTIONS)
+        IfFailedGo(activeScriptDirect->StringToVar(_u("Test"), 4, &buildTypeVar));
+#else
+        IfFailedGo(activeScriptDirect->StringToVar(_u("Release"), 7, &buildTypeVar));
+#endif
+
+#if defined(_X86_) || defined(_M_IX86)
+        IfFailedGo(activeScriptDirect->StringToVar(_u("x86"), 3, &archVar));
+#elif defined(_AMD64_) || defined(_IA64_) || defined(_M_AMD64) || defined(_M_IA64)
+        IfFailedGo(activeScriptDirect->StringToVar(_u("x86_64"), 6, &archVar));
+#elif defined(_ARM_) || defined(_M_ARM)
+        IfFailedGo(activeScriptDirect->StringToVar(_u("ARM"), 3, &archVar));
+#elif defined(_ARM64_) || defined(_M_ARM64)
+        IfFailedGo(activeScriptDirect->StringToVar(_u("ARM64"), 5, &archVar));
+#endif
+
+        PropertyId platformProp, intlLibraryProp, icuVersionProp, osProp, buildTypeProp, archProp;
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("Platform"), &platformProp));
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("INTL_LIBRARY"), &intlLibraryProp));
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("ICU_VERSION"), &icuVersionProp));
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("OS"), &osProp));
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("BUILD_TYPE"), &buildTypeProp));
+        IfFailedGo(activeScriptDirect->GetOrAddPropertyId(_u("ARCH"), &archProp));
+
+        IfFailedGo(operations->SetProperty(activeScriptDirect, wscript, platformProp, platform, &result));
+        IfFailedGo(operations->SetProperty(activeScriptDirect, platform, intlLibraryProp, intlLibraryVar, &result));
+        IfFailedGo(operations->SetProperty(activeScriptDirect, platform, icuVersionProp, icuVersionVar, &result));
+        IfFailedGo(operations->SetProperty(activeScriptDirect, platform, osProp, osVar, &result));
+        IfFailedGo(operations->SetProperty(activeScriptDirect, platform, buildTypeProp, buildTypeVar, &result));
+        IfFailedGo(operations->SetProperty(activeScriptDirect, platform, archProp, archVar, &result));
+    }
 
     // Create the console object
     PropertyId consolePropertyId;
