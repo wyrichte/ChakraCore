@@ -304,8 +304,6 @@
         "[312]": "0",
         "[321]": {
           "__proto__": "<large string>",
-          "arguments": "null",
-          "caller": "null",
           "length": "0",
           "name": "321",
           "prototype": "{...}"
