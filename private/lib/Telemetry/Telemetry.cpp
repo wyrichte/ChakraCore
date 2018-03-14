@@ -12,7 +12,7 @@
 #include "Base\ThreadBoundThreadContextManager.h"
 
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
-#include <iesettings.h>
+#include <EdgeSettings.h>
 #endif
 
 // GUID for "ChakraProvider_V0.1": {FC7BA620-EB50-483D-97A0-72D8268A14B5}
