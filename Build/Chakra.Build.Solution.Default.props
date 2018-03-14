@@ -3,6 +3,7 @@
   <PropertyGroup>
     <!-- ========= Microsoft.Build.Paths ========= -->
     <SdkIncPath>$(PUBLIC_ROOT)\sdk\inc</SdkIncPath>
+    <SdkIncPathArchSpecific>$(PUBLIC_ROOT)\sdk\inc\$(PlatformPathNameAlt)</SdkIncPathArchSpecific>
     <SdkLibPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt)</SdkLibPath>
     <CrtIncPath>$(SdkIncPath)\crt</CrtIncPath>
     <MinCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</MinCoreSdkLibPath>
@@ -45,6 +46,7 @@
     <RazzleToolPath Condition="'$(RazzleToolPath)'==''">$(SolutionDir)..\..\..\tools</RazzleToolPath>
     <IncludePath>$(PUBLIC_ROOT)\shared\inc</IncludePath>
     <IncludePath>$(IncludePath);$(PUBLIC_ROOT)\shared\inc\minwin</IncludePath>
+    <IncludePath>$(IncludePath);$(SdkIncPathArchSpecific)</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)\minwin</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>

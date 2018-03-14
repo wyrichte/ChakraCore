@@ -70,8 +70,8 @@
 
         <!-- Setting store -->
         $(OneCoreUapInetcoreLibPath)\iertutilp.lib;
-        $(OneCoreUapInetcoreLibPath)\IESettingsApi.lib;
-        $(OneCoreUapInetcoreLibPath)\IESettingsId.lib;
+        $(OneCoreUapInetcoreLibPath)\EdgeSettingsApi.lib;
+        $(OneCoreUapInetcoreLibPath)\EdgeSettingsId.lib;
 
         <!-- For _DoNotUseDirectly_CULprintf in codex -->
         $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib
