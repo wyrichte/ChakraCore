@@ -125,6 +125,37 @@
   </test>
   <test>
     <default>
+      <files>42670.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42985.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42985_int.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42987.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42987_int.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43292.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>42345.js</files>
       <baseline>42345.baseline</baseline>
     </default>
