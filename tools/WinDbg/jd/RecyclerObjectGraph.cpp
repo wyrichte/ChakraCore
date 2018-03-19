@@ -146,7 +146,13 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
         return remoteTyped.GetPtr();
     }
 
-    bool isPathTypeHandler = strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0 || strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0;
+    bool isPathTypeHandler = strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0 
+        || strcmp(simpleTypeName, "Js::PathTypeHandlerNoAttr *") == 0
+        || strcmp(simpleTypeName, "Js::PathTypeHandlerWithAttr *") == 0
+        || strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0
+        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerNoAttr *") == 0
+        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerWithAttr *") == 0;
+
     if (isPathTypeHandler)
     {
         JDRemoteTyped predecessorType = remoteTyped.Field("predecessorType");
@@ -159,7 +165,9 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
     bool isTypeHandler = isPathTypeHandler
         || STR_START_WITH(simpleTypeName, "Js::SimpleTypeHandler")
         || STR_START_WITH(simpleTypeName, "Js::DictionaryTypeHandlerBase")
-        || STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryTypeHandlerBase");
+        || STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryTypeHandlerBase")
+        || STR_START_WITH(simpleTypeName, "Js::SimpleDictionaryUnorderedTypeHandler")
+        || STR_START_WITH(simpleTypeName, "Js::ES5ArrayTypeHandlerBase");
 
     if (isTypeHandler)
     {
@@ -208,9 +216,13 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
         }
     }
 
+    if (strcmp(simpleTypeName, "Js::ScriptContextPolymorphicInlineCache *") == 0)
+    {
+        return remoteTyped.Field("javascriptLibrary").GetPtr();
+    }
+
     if (strcmp(simpleTypeName, "Js::PolymorphicInlineCache *") == 0
-        || strcmp(simpleTypeName, "Js::FunctionBodyPolymorphicInlineCache *") == 0
-        || strcmp(simpleTypeName, "Js::ScriptContextPolymorphicInlineCache *") == 0)
+        || strcmp(simpleTypeName, "Js::FunctionBodyPolymorphicInlineCache *") == 0)
     {
         // Even though PolymorphicInlineCache has a functionBody, the data is leaf
         // So the pointer may not be valid memory if the PolymorphicInlineCache has a false reference to it
@@ -310,6 +322,24 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
                 return true;
             }
             return false;
+        });
+        return library;
+    }
+
+    if (strcmp(simpleTypeName, "Js::JsBuiltInEngineInterfaceExtensionObject *") == 0)
+    {
+        JDRemoteTyped builtInNativeInterfaces = remoteTyped.Field("builtInNativeInterfaces");
+        if (builtInNativeInterfaces.GetPtr() != 0)
+        {
+            return builtInNativeInterfaces.Field("type").Field("javascriptLibrary").GetPtr();
+        }
+
+        node->MapPredecessors([&](RecyclerObjectGraph::GraphImplNodeType* pred)
+        {
+            char const * typeName;
+            JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
+            library = TryInferVarJavascriptLibrary(predRemoteTyped);
+            return library != 0;
         });
         return library;
     }
@@ -1270,7 +1300,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
 
                         if (!GetExtension()->IsJScript9())
                         {
-                            scannerInfoArraySize = ExtRemoteTyped("UnifiedRegex::ScannersMixin::MaxNumSyncLiterals").GetLong();
+                            scannerInfoArraySize = ExtRemoteTyped(GetExtension()->FillModule("%s!UnifiedRegex::ScannersMixin::MaxNumSyncLiterals")).GetLong();
                         }
 
                         for (int i = 0; i < scannerInfoArraySize; i++)

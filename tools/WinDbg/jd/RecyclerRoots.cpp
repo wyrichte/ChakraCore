@@ -1746,6 +1746,47 @@ struct ObjectAllocStats
     bool hasVtable;
 };
 
+typedef stdext::hash_map<char const *, ObjectAllocStats> ObjectCountsMap;
+struct ObjectCountData
+{
+    ObjectCountData(bool infer, ULONG64 javascriptLibrary = (ULONG64)-1)
+        : numNodes(0), totalSize(0), infer(infer), javascriptLibrary(javascriptLibrary)
+    {}
+
+    void addNode(RecyclerObjectGraph::GraphImplNodeType * node)
+    {
+        numNodes++;
+        totalSize += (node->GetObjectSize());
+
+        char const * typeName = infer ? node->GetTypeNameOrField() : node->GetTypeName();
+        auto i = objectCounts.find(typeName);
+        if (i != objectCounts.end())
+        {
+            ObjectAllocStats& stats = (*i).second;
+            stats.count++;
+            stats.size += node->GetObjectSize();
+            stats.unknownCount += node->IsPropagated();
+            stats.unknownSize += node->IsPropagated() ? node->GetObjectSize() : 0;
+        }
+        else
+        {
+            ObjectAllocStats stats;
+            stats.count = 1;
+            stats.size = node->GetObjectSize();
+            stats.unknownCount = node->IsPropagated();
+            stats.unknownSize = node->IsPropagated() ? node->GetObjectSize() : 0;
+            stats.hasVtable = node->HasVtable();
+            objectCounts[typeName] = stats;
+        }
+    };
+
+    ObjectCountsMap objectCounts;
+    ULONG64 numNodes;
+    ULONG64 totalSize;
+    ULONG64 javascriptLibrary;
+    bool infer;
+};
+
 int __cdecl ObjectAllocCountComparer(const void * a, const void * b)
 {
     auto ptrA = (std::pair<char const *, ObjectAllocStats> *)a;
@@ -1781,6 +1822,45 @@ int __cdecl ObjectAllocNameComparer(const void * a, const void * b)
     return strcmp(ptrA->first, ptrB->first);
 }
 
+int __cdecl LibraryAllocCountComparer(const void * a, const void *b)
+{
+    auto ptrA = (std::pair<ULONG64, ObjectCountData *> *)a;
+    auto ptrB = (std::pair<ULONG64, ObjectCountData *> *)b;
+    return (int)(ptrB->second->numNodes - ptrA->second->numNodes);
+}
+
+int __cdecl LibraryAllocSizeComparer(const void * a, const void *b)
+{
+    auto ptrA = (std::pair<ULONG64, ObjectCountData *> *)a;
+    auto ptrB = (std::pair<ULONG64, ObjectCountData *> *)b;
+    return (int)(ptrB->second->totalSize - ptrA->second->totalSize);
+}
+
+void PrintNodeLink(bool filterUnknown, ULONG64 library, char const * type)
+{
+    if (GetExtension()->PreferDML())
+    {
+        if (library != (ULONG64)-1)
+        {
+            g_Ext->Dml("<link cmd=\"!jd.jsobjectnodes -fl %p %s%s%s\">(nodes)</link>", library, filterUnknown ? "-fu " : "", type? "-ft ": "", type? type : "");
+        }
+        else
+        {
+            g_Ext->Dml("<link cmd=\"!jd.jsobjectnodes %s%s%s\">(nodes)</link>", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
+        }
+    }
+    else
+    {
+        if (library != (ULONG64)-1)
+        {
+            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes -fl %p %s%s%s\"*/", library, filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
+        }
+        else
+        {
+            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes %s%s%s\"*/", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
+        }
+    }
+}
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
     "{;ed,o,d=0;recycler;Recycler address}"
@@ -1798,6 +1878,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{fs;edn=(10),o;filterSize;Filter to object size}"
     "{fsmin;edn=(10),o;filterSizeMin;Filter to minimum object size}"
     "{fsmax;edn=(10),o;filterSizeMax;Filter to maximum object size}"
+    "{summary;b,o;summary;Summary only}"
 )
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
@@ -1815,6 +1896,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const bool hasFilterSizeMin = HasArg("fsmin");
     const bool hasFilterSizeMax = HasArg("fsmax");
     const bool perLibrary = hasFilterLib || HasArg("lib");
+    const bool summary = HasArg("summary");
 
     if (hasFilterSize && (hasFilterSizeMin || hasFilterSizeMax))
     {
@@ -1837,10 +1919,12 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     // Note: (sortByCount && sortByUnknown) is allowed -- see below
 
-    auto sortComparer = sortByName ? ObjectAllocNameComparer :
+    auto objectSortComparer = sortByName ? ObjectAllocNameComparer :
         sortByUnknown ?
         (sortByCount ? ObjectAllocUnknownCountComparer : ObjectAllocUnknownSizeComparer) :
         (sortByCount ? ObjectAllocCountComparer : ObjectAllocSizeComparer);
+
+    auto librarySortComparer = sortByCount ? LibraryAllocCountComparer : LibraryAllocSizeComparer;
 
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);    
@@ -1861,48 +1945,6 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
     }
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(), flags));
-
-    typedef stdext::hash_map<char const *, ObjectAllocStats> ObjectCountsMap;
-    struct ObjectCountData
-    {
-        ObjectCountData(bool infer, ULONG64 javascriptLibrary = (ULONG64)-1)
-            : numNodes(0), totalSize(0), infer(infer), javascriptLibrary(javascriptLibrary)
-        {}
-
-        void addNode(RecyclerObjectGraph::GraphImplNodeType * node)
-        {
-            numNodes++;
-            totalSize += (node->GetObjectSize());
-
-            char const * typeName = infer ? node->GetTypeNameOrField() : node->GetTypeName();
-            auto i = objectCounts.find(typeName);
-            if (i != objectCounts.end())
-            {
-                ObjectAllocStats& stats = (*i).second;
-                stats.count++;
-                stats.size += node->GetObjectSize();
-                stats.unknownCount += node->IsPropagated();
-                stats.unknownSize += node->IsPropagated() ? node->GetObjectSize() : 0;
-            }
-            else
-            {
-                ObjectAllocStats stats;
-                stats.count = 1;
-                stats.size = node->GetObjectSize();
-                stats.unknownCount = node->IsPropagated();
-                stats.unknownSize = node->IsPropagated() ? node->GetObjectSize() : 0;
-                stats.hasVtable = node->HasVtable();
-                objectCounts[typeName] = stats;
-            }
-        };
-
-        ObjectCountsMap objectCounts;
-        ULONG64 numNodes;
-        ULONG64 totalSize;
-        ULONG64 javascriptLibrary;
-        bool infer;
-    };
-
     ObjectCountData allObjectCounts(infer);
     class PerLibraryObjectCountData : public stdext::hash_map<ULONG64, ObjectCountData *>
     {
@@ -1993,93 +2035,52 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             sortedArray.get()[c++] = (*i);
         }
 
-        qsort(sortedArray.get(), c, sizeof(std::pair<char const *, ObjectAllocStats>), sortComparer);
+        qsort(sortedArray.get(), c, sizeof(std::pair<char const *, ObjectAllocStats>), objectSortComparer);
 
         Out("----------------------------------------------------------------------------\n");
 
         ULONG64 numNodes = data->numNodes;
         ULONG64 totalSize = data->totalSize;
-        for (int i = 0; i < c; i++)
+        if (!summary)
         {
-            char const * typeName = sortedArray.get()[i].first;
-            ObjectAllocStats& stats = sortedArray.get()[i].second;
-            ULONG64 currCount = stats.count;
-            ULONG64 currSize = stats.size;
-
-            std::string encodedTypeName = JDUtil::EncodeDml(typeName);
-
-            if (showUnknown)
+            for (int i = 0; i < c; i++)
             {
-                Out("%7I64u %11I64u %5.1f%% %5.1f%% ", stats.unknownCount, stats.unknownSize,
-                    (double)stats.unknownCount / (double)numNodes * 100, (double)stats.unknownSize / (double)totalSize * 100);
+                char const * typeName = sortedArray.get()[i].first;
+                ObjectAllocStats& stats = sortedArray.get()[i].second;
+                ULONG64 currCount = stats.count;
+                ULONG64 currSize = stats.size;
 
-                if (PreferDML())
+                std::string encodedTypeName = JDUtil::EncodeDml(typeName);
+
+                if (showUnknown)
                 {
-                    if (data->javascriptLibrary != (ULONG64)-1)
-                    {
-                        Dml("<link cmd=\"!jd.jsobjectnodes -fu -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
-                    }
-                    else
-                    {
-                        Dml("<link cmd=\"!jd.jsobjectnodes -fu -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
-                    }
+                    Out("%7I64u %11I64u %5.1f%% %5.1f%% ", stats.unknownCount, stats.unknownSize,
+                        (double)stats.unknownCount / (double)numNodes * 100, (double)stats.unknownSize / (double)totalSize * 100);
+
+                    PrintNodeLink(true, data->javascriptLibrary, encodedTypeName.c_str());
+
+                    Out(" | ");
                 }
-                else
+                else if (currCount == 0 && currSize == 0)
                 {
-                    if (data->javascriptLibrary != (ULONG64)-1)
-                    {
-                        Out("(nodes) /*\"!jd.jsobjectnodes -fu -fl %p -ft %s\"*/ ", data->javascriptLibrary, encodedTypeName.c_str());
-                    }
-                    else
-                    {
-                        Out("(nodes) /*\"!jd.jsobjectnodes -fu -ft %s\"*/ ", encodedTypeName.c_str());
-                    }
+                    // Some entries only have unknown count, if we don't show unknown, and it is 0, don't show the entry.
+                    continue;
                 }
 
-                Out("| ");
-            }
-            else if (currCount == 0 && currSize == 0)
-            {
-                // Some entries only have unknown count, if we don't show unknown, and it is 0, don't show the entry.
-                continue;
+                Out("%7I64u %11I64u %5.1f%% %5.1f%% ", currCount, currSize, (double)currCount / (double)numNodes * 100,
+                    (double)currSize / (double)totalSize * 100);
+                PrintNodeLink(false, data->javascriptLibrary, encodedTypeName.c_str());               
+                Out(" %s%s\n", stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
+
+                if (i > limit)
+                {
+                    Out("<%d limit reached>\n", limit);
+                    break;
+                }
             }
 
-            Out("%7I64u %11I64u %5.1f%% %5.1f%% ", currCount, currSize, (double)currCount / (double)numNodes * 100,
-                (double)currSize / (double)totalSize * 100);
-
-            if (PreferDML())
-            {
-                if (data->javascriptLibrary != (ULONG64)-1)
-                {
-                    Dml("<link cmd=\"!jd.jsobjectnodes -fl %p -ft %s\">(nodes)</link> ", data->javascriptLibrary, encodedTypeName.c_str());
-                }
-                else
-                {
-                    Dml("<link cmd=\"!jd.jsobjectnodes -ft %s\">(nodes)</link> ", encodedTypeName.c_str());
-                }
-            }
-            else
-            {
-                if (data->javascriptLibrary != (ULONG64)-1)
-                {
-                    Out("(nodes) /*\"!jd.jsobjectnodes -fl %p -ft %s\"*/ ", data->javascriptLibrary, encodedTypeName.c_str());
-                }
-                else
-                {
-                    Out("(nodes) /*\"!jd.jsobjectnodes -ft %s\"*/ ", encodedTypeName.c_str());
-                }
-            }
-            Out("%s%s\n", stats.hasVtable ? (groupUnknown ? "[Group] " : "") : "[Field] ", typeName);
-
-            if (i > limit)
-            {
-                Out("<%d limit reached>\n", limit);
-                break;
-            }
+            Out("----------------------------------------------------------------------------\n");
         }
-
-        Out("----------------------------------------------------------------------------\n");
-
         const ULONG64 unknownTotalCount = numNodes - knownObjectCount;
         const ULONG64 unknownTotalSize = totalSize - knownObjectSize;
         Out("%7I64u %11I64u %5.1f%% %5.1f%%", unknownTotalCount, unknownTotalSize,
@@ -2100,33 +2101,92 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     if (perLibrary)
     {
+        std::auto_ptr<std::pair<ULONG64, ObjectCountData *>> sortedLibraryArray(new std::pair<ULONG64, ObjectCountData *>[perLibraryObjectCountData.size()]);
+        uint numLibrary = 0;
         for (auto i = perLibraryObjectCountData.begin(); i != perLibraryObjectCountData.end(); i++)
         {
-            ULONG64 javascriptLibrary = i->first;
+            sortedLibraryArray.get()[numLibrary++] = *i;
+        }
+
+        qsort(sortedLibraryArray.get(), numLibrary, sizeof(std::pair<ULONG64, ObjectCountData *>), librarySortComparer);
+
+        if (summary)
+        {
+            char const * headerFormat = (this->m_PtrSize == 4)? "%-10s %-10s %7s %11s %-6s %-6s         %s\n" : "%-18s %-18s %7s %11s %-6s %-6s         %s\n";
+            Out(headerFormat, "Library", "ScrContext", "Count", "Bytes", "%Count", "%Bytes", "URL");
+            Out("============================================================================================\n");
+        }
+
+        for (uint i = 0; i < numLibrary; i++)
+        {
+            ULONG64 javascriptLibrary = sortedLibraryArray.get()[i].first;
             if (libraryFilter != (ULONG64)-1 && javascriptLibrary != libraryFilter)
             {
                 continue;
             }
 
-            Out("============================================================================================\n");
+            ULONG64 scriptContextPtr = 0;
+            ULONG64 url = 0;
+            
             if (javascriptLibrary != 0)
             {
                 JDRemoteTyped scriptContext = JDRemoteTyped::FromPtrWithVtable(javascriptLibrary).Field("scriptContext");
-
-
-                Out("Associated Library %p, ScriptContext %p", i->first, scriptContext.GetPtr());
+                scriptContextPtr = scriptContext.GetPtr();
                 if (scriptContext.HasField("url"))
                 {
-                    Out(", URL %mu", scriptContext.Field("url").GetPtr());
+                    url = scriptContext.Field("url").GetPtr();
+                }
+            }
+
+            ObjectCountData * data = sortedLibraryArray.get()[i].second;
+            if (summary)
+            {
+                if (PreferDML())
+                {
+                    // TODO: Only sort byte is propagated. Do the other flags
+                    Dml("<link cmd=\"!jd.jsobjectstats -fl 0x%p %s%s%s\">0x%p</link>", javascriptLibrary, 
+                        sortByCount? "-sc " : "", sortByName? "-sn " : "", sortByUnknown? "-su " : "", javascriptLibrary);
+                }
+                else
+                {
+                    Out("0x%p", javascriptLibrary);
+                }
+                Out(" 0x%p %7I64u %11I64u %5.1f%% %5.1f%% ", scriptContextPtr, data->numNodes, data->totalSize, 
+                    (double)data->numNodes / (double)actualTotalCount * 100, (double)data->totalSize / (double)actualTotalSize * 100);
+
+                PrintNodeLink(false, javascriptLibrary, nullptr);
+                if (url != 0)
+                {
+                    Out(" %mu", url);
                 }
                 Out("\n");
             }
             else
             {
-                Out("No Associated Library\n");
-            }
+                Out("============================================================================================\n");
+                if (javascriptLibrary != 0)
+                {
+                    Out("Associated Library %p, ScriptContext %p", javascriptLibrary, scriptContextPtr);
+                    if (url != 0)
+                    {
+                        Out(", URL %mu", url);
+                    }
+                    Out("\n");
+                }
+                else
+                {
+                    Out("No Associated Library\n");
+                }
 
-            displayObjectCounts(i->second);
+                displayObjectCounts(data);
+            }    
+        }
+
+        if (summary)
+        {            
+            Out("--------------------------------------------------------------------------------------------\n");
+            char const * formatStr = this->m_PtrSize == 4 ? "%-10s %-10s %7I64u %11I64u                       Total\n" : "%-18s %-18s %7I64u %11I64u                       Total\n";
+            Out(formatStr, "", "", actualTotalCount, actualTotalSize);
         }
     }
     else

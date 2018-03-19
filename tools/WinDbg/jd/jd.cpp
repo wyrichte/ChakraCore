@@ -860,6 +860,7 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
         headerFormat = (showAll ? (showLink ? "  %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
     }
 
+    ULONG scriptContextCount = 0;
     threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
     {
         if (!found)
@@ -868,8 +869,11 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
             Out(headerFormat, "ScrContext", "Library", "GlobalObj");
         }
         PrintScriptContextUrl(scriptContext, showAll, showLink);
+        scriptContextCount++;
         return false;
     });
+
+    Out("Count: %u\n", scriptContextCount);
 }
 
 void EXT_CLASS_BASE::PrintAllUrl(bool showAll, bool showLink)
