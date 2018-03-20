@@ -143,6 +143,19 @@
   </test>
   <test>
     <default>
+      <files>wasmSharableBuffer.js</files>
+      <compile-flags>-wasmthreads -ESSharedArrayBuffer</compile-flags>
+      <baseline>sharableBuffer.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>sca_WebAssembly.js</files>
+      <compile-flags>-wasmthreads -ESSharedArrayBuffer -args summary -endargs</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>sharableBuffer.js</files>
       <compile-flags>-ESSharedArrayBuffer</compile-flags>
       <baseline>sharableBuffer.baseline</baseline>

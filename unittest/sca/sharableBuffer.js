@@ -3,7 +3,7 @@
 this.WScript.LoadScriptFile("..\\..\\core\\test\\UnitTestFramework\\UnitTestFramework.js");
 
 function serialize(rootObject, transferArgs) {
-    
+
     var toReturn = SCA.serialize(rootObject, { context: "samethread" } , undefined, transferArgs);
 
     transferArgs.forEach(function (arg) {
@@ -20,11 +20,16 @@ function postMessage(rootObject, transferArgs) {
     return SCA.deserialize(blob);
 }
 
+var pageSize = 64 * 1024;
+if (typeof makeSharedArrayBuffer === "undefined") {
+    makeSharedArrayBuffer = length => new SharedArrayBuffer(length);
+}
+
 var tests = [
     {
         name: "Validate that SharedArrayBuffer should not be in transfer list",
         body: function () {
-            var view1 = new Int8Array(new SharedArrayBuffer(4));
+            var view1 = new Int8Array(makeSharedArrayBuffer(4));
             try { postMessage(view1.buffer, [view1.buffer]); }
             catch (e) { print(e.number)}
         }
@@ -32,8 +37,8 @@ var tests = [
     {
         name: "Validate that SharedArrayBuffer sharing functionality",
         body: function() {
-              var view1 = new Int8Array(new SharedArrayBuffer(4));
-              assert.areEqual(view1.byteLength, 4, "Ensuring that the view's length is 4 before postMessage");
+              var view1 = new Int8Array(makeSharedArrayBuffer(pageSize));
+              assert.areEqual(view1.byteLength, pageSize, "Ensuring that the view's length is a page before postMessage");
               var buff = postMessage(view1.buffer, []);
               assert.isTrue(buff instanceof SharedArrayBuffer, "The SharedArrayBuffer will be received");
               var view2 = new Int8Array(buff);
@@ -46,11 +51,11 @@ var tests = [
     {
         name: "Mix bag of transferring and sharing buffer",
         body: function() {
-              var a1 = new Int8Array(new SharedArrayBuffer(4));
+              var a1 = new Int8Array(makeSharedArrayBuffer(4));
               var a2 = new Int8Array(new ArrayBuffer(4));
-              var a3 = new Int8Array(new SharedArrayBuffer(4));
+              var a3 = new Int8Array(makeSharedArrayBuffer(4));
               var a4 = new Int32Array(a3.buffer);
-              a1[0] = 10; 
+              a1[0] = 10;
               a3[0] = 20;
               var buffArray = postMessage([a1.buffer, a2.buffer, a3.buffer], [a2.buffer]);
 

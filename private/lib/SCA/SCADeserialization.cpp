@@ -238,6 +238,7 @@ namespace Js
                 m_reader->Read((intptr_t*)&sharedContents);
 
                 SharedArrayBuffer* arrayBuffer = lib->CreateSharedArrayBuffer(sharedContents);
+                Assert(arrayBuffer->IsWebAssemblyArrayBuffer() == sharedContents->IsWebAssembly());
                 *dst = arrayBuffer;
             }
             break;
@@ -251,6 +252,33 @@ namespace Js
             Read(buffer, len);
             WebAssemblySource wasmSrc(buffer, len, true, scriptContext);
             *dst = WebAssemblyModule::CreateModule(scriptContext, &wasmSrc);
+            break;
+        }
+        case SCA_WebAssemblyMemory:
+        {
+            uint32 initialLength = 0;
+            uint32 maximumLength = 0;
+            uint32 isShared = 0;
+            m_reader->Read(&initialLength);
+            m_reader->Read(&maximumLength);
+
+#ifdef ENABLE_WASM_THREADS
+            m_reader->Read(&isShared);
+            if (isShared)
+            {
+                SharedContents * sharedContents;
+                m_reader->Read((intptr_t*)&sharedContents);
+                *dst = WebAssemblyMemory::CreateFromSharedContents(initialLength, maximumLength, sharedContents, scriptContext);
+            }
+            else
+#endif
+            {
+                uint32 len;
+                m_reader->Read(&len);
+                WebAssemblyMemory* mem = WebAssemblyMemory::CreateForExistingBuffer(initialLength, maximumLength, len, scriptContext);
+                Read(mem->GetBuffer()->GetBuffer(), len);
+                *dst = mem;
+            }
             break;
         }
 #endif

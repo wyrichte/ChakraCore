@@ -1,4 +1,4 @@
-Bytecode GUID = {552D65CC-09D7-4FCE-A631-C46FDF7F4A0A}
+Bytecode GUID = {790F966D-646F-4CBF-86C2-6C8FECA645EA}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1186,6 +1186,7 @@ Property: imports
 Property: customSections
 Property: initial
 Property: maximum
+Property: shared
 Property: element
 Property: low
 Property: high

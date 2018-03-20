@@ -187,9 +187,9 @@ namespace Js
                         return false;
                     }
 
-            
                     SharedArrayBuffer* buf = SharedArrayBuffer::FromVar(src);
                     SharedContents* sharedContents = buf->GetSharedContents();
+                    Assert(buf->IsWebAssemblyArrayBuffer() == sharedContents->IsWebAssembly());
                     sharedContents->AddRef();
                     this->m_sharedContentsrList->Add(sharedContents);
                     WriteTypeId(SCA_SharedArrayBuffer);
@@ -219,6 +219,30 @@ namespace Js
                     Write(wasmModule->GetBinaryBuffer(), wasmModule->GetBinaryBufferLength());
                 }
                 break;
+            case TypeIds_WebAssemblyMemory:
+            {
+                WebAssemblyMemory* wasmMem = WebAssemblyMemory::FromVar(src);
+                ArrayBufferBase* buffer = wasmMem->GetBuffer();
+                WriteTypeId(SCA_WebAssemblyMemory);
+                Write(wasmMem->GetInitialLength());
+                Write(wasmMem->GetMaximumLength());
+#ifdef ENABLE_WASM_THREADS
+                Write((uint32)wasmMem->IsSharedMemory());
+                if (wasmMem->IsSharedMemory())
+                {
+                    WebAssemblySharedArrayBuffer* buf = WebAssemblySharedArrayBuffer::FromVar(buffer);
+                    SharedContents* sharedContents = buf->GetSharedContents();
+                    sharedContents->AddRef();
+                    this->m_sharedContentsrList->Add(sharedContents);
+                    m_writer->Write((intptr_t)sharedContents);
+                }
+                else
+#endif
+                {
+                    Write(buffer->GetBuffer(), buffer->GetByteLength());
+                }
+                break;
+            }
 #endif
 
             case TypeIds_CopyOnAccessNativeIntArray:
