@@ -28,7 +28,7 @@
 #endif
 
 #ifdef ENABLE_BASIC_TELEMETRY
-#include "..\Telemetry\ScriptEngineTelemetry.h"
+#include "ScriptContext\ScriptContextTelemetry.h"
 #endif
 
 #include "JITClient.h"
@@ -182,9 +182,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 
     DLLAddRef(); // One DLL reference for each existing script engine
 
-#ifdef ENABLE_BASIC_TELEMETRY
-    ScriptEngineTelemetry::Initialize();
-#endif
     pairCount = 0;
     pSourceContextPairs = nullptr;
 
@@ -198,7 +195,7 @@ ScriptEngine::~ScriptEngine()
     Assert(fKeepEngineAlive || (m_ssState == SCRIPTSTATE_CLOSED || m_ssState == SCRIPTSTATE_UNINITIALIZED));
 
 #ifdef ENABLE_BASIC_TELEMETRY
-    ScriptEngineTelemetry::Cleanup();
+    Js::ScriptContextTelemetry::Cleanup();
 #endif
 
     Close();

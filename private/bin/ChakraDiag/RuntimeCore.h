@@ -352,10 +352,9 @@ namespace Wasm
 
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "DirectCall.h"
-#include "LanguageTelemetry.h"
 #else
 #define CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(builtin)
-#define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(feature, m_scriptContext)
+#define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(esVersion, feature, m_scriptContext)
 #endif
 
 #include "ThreadContextInfo.h"
@@ -365,7 +364,6 @@ namespace Wasm
 #include "ScriptContextOptimizationOverrideInfo.h"
 #include "JavascriptError.h"
 #include "ScriptContextBase.h"
-class ScriptContextTelemetry;
 #include "ScriptContextInfo.h"
 #include "ScriptContext.h"
 #include "InterpreterStackFrame.h"

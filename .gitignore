@@ -25,6 +25,10 @@ unittest/*/*.baseline.rebase
 unittest/*/*.bc
 unittest/NativeUnitTests/profilecachetest*.out
 unittest/*/testout*
+tools/JSEtwConsole/obj/
+tools/RuntimeDataToSql/RuntimeDataToSql/obj/
+unittest/sdk/jsrt/JavaScript Runtime Hosting Sample.CSharp/CSharp/obj/
+unittest/sdk/jsrt/JavaScript Runtime Hosting Sample.VBNet/VB/obj/
 .*.swp
 sd.ini
 *.vcxproj.user

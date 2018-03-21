@@ -4,7 +4,6 @@
 
 #include "TelemetryPch.h"
 #include <strsafe.h>
-#include "ChakraVersion.h"
 #include "ieconfig.h"
 #include "globalthreadstate.h"
 #include <telemetry\MicrosoftTelemetry.h>
@@ -61,7 +60,11 @@ void Telemetry::OnJSRTThreadContextClose()
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), telemetryThrottledByChance(false)
+// TODO: read these from registry (or ???) so we can discriminate private builds
+const char * telemetryDiscriminator1 = "A - todo support discriminator";
+const char * telemetryDiscriminator2 = "B - todo support discriminator";
+
+TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
 {
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
@@ -84,13 +87,6 @@ TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true), telemetryTh
         }
     }
 
-    // Throttle to 1/4 of the telemetry events actually being active.
-    if (shouldLogTelemetry)
-    {
-        shouldLogTelemetry = GetCurrentTime() % 4 == 1;
-        telemetryThrottledByChance = !shouldLogTelemetry;
-    }
-
     TraceLoggingRegister(g_hTraceLoggingProv);
 }
 
@@ -103,7 +99,6 @@ void TraceLoggingClient::ResetTelemetryStats(ThreadContext* threadContext)
 {
     if (threadContext != NULL)
     {
-        threadContext->ResetLangStats();
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
         threadContext->directCallTelemetry.Reset();
 #endif
@@ -197,7 +192,7 @@ void TraceLoggingClient::FireDomTelemetry(GUID activityId)
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
     threadContext->directCallTelemetry.GetBinaryData(&data, &dataSize);
 
-    TraceLogChakraNoProbThrottle(
+    TraceLogChakra(
         TL_DIRECTCALLRAW,
         TraceLoggingGuid(activityId, "activityId"),
         TraceLoggingUInt64(threadContext->directCallTelemetry.GetFrequency(), "Frequency"),

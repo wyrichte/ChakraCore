@@ -8,7 +8,6 @@
 #include <winmeta.h>
 #include <evntrace.h>
 #include <TraceLoggingProvider.h>
-#include "TelemetryProvider.h"
 
 // List of all telemetry data points.
 #define TL_ES5BUILTINS "ES5Builtins"
@@ -67,6 +66,8 @@ private:
 };
 
 extern struct _TlgProvider_t const * const g_hTraceLoggingProv;
+extern const char * telemetryDiscriminator1;
+extern const char * telemetryDiscriminator2;
 
 class CEventTraceProperties
 {
@@ -112,7 +113,6 @@ class TraceLoggingClient
 {
     CEtwSession *session;
     bool shouldLogTelemetry;
-    bool telemetryThrottledByChance;
 
     Throttle throttle;
 
@@ -121,9 +121,10 @@ public:
     TraceLoggingClient();
     ~TraceLoggingClient();
     bool GetShouldLogTelemetry() { return shouldLogTelemetry;  }
-    bool GetTelemetryThrottledByChance() { return telemetryThrottledByChance; }
     void FireSiteNavigation(const char16 *url, GUID activityId, DWORD host, bool isJSRT);
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
+    bool IsThrottled() { return this->throttle.isThrottled(); }
+
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
     void FirePeriodicDomTelemetry(GUID activityId);
     void FireDomTelemetry(GUID activityId);

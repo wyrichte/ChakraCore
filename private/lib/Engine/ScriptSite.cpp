@@ -20,7 +20,7 @@ using namespace PlatformAgnostic;
 
 #ifdef ENABLE_BASIC_TELEMETRY
 #include "..\Telemetry\Telemetry.h"
-#include "..\Telemetry\ScriptContextTelemetry.h"
+#include "..\Telemetry\ScriptContext\ScriptContextTelemetry.h"
 #endif
 #ifdef ENABLE_PROJECTION
 #include "Library\EngineInterfaceObject.h"
