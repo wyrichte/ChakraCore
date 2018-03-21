@@ -821,7 +821,7 @@ Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadCon
     // Find external weak referenced roots
     //
 
-    if (threadContext && threadContext->GetExtRemoteTyped().HasField("externalWeakReferenceCacheList"))
+    if (threadContext && threadContext->GetPtr() != 0 && threadContext->GetExtRemoteTyped().HasField("externalWeakReferenceCacheList"))
     {
         ExtRemoteTyped externalWeakReferenceCache = threadContext->GetExtRemoteTyped().Field("externalWeakReferenceCacheList");
         ULONG64 externalWeakReferenceList = externalWeakReferenceCache.GetPointerTo().GetPtr();

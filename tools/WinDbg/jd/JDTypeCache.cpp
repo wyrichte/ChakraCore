@@ -78,7 +78,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
         }
     }
 
-    if (!(vtbleAddr % 4 == 0 && GetExtension()->InChakraModule(vtbleAddr)))
+    if (!(vtbleAddr % 4 == 0 && (GetExtension()->InChakraModule(vtbleAddr) || GetExtension()->InEdgeModule(vtbleAddr))))
     {
         // Not our vtable
         return false;

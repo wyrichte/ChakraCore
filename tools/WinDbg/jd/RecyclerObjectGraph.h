@@ -80,7 +80,7 @@ public:
 protected:
     RecyclerObjectGraph(RemoteRecycler recycler, bool verbose = false);
     void Construct(RemoteRecycler recycler, Addresses& roots);
-    void EnsureTypeInfo(RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);    
+    void EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags);    
     static ULONG64 InferJavascriptLibrary(RecyclerObjectGraph::GraphImplNodeType* node, JDRemoteTyped remoteTyped, char const * simpleTypeName);
 
     static ULONG64 TryMatchDynamicType(char const * type, RecyclerObjectGraph::GraphImplNodeType* pred, char const * field, RecyclerObjectGraph::GraphImplNodeType* node);

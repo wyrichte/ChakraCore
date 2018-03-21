@@ -622,6 +622,34 @@ bool EXT_CLASS_BASE::InChakraModule(ULONG64 address)
     return (address >= chakraModuleBaseAddress && address < chakraModuleEndAddress);
 }
 
+bool EXT_CLASS_BASE::InEdgeModule(ULONG64 address)
+{
+    if (edgeModuleBaseAddress == 0)
+    {
+        char const * edgeModule = "edgehtml";
+        if (_stricmp(GetExtension()->GetModuleName(), "jscript9") == 0)
+        {
+            edgeModule = "mshtml";
+        }
+
+        ULONG moduleIndex = 0;
+        if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(edgeModule, 0, &moduleIndex, &edgeModuleBaseAddress)))
+        {
+            // Don't error in this case. Assume no edge module.
+            edgeModuleBaseAddress = 1; 
+            edgeModuleEndAddress = 1;
+            return false;
+        }
+
+        IMAGEHLP_MODULEW64 moduleInfo;
+        g_Ext->GetModuleImagehlpInfo(edgeModuleBaseAddress, &moduleInfo);
+        edgeModuleEndAddress = edgeModuleBaseAddress + moduleInfo.ImageSize;
+    }
+
+    return (address >= edgeModuleBaseAddress && address < edgeModuleEndAddress);
+}
+
+
 // Get VTable of a type
 std::string EXT_CLASS_BASE::GetRemoteVTableName(PCSTR type)
 {

@@ -49,7 +49,7 @@ public:
         return false;     
     }
 
-    RemoteThreadContext() {}
+    RemoteThreadContext() : threadContext("(void *)0") {}
     RemoteThreadContext(ExtRemoteTyped const& threadContext) : threadContext(threadContext) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
     bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * pThreadId = NULL);
