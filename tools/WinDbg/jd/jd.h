@@ -205,6 +205,7 @@ public:
     ULONG64 GetEnumValue(const char* enumName, bool useMemoryNamespace, ULONG64 defaultValue = -1);
 
     bool InChakraModule(ULONG64 address);
+    bool InEdgeModule(ULONG64 address);
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
     ULONG64 enum_##name() \
@@ -226,6 +227,8 @@ public:
     RemoteThreadContext::Info remoteThreadContextInfo;
     ULONG64 chakraModuleBaseAddress;
     ULONG64 chakraModuleEndAddress;
+    ULONG64 edgeModuleBaseAddress;
+    ULONG64 edgeModuleEndAddress;
 
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
@@ -290,6 +293,8 @@ protected:
         this->typeCache.Clear();
         this->chakraModuleBaseAddress = 0;
         this->chakraModuleEndAddress = 0;
+        this->edgeModuleBaseAddress = 0;
+        this->edgeModuleEndAddress = 0;
     }
 
     static RemoteRecycler GetRecycler(ULONG64 recyclerPtr, RemoteThreadContext * threadContext = nullptr);

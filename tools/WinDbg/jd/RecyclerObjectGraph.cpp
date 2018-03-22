@@ -22,7 +22,7 @@ RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteTh
         GetExtension()->recyclerCachedData.CacheRecyclerObjectGraph(recycler.GetPtr(), recyclerObjectGraph);
     }
 
-    recyclerObjectGraph->EnsureTypeInfo(threadContext, typeInfoFlags);
+    recyclerObjectGraph->EnsureTypeInfo(recycler, threadContext, typeInfoFlags);
 
     GetExtension()->recyclerCachedData.DisableCachedDebuggeeMemory();
     return recyclerObjectGraph;
@@ -369,7 +369,7 @@ ULONG64 RecyclerObjectGraph::TryMatchDynamicType(char const * type, RecyclerObje
     return library;
 }
 
-void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     bool infer = (typeInfoFlags & TypeInfoFlags::Infer) != 0;
     bool trident = (typeInfoFlags & TypeInfoFlags::Trident) != 0;
@@ -447,111 +447,115 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
         return false;
     };
 
-    JDRemoteTyped threadRecyclableData = threadContext->GetExtRemoteTyped().Field("recyclableData.ptr");
-    setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
-    RemoteBaseDictionary typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
-    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.buckets", typesWithProtoPropertyCache.GetBuckets());
-    setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.GetEntries());
-    typesWithProtoPropertyCache.ForEachValue([&](RemoteWeaklyReferencedKeyDictionary typeHashSet)
+    // thread context can be null for MemGC recycler
+    if (threadContext->GetPtr() != 0)
     {
-        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}", typeHashSet.GetExtRemoteTyped());
-        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.buckets", typeHashSet.GetBuckets());
-        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.entries", typeHashSet.GetEntries());
-        typeHashSet.ForEachKey([&](JDRemoteTyped key)
+        JDRemoteTyped threadRecyclableData = threadContext->GetExtRemoteTyped().Field("recyclableData.ptr");
+        setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
+        RemoteBaseDictionary typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
+        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.buckets", typesWithProtoPropertyCache.GetBuckets());
+        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.GetEntries());
+        typesWithProtoPropertyCache.ForEachValue([&](RemoteWeaklyReferencedKeyDictionary typeHashSet)
         {
-            setAddressData("RecyclerWeakReference<Js::Type>", key);
-            return false;
-        });
-        return false;
-    });
-    RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
-    setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
-    setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
-    propertyGuards.ForEachValue([&](JDRemoteTyped entry)
-    {
-        setAddressData("ThreadContext::PropertyGuardEntry", entry);
-        setAddressData("ThreadContext::PropertyGuardEntry.sharedGuard", entry.Field("sharedGuard"));
-        RemoteBaseDictionary uniqueGuards = entry.Field("uniqueGuards");
-        setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.buckets", uniqueGuards.GetBuckets());
-        setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.entries", uniqueGuards.GetEntries());
-        uniqueGuards.ForEachValue([&](JDRemoteTyped value)
-        {
-            setAddressData("RecyclerWeakReference<Js::PropertyGuard>", value);
-            return false;
-        });
-        if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
-        {
-            RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
-            setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
-            if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
+            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}", typeHashSet.GetExtRemoteTyped());
+            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.buckets", typeHashSet.GetBuckets());
+            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.entries", typeHashSet.GetEntries());
+            typeHashSet.ForEachKey([&](JDRemoteTyped key)
             {
-                entryPoints.ForEachKey([&](JDRemoteTyped key)
+                setAddressData("RecyclerWeakReference<Js::Type>", key);
+                return false;
+            });
+            return false;
+        });
+        RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
+        setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
+        setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
+        propertyGuards.ForEachValue([&](JDRemoteTyped entry)
+        {
+            setAddressData("ThreadContext::PropertyGuardEntry", entry);
+            setAddressData("ThreadContext::PropertyGuardEntry.sharedGuard", entry.Field("sharedGuard"));
+            RemoteBaseDictionary uniqueGuards = entry.Field("uniqueGuards");
+            setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.buckets", uniqueGuards.GetBuckets());
+            setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.entries", uniqueGuards.GetEntries());
+            uniqueGuards.ForEachValue([&](JDRemoteTyped value)
+            {
+                setAddressData("RecyclerWeakReference<Js::PropertyGuard>", value);
+                return false;
+            });
+            if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
+            {
+                RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
+                setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
+                if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
                 {
-                    setAddressData("RecyclerWeakReference<Js::EntryPointInfo>", key);
-                    return false;
-                });
+                    entryPoints.ForEachKey([&](JDRemoteTyped key)
+                    {
+                        setAddressData("RecyclerWeakReference<Js::EntryPointInfo>", key);
+                        return false;
+                    });
+                }
+            }
+            return false;
+        });
+        RemoteBaseDictionary caseInvariantPropertySet = threadRecyclableData.Field("caseInvariantPropertySet");
+        if (setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet", caseInvariantPropertySet.GetExtRemoteTyped()))
+        {
+            setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.buckets", caseInvariantPropertySet.GetBuckets());
+            setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
+        }
+        JDRemoteTyped boundPropertyStrings = threadRecyclableData.Field("boundPropertyStrings");
+        setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));
+        if (threadRecyclableData.HasField("symbolRegistrationMap"))  // IE doesn't have symbolRegistrationMap
+        {
+            RemoteBaseDictionary symbolRegistrationMap = threadRecyclableData.Field("symbolRegistrationMap");
+            if (setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap", symbolRegistrationMap.GetExtRemoteTyped()))
+            {
+                setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
+                setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
             }
         }
-        return false;
-    });
-    RemoteBaseDictionary caseInvariantPropertySet = threadRecyclableData.Field("caseInvariantPropertySet");
-    if (setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet", caseInvariantPropertySet.GetExtRemoteTyped()))
-    {
-        setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.buckets", caseInvariantPropertySet.GetBuckets());
-        setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
-    }
-    JDRemoteTyped boundPropertyStrings = threadRecyclableData.Field("boundPropertyStrings");
-    setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));
-    if (threadRecyclableData.HasField("symbolRegistrationMap"))  // IE doesn't have symbolRegistrationMap
-    {
-        RemoteBaseDictionary symbolRegistrationMap = threadRecyclableData.Field("symbolRegistrationMap");
-        if (setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap", symbolRegistrationMap.GetExtRemoteTyped()))
-        {
-            setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
-            setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
-        }
-    }
 
-    // For RS2 and below Js::Cache has a vtable, but may be ICF with other type.  Process them first.
-    RemoteThreadContext remoteThreadContext(*threadContext);
-    remoteThreadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
-    {
-        JDRemoteTyped library = scriptContext.GetJavascriptLibrary();
-        JDRemoteTyped cache;
-        if (library.HasField("scriptContextCache"))
+        // For RS2 and below Js::Cache has a vtable, but may be ICF with other type.  Process them first.
+        RemoteThreadContext remoteThreadContext(*threadContext);
+        remoteThreadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
         {
-            cache = library.Field("scriptContextCache").Cast("Js::Cache");
-        }
-        else
-        {
-            return false;
-        }
-
-        if (cache.GetPtr() != 0)
-        {
-            ULONG64 javascriptLibrary = library.GetPtr();
-            JDRemoteTyped sourceContextInfoMap = cache.Field("sourceContextInfoMap");
-            if (addFieldData(sourceContextInfoMap, "Js::Cache", "Js::Cache.sourceContextInfoMap", false, javascriptLibrary))
+            JDRemoteTyped library = scriptContext.GetJavascriptLibrary();
+            JDRemoteTyped cache;
+            if (library.HasField("scriptContextCache"))
             {
-                addFieldData(sourceContextInfoMap.Field("buckets"), "Js::Cache", "Js::Cache.sourceContextInfoMap.buckets", false, javascriptLibrary);
-                JDRemoteTyped sourceContextInfoMapEntries = sourceContextInfoMap.Field("entries");
+                cache = library.Field("scriptContextCache").Cast("Js::Cache");
+            }
+            else
+            {
+                return false;
+            }
 
-                if (addFieldData(sourceContextInfoMapEntries, "Js::Cache", "Js::Cache.sourceContextInfoMap.entries", false, javascriptLibrary))
+            if (cache.GetPtr() != 0)
+            {
+                ULONG64 javascriptLibrary = library.GetPtr();
+                JDRemoteTyped sourceContextInfoMap = cache.Field("sourceContextInfoMap");
+                if (addFieldData(sourceContextInfoMap, "Js::Cache", "Js::Cache.sourceContextInfoMap", false, javascriptLibrary))
                 {
-                    int count = sourceContextInfoMap.Field("count").GetLong();
-                    for (int i = 0; i < count; i++)
+                    addFieldData(sourceContextInfoMap.Field("buckets"), "Js::Cache", "Js::Cache.sourceContextInfoMap.buckets", false, javascriptLibrary);
+                    JDRemoteTyped sourceContextInfoMapEntries = sourceContextInfoMap.Field("entries");
+
+                    if (addFieldData(sourceContextInfoMapEntries, "Js::Cache", "Js::Cache.sourceContextInfoMap.entries", false, javascriptLibrary))
                     {
-                        JDRemoteTyped sourceContextInfo = sourceContextInfoMapEntries.ArrayElement(i).Field("value");
-                        if (addFieldData(sourceContextInfo, "Js::Cache", "SourceContextInfo", false, javascriptLibrary))
+                        int count = sourceContextInfoMap.Field("count").GetLong();
+                        for (int i = 0; i < count; i++)
                         {
-                            addFieldData(sourceContextInfo.Field("sourceDynamicProfileManager"), "Js::Cache", "SourceDynamicProfileManager", false, javascriptLibrary);
+                            JDRemoteTyped sourceContextInfo = sourceContextInfoMapEntries.ArrayElement(i).Field("value");
+                            if (addFieldData(sourceContextInfo, "Js::Cache", "SourceContextInfo", false, javascriptLibrary))
+                            {
+                                addFieldData(sourceContextInfo.Field("sourceDynamicProfileManager"), "Js::Cache", "SourceDynamicProfileManager", false, javascriptLibrary);
+                            }
                         }
                     }
                 }
             }
-        }
-        return true;
-    });
+            return true;
+        });
+    }
 
     class AutoError
     {
@@ -1483,7 +1487,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteThreadContext * threadContext, Re
                     do
                     {
                         addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
-                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + remoteThreadContext.GetRecycler().GetObjectGranularity() - g_Ext->m_PtrSize);
+                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + recycler.GetObjectGranularity() - g_Ext->m_PtrSize);
                     } while (bindRefChunk.GetPtr() != 0);
                     addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
                 }

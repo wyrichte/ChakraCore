@@ -75,7 +75,13 @@ ExtRemoteTyped RemoteRecycler::GetExtRemoteTyped()
 
 RemoteThreadContext RemoteRecycler::GetThreadContext()
 {
-    return recycler.Field("collectionWrapper").CastWithVtable();
+    char const * typeName;
+    JDRemoteTyped collectionWrapper = recycler.Field("collectionWrapper").CastWithVtable(&typeName);
+    if (strcmp(typeName, "ThreadContext") == 0)
+    {
+        return collectionWrapper;
+    }
+    return RemoteThreadContext();
 }
 
 RemoteHeapBlockMap RemoteRecycler::GetHeapBlockMap()
