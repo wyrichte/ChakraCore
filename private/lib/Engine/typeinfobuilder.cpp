@@ -136,9 +136,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
         paramNames = (LPCOLESTR *)_alloca(allocSize);
 
         memset(paramNames, 0, allocSize);
-        paramNames[0] = functionName;
-        HashTbl *h = NULL;
-        Scanner<NotNullTerminatedUTF8EncodingPolicy> *scan = NULL;
+        paramNames[0] = functionName;        
         if (paramCount > 0)
         {
             // The parameter list in AST is not available after bytecode generator
@@ -176,25 +174,21 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
                     }
 
                     Token tok;
-                    if (nullptr == (h = HashTbl::Create(256)))
-                    {
-                        return E_OUTOFMEMORY;
-                    }
-                    scan = Scanner<NotNullTerminatedUTF8EncodingPolicy>::Create(NULL, h, &tok, scriptContext);
-                    scan->SetText(pFuncBody->GetSource(_u("TypeInfoBuilder::AddFunction")), 0, pFuncBody->LengthInBytes(), 0, 0);
+                    Scanner<NotNullTerminatedUTF8EncodingPolicy> scan(NULL, &tok, scriptContext);
+                    scan.SetText(pFuncBody->GetSource(_u("TypeInfoBuilder::AddFunction")), 0, pFuncBody->LengthInBytes(), 0, false, 0);
                     int params = 0;
-                    scan->Scan();
+                    scan.Scan();
                     while (tok.tk != tkEOF)
                     {
                         if (tok.tk == tkLParen) break;
-                        scan->Scan();
+                        scan.Scan();
                     }
-                    while (scan->Scan() != tkEOF && params < paramCount)
+                    while (scan.Scan() != tkEOF && params < paramCount)
                     {
                         switch (tok.tk)
                         {
                         case tkID:
-                            paramNames[params + 1] = tok.GetIdentifier(h)->Psz();
+                            paramNames[params + 1] = tok.GetIdentifier(scan.GetHashTbl())->Psz();
                             params++;
                             continue;
                         case tkComma:
@@ -220,14 +214,9 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
             if (hr == 0x8002802c)
             {
                 hr = m_pcti->DeleteFuncDesc(m_cvarFunc);
-                RELEASEPTR(h);
-                RELEASEPTR(scan);
                 return hr;
             }
         }
-
-        RELEASEPTR(h);
-        RELEASEPTR(scan);
     }
 
     if (FAILED(hr))
