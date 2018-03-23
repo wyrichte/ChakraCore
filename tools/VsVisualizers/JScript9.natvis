@@ -455,4 +455,13 @@
       </CustomListItems>
     </Expand>
   </Type>
+  <Type Name="ValueType">
+    <DisplayString Condition="_objectBit == 1">Object Type: {_objectType} {{{_objectBits}}}</DisplayString>
+    <DisplayString Condition="_objectBit != 1">Non Object: {_nonObjectBits}</DisplayString>
+    <Expand>
+      <Item Name="Object Type" Condition="_objectBit == 1">_objectType</Item>
+      <Item Name="Object Bits" Condition="_objectBit == 1">_objectBits</Item>
+      <Item Name="Bits" Condition="_objectBit != 1">_nonObjectBits</Item>
+    </Expand>
+  </Type>
 </AutoVisualizer>
