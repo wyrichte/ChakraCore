@@ -1000,7 +1000,7 @@ namespace Js
         return ExternalObject::SetItem(index, value, flags);
     }
 
-    BOOL CustomExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext, ForInCache * forInCache)
+    BOOL CustomExternalObject::GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext* requestContext, EnumeratorCache * enumeratorCache)
     {
         HRESULT hr = FALSE;
         if (!this->VerifyObjectAlive())
@@ -1061,7 +1061,7 @@ namespace Js
             varEnumerator->Release();
             return TRUE;
         }
-        return ExternalObject::GetEnumerator(enumerator, flags, requestContext, forInCache);
+        return ExternalObject::GetEnumerator(enumerator, flags, requestContext, enumeratorCache);
     }
 
     // just to allow try_finally in caller function

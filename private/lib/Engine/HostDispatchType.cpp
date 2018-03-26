@@ -359,7 +359,7 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
     return result;
 }
 
-BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::ForInCache * forInCache)
+BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::EnumeratorCache * enumeratorCache)
 {    
     if (!this->CanSupportIDispatchEx())
     {
