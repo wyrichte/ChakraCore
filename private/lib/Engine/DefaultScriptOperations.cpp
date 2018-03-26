@@ -97,7 +97,7 @@ namespace Js
             if (objInstance->IsExternal())
             {
                 Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)objInstance;
-                *result = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::HasPropertyQuery(propertyId));
+                *result = JavascriptConversion::PropertyQueryFlagsToBoolean(customExternalObject->ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/));
             }
             else
             {

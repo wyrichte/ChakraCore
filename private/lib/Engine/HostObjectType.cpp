@@ -5,7 +5,7 @@
 ********************************************************/
 #include "EnginePch.h"
 
-Js::PropertyQueryFlags HostObject::HasPropertyQuery(Js::PropertyId propertyId)
+Js::PropertyQueryFlags HostObject::HasPropertyQuery(Js::PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
 {        
     DISPID dispId;
     BOOL fCached;

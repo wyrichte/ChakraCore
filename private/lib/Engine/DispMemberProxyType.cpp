@@ -5,7 +5,7 @@
 ********************************************************/
 #include "EnginePch.h"
 
-Js::PropertyQueryFlags DispMemberProxy::HasPropertyQuery(Js::PropertyId propertyId)
+Js::PropertyQueryFlags DispMemberProxy::HasPropertyQuery(Js::PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
 {
     AssertMsg(false, "DispMemberProxy::HasPropertyQuery should never be called");
     return Js::PropertyQueryFlags::Property_NotFound;
