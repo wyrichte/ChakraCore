@@ -164,7 +164,7 @@
     <Expand>
       <CustomListItems>
         <Variable Name="node" InitialValue="this->head" />
-        <Variable Name="data" InitialValue="0" />
+        <Variable Name="data" InitialValue="node ? node->data.word : 0" />
         <Variable Name="i" InitialValue="0" />
         <Loop Condition="node">
           <Exec>data = node->data.word</Exec>
