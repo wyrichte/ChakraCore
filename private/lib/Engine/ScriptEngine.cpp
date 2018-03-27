@@ -24,7 +24,7 @@
 #include "ActiveScriptProfilerHeapEnum.h"
 
 #ifdef ENABLE_EXPERIMENTAL_FLAGS
-#include <iesettings.h>
+#include <EdgeSettings.h>
 #endif
 
 #ifdef ENABLE_BASIC_TELEMETRY
