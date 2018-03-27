@@ -208,7 +208,7 @@ namespace Js
     }
 
 
-    PropertyQueryFlags CustomExternalObject::HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
+    PropertyQueryFlags CustomExternalObject::HasPropertyQuery(PropertyId propertyId)
     {
         BOOL notPresent=false;
         if (!this->VerifyObjectAlive())
@@ -218,13 +218,13 @@ namespace Js
 
         if (this->GetCustomExternalType()->IsSimpleWrapper())
         {
-            return ExternalObject::HasPropertyQuery(propertyId, info);
+            return ExternalObject::HasPropertyQuery(propertyId);
         }
         // we don't throw in hasProperty, but possibly throw in GetProperty
         // this is consistent with HostDispatch code path as well.
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_hasOwnProperty)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, info)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return PropertyQueryFlags::Property_Found;
             }
@@ -267,7 +267,7 @@ namespace Js
             }
             return JavascriptConversion::BooleanToPropertyQueryFlags(result);
         }
-        return ExternalObject::HasPropertyQuery(propertyId, info);
+        return ExternalObject::HasPropertyQuery(propertyId);
     }
 
     PropertyQueryFlags CustomExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
@@ -286,7 +286,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getOwnProperty)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext);
             }
@@ -444,7 +444,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getPropertyReference)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
             }
@@ -591,7 +591,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setProperty)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetProperty(propertyId, value, flags, info);
             }
@@ -655,7 +655,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setPropertyWithAttributes)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetPropertyWithAttributes(propertyId, value, attributes, info, flags, possibleSideEffects);
             }
@@ -730,7 +730,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_deleteProperty)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::DeleteProperty(propertyId, flags);
             }
@@ -1138,7 +1138,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isEnumerable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsEnumerable(propertyId);
             }
@@ -1194,7 +1194,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isWritable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsWritable(propertyId);
             }
@@ -1249,7 +1249,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_isConfigurable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::IsConfigurable(propertyId);
             }
@@ -1304,7 +1304,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setEnumerable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetEnumerable(propertyId, value);
             }
@@ -1359,7 +1359,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setWritable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetWritable(propertyId, value);
             }
@@ -1414,7 +1414,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setConfigurable)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetConfigurable(propertyId, value);
             }
@@ -1481,7 +1481,7 @@ namespace Js
         }
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_setAccessors)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::SetAccessors(propertyId, getter, setter, flags);
             }
@@ -1545,7 +1545,7 @@ namespace Js
 
         if (this->GetOperationUsage().useWhenPropertyNotPresent & OperationFlag_getAccessors)
         {
-            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId, nullptr /*info*/)))
+            if (JavascriptConversion::PropertyQueryFlagsToBoolean(ExternalObject::HasPropertyQuery(propertyId)))
             {
                 return ExternalObject::GetAccessors(propertyId, getter, setter, requestContext);
             }

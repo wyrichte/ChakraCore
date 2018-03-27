@@ -39,7 +39,7 @@ public:
 
     virtual RecyclableObject* GetPrototypeSpecial() override;
     virtual BOOL HasOwnProperty(PropertyId propertyId) override;
-    virtual Js::PropertyQueryFlags HasPropertyQuery(Js::PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info) override;
+    virtual Js::PropertyQueryFlags HasPropertyQuery(Js::PropertyId propertyId) override;
     virtual Js::PropertyQueryFlags GetPropertyQuery(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
     virtual Js::PropertyQueryFlags GetPropertyQuery(Js::Var originalInstance, Js::JavascriptString* propertyNameString, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
     virtual Js::PropertyQueryFlags GetPropertyReferenceQuery(Js::Var originalInstance, Js::PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
@@ -120,7 +120,7 @@ public:
 
     static Js::Var Invoke(Js::RecyclableObject* function, Js::CallInfo callInfo, ...);
     BOOL IsInstanceOf(Js::Var prototypeProxy);
-    
+
     VARIANT* GetVariant() const;
     static __declspec(noreturn) void HandleDispatchError(Js::ScriptContext * scriptContext, HRESULT hr, EXCEPINFO* exceptInfo);
     static HRESULT QueryInterfaceWithLeaveScript(IUnknown* obj, REFIID iid, void** returnObj, Js::ScriptContext* scriptContext);

@@ -143,14 +143,14 @@ namespace Js
         return DynamicObject::IsEnumerable(propertyId);
     }
 
-    PropertyQueryFlags ProfileDataObject::HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
+    PropertyQueryFlags ProfileDataObject::HasPropertyQuery(PropertyId propertyId)
     {
         if(propertyId == loopCount)
             return PropertyQueryFlags::Property_Found;
         if(propertyId == implicitCallFlags)
             return PropertyQueryFlags::Property_Found;
 
-        return DynamicObject::HasPropertyQuery(propertyId, info);
+        return DynamicObject::HasPropertyQuery(propertyId);
     }
 
     PropertyQueryFlags ProfileDataObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)

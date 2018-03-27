@@ -11,11 +11,11 @@ namespace Js
         return requestContext->GetPropertyString(GetNameId());
     }
 
-    PropertyQueryFlags ExternalObject::HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
+    PropertyQueryFlags ExternalObject::HasPropertyQuery(PropertyId propertyId)
     {
         // we don't throw in hasProperty, but possibly throw in GetProperty
         // this is consistent with HostDispatch code path as well.
-        return DynamicObject::HasPropertyQuery(propertyId, info);
+        return DynamicObject::HasPropertyQuery(propertyId);
     }
 
     PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)

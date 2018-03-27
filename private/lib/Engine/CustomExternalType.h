@@ -43,7 +43,7 @@ namespace Js
     } \
    BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext) \
 
-// log an etw event before returning back from an ITypeOperation call. 
+// log an etw event before returning back from an ITypeOperation call.
 #define END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, thisTypeId, propertyId, Operation) \
     END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext); \
     if (IS_JS_ETW(EventEnabledJSCRIPT_HOSTING_CEO_STOP()))    \
@@ -63,7 +63,7 @@ namespace Js
         CustomExternalObject_GetItemReference =8,
         CustomExternalObject_SetItem =9,
         CustomExternalObject_DeleteItem =10,    //10
-        CustomExternalObject_GetEnumerator =11, 
+        CustomExternalObject_GetEnumerator =11,
         CustomExternalObject_IsEnumerable =12,
         CustomExternalObject_IsWritable =13,
         CustomExternalObject_IsConfigurable =14,
@@ -73,12 +73,12 @@ namespace Js
         CustomExternalObject_SetAccessors =18,
         CustomExternalObject_GetAccessors =19,
         CustomExternalObject_GetSetter =20,    // 20
-        CustomExternalObject_GetItemSetter =21, 
+        CustomExternalObject_GetItemSetter =21,
         CustomExternalObject_Equals =22,
         CustomExternalObject_StrictEquals =23,
         CustomExternalObject_HasInstance =24,
         CustomExternalObject_GetNamespaceParent =25,
-        CustomExternalObject_CrossDomainCheck =26,  
+        CustomExternalObject_CrossDomainCheck =26,
         CustomExternalObject_GetHeapObjectInfo =27,
         CustomExternalObject_QueryObjectInterface =28,
     };
@@ -115,7 +115,7 @@ namespace Js
 #if DBG
         virtual BOOL DbgSkipsPrototype() const override { return (GetOperationUsage().useWhenPropertyNotPresentInPrototypeChain & OperationFlagsForNamespaceOrdering_allGetPropertyOperations) ? true : false; }
 #endif
-        virtual PropertyQueryFlags HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info) override;
+        virtual PropertyQueryFlags HasPropertyQuery(PropertyId propertyId) override;
         virtual BOOL UseDynamicObjectForNoHostObjectAccess() override { return TRUE; }
         virtual PropertyQueryFlags GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) override;
         virtual PropertyQueryFlags GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) override;
