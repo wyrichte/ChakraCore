@@ -9,6 +9,8 @@
 @echo off
 setlocal
 
+set _JSHOST=1
+
 set _RootDir=%~dp0..
 set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -bvt -BaselineMode
 
