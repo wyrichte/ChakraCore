@@ -1,4 +1,4 @@
-Bytecode GUID = {790F966D-646F-4CBF-86C2-6C8FECA645EA}
+Bytecode GUID = {6A68E4F0-E0BA-4332-B23B-9F509144497A}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1476,6 +1476,7 @@ Property: subTags
 Property: supportedLocalesOf
 Property: tagPublicLibraryCode
 Property: winglob
+Property: platform
 Property: NumberFormat
 Property: __currency
 Property: __currencyDisplay
