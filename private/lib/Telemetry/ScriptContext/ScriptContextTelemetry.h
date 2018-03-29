@@ -43,7 +43,8 @@ namespace Js
 
     public:
         ScriptContextTelemetry(ScriptContext* sc) :
-            scriptContext(sc)
+            scriptContext(sc),
+            builtInCountTracker(sc)
         {
             // do static initialization
             if (!ScriptContextTelemetry::isInitialized)

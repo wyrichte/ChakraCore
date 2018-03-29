@@ -5,11 +5,13 @@
 #pragma once
 
 #include "Core/CRC.h"
+#include "BuiltInFacets.h"
+#include "BuiltInMapper.h"
 
 #define CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(builtin)                                              \
     {                                                                                              \
        Js::BuiltInCountTracker& tracker = scriptContext->GetTelemetry().GetBuiltInCountTracker();  \
-       tracker.Increment(Js::BuiltInCountTracker::Facet:: ##builtin);                              \
+       tracker.Increment(Js::BuiltInFacet:: ##builtin);                              \
     }
 
 namespace Js
@@ -19,21 +21,16 @@ namespace Js
 
     public:
 
-        enum class Facet : size_t
+        BuiltInCountTracker(ScriptContext* sc) :
+            builtInMapper(sc)
         {
-            _None,
+        }
 
-#define ENTRY_BUILTIN(esVersion, typeName, location, propertyName) typeName ## _ ## location ## _ ## propertyName ,
-#include "ESBuiltIns.h"
-#undef ENTRY_BUILTIN
-
-            _Max
-        };
-
-        static const size_t numFacets = static_cast<size_t>(Facet::_Max) + 1;
-
+        static const size_t numFacets = static_cast<size_t>(BuiltInFacet::_Max) + 1;
 
     private: 
+        BuiltInMapper builtInMapper;
+
         uint32 counts[BuiltInCountTracker::numFacets];
 
         const char* names[BuiltInCountTracker::numFacets] = {
@@ -58,7 +55,7 @@ namespace Js
 
     public: 
 
-        inline void Increment(Facet c)
+        inline void Increment(BuiltInFacet c)
         {
             ++counts[static_cast<size_t>(c)];
         }
@@ -84,52 +81,55 @@ namespace Js
         // Hooks below are useful as they allow us to check for polyfills, since sites will test and use a particular property, 
         // even if we don't have an implementation of it.
 
-        void GetMethodProperty(const Var& instance, const PropertyId& propertyId, const Var& value, const bool successful)
+        void GetMethodProperty(const Var& instance, const PropertyId& propertyId, const Var& value)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->GetMethodProperty(instance, propertyId, value, successful);
+            BuiltInFacet f = this->builtInMapper.GetFacetForProperty(instance, propertyId);
+            if (f != BuiltInFacet::_None)
+            {
+                this->Increment(f);
+            }
         }
 
-        void GetProperty(const Var& instance, const PropertyId& propertyId, const Var& value, const bool successful)
+        void GetProperty(const Var& instance, const PropertyId& propertyId, const Var& value)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->GetProperty(instance, propertyId, value, successful);
+            BuiltInFacet f = this->builtInMapper.GetFacetForProperty(instance, propertyId);
+            if (f != BuiltInFacet::_None)
+            {
+                this->Increment(f);
+            }
         }
 
         void IsInstanceOf(const Var& instance, const Var& constructorFunction, const Var& result)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->IsInstanceOf(instance, constructorFunction, result);
+            // TODO: Investigate the use of `instanceof` for feature detection, and if commonly used, add telemetry here.
         }
 
-        void TypeOfProperty(const Var& instance, const PropertyId& propertyId, const Var& value, const Var& result, const bool successful)
+        void TypeOfProperty(const Var& instance, const PropertyId& propertyId, const Var& value, const Var& result)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->TypeOfProperty(instance, propertyId, value, result, successful);
+            BuiltInFacet f = this->builtInMapper.GetFacetForProperty(instance, propertyId);
+            if (f != BuiltInFacet::_None)
+            {
+                this->Increment(f);
+            }
         }
 
-        void IsIn(const Var& instance, const PropertyId& propertyId, const bool successful)
+        void IsIn(const Var& instance, const PropertyId& propertyId)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->IsIn(instance, propertyId, successful);
+            BuiltInFacet f = this->builtInMapper.GetFacetForProperty(instance, propertyId);
+            if (f != BuiltInFacet::_None)
+            {
+                this->Increment(f);
+            }
         }
 
         void NewScriptObject(const Var& constructorFunction, const Arguments& arguments, const Var& constructedInstance)
         {
-        //    // TODO
-        //    //this->esBuiltInsOpcodeTelemetry->NewScriptObject(constructorFunction, arguments, constructedInstance);
+            BuiltInFacet f = this->builtInMapper.GetFacetForConstructor(constructorFunction);
+            if (f != BuiltInFacet::_None)
+            {
+                this->Increment(f);
+            }
         }
-
-
-        /*
-        ESBuiltInTypeNameId GetESBuiltInTypeNameId(const Js::Var instance, const Js::PropertyId propertyId, _Out_ bool& isConstructorProperty, _Out_ ESBuiltInPropertyId& shortcutPropertyFound);
-
-        ESBuiltInTypeNameId GetESBuiltInTypeNameId_Function(const Js::Var instance, const Js::PropertyId propertyId, _Out_ bool& isConstructorProperty, _Out_ ESBuiltInPropertyId& shortcutPropertyFound);
-        ESBuiltInTypeNameId GetESBuiltInTypeNameId_Object(const Js::Var instance, const Js::PropertyId propertyId, _Out_ bool& isConstructorProperty, _Out_ ESBuiltInPropertyId& shortcutPropertyFound);
-        ESBuiltInTypeNameId GetESBuiltInTypeNameId_Other(const Js::Var instance, const Js::PropertyId propertyId, _Out_ bool& isConstructorProperty, Js::TypeId typeId, _Out_ ESBuiltInPropertyId& shortcutPropertyFound);
-        */
-
-
 
     };
 

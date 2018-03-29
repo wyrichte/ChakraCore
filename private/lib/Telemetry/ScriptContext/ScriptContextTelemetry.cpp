@@ -100,8 +100,8 @@ namespace Js
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
 
-                TraceLoggingUInt32FixedArray(builtInCountTracker.GetCRCArray(), static_cast<size_t>(BuiltInCountTracker::Facet::_Max), "BuiltInCountNameCRCs"),
-                TraceLoggingUInt32FixedArray(builtInCountTracker.GetCountsArray(), static_cast<size_t>(BuiltInCountTracker::Facet::_Max), "BuiltInCountValues"),
+                TraceLoggingUInt32FixedArray(builtInCountTracker.GetCRCArray(), static_cast<size_t>(BuiltInFacet::_Max), "BuiltInCountNameCRCs"),
+                TraceLoggingUInt32FixedArray(builtInCountTracker.GetCountsArray(), static_cast<size_t>(BuiltInFacet::_Max), "BuiltInCountValues"),
 
                 TraceLoggingUInt32FixedArray(langaugeFeaturesCountTracker.GetCRCArray(), static_cast<size_t>(LanguageFeaturesCountTracker::Facet::_Max), "LanguageFeaturesNameCRCs"),
                 TraceLoggingUInt32FixedArray(langaugeFeaturesCountTracker.GetCountsArray(), static_cast<size_t>(LanguageFeaturesCountTracker::Facet::_Max), "LanguageFeaturesValues")

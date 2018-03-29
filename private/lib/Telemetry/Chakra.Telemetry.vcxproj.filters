@@ -7,6 +7,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContext\ScriptContextTelemetry.cpp">
       <Filter>ScriptContext</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInMapper.cpp">
+      <Filter>ScriptContext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectCall.h" />
@@ -19,6 +22,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltInsCountTracker.h">
       <Filter>ScriptContext</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltInsTypeNames.h">
+      <Filter>ScriptContext</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\LanguageFeatures.h">
       <Filter>ScriptContext</Filter>
     </ClInclude>
@@ -26,6 +32,12 @@
       <Filter>ScriptContext</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ScriptContextTelemetry.h">
+      <Filter>ScriptContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInMapper.h">
+      <Filter>ScriptContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h" >
       <Filter>ScriptContext</Filter>
     </ClInclude>
   </ItemGroup>

@@ -50,15 +50,19 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scriptcontext\ScriptContextTelemetry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scriptcontext\BuiltInMapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectCall.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Telemetry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryMacros.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryPch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scriptcontext\BuiltInMapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ScriptContextTelemetry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltIns.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltInsCountTracker.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltInsTypeNames.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\LanguageFeatures.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\LanguageFeaturesCountTracker.h" />
   </ItemGroup>
