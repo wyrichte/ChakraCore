@@ -22,7 +22,7 @@ Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
     return GetType()->GetPrototype();
 }
 
-Js::PropertyQueryFlags HostDispatch::HasPropertyQuery(PropertyId propertyId)
+Js::PropertyQueryFlags HostDispatch::HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info)
 {
     // Reject implicit call
     ThreadContext * threadContext = GetScriptContext()->GetThreadContext();

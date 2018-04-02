@@ -759,7 +759,7 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
                         AssertMsg(Js::JavascriptOperators::GetTypeId(scriptObject) == Js::TypeIds_ModuleRoot ||
                             Js::JavascriptOperators::GetTypeId(scriptObject) == Js::TypeIds_GlobalObject,
                             "Bad type, root object assumed");
-                        if (Js::JavascriptConversion::PropertyQueryFlagsToBoolean(scriptObject->DynamicObject::HasPropertyQuery(currentPropertyId)))
+                        if (Js::JavascriptConversion::PropertyQueryFlagsToBoolean(scriptObject->DynamicObject::HasPropertyQuery(currentPropertyId, nullptr /*info*/)))
                         {
                             newPropertyId = currentPropertyId;
                             hr = S_OK;
@@ -813,7 +813,7 @@ HRESULT JavascriptDispatch::GetPropertyIdWithFlag(__in BSTR bstrName, DWORD grfd
             AssertMsg(Js::JavascriptOperators::GetTypeId(scriptObject) == Js::TypeIds_ModuleRoot ||
                 Js::JavascriptOperators::GetTypeId(scriptObject) == Js::TypeIds_GlobalObject,
                 "Bad type, root object assumed");
-            if (Js::JavascriptConversion::PropertyQueryFlagsToBoolean(scriptObject->DynamicObject::HasPropertyQuery(newPropertyId)))
+            if (Js::JavascriptConversion::PropertyQueryFlagsToBoolean(scriptObject->DynamicObject::HasPropertyQuery(newPropertyId, nullptr /*info*/)))
             {
                 hr = S_OK;
             }
