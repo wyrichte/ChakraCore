@@ -1385,7 +1385,7 @@ JD_PRIVATE_COMMAND(jstack,
         }
 
         // Native stack frames
-        if (nameBuffer)
+        if (nameBuffer && strncmp(nameBuffer, "js!", 3) != 0)
         {
             if (dumpFull)
             {
@@ -1394,7 +1394,6 @@ JD_PRIVATE_COMMAND(jstack,
             }
             continue;
         }
-
 
         // Interpreter stack frames
         if (!interpreterStackFrame.IsNull() && interpreterStackFrame.GetReturnAddress() == stackWalker.GetRip())
@@ -1491,7 +1490,14 @@ JD_PRIVATE_COMMAND(jstack,
         if (!isFunctionObject && dumpFull)
         {
             stackWalker.PrintFrameNumber(verbose);
-            Out(" <unknown %p>\n", stackWalker.GetRip());
+            if (nameBuffer)
+            {
+                Out(" %s+0x%x\n", nameBuffer, offset);
+            }
+            else
+            {
+                Out(" <unknown %p>\n", stackWalker.GetRip());
+            }
         }
     }
 
