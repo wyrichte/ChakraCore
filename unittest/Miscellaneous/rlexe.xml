@@ -7,7 +7,7 @@
       <baseline>../../private/lib/Projection/InJavascript/Promise.js.bc.32b.h</baseline>
       <compile-flags>-GenerateLibraryByteCodeHeader -Intl</compile-flags>
       <!-- OS# 15765741:  [RS4] Disabled ByteCode Header verification test as it uses relative paths that don't exist on the DRT VM. -->
-      <tags>exclude_dynapogo,exclude_amd64,exclude_drt</tags>
+      <tags>exclude_dynapogo,exclude_amd64,exclude_drt,exclude_forceserialized</tags>
       <eol-normalization />
     </default>
   </test>
@@ -17,7 +17,7 @@
       <baseline>../../private/lib/Projection/InJavascript/Promise.js.bc.64b.h</baseline>
       <compile-flags>-GenerateLibraryByteCodeHeader -Intl</compile-flags>
       <!-- OS# 15765741:  [RS4] Disabled ByteCode Header verification test as it uses relative paths that don't exist on the DRT VM. -->
-      <tags>exclude_dynapogo,exclude_x86,exclude_drt</tags>
+      <tags>exclude_dynapogo,exclude_x86,exclude_drt,exclude_forceserialized</tags>
       <eol-normalization />
     </default>
   </test>
