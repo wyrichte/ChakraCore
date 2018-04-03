@@ -899,14 +899,56 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             else if (IsTypeOrCrossSite("Js::JavascriptMap"))
             {
                 addDynamicObjectFields(remoteTyped);
-                RemoteBaseDictionary mapDataMap = remoteTyped.Field("map");
-                AddDictionaryField(mapDataMap, "Js::JavascriptMap::MapDataMap");
+
+                if (remoteTyped.HasField("map"))
+                {
+                    RemoteBaseDictionary mapDataMap = remoteTyped.Field("map");
+                    AddDictionaryField(mapDataMap, "Js::JavascriptMap::MapDataMap");
+                }
+                else if (remoteTyped.HasField("kind"))
+                {
+                    PSTR mapKind = remoteTyped.Field("kind").GetSimpleValue();
+
+                    if (ENUM_EQUAL(mapKind, SimpleVarMap))
+                    {
+                        RemoteBaseDictionary simpleVarMap = remoteTyped.Field("u").Field("simpleVarMap");
+                        AddDictionaryField(simpleVarMap, "Js::JavascriptMap::SimpleVarDataMap");
+                    }
+                    else if (ENUM_EQUAL(mapKind, ComplexVarMap))
+                    {
+                        RemoteBaseDictionary complexVarMap = remoteTyped.Field("u").Field("complexVarMap");
+                        AddDictionaryField(complexVarMap, "Js::JavascriptMap::ComplexVarDataMap");
+                    }
+                }
             }
             else if (IsTypeOrCrossSite("Js::JavascriptSet"))
             {
                 addDynamicObjectFields(remoteTyped);
-                RemoteBaseDictionary setDataSet = remoteTyped.Field("set");
-                AddDictionaryField(setDataSet, "Js::JavascriptSet::SetDataSet");
+                if (remoteTyped.HasField("set"))
+                {
+                    RemoteBaseDictionary setDataSet = remoteTyped.Field("set");
+                    AddDictionaryField(setDataSet, "Js::JavascriptSet::SetDataSet");
+                }
+                else if (remoteTyped.HasField("kind"))
+                {
+                    PSTR setKind = remoteTyped.Field("kind").GetSimpleValue();
+
+                    if (ENUM_EQUAL(setKind, IntSet))
+                    {
+                        JDRemoteTyped intSet = remoteTyped.Field("u").Field("intSet");
+                        addField(intSet, "Js::JavascriptSet::IntSet");
+                    }
+                    else if (ENUM_EQUAL(setKind, SimpleVarDataSet))
+                    {
+                        RemoteBaseDictionary simpleVarSet = remoteTyped.Field("u").Field("simpleVarSet");
+                        AddDictionaryField(simpleVarSet, "Js::JavascriptSet::SimpleVarDataSet");
+                    }
+                    else if (ENUM_EQUAL(setKind, ComplexVarDataSet))
+                    {
+                        RemoteBaseDictionary complexVarSet = remoteTyped.Field("u").Field("complexVarSet");
+                        AddDictionaryField(complexVarSet, "Js::JavascriptMap::ComplexVarDataSet");
+                    }
+                }
             }
             else if (IsTypeOrCrossSite("Js::JavascriptWeakMap")
                 || IsTypeOrCrossSite("Js::JavascriptWeakSet"))
