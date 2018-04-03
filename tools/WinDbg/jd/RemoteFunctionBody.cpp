@@ -291,7 +291,7 @@ RemoteFunctionBody::PrintNameAndNumberWithLink()
     ExtBuffer<WCHAR> displayNameBuffer;
     if (GetExtension()->PreferDML())
     {
-        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%S *)0x%p\">%s</link> (#%d.%d, #%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
+        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%S *)0x%p\">%s</link> (#%d.%d, #%d) (%d.%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetLineNumber(), GetColumnNumber());
     }
     else
     {

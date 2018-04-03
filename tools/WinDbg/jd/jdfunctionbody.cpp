@@ -23,14 +23,54 @@ void PrintFunctionBody(RemoteFunctionBody& functionBody)
 EXT_COMMAND(ffb,
     "Find FunctionBody",
     "{exact;b,o;exactMatch;do exact match}"
-    "{;x;functionName;String of function name}")
+    "{functionId;s,o;functionId;Function Id to filter to}"
+    "{sourceLocation;s,o;sourceId;Source Location to filter to}"
+    "{;x,o;functionName;String of function name}")
 {
     bool exactMatch = HasArg("exact");
-    PCSTR arg = GetUnnamedArgStr(0);
-    size_t length = strlen(arg);
-    if (length == 0)
+    bool compareByName = true;
+    PCSTR functionId = HasArg("functionId") ? GetArgStr("functionId") : nullptr;
+    PCSTR sourceLocation = HasArg("sourceLocation") ? GetArgStr("sourceLocation") : nullptr;
+
+    ULONG64 functionIdFilter = 0;
+    ULONG64 sourceIdFilter = 0;
+    ULONG64 sourceLineFilter = 0;
+    ULONG64 sourceColumnFilter = 0;
+
+    PCSTR arg = nullptr;
+    size_t length = 0; 
+    bool showAll = (functionId == nullptr && sourceLocation == nullptr && GetNumUnnamedArgs() == 0);
+
+    if (GetNumUnnamedArgs() > 0)
     {
-        return;
+        arg = GetUnnamedArgStr(0);
+        length = strlen(arg);
+    }
+
+    if (functionId != nullptr || sourceLocation != nullptr)
+    {
+        exactMatch = true;
+        compareByName = false;
+
+        if (functionId != nullptr)
+        {
+            int tokens = sscanf(functionId, "%d.%d", &sourceIdFilter, &functionIdFilter);
+            if (tokens != 2)
+            {
+                Out("Invalid function id- expected <source id>.<function id>\n");
+                return;
+            }
+        }
+
+        if (sourceLocation != nullptr)
+        {
+            int tokens = sscanf(sourceLocation, "%d.%d", &sourceLineFilter, &sourceColumnFilter);
+            if (tokens != 2)
+            {
+                Out("Invalid source location- expected <source row>.<source column>\n");
+                return;
+            }
+        }
     }
 
     RemoteThreadContext::ForEach([=](RemoteThreadContext threadContext)
@@ -42,51 +82,84 @@ EXT_COMMAND(ffb,
                 return utf8SourceInfo.GetFunctionBodyDictionary().ForEachValue([=](RemoteFunctionBody functionBody)
                 {
                     ExtBuffer<WCHAR> buffer;
+                    bool foundMatch = false;
+
                     PCWSTR name = functionBody.GetDisplayName(&buffer);
                     size_t nameLength = wcslen(name);
                     if (exactMatch)
                     {
-                        if (nameLength != length)
+                        if (functionId != nullptr || sourceLocation != nullptr)
                         {
-                            return false;
+                            bool functionIdMatch = (functionBody.GetSourceContextId() == sourceIdFilter &&
+                                                    functionBody.GetLocalFunctionId() == functionIdFilter);
+
+                            bool sourceLocMatch = (functionBody.GetLineNumber() == sourceLineFilter &&
+                                                   functionBody.GetColumnNumber() == sourceColumnFilter);
+
+                            if (functionId && sourceLocation)
+                            {
+                                foundMatch = (functionIdMatch && sourceLocMatch);
+                            }
+                            else
+                            {
+                                foundMatch = (functionIdMatch || sourceLocMatch);
+                            }
                         }
 
-                        for (size_t i = 0; i < length; i++)
+                        if (compareByName)
                         {
-                            if (arg[i] != name[i])
+                            if (nameLength != length)
                             {
                                 return false;
+                            }
+
+                            for (size_t i = 0; i < length; i++)
+                            {
+                                if (arg[i] != name[i])
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }
                     else
                     {
-                        PCWSTR match = wcschr(name, arg[0]);
-                        bool matched = false;
-                        while (match && nameLength - (match - name) >= length)
+                        if (arg != nullptr)
                         {
-                            matched = true;
-                            for (size_t i = 1; i < length; i++)
+                            PCWSTR functionNameMatch = wcschr(name, arg[0]);
+                            bool matched = false;
+                            while (functionNameMatch && nameLength - (functionNameMatch - name) >= length)
                             {
-                                if (match[i] != arg[i])
+                                matched = true;
+                                for (size_t i = 1; i < length; i++)
                                 {
-                                    matched = false;
+                                    if (functionNameMatch[i] != arg[i])
+                                    {
+                                        matched = false;
+                                        break;
+                                    }
+                                }
+                                if (matched)
+                                {
                                     break;
                                 }
+                                functionNameMatch = wcschr(functionNameMatch + 1, arg[0]);
                             }
-                            if (matched)
+                            if (!functionNameMatch)
                             {
-                                break;
+                                return false;
                             }
-                            match = wcschr(match + 1, arg[0]);
-                        }
-                        if (!matched)
-                        {
-                            return false;
+
+                            foundMatch = true;
                         }
                     }
-                    functionBody.PrintNameAndNumberWithLink();
-                    Out("\n");
+
+                    if (foundMatch || showAll)
+                    {
+                        functionBody.PrintNameAndNumberWithLink();
+                        Out("\n");
+                    }
+
                     return false;
                 });
             });

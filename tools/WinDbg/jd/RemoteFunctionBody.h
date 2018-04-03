@@ -54,6 +54,16 @@ public:
         return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
     }
 
+    ULONG GetLineNumber()
+    {
+        return this->Field("m_lineNumber").GetUlong() + 1;
+    }
+
+    ULONG GetColumnNumber()
+    {
+        return this->Field("m_columnNumber").GetUlong() + 1;
+    }
+
     JDRemoteTyped GetDisplayName()
     {
         return JDUtil::GetWrappedField(*this, "m_displayName");
