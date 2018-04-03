@@ -404,7 +404,7 @@ void ActiveScriptError::FillParseErrorInfo(ExtendedExceptionInfo &exInfo)
 
 HRESULT ActiveScriptError::CreateCompileError(const SRCINFO * psi, CompileScriptException * pcse, Js::Utf8SourceInfo* sourceInfo, ActiveScriptError **ppase)
 {
-    AssertMem(ppase);
+    Assert(ppase);
 
     ActiveScriptError* pase = new ActiveScriptError; // The constructor sets the reference-count to 1
     if (nullptr == pase)

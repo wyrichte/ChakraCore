@@ -1400,9 +1400,6 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
 void ScriptSite::SetCaller(__in IUnknown *punkNew, __deref_out_opt IUnknown **ppunkPrev)
 {
     *ppunkPrev = nullptr;
-
-    AssertMemN(punkNew);
-
     *ppunkPrev = m_punkCaller;
     if (!isClosed)
     {

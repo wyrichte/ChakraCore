@@ -179,7 +179,7 @@ HRESULT CScriptSourceDocumentText::MarkForClose()
 HRESULT CScriptSourceDocumentText::Init(ScriptEngine *scriptEngine, ulong grfsi)
 {
     // Assert that we're clean
-    AssertMem(this);
+    Assert(this);
     Assert(NULL == m_scriptEngine);
     Assert(NULL == m_scriptBody);
     Assert(NULL == m_pdocNext);
@@ -193,7 +193,7 @@ HRESULT CScriptSourceDocumentText::Init(ScriptEngine *scriptEngine, ulong grfsi)
     Assert(0 == m_cln);
     Assert(NULL == m_sourceTextAttirbutes);
 
-    AssertMem(scriptEngine);
+    Assert(scriptEngine);
 
     m_isManagedByHost = (grfsi & fsiHostManaged) != 0;
     m_isScriptlet = (grfsi & fsiScriptlet) != 0;
@@ -223,8 +223,8 @@ void CScriptSourceDocumentText::SetScriptBody(CScriptBody *pbody)
     {
         m_scriptBody->AddRef();
     }
-    AssertMem(pbody);
-    AssertMem(m_scriptEngine);
+    Assert(pbody);
+    Assert(m_scriptEngine);
 
     if (!m_isManagedByHost)
     {
@@ -281,8 +281,8 @@ SRCINFO *CScriptSourceDocumentText::GetSourceInfo(void)
 // the string, and the function returns FALSE.
 BOOL CScriptSourceDocumentText::FAdvanceToNextLine(const OLECHAR **ppch)
 {
-    AssertMem(ppch);
-    AssertMemR(*ppch);
+    Assert(ppch);
+    Assert(*ppch);
 
     const OLECHAR *pch;
 
@@ -321,7 +321,7 @@ void CScriptSourceDocumentText::UpdateLineCount(void)
 
 HRESULT CScriptSourceDocumentText::GetIchMinHost(long *pich)
 {
-    AssertMem(pich);
+    Assert(pich);
     SRCINFO *srcInfo;
 
     *pich = 0;
@@ -335,7 +335,7 @@ HRESULT CScriptSourceDocumentText::GetIchMinHost(long *pich)
 
 HRESULT CScriptSourceDocumentText::GetIchLimHost(long *pich)
 {
-    AssertMem(pich);
+    Assert(pich);
     SRCINFO *psi;
 
     *pich = m_utf8SourceInfo->GetCchLength();
@@ -349,7 +349,7 @@ HRESULT CScriptSourceDocumentText::GetIchLimHost(long *pich)
 
 HRESULT CScriptSourceDocumentText::GetHostSourceContext(DWORD_PTR *pdwContext)
 {
-    AssertMem(pdwContext);
+    Assert(pdwContext);
     SRCINFO *srcInfo;
 
     *pdwContext = 0;
@@ -362,7 +362,7 @@ HRESULT CScriptSourceDocumentText::GetHostSourceContext(DWORD_PTR *pdwContext)
 
 HRESULT CScriptSourceDocumentText::GetSecondaryHostSourceContext(DWORD_PTR *pdwContext)
 {
-    AssertMem(pdwContext);
+    Assert(pdwContext);
     if (this->m_scriptBody == NULL)
     {
         return E_FAIL;
@@ -378,7 +378,7 @@ HRESULT CScriptSourceDocumentText::EnumCodeContextsOfHostPosition(
 {
     Assert(ich >= 0);
     Assert(cch >= 0);
-    AssertMem(ppescc);
+    Assert(ppescc);
 
     long ichMinHost;
 
@@ -395,7 +395,7 @@ HRESULT CScriptSourceDocumentText::EnumCodeContextsOfPosition(
 {
     Assert(ich >= 0);
     Assert(cch >= 0);
-    AssertMem(ppDebugCodeContexts);
+    Assert(ppDebugCodeContexts);
 
     CCodeContext *codeContext = NULL;
     CEnumCodeContexts *codeContexts = NULL;

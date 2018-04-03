@@ -145,7 +145,7 @@ STDMETHODIMP JavascriptThreadService::QueryInterface(
     /* [in]  */ REFIID riid,
     /* [out] */ void **ppvObj)
 {
-    VALIDATE_WRITE_POINTER(ppvObj, void *);
+    IfNullAssertReturn(ppvObj);
     if (IsEqualIID(riid, IID_IUnknown))
     {
         *ppvObj = this;
@@ -427,7 +427,7 @@ STDMETHODIMP RecyclerFinishConcurrentIdleTask::QueryInterface(
     /* [in]  */ REFIID riid,
     /* [out] */ void **ppvObj)
 {
-    VALIDATE_WRITE_POINTER(ppvObj, void *);
+    IfNullAssertReturn(ppvObj);
 
     QI_IMPL(IID_IUnknown, IUnknown);
     QI_IMPL(__uuidof(IIdleTask), IIdleTask);

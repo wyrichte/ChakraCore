@@ -146,8 +146,7 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
 {
     // Any Thread.
     bool addRef = true;
-    AssertThis();
-    AssertMem(ppvObj);
+    Assert(ppvObj);
     IfNullReturnError(ppvObj, E_INVALIDARG);
 
     // scriptObject can be NULL if we are dealing with an external object or function after
@@ -546,8 +545,7 @@ HRESULT JavascriptDispatch::GetDispID(BSTR bstr, DWORD grfdex, DISPID *pid)
 {
     HRESULT hr = DISP_E_UNKNOWNNAME;
 
-    AssertThis();
-    AssertMem(pid);
+    Assert(pid);
 
     *pid = DISPID_UNKNOWN;
     int nameLength = bstr ? (int)wcslen(bstr) : 0;

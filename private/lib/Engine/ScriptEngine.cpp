@@ -316,7 +316,7 @@ STDMETHODIMP ScriptEngine::QueryInterface(
     /* [in]  */ REFIID riid,
     /* [out] */ void **ppvObj)
 {
-    VALIDATE_WRITE_POINTER(ppvObj, void *);
+    IfNullAssertReturn(ppvObj);
     HRESULT hr;
     hr = __super::QueryInterface(riid, ppvObj);
     if (SUCCEEDED(hr))
@@ -1503,7 +1503,7 @@ HRESULT ScriptEngine::DbgRegisterScriptBlock(CScriptBody *pbody)
 
 HRESULT ScriptEngine::DbgRegisterScriptBlock(CScriptBody *pbody, DWORD_PTR dwDebugSourceContext, LPCWSTR title)
 {
-    AssertMem(pbody);
+    Assert(pbody);
     Assert(pbody->GetUtf8SourceInfo());
 
     // If we're not in source rundown or debug mode, we don't have to register anything.
@@ -1529,11 +1529,11 @@ HRESULT ScriptEngine::DbgRegisterScriptBlock(CScriptBody *pbody, DWORD_PTR dwDeb
 HRESULT ScriptEngine::GetDebugSiteCoreNoRef(IActiveScriptSiteDebug **pscriptSiteDebug)
 {
     Assert(!m_fDumbHost);
-    AssertMem(pscriptSiteDebug);
+    Assert(pscriptSiteDebug);
 
     // SetScriptSite and SetState are setup so that m_fDubmHost is set to
     // true whenever m_scriptSiteDebug is nullptr.
-    AssertMem(m_pActiveScriptSite);
+    Assert(m_pActiveScriptSite);
 
     if (nullptr == m_scriptSiteDebug)
     {
@@ -1562,7 +1562,7 @@ HRESULT ScriptEngine::NonDbgGetSourceDocumentFromHostContext(
     CScriptSourceDocumentText **ppdoc
     )
 {
-    AssertMem(ppdoc);
+    Assert(ppdoc);
     Assert(pFunctionBody != nullptr);
     Assert(!pFunctionBody->GetScriptContext()->IsScriptContextInDebugMode() || pFunctionBody->GetUtf8SourceInfo()->GetIsLibraryCode());
 
@@ -1965,16 +1965,16 @@ HRESULT ScriptEngine::DbgCreateBrowserFromCodeContext(
     IDebugProperty **   ppdp
     )
 {
-    AssertMem(pcc);
-    AssertPsz(pstrName);
-    AssertMem(ppdp);
+    Assert(pcc);
+    Assert(pstrName);
+    Assert(ppdp);
     Assert(IsDebuggerEnvironmentAvailable());
 
     HRESULT hr;
     IFFAILRET(EnsureBrowserMembers());
-    AssertMem(m_debugHelper);
-    AssertMem(m_debugApplicationThread);
-    AssertMem(m_debugFormatter);
+    Assert(m_debugHelper);
+    Assert(m_debugApplicationThread);
+    Assert(m_debugFormatter);
     IDebugHelperEx * pdhex;
     if (SUCCEEDED(hr = m_debugHelper->QueryInterface(_uuidof(IDebugHelperEx), (void **)&pdhex)))
     {
@@ -1990,16 +1990,16 @@ HRESULT ScriptEngine::DbgCreateBrowserFromError(
     IDebugProperty **    ppdp
     )
 {
-    AssertMem(pase);
-    AssertPsz(pstrName);
-    AssertMem(ppdp);
+    Assert(pase);
+    Assert(pstrName);
+    Assert(ppdp);
     Assert(IsDebuggerEnvironmentAvailable());
     HRESULT hr;
     if (FAILED(hr = EnsureBrowserMembers()))
         return hr;
-    AssertMem(m_debugHelper);
-    AssertMem(m_debugApplicationThread);
-    AssertMem(m_debugFormatter);
+    Assert(m_debugHelper);
+    Assert(m_debugApplicationThread);
+    Assert(m_debugFormatter);
     IDebugHelperEx *pdhex;
     if (SUCCEEDED(hr = m_debugHelper->QueryInterface(_uuidof(IDebugHelperEx), (void **)&pdhex)))
     {
@@ -2219,17 +2219,17 @@ HRESULT ScriptEngine::DbgCreateBrowserFromProperty(VARIANT *pvar,
                                                    IDebugSetValueCallback *psetvalue, LPCOLESTR pstrName,
                                                    IDebugProperty **ppdp)
 {
-    AssertMem(pvar);
-    //AssertMem(psetvalue);
-    AssertPsz(pstrName);
-    AssertMem(ppdp);
+    Assert(pvar);
+    //Assert(psetvalue);
+    Assert(pstrName);
+    Assert(ppdp);
     Assert(IsDebuggerEnvironmentAvailable());
     HRESULT hr;
     if (FAILED(hr = EnsureBrowserMembers()))
         return hr;
-    AssertMem(m_debugHelper);
-    AssertMem(m_debugApplicationThread);
-    AssertMem(m_debugFormatter);
+    Assert(m_debugHelper);
+    Assert(m_debugApplicationThread);
+    Assert(m_debugFormatter);
     IDebugHelperEx *pdhex;
     if (SUCCEEDED(hr = m_debugHelper->QueryInterface(_uuidof(IDebugHelperEx), (void **)&pdhex)))
     {
@@ -2304,7 +2304,7 @@ HRESULT ScriptEngine::SetThreadDescription(__in LPCWSTR url)
 // === Internal Debugger Methods ===
 HRESULT ScriptEngine::SetupNewDebugApplication(void)
 {
-    AssertMem(m_pda);
+    Assert(m_pda);
     Assert(nullptr == m_pcpAppEvents);
 
     HRESULT hr;
@@ -2437,7 +2437,7 @@ LDone:
 
 HRESULT ScriptEngine::GetDefaultDebugApplication(IDebugApplication **ppda)
 {
-    AssertMem(ppda);
+    Assert(ppda);
     HRESULT hr;
     IProcessDebugManager *ppdm;
     IDebugApplication *pda = nullptr;
@@ -2469,14 +2469,14 @@ LNoDebugger:
 
 HRESULT ScriptEngine::GetDebugApplicationCoreNoRef(IDebugApplication **ppda)
 {
-    AssertMem(ppda);
+    Assert(ppda);
     if (m_pda)
     {
         *ppda = m_pda;
         return S_OK;
     }
 
-    AssertMem(m_pActiveScriptSite);
+    Assert(m_pActiveScriptSite);
 
     HRESULT hr;
     IActiveScriptSiteDebug * scriptSiteDebug;
@@ -2577,7 +2577,7 @@ bool ScriptEngine::CanRegisterDebugSources()
 STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
 {
     HRESULT hr;
-    VALIDATE_INTERFACE_POINTER(activeScriptSite, IActiveScriptSite);
+    IfNullAssertReturn(activeScriptSite);
     if (nullptr != m_pActiveScriptSite)
         return E_UNEXPECTED; // Site already set
     m_dwBaseThread = GetCurrentThreadId();
@@ -2688,7 +2688,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
             {
                 BOD * pbod = (BOD *)m_pglbod->PvGet(ibod);
                 Assert(pbod->grfbod == (fbodPersist | fbodRun));
-                AssertMem(pbod->pbody);
+                Assert(pbod->pbody);
                 // ignore errors
                 DbgRegisterScriptBlock(pbod->pbody);
             }
@@ -2701,7 +2701,7 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
 
 STDMETHODIMP ScriptEngine::GetScriptSite(REFIID iid, VOID **ppvSiteObject)
 {
-    VALIDATE_WRITE_POINTER(ppvSiteObject, void *);
+    IfNullAssertReturn(ppvSiteObject);
     *ppvSiteObject = nullptr;
     if (nullptr == m_pActiveScriptSite)
         return S_FALSE;
@@ -3219,7 +3219,7 @@ STDMETHODIMP ScriptEngine::AddNamedItem(LPCOLESTR pcszName, DWORD dwFlags)
 {
     HRESULT hr;
 
-    VALIDATE_STRING(pcszName);
+    IfNullAssertReturn(pcszName);
     IFFAILRET(ValidateBaseThread());
 
     NamedItem * pnid = m_NamedItemList.Find(pcszName);
@@ -3274,7 +3274,7 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
     // As global script methods are defined, a dispid is allocated and added
     // to the macro IDispatch. This IDispatch is returned here.
-    VALIDATE_WRITE_POINTER(ppdisp, IDispatch *);
+    IfNullAssertReturn(ppdisp);
     *ppdisp = nullptr;
 
     IFFAILRET(ValidateBaseThread());
@@ -3320,21 +3320,21 @@ STDMETHODIMP ScriptEngine::GetScriptDispatch(LPCOLESTR pcszItemName, IDispatch *
 
 STDMETHODIMP ScriptEngine::GetScriptState(SCRIPTSTATE *pssState)
 {
-    VALIDATE_WRITE_POINTER(pssState, SCRIPTSTATE);
+    IfNullAssertReturn(pssState);
     *pssState = m_ssState;
     return S_OK;
 }
 
 STDMETHODIMP ScriptEngine::GetCurrentScriptThreadID(SCRIPTTHREADID *pstidThread)
 {
-    VALIDATE_WRITE_POINTER(pstidThread, SCRIPTTHREADID);
+    IfNullAssertReturn(pstidThread);
     *pstidThread = GetCurrentThreadId();
     return S_OK;
 }
 
 STDMETHODIMP ScriptEngine::GetScriptThreadID(DWORD dwWin32ThreadId, SCRIPTTHREADID *pstidThread)
 {
-    VALIDATE_WRITE_POINTER(pstidThread, SCRIPTTHREADID);
+    IfNullAssertReturn(pstidThread);
     *pstidThread = dwWin32ThreadId;
     return S_OK;
 }
@@ -3346,7 +3346,7 @@ STDMETHODIMP ScriptEngine::GetScriptThreadState(SCRIPTTHREADID stidThread, SCRIP
     else if (stidThread == SCRIPTTHREADID_BASE)
         stidThread = m_dwBaseThread;
 
-    VALIDATE_WRITE_POINTER(pstsState, SCRIPTTHREADSTATE);
+    IfNullAssertReturn(pstsState);
     *pstsState = SCRIPTTHREADSTATE_NOTINSCRIPT;
     if (m_dwBaseThread == NOBASETHREAD)
         return E_UNEXPECTED;
@@ -3453,10 +3453,9 @@ HRESULT ScriptEngine::AddScriptletCore(
     SETRETVAL(pbstrName, nullptr);
 
     IFFAILRET(ValidateBaseThread());
-    VALIDATE_STRING(pcszCodeT);
-    VALIDATE_STRING(pcszItemName);
-    AssertPszN(pcszSubItemName);
-    VALIDATE_STRING(pcszEventName);
+    IfNullAssertReturn(pcszCodeT);
+    IfNullAssertReturn(pcszItemName);
+    IfNullAssertReturn(pcszEventName);
 
     dwFlags &= SCRIPTTEXT_ALL_FLAGS;
     dwFlags |= SCRIPTTEXT_ISSCRIPTLET; // this is a scriptlet
@@ -4610,8 +4609,6 @@ void ScriptEngine::OnLeaveScript(void)
 {
     if (GetCurrentThreadContextId() != ThreadContextTLSEntry::GetThreadContextId(this->threadContext))
         return;
-    AssertMemN(m_pActiveScriptSite);
-    AssertMemN(GetScriptSiteHolder());
     Assert(m_stsThreadState == SCRIPTTHREADSTATE_RUNNING);
     Assert(m_cNesting != 0);
 #ifdef EXCEPTION_CHECK
@@ -4779,10 +4776,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
                                        BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO *pei, CScriptBody **ppbody)
 {
     Assert(pszSrc != nullptr);
-    AssertMem(psi);
-    AssertPszN(pszDelimiter);
-    AssertPszN(pszTitle);
-    AssertMemN(ppbody);
+    Assert(psi);
     HRESULT hr;
     // Pass the "global code" flag to Generate so it returns the global function as the script body.
     ulong   grfscr  = fscrGlobalCode;
@@ -4898,7 +4892,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
     }
 
     DisableInterrupts();
-    AssertMem(bod.pbody);
+    Assert(bod.pbody);
 
 
     if (nullptr != ppbody)
@@ -5039,7 +5033,7 @@ HRESULT ScriptEngine::ExecutePendingScripts(VARIANT *pvarRes, EXCEPINFO *pei)
 
 HRESULT ScriptEngine::GetInterruptInfo(EXCEPINFO * pexcepinfo)
 {
-    AssertMem(pexcepinfo);
+    Assert(pexcepinfo);
     CopyException(pexcepinfo, &m_excepinfoInterrupt);
     return NOERROR;
 }
@@ -6341,7 +6335,7 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
 ************************************************************************/
 HRESULT ScriptEngine::GetHostSecurityManager(IInternetHostSecurityManager **ppsecman)
 {
-    AssertMem(ppsecman);
+    Assert(ppsecman);
     *ppsecman = nullptr;
 
     HRESULT     hr;
@@ -6380,7 +6374,7 @@ LReturn:
 ************************************************************************/
 HRESULT ScriptEngine::GetINETSecurityManagerNoRef(IInternetSecurityManager **ppsecman)
 {
-    AssertMem(ppsecman);
+    Assert(ppsecman);
     *ppsecman = nullptr;
 
     HRESULT hr;
@@ -6444,7 +6438,7 @@ HRESULT ScriptEngine::SetObjectSafety(IObjectSafety *psafe, REFIID riid, DWORD d
 ************************************************************************/
 HRESULT ScriptEngine::GetSiteHostSecurityManagerNoRef(IInternetHostSecurityManager **ppsecman)
 {
-    AssertMem(ppsecman);
+    Assert(ppsecman);
     *ppsecman = nullptr;
     if (m_fNoHostSecurityManager || nullptr == m_pActiveScriptSite)
         return E_FAIL;

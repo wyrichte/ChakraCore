@@ -242,12 +242,10 @@ BOOL BuildString::FEnsureSpace(long cch)
 
 HRESULT BuildString::AppendSz(LPCOLESTR psz, long cch)
 {
-    AssertPszN(psz);
-
     if (cch < 0)
         cch = (NULL == psz) ? 0 : (long)ostrlen(psz);
 
-    AssertArrMemR(psz, cch);
+    Assert(cch == 0 || psz != nullptr);
 
     if ((m_cch + cch < m_cch) || (m_cch + cch >= m_cchAlloc && !FEnsureSpace(m_cch + cch)))
         return HR(E_OUTOFMEMORY);

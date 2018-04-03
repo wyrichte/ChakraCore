@@ -49,7 +49,7 @@ ComDebugFormatter::~ComDebugFormatter(void)
 // === ComDebugFormatter ===
 HRESULT ComDebugFormatter::Create(ComDebugFormatter **ppdf)
 {
-    AssertMem(ppdf);
+    Assert(ppdf);
     if (NULL == (*ppdf = new ComDebugFormatter))
         return HR(E_OUTOFMEMORY);
     return NOERROR;
@@ -215,7 +215,7 @@ LReal:
             goto LExit;
         }
 
-        AssertMemR(pstrT);
+        Assert(pstrT);
         *pbstr = SysAllocString(pstrT);
         if (NULL == *pbstr)
             hr = HR(E_OUTOFMEMORY);
@@ -289,7 +289,7 @@ STDMETHODIMP ComDebugFormatter::GetStringForVarType(VARTYPE vt, TYPEDESC *ptd,
             return HR(E_NOTIMPL);
         }
 
-        AssertMemR(pstrT);
+        Assert(pstrT);
         *pbstr = SysAllocString(pstrT);
         if (NULL == *pbstr)
             return HR(E_OUTOFMEMORY);
@@ -302,8 +302,8 @@ STDMETHODIMP ComDebugFormatter::GetStringForVarType(VARTYPE vt, TYPEDESC *ptd,
 // === Helpers ===
 static HRESULT GetHexLiteral(VARIANT *pvar, BSTR *pbstr)
 {
-    AssertMem(pvar);
-    AssertMem(pbstr);
+    Assert(pvar);
+    Assert(pbstr);
 
     int cbVal;
     switch (pvar->vt)
@@ -393,8 +393,8 @@ static HRESULT GetHexLiteral(VARIANT *pvar, BSTR *pbstr)
 
 static HRESULT GetStringLiteral(LPCOLESTR pstr, BSTR *pbstr)
 {
-    AssertMemR(pstr);
-    AssertMem(pbstr);
+    Assert(pstr);
+    Assert(pbstr);
 
     int cquote;
     LPCOLESTR pstrT;

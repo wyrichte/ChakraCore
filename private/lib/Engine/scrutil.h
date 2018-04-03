@@ -87,35 +87,7 @@ inline long LwFromDbl(double dbl)
     return (long)(((__int64)dbl)  & 0xFFFFFFFF);
 #endif // _M_PPC || _M_MRX000
 }
-
-/***************************************************************************
-Parameter validation
-***************************************************************************/
-
-#define VALIDATE_WRITE_POINTER(pv, type) \
-    if ((pv) == NULL) \
-{ AssertMsg(FALSE, "NULL pointer"); return HR(E_POINTER); } \
-    else \
-    AssertMem((type *)(pv))
-
-#define VALIDATE_POINTER(pv, type) \
-    if ((pv) == NULL) \
-{ AssertMsg(FALSE, "NULL pointer"); return HR(E_POINTER); } \
-    else \
-    AssertMemR((type *)(pv))
-
-#define VALIDATE_INTERFACE_POINTER(pv, type) \
-    if ((pv) == NULL) \
-{ AssertMsg(FALSE, "NULL interface pointer"); return HR(E_POINTER); } \
-    else \
-    AssertMemR((type *)(pv))
-
-#define VALIDATE_STRING(psz) \
-    if ((psz) == NULL) \
-{ AssertMsg(FALSE, "NULL string"); return HR(E_POINTER); } \
-    else \
-    AssertPsz(psz)
-
+   
 
 /***************************************************************************
 Name mapping of crt functions

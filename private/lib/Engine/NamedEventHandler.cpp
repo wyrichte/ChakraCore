@@ -141,12 +141,11 @@ HRESULT NamedEventHandler::Create(
                                   __in CScriptBody *pbody,
                                   __in BOOL fPersist)
 {
-    AssertMem(ppneh);
-    AssertMem(pos);
-    AssertMem(pnid);
-    AssertPszN(pszSubItem);
-    AssertPsz(pszEvt);
-    AssertMem(pbody);
+    Assert(ppneh);
+    Assert(pos);
+    Assert(pnid);
+    Assert(pszEvt);
+    Assert(pbody);
 
     HRESULT hr;
 
@@ -166,11 +165,10 @@ HRESULT NamedEventHandler::Create(
 HRESULT NamedEventHandler::Init(ScriptEngine *pos, NamedItem *pnid,
                                 LPCOLESTR pszSubItem, LPCOLESTR pszEvt, CScriptBody *pbody, BOOL fPersist)
 {
-    AssertMem(pos);
-    AssertMem(pnid);
-    AssertPszN(pszSubItem);
-    AssertPsz(pszEvt);
-    AssertMem(pbody);
+    Assert(pos);
+    Assert(pnid);
+    Assert(pszEvt);
+    Assert(pbody);
 
     m_pos = pos;
     m_pnid = pnid;

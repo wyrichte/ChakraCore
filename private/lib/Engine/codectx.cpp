@@ -98,7 +98,7 @@ ULONG CCodeContext::Release(void)
 HRESULT CCodeContext::QueryInterface(REFIID iid, void ** ppv)
 {
     CHECK_POINTER(ppv);
-    AssertMem(ppv);
+    Assert(ppv);
 
     if (iid == IID_IUnknown || iid == __uuidof(IDebugCodeContext))
         *ppv = (IDebugCodeContext *)this;
@@ -416,7 +416,7 @@ ULONG CDebugStackFrame::Release(void)
 HRESULT CDebugStackFrame::QueryInterface(REFIID iid, void ** ppv)
 {
     CHECK_POINTER(ppv);
-    AssertMem(ppv);
+    Assert(ppv);
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)(IDebugStackFrame *)this;
@@ -512,7 +512,7 @@ HRESULT CDebugStackFrame::GetDescriptionString(BOOL fLong, BSTR *pbstr)
 {
     return DebugApiWrapper([=] {
         CHECK_POINTER(pbstr);
-        AssertMem(pbstr);
+        Assert(pbstr);
 
         VALIDATE_LEGIT_DEBUGSESSION();
 
@@ -526,7 +526,7 @@ HRESULT CDebugStackFrame::GetDescriptionString(BOOL fLong, BSTR *pbstr)
 HRESULT CDebugStackFrame::GetLanguageString(BOOL fLong, BSTR *pbstr)
 {
     CHECK_POINTER(pbstr);
-    AssertMem(pbstr);
+    Assert(pbstr);
     *pbstr = SysAllocString(_u("JavaScript"));
 
     return S_OK;
@@ -539,8 +539,8 @@ HRESULT CDebugStackFrame::GetPhysicalStackRange(DWORD_PTR *pdwMin, DWORD_PTR *pd
     // is above then others.
     // Multiple stacks will be identified in multiple iframe course.
 
-    AssertMem(pdwMin);
-    AssertMem(pdwLim);
+    Assert(pdwMin);
+    Assert(pdwLim);
 
     *pdwMin = m_currentFrame->GetStackAddress();
 
@@ -555,15 +555,14 @@ HRESULT CDebugStackFrame::ParseLanguageText(LPCOLESTR pszSrc, UINT uRadix,
                                             LPCOLESTR pszDelimiter, DWORD dwFlags, IDebugExpression **ppDebugExpression)
 {
     return DebugApiWrapper([=] {
-        AssertPsz(pszSrc);
-        AssertPszN(pszDelimiter);
+        Assert(pszSrc);
 
         HRESULT hr;
         AutoCOMPtr<CDebugEval> eval;
         CDebugExpression *expression = nullptr;
 
         CHECK_POINTER(ppDebugExpression);
-        AssertMem(ppDebugExpression);
+        Assert(ppDebugExpression);
         *ppDebugExpression = nullptr;
 
         hr = CDebugEval::Create(&eval, pszSrc, dwFlags, this, m_pApplicationThread);
@@ -604,7 +603,7 @@ HRESULT CDebugStackFrame::GetLanguageInfo(BSTR * pbstrLang, GUID * pguidLang)
 HRESULT CDebugStackFrame::GetThread(IDebugApplicationThread **ppat)
 {
     CHECK_POINTER(ppat);
-    AssertMem(ppat);
+    Assert(ppat);
     *ppat = m_pApplicationThread;
     return S_OK;
 }
@@ -615,7 +614,7 @@ HRESULT CDebugStackFrame::GetDebugPropertyCore(IDebugProperty **ppDebugProperty)
     HRESULT hr = S_OK;
 
     // We should be on the correct thread now.
-    AssertMem(ppDebugProperty);
+    Assert(ppDebugProperty);
     AutoCOMPtr<IDispatch> pDisp;
 
     if (DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
@@ -772,7 +771,7 @@ HRESULT CDebugStackFrame::CanDoSetNextStatement(
         return HR(E_NOTIMPL);
     }
 
-    AssertMem(pInternalCodeContext);
+    Assert(pInternalCodeContext);
 
     HRESULT hr;
     CCodeContext *pCodeContext;
@@ -1249,8 +1248,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
 {
     //TODO: implement dwFlags such as NOSideEffects and disallow breakpoints
     return DebugApiWrapper([&] {
-        AssertPsz(pszSrc);
-        AssertMemN(ppdp);
+        Assert(pszSrc);
 
         OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugStackFrame::EvaluateImmediate: start: this=%p, dwFlags=0x%x, pszSrc='%s'\n"),
             this, dwFlags, pszSrc != nullptr ? pszSrc : _u("NULL"));
@@ -1325,7 +1323,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
                 if (SUCCEEDED(ActiveScriptError::CreateRuntimeError(exceptionObject, &hr, nullptr, nullptr, &pase)))
                 {
                     ScriptEngine* scriptEngine = m_scriptSite->GetScriptEngine();
-                    AssertMem(scriptEngine);
+                    Assert(scriptEngine);
 
                     hr = scriptEngine->DbgCreateBrowserFromError((IActiveScriptError *) IACTIVESCRIPTERROR64 pase, pszSrc, ppdp);
                     pase->Release();
@@ -1396,7 +1394,7 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
 
 HRESULT CDebugStackFrame::GetNextFrame(CDebugStackFrame **ppStackFrame)
 {
-    AssertMem(ppStackFrame);
+    Assert(ppStackFrame);
     *ppStackFrame = nullptr;
     return S_FALSE;
 }
@@ -1439,10 +1437,10 @@ CDebugEval::~CDebugEval(void)
 HRESULT CDebugEval::Create(CDebugEval **ppDebugEval, LPCOLESTR pszSource, DWORD dwFlags,
                            CDebugStackFrame *stackFrame, IDebugApplicationThread *applicationThread)
 {
-    AssertMem(ppDebugEval);
-    AssertPsz(pszSource);
-    AssertMem(stackFrame);
-    AssertMem(applicationThread);
+    Assert(ppDebugEval);
+    Assert(pszSource);
+    Assert(stackFrame);
+    Assert(applicationThread);
 
     OUTPUT_TRACE(Js::DebuggerPhase, _u("CDebugEval::Create: start: stackFrame=%p, dwFlags=0x%x, pszSrc='%s'\n"),
         stackFrame, dwFlags, pszSource != nullptr ? pszSource : _u("NULL"));
@@ -1476,7 +1474,7 @@ HRESULT CDebugEval::Create(CDebugEval **ppDebugEval, LPCOLESTR pszSource, DWORD 
 HRESULT CDebugEval::QueryInterface(REFIID iid, void ** ppv)
 {
     CHECK_POINTER(ppv);
-    AssertMem(ppv);
+    Assert(ppv);
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)this;
@@ -1494,7 +1492,7 @@ HRESULT CDebugEval::QueryInterface(REFIID iid, void ** ppv)
 
 HRESULT CDebugEval::GetTargetThread(IDebugApplicationThread **ppApplicationThread)
 {
-    AssertMem(m_applicationThread);
+    Assert(m_applicationThread);
 
     CHECK_POINTER(ppApplicationThread);
 
@@ -1506,9 +1504,8 @@ HRESULT CDebugEval::GetTargetThread(IDebugApplicationThread **ppApplicationThrea
 HRESULT CDebugEval::Execute(IUnknown **ppunkRes)
 {
     return DebugApiWrapper([=] {
-        AssertMem(m_stackFrame);
-        AssertMem(m_applicationThread);
-        AssertMemN(ppunkRes);
+        Assert(m_stackFrame);
+        Assert(m_applicationThread);
 
         if (m_isAborted)
         {
@@ -1524,7 +1521,6 @@ HRESULT CDebugEval::Execute(IUnknown **ppunkRes)
         // store the result - pdp may be set even if the call fails.
         hr = m_stackFrame->EvaluateImmediate(m_bstrSrc, m_dwFlags, &pdp);
 
-        AssertMemN(pdp);
         if (nullptr != pdp)
         {
             if (nullptr != ppunkRes)
@@ -1552,14 +1548,14 @@ CDebugExpression::CDebugExpression(CDebugEval *debugEval)
       m_exprCallback(nullptr)
 {
     DLLAddRef();
-    AssertMem(m_debugEval);
+    Assert(m_debugEval);
     m_debugEval->AddRef();
 }
 
 
 CDebugExpression::~CDebugExpression(void)
 {
-    AssertMem(m_debugEval);
+    Assert(m_debugEval);
     m_debugEval->Release();
     if (nullptr != m_asyncOperation)
     {
@@ -1575,9 +1571,9 @@ HRESULT CDebugExpression::Create(CDebugExpression **ppDebugExpression,
                                  CDebugEval *debugEval,
                                  IDebugApplication *debugApplication)
 {
-    AssertMem(ppDebugExpression);
-    AssertMem(debugEval);
-    AssertMem(debugApplication);
+    Assert(ppDebugExpression);
+    Assert(debugEval);
+    Assert(debugApplication);
 
     CDebugExpression *pdexp;
     HRESULT hr;
@@ -1601,7 +1597,7 @@ HRESULT CDebugExpression::Create(CDebugExpression **ppDebugExpression,
 HRESULT CDebugExpression::QueryInterface(REFIID iid, void ** ppv)
 {
     CHECK_POINTER(ppv);
-    AssertMem(ppv);
+    Assert(ppv);
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)(IDebugExpression *)this;
@@ -1621,8 +1617,6 @@ HRESULT CDebugExpression::QueryInterface(REFIID iid, void ** ppv)
 
 HRESULT CDebugExpression::Start(IDebugExpressionCallBack *expressionCallBack)
 {
-    AssertMemN(expressionCallBack);
-
     HRESULT hr;
 
     if (nullptr != m_exprCallback)
@@ -1681,9 +1675,6 @@ HRESULT CDebugExpression::QueryIsComplete(void)
 
 HRESULT CDebugExpression::GetResultAsString(HRESULT *resultHr, BSTR *resultString)
 {
-    AssertMemN(resultHr);
-    AssertMemN(resultString);
-
     if (nullptr == resultHr && nullptr == resultString)
         return NOERROR;
     if (nullptr != resultString)
@@ -1720,9 +1711,6 @@ HRESULT CDebugExpression::GetResultAsString(HRESULT *resultHr, BSTR *resultStrin
 HRESULT CDebugExpression::GetResultAsDebugProperty(HRESULT *phrRes,
                                                    IDebugProperty **ppDebugProperty)
 {
-    AssertMemN(phrRes);
-    AssertMemN(ppDebugProperty);
-
     if (nullptr == phrRes && nullptr == ppDebugProperty)
         return NOERROR;
     if (nullptr != ppDebugProperty)
@@ -1797,7 +1785,7 @@ CEnumDebugStackFrames::~CEnumDebugStackFrames(void)
 HRESULT CEnumDebugStackFrames::QueryInterface(REFIID iid, void ** ppv)
 {
     CHECK_POINTER(ppv);
-    AssertMem(ppv);
+    Assert(ppv);
 
     if (iid == IID_IUnknown)
         *ppv = (IUnknown *)this;
@@ -1837,7 +1825,6 @@ HRESULT CEnumDebugStackFrames::NextImpl(ulong celt, Descriptor *frameDescriptors
     }
 
     CHECK_POINTER(frameDescriptors);
-    AssertArrMem(frameDescriptors, celt);
 
     if (1 != celt && nullptr == pceltFetched)
         return HR(E_POINTER);
@@ -1848,7 +1835,7 @@ HRESULT CEnumDebugStackFrames::NextImpl(ulong celt, Descriptor *frameDescriptors
         return hr;
 
     // store the current frame
-    AssertMem(m_stackFramePrev);
+    Assert(m_stackFramePrev);
     frameDescriptors[0].pdsf = m_stackFramePrev;
     m_stackFramePrev->AddRef();
     m_stackFramePrev->GetPhysicalStackRange(&dwMin, &dwLim);
@@ -1860,7 +1847,7 @@ HRESULT CEnumDebugStackFrames::NextImpl(ulong celt, Descriptor *frameDescriptors
     // fill in the rest of the output array
     for (frameDescriptor = frameDescriptors + 1; celt > 0; celt--)
     {
-        AssertMem(m_stackFramePrev);
+        Assert(m_stackFramePrev);
         hr = m_stackFramePrev->GetNextFrame(&stackFrame);
         m_stackFramePrev->Release();
         m_stackFramePrev = stackFrame;
@@ -2047,7 +2034,7 @@ HRESULT CEnumDebugStackFrames::Clone(IEnumDebugStackFrames **ppStackFrames)
     CEnumDebugStackFrames *stackFramesEnumerator;
 
     CHECK_POINTER(ppStackFrames);
-    AssertMem(ppStackFrames);
+    Assert(ppStackFrames);
     *ppStackFrames = nullptr;
 
     if (GetCurrentThreadId() != m_dwThread)

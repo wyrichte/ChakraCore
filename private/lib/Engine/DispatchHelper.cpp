@@ -95,8 +95,8 @@ public:
 
 HRESULT DispatchHelper::MarshalJsVarsToVariants(Js::Var *pAtom, VARIANT *pVar, int count)
 {
-    AssertMem(pVar);
-    AssertMem(pAtom);
+    Assert(pVar);
+    Assert(pAtom);
 
     HRESULT hr = S_OK;
     int i;
@@ -180,7 +180,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
 {
     HRESULT hr = S_OK;
 
-    AssertMem(pVar);
+    Assert(pVar);
     Assert(var != nullptr);
 
     VariantInit(pVar);
@@ -814,8 +814,8 @@ HRESULT DispatchHelper::MarshalVariantToJsVarWithLeaveScript(VARIANT *pVarIn, Js
 
 HRESULT DispatchHelper::MarshalVariantToJsVar(VARIANT *pVarIn, Js::Var *pAtom, Js::ScriptContext* scriptContext, VariantPropertyFlag variantPropertyFlag)
 {
-    AssertMem(pVarIn);
-    AssertMem(pAtom);
+    Assert(pVarIn);
+    Assert(pAtom);
 
     HRESULT hr = S_OK;
     VARIANT * pVar = pVarIn;
@@ -1305,7 +1305,7 @@ LNan:
 HRESULT DispatchHelper::GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OLECHAR * psz, int pszLen)
 {
     IfNullReturnError(src, E_INVALIDARG);
-    AssertMem(psz);
+    Assert(psz);
     Assert(pszLen > 20);
 
     Assert(FNumber(src));
@@ -1345,9 +1345,9 @@ HRESULT DispatchHelper::GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OL
 
 HRESULT DispatchHelperInternal::GetDateDefaultStringBstr(VARIANT *pvarRes, DateTime::YMD *pymd, Js::DateImplementation::TZD *ptzd, ulong noDateTime, Js::ScriptContext *scriptContext)
 {
-    AssertMem(pvarRes);
-    AssertMem(pymd);
-    AssertMem(ptzd);
+    Assert(pvarRes);
+    Assert(pymd);
+    Assert(ptzd);
 
     const int kcchMax = 256;
     OLECHAR sz[kcchMax];

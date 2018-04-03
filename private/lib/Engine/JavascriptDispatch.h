@@ -173,14 +173,6 @@ private:
     static void PrintJavascriptRefCountStackTraces();
     friend class JavascriptDispatchLeakOutput;
 #endif
-#if DEBUG
-    BOOL AssertValid(void)
-    {
-        AssertMem(this);
-        return TRUE;
-    }
-#endif //DEBUG
-
 };
 
 class AutoActiveCallPointer

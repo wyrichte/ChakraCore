@@ -11,6 +11,7 @@
 #define IfFailedReturn(EXPR) do { hr = (EXPR); if (FAILED(hr)) { return hr; }} while(FALSE)
 #define IFEMPTYSETNULL(p) do { if ((p) && (0 == *(p))) p = nullptr; } while(0)
 #define IfNullReturnError(EXPR, ERROR) do { if (!(EXPR)) { return (ERROR); } } while(FALSE)
+#define IfNullAssertReturn(EXPR) do { if ((EXPR) == nullptr) { AssertMsg(FALSE, "NULL pointer"); return E_POINTER; } } while(FALSE)
 #define ReleasePointer(p) do {if (p){ (p)->Release(); (p) = nullptr; }} while (FALSE)
 
 #define IfFailGoto(expr, label) \

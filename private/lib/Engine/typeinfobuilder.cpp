@@ -27,7 +27,7 @@ const SYSKIND syskind = SYS_WIN16;
 
 HRESULT GetStdOleTypeLib(ITypeLib **pptlib)
 {
-    AssertMem(pptlib);
+    Assert(pptlib);
     ITypeLib * ptlib;
 
     ptlib = NULL;
@@ -50,7 +50,7 @@ HRESULT GetStdOleTypeLib(ITypeLib **pptlib)
 
 HRESULT GetDispatchTypeInfo(ITypeInfo **ppti)
 {
-    AssertMem(ppti);
+    Assert(ppti);
     *ppti = NULL;
 
     HRESULT hr;
@@ -458,7 +458,7 @@ LFail:
 
 HRESULT TypeInfoBuilder::GetTypeInfo(ITypeInfo * * ppti)
 {
-    AssertMem(ppti);
+    Assert(ppti);
 
     HRESULT hr;
     ITypeInfo * pti = NULL;

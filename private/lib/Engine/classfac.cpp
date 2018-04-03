@@ -143,7 +143,7 @@ static HRESULT UnRegisterCLSIDInCategory(REFCLSID clsid, CATID catid)
 
 STDMETHODIMP CClassFactory::QueryInterface(REFIID riid, void** ppvObj)
 {
-    AssertMem(ppvObj);
+    Assert(ppvObj);
     CHECK_POINTER(ppvObj);
 
     if (IID_IUnknown == riid)

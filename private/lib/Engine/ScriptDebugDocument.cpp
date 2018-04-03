@@ -696,7 +696,7 @@ void ScriptDebugDocument::GetFormattedTitle(LPCWSTR title, _Out_z_cap_(length) L
 
 HRESULT ScriptDebugDocument::DbgGetRootApplicationNode(IDebugApplicationNode **ppdan)
 {
-    AssertMem(ppdan);
+    Assert(ppdan);
     HRESULT hr = NOERROR;
 
     // REVIEW: rokyu - can scriptSiteDebug->GetRootApplicationNode return a node

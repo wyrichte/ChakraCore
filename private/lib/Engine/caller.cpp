@@ -117,7 +117,7 @@ HRESULT DispatchExCaller::Create(
 
 HRESULT DispatchExCaller::QueryInterface(REFIID riid, void **ppvObj)
 {
-    AssertMem(ppvObj);
+    Assert(ppvObj);
 
     CHECK_POINTER(ppvObj);
     if (IID_IUnknown == riid ||
@@ -163,7 +163,7 @@ HRESULT DispatchExCaller::QueryService(REFGUID guidService, REFIID riid, void **
     HRESULT hr;
 
     CHECK_POINTER(ppvObj);
-    AssertMem(ppvObj);
+    Assert(ppvObj);
     *ppvObj = NULL;
 
     if (NULL == scriptSite)

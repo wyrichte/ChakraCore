@@ -21,7 +21,7 @@ HRESULT ScriptEngine::AddEventSinks(ScriptEngine *pos, IDispatch *pdisp)
     if (SUCCEEDED(hr = pdisp->QueryInterface(_uuidof(IProvideMultipleClassInfo),
         (void **)&pmci)))
     {
-        AssertMem(pmci);
+        Assert(pmci);
         if (FAILED(hr = pmci->GetMultiTypeInfoCount(&cti)))
             goto LFail;
         if (0 == cti)
@@ -36,11 +36,11 @@ HRESULT ScriptEngine::AddEventSinks(ScriptEngine *pos, IDispatch *pdisp)
         {
             if (FAILED(hr = pdisp->QueryInterface(__uuidof(IProvideClassInfo), (void **)&pci)))
                 goto LFail;
-            AssertMem(pci);
+            Assert(pci);
             if (FAILED(hr = pci->GetClassInfo(&ptiCo)))
                 goto LFail;
         }
-        AssertMem(ptiCo);
+        Assert(ptiCo);
         cti = 1;
     }
 
@@ -139,10 +139,10 @@ EventSink::~EventSink()
 HRESULT EventSink::Create(EventSink **ppsink, ScriptEngine *pos,
                            IDispatch* pdisp, ITypeInfo *ptiCoClass)
 {
-    AssertMem(ppsink);
-    AssertMem(pos);
-    AssertMem(pdisp);
-    AssertMem(ptiCoClass);
+    Assert(ppsink);
+    Assert(pos);
+    Assert(pdisp);
+    Assert(ptiCoClass);
 
     HRESULT hr;
     EventSink *psink;
@@ -167,9 +167,9 @@ HRESULT EventSink::Create(EventSink **ppsink, ScriptEngine *pos,
 
 HRESULT EventSink::Init(ScriptEngine *pos, IDispatch* pdisp, ITypeInfo *ptiCo)
 {
-    AssertMem(pos);
-    AssertMem(pdisp);
-    AssertMem(ptiCo);
+    Assert(pos);
+    Assert(pdisp);
+    Assert(ptiCo);
 
     HRESULT hr;
 
@@ -189,7 +189,7 @@ HRESULT EventSink::Init(ScriptEngine *pos, IDispatch* pdisp, ITypeInfo *ptiCo)
 
 HRESULT EventSink::CreateEventSet(ITypeInfo *ptiCo)
 {
-    AssertMem(ptiCo);
+    Assert(ptiCo);
 
     int ievt;
     uint cbstr;
