@@ -1,4 +1,4 @@
-Bytecode GUID = {FAC10258-C1A2-4BB5-B385-68D11C26F1F8}
+Bytecode GUID = {B8BFF25C-A555-4746-A6E4-40EEC0CDC4AC}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1161,7 +1161,6 @@ Property: length
 Property: link
 Property: LN10
 Property: LN2
-Property: localeCompare
 Property: map
 Property: Map
 Property: Math
@@ -1455,6 +1454,7 @@ Property: validateAndCanonicalizeTimeZone
 Property: getDefaultTimeZone
 Property: getPatternForSkeleton
 Property: getLocaleData
+Property: localeCompare
 Property: registerBuiltInFunction
 Property: getHiddenObject
 Property: setHiddenObject
@@ -1510,6 +1510,8 @@ Property: compare
 Property: ignorePunctuation
 Property: numeric
 Property: sensitivity
+Property: sensitivityEnum
+Property: caseFirstEnum
 Property: DateTimeFormat
 Property: __boundFormat
 Property: __calendar
