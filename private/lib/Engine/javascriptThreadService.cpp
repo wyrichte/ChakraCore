@@ -482,33 +482,15 @@ STDMETHODIMP_(void) RecyclerFinishConcurrentIdleTask::RunIdleTask(void)
 
     IDLE_COLLECT_TRACE(_u("Running FinishConcurrent during Idle Task\n"));
 
-    // At this point, we are in one of three states:
-    //  1) A collection is not in progress
-    //  2) The GC is sweeping in the background thread
-    //  3) Neither 1 nor 2 is true, so the GC must either be marking or waiting for an in-thread mark
-    //
-    // The idle task has something to do in the 3rd case. In the 1st and 2nd case, it's enough for it
-    // to simply consider the task to be completed and remove the task
-    //
-    // In the 3rd case we call FinishConcurrent to try and finish marking. This will check to see if the GC is 
-    // still marking in the background thread or if it's done. If it's done, it'll synchronously do an in-thread mark.
-    // If the GC is still marking, FinishConcurrent will return false. For now, we'll leave the task scheduled here
-    // so that as long as we're idle, we can keep checking on the background thread. Parallel mark is being implemented 
-    // as we speak, and when that's done, FinishConcurrent can be changed to help with the background marking process.
-    if (!recycler->CollectionInProgress() || recycler->IsSweeping() || recycler->FinishConcurrent<FinishConcurrentOnIdleAtRoot>())
-    {
-        IDLE_COLLECT_TRACE(_u("FinishConcurrent succeeded, completing task\n"));
+    recycler->FinishConcurrent<FinishConcurrentOnIdleAtRoot>();
 
-        // TODO: If we have to do this multiple times, move this assert to an if-statement
-        Assert(this->isIdleTaskComplete == false);
-        HRESULT hr = this->threadService->OnFinishMarkTaskComplete();
-
-#if DBG
-        this->isIdleTaskComplete = true;
-#endif
-
-        Assert(SUCCEEDED(hr));
-    }
+    // Always finish current idle task, we'll schedule another timer base task in OnFinishMarkTaskComplete if necessary
+    // TODO: it would be better if we can notify the UI thread through background thread (eg: posting message from bg thread)
+    // to finish those work must be done in UI thread
+    Assert(this->isIdleTaskComplete == false);
+    HRESULT hr = this->threadService->OnFinishMarkTaskComplete();
+    DebugOnly(this->isIdleTaskComplete = true);
+    Assert(SUCCEEDED(hr));
 }
 
 //============================================================================================================
@@ -704,6 +686,7 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
         }
     }
 
+    IDLE_COLLECT_TRACE(_u("OnScheduleIdleCollect- SetTimer\n"));
     hr = timerProvider->SetTimer(ticks, JavascriptThreadService::IdleCollectCallback, this);
 
     if (SUCCEEDED(hr))
