@@ -44,6 +44,24 @@ namespace Js
 
 #endif // REJIT_STATS
 
+    /**
+     *  compute file time diff of ft1 - ft2
+     */
+    void ComputeFileTimeDiff(LPFILETIME ft1, LPFILETIME ft2, LPFILETIME result)
+    {
+        ULARGE_INTEGER u1 = { 0 };
+        u1.HighPart = ft1->dwHighDateTime;
+        u1.LowPart = ft1->dwLowDateTime;
+        ULARGE_INTEGER u2 = { 0 };
+        u2.HighPart = ft2->dwHighDateTime;
+        u2.LowPart = ft2->dwLowDateTime;
+        ULARGE_INTEGER u3 = { 0 };
+        u3.QuadPart = u1.QuadPart - u2.QuadPart;
+
+        result->dwHighDateTime = u3.HighPart;
+        result->dwLowDateTime = u3.LowPart;
+    }
+
     void ScriptContextTelemetry::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
     {
         // Respect the throttle:
@@ -54,6 +72,11 @@ namespace Js
 
         try
         {
+            FILETIME now = { 0 };
+            FILETIME scriptContextLifeSpan = { 0 };
+            GetSystemTimeAsFileTime(&now);
+            ComputeFileTimeDiff(&now, &this->scriptContextInitTime, &scriptContextLifeSpan);
+
 #ifdef REJIT_STATS
             AssertOrFailFast(this->scriptContext->bailoutReasonCounts != nullptr);
             AssertOrFailFast(this->scriptContext->bailoutReasonCountsCap != nullptr);
@@ -80,6 +103,7 @@ namespace Js
                 TraceLoggingGuid(activityId, "activityID"),
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
+                TraceLoggingFileTime(scriptContextLifeSpan, "scriptContextLifeSpan"),
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCRCArray(), BuiltInCountTracker::numFacets, "BuiltInCountNameCRCs", "CRC values of built-in names"),
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCountsArray(), BuiltInCountTracker::numFacets, "BuiltInCountValues", "values indicating how many times each built-in was called"),
 
@@ -99,6 +123,7 @@ namespace Js
                 TraceLoggingGuid(activityId, "activityID"),
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
+                TraceLoggingFileTime(scriptContextLifeSpan, "scriptContextLifeSpan"),
 
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCRCArray(), static_cast<size_t>(BuiltInFacet::_Max), "BuiltInCountNameCRCs"),
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCountsArray(), static_cast<size_t>(BuiltInFacet::_Max), "BuiltInCountValues"),

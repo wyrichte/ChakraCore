@@ -19,6 +19,8 @@ namespace Js
 
         ScriptContext* scriptContext;
 
+        FILETIME scriptContextInitTime;
+
         BuiltInCountTracker builtInCountTracker;
         LanguageFeaturesCountTracker languageFeaturesCountTracker;
 
@@ -46,6 +48,8 @@ namespace Js
             scriptContext(sc),
             builtInCountTracker(sc)
         {
+            GetSystemTimeAsFileTime(&scriptContextInitTime);
+            
             // do static initialization
             if (!ScriptContextTelemetry::isInitialized)
             {
@@ -64,6 +68,7 @@ namespace Js
 
         void Reset()
         {
+            GetSystemTimeAsFileTime(&scriptContextInitTime);
             this->builtInCountTracker.Reset();
             this->languageFeaturesCountTracker.Reset();
         }

@@ -31,7 +31,7 @@ namespace Js
     private: 
         BuiltInMapper builtInMapper;
 
-        uint32 counts[BuiltInCountTracker::numFacets];
+        uint32 counts[BuiltInCountTracker::numFacets] = { 0 };
 
         const char* names[BuiltInCountTracker::numFacets] = {
         "_None",
@@ -57,7 +57,10 @@ namespace Js
 
         inline void Increment(BuiltInFacet c)
         {
-            ++counts[static_cast<size_t>(c)];
+            if (counts[static_cast<size_t>(c)] != UINT32_MAX)
+            {
+                ++counts[static_cast<size_t>(c)];
+            }
         }
 
         void Reset()

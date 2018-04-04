@@ -32,7 +32,7 @@ namespace Js
         static const size_t numFacets = static_cast<size_t>(Facet::_Max) + 1;
 
     private:
-        uint32 counts[LanguageFeaturesCountTracker::numFacets];
+        uint32 counts[LanguageFeaturesCountTracker::numFacets] = { 0 };
 
         const char* names[LanguageFeaturesCountTracker::numFacets] = {
             "_None",
@@ -65,7 +65,10 @@ namespace Js
 
         inline void Increment(Facet c)
         {
-            ++counts[static_cast<size_t>(c)];
+            if (counts[static_cast<size_t>(c)] != UINT32_MAX)
+            {
+                ++counts[static_cast<size_t>(c)];
+            }
         }
 
         void Reset()

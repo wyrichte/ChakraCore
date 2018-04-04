@@ -435,6 +435,7 @@ void ScriptSite::Close()
             if (scriptContext->HasTelemetry())
             {
                 scriptContext->GetTelemetry().OutputTraceLogging(scriptEngine->GetActivityId(), hostType, isJSRT);
+                scriptContext->GetTelemetry().Reset();
             }
         }
     }
