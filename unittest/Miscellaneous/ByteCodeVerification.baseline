@@ -1,4 +1,4 @@
-Bytecode GUID = {B8BFF25C-A555-4746-A6E4-40EEC0CDC4AC}
+Bytecode GUID = {AB4D9FB4-6F48-4E69-B004-735C61C0251C}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1458,10 +1458,6 @@ Property: localeCompare
 Property: registerBuiltInFunction
 Property: getHiddenObject
 Property: setHiddenObject
-Property: builtInSetPrototype
-Property: builtInGetArrayLength
-Property: builtInRegexMatch
-Property: builtInCallInstanceFunction
 Property: Common
 Property: __initializedIntlObject
 Property: __locale
@@ -1599,6 +1595,10 @@ Property: EngineInterface
 Property: getErrorMessage
 Property: logDebugMessage
 Property: Object_prototype
+Property: builtInSetPrototype
+Property: builtInGetArrayLength
+Property: builtInRegexMatch
+Property: builtInCallInstanceFunction
 Property: raiseInvalidCurrencyCode
 Property: raiseInvalidDate
 Property: raiseLocaleNotWellFormed
