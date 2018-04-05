@@ -8,6 +8,9 @@ use to process the incoming telemetry stream. You can then use XFlowConfig as a
 way to upload the generated scripts to Asimov, or open them in SCOPE Studio and
 verify their functionality or test a one-off change.
 
+## Permissions
+You need to join the following security groups from https://idweb/
+  - "OSG Data Full"
 
 ## Layout:
 output - Where the generated workflows end up
@@ -45,3 +48,15 @@ uncommitted changes:
 Import your new workflow set-up over the remote one, making it live on the next
 set of jobs to be kicked off:
 
+## Data Egress From Cosmos -> Kusto
+
+  - Add stream to existing WPTChakraKustoEgress job:  https://datagrid/Egress/Egress/Edit?jobId=5bab099b-d140-4d5d-9625-2771249d048e
+    - Alternatively, create a new job:  https://datagrid/Egress/ 
+      - create a new job an select Kusto Cluster as the storage type.
+      - Cluster URL: https://wdgeventstore.kusto.windows.net:443
+      - Data Mart: Edge
+      - No credential needed here.
+  - For cosmos Stream: 
+    - fill it out as you would any other egress job using the proper creds based on where it’s stored:  
+    - See here for more details: https://osgwiki.com/wiki/WebPlatfrom_DataGrid_Egress_Guidelines#Set_up_the_stream_information 
+    - Our table naming convention is WPT_Chakra_<tablename>

@@ -463,14 +463,16 @@ BLOCK_END()
         {
             return null;
         }
-        string[] keystr = input.Split(new char[] { '\0' });
+        input = input.Substring(1, input.Length - 2);
+        string[] keystr = input.Split(new char[] { ',' });
         UInt64[] keyhashes = new UInt64[keystr.Length];
         for (int i = 0; i < keystr.Length; i++)
         {
             try
             {
                 keyhashes[i] = keystr[i] == null ? 0 : (keystr[i] == "" ? 0 : UInt64.Parse(keystr[i]));
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 keyhashes[i] = 0;
             }

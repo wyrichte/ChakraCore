@@ -1,0 +1,90 @@
+
+// -------------------------------------------------------------------
+//
+//   Boiler-plate setup at the start of each script
+//
+
+// DEFAULT Params - only used if the @@startDate is not specified
+#DECLARE startDate DateTime = DateTime.Parse(@"2018-04-02 01:00 -700");
+#DECLARE endDate DateTime = @startDate.AddHours(1);
+
+// if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
+#IF(!"@@startDate@@".StartsWith("@@"))
+    #SET startDate = DateTime.Parse("@@startDate@@");
+    #SET endDate = @startDate.AddDays(1);
+#ENDIF
+
+// if @@endDate@@ is set via external paramater
+#IF(!"@@endDate@@".StartsWith("@@"))
+    #SET endDate = DateTime.Parse("@@endDate@@");
+    #IF (@endDate <= @startDate)
+        #SET endDate = @startDate.AddDays(1); 
+    #ENDIF
+#ENDIF
+
+// Are we launching from xflow?
+#IF(!"@@_startDate@@".StartsWith("@@"))
+   // _startDate is set, so we've been launched from XFlow, so move dates back one day so that we don't process an incomplete
+   // day Specifically, the job will kick off at say 4:00 AM on 2/26/2018, but records for this day are not complete, so have
+   // this process the records for 2/25/2018.  Hacky.  :(
+   #SET startDate = @startDate.AddDays(-1);
+   #SET endDate = @endDate.AddDays(-1);
+#ENDIF
+
+//#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE outputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+
+#DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
+
+#IF(!"@@outputRoot@@".StartsWith("@@"))
+    #SET outputRoot = "@@outputRoot@@";
+#ENDIF
+
+// -------------------------------------------------------------------
+
+// For the NGP secondary tagging
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+rawEvents =
+    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEventsWithDomain.view"
+    PARAMS
+    (
+        startDate = @startDate,
+        endDate = @endDate,
+        eventName = "Microsoft.Web.Platform.Chakra.ScriptContextTelemetry",
+        includePrivateDomains = false
+    );
+
+nameValuePairs = 
+    PROCESS rawEvents
+        PRODUCE
+            time,
+            activityID,
+            markupIsTopLevel,
+            markupDomainHash,
+            domain,
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            scriptContextLifeSpanMicros,
+            propName,
+            propValue,
+            propType,
+            domain
+        USING ScriptContextTelemetryProcessor;
+
+#DECLARE outputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
+[Privacy.Asset.NonPersonal]
+OUTPUT nameValuePairs TO SSTREAM @outputPath
+CLUSTERED BY 
+    domain,
+    propName,
+    propType
+WITH STREAMEXPIRY "30";

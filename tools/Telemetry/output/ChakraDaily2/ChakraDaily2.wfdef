@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflows>
+  <Workflow Name="ChakraDaily2" PrefixParentName="0" Start="2015-03-20T11:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="chakraei@microsoft.com" Enabled="1" FolderName="Chakra" Tags="chakra" Author="mkaufman" MaxParallelExecution="1" TimeOutInMinutes="0">
+    <ConfigBases>
+      <ConfigBase Name="ChakraHosts.ConfigBase" File="ChakraHosts.script" />
+      <ConfigBase Name="ScriptContextTelemetry.ConfigBase" File="ScriptContextTelemetry.script" />
+    </ConfigBases>
+    <Activities>
+      <!-- =================================================================-->
+      <!-- Compute how # of ChakraInitEvents by  host                       -->
+      <!-- =================================================================-->
+      <Activity Name="ChakraHosts" ConfigBase="ChakraHosts.ConfigBase" Class="Microsoft.Xflow.Activities.Scope.SequentialRecurrentScopeActivityV3"
+          MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Public" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2018-03-01" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
+        </Parameters>
+      </Activity>
+      <!-- =================================================================-->
+      
+      <!-- =================================================================-->
+      <!-- Process ScriptContextTelemetry events                            -->
+      <!-- =================================================================-->
+      <Activity Name="ScriptContextTelemetry" ConfigBase="ScriptContextTelemetry.ConfigBase" Class="Microsoft.Xflow.Activities.Scope.SequentialRecurrentScopeActivityV3"
+          MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Sensitive.Usage" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2018-03-25" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
+
+          <Parameter Name="_dependencyStreams" Value="/shares/asimov.prod.data/UserSensitive.Usage.Partner/Processed/WebPlatform/AsimovEvents/Aggregate/Microsoft/Web/Platform/%Y/%m/AsimovEvents.Markup.ActivityChain_%Y_%m_%d.ss?date={_endDate-1d}&amp;sparsestreamset=true" />
+          <Parameter Name="_dependencyCheckMinutes" Value="120" />
+
+        </Parameters>
+      </Activity>
+      <!-- =================================================================-->
+    
+    </Activities>
+  </Workflow>
+</Workflows>

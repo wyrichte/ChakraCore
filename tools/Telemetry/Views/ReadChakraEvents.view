@@ -1,0 +1,153 @@
+﻿CREATE VIEW ReadChakraEvents SCHEMA (
+    ver:string,
+    name:string,
+    time:DateTime,
+    epoch:string,
+    seqNum:long,
+    cV:string,
+    flags:long,
+    popSample:double,
+    os:string,
+    osVer:string,
+    appId:string,
+    appVer:string,
+    iKey:string,
+    tags:string,
+    ext:string,
+    data:string,
+    device_id:string,
+    device_deviceClass:string,
+    ingest_time:DateTime,
+    ingest_clientIp:string,
+    ingest_auth:long,
+    ingest_quality:long,
+    ingest_uploadTime:DateTime,
+    os_expId:string,
+    os_bootId:int,
+    user_id:string,
+    loc_id:long,
+    loc_country:string,
+    data_baseType:string,
+    _fingerprint:Guid,
+    _length:int,
+    _copies:long,
+    __datetime:DateTime,
+
+    // Chakra-specific data expanded from JSON in 'data' field
+    binaryVersion:string?,
+    binaryFlavor:string?,
+    binaryArch:string?,
+    discriminator1:string?,
+    discriminator2:string?,
+    activityID:string?
+)
+
+PARAMS (
+    startDate DateTime,
+    endDate DateTime,
+    eventName string
+)
+
+AS BEGIN
+
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+
+rawEvents =
+    SELECT
+        ver,
+        name,
+        time,
+        epoch,
+        seqNum,
+        cV,
+        flags,
+        popSample,
+        os,
+        osVer,
+        appId,
+        appVer,
+        iKey,
+        tags,
+        ext,
+        data,
+        device_id,
+        device_deviceClass,
+        ingest_time,
+        ingest_clientIp,
+        ingest_auth,
+        ingest_quality,
+        ingest_uploadTime,
+        os_expId,
+        os_bootId,
+        user_id,
+        loc_id,
+        loc_country,
+        data_baseType,
+        _fingerprint,
+        _length,
+        _copies,
+        __datetime
+    FROM Asimov.CllEventsR1
+    (
+        isolation = "Osg",
+        firstHour = @startDate,
+        lastHour = @endDate
+    )
+    WHERE name == @eventName;
+
+
+expandedEvents =
+    PROCESS rawEvents
+    USING JsonObjectProcessor("data", 
+                              "binaryVersion:binaryVersion:string",
+                              "binaryFlavor:binaryFlavor:string",
+                              "binaryArch:binaryArch:string",
+                              "Discriminator1:discriminator1:string",
+                              "Discriminator2:discriminator2:string",
+                              "activityID:activityID:string"
+);
+
+expandedEvents2 =
+        SELECT
+            ver,
+            name,
+            time,
+            epoch,
+            seqNum,
+            cV,
+            flags,
+            popSample,
+            os,
+            osVer,
+            appId,
+            appVer,
+            iKey,
+            tags,
+            ext,
+            data,
+            device_id,
+            device_deviceClass,
+            ingest_time,
+            ingest_clientIp,
+            ingest_auth,
+            ingest_quality,
+            ingest_uploadTime,
+            os_expId,
+            os_bootId,
+            user_id,
+            loc_id,
+            loc_country,
+            data_baseType,
+            _fingerprint,
+            _length,
+            _copies,
+            __datetime,
+
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            activityID
+        FROM expandedEvents;
+END;

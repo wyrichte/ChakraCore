@@ -1,0 +1,249 @@
+﻿CREATE VIEW ReadChakraEventsWithDomain SCHEMA (
+    ver:string,
+    name:string,
+    time:DateTime,
+    epoch:string,
+    seqNum:long,
+    cV:string,
+    flags:long,
+    popSample:double,
+    os:string,
+    osVer:string,
+    appId:string,
+    appVer:string,
+    iKey:string,
+    tags:string,
+    ext:string,
+    data:string,
+    device_id:string,
+    device_deviceClass:string,
+    ingest_time:DateTime,
+    ingest_clientIp:string,
+    ingest_auth:long,
+    ingest_quality:long,
+    ingest_uploadTime:DateTime,
+    os_expId:string,
+    os_bootId:int,
+    user_id:string,
+    loc_id:long,
+    loc_country:string,
+    data_baseType:string,
+    _fingerprint:Guid,
+    _length:int,
+    _copies:long,
+    __datetime:DateTime,
+
+    // Chakra-specific data expanded from JSON in 'data' field
+    binaryVersion:string,
+    binaryFlavor:string,
+    binaryArch:string,
+    discriminator1:string,
+    discriminator2:string,
+    activityID:string,
+
+    markupIsTopLevel:bool?,
+    markupDomainHash:long?,
+    markupDomain:string,
+//    markupUriHash:long?,
+//    markupUri:string,
+
+    domain: string
+)
+
+PARAMS (
+    startDate DateTime,
+    endDate DateTime,
+    eventName string,
+    includePrivateDomains bool
+)
+
+AS BEGIN
+
+eventData = 
+    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
+    PARAMS
+    (
+        startDate = @startDate,
+        endDate = @endDate,
+        eventName = @eventName
+    );
+
+#DECLARE inputDate_yyyyMM string = @startDate.ToString("yyyy/MM");
+#DECLARE inputDate_yyyyMMdd string = @startDate.ToString("yyyy_MM_dd");
+#DECLARE markupInputStream string = String.Format("/shares/asimov.prod.data/UserSensitive.Usage.Partner/Processed/WebPlatform/AsimovEvents/Aggregate/Microsoft/Web/Platform/{0}/AsimovEvents.Markup.ActivityChain_{1}.ss?property=info", @inputDate_yyyyMM, @inputDate_yyyyMMdd);
+
+urlAndDomainData = SSTREAM @markupInputStream;
+
+// need to project out activityID as a GUID before we can join on it
+eventData2 = 
+    SELECT
+            ver,
+            name,
+            time,
+            epoch,
+            seqNum,
+            cV,
+            flags,
+            popSample,
+            os,
+            osVer,
+            appId,
+            appVer,
+            iKey,
+            tags,
+            ext,
+            data,
+            device_id,
+            device_deviceClass,
+            ingest_time,
+            ingest_clientIp,
+            ingest_auth,
+            ingest_quality,
+            ingest_uploadTime,
+            os_expId,
+            os_bootId,
+            user_id,
+            loc_id,
+            loc_country,
+            data_baseType,
+            _fingerprint,
+            _length,
+            _copies,
+            __datetime,
+
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            eventData.activityID,
+            Guid.Parse(eventData.activityID) AS activityID_guid
+    FROM
+        eventData;
+    
+eventsWithURL = 
+    SELECT
+            ver,
+            name,
+            time,
+            epoch,
+            seqNum,
+            cV,
+            flags,
+            popSample,
+            os,
+            osVer,
+            appId,
+            appVer,
+            iKey,
+            tags,
+            ext,
+            data,
+            device_id,
+            device_deviceClass,
+            ingest_time,
+            ingest_clientIp,
+            ingest_auth,
+            ingest_quality,
+            ingest_uploadTime,
+            os_expId,
+            os_bootId,
+            user_id,
+            loc_id,
+            loc_country,
+            data_baseType,
+            _fingerprint,
+            _length,
+            _copies,
+            __datetime,
+
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            activityID,
+
+            urlAndDomainData.markupIsTopLevel,
+            urlAndDomainData.markupDomainHash,
+            urlAndDomainData.markupDomain,
+            urlAndDomainData.markupUriHash,
+            urlAndDomainData.markupUri,
+            urlAndDomainData.markupDomain AS domain
+//
+//  eventually update this to include hashed NGP-compliant URLs
+//
+//            markupUriHash,
+//            markupUri,
+    FROM
+        eventData2
+    LEFT OUTER JOIN urlAndDomainData ON 
+        activityID_guid == urlAndDomainData.etwAId 
+        AND device_id == urlAndDomainData.deviceId;
+    
+
+#IF (!@includePrivateDomains)
+  // filter out any "non-public" domains - specifically, domains with a unique device count <= 50
+
+  publicDomains = SSTREAM "/shares/asimov.prod.data/PublicPartner/Processed/WebPlatform/ReferenceStreams/PublicUris/PublicDomains.ss";
+  filteredEventsWithURL =
+    SELECT 
+            ver,
+            name,
+            time,
+            epoch,
+            seqNum,
+            cV,
+            flags,
+            popSample,
+            os,
+            osVer,
+            appId,
+            appVer,
+            iKey,
+            tags,
+            ext,
+            data,
+            device_id,
+            device_deviceClass,
+            ingest_time,
+            ingest_clientIp,
+            ingest_auth,
+            ingest_quality,
+            ingest_uploadTime,
+            os_expId,
+            os_bootId,
+            user_id,
+            loc_id,
+            loc_country,
+            data_baseType,
+            _fingerprint,
+            _length,
+            _copies,
+            __datetime,
+
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            activityID,
+
+            markupIsTopLevel,
+            markupDomainHash,
+            markupDomain,
+//
+//  eventually update this to include hashed NGP-compliant URLs
+//
+//            markupUriHash,
+//            markupUri,
+            domain
+    FROM eventsWithURL
+         INNER JOIN
+             publicDomains
+         ON eventsWithURL.markupDomain == publicDomains.domain
+    WHERE publicDomains.uniqueDevices > 50;
+
+#ENDIF
+
+END;

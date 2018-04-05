@@ -15,6 +15,7 @@
     <ScopePath>%24(SCRIPT_DIR);%24(CLUSTER_ROOT);%24(SCOPE_DIR);%24(PROJECT_DIR)</ScopePath>
     <InputStreamSearchPath>%24(PROJECT_DIR);%24(SCRIPT_DIR);%24(CLUSTER_ROOT)</InputStreamSearchPath>
     <VertexDebugSolution>false</VertexDebugSolution>
+    <OutputStreamPath>%24(PROJECT_DIR)</OutputStreamPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,16 +26,47 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Views" />
     <Folder Include="output\" />
     <Folder Include="output\ChakraDaily\" />
+    <Folder Include="output\ChakraDaily2" />
+    <Folder Include="scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Script Include="output\ChakraDaily2\ChakraHosts.script">
+      <RemoveUselessParameters>False</RemoveUselessParameters>
+      <ScopeClusterParameters>startDate=(\"2018-03-20\"),endDate=(\"2018-03-21\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
+    </Script>
+    <Script Include="output\ChakraDaily2\ScriptContextTelemetry.script" />
     <Script Include="output\ChakraDaily\ChakraAboutConfig_config.script" />
     <Script Include="output\ChakraDaily\ChakraBailOutReJIT_Reference.script" />
     <Script Include="output\ChakraDaily\ChakraDailyURLCooker.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate.script" />
     <Script Include="output\ChakraDaily\ChakraESBuiltins2017_Aggregate_Pivot.script" />
     <Script Include="output\ChakraDaily\ChakraMasterPivot.script" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="output\ChakraDaily2\ChakraDaily2.wfdef">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Views\ReadChakraEventsWithDomain.view">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Views\ReadChakraEvents.view">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="output\ChakraDaily\ChakraDaily.wfdef">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts/export.cmd" />
+    <Content Include="scripts/getTools.cmd" />
+    <Content Include="scripts/getTools.ps1" />
+    <Content Include="scripts/publish.cmd" />
+    <Content Include="scripts/publish.ps1" />
   </ItemGroup>
   <Import Project="$(AppData)\Microsoft\ScopeStudio\MsBuild\1.0\Scope.targets" />
 </Project>
