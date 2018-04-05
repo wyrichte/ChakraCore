@@ -433,16 +433,17 @@ namespace Js
             
             // Don't do stack probe since BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION does that for us already
             result = externalType->nativeMethod(recyclableObject, callInfo, args.Values);
-            if ( nullptr == result )
-            {
-                result = scriptContext->GetLibrary()->GetUndefined();
-            }
-            else
-            {
-                result = CrossSite::MarshalVar(scriptContext, result);
-            }
         }
         END_LEAVE_SCRIPT_WITH_EXCEPTION(scriptContext);
+
+        if (nullptr == result)
+        {
+            result = scriptContext->GetLibrary()->GetUndefined();
+        }
+        else
+        {
+            result = CrossSite::MarshalVar(scriptContext, result);
+        }
         return result;
     }
 
