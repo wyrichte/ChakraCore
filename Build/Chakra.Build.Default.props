@@ -44,4 +44,8 @@
     <NTDDIVersion>0x0A000003</NTDDIVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(ChakraICU)'==''">
+    <ChakraICU>false</ChakraICU>
+  </PropertyGroup>
+
 </Project>

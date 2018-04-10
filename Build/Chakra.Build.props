@@ -152,7 +152,7 @@
                   -->
       </DisableSpecificWarnings>
 
-      <PreprocessorDefinitions Condition="'$(UseICU)'=='true'">
+      <PreprocessorDefinitions Condition="'$(ChakraICU)'=='windows'">
         %(PreprocessorDefinitions);
         HAS_ICU;
         WINDOWS10_ICU;

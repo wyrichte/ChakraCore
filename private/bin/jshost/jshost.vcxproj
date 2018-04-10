@@ -108,7 +108,7 @@
       <!-- Always use LTCG since dloadwin7helper.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
-    <Link Condition="'$(UseICU)'=='true'">
+    <Link Condition="'$(ChakraICU)'=='windows'">
       <AdditionalDependencies>
         %(AdditionalDependencies);
         $(SdkLibPath)\icuuc.lib
