@@ -158,6 +158,7 @@ goto :main
 
   doskey buildfull=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd $*
   doskey buildcore=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd /core $*
+  doskey buildproj=     %%ChakraFullRepoRoot%%\tools\GitScripts\build.cmd /proj $*
 
   doskey testfull=      %%ChakraFullRepoRoot%%\tools\rununittests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*
   doskey testcore=      %%ChakraFullRepoRoot%%\tools\runcoretests.cmd -%%ChakraBuildArch%% -%%ChakraBuildType%% $*

@@ -21,9 +21,11 @@ set "_msbuildProj="
 set _ChakraSolution=%REPO_ROOT%\Build\Chakra.Full.sln
 set _ChakraConfiguration=all
 set _CoreBuild=0
+set _projectBuild=0
 :parseArgs
 set _arg=%1
 shift
+
 
 if "%_arg%" EQU "/core" (
     set _ChakraSolution=%REPO_ROOT%\core\Build\Chakra.Core.sln
@@ -61,6 +63,16 @@ if "%_arg%" EQU "/CC" (
     goto :parseArgs
 )
 
+if "%_arg%" EQU "/proj" (
+    set _ChakraSolution=
+    set _msbuildProj=%1
+    set _msbuildArgs=%_msbuildArgs% /p:SolutionDir=%REPO_ROOT%\Build\
+    shift
+    set _projectBuild=1
+
+    goto :parseArgs
+)
+
 if "%_arg%" NEQ "" (
     set _msbuildArgs=%_msbuildArgs% %_arg%
     goto :parseArgs
@@ -69,7 +81,9 @@ if "%_arg%" NEQ "" (
 :DoneParsing
 
 if "%_CoreBuild%" EQU "0" (
-    set _ChakraBuildConfig=%_ChakraConfiguration%-%_ChakraBuildConfig%
+    if "%_projectBuild%" EQU "0" (
+      set _ChakraBuildConfig=%_ChakraConfiguration%-%_ChakraBuildConfig%
+    )
 )
 
 echo MSBuildArgs are %_msBuildArgs%
