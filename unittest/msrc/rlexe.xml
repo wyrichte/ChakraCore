@@ -196,4 +196,35 @@
       <files>42460_3.html</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>43186.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43186_array.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43186_regression.js</files>
+      <compile-flags>-maxinterpretcount:1 -maxsimplejitruncount:1</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43534.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43623.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc43229.js</files>
+    </default>
+  </test>
 </regress-exe>
