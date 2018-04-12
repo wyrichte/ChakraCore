@@ -110,7 +110,7 @@ namespace Js
     private:        
         RecyclerRootPtr<Utf8SourceInfo> m_utf8SourceInfo; // Utf8SourceInfo in recycler
         Parser m_parser;            // Parser owns ParseNodes. Needs to keep alive.
-        ParseNodePtr m_parseTree;
+        ParseNodeProg * m_parseTree;
         LocalFunctionId m_functionIdBegin; // The start functionId used by parse
         CompileScriptException m_parseException;
         bool m_hasError;
@@ -128,7 +128,7 @@ namespace Js
 
         Utf8SourceInfo* GetUtf8SourceInfo() const { return m_utf8SourceInfo; }
         LPCUTF8 GetUtf8Source() const { return m_utf8SourceInfo->GetSource(); }
-        ParseNodePtr GetParseTree() const { AssertMsg(!m_hasError, "One should not get the parse tree after parsing failure.");  return m_parseTree; }
+        ParseNodeProg * GetParseTree() const { AssertMsg(!m_hasError, "One should not get the parse tree after parsing failure.");  return m_parseTree; }
         LocalFunctionId GetFunctionIdBegin() const { return m_functionIdBegin; }
         void GenerateByteCode(ScriptContext* scriptContext, _Outptr_ ParseableFunctionInfo** root);
     };

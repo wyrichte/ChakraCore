@@ -219,6 +219,7 @@ namespace UnifiedRegex
 } // Used by UnifiedRegex.
 class SRCINFO;                              // Used by FunctionBody.h
 class FunctionCodeGenRuntimeData;           // Used by FunctionBody.h
+class ParseNodeProg;                        // Used by FunctionBody.h
 class DynamicProfileMutator;                // Used by ThreadContext.h
 class CompileScriptException;               // Used by SctiptContext.h
 class Parser;                               // Used by SctiptContext.h

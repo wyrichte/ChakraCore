@@ -5464,7 +5464,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
         if (SUCCEEDED(hr))
         {
-            ParseNodePtr parseTree = nullptr;
+            ParseNodeProg * parseTree = nullptr;
             SourceContextInfo * sourceContextInfo = srcInfo->sourceContextInfo;
             if (fOriginalUTF8Code)
             {
