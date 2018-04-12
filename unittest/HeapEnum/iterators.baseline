@@ -1186,27 +1186,9 @@
  |  |    |  |  |    | 0 length: value: 0.000000
  |  |    |  |  |    | 1 name: type: String (seen)
  |  |    |  [Properties] count: 2
- |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (4)
+ |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (3)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Function name] value
- |  |    |  |    [Scopes] count: 1
- |  |    |  |    | scope[0]: type: Scope flags: (old) optional info records (2)
- |  |    |  |    |  [Function name] Anonymous function
- |  |    |  |    |  [Properties] count: 2
- |  |    |  |    |  | 0 setPrototype: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    |  |    [Properties] count: 2
- |  |    |  |    |  |    | 0 length: value: 1.000000
- |  |    |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |  |    |  |    |    [Internal property] value: builtInSetPrototype
- |  |    |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  |    |  | 1 _objectDefineProperty: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    |  |    [Properties] count: 2
- |  |    |  |    |  |    | 0 length: value: 1.000000
- |  |    |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |  |    |  |    |    [Internal property] value: builtInJavascriptObjectEntryDefineProperty
- |  |    |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 prototype: type: ObjectObject flags: (old) optional info records (2)
  |  |    |  |    |    [Prototype] type: ObjectObject (seen)
@@ -2096,27 +2078,9 @@
  |  |    |  |  |    | 0 length: value: 0.000000
  |  |    |  |  |    | 1 name: type: String (seen)
  |  |    |  [Properties] count: 2
- |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (4)
+ |  |    |  | 0 next: type: FunctionObject flags: (old) optional info records (3)
  |  |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |  |    [Function name] value
- |  |    |  |    [Scopes] count: 1
- |  |    |  |    | scope[0]: type: Scope flags: (old) optional info records (2)
- |  |    |  |    |  [Function name] Anonymous function
- |  |    |  |    |  [Properties] count: 2
- |  |    |  |    |  | 0 setPrototype: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    |  |    [Properties] count: 2
- |  |    |  |    |  |    | 0 length: value: 1.000000
- |  |    |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |  |    |  |    |    [Internal property] value: builtInSetPrototype
- |  |    |  |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |  |    |  | 1 _objectDefineProperty: type: FunctionObject flags: (old) optional info records (2)
- |  |    |  |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |  |    |  |    [Properties] count: 2
- |  |    |  |    |  |    | 0 length: value: 1.000000
- |  |    |  |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |  |    |  |    |    [Internal property] value: builtInJavascriptObjectEntryDefineProperty
- |  |    |  |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |  |    [Properties] count: 2
  |  |    |  |    | 0 prototype: type: ObjectObject flags: (old) optional info records (2)
  |  |    |  |    |    [Prototype] type: ObjectObject (seen)
