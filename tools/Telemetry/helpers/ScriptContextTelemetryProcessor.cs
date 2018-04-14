@@ -63,7 +63,7 @@ namespace Chakra.Utils
                 }
             }
 
-            output_schema.Add(new ColumnInfo("scriptContextLifeSpanMicros", ColumnDataType.ULong));
+            output_schema.Add(new ColumnInfo("scriptContextLifeSpanMicros", ColumnDataType.UInt));
             output_schema.Add(new ColumnInfo("propType", ColumnDataType.String));
             output_schema.Add(new ColumnInfo("propName", ColumnDataType.String));
             output_schema.Add(new ColumnInfo("propValue", ColumnDataType.UInt));
