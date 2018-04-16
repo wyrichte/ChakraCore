@@ -104,7 +104,6 @@ private:
 
     APPBREAKFLAGS m_grfbrk;
     BOOL m_fAllowBreakpoints;
-    void * m_pvMinorSession;
 
     ThreadContext* threadContext;
 
@@ -260,7 +259,6 @@ public:
 
     // Getters
     ScriptEngine *GetScriptEngine(void) { return scriptEngine; }
-    LCID GetUserLocale(void);
 
     void RecordExcepInfoAndClear(EXCEPINFO *pei, HRESULT *phr);
 
@@ -296,20 +294,7 @@ public:
     BOOL FInDebuggerCallback(void) { return 0 != (m_grfbrk & APPBREAKFLAG_IN_BREAKPOINT); }
     void SetAllowBreakpoints(BOOL fAllow) { m_fAllowBreakpoints = fAllow; }
     BOOL FAllowBreakpoints(void) { return m_fAllowBreakpoints; }
-
-    void FreeError(void);
-    static HRESULT ReportError(HRESULT hr);
-    HRESULT RecordError(HRESULT hr);
-
-    // When one script engine calls another, this function is used to
-    // propagate any recorded error from the callee's session to the
-    // caller's session.
-    void PropagateRecordedError(ScriptSite *scriptSite, HRESULT *phr);
-
-    HRESULT PollHalt(void);
-    HRESULT HandleHalt(void);
-    void GetStatementCount(ulong *pluHi, ulong *pluLo);
-
+    
     static ScriptSite * FromScriptContext(Js::ScriptContext *);
     static ScriptSite * FromHostScriptContext(HostScriptContext *);
 
@@ -369,9 +354,7 @@ private:
 
     void EnsureExternalLibrary();
     void InitializeExternalLibrary();
-    void InitializeTypes();
     void InitializeDebugObject();
-    void InitializeDiagnosticsScriptObject();
 
 #if defined(EDIT_AND_CONTINUE) && defined(ENABLE_DEBUG_CONFIG_OPTIONS)
     void InitializeEditTest();
@@ -389,8 +372,6 @@ private:
     static inline HRESULT RegisterDebug(Js::ScriptContext *pContext);
 
     static HRESULT ReportError(Js::JavascriptExceptionObject * pError, Js::ScriptContext* requestContext);
-    void EnsureDefaultDOMAccessors(unsigned int slotIndex);
-
 
 #if DBG_DUMP || defined(PROFILE_EXEC) || defined(PROFILE_MEM)
     void DumpSiteInfo(char16 const * message, char16 const * message2 = nullptr);

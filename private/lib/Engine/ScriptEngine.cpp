@@ -121,10 +121,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     m_stsThreadState        = SCRIPTTHREADSTATE_NOTINSCRIPT; // Not running in a script
     m_cNesting              = 0;                             // Count of times nested in script
     m_moduleIDNext               = 1;                             // Next module number. 0 is global!
-    m_lcidUser              = GetUserDefaultLCID();    // Default locale
-    m_lcidUserDefault       = m_lcidUser;
-    m_fIsValidCodePage      = TRUE;
-    m_codepage              = GetACP();
 
     m_excepinfoInterrupt    = NoException;       // If interrupt raised, exception information
     // Debugger
@@ -157,10 +153,6 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
     eventSinks            = nullptr;
     jsOps=nullptr;
 
-    m_fNoHostSecurityManager = TRUE;
-    m_fNoINETSecurityManager = TRUE;
-    m_psitehostsecman        = nullptr;
-    m_pinetsecman            = nullptr;
 
     //m_pvLastReportedScriptBody = nullptr;
 
@@ -2646,19 +2638,6 @@ STDMETHODIMP ScriptEngine::SetScriptSite(IActiveScriptSite *activeScriptSite)
     }
 #endif
 
-    m_fNoHostSecurityManager = FALSE;
-    m_fNoINETSecurityManager = FALSE;
-
-    LCID lcid;
-    if (SUCCEEDED(activeScriptSite->GetLCID(&lcid)))
-    {
-        if (SetCurrentLocale(lcid))
-        {
-            // SetCurrentLocale may have mapped the lcid.
-            m_lcidUserDefault = m_lcidUser;
-        }
-    }
-
     // If we are recovering from reset then now is the time to
     // register our named items:
     RegisterNamedItems();
@@ -2863,15 +2842,6 @@ STDMETHODIMP ScriptEngine::Reset(BOOL fFull)
     HRESULT hr;
     HRESULT hrT;
 
-    if (fFull)
-    {
-        m_lcidUser              = GetUserDefaultLCID();
-        m_lcidUserDefault       = m_lcidUser;
-    }
-
-    m_codepage = GetACP(); // Default codepage
-    m_fIsValidCodePage = TRUE;
-
     // free the event sinks
     FreeEventSinks();
 
@@ -2961,7 +2931,6 @@ STDMETHODIMP ScriptEngine::Reset(BOOL fFull)
     EnableInterrupts();
     if (fFull)
     {
-        ResetSecurity();
         ResetDebugger();
 
         CScriptSourceDocumentText *pdoc;
@@ -3051,7 +3020,6 @@ HRESULT ScriptEngine::CloseInternal()
             m_activeScriptDirectHost = nullptr;
         }
 
-        ResetSecurity();
         ResetDebugger();
 
         CScriptSourceDocumentText *pdoc;
@@ -6316,203 +6284,8 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
     return E_NOTIMPL;
 }
 
-/*************************************************************************
-*
-* ScriptEngine::GetHostSecurityManager
-*
-* This function obtains an IInternetHostSecurityManager from the
-* CALLER, and if the caller is not available it tries to get one
-* from the SITE.
-*
-* You should Release() the security manager when you're done with it.
-* Since the caller may vary from call to call there is no point in
-* caching the pointer.
-*
-* IMPORTANT NOTE: This function uses the DexCaller object to do the
-* QueryService on the caller and then the site if that fails.  This
-* function depends on knowledge of the DexCaller internals.
-*
-************************************************************************/
-HRESULT ScriptEngine::GetHostSecurityManager(IInternetHostSecurityManager **ppsecman)
-{
-    Assert(ppsecman);
-    *ppsecman = nullptr;
-
-    HRESULT     hr;
-    DispatchExCaller * pdc = nullptr;
-
-    if (nullptr == GetScriptSiteHolder())
-    {
-        AssertMsg(FALSE, "How did we get here with no session object?");
-        return E_FAIL;
-    }
-
-    IFFAILGO(GetScriptSiteHolder()->GetDispatchExCaller(&pdc));
-    hr = pdc->QSCaller(SID_SInternetHostSecurityManager, __uuidof(IInternetHostSecurityManager), (void **) ppsecman);
-    if (FAILED(hr))
-    {
-        IFFAILGO(pdc->QSSite(SID_SInternetHostSecurityManager, __uuidof(IInternetHostSecurityManager), (void **) ppsecman));
-    }
-
-    hr = S_OK;
-
-LReturn:
-    if (nullptr != pdc)
-        GetScriptSiteHolder()->ReleaseDispatchExCaller(pdc);
-    return hr;
-}
-
-/*************************************************************************
-*
-* ScriptEngine::GetINETSecurityManagerNoRef
-*
-* This function obtains an IInternetSecurityManager from the
-* script site.  If the site gives us no joy, we co-create one.
-*
-* We cache the pointer, so there is no need to Release() it.
-*
-************************************************************************/
-HRESULT ScriptEngine::GetINETSecurityManagerNoRef(IInternetSecurityManager **ppsecman)
-{
-    Assert(ppsecman);
-    *ppsecman = nullptr;
-
-    HRESULT hr;
-    IServiceProvider * psp;
-
-    if (m_fNoINETSecurityManager)
-        return E_FAIL;
-
-    if (nullptr != m_pinetsecman)
-    {
-        *ppsecman = m_pinetsecman;
-        return S_OK;
-    }
-
-    hr = m_pActiveScriptSite->QueryInterface(__uuidof(IServiceProvider), (void **)&psp);
-    if (SUCCEEDED(hr))
-    {
-        hr = psp->QueryService(SID_SInternetSecurityManager,
-            IID_IInternetSecurityManager, (void **)&m_pinetsecman);
-        psp->Release();
-    }
-
-    if (FAILED(hr))
-    {
-        hr = CoCreateInstance(CLSID_InternetSecurityManager, nullptr, CLSCTX_INPROC_SERVER,
-            IID_IInternetSecurityManager, (void **)&m_pinetsecman);
-        if (FAILED(hr))
-        {
-            m_fNoINETSecurityManager = TRUE;
-            return hr;
-        }
-    }
-
-    *ppsecman = m_pinetsecman;
-    return S_OK;
-}
 
 // === Protected Methods ===
-void ScriptEngine::ResetSecurity(void)
-{
-    m_fNoHostSecurityManager = TRUE;
-    m_fNoINETSecurityManager = TRUE;
-    RELEASEPTR(m_psitehostsecman);
-    RELEASEPTR(m_pinetsecman);
-
-}
-
-HRESULT ScriptEngine::SetObjectSafety(IObjectSafety *psafe, REFIID riid, DWORD dwMask, DWORD dwSet)
-{
-    return psafe->SetInterfaceSafetyOptions(riid, dwMask , dwSet);
-}
-
-/*************************************************************************
-*
-* ScriptEngine::GetSiteHostSecurityManagerNoRef
-*
-* This function obtains an IInternetHostSecurityManager from the script site.
-*
-* We cache the pointer, so there is no need to Release() it.
-*
-************************************************************************/
-HRESULT ScriptEngine::GetSiteHostSecurityManagerNoRef(IInternetHostSecurityManager **ppsecman)
-{
-    Assert(ppsecman);
-    *ppsecman = nullptr;
-    if (m_fNoHostSecurityManager || nullptr == m_pActiveScriptSite)
-        return E_FAIL;
-
-    HRESULT hr;
-    if (nullptr == m_psitehostsecman)
-    {
-        IServiceProvider * psp;
-        hr = m_pActiveScriptSite->QueryInterface(__uuidof(IServiceProvider), (void **)&psp);
-        if (SUCCEEDED(hr))
-        {
-            hr = psp->QueryService(SID_SInternetHostSecurityManager,
-                IID_IInternetHostSecurityManager, (void **)&m_psitehostsecman);
-            psp->Release();
-        }
-        if (FAILED(hr))
-            m_fNoHostSecurityManager = TRUE;
-    }
-    else
-        hr = NOERROR;
-    *ppsecman = m_psitehostsecman;
-    return hr;
-}
-
-void ScriptEngine::ResetLocales(void)
-{
-    SetCurrentLocale(m_lcidUserDefault);
-}
-
-BOOL ScriptEngine::SetCurrentLocale(LCID lcid)
-{
-    // Map any special lcid's to their real values.
-    switch (lcid)
-    {
-    case LOCALE_USER_DEFAULT:
-        lcid = GetUserDefaultLCID();
-        break;
-        /*
-        case LOCALE_SYSTEM_DEFAULT:
-        lcid = GetSystemDefaultLCID();
-        break;
-        */
-    default: //IE passes correct lcid got from GetUserDefaultLCID
-        if (!IsValidLocale(lcid, LCID_INSTALLED))
-            return FALSE;
-    }
-
-    // Setting the locale also sets the error locale and codepage
-    WCHAR szLocale[6];
-    UINT codepage;
-
-    int ret = GetLocaleInfoW(lcid, LOCALE_IDEFAULTANSICODEPAGE, szLocale, 6);
-    if (ret == 0)
-    {
-        return FALSE;
-    }
-    codepage = wcstoul(szLocale, nullptr, 10);
-    m_fIsValidCodePage = ::IsValidCodePage(codepage);
-    if( m_fIsValidCodePage )
-        m_codepage = codepage;
-
-    m_lcidUser = lcid;
-    return TRUE;
-}
-
-BOOL ScriptEngine::SetCurrentCodePage(UINT codepage)
-{
-    if (!::IsValidCodePage(codepage))
-        return FALSE;
-    m_fIsValidCodePage = TRUE;
-    m_codepage = codepage;
-    return TRUE;
-}
-
 HRESULT ScriptEngine::GetLanguageInfo (BSTR * pbstrLang, GUID * pguidLang)
 {
     SETRETVAL(pguidLang, m_riidLanguage);

@@ -160,7 +160,6 @@ ScriptSite::ScriptSite()
     , scriptSiteContext(nullptr)
     , globalDispatches(nullptr)
     , dispatchMap(nullptr)
-    , m_pvMinorSession((void*)-1)
     , m_ppoll(nullptr)
     , scriptDirect(nullptr)
 #ifdef PROFILE_EXEC
@@ -1511,14 +1510,6 @@ ScriptSite::DispatchMap * ScriptSite::EnsureDispatchMap(void)
         this->dispatchMap = Anew(hostAllocator, DispatchMap, hostAllocator, 17);
     }
     return this->dispatchMap;
-}
-
-
-LCID ScriptSite::GetUserLocale(void)
-{
-    if (NULL != scriptEngine)
-        return scriptEngine->GetUserLcid();
-    return GetUserDefaultLCID();
 }
 
 void ScriptSite::RecordExcepInfoAndClear(EXCEPINFO *pei, HRESULT *phr)

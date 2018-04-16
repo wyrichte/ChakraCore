@@ -626,15 +626,9 @@ public:
 
     HRESULT OnScriptError (IActiveScriptError* pase); // Error reporting to the site
     HRESULT ReportCompilerError(SRCINFO* srcInfo, CompileScriptException* se, EXCEPINFO * pexcepinfo, Js::Utf8SourceInfo* sourceInfo);
-    LCID GetUserLcid (void) { return m_lcidUser; }
-    UINT GetCodePage (void) { return m_codepage; }
-    BOOL IsValidCodePage (void) { return m_fIsValidCodePage; }
     virtual HRESULT STDMETHODCALLTYPE GetInterruptInfo (EXCEPINFO* pexcepinfo);
 
     BOOL IsPseudoDisconnected (void) { return m_fIsPseudoDisconnected; }
-
-    BOOL SetCurrentLocale (LCID lcid);
-    void ResetLocales (void);
 
     DWORD GetInvokeVersion() { return SCRIPTLANGUAGEVERSION_5_8; }
 
@@ -644,7 +638,6 @@ public:
 
     DWORD GetHostType() { return hostType; }
     HRESULT GetHostContextUrl(__in DWORD_PTR hostSourceContext, __out BSTR* pUrl);
-    BOOL SetCurrentCodePage (UINT codepage);
     HRESULT GetObjectOfItem(IDispatch** ppdisp, NamedItem* pnid, LPCOLESTR pszSubItem = NULL);
     NamedItem* FindNamedItem (LPCOLESTR pcszName);
 
@@ -766,7 +759,6 @@ private:
     HRESULT RegisterNamedItems (void);
     HRESULT RegisterNamedItem        (NamedItem* pnid);
     HRESULT RegisterNamedItemHasCode (NamedItem* pnid);
-    HRESULT RegisterObject (LPCOLESTR pszName, IDispatch* pdisp, Js::ModuleID moduleID, long lwCookie);
     HRESULT AddDefaultDispatch (Js::ModuleID moduleID, IDispatch* pdisp);
     HRESULT ConnectEventHandlers    (void);
     HRESULT DisconnectEventHandlers (void);
@@ -955,14 +947,8 @@ private:
     static const DWORD DefaultTicksPerPoll = 1000;
     DWORD            m_dwTicksPerPoll;
 
-
     LPCOLESTR        m_pszLanguageName;     // name of language
     REFIID           m_riidLanguage;        // iid of language
-    LCID             m_lcidUser;            // Local identifier
-    LCID             m_lcidUserDefault;
-
-    BOOL  m_fIsValidCodePage;
-    UINT  m_codepage;              // Code page
 
     DWORD m_dwBaseThread;          // Win32 thread we were created in
     BOOL  m_fPersistLoaded;        // TRUE if IPersist*::Load() or InitNew() has completed
@@ -1166,26 +1152,8 @@ public:
         __in IUnknown* unknown,
         __out Var* instance);
 
-//
-protected:
-    // SHA-256 hash length
-    void ResetSecurity(void);
-    HRESULT SetObjectSafety(IObjectSafety* psafe, REFIID riid, DWORD dwMask, DWORD dwSet);
-    HRESULT GetSiteHostSecurityManagerNoRef(IInternetHostSecurityManager** ppsecman);
-    HRESULT GetHostSecurityManager(IInternetHostSecurityManager** ppsecman);
-    HRESULT GetINETSecurityManagerNoRef(IInternetSecurityManager** ppsecman);
-    BOOL IsObjectSafeForScripting(REFCLSID clsid, IUnknown *punk);
-
-//
 private:
-     DWORD                           m_dwSafetyOptions;
-     BOOL                            m_fNoHostSecurityManager;
-     BOOL                            m_fNoINETSecurityManager;
-     IInternetHostSecurityManager*   m_psitehostsecman;
-     IInternetSecurityManager*       m_pinetsecman;
-//    void*                           m_pvLastReportedScriptBody;
-//
-//
+    DWORD                           m_dwSafetyOptions;
 
     // This is used for telemetry purposes so that we can Join the data using below
     // activity ID and get more info like URL etc.
