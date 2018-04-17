@@ -1,4 +1,4 @@
-Bytecode GUID = {AB4D9FB4-6F48-4E69-B004-735C61C0251C}
+Bytecode GUID = {B3776BBD-797D-4535-A15F-3BA14DB291DF}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -351,14 +351,13 @@ OpCode: FunctionEntry = 348. Layout = Empty
 OpCode: FunctionExit = 349. Layout = Empty
 OpCode: StatementBoundary = 350. Layout = Empty
 OpCode: ClearAttributes = 351. Layout = ElementU
-OpCode: ObjectFreeze = 352. Layout = Reg1
-OpCode: LdHomeObj = 353. Layout = Reg1
-OpCode: LdFuncObj = 354. Layout = Reg1
-OpCode: LdHomeObjProto = 355. Layout = Reg2
-OpCode: LdFuncObjProto = 356. Layout = Reg2
-OpCode: SetHomeObj = 357. Layout = Reg2
-OpCode: ImportCall = 358. Layout = Reg2
-OpCode: BeginBodyScope = 359. Layout = Empty
+OpCode: LdHomeObj = 352. Layout = Reg1
+OpCode: LdFuncObj = 353. Layout = Reg1
+OpCode: LdHomeObjProto = 354. Layout = Reg2
+OpCode: LdFuncObjProto = 355. Layout = Reg2
+OpCode: SetHomeObj = 356. Layout = Reg2
+OpCode: ImportCall = 357. Layout = Reg2
+OpCode: BeginBodyScope = 358. Layout = Empty
 OpCodeAsmJs: EndOfBlock = 0. Layout = Empty
 OpCodeAsmJs: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCodeAsmJs: MediumLayoutPrefix = 2. Layout = Empty
