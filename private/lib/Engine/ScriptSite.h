@@ -300,7 +300,8 @@ public:
 
     static HRESULT HandleJavascriptException(Js::JavascriptExceptionObject* exceptionObject, Js::ScriptContext * scriptContext, IServiceProvider * pspCaller = nullptr);
     static HRESULT CallRootFunction(Js::RecyclableObject * function, Js::Arguments args, IServiceProvider * pspCaller, Var * result);
-    static HRESULT ExternalToPrimitive(Js::DynamicObject * obj, Js::JavascriptHint hint, Var * result, IServiceProvider * pspCaller = nullptr);
+    template <Js::JavascriptHint hint>
+    static HRESULT ExternalToPrimitive(Js::DynamicObject * obj, Var * result, IServiceProvider * pspCaller = nullptr);
     static HRESULT ExternalGetPropertyReference(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
     static HRESULT ExternalGetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller = nullptr);
     static HRESULT ExternalSetProperty(Js::DynamicObject* scriptObject, DISPID id, Js::Var value, IServiceProvider * pspCaller = nullptr);

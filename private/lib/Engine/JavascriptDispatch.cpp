@@ -1602,9 +1602,8 @@ HRESULT JavascriptDispatch::InvokeOnSelf(
         // Do property get
 
         Js::Var varValue = nullptr;
-        Js::JavascriptHint hint = Js::JavascriptHint::None;
 
-        hr = scriptSite->ExternalToPrimitive(this->scriptObject, hint, &varValue, pspCaller);
+        hr = scriptSite->ExternalToPrimitive<Js::JavascriptHint::None>(this->scriptObject, &varValue, pspCaller);
 
         if (SUCCEEDED(hr) && (pVarRes != nullptr))
         {

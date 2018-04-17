@@ -5043,8 +5043,6 @@ HRESULT ScriptEngine::ChangeType(VARIANT *pvarDst, VARIANT *pvarSrc, LCID lcid, 
 
             JavascriptDispatch* javascriptDispatch = static_cast<JavascriptDispatch*>(jsProxy);
             Js::Var varValue = nullptr;
-            Js::JavascriptHint hint;
-            hint = (vtNew == VT_BSTR) ? Js::JavascriptHint::HintString : Js::JavascriptHint::HintNumber;
 
             if (nullptr == javascriptDispatch->GetObject())
             {
@@ -5052,7 +5050,14 @@ HRESULT ScriptEngine::ChangeType(VARIANT *pvarDst, VARIANT *pvarSrc, LCID lcid, 
             }
             else
             {
-                hr = GetScriptSiteHolder()->ExternalToPrimitive(javascriptDispatch->GetObject(), hint, &varValue);
+                if (vtNew == VT_BSTR)
+                {
+                    hr = GetScriptSiteHolder()->ExternalToPrimitive<Js::JavascriptHint::HintString>(javascriptDispatch->GetObject(), &varValue);
+                }
+                else
+                {
+                    hr = GetScriptSiteHolder()->ExternalToPrimitive<Js::JavascriptHint::HintNumber>(javascriptDispatch->GetObject(), &varValue);
+                }
 
                 hrT = DispatchHelper::MarshalJsVarToVariantNoThrow(varValue, &varSrc, GetScriptSiteHolder()->GetScriptSiteContext());
                 pvarSrc = &varSrc;

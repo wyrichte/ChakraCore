@@ -153,18 +153,22 @@ namespace Js
         return rc;
     }
 
-    Var JavascriptExternalConversion::ToPrimitive(DynamicObject* obj,  JavascriptHint hint, ScriptContext * scriptContext)
+    template <JavascriptHint hint>
+    Var JavascriptExternalConversion::ToPrimitive(DynamicObject* obj, ScriptContext * scriptContext)
     {
         Var rc = NULL;
 
         BEGIN_JS_RUNTIME_CALL_EX(scriptContext, false);
         {
-            rc = JavascriptConversion::ToPrimitive(obj, hint, scriptContext);
+            rc = JavascriptConversion::ToPrimitive<hint>(obj, scriptContext);
         }
         END_JS_RUNTIME_CALL(scriptContext);
 
         return rc;
     }
+    template Var JavascriptExternalConversion::ToPrimitive<Js::JavascriptHint::HintString>(DynamicObject* obj, ScriptContext * scriptContext);
+    template Var JavascriptExternalConversion::ToPrimitive<Js::JavascriptHint::HintNumber>(DynamicObject* obj, ScriptContext * scriptContext);
+    template Var JavascriptExternalConversion::ToPrimitive<Js::JavascriptHint::None>(DynamicObject* obj, ScriptContext * scriptContext);
 
     JavascriptString * JavascriptExternalConversion::ToString(Var instance, ScriptContext * scriptContext)
     {

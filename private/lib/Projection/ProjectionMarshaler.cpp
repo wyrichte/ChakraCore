@@ -1565,7 +1565,7 @@ namespace Projection
         else
         {
             Js::DynamicObject* varSource = Js::DynamicObject::FromVar(varInput);
-            baseValue = Js::JavascriptConversion::ToPrimitive(varSource, Js::JavascriptHint::HintString, scriptContext);
+            baseValue = Js::JavascriptConversion::ToPrimitive<Js::JavascriptHint::HintString>(varSource, scriptContext);
         }
 
         Js::JavascriptString * str = Js::JavascriptConversion::ToString(baseValue, scriptContext);

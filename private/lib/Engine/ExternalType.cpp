@@ -379,9 +379,12 @@ namespace Js
 
         // We don't know anything for certain about the type of properties an external object might have
         this->GetTypeHandler()->ClearHasOnlyWritableDataProperties();
+        this->GetTypeHandler()->SetHasSpecialProperties();
         if(GetTypeHandler()->GetFlags() & DynamicTypeHandler::IsPrototypeFlag)
         {
-            GetScriptContext()->GetLibrary()->NoPrototypeChainsAreEnsuredToHaveOnlyWritableDataProperties();
+            JavascriptLibrary* library = GetScriptContext()->GetLibrary();
+            library->GetTypesWithOnlyWritablePropertyProtoChainCache()->Clear();
+            library->GetTypesWithNoSpecialPropertyProtoChainCache()->Clear();
         }
     }
 

@@ -290,6 +290,7 @@ namespace Wasm
 #include "DynamicType.h"                // Needed by inspection
 #include "InlineCache.h"                // Used by FunctionBody
 #include "InlineCachePointerArray.h"    // Used by FunctionBody, PolymorphicInlineCacheInfo
+#include "PrototypeChainCache.h"
 #include "Base\ExpirableObject.h"
 #include "..\Backend\NativeCodeData.h"  // Used by FunctionBody
 #include "FunctionInfo.h"               // Used by FunctionBody : FunctionInfo

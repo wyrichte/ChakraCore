@@ -959,14 +959,15 @@ HRESULT ScriptSite::ReportError(Js::JavascriptExceptionObject * pError, Js::Scri
     return hr;
 }
 
-HRESULT ScriptSite::ExternalToPrimitive(Js::DynamicObject * scriptObject, Js::JavascriptHint hint, Var * result, IServiceProvider * pspCaller)
+template <Js::JavascriptHint hint>
+HRESULT ScriptSite::ExternalToPrimitive(Js::DynamicObject * scriptObject, Var * result, IServiceProvider * pspCaller)
 {
     HRESULT hr = S_OK;
     Js::ScriptContext * scriptContext = scriptObject->GetScriptContext();
 
     BEGIN_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT
     {
-        *result = Js::JavascriptExternalConversion::ToPrimitive(scriptObject, hint, scriptContext);
+        *result = Js::JavascriptExternalConversion::ToPrimitive<hint>(scriptObject, scriptContext);
         return hr;
     }
     END_TRANSLATE_EXCEPTION_AND_REPORT_ERROROBJECT_TO_HRESULT(hr, scriptContext, pspCaller);
@@ -974,6 +975,9 @@ HRESULT ScriptSite::ExternalToPrimitive(Js::DynamicObject * scriptObject, Js::Ja
     *result = scriptObject->GetLibrary()->GetUndefined();
     return hr;
 }
+template HRESULT ScriptSite::ExternalToPrimitive<Js::JavascriptHint::HintString>(Js::DynamicObject * scriptObject, Var * result, IServiceProvider * pspCaller);
+template HRESULT ScriptSite::ExternalToPrimitive<Js::JavascriptHint::HintNumber>(Js::DynamicObject * scriptObject, Var * result, IServiceProvider * pspCaller);
+template HRESULT ScriptSite::ExternalToPrimitive<Js::JavascriptHint::None>(Js::DynamicObject * scriptObject, Var * result, IServiceProvider * pspCaller);
 
 
 HRESULT ScriptSite::ExternalGetPropertyReference(Js::DynamicObject* scriptObject, DISPID id, Js::Var* varMember, IServiceProvider * pspCaller)

@@ -19,7 +19,8 @@ namespace Js
     class JavascriptExternalConversion
     {
     public:
-        static Var ToPrimitive(Js::DynamicObject * object, JavascriptHint hint, ScriptContext * scriptContext);
+        template <JavascriptHint hint>
+        static Var ToPrimitive(Js::DynamicObject * object, ScriptContext * scriptContext);
         static JavascriptString * ToString(Var instance, ScriptContext * scriptContext);
         static double ToNumber(Var instance, ScriptContext * scriptContext);
         static int ToInt32(Var instance, ScriptContext * scriptContext);

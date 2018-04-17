@@ -1810,7 +1810,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeFromVar(
         return hr;
     }
     VariantInit(outVariant);
-    Js::JavascriptHint hint = (vtNew == VT_BSTR) ? Js::JavascriptHint::HintString : Js::JavascriptHint::HintNumber;
 
     if (!Js::DynamicObject::Is(instance))
     {
@@ -1820,7 +1819,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeFromVar(
     else
     {
         Js::DynamicObject* varSource = Js::DynamicObject::FromVar(instance);
-        hr = GetScriptSiteHolder()->ExternalToPrimitive(varSource, hint, &varValue);
+        if (vtNew == VT_BSTR)
+        {
+            hr = GetScriptSiteHolder()->ExternalToPrimitive<Js::JavascriptHint::HintString>(varSource, &varValue);
+        }
+        else
+        {
+            hr = GetScriptSiteHolder()->ExternalToPrimitive<Js::JavascriptHint::HintNumber>(varSource, &varValue);
+        }
     }
 
     if (SUCCEEDED(hr))
