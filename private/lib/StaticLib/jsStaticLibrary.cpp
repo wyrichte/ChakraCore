@@ -119,6 +119,15 @@ namespace JsStaticAPI
         return thenFunc;
     }
 
+    void JavascriptLibrary::SetHostPromiseRejectionTracker(_In_ IActiveScriptDirect* activeScriptDirect, _In_opt_ StaticHostPromiseRejectionTrackerCallback promiseRejectionTrackerCallback, _In_opt_ void *callbackState)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContext = scriptEngineBase->GetScriptContext();
+        Js::JavascriptLibraryBase *library = scriptContext->GetLibrary();
+
+        library->SetNativeHostPromiseRejectionTrackerCallback(reinterpret_cast<Js::JavascriptLibraryBase::HostPromiseRejectionTrackerCallback>(promiseRejectionTrackerCallback), callbackState);
+    }
+
     Var JavascriptLibrary::GetJSONStringify(IActiveScriptDirect* activeScriptDirect)
     {
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);

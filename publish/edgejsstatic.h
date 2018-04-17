@@ -16,6 +16,8 @@ namespace JsStaticAPI
     typedef void(*InitIteratorFunction)(Var, Var);
     typedef bool (*NextFunction)(Var, Var *, Var *);
 
+    typedef void (__stdcall *StaticHostPromiseRejectionTrackerCallback)(_In_ Var promise, _In_ Var reason, _In_ bool handled, _In_opt_ void *callbackState);
+
     struct BinaryVerificationData
     {
         DWORD majorVersion;
@@ -59,6 +61,7 @@ namespace JsStaticAPI
         static Var __stdcall GetTrue(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetFalse(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetGlobalObject(IActiveScriptDirect* activeScriptDirect);
+
         // Get the Promise constructor function
         //  activeScriptDirect      : The IActiveScriptDirect pointer
         static Var __stdcall GetPromiseConstructor(IActiveScriptDirect* activeScriptDirect);
@@ -68,6 +71,10 @@ namespace JsStaticAPI
         // Get the Promise.prototype.then function
         //  activeScriptDirect      : The IActiveScriptDirect pointer
         static Var __stdcall GetPromiseThen(IActiveScriptDirect* activeScriptDirect);
+        // Set the HostPromiseRejectionTrackerCallback
+        //  activeScriptDirect      : The IActiveScriptDirect pointer
+        static void __stdcall SetHostPromiseRejectionTracker(_In_ IActiveScriptDirect* activeScriptDirect, _In_opt_ StaticHostPromiseRejectionTrackerCallback promiseRejectionTrackerCallback, _In_opt_ void *callbackState);
+
         // Get the JSON.stringify function
         //  activeScriptDirect      : The IActiveScriptDirect pointer
         static Var __stdcall GetJSONStringify(IActiveScriptDirect* activeScriptDirect);
