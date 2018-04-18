@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Workflows>
-  <Workflow Name="ChakraDaily2" PrefixParentName="0" Start="2015-03-20T11:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="chakraei@microsoft.com" Enabled="1" FolderName="Chakra" Tags="chakra" Author="mkaufman" MaxParallelExecution="1" TimeOutInMinutes="0">
+  <Workflow Name="ChakraDaily2" PrefixParentName="0" Start="2018-04-17T17:00:00.0000000" RecurrenceUnit="3" RecurrenceAmount="1" Email="chakraei@microsoft.com" Enabled="1" FolderName="Chakra" Tags="chakra" Author="mkaufman" MaxParallelExecution="1" TimeOutInMinutes="0">
     <ConfigBases>
       <ConfigBase Name="ChakraHosts.ConfigBase" File="ChakraHosts.script" />
       <ConfigBase Name="ScriptContextTelemetry.ConfigBase" File="ScriptContextTelemetry.script" />
@@ -30,7 +30,6 @@
           <Parameter Name="_recurrence" Value="DailyTracker" />
           <Parameter Name="_startDate" Value="2018-03-25" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
-
           <Parameter Name="_dependencyStreams" Value="/shares/asimov.prod.data/UserSensitive.Usage.Partner/Processed/WebPlatform/AsimovEvents/Aggregate/Microsoft/Web/Platform/%Y/%m/AsimovEvents.Markup.ActivityChain_%Y_%m_%d.ss?date={_endDate-1d}&amp;sparsestreamset=true" />
           <Parameter Name="_dependencyCheckMinutes" Value="120" />
 
