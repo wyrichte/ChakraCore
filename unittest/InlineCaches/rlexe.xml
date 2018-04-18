@@ -19,4 +19,9 @@
       <baseline>bug579630.baseline</baseline>
     </default>
   </test>
+  <test>
+    <default>
+      <files>16711773.html</files>
+    </default>
+  </test>
 </regress-exe>

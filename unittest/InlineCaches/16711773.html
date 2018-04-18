@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+// Regression test for bug https://microsoft.visualstudio.com/OS/_workitems/edit/16711773 .
+// We shouldn't cache properties from CustomExternalObjects as missing unless we know that they
+// will correctly invalidate that cache.
+const obj = { something: true };
+for (const prop in obj)
+{
+    const original = prop in document.body.dataset;
+    document.body.setAttribute("data-" + prop, "true");
+    const modified = prop in document.body.dataset;
+    WScript.Echo((!original && modified) ? "PASSED" : "FAILED");
+}
+</script>
+</body>
+</html>
