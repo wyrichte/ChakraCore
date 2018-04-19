@@ -1587,6 +1587,7 @@ interface IJavascriptThreadService : IUnknown
 
     // A handle to this thread's Javascript heap
     HRESULT GetRecyclerNativeHeapHandle([out] RecyclerNativeHeapHandle* recyclerNativeHeapHandle);
+    HRESULT OnVisibilityChange([in] boolean visible);
 };
 
 //

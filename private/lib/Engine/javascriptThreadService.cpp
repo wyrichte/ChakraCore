@@ -805,3 +805,10 @@ STDMETHODIMP JavascriptThreadService::GetRecyclerNativeHeapHandle(RecyclerNative
     *recyclerNativeHeapHandle = ThreadContext::GetContextForCurrentThread()->GetRecycler();
     return S_OK;
 }
+
+STDMETHODIMP JavascriptThreadService::OnVisibilityChange(boolean visible)
+{
+    Unused(visible);
+    return S_OK;
+}
+
