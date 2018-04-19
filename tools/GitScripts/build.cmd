@@ -64,9 +64,7 @@ if "%_arg%" EQU "/CC" (
 )
 
 if "%_arg%" EQU "/proj" (
-    set _ChakraSolution=
     set _msbuildProj=%1
-    set _msbuildArgs=%_msbuildArgs% /p:SolutionDir=%REPO_ROOT%\Build\
     shift
     set _projectBuild=1
 
@@ -80,10 +78,17 @@ if "%_arg%" NEQ "" (
 
 :DoneParsing
 
-if "%_CoreBuild%" EQU "0" (
-    if "%_projectBuild%" EQU "0" (
+if "%_projectBuild%" EQU "1" (
+  set _ChakraSolution=
+  if "%_CoreBuild%" EQU "1" (
+     set _msbuildArgs=%_msbuildArgs% /p:SolutionDir=%REPO_ROOT%\Core\Build\
+  ) else (
+     set _msbuildArgs=%_msbuildArgs% /p:SolutionDir=%REPO_ROOT%\Build\
+  )
+) else (
+  if "%_CoreBuild%" EQU "0" (
       set _ChakraBuildConfig=%_ChakraConfiguration%-%_ChakraBuildConfig%
-    )
+  )
 )
 
 echo MSBuildArgs are %_msBuildArgs%
