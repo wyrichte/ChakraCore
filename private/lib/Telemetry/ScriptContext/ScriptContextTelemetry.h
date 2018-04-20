@@ -8,6 +8,7 @@
 #include "ScriptContext/LanguageFeaturesCountTracker.h"
 #include "Runtime.h"
 #include "Core/CriticalSection.h"
+#include "Common/Tick.h"
 
 namespace Js
 {
@@ -19,7 +20,7 @@ namespace Js
 
         ScriptContext* scriptContext;
 
-        FILETIME scriptContextInitTime;
+        Tick scriptContextInitTime;
 
         BuiltInCountTracker builtInCountTracker;
         LanguageFeaturesCountTracker languageFeaturesCountTracker;
@@ -46,10 +47,9 @@ namespace Js
     public:
         ScriptContextTelemetry(ScriptContext* sc) :
             scriptContext(sc),
-            builtInCountTracker(sc)
+            builtInCountTracker(sc),
+            scriptContextInitTime(Tick::Now())
         {
-            GetSystemTimeAsFileTime(&scriptContextInitTime);
-            
             // do static initialization
             if (!ScriptContextTelemetry::isInitialized)
             {
@@ -68,7 +68,7 @@ namespace Js
 
         void Reset()
         {
-            GetSystemTimeAsFileTime(&scriptContextInitTime);
+            scriptContextInitTime = Tick::Now();
             this->builtInCountTracker.Reset();
             this->languageFeaturesCountTracker.Reset();
         }

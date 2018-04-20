@@ -72,10 +72,9 @@ namespace Js
 
         try
         {
-            FILETIME now = { 0 };
-            FILETIME scriptContextLifeSpan = { 0 };
-            GetSystemTimeAsFileTime(&now);
-            ComputeFileTimeDiff(&now, &this->scriptContextInitTime, &scriptContextLifeSpan);
+            Tick now = Tick::Now();
+            TickDelta scriptContextLifeSpan = now - this->scriptContextInitTime;
+            int64 scriptContextLifeSpanMicros = scriptContextLifeSpan.ToMicroseconds();
 
 #ifdef REJIT_STATS
             AssertOrFailFast(this->scriptContext->bailoutReasonCounts != nullptr);
@@ -103,7 +102,7 @@ namespace Js
                 TraceLoggingGuid(activityId, "activityID"),
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
-                TraceLoggingFileTime(scriptContextLifeSpan, "scriptContextLifeSpan"),
+                TraceLoggingInt64(scriptContextLifeSpanMicros, "scriptContextLifeSpanMicros"),
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCRCArray(), BuiltInCountTracker::numFacets, "BuiltInCountNameCRCs", "CRC values of built-in names"),
                 TraceLoggingUInt32FixedArray(builtInCountTracker.GetCountsArray(), BuiltInCountTracker::numFacets, "BuiltInCountValues", "values indicating how many times each built-in was called"),
 
