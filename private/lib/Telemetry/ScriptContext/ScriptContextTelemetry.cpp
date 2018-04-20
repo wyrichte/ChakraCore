@@ -7,6 +7,8 @@
 #include "TelemetryMacros.h"
 #include "Core/CRC.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 namespace Js
 {
     CriticalSection ScriptContextTelemetry::initLock;
@@ -178,3 +180,4 @@ namespace Js
     }
 }
 
+#endif  // ENABLE_BASIC_TELEMETRY

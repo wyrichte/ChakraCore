@@ -8,6 +8,8 @@
 #include "BuiltInFacets.h"
 #include "BuiltInMapper.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 #define CHAKRATEL_LANGSTATS_INC_BUILTINCOUNT(builtin)                                              \
     {                                                                                              \
        Js::BuiltInCountTracker& tracker = scriptContext->GetTelemetry().GetBuiltInCountTracker();  \
@@ -137,3 +139,5 @@ namespace Js
     };
 
 }
+
+#endif  // ENABLE_BASIC_TELEMETRY

@@ -6,6 +6,8 @@
 
 #include "Core/CRC.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 #define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(esVersion, feature, m_scriptContext)                                  \
     {                                                                                                                  \
        Js::LanguageFeaturesCountTracker& tracker = m_scriptContext->GetTelemetry().GetLanguageFeaturesCountTracker();  \
@@ -81,3 +83,5 @@ namespace Js
 
     };
 }
+
+#endif  // ENABLE_BASIC_TELEMETRY

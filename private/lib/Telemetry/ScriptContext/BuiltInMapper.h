@@ -6,6 +6,8 @@
 
 #include "BuiltInFacets.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 namespace Js
 {
     /**
@@ -88,3 +90,5 @@ namespace Js
 
     };
 }
+
+#endif  // ENABLE_BASIC_TELEMETRY

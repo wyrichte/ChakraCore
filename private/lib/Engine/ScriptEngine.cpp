@@ -6745,7 +6745,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::SetActivityId(__in const GUID* pActivity
 
         if (this->m_activityID != GUID_NULL)
         {
+#ifdef ENABLE_BASIC_TELEMETRY
             ThreadContext::GetContextForCurrentThread()->activityId = this->m_activityID;
+#endif
         }
 
         return S_OK;

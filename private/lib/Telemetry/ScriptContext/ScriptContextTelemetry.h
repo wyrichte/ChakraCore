@@ -10,6 +10,8 @@
 #include "Core/CriticalSection.h"
 #include "Common/Tick.h"
 
+#ifdef ENABLE_BASIC_TELEMETRY
+
 namespace Js
 {
     class ScriptContextTelemetry
@@ -80,3 +82,5 @@ namespace Js
         BuiltInCountTracker& GetOpcodeTelemetry() { return this->builtInCountTracker; }
     };
 }
+
+#endif
