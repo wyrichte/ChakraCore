@@ -25,6 +25,8 @@ public:
 
     RemoteThreadContext GetThreadContext();
     RemoteHeapBlockMap GetHeapBlockMap();
+    JDRemoteTyped GetDefaultHeap();
+    JDRemoteTyped GetFieldWithAllocators();
 
     ULONG GetCookie();
 
@@ -46,31 +48,37 @@ private:
 template <typename Fn>
 bool RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
 {
-    if (fn(leafPageAllocatorName, RemotePageAllocator(recycler.Field("threadPageAllocator"))))
+    JDRemoteTyped objectWithAllocatorField = this->GetFieldWithAllocators();
+
+    if (objectWithAllocatorField.HasField("threadPageAllocator"))
+    {
+        if (fn(leafPageAllocatorName, RemotePageAllocator(objectWithAllocatorField.Field("threadPageAllocator"))))
+        {
+            return true;
+        }
+    }
+
+    if (fn("WriteWatch", RemotePageAllocator(objectWithAllocatorField.Field("recyclerPageAllocator"))))
     {
         return true;
     }
-    if (fn("WriteWatch", RemotePageAllocator(recycler.Field("recyclerPageAllocator"))))
+    if (objectWithAllocatorField.HasField("recyclerLargeBlockPageAllocator"))
     {
-        return true;
-    }
-    if (recycler.HasField("recyclerLargeBlockPageAllocator"))
-    {
-        if (fn("WriteWatchLarge", RemotePageAllocator(recycler.Field("recyclerLargeBlockPageAllocator"))))
+        if (fn("WriteWatchLarge", RemotePageAllocator(objectWithAllocatorField.Field("recyclerLargeBlockPageAllocator"))))
         {
             return true;
         }
     } 
-    if (recycler.HasField("recyclerWithBarrierPageAllocator"))
+    if (objectWithAllocatorField.HasField("recyclerWithBarrierPageAllocator"))
     {
-        if (fn("WriteBarrier", RemotePageAllocator(recycler.Field("recyclerWithBarrierPageAllocator"))))
+        if (fn("WriteBarrier", RemotePageAllocator(objectWithAllocatorField.Field("recyclerWithBarrierPageAllocator"))))
         {
             return true;
         }
     }
-    if (recycler.HasField("markStackPageAllocator"))
+    if (objectWithAllocatorField.HasField("markStackPageAllocator"))
     {
-        if (fn("MarkStack", RemotePageAllocator(recycler.Field("markStackPageAllocator"))))
+        if (fn("MarkStack", RemotePageAllocator(objectWithAllocatorField.Field("markStackPageAllocator"))))
         {
             return true;
         }
@@ -96,9 +104,9 @@ bool RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
         }
     }  
 
-    if (recycler.HasField("backgroundProfilerPageAllocator"))
+    if (objectWithAllocatorField.HasField("backgroundProfilerPageAllocator"))
     {
-        if (fn("BGProfiler", RemotePageAllocator(recycler.Field("backgroundProfilerPageAllocator"))))
+        if (fn("BGProfiler", RemotePageAllocator(objectWithAllocatorField.Field("backgroundProfilerPageAllocator"))))
         {
             return true;
         }

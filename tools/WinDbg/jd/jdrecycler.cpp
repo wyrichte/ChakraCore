@@ -818,12 +818,22 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(JDRemoteTyped pageAllocator, Comma
         ExtRemoteTyped zeroPageQueue = pageAllocator.Field("zeroPageQueue");
         int count = 0;
         int pageCount = 0;
-        ULONG64 freePageList = zeroPageQueue.Field("freePageList").GetPointerTo().GetPtr();
         ULONG64 alignment = 0;
 
         if (m_PtrSize == 8)
         {
             alignment = 8;
+        }
+
+        // The field freePageList was renamed to bgFreePageList in commit 49c9468f935ec1f6e05a95958a50f576c9383f2c for RS3
+        ULONG64 freePageList = 0;
+        if (zeroPageQueue.HasField("freePageList"))
+        {
+            freePageList = zeroPageQueue.Field("freePageList").GetPointerTo().GetPtr();
+        }
+        else if (zeroPageQueue.HasField("bgFreePageList"))
+        {
+            freePageList = zeroPageQueue.Field("bgFreePageList").GetPointerTo().GetPtr();
         }
 
         if (freePageList != 0)
@@ -906,15 +916,18 @@ JD_PRIVATE_COMMAND(pagealloc,
 
     if (HasArg("recycler"))
     {
-        ExtRemoteTyped recycler;
+        JDRemoteTyped objectWithAllocatorField;
         if (HasUnnamedArg(0) && GetUnnamedArgU64(0) != 0)
         {
-            Out("Recycler is 0x%p\n", GetUnnamedArgU64(0));
-            recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), GetUnnamedArgU64(0));
+            ULONG64 address = GetUnnamedArgU64(0);
+            Out("Recycler is 0x%p\n", address);
+            RemoteRecycler recycler = GetRecycler(address);
+            objectWithAllocatorField = recycler.GetFieldWithAllocators();
         }
         else
         {
-            recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler().GetExtRemoteTyped();
+            RemoteRecycler recycler = RemoteThreadContext::GetCurrentThreadContext().GetRecycler();
+            objectWithAllocatorField = recycler.GetFieldWithAllocators();
         }
 
         char* allocators[] = {
@@ -926,10 +939,10 @@ JD_PRIVATE_COMMAND(pagealloc,
 
         for (int i = 0; i < _countof(allocators); i++)
         {
-            if (recycler.HasField(allocators[i]))
+            if (objectWithAllocatorField.HasField(allocators[i]))
             {
                 Out("\n\nType: %s\n", allocators[i]);
-                DisplayPageAllocatorInfo(recycler.Field(allocators[i]), outputType);
+                DisplayPageAllocatorInfo(objectWithAllocatorField.Field(allocators[i]), outputType);
             }
         }
     }

@@ -17,7 +17,7 @@ RemoteRecycler::RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler)
 void
 RemoteRecycler::InitializeObjectAllocationShift()
 {
-    auto firstSizeCat = GetExtension()->GetNumberValue<ULONG64>(recycler.Field("autoHeap").Field("heapBuckets").ArrayElement(0).Field("heapBucket").Field("sizeCat"));
+    auto firstSizeCat = GetExtension()->GetNumberValue<ULONG64>(this->GetDefaultHeap().Field("heapBuckets").ArrayElement(0).Field("heapBucket").Field("sizeCat"));
     int i = 0;
     while (firstSizeCat > ((ULONG64)1 << (++i)));
     objectAllocationShift = i;
@@ -82,6 +82,35 @@ RemoteThreadContext RemoteRecycler::GetThreadContext()
         return collectionWrapper;
     }
     return RemoteThreadContext();
+}
+
+JDRemoteTyped RemoteRecycler::GetDefaultHeap()
+{
+    JDRemoteTyped autoHeap = recycler.Field("autoHeap");
+
+    if (autoHeap.HasField("defaultHeap"))
+    {
+        JDRemoteTyped defaultHeap = autoHeap.Field("defaultHeap");
+        return defaultHeap;
+    }
+
+    return autoHeap;
+}
+
+JDRemoteTyped RemoteRecycler::GetFieldWithAllocators()
+{
+    JDRemoteTyped objectWithAllocatorField;
+
+    if (this->GetDefaultHeap().HasField("recyclerPageAllocator"))
+    {
+        objectWithAllocatorField = this->GetDefaultHeap();
+    }
+    else
+    {
+        objectWithAllocatorField = recycler;
+    }
+
+    return objectWithAllocatorField;
 }
 
 RemoteHeapBlockMap RemoteRecycler::GetHeapBlockMap()
