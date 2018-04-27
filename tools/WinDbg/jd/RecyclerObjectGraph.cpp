@@ -133,6 +133,20 @@ ULONG64 RecyclerObjectGraph::TryInferFunctionProxyJavascriptLibrary(JDRemoteType
     return 0;
 }
 
+static bool IsSimpleTypeNameSimplePathTypeHandler(char const * simpleTypeName)
+{
+    return strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0
+        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerNoAttr *") == 0
+        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerWithAttr *") == 0;
+}
+
+static bool IsSimpleTypeNamePathTypeHandler(char const * simpleTypeName)
+{
+    return strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0
+        || strcmp(simpleTypeName, "Js::PathTypeHandlerNoAttr *") == 0
+        || strcmp(simpleTypeName, "Js::PathTypeHandlerWithAttr *") == 0;
+}
+
 ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphImplNodeType* node, JDRemoteTyped remoteTyped, char const * simpleTypeName)
 {
     ULONG64 library = TryInferVarJavascriptLibrary(remoteTyped);
@@ -146,12 +160,8 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
         return remoteTyped.GetPtr();
     }
 
-    bool isPathTypeHandler = strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0 
-        || strcmp(simpleTypeName, "Js::PathTypeHandlerNoAttr *") == 0
-        || strcmp(simpleTypeName, "Js::PathTypeHandlerWithAttr *") == 0
-        || strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0
-        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerNoAttr *") == 0
-        || strcmp(simpleTypeName, "Js::SimplePathTypeHandlerWithAttr *") == 0;
+    bool isPathTypeHandler = IsSimpleTypeNameSimplePathTypeHandler(simpleTypeName)
+        || IsSimpleTypeNamePathTypeHandler(simpleTypeName);
 
     if (isPathTypeHandler)
     {
@@ -856,6 +866,19 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 }
             };
 
+            auto addDynamicTypeWeakRef = [&](JDRemoteTyped remoteTyped, char const * weakRefName)
+            {
+                if (addField(remoteTyped, weakRefName))
+                {
+                    ULONG64 typePtr = remoteTyped.Field("strongRef").GetPtr();
+                    if (typePtr != 0)
+                    {
+                        addDynamicTypeField(JDRemoteTyped::FromPtrWithType(typePtr, "Js::DynamicType"));
+                    }
+                }
+            };
+
+
             if (strcmp(simpleTypeName, "Js::LiteralString *") == 0)
             {
                 addField(remoteTyped.Field("m_pszValue"), "Js::LiteralString.m_pszValue");
@@ -1229,42 +1252,56 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             {
                 addField(remoteTyped.Field("source"), "Js::SimpleSourceHolder.source");
             }
-            else if (strcmp(simpleTypeName, "Js::SimplePathTypeHandler *") == 0)
+            else if (IsSimpleTypeNameSimplePathTypeHandler(simpleTypeName))
             {
                 addPathTypeBase(remoteTyped, "Js::SimplePathTypeHandler.typePath");
                 JDRemoteTyped successorTypeWeakRef = remoteTyped.Field("successorTypeWeakRef");
-                if (addField(successorTypeWeakRef, "Js::SimplePathTypeHandler.successorTypeWeakRef"))
+                addDynamicTypeWeakRef(successorTypeWeakRef, "Js::SimplePathTypeHandler.successorTypeWeakRef");
+            }
+            else if (IsSimpleTypeNamePathTypeHandler(simpleTypeName))
+            {
+                addPathTypeBase(remoteTyped, "Js::PathTypeHandler.typePath");
+                // After coomit #e1ae975 for RS5+ this has becamse the successorInfo
+                if (remoteTyped.HasField("propertySuccesors"))
                 {
-                    ULONG64 successorTypePtr = successorTypeWeakRef.Field("strongRef").GetPtr();
-                    if (successorTypePtr != 0)
+                    JDRemoteTyped propertySuccessors = remoteTyped.Field("propertySuccessors");
+                    // The propertySuccessor dictionary has a vtable, but we are overrideing it to give it a better name and associate it with a library
+                    if (addField(propertySuccessors, "Js::PathTypeHandler.propertySuccessors", true))
                     {
-                        addDynamicTypeField(JDRemoteTyped::FromPtrWithType(successorTypePtr, "Js::DynamicType"));
+                        addField(propertySuccessors.Field("buckets"), "Js::PathTypeHandler.propertySuccessors.buckets");
+                        JDRemoteTyped propertySuccessorsEntries = propertySuccessors.Field("entries");
+                        if (addField(propertySuccessorsEntries, "Js::PathTypeHandler.propertySuccessors.entries"))
+                        {
+                            int count = propertySuccessors.Field("count").GetLong();
+                            for (int i = 0; i < count; i++)
+                            {
+                                JDRemoteTyped successorTypeWeakRef = propertySuccessorsEntries.ArrayElement(i).Field("value");
+                                addDynamicTypeWeakRef(successorTypeWeakRef, "Js::PathTypeHandler.successorTypeWeakRef");
+                            }
+                        }
                     }
                 }
             }
-            else if (strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0)
+            else if (strcmp(simpleTypeName, "Js::PathTypeSingleSuccessorInfo *") == 0)
             {
-                addPathTypeBase(remoteTyped, "Js::PathTypeHandler.typePath");
+                JDRemoteTyped successorTypeWeakRef = remoteTyped.Field("successorTypeWeakRef");
+                addDynamicTypeWeakRef(successorTypeWeakRef, "Js::PathTypeSingleSuccessorInfo.successorTypeWeakRef");
+            }
+            else if (strcmp(simpleTypeName, "Js::PathTypeMultiSuccessorInfo *") == 0)
+            {
                 JDRemoteTyped propertySuccessors = remoteTyped.Field("propertySuccessors");
                 // The propertySuccessor dictionary has a vtable, but we are overrideing it to give it a better name and associate it with a library
-                if (addField(propertySuccessors, "Js::PathTypeHandler.propertySuccessors", true))
+                if (addField(propertySuccessors, "Js::PathTypeMultiSuccessorInfo.propertySuccessors", true))
                 {
-                    addField(propertySuccessors.Field("buckets"), "Js::PathTypeHandler.propertySuccessors.buckets");
-                    JDRemoteTyped propertySucessorsEntries = propertySuccessors.Field("entries");
-                    if (addField(propertySucessorsEntries, "Js::PathTypeHandler.propertySuccessors.entries"))
+                    addField(propertySuccessors.Field("buckets"), "Js::PathTypeMultiSuccessorInfo.propertySuccessors.buckets");
+                    JDRemoteTyped propertySuccessorsEntries = propertySuccessors.Field("entries");
+                    if (addField(propertySuccessorsEntries, "Js::PathTypeMultiSuccessorInfo.propertySuccessors.entries"))
                     {
                         int count = propertySuccessors.Field("count").GetLong();
                         for (int i = 0; i < count; i++)
                         {
-                            JDRemoteTyped successorTypeWeakRef = propertySucessorsEntries.ArrayElement(i).Field("value");
-                            if (addField(successorTypeWeakRef, "Js::PathTypeHandler.successorTypeWeakRef"))
-                            {
-                                ULONG64 successorTypePtr = successorTypeWeakRef.Field("strongRef").GetPtr();
-                                if (successorTypePtr != 0)
-                                {
-                                    addDynamicTypeField(JDRemoteTyped::FromPtrWithType(successorTypePtr, "Js::DynamicType"));
-                                }
-                            }
+                            JDRemoteTyped successorTypeWeakRef = propertySuccessorsEntries.ArrayElement(i).Field("value");
+                            addDynamicTypeWeakRef(successorTypeWeakRef, "Js::PathTypeMultiSuccessorInfo.successorTypeWeakRef");
                         }
                     }
                 }
