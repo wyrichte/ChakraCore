@@ -599,7 +599,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         numNodes++;
         if (numNodes % 10000 == 0)
         {
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info %s- %11d/%11d", infer? "" : "without infer ", numNodes, this->GetNodeCount());
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info %s- %11d/%11d", infer ? "" : "without infer ", numNodes, this->GetNodeCount());
         }
 
         if (node->HasTypeInfo())
@@ -715,7 +715,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             auto addDictionaryFields = [&](RemoteBaseDictionary& dictionary, char const * name, char const * bucketsName, char const * entriesName)
             {
                 if (addField(dictionary.GetExtRemoteTyped(), name, true))
-                { 
+                {
                     addField(dictionary.GetBuckets(), bucketsName);
                     addField(dictionary.GetEntries(), entriesName);
                     return true;
@@ -729,7 +729,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
 #define AddDictionaryFieldBase(dictionary, name, MACRO) \
             addDictionaryFields(dictionary, MACRO(name), MACRO(name ## ".buckets"), MACRO(name ## ".entries"))
-            
+
 #define IDENT_MACRO(n) n
 #define AddDictionaryFieldOnly(dictionary, name) AddDictionaryFieldOnlyBase(dictionary, name, IDENT_MACRO)
 #define AddDictionaryField(dictionary, name) AddDictionaryFieldBase(dictionary, name, IDENT_MACRO)
@@ -775,7 +775,17 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addField(parseableFunctionInfo.GetDisplayName(), FUNCTION_PROXY_FIELD_NAME("m_displayName"));
                 addField(parseableFunctionInfo.GetScopeInfo(), FUNCTION_PROXY_FIELD_NAME("m_scopeInfo"));
                 addField(parseableFunctionInfo.GetNestedArray(), FUNCTION_PROXY_FIELD_NAME("nestedArray"));
-                addField(parseableFunctionInfo.GetDeferredPrototypeType(), "Js::ScriptFunctionType");
+
+                JDRemoteTyped deferredPrototypeType = parseableFunctionInfo.GetDeferredPrototypeType();
+                if (deferredPrototypeType.GetPtr() != 0)
+                {
+                    addDynamicTypeField(deferredPrototypeType, "Js::ScriptFunctionType");
+                }
+                JDRemoteTyped undeferredPrototypeType = parseableFunctionInfo.GetUndeferredPrototypeType();
+                if (undeferredPrototypeType.GetPtr() != 0)
+                {
+                    addDynamicTypeField(undeferredPrototypeType, "Js::ScriptFunctionType");
+                }
                 addField(parseableFunctionInfo.GetPropertyIdsForScopeSlotArray(), FUNCTION_PROXY_FIELD_NAME("propertyIdsForScopeSlotArray"));
                 addField(parseableFunctionInfo.GetDeferredStubs(), FUNCTION_PROXY_FIELD_NAME("deferredStubs"));
             };
@@ -829,7 +839,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 if (remoteTyped.HasField("fieldAccessStats"))
                 {
                     // DBG_DUMP only
-                    addField(remoteTyped.Field("fieldAccessStats"), nameIndex == FunctionEntryPointInfoNameIndex?
+                    addField(remoteTyped.Field("fieldAccessStats"), nameIndex == FunctionEntryPointInfoNameIndex ?
                         "[DBG_DUMP] Js::FunctionEntryPointInfo.fieldAccessStats" : "[DBG_DUMP] Js::LoopEntryPointInfo.fieldAccessStats");
                 }
             };
@@ -841,6 +851,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
             auto addFunctionFields = [&](JDRemoteTyped remoteTyped)
             {
+                JDRemoteTyped functionInfo = remoteTyped.Field("functionInfo");
+                addField(functionInfo, "Js::FunctionInfo");
                 JDRemoteTyped constructorCache = remoteTyped.Field("constructorCache");
                 addField(constructorCache, "Js::ConstructorCache");
                 JDRemoteTyped constructorCacheType = constructorCache.Field("content").Field("type");
@@ -980,7 +992,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet");
                 AddDictionaryFieldOnly(keySet, "Js::JavascriptWeakMap::KeySet");
             }
-            else if (IsTypeOrCrossSite("Js::JavascriptExternalFunction"))
+            else if (IsTypeOrCrossSite("Js::JavascriptExternalFunction")
+                || IsTypeOrCrossSite("Js::RuntimeFunction"))
             {
                 addDynamicObjectFields(remoteTyped);
                 addFunctionFields(remoteTyped);

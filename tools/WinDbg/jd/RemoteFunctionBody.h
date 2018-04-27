@@ -44,6 +44,15 @@ public:
         return JDUtil::GetWrappedField(*this, "deferredPrototypeType");
     }
 
+    JDRemoteTyped GetUndeferredPrototypeType()
+    {
+        if (this->HasField("undeferredPrototypeType"))
+        {
+            return JDUtil::GetWrappedField(*this, "deferredPrototypeType");
+        }
+        return JDRemoteTyped("(void *)0");
+    }
+
     JDRemoteTyped GetScopeInfo()
     {
         return this->GetAuxWrappedField("m_scopeInfo", "Js::ScopeInfo");
