@@ -1499,10 +1499,21 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 tryAddDynamicTypeField("SpreadArgumentType");
                 tryAddDynamicTypeField("moduleNamespaceType");
 
-                JDRemoteTyped list = remoteTyped.Field("typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain");
-                if (addField(list, "Js::JavascriptLibrary.typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain", true))
+                // After commit a4a80968be4ba148bfbca56c83a72fe9633e1b11 for RS5
+                if (remoteTyped.HasField("typesWithOnlyWritablePropertyProtoChain"))
                 {
-                    addField(list.Field("buffer"), "Js::JavascriptLibrary.typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain.buffer");
+                    JDRemoteTyped typesWithOnlyWritablePropertyProtoChainTypeList = remoteTyped.Field("typesWithOnlyWritablePropertyProtoChain").Field("types");
+                    addField(typesWithOnlyWritablePropertyProtoChainTypeList.Field("buffer"), "Js::JavascriptLibrary.typesWithOnlyWritablePropertyProtoChain.types.buffer");
+                    JDRemoteTyped typesWithNoSpecialPropertyProtoChainTypeList = remoteTyped.Field("typesWithNoSpecialPropertyProtoChain").Field("types");
+                    addField(typesWithNoSpecialPropertyProtoChainTypeList.Field("buffer"), "Js::JavascriptLibrary.typesWithNoSpecialPropertyProtoChain.types.buffer");
+                }
+                else
+                {
+                    JDRemoteTyped list = remoteTyped.Field("typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain");
+                    if (addField(list, "Js::JavascriptLibrary.typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain", true))
+                    {
+                        addField(list.Field("buffer"), "Js::JavascriptLibrary.typesEnsuredToHaveOnlyWritableDataPropertiesInItAndPrototypeChain.buffer");
+                    }
                 }
 
                 // Added in commit 0f84cdec8bcff4651d364aad2160d97cce379ed0 for RS2
