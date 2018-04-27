@@ -60,7 +60,7 @@ HRESULT __stdcall GenerateValidPointersMapHeader(LPCWSTR vpmFullPath)
 
     Assert(!FAILED(hr));
     Recycler * recycler = threadContext->GetRecycler();
-    return recycler->GetAutoHeap()->GenerateValidPointersMapHeader(vpmFullPath);
+    return recycler->GetDefaultHeapInfo()->GenerateValidPointersMapHeader(vpmFullPath);
 }
 
 HRESULT __stdcall GetRestrictedString(Var error, BSTR * string)

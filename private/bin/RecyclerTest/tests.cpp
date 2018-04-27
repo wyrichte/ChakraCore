@@ -830,7 +830,7 @@ BOOL CheckTestDList(void* addr,int size) {
 void TestDoublyLinkedList(Recycler* recycler,ArenaAllocator* alloc, TestContext *ctx) {
     int i;
     recycler->SetCheckFn((CheckFn_t)CheckTestDList);
-    HeapInfo* heapInfo=recycler->GetAutoHeap();
+    HeapInfo* heapInfo=recycler->GetDefaultHeapInfo();
     TestDList* dlist=TestDListMakeListHead(recycler,heapInfo);
     printf("list head is 0x%Ix at stack address 0x%Ix\n",(uintptr_t)dlist,(uintptr_t)&dlist);
     // add LIST_LEN elements
