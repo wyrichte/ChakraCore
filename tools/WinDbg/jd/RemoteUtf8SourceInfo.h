@@ -13,7 +13,10 @@ public:
     JDRemoteTyped GetLineOffsetCache();
     RemoteBaseDictionary GetDeferredFunctionsDictionary();
     RemoteBaseDictionary GetFunctionBodyDictionary();
-    
+
+    bool HasBoundedPropertyRecordHashSet();
+    RemoteBaseDictionary GetBoundedPropertyRecordHashSet();
+
     RemoteScriptContext GetScriptContext();
 
     ExtRemoteTyped GetExtRemoteTyped();

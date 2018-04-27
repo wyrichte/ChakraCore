@@ -60,7 +60,11 @@ public:
     
     RemoteBaseDictionary GetBoundPropertyRecords()
     {
-        return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
+        if (this->HasField("m_boundPropertyRecords"))
+        {
+            return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
+        }
+        return RemoteBaseDictionary("(void *)0");
     }
 
     ULONG GetLineNumber()

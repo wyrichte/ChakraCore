@@ -1366,6 +1366,12 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     }
                     RemoteBaseDictionary deferredFunctionsDictionary = utf8SourceInfo.GetDeferredFunctionsDictionary();
                     AddDictionaryField(deferredFunctionsDictionary, "Js::Utf8SourceInfo.{DeferredFunctionsDictionary}");
+
+                    if (utf8SourceInfo.HasBoundedPropertyRecordHashSet())
+                    {
+                        RemoteBaseDictionary boundedPropertyRecordHashSet = utf8SourceInfo.GetBoundedPropertyRecordHashSet();
+                        AddDictionaryFieldOnly(boundedPropertyRecordHashSet, "Js::Utf8SourceInfo.boundedPropertyHashSet");
+                    }
                 }
                 RemoteBaseDictionary functionBodyDictionary = utf8SourceInfo.GetFunctionBodyDictionary();
                 AddDictionaryField(functionBodyDictionary, "Js::Utf8SourceInfo.{FunctionBodyDictionary}");

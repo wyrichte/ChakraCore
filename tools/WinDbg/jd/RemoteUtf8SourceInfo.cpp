@@ -41,3 +41,13 @@ ExtRemoteTyped RemoteUtf8SourceInfo::GetExtRemoteTyped()
 {
     return utf8SourceInfo;
 }
+
+bool RemoteUtf8SourceInfo::HasBoundedPropertyRecordHashSet()
+{
+    return utf8SourceInfo.HasField("boundedPropertyRecordHashSet");
+}
+
+RemoteBaseDictionary RemoteUtf8SourceInfo::GetBoundedPropertyRecordHashSet()
+{
+    return utf8SourceInfo.Field("boundedPropertyRecordHashSet");
+}
