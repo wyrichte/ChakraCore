@@ -2523,9 +2523,8 @@ BOOL ScriptEngine::IsDebuggerEnvironmentAvailable(bool requery)
     return FALSE;
 }
 
-HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
+void ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo)
 {
-    HRESULT hr = S_OK;
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptEngine::TransitionToDebugModeIfFirstSource scriptEngine 0x%p, scriptContext 0x%p, m_isFirstSourceCompile %d\n"), this, scriptContext, m_isFirstSourceCompile);
     if (m_isFirstSourceCompile)
     {
@@ -2549,7 +2548,6 @@ HRESULT ScriptEngine::TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf
         // Let's remove the transition function from script context - so that Eval call does not come all the way over here.
         this->scriptContext->SetTransitionToDebugModeIfFirstSourceFn(nullptr);
     }
-    return hr;
 }
 
 // Checks whether or not sources can be registered (PDM is loaded).
@@ -3523,7 +3521,7 @@ HRESULT ScriptEngine::AddScriptletCore(
         {
             Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
-            hr = Compile(pszFunc, ostrlen(pszFunc), grfscr, &si, pszTitle, &se, &pbody, &pFuncInfo,
+            hr = Compile(pszFunc, ostrlen(pszFunc), 0 /*dwBgParseCookie*/, grfscr, &si, pszTitle, &se, &pbody, &pFuncInfo,
                 fUsedExisting, &sourceInfo /* no source to free here */, &ScriptEngine::CompileUTF16);
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)
@@ -3581,6 +3579,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
     BOOL fUsedExisting = FALSE;
     hr = ParseScriptTextCore(
             (void *)utf8Code,
+            0, // dwBgParseCookie
             nullptr, // pcszItemName
             punkContext, // punkContext
             nullptr, // pcszDelimiter
@@ -3648,6 +3647,7 @@ HRESULT ScriptEngine::DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode,
 
     HRESULT hr = ParseScriptTextCore(
             (void*)bytesAndSourceAndModule,
+            0, // dwBgParseCookie
             nullptr, // pcszItemName
             punkContext, // punkContext
             nullptr, // pcszDelimiter
@@ -3810,6 +3810,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     return ParseScriptTextCore(
         (void *)pcszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
@@ -3841,6 +3842,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     return ParseScriptTextCore(
         (void *)pcszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
@@ -3943,6 +3945,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
 
     hr = ParseScriptTextCore(
         (void *)pszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
@@ -3973,6 +3976,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
 
 HRESULT ScriptEngine::ParseScriptTextCore(
     /* [in]  */ void *   pcszCode,
+    /* [in]  */ DWORD dwBgParseCookie,
     /* [in]  */ LPCOLESTR   pcszItemName,
     /* [in]  */ IUnknown  * punkContext,
     /* [in]  */ const void *   pcszDelimiter,
@@ -4141,7 +4145,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
             /* grfsi               */ 0
         };
 
-        hr = CreateScriptBody(pcszCodeT, len, dwFlags, allowDeferredParse, &si, pcszDelimiter, pszTitle,
+        hr = CreateScriptBody(pcszCodeT, len, dwBgParseCookie, dwFlags, allowDeferredParse, &si, pcszDelimiter, pszTitle,
             fnCoreCompile, ComputeGrfscr, fUsedExisiting, &pFuncInfo, ppSourceInfo, pexcepinfo);
     }
 
@@ -4399,7 +4403,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
             AutoCOMPtr<CScriptBody> pbody;
             Js::ParseableFunctionInfo* funcBody;
 
-            hr = Compile(pszSrc, ostrlen(pszSrc), grfscr, &si, pszTitle, &se, &pbody, &funcBody, fUsedExisting, &sourceInfo, &ScriptEngine::CompileUTF16);
+            hr = Compile(pszSrc, ostrlen(pszSrc), 0 /*dwBgParseCookie*/, grfscr, &si, pszTitle, &se, &pbody, &funcBody, fUsedExisting, &sourceInfo, &ScriptEngine::CompileUTF16);
             if (SUCCEEDED(hr))
             {
                 if (!fUsedExisting)
@@ -4738,7 +4742,7 @@ LHaveBase:
     return NOERROR;
 }
 
-HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags, bool allowDeferParse, SRCINFO *psi,
+HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgParseCookie, DWORD dwFlags, bool allowDeferParse, SRCINFO *psi,
                                        const void *pszDelimiter, LPCOLESTR pszTitle,
                                        CoreCompileFunction fnCoreCompile, ComputeGrfscrFunction ComputeGrfscr,
                                        BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO *pei, CScriptBody **ppbody)
@@ -4835,7 +4839,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags,
     {
         Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
-        hr = Compile( pszSrc, len, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncInfo, fUsedExisting, &sourceInfo, fnCoreCompile);
+        hr = Compile( pszSrc, len, dwBgParseCookie, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncInfo, fUsedExisting, &sourceInfo, fnCoreCompile);
         SETRETVAL(ppSourceInfo, sourceInfo);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
@@ -5165,6 +5169,7 @@ HRESULT ScriptEngine::ResetStats(void)
 HRESULT ScriptEngine::ProfileModeCompile(
     __in void * pszSrc,
     __in size_t len,
+    __in DWORD dwBgParseCookie,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
     __in LPCOLESTR pszTitle,
@@ -5183,10 +5188,12 @@ HRESULT ScriptEngine::ProfileModeCompile(
     CHECK_POINTER(ppSourceInfo);
     *ppSourceInfo = nullptr;
 
+    Assert(dwBgParseCookie == 0); // Background parse not tested with this codepath
+
     // When we're profiling, might as well deserialize everything
     grfscr = (grfscr & (~fscrAllowFunctionProxy));
 
-    HRESULT hr = DefaultCompile(pszSrc, len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, fnCoreCompile);
+    HRESULT hr = DefaultCompile(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, fnCoreCompile);
 
     if (SUCCEEDED(hr) && !fUsedExisting)
     {
@@ -5209,6 +5216,7 @@ HRESULT ScriptEngine::ProfileModeCompile(
 HRESULT ScriptEngine::DefaultCompile(
     __in void * pszSrc,
     __in size_t len,
+    __in DWORD dwBgParseCookie,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
     __in LPCOLESTR pszTitle,
@@ -5219,12 +5227,13 @@ HRESULT ScriptEngine::DefaultCompile(
     __out Js::Utf8SourceInfo** ppSourceInfo,
     __in CoreCompileFunction fnCoreCompile)
 {
-    return (this->*fnCoreCompile)(pszSrc,len, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo);
+    return (this->*fnCoreCompile)(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo);
 }
 
 HRESULT ScriptEngine::CompileByteCodeBuffer(
     __in void * bytesAndSourceAndModule,
     __in size_t cbLength,
+    __in DWORD dwBgParseCookie,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
     __in LPCOLESTR pszTitle,
@@ -5235,6 +5244,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     __out Js::Utf8SourceInfo** pSourceInfo)
 {
     Assert(!IsDebuggerEnvironmentAvailable());
+    Assert(dwBgParseCookie == 0); // Background parse not tested with this codepath
     fUsedExisting = FALSE;
     Field(Js::FunctionBody*) rootFunction;
     HRESULT hr = S_OK;
@@ -5260,6 +5270,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
 HRESULT ScriptEngine::CompileUTF16(
     __in void * pSrc,
     __in size_t cbLength,
+    __in DWORD dwBgParseCookie,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
     __in LPCOLESTR pszTitle,
@@ -5273,6 +5284,7 @@ HRESULT ScriptEngine::CompileUTF16(
     LPCOLESTR pszSrc = (LPCOLESTR) pSrc;
 
     Assert(this->scriptContext == GetScriptSiteHolder()->GetScriptSiteContext());
+    Assert(dwBgParseCookie == 0); // Background parse not tested with this codepath. Should only support UTF8
 
     // We count the characters because the length received in srcInfo is unreliable.
     charcount_t stringLength = static_cast< charcount_t>(cbLength);
@@ -5312,7 +5324,7 @@ HRESULT ScriptEngine::CompileUTF16(
 
     // Compile the UTF8 source
     SETRETVAL(ppSourceInfo, sourceInfo);
-    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncInfo, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncInfo, fUsedExisting);
 
     LEAVE_PINNED_SCOPE();
 
@@ -5322,6 +5334,7 @@ HRESULT ScriptEngine::CompileUTF16(
 HRESULT ScriptEngine::CompileUTF8(
     __in void * pSrc,
     __in size_t cbLength,
+    __in DWORD dwBgParseCookie,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
     __in LPCOLESTR pszTitle,
@@ -5346,7 +5359,7 @@ HRESULT ScriptEngine::CompileUTF8(
 
     SETRETVAL(ppSourceInfo, sourceInfo);
 
-    hr = CompileUTF8Core(sourceInfo, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
     LEAVE_PINNED_SCOPE();
 
     return hr;
@@ -5354,6 +5367,7 @@ HRESULT ScriptEngine::CompileUTF8(
 
 HRESULT ScriptEngine::CompileUTF8Core(
     __in Js::Utf8SourceInfo* utf8SourceInfo,
+    __in DWORD dwBgParseCookie,
     __in charcount_t cchLength,
     __in ulong grfscr,
     __in SRCINFO *srcInfo,
@@ -5372,7 +5386,12 @@ HRESULT ScriptEngine::CompileUTF8Core(
     // or page is refreshed when F12 is opened attach won't be called and we will directly go into debug mode.
     // EnsureScriptContext should take care of it but there are few cases when host is not in debug mode when we call EnsureScriptContext
     // so we will only transition to debug mode when first source is compiled. m_isFirstSourceCompile takes care of it
-    hr = this->TransitionToDebugModeIfFirstSource(utf8SourceInfo);
+    {
+        this->TransitionToDebugModeIfFirstSource(utf8SourceInfo);
+
+        // Should not transition to DebugMode as part of bg parsing
+        Assert(!utf8SourceInfo->IsInDebugMode() || dwBgParseCookie == 0);
+    }
 
     if (grfscr & fscrImplicitThis)
     {
@@ -5432,40 +5451,18 @@ HRESULT ScriptEngine::CompileUTF8Core(
     size_t cbLength = utf8SourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core"));
     // BLOCK
     {
-        Parser ps(this->scriptContext);
+        size_t srcLength = 0;
         Js::ParseableFunctionInfo * func = nullptr;
 
         if (SUCCEEDED(hr))
         {
-            ParseNodeProg * parseTree = nullptr;
-            SourceContextInfo * sourceContextInfo = srcInfo->sourceContextInfo;
-            if (fOriginalUTF8Code)
+            if (dwBgParseCookie != 0)
             {
-                hr = ps.ParseUtf8Source(&parseTree, pszSrc, cbLength, grfscr, pse, &sourceContextInfo->nextLocalFunctionId,
-                    sourceContextInfo);
-                cchLength = ps.GetSourceIchLim();
-
-                // Correcting total number of characters.
-                utf8SourceInfo->SetCchLength(cchLength);
+                hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength);
             }
             else
             {
-                hr = ps.ParseCesu8Source(&parseTree, pszSrc, cbLength, grfscr, pse, &sourceContextInfo->nextLocalFunctionId,
-                    sourceContextInfo);
-            }
-            utf8SourceInfo->SetParseFlags(grfscr);
-
-            if (SUCCEEDED(hr))
-            {
-                bool isCesu8 = !fOriginalUTF8Code;
-                sourceIndex = scriptContext->SaveSourceNoCopy(utf8SourceInfo, cchLength, isCesu8);
-                hr = GenerateByteCode(parseTree, grfscr, scriptContext, &func, sourceIndex, scriptContext->IsForceNoNative(), &ps, pse);
-                utf8SourceInfo->SetByteCodeGenerationFlags(grfscr);
-            }
-            else if (scriptContext->IsScriptContextInDebugMode() && !utf8SourceInfo->GetIsLibraryCode() && !utf8SourceInfo->IsInDebugMode())
-            {
-                // In case of syntax error, if we are in debug mode, put the utf8SourceInfo into debug mode.
-                utf8SourceInfo->SetInDebugMode(true);
+                hr = scriptContext->CompileUTF8Core(utf8SourceInfo, srcInfo, fOriginalUTF8Code, pszSrc, cbLength, grfscr, pse, cchLength, srcLength, sourceIndex, &func);
             }
         }
 
@@ -5496,13 +5493,19 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 // recompile if we have asm.js parse error
                 grfscr |= fscrNoAsmJs;
                 pse->Free();
-                hr = CompileUTF8Core(utf8SourceInfo, cchLength, grfscr, srcInfo, pszTitle, fOriginalUTF8Code, pse, ppbody, ppFuncInfo, fUsedExisting);
+                hr = CompileUTF8Core(utf8SourceInfo, 0, cchLength, grfscr, srcInfo, pszTitle, fOriginalUTF8Code, pse, ppbody, ppFuncInfo, fUsedExisting);
             }
             return hr;
         }
+        else
+        {
+            Assert(func != nullptr);
+            // srcLength should be non-zero unless there was no source to parse
+            Assert(srcLength != 0 || cbLength == 0);
+        }
         pRootFunc = func->GetParseableFunctionInfo();
         // Mark the particular source buffer to have deferred functions using a static deferral threshold and not one based on profile.
-        if (ps.GetSourceLength() > Parser::GetDeferralThreshold(/* isProfileLoaded */ false) )
+        if (srcLength > Parser::GetDeferralThreshold(/* isProfileLoaded */ false) )
         {
             srcInfo->grfsi |= fsiDeferredParse;
         }
@@ -6965,3 +6968,55 @@ IsOs_OneCoreUAP()
 }
 #endif
 
+
+
+// JsBackgroundParse is an export function that queues up parsing on a background thread. More details
+// at the declaration of BGParseManager.
+// Note:
+// - This function can be called from any thread
+// - This function can only take UTF8 source
+// - The host must not be in debug mode
+__declspec(dllexport)
+HRESULT JsBackgroundParse(LPCUTF8 pszSrc, size_t cbLength, char16 *fullPath, DWORD* dwBgParseCookie)
+{
+    HRESULT hr;
+    if (Js::Configuration::Global.flags.BgParse && !CONFIG_FLAG(ForceDiagnosticsMode))
+    {
+        hr = BGParseManager::GetBGParseManager()->QueueBackgroundParse(pszSrc, cbLength, fullPath, dwBgParseCookie);
+    }
+    else
+    {
+        hr = E_NOTIMPL;
+    }
+
+    return hr;
+}
+
+
+// JsBackgroundParseFinish is an export function that queues up parsing on a background thread. The cookie passed in should correspond
+// to what was returned from a previous call to JsBackgroundParse;
+// Note: This functionmust be called from UI (or, script-executing) thread from the provided activeScript parameter
+__declspec(dllexport)
+HRESULT JsBackgroundParseFinish(DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
+{
+    Assert(Js::Configuration::Global.flags.BgParse);
+
+    LPCUTF8 pszSrc;
+    size_t cbLength;
+    HRESULT hr = BGParseManager::GetBGParseManager()->GetInputFromCookie(dwBgParseCookie, &pszSrc, &cbLength);
+    if (hr == S_OK)
+    {
+        // What's the proper way to get ScriptEngine from IASD?
+        ScriptEngine* engine = (ScriptEngine*)activeScript;
+        hr = engine->FinishBackgroundParse(pszSrc, cbLength, dwBgParseCookie, activeScript, dwSourceContext, dwFlags, pexcepinfo);
+    }
+
+    return hr;
+}
+
+HRESULT ScriptEngine::FinishBackgroundParse(LPCUTF8 pszSrc, size_t cbLength, DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
+{
+    BOOL fUsedExisting = FALSE;
+    return ParseScriptTextCore((void*)pszSrc, dwBgParseCookie, nullptr, nullptr, nullptr, dwSourceContext, 0, dwFlags, true, cbLength, &ScriptEngine::CompileUTF8,
+        ComputeGrfscrUTF8, fUsedExisting, nullptr, pexcepinfo);
+}

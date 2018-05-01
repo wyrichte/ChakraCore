@@ -27,6 +27,10 @@ static std::map<std::wstring,ByteCodeInfo,std::less<std::wstring>> byteCodeFileM
 
 const IID IID_IActiveScriptByteCode =   {0xBF70A42D,0x05C9,0x4858,0xAD,0xCA,0x40,0x73,0x2A,0xF3,0x2C,0xD6}; 
 
+// For calling chakra exports
+typedef HRESULT(WINAPI *JsBackgroundParsePtr)(LPCUTF8 pszSrc, size_t cbLength, char16 *fullPath, DWORD* dwBgParseCookie);
+typedef HRESULT(WINAPI *JsBackgroundParseFinishPtr)(DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
+
 JsFile::JsFile()
 {
 }
@@ -1115,11 +1119,173 @@ Error:
     return hr;
 }
 
+// Helper struct for sharing data between StartBGParseThreadProc and JsHostActiveScriptSite::LoadMultipleScripts
+struct ScriptLoadData {
+    WIN32_FIND_DATA ffd = { 0 };
+    DWORD bgParseCookie = 0;
+    BYTE* contents = nullptr;
+    UINT length = 0;
+    DWORD dwSourceCookie = 0;
+    DWORD dwFlag = 0;
+    HANDLE loaded = 0;
+
+    ScriptLoadData()
+    {
+        loaded = CreateEvent(0, TRUE, FALSE, nullptr);
+        Assert(loaded != nullptr);
+    }
+};
+
+// Helper struct for passing data to StartBGParseThreadProc from JsHostActiveScriptSite::LoadMultipleScripts
+struct StartParseData {
+    std::vector<ScriptLoadData*>* data;
+    std::wstring* baseDir;
+};
+
+// Works with JsHostActiveScriptSite::LoadMultipleScripts to simulate background parse starting when download
+// completes on a backgound thread.
+DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
+{
+    StartParseData* startData = (StartParseData*)lpParam;
+    std::vector<ScriptLoadData*>* data = startData->data;
+
+    HRESULT hr = S_OK;
+    int i = 0;
+    // Iterate through each ScriptLoadData, which should already have WIN32_FIND_DATA populated. With this data,
+    // - read the file contents from disk into memory
+    // - start background parse
+    // - notify calling thread that the file is read and background parse has already been queued
+    for (std::vector<ScriptLoadData*>::iterator it = data->begin(); it != data->end() && hr == S_OK; ++it, i++)
+    {
+        ScriptLoadData* thisData = *it;
+        fwprintf(stdout, _u("[Reading file #%d: %s, on thread 0x%X]\n"), i, thisData->ffd.cFileName, ::GetCurrentThreadId());
+
+        LPCOLESTR contents = NULL;
+        bool isUtf8 = false;
+
+        char16 fullpath[_MAX_PATH];
+        bool printFileOpenError = !HostConfigFlags::flags.MuteHostErrorMsgIsEnabled;
+        swprintf_s(fullpath, L"%s%s", startData->baseDir->c_str(), thisData->ffd.cFileName);
+
+        // Load the script content
+        hr = JsHostLoadScriptFromFile(fullpath, contents, &isUtf8, (LPCOLESTR*)(&thisData->contents), &thisData->length, printFileOpenError);
+        if (hr == S_OK)
+        {
+            // Add random sleep to simulate varying network load
+            ::Sleep(::rand() % 100);
+            // JsBackgroundParse only supports UTF8 for now
+            if (isUtf8)
+            {
+                thisData->dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
+                // JsBackgroundParse not supported in Debug mode
+                if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
+                {   
+                    JsBackgroundParsePtr jsBackgroundParse = (JsBackgroundParsePtr)GetProcAddress(jscriptLibrary, "JsBackgroundParse");
+                    hr = jsBackgroundParse(thisData->contents, thisData->length, fullpath, &thisData->bgParseCookie);
+                }
+                else
+                {
+                    hr = E_FAIL;
+                    Assert(!"Background parse not supported in debug mode");
+                }
+            }
+            else
+            {
+                hr = E_FAIL;
+                Assert(!"Only UTF8 supported for background parse");
+            }
+        }
+
+        // This corresponds to notifying UI thread that download complete
+        SetEvent(thisData->loaded);
+    }
+
+    fwprintf(stdout, _u(">>Finished loading %d files\n"), i);
+    Assert(hr == S_OK);
+
+    return hr;
+}
+
+// Simulates loading, parsing, and executing multiple files across two different threads to exercise
+// the BackgroundParse export functions.
+// Parameter filename should be a wildcard that allows multiple files to be read from a directory.
+HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
+{
+    HRESULT hr = S_OK;
+
+    // First, gather the matching files from the directory
+
+    // Create first entry
+    std::vector<ScriptLoadData*> data;
+    ScriptLoadData* newData = new ScriptLoadData;
+    data.push_back(newData);
+
+    HANDLE hFind = FindFirstFile(filename, &(newData->ffd));
+    Assert(::GetLastError() == ERROR_SUCCESS);
+
+    // Create remaining entries
+    do
+    {
+        Assert(::GetLastError() == ERROR_SUCCESS);
+
+        newData = new ScriptLoadData;
+        data.push_back(newData);
+    } while (FindNextFile(hFind, &(newData->ffd)));
+
+    // Delete the last empty entry and cleanup
+    data.pop_back();
+    FindClose(hFind);
+
+
+    // Next, load files and start parsing in another thread
+    std::wstring baseDir;
+    JsHostActiveScriptSite::GetDir(filename, &baseDir);
+    StartParseData threadData{ &data, &baseDir};
+    HANDLE thread = CreateThread(NULL, 0, StartBGParseThreadProc, (LPVOID)&threadData, 0, NULL);
+    if (!thread)
+    {
+        hr = HRESULT_FROM_WIN32(GetLastError());
+    }
+
+
+    // Now, on this thread, execute in order
+    for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end() && hr == S_OK; ++it)
+    {
+        ScriptLoadData* thisData = *it;
+
+        // Wait for the file to finish loading
+        WaitForSingleObject(thisData->loaded, INFINITE);
+
+        // Increment m_dwNextSourceCookie first, so that if below ParseScriptText calls WScript.LoadScriptFile we'll use the correct next source cookie.
+        DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
+        
+        char16 fullpath[_MAX_PATH];
+        swprintf_s(fullpath, L"%s%s", baseDir.c_str(), thisData->ffd.cFileName);
+        RegisterScriptDir(dwSourceCookie, fullpath);
+
+        // Execute the script parsed on the background
+        EXCEPINFO excepinfo;
+        JsBackgroundParseFinishPtr jsBackgroundParseFinish = (JsBackgroundParseFinishPtr)GetProcAddress(jscriptLibrary, "JsBackgroundParseFinish");
+        hr = jsBackgroundParseFinish(thisData->bgParseCookie, activeScript, thisData->dwSourceCookie, thisData->dwFlag, &excepinfo);
+        fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
+
+        CloseHandle(thisData->loaded);
+        thisData->loaded = 0;
+    }
+
+    // Wait for the thread to close and cleanup
+    WaitForSingleObject(thread, INFINITE);
+    CloseHandle(thread);
+
+    return hr;
+}
+
 HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void** errorObject, bool isModuleCode)
 {
     HRESULT hr = S_OK;
     LPCOLESTR contents = NULL;
     bool isUtf8 = false;
+    bool containsWildcard = false;
     LPCOLESTR contentsRaw = NULL;
     UINT lengthBytes = 0;
     bool usedUtf8 = false; // If we have used utf8 buffer (contentsRaw) to parse code, the buffer will be owned by script engine. Do not free it.
@@ -1163,7 +1329,15 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     {
         RegisterScriptDir(m_dwNextSourceCookie, fullpath);
 
-        hr = JsHostLoadScriptFromFile(fullpath, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
+        if (nullptr != StrStrW(scriptFilename, L"*")) 
+        {
+            // If path is a wildcard, load, parse, and execute all matching files in parallel
+            containsWildcard = true;
+        }
+        else
+        {
+            hr = JsHostLoadScriptFromFile(fullpath, contents, &isUtf8, &contentsRaw, &lengthBytes, printFileOpenError);
+        }
         IfFailGo(hr);
     }
    
@@ -1351,6 +1525,10 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
             fflush(stderr);
         }
     }
+    else if (containsWildcard)
+    {
+        hr = LoadMultipleScripts(scriptFilename);
+    }
     else
     {
         hr = LoadScriptFromString(contents, isUtf8 ? (BYTE*)contentsRaw : nullptr, lengthBytes, &usedUtf8, fullpath);
@@ -1457,10 +1635,29 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
 
             EXCEPINFO excepinfo;
             DWORD dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
-            
             if (activeScriptParseUTF8)
             {
-                hr = activeScriptParseUTF8->ParseScriptText(pbUtf8, 0, cbBytes, NULL, NULL, NULL, dwSourceCookie, 0, dwFlag, NULL, &excepinfo);
+                bool bgParse = false;
+                if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
+                {
+                    // JsBackgroundParse only supports UTF8 for now
+                    // JsBackgroundParse not supported in Debug mode
+                    DWORD bgParseCookie = 0;
+                    JsBackgroundParsePtr jsBackgroundParse = (JsBackgroundParsePtr)GetProcAddress(jscriptLibrary, "JsBackgroundParse");
+                    hr = jsBackgroundParse(pbUtf8, cbBytes, fullPath, &bgParseCookie);
+                    if (hr == S_OK)
+                    {
+                        JsBackgroundParseFinishPtr jsBackgroundParseFinish = (JsBackgroundParseFinishPtr)GetProcAddress(jscriptLibrary, "JsBackgroundParseFinish");
+                        hr = jsBackgroundParseFinish(bgParseCookie, activeScript, dwSourceCookie, dwFlag, &excepinfo);
+                        bgParse = true;
+                    }
+                }
+
+                if (!bgParse)
+                {
+                    // If JsBackgroundParse fails to start parsing on the background, proceed with synchronous parse
+                    hr = activeScriptParseUTF8->ParseScriptText(pbUtf8, 0, cbBytes, NULL, NULL, NULL, dwSourceCookie, 0, dwFlag, NULL, &excepinfo);
+                }
                 if (pUsedUtf8)
                 {
                     *pUsedUtf8 = true; // Script engine has taken over the utf8 buffer as Trident buffer

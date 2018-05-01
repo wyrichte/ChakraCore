@@ -26,6 +26,8 @@ EXPORTS
     JsInspectableToObject
     JsObjectToInspectable
     JsInitializeJITServer
+    JsBackgroundParse
+    JsBackgroundParseFinish
 #if DBG || CHAKRATEST || CHAKRAFRETEST
     JsStopDebugging
     JsGetArrayLength

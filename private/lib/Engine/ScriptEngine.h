@@ -642,16 +642,16 @@ public:
     NamedItem* FindNamedItem (LPCOLESTR pcszName);
 
     // Compile Function type
-    typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength,
+    typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength, DWORD dwBgParseCookie,
         ulong grfscr, SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** pSourceInfo);
     typedef ulong (ComputeGrfscrFunction)();
-    typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, ulong grfscr,
+    typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, DWORD dwBgParseCookie, ulong grfscr,
         SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);
     CompileScriptType CompileFunction;
 
-    HRESULT CreateScriptBody(void * pszSrc, size_t len, DWORD dwFlags, bool allowDeferParse, SRCINFO* psi,
+    HRESULT CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgParseCookie, DWORD dwFlags, bool allowDeferParse, SRCINFO* psi,
         const void *pszDelimiter, LPCOLESTR pszTitle, CoreCompileFunction fnCoreCompile,
         ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO* pei = NULL, CScriptBody** ppbody = NULL);
 
@@ -712,6 +712,7 @@ private:
 
     HRESULT ParseScriptTextCore(
         /* [in]  */ void * pstrCode,
+        /* [in]  */ DWORD dwBgParseCookie,
         /* [in]  */ LPCOLESTR pstrItemName,
         /* [in]  */ IUnknown* punkContext,
         /* [in]  */ const void * pstrDelimiter,
@@ -854,6 +855,7 @@ private:
     HRESULT DefaultCompile(
         __in void * pszSrc,
         __in size_t len,
+        __in DWORD dwBgParseCookie,
         __in ulong grfscr,
         __in SRCINFO* srcInfo,
         __in LPCOLESTR pszTitle,
@@ -867,6 +869,7 @@ private:
     HRESULT ProfileModeCompile(
         __in void * pszSrc,
         __in size_t len,
+        __in DWORD dwBgParseCookie,
         __in ulong grfscr,
         __in SRCINFO* srcInfo,
         __in LPCOLESTR pszTitle,
@@ -880,6 +883,7 @@ private:
     HRESULT CompileByteCodeBuffer(
         __in void * pszSrc,
         __in size_t cbLength,
+        __in DWORD dwBgParseCookie,
         __in ulong grfscr,
         __in SRCINFO* srcInfo,
         __in LPCOLESTR pszTitle,
@@ -892,6 +896,7 @@ private:
     HRESULT CompileUTF16(
         __in void * pszSrc,
         __in size_t cbLength,
+        __in DWORD dwBgParseCookie,
         __in ulong grfscr,
         __in SRCINFO* srcInfo,
         __in LPCOLESTR pszTitle,
@@ -904,6 +909,7 @@ private:
     HRESULT CompileUTF8(
         __in void *pszSrc,
         __in size_t cbLength,
+        __in DWORD dwBgParseCookie,
         __in ulong grfscr,
         __in SRCINFO *srcInfo,
         __in LPCOLESTR pszTitle,
@@ -915,6 +921,7 @@ private:
 
     HRESULT CompileUTF8Core(
         __in Js::Utf8SourceInfo* sourceInfo,
+        __in DWORD dwBgParseCookie,
         __in charcount_t cchLength,
         __in ulong grfscr,
         __in SRCINFO *srcInfo,
@@ -924,9 +931,10 @@ private:
         __out CScriptBody **ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting);
-
+public:
+    HRESULT FinishBackgroundParse(LPCUTF8 pszSrc, size_t cbLength, DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
+private:
     HRESULT GetUrl(__out BSTR *pUrl);
-
 
     // This will be called from the OnBreakFlagChange and SetupNewDebugApplication.
     HRESULT SetBreakFlagChange(APPBREAKFLAGS abf, IRemoteDebugApplicationThread* prdatSteppingThread, bool fDuringSetupDebugApp);
@@ -1009,7 +1017,7 @@ public:
     //     prefixed with Dbg.
 
     BOOL IsDebuggerEnvironmentAvailable(bool requery = false);
-    HRESULT TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo);
+    void TransitionToDebugModeIfFirstSource(Js::Utf8SourceInfo* utf8SourceInfo);
     bool CanRegisterDebugSources();
     HRESULT DbgHandleBreakpoint(BREAKREASONEX br, BREAKRESUMEACTION* pBra);
     HRESULT DbgRegisterScriptBlock(CScriptBody* pbody, DWORD_PTR dwDebugSourceContext, LPCWSTR title = NULL);

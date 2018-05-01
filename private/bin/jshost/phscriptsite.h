@@ -114,6 +114,7 @@ private:
 
     HRESULT LoadScriptFromFile(LPCOLESTR filename, Var* errorObject = nullptr, bool isModuleCode = false);
     HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8, char16 *fullPath = nullptr);
+    HRESULT LoadMultipleScripts(LPCOLESTR filename);
 
     HRESULT LoadModuleFromString(bool isUtf8, 
         LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, Var* errorObject, LPCWSTR fullName = nullptr);

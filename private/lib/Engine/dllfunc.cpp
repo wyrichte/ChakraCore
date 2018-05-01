@@ -134,7 +134,9 @@ void DetachProcess()
     }
 #endif
 
-    ThreadBoundThreadContextManager::DestroyAllContextsAndEntries();
+    // Do not delete the ThreadContextTLSEntry for this thread because it will be deleted
+    // in the call to ThreadContextTLSEntry::CleanupThread() belwo.
+    ThreadBoundThreadContextManager::DestroyAllContextsAndEntries(false /*shouldDeleteCurrentTlsEntry*/);
 
     // In JScript, we never unload except for when the app shuts down
     // because DllCanUnloadNow always returns S_FALSE. As a result
