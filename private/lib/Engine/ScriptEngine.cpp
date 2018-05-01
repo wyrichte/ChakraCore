@@ -6333,7 +6333,7 @@ STDMETHODIMP ScriptEngine::CollectGarbage(SCRIPTGCTYPE scriptgctype)
 HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
     __in LPWSTR scriptText,
     __out Var *scriptFunc,
-    __in_opt LoadScriptFlag *pLoadScriptFlag)
+    __in LoadScriptFlag loadScriptFlag)
 {
     HRESULT hr = NOERROR;
     IfNullReturnError(scriptText, E_INVALIDARG);
@@ -6349,7 +6349,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
 
     CompileScriptException se;
     Js::Utf8SourceInfo* sourceInfo = nullptr;
-    LoadScriptFlag loadScriptFlag = (pLoadScriptFlag == nullptr) ? LoadScriptFlag_Expression : (*pLoadScriptFlag);
     Js::JavascriptFunction * jsFunc = nullptr;
 
     if (loadScriptFlag == LoadScriptFlag_Expression)

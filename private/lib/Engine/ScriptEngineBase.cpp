@@ -250,11 +250,11 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Parse(
     *scriptFunc = nullptr;
 
     ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
-    HRESULT result = scriptEngine->ParseInternal(scriptText, scriptFunc, nullptr);
+    HRESULT result = scriptEngine->ParseInternal(scriptText, scriptFunc, LoadScriptFlag_Expression);
     if (result == NO_ERROR)
     {
         Assert(Js::ScriptFunction::Is(*scriptFunc));
-        Js::ScriptFunction::FromVar(*scriptFunc)->SetIsActiveScript(true);
+        Js::ScriptFunction::FromVar(*scriptFunc)->GetFunctionInfo()->SetIsActiveScript();
     }
     return result;
 }
