@@ -3743,6 +3743,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     HRESULT hr = ParseScriptTextCore(
         (void *)pcszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
@@ -3776,6 +3777,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     BOOL fUsedExisting = FALSE;
     HRESULT hr = ParseScriptTextCore(
         (void *)pcszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
@@ -3887,6 +3889,7 @@ STDMETHODIMP ScriptEngine::ParseScriptText(
     Js::Utf8SourceInfo* pScriptSourceInfo = nullptr;
     hr = ParseScriptTextCore(
         (void *)pszCode,
+        0, // dwBgParseCookie
         pcszItemName,
         punkContext,
         pcszDelimiter,
