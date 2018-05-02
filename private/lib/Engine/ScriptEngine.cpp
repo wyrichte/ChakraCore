@@ -5462,6 +5462,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
             if (dwBgParseCookie != 0)
             {
                 hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength);
+                // srcLength should be non-zero unless there was no source to parse
+                Assert(srcLength != 0 || cbLength == 0);
             }
             else
             {
@@ -5503,8 +5505,6 @@ HRESULT ScriptEngine::CompileUTF8Core(
         else
         {
             Assert(func != nullptr);
-            // srcLength should be non-zero unless there was no source to parse
-            Assert(srcLength != 0 || cbLength == 0);
         }
         pRootFunc = func->GetParseableFunctionInfo();
         // Mark the particular source buffer to have deferred functions using a static deferral threshold and not one based on profile.
