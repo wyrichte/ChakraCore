@@ -4441,6 +4441,43 @@ LReturn:
     return hr;
 }
 
+// JsBackgroundParse is an export function that queues up parsing on a background thread. It should be
+// accessed via JsStaticAPI::BGParse::QueueBackgroundParse when possible.
+__declspec(dllexport)
+HRESULT JsQueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie)
+{
+    HRESULT hr;
+    if (Js::Configuration::Global.flags.BgParse && !CONFIG_FLAG(ForceDiagnosticsMode))
+    {
+        hr = BGParseManager::GetBGParseManager()->QueueBackgroundParse((LPCUTF8)pszSrc, cbLength, (char16*)fullPath, dwBgParseCookie);
+    }
+    else
+    {
+        hr = E_NOTIMPL;
+    }
+
+    return hr;
+}
+
+// FinishBackgroundParse completes the work started from JsQueueBackgroundParse. See the definition of
+// BGParseManager for more info
+HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
+{
+    Assert(Js::Configuration::Global.flags.BgParse);
+
+    LPCUTF8 pszSrc;
+    size_t cbLength;
+    HRESULT hr = BGParseManager::GetBGParseManager()->GetInputFromCookie(dwBgParseCookie, &pszSrc, &cbLength);
+    if (hr == S_OK)
+    {
+        BOOL fUsedExisting = FALSE;
+        hr = ParseScriptTextCore((void*)pszSrc, dwBgParseCookie, nullptr, nullptr, nullptr, dwSourceContext, 0, dwFlags, true, cbLength, &ScriptEngine::CompileUTF8,
+            ComputeGrfscrUTF8, fUsedExisting, nullptr, pexcepinfo);
+    }
+
+    return hr;
+}
+
 // *** Private Methods ***
 
 STDMETHODIMP ScriptEngine::Run(void)
@@ -6965,56 +7002,3 @@ IsOs_OneCoreUAP()
     return s_fIsOsOneCoreUAP;
 }
 #endif
-
-
-
-// JsBackgroundParse is an export function that queues up parsing on a background thread. More details
-// at the declaration of BGParseManager.
-// Note:
-// - This function can be called from any thread
-// - This function can only take UTF8 source
-// - The host must not be in debug mode
-__declspec(dllexport)
-HRESULT JsBackgroundParse(LPCUTF8 pszSrc, size_t cbLength, char16 *fullPath, DWORD* dwBgParseCookie)
-{
-    HRESULT hr;
-    if (Js::Configuration::Global.flags.BgParse && !CONFIG_FLAG(ForceDiagnosticsMode))
-    {
-        hr = BGParseManager::GetBGParseManager()->QueueBackgroundParse(pszSrc, cbLength, fullPath, dwBgParseCookie);
-    }
-    else
-    {
-        hr = E_NOTIMPL;
-    }
-
-    return hr;
-}
-
-
-// JsBackgroundParseFinish is an export function that queues up parsing on a background thread. The cookie passed in should correspond
-// to what was returned from a previous call to JsBackgroundParse;
-// Note: This functionmust be called from UI (or, script-executing) thread from the provided activeScript parameter
-__declspec(dllexport)
-HRESULT JsBackgroundParseFinish(DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
-{
-    Assert(Js::Configuration::Global.flags.BgParse);
-
-    LPCUTF8 pszSrc;
-    size_t cbLength;
-    HRESULT hr = BGParseManager::GetBGParseManager()->GetInputFromCookie(dwBgParseCookie, &pszSrc, &cbLength);
-    if (hr == S_OK)
-    {
-        // What's the proper way to get ScriptEngine from IASD?
-        ScriptEngine* engine = (ScriptEngine*)activeScript;
-        hr = engine->FinishBackgroundParse(pszSrc, cbLength, dwBgParseCookie, activeScript, dwSourceContext, dwFlags, pexcepinfo);
-    }
-
-    return hr;
-}
-
-HRESULT ScriptEngine::FinishBackgroundParse(LPCUTF8 pszSrc, size_t cbLength, DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
-{
-    BOOL fUsedExisting = FALSE;
-    return ParseScriptTextCore((void*)pszSrc, dwBgParseCookie, nullptr, nullptr, nullptr, dwSourceContext, 0, dwFlags, true, cbLength, &ScriptEngine::CompileUTF8,
-        ComputeGrfscrUTF8, fUsedExisting, nullptr, pexcepinfo);
-}

@@ -46,6 +46,8 @@ struct TestHooks
     typedef void(__stdcall * DisplayMemStatsPtr)();
     typedef void (__stdcall *GetContentOfSharedArrayBufferPtr)(Var instance, void** content);
     typedef void (__stdcall *CreateSharedArrayBufferFromContentPtr)(IActiveScriptDirect * scriptDirect, void* content, Var* instance);
+    typedef HRESULT(WINAPI *JsQueueBackgroundParsePtr)(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
+
 #if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
     typedef void(__stdcall * ClearTimeZoneCalendarsPtr)();
 #endif
@@ -79,6 +81,7 @@ struct TestHooks
     FlushOutputPtr pfFlushOutput;
     GetContentOfSharedArrayBufferPtr pfGetContentOfSharedArrayBuffer;
     CreateSharedArrayBufferFromContentPtr pfCreateSharedArrayBufferFromContent;
+    JsQueueBackgroundParsePtr pfJsQueueBackgroundParse;
 #if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
     ClearTimeZoneCalendarsPtr pfResetTimeZoneFactoryObjects;
 #endif

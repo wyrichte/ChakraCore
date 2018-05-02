@@ -13,6 +13,7 @@
 #include "Memory\AutoPtr.h"
 #include "hostsysinfo.h"
 #include "AutoBSTR.h"
+#include "EdgeJsStatic.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
 SimpleSourceMapper *UTF8SourceMapper = nullptr;
@@ -26,10 +27,6 @@ struct ByteCodeInfo
 static std::map<std::wstring,ByteCodeInfo,std::less<std::wstring>> byteCodeFileMap;
 
 const IID IID_IActiveScriptByteCode =   {0xBF70A42D,0x05C9,0x4858,0xAD,0xCA,0x40,0x73,0x2A,0xF3,0x2C,0xD6}; 
-
-// For calling chakra exports
-typedef HRESULT(WINAPI *JsBackgroundParsePtr)(LPCUTF8 pszSrc, size_t cbLength, char16 *fullPath, DWORD* dwBgParseCookie);
-typedef HRESULT(WINAPI *JsBackgroundParseFinishPtr)(DWORD dwBgParseCookie, IActiveScript* activeScript, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
 
 JsFile::JsFile()
 {
@@ -1123,7 +1120,7 @@ Error:
 struct ScriptLoadData {
     WIN32_FIND_DATA ffd = { 0 };
     DWORD bgParseCookie = 0;
-    BYTE* contents = nullptr;
+    LPCSTR contents = nullptr;
     UINT length = 0;
     DWORD dwSourceCookie = 0;
     DWORD dwFlag = 0;
@@ -1179,9 +1176,8 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
                 thisData->dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
                 // JsBackgroundParse not supported in Debug mode
                 if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
-                {   
-                    JsBackgroundParsePtr jsBackgroundParse = (JsBackgroundParsePtr)GetProcAddress(jscriptLibrary, "JsBackgroundParse");
-                    hr = jsBackgroundParse(thisData->contents, thisData->length, fullpath, &thisData->bgParseCookie);
+                {
+                    JScript9Interface::JsQueueBackgroundParse(thisData->contents, thisData->length, fullpath, &thisData->bgParseCookie);
                 }
                 else
                 {
@@ -1249,28 +1245,32 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
 
 
     // Now, on this thread, execute in order
-    for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end() && hr == S_OK; ++it)
+    if (hr == S_OK)
     {
-        ScriptLoadData* thisData = *it;
+        CComPtr<IActiveScriptDirect> activeScriptDirect;
+        hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
+        for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end() && hr == S_OK; ++it)
+        {
+            ScriptLoadData* thisData = *it;
 
-        // Wait for the file to finish loading
-        WaitForSingleObject(thisData->loaded, INFINITE);
+            // Wait for the file to finish loading
+            WaitForSingleObject(thisData->loaded, INFINITE);
 
-        // Increment m_dwNextSourceCookie first, so that if below ParseScriptText calls WScript.LoadScriptFile we'll use the correct next source cookie.
-        DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
-        
-        char16 fullpath[_MAX_PATH];
-        swprintf_s(fullpath, L"%s%s", baseDir.c_str(), thisData->ffd.cFileName);
-        RegisterScriptDir(dwSourceCookie, fullpath);
+            // Increment m_dwNextSourceCookie first, so that if below ParseScriptText calls WScript.LoadScriptFile we'll use the correct next source cookie.
+            DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
 
-        // Execute the script parsed on the background
-        EXCEPINFO excepinfo;
-        JsBackgroundParseFinishPtr jsBackgroundParseFinish = (JsBackgroundParseFinishPtr)GetProcAddress(jscriptLibrary, "JsBackgroundParseFinish");
-        hr = jsBackgroundParseFinish(thisData->bgParseCookie, activeScript, thisData->dwSourceCookie, thisData->dwFlag, &excepinfo);
-        fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
+            char16 fullpath[_MAX_PATH];
+            swprintf_s(fullpath, L"%s%s", baseDir.c_str(), thisData->ffd.cFileName);
+            RegisterScriptDir(dwSourceCookie, fullpath);
 
-        CloseHandle(thisData->loaded);
-        thisData->loaded = 0;
+            // Execute the script parsed on the background
+            EXCEPINFO excepinfo;
+            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(thisData->bgParseCookie, activeScriptDirect, thisData->dwSourceCookie, thisData->dwFlag, &excepinfo);
+            fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
+
+            CloseHandle(thisData->loaded);
+            thisData->loaded = 0;
+        }
     }
 
     // Wait for the thread to close and cleanup
@@ -1640,16 +1640,19 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
                 bool bgParse = false;
                 if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
                 {
-                    // JsBackgroundParse only supports UTF8 for now
-                    // JsBackgroundParse not supported in Debug mode
+                    // QueueBackgroundParse only supports UTF8 for now
+                    // QueueBackgroundParse not supported in Debug mode
                     DWORD bgParseCookie = 0;
-                    JsBackgroundParsePtr jsBackgroundParse = (JsBackgroundParsePtr)GetProcAddress(jscriptLibrary, "JsBackgroundParse");
-                    hr = jsBackgroundParse(pbUtf8, cbBytes, fullPath, &bgParseCookie);
+                    hr = JScript9Interface::JsQueueBackgroundParse((LPCSTR)pbUtf8, cbBytes, fullPath, &bgParseCookie);
                     if (hr == S_OK)
                     {
-                        JsBackgroundParseFinishPtr jsBackgroundParseFinish = (JsBackgroundParseFinishPtr)GetProcAddress(jscriptLibrary, "JsBackgroundParseFinish");
-                        hr = jsBackgroundParseFinish(bgParseCookie, activeScript, dwSourceCookie, dwFlag, &excepinfo);
-                        bgParse = true;
+                        CComPtr<IActiveScriptDirect> activeScriptDirect;
+                        hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
+                        if (hr == S_OK)
+                        {
+                            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(bgParseCookie, activeScriptDirect, dwSourceCookie, dwFlag, &excepinfo);
+                            bgParse = true;
+                        }
                     }
                 }
 

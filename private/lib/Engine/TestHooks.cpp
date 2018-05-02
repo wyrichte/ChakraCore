@@ -453,7 +453,7 @@ HRESULT OnJScript9Loaded()
         return S_OK;
     }
 
-    TestHooks testHooks = 
+    TestHooks testHooks =
     {
         DllGetClassObject,
         JsVarToScriptDirect,
@@ -462,14 +462,14 @@ HRESULT OnJScript9Loaded()
         JsVarToExtension,
         SetConfigFlags,
         GenerateValidPointersMapHeader,
-        PrintConfigFlagsUsageString,        
+        PrintConfigFlagsUsageString,
         GetRestrictedString,
         GetCapability,
         GetSystemStringFromHr,
         GetMemoryFootprintOfRC,
         DoNotSupportWeakDelegate,
         SupportsWeakDelegate,
-        NotifyOnScriptStateChanged,        
+        NotifyOnScriptStateChanged,
         ClearAllProjectionCaches,
         SetAssertToConsoleFlag,
         SetEnableCheckMemoryLeakOutput,
@@ -482,6 +482,7 @@ HRESULT OnJScript9Loaded()
         FlushOutput,
         GetContentOfSharedArrayBuffer,
         CreateSharedArrayBufferFromContent,
+        nullptr, // JsQueueBackgroundParse
 #if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
         ResetTimeZoneFactoryObjects,
 #endif
