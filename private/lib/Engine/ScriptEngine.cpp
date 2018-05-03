@@ -3425,8 +3425,7 @@ HRESULT ScriptEngine::AddScriptletCore(
 
     dwFlags &= SCRIPTTEXT_ALL_FLAGS;
     dwFlags |= SCRIPTTEXT_ISSCRIPTLET; // this is a scriptlet
-    grfscr |= ComputeGrfscrUTF16();
-    grfscr |= (fscrImplicitThis | fscrImplicitParents);
+    grfscr |= (ComputeGrfscrUTF16() | fscrImplicitThis);
 
     // If we are started, force immediate execution.
     if (0 == (SCRIPTTEXT_DELAYEXECUTION & dwFlags) &&
@@ -4371,13 +4370,10 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
     // compile it
     grfscr |= ComputeGrfscrUTF16();
 
-    if (dwFlags & SCRIPTPROC_IMPLICIT_THIS)
+    if (dwFlags & (SCRIPTPROC_IMPLICIT_THIS | SCRIPTPROC_IMPLICIT_PARENTS))
     {
+        // fscrImplicitThis subsumes both "implicit this" and "implicit parents"
         grfscr |= fscrImplicitThis;
-    }
-    if (dwFlags & SCRIPTPROC_IMPLICIT_PARENTS)
-    {
-        grfscr |= fscrImplicitParents;
     }
 
     if (!PHASE_OFF1(Js::DeferEventHandlersPhase) && !(CONFIG_FLAG(ForceSerialized)))
@@ -4808,7 +4804,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgPars
 
     if (dwFlags & SCRIPTTEXT_ISSCRIPTLET)
     {
-        grfscr |= (fscrImplicitThis | fscrImplicitParents);
+        grfscr |= fscrImplicitThis;
     }
 
     ULONG deferParseThreshold = Parser::GetDeferralThreshold(psi->sourceContextInfo->IsSourceProfileLoaded());

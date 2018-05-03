@@ -437,7 +437,7 @@ STDMETHODIMP EventSink::Invoke(DISPID id, REFIID riid, LCID lcid,
     ScriptSite *scriptSite;
     ulong grfscr;
 
-    grfscr = fscrImplicitThis | fscrImplicitParents;
+    grfscr = fscrImplicitThis;
 
     if (NULL != pvarRes)
         VariantInit(pvarRes);
