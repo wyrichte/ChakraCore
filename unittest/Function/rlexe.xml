@@ -4,7 +4,7 @@
     <default>
       <files>deferNestedJitLoopBody.js</files>
       <baseline>deferNestedJitLoopBody.baseline</baseline>
-      <compile-flags>-force:deferparse -deferNested -forceJitLoopBody</compile-flags>
+      <compile-flags>-force:deferparse -forceJitLoopBody</compile-flags>
     </default>
   </test>
   <test>
