@@ -3,6 +3,7 @@
 #include <telemetry\MicrosoftTelemetry.h>
 #include <TraceLoggingProvider.h>
 #include "ChakraVersion.h"
+#include "..\..\bin\Chakra\ChakraVersionBuildCommit.h"
 
 #ifdef DBG
 #define TL_BINARYFLAVOR "CHK"
@@ -28,6 +29,7 @@
 
 #define TraceLogChakra(name, ...)                                                                       \
     {                                                                                                   \
+        const auto& globalFlags = Js::Configuration::Global.flags;                                      \
         if (g_TraceLoggingClient != nullptr && g_TraceLoggingClient->GetShouldLogTelemetry() == true)   \
         {                                                                                               \
             TraceLoggingWrite(                                                                          \
@@ -37,8 +39,10 @@
             TraceLoggingString(VER_IEVERSION_STR, "binaryVersion"),                                     \
             TraceLoggingString(TL_BINARYFLAVOR, "binaryFlavor"),                                        \
             TraceLoggingString(TL_BINARYARCH, "binaryArch"),                                            \
-            TraceLoggingString(telemetryDiscriminator1, "Discriminator1"),                              \
-            TraceLoggingString(telemetryDiscriminator2, "Discriminator2"),                              \
+            TraceLoggingString(chakraVersionBuildCommit, "chakraBuildCommit"),                          \
+            TraceLoggingWideString(globalFlags.TelemetryRunType, "runType"),                            \
+            TraceLoggingWideString(globalFlags.TelemetryDiscriminator1, "Discriminator1"),              \
+            TraceLoggingWideString(globalFlags.TelemetryDiscriminator2, "Discriminator2"),              \
             __VA_ARGS__                                                                                 \
             );                                                                                          \
         }                                                                                               \

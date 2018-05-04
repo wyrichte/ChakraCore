@@ -65,6 +65,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ESBuiltInsTypeNames.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\LanguageFeatures.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\LanguageFeaturesCountTracker.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\CustomScriptContextCounters.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />

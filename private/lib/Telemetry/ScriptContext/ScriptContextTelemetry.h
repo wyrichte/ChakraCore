@@ -6,6 +6,7 @@
 
 #include "ScriptContext/ESBuiltInsCountTracker.h"
 #include "ScriptContext/LanguageFeaturesCountTracker.h"
+#include "ScriptContext/CustomScriptContextCounters.h"
 #include "Runtime.h"
 #include "Core/CriticalSection.h"
 #include "Common/Tick.h"
@@ -26,6 +27,7 @@ namespace Js
 
         BuiltInCountTracker builtInCountTracker;
         LanguageFeaturesCountTracker languageFeaturesCountTracker;
+        CustomScriptContextCounters customCounters;
 
 #ifdef REJIT_STATS
         // Map from IR::BailOutKind uint to index in the bailoutKindCRCs[] above.

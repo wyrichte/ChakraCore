@@ -40,6 +40,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h" >
       <Filter>ScriptContext</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\CustomScriptContextCounters.h" >
+          <Filter>ScriptContext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="dirs" />

@@ -60,10 +60,6 @@ void Telemetry::OnJSRTThreadContextClose()
 
 TraceLoggingClient *g_TraceLoggingClient = NULL;
 
-// TODO: read these from registry (or ???) so we can discriminate private builds
-const char * telemetryDiscriminator1 = "A - todo support discriminator";
-const char * telemetryDiscriminator2 = "B - todo support discriminator";
-
 TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
 {
     // Check if we're running in a process from which telemetry should

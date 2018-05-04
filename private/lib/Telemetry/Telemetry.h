@@ -66,8 +66,6 @@ private:
 };
 
 extern struct _TlgProvider_t const * const g_hTraceLoggingProv;
-extern const char * telemetryDiscriminator1;
-extern const char * telemetryDiscriminator2;
 
 class CEventTraceProperties
 {

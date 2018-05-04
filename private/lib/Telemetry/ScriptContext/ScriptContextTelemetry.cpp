@@ -118,6 +118,8 @@ namespace Js
                 TraceLoggingUInt32FixedArray(bailoutKindCRCs, numBailOutKinds, "BailoutReasonCRCs", "CRC values of each bailout name"),
                 TraceLoggingUInt32FixedArray(bailoutCounts, numBailOutKinds, "BailOutCounts", "count values of each bailout reason"),
                 TraceLoggingUInt32FixedArray(bailoutCountsCap, numBailOutKinds, "BailOutCountsCap", "count cap values of each bailout reason")
+
+                , TraceLoggingUInt32FixedArray(customCounters.GetCountsArray(), CustomScriptContextCounters::numFacets, "CustomCounters", "dev-defined custom values")
             );
 #else
             TraceLogChakra("ScriptContextTelemetry_NoRejit",

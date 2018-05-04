@@ -87,7 +87,6 @@
       <AdditionalOptions>%(AdditionalOptions) -d2:-TypeProp- -d2:-SpecDevirt-</AdditionalOptions>
       <!-- Always use LTCG since IESettingsApi.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-
       <AdditionalDependencies Condition="'$(ChakraICU)'=='windows'">
         %(AdditionalDependencies);
         $(SdkLibPath)\icuuc.lib;
@@ -160,6 +159,7 @@
       </AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ChakraDllFunc.cpp" />
+    <ClCompile Include="ChakraVersionBuildCommit.cpp" />
     <None Include="..\ChakraCommon.ver" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +302,10 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\..\tools\VsVisualizers\JScript9.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChakraVersionBuildCommit.h" />
+    <ClInclude Include="ChakraDllVersion.h" />
   </ItemGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.targets" Condition="exists('$(BuildConfigPropsPath)Chakra.Build.targets')" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

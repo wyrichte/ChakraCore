@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="$(MsBuildThisFileDirectory)chakra.def" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ChakraDllFunc.cpp" />
+    <ClCompile Include="ChakraVersionBuildCommit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc" />
@@ -23,5 +24,9 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\..\tools\VsVisualizers\JScript9.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChakraVersionBuildCommit.h" />
+    <ClInclude Include="ChakraDllVersion.h" />
   </ItemGroup>
 </Project>
