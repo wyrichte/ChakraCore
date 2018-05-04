@@ -9,6 +9,13 @@
 // Forwards
 class SourceContextInfo;                // Used in Utf8SourceInfo.h
 class ActiveScriptProfilerHeapEnum;     // Used in ArgumentsObject.h
+namespace Memory
+{
+    class Recycler;
+}
+template <typename TData, typename TAllocator, typename TCount>
+class SList;
+class RealCount;
 namespace Js
 {
     // TODO: consider extracting and pulling enums (instead of forward), as changing their underlying type may break us.
@@ -30,6 +37,8 @@ namespace Js
     class ArrayObject;
     class DynamicProfileInfo;               // Used by FunctionBody.h
     struct PolymorphicCallSiteInfo;         // Used by FunctionBody.h
+    struct CallbackInfo;
+    using CallbackInfoList = SList<CallbackInfo*, Memory::Recycler, RealCount>; // Used by FunctionBody.h
     enum ImplicitCallFlags : BYTE;          // Used by FunctionBody.h
     struct LoopHeader;                      // Used by FunctionBody.h
     enum FldInfoFlags : BYTE;               // Used by InterpreterStackFrame.h
