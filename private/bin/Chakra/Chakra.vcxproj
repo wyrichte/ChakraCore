@@ -159,7 +159,7 @@
       </AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="$(MsBuildThisFileDirectory)ChakraDllFunc.cpp" />
-    <ClCompile Include="ChakraVersionBuildCommit.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ChakraVersionBuildCommit.cpp" />
     <None Include="..\ChakraCommon.ver" />
   </ItemGroup>
   <ItemGroup>
