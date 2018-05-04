@@ -1265,7 +1265,7 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
 
             // Execute the script parsed on the background
             EXCEPINFO excepinfo;
-            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(thisData->bgParseCookie, activeScriptDirect, thisData->dwSourceCookie, thisData->dwFlag, &excepinfo);
+            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(thisData->bgParseCookie, activeScriptDirect, thisData->dwSourceCookie, thisData->dwFlag, nullptr, &excepinfo);
             fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
 
             CloseHandle(thisData->loaded);
@@ -1650,7 +1650,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
                         hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
                         if (hr == S_OK)
                         {
-                            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(bgParseCookie, activeScriptDirect, dwSourceCookie, dwFlag, &excepinfo);
+                            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(bgParseCookie, activeScriptDirect, dwSourceCookie, dwFlag, nullptr, &excepinfo);
                             bgParse = true;
                         }
                     }
