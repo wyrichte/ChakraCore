@@ -15,7 +15,6 @@ namespace JsStaticAPI
     typedef HRESULT (__stdcall ScriptCallbackMethod)(int numArg, void** arguments);
     typedef void(*InitIteratorFunction)(Var, Var);
     typedef bool (*NextFunction)(Var, Var *, Var *);
-
     typedef void (__stdcall *StaticHostPromiseRejectionTrackerCallback)(_In_ Var promise, _In_ Var reason, _In_ bool handled, _In_opt_ void *callbackState);
 
     struct BinaryVerificationData
@@ -197,5 +196,12 @@ namespace JsStaticAPI
     public:
         static inline LONG FatalExceptionFilter(__in LPEXCEPTION_POINTERS lpep);
         static void ReportFatalException(__in HRESULT exceptionCode, __in ErrorReason reasonCode);
+    };
+
+    class BGParse
+    {
+    public:
+        static HRESULT QueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
+        static HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, IActiveScriptDirect* activeScriptDirect, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
     };
 };

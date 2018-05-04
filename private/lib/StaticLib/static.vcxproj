@@ -59,6 +59,8 @@
     </PublishCompiled>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="jsStaticBGParse.cpp" />
+    <ClCompile Include="jsStaticBGParseExportWrapper.cpp" />
     <ClCompile Include="jsStaticDataConversion.cpp" />
     <ClCompile Include="jsStaticError.cpp" />
     <ClCompile Include="jsStaticExternalObject.cpp" />

@@ -259,6 +259,12 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Parse(
     return result;
 }
 
+HRESULT ScriptEngineBase::ExecuteBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
+{
+    ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+    return scriptEngine->FinishBackgroundParse(dwBgParseCookie, dwSourceContext, dwFlags, pexcepinfo);
+}
+
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::Execute(
     __in Var instance,
     __in CallInfo callInfo,
