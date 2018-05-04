@@ -573,7 +573,7 @@ public:
 
     virtual HRESULT STDMETHODCALLTYPE CreateIteratorNextFunction(JavascriptTypeId typeId, __out Var* func);
 
-    virtual HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
+    virtual HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
 
 public:
     Js::ScriptContext*  scriptContext;

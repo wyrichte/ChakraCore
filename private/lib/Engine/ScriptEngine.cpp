@@ -4461,7 +4461,7 @@ HRESULT JsQueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath,
 
 // FinishBackgroundParse completes the work started from JsQueueBackgroundParse. See the definition of
 // BGParseManager for more info
-HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo)
+HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo)
 {
     Assert(Js::Configuration::Global.flags.BgParse);
 
@@ -4472,7 +4472,7 @@ HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwS
     {
         BOOL fUsedExisting = FALSE;
         hr = ParseScriptTextCore((void*)pszSrc, dwBgParseCookie, nullptr, nullptr, nullptr, dwSourceContext, 0, dwFlags, true, cbLength, &ScriptEngine::CompileUTF8,
-            ComputeGrfscrUTF8, fUsedExisting, nullptr, pexcepinfo);
+            ComputeGrfscrUTF8, fUsedExisting, pvarResult, pexcepinfo);
     }
 
     return hr;

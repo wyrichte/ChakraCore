@@ -202,6 +202,6 @@ namespace JsStaticAPI
     {
     public:
         static HRESULT QueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
-        static HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, IActiveScriptDirect* activeScriptDirect, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
+        static HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, IActiveScriptDirect* activeScriptDirect, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
     };
 };

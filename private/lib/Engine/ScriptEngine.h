@@ -932,7 +932,7 @@ private:
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting);
 public:
-    HRESULT FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, EXCEPINFO* pexcepinfo);
+    HRESULT FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
 private:
     HRESULT GetUrl(__out BSTR *pUrl);
 
