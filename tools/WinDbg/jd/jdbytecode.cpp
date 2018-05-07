@@ -941,8 +941,8 @@ void
 JDByteCode::DumpForScriptFunction(ExtRemoteTyped functionObject)
 {
     // TODO: Need script function check
-    DumpForFunctionBody(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::FunctionBody *)@$extin"),
-        functionObject.Field("functionInfo").GetPtr()));
+    RemoteFunctionInfo remoteFunctionInfo(functionObject.Field("functionInfo"));
+    DumpForFunctionBody(remoteFunctionInfo.GetFunctionBody());
 }
 
 void
