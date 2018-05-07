@@ -245,7 +245,7 @@
   <test>
     <default>
       <files>FastF12_IgnoreException.js</files>
-      <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode -trace:bailout -Intl</compile-flags>
+      <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode -testtrace:bailout -Intl</compile-flags>
       <baseline>FastF12_IgnoreException.baseline</baseline>
       <tags>exclude_dynapogo,exclude_nonative,exclude_winglob</tags>
     </default>
@@ -598,7 +598,7 @@
   </test>
   <test>
     <default>
-      <compile-flags>-DebugLaunch -EnableJitInDiagMode -forceNative -off:simpleJit -targeted -trace:bailout</compile-flags>
+      <compile-flags>-DebugLaunch -EnableJitInDiagMode -forceNative -off:simpleJit -targeted -testtrace:bailout</compile-flags>
       <files>jitStepping.js</files>
       <tags>exclude_dynapogo,exclude_nonative</tags>
       <baseline>jitStepping.baseline</baseline>
