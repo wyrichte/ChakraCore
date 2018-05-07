@@ -487,7 +487,7 @@ namespace Js
             ULONG grfscr = utf8SourceInfo->GetParseFlags();
             
             // avoid defer parse
-            grfscr &= ~fscrDeferFncParse;
+            grfscr &= ~(fscrCanDeferFncParse | fscrWillDeferFncParse);
             grfscr |= fscrNoAsmJs;
 
             m_functionIdBegin = sourceContextInfo->nextLocalFunctionId; // Save begin functionId

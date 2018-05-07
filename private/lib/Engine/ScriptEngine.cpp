@@ -3439,7 +3439,7 @@ HRESULT ScriptEngine::AddScriptletCore(
         dwFlags &= (~SCRIPTTEXT_FORCEEXECUTION);
         if (!PHASE_OFF1(Js::DeferEventHandlersPhase))
         {
-            grfscr |= fscrDeferFncParse;
+            grfscr |= (fscrCanDeferFncParse | fscrWillDeferFncParse);
         }
     }
 
@@ -4378,7 +4378,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
 
     if (!PHASE_OFF1(Js::DeferEventHandlersPhase) && !(CONFIG_FLAG(ForceSerialized)))
     {
-        grfscr |= fscrDeferFncParse;
+        grfscr |= (fscrCanDeferFncParse | fscrWillDeferFncParse);
     }
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
@@ -4845,15 +4845,14 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgPars
     }
 
     ULONG deferParseThreshold = Parser::GetDeferralThreshold(psi->sourceContextInfo->IsSourceProfileLoaded());
-    if (allowDeferParse && psi->ichLimHost > deferParseThreshold)
-    {
-        grfscr |= fscrDeferFncParse;
-    }
-
 #pragma prefast(suppress:6237, "The right hand side condition does not have any side effects.")
-    if (CONFIG_FLAG(ForceSerialized) && !IsDebuggerEnvironmentAvailable())
+    if (allowDeferParse && !(CONFIG_FLAG(ForceSerialized) && !IsDebuggerEnvironmentAvailable()))
     {
-        grfscr &= ~fscrDeferFncParse;
+        grfscr |= fscrCanDeferFncParse;
+        if (psi->ichLimHost > deferParseThreshold)
+        {
+            grfscr |= fscrWillDeferFncParse;
+        }
     }
 
     if (dwFlags & SCRIPTTEXT_ISNONUSERCODE)
