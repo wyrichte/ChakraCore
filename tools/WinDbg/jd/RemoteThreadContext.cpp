@@ -376,16 +376,16 @@ RemoteThreadContext::PrintAll(ulong * pScriptThreadId)
         {
             g_Ext->Out("          ");
         }
-        if (threadContext.GetCallRootLevel() != 0)
+        if (threadContext.GetCallRootLevel() != 0 && threadContext.GetExtRemoteTyped().HasField("telemetryBlock"))
         {
             ExtRemoteTyped telemetryBlock = threadContext.GetExtRemoteTyped().Field("telemetryBlock");
             ULONG64 lastScriptStartTime = ((ULONG64)telemetryBlock.Field("lastScriptStartTime.dwHighDateTime").GetUlong() << 32ull) + telemetryBlock.Field("lastScriptStartTime.dwLowDateTime").GetUlong();
             g_Ext->Out(" [In script time: %.2fms]", (double)(systemTime - lastScriptStartTime) / 10 / 1000);
         }
         RemoteRecycler recycler = threadContext.GetRecycler();
-        if (recycler.CollectionInProgress())
+        if (recycler.CollectionInProgress() && recycler.GetExtRemoteTyped().HasField("telemetryBlock"))
         {
-            ExtRemoteTyped telemetryBlock = threadContext.GetRecycler().GetExtRemoteTyped().Field("telemetryBlock");
+            ExtRemoteTyped telemetryBlock = recycler.GetExtRemoteTyped().Field("telemetryBlock");
             ULONG64 lastGCTriggerTime = ((ULONG64)telemetryBlock.Field("currentCollectionStartTime.dwHighDateTime").GetUlong() << 32ull) + telemetryBlock.Field("currentCollectionStartTime.dwLowDateTime").GetUlong();
             if (systemTime < lastGCTriggerTime)
             {
