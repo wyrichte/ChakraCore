@@ -4455,12 +4455,17 @@ LReturn:
 // JsBackgroundParse is an export function that queues up parsing on a background thread. It should be
 // accessed via JsStaticAPI::BGParse::QueueBackgroundParse when possible.
 __declspec(dllexport)
-HRESULT JsQueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie)
+HRESULT JsQueueBackgroundParse(JsStaticAPI::ScriptContents* contents, DWORD* dwBgParseCookie)
 {
     HRESULT hr;
-    if (Js::Configuration::Global.flags.BgParse && !CONFIG_FLAG(ForceDiagnosticsMode))
+    if (Js::Configuration::Global.flags.BgParse && !CONFIG_FLAG(ForceDiagnosticsMode)
+        // For now, only UTF8 buffers are supported for BGParse
+        && contents->encodingType == JsStaticAPI::ScriptEncodingType::Utf8
+        && contents->containerType == JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer
+        // SourceContext not needed for BGParse
+        && contents->sourceContext == 0)
     {
-        hr = BGParseManager::GetBGParseManager()->QueueBackgroundParse((LPCUTF8)pszSrc, cbLength, (char16*)fullPath, dwBgParseCookie);
+        hr = BGParseManager::GetBGParseManager()->QueueBackgroundParse((LPUTF8)contents->container, contents->contentLengthInBytes, (char16*)contents->fullPath, dwBgParseCookie);
     }
     else
     {
@@ -5517,7 +5522,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
             {
                 hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength);
                 // srcLength should be non-zero unless there was no source to parse
-                Assert(srcLength != 0 || cbLength == 0);
+                Assert(srcLength != 0 || cbLength == 0 || hr != S_OK);
             }
             else
             {

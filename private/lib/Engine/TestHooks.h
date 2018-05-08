@@ -9,6 +9,10 @@ typedef HRESULT (__stdcall *GetHeapObjectInfoPtr)(Var instance, HostProfilerHeap
 #ifdef ENABLE_TEST_HOOKS
 
 interface ICustomConfigFlags;
+namespace JsStaticAPI
+{
+    struct ScriptContents;
+}
 
 struct TestHooks
 {
@@ -46,7 +50,7 @@ struct TestHooks
     typedef void(__stdcall * DisplayMemStatsPtr)();
     typedef void (__stdcall *GetContentOfSharedArrayBufferPtr)(Var instance, void** content);
     typedef void (__stdcall *CreateSharedArrayBufferFromContentPtr)(IActiveScriptDirect * scriptDirect, void* content, Var* instance);
-    typedef HRESULT(WINAPI *JsQueueBackgroundParsePtr)(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
+    typedef HRESULT(WINAPI *JsQueueBackgroundParsePtr)(JsStaticAPI::ScriptContents* contents, DWORD* dwBgParseCookie);
 
 #if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
     typedef void(__stdcall * ClearTimeZoneCalendarsPtr)();

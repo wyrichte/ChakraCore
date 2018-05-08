@@ -1177,7 +1177,13 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
                 // JsBackgroundParse not supported in Debug mode
                 if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
                 {
-                    JScript9Interface::JsQueueBackgroundParse(thisData->contents, thisData->length, fullpath, &thisData->bgParseCookie);
+                    JsStaticAPI::ScriptContents script = { 0 };
+                    script.container = (LPVOID)thisData->contents;
+                    script.containerType = JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer;
+                    script.encodingType = JsStaticAPI::ScriptEncodingType::Utf8;
+                    script.contentLengthInBytes = thisData->length;
+                    script.fullPath = fullpath;
+                    JScript9Interface::JsQueueBackgroundParse(&script, &thisData->bgParseCookie);
                 }
                 else
                 {
@@ -1249,7 +1255,7 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
     {
         CComPtr<IActiveScriptDirect> activeScriptDirect;
         hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
-        for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end() && hr == S_OK; ++it)
+        for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end(); ++it)
         {
             ScriptLoadData* thisData = *it;
 
@@ -1643,7 +1649,13 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
                     // QueueBackgroundParse only supports UTF8 for now
                     // QueueBackgroundParse not supported in Debug mode
                     DWORD bgParseCookie = 0;
-                    hr = JScript9Interface::JsQueueBackgroundParse((LPCSTR)pbUtf8, cbBytes, fullPath, &bgParseCookie);
+                    JsStaticAPI::ScriptContents script = { 0 };
+                    script.container = (LPVOID)pbUtf8;
+                    script.containerType = JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer;
+                    script.encodingType = JsStaticAPI::ScriptEncodingType::Utf8;
+                    script.contentLengthInBytes = cbBytes;
+                    script.fullPath = fullPath;
+                    hr = JScript9Interface::JsQueueBackgroundParse(&script, &bgParseCookie);
                     if (hr == S_OK)
                     {
                         CComPtr<IActiveScriptDirect> activeScriptDirect;

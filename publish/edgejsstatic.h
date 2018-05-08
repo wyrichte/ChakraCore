@@ -37,6 +37,29 @@ namespace JsStaticAPI
         DWORD numberUtilitiesBaseOffset;
     };
 
+    enum ScriptEncodingType
+    {
+        Utf8,
+        Utf16
+    };
+
+    enum ScriptContainerType
+    {
+        HeapAllocatedBuffer,
+        ChunkPtr // for either IByteChunk or IWideCharChunk
+    };
+
+    struct ScriptContents
+    {
+        LPVOID container;
+        ScriptEncodingType encodingType;
+        ScriptContainerType containerType;
+        DWORD_PTR sourceContext;
+        size_t contentLengthInBytes;
+        LPCWSTR fullPath;
+    };
+
+
     class TaggedInt
     {
     public:
@@ -201,7 +224,7 @@ namespace JsStaticAPI
     class BGParse
     {
     public:
-        static HRESULT QueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
+        static HRESULT QueueBackgroundParse(ScriptContents* contents, DWORD* dwBgParseCookie);
         static HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, IActiveScriptDirect* activeScriptDirect, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
     };
 };

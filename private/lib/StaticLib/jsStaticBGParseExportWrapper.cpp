@@ -12,7 +12,7 @@
 
 #include "StaticLibPch.h"
 
-extern HRESULT JsQueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie);
+extern HRESULT JsQueueBackgroundParse(JsStaticAPI::ScriptContents* contents, DWORD* dwBgParseCookie);
 
 namespace JsStaticAPI
 {
@@ -22,8 +22,8 @@ namespace JsStaticAPI
     // - This function can be called from any thread
     // - This function can only take UTF8 source
     // - The host must not be in debug mode
-    HRESULT BGParse::QueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie)
+    HRESULT BGParse::QueueBackgroundParse(ScriptContents* contents, DWORD* dwBgParseCookie)
     {
-        return JsQueueBackgroundParse(pszSrc, cbLength, fullPath, dwBgParseCookie);
+        return JsQueueBackgroundParse(contents, dwBgParseCookie);
     }
 }

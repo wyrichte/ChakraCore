@@ -9,6 +9,11 @@
 #endif // USE_EDGEMODE_JSRT
 #include "jsrt.h"
 
+namespace JsStaticAPI
+{
+    struct ScriptContents;
+}
+
 // ToDo: Move this into TestHooks and initialize in OnJscript9Loaded once we've merged the DLLs
 struct JsrtTestHooks
 {
@@ -246,7 +251,7 @@ public:
     static HRESULT StartScriptProfiling(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context) { return CHECKED_CALL(StartScriptProfiling,scriptDirect, profilerObject, eventMask, context); }
     static HRESULT StopScriptProfiling(IActiveScriptDirect * scriptDirect) { return CHECKED_CALL(StopScriptProfiling, scriptDirect); }
 
-    static HRESULT JsQueueBackgroundParse(LPCSTR pszSrc, size_t cbLength, LPCWSTR fullPath, DWORD* dwBgParseCookie) { return CHECKED_CALL(JsQueueBackgroundParse, pszSrc, cbLength, fullPath, dwBgParseCookie); }
+    static HRESULT JsQueueBackgroundParse(JsStaticAPI::ScriptContents* contents, DWORD* dwBgParseCookie) { return CHECKED_CALL(JsQueueBackgroundParse, contents, dwBgParseCookie); }
 
     static boolean SupportsGetFaultInjectionFlag()
     {
