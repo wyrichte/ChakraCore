@@ -29,7 +29,6 @@ namespace Js
     struct InlineCache;                     // Used by RecyclableObject.h
     class PolymorphicInlineCache;
     class PropertyRecord;                   // Used by ThreadContext.h
-    class CodeGenNumberChunk;               // Used by FunctionBody.h
     class JavascriptLibrary;                // Used by FunctionBody.h
     class ByteBlock;                        // Used by FunctionBody.h
     struct InterpreterStackFrame;           // Used by FunctionBody.h

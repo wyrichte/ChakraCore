@@ -70,6 +70,9 @@ public:
     void DisableCachedDebuggeeMemory();
     bool IsCachedDebuggeeMemoryEnabled() { return m_debuggeeMemoryCache != nullptr; }
 
+    ULONG64 GetSmallHeapBlockPageCount();
+    ULONG64 GetMediumHeapBlockPageCount();
+
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name) \
     ULONG64 GetBlockTypeEnum##name() { EnsureBlockTypeEnum(); return m_blockTypeEnumValue##name; } \
     ULONG64 GetMPHBlockTypeEnum##name() { EnsureMPHBlockTypeEnum(); return m_mphblockTypeEnumValue##name; }
@@ -92,6 +95,9 @@ private:
     
     RecyclerObjectGraph * cachedObjectGraph;
     ULONG64 cachedObjectGraphRecyclerAddress;
+   
+    ULONG64 smallHeapBlockPageCount;
+    ULONG64 mediumHeapBlockPageCount;
 
     CachedTypeInfo m_heapBlockTypeInfo;
     CachedTypeInfo m_smallHeapBlockTypeInfo;

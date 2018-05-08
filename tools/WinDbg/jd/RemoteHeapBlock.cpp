@@ -73,18 +73,26 @@ RemoteHeapBlock::Initialize()
         bucketObjectSize = heapBlock.Field("objectSize").GetUshort();
         totalObjectSize = bucketObjectSize * totalObjectCount;
 
-        if (GetExtension()->IsJScript9() && totalObjectSize <= g_Ext->m_PageSize)
+        if (GetExtension()->IsJScript9())
         {
-            // In IE11, small blocks could be 1 page, so align to one page if we
-            // expect the blocks to be single page
-            size = JDUtil::Align<ULONG64>(totalObjectSize, g_Ext->m_PageSize);
+            // In IE11, small blocks should be 1 page
+            if (totalObjectSize > g_Ext->m_PageSize)
+            {
+                g_Ext->ThrowLastError("Invalid total object size for heap block.");
+            }
+ 
+            size = g_Ext->m_PageSize;
         }
         else
         {
-            // We never use odd number of pages, so align to 2 pages. This fixes some cases
-            // of mediumn blocks where objectSize > 1 page, unallocatable space = 1.x pages,
-            // and alignment to 1 page ends up with (PageCount - 1) pages.
-            size = JDUtil::Align<ULONG64>(totalObjectSize, g_Ext->m_PageSize * 2);
+            if (IsSmallHeapBlock())
+            {
+                size = GetExtension()->recyclerCachedData.GetSmallHeapBlockPageCount() * g_Ext->m_PageSize;
+            }
+            else
+            {
+                size = GetExtension()->recyclerCachedData.GetMediumHeapBlockPageCount() * g_Ext->m_PageSize;
+            }
         }
     }
 

@@ -792,14 +792,38 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 #undef FUNCTION_PROXY_FIELD_NAME
 
             enum EntryPointInfoNameIndex
-            {
+            {                
                 FunctionEntryPointInfoNameIndex,
-                LoopEntryPointInfoNameIndex
+                LoopEntryPointInfoNameIndex,
+                FunctionNativeEntryPointDataNameIndex,
+                LoopNativeEntryPointDataNameIndex,
             };
-#define ENTRY_POINT_FIELD_NAME(n) (nameIndex == FunctionEntryPointInfoNameIndex? "Js::FunctionEntryPointInfo."##n : "Js::LoopEntryPointInfo."##n)
 
-            auto addEntryPointInfoField = [&](JDRemoteTyped remoteTyped, EntryPointInfoNameIndex nameIndex)
+
+#define ENTRY_POINT_FIELD_NAME_EX(prefix, suffix) \
+    (nameIndex == FunctionEntryPointInfoNameIndex? prefix##"Js::FunctionEntryPointInfo."##suffix : \
+    (nameIndex == LoopEntryPointInfoNameIndex? prefix##"Js::LoopEntryPointInfo."##suffix : \
+    (nameIndex == FunctionNativeEntryPointDataNameIndex? prefix##"NativeEntryPointData(Func)."##suffix : prefix##"NativeEntryPointData(Loop)."##suffix)))
+
+#define ENTRY_POINT_FIELD_NAME(n) ENTRY_POINT_FIELD_NAME_EX(,n)
+
+            auto addEntryPointInfoField = [&](JDRemoteTyped entryPointInfo, EntryPointInfoNameIndex nameIndex)
             {
+                JDRemoteTyped remoteTyped;
+                if (entryPointInfo.HasField("nativeEntryPointData"))
+                {
+                    remoteTyped = entryPointInfo.Field("nativeEntryPointData");
+                    if (!addField(remoteTyped, "NativeEntryPointData"))
+                    {
+                        return;
+                    }
+                    nameIndex = nameIndex == FunctionEntryPointInfoNameIndex? FunctionNativeEntryPointDataNameIndex : LoopNativeEntryPointDataNameIndex;
+                }
+                else
+                {
+                    remoteTyped = entryPointInfo;
+                }
+  
                 RemoteBaseDictionary weakFuncRefSet = remoteTyped.Field("weakFuncRefSet");
                 AddDictionaryFieldBase(weakFuncRefSet, "{WeakFuncRefSet}", ENTRY_POINT_FIELD_NAME);
                 RemoteBaseDictionary sharedPropertyGuards = remoteTyped.Field("sharedPropertyGuards");
@@ -839,8 +863,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 if (remoteTyped.HasField("fieldAccessStats"))
                 {
                     // DBG_DUMP only
-                    addField(remoteTyped.Field("fieldAccessStats"), nameIndex == FunctionEntryPointInfoNameIndex ?
-                        "[DBG_DUMP] Js::FunctionEntryPointInfo.fieldAccessStats" : "[DBG_DUMP] Js::LoopEntryPointInfo.fieldAccessStats");
+                    addField(remoteTyped.Field("fieldAccessStats"), ENTRY_POINT_FIELD_NAME_EX("[DBG_DUMP] ", "fieldAccessStats"));
                 }
             };
 

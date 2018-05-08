@@ -71,7 +71,9 @@ RecyclerCachedData::RecyclerCachedData() :
     m_mphblockTypeEnumInitialized(false),
     m_debuggeeMemoryCache(NULL),
     cachedObjectGraphRecyclerAddress(0),
-    cachedObjectGraph(NULL)
+    cachedObjectGraph(NULL),
+    smallHeapBlockPageCount(0),
+    mediumHeapBlockPageCount(0)
 {}
 
 RemoteHeapBlock * RecyclerCachedData::FindCachedHeapBlock(ULONG64 address)
@@ -172,6 +174,31 @@ void RecyclerCachedData::Clear()
         delete this->cachedObjectGraph;
         this->cachedObjectGraph = nullptr;
     }
+
+    smallHeapBlockPageCount = 0;
+    mediumHeapBlockPageCount = 0;
+}
+
+ULONG64 RecyclerCachedData::GetSmallHeapBlockPageCount()
+{
+    ULONG64 value = smallHeapBlockPageCount;
+    if (value == 0)
+    { 
+        value = g_Ext->EvalExprU64(GetExtension()->FillModule("@@c++(%s!SmallAllocationBlockAttributes::PageCount)"));
+        smallHeapBlockPageCount = value;
+    }
+    return value;
+}
+
+ULONG64 RecyclerCachedData::GetMediumHeapBlockPageCount()
+{
+    ULONG64 value = mediumHeapBlockPageCount;
+    if (value == 0)
+    {
+        value = g_Ext->EvalExprU64(GetExtension()->FillModule("@@c++(%s!MediumAllocationBlockAttributes::PageCount)"));
+        mediumHeapBlockPageCount = value;
+    }
+    return value;
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)

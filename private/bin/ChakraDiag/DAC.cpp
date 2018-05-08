@@ -4,6 +4,8 @@
 
 #include "stdafx.h"
 
+#include "NativeEntryPointData.h"
+
 namespace Js
 {
     const char16 Constants::AnonymousFunction[] = _u("Anonymous function");
@@ -177,14 +179,16 @@ namespace JsDiag
     template <typename TTargetType>
     bool RemoteEntryPointInfo<TTargetType>::HasNativeAddress()
     {
-        return this->ToTargetPtr()->nativeAddress != nullptr;
+        RemoteData<NativeEntryPointData> nativeEntryPointData(m_reader, this->ToTargetPtr()->nativeEntryPointData);
+        return nativeEntryPointData->GetNativeAddress() != nullptr;
     }
 
     template <typename TTargetType>
     DWORD_PTR RemoteEntryPointInfo<TTargetType>::GetNativeAddress()
     {
         Assert(this->GetState() == EntryPointInfo::CodeGenRecorded || this->GetState() == EntryPointInfo::CodeGenDone);
-        return (DWORD_PTR)this->ToTargetPtr()->nativeAddress;
+        RemoteData<NativeEntryPointData> nativeEntryPointData(m_reader, this->ToTargetPtr()->nativeEntryPointData);
+        return (DWORD_PTR)nativeEntryPointData->GetNativeAddress();
     }
 
     template <typename TTargetType>
@@ -192,14 +196,16 @@ namespace JsDiag
     {
         Assert(this->GetState() != EntryPointInfo::State::NotScheduled);
         Assert(this->GetState() != EntryPointInfo::State::CleanedUp);
-        return this->ToTargetPtr()->nativeThrowSpanSequence;
+        RemoteData<NativeEntryPointData> nativeEntryPointData(m_reader, this->ToTargetPtr()->nativeEntryPointData);
+        return nativeEntryPointData->GetNativeThrowSpanSequence();
     }
 
     template <typename TTargetType>
     ptrdiff_t RemoteEntryPointInfo<TTargetType>::GetCodeSize()
     {
         Assert(this->GetState() == EntryPointInfo::CodeGenRecorded || this->GetState() == EntryPointInfo::CodeGenDone);
-        return this->ToTargetPtr()->codeSize;
+        RemoteData<NativeEntryPointData> nativeEntryPointData(m_reader, this->ToTargetPtr()->nativeEntryPointData);
+        return nativeEntryPointData->GetCodeSize();
     }
 
     JavascriptLibrary* RemoteJavascriptFunction::GetLibrary()
@@ -698,7 +704,8 @@ namespace JsDiag
     uint32 RemoteFunctionBody::GetFrameHeight(FunctionEntryPointInfo* entryPointInfoAddr)
     {
         RemoteFunctionEntryPointInfo entryPointInfo(m_reader, entryPointInfoAddr);
-        return entryPointInfo->frameHeight;
+        RemoteData<NativeEntryPointData> nativeEntryPointData(m_reader, entryPointInfo->nativeEntryPointData);
+        return nativeEntryPointData->GetFrameHeight();
     }
 
     template <typename Fn>

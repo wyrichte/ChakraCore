@@ -31,7 +31,7 @@ namespace JsDiag
         if (function.GetFrameHeight(entryPointInfoAddr))   // When we inline, frameHeight != 0.
         {
             RemoteFunctionEntryPointInfo entryPointInfo(reader, entryPointInfoAddr);
-            void* entryAddr = entryPointInfo->nativeAddress;
+            void* entryAddr = (void *)entryPointInfo.GetNativeAddress();
 
             InlinedFrameLayout* lastFrame = RemoteInlinedFrameLayout::FromPhysicalFrame(reader, physicalFrame, entryAddr, parent, entryPointInfoAddr);
             if (lastFrame)
