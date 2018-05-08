@@ -208,7 +208,7 @@ HRESULT RunTestcase1()
 HRESULT RunTestcase2()
 {
     /*
-    When we have a javascript with less than 5 functions, GetWrite and SaveWrite should not be called
+    When we have a javascript with less than 5 functions, SaveWrite should not be called
     */
 
     HRESULT hr = NOERROR;
@@ -220,7 +220,7 @@ HRESULT RunTestcase2()
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
-    test->VerifyDataStreamMethodCallCounter(0,0);
+    test->VerifyDataStreamMethodCallCounter(1,0);
     test->CloseEngine();
     PrintSeparator();
     return hr;
@@ -304,7 +304,7 @@ HRESULT RunTestcase6()
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
-    test->VerifyDataStreamMethodCallCounter(0,0);
+    test->VerifyDataStreamMethodCallCounter(1,0);
     test->CloseEngine();
     PrintSeparator();
     return hr;
@@ -340,12 +340,14 @@ HRESULT RunTestcase8()
 
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest8.js"), NULL, _u("profilecachetest8.out"));
     test->CreateNewEngine();
-    test->ParseScriptText();
     test->mptr_fakeMSTHML->SetFailGetWriteDataStream(TRUE);
+    test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
-    test->VerifyDataStreamMethodCallCounter(1,0);
+    // We will have two attempts to get a write stream now because the first one returns E_FAIL so the stream pointer
+    // in the wrapper class will stay nullptr. This means next write will try again to open another write stream.
+    test->VerifyDataStreamMethodCallCounter(2,0);
     test->CloseEngine();
 
     return hr;
@@ -404,7 +406,8 @@ HRESULT RunTestcase11()
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
 
-    test->VerifyDataStreamMethodCallCounter(1,0);
+    // Same as RunTestcase8, both of the write activities will attempt to open a new write stream.
+    test->VerifyDataStreamMethodCallCounter(2,0);
     test->CloseEngine();
     PrintSeparator();
     return hr;

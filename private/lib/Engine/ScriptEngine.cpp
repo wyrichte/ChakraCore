@@ -32,6 +32,7 @@
 #endif
 
 #include "JITClient.h"
+#include "Language\SimpleDataCacheWrapper.h"
 
 #define USE_ARENA false    // make this true to disable the memory recycler.
 
@@ -3521,7 +3522,7 @@ HRESULT ScriptEngine::AddScriptletCore(
             Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
             hr = Compile(pszFunc, ostrlen(pszFunc), 0 /*dwBgParseCookie*/, grfscr, &si, pszTitle, &se, &pbody, &pFuncInfo,
-                fUsedExisting, &sourceInfo /* no source to free here */, &ScriptEngine::CompileUTF16);
+                fUsedExisting, &sourceInfo /* no source to free here */, &ScriptEngine::CompileUTF16, nullptr);
         }
         END_TRANSLATE_EXCEPTION_TO_HRESULT(hr)
 
@@ -4123,9 +4124,14 @@ HRESULT ScriptEngine::ParseScriptTextCore(
         }
 
         SourceContextInfo* sourceContextInfo = nullptr;
+        Js::SimpleDataCacheWrapper* dataCacheWrapper = nullptr;
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)len, isDynamicDocument, sourceMapUrl, spProfileDataCache);
+            if (spProfileDataCache)
+            {
+                dataCacheWrapper = RecyclerNew(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
+            }
+            sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)len, isDynamicDocument, sourceMapUrl, dataCacheWrapper);
         }
         END_TRANSLATE_OOM_TO_HRESULT(hr);
         IFFAILGO(hr);
@@ -4148,7 +4154,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
         };
 
         hr = CreateScriptBody(pcszCodeT, len, dwBgParseCookie, dwFlags, allowDeferredParse, &si, pcszDelimiter, pszTitle,
-            fnCoreCompile, ComputeGrfscr, fUsedExisiting, &pFuncInfo, ppSourceInfo, pexcepinfo);
+            fnCoreCompile, ComputeGrfscr, fUsedExisiting, &pFuncInfo, ppSourceInfo, pexcepinfo, nullptr, dataCacheWrapper);
     }
 
     if ((dwFlags & SCRIPTTEXT_FORCEEXECUTION) && SUCCEEDED(hr))
@@ -4381,9 +4387,14 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
         grfscr |= (fscrCanDeferFncParse | fscrWillDeferFncParse);
     }
 
+    Js::SimpleDataCacheWrapper* dataCacheWrapper = nullptr;
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     {
-        si.sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)pszSrcLen, isDynamicDocument, sourceMapUrl, spProfileDataCache);
+        if (spProfileDataCache)
+        {
+            dataCacheWrapper = RecyclerNew(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
+        }
+        si.sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)pszSrcLen, isDynamicDocument, sourceMapUrl, dataCacheWrapper);
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     IFFAILGO(hr);
@@ -4402,7 +4413,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
             AutoCOMPtr<CScriptBody> pbody;
             Js::ParseableFunctionInfo* funcBody;
 
-            hr = Compile(pszSrc, ostrlen(pszSrc), 0 /*dwBgParseCookie*/, grfscr, &si, pszTitle, &se, &pbody, &funcBody, fUsedExisting, &sourceInfo, &ScriptEngine::CompileUTF16);
+            hr = Compile(pszSrc, ostrlen(pszSrc), 0 /*dwBgParseCookie*/, grfscr, &si, pszTitle, &se, &pbody, &funcBody, fUsedExisting, &sourceInfo, &ScriptEngine::CompileUTF16, dataCacheWrapper);
             if (SUCCEEDED(hr))
             {
                 if (!fUsedExisting)
@@ -4781,7 +4792,8 @@ LHaveBase:
 HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgParseCookie, DWORD dwFlags, bool allowDeferParse, SRCINFO *psi,
                                        const void *pszDelimiter, LPCOLESTR pszTitle,
                                        CoreCompileFunction fnCoreCompile, ComputeGrfscrFunction ComputeGrfscr,
-                                       BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO *pei, CScriptBody **ppbody)
+                                       BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo,
+                                       EXCEPINFO *pei, CScriptBody **ppbody, Js::SimpleDataCacheWrapper* pDataCache)
 {
     Assert(pszSrc != nullptr);
     Assert(psi);
@@ -4865,6 +4877,11 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgPars
         // pretend it is eval
         grfscr |= (fscrEval | fscrEvalCode);
     }
+    
+    if (CONFIG_FLAG(ParserStateCache) && pDataCache != nullptr)
+    {
+        grfscr |= fscrCreateParserState;
+    }
 
     // Create the code body, passing the name of the global function to the parser
     // to identify the function we want to wrap and return to the caller.
@@ -4874,7 +4891,7 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgPars
     {
         Js::AutoDynamicCodeReference dynamicFunctionReference(scriptContext);
 
-        hr = Compile( pszSrc, len, dwBgParseCookie, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncInfo, fUsedExisting, &sourceInfo, fnCoreCompile);
+        hr = Compile( pszSrc, len, dwBgParseCookie, grfscr, psi, pszTitle, &se, &bod.pbody, ppFuncInfo, fUsedExisting, &sourceInfo, fnCoreCompile, pDataCache);
         SETRETVAL(ppSourceInfo, sourceInfo);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
@@ -5213,7 +5230,8 @@ HRESULT ScriptEngine::ProfileModeCompile(
     __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo,
-    __in CoreCompileFunction fnCoreCompile)
+    __in CoreCompileFunction fnCoreCompile,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
     CHECK_POINTER(ppbody);
     *ppbody = nullptr;
@@ -5228,7 +5246,7 @@ HRESULT ScriptEngine::ProfileModeCompile(
     // When we're profiling, might as well deserialize everything
     grfscr = (grfscr & (~fscrAllowFunctionProxy));
 
-    HRESULT hr = DefaultCompile(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, fnCoreCompile);
+    HRESULT hr = DefaultCompile(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, fnCoreCompile, pDataCache);
 
     if (SUCCEEDED(hr) && !fUsedExisting)
     {
@@ -5260,9 +5278,10 @@ HRESULT ScriptEngine::DefaultCompile(
     __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
     __out Js::Utf8SourceInfo** ppSourceInfo,
-    __in CoreCompileFunction fnCoreCompile)
+    __in CoreCompileFunction fnCoreCompile,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
-    return (this->*fnCoreCompile)(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo);
+    return (this->*fnCoreCompile)(pszSrc, len, dwBgParseCookie, grfscr, srcInfo, pszTitle, pse, ppbody, ppFuncInfo, fUsedExisting, ppSourceInfo, pDataCache);
 }
 
 HRESULT ScriptEngine::CompileByteCodeBuffer(
@@ -5276,7 +5295,8 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     __out CScriptBody **ppbody,
     __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
-    __out Js::Utf8SourceInfo** pSourceInfo)
+    __out Js::Utf8SourceInfo** pSourceInfo,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
     Assert(!IsDebuggerEnvironmentAvailable());
     Assert(dwBgParseCookie == 0); // Background parse not tested with this codepath
@@ -5313,7 +5333,8 @@ HRESULT ScriptEngine::CompileUTF16(
     __out CScriptBody **ppbody,
     __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
-    __out Js::Utf8SourceInfo** ppSourceInfo)
+    __out Js::Utf8SourceInfo** ppSourceInfo,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
     HRESULT hr = NOERROR;
     LPCOLESTR pszSrc = (LPCOLESTR) pSrc;
@@ -5359,7 +5380,7 @@ HRESULT ScriptEngine::CompileUTF16(
 
     // Compile the UTF8 source
     SETRETVAL(ppSourceInfo, sourceInfo);
-    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncInfo, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, false, pse, ppbody, ppFuncInfo, fUsedExisting, pDataCache);
 
     LEAVE_PINNED_SCOPE();
 
@@ -5377,7 +5398,8 @@ HRESULT ScriptEngine::CompileUTF8(
     __out CScriptBody **ppbody,
     __out Js::ParseableFunctionInfo** ppFuncInfo,
     __out BOOL &fUsedExisting,
-    __out Js::Utf8SourceInfo** ppSourceInfo)
+    __out Js::Utf8SourceInfo** ppSourceInfo,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
     // TODO : calculate cbLength? how
     HRESULT hr = ERROR_SUCCESS;
@@ -5394,7 +5416,7 @@ HRESULT ScriptEngine::CompileUTF8(
 
     SETRETVAL(ppSourceInfo, sourceInfo);
 
-    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting);
+    hr = CompileUTF8Core(sourceInfo, dwBgParseCookie, stringLength, grfscr, srcInfo, pszTitle, true, pse, ppbody, ppFuncInfo, fUsedExisting, pDataCache);
     LEAVE_PINNED_SCOPE();
 
     return hr;
@@ -5411,7 +5433,8 @@ HRESULT ScriptEngine::CompileUTF8Core(
     __in_opt CompileScriptException *pse,
     __out CScriptBody **ppbody,
     __out Js::ParseableFunctionInfo** ppFuncInfo,
-    __out BOOL &fUsedExisting)
+    __out BOOL &fUsedExisting,
+    __in Js::SimpleDataCacheWrapper* pDataCache)
 {
 
     HRESULT hr = S_OK;
@@ -5478,7 +5501,6 @@ HRESULT ScriptEngine::CompileUTF8Core(
     }
 
     fUsedExisting = FALSE;
-
     Js::ParseableFunctionInfo* pRootFunc = nullptr;
 
     uint sourceIndex = 0;
@@ -5499,7 +5521,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
             }
             else
             {
-                hr = scriptContext->CompileUTF8Core(utf8SourceInfo, srcInfo, fOriginalUTF8Code, pszSrc, cbLength, grfscr, pse, cchLength, srcLength, sourceIndex, &func);
+                hr = scriptContext->CompileUTF8Core(utf8SourceInfo, srcInfo, fOriginalUTF8Code, pszSrc, cbLength, grfscr, pse, cchLength, srcLength, sourceIndex, &func, pDataCache);
             }
         }
 
@@ -5530,7 +5552,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 // recompile if we have asm.js parse error
                 grfscr |= fscrNoAsmJs;
                 pse->Free();
-                hr = CompileUTF8Core(utf8SourceInfo, 0, cchLength, grfscr, srcInfo, pszTitle, fOriginalUTF8Code, pse, ppbody, ppFuncInfo, fUsedExisting);
+                hr = CompileUTF8Core(utf8SourceInfo, 0, cchLength, grfscr, srcInfo, pszTitle, fOriginalUTF8Code, pse, ppbody, ppFuncInfo, fUsedExisting, pDataCache);
             }
             return hr;
         }
@@ -5631,7 +5653,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     return NOERROR;
 }
 
-SourceContextInfo * ScriptEngine::GetSourceContextInfo( DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache)
+SourceContextInfo * ScriptEngine::GetSourceContextInfo( DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, Js::SimpleDataCacheWrapper* dataCacheWrapper)
 {
     SourceContextInfo * sourceContextInfo;
     if(!CONFIG_ISENABLED(Js::NoDynamicProfileInMemoryCacheFlag))
@@ -5642,7 +5664,7 @@ SourceContextInfo * ScriptEngine::GetSourceContextInfo( DWORD_PTR hostSourceCont
         }
     }
 
-    sourceContextInfo = scriptContext->GetSourceContextInfo(hostSourceContext, profileDataCache);
+    sourceContextInfo = scriptContext->GetSourceContextInfo(hostSourceContext, dataCacheWrapper);
 
     if (sourceContextInfo != nullptr)
     {
@@ -5654,7 +5676,7 @@ SourceContextInfo * ScriptEngine::GetSourceContextInfo( DWORD_PTR hostSourceCont
     ::AutoBSTR bstrUrl;
 
     GetHostContextUrl(hostSourceContext, &bstrUrl);
-    return scriptContext->CreateSourceContextInfo(hostSourceContext, bstrUrl, SysStringLen(bstrUrl), profileDataCache, sourceMapUrl, SysStringLen(sourceMapUrl));
+    return scriptContext->CreateSourceContextInfo(hostSourceContext, bstrUrl, SysStringLen(bstrUrl), dataCacheWrapper, sourceMapUrl, SysStringLen(sourceMapUrl));
 }
 
 HRESULT ScriptEngine::GetHostContextUrl(__in DWORD_PTR hostSourceContext, __out BSTR* pUrl)

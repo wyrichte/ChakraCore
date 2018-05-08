@@ -644,16 +644,20 @@ public:
     // Compile Function type
     typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength, DWORD dwBgParseCookie,
         ulong grfscr, SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
-        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** pSourceInfo);
+        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting,
+        Js::Utf8SourceInfo** pSourceInfo, Js::SimpleDataCacheWrapper* pDataCache);
     typedef ulong (ComputeGrfscrFunction)();
     typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, DWORD dwBgParseCookie, ulong grfscr,
         SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
-        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting, Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);
+        CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting,
+        Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile,
+        Js::SimpleDataCacheWrapper* pDataCache);
     CompileScriptType CompileFunction;
 
     HRESULT CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgParseCookie, DWORD dwFlags, bool allowDeferParse, SRCINFO* psi,
         const void *pszDelimiter, LPCOLESTR pszTitle, CoreCompileFunction fnCoreCompile,
-        ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo, EXCEPINFO* pei = NULL, CScriptBody** ppbody = NULL);
+        ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo,
+        EXCEPINFO* pei = nullptr, CScriptBody** ppbody = nullptr, Js::SimpleDataCacheWrapper* pDataCache = nullptr);
 
     void RemoveEventSinks(EventSink *eventSink) { return eventSinks->Remove(eventSink);}
     ArenaAllocator* GetScriptAllocator() { return scriptAllocator;}
@@ -864,7 +868,8 @@ private:
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
-        __in CoreCompileFunction fnCoreCompile);
+        __in CoreCompileFunction fnCoreCompile,
+        __in Js::SimpleDataCacheWrapper* pDataCache);
 
     HRESULT ProfileModeCompile(
         __in void * pszSrc,
@@ -878,7 +883,8 @@ private:
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
-        __in CoreCompileFunction fnCoreCompile);
+        __in CoreCompileFunction fnCoreCompile,
+        __in Js::SimpleDataCacheWrapper* pDataCache);
 
     HRESULT CompileByteCodeBuffer(
         __in void * pszSrc,
@@ -891,7 +897,8 @@ private:
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
+        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
 
     HRESULT CompileUTF16(
         __in void * pszSrc,
@@ -904,7 +911,8 @@ private:
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
+        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
 
     HRESULT CompileUTF8(
         __in void *pszSrc,
@@ -917,7 +925,8 @@ private:
         __out CScriptBody **ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = NULL);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
+        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
 
     HRESULT CompileUTF8Core(
         __in Js::Utf8SourceInfo* sourceInfo,
@@ -930,7 +939,8 @@ private:
         __in_opt CompileScriptException *pse,
         __out CScriptBody **ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
-        __out BOOL &fUsedExisting);
+        __out BOOL &fUsedExisting,
+        __in Js::SimpleDataCacheWrapper* pDataCache);
 public:
     HRESULT FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
 private:
@@ -1056,7 +1066,7 @@ public:
     BOOL NamedBPEnter(void) { return m_NBPmutx.Enter(); }
     void NamedBPLeave(void) { m_NBPmutx.Leave(); }
 
-    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, IActiveScriptDataCache* profileDataCache);
+    SourceContextInfo * GetSourceContextInfo(DWORD_PTR hostSourceContext, uint hash, BOOL isDynamicDocument, BSTR sourceMapUrl, Js::SimpleDataCacheWrapper* dataCacheWrapper);
 
     DWORD DwResetGeneration (void) { return m_dwResetGeneration; }
     HRESULT DbgCreateBrowserFromCodeContext (
