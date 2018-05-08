@@ -1,4 +1,4 @@
-Bytecode GUID = {752B5975-74CF-499D-8438-F7028EB3CAC4}
+Bytecode GUID = {15F08B09-6802-4D9A-80B2-86CE974C1FEC}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1447,6 +1447,7 @@ Property: normalizeLanguageTag
 Property: isDTFLocaleAvailable
 Property: isCollatorLocaleAvailable
 Property: isNFLocaleAvailable
+Property: isPRLocaleAvailable
 Property: resolveLocaleLookup
 Property: resolveLocaleBestFit
 Property: getDefaultLocale
@@ -1462,6 +1463,8 @@ Property: getDefaultTimeZone
 Property: getPatternForSkeleton
 Property: getLocaleData
 Property: localeCompare
+Property: pluralRulesSelect
+Property: pluralRulesKeywords
 Property: registerBuiltInFunction
 Property: getHiddenObject
 Property: setHiddenObject
