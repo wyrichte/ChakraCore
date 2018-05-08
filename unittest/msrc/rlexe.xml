@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -227,6 +227,12 @@
   <test>
     <default>
       <files>43623.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>44220.js</files>
+      <compile-flags>-pageheap:2</compile-flags>
     </default>
   </test>
   <test>
