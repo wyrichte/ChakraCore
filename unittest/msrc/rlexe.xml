@@ -224,6 +224,12 @@
   </test>
   <test>
     <default>
+      <files>44220.js</files>
+      <compile-flags>-pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>msrc43229.js</files>
     </default>
   </test>
