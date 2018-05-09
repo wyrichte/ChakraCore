@@ -54,7 +54,7 @@ testSupportedLocales(["xxx"], []);
 
 testDateTimeFormatOptions({ hour: "numeric" }, new Date(2000, 1, 1), "8 AM");
 testDateTimeFormatOptions({ hour: "numeric", minute: "numeric", second: "numeric", hour12: true }, new Date(2000, 1, 1, 1, 1, 1), "9:01:01 AM");
-testDateTimeFormatOptions({ hour: "numeric", minute: "numeric", second: "numeric", hour12: false }, new Date(2000, 1, 1, 1, 1, 1), "9:01:01");
+testDateTimeFormatOptions({ hour: "numeric", minute: "numeric", second: "numeric", hour12: false }, new Date(2000, 1, 1, 1, 1, 1), "09:01:01");
 
 testDateTimeFormatOptions({ month: "numeric" }, new Date(2000, 1, 1), "2");
 testDateTimeFormatOptions({ month: "short" }, new Date(2000, 1, 1), "Feb");
@@ -73,15 +73,18 @@ testDateTimeFormatOptions({ weekday: "long" }, new Date(2000, 1, 1), "Tuesday");
 
 testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", year: "2-digit" }, new Date(-59958100000000), "01/01/70");
 
-testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", timeZone: "America/New_York", timeZoneName: "short" }, new Date(-59958100000000), "1/1/70 7:13:20 AM EST");
-
-testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", timeZone: "America/Denver", timeZoneName: "long" }, new Date(-59958100000000), "1/1/70 5:13:20 AM Mountain Standard Time");
+// Use GMT offsets instead of America/New_York and America/Denver below because those are technically not valid time zones before their inception in 1883.
+// As a result, when ICU sees them being used for such an early date, it prints out the time zone name as the specific solar noon offset from GMT.
+// The time zone offsets are reversed between what is asked for and what is printed because the printed version shows how many hours you need to add
+// to get from the displayed time to GMT, while the time zone requested conveys how many hours ahead/behind GMT you want the displayed time to be.
+// See ftp://ftp.iana.org/tz/data/etcetera
+testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Etc/GMT+5", timeZoneName: "short" }, new Date(-59958100000000), "01/01, 07:13 AM GMT-5");
+testDateTimeFormatOptions({ day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Etc/GMT+7", timeZoneName: "long" }, new Date(-59958100000000), "01/01, 05:13 AM GMT-07:00");
 
 //Expect no error here, Blue: 448060
 try {
     var test = new Intl.DateTimeFormat(undefined, { minute: "numeric" });
-}
-catch (e) {
+} catch (e) {
     passed = false;
 }
 

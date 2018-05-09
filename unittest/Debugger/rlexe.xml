@@ -247,7 +247,7 @@
       <files>FastF12_IgnoreException.js</files>
       <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode -testtrace:bailout -Intl</compile-flags>
       <baseline>FastF12_IgnoreException.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,exclude_winglob</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -263,7 +263,7 @@
       <files>FastF12_FirstChanceException_SetNext.js</files>
       <compile-flags>-DebugLaunch -targeted -forceNative -off:simpleJit -EnableJitInDiagMode</compile-flags>
       <baseline>FastF12_FirstChanceException_SetNext.baseline</baseline>
-      <tags>exclude_dynapogo,exclude_nonative,exclude_winglob</tags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
     </default>
   </test>
   <test>
@@ -1054,14 +1054,14 @@
     <default>
       <files>scriptContextClosed.js</files>
       <compile-flags>-ESSharedArrayBuffer -targeted -debuglaunch -InspectMaxStringLength:20 -dbgbaseline:scriptContextClosed.js.dbg.baseline</compile-flags>
-      <tags>exclude_winglob,exclude_arm64</tags>
+      <tags>exclude_arm64</tags>
     </default>
   </test>
   <test>
     <default>
       <files>scriptContextClosed.js</files>
       <compile-flags>-ESSharedArrayBuffer -targeted -debuglaunch -InspectMaxStringLength:20 -dbgbaseline:scriptContextClosed.js.dbg.arm64.baseline</compile-flags>
-      <tags>exclude_winglob,exclude_x86,exclude_amd64</tags>
+      <tags>exclude_x86,exclude_amd64</tags>
     </default>
   </test>
   <test>
@@ -1781,7 +1781,6 @@
       <files>ES6_intl_collator_exception.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_intl_collator_exception.js.dbg.baseline -Intl</compile-flags>
       <baseline>ES6_intl_collator_exception.js.baseline</baseline>
-      <tags>exclude_winglob</tags>
     </default>
   </test>
   <test>
@@ -2026,7 +2025,6 @@
       <files>async_exception_fromgetter.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:async_exception_fromgetter.js.dbg.baseline -Intl</compile-flags>
       <baseline>async_exception_fromgetter.js.baseline</baseline>
-      <tags>exclude_winglob</tags>
     </default>
   </test>
   <test>

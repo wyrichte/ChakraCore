@@ -172,6 +172,7 @@ goto :main
   copy /y %_BinDir%*.winmd %_TestTempDir%
 
   copy /y %_BinDir%Chakra.dll %_TestTempDir%
+  copy /y %_BinDir%*icu*.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.API.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.ComProjection.dll %_TestTempDir%
   copy /y %_BinDir%UnitTest.JsRT.RentalThreading.dll %_TestTempDir%

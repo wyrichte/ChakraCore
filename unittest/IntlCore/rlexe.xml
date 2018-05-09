@@ -7,14 +7,6 @@
       <files>DateTimeFormat.js</files>
     </default>
   </test>
-
-  <!-- TODO (doilij) core: 'Debug' is undefined -->
-  <test>
-    <default>
-      <compile-flags>-IntlBuiltIns -Intl</compile-flags>
-      <files>IntlPlatformTests.js</files>
-    </default>
-  </test>
   <test>
     <default>
       <compile-flags>-IntlBuiltIns -Intl -off:NativeArray -ForceES5Array</compile-flags>
@@ -49,7 +41,7 @@
       <files>intlAttach.js</files>
       <!-- TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue -->
       <!-- TODO (doilij): Determine why this doesn't run on Win10 and possibly create a new baseline for Win10 -->
-      <tags>exclude_winBlue,exclude_win10,exclude_winglob</tags>
+      <tags>exclude_winBlue,exclude_win10</tags>
     </default>
   </test>
   <test>
@@ -100,7 +92,7 @@
       <compile-flags>-targeted -dbgbaseline:scriptInLibrary.js.dbg.baseline -Intl</compile-flags>
       <files>scriptInLibrary_alt.js</files>
       TODO (doilij): Determine why this doesn't run on WinBlue and possibly create a new baseline for WinBlue
-      <tags>Intl,exclude_winBlue,exclude_winglob</tags>
+      <tags>Intl,exclude_winBlue</tags>
     </default>
   </test>
   -->

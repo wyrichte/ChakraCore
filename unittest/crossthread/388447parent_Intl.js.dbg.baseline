@@ -134,7 +134,8 @@
           "Collator": "<large string>",
           "DateTimeFormat": "<large string>",
           "getCanonicalLocales": "<large string>",
-          "NumberFormat": "<large string>"
+          "NumberFormat": "<large string>",
+          "PluralRules": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
@@ -183,12 +184,6 @@
           "length": "0",
           "name": ""
         },
-        "__relevantExtensionKeys": {
-          "__proto__": "[]",
-          "length": "2",
-          "[0]": "ca",
-          "[1]": "nu"
-        },
         "length": "0",
         "name": "<large string>",
         "prototype": {
@@ -200,6 +195,7 @@
         "[Methods]": {
           "constructor": "<large string>",
           "format": "<large string>",
+          "formatToParts": "<large string>",
           "resolvedOptions": "<large string>"
         },
         "__proto__": {

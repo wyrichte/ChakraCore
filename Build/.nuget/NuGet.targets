@@ -35,7 +35,7 @@
         <ExpandedPackageDir Condition=" '$(OS)' == 'Windows_NT'">"$(RepositoryRoot)\External"</ExpandedPackageDir>
 
         <ChakraICUPackageDir Condition="'$(Platform)'=='Win32'">$(ChakraICUBinaryPath)\x86</ChakraICUPackageDir>
-        <ChakraICUPackageDir Condition="'$(Platform)'=='x64'">$(ChakraICUBinaryPath)\x64</ChakraICUPackageDir>
+        <ChakraICUPackageDir Condition="'$(Platform)'!='Win32'">$(ChakraICUBinaryPath)\$(Platform)</ChakraICUPackageDir>
 
         <!-- Commands -->
         <RestoreCommand>$(NuGetCommand) install "$(PackagesConfig)" $(NonInteractiveSwitch) -ConfigFile $(NuGetConfigFile) -Source $(PackageSource) -OutputDirectory $(ExpandedPackageDir)</RestoreCommand>

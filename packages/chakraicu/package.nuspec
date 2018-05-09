@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ChakraICU</id>
+    <version>1.0.0</version>
+    <authors>jahorto</authors>
+    <description>ICU DLLs for usage of Windows Kit ICU before RS2</description>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+  </metadata>
+  <files>
+    <file src="stage\**\*.dll" target="." />
+  </files>
+</package>

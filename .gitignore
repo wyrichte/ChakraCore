@@ -40,6 +40,7 @@ tools/Exprgen
 .cproject
 *.dmp
 /packages/*/stage
+/packages/*/out
 CoreCompileInputs.cache
 tools/verification.log
 

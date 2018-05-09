@@ -73,6 +73,6 @@
     <!-- ========= From makefile.def ========= -->
     <LinkerAppVersion Condition="'$(LinkerAppVersion)' == ''">10.0</LinkerAppVersion>
     <LinkerOSVersion Condition="'$(LinkerOSVersion)' == ''">10.0</LinkerOSVersion>
-  </PropertyGroup>
 
+  </PropertyGroup>
 </Project>

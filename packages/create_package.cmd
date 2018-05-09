@@ -35,11 +35,15 @@ if "%NUGET_BASE_PATH%" EQU "" (
     goto :Exit
 )
 
+if "%NUGET_PACKAGE_CONFIG%" EQU "" (
+    set NUGET_PACKAGE_CONFIG=%SDXROOT%\onecoreuap\inetcore\jscript\packages.config
+)
+
 :: Use the following to pass the version explictly to nuget. This way we don't need to update the versions in the nuspec files.
-for /f tokens^=4^ delims^=^" %%i in ('findstr /R "%NUGET_PACKAGE_NAME%.*[0-9]\.[0-9]\.[0-9]" %SDXROOT%\onecoreuap\inetcore\jscript\packages.config') do set NUGET_PACKAGE_VERSION=%%i
+for /f tokens^=4^ delims^=^" %%i in ('findstr /R "%NUGET_PACKAGE_NAME%.*[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" %NUGET_PACKAGE_CONFIG%') do set NUGET_PACKAGE_VERSION=%%i
 
 if [%NUGET_PACKAGE_VERSION%]==[] (
-  echo %NUGET_PACKAGE_NAME% package version not found in packages.config!
+  echo %NUGET_PACKAGE_NAME% package version not found in %NUGET_PACKAGE_CONFIG%!
   goto :Exit
 )
 

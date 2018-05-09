@@ -156,9 +156,9 @@
         %(PreprocessorDefinitions);
         HAS_ICU;
         WINDOWS10_ICU;
-        INTL_ICU=1
+        INTL_ICU=1;
+        ICU_VERSION=$(IcuVersionMajor)
       </PreprocessorDefinitions>
-
     </ClCompile>
 
     <Link>

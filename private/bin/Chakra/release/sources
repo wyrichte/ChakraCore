@@ -88,6 +88,9 @@ TARGETLIBS= \
 !if (!$(FREEBUILD))
     $(SDK_LIB_PATH)\dbghelp.lib \
 !endif
+    $(MINWIN_PRIV_SDK_LIB_PATH)\MicrosoftTelemetryAssertUM.lib \
+    $(SDK_LIB_PATH)\icuuc.lib \
+    $(SDK_LIB_PATH)\icuin.lib \
 
 
 # Delay load

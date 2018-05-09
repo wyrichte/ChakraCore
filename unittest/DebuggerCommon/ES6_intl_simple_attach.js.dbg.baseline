@@ -21,8 +21,8 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
-        "Run": "<large string>",
-        "x": "undefined"
+        "x": "undefined",
+        "Run": "<large string>"
       }
     }
   },
@@ -118,7 +118,6 @@
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "__relevantExtensionKeys": "[ca,nu]",
               "length": "0",
               "name": "<large string>",
               "prototype": "{...}"
@@ -126,6 +125,12 @@
             "format": {
               "__proto__": "<large string>",
               "length": "1"
+            },
+            "formatToParts": {
+              "__proto__": "<large string>",
+              "length": "1",
+              "name": "",
+              "prototype": "{...}"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",

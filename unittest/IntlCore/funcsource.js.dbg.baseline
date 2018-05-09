@@ -13,7 +13,8 @@
           "Collator": "function Collator() { [native code] }",
           "DateTimeFormat": "function DateTimeFormat() { [native code] }",
           "getCanonicalLocales": "function() {\n    [native code]\n}",
-          "NumberFormat": "function NumberFormat() { [native code] }"
+          "NumberFormat": "function NumberFormat() { [native code] }",
+          "PluralRules": "function PluralRules() { [native code] }"
         },
         "__proto__": {
           "[Methods]": "{...}",

@@ -45,7 +45,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ChakraICU)'==''">
-    <ChakraICU>false</ChakraICU>
+    <ChakraICU>windows</ChakraICU>
+    <IcuVersionMajor>60</IcuVersionMajor>
   </PropertyGroup>
 
 </Project>

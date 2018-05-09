@@ -17,7 +17,7 @@ set EXTRA_CC_FLAGS=%EXTRA_CC_FLAGS% -bvt -BaselineMode
 call %~dp0InstallBinariesForRazzleUnittest.cmd
 
 pushd %_RootDir%\core\test
-call %_RootDir%\core\test\runtests.cmd -binary jshost.exe -binDir %_RootDir%\Build\VcBuild\Bin -nottags html -nottags exclude_jshost %*
+call %_RootDir%\core\test\runtests.cmd -binary jshost.exe -binDir %_RootDir%\Build\VcBuild\Bin -nottags html -nottags exclude_jshost -nottags require_winglob %*
 popd
 
 exit /b %ERRORLEVEL%

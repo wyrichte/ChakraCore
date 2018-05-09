@@ -46,7 +46,7 @@
       <files>bug_296426.js</files>
       <baseline>bug_296426.baseline</baseline>
       <compile-flags>-debuglaunch -Intl</compile-flags>
-      <tags>exclude_serialized,Intl,exclude_winglob</tags>
+      <tags>exclude_serialized</tags>
     </default>
   </test>
   <test>
@@ -137,7 +137,7 @@
       <compile-flags>-Intl -LogProfilerCallTree -Off:Inline</compile-flags>
       <!-- In the -forceserialized case a function will get registered twice if it wasn't serialized/deserialized prior to profiling. The first time when the bytecode was
       serialized and again when the bytecode was deserialized. This will cause a baseline mismatch.-->
-      <tags>Intl,exclude_winglob,exclude_forceserialized</tags>
+      <tags>exclude_forceserialized</tags>
     </default>
   </test>
   <test>

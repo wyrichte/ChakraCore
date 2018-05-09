@@ -5,12 +5,10 @@ BailOut: function foo2, Opcode: BailForDebugger Kind: BailOutForceByFlag | BailO
 BailOut: function foo3, Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutIgnoreException
 foo3.after throw
 BailOut: function InitializeCollator, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function Anonymous function, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function InitializeNumberFormat, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function Anonymous function, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
+BailOut: function ToDateTimeOptions, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function InitializeDateTimeFormat, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function EcmaOptionsToWindowsTemplate, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
-BailOut: function InitializeNumberFormat, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: function CanonicalizeLocaleList, Opcode: StElemC Kind: BailOutConventionalNativeArrayAccessOnly
 BailOut: changing due to ignore exception: function foo4, Opcode: BailForDebugger, Treating as: BailOutIgnoreException Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException
 BailOut: function foo4, Opcode: BailForDebugger Kind: BailOutForceByFlag | BailOutBreakPointInFunction | BailOutStackFrameBase | BailOutLocalValueChanged | BailOutStep | BailOutIgnoreException

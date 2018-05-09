@@ -32,14 +32,12 @@
     <default>
       <compile-flags>-debuglaunch -dbgbaseline:IntlInit.js.dbg.baseline -Intl</compile-flags>
       <files>IntlInit.js</files>
-      <tags>exclude_winglob,Intl</tags>
     </default>
   </test>
   <test>
     <default>
       <files>ES6_intl_stepinto.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_intl_stepinto.js.dbg.baseline -Intl</compile-flags>
-      <tags>exclude_winglob,Intl</tags>
     </default>
   </test>
   <test>
@@ -218,7 +216,6 @@
       <files>ES6_intl_simple_attach.js</files>
       <compile-flags>-targeted -dbgbaseline:ES6_intl_simple_attach.js.dbg.baseline -Intl</compile-flags>
       <baseline>ES6_intl_simple_attach.js.baseline</baseline>
-      <tags>exclude_winglob,Intl</tags>
     </default>
   </test>
   <test>
@@ -290,7 +287,6 @@
     <default>
       <files>ES6_intl_stepinto_libexpandos.js</files>
       <compile-flags>-debuglaunch -targeted -dbgbaseline:ES6_intl_stepinto_libexpandos.js.dbg.baseline -Intl</compile-flags>
-      <tags>exclude_winglob,Intl</tags>
     </default>
   </test>
   <test>

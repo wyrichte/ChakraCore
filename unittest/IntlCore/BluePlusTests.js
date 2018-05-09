@@ -23,8 +23,8 @@ function testDateTimeFormatOptions(opts, date, expected) {
     }
 }
 
-testDateTimeFormatOptions({ timeZoneName: "short" }, new Date(2000, 1, 1), "2/1/2000 8:00:00 AM GMT");
-testDateTimeFormatOptions({ timeZoneName: "long" }, new Date(2000, 1, 1), "2/1/2000 8:00:00 AM Greenwich Mean Time");
+testDateTimeFormatOptions({ timeZoneName: "short" }, new Date(2000, 1, 1), "2/1/2000, UTC");
+testDateTimeFormatOptions({ timeZoneName: "long" }, new Date(2000, 1, 1), "2/1/2000, Coordinated Universal Time");
 
 if (passed === true) {
     WScript.Echo("Pass");

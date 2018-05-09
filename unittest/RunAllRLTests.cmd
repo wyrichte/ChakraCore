@@ -253,12 +253,6 @@ if "%_drt%" == "" (
         call runjs setupJdTest
 
         call runjs setupJsHostTest
-
-        set _ExcludeIntlTests=-nottags exclude_winglob
-        call runjs setupWindowsGlobalization
-        if errorlevel 0 (
-            set _ExcludeIntlTests=
-        )
     )
 )
 
