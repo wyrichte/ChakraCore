@@ -226,6 +226,7 @@
         "[Methods]": {
           "constructor": "<large string>",
           "format": "<large string>",
+          "formatToParts": "<large string>",
           "resolvedOptions": "<large string>"
         },
         "__proto__": {
