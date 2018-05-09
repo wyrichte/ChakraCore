@@ -4475,6 +4475,15 @@ HRESULT JsQueueBackgroundParse(JsStaticAPI::ScriptContents* contents, DWORD* dwB
     return hr;
 }
 
+// JsDiscardBackgroundParse is an export function that allows previously queued background parse
+// requests to be safely cleaned up. It should be accessed via JsStaticApi::DiscardBackgroundParse
+// when possible.
+__declspec(dllexport)
+bool JsDiscardBackgroundParse(DWORD dwBgParseCookie, void* buffer)
+{
+    return BGParseManager::GetBGParseManager()->DiscardParseResults(dwBgParseCookie, buffer);
+}
+
 // FinishBackgroundParse completes the work started from JsQueueBackgroundParse. See the definition of
 // BGParseManager for more info
 HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo)

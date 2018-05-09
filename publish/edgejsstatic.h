@@ -226,5 +226,6 @@ namespace JsStaticAPI
     public:
         static HRESULT QueueBackgroundParse(ScriptContents* contents, DWORD* dwBgParseCookie);
         static HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, IActiveScriptDirect* activeScriptDirect, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
+        static bool    DiscardBackgroundParse(DWORD dwBgParseCookie, void* buffer);
     };
 };

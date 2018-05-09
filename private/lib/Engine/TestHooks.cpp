@@ -483,6 +483,7 @@ HRESULT OnJScript9Loaded()
         GetContentOfSharedArrayBuffer,
         CreateSharedArrayBufferFromContent,
         nullptr, // JsQueueBackgroundParse
+        nullptr, // JsDiscardBackgroundParse
 #if defined(ENABLE_INTL_OBJECT) && !defined(HAS_ICU)
         ResetTimeZoneFactoryObjects,
 #endif

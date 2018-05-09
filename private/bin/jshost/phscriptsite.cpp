@@ -1155,7 +1155,7 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
     for (std::vector<ScriptLoadData*>::iterator it = data->begin(); it != data->end() && hr == S_OK; ++it, i++)
     {
         ScriptLoadData* thisData = *it;
-        fwprintf(stdout, _u("[Reading file #%d: %s, on thread 0x%X]\n"), i, thisData->ffd.cFileName, ::GetCurrentThreadId());
+        fwprintf(stdout, _u("\t[Reading file #%d: %s, on thread 0x%X]\n"), i, thisData->ffd.cFileName, ::GetCurrentThreadId());
 
         LPCOLESTR contents = NULL;
         bool isUtf8 = false;
@@ -1184,6 +1184,10 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
                     script.contentLengthInBytes = thisData->length;
                     script.fullPath = fullpath;
                     JScript9Interface::JsQueueBackgroundParse(&script, &thisData->bgParseCookie);
+                    if (hr == S_OK && i % 10 == 0)
+                    {
+                        JScript9Interface::JsDiscardBackgroundParse(thisData->bgParseCookie, (void*)thisData->contents);
+                    }
                 }
                 else
                 {
@@ -1202,7 +1206,7 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
         SetEvent(thisData->loaded);
     }
 
-    fwprintf(stdout, _u(">>Finished loading %d files\n"), i);
+    fwprintf(stdout, _u("\t>>Finished loading %d files\n"), i);
     Assert(hr == S_OK);
 
     return hr;
@@ -1255,7 +1259,8 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
     {
         CComPtr<IActiveScriptDirect> activeScriptDirect;
         hr = activeScript->QueryInterface(IID_PPV_ARGS(&activeScriptDirect));
-        for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end(); ++it)
+        int i = 0;
+        for (std::vector<ScriptLoadData*>::iterator it = data.begin(); it != data.end(); ++it, i++)
         {
             ScriptLoadData* thisData = *it;
 
@@ -1270,9 +1275,17 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
             RegisterScriptDir(dwSourceCookie, fullpath);
 
             // Execute the script parsed on the background
-            EXCEPINFO excepinfo;
-            hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(thisData->bgParseCookie, activeScriptDirect, thisData->dwSourceCookie, thisData->dwFlag, nullptr, &excepinfo);
-            fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
+            if (i % 5 != 0)
+            {
+                EXCEPINFO excepinfo;
+                hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(thisData->bgParseCookie, activeScriptDirect, thisData->dwSourceCookie, thisData->dwFlag, nullptr, &excepinfo);
+                fwprintf(stdout, _u("\t[Executed script: %s, with hr=%X]\n"), thisData->ffd.cFileName, hr);
+            }
+            else
+            {
+                JScript9Interface::JsDiscardBackgroundParse(thisData->bgParseCookie, (void*)thisData->contents);
+                fwprintf(stdout, _u("\t[Discarded script: %s]\n"), thisData->ffd.cFileName, hr);
+            }
 
             CloseHandle(thisData->loaded);
             thisData->loaded = 0;
