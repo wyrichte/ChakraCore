@@ -139,6 +139,19 @@ bool JDTypeCache::HasMultipleSymbol(ULONG64 address)
     return false;
 }
 
+// In release build, various vtable is ICF'ed.  Here are the overrides
+static char const * PreloadVtableNames[]
+{
+    "Js::LiteralString",        // Js::BufferStringBuilder::WritableString, Js::SingleCharString
+    "Js::DynamicObject",        // Js::WebAssemblyInstance
+    "Js::JavascriptDate",       // Js::JavascriptDateWinRTDate
+    "Js::RuntimeFunction",      // Js::JavascriptPromise*Function, JavascriptTypedObjectSlotAccessorFunction
+    "Js::RecyclableObject",     // Js::ThrowErrorObject, Js::UndeclaredBlockVariable
+    "Js::ScriptFunction",       // Js::AsmJsScriptFunction
+    "Js::CustomExternalObject", // Projection::ArrayObjectInstance
+    "Js::JavascriptArray",      // Js::JavascriptNativeArray
+
+};
 char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
 {
     if (!isOverrideAddedToVtableTypeNameMap)
@@ -146,79 +159,17 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
         isOverrideAddedToVtableTypeNameMap = true;
 
         char const * moduleName = GetExtension()->GetModuleName();
-        // In release build, various vtable is ICF'ed.  Here are the overrides
-
-        // Js::LiteralString vtable may be ICF'ed with Js::BufferStringBuilder::WritableString or Js::SingleCharString.
-        // It is preferable to always report Js::LiteralString for all 3.  Enter the offset into the vtableTypeNameMap
-        std::string vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::LiteralString");
-        ULONG64 offset;
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+        
+        for (int i = 0; i < _countof(PreloadVtableNames); i++)
         {
-            auto newString = new std::string(std::string(moduleName) + "!Js::LiteralString");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::DynamicObject vtable may be ICF'ed with Js::WebAssemblyInstance
-        // It is preferable to always report Js::DynamicObject for both.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::DynamicObject");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::DynamicObject");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::JavascriptDate vtable may be ICF'ed with Js::JavascriptDateWinRTDate
-        // It is preferable to always report Js::JavascriptDate for both.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::JavascriptDate");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::JavascriptDate");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::RuntimeFunction vtable may be ICF'ed with Js::JavascriptPromise*Function and JavascriptTypedObjectSlotAccessorFunction
-        // It is preferable to always report Js::RuntimeFunction for all of them.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::RuntimeFunction");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::RuntimeFunction");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::RecyclableObject vtable may be ICF'ed with Js::ThrowErrorObject and Js::UndeclaredBlockVariable
-        // It is preferable to always report Js::RecyclableObject for all of them.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::RecyclableObject");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::RecyclableObject");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::ScriptFunction vtable may be ICF'ed with Js::AsmJsScriptFunction
-        // It is preferable to always report Js::ScriptFunction for all of them.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::ScriptFunction");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::ScriptFunction");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // CustomExternalObject vtable may be ICF'ed with Projection::ArrayObjectInstance
-        // It is preferable to always report CustomExternalObject for all of them.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("CustomExternalObject");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!CustomExternalObject");
-            vtableTypeNameMap[offset] = newString;
-        }
-
-        // Js::JavascriptArray vtable may be ICF'ed with Js::JavascriptNativeArray
-        // It is preferable to always report Js::JavascriptArray for all of them.  Enter the offset into the vtableTypeNameMap
-        vtableSymbolName = GetExtension()->GetRemoteVTableName("Js::JavascriptArray");
-        if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
-        {
-            auto newString = new std::string(std::string(moduleName) + "!Js::JavascriptArray");
-            vtableTypeNameMap[offset] = newString;
+            char const * name = PreloadVtableNames[i];
+            std::string vtableSymbolName = GetExtension()->GetRemoteVTableName(name);
+            ULONG64 offset;
+            if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
+            {
+                auto newString = new std::string(std::string(moduleName) + "!" + name);
+                vtableTypeNameMap[offset] = newString;
+            }
         }
     }
 

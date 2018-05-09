@@ -59,18 +59,21 @@ public:
     }
 
 
-    template <typename Sort, typename Fn>
-    bool MapSorted(Fn fn)
+    template <typename Sort, typename FnInclude, typename FnSorted>
+    bool MapSorted(FnInclude fnInclude, FnSorted fnSorted)
     {
         std::set<GraphImplNodeType*, Sort> sortedNodes;
         MapAllNodes([&](GraphImplNodeType* node)
         {
-            sortedNodes.insert(node);
+            if (fnInclude(node))
+            {
+                sortedNodes.insert(node);
+            }
         });
 
         for (auto i = sortedNodes.begin(); i != sortedNodes.end(); i++)
         {
-            if (fn((*i)))
+            if (fnSorted((*i)))
             {
                 return true;
             }

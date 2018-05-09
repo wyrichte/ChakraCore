@@ -237,7 +237,7 @@ bool RemoteRecyclableObject::DumpPossibleExternalSymbol(char const * typeName, b
 
                 if (!symbol.empty())
                 {
-                    g_Ext->Out(" (maybe DOM item %s)", symbol.c_str());
+                    g_Ext->Out(" (DOM item %s)", symbol.c_str());
                 }
                 else
                 {

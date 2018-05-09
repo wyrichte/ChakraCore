@@ -2297,8 +2297,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
         this->Out("Skipping %I64d\n", skip);
     }
 
-    ULONG64 count = 0;
-    auto output = [&](RecyclerObjectGraph::GraphImplNodeType* node)
+    auto include = [&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
         if (filterUnknownType)
         {
@@ -2324,23 +2323,28 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
                 return false;
             }
         }
-
+        return true;
+    };
+    
+    ULONG64 count = 0;
+    auto output = [&](RecyclerObjectGraph::GraphImplNodeType* node)
+    {       
         if (count >= skip)
         {
             this->Out("%6d %6d %8d ", node->GetPredecessorCount(), node->GetSuccessorCount(), node->GetObjectSize());
 
-        if (PreferDML())
-        {
-            this->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", node->Key());
-            this->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", node->Key());
-            this->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link> ", node->Key());
-        }
-        else
-        {
-            this->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/ ", node->Key());
-            this->Out("v /*\"!jd.successors -limit 0 0x%p\"*/ ", node->Key());
-            this->Out("> /*\"!jd.traceroots 0x%p\"*/ ", node->Key());
-        }
+            if (PreferDML())
+            {
+                this->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", node->Key());
+                this->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", node->Key());
+                this->Dml("<link cmd=\"!jd.traceroots 0x%p\">&gt;</link> ", node->Key());
+            }
+            else
+            {
+                this->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/ ", node->Key());
+                this->Out("v /*\"!jd.successors -limit 0 0x%p\"*/ ", node->Key());
+                this->Out("> /*\"!jd.traceroots 0x%p\"*/ ", node->Key());
+            }
 
             this->Out("0x%p", node->Key());
 
@@ -2399,15 +2403,15 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     if (sortBySucc)
     {
-        objectGraph.MapSorted<SortNodeBySuccessorAndObjectSize>(output);
+        objectGraph.MapSorted<SortNodeBySuccessorAndObjectSize>(include, output);
     }
     else if (sortByPred)
     {
-        objectGraph.MapSorted<SortNodeByPredecessorAndObjectSize>(output);
+        objectGraph.MapSorted<SortNodeByPredecessorAndObjectSize>(include, output);
     }
     else
     {
-        objectGraph.MapSorted<SortNodeByObjectSizeAndSuccessor>(output);
+        objectGraph.MapSorted<SortNodeByObjectSizeAndSuccessor>(include, output);
     }
 
     this->Out("--------------------------------------------------------------\n");
