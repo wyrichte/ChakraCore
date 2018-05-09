@@ -1,4 +1,4 @@
-Bytecode GUID = {15F08B09-6802-4D9A-80B2-86CE974C1FEC}
+Bytecode GUID = {E5C65246-CD5B-42D6-AF57-33F1C3787C46}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1563,6 +1563,8 @@ Property: InitInternalProperties
 Property: methodName
 Property: registerChakraLibraryFunction
 Property: registerFunction
+Property: toLength
+Property: toInteger
 Property: builtInGlobalObjectEntryIsFinite
 Property: builtInGlobalObjectEntryIsNaN
 Property: builtInGlobalObjectEval
