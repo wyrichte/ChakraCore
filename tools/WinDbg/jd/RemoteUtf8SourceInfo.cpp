@@ -39,7 +39,7 @@ RemoteBaseDictionary RemoteUtf8SourceInfo::GetFunctionBodyDictionary()
 
 ExtRemoteTyped RemoteUtf8SourceInfo::GetExtRemoteTyped()
 {
-    return utf8SourceInfo;
+    return utf8SourceInfo.GetExtRemoteTyped();
 }
 
 bool RemoteUtf8SourceInfo::HasBoundedPropertyRecordHashSet()

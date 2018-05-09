@@ -12,7 +12,7 @@ public:
     JDByteCode(bool dumpProbeBackingBlock, bool verbose);
     ~JDByteCode();
     void DumpForInterpreterStackFrame(ExtRemoteTyped interpreterStackFrame);
-    void DumpForFunctionBody(ExtRemoteTyped functionBody);
+    void DumpForFunctionBody(JDRemoteTyped functionBody);
     void DumpForJavascriptFunction(ExtRemoteTyped functionObject);
     void DumpForScriptFunction(ExtRemoteTyped functionObject);
     void DumpForRecyclableObject(ExtRemoteTyped recyclableObject);

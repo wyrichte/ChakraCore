@@ -146,11 +146,11 @@ bool RemoteThreadContext::TryGetThreadContextFromTeb(RemoteThreadContext& remote
     if (GetTlsSlot(teb, tlsSlotIndex, &tlsEntryPtr) && tlsEntryPtr)
     {
         ExtRemoteTyped tlsEntry(GetExtension()->FillModule("(%s!ThreadContextTLSEntry*)@$extin"), tlsEntryPtr);
-        ExtRemoteTyped threadContextId = tlsEntry.Field("threadContext");
+        JDRemoteTyped threadContextId = tlsEntry.Field("threadContext");
         
         if (IsUsingThreadContextBase())
         {
-            remoteThreadContext = ExtRemoteTyped(GetExtension()->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
+            remoteThreadContext = JDRemoteTyped(GetExtension()->FillModule2("(%s!ThreadContext*)(%s!ThreadContextBase*)@$extin"), threadContextId.GetPtr());
         }
         else
         {

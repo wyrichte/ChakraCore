@@ -88,7 +88,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
     if (typeCache.vtableTypeIdMap.find(vtbleAddr) != typeCache.vtableTypeIdMap.end())
     {
         std::pair<ULONG64, ULONG> vtableTypeId = typeCache.vtableTypeIdMap[vtbleAddr];
-        result.Set(true, vtableTypeId.first, vtableTypeId.second, objectAddress);
+        result = JDRemoteTyped(vtableTypeId.first, vtableTypeId.second, objectAddress, true);
         if (typeName)
         {
             *typeName = typeCache.GetTypeNameFromVTablePointer(vtbleAddr);
@@ -110,7 +110,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
         if (SUCCEEDED(GetExtension()->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
             && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
         {
-            result.Set(true, modBase, typeId, objectAddress);
+            result = JDRemoteTyped(modBase, typeId, objectAddress, true);
             typeCache.vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
             return true;
         }

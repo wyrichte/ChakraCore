@@ -331,8 +331,9 @@ void RootPointerReader::ScanImplicitRoots(bool print)
         if (remoteHeapBlock.IsLargeHeapBlock())
         {
             ULONG64 sizeOfObjectHeader = g_Ext->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
-            return remoteHeapBlock.ForEachLargeObjectHeader([&](ExtRemoteTyped& header)
+            return remoteHeapBlock.ForEachLargeObjectHeader([&](JDRemoteTyped& h)
             {
+                ExtRemoteTyped header = h.GetExtRemoteTyped();
                 byte attribute;
 
                 if (header.HasField("attributesAndChecksum"))
@@ -491,7 +492,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     }
     this->Out("%s", typeName);
 
-    RemoteRecyclableObject(object).DumpPossibleExternalSymbol(typeName, makeLink, showScriptContext);    
+    RemoteRecyclableObject(object.GetExtRemoteTyped()).DumpPossibleExternalSymbol(typeName, makeLink, showScriptContext);    
 
     return true;
 }
@@ -649,7 +650,7 @@ JD_PRIVATE_COMMAND(findref,
             ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
             heapBlock.ForEachLargeObjectHeader([referencedObject, sizeOfObjectHeader, rootPointers, &results](JDRemoteTyped header)
             {
-                ULONG64 objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
+                ULONG64 objectSize = header.Field("objectSize").GetSizeT();
 
                 ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
 

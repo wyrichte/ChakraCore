@@ -219,7 +219,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
     if (strcmp(simpleTypeName, "Js::FunctionInfo *") == 0)
     {
         // Get the library info from the functionBodyImpl
-        remoteTyped = RemoteFunctionInfo(remoteTyped).GetFunctionBody();
+        remoteTyped = RemoteFunctionInfo(remoteTyped.GetExtRemoteTyped()).GetFunctionBody();
         if (remoteTyped.GetPtr() == 0)
         {
             return 0;
@@ -327,7 +327,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
             if (typeName != nullptr && strcmp(JDUtil::StripModuleName(typeName), "Js::Utf8SourceInfo") == 0)
             {
-                RemoteUtf8SourceInfo utf8SourceInfo(predRemoteTyped);
+                RemoteUtf8SourceInfo utf8SourceInfo(predRemoteTyped.GetExtRemoteTyped());
                 library = utf8SourceInfo.GetScriptContext().GetJavascriptLibrary().GetPtr();
                 return true;
             }
@@ -477,7 +477,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             });
             return false;
         });
-        RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
+        RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards").GetExtRemoteTyped();
         setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
         setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
         propertyGuards.ForEachValue([&](JDRemoteTyped entry)
@@ -494,7 +494,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             });
             if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
             {
-                RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
+                RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints").GetExtRemoteTyped();
                 setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
                 if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
                 {
@@ -965,7 +965,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 }
                 else if (remoteTyped.HasField("kind"))
                 {
-                    PSTR mapKind = remoteTyped.Field("kind").GetSimpleValue();
+                    char const * mapKind = remoteTyped.Field("kind").GetSimpleValue();
 
                     if (ENUM_EQUAL(mapKind, SimpleVarMap))
                     {
@@ -989,7 +989,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 }
                 else if (remoteTyped.HasField("kind"))
                 {
-                    PSTR setKind = remoteTyped.Field("kind").GetSimpleValue();
+                    char const * setKind = remoteTyped.Field("kind").GetSimpleValue();
 
                     if (ENUM_EQUAL(setKind, IntSet))
                     {
@@ -1012,7 +1012,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 || IsTypeOrCrossSite("Js::JavascriptWeakSet"))
             {
                 addDynamicObjectFields(remoteTyped);
-                RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet");
+                RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet").GetExtRemoteTyped();
                 AddDictionaryFieldOnly(keySet, "Js::JavascriptWeakMap::KeySet");
             }
             else if (IsTypeOrCrossSite("Js::JavascriptExternalFunction")
@@ -1096,7 +1096,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             else if (strcmp(simpleTypeName, "Js::FunctionBody *") == 0)
             {
                 addParseableFunctionInfoFields(remoteTyped, FunctionBodyNameIndex);
-                RemoteFunctionBody functionBody(remoteTyped);
+                RemoteFunctionBody functionBody(remoteTyped.GetExtRemoteTyped());
                 if (functionBody.HasField("counters"))
                 {
                     addField(JDUtil::GetWrappedField(functionBody.Field("counters"), "fields"), "Js::FunctionBody.counters.fields");
@@ -1197,7 +1197,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         }
 
                         addField(JDUtil::GetWrappedField(curr.Field("clonedInlineCaches"), "inlineCaches"), "Js::FunctionBody.<FunctionCodeGenRuntimeData.ClonedInlineCaches[]>");
-                        RemoteFunctionBody currBody(curr.Field("functionBody"));
+                        RemoteFunctionBody currBody(curr.Field("functionBody").GetExtRemoteTyped());
                         addFunctionCodeGenRuntimeDataArray(curr.Field("inlinees"), currBody.GetProfiledCallSiteCount());
                         // IE11 doesn't have ldFldInlinees
                         if (curr.HasField("ldFldInlinees"))
@@ -1357,7 +1357,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             }
             else if (strcmp(simpleTypeName, "Js::Utf8SourceInfo *") == 0)
             {
-                RemoteUtf8SourceInfo utf8SourceInfo(remoteTyped);
+                RemoteUtf8SourceInfo utf8SourceInfo(remoteTyped.GetExtRemoteTyped());
                 if (!GetExtension()->IsJScript9())
                 {
                     JDRemoteTyped lineOffsetCache = utf8SourceInfo.GetLineOffsetCache();
@@ -1619,7 +1619,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     do
                     {
                         addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
-                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + recycler.GetObjectGranularity() - g_Ext->m_PtrSize);
+                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + recycler.GetObjectGranularity() - g_Ext->m_PtrSize).GetExtRemoteTyped();
                     } while (bindRefChunk.GetPtr() != 0);
                     addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
                 }

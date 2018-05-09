@@ -7,7 +7,7 @@
 class RemoteBaseDictionary
 {
 public:
-    RemoteBaseDictionary(ExtRemoteTyped baseDictionary) : baseDictionary(baseDictionary), bucketCountName("bucketCount") {}
+    RemoteBaseDictionary(JDRemoteTyped baseDictionary) : baseDictionary(baseDictionary), bucketCountName("bucketCount") {}
 
     JDRemoteTyped GetBuckets();
     JDRemoteTyped GetEntries();
@@ -53,9 +53,9 @@ public:
         return false;
     }
 
-    ExtRemoteTyped GetExtRemoteTyped() { return baseDictionary; }
+    ExtRemoteTyped GetExtRemoteTyped() { return baseDictionary.GetExtRemoteTyped(); }
 protected:
-    RemoteBaseDictionary(ExtRemoteTyped baseDictionary, const char * bucketCountName) : baseDictionary(baseDictionary), bucketCountName(bucketCountName) {}
+    RemoteBaseDictionary(JDRemoteTyped baseDictionary, const char * bucketCountName) : baseDictionary(baseDictionary), bucketCountName(bucketCountName) {}
 private:
     JDRemoteTyped baseDictionary;
     char const * bucketCountName;
@@ -64,5 +64,5 @@ private:
 class RemoteWeaklyReferencedKeyDictionary : public RemoteBaseDictionary
 {
 public:
-    RemoteWeaklyReferencedKeyDictionary(ExtRemoteTyped baseDictionary) : RemoteBaseDictionary(baseDictionary, "size") {}
+    RemoteWeaklyReferencedKeyDictionary(JDRemoteTyped baseDictionary) : RemoteBaseDictionary(baseDictionary, "size") {}
 };

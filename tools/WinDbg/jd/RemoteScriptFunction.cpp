@@ -6,7 +6,7 @@
 RemoteScriptFunction::RemoteScriptFunction()
 {}
 
-RemoteScriptFunction::RemoteScriptFunction(ExtRemoteTyped const& o) :
+RemoteScriptFunction::RemoteScriptFunction(JDRemoteTyped const& o) :
     RemoteJavascriptFunction(o)
 {
 }

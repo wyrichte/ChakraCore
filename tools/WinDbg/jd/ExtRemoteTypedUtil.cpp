@@ -28,7 +28,7 @@ ULONG64 ExtRemoteTypedUtil::Count(ExtRemoteTyped object, PCSTR field)
 {
     ULONG64 count = 0;
     LinkListForEach(object, field, 
-        [&count](ExtRemoteTyped& object) 
+        [&count](JDRemoteTyped& object)
         { 
             count++; 
             return false; 
@@ -40,7 +40,7 @@ ULONG64 ExtRemoteTypedUtil::TaggedCount(ExtRemoteTyped object, PCSTR field)
 {
     ULONG64 count = 0;
     LinkListForEachTagged(object, field,
-        [&count](ExtRemoteTyped& object)
+        [&count](JDRemoteTyped& object)
         {
             count++;
             return false;

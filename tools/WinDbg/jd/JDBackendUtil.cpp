@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "JDBackendUtil.h"
-ExtRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
+JDRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
 {
     if (func.HasField("m_jnFunction"))
     {
@@ -18,6 +18,6 @@ ExtRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
 
 EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(ExtRemoteTyped func)
 {
-    return EXT_CLASS_BASE::PropertyNameReader(GetExtension()->IsJITServer() ? ExtRemoteTyped("(void *)0") :
+    return EXT_CLASS_BASE::PropertyNameReader(GetExtension()->IsJITServer() ? JDRemoteTyped("(void *)0") :
         RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());
 }

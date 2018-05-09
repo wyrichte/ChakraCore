@@ -8,7 +8,7 @@ class RemoteEntryPoint
 {
 public:
     RemoteEntryPoint();
-    RemoteEntryPoint(ExtRemoteTyped entryPoint);
+    RemoteEntryPoint(JDRemoteTyped entryPoint);
     
     ULONG64 GetPtr();
     bool IsInNativeAddressRange(ULONG64 nativeAddress);

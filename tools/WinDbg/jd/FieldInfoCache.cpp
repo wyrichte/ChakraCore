@@ -56,7 +56,7 @@ bool FieldInfoCache::HasField(ExtRemoteTyped& object, char const * fieldName)
     return true;
 }
 
-JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * fieldName)
+JDRemoteTyped FieldInfoCache::GetField(ExtRemoteTyped& object, char const * fieldName)
 {
     const char* end = strchr(fieldName, '.');
     JDRemoteTyped field;
@@ -73,19 +73,20 @@ JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * field
     {
         ExtRemoteTyped derefObject = object.m_Typed.Tag == SymTagPointerType ? object.Dereference() : object;
         FieldNamePart name(fieldName, end); // Only query field name part before dot
-        field = derefObject.Field(name);
-        ExtRemoteTyped pointerToField = field.GetPointerTo();       // Forces "field" to be populate correctly.
+        ExtRemoteTyped tempField = derefObject.Field(name);
+        ExtRemoteTyped pointerToField = tempField.GetPointerTo();       // Forces "field" to be populate correctly.
 
         // TODO: Don't cache field that are size 1, because they may be bit fields, and I don't know how to distingish them
-        if (field.m_Typed.Size != 1)
+        if (tempField.m_Typed.Size != 1)
         {
-            Value value(field.m_Typed.ModBase, field.m_Typed.TypeId, (ULONG)(field.m_Offset - derefObject.m_Offset));
+            Value value(tempField.m_Typed.ModBase, tempField.m_Typed.TypeId, (ULONG)(tempField.m_Offset - derefObject.m_Offset));
             if (value.IsValid())
             {
                 fieldInfoCache.cache[key] = value;
             }
         }
+        field = tempField;
     }
 
-    return end ? GetField(field, end + 1) : field;
+    return end ? GetField(field.GetExtRemoteTyped(), end + 1) : field;
 }

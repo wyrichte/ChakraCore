@@ -679,7 +679,7 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
 }
 
 // Get RemoteTypeHandler for a DynamicObject
-RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler)
+RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& typeHandler)
 {
     if (m_typeHandlersByName.empty())
     {
@@ -793,7 +793,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
     if (showAll)
     {
         JDRemoteTyped javascriptLibrary = scriptContext.GetJavascriptLibrary();
-        ExtRemoteTyped globalObject = javascriptLibrary.Field("globalObject");
+        ExtRemoteTyped globalObject = javascriptLibrary.Field("globalObject").GetExtRemoteTyped();
         ULONG64 javascriptLibraryPtr = javascriptLibrary.GetPtr();
         if (showLink)
         {
@@ -976,7 +976,7 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
             remoteUtf8SourceInfo.GetExtRemoteTyped().OutFullValue();
             if (printSourceContextInfo)
             {
-                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo");
+                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo").GetExtRemoteTyped();
                 Out("SourceContextInfo : \n");
                 sourceContextInfo.OutFullValue();
             }
@@ -1370,7 +1370,7 @@ JD_PRIVATE_COMMAND(jstack,
 
             if (dumpArgs)
             {
-                ExtRemoteTyped callInfo = nativeLibraryEntryRecordCurr.Field("callInfo");
+                ExtRemoteTyped callInfo = nativeLibraryEntryRecordCurr.Field("callInfo").GetExtRemoteTyped();
                 ULONG callCount = callInfo.Field("Count").GetUlong();
 
                 // Skip the return address, and the 2 arguments function and callInfo
@@ -1439,7 +1439,7 @@ JD_PRIVATE_COMMAND(jstack,
            JDRemoteTyped type = firstArgCasted.Field("type");
             if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
             {
-                RemoteScriptFunction function(firstArgCasted);
+                RemoteScriptFunction function(firstArgCasted.GetExtRemoteTyped());
                 ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
                 ULONG callFlags = callInfo.Field("Flags").GetUlong();
                 

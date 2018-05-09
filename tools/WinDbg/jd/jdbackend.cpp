@@ -213,7 +213,7 @@ char * JDBackend::GetOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t le
     if (!typeName)
     {
         // Opnd doesn't have vtable on retail build.  Use the kind to infer the type.
-        const char * opndKindStr = JDUtil::GetEnumString(opnd.Field("m_kind"));
+        const char * opndKindStr = opnd.Field("m_kind").GetEnumString();
         if (strcmp(opndKindStr, "OpndKindIntConst") == 0)
         {
             typeName = "IR::IntConstOpnd";
@@ -275,43 +275,43 @@ char * JDBackend::GetOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t le
 
     if (strcmp(typeName, "IR::IntConstOpnd") == 0)
     {
-        return GetIntConstOpndDumpString(typedOpnd, buffer, len);
+        return GetIntConstOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::FloatConstOpnd") == 0)
     {
-        return GetFloatConstOpndDumpString(typedOpnd, buffer, len);
+        return GetFloatConstOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::HelperCallOpnd") == 0)
     {
-        return GetHelperCallOpndDumpString(typedOpnd, buffer, len);
+        return GetHelperCallOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::SymOpnd") == 0 || strcmp(typeName, "IR::PropertySymOpnd") == 0)
     {
-        return GetSymOpndDumpString(typedOpnd, buffer, len);
+        return GetSymOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::RegOpnd") == 0)
     {
-        return GetRegOpndDumpString(typedOpnd, buffer, len);
+        return GetRegOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::AddrOpnd") == 0)
     {
-        return GetAddrOpndDumpString(typedOpnd, buffer, len);
+        return GetAddrOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::IndirOpnd") == 0)
     {
-        return GetIndirOpndDumpString(typedOpnd, buffer, len);
+        return GetIndirOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::LabelOpnd") == 0)
     {
-        return GetLabelOpndDumpString(typedOpnd, buffer, len);
+        return GetLabelOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::MemRefOpnd") == 0)
     {
-        return GetMemRefOpndDumpString(typedOpnd, buffer, len);
+        return GetMemRefOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     if (strcmp(typeName, "IR::RegBVOpnd") == 0)
     {
-        return GetRegBVOpndDumpString(typedOpnd, buffer, len);
+        return GetRegBVOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
     }
     return "<UnknownKind>";
    

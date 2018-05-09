@@ -178,12 +178,12 @@ EXT_COMMAND(fb,
     // Infer from vtable if it is just an address
     if (strcmp(inputType, "int") == 0)
     {
-        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong());
+        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong()).GetExtRemoteTyped();
         inputType = input.GetTypeName();
     }
     else if (strcmp(inputType, "int64") == 0)
     {
-        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong64());
+        input = JDRemoteTyped::FromPtrWithVtable(input.GetLong64()).GetExtRemoteTyped();
         inputType = input.GetTypeName();
     }
 
@@ -192,11 +192,11 @@ EXT_COMMAND(fb,
         || strcmp(inputType, "Js::ParseableFunctionInfo") == 0
         || strcmp(inputType, "Js::ParseableFunctionInfo *") == 0)
     {
-        functionBody = input;
+        functionBody = JDRemoteTyped(input);
     }
     else if (strcmp(inputType, "Js::InterpreterStackFrame") == 0 || strcmp(inputType, "Js::InterpreterStackFrame *") == 0)
     {
-        functionBody = input.Field("m_functionBody");
+        functionBody = JDRemoteTyped(input.Field("m_functionBody"));
     }
     else if (strcmp(inputType, "Js::JavascriptFunction") == 0 || strcmp(inputType, "Js::JavascriptFunction *") == 0
         || strcmp(inputType, "Js::ScriptFunction") == 0 || strcmp(inputType, "Js::ScriptFunction *") == 0)
@@ -237,7 +237,7 @@ EXT_COMMAND(fb,
     }
     else if (strcmp(inputType, "IRBuilder") == 0 || strcmp(inputType, "IRBuilder *") == 0)
     {
-        functionBody = input.Field("m_functionBody");
+        functionBody = JDRemoteTyped(input.Field("m_functionBody"));
     }
     else
     {

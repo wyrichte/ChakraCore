@@ -250,7 +250,7 @@ protected:
     void DisplayLargeHeapBlockInfo(ExtRemoteTyped& largeHeapBlock);
     void DisplaySmallHeapBlockInfo(ExtRemoteTyped& smallHeapBlock, RemoteRecycler recycler);
     void DisplayPageAllocatorInfo(JDRemoteTyped pageAllocator, CommandOutputType outputType = NormalOutputType);
-    void DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
+    void DisplaySegmentList(PCSTR strListName, JDRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType = NormalOutputType, bool pageSegment = true);
 
     bool HasType(const char* moduleName, const char* typeName);
     PCSTR GetModuleName();
@@ -273,7 +273,7 @@ protected:
 public: // TODO (doilij) reorganize public member (this being public is needed for CSVX)
     std::string GetTypeNameFromVTable(ULONG64 vtableAddress);
 protected:
-    RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler);
+    RemoteTypeHandler* GetTypeHandler(ExtRemoteTyped& typeHandler);
 
     void DumpStackTraceEntry(ULONG64 addr, AutoBuffer<char16>& buf);
 
@@ -307,6 +307,12 @@ public:
     {
         Assert(var.GetTypeSize() <= m_PtrSize);
         return (T)var.GetData(var.GetTypeSize());
+    }
+
+    template<typename T>
+    T GetNumberValue(JDRemoteTyped var)
+    {
+        return GetNumberValue<T>(var.GetExtRemoteTyped());
     }
 
 protected:

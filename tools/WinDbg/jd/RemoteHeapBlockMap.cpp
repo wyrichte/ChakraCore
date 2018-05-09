@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "RemoteHeapBlockMap.h"
 
-RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
+RemoteHeapBlockMap::RemoteHeapBlockMap(JDRemoteTyped heapBlockMap)
 {
     ULONG64 heapBlockMapAddr = heapBlockMap.GetPointerTo().GetPtr();
     cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMapAddr);
@@ -14,7 +14,7 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
         std::auto_ptr<Cache> localCachedHeapBlock(new Cache());
 
         ULONG64 iter = 0;
-        ForEachHeapBlockRaw(heapBlockMap, [this, &localCachedHeapBlock, &iter](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
+        ForEachHeapBlockRaw(heapBlockMap.GetExtRemoteTyped(), [this, &localCachedHeapBlock, &iter](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
         {
             ULONG64 address = ((nodeIndex * l1ChunkSize + l1) * l2ChunkSize + l2) * g_Ext->m_PageSize;
             (*localCachedHeapBlock.get())[address] = heapBlock;

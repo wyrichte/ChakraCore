@@ -70,7 +70,7 @@ ULONG RemoteRecycler::GetCookie()
 
 ExtRemoteTyped RemoteRecycler::GetExtRemoteTyped()
 {
-    return recycler;
+    return recycler.GetExtRemoteTyped();
 }
 
 RemoteThreadContext RemoteRecycler::GetThreadContext()

@@ -8,7 +8,7 @@ class RemoteScriptFunction : public RemoteJavascriptFunction
 public:
     RemoteScriptFunction();
     RemoteScriptFunction(ULONG64 ptr);
-    RemoteScriptFunction(ExtRemoteTyped const& scriptFunction);
+    RemoteScriptFunction(JDRemoteTyped const& scriptFunction);
         
     RemoteFunctionBody GetFunctionBody();
     void PrintNameAndNumberWithLink();

@@ -15,7 +15,7 @@ RemoteRecyclableObject::RemoteRecyclableObject(ULONG64 address)
     }
 }
 
-RemoteRecyclableObject::RemoteRecyclableObject(ExtRemoteTyped const& o) : object(o), typeName(nullptr)
+RemoteRecyclableObject::RemoteRecyclableObject(JDRemoteTyped const& o) : object(o), typeName(nullptr)
 {}
 
 ULONG64
@@ -58,7 +58,7 @@ RemoteRecyclableObject::GetScriptContext()
 char const * 
 RemoteRecyclableObject::GetTypeIdEnumString()
 {
-    return JDUtil::GetEnumString(GetType().Field("typeId"));
+    return GetType().Field("typeId").GetEnumString();
 }
 
 bool
@@ -164,7 +164,7 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
     }
     else if (strcmp(typeIdStr, "TypeIds_Number") == 0)
     {
-        object.Field("m_value").OutFullValue();
+        object.Field("m_value").GetExtRemoteTyped().OutFullValue();
         return; // done
     }
     else if (strcmp(typeIdStr, "TypeIds_String") == 0)
@@ -193,7 +193,7 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
         }
         else if (strcmp(typeIdStr, "TypeIds_Array") == 0)
         {
-            object.Field("head").OutFullValue();
+            object.Field("head").GetExtRemoteTyped().OutFullValue();
         }
     }
     else
@@ -253,7 +253,7 @@ bool RemoteRecyclableObject::DumpPossibleExternalSymbol(char const * typeName, b
     }
     if (strstr(typeName, "JavascriptDispatch") != 0)
     {
-        ExtRemoteTyped scriptObject = object.Field("scriptObject");
+        ExtRemoteTyped scriptObject = object.Field("scriptObject").GetExtRemoteTyped();
         ULONG64 scriptObjectPointer = scriptObject.GetPtr();
         // scriptObject can be null if the ScriptEngine has been closed, so check for this scenario.
         if (scriptObjectPointer)

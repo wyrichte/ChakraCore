@@ -9,7 +9,7 @@ class RemoteHeapBlockMap
 {
 public:
     typedef stdext::hash_map<ULONG64, RemoteHeapBlock> Cache;
-    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap);
+    RemoteHeapBlockMap(JDRemoteTyped heapBlockMap);
 
     template <typename Fn>
     bool ForEachHeapBlock(Fn fn);
@@ -109,7 +109,7 @@ bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& chunk,
     for (size_t l1Id = 0; l1Id < l1Count; l1Id++)
     {
         JDRemoteTyped l2MapChunk = chunk.ArrayElement(l1Id);
-        if (ExtRemoteTypedUtil::GetAsPointer(l2MapChunk) != 0)
+        if (ExtRemoteTypedUtil::GetAsPointer(l2MapChunk.GetExtRemoteTyped()) != 0)
         {
             JDRemoteTyped l2MapChunkDeref = l2MapChunk.Dereference();
             if (ProcessL2Chunk(nodeIndex, l1Id, l2MapChunkDeref, fn))
@@ -126,7 +126,7 @@ template <typename Fn>
 bool
 RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& chunk, Fn fn)
 {
-    ExtRemoteTyped l2map = chunk.Field("map");
+    ExtRemoteTyped l2map = chunk.Field("map").GetExtRemoteTyped();
     const size_t l2Count = l2map.GetTypeSize() / l2map.ArrayElement(0).GetTypeSize();
     l2ChunkSize = l2Count;
     for (size_t l2Id = 0; l2Id < l2Count; l2Id++)
