@@ -171,6 +171,14 @@ namespace Js
     class FunctionInfo;
     class DetachedStateBase;                // Used by ArrayBuffer.h
     class CharClassifier;                   // Used by ScriptContext.h
+    struct CtorCacheGuardTransferEntry;
+    struct TypeGuardTransferEntry;
+    struct PropertyEquivalenceInfo;
+    struct EquivalentPropertyEntry;
+    struct TypeEquivalenceRecord;
+    class JitEquivalentTypeGuard;
+    class FakePropertyGuardWeakReference;
+    struct EquivalentTypeCache;
     //////////////////////////////////////////////////////////////////////////
     // asm.js
     struct EmitExpressionInfo;
