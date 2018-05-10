@@ -54,6 +54,7 @@ public:
     }
 
     ExtRemoteTyped GetExtRemoteTyped() { return baseDictionary.GetExtRemoteTyped(); }
+    JDRemoteTyped GetJDRemoteTyped() { return baseDictionary; }
 protected:
     RemoteBaseDictionary(JDRemoteTyped baseDictionary, const char * bucketCountName) : baseDictionary(baseDictionary), bucketCountName(bucketCountName) {}
 private:

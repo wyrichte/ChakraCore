@@ -714,7 +714,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
             auto addDictionaryFields = [&](RemoteBaseDictionary& dictionary, char const * name, char const * bucketsName, char const * entriesName)
             {
-                if (addField(dictionary.GetExtRemoteTyped(), name, true))
+                if (addField(dictionary.GetJDRemoteTyped(), name, true))
                 {
                     addField(dictionary.GetBuckets(), bucketsName);
                     addField(dictionary.GetEntries(), entriesName);
