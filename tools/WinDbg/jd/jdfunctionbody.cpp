@@ -25,7 +25,7 @@ EXT_COMMAND(ffb,
     "{exact;b,o;exactMatch;do exact match}"
     "{functionId;s,o;functionId;Function Id to filter to}"
     "{sourceLocation;s,o;sourceId;Source Location to filter to}"
-    "{;x,o;functionName;String of function name}")
+    "{;x,o;functionName;String of function name (last arg)}")
 {
     bool exactMatch = HasArg("exact");
     bool compareByName = true;

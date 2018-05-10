@@ -80,6 +80,7 @@ const uint64 FloatTag_Value      = 0xFFFCull << 48;
 #include "time.h"
 #include "UTestHelper.h"
 #include "Nullable.h"
+#include "JDTypeInfo.h"
 #include "JDRemoteTyped.h"
 #include "RemoteTypeHandler.h"
 #include "ExtRemoteTypedUtil.h"

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "RecyclerObjectGraph.h"
 #include "RecyclerRoots.h"
+#include "ProgressTracker.h"
 
 RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
@@ -33,7 +34,8 @@ RecyclerObjectGraph::RecyclerObjectGraph(RemoteRecycler recycler, bool verbose) 
     m_hasTypeName(false),
     m_hasTypeNameAndFields(false),
     m_trident(false),
-    m_interior(recycler.EnableScanInteriorPointers())
+    m_interior(recycler.EnableScanInteriorPointers()),
+    m_maxDepth(0)
 {
 }
 
@@ -60,31 +62,35 @@ void RecyclerObjectGraph::DumpForCsv(const char* outfile)
 }
 
 void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
-{
-    auto start = _time64(nullptr);
-
+{    
     ConstructData constructData(recycler);
+
+    auto start = _time64(nullptr);
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
     roots.Map([&](ULONG64 root)
     {
-        MarkObject(constructData, root, 0, roots.GetRootType(root));
+        MarkObject(constructData, root, 0, roots.GetRootType(root), 0);
     });
 
     int iters = 0;
-
+    size_t lastNodeCount = _objectGraph.GetNodeCount();
+    auto lastTime = _time64(nullptr);
     while (constructData.markStack.size() != 0)
     {
-        const MarkStackEntry object = constructData.markStack.top();
-        constructData.markStack.pop();
+        const MarkStackEntry object = constructData.markStack.front();
+        constructData.markStack.pop_front();
 
         ScanBytes(constructData, object.first, object.second);
 
         iters++;
         if (iters % 0x10000 == 0)
         {
+            auto currTime = _time64(nullptr);
+            size_t currNodeCount = _objectGraph.GetNodeCount();
             g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
-                "\rTraversing object graph, object count - stack: %6d, visited: %d",
-                constructData.markStack.size(), _objectGraph.GetNodeCount());
+                "\rTraversing object graph, object count - queue: %6d, visited: %d, depth: %4d (%d objects/s)",
+                constructData.markStack.size(), currNodeCount, object.second->GetDepth(), 
+                (ULONG)((double)(currNodeCount - lastNodeCount) / (double)(currTime - lastTime)));
         }
     }
 
@@ -219,7 +225,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
     if (strcmp(simpleTypeName, "Js::FunctionInfo *") == 0)
     {
         // Get the library info from the functionBodyImpl
-        remoteTyped = RemoteFunctionInfo(remoteTyped.GetExtRemoteTyped()).GetFunctionBody();
+        remoteTyped = RemoteFunctionInfo(remoteTyped).GetFunctionBody();
         if (remoteTyped.GetPtr() == 0)
         {
             return 0;
@@ -327,7 +333,7 @@ ULONG64 RecyclerObjectGraph::InferJavascriptLibrary(RecyclerObjectGraph::GraphIm
             JDRemoteTyped predRemoteTyped = JDRemoteTyped::FromPtrWithVtable(pred->Key(), &typeName);
             if (typeName != nullptr && strcmp(JDUtil::StripModuleName(typeName), "Js::Utf8SourceInfo") == 0)
             {
-                RemoteUtf8SourceInfo utf8SourceInfo(predRemoteTyped.GetExtRemoteTyped());
+                RemoteUtf8SourceInfo utf8SourceInfo(predRemoteTyped);
                 library = utf8SourceInfo.GetScriptContext().GetJavascriptLibrary().GetPtr();
                 return true;
             }
@@ -407,7 +413,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         }
     }
 
-    auto start = _time64(nullptr);
+    ProgressTracker progress(infer ? "Processing objects for type info" : "Processing objects for type info without infer", 10000, this->GetNodeCount());
 
     if (m_hasTypeName)
     {
@@ -477,7 +483,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             });
             return false;
         });
-        RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards").GetExtRemoteTyped();
+        RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
         setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
         setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
         propertyGuards.ForEachValue([&](JDRemoteTyped entry)
@@ -494,7 +500,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             });
             if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
             {
-                RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints").GetExtRemoteTyped();
+                RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
                 setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
                 if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
                 {
@@ -591,16 +597,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         char const * typeName;
     } autoError;
 
-    ULONG numNodes = 0;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
         autoError.Clear();
 
-        numNodes++;
-        if (numNodes % 10000 == 0)
-        {
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rProcessing objects for type info %s- %11d/%11d", infer ? "" : "without infer ", numNodes, this->GetNodeCount());
-        }
+        progress.Inc();
 
         if (node->HasTypeInfo())
         {
@@ -1012,7 +1013,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 || IsTypeOrCrossSite("Js::JavascriptWeakSet"))
             {
                 addDynamicObjectFields(remoteTyped);
-                RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet").GetExtRemoteTyped();
+                RemoteWeaklyReferencedKeyDictionary keySet = remoteTyped.Field("keySet");
                 AddDictionaryFieldOnly(keySet, "Js::JavascriptWeakMap::KeySet");
             }
             else if (IsTypeOrCrossSite("Js::JavascriptExternalFunction")
@@ -1096,7 +1097,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             else if (strcmp(simpleTypeName, "Js::FunctionBody *") == 0)
             {
                 addParseableFunctionInfoFields(remoteTyped, FunctionBodyNameIndex);
-                RemoteFunctionBody functionBody(remoteTyped.GetExtRemoteTyped());
+                RemoteFunctionBody functionBody(remoteTyped);
                 if (functionBody.HasField("counters"))
                 {
                     addField(JDUtil::GetWrappedField(functionBody.Field("counters"), "fields"), "Js::FunctionBody.counters.fields");
@@ -1197,7 +1198,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         }
 
                         addField(JDUtil::GetWrappedField(curr.Field("clonedInlineCaches"), "inlineCaches"), "Js::FunctionBody.<FunctionCodeGenRuntimeData.ClonedInlineCaches[]>");
-                        RemoteFunctionBody currBody(curr.Field("functionBody").GetExtRemoteTyped());
+                        RemoteFunctionBody currBody(curr.Field("functionBody"));
                         addFunctionCodeGenRuntimeDataArray(curr.Field("inlinees"), currBody.GetProfiledCallSiteCount());
                         // IE11 doesn't have ldFldInlinees
                         if (curr.HasField("ldFldInlinees"))
@@ -1357,7 +1358,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             }
             else if (strcmp(simpleTypeName, "Js::Utf8SourceInfo *") == 0)
             {
-                RemoteUtf8SourceInfo utf8SourceInfo(remoteTyped.GetExtRemoteTyped());
+                RemoteUtf8SourceInfo utf8SourceInfo(remoteTyped);
                 if (!GetExtension()->IsJScript9())
                 {
                     JDRemoteTyped lineOffsetCache = utf8SourceInfo.GetLineOffsetCache();
@@ -1619,7 +1620,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     do
                     {
                         addField(bindRefChunk, "Js::JavascriptLibrary.{bindRefChunk}");
-                        bindRefChunk = *JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + recycler.GetObjectGranularity() - g_Ext->m_PtrSize).GetExtRemoteTyped();
+                        bindRefChunk = JDRemoteTyped("(void **)@$extin", bindRefChunk.GetPtr() + recycler.GetObjectGranularity() - g_Ext->m_PtrSize).Dereference();
                     } while (bindRefChunk.GetPtr() != 0);
                     addField(remoteTyped.Field("rootPath"), "Js::JavascriptLibrary.rootPath");
                 }
@@ -1710,19 +1711,15 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
     });
 
     autoError.Clear();
-    numNodes = 0;
+    progress.ResetIter(infer ? "Propagating objects for type info" : "Propagating objects for type info without infer");
     std::stack<RecyclerObjectGraph::GraphImplNodeType*> updated;
     this->MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType* node)
     {
+        progress.Inc();
+
         if (node->HasTypeInfo())
         {
             return;
-        }
-
-        numNodes++;
-        if (numNodes % 10000 == 0)
-        {
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rPropagating objects for type info %s- %11d/%11d", infer? "" : "without infer", numNodes, this->GetNodeCount());
         }
 
         bool setInfo = false;
@@ -1769,9 +1766,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
     m_hasTypeName = true;
     m_trident = trident;
     m_hasTypeNameAndFields = infer;
-    g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
-        "\rObject graph type info completed %s- elapsed time: %us                                                    \n",
-        infer? "" : "without infer ", (ULONG)(_time64(nullptr) - start));
+    progress.Done(infer ? "Object graph type info completed" : "Object graph type info without infer completed");
 }
 
 #if ENABLE_MARK_OBJ
@@ -1817,8 +1812,10 @@ void RecyclerObjectGraph::FindPathTo(RootPointers& roots, ULONG64 address, ULONG
 }
 #endif
 
-void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType)
+void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType, uint depth)
 {
+    Assert(rootType == RootType::RootTypeNone || depth == 0);
+
     if (address == NULL ||
         !constructData.recycler.IsAlignedAddress(address))
     {
@@ -1843,8 +1840,15 @@ void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 addr
     {
         node = _objectGraph.AddNode(info.objectAddress);
         node->SetObjectSize(info.objectSize);
+        node->SetDepth(depth);
+        if (depth > this->m_maxDepth)
+        {
+            this->m_maxDepth = depth;
+        }
     }
     Assert(node->GetObjectSize() == info.objectSize);
+    Assert(node->GetDepth() <= depth);      // We do breath first to calculate the depth, so it should be always increasing.
+
     if (successors)
     {
         successors->Add(node);
@@ -1861,7 +1865,7 @@ void RecyclerObjectGraph::MarkObject(ConstructData& constructData,  ULONG64 addr
         MarkStackEntry entry;
         entry.first = remoteHeapBlock;
         entry.second = node;
-        constructData.markStack.push(entry);
+        constructData.markStack.push_back(entry);
     }
 }
 
@@ -1881,7 +1885,7 @@ void RecyclerObjectGraph::ScanBytes(ConstructData& constructData, RemoteHeapBloc
         ULONG64 value = (ptrSize == 8) ? *((ULONG64*)current) : *((ULONG32*)current);
         if (value != objectAddress)
         {
-            MarkObject(constructData, value, &successors, RootType::RootTypeNone);
+            MarkObject(constructData, value, &successors, RootType::RootTypeNone, node->GetDepth() + 1);
         }
         current += ptrSize;
     }

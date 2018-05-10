@@ -740,14 +740,27 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
 {
     if (scriptContext.IsScriptContextActuallyClosed())
     {
-        Out("C");
+        Out(" C");
     }
     else if (scriptContext.IsClosed())
     {
-        Out("M");
+        Out(" M");
     }
     else
     {
+        char const * debuggerMode = scriptContext.GetDebugContext().Field("debuggerMode").GetEnumString();
+        if (strcmp(debuggerMode, "SourceRundown") == 0)
+        {
+            Out("S");
+        }
+        else if (strcmp(debuggerMode, "Debugging") == 0)
+        {
+            Out("D");
+        }
+        else
+        {
+            Out(" ");
+        }
         JDRemoteTyped hostScriptContext = scriptContext.GetHostScriptContext();
         if (hostScriptContext.GetPtr())
         {
@@ -880,12 +893,12 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
     if (this->m_PtrSize == 4)
     {
         // 32-bit
-        headerFormat = (showAll ? (showLink ? "  %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
+        headerFormat = (showAll ? (showLink ? "   %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
     }
     else
     {
         // 64-bit
-        headerFormat = (showAll ? (showLink ? "  %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
+        headerFormat = (showAll ? (showLink ? "   %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
     }
 
     ULONG scriptContextCount = 0;

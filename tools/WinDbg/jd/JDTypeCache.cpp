@@ -24,7 +24,7 @@ JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
     JDTypeCache& typeCache = GetExtension()->typeCache;
     if (original == 0)
     {
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     auto i = typeCache.cacheTypeInfoCache.find(typeName);
 

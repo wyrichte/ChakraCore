@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "RemoteBitVector.h"
 
-RemoteBitVector::RemoteBitVector(ExtRemoteTyped bv) : bv(bv)
+RemoteBitVector::RemoteBitVector(JDRemoteTyped bv) : bv(bv.GetExtRemoteTyped())
 {
 }
 

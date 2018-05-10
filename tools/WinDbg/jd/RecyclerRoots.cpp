@@ -12,6 +12,7 @@
 #include "RecyclerObjectGraph.h"
 #include "RemoteHeapBlockMap.h"
 #include "RemoteObjectInfoBits.h"
+#include "ProgressTracker.h"
 
 ULONG64 GetStackTop()
 {
@@ -492,7 +493,7 @@ bool EXT_CLASS_BASE::DumpPossibleSymbol(ULONG64 address, bool makeLink, bool sho
     }
     this->Out("%s", typeName);
 
-    RemoteRecyclableObject(object.GetExtRemoteTyped()).DumpPossibleExternalSymbol(typeName, makeLink, showScriptContext);    
+    RemoteRecyclableObject(object).DumpPossibleExternalSymbol(typeName, makeLink, showScriptContext);    
 
     return true;
 }
@@ -1875,6 +1876,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{u;b,o;grouped;Show unknown count}"
     "{g;b,o;group;Group unknown objects}"
     "{lib;b,o;library;Infer and display per library}"
+    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth"
     "{fl;ed,o;filterLib;Filter to library}"
     "{fs;edn=(10),o;filterSize;Filter to object size}"
     "{fsmin;edn=(10),o;filterSizeMin;Filter to minimum object size}"
@@ -1907,6 +1909,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const ULONG64 sizeFilter = hasFilterSize ? GetArgU64("fs") : (ULONG64)-1;
     const ULONG64 sizeFilterMin = hasFilterSizeMin ? GetArgU64("fsmin") : (ULONG64)0;
     const ULONG64 sizeFilterMax = hasFilterSizeMax ? GetArgU64("fsmax") : (ULONG64)-1;
+    const ULONG64 depthFilter = GetArgU64("fd");
 
     if (sortByCount && sortByName)
     {
@@ -1976,6 +1979,11 @@ JD_PRIVATE_COMMAND(jsobjectstats,
         }
 
         if (node->GetObjectSize() < sizeFilterMin || node->GetObjectSize() > sizeFilterMax)
+        {
+            return;
+        }
+
+        if (depthFilter != (ULONG64)-1 && node->GetDepth() == depthFilter)
         {
             return;
         }
@@ -2205,6 +2213,16 @@ struct SortNodeByKey
 };
 
 template <typename SecondarySort>
+struct SortNodeByDepthT
+{
+    bool operator()(RecyclerObjectGraph::GraphImplNodeType* left, RecyclerObjectGraph::GraphImplNodeType* right) const
+    {
+        return left->GetDepth() > right->GetDepth() ||
+            (left->GetDepth() == right->GetDepth() && SecondarySort()(left, right));
+    }
+};
+
+template <typename SecondarySort>
 struct SortNodeBySuccessorT
 {
     bool operator()(RecyclerObjectGraph::GraphImplNodeType* left, RecyclerObjectGraph::GraphImplNodeType* right) const
@@ -2237,38 +2255,43 @@ struct SortNodeByObjectSizeT
 typedef SortNodeByObjectSizeT<SortNodeBySuccessorT<SortNodeByKey>> SortNodeByObjectSizeAndSuccessor;
 typedef SortNodeBySuccessorT<SortNodeByObjectSizeT<SortNodeByKey>> SortNodeBySuccessorAndObjectSize;
 typedef SortNodeByPredecessorT<SortNodeByObjectSizeT<SortNodeByKey>> SortNodeByPredecessorAndObjectSize;
+typedef SortNodeByDepthT<SortNodeByObjectSizeT<SortNodeByKey>> SortNodeByDepthAndObjectSize;
 
 JD_PRIVATE_COMMAND(jsobjectnodes,
     "Dump a table of object nodes sorted by number of successors, number or predecessors, or size (default).",
     "{;e,o,d=0;recycler;Recycler address}"
     "{ti;b,o;typeInfo;Type info}"
+    "{sd;b,o;depth;Sort by depth}"
     "{sp;b,o;predecssorCount;Sort by predecessor count}"
     "{ss;b,o;successorCount;Sort by successor count}"
     "{limit;edn=(10),o,d=10;nodes;Number of nodes to display}"
     "{skip;edn=(10),o,d=0;nodes;Number of nodes to skip}"
     "{lib;b,o;showlib;Show library}"
     "{fl;ed,o;filterLib;Filter to library}"
+    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth"
     "{fu;b,o;filterUnknownType;Filter to unknown}"
-    "{ft;x,o;filterType;Filter to type}")
+    "{ft;x,o;filterType;Filter to type (last arg)}")
 {
-    ULONG64 recyclerArg = GetUnnamedArgU64(0);    
-    ULONG64 limit = GetArgU64("limit");
-    ULONG64 skip = GetArgU64("skip");
+    const ULONG64 recyclerArg = GetUnnamedArgU64(0);
+    const ULONG64 limit = GetArgU64("limit");
+    const ULONG64 skip = GetArgU64("skip");
 
-    bool sortByPred = HasArg("sp");
-    bool sortBySucc = HasArg("ss");
-    bool showLib = HasArg("lib");
-    bool hasFilterLib = HasArg("fl");
-    bool hasFilterType = HasArg("ft");
-    bool filterUnknownType = HasArg("fu");
-    bool typeInfo = showLib || hasFilterLib || hasFilterType || HasArg("ti");
+    const bool sortByPred = HasArg("sp");
+    const bool sortBySucc = HasArg("ss");
+    const bool sortByDepth = HasArg("sd");
+    const bool showLib = HasArg("lib");
+    const bool hasFilterLib = HasArg("fl");
+    const bool hasFilterType = HasArg("ft");
+    const bool filterUnknownType = HasArg("fu");
+    const bool typeInfo = showLib || hasFilterLib || hasFilterType || HasArg("ti");
 
     char const * typeFilter = hasFilterType ? GetArgStr("ft") : nullptr;
-    ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
+    const ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
+    const ULONG64 depthFilter = GetArgU64("fd");
 
-    if (sortByPred && sortBySucc)
+    if (sortByPred + sortBySucc + sortByDepth > 1)
     {
-        this->Err("ERROR: -sp and -ss can't be specified together\n");
+        this->Err("ERROR: -sp/-ss/-sd can't be specified together\n");
         return;
     }
 
@@ -2284,13 +2307,13 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     this->Out("%22s     > Run !jd.traceroots on this node\n", "");
     if (showLib)
     {
-        this->Out("%6s %6s %8s %5s %-18s %-18s %s\n", "Pred", "Succ", "Size", "", "Address", "Library", "Type");
-        this->Out("------ ------ -------- ----- ------------------ ------------------ --------------\n");
+        this->Out("%6s %6s %8s %4s %5s %-18s %-18s %s\n", "Pred", "Succ", "Size", "Dep","", "Address", "Library", "Type");
+        this->Out("------ ------ -------- ---- ----- ------------------ ------------------ --------------\n");
     }
     else
     {
-        this->Out("%6s %6s %8s %5s %-18s %s\n", "Pred", "Succ", "Size", "", "Address", "Type");
-        this->Out("------ ------ -------- ----- ------------------ --------------\n");
+        this->Out("%6s %6s %8s %4s %5s %-18s %s\n", "Pred", "Succ", "Size", "Dep", "", "Address", "Type");
+        this->Out("------ ------ -------- ---- ----- ------------------ --------------\n");
     }
 
     if (skip != 0)
@@ -2324,6 +2347,11 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
                 return false;
             }
         }
+
+        if (depthFilter != (ULONG64)-1 && node->GetDepth() != depthFilter)
+        {
+            return false;
+        }
         return true;
     };
     
@@ -2332,7 +2360,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     {       
         if (count >= skip)
         {
-            this->Out("%6d %6d %8d ", node->GetPredecessorCount(), node->GetSuccessorCount(), node->GetObjectSize());
+            this->Out("%6d %6d %8d %4d ", node->GetPredecessorCount(), node->GetSuccessorCount(), node->GetObjectSize(), node->GetDepth());
 
             if (PreferDML())
             {
@@ -2376,6 +2404,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
             if (typeInfo) { options += " -ti"; }
             if (sortByPred) { options += " -sp"; }
             if (sortBySucc) { options += " -ss"; }
+            if (sortByDepth) { options += " -sd"; }
             if (filterUnknownType) { options += " -fu"; }
             if (hasFilterLib)
             {
@@ -2385,6 +2414,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
                 options += buffer;
             }
             if (hasFilterType) { options += " -ft " + JDUtil::EncodeDml(typeFilter); }
+            if (depthFilter != (ULONG64)-1) { options += " -fd " + depthFilter; }
             if (PreferDML())
             {
                 this->Dml(" <link cmd=\"!jd.jsobjectnodes -skip %I64d -limit %I64d%s\">(Display next %d)</link>", skip + limit, limit, options.c_str(), limit);
@@ -2410,6 +2440,10 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     {
         objectGraph.MapSorted<SortNodeByPredecessorAndObjectSize>(include, output);
     }
+    else if (sortByDepth)
+    {
+        objectGraph.MapSorted<SortNodeByDepthAndObjectSize>(include, output);
+    }
     else
     {
         objectGraph.MapSorted<SortNodeByObjectSizeAndSuccessor>(include, output);
@@ -2417,5 +2451,62 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
     this->Out("--------------------------------------------------------------\n");
     this->Out("Total %d nodes, %d edges\n", objectGraph.GetNodeCount(), objectGraph.GetEdgeCount());
+}
+
+JD_PRIVATE_COMMAND(jsobjectdepths,
+    "Dump a table of object nodes sorted by number of successors, number or predecessors, or size (default).",
+    "{;e,o,d=0;recycler;Recycler address}"
+    "{fl;ed,o;filterLib;Filter to library}"
+    "{ft;x,o;filterType;Filter to type (last arg)}")
+{
+    ULONG64 recyclerArg = GetUnnamedArgU64(0);
+    RemoteThreadContext threadContext;
+    RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
+
+    bool hasFilterLib = HasArg("fl");
+    bool hasFilterType = HasArg("ft");
+    bool typeInfo = hasFilterLib || hasFilterType;
+
+    char const * typeFilter = hasFilterType ? GetArgStr("ft") : nullptr;
+    ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
+
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+        typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
+
+
+    ProgressTracker progress("Accumulating depth counts", 0x10000, objectGraph.GetNodeCount());
+    std::map<uint, uint> depthCountMap;    
+    objectGraph.MapAllNodes([&](RecyclerObjectGraph::GraphImplNodeType * node)
+    {
+        if (libraryFilter != (ULONG64)-1 && node->GetAssociatedJavascriptLibrary() != libraryFilter)
+        {
+            return;
+        }
+
+        if (hasFilterType)
+        {
+            if (node->IsPropagated())
+            {
+                return;
+            }
+            char const * typeNameOfField = node->GetTypeNameOrField();
+            if (strcmp(typeNameOfField, typeFilter) != 0)
+            {
+                return;
+            }
+        }
+        depthCountMap[node->GetDepth()]++;
+        progress.Inc();
+    });
+
+    progress.Done("Accumulating depth counts completed");
+
+    this->Out(" Dep    Count\n");
+    this->Out("---- --------\n");
+    size_t graphDepth = objectGraph.GetDepth();
+    for (uint i = 0; i < graphDepth; i++)
+    {
+        this->Out("%4d %8d\n", i, depthCountMap[i]);
+    }
 }
 

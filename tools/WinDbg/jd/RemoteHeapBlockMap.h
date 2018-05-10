@@ -8,7 +8,11 @@
 class RemoteHeapBlockMap
 {
 public:
-    typedef stdext::hash_map<ULONG64, RemoteHeapBlock> Cache;
+    struct Cache
+    {
+        stdext::hash_map<ULONG64, RemoteHeapBlock *> addressToHeapBlockMap;
+        stdext::hash_map<ULONG64, RemoteHeapBlock> heapBlockAddressToHeapBlockMap;
+    };
     RemoteHeapBlockMap(JDRemoteTyped heapBlockMap);
 
     template <typename Fn>
@@ -20,7 +24,7 @@ public:
     RemoteHeapBlock * FindHeapBlock(ULONG64 address);
 private:
     template <typename Fn>
-    bool ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction);
+    bool ForEachHeapBlockRaw(JDRemoteTyped& heapBlockMap, Fn processFunction);
 
     template <typename Fn>
     bool ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& l1ChunkArray, Fn processFunction);
@@ -37,15 +41,8 @@ protected:
 template <typename Fn>
 bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
 {
-    for (auto i = cachedHeapBlock->begin(); i != cachedHeapBlock->end(); i++)
+    for (auto i = cachedHeapBlock->heapBlockAddressToHeapBlockMap.begin(); i != cachedHeapBlock->heapBlockAddressToHeapBlockMap.end(); i++)
     {
-        RemoteHeapBlock& remoteHeapBlock = (*i).second;
-        if ((*i).first != remoteHeapBlock.GetAddress())
-        {
-            // Skip heap block that are not at the beginning of the address, to avoid repeats
-            continue;
-        }
-
         if (fn((*i).second))
         {
             return true;
@@ -74,7 +71,7 @@ bool RemoteHeapBlockMap::ForEachHeapBlockDirect(ExtRemoteTyped& heapBlockMap, Fn
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction)
+bool RemoteHeapBlockMap::ForEachHeapBlockRaw(JDRemoteTyped& heapBlockMap, Fn processFunction)
 {
     if (g_Ext->m_PtrSize == 4)
     {

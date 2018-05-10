@@ -381,6 +381,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);
+    JD_PRIVATE_COMMAND_METHOD(jsobjectdepths);
     JD_PRIVATE_COMMAND_METHOD(pagealloc);
     JD_PRIVATE_COMMAND_METHOD(hbm);
     JD_PRIVATE_COMMAND_METHOD(swb);

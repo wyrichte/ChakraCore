@@ -51,7 +51,7 @@ JDRemoteTyped RemoteScriptContext::GetSourceList()
     {
         return scriptContext.Field("sourceList").Field("ptr");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 JDRemoteTyped RemoteScriptContext::GetUrl()
@@ -90,7 +90,12 @@ JDRemoteTyped RemoteScriptContext::GetUrl()
 
     }
 
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
+}
+
+JDRemoteTyped RemoteScriptContext::GetDebugContext()
+{
+    return scriptContext.Field("debugContext");
 }
 
 void RemoteScriptContext::PrintReferencedPids()

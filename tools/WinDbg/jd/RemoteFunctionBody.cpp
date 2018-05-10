@@ -104,7 +104,7 @@ RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) :
  
 JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char const* castType)
 {
-    JDRemoteTyped ret("(void *)0)");
+    JDRemoteTyped ret = JDRemoteTyped::NullPtr();
 
     EnsureAuxPtrsEnums();
     if (strlen(fieldName) > 2 && (fieldName[0] == 'm' && fieldName[1] == '_')) // 'm_' has been removed in the field enum name in core
@@ -165,7 +165,7 @@ JDRemoteTyped RemoteFunctionBody::GetReferencedPropertyIdMap()
     {
         return this->GetAuxWrappedField("referencedPropertyIdMap", "Js::PropertyId");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char const * fieldName)
@@ -194,7 +194,7 @@ JDRemoteTyped RemoteParseableFunctionInfo::GetAuxWrappedFieldRecyclerData(char c
         {
             return this->Field("recyclerData").Field(oldFieldName != nullptr ? oldFieldName : fieldName);
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField(fieldName, castType, oldFieldName);
 }
@@ -203,7 +203,7 @@ JDRemoteTyped RemoteParseableFunctionInfo::GetDeferredStubs()
 {
     if (GetExtension()->IsJScript9())
     {
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField("deferredStubs", "DeferredFunctionStub *");
 }
@@ -273,7 +273,7 @@ RemoteFunctionBody::GetObjectLiteralTypes()
 {
     if (GetExtension()->IsJScript9())
     {
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField("objLiteralTypes", "Js::DynamicType **");
 }

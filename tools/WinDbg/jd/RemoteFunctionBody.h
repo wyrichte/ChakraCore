@@ -50,7 +50,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "deferredPrototypeType");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
 
     JDRemoteTyped GetScopeInfo()
@@ -64,7 +64,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
         }
-        return RemoteBaseDictionary(JDRemoteTyped("(void *)0"));
+        return RemoteBaseDictionary(JDRemoteTyped::NullPtr());
     }
 
     ULONG GetLineNumber()
@@ -94,7 +94,7 @@ public:
             // Added in d76f76e9f72a4a7b99a62f64c3803d5e80aa4f9b fop RS2
             return JDUtil::GetWrappedField(*this, "nestedArray");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
 
     JDRemoteTyped GetPropertyIdsForScopeSlotArray()
@@ -144,7 +144,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "m_inlineCacheTypes");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     JDRemoteTyped GetReferencedPropertyIdMap();
 

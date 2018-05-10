@@ -4,6 +4,7 @@
 #include "jdrecycler.h"
 #include "Collections.h"
 
+
 // Represents the recycler object graph
 // Encapsulates logic to scan remote recycler objects
 class RecyclerObjectGraph
@@ -58,6 +59,10 @@ public:
         return _objectGraph.GetEdgeCount();
     }
 
+    uint GetDepth()
+    {
+        return this->m_maxDepth + 1;
+    }
 
     template <typename Sort, typename FnInclude, typename FnSorted>
     bool MapSorted(FnInclude fnInclude, FnSorted fnSorted)
@@ -99,10 +104,12 @@ protected:
         ConstructData(RemoteRecycler recycler) : recycler(recycler), hbm(recycler.GetHeapBlockMap()) {};
         RemoteRecycler recycler;
         RemoteHeapBlockMap hbm;
-        std::stack<MarkStackEntry> markStack;
+
+        // Use a deque to do a breath first walk of the graph so we can calculate the depth of the a node
+        std::deque<MarkStackEntry> markStack;
     };
     void ClearTypeInfo();
-    void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
+    void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType, uint depth);
     void ScanBytes(ConstructData& constructData, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
 
     GraphImplType _objectGraph;
@@ -111,5 +118,6 @@ protected:
     bool m_hasTypeName;
     bool m_hasTypeNameAndFields;
     bool m_interior;
+    uint m_maxDepth;
 };
 

@@ -25,6 +25,7 @@ public:
     JDRemoteTyped GetHostScriptContext();
     JDRemoteTyped GetSourceList();
     JDRemoteTyped GetUrl();
+    JDRemoteTyped GetDebugContext();
 
     void PrintReferencedPids();
 
@@ -132,7 +133,7 @@ public:
                         ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
                         if (strongRef != 0)
                         {
-                            if (fn(i, ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::Utf8SourceInfo*)@$extin"), strongRef)))
+                            if (fn(i, JDRemoteTyped(GetExtension()->FillModule("(%s!Js::Utf8SourceInfo*)@$extin"), strongRef)))
                             {
                                 return true;
                             }

@@ -6,29 +6,34 @@
 #include "JDRemoteTyped.h"
 #include "JDTypeCache.h"
 
+JDRemoteTyped::JDRemoteTyped() :
+    useExtRemoteTyped(true)
+{    
+}
+
 JDRemoteTyped::JDRemoteTyped(ExtRemoteTyped const& remoteTyped)
-    : extRemoteTyped(remoteTyped), extRemoteTypedInitialized(true)
+    : extRemoteTyped(remoteTyped), useExtRemoteTyped(true)
 {
 }
 
 JDRemoteTyped::JDRemoteTyped(ULONG64 modBase, ULONG typeId, ULONG64 offset, bool ptrTo)
-    : extRemoteTypedInitialized(true)
+    : useExtRemoteTyped(true)
 {
     extRemoteTyped.Set(ptrTo, modBase, typeId, offset);
 }
 
-JDRemoteTyped::JDRemoteTyped(JDTypeInfo typeInfo, ULONG64 offset)
-    : extRemoteTypedInitialized(false), typeInfo(typeInfo), offset(offset), isDataValid(false)
+JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset)
+    : useExtRemoteTyped(false), typeInfo(typeInfo), offset(offset), isDataValid(false)
 {    
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Type, ULONG64 Offset, bool PtrTo)
-    : extRemoteTyped(Type, Offset, PtrTo), extRemoteTypedInitialized(true)
+    : extRemoteTyped(Type, Offset, PtrTo), useExtRemoteTyped(true)
 {
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Expr, ULONG64 Offset)
-    : extRemoteTyped(Expr, Offset), extRemoteTypedInitialized(true)
+    : extRemoteTyped(Expr, Offset), useExtRemoteTyped(true)
 {
 }
 
@@ -78,6 +83,11 @@ JDRemoteTyped JDRemoteTyped::CastWithVtable(char const ** typeName)
     return *this;
 }
 
+JDRemoteTyped JDRemoteTyped::NullPtr()
+{
+    return JDRemoteTyped("(void *)@$extin", 0);    
+}
+
 JDRemoteTyped JDRemoteTyped::FromPtrWithType(ULONG64 address, char const * typeName)
 {
     return JDTypeCache::Cast(typeName, address);
@@ -106,10 +116,10 @@ char const * JDRemoteTyped::GetEnumString()
 // Redirection
 ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), offset);
-        extRemoteTypedInitialized = true;
+        useExtRemoteTyped = true;
     }
     return extRemoteTyped;
 }
@@ -156,7 +166,7 @@ char const * JDRemoteTyped::GetSimpleValue()
 
 ULONG JDRemoteTyped::GetTypeSize()
 {
-    if (extRemoteTypedInitialized)
+    if (useExtRemoteTyped)
     {
         return extRemoteTyped.GetTypeSize();        
     }
@@ -165,7 +175,7 @@ ULONG JDRemoteTyped::GetTypeSize()
 
 BOOL JDRemoteTyped::GetW32Bool()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<BOOL>();
     }
@@ -174,7 +184,7 @@ BOOL JDRemoteTyped::GetW32Bool()
 
 bool JDRemoteTyped::GetStdBool()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<bool>();
     }
@@ -183,7 +193,7 @@ bool JDRemoteTyped::GetStdBool()
 
 CHAR JDRemoteTyped::GetChar()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<CHAR>();
     }
@@ -192,7 +202,7 @@ CHAR JDRemoteTyped::GetChar()
 
 UCHAR JDRemoteTyped::GetUchar()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<UCHAR>();
     }
@@ -201,7 +211,7 @@ UCHAR JDRemoteTyped::GetUchar()
 
 USHORT JDRemoteTyped::GetUshort()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<USHORT>();
     }
@@ -210,7 +220,7 @@ USHORT JDRemoteTyped::GetUshort()
 
 LONG JDRemoteTyped::GetLong()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<LONG>();
     }
@@ -219,7 +229,7 @@ LONG JDRemoteTyped::GetLong()
 
 ULONG JDRemoteTyped::GetUlong()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return EnsureData<ULONG>();
     }
@@ -228,7 +238,7 @@ ULONG JDRemoteTyped::GetUlong()
 
 ULONG64 JDRemoteTyped::GetPtr()
 {
-    if (!extRemoteTypedInitialized)
+    if (!useExtRemoteTyped)
     {
         return g_Ext->m_PtrSize == 8 ? EnsureData<ULONG64>() : EnsureData<ULONG>();
     }
@@ -282,7 +292,7 @@ T JDRemoteTyped::EnsureData()
 // For FieldInfoCache
 ULONG64 JDRemoteTyped::GetModBase()
 {
-    if (extRemoteTypedInitialized)
+    if (useExtRemoteTyped)
     {
         return extRemoteTyped.m_Typed.ModBase;
     }
@@ -291,7 +301,7 @@ ULONG64 JDRemoteTyped::GetModBase()
 
 ULONG JDRemoteTyped::GetTypeId()
 {
-    if (extRemoteTypedInitialized)
+    if (useExtRemoteTyped)
     {
         return extRemoteTyped.m_Typed.TypeId;
     }
@@ -300,7 +310,7 @@ ULONG JDRemoteTyped::GetTypeId()
 
 bool JDRemoteTyped::IsPointerType()
 {
-    if (extRemoteTypedInitialized)
+    if (useExtRemoteTyped)
     {
         return extRemoteTyped.m_Typed.Tag == SymTagPointerType;
     }
@@ -309,7 +319,7 @@ bool JDRemoteTyped::IsPointerType()
 
 ULONG64 JDRemoteTyped::GetOffset()
 {
-    if (extRemoteTypedInitialized)
+    if (useExtRemoteTyped)
     {
         return extRemoteTyped.m_Offset;
     }

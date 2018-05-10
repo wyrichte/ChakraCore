@@ -82,10 +82,10 @@ RemoteHeapBlock * RecyclerCachedData::FindCachedHeapBlock(ULONG64 address)
     for (auto it = this->m_heapblockMapCache.begin(); it != this->m_heapblockMapCache.end(); it++)
     {
         RemoteHeapBlockMap::Cache * cache = (*it).second;
-        auto i = cache->find(pageAddress);
-        if (i != cache->end())
+        auto i = cache->addressToHeapBlockMap.find(pageAddress);
+        if (i != cache->addressToHeapBlockMap.end())
         {
-            return &(*i).second;
+            return (*i).second;
         }
     }
     return nullptr;

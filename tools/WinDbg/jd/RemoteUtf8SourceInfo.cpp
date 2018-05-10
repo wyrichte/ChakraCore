@@ -20,7 +20,7 @@ JDRemoteTyped RemoteUtf8SourceInfo::GetLineOffsetCache()
     {
         return utf8SourceInfo.Field("m_lineOffsetCache");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 RemoteBaseDictionary RemoteUtf8SourceInfo::GetDeferredFunctionsDictionary()
@@ -29,7 +29,7 @@ RemoteBaseDictionary RemoteUtf8SourceInfo::GetDeferredFunctionsDictionary()
     {
         return utf8SourceInfo.Field("m_deferredFunctionsDictionary");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 RemoteBaseDictionary RemoteUtf8SourceInfo::GetFunctionBodyDictionary()

@@ -331,7 +331,7 @@ RemoteBitVector RemoteHeapBlock::GetMarkBits()
     JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
     if (heapBlockObject.HasField("markBits"))
     {
-        return heapBlockObject.Field("markBits").GetExtRemoteTyped();
+        return heapBlockObject.Field("markBits");
     }
 
     // Before CL#884601 on 2011/09/09, pre-win8.1
@@ -347,7 +347,7 @@ RemoteBitVector RemoteHeapBlock::GetFreeBits()
     JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
     if (heapBlockObject.HasField("freeBits"))
     {
-        return heapBlockObject.Field("freeBits").GetExtRemoteTyped();
+        return heapBlockObject.Field("freeBits");
     }
 
     // Before CL#884601 on 2011/09/09, pre-win8.1
