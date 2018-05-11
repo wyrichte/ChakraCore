@@ -217,6 +217,13 @@ HRESULT ScriptEngine::InitializeThreadBound()
         // threadContext won't be null since it's using throw alloc.
         Assert(threadContext);
         hr = this->Initialize(threadContext);
+
+        // when not hosted through JSRT, override the default limit to be 3GB
+        AllocationPolicyManager *policyManager = threadContext->GetPageAllocator()->GetAllocationPolicyManager();
+        if (policyManager->GetLimit() == -1)
+        {
+            policyManager->SetLimit(0xC0000000);
+        }
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;

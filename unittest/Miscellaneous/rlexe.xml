@@ -85,4 +85,29 @@
       <compile-flags>-testEtwDll:NativeUnitTests.dll</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>AllocUnder3gb.js</files>
+      <baseline>AllocUnder3gb_LowLimit.baseline</baseline>
+      <compile-flags>-AllocPolicyLimit:400 -EnableFatalErrorOnOOM-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AllocUnder3gb.js</files>
+      <compile-flags>-AllocPolicyLimit:1000</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AllocUnder3gb.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>AllocAbove3gb.js</files>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
+      <baseline>AllocAbove3gb_unlimited.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>
