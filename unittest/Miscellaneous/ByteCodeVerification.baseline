@@ -1,4 +1,4 @@
-Bytecode GUID = {F2469FC7-B427-4BFD-A6A4-8425ECBB9266}
+Bytecode GUID = {9F2ABB67-7351-401E-911C-9919B54F761C}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1487,6 +1487,7 @@ Property: supportedLocalesOf
 Property: tagPublicLibraryCode
 Property: winglob
 Property: platform
+Property: formatToParts
 Property: NumberFormat
 Property: __currency
 Property: __currencyDisplay
@@ -1556,6 +1557,8 @@ Property: timeZone
 Property: timeZoneName
 Property: weekday
 Property: year
+Property: PluralRules
+Property: select
 Property: __chakraLibrary
 Property: alias
 Property: argumentsCount
