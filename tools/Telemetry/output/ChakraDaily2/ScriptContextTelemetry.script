@@ -5,7 +5,7 @@
 //
 
 // DEFAULT Params - only used if the @@startDate is not specified
-#DECLARE startDate DateTime = DateTime.Parse(@"2018-04-02 01:00 -700");
+#DECLARE startDate DateTime = DateTime.Parse(@"2018-05-08");
 #DECLARE endDate DateTime = @startDate.AddHours(1);
 
 // if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
@@ -65,6 +65,7 @@ nameValuePairs =
         PRODUCE
             time,
             activityID,
+            scriptContextID,
             markupIsTopLevel,
             markupDomainHash,
             domain,
@@ -73,16 +74,64 @@ nameValuePairs =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraBuildCommit,
+            runType,
             scriptContextLifeSpanMicros,
             propName,
             propValue,
-            propType,
-            domain
+            propType
         USING ScriptContextTelemetryProcessor;
 
 #DECLARE outputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
 [Privacy.Asset.NonPersonal]
 OUTPUT nameValuePairs TO SSTREAM @outputPath
+CLUSTERED BY 
+    domain,
+    propName,
+    propType
+WITH STREAMEXPIRY "30";
+
+
+//
+//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
+// of data, and easily react to schema changes
+//
+#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
+#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
+
+last28Days = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/ScriptContextCounters.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+
+//
+//  filter out any columns we don't want in kusto
+//
+last28DaysFiltered = 
+    SELECT
+            time,
+            //activityID,
+            scriptContextID,
+            markupIsTopLevel,
+            markupDomainHash,
+            domain,
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            chakraBuildCommit,
+            runType,
+            scriptContextLifeSpanMicros,
+            propName,
+            propValue,
+            propType
+     FROM
+        last28Days;
+
+#DECLARE last28DaysOutputPath string = string.Format("{0}/Last28DaysScriptContextCounters.ss", @outputRoot);
+[Privacy.Asset.NonPersonal]
+OUTPUT last28DaysFiltered TO SSTREAM @last28DaysOutputPath
 CLUSTERED BY 
     domain,
     propName,

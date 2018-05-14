@@ -39,6 +39,8 @@
     binaryArch:string?,
     discriminator1:string?,
     discriminator2:string?,
+    chakraBuildCommit:string?,
+    runType:string?,
     activityID:string?
 )
 
@@ -104,6 +106,8 @@ expandedEvents =
                               "binaryArch:binaryArch:string",
                               "Discriminator1:discriminator1:string",
                               "Discriminator2:discriminator2:string",
+                              "chakraBuildCommit:chakraBuildCommit:string",
+                              "runType:runType:string",
                               "activityID:activityID:string"
 );
 
@@ -148,6 +152,8 @@ expandedEvents2 =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraBuildCommit,
+            runType,
             activityID
         FROM expandedEvents;
 END;

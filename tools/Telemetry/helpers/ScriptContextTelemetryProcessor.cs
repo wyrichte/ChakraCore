@@ -25,15 +25,18 @@ namespace Chakra.Utils
         {
 #pragma warning disable CS0649
             public UInt64[] BuiltInCountNameCRCs;
-            public UInt64[] BuiltInCountValues;
+            public Int64[] BuiltInCountValues;
             public UInt64[] LanguageFeaturesNameCRCs;
-            public UInt64[] LanguageFeaturesValues;
+            public Int64[] LanguageFeaturesValues;
             public UInt64[] RejitReasonCRCs;
-            public UInt64[] RejitReasonCounts;
-            public UInt64[] RejitReasonCountsCap;
+            public Int64[] RejitReasonCounts;
+            public Int64[] RejitReasonCountsCap;
             public UInt64[] BailoutReasonCRCs;
-            public UInt64[] BailOutCounts;
-            public UInt64[] BailOutCountsCap;
+            public Int64[] BailOutCounts;
+            public Int64[] BailOutCountsCap;
+            public Int64 scriptContextLifeSpanMicros;
+            public string recyclerID;
+            public string scriptContextID;
 #pragma warning restore CS0649
         }
 
@@ -44,6 +47,8 @@ namespace Chakra.Utils
                 "binaryVersion",
                 "binaryFlavor",
                 "binaryArch",
+                "chakraBuildCommit",
+                "runType",
                 "discriminator1",
                 "discriminator2",
                 "activityID",
@@ -63,12 +68,24 @@ namespace Chakra.Utils
                 }
             }
 
-            output_schema.Add(new ColumnInfo("scriptContextLifeSpanMicros", ColumnDataType.UInt));
+            output_schema.Add(new ColumnInfo("scriptContextLifeSpanMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("recyclerID", ColumnDataType.Guid));
+            output_schema.Add(new ColumnInfo("scriptContextID", ColumnDataType.Guid));
             output_schema.Add(new ColumnInfo("propType", ColumnDataType.String));
             output_schema.Add(new ColumnInfo("propName", ColumnDataType.String));
-            output_schema.Add(new ColumnInfo("propValue", ColumnDataType.UInt));
+            output_schema.Add(new ColumnInfo("propValue", ColumnDataType.Long));
 
             return output_schema;
+        }
+
+        public static Guid TryParseGuid(string guidString, bool generateGuidIfParseFails = false)
+        {
+            Guid guid = Guid.Empty;
+            if (!Guid.TryParse(guidString, out guid) && generateGuidIfParseFails)
+            {
+                guid = Guid.NewGuid();
+            }
+            return guid;
         }
 
         /**
@@ -82,13 +99,17 @@ namespace Chakra.Utils
         {
             foreach (Row input_row in input_rowset.Rows)
             {
+                DeserializedJson parsed = Newtonsoft.Json.JsonConvert.DeserializeObject<DeserializedJson>(input_row["data"].String);
+
                 for (int i = 0; i < keepColumns.Length; i++)
                 {
                     string cname = keepColumns[i];
                     input_row[cname].CopyTo(output_row[cname]);
                 }
 
-                DeserializedJson parsed = Newtonsoft.Json.JsonConvert.DeserializeObject<DeserializedJson>(input_row["data"].String);
+                output_row["scriptContextLifeSpanMicros"].Set(parsed.scriptContextLifeSpanMicros);
+                output_row["recyclerID"].Set(TryParseGuid(parsed.recyclerID));
+                output_row["scriptContextID"].Set(TryParseGuid(parsed.scriptContextID, true));
 
                 foreach (Row r in AddNameValuePair(parsed.BuiltInCountValues, parsed.BuiltInCountNameCRCs, "builtin", output_row))
                 {
@@ -122,7 +143,7 @@ namespace Chakra.Utils
             }
         }
 
-        private IEnumerable<Row> AddNameValuePair(UInt64[] values, UInt64[] crcs, string type, Row outputRow)
+        private IEnumerable<Row> AddNameValuePair(Int64[] values, UInt64[] crcs, string type, Row outputRow)
         {
             for (int i = 0; i < values.Length; i++)
             {
@@ -134,8 +155,6 @@ namespace Chakra.Utils
                     outputRow["propValue"].Set(values[i]);
                     outputRow["propType"].Set(type);
 
-                    // TODO:  update this when we have scriptContextLifeSpan data flowing in
-                    outputRow["scriptContextLifeSpanMicros"].Set(0);
                     yield return outputRow;
                 }
             }

@@ -39,6 +39,8 @@
     binaryArch:string,
     discriminator1:string,
     discriminator2:string,
+    chakraBuildCommit:string,
+    runType:string,
     activityID:string,
 
     markupIsTopLevel:bool?,
@@ -116,6 +118,8 @@ eventData2 =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraBuildCommit,
+            runType,
             eventData.activityID,
             Guid.Parse(eventData.activityID) AS activityID_guid
     FROM
@@ -162,6 +166,8 @@ eventsWithURL =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraBuildCommit,
+            runType,
             activityID,
 
             urlAndDomainData.markupIsTopLevel,
@@ -227,6 +233,8 @@ eventsWithURL =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraBuildCommit,
+            runType,
             activityID,
 
             markupIsTopLevel,
