@@ -97,6 +97,8 @@ HINSTANCE JScript9Interface::LoadDll(bool useRetailDllName, LPCWSTR alternateDll
         m_testHooks.pfJsVarToExtension = (TestHooks::JsVarToExtensionPtr)GetProcAddress(chakraLibrary, "JsVarToExtension");
     }
 
+    m_testHooks.pfCreateChakraEngine = (TestHooks::CreateChakraEnginePtr)GetProcAddress(chakraLibrary, "CreateChakraEngine");
+
     m_testHooks.pfJsQueueBackgroundParse = (TestHooks::JsQueueBackgroundParsePtr)GetProcAddress(chakraLibrary, "JsQueueBackgroundParse");
     m_testHooks.pfJsDiscardBackgroundParse = (TestHooks::JsDiscardBackgroundParsePtr)GetProcAddress(chakraLibrary, "JsDiscardBackgroundParse");
 

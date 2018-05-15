@@ -60,6 +60,8 @@
 #include "NamedItemList.h"
 #include "jscriptdllcommon.h"
 #include "..\StaticLib\base\ScriptEngineBase.h"
+#include "ChakraEngine.h"
+#include "ChakraEngineExports.h"
 #include "IDebugBitCorrectApplicationThread.h"
 #include "ScriptEngine.h"
 

@@ -35,6 +35,7 @@ ScriptEngineBase::ScriptEngineBase() :
     scriptContext(nullptr),
     threadContext(nullptr),
     scriptSiteHolder(nullptr),
+    chakraEngine(nullptr),
     m_refCount(0),
     wasScriptDirectEnabled(false),
     wasBinaryVerified(true)
@@ -56,20 +57,71 @@ STDMETHODIMP ScriptEngineBase::QueryInterface(
 
 STDMETHODIMP_(ULONG) ScriptEngineBase::AddRef(void)
 {
-    return InterlockedIncrement(&m_refCount);
+    long refCount = InterlockedIncrement(&m_refCount);
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (Js::Configuration::Global.flags.TraceEngineRefcount)
+    {
+        Output::Print(_u("%ld %p (post ScriptEngineBase::AddRef)\n"), refCount, this);
+    }
+#endif
+
+    // TODO (doilij): We need to look at the multithreaded implications of this code.
+    if (this->IsChakraEngine() && refCount == 2)
+    {
+        // If a Chakra-external reference is taken, we must root the GlobalObject.
+        Js::ScriptContext *context = this->GetScriptContext();
+        if (context)
+        {
+            uint count = 0;
+            context->GetThreadContext()->GetRecycler()->RootAddRef(context->GetGlobalObject(), &count);
+            AssertMsg(count == 1, "GlobalObject should have refCount of 1 if ScriptEngine was created via ChakraEngine");
+        }
+        else
+        {
+            AssertOrFailFastMsg(false, "ScriptContext was nullptr when we wanted to root global\n");
+        }
+    }
+
+    AssertMsg(refCount >= 0, "ScriptEngineBase refCount should never be negative.");
+    return refCount;
 }
 
 STDMETHODIMP_(ULONG) ScriptEngineBase::Release(void)
 {
-    long lw = InterlockedDecrement(&m_refCount);
-    if (0 == lw)
+    long refCount = InterlockedDecrement(&m_refCount);
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (Js::Configuration::Global.flags.TraceEngineRefcount)
+    {
+        Output::Print(_u("%ld %p (post ScriptEngineBase::Release)\n"), refCount, this);
+    }
+#endif
+
+    // TODO (doilij): We need to look at the multithreaded implications of this code.
+    if (this->IsChakraEngine() && refCount == 1)
+    {
+        // No more Chakra-external references exist. Unroot the GlobalObject.
+        Js::ScriptContext *context = this->GetScriptContext();
+        if (context)
+        {
+            uint count = 0;
+            context->GetThreadContext()->GetRecycler()->RootRelease(context->GetGlobalObject(), &count);
+            AssertMsg(count == 0, "GlobalObject should now be actually unrooted.");
+        }
+        else
+        {
+            AssertOrFailFastMsg(false, "ScriptContext was nullptr when we wanted to unroot global\n");
+        }
+    }
+
+    if (0 == refCount)
     {
         delete this;
     }
-    return lw;
+
+    return refCount;
 }
-
-
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* dataContext)
 {
@@ -115,7 +167,6 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VerifyBinaryConsistency(__in void* d
     }
     return NOERROR;
 }
-
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::SetHostObject(
     __in Var hostObject,

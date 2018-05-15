@@ -273,6 +273,16 @@ public:
         }
     }
 
+    static ChakraEngine * CreateChakraEngine()
+    {
+        if (m_testHooksSetup && m_testHooks.pfCreateChakraEngine != NULL)
+        {
+            return m_testHooks.pfCreateChakraEngine();
+        }
+
+        return nullptr;
+    }
+
     static JsErrorCode WINAPI JsrtCreateRuntime(JsRuntimeAttributes attributes, JsThreadServiceCallback threadService, JsRuntimeHandle *runtime) { return m_jsrtTestHooks.pfJsrtCreateRuntime(attributes, threadService, runtime); }
     static JsErrorCode WINAPI JsrtCreateContext(JsRuntimeHandle runtime, JsContextRef *newContext) { return m_jsrtTestHooks.pfJsrtCreateContext(runtime, newContext); }
     static JsErrorCode WINAPI JsrtSetCurrentContext(JsContextRef context) { return m_jsrtTestHooks.pfJsrtSetCurrentContext(context); }

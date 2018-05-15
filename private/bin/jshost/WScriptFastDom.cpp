@@ -59,10 +59,26 @@ EngineThreadData* GetEngineThreadData()
 {
     return threadLocalData.threadData;
 }
+
 void SetEngineThreadData(EngineThreadData* threadData)
 {
     Assert(threadLocalData.threadData == nullptr);
+    if (threadLocalData.threadData)
+    {
+        ClearEngineThreadData();
+    }
+
     threadLocalData.threadData = threadData;
+}
+
+void ClearEngineThreadData()
+{
+    EngineThreadData *threadData = threadLocalData.threadData;
+    if (threadData)
+    {
+        delete threadData;
+        threadLocalData.threadData = nullptr;
+    }
 }
 
 Var WScriptFastDom::Echo(Var function, CallInfo callInfo, Var* args)

@@ -29,12 +29,16 @@ typedef bool (*NextFunction)(Var, Var *, Var *);
 class ScriptEngineBase : public IActiveScriptDirect
 {
 public:
-    ScriptEngineBase() ;
+    ScriptEngineBase();
     virtual ~ScriptEngineBase();
 
     Js::ScriptContext* GetScriptContext() const { return scriptContext; }
     ScriptSite* GetScriptSiteHolder() const { return scriptSiteHolder; }
-    void SetScriptSiteHolder(ScriptSite* scriptSite) {scriptSiteHolder = scriptSite; }
+    void SetScriptSiteHolder(ScriptSite* scriptSite) { scriptSiteHolder = scriptSite; }
+    ChakraEngine* GetChakraEngine() const { return chakraEngine; }
+    void SetChakraEngine(ChakraEngine* engine) { chakraEngine = engine; }
+    bool IsChakraEngine() const { return chakraEngine != nullptr; }
+
     static  ScriptEngineBase* __stdcall FromIActiveScriptDirect(IActiveScriptDirect* activeScriptDirect)
     {
         return static_cast<ScriptEngineBase*>(activeScriptDirect);
@@ -583,9 +587,9 @@ protected:
     long                m_refCount;
     ThreadContext*      threadContext;
     ScriptSite*         scriptSiteHolder;
+    ChakraEngine*       chakraEngine;
     BOOL                wasBinaryVerified;
     BOOL                wasScriptDirectEnabled;
-
 
     HRESULT CreateTypeFromPrototype(
         __in TypeId typeId,

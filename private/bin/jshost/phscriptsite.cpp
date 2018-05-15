@@ -14,6 +14,7 @@
 #include "hostsysinfo.h"
 #include "AutoBSTR.h"
 #include "EdgeJsStatic.h"
+#include "ChakraEngineExports.h"
 
 LPVOID UTF8BoundaryTestBuffer = nullptr;
 SimpleSourceMapper *UTF8SourceMapper = nullptr;
@@ -173,15 +174,15 @@ void JsHostActiveScriptSite::GetDir(LPCWSTR fullPath, __out std::wstring* fullDi
 
 HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
 {
-    IActiveScriptParse* activeScriptParse = NULL;
-    IClassFactory * jscriptClassFactory = NULL;
-    IDispatch * globalObjectDispatch = NULL;
-    IDispatchEx * globalObjectDispatchEx = NULL;
+    IActiveScriptParse* activeScriptParse = nullptr;
+    IClassFactory * jscriptClassFactory = nullptr;
+    IDispatch * globalObjectDispatch = nullptr;
+    IDispatchEx * globalObjectDispatchEx = nullptr;
     CComPtr<IActiveScriptProperty> activeScriptProperty;
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     HRESULT hr = NOERROR;
 
-    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
+    hr = CoInitializeEx(nullptr, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
     if (FAILED(hr))
     {
         return hr;
@@ -189,22 +190,38 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
 
     if (!jscriptLibrary)
     {
-        hr = CoCreateInstance(CLSID_Chakra, NULL, CLSCTX_INPROC_SERVER, _uuidof(IActiveScript), (LPVOID*)&activeScript);
+        hr = CoCreateInstance(CLSID_Chakra, nullptr, CLSCTX_INPROC_SERVER, _uuidof(IActiveScript), (LPVOID*)&activeScript);
         IfFailedGo(hr);
     }
     else
     {
-        if (!JScript9Interface::SupportsDllGetClassObjectCallback())
+        if (HostConfigFlags::flags.UseChakraEngineAPI)
         {
-            hr = E_NOINTERFACE;
-            goto LReturn;
+            ChakraEngine *chakraEngine = JScript9Interface::CreateChakraEngine();
+            if (!chakraEngine)
+            {
+                return E_FAIL;
+            }
+
+            // AutoCOMPtr calls AddRef when it is created, which GetChakraEngineIASD already did,
+            // but AutoReleasePtr only automatically calls Release.
+            AutoReleasePtr<IActiveScriptDirect> pIASD(JsStaticAPI::Legacy::GetChakraEngineIASD(chakraEngine));
+            hr = pIASD->QueryInterface(__uuidof(IActiveScript), (LPVOID*)&activeScript);
         }
+        else
+        {
+            if (!JScript9Interface::SupportsDllGetClassObjectCallback())
+            {
+                hr = E_NOINTERFACE;
+                goto LReturn;
+            }
 
-        hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, __uuidof(IClassFactory), (LPVOID*)&jscriptClassFactory);
-        IfFailedGo(hr);
+            hr = JScript9Interface::DllGetClassObject(CLSID_Chakra, __uuidof(IClassFactory), (LPVOID*)&jscriptClassFactory);
+            IfFailedGo(hr);
 
-        hr = jscriptClassFactory->CreateInstance(NULL, _uuidof(IActiveScript), (LPVOID*)&activeScript);
-        IfFailedGo(hr);
+            hr = jscriptClassFactory->CreateInstance(NULL, _uuidof(IActiveScript), (LPVOID*)&activeScript);
+            IfFailedGo(hr);
+        }
     }
 
     hr = activeScript->QueryInterface(__uuidof(IActiveScriptProperty), (LPVOID*)&activeScriptProperty);
@@ -254,7 +271,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     hr = activeScript->SetScriptState(SCRIPTSTATE_STARTED);
     IfFailedGo(hr);
 
-    hr = activeScript->GetScriptDispatch(NULL, &globalObjectDispatch);
+    hr = activeScript->GetScriptDispatch(nullptr, &globalObjectDispatch);
     IfFailedGo(hr);
 
     hr = globalObjectDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)&globalObjectDispatchEx);
@@ -1771,16 +1788,41 @@ HRESULT JsHostActiveScriptSite::Shutdown(JsHostActiveScriptSite * scriptSite)
 {
     Assert(scriptSite);
     if (scriptSite->wasClosed)
+    {
         return S_OK;
+    }
 
     HRESULT hr = S_OK;
 
     scriptSite->AddRef();
-    scriptSite->StopScriptEngine();
+
+    if (!HostConfigFlags::flags.UseChakraEngineAPI)
+    {
+        // In ChakraEngine scenario, we cannot Stop the ScriptEngine at this point
+        // because it will cause the scriptContext reference to be null'd out.
+        // Later, when we call git->RevokeInterfaceFromGlobal(scriptSite->activeScriptCookie)
+        // ScriptEngine is Released, refcount drops to 1, and we will try to unroot the GlobalObject,
+        // but we will not have a reference to the scriptContext in order to do so.
+        // TODO (doilij): Safely Stop the ScriptEngine in ChakraEngine scenario.
+        scriptSite->StopScriptEngine();
+    }
 
     if (scriptSite->jsHostScriptSiteCookie)
     {
         hr = git->RevokeInterfaceFromGlobal(scriptSite->jsHostScriptSiteCookie);
+        scriptSite->jsHostScriptSiteCookie = 0;
+    }
+
+    if (scriptSite->globalObjectIDispatchExCookie)
+    {
+        git->RevokeInterfaceFromGlobal(scriptSite->globalObjectIDispatchExCookie);
+        scriptSite->globalObjectIDispatchExCookie = 0;
+    }
+
+    if (scriptSite->activeScriptCookie)
+    {
+        git->RevokeInterfaceFromGlobal(scriptSite->activeScriptCookie);
+        scriptSite->activeScriptCookie = 0;
     }
 
     scriptSite->wasClosed = TRUE;

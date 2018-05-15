@@ -81,6 +81,7 @@
         <!-- For InternetCrackURl and CreateURLMoniker for HtmlApp.cpp -->
         $(SdkLibPath)\urlmon.lib;
         $(SdkLibPath)\wininet.lib;
+        $(SdkLibPath)\dbghelp.lib;
         $(OneCoreUapInetcoreLibPath)\iertutilp.lib
       </AdditionalDependencies>
       <DelayLoadDLLs>

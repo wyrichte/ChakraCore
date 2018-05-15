@@ -9,6 +9,12 @@
 #include "TestHooks.h"
 #include "JavascriptErrorDebug.h"
 
+// dbghelp.h is not clean with warning 4091
+#pragma warning(push)
+#pragma warning(disable: 4091) /* warning C4091: 'typedef ': ignored on left of '' when no variable is declared */
+#include <dbghelp.h>
+#pragma warning(pop)
+
 #ifndef ENABLE_TEST_HOOKS
 HRESULT OnJScript9Loaded()
 {
@@ -22,6 +28,8 @@ HRESULT OnJScript9Loaded()
 
 class CClassFactory;
 extern CClassFactory* (*pfCreateJscript9ClassFactory)(void);
+
+class ChakraEngine;
 
 HRESULT __stdcall SetConfigFlags(__in int argc, __in_ecount(argc) LPWSTR argv[], ICustomConfigFlags * pCustomConfigFlags)
 {
@@ -371,7 +379,6 @@ HRESULT __stdcall FinalGC()
         return E_FAIL;
     }
 
-
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
 
     // Don't run the final GC if no script context was ever registered with the thread
@@ -380,14 +387,59 @@ HRESULT __stdcall FinalGC()
     {
         return E_FAIL;
     }
-    Recycler * recycler = threadContext->GetRecycler();  
+
+    Recycler * recycler = threadContext->GetRecycler();
     // Recycler might not have initialized, check if it is null
     if (recycler)
     {
-        recycler->EnsureNotCollecting();    
-        recycler->CollectNow<CollectNowFinalGC>();    
+        recycler->EnsureNotCollecting();
+        recycler->CollectNow<CollectNowFinalGC>();
         Assert(!recycler->CollectionInProgress());
     }
+
+    if (Js::Configuration::Global.flags.DumpAfterFinalGC)
+    {
+        wprintf(_u("Producing memory dump after FinalGC\n"));
+
+        WCHAR tempFilePath[MAX_PATH];
+        WCHAR tempFileName[MAX_PATH];
+        HANDLE hTempFile;
+        DWORD retVal = GetTempPath(MAX_PATH, tempFilePath);
+
+        if (retVal > MAX_PATH || (retVal == 0))
+        {
+            wprintf(_u("RetVal: %d\n"), retVal);
+            return E_FAIL;
+        }
+        LPWSTR filePath = tempFilePath;
+
+        StringCchPrintf(tempFileName, MAX_PATH, _u("%s\\CH_%u_%u.dmp"), filePath, GetCurrentProcessId(), GetCurrentThreadId());
+        wprintf(_u("dump filename %s \n"), tempFileName);
+
+        hTempFile = CreateFile(tempFileName, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL, NULL);
+        if (hTempFile == INVALID_HANDLE_VALUE)
+        {
+            return GetLastError();
+        }
+
+        MINIDUMP_TYPE dumpType = static_cast<MINIDUMP_TYPE>(MiniDumpWithDataSegs | MiniDumpWithPrivateReadWriteMemory | MiniDumpWithFullMemory);
+
+        BOOL dumpGenerated = MiniDumpWriteDump(GetCurrentProcess(),
+            GetCurrentProcessId(),
+            hTempFile,
+            dumpType,
+            NULL,
+            NULL,
+            NULL);
+        if (!dumpGenerated)
+        {
+            wprintf(_u("Unable to write minidump (0x%08X)\n"), GetLastError());
+        }
+        FlushFileBuffers(hTempFile);
+        CloseHandle(hTempFile);
+    }
+
 #endif
     return S_OK;
 }
@@ -490,6 +542,7 @@ HRESULT OnJScript9Loaded()
 #ifdef FAULT_INJECTION
         GetCurrentFaultInjectionCount,
 #endif
+        CreateChakraEngine,
 
 #define FLAG(type, name, description, defaultValue, ...) FLAG_##type##(name)
 #define FLAGINCLUDE(name) \

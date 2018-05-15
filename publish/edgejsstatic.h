@@ -9,6 +9,7 @@ enum ErrorReason;
 #define FATAL_ON_FAILED_API_RESULT(hr) if (FAILED(hr)) { JsStaticAPI::Error::ReportFatalException(hr, Fatal_Failed_API_Result); }
 
 typedef interface ITrackingService ITrackingService;
+class ChakraEngine;
 
 namespace JsStaticAPI
 {
@@ -210,6 +211,12 @@ namespace JsStaticAPI
             __in_opt ScriptMethod setterFallBackEntryPoint,
             __out_opt Var* getter,
             __out_opt Var* setter);
+    };
+
+    class Legacy
+    {
+    public:
+        static IActiveScriptDirect* __stdcall GetChakraEngineIASD(__in ChakraEngine *chakraEngine);
     };
 
     static HRESULT __stdcall EnterScriptCall(IActiveScriptDirect* activeScriptdirect, ScriptCallbackMethod callback);

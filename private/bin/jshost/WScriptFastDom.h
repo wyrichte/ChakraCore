@@ -28,6 +28,7 @@ struct EngineThreadData
 
 EngineThreadData* GetEngineThreadData();
 void SetEngineThreadData(EngineThreadData*);
+void ClearEngineThreadData();
 
 class WScriptFastDom
 {

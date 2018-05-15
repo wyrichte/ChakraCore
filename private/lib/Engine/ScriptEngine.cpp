@@ -185,7 +185,9 @@ ScriptEngine::ScriptEngine(REFIID riidLanguage, LPCOLESTR pszLanguageName)
 ScriptEngine::~ScriptEngine()
 {
     Assert(m_refCount == 0);
-    Assert(fKeepEngineAlive || (m_ssState == SCRIPTSTATE_CLOSED || m_ssState == SCRIPTSTATE_UNINITIALIZED));
+    // See comments in JsHostActiveScriptSite::Shutdown for why chakraEngine is checked in this assertion.
+    // TODO (doilij): Safely Stop the ScriptEngine in ChakraEngine scenario.
+    Assert(chakraEngine || fKeepEngineAlive || (m_ssState == SCRIPTSTATE_CLOSED || m_ssState == SCRIPTSTATE_UNINITIALIZED));
 
 #ifdef ENABLE_BASIC_TELEMETRY
     Js::ScriptContextTelemetry::Cleanup();
@@ -6308,8 +6310,23 @@ STDMETHODIMP ScriptEngine::SetProperty(DWORD dwProperty, VARIANT *pvarIndex, VAR
     case SCRIPTPROP_DIAGNOSTICS_OM:
         {
             this->m_isDiagnosticsOM = true;
-            // This is called before SetScriptSite, so there won't be scriptcontext available.
-            Assert(this->scriptContext == nullptr);
+
+            if (this->scriptContext != nullptr)
+            {
+                // In ChakraEngine scenario, EnsureScriptContext is called first, so don't assert that (scriptContext == nullptr).
+                // Note that m_isDiagnosticsOM is used to initialize scriptContext->isDiagnosticsScriptContext,
+                // so setting it after initializing the scriptContext won't help. Instead, set the property directly
+                // on the scriptContext to maintain the expected state. Aside from setting this property, it is not used
+                // during the initialization path. It is only used in DiagnosticsScriptObject and JavascriptStackWalker.
+                Assert(this->scriptContext->GetLibrary() && this->scriptContext->GetLibrary()->IsChakraEngine());
+                this->scriptContext->SetIsDiagnosticsScriptContext(this->m_isDiagnosticsOM);
+            }
+            else
+            {
+                // Ordinarily, this is called before SetScriptSite, so there won't be a scriptContext available.
+                Assert(this->scriptContext == nullptr);
+            }
+
             return NOERROR;
         }
     case SCRIPTPROP_EVAL_RESTRICTION:
@@ -7044,3 +7061,48 @@ IsOs_OneCoreUAP()
     return s_fIsOsOneCoreUAP;
 }
 #endif
+
+__declspec(dllexport)
+ChakraEngine * WINAPI CreateChakraEngine()
+{
+    HRESULT hr = E_FAIL; // init in failure mode to protect against paths which did not explicitly succeed
+
+    BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT_NESTED
+    {
+        // REVIEW (doilij): "Chakra" was not previously used as langname as far as I can tell,
+        // which would help differentiate this path for initializing ScriptEngine.
+        // Is there any technical reason this should be "JScript"?
+        static OLECHAR s_szLangName[] = OLESTR("Chakra");
+        ScriptEngine * scriptEngine = HeapNewNoThrow(ScriptEngine, CLSID_Chakra, s_szLangName);
+        hr = scriptEngine->InitializeThreadBound();
+        if (FAILED(hr))
+        {
+            AssertOrFailFast("Unexpected failure in CreateChakraEngine");
+            scriptEngine->Release();
+            return nullptr;
+        }
+
+        scriptEngine->EnsureScriptContext();
+
+        Js::ScriptContext *scriptContext = scriptEngine->GetScriptContext();
+        Memory::Recycler *recycler = scriptContext->GetRecycler();
+        ChakraEngine *chakraEngine = RecyclerNewFinalized(recycler, ChakraEngine, scriptEngine);
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+        if (Js::Configuration::Global.flags.TraceEngineRefcount)
+        {
+            Output::Print(_u("ChakraEngine: %p; ScriptEngine: %p\n"), chakraEngine, scriptEngine);
+        }
+#endif
+
+        // Unroot Global Object
+        Js::JavascriptLibrary *library = scriptContext->GetLibrary();
+        recycler->RootRelease(library->GetGlobalObject());
+
+        return chakraEngine;
+    }
+    END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
+    // all paths above return, so there is no need to check hr.
+
+    return nullptr;
+}

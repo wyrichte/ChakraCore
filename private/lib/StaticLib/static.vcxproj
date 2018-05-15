@@ -31,7 +31,7 @@
         $(ChakraRootDirectory)core\lib\Parser;
         $(ChakraRootDirectory)core\lib\WasmReader;
         $(ChakraRootDirectory)core\lib\BackEnd;
-        <!-- For ChakraVersion.h -->
+        <!-- For ChakraVersion.h, ChakraEngine.h -->
         $(MSBuildThisFileDirectory)..\..\lib\Engine;
         $(ChakraInternalIDLIntDir);
 
@@ -65,6 +65,7 @@
     <ClCompile Include="jsStaticError.cpp" />
     <ClCompile Include="jsStaticExternalObject.cpp" />
     <ClCompile Include="jsStaticFastDOM.cpp" />
+    <ClCompile Include="jsStaticLegacy.cpp" />
     <ClCompile Include="jsStaticLibrary.cpp" />
     <ClCompile Include="jsStaticNumber.cpp" />
     <ClCompile Include="jsStaticTaggedInt.cpp" />

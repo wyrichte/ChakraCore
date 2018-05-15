@@ -1092,6 +1092,7 @@ HRESULT DoOneIASIteration(BSTR filename)
     }
 
     CloseHandle(mainEngineThread);
+    ClearEngineThreadData();
     
     delete messageQueue;
 

@@ -6,6 +6,8 @@ HRESULT OnJScript9Loaded();
 struct _PROFILER_HEAP_OBJECT;
 typedef HRESULT (__stdcall *GetHeapObjectInfoPtr)(Var instance, HostProfilerHeapObject** heapObjOut, HeapObjectInfoReturnResult& returnResult);
 
+class ChakraEngine;
+
 #ifdef ENABLE_TEST_HOOKS
 
 interface ICustomConfigFlags;
@@ -59,6 +61,9 @@ struct TestHooks
 #ifdef FAULT_INJECTION
     typedef unsigned int(__stdcall *GetCurrentFaultInjectionCountPtr)();
 #endif
+
+    typedef ChakraEngine *(__stdcall *CreateChakraEnginePtr)();
+
     DllGetClassObjectPtr pfDllGetClassObject;
     JsVarToScriptDirectPtr pfJsVarToScriptDirect;
     JsVarAddRefPtr pfJsVarAddRef;
@@ -94,6 +99,9 @@ struct TestHooks
 #ifdef FAULT_INJECTION
     GetCurrentFaultInjectionCountPtr pfGetCurrentFaultInjectionCount;
 #endif
+
+    CreateChakraEnginePtr pfCreateChakraEngine;
+
 #define FLAG(type, name, description, defaultValue, ...) FLAG_##type##(name)
 #define FLAG_String(name) \
     bool (__stdcall *pfIsEnabled##name##Flag)(); \

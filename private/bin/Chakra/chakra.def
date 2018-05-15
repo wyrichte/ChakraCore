@@ -43,6 +43,8 @@ EXPORTS
 
     DumpDiagInfo
 
+    CreateChakraEngine
+
     MemProtectHeapCreate
     MemProtectHeapRootAlloc
     MemProtectHeapRootAllocLeaf

@@ -489,16 +489,18 @@ void ScriptSite::Close()
         globalDispatches->Clear();
     }
 
-    // In JSRT, global object can be disposed before JSRTContxt, and we'll AV here.
-    // We need to clean up the global object to break potential circular reference. we don't
-    // need to do that for jsrt.
-    if (!GetScriptSiteContext()->GetThreadContext()->IsJSRT())
+    // In JSRT, global object can be disposed before JSRTContext, and we'll AV here.
+    // Similarly for ChakraEngine, we might AV trying to access globalObject here.
+    // We need to clean up the global object to break potential circular reference.
+    // We don't need to do that for JSRT or ChakraEngine.
+    if (!GetScriptSiteContext()->GetThreadContext()->IsJSRT() && !this->scriptEngine->IsChakraEngine())
     {
         Js::GlobalObject* globalObject = GetScriptSiteContext()->GetGlobalObject();
         globalObject->SetHostObject(nullptr);
         globalObject->SetDirectHostObject(nullptr, nullptr);
         globalObject = nullptr;
     }
+
     if (moduleRoots)
     {
         moduleRoots.Unroot(recycler);

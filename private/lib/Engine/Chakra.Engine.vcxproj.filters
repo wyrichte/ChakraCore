@@ -4,6 +4,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)activescripterror.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptProfilerHeapEnum.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)caller.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)ChakraEngine.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)CJavascriptOperations.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)classfac.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)codectx.cpp" />
@@ -70,6 +71,11 @@
     <ClInclude Include="ad1ex.h" />
     <ClInclude Include="builtinoperations.h" />
     <ClInclude Include="caller.h" />
+    <ClInclude Include="ChakraEngine.h" />
+    <ClInclude Include="ChakraEngineExports.h" />
+    <ClInclude Include="ChakraHostDebugContext.h" />
+    <ClInclude Include="ChakraHostScriptContext.h" />
+    <ClInclude Include="ChakraVersion.h" />
     <ClInclude Include="CJavascriptOperations.h" />
     <ClInclude Include="classfac.h" />
     <ClInclude Include="codectx.h" />
@@ -119,14 +125,11 @@
     <ClInclude Include="scrpting.h" />
     <ClInclude Include="TestHooks.h" />
     <ClInclude Include="typeinfobuilder.h" />
-    <ClInclude Include="ChakraVersion.h" />
     <ClInclude Include="var.h" />
     <ClInclude Include="scrutil.h" />
     <ClInclude Include="AutoCallerPointer.h" />
-    <ClInclude Include="ChakraHostDebugContext.h" />
     <ClInclude Include="EnginePch.h" />
     <ClInclude Include="IDebugBitCorrectApplicationThread.h" />
-    <ClInclude Include="ChakraHostScriptContext.h" />
     <ClInclude Include="ActiveScriptExternalLibrary.h" />
     <ClInclude Include="domfastpath.h" />
     <ClInclude Include="DOMFastpathinfolist.h" />

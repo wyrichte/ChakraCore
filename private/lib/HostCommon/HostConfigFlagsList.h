@@ -48,6 +48,7 @@ FLAG(bool, EnableOnLeaveScript,             "Execute __onLeaveScript() when leav
 FLAG(bool, MuteHostErrorMsg,                "Mute host error output, e.g. module load failures", false)
 FLAG(bool, TraceHostCallback,               "Output traces for host callbacks", false)
 FLAG(bool, Test262,                         "load Test262 harness", false)
+FLAG(bool, UseChakraEngineAPI,              "Use ChakraEngine API instead of COM or JSRT", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2
