@@ -220,7 +220,7 @@ HRESULT RunTestcase2()
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
-    test->VerifyDataStreamMethodCallCounter(1,0);
+    test->VerifyDataStreamMethodCallCounter(1,1);
     test->CloseEngine();
     PrintSeparator();
     return hr;
@@ -304,7 +304,7 @@ HRESULT RunTestcase6()
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
-    test->VerifyDataStreamMethodCallCounter(1,0);
+    test->VerifyDataStreamMethodCallCounter(1,1);
     test->CloseEngine();
     PrintSeparator();
     return hr;

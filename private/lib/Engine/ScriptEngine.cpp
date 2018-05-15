@@ -4900,8 +4900,14 @@ HRESULT ScriptEngine::CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgPars
         // pretend it is eval
         grfscr |= (fscrEval | fscrEvalCode);
     }
-    
-    if (CONFIG_FLAG(ParserStateCache) && pDataCache != nullptr)
+
+    // Disable parser state cache if
+    // - We don't have a data stream we can use to write the cache into
+    // - The -ForceSerialzed flag is on because it is not compatible with the parser state cache
+    // - The script we are parsing is library code
+    // - The host is in debug mode
+    if (CONFIG_FLAG(ParserStateCache) && pDataCache != nullptr && !CONFIG_FLAG(ForceSerialized) && !IsDebuggerEnvironmentAvailable()
+        && !((grfscr | fscrIsLibraryCode) == fscrIsLibraryCode))
     {
         grfscr |= fscrCreateParserState;
     }

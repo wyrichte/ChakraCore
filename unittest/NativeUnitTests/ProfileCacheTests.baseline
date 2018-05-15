@@ -30,6 +30,7 @@ GetReadDataStream is called
 GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
+SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
 Verify SaveWriteDataStream Counter
@@ -88,6 +89,7 @@ GetReadDataStream is called
 GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
+SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
 Verify SaveWriteDataStream Counter
