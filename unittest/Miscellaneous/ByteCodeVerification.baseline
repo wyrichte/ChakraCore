@@ -1,4 +1,4 @@
-Bytecode GUID = {9F2ABB67-7351-401E-911C-9919B54F761C}
+Bytecode GUID = {9B3A48D4-C8EF-46CF-A473-14CB0DA3244F}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1572,6 +1572,8 @@ Property: registerChakraLibraryFunction
 Property: registerFunction
 Property: toLength
 Property: toInteger
+Property: arraySpeciesCreate
+Property: arrayCreateDataPropertyOrThrow
 Property: builtInGlobalObjectEntryIsFinite
 Property: builtInGlobalObjectEntryIsNaN
 Property: builtInGlobalObjectEval
@@ -1631,6 +1633,7 @@ Property: raiseObjectIsNonExtensible
 Property: raiseOptionValueOutOfRange_3
 Property: raiseOptionValueOutOfRange
 Property: raiseThis_NullOrUndefined
+Property: raiseFunctionArgument_NeedFunction
 Property: Promise
 Property: enqueueTask
 Property: MS_ASYNC_CALLBACK_STATUS_ASSIGN_DELEGATE
