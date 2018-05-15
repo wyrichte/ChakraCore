@@ -42,6 +42,8 @@
     <ClCompile Include="RemoteVar.cpp" />
     <ClCompile Include="RemoteDynamicObject.cpp" />
     <ClCompile Include="RemoteEntryPoint.cpp" />
+    <ClCompile Include="JDTypeInfo.cpp" />
+    <ClCompile Include="ProgressTracker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -91,6 +93,8 @@
     <ClInclude Include="RemoteVar.h" />
     <ClInclude Include="RemoteDynamicObject.h" />
     <ClInclude Include="RemoteEntryPoint.h" />
+    <ClInclude Include="JDTypeInfo.h" />
+    <ClInclude Include="ProgressTracker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

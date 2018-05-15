@@ -774,7 +774,7 @@ struct RecyclerGraphNodeData
 
     RecyclerGraphNodeData(ULONG64 address) :
         address(address),
-      
+        depth(0),
         rootType(RootType::RootTypeNone)
     {
         Assert(IsLegalAddress(address));
@@ -784,6 +784,8 @@ struct RecyclerGraphNodeData
     ULONG64 Key() const { return address; }
     uint GetObjectSize() const { return objectSize; }
     void SetObjectSize(uint size) { objectSize = size; }
+    uint GetDepth() const { return depth; }
+    void SetDepth(uint d) { this->depth = d; }
 
     bool HasTypeInfo() const { return GetTypeName() != nullptr; }
     void SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary);
@@ -802,10 +804,12 @@ struct RecyclerGraphNodeData
     {
         return (address & 0xFF00000000000000) == 0;
     }
+
 private:
     RootType rootType : 8;
     const ULONG64 address : 56;
     uint objectSize;
+    uint depth;
     RecyclerObjectTypeInfo * typeInfo;
 };
 

@@ -25,6 +25,5 @@ private:
     bool isChakra;
     bool memoryNS;
     std::string fullTypeName;
-    ULONG64 modBase;
-    ULONG typeId;
+    JDTypeInfo typeInfo;
 };

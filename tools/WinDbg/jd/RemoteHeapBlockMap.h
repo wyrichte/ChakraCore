@@ -8,8 +8,12 @@
 class RemoteHeapBlockMap
 {
 public:
-    typedef stdext::hash_map<ULONG64, RemoteHeapBlock> Cache;
-    RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap);
+    struct Cache
+    {
+        stdext::hash_map<ULONG64, RemoteHeapBlock *> addressToHeapBlockMap;
+        stdext::hash_map<ULONG64, RemoteHeapBlock> heapBlockAddressToHeapBlockMap;
+    };
+    RemoteHeapBlockMap(JDRemoteTyped heapBlockMap);
 
     template <typename Fn>
     bool ForEachHeapBlock(Fn fn);
@@ -20,7 +24,7 @@ public:
     RemoteHeapBlock * FindHeapBlock(ULONG64 address);
 private:
     template <typename Fn>
-    bool ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction);
+    bool ForEachHeapBlockRaw(JDRemoteTyped& heapBlockMap, Fn processFunction);
 
     template <typename Fn>
     bool ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& l1ChunkArray, Fn processFunction);
@@ -37,15 +41,8 @@ protected:
 template <typename Fn>
 bool RemoteHeapBlockMap::ForEachHeapBlock(Fn fn)
 {
-    for (auto i = cachedHeapBlock->begin(); i != cachedHeapBlock->end(); i++)
+    for (auto i = cachedHeapBlock->heapBlockAddressToHeapBlockMap.begin(); i != cachedHeapBlock->heapBlockAddressToHeapBlockMap.end(); i++)
     {
-        RemoteHeapBlock& remoteHeapBlock = (*i).second;
-        if ((*i).first != remoteHeapBlock.GetAddress())
-        {
-            // Skip heap block that are not at the beginning of the address, to avoid repeats
-            continue;
-        }
-
         if (fn((*i).second))
         {
             return true;
@@ -74,7 +71,7 @@ bool RemoteHeapBlockMap::ForEachHeapBlockDirect(ExtRemoteTyped& heapBlockMap, Fn
 }
 
 template <typename Fn>
-bool RemoteHeapBlockMap::ForEachHeapBlockRaw(ExtRemoteTyped& heapBlockMap, Fn processFunction)
+bool RemoteHeapBlockMap::ForEachHeapBlockRaw(JDRemoteTyped& heapBlockMap, Fn processFunction)
 {
     if (g_Ext->m_PtrSize == 4)
     {
@@ -109,7 +106,7 @@ bool RemoteHeapBlockMap::ProcessL1Chunk(ULONG64 nodeIndex, JDRemoteTyped& chunk,
     for (size_t l1Id = 0; l1Id < l1Count; l1Id++)
     {
         JDRemoteTyped l2MapChunk = chunk.ArrayElement(l1Id);
-        if (ExtRemoteTypedUtil::GetAsPointer(l2MapChunk) != 0)
+        if (ExtRemoteTypedUtil::GetAsPointer(l2MapChunk.GetExtRemoteTyped()) != 0)
         {
             JDRemoteTyped l2MapChunkDeref = l2MapChunk.Dereference();
             if (ProcessL2Chunk(nodeIndex, l1Id, l2MapChunkDeref, fn))
@@ -126,7 +123,7 @@ template <typename Fn>
 bool
 RemoteHeapBlockMap::ProcessL2Chunk(ULONG64 nodeIndex, ULONG64 l1Id, JDRemoteTyped& chunk, Fn fn)
 {
-    ExtRemoteTyped l2map = chunk.Field("map");
+    ExtRemoteTyped l2map = chunk.Field("map").GetExtRemoteTyped();
     const size_t l2Count = l2map.GetTypeSize() / l2map.ArrayElement(0).GetTypeSize();
     l2ChunkSize = l2Count;
     for (size_t l2Id = 0; l2Id < l2Count; l2Id++)

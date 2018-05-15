@@ -4,6 +4,7 @@
 #include "jdrecycler.h"
 #include "Collections.h"
 
+
 // Represents the recycler object graph
 // Encapsulates logic to scan remote recycler objects
 class RecyclerObjectGraph
@@ -58,19 +59,29 @@ public:
         return _objectGraph.GetEdgeCount();
     }
 
-
-    template <typename Sort, typename Fn>
-    bool MapSorted(Fn fn)
+    uint GetDepth()
     {
-        std::set<GraphImplNodeType*, Sort> sortedNodes;
+        return this->m_maxDepth + 1;
+    }
+
+    template <typename Sort, typename FnInclude, typename FnSorted>
+    bool MapSorted(FnInclude fnInclude, FnSorted fnSorted)
+    {
+        std::auto_ptr<GraphImplNodeType *> nodes(new GraphImplNodeType *[GetNodeCount()]);
+        uint filteredCount = 0;
         MapAllNodes([&](GraphImplNodeType* node)
         {
-            sortedNodes.insert(node);
+            if (fnInclude(node))
+            {
+                nodes.get()[filteredCount++] = node;
+            }
         });
 
-        for (auto i = sortedNodes.begin(); i != sortedNodes.end(); i++)
+        std::sort(nodes.get(), nodes.get() + filteredCount, Sort());
+
+        for (uint i = 0; i < filteredCount; i++)
         {
-            if (fn((*i)))
+            if (fnSorted(nodes.get()[i]))
             {
                 return true;
             }
@@ -93,10 +104,12 @@ protected:
         ConstructData(RemoteRecycler recycler) : recycler(recycler), hbm(recycler.GetHeapBlockMap()) {};
         RemoteRecycler recycler;
         RemoteHeapBlockMap hbm;
-        std::stack<MarkStackEntry> markStack;
+
+        // Use a deque to do a breath first walk of the graph so we can calculate the depth of the a node
+        std::deque<MarkStackEntry> markStack;
     };
     void ClearTypeInfo();
-    void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType);
+    void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType, uint depth);
     void ScanBytes(ConstructData& constructData, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
 
     GraphImplType _objectGraph;
@@ -105,5 +118,6 @@ protected:
     bool m_hasTypeName;
     bool m_hasTypeNameAndFields;
     bool m_interior;
+    uint m_maxDepth;
 };
 

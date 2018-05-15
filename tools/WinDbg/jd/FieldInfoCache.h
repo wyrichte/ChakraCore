@@ -25,34 +25,27 @@ private:
     };
 
     friend bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b);
-    struct Value
+    struct Value : public JDTypeInfo
     {
-        Value(ULONG64 modBase = 0, ULONG typeId = 0, ULONG fieldOffset = (ULONG)-1)
-            : m_ModBase(modBase), m_TypeId(typeId), m_fieldOffset(fieldOffset)
+        Value(bool hasField = false) : m_fieldOffset(hasField ? (ULONG)-2 : (ULONG)-1)
+        {
+
+        }
+
+        Value(ULONG64 modBase, ULONG typeId, ULONG size, ULONG fieldOffset, bool isPointerType)
+            : JDTypeInfo(modBase, typeId, size, isPointerType), m_fieldOffset(fieldOffset)
         {
 
         }
         
-        bool IsValid() const
-        {
-            return this->m_fieldOffset != (ULONG)-1 && this->m_ModBase != 0 && this->m_TypeId != 0 && this->m_fieldOffset != -1;
-        }
-
-        ULONG64 GetModBase() const { return m_ModBase; }
-        ULONG GetTypeId() const { return m_TypeId; }
-        ULONG GetFieldOffset() const { return m_fieldOffset;  }
+        bool HasField() const { return m_fieldOffset != (ULONG)-1; }
+        ULONG GetFieldOffset() const { return m_fieldOffset; }        
     private:
-
-        ULONG64 m_ModBase;
-        ULONG m_TypeId;
         ULONG m_fieldOffset;
-
-
     };
-
     stdext::hash_map<Key, Value> cache;
 public:
-    static bool HasField(ExtRemoteTyped& object, char const * field);
+    static bool HasField(JDRemoteTyped& object, char const * field);
     static JDRemoteTyped GetField(JDRemoteTyped& object, char const * field);
 };
 

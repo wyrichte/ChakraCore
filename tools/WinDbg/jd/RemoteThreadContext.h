@@ -50,7 +50,7 @@ public:
     }
 
     RemoteThreadContext() : threadContext("(void *)0") {}
-    RemoteThreadContext(ExtRemoteTyped const& threadContext) : threadContext(threadContext) {};
+    RemoteThreadContext(JDRemoteTyped threadContext) : threadContext(threadContext.GetExtRemoteTyped()) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
     bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * pThreadId = NULL);
     bool UseCodePageAllocator();
@@ -62,7 +62,7 @@ public:
     {
         if (threadContext.HasField("scriptContextList"))
         {
-            return ExtRemoteTypedUtil::LinkListForEach(threadContext.Field("scriptContextList"), "next", [&](ExtRemoteTyped& scriptContext)
+            return ExtRemoteTypedUtil::LinkListForEach(threadContext.Field("scriptContextList"), "next", [&](JDRemoteTyped& scriptContext)
             {
                 return fn(RemoteScriptContext(scriptContext));
             });

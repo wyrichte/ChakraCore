@@ -9,7 +9,7 @@ class RemoteJavascriptFunction : public RemoteRecyclableObject
 public:
     RemoteJavascriptFunction();
     RemoteJavascriptFunction(ULONG64 ptr);
-    RemoteJavascriptFunction(ExtRemoteTyped const& o);
+    RemoteJavascriptFunction(JDRemoteTyped const& o);
     bool IsScriptFunction();
     bool IsBoundFunction();
     RemoteScriptFunction AsScriptFunction();

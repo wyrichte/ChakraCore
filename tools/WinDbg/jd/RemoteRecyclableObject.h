@@ -10,7 +10,7 @@ class RemoteRecyclableObject
 public:
     RemoteRecyclableObject();
     RemoteRecyclableObject(ULONG64 address);
-    RemoteRecyclableObject(ExtRemoteTyped const& o);
+    RemoteRecyclableObject(JDRemoteTyped const& o);
     
     bool IsUndefined();
     bool IsNull();

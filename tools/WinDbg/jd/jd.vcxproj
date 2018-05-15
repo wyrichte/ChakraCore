@@ -52,8 +52,8 @@
         ole32.lib;        
         oleaut32.lib;        
         %(AdditionalDependencies)
-    </AdditionalDependencies>
-    <AdditionalLibraryDirectories>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
         $(SdkLibPath);
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
         $(InternalSdkLibPath);
@@ -73,6 +73,8 @@
     <ClCompile Include="JDByteCodeCachedData.cpp" />
     <ClCompile Include="jdfunctionbody.cpp" />
     <ClCompile Include="JDTypeCache.cpp" />
+    <ClCompile Include="JDTypeInfo.cpp" />
+    <ClCompile Include="ProgressTracker.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
     <ClCompile Include="RecyclerObjectGraph.cpp" />
@@ -115,6 +117,8 @@
     <ClInclude Include="JDBackendUtil.h" />
     <ClInclude Include="JDByteCodeCachedData.h" />
     <ClInclude Include="JDTypeCache.h" />
+    <ClInclude Include="JDTypeInfo.h" />
+    <ClInclude Include="ProgressTracker.h" />
     <ClInclude Include="RecyclerObjectTypeInfo.h" />
     <ClInclude Include="Collections.h" />
     <ClInclude Include="ExtRemoteTypedUtil.h" />

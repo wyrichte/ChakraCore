@@ -7,7 +7,7 @@ class RemoteScriptContext;
 class RemoteUtf8SourceInfo
 {
 public:
-    RemoteUtf8SourceInfo(ExtRemoteTyped const& utf8SourceInfo) : utf8SourceInfo(utf8SourceInfo) {};
+    RemoteUtf8SourceInfo(JDRemoteTyped const& utf8SourceInfo) : utf8SourceInfo(utf8SourceInfo) {};
     
     JDRemoteTyped GetSrcInfo();
     JDRemoteTyped GetLineOffsetCache();

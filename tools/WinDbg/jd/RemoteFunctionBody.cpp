@@ -104,7 +104,7 @@ RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) :
  
 JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char const* castType)
 {
-    JDRemoteTyped ret = Eval("@@c++((void*)0)");
+    JDRemoteTyped ret = JDRemoteTyped::NullPtr();
 
     EnsureAuxPtrsEnums();
     if (strlen(fieldName) > 2 && (fieldName[0] == 'm' && fieldName[1] == '_')) // 'm_' has been removed in the field enum name in core
@@ -117,7 +117,7 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char c
     if (auxPtrsEnum.find(newFieldName) != auxPtrsEnum.end())
     {
         auto fieldEnum = auxPtrsEnum[newFieldName];
-        WalkAuxPtrs([&](uint8 type, const char* name, ExtRemoteTyped auxPtr) ->bool
+        WalkAuxPtrs([&](uint8 type, const char* name, JDRemoteTyped auxPtr) ->bool
         {
             if (type == fieldEnum) 
             {
@@ -142,7 +142,7 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char c
 
 void RemoteFunctionProxy::PrintAuxPtrs()
 {
-    WalkAuxPtrs([](uint8 type, const char* name, ExtRemoteTyped auxPtr) ->bool
+    WalkAuxPtrs([](uint8 type, const char* name, JDRemoteTyped auxPtr) ->bool
     {
         GetExtension()->Out("\t%-30s: 0x%I64X\n", name, auxPtr.GetPtr());
         return false;
@@ -165,7 +165,7 @@ JDRemoteTyped RemoteFunctionBody::GetReferencedPropertyIdMap()
     {
         return this->GetAuxWrappedField("referencedPropertyIdMap", "Js::PropertyId");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 JDRemoteTyped RemoteFunctionBody::GetFieldRecyclerData(char const * fieldName)
@@ -194,7 +194,7 @@ JDRemoteTyped RemoteParseableFunctionInfo::GetAuxWrappedFieldRecyclerData(char c
         {
             return this->Field("recyclerData").Field(oldFieldName != nullptr ? oldFieldName : fieldName);
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField(fieldName, castType, oldFieldName);
 }
@@ -203,7 +203,7 @@ JDRemoteTyped RemoteParseableFunctionInfo::GetDeferredStubs()
 {
     if (GetExtension()->IsJScript9())
     {
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField("deferredStubs", "DeferredFunctionStub *");
 }
@@ -273,7 +273,7 @@ RemoteFunctionBody::GetObjectLiteralTypes()
 {
     if (GetExtension()->IsJScript9())
     {
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     return this->GetAuxWrappedField("objLiteralTypes", "Js::DynamicType **");
 }
@@ -376,8 +376,8 @@ RemoteFunctionBody::PrintSource()
             return;
         }
     }
-    ULONG64 startOffset = ExtRemoteTypedUtil::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbStartOffset"));
-    ULONG length = (ULONG)ExtRemoteTypedUtil::GetSizeT(JDUtil::GetWrappedField(*this, "m_cbLength"));
+    ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
+    ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();
     ExtRemoteData source(buffer + startOffset, length);
     ExtBuffer<CHAR> sourceBuffer;
     sourceBuffer.Require(length + 1);    

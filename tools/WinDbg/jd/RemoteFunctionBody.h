@@ -11,7 +11,7 @@ public:
     RemoteFunctionProxy() {}
     RemoteFunctionProxy(ULONG64 pBody);
     RemoteFunctionProxy(const char* subType, ULONG64 pBody) : JDRemoteTyped(subType, pBody) {}
-    RemoteFunctionProxy(ExtRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
+    RemoteFunctionProxy(JDRemoteTyped const& functionProxy) : JDRemoteTyped(functionProxy) {}
 
     JDRemoteTyped GetFunctionObjectTypeList()
     {
@@ -37,7 +37,7 @@ class RemoteParseableFunctionInfo : public RemoteFunctionProxy
 public:
     RemoteParseableFunctionInfo() {}
     RemoteParseableFunctionInfo(ULONG64 pBody) : RemoteFunctionProxy(pBody) {}
-    RemoteParseableFunctionInfo(ExtRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
+    RemoteParseableFunctionInfo(JDRemoteTyped const& functionProxy) : RemoteFunctionProxy(functionProxy) {}
 
     JDRemoteTyped GetDeferredPrototypeType()
     {
@@ -50,7 +50,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "deferredPrototypeType");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
 
     JDRemoteTyped GetScopeInfo()
@@ -64,7 +64,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "m_boundPropertyRecords");
         }
-        return RemoteBaseDictionary("(void *)0");
+        return RemoteBaseDictionary(JDRemoteTyped::NullPtr());
     }
 
     ULONG GetLineNumber()
@@ -94,7 +94,7 @@ public:
             // Added in d76f76e9f72a4a7b99a62f64c3803d5e80aa4f9b fop RS2
             return JDUtil::GetWrappedField(*this, "nestedArray");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
 
     JDRemoteTyped GetPropertyIdsForScopeSlotArray()
@@ -111,7 +111,7 @@ class RemoteFunctionBody : public RemoteParseableFunctionInfo
 public:
     RemoteFunctionBody() {}
     RemoteFunctionBody(ULONG64 pBody) : RemoteParseableFunctionInfo(pBody) {}
-    RemoteFunctionBody(ExtRemoteTyped const& functionBody) : RemoteParseableFunctionInfo(functionBody) {}
+    RemoteFunctionBody(JDRemoteTyped const& functionBody) : RemoteParseableFunctionInfo(functionBody) {}
 
     JDRemoteTyped GetByteCodeBlock()
     {
@@ -144,7 +144,7 @@ public:
         {
             return JDUtil::GetWrappedField(*this, "m_inlineCacheTypes");
         }
-        return JDRemoteTyped("(void *)0");
+        return JDRemoteTyped::NullPtr();
     }
     JDRemoteTyped GetReferencedPropertyIdMap();
 

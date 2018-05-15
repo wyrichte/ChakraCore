@@ -55,7 +55,7 @@ void RemoteDynamicObject::PrintProperties(bool printSlotIndex, int depth)
     JDRemoteTyped type = this->GetDynamicType();
     JDRemoteTyped typeHandler = type.Field("typeHandler");
 
-    RemoteTypeHandler* pRemoteTypeHandler = GetExtension()->GetTypeHandler(object, typeHandler);
+    RemoteTypeHandler* pRemoteTypeHandler = GetExtension()->GetTypeHandler(typeHandler.GetExtRemoteTyped());
 
     if (depth == 1)
     {
@@ -73,7 +73,7 @@ void RemoteDynamicObject::PrintProperties(bool printSlotIndex, int depth)
             }
         }
         g_Ext->Out("%s * ", pRemoteTypeHandler ? pRemoteTypeHandler->GetName() : typeHandlerName);
-        typeHandler.OutSimpleValue();
+        typeHandler.GetExtRemoteTyped().OutSimpleValue();
         g_Ext->Out("\n");
     }
 
@@ -82,13 +82,13 @@ void RemoteDynamicObject::PrintProperties(bool printSlotIndex, int depth)
         if (GetExtension()->GetUsingPropertyRecordInTypeHandlers())
         {
             TypeHandlerPropertyRecordNameReader reader;
-            ObjectPropertyDumper::Enumerate(object, pRemoteTypeHandler, &reader, depth, printSlotIndex);
+            ObjectPropertyDumper::Enumerate(object.GetExtRemoteTyped(), pRemoteTypeHandler, &reader, depth, printSlotIndex);
         }
         else
         {
             
             TypeHandlerPropertyIdNameReader reader(this->GetScriptContext().GetThreadContext());
-            ObjectPropertyDumper::Enumerate(object, pRemoteTypeHandler, &reader, depth, printSlotIndex);
+            ObjectPropertyDumper::Enumerate(object.GetExtRemoteTyped(), pRemoteTypeHandler, &reader, depth, printSlotIndex);
         }
     }
     else

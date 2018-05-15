@@ -679,7 +679,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
         if (ENUM_EQUAL(opcodeStr, Break) && this->hasFunctionBody)
         {
             isBreakPoint = true;
-            ExtRemoteTyped probeBackingBlock = functionBody.GetProbeBackingStore();
+            ExtRemoteTyped probeBackingBlock = functionBody.GetProbeBackingStore().GetExtRemoteTyped();
             if (probeBackingBlock.GetPtr() != 0)
             {
                 // If the debugger created a probe backing block, use that instead.
@@ -910,7 +910,7 @@ JDByteCode::DumpBytes(ExtRemoteTyped bytes)
 }
 
 void
-JDByteCode::DumpForFunctionBody(ExtRemoteTyped funcBody)
+JDByteCode::DumpForFunctionBody(JDRemoteTyped funcBody)
 {
     this->hasFunctionBody = true;
     this->functionBody = funcBody;
@@ -919,7 +919,7 @@ JDByteCode::DumpForFunctionBody(ExtRemoteTyped funcBody)
     GetExtension()->Out("\n");
     if (dumpProbeBackingBlock)
     {
-        ExtRemoteTyped probeBackingBlock = this->functionBody.GetProbeBackingStore();
+        ExtRemoteTyped probeBackingBlock = this->functionBody.GetProbeBackingStore().GetExtRemoteTyped();
         if (probeBackingBlock.GetPtr() == 0)
         {
             GetExtension()->ThrowLastError("No probe backing block to dump");
@@ -927,7 +927,7 @@ JDByteCode::DumpForFunctionBody(ExtRemoteTyped funcBody)
         DumpBytes(probeBackingBlock.Field("m_content"));
         return;
     }
-    DumpBytes(functionBody.GetByteCodeBlock().Field("m_content"));
+    DumpBytes(functionBody.GetByteCodeBlock().Field("m_content").GetExtRemoteTyped());
 }
 
 void

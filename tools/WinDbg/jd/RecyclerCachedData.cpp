@@ -82,10 +82,10 @@ RemoteHeapBlock * RecyclerCachedData::FindCachedHeapBlock(ULONG64 address)
     for (auto it = this->m_heapblockMapCache.begin(); it != this->m_heapblockMapCache.end(); it++)
     {
         RemoteHeapBlockMap::Cache * cache = (*it).second;
-        auto i = cache->find(pageAddress);
-        if (i != cache->end())
+        auto i = cache->addressToHeapBlockMap.find(pageAddress);
+        if (i != cache->addressToHeapBlockMap.end())
         {
-            return &(*i).second;
+            return (*i).second;
         }
     }
     return nullptr;
@@ -203,32 +203,32 @@ ULONG64 RecyclerCachedData::GetMediumHeapBlockPageCount()
 
 ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)
 {
-    return m_heapBlockTypeInfo.Cast(address);
+    return m_heapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
 {
-    return m_smallHeapBlockTypeInfo.Cast(address);
+    return m_smallHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsSmallFinalizableHeapBlock(ULONG64 address)
 {
-    return m_smallFinalizableHeapBlockTypeInfo.Cast(address);
+    return m_smallFinalizableHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsMediumHeapBlock(ULONG64 address)
 {
-    return m_mediumHeapBlockTypeInfo.Cast(address);
+    return m_mediumHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsMediumFinalizableHeapBlock(ULONG64 address)
 {
-    return m_mediumFinalizableHeapBlockTypeInfo.Cast(address);
+    return m_mediumFinalizableHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 ExtRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)
 {
-    return m_largeHeapBlockTypeInfo.Cast(address);
+    return m_largeHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
 }
 
 bool RecyclerCachedData::GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory)

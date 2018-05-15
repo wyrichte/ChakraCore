@@ -44,7 +44,9 @@ SOURCES = \
         ..\jdfunctionbody.cpp \
         ..\JDRemoteTyped.cpp \
         ..\JDTypeCache.cpp \
+        ..\JDTypeInfo.cpp
         ..\JDBackendUtil.cpp \
         ..\util.cpp \
         ..\collections.cpp \
-        ..\JDByteCodeCachedData.cpp\
+        ..\JDByteCodeCachedData.cpp \
+        ..\ProgressTracker.cpp \

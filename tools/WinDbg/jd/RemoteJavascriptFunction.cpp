@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 RemoteJavascriptFunction::RemoteJavascriptFunction() {}
-RemoteJavascriptFunction::RemoteJavascriptFunction(ExtRemoteTyped const& o) :
+RemoteJavascriptFunction::RemoteJavascriptFunction(JDRemoteTyped const& o) :
     RemoteRecyclableObject(o)
 {}
 
@@ -73,7 +73,7 @@ RemoteJavascriptFunction::Print()
         }
         else
         {
-            object.Field("functionInfo").OutFullValue();
+            object.Field("functionInfo").GetExtRemoteTyped().OutFullValue();
         }
 
         if (this->IsBoundFunction())

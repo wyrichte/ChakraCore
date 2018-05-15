@@ -61,7 +61,7 @@ RemoteHeapBlock::Initialize()
     address = heapBlock.Field("address").GetPtr();
     if (IsLargeHeapBlock())
     {
-        size = (g_Ext->m_PageSize * ExtRemoteTypedUtil::GetSizeT(heapBlock.Field("pageCount")));
+        size = (g_Ext->m_PageSize * heapBlock.Field("pageCount").GetSizeT());
         hasCachedTotalObjectCountAndSize = false;
         bucketObjectSize = (ULONG)-1;     // No bucket object size
     }
@@ -297,7 +297,7 @@ void RemoteHeapBlock::EnsureCachedTotalObjectCountAndSize()
     ForEachLargeObjectHeader([&](JDRemoteTyped& largeObjectHeader)
     {
         totalObjectCount++;
-        totalObjectSize += ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));
+        totalObjectSize += largeObjectHeader.Field("objectSize").GetSizeT();
         return false;
     });
 }
@@ -371,7 +371,7 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
         ForEachLargeObjectHeader([&](JDRemoteTyped& largeObjectHeader)
         {
             allocatedObjectCount++;
-            allocatedObjectSize += ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));
+            allocatedObjectSize += largeObjectHeader.Field("objectSize").GetSizeT();
             return false;
         });
         return;
@@ -513,7 +513,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
                 {
                     return false;
                 }
-                objectSize = ExtRemoteTypedUtil::GetSizeT(header.Field("objectSize"));
+                objectSize = header.Field("objectSize").GetSizeT();
                 if (header.GetPtr() + sizeOfObjectHeader + objectSize >= originalAddress)
                 {
                     return false;
@@ -566,7 +566,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
             }
 
             objectAddress = originalAddress;
-            objectSize = ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));;
+            objectSize = largeObjectHeader.Field("objectSize").GetSizeT();
         }
 
         UCHAR attributes;

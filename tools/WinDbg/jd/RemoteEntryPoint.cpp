@@ -9,8 +9,8 @@ RemoteEntryPoint::RemoteEntryPoint()
 
 }
 
-RemoteEntryPoint::RemoteEntryPoint(ExtRemoteTyped entryPoint)
-    : entryPoint(entryPoint)
+RemoteEntryPoint::RemoteEntryPoint(JDRemoteTyped entryPoint)
+    : entryPoint(entryPoint.GetExtRemoteTyped())
 {
 
 }

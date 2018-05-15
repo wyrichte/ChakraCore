@@ -9,7 +9,7 @@ class RemoteFunctionInfo
 {
 public:
     RemoteFunctionInfo() {}
-    RemoteFunctionInfo(ExtRemoteTyped const& functionInfo) : functionInfo(functionInfo) {};
+    RemoteFunctionInfo(JDRemoteTyped functionInfo) : functionInfo(functionInfo.GetExtRemoteTyped()) {};
     bool HasBody();    
     RemoteFunctionBody GetFunctionBody();
     ULONG64 GetOriginalEntryPoint();

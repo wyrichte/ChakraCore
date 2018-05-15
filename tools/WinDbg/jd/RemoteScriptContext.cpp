@@ -13,7 +13,7 @@ RemoteScriptContext::RemoteScriptContext(ULONG64 scriptContext) :
 
 }
 
-RemoteScriptContext::RemoteScriptContext(ExtRemoteTyped const& scriptContext) : scriptContext(scriptContext)
+RemoteScriptContext::RemoteScriptContext(JDRemoteTyped const& scriptContext) : scriptContext(scriptContext)
 {
 }
 
@@ -51,7 +51,7 @@ JDRemoteTyped RemoteScriptContext::GetSourceList()
     {
         return scriptContext.Field("sourceList").Field("ptr");
     }
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
 }
 
 JDRemoteTyped RemoteScriptContext::GetUrl()
@@ -62,7 +62,7 @@ JDRemoteTyped RemoteScriptContext::GetUrl()
     }
 
     ExtRemoteTyped omWindowProxy;
-    ExtRemoteTyped globalObject = scriptContext.Field("globalObject");
+    ExtRemoteTyped globalObject = scriptContext.Field("globalObject").GetExtRemoteTyped();
     ExtRemoteTyped directHostObject = globalObject.Field("directHostObject");
 
     try
@@ -90,20 +90,25 @@ JDRemoteTyped RemoteScriptContext::GetUrl()
 
     }
 
-    return JDRemoteTyped("(void *)0");
+    return JDRemoteTyped::NullPtr();
+}
+
+JDRemoteTyped RemoteScriptContext::GetDebugContext()
+{
+    return scriptContext.Field("debugContext");
 }
 
 void RemoteScriptContext::PrintReferencedPids()
 {
-    scriptContext.OutTypeName();
+    scriptContext.GetExtRemoteTyped().OutTypeName();
     g_Ext->Out(" ");
-    scriptContext.OutSimpleValue();
+    scriptContext.GetExtRemoteTyped().OutSimpleValue();
     g_Ext->Out("\n");
 
     bool isReferencedPropertyRecords = !scriptContext.HasField("referencedPropertyIds");
     ExtRemoteTyped referencedPidDictionary = isReferencedPropertyRecords ?
-        scriptContext.Field("javascriptLibrary").Field("referencedPropertyRecords") :
-        scriptContext.Field("referencedPropertyIds");
+        scriptContext.Field("javascriptLibrary").Field("referencedPropertyRecords").GetExtRemoteTyped() :
+        scriptContext.Field("referencedPropertyIds").GetExtRemoteTyped();
     ExtRemoteTyped referencedPidDictionaryCount = referencedPidDictionary.Field("count");
     ExtRemoteTyped referencedPidDictionaryEntries = referencedPidDictionary.Field("entries");
     long pidCount = referencedPidDictionaryCount.GetLong();

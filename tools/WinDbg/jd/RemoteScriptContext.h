@@ -9,7 +9,7 @@ class RemoteScriptContext
 public:
     RemoteScriptContext();
     RemoteScriptContext(ULONG64 address);
-    RemoteScriptContext(ExtRemoteTyped const& scriptContext);
+    RemoteScriptContext(JDRemoteTyped const& scriptContext);
     
     ULONG64 GetPtr();
 
@@ -25,6 +25,7 @@ public:
     JDRemoteTyped GetHostScriptContext();
     JDRemoteTyped GetSourceList();
     JDRemoteTyped GetUrl();
+    JDRemoteTyped GetDebugContext();
 
     void PrintReferencedPids();
 
@@ -36,7 +37,7 @@ public:
         // Page allocators for code no longer in the custom heap after we switch to use the per thread code page allocators in RS1
         if (!useCodePageAllocators)
         {
-            ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap");
+            ExtRemoteTyped thunkCustomHeap = scriptContext.Field("interpreterThunkEmitter.emitBufferManager.allocationHeap").GetExtRemoteTyped();
             if (thunkCustomHeap.HasField("preReservedHeapPageAllocator"))
             {
                 fn("CodeThunkPreRes", RemotePageAllocator(thunkCustomHeap.Field("preReservedHeapPageAllocator")));
@@ -45,7 +46,7 @@ public:
 
             if (scriptContext.HasField("asmJsInterpreterThunkEmitter"))
             {
-                ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap");
+                ExtRemoteTyped asmJsThunkCustomHeap = scriptContext.Field("asmJsInterpreterThunkEmitter.emitBufferManager.allocationHeap").GetExtRemoteTyped();
                 if (asmJsThunkCustomHeap.HasField("preReservedHeapPageAllocator"))
                 {
                     fn("CodeAsmJSThunkPreRes", RemotePageAllocator(asmJsThunkCustomHeap.Field("preReservedHeapPageAllocator")));
@@ -54,7 +55,7 @@ public:
             }
         }
 
-        ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
+        ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen").GetExtRemoteTyped();
 
         ForEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("foregroundAllocators"), true, useCodePageAllocators, fn);
         ForEachCodeGenAllocatorPageAllocator(nativeCodeGen.Field("backgroundAllocators"), false, useCodePageAllocators, fn);
@@ -72,17 +73,17 @@ public:
             fn("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator"));
         }
 
-        ExtRemoteTyped interpreterArena = scriptContext.Field("interpreterArena");
+        ExtRemoteTyped interpreterArena = scriptContext.Field("interpreterArena").GetExtRemoteTyped();
         if (interpreterArena.GetPtr() != 0)
         {
             fn("SC-Interpreter", interpreterArena);
         }
-        ExtRemoteTyped guestArena = scriptContext.Field("guestArena");
+        ExtRemoteTyped guestArena = scriptContext.Field("guestArena").GetExtRemoteTyped();
         if (guestArena.GetPtr() != 0)
         {
             fn("SC-Guest", guestArena);
         }
-        ExtRemoteTyped diagArena = scriptContext.Field("diagnosticArena");
+        ExtRemoteTyped diagArena = scriptContext.Field("diagnosticArena").GetExtRemoteTyped();
         if (diagArena.GetPtr() != 0)
         {
             fn("SC-Diag", diagArena);
@@ -101,7 +102,7 @@ public:
             fn("SC-Misc", scriptContext.Field("miscAllocator"));
         }
 
-        ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen");
+        ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen").GetExtRemoteTyped();
 
         auto forEachCodeGenAllocatorArenaAllocator = [fn](ExtRemoteTyped codeGenAllocators)
         {
@@ -119,7 +120,7 @@ public:
         JDRemoteTyped sourceList = this->GetSourceList();
         if (sourceList.GetPtr() != 0)
         {
-            ExtRemoteTyped buffer = sourceList.Field("buffer");
+            ExtRemoteTyped buffer = sourceList.Field("buffer").GetExtRemoteTyped();
             if (buffer.GetPtr() != 0)
             {
                 ULONG count = sourceList.Field("count").GetUlong();
@@ -132,7 +133,7 @@ public:
                         ULONG64 strongRef = sourceInfoWeakRef.Field("strongRef").GetPtr();
                         if (strongRef != 0)
                         {
-                            if (fn(i, ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::Utf8SourceInfo*)@$extin"), strongRef)))
+                            if (fn(i, JDRemoteTyped(GetExtension()->FillModule("(%s!Js::Utf8SourceInfo*)@$extin"), strongRef)))
                             {
                                 return true;
                             }

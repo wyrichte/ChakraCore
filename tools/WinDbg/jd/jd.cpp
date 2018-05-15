@@ -679,7 +679,7 @@ std::string EXT_CLASS_BASE::GetTypeNameFromVTable(ULONG64 vtableAddress)
 }
 
 // Get RemoteTypeHandler for a DynamicObject
-RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& obj, ExtRemoteTyped& typeHandler)
+RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& typeHandler)
 {
     if (m_typeHandlersByName.empty())
     {
@@ -740,14 +740,27 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
 {
     if (scriptContext.IsScriptContextActuallyClosed())
     {
-        Out("C");
+        Out(" C");
     }
     else if (scriptContext.IsClosed())
     {
-        Out("M");
+        Out(" M");
     }
     else
     {
+        char const * debuggerMode = scriptContext.GetDebugContext().Field("debuggerMode").GetEnumString();
+        if (strcmp(debuggerMode, "SourceRundown") == 0)
+        {
+            Out("S");
+        }
+        else if (strcmp(debuggerMode, "Debugging") == 0)
+        {
+            Out("D");
+        }
+        else
+        {
+            Out(" ");
+        }
         JDRemoteTyped hostScriptContext = scriptContext.GetHostScriptContext();
         if (hostScriptContext.GetPtr())
         {
@@ -793,7 +806,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
     if (showAll)
     {
         JDRemoteTyped javascriptLibrary = scriptContext.GetJavascriptLibrary();
-        ExtRemoteTyped globalObject = javascriptLibrary.Field("globalObject");
+        ExtRemoteTyped globalObject = javascriptLibrary.Field("globalObject").GetExtRemoteTyped();
         ULONG64 javascriptLibraryPtr = javascriptLibrary.GetPtr();
         if (showLink)
         {
@@ -880,12 +893,12 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
     if (this->m_PtrSize == 4)
     {
         // 32-bit
-        headerFormat = (showAll ? (showLink ? "  %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
+        headerFormat = (showAll ? (showLink ? "   %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
     }
     else
     {
         // 64-bit
-        headerFormat = (showAll ? (showLink ? "  %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
+        headerFormat = (showAll ? (showLink ? "   %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
     }
 
     ULONG scriptContextCount = 0;
@@ -976,7 +989,7 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
             remoteUtf8SourceInfo.GetExtRemoteTyped().OutFullValue();
             if (printSourceContextInfo)
             {
-                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo");
+                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo").GetExtRemoteTyped();
                 Out("SourceContextInfo : \n");
                 sourceContextInfo.OutFullValue();
             }
@@ -1370,7 +1383,7 @@ JD_PRIVATE_COMMAND(jstack,
 
             if (dumpArgs)
             {
-                ExtRemoteTyped callInfo = nativeLibraryEntryRecordCurr.Field("callInfo");
+                ExtRemoteTyped callInfo = nativeLibraryEntryRecordCurr.Field("callInfo").GetExtRemoteTyped();
                 ULONG callCount = callInfo.Field("Count").GetUlong();
 
                 // Skip the return address, and the 2 arguments function and callInfo
@@ -1439,7 +1452,7 @@ JD_PRIVATE_COMMAND(jstack,
            JDRemoteTyped type = firstArgCasted.Field("type");
             if (type.HasField("typeId") && ENUM_EQUAL(type.Field("typeId").GetSimpleValue(), TypeIds_Function))
             {
-                RemoteScriptFunction function(firstArgCasted);
+                RemoteScriptFunction function(firstArgCasted.GetExtRemoteTyped());
                 ExtRemoteTyped callInfo(GetExtension()->FillModule("(%s!Js::CallInfo *)@$extin"), stackWalker.GetRbp() + ptrSize * 3);
                 ULONG callFlags = callInfo.Field("Flags").GetUlong();
                 

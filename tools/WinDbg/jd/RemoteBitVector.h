@@ -9,7 +9,7 @@ class RemoteBitVector
 public:
     // Supports BVFixed or BVStatic
     RemoteBitVector() {};
-    RemoteBitVector(ExtRemoteTyped bitVector);
+    RemoteBitVector(JDRemoteTyped bitVector);
     bool Test(ULONG64 bit, ULONG64 * bvUnitAddress);
 
     static RemoteBitVector FromBVFixedPointer(ULONG64 bvFixedAddress);

@@ -6,7 +6,7 @@
 class RemotePageAllocator
 {
 public:
-    RemotePageAllocator(ExtRemoteTyped pageAllocator) : pageAllocator(pageAllocator) {}
+    RemotePageAllocator(JDRemoteTyped pageAllocator) : pageAllocator(pageAllocator.GetExtRemoteTyped()) {}
     ULONG64 GetUsedBytes();
     ULONG64 GetReservedBytes();
     ULONG64 GetCommittedBytes();

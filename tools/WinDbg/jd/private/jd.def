@@ -50,6 +50,7 @@ EXPORTS
     bc
     jsobjectstats
     jsobjectnodes
+    jsobjectdepths
     stst
     pagealloc
     hbm

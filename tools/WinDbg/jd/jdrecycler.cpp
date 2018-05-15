@@ -697,16 +697,16 @@ JD_PRIVATE_COMMAND(showblockinfo,
     if (address != NULL)
     {
         JDRemoteTyped heapBlock = JDRemoteTyped::FromPtrWithVtable(address);
-        ExtRemoteTyped heapBlockType = heapBlock.Field("heapBlockType");
+        ExtRemoteTyped heapBlockType = heapBlock.Field("heapBlockType").GetExtRemoteTyped();
         auto type = heapBlockType.GetChar();
 
         if (type == this->enum_LargeBlockType())
         {
-            DisplayLargeHeapBlockInfo(heapBlock);
+            DisplayLargeHeapBlockInfo(heapBlock.GetExtRemoteTyped());
         }
         else
         {
-            DisplaySmallHeapBlockInfo(heapBlock, recycler);
+            DisplaySmallHeapBlockInfo(heapBlock.GetExtRemoteTyped(), recycler);
         }
     }
 }
@@ -724,7 +724,7 @@ JD_PRIVATE_COMMAND(findblock,
 
     if (remoteHeapBlock != NULL)
     {
-        JDRemoteTyped(remoteHeapBlock->GetExtRemoteTyped()).CastWithVtable().OutFullValue();
+        JDRemoteTyped(remoteHeapBlock->GetExtRemoteTyped()).CastWithVtable().GetExtRemoteTyped().OutFullValue();
     }
     else
     {
@@ -734,7 +734,7 @@ JD_PRIVATE_COMMAND(findblock,
 
 
 
-void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType, bool pageSegment)
+void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, JDRemoteTyped segmentList, PageAllocatorStats& stats, CommandOutputType outputType, bool pageSegment)
 {
     ULONG64 segmentListAddress = segmentList.GetPointerTo().GetPtr();
     PCSTR segmentType = (pageSegment ? GetPageSegmentType() : GetSegmentType());
@@ -792,7 +792,7 @@ void EXT_CLASS_BASE::DisplaySegmentList(PCSTR strListName, ExtRemoteTyped segmen
 void EXT_CLASS_BASE::DisplayPageAllocatorInfo(JDRemoteTyped pageAllocator, CommandOutputType outputType)
 {
     pageAllocator = pageAllocator.CastWithVtable();
-    Out("Page Allocator: 0x%x\n", pageAllocator.m_Offset);
+    Out("Page Allocator: 0x%x\n", pageAllocator.GetExtRemoteTyped().m_Offset);
 
     if (outputType == CommandOutputType::SummaryOutputType)
     {
@@ -815,7 +815,7 @@ void EXT_CLASS_BASE::DisplayPageAllocatorInfo(JDRemoteTyped pageAllocator, Comma
 
     if (pageAllocator.HasField("zeroPageQueue"))
     {
-        ExtRemoteTyped zeroPageQueue = pageAllocator.Field("zeroPageQueue");
+        ExtRemoteTyped zeroPageQueue = pageAllocator.Field("zeroPageQueue").GetExtRemoteTyped();
         int count = 0;
         int pageCount = 0;
         ULONG64 alignment = 0;
@@ -1513,21 +1513,21 @@ void AccumulateArenaAllocatorData(ExtRemoteTyped arenaAllocator, ArenaAllocatorD
 {
     ULONG64 sizeofBigBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
     ULONG64 sizeofArenaMemoryBlockHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sArenaMemoryBlock))"));
-    auto arenaMemoryBlockFn = [&](ExtRemoteTyped mallocBlock)
+    auto arenaMemoryBlockFn = [&](JDRemoteTyped mallocBlock)
     {
         data.overheadSize += sizeofArenaMemoryBlockHeader;
         data.blockCount++;
-        ULONG64 nbytes = ExtRemoteTypedUtil::GetSizeT(mallocBlock.Field("nbytes"));
+        ULONG64 nbytes = ExtRemoteTypedUtil::GetSizeT(mallocBlock.GetExtRemoteTyped().Field("nbytes"));
         data.blockSize += nbytes;
         data.blockUsedSize += nbytes;
         return false;
     };
-    auto bigBlockFn = [&](ExtRemoteTyped bigBlock)
+    auto bigBlockFn = [&](JDRemoteTyped bigBlock)
     {
         data.overheadSize += sizeofBigBlockHeader;
         data.blockCount++;
-        data.blockSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.Field("nbytes"));
-        data.blockUsedSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.Field("currentByte"));
+        data.blockSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.GetExtRemoteTyped().Field("nbytes"));
+        data.blockUsedSize += ExtRemoteTypedUtil::GetSizeT(bigBlock.GetExtRemoteTyped().Field("currentByte"));
         return false;
     };
     ExtRemoteTyped firstBigBlock = arenaAllocator.Field("bigBlocks");
@@ -1686,9 +1686,9 @@ JD_PRIVATE_COMMAND(memstats,
 
             threadContext.ForEachScriptContext([showZeroEntries](RemoteScriptContext scriptContext)
             {
-                scriptContext.ForEachArenaAllocator([showZeroEntries](char const * name, ExtRemoteTyped arenaAllocator)
+                scriptContext.ForEachArenaAllocator([showZeroEntries](char const * name, JDRemoteTyped arenaAllocator)
                 {
-                    DisplayArenaAllocatorData(name, arenaAllocator, showZeroEntries);
+                    DisplayArenaAllocatorData(name, arenaAllocator.GetExtRemoteTyped(), showZeroEntries);
                 });               
                 return false;
             });
@@ -1738,7 +1738,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler)
     char const *& typeName = info.typeName;
     heapBlock = heapBlock.CastWithVtable(&typeName);
 
-    ExtRemoteTyped heapBlockType = heapBlock.Field("heapBlockType");
+    ExtRemoteTyped heapBlockType = heapBlock.Field("heapBlockType").GetExtRemoteTyped();
     auto typeEnumName = heapBlockType.GetSimpleValue();
     if (strstr(typeEnumName, "Large") == typeEnumName)
     {
@@ -2178,8 +2178,8 @@ MPH_COMMAND(mpheap,
         // page heap
         if (pageHeapOn)
         {
-            ShowStack(heapBlock, "Alloc");
-            ShowStack(heapBlock, "Free");
+            ShowStack(heapBlock.GetExtRemoteTyped() , "Alloc");
+            ShowStack(heapBlock.GetExtRemoteTyped(), "Free");
         }
 
         return;

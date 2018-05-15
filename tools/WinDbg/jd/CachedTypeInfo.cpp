@@ -5,21 +5,20 @@
 #include "CachedTypeInfo.h"
 
 CachedTypeInfo::CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra) :
-    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), modBase(0), typeId(0), GetTypeNameFunc(nullptr)
+    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra) :
-    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), modBase(0), typeId(0), GetTypeNameFunc(nullptr)
+    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * (*GetTypeNameFunc)()) :
-    memoryNS(false), isChakra(false), GetTypeNameFunc(GetTypeNameFunc), modBase(0), typeId(0)
+    memoryNS(false), isChakra(false), GetTypeNameFunc(GetTypeNameFunc)
 {}
 
 void CachedTypeInfo::Clear()
 {
-    modBase = 0;
-    typeId = 0;
+    typeInfo.Clear();
     fullTypeName.clear();
 }
 
@@ -39,7 +38,7 @@ JDRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
 {
     EnsureCached();
 
-    return JDRemoteTyped(modBase, typeId, address);
+    return JDRemoteTyped(typeInfo, address);
 }
 
 void CachedTypeInfo::EnsureTypeName()
@@ -54,7 +53,7 @@ void CachedTypeInfo::EnsureTypeName()
 
 void CachedTypeInfo::EnsureCached()
 {
-    if (typeId != 0)
+    if (typeInfo.IsValid())
     {
         return;
     }
@@ -77,6 +76,5 @@ void CachedTypeInfo::EnsureCached()
     }
 
     ExtRemoteTyped remoteTyped = ExtRemoteTyped(fullTypeName.c_str(), 0, false);
-    modBase = remoteTyped.m_Typed.ModBase;
-    typeId = remoteTyped.m_Typed.TypeId;
+    typeInfo.Set(remoteTyped);
 }

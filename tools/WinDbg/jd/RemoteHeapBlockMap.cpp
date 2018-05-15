@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "RemoteHeapBlockMap.h"
 
-RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
+RemoteHeapBlockMap::RemoteHeapBlockMap(JDRemoteTyped heapBlockMap)
 {
     ULONG64 heapBlockMapAddr = heapBlockMap.GetPointerTo().GetPtr();
     cachedHeapBlock = GetExtension()->recyclerCachedData.GetHeapBlockMap(heapBlockMapAddr);
@@ -16,8 +16,19 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(ExtRemoteTyped heapBlockMap)
         ULONG64 iter = 0;
         ForEachHeapBlockRaw(heapBlockMap, [this, &localCachedHeapBlock, &iter](ULONG64 nodeIndex, ULONG64 l1, ULONG64 l2, ULONG64 block, RemoteHeapBlock& heapBlock)
         {
+            ULONG64 heapBlockAddress = heapBlock.GetHeapBlockAddress();
+            auto heapBlockFromMap = localCachedHeapBlock.get()->heapBlockAddressToHeapBlockMap.find(heapBlockAddress);
+            RemoteHeapBlock * heapBlockEntry;
+            if (heapBlockFromMap != localCachedHeapBlock.get()->heapBlockAddressToHeapBlockMap.end())
+            {
+                heapBlockEntry = &heapBlockFromMap->second;
+            }
+            else
+            {
+                heapBlockEntry = &(localCachedHeapBlock.get()->heapBlockAddressToHeapBlockMap[heapBlockAddress] = heapBlock);
+            }
             ULONG64 address = ((nodeIndex * l1ChunkSize + l1) * l2ChunkSize + l2) * g_Ext->m_PageSize;
-            (*localCachedHeapBlock.get())[address] = heapBlock;
+            localCachedHeapBlock.get()->addressToHeapBlockMap[address] = heapBlockEntry;
 
             iter++;
             if (iter % 0x10000 == 0)
@@ -38,10 +49,10 @@ RemoteHeapBlock * RemoteHeapBlockMap::FindHeapBlock(ULONG64 address)
     Assert(cachedHeapBlock);
 
     ULONG64 pageAddress = address & ~((ULONG64)g_Ext->m_PageSize - 1);
-    auto i = cachedHeapBlock->find(pageAddress);
-    if (i != cachedHeapBlock->end())
+    auto i = cachedHeapBlock->addressToHeapBlockMap.find(pageAddress);
+    if (i != cachedHeapBlock->addressToHeapBlockMap.end())
     {
-        return &(*i).second;
+        return (*i).second;
     }
     return nullptr;
 }
