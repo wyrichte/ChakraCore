@@ -875,14 +875,26 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
             auto addFunctionFields = [&](JDRemoteTyped remoteTyped)
             {
+                static bool once = false;
                 JDRemoteTyped functionInfo = remoteTyped.Field("functionInfo");
                 addField(functionInfo, "Js::FunctionInfo");
                 JDRemoteTyped constructorCache = remoteTyped.Field("constructorCache");
                 addField(constructorCache, "Js::ConstructorCache");
-                JDRemoteTyped constructorCacheType = constructorCache.Field("content").Field("type");
-                if (constructorCacheType.GetPtr() != 0)
+                JDRemoteTyped constructorCacheContent = constructorCache.Field("content");
+
+                if (constructorCacheContent.HasField("type"))
                 {
-                    addDynamicTypeField(constructorCacheType);
+                    // Before commit 7cb51bf4e10c4f9d151649eeb6dc2d030439daee
+                    JDRemoteTyped constructorCacheType = constructorCacheContent.Field("type");
+                    if (constructorCacheType.GetPtr() != 0)
+                    {
+                        addDynamicTypeField(constructorCacheType);
+                    }
+                }
+                JDRemoteTyped constructorCachePendingType = constructorCacheContent.Field("pendingType");
+                if (constructorCachePendingType.GetPtr() != 0)
+                {
+                    addDynamicTypeField(constructorCachePendingType);
                 }
             };
 
