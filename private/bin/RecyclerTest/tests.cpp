@@ -494,7 +494,7 @@ void TestMem(Recycler *recycler, ArenaAllocator *alloc, TestContext *ctx) {
     while(ctx->NextIteration()) {
         ++i;
         a2=new ArenaAllocator(_u("eeek"), alloc->GetPageAllocator(), OutOfMemory);
-        r2=new Recycler(NULL, (IdleDecommitPageAllocator *)alloc->GetPageAllocator(), OutOfMemory, Js::Configuration::Global.flags);
+        r2=new Recycler(NULL, (IdleDecommitPageAllocator *)alloc->GetPageAllocator(), OutOfMemory, Js::Configuration::Global.flags, nullptr);
         r2->Initialize(false, NULL);
         delete r2;
         delete a2;

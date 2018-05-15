@@ -73,7 +73,7 @@
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</ChakraCommonMinLibs>
 
     <ChakraCommonLibs>$(ChakraCommonMinLibs)</ChakraCommonLibs>
-    <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCommonLib)</ChakraCommonLibs>
+    <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCommonLib)</ChakraCommonLibs>    
     <ChakraCommonLibs>$(ChakraCommonLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\util\$(RazzleJscriptObjectDirectory)Chakra.Common.Util.lib</ChakraCommonLibs>
     <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCodexLib)</ChakraCommonLibs>
 

@@ -49,6 +49,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TelemetryPch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Recycler\RecyclerTelemetryTransmitter.cpp"/>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scriptcontext\ScriptContextTelemetry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scriptcontext\BuiltInMapper.cpp" />
   </ItemGroup>
@@ -57,6 +58,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Telemetry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryMacros.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TelemetryPch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Recycler\RecyclerSizeEntries.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Recycler\RecyclerTelemetryTransmitter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scriptcontext\BuiltInMapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\ScriptContextTelemetry.h" />

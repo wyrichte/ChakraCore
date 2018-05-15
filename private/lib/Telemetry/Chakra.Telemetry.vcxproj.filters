@@ -10,6 +10,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInMapper.cpp">
       <Filter>ScriptContext</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Recycler\RecyclerTelemetryTransmitter.cpp">
+      <Filter>Recycler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectCall.h" />
@@ -37,11 +40,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInMapper.h">
       <Filter>ScriptContext</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h" >
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\BuiltInFacets.h">
       <Filter>ScriptContext</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ScriptContext\CustomScriptContextCounters.h" >
-          <Filter>ScriptContext</Filter>
+      <Filter>ScriptContext</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Recycler\RecyclerTelemetryTransmitter.h">
+      <Filter>Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Recycler\RecyclerSizeEntries.h">
+      <Filter>Recycler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +59,9 @@
   <ItemGroup>
     <Filter Include="ScriptContext">
       <UniqueIdentifier>{95781374-9a17-4fc6-9d18-9a43ecd0fb9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Recycler">
+      <UniqueIdentifier>{acdd2c51-18f5-4a90-8e49-c392acdf429e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

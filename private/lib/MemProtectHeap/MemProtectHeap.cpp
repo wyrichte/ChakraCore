@@ -327,7 +327,7 @@ public:
         criticalSection(4000),
         recyclerCollectionWrapper(this),
         pageAllocator(nullptr, PageAllocatorType_Max, ConfigurationLoader::Flags(), 0, PageAllocator::DefaultMaxFreePageCount, false, &backgroundPageQueue), /* TODO: Perf counter? */
-        recycler(nullptr, &pageAllocator, &MemProtectHeap::OutOfMemory, ConfigurationLoader::Flags()),
+        recycler(nullptr, &pageAllocator, &MemProtectHeap::OutOfMemory, ConfigurationLoader::Flags(), nullptr),
         unrootSize(0),
         unmarkedUnrootSize(0),
         unrootLimit(UnrootLimitBase),

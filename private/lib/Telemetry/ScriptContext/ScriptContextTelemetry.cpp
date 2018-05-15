@@ -14,7 +14,6 @@ namespace Js
     CriticalSection ScriptContextTelemetry::initLock;
     volatile bool ScriptContextTelemetry::isInitialized = false;
 
-
 #ifdef REJIT_STATS
 
     // Map from IR::BailOutKind uint to index in the bailoutKindCRCs[] above.
@@ -45,24 +44,6 @@ namespace Js
     const size_t numRejitReasons = _countof(rejitReasonsCRCs);
 
 #endif // REJIT_STATS
-
-    /**
-     *  compute file time diff of ft1 - ft2
-     */
-    void ComputeFileTimeDiff(LPFILETIME ft1, LPFILETIME ft2, LPFILETIME result)
-    {
-        ULARGE_INTEGER u1 = { 0 };
-        u1.HighPart = ft1->dwHighDateTime;
-        u1.LowPart = ft1->dwLowDateTime;
-        ULARGE_INTEGER u2 = { 0 };
-        u2.HighPart = ft2->dwHighDateTime;
-        u2.LowPart = ft2->dwLowDateTime;
-        ULARGE_INTEGER u3 = { 0 };
-        u3.QuadPart = u1.QuadPart - u2.QuadPart;
-
-        result->dwHighDateTime = u3.HighPart;
-        result->dwLowDateTime = u3.LowPart;
-    }
 
     void ScriptContextTelemetry::OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT)
     {
@@ -102,6 +83,7 @@ namespace Js
 
             TraceLogChakra("ScriptContextTelemetry",
                 TraceLoggingGuid(activityId, "activityID"),
+                TraceLoggingGuid(scriptContext->GetRecycler()->GetRecyclerID(), "recyclerID"),
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingInt64(scriptContextLifeSpanMicros, "scriptContextLifeSpanMicros"),
@@ -124,6 +106,7 @@ namespace Js
 #else
             TraceLogChakra("ScriptContextTelemetry_NoRejit",
                 TraceLoggingGuid(activityId, "activityID"),
+                TraceLoggingGuid(scriptContext->GetRecycler()->GetRecyclerID(), "recyclerID"),
                 TraceLoggingUInt32(hostType, "hostType"),
                 TraceLoggingBool(isJSRT, "isJSRT"),
                 TraceLoggingFileTime(scriptContextLifeSpan, "scriptContextLifeSpan"),

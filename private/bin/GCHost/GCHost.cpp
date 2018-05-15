@@ -107,7 +107,7 @@ void SimpleRecyclerTest()
         AUTO_NESTED_HANDLED_EXCEPTION_TYPE(ExceptionType_DisableCheck);
 #endif
 
-        Recycler* recycler = HeapNew(Recycler, nullptr, &pageAllocator, Js::Throw::OutOfMemory, Js::Configuration::Global.flags);
+        Recycler* recycler = HeapNew(Recycler, nullptr, &pageAllocator, Js::Throw::OutOfMemory, Js::Configuration::Global.flags, nullptr);
 
         recycler->Initialize(false /* forceInThread */, nullptr /* threadService */);
 

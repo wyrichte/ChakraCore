@@ -171,7 +171,7 @@ int __cdecl main(int argc, __in_ecount(argc) char* argv[])
         }
 #endif
 
-        recycler = new Recycler(nullptr, &pageAllocator, OutOfMemory, Js::Configuration::Global.flags);
+        recycler = new Recycler(nullptr, &pageAllocator, OutOfMemory, Js::Configuration::Global.flags, nullptr);
         recycler->Initialize(false, nullptr);
         recycler->Prime();
 
