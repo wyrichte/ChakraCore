@@ -254,7 +254,7 @@ Dumping sorted function compiled events
       runTests
         Array.fill
         Array.fill
-        Array.filter
+        Anonymous function
         runTest
           logTestNameIf
             writeln
@@ -896,7 +896,7 @@ Dumping sorted function compiled events
       runTests
         Array.fill
         Array.fill
-        Array.filter
+        Anonymous function
         runTest
           logTestNameIf
             writeln

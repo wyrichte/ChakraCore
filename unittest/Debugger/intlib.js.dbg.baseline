@@ -1283,7 +1283,7 @@
         "start": 0,
         "length": 0,
         "text": "",
-        "frameDescription": "Array.prototype.filter"
+        "frameDescription": "filter"
       },
       {
         "start": 2331,
