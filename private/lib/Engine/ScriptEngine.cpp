@@ -5542,15 +5542,19 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
         if (SUCCEEDED(hr))
         {
+            
             if (dwBgParseCookie != 0)
             {
-                hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength);
-                // srcLength should be non-zero unless there was no source to parse
-                Assert(srcLength != 0 || cbLength == 0 || hr != S_OK);
+                hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength, utf8SourceInfo, sourceIndex);
             }
-            else
+
+            if (func == nullptr)
             {
-                hr = scriptContext->CompileUTF8Core(utf8SourceInfo, srcInfo, fOriginalUTF8Code, pszSrc, cbLength, grfscr, pse, cchLength, srcLength, sourceIndex, &func, pDataCache);
+                // Proceed with normal parse if there was no background parse, or if background parse failed
+                Assert(dwBgParseCookie == 0 || hr != S_OK);
+
+                Parser ps(scriptContext);
+                hr = scriptContext->CompileUTF8Core(ps, utf8SourceInfo, srcInfo, fOriginalUTF8Code, pszSrc, cbLength, grfscr, pse, cchLength, srcLength, sourceIndex, &func, pDataCache);
             }
         }
 

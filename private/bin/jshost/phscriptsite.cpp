@@ -1673,8 +1673,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
             DWORD dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
             if (activeScriptParseUTF8)
             {
-                bool bgParse = false;
-                if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
+                if (HostConfigFlags::flags.ExecuteWithBgParse && !HostConfigFlags::flags.EnableDebug && !HostConfigFlags::flags.DebugLaunch)
                 {
                     // QueueBackgroundParse only supports UTF8 for now
                     // QueueBackgroundParse not supported in Debug mode
@@ -1693,16 +1692,15 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
                         if (hr == S_OK)
                         {
                             hr = JsStaticAPI::BGParse::ExecuteBackgroundParse(bgParseCookie, activeScriptDirect, dwSourceCookie, dwFlag, nullptr, &excepinfo);
-                            bgParse = true;
                         }
                     }
                 }
-
-                if (!bgParse)
+                else
                 {
                     // If JsBackgroundParse fails to start parsing on the background, proceed with synchronous parse
                     hr = activeScriptParseUTF8->ParseScriptText(pbUtf8, 0, cbBytes, NULL, NULL, NULL, dwSourceCookie, 0, dwFlag, NULL, &excepinfo);
                 }
+
                 if (pUsedUtf8)
                 {
                     *pUsedUtf8 = true; // Script engine has taken over the utf8 buffer as Trident buffer

@@ -49,6 +49,7 @@ FLAG(bool, MuteHostErrorMsg,                "Mute host error output, e.g. module
 FLAG(bool, TraceHostCallback,               "Output traces for host callbacks", false)
 FLAG(bool, Test262,                         "load Test262 harness", false)
 FLAG(bool, UseChakraEngineAPI,              "Use ChakraEngine API instead of COM or JSRT", false)
+FLAG(bool, ExecuteWithBgParse,              "Load script with bgparse (note: requires bgparse to be on as well)", false)
 #undef FLAG
 #endif
 #ifdef FLAGA2
