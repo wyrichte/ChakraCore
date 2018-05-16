@@ -13,7 +13,8 @@ public:
     ULONG64 GetPtr();
     bool IsInNativeAddressRange(ULONG64 nativeAddress);
     bool HasInlinees();
-    ULONG GetFrameHeight();
+    ULONG GetFrameHeight();    
 private:
-    ExtRemoteTyped entryPoint;
+    JDRemoteTyped GetNativePointData();
+    JDRemoteTyped entryPoint;
 };
