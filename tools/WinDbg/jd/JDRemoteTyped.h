@@ -48,10 +48,13 @@ public:
     bool GetStdBool();
     CHAR GetChar();
     UCHAR GetUchar();
+    SHORT GetShort();
     USHORT GetUshort();
     LONG GetLong();
     ULONG GetUlong();
 
+    LONG64 GetLong64();
+    ULONG64 GetUlong64();
     ULONG64 GetPtr();
     
 private:
@@ -59,7 +62,6 @@ private:
     
     ULONG64 GetModBase();
     ULONG GetTypeId();
-    ULONG GetSize();
     bool IsPointerType();
     ULONG64 GetOffset();
     

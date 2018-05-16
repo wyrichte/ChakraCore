@@ -209,6 +209,15 @@ UCHAR JDRemoteTyped::GetUchar()
     return GetExtRemoteTyped().GetUchar();
 }
 
+SHORT JDRemoteTyped::GetShort()
+{
+    if (!useExtRemoteTyped)
+    {
+        return EnsureData<SHORT>();
+    }
+    return GetExtRemoteTyped().GetShort();
+}
+
 USHORT JDRemoteTyped::GetUshort()
 {
     if (!useExtRemoteTyped)
@@ -234,6 +243,24 @@ ULONG JDRemoteTyped::GetUlong()
         return EnsureData<ULONG>();
     }
     return GetExtRemoteTyped().GetUlong();
+}
+
+LONG64 JDRemoteTyped::GetLong64()
+{
+    if (!useExtRemoteTyped)
+    {
+        return EnsureData<LONG64>();
+    }
+    return GetExtRemoteTyped().GetLong64();
+}
+
+ULONG64 JDRemoteTyped::GetUlong64()
+{
+    if (!useExtRemoteTyped)
+    {
+        return EnsureData<ULONG64>();
+    }
+    return GetExtRemoteTyped().GetUlong64();
 }
 
 ULONG64 JDRemoteTyped::GetPtr()

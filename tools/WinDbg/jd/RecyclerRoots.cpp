@@ -1876,7 +1876,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{u;b,o;grouped;Show unknown count}"
     "{g;b,o;group;Group unknown objects}"
     "{lib;b,o;library;Infer and display per library}"
-    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth"
+    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth}"
     "{fl;ed,o;filterLib;Filter to library}"
     "{fs;edn=(10),o;filterSize;Filter to object size}"
     "{fsmin;edn=(10),o;filterSizeMin;Filter to minimum object size}"
@@ -2268,7 +2268,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     "{skip;edn=(10),o,d=0;nodes;Number of nodes to skip}"
     "{lib;b,o;showlib;Show library}"
     "{fl;ed,o;filterLib;Filter to library}"
-    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth"
+    "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth}"
     "{fu;b,o;filterUnknownType;Filter to unknown}"
     "{ft;x,o;filterType;Filter to type (last arg)}")
 {

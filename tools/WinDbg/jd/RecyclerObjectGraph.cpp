@@ -149,6 +149,7 @@ static bool IsSimpleTypeNameSimplePathTypeHandler(char const * simpleTypeName)
 static bool IsSimpleTypeNamePathTypeHandler(char const * simpleTypeName)
 {
     return strcmp(simpleTypeName, "Js::PathTypeHandler *") == 0
+        || strcmp(simpleTypeName, "Js::PathTypeHandlerBase *") == 0
         || strcmp(simpleTypeName, "Js::PathTypeHandlerNoAttr *") == 0
         || strcmp(simpleTypeName, "Js::PathTypeHandlerWithAttr *") == 0;
 }
@@ -1034,7 +1035,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addDynamicObjectFields(remoteTyped);
                 addFunctionFields(remoteTyped);
             }
-            else if (IsTypeOrCrossSite("Js::ScriptFunction"))
+            else if (IsTypeOrCrossSite("Js::ScriptFunction")
+                || IsTypeOrCrossSite("Js::FunctionWithHomeObj<Js::ScriptFunction>")
+                || IsTypeOrCrossSite("Js::FunctionWithComputedName<Js::FunctionWithHomeObj<Js::ScriptFunction> >")
+                || IsTypeOrCrossSite("Js::FunctionWithComputedName<<Js::ScriptFunction>>"))
             {
                 addScriptFunctionFields(remoteTyped);
             }
