@@ -7,4 +7,5 @@ namespace Js
 {
     bool TransmitRecyclerTelemetry(RecyclerTelemetryInfo& info);
     bool TransmitRecyclerTelemetryError(const RecyclerTelemetryInfo& info, const char * msg);
+    bool IsTelemetryProviderEnabled();
 }

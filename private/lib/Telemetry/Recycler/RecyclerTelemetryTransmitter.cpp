@@ -40,6 +40,14 @@ namespace Js
     };
 
     /**
+     * return true if telemetry provider is enabled
+     */
+    bool IsTelemetryProviderEnabled()
+    {
+        return g_TraceLoggingClient->IsProviderEnabled();
+    }
+
+    /**
      *  Transmit an gc telemetry error message. Used when we want to report that something went wrong.
      */
     bool TransmitRecyclerTelemetryError(const RecyclerTelemetryInfo& info, const char * msg)
@@ -179,7 +187,7 @@ namespace Js
 #endif
 
 
-                TraceLogChakra("GCTelemetry_temp-1",
+                TraceLogChakra("GCTelemetry_0",
                     TraceLoggingGuid(info.GetRecyclerID(), "recyclerID"),
                     TraceLoggingInt64(recyclerLifeSpanMicros, "recyclerLifeSpanMicros"),
                     TraceLoggingInt64(microsSinceListTransmit, "microsSinceLastTransmit"),
