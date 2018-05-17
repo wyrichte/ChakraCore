@@ -7,6 +7,6 @@
 class JDBackendUtil
 {
 public:
-    static JDRemoteTyped GetFunctionBodyFromFunc(ExtRemoteTyped func);
+    static JDRemoteTyped GetFunctionBodyFromFunc(JDRemoteTyped func);
     static EXT_CLASS_BASE::PropertyNameReader GetPropertyNameReaderFromFunc(ExtRemoteTyped func);
 };

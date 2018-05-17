@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "JDBackendUtil.h"
-JDRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
+JDRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(JDRemoteTyped func)
 {
     if (func.HasField("m_jnFunction"))
     {
@@ -12,7 +12,7 @@ JDRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(ExtRemoteTyped func)
     }
 
     // After OOP JIT
-    ExtRemoteTyped functionBodyAddr = func.Field("m_workItem.m_jitBody.m_bodyData.functionBodyAddr");
+    JDRemoteTyped functionBodyAddr = func.Field("m_workItem.m_jitBody.m_bodyData.functionBodyAddr");
     return JDRemoteTyped::FromPtrWithVtable(functionBodyAddr.GetPtr());
 }
 
