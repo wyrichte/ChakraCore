@@ -3615,12 +3615,12 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
         return E_FAIL;
     }
 
-    DWORD dwFlags = 0;
+    DWORD dwFlags = GENERATE_BYTE_CODE_COTASKMEMALLOC;
     {
         AutoCOMPtr<IGenerateByteCodeConfig> generateByteCodeConfig;
         if (punkContext != nullptr && SUCCEEDED(punkContext->QueryInterface(IID_IGenerateByteCodeConfig, (void **)&generateByteCodeConfig)))
         {
-            dwFlags = generateByteCodeConfig->GetFlags();
+            dwFlags |= generateByteCodeConfig->GetFlags();
         }
     }
 
@@ -3630,7 +3630,7 @@ HRESULT ScriptEngine::SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Cod
 
     BEGIN_TRANSLATE_OOM_TO_HRESULT
     BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, function, function->GetHostSrcInfo(), true, byteCode, pdwByteCodeSize, dwFlags);
+    hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, dwSourceCodeLength, utf8Code, function, function->GetHostSrcInfo(), byteCode, pdwByteCodeSize, dwFlags);
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
     END_TRANSLATE_OOM_TO_HRESULT(hr);
 
@@ -5612,7 +5612,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::CompileUTF8Core: Forcing serialization.\n"));
             BEGIN_TEMP_ALLOCATOR(tempAllocator, scriptContext, _u("ByteCodeSerializer"));
-            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), hostSrcInfo, true, &byteCode, &dwByteCodeSize);
+            hr = Js::ByteCodeSerializer::SerializeToBuffer(scriptContext, tempAllocator, cbLength, pszSrc, pRootFunc->GetFunctionBody(), hostSrcInfo, &byteCode, &dwByteCodeSize, GENERATE_BYTE_CODE_COTASKMEMALLOC);
 
             if (SUCCEEDED(hr))
             {
