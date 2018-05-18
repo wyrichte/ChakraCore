@@ -6,7 +6,7 @@
 
 #include "JDUtil.h"
 
-class JDByteCode : public JDUtil
+class JDByteCode
 {
 public:
     JDByteCode(ULONG64 bytesWindow, bool dumpProbeBackingBlock, bool verbose);
@@ -42,46 +42,46 @@ private:
     void DumpU4(JDRemoteTyped value);
     void DumpOffset(JDRemoteTyped relativeJumpOffset, uint nextOffset);
 
-    void DumpEmpty(JDRemoteTyped layout, char * opcodeStr, uint nextOffset) {};
-    void DumpReg1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg2(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg2B1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg3(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg3B1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg3C(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg4(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg5(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg1Unsigned1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpUnsigned1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpW1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg1Int2(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpReg2Int1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpCallI(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpCallIExtended(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpEmpty(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset) {};
+    void DumpReg1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg2(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg2B1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg3(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg3B1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg3C(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg4(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg5(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg1Unsigned1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpUnsigned1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpW1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg1Int2(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpReg2Int1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpCallI(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpCallIExtended(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
     
-    void DumpReg2WithICIndex(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpCallIWithICIndex(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpCallIExtendedWithICIndex(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpReg2WithICIndex(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpCallIWithICIndex(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpCallIExtendedWithICIndex(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
 
-    void DumpBrLong(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpBr(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpBrS(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpBrReg1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpBrReg1Unsigned1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpBrReg2(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpBrLong(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpBr(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpBrS(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpBrReg1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpBrReg1Unsigned1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpBrReg2(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
 
-    void DumpElementRootCP(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementCP(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementP(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementSlot(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementSlotI1(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementSlotI2(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementScopedC2(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpElementI(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpElementRootCP(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementCP(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementP(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementSlot(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementSlotI1(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementSlotI2(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementScopedC2(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpElementI(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
 
-    void DumpStartCall(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpArg(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
-    void DumpAuxiliary(JDRemoteTyped layout, char * opcodeStr, uint nextOffset);
+    void DumpStartCall(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpArg(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
+    void DumpAuxiliary(JDRemoteTyped layout, char const * opcodeStr, uint nextOffset);
 
     void DumpConstantTable();
     void DumpImplicitArgIns();

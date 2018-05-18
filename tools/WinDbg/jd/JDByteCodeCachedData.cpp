@@ -13,21 +13,21 @@ JDByteCodeCachedData::Ensure()
         return;
     }
 
-    layoutTable = ReadTable<uint>(ExtRemoteTyped(GetExtension()->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts")));
-    extendedLayoutTable = ReadTable<uint>(ExtRemoteTyped(GetExtension()->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts")));
+    layoutTable = ReadTable<uint>(GetExtension()->FillModule("%s!Js::OpCodeUtil::OpCodeLayouts"));
+    extendedLayoutTable = ReadTable<uint>(GetExtension()->FillModule("%s!Js::OpCodeUtil::ExtendedOpCodeLayouts"));
     if (GetExtension()->CanResolveSymbol(GetExtension()->FillModule("%s!TotalNumberOfBuiltInProperties")))
     {
-        TotalNumberOfBuiltInProperties = ExtRemoteTyped(GetExtension()->FillModule("%s!TotalNumberOfBuiltInProperties")).GetLong();
+        TotalNumberOfBuiltInProperties = JDRemoteTyped(GetExtension()->FillModule("%s!TotalNumberOfBuiltInProperties")).GetLong();
     }
     else
     {
-        TotalNumberOfBuiltInProperties = ExtRemoteTyped(GetExtension()->FillModule("(int)%s!_countJSOnlyProperty")).GetLong();
+        TotalNumberOfBuiltInProperties = JDRemoteTyped(GetExtension()->FillModule("(int)%s!_countJSOnlyProperty")).GetLong();
     }
 
     bool fSearchEnumOpHasMultiSizeLayout = false;
     if (GetExtension()->CanResolveSymbol(GetExtension()->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")))
     {
-        OpcodeAttr_OpHasMultiSizeLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")).GetLong();
+        OpcodeAttr_OpHasMultiSizeLayout = JDRemoteTyped(GetExtension()->FillModule("%s!OpcodeAttr::OpHasMultiSizeLayout")).GetLong();
     }
     else
     {
@@ -36,14 +36,14 @@ JDByteCodeCachedData::Ensure()
 
     if (GetExtension()->CanResolveSymbol(GetExtension()->FillModule("%s!OpcodeAttr::OpcodeAttributes")))
     {
-        attributesTable = ReadTable<int>(ExtRemoteTyped(GetExtension()->FillModule("%s!OpcodeAttr::OpcodeAttributes")));
-        extendedAttributesTable = ReadTable<int>(ExtRemoteTyped(GetExtension()->FillModule("%s!OpcodeAttr::ExtendedOpcodeAttributes")));
+        attributesTable = ReadTable<int>(GetExtension()->FillModule("%s!OpcodeAttr::OpcodeAttributes"));
+        extendedAttributesTable = ReadTable<int>(GetExtension()->FillModule("%s!OpcodeAttr::ExtendedOpcodeAttributes"));
         
-        LayoutSize_SmallLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!Js::SmallLayout")).GetLong();
-        LayoutSize_MediumLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!Js::MediumLayout")).GetLong();
-        LayoutSize_LargeLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!Js::LargeLayout")).GetLong();
+        LayoutSize_SmallLayout = JDRemoteTyped(GetExtension()->FillModule("%s!Js::SmallLayout")).GetLong();
+        LayoutSize_MediumLayout = JDRemoteTyped(GetExtension()->FillModule("%s!Js::MediumLayout")).GetLong();
+        LayoutSize_LargeLayout = JDRemoteTyped(GetExtension()->FillModule("%s!Js::LargeLayout")).GetLong();
         // CanResolveSymbol doesn't work on enum. Need to guess that it is 3 here.
-        char * name = JDUtil::GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::LayoutSize)3")));
+        char const * name = JDRemoteTyped(GetExtension()->FillModule("(%s!Js::LayoutSize)3")).GetEnumString();
         extendedOpCodesWith2Bytes = ENUM_EQUAL(name, LayoutCount);
     }
     else
@@ -55,9 +55,9 @@ JDByteCodeCachedData::Ensure()
         // There are two enum of the same name OpCodeAttr and OpCodeAttrAsmJs versions.  Need to go thru them to find the one we want
         fSearchEnumOpHasMultiSizeLayout = true;
 
-        LayoutSize_SmallLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!SmallLayout")).GetLong();
-        LayoutSize_MediumLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!MediumLayout")).GetLong();
-        LayoutSize_LargeLayout = ExtRemoteTyped(GetExtension()->FillModule("%s!LargeLayout")).GetLong();
+        LayoutSize_SmallLayout = JDRemoteTyped(GetExtension()->FillModule("%s!SmallLayout")).GetLong();
+        LayoutSize_MediumLayout = JDRemoteTyped(GetExtension()->FillModule("%s!MediumLayout")).GetLong();
+        LayoutSize_LargeLayout = JDRemoteTyped(GetExtension()->FillModule("%s!LargeLayout")).GetLong();
     }
 
     if (fSearchEnumOpHasMultiSizeLayout)
@@ -65,7 +65,7 @@ JDByteCodeCachedData::Ensure()
         OpcodeAttr_OpHasMultiSizeLayout = 0;
         for (uint i = 0; i < 32; i++)
         {
-            char * name = JDUtil::GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!OpCodeAttr::OpCodeAttrEnum)@$extin)"), (ULONG64)1 << i));
+            char const * name = JDRemoteTyped(GetExtension()->FillModule("(%s!OpCodeAttr::OpCodeAttrEnum)@$extin)"), (ULONG64)1 << i).GetEnumString();
             if (ENUM_EQUAL(name, OpHasMultiSizeLayout))
             {
                 OpcodeAttr_OpHasMultiSizeLayout = 1 << i;

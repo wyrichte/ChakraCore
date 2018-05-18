@@ -9,7 +9,7 @@
 static char s_tempBuffer[TEMP_BUFFER_SIZE];
 #define RETURNBUFFER(fmt, ...) if (buffer == nullptr) { buffer = s_tempBuffer; len = sizeof(s_tempBuffer); }; sprintf_s(buffer, len, fmt, __VA_ARGS__); return buffer
 
-char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, size_t len)
+char * JDBackend::GetStackSymDumpString(JDRemoteTyped stackSym, char * buffer, size_t len)
 {
     ushort slotNum;
     if (stackSym.HasField("m_slotNum"))
@@ -45,7 +45,7 @@ char * JDBackend::GetStackSymDumpString(ExtRemoteTyped stackSym, char * buffer, 
     RETURNBUFFER("s%d", symId);
 }
 
-char * JDBackend::GetIntConstOpndDumpString(ExtRemoteTyped intConstOpnd, char * buffer, size_t len)
+char * JDBackend::GetIntConstOpndDumpString(JDRemoteTyped intConstOpnd, char * buffer, size_t len)
 {
     if (g_Ext->m_PtrSize == 4)
     {
@@ -58,22 +58,22 @@ char * JDBackend::GetIntConstOpndDumpString(ExtRemoteTyped intConstOpnd, char * 
     }
 }
 
-char * JDBackend::GetFloatConstOpndDumpString(ExtRemoteTyped floatConstOpnd, char * buffer, size_t len)
+char * JDBackend::GetFloatConstOpndDumpString(JDRemoteTyped floatConstOpnd, char * buffer, size_t len)
 {
     RETURNBUFFER("%e", floatConstOpnd.Field("m_value").GetDouble());    
 }
 
-char * JDBackend::GetHelperCallOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetHelperCallOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
-    RETURNBUFFER("%s", GetEnumString(opnd.Field("m_fnHelper")));
+    RETURNBUFFER("%s", opnd.Field("m_fnHelper").GetEnumString());
 }
 
-char * JDBackend::GetPropertySymDumpString(ExtRemoteTyped propertySym, char* buffer, size_t len)
+char * JDBackend::GetPropertySymDumpString(JDRemoteTyped propertySym, char* buffer, size_t len)
 {
     char tempBuffer[TEMP_BUFFER_SIZE];
     char * stackSymDumpStr = GetStackSymDumpString(propertySym.Field("m_stackSym"), tempBuffer, _countof(tempBuffer));
 
-    char * fieldKind = propertySym.Field("m_fieldKind").GetSimpleValue();
+    char const * fieldKind = propertySym.Field("m_fieldKind").GetSimpleValue();
     int32 propertyId = propertySym.Field("m_propertyId").GetLong();
     if (ENUM_EQUAL(fieldKind, PropertyKindData))
     {
@@ -94,15 +94,15 @@ char * JDBackend::GetPropertySymDumpString(ExtRemoteTyped propertySym, char* buf
     }
 }
 
-char * JDBackend::GetSymOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetSymOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {    
-    ExtRemoteTyped sym = opnd.Field("m_sym");
-    char * kind = sym.Field("m_kind").GetSimpleValue();
+    JDRemoteTyped sym = opnd.Field("m_sym");
+    char const * kind = sym.Field("m_kind").GetSimpleValue();
     if (ENUM_EQUAL(kind, SymKindProperty))
     {
-        return GetPropertySymDumpString(ExtRemoteTyped(GetExtension()->FillModule("(%s!PropertySym *)@$extin"), sym.GetPtr()), buffer, len);
+        return GetPropertySymDumpString(JDRemoteTyped(GetExtension()->FillModule("(%s!PropertySym *)@$extin"), sym.GetPtr()), buffer, len);
     }
-    ExtRemoteTyped stackSym = ExtRemoteTyped(GetExtension()->FillModule("(%s!StackSym *)@$extin"), sym.GetPtr());
+    JDRemoteTyped stackSym = JDRemoteTyped(GetExtension()->FillModule("(%s!StackSym *)@$extin"), sym.GetPtr());
     int32 stackSymOffset = stackSym.Field("m_offset").GetLong();
     bool hasOffset = stackSym.Field("m_isArgSlotSym").GetChar() ?
         stackSymOffset != -1 || !stackSym.Field("m_isInlinedArgSlot").GetChar() : stackSymOffset != 0;
@@ -119,18 +119,18 @@ char * JDBackend::GetSymOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_
     RETURNBUFFER("%s<%d>", stackSymDumpStr, stackSymOffset + opndOffset);    
 }
 
-ULONG64 JDBackend::GetInt(ExtRemoteTyped value)
+ULONG64 JDBackend::GetInt(JDRemoteTyped value)
 {
-    ULONG64 integer = value.GetData(value.GetTypeSize());
+    ULONG64 integer = value.GetExtRemoteTyped().GetData(value.GetTypeSize());
     return integer;
 }
 
 
-char * JDBackend::GetRegOpndDumpString(ExtRemoteTyped regOpnd, char * buffer, size_t len)
+char * JDBackend::GetRegOpndDumpString(JDRemoteTyped regOpnd, char * buffer, size_t len)
 {
-    ExtRemoteTyped sym = regOpnd.Field("m_sym");
+    JDRemoteTyped sym = regOpnd.Field("m_sym");
 
-    ExtRemoteTyped reg = regOpnd.Field("m_reg");
+    JDRemoteTyped reg = regOpnd.Field("m_reg");
     if (GetInt(reg))
     {
         char tempBuffer[TEMP_BUFFER_SIZE];
@@ -139,7 +139,7 @@ char * JDBackend::GetRegOpndDumpString(ExtRemoteTyped regOpnd, char * buffer, si
         {
             stackSymDumpStr = GetStackSymDumpString(sym, tempBuffer, _countof(tempBuffer));
         }
-        RETURNBUFFER("%s(%s)", stackSymDumpStr, GetEnumString(reg) + 3 /* skip the prefix "Reg" */);
+        RETURNBUFFER("%s(%s)", stackSymDumpStr, reg.GetEnumString() + 3 /* skip the prefix "Reg" */);
     }
     else if (sym.GetPtr())
     {
@@ -148,7 +148,7 @@ char * JDBackend::GetRegOpndDumpString(ExtRemoteTyped regOpnd, char * buffer, si
     return "<RegOpnd with no reg or sym>";
 }
 
-char * JDBackend::GetAddrOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetAddrOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
     if (GetExtension()->IsCurMachine64())
     {
@@ -160,12 +160,12 @@ char * JDBackend::GetAddrOpndDumpString(ExtRemoteTyped opnd, char * buffer, size
     }
 }
 
-char * JDBackend::GetIndirOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetIndirOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
     char tempBuffer[TEMP_BUFFER_SIZE];
     char * stackSymDumpStr = GetRegOpndDumpString(opnd.Field("m_baseOpnd"), tempBuffer, _countof(tempBuffer));
 
-    ExtRemoteTyped indexOpnd = opnd.Field("m_indexOpnd");
+    JDRemoteTyped indexOpnd = opnd.Field("m_indexOpnd");
     if (indexOpnd.GetPtr())
     {
         char tempBuffer2[TEMP_BUFFER_SIZE];
@@ -186,11 +186,11 @@ char * JDBackend::GetIndirOpndDumpString(ExtRemoteTyped opnd, char * buffer, siz
 
     RETURNBUFFER("[%s]", stackSymDumpStr);
 }
-char * JDBackend::GetLabelOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetLabelOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
     return GetLabelInstrDumpString(opnd.Field("m_label"), buffer, len);
 }
-char * JDBackend::GetMemRefOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetMemRefOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
     if (GetExtension()->IsCurMachine64())
     {
@@ -201,7 +201,7 @@ char * JDBackend::GetMemRefOpndDumpString(ExtRemoteTyped opnd, char * buffer, si
         RETURNBUFFER("[0x%X]", (ULONG)opnd.Field("m_memLoc").GetPtr());
     }
 }
-char * JDBackend::GetRegBVOpndDumpString(ExtRemoteTyped opnd, char * buffer, size_t len)
+char * JDBackend::GetRegBVOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t len)
 {
     return "<RegBV>";
 }
@@ -275,54 +275,54 @@ char * JDBackend::GetOpndDumpString(JDRemoteTyped opnd, char * buffer, size_t le
 
     if (strcmp(typeName, "IR::IntConstOpnd") == 0)
     {
-        return GetIntConstOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetIntConstOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::FloatConstOpnd") == 0)
     {
-        return GetFloatConstOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetFloatConstOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::HelperCallOpnd") == 0)
     {
-        return GetHelperCallOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetHelperCallOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::SymOpnd") == 0 || strcmp(typeName, "IR::PropertySymOpnd") == 0)
     {
-        return GetSymOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetSymOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::RegOpnd") == 0)
     {
-        return GetRegOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetRegOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::AddrOpnd") == 0)
     {
-        return GetAddrOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetAddrOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::IndirOpnd") == 0)
     {
-        return GetIndirOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetIndirOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::LabelOpnd") == 0)
     {
-        return GetLabelOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetLabelOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::MemRefOpnd") == 0)
     {
-        return GetMemRefOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetMemRefOpndDumpString(typedOpnd, buffer, len);
     }
     if (strcmp(typeName, "IR::RegBVOpnd") == 0)
     {
-        return GetRegBVOpndDumpString(typedOpnd.GetExtRemoteTyped(), buffer, len);
+        return GetRegBVOpndDumpString(typedOpnd, buffer, len);
     }
     return "<UnknownKind>";
    
 }
 
-char * JDBackend::GetLabelInstrDumpString(ExtRemoteTyped labelInstr, char * buffer, size_t len)
+char * JDBackend::GetLabelInstrDumpString(JDRemoteTyped labelInstr, char * buffer, size_t len)
 {
     RETURNBUFFER("$L%u", labelInstr.Field("m_id").GetUlong());
 }
 
-void JDBackend::DumpLabelInstr(ExtRemoteTyped labelInstr)
+void JDBackend::DumpLabelInstr(JDRemoteTyped labelInstr)
 {
     GetExtension()->Out(GetLabelInstrDumpString(labelInstr));
     if (labelInstr.Field("m_isLoopTop").GetStdBool())
@@ -331,11 +331,11 @@ void JDBackend::DumpLabelInstr(ExtRemoteTyped labelInstr)
     }
 }
 
-void JDBackend::DumpBranchInstr(ExtRemoteTyped branchInstr)
+void JDBackend::DumpBranchInstr(JDRemoteTyped branchInstr)
 {
     DumpInstrBase(branchInstr);
     GetExtension()->Out(" => ");
-    ExtRemoteTyped branchTarget = branchInstr.Field("m_branchTarget");
+    JDRemoteTyped branchTarget = branchInstr.Field("m_branchTarget");
     if (branchTarget.GetPtr() != 0)
     {
         GetExtension()->Out(GetLabelInstrDumpString(branchTarget));
@@ -351,12 +351,12 @@ void JDBackend::DumpBranchInstr(ExtRemoteTyped branchInstr)
     }
 }
 
-void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
+void JDBackend::DumpInstrBase(JDRemoteTyped instr)
 {
-    ExtRemoteTyped dst = instr.Field("m_dst");
-    ExtRemoteTyped opcode = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
-    ExtRemoteTyped src1 = instr.Field("m_src1");
-    ExtRemoteTyped src2 = instr.Field("m_src2");
+    JDRemoteTyped dst = instr.Field("m_dst");
+    JDRemoteTyped opcode = JDRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
+    JDRemoteTyped src1 = instr.Field("m_src1");
+    JDRemoteTyped src2 = instr.Field("m_src2");
 
     if (dst.GetPtr() != NULL)
     {
@@ -368,7 +368,7 @@ void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
     }
 
     // Trim out the enum numeric value
-    GetExtension()->Out("%-20s", GetEnumString(opcode));
+    GetExtension()->Out("%-20s", opcode.GetEnumString());
 
     if (src1.GetPtr() != NULL)
     {
@@ -388,24 +388,24 @@ void JDBackend::DumpInstrBase(ExtRemoteTyped instr)
     }
 }
 
-void JDBackend::DumpInstr(ExtRemoteTyped instr)
+void JDBackend::DumpInstr(JDRemoteTyped instr)
 {
-    char * v = instr.Field("m_kind").GetSimpleValue();
+    char const * v = instr.Field("m_kind").GetSimpleValue();
     if (ENUM_EQUAL(v, InstrKindLabel) || ENUM_EQUAL(v, InstrKindProfiledLabel))
     {
-        DumpLabelInstr(ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::LabelInstr *)@$extin"), instr.GetPtr()));
+        DumpLabelInstr(JDRemoteTyped(GetExtension()->FillModule("(%s!IR::LabelInstr *)@$extin"), instr.GetPtr()));
         GetExtension()->Out(":");
     }
     else if (ENUM_EQUAL(v, InstrKindBranch))
     {
-        DumpBranchInstr(ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));
+        DumpBranchInstr(JDRemoteTyped(GetExtension()->FillModule("(%s!IR::BranchInstr *)@$extin"), instr.GetPtr()));
     }
     else if (ENUM_EQUAL(v, InstrKindPragma))
     {
-        ExtRemoteTyped opcode = ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
+        JDRemoteTyped opcode = JDRemoteTyped(GetExtension()->FillModule("(%s!Js::OpCode)@$extin"), instr.Field("m_opcode").GetUshort());
         if (ENUM_EQUAL(opcode.GetSimpleValue(), StatementBoundary))
         {
-            GetExtension()->Out(_u("%20s StatementBoundary #%d"), "", ExtRemoteTyped(GetExtension()->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
+            GetExtension()->Out(_u("%20s StatementBoundary #%d"), "", JDRemoteTyped(GetExtension()->FillModule("(%s!IR::PragmaInstr *)@$extin"), instr.GetPtr()).Field("m_statementIndex").GetUlong());
         }
         else
         {
@@ -421,9 +421,9 @@ void JDBackend::DumpInstr(ExtRemoteTyped instr)
 }
 
 void
-JDBackend::DumpFunc(ExtRemoteTyped func)
+JDBackend::DumpFunc(JDRemoteTyped func)
 {
-    ExtRemoteTyped curr = func.Field("m_headInstr");
+    JDRemoteTyped curr = func.Field("m_headInstr");
 
     while (curr.GetPtr())
     {
@@ -450,16 +450,16 @@ JD_PRIVATE_COMMAND(irinstr,
     "Dump an IR instr",
     "{;s;instr;The pointer to the IR::Instr* to dump}{;edn=(10),o,d=1;count;Number of instructions to dump}")
 {
-    ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
+    JDRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
-    ExtRemoteTyped instr("(IR::Instr *)@$extin", pointer);
+    JDRemoteTyped instr(GetExtension()->FillModule("(%s!IR::Instr *)@$extin"), pointer);
     PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(instr.Field("m_func"));
     JDBackend jdbackend(propertyNameReader);
     ULONG64 count = GetUnnamedArgU64(1);
     ULONG64 halfCount = count / 2;
     ULONG64 i = 0;
-    ExtRemoteTyped currentInstr = instr;
-    ExtRemoteTyped prevInstr = instr.Field("m_prev");
+    JDRemoteTyped currentInstr = instr;
+    JDRemoteTyped prevInstr = instr.Field("m_prev");
     while (i < halfCount && prevInstr.GetPtr())
     {
         currentInstr = prevInstr;
@@ -488,24 +488,24 @@ JD_PRIVATE_COMMAND(irinstr,
     }
 }
 
-static ExtRemoteTyped GetTopFunc(ExtRemoteTyped func)
+static JDRemoteTyped GetTopFunc(JDRemoteTyped func)
 {
-  ExtRemoteTyped parent = func.Field("parentFunc");
-  while (parent.GetPtr() != 0)
-  {
+    JDRemoteTyped parent = func.Field("parentFunc");
+    while (parent.GetPtr() != 0)
+    {
     func = parent;
     parent = parent.Field("parentFunc");
-  }
-  return func;
+    }
+    return func;
 }
 
 JD_PRIVATE_COMMAND(irfunc,
     "Dump an IR func",
     "{;s;instr;C++ Expression that evalues to func}")
 {
-    ExtRemoteTyped varTyped(GetUnnamedArgStr(0));
+    JDRemoteTyped varTyped(GetUnnamedArgStr(0));
     ULONG64 pointer = varTyped.GetPtr();
-    ExtRemoteTyped func = GetTopFunc(ExtRemoteTyped(GetExtension()->FillModule("(%s!Func*)@$extin"), pointer));
+    JDRemoteTyped func = GetTopFunc(JDRemoteTyped(GetExtension()->FillModule("(%s!Func*)@$extin"), pointer));
     PropertyNameReader propertyNameReader = JDBackendUtil::GetPropertyNameReaderFromFunc(func);
     JDBackend jdbackend(propertyNameReader);
     jdbackend.DumpFunc(func);

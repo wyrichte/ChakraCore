@@ -33,8 +33,8 @@ JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
         CHAR typeNameBuffer[1024];
         sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
         JDRemoteTyped result(typeNameBuffer, original);
-        ExtRemoteTyped deref = result.Dereference();
-        typeCache.cacheTypeInfoCache.insert(std::make_pair(typeName, std::make_pair(deref.m_Typed.ModBase, deref.m_Typed.TypeId))).first;
+        JDRemoteTyped deref = result.Dereference();
+        typeCache.cacheTypeInfoCache.insert(std::make_pair(typeName, std::make_pair(deref.GetModBase(), deref.GetTypeId()))).first;
         return result;
     }
 

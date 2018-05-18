@@ -447,8 +447,8 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(RemoteThreadContext threa
         // Try to infer some info the slow way
         for (int i = 0; i < 20; i++)
         {
-            ExtRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), i);
-            if (strcmp(JDUtil::GetEnumString(prop), "_none") == 0)
+            JDRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), i);
+            if (strcmp(prop.GetEnumString(), "_none") == 0)
             {
                 _none = i;
                 break;
@@ -463,9 +463,9 @@ EXT_CLASS_BASE::PropertyNameReader::PropertyNameReader(RemoteThreadContext threa
             while (maxCountJSOnlyProperty >= minCountJSOnlyProperty)
             {
                 int midCountJSOnlyProperty = (maxCountJSOnlyProperty - minCountJSOnlyProperty) / 2 + minCountJSOnlyProperty;
-                ExtRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
+                JDRemoteTyped prop(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), midCountJSOnlyProperty);
 
-                char const * name = JDUtil::GetEnumString(prop);
+                char const * name = prop.GetEnumString();
                 if (strcmp(name, "_countJSOnlyProperty") == 0)
                 {
                     _maxBuiltIn = midCountJSOnlyProperty;
@@ -516,7 +516,7 @@ std::string EXT_CLASS_BASE::PropertyNameReader::GetNameStringByPropertyId(ULONG 
         {
             if (propertyId < _maxBuiltIn)
             {
-                return JDUtil::GetEnumString(ExtRemoteTyped(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), propertyId));
+                return JDRemoteTyped(GetExtension()->FillModule("(%s!Js::PropertyIds::_E)@$extin"), propertyId).GetEnumString();
             }
             sprintf_s(buffer, "<PropId %d>", propertyId);
         }
@@ -1368,7 +1368,7 @@ JD_PRIVATE_COMMAND(jstack,
             JDRemoteTyped function = nativeLibraryEntryRecordCurr.Field("function");
             JDRemoteTyped name = nativeLibraryEntryRecordCurr.Field("name");
             ExtBuffer<WCHAR> buffer;
-            PWCHAR functionName = name.Dereference().GetString(&buffer);
+            PWCHAR functionName = name.Dereference().GetExtRemoteTyped().GetString(&buffer);
             stackWalker.PrintFrameNumber(verbose);
             Out(" js!");
             if (this->PreferDML())
@@ -1423,7 +1423,8 @@ JD_PRIVATE_COMMAND(jstack,
             }
             if (PreferDML())
             {
-                Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link>]", this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress());
+                Dml("Interpreter <link cmd=\"?? (%s!Js::InterpreterStackFrame *)0x%p\">0x%p</link> <link cmd=\"!jd.bc -w 100 (%s!Js::InterpreterStackFrame *)0x%p\">(bytecode)</link>]", 
+                    this->GetModuleName(), interpreterStackFrame.GetAddress(), interpreterStackFrame.GetAddress(), this->GetModuleName(), interpreterStackFrame.GetAddress());
             }
             else
             {
@@ -1647,8 +1648,8 @@ JD_PRIVATE_COMMAND(jsdisp,
         {
             ExtRemoteTyped javascriptDispatch = ExtRemoteTyped(this->FillModule("(%s!JavascriptDispatch *)0"));
             ULONG64 offset = javascriptDispatch.GetFieldOffset("linkList");
-            ExtRemoteTyped head = hostScriptContext.Field("scriptSite").Field("javascriptDispatchListHead").GetPointerTo();
-            ExtRemoteTyped curr = head.Field("Flink");
+            JDRemoteTyped head = hostScriptContext.Field("scriptSite").Field("javascriptDispatchListHead").GetPointerTo();
+            JDRemoteTyped curr = head.Field("Flink");
 
             while (curr.GetPtr() != head.GetPtr())
             {

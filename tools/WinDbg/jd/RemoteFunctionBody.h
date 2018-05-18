@@ -102,7 +102,7 @@ public:
             buffer->Append(ws.c_str(), (ULONG)(ws.length() + 1));
             return buffer->GetBuffer();
         }
-        ExtRemoteTyped dereferenced;
+        JDRemoteTyped dereferenced;
         try
         {
             dereferenced = displayName.Dereference();
@@ -118,7 +118,7 @@ public:
             buffer->Append(ws.c_str(), (ULONG)(ws.length() + 1));
             return buffer->GetBuffer();
         }
-        return dereferenced.GetString(buffer);
+        return dereferenced.GetExtRemoteTyped().GetString(buffer);
     }
 
     JDRemoteTyped GetNestedArray()

@@ -16,7 +16,7 @@ JDRemoteTyped JDBackendUtil::GetFunctionBodyFromFunc(JDRemoteTyped func)
     return JDRemoteTyped::FromPtrWithVtable(functionBodyAddr.GetPtr());
 }
 
-EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(ExtRemoteTyped func)
+EXT_CLASS_BASE::PropertyNameReader JDBackendUtil::GetPropertyNameReaderFromFunc(JDRemoteTyped func)
 {
     return EXT_CLASS_BASE::PropertyNameReader(GetExtension()->IsJITServer() ? JDRemoteTyped::NullPtr() :
         RemoteFunctionBody(JDBackendUtil::GetFunctionBodyFromFunc(func)).GetThreadContext());

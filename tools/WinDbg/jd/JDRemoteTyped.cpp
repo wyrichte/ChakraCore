@@ -37,6 +37,11 @@ JDRemoteTyped::JDRemoteTyped(PCSTR Expr, ULONG64 Offset)
 {
 }
 
+JDRemoteTyped::JDRemoteTyped(PCSTR Expr)
+    : extRemoteTyped(Expr), useExtRemoteTyped(true)
+{
+}
+
 bool JDRemoteTyped::HasField(PCSTR field)
 {
     return FieldInfoCache::HasField(*this, field);
@@ -110,7 +115,14 @@ ULONG64 JDRemoteTyped::GetSizeT()
 
 char const * JDRemoteTyped::GetEnumString()
 {
-    return JDUtil::GetEnumString(GetExtRemoteTyped());
+    // Trim out the enum numeric value
+    char * valueStr = this->GetExtRemoteTyped().GetSimpleValue();
+    char * endValueStr = strchr(valueStr, '(');
+    if (endValueStr != nullptr)
+    {
+        *(endValueStr - 1) = 0;
+    }
+    return valueStr;
 }
 
 // Redirection
@@ -124,32 +136,32 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
     return extRemoteTyped;
 }
 
-ExtRemoteTyped JDRemoteTyped::Dereference()
+JDRemoteTyped JDRemoteTyped::Dereference()
 {
     return GetExtRemoteTyped().Dereference();
 }
 
-ExtRemoteTyped JDRemoteTyped::GetPointerTo()
+JDRemoteTyped JDRemoteTyped::GetPointerTo()
 {
     return GetExtRemoteTyped().GetPointerTo();
 }
 
-ExtRemoteTyped JDRemoteTyped::operator[](_In_ LONG Index)
+JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG Index)
 {
     return GetExtRemoteTyped()[Index];
 }
 
-ExtRemoteTyped JDRemoteTyped::operator[](_In_ ULONG Index)
+JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG Index)
 {
     return GetExtRemoteTyped()[Index];
 }
 
-ExtRemoteTyped JDRemoteTyped::operator[](_In_ LONG64 Index)
+JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG64 Index)
 {
     return GetExtRemoteTyped()[Index];
 }
 
-ExtRemoteTyped JDRemoteTyped::operator[](_In_ ULONG64 Index)
+JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG64 Index)
 {
     return GetExtRemoteTyped()[Index];
 }
@@ -270,6 +282,15 @@ ULONG64 JDRemoteTyped::GetPtr()
         return g_Ext->m_PtrSize == 8 ? EnsureData<ULONG64>() : EnsureData<ULONG>();
     }
     return GetExtRemoteTyped().GetPtr();
+}
+
+double JDRemoteTyped::GetDouble()
+{
+    if (!useExtRemoteTyped)
+    {
+        return EnsureData<double>();
+    }
+    return GetExtRemoteTyped().GetDouble();
 }
 
 template <typename T>
