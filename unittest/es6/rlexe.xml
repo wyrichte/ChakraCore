@@ -242,12 +242,6 @@
 </test>
 <test>
     <default>
-        <files>module-syntax.js</files>
-        <compile-flags>-ExecuteWithBgParse -MuteHostErrorMsg -ES6Module -args summary -endargs</compile-flags>
-    </default>
-</test>
-<test>
-    <default>
         <files>module-syntax1.js</files>
         <compile-flags>-ES6Module -args summary -endargs</compile-flags>
     </default>

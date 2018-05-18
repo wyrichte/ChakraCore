@@ -31,15 +31,6 @@
   </test>
   <test>
     <default>
-      <files>simpletest.js</files>
-      <compile-flags>-ExecuteWithBgParse -jsrt -debuglaunch -auto -dbgbaseline:simpletest.debugger.jsrt.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
-      <baseline>simpletest.baseline</baseline>
-      <tags>Slow</tags>
-    </default>
-  </test>
-  
-  <test>
-    <default>
       <files>testForNoAOObject.js</files>
       <compile-flags>-debuglaunch -auto -es6functionnamefull -dbgbaseline:testForNoAOObject.debugger.baseline -Intl- -DeferLoadingAvailableSource</compile-flags>
       <baseline>testForNoAOObject.baseline</baseline>

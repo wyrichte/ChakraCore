@@ -27,13 +27,6 @@
   </test>
   <test>
     <default>
-      <files>sca_builtin.js</files>
-      <baseline>sca_builtin.baseline</baseline>
-      <compile-flags>-ExecuteWithBgParse</compile-flags>
-    </default>
-  </test>
-  <test>
-    <default>
       <files>sca_array_lookup.js</files>
       <baseline>sca_array_lookup.baseline</baseline>
     </default>
