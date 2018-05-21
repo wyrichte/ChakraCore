@@ -122,28 +122,30 @@ namespace Js
             {
                 // Walk the list of stats for each GC pass, and we pack all the values
                 // from similiar fields into a single array for transmission.
-                RecyclerTelemetryGCPassStats* curr = info.GetLastPassStats()->next;
-                RecyclerTelemetryGCPassStats* head = curr;
+                GCPassStatsList::Iterator  it = info.GetGCPassStatsIterator();
                 size_t currCount = 0;
-                do {
-                    passElapsedTimesMicros[currCount] = (curr->passEndTimeTick - curr->passStartTimeTick).ToMicroseconds();
-                    passStartTimes[currCount] = curr->passStartTimeFileTime;
-                    lastScriptExecutionTimes[currCount] = curr->lastScriptExecutionEndTime;
-                    isInScriptArray[currCount] = curr->isInScript;
-                    isScriptActiveArray[currCount] = curr->isScriptActive;
-                    heapInfoUsedBytesArray[currCount] = curr->bucketStats.objectByteCount;
-                    heapInfoTotalBytes[currCount] = curr->bucketStats.totalByteCount;
+                while (it.Next())
+                {
+                    RecyclerTelemetryGCPassStats& curr = it.Data();
 
-                    startProcessingTimeMicros[currCount] = curr->startPassProcessingElapsedTime.ToMicroseconds();
-                    endProcessingTimeMicros[currCount] = curr->endPassProcessingElapsedTime.ToMicroseconds();
-                    bucketStatsProcessingTimeMicros[currCount] = curr->computeBucketStatsElapsedTime.ToMicroseconds();
+                    passElapsedTimesMicros[currCount] = (curr.passEndTimeTick - curr.passStartTimeTick).ToMicroseconds();
+                    passStartTimes[currCount] = curr.passStartTimeFileTime;
+                    lastScriptExecutionTimes[currCount] = curr.lastScriptExecutionEndTime;
+                    isInScriptArray[currCount] = curr.isInScript;
+                    isScriptActiveArray[currCount] = curr.isScriptActive;
+                    heapInfoUsedBytesArray[currCount] = curr.bucketStats.objectByteCount;
+                    heapInfoTotalBytes[currCount] = curr.bucketStats.totalByteCount;
+
+                    startProcessingTimeMicros[currCount] = curr.startPassProcessingElapsedTime.ToMicroseconds();
+                    endProcessingTimeMicros[currCount] = curr.endPassProcessingElapsedTime.ToMicroseconds();
+                    bucketStatsProcessingTimeMicros[currCount] = curr.computeBucketStatsElapsedTime.ToMicroseconds();
 
                     // pack the array of times where UI thread was blocked into a single array.  Will need 
                     // to unapck as part of backend processing
                     for (size_t j = 0; j < WAIT_FOR_CONCURRENT_SOURCE_COUNT; j++)
                     {
                         size_t index = (currCount * WAIT_FOR_CONCURRENT_SOURCE_COUNT) + j;
-                        uiThreadBlockedTimes[index] = curr->uiThreadBlockedTimes[j].ToMicroseconds();
+                        uiThreadBlockedTimes[index] = curr.uiThreadBlockedTimes[j].ToMicroseconds();
                     }
 
                     // Add in recycler size data.  Offset is the offset for this GC pass into sizesArray
@@ -157,15 +159,14 @@ namespace Js
 #endif
 
                     // pre-processor magic to get data from structs into sizesArray
-#define RECYCLER_SIZE_NO_SUBFIELD(size_entry) sizesArray[offset + RecyclerSizeEntries::size_entry] = curr->size_entry;
-#define RECYCLER_SIZE_SUBFIELD(entry, subfield) sizesArray[offset + RecyclerSizeEntries::entry ## _ ## subfield] = curr->entry ## . ## subfield;
+#define RECYCLER_SIZE_NO_SUBFIELD(size_entry) sizesArray[offset + RecyclerSizeEntries::size_entry] = curr.size_entry;
+#define RECYCLER_SIZE_SUBFIELD(entry, subfield) sizesArray[offset + RecyclerSizeEntries::entry ## _ ## subfield] = curr.entry ## . ## subfield;
 #include "RecyclerSizeEntries.h"
 #undef RECYCLER_SIZE_NO_SUBFIELD
 #undef RECYCLER_SIZE_SUBFIELD
 
                     currCount++;
-                    curr = curr->next;
-                } while (curr != head);
+                };
 
                 AssertMsg(currCount == passCount, "mismatch between i and info.passCount");
 
