@@ -50,9 +50,21 @@ bool RemoteRecycler::ForEachPageAllocator(PCSTR leafPageAllocatorName, Fn fn)
 {
     JDRemoteTyped objectWithAllocatorField = this->GetFieldWithAllocators();
 
+    //
+    // Before commit 394340a41, the leaf page allocator field was called threadPageAllocator
+    // After this commit, the field was moved to HeapInfo and renamed recyclerLeafPageAllocator
+    //
     if (objectWithAllocatorField.HasField("threadPageAllocator"))
     {
         if (fn(leafPageAllocatorName, RemotePageAllocator(objectWithAllocatorField.Field("threadPageAllocator"))))
+        {
+            return true;
+        }
+    }
+
+    if (objectWithAllocatorField.HasField("recyclerLeafPageAllocator"))
+    {
+        if (fn(leafPageAllocatorName, RemotePageAllocator(objectWithAllocatorField.Field("recyclerLeafPageAllocator"))))
         {
             return true;
         }
