@@ -104,6 +104,7 @@
       <baseline>BasicTest.baseline</baseline>
     </default>
   </test>
+  <!-- Disabling tests, tracked by OS#17625024
   <test>
     <default>
       <tags>exclude_jsrt</tags>
@@ -120,6 +121,7 @@
       <baseline>ProfileCacheTests.ParserStateCache.baseline</baseline>
     </default>
   </test>
+-->
   <test>
     <default>
       <compile-flags>-nativetest:NativeUnitTests.dll VersionTest</compile-flags>
