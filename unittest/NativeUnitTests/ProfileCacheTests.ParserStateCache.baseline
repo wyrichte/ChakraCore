@@ -6,9 +6,10 @@ ProfileCacheTests: Basic Test
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -25,21 +26,25 @@ ProfileCacheTests: JS with less than 5 functions
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
+SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
-FAIL
+PASS
 Verify SaveWriteDataStream Counter
-FAIL
+PASS
 CloseEngine()
 =============================================
 ProfileCacheTests: Execute js file with 5 functions
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -51,9 +56,10 @@ ProfileCacheTests: Call OnEvent with VARIANT
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -65,9 +71,10 @@ ProfileCacheTests: Invalid Profile Data
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -79,21 +86,23 @@ ProfileCacheTests: Profile Data Less than 15 percents change
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
+SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
-FAIL
+PASS
 Verify SaveWriteDataStream Counter
-FAIL
+PASS
 CloseEngine()
 =============================================
 ProfileCacheTests: Profile Data Mismatched Version
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -105,12 +114,15 @@ ProfileCacheTests: Fail HRESULT from GetWriteDataStream
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
+GetWriteDataStream will return E_FAIL now...
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
 GetWriteDataStream is called
 GetWriteDataStream will return E_FAIL now...
 Verify GetWriteDataStream Counter
-FAIL
+PASS
 Verify SaveWriteDataStream Counter
 PASS
 CloseEngine()
@@ -118,9 +130,10 @@ ProfileCacheTests: Fail HRESULT from SaveWriteDataStream
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 SaveWriteDataStream will return E_FAIL now...
 Verify GetWriteDataStream Counter
@@ -134,9 +147,11 @@ CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
 GetReadDataStream will return NULL IStream now...
+GetReadDataStream is called
+GetReadDataStream will return NULL IStream now...
+GetWriteDataStream is called
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
-GetWriteDataStream is called
 SaveWriteDataStream is called
 Verify GetWriteDataStream Counter
 PASS
@@ -148,12 +163,15 @@ ProfileCacheTests: NULL IStream for GetWriteDataStream
 CreateNewEngine()
 ParseScriptText()
 GetReadDataStream is called
+GetReadDataStream is called
+GetWriteDataStream is called
+GetWriteDataStream will return NULL IStream now...
 Result : 25
 IActiveScriptLifecycleEventSink->OnEvent()
 GetWriteDataStream is called
 GetWriteDataStream will return NULL IStream now...
 Verify GetWriteDataStream Counter
-FAIL
+PASS
 Verify SaveWriteDataStream Counter
 PASS
 CloseEngine()
