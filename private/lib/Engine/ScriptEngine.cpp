@@ -991,7 +991,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionName(_In_ Var instance, _Out_
     Js::FunctionProxy *pFBody = jsFunction->GetFunctionProxy();
     if (pFBody != nullptr)
     {
-        const char16 * pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
+        const char16 * pwzName = nullptr;
+        BEGIN_TRANSLATE_OOM_TO_HRESULT
+        {
+            pwzName = pFBody->EnsureDeserialized()->GetExternalDisplayName();
+        }
+        END_TRANSLATE_OOM_TO_HRESULT(hr);
+
+        if (hr != S_OK)
+        {
+            return hr;
+        }
+
         if (pwzName != nullptr)
         {
             *pBstrName = ::SysAllocString(pwzName);
@@ -1192,33 +1203,38 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionInfo(
     Js::FunctionProxy *proxy = jsFunction->GetFunctionProxy();
     if (proxy != nullptr)
     {
-        Js::ParseableFunctionInfo * pFBody = proxy->EnsureDeserialized();
-        if (pBstrName != nullptr)
+        BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
-            *pBstrName = nullptr;
-            const char16 * pwzName = pFBody->GetExternalDisplayName();
-            if (pwzName != nullptr)
+            Js::ParseableFunctionInfo * pFBody = proxy->EnsureDeserialized();
+        
+            if (pBstrName != nullptr)
             {
-                *pBstrName = ::SysAllocString(pwzName);
+                *pBstrName = nullptr;
+                const char16 * pwzName = pFBody->GetExternalDisplayName();
+                if (pwzName != nullptr)
+                {
+                    *pBstrName = ::SysAllocString(pwzName);
+                }
             }
-        }
 
-        if (pLine != nullptr)
-        {
-            (*pLine) = pFBody->GetLineNumber();
-        }
+            if (pLine != nullptr)
+            {
+                (*pLine) = pFBody->GetLineNumber();
+            }
 
-        if (pColumn != nullptr)
-        {
-            (*pColumn) = pFBody->GetColumnNumber();
-        }
+            if (pColumn != nullptr)
+            {
+                (*pColumn) = pFBody->GetColumnNumber();
+            }
 
-        if (pCchLength != nullptr)
-        {
-            (*pCchLength) = pFBody->LengthInChars();
-        }
+            if (pCchLength != nullptr)
+            {
+                (*pCchLength) = pFBody->LengthInChars();
+            }
 
-        hr = S_OK;
+            hr = S_OK;
+        }
+        END_TRANSLATE_OOM_TO_HRESULT(hr);
     }
 
     return hr;
