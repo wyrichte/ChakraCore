@@ -4138,7 +4138,7 @@ HRESULT ScriptEngine::ParseScriptTextCore(
         {
             if (spProfileDataCache)
             {
-                dataCacheWrapper = RecyclerNew(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
+                dataCacheWrapper = RecyclerNewFinalized(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
             }
             sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)len, isDynamicDocument, sourceMapUrl, dataCacheWrapper);
         }
@@ -4401,7 +4401,7 @@ HRESULT ScriptEngine::ParseProcedureTextCore(
     {
         if (spProfileDataCache)
         {
-            dataCacheWrapper = RecyclerNew(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
+            dataCacheWrapper = RecyclerNewFinalized(scriptContext->GetRecycler(), Js::SimpleDataCacheWrapper, spProfileDataCache);
         }
         si.sourceContextInfo = this->GetSourceContextInfo(dwSourceContext, (uint)pszSrcLen, isDynamicDocument, sourceMapUrl, dataCacheWrapper);
     }
