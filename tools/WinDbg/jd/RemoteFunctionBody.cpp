@@ -357,30 +357,40 @@ RemoteFunctionBody::PrintSource()
     JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
     ULONG64 buffer = 0;
     
-    if (utf8SourceInfo.HasField("debugModeSource"))
+    ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
+    ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();    
+    try
     {
-        buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
-    }
+        if (utf8SourceInfo.HasField("debugModeSource"))
+        {
+            buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
+        }
 
-    if (buffer == 0 && utf8SourceInfo.HasField("m_utf8Source"))
-    {
-        buffer = utf8SourceInfo.Field("m_utf8Source").GetPtr();
-    }
+        if (buffer == 0 && utf8SourceInfo.HasField("m_utf8Source"))
+        {
+            buffer = utf8SourceInfo.Field("m_utf8Source").GetPtr();
+        }
 
-    if (buffer == 0)
-    {
-        buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();
         if (buffer == 0)
         {
-            GetExtension()->Out("Unable to find source buffer");
-            return;
+            buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();
+
+            if (buffer == 0)
+            {
+                GetExtension()->Out("Unable to find source buffer (startOffset = %llu, length= %u)", startOffset, length);
+                return;
+            }
         }
     }
-    ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
-    ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();
+    catch (ExtException& ex)
+    {
+        GetExtension()->Out("Exception getting source buffer: %s (startOffset = %llu, length= %u)", ex.GetMessageW(), startOffset, length);
+        return;
+    }
+
     ExtRemoteData source(buffer + startOffset, length);
     ExtBuffer<CHAR> sourceBuffer;
-    sourceBuffer.Require(length + 1);    
+    sourceBuffer.Require(length + 1);
     source.ReadBuffer(sourceBuffer.GetBuffer(), length);
     sourceBuffer.GetBuffer()[length] = 0;
     GetExtension()->Out("%s", sourceBuffer.GetBuffer());

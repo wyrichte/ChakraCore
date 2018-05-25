@@ -5,6 +5,7 @@
 
 #include "JDUtil.h"
 #include <functional>
+#include <sstream>
 class RemoteFunctionProxy : public JDRemoteTyped
 {
 public:
@@ -84,7 +85,40 @@ public:
 
     PWCHAR GetDisplayName(ExtBuffer<WCHAR> * buffer)
     {
-        return GetDisplayName().Dereference().GetString(buffer);
+        JDRemoteTyped displayName;
+        try
+        {
+            displayName = GetDisplayName();
+        }
+        catch (ExtException& ex)
+        {
+            // try to be resilient here and not fail if we can't get the display name
+            std::wostringstream os;
+            os << "(Js::FunctionBody *)0x" << std::hex << this->GetPtr();
+            os << L" <ERROR: ";
+            os << ex.GetMessageW();
+            os << L">";
+            std::wstring ws = os.str();
+            buffer->Append(ws.c_str(), (ULONG)(ws.length() + 1));
+            return buffer->GetBuffer();
+        }
+        ExtRemoteTyped dereferenced;
+        try
+        {
+            dereferenced = displayName.Dereference();
+        }
+        catch (ExtException&) 
+        {
+            std::wostringstream os;
+            os << "(Js::FunctionBody *)0x" << std::hex << this->GetPtr();
+            os << L" <ERROR: Unable to dereference 0x";
+            os << std::hex << displayName.GetPtr();
+            os << L">";
+            std::wstring ws = os.str();
+            buffer->Append(ws.c_str(), (ULONG)(ws.length() + 1));
+            return buffer->GetBuffer();
+        }
+        return dereferenced.GetString(buffer);
     }
 
     JDRemoteTyped GetNestedArray()
