@@ -1338,8 +1338,8 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
 
     if (_wfullpath(fullpath, scriptFilename, _MAX_PATH) == nullptr)
     {
-        fwprintf(stderr, _u("Out of memory"));
-        IfFailGo(E_OUTOFMEMORY);
+        fwprintf(stderr, _u("ERROR: Unable to get full path for %s\n"), scriptFilename);
+        IfFailGo(HRESULT_FROM_WIN32(ERROR_BAD_PATHNAME));
     }
 
     size_t len = wcslen(fullpath);
@@ -1382,7 +1382,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     {
         if (len != static_cast<int>(len))
         {
-            IfFailGo(ERROR_BAD_PATHNAME);
+            IfFailGo(HRESULT_FROM_WIN32(ERROR_BAD_PATHNAME));
         }
         CComBSTR bstr(static_cast<int>(len), fullpath);
         IfFailGo(InitializeDebugDocument(contents, bstr));
@@ -1973,8 +1973,8 @@ STDMETHODIMP JsHostActiveScriptSite::RegisterModuleSource(LPCOLESTR moduleIdenti
     char16 fullpath[_MAX_PATH];
     if (_wfullpath(fullpath, moduleIdentifier, _MAX_PATH) == nullptr)
     {
-        fwprintf(stderr, _u("Out of memory"));
-        return E_OUTOFMEMORY;
+        fwprintf(stderr, _u("ERROR: Unable to get full path for module name %s\n"), moduleIdentifier);
+        return HRESULT_FROM_WIN32(ERROR_BAD_PATHNAME);
     }
 
     auto existingModuleSource = moduleSourceMap.find(fullpath);
@@ -2649,7 +2649,7 @@ STDMETHODIMP JsHostActiveScriptSite::FetchImportedModuleHelper(
     specifierFullPath += specifier;
     if (_wfullpath(fullPath, specifierFullPath.c_str(), _MAX_PATH) == nullptr)
     {
-        return JsErrorInvalidArgument;
+        return E_INVALIDARG;
     }
 
     auto moduleEntry = moduleRecordMap.find(fullPath);
