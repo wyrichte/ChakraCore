@@ -177,6 +177,18 @@ IActiveScript *gActiveScript = NULL;
 IActiveScriptParse *gActiveScriptParse = NULL;
 IActiveScriptLifecycleEventSink *gActiveScriptLifecycleEventSink = NULL;
 
+const uint CACHE_FILE_LENGTH = 128;
+wchar_t inCacheFile[CACHE_FILE_LENGTH];
+wchar_t outCacheFile[CACHE_FILE_LENGTH];
+
+HRESULT SetProfileCacheFilenames(uint testId, const wchar_t* suffix)
+{
+    swprintf_s(inCacheFile, CACHE_FILE_LENGTH, _u("profilecachetest%u.%s.in"), testId, suffix);
+    swprintf_s(outCacheFile, CACHE_FILE_LENGTH, _u("profilecachetest%u.%s.out"), testId, suffix);
+
+    return NOERROR;
+}
+
 //Collection of all testcases for API testing
 HRESULT RunTestcase1()
 {
@@ -188,8 +200,9 @@ HRESULT RunTestcase1()
     */
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(1, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: Basic Test\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest1.js"), NULL, _u("profilecachetest1.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest1.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -213,8 +226,9 @@ HRESULT RunTestcase2()
 
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(2, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: JS with less than 5 functions\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest2.js"), NULL, _u("profilecachetest2.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest2.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -234,8 +248,9 @@ HRESULT RunTestcase3()
 
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(3, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: Execute js file with 5 functions\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest3.js"), NULL, _u("profilecachetest3.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest3.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -255,8 +270,9 @@ HRESULT RunTestcase4()
 
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(4, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: Call OnEvent with VARIANT\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest4.js"), NULL, _u("profilecachetest4.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest4.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -276,8 +292,9 @@ HRESULT RunTestcase5()
 
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(5, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: Invalid Profile Data\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), NULL, _u("profilecachetest5.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -297,8 +314,9 @@ HRESULT RunTestcase6()
 
     HRESULT hr = NOERROR;
 
+    IfFailedReturn(SetProfileCacheFilenames(5, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     printf("ProfileCacheTests: Profile Data Less than 15 percents change\n");
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), _u("profilecachetest5.out"), _u("profilecachetest5.out"));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), outCacheFile, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -320,7 +338,8 @@ HRESULT RunTestcase7()
 
     printf("ProfileCacheTests: Profile Data Mismatched Version\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest7.js"), _u("profilecachetest7.in"), _u("profilecachetest7.out"));
+    IfFailedReturn(SetProfileCacheFilenames(7, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest7.js"), inCacheFile, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
@@ -338,7 +357,8 @@ HRESULT RunTestcase8()
 
     printf("ProfileCacheTests: Fail HRESULT from GetWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest8.js"), NULL, _u("profilecachetest8.out"));
+    IfFailedReturn(SetProfileCacheFilenames(8, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest8.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->mptr_fakeMSTHML->SetFailGetWriteDataStream(TRUE);
     test->ParseScriptText();
@@ -359,7 +379,8 @@ HRESULT RunTestcase9()
 
     printf("ProfileCacheTests: Fail HRESULT from SaveWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest9.js"), NULL, _u("profilecachetest9.out"));
+    IfFailedReturn(SetProfileCacheFilenames(9, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest9.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     test->mptr_fakeMSTHML->SetFailSaveWriteDataStream(TRUE);
@@ -378,7 +399,8 @@ HRESULT RunTestcase10()
 
     printf("ProfileCacheTests: NULL IStream for GetReadDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest10.js"), NULL, _u("profilecachetest10.out"));
+    IfFailedReturn(SetProfileCacheFilenames(10, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest10.js"), nullptr, outCacheFile);
     test->mptr_fakeMSTHML->SetNullGetReadDataStream(TRUE);
     test->CreateNewEngine();
     test->ParseScriptText();
@@ -397,7 +419,8 @@ HRESULT RunTestcase11()
 
     printf("ProfileCacheTests: NULL IStream for GetWriteDataStream\n");
 
-    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest11.js"), NULL, _u("profilecachetest11.out"));
+    IfFailedReturn(SetProfileCacheFilenames(11, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
+    ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest11.js"), nullptr, outCacheFile);
     test->mptr_fakeMSTHML->SetNullGetWriteDataStream(TRUE);
     test->CreateNewEngine();
     test->ParseScriptText();

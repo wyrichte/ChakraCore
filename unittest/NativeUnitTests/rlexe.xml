@@ -104,11 +104,10 @@
       <baseline>BasicTest.baseline</baseline>
     </default>
   </test>
-  <!-- Disabling tests, tracked by OS#17625024
   <test>
     <default>
       <tags>exclude_jsrt</tags>
-      <compile-flags>-ParserStateCache- -nativetest:NativeUnitTests.dll ProfileCacheTests</compile-flags>
+      <compile-flags>-ParserStateCache- -nativetest:NativeUnitTests.dll ProfileCacheTests Legacy</compile-flags>
       <files>profilecachetest1.js</files>
       <baseline>ProfileCacheTests.baseline</baseline>
     </default>
@@ -116,12 +115,11 @@
   <test>
     <default>
       <tags>exclude_jsrt</tags>
-      <compile-flags>-ParserStateCache -nativetest:NativeUnitTests.dll ProfileCacheTests</compile-flags>
+      <compile-flags>-ParserStateCache -nativetest:NativeUnitTests.dll ProfileCacheTests ParserStateCache</compile-flags>
       <files>profilecachetest1.js</files>
       <baseline>ProfileCacheTests.ParserStateCache.baseline</baseline>
     </default>
   </test>
--->
   <test>
     <default>
       <compile-flags>-nativetest:NativeUnitTests.dll VersionTest</compile-flags>
