@@ -371,15 +371,15 @@ RemoteFunctionBody::PrintSource()
             buffer = utf8SourceInfo.Field("m_utf8Source").GetPtr();
         }
 
-        if (buffer == 0)
+        if (buffer == 0 && utf8SourceInfo.HasField("m_pTridentBuffer"))
         {
             buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();
+        }
 
-            if (buffer == 0)
-            {
-                GetExtension()->Out("Unable to find source buffer (startOffset = %llu, length= %u)", startOffset, length);
-                return;
-            }
+        if (buffer == 0)
+        {
+            GetExtension()->Out("Unable to find source buffer (startOffset = %llu, length= %u)", startOffset, length);
+            return;
         }
     }
     catch (ExtException& ex)
