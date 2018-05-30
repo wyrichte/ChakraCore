@@ -37,6 +37,7 @@ namespace Chakra.Utils
             public Int64 scriptContextLifeSpanMicros;
             public string recyclerID;
             public string scriptContextID;
+            public Int64[] CustomCounters;
 #pragma warning restore CS0649
         }
 
@@ -59,12 +60,16 @@ namespace Chakra.Utils
         public override Schema Produces(string[] requested_columns, string[] args, Schema input_schema)
         {
             Schema output_schema = new Schema();
-
+            
             foreach (ColumnInfo ci in input_schema.Columns)
             {
                 if (keepColumns.Contains(ci.Name))
                 {
-                    output_schema.Add(ci);
+                    ColumnInfo ci2 = ci.Clone();
+                    // setting source indicates column is a "pass-through" column. 
+                    // improves perf of cosmos' optimizers
+                    ci2.Source = ci;
+                    output_schema.Add(ci2);
                 }
             }
 
@@ -76,16 +81,6 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("propValue", ColumnDataType.Long));
 
             return output_schema;
-        }
-
-        public static Guid TryParseGuid(string guidString, bool generateGuidIfParseFails = false)
-        {
-            Guid guid = Guid.Empty;
-            if (!Guid.TryParse(guidString, out guid) && generateGuidIfParseFails)
-            {
-                guid = Guid.NewGuid();
-            }
-            return guid;
         }
 
         /**
@@ -108,8 +103,8 @@ namespace Chakra.Utils
                 }
 
                 output_row["scriptContextLifeSpanMicros"].Set(parsed.scriptContextLifeSpanMicros);
-                output_row["recyclerID"].Set(TryParseGuid(parsed.recyclerID));
-                output_row["scriptContextID"].Set(TryParseGuid(parsed.scriptContextID, true));
+                output_row["recyclerID"].Set(MiscUtils.TryParseGuid(parsed.recyclerID));
+                output_row["scriptContextID"].Set(MiscUtils.TryParseGuid(parsed.scriptContextID, true));
 
                 foreach (Row r in AddNameValuePair(parsed.BuiltInCountValues, parsed.BuiltInCountNameCRCs, "builtin", output_row))
                 {
@@ -140,24 +135,50 @@ namespace Chakra.Utils
                 {
                     yield return r;
                 }
+
+                foreach (Row r in AddNameValuePairNoCRC(parsed.CustomCounters, "CustomCounter", output_row))
+                {
+                    yield return r;
+                }
             }
         }
 
         private IEnumerable<Row> AddNameValuePair(Int64[] values, UInt64[] crcs, string type, Row outputRow)
         {
-            for (int i = 0; i < values.Length; i++)
+            if (values != null)
             {
-                if (values[i] > 0)
+                for (int i = 0; i < values.Length; i++)
                 {
-                    // add a new row
-                    string propName = DeCRC.GetStringForCRC(crcs[i]);
-                    outputRow["propName"].Set(propName);
-                    outputRow["propValue"].Set(values[i]);
-                    outputRow["propType"].Set(type);
-
-                    yield return outputRow;
+                    if (values[i] > 0)
+                    {
+                        // add a new row
+                        string propName = DeCRC.GetStringForCRC(crcs[i]);
+                        outputRow["propName"].Set(propName);
+                        outputRow["propValue"].Set(values[i]);
+                        outputRow["propType"].Set(type);
+                        yield return outputRow;
+                    }
                 }
             }
         }
+
+        private IEnumerable<Row> AddNameValuePairNoCRC(Int64[] values, string type, Row outputRow)
+        {
+            if (values != null)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    if (values[i] > 0)
+                    {
+                        // add a new row
+                        outputRow["propName"].Set(i);
+                        outputRow["propValue"].Set(values[i]);
+                        outputRow["propType"].Set(type);
+                        yield return outputRow;
+                    }
+                }
+            }
+        }
+
     }
 }

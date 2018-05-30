@@ -1,0 +1,207 @@
+
+// -------------------------------------------------------------------
+//
+//   Boiler-plate setup at the start of each script
+//
+
+// DEFAULT Params - only used if the @@startDate is not specified
+#DECLARE startDate DateTime = DateTime.Parse(@"2018-05-09 01:00 -700");
+#DECLARE endDate DateTime = @startDate.AddHours(1);
+
+// if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
+#IF(!"@@startDate@@".StartsWith("@@"))
+    #SET startDate = DateTime.Parse("@@startDate@@");
+    #SET endDate = @startDate.AddDays(1);
+#ENDIF
+
+// if @@endDate@@ is set via external paramater
+#IF(!"@@endDate@@".StartsWith("@@"))
+    #SET endDate = DateTime.Parse("@@endDate@@");
+    #IF (@endDate <= @startDate)
+        #SET endDate = @startDate.AddDays(1); 
+    #ENDIF
+#ENDIF
+
+// Are we launching from xflow?
+#IF(!"@@_startDate@@".StartsWith("@@"))
+   // _startDate is set, so we've been launched from XFlow, so move dates back one day so that we don't process an incomplete
+   // day Specifically, the job will kick off at say 4:00 AM on 2/26/2018, but records for this day are not complete, so have
+   // this process the records for 2/25/2018.  Hacky.  :(
+   #SET startDate = @startDate.AddDays(-1);
+   #SET endDate = @endDate.AddDays(-1);
+#ENDIF
+
+//#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE outputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+
+#DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
+
+#IF(!"@@outputRoot@@".StartsWith("@@"))
+    #SET outputRoot = "@@outputRoot@@";
+#ENDIF
+
+#DECLARE retentionDays uint = 28;
+#DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
+// -------------------------------------------------------------------
+
+// For the NGP secondary tagging
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+rawEvents =
+    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
+    PARAMS
+    (
+        startDate = @startDate,
+        endDate = @endDate,
+        eventName = "Microsoft.Web.Platform.Chakra.GCTelemetry_temp-1"
+    );
+
+recyclerTransmitEvents = 
+    PROCESS rawEvents
+        PRODUCE
+            time,
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            chakraBuildCommit,
+            data,
+            runType,
+            recyclerID,
+            transmitEventID,
+            recyclerLifeSpanMicros,
+            passCount,
+            passElapsedTimeMicros,
+            passStartTimes,
+            lastScriptExecutionTimes,
+            isInScript,
+            isScriptActive,
+            UIThreadBlockedMicros,
+            UIThreadBlockedNameCRCs,
+            AllocatorByteSizeEntries,
+            AllocatorByteSizeEntryNameCRCs,
+            GCStartProcessingElapsedMicros,
+            GCEndProcessingElapsedMicros,
+            GCBucketStatsProcessingElapsedMicros,
+            HeapInfoUsedBytes,
+            HeapInfoTotalBytes,
+            ThreadPageAllocator_numDecommitCalls,
+            ThreadPageAllocator_numPagesDecommitted,
+            ThreadPageAllocator_numFreePageCount,
+            ThreadPageAllocator_maxDeltaMicros,
+            LeafPageAllocator_numDecommitCalls,
+            LeafPageAllocator_numPagesDecommitted,
+            LeafPageAllocator_numFreePageCount,
+            LeafPageAllocator_maxDeltaMicros,
+            LargeBlockPageAllocator_numDecommitCalls,
+            LargeBlockPageAllocator_numPagesDecommitted,
+            LargeBlockPageAllocator_numFreePageCount,
+            LargeBlockPageAllocator_maxDeltaMicros,
+            WithBarrierPageAllocator_numDecommitCalls,
+            WithBarrierPageAllocator_numPagesDecommitted,
+            WithBarrierPageAllocator_numFreePageCount,
+            WithBarrierPageAllocator_maxDeltaMicros
+        USING Chakra.Utils.RecyclerTelemetryEventProcessor;
+
+
+recyclerGCPassEvents =
+    PROCESS recyclerTransmitEvents
+      PRODUCE
+      time,
+      binaryVersion,
+      binaryFlavor,
+      binaryArch,
+      chakraBuildCommit,
+      runType,
+      discriminator1,
+      discriminator2,
+      recyclerID,
+      transmitEventID,
+      recyclerLifeSpanMicros,
+      passElapsedTimeMicros,
+      passStartTimes,
+      lastScriptExecutionTimes,
+      isInScript,
+      isScriptActive,
+      //UIThreadBlockedMicros,
+      //UIThreadBlockedNameCRCs,
+      //AllocatorByteSizeEntries,
+      //AllocatorByteSizeEntryNameCRCs,
+      GCStartProcessingElapsedMicros,
+      GCEndProcessingElapsedMicros, 
+      GCBucketStatsProcessingElapsedMicros,
+      HeapInfoUsedBytes,
+      HeapInfoTotalBytes,
+      
+      data
+      USING Chakra.Utils.RecyclerTelemetryGCPassProcessor;
+
+//
+//  Filter out any array columns since structured streams don't support those
+//
+recyclerTransmitEventsForStructuredStream =
+    SELECT
+            time,
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            chakraBuildCommit,
+            data,
+            runType,
+            recyclerID,
+            transmitEventID,
+            recyclerLifeSpanMicros,
+            passCount,
+            //passElapsedTimeMicros,
+            //passStartTimes,
+            //lastScriptExecutionTimes,
+            //isInScript,
+            //isScriptActive,
+            //UIThreadBlockedMicros,
+            //UIThreadBlockedNameCRCs,
+            //AllocatorByteSizeEntries,
+            //AllocatorByteSizeEntryNameCRCs,
+            //GCStartProcessingElapsedMicros,
+            //GCEndProcessingElapsedMicros,
+            //GCBucketStatsProcessingElapsedMicros,
+            //HeapInfoUsedBytes,
+            //HeapInfoTotalBytes,
+            ThreadPageAllocator_numDecommitCalls,
+            ThreadPageAllocator_numPagesDecommitted,
+            ThreadPageAllocator_numFreePageCount,
+            ThreadPageAllocator_maxDeltaMicros,
+            LeafPageAllocator_numDecommitCalls,
+            LeafPageAllocator_numPagesDecommitted,
+            LeafPageAllocator_numFreePageCount,
+            LeafPageAllocator_maxDeltaMicros,
+            LargeBlockPageAllocator_numDecommitCalls,
+            LargeBlockPageAllocator_numPagesDecommitted,
+            LargeBlockPageAllocator_numFreePageCount,
+            LargeBlockPageAllocator_maxDeltaMicros,
+            WithBarrierPageAllocator_numDecommitCalls,
+            WithBarrierPageAllocator_numPagesDecommitted,
+            WithBarrierPageAllocator_numFreePageCount,
+            WithBarrierPageAllocator_maxDeltaMicros
+    FROM recyclerTransmitEvents;
+         
+
+
+#DECLARE recyclerTransmitEventsOutputPath string = string.Format("{0}/{1}/RecyclerTransmitEvents.ss", @outputRoot, @outputDate);
+[Privacy.Asset.NonPersonal]
+OUTPUT recyclerTransmitEventsForStructuredStream TO SSTREAM @recyclerTransmitEventsOutputPath
+WITH STREAMEXPIRY @streamExpiry;
+
+#DECLARE recyclerGCPassEventsOutputPath string = string.Format("{0}/{1}/RecyclerGCPassEvents.ss", @outputRoot, @outputDate);
+[Privacy.Asset.NonPersonal]
+OUTPUT recyclerGCPassEvents TO SSTREAM @recyclerGCPassEventsOutputPath
+WITH STREAMEXPIRY @streamExpiry;
+
+

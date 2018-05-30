@@ -363,12 +363,6 @@ ENTRY_BUILTIN(ES6, String, Prototype, repeat)
 ENTRY_BUILTIN(ES7, String, Prototype, padStart)
 ENTRY_BUILTIN(ES7, String, Prototype, padEnd)
 ENTRY_BUILTIN(ES7, String, Prototype, at)
-//ENTRY_BUILTIN(ES7, String, Prototype, leftPad)
-//ENTRY_BUILTIN(ES7, String, Prototype, lPad)
-//ENTRY_BUILTIN(ES7, String, Prototype, padLeft)
-//ENTRY_BUILTIN(ES7, String, Prototype, padRight)
-//ENTRY_BUILTIN(ES7, String, Prototype, rightPad)
-//ENTRY_BUILTIN(ES7, String, Prototype, rPad)
 ENTRY_BUILTIN(ES7, String, Prototype, substr)
 ENTRY_BUILTIN(ES7, String, Prototype, trimLeft)
 ENTRY_BUILTIN(ES7, String, Prototype, trimRight)
@@ -442,6 +436,17 @@ ENTRY_BUILTIN(ES7, Uint8ClampedArray, Prototype, includes)
 
 // Some global stuff we want to track
 ENTRY_BUILTIN(Wasm, Global, Prototype, WebAssembly)
+
+// Intl
+ENTRY_BUILTIN(Intl, Collator, Prototype, compare)
+ENTRY_BUILTIN(Intl, String, Prototype, localeCompare)
+ENTRY_BUILTIN(Intl, NumberFormat, Prototype, format)
+ENTRY_BUILTIN(Intl, NumberFormat, Prototype, formatToParts)
+ENTRY_BUILTIN(Intl, Number, Prototype, toLocaleString)
+ENTRY_BUILTIN(Intl, DateTimeFormat, Prototype, format)
+ENTRY_BUILTIN(Intl, DateTimeFormat, Prototype, formatToParts)
+ENTRY_BUILTIN(Intl, Date, Prototype, toLocaleString)
+ENTRY_BUILTIN(Intl, PluralRules, Prototype, select)
 ";
 
         private static IEnumerable<string> ParseBuiltIns()

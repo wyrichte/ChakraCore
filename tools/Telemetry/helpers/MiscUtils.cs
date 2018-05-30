@@ -37,5 +37,15 @@ namespace Chakra.Utils
             }
             return rtrn;
         }
+
+        public static Guid TryParseGuid(string guidString, bool generateGuidIfParseFails = false)
+        {
+            Guid guid = Guid.Empty;
+            if (!Guid.TryParse(guidString, out guid) && generateGuidIfParseFails)
+            {
+                guid = Guid.NewGuid();
+            }
+            return guid;
+        }
     }
 }

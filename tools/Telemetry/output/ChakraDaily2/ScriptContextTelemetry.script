@@ -32,7 +32,8 @@
 #ENDIF
 
 //#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
-#DECLARE outputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE defaultOutputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE outputRoot string = @defaultOutputRoot;
 
 #DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
 
@@ -40,6 +41,8 @@
     #SET outputRoot = "@@outputRoot@@";
 #ENDIF
 
+#DECLARE retentionDays uint = 28;
+#DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
 // -------------------------------------------------------------------
 
 // For the NGP secondary tagging
@@ -80,7 +83,7 @@ nameValuePairs =
             propName,
             propValue,
             propType
-        USING ScriptContextTelemetryProcessor;
+        USING Chakra.Utils.ScriptContextTelemetryProcessor;
 
 #DECLARE outputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
 [Privacy.Asset.NonPersonal]
@@ -89,51 +92,4 @@ CLUSTERED BY
     domain,
     propName,
     propType
-WITH STREAMEXPIRY "30";
-
-
-//
-//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
-// of data, and easily react to schema changes
-//
-#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
-#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
-
-last28Days = 
-    SSTREAM SPARSE STREAMSET @outputRoot
-    PATTERN @"%Y/%m/%d/ScriptContextCounters.ss" 
-    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
-
-//
-//  filter out any columns we don't want in kusto
-//
-last28DaysFiltered = 
-    SELECT
-            time,
-            //activityID,
-            scriptContextID,
-            markupIsTopLevel,
-            markupDomainHash,
-            domain,
-            binaryVersion,
-            binaryFlavor,
-            binaryArch,
-            discriminator1,
-            discriminator2,
-            chakraBuildCommit,
-            runType,
-            scriptContextLifeSpanMicros,
-            propName,
-            propValue,
-            propType
-     FROM
-        last28Days;
-
-#DECLARE last28DaysOutputPath string = string.Format("{0}/Last28DaysScriptContextCounters.ss", @outputRoot);
-[Privacy.Asset.NonPersonal]
-OUTPUT last28DaysFiltered TO SSTREAM @last28DaysOutputPath
-CLUSTERED BY 
-    domain,
-    propName,
-    propType
-WITH STREAMEXPIRY "30";
+WITH STREAMEXPIRY @streamExpiry;

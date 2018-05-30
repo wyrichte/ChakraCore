@@ -113,7 +113,17 @@ namespace Chakra.Utils.Test
                 "Uint32Array_Prototype_includes",
                 "Uint8Array_Prototype_includes",
                 "Uint8ClampedArray_Prototype_includes",
-                "Global_Prototype_WebAssembly"};
+                "Global_Prototype_WebAssembly",
+                "Collator_Prototype_compare",
+                "String_Prototype_localeCompare",
+                "NumberFormat_Prototype_format",
+                "NumberFormat_Prototype_formatToParts",
+                "Number_Prototype_toLocaleString",
+                "DateTimeFormat_Prototype_format",
+                "DateTimeFormat_Prototype_formatToParts",
+                "Date_Prototype_toLocaleString",
+                "PluralRules_Prototype_select"
+            };
 
             foreach (string s in inputs)
             {

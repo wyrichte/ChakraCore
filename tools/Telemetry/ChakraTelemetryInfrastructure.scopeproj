@@ -16,7 +16,6 @@
     <ScopePath>%24(SCRIPT_DIR);%24(CLUSTER_ROOT);%24(SCOPE_DIR);%24(PROJECT_DIR)</ScopePath>
     <InputStreamSearchPath>%24(PROJECT_DIR);%24(SCRIPT_DIR);%24(CLUSTER_ROOT)</InputStreamSearchPath>
     <VertexDebugSolution>false</VertexDebugSolution>
-    <OutputStreamPath>%24(PROJECT_DIR)</OutputStreamPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +36,11 @@
     <Script Include="output\ChakraDaily2\ChakraHosts.script">
       <RemoveUselessParameters>False</RemoveUselessParameters>
       <ScopeClusterParameters>startDate=(\"2018-03-20\"),endDate=(\"2018-03-21\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
+    </Script>
+    <Script Include="output\ChakraDaily2\ScriptContextTelemetryLast28Days.script" />
+    <Script Include="output\ChakraDaily2\RecyclerTelemetry.script">
+      <RemoveUselessParameters>False</RemoveUselessParameters>
+      <ScopeClusterParameters>startDate=(\"2018-05-11\"),endDate=(\"2018-05-11\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
     </Script>
     <Script Include="output\ChakraDaily2\ScriptContextTelemetry.script">
       <RemoveUselessParameters>False</RemoveUselessParameters>

@@ -72,13 +72,6 @@ if (! (test-path $xf)) {
     exit 1
 }
 
-# publish ChakraDaily Workflow
-$wfdefFile1 = join-path $scriptLoc "..\output\ChakraDaily\ChakraDaily.wfdef"
-$wfdefFile1 = resolve-path $wfdefFile1
-
-&${xf} Deploy -path $wfdefFile1 -type Workflow -xflowServiceUrl https://wfm-data.corp.microsoft.com/xflow/service/ 
-write-host ${wfdefFile1} " published"
-
 # publish ChakraDaily2 Workflow
 $wfdefFile2 = join-path $scriptLoc "..\output\ChakraDaily2\ChakraDaily2.wfdef"
 $wfdefFile2 = resolve-path $wfdefFile2

@@ -71,6 +71,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecyclerTelemetryGCPassProcessor.cs" />
+    <Compile Include="RecyclerTelemetryEventProcessor.cs" />
     <Compile Include="ScriptContextTelemetryProcessor.cs" />
     <Compile Include="DeCRC.cs" />
     <Compile Include="MiscUtils.cs" />

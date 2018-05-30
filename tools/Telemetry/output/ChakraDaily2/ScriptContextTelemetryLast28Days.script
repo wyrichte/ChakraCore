@@ -5,7 +5,7 @@
 //
 
 // DEFAULT Params - only used if the @@startDate is not specified
-#DECLARE startDate DateTime = DateTime.Parse(@"2018-03-26 01:00 -700");
+#DECLARE startDate DateTime = DateTime.Parse(@"2018-05-08");
 #DECLARE endDate DateTime = @startDate.AddHours(1);
 
 // if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
@@ -32,7 +32,8 @@
 #ENDIF
 
 //#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
-#DECLARE outputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE defaultOutputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE outputRoot string = @defaultOutputRoot;
 
 #DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
 
@@ -43,6 +44,8 @@
 #DECLARE retentionDays uint = 28;
 #DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
 // -------------------------------------------------------------------
+
+// For the NGP secondary tagging
 #DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
 #DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
 MODULE @ModulePath AS WptModule;
@@ -50,72 +53,48 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
 
-#DECLARE outputPath string = string.Format("{0}/{1}/ChakraHosts.ss", @outputRoot, @outputDate);
+//
+//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
+// of data, and easily react to schema changes
+//
+#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
+#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
 
-//rawInitEvents =
-//    SELECT *
-//    FROM Asimov.CllEventsR1
-//    (
-//        isolation = "Osg",
-//        firstHour = @startDate,
-//        lastHour = @endDate
-//    )
-//    WHERE name == "Microsoft.Web.Platform.Chakra.ChakraInit";
-rawInitEvents =
-    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
-    PARAMS
-    (
-        startDate = @startDate,
-        endDate = @endDate,
-        eventName = "Microsoft.Web.Platform.Chakra.ChakraInit"
-    );
+last28Days = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/ScriptContextCounters.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
 
-data = 
+//
+//  filter out any columns we don't want in kusto
+//
+last28DaysFiltered = 
     SELECT
-        time,
-        os,
-        osVer,
-        popSample,
-        appId,
-        appVer,
-        Chakra.Utils.Filters.ExtractAppName(appVer) AS appName,
-        device_deviceClass,
-        data
-    FROM
-        rawInitEvents;
+            time,
+            //activityID,
+            scriptContextID,
+            markupIsTopLevel,
+            markupDomainHash,
+            domain,
+            binaryVersion,
+            binaryFlavor,
+            binaryArch,
+            discriminator1,
+            discriminator2,
+            chakraBuildCommit,
+            runType,
+            scriptContextLifeSpanMicros,
+            propName,
+            propValue,
+            propType
+     FROM
+        last28Days;
 
-result1 =
-    PROCESS data
-    USING JsonObjectProcessor("data", "HostingInterface:hostingInterface:int64");
-
-sums =
-    SELECT
-        os,
-        osVer,
-        appId,
-        appVer,
-        appName,
-        device_deviceClass,
-        Chakra.Utils.MiscUtils.MapHostingInterfaceToString(hostingInterface) AS hostingInterface,
-        COUNT(appName) AS count,
-        @startDate AS date
-    FROM
-        result1
-    GROUP BY 
-        os,
-        osVer,
-        appId,
-        appVer,
-        appName,
-        device_deviceClass,
-        hostingInterface,
-        date;
-
+#DECLARE last28DaysOutputPath string = string.Format("{0}/Last28DaysScriptContextCounters.ss", @defaultOutputRoot);
 [Privacy.Asset.NonPersonal]
-OUTPUT sums
-TO SSTREAM @outputPath  
+OUTPUT last28DaysFiltered TO SSTREAM @last28DaysOutputPath
 CLUSTERED BY 
-    appName,
-    count, 
-    osVer
+    domain,
+    propName,
+    propType
 WITH STREAMEXPIRY @streamExpiry;

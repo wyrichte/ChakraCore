@@ -4,6 +4,8 @@
     <ConfigBases>
       <ConfigBase Name="ChakraHosts.ConfigBase" File="ChakraHosts.script" />
       <ConfigBase Name="ScriptContextTelemetry.ConfigBase" File="ScriptContextTelemetry.script" />
+      <ConfigBase Name="ScriptContextTelemetryLast28Days.ConfigBase" File="ScriptContextTelemetryLast28Days.script" />
+      <ConfigBase Name="RecyclerTelemetry.ConfigBase" File="RecyclerTelemetry.script" />
     </ConfigBases>
     <Activities>
       <!-- =================================================================-->
@@ -14,7 +16,7 @@
         <Parameters>
           <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
           <Parameter Name="_recurrence" Value="DailyTracker" />
-          <Parameter Name="_startDate" Value="2018-03-01" />
+          <Parameter Name="_startDate" Value="2018-04-20" />
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
@@ -32,7 +34,33 @@
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
           <Parameter Name="_dependencyStreams" Value="/shares/asimov.prod.data/UserSensitive.Usage.Partner/Processed/WebPlatform/AsimovEvents/Aggregate/Microsoft/Web/Platform/%Y/%m/AsimovEvents.Markup.ActivityChain_%Y_%m_%d.ss?date={_endDate-1d}&amp;sparsestreamset=true" />
           <Parameter Name="_dependencyCheckMinutes" Value="120" />
+        </Parameters>
+      </Activity>
+      
+      <Activity Name="ScriptContextTelemetryLast28Days" ConfigBase="ScriptContextTelemetryLast28Days.ConfigBase" Class="Microsoft.Xflow.Activities.Scope.SequentialRecurrentScopeActivityV3"
+            MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Sensitive.Usage" RetryWaitInterval="3">
+          <Dependencies>
+            <Dependency Name="ScriptContextTelemetry" />
+          </Dependencies>
+          <Parameters>
+            <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
+            <Parameter Name="_recurrence" Value="DailyTracker" />
+            <Parameter Name="_startDate" Value="2018-05-17" />
+            <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
+          </Parameters>
+      </Activity>
+      <!-- =================================================================-->
 
+      <!-- =================================================================-->
+      <!-- Process Recycler Telemetry events                                -->
+      <!-- =================================================================-->
+      <Activity Name="RecyclerTelemetry" ConfigBase="RecyclerTelemetry.ConfigBase" Class="Microsoft.Xflow.Activities.Scope.SequentialRecurrentScopeActivityV3"
+          MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Sensitive.Usage" RetryWaitInterval="3">
+        <Parameters>
+          <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2018-05-05" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
       <!-- =================================================================-->
