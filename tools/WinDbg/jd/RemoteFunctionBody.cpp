@@ -98,10 +98,10 @@ void RemoteFunctionProxy::WalkAuxPtrs(Fn fn)
     }
 }
 
-RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) : 
+RemoteFunctionProxy::RemoteFunctionProxy(ULONG64 pBody) :
     JDRemoteTyped(JDRemoteTyped::FromPtrWithVtable(pBody))
 {}
- 
+
 JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char const* castType)
 {
     JDRemoteTyped ret = JDRemoteTyped::NullPtr();
@@ -119,7 +119,7 @@ JDRemoteTyped RemoteFunctionProxy::GetAuxPtrsField(char const* fieldName, char c
         auto fieldEnum = auxPtrsEnum[newFieldName];
         WalkAuxPtrs([&](uint8 type, const char* name, JDRemoteTyped auxPtr) ->bool
         {
-            if (type == fieldEnum) 
+            if (type == fieldEnum)
             {
                 ret = auxPtr;
                 return true;
@@ -213,10 +213,10 @@ static std::vector<std::string> vecCounterEnum;
 static std::map<std::string, std::string> counterFieldNameMap; // counter field old name and new enum name map
 void EnsureCountersEnums()
 {
-    // note, with this way it can't parse duplicated enum names. 
+    // note, with this way it can't parse duplicated enum names.
     // TODO: change to parse 'dt' command result when we need to use the duplicated enum names
     InitEnums("Js::FunctionBody::CounterFields", counterEnum, vecCounterEnum);
-    if (counterFieldNameMap.empty()) 
+    if (counterFieldNameMap.empty())
     {
         counterFieldNameMap["m_constCount"] = "ConstantCount";
         counterFieldNameMap["inlineCacheCount"] = "InlineCacheCount";
@@ -229,13 +229,13 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
     if (this->HasField("counters"))
     {
         EnsureCountersEnums();
-        if (counterFieldNameMap.find(oldName) != counterFieldNameMap.end()) 
+        if (counterFieldNameMap.find(oldName) != counterFieldNameMap.end())
         {
             uint8 fieldEnum = counterEnum[counterFieldNameMap[oldName]];
             auto counter = this->Field("counters");
             auto fieldSize = counter.Field("fieldSize").GetUchar();
             auto fields = JDUtil::GetWrappedField(counter, "fields");
-            if (fieldSize == 1) 
+            if (fieldSize == 1)
             {
                 return fields.Field("u8Fields").ArrayElement(fieldEnum).GetUchar();
             }
@@ -247,12 +247,12 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
             {
                 return fields.Field("u32Fields").ArrayElement(fieldEnum).GetUlong();
             }
-            else 
+            else
             {
                 g_Ext->ThrowStatus(E_FAIL, "Function body counter structure corrupted, fieldSize is: %d", fieldSize);
             }
         }
-        else 
+        else
         {
             g_Ext->ThrowStatus(E_FAIL, "JD need to update to map %s to new field enum on FunctionBody", oldName);
         }
@@ -262,13 +262,13 @@ uint32 RemoteFunctionBody::GetCounterField(const char* oldName, bool wasWrapped)
     {
         return JDUtil::GetWrappedField(*this, oldName).GetUlong();
     }
-    else 
+    else
     {
         return this->Field(oldName).GetUlong();
     }
 }
 
-JDRemoteTyped 
+JDRemoteTyped
 RemoteFunctionBody::GetObjectLiteralTypes()
 {
     if (GetExtension()->IsJScript9())
@@ -356,9 +356,9 @@ RemoteFunctionBody::PrintSource()
 {
     JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
     ULONG64 buffer = 0;
-    
+
     ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
-    ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();    
+    ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();
     try
     {
         if (utf8SourceInfo.HasField("debugModeSource"))
