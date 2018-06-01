@@ -1514,12 +1514,14 @@ result.stack=undefined
 PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO2
 
     Executing: 
-	    var OOM = (function() {
+	    var OOMnums = 0;
+             var OOM = (function() {
                 var a = new Array();
                 a[0] = 'string';
                 a[1] = 'aaa';
                 var i = 2;
                 return function() {
+                    if (OOMnums++ > 50) return;
                     for (;;i++) {
                         a[i] = a[i-1] + a[i-2];
                     }
@@ -1552,7 +1554,7 @@ PASS: TestOnScriptErrorGetsExpectedErrorOnOOMSO1
 
     Uncaught exception:
 	exInfo.bstrDescription: Out of memory
-	expected stack frame count 3, got: 3
+	expected stack frame count > 3, got: at least that
 
 PASS: TestOnScriptErrorGetsExpectedStackTraceOnOOMSO1
 
