@@ -145,7 +145,7 @@ HRESULT ScriptDirect::HasProperty(Var obj, LPCWSTR name, BOOL* result)
 
     PropertyId propertyId;
     IfFailGo(m_pScriptDirect->GetOrAddPropertyId(name, &propertyId));
-    IfFailGo(m_pTypeOperations->HasOwnProperty(m_pScriptDirect, obj, propertyId, result));
+    IfFailGo(m_pJavascriptOperators->HasProperty(m_pScriptDirect, obj, propertyId, result));
 
 Error:
     return hr;
