@@ -1110,6 +1110,9 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
             case JsErrorType::JavascriptParseError:
                 runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptSyntaxError, runInfo.hr, scriptSite->lastException->description, &errorObject);
                 break;
+            case JsErrorType::JavascriptReferenceError:
+                runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptReferenceError, runInfo.hr, scriptSite->lastException->description, &errorObject);
+                break;
             case JsErrorType::JavascriptTypeError:
                 runInfo.hr = activeScriptDirect->CreateErrorObject(JsErrorType::JavascriptTypeError, runInfo.hr, scriptSite->lastException->description, &errorObject);
                 break;
