@@ -3,8 +3,6 @@ TARGETTYPE = DYNLINK
 
 !include ..\sources.inc
 
-# Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept-
-USER_C_FLAGS=$(USER_C_FLAGS) -Zc:implicitNoexcept-
 
 SOURCES = \
         ..\jd.cpp \

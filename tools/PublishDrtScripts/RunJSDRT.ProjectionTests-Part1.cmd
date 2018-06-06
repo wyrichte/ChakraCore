@@ -5,13 +5,15 @@ set BUNDLEROOT=%1
 set LOGSDIR=%BUNDLEROOT%\LogFiles
 set FILENAME=%~f0
 set ARCH=%architecture%
-set FLAVOR=fre
-if %FILENAME:fre=%==%FILENAME% set FLAVOR=chk
+@REM The BUNDLEROOT needs to have flavor as the last 3 characters for this to work correctly e.g. c:\CopyBuiltFiles.x86.chk
+set FLAVOR=%BUNDLEROOT:~-3%
+@REM if %FILENAME:fre=%==%FILENAME% set FLAVOR=chk
 
 echo BundleRoot is at %BUNDLEROOT%
 echo Logs are at %LOGSDIR%
 echo Architecture is %ARCH%
 echo Flavor is %FLAVOR%
+echo FILENAME is %FILENAME%
 
 echo powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunProjectionTests $True -RunUnitTests $False -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs Functional
 powershell.exe -ExecutionPolicy Bypass %BUNDLEROOT%\RunJSDRT.ps1 -RunProjectionTests $True -RunUnitTests $False -RunHtmlUnitTests $False -RunJsrtUnitTests $False -DrtBundleRoot %BUNDLEROOT% -DrtMode $True -BuildArch %ARCH% -BuildFlavor %FLAVOR% -LogsRootDir %LOGSDIR% -Dirs Functional

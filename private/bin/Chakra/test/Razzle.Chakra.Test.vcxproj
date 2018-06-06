@@ -12,6 +12,7 @@
       <LinkTimeCodeGeneration>PGInstrument</LinkTimeCodeGeneration>
       <AdditionalDependencies>
         %(AdditionalDependencies);$(pgortlib);
+        $(MinWinPrivSdkLibPath)\MicrosoftTelemetryAssertUM.lib;
       </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>  

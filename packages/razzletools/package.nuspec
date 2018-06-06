@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RazzleTools</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <authors>hiteshk</authors>
     <owners>hiteshk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,51 +12,54 @@
     <tags>Chakra Razzle Tools</tags>
   </metadata>
   <files>
-    <file src="tools\vc\**" target="vc"/>
+    <file src="vc\**" target="vc"/>
 
     <!-- Needed for compiling interface definitions -->
-    <file src="tools\x86\midl*" target="x86" />
-    <file src="tools\amd64\midl*" target="amd64" />
+    <file src="x86\midl*" target="x86" />
+    <file src="amd64\midl*" target="amd64" />
 
     <!-- Needed for compiling manifest -->
-    <file src="tools\x86\mc.exe" target="x86" />
-    <file src="tools\amd64\mc.exe" target="amd64" />
+    <file src="x86\mc.exe" target="x86" />
+    <file src="amd64\mc.exe" target="amd64" />
 
-    <file src="tools\x86\ctrpp.exe" target="x86" />
-    <file src="tools\amd64\ctrpp.exe" target="amd64" />
-    <file src="tools\providers\**" target="providers" />
+    <file src="x86\ctrpp.exe" target="x86" />
+    <file src="amd64\ctrpp.exe" target="amd64" />
+    <file src="providers\**" target="providers" />
     <file src="public\**" target="public" />
 
     <!-- Needed for something- TODO: What? Runtime and needs TLBRef, and a bunch of projects need lib -->
-    <file src="tools\x86\tlbref.dll" target="x86" />
-    <file src="tools\amd64\tlbref.dll" target="amd64" />
+    <file src="x86\tlbref.dll" target="x86" />
+    <file src="amd64\tlbref.dll" target="amd64" />
 
-    <file src="tools\x86\lib.exe" target="x86" />
-    <file src="tools\amd64\lib.exe" target="amd64" />
+    <file src="x86\lib.exe" target="x86" />
+    <file src="amd64\lib.exe" target="amd64" />
 
-    <file src="tools\x86\rc.exe" target="x86" />
-    <file src="tools\amd64\rc.exe" target="amd64" />
+    <file src="x86\rc.exe" target="x86" />
+    <file src="amd64\rc.exe" target="amd64" />
 
     <!-- Needed for Pogo build -->
-    <file src="tools\x86\pgort*" target="x86" />
-    <file src="tools\amd64\pgort*" target="amd64" />
-    <file src="tools\arm\pgort*" target="arm" />
+    <file src="x86\pgort*" target="x86" />
+    <file src="amd64\pgort*" target="amd64" />
+    <file src="arm\pgort*" target="arm" />
+    <file src="arm64\pgort*" target="arm64" />
 
-    <file src="tools\x86\rcdll.dll" target="x86" />
-    <file src="tools\amd64\rcdll.dll" target="amd64" />
+    <file src="x86\rcdll.dll" target="x86" />
+    <file src="amd64\rcdll.dll" target="amd64" />
 
     <!-- Needed for running JSRT TAEF tests -->
-    <file src="tools\x86\te.*" target="x86" />
-    <file src="tools\amd64\te.*" target="amd64" />
-    <file src="tools\arm\te.*" target="arm" />
+    <file src="x86\te.*" target="x86" />
+    <file src="amd64\te.*" target="amd64" />
+    <file src="arm\te.*" target="arm" />
+    <file src="arm64\te.*" target="arm64" />
 
-    <file src="tools\x86\Wex.*" target="x86" />
-    <file src="tools\amd64\Wex.*" target="amd64" />
-    <file src="tools\arm\Wex.*" target="arm" />
+    <file src="x86\Wex.*" target="x86" />
+    <file src="amd64\Wex.*" target="amd64" />
+    <file src="arm\Wex.*" target="arm" />
+    <file src="arm64\Wex.*" target="arm64" />
 
-    <!-- Needed for srcsrv, currently  these file is running from \\chakrafs\fs\Tools\srcsrv-->
-    <file src="tools\x86\srctool.exe" target="x86" />
-    <file src="tools\x86\pdbstr.exe" target="x86" />
-    <file src="tools\x86\contool.exe" target="x86" />
+    <!-- Needed for srcsrv, currently  these file is running from \\chakrafs\fs\srcsrv-->
+    <file src="x86\srctool.exe" target="x86" />
+    <file src="x86\pdbstr.exe" target="x86" />
+    <file src="x86\contool.exe" target="x86" />
   </files>
 </package>

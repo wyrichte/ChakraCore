@@ -887,22 +887,13 @@ namespace Js
 
  
     Js::ScriptContext *
-    DefaultScriptOperations::GetCurrentScriptContext(IActiveScriptDirect* scriptDirect, HostScriptContext ** hostScriptContext)
+    DefaultScriptOperations::GetCurrentScriptContext(IActiveScriptDirect* scriptDirect)
     {
         Js::ScriptContext* scriptContext = nullptr;
         ScriptSite* requestSite = ScriptSite::FromScriptDirect(scriptDirect);
         if (requestSite != nullptr)
         {
             scriptContext = requestSite->GetScriptSiteContext();
-            if (scriptContext->GetThreadContext()->HasPreviousHostScriptContext())
-            {
-                *hostScriptContext = scriptContext->GetThreadContext()->GetPreviousHostScriptContext();
-                scriptContext = (*hostScriptContext)->GetScriptContext();
-            }
-            else
-            {
-                *hostScriptContext = nullptr;
-            }
         }
         else
         {
@@ -914,8 +905,6 @@ namespace Js
             AssertMsg((static_cast<ScriptEngine*>(scriptDirect))->GetScriptState(&scriptState) == S_OK, "GetScriptState failed");
             AssertMsg(scriptState == SCRIPTSTATE_CLOSED, "Script state not closed");
 #endif
-
-            *hostScriptContext = nullptr;
         }
 
         return scriptContext;

@@ -7,9 +7,9 @@ $(TARGETNAME).cab :
 # TIMEBUILD is a flag indicating that the build is a time build.
 # USERNAME is the alias of the dev. For build lab, this is wincbld.
    echo BUILDMSG: BUILD_JSCRIPT_TEST_CAB is "$(BUILD_JSCRIPT_TEST_CAB)", OFFICIAL_BUILD_MACHINE is "$(OFFICIAL_BUILD_MACHINE)", TIMEBUILD is "$(TIMEBUILD)", USERNAME is "$(USERNAME)"
-!if "$(BUILD_JSCRIPT_TEST_CAB)" != "" || "$(OFFICIAL_BUILD_MACHINE)" != "" || "$(TIMEBUILD)" != "" || "$(USERNAME)" == "wincbld"
+!if "$(BUILD_JSCRIPT_TEST_CAB)" != "" || "$(OFFICIAL_BUILD_MACHINE)" != "" || "$(BUILDINGINDATT)" != "" || "$(TIMEBUILD)" != "" || "$(USERNAME)" == "wincbld"
    echo BUILDMSG: Building ProjectionTests cab file via BuildTestCollateralCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab
-   BuildTestCollateralCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab > $(OBJECT_ROOT)\Temp\$(MAKEDIR_RELATIVE_TO_BASEDIR)\BuildTestCollateralCab.log 2>&1
+   BuildTestCollateralCab.cmd $(OBJ_PATH)\$O $(JSCRIPT_ROOT) $(TARGETNAME).cab > $(OBJ_PATH)\$O\BuildTestCollateralCab.log 2>&1
 !else
    echo BUILDMSG: Building unit tests cab file via set
    set > $(OBJ_PATH)\$O\$(TARGETNAME).cab

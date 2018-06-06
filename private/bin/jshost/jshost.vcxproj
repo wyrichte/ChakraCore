@@ -47,8 +47,6 @@
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
-      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -93,6 +91,11 @@
         ext-ms-win-ntuser-gui-l1-*.dll;
         ext-ms-win-ntuser-windowclass-l1-*.dll;
         ole32.dll;
+        ext-ms-win-shell-shell32-l1-*.dll;
+        ext-ms-win-ntuser-draw-l1-*.dll
+      </DelayLoadDLLs>
+      <DelayLoadDLLs Condition="'$(Platform)'=='Arm64'">
+        %(DelayLoadDlls);
         ext-ms-win-shell-shell32-l1-*.dll;
         ext-ms-win-ntuser-draw-l1-*.dll
       </DelayLoadDLLs>

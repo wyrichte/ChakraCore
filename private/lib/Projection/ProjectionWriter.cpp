@@ -81,7 +81,11 @@ namespace Projection
 
             // Use CallFunction with newEntryPoint instead of directly calling function to avoid calling profileThunk again for this function
         }
-        return Js::JavascriptFunction::CallFunction<true>(function, newOriginalEntryPoint, args);
+        BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+        {
+            return Js::JavascriptFunction::CallFunction<true>(function, newOriginalEntryPoint, args);
+        }
+        END_SAFE_REENTRANT_CALL
     }
 
     // Info:        Called in the case of an unresolvable name conflict
@@ -190,7 +194,11 @@ namespace Projection
 
         if (arityMatch)
         {
-            result = arityMatch->CallFunction(args);
+            BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+            {
+                result = arityMatch->CallFunction(args);
+            }
+            END_SAFE_REENTRANT_CALL
         }
         else
         {
@@ -976,7 +984,12 @@ namespace Projection
 
                     Js::CallInfo callInfo(Js::CallFlags_New, 5);
                     Var args[5] = {scriptContext->GetLibrary()->GetUndefined(), instanceObject, asyncOpTypeVar, asyncOpSourceVar, asyncOpCausalityIdVar};
-                    auto result = Js::JavascriptWinRTFunction::CallAsConstructor(promiseMaker, /* overridingNewTarget = */nullptr, Js::Arguments(callInfo, args), projectionContext->GetScriptContext());
+                    Var result = nullptr;
+                    BEGIN_SAFE_REENTRANT_CALL(projectionContext->GetScriptContext()->GetThreadContext())
+                    {
+                        result = Js::JavascriptWinRTFunction::CallAsConstructor(promiseMaker, /* overridingNewTarget = */nullptr, Js::Arguments(callInfo, args), projectionContext->GetScriptContext());
+                    }
+                    END_SAFE_REENTRANT_CALL
                     resultObject = Js::DynamicObject::FromVar(result);
                     break;
                 }

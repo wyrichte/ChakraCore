@@ -393,7 +393,7 @@ RemoteFunctionBody::PrintSource()
     sourceBuffer.Require(length + 1);
     source.ReadBuffer(sourceBuffer.GetBuffer(), length);
     sourceBuffer.GetBuffer()[length] = 0;
-    GetExtension()->Out("%s", sourceBuffer.GetBuffer());
+    GetExtension()->Out(sourceBuffer.GetBuffer());
 }
 
 JDRemoteTyped

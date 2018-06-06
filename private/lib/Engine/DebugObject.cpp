@@ -990,7 +990,11 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
     jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
     jsArguments.Values = (Js::Var*)outArgs;
 
-    Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+    BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+    {
+        Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+    }
+    END_SAFE_REENTRANT_CALL
 
     return getter;
 }
@@ -1087,7 +1091,11 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
     jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
     jsArguments.Values = (Js::Var*)outArgs;
 
-    Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+    BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+    {
+        Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+    }
+    END_SAFE_REENTRANT_CALL
 
     return getter;
 }

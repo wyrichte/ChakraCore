@@ -1656,13 +1656,17 @@ HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
             hostCallback = scriptSiteContext->GetLibrary()->GetThrowerFunction();
         }
 
-        CALL_FUNCTION(
-            scriptSiteContext->GetThreadContext(),
-            hostCallback,
-            Js::CallInfo(Js::CallFlags::CallFlags_Value, 3),
-            scriptSiteContext->GetLibrary()->GetUndefined(),
-            taskVar,
-            Js::JavascriptNumber::ToVar(0, scriptSiteContext));
+        BEGIN_SAFE_REENTRANT_CALL(scriptSiteContext->GetThreadContext())
+        {
+            CALL_FUNCTION(
+                scriptSiteContext->GetThreadContext(),
+                hostCallback,
+                Js::CallInfo(Js::CallFlags::CallFlags_Value, 3),
+                scriptSiteContext->GetLibrary()->GetUndefined(),
+                taskVar,
+                Js::JavascriptNumber::ToVar(0, scriptSiteContext));
+        }
+        END_SAFE_REENTRANT_CALL
     }
     return NOERROR;
 }
@@ -2019,7 +2023,11 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
     Js::Arguments args(info, values);
     Js::RecyclableObject * function = Js::RecyclableObject::FromVar(aValue);
 
-    Js::JavascriptFunction::CallFunction<true>(function, function->GetEntryPoint(), args);
+    BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+    {
+        Js::JavascriptFunction::CallFunction<true>(function, function->GetEntryPoint(), args);
+    }
+    END_SAFE_REENTRANT_CALL
     return true;
 }
 #endif

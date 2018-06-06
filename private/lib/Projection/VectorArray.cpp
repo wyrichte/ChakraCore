@@ -84,7 +84,11 @@ namespace Projection
         }
         Js::VerifyCatastrophic(specialization->abiFunctions && specialization->abiFunctions->getAtFunction);
         Js::CallInfo callInfo(Js::CallFlags_Value, 2);
-        return specialization->abiFunctions->getAtFunction->CallFunction(Js::Arguments(callInfo, getAtValues));
+        BEGIN_SAFE_REENTRANT_CALL(specialization->projectionContext->GetScriptContext()->GetThreadContext())
+        {
+            return specialization->abiFunctions->getAtFunction->CallFunction(Js::Arguments(callInfo, getAtValues));
+        }
+        END_SAFE_REENTRANT_CALL
     }
 
     void VectorArray::SetAt(__in SpecialProjection * specialization, Var instance, Var index, Var value)
@@ -99,7 +103,11 @@ namespace Projection
         }
         Js::VerifyCatastrophic(specialization->abiFunctions && specialization->abiFunctions->setAtFunction);
         Js::CallInfo callInfo(Js::CallFlags_Value, 3);
-        specialization->abiFunctions->setAtFunction->CallFunction(Js::Arguments(callInfo, setAtValues));
+        BEGIN_SAFE_REENTRANT_CALL(specialization->projectionContext->GetScriptContext()->GetThreadContext())
+        {
+            specialization->abiFunctions->setAtFunction->CallFunction(Js::Arguments(callInfo, setAtValues));
+        }
+        END_SAFE_REENTRANT_CALL
     } 
 
     void VectorArray::Append(__in SpecialProjection * specialization, Var instance, Var value)
@@ -114,7 +122,11 @@ namespace Projection
         }
         Js::VerifyCatastrophic(specialization->abiFunctions && specialization->abiFunctions->appendFunction);
         Js::CallInfo callInfo(Js::CallFlags_Value, 2);
-        specialization->abiFunctions->appendFunction->CallFunction(Js::Arguments(callInfo, appendValues));
+        BEGIN_SAFE_REENTRANT_CALL(specialization->projectionContext->GetScriptContext()->GetThreadContext())
+        {
+            specialization->abiFunctions->appendFunction->CallFunction(Js::Arguments(callInfo, appendValues));
+        }
+        END_SAFE_REENTRANT_CALL
     }
     
     void VectorArray::RemoveAtEnd(__in SpecialProjection * specialization, Var instance)
@@ -128,7 +140,11 @@ namespace Projection
         }
         Js::VerifyCatastrophic(specialization->abiFunctions && specialization->abiFunctions->removeAtEndFunction);
         Js::CallInfo callInfo(Js::CallFlags_Value, 1);
-        specialization->abiFunctions->removeAtEndFunction->CallFunction(Js::Arguments(callInfo, &instance));
+        BEGIN_SAFE_REENTRANT_CALL(specialization->projectionContext->GetScriptContext()->GetThreadContext())
+        {
+            specialization->abiFunctions->removeAtEndFunction->CallFunction(Js::Arguments(callInfo, &instance));
+        }
+        END_SAFE_REENTRANT_CALL
     }
 
     // Name:        SetLength

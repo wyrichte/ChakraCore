@@ -1,5 +1,5 @@
 function detach(heap) {
-  ArrayBuffer.transfer(heap);
+  ArrayBuffer.detach(heap);
 }
 function trytest(fn) {
   try {

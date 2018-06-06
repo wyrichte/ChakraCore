@@ -99,7 +99,7 @@ typedef [v1_enum] enum CallFlags
     CallFlags_Eval = 4,
     CallFlags_ExtraArg = 8,
     CallFlags_NotUsed = 0x10,
-    CallFlags_Wrapped = 0x20,
+    CallFlags_Wrapped = 0x20,       // Used to indicate to FastDOM that the callee is "wrapped" (i.e. an external function, or a mirror function/method).
     CallFlags_CallPut = 0x40        // TODO - eliminate all references to CallPut properly.
 } CallFlags;
 
@@ -1569,6 +1569,9 @@ interface IJavascriptThreadProperty;
 cpp_quote("typedef interface IJavascriptThreadProperty IJavascriptThreadProperty;") // Needed to appear in generated files.
 interface IActiveScriptLifecycleEventSink;
 cpp_quote("typedef interface IActiveScriptLifecycleEventSink IActiveScriptLifecycleEventSink;") // Needed to appear in generated files.
+
+// Include in generated header an exported API for creating IJavascriptThreadService directly without CoCreateInstance so that initialization parameters may be passed
+cpp_quote("HRESULT __stdcall JsCreateThreadService(BOOL optimizeForManyInstances, IJavascriptThreadService** threadService);") // Needed to appear in generated files.
 
 // Dispense resources associated with the current Javascript thread
 [

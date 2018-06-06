@@ -18,8 +18,8 @@ SOURCES= \
 LINKLIBS= \
     $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
-    $(PROJECT_LIB_PATH)\IESettingsId.lib \
-    $(PROJECT_LIB_PATH)\IESettingsApi.lib \
+    $(PROJECT_LIB_PATH)\EdgeSettingsId.lib \
+    $(PROJECT_LIB_PATH)\EdgeSettingsApi.lib \
     $(JS_LINK_LIBS) \
 
 TARGETLIBS=     \

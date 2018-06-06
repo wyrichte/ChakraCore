@@ -7075,9 +7075,21 @@ IsOs_OneCoreUAP()
                 ulPlatform == 6 || /* DEVICEFAMILYINFOENUM_TEAM    */
                 ulPlatform == 9)   /* DEVICEFAMILYINFOENUM_SERVER  */
             {
-                // The only exceptions are desktop, team, and server which still have the legacy Win32
+                // The only exceptions are desktop, team V1, and server which still have the legacy Win32
                 // binaries to support the desktop configuration.
-                s_fIsOsOneCoreUAP = false;
+                if (ulPlatform == 6)
+                {
+                    // Call RtlIsMultiSessionSku to distinguish between Desktop-based Team V1 and Onecore-based
+                    // Team V2. Default to V1 in case of failure.
+                    typedef BOOLEAN (*PFNRTLISMULTISESSIONSKU)();
+                    PFNRTLISMULTISESSIONSKU pfnRtlIsMultiSessionSku =
+                        reinterpret_cast<PFNRTLISMULTISESSIONSKU>(GetProcAddress(hModNtDll, "RtlIsMultiSessionSku"));
+                    s_fIsOsOneCoreUAP = pfnRtlIsMultiSessionSku && !pfnRtlIsMultiSessionSku();
+                }
+                else
+                {
+                    s_fIsOsOneCoreUAP = false;
+                }
             }
         }
 

@@ -36,8 +36,8 @@ LINKLIBS= \
     $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib       \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\codex\$(O)\chakra.common.codex.lib \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
-    $(PROJECT_LIB_PATH)\IESettingsId.lib \
-    $(PROJECT_LIB_PATH)\IESettingsApi.lib \
+    $(PROJECT_LIB_PATH)\EdgeSettingsId.lib \
+    $(PROJECT_LIB_PATH)\EdgeSettingsApi.lib \
     $(JS_LIBS_COMMON) \
 
 TARGETLIBS=     \

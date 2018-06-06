@@ -85,7 +85,7 @@
       <!-- ======== From makefile.def ======== -->
       <!-- REVIEW: Turn off de-virtualization since it causes somewhat random virtual size differences (bigger and smaller) -->
       <AdditionalOptions>%(AdditionalOptions) -d2:-TypeProp- -d2:-SpecDevirt-</AdditionalOptions>
-      <!-- Always use LTCG since IESettingsApi.lib contain /GL objects -->
+      <!-- Always use LTCG since EdgeSettingsApi.lib contain /GL objects -->
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies Condition="'$(ChakraICU)'=='windows'">
         %(AdditionalDependencies);
@@ -125,7 +125,7 @@
       <AdditionalDependencies>$(ChakraLibs);%(AdditionalDependencies)</AdditionalDependencies>
     </ImpLib>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">"$(ProjectDir)..\jshost\postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)" "$(ARMRemoteShare)"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64' AND '$(BuildingWithBuildExe)'!='true'">"$(ProjectDir)..\jshost\postbuild.cmd" $(PlatformTarget) "$(OutputPath)" "$(IELibPath)" "$(ARMRemoteShare)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <!-- Razzle binplace -->
@@ -147,6 +147,7 @@
       <!-- This is for enabling exports which are meant for test only -->
       <PreprocessorDefinitions Condition="'$(Configuration)'=='Test'">%(PreprocessorDefinitions);CHAKRAFRETEST=1</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(TargetName)'=='ChakraTest'">%(PreprocessorDefinitions);CHAKRATEST=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);RECYCLER_VISITED_HOST=1</PreprocessorDefinitions>
       <LinkCompiled>false</LinkCompiled>
       <ImpLibCompiled>false</ImpLibCompiled>
       <!-- Clear the forced includes -->
@@ -166,6 +167,7 @@
     <ResourceCompile Include="$(MsBuildThisFileDirectory)chakra.rc">
       <AdditionalIncludeDirectories>
         $(ChakraParserIntDir);
+        $(MinWinPrivSdkIncPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ResourceCompile>

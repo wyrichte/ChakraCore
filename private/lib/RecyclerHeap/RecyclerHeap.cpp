@@ -99,4 +99,26 @@ void* RecyclerNativeHeapGetRealAddressFromInterior(_In_ RecyclerNativeHeapHandle
     return recycler->GetRealAddressFromInterior(candidate);
 }
 
+void RecyclerNativeHeapCollectGarbageInThread(_In_ RecyclerNativeHeapHandle handle, bool skipStack)
+{
+    Recycler* recycler = static_cast<Recycler*>(handle);
+    if (skipStack)
+    {
+        // Indicate we are deliberablity skipping the stack
+        Recycler::AutoEnterExternalStackSkippingGCMode autoGC(recycler);
+        // CollectNowForceInThreadExternalNoStack = CollectOverride_ForceInThread | CollectOverride_AllowDispose | CollectOverride_SkipStack
+        recycler->CollectNow<CollectNowForceInThreadExternalNoStack>();
+    }
+    else
+    {
+        // CollectNowForceInThreadExternal = CollectOverride_ForceInThread | CollectOverride_AllowDispose
+        recycler->CollectNow<CollectNowForceInThreadExternal>();
+    }
+}
+
+void RecyclerNativeHeapAddExternalMemoryUsage(_In_ RecyclerNativeHeapHandle handle, size_t externalMemorySize)
+{
+    Recycler* recycler = static_cast<Recycler*>(handle);
+    recycler->AddExternalMemoryUsage(externalMemorySize);
+}
 #endif

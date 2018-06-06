@@ -1146,7 +1146,10 @@ BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext)
         Js::CallInfo info(Js::CallFlags_Value, 1);
         Js::Arguments args(info, values);
         values[0] = this;
-        *value = Js::JavascriptFunction::CallFunction<true>(func, func->GetEntryPoint(), args);
+        *value = scriptContext->GetThreadContext()->ExecuteImplicitCall(func, Js::ImplicitCall_External, [=]()->Js::Var
+        {
+            return Js::JavascriptFunction::CallFunction<true>(func, func->GetEntryPoint(), args);
+        });
         return true;
     }
 
@@ -1571,7 +1574,10 @@ BOOL HostDispatch::IsInstanceOf(Js::Var prototypeProxy)
     Js::Arguments args(info, values);
     values[0] = func;
     values[1] = this;
-    Js::Var res = Js::JavascriptFunction::CallFunction<true>(func, func->GetEntryPoint(), args);
+    Js::Var res = this->GetScriptContext()->GetThreadContext()->ExecuteImplicitCall(func, Js::ImplicitCall_External, [=]()->Js::Var
+    {
+        return Js::JavascriptFunction::CallFunction<true>(func, func->GetEntryPoint(), args);
+    });
     Assert(Js::JavascriptBoolean::Is(res));
     return Js::JavascriptBoolean::FromVar(res)->GetValue();
 }

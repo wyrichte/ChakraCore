@@ -127,3 +127,6 @@ reduceRightCallback: previousValue=7, currentValue=3, index=2, array=1,2,3
 reduceRightCallback: previousValue=10, currentValue=2, index=1, array=1,2,3
 reduceRightCallback: previousValue=12, currentValue=1, index=0, array=1,2,3
 13
+--------Case 31--------
+Array.isArray()
+true

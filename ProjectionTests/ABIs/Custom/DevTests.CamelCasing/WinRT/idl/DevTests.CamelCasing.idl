@@ -83,7 +83,7 @@ namespace DevTests.CamelCasing {
     [version(NTDDI_WIN8), uuid(60C25910-4CC1-4D4A-A135-6077F25E5715)]
     interface IStaticStringVariations : IInspectable
     {
-        HRESULT StaticFireEvent([in] StaticStringVariationsEvent event);
+        HRESULT StaticFireEvent([in] StaticStringVariationsEvent @event);
     }
 
     [version(NTDDI_WIN8), uuid(9F756125-3945-4CEF-BD29-7E0D2F7DFA4B)]

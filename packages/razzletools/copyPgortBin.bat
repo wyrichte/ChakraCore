@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 setlocal
 setlocal EnableDelayedExpansion
 

@@ -28,6 +28,7 @@ EXPORTS
     JsInitializeJITServer
     JsQueueBackgroundParse
     JsDiscardBackgroundParse
+    JsCreateThreadService
 #if DBG || CHAKRATEST || CHAKRAFRETEST
     JsStopDebugging
     JsGetArrayLength
@@ -67,8 +68,14 @@ EXPORTS
 #ifdef RECYCLER_VISITED_HOST
     RecyclerNativeHeapAllocTraced
     RecyclerNativeHeapAllocTracedFinalized
-    RecyclerNativeHeapAllocFinalized
     RecyclerNativeHeapAllocLeaf
+    RecyclerNativeHeapAllocLeafFinalized
     RecyclerNativeHeapRootAddRef
     RecyclerNativeHeapRootRelease
+    RecyclerNativeHeapCreateWeakReference
+    RecyclerNativeHeapGetStrongReference
+    RecyclerNativeHeapHasWeakReferenceCleanupOccurred
+    RecyclerNativeHeapGetRealAddressFromInterior
+    RecyclerNativeHeapCollectGarbageInThread
+    RecyclerNativeHeapAddExternalMemoryUsage
 #endif

@@ -1,6 +1,7 @@
 !include ..\sources.inc
 TARGET_DESTINATION=Projection\WinRt:Projection\APPX
 
+DLOAD_ERROR_HANDLER=kernelbase.dll
 DELAYLOAD=api-ms-win-core-winrt-errorprivate-l1-1-1.dll
 
 TARGETLIBS=$(TARGETLIBS)\

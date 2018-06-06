@@ -1,6 +1,6 @@
 DIRS=\
     src{!EXCLUDE_IE_MAIN,!arm,!arm64,noncrit} \
     NativeUnitTests{!min_rt,!EXCLUDE_IE_MAIN,noncrit} \
-    jd{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
-    jsrt{!MOBILECORE,!EXCLUDE_IE_MAIN} \
-    Microsoft.JavaScript{!MOBILECORE,!EXCLUDE_IE_MAIN} \
+    jd{noncrit,!EXCLUDE_IE_MAIN} \
+    jsrt{!EXCLUDE_IE_MAIN} \
+    Microsoft.JavaScript{!EXCLUDE_IE_MAIN} \

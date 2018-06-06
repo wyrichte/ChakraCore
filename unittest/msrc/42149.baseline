@@ -1,0 +1,6 @@
+
+42149.js(4, 5)
+	Asm.js Compilation Error function : None::f
+	Direct call to function table 'arr' is not allowed
+
+Asm.js compilation failed.

@@ -1,7 +1,7 @@
 DIRS=\
-    windbg{!MOBILECORE,!EXCLUDE_IE_MAIN} \
-    InternalCounterResources{!MOBILECORE,!EXCLUDE_IE_MAIN} \
-    WWAHostJSCounterProvider{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
-    JsEtwConsole{!MOBILECORE,!ARM,noncrit,!EXCLUDE_IE_MAIN} \
-    snap{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
-    PublishDrtScripts{!MOBILECORE,noncrit,!EXCLUDE_IE_MAIN} \
+    windbg{!EXCLUDE_IE_MAIN} \
+    InternalCounterResources{!EXCLUDE_IE_MAIN} \
+    WWAHostJSCounterProvider{noncrit,!EXCLUDE_IE_MAIN} \
+    JsEtwConsole{!ARM,noncrit,!EXCLUDE_IE_MAIN} \
+    snap{noncrit,!EXCLUDE_IE_MAIN} \
+    PublishDrtScripts{noncrit,!EXCLUDE_IE_MAIN} \

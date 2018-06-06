@@ -279,6 +279,9 @@ public:
     virtual bool AsyncHostOperationStart(void*) override { return false; };
     virtual void AsyncHostOperationEnd(bool wasInAsync, void*) override {};
 #endif
+#if DBG
+    virtual void CheckJsReentrancyOnDispose() override {}
+#endif
 
 private:
     // The heap we are associated with

@@ -23,6 +23,7 @@
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\x86\*" target="pdm\x86" />
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\amd64\*" target="pdm\x64" />
     <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\arm\*" target="pdm\arm" />
+    <file src="..\..\..\..\..\..\inetcore\devtoolbar\jstools\setup\arm64\*" target="pdm\arm64" />
 
     <!-- These entire directory needs to be copied -->
     <file src="lib\**" />

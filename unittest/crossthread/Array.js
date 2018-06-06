@@ -95,3 +95,6 @@ WScript.Echo(x.Array.prototype.reduce.call(testArray, x.reduceCallback, 7));
 WScript.Echo("--------Case 30--------");
 WScript.Echo(x.Array.prototype.reduceRight.call(testArray, x.reduceRightCallback, 7));
 
+WScript.Echo("--------Case 31--------\nArray.isArray()");
+WScript.Echo(Array.isArray(x.testArray));
+

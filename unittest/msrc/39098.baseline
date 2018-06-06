@@ -1,0 +1,218 @@
+new Car - test (MSRC 39098)
+Exception thrown : Out of memory
+foo() call - test
+count : 65521
+count : 65522
+count : 65523
+count : 65524
+count : 65525
+count : 65526
+count : 65527
+count : 65528
+Exception thrown : Out of memory
+count : 65529
+Exception thrown : Out of memory
+count : 65530
+Exception thrown : Out of memory
+count : 65531
+Exception thrown : Out of memory
+count : 65532
+Exception thrown : Out of memory
+count : 65533
+Exception thrown : Out of memory
+count : 65534
+Exception thrown : Out of memory
+count : 65535
+Exception thrown : Out of memory
+count : 65536
+Exception thrown : Out of memory
+count : 65537
+Exception thrown : Out of memory
+count : 65538
+Exception thrown : Out of memory
+count : 65539
+Exception thrown : Out of memory
+count : 65540
+Exception thrown : Out of memory
+count : 65541
+Exception thrown : Out of memory
+count : 65542
+Exception thrown : Out of memory
+count : 65543
+Exception thrown : Out of memory
+count : 65544
+Exception thrown : Out of memory
+count : 65545
+Exception thrown : Out of memory
+count : 65546
+Exception thrown : Out of memory
+count : 65547
+Exception thrown : Out of memory
+count : 65548
+Exception thrown : Out of memory
+count : 65549
+Exception thrown : Out of memory
+count : 65550
+Exception thrown : Out of memory
+new foo() call - test
+count : 65521
+count : 65522
+count : 65523
+count : 65524
+count : 65525
+count : 65526
+count : 65527
+count : 65528
+Exception thrown : Out of memory
+count : 65529
+Exception thrown : Out of memory
+count : 65530
+Exception thrown : Out of memory
+count : 65531
+Exception thrown : Out of memory
+count : 65532
+Exception thrown : Out of memory
+count : 65533
+Exception thrown : Out of memory
+count : 65534
+Exception thrown : Out of memory
+count : 65535
+Exception thrown : Out of memory
+count : 65536
+Exception thrown : Out of memory
+count : 65537
+Exception thrown : Out of memory
+count : 65538
+Exception thrown : Out of memory
+count : 65539
+Exception thrown : Out of memory
+count : 65540
+Exception thrown : Out of memory
+count : 65541
+Exception thrown : Out of memory
+count : 65542
+Exception thrown : Out of memory
+count : 65543
+Exception thrown : Out of memory
+count : 65544
+Exception thrown : Out of memory
+count : 65545
+Exception thrown : Out of memory
+count : 65546
+Exception thrown : Out of memory
+count : 65547
+Exception thrown : Out of memory
+count : 65548
+Exception thrown : Out of memory
+count : 65549
+Exception thrown : Out of memory
+count : 65550
+Exception thrown : Out of memory
+eval() call - test
+count : 65521
+count : 65522
+count : 65523
+count : 65524
+count : 65525
+count : 65526
+count : 65527
+count : 65528
+Exception thrown : Out of memory
+count : 65529
+Exception thrown : Out of memory
+count : 65530
+Exception thrown : Out of memory
+count : 65531
+Exception thrown : Out of memory
+count : 65532
+Exception thrown : Out of memory
+count : 65533
+Exception thrown : Out of memory
+count : 65534
+Exception thrown : Out of memory
+count : 65535
+Exception thrown : Out of memory
+count : 65536
+Exception thrown : Out of memory
+count : 65537
+Exception thrown : Out of memory
+count : 65538
+Exception thrown : Out of memory
+count : 65539
+Exception thrown : Out of memory
+count : 65540
+Exception thrown : Out of memory
+count : 65541
+Exception thrown : Out of memory
+count : 65542
+Exception thrown : Out of memory
+count : 65543
+Exception thrown : Out of memory
+count : 65544
+Exception thrown : Out of memory
+count : 65545
+Exception thrown : Out of memory
+count : 65546
+Exception thrown : Out of memory
+count : 65547
+Exception thrown : Out of memory
+count : 65548
+Exception thrown : Out of memory
+count : 65549
+Exception thrown : Out of memory
+count : 65550
+Exception thrown : Out of memory
+super call test
+count : 65521
+count : 65522
+count : 65523
+count : 65524
+count : 65525
+count : 65526
+count : 65527
+count : 65528
+Exception thrown : Out of memory
+count : 65529
+Exception thrown : Out of memory
+count : 65530
+Exception thrown : Out of memory
+count : 65531
+Exception thrown : Out of memory
+count : 65532
+Exception thrown : Out of memory
+count : 65533
+Exception thrown : Out of memory
+count : 65534
+Exception thrown : Out of memory
+count : 65535
+Exception thrown : Out of memory
+count : 65536
+Exception thrown : Out of memory
+count : 65537
+Exception thrown : Out of memory
+count : 65538
+Exception thrown : Out of memory
+count : 65539
+Exception thrown : Out of memory
+count : 65540
+Exception thrown : Out of memory
+count : 65541
+Exception thrown : Out of memory
+count : 65542
+Exception thrown : Out of memory
+count : 65543
+Exception thrown : Out of memory
+count : 65544
+Exception thrown : Out of memory
+count : 65545
+Exception thrown : Out of memory
+count : 65546
+Exception thrown : Out of memory
+count : 65547
+Exception thrown : Out of memory
+count : 65548
+Exception thrown : Out of memory
+count : 65549
+Exception thrown : Out of memory
+count : 65550
+Exception thrown : Out of memory

@@ -45,7 +45,7 @@ public:
     JavascriptThreadService ();
     ~JavascriptThreadService ();
 
-    BOOL Initialize(void);
+    BOOL Initialize(BOOL optimizeForManyInstances = FALSE);
 
     HRESULT OnFinishMarkTaskComplete();
 

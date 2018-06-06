@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ProjectionABIs</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <authors>tawoll</authors>
     <owners>tawoll</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -147,6 +147,50 @@
     <file src="armchk\FabrikamKitchenServer.ProxyStub.dll" target="arm_debug\FabrikamKitchenServer.ProxyStub.dll" />
     <file src="armchk\projectionsglue.js" target="arm_debug\projectionsglue.js" />
     <file src="armchk\TakeRegistryAdminOwnership.exe" target="arm_debug\TakeRegistryAdminOwnership.exe" />
+
+    <file src="arm64fre\Animals.dll" target="arm64_test\Animals.dll" />
+    <file src="arm64fre\Animals.man" target="arm64_test\Animals.man" />
+    <file src="arm64fre\Animals.winmd" target="arm64_test\Animals.winmd" />
+    <file src="arm64fre\DevTests.dll" target="arm64_test\DevTests.dll" />
+    <file src="arm64fre\DevTests.man" target="arm64_test\DevTests.man" />
+    <file src="arm64fre\DevTests.winmd" target="arm64_test\DevTests.winmd" />
+    <file src="arm64fre\DevTests.CamelCasing.dll" target="arm64_test\DevTests.CamelCasing.dll" />
+    <file src="arm64fre\DevTests.CamelCasing.man" target="arm64_test\DevTests.CamelCasing.man" />
+    <file src="arm64fre\DevTests.CamelCasing.winmd" target="arm64_test\DevTests.CamelCasing.winmd" />
+    <file src="arm64fre\DevTests.Repros.dll" target="arm64_test\DevTests.Repros.dll" />
+    <file src="arm64fre\DevTests.Repros.man" target="arm64_test\DevTests.Repros.man" />
+    <file src="arm64fre\DevTests.Repros.winmd" target="arm64_test\DevTests.Repros.winmd" />
+    <file src="arm64fre\Winery.dll" target="arm64_test\Winery.dll" />
+    <file src="arm64fre\Winery.man" target="arm64_test\Winery.man" />
+    <file src="arm64fre\Winery.winmd" target="arm64_test\Winery.winmd" />
+    <file src="arm64fre\Fabrikam.Kitchen.winmd" target="arm64_test\Fabrikam.Kitchen.winmd" />
+    <file src="arm64fre\Fabrikam.man" target="arm64_test\Fabrikam.man" />
+    <file src="arm64fre\FabrikamKitchenServer.dll" target="arm64_test\FabrikamKitchenServer.dll" />
+    <file src="arm64fre\FabrikamKitchenServer.ProxyStub.dll" target="arm64_test\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="arm64fre\projectionsglue.js" target="arm64_test\projectionsglue.js" />
+    <file src="arm64fre\TakeRegistryAdminOwnership.exe" target="arm64_test\TakeRegistryAdminOwnership.exe" />
+
+    <file src="arm64chk\Animals.dll" target="arm64_debug\Animals.dll" />
+    <file src="arm64chk\Animals.man" target="arm64_debug\Animals.man" />
+    <file src="arm64chk\Animals.winmd" target="arm64_debug\Animals.winmd" />
+    <file src="arm64chk\DevTests.dll" target="arm64_debug\DevTests.dll" />
+    <file src="arm64chk\DevTests.man" target="arm64_debug\DevTests.man" />
+    <file src="arm64chk\DevTests.winmd" target="arm64_debug\DevTests.winmd" />
+    <file src="arm64chk\DevTests.CamelCasing.dll" target="arm64_debug\DevTests.CamelCasing.dll" />
+    <file src="arm64chk\DevTests.CamelCasing.man" target="arm64_debug\DevTests.CamelCasing.man" />
+    <file src="arm64chk\DevTests.CamelCasing.winmd" target="arm64_debug\DevTests.CamelCasing.winmd" />
+    <file src="arm64chk\DevTests.Repros.dll" target="arm64_debug\DevTests.Repros.dll" />
+    <file src="arm64chk\DevTests.Repros.man" target="arm64_debug\DevTests.Repros.man" />
+    <file src="arm64chk\DevTests.Repros.winmd" target="arm64_debug\DevTests.Repros.winmd" />
+    <file src="arm64chk\Winery.dll" target="arm64_debug\Winery.dll" />
+    <file src="arm64chk\Winery.man" target="arm64_debug\Winery.man" />
+    <file src="arm64chk\Winery.winmd" target="arm64_debug\Winery.winmd" />
+    <file src="arm64chk\Fabrikam.Kitchen.winmd" target="arm64_debug\Fabrikam.Kitchen.winmd" />
+    <file src="arm64chk\Fabrikam.man" target="arm64_debug\Fabrikam.man" />
+    <file src="arm64chk\FabrikamKitchenServer.dll" target="arm64_debug\FabrikamKitchenServer.dll" />
+    <file src="arm64chk\FabrikamKitchenServer.ProxyStub.dll" target="arm64_debug\FabrikamKitchenServer.ProxyStub.dll" />
+    <file src="arm64chk\projectionsglue.js" target="arm64_debug\projectionsglue.js" />
+    <file src="arm64chk\TakeRegistryAdminOwnership.exe" target="arm64_debug\TakeRegistryAdminOwnership.exe" />
 
     <file src="windows.winmd" />
   </files>

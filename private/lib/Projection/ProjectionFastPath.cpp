@@ -1794,7 +1794,11 @@ namespace Projection
         Js::ScriptContext *scriptContext = dynamicCallSignature->projectionContext->GetScriptContext();
         VerifyDeprecatedAttributeOnce(dynamicCallSignature->method, scriptContext, 
             (callInfo.Flags & CallFlags_New) ? DeprecatedInvocation_Class : DeprecatedInvocation_Method);
-        return Js::JavascriptFunction::CallFunction<true>(function, reinterpret_cast<Js::JavascriptMethod>(fastPathMethod), args);
+        BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+        {
+            return Js::JavascriptFunction::CallFunction<true>(function, reinterpret_cast<Js::JavascriptMethod>(fastPathMethod), args);
+        }
+        END_SAFE_REENTRANT_CALL
     }
 
 }

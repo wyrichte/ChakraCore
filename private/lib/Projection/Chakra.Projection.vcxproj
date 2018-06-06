@@ -40,6 +40,7 @@
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
+        <!-- For winmddefsp.h  -->
         $(OneCoreUapComIncPath)\midlrt;
         $(PublicInternalPath)\com\inc\midlrt;
 
@@ -56,8 +57,6 @@
         4267;     <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
         4429      <!-- possible incomplete or improperly formed universal-character-name -->
       </DisableSpecificWarnings>
-      <!-- # Check out https://osgwiki.com/wiki/Dev_14_Migration for more details about -Zc:implicitNoexcept- -->
-      <AdditionalOptions>-Zc:implicitNoexcept- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

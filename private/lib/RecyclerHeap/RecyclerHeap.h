@@ -63,3 +63,9 @@ bool __stdcall RecyclerNativeHeapHasWeakReferenceCleanupOccurred(_In_ RecyclerNa
 // Rather than adding overhead to lookup interior pointers during the sweeping of weak references, this API allows a smart pointer type external to Chakra to store an offset and 
 // properly aligned pointer pair so that Chakra only ever sees the properly aligned pointer in its map of weak reference handles.
 void* __stdcall RecyclerNativeHeapGetRealAddressFromInterior(_In_ RecyclerNativeHeapHandle handle, _In_ void* candidate);
+
+// Collect garbage on the calling thread.  Supply true for skip stack if the caller ensures that no references to garbage collected objects exist on the stack or for tests to better control the reachability of objects.
+void __stdcall RecyclerNativeHeapCollectGarbageInThread(_In_ RecyclerNativeHeapHandle handle, bool skipStack);
+
+// Provides a mechanism for external unmanaged memory resources to be considered by Chakra's recycler collection heuristics.
+void __stdcall RecyclerNativeHeapAddExternalMemoryUsage(_In_ RecyclerNativeHeapHandle handle, size_t externalMemorySize);

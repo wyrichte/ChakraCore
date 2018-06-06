@@ -2,6 +2,15 @@
 <regress-exe>
   <test>
     <default>
+      <files>39098.js</files>
+      <baseline>39098.baseline</baseline>
+      <!-- Test generates lots of large functions, JIT takes too long and is irrelevant since this is parser-only test -->
+      <timeout>120</timeout>
+      <tags>Slow,exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>39290.js</files>
       <baseline>39290.baseline</baseline>
     </default>
@@ -66,6 +75,70 @@
   </test>
   <test>
     <default>
+      <files>40455.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40655.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>40750.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41005.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41419.js</files>
+      <compile-flags>-mic:1 -force:fieldcopyprop -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <!--<test>
+    <default>
+      <files>40281.js</files>
+    </default>
+  </test>-->
+  <test>
+    <default>
+      <files>40968.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41491.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41531.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41378.js</files>
+      <baseline>41378.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41772.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>41190.js</files>
+      <baseline>41190.baseline</baseline>
+      <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>40620.js</files>
       <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
       <timeout>300</timeout>
@@ -110,6 +183,14 @@
   </test>
   <test>
     <default>
+      <files>41500.js</files>
+      <timeout>300</timeout>
+      <!-- Will OOM on x86; which is OK. Can timeout on x64 chk. The actual fix is to avoid UAF which will be tested on x64/test flavor. -->
+      <tags>Slow,exclude_x86,exclude_chk</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>41792.js</files>
     </default>
   </test>
@@ -125,32 +206,35 @@
   </test>
   <test>
     <default>
-      <files>42670.js</files>
+      <files>42087.js</files>
     </default>
   </test>
   <test>
     <default>
-      <files>42985.js</files>
+      <files>42149.js</files>
+      <compile-flags>-testtrace:asmjs</compile-flags>
+      <baseline>42149.baseline</baseline>
     </default>
   </test>
   <test>
     <default>
-      <files>42985_int.js</files>
+      <files>41563.js</files>
     </default>
   </test>
   <test>
     <default>
-      <files>42987.js</files>
+      <files>42177.js</files>
     </default>
   </test>
   <test>
     <default>
-      <files>42987_int.js</files>
+      <files>msrc42223.js</files>
+      <compile-flags>-mic:1 -MaxSimpleJITRunCount:0  -oopjit- -force:FieldCopyProp -off:bailonnoprofile -off:inline</compile-flags>
     </default>
   </test>
   <test>
     <default>
-      <files>43292.js</files>
+      <files>42329.js</files>
       <compile-flags>-mic:1 -off:simplejit</compile-flags>
     </default>
   </test>
@@ -158,6 +242,11 @@
     <default>
       <files>42345.js</files>
       <baseline>42345.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42131.js</files>
     </default>
   </test>
   <test>
@@ -198,6 +287,57 @@
   </test>
   <test>
     <default>
+      <files>msrc42563.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42552.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42670.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc42716.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42985.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42985_int.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42987.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>42987_int.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc43229.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43292.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>43186.js</files>
     </default>
   </test>
@@ -224,13 +364,14 @@
   </test>
   <test>
     <default>
-      <files>44220.js</files>
-      <compile-flags>-pageheap:2</compile-flags>
+      <files>43811.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
     </default>
   </test>
   <test>
     <default>
-      <files>msrc43229.js</files>
+      <files>44220.js</files>
+      <compile-flags>-pageheap:2</compile-flags>
     </default>
   </test>
 </regress-exe>

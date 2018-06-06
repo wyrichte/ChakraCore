@@ -108,7 +108,7 @@ JavascriptThreadService::~JavascriptThreadService()
     DLLRelease();
 }
 
-BOOL JavascriptThreadService::Initialize(void)
+BOOL JavascriptThreadService::Initialize(BOOL optimizeForManyInstances /*= FALSE*/)
 {
     HRESULT hr = S_OK;
 
@@ -118,6 +118,13 @@ BOOL JavascriptThreadService::Initialize(void)
         bool returnValue = ThreadServiceWrapperBase::Initialize(ThreadBoundThreadContextManager::EnsureContextForCurrentThread());
         if (returnValue) 
         {
+            // If this is not a new thread context, OptimizeForManyInstances cannot be changed.
+            if (GetThreadContext()->GetRecycler() == nullptr)
+            {
+                // A value of true will force in-thread garbage collection which is better for jobs already in the background like web workers
+                GetThreadContext()->OptimizeForManyInstances(optimizeForManyInstances);
+            }
+
             GetThreadContext()->EnsureRecycler();
             Assert(GetThreadContext()->GetRecycler() != nullptr);
         }
@@ -810,5 +817,27 @@ STDMETHODIMP JavascriptThreadService::OnVisibilityChange(boolean visible)
 {
     Unused(visible);
     return S_OK;
+}
+
+HRESULT __stdcall JsCreateThreadService(BOOL optimizeForManyInstances, _Outptr_ IJavascriptThreadService** threadService)
+{
+    *threadService = nullptr;
+
+    JavascriptThreadService* newThreadService = HeapNewNoThrow(JavascriptThreadService);
+
+    if (newThreadService == nullptr)
+    {
+        return E_OUTOFMEMORY;
+    }
+    if (!newThreadService->Initialize(optimizeForManyInstances))
+    {
+        HeapDelete(newThreadService);
+        return E_OUTOFMEMORY;
+    }
+
+    HRESULT hr = newThreadService->QueryInterface(__uuidof(IJavascriptThreadService), (void**)threadService);
+    Assert(hr == S_OK);
+
+    return hr;
 }
 

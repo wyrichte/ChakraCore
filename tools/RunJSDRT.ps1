@@ -575,7 +575,7 @@ try
         Write-Host $_.Exception.Message
     }
 
-    if($ProjectionTestResult -eq 1 -or $FullUnitTestRunResult -eq 1 -or $FullUnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1)
+    if($UnitTestResult -eq 1 -or $ProjectionTestResult -eq 1 -or $FullUnitTestRunResult -eq 1 -or $CoreUnitTestRunResult -eq 1 -or $HtmlUnitTestRunResult -eq 1 -or $JsrtUnitTestRunResult -eq 1)
     {
         $DrtResult = 1
     }

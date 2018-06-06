@@ -76,14 +76,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      
-      <!-- ========= For IESettings.h ========= -->
+      <!-- ========= For EdgeSettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreInetcoreIncPath);$(PublicInternalPath)\inetcore\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For GlobalMSRCSettings.h ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(BaseDataPath)\MSRC</AdditionalIncludeDirectories>
 
-      <!-- ========= For CULHeapAllocHelpers.h (referenced in IESettings.h) ========= -->
+      <!-- ========= For CULHeapAllocHelpers.h (referenced in EdgeSettings.h) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreUapShellIncPath);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
@@ -93,10 +92,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);CULDEBUG_USE_NTASSERT</PreprocessorDefinitions>
 
       <!-- ========= From tools\makefile.def ========= -->
-      <!-- Removing the flag implicitNoexcept causes unreferenced error on __std_terminate.
-      As per the wiki https://osgwiki.com/wiki/Windows_C%2B%2B_Toolset_Status#The_-Zc:implicitNoexcept-_Compiler_Switch
-      we have to wait until the fix for it to come to our branch to remove that flag -->
-      <AdditionalOptions>%(AdditionalOptions) -Zc:sizedDealloc- -Zc:implicitNoexcept-</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) -Zc:sizedDealloc-</AdditionalOptions>
       <AdditionalOptions>%(AdditionalOptions) /d2AllowCompatibleILVersions /d2Zi+</AdditionalOptions>
       <!-- Disable __DATE__ and __TIME__ macro on fre to prevent screwing up servicing -->
       <AdditionalOptions Condition="'$(OptimizedBuild)'=='true'">%(AdditionalOptions) /d1nodatetime</AdditionalOptions>

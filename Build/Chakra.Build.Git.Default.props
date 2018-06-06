@@ -22,6 +22,10 @@
         $(IELibPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <!-- Workaround for core depdendency on IE MSRC macros. Remove when we no longer need GlobalMSRCSettings, and do not allow to make it to OSS. -->
+      <ForcedIncludeFiles>%(ForcedIncludeFiles);GlobalMSRCSettings.h</ForcedIncludeFiles>
+      <!-- Define CHAKRA_ENABLE_MSRC_PRERELEASE in VSO ChakraFull builds -->
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CHAKRA_ENABLE_MSRC_PRERELEASE</PreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>
@@ -29,6 +33,8 @@
         $(RazzleToolPath)\public\sdk\inc;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <!-- Define CHAKRA_ENABLE_MSRC_PRERELEASE in VSO ChakraFull builds -->
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CHAKRA_ENABLE_MSRC_PRERELEASE</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <!-- Git always depends on the nuget project -->

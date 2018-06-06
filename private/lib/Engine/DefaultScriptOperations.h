@@ -347,7 +347,7 @@ namespace Js
             /* [out] */ HeapObjectInfoReturnResult* returnResult);
 
     private:
-        static Js::ScriptContext * GetCurrentScriptContext(IActiveScriptDirect* scriptDirect, HostScriptContext ** hostScriptContext);
+        static Js::ScriptContext * GetCurrentScriptContext(IActiveScriptDirect* scriptDirect);
 
         template <class Fn>
         HRESULT DefaultOperationsWrapper(IActiveScriptDirect* scriptDirect, 
@@ -361,15 +361,15 @@ namespace Js
             {
                 return taggedIntErrorCode;
             }
-            HostScriptContext * hostScriptContext;
             RecyclableObject* objInstance = RecyclableObject::FromVar(instance);
-            Js::ScriptContext * scriptContext = GetCurrentScriptContext(scriptDirect, &hostScriptContext);
+            Js::ScriptContext * scriptContext = GetCurrentScriptContext(scriptDirect);
             if (nullptr == scriptContext)
             {
                 // trident might call this with the site closed during navigation; we don't need to do anything
                 // here if we are closed already.
                 return E_ACCESSDENIED;
             }
+            HostScriptContext * hostScriptContext = nullptr;
             BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
             {
                 hr = fn(objInstance, scriptContext);

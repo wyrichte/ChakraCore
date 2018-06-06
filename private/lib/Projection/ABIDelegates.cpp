@@ -514,7 +514,11 @@ namespace Projection
             }
             else
             {
-                outVar = callback->Get()->CallFunction(Js::Arguments(callInfo, eventHandlerInvokeParams));
+                BEGIN_SAFE_REENTRANT_REGION(scriptContext->GetThreadContext())
+                {
+                    outVar = callback->Get()->CallFunction(Js::Arguments(callInfo, eventHandlerInvokeParams));
+                }
+                END_SAFE_REENTRANT_REGION
             }
         }
         else
@@ -524,7 +528,11 @@ namespace Projection
 
             // Only event handlers can get disconnected
             Assert(callback != nullptr && callback->Get() != nullptr);
-            outVar = callback->Get()->CallFunction(Js::Arguments(callInfo, jsCallbackParams.Values()));
+            BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
+            {
+                outVar = callback->Get()->CallFunction(Js::Arguments(callInfo, jsCallbackParams.Values()));
+            }
+            END_SAFE_REENTRANT_CALL
         }
 
         if (SUCCEEDED(hr))
@@ -752,6 +760,10 @@ namespace Projection
         Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
         Js::JavascriptFunction *signature = reinterpret_cast<Js::JavascriptFunction *>(function->GetSignature());
         Assert(signature != NULL);
-        return signature->CallFunction(args);
+        BEGIN_SAFE_REENTRANT_CALL(signature->GetScriptContext()->GetThreadContext())
+        {
+            return signature->CallFunction(args);
+        }
+        END_SAFE_REENTRANT_CALL
     }
 }

@@ -8,7 +8,7 @@ enum ErrorReason;
 
 #define FATAL_ON_FAILED_API_RESULT(hr) if (FAILED(hr)) { JsStaticAPI::Error::ReportFatalException(hr, Fatal_Failed_API_Result); }
 
-typedef interface ITrackingService ITrackingService;
+typedef interface IJavascriptThreadService IJavascriptThreadService;
 class ChakraEngine;
 
 namespace JsStaticAPI
@@ -105,8 +105,8 @@ namespace JsStaticAPI
         //  activeScriptDirect      : The IActiveScriptDirect pointer
         static Var __stdcall GetObjectFreeze(IActiveScriptDirect* activeScriptDirect);
 
-        static HRESULT __stdcall SetNoScriptScope(__in ITrackingService *threadService, bool noScriptScope);
-        static HRESULT __stdcall IsNoScriptScope(__in ITrackingService *threadService, __out bool *isNoScriptScope);
+        static HRESULT __stdcall SetNoScriptScope(__in IJavascriptThreadService *threadService, bool noScriptScope);
+        static HRESULT __stdcall IsNoScriptScope(__in IJavascriptThreadService *threadService, __out bool *isNoScriptScope);
 
         static Var __stdcall GetArrayForEachFunction(IActiveScriptDirect* activeScriptDirect);
         static Var __stdcall GetArrayKeysFunction(IActiveScriptDirect* activeScriptDirect);
@@ -123,6 +123,7 @@ namespace JsStaticAPI
         static Var __stdcall GetIteratorPrototype(IActiveScriptDirect* activeScriptDirect);
 
         static PropertyId __stdcall GetPropertyIdSymbolToStringTag(IActiveScriptDirect* activeScriptDirect);
+        static PropertyId __stdcall GetPropertyIdSymbolUnscopables(IActiveScriptDirect* activeScriptDirect);
 
         static Var __stdcall CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
             JavascriptTypeId type, UINT byteCount, Var prototypeForIterator, InitIteratorFunction initFunction, NextFunction nextFunction);

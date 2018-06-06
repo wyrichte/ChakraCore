@@ -190,7 +190,7 @@ namespace JsStaticAPI
     }
 #endif
 
-    HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ ITrackingService *threadService, bool noScriptScope)
+    HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ IJavascriptThreadService *threadService, bool noScriptScope)
     {
         if (threadService == nullptr)
         {
@@ -205,7 +205,7 @@ namespace JsStaticAPI
         return S_OK;
     }
 
-    HRESULT JavascriptLibrary::IsNoScriptScope(/* in */ ITrackingService *threadService, /* out */ bool *isNoScriptScope)
+    HRESULT JavascriptLibrary::IsNoScriptScope(/* in */ IJavascriptThreadService *threadService, /* out */ bool *isNoScriptScope)
     {
         if (threadService == nullptr)
         {
@@ -339,6 +339,13 @@ namespace JsStaticAPI
         ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
         const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
         return scriptContextBase->GetLibrary()->GetPropertyIdSymbolToStringTag();
+    }
+
+    PropertyId JavascriptLibrary::GetPropertyIdSymbolUnscopables(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        const Js::ScriptContextBase* scriptContextBase = scriptEngineBase->GetScriptContext()->GetScriptContextBase();
+        return scriptContextBase->GetLibrary()->GetPropertyIdSymbolUnscopables();
     }
 
     Var JavascriptLibrary::CreateExternalEntriesFunction(IActiveScriptDirect* activeScriptDirect,
