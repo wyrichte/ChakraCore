@@ -112,11 +112,6 @@ namespace Js
         {
         }
 
-        virtual ISourceHolder* Clone(ScriptContext *scriptContext) override
-        {
-            return RecyclerNewFinalized(scriptContext->GetRecycler(), DynamicSourceHolder, this->sourceMapper);
-        }
-
         bool Equals(ISourceHolder* other)
         {
             return this == other || 
