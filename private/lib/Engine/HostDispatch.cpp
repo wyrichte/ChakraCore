@@ -884,11 +884,6 @@ void HostDispatch::ThrowIfCannotDefineProperty(Js::PropertyId propId, const Js::
     }
 }
 
-BOOL HostDispatch::GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor)
-{
-    return false;
-}
-
 BOOL HostDispatch::SetAccessors(const char16 * name, Js::Var getter, Js::Var setter)
 {
     AssertInScript();

@@ -49,7 +49,6 @@ public:
     virtual BOOL DeleteProperty(Js::PropertyId propertyId, Js::PropertyOperationFlags flags) override;
     virtual BOOL DeleteProperty(Js::JavascriptString *propertyNameString, Js::PropertyOperationFlags flags) override;
     virtual void ThrowIfCannotDefineProperty(Js::PropertyId propId, const Js::PropertyDescriptor& descriptor) override;
-    virtual BOOL GetDefaultPropertyDescriptor(Js::PropertyDescriptor& descriptor) override;
     virtual Js::PropertyQueryFlags HasItemQuery(uint32 index) override;
     virtual Js::PropertyQueryFlags GetItemReferenceQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
     virtual Js::PropertyQueryFlags GetItemQuery(Js::Var originalInstance, __in uint32 index, __out Js::Var* value, Js::ScriptContext * requestContext) override;
