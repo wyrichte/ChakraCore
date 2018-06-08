@@ -303,5 +303,79 @@ namespace Chakra.Utils.Test
                 Assert.AreEqual(s, DeCRC.GetStringForCRC(DeCRC.CRC32(s)));
             }
         }
+
+        [TestMethod]
+        public void TestUIThreadBlockedCRCs()
+        {
+            string[] inputs = {
+                "GC_UI_THREAD_BLOCKED_WaitReasonNone",
+                "GC_UI_THREAD_BLOCKED_RescanMark",
+                "GC_UI_THREAD_BLOCKED_DoParallelMark",
+                "GC_UI_THREAD_BLOCKED_RequestConcurrentCallbackWrapper",
+                "GC_UI_THREAD_BLOCKED_CollectOnConcurrentThread",
+                "GC_UI_THREAD_BLOCKED_FinishConcurrentCollect",
+                "GC_UI_THREAD_BLOCKED_Other"
+            };
+
+            foreach (string s in inputs)
+            {
+                Assert.AreEqual(s, DeCRC.GetStringForCRC(DeCRC.CRC32(s)));
+            }
+        }
+
+
+        [TestMethod]
+        public void TestRecyclerSizeEntryCRCs()
+        {
+            // from /chakra/private/lib/Telemetry/Recycler/RecyclerSizeEntries.h
+            // .net regex expressions to parse the contents from above:
+            //    new Regex(@"^\s*RECYCLER_SIZE_NO_SUBFIELD\(\s*(.*)\s*\)\s*$", RegexOptions.Multiline);
+            //    new Regex(@"^\s*RECYCLER_SIZE_SUBFIELD\(\s*(.*)\s*,\s*(.*)\)\s*$", RegexOptions.Multiline);
+            string[] inputs = {
+                "processAllocaterUsedBytes_start",
+                "processAllocaterUsedBytes_end",
+                "processCommittedBytes_start",
+                "processCommittedBytes_end",
+                
+                "threadPageAllocator_start_committedBytes",
+                "threadPageAllocator_start_usedBytes",
+                "threadPageAllocator_start_reservedBytes",
+                "threadPageAllocator_start_numberOfSegments",
+                "threadPageAllocator_end_committedBytes",
+                "threadPageAllocator_end_usedBytes",
+                "threadPageAllocator_end_reservedBytes",
+                "threadPageAllocator_end_numberOfSegments",
+                "recyclerLeafPageAllocator_start_committedBytes",
+                "recyclerLeafPageAllocator_start_usedBytes",
+                "recyclerLeafPageAllocator_start_reservedBytes",
+                "recyclerLeafPageAllocator_start_numberOfSegments",
+                "recyclerLeafPageAllocator_end_committedBytes",
+                "recyclerLeafPageAllocator_end_usedBytes",
+                "recyclerLeafPageAllocator_end_reservedBytes",
+                "recyclerLeafPageAllocator_end_numberOfSegments",
+                "recyclerLargeBlockPageAllocator_start_committedBytes",
+                "recyclerLargeBlockPageAllocator_start_usedBytes",
+                "recyclerLargeBlockPageAllocator_start_reservedBytes",
+                "recyclerLargeBlockPageAllocator_start_numberOfSegments",
+                "recyclerLargeBlockPageAllocator_end_committedBytes",
+                "recyclerLargeBlockPageAllocator_end_usedBytes",
+                "recyclerLargeBlockPageAllocator_end_reservedBytes",
+                "recyclerLargeBlockPageAllocator_end_numberOfSegments",
+                
+                "recyclerWithBarrierPageAllocator_start_committedBytes",
+                "recyclerWithBarrierPageAllocator_start_usedBytes",
+                "recyclerWithBarrierPageAllocator_start_reservedBytes",
+                "recyclerWithBarrierPageAllocator_start_numberOfSegments",
+                "recyclerWithBarrierPageAllocator_end_committedBytes",
+                "recyclerWithBarrierPageAllocator_end_usedBytes",
+                "recyclerWithBarrierPageAllocator_end_reservedBytes",
+                "recyclerWithBarrierPageAllocator_end_numberOfSegments"
+            };
+
+            foreach (string s in inputs)
+            {
+                Assert.AreEqual(s, DeCRC.GetStringForCRC(DeCRC.CRC32(s)));
+            }
+        }
     }
 }

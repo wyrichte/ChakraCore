@@ -80,6 +80,7 @@ nameValuePairs =
             chakraBuildCommit,
             runType,
             scriptContextLifeSpanMicros,
+            recyclerID,
             propName,
             propValue,
             propType

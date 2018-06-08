@@ -84,6 +84,7 @@ last28DaysFiltered =
             chakraBuildCommit,
             runType,
             scriptContextLifeSpanMicros,
+            recyclerID,
             propName,
             propValue,
             propType

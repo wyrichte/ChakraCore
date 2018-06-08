@@ -49,6 +49,7 @@ namespace Chakra.Utils
                 }
             }
 
+            output_schema.Add(new ColumnInfo("passNumber", ColumnDataType.UInt));
             output_schema.Add(new ColumnInfo("passElapsedTimeMicros", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("passStartTimes", ColumnDataType.String));
             output_schema.Add(new ColumnInfo("lastScriptExecutionTimes", ColumnDataType.String));
@@ -63,6 +64,46 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("GCBucketStatsProcessingElapsedMicros", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("HeapInfoUsedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("HeapInfoTotalBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("PinnedObjectCount", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("ClosedContextCount", ColumnDataType.LongQ));
+            // values transmitted from via the AllocatorByteSizeEntries array.  We assume these will stay the same, so we'll 
+            // add their values inline in the GC Pass Row, instead of as name/value pairs
+            output_schema.Add(new ColumnInfo("processAllocaterUsedBytes_start", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("processAllocaterUsedBytes_end", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("processCommittedBytes_start", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("processCommittedBytes_end", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_start_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_start_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_start_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_end_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_end_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("threadPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_numberOfSegments", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_end_committedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_end_usedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
+            output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
 
             return output_schema;
         }
@@ -85,24 +126,30 @@ namespace Chakra.Utils
                     input_row[cname].CopyTo(output_row[cname]);
                 }
 
-                long passCount = input_row["passCount"].Long;
-                Int64[] passElapsedTimeMicros = input_row["passElapsedTimeMicros"].Value as Int64[];
+                uint passCount = input_row["passCount"].UInt;
+                Int64[] passElapsedTimeMicros = input_row["passElapsedTimesMicros"].Value as Int64[];
                 string[] passStartTimes = input_row["passStartTimes"].Value as string[];
                 string[] lastScriptExecutionTimes = input_row["lastScriptExecutionTimes"].Value as string[];
                 bool[] isInScript = input_row["isInScript"].Value as bool[];
                 bool[] isScriptActive = input_row["isScriptActive"].Value as bool[];
-                Int64[] UIThreadBlockedMicros = input_row["UIThreadBlockedMicros"].Value as Int64[];
-                Int64[] UIThreadBlockedNameCRCs = input_row["UIThreadBlockedNameCRCs"].Value as Int64[];
+                //Int64[] UIThreadBlockedMicros = input_row["UIThreadBlockedMicros"].Value as Int64[];
+                //Int64[] UIThreadBlockedNameCRCs = input_row["UIThreadBlockedNameCRCs"].Value as Int64[];
                 Int64[] AllocatorByteSizeEntries = input_row["AllocatorByteSizeEntries"].Value as Int64[];
-                Int64[] AllocatorByteSizeEntryNameCRCs = input_row["AllocatorByteSizeEntryNameCRCs"].Value as Int64[];
+                UInt64[] AllocatorByteSizeEntryNameCRCs = input_row["AllocatorByteSizeEntryNameCRCs"].Value as UInt64[];
                 Int64[] GCStartProcessingElapsedMicros = input_row["GCStartProcessingElapsedMicros"].Value as Int64[];
                 Int64[] GCEndProcessingElapsedMicros = input_row["GCEndProcessingElapsedMicros"].Value as Int64[];
                 Int64[] GCBucketStatsProcessingElapsedMicros = input_row["GCBucketStatsProcessingElapsedMicros"].Value as Int64[];
                 Int64[] HeapInfoUsedBytes = input_row["HeapInfoUsedBytes"].Value as Int64[];
                 Int64[] HeapInfoTotalBytes = input_row["HeapInfoTotalBytes"].Value as Int64[];
+                Int64[] PinnedObjectCount = input_row["PinnedObjectCount"].Value as Int64[];
+                Int64[] ClosedContextCount = input_row["ClosedContextCount"].Value as Int64[];
 
-                for (int pass = 0; pass < passCount; pass++)
+                uint currentPass = passCount;
+                for (uint pass = 0; pass < passCount; pass++)
                 {
+                    // "GC Pass" data is transmitted last pass first, so account for that here
+                    output_row["passNumber"].Set(currentPass--);
+
                     SafeSet("passElapsedTimeMicros", passElapsedTimeMicros, output_row, pass);
                     SafeSet("passStartTimes", passStartTimes, output_row, pass);
                     SafeSet("lastScriptExecutionTimes", lastScriptExecutionTimes, output_row, pass);
@@ -117,12 +164,29 @@ namespace Chakra.Utils
                     SafeSet("GCBucketStatsProcessingElapsedMicros", GCBucketStatsProcessingElapsedMicros, output_row, pass);
                     SafeSet("HeapInfoUsedBytes", HeapInfoUsedBytes, output_row, pass);
                     SafeSet("HeapInfoTotalBytes", HeapInfoTotalBytes, output_row, pass);
+                    SafeSet("PinnedObjectCount", PinnedObjectCount, output_row, pass);
+                    SafeSet("ClosedContextCount", ClosedContextCount, output_row, pass);
+
+                    // we're transmitting these as name/value pairs (i.e., an array of "name CRCs" and a corresponding array of values. 
+                    // however, we don't expect these to change frequently (thus invalidating schemas), so just put them inline
+                    AddAllocatorByteSizeEntries(output_row, pass, AllocatorByteSizeEntries, AllocatorByteSizeEntryNameCRCs);
 
                     yield return output_row;
                 }
             }
         }
-        private void SafeSet<T>(string columnName, T[] values, Row outputRow, int currentIndex)
+
+        private void AddAllocatorByteSizeEntries(Row outputRow, uint currentPass, Int64[] allocatorByteSizeEntries, UInt64[] allocatorByteSizeEntryNameCRCs)
+        {
+            for (int i = 0; i < allocatorByteSizeEntryNameCRCs.Length; i++)
+            {
+                long idx = (currentPass * allocatorByteSizeEntryNameCRCs.Length) + i;
+                string columnName = DeCRC.GetStringForCRC(allocatorByteSizeEntryNameCRCs[i]);
+                outputRow[columnName].Set(allocatorByteSizeEntries[idx]);
+            }
+        }
+
+        private void SafeSet<T>(string columnName, T[] values, Row outputRow, uint currentIndex)
         {
             if (values != null && currentIndex < values.Length)
             {

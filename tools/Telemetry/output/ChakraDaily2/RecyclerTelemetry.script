@@ -52,7 +52,7 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
 
-rawEvents =
+rawEvents1 =
     VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
     PARAMS
     (
@@ -60,6 +60,17 @@ rawEvents =
         endDate = @endDate,
         eventName = "Microsoft.Web.Platform.Chakra.GCTelemetry_temp-1"
     );
+
+rawEvents2 =
+    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
+    PARAMS
+    (
+        startDate = @startDate,
+        endDate = @endDate,
+        eventName = "Microsoft.Web.Platform.Chakra.GCTelemetry_0"
+    );
+
+rawEvents = SELECT * FROM rawEvents1 UNION SELECT * FROM rawEvents2;
 
 recyclerTransmitEvents = 
     PROCESS rawEvents
@@ -76,8 +87,10 @@ recyclerTransmitEvents =
             recyclerID,
             transmitEventID,
             recyclerLifeSpanMicros,
+            microsSinceListTransmit,
+            isConcurrentEnabled,
             passCount,
-            passElapsedTimeMicros,
+            passElapsedTimesMicros,
             passStartTimes,
             lastScriptExecutionTimes,
             isInScript,
@@ -91,6 +104,8 @@ recyclerTransmitEvents =
             GCBucketStatsProcessingElapsedMicros,
             HeapInfoUsedBytes,
             HeapInfoTotalBytes,
+            PinnedObjectCount,
+            ClosedContextCount,
             ThreadPageAllocator_numDecommitCalls,
             ThreadPageAllocator_numPagesDecommitted,
             ThreadPageAllocator_numFreePageCount,
@@ -109,7 +124,6 @@ recyclerTransmitEvents =
             WithBarrierPageAllocator_maxDeltaMicros
         USING Chakra.Utils.RecyclerTelemetryEventProcessor;
 
-
 recyclerGCPassEvents =
     PROCESS recyclerTransmitEvents
       PRODUCE
@@ -123,23 +137,57 @@ recyclerGCPassEvents =
       discriminator2,
       recyclerID,
       transmitEventID,
+      passNumber,
       recyclerLifeSpanMicros,
       passElapsedTimeMicros,
       passStartTimes,
       lastScriptExecutionTimes,
       isInScript,
       isScriptActive,
-      //UIThreadBlockedMicros,
-      //UIThreadBlockedNameCRCs,
-      //AllocatorByteSizeEntries,
-      //AllocatorByteSizeEntryNameCRCs,
       GCStartProcessingElapsedMicros,
       GCEndProcessingElapsedMicros, 
       GCBucketStatsProcessingElapsedMicros,
       HeapInfoUsedBytes,
       HeapInfoTotalBytes,
-      
-      data
+      PinnedObjectCount,
+      ClosedContextCount,
+
+      processAllocaterUsedBytes_start,
+      processAllocaterUsedBytes_end,
+      processCommittedBytes_start,
+      processCommittedBytes_end,
+      threadPageAllocator_start_committedBytes,
+      threadPageAllocator_start_usedBytes,
+      threadPageAllocator_start_reservedBytes,
+      threadPageAllocator_start_numberOfSegments,
+      threadPageAllocator_end_committedBytes,
+      threadPageAllocator_end_usedBytes,
+      threadPageAllocator_end_reservedBytes,
+      threadPageAllocator_end_numberOfSegments,
+      recyclerLeafPageAllocator_start_committedBytes,
+      recyclerLeafPageAllocator_start_usedBytes,
+      recyclerLeafPageAllocator_start_reservedBytes,
+      recyclerLeafPageAllocator_start_numberOfSegments,
+      recyclerLeafPageAllocator_end_committedBytes,
+      recyclerLeafPageAllocator_end_usedBytes,
+      recyclerLeafPageAllocator_end_reservedBytes,
+      recyclerLeafPageAllocator_end_numberOfSegments,
+      recyclerLargeBlockPageAllocator_start_committedBytes,
+      recyclerLargeBlockPageAllocator_start_usedBytes,
+      recyclerLargeBlockPageAllocator_start_reservedBytes,
+      recyclerLargeBlockPageAllocator_start_numberOfSegments,
+      recyclerLargeBlockPageAllocator_end_committedBytes,
+      recyclerLargeBlockPageAllocator_end_usedBytes,
+      recyclerLargeBlockPageAllocator_end_reservedBytes,
+      recyclerLargeBlockPageAllocator_end_numberOfSegments,
+      recyclerWithBarrierPageAllocator_start_committedBytes,
+      recyclerWithBarrierPageAllocator_start_usedBytes,
+      recyclerWithBarrierPageAllocator_start_reservedBytes,
+      recyclerWithBarrierPageAllocator_start_numberOfSegments,
+      recyclerWithBarrierPageAllocator_end_committedBytes,
+      recyclerWithBarrierPageAllocator_end_usedBytes,
+      recyclerWithBarrierPageAllocator_end_reservedBytes,
+      recyclerWithBarrierPageAllocator_end_numberOfSegments
       USING Chakra.Utils.RecyclerTelemetryGCPassProcessor;
 
 //
@@ -148,6 +196,7 @@ recyclerGCPassEvents =
 recyclerTransmitEventsForStructuredStream =
     SELECT
             time,
+            @outputDate AS streamDate,
             binaryVersion,
             binaryFlavor,
             binaryArch,
@@ -159,8 +208,10 @@ recyclerTransmitEventsForStructuredStream =
             recyclerID,
             transmitEventID,
             recyclerLifeSpanMicros,
+            microsSinceListTransmit,
+            isConcurrentEnabled,
             passCount,
-            //passElapsedTimeMicros,
+            //passElapsedTimesMicros,
             //passStartTimes,
             //lastScriptExecutionTimes,
             //isInScript,
@@ -174,6 +225,8 @@ recyclerTransmitEventsForStructuredStream =
             //GCBucketStatsProcessingElapsedMicros,
             //HeapInfoUsedBytes,
             //HeapInfoTotalBytes,
+            //PinnedObjectCount,
+            //ClosedContextCount,
             ThreadPageAllocator_numDecommitCalls,
             ThreadPageAllocator_numPagesDecommitted,
             ThreadPageAllocator_numFreePageCount,
@@ -191,7 +244,115 @@ recyclerTransmitEventsForStructuredStream =
             WithBarrierPageAllocator_numFreePageCount,
             WithBarrierPageAllocator_maxDeltaMicros
     FROM recyclerTransmitEvents;
-         
+      
+recyclerGCPassEventsForStructuredStream =
+    SELECT
+      @outputDate AS streamDate,
+      time,
+      binaryVersion,
+      binaryFlavor,
+      binaryArch,
+      chakraBuildCommit,
+      runType,
+      discriminator1,
+      discriminator2,
+      recyclerID,
+      transmitEventID,
+      passNumber,
+      recyclerLifeSpanMicros,
+      passElapsedTimeMicros,
+      passStartTimes,
+      lastScriptExecutionTimes,
+      isInScript,
+      isScriptActive,
+      GCStartProcessingElapsedMicros,
+      GCEndProcessingElapsedMicros, 
+      GCBucketStatsProcessingElapsedMicros,
+      HeapInfoUsedBytes,
+      HeapInfoTotalBytes,
+      PinnedObjectCount,
+      ClosedContextCount,
+
+      processAllocaterUsedBytes_start,
+      processAllocaterUsedBytes_end,
+      processCommittedBytes_start,
+      processCommittedBytes_end,
+      threadPageAllocator_start_committedBytes,
+      threadPageAllocator_start_usedBytes,
+      threadPageAllocator_start_reservedBytes,
+      threadPageAllocator_start_numberOfSegments,
+      threadPageAllocator_end_committedBytes,
+      threadPageAllocator_end_usedBytes,
+      threadPageAllocator_end_reservedBytes,
+      threadPageAllocator_end_numberOfSegments,
+      recyclerLeafPageAllocator_start_committedBytes,
+      recyclerLeafPageAllocator_start_usedBytes,
+      recyclerLeafPageAllocator_start_reservedBytes,
+      recyclerLeafPageAllocator_start_numberOfSegments,
+      recyclerLeafPageAllocator_end_committedBytes,
+      recyclerLeafPageAllocator_end_usedBytes,
+      recyclerLeafPageAllocator_end_reservedBytes,
+      recyclerLeafPageAllocator_end_numberOfSegments,
+      recyclerLargeBlockPageAllocator_start_committedBytes,
+      recyclerLargeBlockPageAllocator_start_usedBytes,
+      recyclerLargeBlockPageAllocator_start_reservedBytes,
+      recyclerLargeBlockPageAllocator_start_numberOfSegments,
+      recyclerLargeBlockPageAllocator_end_committedBytes,
+      recyclerLargeBlockPageAllocator_end_usedBytes,
+      recyclerLargeBlockPageAllocator_end_reservedBytes,
+      recyclerLargeBlockPageAllocator_end_numberOfSegments,
+      recyclerWithBarrierPageAllocator_start_committedBytes,
+      recyclerWithBarrierPageAllocator_start_usedBytes,
+      recyclerWithBarrierPageAllocator_start_reservedBytes,
+      recyclerWithBarrierPageAllocator_start_numberOfSegments,
+      recyclerWithBarrierPageAllocator_end_committedBytes,
+      recyclerWithBarrierPageAllocator_end_usedBytes,
+      recyclerWithBarrierPageAllocator_end_reservedBytes,
+      recyclerWithBarrierPageAllocator_end_numberOfSegments
+FROM recyclerGCPassEvents;
+
+
+recyclerNameValuePairs = 
+  PROCESS recyclerTransmitEvents
+    PRODUCE
+           time,
+           binaryVersion,
+           binaryFlavor,
+           binaryArch,
+           chakraBuildCommit,
+           runType,
+           discriminator1,
+           discriminator2,
+           recyclerID,
+           transmitEventID,
+           passNumber,
+           recyclerLifeSpanMicros,
+           passCount,
+           propName,
+           propValue,
+           propType
+    USING Chakra.Utils.RecyclerTelemetryNameValuePairsProcesor;
+
+recyclerNameValuePairsForStructuredStream = 
+SELECT
+      @outputDate AS streamDate,
+      time,
+      binaryVersion,
+      binaryFlavor,
+      binaryArch,
+      chakraBuildCommit,
+      runType,
+      discriminator1,
+      discriminator2,
+      recyclerID,
+      transmitEventID,
+      passNumber,
+      recyclerLifeSpanMicros,
+      passCount,
+      propName,
+      propValue,
+      propType
+FROM recyclerNameValuePairs;
 
 
 #DECLARE recyclerTransmitEventsOutputPath string = string.Format("{0}/{1}/RecyclerTransmitEvents.ss", @outputRoot, @outputDate);
@@ -201,7 +362,12 @@ WITH STREAMEXPIRY @streamExpiry;
 
 #DECLARE recyclerGCPassEventsOutputPath string = string.Format("{0}/{1}/RecyclerGCPassEvents.ss", @outputRoot, @outputDate);
 [Privacy.Asset.NonPersonal]
-OUTPUT recyclerGCPassEvents TO SSTREAM @recyclerGCPassEventsOutputPath
+OUTPUT recyclerGCPassEventsForStructuredStream TO SSTREAM @recyclerGCPassEventsOutputPath
+CLUSTERED BY time, recyclerID, transmitEventID, passNumber
 WITH STREAMEXPIRY @streamExpiry;
 
-
+#DECLARE recyclerNameValuePairsOutputPath string = string.Format("{0}/{1}/RecyclerGCPassNameValuePairs.ss", @outputRoot, @outputDate);
+[Privacy.Asset.NonPersonal]
+OUTPUT recyclerNameValuePairsForStructuredStream TO SSTREAM @recyclerNameValuePairsOutputPath
+CLUSTERED BY time, recyclerID, transmitEventID, passNumber
+WITH STREAMEXPIRY @streamExpiry;

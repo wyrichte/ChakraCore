@@ -14,10 +14,12 @@ namespace Chakra.Utils
         {
             crcToStrings.Add(CRC32("_None"), "_None");
             crcToStrings.Add(CRC32("_Max"), "_Max");
-            PopulateBuiltIns();
-            PopulateRejitReasons();
-            PopulateLangFeatures();
-            PopulateBailoutReasons();
+            Populate(ParseBuiltIns());
+            Populate(ParseRejitReasons());
+            Populate(ParseLangFeatures());
+            Populate(ParseBailoutReasons());
+            Populate(ParseRecyclerWaitReasons());
+            Populate(ParseRecyclerSizeEntries());
         }
 
         public static string GetStringForCRC(UInt64 crc)
@@ -37,33 +39,9 @@ namespace Chakra.Utils
             return CRC32(bytes);
         }
 
-        private static void PopulateBuiltIns()
+        private static void Populate(IEnumerable<string> vals)
         {
-            foreach (string s in ParseBuiltIns())
-            {
-                crcToStrings.Add(CRC32(s), s);
-            }
-        }
-
-        private static void PopulateLangFeatures()
-        {
-            foreach (string s in ParseLangFeatures())
-            {
-                crcToStrings.Add(CRC32(s), s);
-            }
-        }
-
-        private static void PopulateRejitReasons()
-        {
-            foreach (string s in ParseRejitReasons())
-            {
-                crcToStrings.Add(CRC32(s), s);
-            }
-        }
-
-        private static void PopulateBailoutReasons()
-        {
-            foreach (string s in ParseBailoutReasons())
+            foreach (string s in vals)
             {
                 crcToStrings.Add(CRC32(s), s);
             }
@@ -515,6 +493,121 @@ ENTRY_LANGFEATURE(ES6, Promise)
                 {
                     // lop off leading "ENTRY_BUILTIN("
                     line = line.Substring("ENTRY_LANGFEATURE(".Length);
+
+                    // lop off trailing ")"
+                    line = line.Substring(0, line.LastIndexOf(')'));
+
+                    string[] parts = line.Split(',');
+                    result.Add(parts[0].Trim() + "_" + parts[1].Trim());
+                }
+            }
+            return result;
+        }
+
+        // copy/paste from /chakra/core/lib/Common/Memory/RecyclerWaitReasonInc.h
+        private static string recyclerWaitReason_dot_h= @"
+P(WaitReasonNone)
+P(RescanMark)
+P(DoParallelMark)
+P(RequestConcurrentCallbackWrapper)
+P(CollectOnConcurrentThread)
+P(FinishConcurrentCollect)
+P(Other)
+";
+
+        private static IEnumerable<string> ParseRecyclerWaitReasons()
+        {
+            List<string> result = new List<string>();
+            string[] lines = recyclerWaitReason_dot_h.Split(new[] { '\r', '\n' });
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+                if (line.StartsWith("P("))
+                {
+                    // lop off leading "P("
+                    line = line.Substring("P(".Length);
+
+                    // lop off trailing ")"
+                    line = line.Substring(0, line.LastIndexOf(')'));
+                    string val = "GC_UI_THREAD_BLOCKED_" + line;
+                    result.Add(val);
+                }
+            }
+            return result;
+        }
+
+
+        // copy/paste from /chakra/private/lib/Telemetry/Recycler/RecyclerSizeEntries.h
+        private static string recyclerSizeEntries_dot_h = @"
+RECYCLER_SIZE_NO_SUBFIELD(processAllocaterUsedBytes_start)
+RECYCLER_SIZE_NO_SUBFIELD(processAllocaterUsedBytes_end)
+RECYCLER_SIZE_NO_SUBFIELD(processCommittedBytes_start)
+RECYCLER_SIZE_NO_SUBFIELD(processCommittedBytes_end)
+
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_start, committedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_start, usedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_start, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_start, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_end, committedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_end, usedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_end, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(threadPageAllocator_end, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_start, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_start, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_start, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_start, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_end, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_end, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_end, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLeafPageAllocator_end, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_start, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_start, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_start, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_start, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_end, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_end, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_end, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerLargeBlockPageAllocator_end, numberOfSegments)
+
+#ifdef RECYCLER_WRITE_BARRIER_ALLOC_SEPARATE_PAGE
+
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_start, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_start, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_start, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_start, numberOfSegments)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, committedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, usedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, reservedBytes)
+RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, numberOfSegments)
+";
+
+        private static IEnumerable<string> ParseRecyclerSizeEntries()
+        {
+            // .net regex expressions to parse the above:
+            //    new Regex(@"^\s*RECYCLER_SIZE_NO_SUBFIELD\(\s*(.*)\s*\)\s*$", RegexOptions.Multiline);
+            //    new Regex(@"^\s*RECYCLER_SIZE_SUBFIELD\(\s*(.*)\s*,\s*(.*)\)\s*$", RegexOptions.Multiline);
+
+            List<string> result = new List<string>();
+            string[] lines = recyclerSizeEntries_dot_h.Split(new[] { '\r', '\n' });
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+                if (line.StartsWith("RECYCLER_SIZE_NO_SUBFIELD("))
+                {
+
+
+                    // lop off leading "RECYCLER_SIZE_NO_SUBFIELD("
+                    line = line.Substring("RECYCLER_SIZE_NO_SUBFIELD(".Length);
+
+                    // lop off trailing ")"
+                    line = line.Substring(0, line.LastIndexOf(')'));
+                    result.Add(line);
+                }
+
+                if (line.StartsWith("RECYCLER_SIZE_SUBFIELD("))
+                {
+                    // lop off leading "RECYCLER_SIZE_SUBFIELD("
+                    line = line.Substring("RECYCLER_SIZE_SUBFIELD(".Length);
 
                     // lop off trailing ")"
                     line = line.Substring(0, line.LastIndexOf(')'));

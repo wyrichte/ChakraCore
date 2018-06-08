@@ -61,6 +61,8 @@ PARAMS (
 
 AS BEGIN
 
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
 eventData = 
     VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
     PARAMS
@@ -121,7 +123,7 @@ eventData2 =
             chakraBuildCommit,
             runType,
             eventData.activityID,
-            Guid.Parse(eventData.activityID) AS activityID_guid
+            Chakra.Utils.MiscUtils.TryParseGuid(eventData.activityID) AS activityID_guid
     FROM
         eventData;
     
