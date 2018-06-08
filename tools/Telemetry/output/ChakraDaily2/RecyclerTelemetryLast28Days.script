@@ -1,0 +1,101 @@
+
+// -------------------------------------------------------------------
+//
+//   Boiler-plate setup at the start of each script
+//
+
+// DEFAULT Params - only used if the @@startDate is not specified
+#DECLARE startDate DateTime = DateTime.Now.AddDays(-2);
+#DECLARE endDate DateTime = @startDate.AddHours(1);
+
+// if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
+#IF(!"@@startDate@@".StartsWith("@@"))
+    #SET startDate = DateTime.Parse("@@startDate@@");
+    #SET endDate = @startDate.AddDays(1);
+#ENDIF
+
+// if @@endDate@@ is set via external paramater
+#IF(!"@@endDate@@".StartsWith("@@"))
+    #SET endDate = DateTime.Parse("@@endDate@@");
+    #IF (@endDate <= @startDate)
+        #SET endDate = @startDate.AddDays(1); 
+    #ENDIF
+#ENDIF
+
+// Are we launching from xflow?
+#IF(!"@@_startDate@@".StartsWith("@@"))
+   // _startDate is set, so we've been launched from XFlow, so move dates back one day so that we don't process an incomplete
+   // day Specifically, the job will kick off at say 4:00 AM on 2/26/2018, but records for this day are not complete, so have
+   // this process the records for 2/25/2018.  Hacky.  :(
+   #SET startDate = @startDate.AddDays(-1);
+   #SET endDate = @endDate.AddDays(-1);
+#ENDIF
+
+//#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE defaultOutputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+#DECLARE outputRoot string = @defaultOutputRoot;
+
+#DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
+
+#IF(!"@@outputRoot@@".StartsWith("@@"))
+    #SET outputRoot = "@@outputRoot@@";
+#ENDIF
+
+#DECLARE retentionDays uint = 28;
+#DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
+// -------------------------------------------------------------------
+
+// For the NGP secondary tagging
+#DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
+#DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
+MODULE @ModulePath AS WptModule;
+MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.Batch.module" AS Asimov;
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
+REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
+
+//
+//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
+// of data, and easily react to schema changes
+//
+#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
+#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
+
+last28Days_RecyclerTransmitEvents = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/RecyclerTransmitEvents.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+
+
+last28Days_RecyclerGCPassEvents = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/RecyclerGCPassEvents.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+
+last28Days_RecyclerGCPassNameValuePairs = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/RecyclerGCPassNameValuePairs.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+
+#DECLARE transmitOutputPath string = string.Format("{0}/Last28Days_RecyclerTransmitEvents.ss", @defaultOutputRoot);
+[Privacy.Asset.NonPersonal]
+OUTPUT last28Days_RecyclerTransmitEvents TO SSTREAM @transmitOutputPath
+CLUSTERED BY 
+    recyclerID,
+    transmitEventID
+WITH STREAMEXPIRY @streamExpiry;
+
+#DECLARE gcPassOutputPath string = string.Format("{0}/Last28Days_RecyclerGCPassEvents.ss", @defaultOutputRoot);
+[Privacy.Asset.NonPersonal]
+OUTPUT last28Days_RecyclerGCPassEvents TO SSTREAM @gcPassOutputPath
+CLUSTERED BY 
+    recyclerID,
+    transmitEventID
+WITH STREAMEXPIRY @streamExpiry;
+
+#DECLARE nameValuePairsOutputPath string = string.Format("{0}/Last28Days_RecyclerGCPassNameValuePairs.ss", @defaultOutputRoot);
+[Privacy.Asset.NonPersonal]
+OUTPUT last28Days_RecyclerGCPassNameValuePairs TO SSTREAM @nameValuePairsOutputPath
+CLUSTERED BY 
+    recyclerID,
+    transmitEventID
+WITH STREAMEXPIRY @streamExpiry;

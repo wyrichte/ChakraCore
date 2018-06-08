@@ -6,6 +6,7 @@
       <ConfigBase Name="ScriptContextTelemetry.ConfigBase" File="ScriptContextTelemetry.script" />
       <ConfigBase Name="ScriptContextTelemetryLast28Days.ConfigBase" File="ScriptContextTelemetryLast28Days.script" />
       <ConfigBase Name="RecyclerTelemetry.ConfigBase" File="RecyclerTelemetry.script" />
+      <ConfigBase Name="RecyclerTelemetryLast28Days.ConfigBase" File="RecyclerTelemetryLast28Days.script" />
     </ConfigBases>
     <Activities>
       <!-- =================================================================-->
@@ -63,6 +64,20 @@
           <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
         </Parameters>
       </Activity>
+
+      <Activity Name="RecyclerTelemetryLast28Days" ConfigBase="RecyclerTelemetryLast28Days.ConfigBase" Class="Microsoft.Xflow.Activities.Scope.SequentialRecurrentScopeActivityV3"
+      MaxRetries="1" CredentialName="ScopeJob.Asimov.Partner.Sensitive.Usage" RetryWaitInterval="3">
+        <Dependencies>
+          <Dependency Name="RecyclerTelemetry" />
+        </Dependencies>
+        <Parameters>
+          <Parameter Name="__vc" Value="https://cosmos15.osdinfra.net/cosmos/asimov.partner.jobs" />
+          <Parameter Name="_recurrence" Value="DailyTracker" />
+          <Parameter Name="_startDate" Value="2018-06-07" />
+          <Parameter Name="_trackerFolder" Value="/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/" />
+        </Parameters>
+      </Activity>
+
       <!-- =================================================================-->
 
     </Activities>

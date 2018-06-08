@@ -1,7 +1,7 @@
-param([string]$streamName, [string]$startDateParam, [string]$endDateParam)
+param([string]$trackerFileName, [string]$startDateParam, [string]$endDateParam)
 
-if ([System.String]::IsNullOrEmpty($streamName)) {
-  Throw "must specify stream name"
+if ([System.String]::IsNullOrEmpty($trackerFileName)) {
+  Throw "must specify tracker file name"
 }
 
 if ([System.String]::IsNullOrEmpty($startDateParam)) {
@@ -12,24 +12,25 @@ if ([System.String]::IsNullOrEmpty($endDateParam)) {
   Throw "must specify end date"
 }
 
-write-host "deleting streamset for ${streamName}..."
-
 $vc = "https://cosmos15.osdinfra.net/cosmos/asimov.partner.osg"
-$root = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
+$root = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/Tracker/";
+$trackerFileRootPath = $vc + $root + $trackerFileName + "/v1/" + $trackerFileName
 
 $startDate = [DateTime]::Parse($startDateParam);
 $endDate = [DateTime]::Parse($endDateParam);
 $currentDate = $startDate;
 
+
 while ($currentDate.CompareTo($endDate) -le 0) {
   $y = $currentDate.Year
   $m = "{0:D2}" -f $currentDate.Month
   $d = "{0:D2}" -f $currentDate.Day
-  $t = ${vc} + ${root} + ${y} + "/" + ${m} + "/" + ${d} + "/" + $streamName
+  $t = ${trackerFileRootPath} + "_" + ${y} + "_" + ${m} + "_" + ${d} + ".txt"
   $exists = Test-CosmosStream -Stream $t
-  if ($exists) {
-    Remove-CosmosStream -Stream $t
-    Write-Host removed stream $t
+  if (! $exists) {
+    New-CosmosStream -Path $t
+    Write-Host wrote stream $t
   }
   $currentDate = $currentDate.AddDays(1);
 }
+

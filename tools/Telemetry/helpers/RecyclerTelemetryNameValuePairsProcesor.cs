@@ -79,8 +79,7 @@ namespace Chakra.Utils
 
                 Int64[] UIThreadBlockedMicros = input_row["UIThreadBlockedMicros"].Value as Int64[];
                 UInt64[] UIThreadBlockedNameCRCs = input_row["UIThreadBlockedNameCRCs"].Value as UInt64[];
-                //Int64[] AllocatorByteSizeEntries = input_row["AllocatorByteSizeEntries"].Value as Int64[];
-                //UInt64[] AllocatorByteSizeEntryNameCRCs = input_row["AllocatorByteSizeEntryNameCRCs"].Value as UInt64[];
+
 
                 uint currentPass = passCount;
                 for (int pass = 0; pass < passCount; pass++)
@@ -103,7 +102,6 @@ namespace Chakra.Utils
                     }
                 }
             }
-            yield break;
         }
     }
 }

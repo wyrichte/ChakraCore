@@ -192,6 +192,10 @@ namespace Chakra.Utils
             {
                 outputRow[columnName].Set(values[currentIndex]);
             }
+            else
+            {
+                outputRow[columnName].Set(default(T));
+            }
         }
     }
 

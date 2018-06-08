@@ -37,6 +37,7 @@
       <RemoveUselessParameters>False</RemoveUselessParameters>
       <ScopeClusterParameters>startDate=(\"2018-03-20\"),endDate=(\"2018-03-21\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
     </Script>
+    <Script Include="output\ChakraDaily2\RecyclerTelemetryLast28Days.script" />
     <Script Include="output\ChakraDaily2\ScriptContextTelemetryLast28Days.script" />
     <Script Include="output\ChakraDaily2\RecyclerTelemetry.script">
       <RemoveUselessParameters>False</RemoveUselessParameters>
