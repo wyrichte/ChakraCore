@@ -400,6 +400,13 @@ void ScriptSite::Close()
         return;
     }
 
+    // We must mark ourselves closed before releasing any cross thread objects. Otherwise we may get
+    // calls on our type operations which were potentially already freed.
+    // We must also mark ourselves closed before we free the projection context, since otherwise
+    // the recycler may attempt to finalize objects which check if the ScriptSite is opened
+    // as a measure of whether the projection context is valid.
+    isClosed = TRUE;
+
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     if (Js::Configuration::Global.flags.DoHeapEnumOnEngineShutdown)
     {
@@ -541,10 +548,6 @@ void ScriptSite::Close()
     }
     InitializeListHead(&javascriptDispatchListHead);
     listEntry = nullptr;
-
-    // We must mark ourselves closed before releasing any cross thread objects. Otherwise we may get
-    // calls on our type operations which were potentially already freed.
-    isClosed = TRUE;
 
     // m_punkCaller can be across an apartment boundary and then later stashed into the currentDispatchExCaller so both pointers
     // must be freed once the ScriptSite is closed and after JavascriptDispatch is cleared
