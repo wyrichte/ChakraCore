@@ -114,7 +114,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_jsrt</tags>
+      <tags>exclude_jsrt,exclude_serialized</tags>
       <compile-flags>-ParserStateCache -nativetest:NativeUnitTests.dll ProfileCacheTests ParserStateCache</compile-flags>
       <files>profilecachetest1.js</files>
       <baseline>ProfileCacheTests.ParserStateCache.baseline</baseline>
