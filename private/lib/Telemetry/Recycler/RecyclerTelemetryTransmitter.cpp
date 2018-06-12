@@ -100,8 +100,15 @@ namespace Js
             int64*     startProcessingTimeMicros       = HeapNewNoThrowArrayZ(int64, passCount);
             int64*     endProcessingTimeMicros         = HeapNewNoThrowArrayZ(int64, passCount);
             int64*     bucketStatsProcessingTimeMicros = HeapNewNoThrowArrayZ(int64, passCount);
+            uint32*    startPassCollectionState        = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    endPassCollectionState          = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionStartReason           = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionFinishReason          = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionStartFlags            = HeapNewNoThrowArrayZ(uint32, passCount);
             int64*     uiThreadBlockedTimes            = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
             int64*     sizesArray                      = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
+
+
 
             //
             // This method is invoked via recycler. If we fail to allocate memory,
@@ -117,6 +124,11 @@ namespace Js
                 startProcessingTimeMicros       &&
                 endProcessingTimeMicros         &&
                 bucketStatsProcessingTimeMicros &&
+                startPassCollectionState        &&
+                endPassCollectionState          &&
+                collectionStartReason           &&
+                collectionFinishReason          &&
+                collectionStartFlags            &&
                 uiThreadBlockedTimes            &&
                 sizesArray)
             {
@@ -139,6 +151,12 @@ namespace Js
                     startProcessingTimeMicros[currCount] = curr.startPassProcessingElapsedTime.ToMicroseconds();
                     endProcessingTimeMicros[currCount] = curr.endPassProcessingElapsedTime.ToMicroseconds();
                     bucketStatsProcessingTimeMicros[currCount] = curr.computeBucketStatsElapsedTime.ToMicroseconds();
+
+                    startPassCollectionState[currCount] = curr.startPassCollectionState;
+                    endPassCollectionState[currCount] = curr.endPassCollectionState;
+                    collectionStartReason[currCount] = curr.collectionStartReason;
+                    collectionFinishReason[currCount] = curr.collectionFinishReason;
+                    collectionStartFlags[currCount] = curr.collectionStartFlags;
 
                     // pack the array of times where UI thread was blocked into a single array.  Will need 
                     // to unapck as part of backend processing
@@ -187,7 +205,6 @@ namespace Js
                 withBarrier_maxDelta = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds();
 #endif
 
-
                 TraceLogChakra("GCTelemetry_0",
                     TraceLoggingGuid(info.GetRecyclerID(), "recyclerID"),
                     TraceLoggingInt64(recyclerLifeSpanMicros, "recyclerLifeSpanMicros"),
@@ -215,6 +232,11 @@ namespace Js
                     TraceLoggingInt64Array(heapInfoUsedBytesArray, passCount, "HeapInfoUsedBytes"),
                     TraceLoggingInt64Array(heapInfoTotalBytes, passCount, "HeapInfoTotalBytes"),
 
+                    TraceLoggingUInt32Array(startPassCollectionState, passCount, "startPassCollectionState"),
+                    TraceLoggingUInt32Array(endPassCollectionState, passCount, "endPassCollectionState"),
+                    TraceLoggingUInt32Array(collectionStartReason, passCount, "collectionStartReason"),
+                    TraceLoggingUInt32Array(collectionFinishReason, passCount, "collectionFinishReason"),
+                    TraceLoggingUInt32Array(collectionStartFlags, passCount, "collectionStartFlags"),
 
                     TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numDecommitCalls, "ThreadPageAllocator_numDecommitCalls"),
                     TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numPagesDecommitted, "ThreadPageAllocator_numPagesDecommitted"),
@@ -251,8 +273,13 @@ namespace Js
             if (heapInfoUsedBytesArray)          { HeapDeleteArray(passCount, heapInfoUsedBytesArray); }
             if (heapInfoTotalBytes)              { HeapDeleteArray(passCount, heapInfoTotalBytes); }
             if (startProcessingTimeMicros)       { HeapDeleteArray(passCount, startProcessingTimeMicros); }
-            if (endProcessingTimeMicros )        { HeapDeleteArray(passCount, endProcessingTimeMicros); }
+            if (endProcessingTimeMicros)         { HeapDeleteArray(passCount, endProcessingTimeMicros); }
             if (bucketStatsProcessingTimeMicros) { HeapDeleteArray(passCount, bucketStatsProcessingTimeMicros); }
+            if (startPassCollectionState)        { HeapDeleteArray(passCount, startPassCollectionState); }
+            if (endPassCollectionState)          { HeapDeleteArray(passCount, endPassCollectionState);}
+            if (collectionStartReason)           { HeapDeleteArray(passCount, collectionStartReason);}
+            if (collectionFinishReason)          { HeapDeleteArray(passCount, collectionFinishReason);}
+            if (collectionStartFlags)            { HeapDeleteArray(passCount, collectionStartFlags);}
 
             if (uiThreadBlockedTimes)            { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
             if (sizesArray)                      { HeapDeleteArray(sizesArrayLength,         sizesArray); }
