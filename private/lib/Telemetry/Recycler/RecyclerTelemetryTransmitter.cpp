@@ -107,6 +107,8 @@ namespace Js
             uint32*    collectionStartFlags            = HeapNewNoThrowArrayZ(uint32, passCount);
             int64*     uiThreadBlockedTimes            = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
             int64*     sizesArray                      = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
+            uint*      pinnedObjectCountArray          = HeapNewNoThrowArrayZ(uint, passCount);
+            uint*      closedContextCountArray         = HeapNewNoThrowArrayZ(uint, passCount);
 
 
 
@@ -130,7 +132,9 @@ namespace Js
                 collectionFinishReason          &&
                 collectionStartFlags            &&
                 uiThreadBlockedTimes            &&
-                sizesArray)
+                sizesArray                      &&
+                pinnedObjectCountArray          &&
+                closedContextCountArray)
             {
                 // Walk the list of stats for each GC pass, and we pack all the values
                 // from similiar fields into a single array for transmission.
@@ -145,6 +149,9 @@ namespace Js
                     lastScriptExecutionTimes[currCount] = curr.lastScriptExecutionEndTime;
                     isInScriptArray[currCount] = curr.isInScript;
                     isScriptActiveArray[currCount] = curr.isScriptActive;
+                    pinnedObjectCountArray[currCount] = curr.pinnedObjectCount;
+                    closedContextCountArray[currCount] = curr.closedContextCount;
+
                     heapInfoUsedBytesArray[currCount] = curr.bucketStats.objectByteCount;
                     heapInfoTotalBytes[currCount] = curr.bucketStats.totalByteCount;
 
@@ -256,7 +263,10 @@ namespace Js
                     TraceLoggingInt64(withBarrier_numDecommitCalls, "WithBarrierPageAllocator_numDecommitCalls"),
                     TraceLoggingInt64(withBarrier_numPagesDecommitted, "WithBarrierPageAllocator_numPagesDecommitted"),
                     TraceLoggingInt64(withBarrier_numFreePageCount, "WithBarrierPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(withBarrier_maxDelta, "WithBarrierPageAllocator_maxDeltaMicros")
+                    TraceLoggingInt64(withBarrier_maxDelta, "WithBarrierPageAllocator_maxDeltaMicros"),
+
+                    TraceLoggingUInt32Array(pinnedObjectCountArray, passCount, "PinnedObjectCount"),
+                    TraceLoggingUInt32Array(closedContextCountArray, passCount, "ClosedContextCount")
                 );
 
                 sent = true;
@@ -280,6 +290,9 @@ namespace Js
             if (collectionStartReason)           { HeapDeleteArray(passCount, collectionStartReason);}
             if (collectionFinishReason)          { HeapDeleteArray(passCount, collectionFinishReason);}
             if (collectionStartFlags)            { HeapDeleteArray(passCount, collectionStartFlags);}
+
+            if (pinnedObjectCountArray)          { HeapDeleteArray(passCount, pinnedObjectCountArray); }
+            if (closedContextCountArray)         { HeapDeleteArray(passCount, closedContextCountArray); }
 
             if (uiThreadBlockedTimes)            { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
             if (sizesArray)                      { HeapDeleteArray(sizesArrayLength,         sizesArray); }
