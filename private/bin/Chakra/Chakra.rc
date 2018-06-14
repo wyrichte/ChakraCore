@@ -8,5 +8,3 @@
 #include "jserr.rc2"
 
 #include "Microsoft-Scripting-chakra-InstrumentationEvents.rc"
-
-
