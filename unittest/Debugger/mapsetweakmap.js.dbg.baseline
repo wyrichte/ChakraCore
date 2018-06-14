@@ -14,8 +14,6 @@
           },
           "Symbol.iterator": {
             "__proto__": "<large string>",
-            "arguments": "null",
-            "caller": "null",
             "length": "0",
             "name": "values"
           }
@@ -120,6 +118,7 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "o": "{...}",
         "test1": {
           "__proto__": {
             "[Methods]": "{...}",
@@ -159,8 +158,7 @@
             "[Methods]": "{...}",
             "__proto__": "{...}"
           }
-        },
-        "o": "{...}"
+        }
       }
     }
   },
@@ -200,8 +198,6 @@
               "length": "0",
               "name": ""
             },
-            "arguments": "null",
-            "caller": "null",
             "length": "0",
             "name": "values"
           }
@@ -210,80 +206,58 @@
           "[Methods]": {
             "__defineGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__defineSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__lookupGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "__lookupSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "Object",
               "prototype": "{...}"
             },
             "hasOwnProperty": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "isPrototypeOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "isPrototypeOf"
             },
             "propertyIsEnumerable": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "toLocaleString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "<large string>"
             },
             "toString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "toString"
             },
             "valueOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "valueOf"
             }
@@ -297,80 +271,58 @@
           "[Methods]": {
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Map",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "keys"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -427,73 +379,53 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Set",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -540,37 +472,27 @@
           "[Methods]": {
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakMap",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             }
@@ -608,30 +530,22 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakSet",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             }
@@ -672,6 +586,7 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "o": "{...}",
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -771,8 +686,7 @@
               "__proto__": "null"
             }
           }
-        },
-        "o": "{...}"
+        }
       }
     }
   },
@@ -812,8 +726,6 @@
               "length": "0",
               "name": ""
             },
-            "arguments": "null",
-            "caller": "null",
             "length": "0",
             "name": "values"
           }
@@ -822,80 +734,58 @@
           "[Methods]": {
             "__defineGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__defineSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__lookupGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "__lookupSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "Object",
               "prototype": "{...}"
             },
             "hasOwnProperty": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "isPrototypeOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "isPrototypeOf"
             },
             "propertyIsEnumerable": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "toLocaleString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "<large string>"
             },
             "toString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "toString"
             },
             "valueOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "valueOf"
             }
@@ -909,80 +799,58 @@
           "[Methods]": {
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Map",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "keys"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -1029,73 +897,53 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Set",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -1129,37 +977,27 @@
           "[Methods]": {
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakMap",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             }
@@ -1189,30 +1027,22 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakSet",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             }
@@ -1239,6 +1069,7 @@
       },
       "p": "undefined",
       "[Globals]": {
+        "o": "{...}",
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -1338,8 +1169,7 @@
               "__proto__": "null"
             }
           }
-        },
-        "o": "{...}"
+        }
       }
     }
   },
@@ -1379,8 +1209,6 @@
               "length": "0",
               "name": ""
             },
-            "arguments": "null",
-            "caller": "null",
             "length": "0",
             "name": "values"
           }
@@ -1389,80 +1217,58 @@
           "[Methods]": {
             "__defineGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__defineSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__lookupGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "__lookupSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "Object",
               "prototype": "{...}"
             },
             "hasOwnProperty": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "isPrototypeOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "isPrototypeOf"
             },
             "propertyIsEnumerable": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "toLocaleString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "<large string>"
             },
             "toString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "toString"
             },
             "valueOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "valueOf"
             }
@@ -1476,80 +1282,58 @@
           "[Methods]": {
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Map",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "keys"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -1600,73 +1384,53 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "clear": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "clear"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "Set",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "entries": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "entries"
             },
             "forEach": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "forEach"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "keys": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "Symbol.iterator": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             },
             "values": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "values"
             }
@@ -1701,37 +1465,27 @@
           "[Methods]": {
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakMap",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "get": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "get"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             },
             "set": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "set"
             }
@@ -1771,30 +1525,22 @@
           "[Methods]": {
             "add": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "add"
             },
             "constructor": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "WeakSet",
               "prototype": "{...}"
             },
             "delete": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "delete"
             },
             "has": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "has"
             }
@@ -1834,80 +1580,58 @@
           "[Methods]": {
             "__defineGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__defineSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "2",
               "name": "<large string>"
             },
             "__lookupGetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "__lookupSetter__": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "constructor": {
               "[Methods]": "{...}",
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "Object",
               "prototype": "{...}"
             },
             "hasOwnProperty": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "isPrototypeOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "isPrototypeOf"
             },
             "propertyIsEnumerable": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "1",
               "name": "<large string>"
             },
             "toLocaleString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "<large string>"
             },
             "toString": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "toString"
             },
             "valueOf": {
               "__proto__": "<large string>",
-              "arguments": "null",
-              "caller": "null",
               "length": "0",
               "name": "valueOf"
             }
@@ -1919,6 +1643,7 @@
         "z": "object"
       },
       "[Globals]": {
+        "o": "{...}",
         "test1": {
           "__proto__": {
             "[Methods]": {
@@ -2018,8 +1743,7 @@
               "__proto__": "null"
             }
           }
-        },
-        "o": "{...}"
+        }
       }
     }
   },
