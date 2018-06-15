@@ -46,7 +46,6 @@ get trap getPrototypeOf1 on function receiver function
 PASSED
 *** Running test #12 (11): getPrototypeOf2
 getPrototypeOf trap
-getPrototypeOf trap
 PASSED
 *** Running test #13 (12): getPrototypeOf return null
 getPrototypeOf trap
@@ -106,7 +105,6 @@ PASSED
 get trap getPrototypeOf1 on function receiver function
 PASSED
 *** Running test #27 (11): getPrototypeOf2
-getPrototypeOf trap
 getPrototypeOf trap
 PASSED
 *** Running test #28 (12): getPrototypeOf return null
