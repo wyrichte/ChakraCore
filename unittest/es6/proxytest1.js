@@ -187,9 +187,8 @@ var tests = [
             // before setting the proxy, the spec requires a verification to avoid recursion.
             derivedObj.__proto__ = observerProxy;
             assert.areEqual(true, derivedObj instanceof Function, "get from prototype");
-            assert.areEqual(2, savedLogResult.length, "getPrototypeOf override with one trap");
+            assert.areEqual(1, savedLogResult.length, "getPrototypeOf override with one trap");
             assert.areEqual('getPrototypeOf trap', savedLogResult[0], "getPrototypeOf trap");
-            assert.areEqual('getPrototypeOf trap', savedLogResult[1], "getPrototypeOf trap");
         }
     },
     {

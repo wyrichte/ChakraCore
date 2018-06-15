@@ -61,7 +61,6 @@ PASSED
 set trap mySetter3
 PASSED
 *** Running test #16 (15): set on number
-getPrototypeOf trap
 set trap foo
 set trap a
 set trap b

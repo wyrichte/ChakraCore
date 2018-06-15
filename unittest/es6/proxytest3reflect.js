@@ -214,7 +214,7 @@ var tests = [
             Object.setPrototypeOf(Number.prototype, observerProxy);
             var a = 2;
             a.foo = 24;
-            assert.areEqual(savedLogResult.length, 2, "one set, one getPrototypeOf");
+            assert.areEqual(savedLogResult.length, 1, "one set, one getPrototypeOf");
             // when we use reflect, receiver is number and we won't
             // be able to set the property on target in prototype
             // the implementation of observeHandler set on target always.
