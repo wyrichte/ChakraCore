@@ -25,7 +25,7 @@ public:
         Nullable<bool> m_usingTemplatedLinkedList;
     };
     static Info * GetInfo();
-    static RemoteThreadContext GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress = 0);
+    static RemoteThreadContext GetCurrentThreadContext();
     static bool TryGetCurrentThreadContext(RemoteThreadContext& remoteThreadContext);
     template <typename Fn>
     static bool ForEach(Fn fn)
