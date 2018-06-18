@@ -2000,21 +2000,21 @@
               valueType="REG_SZ"
         />
       </registryKey>
-      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\CB675598-0714-40B3-B562-2487E1AAD2AA}">
+      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{CB675598-0714-40B3-B562-2487E1AAD2AA}">
           <registryValue
               name="ActivatableClassId"
               value="Animals.RCPropertyValue3"
               valueType="REG_SZ"
         />
       </registryKey>
-      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\5D7DB276-BE1D-4588-91C3-7CD16951E1AC}">
+      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{5D7DB276-BE1D-4588-91C3-7CD16951E1AC}">
           <registryValue
               name="ActivatableClassId"
               value="Animals.RCPropertyValue4"
               valueType="REG_SZ"
         />
       </registryKey>
-      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\27F70F14-F48D-4B22-893B-51B5E9C34FA4}">
+      <registryKey keyName="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\CLSID\{27F70F14-F48D-4B22-893B-51B5E9C34FA4}">
           <registryValue
               name="ActivatableClassId"
               value="Animals.RCPropertyValue5"
