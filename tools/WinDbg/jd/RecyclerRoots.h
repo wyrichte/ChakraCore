@@ -7,6 +7,7 @@ struct PinnedObjectEntry
 {
     ULONG64 address;
     int pinnedCount;
+    ULONG64 stackBackTrace;
 };
 
 template <typename TPointerType>
@@ -22,6 +23,8 @@ public:
         _transientPinnedObject = transientPinnedObject.GetPtr();
         _pinnedObjectEntries = pinnedObjectMap.Field("table").GetPtr();
         _pinnedObjectTableSize = pinnedObjectMap.Field("size").GetUlong();
+
+        _transientPinnedObjectStackBackTrace = pinRecordWithStacks ? recycler.GetExtRemoteTyped().Field("transientPinnedObjectStackBackTrace").GetPtr() : 0;
     }
 
     template <class Fn>
@@ -32,6 +35,7 @@ private:
     bool _pinRecordsWithStacks;
     int _currentIndex;
     ULONG64 _transientPinnedObject;
+    ULONG64 _transientPinnedObjectStackBackTrace;
     ULONG64 _pinnedObjectEntries;
     ULONG _pinnedObjectTableSize;
 };

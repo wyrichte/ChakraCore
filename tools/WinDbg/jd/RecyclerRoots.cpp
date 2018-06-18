@@ -50,6 +50,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
     {
         currentEntry.address = (TPointerType)_transientPinnedObject;
         currentEntry.pinnedCount = 1;
+        currentEntry.stackBackTrace = (TPointerType)_transientPinnedObjectStackBackTrace;
         fn(-1, 0, NULL, currentEntry);
     }
 
@@ -77,6 +78,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 {
                     currentEntry.address = entry.key;
                     currentEntry.pinnedCount = entry.value;
+                    currentEntry.stackBackTrace = 0;
                     fn(i, j++, current, currentEntry);
                 }
                 else
@@ -94,6 +96,7 @@ void PinnedObjectMap<TPointerType>::Map(Fn fn)
                 {
                     currentEntry.address = entry.key;
                     currentEntry.pinnedCount = entry.value.refCount;
+                    currentEntry.stackBackTrace = entry.value.backTraceNode;
                     fn(i, j++, current, currentEntry);
                 }
                 else
@@ -506,6 +509,18 @@ void DumpPinnedObject(int i, int j, ULONG64 entryPointer, const PinnedObjectEntr
     }
     GetExtension()->Out("0x%p, ", entry.address);
     GetExtension()->Out("Ref:%d", entry.pinnedCount);
+
+    if (entry.stackBackTrace != 0)
+    {
+        if (GetExtension()->PreferDML())
+        {
+            GetExtension()->Dml(" <link cmd=\"?? (StackBackTraceNode *)0x%p\">(stack)</link>", entry.stackBackTrace);
+        }
+        else
+        {
+            GetExtension()->Out(" StackBackTraceNode: 0x%p", entry.stackBackTrace);
+        }
+    }
     // There appears to be a bug in GetExtension()->Out where it doesn't deal with %d properly when
     // mixed with other types
 
@@ -1308,6 +1323,7 @@ JD_PRIVATE_COMMAND(traceroots,
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
     "{a;b,o;all;Shortest path to all roots}"
+    "{r;b,o;root;Show all roots that can reach the object}"
     "{pred;b,o;showPredecessors;Show up to limit predecessors in the output}"
     "{vt;b,o;vtable;Vtable Only}")
 {
@@ -1318,6 +1334,8 @@ JD_PRIVATE_COMMAND(traceroots,
     const ULONG64 limitArg = GetArgU64("limit");
     const bool transientRoots = HasArg("t");
     const bool allShortestPath = HasArg("a");
+    const bool allRoots = HasArg("r") || allShortestPath;
+    const bool showPath = allShortestPath || !allRoots;
     const bool showPredecessors = HasArg("pred");
     const bool infer = !HasArg("vt");
 
@@ -1432,7 +1450,7 @@ JD_PRIVATE_COMMAND(traceroots,
             {
                 currentRootHitCount++;
                 rootQueue.push(current);
-                if (!allShortestPath)
+                if (!allRoots)
                 {
                     // we found the root corresponding to the shortest path (by the properties of BFS), so stop traversing
                     break;
@@ -1562,7 +1580,7 @@ JD_PRIVATE_COMMAND(traceroots,
     {
         this->Out("                            | NOTE: No non-transient root found. Showing transient roots\n");
 
-        if (allShortestPath)
+        if (allRoots)
         {
             rootQueue = transientRootQueue;
         }
@@ -1572,6 +1590,7 @@ JD_PRIVATE_COMMAND(traceroots,
         }
     }
 
+    uint rootCount = 0;
     while (!rootQueue.empty())
     {
         auto root = rootQueue.front();
@@ -1583,10 +1602,23 @@ JD_PRIVATE_COMMAND(traceroots,
         while (pTraversalData != nullptr)
         {
             DumpPointerProperties(objectGraph, pointerArg, pTraversalData->address, pTraversalData->level);
+            if (!showPath)
+            {
+                rootCount++;
+                break;
+            }
             pTraversalData = pTraversalData->child;
         }
 
-        DumpPointerPropertiesSeparatorLine();
+        if (showPath)
+        {
+            DumpPointerPropertiesSeparatorLine();
+        }
+    }
+
+    if (rootCount != 0)
+    {
+        this->Out("Roots found: %u\n", rootCount);
     }
 
     // Only display the descendants section if node actually has descendants.

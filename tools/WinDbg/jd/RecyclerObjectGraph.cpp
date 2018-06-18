@@ -1622,11 +1622,15 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
                 if (AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap"))
                 {
-                    propertyStringMap.ForEachValue([&](JDRemoteTyped value)
+                    bool isWeakReferenceRegionDictionary = strstr(propertyStringMap.GetJDRemoteTyped().GetTypeName(), "WeakReferenceRegionDictionary") != nullptr;
+                    if (!isWeakReferenceRegionDictionary) 
                     {
-                        addField(value, "RecyclerWeakReference<Js::PropertyString>");
-                        return false;
-                    });
+                        propertyStringMap.ForEachValue([&](JDRemoteTyped value)
+                        {
+                            addField(value, "RecyclerWeakReference<Js::PropertyString>");
+                            return false;
+                        });
+                    }
                 }
 
                 // Added during RS1

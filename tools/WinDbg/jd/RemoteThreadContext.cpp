@@ -210,8 +210,26 @@ RemoteThreadContext::GetCurrentThreadContext()
     {
         return foundThreadContext;
     }
+    
+    bool found = false;
+    ForEach([&](RemoteThreadContext& remoteThreadContext) 
+    {
+        if (found)
+        {
+            // there are more then one, switch back to not found stop the loop
+            found = false;  
+            return true;  // stop the loop
+        }
+        found = true;
+        foundThreadContext = remoteThreadContext;
+        return false;
+    });
 
-
+    if (found) 
+    {
+        GetExtension()->Out("Thread context not found on current thread, default to the single thread context %p\n", foundThreadContext.GetPtr());
+        return foundThreadContext;
+    }
     GetExtension()->ThrowLastError("Failed to find thread context for current thread. Try using !stst first");
 }
 
