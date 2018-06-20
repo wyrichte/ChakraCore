@@ -196,6 +196,9 @@ namespace Js
                 int64 withBarrier_numPagesDecommitted = 0;
                 int64 withBarrier_numFreePageCount    = 0;
                 int64 withBarrier_maxDelta            = 0;
+                int64 withBarrier_lastEnterLeaveIdleDecommitCSWaitTime = 0;
+                int64 withBarrier_maxEnterLeaveIdleDecommitCSWaitTime = 0;
+                int64 withBarrier_totalEnterLeaveIdleDecommitCSWaitTime = 0;
 
 #ifdef RECYCLER_WRITE_BARRIER_ALLOC_SEPARATE_PAGE
                 // TraceLog* APIs are macros, and we can't have a #define inside the call to a macro
@@ -203,6 +206,9 @@ namespace Js
                 withBarrier_numPagesDecommitted = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->numPagesDecommitted;
                 withBarrier_numFreePageCount = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->numFreePageCount;
                 withBarrier_maxDelta = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds();
+                withBarrier_lastEnterLeaveIdleDecommitCSWaitTime = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->lastEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
+                withBarrier_maxEnterLeaveIdleDecommitCSWaitTime = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->maxEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
+                withBarrier_totalEnterLeaveIdleDecommitCSWaitTime = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->totalEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
 #endif
 
                 TraceLogChakra("GCTelemetry_0",
@@ -242,22 +248,34 @@ namespace Js
                     TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numPagesDecommitted, "ThreadPageAllocator_numPagesDecommitted"),
                     TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numFreePageCount, "ThreadPageAllocator_numFreePageCount"),
                     TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "ThreadPageAllocator_maxDeltaMicros"),
+                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->lastEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "ThreadPageAllocator_lastEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->maxEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "ThreadPageAllocator_maxEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->totalEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "ThreadPageAllocator_totalEnterLeaveIdleDecommitCSWaitTimeMicros"),
 
                     TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numDecommitCalls,    "LeafPageAllocator_numDecommitCalls"),
                     TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numPagesDecommitted, "LeafPageAllocator_numPagesDecommitted"),
                     TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numFreePageCount, "LeafPageAllocator_numFreePageCount"),
                     TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "LeafPageAllocator_maxDeltaMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->lastEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LeafPageAllocator_lastEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->maxEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LeafPageAllocator_maxEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->totalEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LeafPageAllocator_totalEnterLeaveIdleDecommitCSWaitTimeMicros"),
 
                     TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numDecommitCalls, "LargeBlockPageAllocator_numDecommitCalls"),
                     TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numPagesDecommitted, "LargeBlockPageAllocator_numPagesDecommitted"),
                     TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numFreePageCount, "LargeBlockPageAllocator_numFreePageCount"),
                     TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "LargeBlockPageAllocator_maxDeltaMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->lastEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LargeBlockPageAllocator_lastEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->maxEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LargeBlockPageAllocator_maxEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->totalEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds(), "LargeBlockPageAllocator_totalEnterLeaveIdleDecommitCSWaitTimeMicros"),
 
                     TraceLoggingInt64(withBarrier_numDecommitCalls, "WithBarrierPageAllocator_numDecommitCalls"),
                     TraceLoggingInt64(withBarrier_numPagesDecommitted, "WithBarrierPageAllocator_numPagesDecommitted"),
                     TraceLoggingInt64(withBarrier_numFreePageCount, "WithBarrierPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(withBarrier_maxDelta, "WithBarrierPageAllocator_maxDeltaMicros")
-                );
+                    TraceLoggingInt64(withBarrier_maxDelta, "WithBarrierPageAllocator_maxDeltaMicros"),
+                    TraceLoggingInt64(withBarrier_lastEnterLeaveIdleDecommitCSWaitTime, "WithBarrierPageAllocator_lastEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(withBarrier_maxEnterLeaveIdleDecommitCSWaitTime, "WithBarrierPageAllocator_maxEnterLeaveIdleDecommitCSWaitTimeMicros"),
+                    TraceLoggingInt64(withBarrier_totalEnterLeaveIdleDecommitCSWaitTime, "WithBarrierPageAllocator_totalEnterLeaveIdleDecommitCSWaitTimeMicros")
+                    );
 
                 sent = true;
             }
