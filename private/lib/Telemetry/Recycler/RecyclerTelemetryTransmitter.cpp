@@ -8,6 +8,7 @@
 namespace Js
 {
     const uint8 WAIT_FOR_CONCURRENT_SOURCE_COUNT = RecyclerWaitReason::Other + 1;
+    const uint8 PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT = 7;
 #ifdef RECYCLER_WRITE_BARRIER_ALLOC_SEPARATE_PAGE
     const uint8 NUM_RECYCLER_ALLOCATORS = 4;
 #else
@@ -90,47 +91,55 @@ namespace Js
             const uint16 uiThreadBlockedTimesSize = passCount * (WAIT_FOR_CONCURRENT_SOURCE_COUNT);
             const uint16 sizesArrayLength = passCount * RecyclerSizeEntries::Count;
 
-            int64*     passElapsedTimesMicros          = HeapNewNoThrowArrayZ(int64, passCount);
-            LPFILETIME lastScriptExecutionTimes        = HeapNewNoThrowArrayZ(FILETIME, passCount);
-            LPFILETIME passStartTimes                  = HeapNewNoThrowArrayZ(FILETIME, passCount);
-            bool*      isInScriptArray                 = HeapNewNoThrowArrayZ(bool, passCount);
-            bool*      isScriptActiveArray             = HeapNewNoThrowArrayZ(bool, passCount);
-            int64*     heapInfoUsedBytesArray          = HeapNewNoThrowArrayZ(int64, passCount);
-            int64*     heapInfoTotalBytes              = HeapNewNoThrowArrayZ(int64, passCount);
-            int64*     startProcessingTimeMicros       = HeapNewNoThrowArrayZ(int64, passCount);
-            int64*     endProcessingTimeMicros         = HeapNewNoThrowArrayZ(int64, passCount);
-            int64*     bucketStatsProcessingTimeMicros = HeapNewNoThrowArrayZ(int64, passCount);
-            uint32*    startPassCollectionState        = HeapNewNoThrowArrayZ(uint32, passCount);
-            uint32*    endPassCollectionState          = HeapNewNoThrowArrayZ(uint32, passCount);
-            uint32*    collectionStartReason           = HeapNewNoThrowArrayZ(uint32, passCount);
-            uint32*    collectionFinishReason          = HeapNewNoThrowArrayZ(uint32, passCount);
-            uint32*    collectionStartFlags            = HeapNewNoThrowArrayZ(uint32, passCount);
-            int64*     uiThreadBlockedTimes            = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
-            int64*     sizesArray                      = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
+            int64*     passElapsedTimesMicros                       = HeapNewNoThrowArrayZ(int64, passCount);
+            LPFILETIME lastScriptExecutionTimes                     = HeapNewNoThrowArrayZ(FILETIME, passCount);
+            LPFILETIME passStartTimes                               = HeapNewNoThrowArrayZ(FILETIME, passCount);
+            bool*      isInScriptArray                              = HeapNewNoThrowArrayZ(bool, passCount);
+            bool*      isScriptActiveArray                          = HeapNewNoThrowArrayZ(bool, passCount);
+            int64*     heapInfoUsedBytesArray                       = HeapNewNoThrowArrayZ(int64, passCount);
+            int64*     heapInfoTotalBytes                           = HeapNewNoThrowArrayZ(int64, passCount);
+            int64*     startProcessingTimeMicros                    = HeapNewNoThrowArrayZ(int64, passCount);
+            int64*     endProcessingTimeMicros                      = HeapNewNoThrowArrayZ(int64, passCount);
+            int64*     bucketStatsProcessingTimeMicros              = HeapNewNoThrowArrayZ(int64, passCount);
+            uint32*    startPassCollectionState                     = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    endPassCollectionState                       = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionStartReason                        = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionFinishReason                       = HeapNewNoThrowArrayZ(uint32, passCount);
+            uint32*    collectionStartFlags                         = HeapNewNoThrowArrayZ(uint32, passCount);
+            int64*     uiThreadBlockedTimes                         = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
+            int64*     sizesArray                                   = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
 
+            int64*     threadPageAllocatorDecommitStatsArray        = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
+            int64*     leafPageAllocatorDecommitStatsArray          = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
+            int64*     largeBlockPageAllocatorDecommitStatsArray    = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
+            int64*     withBarrierPageAllocatorDecommitStatsArray   = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
 
 
             //
             // This method is invoked via recycler. If we fail to allocate memory,
             // we'll just skip sending telemetry & try again next time.
             //
-            if (passElapsedTimesMicros          &&
-                lastScriptExecutionTimes        &&
-                passStartTimes                  &&
-                isInScriptArray                 &&
-                isScriptActiveArray             &&
-                heapInfoUsedBytesArray          &&
-                heapInfoTotalBytes              &&
-                startProcessingTimeMicros       &&
-                endProcessingTimeMicros         &&
-                bucketStatsProcessingTimeMicros &&
-                startPassCollectionState        &&
-                endPassCollectionState          &&
-                collectionStartReason           &&
-                collectionFinishReason          &&
-                collectionStartFlags            &&
-                uiThreadBlockedTimes            &&
-                sizesArray)
+            if (passElapsedTimesMicros                      &&
+                lastScriptExecutionTimes                    &&
+                passStartTimes                              &&
+                isInScriptArray                             &&
+                isScriptActiveArray                         &&
+                heapInfoUsedBytesArray                      &&
+                heapInfoTotalBytes                          &&
+                startProcessingTimeMicros                   &&
+                endProcessingTimeMicros                     &&
+                bucketStatsProcessingTimeMicros             &&
+                startPassCollectionState                    &&
+                endPassCollectionState                      &&
+                collectionStartReason                       &&
+                collectionFinishReason                      &&
+                collectionStartFlags                        &&
+                uiThreadBlockedTimes                        &&
+                sizesArray                                  &&
+                threadPageAllocatorDecommitStatsArray       &&
+                leafPageAllocatorDecommitStatsArray         &&
+                largeBlockPageAllocatorDecommitStatsArray   &&
+                withBarrierPageAllocatorDecommitStatsArray)
             {
                 // Walk the list of stats for each GC pass, and we pack all the values
                 // from similiar fields into a single array for transmission.
@@ -192,18 +201,49 @@ namespace Js
                 int64 recyclerLifeSpanMicros = (now - info.GetRecyclerStartTime()).ToMicroseconds();
                 int64 microsSinceListTransmit = info.GetLastTransmitTime().ToMicroseconds() == 0 ? -1 : (now - info.GetLastTransmitTime()).ToMicroseconds();
 
-                int64 withBarrier_numDecommitCalls    = 0;
-                int64 withBarrier_numPagesDecommitted = 0;
-                int64 withBarrier_numFreePageCount    = 0;
-                int64 withBarrier_maxDelta            = 0;
-
+                for (size_t i = 0; i < NUM_RECYCLER_ALLOCATORS; i++)
+                {
+                    int64* pageAllocatorArray = nullptr;
+                    AllocatorDecommitStats * pageAllocatorDecommitStats = nullptr;
+                    switch (i)
+                    {
+                    case 0:
+                        pageAllocatorArray = threadPageAllocatorDecommitStatsArray;
+                        pageAllocatorDecommitStats = info.GetThreadPageAllocator_decommitStats();
+                        break;
+                    case 1:
+                        pageAllocatorArray = leafPageAllocatorDecommitStatsArray;
+                        pageAllocatorDecommitStats = info.GetRecyclerLeafPageAllocator_decommitStats();
+                        break;
+                    case 2:
+                        pageAllocatorArray = largeBlockPageAllocatorDecommitStatsArray;
+                        pageAllocatorDecommitStats = info.GetRecyclerLargeBlockPageAllocator_decommitStats();
+                        break;
+                    case 3:
 #ifdef RECYCLER_WRITE_BARRIER_ALLOC_SEPARATE_PAGE
-                // TraceLog* APIs are macros, and we can't have a #define inside the call to a macro
-                withBarrier_numDecommitCalls = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->numDecommitCalls;
-                withBarrier_numPagesDecommitted = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->numPagesDecommitted;
-                withBarrier_numFreePageCount = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->numFreePageCount;
-                withBarrier_maxDelta = info.GetRecyclerWithBarrierPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds();
+                        pageAllocatorArray = withBarrierPageAllocatorDecommitStatsArray;
+                        pageAllocatorDecommitStats = info.GetRecyclerWithBarrierPageAllocator_decommitStats();
+                        break;
+#else
+                        // fall through
 #endif
+                    default:
+                        pageAllocatorArray = nullptr;
+                        pageAllocatorDecommitStats = nullptr;
+                        AssertMsg(FALSE, "Do we need to handle a new page allocator?");
+                    }
+
+                    if (pageAllocatorArray)
+                    {
+                        pageAllocatorArray[0] = pageAllocatorDecommitStats->numDecommitCalls;
+                        pageAllocatorArray[1] = pageAllocatorDecommitStats->numPagesDecommitted;
+                        pageAllocatorArray[2] = pageAllocatorDecommitStats->numFreePageCount;
+                        pageAllocatorArray[3] = pageAllocatorDecommitStats->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds();
+                        pageAllocatorArray[4] = pageAllocatorDecommitStats->lastEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
+                        pageAllocatorArray[5] = pageAllocatorDecommitStats->maxEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
+                        pageAllocatorArray[6] = pageAllocatorDecommitStats->totalEnterLeaveIdleDecommitCSWaitTime.ToMicroseconds();
+                    }
+                }
 
                 TraceLogChakra("GCTelemetry_0",
                     TraceLoggingGuid(info.GetRecyclerID(), "recyclerID"),
@@ -238,25 +278,10 @@ namespace Js
                     TraceLoggingUInt32Array(collectionFinishReason, passCount, "collectionFinishReason"),
                     TraceLoggingUInt32Array(collectionStartFlags, passCount, "collectionStartFlags"),
 
-                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numDecommitCalls, "ThreadPageAllocator_numDecommitCalls"),
-                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numPagesDecommitted, "ThreadPageAllocator_numPagesDecommitted"),
-                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->numFreePageCount, "ThreadPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(info.GetThreadPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "ThreadPageAllocator_maxDeltaMicros"),
-
-                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numDecommitCalls,    "LeafPageAllocator_numDecommitCalls"),
-                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numPagesDecommitted, "LeafPageAllocator_numPagesDecommitted"),
-                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->numFreePageCount, "LeafPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(info.GetRecyclerLeafPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "LeafPageAllocator_maxDeltaMicros"),
-
-                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numDecommitCalls, "LargeBlockPageAllocator_numDecommitCalls"),
-                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numPagesDecommitted, "LargeBlockPageAllocator_numPagesDecommitted"),
-                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->numFreePageCount, "LargeBlockPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(info.GetRecyclerLargeBlockPageAllocator_decommitStats()->maxDeltaBetweenDecommitRegionLeaveAndDecommit.ToMicroseconds(), "LargeBlockPageAllocator_maxDeltaMicros"),
-
-                    TraceLoggingInt64(withBarrier_numDecommitCalls, "WithBarrierPageAllocator_numDecommitCalls"),
-                    TraceLoggingInt64(withBarrier_numPagesDecommitted, "WithBarrierPageAllocator_numPagesDecommitted"),
-                    TraceLoggingInt64(withBarrier_numFreePageCount, "WithBarrierPageAllocator_numFreePageCount"),
-                    TraceLoggingInt64(withBarrier_maxDelta, "WithBarrierPageAllocator_maxDeltaMicros")
+                    TraceLoggingInt64Array(threadPageAllocatorDecommitStatsArray,       PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "ThreadPageAllocator_DecommitStats"),
+                    TraceLoggingInt64Array(leafPageAllocatorDecommitStatsArray,         PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "LeafPageAllocator_DecommitStats"),
+                    TraceLoggingInt64Array(largeBlockPageAllocatorDecommitStatsArray,   PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "LargeBlockPageAllocator_DecommitStats"),
+                    TraceLoggingInt64Array(withBarrierPageAllocatorDecommitStatsArray,  PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "WithBarrierPageAllocator_DecommitStats")
                 );
 
                 sent = true;
@@ -265,24 +290,29 @@ namespace Js
             //
             // free allcoations if made
             //
-            if (passElapsedTimesMicros)          { HeapDeleteArray(passCount, passElapsedTimesMicros); }
-            if (lastScriptExecutionTimes)        { HeapDeleteArray(passCount, lastScriptExecutionTimes); }
-            if (passStartTimes)                  { HeapDeleteArray(passCount, passStartTimes); }
-            if (isInScriptArray)                 { HeapDeleteArray(passCount, isInScriptArray); }
-            if (isScriptActiveArray)             { HeapDeleteArray(passCount, isScriptActiveArray); }
-            if (heapInfoUsedBytesArray)          { HeapDeleteArray(passCount, heapInfoUsedBytesArray); }
-            if (heapInfoTotalBytes)              { HeapDeleteArray(passCount, heapInfoTotalBytes); }
-            if (startProcessingTimeMicros)       { HeapDeleteArray(passCount, startProcessingTimeMicros); }
-            if (endProcessingTimeMicros)         { HeapDeleteArray(passCount, endProcessingTimeMicros); }
-            if (bucketStatsProcessingTimeMicros) { HeapDeleteArray(passCount, bucketStatsProcessingTimeMicros); }
-            if (startPassCollectionState)        { HeapDeleteArray(passCount, startPassCollectionState); }
-            if (endPassCollectionState)          { HeapDeleteArray(passCount, endPassCollectionState);}
-            if (collectionStartReason)           { HeapDeleteArray(passCount, collectionStartReason);}
-            if (collectionFinishReason)          { HeapDeleteArray(passCount, collectionFinishReason);}
-            if (collectionStartFlags)            { HeapDeleteArray(passCount, collectionStartFlags);}
+            if (passElapsedTimesMicros)                     { HeapDeleteArray(passCount, passElapsedTimesMicros); }
+            if (lastScriptExecutionTimes)                   { HeapDeleteArray(passCount, lastScriptExecutionTimes); }
+            if (passStartTimes)                             { HeapDeleteArray(passCount, passStartTimes); }
+            if (isInScriptArray)                            { HeapDeleteArray(passCount, isInScriptArray); }
+            if (isScriptActiveArray)                        { HeapDeleteArray(passCount, isScriptActiveArray); }
+            if (heapInfoUsedBytesArray)                     { HeapDeleteArray(passCount, heapInfoUsedBytesArray); }
+            if (heapInfoTotalBytes)                         { HeapDeleteArray(passCount, heapInfoTotalBytes); }
+            if (startProcessingTimeMicros)                  { HeapDeleteArray(passCount, startProcessingTimeMicros); }
+            if (endProcessingTimeMicros)                    { HeapDeleteArray(passCount, endProcessingTimeMicros); }
+            if (bucketStatsProcessingTimeMicros)            { HeapDeleteArray(passCount, bucketStatsProcessingTimeMicros); }
+            if (startPassCollectionState)                   { HeapDeleteArray(passCount, startPassCollectionState); }
+            if (endPassCollectionState)                     { HeapDeleteArray(passCount, endPassCollectionState);}
+            if (collectionStartReason)                      { HeapDeleteArray(passCount, collectionStartReason);}
+            if (collectionFinishReason)                     { HeapDeleteArray(passCount, collectionFinishReason);}
+            if (collectionStartFlags)                       { HeapDeleteArray(passCount, collectionStartFlags);}
 
-            if (uiThreadBlockedTimes)            { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
-            if (sizesArray)                      { HeapDeleteArray(sizesArrayLength,         sizesArray); }
+            if (uiThreadBlockedTimes)                       { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
+            if (sizesArray)                                 { HeapDeleteArray(sizesArrayLength,         sizesArray); }
+
+            if (threadPageAllocatorDecommitStatsArray)      { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, threadPageAllocatorDecommitStatsArray); }
+            if (leafPageAllocatorDecommitStatsArray)        { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, leafPageAllocatorDecommitStatsArray); }
+            if (withBarrierPageAllocatorDecommitStatsArray) { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, withBarrierPageAllocatorDecommitStatsArray); }
+            if (largeBlockPageAllocatorDecommitStatsArray)  { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, largeBlockPageAllocatorDecommitStatsArray); }
         }
 
         return sent;
