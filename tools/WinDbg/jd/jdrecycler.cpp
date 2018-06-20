@@ -72,10 +72,10 @@ JD_PRIVATE_COMMAND(markmap,
 {
     PCSTR filename = GetUnnamedArgStr(0);
     ULONG64 arg = GetUnnamedArgU64(1);
-    ExtRemoteTyped recycler;
+    JDRemoteTyped recycler;
     if (arg != 0)
     {
-        recycler = ExtRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
+        recycler = JDRemoteTyped(FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), arg);
     }
     else
     {
@@ -92,10 +92,10 @@ JD_PRIVATE_COMMAND(markmap,
     if (f != nullptr)
     {
         Out("Recycler is 0x%p\n", recycler.GetPtr());
-        ExtRemoteTyped map = recycler.Field("markMap");
+        JDRemoteTyped map = recycler.Field("markMap");
         uint bucketCount = map.Field("bucketCount").GetUlong();
-        ExtRemoteTyped buckets = map.Field("buckets");
-        ExtRemoteTyped entries = map.Field("entries");
+        JDRemoteTyped buckets = map.Field("buckets");
+        JDRemoteTyped entries = map.Field("entries");
 
         int numEntries = 0;
 
@@ -111,23 +111,12 @@ JD_PRIVATE_COMMAND(markmap,
                     numEntries++;
                     //if (numEntries > 10) break;
 
-                    ExtRemoteTyped data = entries.ArrayElement(currentIndex);
+                    JDRemoteTyped data = entries.ArrayElement(currentIndex);
                     ULONG64 key = 0;
                     ULONG64 value = 0;
 
-                    //Out("0x%p\n", data.m_Offset);
-                    //Out("Key: 0x%p\n", data.Field("key").m_Offset);
-
-                    if (m_PtrSize == 4)
-                    {
-                        key = data.Field("key").GetUlongPtr();
-                        value = data.Field("value").GetUlongPtr();
-                    }
-                    else
-                    {
-                        key = data.Field("key").GetUlong64();
-                        value = data.Field("value").GetUlong64();
-                    }
+                    key = data.Field("key").GetPtr();
+                    value = data.Field("value").GetPtr();
 
                     fprintf(f, "# Item %d\n", currentIndex);
                     fprintf(f, "G.add_edge(");

@@ -4,14 +4,14 @@
 #include "StdAfx.h"
 
 RemoteRecycler::RemoteRecycler(ULONG64 recycler) :
-    recycler(GetExtension()->FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recycler)
+    recycler(GetExtension()->FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recycler),
+    objectAllocationShift(0)
 {
-    InitializeObjectAllocationShift();
 }
 
-RemoteRecycler::RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler)
+RemoteRecycler::RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler),
+    objectAllocationShift(0)
 {
-    InitializeObjectAllocationShift();
 }
 
 void
@@ -35,6 +35,10 @@ uint RemoteRecycler::GetObjectGranularity()
 
 uint RemoteRecycler::GetObjectAllocationShift()
 {
+    if (objectAllocationShift == 0)
+    {
+        InitializeObjectAllocationShift();
+    }
     return objectAllocationShift;
 }
 

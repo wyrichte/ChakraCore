@@ -62,7 +62,7 @@ JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * field
     }
     else
     {
-        ExtRemoteTyped derefObject = object.IsPointerType() ? object.Dereference() : object.GetExtRemoteTyped();
+        ExtRemoteTyped derefObject = object.IsPointerType() ? object.GetExtRemoteTyped().Dereference() : object.GetExtRemoteTyped();
         FieldNamePart name(fieldName, end); // Only query field name part before dot
         ExtRemoteTyped tempField = derefObject.Field(name);
         ExtRemoteTyped pointerToField = tempField.GetPointerTo();       // Forces "field" to be populate correctly.

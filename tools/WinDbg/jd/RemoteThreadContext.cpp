@@ -203,24 +203,33 @@ RemoteThreadContext::TryGetCurrentThreadContext(RemoteThreadContext& remoteThrea
 }
 
 RemoteThreadContext 
-RemoteThreadContext::GetCurrentThreadContext(ULONG64 fallbackRecyclerAddress)
+RemoteThreadContext::GetCurrentThreadContext()
 {
     RemoteThreadContext foundThreadContext;
     if (TryGetCurrentThreadContext(foundThreadContext))
     {
         return foundThreadContext;
     }
-
-    if (fallbackRecyclerAddress != 0)
+    
+    bool found = false;
+    ForEach([&](RemoteThreadContext& remoteThreadContext) 
     {
-        GetExtension()->Out("Warning: thread context not found on current thread, using Recycler's collectionWrapper instead");
-        ExtRemoteTyped fallbackThreadContext(GetExtension()->FillModuleAndMemoryNS("((%s!%sRecycler*) @$extin)->collectionWrapper"), fallbackRecyclerAddress);
-        if (TryGetThreadContextFromAnyContextPointer(fallbackThreadContext.GetPtr(), foundThreadContext))
+        if (found)
         {
-            return foundThreadContext;
+            // there are more then one, switch back to not found stop the loop
+            found = false;  
+            return true;  // stop the loop
         }
-    }
+        found = true;
+        foundThreadContext = remoteThreadContext;
+        return false;
+    });
 
+    if (found) 
+    {
+        GetExtension()->Out("Thread context not found on current thread, default to the single thread context %p\n", foundThreadContext.GetPtr());
+        return foundThreadContext;
+    }
     GetExtension()->ThrowLastError("Failed to find thread context for current thread. Try using !stst first");
 }
 
@@ -383,7 +392,7 @@ RemoteThreadContext::PrintAll(ulong * pScriptThreadId)
             g_Ext->Out(" [In script time: %.2fms]", (double)(systemTime - lastScriptStartTime) / 10 / 1000);
         }
         RemoteRecycler recycler = threadContext.GetRecycler();
-        if (recycler.CollectionInProgress() && recycler.GetExtRemoteTyped().HasField("telemetryBlock"))
+        if (recycler.GetPtr() && recycler.CollectionInProgress() && recycler.GetExtRemoteTyped().HasField("telemetryBlock"))
         {
             ExtRemoteTyped telemetryBlock = recycler.GetExtRemoteTyped().Field("telemetryBlock");
             ULONG64 lastGCTriggerTime = ((ULONG64)telemetryBlock.Field("currentCollectionStartTime.dwHighDateTime").GetUlong() << 32ull) + telemetryBlock.Field("currentCollectionStartTime.dwLowDateTime").GetUlong();

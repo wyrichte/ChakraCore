@@ -14,12 +14,13 @@ public:
     static ExtRemoteTyped GetTeb();
 
     template <bool tagged = false, typename Fn>
-    static bool LinkListForEach(ExtRemoteTyped head, PCSTR field, Fn fn)
+    static bool LinkListForEach(JDRemoteTyped head, PCSTR field, Fn fn)
     {
-        ExtRemoteTyped deferencedType = head.Dereference();
-        ULONG64 current = GetAsPointer(head);
+        ExtRemoteTyped headExtRemoteTyped = head.GetExtRemoteTyped();
+        ExtRemoteTyped deferencedType = headExtRemoteTyped.Dereference();
+        ULONG64 current = GetAsPointer(headExtRemoteTyped);
         ULONG64 headPtr = current;
-        ULONG offset = head.GetFieldOffset(field);
+        ULONG offset = headExtRemoteTyped.GetFieldOffset(field);
         while (current != 0)
         {
             JDRemoteTyped object(deferencedType.m_Typed.ModBase, deferencedType.m_Typed.TypeId, current, true);

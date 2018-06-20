@@ -28,12 +28,12 @@ public:
 
 private:
     template <typename T>
-    static T * ReadTable(ExtRemoteTyped remoteTyped)
+    static T * ReadTable(JDRemoteTyped remoteTyped)
     {
         ULONG size = remoteTyped.GetTypeSize();
         ULONG count = size / sizeof(T);
         T * table = new T[count];
-        remoteTyped.ReadBuffer(table, count * sizeof(T), true);
+        remoteTyped.GetExtRemoteTyped().ReadBuffer(table, count * sizeof(T), true);
         return table;
     }
 };

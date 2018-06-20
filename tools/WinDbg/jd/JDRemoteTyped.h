@@ -10,10 +10,12 @@ class JDRemoteTyped
 {
 public:
     JDRemoteTyped();
+    JDRemoteTyped(PCSTR Expr);
     JDRemoteTyped(PCSTR Type, ULONG64 Offset, bool PtrTo);
-    JDRemoteTyped(PCSTR Expr, ULONG64 Offset);
-    JDRemoteTyped(ULONG64 modBase, ULONG typeID, ULONG64 offset, bool ptrTo);    
+    JDRemoteTyped(PCSTR Expr, ULONG64 Offset);    
     JDRemoteTyped(ExtRemoteTyped const& remoteTyped);
+
+    JDRemoteTyped(ULONG64 modBase, ULONG typeID, ULONG64 offset, bool ptrTo);
     JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset);
 
     bool HasField(PCSTR name);
@@ -33,12 +35,12 @@ public:
 
     // Redirects
     ExtRemoteTyped& GetExtRemoteTyped();
-    ExtRemoteTyped Dereference();
-    ExtRemoteTyped GetPointerTo();
-    ExtRemoteTyped operator[](_In_ LONG Index);
-    ExtRemoteTyped operator[](_In_ ULONG Index);
-    ExtRemoteTyped operator[](_In_ LONG64 Index);
-    ExtRemoteTyped operator[](_In_ ULONG64 Index);
+    JDRemoteTyped Dereference();
+    JDRemoteTyped GetPointerTo();
+    JDRemoteTyped operator[](_In_ LONG Index);
+    JDRemoteTyped operator[](_In_ ULONG Index);
+    JDRemoteTyped operator[](_In_ LONG64 Index);
+    JDRemoteTyped operator[](_In_ ULONG64 Index);
 
     char const * GetTypeName();
     char const * GetSimpleValue();
@@ -57,7 +59,9 @@ public:
     ULONG64 GetUlong64();
     ULONG64 GetPtr();
     
+    double GetDouble();
 private:
+    friend class JDTypeCache;
     friend class FieldInfoCache;
     
     ULONG64 GetModBase();
