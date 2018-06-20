@@ -5,7 +5,7 @@ set hybridDebuggerTestPercentage=%3
 IF "%destination%" == ""  (
 	set destination=Exprgen
 )
-call \\chakrafs\fs\Tools\ExprGen\CopyExprgenBinaries.cmd %destination%
+robocopy /e \\chakrafs\fs\Tools\vso\Exprgen %destination%
 pushd %destination%\Configs
 cscript /nologo %~dp0\JsUtilities\UpdateExprgenFlag.js DebuggerTestPercentage %debuggerTestPercentage%
 cscript /nologo %~dp0\JsUtilities\UpdateExprgenFlag.js HybridDebuggerTestPercentage %hybridDebuggerTestPercentage%
