@@ -1,4 +1,4 @@
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 
 // File description suffix
 #if DBG
@@ -15,8 +15,6 @@
 #ifndef __BUILDMACHINE__
 #define __BUILDMACHINE__ CHAKRA_VERSION_BUILD_COMMIT
 
-// TODO: This was removed from common.ver. Remove this define one we updated public
-#define INCLUDE_BUILD_MACHINE_TAG
 #endif
 #endif
 
@@ -26,7 +24,7 @@
 #define __BUILDDATE__ CHAKRA_VERSION_BUILD_NUMBER.CHAKRA_VERSION_BUILD_QFE.CHAKRA_VERSION_BUILD_DATE
 #else
 #define __BUILDDATE__ CHAKRA_VERSION_BUILD_DATE
-#endif 
+#endif
 #endif // CHAKRA_VERSION_BUILD_DATE
 #endif // __BUILDDATE__
 
@@ -45,5 +43,11 @@
 #define VER_FILEDESCRIPTION_STR      VER_FILEDESCRIPTION VER_FILEDESCRIPTION_SUFFIX_STR L"\0"
 
 #include <ieverp.h>
+
+// Override VER_PRODUCTNAME_STR from <ieverp.h>
+#ifdef VER_PRODUCTNAME_STR
+#undef VER_PRODUCTNAME_STR
+#endif
+#define VER_PRODUCTNAME_STR L"Microsoft \x00ae Chakra"
 
 #include "common.ver"
