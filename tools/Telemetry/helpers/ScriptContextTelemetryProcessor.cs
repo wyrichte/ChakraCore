@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 //
 // cosmos nuget info
@@ -28,7 +29,7 @@ namespace Chakra.Utils
             public Int64[] BuiltInCountValues;
             public UInt64[] LanguageFeaturesNameCRCs;
             public Int64[] LanguageFeaturesValues;
-            public UInt64[] RejitReasonCRCs;
+            public BigInteger[] RejitReasonCRCs;
             public Int64[] RejitReasonCounts;
             public Int64[] RejitReasonCountsCap;
             public UInt64[] BailoutReasonCRCs;
@@ -143,7 +144,27 @@ namespace Chakra.Utils
             }
         }
 
-        private IEnumerable<Row> AddNameValuePair(Int64[] values, UInt64[] crcs, string type, Row outputRow)
+        private IEnumerable<Row> AddNameValuePair(Int64[] values, BigInteger[] crcs, string type, Row outputRow)
+        {
+            if (values != null)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    if (values[i] > 0)
+                    {
+                        // add a new row
+                        string propName = DeCRC.GetStringForCRC(crcs[i]);
+                        outputRow["propName"].Set(propName);
+                        outputRow["propValue"].Set(values[i]);
+                        outputRow["propType"].Set(type);
+                        yield return outputRow;
+                    }
+                }
+            }
+        }
+
+
+                private IEnumerable<Row> AddNameValuePair(Int64[] values, UInt64[] crcs, string type, Row outputRow)
         {
             if (values != null)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Chakra.Utils;
+using System.Numerics;
 
 
 namespace Chakra.Utils.Test
@@ -323,7 +324,6 @@ namespace Chakra.Utils.Test
             }
         }
 
-
         [TestMethod]
         public void TestRecyclerSizeEntryCRCs()
         {
@@ -377,5 +377,29 @@ namespace Chakra.Utils.Test
                 Assert.AreEqual(s, DeCRC.GetStringForCRC(DeCRC.CRC32(s)));
             }
         }
+
+        [TestMethod]
+        public void TestBigInt()
+        {
+            UInt64 crc1 = DeCRC.CRC32("recyclerWithBarrierPageAllocator_end_numberOfSegments");
+            BigInteger bi1;
+            BigInteger.TryParse(crc1.ToString(), out bi1);
+            string result1 = DeCRC.GetStringForCRC(crc1);
+            Assert.AreEqual(result1, DeCRC.GetStringForCRC(bi1));
+
+            string overflow = "132165802062235316466";
+            BigInteger bi2;
+            BigInteger.TryParse(overflow, out bi2);
+            String result2 = DeCRC.GetStringForCRC(bi2);
+            Assert.AreEqual(result2, "UInt64 Overflow(" + overflow + ")");
+
+            string underflow = "-132165802062235316466";
+            BigInteger bi3;
+            BigInteger.TryParse(underflow, out bi3);
+            string result3 =  DeCRC.GetStringForCRC(bi3);
+            Assert.AreEqual(result3, "UInt64 Underflow(" + underflow + ")");
+        }
+
+
     }
 }

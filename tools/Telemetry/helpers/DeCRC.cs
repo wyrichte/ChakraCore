@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace Chakra.Utils
 {
@@ -20,6 +20,29 @@ namespace Chakra.Utils
             Populate(ParseBailoutReasons());
             Populate(ParseRecyclerWaitReasons());
             Populate(ParseRecyclerSizeEntries());
+        }
+
+        public static string GetStringForCRC(BigInteger crc)
+        {
+            string val = String.Empty;
+            if (crc < 0)
+            {
+                val = "UInt64 Underflow(" + crc.ToString() + ")";
+
+            }
+            else if (crc > UInt64.MaxValue)
+            {
+                val = "UInt64 Overflow(" + crc.ToString() + ")";
+            }
+            else
+            {
+                UInt64 crcValue = 0;
+                string s = crc.ToString();
+                UInt64.TryParse(s, out crcValue);
+                val =  GetStringForCRC(crcValue);
+            }
+
+            return val;
         }
 
         public static string GetStringForCRC(UInt64 crc)
