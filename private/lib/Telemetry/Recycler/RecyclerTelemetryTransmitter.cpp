@@ -141,7 +141,7 @@ namespace Js
                 uiThreadBlockedTimes                        &&
                 sizesArray                                  &&
                 pinnedObjectCountArray                      &&
-                closedContextCountArray)                    &&
+                closedContextCountArray                     &&
                 threadPageAllocatorDecommitStatsArray       &&
                 leafPageAllocatorDecommitStatsArray         &&
                 largeBlockPageAllocatorDecommitStatsArray   &&
@@ -288,7 +288,7 @@ namespace Js
                     TraceLoggingUInt32Array(collectionStartFlags, passCount, "collectionStartFlags"),
 
                     TraceLoggingUInt32Array(pinnedObjectCountArray, passCount, "PinnedObjectCount"),
-                    TraceLoggingUInt32Array(closedContextCountArray, passCount, "ClosedContextCount")
+                    TraceLoggingUInt32Array(closedContextCountArray, passCount, "ClosedContextCount"),
 
                     TraceLoggingInt64Array(threadPageAllocatorDecommitStatsArray,       PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "ThreadPageAllocator_DecommitStats"),
                     TraceLoggingInt64Array(leafPageAllocatorDecommitStatsArray,         PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "LeafPageAllocator_DecommitStats"),
