@@ -117,8 +117,6 @@ namespace Js
             int64*     largeBlockPageAllocatorDecommitStatsArray    = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     withBarrierPageAllocatorDecommitStatsArray   = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
 
-
-
             //
             // This method is invoked via recycler. If we fail to allocate memory,
             // we'll just skip sending telemetry & try again next time.
