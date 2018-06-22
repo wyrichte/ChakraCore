@@ -13,8 +13,6 @@
 #include "Types\SimpleDictionaryUnorderedTypeHandler.h"
 
 #include "Library\BoundFunction.h"
-#include "Library\JSONString.h"
-#include "Library\SingleCharString.h"
 #include "Library\SubString.h"
 #include "Library\BufferStringBuilder.h"
 

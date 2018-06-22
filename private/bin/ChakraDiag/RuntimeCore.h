@@ -467,7 +467,6 @@ namespace Wasm
 #include "RegexPattern.h"               // Needed by JavascriptRegularExpression.h
 #include "JavascriptRegularExpression.h"
 #include "JavascriptRegExpConstructor.h"    // Used by DAC.h
-#include "JSONString.h"
 #include "CharClassifier.h"
 #include "WithScopeObject.h"
 #include "BreakpointProbe.h"                // Used by DebugDocument.h
