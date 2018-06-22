@@ -220,12 +220,48 @@ HRESULT ScriptEngine::InitializeThreadBound()
         Assert(threadContext);
         hr = this->Initialize(threadContext);
 
-        // when not hosted through JSRT, override the default limit to be 3GB
+        // when not hosted through JSRT, override the default limit to be 3GB and set a handler to unconditionally failfast
         AllocationPolicyManager *policyManager = threadContext->GetPageAllocator()->GetAllocationPolicyManager();
         if (policyManager->GetLimit() == -1)
         {
             policyManager->SetLimit(0xC0000000);
         }
+
+        // set a callback to failfast on OOM, 
+        // also try sorting out cases that are more indicative of a DOM failure:
+        // - too many pinned objects
+        // - too many closed script contexts
+        policyManager->SetMemoryAllocationCallback(
+            threadContext,
+            [](__in LPVOID context, __in AllocationPolicyManager::MemoryAllocateEvent allocationEvent,  __in size_t allocationSize)
+            {
+                ThreadContext* threadContext = (ThreadContext*)context;
+                AllocationPolicyManager* apm = threadContext->GetAllocationPolicyManager();
+
+                if (allocationEvent == AllocationPolicyManager::MemoryAllocateEvent::MemoryFailure &&
+                    apm->GetUsage() + allocationSize > apm->GetLimit() &&
+                    CONFIG_FLAG(EnableFatalErrorOnOOM) && 
+                    !threadContext->TestThreadContextFlag(ThreadContextFlagDisableFatalOnOOM))
+                {
+                    // too many pinned objects case (the number was roughly derived from telemetry data)
+                    if (threadContext->GetRecycler()->GetPinnedObjectCount() > 150000)
+                    {
+                        OutOfMemoryTooManyPinnedObjects_unrecoverable_error();
+                    }
+
+                    // too many closed contexts case (the number was roughly derived from telemetry data)
+                    if (threadContext->closedScriptContextCount > 500)
+                    {
+                        OutOfMemoryTooManyClosedContexts_unrecoverable_error();
+                    }
+
+                    OutOfMemory_unrecoverable_error();
+                }
+
+                return true;
+            }
+        );
+
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr);
     return hr;

@@ -109,11 +109,13 @@ namespace Js
             int64*     uiThreadBlockedTimes                         = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
             int64*     sizesArray                                   = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
 
+            uint*      pinnedObjectCountArray                       = HeapNewNoThrowArrayZ(uint, passCount);
+            uint*      closedContextCountArray                      = HeapNewNoThrowArrayZ(uint, passCount);
+
             int64*     threadPageAllocatorDecommitStatsArray        = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     leafPageAllocatorDecommitStatsArray          = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     largeBlockPageAllocatorDecommitStatsArray    = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     withBarrierPageAllocatorDecommitStatsArray   = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
-
 
             //
             // This method is invoked via recycler. If we fail to allocate memory,
@@ -136,6 +138,8 @@ namespace Js
                 collectionStartFlags                        &&
                 uiThreadBlockedTimes                        &&
                 sizesArray                                  &&
+                pinnedObjectCountArray                      &&
+                closedContextCountArray                     &&
                 threadPageAllocatorDecommitStatsArray       &&
                 leafPageAllocatorDecommitStatsArray         &&
                 largeBlockPageAllocatorDecommitStatsArray   &&
@@ -154,6 +158,9 @@ namespace Js
                     lastScriptExecutionTimes[currCount] = curr.lastScriptExecutionEndTime;
                     isInScriptArray[currCount] = curr.isInScript;
                     isScriptActiveArray[currCount] = curr.isScriptActive;
+                    pinnedObjectCountArray[currCount] = curr.pinnedObjectCount;
+                    closedContextCountArray[currCount] = curr.closedContextCount;
+
                     heapInfoUsedBytesArray[currCount] = curr.bucketStats.objectByteCount;
                     heapInfoTotalBytes[currCount] = curr.bucketStats.totalByteCount;
 
@@ -278,6 +285,9 @@ namespace Js
                     TraceLoggingUInt32Array(collectionFinishReason, passCount, "collectionFinishReason"),
                     TraceLoggingUInt32Array(collectionStartFlags, passCount, "collectionStartFlags"),
 
+                    TraceLoggingUInt32Array(pinnedObjectCountArray, passCount, "PinnedObjectCount"),
+                    TraceLoggingUInt32Array(closedContextCountArray, passCount, "ClosedContextCount"),
+
                     TraceLoggingInt64Array(threadPageAllocatorDecommitStatsArray,       PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "ThreadPageAllocator_DecommitStats"),
                     TraceLoggingInt64Array(leafPageAllocatorDecommitStatsArray,         PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "LeafPageAllocator_DecommitStats"),
                     TraceLoggingInt64Array(largeBlockPageAllocatorDecommitStatsArray,   PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, "LargeBlockPageAllocator_DecommitStats"),
@@ -308,6 +318,9 @@ namespace Js
 
             if (uiThreadBlockedTimes)                       { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
             if (sizesArray)                                 { HeapDeleteArray(sizesArrayLength,         sizesArray); }
+
+            if (pinnedObjectCountArray)                     { HeapDeleteArray(passCount, pinnedObjectCountArray); }
+            if (closedContextCountArray)                    { HeapDeleteArray(passCount, closedContextCountArray); }
 
             if (threadPageAllocatorDecommitStatsArray)      { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, threadPageAllocatorDecommitStatsArray); }
             if (leafPageAllocatorDecommitStatsArray)        { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, leafPageAllocatorDecommitStatsArray); }
