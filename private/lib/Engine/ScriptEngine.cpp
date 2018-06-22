@@ -255,7 +255,7 @@ HRESULT ScriptEngine::InitializeThreadBound()
                         OutOfMemoryTooManyClosedContexts_unrecoverable_error();
                     }
 
-                    OutOfMemory_unrecoverable_error();
+                    OutOfMemoryAllocationPolicy_unrecoverable_error();
                 }
 
                 return true;
