@@ -1,4 +1,4 @@
-Bytecode GUID = {836BB5AD-4D01-45E2-BC9C-5B159F4FBD10}
+Bytecode GUID = {2E95A003-1442-404F-98D5-D5C973B8A719}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -619,7 +619,7 @@ OpCodeAsmJs: Trunc_Db = 261. Layout = Double2
 OpCodeAsmJs: Trunc_Flt = 262. Layout = Float2
 OpCodeAsmJs: Nearest_Db = 263. Layout = Double2
 OpCodeAsmJs: Nearest_Flt = 264. Layout = Float2
-OpCodeAsmJs: CurrentMemory_Int = 265. Layout = AsmReg1
+OpCodeAsmJs: MemorySize_Int = 265. Layout = AsmReg1
 OpCodeAsmJs: GrowMemory = 266. Layout = Int2
 OpCodeAsmJs: Unreachable_Void = 267. Layout = Empty
 OpCodeAsmJs: Conv_Check_DTI = 268. Layout = Int1Double1
