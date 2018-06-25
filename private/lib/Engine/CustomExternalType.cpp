@@ -1664,7 +1664,7 @@ namespace Js
                 hr = this->GetTypeOperations()->GetSetter(requestContext->GetActiveScriptDirect(), this, propertyId, setterValue, (::DescriptorFlags*)&flags);
             }
             END_CUSTOM_EXTERNAL_OBJECT_CALL(scriptContext, Js::JavascriptOperators::GetTypeId(this), threadContext->GetPropertyName(propertyId), CustomExternalObject_GetSetter);
-            IGNORE_HR(hr)
+            Js::VerifyOkCatastrophic(hr);
 
             // DictionaryTypeHandler only set the setterValue in Accessor scenario, so we don't need to worry about
             // the setterValue marshalling.
