@@ -11,7 +11,12 @@ namespace Js
         AssertMsg(this->sourceMapper != nullptr, "Source mapper is nullptr, means the object has been finalized.");
         AssertMsg(!this->isSourceMapped, "Source is already mapped!");
 
-        HRESULT hr =  this->sourceMapper->MapSourceCode((BYTE**)&this->mappedSource, &this->mappedSourceByteLength);
+        HRESULT hr = E_FAIL;
+        LEAVE_SCRIPT_IF_ACTIVE(this->scriptContext,
+            {
+                hr = this->sourceMapper->MapSourceCode((BYTE**)&this->mappedSource, &this->mappedSourceByteLength);
+            });
+
         switch(hr)
         {
         case S_OK:
@@ -35,7 +40,10 @@ namespace Js
         AssertMsg(this->mappedSource != nullptr, "Mapped source is nullptr.");
         AssertMsg(this->sourceMapper != nullptr, "Source mapper is nullptr, means the object has been finalized.");
 
-        this->sourceMapper->UnmapSourceCode();
+        LEAVE_SCRIPT_IF_ACTIVE(this->scriptContext,
+            {
+                this->sourceMapper->UnmapSourceCode();
+            });
 
         this->isSourceMapped = false;
         this->mappedSource = nullptr;
@@ -49,7 +57,11 @@ namespace Js
             UnMapSource();
         }
 
-        sourceMapper->Release();
+        LEAVE_SCRIPT_IF_ACTIVE(this->scriptContext,
+            {
+                sourceMapper->Release();
+            });
+
         sourceMapper = nullptr;
     }
 }
