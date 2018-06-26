@@ -136,10 +136,9 @@ namespace Js
         switch (typeId)
         {
         case SCA_StringValue: // Clone string value as object type to resolve multiple references
-            {
-                const char16* buf;
+            {               
                 charcount_t len;
-                ReadString(&buf, &len);
+                const char16* buf = ReadString(&len);
                 *dst = Js::JavascriptString::NewWithBuffer(buf, len, scriptContext);
                 isObject = false;
             }
@@ -171,18 +170,16 @@ namespace Js
 
         case SCA_StringObject:
             {
-                const char16* buf;
                 charcount_t len;
-                ReadString(&buf, &len);
+                const char16* buf = ReadString(&len);
                 *dst = lib->CreateStringObject(buf, len);
             }
             break;
 
         case SCA_RegExpObject:
             {
-                const char16* buf;
                 charcount_t len;
-                ReadString(&buf, &len);
+                const char16* buf = ReadString(&len);
 
                 DWORD flags;
                 m_reader->Read(&flags);
@@ -328,8 +325,7 @@ namespace Js
             AutoLeaveScriptPtr<SCAPropBag> pPropBag(scriptContext);
             SCAPropBag::CreateInstance(scriptContext, &pPropBag);
 
-            SCAPropBag::PropBagSink sink(pPropBag);
-            ReadObjectProperties(&sink);
+            ReadObjectPropertiesIntoBag(pPropBag);
 
             HRESULT hr = S_OK;
             {
@@ -386,8 +382,7 @@ Error:
             }
 
             // Read non-index named properties
-            ObjectPropertySink sink(scriptContext, obj);
-            ReadObjectProperties(&sink);
+            ReadObjectPropertiesIntoObject(obj);
         }
     }
 
@@ -453,9 +448,15 @@ Error:
     // SCAString is also used for property name in object layout. In case of property terminator,
     // SCA_PROPERTY_TERMINATOR will appear at the place of [byteLen]. Return false in this case.
     //
+    // If buffer is not null and the size is appropriate, will try reusing it
+    //
     template <class Reader>
-    bool DeserializationCloner<Reader>::TryReadString(const char16** str, charcount_t* len) const
+    const char16* DeserializationCloner<Reader>::TryReadString(charcount_t* len, bool reuseBuffer) const
     {
+        // m_buffer is allocated on GC heap and stored in a regular field.
+        // that is ok since 'this' is always a stack instance.
+        Assert(ThreadContext::IsOnStack(this));
+
         uint32 byteLen;
         m_reader->Read(&byteLen);
 
@@ -465,18 +466,35 @@ Error:
         }
         else if (byteLen == 0)
         {
-            static const char16* emptyString = _u("");
-            *str = emptyString;
+            static char16* emptyString = _u("");
             *len = 0;
+            return emptyString;
         }
         else
         {
-            Recycler* recycler = GetScriptContext()->GetRecycler();
+            charcount_t newLen = byteLen / sizeof(char16);
+            char16* buf;
 
-            *len = byteLen / sizeof(char16);
-            char16* buf = RecyclerNewArrayLeaf(recycler, char16, *len + 1);
+            if (reuseBuffer)
+            {
+                if (this->m_bufferLength < newLen)
+                {
+                    Recycler* recycler = GetScriptContext()->GetRecycler();
+                    this->m_buffer = RecyclerNewArrayLeaf(recycler, char16, newLen + 1);
+                    this->m_bufferLength = newLen;
+                }
+
+                buf = this->m_buffer;
+            }
+            else
+            {
+                Recycler* recycler = GetScriptContext()->GetRecycler();
+                buf = RecyclerNewArrayLeaf(recycler, char16, newLen + 1);
+            }
+
             m_reader->Read(buf, byteLen);
-            buf[*len] = NULL;
+            buf[newLen] = NULL;
+            *len = newLen;
 
             uint32 unalignedLen = byteLen % sizeof(uint32);
             if (unalignedLen)
@@ -485,10 +503,8 @@ Error:
                 m_reader->Read(&padding, sizeof(uint32) - unalignedLen);
             }
 
-            *str = buf;
+            return buf;
         }
-
-        return true;
     }
 
     //
@@ -496,12 +512,16 @@ Error:
     // Throw if seeing SCA_PROPERTY_TERMINATOR.
     //
     template <class Reader>
-    void DeserializationCloner<Reader>::ReadString(const char16** str, charcount_t* len) const
+    const char16* DeserializationCloner<Reader>::ReadString(charcount_t* len) const
     {
-        if (!TryReadString(str, len))
+        const char16* str = TryReadString(len, false);
+
+        if (str == nullptr)
         {
             ThrowSCADataCorrupt();
         }
+
+        return str;
     }
 
     //
@@ -575,15 +595,6 @@ Error:
     }
 
     template class DeserializationCloner<StreamReader>;
-
-    void ObjectPropertySink::SetProperty(const char16* name, charcount_t len, Var value)
-    {
-        ScriptContext* scriptContext = GetScriptContext();
-
-        Js::PropertyRecord const * propertyRecord;
-        scriptContext->GetOrAddPropertyRecord(name, len, &propertyRecord);
-        m_obj->SetProperty(propertyRecord->GetPropertyId(), value, PropertyOperation_None, NULL); //Note: no prototype check
-    }
 
     Var SCADeserializationEngine::Deserialize(ISCAHost* pSCAHost, ISCAContext* pSCAContext, StreamReader* reader, TransferablesHolder* transferableObjects)
     {
