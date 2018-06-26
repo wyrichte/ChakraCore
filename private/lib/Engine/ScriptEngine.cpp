@@ -5674,7 +5674,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
                     flags = fscrAllowFunctionProxy;
                 }
 
-                hostSrcInfo->sourceContextInfo->nextLocalFunctionId = pRootFunc->GetLocalFunctionId();
+                hostSrcInfo->sourceContextInfo->nextLocalFunctionId = 0;
                 hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, flags, pszSrc, hostSrcInfo, byteCode, nullptr, &deserializedFunction, sourceIndex);
 
                 if (SUCCEEDED(hr))
