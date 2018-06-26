@@ -1685,7 +1685,7 @@ Property: compareExchange
 Property: exchange
 Property: isLockFree
 Property: wait
-Property: wake
+Property: notify
 Property: column
 Property: url
 Property: exception
