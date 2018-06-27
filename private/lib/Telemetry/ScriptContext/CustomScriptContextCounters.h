@@ -10,7 +10,7 @@
 
 #define CHAKRATEL_SCRIPT_CONTEXT_INC_CUSTOM(counter, m_scriptContext)                                                  \
     {                                                                                                                  \
-       Js::LanguageFeaturesCountTracker& tracker = m_scriptContext->GetTelemetry().GetCustomCountTracker();            \
+       Js::CustomScriptContextCounters& tracker = m_scriptContext->GetTelemetry().GetCustomCountTracker();             \
        tracker.Increment(Js::CustomScriptContextCounters::Facet:: ## counter);                                         \
     }
 
