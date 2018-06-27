@@ -63,6 +63,7 @@ namespace Js
 
         BuiltInCountTracker& GetBuiltInCountTracker() { return this->builtInCountTracker; }
         LanguageFeaturesCountTracker& GetLanguageFeaturesCountTracker() { return this->languageFeaturesCountTracker; }
+        CustomScriptContextCounters& GetCustomCountTracker() { return this->customCounters; }
 
         void OutputTraceLogging(GUID activityId, DWORD hostType, bool isJSRT);
 
