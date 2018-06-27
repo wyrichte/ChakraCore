@@ -150,6 +150,22 @@ OS#12406958
   </test>
   <test>
     <default>
+      <files>getStackTraceTest1.js</files>
+      <compile-flags>-bgparse -executewithbgparse</compile-flags>
+      <baseline>getStackTraceTest1_nodbg.baseline</baseline>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>getStackTraceTest1.js</files>
+      <compile-flags>-debuglaunch -bgparse -executewithbgparse</compile-flags>
+      <baseline>getStackTraceTest1_dbg.baseline</baseline>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <tags>StackTrace</tags>
       <files>HostThrow.js</files>
       <baseline>HostThrow.baseline</baseline>

@@ -92,14 +92,14 @@ namespace Js
         {
             ULONG lineNumber = 0;
             LONG columnNumber = 0;
-            const char16* name = nullptr;
+            Js::Var nameVar = scriptContext->GetLibrary()->GetUndefined();
             Js::Var urlVar = scriptContext->GetLibrary()->GetUndefined();
             Var documentIdVar = nullptr;
 
             if (function->IsScriptFunction() && !function->IsLibraryCode())
             {
                 Js::FunctionBody * functionBody = function->GetFunctionBody();
-                name = functionBody->GetExternalDisplayName();
+                nameVar = functionBody->GetExternalDisplayNameObject(scriptContext);
                 functionBody->GetLineCharOffset(walker.GetByteCodeOffset(), &lineNumber, &columnNumber);
 
                 BSTR sourceName;
@@ -120,8 +120,9 @@ namespace Js
             }
             else
             {
-                name = function->IsScriptFunction() ? function->GetFunctionBody()->GetExternalDisplayName()
-                                                    : walker.GetCurrentNativeLibraryEntryName();
+                nameVar = function->IsScriptFunction() ?
+                    function->GetFunctionBody()->GetExternalDisplayNameObject(scriptContext) :
+                    Js::JavascriptString::NewWithSz(walker.GetCurrentNativeLibraryEntryName(), scriptContext);
 
                 documentIdVar = Js::JavascriptNumber::ToVar(0, scriptContext);
             }
@@ -131,9 +132,7 @@ namespace Js
             // TODO : in future we could avoid this type transition by creating an object with a type which has these properties already defined, so that 
             // we could avoid the type transition.
 
-            object->SetProperty(scriptObject->GetFunctionNameId(),
-                scriptContext->GetLibrary()->CreateStringObject(name, wcslen(name)),
-                (Js::PropertyOperationFlags)PropertyDynamicTypeDefaults, nullptr/*PropertyValueInfo*/);
+            object->SetProperty(scriptObject->GetFunctionNameId(), nameVar, (Js::PropertyOperationFlags)PropertyDynamicTypeDefaults, nullptr/*PropertyValueInfo*/);
 
             object->SetProperty(scriptObject->GetUrlId(), urlVar, (Js::PropertyOperationFlags)PropertyDynamicTypeDefaults, nullptr/*PropertyValueInfo*/);
 
