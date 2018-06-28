@@ -575,6 +575,11 @@ JD_PRIVATE_COMMAND(prop,
 
 bool EXT_CLASS_BASE::GetTaggedInt31Usage()
 {
+    if (!GetExtension()->IsJScript9())
+    {
+        return false;
+    }
+
     if (!m_taggedInt31Usage.HasValue())
     {
         ULONG64 offset;
@@ -1128,7 +1133,7 @@ JD_PRIVATE_COMMAND(dumpbuffer,
 class JDStackWalker
 {
 public:    
-    JDStackWalker(ULONG64 initialRbp = 0);
+    JDStackWalker(ULONG64 initialRbp = 0, ULONG64 initialRsp = 0, ULONG64 initialRip = 0);
     ~JDStackWalker();
     bool Next();
     CHAR * GetCurrentSymbol(ULONG64 * offset);
@@ -1158,42 +1163,15 @@ private:
     static const unsigned int NumFrames = 0x1000;
 };
 
-JDStackWalker::JDStackWalker(ULONG64 initialRbp) :
+JDStackWalker::JDStackWalker(ULONG64 initialRbp, ULONG64 initialRsp, ULONG64 initialRip) :
     frames(nullptr)
 {
     frameNumber = (ULONG)-1;
     nextFrameIndex = 0;
-    ULONG64 startRsp;
-    ULONG64 startRbp;
-    ULONG64 startRip;
-
-    if (initialRbp == 0)
-    {
-        HRESULT hr = g_Ext->m_Registers->GetStackOffset(&startRsp);
-        if (FAILED(hr))
-        {
-            g_Ext->ThrowLastError("Unable to load rsp\n");
-        }
-        hr = g_Ext->m_Registers->GetFrameOffset(&startRbp);
-        if (FAILED(hr))
-        {
-            g_Ext->ThrowLastError("Unable to load rbp\n");
-        }
-        hr = g_Ext->m_Registers->GetInstructionOffset(&startRip);
-        if (FAILED(hr))
-        {
-            g_Ext->ThrowLastError("Unable to load rip\n");
-        }
-    }
-    else
-    {
-        startRbp = initialRbp;
-        startRsp = 0;
-        startRip = 0;
-    }
-    
     frames = new DEBUG_STACK_FRAME_EX[NumFrames];
-    HRESULT hr = g_Ext->m_Control5->GetStackTraceEx(startRbp, startRsp, startRip, frames, NumFrames, &filled);
+
+    // Note: if initial values are 0, GetStackTracEx will use the current context    
+    HRESULT hr = g_Ext->m_Control5->GetStackTraceEx(initialRbp, initialRsp, initialRip, frames, NumFrames, &filled);
     if (FAILED(hr) || filled == 0)
     {
         g_Ext->ThrowLastError("Unable to get stack frames");
@@ -1323,11 +1301,13 @@ static void DumpInlineeFrames(ULONG64 frameAddr, bool dumpArgs, bool verbose)
 };
 
 JD_PRIVATE_COMMAND(jstack,
-    "Print JS Stack. This is untested, and works only if all modules in the stack have FPO turned off",
-    "{v;b,o;verbose;Dump ChildEBP and RetAddr information}"
-    "{all;b,o;all;Dump full mixed mode stack- useful if stack has JITted functions}"
+    "Print JS Stack.",
+    "{v;b,o;verbose;Dump ChildESP and RetAddr information}"
+    "{all;b,o;all;Dump full mixed mode stack}"
     "{args;b,o;all;Dump arguments to script functions}"
-    "{;e,o,d=0;rbp;starting rbp}")
+    "{;e,o,d=0;bp;starting frame pointer (ebp/rbp)}"
+    "{;e,o,d=0;sp;starting stack pointer (esp/rsp)}"
+    "{;e,o,d=0;ip;starting instruction pointer (eip/rip)}")
 {
     const bool verbose = HasArg("v");
     const bool dumpFull = HasArg("all");
@@ -1357,7 +1337,7 @@ JD_PRIVATE_COMMAND(jstack,
 
     JDRemoteTyped nativeLibraryEntryRecordCurr = threadContext.GetNativeLibraryEntryRecord().Field("head");
     ULONG64 nativeLibraryAddressOfReturnAddressCurr = nativeLibraryEntryRecordCurr.GetPtr() != 0 ? nativeLibraryEntryRecordCurr.Field("addr").GetPtr() : 0;
-    JDStackWalker stackWalker(this->GetUnnamedArgU64(0));
+    JDStackWalker stackWalker(this->GetUnnamedArgU64(0), this->GetUnnamedArgU64(1), this->GetUnnamedArgU64(2));
     while (stackWalker.Next())
     {
         ULONG64 offset = 0;

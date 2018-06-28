@@ -316,13 +316,18 @@ RemoteFunctionBody::PrintNameAndNumberWithRawLink()
 void
 RemoteFunctionBody::PrintByteCodeLink()
 {
+    char const * name = "Byte Code";
+    if (this->Field("byteCodeCache").GetPtr() != 0)
+    {
+        name = "Byte Code (from Cache)";
+    }
     if (GetExtension()->PreferDML())
     {
-        GetExtension()->Dml("<link cmd=\"!jd.bc (%s *)0x%p\">Byte Code</link>", GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Dml("<link cmd=\"!jd.bc (%s *)0x%p\">%s</link>", GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), name);
     }
     else
     {
-        GetExtension()->Out("Byte Code /*\"!jd.bc (%s *)0x%p\" to display*/", GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Out("%s /*\"!jd.bc (%s *)0x%p\" to display*/", name, GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
     }
 }
 
@@ -388,12 +393,19 @@ RemoteFunctionBody::PrintSource()
         return;
     }
 
-    ExtRemoteData source(buffer + startOffset, length);
-    ExtBuffer<CHAR> sourceBuffer;
-    sourceBuffer.Require(length + 1);
-    source.ReadBuffer(sourceBuffer.GetBuffer(), length);
-    sourceBuffer.GetBuffer()[length] = 0;
-    GetExtension()->Out(sourceBuffer.GetBuffer());
+    try
+    {
+        ExtRemoteData source(buffer + startOffset, length);
+        ExtBuffer<CHAR> sourceBuffer;
+        sourceBuffer.Require(length + 1);
+        source.ReadBuffer(sourceBuffer.GetBuffer(), length);
+        sourceBuffer.GetBuffer()[length] = 0;
+        GetExtension()->Out(sourceBuffer.GetBuffer());
+    }
+    catch (ExtException& ex)
+    {
+        GetExtension()->Out("Exception reading source buffer: %s (startOffset = %llu, length= %u)", ex.GetMessageW(), startOffset, length);
+    }
 }
 
 JDRemoteTyped
