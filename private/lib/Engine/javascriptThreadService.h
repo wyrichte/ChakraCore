@@ -62,6 +62,7 @@ public:
     STDMETHOD(GetActiveScriptLifecycleEventSink)(IActiveScriptLifecycleEventSink** activeScriptLifecycleEventSink);
 
     STDMETHOD(GetRecyclerNativeHeapHandle)(RecyclerNativeHeapHandle* recyclerNativeHeapHandle);
+    STDMETHOD(SetHasNativeGCHost)();
     STDMETHOD(OnVisibilityChange)(boolean visible);
 
     // *** IActiveScriptGarbageCollector ***
