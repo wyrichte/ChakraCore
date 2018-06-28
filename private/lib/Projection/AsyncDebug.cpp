@@ -680,13 +680,10 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
 
                 if (!function->IsLibraryCode()) // For library code we are not getting the statement span
                 {
-                    if (!functionBody->GetStatementIndexAndLengthAt(walker.GetByteCodeOffset(),
+                    // If this fails we'll fall back on the already initialized values, keep walking the stack anyway.
+                    (void)functionBody->GetStatementIndexAndLengthAt(walker.GetByteCodeOffset(),
                         &frames[frameIndex].sourceLocationStartIndex,
-                        &frames[frameIndex].sourceLocationLength))
-                    {
-                        // Faild to get the statement.
-                        return false;
-                    }
+                        &frames[frameIndex].sourceLocationLength);
                 }
 
                 name = functionBody->GetExternalDisplayName();
