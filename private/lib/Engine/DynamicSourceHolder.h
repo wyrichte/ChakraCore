@@ -16,6 +16,7 @@ namespace Js
         bool isSourceMapped;
         LPCUTF8 mappedSource;
         DWORD mappedSourceByteLength;
+        ScriptContext* const scriptContext;
 
         // Wrapper methods with Asserts to ensure that we aren't trying to access unmapped source
         LPCUTF8 GetMappedSource()
@@ -39,11 +40,12 @@ namespace Js
         void UnMapSource();
 
     public:
-        DynamicSourceHolder(IActiveScriptByteCodeSource* sourceMapper) :
+        DynamicSourceHolder(IActiveScriptByteCodeSource* sourceMapper, ScriptContext* const scriptContext) :
             sourceMapper(sourceMapper),
             isSourceMapped(false),
             mappedSourceByteLength(0),
-            mappedSource(nullptr)
+            mappedSource(nullptr),
+            scriptContext(scriptContext)
         {
             AssertMsg(sourceMapper != nullptr, "Source mapper given is null.");
             sourceMapper->AddRef();

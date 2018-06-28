@@ -5388,7 +5388,7 @@ HRESULT ScriptEngine::CompileByteCodeBuffer(
     auto byteCode = unpack[0];
 
     auto sourceMapper = (IActiveScriptByteCodeSource *)unpack[1];
-    Js::ISourceHolder* sourceHolder = (Js::DynamicSourceHolder *)RecyclerNewFinalized(scriptContext->GetRecycler(), Js::DynamicSourceHolder, sourceMapper);
+    Js::ISourceHolder* sourceHolder = RecyclerNewFinalized(scriptContext->GetRecycler(), Js::DynamicSourceHolder, sourceMapper, scriptContext);
     Js::NativeModule * nativeModule = nullptr;
     hr = Js::ByteCodeSerializer::DeserializeFromBuffer(scriptContext, grfscr, sourceHolder, scriptContext->AddHostSrcInfo(srcInfo), (byte*) byteCode, nativeModule, &rootFunction);
 
