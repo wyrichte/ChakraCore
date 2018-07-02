@@ -1590,7 +1590,7 @@ interface IJavascriptThreadService : IUnknown
 
     // A handle to this thread's Javascript heap
     HRESULT GetRecyclerNativeHeapHandle([out] RecyclerNativeHeapHandle* recyclerNativeHeapHandle);
-    HRESULT SetHasNativeGCHost()
+    HRESULT SetHasNativeGCHost();
     HRESULT OnVisibilityChange([in] boolean visible);
 };
 
