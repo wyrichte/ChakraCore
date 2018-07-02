@@ -26,7 +26,7 @@ namespace Chakra.Utils
 #pragma warning disable CS0649
             public string recyclerID;
             public Int64 recyclerLifeSpanMicros;
-            public Int64 microsSinceListTransmit;
+            public Int64 microsSinceLastTransmit;
             public bool isConcurrentEnabled;
             public Int64 passCount;
             public Int64[] passElapsedTimesMicros;
@@ -109,7 +109,7 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("recyclerID", ColumnDataType.Guid));
             output_schema.Add(new ColumnInfo("transmitEventID", ColumnDataType.Guid));
             output_schema.Add(new ColumnInfo("recyclerLifeSpanMicros", ColumnDataType.Long));
-            output_schema.Add(new ColumnInfo("microsSinceListTransmit", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("microsSinceLastTransmit", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("isConcurrentEnabled", ColumnDataType.Boolean));
             output_schema.Add(new ColumnInfo("passCount", ColumnDataType.UInt));
             output_schema.Add(new ColumnInfo("passElapsedTimesMicros", typeof(Int64[])));
@@ -193,7 +193,7 @@ namespace Chakra.Utils
                 output_row["recyclerID"].Set(MiscUtils.TryParseGuid(parsed.recyclerID));
                 output_row["transmitEventID"].Set(Guid.NewGuid());
                 output_row["recyclerLifeSpanMicros"].Set(parsed.recyclerLifeSpanMicros);
-                output_row["microsSinceListTransmit"].Set(parsed.microsSinceListTransmit);
+                output_row["microsSinceLastTransmit"].Set(parsed.microsSinceLastTransmit);
                 output_row["isConcurrentEnabled"].Set(parsed.isConcurrentEnabled);
                 output_row["passCount"].Set(parsed.passCount);
                 output_row["passElapsedTimesMicros"].Set(parsed.passElapsedTimesMicros);
