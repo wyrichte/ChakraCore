@@ -45,6 +45,20 @@ namespace Chakra.Utils
             public Int64[] HeapInfoTotalBytes;
             public Int64[] PinnedObjectCount;
             public Int64[] ClosedContextCount;
+
+            public Int64[] startPassCollectionState;
+            public Int64[] endPassCollectionState;
+            public Int64[] collectionStartReason;
+            public Int64[] collectionFinishReason;
+            public Int64[] collectionStartFlags;
+
+            // new
+            public Int64[] ThreadPageAllocator_DecommitStats;
+            public Int64[] LeafPageAllocator_DecommitStats;
+            public Int64[] LargeBlockPageAllocator_DecommitStats;
+            public Int64[] WithBarrierPageAllocator_DecommitStats;
+
+            // old
             public Int64 ThreadPageAllocator_numDecommitCalls;
             public Int64 ThreadPageAllocator_numPagesDecommitted;
             public Int64 ThreadPageAllocator_numFreePageCount;
@@ -91,7 +105,7 @@ namespace Chakra.Utils
                     output_schema.Add(ci2);
                 }
             }
-            
+
             output_schema.Add(new ColumnInfo("recyclerID", ColumnDataType.Guid));
             output_schema.Add(new ColumnInfo("transmitEventID", ColumnDataType.Guid));
             output_schema.Add(new ColumnInfo("recyclerLifeSpanMicros", ColumnDataType.Long));
@@ -114,26 +128,48 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("HeapInfoTotalBytes", typeof(Int64[])));
             output_schema.Add(new ColumnInfo("PinnedObjectCount", typeof(Int64[])));
             output_schema.Add(new ColumnInfo("ClosedContextCount", typeof(Int64[])));
+
+            output_schema.Add(new ColumnInfo("startPassCollectionState", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("endPassCollectionState", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("collectionStartReason", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("collectionFinishReason", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("collectionStartFlags", typeof(Int64[])));
+
             output_schema.Add(new ColumnInfo("ThreadPageAllocator_numDecommitCalls", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("ThreadPageAllocator_numPagesDecommitted", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("ThreadPageAllocator_numFreePageCount", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("ThreadPageAllocator_maxDeltaMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("ThreadPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("ThreadPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("ThreadPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+
+
             output_schema.Add(new ColumnInfo("LeafPageAllocator_numDecommitCalls", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LeafPageAllocator_numPagesDecommitted", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LeafPageAllocator_numFreePageCount", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LeafPageAllocator_maxDeltaMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LeafPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LeafPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LeafPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+
             output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_numDecommitCalls", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_numPagesDecommitted", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_numFreePageCount", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_maxDeltaMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("LargeBlockPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+
             output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_numDecommitCalls", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_numPagesDecommitted", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_numFreePageCount", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_maxDeltaMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("WithBarrierPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime", ColumnDataType.Long));
 
             return output_schema;
         }
-
 
         /**
          *  We send telemetry from Chakra that includes an array of string hashes, and an array counter values for each of those hashes.  
@@ -176,22 +212,82 @@ namespace Chakra.Utils
                 output_row["HeapInfoTotalBytes"].Set(parsed.HeapInfoTotalBytes);
                 output_row["PinnedObjectCount"].Set(parsed.PinnedObjectCount);
                 output_row["ClosedContextCount"].Set(parsed.ClosedContextCount);
-                output_row["ThreadPageAllocator_numDecommitCalls"].Set(parsed.ThreadPageAllocator_numDecommitCalls);
-                output_row["ThreadPageAllocator_numPagesDecommitted"].Set(parsed.ThreadPageAllocator_numPagesDecommitted);
-                output_row["ThreadPageAllocator_numFreePageCount"].Set(parsed.ThreadPageAllocator_numFreePageCount);
-                output_row["ThreadPageAllocator_maxDeltaMicros"].Set(parsed.ThreadPageAllocator_maxDeltaMicros);
-                output_row["LeafPageAllocator_numDecommitCalls"].Set(parsed.LeafPageAllocator_numDecommitCalls);
-                output_row["LeafPageAllocator_numPagesDecommitted"].Set(parsed.LeafPageAllocator_numPagesDecommitted);
-                output_row["LeafPageAllocator_numFreePageCount"].Set(parsed.LeafPageAllocator_numFreePageCount);
-                output_row["LeafPageAllocator_maxDeltaMicros"].Set(parsed.LeafPageAllocator_maxDeltaMicros);
-                output_row["LargeBlockPageAllocator_numDecommitCalls"].Set(parsed.LargeBlockPageAllocator_numDecommitCalls);
-                output_row["LargeBlockPageAllocator_numPagesDecommitted"].Set(parsed.LargeBlockPageAllocator_numPagesDecommitted);
-                output_row["LargeBlockPageAllocator_numFreePageCount"].Set(parsed.LargeBlockPageAllocator_numFreePageCount);
-                output_row["LargeBlockPageAllocator_maxDeltaMicros"].Set(parsed.LargeBlockPageAllocator_maxDeltaMicros);
-                output_row["WithBarrierPageAllocator_numDecommitCalls"].Set(parsed.WithBarrierPageAllocator_numDecommitCalls);
-                output_row["WithBarrierPageAllocator_numPagesDecommitted"].Set(parsed.WithBarrierPageAllocator_numPagesDecommitted);
-                output_row["WithBarrierPageAllocator_numFreePageCount"].Set(parsed.WithBarrierPageAllocator_numFreePageCount);
-                output_row["WithBarrierPageAllocator_maxDeltaMicros"].Set(parsed.WithBarrierPageAllocator_maxDeltaMicros);
+
+                output_row["startPassCollectionState"].Set(parsed.startPassCollectionState);
+                output_row["endPassCollectionState"].Set(parsed.endPassCollectionState);
+                output_row["collectionStartReason"].Set(parsed.collectionStartReason);
+                output_row["collectionFinishReason"].Set(parsed.collectionFinishReason);
+                output_row["collectionStartFlags"].Set(parsed.collectionStartFlags);
+
+                if (parsed.ThreadPageAllocator_DecommitStats != null && parsed.ThreadPageAllocator_DecommitStats.Length > 0)
+                {
+                    output_row["ThreadPageAllocator_numDecommitCalls"].Set(parsed.ThreadPageAllocator_DecommitStats[0]);
+                    output_row["ThreadPageAllocator_numPagesDecommitted"].Set(parsed.ThreadPageAllocator_DecommitStats[1]);
+                    output_row["ThreadPageAllocator_numFreePageCount"].Set(parsed.ThreadPageAllocator_DecommitStats[2]);
+                    output_row["ThreadPageAllocator_maxDeltaMicros"].Set(parsed.ThreadPageAllocator_DecommitStats[3]);
+                    output_row["ThreadPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.ThreadPageAllocator_DecommitStats[4]);
+                    output_row["ThreadPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.ThreadPageAllocator_DecommitStats[5]);
+                    output_row["ThreadPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.ThreadPageAllocator_DecommitStats[6]);
+
+                    output_row["LeafPageAllocator_numDecommitCalls"].Set(parsed.LeafPageAllocator_DecommitStats[0]);
+                    output_row["LeafPageAllocator_numPagesDecommitted"].Set(parsed.LeafPageAllocator_DecommitStats[1]);
+                    output_row["LeafPageAllocator_numFreePageCount"].Set(parsed.LeafPageAllocator_DecommitStats[2]);
+                    output_row["LeafPageAllocator_maxDeltaMicros"].Set(parsed.LeafPageAllocator_DecommitStats[3]);
+                    output_row["LeafPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LeafPageAllocator_DecommitStats[4]);
+                    output_row["LeafPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LeafPageAllocator_DecommitStats[5]);
+                    output_row["LeafPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LeafPageAllocator_DecommitStats[6]);
+
+                    output_row["LargeBlockPageAllocator_numDecommitCalls"].Set(parsed.LargeBlockPageAllocator_DecommitStats[0]);
+                    output_row["LargeBlockPageAllocator_numPagesDecommitted"].Set(parsed.LargeBlockPageAllocator_DecommitStats[1]);
+                    output_row["LargeBlockPageAllocator_numFreePageCount"].Set(parsed.LargeBlockPageAllocator_DecommitStats[2]);
+                    output_row["LargeBlockPageAllocator_maxDeltaMicros"].Set(parsed.LargeBlockPageAllocator_DecommitStats[3]);
+                    output_row["LargeBlockPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LargeBlockPageAllocator_DecommitStats[4]);
+                    output_row["LargeBlockPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LargeBlockPageAllocator_DecommitStats[5]);
+                    output_row["LargeBlockPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.LargeBlockPageAllocator_DecommitStats[6]);
+
+                    output_row["WithBarrierPageAllocator_numDecommitCalls"].Set(parsed.WithBarrierPageAllocator_DecommitStats[0]);
+                    output_row["WithBarrierPageAllocator_numPagesDecommitted"].Set(parsed.WithBarrierPageAllocator_DecommitStats[1]);
+                    output_row["WithBarrierPageAllocator_numFreePageCount"].Set(parsed.WithBarrierPageAllocator_DecommitStats[2]);
+                    output_row["WithBarrierPageAllocator_maxDeltaMicros"].Set(parsed.WithBarrierPageAllocator_DecommitStats[3]);
+                    output_row["WithBarrierPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.WithBarrierPageAllocator_DecommitStats[4]);
+                    output_row["WithBarrierPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.WithBarrierPageAllocator_DecommitStats[5]);
+                    output_row["WithBarrierPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(parsed.WithBarrierPageAllocator_DecommitStats[6]);
+
+                }
+                else
+                {
+                    output_row["ThreadPageAllocator_numDecommitCalls"].Set(parsed.ThreadPageAllocator_numDecommitCalls);
+                    output_row["ThreadPageAllocator_numPagesDecommitted"].Set(parsed.ThreadPageAllocator_numPagesDecommitted);
+                    output_row["ThreadPageAllocator_numFreePageCount"].Set(parsed.ThreadPageAllocator_numFreePageCount);
+                    output_row["ThreadPageAllocator_maxDeltaMicros"].Set(parsed.ThreadPageAllocator_maxDeltaMicros);
+                    output_row["ThreadPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(-1);// these values didn't exist in old payloads
+                    output_row["ThreadPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["ThreadPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+
+                    output_row["LeafPageAllocator_numDecommitCalls"].Set(parsed.LeafPageAllocator_numDecommitCalls);
+                    output_row["LeafPageAllocator_numPagesDecommitted"].Set(parsed.LeafPageAllocator_numPagesDecommitted);
+                    output_row["LeafPageAllocator_numFreePageCount"].Set(parsed.LeafPageAllocator_numFreePageCount);
+                    output_row["LeafPageAllocator_maxDeltaMicros"].Set(parsed.LeafPageAllocator_maxDeltaMicros);
+                    output_row["LeafPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["LeafPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["LeafPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+
+                    output_row["LargeBlockPageAllocator_numDecommitCalls"].Set(parsed.LargeBlockPageAllocator_numDecommitCalls);
+                    output_row["LargeBlockPageAllocator_numPagesDecommitted"].Set(parsed.LargeBlockPageAllocator_numPagesDecommitted);
+                    output_row["LargeBlockPageAllocator_numFreePageCount"].Set(parsed.LargeBlockPageAllocator_numFreePageCount);
+                    output_row["LargeBlockPageAllocator_maxDeltaMicros"].Set(parsed.LargeBlockPageAllocator_maxDeltaMicros);
+                    output_row["LargeBlockPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["LargeBlockPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["LargeBlockPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+
+                    output_row["WithBarrierPageAllocator_numDecommitCalls"].Set(parsed.WithBarrierPageAllocator_numDecommitCalls);
+                    output_row["WithBarrierPageAllocator_numPagesDecommitted"].Set(parsed.WithBarrierPageAllocator_numPagesDecommitted);
+                    output_row["WithBarrierPageAllocator_numFreePageCount"].Set(parsed.WithBarrierPageAllocator_numFreePageCount);
+                    output_row["WithBarrierPageAllocator_maxDeltaMicros"].Set(parsed.WithBarrierPageAllocator_maxDeltaMicros);
+                    output_row["WithBarrierPageAllocator_lastEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["WithBarrierPageAllocator_maxEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                    output_row["WithBarrierPageAllocator_totalEnterLeaveIdleDecommitCSWaitTime"].Set(-1);
+                }
 
                 yield return output_row;
             }
