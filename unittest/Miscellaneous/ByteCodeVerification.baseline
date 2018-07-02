@@ -1,4 +1,4 @@
-Bytecode GUID = {2E95A003-1442-404F-98D5-D5C973B8A719}
+Bytecode GUID = {3EB30F58-66E0-404B-BAE8-1D3CD23F866F}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -362,6 +362,7 @@ OpCode: LdHomeObjProto = 359. Layout = Reg2
 OpCode: LdFuncObjProto = 360. Layout = Reg2
 OpCode: ImportCall = 361. Layout = Reg2
 OpCode: BeginBodyScope = 362. Layout = Empty
+OpCode: SpreadObjectLiteral = 363. Layout = Reg2
 OpCodeAsmJs: EndOfBlock = 0. Layout = Empty
 OpCodeAsmJs: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCodeAsmJs: MediumLayoutPrefix = 2. Layout = Empty

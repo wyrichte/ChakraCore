@@ -29,4 +29,11 @@
       <baseline>toString.baseline</baseline>
     </default>
   </test>
+  <test>
+    <default>
+      <files>spread.html</files>
+      <compile-flags>-ES2018ObjectSpread</compile-flags>
+      <baseline>spread.baseline</baseline>
+    </default>
+  </test>
 </regress-exe>

@@ -1,0 +1,5 @@
+*** Running test #1 (0): Non-enumerable DOM objects are ignored
+PASSED
+*** Running test #2 (1): Enumerable DOM objects can be spread
+PASSED
+Summary of tests: total executed: 2; passed: 2; failed: 0
