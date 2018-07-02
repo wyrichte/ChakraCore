@@ -813,6 +813,12 @@ STDMETHODIMP JavascriptThreadService::GetRecyclerNativeHeapHandle(RecyclerNative
     return S_OK;
 }
 
+STDMETHODIMP JavascriptThreadService::SetHasNativeGCHost()
+{
+    ThreadContext::GetContextForCurrentThread()->GetRecycler()->SetHasNativeGCHost();
+    return S_OK;
+}
+
 STDMETHODIMP JavascriptThreadService::OnVisibilityChange(boolean visible)
 {
     Unused(visible);
