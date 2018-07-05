@@ -26,10 +26,10 @@ namespace Js
         case E_OUTOFMEMORY:
             Js::JavascriptError::ThrowOutOfMemoryError(nullptr);
         case E_INVALIDARG:
-            AssertMsg(false, "We should not be getting an E_INVALIDARG here, both of the arguments above should be valid.");
+            AssertOrFailFastMsg(false, "We should not be getting an E_INVALIDARG here, both of the arguments above should be valid.");
             break;
         default:
-            AssertMsg(false, "MapSourceCode failed, check hr above.");
+            AssertOrFailFastHR(false, hr);
             break;
         }
     }

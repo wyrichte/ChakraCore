@@ -817,7 +817,7 @@ namespace Js
     }
 #endif
 
-    void Throw::FatalInternalError()
+    void Throw::FatalInternalError(HRESULT hr)
     {
         AssertMsg(false, "Runtime fatal error");
     }
