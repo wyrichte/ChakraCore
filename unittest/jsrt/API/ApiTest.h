@@ -123,6 +123,39 @@ namespace JsrtUnitTests
             VERIFY_IS_TRUE(called);
         }
 
+        TEST_METHOD(CleanUpDetachedExternalArrayBuffer)
+        {
+            JsValueRef arrayBuffer1 = JS_INVALID_REFERENCE;
+            JsValueRef arrayBuffer2 = JS_INVALID_REFERENCE;
+            const unsigned int size = 2;
+            BYTE data[size];
+            bool callback1Called = false;
+            bool callback2Called = false;
+
+            // Make two ExternalArrayBuffers
+            VERIFY_ARE_EQUAL(JsNoError, JsCreateExternalArrayBuffer(data, size, CallOnceCallback, &callback1Called, &arrayBuffer1));
+            VERIFY_ARE_EQUAL(JsNoError, JsCreateExternalArrayBuffer(data, size, CallOnceCallback, &callback2Called, &arrayBuffer2));
+            VERIFY_IS_FALSE(callback1Called);
+            VERIFY_IS_FALSE(callback2Called);
+
+            // Detach one of them
+            void* detachedState;
+            VERIFY_ARE_EQUAL(JsNoError, JsPrivateDetachArrayBuffer(arrayBuffer1, &detachedState));
+
+            // Ignore our local references to both and GC; the detached one shouldn't be cleaned yet
+            VERIFY_ARE_EQUAL(JsNoError, JsPrivateCollectGarbageSkipStack(this->runtime));
+            VERIFY_IS_FALSE(callback1Called);
+            VERIFY_IS_TRUE(callback2Called);
+
+            // Get rid of the detached state too
+            VERIFY_ARE_EQUAL(JsNoError, JsPrivateFreeDetachedArrayBuffer(detachedState));
+            VERIFY_IS_TRUE(callback1Called);
+            VERIFY_IS_TRUE(callback2Called);
+
+            // Make sure we don't get extra calls if we GC again
+            VERIFY_ARE_EQUAL(JsNoError, JsPrivateCollectGarbageSkipStack(this->runtime));
+        }
+
         //
         // Object BeforeCollect callback tests
         //

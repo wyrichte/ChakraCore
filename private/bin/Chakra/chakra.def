@@ -33,6 +33,8 @@ EXPORTS
     JsIsReferenceValid
     JsGetReference
     JsPrivateCollectGarbageSkipStack
+    JsPrivateDetachArrayBuffer
+    JsPrivateFreeDetachedArrayBuffer
 
     NatVis_ValueType
     NatVis_BVSparseNode_JitArenaAllocator
