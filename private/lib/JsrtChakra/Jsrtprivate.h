@@ -157,6 +157,23 @@ STDAPI_(JsErrorCode)
   JsPrivateCollectGarbageSkipStack(
   _In_ JsRuntimeHandle runtime);
 
+/// <summary>
+///     Detach the state from an ArrayBuffer. Private API for testing.
+/// </summary>
+/// <remarks>
+///     The detached state returned from this method must be manually freed by calling
+///     JsPrivateFreeDetachedArrayBuffer.
+/// </remarks>
+STDAPI_(JsErrorCode)
+JsPrivateDetachArrayBuffer(_In_ JsValueRef ref, _Out_ void** detachedState);
+
+/// <summary>
+///     Free the detached state obtained from JsPrivateDetachArrayBuffer.
+///     Private API for testing.
+/// </summary>
+STDAPI_(JsErrorCode)
+JsPrivateFreeDetachedArrayBuffer(_In_ void* detachedState);
+
 #ifdef __cplusplus
 };
 #endif
