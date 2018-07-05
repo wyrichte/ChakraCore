@@ -67,6 +67,11 @@ TraceLoggingClient *g_TraceLoggingClient = NULL;
 
 TraceLoggingClient::TraceLoggingClient() : shouldLogTelemetry(true)
 {
+    if (CoCreateGuid(&this->chakraInstanceID) != S_OK)
+    {
+        this->chakraInstanceID = { 0 };
+    }
+
     // Check if we're running in a process from which telemetry should
     // not be logged.  We'll default to logging telemetry if the process
     // name cannot be determined for some reason.

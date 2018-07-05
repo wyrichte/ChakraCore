@@ -43,6 +43,7 @@
             TraceLoggingWideString(globalFlags.TelemetryRunType, "runType"),                            \
             TraceLoggingWideString(globalFlags.TelemetryDiscriminator1, "Discriminator1"),              \
             TraceLoggingWideString(globalFlags.TelemetryDiscriminator2, "Discriminator2"),              \
+            TraceLoggingGuid(g_TraceLoggingClient->GetChakraInstanceID(), "chakraInstanceID"),          \
             __VA_ARGS__                                                                                 \
             );                                                                                          \
         }                                                                                               \
