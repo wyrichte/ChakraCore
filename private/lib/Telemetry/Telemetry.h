@@ -139,6 +139,8 @@ class TraceLoggingClient
     Throttle throttle;
 
     bool isExperimentalFlagEnabled();
+    GUID chakraInstanceID;
+
 public:
     TraceLoggingClient();
     ~TraceLoggingClient();
@@ -147,6 +149,7 @@ public:
     void FireChakraInitTelemetry(DWORD host, bool isJSRT);
     bool IsThrottled() { return this->throttle.isThrottled(); }
     bool IsProviderEnabled() const;
+    const GUID& GetChakraInstanceID() const { return  this->chakraInstanceID; }
 
 #ifdef ENABLE_DIRECTCALL_TELEMETRY
     void FirePeriodicDomTelemetry(GUID activityId);
