@@ -69,7 +69,7 @@ namespace Js
      * Transmit telemetry data associated with given RecyclerTelemetryInfo.
      * returns true if telemetry was sent, false if not sent.
      */
-    bool TransmitRecyclerTelemetry(RecyclerTelemetryInfo& info)
+    bool TransmitRecyclerTelemetryStats(RecyclerTelemetryInfo& info)
     {
         bool sent = false;
         AssertMsg(info.GetLastPassStats() == nullptr ? info.GetPassCount() == 0 : info.GetPassCount() > 0, "unexpected info.passCount value");
@@ -342,6 +342,20 @@ namespace Js
         }
 
         return sent;
+    }
 
+    bool TransmitRecyclerHeapUsage(size_t totalHeapBytes, size_t usedHeapBytes, double heapUsedRatio)
+    {
+        if (!g_TraceLoggingClient->IsThrottled())
+        {
+            TracePerfTrackChakra(
+                "RecyclerUtilization",
+                TraceLoggingKeyword(MICROSOFT_KEYWORD_MEASURES),
+                TraceLoggingUInt64(totalHeapBytes, "heapTotalBytes"),
+                TraceLoggingUInt64(usedHeapBytes, "heapUsedBytes"),
+                TraceLoggingFloat64((double)usedHeapBytes / (double)totalHeapBytes, "heapUsageRatio"));
+            return true;
+        }
+        return false;
     }
 }
