@@ -107,6 +107,9 @@ namespace Js
             uint32*    collectionFinishReason                       = HeapNewNoThrowArrayZ(uint32, passCount);
             uint32*    collectionStartFlags                         = HeapNewNoThrowArrayZ(uint32, passCount);
             int64*     uiThreadBlockedTimes                         = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
+            int64*     uiThreadBlockedCpuUserTime                   = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
+            int64*     uiThreadBlockedCpuKernelTime                 = HeapNewNoThrowArrayZ(int64, uiThreadBlockedTimesSize);
+
             int64*     sizesArray                                   = HeapNewNoThrowArrayZ(int64, sizesArrayLength);
 
             uint*      pinnedObjectCountArray                       = HeapNewNoThrowArrayZ(uint, passCount);
@@ -137,6 +140,8 @@ namespace Js
                 collectionFinishReason                      &&
                 collectionStartFlags                        &&
                 uiThreadBlockedTimes                        &&
+                uiThreadBlockedCpuUserTime                  &&
+                uiThreadBlockedCpuKernelTime                &&
                 sizesArray                                  &&
                 pinnedObjectCountArray                      &&
                 closedContextCountArray                     &&
@@ -180,6 +185,8 @@ namespace Js
                     {
                         size_t index = (currCount * WAIT_FOR_CONCURRENT_SOURCE_COUNT) + j;
                         uiThreadBlockedTimes[index] = curr.uiThreadBlockedTimes[j].ToMicroseconds();
+                        uiThreadBlockedCpuUserTime[index] = curr.uiThreadBlockedCpuTimesUser[j];
+                        uiThreadBlockedCpuKernelTime[index] = curr.uiThreadBlockedCpuTimesKernel[j];
                     }
 
                     // Add in recycler size data.  Offset is the offset for this GC pass into sizesArray
@@ -267,6 +274,9 @@ namespace Js
                     TraceLoggingBoolArray(isScriptActiveArray, passCount, "isScriptActive"),
 
                     TraceLoggingInt64Array(uiThreadBlockedTimes, uiThreadBlockedTimesSize, "UIThreadBlockedMicros"),
+                    TraceLoggingInt64Array(uiThreadBlockedCpuUserTime, uiThreadBlockedTimesSize, "UIThreadBlockedCpuUserTimeMicros"),
+                    TraceLoggingInt64Array(uiThreadBlockedCpuKernelTime, uiThreadBlockedTimesSize, "UIThreadBlockedCpuKernelTimeMicros"),
+
                     TraceLoggingUInt32Array(waitForConcurrentCRCs, WAIT_FOR_CONCURRENT_SOURCE_COUNT, "UIThreadBlockedNameCRCs"),
 
                     TraceLoggingInt64Array(sizesArray, sizesArrayLength, "AllocatorByteSizeEntries"),
@@ -317,6 +327,9 @@ namespace Js
             if (collectionStartFlags)                       { HeapDeleteArray(passCount, collectionStartFlags);}
 
             if (uiThreadBlockedTimes)                       { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedTimes); }
+            if (uiThreadBlockedCpuUserTime)                 { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedCpuUserTime); }
+            if (uiThreadBlockedCpuKernelTime)               { HeapDeleteArray(uiThreadBlockedTimesSize, uiThreadBlockedCpuKernelTime); }
+
             if (sizesArray)                                 { HeapDeleteArray(sizesArrayLength,         sizesArray); }
 
             if (pinnedObjectCountArray)                     { HeapDeleteArray(passCount, pinnedObjectCountArray); }
