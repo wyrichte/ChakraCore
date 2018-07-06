@@ -349,8 +349,7 @@ namespace Js
         if (!g_TraceLoggingClient->IsThrottled())
         {
             TracePerfTrackChakra(
-                "RecyclerUtilization",
-                TraceLoggingKeyword(MICROSOFT_KEYWORD_MEASURES),
+                "RecyclerUtilization_0",
                 TraceLoggingUInt64(totalHeapBytes, "heapTotalBytes"),
                 TraceLoggingUInt64(usedHeapBytes, "heapUsedBytes"),
                 TraceLoggingFloat64((double)usedHeapBytes / (double)totalHeapBytes, "heapUsageRatio"));
