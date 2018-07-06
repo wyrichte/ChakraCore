@@ -55,6 +55,9 @@
         <!-- For DTBHost.h -->
         $(EnlistmentRoot)\onecoreuap\inetcore\lib\devtb\dtbhost_edge;
 
+        <!-- For telemetry\MicrosoftTelemetry.h -->
+        $(MinWinPrivSdkIncPath);
+
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <!-- For mscorlib.tlb used in JavascriptErrorDebug.cpp -->

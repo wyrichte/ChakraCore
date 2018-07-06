@@ -28,7 +28,7 @@
 #endif
 
 #ifdef ENABLE_BASIC_TELEMETRY
-#include "ScriptContext\ScriptContextTelemetry.h"
+#include "TelemetryMacros.h"
 #endif
 
 #include "JITClient.h"
@@ -243,6 +243,17 @@ HRESULT ScriptEngine::InitializeThreadBound()
                     CONFIG_FLAG(EnableFatalErrorOnOOM) && 
                     !threadContext->TestThreadContextFlag(ThreadContextFlagDisableFatalOnOOM))
                 {
+
+#ifdef ENABLE_BASIC_TELEMETRY
+                    TraceLogChakra("RecyclerOutOfMemory",
+                        TraceLoggingGuid(threadContext->GetRecycler()->GetRecyclerID(), "recyclerID"),
+                        TraceLoggingUInt32(apm->GetLimit(), "AllocationPolicyManagerLimit"),
+                        TraceLoggingUInt32(apm->GetUsage(), "AllocationPolicyManagerUsage"),
+                        TraceLoggingUInt32(threadContext->GetRecycler()->GetPinnedObjectCount(), "PinnedObjectCount"),
+                        TraceLoggingUInt32(threadContext->closedScriptContextCount, "ClosedContextCount")
+                        );
+#endif
+
                     // too many pinned objects case (the number was roughly derived from telemetry data)
                     if (threadContext->GetRecycler()->GetPinnedObjectCount() > 150000)
                     {

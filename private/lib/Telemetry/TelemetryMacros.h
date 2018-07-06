@@ -4,6 +4,7 @@
 #include <TraceLoggingProvider.h>
 #include "ChakraVersion.h"
 #include "..\..\bin\Chakra\ChakraVersionBuildCommit.h"
+#include "Telemetry.h"
 
 #ifdef DBG
 #define TL_BINARYFLAVOR "CHK"
