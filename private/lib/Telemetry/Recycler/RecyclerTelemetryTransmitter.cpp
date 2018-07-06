@@ -213,7 +213,7 @@ namespace Js
 
                 Js::Tick now = Js::Tick::Now();
                 int64 recyclerLifeSpanMicros = (now - info.GetRecyclerStartTime()).ToMicroseconds();
-                int64 microsSinceListTransmit = info.GetLastTransmitTime().ToMicroseconds() == 0 ? -1 : (now - info.GetLastTransmitTime()).ToMicroseconds();
+                int64 microsSinceLastTransmit = info.GetLastTransmitTime().ToMicroseconds() == 0 ? -1 : (now - info.GetLastTransmitTime()).ToMicroseconds();
 
                 for (size_t i = 0; i < NUM_RECYCLER_ALLOCATORS; i++)
                 {
@@ -262,8 +262,8 @@ namespace Js
                 TraceLogChakra("GCTelemetry_0",
                     TraceLoggingGuid(info.GetRecyclerID(), "recyclerID"),
                     TraceLoggingInt64(recyclerLifeSpanMicros, "recyclerLifeSpanMicros"),
-                    TraceLoggingInt64(microsSinceListTransmit, "microsSinceLastTransmit"),
-                    TraceLoggingBool(info.GetIsConcurrentEnabled(), "isConcurrentEnabled"),
+                    TraceLoggingUInt32(info.GetRecyclerConfigFlags(), "recyclerConfigFlags"),
+                    TraceLoggingInt64(microsSinceLastTransmit, "microsSinceLastTransmit"),
                     TraceLoggingUInt32(passCount, "passCount"),
 
                     TraceLoggingInt64Array(passElapsedTimesMicros, passCount, "passElapsedTimesMicros"),
