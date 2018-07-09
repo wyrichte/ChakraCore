@@ -16,7 +16,7 @@ public:
         Infer,
         Trident
     };
-    typedef Graph<ULONG64, RecyclerGraphNodeData> GraphImplType;
+    typedef Graph<ULONG64, RecyclerGraphNodeData, ReservedPageAllocator> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
 
     static RecyclerObjectGraph * New(RemoteRecycler recycler, RemoteThreadContext * threadContext,

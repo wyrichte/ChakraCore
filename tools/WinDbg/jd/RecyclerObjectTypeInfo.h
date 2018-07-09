@@ -6,18 +6,28 @@
 class RecyclerObjectTypeInfo
 {
 public:
-    RecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
+    enum Flags
+    {
+        Flags_None = 0,
+        Flags_HasVtable = 1,
+        Flags_OverrideVtable = 2,
+        Flags_IsPropagated = 4,
+
+        Flags_IsPropagatedFromVtable = Flags_HasVtable | Flags_IsPropagated
+    };
+    RecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, Flags flags, ULONG64 javascriptLibrary)
     {
         memset(this, 0, sizeof(RecyclerObjectTypeInfo));
         this->typeName = typeName;
         this->typeNameOrField = typeNameOrField;
-        this->hasVtable = hasVtable;
-        this->isPropagated = isPropagated;
+        this->flags = flags;
         this->javascriptLibrary = javascriptLibrary;
+        Assert(!this->HasVtable() || !this->OverrideVtable());
     }
 
-    bool HasVtable() const { return hasVtable; }
-    bool IsPropagated() const { return isPropagated; }
+    bool HasVtable() const { return flags & Flags_HasVtable; }
+    bool IsPropagated() const { return flags & Flags_IsPropagated; }
+    bool OverrideVtable() const { return flags & Flags_OverrideVtable; }
     const char * GetTypeName() const { return typeName; }
     const char * GetTypeNameOrField() const { return typeNameOrField; }   
     ULONG64 GetAssociatedJavascriptLibrary() const { return javascriptLibrary; }
@@ -26,7 +36,7 @@ public:
     {
     public:
         ~Cache();
-        RecyclerObjectTypeInfo * GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary);
+        RecyclerObjectTypeInfo * GetRecyclerObjectTypeInfo(char const * typeName, char const * typeNameOrField, Flags flags, ULONG64 javascriptLibrary);
     private:
         class HashCompare
         {
@@ -52,6 +62,5 @@ private:
     const char * typeName;
     const char * typeNameOrField;
     ULONG64 javascriptLibrary;
-    bool hasVtable;
-    bool isPropagated;
+    Flags flags;
 };

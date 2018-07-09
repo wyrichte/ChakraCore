@@ -228,25 +228,28 @@ private:
 };
 
 // Singlely Link List
-template <typename T>
+template <typename T, typename TAllocator>
 class SingleLinkList
 {
 public:
     SingleLinkList() : head(nullptr), count(0) {};
     ~SingleLinkList()
     {
-        Node * node = head;
-        while (node != nullptr)
+        if (TAllocator::NeedFree)
         {
-            Node * nextNode = node->next;
-            delete node;
-            node = nextNode;
+            Node * node = head;
+            while (node != nullptr)
+            {
+                Node * nextNode = node->next;
+                delete node;
+                node = nextNode;
+            }
         }
     }
 
-    void Add(const T& item)
+    void Add(const T& item, TAllocator& allocator)
     {        
-        head = new Node(item, head);
+        head = new (allocator.Alloc(sizeof(Node))) Node(item, head);
         count++;
     }
 
@@ -281,32 +284,35 @@ private:
     uint count;
     struct Node
     {
-        Node(const T& data, Node * next) : data(data), next(next) {};        
+        Node(const T& data, Node * next) : data(data), next(next) {};
         T data;
         Node * next;
     } * head;
 };
 
-template <typename T, typename CollectionT>
+template <typename T, typename CollectionT, typename TAllocator>
 class PointerCollection
 {
 public:
     PointerCollection() : data(nullptr) {}
     ~PointerCollection()
     {
-        if (IsMultiple())
+        if (TAllocator::NeedFree)
         {
-            delete GetCollection();
+            if (IsMultiple())
+            {
+                delete GetCollection();
+            }
         }
     }
-    void Add(const T& item)
+    void Add(const T& item, TAllocator& allocator)
     {
         if (this->data == nullptr)
         {
             this->data = item;
             return;
         }
-        EnsureCollection()->Add(item);
+        EnsureCollection(allocator)->Add(item, allocator);
     }
 
     uint Count()
@@ -348,15 +354,15 @@ public:
         }
     }
 private:
-    CollectionT * EnsureCollection()
+    CollectionT * EnsureCollection(TAllocator& allocator)
     {
         if (IsMultiple())
         {
             return GetCollection();
         }
 
-        auto _collection = new CollectionT();
-        _collection->Add(data);
+        auto _collection = new (allocator.Alloc(sizeof(CollectionT))) CollectionT();
+        _collection->Add(data, allocator);
         this->collection = ((uintptr_t)_collection) | 1;
         return _collection;
     }
@@ -377,24 +383,27 @@ private:
     };
 };
 
-template <typename T>
+template <typename T, typename TAllocator>
 class Array
 {
 public:
     Array() : size(0), buffer(nullptr) {};
     ~Array()
     {
-        if (buffer)
+        if (TAllocator::NeedFree)
         {
-            delete[] buffer;
+            if (buffer)
+            {
+                delete[] buffer;
+            }
         }
     }
 
-    void Initialize(Set<T> const& items)
+    void Initialize(Set<T> const& items, TAllocator& allocator)
     {
         Assert(size == 0);
         Assert(buffer == nullptr);
-        T * newBuffer = new T[items.Count()];
+        T * newBuffer = new (allocator.Alloc(sizeof(T) * items.Count())) T[items.Count()];
         uint count = 0;
         items.MapAll([newBuffer, &count](T const& item)
         {
@@ -436,18 +445,18 @@ private:
     T * buffer;
 };
 
-template <typename TKey, typename TData>
+template <typename TKey, typename TData, typename TAllocator>
 class GraphNode : public TData
 {
 public:
     GraphNode(TKey key) : TData(key) {}
     
-    void SetSuccessors(Set<GraphNode *> const& set)
+    void SetSuccessors(Set<GraphNode *> const& set, TAllocator& allocator)
     {
-        successors.Initialize(set);
-        set.MapAll([this](GraphNode * node)
+        successors.Initialize(set, allocator);
+        set.MapAll([this, &allocator](GraphNode * node)
         {
-            node->predecessors.Add(this);
+            node->predecessors.Add(this, allocator);
         });
     }
 
@@ -487,15 +496,60 @@ public:
     
 private:
    
-    PointerCollection<GraphNode *, SingleLinkList<GraphNode *>> predecessors;
-    Array<GraphNode *> successors;
+    PointerCollection<GraphNode *, SingleLinkList<GraphNode *, TAllocator>, TAllocator> predecessors;
+    Array<GraphNode *, TAllocator> successors;
 };
 
-template <typename TKey, typename TData>
+class DefaultAllocator
+{
+public:
+    static const bool NeedFree = true;
+
+    void * Alloc(size_t size)
+    {
+        return new byte[size];
+    }
+
+    void Free(void * ptr)
+    {
+        delete ptr;
+    }
+};
+
+class ReservedPageAllocator
+{
+public:
+    static const bool NeedFree = false;
+
+    ReservedPageAllocator();
+    ~ReservedPageAllocator();
+
+    void * Alloc(size_t size);
+    void Free(void * ptr);
+private:
+    static const size_t segmentSize = 64 * 1024;
+    struct ReservedSegment
+    {
+        ReservedSegment * next;
+        char * nextAlloc;
+        size_t freeSize;
+    };
+
+    static ReservedSegment * AllocSegment(size_t size);
+
+    struct LargeAlloc
+    {
+        LargeAlloc * next;
+    };
+    ReservedSegment * head;
+    LargeAlloc * largeHead;
+};
+
+template <typename TKey, typename TData, typename TAllocator = DefaultAllocator>
 class Graph
 {
 public:
-    typedef GraphNode<TKey, TData> NodeType;
+    typedef GraphNode<TKey, TData, TAllocator> NodeType;
 
     NodeType* GetNode(const TKey& key)
     {
@@ -511,7 +565,7 @@ public:
     NodeType* AddNode(const TKey& key)
     {
         Assert(FindNode(key) == nullptr);
-        NodeType * node = new NodeType(key);
+        NodeType * node = new (allocator.Alloc(sizeof(NodeType))) NodeType(key);
         if (!node)
         {
             g_Ext->ThrowOutOfMemory();
@@ -533,7 +587,7 @@ public:
 
     void AddEdges(NodeType * nodeFrom, Set<NodeType *> const& successors)
     {
-        nodeFrom->SetSuccessors(successors);
+        nodeFrom->SetSuccessors(successors, this->allocator);
         edgeCount += (uint)successors.Count();
     }
 
@@ -685,10 +739,14 @@ public:
     Graph() : edgeCount(0) {};
     ~Graph()
     {
-        _nodes.MapAll([] (const NodeType* node)
+        if (TAllocator::NeedFree)
         {
-            delete node;
-        });
+            _nodes.MapAll([this](const NodeType* node)
+            {
+                node->~NodeType();
+                allocator.Free((void *)node);
+            });
+        }
     }
 
     size_t GetNodeCount()
@@ -762,6 +820,8 @@ private:
     };
     HashSet<NodeType*, HashCompare> _nodes;
     uint edgeCount;
+
+    TAllocator allocator;
 };
 
 #include "RecyclerObjectTypeInfo.h"
@@ -788,11 +848,12 @@ struct RecyclerGraphNodeData
     void SetDepth(uint d) { this->depth = d; }
 
     bool HasTypeInfo() const { return GetTypeName() != nullptr; }
-    void SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary);
+    void SetTypeInfo(char const * typeName, char const * typeNameOrField, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary);
     void ClearTypeInfo() { typeInfo = nullptr; }
     
     bool HasVtable() const { return typeInfo ? typeInfo->HasVtable() : false; }
     bool IsPropagated() const { return typeInfo? typeInfo->IsPropagated() : false; }
+    bool OverrideVtable() const { return typeInfo ? typeInfo->IsPropagated() : false; }
     const char * GetTypeName() const { return typeInfo? typeInfo->GetTypeName() : nullptr; }
     const char * GetTypeNameOrField() const { return typeInfo? typeInfo->GetTypeNameOrField() : nullptr; }
     ULONG64 GetAssociatedJavascriptLibrary() const { return typeInfo ? typeInfo->GetAssociatedJavascriptLibrary() : 0; }

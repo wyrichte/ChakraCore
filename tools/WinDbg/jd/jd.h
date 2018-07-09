@@ -438,18 +438,3 @@ int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
 EXT_CLASS_BASE* GetExtension();
 void ReplacePlaceHolders(PCSTR holder, std::string value, std::string& cmd);
 
-
-template <typename Fn>
-static bool SListForEach(ExtRemoteTyped list,  Fn fn)
-{
-    ExtRemoteTyped curr = list.Field("next");
-    while (curr.Field("base").GetPtr() != list.GetPtr())
-    {
-        if (fn(curr.Field("node.data")))
-        {
-            return true;
-        }
-        curr = curr.Field("base.next");
-    }
-    return false;
-}

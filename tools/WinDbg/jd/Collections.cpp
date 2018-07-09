@@ -2,9 +2,9 @@
 
 #include "Collections.h"
 
-void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
+void RecyclerGraphNodeData::SetTypeInfo(char const * typeName, char const * typeNameOrField, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary)
 {
-    typeInfo = GetExtension()->recyclerObjectTypeInfoCache.GetRecyclerObjectTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated, javascriptLibrary);
+    typeInfo = GetExtension()->recyclerObjectTypeInfoCache.GetRecyclerObjectTypeInfo(typeName, typeNameOrField, flags, javascriptLibrary);
 }
 
 #if ENABLE_MARK_OBJ
@@ -136,6 +136,92 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
     return result;
 }
 
-// Instantiate templates
-template Graph<ULONG64, RecyclerGraphNodeData>;
 #endif
+
+ReservedPageAllocator::ReservedPageAllocator()
+{
+    head = AllocSegment(0);
+    largeHead = nullptr;
+}
+
+ReservedPageAllocator::~ReservedPageAllocator()
+{
+    ReservedSegment * curr = head;
+    while (curr)
+    {
+        ReservedSegment * next = curr->next;
+        ::VirtualFree(curr, 0, MEM_RELEASE);
+        curr = next;
+    }
+
+    LargeAlloc * largeCurr = largeHead;
+    while (largeCurr)
+    {
+        LargeAlloc * largeNext = largeCurr->next;
+        delete largeCurr;
+        largeCurr = largeNext;
+    }
+}
+
+ReservedPageAllocator::ReservedSegment * ReservedPageAllocator::AllocSegment(size_t size)
+{
+    void * segment = ::VirtualAlloc(0, segmentSize, MEM_RESERVE, PAGE_READWRITE);
+    if (segment == nullptr)
+    {
+        g_Ext->ThrowOutOfMemory();
+    }
+
+    size_t commitSize = JDUtil::Align<size_t>(size + sizeof(ReservedSegment), 4096);
+    ReservedSegment * newSegment = (ReservedSegment *)::VirtualAlloc(segment, commitSize, MEM_COMMIT, PAGE_READWRITE);
+    if (newSegment == nullptr)
+    {
+        ::VirtualFree(segment, 0, MEM_RELEASE);
+        g_Ext->ThrowOutOfMemory();
+    }
+    newSegment->nextAlloc = (char *)(newSegment + 1);
+    newSegment->freeSize = commitSize - sizeof(ReservedSegment);
+    return newSegment;
+}
+
+void * ReservedPageAllocator::Alloc(size_t size)
+{
+    if (size > segmentSize)
+    {
+        LargeAlloc * alloc = (LargeAlloc *)new byte[size + sizeof(LargeAlloc)];
+        alloc->next = this->largeHead;
+        this->largeHead = alloc;
+        return alloc + 1;
+    }
+    void * mem = head->nextAlloc;
+    char * nextAlloc = head->nextAlloc + size;
+    if (head->freeSize < size)
+    {
+        if ((nextAlloc - (char *)head) <= segmentSize)
+        {
+            char * newCommit = head->nextAlloc + head->freeSize;
+            size_t commitSize = JDUtil::Align<size_t>(nextAlloc - newCommit, 4096);
+            if (newCommit != ::VirtualAlloc(newCommit, commitSize, MEM_COMMIT, PAGE_READWRITE))
+            {
+                g_Ext->ThrowOutOfMemory();
+            }
+            head->freeSize += commitSize;
+        }
+        else
+        {
+            ReservedSegment * newSegment = AllocSegment(size);
+            newSegment->next = head;
+            head = newSegment;
+            mem = head->nextAlloc;
+            nextAlloc = head->nextAlloc + size;
+        }
+    }
+
+    head->freeSize -= size;
+    head->nextAlloc = nextAlloc;
+    return mem;
+}
+
+void ReservedPageAllocator::Free(void * ptr)
+{
+    // Do nothing;
+}

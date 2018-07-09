@@ -1557,7 +1557,8 @@ JD_PRIVATE_COMMAND(memstats,
     "{a;b,o;;Display arena allocator information}"
     "{p;b,o;;Display page allocator information}"
     "{t;e,o,d=0;Display information for thread context}"
-    "{z;b,o;;Display zero entries}")
+    "{z;b,o;;Display zero entries}"
+    "{c;b,o;;Force to compute the information where possible}")
 {
     ULONG64 threadContextAddress = GetArgU64("t");
     bool showZeroEntries = this->HasArg("z");
@@ -1565,6 +1566,7 @@ JD_PRIVATE_COMMAND(memstats,
     bool showArenaAllocator = showAll || this->HasArg("a");
     bool showPageAllocator = showAll || this->HasArg("p") || (threadContextAddress && !showArenaAllocator);
     bool showThreadSummary = (!showArenaAllocator && !showPageAllocator);
+    bool forceCompute = this->HasArg("c");
     ULONG numThreads = 0;
     ULONG64 totalReservedBytes = 0;
     ULONG64 totalCommittedBytes = 0;
@@ -1624,14 +1626,14 @@ JD_PRIVATE_COMMAND(memstats,
         ULONG64 unusedBytes = 0;
         threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes, &unusedBytes](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            reservedBytes += pageAllocator.GetReservedBytes();
-            committedBytes += pageAllocator.GetCommittedBytes();
+            reservedBytes += pageAllocator.GetReservedBytes(forceCompute);
+            committedBytes += pageAllocator.GetCommittedBytes(forceCompute);
             usedBytes += pageAllocator.GetUsedBytes();
             unusedBytes += pageAllocator.GetUnusedBytes();
 
             if (showPageAllocator)
             {
-                pageAllocator.DisplayData(name, showZeroEntries);
+                pageAllocator.DisplayData(name, showZeroEntries, forceCompute);
             }
             return false;
         });
@@ -1959,7 +1961,7 @@ MPH_COMMAND(mpheap,
         RemotePageAllocator::DisplayDataHeader("Allocator");
         remoteRecycler.ForEachPageAllocator("Thread", [showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            pageAllocator.DisplayData(name, showZeroEntries);
+            pageAllocator.DisplayData(name, showZeroEntries, false);
             return false;
         });
         return;

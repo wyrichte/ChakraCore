@@ -1035,8 +1035,7 @@ void FormatPointerFlags(char *buffer, uint bufferLength, Node node)
     buffer[bufferLength - 1] = NULL;
 }
 
-void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
-    ULONG64 address = NULL, int currentLevel = 0)
+void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg, ULONG64 address, int currentLevel, bool showLib)
 {
     if (address == NULL)
     {
@@ -1101,17 +1100,21 @@ void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
 
     // print the address and symbol
     GetExtension()->Out("0x%p ", address);
-    GetExtension()->Out("(level %c%-8d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
+    GetExtension()->Out("(level %c%-3d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
+    if (showLib)
+    {
+        GetExtension()->Out(" 0x%p", node->GetAssociatedJavascriptLibrary());
+    }
     GetExtension()->DumpPossibleSymbol(node);
     GetExtension()->Out("\n");
 }
 
 template <bool predecessorsMode = false, bool links = true>
 void DumpPredSucc(Node currentNode, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
-    ULONG64 limitArg, bool showOnlyRoots)
+    ULONG64 limitArg, bool showOnlyRoots, bool showLib)
 {
     // Display the target pointer and one level of its descendants
-    DumpPointerProperties(objectGraph, pointerArg, pointerArg, 0);
+    DumpPointerProperties(objectGraph, pointerArg, pointerArg, 0, showLib);
 
     int level = 1;
     char *command = "successors";
@@ -1124,7 +1127,7 @@ void DumpPredSucc(Node currentNode, RecyclerObjectGraph &objectGraph, ULONG64 po
     }
 
     uint count = 0;
-    auto mapper = [&objectGraph, pointerArg, &count, limitArg, level, command, showOnlyRoots, &countFunction, currentNode](Node next)
+    auto mapper = [&objectGraph, pointerArg, &count, limitArg, level, command, showOnlyRoots, &countFunction, currentNode, showLib](Node next)
     {
         RootType rootType = next->GetRootType();
         if (showOnlyRoots && !RootTypeUtils::IsAnyRootType(rootType))
@@ -1133,7 +1136,7 @@ void DumpPredSucc(Node currentNode, RecyclerObjectGraph &objectGraph, ULONG64 po
         }
 
         ULONG64 address = next->Key();
-        DumpPointerProperties(objectGraph, pointerArg, address, level);
+        DumpPointerProperties(objectGraph, pointerArg, address, level, showLib);
 
         // Display all children if the value is 0, otherwise display up to count children.
         if (limitArg != 0 && (++count) >= limitArg)
@@ -1205,6 +1208,7 @@ void EXT_CLASS_BASE::PredSuccImpl()
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
     const ULONG64 limitArg = GetArgU64("limit");
     const bool showOnlyRoots = HasArg("r");
+    const bool showLib = HasArg("lib");
 
     if (pointerArg == NULL)
     {
@@ -1227,21 +1231,21 @@ void EXT_CLASS_BASE::PredSuccImpl()
     //
 
     DumpPointerPropertiesHeader();
-    predSuccFn(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    predSuccFn(node, objectGraph, pointerArg, limitArg, showOnlyRoots, showLib);
 }
 
 template <bool links = true>
 void DumpPredecessors(Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
-    ULONG64 limitArg, bool showOnlyRoots)
+    ULONG64 limitArg, bool showOnlyRoots, bool showLib)
 {
-    DumpPredSucc<true, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPredSucc<true, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots, showLib);
 }
 
 template <bool links = true>
 void DumpSuccessors(Node node, RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
-    ULONG64 limitArg, bool showOnlyRoots)
+    ULONG64 limitArg, bool showOnlyRoots, bool showLib)
 {
-    DumpPredSucc<false, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots);
+    DumpPredSucc<false, links>(node, objectGraph, pointerArg, limitArg, showOnlyRoots, showLib);
 }
 
 JD_PRIVATE_COMMAND(predecessors,
@@ -1249,7 +1253,8 @@ JD_PRIVATE_COMMAND(predecessors,
     "{;ed,o,d=0;pointer;Address to trace}"
     "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show ancestors which are also roots}"
-    "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
+    "{limit;edn=(10),o,d=10;limit;Number of nodes to list}"
+    "{lib;b,o;showlib;Show library}")
 {
     PredSuccImpl<true>();
 }
@@ -1259,7 +1264,8 @@ JD_PRIVATE_COMMAND(successors,
     "{;ed,o,d=0;pointer;Address to trace}"
     "{;ed,o,d=0;recycler;Recycler address}"
     "{r;b,o;onlyRoots;Only show descendants which are also roots}"
-    "{limit;edn=(10),o,d=10;limit;Number of nodes to list}")
+    "{limit;edn=(10),o,d=10;limit;Number of nodes to list}"
+    "{lib;b,o;showlib;Show library}")
 {
     PredSuccImpl<false>();
 }
@@ -1325,7 +1331,8 @@ JD_PRIVATE_COMMAND(traceroots,
     "{a;b,o;all;Shortest path to all roots}"
     "{r;b,o;root;Show all roots that can reach the object}"
     "{pred;b,o;showPredecessors;Show up to limit predecessors in the output}"
-    "{vt;b,o;vtable;Vtable Only}")
+    "{vt;b,o;vtable;Vtable Only}"
+    "{lib;b,o;showlib;Show library}")
 {
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
@@ -1338,6 +1345,7 @@ JD_PRIVATE_COMMAND(traceroots,
     const bool showPath = allShortestPath || !allRoots;
     const bool showPredecessors = HasArg("pred");
     const bool infer = !HasArg("vt");
+    const bool showLib = HasArg("lib");
 
     if (pointerArg == NULL)
     {
@@ -1601,7 +1609,7 @@ JD_PRIVATE_COMMAND(traceroots,
         TraversalData *pTraversalData = traversalMap.Get(address);
         while (pTraversalData != nullptr)
         {
-            DumpPointerProperties(objectGraph, pointerArg, pTraversalData->address, pTraversalData->level);
+            DumpPointerProperties(objectGraph, pointerArg, pTraversalData->address, pTraversalData->level, showLib);
             if (!showPath)
             {
                 rootCount++;
@@ -1626,7 +1634,7 @@ JD_PRIVATE_COMMAND(traceroots,
     {
         DumpPointerPropertiesSpacerLine();
         DumpPointerPropertiesDescendantsHeader();
-        DumpSuccessors<false>(node, objectGraph, pointerArg, limitArg, false);
+        DumpSuccessors<false>(node, objectGraph, pointerArg, limitArg, false, showLib);
     }
 
     // Display an option to show predecessors if there are any.
@@ -1634,7 +1642,7 @@ JD_PRIVATE_COMMAND(traceroots,
     {
         DumpPointerPropertiesSpacerLine();
         DumpPointerPropertiesPredecessorsHeader();
-        DumpPredecessors<false>(node, objectGraph, pointerArg, limitArg, false);
+        DumpPredecessors<false>(node, objectGraph, pointerArg, limitArg, false, showLib);
     }
 
     // Delete all of the TraversalData pointers in traversalMap so we don't leak.

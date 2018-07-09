@@ -23,7 +23,7 @@ RemotePageAllocator::GetUnusedBytes()
 }
 
 ULONG64
-RemotePageAllocator::GetReservedBytes()
+RemotePageAllocator::GetReservedBytes(bool forceCompute)
 {
     if (!this->reservedBytes.HasValue())
     {
@@ -40,7 +40,7 @@ RemotePageAllocator::GetReservedBytes()
 }
 
 ULONG64
-RemotePageAllocator::GetCommittedBytes()
+RemotePageAllocator::GetCommittedBytes(bool forceCompute)
 {
     if (!this->committedBytes.HasValue())
     {
@@ -62,23 +62,19 @@ RemotePageAllocator::ComputeReservedAndCommittedBytes()
     ULONG64 reserved = 0;
     ULONG64 decommitted = 0;
     ULONG64 freed = 0;
-    auto accumulateSegments = [&](ExtRemoteTyped segment)
+    auto accumulateSegments = [&](char const * name, ExtRemoteTyped segment)
     {
         reserved += ExtRemoteTypedUtil::GetSizeT(segment.Field("segmentPageCount")) * 4096;
         return false;
     };
-    auto accumulatePageSegments = [&](ExtRemoteTyped pageSegment)
+    auto accumulatePageSegments = [&](char const * name, ExtRemoteTyped pageSegment)
     {
-        accumulateSegments(pageSegment);
+        accumulateSegments(name, pageSegment);
         decommitted += ExtRemoteTypedUtil::GetSizeT(pageSegment.Field("decommitPageCount")) * 4096;
         freed += ExtRemoteTypedUtil::GetSizeT(pageSegment.Field("freePageCount")) * 4096;
         return false;
     };
-    SListForEach(pageAllocator.Field("segments").GetPointerTo(), accumulatePageSegments);
-    SListForEach(pageAllocator.Field("fullSegments").GetPointerTo(), accumulatePageSegments);
-    SListForEach(pageAllocator.Field("emptySegments").GetPointerTo(), accumulatePageSegments);
-    SListForEach(pageAllocator.Field("decommitSegments").GetPointerTo(), accumulatePageSegments);
-    SListForEach(pageAllocator.Field("largeSegments").GetPointerTo(), accumulateSegments);
+    this->ForEachSegment(accumulatePageSegments, accumulateSegments);
 
     this->reservedBytes = reserved;
     this->committedBytes = reserved - decommitted;
@@ -117,11 +113,11 @@ RemotePageAllocator::DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserve
 }
 
 void
-RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries)
+RemotePageAllocator::DisplayData(PCSTR name, bool showZeroEntries, bool forceCompute)
 {
     ULONG64 used = this->GetUsedBytes();
-    ULONG64 reserved = this->GetReservedBytes();
-    ULONG64 committed = this->GetCommittedBytes();
+    ULONG64 reserved = this->GetReservedBytes(forceCompute);
+    ULONG64 committed = this->GetCommittedBytes(forceCompute);
     ULONG64 unused = this->GetUnusedBytes();
 
     if (showZeroEntries || used != 0 || reserved != 0 || committed != 0 || unused != 0)

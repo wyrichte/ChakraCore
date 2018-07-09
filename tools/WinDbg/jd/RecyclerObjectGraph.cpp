@@ -423,9 +423,9 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
     stdext::hash_set<char const *> noScanFieldVtable;
 
-    auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
+    auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary)
     {
-        node->SetTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated, javascriptLibrary);
+        node->SetTypeInfo(typeName, typeNameOrField, flags, javascriptLibrary);
         if (!infer)
         {
             return false;
@@ -436,14 +436,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
 
-    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, bool hasVtable = false, ULONG64 library = 0, bool requireLivePointer = true)
+    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, RecyclerObjectTypeInfo::Flags flags = RecyclerObjectTypeInfo::Flags_None, ULONG64 library = 0, bool requireLivePointer = true)
     {
         if (object.GetPtr())
         {
             RecyclerObjectGraph::GraphImplNodeType* node = this->FindNode(object.GetPtr());
             if (requireLivePointer || node)
             {
-                setNodeData(typeName, typeName, node, hasVtable, false, library);
+                setNodeData(typeName, typeName, node, flags, library);
                 return true;
             }
         }
@@ -457,7 +457,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             auto fieldNode = this->FindNode(field.GetPtr());
             if (fieldNode && (!fieldNode->HasTypeInfo() || (fieldNode->HasVtable() && overwriteVtable)))
             {
-                setNodeData(typeName, fieldTypeName, fieldNode, false, false, library);
+                setNodeData(typeName, fieldTypeName, fieldNode, RecyclerObjectTypeInfo::Flags_None, library);
                 return true;
             }
         }
@@ -622,7 +622,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
         ULONG64 javascriptLibrary = InferJavascriptLibrary(node, remoteTyped, simpleTypeName);
 
-        if (setNodeData(typeName, typeName, node, true, false, javascriptLibrary))
+        if (setNodeData(typeName, typeName, node, RecyclerObjectTypeInfo::Flags_HasVtable, javascriptLibrary))
         {
             auto addField = [&](JDRemoteTyped field, char const * fieldTypeName, bool overwriteVtable = false, ULONG64 library = 0)
             {
@@ -657,7 +657,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         JDRemoteTyped remoteTypedAuxSlot = JDRemoteTyped::FromPtrWithVtable(auxSlots.GetPtr(), &auxSlotTypeName);
                         if (auxSlotTypeName == nullptr)
                         {
-                            setNodeData(typeName, "Js::DynamicObject.auxSlots[]", fieldNode, false, false, javascriptLibrary);
+                            setNodeData(typeName, "Js::DynamicObject.auxSlots[]", fieldNode, RecyclerObjectTypeInfo::Flags_None, javascriptLibrary);
                         }
                     }
                 }
@@ -1243,7 +1243,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         JDRemoteTyped::FromPtrWithVtable(polymorphicInlineCachesHead.GetPtr(), &polymorphicInlineCachesTypeName);
                     }
 
-                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, true, javascriptLibrary, false);
+                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, RecyclerObjectTypeInfo::Flags_HasVtable, javascriptLibrary, false);
                     polymorphicInlineCachesHead = JDUtil::GetWrappedField(polymorphicInlineCachesHead, "next");
                 }
 
@@ -1745,7 +1745,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         bool setInfo = false;
         if (node->IsRoot())
         {
-            setNodeData("<Root>", "<Root>", node, false, true, 0);
+            setNodeData("<Root>", "<Root>", node, RecyclerObjectTypeInfo::Flags_IsPropagated, 0);
             setInfo = true;
         }
 
@@ -1756,7 +1756,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 return false;
             }
 
-            setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, pred->HasVtable(), true, pred->GetAssociatedJavascriptLibrary());
+            RecyclerObjectTypeInfo::Flags flags = pred->HasVtable() ? RecyclerObjectTypeInfo::Flags_IsPropagatedFromVtable : RecyclerObjectTypeInfo::Flags_IsPropagated;
+            setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, flags, pred->GetAssociatedJavascriptLibrary());
             setInfo = true;
             return true;
         });
@@ -1778,7 +1779,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 return;
             }
 
-            setNodeData(node->GetTypeName(), node->GetTypeNameOrField(), succ, node->HasVtable(), true, node->GetAssociatedJavascriptLibrary());
+            RecyclerObjectTypeInfo::Flags flags = node->HasVtable() ? RecyclerObjectTypeInfo::Flags_IsPropagatedFromVtable : RecyclerObjectTypeInfo::Flags_IsPropagated;
+            setNodeData(node->GetTypeName(), node->GetTypeNameOrField(), succ, flags, node->GetAssociatedJavascriptLibrary());
             updated.push(succ);
         });
     }
