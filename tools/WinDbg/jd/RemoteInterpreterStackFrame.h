@@ -7,7 +7,7 @@ class RemoteInterpreterStackFrame
 {
 public:
     RemoteInterpreterStackFrame();
-    RemoteInterpreterStackFrame(ExtRemoteTyped const& interpreterStackFrame);
+    RemoteInterpreterStackFrame(JDRemoteTyped const& interpreterStackFrame);
 
     RemoteInterpreterStackFrame GetPreviousFrame();
     ULONG64 GetReturnAddress();
@@ -18,5 +18,5 @@ public:
     ULONG64 GetAddress();
     ULONG GetCurrentLoopNum();
 private:
-    ExtRemoteTyped interpreterStackFrame;
+    JDRemoteTyped interpreterStackFrame;
 };

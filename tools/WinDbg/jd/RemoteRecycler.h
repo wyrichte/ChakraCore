@@ -9,7 +9,7 @@ class RemoteRecycler
 {
 public:
     RemoteRecycler(ULONG64 recycler);
-    RemoteRecycler(ExtRemoteTyped recycler);
+    RemoteRecycler(JDRemoteTyped recycler);
 
     // TODO: avoid using this
     ExtRemoteTyped GetExtRemoteTyped();

@@ -489,7 +489,7 @@ JD_PRIVATE_COMMAND(oi,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    ObjectInfoHelper ObjectInfoHelper(recycler.GetExtRemoteTyped());
+    ObjectInfoHelper ObjectInfoHelper(recycler);
     RemoteHeapBlock * remoteHeapBlock = recycler.GetHeapBlockMap().FindHeapBlock(objectAddress);
     if (remoteHeapBlock != NULL)
     {
@@ -1952,8 +1952,7 @@ MPH_COMMAND(mpheap,
 
     // TODO: get heap instance from input parameter and check existance
     RemoteRecycler remoteRecycler(heapInstance.Field("recycler").GetPointerTo());
-    ExtRemoteTyped recycler = remoteRecycler.GetExtRemoteTyped();
-        
+
     // Summary
     if (HasArg("s"))
     {
@@ -2084,7 +2083,7 @@ MPH_COMMAND(mpheap,
             this->Out("Command to show block: %s\n", buffer);
         }
 
-        OBJECTINFO info = GetObjectInfo(address, recycler);
+        OBJECTINFO info = GetObjectInfo(address, remoteRecycler);
         if (!info.succeeded)
         {
             this->Err(info.message.c_str());
@@ -2131,11 +2130,11 @@ MPH_COMMAND(mpheap,
                 return;
             }
 
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr, GetStackTop());
-            rootPointers->Map([&recycler, &verbose, &address](ULONG64 rootAddress)
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(remoteRecycler, nullptr, GetStackTop());
+            rootPointers->Map([&remoteRecycler, &verbose, &address](ULONG64 rootAddress)
             {
                 GetExtension()->ThrowInterrupt();
-                auto info = GetObjectInfo(rootAddress, recycler);
+                auto info = GetObjectInfo(rootAddress, remoteRecycler);
                 char buffer[1024];
                 sprintf_s(buffer, GetExtension()->m_PtrSize == 8 ? "0x%016I64x" : "0x%08I64x", rootAddress);
                 if (verbose)

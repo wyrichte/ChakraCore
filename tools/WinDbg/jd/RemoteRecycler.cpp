@@ -9,7 +9,7 @@ RemoteRecycler::RemoteRecycler(ULONG64 recycler) :
 {
 }
 
-RemoteRecycler::RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler),
+RemoteRecycler::RemoteRecycler(JDRemoteTyped recycler) : recycler(recycler),
     objectAllocationShift(0)
 {
 }

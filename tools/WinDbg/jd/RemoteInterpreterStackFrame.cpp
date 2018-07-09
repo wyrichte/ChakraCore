@@ -7,7 +7,7 @@ RemoteInterpreterStackFrame::RemoteInterpreterStackFrame()
 {
 }
 
-RemoteInterpreterStackFrame::RemoteInterpreterStackFrame(ExtRemoteTyped const& interpreterStackFrame) :
+RemoteInterpreterStackFrame::RemoteInterpreterStackFrame(JDRemoteTyped const& interpreterStackFrame) :
     interpreterStackFrame(interpreterStackFrame)
 {}
 

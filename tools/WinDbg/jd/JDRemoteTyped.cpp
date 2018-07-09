@@ -90,7 +90,13 @@ JDRemoteTyped JDRemoteTyped::CastWithVtable(char const ** typeName)
 
 JDRemoteTyped JDRemoteTyped::NullPtr()
 {
-    return JDRemoteTyped("(void *)@$extin", 0);    
+    return JDRemoteTyped::VoidPtr(0);
+}
+
+JDRemoteTyped JDRemoteTyped::VoidPtr(ULONG64 address)
+{
+    JDRemoteTyped r = JDRemoteTyped("(void *)@$extin", address);
+    return r;
 }
 
 JDRemoteTyped JDRemoteTyped::FromPtrWithType(ULONG64 address, char const * typeName)
@@ -103,7 +109,7 @@ JDRemoteTyped JDRemoteTyped::FromPtrWithVtable(ULONG64 address, char const ** ty
     JDRemoteTyped result;
     if (!JDTypeCache::CastWithVtable(address, result, typeName))
     {
-        result = JDRemoteTyped("(void *)@$extin", address);
+        result = JDRemoteTyped::VoidPtr(address);
     }
     return result;
 }

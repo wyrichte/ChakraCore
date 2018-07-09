@@ -772,7 +772,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
             try
             {
                 bool fPrimaryEngine;
-                JDRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine");
+                JDRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").BitField("fNonPrimaryEngine");
                 if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
                 {
                     fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;

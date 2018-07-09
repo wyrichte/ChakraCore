@@ -25,6 +25,7 @@ public:
     JDRemoteTyped BitField(PCSTR name);
 
     static JDRemoteTyped NullPtr();
+    static JDRemoteTyped VoidPtr(ULONG64 address);
     static JDRemoteTyped FromPtrWithType(ULONG64 address, char const * typeName);
     static JDRemoteTyped FromPtrWithVtable(ULONG64 offset, const char ** typeName = nullptr);
     JDRemoteTyped CastWithVtable(const char ** typeName = nullptr);
@@ -74,7 +75,7 @@ private:
     template <typename T>
     T EnsureData();
 
-    ExtRemoteTyped extRemoteTyped;    
+    ExtRemoteTyped extRemoteTyped;
     JDTypeInfo typeInfo;
     ULONG64 offset;
     ULONG64 data;
