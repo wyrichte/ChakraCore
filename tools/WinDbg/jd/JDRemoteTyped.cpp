@@ -23,8 +23,13 @@ JDRemoteTyped::JDRemoteTyped(ULONG64 modBase, ULONG typeId, ULONG64 offset, bool
 }
 
 JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset)
-    : useExtRemoteTyped(false), typeInfo(typeInfo), offset(offset), isDataValid(false)
-{    
+    : useExtRemoteTyped(false), typeInfo(typeInfo), offset(offset), isDataValid(false), isVoidPointer(false)
+{
+}
+
+JDRemoteTyped::JDRemoteTyped(ULONG64 address)
+    : useExtRemoteTyped(false), typeInfo(0, 0, g_Ext->m_PtrSize, true), offset(0), isDataValid(true), isVoidPointer(true), data(address)
+{
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Type, ULONG64 Offset, bool PtrTo)
@@ -95,8 +100,7 @@ JDRemoteTyped JDRemoteTyped::NullPtr()
 
 JDRemoteTyped JDRemoteTyped::VoidPtr(ULONG64 address)
 {
-    JDRemoteTyped r = JDRemoteTyped("(void *)@$extin", address);
-    return r;
+    return JDRemoteTyped(address);
 }
 
 JDRemoteTyped JDRemoteTyped::FromPtrWithType(ULONG64 address, char const * typeName)
@@ -136,7 +140,14 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 {
     if (!useExtRemoteTyped)
     {
-        extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), offset);
+        if (this->isVoidPointer)
+        {
+            extRemoteTyped.Set("(void *)@$extin", this->data);
+        }
+        else
+        {
+            extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), offset);
+        }
         useExtRemoteTyped = true;
     }
     return extRemoteTyped;
@@ -186,7 +197,7 @@ ULONG JDRemoteTyped::GetTypeSize()
 {
     if (useExtRemoteTyped)
     {
-        return extRemoteTyped.GetTypeSize();        
+        return extRemoteTyped.GetTypeSize();
     }
     return this->typeInfo.GetSize();
 }

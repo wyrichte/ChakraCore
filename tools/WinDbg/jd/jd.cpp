@@ -977,51 +977,51 @@ JD_PRIVATE_COMMAND(url,
 
 void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptContext)
 {
+    
+    Out("ScriptContext: 0x%p", scriptContext.GetPtr());
     if (scriptContext.IsScriptContextActuallyClosed())
     {
-        // Not considering this script context.
+        Out(" (Closed)");
     }
     else if (scriptContext.IsClosed())
     {
-        // Not considering this script context.
+        Out(" (Pending Closed)");
     }
-    else
+    Out("\n");
+    bool printHeader = false;
+    scriptContext.ForEachUtf8SourceInfo([&](ULONG i, RemoteUtf8SourceInfo remoteUtf8SourceInfo)
     {
-        Out("ScriptContext: 0x%p\n", scriptContext.GetPtr());
-        bool printHeader = false;
-        scriptContext.ForEachUtf8SourceInfo([&](ULONG i, RemoteUtf8SourceInfo remoteUtf8SourceInfo)
+        if (!printHeader)
         {
-            if (!printHeader)
+            if (this->m_PtrSize == 4)
             {
-                if (this->m_PtrSize == 4)
-                {
-                    Out("   Utf8SourceInfo  URL\n");
-                }
-                else
-                {
-                    Out("   Utf8SourceInfo            URL\n");
-                }
-                printHeader = true;
-            }
-  
-            Out("%2d ", i);
-            ExtRemoteTyped extRemoteTyped = remoteUtf8SourceInfo.GetExtRemoteTyped();
-            if (this->PreferDML())
-            {
-                Dml("<link cmd=\"dx -r1 %s0x%p\">%p</link> ", FillModule("(%s!Js::Utf8SourceInfo *)"), 
-                    extRemoteTyped.GetPtr(), extRemoteTyped.GetPtr());
-                Dml("<link cmd=\"!jd.jsrc %p\">(source)</link> ", extRemoteTyped.GetPtr());
+                Out("   Utf8SourceInfo  URL\n");
             }
             else
             {
-                Out("%p         ", i, remoteUtf8SourceInfo.GetExtRemoteTyped().GetPtr());                
+                Out("   Utf8SourceInfo            URL\n");
             }
+            printHeader = true;
+        }
+  
+        Out("%2d ", i);
+        ExtRemoteTyped extRemoteTyped = remoteUtf8SourceInfo.GetExtRemoteTyped();
+        if (this->PreferDML())
+        {
+            Dml("<link cmd=\"dx -r1 %s0x%p\">%p</link> ", FillModule("(%s!Js::Utf8SourceInfo *)"), 
+                extRemoteTyped.GetPtr(), extRemoteTyped.GetPtr());
+            Dml("<link cmd=\"!jd.jsrc %p\">(source)</link> ", extRemoteTyped.GetPtr());
+        }
+        else
+        {
+            Out("%p         ", i, remoteUtf8SourceInfo.GetExtRemoteTyped().GetPtr());                
+        }
 
-            remoteUtf8SourceInfo.PrintSourceUrl();
-            Out("\n");
-            return false;
-        });
-    }
+        remoteUtf8SourceInfo.PrintSourceUrl();
+        Out("\n");
+        return false;
+    });
+
     Out("\n");
 }
 

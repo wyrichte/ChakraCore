@@ -64,6 +64,8 @@ public:
 
     PWCHAR GetString(ExtBuffer<WCHAR> * buffer);
 private:
+    JDRemoteTyped(ULONG64 address);
+
     friend class JDTypeCache;
     friend class FieldInfoCache;
     
@@ -81,4 +83,5 @@ private:
     ULONG64 data;
     bool isDataValid;
     bool useExtRemoteTyped;
+    bool isVoidPointer;
 };
