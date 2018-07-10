@@ -219,8 +219,8 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     ULONG64 heapBlockAddress = heapBlock.GetHeapBlockAddress();
     ULONG64 blockAddress = heapBlock.GetAddress();
 
-    ULONG64 sizeOfHeapBlock = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+    ULONG64 sizeOfHeapBlock = GetExtension()->recyclerCachedData.GetSizeOfLargeHeapBlock();
+    ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
 
     ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
 
@@ -264,13 +264,13 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     }
     heapObject.objectSize = ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));
 
-    ULONG64 objectCount = ExtRemoteTypedUtil::GetSizeT(heapBlock.GetExtRemoteTyped().Field("objectCount"));
+    ULONG64 objectCount = heapBlock.GetJDRemoteTyped().Field("objectCount").GetSizeT();
 
     ExtRemoteTyped freeBitWord;
-    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < ExtRemoteTypedUtil::GetSizeT(heapBlock.GetExtRemoteTyped().Field("allocCount")) && headerData.m_Data == NULL);
+    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < heapBlock.GetJDRemoteTyped().Field("allocCount").GetSizeT() && headerData.m_Data == NULL);
     heapObject.freeBitWord = NULL;
 
-    if (heapBlock.GetExtRemoteTyped().HasField("markCount"))
+    if (heapBlock.GetJDRemoteTyped().HasField("markCount"))
     {
         // Before CL #1362395
         ExtRemoteTyped markBitWord;
@@ -713,7 +713,7 @@ JD_PRIVATE_COMMAND(findblock,
 
     if (remoteHeapBlock != NULL)
     {
-        JDRemoteTyped(remoteHeapBlock->GetExtRemoteTyped()).CastWithVtable().GetExtRemoteTyped().OutFullValue();
+        remoteHeapBlock->GetJDRemoteTyped().CastWithVtable().GetExtRemoteTyped().OutFullValue();
     }
     else
     {
@@ -1745,7 +1745,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler)
         info.message = "Could not find heap block corresponding to this address";
         return info;
     }
-    heapBlock = remoteHeapBlock->GetExtRemoteTyped();
+    heapBlock = remoteHeapBlock->GetJDRemoteTyped();
 
     char const *& typeName = info.typeName;
     heapBlock = heapBlock.CastWithVtable(&typeName);

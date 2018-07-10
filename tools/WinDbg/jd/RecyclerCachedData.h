@@ -52,12 +52,14 @@ public:
 
     void Clear();
 
-    ExtRemoteTyped GetAsHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsSmallFinalizableHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsMediumHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsMediumFinalizableHeapBlock(ULONG64 address);
-    ExtRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsSmallHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsSmallFinalizableHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsMediumHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsMediumFinalizableHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsLargeHeapBlock(ULONG64 address);
+    JDRemoteTyped GetAsLargeObjectHeader(ULONG64 address);
+    JDRemoteTyped GetAsLargeObjectHeaderList(ULONG64 address);
 
     RemoteHeapBlock * FindCachedHeapBlock(ULONG64 address);
 
@@ -72,6 +74,9 @@ public:
 
     ULONG64 GetSmallHeapBlockPageCount();
     ULONG64 GetMediumHeapBlockPageCount();
+
+    ULONG GetSizeOfLargeHeapBlock();
+    ULONG GetSizeOfLargeObjectHeader();
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name) \
     ULONG64 GetBlockTypeEnum##name() { EnsureBlockTypeEnum(); return m_blockTypeEnumValue##name; } \
@@ -105,6 +110,9 @@ private:
     CachedTypeInfo m_mediumHeapBlockTypeInfo;
     CachedTypeInfo m_mediumFinalizableHeapBlockTypeInfo;
     CachedTypeInfo m_largeHeapBlockTypeInfo;
+    CachedTypeInfo m_largeObjectHeaderTypeInfo;
+    CachedTypeInfo m_largeObjectHeaderListTypeInfo;
+
     bool m_blockTypeEnumInitialized;
     bool m_mphblockTypeEnumInitialized;
 

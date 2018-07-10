@@ -334,7 +334,7 @@ void RootPointerReader::ScanImplicitRoots(bool print)
     {
         if (remoteHeapBlock.IsLargeHeapBlock())
         {
-            ULONG64 sizeOfObjectHeader = g_Ext->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
             return remoteHeapBlock.ForEachLargeObjectHeader([&](JDRemoteTyped& h)
             {
                 ExtRemoteTyped header = h.GetExtRemoteTyped();
@@ -663,7 +663,7 @@ JD_PRIVATE_COMMAND(findref,
     {
         if (heapBlock.IsLargeHeapBlock())
         {
-            ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+            ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
             heapBlock.ForEachLargeObjectHeader([referencedObject, sizeOfObjectHeader, rootPointers, &results](JDRemoteTyped header)
             {
                 ULONG64 objectSize = header.Field("objectSize").GetSizeT();
