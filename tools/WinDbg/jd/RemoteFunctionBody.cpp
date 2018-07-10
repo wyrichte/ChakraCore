@@ -334,90 +334,21 @@ RemoteFunctionBody::PrintByteCodeLink()
 void
 RemoteFunctionBody::PrintSourceUrl()
 {
-    JDRemoteTyped sourceContextInfo = GetSourceContextInfo();
-    bool isDynamic;
-    if (sourceContextInfo.HasField("isHostDynamicDocument"))
-    {
-        isDynamic = sourceContextInfo.Field("isHostDynamicDocument").GetStdBool();
-    }
-    else
-    {
-        // //depot/rs2_release_svc_sec/onecoreuap/inetcore/jscriptlegacy/Lib/Runtime/Language/SourceContextInfo.h#1:
-        // bool IsDynamic() const { return dwHostSourceContext == Js::Constants::NoHostSourceContext; }
-        isDynamic = sourceContextInfo.Field("dwHostSourceContext").GetLong() == -1;
-    }
-    if (isDynamic)
-    {
-        GetExtension()->Out("[dynamic script #%d]", sourceContextInfo.Field("hash").GetUlong());
-    }
-    else
-    {
-        GetExtension()->Out("%mu", sourceContextInfo.Field("url").GetPtr());
-    }
+    this->GetUtf8SourceInfo().PrintSourceUrl();
 }
 
 void
 RemoteFunctionBody::PrintSource()
 {
-    JDRemoteTyped utf8SourceInfo = GetUtf8SourceInfo();
-    ULONG64 buffer = 0;
-
     ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
     ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();
-    try
-    {
-        if (utf8SourceInfo.HasField("debugModeSource"))
-        {
-            buffer = utf8SourceInfo.Field("debugModeSource").GetPtr();
-        }
-
-        if (buffer == 0 && utf8SourceInfo.HasField("m_utf8Source"))
-        {
-            buffer = utf8SourceInfo.Field("m_utf8Source").GetPtr();
-        }
-
-        if (buffer == 0 && utf8SourceInfo.HasField("m_pTridentBuffer"))
-        {
-            buffer = utf8SourceInfo.Field("m_pTridentBuffer").GetPtr();
-        }
-
-        if (buffer == 0)
-        {
-            GetExtension()->Out("Unable to find source buffer (startOffset = %llu, length= %u)", startOffset, length);
-            return;
-        }
-    }
-    catch (ExtException& ex)
-    {
-        GetExtension()->Out("Exception getting source buffer: %s (startOffset = %llu, length= %u)", ex.GetMessageW(), startOffset, length);
-        return;
-    }
-
-    try
-    {
-        ExtRemoteData source(buffer + startOffset, length);
-        ExtBuffer<CHAR> sourceBuffer;
-        sourceBuffer.Require(length + 1);
-        source.ReadBuffer(sourceBuffer.GetBuffer(), length);
-        sourceBuffer.GetBuffer()[length] = 0;
-        GetExtension()->Out(sourceBuffer.GetBuffer());
-    }
-    catch (ExtException& ex)
-    {
-        GetExtension()->Out("Exception reading source buffer: %s (startOffset = %llu, length= %u)", ex.GetMessageW(), startOffset, length);
-    }
+    this->GetUtf8SourceInfo().PrintSource(startOffset, length);
 }
 
-JDRemoteTyped
+RemoteUtf8SourceInfo
 RemoteFunctionBody::GetUtf8SourceInfo()
 {
-    return JDUtil::GetWrappedField(*this, "m_utf8SourceInfo");
-}
-
-JDRemoteTyped
-RemoteFunctionBody::GetSourceContextInfo()
-{
-    return GetUtf8SourceInfo().Field("m_srcInfo").Field("sourceContextInfo");
+    return RemoteUtf8SourceInfo(JDUtil::GetWrappedField(*this, "m_utf8SourceInfo"));
 }
 
 RemoteEntryPoint

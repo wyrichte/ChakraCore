@@ -60,7 +60,7 @@ EXPORTS
     findpage
     mpheap
     bv
-    sourceInfos
+    jsrc
     jsdisp
     warnicf
 

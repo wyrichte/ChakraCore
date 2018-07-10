@@ -293,6 +293,11 @@ double JDRemoteTyped::GetDouble()
     return GetExtRemoteTyped().GetDouble();
 }
 
+wchar_t * JDRemoteTyped::GetString(ExtBuffer<wchar_t> * buffer)
+{
+    return GetExtRemoteTyped().GetString(buffer);
+}
+
 template <typename T>
 T JDRemoteTyped::EnsureData()
 {

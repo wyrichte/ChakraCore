@@ -264,9 +264,9 @@ protected:
     void PrintThreadContextUrl(RemoteThreadContext threadContext, bool showAll, bool showLink, bool isCurrentThreadContext = false);
     void PrintAllUrl(bool showAll, bool showLink);
 
-    void PrintScriptContextSourceInfos(RemoteScriptContext scriptContext, bool printOnlyCount, bool printSourceContextInfo);
-    void PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext = false);
-    void PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo);    
+    void PrintScriptContextSourceInfos(RemoteScriptContext scriptContext);
+    void PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool isCurrentThreadContext = false);
+    void PrintAllSourceInfos();
 
     std::string GetRemoteVTableName(PCSTR type);
     std::string GetTypeNameFromVTable(PCSTR vtablename);
@@ -376,7 +376,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(ffb);
 
     JD_PRIVATE_COMMAND_METHOD(url);
-    JD_PRIVATE_COMMAND_METHOD(sourceInfos);
+    JD_PRIVATE_COMMAND_METHOD(jsrc);
     JD_PRIVATE_COMMAND_METHOD(jstack);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);

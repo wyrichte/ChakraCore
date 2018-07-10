@@ -217,7 +217,7 @@ public:
     }
     ULONG GetSourceContextId()
     {
-        return GetSourceContextInfo().Field("sourceContextId").GetUlong();
+        return GetUtf8SourceInfo().GetSourceContextId();
     }
 
     ULONG GetLocalFunctionId()
@@ -330,6 +330,5 @@ private:
 
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
 
-    JDRemoteTyped GetUtf8SourceInfo();
-    JDRemoteTyped GetSourceContextInfo();
+    RemoteUtf8SourceInfo GetUtf8SourceInfo();
 };

@@ -975,7 +975,7 @@ JD_PRIVATE_COMMAND(url,
 }
 
 
-void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptContext, bool printOnlyCount, bool printSourceContextInfo)
+void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptContext)
 {
     if (scriptContext.IsScriptContextActuallyClosed())
     {
@@ -987,35 +987,56 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
     }
     else
     {
-        Out("ScriptContext : %p\n", scriptContext.GetPtr());
+        Out("ScriptContext: 0x%p\n", scriptContext.GetPtr());
+        bool printHeader = false;
         scriptContext.ForEachUtf8SourceInfo([&](ULONG i, RemoteUtf8SourceInfo remoteUtf8SourceInfo)
         {
-            Out("Utf8SourceInfo : [%d]\n", i);
-            remoteUtf8SourceInfo.GetExtRemoteTyped().OutFullValue();
-            if (printSourceContextInfo)
+            if (!printHeader)
             {
-                ExtRemoteTyped sourceContextInfo = remoteUtf8SourceInfo.GetSrcInfo().Field("sourceContextInfo").GetExtRemoteTyped();
-                Out("SourceContextInfo : \n");
-                sourceContextInfo.OutFullValue();
+                if (this->m_PtrSize == 4)
+                {
+                    Out("   Utf8SourceInfo  URL\n");
+                }
+                else
+                {
+                    Out("   Utf8SourceInfo            URL\n");
+                }
+                printHeader = true;
             }
+  
+            Out("%2d ", i);
+            ExtRemoteTyped extRemoteTyped = remoteUtf8SourceInfo.GetExtRemoteTyped();
+            if (this->PreferDML())
+            {
+                Dml("<link cmd=\"dx -r1 %s0x%p\">%p</link> ", FillModule("(%s!Js::Utf8SourceInfo *)"), 
+                    extRemoteTyped.GetPtr(), extRemoteTyped.GetPtr());
+                Dml("<link cmd=\"!jd.jsrc %p\">(source)</link> ", extRemoteTyped.GetPtr());
+            }
+            else
+            {
+                Out("%p         ", i, remoteUtf8SourceInfo.GetExtRemoteTyped().GetPtr());                
+            }
+
+            remoteUtf8SourceInfo.PrintSourceUrl();
+            Out("\n");
             return false;
-        });       
+        });
     }
     Out("\n");
 }
 
-void EXT_CLASS_BASE::PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool printOnlyCount, bool printSourceContextInfo, bool isCurrentThreadContext)
+void EXT_CLASS_BASE::PrintThreadContextSourceInfos(RemoteThreadContext threadContext, bool isCurrentThreadContext)
 {
     Out("ThreadContext: 0x%p \n", threadContext.GetPtr());
 
     threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
     {
-        PrintScriptContextSourceInfos(scriptContext, printOnlyCount, printSourceContextInfo);
+        PrintScriptContextSourceInfos(scriptContext);
         return false;
     });
 }
 
-void EXT_CLASS_BASE::PrintAllSourceInfos(bool printOnlyCount, bool printSourceContextInfo)
+void EXT_CLASS_BASE::PrintAllSourceInfos()
 {
     ULONG64 currentThreadContextPtr = 0;
     RemoteThreadContext currentThreadContext;
@@ -1025,44 +1046,74 @@ void EXT_CLASS_BASE::PrintAllSourceInfos(bool printOnlyCount, bool printSourceCo
     }
 
     currentThreadContextPtr = currentThreadContext.GetPtr();
-    RemoteThreadContext::ForEach([this, currentThreadContextPtr, printOnlyCount, printSourceContextInfo](RemoteThreadContext threadContext)
+    RemoteThreadContext::ForEach([this, currentThreadContextPtr](RemoteThreadContext threadContext)
     {
-        PrintThreadContextSourceInfos(threadContext, printOnlyCount, printSourceContextInfo, threadContext.GetPtr() == currentThreadContextPtr);
+        PrintThreadContextSourceInfos(threadContext, threadContext.GetPtr() == currentThreadContextPtr);
         Out("--------------------------------------------------------------------\n");
         return false;
     });
 
 }
 
-JD_PRIVATE_COMMAND(sourceInfos,
+JD_PRIVATE_COMMAND(jsrc,
     "Print all utf8source info'es",
-    "{;e,o,d=0;pointer;Script or Thread context to get source info'es}"
-    "{c;b,o;;Print total count}"
-    "{s;b,o;;Print sourceContextInfo as well}")
+    "{;e,o,d=0;pointer;Script or Thread context to print, or Utf8Source to get the source}"
+    "{o;s,o;filename;Filename to output to}"
+    )
 {
-    ULONG64 pointer = GetUnnamedArgU64(0);
-    const bool printOnlyCount = HasArg("c");
-    const bool printSourceContextInfo = HasArg("s");
+    char const * filename = nullptr;
+    if (HasArg("o"))
+    {
+        filename = GetArgStr("o");
+    }
 
+    ULONG64 pointer = GetUnnamedArgU64(0);
     if (pointer == 0)
     {
-        PrintAllSourceInfos(printOnlyCount, printSourceContextInfo);
+        if (filename)
+        {
+            ThrowLastError("Save to source to file requires a Utf8SourceInfo pointer");
+        }
+        PrintAllSourceInfos();
         return;
     }
     RemoteThreadContext remoteThreadContext;
     if (RemoteThreadContext::TryGetThreadContextFromPointer(pointer, remoteThreadContext))
     {
-        PrintThreadContextSourceInfos(remoteThreadContext, printOnlyCount, printSourceContextInfo);
+        if (filename)
+        {
+            ThrowLastError("Save to source to file requires a Utf8SourceInfo pointer");
+        }
+        PrintThreadContextSourceInfos(remoteThreadContext);
         return;
     }
     RemoteScriptContext remoteScriptContext;
     if (RemoteScriptContext::TryGetScriptContextFromPointer(pointer, remoteScriptContext))
     {
-        PrintScriptContextSourceInfos(remoteScriptContext, printOnlyCount, printSourceContextInfo);
+        if (filename)
+        {
+            ThrowLastError("Save to source to file requires a Utf8SourceInfo pointer");
+        }
+        PrintScriptContextSourceInfos(remoteScriptContext);
         return;
     }
 
-    Err("ERROR: Pointer %p is not a ThreadContext or ScriptContext\n", pointer);
+    RemoteUtf8SourceInfo remoteUtf8SourceInfo;
+    if (RemoteUtf8SourceInfo::TryGetUtf8SourceInfoFromPointer(pointer, remoteUtf8SourceInfo))
+    {
+        if (filename)
+        {
+            remoteUtf8SourceInfo.SaveSource(filename);
+        }
+        else
+        {
+            remoteUtf8SourceInfo.PrintSource();
+        }
+        Out("\n");
+        return;
+    }
+
+    Err("ERROR: Pointer %p is not a ThreadContext or ScriptContext or Utf8SourceInfo\n", pointer);
     ThrowCommandHelp();
 }
 
@@ -1348,7 +1399,7 @@ JD_PRIVATE_COMMAND(jstack,
             JDRemoteTyped function = nativeLibraryEntryRecordCurr.Field("function");
             JDRemoteTyped name = nativeLibraryEntryRecordCurr.Field("name");
             ExtBuffer<WCHAR> buffer;
-            PWCHAR functionName = name.Dereference().GetExtRemoteTyped().GetString(&buffer);
+            PWCHAR functionName = name.Dereference().GetString(&buffer);
             stackWalker.PrintFrameNumber(verbose);
             Out(" js!");
             if (this->PreferDML())

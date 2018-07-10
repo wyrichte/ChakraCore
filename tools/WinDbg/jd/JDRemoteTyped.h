@@ -60,6 +60,8 @@ public:
     ULONG64 GetPtr();
     
     double GetDouble();
+
+    PWCHAR GetString(ExtBuffer<WCHAR> * buffer);
 private:
     friend class JDTypeCache;
     friend class FieldInfoCache;
