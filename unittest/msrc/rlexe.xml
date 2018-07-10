@@ -374,4 +374,44 @@
       <compile-flags>-pageheap:2</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>45199.js</files>
+    </default>
+  </test> 
+  <test>
+    <default>
+      <files>45193.js</files>
+      <baseline>45193.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45218.js</files>
+      <compile-flags>-pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45371.js</files>
+      <timeout>120</timeout>
+      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45376.js</files>
+      <compile-flags>-pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45387.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45657.js</files>
+    </default>
+  </test>
 </regress-exe>
