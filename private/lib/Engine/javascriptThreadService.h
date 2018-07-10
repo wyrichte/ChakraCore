@@ -137,6 +137,8 @@ private:
     bool OnScheduleIdleCollect(uint ticks, bool scheduleAsTask) override;
     void OnFinishIdleCollect() override;
     bool ShouldFinishConcurrentCollectOnIdleCallback() override;
+    void AddRefThreadService() override;
+    void ReleaseThreadService() override;
 
     void SetIdleTaskState(IdleTaskState newState);
 

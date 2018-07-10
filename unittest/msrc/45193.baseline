@@ -1,0 +1,19 @@
+*** Running test #1 (0): Await keyword usage in the param scope of async functions
+11
+PASSED
+*** Running test #2 (1): Yield keword usage in the param scope of generator functions
+10
+12
+13
+PASSED
+*** Running test #3 (2): Usage of await keyword in generator functions
+11
+12
+13
+PASSED
+*** Running test #4 (3): Usage of yield keyword in async functions
+11
+12
+13
+PASSED
+Summary of tests: total executed: 4; passed: 4; failed: 0
