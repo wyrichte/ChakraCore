@@ -28,6 +28,9 @@
 #error Unknown architecture
 #endif
 
+//
+//  For general telemetry events
+//
 #define TraceLogChakra(name, ...)                                                                       \
     {                                                                                                   \
         const auto& globalFlags = Js::Configuration::Global.flags;                                      \
@@ -45,6 +48,22 @@
             TraceLoggingWideString(globalFlags.TelemetryDiscriminator1, "Discriminator1"),              \
             TraceLoggingWideString(globalFlags.TelemetryDiscriminator2, "Discriminator2"),              \
             TraceLoggingGuid(g_TraceLoggingClient->GetChakraInstanceID(), "chakraInstanceID"),          \
+            __VA_ARGS__                                                                                 \
+            );                                                                                          \
+        }                                                                                               \
+    }
+
+//
+// For specific perf-track events. We may change perf track data to use a different guid
+//
+#define TracePerfTrackChakra(name, ...)                                                                 \
+    {                                                                                                   \
+        if (g_TraceLoggingClient != nullptr && g_TraceLoggingClient->GetShouldLogTelemetry() == true)   \
+        {                                                                                               \
+            TraceLoggingWrite(                                                                          \
+            g_hTraceLoggingProv,                                                                        \
+            name,                                                                                       \
+            TraceLoggingKeyword(MICROSOFT_KEYWORD_MEASURES),                                            \
             __VA_ARGS__                                                                                 \
             );                                                                                          \
         }                                                                                               \
