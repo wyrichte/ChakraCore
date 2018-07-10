@@ -30,12 +30,7 @@ char const * const CachedTypeInfo::GetTypeName()
 JDRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
 {
     EnsureCached();
-
-    if (isPtrTo)
-    {
-        return JDRemoteTyped(typeInfo.GetModBase(), typeInfo.GetTypeId(), address, true);
-    }
-    return JDRemoteTyped(typeInfo, address);
+    return JDRemoteTyped(typeInfo, address, isPtrTo);
 }
 
 ULONG CachedTypeInfo::GetSize()
@@ -85,12 +80,12 @@ void CachedTypeInfo::EnsureCached()
         std::string expr = "(";
         expr += fullTypeName + " *)@$extin";
         ExtRemoteTyped remoteTyped = ExtRemoteTyped(expr.c_str(), 0);
-        typeInfo.Set(remoteTyped);
+        typeInfo = JDTypeInfo::FromExtRemoteTyped(remoteTyped);
     }
     else
     {
         ExtRemoteTyped remoteTyped = ExtRemoteTyped(fullTypeName.c_str(), 0, false);
-        typeInfo.Set(remoteTyped);
+        typeInfo = JDTypeInfo::FromExtRemoteTyped(remoteTyped);
     }
     
 }

@@ -50,7 +50,7 @@ public:
     }
 
     RemoteThreadContext() : threadContext(JDRemoteTyped::NullPtr()) {}
-    RemoteThreadContext(JDRemoteTyped threadContext) : threadContext(threadContext.GetExtRemoteTyped()) {};
+    RemoteThreadContext(JDRemoteTyped threadContext) : threadContext(threadContext) {};
     ExtRemoteTyped GetExtRemoteTyped() { return threadContext.GetExtRemoteTyped(); }
     bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * pThreadId = NULL);
     bool UseCodePageAllocator();

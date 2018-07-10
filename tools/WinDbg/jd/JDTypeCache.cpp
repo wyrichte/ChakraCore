@@ -11,34 +11,75 @@ JDTypeCache::JDTypeCache()
 
 void JDTypeCache::Clear()
 {
-    this->vtableTypeIdMap.clear();
-    for (auto i = this->vtableTypeNameMap.begin(); i != this->vtableTypeNameMap.end(); i++)
+    this->vtableTypeInfoMap.clear();
+    for (auto i : this->vtableTypeNameMap)
     {
-        delete (*i).second;
+        delete i.second;
     }
     this->vtableTypeNameMap.clear();
+    this->cacheTypeInfoCache.clear();
+    this->chakraCacheTypeInfoCache.clear();
+}
+
+JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
+{    
+    auto i = this->cacheTypeInfoCache.find(typeName);
+
+    if (i != this->cacheTypeInfoCache.end())
+    {
+        return i->second;
+    }
+
+    ULONG64 modBase;
+    ULONG typeId;
+    ULONG size;
+    if (SUCCEEDED(GetExtension()->m_Symbols3->GetSymbolModule(typeName, &modBase))
+        && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeId(modBase, typeName, &typeId))
+        && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeSize(modBase, typeId, &size)))
+    {
+        JDTypeInfo typeInfo = JDTypeInfo(modBase, typeId, size, false);
+
+        this->cacheTypeInfoCache[typeName] = typeInfo;
+        return typeInfo;
+    }
+
+    g_Ext->Err("ERROR: Unable to get type info '%s'\n", typeName);
+    g_Ext->ThrowLastError("Fatal error in JDTypeCache::GetCachedTypeInfo");
 }
 
 JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
 {
-    JDTypeCache& typeCache = GetExtension()->typeCache;
     if (original == 0)
     {
         return JDRemoteTyped::NullPtr();
     }
-    auto i = typeCache.cacheTypeInfoCache.find(typeName);
 
-    if (i == typeCache.cacheTypeInfoCache.end())
+    JDTypeCache& typeCache = GetExtension()->typeCache;
+    auto i = typeCache.chakraCacheTypeInfoCache.find(typeName);
+    if (i != typeCache.chakraCacheTypeInfoCache.end())
     {
-        CHAR typeNameBuffer[1024];
-        sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
-        JDRemoteTyped result(typeNameBuffer, original);
-        JDRemoteTyped deref = result.Dereference();
-        typeCache.cacheTypeInfoCache.insert(std::make_pair(typeName, std::make_pair(deref.GetModBase(), deref.GetTypeId()))).first;
-        return result;
+        return JDRemoteTyped(i->second, original, true);
     }
 
-    return JDRemoteTyped((*i).second.first, (*i).second.second, original, true);
+    JDTypeInfo typeInfo;
+    if (strchr(typeName, '*') != nullptr)
+    {
+        // A pointer type gives different answer with IDebugSymbol::GetTypeId.  Use the extremote type
+        CHAR typeNameBuffer[1024];
+        sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
+        ExtRemoteTyped result(typeNameBuffer, original);
+        ExtRemoteTyped deref = result.Dereference();
+        typeInfo = JDTypeInfo::FromExtRemoteTyped(deref);
+    }
+    else
+    {
+        std::string localTypeName = GetExtension()->GetModuleName();
+        localTypeName += "!";
+        localTypeName += typeName;
+        typeInfo = typeCache.GetCachedTypeInfo(localTypeName.c_str());        
+    }
+    typeCache.chakraCacheTypeInfoCache[typeName] = typeInfo;
+    return JDRemoteTyped(typeInfo, original, true);
 }
 
 
@@ -85,10 +126,10 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
     }
 
     JDTypeCache& typeCache = GetExtension()->typeCache;
-    if (typeCache.vtableTypeIdMap.find(vtbleAddr) != typeCache.vtableTypeIdMap.end())
+    auto i = typeCache.vtableTypeInfoMap.find(vtbleAddr);
+    if (i != typeCache.vtableTypeInfoMap.end())
     {
-        std::pair<ULONG64, ULONG> vtableTypeId = typeCache.vtableTypeIdMap[vtbleAddr];
-        result = JDRemoteTyped(vtableTypeId.first, vtableTypeId.second, objectAddress, true);
+        result = JDRemoteTyped(i->second, objectAddress, true);
         if (typeName)
         {
             *typeName = typeCache.GetTypeNameFromVTablePointer(vtbleAddr);
@@ -105,15 +146,10 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
             *typeName = localTypeName;
         }
 
-        ULONG64 modBase;
-        ULONG typeId;
-        if (SUCCEEDED(GetExtension()->m_Symbols3->GetSymbolModule(localTypeName, &modBase))
-            && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeId(modBase, localTypeName, &typeId)))
-        {
-            result = JDRemoteTyped(modBase, typeId, objectAddress, true);
-            typeCache.vtableTypeIdMap[vtbleAddr] = std::pair<ULONG64, ULONG>(modBase, typeId);
-            return true;
-        }
+        JDTypeInfo typeInfo = typeCache.GetCachedTypeInfo(localTypeName);
+        typeCache.vtableTypeInfoMap[vtbleAddr] = typeInfo;
+        result = JDRemoteTyped(typeInfo, objectAddress, true);
+        return true;
     }
 
     return false;
@@ -152,14 +188,15 @@ static char const * PreloadVtableNames[]
     "Js::JavascriptArray",      // Js::JavascriptNativeArray
 
 };
-char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
+
+void JDTypeCache::EnsureOverrideAddedToVtableTypeNameMap()
 {
     if (!isOverrideAddedToVtableTypeNameMap)
     {
         isOverrideAddedToVtableTypeNameMap = true;
 
         char const * moduleName = GetExtension()->GetModuleName();
-        
+
         for (int i = 0; i < _countof(PreloadVtableNames); i++)
         {
             char const * name = PreloadVtableNames[i];
@@ -172,6 +209,10 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
             }
         }
     }
+}
+char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
+{
+    EnsureOverrideAddedToVtableTypeNameMap();
 
     auto i = vtableTypeNameMap.find(vtableAddr);
     if (i != vtableTypeNameMap.end())
@@ -205,18 +246,19 @@ char const * JDTypeCache::GetTypeNameFromVTablePointer(ULONG64 vtableAddr)
     catch (...)
     {
     }
+    vtableTypeNameMap[vtableAddr] = nullptr;
     return nullptr;
 }
 
 void JDTypeCache::WarnICF()
 {
     bool warned = false;
-    for (auto i = vtableTypeNameMap.begin(); i != vtableTypeNameMap.end(); i++)
+    for (auto i : vtableTypeNameMap)
     {
-        if (HasMultipleSymbol(i->first))
+        if (i.second && HasMultipleSymbol(i.first))
         {
             warned = true;
-            ExtWarn("WARNING: ICF vtable used: %p %s\n", i->first, i->second->c_str());
+            ExtWarn("WARNING: ICF vtable used: %p %s\n", i.first, i.second->c_str());
         }
     }
     if (!warned)

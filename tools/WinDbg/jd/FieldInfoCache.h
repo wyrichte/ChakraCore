@@ -49,6 +49,8 @@ private:
 public:
     static bool HasField(JDRemoteTyped& object, char const * field);
     static JDRemoteTyped GetField(JDRemoteTyped& object, char const * field);
+
+    void Clear();
 };
 
 inline bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b)

@@ -12,7 +12,6 @@ public:
     JDRemoteTyped Cast(ULONG64 address);
 
     ULONG GetSize();
-
     void Clear();
 private:
     char const * const GetTypeName();

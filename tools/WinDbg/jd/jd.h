@@ -291,6 +291,7 @@ protected:
         this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
         this->typeCache.Clear();
+        this->fieldInfoCache.Clear();
         this->chakraModuleBaseAddress = 0;
         this->chakraModuleEndAddress = 0;
         this->edgeModuleBaseAddress = 0;

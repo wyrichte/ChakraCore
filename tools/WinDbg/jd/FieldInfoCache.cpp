@@ -33,6 +33,11 @@ public:
     }
 };
 
+void FieldInfoCache::Clear()
+{
+    cache.clear();
+}
+
 bool FieldInfoCache::HasField(JDRemoteTyped& object, char const * fieldName)
 {
     FieldInfoCache& fieldInfoCache = GetExtension()->fieldInfoCache;

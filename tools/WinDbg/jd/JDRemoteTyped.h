@@ -15,8 +15,8 @@ public:
     JDRemoteTyped(PCSTR Expr, ULONG64 Offset);    
     JDRemoteTyped(ExtRemoteTyped const& remoteTyped);
 
-    JDRemoteTyped(ULONG64 modBase, ULONG typeID, ULONG64 offset, bool ptrTo);
-    JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset);
+
+    JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo = false);
 
     bool HasField(PCSTR name);
     JDRemoteTyped Field(PCSTR name);
@@ -84,4 +84,5 @@ private:
     bool isDataValid;
     bool useExtRemoteTyped;
     bool isVoidPointer;
+    bool isPtrTo;
 };

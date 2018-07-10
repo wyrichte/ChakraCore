@@ -7,19 +7,21 @@ JDTypeInfo::JDTypeInfo()
 {
     Clear();
 }
+
 JDTypeInfo::JDTypeInfo(ULONG64 modBase, ULONG typeId, ULONG size, bool isPointerType)
     : m_ModBase(modBase), m_TypeId(typeId), m_size(size), m_isPointerType(isPointerType), m_isValid(true)
 {
 
 }
 
-void JDTypeInfo::Set(ExtRemoteTyped const& remoteTyped)
+JDTypeInfo JDTypeInfo::GetVoidPointerType()
 {
-    m_isValid = true;
-    m_ModBase = remoteTyped.m_Typed.ModBase;
-    m_TypeId = remoteTyped.m_Typed.TypeId;
-    m_size = remoteTyped.m_Typed.Size;
-    m_isPointerType = (remoteTyped.m_Typed.Tag == SymTagPointerType);
+    return JDTypeInfo(0, 0, g_Ext->m_PtrSize, true);
+}
+
+JDTypeInfo JDTypeInfo::FromExtRemoteTyped(ExtRemoteTyped const& remoteTyped)
+{
+    return JDTypeInfo(remoteTyped.m_Typed.ModBase, remoteTyped.m_Typed.TypeId, remoteTyped.m_Typed.Size, (remoteTyped.m_Typed.Tag == SymTagPointerType));
 }
 
 void JDTypeInfo::Clear()
@@ -30,6 +32,7 @@ void JDTypeInfo::Clear()
     m_size = 0;
     m_isPointerType = false;
 }
+
 bool JDTypeInfo::IsValid() const
 {
     return this->m_isValid;
