@@ -716,6 +716,16 @@ bool JavascriptThreadService::OnScheduleIdleCollect(uint ticks, bool canSchedule
     return false;
 }
 
+void JavascriptThreadService::AddRefThreadService()
+{
+    this->AddRef();
+}
+
+void JavascriptThreadService::ReleaseThreadService()
+{
+    this->Release();
+}
+
 bool JavascriptThreadService::ShouldFinishConcurrentCollectOnIdleCallback()
 {
     // If we need to schedule an idle task, we shouldn't try to finish 
