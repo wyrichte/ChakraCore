@@ -264,7 +264,7 @@ void RootPointerReader::ScanObject(ULONG64 object, ULONG64 bytes, RootType rootT
         byte * currBuffer = buffer;
         for (uint i = 0; i < numPointers; i++)
         {
-            context.current = curr;
+            context.current = curr + (currBuffer - buffer);
 
             this->TryAdd(GetExtension()->m_PtrSize == 8 ? *(ULONG64 *)currBuffer : *(ULONG *)currBuffer, rootType, &context);
             currBuffer += GetExtension()->m_PtrSize;
@@ -869,7 +869,7 @@ Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadCon
     //
 
     ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
-    ULONG64 recyclerAddress = recyclerExtRemoteTyped.m_Data; // TODO: recycler needs to be a pointer to make this work
+    ULONG64 recyclerAddress = recycler.GetPtr();
     ULONG64 guestArenaList = recyclerAddress + recyclerExtRemoteTyped.GetFieldOffset("guestArenaList");
 
     RemoteListIterator<false> guestArenaIterator("Recycler::GuestArenaAllocator", guestArenaList);
@@ -1669,7 +1669,9 @@ void OnArenaRootScanned(ULONG64 root, void* context)
     };
 
     Context* ctx = (Context*)context;
-    GetExtension()->Out("  [0x%p, 0x%p] => 0x%p\n", ctx->start, ctx->current, root);
+    GetExtension()->Out("  0x%p: 0x%p => 0x%p", ctx->start, ctx->current, root);
+    GetExtension()->DumpPossibleSymbol(root, true);
+    GetExtension()->Out("\n");
 }
 
 JD_PRIVATE_COMMAND(arenaroots, "Dump all roots from arenas.", 

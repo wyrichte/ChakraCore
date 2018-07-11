@@ -1455,23 +1455,45 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             }
             else if (IsTypeOrCrossSite("Js::JavascriptPromise"))
             {
-                auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
+                auto addReaction = [&](JDRemoteTyped reaction)
                 {
-                    if (addField(reactionList, "Js::JavascriptPromiseReactionList", true))
+                    addField(reaction, "Js::JavascriptPromiseReaction", true);
+                    addField(reaction.Field("capabilities"), "Js::JavascriptPromiseCapability", true);
+                };
+                if (remoteTyped.HasField("reactions"))
+                {
+                    JDRemoteTyped reactions = remoteTyped.Field("reactions");
+                    if (addField(reactions, "Js::JavascriptPromiseReactionList"))
                     {
-                        int count = reactionList.Field("count").GetLong();
-                        JDRemoteTyped buffer = reactionList.Field("buffer");
-                        addField(buffer, "Js::JavascriptPromiseReactionList.buffer");
-                        for (int i = 0; i < count; i++)
+                        RemoteListIterator<true> iter(reactions.GetExtRemoteTyped());
+                        while (iter.Next())
                         {
-                            JDRemoteTyped reaction = buffer.ArrayElement(i);
-                            addField(reaction, "Js::JavascriptPromiseReaction", true);
-                            addField(reaction.Field("capabilities"), "Js::JavascriptPromiseCapability", true);
+                            addField(JDRemoteTyped::VoidPtr(iter.GetNodePtr()), "Js::JavascriptPromiseReactionList.Node");
+                            JDRemoteTyped data = iter.Data();
+                            addReaction(data.Field("resolveReaction"));
+                            addReaction(data.Field("rejectReaction"));
                         }
                     }
-                };
-                addPromiseReactionList(remoteTyped.Field("resolveReactions"));
-                addPromiseReactionList(remoteTyped.Field("rejectReactions"));
+                }
+                else
+                {
+                    // Before commit dbd57b33cc554a82b35d24f81bac59560017853f
+                    auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
+                    {
+                        if (addField(reactionList, "Js::JavascriptPromiseReactionList", true))
+                        {
+                            int count = reactionList.Field("count").GetLong();
+                            JDRemoteTyped buffer = reactionList.Field("buffer");
+                            addField(buffer, "Js::JavascriptPromiseReactionList.buffer");
+                            for (int i = 0; i < count; i++)
+                            {
+                                addReaction(buffer.ArrayElement(i));
+                            }
+                        }
+                    };
+                    addPromiseReactionList(remoteTyped.Field("resolveReactions"));
+                    addPromiseReactionList(remoteTyped.Field("rejectReactions"));
+                }
             }
             else if (strcmp(simpleTypeName, "Js::JavascriptLibrary *") == 0)
             {

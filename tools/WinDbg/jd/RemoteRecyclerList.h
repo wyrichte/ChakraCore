@@ -13,12 +13,18 @@ public:
 
     RemoteListIterator(ExtRemoteTyped list)
     {
+        bool hasAllocator = false;
         char const * typeName = JDUtil::StripStructClass(list.GetTypeName());
         char const * expectedPrefix = isSlist ? "SListBase<" : "DListBase<";
         if (strstr(typeName, expectedPrefix) != typeName)
         {
-            GetExtension()->Err("%s expected, but got %s instead", isSlist? "SListBase" : "DListBase", typeName);
-            GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
+            expectedPrefix = isSlist ? "SList<" : "DList<";
+            hasAllocator = true;
+            if (strstr(typeName, expectedPrefix) != typeName)
+            {
+                GetExtension()->Err("%s expected, but got %s instead", isSlist ? "SListBase/SList" : "DListBase/DList", typeName);
+                GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
+            }
         }
         char const * currTypeName = typeName + strlen(expectedPrefix);
         char * lastCurrTypeName = strrchr(currTypeName, ',');
@@ -28,6 +34,17 @@ public:
             GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
         }
         *lastCurrTypeName = 0;
+        if (hasAllocator)
+        {
+            // TODO: this assume the allocator type doesn't have comma in it.
+            lastCurrTypeName = strrchr(currTypeName, ',');
+            if (lastCurrTypeName == nullptr)
+            {
+                GetExtension()->Err("Unable to parse type name from %s", typeName);
+                GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
+            }
+            *lastCurrTypeName = 0;
+        }        
         Initialize(currTypeName, list.GetPtr());
     }
 
@@ -60,6 +77,11 @@ public:
         }
 
         return _current + g_Ext->m_PtrSize * offsetOfData;
+    }
+
+    ULONG64 GetNodePtr()
+    {
+        return _current;
     }
 
     ExtRemoteTyped Data()
