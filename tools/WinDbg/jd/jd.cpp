@@ -853,7 +853,7 @@ void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bo
             Out("          ");
             if (g_Ext->m_PtrSize != 4)
             {
-                Out("         ");
+                Out("        ");
             }
             if (showLink)
             {
@@ -907,6 +907,7 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
     }
 
     ULONG scriptContextCount = 0;
+    ULONG closedScriptContextCount = 0;
     threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
     {
         if (!found)
@@ -915,11 +916,15 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
             Out(headerFormat, "ScrContext", "Library", "GlobalObj");
         }
         PrintScriptContextUrl(scriptContext, showAll, showLink);
+        if (scriptContext.IsScriptContextActuallyClosed())
+        {
+            closedScriptContextCount++;
+        }
         scriptContextCount++;
         return false;
     });
 
-    Out("Count: %u\n", scriptContextCount);
+    Out("Count: %u, Closed: %u\n", scriptContextCount, closedScriptContextCount);
 }
 
 void EXT_CLASS_BASE::PrintAllUrl(bool showAll, bool showLink)

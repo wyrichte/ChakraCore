@@ -1103,7 +1103,15 @@ void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     GetExtension()->Out("(level %c%-3d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
     if (showLib)
     {
-        GetExtension()->Out(" 0x%p", node->GetAssociatedJavascriptLibrary());
+        ULONG64 library = node->GetAssociatedJavascriptLibrary();
+        if (GetExtension()->PreferDML())
+        {
+            GetExtension()->Dml(" <link cmd=\"!jd.url -a 0x%p\">0x%p</link>", library, library);
+        }
+        else
+        {
+            GetExtension()->Out(" 0x%p", library);
+        }
     }
     GetExtension()->DumpPossibleSymbol(node);
     GetExtension()->Out("\n");
@@ -2422,11 +2430,18 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
                 ULONG64 library = node->GetAssociatedJavascriptLibrary();
                 if (library != 0)
                 {
-                    this->Out(" 0x%p", node->GetAssociatedJavascriptLibrary());
+                    if (this->PreferDML())
+                    {
+                        this->Dml(" <link cmd=\"!jd.url -a 0x%p\">0x%p</link>", library, library);
+                    }
+                    else
+                    {
+                        this->Out(" 0x%p", library);
+                    }
                 }
                 else
                 {
-                    this->Out(" %18s", "");
+                    this->Out(g_Ext->m_PtrSize == 4? " %10s" : " %18s", "");
                 }
             }
 

@@ -176,7 +176,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
             if (sizeof(vtbleAddr) >= g_Ext->m_PtrSize && FAILED(g_Ext->m_Data->ReadVirtual(objectAddress, &vtbleAddr, g_Ext->m_PtrSize, &read)) && read != g_Ext->m_PtrSize)
             {
                 return false;
-            }            
+            }
         }
     }
     else
@@ -255,7 +255,6 @@ static char const * PreloadVtableNames[]
     "Js::ScriptFunction",       // Js::AsmJsScriptFunction
     "Js::CustomExternalObject", // Projection::ArrayObjectInstance
     "Js::JavascriptArray",      // Js::JavascriptNativeArray
-
 };
 
 void JDTypeCache::EnsureOverrideAddedToVtableTypeNameMap()
@@ -274,6 +273,14 @@ void JDTypeCache::EnsureOverrideAddedToVtableTypeNameMap()
             if (GetExtension()->GetSymbolOffset(vtableSymbolName.c_str(), true, &offset))
             {
                 auto newString = new std::string(std::string(moduleName) + "!" + name);
+                vtableTypeNameMap[offset] = newString;
+            }
+
+            std::string crossSiteName = std::string("Js::CrossSiteObject<") + name + ">";
+            std::string crossSiteVtableSymbolName = GetExtension()->GetRemoteVTableName(crossSiteName.c_str());
+            if (GetExtension()->GetSymbolOffset(crossSiteVtableSymbolName.c_str(), true, &offset))
+            {
+                auto newString = new std::string(std::string(moduleName) + "!" + crossSiteName);
                 vtableTypeNameMap[offset] = newString;
             }
         }
