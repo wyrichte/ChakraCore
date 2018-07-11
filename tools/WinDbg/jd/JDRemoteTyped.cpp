@@ -129,7 +129,11 @@ JDRemoteTyped JDRemoteTyped::FromPtrWithVtable(ULONG64 address, char const ** ty
 
 ULONG64 JDRemoteTyped::GetSizeT()
 {
-    return ExtRemoteTypedUtil::GetSizeT(GetExtRemoteTyped());
+    if (this->GetTypeSize() == 8)
+    {
+        return this->GetUlong64();
+    }
+    return this->GetUlong();
 }
 
 char const * JDRemoteTyped::GetEnumString()
@@ -182,22 +186,28 @@ JDRemoteTyped JDRemoteTyped::GetPointerTo()
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement(Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement((LONG64)Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG64 Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement(Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG64 Index)
 {
-    return GetExtRemoteTyped()[Index];
+    if (Index > 0x7fffffffffffffffUI64)
+    {
+        g_Ext->ThrowRemote
+        (HRESULT_FROM_WIN32(ERROR_ARITHMETIC_OVERFLOW),
+            "Array index too large");
+    }
+    return ArrayElement((LONG64)Index);
 }
 
 char const * JDRemoteTyped::GetTypeName()

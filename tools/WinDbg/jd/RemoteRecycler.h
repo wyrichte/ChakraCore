@@ -43,6 +43,8 @@ private:
 
     JDRemoteTyped recycler;
     ULONG objectAllocationShift;
+    ULONG cookie;
+    bool hasCookie;
 };
 
 template <typename Fn>
