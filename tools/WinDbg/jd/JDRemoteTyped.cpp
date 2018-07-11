@@ -16,14 +16,6 @@ JDRemoteTyped::JDRemoteTyped(ExtRemoteTyped const& remoteTyped)
 {
 }
 
-/*
-JDRemoteTyped::JDRemoteTyped(ULONG64 modBase, ULONG typeId, ULONG64 offset, bool ptrTo)
-    : useExtRemoteTyped(true)
-{
-    extRemoteTyped.Set(ptrTo, modBase, typeId, offset);
-}
-*/
-
 JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo)
     : useExtRemoteTyped(false), typeInfo(typeInfo), isVoidPointer(false), isPtrTo(ptrTo)
 {
@@ -78,6 +70,10 @@ JDRemoteTyped JDRemoteTyped::BitField(PCSTR field)
 
 JDRemoteTyped JDRemoteTyped::ArrayElement(LONG64 index)
 {
+    if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
+    {
+        return JDRemoteTyped(this->typeInfo, this->data + this->typeInfo.GetSize() * index);
+    }
     return GetExtRemoteTyped().ArrayElement(index);
 }
 
@@ -172,6 +168,10 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 
 JDRemoteTyped JDRemoteTyped::Dereference()
 {
+    if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
+    {
+        return JDRemoteTyped(typeInfo, this->data);
+    }
     return GetExtRemoteTyped().Dereference();
 }
 
@@ -203,6 +203,15 @@ JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG64 Index)
 char const * JDRemoteTyped::GetTypeName()
 {
     return GetExtRemoteTyped().GetTypeName();
+}
+
+char const * JDRemoteTyped::GetSimpleTypeName()
+{
+    if (!useExtRemoteTyped && !isVoidPointer)
+    {
+        return JDTypeCache::GetTypeName(this->typeInfo, this->isPtrTo);
+    }
+    return JDUtil::StripStructClass(GetTypeName());
 }
 
 char const * JDRemoteTyped::GetSimpleValue()

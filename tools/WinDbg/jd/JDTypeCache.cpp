@@ -17,6 +17,11 @@ void JDTypeCache::Clear()
         delete i.second;
     }
     this->vtableTypeNameMap.clear();
+    for (auto i : this->typeNames)
+    {
+        delete i;
+    }
+    this->typeNames.clear();
     this->cacheTypeInfoCache.clear();
     this->chakraCacheTypeInfoCache.clear();
 }
@@ -38,13 +43,77 @@ JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
         && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeSize(modBase, typeId, &size)))
     {
         JDTypeInfo typeInfo = JDTypeInfo(modBase, typeId, size, false);
-
         this->cacheTypeInfoCache[typeName] = typeInfo;
         return typeInfo;
     }
 
     g_Ext->Err("ERROR: Unable to get type info '%s'\n", typeName);
     g_Ext->ThrowLastError("Fatal error in JDTypeCache::GetCachedTypeInfo");
+}
+
+char const * JDTypeCache::AddTypeName(char const * typeName)
+{
+    char const * name = _strdup(typeName);
+    typeNames.push_back(name);
+    return name;
+}
+
+char const * JDTypeCache::GetTypeName(JDTypeInfo const& typeInfo, bool isPtrTo)
+{
+    JDTypeCache& typeCache = GetExtension()->typeCache;
+    NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), isPtrTo };
+    auto i = typeCache.typeNameMap.find(nameKey);
+    if (i != typeCache.typeNameMap.end())
+    {
+        return i->second;
+    }
+
+    char const * foundName = nullptr;
+    if (isPtrTo)
+    {
+        NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), false };
+        auto i = typeCache.typeNameMap.find(nameKey);
+        if (i != typeCache.typeNameMap.end())
+        {
+            foundName = i->second;
+        }
+    }
+    
+    if (foundName == nullptr)
+    {
+        char originalTypeName[1024];
+        ULONG originalTypeNameSize;
+        if (SUCCEEDED(GetExtension()->m_Symbols3->GetTypeName(typeInfo.GetModBase(), typeInfo.GetTypeId(), originalTypeName, _countof(originalTypeName), &originalTypeNameSize)))
+        {
+            NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), false };
+            char const * typeName = typeCache.AddTypeName(originalTypeName);
+            typeCache.typeNameMap[nameKey] = typeName;
+            foundName = typeName;
+        }
+        else
+        {
+            g_Ext->ThrowLastError("Unable to get type name");
+        }
+    }
+
+    if (isPtrTo)
+    {
+        std::string ptrToName = foundName;
+        if (ptrToName[ptrToName.length() - 1] == '*')
+        {
+            ptrToName += '*';
+        }
+        else
+        {
+            ptrToName += " *";
+        }
+
+        NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), true };
+        foundName = typeCache.AddTypeName(ptrToName.c_str());
+        typeCache.typeNameMap[nameKey] = foundName;
+    }
+    return foundName;
+    
 }
 
 JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
@@ -76,7 +145,7 @@ JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
         std::string localTypeName = GetExtension()->GetModuleName();
         localTypeName += "!";
         localTypeName += typeName;
-        typeInfo = typeCache.GetCachedTypeInfo(localTypeName.c_str());        
+        typeInfo = typeCache.GetCachedTypeInfo(typeCache.AddTypeName(localTypeName.c_str()));
     }
     typeCache.chakraCacheTypeInfoCache[typeName] = typeInfo;
     return JDRemoteTyped(typeInfo, original, true);

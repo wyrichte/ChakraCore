@@ -44,6 +44,7 @@ public:
     JDRemoteTyped operator[](_In_ ULONG64 Index);
 
     char const * GetTypeName();
+    char const * GetSimpleTypeName();
     char const * GetSimpleValue();
     ULONG GetTypeSize();
 

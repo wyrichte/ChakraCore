@@ -619,7 +619,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
         autoError.Start(objectAddress, typeName);
 
-        char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
+        char const * simpleTypeName = remoteTyped.GetSimpleTypeName();
         ULONG64 javascriptLibrary = InferJavascriptLibrary(node, remoteTyped, simpleTypeName);
 
         if (setNodeData(typeName, typeName, node, RecyclerObjectTypeInfo::Flags_HasVtable, javascriptLibrary))
@@ -1424,8 +1424,9 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addField(program.Field("source"), "UnifiedRegex::Program.source");
                 addField(unifiedRep.Field("matcher"), "UnifiedRegex::Matcher");
                 addField(unifiedRep.Field("trigramInfo"), "UnifiedRegex::TrigramInfo");
-                if (ENUM_EQUAL(program.Field("tag").GetSimpleValue(), InstructionsTag)
-                    || ENUM_EQUAL(program.Field("tag").GetSimpleValue(), BOIInstructionsTag))
+                char const * tag = program.Field("tag").GetSimpleValue();
+                if (ENUM_EQUAL(tag, InstructionsTag)
+                    || ENUM_EQUAL(tag, BOIInstructionsTag))
                 {
                     JDRemoteTyped repInsts = program.Field("rep").Field("insts");
                     addField(repInsts.Field("insts"), "UnifiedRegex::Program::Instructions.insts");
@@ -1452,7 +1453,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     }
                 }
             }
-            else if (strcmp(simpleTypeName, "Js::JavascriptPromise *") == 0)
+            else if (IsTypeOrCrossSite("Js::JavascriptPromise"))
             {
                 auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
                 {
@@ -1496,7 +1497,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addStaticTypeField(remoteTyped.Field("enumeratorType"));
                 addStaticTypeField(remoteTyped.Field("numberTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("int64NumberTypeStatic"));
-                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));                
+                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("throwErrorObjectType"));
 
                 if (remoteTyped.HasField("symbolTypeStatic"))
@@ -1622,7 +1623,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
                 if (AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap"))
                 {
-                    bool isWeakReferenceRegionDictionary = strstr(propertyStringMap.GetJDRemoteTyped().GetTypeName(), "WeakReferenceRegionDictionary") != nullptr;
+                    bool isWeakReferenceRegionDictionary = strstr(propertyStringMap.GetJDRemoteTyped().GetSimpleTypeName(), "WeakReferenceRegionDictionary") != nullptr;
                     if (!isWeakReferenceRegionDictionary) 
                     {
                         propertyStringMap.ForEachValue([&](JDRemoteTyped value)

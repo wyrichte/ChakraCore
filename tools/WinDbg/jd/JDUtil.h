@@ -11,15 +11,16 @@ public:
     static JDRemoteTyped GetWrappedField(JDRemoteTyped obj, PCSTR field)
     {
         JDRemoteTyped value = obj.Field(field);
-        if (strncmp(value.GetTypeName(), "class WriteBarrierPtr<", _countof("class WriteBarrierPtr<") - 1) == 0
-          || strncmp(value.GetTypeName(), "class Memory::WriteBarrierPtr<", _countof("class Memory::WriteBarrierPtr<") - 1) == 0)
+        char const * simpleTypeName = value.GetSimpleTypeName();
+        if (strncmp(simpleTypeName, "WriteBarrierPtr<", _countof("WriteBarrierPtr<") - 1) == 0
+          || strncmp(simpleTypeName, "Memory::WriteBarrierPtr<", _countof("Memory::WriteBarrierPtr<") - 1) == 0)
         {
             return value.Field("ptr");
         }
-        if (strncmp(value.GetTypeName(), "class NoWriteBarrierPtr<", _countof("class NoWriteBarrierPtr<") - 1) == 0
-          || strncmp(value.GetTypeName(), "class Memory::NoWriteBarrierPtr<", _countof("class Memory::NoWriteBarrierPtr<") - 1) == 0
-          || strncmp(value.GetTypeName(), "class NoWriteBarrierField<", _countof("class NoWriteBarrierField<") - 1) == 0
-          || strncmp(value.GetTypeName(), "class Memory::NoWriteBarrierField<", _countof("class Memory::NoWriteBarrierField<") - 1) == 0)
+        if (strncmp(simpleTypeName, "NoWriteBarrierPtr<", _countof("NoWriteBarrierPtr<") - 1) == 0
+          || strncmp(simpleTypeName, "Memory::NoWriteBarrierPtr<", _countof("Memory::NoWriteBarrierPtr<") - 1) == 0
+          || strncmp(simpleTypeName, "NoWriteBarrierField<", _countof("NoWriteBarrierField<") - 1) == 0
+          || strncmp(simpleTypeName, "Memory::NoWriteBarrierField<", _countof("Memory::NoWriteBarrierField<") - 1) == 0)
         {
             return value.Field("value");
         }
