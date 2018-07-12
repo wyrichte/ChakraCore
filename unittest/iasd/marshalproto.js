@@ -20,3 +20,9 @@ WScript.Echo(obj.bar);
 child.installTypedArrayPrototype();
 WScript.Echo(e.foo);
 WScript.Echo(f.cctx);
+
+// Tests that ArrayBuffer is marshalled correctly along with its prototype chain.
+var ab = new ArrayBuffer(16);
+var typedArray2 = new Int32Array(ab);
+child.installTypedArrayPrototype2(typedArray2);
+WScript.Echo(e.ConstructorName);

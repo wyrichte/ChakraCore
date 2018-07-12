@@ -14,3 +14,10 @@ typedArray.foo = 20;
 function installTypedArrayPrototype() {
     e.__proto__ = typedArray;
 }
+
+function installTypedArrayPrototype2(typedArray2) {
+    e.__proto__ = typedArray2;
+    // Tests that ArrayBuffer is marshalled correctly along with its prototype chain.
+    // Accessing the buffer.constructor below causes the ArrayBuffer to be marshalled.
+    e.ConstructorName = e.__proto__.buffer.constructor.name;
+}
