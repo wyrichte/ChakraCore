@@ -64,6 +64,8 @@ public:
     double GetDouble();
 
     PWCHAR GetString(ExtBuffer<WCHAR> * buffer);
+
+    ULONG64 GetObjectPtr();
 private:
     JDRemoteTyped(ULONG64 address);
 

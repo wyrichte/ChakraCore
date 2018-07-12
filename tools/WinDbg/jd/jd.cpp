@@ -743,52 +743,7 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& typeHandler)
 
 void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bool showAll, bool showLink)
 {
-    if (scriptContext.IsScriptContextActuallyClosed())
-    {
-        Out(" C");
-    }
-    else if (scriptContext.IsClosed())
-    {
-        Out(" M");
-    }
-    else
-    {
-        char const * debuggerMode = scriptContext.GetDebugContext().Field("debuggerMode").GetEnumString();
-        if (strcmp(debuggerMode, "SourceRundown") == 0)
-        {
-            Out("S");
-        }
-        else if (strcmp(debuggerMode, "Debugging") == 0)
-        {
-            Out("D");
-        }
-        else
-        {
-            Out(" ");
-        }
-        JDRemoteTyped hostScriptContext = scriptContext.GetHostScriptContext();
-        if (hostScriptContext.GetPtr() && hostScriptContext.HasField("scriptSite"))
-        {
-            try
-            {
-                bool fPrimaryEngine;
-                JDRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").BitField("fNonPrimaryEngine");
-                if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
-                {
-                    fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
-                }
-                else
-                {
-                    fPrimaryEngine = fNonPrimaryEngine.GetStdBool() == false;
-                }
-                Out(fPrimaryEngine? "P" : "N");
-            }
-            catch (...)
-            {
-                Out("E");
-            }
-        }
-    }
+    scriptContext.PrintState();
 
     Out(" ");
     if (showLink)
@@ -990,7 +945,7 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
     }
     else if (scriptContext.IsClosed())
     {
-        Out(" (Pending Closed)");
+        Out(" (Pending Close)");
     }
     Out("\n");
     bool printHeader = false;
@@ -1734,6 +1689,7 @@ JD_PRIVATE_COMMAND(uiserver,
     }
 }
 #endif
+
 
 namespace Output
 {

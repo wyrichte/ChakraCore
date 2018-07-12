@@ -127,6 +127,72 @@ void RemoteScriptContext::PrintReferencedPids()
     }
 }
 
+bool RemoteScriptContext::IsPrimaryEngine(bool * hasError)
+{
+    if (hasError)
+    {
+        *hasError = false;
+    }
+    try
+    {
+        bool fPrimaryEngine;
+        JDRemoteTyped fNonPrimaryEngine = this->GetHostScriptContext().Field("scriptSite").Field("scriptEngine").BitField("fNonPrimaryEngine");
+        if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
+        {
+            fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
+        }
+        else
+        {
+            fPrimaryEngine = fNonPrimaryEngine.GetStdBool() == false;
+        }
+        return fPrimaryEngine;
+    }
+    catch(...)
+    {
+        *hasError = true;
+    }
+    return false;
+}
+
+void RemoteScriptContext::PrintState()
+{
+    if (this->IsScriptContextActuallyClosed())
+    {
+        g_Ext->Out(" C");
+    }
+    else if (this->IsClosed())
+    {
+        g_Ext->Out(" M");
+    }
+    else
+    {
+        char const * debuggerMode = this->GetDebugContext().Field("debuggerMode").GetEnumString();
+        if (strcmp(debuggerMode, "SourceRundown") == 0)
+        {
+            g_Ext->Out("S");
+        }
+        else if (strcmp(debuggerMode, "Debugging") == 0)
+        {
+            g_Ext->Out("D");
+        }
+        else
+        {
+            g_Ext->Out(" ");
+        }
+        JDRemoteTyped hostScriptContext = this->GetHostScriptContext();
+        if (hostScriptContext.GetPtr() && hostScriptContext.HasField("scriptSite"))
+        {
+            bool hasError;
+            bool fPrimaryEngine = this->IsPrimaryEngine(&hasError);
+            g_Ext->Out(hasError ? "E" : fPrimaryEngine ? "P" : "N");
+        }
+        else
+        {
+            g_Ext->Out(" ");
+        }
+    }
+}
+
 bool RemoteScriptContext::TryGetScriptContextFromPointer(ULONG64 pointer, RemoteScriptContext& remoteScriptContext)
 {   
     return RemoteThreadContext::ForEach([&](RemoteThreadContext threadContext)

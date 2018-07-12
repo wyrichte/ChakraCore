@@ -82,17 +82,18 @@ JDRemoteTyped JDRemoteTyped::Cast(char const * typeName)
     return JDRemoteTyped::FromPtrWithType(this->GetPtr(), typeName);
 }
 
-JDRemoteTyped JDRemoteTyped::CastWithVtable(char const ** typeName)
+ULONG64 JDRemoteTyped::GetObjectPtr()
 {
-    ULONG64 pointer;
     if (!this->IsPointerType())
     {
-        pointer = this->GetPointerTo().GetPtr();
+        return this->GetPointerTo().GetPtr();
     }
-    else
-    {
-        pointer = this->GetPtr();
-    }
+    return this->GetPtr();
+}
+
+JDRemoteTyped JDRemoteTyped::CastWithVtable(char const ** typeName)
+{
+    ULONG64 pointer = this->GetObjectPtr();
 
     JDRemoteTyped result;
     if (pointer && JDTypeCache::CastWithVtable(pointer, result, typeName))

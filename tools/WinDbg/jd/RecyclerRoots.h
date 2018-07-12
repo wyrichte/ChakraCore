@@ -148,9 +148,10 @@ public:
 class RootPointerReader
 {
 public:
-    typedef void(*RootAddedCallback)(ULONG64, void*);
 
-    static void DefaultRootAddedCallback(ULONG64, void* context)
+    typedef void(*RootAddedCallback)(ULONG64, RootType rootType, void*);
+
+    static void DefaultRootAddedCallback(ULONG64, RootType rootType, void* context)
     {
     }
 
@@ -160,7 +161,7 @@ public:
         m_rootAddedCallback(callback)
     {
     }
-
+    
     bool TryAdd(ULONG64 address, RootType rootType, void* context = nullptr)
     {
         if (address != NULL && _recycler.IsAlignedAddress(address))
@@ -178,19 +179,13 @@ public:
 #endif
                 Add(address, rootType);
 
-                m_rootAddedCallback(address, context);
+                m_rootAddedCallback(address, rootType, context);
 
                 return true;
             }
         }
 
         return false;
-    }
-
-    void Add(ULONG64 address, RootType rootType)
-    {
-        // Assert(_addresses.count(address) == 0);
-        m_addresses->Insert(address, rootType);
     }
 
     Addresses * DetachAddresses()
@@ -200,13 +195,21 @@ public:
 
     void ScanRegisters(bool print = true);
     void ScanStack(RemoteRecycler& recycler, ULONG64 stackTop, bool print = true, bool showScriptContext = false);
-    void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanArena(ULONG64 arena, bool verbose);
-    void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
-    void ScanArenaBigBlocks(ExtRemoteTyped blocks);
-    void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType);
+    void ScanArenaData(ULONG64 arenaDataPtr);
     void ScanImplicitRoots(bool print = true);
 private:
+    void PrintArenaName(ULONG64 arena);
+    void ScanArenaMemoryBlocks(ExtRemoteTyped blocks);
+    void ScanArenaBigBlocks(ExtRemoteTyped blocks);
+
+    void Add(ULONG64 address, RootType rootType)
+    {
+        // Assert(_addresses.count(address) == 0);
+        m_addresses->Insert(address, rootType);
+    }
+
+    void ScanObject(ULONG64 object, ULONG64 bytes, RootType rootType);
 
     RootAddedCallback m_rootAddedCallback;
     std::auto_ptr<Addresses> m_addresses;

@@ -380,6 +380,9 @@ public:
     JD_PRIVATE_COMMAND_METHOD(jsrc);
     JD_PRIVATE_COMMAND_METHOD(jstack);
     JD_PRIVATE_COMMAND_METHOD(hbstats);
+    JD_PRIVATE_COMMAND_METHOD(jslibstats);
+    JD_PRIVATE_COMMAND_METHOD(jslibpreds);
+    JD_PRIVATE_COMMAND_METHOD(jslibsuccs);
     JD_PRIVATE_COMMAND_METHOD(jsobjectstats);
     JD_PRIVATE_COMMAND_METHOD(jsobjectnodes);
     JD_PRIVATE_COMMAND_METHOD(jsobjectdepths);

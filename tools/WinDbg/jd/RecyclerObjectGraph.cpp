@@ -5,6 +5,8 @@
 #include "RecyclerObjectGraph.h"
 #include "RecyclerRoots.h"
 #include "ProgressTracker.h"
+#include "RemoteJavascriptLibrary.h"
+#include "RecyclerLibraryGraph.h"
 
 RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
@@ -35,12 +37,17 @@ RecyclerObjectGraph::RecyclerObjectGraph(RemoteRecycler recycler, bool verbose) 
     m_hasTypeNameAndFields(false),
     m_trident(false),
     m_interior(recycler.EnableScanInteriorPointers()),
-    m_maxDepth(0)
+    m_maxDepth(0),
+    libraryGraph(nullptr)
 {
 }
 
 RecyclerObjectGraph::~RecyclerObjectGraph()
 {
+    if (this->libraryGraph)
+    {
+        delete this->libraryGraph;
+    }
 }
 
 // Dumps the object graph for manipulation in python
@@ -450,6 +457,11 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         return false;
     };
 
+    auto setGlobalAddressData = [&](char const * typeName, JDRemoteTyped object, RecyclerObjectTypeInfo::Flags flags = RecyclerObjectTypeInfo::Flags_None, bool requireLivePointer = true)
+    {
+        return setAddressData(typeName, object, flags, RemoteJavascriptLibrary::GlobalLibrary, requireLivePointer);
+    };
+
     auto addFieldData = [&](JDRemoteTyped field, char const * typeName, char const * fieldTypeName, bool overwriteVtable, ULONG64 library)
     {
         if (field.GetPtr() != 0)
@@ -468,15 +480,15 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
     if (threadContext->GetPtr() != 0)
     {
         JDRemoteTyped threadRecyclableData = threadContext->GetExtRemoteTyped().Field("recyclableData.ptr");
-        setAddressData("ThreadContext::RecyclableData", threadRecyclableData);
+        setGlobalAddressData("ThreadContext::RecyclableData", threadRecyclableData);
         RemoteBaseDictionary typesWithProtoPropertyCache = threadRecyclableData.Field("typesWithProtoPropertyCache");
-        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.buckets", typesWithProtoPropertyCache.GetBuckets());
-        setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.GetEntries());
+        setGlobalAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.buckets", typesWithProtoPropertyCache.GetBuckets());
+        setGlobalAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries", typesWithProtoPropertyCache.GetEntries());
         typesWithProtoPropertyCache.ForEachValue([&](RemoteWeaklyReferencedKeyDictionary typeHashSet)
         {
-            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}", typeHashSet.GetExtRemoteTyped());
-            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.buckets", typeHashSet.GetBuckets());
-            setAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.entries", typeHashSet.GetEntries());
+            setGlobalAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}", typeHashSet.GetExtRemoteTyped());
+            setGlobalAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.buckets", typeHashSet.GetBuckets());
+            setGlobalAddressData("ThreadContext::RecyclableData.typesWithProtoPropertyCache.entries.{TypeHashSet}.entries", typeHashSet.GetEntries());
             typeHashSet.ForEachKey([&](JDRemoteTyped key)
             {
                 setAddressData("RecyclerWeakReference<Js::Type>", key);
@@ -485,15 +497,15 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             return false;
         });
         RemoteWeaklyReferencedKeyDictionary propertyGuards = threadRecyclableData.Field("propertyGuards");
-        setAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
-        setAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
+        setGlobalAddressData("ThreadContext::RecyclableData.propertyGuards.buckets", propertyGuards.GetBuckets());
+        setGlobalAddressData("ThreadContext::RecyclableData.propertyGuards.entries", propertyGuards.GetEntries());
         propertyGuards.ForEachValue([&](JDRemoteTyped entry)
         {
-            setAddressData("ThreadContext::PropertyGuardEntry", entry);
-            setAddressData("ThreadContext::PropertyGuardEntry.sharedGuard", entry.Field("sharedGuard"));
+            setGlobalAddressData("ThreadContext::PropertyGuardEntry", entry);
+            setGlobalAddressData("ThreadContext::PropertyGuardEntry.sharedGuard", entry.Field("sharedGuard"));
             RemoteBaseDictionary uniqueGuards = entry.Field("uniqueGuards");
-            setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.buckets", uniqueGuards.GetBuckets());
-            setAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.entries", uniqueGuards.GetEntries());
+            setGlobalAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.buckets", uniqueGuards.GetBuckets());
+            setGlobalAddressData("ThreadContext::PropertyGuardEntry.uniqueGuards.entries", uniqueGuards.GetEntries());
             uniqueGuards.ForEachValue([&](JDRemoteTyped value)
             {
                 setAddressData("RecyclerWeakReference<Js::PropertyGuard>", value);
@@ -502,7 +514,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             if (entry.HasField("entryPoints"))  // IE doesn't have entryPoints
             {
                 RemoteWeaklyReferencedKeyDictionary entryPoints = entry.Field("entryPoints");
-                setAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
+                setGlobalAddressData("ThreadContext::PropertyGuardEntry.entryPoints", entryPoints.GetExtRemoteTyped());
                 if (entryPoints.GetExtRemoteTyped().GetPtr() != 0)
                 {
                     entryPoints.ForEachKey([&](JDRemoteTyped key)
@@ -515,20 +527,20 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             return false;
         });
         RemoteBaseDictionary caseInvariantPropertySet = threadRecyclableData.Field("caseInvariantPropertySet");
-        if (setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet", caseInvariantPropertySet.GetExtRemoteTyped()))
+        if (setGlobalAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet", caseInvariantPropertySet.GetExtRemoteTyped()))
         {
-            setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.buckets", caseInvariantPropertySet.GetBuckets());
-            setAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
+            setGlobalAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.buckets", caseInvariantPropertySet.GetBuckets());
+            setGlobalAddressData("ThreadContext::RecyclableData.caseInvariantPropertySet.entries", caseInvariantPropertySet.GetEntries());
         }
         JDRemoteTyped boundPropertyStrings = threadRecyclableData.Field("boundPropertyStrings");
-        setAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));
+        setGlobalAddressData("ThreadContext::RecyclableData.boundPropertyStrings.buffer", boundPropertyStrings.Field("buffer"));
         if (threadRecyclableData.HasField("symbolRegistrationMap"))  // IE doesn't have symbolRegistrationMap
         {
             RemoteBaseDictionary symbolRegistrationMap = threadRecyclableData.Field("symbolRegistrationMap");
-            if (setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap", symbolRegistrationMap.GetExtRemoteTyped()))
+            if (setGlobalAddressData("ThreadContext::RecyclableData.symbolRegistrationMap", symbolRegistrationMap.GetExtRemoteTyped()))
             {
-                setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
-                setAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
+                setGlobalAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.buckets", symbolRegistrationMap.GetBuckets());
+                setGlobalAddressData("ThreadContext::RecyclableData.symbolRegistrationMap.entries", symbolRegistrationMap.GetEntries());
             }
         }
 
@@ -1938,3 +1950,11 @@ void RecyclerObjectGraph::ScanBytes(ConstructData& constructData, RemoteHeapBloc
     this->_objectGraph.AddEdges(node, successors);
 }
 
+RecyclerLibraryGraph * RecyclerObjectGraph::GetLibraryGraph()
+{
+    if (this->libraryGraph == nullptr)
+    {
+        this->libraryGraph = new RecyclerLibraryGraph(*this);
+    }
+    return this->libraryGraph;
+}
