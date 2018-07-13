@@ -111,8 +111,8 @@ public:
 
     Js::Var InvokeByDispId(Js::Arguments args, DISPID id);
     BOOL InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoint, Js::Arguments args, Js::Var* result) override sealed;
-    void RemoveFromPrototype(Js::ScriptContext * requestContext) override;
-    void AddToPrototype(Js::ScriptContext * requestContext) override;
+    void RemoveFromPrototype(Js::ScriptContext * requestContext, bool * allProtoCachesInvalidated) override;
+    void AddToPrototype(Js::ScriptContext * requestContext, bool * allProtoCachesInvalidated) override;
     void SetPrototype(RecyclableObject* newPrototype) override;
 
     HRESULT InvokeMarshaled(DISPID id, WORD invokeFlags, DISPPARAMS *pdp, VARIANT *pvarRes, EXCEPINFO *pei);

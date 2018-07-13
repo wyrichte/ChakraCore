@@ -337,16 +337,16 @@ namespace Js
         return TRUE;
     }
 
-    void ExternalObject::RemoveFromPrototype(ScriptContext * requestContext)
+    void ExternalObject::RemoveFromPrototype(ScriptContext * requestContext, bool * allProtoCachesInvalidated)
     {
         if (!this->VerifyObjectAlive()) return;
-        DynamicObject::RemoveFromPrototype(requestContext);
+        DynamicObject::RemoveFromPrototype(requestContext, allProtoCachesInvalidated);
     }
 
-    void ExternalObject::AddToPrototype(ScriptContext * requestContext)
+    void ExternalObject::AddToPrototype(ScriptContext * requestContext, bool * allProtoCachesInvalidated)
     {
         if (!this->VerifyObjectAlive()) return;
-        DynamicObject::AddToPrototype(requestContext);
+        DynamicObject::AddToPrototype(requestContext, allProtoCachesInvalidated);
     }
 
     void ExternalObject::SetPrototype(RecyclableObject* newPrototype)
