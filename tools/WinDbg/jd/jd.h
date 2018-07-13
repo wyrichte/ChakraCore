@@ -291,6 +291,7 @@ protected:
         this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
         this->typeCache.Clear();
+        this->fieldInfoCache.Clear();
         this->chakraModuleBaseAddress = 0;
         this->chakraModuleEndAddress = 0;
         this->edgeModuleBaseAddress = 0;
@@ -438,18 +439,3 @@ int GuidToString(GUID& guid, LPSTR strGuid, int cchStrSize);
 EXT_CLASS_BASE* GetExtension();
 void ReplacePlaceHolders(PCSTR holder, std::string value, std::string& cmd);
 
-
-template <typename Fn>
-static bool SListForEach(ExtRemoteTyped list,  Fn fn)
-{
-    ExtRemoteTyped curr = list.Field("next");
-    while (curr.Field("base").GetPtr() != list.GetPtr())
-    {
-        if (fn(curr.Field("node.data")))
-        {
-            return true;
-        }
-        curr = curr.Field("base.next");
-    }
-    return false;
-}

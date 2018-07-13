@@ -67,6 +67,8 @@ RecyclerCachedData::RecyclerCachedData() :
     m_mediumHeapBlockTypeInfo(StaticGetMediumHeapBlockTypeName),
     m_mediumFinalizableHeapBlockTypeInfo(StaticGetMediumFinalizableHeapBlockTypeName),
     m_largeHeapBlockTypeInfo("LargeHeapBlock", true),
+    m_largeObjectHeaderTypeInfo("LargeObjectHeader", true),
+    m_largeObjectHeaderListTypeInfo("LargeObjectHeader", true, true, true),
     m_blockTypeEnumInitialized(false),
     m_mphblockTypeEnumInitialized(false),
     m_debuggeeMemoryCache(NULL),
@@ -201,34 +203,54 @@ ULONG64 RecyclerCachedData::GetMediumHeapBlockPageCount()
     return value;
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)
+ULONG RecyclerCachedData::GetSizeOfLargeHeapBlock()
 {
-    return m_heapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_largeHeapBlockTypeInfo.GetSize();
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
+ULONG RecyclerCachedData::GetSizeOfLargeObjectHeader()
 {
-    return m_smallHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_largeObjectHeaderTypeInfo.GetSize();
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsSmallFinalizableHeapBlock(ULONG64 address)
+JDRemoteTyped RecyclerCachedData::GetAsHeapBlock(ULONG64 address)
 {
-    return m_smallFinalizableHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_heapBlockTypeInfo.Cast(address);
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsMediumHeapBlock(ULONG64 address)
+JDRemoteTyped RecyclerCachedData::GetAsSmallHeapBlock(ULONG64 address)
 {
-    return m_mediumHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_smallHeapBlockTypeInfo.Cast(address);
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsMediumFinalizableHeapBlock(ULONG64 address)
+JDRemoteTyped RecyclerCachedData::GetAsSmallFinalizableHeapBlock(ULONG64 address)
 {
-    return m_mediumFinalizableHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_smallFinalizableHeapBlockTypeInfo.Cast(address);
 }
 
-ExtRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)
+JDRemoteTyped RecyclerCachedData::GetAsMediumHeapBlock(ULONG64 address)
 {
-    return m_largeHeapBlockTypeInfo.Cast(address).GetExtRemoteTyped();
+    return m_mediumHeapBlockTypeInfo.Cast(address);
+}
+
+JDRemoteTyped RecyclerCachedData::GetAsMediumFinalizableHeapBlock(ULONG64 address)
+{
+    return m_mediumFinalizableHeapBlockTypeInfo.Cast(address);
+}
+
+JDRemoteTyped RecyclerCachedData::GetAsLargeHeapBlock(ULONG64 address)
+{
+    return m_largeHeapBlockTypeInfo.Cast(address);
+}
+
+JDRemoteTyped RecyclerCachedData::GetAsLargeObjectHeader(ULONG64 address)
+{
+    return this->m_largeObjectHeaderTypeInfo.Cast(address);
+}
+
+JDRemoteTyped RecyclerCachedData::GetAsLargeObjectHeaderList(ULONG64 address)
+{
+    return this->m_largeObjectHeaderListTypeInfo.Cast(address);
 }
 
 bool RecyclerCachedData::GetCachedDebuggeeMemory(ULONG64 address, ULONG size, char ** debuggeeMemory)

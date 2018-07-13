@@ -298,7 +298,7 @@ RemoteThreadContext::TryGetThreadContextFromAnyContextPointer(ULONG64 contextPoi
 
         return threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
         {
-            if (scriptContext.GetPtr() == contextPointer)
+            if (scriptContext.GetPtr() == contextPointer || scriptContext.GetJavascriptLibrary().GetPtr() == contextPointer)
             {
                 remoteThreadContext = scriptContext.GetThreadContext();
                 return true;

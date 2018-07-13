@@ -68,7 +68,7 @@ public:
     RemoteBitVector GetMarkBits();
     RemoteBitVector GetFreeBits();
 
-    ExtRemoteTyped GetExtRemoteTyped();
+    JDRemoteTyped GetJDRemoteTyped();
 
     bool GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObjectInfo& info, bool interior, bool verbose = false);
     void VerboseOut();
@@ -78,11 +78,8 @@ public:
     {
         Assert(IsLargeHeapBlock());
 
-        JDRemoteTyped heapBlock = GetExtRemoteTyped();
-
-        unsigned int allocCount = heapBlock.Field("allocCount").GetUlong();
-        JDRemoteTyped headerList =
-            JDRemoteTyped(GetExtension()->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), this->GetHeapBlockAddress() + heapBlock.GetTypeSize());
+        JDRemoteTyped headerList;
+        ULONG allocCount = this->GetLargeHeapBlockHeaderList(headerList);
 
         for (unsigned int i = 0; i < allocCount; i++)
         {

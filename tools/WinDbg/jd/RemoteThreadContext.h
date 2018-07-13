@@ -49,9 +49,9 @@ public:
         return false;     
     }
 
-    RemoteThreadContext() : threadContext("(void *)0") {}
-    RemoteThreadContext(JDRemoteTyped threadContext) : threadContext(threadContext.GetExtRemoteTyped()) {};
-    ExtRemoteTyped GetExtRemoteTyped() { return threadContext; }
+    RemoteThreadContext() : threadContext(JDRemoteTyped::NullPtr()) {}
+    RemoteThreadContext(JDRemoteTyped threadContext) : threadContext(threadContext) {};
+    ExtRemoteTyped GetExtRemoteTyped() { return threadContext.GetExtRemoteTyped(); }
     bool TryGetDebuggerThreadId(ULONG * pDebuggerThreadId, ULONG * pThreadId = NULL);
     bool UseCodePageAllocator();
     RemoteRecycler GetRecycler();
@@ -110,7 +110,7 @@ public:
         }
         else if (threadContext.HasField("debugManager"))
         {
-            ExtRemoteTyped debugManager = threadContext.Field("debugManager");
+            JDRemoteTyped debugManager = threadContext.Field("debugManager");
             if (debugManager.GetPtr() != 0)
             {
                 if (fn("Diag", RemotePageAllocator(debugManager.Field("diagnosticPageAllocator"))))
@@ -122,14 +122,14 @@ public:
         
         if (threadContext.HasField("jobProcessor"))
         {
-            ExtRemoteTyped jobProcessor = threadContext.Field("jobProcessor");
+            JDRemoteTyped jobProcessor = threadContext.Field("jobProcessor");
             if (threadContext.Field("bgJit").GetStdBool() && !threadContext.Field("isOptimizedForManyInstances").GetStdBool())
             {
-                ExtRemoteTyped backgroundJobProcessor(GetExtension()->FillModule("(%s!JsUtil::BackgroundJobProcessor *)@$extin)"), jobProcessor.GetPtr());                
+                JDRemoteTyped backgroundJobProcessor(GetExtension()->FillModule("(%s!JsUtil::BackgroundJobProcessor *)@$extin)"), jobProcessor.GetPtr());
                 if (backgroundJobProcessor.HasField("maxThreadCount"))
                 {
                     uint maxThreadCount = backgroundJobProcessor.Field("maxThreadCount").GetUlong();
-                    ExtRemoteTyped parallelThreadData = backgroundJobProcessor.Field("parallelThreadData");
+                    JDRemoteTyped parallelThreadData = backgroundJobProcessor.Field("parallelThreadData");
                     for (uint i = 0; i < maxThreadCount; i++)
                     {
                         if (fn("BGJob", RemotePageAllocator(parallelThreadData.ArrayElement(i).Field("backgroundPageAllocator"))))
@@ -153,7 +153,7 @@ public:
         bool useCodePageAllocators = this->UseCodePageAllocator();
         if (useCodePageAllocators)
         {
-            ExtRemoteTyped codePageAllocators = threadContext.Field("codePageAllocators");
+            JDRemoteTyped codePageAllocators = threadContext.Field("codePageAllocators");
             
             if (codePageAllocators.HasField("preReservedHeapAllocator"))
             {
@@ -175,7 +175,7 @@ public:
                 return true;
             }
 
-            ExtRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
+            JDRemoteTyped thunkPageAllocators = threadContext.Field("thunkPageAllocators");
             if (thunkPageAllocators.HasField("preReservedHeapAllocator"))
             {
                 if (fn("CodeThunkPreRes", RemotePageAllocator(thunkPageAllocators.Field("preReservedHeapAllocator"))))
@@ -223,7 +223,7 @@ private:
     ULONG GetThreadId();
     static bool TryGetThreadContextFromTeb(RemoteThreadContext& remoteThreadContext);
 
-    ExtRemoteTyped threadContext;
+    JDRemoteTyped threadContext;
 
     static bool IsUsingGlobalListFirst();
     static bool IsUsingThreadContextTLSEntry();

@@ -5,12 +5,12 @@
 
 RemoteRecycler::RemoteRecycler(ULONG64 recycler) :
     recycler(GetExtension()->FillModuleAndMemoryNS("(%s!%sRecycler*)@$extin"), recycler),
-    objectAllocationShift(0)
+    objectAllocationShift(0), hasCookie(false)
 {
 }
 
-RemoteRecycler::RemoteRecycler(ExtRemoteTyped recycler) : recycler(recycler),
-    objectAllocationShift(0)
+RemoteRecycler::RemoteRecycler(JDRemoteTyped recycler) : recycler(recycler),
+    objectAllocationShift(0), hasCookie(false)
 {
 }
 
@@ -69,7 +69,13 @@ ULONG64 RemoteRecycler::GetExternalRootMarker()
 
 ULONG RemoteRecycler::GetCookie()
 {
-    return recycler.Field("Cookie").GetUlong();
+    ULONG cookie = this->cookie;
+    if (!hasCookie)
+    {
+        cookie = recycler.Field("Cookie").GetUlong();
+        this->cookie = cookie;
+    }
+    return cookie;
 }
 
 ExtRemoteTyped RemoteRecycler::GetExtRemoteTyped()

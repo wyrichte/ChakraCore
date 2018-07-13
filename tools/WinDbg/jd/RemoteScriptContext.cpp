@@ -133,7 +133,7 @@ bool RemoteScriptContext::TryGetScriptContextFromPointer(ULONG64 pointer, Remote
     {
         return threadContext.ForEachScriptContext([&](RemoteScriptContext scriptContext)
         {
-            if (scriptContext.GetPtr() == pointer)
+            if (scriptContext.GetPtr() == pointer || scriptContext.GetJavascriptLibrary().GetPtr() == pointer)
             {
                 remoteScriptContext = scriptContext;
                 return true;

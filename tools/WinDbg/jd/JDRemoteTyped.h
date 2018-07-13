@@ -15,8 +15,8 @@ public:
     JDRemoteTyped(PCSTR Expr, ULONG64 Offset);    
     JDRemoteTyped(ExtRemoteTyped const& remoteTyped);
 
-    JDRemoteTyped(ULONG64 modBase, ULONG typeID, ULONG64 offset, bool ptrTo);
-    JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset);
+
+    JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo = false);
 
     bool HasField(PCSTR name);
     JDRemoteTyped Field(PCSTR name);
@@ -25,6 +25,7 @@ public:
     JDRemoteTyped BitField(PCSTR name);
 
     static JDRemoteTyped NullPtr();
+    static JDRemoteTyped VoidPtr(ULONG64 address);
     static JDRemoteTyped FromPtrWithType(ULONG64 address, char const * typeName);
     static JDRemoteTyped FromPtrWithVtable(ULONG64 offset, const char ** typeName = nullptr);
     JDRemoteTyped CastWithVtable(const char ** typeName = nullptr);
@@ -43,6 +44,7 @@ public:
     JDRemoteTyped operator[](_In_ ULONG64 Index);
 
     char const * GetTypeName();
+    char const * GetSimpleTypeName();
     char const * GetSimpleValue();
     ULONG GetTypeSize();
 
@@ -63,6 +65,8 @@ public:
 
     PWCHAR GetString(ExtBuffer<WCHAR> * buffer);
 private:
+    JDRemoteTyped(ULONG64 address);
+
     friend class JDTypeCache;
     friend class FieldInfoCache;
     
@@ -74,10 +78,12 @@ private:
     template <typename T>
     T EnsureData();
 
-    ExtRemoteTyped extRemoteTyped;    
+    ExtRemoteTyped extRemoteTyped;
     JDTypeInfo typeInfo;
     ULONG64 offset;
     ULONG64 data;
     bool isDataValid;
     bool useExtRemoteTyped;
+    bool isVoidPointer;
+    bool isPtrTo;
 };

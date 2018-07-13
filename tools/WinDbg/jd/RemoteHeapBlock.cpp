@@ -56,7 +56,7 @@ RemoteHeapBlock::~RemoteHeapBlock()
 void
 RemoteHeapBlock::Initialize()
 {
-    JDRemoteTyped heapBlock = GetExtRemoteTyped();
+    JDRemoteTyped heapBlock = GetJDRemoteTyped();
 
     address = heapBlock.Field("address").GetPtr();
     if (IsLargeHeapBlock())
@@ -99,8 +99,8 @@ RemoteHeapBlock::Initialize()
     hasCachedAllocatedObjectCountAndSize = false;
 }
 
-ExtRemoteTyped
-RemoteHeapBlock::GetExtRemoteTyped()
+JDRemoteTyped
+RemoteHeapBlock::GetJDRemoteTyped()
 {
     if (IsLargeHeapBlock())
     {
@@ -236,7 +236,7 @@ ULONG64 RemoteHeapBlock::GetAllocatableSize()
 
 ULONG RemoteHeapBlock::GetFinalizeCount()
 {
-    JDRemoteTyped heapBlock = GetExtRemoteTyped();
+    JDRemoteTyped heapBlock = GetJDRemoteTyped();
     if (IsLargeHeapBlock())
     {
         return heapBlock.Field("finalizeCount").GetUlong();
@@ -320,7 +320,7 @@ ULONG64 RemoteHeapBlock::GetObjectAddressFromIndex(ULONG objectIndex)
 USHORT RemoteHeapBlock::GetAddressBitIndex(ULONG64 objectAddress)
 {
     Assert(!this->IsLargeHeapBlock());
-    ULONG numBits = ((GetExtRemoteTyped().Field("freeBits").GetTypeSize() * 8));
+    ULONG numBits = ((GetJDRemoteTyped().Field("freeBits").GetTypeSize() * 8));
     return (USHORT)((objectAddress >> this->GetRecycler().GetObjectAllocationShift()) % numBits);
 }
 
@@ -328,7 +328,7 @@ RemoteBitVector RemoteHeapBlock::GetMarkBits()
 {
     Assert(!this->IsLargeHeapBlock());  // TODO
 
-    JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
+    JDRemoteTyped heapBlockObject = GetJDRemoteTyped();
     if (heapBlockObject.HasField("markBits"))
     {
         return heapBlockObject.Field("markBits");
@@ -344,7 +344,7 @@ RemoteBitVector RemoteHeapBlock::GetFreeBits()
 {
     Assert(!this->IsLargeHeapBlock());  // Large heap block don't have free bit vectors
 
-    JDRemoteTyped heapBlockObject = GetExtRemoteTyped();
+    JDRemoteTyped heapBlockObject = GetJDRemoteTyped();
     if (heapBlockObject.HasField("freeBits"))
     {
         return heapBlockObject.Field("freeBits");
@@ -387,7 +387,7 @@ void RemoteHeapBlock::EnsureCachedAllocatedObjectCountAndSize()
         objectInfo.ReadBuffer(attributes, totalObjectCount);
     }
 
-    JDRemoteTyped heapBlock = GetExtRemoteTyped();
+    JDRemoteTyped heapBlock = GetJDRemoteTyped();
     JDRemoteTyped head;
     bool isBumpAllocation = false;
     bool hasIsInAllocatorField = !GetExtension()->IsJScript9() || heapBlock.HasField("isInAllocator");
@@ -477,8 +477,8 @@ char * RemoteHeapBlock::GetDebuggeeMemory(ULONG64 address, ULONG size, bool * ca
 ULONG RemoteHeapBlock::GetLargeHeapBlockHeaderList(JDRemoteTyped& headerList)
 {
     Assert(this->IsLargeHeapBlock());
-    JDRemoteTyped heapBlock = GetExtRemoteTyped();
-    headerList = JDRemoteTyped(GetExtension()->FillModuleAndMemoryNS("(%s!%sLargeObjectHeader **)@$extin"), this->GetHeapBlockAddress() + heapBlock.GetTypeSize());
+    JDRemoteTyped heapBlock = GetJDRemoteTyped();
+    headerList = GetExtension()->recyclerCachedData.GetAsLargeObjectHeaderList(this->GetHeapBlockAddress() + heapBlock.GetTypeSize());
     return heapBlock.Field("allocCount").GetUlong();
 }
 
@@ -486,9 +486,9 @@ RemoteRecycler RemoteHeapBlock::GetRecycler()
 {
     if (IsLargeHeapBlock())
     {
-        return RemoteRecycler(GetExtRemoteTyped().Field("heapInfo").Field("recycler"));
+        return RemoteRecycler(GetJDRemoteTyped().Field("heapInfo").Field("recycler"));
     }
-    return RemoteRecycler(GetExtRemoteTyped().Field("heapBucket").Field("heapInfo").Field("recycler"));
+    return RemoteRecycler(GetJDRemoteTyped().Field("heapBucket").Field("heapInfo").Field("recycler"));
 }
 
 ULONG RemoteHeapBlock::GetRecyclerCookie()
@@ -503,7 +503,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
     {
         ULONG64 objectAddress;
         ULONG64 objectSize;
-        ULONG64 sizeOfObjectHeader = g_Ext->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+        ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
         JDRemoteTyped largeObjectHeader;
         if (interior)
         {
@@ -535,7 +535,6 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
         else
         {
             ULONG64 headerAddress = originalAddress - sizeOfObjectHeader;
-            largeObjectHeader = JDRemoteTyped(GetExtension()->FillModuleAndMemoryNS("%s!%sLargeObjectHeader"), headerAddress, false);
             if (headerAddress < this->GetAddress())
             {
                 if (verbose)
@@ -544,6 +543,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
                 }
                 return false;
             }
+            largeObjectHeader = GetExtension()->recyclerCachedData.GetAsLargeObjectHeader(headerAddress);
             JDRemoteTyped headerList;
             ULONG allocCount = this->GetLargeHeapBlockHeaderList(headerList);
 
@@ -663,7 +663,7 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
 
 void RemoteHeapBlock::VerboseOut()
 {
-    ExtRemoteTyped heapBlock = GetExtRemoteTyped();
+    JDRemoteTyped heapBlock = GetJDRemoteTyped();
     g_Ext->Out("0x%p, InAllocator: %d, Size: 0x%x, Type: %d",
         this->GetHeapBlockAddress(),
         this->GetBucketObjectSize(),

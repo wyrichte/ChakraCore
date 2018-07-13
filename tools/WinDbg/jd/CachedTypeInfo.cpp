@@ -4,12 +4,12 @@
 #include "stdafx.h"
 #include "CachedTypeInfo.h"
 
-CachedTypeInfo::CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra) :
-    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr)
+CachedTypeInfo::CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra, bool isPtrTo) :
+    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr), isPtrTo(isPtrTo)
 {}
 
-CachedTypeInfo::CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra) :
-    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr)
+CachedTypeInfo::CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra, bool isPtrTo) :
+    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr), isPtrTo(isPtrTo)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * (*GetTypeNameFunc)()) :
@@ -19,7 +19,6 @@ CachedTypeInfo::CachedTypeInfo(char const * (*GetTypeNameFunc)()) :
 void CachedTypeInfo::Clear()
 {
     typeInfo.Clear();
-    fullTypeName.clear();
 }
 
 char const * const CachedTypeInfo::GetTypeName()
@@ -28,17 +27,17 @@ char const * const CachedTypeInfo::GetTypeName()
     return g_Ext->IsCurMachine32() ? typeName32.c_str() : typeName64.c_str();
 }
 
-std::string CachedTypeInfo::GetFullTypeName()
-{
-    EnsureCached();
-    return fullTypeName;
-}
-
 JDRemoteTyped CachedTypeInfo::Cast(ULONG64 address)
 {
     EnsureCached();
+    return JDRemoteTyped(typeInfo, address, isPtrTo);
+}
 
-    return JDRemoteTyped(typeInfo, address);
+ULONG CachedTypeInfo::GetSize()
+{
+    Assert(!isPtrTo);
+    EnsureCached();
+    return typeInfo.GetSize();
 }
 
 void CachedTypeInfo::EnsureTypeName()
@@ -58,6 +57,7 @@ void CachedTypeInfo::EnsureCached()
         return;
     }
 
+    std::string fullTypeName;
     if (memoryNS)
     {
         std::string typeStringFormat("%s!%s");
@@ -75,6 +75,17 @@ void CachedTypeInfo::EnsureCached()
         fullTypeName = GetTypeName();
     }
 
-    ExtRemoteTyped remoteTyped = ExtRemoteTyped(fullTypeName.c_str(), 0, false);
-    typeInfo.Set(remoteTyped);
+    if (isPtrTo)
+    {
+        std::string expr = "(";
+        expr += fullTypeName + " *)@$extin";
+        ExtRemoteTyped remoteTyped = ExtRemoteTyped(expr.c_str(), 0);
+        typeInfo = JDTypeInfo::FromExtRemoteTyped(remoteTyped);
+    }
+    else
+    {
+        ExtRemoteTyped remoteTyped = ExtRemoteTyped(fullTypeName.c_str(), 0, false);
+        typeInfo = JDTypeInfo::FromExtRemoteTyped(remoteTyped);
+    }
+    
 }

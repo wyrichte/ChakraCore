@@ -219,8 +219,8 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     ULONG64 heapBlockAddress = heapBlock.GetHeapBlockAddress();
     ULONG64 blockAddress = heapBlock.GetAddress();
 
-    ULONG64 sizeOfHeapBlock = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeHeapBlock))"));
-    ULONG64 sizeOfObjectHeader = GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sLargeObjectHeader))"));
+    ULONG64 sizeOfHeapBlock = GetExtension()->recyclerCachedData.GetSizeOfLargeHeapBlock();
+    ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
 
     ULONG64 headerAddress = objectAddress - sizeOfObjectHeader;
 
@@ -264,13 +264,13 @@ void ObjectInfoHelper::DumpLargeHeapBlockObject(RemoteHeapBlock heapBlock, ULONG
     }
     heapObject.objectSize = ExtRemoteTypedUtil::GetSizeT(largeObjectHeader.Field("objectSize"));
 
-    ULONG64 objectCount = ExtRemoteTypedUtil::GetSizeT(heapBlock.GetExtRemoteTyped().Field("objectCount"));
+    ULONG64 objectCount = heapBlock.GetJDRemoteTyped().Field("objectCount").GetSizeT();
 
     ExtRemoteTyped freeBitWord;
-    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < ExtRemoteTypedUtil::GetSizeT(heapBlock.GetExtRemoteTyped().Field("allocCount")) && headerData.m_Data == NULL);
+    heapObject.isFreeSet = (headerAddress >= blockAddress && heapObject.index < heapBlock.GetJDRemoteTyped().Field("allocCount").GetSizeT() && headerData.m_Data == NULL);
     heapObject.freeBitWord = NULL;
 
-    if (heapBlock.GetExtRemoteTyped().HasField("markCount"))
+    if (heapBlock.GetJDRemoteTyped().HasField("markCount"))
     {
         // Before CL #1362395
         ExtRemoteTyped markBitWord;
@@ -489,7 +489,7 @@ JD_PRIVATE_COMMAND(oi,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    ObjectInfoHelper ObjectInfoHelper(recycler.GetExtRemoteTyped());
+    ObjectInfoHelper ObjectInfoHelper(recycler);
     RemoteHeapBlock * remoteHeapBlock = recycler.GetHeapBlockMap().FindHeapBlock(objectAddress);
     if (remoteHeapBlock != NULL)
     {
@@ -713,7 +713,7 @@ JD_PRIVATE_COMMAND(findblock,
 
     if (remoteHeapBlock != NULL)
     {
-        JDRemoteTyped(remoteHeapBlock->GetExtRemoteTyped()).CastWithVtable().GetExtRemoteTyped().OutFullValue();
+        remoteHeapBlock->GetJDRemoteTyped().CastWithVtable().GetExtRemoteTyped().OutFullValue();
     }
     else
     {
@@ -1557,7 +1557,8 @@ JD_PRIVATE_COMMAND(memstats,
     "{a;b,o;;Display arena allocator information}"
     "{p;b,o;;Display page allocator information}"
     "{t;e,o,d=0;Display information for thread context}"
-    "{z;b,o;;Display zero entries}")
+    "{z;b,o;;Display zero entries}"
+    "{c;b,o;;Force to compute the information where possible}")
 {
     ULONG64 threadContextAddress = GetArgU64("t");
     bool showZeroEntries = this->HasArg("z");
@@ -1565,6 +1566,7 @@ JD_PRIVATE_COMMAND(memstats,
     bool showArenaAllocator = showAll || this->HasArg("a");
     bool showPageAllocator = showAll || this->HasArg("p") || (threadContextAddress && !showArenaAllocator);
     bool showThreadSummary = (!showArenaAllocator && !showPageAllocator);
+    bool forceCompute = this->HasArg("c");
     ULONG numThreads = 0;
     ULONG64 totalReservedBytes = 0;
     ULONG64 totalCommittedBytes = 0;
@@ -1624,14 +1626,14 @@ JD_PRIVATE_COMMAND(memstats,
         ULONG64 unusedBytes = 0;
         threadContext.ForEachPageAllocator([=, &reservedBytes, &committedBytes, &usedBytes, &unusedBytes](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            reservedBytes += pageAllocator.GetReservedBytes();
-            committedBytes += pageAllocator.GetCommittedBytes();
+            reservedBytes += pageAllocator.GetReservedBytes(forceCompute);
+            committedBytes += pageAllocator.GetCommittedBytes(forceCompute);
             usedBytes += pageAllocator.GetUsedBytes();
             unusedBytes += pageAllocator.GetUnusedBytes();
 
             if (showPageAllocator)
             {
-                pageAllocator.DisplayData(name, showZeroEntries);
+                pageAllocator.DisplayData(name, showZeroEntries, forceCompute);
             }
             return false;
         });
@@ -1743,7 +1745,7 @@ OBJECTINFO GetObjectInfo(ULONG64 address, RemoteRecycler recycler)
         info.message = "Could not find heap block corresponding to this address";
         return info;
     }
-    heapBlock = remoteHeapBlock->GetExtRemoteTyped();
+    heapBlock = remoteHeapBlock->GetJDRemoteTyped();
 
     char const *& typeName = info.typeName;
     heapBlock = heapBlock.CastWithVtable(&typeName);
@@ -1950,8 +1952,7 @@ MPH_COMMAND(mpheap,
 
     // TODO: get heap instance from input parameter and check existance
     RemoteRecycler remoteRecycler(heapInstance.Field("recycler").GetPointerTo());
-    ExtRemoteTyped recycler = remoteRecycler.GetExtRemoteTyped();
-        
+
     // Summary
     if (HasArg("s"))
     {
@@ -1959,7 +1960,7 @@ MPH_COMMAND(mpheap,
         RemotePageAllocator::DisplayDataHeader("Allocator");
         remoteRecycler.ForEachPageAllocator("Thread", [showZeroEntries](PCSTR name, RemotePageAllocator pageAllocator)
         {
-            pageAllocator.DisplayData(name, showZeroEntries);
+            pageAllocator.DisplayData(name, showZeroEntries, false);
             return false;
         });
         return;
@@ -2082,7 +2083,7 @@ MPH_COMMAND(mpheap,
             this->Out("Command to show block: %s\n", buffer);
         }
 
-        OBJECTINFO info = GetObjectInfo(address, recycler);
+        OBJECTINFO info = GetObjectInfo(address, remoteRecycler);
         if (!info.succeeded)
         {
             this->Err(info.message.c_str());
@@ -2129,11 +2130,11 @@ MPH_COMMAND(mpheap,
                 return;
             }
 
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, nullptr, GetStackTop());
-            rootPointers->Map([&recycler, &verbose, &address](ULONG64 rootAddress)
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(remoteRecycler, nullptr, GetStackTop());
+            rootPointers->Map([&remoteRecycler, &verbose, &address](ULONG64 rootAddress)
             {
                 GetExtension()->ThrowInterrupt();
-                auto info = GetObjectInfo(rootAddress, recycler);
+                auto info = GetObjectInfo(rootAddress, remoteRecycler);
                 char buffer[1024];
                 sprintf_s(buffer, GetExtension()->m_PtrSize == 8 ? "0x%016I64x" : "0x%08I64x", rootAddress);
                 if (verbose)

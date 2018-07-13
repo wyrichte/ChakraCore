@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 RemoteEntryPoint::RemoteEntryPoint()
-    : entryPoint("(void *)0")
+    : entryPoint(JDRemoteTyped::NullPtr())
 {
 
 }

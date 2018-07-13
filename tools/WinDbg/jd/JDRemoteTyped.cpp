@@ -16,15 +16,25 @@ JDRemoteTyped::JDRemoteTyped(ExtRemoteTyped const& remoteTyped)
 {
 }
 
-JDRemoteTyped::JDRemoteTyped(ULONG64 modBase, ULONG typeId, ULONG64 offset, bool ptrTo)
-    : useExtRemoteTyped(true)
+JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo)
+    : useExtRemoteTyped(false), typeInfo(typeInfo), isVoidPointer(false), isPtrTo(ptrTo)
 {
-    extRemoteTyped.Set(ptrTo, modBase, typeId, offset);
+    if (isPtrTo)
+    {
+        this->isDataValid = true;
+        this->data = offset;
+        this->offset = 0;
+    }
+    else
+    {
+        this->isDataValid = false;
+        this->offset = offset;
+    }
 }
 
-JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset)
-    : useExtRemoteTyped(false), typeInfo(typeInfo), offset(offset), isDataValid(false)
-{    
+JDRemoteTyped::JDRemoteTyped(ULONG64 address)
+    : useExtRemoteTyped(false), typeInfo(JDTypeInfo::GetVoidPointerType()), offset(0), isDataValid(true), isVoidPointer(true), data(address), isPtrTo(true)
+{
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Type, ULONG64 Offset, bool PtrTo)
@@ -60,6 +70,10 @@ JDRemoteTyped JDRemoteTyped::BitField(PCSTR field)
 
 JDRemoteTyped JDRemoteTyped::ArrayElement(LONG64 index)
 {
+    if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
+    {
+        return JDRemoteTyped(this->typeInfo, this->data + this->typeInfo.GetSize() * index);
+    }
     return GetExtRemoteTyped().ArrayElement(index);
 }
 
@@ -90,7 +104,12 @@ JDRemoteTyped JDRemoteTyped::CastWithVtable(char const ** typeName)
 
 JDRemoteTyped JDRemoteTyped::NullPtr()
 {
-    return JDRemoteTyped("(void *)@$extin", 0);    
+    return JDRemoteTyped::VoidPtr(0);
+}
+
+JDRemoteTyped JDRemoteTyped::VoidPtr(ULONG64 address)
+{
+    return JDRemoteTyped(address);
 }
 
 JDRemoteTyped JDRemoteTyped::FromPtrWithType(ULONG64 address, char const * typeName)
@@ -103,14 +122,18 @@ JDRemoteTyped JDRemoteTyped::FromPtrWithVtable(ULONG64 address, char const ** ty
     JDRemoteTyped result;
     if (!JDTypeCache::CastWithVtable(address, result, typeName))
     {
-        result = JDRemoteTyped("(void *)@$extin", address);
+        result = JDRemoteTyped::VoidPtr(address);
     }
     return result;
 }
 
 ULONG64 JDRemoteTyped::GetSizeT()
 {
-    return ExtRemoteTypedUtil::GetSizeT(GetExtRemoteTyped());
+    if (this->GetTypeSize() == 8)
+    {
+        return this->GetUlong64();
+    }
+    return this->GetUlong();
 }
 
 char const * JDRemoteTyped::GetEnumString()
@@ -130,7 +153,18 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 {
     if (!useExtRemoteTyped)
     {
-        extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), offset);
+        if (this->isVoidPointer)
+        {
+            extRemoteTyped.Set("(void *)@$extin", this->data);
+        }
+        else if (this->isPtrTo)
+        {
+            extRemoteTyped.Set(true, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), this->data);
+        }
+        else
+        {
+            extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), this->offset);
+        }
         useExtRemoteTyped = true;
     }
     return extRemoteTyped;
@@ -138,6 +172,10 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 
 JDRemoteTyped JDRemoteTyped::Dereference()
 {
+    if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
+    {
+        return JDRemoteTyped(typeInfo, this->data);
+    }
     return GetExtRemoteTyped().Dereference();
 }
 
@@ -148,22 +186,28 @@ JDRemoteTyped JDRemoteTyped::GetPointerTo()
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement(Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement((LONG64)Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ LONG64 Index)
 {
-    return GetExtRemoteTyped()[Index];
+    return ArrayElement(Index);
 }
 
 JDRemoteTyped JDRemoteTyped::operator[](_In_ ULONG64 Index)
 {
-    return GetExtRemoteTyped()[Index];
+    if (Index > 0x7fffffffffffffffUI64)
+    {
+        g_Ext->ThrowRemote
+        (HRESULT_FROM_WIN32(ERROR_ARITHMETIC_OVERFLOW),
+            "Array index too large");
+    }
+    return ArrayElement((LONG64)Index);
 }
 
 char const * JDRemoteTyped::GetTypeName()
@@ -171,18 +215,18 @@ char const * JDRemoteTyped::GetTypeName()
     return GetExtRemoteTyped().GetTypeName();
 }
 
+char const * JDRemoteTyped::GetSimpleTypeName()
+{
+    if (!useExtRemoteTyped && !isVoidPointer)
+    {
+        return JDTypeCache::GetTypeName(this->typeInfo, this->isPtrTo);
+    }
+    return JDUtil::StripStructClass(GetTypeName());
+}
+
 char const * JDRemoteTyped::GetSimpleValue()
 {
     return GetExtRemoteTyped().GetSimpleValue();
-}
-
-ULONG JDRemoteTyped::GetTypeSize()
-{
-    if (useExtRemoteTyped)
-    {
-        return extRemoteTyped.GetTypeSize();        
-    }
-    return this->typeInfo.GetSize();
 }
 
 BOOL JDRemoteTyped::GetW32Bool()
@@ -307,6 +351,7 @@ T JDRemoteTyped::EnsureData()
         return *(T *)&data;
     }
 
+    Assert(!this->isPtrTo);
     if (this->typeInfo.GetSize() != sizeof(T))
     {
         g_Ext->ThrowLastError("JDRemoteTyped: Size mismatch");
@@ -367,7 +412,16 @@ bool JDRemoteTyped::IsPointerType()
     {
         return extRemoteTyped.m_Typed.Tag == SymTagPointerType;
     }
-    return this->typeInfo.IsPointerType();
+    return this->isPtrTo || this->typeInfo.IsPointerType();
+}
+
+ULONG JDRemoteTyped::GetTypeSize()
+{
+    if (useExtRemoteTyped)
+    {
+        return extRemoteTyped.GetTypeSize();
+    }
+    return this->isPtrTo ? g_Ext->m_PtrSize : this->typeInfo.GetSize();
 }
 
 ULONG64 JDRemoteTyped::GetOffset()
@@ -376,5 +430,6 @@ ULONG64 JDRemoteTyped::GetOffset()
     {
         return extRemoteTyped.m_Offset;
     }
+    Assert(!this->isPtrTo);
     return this->offset;
 }

@@ -6,16 +6,16 @@
 class CachedTypeInfo
 {
 public:
-    CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra = true);
-    CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra = true);
+    CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra = true, bool isPtrTo = false);
+    CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra = true, bool isPtrTo = false);
     CachedTypeInfo(char const * (*GetTypeNameFunc)());
     JDRemoteTyped Cast(ULONG64 address);
 
-    char const * const GetTypeName();
-    std::string GetFullTypeName();
-
+    ULONG GetSize();
     void Clear();
 private:
+    char const * const GetTypeName();
+
     void EnsureCached();
     void EnsureTypeName();
 
@@ -24,6 +24,6 @@ private:
     char const * (*GetTypeNameFunc)();
     bool isChakra;
     bool memoryNS;
-    std::string fullTypeName;
+    bool isPtrTo;
     JDTypeInfo typeInfo;
 };

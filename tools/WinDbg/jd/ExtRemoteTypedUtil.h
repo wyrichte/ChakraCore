@@ -18,12 +18,13 @@ public:
     {
         ExtRemoteTyped headExtRemoteTyped = head.GetExtRemoteTyped();
         ExtRemoteTyped deferencedType = headExtRemoteTyped.Dereference();
+        JDTypeInfo typeInfo = JDTypeInfo::FromExtRemoteTyped(deferencedType);
         ULONG64 current = GetAsPointer(headExtRemoteTyped);
         ULONG64 headPtr = current;
         ULONG offset = headExtRemoteTyped.GetFieldOffset(field);
         while (current != 0)
         {
-            JDRemoteTyped object(deferencedType.m_Typed.ModBase, deferencedType.m_Typed.TypeId, current, true);
+            JDRemoteTyped object(typeInfo, current, true);
             if (fn(object))
             {
                 return true;

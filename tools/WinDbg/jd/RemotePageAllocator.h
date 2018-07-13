@@ -3,44 +3,54 @@
 //----------------------------------------------------------------------------
 #pragma once
 
+#include "RemoteRecyclerList.h"
+
 class RemotePageAllocator
 {
 public:
     RemotePageAllocator(JDRemoteTyped pageAllocator) : pageAllocator(pageAllocator.GetExtRemoteTyped()) {}
     ULONG64 GetUsedBytes();
-    ULONG64 GetReservedBytes();
-    ULONG64 GetCommittedBytes();
+    ULONG64 GetReservedBytes(bool forceCompute);
+    ULONG64 GetCommittedBytes(bool forceCompute);
     ULONG64 GetUnusedBytes();
 
     static void DisplayDataHeader(PCSTR name);
     static void DisplayDataLine();
     static void DisplayData(ULONG nameLength, ULONG64 used, ULONG64 reserved, ULONG64 committed, ULONG64 unused);
-    void DisplayData(PCSTR name, bool showZeroEntries);
+    void DisplayData(PCSTR name, bool showZeroEntries, bool forceCompute);
     template <typename Fn>
     bool ForEachSegment(Fn fn)
     {
-        char* segmentsNames[] = { "segments", "fullSegments", "emptySegments", "decommitSegments", "largeSegments" };
+        return ForEachSegment(fn, fn);
+    }
 
-        for (int i=0; i < _countof(segmentsNames); i++)
-        {            
-            if(pageAllocator.HasField(segmentsNames[i]))
+    template <typename Fn1, typename Fn2>
+    bool ForEachSegment(Fn1 fnPageSegment, Fn2 fnSegment)
+    {
+        char const* pageSegmentsNames[] = { "segments", "fullSegments", "emptySegments", "decommitSegments" };
+        char const * segmentsName[] = { "largeSegments" };
+        return ForEachSegment(pageSegmentsNames, _countof(pageSegmentsNames), fnPageSegment)
+            || ForEachSegment(segmentsName, _countof(segmentsName), fnSegment);
+    }
+    ExtRemoteTyped GetExtRemoteTyped() { return pageAllocator; }
+private:
+    template <typename Fn>
+    bool ForEachSegment(char const ** names, uint count, Fn fn)
+    {
+        for (uint i = 0; i < count; i++)
+        {
+            if (pageAllocator.HasField(names[i]))
             {
-                auto list = pageAllocator.Field(segmentsNames[i]).GetPointerTo();
-                ExtRemoteTyped curr = list.Field("next");
-                while (curr.Field("base").GetPtr() != list.GetPtr())
+                auto list = pageAllocator.Field(names[i]).GetPointerTo();
+                if (DListForEach(list, [&](ExtRemoteTyped segment) { return fn(names[i], segment); }))
                 {
-                    if (fn(segmentsNames[i], curr.Field("node.data")))
-                    {
-                        return true;
-                    }
-                    curr = curr.Field("base.next");
+                    return true;
                 }
             }
         }
         return false;
     }
-    ExtRemoteTyped GetExtRemoteTyped() { return pageAllocator; }
-private:
+
     void ComputeReservedAndCommittedBytes();
     
     ExtRemoteTyped pageAllocator;

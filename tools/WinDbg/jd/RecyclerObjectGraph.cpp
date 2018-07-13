@@ -423,9 +423,9 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
     stdext::hash_set<char const *> noScanFieldVtable;
 
-    auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, bool hasVtable, bool isPropagated, ULONG64 javascriptLibrary)
+    auto setNodeData = [&](char const * typeName, char const * typeNameOrField, RecyclerObjectGraph::GraphImplNodeType * node, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary)
     {
-        node->SetTypeInfo(typeName, typeNameOrField, hasVtable, isPropagated, javascriptLibrary);
+        node->SetTypeInfo(typeName, typeNameOrField, flags, javascriptLibrary);
         if (!infer)
         {
             return false;
@@ -436,14 +436,14 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
     GetExtension()->recyclerCachedData.EnableCachedDebuggeeMemory();
 
-    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, bool hasVtable = false, ULONG64 library = 0, bool requireLivePointer = true)
+    auto setAddressData = [&](char const * typeName, JDRemoteTyped object, RecyclerObjectTypeInfo::Flags flags = RecyclerObjectTypeInfo::Flags_None, ULONG64 library = 0, bool requireLivePointer = true)
     {
         if (object.GetPtr())
         {
             RecyclerObjectGraph::GraphImplNodeType* node = this->FindNode(object.GetPtr());
             if (requireLivePointer || node)
             {
-                setNodeData(typeName, typeName, node, hasVtable, false, library);
+                setNodeData(typeName, typeName, node, flags, library);
                 return true;
             }
         }
@@ -457,7 +457,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
             auto fieldNode = this->FindNode(field.GetPtr());
             if (fieldNode && (!fieldNode->HasTypeInfo() || (fieldNode->HasVtable() && overwriteVtable)))
             {
-                setNodeData(typeName, fieldTypeName, fieldNode, false, false, library);
+                setNodeData(typeName, fieldTypeName, fieldNode, RecyclerObjectTypeInfo::Flags_None, library);
                 return true;
             }
         }
@@ -619,10 +619,10 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
         autoError.Start(objectAddress, typeName);
 
-        char const * simpleTypeName = JDUtil::StripStructClass(remoteTyped.GetTypeName());
+        char const * simpleTypeName = remoteTyped.GetSimpleTypeName();
         ULONG64 javascriptLibrary = InferJavascriptLibrary(node, remoteTyped, simpleTypeName);
 
-        if (setNodeData(typeName, typeName, node, true, false, javascriptLibrary))
+        if (setNodeData(typeName, typeName, node, RecyclerObjectTypeInfo::Flags_HasVtable, javascriptLibrary))
         {
             auto addField = [&](JDRemoteTyped field, char const * fieldTypeName, bool overwriteVtable = false, ULONG64 library = 0)
             {
@@ -657,7 +657,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         JDRemoteTyped remoteTypedAuxSlot = JDRemoteTyped::FromPtrWithVtable(auxSlots.GetPtr(), &auxSlotTypeName);
                         if (auxSlotTypeName == nullptr)
                         {
-                            setNodeData(typeName, "Js::DynamicObject.auxSlots[]", fieldNode, false, false, javascriptLibrary);
+                            setNodeData(typeName, "Js::DynamicObject.auxSlots[]", fieldNode, RecyclerObjectTypeInfo::Flags_None, javascriptLibrary);
                         }
                     }
                 }
@@ -1199,7 +1199,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     }
                 };
 
-                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenRuntiemData(), functionBody.GetProfiledCallSiteCount());
+                addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenRuntimeData(), functionBody.GetProfiledCallSiteCount());
                 addFunctionCodeGenRuntimeDataArray(functionBody.GetCodeGenGetSetRuntimeData(), functionBody.GetInlineCacheCount());
 
                 while (!functionCodeGenRuntimeDataArrayStack.empty())
@@ -1243,7 +1243,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                         JDRemoteTyped::FromPtrWithVtable(polymorphicInlineCachesHead.GetPtr(), &polymorphicInlineCachesTypeName);
                     }
 
-                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, true, javascriptLibrary, false);
+                    setAddressData(polymorphicInlineCachesTypeName, polymorphicInlineCachesHead, RecyclerObjectTypeInfo::Flags_HasVtable, javascriptLibrary, false);
                     polymorphicInlineCachesHead = JDUtil::GetWrappedField(polymorphicInlineCachesHead, "next");
                 }
 
@@ -1424,8 +1424,9 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addField(program.Field("source"), "UnifiedRegex::Program.source");
                 addField(unifiedRep.Field("matcher"), "UnifiedRegex::Matcher");
                 addField(unifiedRep.Field("trigramInfo"), "UnifiedRegex::TrigramInfo");
-                if (ENUM_EQUAL(program.Field("tag").GetSimpleValue(), InstructionsTag)
-                    || ENUM_EQUAL(program.Field("tag").GetSimpleValue(), BOIInstructionsTag))
+                char const * tag = program.Field("tag").GetSimpleValue();
+                if (ENUM_EQUAL(tag, InstructionsTag)
+                    || ENUM_EQUAL(tag, BOIInstructionsTag))
                 {
                     JDRemoteTyped repInsts = program.Field("rep").Field("insts");
                     addField(repInsts.Field("insts"), "UnifiedRegex::Program::Instructions.insts");
@@ -1452,25 +1453,47 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     }
                 }
             }
-            else if (strcmp(simpleTypeName, "Js::JavascriptPromise *") == 0)
+            else if (IsTypeOrCrossSite("Js::JavascriptPromise"))
             {
-                auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
+                auto addReaction = [&](JDRemoteTyped reaction)
                 {
-                    if (addField(reactionList, "Js::JavascriptPromiseReactionList", true))
+                    addField(reaction, "Js::JavascriptPromiseReaction", true);
+                    addField(reaction.Field("capabilities"), "Js::JavascriptPromiseCapability", true);
+                };
+                if (remoteTyped.HasField("reactions"))
+                {
+                    JDRemoteTyped reactions = remoteTyped.Field("reactions");
+                    if (addField(reactions, "Js::JavascriptPromiseReactionList"))
                     {
-                        int count = reactionList.Field("count").GetLong();
-                        JDRemoteTyped buffer = reactionList.Field("buffer");
-                        addField(buffer, "Js::JavascriptPromiseReactionList.buffer");
-                        for (int i = 0; i < count; i++)
+                        RemoteListIterator<true> iter(reactions.GetExtRemoteTyped());
+                        while (iter.Next())
                         {
-                            JDRemoteTyped reaction = buffer.ArrayElement(i);
-                            addField(reaction, "Js::JavascriptPromiseReaction", true);
-                            addField(reaction.Field("capabilities"), "Js::JavascriptPromiseCapability", true);
+                            addField(JDRemoteTyped::VoidPtr(iter.GetNodePtr()), "Js::JavascriptPromiseReactionList.Node");
+                            JDRemoteTyped data = iter.Data();
+                            addReaction(data.Field("resolveReaction"));
+                            addReaction(data.Field("rejectReaction"));
                         }
                     }
-                };
-                addPromiseReactionList(remoteTyped.Field("resolveReactions"));
-                addPromiseReactionList(remoteTyped.Field("rejectReactions"));
+                }
+                else
+                {
+                    // Before commit dbd57b33cc554a82b35d24f81bac59560017853f
+                    auto addPromiseReactionList = [&](JDRemoteTyped reactionList)
+                    {
+                        if (addField(reactionList, "Js::JavascriptPromiseReactionList", true))
+                        {
+                            int count = reactionList.Field("count").GetLong();
+                            JDRemoteTyped buffer = reactionList.Field("buffer");
+                            addField(buffer, "Js::JavascriptPromiseReactionList.buffer");
+                            for (int i = 0; i < count; i++)
+                            {
+                                addReaction(buffer.ArrayElement(i));
+                            }
+                        }
+                    };
+                    addPromiseReactionList(remoteTyped.Field("resolveReactions"));
+                    addPromiseReactionList(remoteTyped.Field("rejectReactions"));
+                }
             }
             else if (strcmp(simpleTypeName, "Js::JavascriptLibrary *") == 0)
             {
@@ -1496,7 +1519,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 addStaticTypeField(remoteTyped.Field("enumeratorType"));
                 addStaticTypeField(remoteTyped.Field("numberTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("int64NumberTypeStatic"));
-                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));                
+                addStaticTypeField(remoteTyped.Field("uint64NumberTypeStatic"));
                 addStaticTypeField(remoteTyped.Field("throwErrorObjectType"));
 
                 if (remoteTyped.HasField("symbolTypeStatic"))
@@ -1622,7 +1645,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 RemoteBaseDictionary propertyStringMap = remoteTyped.Field("propertyStringMap");
                 if (AddDictionaryField(propertyStringMap, "Js::JavascriptLibrary.propertyStringMap"))
                 {
-                    bool isWeakReferenceRegionDictionary = strstr(propertyStringMap.GetJDRemoteTyped().GetTypeName(), "WeakReferenceRegionDictionary") != nullptr;
+                    bool isWeakReferenceRegionDictionary = strstr(propertyStringMap.GetJDRemoteTyped().GetSimpleTypeName(), "WeakReferenceRegionDictionary") != nullptr;
                     if (!isWeakReferenceRegionDictionary) 
                     {
                         propertyStringMap.ForEachValue([&](JDRemoteTyped value)
@@ -1745,7 +1768,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
         bool setInfo = false;
         if (node->IsRoot())
         {
-            setNodeData("<Root>", "<Root>", node, false, true, 0);
+            setNodeData("<Root>", "<Root>", node, RecyclerObjectTypeInfo::Flags_IsPropagated, 0);
             setInfo = true;
         }
 
@@ -1756,7 +1779,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 return false;
             }
 
-            setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, pred->HasVtable(), true, pred->GetAssociatedJavascriptLibrary());
+            RecyclerObjectTypeInfo::Flags flags = pred->HasVtable() ? RecyclerObjectTypeInfo::Flags_IsPropagatedFromVtable : RecyclerObjectTypeInfo::Flags_IsPropagated;
+            setNodeData(pred->GetTypeName(), pred->GetTypeNameOrField(), node, flags, pred->GetAssociatedJavascriptLibrary());
             setInfo = true;
             return true;
         });
@@ -1778,7 +1802,8 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                 return;
             }
 
-            setNodeData(node->GetTypeName(), node->GetTypeNameOrField(), succ, node->HasVtable(), true, node->GetAssociatedJavascriptLibrary());
+            RecyclerObjectTypeInfo::Flags flags = node->HasVtable() ? RecyclerObjectTypeInfo::Flags_IsPropagatedFromVtable : RecyclerObjectTypeInfo::Flags_IsPropagated;
+            setNodeData(node->GetTypeName(), node->GetTypeNameOrField(), succ, flags, node->GetAssociatedJavascriptLibrary());
             updated.push(succ);
         });
     }

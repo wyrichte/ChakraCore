@@ -257,7 +257,7 @@ public:
         return JDUtil::GetWrappedField(*this, "profiledCallSiteCount").GetUshort();
     }
 
-    JDRemoteTyped GetCodeGenRuntiemData()
+    JDRemoteTyped GetCodeGenRuntimeData()
     {
         return this->GetAuxWrappedFieldRecyclerData("m_codeGenRuntimeData", "Js::FunctionCodeGenRuntimeData *");
     }

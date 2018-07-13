@@ -44,9 +44,13 @@ private:
         ULONG m_fieldOffset;
     };
     stdext::hash_map<Key, Value> cache;
+
+    static void EnsureNotBitField(ULONG64 containerModBase, ULONG containerTypeId, ULONG fieldOffset);
 public:
     static bool HasField(JDRemoteTyped& object, char const * field);
     static JDRemoteTyped GetField(JDRemoteTyped& object, char const * field);
+
+    void Clear();
 };
 
 inline bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b)
