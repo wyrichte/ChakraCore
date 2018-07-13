@@ -316,6 +316,10 @@ public:
         return GetNumberValue<T>(var.GetExtRemoteTyped());
     }
 
+    bool ShowProgress()
+    {
+        return showProgress;
+    }
 protected:
     char m_moduleName[16]; // jc or jscript9, access through GetModuleName()
     char m_fillModuleBuffer[1024]; // one temp buffer
@@ -334,6 +338,7 @@ protected:
     Nullable<bool> m_pageAllocatorHasExtendedCounters; // If the build has extended counter for page allocators
     Nullable<bool> m_isJITServer;
     Nullable<bool> m_taggedInt31Usage;
+    bool showProgress;
 
     friend class RemoteVar;
     bool GetTaggedInt31Usage();
@@ -421,6 +426,7 @@ public:
     JD_PRIVATE_COMMAND_METHOD(arrseg);
     JD_PRIVATE_COMMAND_METHOD(memstats);
     JD_PRIVATE_COMMAND_METHOD(findpage);
+    JD_PRIVATE_COMMAND_METHOD(progress);
 
     // jdbackend commands
     JD_PRIVATE_COMMAND_METHOD(irinstr);

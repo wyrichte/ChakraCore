@@ -90,7 +90,7 @@ void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
         ScanBytes(constructData, object.first, object.second);
 
         iters++;
-        if (iters % 0x10000 == 0)
+        if (GetExtension()->ShowProgress() && (iters % 0x10000 == 0))
         {
             auto currTime = _time64(nullptr);
             size_t currNodeCount = _objectGraph.GetNodeCount();
@@ -101,8 +101,12 @@ void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
         }
     }
 
+    if (GetExtension()->ShowProgress())
+    {
+        g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\r");
+    }
     g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
-        "\rObject graph construction completed - elapsed time: %us                                                    \n",
+        "Object graph construction completed - elapsed time: %us                                                    \n",
         (ULONG)(_time64(nullptr) - start));
 }
 

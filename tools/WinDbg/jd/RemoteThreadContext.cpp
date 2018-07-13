@@ -288,6 +288,7 @@ bool RemoteThreadContext::UseCodePageAllocator()
 bool
 RemoteThreadContext::TryGetThreadContextFromAnyContextPointer(ULONG64 contextPointer, RemoteThreadContext& remoteThreadContext)
 {
+    // NOTE: contextPointer can be a javascriptLibrary, threadContext or scriptContext
     return ForEach([&](RemoteThreadContext threadContext)
     {
         if (threadContext.GetPtr() == contextPointer)

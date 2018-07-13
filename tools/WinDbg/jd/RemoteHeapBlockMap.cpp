@@ -31,7 +31,8 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(JDRemoteTyped heapBlockMap)
             localCachedHeapBlock.get()->addressToHeapBlockMap[address] = heapBlockEntry;
 
             iter++;
-            if (iter % 0x10000 == 0)
+            
+            if (GetExtension()->ShowProgress() && (iter % 0x10000 == 0))
             {
                 g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rReading heap block map: %ld", iter);
             }
@@ -40,7 +41,11 @@ RemoteHeapBlockMap::RemoteHeapBlockMap(JDRemoteTyped heapBlockMap)
         GetExtension()->recyclerCachedData.SetHeapBlockMap(heapBlockMapAddr, localCachedHeapBlock.get());
         cachedHeapBlock = localCachedHeapBlock.release();
 
-        g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\rHeap block map reading completed - elapsed time: %us\n", (ULONG)(_time64(nullptr) - start));
+        if (GetExtension()->ShowProgress())
+        {
+            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\r");
+        }
+        g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "Heap block map reading completed - elapsed time: %us\n", (ULONG)(_time64(nullptr) - start));
     }
 }
 

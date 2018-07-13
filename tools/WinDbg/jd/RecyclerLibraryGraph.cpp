@@ -201,14 +201,8 @@ RecyclerLibraryGraph::~RecyclerLibraryGraph()
     }
 }
 
-static void DumpLibrarySummary(LibrarySummary const& i, bool filterClosed)
+static void DumpLibrarySummary(LibrarySummary const& i)
 {
-    RemoteJavascriptLibrary javascriptLibrary(i.library);
-    if (filterClosed && !javascriptLibrary.IsClosed())
-    {
-        return;
-    }
-
     if (i.reachableFromNonClosed)
     {
         g_Ext->Out("*");
@@ -218,6 +212,7 @@ static void DumpLibrarySummary(LibrarySummary const& i, bool filterClosed)
         g_Ext->Out(" ");
     }
     g_Ext->Out("%3d-%03d:", i.groupId, i.subGroupId);
+    RemoteJavascriptLibrary javascriptLibrary(i.library);
     javascriptLibrary.PrintStateAndLink(true);
 
     g_Ext->Out(" %7I64u %11I64u | %5I64u %5I64u %5I64u | %7I64u %4I64u %4I64u", i.objectCount, i.objectSize, i.rootCount,
@@ -253,9 +248,11 @@ static void DumpLibrarySummary(LibrarySummary const& i, bool filterClosed)
 JD_PRIVATE_COMMAND(jslibstats,
     "Dump a library stats",
     "{;e,o,d=0;recycler;Recycler address}"
-    "{fc;b,o;FilterClosed;Filter to closed context}")
+    "{fc;b,o;FilterClosed;Filter to closed context}"
+    "{fur;b,o;FilterUnreachable;Filter to unreachable closed context}")
 {
     const bool filterClosed = HasArg("fc");
+    const bool filterUnreachable = HasArg("fur");
     ULONG64 recyclerArg = GetUnnamedArgU64(0);
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
@@ -276,10 +273,27 @@ JD_PRIVATE_COMMAND(jslibstats,
         this->Out("            Library      Count        Size |  Root   Pin Arena |    XRef XPre XSuc\n");
     }
 
+    uint numClosed = 0;
+    uint numTotal = 0;
     libraryGraph.ForEach([&](LibrarySummary const& i)
     {
-        DumpLibrarySummary(i, filterClosed);
+        if (i.library != 0 || i.library != RemoteJavascriptLibrary::GlobalLibrary)
+        {
+            numClosed += i.isClosed;
+            numTotal++;
+        }
+        if (filterUnreachable && i.reachableFromNonClosed)
+        {
+            return;
+        }
+        if (filterClosed && !i.isClosed)
+        {
+            return;
+        }
+        DumpLibrarySummary(i);
     });
+
+    this->Out("Count: %u, Closed: %u\n", numTotal, numClosed);
 }
 
 JD_PRIVATE_COMMAND(jslibpreds,
@@ -302,7 +316,7 @@ JD_PRIVATE_COMMAND(jslibpreds,
     }
     for (auto i : summary->predecessors)
     {
-        DumpLibrarySummary(*libraryGraph.GetLibrarySummary(i), false);
+        DumpLibrarySummary(*libraryGraph.GetLibrarySummary(i));
     }
 }
 
@@ -326,6 +340,6 @@ JD_PRIVATE_COMMAND(jslibsuccs,
     }
     for (auto i : summary->successors)
     {
-        DumpLibrarySummary(*libraryGraph.GetLibrarySummary(i), false);
+        DumpLibrarySummary(*libraryGraph.GetLibrarySummary(i));
     }
 }
