@@ -32,6 +32,9 @@ private:
     template <typename Fn>
     uint WalkGraph(Fn process, bool includePredecessors)
     {
+        // Go thru all node and do either a depth first walk (!includePredecessors)
+        // Or visit all connect node (includePredecessors)
+        // The callback is responsible for detect whether a node is visited or not
         uint iter = 1;
         ForEach([&](LibrarySummary& i)
         {

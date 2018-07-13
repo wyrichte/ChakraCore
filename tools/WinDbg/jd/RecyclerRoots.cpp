@@ -1919,18 +1919,8 @@ void PrintNodeLink(bool filterUnknown, ULONG64 library, char const * type)
             g_Ext->Dml("<link cmd=\"!jd.jsobjectnodes %s%s%s\">(nodes)</link>", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
         }
     }
-    else
-    {
-        if (library != (ULONG64)-1)
-        {
-            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes -fl %p %s%s%s\"*/", library, filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
-        }
-        else
-        {
-            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes %s%s%s\"*/", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
-        }
-    }
 }
+
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
     "{;ed,o,d=0;recycler;Recycler address}"
@@ -2089,7 +2079,14 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out(" Count?      Bytes? %%Count %%Bytes        | ");
         }
 
-        Out("  Count       Bytes %%Count %%Bytes         Symbol                \n");
+        if (this->PreferDML())
+        {
+            Out("  Count       Bytes %%Count %%Bytes         Symbol                \n");
+        }
+        else
+        {
+            Out("  Count       Bytes %%Count %%Bytes Symbol                \n");
+        }
 
         ULONG64 knownObjectCount = 0;
         ULONG64 knownObjectSize = 0;

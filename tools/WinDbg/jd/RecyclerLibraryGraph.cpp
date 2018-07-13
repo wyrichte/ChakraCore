@@ -31,29 +31,16 @@ struct LibrarySummary
     std::set<ULONG64> predecessors;
 };
 
-
-int __cdecl LibrarySummaryComparer(const void * a, const void * b)
+int __cdecl BasicLibrarySummaryCommparer(const void * a, const void * b)
 {
+    // Unknown < Global < Primary < Others
     auto ptrA = *(LibrarySummary **)a;
     auto ptrB = *(LibrarySummary **)b;
     if (ptrA->library == 0) { return -1; }
     if (ptrB->library == 0) { return 1; }
     if (ptrA->library == RemoteJavascriptLibrary::GlobalLibrary) { return -1; }
     if (ptrB->library == RemoteJavascriptLibrary::GlobalLibrary) { return 1; }
-    int diff = (int)ptrB->isPrimary - (int)ptrA->isPrimary;
-    if (diff != 0) { return diff; }
-    diff = (int)ptrB->reachableFromNonClosed - (int)ptrA->reachableFromNonClosed;
-    if (diff != 0) { return diff; }
-    diff = (int)ptrA->groupId - (int)ptrB->groupId;
-    if (diff != 0) { return diff; }
-    diff = (int)ptrA->subGroupId - (int)ptrB->subGroupId;
-    if (diff != 0) { return diff; }
-    diff = (int)ptrA->isClosed - (int)ptrB->isClosed;
-    if (diff != 0) { return diff; }
-    diff = (int)ptrA->predecessors.size() - (int)ptrB->predecessors.size();
-    if (diff != 0) { return diff; }
-    diff = (int)ptrB->crossReferencedObjectCount - (int)ptrA->crossReferencedObjectCount;
-    return diff;
+    return (int)ptrB->isPrimary - (int)ptrA->isPrimary;
 }
 
 RecyclerLibraryGraph::RecyclerLibraryGraph(RecyclerObjectGraph& objectGraph)
@@ -150,7 +137,20 @@ RecyclerLibraryGraph::RecyclerLibraryGraph(RecyclerObjectGraph& objectGraph)
     {
         sortedArray.get()[c++] = i.second;
     }
-    qsort(sortedArray.get(), c, sizeof(LibrarySummary *), LibrarySummaryComparer);
+
+    // Sort the node so that we will process library that doesn't have predecessor (which are a kind of roots)
+    // And process non-close first so they have smaller groupId
+    qsort(sortedArray.get(), c, sizeof(LibrarySummary *), 
+        [](const void * a, const void * b)
+        {
+            auto ptrA = *(LibrarySummary **)a;
+            auto ptrB = *(LibrarySummary **)b;
+            int diff = BasicLibrarySummaryCommparer(a, b);
+            if (diff != 0) { return diff; }
+            diff = (int)ptrA->predecessors.size() - (int)ptrB->predecessors.size();
+            if (diff != 0) { return diff; }
+            return (int)ptrA->isClosed - (int)ptrB->isClosed;
+        });
 
     // Populate groupId
     WalkGraph(
@@ -163,6 +163,27 @@ RecyclerLibraryGraph::RecyclerLibraryGraph(RecyclerObjectGraph& objectGraph)
         },
         true
         );
+
+    auto LibrarySummaryComparer = [](const void * a, const void * b)
+    {
+        int diff = BasicLibrarySummaryCommparer(a, b);
+        if (diff != 0) { return diff; }
+        auto ptrA = *(LibrarySummary **)a;
+        auto ptrB = *(LibrarySummary **)b;
+        diff = (int)ptrB->reachableFromNonClosed - (int)ptrA->reachableFromNonClosed;
+        if (diff != 0) { return diff; }
+        diff = (int)ptrA->groupId - (int)ptrB->groupId;
+        if (diff != 0) { return diff; }
+        diff = (int)ptrA->subGroupId - (int)ptrB->subGroupId;
+        if (diff != 0) { return diff; }
+        diff = (int)ptrA->isClosed - (int)ptrB->isClosed;
+        if (diff != 0) { return diff; }
+        diff = (int)ptrA->predecessors.size() - (int)ptrB->predecessors.size();
+        if (diff != 0) { return diff; }
+        diff = (int)ptrB->crossReferencedObjectCount - (int)ptrA->crossReferencedObjectCount;
+        return diff;
+    };
+
     qsort(sortedArray.get(), c, sizeof(LibrarySummary *), LibrarySummaryComparer);
 
     // Populate subGroupId
