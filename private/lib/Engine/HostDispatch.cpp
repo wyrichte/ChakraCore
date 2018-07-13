@@ -1733,12 +1733,12 @@ BOOL HostDispatch::GetRemoteTypeId(Js::TypeId* typeId)
     }
 }
 
-void HostDispatch::RemoveFromPrototype(Js::ScriptContext * requestContext)
+void HostDispatch::RemoveFromPrototype(Js::ScriptContext * requestContext, bool * allProtoCachesInvalidated)
 {
     return;
 }
 
-void HostDispatch::AddToPrototype(Js::ScriptContext * requestContext)
+void HostDispatch::AddToPrototype(Js::ScriptContext * requestContext, bool * allProtoCachesInvalidated)
 {
     return;
 }

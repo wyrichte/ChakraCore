@@ -153,8 +153,8 @@ namespace Js
 
         virtual BOOL GetDiagValueString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext) override;
         virtual BOOL GetDiagTypeString(StringBuilder<ArenaAllocator>* stringBuilder, ScriptContext* requestContext) override;
-        virtual void RemoveFromPrototype(ScriptContext * requestContext) override;
-        virtual void AddToPrototype(ScriptContext * requestContext) override;
+        virtual void RemoveFromPrototype(ScriptContext * requestContext, bool * allProtoCachesInvalidated) override;
+        virtual void AddToPrototype(ScriptContext * requestContext, bool * allProtoCachesInvalidated) override;
         virtual void SetPrototype(RecyclableObject* newPrototype) override;
 
         virtual DynamicType* DuplicateType() override;
