@@ -23,7 +23,10 @@ void ProgressTracker::Inc()
             {
                 eta = (maxIterations - iter) / speed;
             }
-            g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\r%s - %11d/%11d (%5u/s, ETA: %.2fs)", message, iter, maxIterations, (ULONG)speed, eta);
+            if (GetExtension()->ShowProgress())
+            {
+                g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\r%s - %11d/%11d (%5u/s, ETA: %.2fs)", message, iter, maxIterations, (ULONG)speed, eta);
+            }
         }
     }
 }
@@ -37,7 +40,11 @@ void ProgressTracker::ResetIter(char const * newMessage)
 
 void ProgressTracker::Done(char const * doneMessage)
 {
+    if (GetExtension()->ShowProgress())
+    {
+        g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL, "\r");
+    }
     g_Ext->m_Control->ControlledOutput(DEBUG_OUTCTL_NOT_LOGGED, DEBUG_OUTPUT_NORMAL,
-        "\r%s - elapsed time: %.2fs                                                    \n",
+        "%s - elapsed time: %.2fs                                                    \n",
         doneMessage, ((double)(GetTickCount64() - start) / 1000));
 }

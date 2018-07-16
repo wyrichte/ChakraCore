@@ -608,7 +608,8 @@ bool RemoteHeapBlock::GetRecyclerHeapObjectInfo(ULONG64 originalAddress, HeapObj
     }
     ULONG objectIndex = GetObjectIndex(originalAddress);
     ULONG64 objectAddress = GetObjectAddressFromIndex(objectIndex);
-    if (!interior && objectAddress != originalAddress)
+    // All reference to visited host block can be interior pointers
+    if (!interior && objectAddress != originalAddress && !this->IsSmallRecyclerVisitedHostHeapBlock())
     {
         if (verbose)
         {

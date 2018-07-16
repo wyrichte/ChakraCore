@@ -55,7 +55,12 @@ bool FieldInfoCache::HasField(JDRemoteTyped& object, char const * fieldName)
 
 void FieldInfoCache::EnsureNotBitField(ULONG64 containerModBase, ULONG containerTypeId, ULONG fieldOffset)
 {
-    // Detect if it is a bit field
+    // This function is to verify that this field is not a bit field.
+    // There is no API that tells you the characteristic of a field by it's offset. 
+    // Instead, we  find the index of any field that has the same offset as the input offset, 
+    // and then you check whether the fields at indices before and after that index are at different offsets
+    // and if they're not, you assume it must be a bitfield.
+
     ULONG64 handle;
     if (FAILED(g_Ext->m_System->GetCurrentProcessHandle(&handle)))
     {
@@ -74,7 +79,7 @@ void FieldInfoCache::EnsureNotBitField(ULONG64 containerModBase, ULONG container
     auto GetOffsetByFieldIndex = [](ULONG64 modBase, ULONG typeId, ULONG index)
     {
         char currFieldName[1024];
-        ULONG offset = 0xFFFFFFFF;
+        ULONG offset = ULONG_MAX;
         ULONG fieldNameSize;
         if (SUCCEEDED(g_Ext->m_Symbols2->GetFieldName(modBase, typeId, index, currFieldName, _countof(currFieldName), &fieldNameSize)))
         {

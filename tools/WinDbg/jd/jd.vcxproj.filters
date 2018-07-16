@@ -44,6 +44,8 @@
     <ClCompile Include="RemoteEntryPoint.cpp" />
     <ClCompile Include="JDTypeInfo.cpp" />
     <ClCompile Include="ProgressTracker.cpp" />
+    <ClCompile Include="RecyclerLibraryGraph.cpp" />
+    <ClCompile Include="RemoteJavascriptLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jd.h" />
@@ -95,6 +97,8 @@
     <ClInclude Include="RemoteEntryPoint.h" />
     <ClInclude Include="JDTypeInfo.h" />
     <ClInclude Include="ProgressTracker.h" />
+    <ClInclude Include="RecyclerLibraryGraph.h" />
+    <ClInclude Include="RemoteJavascriptLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="private\jd.def" />

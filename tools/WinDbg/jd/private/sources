@@ -48,3 +48,5 @@ SOURCES = \
         ..\collections.cpp \
         ..\JDByteCodeCachedData.cpp \
         ..\ProgressTracker.cpp \
+        ..\RecyclerLibraryGraph.cpp \
+        ..\RemoteJavascriptLibrary.cpp \

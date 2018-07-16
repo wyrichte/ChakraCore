@@ -76,6 +76,7 @@
     <ClCompile Include="JDTypeInfo.cpp" />
     <ClCompile Include="ProgressTracker.cpp" />
     <ClCompile Include="RecyclerCachedData.cpp" />
+    <ClCompile Include="RecyclerLibraryGraph.cpp" />
     <ClCompile Include="RecyclerList.cpp" />
     <ClCompile Include="RecyclerObjectGraph.cpp" />
     <ClCompile Include="RecyclerRoots.cpp" />
@@ -89,6 +90,7 @@
     <ClCompile Include="RemoteHeapBlockMap.cpp" />
     <ClCompile Include="RemoteInterpreterStackFrame.cpp" />
     <ClCompile Include="RemoteJavascriptFunction.cpp" />
+    <ClCompile Include="RemoteJavascriptLibrary.cpp" />
     <ClCompile Include="RemotePageAllocator.cpp" />
     <ClCompile Include="RemoteRecyclableObject.cpp" />
     <ClCompile Include="RemoteRecycler.cpp" />
@@ -119,6 +121,7 @@
     <ClInclude Include="JDTypeCache.h" />
     <ClInclude Include="JDTypeInfo.h" />
     <ClInclude Include="ProgressTracker.h" />
+    <ClInclude Include="RecyclerLibraryGraph.h" />
     <ClInclude Include="RecyclerObjectTypeInfo.h" />
     <ClInclude Include="Collections.h" />
     <ClInclude Include="ExtRemoteTypedUtil.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="RemoteFunctionInfo.h" />
     <ClInclude Include="RemoteInterpreterStackFrame.h" />
     <ClInclude Include="RemoteJavascriptFunction.h" />
+    <ClInclude Include="RemoteJavascriptLibrary.h" />
     <ClInclude Include="RemoteObjectInfoBits.h" />
     <ClInclude Include="RemotePageAllocator.h" />
     <ClInclude Include="RemoteRecyclableObject.h" />

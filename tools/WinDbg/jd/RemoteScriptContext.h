@@ -20,6 +20,7 @@ public:
 
     bool IsClosed();
     bool IsScriptContextActuallyClosed();
+    bool IsPrimaryEngine(bool * hasError = nullptr);
 
     RemoteThreadContext GetThreadContext();
     JDRemoteTyped GetHostScriptContext();
@@ -28,6 +29,7 @@ public:
     JDRemoteTyped GetDebugContext();
 
     void PrintReferencedPids();
+    void PrintState();
 
     template <class Fn>
     void ForEachPageAllocator(Fn fn)
@@ -62,56 +64,81 @@ public:
     }
 
     template <class Fn>
-    void ForEachArenaAllocator(Fn fn)
+    bool ForEachArenaAllocator(Fn fn)
     {
-        fn("SC", scriptContext.Field("generalAllocator"));
-        fn("SC-DynamicProfile", scriptContext.Field("dynamicProfileInfoAllocator"));
-        fn("SC-InlineCache", scriptContext.Field("inlineCacheAllocator"));
+        if (fn("SC", scriptContext.Field("generalAllocator"))
+            || fn("SC-DynamicProfile", scriptContext.Field("dynamicProfileInfoAllocator"))
+            || fn("SC-InlineCache", scriptContext.Field("inlineCacheAllocator")))
+        {
+            return true;
+        }
+
         if (scriptContext.HasField("isInstInlineCacheAllocator"))
         {
             // IE11 don't have this arena allocator
-            fn("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator"));
+            if (fn("SC-IsInstIC", scriptContext.Field("isInstInlineCacheAllocator")))
+            {
+                return true;
+            }
         }
 
         ExtRemoteTyped interpreterArena = scriptContext.Field("interpreterArena").GetExtRemoteTyped();
         if (interpreterArena.GetPtr() != 0)
         {
-            fn("SC-Interpreter", interpreterArena);
+            if (fn("SC-Interpreter", interpreterArena))
+            {
+                return true;
+            }
         }
         ExtRemoteTyped guestArena = scriptContext.Field("guestArena").GetExtRemoteTyped();
         if (guestArena.GetPtr() != 0)
         {
-            fn("SC-Guest", guestArena);
+            if (fn("SC-Guest", guestArena))
+            {
+                return true;
+            }
         }
         ExtRemoteTyped diagArena = scriptContext.Field("diagnosticArena").GetExtRemoteTyped();
         if (diagArena.GetPtr() != 0)
         {
-            fn("SC-Diag", diagArena);
+            if (fn("SC-Diag", diagArena))
+            {
+                return true;
+            }
         }
 
         if (scriptContext.HasField("sourceCodeAllocator"))
         {
-            fn("SC-SourceCode", scriptContext.Field("sourceCodeAllocator"));
+            if (fn("SC-SourceCode", scriptContext.Field("sourceCodeAllocator")))
+            {
+                return true;
+            }
         }
         if (scriptContext.HasField("regexAllocator"))
         {
-            fn("SC-Regex", scriptContext.Field("regexAllocator"));
+            if (fn("SC-Regex", scriptContext.Field("regexAllocator")))
+            {
+                return true;
+            }
         }
         if (scriptContext.HasField("miscAllocator"))
         {
-            fn("SC-Misc", scriptContext.Field("miscAllocator"));
+            if (fn("SC-Misc", scriptContext.Field("miscAllocator")))
+            {
+                return true;
+            }
         }
 
         ExtRemoteTyped nativeCodeGen = scriptContext.Field("nativeCodeGen").GetExtRemoteTyped();
 
         auto forEachCodeGenAllocatorArenaAllocator = [fn](ExtRemoteTyped codeGenAllocators)
         {
-            if (codeGenAllocators.GetPtr() == 0) { return; }
+            if (codeGenAllocators.GetPtr() == 0) { return false; }
 
-            fn("SC-BGJIT", codeGenAllocators.Field("allocator"));
+            return fn("SC-BGJIT", codeGenAllocators.Field("allocator"));
         };
-        forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("foregroundAllocators"));
-        forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
+        return forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("foregroundAllocators"))
+            || forEachCodeGenAllocatorArenaAllocator(nativeCodeGen.Field("backgroundAllocators"));
     }
 
     template <class Fn>

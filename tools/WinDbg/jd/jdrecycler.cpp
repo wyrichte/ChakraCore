@@ -1698,11 +1698,11 @@ JD_PRIVATE_COMMAND(memstats,
 
             threadContext.ForEachScriptContext([showZeroEntries](RemoteScriptContext scriptContext)
             {
-                scriptContext.ForEachArenaAllocator([showZeroEntries](char const * name, JDRemoteTyped arenaAllocator)
+                return scriptContext.ForEachArenaAllocator([showZeroEntries](char const * name, JDRemoteTyped arenaAllocator)
                 {
                     DisplayArenaAllocatorData(name, arenaAllocator.GetExtRemoteTyped(), showZeroEntries);
-                });               
-                return false;
+                    return false;
+                });
             });
         }
 

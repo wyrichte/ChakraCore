@@ -48,6 +48,9 @@ EXPORTS
     irinstr
     irfunc
     bc
+    jslibstats
+    jslibpreds
+    jslibsuccs
     jsobjectstats
     jsobjectnodes
     jsobjectdepths
@@ -63,4 +66,5 @@ EXPORTS
     jsrc
     jsdisp
     warnicf
+	progress
 

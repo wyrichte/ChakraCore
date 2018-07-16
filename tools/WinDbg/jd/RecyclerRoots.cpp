@@ -1,6 +1,6 @@
-
-// Copyright (C) Microsoft. All rights reserved.
 //---------------------------------------------------------------------------
+// Copyright (C) Microsoft. All rights reserved.
+//----------------------------------------------------------------------------
 #include "stdafx.h"
 #include "jdrecycler.h"
 #include "RemoteRecyclerList.h"
@@ -13,6 +13,7 @@
 #include "RemoteHeapBlockMap.h"
 #include "RemoteObjectInfoBits.h"
 #include "ProgressTracker.h"
+#include "RemoteJavascriptLibrary.h"
 
 ULONG64 GetStackTop()
 {
@@ -285,7 +286,7 @@ void RootPointerReader::ScanArenaBigBlocks(ExtRemoteTyped blocks)
 
         ExtRemoteTyped block = blocks.Dereference();
         ULONG64 blockBytes = blocks.GetPtr() + GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sBigBlock))"));
-        ExtRemoteTyped nBytesField = blocks.Field("nbytes");
+        ExtRemoteTyped nBytesField = blocks.Field("currentByte");
         ULONG64 byteCount = ExtRemoteTypedUtil::GetSizeT(nBytesField);
         if (byteCount != 0)
         {
@@ -315,12 +316,35 @@ void RootPointerReader::ScanArenaData(ULONG64 arenaDataPtr)
     ScanArenaMemoryBlocks(arenaData.Field("mallocBlocks"));
 }
 
+void RootPointerReader::PrintArenaName(ULONG64 arena)
+{
+    RemoteThreadContext::ForEach([=](RemoteThreadContext threadContext)
+    {
+        return threadContext.ForEachScriptContext([=](RemoteScriptContext scriptContext)
+        {
+            return scriptContext.ForEachArenaAllocator([&](char const * name, JDRemoteTyped arenaAllocator)
+            {
+                if (arena == arenaAllocator.GetObjectPtr())
+                {
+                    GetExtension()->Out(" %s from ScriptContext 0x%p", name, scriptContext.GetPtr());
+                    return true;
+                }
+                return false;
+            });
+        });
+    });
+}
+
 void RootPointerReader::ScanArena(ULONG64 arena, bool verbose)
 {
     if (verbose)
-        GetExtension()->Out("Scanning arena 0x%p\n", arena);
-    arena += GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sAllocator))"));
-    ScanArenaData(arena);
+    {
+        GetExtension()->Out("Scanning arena 0x%p", arena);
+        PrintArenaName(arena);
+        GetExtension()->Out("\n");
+    }
+    ULONG64 arenaData = arena + GetExtension()->EvalExprU64(GetExtension()->FillModuleAndMemoryNS("@@c++(sizeof(%s!%sAllocator))"));
+    ScanArenaData(arenaData);
 }
 
 void RootPointerReader::ScanImplicitRoots(bool print)
@@ -808,8 +832,9 @@ JD_PRIVATE_COMMAND(showroots,
     Out("Heap block map type is %s\n", typeName);
 }
 
-Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop, bool dump)
+Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop)
 {
+    const bool dump = false;
     RootPointerReader rootPointerManager(recycler);
 
     /*
@@ -1103,15 +1128,8 @@ void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     GetExtension()->Out("(level %c%-3d)", (currentLevel < 0 ? '-' : ' '), abs(currentLevel));
     if (showLib)
     {
-        ULONG64 library = node->GetAssociatedJavascriptLibrary();
-        if (GetExtension()->PreferDML())
-        {
-            GetExtension()->Dml(" <link cmd=\"!jd.url -a 0x%p\">0x%p</link>", library, library);
-        }
-        else
-        {
-            GetExtension()->Out(" 0x%p", library);
-        }
+        GetExtension()->Out(" ");
+        RemoteJavascriptLibrary(node->GetAssociatedJavascriptLibrary()).PrintLink();
     }
     GetExtension()->DumpPossibleSymbol(node);
     GetExtension()->Out("\n");
@@ -1660,7 +1678,7 @@ JD_PRIVATE_COMMAND(traceroots,
     });
 }
 
-void OnArenaRootScanned(ULONG64 root, void* context)
+void OnArenaRootScanned(ULONG64 root, RootType rootType, void* context)
 {
     struct Context
     {
@@ -1901,18 +1919,8 @@ void PrintNodeLink(bool filterUnknown, ULONG64 library, char const * type)
             g_Ext->Dml("<link cmd=\"!jd.jsobjectnodes %s%s%s\">(nodes)</link>", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
         }
     }
-    else
-    {
-        if (library != (ULONG64)-1)
-        {
-            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes -fl %p %s%s%s\"*/", library, filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
-        }
-        else
-        {
-            g_Ext->Out("(nodes) /*\"!jd.jsobjectnodes %s%s%s\"*/", filterUnknown ? "-fu " : "", type ? "-ft " : "", type ? type : "");
-        }
-    }
 }
+
 JD_PRIVATE_COMMAND(jsobjectstats,
     "Dump a table of object types and statistics",
     "{;ed,o,d=0;recycler;Recycler address}"
@@ -2071,7 +2079,14 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             Out(" Count?      Bytes? %%Count %%Bytes        | ");
         }
 
-        Out("  Count       Bytes %%Count %%Bytes         Symbol                \n");
+        if (this->PreferDML())
+        {
+            Out("  Count       Bytes %%Count %%Bytes         Symbol                \n");
+        }
+        else
+        {
+            Out("  Count       Bytes %%Count %%Bytes Symbol                \n");
+        }
 
         ULONG64 knownObjectCount = 0;
         ULONG64 knownObjectSize = 0;
@@ -2320,6 +2335,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     "{fl;ed,o;filterLib;Filter to library}"
     "{fd;edn=(10),o,d=-1;filterDepth;Filter to depth}"
     "{fu;b,o;filterUnknownType;Filter to unknown}"
+    "{fr;b,o;filterRoot;Filter to root}"
     "{ft;x,o;filterType;Filter to type (last arg)}")
 {
     const ULONG64 recyclerArg = GetUnnamedArgU64(0);
@@ -2429,22 +2445,8 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 
             if (showLib)
             {
-                ULONG64 library = node->GetAssociatedJavascriptLibrary();
-                if (library != 0)
-                {
-                    if (this->PreferDML())
-                    {
-                        this->Dml(" <link cmd=\"!jd.url -a 0x%p\">0x%p</link>", library, library);
-                    }
-                    else
-                    {
-                        this->Out(" 0x%p", library);
-                    }
-                }
-                else
-                {
-                    this->Out(g_Ext->m_PtrSize == 4? " %10s" : " %18s", "");
-                }
+                GetExtension()->Out(" ");
+                RemoteJavascriptLibrary(node->GetAssociatedJavascriptLibrary()).PrintLink();
             }
 
             DumpPossibleSymbol(node);
@@ -2511,7 +2513,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
 }
 
 JD_PRIVATE_COMMAND(jsobjectdepths,
-    "Dump a table of object nodes sorted by number of successors, number or predecessors, or size (default).",
+    "Dump a table of count of node of each depth",
     "{;e,o,d=0;recycler;Recycler address}"
     "{fl;ed,o;filterLib;Filter to library}"
     "{ft;x,o;filterType;Filter to type (last arg)}")
@@ -2529,7 +2531,6 @@ JD_PRIVATE_COMMAND(jsobjectdepths,
 
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
         typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
-
 
     ProgressTracker progress("Accumulating depth counts", 0x10000, objectGraph.GetNodeCount());
     std::map<uint, uint> depthCountMap;    

@@ -6,7 +6,7 @@
 #include "recyclerroots.h"
 #include "RemoteHeapBlockMap.h"
 
-Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, bool dump);
+Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop);
 
 static char const * StaticGetSmallHeapBlockTypeName()
 {
@@ -129,7 +129,7 @@ Addresses * RecyclerCachedData::GetRootPointers(RemoteRecycler recycler, RemoteT
     }
 
     // TODO: external weak ref support may be missing once it is implemented
-    Addresses * rootPointers = ComputeRoots(recycler, threadContext, stackTop, false);
+    Addresses * rootPointers = ComputeRoots(recycler, threadContext, stackTop);
     rootPointersCache[recycler.GetPtr()] = rootPointers;
     return rootPointers;
 }

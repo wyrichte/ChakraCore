@@ -19,6 +19,7 @@ EXT_CLASS_BASE::EXT_CLASS_BASE() :
     m_gcNS[0] = '\1';
     m_isCachedHasMemoryNS = false;
     m_hasMemoryNS = false;
+    showProgress = true;
 }
 
 static RemoteNullTypeHandler s_nullTypeHandler;
@@ -743,52 +744,7 @@ RemoteTypeHandler* EXT_CLASS_BASE::GetTypeHandler(ExtRemoteTyped& typeHandler)
 
 void EXT_CLASS_BASE::PrintScriptContextUrl(RemoteScriptContext scriptContext, bool showAll, bool showLink)
 {
-    if (scriptContext.IsScriptContextActuallyClosed())
-    {
-        Out(" C");
-    }
-    else if (scriptContext.IsClosed())
-    {
-        Out(" M");
-    }
-    else
-    {
-        char const * debuggerMode = scriptContext.GetDebugContext().Field("debuggerMode").GetEnumString();
-        if (strcmp(debuggerMode, "SourceRundown") == 0)
-        {
-            Out("S");
-        }
-        else if (strcmp(debuggerMode, "Debugging") == 0)
-        {
-            Out("D");
-        }
-        else
-        {
-            Out(" ");
-        }
-        JDRemoteTyped hostScriptContext = scriptContext.GetHostScriptContext();
-        if (hostScriptContext.GetPtr() && hostScriptContext.HasField("scriptSite"))
-        {
-            try
-            {
-                bool fPrimaryEngine;
-                JDRemoteTyped fNonPrimaryEngine = hostScriptContext.Field("scriptSite").Field("scriptEngine").BitField("fNonPrimaryEngine");
-                if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
-                {
-                    fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
-                }
-                else
-                {
-                    fPrimaryEngine = fNonPrimaryEngine.GetStdBool() == false;
-                }
-                Out(fPrimaryEngine? "P" : "N");
-            }
-            catch (...)
-            {
-                Out("E");
-            }
-        }
-    }
+    scriptContext.PrintState();
 
     Out(" ");
     if (showLink)
@@ -990,7 +946,7 @@ void EXT_CLASS_BASE::PrintScriptContextSourceInfos(RemoteScriptContext scriptCon
     }
     else if (scriptContext.IsClosed())
     {
-        Out(" (Pending Closed)");
+        Out(" (Pending Close)");
     }
     Out("\n");
     bool printHeader = false;
@@ -1705,6 +1661,36 @@ JD_PRIVATE_COMMAND(warnicf,
     this->typeCache.WarnICF();
 }
 
+JD_PRIVATE_COMMAND(progress,
+    "Turning progress tracking on or off",
+    "{;s;toggle;On or off}")
+{
+    PCSTR arg = this->GetUnnamedArgStr(0);
+    if (arg)
+    {
+        if (strcmp(arg, "on") == 0)
+        {
+            this->showProgress = true;
+            this->Out("Progress is now on\n");
+        }
+        else if (strcmp(arg, "off") == 0)
+        {
+            this->showProgress = false;
+            this->Out("Progress is now off\n");
+        }
+    }
+    else
+    {
+        if (this->showProgress)
+        {
+            this->Out("Progress is currently on\n");
+        }
+        else
+        {
+            this->Out("Progress is currently off\n");
+        }
+    }
+}
 #if ENABLE_UI_SERVER
 JD_PRIVATE_COMMAND(uiserver,
     "Starts the UI Server that can by connected to through the browser  (INCOMPLETE)",
@@ -1734,6 +1720,7 @@ JD_PRIVATE_COMMAND(uiserver,
     }
 }
 #endif
+
 
 namespace Output
 {

@@ -27,7 +27,10 @@ void JDTypeCache::Clear()
 }
 
 JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
-{    
+{
+    // NOTE: This function assume typeName is not a pointer type.
+    // This is either called from a vtable derived type name, or JDTypeCache::Cast
+    // which already check if it is pointer type.
     auto i = this->cacheTypeInfoCache.find(typeName);
 
     if (i != this->cacheTypeInfoCache.end())
@@ -131,9 +134,15 @@ JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
     }
 
     JDTypeInfo typeInfo;
+    // REVIEW: this check will produce false positive if the pointer type is in the template paramater.
+    // but it will still give the right answer.
+    // The only consequence is that  it won't use the cacheTypeInfoCache, but it will still be cached
+    // in chakraCacheTypeInfoCAche   
     if (strchr(typeName, '*') != nullptr)
     {
-        // A pointer type gives different answer with IDebugSymbol::GetTypeId.  Use the extremote type
+        // A pointer type gives different answer with IDebugSymbol::GetTypeId, 
+        // which doesn't allow the type to do ArrayElement access
+        // Use ExtRemoteTyped to get the type info of the pointer of the type and then dereference.
         CHAR typeNameBuffer[1024];
         sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
         ExtRemoteTyped result(typeNameBuffer, original);

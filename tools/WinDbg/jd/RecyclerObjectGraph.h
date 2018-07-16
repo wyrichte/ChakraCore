@@ -7,6 +7,7 @@
 
 // Represents the recycler object graph
 // Encapsulates logic to scan remote recycler objects
+class RecyclerLibraryGraph;
 class RecyclerObjectGraph
 {
 public:
@@ -88,6 +89,8 @@ public:
         }
         return false;
     }
+
+    RecyclerLibraryGraph * GetLibraryGraph();
 protected:
     RecyclerObjectGraph(RemoteRecycler recycler, bool verbose = false);
     void Construct(RemoteRecycler recycler, Addresses& roots);
@@ -112,6 +115,7 @@ protected:
     void MarkObject(ConstructData& constructData, ULONG64 address, Set<GraphImplNodeType *> * successors, RootType rootType, uint depth);
     void ScanBytes(ConstructData& constructData, RemoteHeapBlock * remoteHeapBlock, GraphImplNodeType * node);
 
+    RecyclerLibraryGraph * libraryGraph;
     GraphImplType _objectGraph;
     bool _verbose;
     bool m_trident;
