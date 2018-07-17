@@ -129,7 +129,7 @@ JavascriptDispatch::JavascriptDispatch(
    isGCTracked(false),
    isFinalized(false),
    isInCall(false),
-   dispIdPropertyStringMap(nullptr)
+   dispatchAndStringBag(nullptr)
 #if DBG
    ,isFinishCreated(false)
 #endif
@@ -2190,26 +2190,27 @@ HRESULT JavascriptDispatch::VerifyOnEntry(bool isValidThreadScope)
 
 void JavascriptDispatch::CachePropertyId(Js::PropertyRecord const * propertyRecord, BOOL isPropertyId)
 {
-    ThreadContext* threadContext = GetScriptContext()->GetThreadContext();
     Assert(propertyRecord->GetPropertyId() != Js::Constants::NoProperty);
-    if (!dispIdPropertyStringMap)
-    {
-        this->dispIdPropertyStringMap = RecyclerNew(threadContext->GetRecycler(), Int32InternalStringMap, threadContext->GetRecycler(), 32);
-    }
-
-    this->dispIdPropertyStringMap->Item(propertyRecord->GetPropertyId(), propertyRecord);
 
     // Trident can GetDispID first, then repeat create JavascriptDispatch/call/release sequence.
     // this cause problem for nested element's fields. So for propertyIds that are created from 
     // CustomExternalObject, we'll keep them alive for the lifetime of CEO. type handler might not
-    // hold reference to those property so we need to use cached javascriptdispatch
+    // hold reference to those property so we need to cache both javascriptdispatch and dispIDToPropertyString map.
     Js::CustomExternalObject * customExternalScriptObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(scriptObject);
     if (customExternalScriptObject && isPropertyId)
     {
-        customExternalScriptObject->CacheJavascriptDispatch(this);
+        Js::DispatchAndStringBag *propertyMap = customExternalScriptObject->CacheJavascriptDispatch(this);
+        Assert(this->dispatchAndStringBag == nullptr || this->dispatchAndStringBag == propertyMap);
+        this->dispatchAndStringBag = propertyMap;
     }
 
+    if (this->dispatchAndStringBag == nullptr)
+    {
+        Recycler *recycler = GetScriptContext()->GetRecycler();
+        this->dispatchAndStringBag = RecyclerNew(recycler, Js::DispatchAndStringBag, recycler, nullptr);
+    }
 
+    this->dispatchAndStringBag->Item(propertyRecord->GetPropertyId(), propertyRecord);
 }
 
 
