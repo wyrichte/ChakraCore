@@ -1,4 +1,4 @@
-function (){}
+function(){}
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
@@ -6,7 +6,7 @@ function anonymous( ) {1 + 1 }
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
-function (root) { return scadump(root, "rt", [], []); }
+function(root) { return scadump(root, "rt", [], []); }
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
@@ -22,7 +22,7 @@ function getProxy() { var myProxy = new Proxy({}, {}); return myProxy; }
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
-{"abc":function (){}}
+{"abc":function(){}}
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
@@ -30,7 +30,7 @@ Error: 80041000
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 
-{"abc":function (root) { return scadump(root, "rt", [], []); }}
+{"abc":function(root) { return scadump(root, "rt", [], []); }}
 ERROR: hr = (hr) Hr:0x80041000
 Error: 80041000 
 

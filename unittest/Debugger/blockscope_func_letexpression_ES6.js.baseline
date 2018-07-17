@@ -1,2 +1,2 @@
-function () { return 'baz';}
+function() { return 'baz';}
 PASSED

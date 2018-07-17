@@ -1,4 +1,4 @@
-Bytecode GUID = {18949169-1B93-4123-B34A-F42F1C1EAF9A}
+Bytecode GUID = {0C0FCC1A-2895-4AEE-A6D1-159A42C12947}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1698,6 +1698,7 @@ Property: _this
 Property: _super
 Property: _superConstructor
 Property: _newTarget
+Serializable Field: FunctionBodyFlags flags;
 Serializable Field: uint32 m_grfscr;
 Serializable Field: ArgSlot m_inParamCount;
 Serializable Field: ArgSlot m_reportedInParamCount;
@@ -1705,7 +1706,6 @@ Serializable Field: charcount_t m_cchStartOffset;
 Serializable Field: charcount_t m_cchLength;
 Serializable Field: uint m_cbLength;
 Serializable Field: uint m_displayShortNameOffset;
-Serializable Field: FunctionBodyFlags flags;
 Serializable Field: UINT scopeSlotArraySize;
 Serializable Field: UINT paramScopeSlotArraySize;
 Serializable Field: RegSlot VarCount;
