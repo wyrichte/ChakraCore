@@ -702,10 +702,30 @@
   {
     "callstack": [
       {
-        "start": 2359,
-        "length": 7,
-        "text": "yield 2",
-        "frameDescription": "gf3"
+        "start": 3300,
+        "length": 9,
+        "text": "g = gf4()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3522,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 2409,
+        "length": 12,
+        "text": "yield* gf3()",
+        "frameDescription": "gf4"
       },
       {
         "start": 0,
@@ -714,7 +734,27 @@
         "frameDescription": "Generator.prototype.return"
       },
       {
-        "start": 3284,
+        "start": 3522,
+        "length": 11,
+        "text": "g.return(2)",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3618,
+        "length": 9,
+        "text": "g = gf5()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 3870,
         "length": 11,
         "text": "g.return(1)",
         "frameDescription": "Global code"
@@ -724,9 +764,21 @@
   {
     "callstack": [
       {
-        "start": 3658,
+        "start": 3576,
+        "length": 8,
+        "text": "yield 32",
+        "frameDescription": "gf5"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "Generator.prototype.return"
+      },
+      {
+        "start": 3870,
         "length": 11,
-        "text": "g.return(2)",
+        "text": "g.return(1)",
         "frameDescription": "Global code"
       }
     ]
@@ -734,111 +786,9 @@
   {
     "callstack": [
       {
-        "start": 2409,
-        "length": 12,
-        "text": "yield* gf3()",
-        "frameDescription": "gf4"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 3658,
-        "length": 11,
-        "text": "g.return(2)",
-        "frameDescription": "Global code"
-      }
-    ]
-  },
-  {
-    "callstack": [
-      {
-        "start": 2345,
-        "length": 7,
-        "text": "yield 1",
-        "frameDescription": "gf3"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 2409,
-        "length": 12,
-        "text": "yield* gf3()",
-        "frameDescription": "gf4"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 3658,
-        "length": 11,
-        "text": "g.return(2)",
-        "frameDescription": "Global code"
-      }
-    ]
-  },
-  {
-    "callstack": [
-      {
-        "start": 2359,
-        "length": 7,
-        "text": "yield 2",
-        "frameDescription": "gf3"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 2409,
-        "length": 12,
-        "text": "yield* gf3()",
-        "frameDescription": "gf4"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 3658,
-        "length": 11,
-        "text": "g.return(2)",
-        "frameDescription": "Global code"
-      }
-    ]
-  },
-  {
-    "callstack": [
-      {
-        "start": 2409,
-        "length": 12,
-        "text": "yield* gf3()",
-        "frameDescription": "gf4"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Generator.prototype.return"
-      },
-      {
-        "start": 3658,
-        "length": 11,
-        "text": "g.return(2)",
+        "start": 3886,
+        "length": 20,
+        "text": "WScript.Echo(\"PASS\")",
         "frameDescription": "Global code"
       }
     ]
