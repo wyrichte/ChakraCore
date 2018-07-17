@@ -48,6 +48,7 @@ namespace Js
         {
 #pragma warning(push)
 #pragma warning(disable : 4296) // disable warning if this value is 0
+#pragma prefast(suppress : __WARNING_LOOP_BODY_NEVER_EXECUTED)
             for (size_t i = 0; i < CustomScriptContextCounters::numFacets; i++)
             {
 #pragma warning(pop)
