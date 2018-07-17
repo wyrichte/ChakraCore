@@ -138,6 +138,35 @@ Graph<TKey, TAux>::FindPath(const TKey& from, const TKey& to)
 
 #endif
 
+void SingleReservedSegment::Initialize(char * segmentStart, char const * segmentEnd, char * commitEnd)
+{
+    this->segmentStart = segmentStart;
+    this->segmentEnd = segmentEnd;
+    this->nextAlloc = segmentStart;
+    this->commitEnd = commitEnd;
+}
+
+void * SingleReservedSegment::Alloc(size_t size)
+{
+    char * mem = this->nextAlloc;
+    char * newNextAlloc = mem + size;
+    if (newNextAlloc > commitEnd)
+    {
+        if (newNextAlloc > segmentEnd)
+        {
+            return nullptr;
+        }
+        size_t commitSize = JDUtil::Align<size_t>(newNextAlloc - commitEnd, 4096);
+        if (commitEnd != ::VirtualAlloc(commitEnd, commitSize, MEM_COMMIT, PAGE_READWRITE))
+        {
+            g_Ext->ThrowOutOfMemory();
+        }
+        this->commitEnd += commitSize;
+    }
+    this->nextAlloc = newNextAlloc;
+    return mem;
+}
+
 ReservedPageAllocator::ReservedPageAllocator()
 {
     head = AllocSegment(0);
@@ -165,7 +194,7 @@ ReservedPageAllocator::~ReservedPageAllocator()
 
 ReservedPageAllocator::ReservedSegment * ReservedPageAllocator::AllocSegment(size_t size)
 {
-    void * segment = ::VirtualAlloc(0, segmentSize, MEM_RESERVE, PAGE_READWRITE);
+    char * segment = (char *)::VirtualAlloc(0, segmentSize, MEM_RESERVE, PAGE_READWRITE);
     if (segment == nullptr)
     {
         g_Ext->ThrowOutOfMemory();
@@ -178,8 +207,7 @@ ReservedPageAllocator::ReservedSegment * ReservedPageAllocator::AllocSegment(siz
         ::VirtualFree(segment, 0, MEM_RELEASE);
         g_Ext->ThrowOutOfMemory();
     }
-    newSegment->nextAlloc = (char *)(newSegment + 1);
-    newSegment->freeSize = commitSize - sizeof(ReservedSegment);
+    newSegment->Initialize((char *)(newSegment + 1), segment + segmentSize, segment + commitSize);
     return newSegment;
 }
 
@@ -192,32 +220,14 @@ void * ReservedPageAllocator::Alloc(size_t size)
         this->largeHead = alloc;
         return alloc + 1;
     }
-    void * mem = head->nextAlloc;
-    char * nextAlloc = head->nextAlloc + size;
-    if (head->freeSize < size)
+    void * mem = head->Alloc(size);
+    if (mem == nullptr)
     {
-        if ((nextAlloc - (char *)head) <= segmentSize)
-        {
-            char * newCommit = head->nextAlloc + head->freeSize;
-            size_t commitSize = JDUtil::Align<size_t>(nextAlloc - newCommit, 4096);
-            if (newCommit != ::VirtualAlloc(newCommit, commitSize, MEM_COMMIT, PAGE_READWRITE))
-            {
-                g_Ext->ThrowOutOfMemory();
-            }
-            head->freeSize += commitSize;
-        }
-        else
-        {
-            ReservedSegment * newSegment = AllocSegment(size);
-            newSegment->next = head;
-            head = newSegment;
-            mem = head->nextAlloc;
-            nextAlloc = head->nextAlloc + size;
-        }
-    }
-
-    head->freeSize -= size;
-    head->nextAlloc = nextAlloc;
+        ReservedSegment * newSegment = AllocSegment(size);
+        newSegment->next = head;
+        head = newSegment;
+        mem = head->Alloc(size);
+    }  
     return mem;
 }
 

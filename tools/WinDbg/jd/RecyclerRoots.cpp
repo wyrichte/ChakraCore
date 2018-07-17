@@ -1346,6 +1346,7 @@ JD_PRIVATE_COMMAND(successors,
 // Finally we print the results in a pretty table where we display information about each pointer to allow for easier
 // analysis of the results using other JD and WinDbg commands.
 //
+
 JD_PRIVATE_COMMAND(traceroots,
     "Given a pointer in the graph, perform a BFS traversal to find the shortest path to a root.",
     "{;ed,o,d=0;pointer;Address to trace}"
@@ -1363,15 +1364,10 @@ JD_PRIVATE_COMMAND(traceroots,
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
     ULONG64 stackPointerArg = GetArgU64("sp");
-    const ULONG64 numRootsArg = GetArgU64("roots");
-    const ULONG64 limitArg = GetArgU64("limit");
-    const bool transientRoots = HasArg("t");
-    const bool allShortestPath = HasArg("a");
-    const bool allRoots = HasArg("r") || allShortestPath;
-    const bool showPath = allShortestPath || !allRoots;
-    const bool showPredecessors = HasArg("pred");
     const bool infer = !HasArg("vt");
-    const bool showLib = HasArg("lib");
+
+    TraceRoot traceRoot;
+    traceRoot.ParseArg();
 
     if (pointerArg == NULL)
     {
@@ -1389,7 +1385,7 @@ JD_PRIVATE_COMMAND(traceroots,
         stackPointerArg = GetStackTop();
     }
 
-    RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;    
+    RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;
     if (infer)
     {
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Infer);
@@ -1404,6 +1400,25 @@ JD_PRIVATE_COMMAND(traceroots,
 
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg, flags));
 
+    traceRoot.Trace(objectGraph, recyclerArg, pointerArg);
+}
+
+void TraceRoot::ParseArg()
+{
+    numRootsArg = GetExtension()->GetArgU64("roots");
+    limitArg = GetExtension()->GetArgU64("limit");
+    transientRoots = GetExtension()->HasArg("t");
+    allShortestPath = GetExtension()->HasArg("a");
+    allRoots = GetExtension()->HasArg("r") || allShortestPath;
+    showPath = allShortestPath || !allRoots;
+    showSuccessors = true;
+    showPredecessors = GetExtension()->HasArg("pred");
+    showLib = GetExtension()->HasArg("lib");
+    showHeader = true;
+}
+
+void TraceRoot::Trace(RecyclerObjectGraph& objectGraph, const ULONG64 recyclerArg, const ULONG64 pointerArg)
+{
     //
     // Data types and traversal state
     //
@@ -1442,7 +1457,7 @@ JD_PRIVATE_COMMAND(traceroots,
 
     if (node == nullptr)
     {
-        this->Err("ERROR: %p not a GC pointer\n", pointerArg);
+        g_Ext->Err("ERROR: %p not a GC pointer\n", pointerArg);
         return;
     }
 
@@ -1497,7 +1512,7 @@ JD_PRIVATE_COMMAND(traceroots,
         }
 
         // Ascend upwards towards the roots
-        currentNode->MapAllPredecessors([this, currentData, &traversalMap, &nodeQueue, numRootsArg, currentRootHitCount](Node parent)
+        currentNode->MapAllPredecessors([this, currentData, &traversalMap, &nodeQueue, currentRootHitCount](Node parent)
         {
             ULONG64 address = parent->Key();
 
@@ -1530,68 +1545,71 @@ JD_PRIVATE_COMMAND(traceroots,
     // DUMP OUTPUT
     //
 
-    this->Out("\n");
+    g_Ext->Out("\n");
 
-    if (transientRoots)
+    if (showHeader)
     {
-        if (PreferDML())
+        if (transientRoots)
         {
-            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Ignore transient recycler roots for traversal root limit.)</link>\n",
-                numRootsArg, pointerArg, recyclerArg);
+            if (GetExtension()->PreferDML())
+            {
+                g_Ext->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Ignore transient recycler roots for traversal root limit.)</link>\n",
+                    numRootsArg, pointerArg, recyclerArg);
+            }
+            else
+            {
+                g_Ext->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to ignore transient recycler roots for traversal root limit.)\n",
+                    numRootsArg, pointerArg, recyclerArg);
+            }
         }
         else
         {
-            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to ignore transient recycler roots for traversal root limit.)\n",
-                numRootsArg, pointerArg, recyclerArg);
+            if (GetExtension()->PreferDML())
+            {
+                g_Ext->Dml("<link cmd=\"!jd.traceroots /t /roots %d 0x%p 0x%p\">(Use transient recycler roots for traversal root limit.)</link>\n",
+                    numRootsArg, pointerArg, recyclerArg);
+            }
+            else
+            {
+                g_Ext->Out("(\"!jd.traceroots /t /roots %d 0x%p 0x%p\" to use transient recycler roots for traversal root limit.)\n",
+                    numRootsArg, pointerArg, recyclerArg);
+            }
         }
-    }
-    else
-    {
-        if (PreferDML())
-        {
-            this->Dml("<link cmd=\"!jd.traceroots /t /roots %d 0x%p 0x%p\">(Use transient recycler roots for traversal root limit.)</link>\n",
-                numRootsArg, pointerArg, recyclerArg);
-        }
-        else
-        {
-            this->Out("(\"!jd.traceroots /t /roots %d 0x%p 0x%p\" to use transient recycler roots for traversal root limit.)\n",
-                numRootsArg, pointerArg, recyclerArg);
-        }
-    }
 
-    if (numRootsArg == 0)
-    {
-        this->Out("Traversing as far as possible.\n");
-        if (PreferDML())
+        if (numRootsArg == 0)
         {
-            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through just one recycler root.)</link>\n",
-                1, pointerArg, recyclerArg);
+            g_Ext->Out("Traversing as far as possible.\n");
+            if (GetExtension()->PreferDML())
+            {
+                g_Ext->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through just one recycler root.)</link>\n",
+                    1, pointerArg, recyclerArg);
+            }
+            else
+            {
+                g_Ext->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through just one recycler root.)\n",
+                    1, pointerArg, recyclerArg);
+            }
         }
         else
         {
-            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through just one recycler root.)\n",
-                1, pointerArg, recyclerArg);
+            if (GetExtension()->PreferDML())
+            {
+                g_Ext->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse as far as possible.)</link>\n",
+                    0, pointerArg, recyclerArg);
+                g_Ext->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through %d recycler roots.)</link>\n",
+                    numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
+            }
+            else
+            {
+                g_Ext->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse as far as possible.)\n",
+                    0, pointerArg, recyclerArg);
+                g_Ext->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through %d recycler roots.)\n",
+                    numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
+            }
         }
-    }
-    else
-    {
-        if (PreferDML())
-        {
-            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse as far as possible.)</link>\n",
-                0, pointerArg, recyclerArg);
-            this->Dml("<link cmd=\"!jd.traceroots /roots %d 0x%p 0x%p\">(Traverse through %d recycler roots.)</link>\n",
-                numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
-        }
-        else
-        {
-            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse as far as possible.)\n",
-                0, pointerArg, recyclerArg);
-            this->Out("(\"!jd.traceroots /roots %d 0x%p 0x%p\" to traverse through %d recycler roots.)\n",
-                numRootsArg + 1, pointerArg, recyclerArg, numRootsArg + 1);
-        }
-    }
 
-    DumpPointerPropertiesHeader();
+        DumpPointerPropertiesHeader();
+    }
 
     // Print itself if no other roots found and itself is a root
     if (rootQueue.empty() && transientRootQueue.empty())
@@ -1612,7 +1630,7 @@ JD_PRIVATE_COMMAND(traceroots,
 
     if (rootQueue.empty() && !transientRootQueue.empty())
     {
-        this->Out("                            | NOTE: No non-transient root found. Showing transient roots\n");
+        g_Ext->Out("                            | NOTE: No non-transient root found. Showing transient roots\n");
 
         if (allRoots)
         {
@@ -1652,11 +1670,11 @@ JD_PRIVATE_COMMAND(traceroots,
 
     if (rootCount != 0)
     {
-        this->Out("Roots found: %u\n", rootCount);
+        g_Ext->Out("Roots found: %u\n", rootCount);
     }
 
     // Only display the descendants section if node actually has descendants.
-    if (node->GetSuccessorCount() > 0)
+    if (showSuccessors && node->GetSuccessorCount() > 0)
     {
         DumpPointerPropertiesSpacerLine();
         DumpPointerPropertiesDescendantsHeader();

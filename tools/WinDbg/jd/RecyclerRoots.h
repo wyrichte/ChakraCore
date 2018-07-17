@@ -216,6 +216,23 @@ private:
     RemoteRecycler _recycler;
 };
 
+struct TraceRoot
+{
+    ULONG64 numRootsArg;
+    ULONG64 limitArg;
+    bool transientRoots;
+    bool allShortestPath;
+    bool allRoots;
+    bool showPath;
+    bool showPredecessors;
+    bool showSuccessors;
+    bool showLib;
+    bool showHeader;
+
+    void ParseArg();
+    void Trace(RecyclerObjectGraph& objectGraph, const ULONG64 recyclerArg, const ULONG64 pointerArg);
+};
+
 template <typename Fn>
 void MapPinnedObjects(ExtRemoteTyped recycler, const Fn& callback);
 

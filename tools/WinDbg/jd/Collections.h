@@ -516,6 +516,24 @@ public:
     }
 };
 
+class SingleReservedSegment
+{
+public:
+    void Initialize(char * segmentStart, char const * segmentEnd, char * commitEnd);
+    void * Alloc(size_t size);
+
+    void * GetSegmentStart() const
+    {
+        return segmentStart;
+    }
+private:
+    char * segmentStart;
+    char const * segmentEnd;
+
+    char * nextAlloc;
+    char * commitEnd;
+};
+
 class ReservedPageAllocator
 {
 public:
@@ -526,15 +544,15 @@ public:
 
     void * Alloc(size_t size);
     void Free(void * ptr);
+
 private:
     static const size_t segmentSize = 64 * 1024;
-    struct ReservedSegment
-    {
-        ReservedSegment * next;
-        char * nextAlloc;
-        size_t freeSize;
-    };
 
+    class ReservedSegment : public SingleReservedSegment
+    {
+    public:
+        ReservedSegment * next;
+    };
     static ReservedSegment * AllocSegment(size_t size);
 
     struct LargeAlloc
@@ -565,7 +583,7 @@ public:
     NodeType* AddNode(const TKey& key)
     {
         Assert(FindNode(key) == nullptr);
-        NodeType * node = new (allocator.Alloc(sizeof(NodeType))) NodeType(key);
+        NodeType * node = AllocNode(key);
         if (!node)
         {
             g_Ext->ThrowOutOfMemory();
@@ -736,17 +754,25 @@ public:
         return true;
     }
 
-    Graph() : edgeCount(0) {};
+    Graph() : edgeCount(0) 
+    {
+#ifdef _M_X64
+        InitializeSingleReservedSegment();
+#endif
+    };
     ~Graph()
     {
-        if (TAllocator::NeedFree)
+        if (NeedFree())
         {
             _nodes.MapAll([this](const NodeType* node)
             {
-                node->~NodeType();
-                allocator.Free((void *)node);
+                FreeNode(node);
             });
         }
+
+#ifdef _M_X64
+        FreeSingleReservedSegment();
+#endif
     }
 
     size_t GetNodeCount()
@@ -810,7 +836,7 @@ private:
         {
             return comp(_Key->Key());
         }
-        bool operator( )(
+        bool operator()(
             const NodeType * _Key1,
             const NodeType * _Key2
             ) const
@@ -822,55 +848,62 @@ private:
     uint edgeCount;
 
     TAllocator allocator;
-};
-
-#include "RecyclerObjectTypeInfo.h"
-
-struct RecyclerGraphNodeData
-{
-#if DBG
-    friend RecyclerObjectGraph;
-#endif
-
-    RecyclerGraphNodeData(ULONG64 address) :
-        address(address),
-        depth(0),
-        rootType(RootType::RootTypeNone)
-    {
-        Assert(IsLegalAddress(address));
-        ClearTypeInfo();
-    }
-
-    ULONG64 Key() const { return address; }
-    uint GetObjectSize() const { return objectSize; }
-    void SetObjectSize(uint size) { objectSize = size; }
-    uint GetDepth() const { return depth; }
-    void SetDepth(uint d) { this->depth = d; }
-
-    bool HasTypeInfo() const { return GetTypeName() != nullptr; }
-    void SetTypeInfo(char const * typeName, char const * typeNameOrField, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary);
-    void ClearTypeInfo() { typeInfo = nullptr; }
-    
-    bool HasVtable() const { return typeInfo ? typeInfo->HasVtable() : false; }
-    bool IsPropagated() const { return typeInfo? typeInfo->IsPropagated() : false; }
-    bool OverrideVtable() const { return typeInfo ? typeInfo->IsPropagated() : false; }
-    const char * GetTypeName() const { return typeInfo? typeInfo->GetTypeName() : nullptr; }
-    const char * GetTypeNameOrField() const { return typeInfo? typeInfo->GetTypeNameOrField() : nullptr; }
-    ULONG64 GetAssociatedJavascriptLibrary() const { return typeInfo ? typeInfo->GetAssociatedJavascriptLibrary() : 0; }
-    bool IsRoot() const { return RootTypeUtils::IsAnyRootType(rootType); }
-    RootType GetRootType() const { return rootType; }
-    void AddRootType(RootType rootType) { this->rootType = RootTypeUtils::CombineTypes(this->rootType, rootType); }
-
-    static bool IsLegalAddress(ULONG64 address)
-    {
-        return (address & 0xFF00000000000000) == 0;
-    }
 
 private:
-    RootType rootType : 8;
-    const ULONG64 address : 56;
-    uint objectSize;
-    uint depth;
-    RecyclerObjectTypeInfo * typeInfo;
+    // Node allocation utilties
+    bool NeedFree()
+    {
+        // TODO: detect if TKey or TData need freeing as well
+        return TAllocator::NeedFree;
+    }
+
+#ifdef _M_X64
+    void InitializeSingleReservedSegment()
+    {
+        // Support 4G number of nodes.
+        const size_t reserveSize = sizeof(NodeType) * 4 * 1024 * 1024 * 1024;
+        char * segment = (char *)::VirtualAlloc(0, reserveSize, MEM_RESERVE, PAGE_READWRITE);
+        if (!segment)
+        {
+            g_Ext->ThrowOutOfMemory();
+        }
+        singleReservedSegment.Initialize(segment, segment + reserveSize, segment);
+    }
+    void FreeSingleReservedSegment()
+    {
+        if (singleReservedSegment.GetSegmentStart())
+        {
+            ::VirtualFree(singleReservedSegment.GetSegmentStart(), 0, MEM_RELEASE);
+        }
+    }
+    NodeType * AllocNode(const TKey& key)
+    {
+        void * mem = singleReservedSegment.Alloc(sizeof(NodeType));
+        if (mem == nullptr)
+        {
+            g_Ext->ThrowOutOfMemory();
+        }
+        return new (mem) NodeType(key);
+    }
+
+    void FreeNode(NodeType const * node)
+    {
+        node->~NodeType();
+    }
+    SingleReservedSegment singleReservedSegment;
+#else
+    NodeType * AllocNode(const TKey& key)
+    {
+        return new (allocator.Alloc(sizeof(NodeType))) NodeType(key);
+    }
+
+    void FreeNode(NodeType const * node)
+    {
+        node->~NodeType();
+        allocator.Free((void *)node);
+    }
+#endif
 };
+
+
 

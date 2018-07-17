@@ -854,12 +854,12 @@ void EXT_CLASS_BASE::PrintThreadContextUrl(RemoteThreadContext threadContext, bo
     if (this->m_PtrSize == 4)
     {
         // 32-bit
-        headerFormat = (showAll ? (showLink ? "    %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
+        headerFormat = (showAll ? (showLink ? "     %-12s %-12s %-12s URL\n" : "  %-10s %-10s %-10s URL\n") : "  %-12s URL\n");
     }
     else
     {
         // 64-bit
-        headerFormat = (showAll ? (showLink ? "    %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
+        headerFormat = (showAll ? (showLink ? "     %-18s %-20s %-20s URL\n" : "  %-18s %-18s %-18s URL\n") : "  %-18s URL\n");
     }
 
     ULONG scriptContextCount = 0;

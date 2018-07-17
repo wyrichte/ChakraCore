@@ -270,10 +270,12 @@ JD_PRIVATE_COMMAND(jslibstats,
     "Dump a library stats",
     "{;e,o,d=0;recycler;Recycler address}"
     "{fc;b,o;FilterClosed;Filter to closed context}"
-    "{fur;b,o;FilterUnreachable;Filter to unreachable closed context}")
+    "{fur;b,o;FilterUnreachable;Filter to unreachable closed context}"
+    "{furr;b,o;FilterUnreachable;Filter to unreachable closed context and trace root}")
 {
     const bool filterClosed = HasArg("fc");
-    const bool filterUnreachable = HasArg("fur");
+    const bool filterUnreachableRoot = HasArg("furr");
+    const bool filterUnreachable = filterUnreachableRoot || HasArg("fur");
     ULONG64 recyclerArg = GetUnnamedArgU64(0);
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
@@ -283,7 +285,6 @@ JD_PRIVATE_COMMAND(jslibstats,
 
 
     RecyclerLibraryGraph& libraryGraph = *objectGraph.GetLibraryGraph();
-
 
     if (this->m_PtrSize == 8)
     {
@@ -313,8 +314,25 @@ JD_PRIVATE_COMMAND(jslibstats,
         }
         DumpLibrarySummary(i);
     });
-
     this->Out("Count: %u, Closed: %u\n", numTotal, numClosed);
+
+    if (filterUnreachableRoot)
+    {
+        TraceRoot traceRoot = { 0 };
+        traceRoot.allRoots = true;
+        traceRoot.showLib = true;
+
+        libraryGraph.ForEach([&](LibrarySummary const& i)
+        {
+            if (i.reachableFromNonClosed)
+            {
+                return;
+            }
+
+            traceRoot.Trace(objectGraph, recyclerArg, i.library);
+        });
+    }
+
 }
 
 JD_PRIVATE_COMMAND(jslibpreds,

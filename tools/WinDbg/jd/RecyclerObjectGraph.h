@@ -3,11 +3,61 @@
 #include <stack>
 #include "jdrecycler.h"
 #include "Collections.h"
+#include "RecyclerObjectTypeInfo.h"
 
+class RecyclerLibraryGraph;
 
 // Represents the recycler object graph
 // Encapsulates logic to scan remote recycler objects
-class RecyclerLibraryGraph;
+
+struct RecyclerGraphNodeData
+{
+#if DBG
+    friend RecyclerObjectGraph;
+#endif
+
+    RecyclerGraphNodeData(ULONG64 address) :
+        address(address),
+        depth(0),
+        rootType(RootType::RootTypeNone)
+    {
+        Assert(IsLegalAddress(address));
+        ClearTypeInfo();
+    }
+
+    ULONG64 Key() const { return address; }
+    uint GetObjectSize() const { return objectSize; }
+    void SetObjectSize(uint size) { objectSize = size; }
+    uint GetDepth() const { return depth; }
+    void SetDepth(uint d) { this->depth = d; }
+
+    bool HasTypeInfo() const { return GetTypeName() != nullptr; }
+    void SetTypeInfo(char const * typeName, char const * typeNameOrField, RecyclerObjectTypeInfo::Flags flags, ULONG64 javascriptLibrary);
+    void ClearTypeInfo() { typeInfo = nullptr; }
+
+    bool HasVtable() const { return typeInfo ? typeInfo->HasVtable() : false; }
+    bool IsPropagated() const { return typeInfo ? typeInfo->IsPropagated() : false; }
+    bool OverrideVtable() const { return typeInfo ? typeInfo->IsPropagated() : false; }
+    const char * GetTypeName() const { return typeInfo ? typeInfo->GetTypeName() : nullptr; }
+    const char * GetTypeNameOrField() const { return typeInfo ? typeInfo->GetTypeNameOrField() : nullptr; }
+    ULONG64 GetAssociatedJavascriptLibrary() const { return typeInfo ? typeInfo->GetAssociatedJavascriptLibrary() : 0; }
+    bool IsRoot() const { return RootTypeUtils::IsAnyRootType(rootType); }
+    RootType GetRootType() const { return rootType; }
+    void AddRootType(RootType rootType) { this->rootType = RootTypeUtils::CombineTypes(this->rootType, rootType); }
+
+    static bool IsLegalAddress(ULONG64 address)
+    {
+        return (address & 0xFF00000000000000) == 0;
+    }
+
+private:
+    RootType rootType : 8;
+    const ULONG64 address : 56;
+    uint objectSize;
+    uint depth;
+    RecyclerObjectTypeInfo * typeInfo;
+};
+
 class RecyclerObjectGraph
 {
 public:

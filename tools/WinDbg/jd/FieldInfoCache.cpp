@@ -53,7 +53,7 @@ bool FieldInfoCache::HasField(JDRemoteTyped& object, char const * fieldName)
     return hasField;
 }
 
-void FieldInfoCache::EnsureNotBitField(ULONG64 containerModBase, ULONG containerTypeId, ULONG fieldOffset)
+void FieldInfoCache::EnsureNotBitField(ULONG64 containerModBase, ULONG containerTypeId, ULONG offset)
 {
     // This function is to verify that this field is not a bit field.
     // There is no API that tells you the characteristic of a field by it's offset. 
@@ -73,49 +73,77 @@ void FieldInfoCache::EnsureNotBitField(ULONG64 containerModBase, ULONG container
         g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get count of children of type");
     }
 
-    ULONG indexMin = 0;
-    ULONG indexMax = count;
+    std::auto_ptr<TI_FINDCHILDREN_PARAMS> params((TI_FINDCHILDREN_PARAMS *)malloc(sizeof(TI_FINDCHILDREN_PARAMS) + sizeof(ULONG) * count));
+    params.get()->Count = count;
+    params.get()->Start = 0;
+    if (!SymGetTypeInfo((HANDLE)handle, containerModBase, containerTypeId, TI_FINDCHILDREN, params.get()))
+    {
+        g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get children of type");
+    }
+    
 
-    auto GetOffsetByFieldIndex = [](ULONG64 modBase, ULONG typeId, ULONG index)
+    for (ULONG i = 0; i < count; i++)
     {
-        char currFieldName[1024];
-        ULONG offset = ULONG_MAX;
-        ULONG fieldNameSize;
-        if (SUCCEEDED(g_Ext->m_Symbols2->GetFieldName(modBase, typeId, index, currFieldName, _countof(currFieldName), &fieldNameSize)))
+        ULONG childId = params.get()->ChildId[i];
+        DWORD childSymTag;
+        if (!SymGetTypeInfo((HANDLE)handle, containerModBase, childId, TI_GET_SYMTAG, &childSymTag))
         {
-            ULONG fieldTypeId;
-            if (FAILED(g_Ext->m_Symbols3->GetFieldTypeAndOffset(modBase, typeId, currFieldName, &fieldTypeId, &offset)))
-            {
-                g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get field offset");
-            }
+            g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get field sym tag");
         }
-        return offset;
-    };
-    while (true)
-    {
-        if (indexMin >= indexMax)
+
+        if (childSymTag != SymTagData)
         {
-            g_Ext->ThrowLastError("FieldInfoCache::GetField - Field not found");
-        }
-        ULONG index = indexMin + (indexMax - indexMin) / 2;
-        ULONG offset = GetOffsetByFieldIndex(containerModBase, containerTypeId, index);
-        if (offset > fieldOffset)
-        {
-            indexMax = index;
             continue;
         }
-        if (offset < fieldOffset)
+
+        ULONG fieldOffset;
+        if (!SymGetTypeInfo((HANDLE)handle, containerModBase, childId, TI_GET_OFFSET, &fieldOffset))
         {
-            indexMin = index + 1;
             continue;
         }
-        if ((index == 0 || GetOffsetByFieldIndex(containerModBase, containerTypeId, index - 1) != fieldOffset)
-            && (index == count - 1 || GetOffsetByFieldIndex(containerModBase, containerTypeId, index + 1) != fieldOffset))
+
+        if (fieldOffset < offset)
+        {
+            continue;
+        }
+
+        ULONG fieldTypeId;
+        if (!SymGetTypeInfo((HANDLE)handle, containerModBase, childId, TI_GET_TYPEID, &fieldTypeId))
+        {
+            g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get field type");
+        }
+
+        ULONG fieldSize;
+        if (!SymGetTypeInfo((HANDLE)handle, containerModBase, fieldTypeId, TI_GET_LENGTH, &fieldSize))
+        {
+            g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get field size");
+        }
+        if (fieldOffset + fieldSize <= offset)
         {
             break;
         }
-        g_Ext->ThrowLastError("FieldInfoCache::GetField - Can't cache bit field.  Use .BitField instead");
+
+        ULONG symTag;
+        if (!SymGetTypeInfo((HANDLE)handle, containerModBase, fieldTypeId, TI_GET_SYMTAG, &symTag))
+        {
+            g_Ext->ThrowLastError("FieldInfoCache::GetField - Unable to get field type sym tag");
+        }
+       
+        if (symTag == SymTagUDT)
+        {
+            EnsureNotBitField(containerModBase, fieldTypeId, offset - fieldOffset);
+            return;
+        }
+
+        DWORD bitPos;
+        if (SymGetTypeInfo((HANDLE)handle, containerModBase, childId, TI_GET_BITPOSITION, &bitPos))
+        {
+            g_Ext->ThrowLastError("FieldInfoCache::GetField - Can't cache bit field.  Use .BitField instead");
+        }
+        return;
     }
+
+    g_Ext->ThrowLastError("FieldInfoCache::GetField - Field not found");
 }
 
 JDRemoteTyped FieldInfoCache::GetField(JDRemoteTyped& object, char const * fieldName)
