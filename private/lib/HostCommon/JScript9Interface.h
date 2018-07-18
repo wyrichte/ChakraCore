@@ -252,7 +252,7 @@ public:
     static HRESULT StopScriptProfiling(IActiveScriptDirect * scriptDirect) { return CHECKED_CALL(StopScriptProfiling, scriptDirect); }
 
     static HRESULT JsQueueBackgroundParse(JsStaticAPI::ScriptContents* contents, DWORD* dwBgParseCookie) { return CHECKED_CALL(JsQueueBackgroundParse, contents, dwBgParseCookie); }
-    static bool    JsDiscardBackgroundParse(DWORD dwBgParseCookie, void* buffer) { return CHECKED_CALL(JsDiscardBackgroundParse, dwBgParseCookie, buffer); }
+    static bool    JsDiscardBackgroundParse(DWORD dwBgParseCookie, void* buffer) { return CHECKED_CALL_RETURN(JsDiscardBackgroundParse, false, dwBgParseCookie, buffer); }
 
     static boolean SupportsGetFaultInjectionFlag()
     {
