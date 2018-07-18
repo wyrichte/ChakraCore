@@ -7,7 +7,6 @@
 class FieldInfoCache
 {
 private:
-    
     struct Key
     {
         ULONG64 m_ModBase;
@@ -18,44 +17,74 @@ private:
         {
             return ((size_t)m_TypeId ^ (size_t)(m_ModBase >> 4) ^ (((size_t)m_fieldName) >> 4) ^ _HASH_SEED);
         }
-        operator size_t() const 
+        operator size_t() const
         {
             return GetHash();
         }
+        bool operator<(FieldInfoCache::Key const& other) const
+        {
+            return this->m_TypeId < other.m_TypeId ||
+                (this->m_TypeId == other.m_TypeId && (this->m_fieldName < other.m_fieldName ||
+                    this->m_fieldName == other.m_fieldName && this->m_ModBase < other.m_ModBase));
+        }
     };
 
-    friend bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b);
-    struct Value : public JDTypeInfo
+    
+    struct TypeKey
     {
-        Value(bool hasField = false) : m_fieldOffset(hasField ? (ULONG)-2 : (ULONG)-1)
+        ULONG64 m_ModBase;
+        ULONG m_TypeId;
+
+        bool operator<(TypeKey const& other) const
+        {
+            return m_TypeId < other.m_TypeId
+                || (m_TypeId == other.m_TypeId) && m_ModBase < other.m_ModBase;
+        }
+
+        operator size_t() const
+        {
+            return (size_t)(m_ModBase >> 4) ^ (size_t)m_TypeId;
+        }
+    };
+    struct FieldInfo : public JDTypeInfo
+    {
+        FieldInfo() : m_fieldOffset((ULONG)-1)
         {
 
         }
 
-        Value(ULONG64 modBase, ULONG typeId, ULONG size, ULONG fieldOffset, bool isPointerType)
-            : JDTypeInfo(modBase, typeId, size, isPointerType), m_fieldOffset(fieldOffset)
+        FieldInfo(ULONG64 modBase, ULONG typeId, ULONG size, ULONG fieldOffset, bool isPointerType, ULONG bitOffset, ULONG bitLength)
+            : JDTypeInfo(modBase, typeId, size, isPointerType, bitOffset, bitLength), m_fieldOffset(fieldOffset)
         {
 
         }
-        
-        bool HasField() const { return m_fieldOffset != (ULONG)-1; }
+
+        FieldInfo(FieldInfo value, ULONG startOffset)
+            : JDTypeInfo(value), m_fieldOffset(value.m_fieldOffset + startOffset)
+        {
+
+        }
+
         ULONG GetFieldOffset() const { return m_fieldOffset; }        
     private:
         ULONG m_fieldOffset;
     };
-    stdext::hash_map<Key, Value> cache;
 
-    static void EnsureNotBitField(ULONG64 containerModBase, ULONG containerTypeId, ULONG fieldOffset);
+
+    typedef stdext::hash_map<std::string, FieldInfo> FieldMap;
+    stdext::hash_map<TypeKey, FieldMap *> fieldInfo;
+
+    // First level cache that assume the field name pointer is a const string in the image, and we can avoid the string compare
+    stdext::hash_map<Key, FieldInfo> cache;
+   
+    FieldMap * EnsureFieldMap(JDRemoteTyped& object);
+    FieldMap * EnsureFieldMap(ULONG64 containerModBase, ULONG containerTypeId);
+    FieldMap * CreateFieldMap(ULONG64 containerModBase, ULONG containerTypeId);
+    FieldInfo GetFieldInfo(JDRemoteTyped& object, char const * fieldName, char const * fieldNameEnd);
+    
 public:
     static bool HasField(JDRemoteTyped& object, char const * field);
     static JDRemoteTyped GetField(JDRemoteTyped& object, char const * field);
 
     void Clear();
 };
-
-inline bool operator<(FieldInfoCache::Key const& a, FieldInfoCache::Key const& b)
-{
-    return a.m_TypeId < b.m_TypeId ||
-        (a.m_TypeId == b.m_TypeId && (a.m_fieldName < b.m_fieldName ||
-            a.m_fieldName == b.m_fieldName && a.m_ModBase < b.m_ModBase));
-}

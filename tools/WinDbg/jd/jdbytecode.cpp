@@ -833,7 +833,7 @@ JDByteCode::DumpBytes(JDRemoteTyped bytes)
 
         LONG layoutStart = currentOffset + opcodeSize;
         JDRemoteTyped layout(GetExtension()->FillModule(layoutTypeName), bytes.GetPtr() + layoutStart, false);
-        uint layoutSize = layout.GetTypeSize();
+        uint layoutSize = strcmp(plainLayoutStr, "Empty") == 0? 0 : layout.GetTypeSize();
         uint nextOffset = layoutStart + layoutSize;
 
         if (currentOffset >= startDumpBytes)
@@ -878,13 +878,7 @@ JDByteCode::DumpBytes(JDRemoteTyped bytes)
             }
 
 
-            if (strcmp(plainLayoutStr, "Empty") == 0)
-            {
-                currentOffset += opcodeSize;
-                GetExtension()->Out("\n");
-                continue;
-            }
-            else PROCESS_LAYOUT(CallI)
+            PROCESS_LAYOUT(CallI)
             else PROCESS_LAYOUT(CallIWithICIndex)
             else PROCESS_LAYOUT(CallIExtended)
             else PROCESS_LAYOUT(CallIExtendedWithICIndex)
@@ -919,9 +913,9 @@ JDByteCode::DumpBytes(JDRemoteTyped bytes)
             else PROCESS_LAYOUT(StartCall)
             else PROCESS_LAYOUT(Arg)
             else PROCESS_LAYOUT(Auxiliary)
-            else
+            else if (strcmp(plainLayoutStr, "Empty") != 0)
             {
-            GetExtension()->Out(" <%s>", plainLayoutStr);
+                GetExtension()->Out(" <%s>", plainLayoutStr);
             }
 
             if (isProfiledLayout)

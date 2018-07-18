@@ -45,7 +45,7 @@ JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
         && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeId(modBase, typeName, &typeId))
         && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeSize(modBase, typeId, &size)))
     {
-        JDTypeInfo typeInfo = JDTypeInfo(modBase, typeId, size, false);
+        JDTypeInfo typeInfo = JDTypeInfo(modBase, typeId, size, false, 0, 0);
         this->cacheTypeInfoCache[typeName] = typeInfo;
         return typeInfo;
     }

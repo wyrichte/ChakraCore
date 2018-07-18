@@ -22,8 +22,6 @@ public:
     JDRemoteTyped Field(PCSTR name);
     JDRemoteTyped ArrayElement(LONG64 index);
 
-    JDRemoteTyped BitField(PCSTR name);
-
     static JDRemoteTyped NullPtr();
     static JDRemoteTyped VoidPtr(ULONG64 address);
     static JDRemoteTyped FromPtrWithType(ULONG64 address, char const * typeName);

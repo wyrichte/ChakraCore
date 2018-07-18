@@ -54,18 +54,16 @@ JDRemoteTyped::JDRemoteTyped(PCSTR Expr)
 
 bool JDRemoteTyped::HasField(PCSTR field)
 {
+    if (this->isVoidPointer)
+    {
+        return false;
+    }
     return FieldInfoCache::HasField(*this, field);
 }
 
 JDRemoteTyped JDRemoteTyped::Field(PCSTR field)
 {
     return FieldInfoCache::GetField(*this, field);
-}
-
-JDRemoteTyped JDRemoteTyped::BitField(PCSTR field)
-{
-    // Don't cache bit field accesses
-    return GetExtRemoteTyped().Field(field);
 }
 
 JDRemoteTyped JDRemoteTyped::ArrayElement(LONG64 index)
@@ -382,6 +380,11 @@ T JDRemoteTyped::EnsureData()
     if (bytesRead != sizeof(T))
     {
         g_Ext->ThrowLastError("Unable to read");
+    }
+
+    if (this->typeInfo.IsBitField())
+    {
+        data = (data >> this->typeInfo.GetBitOffset()) & ((1 << this->typeInfo.GetBitLength()) - 1);
     }
     isDataValid = true;
     return *(T *)&data;

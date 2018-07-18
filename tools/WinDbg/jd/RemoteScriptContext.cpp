@@ -136,7 +136,7 @@ bool RemoteScriptContext::IsPrimaryEngine(bool * hasError)
     try
     {
         bool fPrimaryEngine;
-        JDRemoteTyped fNonPrimaryEngine = this->GetHostScriptContext().Field("scriptSite").Field("scriptEngine").BitField("fNonPrimaryEngine");
+        JDRemoteTyped fNonPrimaryEngine = this->GetHostScriptContext().Field("scriptSite").Field("scriptEngine").Field("fNonPrimaryEngine");
         if (strcmp(fNonPrimaryEngine.GetTypeName(), "int") == 0)
         {
             fPrimaryEngine = strcmp(fNonPrimaryEngine.GetSimpleValue(), "0n0") == 0;
