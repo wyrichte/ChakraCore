@@ -21,7 +21,6 @@ namespace Js
 
         SCAPropBag(ScriptContext* scriptContext);
         HRESULT InternalAdd(LPCWSTR name, charcount_t len, Var value);
-        HRESULT InternalAddNoCopy(LPCWSTR name, charcount_t len, Var value);
 
     public:
         ~SCAPropBag();
@@ -33,6 +32,8 @@ namespace Js
 
         STDMETHODIMP Add(LPCWSTR name, Var value);
         STDMETHODIMP Get(LPCWSTR name, Var* pValue);
+
+        HRESULT InternalAddNoCopy(LPCWSTR name, charcount_t len, Var value);
 
         //
         // PropBag property enumerator for WriteObjectProperties.
@@ -64,27 +65,6 @@ namespace Js
             Var GetValue() const
             {
                 return m_properties->GetValueAt(m_curIndex);
-            }
-        };
-
-        //
-        // PropBag property sink for ReadObjectProperties.
-        //
-        class PropBagSink
-        {
-        private:
-            SCAPropBag* m_propbag;
-
-        public:
-            PropBagSink(SCAPropBag* propbag)
-                : m_propbag(propbag)
-            {
-            }
-
-            void SetProperty(const char16* name, charcount_t len, Var value)
-            {
-                HRESULT hr = m_propbag->InternalAddNoCopy(name, len, value);
-                m_propbag->ThrowIfFailed(hr);
             }
         };
     };

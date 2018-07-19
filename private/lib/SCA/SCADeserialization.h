@@ -5,6 +5,8 @@
 #pragma once
 namespace Js
 {
+    class SCAPropBag;
+
     //
     // DeserializationCloner helps clone a Var from a stream location.
     //
@@ -16,6 +18,9 @@ namespace Js
         AutoCOMPtr<ISCAHost> m_pSCAHost;
         AutoCOMPtr<ISCAContext> m_pSCAContext;
         Reader* m_reader;
+        mutable char16* m_buffer;
+        mutable charcount_t m_bufferLength;
+
 
     private:
         SCATypeId ReadTypeId() const
@@ -30,8 +35,8 @@ namespace Js
             m_reader->Read(value);
         }
 
-        bool TryReadString(const char16** str, charcount_t* len) const;
-        void ReadString(const char16** str, charcount_t* len) const;
+        const char16* TryReadString(charcount_t* len, bool reuseBuffer) const;
+        const char16* ReadString(charcount_t* len) const;
         void Read(BYTE* buf, uint32 len) const;
 
         //
@@ -61,14 +66,45 @@ namespace Js
         //
         // Read a SCAProperties section: {SCAPropertyName SCAValue} SCAPropertiesTerminator
         //
-        template <class PropertySink>
-        void ReadObjectProperties(PropertySink* sink)
+        void ReadObjectPropertiesIntoObject(RecyclableObject* m_obj)
         {
+            ScriptContext* scriptContext = GetScriptContext();
+
             for(;;)
             {
-                const char16* buf;
-                charcount_t len;
-                if (!TryReadString(&buf, &len))
+                charcount_t len = 0;
+                const char16* name = TryReadString(&len, /*reuseBuffer*/ true);
+                if (!name)
+                {
+                    break;
+                }
+
+                Js::PropertyRecord const * propertyRecord;
+                scriptContext->GetOrAddPropertyRecord(name, len, &propertyRecord);
+
+                // NOTE: 'Clone' may reenter here and use the buffer that backs the 'name'.
+                //       That is ok, since we do not need it past this point.
+                //       The propertyRecord keeps its own copy od the data.
+
+                Var value;
+                GetEngine()->Clone(m_reader->GetPosition(), &value);
+                if (!value)
+                {
+                    ThrowSCADataCorrupt();
+                }
+
+                m_obj->SetProperty(propertyRecord->GetPropertyId(), value, PropertyOperation_None, NULL); //Note: no prototype check
+            }
+        }
+
+        void ReadObjectPropertiesIntoBag(SCAPropBag* m_propbag)
+        {
+            for (;;)
+            {
+                charcount_t len = 0;
+                // NOTE: we will not reuse buffer here since the propbag may retain the string.
+                const char16* name = TryReadString(&len, /*reuseBuffer*/ false);
+                if (!name)
                 {
                     break;
                 }
@@ -80,13 +116,15 @@ namespace Js
                     ThrowSCADataCorrupt();
                 }
 
-                sink->SetProperty(buf, len, value);
+                HRESULT hr = m_propbag->InternalAddNoCopy(name, len, value);
+                m_propbag->ThrowIfFailed(hr);
             }
         }
 
     public:
         DeserializationCloner(ScriptContext* scriptContext, ISCAHost* pSCAHost, ISCAContext* pSCAContext, Reader* reader)
-            : ClonerBase(scriptContext), m_pSCAHost(pSCAHost), m_pSCAContext(pSCAContext), m_reader(reader)
+            : ClonerBase(scriptContext), m_pSCAHost(pSCAHost), m_pSCAContext(pSCAContext), m_reader(reader), 
+                         m_buffer(nullptr), m_bufferLength(0)
         {
         }
 
@@ -115,23 +153,6 @@ namespace Js
         void CloneMap(Src src, Dst dst);
         void CloneSet(Src src, Dst dst);
         void CloneObjectReference(Src src, Dst dst);
-    };
-
-    //
-    // Object property sink for ReadObjectProperties.
-    //
-    class ObjectPropertySink: public ScriptContextHolder
-    {
-    private:
-        RecyclableObject* m_obj;
-
-    public:
-        ObjectPropertySink(ScriptContext* scriptContext, RecyclableObject* obj)
-            : ScriptContextHolder(scriptContext), m_obj(obj)
-        {
-        }
-
-        void SetProperty(const char16* name, charcount_t len, Var value);
     };
 
     class SCADeserializationEngine
