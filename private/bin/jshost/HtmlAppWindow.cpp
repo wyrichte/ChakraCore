@@ -75,6 +75,12 @@ STDMETHODIMP_(ULONG) CAppWindow::Release()
     if (--_dwRef == 0)
     {
         ODS(_u("Deleting CAppWindow\n"));
+        // Destroy the window we created so there is no active IME window during shutdown and any cleanup happens as expected.
+        if (_hwnd != nullptr)
+        {
+            DestroyWindow(_hwnd);
+        }
+
         delete this;
         return 0;
     }

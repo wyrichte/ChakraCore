@@ -15,25 +15,25 @@ const RecyclerNativeHeapWeakReferenceCleanupCookie RecyclerNativeHeapInitialWeak
 void* RecyclerNativeHeapAllocTraced(_In_ RecyclerNativeHeapHandle handle, size_t size)
 {
     Recycler* recycler = static_cast<Recycler*>(handle);
-    return RecyclerAllocVisitedHostTracedZero(recycler, size);
+    return RecyclerAllocVisitedHostTraced(recycler, size);
 }
 
 void* RecyclerNativeHeapAllocTracedFinalized(_In_ RecyclerNativeHeapHandle handle, size_t size)
 {
     Recycler* recycler = static_cast<Recycler*>(handle);
-    return RecyclerAllocVisitedHostTracedAndFinalizedZero(recycler, size);
+    return RecyclerAllocVisitedHostTracedAndFinalized(recycler, size);
 }
 
 void* RecyclerNativeHeapAllocLeafFinalized(_In_ RecyclerNativeHeapHandle handle, size_t size)
 {
     Recycler* recycler = static_cast<Recycler*>(handle);
-    return RecyclerAllocVisitedHostFinalizedZero(recycler, size);
+    return RecyclerAllocVisitedHostFinalized(recycler, size);
 }
 
 void* RecyclerNativeHeapAllocLeaf(_In_ RecyclerNativeHeapHandle handle, size_t size)
 {
     Recycler* recycler = static_cast<Recycler*>(handle);
-    return RecyclerAllocLeafZero(recycler, size);
+    return RecyclerAllocLeaf(recycler, size);
 }
 
 HRESULT RecyclerNativeHeapRootAddRef(_In_ RecyclerNativeHeapHandle handle, _In_ void* object, _Out_opt_ unsigned int* count)
