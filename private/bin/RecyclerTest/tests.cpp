@@ -911,29 +911,24 @@ public:
         Count,
     };
 
-    static RecyclerVisitedObjectImpl* Create(Recycler* recycler, AllocationType allocType, size_t size = 0)
+    static RecyclerVisitedObjectImpl* Create(Recycler* recycler, AllocationType allocType)
     {
         void* mem;
-        if (size == 0 || size < sizeof(RecyclerVisitedObjectImpl))
-        {
-            size = sizeof(RecyclerVisitedObjectImpl);
-        }
+        size_t size = sizeof(RecyclerVisitedObjectImpl);
 
         switch (allocType)
         {
         case AllocationType::TraceAndFinalized:
-            mem = RecyclerAllocVisitedHostTracedAndFinalizedZero(recycler,size);
+            mem = RecyclerAllocVisitedHostTracedAndFinalized(recycler,size);
             break;
         case AllocationType::TraceOnly:
-            mem = RecyclerAllocVisitedHostTracedZero(recycler,size);
+            mem = RecyclerAllocVisitedHostTraced(recycler,size);
             break;
         default:
             Assert(allocType == AllocationType::FinalizeOnly);
-            mem = RecyclerAllocVisitedHostFinalizedZero(recycler,size);
+            mem = RecyclerAllocVisitedHostFinalized(recycler,size);
+            break;
         }
-
-        static const char zeros[sizeof(RecyclerVisitedObjectImpl)] = {0};
-        Assert(memcmp(mem, zeros, sizeof(RecyclerVisitedObjectImpl)) == 0);
 
         return new (mem) RecyclerVisitedObjectImpl(allocType);
     }
@@ -988,7 +983,7 @@ void TestRecyclerVisitedObjects(Recycler* recycler,ArenaAllocator* alloc, TestCo
     {
         const size_t maxLeafSize = 2048;
         size_t leafSize = rand() % maxLeafSize;
-        void* leaf = RecyclerAllocLeafZero(recycler, leafSize);
+        void* leaf = RecyclerAllocLeaf(recycler, leafSize);
         stackRoots[i + recyclerVisitedObjectImplCount] = leaf;
         g_allocatedObjects[i + recyclerVisitedObjectImplCount] = leaf;
     }
