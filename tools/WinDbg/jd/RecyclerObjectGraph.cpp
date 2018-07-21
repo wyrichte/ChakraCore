@@ -8,7 +8,7 @@
 #include "RemoteJavascriptLibrary.h"
 #include "RecyclerLibraryGraph.h"
 
-RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
+RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
     if (recycler.CollectionInProgress())
     {
@@ -17,7 +17,8 @@ RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteTh
     RecyclerObjectGraph * recyclerObjectGraph = GetExtension()->recyclerCachedData.GetCachedRecyclerObjectGraph(recycler.GetPtr());
     if (recyclerObjectGraph == nullptr)
     {
-        Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext, stackTop);
+        Addresses *rootPointerManager = GetExtension()->recyclerCachedData.GetRootPointers(recycler, threadContext);
+        g_Ext->Out("Number of root GC pointers found: %d\n", rootPointerManager->Count());
         AutoDelete<RecyclerObjectGraph> newObjectGraph(new RecyclerObjectGraph(recycler));
         newObjectGraph->Construct(recycler, *rootPointerManager);
 

@@ -674,7 +674,7 @@ JD_PRIVATE_COMMAND(findref,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
+    Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
     RemoteHeapBlockMap hbm = recycler.GetHeapBlockMap();
     struct FindRefData
     {
@@ -753,6 +753,56 @@ JD_PRIVATE_COMMAND(findref,
     }
 }
 
+class AutoSwitchThread
+{
+public:
+    AutoSwitchThread(RemoteThreadContext * threadContext) :
+        prevThreadId(0), newThreadId(0)
+    {
+        if (threadContext)
+        {
+            HRESULT hr = g_Ext->m_System->GetCurrentThreadId(&prevThreadId);
+            if (FAILED(hr))
+            {
+                g_Ext->ThrowStatus(hr, "Unable to get current thread ID");
+            }
+            newThreadId = prevThreadId;
+            if (!threadContext->TryGetDebuggerThreadId(&newThreadId))
+            {
+                RemoteThreadContext currentThreadContext;
+                if (!RemoteThreadContext::TryGetCurrentThreadContext(currentThreadContext)
+                    || currentThreadContext.GetPtr() != threadContext->GetPtr())
+                {
+                    g_Ext->ThrowStatus(hr, "Unable to get debugger thread ID.  Switch to the thread where the recycler is manually");
+                }
+            }
+            if (prevThreadId != newThreadId)
+            {
+                hr = g_Ext->m_System->SetCurrentThreadId(newThreadId);
+                if (FAILED(hr))
+                {
+                    g_Ext->ThrowStatus(hr, "Unable to switch to recycler's thread ID %u", newThreadId);
+                }
+            }
+        }
+    }
+    ~AutoSwitchThread()
+    {
+        if (prevThreadId != newThreadId)
+        {
+            HRESULT hr = g_Ext->m_System->SetCurrentThreadId(prevThreadId);
+            if (FAILED(hr))
+            {
+                g_Ext->ThrowStatus(hr, "Unable to switch to original thread ID %u", prevThreadId);
+            }
+        }
+    }
+
+private:
+    ULONG prevThreadId;
+    ULONG newThreadId;
+};
+
 JD_PRIVATE_COMMAND(showroots,
     "Show the recycler roots",
     "{;e,o,d=0;recycler;Recycler address}"
@@ -825,14 +875,17 @@ JD_PRIVATE_COMMAND(showroots,
     DumpList<false>(externalGuestArenaList, "ArenaData *");
 
     Out("\nStack\n");
-    rootPointerManager.ScanRegisters();
-    rootPointerManager.ScanStack(recycler, GetStackTop(), true, showScriptContext);
+    {
+        AutoSwitchThread autoSwitchThread(&threadContext);
+        rootPointerManager.ScanRegisters();
+        rootPointerManager.ScanStack(recycler, GetStackTop(), true, showScriptContext);
+    }
 
     PCSTR typeName = recycler.GetExtRemoteTyped().Field("heapBlockMap").GetTypeName();
     Out("Heap block map type is %s\n", typeName);
 }
 
-Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadContext, ULONG64 stackTop)
+Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadContext)
 {
     const bool dump = false;
     RootPointerReader rootPointerManager(recycler);
@@ -927,8 +980,13 @@ Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadCon
     // Scan stack
     //
 
-    rootPointerManager.ScanRegisters(dump);
-    rootPointerManager.ScanStack(recycler, stackTop, dump);
+    {
+        AutoSwitchThread autoSwitchThread(threadContext);
+        rootPointerManager.ScanRegisters(dump);
+        rootPointerManager.ScanStack(recycler, GetStackTop(), dump);
+
+
+    }
 
     return rootPointerManager.DetachAddresses();
 }
@@ -1249,7 +1307,7 @@ void EXT_CLASS_BASE::PredSuccImpl()
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop()));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext));
     Node node = objectGraph.FindNode(pointerArg);
 
     //
@@ -1351,7 +1409,6 @@ JD_PRIVATE_COMMAND(traceroots,
     "Given a pointer in the graph, perform a BFS traversal to find the shortest path to a root.",
     "{;ed,o,d=0;pointer;Address to trace}"
     "{;ed,o,d=0;recycler;Recycler address}"
-    "{sp;edn=(10),o,d=0;sp;Stack Pointer to use for scanning}"
     "{roots;edn=(10),o,d=1;numroots;Stop after hitting this many roots along a traversal (0 for full traversal)}"
     "{limit;edn=(10),o,d=10;limit;Number of descendants or predecessors to list}"
     "{t;b,o;transientRoots;Use Transient Roots}"
@@ -1363,7 +1420,6 @@ JD_PRIVATE_COMMAND(traceroots,
 {
     const ULONG64 pointerArg = GetUnnamedArgU64(0);
     const ULONG64 recyclerArg = GetUnnamedArgU64(1);
-    ULONG64 stackPointerArg = GetArgU64("sp");
     const bool infer = !HasArg("vt");
 
     TraceRoot traceRoot;
@@ -1380,11 +1436,6 @@ JD_PRIVATE_COMMAND(traceroots,
         return;
     }
 
-    if (stackPointerArg == NULL)
-    {
-        stackPointerArg = GetStackTop();
-    }
-
     RecyclerObjectGraph::TypeInfoFlags flags = RecyclerObjectGraph::TypeInfoFlags::None;
     if (infer)
     {
@@ -1398,7 +1449,7 @@ JD_PRIVATE_COMMAND(traceroots,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg, flags));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
 
     traceRoot.Trace(objectGraph, recyclerArg, pointerArg);
 }
@@ -1756,13 +1807,11 @@ JD_PRIVATE_COMMAND(savegraph,
     "{;s;filename;Filename to output to}"
     "{;ed,o,d=0;recycler;Recycler address}"
     "{;s,o,d=js;filetype;Save file type <js|python|csv>}"
-    "{;ed,o,d=0;sp;Stack Pointer to use for scanning}"
     "{vt;b,o;vtable;Vtable Only}")
 {
     PCSTR filename = GetUnnamedArgStr(0);
     ULONG64 recyclerArg = GetUnnamedArgU64(1);
     PCSTR strFiletype = GetUnnamedArgStr(2);
-    ULONG64 stackPointerArg = GetUnnamedArgU64(3);
     bool infer = !HasArg("vt");
 
     enum OutputFileType
@@ -1791,15 +1840,7 @@ JD_PRIVATE_COMMAND(savegraph,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    if (stackPointerArg == NULL)
-    {
-        stackPointerArg = GetStackTop();
-    }
-
-    Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, stackPointerArg);
-    Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
-
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, stackPointerArg,
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         infer? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
     
     if (filetype == CSV)
@@ -2011,7 +2052,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
 
     if (verbose)
     {
-        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
+        Addresses * rootPointerManager = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
         Out("\nNumber of root GC pointers found: %d\n\n", rootPointerManager->Count());
     }
 
@@ -2024,7 +2065,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     {
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
     }
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(), flags));
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
     ObjectCountData allObjectCounts(infer);
     class PerLibraryObjectCountData : public stdext::hash_map<ULONG64, ObjectCountData *>
     {
@@ -2382,7 +2423,7 @@ JD_PRIVATE_COMMAND(jsobjectnodes,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
 
     this->Out("\n");
@@ -2547,7 +2588,7 @@ JD_PRIVATE_COMMAND(jsobjectdepths,
     char const * typeFilter = hasFilterType ? GetArgStr("ft") : nullptr;
     ULONG64 libraryFilter = hasFilterLib ? GetArgU64("fl") : (ULONG64)-1;
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         typeInfo ? RecyclerObjectGraph::TypeInfoFlags::Infer : RecyclerObjectGraph::TypeInfoFlags::None));
 
     ProgressTracker progress("Accumulating depth counts", 0x10000, objectGraph.GetNodeCount());

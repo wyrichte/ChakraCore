@@ -71,7 +71,6 @@ public:
     typedef GraphImplType::NodeType GraphImplNodeType;
 
     static RecyclerObjectGraph * New(RemoteRecycler recycler, RemoteThreadContext * threadContext,
-        ULONG64 stackTop,
         RecyclerObjectGraph::TypeInfoFlags typeInfoFlags = RecyclerObjectGraph::TypeInfoFlags::None);
 
     ~RecyclerObjectGraph();

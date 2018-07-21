@@ -45,7 +45,7 @@ class RecyclerCachedData
 public:
     RecyclerCachedData();
     
-    Addresses * GetRootPointers(RemoteRecycler recycler, RemoteThreadContext * threadContext, ULONG64 stackTop);
+    Addresses * GetRootPointers(RemoteRecycler recycler, RemoteThreadContext * threadContext);
 
     RemoteHeapBlockMap::Cache * GetHeapBlockMap(ULONG64 heapBlockMapAddr);
     void SetHeapBlockMap(ULONG64 heapBlockMapAddr, RemoteHeapBlockMap::Cache * cache);
