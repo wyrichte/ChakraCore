@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <hta:application id="Application" border="thick" borderstyle="complex" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Checkin Submit</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid" id="root">
+        <h3>Chakra Checkin Submit Tool</h3>
+
+        <div id="pages" style="padding: 10px">
+            <div id="cfLoadDashboard">
+                Loading your CodeFlow reviews, please wait... (May need a while if this is the first run.)
+            </div>
+
+            <div id="cfReviews">
+                <div id="cfNoReview" class="cfselpage">
+                    <p>Found no active CodeFlow review.</p>
+                </div>
+                <div id="cfSelectReview" class="cfselpage">
+                    <p>Click the review for next step.</p>
+                    <ol></ol>
+                </div>
+                <div id="cfManualReview" style="padding-top:20pt">
+                    <p>If the review is not listed, input CodeFlow review ID. (e.g.: alias-9154c22d36be43e7b62e90aa2ad11134)</p>
+                    <blockquote>
+                        <input type="text" id="cfManualReviewId" class="form-control" style="max-width: 500pt" />
+                        <button type="submit" id="cfManualReviewSubmit" class="btn btn-default">Next</button>
+                    </blockquote>
+                </div>
+            </div>
+
+            <div id="cfLoadReview">
+                Loading review details, please wait...
+            </div>
+
+            <form id="submit" class="form-horizontal" role="form" style="padding: 10px">
+                <div class="form-group">
+                    <label class="control-label" for="jobTitle">Title</label>
+                    <input type="text" id="jobTitle" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="jobDescription">Description</label>
+                    <textarea id="jobDescription" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="jobItems">Bugs</label>
+                    <p class="small">Separate multiple bug number with space.</p>
+                    <input type="text" id="jobItems" class="form-control" style="max-width:200pt">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="jobItems">Code Review</label>
+                    <p class="small">Separate multiple reviewers with ";".</p>
+                    <input type="text" id="jobCR" class="form-control" style="max-width:200pt">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="jobItems">Code Package</label>
+                    <input type="text" id="jobPackage" class="form-control" style="max-width:500pt">
+                </div>
+                <div class="form-group">
+                    <p>Submit this job to IECAT.</p>
+                    <button type="submit" id="jobSubmit" class="btn btn-default">Submit</button>
+                </div>
+            </form>
+
+            <div id="iecatSubmit">
+                <p>Submitting job to IECAT...</p>
+                <p class="small"><a id="iecatShow" href="#">Show IECAT</a> if submission looks stuck.</p>
+                <blockquote class="small">
+                    <p>Note:</p>
+                    <ul>
+                        <li>This requires running razzle as administrator. Otherwise you'll see script error.</li>
+                        <li>For step 3 -- upload code pack, please wait a few seconds for dialog autofill. If that doesn't work, paste the code pack path from clipboard.</li>
+                    </ul>
+                </blockquote>
+                <ol id="iecatState"></ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="debugConsoleContainer" class="invisible">
+            <span>Debug console:</span>
+            <button onclick="debugFlush()">Flush!</button>
+            <br />
+            <textarea id="debugConsole"></textarea>
+        </div>
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="../shout/util.js"></script>
+    <script src="submit.js"></script>
+    <script>
+        $(document).ready(function () {
+            Environment.init();
+            Debug.init();
+
+            $("#pages").children().hide();
+            $("#cfLoadDashboard").slideToggle();
+
+            CF.dashboard(function (reviews) {
+                $("#cfLoadDashboard").slideToggle();
+
+                $("#cfReviews .cfselpage").hide();
+                if (reviews.length > 0) {
+                    $("#cfSelectReview").show();
+                    var s = "";
+                    reviews.forEach(function (review) {
+                        s += '<li> <a class="cfreview" id="{0}" href="#">{1}</a> {2} </li>'.format(
+                            review.id,
+                            $("<div/>").text(review.title).html(),
+                            review.signedoff.length > 0 ? '<p class="small text-success">Signed off: {0}</p>'.format(review.signedoff.join(';')) : "");
+                    });
+                    $("#cfSelectReview ol").append(s);                    
+
+                    $("a.cfreview").click(function () {
+                        $("#cfSelectReview").slideToggle();
+                        $("#cfManualReview").hide();
+                        cfSubmit($(this).attr("id"));
+                    });
+                } else {
+                    $("#cfNoReview").show();
+                }
+
+                $("#cfReviews").slideToggle();
+                $("#cfManualReviewSubmit").click(function (evt) {
+                    evt.preventDefault();
+                    var id = $("#cfManualReviewId").val().trim();
+                    if (id.match(/^\w+-\w+$/)) {
+                        $("#cfReviews").slideToggle();
+                        cfSubmit(id);
+                    }
+                });
+            });
+
+            function cfSubmit(id) {
+                $("#cfLoadReview").slideToggle();
+
+                CF.info(id, function (review) {
+                    $("#cfLoadReview").slideToggle();
+
+                    $("#jobTitle").val(review.Name);
+                    $("#jobItems").val(review.bugs.join(' '));
+                    $("#jobCR").val(review.signedoff.join(';'));
+                    $("#jobPackage").val(review.LatestCodePackage);
+                    $("#jobDescription").val(review.Description).attr("rows","8");
+                    $("#jobSubmit").click(function (evt) {
+                        evt.preventDefault();
+                        $("#submit").slideToggle();
+                        $("#iecatSubmit").slideToggle();
+
+                        $("#iecatShow").click(function () { IECAT.show(); });
+                        IECAT.submit({
+                            id: id,
+                            title: $("#jobTitle").val().trim(),
+                            bugs: $("#jobItems").val().trim(),
+                            reviewer: $("#jobCR").val().trim(),
+                            pack: $("#jobPackage").val().trim(),
+                            description: $("#jobDescription").val().trim()
+                        }, function (msg, type) {
+                            $("#iecatState").append('<li>{0}</li>'.format(msg));
+                        });
+                    });
+
+                    $("#submit").slideToggle();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

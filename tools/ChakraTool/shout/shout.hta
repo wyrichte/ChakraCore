@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<HTML lang="en">
+  <head>
+    <HTA:APPLICATION ID="Application" border="thick" borderStyle="complex" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Showing Unit Tests Results</title>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <style>
+     body {
+       padding-top: 70px;
+     }
+
+     .starter-template {
+       padding: 40px 15px;
+       text-align: center;
+     }
+
+     .error
+     {
+       color: red;
+     }
+
+     .invisible
+     {
+       display: none;
+     }
+     
+     #warningDiv
+     {
+       margin-top: 10px;
+     }
+     
+     #resultsPanel
+     {
+       margin-top: 10px;
+     }
+
+     .failureList {
+       table-layout: fixed;
+       word-wrap: break-word;
+     }
+
+     pre, h5 {
+       margin-right: 20px;
+     }
+
+     .interestingLines {
+       background-color: beige;
+       color: #a94442;
+     }
+
+     .no-ol:focus { outline: none; }
+    </style>
+
+    <script src="./util.js" ></script>
+    <script src="./shout-parser.js" ></script>
+    <script src="./shout-ui.js" ></script>
+    <script src="./shout.js" ></script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">ShoUT</a>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="root">
+      <div class="row">
+        <div class="span4">
+          <div id="msgDiv"></div>
+          <div class="invisible" id="warningsDiv"></div>
+          <div id="resultDiv" class="invisible"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span8">
+          <div id="debugConsoleContainer" class="invisible">
+            <span>Debug console:</span>
+            <button onclick="debugFlush()">Flush!</button>
+            <br />
+            <textarea id="debugConsole" cols=150 rows=50>
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
