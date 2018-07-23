@@ -1069,9 +1069,12 @@ void DumpPointerPropertiesHeader()
     GetExtension()->Out("                R           | Register Root\n");
     GetExtension()->Out("                 A          | Arena Root\n");
     GetExtension()->Out("                  I         | Implicit Root\n");
-    GetExtension()->Out("                    ^       | Click to execute `!jd.predecessors` on this node\n");
-    GetExtension()->Out("                      v     | Click to execute `!jd.successors` on this node\n");
-    GetExtension()->Out("                        >   | Click to execute `!jd.traceroots` on this node\n");
+    if (GetExtension()->PreferDML())
+    {
+        GetExtension()->Out("                    ^       | Click to execute `!jd.predecessors` on this node\n");
+        GetExtension()->Out("                      v     | Click to execute `!jd.successors` on this node\n");
+        GetExtension()->Out("                        >   | Click to execute `!jd.traceroots` on this node\n");
+    }
     GetExtension()->Out("  Pred   Succ Flags       * | Original input pointer\n");
     DumpPointerPropertiesSeparatorLine();
 }
@@ -1144,16 +1147,8 @@ void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     {
         GetExtension()->Dml("<link cmd=\"!jd.predecessors -limit 0 0x%p\">^</link> ", address);
         GetExtension()->Dml("<link cmd=\"!jd.successors -limit 0 0x%p\">v</link> ", address);
-    }
-    else
-    {
-        GetExtension()->Out("^ /*\"!jd.predecessors -limit 0 0x%p\"*/", address);
-        GetExtension()->Out("v /*\"!jd.successors -limit 0 0x%p\"*/", address);
-    }
 
-    bool isInput = (pointerArg == address); // display * or > with link as appropriate
-    if (GetExtension()->PreferDML())
-    {
+        bool isInput = (pointerArg == address); // display * or > with link as appropriate
         if (isInput)
         {
             GetExtension()->Out("  "); // spacer for >
@@ -1167,16 +1162,7 @@ void DumpPointerProperties(RecyclerObjectGraph &objectGraph, ULONG64 pointerArg,
     }
     else
     {
-        if (isInput)
-        {
-            GetExtension()->Out("  "); // spacer for >
-            GetExtension()->Out("* /*\"!jd.traceroots 0x%p\"*/", address);
-        }
-        else
-        {
-            GetExtension()->Out("> /*\"!jd.traceroots 0x%p\"*/", address);
-            GetExtension()->Out("  "); // spacer for *
-        }
+        GetExtension()->Out("        ");
     }
 
     GetExtension()->Out(" | ");

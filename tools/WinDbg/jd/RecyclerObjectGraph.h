@@ -22,10 +22,12 @@ struct RecyclerGraphNodeData
         rootType(RootType::RootTypeNone)
     {
         Assert(IsLegalAddress(address));
+        Assert((address / 16) * 16 == address);
         ClearTypeInfo();
     }
 
     ULONG64 Key() const { return address; }
+    ULONG64 HashKey() const { return address / 16; } // Recycler objects are 16 bytes aligned
     uint GetObjectSize() const { return objectSize; }
     void SetObjectSize(uint size) { objectSize = size; }
     uint GetDepth() const { return depth; }
@@ -47,7 +49,7 @@ struct RecyclerGraphNodeData
 
     static bool IsLegalAddress(ULONG64 address)
     {
-        return (address & 0xFF00000000000000) == 0;
+        return (address & 0xFF0000000000000F) == 0;
     }
 
 private:

@@ -21,7 +21,6 @@ class RootPointers;
 #include "RemoteThreadContext.h"
 
 #include <map>
-#include "FieldInfoCache.h"
 #include "RecyclerObjectTypeInfo.h"
 #include "JDByteCodeCachedData.h"
 
@@ -218,8 +217,6 @@ public:
     BLOCKTYPELIST(DEFINE_BLOCKTYPE_ENUM_ACCESSOR);
 #undef DEFINE_BLOCKTYPE_ENUM_ACCESSOR
 
-    
-    FieldInfoCache fieldInfoCache;
     RecyclerCachedData recyclerCachedData;
     RecyclerObjectTypeInfo::Cache recyclerObjectTypeInfoCache;    
     CachedTypeInfo m_AuxPtrsFix16;
@@ -291,7 +288,6 @@ protected:
         this->byteCodeCachedData.Clear();
         this->recyclerCachedData.Clear();
         this->typeCache.Clear();
-        this->fieldInfoCache.Clear();
         this->chakraModuleBaseAddress = 0;
         this->chakraModuleEndAddress = 0;
         this->edgeModuleBaseAddress = 0;

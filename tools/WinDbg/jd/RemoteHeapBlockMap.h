@@ -8,10 +8,40 @@
 class RemoteHeapBlockMap
 {
 public:
+    class HeapBlockAddressHashCompare
+    {
+    public:
+        static const size_t bucket_size = 4;
+        static const size_t min_buckets = 8;
+        size_t operator()(ULONG64 address) const
+        {
+            Assert((address / 8) * 8 == address);
+            return (size_t)(address / 8);        // Heap allocations are 8 bytes aligned;
+        }
+        bool operator()(ULONG64 a, ULONG64 b) const
+        {
+            return a < b;
+        }
+    };
+    class PageAddressHashCompare
+    {
+    public:
+        static const size_t bucket_size = 4;
+        static const size_t min_buckets = 8;
+        size_t operator()(ULONG64 address) const
+        {
+            Assert((address / 4096) * 4096 == address);
+            return (size_t)(address / 4096);
+        }
+        bool operator()(ULONG64 a, ULONG64 b) const
+        {
+            return a < b;
+        }
+    };
     struct Cache
     {
-        stdext::hash_map<ULONG64, RemoteHeapBlock *> addressToHeapBlockMap;
-        stdext::hash_map<ULONG64, RemoteHeapBlock> heapBlockAddressToHeapBlockMap;
+        stdext::hash_map<ULONG64, RemoteHeapBlock *, PageAddressHashCompare> addressToHeapBlockMap;
+        stdext::hash_map<ULONG64, RemoteHeapBlock, HeapBlockAddressHashCompare> heapBlockAddressToHeapBlockMap;
     };
     RemoteHeapBlockMap(JDRemoteTyped heapBlockMap);
 

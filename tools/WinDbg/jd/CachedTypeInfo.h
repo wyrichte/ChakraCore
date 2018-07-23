@@ -21,9 +21,9 @@ private:
 
     std::string typeName32;
     std::string typeName64;
-    char const * (*GetTypeNameFunc)();
-    bool isChakra;
-    bool memoryNS;
-    bool isPtrTo;
-    JDTypeInfo typeInfo;
+    char const * (*GetTypeNameFunc)() = nullptr;
+    bool isChakra = false;
+    bool memoryNS = false;
+    bool isPtrTo = false;
+    JDTypeInfo * typeInfo = nullptr;
 };

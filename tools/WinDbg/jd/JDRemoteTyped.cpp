@@ -5,18 +5,19 @@
 #include "stdafx.h"
 #include "JDRemoteTyped.h"
 #include "JDTypeCache.h"
+#include "FieldInfoCache.h"
 
 JDRemoteTyped::JDRemoteTyped() :
-    useExtRemoteTyped(true)
+    useExtRemoteTyped(true), typeInfo(nullptr)
 {    
 }
 
 JDRemoteTyped::JDRemoteTyped(ExtRemoteTyped const& remoteTyped)
-    : extRemoteTyped(remoteTyped), useExtRemoteTyped(true)
+    : extRemoteTyped(remoteTyped), useExtRemoteTyped(true), typeInfo(nullptr)
 {
 }
 
-JDRemoteTyped::JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo)
+JDRemoteTyped::JDRemoteTyped(JDTypeInfo * typeInfo, ULONG64 offset, bool ptrTo)
     : useExtRemoteTyped(false), typeInfo(typeInfo), isVoidPointer(false), isPtrTo(ptrTo)
 {
     if (isPtrTo)
@@ -38,39 +39,83 @@ JDRemoteTyped::JDRemoteTyped(ULONG64 address)
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Type, ULONG64 Offset, bool PtrTo)
-    : extRemoteTyped(Type, Offset, PtrTo), useExtRemoteTyped(true)
+    : extRemoteTyped(Type, Offset, PtrTo), useExtRemoteTyped(true), typeInfo(nullptr)
 {
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Expr, ULONG64 Offset)
-    : extRemoteTyped(Expr, Offset), useExtRemoteTyped(true)
+    : extRemoteTyped(Expr, Offset), useExtRemoteTyped(true), typeInfo(nullptr)
 {
 }
 
 JDRemoteTyped::JDRemoteTyped(PCSTR Expr)
-    : extRemoteTyped(Expr), useExtRemoteTyped(true)
+    : extRemoteTyped(Expr), useExtRemoteTyped(true), typeInfo(nullptr)
 {
 }
 
-bool JDRemoteTyped::HasField(PCSTR field)
+JDTypeInfo *
+JDRemoteTyped::GetTypeInfo()
 {
-    if (this->isVoidPointer)
+    if (!useExtRemoteTyped)
+    {
+        return this->typeInfo;
+    }
+
+    if (this->typeInfo == nullptr)
+    {
+        this->typeInfo = JDTypeInfo::FromExtRemoteTyped(extRemoteTyped);
+    }
+    return this->typeInfo;
+}
+
+bool JDRemoteTyped::HasField(PCSTR fieldName)
+{
+    if (!useExtRemoteTyped && this->isVoidPointer)
     {
         return false;
     }
-    return FieldInfoCache::HasField(*this, field);
+
+    const char* fieldNameEnd = strchr(fieldName, '.');
+    FieldInfoCache::FieldInfo fieldInfo = this->GetTypeInfo()->GetFieldInfoCache()->GetFieldInfo(fieldName, fieldNameEnd);
+    if (fieldNameEnd == nullptr || !fieldInfo.IsValid())
+    {
+        return fieldInfo.IsValid();
+    }
+    if (fieldInfo.GetTypeInfo()->IsBitField())
+    {
+        // Bit fields shouldn't have more subfield
+        return false;
+    }
+    JDRemoteTyped field = JDRemoteTyped(fieldInfo.GetTypeInfo(), (this->IsPointerType() ? this->GetPtr() : this->GetOffset()) + fieldInfo.GetFieldOffset());
+    return field.HasField(fieldNameEnd + 1);
 }
 
-JDRemoteTyped JDRemoteTyped::Field(PCSTR field)
+JDRemoteTyped JDRemoteTyped::Field(PCSTR fieldName)
 {
-    return FieldInfoCache::GetField(*this, field);
+    const char* fieldNameEnd = strchr(fieldName, '.');
+    FieldInfoCache::FieldInfo fieldInfo = this->GetTypeInfo()->GetFieldInfoCache()->GetFieldInfo(fieldName, fieldNameEnd);
+
+    if (!fieldInfo.IsValid())
+    {
+        g_Ext->ThrowStatus(E_FAIL, "FieldInfoCache::GetField - Field '%s' doesn't exist", fieldName);
+    }
+
+    if (fieldInfo.GetTypeInfo()->IsBitField())
+    {
+        // We can't get back the ExtRemoteTyped for a bit field from the JDTypeInfo.
+        // Until we get rid of the reliance of ExtRemoteType, we can't use the cached information
+        return this->GetExtRemoteTyped().Field(fieldName);
+    }
+
+    JDRemoteTyped field = JDRemoteTyped(fieldInfo.GetTypeInfo(), (this->IsPointerType() ? this->GetPtr() : this->GetOffset()) + fieldInfo.GetFieldOffset());
+    return fieldNameEnd ? field.Field(fieldNameEnd + 1) : field;
 }
 
 JDRemoteTyped JDRemoteTyped::ArrayElement(LONG64 index)
 {
     if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
     {
-        return JDRemoteTyped(this->typeInfo, this->data + this->typeInfo.GetSize() * index);
+        return JDRemoteTyped(this->typeInfo, this->data + this->typeInfo->GetSize() * index);
     }
     return GetExtRemoteTyped().ArrayElement(index);
 }
@@ -158,11 +203,11 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
         }
         else if (this->isPtrTo)
         {
-            extRemoteTyped.Set(true, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), this->data);
+            extRemoteTyped.Set(true, this->typeInfo->GetModBase(), this->typeInfo->GetTypeId(), this->data);
         }
         else
         {
-            extRemoteTyped.Set(false, this->typeInfo.GetModBase(), this->typeInfo.GetTypeId(), this->offset);
+            extRemoteTyped.Set(false, this->typeInfo->GetModBase(), this->typeInfo->GetTypeId(), this->offset);
         }
         useExtRemoteTyped = true;
     }
@@ -171,9 +216,17 @@ ExtRemoteTyped& JDRemoteTyped::GetExtRemoteTyped()
 
 JDRemoteTyped JDRemoteTyped::Dereference()
 {
-    if (!useExtRemoteTyped && this->isPtrTo && !this->isVoidPointer)
+    if (!useExtRemoteTyped && !this->isVoidPointer)
     {
-        return JDRemoteTyped(typeInfo, this->data);
+        if (this->isPtrTo)
+        {
+            return JDRemoteTyped(typeInfo, this->data);
+        }
+        JDTypeInfo * derefType = typeInfo->GetDerefType();
+        if (derefType)
+        {
+            return JDRemoteTyped(derefType, this->GetPtr());
+        }
     }
     return GetExtRemoteTyped().Dereference();
 }
@@ -351,7 +404,7 @@ T JDRemoteTyped::EnsureData()
     }
 
     Assert(!this->isPtrTo);
-    if (this->typeInfo.GetSize() != sizeof(T))
+    if (this->typeInfo->GetSize() != sizeof(T))
     {
         g_Ext->ThrowLastError("JDRemoteTyped: Size mismatch");
     }
@@ -382,9 +435,9 @@ T JDRemoteTyped::EnsureData()
         g_Ext->ThrowLastError("Unable to read");
     }
 
-    if (this->typeInfo.IsBitField())
+    if (this->typeInfo->IsBitField())
     {
-        data = (data >> this->typeInfo.GetBitOffset()) & ((1 << this->typeInfo.GetBitLength()) - 1);
+        data = (data >> this->typeInfo->GetBitOffset()) & ((1 << this->typeInfo->GetBitLength()) - 1);
     }
     isDataValid = true;
     return *(T *)&data;
@@ -398,7 +451,7 @@ ULONG64 JDRemoteTyped::GetModBase()
     {
         return extRemoteTyped.m_Typed.ModBase;
     }
-    return this->typeInfo.GetModBase();
+    return this->typeInfo->GetModBase();
 }
 
 ULONG JDRemoteTyped::GetTypeId()
@@ -407,7 +460,7 @@ ULONG JDRemoteTyped::GetTypeId()
     {
         return extRemoteTyped.m_Typed.TypeId;
     }
-    return this->typeInfo.GetTypeId();
+    return this->typeInfo->GetTypeId();
 }
 
 bool JDRemoteTyped::IsPointerType()
@@ -416,7 +469,7 @@ bool JDRemoteTyped::IsPointerType()
     {
         return extRemoteTyped.m_Typed.Tag == SymTagPointerType;
     }
-    return this->isPtrTo || this->typeInfo.IsPointerType();
+    return this->isPtrTo || this->typeInfo->IsPointerType();
 }
 
 ULONG JDRemoteTyped::GetTypeSize()
@@ -425,7 +478,7 @@ ULONG JDRemoteTyped::GetTypeSize()
     {
         return extRemoteTyped.GetTypeSize();
     }
-    return this->isPtrTo ? g_Ext->m_PtrSize : this->typeInfo.GetSize();
+    return this->isPtrTo ? g_Ext->m_PtrSize : this->typeInfo->GetSize();
 }
 
 ULONG64 JDRemoteTyped::GetOffset()
