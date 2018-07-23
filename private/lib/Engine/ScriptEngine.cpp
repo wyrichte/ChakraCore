@@ -257,16 +257,16 @@ HRESULT ScriptEngine::InitializeThreadBound()
                     // too many pinned objects case (the number was roughly derived from telemetry data)
                     if (threadContext->GetRecycler()->GetPinnedObjectCount() > 150000)
                     {
-                        OutOfMemoryTooManyPinnedObjects_unrecoverable_error();
+                        OutOfMemoryTooManyPinnedObjects_unrecoverable_error((BYTE)threadContext->visibilityState);
                     }
 
                     // too many closed contexts case (the number was roughly derived from telemetry data)
                     if (threadContext->closedScriptContextCount > 500)
                     {
-                        OutOfMemoryTooManyClosedContexts_unrecoverable_error();
+                        OutOfMemoryTooManyClosedContexts_unrecoverable_error((BYTE)threadContext->visibilityState);
                     }
 
-                    OutOfMemoryAllocationPolicy_unrecoverable_error();
+                    OutOfMemoryAllocationPolicy_unrecoverable_error((BYTE)threadContext->visibilityState);
                 }
 
                 return true;

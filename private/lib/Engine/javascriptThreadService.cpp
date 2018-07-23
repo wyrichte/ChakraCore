@@ -831,7 +831,9 @@ STDMETHODIMP JavascriptThreadService::SetHasNativeGCHost()
 
 STDMETHODIMP JavascriptThreadService::OnVisibilityChange(boolean visible)
 {
-    Unused(visible);
+    ThreadContext::GetContextForCurrentThread()->visibilityState = visible? 
+                                                                    ThreadContext::VisibilityState::Visible : 
+                                                                    ThreadContext::VisibilityState::NotVisible;
     return S_OK;
 }
 
