@@ -1984,10 +1984,24 @@ namespace Js
         ExternalObject::SetPrototype(newPrototype);
     }
 
-    void CustomExternalObject::CacheJavascriptDispatch(JavascriptDispatch* javascriptDispatch)
+    DispatchAndStringBag* CustomExternalObject::CacheJavascriptDispatch(JavascriptDispatch* javascriptDispatch)
     {
-        // GC will keep the instance alive.
-        this->cachedJavascriptDispatch = javascriptDispatch;
+        if (this->dispatchAndStringBag != nullptr || javascriptDispatch != nullptr)
+        {
+            if (this->dispatchAndStringBag == nullptr)
+            {
+                this->dispatchAndStringBag = RecyclerNew(GetRecycler(), DispatchAndStringBag, GetRecycler(), javascriptDispatch);
+            }
+            else
+            {
+                this->dispatchAndStringBag->m_dispatch = javascriptDispatch;
+            }
+        }
+        return this->dispatchAndStringBag;
     }
 
+    JavascriptDispatch* CustomExternalObject::GetCachedJavascriptDispatch()
+    {
+        return this->dispatchAndStringBag ? this->dispatchAndStringBag->m_dispatch : nullptr;
+    }
 }
