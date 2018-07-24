@@ -9,6 +9,7 @@ class JavascriptDispatch;
 // forward declcaration from edgescriptdirect.h as we don't want to include it in library.
 
 typedef int JavascriptTypeId;
+typedef JsUtil::BaseDictionary<int, Js::PropertyRecord const*, Recycler, PowerOf2SizePolicy> Int32InternalStringMap;
 
 namespace Js
 {
@@ -42,6 +43,16 @@ namespace Js
     };
     AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(ExternalType, &RecyclableObject::DumpObjectFunction);
 
+    // This is used in the CEObject to keep property id alive.
+    class DispatchAndStringBag : public Int32InternalStringMap
+    {
+    public:
+        DispatchAndStringBag(Recycler *recycler, JavascriptDispatch* dispatch)
+            : Int32InternalStringMap(recycler, 32), m_dispatch(dispatch)
+        {
+        }
+        JavascriptDispatch *m_dispatch;
+    };
 
     class ExternalTypeWithInheritedTypeIds : public ExternalType
     {
@@ -66,10 +77,10 @@ namespace Js
         DEFINE_VTABLE_CTOR(ExternalObject, DynamicObject);
 
         void* finalizer;
-        // This is used in CustomExternalObject only. If we have JavascriptDispatch hosting CustomExternalObject, the
-        // life time of JavascriptDispatch should be the same as the hosted CustomExternalObject. This way we can
-        // keep the propertyids cached with the JavascriptDispatch to have the same lifetime of the CEO.
-        JavascriptDispatch* cachedJavascriptDispatch;
+        // This is used in CustomExternalObject only. It is holding JavascriptDispatch and DispIDToPropertyIDMap.
+        // If we have JavascriptDispatch hosting CustomExternalObject, the life time of JavascriptDispatch should be the same as the hosted CustomExternalObject.
+        // Caching both JavascriptDispatch and PropertyIdMap will keep the propertyids alive
+        DispatchAndStringBag *dispatchAndStringBag;
 #if DBG_EXTRAFIELD
         UINT additionalByteCount;
 #endif

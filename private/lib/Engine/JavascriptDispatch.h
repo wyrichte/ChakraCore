@@ -4,6 +4,12 @@
 #pragma once
 
 namespace Memory { class Recycler; }
+typedef JsUtil::BaseDictionary<int, Js::PropertyRecord const*, Recycler, PowerOf2SizePolicy> Int32InternalStringMap;
+namespace Js
+{
+    class DispatchAndStringBag;
+}
+
 class JavascriptDispatch: public FinalizableObject, IDispatchEx, public IJavascriptDispatchLocalProxy, public IJavascriptDispatchRemoteProxy
 {
     friend class ScriptEngine;
@@ -73,8 +79,8 @@ protected:
     // We cache this the string to hold a reference with the assumption that getting a reference
     // to the disp id means that the caller is going to set the property soon so we dont want the
     // associated property string to be reclaimed
-    typedef JsUtil::BaseDictionary<int, Js::PropertyRecord const*, Recycler, PowerOf2SizePolicy> Int32InternalStringMap;
-    Int32InternalStringMap* dispIdPropertyStringMap;
+    Js::DispatchAndStringBag *dispatchAndStringBag;
+
     void CachePropertyId(Js::PropertyRecord const* propertyRecord, BOOL isPropertyId = true);
     HRESULT ResetContentToNULL();
 

@@ -14,7 +14,7 @@ namespace Js
                     , UINT byteCount
 #endif
         ) :
-        DynamicObject(type), finalizer(NULL), cachedJavascriptDispatch(NULL)
+        DynamicObject(type), finalizer(nullptr), dispatchAndStringBag(nullptr)
 #if DBG_EXTRAFIELD
         , additionalByteCount(byteCount)
 #endif
@@ -98,7 +98,7 @@ namespace Js
             Js::CustomExternalObject * ceo = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(this);
             if (ceo)
             {
-                ceo->CacheJavascriptDispatch(NULL);
+                ceo->CacheJavascriptDispatch(nullptr);
             }
         }
         return NOERROR;

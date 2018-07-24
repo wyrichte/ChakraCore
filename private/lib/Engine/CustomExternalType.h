@@ -95,6 +95,7 @@ namespace Js
         CustomEnumerator* CreateEnumerator(ScriptContext* scriptContext, IVarEnumerator* varEnumerator);
 
         CustomExternalType * GetCustomExternalType() const { return (CustomExternalType *)this->GetExternalType(); }
+
     protected:
         DEFINE_VTABLE_CTOR(CustomExternalObject, ExternalObject);
 
@@ -167,8 +168,9 @@ namespace Js
             return this->GetNameId();
         }
 
-        void CacheJavascriptDispatch(JavascriptDispatch* javascriptDispatch);
-        JavascriptDispatch* GetCachedJavascriptDispatch() const { return cachedJavascriptDispatch; }
+        DispatchAndStringBag* CacheJavascriptDispatch(JavascriptDispatch* javascriptDispatch);
+        JavascriptDispatch* GetCachedJavascriptDispatch();
+
         FinalizeMethod GetFinalizer() const { return (FinalizeMethod)finalizer; }
 
     };
