@@ -16,13 +16,13 @@ public:
     JDRemoteTyped(ExtRemoteTyped const& remoteTyped);
 
 
-    JDRemoteTyped(JDTypeInfo const& typeInfo, ULONG64 offset, bool ptrTo = false);
+    JDRemoteTyped(JDTypeInfo * typeInfo, ULONG64 offset, bool ptrTo = false);
+
+    JDTypeInfo * GetTypeInfo();
 
     bool HasField(PCSTR name);
     JDRemoteTyped Field(PCSTR name);
     JDRemoteTyped ArrayElement(LONG64 index);
-
-    JDRemoteTyped BitField(PCSTR name);
 
     static JDRemoteTyped NullPtr();
     static JDRemoteTyped VoidPtr(ULONG64 address);
@@ -68,9 +68,6 @@ public:
     ULONG64 GetObjectPtr();
 private:
     JDRemoteTyped(ULONG64 address);
-
-    friend class JDTypeCache;
-    friend class FieldInfoCache;
     
     ULONG64 GetModBase();
     ULONG GetTypeId();
@@ -81,7 +78,7 @@ private:
     T EnsureData();
 
     ExtRemoteTyped extRemoteTyped;
-    JDTypeInfo typeInfo;
+    JDTypeInfo * typeInfo;
     ULONG64 offset;
     ULONG64 data;
     bool isDataValid;

@@ -240,5 +240,3 @@ void MapPinnedObjects(ExtRemoteTyped recycler, const Fn& callback);
 // - RecyclerObjectGraph::GraphImplNodeType
 template <typename TNode>
 void FormatPointerFlags(char *buffer, uint bufferLength, TNode *node);
-
-ULONG64 GetStackTop();

@@ -508,7 +508,7 @@ JD_PRIVATE_COMMAND(oi,
 
         if (verbose)
         {
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext, GetStackTop());
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(recycler, &threadContext);
             if (rootPointers->Contains(objectAddress))
             {
                 Out("Is Root: true\n");
@@ -2130,7 +2130,7 @@ MPH_COMMAND(mpheap,
                 return;
             }
 
-            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(remoteRecycler, nullptr, GetStackTop());
+            Addresses * rootPointers = this->recyclerCachedData.GetRootPointers(remoteRecycler, nullptr);
             rootPointers->Map([&remoteRecycler, &verbose, &address](ULONG64 rootAddress)
             {
                 GetExtension()->ThrowInterrupt();

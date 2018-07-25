@@ -24,9 +24,15 @@ void JDTypeCache::Clear()
     this->typeNames.clear();
     this->cacheTypeInfoCache.clear();
     this->chakraCacheTypeInfoCache.clear();
+
+    for (auto i : this->typeInfos)
+    {
+        delete i.GetTypeInfo();
+    }
+    this->typeInfos.clear();
 }
 
-JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
+JDTypeInfo * JDTypeCache::GetCachedTypeInfo(char const * typeName)
 {
     // NOTE: This function assume typeName is not a pointer type.
     // This is either called from a vtable derived type name, or JDTypeCache::Cast
@@ -45,7 +51,7 @@ JDTypeInfo JDTypeCache::GetCachedTypeInfo(char const * typeName)
         && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeId(modBase, typeName, &typeId))
         && SUCCEEDED(GetExtension()->m_Symbols3->GetTypeSize(modBase, typeId, &size)))
     {
-        JDTypeInfo typeInfo = JDTypeInfo(modBase, typeId, size, false);
+        JDTypeInfo * typeInfo = JDTypeCache::GetTypeInfo(modBase, typeId, size, SymTagUDT, 0, 0);
         this->cacheTypeInfoCache[typeName] = typeInfo;
         return typeInfo;
     }
@@ -61,10 +67,10 @@ char const * JDTypeCache::AddTypeName(char const * typeName)
     return name;
 }
 
-char const * JDTypeCache::GetTypeName(JDTypeInfo const& typeInfo, bool isPtrTo)
+char const * JDTypeCache::GetTypeName(JDTypeInfo const * typeInfo, bool isPtrTo)
 {
     JDTypeCache& typeCache = GetExtension()->typeCache;
-    NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), isPtrTo };
+    NameKey nameKey = { typeInfo->GetModBase(), typeInfo->GetTypeId(), isPtrTo };
     auto i = typeCache.typeNameMap.find(nameKey);
     if (i != typeCache.typeNameMap.end())
     {
@@ -74,7 +80,7 @@ char const * JDTypeCache::GetTypeName(JDTypeInfo const& typeInfo, bool isPtrTo)
     char const * foundName = nullptr;
     if (isPtrTo)
     {
-        NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), false };
+        NameKey nameKey = { typeInfo->GetModBase(), typeInfo->GetTypeId(), false };
         auto i = typeCache.typeNameMap.find(nameKey);
         if (i != typeCache.typeNameMap.end())
         {
@@ -86,9 +92,9 @@ char const * JDTypeCache::GetTypeName(JDTypeInfo const& typeInfo, bool isPtrTo)
     {
         char originalTypeName[1024];
         ULONG originalTypeNameSize;
-        if (SUCCEEDED(GetExtension()->m_Symbols3->GetTypeName(typeInfo.GetModBase(), typeInfo.GetTypeId(), originalTypeName, _countof(originalTypeName), &originalTypeNameSize)))
+        if (SUCCEEDED(GetExtension()->m_Symbols3->GetTypeName(typeInfo->GetModBase(), typeInfo->GetTypeId(), originalTypeName, _countof(originalTypeName), &originalTypeNameSize)))
         {
-            NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), false };
+            NameKey nameKey = { typeInfo->GetModBase(), typeInfo->GetTypeId(), false };
             char const * typeName = typeCache.AddTypeName(originalTypeName);
             typeCache.typeNameMap[nameKey] = typeName;
             foundName = typeName;
@@ -111,7 +117,7 @@ char const * JDTypeCache::GetTypeName(JDTypeInfo const& typeInfo, bool isPtrTo)
             ptrToName += " *";
         }
 
-        NameKey nameKey = { typeInfo.GetModBase(), typeInfo.GetTypeId(), true };
+        NameKey nameKey = { typeInfo->GetModBase(), typeInfo->GetTypeId(), true };
         foundName = typeCache.AddTypeName(ptrToName.c_str());
         typeCache.typeNameMap[nameKey] = foundName;
     }
@@ -133,21 +139,29 @@ JDRemoteTyped JDTypeCache::Cast(LPCSTR typeName, ULONG64 original)
         return JDRemoteTyped(i->second, original, true);
     }
 
-    JDTypeInfo typeInfo;
-    // REVIEW: this check will produce false positive if the pointer type is in the template paramater.
-    // but it will still give the right answer.
-    // The only consequence is that  it won't use the cacheTypeInfoCache, but it will still be cached
-    // in chakraCacheTypeInfoCAche   
-    if (strchr(typeName, '*') != nullptr)
+    JDTypeInfo * typeInfo;
+    size_t typeNameLen = strlen(typeName);
+    if (typeNameLen != 0 && typeName[typeNameLen - 1] == '*')
     {
-        // A pointer type gives different answer with IDebugSymbol::GetTypeId, 
+        // A pointer type gives different answer with IDebugSymbol::GetTypeId,
         // which doesn't allow the type to do ArrayElement access
         // Use ExtRemoteTyped to get the type info of the pointer of the type and then dereference.
         CHAR typeNameBuffer[1024];
-        sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
-        ExtRemoteTyped result(typeNameBuffer, original);
-        ExtRemoteTyped deref = result.Dereference();
-        typeInfo = JDTypeInfo::FromExtRemoteTyped(deref);
+        if (typeNameLen != 1 && typeName[typeNameLen - 2] == '*')
+        {
+            // If we are a pointer to pointer then just the type name
+            sprintf_s(typeNameBuffer, "(%s!%s)@$extin", GetExtension()->GetModuleName(), typeName);
+            ExtRemoteTyped result(typeNameBuffer, original);
+            typeInfo = JDTypeInfo::FromExtRemoteTyped(result);
+        }
+        else
+        {   
+            // Otherwise, make it a pointer to pointer and deref it
+            sprintf_s(typeNameBuffer, "(%s!%s*)@$extin", GetExtension()->GetModuleName(), typeName);
+            ExtRemoteTyped result(typeNameBuffer, original);
+            ExtRemoteTyped deref = result.Dereference();
+            typeInfo = JDTypeInfo::FromExtRemoteTyped(deref);
+        }
     }
     else
     {
@@ -224,7 +238,7 @@ bool JDTypeCache::CastWithVtable(ULONG64 objectAddress, JDRemoteTyped& result, c
             *typeName = localTypeName;
         }
 
-        JDTypeInfo typeInfo = typeCache.GetCachedTypeInfo(localTypeName);
+        JDTypeInfo * typeInfo = typeCache.GetCachedTypeInfo(localTypeName);
         typeCache.vtableTypeInfoMap[vtbleAddr] = typeInfo;
         result = JDRemoteTyped(typeInfo, objectAddress, true);
         return true;
@@ -350,4 +364,34 @@ void JDTypeCache::WarnICF()
     {
         ExtOut("No ICF vtable detected");
     }
+}
+
+JDTypeInfo * JDTypeCache::GetTypeInfo(ULONG64 modBase, ULONG typeId, ULONG size, ULONG symTag, ULONG bitOffset, ULONG bitLength)
+{
+    JDTypeCache& typeCache = GetExtension()->typeCache;
+    JDTypeInfo typeInfo(modBase, typeId, size, symTag, bitOffset, bitLength);
+    auto i = typeCache.typeInfos.find(&typeInfo);
+    if (i != typeCache.typeInfos.end())
+    {
+        return i->GetTypeInfo();
+    }
+    JDTypeInfo * newTypeInfo = new JDTypeInfo(modBase, typeId, size, symTag, bitOffset, bitLength);
+    typeCache.typeInfos.insert(newTypeInfo);
+    return newTypeInfo;
+}
+
+JDTypeCache::JDTypeInfoRecord::operator size_t() const
+{
+    return static_cast<size_t>(*this->typeInfo);
+}
+
+bool JDTypeCache::JDTypeInfoRecord::operator<(JDTypeInfoRecord const& other) const
+{
+    return *this->typeInfo < *other.typeInfo;
+}
+
+JDTypeInfo *
+JDTypeCache::JDTypeInfoRecord::GetTypeInfo() const
+{
+    return typeInfo;
 }

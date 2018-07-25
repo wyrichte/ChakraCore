@@ -5,20 +5,20 @@
 #include "CachedTypeInfo.h"
 
 CachedTypeInfo::CachedTypeInfo(char const * typeName, bool memoryNS, bool isChakra, bool isPtrTo) :
-    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr), isPtrTo(isPtrTo)
+    typeName32(typeName), typeName64(typeName), memoryNS(memoryNS), isChakra(isChakra),  isPtrTo(isPtrTo)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * typeName32, char const * typeName64, bool memoryNS, bool isChakra, bool isPtrTo) :
-    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), GetTypeNameFunc(nullptr), isPtrTo(isPtrTo)
+    typeName32(typeName32), typeName64(typeName64), memoryNS(memoryNS), isChakra(isChakra), isPtrTo(isPtrTo)
 {}
 
 CachedTypeInfo::CachedTypeInfo(char const * (*GetTypeNameFunc)()) :
-    memoryNS(false), isChakra(false), GetTypeNameFunc(GetTypeNameFunc)
+    GetTypeNameFunc(GetTypeNameFunc)
 {}
 
 void CachedTypeInfo::Clear()
 {
-    typeInfo.Clear();
+    typeInfo = nullptr;
 }
 
 char const * const CachedTypeInfo::GetTypeName()
@@ -37,7 +37,7 @@ ULONG CachedTypeInfo::GetSize()
 {
     Assert(!isPtrTo);
     EnsureCached();
-    return typeInfo.GetSize();
+    return typeInfo->GetSize();
 }
 
 void CachedTypeInfo::EnsureTypeName()
@@ -52,7 +52,7 @@ void CachedTypeInfo::EnsureTypeName()
 
 void CachedTypeInfo::EnsureCached()
 {
-    if (typeInfo.IsValid())
+    if (typeInfo != nullptr)
     {
         return;
     }

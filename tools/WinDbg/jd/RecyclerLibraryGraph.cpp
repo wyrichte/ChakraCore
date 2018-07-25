@@ -280,7 +280,7 @@ JD_PRIVATE_COMMAND(jslibstats,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         RecyclerObjectGraph::TypeInfoFlags::Infer));
 
 
@@ -345,7 +345,7 @@ JD_PRIVATE_COMMAND(jslibpreds,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         RecyclerObjectGraph::TypeInfoFlags::Infer));
     RecyclerLibraryGraph& libraryGraph = *objectGraph.GetLibraryGraph();
     LibrarySummary const * summary = libraryGraph.GetLibrarySummary(libraryArg);
@@ -369,7 +369,7 @@ JD_PRIVATE_COMMAND(jslibsuccs,
     RemoteThreadContext threadContext;
     RemoteRecycler recycler = GetRecycler(recyclerArg, &threadContext);
 
-    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, GetStackTop(),
+    RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext,
         RecyclerObjectGraph::TypeInfoFlags::Infer));
     RecyclerLibraryGraph& libraryGraph = *objectGraph.GetLibraryGraph();
     LibrarySummary const * summary = libraryGraph.GetLibrarySummary(libraryArg);

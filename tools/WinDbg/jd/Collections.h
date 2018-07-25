@@ -834,7 +834,7 @@ private:
         static const size_t min_buckets = 8;
         size_t operator()(const NodeType * _Key) const
         {
-            return comp(_Key->Key());
+            return comp(_Key->HashKey());
         }
         bool operator()(
             const NodeType * _Key1,

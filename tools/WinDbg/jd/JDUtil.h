@@ -3,7 +3,6 @@
 //----------------------------------------------------------------------------
 
 #pragma once
-#include "FieldInfoCache.h"
 class JDUtil
 {
 public:

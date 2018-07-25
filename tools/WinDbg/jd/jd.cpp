@@ -1279,7 +1279,7 @@ static void DumpArgs(ULONG callCount, ULONG64 addressOfArguments)
 static void DumpInlineeFrames(ULONG64 frameAddr, bool dumpArgs, bool verbose)
 {
     JDRemoteTyped frame(ExtRemoteTyped(GetExtension()->FillModule("(%s!InlinedFrameLayout *)@$extin"), frameAddr));
-    ULONG argCount = (ULONG)frame.Field("callInfo").BitField("Count").GetSizeT();
+    ULONG argCount = (ULONG)frame.Field("callInfo").Field("Count").GetSizeT();
     if (argCount == 0)
     {
         return;

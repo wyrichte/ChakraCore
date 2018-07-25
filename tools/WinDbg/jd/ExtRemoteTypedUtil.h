@@ -18,7 +18,7 @@ public:
     {
         ExtRemoteTyped headExtRemoteTyped = head.GetExtRemoteTyped();
         ExtRemoteTyped deferencedType = headExtRemoteTyped.Dereference();
-        JDTypeInfo typeInfo = JDTypeInfo::FromExtRemoteTyped(deferencedType);
+        JDTypeInfo * typeInfo = JDTypeInfo::FromExtRemoteTyped(deferencedType);
         ULONG64 current = GetAsPointer(headExtRemoteTyped);
         ULONG64 headPtr = current;
         ULONG offset = headExtRemoteTyped.GetFieldOffset(field);
