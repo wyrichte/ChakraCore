@@ -94,20 +94,14 @@ namespace JsDiag
     uint32 RemoteInlineFrameWalker::GetCurrentInlineeOffset()
     {
         return m_currentIndex > 0 ?
-#pragma warning(push)
-#pragma warning(disable: 4254)
             RemoteInlinedFrameLayout(m_reader, GetFrameAtIndex(m_currentIndex - 1))->callInfo.InlineeStartOffset :
-#pragma warning(pop)
             0;
     }
 
     uint32 RemoteInlineFrameWalker::GetBottomMostInlineeOffset()
     {
         Assert(m_frameCount > 0);
-#pragma warning(push)
-#pragma warning(disable: 4254)
         return RemoteInlinedFrameLayout(m_reader, GetFrameAtIndex(m_frameCount - 1))->callInfo.InlineeStartOffset;
-#pragma warning(pop)
     }
 
     InlinedFrameLayout* RemoteInlineFrameWalker::GetCurrentFrame()
