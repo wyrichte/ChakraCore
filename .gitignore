@@ -7,6 +7,9 @@
 *.opendb
 *.user
 Build/VCBuild/
+
+# for create symolic link of VcBuild
+Build/VcBuild
 Build/Chakra.Full.VC.db
 Build/ipch/
 Build/*.VC.db
