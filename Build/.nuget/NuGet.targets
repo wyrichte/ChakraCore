@@ -41,12 +41,12 @@
         <RestoreCommand>$(NuGetCommand) install "$(PackagesConfig)" $(NonInteractiveSwitch) -ConfigFile $(NuGetConfigFile) -Source $(PackageSource) -OutputDirectory $(ExpandedPackageDir)</RestoreCommand>
     </PropertyGroup>
 
-    <Target Name="CheckPrerequisites" Condition="'$(BuildingGitRepo)'=='true'" AfterTargets="Build">
+    <Target Name="CheckPrerequisites" Condition="'$(VSO_MICROBUILD_V2)'!='True' AND '$(BuildingGitRepo)'=='true'" AfterTargets="Build">
         <!-- Raise an error if we're unable to locate nuget.exe  -->
         <Error Condition="'$(DownloadNuGetExe)' != 'true' AND !Exists('$(NuGetExePath)')" Text="Unable to locate '$(NuGetExePath)'" />
     </Target>
 
-    <Target Name="RestorePackages" Condition="'$(BuildingGitRepo)'=='true'" DependsOnTargets="CheckPrerequisites" AfterTargets="Build">
+    <Target Name="RestorePackages" Condition="'$(VSO_MICROBUILD_V2)'!='True' AND '$(BuildingGitRepo)'=='true'" DependsOnTargets="CheckPrerequisites" AfterTargets="Build">
         <Message Text="Running restore packages target" />
         <Message Condition="'$(RestorePackages)' == 'false'" Text="Skipping RestorePackages since it's false" />
         <Message Condition="'$(RestorePackages)' == 'true'" Text="Running $(RestoreCommand)" />
