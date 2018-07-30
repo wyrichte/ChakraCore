@@ -36,4 +36,10 @@
       <baseline>spread.baseline</baseline>
     </default>
   </test>
+  <test>
+    <default>
+      <files>rest.js</files>
+      <compile-flags>-args summary -endargs -ES2018ObjectRestSpread -forceSerialized</compile-flags>
+    </default>
+  </test>
 </regress-exe>
