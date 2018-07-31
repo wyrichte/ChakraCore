@@ -29,7 +29,7 @@ void PrintVar(IActiveScriptDirect* activeScriptDirect, Var varToPrint)
     hr = activeScriptDirect->VarToString(varToPrint, &bstr);
     if (SUCCEEDED(hr))
     {
-        printf("%S\n", bstr);
+        wprintf(_u("%ls\n"), bstr);
         SysFreeString(bstr);
     }
     else
@@ -174,9 +174,9 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
 
     LPCWSTR propertyName;
     hr = activeScriptDirect->GetPropertyName(propertyId, &propertyName);
-    printf("propertyname is %S \n", propertyName);
+    wprintf(_u("propertyname is %ls \n"), propertyName);
 
-    printf("throug interface access\n");
+    wprintf(_u("through interface access\n"));
     hr = defaultScriptOperations->SetProperty(activeScriptDirect, externalVar, propertyId,topFunc, &wasPropertySet);
     IfFailedReturn(hr);
 
@@ -194,22 +194,22 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         IfFailedReturn(hr);
         if (isSameObject)
         {
-            printf("correct: same object\n");
+            wprintf(_u("correct: same object\n"));
         }
         else
         {
-            printf("incorrect retrival of object\n");
+            wprintf(_u("incorrect retrival of object\n"));
         }
         BOOL enumerable;
         hr = defaultScriptOperations->IsEnumerable(activeScriptDirect, externalVar, propertyId, &enumerable);
-        printf("isnumerable =%d\n", enumerable);
+        wprintf(_u("isnumerable =%d\n"), enumerable);
 
         BOOL wasPropertyDelete;
         hr = defaultScriptOperations->DeleteProperty(activeScriptDirect, externalVar, propertyId, &wasPropertyDelete);
     }
     else
     {
-        printf("incorrect: can't find property");
+        wprintf(_u("incorrect: can't find property"));
     }
 
 
@@ -231,7 +231,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->SetHostObject(externalVar, externalVar);
     if (FAILED(hr))
     {
-        printf("SetHostObject failed: %x \n", hr);
+        wprintf(_u("SetHostObject failed: %x \n"), hr);
         return hr;
     }
 
@@ -239,7 +239,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
     hr = activeScriptDirect->GetHostObject(&hostObject);
     if (FAILED(hr))
     {
-        printf("GetHostObject failed: %x \n", hr);
+        wprintf(_u("GetHostObject failed: %x \n"), hr);
         return hr;
     }
 
@@ -260,19 +260,19 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         return hr;
     }
 
-    printf("direct function name is %ls\n", functionBSTRName);
+    wprintf(_u("direct function name is %ls\n"), functionBSTRName);
     SysFreeString(functionBSTRName);
 
     hr = activeScriptDirect->VarToString(functionVar, &functionBSTRName);
     IfFailedReturn(hr);
 
-    printf("constrctor function name is %ls\n", functionBSTRName);
+    wprintf(_u("constructor function name is %ls\n"), functionBSTRName);
     SysFreeString(functionBSTRName);
 
     hr = activeScriptDirect->VarToString(externalVar, &functionBSTRName);
     IfFailedReturn(hr);
 
-    printf("createtypedobject function name is %ls\n", functionBSTRName);
+    wprintf(_u("createtypedobject function name is %ls\n"), functionBSTRName);
     SysFreeString(functionBSTRName);
 
 
@@ -334,7 +334,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
         {
             return E_FAIL;
         }
-        printf("inherited typeid test passed 1\n");
+        wprintf(_u("inherited typeid test passed 1\n"));
     }
 
     {
@@ -370,7 +370,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
             // expect fail
             return E_FAIL;
         }
-        printf("inherited typeid test passed 2\n");
+        wprintf(_u("inherited typeid test passed 2\n"));
     }
 
     {
@@ -435,7 +435,7 @@ HRESULT TestBasicFastDOM(IActiveScriptDirect* activeScriptDirect)
             return E_FAIL;
         }
 
-        printf("Type slot test passed\n");
+        wprintf(_u("Type slot test passed\n"));
     }
 
     return NOERROR;
@@ -449,7 +449,7 @@ HRESULT TestDOMToString(IActiveScriptDirect* activeScriptDirect)
     PropertyId propertyId;
     BOOL wasPropertySet;
     CallInfo callInfo = {0, CallFlags_None};
-    printf("test dom toString\n");
+    wprintf(_u("test dom toString\n"));
     ITypeOperations* defaultScriptOperations;
     hr = activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations);
     IfFailedReturn(hr);
@@ -515,7 +515,7 @@ HRESULT TestArray(IActiveScriptDirect* activeScriptDirect)
     PropertyId propertyId;
     BOOL wasPropertySet;
     CallInfo callInfo = {0, CallFlags_None};
-    printf("test array\n");
+    wprintf(_u("test array\n"));
     ITypeOperations* defaultScriptOperations;
     hr = activeScriptDirect->GetDefaultTypeOperations(&defaultScriptOperations);
     if (FAILED(hr))
@@ -591,7 +591,7 @@ HRESULT PrintDate(IActiveScriptDirect* activeScriptDirect, Var varDate)
 
 HRESULT TestVarToDate(IActiveScriptDirect* activeScriptDirect)
 {
-    printf("test VarToDate/DateToVar\n");
+    wprintf(_u("test VarToDate/DateToVar\n"));
     HRESULT hr = NOERROR;
     CallInfo callInfo = {0, CallFlags_None};
 
@@ -612,7 +612,7 @@ HRESULT TestVarToDate(IActiveScriptDirect* activeScriptDirect)
         hr = activeScriptDirect->VarToDate(topFunc, &d);
         if (hr != E_INVALIDARG)
         {
-            printf("Fail: VarToDate did not return E_INVALIDARG on a non-JavascriptDate object: %x\n", hr);
+            wprintf(_u("Fail: VarToDate did not return E_INVALIDARG on a non-JavascriptDate object: %x\n"), hr);
         }
     }
 
@@ -627,7 +627,7 @@ HRESULT TestVarToDate(IActiveScriptDirect* activeScriptDirect)
 
     if (d1 != d2)
     {
-        printf("Fail: VarToDouble and VarToDate results are different -- %lf %lf\n", d1, d2);
+        wprintf(_u("Fail: VarToDouble and VarToDate results are different -- %lf %lf\n"), d1, d2);
     }
 
     // Verify round-trip to the same date
@@ -640,7 +640,7 @@ HRESULT TestVarToDate(IActiveScriptDirect* activeScriptDirect)
 
 HRESULT TestSYSTEMTIMEConversions(IActiveScriptDirect* activeScriptDirect)
 {
-    printf("test VarToSYSTEMTIME/VarToSYSTEMTIME\n");
+    wprintf(_u("test VarToSYSTEMTIME/VarToSYSTEMTIME\n"));
     HRESULT hr = NOERROR;
     Var varDate = NULL;
     SYSTEMTIME t1, t2;
@@ -650,7 +650,7 @@ HRESULT TestSYSTEMTIMEConversions(IActiveScriptDirect* activeScriptDirect)
         hr = (EXPR);                                                                           \
         if (hr != E_INVALIDARG)                                                                \
         {                                                                                      \
-            printf("Fail: "FNAME" did not return E_INVALIDARG on a NULL parameter: %x\n", hr); \
+            wprintf(_u("Fail: ") FNAME _u(" did not return E_INVALIDARG on a NULL parameter: %x\n"), hr); \
             if (varDate != NULL) PrintDate(activeScriptDirect, varDate);                       \
             return hr;                                                                         \
         }                                                                                      \
@@ -696,7 +696,7 @@ HRESULT TestSYSTEMTIMEConversions(IActiveScriptDirect* activeScriptDirect)
     // Verify conversions give us back the same time as the original
     if (memcmp(&t1, &t2, sizeof(SYSTEMTIME) != 0))
     {
-        printf("SYSTEMTIMEToVar / VarToSYSTEMTIME conversions FAILED\n");
+        wprintf(_u("SYSTEMTIMEToVar / VarToSYSTEMTIME conversions FAILED\n"));
         return E_FAIL;
     }
     return hr;
@@ -722,8 +722,8 @@ static HRESULT AssertIsPrimitiveType(IActiveScriptDirect* activeScriptDirect, LP
 
     if (res != isPrimitiveType)
     {
-        printf("Fail: IsPrimitiveType(%S) expected %s, actual %s\n", msg,
-            isPrimitiveType ? "TRUE" : "FALSE", res ? "TRUE" : "FALSE");
+        wprintf(_u("Fail: IsPrimitiveType(%S) expected %s, actual %s\n"), msg,
+            isPrimitiveType ? _u("TRUE") : _u("FALSE"), res ? _u("TRUE") : _u("FALSE"));
     }
     return hr;
 }
@@ -758,7 +758,7 @@ static HRESULT AssertIsPrimitiveType(IActiveScriptDirect* activeScriptDirect,
 }
 static HRESULT TestIsPrimitiveType(IActiveScriptDirect* activeScriptDirect)
 {
-    printf("test IsPrimitiveType\n");
+    wprintf(_u("test IsPrimitiveType\n"));
     HRESULT hr = NOERROR;
 
     LPCWSTR primitives[] = {

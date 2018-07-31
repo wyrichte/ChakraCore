@@ -4,6 +4,7 @@
 
 #include "StdAfx.h"
 #include "proxystub.h"
+#include "fcntl.h"
 #include "guids.h"
 #include "core\AtomLockGuids.h"
 #include "DbgHelp.h"
@@ -2089,6 +2090,13 @@ int _cdecl wmain1(int argc, __in_ecount(argc) LPWSTR argv[])
 
 int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
 {
+    if (_setmode(_fileno(stdout), _O_U8TEXT) == -1)
+    {
+        // Failed to set mode. Undefined behavior may result, so exit now.
+        wprintf(_u("Failed to set output stream mode. Exiting...\n"));
+        return EXIT_FAILURE;
+    }
+
     SetupUnhandledExceptionFilter();
 
     HostConfigFlags::pfnPrintUsage = PrintUsage;

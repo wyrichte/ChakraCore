@@ -300,7 +300,15 @@ Var WScriptFastDom::EchoToStream(FILE * stream, bool newLine, Var function, unsi
             {
                 fwprintf(stream, _u(" "));
             }
-            fwprintf(stream, _u("%ls"), argToString);
+
+            UINT len = SysStringLen(argToString);
+            for (UINT j = 0; j < len; j++)
+            {
+                if (argToString[j] != _u('\0'))
+                {
+                    fwprintf(stream, _u("%lc"), argToString[j]);
+                }
+            }
             SysFreeString(argToString);
         }
         else

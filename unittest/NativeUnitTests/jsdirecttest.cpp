@@ -8,15 +8,15 @@
 
 HRESULT VerifyTypeId(Var obj, JavascriptTypeId typeId)
 {
-    printf("verify typeid == %d : ", typeId);
+    wprintf(_u("verify typeid == %d : "), typeId);
     if (JsStaticAPI::DataConversion::GetTypeId(obj) == typeId)
     {
-        printf("SUCCEEDED\n");
+        wprintf(_u("SUCCEEDED\n"));
         return NOERROR;
     }
     else
     {
-        printf("FAILED\n");
+        wprintf(_u("FAILED\n"));
         return E_FAIL;
     }
 }
@@ -43,12 +43,12 @@ HRESULT VerifyVarToInt(MyScriptDirectTests* myTest)
         JsStaticAPI::DataConversion::VarToInt(myDouble, &actualOutput);
         if (actualOutput != tests[i][1])
         {
-            printf("verify DataConversion::VarToInt for double failed, expecting: %d, actual: %d.\n", (int)tests[i][1], actualOutput);
+            wprintf(_u("verify DataConversion::VarToInt for double failed, expecting: %d, actual: %d.\n"), (int)tests[i][1], actualOutput);
             return E_FAIL;
         }
         else
         {
-            printf("verify DataConversion::VarToInt for double succeeded.\n");
+            wprintf(_u("verify DataConversion::VarToInt for double succeeded.\n"));
         }
     }
     return NOERROR;
@@ -86,11 +86,11 @@ void RunLibraryObjectTests(MyScriptDirectTests* myTest)
         IActiveScriptDirect* scriptDirect = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(myUndefined);
         if (scriptDirect != myTest->GetScriptDirectNoRef())
         {
-            printf("library object test failed\n");
+            wprintf(_u("library object test failed\n"));
         }
         else
         {
-            printf("library object test succeeded\n");
+            wprintf(_u("library object test succeeded\n"));
         }
     }
 }
@@ -101,12 +101,12 @@ HRESULT VerifyBool(Var inVar, BOOL expected)
     HRESULT hr = JsStaticAPI::DataConversion::VarToBOOL(inVar, &result);
     if (FAILED(hr) || (expected ^ result))
     {
-        printf("verify bool failed, expecting: %d\n", expected);
+        wprintf(_u("verify bool failed, expecting: %d\n"), expected);
         return E_FAIL;
     }
     else
     {
-        printf("verify bool succeeded\n");
+        wprintf(_u("verify bool succeeded\n"));
         return NOERROR;
     }
 }
@@ -116,7 +116,7 @@ HRESULT VerifyIASD(Var inVar, IActiveScriptDirect* activeScriptDirect)
     IActiveScriptDirect* iasdFromVar = JsStaticAPI::DataConversion::VarToScriptDirectNoRef(inVar);
     if (iasdFromVar != activeScriptDirect)
     {
-        printf("FAILED: IASD from Var is not consistent with original IASD");
+        wprintf(_u("FAILED: IASD from Var is not consistent with original IASD"));
         return E_FAIL;
     }
     return NOERROR;
@@ -155,14 +155,14 @@ void RunConversionTests(MyScriptDirectTests* myTest)
     }
     if (SUCCEEDED(hr))
     {
-        printf("verify IASD\n");
+        wprintf(_u("verify IASD\n"));
         hr = VerifyIASD(myUndefined, myTest->GetScriptDirectNoRef());
     }
 }
 
 void RunJsDirectTest(MyScriptDirectTests* myTests)
 {
-    printf("run js direct API test\n");
+    wprintf(_u("run js direct API test\n"));
     RunLibraryObjectTests(myTests);
     RunConversionTests(myTests);
 }
@@ -172,17 +172,17 @@ void RunJsDirectTest(MyScriptDirectTests* myTests)
     hr = expr; \
     if (expected == hr) \
     { \
-        printf("SUCCESS: " #expr " // HRESULT == " #expected "\n"); \
+        wprintf(_u("SUCCESS: ") #expr _u(" // HRESULT == ") #expected _u("\n")); \
     } \
     else \
     { \
-        printf("FAILURE: " #expr " // HRESULT != " #expected "\n"); \
+        wprintf(_u("FAILURE: ") #expr _u(" // HRESULT != ") #expected _u("\n")); \
     }
 #ifndef NOSCRIPTSCOPE_CHECK_BOOL
 #define NOSCRIPTSCOPE_CHECK_BOOL(which, expected, message) \
-    printf(which == expected \
-        ? "SUCCESS: " #which " " message "\n" \
-        : "FAILURE: " #which " not " message "\n");
+    wprintf(which == expected \
+        ? _u("SUCCESS: ") #which _u(" ") message _u("\n") \
+        : _u("FAILURE: ") #which _u(" not ") message _u("\n"));
 
 IJavascriptThreadService* GetJavascriptThreadService(MyScriptDirectTests* myTests)
 {
@@ -215,7 +215,7 @@ void RunNoFailFastScopeTest(MyScriptDirectTests* myTests)
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(threadService, false), S_OK);
     myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
 
-    printf("RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.\n");
+    wprintf(_u("RunNoFailFastScopeTest: This SHOULD be printed out as the EnterScript earlier should NOT fail.\n"));
 }
 
 void RunJsDirectNoScriptScopeTests(MyScriptDirectTests* myTests)
@@ -279,7 +279,7 @@ void RunJsDirectNoScriptScopeFailfastTest(MyScriptDirectTests* myTests)
 
     JsStaticAPI::JavascriptLibrary::SetNoScriptScope(threadService, true);
     myTests->ParseAndExecute(_u("var x;"), S_OK); // this should cause EnterScriptObject
-    printf("This should not be printed out as the EnterScript earlier should have failed fast.\n");
+    wprintf(_u("This should not be printed out as the EnterScript earlier should have failed fast.\n"));
 }
 
 void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
@@ -303,12 +303,12 @@ void RunJsDirectDisableNoScriptScopeTest(MyScriptDirectTests* myTests)
     // NoScriptScope == false
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(threadService, false), S_OK);
     x->ChangeTypeToVar(&variant, &var); // should pass even before fix
-    printf("When NoScriptScope==false, this should pass.\n");
+    wprintf(_u("When NoScriptScope==false, this should pass.\n"));
 
     // NoScriptScope == true
     NOSCRIPTSCOPE_CHECK_HRESULT(JsStaticAPI::JavascriptLibrary::SetNoScriptScope(threadService, true), S_OK);
     x->ChangeTypeToVar(&variant, &var); // would fail before fix, expect to pass now
-    printf("When NoScriptScope==true, this should still pass.\n");
+    wprintf(_u("When NoScriptScope==true, this should still pass.\n"));
 }
 
 #undef NOSCRIPTSCOPE_CHECK_BOOL
@@ -320,22 +320,22 @@ void RunStaticLibVerificationTest()
 {
     JsStaticAPI::BinaryVerificationData binaryVerificationData;
     JsStaticAPI::DataConversion::FillInBinaryVerificationData(&binaryVerificationData);
-    printf("Please be careful when you change the baseline here as it will break edge browser unless edge is built with matching source in SD\n");
-    printf("Please add yongqu to codereview when you change this file\n");
-    printf("majorVersion: %d\n", binaryVerificationData.majorVersion);
-    printf("minorVersion: %d\n", binaryVerificationData.minorVersion);
-    printf("scriptEngineBaseSize: %d\n", binaryVerificationData.scriptEngineBaseSize);
-    printf("scriptEngineBaseOffset: %d\n", binaryVerificationData.scriptEngineBaseOffset);
-    printf("scriptContextBaseSize: %d\n", binaryVerificationData.scriptContextBaseSize);
-    printf("scriptContextBaseOffset: %d\n", binaryVerificationData.scriptContextBaseOffset);
-    printf("javascriptLibraryBaseSize: %d\n", binaryVerificationData.javascriptLibraryBaseSize);
-    printf("javascriptLibraryBaseOffset: %d\n", binaryVerificationData.javascriptLibraryBaseOffset);
-    printf("customExternalObjectSize: %d\n", binaryVerificationData.customExternalObjectSize);
-    printf("typeOffset: %d\n", binaryVerificationData.typeOffset);
-    printf("typeIdOffset: %d\n", binaryVerificationData.typeIdOffset);
-    printf("taggedIntSize: %d\n", binaryVerificationData.taggedIntSize);
-    printf("javascriptNumberSize: %d\n", binaryVerificationData.javascriptNumberSize);
-    printf("TypeIdLimit: %d\n", binaryVerificationData.typeIdLimit);
-    printf("numberUtilitiesBaseSize: %d\n", binaryVerificationData.numberUtilitiesBaseSize);
-    printf("numberUtilitiesBaseOffset: %d\n", binaryVerificationData.numberUtilitiesBaseOffset);
+    wprintf(_u("Please be careful when you change the baseline here as it will break edge browser unless edge is built with matching source in SD\n"));
+    wprintf(_u("Please add yongqu to codereview when you change this file\n"));
+    wprintf(_u("majorVersion: %d\n"), binaryVerificationData.majorVersion);
+    wprintf(_u("minorVersion: %d\n"), binaryVerificationData.minorVersion);
+    wprintf(_u("scriptEngineBaseSize: %d\n"), binaryVerificationData.scriptEngineBaseSize);
+    wprintf(_u("scriptEngineBaseOffset: %d\n"), binaryVerificationData.scriptEngineBaseOffset);
+    wprintf(_u("scriptContextBaseSize: %d\n"), binaryVerificationData.scriptContextBaseSize);
+    wprintf(_u("scriptContextBaseOffset: %d\n"), binaryVerificationData.scriptContextBaseOffset);
+    wprintf(_u("javascriptLibraryBaseSize: %d\n"), binaryVerificationData.javascriptLibraryBaseSize);
+    wprintf(_u("javascriptLibraryBaseOffset: %d\n"), binaryVerificationData.javascriptLibraryBaseOffset);
+    wprintf(_u("customExternalObjectSize: %d\n"), binaryVerificationData.customExternalObjectSize);
+    wprintf(_u("typeOffset: %d\n"), binaryVerificationData.typeOffset);
+    wprintf(_u("typeIdOffset: %d\n"), binaryVerificationData.typeIdOffset);
+    wprintf(_u("taggedIntSize: %d\n"), binaryVerificationData.taggedIntSize);
+    wprintf(_u("javascriptNumberSize: %d\n"), binaryVerificationData.javascriptNumberSize);
+    wprintf(_u("TypeIdLimit: %d\n"), binaryVerificationData.typeIdLimit);
+    wprintf(_u("numberUtilitiesBaseSize: %d\n"), binaryVerificationData.numberUtilitiesBaseSize);
+    wprintf(_u("numberUtilitiesBaseOffset: %d\n"), binaryVerificationData.numberUtilitiesBaseOffset);
 }

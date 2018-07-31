@@ -310,7 +310,7 @@ HRESULT TestRoundTrip(IActiveScriptDirect* activeScriptDirect, Int64TestCase* te
         {
             return NOERROR;
         }
-        printf("test failure: left: %16x right %16x \n", testCase->value, retInt64);
+        wprintf(_u("test failure: left: %16x right %16x \n"), testCase->value, retInt64);
         return E_FAIL;
     }
     else
@@ -330,7 +330,7 @@ HRESULT TestRoundTrip(IActiveScriptDirect* activeScriptDirect, Int64TestCase* te
         {
             return NOERROR;
         }
-        printf("test failure: left: %l right %l \n", testCase->value, retInt64);
+        wprintf(_u("test failure: left: %l right %l \n"), testCase->value, retInt64);
         return E_FAIL;
     }
 }
@@ -344,14 +344,14 @@ HRESULT TestToVARIANT(IActiveScriptDirect* activeScriptDirect)
     VARIANT variant;
     hr = activeScriptDirect->ChangeTypeFromVar(int64Var, VT_R8, &variant);
     IfFailedReturn(hr);
-    printf("int64 convert back to r8 is 0x%llx\n", (__int64)variant.dblVal);
+    wprintf(_u("int64 convert back to r8 is 0x%llx\n"), (__int64)variant.dblVal);
 
     hr = activeScriptDirect->UInt64ToVar(0x80000000000, &int64Var);
     IfFailedReturn(hr);
     hr = activeScriptDirect->ChangeTypeFromVar(int64Var, VT_R8, &variant);
     IfFailedReturn(hr);
     unsigned __int64 result = (unsigned __int64)(variant.dblVal);
-    printf("uint64 convert back to r8 is 0x%llx\n", result);
+    wprintf(_u("uint64 convert back to r8 is 0x%llx\n"), result);
 
     return NOERROR;
 }
@@ -364,7 +364,7 @@ HRESULT TestBuiltins(IActiveScriptDirect* activeScriptDirect)
     CallInfo callInfo = {0, CallFlags_None};
 	for (int i = 0; i < RTL_NUMBER_OF(builtinTestCases); i++)
 	{
-		printf("buildin test case %d ", i);
+        wprintf(_u("buildin test case %d "), i);
 		hr = activeScriptDirect->Parse(builtinTestCases[i], &topFunc);
 		IfFailedReturn(hr);
 		hr = activeScriptDirect->Execute(topFunc, callInfo, NULL, /*serviceProvider*/ NULL, &varResult);
@@ -375,7 +375,7 @@ HRESULT TestBuiltins(IActiveScriptDirect* activeScriptDirect)
 
 HRESULT TestInt64(IActiveScriptDirect* activeScriptDirect)
 {
-    printf("test int64\n");
+    wprintf(_u("test int64\n"));
     HRESULT hr;
     hr = SetupTestInt64(activeScriptDirect);
     IfFailedReturn(hr);
@@ -385,25 +385,25 @@ HRESULT TestInt64(IActiveScriptDirect* activeScriptDirect)
  
     for (int i = 0; i < RTL_NUMBER_OF(testCases); i++)
     {
-        printf("test case %d ", i);
+        wprintf(_u("test case %d "), i);
         hr = activeScriptDirect->Parse(testCases[i], &topFunc);
         IfFailedReturn(hr);
         hr = activeScriptDirect->Execute(topFunc, callInfo, NULL, /*serviceProvider*/ NULL, &varResult);
         IfFailedReturn(hr);
     }
 
-    printf("test round trip\n");
+    wprintf(_u("test round trip\n"));
     for (int i = 0; i < RTL_NUMBER_OF(int64TestCases); i++)
     {
-        printf("test case %d \n", i);
+        wprintf(_u("test case %d \n"), i);
         IfFailedReturn(TestRoundTrip(activeScriptDirect, &int64TestCases[i]));
     }
 
-    printf("test converting to VARIANT\n");
+    wprintf(_u("test converting to VARIANT\n"));
     IfFailedReturn(TestToVARIANT(activeScriptDirect));
 
     IfFailedReturn(TestBuiltins(activeScriptDirect));
-    printf("int64 test succeeded\n");
+    wprintf(_u("int64 test succeeded\n"));
 
     return NOERROR;
 }
@@ -455,25 +455,25 @@ void RunInt64Tests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTests>* v
 		hr = UInt64EqualityTest(scriptDirect, -1, 0xFFFFFFFFFFFFFFFF);
 		if (FAILED(hr))
 		{
-			printf("UInt64Equality test failed with %x\n!", hr);
+            wprintf(_u("UInt64Equality test failed with %x\n!"), hr);
 		}
 
 		hr = UInt64EqualityTest(scriptDirect, 0x7FFFFFFF, 0xFFFFFFFF7FFFFFFF);
 		if (FAILED(hr))
 		{
-			printf("UInt64Equality test failed with %x\n!", hr);
+            wprintf(_u("UInt64Equality test failed with %x\n!"), hr);
 		}
 
 		hr = UInt64EqualityTest(scriptDirect, 0x7FFFFFFF, 0x000000007FFFFFFF);
 		if (FAILED(hr))
 		{
-			printf("UInt64Equality test failed with %x\n!", hr);
+            wprintf(_u("UInt64Equality test failed with %x\n!"), hr);
 		}
 
 		hr = TestInt64(scriptDirect);
         if (FAILED(hr))
         {
-            printf("int64 test failed with %x\n", hr);
+            wprintf(_u("int64 test failed with %x\n"), hr);
         }
     }
     catch(std::string message)

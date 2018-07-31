@@ -4,6 +4,7 @@
 #include "edgescriptDirect.h"
 #include <iostream>
 #include <string>
+#include "ScriptDirectUnitTests.h"
 #include "MyScriptDirectNative.h"
 #include "Verifier.h"
 
@@ -150,12 +151,12 @@ void MyScriptDirectTests::InitJScriptEngine(JsHostNativeTestArguments* jsHostArg
         check=GetTypeOp();
         if(!check)
         {
-            cout<<"FAILED TO SET THE TYPE OP"<<endl;
+            Print("FAILED TO SET THE TYPE OP");
         }
     }
     else
     {
-        cout<<"FAILED to set the mptr_jsop"<<endl;
+        Print("FAILED to set the mptr_jsop");
     }
 }
 
@@ -488,20 +489,20 @@ void MyScriptDirectTests::SetPropertyOnPrototypeInstance(std::wstring ctor_name,
             FAIL_hr(mptr_typeop->HasOwnProperty(mptr_EzeScriptDirect, ctorobj,exists_id,&result),_u("HasOwnProperty"));
             if(!result)
             {
-                cout<<"The Ctor does not have a prototype object"<<endl;
+                Print("The Ctor does not have a prototype object");
 
             }
         }
         else
         {
-            cout<<"The Ctor does not have a prototype object"<<endl;
+            Print("The Ctor does not have a prototype object");
 
         }
 
     }
     else
     {
-        cout<<"The Ctor does not exist"<<endl;
+        Print("The Ctor does not exist");
 
     }
     std::wstring srcstr=ctor_name+_u(".prototype.")+prop_name+_u("=")+value;

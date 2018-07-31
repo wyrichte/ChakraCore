@@ -3,12 +3,12 @@
 
 HRESULT FakeMSHTML::GetReadDataStream(__out IStream **ppStream)
 {
-    printf("GetReadDataStream is called\n");
+    Print("GetReadDataStream is called");
 
     //Set IStream to NULL and return E_FAIL on GetReadDataStream call
     if(mNullGetReadDataStream)
     {
-        printf("GetReadDataStream will return NULL IStream now...\n");
+        Print("GetReadDataStream will return NULL IStream now...");
         *ppStream = NULL;
         return E_FAIL;
     }
@@ -43,20 +43,20 @@ HRESULT FakeMSHTML::GetReadDataStream(__out IStream **ppStream)
 }
 HRESULT FakeMSHTML::GetWriteDataStream(__out IStream **ppStream)
 {
-    printf("GetWriteDataStream is called\n");
+    Print("GetWriteDataStream is called");
 
     mGetWriteDataStreamCounter++;
     //Set IStream to NULL and return E_FAIL on GetWriteDataStream call
     if(mNullGetWriteDataStream)
     {
-        printf("GetWriteDataStream will return NULL IStream now...\n");
+        Print("GetWriteDataStream will return NULL IStream now...");
         *ppStream = NULL;
         return E_FAIL;
     }
     //Failing the GetReadDataStream call
     if(mFailGetWriteDataStream)
     {
-        printf("GetWriteDataStream will return E_FAIL now...\n");
+        Print("GetWriteDataStream will return E_FAIL now...");
         return E_FAIL;
     }
 
@@ -71,14 +71,14 @@ HRESULT FakeMSHTML::GetWriteDataStream(__out IStream **ppStream)
 }
 HRESULT FakeMSHTML::SaveWriteDataStream(__in IStream *pStream)
 {
-    printf("SaveWriteDataStream is called\n");
+    Print("SaveWriteDataStream is called");
 
     mSaveWriteDataStreamCounter++;
 
     //Failing the SaveWriteDataStream call
     if(mFailSaveWriteDataStream)
     {
-        printf("SaveWriteDataStream will return E_FAIL now...\n");
+        Print("SaveWriteDataStream will return E_FAIL now...");
         return E_FAIL;
     }
 

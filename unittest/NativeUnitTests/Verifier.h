@@ -18,7 +18,7 @@ private:
 
     void Print(std::string message)
     {
-        cout<<message<<endl;
+        wcout << StringToWString(message) << endl;
     }
 
 public:
@@ -112,8 +112,8 @@ private:
 
                 if(actintval==expintval)
                 {
-                    cout<<"PASS: Expected Value: " <<expval <<"    Actual obj value: "<<actintval<< endl;
-                    cout<<"\n";
+                    wcout << _u("PASS: Expected Value: ") << expval.c_str() << "    Actual obj value: " << actintval << endl;
+                    wcout << _u("\n");
                     std::stringstream str;
                     str<<"PASS: Expected Value: " <<expval <<"    Actual value: "<<actintval<< endl;
                     str<<"\n";
@@ -139,8 +139,8 @@ private:
 
                 if(actintval==expintval)
                 {
-                    cout<<"PASS: Expected Value: " <<expval <<"    Actual obj value: "<<actintval<< endl;
-                    cout<<"\n";
+                    wcout << _u("PASS: Expected Value: ") << expval.c_str() << _u("    Actual obj value: ") << actintval << endl;
+                    wcout << _u("\n");
                     std::stringstream str;
                     str<<"PASS: Expected Value: " <<expval <<"    Actual value: "<<actintval<< endl;
                     str<<"\n";
@@ -440,14 +440,14 @@ public:
             m_scriptdirect=dynamic_cast<MyScriptDirectTests*>(iscriptdirect);
             if(!m_scriptdirect)
             {
-                std::cout<<"The Object is not a valid MyScriptDirect object";
+                std::wcout << _u("The Object is not a valid MyScriptDirect object");
                 throw "Invalid MyScriptDirect Object is passed";
             }
 
         }
         catch(std::exception e)
         {
-            std::cout<<"The Object is not a valid MyScriptDirect object"<<e.what();
+            std::wcout << _u("The Object is not a valid MyScriptDirect object") << e.what();
             throw e;
         }
 

@@ -125,7 +125,7 @@ HRESULT TestTypedArray(
     {
         for (int j = 0; j < count; j++)
         {
-            printf("testing testArrays type %d, size %d\n", arrayTypes[i],dataSize[j]);
+            wprintf(_u("testing testArrays type %d, size %d\n"), arrayTypes[i],dataSize[j]);
 
             IfFailGoto(activeScriptDirect->CreateTypedArray(arrayTypes[i], NULL, dataSize[j], &typedArrays[i][j]), LReturn);
             IfFailGoto(TestOneTypedArray(activeScriptDirect, typedArrays[i][j], dataSize[j], arrayTypes[i]), LReturn);
@@ -141,7 +141,7 @@ HRESULT TestTypedArray(
     {
         for (int j = 0; j < count; j++)
         {
-            printf("testing testArrays type %d, size %d\n", arrayTypes[i],dataSize[j]);
+            wprintf(_u("testing testArrays type %d, size %d\n"), arrayTypes[i],dataSize[j]);
             hr = activeScriptDirect->CreateTypedArray(arrayTypes[i], arrayBuffer[j], 0, &typedArrays2[i][j]);
             if (FAILED(hr))
             {
@@ -167,7 +167,7 @@ HRESULT TestTypedArray(
     {
         for (uint j = 0; j < count; j++)
         {
-            printf("test GetArrayBuffer %d %d\n", arrayTypes[i],dataSize[j]);
+            wprintf(_u("test GetArrayBuffer %d %d\n"), arrayTypes[i],dataSize[j]);
             fflush(stdout);
 
             IfFailGoto(activeScriptDirect->GetTypedArrayBuffer(arrayBuffer[j], &outBufferSrc, &bufferLengthSrc, &typedArrayTypeSrc, &elementSizeSrc), LReturn);
@@ -273,7 +273,7 @@ HRESULT TestES6TypedArrays(IActiveScriptDirect* activeScriptDirect, MyScriptDire
     IfFailedReturn(hr);
 
     // Verify detachtypedarray buffer
-    printf("Test DetachTypedArrayBuffer functionality...\n");
+    wprintf(_u("Test DetachTypedArrayBuffer functionality...\n"));
     BYTE* buffer;
     UINT byteLength;
     TypedArrayType arrayType;
@@ -333,12 +333,12 @@ HRESULT TestGetTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect, MyScrip
                 hr = activeScriptDirect->GetTypedArrayBuffer(var, &buffer, &length, &typedArrayType, &elementSize);
                 if (SUCCEEDED(hr) && (buffer != NULL))
                 {
-                    printf("testcase %d, buffer length is %d, arrayType %d, elementSize %d\n", i, length, typedArrayType, elementSize);
+                    wprintf(_u("testcase %d, buffer length is %d, arrayType %d, elementSize %d\n"), i, length, typedArrayType, elementSize);
                     for (UINT j = 0; j < length; j++)
                     {
-                        printf("%d, ", buffer[j]);
+                        wprintf(_u("%d, "), buffer[j]);
                     }
-                    printf("\n");
+                    wprintf(_u("\n"));
                 }
             }
         }

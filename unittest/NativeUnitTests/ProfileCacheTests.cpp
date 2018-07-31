@@ -108,7 +108,7 @@ HRESULT LoadScriptFromFile(LPCWSTR filename, LPWSTR* script)
 }
 void PrintSeparator()
 {
-    printf("=============================================\n");
+    Print("=============================================");
 }
 /*
 Implementation of ProfileCacheTest class
@@ -124,20 +124,20 @@ ProfileCacheTest::ProfileCacheTest(JsHostNativeTestArguments* jsHostArgs, LPCWST
 }
 void ProfileCacheTest::CreateNewEngine()
 {
-    printf("CreateNewEngine()\n");
+    Print("CreateNewEngine()");
     mptr_jsHostArgs->createNewEngine(&mptr_EzeScriptDirect, &mJsHostScriptSite, true);
     mptr_EzeScriptDirect->QueryInterface(__uuidof(IActiveScriptParse), (LPVOID*)&mptr_ActiveScriptParse);
     mptr_EzeScriptDirect->QueryInterface(__uuidof(IActiveScriptLifecycleEventSink), (LPVOID*)&mptr_LifecycleEventSink);
 }
 void ProfileCacheTest::ParseScriptText()
 {
-    printf("ParseScriptText()\n");
+    Print("ParseScriptText()");
     mptr_ActiveScriptParse->ParseScriptText(mScript, NULL, (IUnknown*)(static_cast<IActiveScriptDataCache*>(mptr_fakeMSTHML)), NULL, 
         0xdeadbeef, 0, SCRIPTTEXT_HOSTMANAGESSOURCE, &mResult, &mExcepInfo);
 }
 void ProfileCacheTest::CloseEngine()
 {
-    printf("CloseEngine()\n");
+    Print("CloseEngine()");
     mptr_LifecycleEventSink->Release();
     mptr_LifecycleEventSink = NULL;
     mptr_ActiveScriptParse->Release();
@@ -149,23 +149,23 @@ void ProfileCacheTest::CloseEngine()
 }
 void ProfileCacheTest::VerifyDataStreamMethodCallCounter(UINT expectedGetWriteCount, UINT expectedSaveWriteCount)
 {
-    printf("Verify GetWriteDataStream Counter\n");
+    Print("Verify GetWriteDataStream Counter");
     if(mptr_fakeMSTHML->GetWriteDataStreamCounter() == expectedGetWriteCount)
     {
-        printf("PASS\n");
+        Print("PASS");
     }
     else
     {
-        printf("FAIL\n");
+        Print("FAIL");
     }
-    printf("Verify SaveWriteDataStream Counter\n");
+    Print("Verify SaveWriteDataStream Counter");
     if(mptr_fakeMSTHML->SaveWriteDataStreamCounter() == expectedSaveWriteCount)
     {
-        printf("PASS\n");
+        Print("PASS");
     }
     else
     {
-        printf("FAIL\n");
+        Print("FAIL");
     }
 }
 
@@ -201,15 +201,15 @@ HRESULT RunTestcase1()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(1, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: Basic Test\n");
+    Print("ProfileCacheTests: Basic Test");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest1.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -227,11 +227,11 @@ HRESULT RunTestcase2()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(2, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: JS with less than 5 functions\n");
+    Print("ProfileCacheTests: JS with less than 5 functions");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest2.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -249,11 +249,11 @@ HRESULT RunTestcase3()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(3, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: Execute js file with 5 functions\n");
+    Print("ProfileCacheTests: Execute js file with 5 functions");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest3.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -271,11 +271,11 @@ HRESULT RunTestcase4()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(4, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: Call OnEvent with VARIANT\n");
+    Print("ProfileCacheTests: Call OnEvent with VARIANT");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest4.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, new VARIANT());
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -293,11 +293,11 @@ HRESULT RunTestcase5()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(5, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: Invalid Profile Data\n");
+    Print("ProfileCacheTests: Invalid Profile Data");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -315,11 +315,11 @@ HRESULT RunTestcase6()
     HRESULT hr = NOERROR;
 
     IfFailedReturn(SetProfileCacheFilenames(5, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
-    printf("ProfileCacheTests: Profile Data Less than 15 percents change\n");
+    Print("ProfileCacheTests: Profile Data Less than 15 percents change");
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest5.js"), outCacheFile, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -336,13 +336,13 @@ HRESULT RunTestcase7()
 
     HRESULT hr = NOERROR;
 
-    printf("ProfileCacheTests: Profile Data Mismatched Version\n");
+    Print("ProfileCacheTests: Profile Data Mismatched Version");
 
     IfFailedReturn(SetProfileCacheFilenames(7, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest7.js"), inCacheFile, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -355,14 +355,14 @@ HRESULT RunTestcase8()
 {
     HRESULT hr = NOERROR;
 
-    printf("ProfileCacheTests: Fail HRESULT from GetWriteDataStream\n");
+    Print("ProfileCacheTests: Fail HRESULT from GetWriteDataStream");
 
     IfFailedReturn(SetProfileCacheFilenames(8, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest8.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->mptr_fakeMSTHML->SetFailGetWriteDataStream(TRUE);
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     // We will have two attempts to get a write stream now because the first one returns E_FAIL so the stream pointer
@@ -377,14 +377,14 @@ HRESULT RunTestcase9()
 {
     HRESULT hr = NOERROR;
 
-    printf("ProfileCacheTests: Fail HRESULT from SaveWriteDataStream\n");
+    Print("ProfileCacheTests: Fail HRESULT from SaveWriteDataStream");
 
     IfFailedReturn(SetProfileCacheFilenames(9, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest9.js"), nullptr, outCacheFile);
     test->CreateNewEngine();
     test->ParseScriptText();
     test->mptr_fakeMSTHML->SetFailSaveWriteDataStream(TRUE);
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -397,14 +397,14 @@ HRESULT RunTestcase10()
 {
     HRESULT hr = NOERROR;
 
-    printf("ProfileCacheTests: NULL IStream for GetReadDataStream\n");
+    Print("ProfileCacheTests: NULL IStream for GetReadDataStream");
 
     IfFailedReturn(SetProfileCacheFilenames(10, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest10.js"), nullptr, outCacheFile);
     test->mptr_fakeMSTHML->SetNullGetReadDataStream(TRUE);
     test->CreateNewEngine();
     test->ParseScriptText();
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
     test->VerifyDataStreamMethodCallCounter(1,1);
@@ -417,7 +417,7 @@ HRESULT RunTestcase11()
 {
     HRESULT hr = NOERROR;
 
-    printf("ProfileCacheTests: NULL IStream for GetWriteDataStream\n");
+    Print("ProfileCacheTests: NULL IStream for GetWriteDataStream");
 
     IfFailedReturn(SetProfileCacheFilenames(11, gArgs->flagCount > 1 ? gArgs->flags[1] : _u("")));
     ProfileCacheTest* test = new ProfileCacheTest(gArgs, _u("profilecachetest11.js"), nullptr, outCacheFile);
@@ -425,7 +425,7 @@ HRESULT RunTestcase11()
     test->CreateNewEngine();
     test->ParseScriptText();
 
-    printf("IActiveScriptLifecycleEventSink->OnEvent()\n");
+    Print("IActiveScriptLifecycleEventSink->OnEvent()");
     hr = test->mptr_LifecycleEventSink->OnEvent(EventId_StartupComplete, NULL);
     IfFailedReturn(hr);
 

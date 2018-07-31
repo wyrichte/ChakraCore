@@ -57,9 +57,9 @@ std::string Summary(int result)
     }
     else
     {
-        std::stringstream str;
-        str<<"Total Test Cases  "<<total_count<<"\n"<<"Passed:  "<<(total_count-failed_count)<<"\n"<<"Failed   "<<failed_count<<"\n"<<endl;
-        cout<<str.str()<<endl;
+        std::wstringstream wstr;
+        wstr<< _u("Total Test Cases  ") << total_count << _u("\n"<<"Passed:  ") << (total_count-failed_count) << _u("\n") << _u("Failed   ") << failed_count << _u("\n") << endl;
+        wcout << wstr.str() << endl;
         if(failed_count>0)
         {
             return "fail";
@@ -76,21 +76,20 @@ void Print(std::string message, bool result)
 
     if(result)
     {
-        cout<<message<<endl;
+        wcout << StringToWString(message) << endl;
         Summary(1);
     }
     else
     {
 
-        cout<<message<<endl; 
+        wcout << StringToWString(message) << endl;
         Summary(0);
     }
 }
 
 void Print(std::string message)
 {
-    cout<<message<<endl; 
-
+    wcout << StringToWString(message) << endl;
 }
 
 void StartTest(MyScriptDirectTests* myTests, std::string message)
