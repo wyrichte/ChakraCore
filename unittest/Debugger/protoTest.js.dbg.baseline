@@ -14,7 +14,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "foo": {
         "__proto__": "<large string>",
@@ -51,7 +52,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -96,7 +98,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -151,7 +154,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -206,7 +210,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "[prototype]": "{...}"
+        "[prototype]": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",

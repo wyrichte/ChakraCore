@@ -22,7 +22,8 @@
           "[7]": "8",
           "[8]": "9",
           "[9]": "10"
-        }
+        },
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": {
@@ -37,14 +38,6 @@
       },
       "x": "undefined",
       "[Globals]": {
-        "foo": {
-          "__proto__": "<large string>",
-          "arguments": "{...}",
-          "caller": "null",
-          "length": "0",
-          "name": "foo",
-          "prototype": "{...}"
-        },
         "a": {
           "__proto__": "[]",
           "length": "10",
@@ -58,6 +51,14 @@
           "[7]": "8",
           "[8]": "9",
           "[9]": "10"
+        },
+        "foo": {
+          "__proto__": "<large string>",
+          "arguments": "{...}",
+          "caller": "null",
+          "length": "0",
+          "name": "foo",
+          "prototype": "{...}"
         }
       }
     }

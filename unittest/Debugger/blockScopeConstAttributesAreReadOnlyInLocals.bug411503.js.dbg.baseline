@@ -60,6 +60,14 @@
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
           ],
           "flagsAsValue": 16
+        },
+        "Symbol.toStringTag": "global",
+        "Symbol.toStringTag - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
         }
       },
       "this - [Attributes]": {
@@ -185,6 +193,14 @@
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
           ],
           "flagsAsValue": 16
+        },
+        "Symbol.toStringTag": "global",
+        "Symbol.toStringTag - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
+            "DBGPROP_ATTRIB_VALUE_READONLY"
+          ],
+          "flagsAsValue": 3072
         }
       },
       "this - [Attributes]": {

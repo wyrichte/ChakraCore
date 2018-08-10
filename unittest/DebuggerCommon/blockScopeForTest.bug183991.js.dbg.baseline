@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "{...}"
+        "a": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "y": "x",
       "a": {
@@ -19,7 +20,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "{...}"
+        "a": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "y": "y",
       "a": {

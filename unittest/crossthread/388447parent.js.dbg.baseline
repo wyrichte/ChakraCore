@@ -21,10 +21,12 @@
           "obj": "{...}",
           "Reflect": "{...}",
           "SCA": "{...}",
+          "Symbol.toStringTag": "global",
           "undefined": "undefined",
           "WebAssembly": "{...}",
           "WScript": "{...}"
-        }
+        },
+        "Symbol.toStringTag": "global"
       },
       "e": {
         "[Methods]": {},
@@ -93,6 +95,7 @@
           "[Methods]": "{...}",
           "__proto__": "{...}"
         },
+        "Symbol.toStringTag": "global",
         "undefined": "undefined",
         "WebAssembly": {
           "[Methods]": "{...}",

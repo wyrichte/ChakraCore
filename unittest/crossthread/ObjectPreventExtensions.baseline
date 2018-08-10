@@ -1,6 +1,6 @@
 crossthread
 true
-[object Object]
+[object global]
 false
 
 false
@@ -73,7 +73,7 @@ false
 
 sameThread
 true
-[object Object]
+[object global]
 false
 
 false

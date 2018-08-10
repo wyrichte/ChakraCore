@@ -12,6 +12,7 @@
         "__proto__": "{...}",
         "i": "7",
         "ids": "[0,1,2,3,4,5,6]",
+        "Symbol.toStringTag": "global",
         "x": "3"
       },
       "arguments": {
@@ -23,9 +24,9 @@
         "val": "4"
       },
       "[Globals]": {
-        "make_func": "<large string>",
         "ids": "[0,1,2,3,4,5,6]",
         "i": "7",
+        "make_func": "<large string>",
         "x": "3"
       }
     }

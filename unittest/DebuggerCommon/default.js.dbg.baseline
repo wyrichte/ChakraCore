@@ -782,7 +782,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -802,7 +803,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -831,7 +833,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -857,7 +860,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -891,7 +895,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -911,7 +916,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": "11",
@@ -935,7 +941,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": "undefined",
@@ -955,7 +962,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -983,7 +991,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1004,7 +1013,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "c": {
         "[Methods]": "{...}",
@@ -1041,7 +1051,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1061,7 +1072,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -1097,7 +1109,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -1133,7 +1146,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "1",
       "b": {
@@ -1186,7 +1200,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1211,7 +1226,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1237,7 +1253,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1270,7 +1287,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1295,7 +1313,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -1328,7 +1347,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "glob": "{...}"
+        "glob": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",

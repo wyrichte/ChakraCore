@@ -1,7 +1,7 @@
-[object Object]
-[object Object]
-[object Object]
-[object Object]
+[object global]
+[object global]
+[object global]
+[object global]
 
 Unable to get property 'toString' of undefined or null reference
 Unable to get property 'toLocaleString' of undefined or null reference

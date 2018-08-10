@@ -57,6 +57,7 @@
           "[Methods]": "{...}",
           "__proto__": "{...}"
         },
+        "Symbol.toStringTag": "global",
         "undefined": "undefined",
         "WebAssembly": {
           "[Methods]": "{...}",

@@ -8,7 +8,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "a": "100",
       "b": "200"

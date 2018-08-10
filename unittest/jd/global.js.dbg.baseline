@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "g0": "10"
+        "g0": "10",
+        "Symbol.toStringTag": "global"
       },
       "g0": "10"
     }

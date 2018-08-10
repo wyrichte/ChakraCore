@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "undefined"
       },
       "x": "undefined"
@@ -14,6 +15,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "baz": {
@@ -32,6 +34,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "x": "1"

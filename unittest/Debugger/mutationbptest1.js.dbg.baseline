@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "obj": "{...}"
+        "obj": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "greetStr [Adding]": "Welcome! :)",
@@ -16,10 +17,10 @@
         "length": "0"
       },
       "[Globals]": {
+        "obj": "{...}",
         "doNothing": "<large string>",
         "setGreet": "<large string>",
-        "setName": "<large string>",
-        "obj": "{...}"
+        "setName": "<large string>"
       }
     }
   }

@@ -109,7 +109,8 @@
       "  this  ": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "not_used": "0"
+        "not_used": "0",
+        "Symbol.toStringTag": "global"
       }
     }
   },
@@ -163,7 +164,8 @@
       "  this  ": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "not_used": "0"
+        "not_used": "0",
+        "Symbol.toStringTag": "global"
       }
     }
   },

@@ -10,6 +10,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1",
         "y": "0"
       },
@@ -23,6 +24,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1",
         "y": "1"
       },

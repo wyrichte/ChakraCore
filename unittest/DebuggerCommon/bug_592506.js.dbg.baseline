@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -27,6 +28,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "ttt1": "31"
       },
       "arguments": {

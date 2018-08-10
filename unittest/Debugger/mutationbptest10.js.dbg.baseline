@@ -5,7 +5,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "obj": "{...}",
-        "sneakers": "{...}"
+        "sneakers": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "discount [Changing]": "0",
@@ -19,10 +20,10 @@
       },
       "x": "1",
       "[Globals]": {
-        "Product": "<large string>",
-        "attach": "<large string>",
         "sneakers": "{...}",
-        "obj": "{...}"
+        "obj": "{...}",
+        "Product": "<large string>",
+        "attach": "<large string>"
       }
     }
   },
@@ -42,7 +43,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "obj": "{...}",
-        "sneakers": "{...}"
+        "sneakers": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "discount [Deleting]": "50",
@@ -55,10 +57,10 @@
       },
       "x": "1",
       "[Globals]": {
-        "Product": "<large string>",
-        "attach": "<large string>",
         "sneakers": "{...}",
-        "obj": "{...}"
+        "obj": "{...}",
+        "Product": "<large string>",
+        "attach": "<large string>"
       }
     }
   },
@@ -78,7 +80,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "obj": "{...}",
-        "sneakers": "{...}"
+        "sneakers": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "newDataProperty [Changing]": "1",
@@ -92,10 +95,10 @@
       },
       "x": "1",
       "[Globals]": {
-        "Product": "<large string>",
-        "attach": "<large string>",
         "sneakers": "{...}",
-        "obj": "{...}"
+        "obj": "{...}",
+        "Product": "<large string>",
+        "attach": "<large string>"
       }
     }
   },

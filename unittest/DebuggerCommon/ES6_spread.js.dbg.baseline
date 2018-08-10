@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "[1,2,check]"
+        "a": "[1,2,check]",
+        "Symbol.toStringTag": "global"
       },
       "x": "1",
       "y": "2",
@@ -18,9 +19,9 @@
         "[2]": "check"
       },
       "[Globals]": {
+        "a": "[1,2,check]",
         "bar": "<large string>",
-        "foo": "<large string>",
-        "a": "[1,2,check]"
+        "foo": "<large string>"
       }
     }
   },

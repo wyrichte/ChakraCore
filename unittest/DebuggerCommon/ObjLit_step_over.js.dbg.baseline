@@ -61,7 +61,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10"
+        "a1": "10",
+        "Symbol.toStringTag": "global"
       },
       "[foo returned]": "50",
       "arguments": {
@@ -76,9 +77,9 @@
         "c": "{...}"
       },
       "[Globals]": {
+        "a1": "10",
         "foo": "<large string>",
-        "sub_expression_step_over": "<large string>",
-        "a1": "10"
+        "sub_expression_step_over": "<large string>"
       }
     }
   },

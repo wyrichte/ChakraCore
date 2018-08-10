@@ -23,7 +23,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10"
+        "a1": "10",
+        "Symbol.toStringTag": "global"
       },
       "{exception}": {
         "__proto__": "",
@@ -39,10 +40,10 @@
       },
       "obj": "undefined",
       "[Globals]": {
+        "a1": "10",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",
-        "sub_expression_exception": "<large string>",
-        "a1": "10"
+        "sub_expression_exception": "<large string>"
       }
     }
   },
@@ -103,7 +104,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a1": "10"
+        "a1": "10",
+        "Symbol.toStringTag": "global"
       },
       "{exception}": "Foo Error",
       "arguments": {
@@ -112,10 +114,10 @@
         "length": "0"
       },
       "[Globals]": {
+        "a1": "10",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",
-        "sub_expression_exception": "<large string>",
-        "a1": "10"
+        "sub_expression_exception": "<large string>"
       }
     }
   },

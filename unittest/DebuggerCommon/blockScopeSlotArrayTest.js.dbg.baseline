@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -14,8 +15,8 @@
         "a": "1"
       },
       "[Globals]": {
-        "test": "<large string>",
-        "g": "<large string>"
+        "g": "<large string>",
+        "test": "<large string>"
       }
     }
   }

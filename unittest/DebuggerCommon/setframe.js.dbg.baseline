@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -14,9 +15,9 @@
       "HHH_B": "0",
       "HHH_C": "0",
       "[Globals]": {
+        "GGG": "<large string>",
         "FFF": "<large string>",
-        "HHH": "<large string>",
-        "GGG": "<large string>"
+        "HHH": "<large string>"
       }
     }
   },
@@ -24,7 +25,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -45,9 +47,9 @@
         "GGG_closure": "1"
       },
       "[Globals]": {
+        "GGG": "<large string>",
         "FFF": "<large string>",
-        "HHH": "<large string>",
-        "GGG": "<large string>"
+        "HHH": "<large string>"
       }
     }
   },
@@ -55,7 +57,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -66,9 +69,9 @@
       "FFF_B": "0",
       "FFF_C": "0",
       "[Globals]": {
+        "GGG": "<large string>",
         "FFF": "<large string>",
-        "HHH": "<large string>",
-        "GGG": "<large string>"
+        "HHH": "<large string>"
       }
     }
   },
@@ -114,7 +117,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -135,9 +139,9 @@
         "GGG_closure": "3"
       },
       "[Globals]": {
+        "GGG": "<large string>",
         "FFF": "<large string>",
-        "HHH": "<large string>",
-        "GGG": "<large string>"
+        "HHH": "<large string>"
       }
     }
   },
@@ -145,7 +149,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -156,9 +161,9 @@
       "FFF_B": "1",
       "FFF_C": "0",
       "[Globals]": {
+        "GGG": "<large string>",
         "FFF": "<large string>",
-        "HHH": "<large string>",
-        "GGG": "<large string>"
+        "HHH": "<large string>"
       }
     }
   }

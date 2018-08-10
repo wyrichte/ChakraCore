@@ -14,13 +14,17 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
       },
+      "a": "undefined",
+      "f1": "undefined",
+      "s": "undefined",
       "g": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -29,9 +33,6 @@
         "name": "g",
         "prototype": "{...}"
       },
-      "a": "undefined",
-      "f1": "undefined",
-      "s": "undefined",
       "[Globals]": {
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
@@ -63,20 +64,13 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
-      },
-      "g": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "g",
-        "prototype": "{...}"
       },
       "a": "10",
       "f1": {
@@ -88,6 +82,14 @@
         "prototype": "{...}"
       },
       "s": "undefined",
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
       "[Globals]": {
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
@@ -119,20 +121,13 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
-      },
-      "g": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "g",
-        "prototype": "{...}"
       },
       "a": "10",
       "f1": {
@@ -144,6 +139,14 @@
         "prototype": "{...}"
       },
       "s": "undefined",
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
       "[Globals]": {
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
@@ -175,20 +178,13 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
-      },
-      "g": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "g",
-        "prototype": "{...}"
       },
       "a": "asfdssd",
       "f1": {
@@ -200,6 +196,14 @@
         "prototype": "{...}"
       },
       "s": "undefined",
+      "g": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "g",
+        "prototype": "{...}"
+      },
       "[Globals]": {
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"

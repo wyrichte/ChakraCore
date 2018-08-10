@@ -11,7 +11,8 @@
         "this.obj": {
           "[Methods]": "{...}",
           "this.obj.__proto__": "{...}"
-        }
+        },
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": {

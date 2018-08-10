@@ -5,7 +5,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
-        "obj": "undefined"
+        "obj": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "[Scope]1": {
         "arguments": "{...}",
@@ -16,10 +17,10 @@
         "c1": "undefined"
       },
       "[Globals]": {
-        "foo": "<large string>",
-        "bar": "<large string>",
         "obj": "undefined",
-        "c": "undefined"
+        "c": "undefined",
+        "foo": "<large string>",
+        "bar": "<large string>"
       }
     }
   },
@@ -56,7 +57,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
-        "obj": "undefined"
+        "obj": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "ex1": {
         "__proto__": "",
@@ -74,10 +76,10 @@
         "c1": "[1]"
       },
       "[Globals]": {
-        "foo": "<large string>",
-        "bar": "<large string>",
         "obj": "undefined",
-        "c": "undefined"
+        "c": "undefined",
+        "foo": "<large string>",
+        "bar": "<large string>"
       }
     }
   },
@@ -97,8 +99,11 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
-        "obj": "undefined"
+        "obj": "undefined",
+        "Symbol.toStringTag": "global"
       },
+      "obj": "undefined",
+      "c": "undefined",
       "foo": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -114,9 +119,7 @@
         "length": "0",
         "name": "bar",
         "prototype": "{...}"
-      },
-      "obj": "undefined",
-      "c": "undefined"
+      }
     }
   },
   {
@@ -125,7 +128,8 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
-        "obj": "undefined"
+        "obj": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "ex2": {
         "__proto__": "",
@@ -134,6 +138,8 @@
         "number": "-2146823279",
         "stack": "<large string>"
       },
+      "obj": "undefined",
+      "c": "undefined",
       "foo": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -149,9 +155,7 @@
         "length": "0",
         "name": "bar",
         "prototype": "{...}"
-      },
-      "obj": "undefined",
-      "c": "undefined"
+      }
     }
   },
   {
@@ -160,8 +164,15 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "10",
-        "obj": "{...}"
+        "obj": "{...}",
+        "Symbol.toStringTag": "global"
       },
+      "obj": {
+        "__proto__": "{...}",
+        "x": "10",
+        "y": "[11,22]"
+      },
+      "c": "10",
       "foo": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -177,13 +188,7 @@
         "length": "0",
         "name": "bar",
         "prototype": "{...}"
-      },
-      "obj": {
-        "__proto__": "{...}",
-        "x": "10",
-        "y": "[11,22]"
-      },
-      "c": "10"
+      }
     }
   },
   {

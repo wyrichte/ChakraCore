@@ -21,25 +21,8 @@
           "__proto__": "{...}",
           "z": "1",
           "[1]": "MyObjIndex"
-        }
-      },
-      "MyObj": {
-        "__proto__": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}",
-          "arguments": "<large string>",
-          "caller": "<large string>",
-          "length": "0",
-          "name": ""
         },
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "MyObj",
-        "prototype": {
-          "[Methods]": "{...}",
-          "__proto__": "{...}"
-        }
+        "Symbol.toStringTag": "global"
       },
       "a": {
         "__proto__": {
@@ -62,6 +45,24 @@
         },
         "z": "1",
         "[1]": "MyObjIndex"
+      },
+      "MyObj": {
+        "__proto__": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "arguments": "<large string>",
+          "caller": "<large string>",
+          "length": "0",
+          "name": ""
+        },
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "MyObj",
+        "prototype": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}"
+        }
       }
     }
   }

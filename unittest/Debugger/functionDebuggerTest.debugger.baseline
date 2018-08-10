@@ -19,8 +19,14 @@
         "b": "undefined",
         "obj": "undefined",
         "obj2": "undefined",
-        "obj3": "undefined"
+        "obj3": "undefined",
+        "Symbol.toStringTag": "global"
       },
+      "obj": "undefined",
+      "obj2": "undefined",
+      "obj3": "undefined",
+      "a": "undefined",
+      "b": "undefined",
       "f": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -28,12 +34,7 @@
         "length": "0",
         "name": "f",
         "prototype": "{...}"
-      },
-      "obj": "undefined",
-      "obj2": "undefined",
-      "obj3": "undefined",
-      "a": "undefined",
-      "b": "undefined"
+      }
     }
   },
   {
@@ -66,15 +67,8 @@
         "b": "undefined",
         "obj": "{...}",
         "obj2": "undefined",
-        "obj3": "undefined"
-      },
-      "f": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "f",
-        "prototype": "{...}"
+        "obj3": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "obj": {
         "[Methods]": "{...}",
@@ -83,7 +77,15 @@
       "obj2": "undefined",
       "obj3": "undefined",
       "a": "undefined",
-      "b": "undefined"
+      "b": "undefined",
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      }
     }
   },
   {
@@ -116,15 +118,8 @@
         "b": "undefined",
         "obj": "{...}",
         "obj2": "{...}",
-        "obj3": "undefined"
-      },
-      "f": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "f",
-        "prototype": "{...}"
+        "obj3": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "obj": {
         "[Methods]": "{...}",
@@ -137,7 +132,15 @@
       },
       "obj3": "undefined",
       "a": "undefined",
-      "b": "undefined"
+      "b": "undefined",
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
+        "prototype": "{...}"
+      }
     }
   },
   {
@@ -170,7 +173,8 @@
         "b": "undefined",
         "obj": "{...}",
         "obj2": "{...}",
-        "obj3": "{...}"
+        "obj3": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -178,12 +182,12 @@
         "length": "0"
       },
       "[Globals]": {
-        "f": "function f(){}",
         "obj": "{...}",
         "obj2": "{...}",
         "obj3": "{...}",
         "a": "undefined",
-        "b": "undefined"
+        "b": "undefined",
+        "f": "function f(){}"
       }
     }
   },
@@ -222,15 +226,8 @@
         "a": "undefined",
         "obj": "{...}",
         "obj2": "{...}",
-        "obj3": "{...}"
-      },
-      "f": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "f",
-        "prototype": "{...}"
+        "obj3": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "obj": {
         "[Methods]": "{...}",
@@ -252,6 +249,14 @@
         "caller": "null",
         "length": "0",
         "name": "b",
+        "prototype": "{...}"
+      },
+      "f": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "f",
         "prototype": "{...}"
       }
     }

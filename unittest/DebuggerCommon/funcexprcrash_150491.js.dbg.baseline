@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "top": "{...}"
       },
       "arguments": {
@@ -26,9 +27,9 @@
         "p": "false"
       },
       "[Globals]": {
+        "top": "{...}",
         "Pass": "<large string>",
-        "test": "<large string>",
-        "top": "{...}"
+        "test": "<large string>"
       }
     }
   }

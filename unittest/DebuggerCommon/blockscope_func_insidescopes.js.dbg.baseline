@@ -3,7 +3,8 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -12,9 +13,9 @@
       },
       "foo1": "null",
       "[Scope]1": {
+        "x": "undefined",
         "foo2": "<large string>",
-        "bar4": "<large string>",
-        "x": "undefined"
+        "bar4": "<large string>"
       },
       "[Globals]": {
         "Run": "<large string>"
@@ -25,46 +26,15 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
-      },
-      "foo2": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "foo2",
-        "prototype": "{...}"
-      },
-      "bar4": {
-        "__proto__": "<large string>",
-        "arguments": "null",
-        "caller": "null",
-        "length": "0",
-        "name": "bar4",
-        "prototype": "{...}"
       },
       "x": "undefined",
-      "[Globals]": {
-        "Run": "<large string>"
-      }
-    }
-  },
-  {
-    "locals": {
-      "this": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}"
-      },
-      "arguments": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "length": "0"
-      },
       "foo2": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -81,7 +51,6 @@
         "name": "bar4",
         "prototype": "{...}"
       },
-      "x": "1",
       "[Globals]": {
         "Run": "<large string>"
       }
@@ -91,13 +60,15 @@
     "locals": {
       "this": {
         "[Methods]": "{...}",
-        "__proto__": "{...}"
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "length": "0"
       },
+      "x": "1",
       "foo2": {
         "__proto__": "<large string>",
         "arguments": "null",
@@ -114,7 +85,40 @@
         "name": "bar4",
         "prototype": "{...}"
       },
+      "[Globals]": {
+        "Run": "<large string>"
+      }
+    }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
       "x": "1",
+      "foo2": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "foo2",
+        "prototype": "{...}"
+      },
+      "bar4": {
+        "__proto__": "<large string>",
+        "arguments": "null",
+        "caller": "null",
+        "length": "0",
+        "name": "bar4",
+        "prototype": "{...}"
+      },
       "[Globals]": {
         "Run": "<large string>"
       }

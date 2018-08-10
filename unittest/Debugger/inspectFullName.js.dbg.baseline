@@ -135,7 +135,8 @@
         "this.null": {
           "this.null.__proto__": "{...}",
           "this.null.null": "1"
-        }
+        },
+        "Symbol.toStringTag": "global"
       }
     }
   }

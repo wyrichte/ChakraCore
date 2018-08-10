@@ -38,7 +38,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "3"
+        "callcount": "3",
+        "Symbol.toStringTag": "global"
       },
       "{exception}": {
         "__proto__": "",
@@ -52,12 +53,12 @@
         "length": "0"
       },
       "[Globals]": {
+        "callcount": "3",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
         "foo1": "<large string>",
-        "baz1": "<large string>",
-        "callcount": "3"
+        "baz1": "<large string>"
       }
     }
   }

@@ -89,7 +89,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "ret": "22"
+        "ret": "22",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -98,11 +99,11 @@
       },
       "input": "11",
       "[Globals]": {
+        "ret": "22",
         "f": "<large string>",
         "f2": "<large string>",
         "f3": "<large string>",
-        "f4": "<large string>",
-        "ret": "22"
+        "f4": "<large string>"
       }
     }
   },
@@ -111,7 +112,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "ret": "22"
+        "ret": "22",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -120,11 +122,11 @@
       },
       "input": "11",
       "[Globals]": {
+        "ret": "22",
         "f": "<large string>",
         "f2": "<large string>",
         "f3": "<large string>",
-        "f4": "<large string>",
-        "ret": "22"
+        "f4": "<large string>"
       }
     }
   }

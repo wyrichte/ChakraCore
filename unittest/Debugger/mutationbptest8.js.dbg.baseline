@@ -6,12 +6,15 @@
         "__proto__": "{...}",
         "obj1": "{...}",
         "obj2": "undefined",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "[Pending Mutation]": {
         "bar [Adding]": "{...}",
         "[Property container obj1]": "{...}"
       },
+      "x": "1",
+      "obj2": "undefined",
       "foo1": {
         "__proto__": "function() {\n    [native code]\n}",
         "arguments": "null",
@@ -28,8 +31,6 @@
         "name": "foo2",
         "prototype": "{...}"
       },
-      "x": "1",
-      "obj2": "undefined",
       "obj1": {
         "__proto__": "{...}",
         "foo": "{...}"
@@ -53,12 +54,18 @@
         "__proto__": "{...}",
         "obj1": "{...}",
         "obj2": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "[Pending Mutation]": {
         "foo [Changing]": "{...}",
         "[New Value]": "1",
         "[Property container obj2]": "{...}"
+      },
+      "x": "1",
+      "obj2": {
+        "__proto__": "{...}",
+        "foo": "{...}"
       },
       "foo1": {
         "__proto__": "function() {\n    [native code]\n}",
@@ -75,11 +82,6 @@
         "length": "0",
         "name": "foo2",
         "prototype": "{...}"
-      },
-      "x": "1",
-      "obj2": {
-        "__proto__": "{...}",
-        "foo": "{...}"
       },
       "obj1": {
         "__proto__": "{...}",
@@ -106,6 +108,7 @@
         "obj1": "{...}",
         "obj2": "{...}",
         "obj3": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "[Pending Mutation]": {
@@ -119,10 +122,10 @@
       },
       "x": "1",
       "[Globals]": {
-        "foo1": "<large string>",
-        "foo2": "<large string>",
         "x": "1",
         "obj2": "{...}",
+        "foo1": "<large string>",
+        "foo2": "<large string>",
         "obj1": "{...}",
         "obj3": "{...}"
       }
@@ -152,6 +155,7 @@
         "obj1": "{...}",
         "obj2": "{...}",
         "obj3": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "1"
       },
       "[Pending Mutation]": {
@@ -170,10 +174,10 @@
       },
       "x": "1",
       "[Globals]": {
-        "foo1": "<large string>",
-        "foo2": "<large string>",
         "x": "1",
         "obj2": "{...}",
+        "foo1": "<large string>",
+        "foo2": "<large string>",
         "obj1": "{...}",
         "obj3": "{...}"
       }

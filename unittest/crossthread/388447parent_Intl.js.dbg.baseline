@@ -25,6 +25,7 @@
           "obj": "{...}",
           "Reflect": "{...}",
           "SCA": "{...}",
+          "Symbol.toStringTag": "global",
           "undefined": "undefined",
           "WebAssembly": "{...}",
           "WScript": "{...}"
@@ -44,7 +45,8 @@
         "e_Intl_NumberFormat_proto": {
           "[Methods]": "{...}",
           "__proto__": "{...}"
-        }
+        },
+        "Symbol.toStringTag": "global"
       },
       "e": {
         "[Methods]": {},
@@ -113,6 +115,7 @@
           "[Methods]": "{...}",
           "__proto__": "{...}"
         },
+        "Symbol.toStringTag": "global",
         "undefined": "undefined",
         "WebAssembly": {
           "[Methods]": "{...}",

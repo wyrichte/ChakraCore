@@ -32,7 +32,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "5"
+        "callcount": "5",
+        "Symbol.toStringTag": "global"
       },
       "arguments": {
         "[Methods]": "{...}",
@@ -41,11 +42,11 @@
       },
       "x": "2",
       "[Globals]": {
+        "callcount": "5",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
-        "Run": "<large string>",
-        "callcount": "5"
+        "Run": "<large string>"
       }
     }
   },
@@ -76,7 +77,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "5"
+        "callcount": "5",
+        "Symbol.toStringTag": "global"
       },
       "[baz returned]": "undefined",
       "[Return value]": "undefined",
@@ -95,11 +97,11 @@
         "length": "0"
       },
       "[Globals]": {
+        "callcount": "5",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
-        "Run": "<large string>",
-        "callcount": "5"
+        "Run": "<large string>"
       }
     }
   },
@@ -108,7 +110,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "callcount": "5"
+        "callcount": "5",
+        "Symbol.toStringTag": "global"
       },
       "[bar returned]": "undefined",
       "[Return value]": "undefined",
@@ -124,11 +127,11 @@
         "length": "0"
       },
       "[Globals]": {
+        "callcount": "5",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
-        "Run": "<large string>",
-        "callcount": "5"
+        "Run": "<large string>"
       }
     }
   }

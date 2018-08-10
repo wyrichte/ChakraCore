@@ -14,7 +14,8 @@
         "b": {
           "__proto__": "{...}",
           "y": "2"
-        }
+        },
+        "Symbol.toStringTag": "global"
       },
       "a": {
         "__proto__": {

@@ -2,13 +2,13 @@
   {
     "locals": {
       "this": "{...}",
-      "testFunction": "<large string>",
-      "TestObject": "<large string>",
       "testFoo": "test foo",
       "testObject": "{...}",
       "testBoolean": "true",
       "testNumber1": "3.14",
-      "testArray": "[1,2,3]"
+      "testArray": "[1,2,3]",
+      "testFunction": "<large string>",
+      "TestObject": "<large string>"
     }
   },
   {
@@ -25,7 +25,32 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
         "x": "{...}"
+      },
+      "x": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Atomics": "{...}",
+        "console": "{...}",
+        "Debug": "{...}",
+        "Infinity": "Infinity",
+        "JSON": "{...}",
+        "Math": "{...}",
+        "NaN": "NaN",
+        "p2": "10",
+        "p3": "20",
+        "Reflect": "{...}",
+        "SCA": "{...}",
+        "Symbol.toStringTag": "global",
+        "testArray": "[1,2,3]",
+        "testBoolean": "true",
+        "testFoo": "test foo",
+        "testNumber1": "3.14",
+        "testObject": "{...}",
+        "undefined": "undefined",
+        "WebAssembly": "{...}",
+        "WScript": "{...}"
       },
       "test": {
         "__proto__": "<large string>",
@@ -42,29 +67,6 @@
         "length": "0",
         "name": "foo",
         "prototype": "{...}"
-      },
-      "x": {
-        "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "Atomics": "{...}",
-        "console": "{...}",
-        "Debug": "{...}",
-        "Infinity": "Infinity",
-        "JSON": "{...}",
-        "Math": "{...}",
-        "NaN": "NaN",
-        "p2": "10",
-        "p3": "20",
-        "Reflect": "{...}",
-        "SCA": "{...}",
-        "testArray": "[1,2,3]",
-        "testBoolean": "true",
-        "testFoo": "test foo",
-        "testNumber1": "3.14",
-        "testObject": "{...}",
-        "undefined": "undefined",
-        "WebAssembly": "{...}",
-        "WScript": "{...}"
       }
     }
   },

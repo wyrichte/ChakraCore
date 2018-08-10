@@ -4,7 +4,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "a [Changing]": "0",
@@ -20,9 +21,9 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "a": "undefined",
         "noop": "<large string>",
-        "test4": "<large string>",
-        "a": "undefined"
+        "test4": "<large string>"
       }
     }
   },
@@ -31,7 +32,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "a [Changing]": "x",
@@ -47,9 +49,9 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "a": "undefined",
         "noop": "<large string>",
-        "test4": "<large string>",
-        "a": "undefined"
+        "test4": "<large string>"
       }
     }
   },
@@ -58,7 +60,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "a": "undefined"
+        "a": "undefined",
+        "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
         "b [Changing]": "{...}",
@@ -74,9 +77,9 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "a": "undefined",
         "noop": "<large string>",
-        "test4": "<large string>",
-        "a": "undefined"
+        "test4": "<large string>"
       }
     }
   }

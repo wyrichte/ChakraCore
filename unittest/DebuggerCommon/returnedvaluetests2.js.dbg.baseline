@@ -21,7 +21,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "obj1": "{...}"
+        "obj1": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[A returned]": {
         "[Methods]": "{...}",
@@ -41,12 +42,12 @@
         "x": "x"
       },
       "[Globals]": {
+        "obj1": "{...}",
         "A": "<large string>",
         "test1": "<large string>",
         "f1": "<large string>",
         "f2": "<large string>",
-        "test2": "<large string>",
-        "obj1": "{...}"
+        "test2": "<large string>"
       }
     }
   },
@@ -55,7 +56,8 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
-        "obj1": "{...}"
+        "obj1": "{...}",
+        "Symbol.toStringTag": "global"
       },
       "[Return value]": {
         "__proto__": "{...}",
@@ -71,12 +73,12 @@
         "x": "x"
       },
       "[Globals]": {
+        "obj1": "{...}",
         "A": "<large string>",
         "test1": "<large string>",
         "f1": "<large string>",
         "f2": "<large string>",
-        "test2": "<large string>",
-        "obj1": "{...}"
+        "test2": "<large string>"
       }
     }
   },
