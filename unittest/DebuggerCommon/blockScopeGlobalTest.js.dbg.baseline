@@ -14,6 +14,7 @@
       "[Globals]": {
         "gA": "1",
         "gConstB": "2",
+        "Symbol.toStringTag": "global",
         "blockScopeGlobalTestFunc": "<large string>"
       }
     }
@@ -37,6 +38,7 @@
         "gConstB": "2",
         "gC": "5",
         "gD": "6",
+        "Symbol.toStringTag": "global",
         "gC#1": "3",
         "gD#1": "4",
         "blockScopeGlobalTestFunc": "<large string>"

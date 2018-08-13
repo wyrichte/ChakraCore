@@ -19,6 +19,7 @@
         "[2]": "check"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a": "[1,2,check]",
         "bar": "<large string>",
         "foo": "<large string>"

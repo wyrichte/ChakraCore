@@ -43,6 +43,7 @@
         "cp4": "9"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeBasicLetConstTestFunc": {
           "__proto__": "<large string>",
           "arguments": "{...}",

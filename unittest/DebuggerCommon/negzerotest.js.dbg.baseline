@@ -2,6 +2,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "y": "-0"
     }
   }

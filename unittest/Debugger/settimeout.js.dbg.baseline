@@ -24,6 +24,7 @@
         "val": "4"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "ids": "[0,1,2,3,4,5,6]",
         "i": "7",
         "make_func": "<large string>",

@@ -6,7 +6,8 @@
         "__proto__": "{...}",
         "Symbol.toStringTag": "global"
       },
-      "a": "1"
+      "a": "1",
+      "Symbol.toStringTag": "global"
     }
   }
 ]

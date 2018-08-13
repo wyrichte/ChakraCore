@@ -81,9 +81,10 @@
   {
     "locals": {
       "this": "{...}",
-      "foo": "<large string>",
+      "Symbol.toStringTag": "global",
       "ccc": "x => x + 1",
-      "k": "11"
+      "k": "11",
+      "foo": "<large string>"
     }
   },
   {

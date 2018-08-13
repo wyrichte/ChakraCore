@@ -22,6 +22,7 @@
         "__proto__": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "x": "undefined",
         "Run": "<large string>"
       }

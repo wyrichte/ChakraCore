@@ -91,6 +91,7 @@
         "c": "3"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "tests": {
           "__proto__": "[]",
           "length": "3",
@@ -192,6 +193,7 @@
         "C": "3"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "tests": {
           "__proto__": "[]",
           "length": "3",

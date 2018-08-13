@@ -28,6 +28,7 @@
         },
         "Symbol.toStringTag": "global"
       },
+      "Symbol.toStringTag": "global",
       "e": {
         "[Methods]": {},
         "__proto__": {

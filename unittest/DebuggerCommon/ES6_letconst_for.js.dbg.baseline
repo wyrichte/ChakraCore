@@ -3,6 +3,7 @@
     "locals": {
       "this": "{...}",
       "y": "1",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -16,6 +17,7 @@
       },
       "z": "1",
       "y": "1",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -23,6 +25,7 @@
     "locals": {
       "this": "{...}",
       "y": "2",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -36,6 +39,7 @@
       },
       "z": "1",
       "y": "2",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -43,6 +47,7 @@
     "locals": {
       "this": "{...}",
       "y": "3",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   }

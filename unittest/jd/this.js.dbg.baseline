@@ -13,6 +13,7 @@
         "[0]": "null"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -30,6 +31,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -49,6 +51,7 @@
         "[0]": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -66,6 +69,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -83,6 +87,7 @@
         "[0]": "true"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -100,6 +105,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -117,6 +123,7 @@
         "[0]": "123"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -134,6 +141,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -152,6 +160,7 @@
         "[0]": "String Value"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -169,6 +178,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -186,6 +196,7 @@
         "[0]": "false"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -205,6 +216,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -222,6 +234,7 @@
         "[0]": "45"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -241,6 +254,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -259,6 +273,7 @@
         "[0]": "String Object"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -279,6 +294,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -299,6 +315,7 @@
         "[0]": "[0,1]"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -321,6 +338,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -339,6 +357,7 @@
         "[0]": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -359,6 +378,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -378,6 +398,7 @@
         "[0]": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -399,6 +420,7 @@
         "[1]": "strict mode"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -415,6 +437,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }
@@ -432,6 +455,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>",
         "f2": "<large string>"
       }

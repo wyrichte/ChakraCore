@@ -12,6 +12,7 @@
         "test": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }
@@ -51,6 +52,7 @@
         "test": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }
@@ -97,6 +99,7 @@
       },
       "test": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }
@@ -130,6 +133,7 @@
         "test": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }
@@ -169,6 +173,7 @@
         "test": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }
@@ -215,6 +220,7 @@
       },
       "test": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f": "<large string>"
       }
     }

@@ -617,6 +617,16 @@
         "rightContext": ""
       },
       "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global",
+        "g - [Type]": "Object",
+        "g": {
+          "[Methods]": "{...}",
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}",
+          "a - [Type]": "String",
+          "a": "this member"
+        },
         "Animal - [Type]": "Object, (Function)",
         "Animal": {
           "__proto__ - [Type]": "Object, (Function)",
@@ -631,14 +641,6 @@
           "name": "Animal",
           "prototype - [Type]": "Object, (Animal)",
           "prototype": "{...}"
-        },
-        "g - [Type]": "Object",
-        "g": {
-          "[Methods]": "{...}",
-          "__proto__ - [Type]": "Object",
-          "__proto__": "{...}",
-          "a - [Type]": "String",
-          "a": "this member"
         }
       }
     }

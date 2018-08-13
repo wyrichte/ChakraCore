@@ -17,6 +17,7 @@
         },
         "Symbol.toStringTag": "global"
       },
+      "Symbol.toStringTag": "global",
       "a": {
         "__proto__": {
           "[Methods]": "{...}",

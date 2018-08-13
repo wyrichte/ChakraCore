@@ -133,7 +133,10 @@
         "f - [Type]": "Object, (Function)",
         "f": "function f(x0, x1, x2, x3, x4, x5, x6, x7) {\n        for (var i = 0; i < arguments.length; i += 3) {\n            delete arguments[i];\n        }\n        /**bp:locals(1, LOCALS_TYPE)**/\n    }"
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global"
+      }
     }
   }
 ]

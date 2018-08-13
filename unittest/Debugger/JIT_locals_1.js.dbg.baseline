@@ -34,6 +34,7 @@
         "j": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>"
       }
     }
@@ -80,6 +81,7 @@
       },
       "y": "10",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>"
       }
     }
@@ -107,6 +109,7 @@
         "j": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>"
       }
     }

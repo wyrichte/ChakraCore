@@ -9,6 +9,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "m": "0",
       "m1": "0",
       "i1": "undefined"

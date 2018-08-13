@@ -53,6 +53,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "callcount": "3",
         "Run": "<large string>",
         "bar": "<large string>",

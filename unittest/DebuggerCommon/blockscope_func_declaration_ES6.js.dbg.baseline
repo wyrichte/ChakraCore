@@ -9,6 +9,7 @@
         "Symbol.toStringTag": "global",
         "x": "undefined"
       },
+      "Symbol.toStringTag": "global",
       "x": "undefined",
       "foo": "undefined",
       "bar": "undefined"
@@ -22,6 +23,7 @@
         "Symbol.toStringTag": "global",
         "x": "1"
       },
+      "Symbol.toStringTag": "global",
       "x": "1",
       "foo": {
         "__proto__": "<large string>",

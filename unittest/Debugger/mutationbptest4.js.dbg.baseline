@@ -21,6 +21,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a": "undefined",
         "noop": "<large string>",
         "test4": "<large string>"
@@ -49,6 +50,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a": "undefined",
         "noop": "<large string>",
         "test4": "<large string>"
@@ -77,6 +79,7 @@
         "obj": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a": "undefined",
         "noop": "<large string>",
         "test4": "<large string>"

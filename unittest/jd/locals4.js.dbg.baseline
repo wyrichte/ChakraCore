@@ -92,6 +92,8 @@
         }
       },
       "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global",
         "g - [Type]": "Object",
         "g": {
           "[Methods]": "{...}",

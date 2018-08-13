@@ -10,7 +10,8 @@
       "a#1": "1",
       "b": "1",
       "c": "2",
-      "d": "4"
+      "d": "4",
+      "Symbol.toStringTag": "global"
     }
   },
   {
@@ -33,7 +34,8 @@
       "a": "1",
       "b": "1",
       "c": "2",
-      "d": "4"
+      "d": "4",
+      "Symbol.toStringTag": "global"
     }
   }
 ]

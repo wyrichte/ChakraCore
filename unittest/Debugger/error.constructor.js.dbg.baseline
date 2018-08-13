@@ -24,6 +24,7 @@
         "stack": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "navigator": "{...}",
         "testcase": "{...}",
         "runsExecuted": "0",

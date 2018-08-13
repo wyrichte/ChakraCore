@@ -2,6 +2,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "f": "undefined"
     }
   },
@@ -9,12 +10,14 @@
     "locals": {
       "this": "{...}",
       "f": "function f() { }",
+      "Symbol.toStringTag": "global",
       "f#1": "function f() { }"
     }
   },
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "f": "function f() { }"
     }
   }

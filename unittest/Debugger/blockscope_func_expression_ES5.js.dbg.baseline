@@ -15,6 +15,7 @@
       "bar": "undefined",
       "callfn": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }
@@ -63,6 +64,7 @@
       },
       "callfn": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": {
           "__proto__": "<large string>",
           "arguments": "{...}",

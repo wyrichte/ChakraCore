@@ -14,6 +14,7 @@
       "a": "100",
       "b": "3",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -64,6 +65,7 @@
       },
       "a": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }

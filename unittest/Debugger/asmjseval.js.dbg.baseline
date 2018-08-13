@@ -28,8 +28,9 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "a": "undefined",
+        "debugCallback": "<large string>",
         "outer": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -91,8 +92,9 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "a": "undefined",
+        "debugCallback": "<large string>",
         "outer": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -155,8 +157,9 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "a": "undefined",
+        "debugCallback": "<large string>",
         "outer": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",

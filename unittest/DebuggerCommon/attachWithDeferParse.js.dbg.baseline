@@ -18,6 +18,7 @@
         "g": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }
@@ -54,6 +55,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }
@@ -104,6 +106,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "inEvalFunc1": "<large string>"
       }

@@ -20,6 +20,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "sneakers": "{...}",
         "obj": "{...}",
         "Product": "<large string>",
@@ -57,6 +58,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "sneakers": "{...}",
         "obj": "{...}",
         "Product": "<large string>",
@@ -95,6 +97,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "sneakers": "{...}",
         "obj": "{...}",
         "Product": "<large string>",

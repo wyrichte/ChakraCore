@@ -42,6 +42,7 @@
         "x": "x"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "obj1": "{...}",
         "A": "<large string>",
         "test1": "<large string>",
@@ -73,6 +74,7 @@
         "x": "x"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "obj1": "{...}",
         "A": "<large string>",
         "test1": "<large string>",

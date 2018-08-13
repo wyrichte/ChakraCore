@@ -32,6 +32,7 @@
         "x": "20"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -86,6 +87,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -151,6 +153,7 @@
         "x": "20"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -205,6 +208,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -265,6 +269,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",
@@ -304,6 +309,7 @@
         "[1]": "4"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "F2": "<large string>",
         "F3": "<large string>",
         "F5": "<large string>",

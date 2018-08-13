@@ -40,6 +40,7 @@
       },
       "obj": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a1": "10",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",
@@ -114,6 +115,7 @@
         "length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a1": "10",
         "foo": "<large string>",
         "bad_sub_expression": "<large string>",

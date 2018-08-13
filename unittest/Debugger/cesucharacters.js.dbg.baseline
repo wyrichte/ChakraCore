@@ -28,6 +28,7 @@
       "x": "���������",
       "y": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "obj": {
           "[Methods]": "{...}",
           "obj.__proto__": "{...}"

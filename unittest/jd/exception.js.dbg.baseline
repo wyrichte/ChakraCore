@@ -34,6 +34,8 @@
       "z - [Type]": "Number",
       "z": "1",
       "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global",
         "f - [Type]": "Object, (Function)",
         "f": "<large string>"
       }

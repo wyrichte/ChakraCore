@@ -28,6 +28,7 @@
       },
       "x": "2",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }

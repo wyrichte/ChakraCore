@@ -15,6 +15,7 @@
       "foo": "200",
       "[Globals]": {
         "bar": "1",
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }

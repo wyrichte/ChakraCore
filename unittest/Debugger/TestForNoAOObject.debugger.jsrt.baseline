@@ -18,6 +18,7 @@
         "Symbol.toStringTag": "global",
         "top": "undefined"
       },
+      "Symbol.toStringTag": "global",
       "top": "undefined",
       "F1": {
         "__proto__": "<large string>",
@@ -107,6 +108,7 @@
       "b": "20",
       "c": "30",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -164,6 +166,7 @@
       },
       "a1": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -218,6 +221,7 @@
       "b": "undefined",
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -272,6 +276,7 @@
       "b": "20",
       "c": "30",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -334,6 +339,7 @@
       "b1": "undefined",
       "f5": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -389,6 +395,7 @@
         "a1": "11"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -457,6 +464,7 @@
       "b1": "str",
       "f5": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -516,6 +524,7 @@
         "a1": "11"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -591,6 +600,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -661,6 +671,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -706,6 +717,7 @@
         "Symbol.toStringTag": "global",
         "top": "{...}"
       },
+      "Symbol.toStringTag": "global",
       "top": {
         "__proto__": "{...}"
       },
@@ -803,6 +815,7 @@
       "a1": "undefined",
       "f6": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -855,6 +868,7 @@
       },
       "b1": "10",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -924,6 +938,7 @@
         "i": "10"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -985,6 +1000,7 @@
         "i": "11"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -1052,6 +1068,7 @@
         "i": "11"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",
@@ -1127,6 +1144,7 @@
       },
       "j": "20",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "F1": "<large string>",
         "F2": "<large string>",

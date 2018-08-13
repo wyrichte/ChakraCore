@@ -47,6 +47,7 @@
       },
       "arrow_c": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "placeHolder": "1",
         "arrow_a": "<large string>",
         "_class2": "undefined"

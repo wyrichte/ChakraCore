@@ -9,8 +9,9 @@
   {
     "locals": {
       "this": "{...}",
-      "foo": "<large string>",
-      "b": "2"
+      "Symbol.toStringTag": "global",
+      "b": "2",
+      "foo": "<large string>"
     }
   }
 ]

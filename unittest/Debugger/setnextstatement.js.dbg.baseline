@@ -99,6 +99,7 @@
       },
       "input": "11",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "ret": "22",
         "f": "<large string>",
         "f2": "<large string>",
@@ -122,6 +123,7 @@
       },
       "input": "11",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "ret": "22",
         "f": "<large string>",
         "f2": "<large string>",

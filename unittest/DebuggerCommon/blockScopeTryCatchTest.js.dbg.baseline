@@ -15,6 +15,7 @@
       "bConst": "2",
       "ex": "Exception!",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeTryCatchTestFunc": "<large string>"
       }
     }
@@ -37,6 +38,7 @@
       "bConst": "2",
       "ex": "Exception!",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeTryCatchTestFunc": "<large string>"
       }
     }

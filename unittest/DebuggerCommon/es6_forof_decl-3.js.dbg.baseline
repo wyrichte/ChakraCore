@@ -2,6 +2,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -14,6 +15,7 @@
         "x": "0"
       },
       "z": "1",
+      "Symbol.toStringTag": "global",
       "x": "0"
     }
   },
@@ -26,6 +28,7 @@
         "x": "1"
       },
       "z": "1",
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   }

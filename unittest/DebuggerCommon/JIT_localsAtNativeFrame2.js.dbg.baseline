@@ -87,10 +87,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "F5_1": "<large string>",
       "x": "20",
       "y": "{...}",
       "t1": "22.2",
+      "F5_1": "<large string>",
       "[Globals]": ""
     }
   },
@@ -169,6 +169,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -348,10 +349,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "F5_1": "<large string>",
       "x": "20",
       "y": "{...}",
       "t1": "22.2",
+      "F5_1": "<large string>",
       "[Globals]": ""
     }
   },
@@ -430,6 +431,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -609,10 +611,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "F5_1": "<large string>",
       "x": "20",
       "y": "{...}",
       "t1": "22.2",
+      "F5_1": "<large string>",
       "[Globals]": ""
     }
   },
@@ -691,6 +693,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",
@@ -870,10 +873,10 @@
     "locals": {
       "this": "{...}",
       "arguments": "{...}",
-      "F5_1": "<large string>",
       "x": "20",
       "y": "{...}",
       "t1": "22.2",
+      "F5_1": "<large string>",
       "[Globals]": ""
     }
   },
@@ -952,6 +955,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "F2": "<large string>",
       "F3": "<large string>",
       "F5": "<large string>",

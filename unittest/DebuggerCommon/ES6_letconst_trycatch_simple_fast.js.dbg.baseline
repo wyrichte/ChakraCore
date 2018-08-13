@@ -15,6 +15,7 @@
       "z": "2",
       "z#1": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "callcount": "3",
         "Call": "<large string>",
         "bar": "<large string>",
@@ -43,6 +44,7 @@
       },
       "z": "2",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "callcount": "3",
         "Call": "<large string>",
         "bar": "<large string>",

@@ -120,6 +120,7 @@
         "c": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a1": "10",
         "foo": "<large string>",
         "sub_expression_step_into": "<large string>"

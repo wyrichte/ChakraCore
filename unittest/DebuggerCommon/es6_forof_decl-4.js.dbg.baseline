@@ -10,6 +10,7 @@
         "y": "2"
       },
       "y": "1",
+      "Symbol.toStringTag": "global",
       "x": "1",
       "y#1": "2",
       "a": {
@@ -31,6 +32,7 @@
         "y": "2"
       },
       "y": "2",
+      "Symbol.toStringTag": "global",
       "x": "1",
       "y#1": "2",
       "a": {

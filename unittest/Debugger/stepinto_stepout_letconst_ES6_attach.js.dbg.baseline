@@ -13,6 +13,7 @@
       },
       "a": "[Uninitialized block variable]",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"
@@ -57,6 +58,7 @@
       "y": "10",
       "z": "10",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"
@@ -78,6 +80,7 @@
       "y": "10",
       "z": "10",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"

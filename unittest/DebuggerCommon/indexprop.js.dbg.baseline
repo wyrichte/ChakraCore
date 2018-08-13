@@ -82,7 +82,9 @@
           "[108]": "108"
         }
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag": "global"
+      }
     }
   },
   {
@@ -92,7 +94,8 @@
         "__proto__": "{...}",
         "Symbol.toStringTag": "global",
         "[200]": "200"
-      }
+      },
+      "Symbol.toStringTag": "global"
     }
   }
 ]

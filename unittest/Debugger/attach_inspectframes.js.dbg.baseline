@@ -13,6 +13,7 @@
       },
       "z": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -34,6 +35,7 @@
       },
       "y": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -83,6 +85,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -137,6 +140,7 @@
       },
       "x": "2",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",
@@ -163,6 +167,7 @@
       },
       "y": "2",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

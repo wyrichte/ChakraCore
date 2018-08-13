@@ -794,6 +794,7 @@
       "a": "1",
       "b": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -821,6 +822,7 @@
       },
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -851,6 +853,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -883,6 +886,7 @@
       },
       "d": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -907,6 +911,7 @@
       "a": "1",
       "b": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -929,6 +934,7 @@
       },
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -953,6 +959,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -979,6 +986,7 @@
       },
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1004,6 +1012,7 @@
       "a": "1",
       "b": "11",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1039,6 +1048,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1063,6 +1073,7 @@
       "a": "1",
       "b": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1097,6 +1108,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1127,6 +1139,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1176,6 +1189,7 @@
         "[0]": "1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1217,6 +1231,7 @@
       },
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1244,6 +1259,7 @@
       "d": "undefined",
       "c": "11",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1275,6 +1291,7 @@
         "name": "c"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1304,6 +1321,7 @@
       },
       "c": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1338,6 +1356,7 @@
       },
       "d": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }
@@ -1372,6 +1391,7 @@
       },
       "d": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "glob": "{...}"
       }
     }

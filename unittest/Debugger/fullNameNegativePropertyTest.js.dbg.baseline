@@ -23,6 +23,7 @@
         "arr[3]": "4"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "test": "<large string>"
       }
     }

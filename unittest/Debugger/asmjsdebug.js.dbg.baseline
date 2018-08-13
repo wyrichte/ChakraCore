@@ -28,8 +28,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -38,6 +37,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -91,8 +92,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -101,6 +101,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -155,8 +157,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -165,6 +166,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -214,8 +217,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -224,6 +226,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -277,8 +281,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -287,6 +290,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -341,8 +346,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -351,6 +355,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -400,8 +406,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -410,6 +415,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -463,8 +470,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -473,6 +479,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -527,8 +535,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -537,6 +544,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -586,8 +595,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -596,6 +604,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -649,8 +659,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -659,6 +668,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }
@@ -713,8 +724,7 @@
         "b": "3.5"
       },
       "[Globals]": {
-        "outer": "<large string>",
-        "debugCallback": "<large string>",
+        "Symbol.toStringTag": "global",
         "moduleFunc": "<large string>",
         "m1": "<large string>",
         "m1i": "function o() {}",
@@ -723,6 +733,8 @@
         "buffer": "<large string>",
         "module1": "{...}",
         "module2": "{...}",
+        "outer": "<large string>",
+        "debugCallback": "<large string>",
         "byteLength": "<large string>"
       }
     }

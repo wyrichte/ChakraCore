@@ -18,7 +18,9 @@
           "__proto__": "null"
         }
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag": "global"
+      }
     }
   }
 ]

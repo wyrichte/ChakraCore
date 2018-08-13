@@ -13,6 +13,7 @@
       },
       "a": "baz",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"
@@ -33,6 +34,7 @@
       },
       "a": "bar",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"
@@ -53,6 +55,7 @@
       },
       "a": "foo",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>"

@@ -7,7 +7,8 @@
         "Symbol.toStringTag": "global"
       },
       "b": "2",
-      "a": "1"
+      "a": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
@@ -23,7 +24,8 @@
   {
     "locals": {
       "this": "{...}",
-      "a": "1"
+      "a": "1",
+      "Symbol.toStringTag": "global"
     }
   }
 ]

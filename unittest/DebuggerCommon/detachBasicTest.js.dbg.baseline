@@ -13,6 +13,7 @@
       },
       "a": "0",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "detachBasicTest": "<large string>"
       }
     }

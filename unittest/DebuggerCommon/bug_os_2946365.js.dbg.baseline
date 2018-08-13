@@ -38,6 +38,7 @@
       },
       "x": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "a": {
           "__proto__": "[]",
           "length": "10",

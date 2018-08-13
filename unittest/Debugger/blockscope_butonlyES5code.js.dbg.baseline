@@ -51,6 +51,7 @@
         }
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "fooCaller": {
           "__proto__": "<large string>",
           "arguments": "null",

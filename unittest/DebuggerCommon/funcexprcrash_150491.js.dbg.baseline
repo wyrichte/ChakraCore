@@ -27,6 +27,7 @@
         "p": "false"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "top": "{...}",
         "Pass": "<large string>",
         "test": "<large string>"

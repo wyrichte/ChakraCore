@@ -18,6 +18,7 @@
         "bar4": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }
@@ -52,6 +53,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }
@@ -86,6 +88,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }
@@ -120,6 +123,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }

@@ -64,10 +64,9 @@
         "Symbol.toStringTag": "global",
         "Symbol.toStringTag - [Attributes]": {
           "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
-            "DBGPROP_ATTRIB_VALUE_READONLY"
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
           ],
-          "flagsAsValue": 3072
+          "flagsAsValue": 1024
         }
       },
       "this - [Attributes]": {
@@ -155,6 +154,13 @@
         "flagsAsValue": 0
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
+        "Symbol.toStringTag - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+          ],
+          "flagsAsValue": 1024
+        },
         "test": "<large string>",
         "test - [Attributes]": {
           "flags": [
@@ -197,10 +203,9 @@
         "Symbol.toStringTag": "global",
         "Symbol.toStringTag - [Attributes]": {
           "flags": [
-            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING",
-            "DBGPROP_ATTRIB_VALUE_READONLY"
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
           ],
-          "flagsAsValue": 3072
+          "flagsAsValue": 1024
         }
       },
       "this - [Attributes]": {
@@ -314,6 +319,13 @@
         "flagsAsValue": 0
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
+        "Symbol.toStringTag - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_RAW_STRING"
+          ],
+          "flagsAsValue": 1024
+        },
         "test": "<large string>",
         "test - [Attributes]": {
           "flags": [

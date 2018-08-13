@@ -2,198 +2,230 @@
   {
     "locals": {
       "this": "{...}",
-      "forletin": "[Uninitialized block variable]"
+      "forletin": "[Uninitialized block variable]",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "a"
+      "forletin": "a",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "b"
+      "forletin": "b",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletin": "c"
+      "forletin": "c",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "[Uninitialized block variable]"
+      "forconstin": "[Uninitialized block variable]",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "a"
+      "forconstin": "a",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "b"
+      "forconstin": "b",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstin": "c"
+      "forconstin": "c",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "[Uninitialized block variable]"
+      "forletof": "[Uninitialized block variable]",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "1"
+      "forletof": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "2"
+      "forletof": "2",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forletof": "3"
+      "forletof": "3",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "[Uninitialized block variable]"
+      "forconstof": "[Uninitialized block variable]",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "1"
+      "forconstof": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "2"
+      "forconstof": "2",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forconstof": "3"
+      "forconstof": "3",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "[Uninitialized block variable]"
+      "forlet": "[Uninitialized block variable]",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "0"
+      "forlet": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "1"
+      "forlet": "1",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "2"
+      "forlet": "2",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
-      "forlet": "3"
+      "forlet": "3",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "[Uninitialized block variable]",
-      "forconsti": "0"
+      "forconsti": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "0"
+      "forconsti": "0",
+      "Symbol.toStringTag": "global"
     }
   },
   {
     "locals": {
       "this": "{...}",
       "forconst": "0",
-      "forconsti": "1"
+      "forconsti": "1",
+      "Symbol.toStringTag": "global"
     }
   }
 ]

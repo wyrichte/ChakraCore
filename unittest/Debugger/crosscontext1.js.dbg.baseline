@@ -2,6 +2,7 @@
   {
     "locals": {
       "this": "{...}",
+      "Symbol.toStringTag": "global",
       "testFoo": "test foo",
       "testObject": "{...}",
       "testBoolean": "true",
@@ -28,6 +29,7 @@
         "Symbol.toStringTag": "global",
         "x": "{...}"
       },
+      "Symbol.toStringTag": "global",
       "x": {
         "[Methods]": "{...}",
         "__proto__": "{...}",

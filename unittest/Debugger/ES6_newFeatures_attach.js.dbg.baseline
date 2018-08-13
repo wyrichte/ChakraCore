@@ -51,6 +51,7 @@
         "arrow_a": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }

@@ -17,6 +17,7 @@
         "c1": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "obj": "undefined",
         "c": "undefined",
         "foo": "<large string>",
@@ -76,6 +77,7 @@
         "c1": "[1]"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "obj": "undefined",
         "c": "undefined",
         "foo": "<large string>",
@@ -102,6 +104,7 @@
         "obj": "undefined",
         "Symbol.toStringTag": "global"
       },
+      "Symbol.toStringTag": "global",
       "obj": "undefined",
       "c": "undefined",
       "foo": {
@@ -138,6 +141,7 @@
         "number": "-2146823279",
         "stack": "<large string>"
       },
+      "Symbol.toStringTag": "global",
       "obj": "undefined",
       "c": "undefined",
       "foo": {
@@ -167,6 +171,7 @@
         "obj": "{...}",
         "Symbol.toStringTag": "global"
       },
+      "Symbol.toStringTag": "global",
       "obj": {
         "__proto__": "{...}",
         "x": "10",

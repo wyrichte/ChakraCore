@@ -8,6 +8,7 @@
         "Symbol.toStringTag": "global",
         "x": "undefined"
       },
+      "Symbol.toStringTag": "global",
       "x": "undefined",
       "bar": "undefined"
     }
@@ -20,6 +21,7 @@
         "Symbol.toStringTag": "global",
         "x": "1"
       },
+      "Symbol.toStringTag": "global",
       "x": "1",
       "bar": {
         "__proto__": "<large string>",

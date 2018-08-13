@@ -13,6 +13,7 @@
         "bar [Adding]": "{...}",
         "[Property container obj1]": "{...}"
       },
+      "Symbol.toStringTag": "global",
       "x": "1",
       "obj2": "undefined",
       "foo1": {
@@ -62,6 +63,7 @@
         "[New Value]": "1",
         "[Property container obj2]": "{...}"
       },
+      "Symbol.toStringTag": "global",
       "x": "1",
       "obj2": {
         "__proto__": "{...}",
@@ -122,6 +124,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "x": "1",
         "obj2": "{...}",
         "foo1": "<large string>",
@@ -174,6 +177,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "x": "1",
         "obj2": "{...}",
         "foo1": "<large string>",

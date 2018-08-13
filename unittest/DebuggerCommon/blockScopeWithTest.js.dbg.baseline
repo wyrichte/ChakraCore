@@ -21,6 +21,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -45,6 +46,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -68,6 +70,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeWithTestFunc": "<large string>"
       }
     }
@@ -90,6 +93,7 @@
         "p2": "2"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "blockScopeWithTestFunc": "<large string>"
       }
     }

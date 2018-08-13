@@ -13,6 +13,7 @@
       },
       "x": "2",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "baz": "<large string>",

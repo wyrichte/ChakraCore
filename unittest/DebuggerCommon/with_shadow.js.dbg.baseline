@@ -81,6 +81,7 @@
         "foo": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "f1": "<large string>"
       }
     }

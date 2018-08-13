@@ -13,6 +13,7 @@
         "arguments.length": "0"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "g": "{...}",
         "test": "function test() {\n    /**bp:locals(1, LOCALS_FULLNAME)**/\n}"
       }

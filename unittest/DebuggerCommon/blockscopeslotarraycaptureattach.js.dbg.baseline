@@ -40,6 +40,7 @@
       },
       "level_0_identifier_0": "level0",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"
@@ -79,6 +80,7 @@
         "verify": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "verify": "function verify(){}",
         "Run": "<large string>",
         "Run1": "<large string>"

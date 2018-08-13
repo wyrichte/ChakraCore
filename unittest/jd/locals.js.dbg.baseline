@@ -33,7 +33,10 @@
       "u": "undefined",
       "a - [Type]": "Undefined",
       "a": "undefined",
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global"
+      }
     }
   },
   {
@@ -72,7 +75,10 @@
       "n1": "null",
       "n2 - [Type]": "Undefined",
       "n2": "undefined",
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global"
+      }
     }
   },
   {
@@ -124,7 +130,10 @@
           "prototype": "{...}"
         }
       },
-      "[Globals]": {}
+      "[Globals]": {
+        "Symbol.toStringTag - [Type]": "String",
+        "Symbol.toStringTag": "global"
+      }
     }
   }
 ]

@@ -42,6 +42,7 @@
         "__proto__": "Invalid Date"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "bar": "<large string>",
         "Run": "<large string>"

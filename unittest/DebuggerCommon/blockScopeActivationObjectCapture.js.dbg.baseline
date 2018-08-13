@@ -38,6 +38,7 @@
         "prototype": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "verify": "function verify(){}",
         "Run": "<large string>"
       }
@@ -80,6 +81,7 @@
         "verify": "<large string>"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "verify": "function verify(){}",
         "Run": "<large string>"
       }

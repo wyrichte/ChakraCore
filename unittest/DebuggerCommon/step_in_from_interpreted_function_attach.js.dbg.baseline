@@ -70,6 +70,7 @@
         }
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": {
           "[Methods]": "{...}",
           "__proto__": "<large string>",

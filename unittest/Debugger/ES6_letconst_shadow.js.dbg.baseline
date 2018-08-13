@@ -13,6 +13,7 @@
       },
       "a": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -49,6 +50,7 @@
       "a": "2",
       "a#1": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -86,6 +88,7 @@
       "a#1": "2",
       "a#2": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -124,6 +127,7 @@
       "a#2": "2",
       "a#3": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -159,6 +163,7 @@
       },
       "a": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -195,6 +200,7 @@
       "a": "2",
       "a#1": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -232,6 +238,7 @@
       "a#1": "2",
       "a#2": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }
@@ -270,6 +277,7 @@
       "a#2": "2",
       "a#3": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo": "<large string>",
         "Run": "<large string>"
       }

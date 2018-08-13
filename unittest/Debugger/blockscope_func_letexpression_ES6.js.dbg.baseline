@@ -7,6 +7,7 @@
         "Symbol.toStringTag": "global",
         "x": "undefined"
       },
+      "Symbol.toStringTag": "global",
       "x": "undefined"
     }
   },
@@ -26,6 +27,7 @@
         "name": "baz",
         "prototype": "{...}"
       },
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   },
@@ -37,6 +39,7 @@
         "Symbol.toStringTag": "global",
         "x": "1"
       },
+      "Symbol.toStringTag": "global",
       "x": "1"
     }
   }

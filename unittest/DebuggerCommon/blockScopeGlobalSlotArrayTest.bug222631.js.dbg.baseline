@@ -18,6 +18,7 @@
         "e": "level1"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "c": "<large string>"
       }
     }
@@ -32,6 +33,7 @@
       "b": "level2",
       "a": "level2level3",
       "e": "level1",
+      "Symbol.toStringTag": "global",
       "c": {
         "__proto__": "<large string>",
         "arguments": "null",

@@ -25,6 +25,7 @@
       },
       "x": "1",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "foo3": "<large string>",
@@ -75,6 +76,7 @@
         "[0]": "{...}"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "foo1": "<large string>",
         "foo2": "<large string>",
         "foo3": "<large string>",

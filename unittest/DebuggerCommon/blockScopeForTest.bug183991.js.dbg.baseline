@@ -8,6 +8,7 @@
         "Symbol.toStringTag": "global"
       },
       "y": "x",
+      "Symbol.toStringTag": "global",
       "a": {
         "__proto__": "{...}",
         "x": "2",
@@ -24,6 +25,7 @@
         "Symbol.toStringTag": "global"
       },
       "y": "y",
+      "Symbol.toStringTag": "global",
       "a": {
         "__proto__": "{...}",
         "x": "2",

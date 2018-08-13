@@ -22,6 +22,7 @@
       "y": "2",
       "x": "undefined",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }
@@ -42,6 +43,7 @@
       "y": "2",
       "x": "101",
       "[Globals]": {
+        "Symbol.toStringTag": "global",
         "Run": "<large string>"
       }
     }

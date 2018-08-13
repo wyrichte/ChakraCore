@@ -28,6 +28,10 @@
         "constructor": "undefined"
       },
       "[Globals]": {
+        "Symbol.toStringTag": "global",
+        "o": {
+          "__proto__": "{...}"
+        },
         "foo": {
           "__proto__": "<large string>",
           "arguments": "{...}",
@@ -35,9 +39,6 @@
           "length": "0",
           "name": "foo",
           "prototype": "{...}"
-        },
-        "o": {
-          "__proto__": "{...}"
         }
       }
     }

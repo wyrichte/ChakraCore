@@ -54,8 +54,7 @@
           "__proto__": "null"
         },
         "d": "7",
-        "i": "0",
-        "Symbol.toStringTag": "global"
+        "i": "0"
       },
       "arguments": {
         "[Methods]": {
@@ -174,8 +173,7 @@
           "__proto__": "null"
         },
         "d": "7",
-        "i": "1",
-        "Symbol.toStringTag": "global"
+        "i": "1"
       },
       "arguments": {
         "[Methods]": {
@@ -294,8 +292,7 @@
           "__proto__": "null"
         },
         "d": "7",
-        "i": "2",
-        "Symbol.toStringTag": "global"
+        "i": "2"
       },
       "arguments": {
         "[Methods]": {
@@ -414,8 +411,7 @@
           "__proto__": "null"
         },
         "d": "7",
-        "i": "3",
-        "Symbol.toStringTag": "global"
+        "i": "3"
       },
       "arguments": {
         "[Methods]": {
@@ -534,8 +530,7 @@
           "__proto__": "null"
         },
         "d": "7",
-        "i": "4",
-        "Symbol.toStringTag": "global"
+        "i": "4"
       },
       "arguments": {
         "[Methods]": {
@@ -605,8 +600,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "d": "7",
-        "i": "5",
-        "Symbol.toStringTag": "global"
+        "i": "5"
       },
       "x": "2",
       "arguments": {
@@ -631,8 +625,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "d": "7",
-        "i": "5",
-        "Symbol.toStringTag": "global"
+        "i": "5"
       },
       "x": "2",
       "arguments": {
