@@ -378,7 +378,7 @@
     <default>
       <files>45199.js</files>
     </default>
-  </test> 
+  </test>
   <test>
     <default>
       <files>45193.js</files>
@@ -412,6 +412,32 @@
   <test>
     <default>
       <files>45657.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45787.js</files>
+      <compile-flags>-force:deferParse -bgjit- -pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45826.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45874.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45899.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45908.js</files>
     </default>
   </test>
 </regress-exe>
