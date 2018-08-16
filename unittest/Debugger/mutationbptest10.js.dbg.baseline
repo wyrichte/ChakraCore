@@ -86,6 +86,45 @@
         "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
+        "discount [Changing]": "50",
+        "[New Value]": "10",
+        "[Property container sneakers]": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "x": "1",
+      "[Globals]": {
+        "Symbol.toStringTag": "global",
+        "sneakers": "{...}",
+        "obj": "{...}",
+        "Product": "<large string>",
+        "attach": "<large string>"
+      }
+    }
+  },
+  {
+    "callstack": [
+      {
+        "start": 740,
+        "length": 22,
+        "text": "sneakers.discount = 10",
+        "frameDescription": "attach"
+      }
+    ]
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "obj": "{...}",
+        "sneakers": "{...}",
+        "Symbol.toStringTag": "global"
+      },
+      "[Pending Mutation]": {
         "newDataProperty [Changing]": "1",
         "[New Value]": "2",
         "[Property container obj]": "{...}"
