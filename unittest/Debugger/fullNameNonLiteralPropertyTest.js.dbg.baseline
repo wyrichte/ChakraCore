@@ -43,6 +43,8 @@
             "arr.__proto__.filter": "function filter() { [native code] }",
             "arr.__proto__.find": "function find() { [native code] }",
             "arr.__proto__.findIndex": "function findIndex() { [native code] }",
+            "arr.__proto__.flat": "function flat() { [native code] }",
+            "arr.__proto__.flatMap": "function flatMap() { [native code] }",
             "arr.__proto__.forEach": "function forEach() { [native code] }",
             "arr.__proto__.includes": "function includes() { [native code] }",
             "arr.__proto__.indexOf": "function indexOf() { [native code] }",

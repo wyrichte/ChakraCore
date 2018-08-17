@@ -1108,6 +1108,8 @@ Property: every
 Property: exec
 Property: false_
 Property: flags
+Property: flat
+Property: flatMap
 Property: fill
 Property: filter
 Property: finally
@@ -1630,6 +1632,7 @@ Property: builtInRegexMatch
 Property: builtInCallInstanceFunction
 Property: raiseInvalidCurrencyCode
 Property: raiseInvalidDate
+Property: raiseLengthIsTooBig
 Property: raiseLocaleNotWellFormed
 Property: raiseMissingCurrencyCode
 Property: raiseNeedObject
