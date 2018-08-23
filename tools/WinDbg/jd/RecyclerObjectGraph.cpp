@@ -872,9 +872,23 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
                     }
                 }
                 JDRemoteTyped constructorCacheList = remoteTyped.Field("constructorCaches");
-                while (addField(constructorCacheList, ENTRY_POINT_FIELD_NAME("{ConstructorCacheList}")))
+                if (addField(constructorCacheList, ENTRY_POINT_FIELD_NAME("{ConstructorCacheList}")))
                 {
-                    constructorCacheList = constructorCacheList.Field("next");
+                    JDRemoteTyped constructorCacheNode = constructorCacheList.Field("next");
+                    bool isUnion = constructorCacheNode.HasField("base");
+                    while (true)
+                    {
+                        if (isUnion)
+                        {
+                            constructorCacheNode = constructorCacheNode.Field("base");
+                        }
+                        if (!addField(constructorCacheNode, ENTRY_POINT_FIELD_NAME("{ConstructorCacheListNode}")))
+                        {
+                            break;
+                        }
+                        constructorCacheNode = constructorCacheNode.Field("next");
+                    }
+                               
                 }
                 addField(remoteTyped.Field("polymorphicInlineCacheInfo"), ENTRY_POINT_FIELD_NAME("polymorphicInlineCacheInfo"));
                 addField(remoteTyped.Field("jitTransferData"), ENTRY_POINT_FIELD_NAME("jitTransferData"));

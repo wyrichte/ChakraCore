@@ -2247,14 +2247,12 @@ JD_PRIVATE_COMMAND(jsobjectstats,
             ULONG64 scriptContextPtr = 0;
             ULONG64 url = 0;
             
-            if (javascriptLibrary != 0)
+            RemoteJavascriptLibrary remoteJavascriptLibrary(javascriptLibrary);
+            if (!remoteJavascriptLibrary.IsInternal())
             {
-                JDRemoteTyped scriptContext = JDRemoteTyped::FromPtrWithVtable(javascriptLibrary).Field("scriptContext");
+                RemoteScriptContext scriptContext = remoteJavascriptLibrary.GetScriptContext();
                 scriptContextPtr = scriptContext.GetPtr();
-                if (scriptContext.HasField("url"))
-                {
-                    url = scriptContext.Field("url").GetPtr();
-                }
+                url = scriptContext.GetUrl().GetPtr();
             }
 
             ObjectCountData * data = sortedLibraryArray.get()[i].second;

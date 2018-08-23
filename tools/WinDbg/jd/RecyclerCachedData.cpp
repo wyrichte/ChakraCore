@@ -170,6 +170,8 @@ void RecyclerCachedData::Clear()
     m_mediumHeapBlockTypeInfo.Clear();
     m_mediumFinalizableHeapBlockTypeInfo.Clear();
     m_largeHeapBlockTypeInfo.Clear();
+    m_largeObjectHeaderTypeInfo.Clear();
+    m_largeObjectHeaderListTypeInfo.Clear();
 
     if (this->cachedObjectGraph != nullptr)
     {

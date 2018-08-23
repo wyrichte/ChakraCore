@@ -15,8 +15,7 @@ public:
         static const size_t min_buckets = 8;
         size_t operator()(ULONG64 address) const
         {
-            Assert((address / 8) * 8 == address);
-            return (size_t)(address / 8);        // Heap allocations are 8 bytes aligned;
+            return (size_t)(address / 8);       // On 64-bit  the heap block address are 8 byte aligned, but on 32-bit, they can be 4 byte, but we can use one bit and still have a reasonable hash.
         }
         bool operator()(ULONG64 a, ULONG64 b) const
         {

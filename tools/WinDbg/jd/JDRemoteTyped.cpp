@@ -375,6 +375,15 @@ ULONG64 JDRemoteTyped::GetPtr()
 {
     if (!useExtRemoteTyped)
     {
+        return g_Ext->m_PtrSize == 8 ? EnsureData<ULONG64>() : EnsureData<LONG>();
+    }
+    return GetExtRemoteTyped().GetPtr();
+}
+
+ULONG64 JDRemoteTyped::GetUlongPtr()
+{
+    if (!useExtRemoteTyped)
+    {
         return g_Ext->m_PtrSize == 8 ? EnsureData<ULONG64>() : EnsureData<ULONG>();
     }
     return GetExtRemoteTyped().GetPtr();

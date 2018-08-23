@@ -26,8 +26,6 @@ public:
     JDRemoteTyped GetHostScriptContext();
     JDRemoteTyped GetSourceList();
     JDRemoteTyped GetUrl();
-    JDRemoteTyped GetDebugContext();
-
     void PrintReferencedPids();
     void PrintState();
 
@@ -174,6 +172,10 @@ public:
 
     static bool TryGetScriptContextFromPointer(ULONG64 pointer, RemoteScriptContext& remoteScriptContext);
 private:
+    bool HasDebugContextField();
+    JDRemoteTyped GetDebugContext();
+    JDRemoteTyped GetDebuggerMode();
+
     template <class Fn>
     void ForEachCodeGenAllocatorPageAllocator(ExtRemoteTyped codeGenAllocators, bool foreground, bool useCodePageAllocators, Fn fn)
     {
