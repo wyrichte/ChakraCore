@@ -93,10 +93,25 @@ JDRemoteTyped RemoteScriptContext::GetUrl()
     return JDRemoteTyped::NullPtr();
 }
 
+bool RemoteScriptContext::HasDebugContextField()
+{
+    return scriptContext.HasField("debugContext");
+}
+
 JDRemoteTyped RemoteScriptContext::GetDebugContext()
 {
     return scriptContext.Field("debugContext");
 }
+
+JDRemoteTyped RemoteScriptContext::GetDebuggerMode()
+{
+    if (this->HasDebugContextField())
+    {
+        return this->GetDebugContext().Field("debuggerMode");
+    }
+    return scriptContext.Field("debuggerMode");
+}
+
 
 void RemoteScriptContext::PrintReferencedPids()
 {
@@ -166,7 +181,8 @@ void RemoteScriptContext::PrintState()
     }
     else
     {
-        char const * debuggerMode = this->GetDebugContext().Field("debuggerMode").GetEnumString();
+        char const * debuggerMode = this->GetDebuggerMode().GetEnumString();
+
         if (strcmp(debuggerMode, "SourceRundown") == 0)
         {
             g_Ext->Out("S");

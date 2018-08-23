@@ -60,6 +60,7 @@ public:
     LONG64 GetLong64();
     ULONG64 GetUlong64();
     ULONG64 GetPtr();
+    ULONG64 GetUlongPtr();
     
     double GetDouble();
 

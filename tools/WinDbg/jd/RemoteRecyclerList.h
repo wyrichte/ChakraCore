@@ -26,14 +26,8 @@ public:
                 GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
             }
         }
-        char const * currTypeName = typeName + strlen(expectedPrefix);
-        char * lastCurrTypeName = strrchr(currTypeName, ',');
-        if (lastCurrTypeName == nullptr)
-        {
-            GetExtension()->Err("Unable to parse type name from %s", typeName);
-            GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
-        }
-        *lastCurrTypeName = 0;
+        char * currTypeName = (char *)typeName + strlen(expectedPrefix);
+        char * lastCurrTypeName;
         if (hasAllocator)
         {
             // TODO: this assume the allocator type doesn't have comma in it.
@@ -44,7 +38,19 @@ public:
                 GetExtension()->ThrowLastError("Unable to iterate SList/DList type");
             }
             *lastCurrTypeName = 0;
-        }        
+        }
+        else
+        {
+            
+            // Remove the last '>'
+            lastCurrTypeName = strrchr(currTypeName, '>');
+            if (lastCurrTypeName == nullptr)
+            {
+                GetExtension()->Err("Unable to parse type name from %s", typeName);
+                GetExtension()->ThrowLastError("Unable to iterate SListBase/DListBase type");
+            }
+            *lastCurrTypeName = 0;
+        }
         Initialize(currTypeName, list.GetPtr());
     }
 
